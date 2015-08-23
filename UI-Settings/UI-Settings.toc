@@ -3,3 +3,5 @@
 ## Version: 1.0
 ## Title: |cff1784d1UI-Settings
 ## Notes: My UI Settings
+
+core.lua
