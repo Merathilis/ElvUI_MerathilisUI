@@ -7,4 +7,5 @@
 ## DefaultState: Enabled 
 ## OptionalDeps: SharedMedia
 
+media\load_media.xml
 core.lua
