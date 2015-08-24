@@ -28,23 +28,23 @@ local function SetupUI()
 	
 	-- Also for moving stuff around you must grab the mover. It's in the same as above file.
 	do
-		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT-5-6",
-		E.db.movers.DebuffsMover = "TOPRIGHTElvUIParentTOPRIGHT-183-134",
-		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-140",
-		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT61213",
-		E.db.movers.ElvAB_9 = "BOTTOMElvUIParentBOTTOM0334",
-		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-122-292",
-		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-56-397",
-		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2620",
-		E.db.movers.ElvAB_10 = "BOTTOMElvUIParentBOTTOM-2288",
-		E.db.movers.ElvAB_6 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-46262",
-		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM022",
-		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM203429",
-		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7",
-		E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT325-195",
-		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT46243",
-		E.db.movers.ElvAB_8 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-51957",
-		E.db.movers.TempEnchantMover = "TOPRIGHTElvUIParentTOPRIGHT-5-299",
+		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT-5-6"
+		E.db.movers.DebuffsMover = "TOPRIGHTElvUIParentTOPRIGHT-183-134"
+		E.db.movers.AlertFrameMover = "TOPElvUIParentTOP0-140"
+		E.db.movers.ElvUF_PartyMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT61213"
+		E.db.movers.ElvAB_9 = "BOTTOMElvUIParentBOTTOM0334"
+		E.db.movers.WatchFrameMover = "TOPRIGHTElvUIParentTOPRIGHT-122-292"
+		E.db.movers.BossHeaderMover = "TOPRIGHTElvUIParentTOPRIGHT-56-397"
+		E.db.movers.Top_Center_Mover = "BOTTOMElvUIParentBOTTOM-2620"
+		E.db.movers.ElvAB_10 = "BOTTOMElvUIParentBOTTOM-2288"
+		E.db.movers.ElvAB_6 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-46262"
+		E.db.movers.PetAB = "BOTTOMElvUIParentBOTTOM022"
+		E.db.movers.TargetPowerBarMover = "BOTTOMElvUIParentBOTTOM203429"
+		E.db.movers.LocationLiteMover = "TOPElvUIParentTOP0-7"
+		E.db.movers.VehicleSeatMover = "TOPLEFTElvUIParentTOPLEFT325-195"
+		E.db.movers.TotemBarMover = "BOTTOMLEFTElvUIParentBOTTOMLEFT46243"
+		E.db.movers.ElvAB_8 = "BOTTOMRIGHTElvUIParentBOTTOMRIGHT-51957"
+		E.db.movers.TempEnchantMover = "TOPRIGHTElvUIParentTOPRIGHT-5-299"
 	end
 	
 	print('MerathilisUI Setup is done. Please Reload')
