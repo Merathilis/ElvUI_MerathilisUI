@@ -45,8 +45,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.backdropfadecolor.b = 0.0549
 		E.private.general.namefont = 'Andy Prototype'
 		E.private.general.dmgfont = 'ElvUI Combat'
-		E.private.general.normTex = 'AndyFlat'
-		E.private.general.glossTex = 'AndyFlat'
+		E.private.general.normTex = 'BuiFlat'
+		E.private.general.glossTex = 'BuiFlat'
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
 	end
@@ -81,7 +81,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.font = 'Andy Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
-		E.db.nameplate.debuffs.font = 'Andy Prototype'
+		E.db.nameplate.debuffs.font = 'Bui Prototype'
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.buffs.font = 'Andy Prototype'
@@ -107,7 +107,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.fontSize = 14
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
-		E.db.unitframe.statusbar = 'AndyFlat'
+		E.db.unitframe.statusbar = 'BuiFlat'
 		--Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
@@ -127,14 +127,15 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.castbar.icon = true
 		E.db.unitframe.units.player.castbar.width = 240
 		E.db.unitframe.units.player.castbar.height = 183
-		E.db.unitframe.units.player.customTexts. -- hm?! the name from my first Custom Text ist "Gesundheit", and the second one is "Level, Class" how do i separate these?
-		E.db.unitframe.units.player.customTexts.font = 'Andy Tukui'
-		E.db.unitframe.units.player.customTexts.justifyH = 'LEFT'
-		E.db.unitframe.units.player.customTexts.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.player.customTexts.xOffset = 0
-		E.db.unitframe.units.player.customTexts.yOffset = 9
-		E.db.unitframe.units.player.customTexts.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-		E.db.unitframe.units.player.customTexts.size = 24
+		E.db.unitframe.units.player.customTexts = {}
+		E.db.unitframe.units.player.customTexts.Gesundheit = {} -- hm?! the name from my first Custom Text ist "Gesundheit", and the second one is "Level, Class" how do i separate these?
+		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Andy Tukui'
+		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
+		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 0
+		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 9
+		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
+		E.db.unitframe.units.player.customTexts.Gesundheit.size = 24
 	end
 	
 	-- Movers
