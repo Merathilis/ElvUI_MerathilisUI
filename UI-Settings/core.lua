@@ -12,12 +12,11 @@ P['Merathilis Eule'] = {
 }
 
 -- local functions must go up
-local function SetupUI()
+local function MER:SetupUI()
 	-- Here you put ElvUI settings that you want enabled or not.
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
 		--General
-		E.db.CA.officer = "Whisper Alert(Loud)"
 		E.db.general.totems.size = 36
 		E.db.general.fontSize = 11
 		E.db.general.interruptAnnounce = "RAID"
@@ -41,6 +40,7 @@ local function SetupUI()
 	end
 	
 	-- Movers
+	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
 		E.db.movers.MinimapMover = "TOPRIGHTElvUIParentTOPRIGHT-5-6"
 		E.db.movers.DebuffsMover = "TOPRIGHTElvUIParentTOPRIGHT-183-134"
