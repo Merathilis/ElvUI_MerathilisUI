@@ -54,8 +54,12 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
-		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', 5, 6)
-
+		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
+		SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -183, -134)
+		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOPRIGHT', 0, -140)
+		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 61, 213)
+		SetMoverPosition('ElvAB_9', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 334)
+		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122. -292)
 	end
 	
 	print('MerathilisUI Setup is done. Please Reload')
@@ -65,8 +69,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	--E.db.mer.installed = true
 
 end
-
-
 
 function MER:Initialize()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
