@@ -3,8 +3,8 @@
 ## Version: 1.0
 ## Title: |cff1784d1UI-Settings
 ## Notes: My UI Settings
-## RequiredDeps: ElvUI 
-## DefaultState: Enabled 
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
 
 media\load_media.xml
