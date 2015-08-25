@@ -45,8 +45,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.backdropfadecolor.b = 0.0549
 		E.private.general.namefont = 'Andy Prototype'
 		E.private.general.dmgfont = 'ElvUI Combat'
-		E.private.general.normTex = 'BuiFlat'
-		E.private.general.glossTex = 'BuiFlat'
+		E.private.general.normTex = 'AndyFlat'
+		E.private.general.glossTex = 'AndyFlat'
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
 	end
@@ -81,7 +81,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.font = 'Andy Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
-		E.db.nameplate.debuffs.font = 'Bui Prototype'
+		E.db.nameplate.debuffs.font = 'Andy Prototype'
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.buffs.font = 'Andy Prototype'
@@ -107,7 +107,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.fontSize = 14
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
-		E.db.unitframe.statusbar = 'BuiFlat'
+		E.db.unitframe.statusbar = 'AndyFlat'
 		--Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
