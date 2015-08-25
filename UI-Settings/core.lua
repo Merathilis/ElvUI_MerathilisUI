@@ -141,7 +141,4 @@ function MER:Initialize()
 end
 
 E:RegisterModule(MER:GetName())
--- test
-=======
--- test
 
