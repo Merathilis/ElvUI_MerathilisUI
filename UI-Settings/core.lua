@@ -57,19 +57,32 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
 		
+		E.db.actionbar.bar1.buttonspacing = 4
+		E.db.actionbar.bar1.backdrop = true
+		E.db.actionbar.bar1.heightMult = 2
+		E.db.actionbar.bar1.buttonsize = 30
 		E.db.actionbar.bar2.enable = true
 		E.db.actionbar.bar2.buttonspacing = 4
-		E.db.actionbar.bar
-		
+		E.db.actionbar.bar2.buttonsize = 30
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonPerRow = 3
 		E.db.actionbar.bar3.buttonsize = 305
-		
+		E.db.actionbar.bar4.buttonspacing = 4
+		E.db.actionbar.bar4.mousover = true
+		E.db.actionbar.bar4.buttonsize = 26
+		E.db.actionbar.bar5.backdrop = true
+		E.db.actionbar.bar5.buttonPerRow = 3
+		E.db.actionbar.bar5.buttonsize = 30
+		E.db.actionbar.bar6.backdrop = true
+		E.db.actionbar.bar6.buttonsPerRow = 1
+		E.db.actionbar.bar6.mousover = true
+		E.db.actionbar.bar6.buttons = 4
 		E.db.actionbar.bar8.buttons = 6
 		E.db.actionbar.bar8.mousover = true
 		E.db.actionbar.bar8.buttonsPerRow = 1
 		E.db.actionbar.bar8.buttonsize = 24
-		
+		E.db.actionbar.barPet.point = 'RIGHT'
+		E.db.actionbar.barPet.buttonspacing = 4
 	end
 	
 	do
@@ -117,7 +130,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.datatexts.time24 = true
 		E.db.datatext.minimapPanels = false
 		E.db.datatext.panelTransparency = false
-		E.db.datatext.
+		E.db.datatext.actionbar3 = false
+		E.db.datatext.actionbar5 = false
 	end
 	
 	do
@@ -281,6 +295,12 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
 		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 394)
 	end
+	
+	[[-- Addons
+	do
+		-- Addonsettings
+	end
+	--]]
 	
 	print('MerathilisUI Setup is done. Please Reload')
 	-- Setup is done so set our option to true, so the Setup won't run again on this player.
