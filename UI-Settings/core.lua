@@ -149,7 +149,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
 		SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -262, 0)
 		SetMoverPosition('ElvAB_10', 'BOTTOM', E.UIParent, 'BOTTOM', -2, 288)
-		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT'. E.UIParent, 'BOTTOMRIGHT', -462, 62)
+		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -462, 62)
 		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
 		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
 		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 325, -195)
