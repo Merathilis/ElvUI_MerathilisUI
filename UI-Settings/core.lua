@@ -45,7 +45,7 @@ local function SetupUI()
 		E.db.movers.MinimapMover = -- here we fucked it up
 	end
 
-		print('MerathilisUI Setup is done. Please Reload')
+	print('MerathilisUI Setup is done. Please Reload')
 	-- Setup is done so set our option to true, so the Setup won't run again on this player.
 	-- Enable it when you are done with the settings
 	
