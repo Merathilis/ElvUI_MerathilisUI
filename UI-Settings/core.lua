@@ -10,8 +10,21 @@ local addon, ns = ...
 P['Merathilis Eule'] = {
 	['installed'] = nil,
 }
+
+-- local means that this function is used in this file only and cannot be accessed from other files/addons.
+-- A local function must be above the global ones (e.g. MER:SetupUI()). Globals can be accessed from other files/addons
+-- Also local functions take less memory
+local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
+	if not _G[mover] then return end
+	local frame = _G[mover]
+
+	frame:ClearAllPoints()
+	frame:SetPoint(point, anchor, secondaryPoint, x, y)
+	E:SaveMoverPosition(mover)
+end
+
 -- local functions must go up
-local function SetupUI()
+local function SetupUI() -- this cannot be local when using the module name (MER)
 	-- Here you put ElvUI settings that you want enabled or not.
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
@@ -36,15 +49,15 @@ local function SetupUI()
 		E.db.datatexts.font = 'Andy Roadway'
 		E.db.datatexts.fontSize = 10
 		E.db.datatexts.fontOutline = 'OUTLINE'
-		
 	end
 	
 	-- Movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
-		E.db.movers.MinimapMover = -- here we fucked it up
-	end
+		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', 5, 6)
 
+	end
+	
 	print('MerathilisUI Setup is done. Please Reload')
 	-- Setup is done so set our option to true, so the Setup won't run again on this player.
 	-- Enable it when you are done with the settings
@@ -52,6 +65,8 @@ local function SetupUI()
 	--E.db.mer.installed = true
 
 end
+
+
 
 function MER:Initialize()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
