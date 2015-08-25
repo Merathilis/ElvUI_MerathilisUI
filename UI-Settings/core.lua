@@ -45,10 +45,31 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.backdropfadecolor.b = 0.0549
 		E.private.general.namefont = 'Andy Prototype'
 		E.private.general.dmgfont = 'ElvUI Combat'
-		E.private.general.normTex = 'BuiFlat'
-		E.private.general.glossTex = 'BuiFlat'
+		E.private.general.normTex = 'AndyFlat'
+		E.private.general.glossTex = 'AndyFlat'
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
+	end
+	
+	do
+		-- Actionbars
+		E.db.actionbar.font = 'Andy Prototype'
+		E.db.actionbar.fontOutline = 'OUTLINE'
+		E.db.actionbar.macrotext = true
+		
+		E.db.actionbar.bar2.enable = true
+		E.db.actionbar.bar2.buttonspacing = 4
+		E.db.actionbar.bar
+		
+		E.db.actionbar.bar3.backdrop = true
+		E.db.actionbar.bar3.buttonPerRow = 3
+		E.db.actionbar.bar3.buttonsize = 305
+		
+		E.db.actionbar.bar8.buttons = 6
+		E.db.actionbar.bar8.mousover = true
+		E.db.actionbar.bar8.buttonsPerRow = 1
+		E.db.actionbar.bar8.buttonsize = 24
+		
 	end
 	
 	do
@@ -59,11 +80,31 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.bags.countFont = 'Andy Prototype'
 		E.db.bags.countFontSize = 11
 		E.db.bags.countFontOutline = 'OUTLINE'
+		E.db.bags.yOffsetBank = 235
+		E.db.bags.bagSize = 25
+		E.db.bags.alignToChat = false
+		E.db.bags.bagWidth = 450
+		E.db.bags.bankSize = 25
+		E.db.bags.bankWidth = 450
+		E.db.bags.moneyFormat = 'BLIZZARD'
+		E.db.bags.itemLevelThreshold = 650
 	end
 	
 	do
 		-- Chat
-		-- ...
+		E.db.chat.tabFontOutline = 'OUTLINE'
+		E.db.chat.keywordSound = 'Whisper Alert'
+		E.db.chat.tabFont = 'Andy Prototype'
+		E.db.chat.panelTabTransparency = true
+		E.db.chat.fontOutline = 'OUTLINE'
+		E.db.chat.chatHistory = false
+		E.db.chat.font = 'Andy Prototype'
+		E.db.chat.panelWidth = 400
+		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
+		E.db.chat.panelBackdrop = 'HIDEBOTH'
+		E.db.chat.keywords = '%MYNAME%, ElvUI, Andy'
+		E.db.chat.timeStampFormat = '%H:%M '
+		E.db.chat.panelHeigth = 150
 	end
 		
 	do
@@ -74,6 +115,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.datatexts.LeftChatPanel = false
 		E.db.datatexts.RightChatPanel = false
 		E.db.datatexts.time24 = true
+		E.db.datatext.minimapPanels = false
+		E.db.datatext.panelTransparency = false
+		E.db.datatext.
 	end
 	
 	do
@@ -81,7 +125,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.font = 'Andy Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
-		E.db.nameplate.debuffs.font = 'Bui Prototype'
+		E.db.nameplate.debuffs.font = 'Andy Prototype'
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.buffs.font = 'Andy Prototype'
@@ -107,7 +151,20 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.fontSize = 14
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
-		E.db.unitframe.statusbar = 'BuiFlat'
+		E.db.unitframe.statusbar = 'AndyFlat'
+		E.db.unitframes.colors.auraBarBuff.r = 0.309803921568628
+		E.db.unitframes.colors.auraBarBuff.g = 0.0784313725490196
+		E.db.unitframes.colors.auraBarBuff.b = 0.0941176470588235
+		E.db.unitframes.color.powerclass = true
+		E.db.unitframes.color.castColor.r = 0.1
+		E.db.unitframes.color.castColor.g = 0.1
+		E.db.unitframes.color.castColor.b = 0.1
+		E.db.unitframes.color.transparentAurabars = true
+		E.db.unitframes.color.transparentPower = true
+		E.db.unitframes.color.transparentCastbar = true
+		E.db.unitframes.color.health.r = 0.235294117647059
+		E.db.unitframes.color.health.g = 0.235294117647059
+		E.db.unitframes.color.health.b = 0.235294117647059
 		--Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
@@ -128,7 +185,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.castbar.width = 240
 		E.db.unitframe.units.player.castbar.height = 183
 		E.db.unitframe.units.player.customTexts = {}
-		E.db.unitframe.units.player.customTexts.Gesundheit = {} -- hm?! the name from my first Custom Text ist "Gesundheit", and the second one is "Level, Class" how do i separate these?
+		E.db.unitframe.units.player.customTexts.Gesundheit = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Andy Tukui'
 		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
@@ -136,6 +193,25 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 9
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db.unitframe.units.player.customTexts.Gesundheit.size = 24
+		E.db.unitframe.units.player.customTexts.Level-Class = {}
+		E.db.unitframe.units.player.customTexts.Level-Class.font = 'Andy Tukui'
+		E.db.unitframe.units.player.customTexts.Level-Class.justifyH = 'LEFT'
+		E.db.unitframe.units.player.customTexts.Level-Class.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.player.customTexts.Level-Class.xOffset = 0
+		E.db.unitframe.units.player.customTexts.Level-Class.yOffset = -7
+		E.db.unitframe.units.player.customTexts.Level-Class.size = 12
+		E.db.unitframe.units.player.health.xOffset = 5
+		E.db.unitframe.units.player.health.yOffset = -33
+		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
+		E.db.unitframe.units.player.power.xOffset = 5
+		E.db.unitframe.units.player.power.yOffset = -32
+		E.db.unitframe.units.player.power.height = 5
+		E.db.unitframe.units.player.power.hideonnpc = true
+		E.db.unitframe.units.player.power.detachedWidth = 298
+		E.db.unitframe.units.player.buffs.sizeOverride = 30
+		E.db.unitframe.units.player.buffs.yOffset = 2
+		E.db.unitframe.units.player.buffs.noDuration = false
+		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
 	end
 	
 	-- Movers
