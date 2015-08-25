@@ -10,7 +10,7 @@ local addon, ns = ...
 P['Merathilis Eule'] = {
 	['installed'] = nil,
 }
-
+-- bla bla
 -- local functions must go up
 local function MER:SetupUI()
 	-- Here you put ElvUI settings that you want enabled or not.
