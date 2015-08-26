@@ -1,7 +1,7 @@
 ## Interface: 60200
 ## Author: Merathilis
 ## Version: 1.0
-## Title: |cff1784d1UI-Settings
+## Title: |cff1784d1MerathilisUI
 ## Notes: My UI Settings
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
