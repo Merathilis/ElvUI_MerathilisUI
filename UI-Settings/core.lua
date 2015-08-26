@@ -600,11 +600,56 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 394)
 	end
 	
-	[[-- Addons
-	do
-		-- Addonsettings
+	-- Addons
+	-- LocationPlus
+	if E.db.locplus == nil then E.db.locplus = {} end
+	if IsAddOnLoaded('ElvUI_LocPlus') then
+		do
+			E.db.locplus.1pfont = 'Andy Roadway'
+			E.db.locplus.dtheight = 17
+			E.db.locplus.fish = false
+			E.db.locplus.1pwidth = 220
+			E.db.locplus.petlevel = false
+			E.db.locplus.ttreczones = false
+			E.db.locplus.ttinst = false
+			E.db.locplus.1pfontsize = 15
+			E.db.locplus.1pfontflags = 'OUTLINE'
+			E.db.locplus.ttrecinst = false
+			E.db.locplus.ht = true
+			E.db.locplus.displayOther = 'NONE'
+			E.db.locplus.profcap = true
+			E.db.locplus.shadow = true
+			E.db.locplus.custom.CoordsColor = 1
+			E.db.locplus.dig = false
+			E.db.locplus.showicon = false
+			E.db.locplus..ttlvl = false
+		end
 	end
-	--]]
+	
+	-- BenikUI
+	if E.db.bui == nil then E.db.bui = {} end
+	if IsAddOnLoaded('ElvUI_BenikUI') then
+		do
+			E.db.bui.gameMenuColor = 1
+			E.db.bui.styledChatDts = true
+			E.db.bui.garrisonCurrency = true
+			E.db.bui.middleDatatext.styled = true
+			E.db.bui.middleDatatext.backdrop = true
+			E.db.bui.middleDatatext.width = 416
+			E.db.bui.transparentDts = true
+			E.db.bui.garrisonCurrencyOil = true
+			E.db.bui.LoginMsg = false
+			E.db.bui.StyleColor = 1
+			E.db.bui.abStyleColor = 4
+		end
+	end
+	
+	-- AddonMovers
+	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
+	do
+		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
+		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 33)
+	end
 	
 	print('MerathilisUI Setup is done. Please Reload')
 	-- Setup is done so set our option to true, so the Setup won't run again on this player.
