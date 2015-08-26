@@ -813,8 +813,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
-	-- AddonMovers
-	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 33)
