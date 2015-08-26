@@ -648,7 +648,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			if IsAddOnLoaded('ElvUI_SLE') then
 				E.db.bui.datatexts.BuiMiddleDTPanel.right = 'S&L Currency'
 			end
-			E.db.bui.datatexts.BuiMiddleDTPanel.left = 'Improved System'
+			if IsAddOnLoaded('ElvUI_SystemDT') then
+				E.db.bui.datatexts.BuiMiddleDTPanel.left = 'Improved System'
+			end
 			E.db.bui.datatexts.BuiMiddleDTPanel.middle = 'Time'
 		end
 	end
