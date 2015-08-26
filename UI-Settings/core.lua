@@ -28,8 +28,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Here you put ElvUI settings that you want enabled or not.
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
-		--General
+		-- General
 		E.db.general.totems.size = 36
+		E.db.general.font = 'Andy Prototype'
 		E.db.general.fontSize = 11
 		E.db.general.interruptAnnounce = "RAID"
 		E.db.general.autoRepair = "GUILD"
@@ -38,6 +39,16 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.minimap.icons.garrison.position = "TOPRIGHT"
 		E.db.general.minimap.icons.garrison.yOffset = 10
 		E.db.general.minimap.size = 150
+		E.db.general.minimap.valuecolor.a = 1
+		E.db.general.minimap.valuecolor.r = 1
+		E.db.general.minimap.valuecolor.g = 0.49
+		E.db.general.minimap.valuecolor.b = 0.04
+		E.db.general.loginmessage = false
+		E.db.general.stickyFrames = false
+		E.db.general.backdropcolor.r = 0.101960784313726
+		E.db.general.backdropcolor.g = 0.101960784313726
+		E.db.general.backdropcolor.b = 0.101960784313726
+		E.db.general.vendorGrays = true
 		E.db.general.bottompanel = false
 		E.global.general.smallerWorldMap = false
 		E.db.general.backdropfadecolor.r = 0.0549
@@ -83,6 +94,15 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar8.buttonsize = 24
 		E.db.actionbar.barPet.point = 'RIGHT'
 		E.db.actionbar.barPet.buttonspacing = 4
+		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
+		E.db.actionbar.stanceBar.backdrop = true
+		E.db.actionbar.stanceBar.buttonsPerRow = 6
+		E.db.actionbar.stanceBar.buttonsize = 20
+	end
+	
+	do
+		-- Auras
+		
 	end
 	
 	do
@@ -119,19 +139,33 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.chat.timeStampFormat = '%H:%M '
 		E.db.chat.panelHeigth = 150
 	end
-		
+	
 	do
 		-- Datatexts
 		E.db.datatexts.font = 'Andy Roadway'
 		E.db.datatexts.fontSize = 14
 		E.db.datatexts.fontOutline = 'OUTLINE'
-		E.db.datatexts.LeftChatPanel = false
-		E.db.datatexts.RightChatPanel = false
+		E.db.datatexts.leftChatPanel = false
+		E.db.datatexts.rightChatPanel = false
 		E.db.datatexts.time24 = true
 		E.db.datatext.minimapPanels = false
 		E.db.datatext.panelTransparency = false
 		E.db.datatext.actionbar3 = false
 		E.db.datatext.actionbar5 = false
+		E.db.datatext.goldCoins = true
+		E.db.datatext.noCombatHover = true
+		
+		E.db.datatext.panels.RightChatDataPanel.right = ''
+		E.db.datatext.panels.RightChatDataPanel.left = ''
+		E.db.datatext.panels.RightChatDataPanel.middle = ''
+		E.db.datatext.panels.LeftChatDataPanel.right = ''
+		E.db.datatext.panels.LeftChatDataPanel.left = ''
+		E.db.datatext.panels.LeftChatDataPanel.middle = ''
+		E.db.datatext.panels.RightMiniPanel = ''
+		E.db.datatext.panels.Actionbar3DataPanel = ''
+		E.db.datatext.panels.Top_Center = ''
+		E.db.datatext.panels.LeftMiniPanel = ''
+		E.db.datatext.panels.Actionbar5DataPanel = ''
 	end
 	
 	do
@@ -142,21 +176,50 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.debuffs.font = 'Andy Prototype'
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
+		E.db.nameplate.auraFontOutline = 'OUTLINE'
+		E.db.nameplate.timeColor.b = 1
+		E.db.nameplate.timeColor.g = 1
+		E.db.nameplate.timeColor.r = 1
+		E.db.nameplate.auras.font = 'ElvUI Font'
+		E.db.nameplate.auras.fontSize = 9
+		E.db.nameplate.auras.fontOutline = 'OUTLINE'
+		E.db.nameplate.maxAuras = 5
+		E.db.nameplate.comboPoints = true
+		E.db.nameplate.sortDirection = 1
+		E.db.nameplate.colorByTime = true
 		E.db.nameplate.buffs.font = 'Andy Prototype'
 		E.db.nameplate.buffs.fontSize = 7
 		E.db.nameplate.buffs.fontOutline = 'OUTLINE'
+		E.db.nameplate.healthBar.text.enable = true
+		E.db.nameplate.healthBar.text.format = 'CURRENT_PERCENT'
+		E.db.nameplate.healthBar.height = 4
+		E.db.nameplate.healthBar.colorByRaidIcon = true
+		E.db.nameplate.healthBar.lowHPScale.enable = true
+		E.db.nameplate.healthBar.width = 100
+		E.db.nameplate.auraFont = 'ElvUI Font'
+		E.db.nameplate.healthtext = 'CURRENT_PERCENT'
+		E.db.nameplate.auraAnchor = 1
+		E.db.nameplate.targetIndicator.color.g = 0
+		E.db.nameplate.targetIndicator.color.b = 0
+		E.db.nameplate.wrapName = true
+		E.db.nameplate.buffs.fontOutline = 'OUTLINE'
+		E.db.nameplate.buffs.font = 'Andy Prototype'
 	end
 	
 	do
 		-- Tooltip
 		E.db.tooltip.font = 'Andy Prototype'
 		E.db.tooltip.fontOutline = 'OUTLINE'
+		E.db.tooltip.combathide = true
+		E.db.tooltip.style = 'inset'
+		E.db.tooltip.itemCount = 'NONE'
 		E.db.tooltip.headerFontSize = 14
 		E.db.tooltip.textFontSize = 11
 		E.db.tooltip.smallTextFontSize = 11
 		E.db.tooltip.healthBar.font = 'Andy Prototype'
 		E.db.tooltip.healthBar.fontSize = 10
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
+		E.db.tooltip.healthBar.height = 5
 	end
 	
 	do
@@ -179,7 +242,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframes.color.health.r = 0.235294117647059
 		E.db.unitframes.color.health.g = 0.235294117647059
 		E.db.unitframes.color.health.b = 0.235294117647059
-		--Player
+		-- Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
 		E.db.unitframe.units.player.debuffs.fontSize = 11
@@ -226,6 +289,247 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.buffs.yOffset = 2
 		E.db.unitframe.units.player.buffs.noDuration = false
 		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
+		-- Target
+		E.db.unitframe.units.target.width = 240
+		E.db.unitframe.units.target.height = 45
+		E.db.unitframe.units.target.castbar.latency = true
+		E.db.unitframe.units.target.castbar.width = 239.999954223633
+		E.db.unitframe.units.target.debuffs.sizeOverride = 32
+		E.db.unitframe.units.target.debuffs.yOffset = 5
+		E.db.unitframe.units.target.debuffs.xOffset = 3
+		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
+		E.db.unitframe.units.target.debuffs.numrows = 2
+		E.db.unitframe.units.target.debuffs.perrow = 3
+		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
+		E.db.unitframe.units.target.debuffs.cft.text.enable = true
+		E.db.unitframe.units.target.aurabar.enable = false
+		E.db.unitframe.units.target.aurabar.attachTo = 'BUFFS'
+		E.db.unitframe.units.target.gps.enable = false
+		E.db.unitframe.units.target.name.xOffset = 8
+		E.db.unitframe.units.target.name.yOffset = -32
+		E.db.unitframe.units.target.name.position = 'RIGHT'
+		E.db.unitframe.units.target.name.text_format = ''
+		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
+		E.db.unitframe.units.target.power.xOffset = -2
+		E.db.unitframe.units.target.power.yOffset = -32
+		E.db.unitframe.units.target.power.detachedWidth = 298
+		E.db.unitframe.units.target.power.hideonnpc = false
+		E.db.unitframe.units.target.power.height = 5
+		E.db.unitframe.units.target.customTexts = {}
+		E.db.unitframe.units.target.customTexts.Gesundheit = {}
+		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Andy Tukui'
+		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
+		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 8
+		E.db.unitframe.units.target.customTexts.Gesundheit.size = 24
+		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor]'
+		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 9
+		E.db.unitframe.units.target.customTexts.Name1 = {}
+		E.db.unitframe.units.target.customTexts.Name1.font = 'Andy Tukui'
+		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'RIGHT'
+		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
+		E.db.unitframe.units.target.customTexts.Name1.size = 12
+		E.db.unitframe.units.target.customTexts.Name1.text_format = '[difficultycolor][level] [namecolor][smartclass]'
+		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
+		E.db.unitframe.units.target.health.xOffset = 8
+		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:percent] - [health:current]'
+		E.db.unitframe.units.target.health.yOffset = -33
+		E.db.unitframe.units.target.portrait.rotation = 307
+		E.db.unitframe.units.target.portrait.overlay = true
+		E.db.unitframe.units.target.portrait.xOffset = 0.07
+		E.db.unitframe.units.target.portrait.enable = true
+		E.db.unitframe.units.target.portrait.camDistanceScale = 1.35
+		E.db.unitframe.units.target.buffs.sizeOverride = 21
+		E.db.unitframe.units.target.buffs.perrow = 11
+		E.db.unitframe.units.target.buffs.fontSize = 12
+		-- TargetTarget
+		E.db.unitframe.units.targettarget.debuffs.enable = true
+		E.db.unitframe.units.targettarget.power.position = 'CENTER'
+		E.db.unitframe.units.targettarget.power.height = 5
+		E.db.unitframe.units.targettarget.width = 100
+		E.db.unitframe.units.targettarget.name.yOffset = -1
+		E.db.unitframe.units.targettarget.health.position = 'CENTER'
+		E.db.unitframe.units.targettarget.height = 25
+		-- Focus
+		E.db.unitframe.units.focus.gps.enable = false
+		E.db.unitframe.units.focus.power.height = 5
+		E.db.unitframe.units.focus.width = 122
+		E.db.unitframe.units.focus.height = 20
+		E.db.unitframe.units.focus.castbar.height = 6
+		E.db.unitframe.units.focus.castbar.width = 122
+		-- FocusTarget
+		E.db.unitframes.units.focustarget.debuffs.enable = true
+		E.db.unitframes.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
+		E.db.unitframes.units.focustarget.threatStyle = 'GLOW'
+		E.db.unitframes.units.focustarget.power.enable = true
+		E.db.unitframes.units.focustarget.power.height = 10
+		E.db.unitframes.units.focustarget.width = 122
+		E.db.unitframes.units.focustarget.enable = true
+		E.db.unitframes.units.focustarget.height = 20
+		-- Raid
+		E.db.unitframe.units.raid.horizontalSpacing = 1
+		E.db.unitframe.units.raid.debuffs.fontSize = 12
+		E.db.unitframe.units.raid.debuffs.enable = true
+		E.db.unitframe.units.raid.debuffs.yOffset = -5
+		E.db.unitframe.units.raid.debuffs.anchorPoint = 'TOPRIGHT'
+		E.db.unitframe.units.raid.debuffs.sizeOverride = 21
+		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
+		E.db.unitframe.units.raid.numGroups = 4
+		E.db.unitframe.units.raid.growDirection = 'RIGHT_UP'
+		E.db.unitframe.units.raid.name.xOffset = 2
+		E.db.unitframe.units.raid.name.yOffset = -23
+		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+		E.db.unitframe.units.raid.name.position = 'CENTER'
+		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
+		E.db.unitframe.units.raid.buffIndicator.size = 10
+		E.db.unitframe.units.raid.roleIcon.size = 12
+		E.db.unitframe.units.raid.power.position = 'CENTER'
+		E.db.unitframe.units.raid.power.height = 15
+		E.db.unitframe.units.raid.healthPrediction = true
+		E.db.unitframe.units.raid.width = 75
+		E.db.unitframe.units.raid.groupBy = 'ROLE'
+		E.db.unitframe.units.raid.health.frequentUpdates = true
+		E.db.unitframe.units.raid.health.position = 'CENTER'
+		E.db.unitframe.units.raid.health.text_format = '[health:deficit]'
+		E.db.unitframe.units.raid.buffs.enable = true
+		E.db.unitframe.units.raid.buffs.yOffset = 42
+		E.db.unitframe.units.raid.buffs.anchorPoint = 'BOTTOMLEFT'
+		E.db.unitframe.units.raid.buffs.clickTrough = true
+		E.db.unitframe.units.raid.buffs.useBlacklist = false
+		E.db.unitframe.units.raid.buffs.noDuration = false
+		E.db.unitframe.units.raid.buffs.playerOnly = false
+		E.db.unitframe.units.raid.buffs.perrow = 1
+		E.db.unitframe.units.raid.buffs.useFilter = 'TurtleBuffs'
+		E.db.unitframe.units.raid.buffs.noConsolidated = false
+		E.db.unitframe.units.raid.buffs.sizeOverride = 22
+		E.db.unitframe.units.raid.buffs.xOffset = 30
+		E.db.unitframe.units.raid.height = 45
+		E.db.unitframe.units.raid.verticalSpacing = 10
+		E.db.unitframe.units.raid.raidicon.attachTo = 'LEFT'
+		E.db.unitframe.units.raid.raidicon.xOffset = 9
+		E.db.unitframe.units.raid.raidicon.size = 13
+		E.db.unitframe.units.raid.raidicon.yOffset = 0
+		-- Raid40
+		E.db.unitframe.units.raid40.horizontalSpacing = 1
+		E.db.unitframe.units.raid40.debuffs.enable = true
+		E.db.unitframe.units.raid40.debuffs.yOffset = -9
+		E.db.unitframe.units.raid40.debuffs.anchorPoint = 'TOPRIGHT'
+		E.db.unitframe.units.raid40.debuffs.clickTrough = true
+		E.db.unitframe.units.raid40.debuffs.useBlacklist = false
+		E.db.unitframe.units.raid40.debuffs.perrow = 2
+		E.db.unitframe.units.raid40.debuffs.useFilter = 'Whitlist (Strict)'
+		E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
+		E.db.unitframe.units.raid40.debuffs.xOffset = -4
+		E.db.unitframe.units.raid40.rdebuffs.size = 26
+		E.db.unitframe.units.raid40.growthDirection = 'RIGHT_UP'
+		E.db.unitframe.units.raid40.name.position = 'TOP'
+		E.db.unitframe.units.raid40.groupBy = 'ROLE'
+		E.db.unitframe.units.raid40.roleIcon.position = 'TOPRIGHT'
+		E.db.unitframe.units.raid40.roleIcon.enable = true
+		E.db.unitframe.units.raid40.raidWideSorting = false
+		E.db.unitframe.units.raid40.power.enable = true
+		E.db.unitframe.units.raid40.power.position = 'CENTER'
+		E.db.unitframe.units.raid40.power.height = 5
+		E.db.unitframe.units.raid40.customTexts = {}
+		E.db.unitframe.units.raid40.customTexts.Health-Text = {}
+		E.db.unitframe.units.raid40.customTexts.Health-Text.font = 'Andy Tukui'
+		E.db.unitframe.units.raid40.customTexts.Health-Text.justifyH = 'CENTER'
+		E.db.unitframe.units.raid40.customTexts.Health-Text.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.raid40.customTexts.Health-Text.xOffset = 0
+		E.db.unitframe.units.raid40.customTexts.Health-Text.yOffset = -7
+		E.db.unitframe.units.raid40.customTexts.Health-Text.text_format = '[healthcolor][health:deficit]'
+		E.db.unitframe.units.raid40.customTexts.Health-Text.size = 10
+		E.db.unitframe.units.raid40.healPrediction = true
+		E.db.unitframe.units.raid40.width = 75
+		E.db.unitframe.units.raid40.positionOverride = 'BOTTOMRIGHT'
+		E.db.unitframe.units.raid40.health.frequentUpdates = true
+		E.db.unitframe.units.raid40.buffs.enable = true
+		E.db.unitframe.units.raid40.buffs.yOffset = 25
+		E.db.unitframe.units.raid40.buffs.anchorPoint = 'BOTTOMLEFT'
+		E.db.unitframe.units.raid40.buffs.clickTrough = true
+		E.db.unitframe.units.raid40.buffs.useBlacklist = false
+		E.db.unitframe.units.raid40.buffs.noDuration = false
+		E.db.unitframe.units.raid40.buffs.playerOnly = false
+		E.db.unitframe.units.raid40.buffs.perrow = 1
+		E.db.unitframe.units.raid40.buffs.useFilter = 'TurtleBuffs'
+		E.db.unitframe.units.raid40.buffs.noConsolidated = false
+		E.db.unitframe.units.raid40.buffs.sizeOverride = 17
+		E.db.unitframe.units.raid40.buffs.xOffset = 21
+		E.db.unitframe.units.raid40.height = 43
+		E.db.unitframe.units.raid40.verticalSpacing = 1
+		E.db.unitframe.units.raid40.raidicon.attachTo = 'LEFT'
+		E.db.unitframe.units.raid40.raidicon.xOffset = 9
+		E.db.unitframe.units.raid40.raidicon.size = 13
+		E.db.unitframe.units.raid40.raidicon.yOffset = 0
+		-- Party
+		E.db.unitframe.units.party.debuffs.sizeOverride = 21
+		E.db.unitframe.units.party.debuffs.yOffset = -7
+		E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
+		E.db.unitframe.units.party.debuffs.xOffset = -4
+		E.db.unitframe.units.party.targetsGroup.anchorPoint = 'BOTTOM'
+		E.db.unitframe.units.party.GPSArrow.size = 40
+		E.db.unitframe.units.party.customTexts = {}
+		E.db.unitframe.units.party.customTexts.Health-Text = {}
+		E.db.unitframe.units.party.customTexts.Health-Text.font = 'Andy Tukui'
+		E.db.unitframe.units.party.customTexts.Health-Text.justifyH = 'CENTER'
+		E.db.unitframe.units.party.customTexts.Health-Text.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.party.customTexts.Health-Text.xOffset = 0
+		E.db.unitframe.units.party.customTexts.Health-Text.yOffset = -7
+		E.db.unitframe.units.party.customTexts.Health-Text.text_format = '[healthcolor][health:deficit]'
+		E.db.unitframe.units.party.customTexts.Health-Text.size = 10
+		E.db.unitframe.units.party.healPrediction = true
+		E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+		E.db.unitframe.units.party.name.position = 'TOP'
+		E.db.unitframe.units.party.height = 45
+		E.db.unitframe.units.party.verticalSpacing = 4
+		E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
+		E.db.unitframe.units.party.raidicon.xOffset = 9
+		E.db.unitframe.units.party.raidicon.size = 13
+		E.db.unitframe.units.party.raidicon.yOffset = 0
+		E.db.unitframe.units.party.horizontalSpacing = 1
+		E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
+		E.db.unitframe.units.party.buffIndicator.size = 10
+		E.db.unitframe.units.party.power.text_format = ''
+		E.db.unitframe.units.party.power.height = 5
+		E.db.unitframe.units.party.positionOverride = 'BOTTOM'
+		E.db.unitframe.units.party.width = 75
+		E.db.unitframe.units.party.groupBy = 'ROLE'
+		E.db.unitframe.units.party.health.frequentUpdates = true
+		E.db.unitframe.units.party.health.position = 'BOTTOM'
+		E.db.unitframe.units.party.health.text_format = ''
+		E.db.unitframe.units.party.petsGroup.anchorPoint = 'BOTTOM'
+		E.db.unitframe.units.party.buffs.enable = true
+		E.db.unitframe.units.party.buffs.yOffset = 28
+		E.db.unitframe.units.party.buffs.anchorPoint = 'BOTTOMLEFT'
+		E.db.unitframe.units.party.buffs.clickTrough = true
+		E.db.unitframe.units.party.buffs.useBlacklist = false
+		E.db.unitframe.units.party.buffs.noDuration = false
+		E.db.unitframe.units.party.buffs.playerOnly = false
+		E.db.unitframe.units.party.buffs.perrow = 1
+		E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
+		E.db.unitframe.units.party.buffs.noConsolidated = false
+		E.db.unitframe.units.party.buffs.sizeOverride = 22
+		E.db.unitframe.units.party.buffs. xOffset = 30
+		-- Assist
+		E.db.unitframe.units.assist.targetsGroup.enable = false
+		-- Pet
+		E.db.unitframe.units.pet.castbar.latency = true
+		E.db.unitframe.units.pet.castbar.width = 102
+		E.db.unitframe.units.pet.width = 102
+		E.db.unitframe.units.pet.height = 24
+		E.db.unitframe.units.pet.power.height = 5
+		-- Arena
+		E.db.unitframe.units.arena.power.width = 'inset'
+		-- Boss
+		E.db.unitframe.units.boss.castbar.latency = true
+		E.db.unitframe.units.boss.portrait.enable = true
+		E.db.unitframe.units.boss.power.height = 10
+		E.db.unitframe.units.boss.width = 215
+		E.db.unitframe.units.boss.height = 45
+		E.db.unitframe.units.boss.threatStyle = 'BORDERS'
+		-- PetTarget
+		E.db.unitframe.units.pettarget.power.width = 'inset'
 	end
 	
 	-- Movers
