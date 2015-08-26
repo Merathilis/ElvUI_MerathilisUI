@@ -102,7 +102,18 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	
 	do
 		-- Auras
-		
+		E.db.auras.debuffs.size = 30
+		E.db.auras.fadeThreshold = 10,
+		E.db.auras.font = 'Andy Prototype'
+		E.db.auras.fontOutline = 'OUTLINE'
+		E.db.auras.consolidatedBuffs.fontSize = 11
+		E.db.auras.consolidatedBuffs.font = 'Andy Prototype'
+		E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
+		E.db.auras.consolidatedBuffs.filter = false
+		E.db.auras.buffs.fontSize = 12
+		E.db.auras.buffs.horizontalSpacing = 15
+		E.db.auras.buffs.verticalSpacing = 15
+		E.db.auras.buffs.size = 28
 	end
 	
 	do
@@ -148,24 +159,24 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.datatexts.leftChatPanel = false
 		E.db.datatexts.rightChatPanel = false
 		E.db.datatexts.time24 = true
-		E.db.datatext.minimapPanels = false
-		E.db.datatext.panelTransparency = false
-		E.db.datatext.actionbar3 = false
-		E.db.datatext.actionbar5 = false
-		E.db.datatext.goldCoins = true
-		E.db.datatext.noCombatHover = true
+		E.db.datatexts.minimapPanels = false
+		E.db.datatexts.panelTransparency = false
+		E.db.datatexts.actionbar3 = false
+		E.db.datatexts.actionbar5 = false
+		E.db.datatexts.goldCoins = true
+		E.db.datatexts.noCombatHover = true
 		
-		E.db.datatext.panels.RightChatDataPanel.right = ''
-		E.db.datatext.panels.RightChatDataPanel.left = ''
-		E.db.datatext.panels.RightChatDataPanel.middle = ''
-		E.db.datatext.panels.LeftChatDataPanel.right = ''
-		E.db.datatext.panels.LeftChatDataPanel.left = ''
-		E.db.datatext.panels.LeftChatDataPanel.middle = ''
-		E.db.datatext.panels.RightMiniPanel = ''
-		E.db.datatext.panels.Actionbar3DataPanel = ''
-		E.db.datatext.panels.Top_Center = ''
-		E.db.datatext.panels.LeftMiniPanel = ''
-		E.db.datatext.panels.Actionbar5DataPanel = ''
+		E.db.datatexts.panels.RightChatDataPanel.right = ''
+		E.db.datatexts.panels.RightChatDataPanel.left = ''
+		E.db.datatexts.panels.RightChatDataPanel.middle = ''
+		E.db.datatexts.panels.LeftChatDataPanel.right = ''
+		E.db.datatexts.panels.LeftChatDataPanel.left = ''
+		E.db.datatexts.panels.LeftChatDataPanel.middle = ''
+		E.db.datatexts.panels.RightMiniPanel = ''
+		E.db.datatexts.panels.Actionbar3DataPanel = ''
+		E.db.datatexts.panels.Top_Center = ''
+		E.db.datatexts.panels.LeftMiniPanel = ''
+		E.db.datatexts.panels.Actionbar5DataPanel = ''
 	end
 	
 	do
@@ -641,7 +652,179 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
+			E.db.bui.datatexts.BuiRightChatDTPanel.right = 'BuiMail'
+			E.db.bui.datatexts.BuiRightChatDTPanel.left = 'Skada'
+			E.db.bui.datatexts.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
+			E.db.bui.datatexts.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
+			E.db.bui.datatexts.BuiLeftChatDTPanel.left = 'Talent/Loot Specialization'
+			E.db.bui.datatexts.BuiLeftChatDTPanel.middle = 'Durability'
+			E.db.bui.datatexts.BuiMiddleDTPanel.right = 'S&L Currency'
+			E.db.bui.datatexts.BuiMiddleDTPanel.left = 'Improved System'
+			E.db.bui.datatexts.BuiMiddleDTPanel.middle = 'Time'
 		end
+	end
+	
+	-- AddOnSkins
+	if IsAddOnLoaded('AddOnSkins') then
+		do
+			-- reset the embeds in case of Skada/Recount swap
+			E.private['addonskins']['EmbedSystem'] = nil
+			E.private['addonskins']['EmbedSystemDual'] = nil
+			E.private['addonskins']['EmbedBelowTop'] = nil
+			E.private['addonskins']['TransparentEmbed'] = nil
+			E.private['addonskins']['RecountBackdrop'] = false
+			E.private['addonskins']['EmbedMain'] = nil
+			E.private['addonskins']['EmbedLeft'] = nil
+			E.private['addonskins']['EmbedRight'] = nil
+			
+			if IsAddOnLoaded('Skada') then
+				E.private['addonskins']['EmbedSystem'] = false
+				E.private['addonskins']['EmbedSystemDual'] = true
+				E.private['addonskins']['EmbedBelowTop'] = false
+				E.private['addonskins']['TransparentEmbed'] = true
+				E.private['addonskins']['SkadaBackdrop'] = false
+				E.private['addonskins']['EmbedMain'] = 'Skada'
+				E.private['addonskins']['EmbedLeft'] = 'Skada'
+				E.private['addonskins']['EmbedRight'] = 'Skada'
+			end
+		end
+	end
+	
+	-- Skada
+	if IsAddOnLoaded('Skada') then
+		do
+			SkadaDB['profiles']['Merathilis'] = {
+			["windows"] = {
+				{
+					["titleset"] = false,
+					["barslocked"] = true,
+					["y"] = 56.2857055664063,
+					["x"] = 1459.28596496582,
+					["title"] = {
+						["color"] = {
+							["a"] = 0,
+							["r"] = 0.101960784313725,
+							["g"] = 0.101960784313725,
+							["b"] = 0.301960784313726,
+						},
+						["font"] = "Andy Prototype",
+						["fontsize"] = 10,
+						["borderthickness"] = 0,
+						["fontflags"] = "OUTLINE",
+						["height"] = 10,
+						["texture"] = "AndyMelliDark",
+					},
+					["barfontflags"] = "OUTLINE",
+					["point"] = "TOPRIGHT",
+					["barbgcolor"] = {
+						["a"] = 0,
+						["b"] = 0.301960784313726,
+						["g"] = 0.301960784313726,
+						["r"] = 0.301960784313726,
+					},
+					["barcolor"] = {
+						["a"] = 0,
+						["g"] = 0.301960784313726,
+						["r"] = 0.301960784313726,
+					},
+					["barfontsize"] = 10,
+					["mode"] = "Schaden",
+					["spark"] = false,
+					["bartexture"] = "AndyOnePixel",
+					["barwidth"] = 180.999923706055,
+					["barspacing"] = 1,
+					["enabletitle"] = false,
+					["classcolortext"] = true,
+					["reversegrowth"] = true,
+					["background"] = {
+						["height"] = 140.42854309082,
+					},
+					["barfont"] = "Andy Prototype",
+					["name"] = "DPS",
+				}, -- [1]
+				{
+					["barheight"] = 15,
+					["classicons"] = true,
+					["barslocked"] = true,
+					["enabletitle"] = false,
+					["wipemode"] = "",
+					["set"] = "current",
+					["hidden"] = false,
+					["y"] = 56.2857055664063,
+					["barfont"] = "Andy Prototype",
+					["name"] = "HPS",
+					["display"] = "bar",
+					["barfontflags"] = "OUTLINE",
+					["classcolortext"] = true,
+					["scale"] = 1,
+					["reversegrowth"] = true,
+					["barfontsize"] = 10,
+					["barorientation"] = 1,
+					["snapto"] = true,
+					["version"] = 1,
+					["title"] = {
+						["color"] = {
+							["a"] = 0.800000011920929,
+							["b"] = 0.301960784313726,
+							["g"] = 0.101960784313725,
+							["r"] = 0.101960784313725,
+						},
+						["bordertexture"] = "None",
+						["font"] = "Andy Prototype",
+						["borderthickness"] = 0,
+						["fontsize"] = 10,
+						["fontflags"] = "OUTLINE",
+						["height"] = 10,
+						["margin"] = 0,
+						["texture"] = "AndyMelliDark",
+					},
+					["buttons"] = {
+						["segment"] = true,
+						["menu"] = true,
+						["stop"] = true,
+						["mode"] = true,
+						["report"] = true,
+						["reset"] = true,
+					},
+					["spark"] = false,
+					["bartexture"] = "AndyOnePixel",
+					["barwidth"] = 205.428512573242,
+					["barspacing"] = 1,
+					["clickthrough"] = false,
+					["point"] = "TOPRIGHT",
+					["background"] = {
+						["borderthickness"] = 0,
+						["color"] = {
+							["a"] = 0.2,
+							["r"] = 0,
+							["g"] = 0,
+							["b"] = 0.5,
+						},
+						["height"] = 140.42854309082,
+						["bordertexture"] = "None",
+						["margin"] = 0,
+						["texture"] = "Solid",
+					},
+					["barcolor"] = {
+						["a"] = 0,
+						["b"] = 0.8,
+						["g"] = 0.301960784313726,
+						["r"] = 0.301960784313726,
+					},
+					["barbgcolor"] = {
+						["a"] = 0,
+						["b"] = 0.301960784313726,
+						["g"] = 0.301960784313726,
+						["r"] = 0.301960784313726,
+					},
+					["classcolorbars"] = true,
+					["modeincombat"] = "",
+					["returnaftercombat"] = false,
+					["mode"] = "Heilung",
+					["x"] = 1645.28596496582,
+				}, -- [2]
+			},		
+		},
 	end
 	
 	-- AddonMovers
