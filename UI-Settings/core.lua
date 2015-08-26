@@ -39,10 +39,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.minimap.icons.garrison.position = "TOPRIGHT"
 		E.db.general.minimap.icons.garrison.yOffset = 10
 		E.db.general.minimap.size = 150
-		E.db.general.minimap.valuecolor.a = 1
-		E.db.general.minimap.valuecolor.r = 1
-		E.db.general.minimap.valuecolor.g = 0.49
-		E.db.general.minimap.valuecolor.b = 0.04
 		E.db.general.loginmessage = false
 		E.db.general.stickyFrames = false
 		E.db.general.backdropcolor.r = 0.101960784313726
@@ -77,7 +73,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar2.buttonsize = 30
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonPerRow = 3
-		E.db.actionbar.bar3.buttonsize = 305
+		E.db.actionbar.bar3.buttonsize = 30
 		E.db.actionbar.bar4.buttonspacing = 4
 		E.db.actionbar.bar4.mousover = true
 		E.db.actionbar.bar4.buttonsize = 26
@@ -88,10 +84,11 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar6.buttonsPerRow = 1
 		E.db.actionbar.bar6.mousover = true
 		E.db.actionbar.bar6.buttons = 4
-		E.db.actionbar.bar8.buttons = 6
-		E.db.actionbar.bar8.mousover = true
-		E.db.actionbar.bar8.buttonsPerRow = 1
-		E.db.actionbar.bar8.buttonsize = 24
+		-- ExtraActionButtons
+		--E.db.actionbar.bar8.buttons = 6
+		--E.db.actionbar.bar8.mousover = true
+		--E.db.actionbar.bar8.buttonsPerRow = 1
+		--E.db.actionbar.bar8.buttonsize = 24
 		E.db.actionbar.barPet.point = 'RIGHT'
 		E.db.actionbar.barPet.buttonspacing = 4
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
@@ -188,12 +185,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.auraFontOutline = 'OUTLINE'
-		E.db.nameplate.timeColor.b = 1
-		E.db.nameplate.timeColor.g = 1
-		E.db.nameplate.timeColor.r = 1
-		E.db.nameplate.auras.font = 'ElvUI Font'
-		E.db.nameplate.auras.fontSize = 9
-		E.db.nameplate.auras.fontOutline = 'OUTLINE'
 		E.db.nameplate.maxAuras = 5
 		E.db.nameplate.comboPoints = true
 		E.db.nameplate.sortDirection = 1
@@ -240,9 +231,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
 		E.db.unitframe.statusbar = 'AndyFlat'
-		E.db.unitframes.colors.auraBarBuff.r = 0.309803921568628
-		E.db.unitframes.colors.auraBarBuff.g = 0.0784313725490196
-		E.db.unitframes.colors.auraBarBuff.b = 0.0941176470588235
+		--E.db.unitframes.colors.auraBarBuff.r = 0.309803921568628 --must check this
+		--E.db.unitframes.colors.auraBarBuff.g = 0.0784313725490196
+		--E.db.unitframes.colors.auraBarBuff.b = 0.0941176470588235
 		E.db.unitframes.color.powerclass = true
 		E.db.unitframes.color.castColor.r = 0.1
 		E.db.unitframes.color.castColor.g = 0.1
@@ -312,10 +303,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.target.debuffs.numrows = 2
 		E.db.unitframe.units.target.debuffs.perrow = 3
 		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
-		E.db.unitframe.units.target.debuffs.cft.text.enable = true
 		E.db.unitframe.units.target.aurabar.enable = false
 		E.db.unitframe.units.target.aurabar.attachTo = 'BUFFS'
-		E.db.unitframe.units.target.gps.enable = false
 		E.db.unitframe.units.target.name.xOffset = 8
 		E.db.unitframe.units.target.name.yOffset = -32
 		E.db.unitframe.units.target.name.position = 'RIGHT'
@@ -363,7 +352,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.targettarget.health.position = 'CENTER'
 		E.db.unitframe.units.targettarget.height = 25
 		-- Focus
-		E.db.unitframe.units.focus.gps.enable = false
+		--E.db.unitframe.units.focus.gps.enable = false  -- check this too
 		E.db.unitframe.units.focus.power.height = 5
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.height = 20
@@ -849,7 +838,29 @@ function MER:Initialize()
 	--if E.private.install_complete == E.version and E.db.mer.installed == nil then SetupUI() end
 	
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
-	SetupUI()
+	--SetupUI()
+	if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
+		StaticPopup_Show("merathilis")
+	end
 end
 
+local version = GetAddOnMetadata("UI-Settings", "Version") -- with this we get the addon version from toc file
+
 E:RegisterModule(MER:GetName())
+
+StaticPopupDialogs["merathilis"] = {
+	text = L[".:: Welcome to MerathilisUI v"]..version..L[" ::.\nPress OK if you want to apply my settings."],
+	button1 = L['OK'],
+	button2 = L['No thanks'],
+	-- Use the folling line when done with your settings
+	--OnAccept = function() E.db.Merathilis.installed = true; SetupUI(); PlaySoundFile([[Sound\Interface\LevelUp.ogg]]) end, -- we set the default value to true, so it won't popup again and then run the Setup function plus I added the lvl sound :P
+	
+	-- Following line is for testing purposes. Doesn't set the option to true, so the message will pop everytime
+	OnAccept = function() SetupUI(); PlaySoundFile([[Sound\Interface\LevelUp.ogg]]) end, -- we set the default value to true, so it won't popup again and then run the Setup function plus I added the lvl sound :P
+	
+	OnCancel = function() end, -- do nothing
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+	preferredIndex = 3,
+}
