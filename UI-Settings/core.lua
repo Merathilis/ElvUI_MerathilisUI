@@ -7,7 +7,7 @@ local addon, ns = ...
 
 -- Profile (if this gets big, move it to a seperate file but load before your core.lua. Put it in the .toc file)
 -- In case you create options, also add them here
-P['Merathilis Eule'] = {
+P['Merathilis'] = {
 	['installed'] = nil,
 }
 
