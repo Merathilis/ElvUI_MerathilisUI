@@ -30,7 +30,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	do
 		-- General
 		E.db.general.totems.size = 36
-		E.db.general.font = 'Andy Prototype'
+		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
 		E.db.general.interruptAnnounce = "RAID"
 		E.db.general.autoRepair = "GUILD"
@@ -50,17 +50,17 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.general.backdropfadecolor.r = 0.0549
 		E.db.general.backdropfadecolor.g = 0.0549
 		E.db.general.backdropfadecolor.b = 0.0549
-		E.private.general.namefont = 'Andy Prototype'
+		E.private.general.namefont = 'Merathilis Prototype'
 		E.private.general.dmgfont = 'ElvUI Combat'
-		E.private.general.normTex = 'AndyFlat'
-		E.private.general.glossTex = 'AndyFlat'
+		E.private.general.normTex = 'MerathilisFlat'
+		E.private.general.glossTex = 'MerathilisFlat'
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
 	end
 	
 	do
 		-- Actionbars
-		E.db.actionbar.font = 'Andy Prototype'
+		E.db.actionbar.font = 'Merathilis Prototype'
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
 		
@@ -101,10 +101,10 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		-- Auras
 		E.db.auras.debuffs.size = 30
 		E.db.auras.fadeThreshold = 10
-		E.db.auras.font = 'Andy Prototype'
+		E.db.auras.font = 'Merathilis Prototype'
 		E.db.auras.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.fontSize = 11
-		E.db.auras.consolidatedBuffs.font = 'Andy Prototype'
+		E.db.auras.consolidatedBuffs.font = 'Merathilis Prototype'
 		E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.filter = false
 		E.db.auras.buffs.fontSize = 12
@@ -115,10 +115,10 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	
 	do
 		-- Bags
-		E.db.bags.itemLevelFont = 'Andy Prototype'
+		E.db.bags.itemLevelFont = 'Merathilis Prototype'
 		E.db.bags.itemLevelFontSize = 8
 		E.db.bags.itemLevelFontOutline = 'OUTLINE'
-		E.db.bags.countFont = 'Andy Prototype'
+		E.db.bags.countFont = 'Merathilis Prototype'
 		E.db.bags.countFontSize = 11
 		E.db.bags.countFontOutline = 'OUTLINE'
 		E.db.bags.yOffsetBank = 235
@@ -135,11 +135,11 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		-- Chat
 		E.db.chat.tabFontOutline = 'OUTLINE'
 		E.db.chat.keywordSound = 'Whisper Alert'
-		E.db.chat.tabFont = 'Andy Prototype'
+		E.db.chat.tabFont = 'Merathilis Prototype'
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
-		E.db.chat.font = 'Andy Prototype'
+		E.db.chat.font = 'Merathilis Prototype'
 		E.db.chat.panelWidth = 400
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'HIDEBOTH'
@@ -150,7 +150,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	
 	do
 		-- Datatexts
-		E.db.datatexts.font = 'Andy Roadway'
+		E.db.datatexts.font = 'Merathilis Roadway'
 		E.db.datatexts.fontSize = 14
 		E.db.datatexts.fontOutline = 'OUTLINE'
 		E.db.datatexts.leftChatPanel = false
@@ -178,10 +178,10 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	
 	do
 		-- Nameplates
-		E.db.nameplate.font = 'Andy Roadway'
+		E.db.nameplate.font = 'Merathilis Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
-		E.db.nameplate.debuffs.font = 'Andy Prototype'
+		E.db.nameplate.debuffs.font = 'Merathilis Prototype'
 		E.db.nameplate.debuffs.fontSize = 9
 		E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.auraFontOutline = 'OUTLINE'
@@ -189,7 +189,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.comboPoints = true
 		E.db.nameplate.sortDirection = 1
 		E.db.nameplate.colorByTime = true
-		E.db.nameplate.buffs.font = 'Andy Prototype'
+		E.db.nameplate.buffs.font = 'Merathilis Prototype'
 		E.db.nameplate.buffs.fontSize = 7
 		E.db.nameplate.buffs.fontOutline = 'OUTLINE'
 		E.db.nameplate.healthBar.text.enable = true
@@ -205,12 +205,12 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.nameplate.targetIndicator.color.b = 0
 		E.db.nameplate.wrapName = true
 		E.db.nameplate.buffs.fontOutline = 'OUTLINE'
-		E.db.nameplate.buffs.font = 'Andy Prototype'
+		E.db.nameplate.buffs.font = 'Merathilis Prototype'
 	end
 	
 	do
 		-- Tooltip
-		E.db.tooltip.font = 'Andy Prototype'
+		E.db.tooltip.font = 'Merathilis Prototype'
 		E.db.tooltip.fontOutline = 'OUTLINE'
 		E.db.tooltip.combathide = true
 		E.db.tooltip.style = 'inset'
@@ -218,7 +218,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.tooltip.headerFontSize = 14
 		E.db.tooltip.textFontSize = 11
 		E.db.tooltip.smallTextFontSize = 11
-		E.db.tooltip.healthBar.font = 'Andy Prototype'
+		E.db.tooltip.healthBar.font = 'Merathilis Prototype'
 		E.db.tooltip.healthBar.fontSize = 10
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
 		E.db.tooltip.healthBar.height = 5
@@ -226,11 +226,11 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	
 	do
 		-- Unitframes
-		E.db.unitframe.font = 'Andy Tukui'
+		E.db.unitframe.font = 'Merathilis Tukui'
 		E.db.unitframe.fontSize = 14
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
-		E.db.unitframe.statusbar = 'AndyFlat'
+		E.db.unitframe.statusbar = 'MerathilisFlat'
 		E.db.unitframes.color.powerclass = true
 		E.db.unitframes.color.castColor.r = 0.1
 		E.db.unitframes.color.castColor.g = 0.1
@@ -262,7 +262,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.castbar.height = 183
 		E.db.unitframe.units.player.customTexts = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit = {}
-		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Andy Tukui'
+		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 0
@@ -270,7 +270,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db.unitframe.units.player.customTexts.Gesundheit.size = 24
 		E.db.unitframe.units.player.customTexts.LevelClass = {}
-		E.db.unitframe.units.player.customTexts.LevelClass.font = 'Andy Tukui'
+		E.db.unitframe.units.player.customTexts.LevelClass.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.LevelClass.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.LevelClass.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.player.customTexts.LevelClass.xOffset = 0
@@ -314,7 +314,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.target.power.height = 5
 		E.db.unitframe.units.target.customTexts = {}
 		E.db.unitframe.units.target.customTexts.Gesundheit = {}
-		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Andy Tukui'
+		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 8
@@ -322,7 +322,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor]'
 		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 9
 		E.db.unitframe.units.target.customTexts.Name1 = {}
-		E.db.unitframe.units.target.customTexts.Name1.font = 'Andy Tukui'
+		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
@@ -429,7 +429,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.raid40.power.height = 5
 		E.db.unitframe.units.raid40.customTexts = {}
 		E.db.unitframe.units.raid40.customTexts.HealthText = {}
-		E.db.unitframe.units.raid40.customTexts.HealthText.font = 'Andy Tukui'
+		E.db.unitframe.units.raid40.customTexts.HealthText.font = 'Merathilis Tukui'
 		E.db.unitframe.units.raid40.customTexts.HealthText.justifyH = 'CENTER'
 		E.db.unitframe.units.raid40.customTexts.HealthText.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.raid40.customTexts.HealthText.xOffset = 0
@@ -467,7 +467,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.party.GPSArrow.size = 40
 		E.db.unitframe.units.party.customTexts = {}
 		E.db.unitframe.units.party.customTexts.HealthText = {}
-		E.db.unitframe.units.party.customTexts.HealthText.font = 'Andy Tukui'
+		E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
 		E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
 		E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
@@ -601,7 +601,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	if E.db.locplus == nil then E.db.locplus = {} end
 	if IsAddOnLoaded('ElvUI_LocPlus') then
 		do
-			E.db.locplus.lpfont = 'Andy Roadway'
+			E.db.locplus.lpfont = 'Merathilis Roadway'
 			E.db.locplus.dtheight = 17
 			E.db.locplus.fish = false
 			E.db.locplus.lpwidth = 220
@@ -698,12 +698,12 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 								["g"] = 0.101960784313725,
 								["b"] = 0.301960784313726,
 							},
-							["font"] = "Andy Prototype",
+							["font"] = "Merathilis Prototype",
 							["fontsize"] = 10,
 							["borderthickness"] = 0,
 							["fontflags"] = "OUTLINE",
 							["height"] = 10,
-							["texture"] = "AndyMelliDark",
+							["texture"] = "MerathilisMelliDark",
 						},
 						["barfontflags"] = "OUTLINE",
 						["point"] = "TOPRIGHT",
@@ -721,7 +721,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 						["barfontsize"] = 10,
 						["mode"] = "Schaden",
 						["spark"] = false,
-						["bartexture"] = "AndyOnePixel",
+						["bartexture"] = "MerathilisOnePixel",
 						["barwidth"] = 180.999923706055,
 						["barspacing"] = 1,
 						["enabletitle"] = false,
@@ -730,7 +730,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 						["background"] = {
 							["height"] = 140.42854309082,
 						},
-						["barfont"] = "Andy Prototype",
+						["barfont"] = "Merathilis Prototype",
 						["name"] = "DPS",
 					}, -- [1]
 					{
@@ -742,7 +742,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 						["set"] = "current",
 						["hidden"] = false,
 						["y"] = 56.2857055664063,
-						["barfont"] = "Andy Prototype",
+						["barfont"] = "Merathilis Prototype",
 						["name"] = "HPS",
 						["display"] = "bar",
 						["barfontflags"] = "OUTLINE",
@@ -761,13 +761,13 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 								["r"] = 0.101960784313725,
 							},
 							["bordertexture"] = "None",
-							["font"] = "Andy Prototype",
+							["font"] = "Merathilis Prototype",
 							["borderthickness"] = 0,
 							["fontsize"] = 10,
 							["fontflags"] = "OUTLINE",
 							["height"] = 10,
 							["margin"] = 0,
-							["texture"] = "AndyMelliDark",
+							["texture"] = "MerathilisMelliDark",
 						},
 						["buttons"] = {
 							["segment"] = true,
@@ -778,7 +778,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 							["reset"] = true,
 						},
 						["spark"] = false,
-						["bartexture"] = "AndyOnePixel",
+						["bartexture"] = "MerathilisOnePixel",
 						["barwidth"] = 205.428512573242,
 						["barspacing"] = 1,
 						["clickthrough"] = false,
@@ -819,6 +819,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
+	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 33)
