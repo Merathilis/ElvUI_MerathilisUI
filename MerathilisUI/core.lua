@@ -632,21 +632,21 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
-			E.db.bui.datatexts.BuiRightChatDTPanel.right = 'BuiMail' -- i think it should be: E.db.datatexts.BuiRightChatDTPanel.right = 'BuiMail' ? but it doesn't work either :/
+			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			if IsAddOnLoaded('Skada') then
-				E.db.bui.datatexts.BuiRightChatDTPanel.left = 'Skada'
+				E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			end
-			E.db.bui.datatexts.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-			E.db.bui.datatexts.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
-			E.db.bui.datatexts.BuiLeftChatDTPanel.left = 'Talent/Loot Specialization'
-			E.db.bui.datatexts.BuiLeftChatDTPanel.middle = 'Durability'
+			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Talent/Loot Specialization'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
 			if IsAddOnLoaded('ElvUI_SLE') then
-				E.db.bui.datatexts.BuiMiddleDTPanel.right = 'S&L Currency'
+				E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
 			end
 			if IsAddOnLoaded('ElvUI_SystemDT') then
-				E.db.bui.datatexts.BuiMiddleDTPanel.left = 'Improved System'
+				E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
 			end
-			E.db.bui.datatexts.BuiMiddleDTPanel.middle = 'Time'
+			E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
 		end
 	end
 	
