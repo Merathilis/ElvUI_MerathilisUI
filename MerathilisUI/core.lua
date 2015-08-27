@@ -883,10 +883,11 @@ local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get 
 SLASH_MERATHILISUI = '/mui setup'
 slashCmdList["MerathilisUI"] = function(args)
 	if command == '/mui setup' then
-		do the Install Thing -- How do i call the Function?
-	elseif --do something else
+		StaticPopupDialogs["merathilis"]
+	end
 end
 --]]
+
 E:RegisterModule(MER:GetName())
 
 StaticPopupDialogs["merathilis"] = {
