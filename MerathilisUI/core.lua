@@ -632,7 +632,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
-			E.db.bui.datatexts.BuiRightChatDTPanel.right = 'BuiMail'
+			E.db.bui.datatexts.BuiRightChatDTPanel.right = 'BuiMail' -- i think it should be: E.db.datatexts.BuiRightChatDTPanel.right = 'BuiMail' ? but it doesn't work either :/
 			if IsAddOnLoaded('Skada') then
 				E.db.bui.datatexts.BuiRightChatDTPanel.left = 'Skada'
 			end
@@ -880,15 +880,6 @@ function MER:Initialize()
 end
 
 local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get the addon version from toc file
-
---[[
-SLASH_MERATHILISUI = '/mui setup'
-slashCmdList["MerathilisUI"] = function(args)
-	if command == '/mui setup' then
-		StaticPopupDialogs["merathilis"]
-	end
-end
-]]
 
 SLASH_MERATHILISUI1 = '/muisetup' -- doesn't allow spaces... this way :P Ususally spaces are used if you want to add different commands like /mui setup and /mui datatexts but a function should be made to handle those
 SlashCmdList["MERATHILISUI"] = function()
