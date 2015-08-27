@@ -879,6 +879,14 @@ end
 
 local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get the addon version from toc file
 
+[[--
+SLASH_MERATHILISUI = '/mui'
+slashCmdList["MerathilisUI"] = function(args)
+	if command == '/mui' then
+		call the staticPopup -- How do i call the StaticPopupDialog?
+	elseif --do something else
+end
+--]]
 E:RegisterModule(MER:GetName())
 
 StaticPopupDialogs["merathilis"] = {
