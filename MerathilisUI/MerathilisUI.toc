@@ -11,4 +11,5 @@
 locales\load_locales.xml
 media\load_media.xml
 core.lua
-modules\unithover.lua
+modules\unitframes\unithover.lua
+modules\datatexts\specswitch.lua

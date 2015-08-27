@@ -880,10 +880,10 @@ end
 local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get the addon version from toc file
 
 [[--
-SLASH_MERATHILISUI = '/mui'
+SLASH_MERATHILISUI = '/mui setup'
 slashCmdList["MerathilisUI"] = function(args)
-	if command == '/mui' then
-		call the staticPopup -- How do i call the StaticPopupDialog?
+	if command == '/mui setup' then
+		do the Install Thing -- How do i call the Function?
 	elseif --do something else
 end
 --]]
