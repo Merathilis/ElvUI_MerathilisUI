@@ -226,16 +226,16 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
 		E.db.unitframe.statusbar = 'MerathilisFlat'
-		E.db.unitframes.color.powerclass = true
-		E.db.unitframes.color.castColor.r = 0.1
-		E.db.unitframes.color.castColor.g = 0.1
-		E.db.unitframes.color.castColor.b = 0.1
-		E.db.unitframes.color.transparentAurabars = true
-		E.db.unitframes.color.transparentPower = true
-		E.db.unitframes.color.transparentCastbar = true
-		E.db.unitframes.color.health.r = 0.235294117647059
-		E.db.unitframes.color.health.g = 0.235294117647059
-		E.db.unitframes.color.health.b = 0.235294117647059
+		E.db.unitframe.colors.powerclass = true
+		E.db.unitframe.colors.castColor.r = 0.1
+		E.db.unitframe.colors.castColor.g = 0.1
+		E.db.unitframe.colors.castColor.b = 0.1
+		E.db.unitframe.colors.transparentAurabars = true
+		E.db.unitframe.colors.transparentPower = true
+		E.db.unitframe.colors.transparentCastbar = true
+		E.db.unitframe.colors.health.r = 0.235294117647059
+		E.db.unitframe.colors.health.g = 0.235294117647059
+		E.db.unitframe.colors.health.b = 0.235294117647059
 		-- Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
@@ -350,14 +350,14 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.focus.castbar.height = 6
 		E.db.unitframe.units.focus.castbar.width = 122
 		-- FocusTarget
-		E.db.unitframes.units.focustarget.debuffs.enable = true
-		E.db.unitframes.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
-		E.db.unitframes.units.focustarget.threatStyle = 'GLOW'
-		E.db.unitframes.units.focustarget.power.enable = true
-		E.db.unitframes.units.focustarget.power.height = 10
-		E.db.unitframes.units.focustarget.width = 122
-		E.db.unitframes.units.focustarget.enable = true
-		E.db.unitframes.units.focustarget.height = 20
+		E.db.unitframe.units.focustarget.debuffs.enable = true
+		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
+		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
+		E.db.unitframe.units.focustarget.power.enable = true
+		E.db.unitframe.units.focustarget.power.height = 10
+		E.db.unitframe.units.focustarget.width = 122
+		E.db.unitframe.units.focustarget.enable = true
+		E.db.unitframe.units.focustarget.height = 20
 		-- Raid
 		E.db.unitframe.units.raid.horizontalSpacing = 1
 		E.db.unitframe.units.raid.debuffs.fontSize = 12
@@ -610,7 +610,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.locplus.displayOther = 'NONE'
 			E.db.locplus.profcap = true
 			E.db.locplus.shadow = true
-			E.db.locplus.custom.CoordsColor = 1
+			E.db.locplus.customCoordsColor = 1
 			E.db.locplus.dig = false
 			E.db.locplus.showicon = false
 			E.db.locplus.ttlvl = false
@@ -872,6 +872,8 @@ function MER:Initialize()
 	
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--SetupUI()
+	--self:LoadCommands() -- Run the register commands function
+	
 	if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
 		StaticPopup_Show("merathilis")
 	end
@@ -879,14 +881,19 @@ end
 
 local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get the addon version from toc file
 
-[[--
+--[[
 SLASH_MERATHILISUI = '/mui setup'
 slashCmdList["MerathilisUI"] = function(args)
 	if command == '/mui setup' then
 		StaticPopupDialogs["merathilis"]
 	end
 end
---]]
+]]
+
+SLASH_MERATHILISUI1 = '/muisetup' -- doesn't allow spaces... this way :P Ususally spaces are used if you want to add different commands like /mui setup and /mui datatexts but a function should be made to handle those
+SlashCmdList["MERATHILISUI"] = function()
+	StaticPopup_Show("merathilis")
+end
 
 E:RegisterModule(MER:GetName())
 
