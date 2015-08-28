@@ -808,42 +808,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
-	-- ElvUI_VisualAuraTimer
-	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
-		do
-			E.private.VAT.staticColor.r = 1
-			E.private.VAT.staticColor.g = 0.5
-			E.private.VAT.staticColor.b = 0
-			E.private.VAT.noduration = false
-			E.private.VAT.spacing = -1
-			E.private.VAT.backdropTexture = 'MerathilisFlat'
-			E.private.VAT.enableStaticColor = true
-			E.private.VAT.threshold.debuffsvalue = 20
-			E.private.VAT.threshold.buffsvalue = 10
-			E.private.VAT.threshold.buffs = true
-			E.private.VAT.threshold.tempenchants = true
-			E.private.VAT.colors.hoursIndicator.g = 0.490196078431373
-			E.private.VAT.colors.hoursIndicator.b = 0.0392156862745098
-			E.private.VAT.colors.minutesIndicator.r = 1
-			E.private.VAT.colors.minutesIndicator.g = 0.5
-			E.private.VAT.colors.minutesIndicator.b = 0
-			E.private.VAT.colors.hourminutesIndicator.r = 1
-			E.private.VAT.colors.hourminutesIndicator.g = 0.5
-			E.private.VAT.colors.hourminutesIndicator.b = 0
-			E.private.VAT.colors.expireIndicator.r = 1
-			E.private.VAT.colors.expireIndicator.g = 0.5
-			E.private.VAT.colors.expireIndicator.b = 0
-			E.private.VAT.colors.secondsIndicator.r = 1
-			E.private.VAT.colors.secondsIndicator.g = 0.5
-			E.private.VAT.colors.secondsIndicator.b = 0
-			E.private.VAT.colors.daysIndicator.r = 1
-			E.private.VAT.colors.daysIndicator.g = 0.5
-			E.private.VAT.colors.daysIndicator.b = 0
-			E.private.VAT.decimalThreshold = 5
-			E.private.VAT.statusbarTexture = 'MerathilisFlat'
-		end
-	end
-	
 	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
