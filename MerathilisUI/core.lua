@@ -29,7 +29,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
 		-- General
-		--E.db.general.pixelPerfect = false --grr, how do i disable this shit? E.privat.general? E.global.general?
+		--E.privat.general.pixelPerfect = false --still get an lua error, damnit
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
@@ -625,6 +625,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.locplus.dig = false
 			E.db.locplus.showicon = false
 			E.db.locplus.ttlvl = false
+			E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
+			E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
 		end
 	end
 	
@@ -643,7 +645,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
-			--E.db.general.dashboards.system.enableSystem = false --how do i disable the Dashboard? O.o in the ElvUI.lua - wtf - it is under General -.-
+			E.db.dashboards.system.enableSystem = false
+			E.db.dashboards.tokens.enableTokens = false
+			E.db.dashboards.professions.enableProfessions = false
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
