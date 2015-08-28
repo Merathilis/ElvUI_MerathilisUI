@@ -29,6 +29,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
 		-- General
+		--E.db.general.pixelPerfect = false --grr, how do i disable this shit? E.privat.general? E.global.general?
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
@@ -76,14 +77,14 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar2.heightMult = 1
 		E.db.actionbar.bar2.backdrop = false
 		E.db.actionbar.bar3.backdrop = true
-		E.db.actionbar.bar3.buttonPerRow = 3
+		E.db.actionbar.bar3.buttonsPerRow = 3
 		E.db.actionbar.bar3.buttonsize = 30
 		E.db.actionbar.bar3.buttons = 6
 		E.db.actionbar.bar4.buttonspacing = 4
 		E.db.actionbar.bar4.mousover = true
 		E.db.actionbar.bar4.buttonsize = 26
 		E.db.actionbar.bar5.backdrop = true
-		E.db.actionbar.bar5.buttonPerRow = 3
+		E.db.actionbar.bar5.buttonsPerRow = 3
 		E.db.actionbar.bar5.buttonsize = 30
 		E.db.actionbar.bar5.buttons = 6
 		E.db.actionbar.bar6.backdrop = true
@@ -141,6 +142,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
+		E.db.chat.fontSize = 13
 		E.db.chat.panelWidth = 400
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'HIDEBOTH'
@@ -260,7 +262,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
 		E.db.unitframe.units.player.castbar.icon = true
 		E.db.unitframe.units.player.castbar.width = 240
-		E.db.unitframe.units.player.castbar.height = 183
+		E.db.unitframe.units.player.castbar.height = 18
 		E.db.unitframe.units.player.customTexts = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Merathilis Tukui'
@@ -277,6 +279,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.customTexts.LevelClass.xOffset = 0
 		E.db.unitframe.units.player.customTexts.LevelClass.yOffset = -7
 		E.db.unitframe.units.player.customTexts.LevelClass.size = 12
+		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
 		E.db.unitframe.units.player.health.xOffset = 5
 		E.db.unitframe.units.player.health.yOffset = -33
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
@@ -341,6 +344,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.target.buffs.sizeOverride = 21
 		E.db.unitframe.units.target.buffs.perrow = 11
 		E.db.unitframe.units.target.buffs.fontSize = 12
+		E.db.unitframe.units.target.castbar.width = 240
+		E.db.unitframe.units.target.castbar.height = 18
 		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
 		E.db.unitframe.units.targettarget.power.position = 'CENTER'
@@ -638,6 +643,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
+			--E.db.general.dashboards.system.enableSystem = false --how do i disable the Dashboard? O.o in the ElvUI.lua - wtf - it is under General -.-
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
