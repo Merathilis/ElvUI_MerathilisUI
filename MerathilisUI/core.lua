@@ -29,7 +29,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
 		-- General
-		--E.privat.general.pixelPerfect = false --still get an lua error, damnit
+		E.private.general.pixelPerfect = false
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
