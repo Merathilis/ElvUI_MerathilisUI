@@ -633,19 +633,13 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 4
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
-			if IsAddOnLoaded('Skada') then
-				E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
-			end
+			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Talent/Loot Specialization'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
-			if IsAddOnLoaded('ElvUI_SLE') then
-				E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
-			end
-			if IsAddOnLoaded('ElvUI_SystemDT') then
-				E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
-			end
+			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
+			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
 			E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
 		end
 	end
