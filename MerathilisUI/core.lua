@@ -28,7 +28,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- Here you put ElvUI settings that you want enabled or not.
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
-		-- General
+	-- General
 		E.private.general.pixelPerfect = false
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
@@ -60,7 +60,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Actionbars
+	-- Actionbars
 		E.db.actionbar.font = 'Merathilis Prototype'
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
@@ -81,7 +81,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar3.buttonsize = 30
 		E.db.actionbar.bar3.buttons = 6
 		E.db.actionbar.bar4.buttonspacing = 4
-		E.db.actionbar.bar4.mousover = true
+		E.db.actionbar.bar4.mouseover = true
 		E.db.actionbar.bar4.buttonsize = 26
 		E.db.actionbar.bar5.backdrop = true
 		E.db.actionbar.bar5.buttonsPerRow = 3
@@ -89,7 +89,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.actionbar.bar5.buttons = 6
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
-		E.db.actionbar.bar6.mousover = true
+		E.db.actionbar.bar6.mouseover = true
 		E.db.actionbar.bar6.buttons = 4
 		E.db.actionbar.barPet.point = 'RIGHT'
 		E.db.actionbar.barPet.buttonspacing = 4
@@ -100,7 +100,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Auras
+	-- Auras
 		E.db.auras.debuffs.size = 30
 		E.db.auras.fadeThreshold = 10
 		E.db.auras.font = 'Merathilis Prototype'
@@ -116,7 +116,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Bags
+	-- Bags
 		E.db.bags.itemLevelFont = 'Merathilis Prototype'
 		E.db.bags.itemLevelFontSize = 8
 		E.db.bags.itemLevelFontOutline = 'OUTLINE'
@@ -134,25 +134,25 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Chat
-		E.db.chat.tabFontOutline = 'OUTLINE'
+	-- Chat
 		E.db.chat.keywordSound = 'Whisper Alert'
 		E.db.chat.tabFont = 'Merathilis Prototype'
+		E.db.chat.tabFontOutline = 'OUTLINE'
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
 		E.db.chat.fontSize = 13
 		E.db.chat.panelWidth = 400
+		E.db.chat.panelHeigth = 150
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'HIDEBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI, Andy'
 		E.db.chat.timeStampFormat = '%H:%M '
-		E.db.chat.panelHeigth = 150
 	end
 	
 	do
-		-- Datatexts
+	-- Datatexts
 		E.db.datatexts.font = 'Merathilis Roadway'
 		E.db.datatexts.fontSize = 14
 		E.db.datatexts.fontOutline = 'OUTLINE'
@@ -180,7 +180,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Nameplates
+	-- Nameplates
 		E.db.nameplate.font = 'Merathilis Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
@@ -212,7 +212,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Tooltip
+	-- Tooltip
 		E.db.tooltip.font = 'Merathilis Prototype'
 		E.db.tooltip.fontOutline = 'OUTLINE'
 		E.db.tooltip.combathide = true
@@ -228,7 +228,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	do
-		-- Unitframes
+	-- Unitframes
 		E.db.unitframe.font = 'Merathilis Tukui'
 		E.db.unitframe.fontSize = 14
 		E.db.unitframe.fontOutline = 'OUTLINE'
@@ -244,7 +244,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.colors.health.r = 0.235294117647059
 		E.db.unitframe.colors.health.g = 0.235294117647059
 		E.db.unitframe.colors.health.b = 0.235294117647059
-		-- Player
+	-- Player
 		E.db.unitframe.units.player.width = 240
 		E.db.unitframe.units.player.height = 45
 		E.db.unitframe.units.player.debuffs.fontSize = 11
@@ -292,7 +292,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.buffs.yOffset = 2
 		E.db.unitframe.units.player.buffs.noDuration = false
 		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
-		-- Target
+	-- Target
 		E.db.unitframe.units.target.width = 240
 		E.db.unitframe.units.target.height = 45
 		E.db.unitframe.units.target.castbar.latency = true
@@ -346,7 +346,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.target.buffs.fontSize = 12
 		E.db.unitframe.units.target.castbar.width = 240
 		E.db.unitframe.units.target.castbar.height = 18
-		-- TargetTarget
+	-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
 		E.db.unitframe.units.targettarget.power.position = 'CENTER'
 		E.db.unitframe.units.targettarget.power.height = 5
@@ -354,13 +354,13 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.targettarget.name.yOffset = -1
 		E.db.unitframe.units.targettarget.health.position = 'CENTER'
 		E.db.unitframe.units.targettarget.height = 25
-		-- Focus
+	-- Focus
 		E.db.unitframe.units.focus.power.height = 5
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.height = 20
 		E.db.unitframe.units.focus.castbar.height = 6
 		E.db.unitframe.units.focus.castbar.width = 122
-		-- FocusTarget
+	-- FocusTarget
 		E.db.unitframe.units.focustarget.debuffs.enable = true
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
@@ -369,7 +369,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.focustarget.width = 122
 		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
-		-- Raid
+	-- Raid
 		E.db.unitframe.units.raid.horizontalSpacing = 1
 		E.db.unitframe.units.raid.debuffs.fontSize = 12
 		E.db.unitframe.units.raid.debuffs.enable = true
@@ -412,7 +412,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.raid.raidicon.xOffset = 9
 		E.db.unitframe.units.raid.raidicon.size = 13
 		E.db.unitframe.units.raid.raidicon.yOffset = 0
-		-- Raid40
+	-- Raid40
 		E.db.unitframe.units.raid40.horizontalSpacing = 1
 		E.db.unitframe.units.raid40.debuffs.enable = true
 		E.db.unitframe.units.raid40.debuffs.yOffset = -9
@@ -464,7 +464,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
-		-- Party
+	-- Party
 		E.db.unitframe.units.party.debuffs.sizeOverride = 21
 		E.db.unitframe.units.party.debuffs.yOffset = -7
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
@@ -513,24 +513,24 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.party.buffs.noConsolidated = false
 		E.db.unitframe.units.party.buffs.sizeOverride = 22
 		E.db.unitframe.units.party.buffs.xOffset = 30
-		-- Assist
+	-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
-		-- Pet
+	-- Pet
 		E.db.unitframe.units.pet.castbar.latency = true
 		E.db.unitframe.units.pet.castbar.width = 102
 		E.db.unitframe.units.pet.width = 102
 		E.db.unitframe.units.pet.height = 24
 		E.db.unitframe.units.pet.power.height = 5
-		-- Arena
+	-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
-		-- Boss
+	-- Boss
 		E.db.unitframe.units.boss.castbar.latency = true
 		E.db.unitframe.units.boss.portrait.enable = true
 		E.db.unitframe.units.boss.power.height = 10
 		E.db.unitframe.units.boss.width = 215
 		E.db.unitframe.units.boss.height = 45
 		E.db.unitframe.units.boss.threatStyle = 'BORDERS'
-		-- PetTarget
+	-- PetTarget
 		E.db.unitframe.units.pettarget.power.width = 'inset'
 	end
 	
@@ -603,30 +603,29 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	end
 	
 	-- Addons
-	-- LocationPlus
-	if E.db.locplus == nil then E.db.locplus = {} end
-	if IsAddOnLoaded('ElvUI_LocPlus') then
+	-- AddOnSkins
+	if IsAddOnLoaded('AddOnSkins') then
 		do
-			E.db.locplus.lpfont = 'Merathilis Roadway'
-			E.db.locplus.dtheight = 17
-			E.db.locplus.fish = false
-			E.db.locplus.lpwidth = 220
-			E.db.locplus.petlevel = false
-			E.db.locplus.ttreczones = false
-			E.db.locplus.ttinst = false
-			E.db.locplus.lpfontsize = 15
-			E.db.locplus.lpfontflags = 'OUTLINE'
-			E.db.locplus.ttrecinst = false
-			E.db.locplus.ht = true
-			E.db.locplus.displayOther = 'NONE'
-			E.db.locplus.profcap = true
-			E.db.locplus.shadow = true
-			E.db.locplus.customCoordsColor = 1
-			E.db.locplus.dig = false
-			E.db.locplus.showicon = false
-			E.db.locplus.ttlvl = false
-			E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
-			E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
+			-- reset the embeds in case of Skada/Recount swap
+			E.private['addonskins']['EmbedSystem'] = nil
+			E.private['addonskins']['EmbedSystemDual'] = nil
+			E.private['addonskins']['EmbedBelowTop'] = nil
+			E.private['addonskins']['TransparentEmbed'] = nil
+			E.private['addonskins']['RecountBackdrop'] = false
+			E.private['addonskins']['EmbedMain'] = nil
+			E.private['addonskins']['EmbedLeft'] = nil
+			E.private['addonskins']['EmbedRight'] = nil
+			
+			if IsAddOnLoaded('Skada') then
+				E.private['addonskins']['EmbedSystem'] = false
+				E.private['addonskins']['EmbedSystemDual'] = true
+				E.private['addonskins']['EmbedBelowTop'] = false
+				E.private['addonskins']['TransparentEmbed'] = true
+				E.private['addonskins']['SkadaBackdrop'] = false
+				E.private['addonskins']['EmbedMain'] = 'Skada'
+				E.private['addonskins']['EmbedLeft'] = 'Skada'
+				E.private['addonskins']['EmbedRight'] = 'Skada'
+			end
 		end
 	end
 	
@@ -651,8 +650,14 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'Talent/Loot Specialization'
+			if role == 'tank' then
+				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+			elseif role == 'dpsMelee' then
+				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+			elseif role == 'healer' or 'dpsCaster' then
+				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
+			end
+			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
 			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
 			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
@@ -660,29 +665,30 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
-	-- AddOnSkins
-	if IsAddOnLoaded('AddOnSkins') then
+	-- LocationPlus
+	if E.db.locplus == nil then E.db.locplus = {} end
+	if IsAddOnLoaded('ElvUI_LocPlus') then
 		do
-			-- reset the embeds in case of Skada/Recount swap
-			E.private['addonskins']['EmbedSystem'] = nil
-			E.private['addonskins']['EmbedSystemDual'] = nil
-			E.private['addonskins']['EmbedBelowTop'] = nil
-			E.private['addonskins']['TransparentEmbed'] = nil
-			E.private['addonskins']['RecountBackdrop'] = false
-			E.private['addonskins']['EmbedMain'] = nil
-			E.private['addonskins']['EmbedLeft'] = nil
-			E.private['addonskins']['EmbedRight'] = nil
-			
-			if IsAddOnLoaded('Skada') then
-				E.private['addonskins']['EmbedSystem'] = false
-				E.private['addonskins']['EmbedSystemDual'] = true
-				E.private['addonskins']['EmbedBelowTop'] = false
-				E.private['addonskins']['TransparentEmbed'] = true
-				E.private['addonskins']['SkadaBackdrop'] = false
-				E.private['addonskins']['EmbedMain'] = 'Skada'
-				E.private['addonskins']['EmbedLeft'] = 'Skada'
-				E.private['addonskins']['EmbedRight'] = 'Skada'
-			end
+			E.db.locplus.lpfont = 'Merathilis Roadway'
+			E.db.locplus.dtheight = 17
+			E.db.locplus.fish = false
+			E.db.locplus.lpwidth = 220
+			E.db.locplus.petlevel = false
+			E.db.locplus.ttreczones = false
+			E.db.locplus.ttinst = false
+			E.db.locplus.lpfontsize = 15
+			E.db.locplus.lpfontflags = 'OUTLINE'
+			E.db.locplus.ttrecinst = false
+			E.db.locplus.ht = true
+			E.db.locplus.displayOther = 'NONE'
+			E.db.locplus.profcap = true
+			E.db.locplus.shadow = true
+			E.db.locplus.customCoordsColor = 1
+			E.db.locplus.dig = false
+			E.db.locplus.showicon = false
+			E.db.locplus.ttlvl = false
+			E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
+			E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
 		end
 	end
 	
@@ -824,39 +830,57 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
+	-- ElvUI_S&L
+	if IsAddOnLoaded('ElvUI_SLE') then
+		do
+			E.db.sle.flares.backdrop = true
+			E.db.sle.flares.showinside = true
+			E.db.sle.media.fonts.gossip.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.gossip.size = 11
+			E.db.sle.media.fonts.zone.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.editbox.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.subzone.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.mail.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.pvp.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.itemdurability.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.itemenchant.mouseover = true
+			E.db.sle.characterframeoptions.itemenchant.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.itemgem.socketSize = 16
+			E.db.sle.characterframeoptions.itemgem.warningSize = 13
+			E.db.sle.characterframeoptions.shownormalgradient = false
+			E.db.sle.characterframeoptions.itemlevel.font = 'Merathilis Prototype'
+		end
+	end
 	-- ElvUI_VisualAuraTimer
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		do
-			E.private.VAT.staticColor.r = 1
-			E.private.VAT.staticColor.g = 0.5
-			E.private.VAT.staticColor.b = 0
-			E.private.VAT.noduration = false
-			E.private.VAT.spacing = -1
-			E.private.VAT.backdropTexture = 'MerathilisFlat'
-			E.private.VAT.enableStaticColor = true
-			E.private.VAT.threshold.debuffsvalue = 20
-			E.private.VAT.threshold.buffsvalue = 10
-			E.private.VAT.threshold.buffs = true
-			E.private.VAT.threshold.tempenchants = true
-			E.private.VAT.colors.hoursIndicator.g = 0.490196078431373
-			E.private.VAT.colors.hoursIndicator.b = 0.0392156862745098
-			E.private.VAT.colors.minutesIndicator.r = 1
-			E.private.VAT.colors.minutesIndicator.g = 0.5
-			E.private.VAT.colors.minutesIndicator.b = 0
-			E.private.VAT.colors.hourminutesIndicator.r = 1
-			E.private.VAT.colors.hourminutesIndicator.g = 0.5
-			E.private.VAT.colors.hourminutesIndicator.b = 0
-			E.private.VAT.colors.expireIndicator.r = 1
-			E.private.VAT.colors.expireIndicator.g = 0.5
-			E.private.VAT.colors.expireIndicator.b = 0
-			E.private.VAT.colors.secondsIndicator.r = 1
-			E.private.VAT.colors.secondsIndicator.g = 0.5
-			E.private.VAT.colors.secondsIndicator.b = 0
-			E.private.VAT.colors.daysIndicator.r = 1
-			E.private.VAT.colors.daysIndicator.g = 0.5
-			E.private.VAT.colors.daysIndicator.b = 0
-			E.private.VAT.decimalThreshold = 5
-			E.private.VAT.statusbarTexture = 'MerathilisFlat'
+			E.db.VAT.enableStaticColor = true
+			E.db.VAT.barHeight = 5
+			E.db.VAT.spacing = -5
+			E.db.VAT.staticColor.r = 1
+			E.db.VAT.staticColor.g = 0.5
+			E.db.VAT.staticColor.b = 0
+			E.db.VAT.showText = false
+			E.db.VAT.colors.minutesIndicator.r = 1
+			E.db.VAT.colors.minutesIndicator.g = 0.5
+			E.db.VAT.colors.minutesIndicator.b = 0
+			E.db.VAT.colors.hourminutesIndicator.r = 1
+			E.db.VAT.colors.hourminutesIndicator.g = 0.5
+			E.db.VAT.colors.hourminutesIndicator.b = 0
+			E.db.VAT.colors.expireIndicator.r = 1
+			E.db.VAT.colors.expireIndicator.g = 0.5
+			E.db.VAT.colors.expireIndicator.b = 0
+			E.db.VAT.colors.secondsIndicator.r = 1
+			E.db.VAT.colors.secondsIndicator.g = 0.5
+			E.db.VAT.colors.secondsIndicator.b = 0
+			E.db.VAT.colors.daysIndicator.r = 1
+			E.db.VAT.colors.daysIndicator.g = 0.5
+			E.db.VAT.colors.daysIndicator.b = 0
+			E.db.VAT.colors.hoursIndicator.r = 1
+			E.db.VAT.colors.hoursIndicator.r = 0.5
+			E.db.VAT.colors.hoursIndicator.r = 0
+			E.db.VAT.statusbarTexture = 'MerathilisFlat'
+			E.db.VAT.position = 'BOTTOM'
 		end
 	end
 	
