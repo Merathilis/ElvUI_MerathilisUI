@@ -541,30 +541,26 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -183, -134)
 		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOPRIGHT', 0, -140)
 		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 61, 213)
-		SetMoverPosition('ElvAB_9', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 334)
 		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 		SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
 		SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -262, 0)
-		SetMoverPosition('ElvAB_10', 'BOTTOM', E.UIParent, 'BOTTOM', -2, 288)
 		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -462, 62)
 		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
 		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
 		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 325, -195)
 		SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 462, 43)
-		SetMoverPosition('ElvAB_8', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -519, 57)
 		SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
 		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -257, 61)
-		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 257, 61)
-		SetMoverPosition('ElvAB_7', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 520, 375)
+		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 259, 69)
 		SetMoverPosition('ReputationBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 88, 17)
-		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 97)
-		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 61)
+		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 99)
+		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 62)
 		SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 50, 214)
 		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 189, 201)
 		SetMoverPosition('ElvUF_Raid25Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 200)
 		SetMoverPosition('ExperienceBarMover', 'TOP', E.UIParent, 'TOP', 307, -290)
-		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 905, 136)
+		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 898, 0)
 		SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
 		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -1, 349)
 		SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 407)
@@ -577,9 +573,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -189, 162)
 		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 25, 725)
 		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -61, 56)
-		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -189, 201)
+		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -189, 190)
 		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -119)
-		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 189, 162)
+		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 189, 150)
 		SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
 		SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 8, -29)
 		SetMoverPosition('ObjectiveFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -200, -281)
@@ -638,7 +634,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.bui.garrisonCurrency = true
 			E.db.bui.middleDatatext.styled = true
 			E.db.bui.middleDatatext.backdrop = true
-			E.db.bui.middleDatatext.width = 416
+			E.db.bui.middleDatatext.width = 423
 			E.db.bui.transparentDts = true
 			E.db.bui.garrisonCurrencyOil = true
 			E.db.bui.LoginMsg = false
@@ -849,6 +845,29 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 			E.db.sle.characterframeoptions.itemgem.warningSize = 13
 			E.db.sle.characterframeoptions.shownormalgradient = false
 			E.db.sle.characterframeoptions.itemlevel.font = 'Merathilis Prototype'
+			E.db.sle.Armory.Inspect.Enable = false
+			E.db.sle.Armory.Character.Durability.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Durability.FontSize = 11
+			E.db.sle.Armory.Character.Level.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Level.FontSize = 11
+			E.db.sle.Armory.Character.Gem.SocketSize = 15
+			E.db.sle.Armory.Character.Enchant.Display = 'MouseoverOnly'
+			E.db.sle.Armory.Character.Enchant.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Enchant.FontSize = 11
+			E.db.sle.lootwin = true
+			E.db.sle.loot.enbable = true
+			E.db.sle.loot.autoroll.autogreed = true
+			E.db.sle.farm.autotarget = true
+			E.db.sle.farm.quest = true
+			E.db.sle.dt.friends.sortBN = 'revTOONNAME'
+			E.db.sle.dt.friends.totals = true
+			E.db.sle.dt.friends.expandBNBroadcast = true
+			E.db.sle.dt.friends.hide_hintline = true
+			E.db.sle.dt.guild.minimize_gmotd = false
+			E.db.sle.dt.guild.hide_guildname = true
+			E.db.sle.dt.guild.totals = true
+			E.db.sle.dt.guild.hide_hintline = true
+			E.db.sle.uibottons.rfunc.enable = false
 		end
 	end
 	-- ElvUI_VisualAuraTimer
@@ -887,7 +906,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
-		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 33)
+		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 35)
 	end
 	
 	print('MerathilisUI Setup is done. Please Reload')
@@ -923,7 +942,7 @@ end
 E:RegisterModule(MER:GetName())
 
 StaticPopupDialogs["merathilis"] = {
-	text = L[".:: Welcome to MerathilisUI v"]..version..L[" ::.\nPress OK if you want to apply my settings."],
+	text = L[".:: Welcome to |cff1784d1MerathilisUI|r v"]..version..L[" ::.\nPress OK if you want to apply my settings."],
 	button1 = L['OK'],
 	button2 = L['No thanks'],
 	-- Use the folling line when done with your settings
