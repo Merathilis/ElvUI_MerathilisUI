@@ -550,14 +550,14 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 325, -195)
 		SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 462, 43)
 		SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
-		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -257, 61)
-		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 259, 69)
+		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -268, 62)
+		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 268, 62)
 		SetMoverPosition('ReputationBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 88, 17)
 		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 99)
 		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 62)
 		SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 50, 214)
-		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 189, 201)
+		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 204, 190)
 		SetMoverPosition('ElvUF_Raid25Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 200)
 		SetMoverPosition('ExperienceBarMover', 'TOP', E.UIParent, 'TOP', 307, -290)
 		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 898, 0)
@@ -573,9 +573,8 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -189, 162)
 		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 25, 725)
 		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -61, 56)
-		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -189, 190)
+		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -205, 190)
 		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -119)
-		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 189, 150)
 		SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
 		SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 8, -29)
 		SetMoverPosition('ObjectiveFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -200, -281)
@@ -583,8 +582,9 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 		SetMoverPosition('Bottom_Panel_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 260, 1)
 		SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 12, 526)
-		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 221)
-		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 169)
+		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 210)
+		SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 182)
+		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 160)
 		SetMoverPosition('MarkMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 167)
 		SetMoverPosition('PlayerPortraitMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 584, 177)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 242, 810)
@@ -826,50 +826,6 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
-	-- ElvUI_S&L
-	if IsAddOnLoaded('ElvUI_SLE') then
-		do
-			E.db.sle.flares.backdrop = true
-			E.db.sle.flares.showinside = true
-			E.db.sle.media.fonts.gossip.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.gossip.size = 11
-			E.db.sle.media.fonts.zone.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.editbox.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.subzone.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.mail.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.pvp.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.itemdurability.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.itemenchant.mouseover = true
-			E.db.sle.characterframeoptions.itemenchant.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.itemgem.socketSize = 16
-			E.db.sle.characterframeoptions.itemgem.warningSize = 13
-			E.db.sle.characterframeoptions.shownormalgradient = false
-			E.db.sle.characterframeoptions.itemlevel.font = 'Merathilis Prototype'
-			E.db.sle.Armory.Inspect.Enable = false
-			E.db.sle.Armory.Character.Durability.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Durability.FontSize = 11
-			E.db.sle.Armory.Character.Level.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Level.FontSize = 11
-			E.db.sle.Armory.Character.Gem.SocketSize = 15
-			E.db.sle.Armory.Character.Enchant.Display = 'MouseoverOnly'
-			E.db.sle.Armory.Character.Enchant.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Enchant.FontSize = 11
-			E.db.sle.lootwin = true
-			E.db.sle.loot.enbable = true
-			E.db.sle.loot.autoroll.autogreed = true
-			E.db.sle.farm.autotarget = true
-			E.db.sle.farm.quest = true
-			E.db.sle.dt.friends.sortBN = 'revTOONNAME'
-			E.db.sle.dt.friends.totals = true
-			E.db.sle.dt.friends.expandBNBroadcast = true
-			E.db.sle.dt.friends.hide_hintline = true
-			E.db.sle.dt.guild.minimize_gmotd = false
-			E.db.sle.dt.guild.hide_guildname = true
-			E.db.sle.dt.guild.totals = true
-			E.db.sle.dt.guild.hide_hintline = true
-			E.db.sle.uibottons.rfunc.enable = false
-		end
-	end
 	-- ElvUI_VisualAuraTimer
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		do
