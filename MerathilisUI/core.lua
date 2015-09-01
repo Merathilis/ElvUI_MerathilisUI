@@ -5,6 +5,8 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, ns = ...
 
+MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
+
 -- Profile (if this gets big, move it to a seperate file but load before your core.lua. Put it in the .toc file)
 -- In case you create options, also add them here
 P['Merathilis'] = {
@@ -895,8 +897,6 @@ function MER:Initialize()
 	end
 end
 
-local version = GetAddOnMetadata("MerathilisUI", "Version") -- with this we get the addon version from toc file
-
 SLASH_MERATHILISUI1 = '/muisetup' -- doesn't allow spaces... this way :P Ususally spaces are used if you want to add different commands like /mui setup and /mui datatexts but a function should be made to handle those
 SlashCmdList["MERATHILISUI"] = function()
 	StaticPopup_Show("merathilis")
@@ -905,7 +905,7 @@ end
 E:RegisterModule(MER:GetName())
 
 StaticPopupDialogs["merathilis"] = {
-	text = L[".:: Welcome to |cff1784d1MerathilisUI|r v"]..version..L[" ::.\nPress OK if you want to apply my settings."],
+	text = L[".:: Welcome to |cff1784d1MerathilisUI|r v"]..MER.Version..L[" ::.\nPress OK if you want to apply my settings."],
 	button1 = L['OK'],
 	button2 = L['No thanks'],
 	-- Use the folling line when done with your settings

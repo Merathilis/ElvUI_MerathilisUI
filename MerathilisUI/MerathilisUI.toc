@@ -12,4 +12,4 @@ media\load_media.xml
 core.lua
 modules\unitframes\unithover.lua
 modules\datatexts\specswitch.lua
-modules\misc\misc.lua
+modules\misc\load_misc.xml
