@@ -5,7 +5,6 @@
 ## Title: |cff1784d1MerathilisUI
 ## Notes: My UI Settings
 ## RequiredDeps: ElvUI
-## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
 
 locales\load_locales.xml
@@ -13,3 +12,4 @@ media\load_media.xml
 core.lua
 modules\unitframes\unithover.lua
 modules\datatexts\specswitch.lua
+modules\misc\misc.lua

@@ -16,3 +16,6 @@ LSM:Register('statusbar','MerathilisMelliDark', [[Interface\AddOns\MerathilisUI\
 LSM:Register('statusbar','MerathilisEmpty', [[Interface\AddOns\MerathilisUI\media\textures\Empty.tga]])
 LSM:Register('statusbar','MerathilisKait1', [[Interface\AddOns\MerathilisUI\media\textures\Kait1.tga]])
 LSM:Register('statusbar','MerathilisKait2', [[Interface\AddOns\MerathilisUI\media\textures\Kait2.tga]])
+LSM:Register('statusbar','MerathilisnormTex', [[Interface\AddOns\MerathilisUI\media\textures\normTex.tga]])
+LSM:Register('statusbar','Merathilisblank', [[Interface\AddOns\MerathilisUI\media\textures\blank.tga]])
+LSM:Register('sounds','warning', [[Interface\AddOns\MerathilisUI\media\sounds\warning.ogg]])
