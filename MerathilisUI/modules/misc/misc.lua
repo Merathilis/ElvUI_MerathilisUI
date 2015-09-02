@@ -1,6 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 
---[[Quest Rewards]]--
+-- Quest Rewards
 local QuestReward = CreateFrame("Frame")
 QuestReward:SetScript("OnEvent", function(self, event, ...) self[event](...) end)
 
@@ -50,7 +50,7 @@ QuestReward:Register("QUEST_COMPLETE", function()
 	end
 end, true)
 
---[[Fixes for Blizzard issues]]--
+-- Fixes for Blizzard issues
 hooksecurefunc("StaticPopup_Show", function(which)
 	if which == "DEATH" and not UnitIsDeadOrGhost("player") then StaticPopup_Hide("DEATH") end
 end)
@@ -83,10 +83,7 @@ else
 	end)
 end
 
---[[Blizzard taint fixes for 5.4.1]]--
-setfenv(FriendsFrame_OnShow, setmetatable({ UpdateMicroButtons = function() end }, { __index = _G }))
-
---[[Taintfix for Talents & gylphs]]--
+-- Taintfix for Talents & gylphs
 local function hook()
 	PlayerTalentFrame_Toggle = function()
 	if not PlayerTalentFrame:IsShown() then
@@ -127,7 +124,7 @@ else
 	end)
 end
 
---[[RaidInfoBugfix]]--
+-- RaidInfoBugfix
 function RaidInfoFrame_Update(scrollToSelected)
 	RaidInfoFrame_UpdateSelectedIndex();
 	
@@ -256,7 +253,7 @@ RaidInfoScrollFrame.update = RaidInfoFrame_Update
 RaidInfoScrollFrame:SetScript('OnShow', RaidInfoFrame_Update)
 RaidInfoFrame_Update()
 
---[[Automatic achievement screenshot]]--
+-- Automatic achievement screenshot
 if IsAddOnLoaded('ElvUI') then
 	local function TakeScreen(delay, func, ...)
 		local waitTable = {}
@@ -287,3 +284,24 @@ if IsAddOnLoaded('ElvUI') then
 	frame:RegisterEvent("ACHIEVEMENT_EARNED")
 	frame:SetScript("OnEvent", OnEvent)
 end
+
+-- Fix blank tooltip
+local FixTooltip = CreateFrame("Frame")
+FixTooltip:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+FixTooltip:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
+FixTooltip:SetScript("OnEvent", function()
+	for i = 1, 12 do
+		local button = _G["ActionButton" .. i]
+		if GameTooltip:GetOwner() == button then
+			GameTooltip:Hide()
+		end
+	end
+end)
+
+local FixTooltipBags = CreateFrame("Frame")
+FixTooltipBags:RegisterEvent("BAG_UPDATE_DELAYED")
+FixTooltipBags:SetScript("OnEvent", function()
+	if StuffingFrameBags and StuffingFrameBags:IsShown() then
+		GameTooltip:Hide()
+	end
+end)
