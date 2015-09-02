@@ -1,6 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="afk.lua"/>
-	<Script file="alreadyknown.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="misc.lua"/>
 </Ui>
