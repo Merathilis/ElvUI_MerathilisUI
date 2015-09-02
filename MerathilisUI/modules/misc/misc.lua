@@ -286,27 +286,6 @@ if IsAddOnLoaded('ElvUI') then
 	frame:SetScript("OnEvent", OnEvent)
 end
 
--- Fix blank tooltip
-local FixTooltip = CreateFrame("Frame")
-FixTooltip:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-FixTooltip:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
-FixTooltip:SetScript("OnEvent", function()
-	for i = 1, 12 do
-		local button = _G["ActionButton" .. i]
-		if GameTooltip:GetOwner() == button then
-			GameTooltip:Hide()
-		end
-	end
-end)
-
-local FixTooltipBags = CreateFrame("Frame")
-FixTooltipBags:RegisterEvent("BAG_UPDATE_DELAYED")
-FixTooltipBags:SetScript("OnEvent", function()
-	if StuffingFrameBags and StuffingFrameBags:IsShown() then
-		GameTooltip:Hide()
-	end
-end)
-
 -- Hide header art & restyle text(From DuffedUI)
 if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 	hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
@@ -321,15 +300,6 @@ if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 		end
 	end)
 end
-
---Code Taken from Tukui v16
-local RemoveTexture = function(self, texture)
-	if texture and (string.sub(texture, 1, 9) == "Interface" or string.sub(texture, 1, 9) == "INTERFACE") then
-		self:SetTexture("")
-	end
-end
-hooksecurefunc(DraenorZoneAbilityFrame.SpellButton.Style, 'SetTexture', RemoveTexture)
-hooksecurefunc(ExtraActionButton1.style, 'SetTexture', RemoveTexture)
 
 -- Force readycheck warning
 local ShowReadyCheckHook = function(self, initiator)
@@ -385,21 +355,3 @@ LFDParentFrame:HookScript("OnShow",function()
 		if(isHoliday and not GetLFGDungeonRewards(id)) then LFDQueueFrame_SetType(id) end
 	end
 end)
-
--- Remove Boss Emote spam during BG(ArathiBasin SpamFix by Partha)
-local Fixer = CreateFrame("Frame")
-local RaidBossEmoteFrame, spamDisabled = RaidBossEmoteFrame
-
-local function DisableSpam()
-	if GetZoneText() == L_ZONE_ARATHIBASIN or GetZoneText() == L_ZONE_GILNEAS then
-		RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
-		spamDisabled = true
-	elseif spamDisabled then
-		RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
-		spamDisabled = false
-	end
-end
-
-Fixer:RegisterEvent("PLAYER_ENTERING_WORLD")
-Fixer:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-Fixer:SetScript("OnEvent", DisableSpam)
