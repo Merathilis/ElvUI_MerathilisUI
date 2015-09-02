@@ -1,5 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local UF = E:GetModule('UnitFrames')
+local UF = E:GetModule('UnitFrames');
 local MER = E:GetModule('MerathilisUI');
 
 -- mouseover classcolor

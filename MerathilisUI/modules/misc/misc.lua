@@ -1,4 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI');
 
 -- Quest Rewards
 local QuestReward = CreateFrame("Frame")
@@ -305,3 +306,100 @@ FixTooltipBags:SetScript("OnEvent", function()
 		GameTooltip:Hide()
 	end
 end)
+
+-- Hide header art & restyle text(From DuffedUI)
+if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
+	hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+		if ObjectiveTrackerFrame.MODULES then
+			for i = 1, #ObjectiveTrackerFrame.MODULES do
+				ObjectiveTrackerFrame.MODULES[i].Header.Background:SetAtlas(nil)
+				ObjectiveTrackerFrame.MODULES[i].Header.Text:SetFont(STANDARD_TEXT_FONT, 15)
+				ObjectiveTrackerFrame.MODULES[i].Header.Text:ClearAllPoints()
+				ObjectiveTrackerFrame.MODULES[i].Header.Text:SetPoint("RIGHT", ObjectiveTrackerFrame.MODULES[i].Header, -62, 0)
+				ObjectiveTrackerFrame.MODULES[i].Header.Text:SetJustifyH("LEFT")
+			end
+		end
+	end)
+end
+
+--Code Taken from Tukui v16
+local RemoveTexture = function(self, texture)
+	if texture and (string.sub(texture, 1, 9) == "Interface" or string.sub(texture, 1, 9) == "INTERFACE") then
+		self:SetTexture("")
+	end
+end
+hooksecurefunc(DraenorZoneAbilityFrame.SpellButton.Style, 'SetTexture', RemoveTexture)
+hooksecurefunc(ExtraActionButton1.style, 'SetTexture', RemoveTexture)
+
+-- Force readycheck warning
+local ShowReadyCheckHook = function(self, initiator)
+	if initiator ~= "player" then
+		PlaySound("ReadyCheck", "Master")
+	end
+end
+hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
+
+-- Force other warning
+local ForceWarning = CreateFrame("Frame")
+ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
+ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
+ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
+ForceWarning:RegisterEvent("RESURRECT_REQUEST")
+ForceWarning:SetScript("OnEvent", function(self, event)
+	if event == "UPDATE_BATTLEFIELD_STATUS" then
+		for i = 1, GetMaxBattlefieldID() do
+			local status = GetBattlefieldStatus(i)
+			if status == "confirm" then
+				PlaySound("PVPTHROUGHQUEUE", "Master")
+				break
+			end
+			i = i + 1
+		end
+	elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
+		PlaySound("PVPTHROUGHQUEUE", "Master")
+	elseif event == "LFG_PROPOSAL_SHOW" then
+		PlaySound("ReadyCheck", "Master")
+	elseif event == "RESURRECT_REQUEST" then
+		PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
+	end
+end)
+
+-- Misclicks for some popups
+StaticPopupDialogs.RESURRECT.hideOnEscape = nil
+StaticPopupDialogs.AREA_SPIRIT_HEAL.hideOnEscape = nil
+StaticPopupDialogs.PARTY_INVITE.hideOnEscape = nil
+StaticPopupDialogs.PARTY_INVITE_XREALM.hideOnEscape = nil
+StaticPopupDialogs.CONFIRM_SUMMON.hideOnEscape = nil
+StaticPopupDialogs.ADDON_ACTION_FORBIDDEN.button1 = nil
+StaticPopupDialogs.TOO_MANY_LUA_ERRORS.button1 = nil
+PetBattleQueueReadyFrame.hideOnEscape = nil
+PVPReadyDialog.leaveButton:Hide()
+PVPReadyDialog.enterButton:ClearAllPoints()
+PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
+
+-- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
+LFDParentFrame:HookScript("OnShow",function()
+	for i=1,GetNumRandomDungeons() do
+		local id,name=GetLFGRandomDungeonInfo(i)
+		local isHoliday=select(15,GetLFGDungeonInfo(id))
+		if(isHoliday and not GetLFGDungeonRewards(id)) then LFDQueueFrame_SetType(id) end
+	end
+end)
+
+-- Remove Boss Emote spam during BG(ArathiBasin SpamFix by Partha)
+local Fixer = CreateFrame("Frame")
+local RaidBossEmoteFrame, spamDisabled = RaidBossEmoteFrame
+
+local function DisableSpam()
+	if GetZoneText() == L_ZONE_ARATHIBASIN or GetZoneText() == L_ZONE_GILNEAS then
+		RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
+		spamDisabled = true
+	elseif spamDisabled then
+		RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
+		spamDisabled = false
+	end
+end
+
+Fixer:RegisterEvent("PLAYER_ENTERING_WORLD")
+Fixer:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+Fixer:SetScript("OnEvent", DisableSpam)

@@ -10,6 +10,7 @@
 locales\load_locales.xml
 media\load_media.xml
 core.lua
-modules\unitframes\unithover.lua
 modules\datatexts\specswitch.lua
 modules\misc\load_misc.xml
+modules\quest\load_quest.xml
+modules\unitframes\unithover.lua
