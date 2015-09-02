@@ -283,7 +283,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.unitframe.units.player.customTexts.LevelClass.yOffset = -7
 		E.db.unitframe.units.player.customTexts.LevelClass.size = 12
 		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
-		E.db.unitframe.units.player.health.xOffset = 5
+		E.db.unitframe.units.player.health.xOffset = -3
 		E.db.unitframe.units.player.health.yOffset = -33
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
@@ -896,14 +896,13 @@ function MER:Initialize()
 	if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
 		StaticPopup_Show("merathilis")
 	end
+	print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
 end
 
 SLASH_MERATHILISUI1 = '/muisetup' -- doesn't allow spaces... this way :P Ususally spaces are used if you want to add different commands like /mui setup and /mui datatexts but a function should be made to handle those
 SlashCmdList["MERATHILISUI"] = function()
 	StaticPopup_Show("merathilis")
 end
-
-E:RegisterModule(MER:GetName())
 
 StaticPopupDialogs["merathilis"] = {
 	text = L[".:: Welcome to |cff1784d1MerathilisUI|r v"]..MER.Version..L[" ::.\nPress OK if you want to apply my settings."],
@@ -921,3 +920,5 @@ StaticPopupDialogs["merathilis"] = {
 	hideOnEscape = false,
 	preferredIndex = 3,
 }
+
+E:RegisterModule(MER:GetName())

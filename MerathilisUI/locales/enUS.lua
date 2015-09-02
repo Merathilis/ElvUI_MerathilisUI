@@ -5,6 +5,7 @@ if not L then return; end
 
 L[".:: Welcome to |cff1784d1MerathilisUI|r v"] = true
 L[" ::.\nPress OK if you want to apply my settings."] = true
+L[' is loaded.'] = true
 L['OK'] = true
 L['No thanks'] = true
 
