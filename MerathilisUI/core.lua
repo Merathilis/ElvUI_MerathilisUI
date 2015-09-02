@@ -841,7 +841,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		do
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.barHeight = 5
-			E.db.VAT.spacing = -5
+			E.db.VAT.spacing = 0
 			E.db.VAT.staticColor.r = 1
 			E.db.VAT.staticColor.g = 0.5
 			E.db.VAT.staticColor.b = 0
