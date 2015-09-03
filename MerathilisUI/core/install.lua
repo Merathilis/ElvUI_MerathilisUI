@@ -965,6 +965,6 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	-- Setup is done so set our option to true, so the Setup won't run again on this player.
 	-- Enable it when you are done with the settings
 	
-	--E.db.mer.installed = true
+	--E.db.Merathilis.installed = true
 
 end
