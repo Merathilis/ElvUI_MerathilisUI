@@ -14,7 +14,25 @@ P['Merathilis'] = {
 	['installed'] = nil,
 }
 
+function MER:RegisterMerMedia()
+	--Fonts
+	E['media'].muiFont = LSM:Fetch('font', 'Merathilis Prototype')
+	E['media'].muiVisitor = LSM:Fetch('font', 'Merathilis Visitor1')
+	E['media'].muiVisitor2 = LSM:Fetch('font', 'Merathilis Visitor2')
+	E['media'].muiTuk = LSM:Fetch('font', 'Merathilis Tukui')
+	
+	--Textures
+	E['media'].MuiEmpty = LSM:Fetch('statusbar', 'MerathilisEmpty')
+	E['media'].MuiFlat = LSM:Fetch('statusbar', 'MerathilisFlat')
+	E['media'].MuiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
+	E['media'].MuiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
+	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
+end
+
 function MER:Initialize()
+	self:RegisterMerMedia()
+	--self:LoadCommands() -- Run the register commands function
+	
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
 	-- This is a check so that your setup won't run everytime you login
 	-- Enable it when you are done
@@ -26,7 +44,6 @@ function MER:Initialize()
 	
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--SetupUI()
-	--self:LoadCommands() -- Run the register commands function
 	
 	if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
 		StaticPopup_Show("merathilis")
