@@ -18,7 +18,11 @@ function MER:Initialize()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
 	-- This is a check so that your setup won't run everytime you login
 	-- Enable it when you are done
-	--if E.private.install_complete == E.version and E.db.mer.installed == nil then SetupUI() end
+	--if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then SetupUI() end
+	
+	-- run the setup again when a profile gets deleted.
+	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
+	if ElvDB.profileKeys and profileKey == nil then SetupUI() end
 	
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--SetupUI()
