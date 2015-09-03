@@ -9,7 +9,7 @@
 
 locales\load_locales.xml
 media\load_media.xml
-core.lua
+core\load_core.xml
 modules\datatexts\specswitch.lua
 modules\misc\load_misc.xml
 modules\quest\load_quest.xml

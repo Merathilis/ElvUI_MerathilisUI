@@ -1,18 +1,5 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local MER = E:NewModule('MerathilisUI', "AceConsole-3.0");
-
-local LSM = LibStub('LibSharedMedia-3.0')
-local EP = LibStub('LibElvUIPlugin-1.0')
-local addon, ns = ...
-
-MER.Title = string.format('|cff00c0fa%s |r', 'MerathilisUI') -- maybe for the Future
-MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
-
--- Profile (if this gets big, move it to a seperate file but load before your core.lua. Put it in the .toc file)
--- In case you create options, also add them here
-P['Merathilis'] = {
-	['installed'] = nil,
-}
+local MER = E:GetModule('MerathilisUI');
 
 -- local means that this function is used in this file only and cannot be accessed from other files/addons.
 -- A local function must be above the global ones (e.g. MER:SetupUI()). Globals can be accessed from other files/addons
@@ -27,7 +14,7 @@ local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 end
 
 -- local functions must go up
-local function SetupUI() -- this cannot be local when using the module name (MER)
+function SetupUI() -- this cannot be local when using the module name (MER)
 	-- Here you put ElvUI settings that you want enabled or not.
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
@@ -109,7 +96,7 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		E.db.auras.font = 'Merathilis Prototype'
 		E.db.auras.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.fontSize = 11
-		E.db.auras.consolidatedBuffs.font = 'Merathilis Prototype'
+		E.db.auras.consolidatedBuffs.font = 'Merathilis Visitor1'
 		E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.filter = false
 		E.db.auras.buffs.fontSize = 12
@@ -698,6 +685,39 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
+	-- ElvUI_VisualAuraTimer
+	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
+		do
+			E.db.VAT.enableStaticColor = true
+			E.db.VAT.barHeight = 5
+			E.db.VAT.spacing = 0
+			E.db.VAT.staticColor.r = 1
+			E.db.VAT.staticColor.g = 0.5
+			E.db.VAT.staticColor.b = 0
+			E.db.VAT.showText = false
+			E.db.VAT.colors.minutesIndicator.r = 1
+			E.db.VAT.colors.minutesIndicator.g = 0.5
+			E.db.VAT.colors.minutesIndicator.b = 0
+			E.db.VAT.colors.hourminutesIndicator.r = 1
+			E.db.VAT.colors.hourminutesIndicator.g = 0.5
+			E.db.VAT.colors.hourminutesIndicator.b = 0
+			E.db.VAT.colors.expireIndicator.r = 1
+			E.db.VAT.colors.expireIndicator.g = 0.5
+			E.db.VAT.colors.expireIndicator.b = 0
+			E.db.VAT.colors.secondsIndicator.r = 1
+			E.db.VAT.colors.secondsIndicator.g = 0.5
+			E.db.VAT.colors.secondsIndicator.b = 0
+			E.db.VAT.colors.daysIndicator.r = 1
+			E.db.VAT.colors.daysIndicator.g = 0.5
+			E.db.VAT.colors.daysIndicator.b = 0
+			E.db.VAT.colors.hoursIndicator.r = 1
+			E.db.VAT.colors.hoursIndicator.r = 0.5
+			E.db.VAT.colors.hoursIndicator.r = 0
+			E.db.VAT.statusbarTexture = 'MerathilisFlat'
+			E.db.VAT.position = 'BOTTOM'
+		end
+	end
+	
 	-- Skada
 	if IsAddOnLoaded('Skada') then
 		do
@@ -836,39 +856,105 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 		end
 	end
 	
-	-- ElvUI_VisualAuraTimer
-	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
+	if IsAddOnLoaded('BigWigs') then
 		do
-			E.db.VAT.enableStaticColor = true
-			E.db.VAT.barHeight = 5
-			E.db.VAT.spacing = 0
-			E.db.VAT.staticColor.r = 1
-			E.db.VAT.staticColor.g = 0.5
-			E.db.VAT.staticColor.b = 0
-			E.db.VAT.showText = false
-			E.db.VAT.colors.minutesIndicator.r = 1
-			E.db.VAT.colors.minutesIndicator.g = 0.5
-			E.db.VAT.colors.minutesIndicator.b = 0
-			E.db.VAT.colors.hourminutesIndicator.r = 1
-			E.db.VAT.colors.hourminutesIndicator.g = 0.5
-			E.db.VAT.colors.hourminutesIndicator.b = 0
-			E.db.VAT.colors.expireIndicator.r = 1
-			E.db.VAT.colors.expireIndicator.g = 0.5
-			E.db.VAT.colors.expireIndicator.b = 0
-			E.db.VAT.colors.secondsIndicator.r = 1
-			E.db.VAT.colors.secondsIndicator.g = 0.5
-			E.db.VAT.colors.secondsIndicator.b = 0
-			E.db.VAT.colors.daysIndicator.r = 1
-			E.db.VAT.colors.daysIndicator.g = 0.5
-			E.db.VAT.colors.daysIndicator.b = 0
-			E.db.VAT.colors.hoursIndicator.r = 1
-			E.db.VAT.colors.hoursIndicator.r = 0.5
-			E.db.VAT.colors.hoursIndicator.r = 0
-			E.db.VAT.statusbarTexture = 'MerathilisFlat'
-			E.db.VAT.position = 'BOTTOM'
+			BigWigs3DB = {
+				["profileKeys"] = {
+					["Merathilis - Shattrath"] = "Merathilis"
+				},
+				["namespaces"] = {
+					["BigWigs_Plugins_Alt Power"] = {
+						["profiles"] = {
+							["Merathilis"] = {
+								["posx"] = 810.718497504029,
+								["fontSize"] = 10.9999990463257,
+								["lock"] = true,
+								["posy"] = 202.206108761591,
+								["fontOutline"] = "",
+								["font"] = "Merathilis Prototype",
+							},
+						},
+					},
+					["BigWigs_Plugins_Proximity"] = {
+						["profiles"] = {
+							["Merathilis"] = {
+								["posx"] = 316.168293714338,
+								["fontSize"] = 20,
+								["lock"] = false,
+								["font"] = "Merathilis Prototype",
+								["posy"] = 139.937301559658,
+								["sound"] = true,
+								["width"] = 140.000030517578,
+							},
+						},
+					},
+					["BigWigs_Plugins_Bars"] = {
+						["profiles"] = {
+							["Merathilis"] = {
+								["outline"] = "OUTLINE",
+								["fontSize"] = 20,
+								["BigWigsAnchor_width"] = 363.885375976563,
+								["BigWigsAnchor_y"] = 143.539996791631,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 951.685603728169,
+								["fill"] = false,
+								["barStyle"] = "AddOnSkins Half-Bar",
+								["monochrome"] = false,
+								["BigWigsEmphasizeAnchor_x"] = 445.301161921743,
+								["font"] = "Merathilis Roadway",
+								["BigWigsEmphasizeAnchor_y"] = 188.360327821069,
+								["texture"] = "MerathilisFlat",
+								["scale"] = 0.9,
+								["emphasizeTime"] = 14,
+								["emphasizeScale"] = 1.1,
+								["BigWigsEmphasizeAnchor_width"] = 532.931091308594,
+							},
+						},
+					},
+					["BigWigs_Plugins_Raid Icons"] = {
+					},
+					["BigWigs_Plugins_Super Emphasize"] = {
+						["profiles"] = {
+							["Merathilis"] = {
+								["font"] = "Merathilis Prototype",
+							},
+						},
+					},
+					["BigWigs_Plugins_Colors"] = {
+					},
+					["BigWigs_Plugins_Victory"] = {
+					},
+					["BigWigs_Plugins_Messages"] = {
+						["profiles"] = {
+							["Merathilis"] = {
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
+								["BWMessageAnchor_x"] = 547.937125897879,
+								["chat"] = false,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+								["font"] = "Merathilis Prototype",
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["fontSize"] = 20,
+								["growUpwards"] = true,
+							},
+						},
+					},
+					["BigWigs_Plugins_BossBlock"] = {
+					},
+				["profiles"] = {
+					["Merathilis"] = {
+						["fakeDBMVersion"] = true,
+					},
+				},
+			},
+		}
+		BigWigs3IconDB = {
+			["hide"] = true,
+		}
 		end
 	end
-	
+
 	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
@@ -882,43 +968,3 @@ local function SetupUI() -- this cannot be local when using the module name (MER
 	--E.db.mer.installed = true
 
 end
-
-function MER:Initialize()
-	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
-	-- This is a check so that your setup won't run everytime you login
-	-- Enable it when you are done
-	--if E.private.install_complete == E.version and E.db.mer.installed == nil then SetupUI() end
-	
-	-- run your setup on load for testing purposes. When you are done with the options, disable it.
-	--SetupUI()
-	--self:LoadCommands() -- Run the register commands function
-	
-	if E.private.install_complete == E.version and E.db.Merathilis.installed == nil then -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
-		StaticPopup_Show("merathilis")
-	end
-	print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
-end
-
-SLASH_MERATHILISUI1 = '/muisetup' -- doesn't allow spaces... this way :P Ususally spaces are used if you want to add different commands like /mui setup and /mui datatexts but a function should be made to handle those
-SlashCmdList["MERATHILISUI"] = function()
-	StaticPopup_Show("merathilis")
-end
-
-StaticPopupDialogs["merathilis"] = {
-	text = L[".:: Welcome to |cff1784d1MerathilisUI|r v"]..MER.Version..L[" ::.\nPress OK if you want to apply my settings."],
-	button1 = L['OK'],
-	button2 = L['No thanks'],
-	-- Use the folling line when done with your settings
-	--OnAccept = function() E.db.Merathilis.installed = true; SetupUI(); PlaySoundFile([[Sound\Interface\LevelUp.ogg]]) end, -- we set the default value to true, so it won't popup again and then run the Setup function plus I added the lvl sound :P
-	
-	-- Following line is for testing purposes. Doesn't set the option to true, so the message will pop everytime
-	OnAccept = function() SetupUI(); PlaySoundFile([[Sound\Interface\LevelUp.ogg]]) end, -- we set the default value to true, so it won't popup again and then run the Setup function plus I added the lvl sound :P
-	
-	OnCancel = function() end, -- do nothing
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-	preferredIndex = 3,
-}
-
-E:RegisterModule(MER:GetName())
