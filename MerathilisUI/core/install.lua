@@ -1259,6 +1259,605 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		end
 	end
 	
+	if IsAddOnLoaded('xCT+') then
+		do
+			xCTSavedDB['profiles']["Merathilis - Shattrath"] = {
+				["frames"] = {
+					["general"] = {
+						["fontOutline"] = "2OUTLINE",
+						["font"] = "Merathilis Tukui",
+						["colors"] = {
+							["auras"] = {
+								["colors"] = {
+									["debuffsGained"] = {
+										["color"] = {
+											1, -- [1]
+											0.1, -- [2]
+											0.1, -- [3]
+										},
+									},
+									["buffsGained"] = {
+										["color"] = {
+											1, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["buffsFaded"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["debuffsFaded"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+								},
+							},
+							["killingBlow"] = {
+								["color"] = {
+									0.2, -- [1]
+									1, -- [2]
+									0.2, -- [3]
+								},
+							},
+							["combat"] = {
+								["colors"] = {
+									["combatLeaving"] = {
+										["color"] = {
+											0.1, -- [1]
+											1, -- [2]
+											0.1, -- [3]
+										},
+									},
+									["combatEntering"] = {
+										["color"] = {
+											1, -- [1]
+											0.1, -- [2]
+											0.1, -- [3]
+										},
+									},
+								},
+							},
+							["interrupts"] = {
+								["color"] = {
+									1, -- [1]
+									0.5, -- [2]
+									0, -- [3]
+								},
+							},
+							["reputation"] = {
+								["colors"] = {
+									["reputationGain"] = {
+										["color"] = {
+											0.1, -- [1]
+											0.1, -- [2]
+											1, -- [3]
+										},
+									},
+									["reputationLoss"] = {
+										["color"] = {
+											1, -- [1]
+											0.1, -- [2]
+											0.1, -- [3]
+										},
+									},
+								},
+							},
+							["lowResources"] = {
+								["colors"] = {
+									["lowResourcesMana"] = {
+										["color"] = {
+											1, -- [1]
+											0.1, -- [2]
+											0.1, -- [3]
+										},
+									},
+									["lowResourcesHealth"] = {
+										["color"] = {
+											1, -- [1]
+											0.1, -- [2]
+											0.1, -- [3]
+										},
+									},
+								},
+							},
+							["honorGains"] = {
+								["color"] = {
+									0.1, -- [1]
+									0.1, -- [2]
+									1, -- [3]
+								},
+							},
+							["dispells"] = {
+								["colors"] = {
+									["dispellBuffs"] = {
+										["color"] = {
+											0, -- [1]
+											1, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["dispellStolen"] = {
+										["color"] = {
+											0.31, -- [1]
+											0.71, -- [2]
+											1, -- [3]
+										},
+									},
+									["dispellDebuffs"] = {
+										["color"] = {
+											1, -- [1]
+											0, -- [2]
+											0.5, -- [3]
+										},
+									},
+								},
+							},
+						},
+						["enabledFrame"] = false,
+					},
+					["power"] = {
+						["enabledFrame"] = false,
+						["font"] = "Merathilis Tukui",
+						["colors"] = {
+							["color_SOUL_SHARDS"] = {
+								["color"] = {
+									0.5, -- [1]
+									0.32, -- [2]
+									0.55, -- [3]
+								},
+							},
+							["color_HOLY_POWER"] = {
+								["color"] = {
+									0.95, -- [1]
+									0.9, -- [2]
+									0.6, -- [3]
+								},
+							},
+							["color_MANA"] = {
+								["color"] = {
+									0, -- [1]
+									0, -- [2]
+									1, -- [3]
+								},
+							},
+							["color_FOCUS"] = {
+								["color"] = {
+									1, -- [1]
+									0.5, -- [2]
+									0.25, -- [3]
+								},
+							},
+							["color_CHI"] = {
+								["color"] = {
+									0.71, -- [1]
+									1, -- [2]
+									0.92, -- [3]
+								},
+							},
+							["color_RAGE"] = {
+								["color"] = {
+									1, -- [1]
+									0, -- [2]
+									0, -- [3]
+								},
+							},
+							["color_ENERGY"] = {
+								["color"] = {
+									1, -- [1]
+									1, -- [2]
+									0, -- [3]
+								},
+							},
+							["color_RUNIC_POWER"] = {
+								["color"] = {
+									0, -- [1]
+									0.82, -- [2]
+									1, -- [3]
+								},
+							},
+							["color_ECLIPSE_positive"] = {
+								["color"] = {
+									0.8, -- [1]
+									0.82, -- [2]
+									0.6, -- [3]
+								},
+							},
+							["color_RUNES"] = {
+								["color"] = {
+									0.5, -- [1]
+									0.5, -- [2]
+									0.5, -- [3]
+								},
+							},
+							["color_ECLIPSE_negative"] = {
+								["color"] = {
+									0.3, -- [1]
+									0.52, -- [2]
+									0.9, -- [3]
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+					},
+					["healing"] = {
+						["enableRealmNames"] = false,
+						["fontSize"] = 12,
+						["Width"] = 68,
+						["showFriendlyHealers"] = false,
+						["X"] = -109,
+						["colors"] = {
+							["healingTakenCritical"] = {
+								["color"] = {
+									0.1, -- [1]
+									1, -- [2]
+									0.1, -- [3]
+								},
+							},
+							["healingTaken"] = {
+								["color"] = {
+									0.1, -- [1]
+									0.75, -- [2]
+									0.1, -- [3]
+								},
+							},
+							["healingTakenPeriodic"] = {
+								["color"] = {
+									0.1, -- [1]
+									0.5, -- [2]
+									0.1, -- [3]
+								},
+							},
+							["shieldTaken"] = {
+								["color"] = {
+									0.6, -- [1]
+									0.65, -- [2]
+									1, -- [3]
+								},
+							},
+							["healingTakenPeriodicCritical"] = {
+								["color"] = {
+									0.1, -- [1]
+									0.5, -- [2]
+									0.1, -- [3]
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+						["Height"] = 218,
+						["font"] = "Merathilis Tukui",
+						["Y"] = -18,
+					},
+					["outgoing"] = {
+						["Y"] = 29,
+						["fontSize"] = 12,
+						["colors"] = {
+							["genericDamage"] = {
+								["color"] = {
+									1, -- [1]
+									0.82, -- [2]
+									0, -- [3]
+								},
+							},
+							["healingSpells"] = {
+								["colors"] = {
+									["healingOut"] = {
+										["color"] = {
+											0.1, -- [1]
+											0.75, -- [2]
+											0.1, -- [3]
+										},
+									},
+									["shieldOut"] = {
+										["color"] = {
+											0.6, -- [1]
+											0.65, -- [2]
+											1, -- [3]
+										},
+									},
+									["healingOutPeriodic"] = {
+										["color"] = {
+											0.1, -- [1]
+											0.5, -- [2]
+											0.1, -- [3]
+										},
+									},
+								},
+							},
+							["spellSchools"] = {
+								["colors"] = {
+									["SpellSchool_Nature"] = {
+										["color"] = {
+											0.3, -- [1]
+											1, -- [2]
+											0.3, -- [3]
+										},
+									},
+									["SpellSchool_Arcane"] = {
+										["color"] = {
+											1, -- [1]
+											0.5, -- [2]
+											1, -- [3]
+										},
+									},
+									["SpellSchool_Frost"] = {
+										["color"] = {
+											0.5, -- [1]
+											1, -- [2]
+											1, -- [3]
+										},
+									},
+									["SpellSchool_Physical"] = {
+										["color"] = {
+											1, -- [1]
+											1, -- [2]
+											0, -- [3]
+										},
+									},
+									["SpellSchool_Shadow"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											1, -- [3]
+										},
+									},
+									["SpellSchool_Holy"] = {
+										["color"] = {
+											1, -- [1]
+											0.9, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["SpellSchool_Fire"] = {
+										["color"] = {
+											1, -- [1]
+											0.5, -- [2]
+											0, -- [3]
+										},
+									},
+								},
+							},
+							["misstypesOut"] = {
+								["color"] = {
+									0.5, -- [1]
+									0.5, -- [2]
+									0.5, -- [3]
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+						["Height"] = 317,
+						["font"] = "Merathilis Tukui",
+						["X"] = 231,
+						["Width"] = 122,
+					},
+					["critical"] = {
+						["Y"] = 29,
+						["fontSize"] = 12,
+						["colors"] = {
+							["genericDamageCritical"] = {
+								["color"] = {
+									1, -- [1]
+									1, -- [2]
+									0, -- [3]
+								},
+							},
+							["healingSpells"] = {
+								["colors"] = {
+									["healingOutCritical"] = {
+										["color"] = {
+											0.1, -- [1]
+											1, -- [2]
+											0.1, -- [3]
+										},
+									},
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+						["Height"] = 317,
+						["font"] = "Merathilis Tukui",
+						["X"] = 150,
+						["Width"] = 96,
+					},
+					["procs"] = {
+						["fontOutline"] = "2OUTLINE",
+						["font"] = "Merathilis Tukui",
+						["colors"] = {
+							["spellReactive"] = {
+								["color"] = {
+									1, -- [1]
+									0.82, -- [2]
+									0, -- [3]
+								},
+							},
+							["spellProc"] = {
+								["color"] = {
+									1, -- [1]
+									0.82, -- [2]
+									0, -- [3]
+								},
+							},
+						},
+						["enabledFrame"] = false,
+					},
+					["loot"] = {
+						["font"] = "Merathilis Tukui",
+						["fontOutline"] = "2OUTLINE",
+						["enabledFrame"] = false,
+					},
+					["class"] = {
+						["enabledFrame"] = false,
+						["font"] = "Merathilis Tukui",
+						["colors"] = {
+							["comboPoints"] = {
+								["color"] = {
+									1, -- [1]
+									0.82, -- [2]
+									0, -- [3]
+								},
+							},
+							["comboPointsMax"] = {
+								["color"] = {
+									0, -- [1]
+									0.82, -- [2]
+									1, -- [3]
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+					},
+					["damage"] = {
+						["fontSize"] = 12,
+						["Width"] = 131,
+						["Y"] = -18,
+						["X"] = -210,
+						["colors"] = {
+							["missTypesTaken"] = {
+								["colors"] = {
+									["missTypeBlock"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeMiss"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeImmune"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeDodge"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeParry"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeResist"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeEvade"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeAbsorb"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeReflect"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeDeflect"] = {
+										["color"] = {
+											0.5, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+								},
+							},
+							["damageTakenCritical"] = {
+								["color"] = {
+									1, -- [1]
+									0.1, -- [2]
+									0.1, -- [3]
+								},
+							},
+							["spellDamageTaken"] = {
+								["color"] = {
+									0.75, -- [1]
+									0.3, -- [2]
+									0.85, -- [3]
+								},
+							},
+							["spellDamageTakenCritical"] = {
+								["color"] = {
+									0.75, -- [1]
+									0.3, -- [2]
+									0.85, -- [3]
+								},
+							},
+							["damageTaken"] = {
+								["color"] = {
+									0.75, -- [1]
+									0.1, -- [2]
+									0.1, -- [3]
+								},
+							},
+							["missTypesTakenPartial"] = {
+								["colors"] = {
+									["missTypeBlockPartial"] = {
+										["color"] = {
+											0.75, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeResistPartial"] = {
+										["color"] = {
+											0.75, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+									["missTypeAbsorbPartial"] = {
+										["color"] = {
+											0.75, -- [1]
+											0.5, -- [2]
+											0.5, -- [3]
+										},
+									},
+								},
+							},
+						},
+						["fontOutline"] = "2OUTLINE",
+						["Height"] = 218,
+						["font"] = "Merathilis Tukui",
+						["insertText"] = "bottom",
+					},
+				},
+				["dbVersion"] = "4.1.6",
+			}
+		end
+	end
+
 	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
