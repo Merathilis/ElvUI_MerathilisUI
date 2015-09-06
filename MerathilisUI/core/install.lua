@@ -20,6 +20,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	do
 	-- General
 		E.private.general.pixelPerfect = true
+		E.global.general.autoScale = false
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
@@ -69,6 +70,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonsPerRow = 3
 		E.db.actionbar.bar3.buttonsize = 30
+		E.db.actionbar.bar3.buttonspacing = 2
 		E.db.actionbar.bar3.buttons = 6
 		E.db.actionbar.bar4.buttonspacing = 4
 		E.db.actionbar.bar4.mouseover = true
@@ -76,6 +78,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.actionbar.bar5.backdrop = true
 		E.db.actionbar.bar5.buttonsPerRow = 3
 		E.db.actionbar.bar5.buttonsize = 30
+		E.db.actionbar.bar5.buttonspacing = 2
 		E.db.actionbar.bar5.buttons = 6
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
@@ -128,6 +131,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.chat.keywordSound = 'Whisper Alert'
 		E.db.chat.tabFont = 'Merathilis Roadway'
 		E.db.chat.tabFontOutline = 'OUTLINE'
+		E.db.chat.tabFontSize = 16
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
