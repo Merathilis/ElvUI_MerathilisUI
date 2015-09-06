@@ -650,9 +650,6 @@ function MER:SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.bui.abStyleColor = 1
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = true
-			E.db.dashboards.tokens.enableTokens.tooltip = false
-			E.db.dashboards.tokens.enableTokens.flash = true
-			E.db.dashboards.tokens.enableTokens.width = 168
 			E.db.dashboards.professions.enableProfessions = false
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
@@ -1877,6 +1874,7 @@ function MER:SetupUI() -- this cannot be local when using the module name (MER)
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
+		SetMoverPosition('tokenHolderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -164)
 	end
 	E:UpdateAll(true)
 	
