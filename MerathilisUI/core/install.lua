@@ -19,7 +19,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
 	do
 	-- General
-		E.private.general.pixelPerfect = false
+		E.private.general.pixelPerfect = true
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 11
@@ -126,7 +126,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	do
 	-- Chat
 		E.db.chat.keywordSound = 'Whisper Alert'
-		E.db.chat.tabFont = 'Merathilis Prototype'
+		E.db.chat.tabFont = 'Merathilis Roadway'
 		E.db.chat.tabFontOutline = 'OUTLINE'
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
@@ -136,7 +136,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.chat.panelWidth = 400
 		E.db.chat.panelHeigth = 150
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
-		E.db.chat.panelBackdrop = 'HIDEBOTH'
+		E.db.chat.panelBackdrop = 'SHOWBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI, Andy'
 		E.db.chat.timeStampFormat = '%H:%M '
 	end
@@ -355,7 +355,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
 		E.db.unitframe.units.focustarget.power.enable = true
-		E.db.unitframe.units.focustarget.power.height = 10
+		E.db.unitframe.units.focustarget.power.height = 5
 		E.db.unitframe.units.focustarget.width = 122
 		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
@@ -471,8 +471,10 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
 		E.db.unitframe.units.party.customTexts.HealthText.size = 10
 		E.db.unitframe.units.party.healPrediction = true
+		E.db.unitframe.units.party.name.xOffset = 2
+		E.db.unitframe.units.party.name.yOffset = -23
 		E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
-		E.db.unitframe.units.party.name.position = 'TOP'
+		E.db.unitframe.units.party.name.position = 'CENTER'
 		E.db.unitframe.units.party.height = 45
 		E.db.unitframe.units.party.verticalSpacing = 4
 		E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
@@ -528,49 +530,49 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
 	-- PlayerMover
-		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -192, 190)
-		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -192, 150)
+		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -192, 147)
+		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -192, 110)
 	-- TargetMover
-		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 192, 190)
-		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 192, 150)
+		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 192, 147)
+		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 192, 110)
 	-- ...
 		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
 		SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -183, -134)
 	-- AlertFrame for Garrison etc.
 		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 	-- ...
-		SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 533, 320)
-		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 61, 213)
+		SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 497, 196)
+		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 182)
 		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 		SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -56, -397)
 		SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -262, 0)
-		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -462, 62)
-		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 22)
+		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -421, 59)
+		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 200)
 		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
-		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 325, -195)
-		SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 462, 43)
+		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
+		SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 421, 8)
 		SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
-		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -262, 69)
-		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 262, 69)
-		SetMoverPosition('ReputationBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 88, 17)
-		SetMoverPosition('ExperienceBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -88, 17)
-		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 99)
-		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 62)
+		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -262, 34)
+		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 262, 34)
+		SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -404, 23)
+		SetMoverPosition('ExperienceBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 404, 23)
+		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 62)
+		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 27)
 		SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 50, 214)
-		SetMoverPosition('ElvUF_Raid25Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 200)
-		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 898, 0)
+		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 183)
+		SetMoverPosition('ElvUF_Raid25Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 183)
+		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 898, 106)
 		SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
 		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -1, 349)
-		SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 407)
+		SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -484, 240)
 		SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
 		SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
 		SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
 		SetMoverPosition('GMMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 329, 0)
-		SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 61, 56)
-		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 51, 214)
-		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 25, 725)
-		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -61, 56)
+		SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
+		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 183)
+		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
+		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
 		SetMoverPosition('tokenHolderMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -119)
 		SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
 		SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 0, -38)
@@ -578,21 +580,21 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 1, -272)
 		SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 		SetMoverPosition('Bottom_Panel_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 260, 1)
-		SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 12, 526)
-		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 209)
-		SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 182)
-		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 160)
+		SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 399)
+		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 169)
+		SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
+		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
 		SetMoverPosition('MarkMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 167)
 		SetMoverPosition('PlayerPortraitMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 584, 177)
-		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 242, 810)
+		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 698)
 		SetMoverPosition('LootFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -495, -457)
-		SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 535, 252)
+		SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 524, 131)
 		SetMoverPosition('ElvUF_Raid10Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 1, 282)
 		SetMoverPosition('NemoMover', 'TOP', E.UIParent, 'TOP', -277, -540)
-		SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -183, -3)
-		SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 473)
+		SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -183, -9)
+		SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -484, 268)
 		SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
-		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -432, 394)
+		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -484, 230)
 	end
 	
 	-- Addons
@@ -669,7 +671,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.locplus.petlevel = false
 			E.db.locplus.ttreczones = false
 			E.db.locplus.ttinst = false
-			E.db.locplus.lpfontsize = 15
+			E.db.locplus.lpfontsize = 16
 			E.db.locplus.lpfontflags = 'OUTLINE'
 			E.db.locplus.ttrecinst = false
 			E.db.locplus.ht = true
@@ -689,7 +691,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 		do
 			E.db.VAT.enableStaticColor = true
-			E.db.VAT.barHeight = 5
+			E.db.VAT.barHeight = 6
 			E.db.VAT.spacing = 0
 			E.db.VAT.staticColor.r = 1
 			E.db.VAT.staticColor.g = 0.5
@@ -713,8 +715,9 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.VAT.colors.hoursIndicator.r = 1
 			E.db.VAT.colors.hoursIndicator.r = 0.5
 			E.db.VAT.colors.hoursIndicator.r = 0
+			E.db.VAT.decimalThreshold = 5
 			E.db.VAT.statusbarTexture = 'MerathilisFlat'
-			E.db.VAT.position = 'BOTTOM'
+			E.db.VAT.position = 'TOP'
 		end
 	end
 	
@@ -735,12 +738,12 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 								["g"] = 0.101960784313725,
 								["b"] = 0.301960784313726,
 							},
-							["font"] = "Merathilis Prototype",
+							["font"] = "Merathilis Roadway",
 							["fontsize"] = 10,
 							["borderthickness"] = 0,
-							["fontflags"] = "OUTLINE",
-							["height"] = 10,
-							["texture"] = "MerathilisMelliDark",
+							["fontflags"] = "",
+							["height"] = 17,
+							["texture"] = "MerathilisFlat",
 						},
 						["barfontflags"] = "OUTLINE",
 						["point"] = "TOPRIGHT",
@@ -759,33 +762,33 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 						["mode"] = "Schaden",
 						["spark"] = false,
 						["bartexture"] = "MerathilisOnePixel",
-						["barwidth"] = 180.999923706055,
+						["barwidth"] = 181.000015258789,
 						["barspacing"] = 1,
-						["enabletitle"] = false,
+						["enabletitle"] = true,
 						["classcolortext"] = true,
-						["reversegrowth"] = true,
+						["reversegrowth"] = false,
 						["background"] = {
-							["height"] = 140.42854309082,
+							["height"] = 124.373611450195,
 						},
 						["barfont"] = "Merathilis Prototype",
 						["name"] = "DPS",
 					}, -- [1]
 					{
-						["barheight"] = 15,
-						["classicons"] = true,
+						["barheight"] = 16,
+						["classicons"] = false,
 						["barslocked"] = true,
-						["enabletitle"] = false,
+						["enabletitle"] = true,
 						["wipemode"] = "",
 						["set"] = "current",
 						["hidden"] = false,
-						["y"] = 56.2857055664063,
+						["y"] = 9.37583923339844,
 						["barfont"] = "Merathilis Prototype",
 						["name"] = "HPS",
 						["display"] = "bar",
-						["barfontflags"] = "OUTLINE",
+						["barfontflags"] = "",
 						["classcolortext"] = true,
 						["scale"] = 1,
-						["reversegrowth"] = true,
+						["reversegrowth"] = false,
 						["barfontsize"] = 10,
 						["barorientation"] = 1,
 						["snapto"] = true,
@@ -798,13 +801,13 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 								["r"] = 0.101960784313725,
 							},
 							["bordertexture"] = "None",
-							["font"] = "Merathilis Prototype",
+							["font"] = "Merathilis Roadway",
 							["borderthickness"] = 0,
-							["fontsize"] = 10,
+							["fontsize"] = 17,
 							["fontflags"] = "OUTLINE",
-							["height"] = 10,
+							["height"] = 15,
 							["margin"] = 0,
-							["texture"] = "MerathilisMelliDark",
+							["texture"] = "MerathilisFlat",
 						},
 						["buttons"] = {
 							["segment"] = true,
@@ -849,7 +852,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 						["modeincombat"] = "",
 						["returnaftercombat"] = false,
 						["mode"] = "Heilung",
-						["x"] = 1645.28596496582,
+						["x"] = 1675.83778381348,
 					}, -- [2]
 				},		
 			}
@@ -965,16 +968,16 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 					["BigWigs_Plugins_Messages"] = {
 						["profiles"] = {
 							["Merathilis-Eule"] = {
-								["fontSize"] = 20,
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
 								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
-								["chat"] = false,
-								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
-								["BWMessageAnchor_y"] = 482.660092769766,
 								["BWMessageAnchor_x"] = 547.937125897879,
-								["growUpwards"] = true,
+								["chat"] = false,
 								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
 								["font"] = "Merathilis Prototype",
-								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["growUpwards"] = true,
+								["fontSize"] = 20,
 							},
 							["Default"] = {
 								["fontSize"] = 20,
