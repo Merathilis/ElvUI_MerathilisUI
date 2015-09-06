@@ -13,4 +13,5 @@ core\load_core.xml
 modules\datatexts\specswitch.lua
 modules\misc\load_misc.xml
 modules\quest\load_quest.xml
+modules\skins\masterplan.lua
 modules\unitframes\unithover.lua

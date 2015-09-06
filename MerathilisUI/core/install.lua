@@ -47,6 +47,12 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.private.general.dmgfont = 'ElvUI Combat'
 		E.private.general.normTex = 'MerathilisFlat'
 		E.private.general.glossTex = 'MerathilisFlat'
+		E.db.general.experience.height = 151
+		E.db.general.experience.textSize = 10
+		E.db.general.experience.width = 12
+		E.db.general.reputation.height = 151
+		E.db.general.reputation.textSize = 10
+		E.db.general.reputation.width = 12
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
 	end
