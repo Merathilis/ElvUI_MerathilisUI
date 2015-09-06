@@ -379,7 +379,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.unitframe.units.raid.power.position = 'CENTER'
 		E.db.unitframe.units.raid.power.height = 15
 		E.db.unitframe.units.raid.healthPrediction = true
-		E.db.unitframe.units.raid.width = 75
+		E.db.unitframe.units.raid.width = 79
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
 		E.db.unitframe.units.raid.health.frequentUpdates = true
 		E.db.unitframe.units.raid.health.position = 'CENTER'
@@ -433,7 +433,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.unitframe.units.raid40.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
 		E.db.unitframe.units.raid40.customTexts.HealthText.size = 10
 		E.db.unitframe.units.raid40.healPrediction = true
-		E.db.unitframe.units.raid40.width = 75
+		E.db.unitframe.units.raid40.width = 79
 		E.db.unitframe.units.raid40.positionOverride = 'BOTTOMRIGHT'
 		E.db.unitframe.units.raid40.health.frequentUpdates = true
 		E.db.unitframe.units.raid40.buffs.enable = true
@@ -485,9 +485,9 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.party.buffIndicator.size = 10
 		E.db.unitframe.units.party.power.text_format = ''
-		E.db.unitframe.units.party.power.height = 5
+		E.db.unitframe.units.party.power.height = 15
 		E.db.unitframe.units.party.positionOverride = 'BOTTOM'
-		E.db.unitframe.units.party.width = 75
+		E.db.unitframe.units.party.width = 79
 		E.db.unitframe.units.party.groupBy = 'ROLE'
 		E.db.unitframe.units.party.health.frequentUpdates = true
 		E.db.unitframe.units.party.health.position = 'BOTTOM'
@@ -638,7 +638,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.bui.garrisonCurrencyOil = true
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
-			E.db.bui.abStyleColor = 4
+			E.db.bui.abStyleColor = 1
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = false
 			E.db.dashboards.professions.enableProfessions = false
