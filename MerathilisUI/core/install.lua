@@ -20,6 +20,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	do
 	-- General
 		E.private.general.pixelPerfect = true
+	-- to fit my UI Settings, you must adjust the Scaling Settings in the System Options
 		E.global.general.autoScale = false
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
@@ -136,7 +137,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
-		E.db.chat.fontSize = 13
+		E.db.chat.fontSize = 12
 		E.db.chat.panelWidth = 400
 		E.db.chat.panelHeigth = 150
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
