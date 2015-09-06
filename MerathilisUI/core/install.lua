@@ -1864,7 +1864,7 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 	-- AddonMovers
 	do
 		SetMoverPosition('LocationLiteMover', 'TOP', E.UIParent, 'TOP', 0, -7)
-		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 35)
+		SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 	end
 	E:UpdateAll(true)
 	
