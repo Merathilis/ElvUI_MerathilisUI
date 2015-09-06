@@ -653,13 +653,7 @@ function MER:SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-			if role == 'tank' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
-			elseif role == 'dpsMelee' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
-			elseif role == 'healer' or 'dpsCaster' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
-			end
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
 			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
