@@ -14,9 +14,7 @@ local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 end
 
 -- local functions must go up
-function SetupUI() -- this cannot be local when using the module name (MER)
-	-- Here you put ElvUI settings that you want enabled or not.
-	-- Opening ElvUI.lua file from the WTF folder will show you your current profile settings.
+function MER:SetupUI() -- this cannot be local when using the module name (MER)
 	do
 	-- General
 		E.private.general.pixelPerfect = true
@@ -651,7 +649,10 @@ function SetupUI() -- this cannot be local when using the module name (MER)
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 1
 			E.db.dashboards.system.enableSystem = false
-			E.db.dashboards.tokens.enableTokens = false
+			E.db.dashboards.tokens.enableTokens = true
+			E.db.dashboards.tokens.enableTokens.tooltip = false
+			E.db.dashboards.tokens.enableTokens.flash = true
+			E.db.dashboards.tokens.enableTokens.width = 168
 			E.db.dashboards.professions.enableProfessions = false
 			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
 			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
