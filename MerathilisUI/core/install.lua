@@ -723,6 +723,547 @@ function MER:SetupUI() -- this cannot be local when using the module name (MER)
 		end
 	end
 	
+	-- Skada
+	if IsAddOnLoaded('Skada') then
+		do
+			SkadaDB['profiles']['Merathilis'] = {
+				["windows"] = {
+					{
+						["titleset"] = false,
+						["barslocked"] = true,
+						["y"] = 56.2857055664063,
+						["x"] = 1459.28596496582,
+						["title"] = {
+							["color"] = {
+								["a"] = 0,
+								["r"] = 0.101960784313725,
+								["g"] = 0.101960784313725,
+								["b"] = 0.301960784313726,
+							},
+							["font"] = "Merathilis Roadway",
+							["fontsize"] = 10,
+							["borderthickness"] = 0,
+							["fontflags"] = "",
+							["height"] = 17,
+							["texture"] = "MerathilisFlat",
+						},
+						["barfontflags"] = "OUTLINE",
+						["point"] = "TOPRIGHT",
+						["barbgcolor"] = {
+							["a"] = 0,
+							["b"] = 0.301960784313726,
+							["g"] = 0.301960784313726,
+							["r"] = 0.301960784313726,
+						},
+						["barcolor"] = {
+							["a"] = 0,
+							["g"] = 0.301960784313726,
+							["r"] = 0.301960784313726,
+						},
+						["barfontsize"] = 10,
+						["mode"] = "Schaden",
+						["spark"] = false,
+						["bartexture"] = "MerathilisOnePixel",
+						["barwidth"] = 181.000015258789,
+						["barspacing"] = 1,
+						["enabletitle"] = true,
+						["classcolortext"] = true,
+						["reversegrowth"] = false,
+						["background"] = {
+							["height"] = 124.373611450195,
+						},
+						["barfont"] = "Merathilis Prototype",
+						["name"] = "DPS",
+					}, -- [1]
+					{
+						["barheight"] = 16,
+						["classicons"] = false,
+						["barslocked"] = true,
+						["enabletitle"] = true,
+						["wipemode"] = "",
+						["set"] = "current",
+						["hidden"] = false,
+						["y"] = 9.37583923339844,
+						["barfont"] = "Merathilis Prototype",
+						["name"] = "HPS",
+						["display"] = "bar",
+						["barfontflags"] = "",
+						["classcolortext"] = true,
+						["scale"] = 1,
+						["reversegrowth"] = false,
+						["barfontsize"] = 10,
+						["barorientation"] = 1,
+						["snapto"] = true,
+						["version"] = 1,
+						["title"] = {
+							["color"] = {
+								["a"] = 0.800000011920929,
+								["b"] = 0.301960784313726,
+								["g"] = 0.101960784313725,
+								["r"] = 0.101960784313725,
+							},
+							["bordertexture"] = "None",
+							["font"] = "Merathilis Roadway",
+							["borderthickness"] = 0,
+							["fontsize"] = 17,
+							["fontflags"] = "OUTLINE",
+							["height"] = 15,
+							["margin"] = 0,
+							["texture"] = "MerathilisFlat",
+						},
+						["buttons"] = {
+							["segment"] = true,
+							["menu"] = true,
+							["stop"] = true,
+							["mode"] = true,
+							["report"] = true,
+							["reset"] = true,
+						},
+						["spark"] = false,
+						["bartexture"] = "MerathilisOnePixel",
+						["barwidth"] = 205.428512573242,
+						["barspacing"] = 1,
+						["clickthrough"] = false,
+						["point"] = "TOPRIGHT",
+						["background"] = {
+							["borderthickness"] = 0,
+							["color"] = {
+								["a"] = 0.2,
+								["r"] = 0,
+								["g"] = 0,
+								["b"] = 0.5,
+							},
+							["height"] = 140.42854309082,
+							["bordertexture"] = "None",
+							["margin"] = 0,
+							["texture"] = "Solid",
+						},
+						["barcolor"] = {
+							["a"] = 0,
+							["b"] = 0.8,
+							["g"] = 0.301960784313726,
+							["r"] = 0.301960784313726,
+						},
+						["barbgcolor"] = {
+							["a"] = 0,
+							["b"] = 0.301960784313726,
+							["g"] = 0.301960784313726,
+							["r"] = 0.301960784313726,
+						},
+						["classcolorbars"] = true,
+						["modeincombat"] = "",
+						["returnaftercombat"] = false,
+						["mode"] = "Heilung",
+						["x"] = 1675.83778381348,
+					}, -- [2]
+				},		
+			}
+		end
+	end
+	
+	if IsAddOnLoaded('BigWigs') then
+		do
+			BigWigs3DB = {
+				["profileKeys"] = {
+					["Merathilîs - Shattrath"] = "Default",
+					["Merathilis - Shattrath"] = "Merathilis-Eule",
+					["Garét - Shattrath"] = "Default",
+					["Asragoth - Shattrath"] = "Default",
+					["Jahzzy - Garrosh"] = "Default",
+					["Melisendra - Shattrath"] = "Default",
+					["Damará - Shattrath"] = "Merathilis-Heal",
+					["Maithilis - Shattrath"] = "Default",
+					["Róhal - Shattrath"] = "Default",
+					["Brítt - Shattrath"] = "Default",
+					["Missthilis - Garrosh"] = "Default",
+					["Meramage - Garrosh"] = "Default",
+				},
+				["namespaces"] = {
+					["BigWigs_Bosses_The Iron Maidens"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["custom_off_heartseeker_marker"] = true,
+							},
+						},
+					},
+					["BigWigs_Bosses_Mannoroth"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								[181597] = 547,
+								["custom_off_gaze_marker"] = true,
+								[181799] = 515,
+							},
+							["Default"] = {
+								[181354] = 67075,
+							},
+						},
+					},
+					["BigWigs_Plugins_Alt Power"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["posx"] = 810.718497504029,
+								["fontSize"] = 10.9999990463257,
+								["font"] = "Merathilis Prototype",
+								["fontOutline"] = "",
+								["lock"] = true,
+								["posy"] = 202.206108761591,
+							},
+							["Default"] = {
+								["posx"] = 745.62137594281,
+								["fontSize"] = 10.9999990463257,
+								["font"] = "Bui Prototype",
+								["fontOutline"] = "",
+								["posy"] = 278.274528269621,
+							},
+							["Merathilis-Heal"] = {
+								["posx"] = 806.329889857589,
+								["fontSize"] = 10.9999990463257,
+								["fontOutline"] = "",
+								["font"] = "Merathilis Prototype",
+								["posy"] = 263.645846042418,
+							},
+							["Damará - Shattrath"] = {
+								["posx"] = 822.421435898214,
+								["fontSize"] = 10.9999990463257,
+								["fontOutline"] = "",
+								["font"] = "Bui Prototype",
+								["posy"] = 244.628843871305,
+							},
+						},
+					},
+					["LibDualSpec-1.0"] = {
+						["char"] = {
+							["Merathilis - Shattrath"] = {
+								["profile"] = "Merathilis-Heal",
+								["enabled"] = true,
+								["specGroup"] = 1,
+							},
+							["Damará - Shattrath"] = {
+								["profile"] = "Damará - Shattrath",
+								["specGroup"] = 1,
+								["enabled"] = true,
+							},
+						},
+					},
+					["BigWigs_Bosses_Archimonde"] = {
+						["profiles"] = {
+							["Merathilis-Heal"] = {
+								[187180] = 579,
+								[183817] = 0,
+							},
+						},
+					},
+					["BigWigs_Bosses_Will of the Emperor"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["combo"] = 33283,
+								["arc"] = 33283,
+							},
+						},
+					},
+					["BigWigs_Plugins_Victory"] = {
+					},
+					["BigWigs_Plugins_Statistics"] = {
+					},
+					["BigWigs_Plugins_Sounds"] = {
+					},
+					["BigWigs_Plugins_Messages"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
+								["BWMessageAnchor_x"] = 547.937125897879,
+								["chat"] = false,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+								["font"] = "Merathilis Prototype",
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["growUpwards"] = true,
+								["fontSize"] = 20,
+							},
+							["Default"] = {
+								["fontSize"] = 20,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
+								["chat"] = false,
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["BWMessageAnchor_x"] = 547.937125897879,
+								["growUpwards"] = true,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+								["font"] = "Bui Prototype",
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+							},
+							["Merathilis-Heal"] = {
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
+								["BWMessageAnchor_x"] = 547.937125897879,
+								["chat"] = false,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+								["font"] = "Merathilis Prototype",
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["growUpwards"] = true,
+								["fontSize"] = 20,
+							},
+							["Damará - Shattrath"] = {
+								["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
+								["BWMessageAnchor_x"] = 547.937125897879,
+								["chat"] = false,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+								["font"] = "Bui Prototype",
+								["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
+								["BWMessageAnchor_y"] = 482.660092769766,
+								["fontSize"] = 20,
+								["growUpwards"] = true,
+							},
+						},
+					},
+					["BigWigs_Bosses_Kilrogg Deadeye"] = {
+						["profiles"] = {
+							["Default"] = {
+								[182428] = 66051,
+							},
+						},
+					},
+					["BigWigs_Plugins_Proximity"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["fontSize"] = 20,
+								["width"] = 140.000030517578,
+								["posy"] = 139.937301559658,
+								["lock"] = false,
+								["posx"] = 316.168293714338,
+								["sound"] = true,
+								["font"] = "Merathilis Prototype",
+							},
+							["Default"] = {
+								["fontSize"] = 20,
+								["font"] = "Bui Prototype",
+								["posx"] = 302.271253561194,
+								["lock"] = true,
+								["posy"] = 284.759955070203,
+							},
+							["Merathilis-Heal"] = {
+								["posx"] = 302.271253561194,
+								["fontSize"] = 20,
+								["lock"] = true,
+								["posy"] = 284.759955070203,
+								["font"] = "Merathilis Prototype",
+							},
+							["Damará - Shattrath"] = {
+								["posx"] = 302.271253561194,
+								["fontSize"] = 20,
+								["lock"] = true,
+								["font"] = "Bui Prototype",
+								["posy"] = 284.759955070203,
+							},
+						},
+					},
+					["BigWigs_Plugins_BossBlock"] = {
+					},
+					["BigWigs_Plugins_HeroesVoices"] = {
+					},
+					["BigWigs_Bosses_Blackhand"] = {
+						["profiles"] = {
+							["Default"] = {
+								[155992] = 66051,
+								["custom_off_markedfordeath_marker"] = true,
+								["custom_off_massivesmash_marker"] = true,
+							},
+						},
+					},
+					["BigWigs_Plugins_Raid Icons"] = {
+					},
+					["BigWigs_Plugins_Bars"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["outline"] = "OUTLINE",
+								["fontSize"] = 20,
+								["scale"] = 0.9,
+								["BigWigsAnchor_y"] = 143.539996791631,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 951.685603728169,
+								["texture"] = "MerathilisFlat",
+								["emphasizeTime"] = 14,
+								["barStyle"] = "AddOnSkins Half-Bar",
+								["monochrome"] = false,
+								["BigWigsEmphasizeAnchor_x"] = 445.301161921743,
+								["font"] = "Merathilis Roadway",
+								["BigWigsEmphasizeAnchor_y"] = 188.360327821069,
+								["fill"] = false,
+								["BigWigsAnchor_width"] = 363.885375976563,
+								["BigWigsEmphasizeAnchor_width"] = 532.931091308594,
+								["emphasizeScale"] = 1.1,
+							},
+							["Default"] = {
+								["outline"] = "OUTLINE",
+								["fontSize"] = 20,
+								["BigWigsAnchor_width"] = 359.456695556641,
+								["BigWigsAnchor_y"] = 142.077037839956,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 948.759744418567,
+								["BigWigsEmphasizeAnchor_width"] = 271.126495361328,
+								["texture"] = "BuiFlat",
+								["barStyle"] = "AddOnSkins Half-Bar",
+								["monochrome"] = false,
+								["BigWigsEmphasizeAnchor_x"] = 217.095424835039,
+								["font"] = "Bui Roadway",
+								["BigWigsEmphasizeAnchor_y"] = 327.332023933559,
+								["emphasizeTime"] = 14,
+								["scale"] = 0.9,
+								["emphasizeScale"] = 1.1,
+							},
+							["Merathilis-Heal"] = {
+								["BigWigsEmphasizeAnchor_y"] = 385.845841560149,
+								["fontSize"] = 20,
+								["emphasizeTime"] = 14,
+								["BigWigsAnchor_y"] = 146.466003386204,
+								["scale"] = 0.9,
+								["BigWigsEmphasizeAnchor_width"] = 324.755065917969,
+								["BigWigsEmphasizeAnchor_x"] = 165.895295733844,
+								["barStyle"] = "AddOnSkins Half-Bar",
+								["monochrome"] = false,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 945.102742433446,
+								["font"] = "Merathilis Roadway",
+								["outline"] = "OUTLINE",
+								["BigWigsAnchor_width"] = 357.538421630859,
+								["emphasizeScale"] = 1.1,
+								["texture"] = "MerathilisFlat",
+							},
+							["Damará - Shattrath"] = {
+								["outline"] = "OUTLINE",
+								["fontSize"] = 9,
+								["texture"] = "BuiMelliDark",
+								["BigWigsEmphasizeAnchor_width"] = 324.755065917969,
+								["BigWigsAnchor_width"] = 390.171173095703,
+								["BigWigsAnchor_y"] = 154.511568124053,
+								["BigWigsEmphasizeAnchor_x"] = 165.895295733844,
+								["scale"] = 0.9,
+								["BigWigsEmphasizeAnchor_y"] = 385.845841560149,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 933.399886417392,
+								["font"] = "Bui Prototype",
+								["monochrome"] = false,
+								["barStyle"] = "AddOnSkins Half-Bar",
+								["emphasizeScale"] = 1.1,
+								["emphasizeTime"] = 14,
+							},
+						},
+					},
+					["BigWigs_Plugins_ThogarBarColors"] = {
+					},
+					["BigWigs_Bosses_Fel Lord Zakuun"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								[179583] = 66051,
+							},
+						},
+					},
+					["BigWigs_Plugins_Super Emphasize"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["font"] = "Merathilis Prototype",
+							},
+							["Default"] = {
+								["font"] = "Bui Prototype",
+							},
+							["Merathilis-Heal"] = {
+								["font"] = "Merathilis Prototype",
+							},
+							["Damará - Shattrath"] = {
+								["font"] = "Bui Prototype",
+							},
+						},
+					},
+					["BigWigs_Bosses_Gorefiend"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								[181295] = 66307,
+							},
+						},
+					},
+					["BigWigs_Bosses_Hans'gar and Franzok"] = {
+						["profiles"] = {
+							["Merathilis-Eule"] = {
+								["stages"] = 66051,
+								[162124] = 66051,
+							},
+						},
+					},
+					["BigWigs_Bosses_Shadow-Lord Iskar"] = {
+						["profiles"] = {
+							["Merathilis-Heal"] = {
+								["custom_off_wind_marker"] = true,
+								[181753] = 547,
+							},
+						},
+					},
+					["BigWigs_Plugins_Colors"] = {
+					},
+					["BigWigs_Plugins_Respawn"] = {
+					},
+					["BigWigs_Bosses_Xhul'horac"] = {
+						["profiles"] = {
+							["Default"] = {
+								[190224] = 1539,
+								[190223] = 1539,
+								[186453] = 4611,
+							},
+						},
+					},
+					["BigWigs_Bosses_Tyrant Velhari"] = {
+						["profiles"] = {
+							["Merathilis-Heal"] = {
+								[182459] = 615,
+							},
+						},
+					},
+					["BigWigs_Bosses_Iron Reaver"] = {
+						["profiles"] = {
+							["Merathilis-Heal"] = {
+								[185282] = 515,
+							},
+						},
+					},
+				},
+				["global"] = {
+					["watchedMovies"] = {
+						["993:2"] = true,
+						["984:1"] = {
+							true, -- [1]
+							[3] = true,
+						},
+						["964:1"] = true,
+						["969:2"] = true,
+						[294] = true,
+						[295] = true,
+						["994:3"] = true,
+						["993:4"] = true,
+					},
+				},
+				["profiles"] = {
+					["Merathilis-Eule"] = {
+						["fakeDBMVersion"] = true,
+					},
+					["Default"] = {
+						["fakeDBMVersion"] = true,
+					},
+					["Merathilis-Heal"] = {
+						["fakeDBMVersion"] = true,
+					},
+					["Damará - Shattrath"] = {
+						["fakeDBMVersion"] = true,
+					},
+				},
+			}
+			BigWigs3IconDB = {
+				["hide"] = true,
+			}
+		end
+	end
+	
 	if IsAddOnLoaded('xCT+') then
 		do
 			xCTSavedDB['profiles']["Merathilis - Shattrath"] = {
