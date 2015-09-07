@@ -584,6 +584,26 @@ local function SetupMERLayout()
 		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -484, 230)
 	end
 	
+	for i = 1, NUM_CHAT_WINDOWS do
+		local frame = _G[format('ChatFrame%s', i)]
+		local chatFrameId = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+		
+		FCF_SetChatWindowFontSize(nil, frame, 10)
+		
+		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
+		if i == 3 and chatName == LOOT..' / '..TRADE then
+			FCF_UnDockFrame(frame)
+			frame:ClearAllPoints()
+			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			FCF_DockFrame(frame)
+			FCF_SetLocked(frame, 1)
+			frame:Show()
+		end
+		FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
+	end
+	
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
 		InstallStepComplete:Show()		
@@ -1937,7 +1957,7 @@ function MER:SetupUI()
 		
 		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
-		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\logo_benikui.tga')
+		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga')
 		f.tutorialImage:Point('BOTTOM', 0, 70)
 
 	end
