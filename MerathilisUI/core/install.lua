@@ -234,6 +234,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.player.portrait.overlay = true
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1.35
 		E.db.unitframe.units.player.portrait.width = 43
+		
 		E.db.unitframe.units.player.classbar.enable = false
 		E.db.unitframe.units.player.aurabar.enable = false
 		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
@@ -677,8 +678,8 @@ local function SetupMERAddons()
 						["font"] = "Merathilis Roadway",
 						["fontsize"] = 14,
 						["borderthickness"] = 0,
-						["fontflags"] = "",
-						["height"] = 17,
+						["fontflags"] = "OUTLINE",
+						["height"] = 15,
 						["texture"] = "MerathilisFlat",
 					},
 					["barfontflags"] = "OUTLINE",
@@ -710,7 +711,7 @@ local function SetupMERAddons()
 					["name"] = "DPS",
 				}, -- [1]
 				{
-					["barheight"] = 16,
+					["barheight"] = 15,
 					["classicons"] = false,
 					["barslocked"] = true,
 					["enabletitle"] = true,
@@ -721,7 +722,7 @@ local function SetupMERAddons()
 					["barfont"] = "Merathilis Prototype",
 					["name"] = "HPS",
 					["display"] = "bar",
-					["barfontflags"] = "",
+					["barfontflags"] = "OUTLINE",
 					["classcolortext"] = true,
 					["scale"] = 1,
 					["reversegrowth"] = false,
@@ -739,7 +740,7 @@ local function SetupMERAddons()
 						["bordertexture"] = "None",
 						["font"] = "Merathilis Roadway",
 						["borderthickness"] = 0,
-						["fontsize"] = 17,
+						["fontsize"] = 14,
 						["fontflags"] = "OUTLINE",
 						["height"] = 15,
 						["margin"] = 0,
@@ -755,7 +756,7 @@ local function SetupMERAddons()
 					},
 					["spark"] = false,
 					["bartexture"] = "MerathilisOnePixel",
-					["barwidth"] = 205.428512573242,
+					["barwidth"] = 170,
 					["barspacing"] = 1,
 					["clickthrough"] = false,
 					["point"] = "TOPRIGHT",
@@ -767,7 +768,7 @@ local function SetupMERAddons()
 							["g"] = 0,
 							["b"] = 0.5,
 						},
-						["height"] = 140.42854309082,
+						["height"] = 114.999984741211,
 						["bordertexture"] = "None",
 						["margin"] = 0,
 						["texture"] = "Solid",
