@@ -3,8 +3,9 @@
 ## Credits: Benik
 ## Version: 1.0
 ## Title: |cff1784d1MerathilisUI
-## Notes: My UI Settings
+## Notes: an decorative edit based on BenikUI
 ## RequiredDeps: ElvUI
+## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
 
 locales\load_locales.xml

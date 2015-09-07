@@ -1,6 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+local CURRENT_PAGE = 0
+local MAX_PAGE = 5
+
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	if not _G[mover] then return end
 	local frame = _G[mover]
@@ -11,7 +14,7 @@ local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 end
 
 -- local functions must go up
-function MER:SetupUI() -- this cannot be local when using the module name (MER)
+local function SetupMERLayout()
 	do
 	-- General
 		E.private.general.pixelPerfect = true
@@ -620,10 +623,10 @@ local bigwigsName = GetAddOnMetadata('BigWigs', 'Title')
 local xctName = GetAddOnMetadata('xCT+', 'Title')
 
 local function SetupMERAddons()
-	-- Skada
+	-- Skada Profile
 	if IsAddOnLoaded('Skada') then
 		print(MER.Title..format(L[' - %s profile created!'], skadaName))
-		SkadaDB['profiles']['Merathilis'] = {
+		SkadaDB['profiles']['MerathilisUI'] = {
 			["windows"] = {
 				{
 					["titleset"] = false,
@@ -775,15 +778,6 @@ local function SetupMERAddons()
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = true
 			E.db.dashboards.professions.enableProfessions = false
-			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
-			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
-			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
-			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
-			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
-			E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
 			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 			SetMoverPosition('tokenHolderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -164)
 		end
@@ -962,10 +956,11 @@ local function SetupMERAddons()
 					["MerathilisUI"] = {
 						["fakeDBMVersion"] = true,
 					},
+				},
 			},
 		}
 	end
-
+	
 	-- xCT Profile
 	if IsAddOnLoaded('xCT+') then
 		print(MER.Title..format(L['- %s profile created!'], xctName))
@@ -1588,7 +1583,7 @@ function MER:SetupDts(role)
 			end
 		end
 		if role == 'tank' then
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right 'Attack Power'
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
 		elseif role == 'dpsMelee' then
 			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
 		elseif role == 'healer' or 'dpsCaster' then
@@ -1623,4 +1618,309 @@ function MER:SetupDts(role)
 		InstallStepComplete:Show()		
 	end
 	E:UpdateAll(true)
+end
+
+local function ResetAll()
+	InstallNextButton:Disable()
+	InstallPrevButton:Disable()
+	InstallOption1Button:Hide()
+	InstallOption1Button:SetScript('OnClick', nil)
+	InstallOption1Button:SetText('')
+	InstallOption2Button:Hide()
+	InstallOption2Button:SetScript('OnClick', nil)
+	InstallOption2Button:SetText('')
+	InstallOption3Button:Hide()
+	InstallOption3Button:SetScript('OnClick', nil)
+	InstallOption3Button:SetText('')	
+	InstallOption4Button:Hide()
+	InstallOption4Button:SetScript('OnClick', nil)
+	InstallOption4Button:SetText('')
+	MERInstallFrame.SubTitle:SetText('')
+	MERInstallFrame.Desc1:SetText('')
+	MERInstallFrame.Desc2:SetText('')
+	MERInstallFrame.Desc3:SetText('')
+	MERInstallFrame.Desc4:SetText('')
+	MERInstallFrame:Size(550, 400)
+end
+
+local function InstallComplete()
+	E.private.install_complete = E.version
+	E.db.Merathilis.installed = true
+	
+	ReloadUI()
+end
+
+local function SetPage(PageNum)
+	CURRENT_PAGE = PageNum
+	ResetAll()
+	InstallStatus:SetValue(PageNum)
+	
+	local f = MERInstallFrame
+	
+	if PageNum == MAX_PAGE then
+		InstallNextButton:Disable()
+	else
+		InstallNextButton:Enable()
+	end
+	
+	if PageNum == 1 then
+		InstallPrevButton:Disable()
+	else
+		InstallPrevButton:Enable()
+	end
+
+	if PageNum == 1 then
+		f.SubTitle:SetText(format(L['Welcome to MerathilisUI version %s, for ElvUI %s.'], MER.Version, E.version))
+		f.Desc1:SetText(L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+		f.Desc2:SetText(L['Please press the continue button to go onto the next step.'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', InstallComplete)
+		InstallOption1Button:SetText(L['Skip Process'])			
+	elseif PageNum == 2 then
+		f.SubTitle:SetText(L['Layout'])
+		f.Desc1:SetText(L['This part of the installation changes the default ElvUI look.'])
+		f.Desc2:SetText(L['Please click the button below to apply the new layout.'])
+		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupMERLayout)
+		InstallOption1Button:SetText(L['Setup Layout'])
+	elseif PageNum == 3 then
+		f.SubTitle:SetText(L['DataTexts'])
+		f.Desc1:SetText(L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+		f.Desc2:SetText(L['Please click the button below to setup your datatexts.'])
+		f.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; MER:SetupDts('tank') end)
+		InstallOption1Button:SetText(TANK)
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; MER:SetupDts('healer') end)
+		InstallOption2Button:SetText(HEALER)
+		InstallOption3Button:Show()
+		InstallOption3Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; MER:SetupDts('dpsMelee') end)
+		InstallOption3Button:SetText(L['Physical DPS'])
+		InstallOption4Button:Show()
+		InstallOption4Button:SetScript('OnClick', function() E.db.datatexts.panels.BuiLeftChatDTPanel.left = nil; E.db.datatexts.panels.BuiLeftChatDTPanel.middle = nil; MER:SetupDts('dpsCaster') end)
+		InstallOption4Button:SetText(L['Caster DPS'])
+	elseif PageNum == 4 then
+		f.SubTitle:SetText(ADDONS)
+		f.Desc1:SetText(L['This part of the installation process will apply changes to the addons like Skada, BigWigs and ElvUI plugins'])
+		f.Desc2:SetText(L['Please click the button below to setup your addons.'])
+		f.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() SetupMERAddons(); SetupAddOnSkins(); end)
+		InstallOption1Button:SetText(L['Setup Addons'])	
+	elseif PageNum == 5 then
+		f.SubTitle:SetText(L['Installation Complete'])
+		f.Desc1:SetText(L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
+		f.Desc2:SetText(L['Please click the button below so you can setup variables and ReloadUI.'])			
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', InstallComplete)
+		InstallOption1Button:SetText(L['Finished'])				
+		MERInstallFrame:Size(550, 350)
+		if InstallStepComplete then
+			InstallStepComplete.message = MER.Title..L['Installed']
+			InstallStepComplete:Show()		
+		end
+	end
+end
+
+local function NextPage()	
+	if CURRENT_PAGE ~= MAX_PAGE then
+		CURRENT_PAGE = CURRENT_PAGE + 1
+		SetPage(CURRENT_PAGE)
+	end
+end
+
+local function PreviousPage()
+	if CURRENT_PAGE ~= 1 then
+		CURRENT_PAGE = CURRENT_PAGE - 1
+		SetPage(CURRENT_PAGE)
+	end
+end
+
+function MER:SetupUI()	
+	if not InstallStepComplete then
+		local imsg = CreateFrame('Frame', 'InstallStepComplete', E.UIParent)
+		imsg:Size(418, 72)
+		imsg:Point('TOP', 0, -190)
+		imsg:Hide()
+		imsg:SetScript('OnShow', function(self)
+			if self.message then 
+				PlaySoundFile([[Sound\Interface\LevelUp.ogg]])
+				self.text:SetText(self.message)
+				UIFrameFadeOut(self, 3.5, 1, 0)
+				E:Delay(4, function() self:Hide() end)	
+				self.message = nil
+			else
+				self:Hide()
+			end
+		end)
+		
+		imsg.firstShow = false
+		
+		imsg.bg = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.bg:SetPoint('BOTTOM')
+		imsg.bg:Size(326, 103)
+		imsg.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
+		imsg.bg:SetVertexColor(1, 1, 1, 0.6)
+		
+		imsg.lineTop = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.lineTop:SetDrawLayer('BACKGROUND', 2)
+		imsg.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.lineTop:SetPoint('TOP')
+		imsg.lineTop:Size(418, 7)
+		imsg.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+		
+		imsg.lineBottom = imsg:CreateTexture(nil, 'BACKGROUND')
+		imsg.lineBottom:SetDrawLayer('BACKGROUND', 2)
+		imsg.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
+		imsg.lineBottom:SetPoint('BOTTOM')
+		imsg.lineBottom:Size(418, 7)
+		imsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+		
+		imsg.text = imsg:CreateFontString(nil, 'ARTWORK')
+		imsg.text:FontTemplate(nil, 32)
+		imsg.text:Point('CENTER', 0, -4)
+		imsg.text:SetTextColor(1, 0.82, 0)
+		imsg.text:SetJustifyH('CENTER')
+	end
+
+	--Create Frame
+	if not MERInstallFrame then
+		local f = CreateFrame('Button', 'MERInstallFrame', E.UIParent)
+		f.SetPage = SetPage
+		f:Size(550, 400)
+		f:SetTemplate('Transparent')
+		f:SetPoint('CENTER')
+		f:SetFrameStrata('TOOLTIP')
+		f:Style('Outside')
+		
+		f.Title = f:CreateFontString(nil, 'OVERLAY')
+		f.Title:FontTemplate(nil, 17, nil)
+		f.Title:Point('TOP', 0, -5)
+		f.Title:SetText(MER.Title..L['Installation'])
+		
+		f.Next = CreateFrame('Button', 'InstallNextButton', f, 'UIPanelButtonTemplate')
+		f.Next:StripTextures()
+		f.Next:SetTemplate('Default', true)
+		f.Next:Size(110, 25)
+		f.Next:Point('BOTTOMRIGHT', -5, 5)
+		f.Next:SetText(CONTINUE)
+		f.Next:Disable()
+		f.Next:SetScript('OnClick', NextPage)
+		E.Skins:HandleButton(f.Next, true)
+		
+		f.Prev = CreateFrame('Button', 'InstallPrevButton', f, 'UIPanelButtonTemplate')
+		f.Prev:StripTextures()
+		f.Prev:SetTemplate('Default', true)
+		f.Prev:Size(110, 25)
+		f.Prev:Point('BOTTOMLEFT', 5, 5)
+		f.Prev:SetText(PREVIOUS)	
+		f.Prev:Disable()
+		f.Prev:SetScript('OnClick', PreviousPage)
+		E.Skins:HandleButton(f.Prev, true)
+		
+		f.Status = CreateFrame('StatusBar', 'InstallStatus', f)
+		f.Status:SetFrameLevel(f.Status:GetFrameLevel() + 2)
+		f.Status:CreateBackdrop('Default')
+		f.Status:SetStatusBarTexture(E['media'].normTex)
+		f.Status:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
+		f.Status:SetMinMaxValues(0, MAX_PAGE)
+		f.Status:Point('TOPLEFT', f.Prev, 'TOPRIGHT', 6, -2)
+		f.Status:Point('BOTTOMRIGHT', f.Next, 'BOTTOMLEFT', -6, 2)
+		f.Status.text = f.Status:CreateFontString(nil, 'OVERLAY')
+		f.Status.text:FontTemplate()
+		f.Status.text:SetPoint('CENTER')
+		f.Status.text:SetText(CURRENT_PAGE..' / '..MAX_PAGE)
+		f.Status:SetScript('OnValueChanged', function(self)
+			self.text:SetText(self:GetValue()..' / '..MAX_PAGE)
+		end)
+		
+		f.Option1 = CreateFrame('Button', 'InstallOption1Button', f, 'UIPanelButtonTemplate')
+		f.Option1:StripTextures()
+		f.Option1:Size(160, 30)
+		f.Option1:Point('BOTTOM', 0, 45)
+		f.Option1:SetText('')
+		f.Option1:Hide()
+		E.Skins:HandleButton(f.Option1, true)
+		
+		f.Option2 = CreateFrame('Button', 'InstallOption2Button', f, 'UIPanelButtonTemplate')
+		f.Option2:StripTextures()
+		f.Option2:Size(110, 30)
+		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45)
+		f.Option2:SetText('')
+		f.Option2:Hide()
+		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
+		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45) end)
+		E.Skins:HandleButton(f.Option2, true)		
+		
+		f.Option3 = CreateFrame('Button', 'InstallOption3Button', f, 'UIPanelButtonTemplate')
+		f.Option3:StripTextures()
+		f.Option3:Size(100, 30)
+		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
+		f.Option3:SetText('')
+		f.Option3:Hide()
+		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45)  end)
+		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
+		E.Skins:HandleButton(f.Option3, true)			
+		
+		f.Option4 = CreateFrame('Button', 'InstallOption4Button', f, 'UIPanelButtonTemplate')
+		f.Option4:StripTextures()
+		f.Option4:Size(100, 30)
+		f.Option4:Point('LEFT', f.Option3, 'RIGHT', 4, 0)
+		f.Option4:SetText('')
+		f.Option4:Hide()
+		f.Option4:SetScript('OnShow', function() 
+			f.Option1:Width(100)
+			f.Option2:Width(100)
+			
+			f.Option1:ClearAllPoints(); 
+			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
+			f.Option2:ClearAllPoints(); 
+			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)  
+		end)
+		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
+		E.Skins:HandleButton(f.Option4, true)			
+		
+		f.SubTitle = f:CreateFontString(nil, 'OVERLAY')
+		f.SubTitle:FontTemplate(nil, 15, nil)		
+		f.SubTitle:Point('TOP', 0, -40)
+		
+		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc1:FontTemplate()	
+		f.Desc1:Point('TOPLEFT', 20, -75)	
+		f.Desc1:Width(f:GetWidth() - 40)
+		
+		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc2:FontTemplate()	
+		f.Desc2:Point('TOPLEFT', 20, -125)		
+		f.Desc2:Width(f:GetWidth() - 40)
+		
+		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc3:FontTemplate()	
+		f.Desc3:Point('TOPLEFT', 20, -175)	
+		f.Desc3:Width(f:GetWidth() - 40)
+		
+		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
+		f.Desc4:FontTemplate()	
+		f.Desc4:Point('BOTTOMLEFT', 20, 75)	
+		f.Desc4:Width(f:GetWidth() - 40)
+	
+		local close = CreateFrame('Button', 'InstallCloseButton', f, 'UIPanelCloseButton')
+		close:SetPoint('TOPRIGHT', f, 'TOPRIGHT')
+		close:SetScript('OnClick', function()
+			f:Hide()
+		end)		
+		E.Skins:HandleCloseButton(close)
+		
+		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
+		f.tutorialImage:Size(256, 128)
+		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\logo_benikui.tga')
+		f.tutorialImage:Point('BOTTOM', 0, 70)
+
+	end
+	
+	MERInstallFrame:Show()
+	NextPage()
 end
