@@ -828,7 +828,7 @@ local function SetupMERAddons()
 			E.db.locplus.petlevel = false
 			E.db.locplus.ttreczones = false
 			E.db.locplus.ttinst = false
-			E.db.locplus.lpfontsize = 15
+			E.db.locplus.lpfontsize = 13
 			E.db.locplus.lpfontflags = 'OUTLINE'
 			E.db.locplus.ttrecinst = false
 			E.db.locplus.ht = true
@@ -880,17 +880,17 @@ local function SetupMERAddons()
 	
 	if IsAddOnLoaded('BigWigs') then
 		print(MER.Title..format(L['- %s profile created!'], bigwigsName))
-		BigWigs3DB = {
+		BigWigs3DB['profiles']['MerathilisUI'] = {
 			["namespaces"] = {
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
 						["MerathilisUI"] = {
-							["posx"] = 810.718497504029,
+							["posx"] = 796.821509323017,
 							["fontSize"] = 10.9999990463257,
 							["font"] = "Merathilis Prototype",
-							["fontOutline"] = "",
+							["fontOutline"] = "OUTLINE",
 							["lock"] = true,
-							["posy"] = 202.206108761591,
+							["posy"] = 219.760042289181,
 						},
 					},
 				},
@@ -922,10 +922,10 @@ local function SetupMERAddons()
 					["profiles"] = {
 						["MerathilisUI"] = {
 							["fontSize"] = 20,
-							["width"] = 140.000030517578,
-							["posy"] = 139.937301559658,
+							["width"] = 139.999969482422,
+							["posy"] = 245.263077730324,
 							["lock"] = false,
-							["posx"] = 316.168293714338,
+							["posx"] = 301.53977355616,
 							["sound"] = true,
 							["font"] = "Merathilis Prototype",
 						},
