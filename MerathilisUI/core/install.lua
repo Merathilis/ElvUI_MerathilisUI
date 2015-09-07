@@ -665,8 +665,8 @@ local function SetupMERAddons()
 				{
 					["titleset"] = false,
 					["barslocked"] = true,
-					["y"] = 56.2857055664063,
-					["x"] = 1459.28596496582,
+					["classicons"] = false,
+					["y"] = 9,
 					["title"] = {
 						["color"] = {
 							["a"] = 0,
@@ -675,7 +675,7 @@ local function SetupMERAddons()
 							["b"] = 0.301960784313726,
 						},
 						["font"] = "Merathilis Roadway",
-						["fontsize"] = 10,
+						["fontsize"] = 14,
 						["borderthickness"] = 0,
 						["fontflags"] = "",
 						["height"] = 17,
@@ -698,13 +698,13 @@ local function SetupMERAddons()
 					["mode"] = "Schaden",
 					["spark"] = false,
 					["bartexture"] = "MerathilisOnePixel",
-					["barwidth"] = 181.000015258789,
+					["barwidth"] = 166,
 					["barspacing"] = 1,
 					["enabletitle"] = true,
 					["classcolortext"] = true,
 					["reversegrowth"] = false,
 					["background"] = {
-						["height"] = 124.373611450195,
+						["height"] = 114.999984741211,
 					},
 					["barfont"] = "Merathilis Prototype",
 					["name"] = "DPS",
@@ -717,7 +717,7 @@ local function SetupMERAddons()
 					["wipemode"] = "",
 					["set"] = "current",
 					["hidden"] = false,
-					["y"] = 9.37583923339844,
+					["y"] = 9,
 					["barfont"] = "Merathilis Prototype",
 					["name"] = "HPS",
 					["display"] = "bar",
@@ -748,7 +748,7 @@ local function SetupMERAddons()
 					["buttons"] = {
 						["segment"] = true,
 						["menu"] = true,
-						["stop"] = true,
+						["stop"] = false,
 						["mode"] = true,
 						["report"] = true,
 						["reset"] = true,
@@ -788,7 +788,7 @@ local function SetupMERAddons()
 					["modeincombat"] = "",
 					["returnaftercombat"] = false,
 					["mode"] = "Heilung",
-					["x"] = 1675.83778381348,
+					["x"] = 1500,
 				}, -- [2]
 			},		
 		}
