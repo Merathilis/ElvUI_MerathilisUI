@@ -148,7 +148,6 @@ local function SetupMERLayout()
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
-		E.db.chat.fontSize = 12
 		E.db.chat.panelWidth = 350
 		E.db.chat.panelHeigth = 150
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
@@ -529,6 +528,7 @@ local function SetupMERLayout()
 	-- AlertFrame for Garrison etc.
 		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 	-- ...
+		SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 340)
 		SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
 		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
@@ -634,6 +634,21 @@ local function SetupAddOnSkins()
 			E.private['addonskins']['EmbedLeft'] = 'Skada'
 			E.private['addonskins']['EmbedRight'] = 'Skada'
 		end
+		
+		E.private.addonskins.Blizzard_WorldStateCaptureBar = true
+		E.private.addonskins.WeakAuraBar = true
+		E.private.addonskins.ParchmentRemover = true
+		E.private.addonskins.DetailsBackdrop = true
+		E.private.addonskins.BigWigsHalfBar = true
+		E.private.addonskins.SkadaBackdrop = false
+		E.private.addonskins.Blizzard_ExtraActionButton = true
+		E.private.addonskins.SkinDebug = true
+		E.private.addonskins.SkadaSkin = true
+		E.private.addonskins.EmbedLeftWidth = 170
+		E.private.addonskins.CliqueSkin = true
+		E.private.addonskins.Blizzard_DeathRecap = true
+		E.private.addonskins.Blizzard_Friends = true
+		E.private.addonskins.Blizzard_DraenorAbilityButton = true
 	end
 end
 
@@ -813,7 +828,7 @@ local function SetupMERAddons()
 			E.db.locplus.petlevel = false
 			E.db.locplus.ttreczones = false
 			E.db.locplus.ttinst = false
-			E.db.locplus.lpfontsize = 16
+			E.db.locplus.lpfontsize = 15
 			E.db.locplus.lpfontflags = 'OUTLINE'
 			E.db.locplus.ttrecinst = false
 			E.db.locplus.ht = true
@@ -1589,7 +1604,7 @@ end
 function MER:SetupDts(role)
 	-- Data Texts
 		E.db.datatexts.font = 'Merathilis Roadway'
-		E.db.datatexts.fontSize = 14
+		E.db.datatexts.fontSize = 13
 		E.db.datatexts.fontOutline = 'OUTLINE'
 		E.db.datatexts.panelTransparency = false
 		if IsAddOnLoaded('ElvUI_LocPlus') then
