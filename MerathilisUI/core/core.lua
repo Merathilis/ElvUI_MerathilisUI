@@ -9,6 +9,10 @@ MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = string.format('|cff00c0fa%s |r', 'MerathilisUI') -- maybe for the Future
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
 
+P['Merathilis'] = {
+	['installed'] = nil,
+}
+
 function MER:RegisterMerMedia()
 	--Fonts
 	E['media'].muiFont = LSM:Fetch('font', 'Merathilis Prototype')
