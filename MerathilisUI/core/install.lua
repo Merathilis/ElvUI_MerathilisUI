@@ -1593,11 +1593,8 @@ function MER:SetupDts(role)
 			end
 			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
 			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
-		--if IsAddOnLoaded('ElvUI_BenikUI') then
 			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-		--else
-			--E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison' -- else, no BenikUI then BuiRightChatDTPanel doesn't exist
-		
+			
 			if IsAddOnLoaded('Skada') then
 				E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
 			else
@@ -1615,18 +1612,26 @@ function MER:SetupDts(role)
 			else
 				E.db.datatexts.panels.BuiMiddleDTPanel.left = 'System'
 			end
-			
 			E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
 		else
 			-- define the default ElvUI datatexts
 			if role == 'tank' then
-				
+				E.db.datatext.panels.LeftChatDataPanel.right = 'Attack Power'
 			elseif role == 'dpsMelee' then
-				
+				E.db.datatext.panels.LeftChatDataPanel.right = 'Attack Power'
 			elseif role == 'healer' or 'dpsCaster' then
-				
+				E.db.datatext.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
 			end
-			-- blabla
+			E.db.datatext.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
+			E.db.datatext.panels.LeftChatDataPanel.middle = 'Durability'
+			
+			if IsAddOnLoaded('Skada') then
+				E.db.datatext.panels.RightChatDataPanel.left = 'Skada'
+			else
+				E.db.datatext.panels.RightChatDataPanel.left = 'System'
+			end
+			E.db.datatext.panels.RightChatDataPanel.middle = 'Time'
+			E.db.datatext.panels.RightChatDataPanel.right = 'Gold'
 		end
 	
 	if InstallStepComplete then
