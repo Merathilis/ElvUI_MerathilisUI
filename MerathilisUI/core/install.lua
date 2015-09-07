@@ -19,17 +19,13 @@ local function SetupMERLayout()
 	-- General
 		E.private.general.pixelPerfect = true
 	-- to fit my UI Settings, you must adjust the Scaling Settings in the System Options
-		E.global.general.autoScale = false
+		E.global.general.autoScale = true
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
-		E.db.general.fontSize = 11
+		E.db.general.fontSize = 10
 		E.db.general.interruptAnnounce = "RAID"
 		E.db.general.autoRepair = "GUILD"
-		E.db.general.minimap.garrisonPos = "TOPRIGHT"
-		E.db.general.minimap.icons.garrison.scale = 0.9
-		E.db.general.minimap.icons.garrison.position = "TOPRIGHT"
-		E.db.general.minimap.icons.garrison.yOffset = 10
-		E.db.general.minimap.size = 150
+		E.db.general.minimap.size = 130
 		E.db.general.loginmessage = false
 		E.db.general.stickyFrames = false
 		E.db.general.backdropcolor.r = 0.101960784313726
@@ -45,10 +41,10 @@ local function SetupMERLayout()
 		E.private.general.dmgfont = 'ElvUI Combat'
 		E.private.general.normTex = 'MerathilisFlat'
 		E.private.general.glossTex = 'MerathilisFlat'
-		E.db.general.experience.height = 151
+		E.db.general.experience.height = 140
 		E.db.general.experience.textSize = 10
 		E.db.general.experience.width = 12
-		E.db.general.reputation.height = 151
+		E.db.general.reputation.height = 140
 		E.db.general.reputation.textSize = 10
 		E.db.general.reputation.width = 12
 		E.db.datatexts.leftChatPanel = false
@@ -72,31 +68,31 @@ local function SetupMERLayout()
 		E.db.actionbar.bar1.buttonspacing = 4
 		E.db.actionbar.bar1.backdrop = true
 		E.db.actionbar.bar1.heightMult = 2
-		E.db.actionbar.bar1.buttonsize = 30
+		E.db.actionbar.bar1.buttonsize = 28
 		E.db.actionbar.bar1.buttons = 12
 		E.db.actionbar.bar2.enable = true
 		E.db.actionbar.bar2.buttonspacing = 4
 		E.db.actionbar.bar2.buttons = 12
-		E.db.actionbar.bar2.buttonsize = 30
-		E.db.actionbar.bar2.heightMult = 1
+		E.db.actionbar.bar2.buttonsize = 28
 		E.db.actionbar.bar2.backdrop = false
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonsPerRow = 3
-		E.db.actionbar.bar3.buttonsize = 30
+		E.db.actionbar.bar3.buttonsize = 28
 		E.db.actionbar.bar3.buttonspacing = 2
 		E.db.actionbar.bar3.buttons = 6
 		E.db.actionbar.bar4.buttonspacing = 4
 		E.db.actionbar.bar4.mouseover = true
-		E.db.actionbar.bar4.buttonsize = 26
+		E.db.actionbar.bar4.buttonsize = 24
 		E.db.actionbar.bar5.backdrop = true
 		E.db.actionbar.bar5.buttonsPerRow = 3
-		E.db.actionbar.bar5.buttonsize = 30
+		E.db.actionbar.bar5.buttonsize = 28
 		E.db.actionbar.bar5.buttonspacing = 2
 		E.db.actionbar.bar5.buttons = 6
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
 		E.db.actionbar.bar6.mouseover = true
 		E.db.actionbar.bar6.buttons = 4
+		E.db.actionbar.bar6.point = 'TOPLEFT'
 		E.db.actionbar.barPet.point = 'RIGHT'
 		E.db.actionbar.barPet.buttonspacing = 4
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
@@ -116,9 +112,11 @@ local function SetupMERLayout()
 		E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.filter = false
 		E.db.auras.buffs.fontSize = 12
-		E.db.auras.buffs.horizontalSpacing = 15
-		E.db.auras.buffs.verticalSpacing = 15
-		E.db.auras.buffs.size = 28
+		E.db.auras.buffs.horizontalSpacing = 5
+		E.db.auras.buffs.verticalSpacing = 10
+		E.db.auras.buffs.size = 24
+		E.db.auras.debuffs.horizontalSpacing = 5
+		E.db.auras.debuffs.size = 30
 	end
 	
 	do
@@ -130,11 +128,12 @@ local function SetupMERLayout()
 		E.db.bags.countFontSize = 11
 		E.db.bags.countFontOutline = 'OUTLINE'
 		E.db.bags.yOffsetBank = 235
-		E.db.bags.bagSize = 25
+		E.db.bags.yOffsetBags = 235
+		E.db.bags.bagSize = 23
 		E.db.bags.alignToChat = false
-		E.db.bags.bagWidth = 450
-		E.db.bags.bankSize = 25
-		E.db.bags.bankWidth = 450
+		E.db.bags.bagWidth = 350
+		E.db.bags.bankSize = 23
+		E.db.bags.bankWidth = 350
 		E.db.bags.moneyFormat = 'BLIZZARD'
 		E.db.bags.itemLevelThreshold = 650
 	end
@@ -144,13 +143,13 @@ local function SetupMERLayout()
 		E.db.chat.keywordSound = 'Whisper Alert'
 		E.db.chat.tabFont = 'Merathilis Roadway'
 		E.db.chat.tabFontOutline = 'OUTLINE'
-		E.db.chat.tabFontSize = 16
+		E.db.chat.tabFontSize = 14
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
 		E.db.chat.fontSize = 12
-		E.db.chat.panelWidth = 400
+		E.db.chat.panelWidth = 350
 		E.db.chat.panelHeigth = 150
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
@@ -197,9 +196,9 @@ local function SetupMERLayout()
 		E.db.tooltip.combathide = true
 		E.db.tooltip.style = 'inset'
 		E.db.tooltip.itemCount = 'NONE'
-		E.db.tooltip.headerFontSize = 14
-		E.db.tooltip.textFontSize = 11
-		E.db.tooltip.smallTextFontSize = 11
+		E.db.tooltip.headerFontSize = 11
+		E.db.tooltip.textFontSize = 10
+		E.db.tooltip.smallTextFontSize = 10
 		E.db.tooltip.healthBar.font = 'Merathilis Prototype'
 		E.db.tooltip.healthBar.fontSize = 10
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
@@ -209,7 +208,7 @@ local function SetupMERLayout()
 	do
 	-- Unitframes
 		E.db.unitframe.font = 'Merathilis Tukui'
-		E.db.unitframe.fontSize = 14
+		E.db.unitframe.fontSize = 12
 		E.db.unitframe.fontOutline = 'OUTLINE'
 		E.db.unitframe.smoothbars = true
 		E.db.unitframe.statusbar = 'MerathilisFlat'
@@ -422,7 +421,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid40.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
 		E.db.unitframe.units.raid40.customTexts.HealthText.size = 10
 		E.db.unitframe.units.raid40.healPrediction = true
-		E.db.unitframe.units.raid40.width = 79
+		E.db.unitframe.units.raid40.width = 69
 		E.db.unitframe.units.raid40.positionOverride = 'BOTTOMRIGHT'
 		E.db.unitframe.units.raid40.health.frequentUpdates = true
 		E.db.unitframe.units.raid40.buffs.enable = true
@@ -437,17 +436,17 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid40.buffs.noConsolidated = false
 		E.db.unitframe.units.raid40.buffs.sizeOverride = 17
 		E.db.unitframe.units.raid40.buffs.xOffset = 21
-		E.db.unitframe.units.raid40.height = 43
+		E.db.unitframe.units.raid40.height = 40
 		E.db.unitframe.units.raid40.verticalSpacing = 1
 		E.db.unitframe.units.raid40.raidicon.attachTo = 'LEFT'
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
 	-- Party
+		E.db.unitframe.units.party.debuffs.fontSize = 12
 		E.db.unitframe.units.party.debuffs.sizeOverride = 21
 		E.db.unitframe.units.party.debuffs.yOffset = -7
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
-		E.db.unitframe.units.party.debuffs.xOffset = -4
 		E.db.unitframe.units.party.targetsGroup.anchorPoint = 'BOTTOM'
 		E.db.unitframe.units.party.GPSArrow.size = 40
 		E.db.unitframe.units.party.customTexts = {}
@@ -456,15 +455,15 @@ local function SetupMERLayout()
 		E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
 		E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
-		E.db.unitframe.units.party.customTexts.HealthText.yOffset = -7
+		E.db.unitframe.units.party.customTexts.HealthText.yOffset = 5
 		E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
 		E.db.unitframe.units.party.customTexts.HealthText.size = 10
 		E.db.unitframe.units.party.healPrediction = true
 		E.db.unitframe.units.party.name.xOffset = 2
-		E.db.unitframe.units.party.name.yOffset = -23
+		E.db.unitframe.units.party.name.yOffset = -20
 		E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
 		E.db.unitframe.units.party.name.position = 'CENTER'
-		E.db.unitframe.units.party.height = 45
+		E.db.unitframe.units.party.height = 40
 		E.db.unitframe.units.party.verticalSpacing = 4
 		E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
 		E.db.unitframe.units.party.raidicon.xOffset = 9
@@ -476,7 +475,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.party.power.text_format = ''
 		E.db.unitframe.units.party.power.height = 15
 		E.db.unitframe.units.party.positionOverride = 'BOTTOM'
-		E.db.unitframe.units.party.width = 79
+		E.db.unitframe.units.party.width = 69
 		E.db.unitframe.units.party.groupBy = 'ROLE'
 		E.db.unitframe.units.party.health.frequentUpdates = true
 		E.db.unitframe.units.party.health.position = 'BOTTOM'
