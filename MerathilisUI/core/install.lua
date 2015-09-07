@@ -234,8 +234,16 @@ local function SetupMERLayout()
 		E.db.unitframe.units.player.portrait.overlay = true
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1.35
 		E.db.unitframe.units.player.portrait.width = 43
-		
-		E.db.unitframe.units.player.classbar.enable = false
+		-- Use Classbar not for Druid, because of Balance PowerTracker
+		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
+			E.db.unitframe.units.player.classbar.enable = true
+			E.db.unitframe.units.player.classbar.detachFromFrame = true
+			E.db.unitframe.units.player.classbar.xOffset = 110
+			E.db.unitframe.units.player.classbar.detachedWidth = 135
+			E.db.unitframe.units.player.classbar.fill = 'spaced'
+		else
+			E.db.unitframe.units.player.classbar.enable = false
+		end
 		E.db.unitframe.units.player.aurabar.enable = false
 		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
 		E.db.unitframe.units.player.castbar.icon = true
@@ -552,7 +560,7 @@ local function SetupMERLayout()
 		SetMoverPosition('ElvUF_Raid25Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 200)
 		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
 		SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
-		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -1, 349)
+		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
 		SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
 		SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
 		SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
@@ -590,7 +598,7 @@ local function SetupMERLayout()
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
 		
-		FCF_SetChatWindowFontSize(nil, frame, 10)
+		FCF_SetChatWindowFontSize(nil, frame, 11)
 		
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
 		if i == 3 and chatName == LOOT..' / '..TRADE then
