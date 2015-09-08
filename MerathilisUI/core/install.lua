@@ -826,6 +826,16 @@ local function SetupMERAddons()
 					["x"] = 1500,
 				}, -- [2]
 			},		
+			["icon"] = {
+				["minimapPos"] = 216.201067430819,
+				["hide"] = true,
+			},
+			["columns"] = {
+				["Schaden_Damage"] = true,
+				["Schaden_Percent"] = false,
+				["Heilung_Percent"] = false,
+				["Schaden_DPS"] = true,
+			},
 		}
 	end
 
