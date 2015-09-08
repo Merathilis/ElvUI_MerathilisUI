@@ -6,12 +6,17 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
-MER.Title = string.format('|cff00c0fa%s |r', 'MerathilisUI')
+MER.Title = string.format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
 
 P['Merathilis'] = {
 	['installed'] = nil,
 }
+
+function MER:cOption(name)
+	local MER_COLOR = '|cffff7d0a%s |r'
+	return (MER_COLOR):format(name)
+end
 
 function MER:RegisterMerMedia()
 	--Fonts
@@ -28,7 +33,20 @@ function MER:RegisterMerMedia()
 	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
 end
 
+E.MerConfig = {}
+
+function MER:AddOptions()
+	for _, func in pairs(E.MerConfig) do
+		func()
+	end	
+end
+
+function MER:DasOptions()
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mer")
+end
+
 function MER:LoadCommands()
+	self:RegisterChatCommand("mer", "DasOptions")
 	self:RegisterChatCommand("mersetup", "SetupUI")
 end
 
@@ -48,8 +66,10 @@ function MER:Initialize()
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--MER:SetupUI()
 	
-	print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
-	EP:RegisterPlugin(addon)
+	if E.db.Merathilis.LoginMsg then
+		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
+	end
+	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
 E:RegisterModule(MER:GetName())

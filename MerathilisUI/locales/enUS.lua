@@ -3,9 +3,41 @@ local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
 local L = AceLocale:NewLocale('ElvUI', 'enUS');
 if not L then return; end
 
-L[".:: Welcome to |cff1784d1MerathilisUI|r v"] = true
-L[" ::.\nPress OK if you want to apply my settings."] = true
+-- Core
 L[' is loaded.'] = true
-L['OK'] = true
-L['No thanks'] = true
 
+-- General Options
+L['by Merathilis (EU-Shattrath)'] = true
+L['Merathilis is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikUI|r. '] = true
+--L['Install'] = true -- translated in ElvUI
+--L['Run the installation process.'] = true -- translated in ElvUI
+--L['General'] = true -- translated in ElvUI
+--L['Login Message'] = true -- translated in ElvUI
+L['Options'] = true
+
+-- Install
+L['MerathilisUI Set'] = true
+L[' - %s profile created!'] = true
+L['Addons Set'] = true
+L['DataTexts Set'] = true
+L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'] = true
+L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
+--L['Please press the continue button to go onto the next step.'] = true -- translated in ElvUI
+L['Layout'] = true
+L['This part of the installation changes the default ElvUI look.'] = true
+L['Please click the button below to apply the new layout.'] = true
+--L['Importance: |cff07D400High|r'] = true -- translated in ElvUI
+L['Setup Layout'] = true
+L['DataTexts'] = true
+L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
+L['Please click the button below to setup your datatexts.'] = true
+--L['Importance: |cffD3CF00Medium|r'] = true -- translated in ElvUI
+L['This part of the installation process will apply changes to the addons like Skada, BigWigs and ElvUI plugins'] = true
+L['Please click the button below to setup your addons.'] = true
+--L['Importance: |cffD3CF00Medium|r'] = true -- translated in ElvUI
+L['Setup Addons'] = true
+--L['Installation Complete'] = true -- translated in ElvUI
+--L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true -- translated in ElvUI
+--L['Please click the button below so you can setup variables and ReloadUI.'] = true -- translated in ElvUI
+L['Finished'] = true
+L['Installed'] = true
