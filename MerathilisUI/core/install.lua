@@ -4,6 +4,9 @@ local MER = E:GetModule('MerathilisUI');
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
 
+local _, class = UnitClass("player")
+local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	if not _G[mover] then return end
 	local frame = _G[mover]
@@ -31,7 +34,7 @@ local function SetupMERLayout()
 		E.db.general.backdropcolor.g = 0.101960784313726
 		E.db.general.backdropcolor.b = 0.101960784313726
 		E.db.general.vendorGrays = true
-		E.db.general.bottompanel = false
+		E.db.general.bottomPanel = false
 		E.global.general.smallerWorldMap = false
 		E.db.general.backdropfadecolor.r = 0.0549
 		E.db.general.backdropfadecolor.g = 0.0549
@@ -170,7 +173,7 @@ local function SetupMERLayout()
 		E.db.chat.chatHistory = false
 		E.db.chat.font = 'Merathilis Prototype'
 		E.db.chat.panelWidth = 350
-		E.db.chat.panelHeigth = 150
+		E.db.chat.panelHeight = 140
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI, Andy'
@@ -854,11 +857,15 @@ local function SetupMERAddons()
 			E.db.bui.LoginMsg = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 1
+			E.db.dashboards.barColor = {r = color.r, g = color.g, b = color.b}
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = true
+			E.db.dashboards.tokens.tooltip = false
+			E.db.dashboards.tokens.flash = true
+			E.db.dashboards.tokens.width = 148
 			E.db.dashboards.professions.enableProfessions = false
 			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
-			SetMoverPosition('tokenHolderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -1, -146)
+			SetMoverPosition('tokenHolderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -3, -146)
 		end
 	end
 	
@@ -890,11 +897,8 @@ local function SetupMERAddons()
 	
 	do
 	-- ElvUI_VisualAuraTimer
+		if E.db.VAT == nil then E.db.VAT = {} end
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
-			if E.db.VAT == nil then E.db.VAT = {} end
-			local _, class = UnitClass("player")
-			local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
-			
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.noDuration = true
 			E.db.VAT.barHeight = 6
