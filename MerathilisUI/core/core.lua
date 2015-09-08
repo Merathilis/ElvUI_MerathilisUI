@@ -6,7 +6,7 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
-MER.Title = string.format('|cff00c0fa%s |r', 'MerathilisUI') -- maybe for the Future
+MER.Title = string.format('|cff00c0fa%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
 
 P['Merathilis'] = {

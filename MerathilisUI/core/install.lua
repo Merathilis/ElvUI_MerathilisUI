@@ -858,7 +858,7 @@ local function SetupMERAddons()
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.barHeight = 6
 			E.db.VAT.spacing = 0
-			-- E.db.VAT.staticColor = 'CLASS_COLOR' -- need to ask Blazeflack how i get the Class Color for this
+			--E.db.VAT.staticColor = ? -- how i get the class color?
 			E.db.VAT.showText = false
 			E.db.VAT.decimalThreshold = 5
 			E.db.VAT.statusbarTexture = 'MerathilisFlat'
