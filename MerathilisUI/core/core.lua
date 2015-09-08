@@ -11,6 +11,7 @@ MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get th
 
 P['Merathilis'] = {
 	['installed'] = nil,
+	['LoginMsg'] = true,
 }
 
 function MER:cOption(name)
