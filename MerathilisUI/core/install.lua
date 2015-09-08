@@ -50,12 +50,20 @@ local function SetupMERLayout()
 		E.db.general.reputation.width = 12
 		E.db.general.reputation.textFormat = 'NONE'
 		E.db.general.reputation.orientation = 'VERTICAL'
-		E.db.datatexts.leftChatPanel = false
-		E.db.datatexts.rightChatPanel = false
+		if IsAddOnLoaded('ElvUI_BenikUI') then
+			E.db.datatexts.leftChatPanel = false
+			E.db.datatexts.rightChatPanel = false
+			E.db.datatexts.minimapPanels = false
+			E.db.datatexts.actionbar3 = false
+			E.db.datatexts.actionbar5 = false
+		else
+			E.db.datatexts.leftChatPanel = true
+			E.db.datatexts.rightChatPanel = true
+			E.db.datatexts.minimapPanels = true
+			E.db.datatexts.actionbar3 = true
+			E.db.datatexts.actionbar5 = true
+		end
 		E.db.datatexts.time24 = true
-		E.db.datatexts.minimapPanels = false
-		E.db.datatexts.actionbar3 = false
-		E.db.datatexts.actionbar5 = false
 		E.db.datatexts.goldCoins = true
 		E.db.datatexts.noCombatHover = true
 		E.private.skins.blizzard.alertframes = true
@@ -78,6 +86,7 @@ local function SetupMERLayout()
 		E.db.actionbar.bar2.buttons = 12
 		E.db.actionbar.bar2.buttonsize = 28
 		E.db.actionbar.bar2.backdrop = false
+		E.db.actionbar.bar2.mouseover = false
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonsPerRow = 3
 		E.db.actionbar.bar3.buttonsize = 28
@@ -91,14 +100,18 @@ local function SetupMERLayout()
 		E.db.actionbar.bar5.buttonsize = 28
 		E.db.actionbar.bar5.buttonspacing = 2
 		E.db.actionbar.bar5.buttons = 6
+		E.db.actionbar.bar6.enable = true
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
 		E.db.actionbar.bar6.buttonspacing = 2
 		E.db.actionbar.bar6.mouseover = true
 		E.db.actionbar.bar6.buttons = 4
 		E.db.actionbar.bar6.point = 'TOPLEFT'
-		E.db.actionbar.barPet.point = 'RIGHT'
-		E.db.actionbar.barPet.buttonspacing = 4
+		E.db.actionbar.barPet.point = 'BOTTOMLEFT'
+		E.db.actionbar.barPet.buttons = 10
+		E.db.actionbar.barPet.buttonspacing = 1
+		E.db.actionbar.barPet.buttonsPerRow = 10
+		E.db.actionbar.barPet.buttonsize = 20
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
 		E.db.actionbar.stanceBar.backdrop = true
 		E.db.actionbar.stanceBar.buttonsPerRow = 6
@@ -278,10 +291,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.player.power.height = 5
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachedWidth = 298
-		E.db.unitframe.units.player.buffs.sizeOverride = 30
-		E.db.unitframe.units.player.buffs.yOffset = 2
-		E.db.unitframe.units.player.buffs.noDuration = false
-		E.db.unitframe.units.player.buffs.attachTo = 'FRAME'
+		E.db.unitframe.units.player.buffs.enable = false
 	-- Target
 		E.db.unitframe.units.target.width = 220
 		E.db.unitframe.units.target.height = 40
@@ -1655,22 +1665,22 @@ function MER:SetupDts(role)
 		else
 			-- define the default ElvUI datatexts
 			if role == 'tank' then
-				E.db.datatext.panels.LeftChatDataPanel.right = 'Attack Power'
+				E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
 			elseif role == 'dpsMelee' then
-				E.db.datatext.panels.LeftChatDataPanel.right = 'Attack Power'
+				E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
 			elseif role == 'healer' or 'dpsCaster' then
-				E.db.datatext.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
+				E.db.datatexts.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
 			end
-			E.db.datatext.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
-			E.db.datatext.panels.LeftChatDataPanel.middle = 'Durability'
+			E.db.datatexts.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
+			E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability'
 			
 			if IsAddOnLoaded('Skada') then
-				E.db.datatext.panels.RightChatDataPanel.left = 'Skada'
+				E.db.datatexts.panels.RightChatDataPanel.left = 'Skada'
 			else
-				E.db.datatext.panels.RightChatDataPanel.left = 'System'
+				E.db.datatexts.panels.RightChatDataPanel.left = 'System'
 			end
-			E.db.datatext.panels.RightChatDataPanel.middle = 'Time'
-			E.db.datatext.panels.RightChatDataPanel.right = 'Gold'
+			E.db.datatexts.panels.RightChatDataPanel.middle = 'Time'
+			E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
 		end
 	
 	if InstallStepComplete then
