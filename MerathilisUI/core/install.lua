@@ -22,6 +22,7 @@ local function SetupMERLayout()
 	-- General
 		E.private.general.pixelPerfect = true
 		E.global.general.autoScale = true
+		E.db.general.valuecolor = {r = color.r, g = color.g, b = color.b}
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 10
@@ -75,6 +76,9 @@ local function SetupMERLayout()
 		E.db.datatexts.noCombatHover = true
 		E.private.skins.blizzard.alertframes = true
 		E.private.skins.blizzard.questChoice = true
+		E.private.skins.blizzard.friends = false
+		E.private.skins.blizzard.deathRecap = false
+		E.private.skins.blizzard.macro = false
 	end
 	
 	do
@@ -88,7 +92,7 @@ local function SetupMERLayout()
 		E.db.actionbar.bar1.heightMult = 2
 		E.db.actionbar.bar1.buttonsize = 28
 		E.db.actionbar.bar1.buttons = 12
-		E.db.actionbar.bar2.enable = true
+		E.db.actionbar.bar2.enabled = true
 		E.db.actionbar.bar2.buttonspacing = 4
 		E.db.actionbar.bar2.buttons = 12
 		E.db.actionbar.bar2.buttonsize = 28
@@ -107,7 +111,7 @@ local function SetupMERLayout()
 		E.db.actionbar.bar5.buttonsize = 28
 		E.db.actionbar.bar5.buttonspacing = 2
 		E.db.actionbar.bar5.buttons = 6
-		E.db.actionbar.bar6.enable = true
+		E.db.actionbar.bar6.enabled = true
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
 		E.db.actionbar.bar6.buttonspacing = 2

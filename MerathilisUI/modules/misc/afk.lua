@@ -23,6 +23,6 @@ if IsAddOnLoaded("ElvUI_BenikUI") then
 		self.AFKMode.top.btext:FontTemplate(nil, 14)
 		self.AFKMode.top.btext:SetText(format("v%s", MER.Version))
 		self.AFKMode.top.btext:SetPoint("TOP", self.AFKMode.top.merathilisui, "BOTTOM")
-		self.AFKMode.top.btext:SetTextColor(colors.white)
+		self.AFKMode.top.btext:SetTextColor(1, 1, 1)
 	end
 end
