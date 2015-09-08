@@ -40,12 +40,16 @@ local function SetupMERLayout()
 		E.private.general.dmgfont = 'ElvUI Combat'
 		E.private.general.normTex = 'MerathilisFlat'
 		E.private.general.glossTex = 'MerathilisFlat'
-		E.db.general.experience.height = 140
+		E.db.general.experience.enable = true
+		E.db.general.experience.mouseover = false
+		E.db.general.experience.height = 150
 		E.db.general.experience.textSize = 10
 		E.db.general.experience.width = 12
 		E.db.general.experience.textFormat = 'NONE'
 		E.db.general.experience.orientation = 'VERTICAL'
-		E.db.general.reputation.height = 140
+		E.db.general.reputation.enable = true
+		E.db.general.reputation.mouseover = false
+		E.db.general.reputation.height = 150
 		E.db.general.reputation.textSize = 10
 		E.db.general.reputation.width = 12
 		E.db.general.reputation.textFormat = 'NONE'
@@ -142,7 +146,7 @@ local function SetupMERLayout()
 		E.db.bags.itemLevelFontSize = 8
 		E.db.bags.itemLevelFontOutline = 'OUTLINE'
 		E.db.bags.countFont = 'Merathilis Prototype'
-		E.db.bags.countFontSize = 11
+		E.db.bags.countFontSize = 10
 		E.db.bags.countFontOutline = 'OUTLINE'
 		E.db.bags.yOffsetBank = 235
 		E.db.bags.yOffsetBags = 235
@@ -882,12 +886,14 @@ local function SetupMERAddons()
 			local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 			
 			E.db.VAT.enableStaticColor = true
+			E.db.VAT.noDuration = true
 			E.db.VAT.barHeight = 6
 			E.db.VAT.spacing = 0
 			E.db.VAT.staticColor = {r = color.r, g = color.g, b = color.b}
 			E.db.VAT.showText = false
 			E.db.VAT.decimalThreshold = 5
 			E.db.VAT.statusbarTexture = 'MerathilisFlat'
+			E.db.VAT.backdropTexture = 'MerathilisFlat'
 			E.db.VAT.position = 'TOP'
 		end
 	end
