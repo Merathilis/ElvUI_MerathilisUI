@@ -12,6 +12,7 @@ MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get th
 P['Merathilis'] = {
 	['installed'] = nil,
 	['LoginMsg'] = true,
+	['GameMenuButton'] = true,
 }
 
 function MER:cOption(name)
@@ -67,7 +68,7 @@ function MER:Initialize()
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--MER:SetupUI()
 	
-	if E.db.Merathilis.LoginMsg then
+	if E.db['Merathilis']['LoginMsg'] then
 		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)

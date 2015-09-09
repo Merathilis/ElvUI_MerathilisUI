@@ -1,4 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
+if not E.db['Merathilis']['GameMenuButton'] then return end;
+
 local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
 

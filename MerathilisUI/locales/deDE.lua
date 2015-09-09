@@ -13,7 +13,8 @@ L['MerathilisUI is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikU
 --L['Run the installation process.'] = true -- translated in ElvUI
 --L['General'] = true -- translated in ElvUI
 --L['Login Message'] = true -- translated in ElvUI
-L['Options'] = "Optionen"
+L['GameMenuButton'] = "Spielmenü Knopf"
+L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den GameMenuButton aus dem Blizzard Spielmenü."
 
 -- Install
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"

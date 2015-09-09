@@ -41,21 +41,22 @@ local function merCore()
 				guiInline = true,
 				args = {
 					LoginMsg = {
-						order = 3,
+						order = 1,
 						type = 'toggle',
 						name = L['Login Message'],
+						desc = L['Enable/Disable the Login Message in Chat'],
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,	
 					},
+					GameMenuButton = {
+						order = 2,
+						type = 'toggle',
+						name = L['GameMenuButton'],
+						desc = L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
 				},
-			},
-
-			config = {
-				order = 20,
-				type = 'group',
-				name = L['Options'],
-				childGroups = 'tab',
-				args = {},
 			},
 		},
 	}
