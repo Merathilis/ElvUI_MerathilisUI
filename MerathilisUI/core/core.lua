@@ -37,14 +37,8 @@ end
 
 E.MerConfig = {}
 
-function MER:AddOptions()
-	for _, func in pairs(E.MerConfig) do
-		func()
-	end	
-end
-
 function MER:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mer")
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "Merathilis")
 end
 
 function MER:LoadCommands()

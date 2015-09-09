@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 if E.db.Merathilis == nil then E.db.Merathilis = {} end
 
-local function merCore()
+function MER:AddOptions()
 	E.Options.args.Merathilis = {
 		order = 9001,
 		type = 'group',
@@ -61,5 +61,3 @@ local function merCore()
 		},
 	}
 end
-
-table.insert(E.MerConfig, merCore)
