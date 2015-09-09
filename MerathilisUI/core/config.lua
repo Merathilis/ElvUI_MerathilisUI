@@ -1,10 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local MER = E:GetModule('MerathilisUI');
 
-if E.db['Merathilis'] == nil then E.db['Merathilis'] = {} end
+if E.db.Merathilis == nil then E.db.Merathilis = {} end
 
 local function merCore()
-	E.Options.args.mer = {
+	E.Options.args.Merathilis = {
 		order = 9001,
 		type = 'group',
 		name = MER.Title,
@@ -45,16 +45,16 @@ local function merCore()
 						type = 'toggle',
 						name = L['Login Message'],
 						desc = L['Enable/Disable the Login Message in Chat'],
-						get = function(info) return E.db['Merathilis'][ info[#info] ] end,
-						set = function(info, value) E.db['Merathilis'][ info[#info] ] = value; end,	
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,	
 					},
 					GameMenuButton = {
 						order = 2,
 						type = 'toggle',
 						name = L['GameMenuButton'],
 						desc = L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'],
-						get = function(info) return E.db['Merathilis'][ info[#info] ] end,
-						set = function(info, value) E.db['Merathilis'][ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 				},
 			},
