@@ -117,9 +117,10 @@ local function SetupMERLayout()
 		E.db.actionbar.bar6.enabled = true
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
-		E.db.actionbar.bar6.buttonspacing = 2
+		E.db.actionbar.bar6.buttonspacing = 1
 		E.db.actionbar.bar6.mouseover = true
 		E.db.actionbar.bar6.buttons = 4
+		E.db.actionbar.bar6.buttonsize = 28
 		E.db.actionbar.bar6.point = 'TOPLEFT'
 		E.db.actionbar.barPet.point = 'BOTTOMLEFT'
 		E.db.actionbar.barPet.buttons = 10
@@ -583,7 +584,7 @@ local function SetupMERLayout()
 		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
 		SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
-		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 49)
+		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 47)
 		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 191)
 		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
 		SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
