@@ -79,6 +79,24 @@ function MER:AddOptions()
 					},
 				},
 			},
+			--[[
+			skins = {
+				order = 8,
+				type = 'group',
+				guiInline = true,
+				name = L['Skins'],
+				args = {
+					MasterPlan = {
+						order = 1,
+						type = 'toggle',
+						name = L['MasterPlan'],
+						desc = L['Skins the additional Tabs from MasterPlan.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+				},
+			},
+			]]
 		},
 	}
 end

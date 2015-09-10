@@ -22,3 +22,11 @@ else
 		end
 	end)
 end
+
+--[[
+function MER:LoadMasterPlan()
+	if E.db.Merathilis.MasterPlan then
+		self:skinMasterPlan()
+	end
+end
+]]--

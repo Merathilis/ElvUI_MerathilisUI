@@ -14,6 +14,7 @@ P['Merathilis'] = {
 	['LoginMsg'] = true,
 	['GameMenuButton'] = true,
 	['Screenshot'] = true,
+	--['MasterPlan'] = true,
 }
 
 function MER:cOption(name)
@@ -51,6 +52,7 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenuButton()
+	--self:LoadMasterPlan()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
 	-- This is a check so that your setup won't run everytime you login
 	-- Enable it when you are done
