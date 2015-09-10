@@ -68,7 +68,16 @@ function MER:AddOptions()
 				type = 'group',
 				guiInline = true,
 				name = L['Misc'],
-				args = {},
+				args = {
+					Screenshot = {
+						order = 1,
+						type = 'toggle',
+						name = L['Screenshot'],
+						desc = L['Takes an automatic Screenshot on Achievement earned.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
+					},
+				},
 			},
 		},
 	}
