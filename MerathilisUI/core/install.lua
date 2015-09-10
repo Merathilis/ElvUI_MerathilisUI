@@ -18,6 +18,9 @@ end
 
 -- local functions must go up
 local function SetupMERLayout()
+	if not IsAddOnLoaded('ElvUI_BenikUI') then
+		E:StaticPopup_Show("BENIKUI")
+	end
 	do
 	-- General
 		E.private.general.pixelPerfect = true
