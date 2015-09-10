@@ -1,8 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
-
 local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
-
 
 function MER:CreateGameMenuButton()
 	-- Button in GameMenuButton Frame

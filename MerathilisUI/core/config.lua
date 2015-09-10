@@ -29,7 +29,7 @@ function MER:AddOptions()
 				desc = L['Run the installation process.'],
 				func = function() MER:SetupUI(); E:ToggleConfig(); end,
 			},
-			spacer2 = {
+			spacer1 = {
 				order = 4,
 				type = 'header',
 				name = '',
@@ -57,6 +57,18 @@ function MER:AddOptions()
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 				},
+			},
+			spacer2 = {
+				order = 6,
+				type = 'header',
+				name = '',
+			},
+			misc = {
+				order = 7,
+				type = 'group',
+				guiInline = true,
+				name = L['Misc'],
+				args = {},
 			},
 		},
 	}
