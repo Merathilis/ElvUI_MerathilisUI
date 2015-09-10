@@ -44,3 +44,6 @@ L['Setup Addons'] = true
 --L['Please click the button below so you can setup variables and ReloadUI.'] = true -- translated in ElvUI
 L['Finished'] = true
 L['Installed'] = true
+
+-- Staticpopup
+L["To get the whole MerathilisUI Functionality and Look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = true
