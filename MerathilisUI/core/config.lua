@@ -79,7 +79,6 @@ function MER:AddOptions()
 					},
 				},
 			},
-			--[[
 			skins = {
 				order = 8,
 				type = 'group',
@@ -96,7 +95,6 @@ function MER:AddOptions()
 					},
 				},
 			},
-			]]
 		},
 	}
 end
