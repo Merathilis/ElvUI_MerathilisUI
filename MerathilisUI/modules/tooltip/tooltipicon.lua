@@ -1,4 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+if IsAddOnLoaded("ElvUI_Tooltip_Icon") then return end;
+
 local MER = E:GetModule('MerathilisUI');
 local TT = E:GetModule('Tooltip');
 
