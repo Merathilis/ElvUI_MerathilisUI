@@ -1,11 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local MERS = E:NewModule('MerathilisUISkins');
 local S = E:GetModule('Skins');
 
-if not IsAddOnLoaded("MasterPlan") then return end
-
-function MERS:skinMasterPlan()
+local function skinMasterPlan()
+	if not IsAddOnLoaded("MasterPlan") or not E.db.Merathilis.MasterPlan then return end
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
 	local MissionPage = GarrisonMissionFrame.MissionTab.MissionPage
@@ -13,7 +11,11 @@ function MERS:skinMasterPlan()
 	MissionPage.MinimizeButton:SetFrameLevel(MissionPage:GetFrameLevel() + 2)
 end
 
-function MERS:Initialize()
-	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'skinMasterPlan')
-end
-E:RegisterModule(MERS:GetName())
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent",function(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		skinMasterPlan()
+		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	end
+end)
