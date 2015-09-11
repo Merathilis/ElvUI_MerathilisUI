@@ -359,7 +359,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.target.portrait.xOffset = 0.07
 		E.db.unitframe.units.target.portrait.enable = true
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1.35
-		E.db.unitframe.units.target.buffs.sizeOverride = 21
+		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 11
 		E.db.unitframe.units.target.buffs.fontSize = 12
 		E.db.unitframe.units.target.castbar.width = 220
@@ -887,6 +887,7 @@ local function SetupMERAddons()
 			E.db.locplus.LoginMsg = false
 			E.db.locplus.lpfont = 'Merathilis Roadway'
 			E.db.locplus.dtheight = 17
+			E.db.locplus.dtwidth = 80
 			E.db.locplus.fish = false
 			E.db.locplus.lpwidth = 220
 			E.db.locplus.petlevel = false
