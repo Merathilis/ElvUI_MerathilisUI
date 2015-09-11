@@ -25,12 +25,13 @@ local function SetupMERLayout()
 	-- General
 		E.private.general.pixelPerfect = true
 		E.global.general.autoScale = true
+		E.private.general.chatBubbles = 'nobackdrop'
 		E.db.general.valuecolor = {r = color.r, g = color.g, b = color.b}
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
 		E.db.general.fontSize = 10
-		E.db.general.interruptAnnounce = "RAID"
-		E.db.general.autoRepair = "GUILD"
+		E.db.general.interruptAnnounce = 'RAID'
+		E.db.general.autoRepair = 'GUILD'
 		E.db.general.minimap.size = 130
 		E.db.general.loginmessage = false
 		E.db.general.stickyFrames = false
@@ -39,6 +40,7 @@ local function SetupMERLayout()
 		E.db.general.backdropcolor.b = 0.101960784313726
 		E.db.general.vendorGrays = true
 		E.db.general.bottomPanel = false
+		E.db.general.bonusObjectivePosition = 'AUTO'
 		E.global.general.smallerWorldMap = false
 		E.db.general.backdropfadecolor.r = 0.0549
 		E.db.general.backdropfadecolor.g = 0.0549
@@ -882,6 +884,7 @@ local function SetupMERAddons()
 	-- LocationPlus
 		if E.db.locplus == nil then E.db.locplus = {} end
 		if IsAddOnLoaded('ElvUI_LocPlus') then
+			E.db.locplus.LoginMsg = false
 			E.db.locplus.lpfont = 'Merathilis Roadway'
 			E.db.locplus.dtheight = 17
 			E.db.locplus.fish = false
