@@ -144,9 +144,10 @@ local function SetupMERLayout()
 		E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
 		E.db.auras.consolidatedBuffs.filter = false
 		E.db.auras.buffs.fontSize = 12
-		E.db.auras.buffs.horizontalSpacing = 5
-		E.db.auras.buffs.verticalSpacing = 10
+		E.db.auras.buffs.horizontalSpacing = 10
+		E.db.auras.buffs.verticalSpacing = 15
 		E.db.auras.buffs.size = 24
+		E.db.auras.buffs.wrapAfter = 10
 		E.db.auras.debuffs.horizontalSpacing = 5
 		E.db.auras.debuffs.size = 30
 	end
@@ -909,7 +910,7 @@ local function SetupMERAddons()
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.noDuration = true
-			E.db.VAT.barHeight = 6
+			E.db.VAT.barHeight = 5
 			E.db.VAT.spacing = 0
 			E.db.VAT.staticColor = {r = color.r, g = color.g, b = color.b}
 			E.db.VAT.showText = false
