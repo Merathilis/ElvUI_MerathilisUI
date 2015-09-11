@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 -- Automatic achievement screenshot
 local function TakeScreen(delay, func, ...)
-	if not IsAddOnLoaded('ElvUI') and not E.db.Merathilis.Screenshot then return end
+	if not E.db.Merathilis.Screenshot then return end
 	local waitTable = {}
 	local waitFrame = CreateFrame("Frame", "WaitFrame", UIParent)
 	waitFrame:SetScript("onUpdate", function (self, elapse)
