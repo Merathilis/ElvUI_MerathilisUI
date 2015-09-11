@@ -26,6 +26,7 @@ local function SetupMERLayout()
 		E.private.general.pixelPerfect = true
 		E.global.general.autoScale = true
 		E.private.general.chatBubbles = 'nobackdrop'
+		E.private.general.chatBubbleFont = 'Merathilis Prototype'
 		E.db.general.valuecolor = {r = color.r, g = color.g, b = color.b}
 		E.db.general.totems.size = 36
 		E.db.general.font = 'Merathilis Prototype'
