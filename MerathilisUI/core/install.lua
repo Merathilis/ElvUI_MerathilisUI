@@ -125,10 +125,10 @@ local function SetupMERLayout()
 		E.db.actionbar.bar6.buttonsize = 28
 		E.db.actionbar.bar6.point = 'TOPLEFT'
 		E.db.actionbar.barPet.point = 'BOTTOMLEFT'
-		E.db.actionbar.barPet.buttons = 10
+		E.db.actionbar.barPet.buttons = 8
 		E.db.actionbar.barPet.buttonspacing = 1
-		E.db.actionbar.barPet.buttonsPerRow = 10
-		E.db.actionbar.barPet.buttonsize = 20
+		E.db.actionbar.barPet.buttonsPerRow = 1
+		E.db.actionbar.barPet.buttonsize = 19
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
 		E.db.actionbar.stanceBar.backdrop = true
 		E.db.actionbar.stanceBar.buttonsPerRow = 6
@@ -588,7 +588,7 @@ local function SetupMERLayout()
 		SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
 		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
-		SetMoverPosition('PetAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 191)
+		SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
 		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
 		SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
 	-- XP/RepMover
