@@ -2,4 +2,5 @@
 	<Script file="afk.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="misc.lua"/>
+	<Script file="screenshot.lua"/>
 </Ui>
