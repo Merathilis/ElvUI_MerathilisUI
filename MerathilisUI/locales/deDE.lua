@@ -16,6 +16,8 @@ L['MerathilisUI is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikU
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 L['GameMenuButton'] = "Spielmenü"
 L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Knopf aus dem Blizzard Spielmenü."
+L['MasterPlan'] = true
+L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
 L['Screenshot'] = "Bildschirmfoto"
 L['Takes an automatic Screenshot on Achievement earned.'] = "Macht ein automatisches Bildschirmfoto, wenn ein Erfolg erreicht wird."
