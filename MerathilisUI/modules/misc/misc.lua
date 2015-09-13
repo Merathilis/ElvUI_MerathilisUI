@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
--- Force readycheck warning
+-- Force readycheck warning by Kkthnx
 local ShowReadyCheckHook = function(self, initiator)
 	if initiator ~= "player" then
 		PlaySound("ReadyCheck", "Master")
@@ -9,7 +9,7 @@ local ShowReadyCheckHook = function(self, initiator)
 end
 hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 
--- Force other warning
+-- Force other warning by Kkthnx
 local ForceWarning = CreateFrame("Frame")
 ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
@@ -34,7 +34,7 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 	end
 end)
 
--- Misclicks for some popups
+-- Misclicks for some popups by Kkthnx
 StaticPopupDialogs.RESURRECT.hideOnEscape = nil
 StaticPopupDialogs.AREA_SPIRIT_HEAL.hideOnEscape = nil
 StaticPopupDialogs.PARTY_INVITE.hideOnEscape = nil
@@ -47,7 +47,7 @@ PVPReadyDialog.leaveButton:Hide()
 PVPReadyDialog.enterButton:ClearAllPoints()
 PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
 
--- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
+-- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel) by Kkthnx
 LFDParentFrame:HookScript("OnShow",function()
 	for i=1,GetNumRandomDungeons() do
 		local id,name=GetLFGRandomDungeonInfo(i)
