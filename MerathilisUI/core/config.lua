@@ -69,8 +69,16 @@ function MER:AddOptions()
 				guiInline = true,
 				name = L['Misc'],
 				args = {
-					Screenshot = {
+					TooltipIcon = {
 						order = 1,
+						type = 'toggle',
+						name = L['Tooltip Icon'],
+						desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
+					},
+					Screenshot = {
+						order = 2,
 						type = 'toggle',
 						name = L['Screenshot'],
 						desc = L['Takes an automatic Screenshot on Achievement earned.'],

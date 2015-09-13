@@ -17,6 +17,10 @@ L['Enable/Disable the Login Message in Chat'] = true
 L['GameMenuButton'] = true
 L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'] = true
 L['Misc'] = true
+L['Screenshot'] = true
+L['Takes an automatic Screenshot on Achievement earned.'] = true
+L['Tooltip Icon'] = true
+L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
 
 -- Install
 L['MerathilisUI Set'] = true

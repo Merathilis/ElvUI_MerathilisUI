@@ -13,8 +13,9 @@ P['Merathilis'] = {
 	['installed'] = nil,
 	['LoginMsg'] = true,
 	['GameMenuButton'] = true,
-	['Screenshot'] = true,
 	['MasterPlan'] = true,
+	['Screenshot'] = true,
+	['TooltipIcon'] = true,
 }
 
 function MER:cOption(name)

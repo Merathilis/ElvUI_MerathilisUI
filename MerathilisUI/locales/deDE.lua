@@ -17,6 +17,10 @@ L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login
 L['GameMenuButton'] = "Spielmenü"
 L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Knopf aus dem Blizzard Spielmenü."
 L['Misc'] = "Verschiedenes"
+L['Screenshot'] = "Bildschirmfoto"
+L['Takes an automatic Screenshot on Achievement earned.'] = "Macht ein automatisches Bildschirmfoto, wenn ein Erfolg erreicht wird."
+L['Tooltip Icon'] = true
+L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltio hinzu"
 
 -- Install
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"

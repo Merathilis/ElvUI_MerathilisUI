@@ -1,10 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
-if IsAddOnLoaded("ElvUI_Tooltip_Icon") then return end;
-
 local MER = E:GetModule('MerathilisUI');
 local TT = E:GetModule('Tooltip');
 
 local function AddIcon(self, icon)
+	if not E.db.Merathilis.TooltipIcon then return end
 	
 	if icon then
 		local title = _G[self:GetName() .. "TextLeft1"]
@@ -49,5 +48,14 @@ hooksecurefunc(GameTooltip, "SetHyperlink", function(self, link)
 	if linkType == "achievement" then
 		local id, name, _, accountCompleted, month, day, year, _, _, icon, _, isGuild, characterCompleted, whoCompleted = GetAchievementInfo(id)
 		AddIcon(self, icon)
+	end
+end)
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent",function(self, event)
+	if event == "PLAYER_ENTERING_WORLD" then
+		AddIcon()
+		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
