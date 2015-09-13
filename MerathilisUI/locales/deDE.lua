@@ -20,7 +20,7 @@ L['Misc'] = "Verschiedenes"
 L['Screenshot'] = "Bildschirmfoto"
 L['Takes an automatic Screenshot on Achievement earned.'] = "Macht ein automatisches Bildschirmfoto, wenn ein Erfolg erreicht wird."
 L['Tooltip Icon'] = true
-L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltio hinzu"
+L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"
 
 -- Install
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"
