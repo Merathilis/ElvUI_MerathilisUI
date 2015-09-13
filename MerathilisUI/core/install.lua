@@ -92,6 +92,11 @@ local function SetupMERLayout()
 		E.db.actionbar.font = 'Merathilis Prototype'
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
+		if IsAddOnLoaded("Masque") then
+			E.db.actionbar.masque.stanceBar = true
+			E.db.actionbar.masque.petBar = true
+			E.db.actionbar.masque.actionbars = true
+		end
 		
 		E.db.actionbar.bar1.buttonspacing = 4
 		E.db.actionbar.bar1.backdrop = true
@@ -138,6 +143,11 @@ local function SetupMERLayout()
 	
 	do
 	-- Auras
+		if IsAddOnLoaded("Masque") then
+			E.db.auras.masque.consolidatedBuffs = true
+			E.db.auras.masque.buffs = true
+			E.db.auras.masque.debuffs = true
+		end
 		E.db.auras.debuffs.size = 30
 		E.db.auras.fadeThreshold = 10
 		E.db.auras.font = 'Merathilis Prototype'
