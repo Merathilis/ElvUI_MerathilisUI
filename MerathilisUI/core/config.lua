@@ -63,8 +63,24 @@ function MER:AddOptions()
 				type = 'header',
 				name = '',
 			},
-			misc = {
+			unitframes = {
 				order = 7,
+				type = 'group',
+				guiInline = true,
+				name = L['UnitFrames'],
+				args = {
+					HoverClassColor = {
+						order = 1,
+						type = 'toggle',
+						name = L['Hover ClassColor'],
+						desc = L['Adds an Hovereffect for ClassColor to the Raidframes.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+				},
+			},
+			misc = {
+				order = 8,
 				type = 'group',
 				guiInline = true,
 				name = L['Misc'],
@@ -88,7 +104,7 @@ function MER:AddOptions()
 				},
 			},
 			skins = {
-				order = 8,
+				order = 9,
 				type = 'group',
 				guiInline = true,
 				name = L['Skins'],

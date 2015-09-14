@@ -2,6 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local UF = E:GetModule('UnitFrames');
 
+if not E.db.Merathilis.HoverClassColor then return end
 
 -- mouseover classcolor
 local function HoverClassColor(self, frame, db)

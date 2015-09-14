@@ -23,6 +23,9 @@ L['Screenshot'] = true
 L['Takes an automatic Screenshot on Achievement earned.'] = true
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
+--L['UnitFrames'] = true -- translated in ElvUI
+L['Hover ClassColor'] = true
+L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
 
 -- Install
 L['MerathilisUI Set'] = true
