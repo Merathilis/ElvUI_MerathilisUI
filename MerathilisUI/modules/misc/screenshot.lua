@@ -4,7 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 -- Automatic achievement screenshot
 local function OnEvent(self, event, ...)
 	if not E.db.Merathilis.Screenshot then return end
-	E_Timer.After(1, function() Screenshot() end)
+	C_Timer.After(1, function() Screenshot() end)
 end
 
 local frame = CreateFrame("Frame")
