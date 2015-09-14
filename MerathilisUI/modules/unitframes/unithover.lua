@@ -4,7 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 -- mouseover classcolor
 local function HoverClassColor(self, frame, db)
-	if not E.db.Merathilis.HoverClassColor then return end
+	if not E.db.Merathilis.HoverClassColor then return; end
 	if frame.isMouseOverHooked then return; end
 	local health = frame.Health
 	frame:HookScript("OnEnter", function(self)
@@ -23,12 +23,3 @@ local function HoverClassColor(self, frame, db)
 	frame.isMouseOverHooked = true
 end
 hooksecurefunc(UF, 'Update_RaidFrames', HoverClassColor)
-
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		HoverClassColor()
-		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	end
-end)
