@@ -17,6 +17,7 @@ P['Merathilis'] = {
 	['Screenshot'] = true,
 	['TooltipIcon'] = true,
 	['HoverClassColor'] = true,
+	['TabBinder'] = true,
 }
 
 function MER:cOption(name)

@@ -101,6 +101,14 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
 					},
+					TabBinder = {
+						order = 3,
+						type = 'toggle',
+						name = L['TabBinder'],
+						desc = L['Auto change Tab key to only target enemy players'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
+					},
 				},
 			},
 			skins = {

@@ -3,4 +3,5 @@
 	<Script file="gamemenu.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="screenshot.lua"/>
+	<Script file="tabbinder.lua"/>
 </Ui>
