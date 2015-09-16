@@ -55,6 +55,7 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenuButton()
+	self:AchievementScreenshots()
 	--self:LoadMasterPlan()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
 	-- This is a check so that your setup won't run everytime you login

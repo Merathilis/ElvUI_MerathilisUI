@@ -1,12 +1,41 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
--- Automatic achievement screenshot
-local function OnEvent(self, event, ...)
-	if not E.db.Merathilis.Screenshot then return end
-	C_Timer.After(1, function() Screenshot() end)
+----------------------------------------------------------------------------------------
+--	Take screenshots of Achievements(Based on Achievement Screenshotter by Blamdarot)
+----------------------------------------------------------------------------------------
+local function TakeScreen(delay, func, ...)
+	local waitTable = {}
+	local waitFrame = CreateFrame("Frame", "WaitFrame", UIParent)
+	waitFrame:SetScript("onUpdate", function (self, elapse)
+		local count = #waitTable
+		local i = 1
+		while (i <= count) do
+			local waitRecord = tremove(waitTable, i)
+			local d = tremove(waitRecord, 1)
+			local f = tremove(waitRecord, 1)
+			local p = tremove(waitRecord, 1)
+			if d > elapse then
+				tinsert(waitTable, i, {d-elapse, f, p})
+				i = i + 1
+			else
+				count = count - 1
+				f(unpack(p))
+			end
+		end
+	end)
+	tinsert(waitTable, {delay, func, {...} })
 end
 
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("ACHIEVEMENT_EARNED")
-frame:SetScript("OnEvent", OnEvent)
+local function TakeScreenshot()
+	TakeScreen(1, TakeScreenshot)
+end
+
+function MER:AchievementScreenshots()
+	if E.db.Merathilis.Screenshot then
+		self:RegisterEvent("ACHIEVEMENT_EARNED")
+		TakeScreenshot()
+	else
+		self:UnregisterAllEvents()
+	end
+end
