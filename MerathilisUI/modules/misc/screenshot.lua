@@ -5,6 +5,7 @@ local MER = E:GetModule('MerathilisUI');
 --	Take screenshots of Achievements(Based on Achievement Screenshotter by Blamdarot)
 ----------------------------------------------------------------------------------------
 local function TakeScreen(delay, func, ...)
+	if not E.db.Merathilis.Screenshot then return end
 	local waitTable = {}
 	local waitFrame = CreateFrame("Frame", "WaitFrame", UIParent)
 	waitFrame:SetScript("onUpdate", function (self, elapse)
@@ -31,11 +32,11 @@ local function TakeScreenshot()
 	TakeScreen(1, TakeScreenshot)
 end
 
-function MER:AchievementScreenshots()
-	if E.db.Merathilis.Screenshot then
-		self:RegisterEvent("ACHIEVEMENT_EARNED")
+local f = CreateFrame("Frame")
+f:RegisterEvent("ACHIEVEMENT_EARNED")
+f:SetScript("OnEvent",function(self, event)
+	if event == "ACHIEVEMENT_EARNED" then
 		TakeScreenshot()
-	else
-		self:UnregisterAllEvents()
+		f:UnregisterEvent("ACHIEVEMENT_EARNED")
 	end
-end
+end)
