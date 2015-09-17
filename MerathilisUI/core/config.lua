@@ -109,6 +109,14 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
 					},
+					Cinematic = {
+						order = 4,
+						type = 'toggle',
+						name = L['Skip Cinematic'],
+						desc = L['Automatically skips Cinematics'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
+					},
 				},
 			},
 			skins = {

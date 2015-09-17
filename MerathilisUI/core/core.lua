@@ -18,6 +18,7 @@ P['Merathilis'] = {
 	['TooltipIcon'] = true,
 	['HoverClassColor'] = true,
 	['TabBinder'] = true,
+	['Cinematic'] = true,
 }
 
 function MER:cOption(name)
