@@ -48,11 +48,11 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,	
 					},
-					GameMenuButton = {
+					GameMenu = {
 						order = 2,
 						type = 'toggle',
-						name = L['GameMenuButton'],
-						desc = L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'],
+						name = L['GameMenu'],
+						desc = L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'],
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},

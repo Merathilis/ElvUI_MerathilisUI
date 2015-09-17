@@ -12,7 +12,7 @@ MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get th
 P['Merathilis'] = {
 	['installed'] = nil,
 	['LoginMsg'] = true,
-	['GameMenuButton'] = true,
+	['GameMenu'] = true,
 	['MasterPlan'] = true,
 	['Screenshot'] = true,
 	['TooltipIcon'] = true,
@@ -55,7 +55,7 @@ end
 function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
-	self:LoadGameMenuButton()
+	self:LoadGameMenu()
 	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
 	-- This is a check so that your setup won't run everytime you login
 	-- Enable it when you are done

@@ -4,7 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 if not E.db.Merathilis.Cinematic then return end
 
 ----------------------------------------------------------------------------------------
---	Skip cinematics/movies(CinematicSkip by Pigmonkey) taken from ShestakUI
+-- Skip cinematics/movies(CinematicSkip by Pigmonkey) taken from ShestakUI
 ----------------------------------------------------------------------------------------
 -- Cancel cinematics after they start
 local frame = CreateFrame("Frame")

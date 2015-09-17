@@ -14,8 +14,8 @@ L['MerathilisUI is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikU
 --L['General'] = true -- translated in ElvUI
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
-L['GameMenuButton'] = "Spielmenü"
-L['Enable/Disable the GameMenuButton from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Knopf aus dem Blizzard Spielmenü."
+L['GameMenu'] = "Spielmenü"
+L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
