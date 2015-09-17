@@ -20,16 +20,16 @@ function MER:GameMenu()
 	local TopPanel = CreateFrame("Frame", nil, GameMenuFrame)
 	TopPanel:SetFrameLevel(0)
 	TopPanel:SetTemplate("Transparent")
-	TopPanel:SetPoint("TOP", E.UIParent, "TOP", 0, -E.Border)
+	TopPanel:SetPoint("TOP", E.UIParent, "TOP", 0, E.Border) -- had a small gap
 	TopPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	TopPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
-	--[[
-	local Logo = self.GameMenu:CreateTexture(nil, 'OVERLAY')
-	Logo:SetSize(285, 128)
-	Logo:SetPoint("TOP", self.GameMenu.TopPanel, "TOP", 0, 5)
-	Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
-	]]--
+
+	TopPanel.Logo = TopPanel:CreateTexture(nil, 'OVERLAY')
+	TopPanel.Logo:SetSize(285, 128)
+	TopPanel.Logo:SetPoint("TOP", TopPanel, "TOP", 0, 5)
+	TopPanel.Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
+
 	
 	if
 	E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
