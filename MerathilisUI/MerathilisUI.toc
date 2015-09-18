@@ -3,7 +3,7 @@
 ## Credits: Benik
 ## Version: Alpha 1
 ## Title: |cff1784d1MerathilisUI|r
-## Notes: an decorative edit based on BenikUI + additional Features.
+## Notes: an decorative edit based on BenikUI + an additional Features.
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia

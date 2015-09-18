@@ -9,6 +9,7 @@ L[' is loaded.'] = true
 -- General Options
 L['by Merathilis (EU-Shattrath)'] = true
 L['Merathilis is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikUI|r. '] = true
+L[' Benik, Blazeflack, Azilroka, Elv and all other AddOn Authors who inspired me.'] = true
 --L['Install'] = true -- translated in ElvUI
 --L['Run the installation process.'] = true -- translated in ElvUI
 --L['General'] = true -- translated in ElvUI
