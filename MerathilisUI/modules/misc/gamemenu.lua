@@ -15,6 +15,9 @@ function MER:GameMenu()
 	local bottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
 	bottomPanel:SetFrameLevel(0)
 	bottomPanel:SetTemplate("Transparent")
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		bottomPanel:Style("Outside")
+	end
 	bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 	bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
