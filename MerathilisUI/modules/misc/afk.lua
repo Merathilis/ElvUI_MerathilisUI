@@ -24,5 +24,4 @@ function AFK:Initialize()
 	self.AFKMode.bottom.btext:SetText(format("v%s", MER.Version))
 	self.AFKMode.bottom.btext:SetPoint("TOP", self.AFKMode.bottom.merathilisui, "BOTTOM")
 	self.AFKMode.bottom.btext:SetTextColor(0.7, 0.7, 0.7)
-	--Hide BenikUI
 end

@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
 
+local classColor = RAID_CLASS_COLORS[E.myclass]
+
 function MER:GameMenu()
 	-- GameMenu Frame
 	local button = CreateFrame("Button", "MerConfigButton", GameMenuFrame, "GameMenuButtonTemplate")
@@ -17,19 +19,17 @@ function MER:GameMenu()
 	bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
-	local TopPanel = CreateFrame("Frame", nil, GameMenuFrame)
-	TopPanel:SetFrameLevel(0)
-	TopPanel:SetTemplate("Transparent")
-	TopPanel:SetPoint("TOP", E.UIParent, "TOP", 0, E.Border) -- had a small gap
-	TopPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-	TopPanel:SetHeight(GetScreenHeight() * (1 / 4))
+	local topPanel = CreateFrame("Frame", nil, GameMenuFrame)
+	topPanel:SetFrameLevel(0)
+	topPanel:SetTemplate("Transparent")
+	topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
+	topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+	topPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
-
-	TopPanel.Logo = TopPanel:CreateTexture(nil, 'OVERLAY')
-	TopPanel.Logo:SetSize(285, 128)
-	TopPanel.Logo:SetPoint("TOP", TopPanel, "TOP", 0, 5)
-	TopPanel.Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
-
+	topPanel.Logo = topPanel:CreateTexture(nil, 'OVERLAY')
+	topPanel.Logo:SetSize(285, 128)
+	topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -50)
+	topPanel.Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
 	
 	if
 	E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
