@@ -20,6 +20,11 @@ function MER:GameMenu()
 	bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
+	bottomPanel:SetScript("OnShow", function(self)
+		bottomPanel:Run("Alpha", .7, 0, 1)
+		bottomPanel:SetSmoothType("Out")
+	end)
+	
 	local topPanel = CreateFrame("Frame", nil, GameMenuFrame)
 	topPanel:SetFrameLevel(0)
 	topPanel:SetTemplate("Transparent")
@@ -27,11 +32,21 @@ function MER:GameMenu()
 	topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	topPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
+	topPanel:SetScript("OnShow", function(self)
+		topPanel:Run("Alpha", .7, 0, 1)
+		topPanel:SetSmoothType("Out")
+	end)
+	
 	topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 	topPanel.style:SetTemplate("Default", true)
 	topPanel.style:SetFrameStrata("BACKGROUND")
 	topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 	topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
+	
+	topPanel.style:SetScript("OnShow", function(self)
+		topPanel.style:Run("Alpha", .7, 0, 1)
+		topPanel.style:SetSmoothType("Out")
+	end)
 	
 	topPanel.style.color = topPanel.style:CreateTexture(nil, 'OVERLAY')
 	topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
