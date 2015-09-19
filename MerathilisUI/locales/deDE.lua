@@ -29,8 +29,6 @@ L['Hover ClassColor'] = "Klassenfarben Effekt"
 L['Adds an Hovereffect for ClassColor to the Raidframes.'] = "Fügt ein MouseOver Klassenfarben Effekt zu dem Schlachtzugsfenster hinzu."
 L['TabBinder'] = true
 L['Auto change Tab key to only target enemy players'] = "Die Tabtaste visiert nur feindliche Einheiten an"
-L['Skip Cinematic'] = "Videos überspringen"
-L['Automatically skips Cinematics'] = "Überspringt automatisch Videos"
 
 -- Install
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"

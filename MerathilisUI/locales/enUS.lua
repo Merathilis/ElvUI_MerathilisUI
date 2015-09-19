@@ -29,8 +29,6 @@ L['Hover ClassColor'] = true
 L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
 L['TabBinder'] = true
 L['Auto change Tab key to only target enemy players'] = true
-L['Skip Cinematic'] = true
-L['Automatically skips Cinematics'] = true
 
 -- Install
 L['MerathilisUI Set'] = true

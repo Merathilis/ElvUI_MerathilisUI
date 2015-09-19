@@ -58,6 +58,24 @@ function MER:GameMenu()
 	topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -60)
 	topPanel.Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
 	
+	-- Use this frame to control the position of the model - taken from ElvUI
+	local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
+	modelHolder:SetSize(150, 150)
+	modelHolder:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 90)
+	
+	playerModel = CreateFrame("PlayerModel", nil, modelHolder)
+	playerModel:SetPoint("CENTER", modelHolder, "CENTER")
+	playerModel:SetUnit("player")
+	playerModel.isIdle = nil
+	playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models. Position is controlled with the helper frame.
+	playerModel:SetCamDistanceScale(7)
+	playerModel:SetFacing(0)
+	
+	playerModel:SetScript("OnShow", function(self)
+		playerModel:Run("Alpha", .7, 0, 1)
+		playerModel:SetSmoothType("Out")
+	end)
+	
 	if
 	E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
 		S:HandleButton(button)
