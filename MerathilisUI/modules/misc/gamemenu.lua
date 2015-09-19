@@ -34,7 +34,9 @@ function MER:GameMenu()
 	topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
 	
 	topPanel.style.color = topPanel.style:CreateTexture(nil, 'OVERLAY')
-	MER:StyleFrame(topPanel.style) -- wrong parent ^^
+	topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	topPanel.style.color:SetInside()
+	topPanel.style.color:SetTexture(E['media'].MuiFlat)
 	
 	topPanel.Logo = topPanel:CreateTexture(nil, 'OVERLAY')
 	topPanel.Logo:SetSize(285, 128)
