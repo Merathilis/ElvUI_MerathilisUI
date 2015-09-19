@@ -26,6 +26,13 @@ function MER:cOption(name)
 	return (MER_COLOR):format(name)
 end
 
+function MER:StyleFrame(frame)
+	if not IsAddOnLoaded("ElvUI_BenikUI") then return end
+	if frame and not frame.style then
+		frame:Style("Outside")
+	end
+end
+
 function MER:RegisterMerMedia()
 	--Fonts
 	E['media'].muiFont = LSM:Fetch('font', 'Merathilis Prototype')
