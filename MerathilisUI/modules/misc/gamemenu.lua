@@ -61,15 +61,15 @@ function MER:GameMenu()
 	-- Use this frame to control the position of the model - taken from ElvUI
 	local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
 	modelHolder:SetSize(150, 150)
-	modelHolder:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 90)
+	modelHolder:SetPoint("LEFT", E.UIParent, "LEFT", 400, -10)
 	
 	playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 	playerModel:SetPoint("CENTER", modelHolder, "CENTER")
 	playerModel:SetUnit("player")
 	playerModel.isIdle = nil
 	playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models. Position is controlled with the helper frame.
-	playerModel:SetCamDistanceScale(7)
-	playerModel:SetFacing(0)
+	playerModel:SetCamDistanceScale(5)
+	playerModel:SetFacing(6.5)
 	
 	playerModel:SetScript("OnShow", function(self)
 		playerModel:Run("Alpha", .7, 0, 1)
