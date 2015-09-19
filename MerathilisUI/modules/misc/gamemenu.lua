@@ -40,7 +40,7 @@ function MER:GameMenu()
 	
 	topPanel.Logo = topPanel:CreateTexture(nil, 'OVERLAY')
 	topPanel.Logo:SetSize(285, 128)
-	topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -50)
+	topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -60)
 	topPanel.Logo:SetTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga")
 	
 	if

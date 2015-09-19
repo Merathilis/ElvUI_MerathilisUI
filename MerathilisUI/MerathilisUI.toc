@@ -8,6 +8,7 @@
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
 
+libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 core\load_core.xml
