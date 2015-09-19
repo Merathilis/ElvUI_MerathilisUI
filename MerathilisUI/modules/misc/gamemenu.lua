@@ -27,10 +27,14 @@ function MER:GameMenu()
 	topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 	topPanel:SetHeight(GetScreenHeight() * (1 / 4))
 	
-	topPanel.style = CreateFrame("Frame", nil, topPanel)
+	topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 	topPanel.style:SetTemplate("Default", true)
 	topPanel.style:SetFrameStrata("BACKGROUND")
-	topPanel.style:Point("BOTTOM", topPanel, "BOTTOM", 0, (E.PixelMode and -4 or -7))
+	topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
+	topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
+	
+	topPanel.style.color = topPanel.style:CreateTexture(nil, 'OVERLAY')
+	MER:StyleFrame(topPanel.style) -- wrong parent ^^
 	
 	topPanel.Logo = topPanel:CreateTexture(nil, 'OVERLAY')
 	topPanel.Logo:SetSize(285, 128)
