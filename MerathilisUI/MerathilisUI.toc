@@ -12,9 +12,4 @@ libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 core\load_core.xml
-modules\datatexts\specswitch.lua
-modules\misc\load_misc.xml
-modules\quest\load_quest.xml
-modules\skins\load_skins.xml
-modules\tooltip\tooltipicon.lua
-modules\unitframes\unithover.lua
+modules\load_modules.xml

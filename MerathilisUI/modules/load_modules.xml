@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="datatexts\specswitch.lua"/>
+	<Include file="misc\load_misc.xml"/>
+	<Include file="quest\load_quest.xml"/>
+	<Include file="skins\load_skins.xml"/>
+	<Script file="tooltip\tooltipicon.lua"/>
+	<Script file="unitframes\unithover.lua"/>
+</Ui>

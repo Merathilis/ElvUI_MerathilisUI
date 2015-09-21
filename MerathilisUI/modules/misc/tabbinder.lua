@@ -1,10 +1,8 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
-if not E.db.Merathilis.TabBinder then return end
-
 ----------------------------------------------------------------------------------------------------
---	Auto change Tab key to only target enemy players(RE/TabBinder by Veev/AcidWeb) taken from Kkthnx
+-- Auto change Tab key to only target enemy players(RE/TabBinder by Veev/AcidWeb) taken from Kkthnx
 ----------------------------------------------------------------------------------------------------
 local TabBinder = CreateFrame("Frame")
 TabBinder:RegisterEvent("PLAYER_ENTERING_WORLD")
