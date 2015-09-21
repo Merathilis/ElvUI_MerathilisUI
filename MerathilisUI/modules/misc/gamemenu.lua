@@ -41,11 +41,10 @@ function MER:GameMenu()
 		
 		bottomPanel:SetScript("OnShow", panel_onShow)
 		
-
 		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'OVERLAY')
 		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
 		bottomPanel.factionLogo:SetTexture(factionLogo)
-		bottomPanel.factionLogo:SetSize(140, 140)
+		bottomPanel.factionLogo:SetSize(200, 200)
 	end
 	
 	if not topPanel then
