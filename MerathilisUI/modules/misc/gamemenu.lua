@@ -4,6 +4,8 @@ local S = E:GetModule('Skins')
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
+local factionGroup = UnitFactionGroup("player")
+local factionLogo = "Interface\\Timer\\"..factionGroup.."-Logo"
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
 	self:Run("Alpha", .7, 0, 1)
@@ -38,6 +40,12 @@ function MER:GameMenu()
 		bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
 		
 		bottomPanel:SetScript("OnShow", panel_onShow)
+		
+
+		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'OVERLAY')
+		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
+		bottomPanel.factionLogo:SetTexture(factionLogo)
+		bottomPanel.factionLogo:SetSize(140, 140)
 	end
 	
 	if not topPanel then
@@ -53,6 +61,7 @@ function MER:GameMenu()
 		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
 		topPanel.style:SetFrameStrata("BACKGROUND")
+		topPanel.style:SetInside()
 		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
 		
