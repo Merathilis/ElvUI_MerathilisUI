@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
 -- Credits Tonyleila (Mail Inputbox Reziser)
-if IsAddOnLoaded("Mailinputboxresizer") then return end
+if IsAddOnLoaded("MailinputboxResizer") then return end
 
 -- EditBox width: default: 224
 local editbox_width = 218

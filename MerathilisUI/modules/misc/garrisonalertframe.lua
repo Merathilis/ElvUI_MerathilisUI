@@ -2,6 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, Pr
 local MER = E:GetModule('MerathilisUI');
 
 -- Hides the GarrisonAlertFrame when in combat (credits Sniffles)
+if IsAddOnLoaded("HideGarrisonAlertFrame") then return end
+
 local combat = CreateFrame("Frame")
 combat:RegisterEvent("PLAYER_REGEN_DISABLED")
 combat:RegisterEvent("PLAYER_REGEN_ENABLED")
