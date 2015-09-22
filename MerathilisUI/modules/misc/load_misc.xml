@@ -3,6 +3,8 @@
 	<Script file="blizzbugs.lua"/>
 	<Script file="cinematic.lua"/>
 	<Script file="gamemenu.lua"/>
+	<Script file="garrisonalertframe.lua"/>
+	<Script file="mailinputbox.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="rarealert.lua"/>
 	<Script file="screenshot.lua"/>

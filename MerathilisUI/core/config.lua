@@ -109,6 +109,22 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
 					},
+					HideAlertFrame = {
+						order = 4,
+						type = 'toggle',
+						name = L['Garrison Alert Frame'],
+						desc = L['Hides the Garrison Alert Frame while in combat.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					MailInputbox = {
+						order = 5,
+						type = 'toggle',
+						name = L['Mail Inputbox Resize'],
+						desc = L['Resize the Mail Inputbox and move the shipping cost to the Bottom'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
 				},
 			},
 			skins = {
