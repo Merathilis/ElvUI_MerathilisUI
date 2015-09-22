@@ -17,6 +17,7 @@ P['Merathilis'] = {
 	['Screenshot'] = true,
 	['TooltipIcon'] = true,
 	['HoverClassColor'] = true,
+	['RareAlert'] = true
 }
 
 function MER:cOption(name)

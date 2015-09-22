@@ -4,6 +4,7 @@
 	<Script file="cinematic.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="misc.lua"/>
+	<Script file="rarealert.lua"/>
 	<Script file="screenshot.lua"/>
 	<Script file="tabbinder.lua"/>
 </Ui>

@@ -27,6 +27,9 @@ L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
 --L['UnitFrames'] = true -- translated in ElvUI
 L['Hover ClassColor'] = true
 L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
+L["Rare spotted!"] = true
+L['RareAlert'] = true
+L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'] = true
 
 -- Install
 L['MerathilisUI Set'] = true

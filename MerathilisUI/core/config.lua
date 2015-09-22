@@ -101,6 +101,14 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
 					},
+					RareAlert = {
+						order = 3,
+						type = 'toggle',
+						name = L['RareAlert'],
+						desc = L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'],
+						get = function(info) return E.db.Merathilis[ info[#info] ] end,
+						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
+					},
 				},
 			},
 			skins = {
