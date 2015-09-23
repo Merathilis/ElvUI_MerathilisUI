@@ -44,6 +44,13 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = "Post Eingabefeld"
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
+-- CalendarNotify
+	L['CalendarNotify'] = "Kalendar Benachrichtigung"
+	L['Shows pending calendar invites, guild event sign ups'] = "Zeigt anstehende Kalendereinladungen, Gildenereignisse Anmeldungen"
+	L["You have %s events scheduled for today. %s Tentative."] = "Du hast %s Termine für Heute. %s Vorläufig."
+	L["You have %s pending event invite(s)!"] = "Du hast %s austehende Einladung(en)!"
+	L["You have %s pending guild event(s)!"] = "Du hast %s austehende Gildenereignis(se)!"
+	L["%s begins in 15 minutes"] = "%s beginnt in 15 Minuten"
 
 -- Install
 	L['MerathilisUI Set'] = "MerathilisUI gesetzt"

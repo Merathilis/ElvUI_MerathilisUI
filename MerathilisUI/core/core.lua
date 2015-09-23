@@ -19,7 +19,8 @@ P['Merathilis'] = {
 	['HoverClassColor'] = true,
 	['RareAlert'] = true,
 	['HideAlertFrame'] = true,
-	['MailInputbox'] = true
+	['MailInputbox'] = true,
+	['CalendarNotify'] = true
 }
 
 function MER:cOption(name)
