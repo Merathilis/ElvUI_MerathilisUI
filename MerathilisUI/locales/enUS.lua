@@ -44,14 +44,6 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = true
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
--- CalendarNotify
-	L['CalendarNotify'] = true
-	L['Shows pending calendar invites, guild event sign ups'] = true
-	L["View"] = true
-	L["You have %s events scheduled for today. %s Tentative."] = true
-	L["You have %s pending event invite(s)!"] = true
-	L["You have %s pending guild event(s)!"] = true
-	L["%s begins in 15 minutes"] = true
 
 -- Install
 	L['MerathilisUI Set'] = true

@@ -125,14 +125,6 @@ function MER:AddOptions()
 						get = function(info) return E.db.Merathilis[ info[#info] ] end,
 						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					CalendarNotify = {
-						order = 6,
-						type = 'toggle',
-						name = L['CalendarNotify'],
-						desc = L['Shows pending calendar invites, guild event sign ups'],
-						get = function(info) return E.db.Merathilis[ info[#info] ] end,
-						set = function(info, value) E.db.Merathilis[ info[#info] ] = value; end,
-					},
 				},
 			},
 			skins = {

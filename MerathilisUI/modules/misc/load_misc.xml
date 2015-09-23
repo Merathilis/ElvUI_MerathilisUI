@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="afk.lua"/>
 	<Script file="blizzbugs.lua"/>
-	<Script file="calendarnotify.lua"/>
 	<Script file="cinematic.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="garrisonalertframe.lua"/>
