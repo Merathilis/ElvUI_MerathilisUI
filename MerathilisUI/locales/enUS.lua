@@ -47,6 +47,7 @@ if not L then return; end
 -- CalendarNotify
 	L['CalendarNotify'] = true
 	L['Shows pending calendar invites, guild event sign ups'] = true
+	L["View"] = true
 	L["You have %s events scheduled for today. %s Tentative."] = true
 	L["You have %s pending event invite(s)!"] = true
 	L["You have %s pending guild event(s)!"] = true

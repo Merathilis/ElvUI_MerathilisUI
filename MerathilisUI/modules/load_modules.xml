@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="datatexts\specswitch.lua"/>
+	<Include file="bags\load_bags.xml"/>
+	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="misc\load_misc.xml"/>
 	<Include file="quest\load_quest.xml"/>
 	<Include file="skins\load_skins.xml"/>

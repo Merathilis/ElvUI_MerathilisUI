@@ -47,9 +47,10 @@ if not L then return; end
 -- CalendarNotify
 	L['CalendarNotify'] = "Kalendar Benachrichtigung"
 	L['Shows pending calendar invites, guild event sign ups'] = "Zeigt anstehende Kalendereinladungen, Gildenereignisse Anmeldungen"
+	L["View"] = "Anzeigen"
 	L["You have %s events scheduled for today. %s Tentative."] = "Du hast %s Termine für Heute. %s Vorläufig."
 	L["You have %s pending event invite(s)!"] = "Du hast %s austehende Einladung(en)!"
-	L["You have %s pending guild event(s)!"] = "Du hast %s austehende Gildenereignis(se)!"
+	L["You have %s pending guild event(s)!"] = "Du hast %s austehende(s) Gildenereignis(se)!"
 	L["%s begins in 15 minutes"] = "%s beginnt in 15 Minuten"
 
 -- Install

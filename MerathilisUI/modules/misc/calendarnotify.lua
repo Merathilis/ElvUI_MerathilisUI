@@ -24,7 +24,7 @@ local frame = CreateFrame("Frame")
 frame:Hide();
 frame:SetHeight(90)
 frame:SetWidth(300)
-frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 50)
+frame:SetPoint("TOP", E.UIParent, "CENTER", 0, 100)
 frame:EnableMouse(true)
 frame:SetTemplate("Transparent")
 frame:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
