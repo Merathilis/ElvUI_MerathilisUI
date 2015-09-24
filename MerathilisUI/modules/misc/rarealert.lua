@@ -20,7 +20,7 @@ local blacklist = {
 local f = CreateFrame("Frame")
 f:RegisterEvent("VIGNETTE_ADDED")
 f:SetScript("OnEvent", function()
-	if E.db.Merathilis.RareAlert then
+	if E.db.mui.RareAlert then
 	
 		if (tContains(blacklist, GetCurrentMapAreaID())) then return end
 		PlaySound("RaidWarning", "master"); 

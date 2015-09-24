@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 local TT = E:GetModule('Tooltip');
 
 local function AddIcon(self, icon)
-	if not E.db.Merathilis.TooltipIcon then return end
+	if not E.db.mui.TooltipIcon then return end
 	
 	if icon then
 		local title = _G[self:GetName() .. "TextLeft1"]

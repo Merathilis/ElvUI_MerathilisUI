@@ -11,5 +11,6 @@
 libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
+defaults\load_defaults.xml
 core\load_core.xml
 modules\load_modules.xml

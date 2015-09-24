@@ -17,7 +17,7 @@ local moneyframe_pos = {
 }
 
 local function MailInputBox()
-	if not E.db.Merathilis.MailInputbox then return end
+	if not E.db.mui.MailInputbox then return end
 	local c = SendMailCostMoneyFrame
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))

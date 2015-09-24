@@ -2,6 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local MER = E:GetModule('MerathilisUI');
 local B = E:GetModule('Bags');
 
+-- Control the position of the Bag-/Bankframe
 function B:PositionBagFrames()
 	if self.BagFrame then
 		self.BagFrame:ClearAllPoints()
