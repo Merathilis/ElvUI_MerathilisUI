@@ -93,8 +93,16 @@ function MER:AddOptions()
 						get = function(info) return E.db.mui[ info[#info] ] end,
 						set = function(info, value) E.db.mui[ info[#info] ] = value; end,
 					},
-					Screenshot = {
+					realLinks = {
 						order = 2,
+						type = 'toggle',
+						name = L['RealID LinkColor'],
+						desc = L['Colors Links in Battle.net Whisper'],
+						get = function(info) return E.db.mui[ info[#info] ] end,
+						set = function(info, value) E.db.mui[ info[#info] ] = value; end,
+					},
+					Screenshot = {
+						order = 3,
 						type = 'toggle',
 						name = L['Screenshot'],
 						desc = L['Takes an automatic Screenshot on Achievement earned.'],
@@ -102,7 +110,7 @@ function MER:AddOptions()
 						set = function(info, value) E.db.mui[ info[#info] ] = value; end,
 					},
 					RareAlert = {
-						order = 3,
+						order = 4,
 						type = 'toggle',
 						name = L['RareAlert'],
 						desc = L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'],
@@ -110,7 +118,7 @@ function MER:AddOptions()
 						set = function(info, value) E.db.mui[ info[#info] ] = value; end,
 					},
 					HideAlertFrame = {
-						order = 4,
+						order = 5,
 						type = 'toggle',
 						name = L['Garrison Alert Frame'],
 						desc = L['Hides the Garrison Alert Frame while in combat.'],
@@ -118,7 +126,7 @@ function MER:AddOptions()
 						set = function(info, value) E.db.mui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					MailInputbox = {
-						order = 5,
+						order = 6,
 						type = 'toggle',
 						name = L['Mail Inputbox Resize'],
 						desc = L['Resize the Mail Inputbox and move the shipping cost to the Bottom'],
