@@ -44,6 +44,9 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = true
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
+--- RealLinks
+	L['RealID LinkColor'] = true
+	L['Colors Links in Battle.net Whisper'] = true
 
 -- Install
 	L['MerathilisUI Set'] = true
