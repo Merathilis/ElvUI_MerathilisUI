@@ -494,56 +494,116 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
 	-- Party
-		E.db.unitframe.units.party.debuffs.fontSize = 12
-		E.db.unitframe.units.party.debuffs.sizeOverride = 21
-		E.db.unitframe.units.party.debuffs.yOffset = -7
-		E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
-		E.db.unitframe.units.party.targetsGroup.anchorPoint = 'BOTTOM'
-		E.db.unitframe.units.party.GPSArrow.size = 40
-		E.db.unitframe.units.party.customTexts = {}
-		E.db.unitframe.units.party.customTexts.HealthText = {}
-		E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
-		E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
-		E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
-		E.db.unitframe.units.party.customTexts.HealthText.yOffset = 5
-		E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
-		E.db.unitframe.units.party.customTexts.HealthText.size = 10
-		E.db.unitframe.units.party.healPrediction = true
-		E.db.unitframe.units.party.name.xOffset = 2
-		E.db.unitframe.units.party.name.yOffset = -20
-		E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
-		E.db.unitframe.units.party.name.position = 'CENTER'
-		E.db.unitframe.units.party.height = 40
-		E.db.unitframe.units.party.verticalSpacing = 4
-		E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
-		E.db.unitframe.units.party.raidicon.xOffset = 9
-		E.db.unitframe.units.party.raidicon.size = 13
-		E.db.unitframe.units.party.raidicon.yOffset = 0
-		E.db.unitframe.units.party.horizontalSpacing = 1
-		E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
-		E.db.unitframe.units.party.buffIndicator.size = 10
-		E.db.unitframe.units.party.power.text_format = ''
-		E.db.unitframe.units.party.power.height = 15
-		E.db.unitframe.units.party.positionOverride = 'BOTTOM'
-		E.db.unitframe.units.party.width = 69
-		E.db.unitframe.units.party.groupBy = 'ROLE'
-		E.db.unitframe.units.party.health.frequentUpdates = true
-		E.db.unitframe.units.party.health.position = 'BOTTOM'
-		E.db.unitframe.units.party.health.text_format = ''
-		E.db.unitframe.units.party.petsGroup.anchorPoint = 'BOTTOM'
-		E.db.unitframe.units.party.buffs.enable = true
-		E.db.unitframe.units.party.buffs.yOffset = 28
-		E.db.unitframe.units.party.buffs.anchorPoint = 'BOTTOMLEFT'
-		E.db.unitframe.units.party.buffs.clickTrough = true
-		E.db.unitframe.units.party.buffs.useBlacklist = false
-		E.db.unitframe.units.party.buffs.noDuration = false
-		E.db.unitframe.units.party.buffs.playerOnly = false
-		E.db.unitframe.units.party.buffs.perrow = 1
-		E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
-		E.db.unitframe.units.party.buffs.noConsolidated = false
-		E.db.unitframe.units.party.buffs.sizeOverride = 22
-		E.db.unitframe.units.party.buffs.xOffset = 30
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.unitframe.units.party.height = 46
+			E.db.unitframe.units.party.width = 200
+			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.debuffs.yOffset = 12
+			E.db.unitframe.units.party.debuffs.numrows = 2
+			E.db.unitframe.units.party.debuffs.perrow = 5
+			E.db.unitframe.units.party.portrait.enabled = true
+			E.db.unitframe.units.party.portrait.overlay = false
+			E.db.unitframe.units.party.portrait.xOffset = -0.04
+			E.db.unitframe.units.party.portrait.width = 40
+			E.db.unitframe.units.party.portrait.transparent = true
+			E.db.unitframe.units.party.portrait.height = 11
+			E.db.unitframe.units.party.showPlayer = false
+			E.db.unitframe.units.party.GPSArrow.size = 40
+			E.db.unitframe.units.party.name.xOffset = -3
+			E.db.unitframe.units.party.name.yOffset = 26
+			E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+			E.db.unitframe.units.party.name.position = 'LEFT'
+			E.db.unitframe.units.party.roleIcon.enable = true
+			E.db.unitframe.units.party.roleIcon.tank = true
+			E.db.unitframe.units.party.roleIcon.healer = true
+			E.db.unitframe.units.party.roleIcon.damager = true
+			E.db.unitframe.units.party.roleIcon.size = 20
+			E.db.unitframe.units.party.roleIcon.yOffset = 26
+			E.db.unitframe.units.party.roleIcon.xOffset = 6
+			E.db.unitframe.units.party.roleIcon.position = 'RIGHT'
+			E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
+			E.db.unitframe.units.party.customTexts = {}
+			E.db.unitframe.units.party.customTexts.HealthText = {}
+			E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
+			E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
+			E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
+			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 20
+			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 15
+			E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
+			E.db.unitframe.units.party.customTexts.HealthText.size = 10
+			E.db.unitframe.units.party.verticalSpacing = 25
+			E.db.unitframe.units.party.horizontalSpacing = 1
+			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
+			E.db.unitframe.units.party.raidicon.xOffset = 9
+			E.db.unitframe.units.party.raidicon.size = 13
+			E.db.unitframe.units.party.raidicon.yOffset = 0
+			E.db.unitframe.units.party.power.text_format = '[namecolor][power:current]'
+			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.position = 'LEFT'
+			E.db.unitframe.units.party.buffs.enable = true
+			E.db.unitframe.units.party.buffs.yOffset = 28
+			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
+			E.db.unitframe.units.party.buffs.clickTrough = true
+			E.db.unitframe.units.party.buffs.useBlacklist = false
+			E.db.unitframe.units.party.buffs.noDuration = false
+			E.db.unitframe.units.party.buffs.playerOnly = false
+			E.db.unitframe.units.party.buffs.perrow = 1
+			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
+			E.db.unitframe.units.party.buffs.noConsolidated = false
+			E.db.unitframe.units.party.buffs.sizeOverride = 22
+			E.db.unitframe.units.party.buffs.xOffset = 30
+		else
+			E.db.unitframe.units.party.debuffs.fontSize = 12
+			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.debuffs.yOffset = -7
+			E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
+			E.db.unitframe.units.party.targetsGroup.anchorPoint = 'BOTTOM'
+			E.db.unitframe.units.party.GPSArrow.size = 40
+			E.db.unitframe.units.party.customTexts = {}
+			E.db.unitframe.units.party.customTexts.HealthText = {}
+			E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
+			E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
+			E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
+			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
+			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 5
+			E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
+			E.db.unitframe.units.party.customTexts.HealthText.size = 10
+			E.db.unitframe.units.party.healPrediction = true
+			E.db.unitframe.units.party.name.xOffset = 2
+			E.db.unitframe.units.party.name.yOffset = -20
+			E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+			E.db.unitframe.units.party.name.position = 'CENTER'
+			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.verticalSpacing = 4
+			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
+			E.db.unitframe.units.party.raidicon.xOffset = 9
+			E.db.unitframe.units.party.raidicon.size = 13
+			E.db.unitframe.units.party.raidicon.yOffset = 0
+			E.db.unitframe.units.party.horizontalSpacing = 1
+			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
+			E.db.unitframe.units.party.buffIndicator.size = 10
+			E.db.unitframe.units.party.power.text_format = ''
+			E.db.unitframe.units.party.power.height = 15
+			E.db.unitframe.units.party.positionOverride = 'BOTTOM'
+			E.db.unitframe.units.party.width = 69
+			E.db.unitframe.units.party.groupBy = 'ROLE'
+			E.db.unitframe.units.party.health.frequentUpdates = true
+			E.db.unitframe.units.party.health.position = 'BOTTOM'
+			E.db.unitframe.units.party.health.text_format = ''
+			E.db.unitframe.units.party.petsGroup.anchorPoint = 'BOTTOM'
+			E.db.unitframe.units.party.buffs.enable = true
+			E.db.unitframe.units.party.buffs.yOffset = 28
+			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
+			E.db.unitframe.units.party.buffs.clickTrough = true
+			E.db.unitframe.units.party.buffs.useBlacklist = false
+			E.db.unitframe.units.party.buffs.noDuration = false
+			E.db.unitframe.units.party.buffs.playerOnly = false
+			E.db.unitframe.units.party.buffs.perrow = 1
+			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
+			E.db.unitframe.units.party.buffs.noConsolidated = false
+			E.db.unitframe.units.party.buffs.sizeOverride = 22
+			E.db.unitframe.units.party.buffs.xOffset = 30
+		end
 	-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
 	-- Pet
@@ -583,7 +643,11 @@ local function SetupMERLayout()
 	-- FocusTargetMover
 		SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
 	-- Raid/GroupMover
-		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 250)
+		else
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
+		end
 		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
@@ -1758,7 +1822,7 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.db.Merathilis.installed = true
+	E.db.mui.installed = true
 	
 	ReloadUI()
 end
