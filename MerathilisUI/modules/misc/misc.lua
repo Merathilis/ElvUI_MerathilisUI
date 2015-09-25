@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
--- Force readycheck warning by Kkthnx
+-- Force readycheck warning
 local ShowReadyCheckHook = function(self, initiator)
 	if initiator ~= "player" then
 		PlaySound("ReadyCheck", "Master")
@@ -9,7 +9,7 @@ local ShowReadyCheckHook = function(self, initiator)
 end
 hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
 
--- Force other warning by Kkthnx
+-- Force other warning
 local ForceWarning = CreateFrame("Frame")
 ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
@@ -34,7 +34,7 @@ ForceWarning:SetScript("OnEvent", function(self, event)
 	end
 end)
 
--- Misclicks for some popups by Kkthnx
+-- Misclicks for some popups
 StaticPopupDialogs.RESURRECT.hideOnEscape = nil
 StaticPopupDialogs.AREA_SPIRIT_HEAL.hideOnEscape = nil
 StaticPopupDialogs.PARTY_INVITE.hideOnEscape = nil
@@ -47,11 +47,71 @@ PVPReadyDialog.leaveButton:Hide()
 PVPReadyDialog.enterButton:ClearAllPoints()
 PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
 
--- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel) by Kkthnx
+-- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
 LFDParentFrame:HookScript("OnShow",function()
 	for i=1,GetNumRandomDungeons() do
 		local id,name=GetLFGRandomDungeonInfo(i)
 		local isHoliday=select(15,GetLFGDungeonInfo(id))
 		if(isHoliday and not GetLFGDungeonRewards(id)) then LFDQueueFrame_SetType(id) end
+	end
+end)
+
+-- Custom Lag Tolerance by Elv
+InterfaceOptionsCombatPanelMaxSpellStartRecoveryOffset:Hide()
+InterfaceOptionsCombatPanelReducedLagTolerance:Hide()
+
+local customlag = CreateFrame("Frame")
+local int = 5
+local _, _, _, lag = GetNetStats()
+local LatencyUpdate = function(self, elapsed)
+	int = int - elapsed
+	if int < 0 then
+		if GetCVar("reducedLagTolerance") ~= tostring(1) then SetCVar("reducedLagTolerance", tostring(1)) end
+		if lag ~= 0 and lag <= 400 then
+			SetCVar("maxSpellStartRecoveryOffset", tostring(lag))
+		end
+		int = 5
+	end
+end
+customlag:SetScript("OnUpdate", LatencyUpdate)
+LatencyUpdate(customlag, 10)
+
+-- Force quit
+local CloseWoW = CreateFrame("Frame")
+CloseWoW:RegisterEvent("CHAT_MSG_SYSTEM")
+CloseWoW:SetScript("OnEvent", function(self, event, msg)
+	if event == "CHAT_MSG_SYSTEM" then
+		if msg and msg == IDLE_MESSAGE then
+			ForceQuit()
+		end
+	end
+end)
+
+-- Old achievements filter
+function AchievementFrame_GetCategoryNumAchievements_OldIncomplete(categoryID)
+	local numAchievements, numCompleted = GetCategoryNumAchievements(categoryID)
+	return numAchievements - numCompleted, 0, numCompleted
+end
+
+function old_nocomplete_filter_init()
+	AchievementFrameFilters = {
+		{text = ACHIEVEMENTFRAME_FILTER_ALL, func = AchievementFrame_GetCategoryNumAchievements_All},
+		{text = ACHIEVEMENTFRAME_FILTER_COMPLETED, func = AchievementFrame_GetCategoryNumAchievements_Complete},
+		{text = ACHIEVEMENTFRAME_FILTER_INCOMPLETE, func = AchievementFrame_GetCategoryNumAchievements_Incomplete},
+		{text = ACHIEVEMENTFRAME_FILTER_INCOMPLETE.." ("..ALL.." )", func = AchievementFrame_GetCategoryNumAchievements_OldIncomplete}
+	}
+end
+
+local filter = CreateFrame("Frame")
+filter:RegisterEvent("ADDON_LOADED")
+filter:SetScript("OnEvent", function(self, event, addon, ...)
+	if addon == "Blizzard_AchievementUI" then
+		if AchievementFrame then
+			old_nocomplete_filter_init()
+			if E.private.skins.blizzard.achievement == true then
+				AchievementFrameFilterDropDown:SetWidth(AchievementFrameFilterDropDown:GetWidth() + 20)
+			end
+			filter:UnregisterEvent("ADDON_LOADED")
+		end
 	end
 end)

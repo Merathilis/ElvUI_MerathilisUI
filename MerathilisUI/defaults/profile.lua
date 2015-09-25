@@ -11,5 +11,5 @@ P['mui'] = {
 	['HoverClassColor'] = true,
 	['RareAlert'] = true,
 	['HideAlertFrame'] = true,
-	['MailInputbox'] = true
+	['MailInputbox'] = true,
 }
