@@ -44,9 +44,6 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = "Post Eingabefeld"
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
--- RealLinks
-	L['RealID LinkColor'] = "RealID Linkfarben"
-	L['Colors Links in Battle.net Whisper'] = "Färbt Links in den Battle.net Flüsternachrichten"
 
 -- Install
 	L['MerathilisUI Set'] = "MerathilisUI gesetzt"

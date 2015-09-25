@@ -2,7 +2,7 @@
 local MER = E:GetModule('MerathilisUI');
 local CH = E:GetModule('Chat');
 
---if not E.db.mui.realLinks then return end -- why i now get a nil error? -.-
+if not E.db.mui then E.db.mui = {} end --prevent a nil error
 
 -- Colors links in Battle.net whispers(RealLinks by p3lim)
 local function GetLinkColor(data)
@@ -54,5 +54,14 @@ local function AddLinkColors(self, event, msg, ...)
 	end
 end
 
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", AddLinkColors)
-ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", AddLinkColors)
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
+f:SetScript("OnEvent",function(self, event)
+	if E.db.mui.realLinks then
+		if event == "PLAYER_ENTERING_WORLD" then
+			ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", AddLinkColors)
+			ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", AddLinkColors)
+			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		end
+	end
+end)

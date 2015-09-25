@@ -99,7 +99,7 @@ function MER:AddOptions()
 						name = L['RealID LinkColor'],
 						desc = L['Colors Links in Battle.net Whisper'],
 						get = function(info) return E.db.mui[ info[#info] ] end,
-						set = function(info, value) E.db.mui[ info[#info] ] = value; end,
+						set = function(info, value) E.db.mui[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
 					Screenshot = {
 						order = 3,
