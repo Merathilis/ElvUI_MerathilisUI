@@ -12,4 +12,5 @@ P['mui'] = {
 	['RareAlert'] = true,
 	['HideAlertFrame'] = true,
 	['MailInputbox'] = true,
+	['realLinks'] = true,
 }
