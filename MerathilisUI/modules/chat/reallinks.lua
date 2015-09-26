@@ -3,65 +3,88 @@ local MER = E:GetModule('MerathilisUI');
 local CH = E:GetModule('Chat');
 
 if not E.db.mui then E.db.mui = {} end --prevent a nil error
+if not E.db.mui.realLinks then return end
 
 -- Colors links in Battle.net whispers(RealLinks by p3lim)
+local queuedMessages = {}
+
+local split = string.split
+local gmatch = string.gmatch
+local gsub = string.gsub
+local sub = string.sub
+
 local function GetLinkColor(data)
-	local type, arg1, arg2, arg3 = string.match(data, "(%w+):(%d+):(%d+):(%d+)")
-	if type == "item" then
+	local type, arg1, arg2, arg3 = split(':', data)
+	if(type == 'item') then
 		local _, _, quality = GetItemInfo(arg1)
-		if quality then
-			local _, _, _, hex = GetItemQualityColor(quality)
-			return "|c"..hex
+		if(quality) then
+			local _, _, _, color = GetItemQualityColor(quality)
+			return '|c' .. color
 		else
-			return "|cffffffff"
+			return nil, true
 		end
-	elseif type == "battlepet" then
-		if arg3 ~= -1 then
-			local _, _, _, hex = GetItemQualityColor(arg3)
-			return "|c"..hex
+	elseif(type == 'quest') then
+		if(arg2) then
+			return ConvertRGBtoColorString(GetQuestDifficultyColor(arg2))
 		else
-			return "|cffffd200"
+			return '|cffffd100'
 		end
-	elseif type == "quest" then
-		local color = GetQuestDifficultyColor(arg2)
-		return format("|cff%2x%2x%2x", color.r * 255, color.g * 255, color.b * 255)
-	elseif type == "spell" then
-		return "|cff71d5ff"
-	elseif type == "achievement" then
-		return "|cffffff00"
-	elseif type == "trade" or type == "enchant" then
-		return "|cffffd000"
-	elseif type == "instancelock" then
-		return "|cffff8000"
-	elseif type == "glyph" or type == "journal" then
-		return "|cff66bbff"
-	elseif type == "talent" or type == "battlePetAbil" then
-		return "|cff4e96f7"
-	elseif type == "levelup" then
-		return "|cffff4e00"
-	else
-		return "|cffffff00"
+	elseif(type == 'currency') then
+		local link = GetCurrencyLink(arg1)
+		if(link) then
+			return sub(link, 0, 10)
+		else
+			return '|cffffffff'
+		end
+	elseif(type == 'battlepet') then
+		if(arg3 ~= -1) then
+			local _, _, _, color = GetItemQualityColor(arg3)
+			return '|c' .. color
+		else
+			return '|cffffd200'
+		end
+	elseif(type == 'garrfollower') then
+		local _, _, _, color = GetItemQualityColor(arg2)
+		return '|c' .. color
+	elseif(type == 'spell') then
+		return '|cff71d5ff'
+	elseif(type == 'achievement' or type == 'garrmission') then
+		return '|cffffff00'
+	elseif(type == 'trade' or type == 'enchant') then
+		return '|cffffd000'
+	elseif(type == 'instancelock') then
+		return '|cffff8000'
+	elseif(type == 'glyph' or type == 'journal') then
+		return '|cff66bbff'
+	elseif(type == 'talent' or type == 'battlePetAbil' or type == 'garrfollowerability') then
+		return '|cff4e96f7'
+	elseif(type == 'levelup') then
+		return '|cffff4e00'
 	end
 end
 
-local function AddLinkColors(self, event, msg, ...)
-	local data = string.match(msg, "|H(.-)|h(.-)|h")
-	if data then
-		local newmsg = string.gsub(msg, "|H(.-)|h(.-)|h", GetLinkColor(data).."|H%1|h%2|h|r")
-		return false, newmsg, ...
-	else
-		return false, msg, ...
+local function MessageFilter(self, event, message, ...)
+	for link, data in gmatch(message, '(|H(.-)|h.-|h)') do
+		local color, queue = GetLinkColor(data)
+		if(queue) then
+			table.insert(queuedMessages, {self, event, message, ...})
+			return true
+		elseif(color) then
+			local matchLink = '|H' .. data .. '|h.-|h'
+			message = gsub(message, matchLink, color .. link .. '|r', 1)
+		end
 	end
+
+	return false, message, ...
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
-	if E.db.mui.realLinks then
-		if event == "PLAYER_ENTERING_WORLD" then
-			ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER", AddLinkColors)
-			ChatFrame_AddMessageEventFilter("CHAT_MSG_BN_WHISPER_INFORM", AddLinkColors)
-			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+local Handler = CreateFrame('Frame')
+Handler:RegisterEvent('GET_ITEM_INFO_RECEIVED')
+Handler:SetScript('OnEvent', function()
+	if(#queuedMessages > 0) then
+		for index, data in next, queuedMessages do
+			ChatFrame_MessageEventHandler(unpack(data))
+			queuedMessages[index] = nil
 		end
 	end
 end)
