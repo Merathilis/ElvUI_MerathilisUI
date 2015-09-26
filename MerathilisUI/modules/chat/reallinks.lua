@@ -2,9 +2,6 @@
 local MER = E:GetModule('MerathilisUI');
 local CH = E:GetModule('Chat');
 
-if not E.db.mui then E.db.mui = {} end --prevent a nil error
-if not E.db.mui.realLinks then return end
-
 -- Colors links in Battle.net whispers(RealLinks by p3lim)
 local queuedMessages = {}
 
