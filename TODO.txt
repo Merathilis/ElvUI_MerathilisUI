@@ -1,4 +1,4 @@
-.:: MerathilisUI ::.
+
 -------------------------------------------------------------------------------------------------------------------
  _____ ______   _______   ________  ________  _________  ___  ___  ___  ___       ___  ________  ___  ___  ___     
 |\   _ \  _   \|\  ___ \ |\   __  \|\   __  \|\___   ___|\  \|\  \|\  \|\  \     |\  \|\   ____\|\  \|\  \|\  \    
@@ -10,8 +10,5 @@
                                                                                          \|_________|              
 -------------------------------------------------------------------------------------------------------------------
 
-First I want to thank Benik for his amazing help and showing me so much. You're the Best! Give him some Love ;)
-
-MerathilisUI is an external ElvUI Mod. Mostly for the design with a few additional Features.
-
-Thanks goes to all AddOn Authors for their amazing Work.
+RarAlert show a warning when you port in your Garrison
+...

@@ -80,7 +80,7 @@ Handler:RegisterEvent('GET_ITEM_INFO_RECEIVED')
 Handler:SetScript('OnEvent', function()
 	if(#queuedMessages > 0) then
 		for index, data in next, queuedMessages do
-			ChatFrame_MessageEventHandler(unpack(data))
+			ChatFrame_MessageEventHandler(DEFAULT_CHAT_FRAME, data, unpack(data))
 			queuedMessages[index] = nil
 		end
 	end
