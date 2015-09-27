@@ -4,7 +4,7 @@ local UF = E:GetModule('UnitFrames');
 
 -- mouseover classcolor
 local function HoverClassColor(self, frame, db)
-	if not E.db.mui.HoverClassColor then return; end
+	if not E.db.muiUnitframes.HoverClassColor then return; end
 	if frame.isMouseOverHooked then return; end
 	local health = frame.Health
 	frame:HookScript("OnEnter", function(self)

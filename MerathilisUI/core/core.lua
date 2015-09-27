@@ -63,7 +63,7 @@ function MER:Initialize()
 	-- run your setup on load for testing purposes. When you are done with the options, disable it.
 	--MER:SetupUI()
 	
-	if E.db.mui.LoginMsg then
+	if E.db.muiGeneral.LoginMsg then
 		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)

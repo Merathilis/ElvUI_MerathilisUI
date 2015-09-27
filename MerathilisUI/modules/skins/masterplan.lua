@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
 local function skinMasterPlan()
-	if not IsAddOnLoaded("MasterPlan") or not E.db.mui.MasterPlan then return end
+	if not IsAddOnLoaded("MasterPlan") or not E.db.muiSkins.MasterPlan then return end
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
 	local MissionPage = GarrisonMissionFrame.MissionTab.MissionPage

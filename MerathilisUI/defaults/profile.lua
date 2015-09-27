@@ -3,13 +3,25 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Profi
 -- Core
 P['mui'] = {
 	['installed'] = nil,
+}
+
+P['muiGeneral'] = {
 	['LoginMsg'] = true,
 	['GameMenu'] = true,
-	['MasterPlan'] = true,
-	['Screenshot'] = true,
-	['TooltipIcon'] = true,
-	['HoverClassColor'] = true,
+}
+
+P['muiMisc'] = {
 	['RareAlert'] = true,
 	['HideAlertFrame'] = true,
 	['MailInputbox'] = true,
+	['Screenshot'] = true,
+	['TooltipIcon'] = true,
+}
+
+P['muiSkins'] = {
+	['MasterPlan'] = true,
+}
+
+P['muiUnitframes'] = {
+	['HoverClassColor'] = true,
 }

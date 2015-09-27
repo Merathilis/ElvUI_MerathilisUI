@@ -1,9 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
-----------------------------------------------------------------------------------------
---	Take screenshots of Achievements(Based on Achievement Screenshotter by Blamdarot)
-----------------------------------------------------------------------------------------
+if not E.db.mui then E.db.mui = {} end --prevent a nil error
+
+-- Take screenshots of Achievements(Based on Achievement Screenshotter by Blamdarot)
 local function TakeScreen(delay, func, ...)
 	local waitTable = {}
 	local waitFrame = CreateFrame("Frame", "WaitFrame", UIParent)
@@ -28,7 +28,7 @@ local function TakeScreen(delay, func, ...)
 end
 
 local function TakeScreenshot()
-	if E.db.mui.Screenshot then
+	if E.db.muiMisc.Screenshot then
 		TakeScreen(1, TakeScreenshot)
 	end
 end
