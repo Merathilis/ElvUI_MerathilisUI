@@ -783,6 +783,7 @@ local function SetupAddOnSkins()
 		E.private.addonskins.SkadaSkin = true
 		E.private.addonskins.EmbedLeftWidth = 170
 		E.private.addonskins.CliqueSkin = true
+		E.private.addonskins.Blizzard_MacroUI = true
 		E.private.addonskins.Blizzard_DeathRecap = true
 		E.private.addonskins.Blizzard_Friends = true
 		E.private.addonskins.Blizzard_DraenorAbilityButton = true
