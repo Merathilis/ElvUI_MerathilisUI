@@ -497,8 +497,10 @@ local function SetupMERLayout()
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 46
 			E.db.unitframe.units.party.width = 200
+			E.db.unitframe.units.party.debuffs.position = 'RIGHT'
+			E.db.unitframe.units.party.growDirection = 'UP_RIGHT'
 			E.db.unitframe.units.party.debuffs.sizeOverride = 24
-			E.db.unitframe.units.party.debuffs.yOffset = 12
+			E.db.unitframe.units.party.debuffs.yOffset = 10
 			E.db.unitframe.units.party.debuffs.numrows = 2
 			E.db.unitframe.units.party.debuffs.perrow = 5
 			E.db.unitframe.units.party.debuffs.fontSize = 12
