@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
+local script = E:NewModule('BlizzOptionsMover', 'AceEvent-3.0')
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
@@ -98,8 +99,46 @@ function MER:GameMenu()
 	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
 end
 
+function script:MakeMovable(frame)
+	local mover = CreateFrame("Frame", frame:GetName() .. "Mover", frame)
+	mover:EnableMouse(true)
+	mover:SetPoint("TOP", frame, "TOP", 0, 10)
+	mover:SetWidth(160)
+	mover:SetHeight(40)
+	mover:SetScript("OnMouseDown", function(self)
+		self:GetParent():StartMoving()
+	end)
+	mover:SetScript("OnMouseUp", function(self)
+		self:GetParent():StopMovingOrSizing()
+	end)
+	frame:SetMovable(true)
+end
+
+function script:PLAYER_ENTERING_WORLD(event)
+	self:UnregisterEvent(event)
+	
+	self:MakeMovable(InterfaceOptionsFrame)
+	self:MakeMovable(ChatConfigFrame)
+	self:MakeMovable(AudioOptionsFrame)
+	self:MakeMovable(VideoOptionsFrame)
+	if MacOptionsFrame then
+	   self:MakeMovable(MacOptionsFrame)
+	end
+end
+
+function script:ADDON_LOADED(event, addon)
+	if addon == "Blizzard_BindingUI" then
+		self:UnregisterEvent(event)
+		
+		self:MakeMovable(KeyBindingFrame)
+	end
+end
+
 function MER:LoadGameMenu()
 	if E.db.muiGeneral.GameMenu then
 		self:GameMenu()
 	end
 end
+
+script:RegisterEvent("PLAYER_ENTERING_WORLD")
+script:RegisterEvent("ADDON_LOADED")
