@@ -80,17 +80,6 @@ local function SetupMERLayout()
 		E.db.datatexts.time24 = true
 		E.db.datatexts.goldCoins = true
 		E.db.datatexts.noCombatHover = true
-		if IsAddOnLoaded('ElvUI_AddOnSkins') then
-			E.private.skins.blizzard.alertframes = true
-			E.private.skins.blizzard.questChoice = true
-			E.private.skins.blizzard.friends = false
-			E.private.skins.blizzard.deathRecap = false
-			E.private.skins.blizzard.macro = false
-		else
-			E.private.skins.blizzard.friends = true
-			E.private.skins.blizzard.macro = true
-			E.private.skins.blizzard.deathRecap = true
-		end
 	end
 	
 	do
@@ -789,10 +778,16 @@ local function SetupAddOnSkins()
 		E.private.addonskins.SkadaSkin = true
 		E.private.addonskins.EmbedLeftWidth = 170
 		E.private.addonskins.CliqueSkin = true
-		E.private.addonskins.Blizzard_MacroUI = true
-		E.private.addonskins.Blizzard_DeathRecap = true
-		E.private.addonskins.Blizzard_Friends = true
 		E.private.addonskins.Blizzard_DraenorAbilityButton = true
+		E.private.addonskins.Blizzard_MacroUI = true
+		E.private.addonskins.Blizzard_Friends = true
+		E.private.skins.blizzard.friends = false
+		E.private.skins.blizzard.deathRecap = false
+		E.private.skins.blizzard.macro = false
+	else
+		E.private.skins.blizzard.friends = true
+		E.private.skins.blizzard.deathRecap = true
+		E.private.skins.blizzard.macro = true
 	end
 end
 
@@ -1020,6 +1015,74 @@ local function SetupMERAddons()
 		end
 	end
 	
+	do
+	-- ElvUI_S&L (Shadow&Light)
+		if E.db.sle == nil then E.db.sle = {} end
+		if IsAddOnLoaded('ElvUI_SLE') then
+			E.db.sle.raidmarkers.enable = false
+		-- Media
+			E.db.sle.media.fonts.gossip.size = 11
+			E.db.sle.media.fonts.gossip.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.zone.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.editbox.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.subzone.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.mail.font = 'Merathilis Prototype'
+			E.db.sle.media.fonts.pvp.font = 'Merathilis Prototype'
+		-- Armory
+			E.db.sle.Armory.Inspect.Enable = false
+			E.db.sle.Armory.Character.Durability.FontSize = 11
+			E.db.sle.Armory.Character.Durability.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Level.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Level.FontSize = 11
+			E.db.sle.Armory.Character.Gem.SocketSize = 15
+			E.db.sle.Armory.Character.Enchant.Display = 'MouseoverOnly'
+			E.db.sle.Armory.Character.Enchant.Font = 'Merathilis Prototype'
+			E.db.sle.Armory.Character.Enchant.FontSize = 11
+		-- Auras
+			E.db.sle.auras.debuffs.hideTimer = true
+			E.db.sle.auras.buffs.hideTimer = true
+		-- Loot
+			E.db.sle.loot.enable = true
+			E.db.sle.loot.autoroll.autogreed = true
+			E.db.sle.lootwin = true
+		-- CombatIcon
+			E.db.sle.combatico.pos = 'CENTER'
+		-- CharacterFrame
+			E.db.sle.characterframeoptions.itemdurability.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.itemenchant.mouseover = true
+			E.db.sle.characterframeoptions.itemenchant.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.itemgem.warningSize = 13
+			E.db.sle.characterframeoptions.itemgem.socketSize = 16
+			E.db.sle.characterframeoptions.itemlevel.font = 'Merathilis Prototype'
+			E.db.sle.characterframeoptions.shownormalgradient = true
+		-- Minimap
+			E.db.sle.minimap.enable = true
+			E.db.sle.minimap.buttons.anchor = 'HORIZONTAL'
+			E.db.sle.minimap.buttons.mouseover = true
+			E.db.sle.minimap.coords.display = 'MOUSEOVER'
+			E.db.sle.minimap.coords.middle = 'CENTER'
+			E.db.sle.minimap.mapicons.iconmousover = true
+			E.db.sle.minimap.mapicons.iconsize = 20
+			E.db.sle.minimap.instance.font = 'Merathilis Prototype'
+			SetMoverPosition('SquareMinimapBar', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -3, -238)
+		-- Farm
+			E.db.sle.farm.autotarget = true
+			E.db.sle.farm.quest = true
+			E.db.sle.farm.size = 28
+		-- Chat
+			E.db.sle.chat.dpsSpam = true
+		-- Datatexts
+			E.db.sle.dt.friends.sortBN = 'revTOONNAME'
+			E.db.sle.dt.friends.totals = true
+			E.db.sle.dt.friends.expandBNBroadcast = true
+			E.db.sle.dt.friends.hide_hintline = true
+			E.db.sle.dt.guild.minimize_gmotd = false
+			E.db.sle.dt.guild.hide_guildname = true
+			E.db.sle.dt.guild.totals = true
+			E.db.sle.dt.guild.hide_hintline = true
+		end
+	end
+
 	if IsAddOnLoaded('BigWigs') then
 		print(MER.Title..format(L[' - %s profile created!'], bigwigsName))
 		BigWigs3DB['profiles']['MerathilisUI'] = {
