@@ -44,7 +44,7 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = true
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
--- Decline Duell
+-- Decline Duel
 	L['INFO_DUEL'] = "Declined duel request from "
 	L['INFO_PET_DUEL'] = "Declined pet duel request from "
 	L['No Duel'] = true
