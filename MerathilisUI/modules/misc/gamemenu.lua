@@ -117,10 +117,12 @@ end
 function script:PLAYER_ENTERING_WORLD(event)
 	self:UnregisterEvent(event)
 	
+	self:MakeMovable(GameMenuFrame)
 	self:MakeMovable(InterfaceOptionsFrame)
 	self:MakeMovable(ChatConfigFrame)
 	self:MakeMovable(AudioOptionsFrame)
 	self:MakeMovable(VideoOptionsFrame)
+	self:MakeMovable(AddonList)
 	if MacOptionsFrame then
 	   self:MakeMovable(MacOptionsFrame)
 	end
