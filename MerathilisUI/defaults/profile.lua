@@ -16,6 +16,7 @@ P['muiMisc'] = {
 	['MailInputbox'] = true,
 	['Screenshot'] = true,
 	['TooltipIcon'] = true,
+	['noDuel'] = false,
 }
 
 P['muiSkins'] = {

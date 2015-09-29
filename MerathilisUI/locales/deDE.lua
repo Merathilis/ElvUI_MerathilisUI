@@ -44,6 +44,10 @@ if not L then return; end
 -- MailInputBox
 	L['Mail Inputbox Resize'] = "Post Eingabefeld"
 	L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
+-- Decline Duell
+	L['INFO_DUEL'] = "Duellanfrage Ignoriert von "
+	L['INFO_PET_DUEL'] = "Haustier Duellanfrage Ignoriert von "
+	L['No Duel'] = "Kein Duel"
 
 -- Install
 	L['MerathilisUI Set'] = "MerathilisUI gesetzt"

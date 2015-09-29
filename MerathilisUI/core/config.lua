@@ -125,6 +125,13 @@ function MER:AddOptions()
 						get = function(info) return E.db.muiMisc[ info[#info] ] end,
 						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					noDuel = {
+						order = 6,
+						type = 'toggle',
+						name = L['No Duel'],
+						get = function(info) return E.db.muiMisc[ info[#info] ] end,
+						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+					},
 				},
 			},
 			skins = {
