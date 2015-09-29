@@ -123,6 +123,7 @@ function script:PLAYER_ENTERING_WORLD(event)
 	self:MakeMovable(AudioOptionsFrame)
 	self:MakeMovable(VideoOptionsFrame)
 	self:MakeMovable(AddonList)
+	self:MakeMovable(HelpFrame)
 	if MacOptionsFrame then
 	   self:MakeMovable(MacOptionsFrame)
 	end
