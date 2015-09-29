@@ -80,11 +80,17 @@ local function SetupMERLayout()
 		E.db.datatexts.time24 = true
 		E.db.datatexts.goldCoins = true
 		E.db.datatexts.noCombatHover = true
-		E.private.skins.blizzard.alertframes = true
-		E.private.skins.blizzard.questChoice = true
-		E.private.skins.blizzard.friends = false
-		E.private.skins.blizzard.deathRecap = false
-		E.private.skins.blizzard.macro = false
+		if IsAddOnLoaded('ElvUI_AddOnSkins') then
+			E.private.skins.blizzard.alertframes = true
+			E.private.skins.blizzard.questChoice = true
+			E.private.skins.blizzard.friends = false
+			E.private.skins.blizzard.deathRecap = false
+			E.private.skins.blizzard.macro = false
+		else
+			E.private.skins.blizzard.friends = true
+			E.private.skins.blizzard.macro = true
+			E.private.skins.blizzard.deathRecap = true
+		end
 	end
 	
 	do
@@ -1727,6 +1733,13 @@ local function SetupMERAddons()
 				},
 			},
 			["dbVersion"] = "4.1.6",
+			["blizzardFCT"] = {
+				["CombatLogPeriodicSpells"] = true,
+				["CombatHealing"] = true,
+				["CombatDamage"] = true,
+				["PetMeleeDamage"] = true,
+				["CombatHealingAbsorbTarget"] = true,
+			},
 		}
 	end
 	
