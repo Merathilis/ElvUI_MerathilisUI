@@ -2,7 +2,6 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 if IsAddOnLoaded("ObjectiveTrackerForModernists") then return end
-if E.db.muiSkins == nil then E.db.muiSkins = {} end
 
 -- Taken from Objectiv Tracker by ObbleYeah
 
@@ -373,7 +372,7 @@ ObjFhandler:SetScript("OnEvent", function(self, event, AddOn)
 	end
 end)
 
-if E.db.muiSkins.Quest and IsAddOnLoaded("Blizzard_ObjectiveTracker") then
+if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 -- scenario
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
