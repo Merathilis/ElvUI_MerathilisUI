@@ -8,7 +8,7 @@ if not L then return; end
 
 -- General Options
 	L['by Merathilis (EU-Shattrath)'] = true
-	L['Merathilis is an external ElvUI mod. Mostly based on |cff00c0faElvUI BenikUI|r. '] = true
+	L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = true
 	L[' Benik, Blazeflack, Azilroka, Elv and all other AddOn Authors who inspired me.'] = true
 	--L['Install'] = true -- translated in ElvUI
 	--L['Run the installation process.'] = true -- translated in ElvUI
@@ -78,3 +78,8 @@ if not L then return; end
 
 -- Staticpopup
 	L["To get the whole MerathilisUI Functionality and Look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = true
+	L["Download MerathilisUI"] = true
+
+-- Version
+	L["UI"] = true
+	L["Outdated"] = true

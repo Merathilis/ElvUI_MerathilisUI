@@ -10,5 +10,5 @@
                                                                                          \|_________|              
 -------------------------------------------------------------------------------------------------------------------
 
-RarAlert show a warning when you port in your Garrison
-...
+#RarAlert shows a warning when you port in your Garrison
+#...

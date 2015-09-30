@@ -7,3 +7,19 @@ E.PopupDialogs['BENIKUI'] = {
 	OnAccept = E.noop,
 	showAlert = 1,
 }
+
+E.PopupDialogs["OUTDATED"] = {
+	text = L["Download MerathilisUI"],
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = true,
+	hasEditBox = true,
+	editBoxWidth = 325,
+	OnShow = function(self, ...) 
+		self.editBox:SetFocus()
+		self.editBox:SetText("http://git.tukui.org/Merathilis/UI-Settings")
+		self.editBox:HighlightText()
+	end,
+	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
+	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+}
