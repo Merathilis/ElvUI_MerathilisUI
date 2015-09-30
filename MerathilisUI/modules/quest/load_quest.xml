@@ -1,4 +1,4 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="autocollapse.lua"/>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="quest.lua"/>
 	<Script file="questlog.lua"/>
 </Ui>

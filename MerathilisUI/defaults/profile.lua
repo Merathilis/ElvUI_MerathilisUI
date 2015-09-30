@@ -21,6 +21,7 @@ P['muiMisc'] = {
 
 P['muiSkins'] = {
 	['MasterPlan'] = true,
+	['Quest'] = true,
 }
 
 P['muiUnitframes'] = {

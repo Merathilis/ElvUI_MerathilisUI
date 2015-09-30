@@ -39,11 +39,11 @@ end
 E.MerConfig = {}
 
 function MER:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "Merathilis")
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
 
 function MER:LoadCommands()
-	self:RegisterChatCommand("mer", "DasOptions")
+	self:RegisterChatCommand("mui", "DasOptions")
 	self:RegisterChatCommand("mersetup", "SetupUI")
 end
 

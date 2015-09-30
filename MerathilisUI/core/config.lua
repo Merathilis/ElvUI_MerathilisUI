@@ -1,10 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local MER = E:GetModule('MerathilisUI');
 
-if E.db.Merathilis == nil then E.db.Merathilis = {} end
+if E.db.mui == nil then E.db.mui = {} end
 
 function MER:AddOptions()
-	E.Options.args.Merathilis = {
+	E.Options.args.mui = {
 		order = 9001,
 		type = 'group',
 		name = MER.Title,
@@ -145,6 +145,14 @@ function MER:AddOptions()
 						type = 'toggle',
 						name = L['MasterPlan'],
 						desc = L['Skins the additional Tabs from MasterPlan.'],
+						get = function(info) return E.db.muiSkins[ info[#info] ] end,
+						set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					Quest = {
+						order = 2,
+						type = 'toggle',
+						name = L['Quest'],
+						desc = L['Skins the Questtracker to fit the MerathilisUI Sytle'],
 						get = function(info) return E.db.muiSkins[ info[#info] ] end,
 						set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
