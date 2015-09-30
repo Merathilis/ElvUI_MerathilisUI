@@ -180,7 +180,7 @@ local function hoverquest()
 for i = 1, GetNumQuestWatches() do
 	local id = GetQuestWatchInfo(i)
 	if not id then
-		GameTooltip:Hide()
+		break
 	end
 	local block = QUEST_TRACKER_MODULE:GetBlock(id)
 
