@@ -2,6 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 if IsAddOnLoaded("ObjectiveTrackerForModernists") then return end
+if E.db.muiSkins == nil then E.db.muiSkins = {} end -- prevent a nil error
+if E.db.muiSkins.Quest == false then return end
 
 -- Taken from Objectiv Tracker by ObbleYeah
 
@@ -178,7 +180,7 @@ local function hoverquest()
 for i = 1, GetNumQuestWatches() do
 	local id = GetQuestWatchInfo(i)
 	if not id then
-		break
+		GameTooltip:Hide()
 	end
 	local block = QUEST_TRACKER_MODULE:GetBlock(id)
 
