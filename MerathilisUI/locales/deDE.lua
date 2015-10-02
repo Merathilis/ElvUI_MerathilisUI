@@ -48,6 +48,8 @@ if not L then return; end
 	L['INFO_DUEL'] = "Duellanfrage Ignoriert von "
 	L['INFO_PET_DUEL'] = "Haustier Duellanfrage Ignoriert von "
 	L['No Duel'] = "Kein Duel"
+-- Loot Announcer
+	L['Loot Announcer'] = "Loot Ankündigung"
 
 -- Install
 	L['MerathilisUI Set'] = "MerathilisUI gesetzt"

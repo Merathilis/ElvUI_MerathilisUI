@@ -119,31 +119,6 @@ local mapcheck = GetMapInfo(mapFileName)
 	end
 end)
 
--- Quest item buttons
-
--- move buttons to the left of objective blocks
--- nb: GetParent() fucks up constantly so we're using GetPoint() instead
-local function moveQuestObjectiveItems(self)
-	local a = {self:GetPoint()}
-
-	self:ClearAllPoints()
-	self:SetPoint("TOPRIGHT", a[2], "TOPLEFT", -13, -7)
-	self:SetFrameLevel(0)
-end
-
--- Implement
-local qitime = 0
-local qiinterval = 1
-
-hooksecurefunc("QuestObjectiveItem_OnUpdate", function(self, elapsed)
-	qitime = qitime + elapsed
-
-	if qitime > qiinterval then
-		moveQuestObjectiveItems(self)
-		qitime = 0
-	end
-end)
-
 -- Color block headers by class
 
 -- style
@@ -275,7 +250,7 @@ local function SkinScenarioButtons()
 	-- we have to independently resize the artwork
 	-- because we're messing with the tracker width >_>
 	-- pop-up artwork
-	block.NormalBG:SetSize(otfwidth+21, 75)
+	block.NormalBG:SetSize(otfwidth + 21, 75)
 
 	-- pop-up final artwork
 	block.FinalBG:ClearAllPoints()
