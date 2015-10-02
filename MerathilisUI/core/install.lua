@@ -36,6 +36,8 @@ local function SetupMERLayout()
 		E.db.general.minimap.size = 130
 		E.db.general.loginmessage = false
 		E.db.general.stickyFrames = false
+		E.db.general.loot = true
+		E.db.general.lootRoll = true
 		E.db.general.backdropcolor.r = 0.101960784313726
 		E.db.general.backdropcolor.g = 0.101960784313726
 		E.db.general.backdropcolor.b = 0.101960784313726
@@ -410,6 +412,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 		E.db.unitframe.units.raid.buffIndicator.size = 10
 		E.db.unitframe.units.raid.roleIcon.size = 12
+		E.db.unitframe.units.raid.power.enable = true
 		E.db.unitframe.units.raid.power.position = 'CENTER'
 		E.db.unitframe.units.raid.power.height = 15
 		E.db.unitframe.units.raid.healthPrediction = true
@@ -590,7 +593,8 @@ local function SetupMERLayout()
 			E.db.unitframe.units.party.health.text_format = ''
 			E.db.unitframe.units.party.petsGroup.anchorPoint = 'BOTTOM'
 			E.db.unitframe.units.party.buffs.enable = true
-			E.db.unitframe.units.party.buffs.yOffset = 28
+			E.db.unitframe.units.party.buffs.yOffset = 0
+			E.db.unitframe.units.party.buffs.xOffset = 0
 			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
 			E.db.unitframe.units.party.buffs.clickTrough = true
 			E.db.unitframe.units.party.buffs.useBlacklist = false
@@ -600,7 +604,6 @@ local function SetupMERLayout()
 			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
 			E.db.unitframe.units.party.buffs.noConsolidated = false
 			E.db.unitframe.units.party.buffs.sizeOverride = 22
-			E.db.unitframe.units.party.buffs.xOffset = 30
 		end
 	-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
@@ -657,6 +660,7 @@ local function SetupMERLayout()
 		else
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		end
+
 		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)

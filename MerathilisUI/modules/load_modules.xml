@@ -2,6 +2,7 @@
 	<Include file="bags\load_bags.xml"/>
 	<Include file="chat\load_chat.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
+	<Include file="loot\load_loot.xml"/>
 	<Include file="misc\load_misc.xml"/>
 	<Include file="quest\load_quest.xml"/>
 	<Include file="skins\load_skins.xml"/>

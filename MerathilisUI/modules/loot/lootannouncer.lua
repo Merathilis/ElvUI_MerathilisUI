@@ -92,7 +92,7 @@ end
 local LootAnnouncer = CreateFrame("Frame")
 LootAnnouncer:RegisterEvent("LOOT_OPENED")
 LootAnnouncer:SetScript("OnEvent", function(self, event)
-	if E.db.muiMisc.Loot then
+	if E.db.muiMisc.LootAnnouncer then
 		Announce()
 	end
 end)
