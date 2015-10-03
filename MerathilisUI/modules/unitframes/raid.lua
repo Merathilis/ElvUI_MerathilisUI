@@ -11,6 +11,13 @@ function UFM:UpdateRaidFrames(frame, db)
 		frame.emptyBar:SetFrameStrata('BACKGROUND')
 	end
 	local bar = frame.emptyBar
+
+	-- Debugging
+	if bar then
+		print('Bar')
+	else
+		print('noBar')
+	end
 	
 	local EMPTY_BARS_HEIGHT = 25
 
@@ -47,8 +54,4 @@ function UFM:UpdateRaidFrames(frame, db)
 			bar:Point("TOPRIGHT", frame.Portrait.backdrop, "TOPRIGHT", 0, -4)
 		end
 	end
-end
-
-function UFM:InitRaid()
-	hooksecurefunc(UF, 'Update_RaidFrame', UFM.UpdateRaidFrames)
 end

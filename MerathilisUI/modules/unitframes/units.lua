@@ -3,7 +3,8 @@ local UFM = E:NewModule('MuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0
 local UF = E:GetModule('UnitFrames');
 
 function UFM:Initialize()
-	self:InitRaid()
+	self:UpdateRaidFrames()
+	hooksecurefunc(UF, 'Update_RaidFrames', UFM.UpdateRaidFrames)
 end
 
 E:RegisterModule(UFM:GetName())
