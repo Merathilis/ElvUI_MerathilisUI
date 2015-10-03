@@ -48,7 +48,7 @@ if not L then return; end
 	L['INFO_DUEL'] = "Duellanfrage Ignoriert von "
 	L['INFO_PET_DUEL'] = "Haustier Duellanfrage Ignoriert von "
 	L['No Duel'] = "Kein Duel"
--- Loot Announcer
+-- Loot
 	L['Loot Announcer'] = "Loot Ankündigung"
 
 -- Install
