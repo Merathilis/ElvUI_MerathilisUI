@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="raid.lua"/>
 	<Script file="unithover.lua"/>
 	<Script file="units.lua"/>
+	<Script file="raid.lua"/>
 </Ui>

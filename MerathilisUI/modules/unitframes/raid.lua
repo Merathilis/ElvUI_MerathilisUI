@@ -1,10 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local UFM = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 local BORDER = E.Border;
 
-function MER:UpdateRaidFrames(frame, db)
+function UFM:UpdateRaidFrames(frame, db)
 	if not frame.emptyBar then
 		frame.emptyBar = CreateFrame('Frame', frame:GetName()..'EmptyBar', frame)
 		frame.emptyBar:SetTemplate('Default')
@@ -49,6 +49,6 @@ function MER:UpdateRaidFrames(frame, db)
 	end
 end
 
-function MER:InitRaid()
-	hooksecurefunc(UF, 'Update_RaidFrame', MER.UpdateRaidFrames)
+function UFM:InitRaid()
+	hooksecurefunc(UF, 'Update_RaidFrame', UFM.UpdateRaidFrames)
 end
