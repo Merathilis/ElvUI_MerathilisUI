@@ -7,19 +7,12 @@ local BORDER = E.Border;
 function UFM:UpdateRaidFrames(frame, db)
 	if not frame.emptyBar then
 		frame.emptyBar = CreateFrame('Frame', frame:GetName()..'EmptyBar', frame)
-		frame.emptyBar:SetTemplate('Default')
+		frame.emptyBar:SetTemplate('Transparent')
 		frame.emptyBar:SetFrameStrata('BACKGROUND')
 	end
 	local bar = frame.emptyBar
 
-	-- Debugging
-	if bar then
-		print('Bar')
-	else
-		print('noBar')
-	end
-	
-	local EMPTY_BARS_HEIGHT = 25
+	local EMPTY_BARS_HEIGHT = E.db.muiUnitframes.EmptyBar.groupHeight
 
 	local USE_POWERBAR = db.power.enable
 	local USE_MINI_POWERBAR = db.power.width == 'spaced' and USE_POWERBAR

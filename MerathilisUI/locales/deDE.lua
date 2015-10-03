@@ -34,6 +34,8 @@ if not L then return; end
 	--L['UnitFrames'] = true -- translated in ElvUI
 	L['Hover ClassColor'] = "Klassenfarben Effekt"
 	L['Adds an Hovereffect for ClassColor to the Raidframes.'] = "Fügt ein MouseOver Klassenfarben Effekt zu dem Schlachtzugsfenster hinzu."
+	L['Empty Bar'] = "Leerer Balken"
+	L['Enable'] = "Aktiviert"
 -- RareAlert
 	L["Rare spotted!"] = "RarMob in deiner Nähe!"
 	L['RareAlert'] = true

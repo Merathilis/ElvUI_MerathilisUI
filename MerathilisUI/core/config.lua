@@ -77,6 +77,20 @@ function MER:AddOptions()
 						get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
 						set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					EmptyBar = {
+						order = 2,
+						type = 'group',
+						name = L['Empty Bar'],
+						args = {
+							enable = {
+								order = 1,
+								type = 'toggle',
+								name = L['Enable'],
+								get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
+								set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+							},
+						},
+					},
 				},
 			},
 			misc = {

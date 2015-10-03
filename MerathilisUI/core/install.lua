@@ -405,8 +405,8 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growDirection = 'RIGHT_UP'
-		E.db.unitframe.units.raid.name.xOffset = 2
-		E.db.unitframe.units.raid.name.yOffset = -19
+		E.db.unitframe.units.raid.name.xOffset = 0
+		E.db.unitframe.units.raid.name.yOffset = -31
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
 		E.db.unitframe.units.raid.name.position = 'CENTER'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
@@ -414,7 +414,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.roleIcon.size = 12
 		E.db.unitframe.units.raid.power.enable = true
 		E.db.unitframe.units.raid.power.position = 'CENTER'
-		E.db.unitframe.units.raid.power.height = 15
+		E.db.unitframe.units.raid.power.height = 5
 		E.db.unitframe.units.raid.healthPrediction = true
 		E.db.unitframe.units.raid.width = 69
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
@@ -433,7 +433,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.buffs.noConsolidated = false
 		E.db.unitframe.units.raid.buffs.sizeOverride = 22
 		E.db.unitframe.units.raid.buffs.xOffset = 30
-		E.db.unitframe.units.raid.height = 40
+		E.db.unitframe.units.raid.height = 35
 		E.db.unitframe.units.raid.verticalSpacing = 10
 		E.db.unitframe.units.raid.raidicon.attachTo = 'LEFT'
 		E.db.unitframe.units.raid.raidicon.xOffset = 9
@@ -661,7 +661,7 @@ local function SetupMERLayout()
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		end
 
-		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
+		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 187)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 	-- PetMover

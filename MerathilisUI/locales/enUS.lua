@@ -34,6 +34,8 @@ if not L then return; end
 	--L['UnitFrames'] = true -- translated in ElvUI
 	L['Hover ClassColor'] = true
 	L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
+	L['Empty Bar'] = true
+	L['Enable'] = true
 -- RareAlert
 	L["Rare spotted!"] = true
 	L['RareAlert'] = true
