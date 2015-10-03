@@ -36,6 +36,9 @@ if not L then return; end
 	L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
 	L['Empty Bar'] = true
 	L['Enable'] = true
+	L['Add an EmptyBar to under the Raidframes. E.g. to look like TukUI Unitframes.'] = true
+	L['Threat'] = true
+	L['Enable Threat on the EmptyBar'] = true
 -- RareAlert
 	L["Rare spotted!"] = true
 	L['RareAlert'] = true

@@ -28,6 +28,7 @@ P['muiSkins'] = {
 P['muiUnitframes'] = {
 	['EmptyBar'] = {
 		['enable'] = true,
+		['threat'] = true,
 		['groupHeight'] = 20,
 	},
 	['HoverClassColor'] = true,

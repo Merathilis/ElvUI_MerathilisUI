@@ -405,7 +405,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growDirection = 'RIGHT_UP'
-		E.db.unitframe.units.raid.name.xOffset = 0
+		E.db.unitframe.units.raid.name.xOffset = 4
 		E.db.unitframe.units.raid.name.yOffset = -31
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
 		E.db.unitframe.units.raid.name.position = 'CENTER'
