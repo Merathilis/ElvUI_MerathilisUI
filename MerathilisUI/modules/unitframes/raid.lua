@@ -39,7 +39,7 @@ function UFM:UpdateRaidFrames(frame, db)
 			bar:Point('TOPLEFT', health.backdrop, 'BOTTOMLEFT', 0, -1)
 			bar:Point('BOTTOMRIGHT', health.backdrop, 'BOTTOMRIGHT', 0, -EMPTY_BARS_HEIGHT)
 		else
-			bar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, -3)
+			bar:Point('TOPLEFT', power, 'BOTTOMLEFT', -BORDER, 0)
 			bar:Point('BOTTOMRIGHT', power, 'BOTTOMRIGHT', BORDER, -EMPTY_BARS_HEIGHT)
 		end
 

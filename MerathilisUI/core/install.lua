@@ -359,7 +359,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.target.customTexts.Name1.size = 12
 		E.db.unitframe.units.target.customTexts.Name1.text_format = '[difficultycolor][level] [namecolor][smartclass]'
 		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
-		E.db.unitframe.units.target.health.xOffset = 8
+		E.db.unitframe.units.target.health.xOffset = 6
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.target.health.yOffset = -29
 		E.db.unitframe.units.target.portrait.rotation = 307
@@ -405,8 +405,8 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growDirection = 'RIGHT_UP'
-		E.db.unitframe.units.raid.name.xOffset = 4
-		E.db.unitframe.units.raid.name.yOffset = -31
+		E.db.unitframe.units.raid.name.xOffset = 2
+		E.db.unitframe.units.raid.name.yOffset = -30
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
 		E.db.unitframe.units.raid.name.position = 'CENTER'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
@@ -661,7 +661,7 @@ local function SetupMERLayout()
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		end
 
-		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 187)
+		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 	-- PetMover
