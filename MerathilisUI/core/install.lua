@@ -3,6 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
+local titleText = {}
 
 local _, class = UnitClass("player")
 local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
@@ -743,6 +744,7 @@ local function SetupMERLayout()
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
 		InstallStepComplete:Show()		
+		titleText[2].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1814,6 +1816,7 @@ local function SetupMERAddons()
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['Addons Set']
 		InstallStepComplete:Show()		
+		titleText[4].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1889,6 +1892,7 @@ function MER:SetupDts(role)
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['DataTexts Set']
 		InstallStepComplete:Show()		
+		titleText[3].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1913,7 +1917,8 @@ local function ResetAll()
 	MERInstallFrame.Desc2:SetText('')
 	MERInstallFrame.Desc3:SetText('')
 	MERInstallFrame.Desc4:SetText('')
-	MERInstallFrame:Size(550, 400)
+	MERInstallFrame:Size(500, 400)
+	MERTitleFrame:Size(180, 400)
 end
 
 local function InstallComplete()
@@ -1989,7 +1994,8 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
 		InstallOption1Button:SetText(L['Finished'])				
-		MERInstallFrame:Size(550, 350)
+		MERInstallFrame:Size(500, 400)
+		MERTitleFrame:Size(180, 400)
 		if InstallStepComplete then
 			InstallStepComplete.message = MER.Title..L['Installed']
 			InstallStepComplete:Show()		
@@ -2001,13 +2007,23 @@ local function NextPage()
 	if CURRENT_PAGE ~= MAX_PAGE then
 		CURRENT_PAGE = CURRENT_PAGE + 1
 		SetPage(CURRENT_PAGE)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
+		if CURRENT_PAGE > 1 then
+			titleText[CURRENT_PAGE - 1].hoverTex:Run("Alpha", .3, 1, 0)
+			titleText[CURRENT_PAGE - 1].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
+		end
 	end
 end
 
 local function PreviousPage()
 	if CURRENT_PAGE ~= 1 then
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 1, 0)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
 		CURRENT_PAGE = CURRENT_PAGE - 1
 		SetPage(CURRENT_PAGE)
+		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
+		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
 	end
 end
 
@@ -2063,11 +2079,10 @@ function MER:SetupUI()
 	if not MERInstallFrame then
 		local f = CreateFrame('Button', 'MERInstallFrame', E.UIParent)
 		f.SetPage = SetPage
-		f:Size(550, 400)
+		f:Size(500, 400)
 		f:SetTemplate('Transparent')
 		f:SetPoint('CENTER')
 		f:SetFrameStrata('TOOLTIP')
-		--f:Style('Outside')
 		
 		f.Title = f:CreateFontString(nil, 'OVERLAY')
 		f.Title:FontTemplate(nil, 17, nil)
@@ -2162,36 +2177,72 @@ function MER:SetupUI()
 		
 		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc1:FontTemplate()	
-		f.Desc1:Point('TOPLEFT', 20, -75)	
+		f.Desc1:Point('TOP', 0, -75)	
 		f.Desc1:Width(f:GetWidth() - 40)
 		
 		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc2:FontTemplate()	
-		f.Desc2:Point('TOPLEFT', 20, -125)		
+		f.Desc2:Point('TOP', 0, -125)		
 		f.Desc2:Width(f:GetWidth() - 40)
 		
 		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc3:FontTemplate()	
-		f.Desc3:Point('TOPLEFT', 20, -175)	
+		f.Desc3:Point('TOP', 0, -175)	
 		f.Desc3:Width(f:GetWidth() - 40)
 		
 		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc4:FontTemplate()	
-		f.Desc4:Point('BOTTOMLEFT', 20, 75)	
+		f.Desc4:Point('BOTTOM', 0, 75)	
 		f.Desc4:Width(f:GetWidth() - 40)
-	
+		
 		local close = CreateFrame('Button', 'InstallCloseButton', f, 'UIPanelCloseButton')
 		close:SetPoint('TOPRIGHT', f, 'TOPRIGHT')
 		close:SetScript('OnClick', function()
 			f:Hide()
 		end)		
 		E.Skins:HandleCloseButton(close)
-		
+
 		f.tutorialImage = f:CreateTexture('InstallTutorialImage', 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
 		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga')
-		f.tutorialImage:Point('BOTTOM', 0, 70)
+		f.tutorialImage:Point('BOTTOM', 0, 75)
 
+		f.side = CreateFrame('Frame', 'MERTitleFrame', f)
+		f.side:SetTemplate('Transparent')
+		f.side:Point('RIGHT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
+		f.side:Size(180, 400)
+		
+		for i = 1, MAX_PAGE do
+			titleText[i] = CreateFrame('Frame', nil, f.side)
+			titleText[i]:Size(180, 20)
+			titleText[i].text = titleText[i]:CreateFontString(nil, 'OVERLAY')
+			titleText[i].text:SetPoint('LEFT', 27, 0)
+			titleText[i].text:FontTemplate(nil, 12)
+			titleText[i].text:SetTextColor(unpack(E['media'].rgbvaluecolor))
+			titleText[i].hoverTex = titleText[i]:CreateTexture(nil, 'OVERLAY')
+			titleText[i].hoverTex:SetTexture([[Interface\MONEYFRAME\Arrow-Right-Up]])
+			titleText[i].hoverTex:Size(14)
+			titleText[i].hoverTex:Point('RIGHT', titleText[i].text, 'LEFT', 4, -2)
+			titleText[i].hoverTex:SetAlpha(0)
+			titleText[i].check = titleText[i]:CreateTexture(nil, 'OVERLAY')
+			titleText[i].check:Size(20)
+			titleText[i].check:Point('LEFT', titleText[i].text, 'RIGHT', 0, -2)
+			titleText[i].check:SetTexture([[Interface\BUTTONS\UI-CheckBox-Check]])
+			titleText[i].check:Hide()
+
+			if i == 1 then titleText[i].text:SetText(L['Welcome'])
+				elseif i == 2 then titleText[i].text:SetText(L['MerathilisUI Set'])
+				elseif i == 3 then titleText[i].text:SetText(L['DataTexts Set'])
+				elseif i == 4 then titleText[i].text:SetText(ADDONS)
+				elseif i == 5 then titleText[i].text:SetText(L['Finish'])
+			end
+
+			if(i == 1) then
+				titleText[i]:Point('TOP', f.side, 'TOP', 0, -40)
+			else
+				titleText[i]:Point('TOP', titleText[i - 1], 'BOTTOM')
+			end
+		end
 	end
 	
 	MERInstallFrame:Show()

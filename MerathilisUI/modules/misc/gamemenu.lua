@@ -42,7 +42,7 @@ function MER:GameMenu()
 		
 		bottomPanel:SetScript("OnShow", panel_onShow)
 		
-		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'OVERLAY')
+		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'ARTWORK')
 		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
 		bottomPanel.factionLogo:SetTexture(factionLogo)
 		bottomPanel.factionLogo:SetSize(200, 200)
@@ -67,12 +67,12 @@ function MER:GameMenu()
 		
 		topPanel.style:SetScript("OnShow", panel_onShow)
 		
-		topPanel.style.color = topPanel.style:CreateTexture(nil, 'OVERLAY')
+		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		topPanel.style.color:SetInside()
 		topPanel.style.color:SetTexture(E['media'].MuiFlat)
 		
-		topPanel.Logo = topPanel:CreateTexture(nil, 'OVERLAY')
+		topPanel.Logo = topPanel:CreateTexture(nil, 'ARTWORK')
 		topPanel.Logo:SetSize(285, 128)
 		topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -60)
 		topPanel.Logo:SetTexture(logo) -- call the logo

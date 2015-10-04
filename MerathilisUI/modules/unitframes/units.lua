@@ -139,7 +139,6 @@ function UFM:Configure_Groups()
 			end
 		end
 
-		--MATH!! WOOT
 		point = DIRECTION_TO_GROUP_ANCHOR_POINT[direction]
 		if db.raidWideSorting and db.startFromCenter then
 			point = DIRECTION_TO_GROUP_ANCHOR_POINT["OUT_"..direction]

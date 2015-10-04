@@ -57,6 +57,7 @@ if not L then return; end
 	L['Loot Announcer'] = true
 
 -- Install
+	L['Welcome'] = true
 	L['MerathilisUI Set'] = true
 	L[' - %s profile created!'] = true
 	L['Addons Set'] = true
@@ -80,7 +81,7 @@ if not L then return; end
 	--L['Installation Complete'] = true -- translated in ElvUI
 	--L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'] = true -- translated in ElvUI
 	--L['Please click the button below so you can setup variables and ReloadUI.'] = true -- translated in ElvUI
-	L['Finished'] = true
+	L['Finish'] = true
 	L['Installed'] = true
 
 -- Staticpopup

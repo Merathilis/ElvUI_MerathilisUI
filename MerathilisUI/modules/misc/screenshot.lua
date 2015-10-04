@@ -32,9 +32,10 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("ACHIEVEMENT_EARNED")
 f:SetScript("OnEvent",function(self, event)
-	if not E.db.muiMisc.Screenshot then return end
-	if event == "ACHIEVEMENT_EARNED" then
-		TakeScreenshot()
-		f:UnregisterEvent("ACHIEVEMENT_EARNED")
+	if E.db.muiMisc.Screenshot then
+		if event == "ACHIEVEMENT_EARNED" then
+			TakeScreenshot()
+			f:UnregisterEvent("ACHIEVEMENT_EARNED")
+		end
 	end
 end)
