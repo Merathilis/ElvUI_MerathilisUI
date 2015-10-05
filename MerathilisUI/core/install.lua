@@ -22,6 +22,7 @@ local function SetupMERLayout()
 	if not IsAddOnLoaded('ElvUI_BenikUI') then
 		E:StaticPopup_Show('BENIKUI')
 	end
+	
 	do
 	-- General
 		E.private.general.pixelPerfect = true
@@ -262,9 +263,9 @@ local function SetupMERLayout()
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentPower = true
 		E.db.unitframe.colors.transparentCastbar = true
-		E.db.unitframe.colors.health.r = 0.235294117647059
-		E.db.unitframe.colors.health.g = 0.235294117647059
-		E.db.unitframe.colors.health.b = 0.235294117647059
+		E.db.unitframe.colors.health.r = 0.23
+		E.db.unitframe.colors.health.g = 0.23
+		E.db.unitframe.colors.health.b = 0.23
 	-- Player
 		E.db.unitframe.units.player.width = 220
 		E.db.unitframe.units.player.height = 40
@@ -278,7 +279,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.player.portrait.overlay = true
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1.35
 		E.db.unitframe.units.player.portrait.width = 43
-		-- Use Classbar not for Druid, because of Balance PowerTracker
+	-- Use Classbar not for Druid, because of Balance PowerTracker
 		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
 			E.db.unitframe.units.player.classbar.enable = true
 			E.db.unitframe.units.player.classbar.detachFromFrame = true
@@ -405,7 +406,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.debuffs.sizeOverride = 21
 		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
 		E.db.unitframe.units.raid.numGroups = 4
-		E.db.unitframe.units.raid.growDirection = 'RIGHT_UP'
+		E.db.unitframe.units.raid.growDirection = RIGHT_UP
 		E.db.unitframe.units.raid.name.xOffset = 2
 		E.db.unitframe.units.raid.name.yOffset = -30
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
@@ -494,68 +495,122 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
 	-- Party
-		E.db.unitframe.units.party.height = 46
-		E.db.unitframe.units.party.width = 200
-		E.db.unitframe.units.party.growDirection = 'UP_RIGHT'
-		E.db.unitframe.units.party.debuffs.sizeOverride = 24
-		E.db.unitframe.units.party.debuffs.xOffset = 1
-		E.db.unitframe.units.party.debuffs.yOffset = 10
-		E.db.unitframe.units.party.debuffs.numrows = 2
-		E.db.unitframe.units.party.debuffs.perrow = 5
-		E.db.unitframe.units.party.debuffs.fontSize = 12
-		E.db.unitframe.units.party.debuffs.attachTo = 'FRAME'
-		E.db.unitframe.units.party.debuffs.anchor = 'RIGHT'
-		E.db.unitframe.units.party.portrait.enabled = true
-		E.db.unitframe.units.party.portrait.overlay = false
-		E.db.unitframe.units.party.portrait.xOffset = -0.04
-		E.db.unitframe.units.party.portrait.width = 40
-		E.db.unitframe.units.party.portrait.transparent = true
-		E.db.unitframe.units.party.portrait.height = 11
-		E.db.unitframe.units.party.showPlayer = false
-		E.db.unitframe.units.party.GPSArrow.size = 40
-		E.db.unitframe.units.party.name.xOffset = -3
-		E.db.unitframe.units.party.name.yOffset = 26
-		E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
-		E.db.unitframe.units.party.name.position = 'LEFT'
-		E.db.unitframe.units.party.roleIcon.enable = true
-		E.db.unitframe.units.party.roleIcon.tank = true
-		E.db.unitframe.units.party.roleIcon.healer = true
-		E.db.unitframe.units.party.roleIcon.damager = true
-		E.db.unitframe.units.party.roleIcon.size = 14
-		E.db.unitframe.units.party.roleIcon.yOffset = 0
-		E.db.unitframe.units.party.roleIcon.xOffset = 0
-		E.db.unitframe.units.party.roleIcon.position = 'BOTTOMRIGHT'
-		E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
-		E.db.unitframe.units.party.customTexts = {}
-		E.db.unitframe.units.party.customTexts.HealthText = {}
-		E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
-		E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
-		E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.party.customTexts.HealthText.xOffset = 20
-		E.db.unitframe.units.party.customTexts.HealthText.yOffset = 15
-		E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
-		E.db.unitframe.units.party.customTexts.HealthText.size = 10
-		E.db.unitframe.units.party.verticalSpacing = 25
-		E.db.unitframe.units.party.horizontalSpacing = 1
-		E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
-		E.db.unitframe.units.party.raidicon.xOffset = 9
-		E.db.unitframe.units.party.raidicon.size = 13
-		E.db.unitframe.units.party.raidicon.yOffset = 0
-		E.db.unitframe.units.party.power.text_format = '[namecolor][power:current]'
-		E.db.unitframe.units.party.power.height = 5
-		E.db.unitframe.units.party.power.position = 'LEFT'
-		E.db.unitframe.units.party.buffs.enable = true
-		E.db.unitframe.units.party.buffs.yOffset = 26
-		E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
-		E.db.unitframe.units.party.buffs.clickTrough = true
-		E.db.unitframe.units.party.buffs.useBlacklist = false
-		E.db.unitframe.units.party.buffs.noDuration = false
-		E.db.unitframe.units.party.buffs.playerOnly = false
-		E.db.unitframe.units.party.buffs.perrow = 1
-		E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
-		E.db.unitframe.units.party.buffs.noConsolidated = false
-		E.db.unitframe.units.party.buffs.sizeOverride = 22
-		E.db.unitframe.units.party.buffs.xOffset = 20
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.unitframe.units.party.height = 46
+			E.db.unitframe.units.party.width = 200
+			E.db.unitframe.units.party.growDirection = UP_RIGHT
+			E.db.unitframe.units.party.debuffs.anchorPoint = 'RIGHT'
+			E.db.unitframe.units.party.debuffs.sizeOverride = 24
+			E.db.unitframe.units.party.debuffs.yOffset = 10
+			E.db.unitframe.units.party.debuffs.numrows = 2
+			E.db.unitframe.units.party.debuffs.perrow = 5
+			E.db.unitframe.units.party.debuffs.fontSize = 12
+			E.db.unitframe.units.party.portrait.enabled = true
+			E.db.unitframe.units.party.portrait.overlay = false
+			E.db.unitframe.units.party.portrait.xOffset = -0.04
+			E.db.unitframe.units.party.portrait.width = 40
+			E.db.unitframe.units.party.portrait.transparent = true
+			E.db.unitframe.units.party.portrait.height = 11
+			E.db.unitframe.units.party.showPlayer = false
+			E.db.unitframe.units.party.GPSArrow.size = 40
+			E.db.unitframe.units.party.health.position = 'RIGHT'
+			E.db.unitframe.units.party.health.text_format = '[health:current-percent]'
+			E.db.unitframe.units.party.name.xOffset = -3
+			E.db.unitframe.units.party.name.yOffset = 26
+			E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+			E.db.unitframe.units.party.name.position = 'LEFT'
+			E.db.unitframe.units.party.roleIcon.enable = true
+			E.db.unitframe.units.party.roleIcon.tank = true
+			E.db.unitframe.units.party.roleIcon.healer = true
+			E.db.unitframe.units.party.roleIcon.damager = true
+			E.db.unitframe.units.party.roleIcon.size = 20
+			E.db.unitframe.units.party.roleIcon.yOffset = 26
+			E.db.unitframe.units.party.roleIcon.xOffset = 6
+			E.db.unitframe.units.party.roleIcon.position = 'RIGHT'
+			E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
+			E.db.unitframe.units.party.customTexts = {}
+			E.db.unitframe.units.party.customTexts.HealthText = {}
+			E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
+			E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
+			E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
+			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 20
+			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 15
+			E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
+			E.db.unitframe.units.party.customTexts.HealthText.size = 10
+			E.db.unitframe.units.party.verticalSpacing = 25
+			E.db.unitframe.units.party.horizontalSpacing = 1
+			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
+			E.db.unitframe.units.party.raidicon.xOffset = 9
+			E.db.unitframe.units.party.raidicon.size = 13
+			E.db.unitframe.units.party.raidicon.yOffset = 0
+			E.db.unitframe.units.party.power.text_format = '[namecolor][power:current]'
+			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.position = 'LEFT'
+			E.db.unitframe.units.party.buffs.enable = true
+			E.db.unitframe.units.party.buffs.yOffset = 26
+			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
+			E.db.unitframe.units.party.buffs.clickTrough = true
+			E.db.unitframe.units.party.buffs.useBlacklist = false
+			E.db.unitframe.units.party.buffs.noDuration = false
+			E.db.unitframe.units.party.buffs.playerOnly = false
+			E.db.unitframe.units.party.buffs.perrow = 1
+			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
+			E.db.unitframe.units.party.buffs.noConsolidated = false
+			E.db.unitframe.units.party.buffs.sizeOverride = 22
+		else
+			E.db.unitframe.units.party.debuffs.fontSize = 12
+			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.debuffs.yOffset = -7
+			E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
+			E.db.unitframe.units.party.debuffs.perrow = 3
+			E.db.unitframe.units.party.debuffs.numrows = 1
+			E.db.unitframe.units.party.targetsGroup.anchorPoint = 'BOTTOM'
+			E.db.unitframe.units.party.GPSArrow.size = 40
+			E.db.unitframe.units.party.customTexts = {}
+			E.db.unitframe.units.party.customTexts.HealthText = {}
+			E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
+			E.db.unitframe.units.party.customTexts.HealthText.justifyH = 'CENTER'
+			E.db.unitframe.units.party.customTexts.HealthText.fontOutline = 'OUTLINE'
+			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
+			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 5
+			E.db.unitframe.units.party.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
+			E.db.unitframe.units.party.customTexts.HealthText.size = 10
+			E.db.unitframe.units.party.healPrediction = true
+			E.db.unitframe.units.party.name.xOffset = 2
+			E.db.unitframe.units.party.name.yOffset = -20
+			E.db.unitframe.units.party.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+			E.db.unitframe.units.party.name.position = 'CENTER'
+			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.verticalSpacing = 4
+			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
+			E.db.unitframe.units.party.raidicon.xOffset = 9
+			E.db.unitframe.units.party.raidicon.size = 13
+			E.db.unitframe.units.party.raidicon.yOffset = 0
+			E.db.unitframe.units.party.horizontalSpacing = 1
+			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
+			E.db.unitframe.units.party.buffIndicator.size = 10
+			E.db.unitframe.units.party.power.text_format = ''
+			E.db.unitframe.units.party.power.height = 15
+			E.db.unitframe.units.party.positionOverride = 'BOTTOM'
+			E.db.unitframe.units.party.width = 69
+			E.db.unitframe.units.party.groupBy = 'ROLE'
+			E.db.unitframe.units.party.health.frequentUpdates = true
+			E.db.unitframe.units.party.health.position = 'BOTTOM'
+			E.db.unitframe.units.party.health.text_format = ''
+			E.db.unitframe.units.party.petsGroup.anchorPoint = 'BOTTOM'
+			E.db.unitframe.units.party.buffs.enable = true
+			E.db.unitframe.units.party.buffs.yOffset = 0
+			E.db.unitframe.units.party.buffs.xOffset = 0
+			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
+			E.db.unitframe.units.party.buffs.clickTrough = true
+			E.db.unitframe.units.party.buffs.useBlacklist = false
+			E.db.unitframe.units.party.buffs.noDuration = false
+			E.db.unitframe.units.party.buffs.playerOnly = false
+			E.db.unitframe.units.party.buffs.perrow = 1
+			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
+			E.db.unitframe.units.party.buffs.noConsolidated = false
+			E.db.unitframe.units.party.buffs.sizeOverride = 22
+		end
 	-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
 	-- Pet
@@ -611,7 +666,6 @@ local function SetupMERLayout()
 		else
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		end
-
 		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
 		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
@@ -693,7 +747,7 @@ local function SetupMERLayout()
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()			
 		titleText[2].check:Show()
 	end
 	E:UpdateAll(true)
@@ -972,73 +1026,6 @@ local function SetupMERAddons()
 		end
 	end
 	
-	do
-	-- ElvUI_S&L (Shadow&Light)
-		if E.db.sle == nil then E.db.sle = {} end
-		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db.sle.raidmarkers.enable = false
-		-- Media
-			E.db.sle.media.fonts.gossip.size = 11
-			E.db.sle.media.fonts.gossip.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.zone.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.editbox.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.subzone.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.mail.font = 'Merathilis Prototype'
-			E.db.sle.media.fonts.pvp.font = 'Merathilis Prototype'
-		-- Armory
-			E.db.sle.Armory.Inspect.Enable = false
-			E.db.sle.Armory.Character.Durability.FontSize = 11
-			E.db.sle.Armory.Character.Durability.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Level.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Level.FontSize = 11
-			E.db.sle.Armory.Character.Gem.SocketSize = 15
-			E.db.sle.Armory.Character.Enchant.Display = 'MouseoverOnly'
-			E.db.sle.Armory.Character.Enchant.Font = 'Merathilis Prototype'
-			E.db.sle.Armory.Character.Enchant.FontSize = 11
-		-- Auras
-			E.db.sle.auras.debuffs.hideTimer = true
-			E.db.sle.auras.buffs.hideTimer = true
-		-- Loot
-			E.db.sle.loot.enable = true
-			E.db.sle.loot.autoroll.autogreed = true
-			E.db.sle.lootwin = true
-		-- CombatIcon
-			E.db.sle.combatico.pos = 'CENTER'
-		-- CharacterFrame
-			E.db.sle.characterframeoptions.itemdurability.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.itemenchant.mouseover = true
-			E.db.sle.characterframeoptions.itemenchant.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.itemgem.warningSize = 13
-			E.db.sle.characterframeoptions.itemgem.socketSize = 16
-			E.db.sle.characterframeoptions.itemlevel.font = 'Merathilis Prototype'
-			E.db.sle.characterframeoptions.shownormalgradient = true
-		-- Minimap
-			E.db.sle.minimap.enable = true
-			E.db.sle.minimap.buttons.anchor = 'HORIZONTAL'
-			E.db.sle.minimap.buttons.mouseover = true
-			E.db.sle.minimap.coords.display = 'MOUSEOVER'
-			E.db.sle.minimap.coords.middle = 'CENTER'
-			E.db.sle.minimap.mapicons.iconmousover = true
-			E.db.sle.minimap.mapicons.iconsize = 20
-			E.db.sle.minimap.instance.font = 'Merathilis Prototype'
-			SetMoverPosition('SquareMinimapBar', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -3, -238)
-		-- Farm
-			E.db.sle.farm.autotarget = true
-			E.db.sle.farm.quest = true
-			E.db.sle.farm.size = 28
-		-- Chat
-			E.db.sle.chat.dpsSpam = true
-		-- Datatexts
-			E.db.sle.dt.friends.sortBN = 'revTOONNAME'
-			E.db.sle.dt.friends.totals = true
-			E.db.sle.dt.friends.expandBNBroadcast = true
-			E.db.sle.dt.friends.hide_hintline = true
-			E.db.sle.dt.guild.minimize_gmotd = false
-			E.db.sle.dt.guild.hide_guildname = true
-			E.db.sle.dt.guild.totals = true
-			E.db.sle.dt.guild.hide_hintline = true
-		end
-	end
 
 	if IsAddOnLoaded('BigWigs') then
 		print(MER.Title..format(L[' - %s profile created!'], bigwigsName))
@@ -2184,7 +2171,7 @@ function MER:SetupUI()
 			if i == 1 then titleText[i].text:SetText(L['Welcome'])
 				elseif i == 2 then titleText[i].text:SetText(L['MerathilisUI Set'])
 				elseif i == 3 then titleText[i].text:SetText(L['DataTexts Set'])
-				elseif i == 4 then titleText[i].text:SetText(ADDONS)
+				elseif i == 4 then titleText[i].text:SetText(L['Addons Set'])
 				elseif i == 5 then titleText[i].text:SetText(L['Finish'])
 			end
 

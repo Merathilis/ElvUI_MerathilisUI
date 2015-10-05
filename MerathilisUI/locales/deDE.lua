@@ -58,6 +58,9 @@ if not L then return; end
 	L['No Duel'] = "Kein Duel"
 -- Loot
 	L['Loot Announcer'] = "Loot Ankündigung"
+-- Quest
+	L['Quest'] = true
+	L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"
 
 -- Install
 	L['Welcome'] = "Willkommen"

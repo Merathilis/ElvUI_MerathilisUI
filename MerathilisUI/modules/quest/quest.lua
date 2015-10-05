@@ -142,7 +142,7 @@ hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function(self)
 -- fix overlap from double-lined headers
 		local heightcheck = block.HeaderText:GetNumLines()
 
-		if heightcheck==2 then
+		if heightcheck == 2 then
 			local height = block:GetHeight()
 
 			block:SetHeight(height + 16)
