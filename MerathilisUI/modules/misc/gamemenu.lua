@@ -99,48 +99,14 @@ function MER:GameMenu()
 	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
 end
 
-function MERM:MakeMovable(frame)
-	local mover = CreateFrame("Frame", frame:GetName() .. "Mover", frame)
-	mover:EnableMouse(true)
-	mover:SetPoint("TOP", frame, "TOP", 0, 10)
-	mover:SetWidth(160)
-	mover:SetHeight(40)
-	mover:SetScript("OnMouseDown", function(self)
-		self:GetParent():StartMoving()
-	end)
-	mover:SetScript("OnMouseUp", function(self)
-		self:GetParent():StopMovingOrSizing()
-	end)
-	frame:SetMovable(true)
-end
-
-function MERM:PLAYER_ENTERING_WORLD(event)
-	self:UnregisterEvent(event)
-	
-	self:MakeMovable(GameMenuFrame)
-	self:MakeMovable(InterfaceOptionsFrame)
-	self:MakeMovable(ChatConfigFrame)
-	self:MakeMovable(AudioOptionsFrame)
-	self:MakeMovable(VideoOptionsFrame)
-	self:MakeMovable(AddonList)
-	self:MakeMovable(HelpFrame)
-	if MacOptionsFrame then
-	   self:MakeMovable(MacOptionsFrame)
-	end
-end
-
 function MERM:ADDON_LOADED(event, addon)
 	if addon == "Blizzard_BindingUI" then
 		self:UnregisterEvent(event)
-		
-		self:MakeMovable(KeyBindingFrame)
 	end
 end
 
 function MER:LoadGameMenu()
 	if E.db.muiGeneral.GameMenu then
 		self:GameMenu()
-		MERM:RegisterEvent("PLAYER_ENTERING_WORLD")
-		MERM:RegisterEvent("ADDON_LOADED")
 	end
 end

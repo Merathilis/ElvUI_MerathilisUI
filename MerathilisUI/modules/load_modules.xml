@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Include file="bags\load_bags.xml"/>
+	<Include file="blizzard\load_blizzard.xml"/>
 	<Include file="chat\load_chat.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="loot\load_loot.xml"/>

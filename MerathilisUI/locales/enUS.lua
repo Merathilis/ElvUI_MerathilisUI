@@ -13,6 +13,8 @@ if not L then return; end
 	--L['Install'] = true -- translated in ElvUI
 	--L['Run the installation process.'] = true -- translated in ElvUI
 	--L['General'] = true -- translated in ElvUI
+	L['CHAT_AFK'] = "[AFK]"
+	L['CHAT_DND'] = "[DND]"
 -- LoginMessage
 	--L['Login Message'] = true -- translated in ElvUI
 	L['Enable/Disable the Login Message in Chat'] = true
