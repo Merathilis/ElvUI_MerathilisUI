@@ -786,19 +786,9 @@ local function SetupAddOnSkins()
 		E.private.addonskins.SkadaSkin = true
 		E.private.addonskins.EmbedLeftWidth = 170
 		E.private.addonskins.CliqueSkin = true
-		E.private.addonskins.Blizzard_DeathRecap = true
 		E.private.addonskins.Blizzard_ExtraActionButton = true
 		E.private.addonskins.Blizzard_DraenorAbilityButton = true
-		E.private.addonskins.Blizzard_MacroUI = true
-		E.private.addonskins.Blizzard_Friends = true
 		E.private.addonskins.Blizzard_WorldStateCaptureBar = true
-		E.private.skins.blizzard.friends = false
-		E.private.skins.blizzard.deathRecap = false
-		E.private.skins.blizzard.macro = false
-	else
-		E.private.skins.blizzard.friends = true
-		E.private.skins.blizzard.deathRecap = true
-		E.private.skins.blizzard.macro = true
 	end
 end
 
