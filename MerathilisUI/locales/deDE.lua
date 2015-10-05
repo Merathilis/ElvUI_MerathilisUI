@@ -61,6 +61,13 @@ if not L then return; end
 -- Quest
 	L['Quest'] = true
 	L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"
+-- QuickArmoryLink
+	L['ARMORYQUICKLINK'] = "Armory QuickLink"
+	L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
+	L['REALMERROR'] = "Couldn't find realm list!"
+	L['SERVERERROR'] = "Couldn't find server!"
+	L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
+	L['LANGUAGE'] = "de"
 
 -- Install
 	L['Welcome'] = "Willkommen"

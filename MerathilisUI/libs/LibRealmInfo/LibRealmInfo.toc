@@ -1,0 +1,19 @@
+## Interface: 60200
+## Version: @project-version@
+
+## Title: Lib: Realm Info
+## Notes: Library to provide information about realms.
+## Notes-deDE: Bibliothek, um Informationen über Realms zu liefern.
+## Notes-esES: Biblioteca para proporcionar información sobre reinos.
+## Notes-esMX: Biblioteca para proporcionar información sobre reinos.
+
+## Author: Phanx
+## X-Email: addons@phanx.net
+## X-Copyright: Copyright (c) 2014 Phanx. All rights reserved.
+## X-Website: https://github.com/Phanx/LibRealmInfo
+
+## LoadOnDemand: 1
+## OptionalDeps: LibStub
+LibStub\LibStub.lua
+
+LibRealmInfo.lua
