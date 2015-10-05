@@ -23,3 +23,16 @@ E.PopupDialogs["OUTDATED"] = {
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
 }
+
+E.PopupDialogs["WATCHFRAME_URL"] = {
+	text = L['WATCH_WOWHEAD_LINK'],
+	button1 = OKAY,
+	timeout = 0,
+	whileDead = true,
+	hasEditBox = true,
+	editBoxWidth = 350,
+	OnShow = function(self, ...) self.editBox:SetFocus() end,
+	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
+	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+	preferredIndex = 5,
+}

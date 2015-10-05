@@ -15,6 +15,7 @@ if not L then return; end
 	--L['General'] = true -- translated in ElvUI
 	L['CHAT_AFK'] = "[AFK]"
 	L['CHAT_DND'] = "[DND]"
+	L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- LoginMessage
 	--L['Login Message'] = true -- translated in ElvUI
 	L['Enable/Disable the Login Message in Chat'] = true
