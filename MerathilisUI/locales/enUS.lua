@@ -78,6 +78,7 @@ if not L then return; end
 	L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'] = true
 	L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
 	--L['Please press the continue button to go onto the next step.'] = true -- translated in ElvUI
+	L['Layout'] = true
 	L['DPS Layout'] = true
 	L['Heal Layout'] = true
 	L['This part of the installation changes the default ElvUI look.'] = true
