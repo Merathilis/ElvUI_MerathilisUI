@@ -17,8 +17,13 @@ local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	E:SaveMoverPosition(mover)
 end
 
+function E:GetColor(r, b, g, a)	
+	return { r = r, b = b, g = g, a = a }
+end
+
 -- local functions must go up
-local function SetupMERLayout()
+local function SetupMERLayout(layout)
+	local classColor = RAID_CLASS_COLORS[E.myclass]
 	if not IsAddOnLoaded('ElvUI_BenikUI') then
 		E:StaticPopup_Show('BENIKUI')
 	end
@@ -261,11 +266,16 @@ local function SetupMERLayout()
 		E.db.unitframe.colors.castColor.g = 0.1
 		E.db.unitframe.colors.castColor.b = 0.1
 		E.db.unitframe.colors.transparentAurabars = true
-		E.db.unitframe.colors.transparentPower = true
+		E.db.unitframe.colors.transparentPower = false
 		E.db.unitframe.colors.transparentCastbar = true
 		E.db.unitframe.colors.health.r = 0.23
 		E.db.unitframe.colors.health.g = 0.23
 		E.db.unitframe.colors.health.b = 0.23
+		E.db.unitframe.colors.power.MANA = E:GetColor(classColor.r, classColor.b, classColor.g)
+		E.db.unitframe.colors.power.RAGE = {r = 79/255, g = 115/255, b = 161/255}
+		E.db.unitframe.colors.power.FOCUS = {r = 181/255, g = 110/255, b = 69/255}
+		E.db.unitframe.colors.power.ENERGY = {r = 166/255, g = 161/255, b = 89/255}
+		E.db.unitframe.colors.power.RUNIC_POWER = {r = 0/255, g = 09/255, b = 55/255}
 	-- Player
 		E.db.unitframe.units.player.width = 220
 		E.db.unitframe.units.player.height = 40
@@ -398,6 +408,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
 	-- Raid
+		E.db.unitframe.units.raid.threatStyle = 'GLOW'
 		E.db.unitframe.units.raid.horizontalSpacing = 1
 		E.db.unitframe.units.raid.debuffs.fontSize = 12
 		E.db.unitframe.units.raid.debuffs.enable = true
@@ -406,7 +417,7 @@ local function SetupMERLayout()
 		E.db.unitframe.units.raid.debuffs.sizeOverride = 20
 		E.db.unitframe.units.raid.rdebuffs.fontSize = 12
 		E.db.unitframe.units.raid.numGroups = 4
-		E.db.unitframe.units.raid.growDirection = RIGHT_UP
+		E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid.name.xOffset = 2
 		E.db.unitframe.units.raid.name.yOffset = -22
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
@@ -498,7 +509,7 @@ local function SetupMERLayout()
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 46
 			E.db.unitframe.units.party.width = 200
-			E.db.unitframe.units.party.growDirection = UP_RIGHT
+			E.db.unitframe.units.party.growthDirection = 'UP_RIGHT'
 			E.db.unitframe.units.party.debuffs.anchorPoint = 'RIGHT'
 			E.db.unitframe.units.party.debuffs.sizeOverride = 24
 			E.db.unitframe.units.party.debuffs.yOffset = 10
@@ -523,7 +534,7 @@ local function SetupMERLayout()
 			E.db.unitframe.units.party.roleIcon.tank = true
 			E.db.unitframe.units.party.roleIcon.healer = true
 			E.db.unitframe.units.party.roleIcon.damager = true
-			E.db.unitframe.units.party.roleIcon.size = 20
+			E.db.unitframe.units.party.roleIcon.size = 15
 			E.db.unitframe.units.party.roleIcon.yOffset = 26
 			E.db.unitframe.units.party.roleIcon.xOffset = 6
 			E.db.unitframe.units.party.roleIcon.position = 'RIGHT'
@@ -646,83 +657,192 @@ local function SetupMERLayout()
 	-- Movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
+	-- DPS Layout
+		if layout == 'DPS' then
 	-- PlayerMover
-		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
-		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
+			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
+			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
 	-- TargetMover
-		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 147)
-		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 110)
-		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
+			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 147)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 110)
+			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
 	-- TargetTargetMover
-		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
+			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
 	-- FocusMover
-		SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
-		SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
+			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
 	-- FocusTargetMover
-		SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
+			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
 	-- Raid/GroupMover
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 250)
-		else
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
-		end
-		SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
-		SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
-		SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
+			if IsAddOnLoaded("ElvUI_BenikUI") then
+				SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 250)
+			else
+				SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
+			end
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
+			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
+			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 	-- PetMover
-		SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
-		SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
 	-- AlertMover for Garrison etc.
-		SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
+			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 	-- ActionBarMover
-		SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
-		SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
-		SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
-		SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
-		SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
-		SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
-		SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
-		SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
-		SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
+			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
+			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
+			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
+			SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
+			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
+			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
+			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
+			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
+			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
 	-- XP/RepMover
-		SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
-		SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
+			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
+			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
 	-- TooltipMover
-		SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
+			SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
 	-- ChatMover
-		SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
-		SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
+			SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
+			SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
 	-- Buff/DebuffMover
-		SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -9)
-		SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
+			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -9)
+			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
 	-- Arena/BossMover
-		SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-		SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
+			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
 	-- Tank/AssistMover
-		SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
-		SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
+			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
+			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
 	-- MiscMover
-		SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
-		SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
-		SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
-		SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
-		SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 368, 3)
-		SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
-		SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
-		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
-		SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
-		SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
-		SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
-		SetMoverPosition('GMMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 329, 0)
-		SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
-		SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 0, -38)
-		SetMoverPosition('ObjectiveFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -200, -281)
-		SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 1, -272)
-		SetMoverPosition('Bottom_Panel_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 250, 2)
-		SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 432)
-		SetMoverPosition('LootFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -495, -457)
-		SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
-		SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
+			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
+			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
+			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
+			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 368, 3)
+			SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
+			SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
+			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
+			SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
+			SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
+			SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
+			SetMoverPosition('GMMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 329, 0)
+			SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
+			SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 0, -38)
+			SetMoverPosition('ObjectiveFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -200, -281)
+			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 1, -272)
+			SetMoverPosition('Bottom_Panel_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 250, 2)
+			SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 432)
+			SetMoverPosition('LootFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -495, -457)
+			SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
+			SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
+	-- Heal Layout
+		elseif layout == 'HEAL' then
+		-- Raid
+			E.db.unitframe.units.raid.height = 30
+			E.db.unitframe.units.raid.width = 114
+			E.db.unitframe.units.raid.debuffs.sizeOverride = 21
+			E.db.unitframe.units.raid.debuffs.xOffset = 0
+			E.db.unitframe.units.raid.name.yOffset = -21
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 234)
+		-- Party
+			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
+			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.width = 114
+			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.name.yOffset = -17
+			E.db.unitframe.units.party.name.position = 'BOTTOM'
+			if IsAddOnLoaded("ElvUI_BenikUI") then
+				E.db.unitframe.units.party.roleIcon.position = 'BOTTOMRIGHT'
+				E.db.unitframe.units.party.portrait.enabled = true
+				E.db.unitframe.units.party.portrait.overlay = true
+			end
+			E.db.unitframe.units.party.buffs.yOffset = 0
+			E.db.unitframe.units.party.buffs.xOffset = 0
+			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
+			E.db.unitframe.units.party.buffs.perrow = 1
+			E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
+			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.debuffs.yOffset = 0
+			E.db.unitframe.units.party.debuffs.xOffset = 0
+			E.db.unitframe.units.party.debuffs.numrows = 1
+			E.db.unitframe.units.party.debuffs.perrow = 5
+			E.db.unitframe.units.party.power.height = 12
+			E.db.unitframe.units.party.name.xOffset = 0
+			E.db.unitframe.units.party.name.yOffset = -16
+			E.db.unitframe.units.party.name.position = 'BOTTOM'
+			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
+			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 15
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 210)
+	-- PlayerMover
+			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
+			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
+	-- TargetMover
+			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 147)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 110)
+			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
+	-- TargetTargetMover
+			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
+	-- FocusMover
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
+			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
+	-- FocusTargetMover
+			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
+	-- PetMover
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
+	-- AlertMover for Garrison etc.
+			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
+	-- ActionBarMover
+			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
+			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
+			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
+			SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
+			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
+			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
+			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
+			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
+			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
+	-- XP/RepMover
+			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
+			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
+	-- TooltipMover
+			SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
+	-- ChatMover
+			SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
+			SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
+	-- Buff/DebuffMover
+			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -9)
+			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
+	-- Arena/BossMover
+			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
+	-- Tank/AssistMover
+			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
+			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
+	-- MiscMover
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
+			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
+			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
+			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
+			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 368, 3)
+			SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
+			SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
+			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
+			SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
+			SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
+			SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
+			SetMoverPosition('GMMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 329, 0)
+			SetMoverPosition('UIBFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -44, -161)
+			SetMoverPosition('BNETMover', 'TOP', E.UIParent, 'TOP', 0, -38)
+			SetMoverPosition('ObjectiveFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -200, -281)
+			SetMoverPosition('AltPowerBarMover', 'TOP', E.UIParent, 'TOP', 1, -272)
+			SetMoverPosition('Bottom_Panel_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', 250, 2)
+			SetMoverPosition('LossControlMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 432)
+			SetMoverPosition('LootFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -495, -457)
+			SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
+			SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
+		end
 	end
 	
 	for i = 1, NUM_CHAT_WINDOWS do
@@ -743,6 +863,43 @@ local function SetupMERLayout()
 		end
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
+		
+		-- enable classcolor automatically on login and on each character without doing /configure each time.
+		ToggleChatColorNamesByClassGroup(true, "SAY")
+		ToggleChatColorNamesByClassGroup(true, "EMOTE")
+		ToggleChatColorNamesByClassGroup(true, "YELL")
+		ToggleChatColorNamesByClassGroup(true, "GUILD")
+		ToggleChatColorNamesByClassGroup(true, "OFFICER")
+		ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
+		ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
+		ToggleChatColorNamesByClassGroup(true, "WHISPER")
+		ToggleChatColorNamesByClassGroup(true, "PARTY")
+		ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
+		ToggleChatColorNamesByClassGroup(true, "RAID")
+		ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
+		ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
+		ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
+		ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")	
+		ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")	
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL6")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL7")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL8")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
+		ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
+		
+		--Adjust Chat Colors
+		--General
+		ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
+		--Trade
+		ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
+		--Local Defense
+		ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
 	end
 	
 	if InstallStepComplete then
@@ -1888,8 +2045,11 @@ local function SetPage(PageNum)
 		f.Desc2:SetText(L['Please click the button below to apply the new layout.'])
 		f.Desc3:SetText(L['Importance: |cff07D400High|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupMERLayout)
-		InstallOption1Button:SetText(L['Setup Layout'])
+		InstallOption1Button:SetScript('OnClick', function() SetupMERLayout('DPS') end)
+		InstallOption1Button:SetText(L['DPS Layout'])
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() SetupMERLayout('HEAL') end)
+		InstallOption2Button:SetText(L['Heal Layout'])
 	elseif PageNum == 3 then
 		f.SubTitle:SetText(L['DataTexts'])
 		f.Desc1:SetText(L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])

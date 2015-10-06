@@ -82,7 +82,8 @@ if not L then return; end
 	L['This part of the installation changes the default ElvUI look.'] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
 	L['Please click the button below to apply the new layout.'] = "Bitte drücke unten die Taste unten, um das neue Layout anzuwenden."
 	--L['Importance: |cff07D400High|r'] = true -- translated in ElvUI
-	L['Setup Layout'] = "Layout einstellen"
+	L['DPS Layout'] = "DPS Layout"
+	L['Heal Layout'] = "Heiler Layout"
 	L['DataTexts'] = "Infotexte"
 	L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert|r"
 	L['Please click the button below to setup your datatexts.'] = "Bitte drücke die Taste unten, um die Infotexte einzustellen."
