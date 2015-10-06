@@ -21,7 +21,7 @@ function AFK:Initialize()
 	-- Version
 	self.AFKMode.bottom.btext = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
 	self.AFKMode.bottom.btext:FontTemplate(nil, 10)
-	self.AFKMode.bottom.btext:SetText(format("v%s", MER.Version))
+	self.AFKMode.bottom.btext:SetFormattedText("v%s", MER.Version)
 	self.AFKMode.bottom.btext:SetPoint("TOP", self.AFKMode.bottom.merathilisui, "BOTTOM")
 	self.AFKMode.bottom.btext:SetTextColor(0.7, 0.7, 0.7)
 end
