@@ -6,6 +6,9 @@ local S = E:GetModule('Skins')
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
 local factionGroup = UnitFactionGroup("player")
+if factionGroup == "Neutral" then
+	factionGroup = "Panda"
+end
 local factionLogo = "Interface\\Timer\\"..factionGroup.."-Logo"
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
