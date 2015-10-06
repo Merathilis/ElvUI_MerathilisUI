@@ -29,7 +29,7 @@ P['muiUnitframes'] = {
 	['EmptyBar'] = {
 		['enable'] = true,
 		['threat'] = true,
-		['groupHeight'] = 20,
+		['groupHeight'] = 15,
 	},
 	['HoverClassColor'] = true,
 }
