@@ -3,13 +3,12 @@ local MER = E:GetModule('MerathilisUI')
 local MERM = E:NewModule('BlizzOptionsMover', 'AceEvent-3.0')
 local S = E:GetModule('Skins')
 
+-- Credit for the Class logos: ADDOriN @DevianArt
+-- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
+
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
-local factionGroup = UnitFactionGroup("player")
-if factionGroup == "Neutral" then
-	factionGroup = "Panda"
-end
-local factionLogo = "Interface\\Timer\\"..factionGroup.."-Logo"
+local className = E.myclass
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
 	self:Run("Alpha", .7, 0, 1)
@@ -47,8 +46,9 @@ function MER:GameMenu()
 		
 		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'ARTWORK')
 		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
-		bottomPanel.factionLogo:SetTexture(factionLogo)
-		bottomPanel.factionLogo:SetSize(200, 200)
+		bottomPanel.factionLogo:SetSize(220, 220)
+		-- Apply class texture
+		bottomPanel.factionLogo:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\classIcons\\CLASS-'..className)
 	end
 	
 	if not topPanel then
