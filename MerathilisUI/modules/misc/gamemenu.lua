@@ -45,8 +45,8 @@ function MER:GameMenu()
 		bottomPanel:SetScript("OnShow", panel_onShow)
 		
 		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'ARTWORK')
-		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
-		bottomPanel.factionLogo:SetSize(220, 220)
+		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 20)
+		bottomPanel.factionLogo:SetSize(250, 250)
 		-- Apply class texture
 		bottomPanel.factionLogo:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\classIcons\\CLASS-'..className)
 	end

@@ -202,7 +202,7 @@ local function SetupMERLayout(layout)
 		E.db.chat.panelHeight = 140
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
-		E.db.chat.keywords = '%MYNAME%, ElvUI, Andy'
+		E.db.chat.keywords = '%MYNAME%, ElvUI'
 		E.db.chat.timeStampFormat = '%H:%M '
 	end
 	
