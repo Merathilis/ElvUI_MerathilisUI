@@ -696,7 +696,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
-			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
+			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 450, 200)
 	-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
 			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
