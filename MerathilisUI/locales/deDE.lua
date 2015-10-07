@@ -100,8 +100,3 @@ if not L then return; end
 
 -- Staticpopup
 	L["To get the whole MerathilisUI Functionality and Look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = "Um alle Funktionen und das Aussehen von MerathilisUI zu erlangen, lade dir bitte |cff00c0faElvUI_BenikUI|r herrunter!"
-	L["Download MerathilisUI"] = true
-
--- Version
-	L["UI"] = true
-	L["Outdated"] = "Veraltet"

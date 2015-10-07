@@ -8,22 +8,6 @@ E.PopupDialogs['BENIKUI'] = {
 	showAlert = 1,
 }
 
-E.PopupDialogs["OUTDATED"] = {
-	text = L["Download MerathilisUI"],
-	button1 = OKAY,
-	timeout = 0,
-	whileDead = true,
-	hasEditBox = true,
-	editBoxWidth = 325,
-	OnShow = function(self, ...) 
-		self.editBox:SetFocus()
-		self.editBox:SetText("http://www.tukui.org/addons/index.php?act=view&id=286")
-		self.editBox:HighlightText()
-	end,
-	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
-	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
-}
-
 E.PopupDialogs["WATCHFRAME_URL"] = {
 	text = L['WATCH_WOWHEAD_LINK'],
 	button1 = OKAY,

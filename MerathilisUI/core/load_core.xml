@@ -3,5 +3,4 @@
 	<Script file="config.lua"/>
 	<Script file="install.lua"/>
 	<Script file="staticpopup.lua"/>
-	<Script file="version.lua"/>
 </Ui>
