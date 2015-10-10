@@ -8,7 +8,6 @@ local function AddOptions()
 		order = 9001,
 		type = 'group',
 		name = MER.Title,
-		childGroups = 'tab',
 		args = {
 			name = {
 				order = 1,
@@ -39,7 +38,7 @@ local function AddOptions()
 				order = 5,
 				type = 'group',
 				name = L['General'],
-				--guiInline = true,
+				guiInline = true,
 				args = {
 					LoginMsg = {
 						order = 1,
@@ -74,7 +73,7 @@ local function muiUnitframes()
 		order = 8,
 		type = 'group',
 		name = L['UnitFrames'],
-		--guiInline = true,
+		guiInline = true,
 		args = {
 			HoverClassColor = {
 				order = 1,
@@ -117,7 +116,7 @@ local function muiMisc()
 		order = 9,
 		type = 'group',
 		name = L['Misc'],
-		--guiInline = true,
+		guiInline = true,
 		args = {
 			TooltipIcon = {
 				order = 1,
@@ -183,7 +182,7 @@ local function muiSkins()
 		order = 10,
 		type = 'group',
 		name = L['Skins'],
-		--guiInline = true,
+		guiInline = true,
 		args = {
 			MasterPlan = {
 				order = 1,
