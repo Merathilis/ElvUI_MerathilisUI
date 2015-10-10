@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 if E.db.mui == nil then E.db.mui = {} end
 
-function MER:AddOptions()
+local function AddOptions()
 	E.Options.args.mui = {
 		order = 9001,
 		type = 'group',
@@ -54,7 +54,7 @@ function MER:AddOptions()
 						name = L['GameMenu'],
 						desc = L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'],
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
-						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 				},
 			},
@@ -62,132 +62,145 @@ function MER:AddOptions()
 				order = 6,
 				type = 'header',
 				name = '',
+			},				
+		},
+	}
+end
+table.insert(E.MerConfig, AddOptions)
+
+local function muiUnitframes()
+	E.Options.args.mui.args.unitframes = {
+		order = 8,
+		type = 'group',
+		name = L['UnitFrames'],
+		guiInline = true,
+		args = {
+			HoverClassColor = {
+				order = 1,
+				type = 'toggle',
+				name = L['Hover ClassColor'],
+				desc = L['Adds an Hovereffect for ClassColor to the Raidframes.'],
+				get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
+				set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
-			unitframes = {
-				order = 7,
+			EmptyBar = {
+				order = 2,
 				type = 'group',
-				guiInline = true,
-				name = L['UnitFrames'],
+				name = L['Empty Bar'],
 				args = {
-					HoverClassColor = {
+					enable = {
 						order = 1,
 						type = 'toggle',
-						name = L['Hover ClassColor'],
-						desc = L['Adds an Hovereffect for ClassColor to the Raidframes.'],
-						get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
-						set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						name = L['Enable'],
+						desc = L['Add an EmptyBar to under the Raidframes. E.g. to look like TukUI Unitframes.'],
+						get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
+						set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					EmptyBar = {
-						order = 2,
-						type = 'group',
-						name = L['Empty Bar'],
-						args = {
-							enable = {
-								order = 1,
-								type = 'toggle',
-								name = L['Enable'],
-								desc = L['Add an EmptyBar to under the Raidframes. E.g. to look like TukUI Unitframes.'],
-								get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
-								set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-							},
-							threat = {
-								order = 2,
-								type = 'toggle',
-								name = L['Threat'],
-								desc = L['Enable Threat on the EmptyBar'],
-								get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
-								set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; end,
-							},
-						},
-					},
-				},
-			},
-			misc = {
-				order = 8,
-				type = 'group',
-				guiInline = true,
-				name = L['Misc'],
-				args = {
-					TooltipIcon = {
-						order = 1,
-						type = 'toggle',
-						name = L['Tooltip Icon'],
-						desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-					},
-					Screenshot = {
-						order = 2,
-						type = 'toggle',
-						name = L['Screenshot'],
-						desc = L['Takes an automatic Screenshot on Achievement earned.'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-					},
-					RareAlert = {
+					threat = {
 						order = 3,
 						type = 'toggle',
-						name = L['RareAlert'],
-						desc = L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-					},
-					HideAlertFrame = {
-						order = 4,
-						type = 'toggle',
-						name = L['Garrison Alert Frame'],
-						desc = L['Hides the Garrison Alert Frame while in combat.'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					MailInputbox = {
-						order = 5,
-						type = 'toggle',
-						name = L['Mail Inputbox Resize'],
-						desc = L['Resize the Mail Inputbox and move the shipping cost to the Bottom'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					noDuel = {
-						order = 6,
-						type = 'toggle',
-						name = L['No Duel'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-					},
-					LootAnnouncer = {
-						order = 7,
-						type = 'toggle',
-						name = L['Loot Announcer'],
-						get = function(info) return E.db.muiMisc[ info[#info] ] end,
-						set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-					},
-				},
-			},
-			skins = {
-				order = 9,
-				type = 'group',
-				guiInline = true,
-				name = L['Skins'],
-				args = {
-					MasterPlan = {
-						order = 1,
-						type = 'toggle',
-						name = L['MasterPlan'],
-						desc = L['Skins the additional Tabs from MasterPlan.'],
-						get = function(info) return E.db.muiSkins[ info[#info] ] end,
-						set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					Quest = {
-						order = 2,
-						type = 'toggle',
-						name = L['Quest'],
-						desc = L['Skins the Questtracker to fit the MerathilisUI Sytle'],
-						get = function(info) return E.db.muiSkins[ info[#info] ] end,
-						set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						name = L['Threat'],
+						desc = L['Enable Threat on the EmptyBar'],
+						get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
+						set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; end,
 					},
 				},
 			},
 		},
 	}
 end
+table.insert(E.MerConfig, muiUnitframes)
+
+local function muiMisc()
+	E.Options.args.mui.args.misc = {
+		order = 9,
+		type = 'group',
+		name = L['Misc'],
+		guiInline = true,
+		args = {
+			TooltipIcon = {
+				order = 1,
+				type = 'toggle',
+				name = L['Tooltip Icon'],
+				desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+			},
+			Screenshot = {
+				order = 2,
+				type = 'toggle',
+				name = L['Screenshot'],
+				desc = L['Takes an automatic Screenshot on Achievement earned.'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+			},
+			RareAlert = {
+				order = 3,
+				type = 'toggle',
+				name = L['RareAlert'],
+				desc = L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+			},
+			HideAlertFrame = {
+				order = 4,
+				type = 'toggle',
+				name = L['Garrison Alert Frame'],
+				desc = L['Hides the Garrison Alert Frame while in combat.'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+			MailInputbox = {
+				order = 5,
+				type = 'toggle',
+				name = L['Mail Inputbox Resize'],
+				desc = L['Resize the Mail Inputbox and move the shipping cost to the Bottom'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+			noDuel = {
+				order = 6,
+				type = 'toggle',
+				name = L['No Duel'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+			},
+			LootAnnouncer = {
+				order = 7,
+				type = 'toggle',
+				name = L['Loot Announcer'],
+				get = function(info) return E.db.muiMisc[ info[#info] ] end,
+				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
+			},
+		},
+	}
+end
+table.insert(E.MerConfig, muiMisc)
+
+local function muiSkins()
+	E.Options.args.mui.args.skins = {
+		order = 10,
+		type = 'group',
+		name = L['Skins'],
+		guiInline = true,
+		args = {
+			MasterPlan = {
+				order = 1,
+				type = 'toggle',
+				name = L['MasterPlan'],
+				desc = L['Skins the additional Tabs from MasterPlan.'],
+				get = function(info) return E.db.muiSkins[ info[#info] ] end,
+				set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+			Quest = {
+				order = 2,
+				type = 'toggle',
+				name = L['Quest'],
+				desc = L['Skins the Questtracker to fit the MerathilisUI Sytle'],
+				get = function(info) return E.db.muiSkins[ info[#info] ] end,
+				set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+		},
+	}
+end
+table.insert(E.MerConfig, muiSkins)
