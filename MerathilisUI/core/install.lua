@@ -762,19 +762,20 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.debuffs.sizeOverride = 21
 			E.db.unitframe.units.raid.debuffs.xOffset = 0
 			E.db.unitframe.units.raid.name.yOffset = -21
-			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 234)
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
 		-- Party
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 			E.db.unitframe.units.party.height = 40
 			E.db.unitframe.units.party.width = 114
 			E.db.unitframe.units.party.debuffs.sizeOverride = 21
-			E.db.unitframe.units.party.name.yOffset = -17
+			E.db.unitframe.units.party.health.xOffset = 0
+			E.db.unitframe.units.party.health.yOffset = 0
+			E.db.unitframe.units.party.health.text_format = '[healthcolor][health:current]'
+			E.db.unitframe.units.party.name.yOffset = -22
 			E.db.unitframe.units.party.name.position = 'BOTTOM'
-			if IsAddOnLoaded("ElvUI_BenikUI") then
-				E.db.unitframe.units.party.roleIcon.position = 'BOTTOMRIGHT'
-				E.db.unitframe.units.party.portrait.enabled = true
-				E.db.unitframe.units.party.portrait.overlay = true
-			end
+			E.db.unitframe.units.party.name.text_format = '[namecolor][name:medium]'
+			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.text_format = ''
 			E.db.unitframe.units.party.buffs.yOffset = 0
 			E.db.unitframe.units.party.buffs.xOffset = 0
 			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
@@ -785,13 +786,14 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.xOffset = 0
 			E.db.unitframe.units.party.debuffs.numrows = 1
 			E.db.unitframe.units.party.debuffs.perrow = 5
-			E.db.unitframe.units.party.power.height = 12
-			E.db.unitframe.units.party.name.xOffset = 0
-			E.db.unitframe.units.party.name.yOffset = -16
-			E.db.unitframe.units.party.name.position = 'BOTTOM'
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
-			E.db.unitframe.units.party.customTexts.HealthText.yOffset = 15
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 210)
+			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
+			E.db.unitframe.units.party.customTexts.LevelClass.text_format = ''
+			E.db.unitframe.units.party.roleIcon.position = 'LEFT'
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
+			if IsAddOnLoaded("ElvUI_BenikUI") then
+				E.db.unitframe.units.party.portrait.overlay = true
+			end
 	-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
