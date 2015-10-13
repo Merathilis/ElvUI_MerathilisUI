@@ -2,6 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local MER = E:GetModule('MerathilisUI');
 
 if E.db.mui == nil then E.db.mui = {} end
+local tinsert = table.insert
 
 local function AddOptions()
 	E.Options.args.mui = {
@@ -66,7 +67,7 @@ local function AddOptions()
 		},
 	}
 end
-table.insert(E.MerConfig, AddOptions)
+tinsert(E.MerConfig, AddOptions)
 
 local function muiUnitframes()
 	E.Options.args.mui.args.unitframes = {
@@ -109,7 +110,7 @@ local function muiUnitframes()
 		},
 	}
 end
-table.insert(E.MerConfig, muiUnitframes)
+tinsert(E.MerConfig, muiUnitframes)
 
 local function muiMisc()
 	E.Options.args.mui.args.misc = {
@@ -175,7 +176,7 @@ local function muiMisc()
 		},
 	}
 end
-table.insert(E.MerConfig, muiMisc)
+tinsert(E.MerConfig, muiMisc)
 
 local function muiSkins()
 	E.Options.args.mui.args.skins = {
@@ -203,4 +204,4 @@ local function muiSkins()
 		},
 	}
 end
-table.insert(E.MerConfig, muiSkins)
+tinsert(E.MerConfig, muiSkins)

@@ -4,9 +4,10 @@ local MER = E:NewModule('MerathilisUI', "AceConsole-3.0");
 local LSM = LibStub('LibSharedMedia-3.0');
 local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
+local format = string.format
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
-MER.Title = string.format('|cffff7d0a%s |r', 'MerathilisUI')
+MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
 
 function MER:cOption(name)
