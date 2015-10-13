@@ -286,8 +286,8 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.debuffs.yOffset = 5
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 		E.db.unitframe.units.player.portrait.enable = true
-		E.db.unitframe.units.player.portrait.overlay = true
-		E.db.unitframe.units.player.portrait.camDistanceScale = 1.35
+		E.db.unitframe.units.player.portrait.overlay = false
+		E.db.unitframe.units.player.portrait.camDistanceScale = 0.84
 		E.db.unitframe.units.player.portrait.width = 43
 	-- Use Classbar not for Druid, because of Balance PowerTracker
 		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
@@ -309,7 +309,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 0
+		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 42
 		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 9
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db.unitframe.units.player.customTexts.Gesundheit.size = 24
@@ -317,7 +317,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.LevelClass.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.LevelClass.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.LevelClass.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.player.customTexts.LevelClass.xOffset = 0
+		E.db.unitframe.units.player.customTexts.LevelClass.xOffset = 42
 		E.db.unitframe.units.player.customTexts.LevelClass.yOffset = -7
 		E.db.unitframe.units.player.customTexts.LevelClass.size = 12
 		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
@@ -359,26 +359,28 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 8
+		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = -36
 		E.db.unitframe.units.target.customTexts.Gesundheit.size = 24
-		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor]'
+		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor]'
 		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 9
 		E.db.unitframe.units.target.customTexts.Name1 = {}
 		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
+		E.db.unitframe.units.target.customTexts.Name1.xOffset = -42
 		E.db.unitframe.units.target.customTexts.Name1.size = 12
 		E.db.unitframe.units.target.customTexts.Name1.text_format = '[difficultycolor][level] [namecolor][smartclass]'
 		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
 		E.db.unitframe.units.target.health.xOffset = 6
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.target.health.yOffset = -29
-		E.db.unitframe.units.target.portrait.rotation = 307
-		E.db.unitframe.units.target.portrait.overlay = true
-		E.db.unitframe.units.target.portrait.xOffset = 0.07
+		E.db.unitframe.units.target.portrait.width = 43
+		E.db.unitframe.units.target.portrait.rotation = 0
+		E.db.unitframe.units.target.portrait.overlay = false
+		E.db.unitframe.units.target.portrait.xOffset = 0
 		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.camDistanceScale = 1.35
+		E.db.unitframe.units.target.portrait.camDistanceScale = 0.84
+		E.db.unitframe.units.target.buffs.xOffset = 2
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 11
 		E.db.unitframe.units.target.buffs.fontSize = 12
