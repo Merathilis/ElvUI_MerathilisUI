@@ -1,0 +1,10 @@
+<b><u> v1.01, 13.10.2015</b></u>
+
+<font color=#FF8C00>&#9830;</font> GameMenu: Follow BenikUIs new classIcons for my GameMenu. Credits: <a href="http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos">ADDOriN @DevianArt</a>
+<font color=#FF8C00>&#9830;</font> Options: Changed a bit the Code for the Options.
+<font color=#FF8C00>&#9830;</font> Install: Adjust GroupFame Layout to fit with BenikUI EmptyBars.
+<font color=#FF8C00>&#9830;</font> Misc: Follow ElvUI Changes use SetFormattedText instead of SetText(format...
+<font color=#FF8C00>&#9830;</font> Misc: Minor Bugfixes.
+
+<b><u> v1.0, 06.10.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Initial Release.
