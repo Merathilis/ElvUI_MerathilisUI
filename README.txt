@@ -15,6 +15,11 @@ First I want to thanks Benik for his amazing help and showing me so much. You're
 MerathilisUI is an external ElvUI Mod. Mostly for the design with a few additional Features.
 
 
+<center><img src='http://www.tukui.org/storage/thumbs/801740merathilis_logo.png'></center>
+
+<font color=#FF8C00><b>What does this Plugin do?:</b></font>
+MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design</font> with a few additional Features.
+
 <font color=#FF8C00><b>Installation:</b></font>
 <font color=#FF8C00>&#9830;</font> The Installer will run on the first time you enable it or after the ElvUI Installation is complete. You can ran the Installer anytime by clicking the Install Button in the MerathilisUI Options.
 <font color=#FF8C00>&#9830;</font> You can skip every install steps to keep your current ElvUI Settings.
@@ -69,3 +74,10 @@ MerathilisUI is an external ElvUI Mod. Mostly for the design with a few addition
 <font color=#FF8C00>&#9830;</font> Masque: Darkscail; the Text offset of some Elements is a bit wrong, if you want to use this Skin you have to adjust it manually in the LUA File.
 <font color=#FF8C00>&#9830;</font> RareAlert: Everytime you spawn in your Garrision it pops up a RaidWarning.
 <font color=#FF8C00>&#9830;</font> And maybe a lot of other things i could not test :D
+
+<font color=#FF8C00><b>Screenshots:</b></font>
+<font color=#FF8C00>&#9830;</font> Game Menu:
+<a href='http://www.tukui.org/storage/viewer.php?id=902657WoWScrnShot_101315_002753.jpg'><img src='http://www.tukui.org/storage/thumbs/902657WoWScrnShot_101315_002753.jpg'></a>
+
+<font color=#FF8C00>&#9830;</font> RaidFrames with EmptyBars (Note: The RoleIcons are from ElvUI_SLE)
+<a href='http://www.tukui.org/storage/viewer.php?id=247096RaidFrames.png'><img src='http://www.tukui.org/storage/thumbs/247096RaidFrames.png'></a>
