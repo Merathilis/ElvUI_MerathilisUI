@@ -326,7 +326,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
 		E.db.unitframe.units.player.power.yOffset = -29
-		E.db.unitframe.units.player.power.height = 5
+		E.db.unitframe.units.player.power.height = 2
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachedWidth = 298
 		E.db.unitframe.units.player.buffs.enable = false
@@ -353,7 +353,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.power.yOffset = -29
 		E.db.unitframe.units.target.power.detachedWidth = 298
 		E.db.unitframe.units.target.power.hideonnpc = false
-		E.db.unitframe.units.target.power.height = 5
+		E.db.unitframe.units.target.power.height = 2
 		E.db.unitframe.units.target.customTexts = {}
 		E.db.unitframe.units.target.customTexts.Gesundheit = {}
 		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Merathilis Tukui'
@@ -389,13 +389,13 @@ local function SetupMERLayout(layout)
 	-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
 		E.db.unitframe.units.targettarget.power.position = 'CENTER'
-		E.db.unitframe.units.targettarget.power.height = 5
+		E.db.unitframe.units.targettarget.power.height = 2
 		E.db.unitframe.units.targettarget.width = 100
 		E.db.unitframe.units.targettarget.name.yOffset = -1
 		E.db.unitframe.units.targettarget.health.position = 'CENTER'
 		E.db.unitframe.units.targettarget.height = 25
 	-- Focus
-		E.db.unitframe.units.focus.power.height = 5
+		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.height = 20
 		E.db.unitframe.units.focus.castbar.height = 6
@@ -405,7 +405,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
 		E.db.unitframe.units.focustarget.power.enable = true
-		E.db.unitframe.units.focustarget.power.height = 5
+		E.db.unitframe.units.focustarget.power.height = 2
 		E.db.unitframe.units.focustarget.width = 122
 		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
@@ -421,7 +421,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid.name.xOffset = 2
-		E.db.unitframe.units.raid.name.yOffset = -22
+		E.db.unitframe.units.raid.name.yOffset = -20
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
 		E.db.unitframe.units.raid.name.position = 'BOTTOM'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
@@ -430,7 +430,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.raid.power.enable = true
 		E.db.unitframe.units.raid.power.position = 'CENTER'
-		E.db.unitframe.units.raid.power.height = 5
+		E.db.unitframe.units.raid.power.height = 2
 		E.db.unitframe.units.raid.healthPrediction = true
 		E.db.unitframe.units.raid.width = 69
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
@@ -470,12 +470,12 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid40.name.position = 'TOP'
 		E.db.unitframe.units.raid40.groupBy = 'ROLE'
-		E.db.unitframe.units.raid40.roleIcon.position = 'TOPRIGHT'
+		E.db.unitframe.units.raid40.roleIcon.position = 'RIGHT'
 		E.db.unitframe.units.raid40.roleIcon.enable = true
 		E.db.unitframe.units.raid40.raidWideSorting = false
 		E.db.unitframe.units.raid40.power.enable = true
 		E.db.unitframe.units.raid40.power.position = 'CENTER'
-		E.db.unitframe.units.raid40.power.height = 5
+		E.db.unitframe.units.raid40.power.height = 2
 		E.db.unitframe.units.raid40.customTexts = {}
 		E.db.unitframe.units.raid40.customTexts.HealthText = {}
 		E.db.unitframe.units.raid40.customTexts.HealthText.font = 'Merathilis Tukui'
@@ -537,6 +537,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.roleIcon.healer = true
 			E.db.unitframe.units.party.roleIcon.damager = true
 			E.db.unitframe.units.party.roleIcon.size = 16
+			E.db.unitframe.units.party.roleIcon.xOffset = 0
+			E.db.unitframe.units.party.roleIcon.yOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.customTexts = {}
@@ -571,7 +573,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.raidicon.size = 13
 			E.db.unitframe.units.party.raidicon.yOffset = 0
 			E.db.unitframe.units.party.power.text_format = '[namecolor][power:current]'
-			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.height = 2
 			E.db.unitframe.units.party.power.position = 'LEFT'
 			E.db.unitframe.units.party.power.yOffset = -29
 			E.db.unitframe.units.party.buffs.enable = true
@@ -649,7 +651,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.pet.castbar.width = 102
 		E.db.unitframe.units.pet.width = 102
 		E.db.unitframe.units.pet.height = 24
-		E.db.unitframe.units.pet.power.height = 5
+		E.db.unitframe.units.pet.power.height = 2
 	-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
 	-- Boss
@@ -661,7 +663,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.boss.debuffs.yOffset = 2
 		E.db.unitframe.units.boss.debuffs.perrow = 5
 		E.db.unitframe.units.boss.portrait.enable = true
-		E.db.unitframe.units.boss.power.height = 5
+		E.db.unitframe.units.boss.power.height = 2
 		E.db.unitframe.units.boss.power.position = 'LEFT'
 		E.db.unitframe.units.boss.name.xOffset = 6
 		E.db.unitframe.units.boss.name.yOffset = 16
@@ -763,20 +765,21 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.width = 114
 			E.db.unitframe.units.raid.debuffs.sizeOverride = 21
 			E.db.unitframe.units.raid.debuffs.xOffset = 0
-			E.db.unitframe.units.raid.name.yOffset = -21
+			E.db.unitframe.units.raid.name.yOffset = -18
+			E.db.unitframe.units.raid.power.height = 2
 			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
 		-- Party
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
-			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.height = 30
 			E.db.unitframe.units.party.width = 114
 			E.db.unitframe.units.party.debuffs.sizeOverride = 21
 			E.db.unitframe.units.party.health.xOffset = 0
 			E.db.unitframe.units.party.health.yOffset = 0
 			E.db.unitframe.units.party.health.text_format = '[healthcolor][health:current]'
-			E.db.unitframe.units.party.name.yOffset = -22
+			E.db.unitframe.units.party.name.yOffset = -19
 			E.db.unitframe.units.party.name.position = 'BOTTOM'
 			E.db.unitframe.units.party.name.text_format = '[namecolor][name:medium]'
-			E.db.unitframe.units.party.power.height = 5
+			E.db.unitframe.units.party.power.height = 2
 			E.db.unitframe.units.party.power.text_format = ''
 			E.db.unitframe.units.party.buffs.yOffset = 0
 			E.db.unitframe.units.party.buffs.xOffset = 0
@@ -791,7 +794,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
 			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
 			E.db.unitframe.units.party.customTexts.LevelClass.text_format = ''
-			E.db.unitframe.units.party.roleIcon.position = 'LEFT'
+			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
+			E.db.unitframe.units.party.roleIcon.size = 14
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				E.db.unitframe.units.party.portrait.overlay = true
