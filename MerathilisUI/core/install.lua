@@ -509,12 +509,13 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
 	-- Party
 		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db.unitframe.units.party.height = 40
+			E.db.unitframe.units.party.height = 30
 			E.db.unitframe.units.party.width = 200
 			E.db.unitframe.units.party.growthDirection = 'UP_RIGHT'
 			E.db.unitframe.units.party.debuffs.anchorPoint = 'RIGHT'
 			E.db.unitframe.units.party.debuffs.sizeOverride = 24
-			E.db.unitframe.units.party.debuffs.yOffset = 10
+			E.db.unitframe.units.party.debuffs.xOffset = 1
+			E.db.unitframe.units.party.debuffs.yOffset = 3
 			E.db.unitframe.units.party.debuffs.numrows = 2
 			E.db.unitframe.units.party.debuffs.perrow = 5
 			E.db.unitframe.units.party.debuffs.fontSize = 12
@@ -529,14 +530,14 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.health.position = 'RIGHT'
 			E.db.unitframe.units.party.health.text_format = '[healthcolor][health:percent] - [health:current]'
 			E.db.unitframe.units.party.health.xOffset = 2
-			E.db.unitframe.units.party.health.yOffset = -29
+			E.db.unitframe.units.party.health.yOffset = -24
 			E.db.unitframe.units.party.name.text_format = ''
 			E.db.unitframe.units.party.name.position = 'BOTTOM'
 			E.db.unitframe.units.party.roleIcon.enable = true
 			E.db.unitframe.units.party.roleIcon.tank = true
 			E.db.unitframe.units.party.roleIcon.healer = true
 			E.db.unitframe.units.party.roleIcon.damager = true
-			E.db.unitframe.units.party.roleIcon.size = 16
+			E.db.unitframe.units.party.roleIcon.size = 14
 			E.db.unitframe.units.party.roleIcon.xOffset = 0
 			E.db.unitframe.units.party.roleIcon.yOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
@@ -557,15 +558,15 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.customTexts.LevelClass.xOffset = 40
 			E.db.unitframe.units.party.customTexts.LevelClass.yOffset = -7
 			E.db.unitframe.units.party.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
-			E.db.unitframe.units.party.customTexts.LevelClass.size = 12
+			E.db.unitframe.units.party.customTexts.LevelClass.size = 11
 			E.db.unitframe.units.party.customTexts.Gesundheit = {}
 			E.db.unitframe.units.party.customTexts.Gesundheit.font = 'Merathilis Tukui'
 			E.db.unitframe.units.party.customTexts.Gesundheit.justifyH = 'LEFT'
 			E.db.unitframe.units.party.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 			E.db.unitframe.units.party.customTexts.Gesundheit.xOffset = 40
-			E.db.unitframe.units.party.customTexts.Gesundheit.yOffset = 9
+			E.db.unitframe.units.party.customTexts.Gesundheit.yOffset = 7
 			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-			E.db.unitframe.units.party.customTexts.Gesundheit.size = 24
+			E.db.unitframe.units.party.customTexts.Gesundheit.size = 20
 			E.db.unitframe.units.party.verticalSpacing = 25
 			E.db.unitframe.units.party.horizontalSpacing = 1
 			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
@@ -575,9 +576,9 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.power.text_format = '[namecolor][power:current]'
 			E.db.unitframe.units.party.power.height = 2
 			E.db.unitframe.units.party.power.position = 'LEFT'
-			E.db.unitframe.units.party.power.yOffset = -29
+			E.db.unitframe.units.party.power.yOffset = -24
 			E.db.unitframe.units.party.buffs.enable = true
-			E.db.unitframe.units.party.buffs.yOffset = 26
+			E.db.unitframe.units.party.buffs.yOffset = 0
 			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
 			E.db.unitframe.units.party.buffs.clickTrough = true
 			E.db.unitframe.units.party.buffs.useBlacklist = false
