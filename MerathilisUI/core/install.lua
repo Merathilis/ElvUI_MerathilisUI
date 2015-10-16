@@ -278,7 +278,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.power.RUNIC_POWER = {r = 0/255, g = 09/255, b = 55/255}
 	-- Player
 		E.db.unitframe.units.player.width = 220
-		E.db.unitframe.units.player.height = 40
+		E.db.unitframe.units.player.height = 35
 		E.db.unitframe.units.player.debuffs.fontSize = 11
 		E.db.unitframe.units.player.debuffs.attachTo = 'FRAME'
 		E.db.unitframe.units.player.debuffs.sizeOverride = 32
@@ -310,9 +310,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 42
-		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 9
+		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 7
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-		E.db.unitframe.units.player.customTexts.Gesundheit.size = 24
+		E.db.unitframe.units.player.customTexts.Gesundheit.size = 22
 		E.db.unitframe.units.player.customTexts.LevelClass = {}
 		E.db.unitframe.units.player.customTexts.LevelClass.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.LevelClass.justifyH = 'LEFT'
@@ -322,17 +322,17 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.LevelClass.size = 12
 		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
 		E.db.unitframe.units.player.health.xOffset = -3
-		E.db.unitframe.units.player.health.yOffset = -29
+		E.db.unitframe.units.player.health.yOffset = -26
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
-		E.db.unitframe.units.player.power.yOffset = -29
+		E.db.unitframe.units.player.power.yOffset = -26
 		E.db.unitframe.units.player.power.height = 2
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachedWidth = 298
 		E.db.unitframe.units.player.buffs.enable = false
 	-- Target
 		E.db.unitframe.units.target.width = 220
-		E.db.unitframe.units.target.height = 40
+		E.db.unitframe.units.target.height = 35
 		E.db.unitframe.units.target.castbar.latency = true
 		E.db.unitframe.units.target.castbar.width = 239.999954223633
 		E.db.unitframe.units.target.debuffs.sizeOverride = 32
@@ -350,7 +350,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.name.text_format = ''
 		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
 		E.db.unitframe.units.target.power.xOffset = -2
-		E.db.unitframe.units.target.power.yOffset = -29
+		E.db.unitframe.units.target.power.yOffset = -26
 		E.db.unitframe.units.target.power.detachedWidth = 298
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 2
@@ -360,9 +360,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = -36
-		E.db.unitframe.units.target.customTexts.Gesundheit.size = 24
+		E.db.unitframe.units.target.customTexts.Gesundheit.size = 22
 		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor]'
-		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 9
+		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 7
 		E.db.unitframe.units.target.customTexts.Name1 = {}
 		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'RIGHT'
@@ -373,7 +373,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
 		E.db.unitframe.units.target.health.xOffset = 6
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:percent] - [health:current]'
-		E.db.unitframe.units.target.health.yOffset = -29
+		E.db.unitframe.units.target.health.yOffset = -26
 		E.db.unitframe.units.target.portrait.width = 43
 		E.db.unitframe.units.target.portrait.rotation = 0
 		E.db.unitframe.units.target.portrait.overlay = false
@@ -393,7 +393,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.targettarget.width = 100
 		E.db.unitframe.units.targettarget.name.yOffset = -1
 		E.db.unitframe.units.targettarget.health.position = 'CENTER'
-		E.db.unitframe.units.targettarget.height = 25
+		E.db.unitframe.units.targettarget.height = 20
 	-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
