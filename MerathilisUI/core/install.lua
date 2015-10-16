@@ -449,7 +449,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.buffs.noConsolidated = false
 		E.db.unitframe.units.raid.buffs.sizeOverride = 20
 		E.db.unitframe.units.raid.buffs.xOffset = 0
-		E.db.unitframe.units.raid.height = 30
+		E.db.unitframe.units.raid.height = 25
 		E.db.unitframe.units.raid.verticalSpacing = 10
 		E.db.unitframe.units.raid.raidicon.attachTo = 'LEFT'
 		E.db.unitframe.units.raid.raidicon.xOffset = 9
