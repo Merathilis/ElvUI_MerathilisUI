@@ -1,5 +1,12 @@
-<b><u> v1.01, 13.10.2015</b></u>
+<b><u> v1.02, 18.10.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Don't use overlayed Portrait for Player-/ TargetFrame anymore.
+<font color=#FF8C00>&#9830;</font> Install: Adjust Player-/ Target-/ ToT-/ PartyFrames Height.
+<font color=#FF8C00>&#9830;</font> Install: Adjust Powerbar Height on all Unitframes.
+<font color=#FF8C00>&#9830;</font> Install: Adjust Settings of Party Portraits, as its now part of ElvUI.
+<font color=#FF8C00>&#9830;</font> GameMenu: Delete libAnim. Use the ElvUI default.
+<font color=#FF8C00>&#9830;</font> Convert ClassIcons to blp. (Credits Benik)
 
+<b><u> v1.01, 13.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> GameMenu: Follow BenikUIs new classIcons for my GameMenu. Credits: <a href="http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos">ADDOriN @DevianArt</a>
 <font color=#FF8C00>&#9830;</font> Options: Changed a bit the Code for the Options.
 <font color=#FF8C00>&#9830;</font> Install: Adjust GroupFame Layout to fit with BenikUI EmptyBars.
