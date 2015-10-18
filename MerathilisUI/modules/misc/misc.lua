@@ -48,11 +48,17 @@ PVPReadyDialog.enterButton:ClearAllPoints()
 PVPReadyDialog.enterButton:SetPoint("BOTTOM", PVPReadyDialog, "BOTTOM", 0, 25)
 
 -- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
-LFDParentFrame:HookScript("OnShow",function()
-	for i=1,GetNumRandomDungeons() do
-		local id,name=GetLFGRandomDungeonInfo(i)
-		local isHoliday=select(15,GetLFGDungeonInfo(id))
-		if(isHoliday and not GetLFGDungeonRewards(id)) then LFDQueueFrame_SetType(id) end
+local firstLFD
+LFDParentFrame:HookScript("OnShow", function()
+	if not firstLFD then
+		firstLFD = 1
+		for i = 1, GetNumRandomDungeons() do
+			local id = GetLFGRandomDungeonInfo(i)
+			local isHoliday = select(15, GetLFGDungeonInfo(id))
+			if isHoliday and not GetLFGDungeonRewards(id) then
+				LFDQueueFrame_SetType(id)
+			end
+		end
 	end
 end)
 

@@ -11,7 +11,8 @@ local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.
 local className = E.myclass
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
-	UIFrameFadeIn(self, 0.9, self:GetAlpha(), 1)
+	self:SetAlpha(0.5)
+	UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
 end
 
 function MER:GameMenu()
