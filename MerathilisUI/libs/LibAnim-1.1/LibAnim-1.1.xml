@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="LibAnim-1.1.lua"/>
+	<Script file="Alpha.lua"/>
+	<Script file="Gradient.lua"/>
+	<Script file="Height.lua"/>
+	<Script file="Move.lua"/>
+	<Script file="Scale.lua"/>
+	<Script file="Width.lua"/>
+</Ui>
