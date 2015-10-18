@@ -519,12 +519,12 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.numrows = 2
 			E.db.unitframe.units.party.debuffs.perrow = 5
 			E.db.unitframe.units.party.debuffs.fontSize = 12
-			E.db.unitframe.units.party.portrait.enabled = true
+			E.db.unitframe.units.party.portrait.enable = true
 			E.db.unitframe.units.party.portrait.overlay = false
-			E.db.unitframe.units.party.portrait.xOffset = -0.04
 			E.db.unitframe.units.party.portrait.width = 40
+			E.db.unitframe.units.party.portrait.camDistanceScale = 0.8
+			E.db.unitframe.units.party.portrait.style = '3D'
 			E.db.unitframe.units.party.portrait.transparent = true
-			E.db.unitframe.units.party.portrait.height = 0
 			E.db.unitframe.units.party.showPlayer = false
 			E.db.unitframe.units.party.GPSArrow.size = 40
 			E.db.unitframe.units.party.health.position = 'RIGHT'
