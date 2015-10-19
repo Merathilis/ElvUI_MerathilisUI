@@ -3,10 +3,12 @@ local MER = E:GetModule('MerathilisUI');
 local UF = E:GetModule('UnitFrames');
 
 -- mouseover classcolor
+
 local function HoverClassColor(self, frame, db)
-	if not E.db.muiUnitframes.HoverClassColor then return end
+	if not E.db.muiUnitframes.HoverClassColor then return; end
 	if frame.isMouseOverHooked then return; end
 	local health = frame.Health
+
 	frame:HookScript("OnEnter", function(self)
 		if (not UnitIsConnected(self.unit) or UnitIsDead(self.unit) or UnitIsGhost(self.unit)) then return; end
 		local hover = RAID_CLASS_COLORS[select(2, UnitClass(self.unit))]
@@ -20,6 +22,8 @@ local function HoverClassColor(self, frame, db)
 		health:SetStatusBarColor(r, g, b)
 		health.colorClass = false
 	end)
+
 	frame.isMouseOverHooked = true
 end
 hooksecurefunc(UF, 'Update_RaidFrames', HoverClassColor)
+hooksecurefunc(UF, 'Update_Raid40Frames', HoverClassColor)
