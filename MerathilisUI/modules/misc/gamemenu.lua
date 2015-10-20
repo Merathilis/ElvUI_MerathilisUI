@@ -96,7 +96,9 @@ function MER:GameMenu()
 		playerModel:SetFacing(6.5)
 		
 		playerModel:SetScript("OnShow", panel_onShow)
-		
+	end
+	
+	if not npcHolder then
 		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		npcHolder:SetSize(150, 150)
 		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", 400, 10)
@@ -114,7 +116,7 @@ function MER:GameMenu()
 		
 		npcModel:SetScript("OnShow", panel_onShow)
 	end
-
+	
 	GameMenuButtonKeybindings:ClearAllPoints()
 	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
 end
