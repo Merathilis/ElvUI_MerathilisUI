@@ -10,7 +10,7 @@ local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
 local className = E.myclass
 
---local speciesID	= C_PetJournal.FindPetIDByName(Pepe)
+--local speciesID = C_PetJournal.FindPetIDByName(Pepe)
 --local displayID = select(12, C_PetJournal.GetPetInfoBySpeciesID(86470));
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
