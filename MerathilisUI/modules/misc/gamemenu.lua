@@ -10,6 +10,9 @@ local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
 local className = E.myclass
 
+--local speciesID	= C_PetJournal.FindPetIDByName(Pepe)
+--local displayID = select(12, C_PetJournal.GetPetInfoBySpeciesID(86470));
+
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
 	self:SetAlpha(0.5)
 	UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
@@ -89,6 +92,7 @@ function MER:GameMenu()
 		
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
+		playerModel:ClearModel()
 		playerModel:SetUnit("player")
 		playerModel.isIdle = nil
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models. Position is controlled with the helper frame.
@@ -98,7 +102,7 @@ function MER:GameMenu()
 		playerModel:SetScript("OnShow", panel_onShow)
 	end
 	
-	if not npcHolder then
+	--[[if not npcHolder then
 		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		npcHolder:SetSize(150, 150)
 		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", 400, 10)
@@ -106,7 +110,7 @@ function MER:GameMenu()
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
 		-- http://de.wowhead.com/npc=86470/pepe
-		local displayID = 86470
+		npcModel:ClearModel()
 		npcModel:SetDisplayInfo(displayID)
 		npcModel.isIdle = nil
 		npcModel:SetSize(256, 256)
@@ -115,7 +119,7 @@ function MER:GameMenu()
 		npcModel:Show()
 		
 		npcModel:SetScript("OnShow", panel_onShow)
-	end
+	end]]
 	
 	GameMenuButtonKeybindings:ClearAllPoints()
 	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
