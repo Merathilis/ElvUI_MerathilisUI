@@ -96,6 +96,23 @@ function MER:GameMenu()
 		playerModel:SetFacing(6.5)
 		
 		playerModel:SetScript("OnShow", panel_onShow)
+		
+		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		npcHolder:SetSize(150, 150)
+		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", 400, 10)
+		
+		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
+		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
+		-- http://de.wowhead.com/npc=86470/pepe
+		local displayID = 86470
+		npcModel:SetDisplayInfo(displayID)
+		npcModel.isIdle = nil
+		npcModel:SetSize(256, 256)
+		npcModel:SetCamDistanceScale(5)
+		npcModel:SetFacing(1)
+		npcModel:Show()
+		
+		npcModel:SetScript("OnShow", panel_onShow)
 	end
 
 	GameMenuButtonKeybindings:ClearAllPoints()
