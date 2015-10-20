@@ -1,10 +1,5 @@
 .:: MerathilisUI ::.
 
--- Description
-First I want to thanks Benik for his amazing help and showing me so much. You're the Best! Give him some Love ;)
-MerathilisUI is an external ElvUI Mod. Mostly for the design with a few additional Features.
-
-
 <center><img src='http://www.tukui.org/storage/thumbs/801740merathilis_logo.png'></center>
 
 <font color=#FF8C00><b>What does this Plugin do?:</b></font>
@@ -67,7 +62,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 
 <font color=#FF8C00><b>Screenshots:</b></font>
 <font color=#FF8C00>&#9830;</font> Game Menu:
-<a href='http://www.tukui.org/storage/viewer.php?id=902657WoWScrnShot_101315_002753.jpg'><img src='http://www.tukui.org/storage/thumbs/902657WoWScrnShot_101315_002753.jpg'></a>
+<a href='http://www.tukui.org/storage/viewer.php?id=280781WoWScrnShot_101815_103720.jpg'><img src='http://www.tukui.org/storage/thumbs/280781WoWScrnShot_101815_103720.jpg'></a>
 
 <font color=#FF8C00>&#9830;</font> RaidFrames with EmptyBars (Note: The RoleIcons are from ElvUI_SLE)
 <a href='http://www.tukui.org/storage/viewer.php?id=247096RaidFrames.png'><img src='http://www.tukui.org/storage/thumbs/247096RaidFrames.png'></a>
