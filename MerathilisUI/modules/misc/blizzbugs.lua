@@ -1,7 +1,7 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local MER = E:GetModule('MerathilisUI');
 
--- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/)
+-- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.2.0-2-g2876c66
 
 local wow_version, wow_build, wow_data, tocversion = GetBuildInfo()
 wow_build = tonumber(wow_build)
@@ -131,4 +131,22 @@ do
 			self:UnregisterAllEvents()
 		end
 	end)
+end
+
+-- Fix a lua error when scrolling the in-game Addon list, where the mouse
+-- passes over a world object that activates GameTooltip.
+-- Caused because the FrameXML code erroneously assumes it exclusively owns the GameTooltip object
+-- Confirmed still bugged in 6.2.2.20574
+do
+	local orig = AddonTooltip_Update
+	_G.AddonTooltip_Update = function(owner, ...) 
+		if AddonList and AddonList:IsMouseOver() then
+			local id = owner and owner.GetID and owner:GetID()
+			if id and id > 0 and id <= GetNumAddOns() then
+				orig(owner, ...) 
+				return
+			end
+		end
+		--print("ADDON LIST FIX ACTIVATED") 
+	end
 end
