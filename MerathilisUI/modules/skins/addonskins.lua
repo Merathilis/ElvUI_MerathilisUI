@@ -2,7 +2,7 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local AS = unpack(AddOnSkins)
 
---Change some AddOnSkins defaults for ElvUI
+--Change some AddOnSkins defaults for ElvUI. Credit Blazeflack (AddOnSkinsTweaks)
 V["addonskins"]['EmbedSystemDual'] = true
 V["addonskins"]['EmbedBelowTop'] = false
 V["addonskins"]['TransparentEmbed'] = true
