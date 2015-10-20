@@ -2,6 +2,8 @@
 <font color=#FF8C00>&#9830;</font> Install: Don't use detachedPortraits and Powerbar. (Conflict with a BenikUI Layout)
 <font color=#FF8C00>&#9830;</font> Install: Remove AddOnSkins from the Installation Process. Now it has its own File.
 <font color=#FF8C00>&#9830;</font> Install: Use Blizzard styled Close Buttons. (Credit Blazeflack)
+<font color=#FF8C00>&#9830;</font> UnitFrames: Use classHover also for the Raid40 Frames.
+<font color=#FF8C00>&#9830;</font> UnitFrames: Prevent a strange behavior if BenikUI's classHover is enable.
 
 <b><u> v1.03, 18.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix an Install error.

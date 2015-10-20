@@ -6,6 +6,11 @@ local UF = E:GetModule('UnitFrames');
 
 local function HoverClassColor(self, frame, db)
 	if not E.db.muiUnitframes.HoverClassColor then return; end
+	-- Prevent a strange behavior if BenikUIs classHover is enable
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		if E.db.unitframe.units.raid.classHover == true then return; end
+		if E.db.unitframe.units.raid40.classHover == true then return; end
+	end
 	if frame.isMouseOverHooked then return; end
 	local health = frame.Health
 

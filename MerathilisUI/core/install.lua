@@ -279,6 +279,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.power.RUNIC_POWER = {r = 0/255, g = 09/255, b = 55/255}
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.ufb.detachPlayerPortrait = false
+			E.db.ufb.detachTargetPortrait = false
 		end
 	-- Player
 		E.db.unitframe.units.player.width = 220
