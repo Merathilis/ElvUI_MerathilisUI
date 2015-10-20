@@ -7,11 +7,10 @@ local frames = {
 	"QuestLogFrame", "QuestLogDetailFrame", "MerchantFrame", "TradeFrame", "MailFrame",
 	"FriendsFrame", "CinematicFrame", "TabardFrame", "PVPBannerFrame", "PetStableFrame",
 	"GuildRegistrarFrame", "PetitionFrame", "HelpFrame", "GossipFrame", "DressUpFrame",
-	"WorldStateScoreFrame", "ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame",
-	"GameMenuFrame", "VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame", "BankFrame",
-	"OpenMailFrame", "LootFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame",
-	"StaticPopup1", "StaticPopup2", "MissingLootFrame", "ScrollOfResurrectionSelectionFrame",
-	"AddonList",
+	"ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame", "GameMenuFrame", 
+	"VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame", "BankFrame", "OpenMailFrame", 
+	"LootFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame", "StaticPopup1", 
+	"StaticPopup2", "MissingLootFrame", "ScrollOfResurrectionSelectionFrame", "AddonList",
 }
 
 for i, v in pairs(frames) do
