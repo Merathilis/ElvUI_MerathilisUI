@@ -1,3 +1,6 @@
+<b><u> v1.04, xx.10.2015</b></u>
+<font color=#FF8C00>&#9830;</font> ...
+
 <b><u> v1.03, 18.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix an Install error.
 

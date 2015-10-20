@@ -265,6 +265,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.castColor.r = 0.1
 		E.db.unitframe.colors.castColor.g = 0.1
 		E.db.unitframe.colors.castColor.b = 0.1
+		E.db.unitframe.colors.transparentHealth = false
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentPower = false
 		E.db.unitframe.colors.transparentCastbar = true
@@ -276,6 +277,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.power.FOCUS = {r = 181/255, g = 110/255, b = 69/255}
 		E.db.unitframe.colors.power.ENERGY = {r = 166/255, g = 161/255, b = 89/255}
 		E.db.unitframe.colors.power.RUNIC_POWER = {r = 0/255, g = 09/255, b = 55/255}
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.ufb.detachPlayerPortrait = false
+		end
 	-- Player
 		E.db.unitframe.units.player.width = 220
 		E.db.unitframe.units.player.height = 35
@@ -328,7 +332,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.power.yOffset = -26
 		E.db.unitframe.units.player.power.height = 2
 		E.db.unitframe.units.player.power.hideonnpc = true
-		E.db.unitframe.units.player.power.detachedWidth = 298
+		E.db.unitframe.units.player.power.detachFromFrame = false
 		E.db.unitframe.units.player.buffs.enable = false
 	-- Target
 		E.db.unitframe.units.target.width = 220
@@ -351,7 +355,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
 		E.db.unitframe.units.target.power.xOffset = -2
 		E.db.unitframe.units.target.power.yOffset = -26
-		E.db.unitframe.units.target.power.detachedWidth = 298
+		E.db.unitframe.units.target.power.detachFromFrame = false
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 2
 		E.db.unitframe.units.target.customTexts = {}
@@ -522,6 +526,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.portrait.enable = true
 			E.db.unitframe.units.party.portrait.overlay = false
 			E.db.unitframe.units.party.portrait.width = 40
+			E.db.unitframe.units.party.portrait.height = 0
 			E.db.unitframe.units.party.portrait.camDistanceScale = 0.8
 			E.db.unitframe.units.party.portrait.style = '3D'
 			E.db.unitframe.units.party.portrait.transparent = true
@@ -937,45 +942,6 @@ local function SetupMERLayout(layout)
 	E:UpdateAll(true)
 end
 	-- Addons
-	-- AddOnSkins
-local function SetupAddOnSkins()
-	if IsAddOnLoaded('AddOnSkins') then
-		-- reset the embeds in case of Skada/Recount swap
-		E.private['addonskins']['EmbedSystem'] = nil
-		E.private['addonskins']['EmbedSystemDual'] = nil
-		E.private['addonskins']['EmbedBelowTop'] = nil
-		E.private['addonskins']['TransparentEmbed'] = nil
-		E.private['addonskins']['RecountBackdrop'] = false
-		E.private['addonskins']['EmbedMain'] = nil
-		E.private['addonskins']['EmbedLeft'] = nil
-		E.private['addonskins']['EmbedRight'] = nil
-		
-		if IsAddOnLoaded('Skada') then
-			E.private['addonskins']['EmbedSystem'] = false
-			E.private['addonskins']['EmbedSystemDual'] = true
-			E.private['addonskins']['EmbedBelowTop'] = false
-			E.private['addonskins']['TransparentEmbed'] = true
-			E.private['addonskins']['SkadaBackdrop'] = false
-			E.private['addonskins']['EmbedMain'] = 'Skada'
-			E.private['addonskins']['EmbedLeft'] = 'Skada'
-			E.private['addonskins']['EmbedRight'] = 'Skada'
-		end
-		
-		E.private.addonskins.WeakAuraBar = true
-		E.private.addonskins.ParchmentRemover = true
-		E.private.addonskins.DetailsBackdrop = true
-		E.private.addonskins.BigWigsHalfBar = true
-		E.private.addonskins.SkadaBackdrop = false
-		E.private.addonskins.SkinDebug = true
-		E.private.addonskins.SkadaSkin = true
-		E.private.addonskins.EmbedLeftWidth = 170
-		E.private.addonskins.CliqueSkin = true
-		E.private.addonskins.Blizzard_ExtraActionButton = true
-		E.private.addonskins.Blizzard_DraenorAbilityButton = true
-		E.private.addonskins.Blizzard_WorldStateCaptureBar = true
-	end
-end
-
 local skadaName = GetAddOnMetadata('Skada', 'Title')
 local bigwigsName = GetAddOnMetadata('BigWigs', 'Title')
 local xctName = GetAddOnMetadata('xCT+', 'Title')
@@ -2100,7 +2066,7 @@ local function SetPage(PageNum)
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupMERAddons(); SetupAddOnSkins(); end)
+		InstallOption1Button:SetScript('OnClick', function() SetupMERAddons(); end)
 		InstallOption1Button:SetFormattedText("%s", L['Setup Addons'])	
 	elseif PageNum == 5 then
 		f.SubTitle:SetFormattedText("%s", L['Installation Complete'])
