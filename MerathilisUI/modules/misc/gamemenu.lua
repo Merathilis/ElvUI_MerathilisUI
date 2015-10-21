@@ -17,8 +17,6 @@ local npc = {
 	16445, -- Terky
 	15552, -- Doctor Weavil
 	32398, -- King Ping
-	32841, -- Baby Blizzard Bear
-	54128, -- Creepy Crate
 	82464, -- Elekk Plushie
 	72113, -- Carpe Diem
 }
