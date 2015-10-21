@@ -17,6 +17,10 @@ local npc = {
 	16445, -- Terky
 	15552, -- Doctor Weavil
 	32398, -- King Ping
+	32841, -- Baby Blizzard Bear
+	54128, -- Creepy Crate
+	82464, -- Elekk Plushie
+	72113, -- Carpe Diem
 }
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
@@ -86,7 +90,7 @@ function MER:GameMenu()
 		topPanel.Logo = topPanel:CreateTexture(nil, 'ARTWORK')
 		topPanel.Logo:SetSize(285, 128)
 		topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -60)
-		topPanel.Logo:SetTexture(logo) -- call the logo
+		topPanel.Logo:SetTexture(logo)
 	end
 	
 	-- Use this frame to control the position of the model - taken from ElvUI
@@ -110,10 +114,10 @@ function MER:GameMenu()
 	
 	if not npcHolder then
 		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		local id = npc[random( #npc )]
 		npcHolder:SetSize(150, 150)
 		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", -400, -10)
 		
+		local id = npc[random( #npc )]
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
 		npcModel:ClearModel()

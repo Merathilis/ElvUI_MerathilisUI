@@ -6,7 +6,7 @@
 <font color=#FF8C00>&#9830;</font> UnitFrames: Prevent a strange behavior if BenikUI's classHover is enable.
 <font color=#FF8C00>&#9830;</font> Misc: Update BlizzBugs to the latest Version.
 <font color=#FF8C00>&#9830;</font> Misc: Some fixes to the BlizzardMovers.
-<font color=#FF8C00>&#9830;</font> GameMenu: NOW WE HAVE PEPE!!! <3
+<font color=#FF8C00>&#9830;</font> GameMenu: NOW WE HAVE PEPE!!! <3 and a lot more Creatures ;)
 
 <b><u> v1.03, 18.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix an Install error.
