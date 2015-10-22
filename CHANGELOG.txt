@@ -3,7 +3,7 @@
 <font color=#FF8C00>&#9830;</font> Install: Remove AddOnSkins from the Installation Process. Now it has its own File.
 <font color=#FF8C00>&#9830;</font> Install: Use Blizzard styled Close Buttons. (Credit Blazeflack)
 <font color=#FF8C00>&#9830;</font> UnitFrames: Use classHover also for the Raid40 Frames.
-<font color=#FF8C00>&#9830;</font> UnitFrames: Prevent a strange behavior if BenikUI's classHover is enable.
+<font color=#FF8C00>&#9830;</font> UnitFrames: Prevent a strange behavior if BenikUI's classHover (not released yet) is enable.
 <font color=#FF8C00>&#9830;</font> Misc: Update BlizzBugs to the latest Version.
 <font color=#FF8C00>&#9830;</font> Misc: Some fixes to the BlizzardMovers.
 <font color=#FF8C00>&#9830;</font> GameMenu: NOW WE HAVE PEPE!!! <3 and a lot more Creatures ;)
