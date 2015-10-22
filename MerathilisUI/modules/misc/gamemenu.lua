@@ -115,18 +115,17 @@ function MER:GameMenu()
 		npcHolder:SetSize(150, 150)
 		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", -400, -10)
 		
-		local id = npc[random( #npc )]
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
 		npcModel:ClearModel()
-		npcModel:SetCreature(id)
+		npcModel:SetScript("OnShow", function(self)
+			local id = npc[random( #npc )]
+			self:SetCreature(id)
+		end)
 		npcModel.isIdle = nil
 		npcModel:SetSize(256, 256)
 		npcModel:SetCamDistanceScale(1)
 		npcModel:SetFacing(6)
-		npcModel:Show()
-		
-		npcModel:SetScript("OnShow", panel_onShow)
 	end
 	
 	GameMenuButtonKeybindings:ClearAllPoints()
