@@ -19,6 +19,11 @@ local npc = {
 	32398, -- King Ping
 	82464, -- Elekk Plushie
 	72113, -- Carpe Diem
+	71163, -- Unborn Val'kir
+	91226, -- Graves
+	54128, -- Creepy Crate
+	28883, -- Frosty
+	61324 -- Baby Ape
 }
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
