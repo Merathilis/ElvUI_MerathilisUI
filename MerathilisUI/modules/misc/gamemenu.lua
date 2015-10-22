@@ -121,11 +121,14 @@ function MER:GameMenu()
 		npcModel:SetScript("OnShow", function(self)
 			local id = npc[random( #npc )]
 			self:SetCreature(id)
+			self:SetAlpha(0.5)
+			UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
 		end)
 		npcModel.isIdle = nil
 		npcModel:SetSize(256, 256)
 		npcModel:SetCamDistanceScale(1)
 		npcModel:SetFacing(6)
+		npcModel:Show()
 	end
 	
 	GameMenuButtonKeybindings:ClearAllPoints()
