@@ -51,7 +51,7 @@ end
 
 function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
-	self:RegisterChatCommand("mersetup", "SetupUI")
+	self:RegisterChatCommand("muisetup", "SetupUI")
 end
 
 function MER:Initialize()
@@ -66,9 +66,6 @@ function MER:Initialize()
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then self:SetupUI() end
-	
-	-- run your setup on load for testing purposes. When you are done with the options, disable it.
-	--MER:SetupUI()
 	
 	if E.db.muiGeneral.LoginMsg then
 		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
