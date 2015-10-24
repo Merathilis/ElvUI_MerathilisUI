@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
-local MERA = E:NewModule('MerathilisUI_FriendAlert')
 
 -- Code taken from Battle.net Friend Alert by Clinton Caldwell
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end
