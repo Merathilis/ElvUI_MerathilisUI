@@ -68,6 +68,11 @@ if not L then return; end
 	L['SERVERERROR'] = "Couldn't find server!"
 	L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
 	L['LANGUAGE'] = "de"
+-- Friend Alert
+	L['Battle.net Alert'] = "Battle.net Alarm"
+	L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = "Zeigt eine Chatbenachrichtigung wenn ein Battle.net Freund ein Spiel wechselt oder offline geht."
+	L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
+	L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 
 -- Install
 	L['Welcome'] = "Willkommen"
