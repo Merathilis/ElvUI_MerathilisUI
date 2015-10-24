@@ -7,6 +7,7 @@ local titleText = {}
 
 local _, class = UnitClass("player")
 local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+local factionGroup = UnitFactionGroup("player")
 
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	if not _G[mover] then return end
@@ -204,6 +205,11 @@ local function SetupMERLayout(layout)
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI'
 		E.db.chat.timeStampFormat = '%H:%M '
+		if factionGroup == "Alliance" then
+			E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\alliance.tga'
+		else
+			E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\horde.tga'
+		end
 	end
 	
 	do
