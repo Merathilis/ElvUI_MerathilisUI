@@ -58,17 +58,7 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()
-	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
-	-- This is a check so that your setup won't run everytime you login
-	-- Enable it when you are done
 	
-	-- Try if to force that first BenikUI install process pops up and then mine. Did not work, and i dont know why?!
-	-- if IsAddOnLoaded("ElvUI_BenikUI") then
-	-- 		if E.private.install_complete == E.version and E.db.bui.installed == true and E.db.mui.installed == nil then self:SetupUI()
-	-- else
-	-- 		if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end
-	if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end -- pop the message only if ElvUI install is complete on this char and your ui hasn't been applied yet
-
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then self:SetupUI() end
@@ -77,6 +67,12 @@ function MER:Initialize()
 		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
+	
+	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
+	-- This is a check so that your setup won't run everytime you login
+	-- Enable it when you are done
+	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.bui.installed == nil then return end 
+	if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end
 end
 
 E:RegisterModule(MER:GetName())

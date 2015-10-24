@@ -805,8 +805,6 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.numrows = 1
 			E.db.unitframe.units.party.debuffs.perrow = 5
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
-			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
-			E.db.unitframe.units.party.customTexts.LevelClass.text_format = ''
 			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
 			E.db.unitframe.units.party.roleIcon.size = 14
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)

@@ -105,4 +105,4 @@ if not L then return; end
 	L['Installed'] = true
 
 -- Staticpopup
-	L["To get the whole MerathilisUI Functionality and Look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = true
+	L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = true

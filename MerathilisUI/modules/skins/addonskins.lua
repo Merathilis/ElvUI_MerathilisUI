@@ -1,5 +1,6 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+if not IsAddOnLoaded("AddOnSkins") then return; end
 local AS = unpack(AddOnSkins)
 
 --Change some AddOnSkins defaults for ElvUI. Credit Blazeflack (AddOnSkinsTweaks)

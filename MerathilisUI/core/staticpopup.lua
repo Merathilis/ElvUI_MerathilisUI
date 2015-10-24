@@ -5,7 +5,7 @@ E.PopupDialogs['BENIKUI'] = {
 	text = L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"],
 	button1 = YES,
 	OnAccept = E.noop,
-	showAlert = 1,
+	showAlert = 1
 }
 
 E.PopupDialogs["WATCHFRAME_URL"] = {
@@ -18,5 +18,5 @@ E.PopupDialogs["WATCHFRAME_URL"] = {
 	OnShow = function(self, ...) self.editBox:SetFocus() end,
 	EditBoxOnEnterPressed = function(self) self:GetParent():Hide() end,
 	EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
-	preferredIndex = 5,
+	preferredIndex = 5
 }
