@@ -198,7 +198,7 @@ local function SetupMERLayout(layout)
 		E.db.chat.panelTabTransparency = true
 		E.db.chat.fontOutline = 'OUTLINE'
 		E.db.chat.chatHistory = false
-		E.db.chat.font = 'Merathilis Prototype'
+		E.db.chat.font = 'Merathilis Expressway'
 		E.db.chat.panelWidth = 350
 		E.db.chat.panelHeight = 140
 		E.db.chat.editBoxPosition = 'ABOVE_CHAT'
@@ -246,15 +246,15 @@ local function SetupMERLayout(layout)
 	
 	do
 	-- Tooltip
-		E.db.tooltip.font = 'Merathilis Prototype'
+		E.db.tooltip.font = 'Merathilis VDS'
 		E.db.tooltip.fontOutline = 'OUTLINE'
 		E.db.tooltip.combathide = true
 		E.db.tooltip.style = 'inset'
 		E.db.tooltip.itemCount = 'NONE'
-		E.db.tooltip.headerFontSize = 11
-		E.db.tooltip.textFontSize = 10
-		E.db.tooltip.smallTextFontSize = 10
-		E.db.tooltip.healthBar.font = 'Merathilis Prototype'
+		E.db.tooltip.headerFontSize = 12
+		E.db.tooltip.textFontSize = 11
+		E.db.tooltip.smallTextFontSize = 11
+		E.db.tooltip.healthBar.font = 'Merathilis Expressway'
 		E.db.tooltip.healthBar.fontSize = 10
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
 		E.db.tooltip.healthBar.height = 5
@@ -887,7 +887,7 @@ local function SetupMERLayout(layout)
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
 		
-		FCF_SetChatWindowFontSize(nil, frame, 11)
+		FCF_SetChatWindowFontSize(nil, frame, 12)
 		
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
 		if i == 3 and chatName == LOOT..' / '..TRADE then
@@ -1001,7 +1001,7 @@ local function SetupMERAddons()
 					["background"] = {
 						["height"] = 114.999984741211,
 					},
-					["barfont"] = "Merathilis Prototype",
+					["barfont"] = "Merathilis Expressway",
 					["name"] = "DPS",
 				}, -- [1]
 				{
@@ -1013,7 +1013,7 @@ local function SetupMERAddons()
 					["set"] = "current",
 					["hidden"] = false,
 					["y"] = 9,
-					["barfont"] = "Merathilis Prototype",
+					["barfont"] = "Merathilis Expressway",
 					["name"] = "HPS",
 					["display"] = "bar",
 					["barfontflags"] = "OUTLINE",
