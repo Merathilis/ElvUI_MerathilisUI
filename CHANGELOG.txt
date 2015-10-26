@@ -1,11 +1,10 @@
-<b><u> v1.05, xx.xx.2015</b></u>
+<b><u> v1.05, 26.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Core: Change the SlashCommand to enter the Setup "/muisetup".
 <font color=#FF8C00>&#9830;</font> Install: MerathilisUI Install Process should now appears after BenikUI Install is finished. (If BenikUI is loaded.)
 <font color=#FF8C00>&#9830;</font> Misc: Shows a Chat notification if a Battle.net Friend switch Games or goes on-/ offline. (Credits Clinton Caldwell)
 <font color=#FF8C00>&#9830;</font> Misc: Add a FactionLogo-Texture to the right Chat. -- Credits Alex (Chat Textures Pack - ElvUI)
 <font color=#FF8C00>&#9830;</font> Misc: Replace ufFont & visitor1 Font with one that supports cyrillics.
 <font color=#FF8C00>&#9830;</font> Skins: MasterPlan: Skin the Missions of Interest tab for naval missions. (Requires MasterPlan 0.74.1) 
-<font color=#FF8C00>&#9830;</font> ... .
 
 <b><u> v1.04, 22.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Don't use detachedPortraits and Powerbar. (Conflict with a BenikUI Layout)
