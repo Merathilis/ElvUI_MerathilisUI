@@ -246,7 +246,7 @@ local function SetupMERLayout(layout)
 	
 	do
 	-- Tooltip
-		E.db.tooltip.font = 'Merathilis VDS'
+		E.db.tooltip.font = 'Merathilis Expressway'
 		E.db.tooltip.fontOutline = 'OUTLINE'
 		E.db.tooltip.combathide = true
 		E.db.tooltip.style = 'inset'
@@ -254,7 +254,7 @@ local function SetupMERLayout(layout)
 		E.db.tooltip.headerFontSize = 12
 		E.db.tooltip.textFontSize = 11
 		E.db.tooltip.smallTextFontSize = 11
-		E.db.tooltip.healthBar.font = 'Merathilis Expressway'
+		E.db.tooltip.healthBar.font = 'Merathilis Prototype'
 		E.db.tooltip.healthBar.fontSize = 10
 		E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
 		E.db.tooltip.healthBar.height = 5
