@@ -2,9 +2,10 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
--- GarrisonTab
+if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
+
+-- Garrison Tab
 local function skinMasterPlanGarrison()
-	if not IsAddOnLoaded("MasterPlan") or not E.db.muiSkins.MasterPlan then return end
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
 	local MissionPage = GarrisonMissionFrame.MissionTab.MissionPage
@@ -14,7 +15,6 @@ end
 
 -- ShipYard Tab
 local function skinMasterPlanShipyard()
-	if not IsAddOnLoaded("MasterPlan") or not E.db.muiSkins.MasterPlan then return end
 	S:HandleTab(GarrisonShipyardFrameTab3)
 end
 
