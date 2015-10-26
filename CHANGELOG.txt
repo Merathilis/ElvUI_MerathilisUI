@@ -1,3 +1,6 @@
+<b><u> v1.06, xx.xx.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Misc: Add new Fonts "Merathilis PROTOTYPE_RU" and "Merathilis Expressway" use this for the Chat/ Tooltip and Skada. Also made appropriate changes so that it's available in ruRU clients.
+
 <b><u> v1.05, 26.10.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Core: Change the SlashCommand to enter the Setup "/muisetup".
 <font color=#FF8C00>&#9830;</font> Install: MerathilisUI Install Process should now appears after BenikUI Install is finished. (If BenikUI is loaded.)
