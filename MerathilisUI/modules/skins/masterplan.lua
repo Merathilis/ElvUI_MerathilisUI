@@ -2,7 +2,8 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
-local function skinMasterPlan()
+-- GarrisonTab
+local function skinMasterPlanGarrison()
 	if not IsAddOnLoaded("MasterPlan") or not E.db.muiSkins.MasterPlan then return end
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
@@ -11,11 +12,18 @@ local function skinMasterPlan()
 	MissionPage.MinimizeButton:SetFrameLevel(MissionPage:GetFrameLevel() + 2)
 end
 
+-- ShipYard Tab
+local function skinMasterPlanShipyard()
+	if not IsAddOnLoaded("MasterPlan") or not E.db.muiSkins.MasterPlan then return end
+	S:HandleTab(GarrisonShipyardFrameTab3)
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent",function(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
-		skinMasterPlan()
+		skinMasterPlanGarrison()
+		skinMasterPlanShipyard()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
