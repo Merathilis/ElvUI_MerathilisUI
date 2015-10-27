@@ -201,14 +201,6 @@ local function muiSkins()
 				get = function(info) return E.db.muiSkins[ info[#info] ] end,
 				set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
-			Quest = {
-				order = 2,
-				type = 'toggle',
-				name = L['Quest'],
-				desc = L['Skins the Questtracker to fit the MerathilisUI Sytle'],
-				get = function(info) return E.db.muiSkins[ info[#info] ] end,
-				set = function(info, value) E.db.muiSkins[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-			},
 		},
 	}
 end

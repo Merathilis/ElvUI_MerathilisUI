@@ -2,7 +2,9 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
+if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
 if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
+
 
 -- Garrison Tab
 local function skinMasterPlanGarrison()
