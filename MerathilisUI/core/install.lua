@@ -537,7 +537,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.portrait.camDistanceScale = 0.8
 			E.db.unitframe.units.party.portrait.style = '3D'
 			E.db.unitframe.units.party.portrait.transparent = true
-			E.db.unitframe.units.party.showPlayer = false
+			E.db.unitframe.units.party.showPlayer = true
 			E.db.unitframe.units.party.GPSArrow.size = 40
 			E.db.unitframe.units.party.health.position = 'RIGHT'
 			E.db.unitframe.units.party.health.text_format = '[healthcolor][health:percent] - [health:current]'
@@ -785,6 +785,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 			E.db.unitframe.units.party.height = 30
 			E.db.unitframe.units.party.width = 114
+			E.db.unitframe.units.party.showPlayer = true
 			E.db.unitframe.units.party.debuffs.sizeOverride = 21
 			E.db.unitframe.units.party.health.xOffset = 0
 			E.db.unitframe.units.party.health.yOffset = 0
@@ -804,6 +805,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.xOffset = 0
 			E.db.unitframe.units.party.debuffs.numrows = 1
 			E.db.unitframe.units.party.debuffs.perrow = 5
+			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
+			E.db.unitframe.units.party.customTexts.LevelClass.text_format = ''
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
 			E.db.unitframe.units.party.roleIcon.size = 14
