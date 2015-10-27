@@ -1,4 +1,6 @@
 <b><u> v1.06, xx.xx.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Fix an issue with Custom Text in the Heal Layout
+<font color=#FF8C00>&#9830;</font> Install: showPlayer in GroupFrames
 <font color=#FF8C00>&#9830;</font> Misc: Add new Fonts "Merathilis PROTOTYPE_RU" and "Merathilis Expressway" use this for the Chat/ Tooltip and Skada. Also made appropriate changes so that it's available in ruRU clients.
 
 <b><u> v1.05, 26.10.2015</b></u>
