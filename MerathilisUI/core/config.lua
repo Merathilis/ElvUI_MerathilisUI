@@ -84,29 +84,6 @@ local function muiUnitframes()
 				get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
 				set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
-			EmptyBar = {
-				order = 2,
-				type = 'group',
-				name = L['Empty Bar'],
-				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L['Enable'],
-						desc = L['Add an EmptyBar to under the Raidframes. E.g. to look like TukUI Unitframes.'],
-						get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
-						set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					threat = {
-						order = 3,
-						type = 'toggle',
-						name = L['Threat'],
-						desc = L['Enable Threat on the EmptyBar'],
-						get = function(info) return E.db.muiUnitframes.EmptyBar[ info[#info] ] end,
-						set = function(info, value) E.db.muiUnitframes.EmptyBar[ info[#info] ] = value; end,
-					},
-				},
-			},
 		},
 	}
 end
