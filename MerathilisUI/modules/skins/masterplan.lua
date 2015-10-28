@@ -5,14 +5,10 @@ local S = E:GetModule('Skins');
 if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
 if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
 
-
 -- Garrison Tab
 local function skinMasterPlanGarrison()
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
-	local MissionPage = GarrisonMissionFrame.MissionTab.MissionPage
-	S:HandleCloseButton(MissionPage.MinimizeButton, nil, "-")
-	MissionPage.MinimizeButton:SetFrameLevel(MissionPage:GetFrameLevel() + 2)
 end
 
 -- ShipYard Tab
