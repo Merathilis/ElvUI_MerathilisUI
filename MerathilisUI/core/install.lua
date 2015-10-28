@@ -466,6 +466,12 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.raidicon.xOffset = 9
 		E.db.unitframe.units.raid.raidicon.size = 13
 		E.db.unitframe.units.raid.raidicon.yOffset = 0
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.unitframe.units.raid.emptybar.enable = true
+			E.db.unitframe.units.raid.emptybar.threat = true
+			E.db.unitframe.units.raid.emptybar.height = 15
+			E.db.unitframe.units.raid.emptybar.transparent = true
+		end
 	-- Raid40
 		E.db.unitframe.units.raid40.horizontalSpacing = 1
 		E.db.unitframe.units.raid40.debuffs.enable = true
