@@ -18,7 +18,7 @@ P['muiMisc'] = {
 	['TooltipIcon'] = true,
 	['noDuel'] = false,
 	['LootAnnouncer'] = true,
-	['FriendAlert'] = true,
+	['FriendAlert'] = false,
 }
 
 P['muiSkins'] = {
