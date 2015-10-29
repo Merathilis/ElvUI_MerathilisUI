@@ -9,6 +9,7 @@ if E.db.muiMisc.FriendAlert == false then return; end
 
 local interval = 3
 local friends = {}
+-- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
 local icons = {
 	["Friend"] = "|TInterface\\FriendsFrame\\UI-Toast-FriendOnlineIcon:16:16:0:0:32:32:2:30:2:30|t",
 	["App"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Battlenet:14|t",
@@ -17,6 +18,8 @@ local icons = {
 	["WTCG"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-WTCG:14|t",
 	["Hero"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-HotS:14|t",
 	["S2"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-SC2:14|t",
+	["CLNT"] = "TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
+	--["OW"] = "TInterface\\CHATFRAME\\UI-ChatIcon-OW:14|t" -- Overwatch Icon not working yet!
 };
 
 local function BNPlayerLink(presenceName, presenceID)
