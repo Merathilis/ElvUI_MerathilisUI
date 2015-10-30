@@ -2102,23 +2102,27 @@ local function NextPage()
 	if CURRENT_PAGE ~= MAX_PAGE then
 		CURRENT_PAGE = CURRENT_PAGE + 1
 		SetPage(CURRENT_PAGE)
-		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
-		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
+		titleText[CURRENT_PAGE].text.anim.color:SetChange(1, 1, 0)
+		titleText[CURRENT_PAGE].text.anim:Play()
+		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 0, 1)
 		if CURRENT_PAGE > 1 then
-			titleText[CURRENT_PAGE - 1].hoverTex:Run("Alpha", .3, 1, 0)
-			titleText[CURRENT_PAGE - 1].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
+			E:UIFrameFadeIn(titleText[CURRENT_PAGE - 1].hoverTex, .3, 1, 0)
+			titleText[CURRENT_PAGE - 1].text.anim.color:SetChange(0, 0.68, 0.93)
+			titleText[CURRENT_PAGE - 1].text.anim:Play()
 		end
 	end
 end
 
 local function PreviousPage()
 	if CURRENT_PAGE ~= 1 then
-		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 1, 0)
-		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 0, 0.68, 0.93)
+		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 1, 0)
+		titleText[CURRENT_PAGE].text.anim.color:SetChange(0, 0.68, 0.93)
+		titleText[CURRENT_PAGE].text.anim:Play()
 		CURRENT_PAGE = CURRENT_PAGE - 1
 		SetPage(CURRENT_PAGE)
-		titleText[CURRENT_PAGE].hoverTex:Run("Alpha", .3, 0, 1)
-		titleText[CURRENT_PAGE].text:Run("Gradient", "text", .5, 1, 1, 0)
+		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 0, 1)
+		titleText[CURRENT_PAGE].text.anim.color:SetChange(1, 1, 0)
+		titleText[CURRENT_PAGE].text.anim:Play()
 	end
 end
 
@@ -2314,6 +2318,12 @@ function MER:SetupUI()
 			titleText[i].text:SetPoint('LEFT', 27, 0)
 			titleText[i].text:FontTemplate(nil, 12)
 			titleText[i].text:SetTextColor(unpack(E['media'].rgbvaluecolor))
+			
+			-- Create Animation
+			titleText[i].text.anim = CreateAnimationGroup(titleText[i].text)
+			titleText[i].text.anim.color = titleText[i].text.anim:CreateAnimation("Color")
+			titleText[i].text.anim.color:SetColorType("Text")
+			
 			titleText[i].hoverTex = titleText[i]:CreateTexture(nil, 'OVERLAY')
 			titleText[i].hoverTex:SetTexture([[Interface\MONEYFRAME\Arrow-Right-Up]])
 			titleText[i].hoverTex:Size(14)
