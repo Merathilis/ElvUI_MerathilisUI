@@ -26,12 +26,6 @@ local npc = {
 	61324 -- Baby Ape
 }
 
-local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
-	--self:SetAlpha(0.5)
-	--UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
-
-end
-
 function MER:GameMenu()
 	-- GameMenu Frame
 	if not button then -- a check so that all the stuff is not created again when MER:GameMenu() is called, because the user might use Esc several times
@@ -57,7 +51,6 @@ function MER:GameMenu()
 		MER:StyleFrame(bottomPanel)
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		--bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
 		
 		bottomPanel.anim = CreateAnimationGroup(bottomPanel)
 		bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
@@ -70,10 +63,10 @@ function MER:GameMenu()
 			self.anim.height:Play()
 		end)
 		
-		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'ARTWORK')
-		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
-		bottomPanel.factionLogo:SetSize(250, 250)
-		bottomPanel.factionLogo:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\classIcons\\CLASS-'..className)
+		bottomPanel.Logo = bottomPanel:CreateTexture(nil, 'ARTWORK')
+		bottomPanel.Logo:SetSize(285, 128)
+		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -60)
+		bottomPanel.Logo:SetTexture(logo)
 	end
 	
 	if not topPanel then
@@ -82,9 +75,6 @@ function MER:GameMenu()
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		--topPanel:SetHeight(GetScreenHeight() * (1 / 4))
-		
-		--topPanel:SetScript("OnShow", panel_onShow)
 		
 		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
@@ -104,17 +94,15 @@ function MER:GameMenu()
 			self.anim.height:Play()
 		end)
 		
-		--topPanel.style:SetScript("OnShow", panel_onShow)
-		
 		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		topPanel.style.color:SetInside()
 		topPanel.style.color:SetTexture(E['media'].MuiFlat)
 		
-		topPanel.Logo = topPanel:CreateTexture(nil, 'ARTWORK')
-		topPanel.Logo:SetSize(285, 128)
-		topPanel.Logo:SetPoint("TOP", topPanel, "TOP", 0, -60)
-		topPanel.Logo:SetTexture(logo)
+		topPanel.factionLogo = topPanel:CreateTexture(nil, 'ARTWORK')
+		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
+		topPanel.factionLogo:SetSize(250, 250)
+		topPanel.factionLogo:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\classIcons\\CLASS-'..className)
 	end
 	
 	-- Use this frame to control the position of the model - taken from ElvUI
@@ -127,13 +115,15 @@ function MER:GameMenu()
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
 		playerModel:ClearModel()
 		playerModel:SetUnit("player")
+		playerModel:SetScript("OnShow", function(self)
+			self:SetAlpha(0.5)
+			UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
+		end)
 		playerModel.isIdle = nil
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models. Position is controlled with the helper frame.
 		playerModel:SetCamDistanceScale(5)
 		playerModel:SetFacing(6.5)
 		playerModel:Show()
-		
-		playerModel:SetScript("OnShow", panel_onShow)
 	end
 	
 	if not npcHolder then
