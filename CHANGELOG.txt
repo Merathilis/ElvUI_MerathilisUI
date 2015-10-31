@@ -3,8 +3,11 @@
 <font color=#FF8C00>&#9830;</font> Install: Set the vertical spacing for Raidframes to 25.
 <font color=#FF8C00>&#9830;</font> Install: showPlayer in GroupFrames.
 <font color=#FF8C00>&#9830;</font> Install: Add EmptyBars for Raidframes to the Install.
-<font color=#FF8C00>&#9830;</font> Install: Use libAnim 2.01 for the Installation Process.
+<font color=#FF8C00>&#9830;</font> Install: Use libAnim 2.01 for the Installation Process. (Credit Benik)
+<font color=#FF8C00>&#9830;</font> Misc: Add libAnim 2.01, delete libAnim 1.0
 <font color=#FF8C00>&#9830;</font> Misc: Add new Fonts "Merathilis PROTOTYPE_RU" and "Merathilis Expressway" use this for the Chat/ Tooltip and Skada. Also made appropriate changes so that it's available in ruRU clients.
+<font color=#FF8C00>&#9830;</font> Misc: Add a few new Textures to SharedMedia - Credits: Limb0 (SharedMedia:Renaitre)
+<font color=#FF8C00>&#9830;</font> GameMenu: Use libAnim 2.01 for top- and bottomPanel (thx Benik for your help :p)
 <font color=#FF8C00>&#9830;</font> Quest: Delete the Quest Skin.
 <font color=#FF8C00>&#9830;</font> UnitFrames: Delete EmptyBars on Raidframes now Part in BenikUI.
 <font color=#FF8C00>&#9830;</font> Skins: Fix a Error if MasterPlan is disable.
