@@ -27,8 +27,9 @@ local npc = {
 }
 
 local function panel_onShow(self) -- Use the same onShow function for all panels. Using "self" makes the function to apply the anims on the frame that calls the panel_onShow function.
-	self:SetAlpha(0.5)
-	UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
+	--self:SetAlpha(0.5)
+	--UIFrameFadeIn(self, 0.525, self:GetAlpha(), 1)
+
 end
 
 function MER:GameMenu()
@@ -56,9 +57,18 @@ function MER:GameMenu()
 		MER:StyleFrame(bottomPanel)
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
+		--bottomPanel:SetHeight(GetScreenHeight() * (1 / 4))
 		
-		bottomPanel:SetScript("OnShow", panel_onShow)
+		bottomPanel.anim = CreateAnimationGroup(bottomPanel)
+		bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
+		bottomPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
+		bottomPanel.anim.height:SetDuration(.7)
+		bottomPanel.anim.height:SetSmoothing("Bounce")
+		
+		bottomPanel:SetScript("OnShow", function(self)
+			self:SetHeight(0)
+			self.anim.height:Play()
+		end)
 		
 		bottomPanel.factionLogo = bottomPanel:CreateTexture(nil, 'ARTWORK')
 		bottomPanel.factionLogo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
@@ -72,9 +82,9 @@ function MER:GameMenu()
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		topPanel:SetHeight(GetScreenHeight() * (1 / 4))
+		--topPanel:SetHeight(GetScreenHeight() * (1 / 4))
 		
-		topPanel:SetScript("OnShow", panel_onShow)
+		--topPanel:SetScript("OnShow", panel_onShow)
 		
 		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
@@ -83,7 +93,18 @@ function MER:GameMenu()
 		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
 		
-		topPanel.style:SetScript("OnShow", panel_onShow)
+		topPanel.anim = CreateAnimationGroup(topPanel)
+		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
+		topPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
+		topPanel.anim.height:SetDuration(.7)
+		topPanel.anim.height:SetSmoothing("Bounce")
+		
+		topPanel:SetScript("OnShow", function(self)
+			self:SetHeight(0)
+			self.anim.height:Play()
+		end)
+		
+		--topPanel.style:SetScript("OnShow", panel_onShow)
 		
 		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
