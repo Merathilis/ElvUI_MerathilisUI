@@ -2110,7 +2110,7 @@ local function NextPage()
 		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 0, 1)
 		if CURRENT_PAGE > 1 then
 			E:UIFrameFadeIn(titleText[CURRENT_PAGE - 1].hoverTex, .3, 1, 0)
-			titleText[CURRENT_PAGE - 1].text.anim.color:SetChange(0, 0.68, 0.93)
+			titleText[CURRENT_PAGE - 1].text.anim.color:SetChange(unpack(E['media'].rgbvaluecolor))
 			titleText[CURRENT_PAGE - 1].text.anim:Play()
 		end
 	end
@@ -2119,7 +2119,7 @@ end
 local function PreviousPage()
 	if CURRENT_PAGE ~= 1 then
 		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 1, 0)
-		titleText[CURRENT_PAGE].text.anim.color:SetChange(0, 0.68, 0.93)
+		titleText[CURRENT_PAGE].text.anim.color:SetChange(unpack(E['media'].rgbvaluecolor))
 		titleText[CURRENT_PAGE].text.anim:Play()
 		CURRENT_PAGE = CURRENT_PAGE - 1
 		SetPage(CURRENT_PAGE)
@@ -2183,7 +2183,7 @@ function MER:SetupUI()
 		f.SetPage = SetPage
 		f:Size(500, 400)
 		f:SetTemplate('Transparent')
-		f:SetPoint('CENTER')
+		f:SetPoint('CENTER', 70, 0)
 		f:SetFrameStrata('TOOLTIP')
 		
 		f.Title = f:CreateFontString(nil, 'OVERLAY')
