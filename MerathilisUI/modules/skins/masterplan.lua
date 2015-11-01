@@ -17,11 +17,11 @@ local function skinMasterPlanShipyard()
 end
 
 local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
-	if event == "PLAYER_ENTERING_WORLD" then
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, addon)
+	if addon == "MasterPlan" then
 		skinMasterPlanGarrison()
 		skinMasterPlanShipyard()
-		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		f:UnregisterEvent("ADDON_LOADED")
 	end
 end)
