@@ -27,7 +27,8 @@ local npc = {
 	23754, -- Murloc Costume
 	34694, -- Gurgli
 	54438, -- Murkablo
-	85009 -- Murkidan
+	85009, -- Murkidan
+	68267 -- Cinder Kitten
 }
 
 function MER:GameMenu()
