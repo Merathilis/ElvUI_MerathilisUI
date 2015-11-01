@@ -23,7 +23,11 @@ local npc = {
 	91226, -- Graves
 	54128, -- Creepy Crate
 	28883, -- Frosty
-	61324 -- Baby Ape
+	61324, -- Baby Ape
+	23754, -- Murloc Costume
+	34694, -- Gurgli
+	54438, -- Murkablo
+	85009 -- Murkidan
 }
 
 function MER:GameMenu()
