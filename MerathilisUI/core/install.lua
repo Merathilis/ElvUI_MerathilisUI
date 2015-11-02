@@ -405,7 +405,14 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.targettarget.width = 100
 		E.db.unitframe.units.targettarget.name.yOffset = -1
 		E.db.unitframe.units.targettarget.health.position = 'CENTER'
+		E.db.unitframe.units.targettarget.health.yOffset = -16
+		E.db.unitframe.units.targettarget.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.targettarget.height = 20
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.unitframe.units.targettarget.emptybar.enable = true
+			E.db.unitframe.units.targettarget.emptybar.threat = true
+			E.db.unitframe.units.targettarget.emptybar.height = 11
+		end
 	-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
