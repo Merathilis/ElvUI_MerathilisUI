@@ -677,7 +677,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.pet.castbar.latency = true
 		E.db.unitframe.units.pet.castbar.width = 102
 		E.db.unitframe.units.pet.width = 102
-		E.db.unitframe.units.pet.height = 24
+		E.db.unitframe.units.pet.height = 15
 		E.db.unitframe.units.pet.power.height = 2
 	-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
