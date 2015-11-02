@@ -4,6 +4,7 @@
 <font color=#FF8C00>&#9830;</font> Install: showPlayer in GroupFrames.
 <font color=#FF8C00>&#9830;</font> Install: Add EmptyBars for Raidframes to the Install.
 <font color=#FF8C00>&#9830;</font> Install: Use libAnim 2.01 for the Installation Process. (Credit Benik)
+<font color=#FF8C00>&#9830;</font> Install: Enable EmptyBars on ToT.
 <font color=#FF8C00>&#9830;</font> Misc: Add libAnim 2.01, delete libAnim 1.0.
 <font color=#FF8C00>&#9830;</font> Misc: Add new Fonts "Merathilis PROTOTYPE_RU" and "Merathilis Expressway" use this for the Chat/ Tooltip and Skada. Also made appropriate changes so that it's available in ruRU clients.
 <font color=#FF8C00>&#9830;</font> Misc: Add a few new Textures to SharedMedia - Credits: Limb0 (SharedMedia:Renaitre).
