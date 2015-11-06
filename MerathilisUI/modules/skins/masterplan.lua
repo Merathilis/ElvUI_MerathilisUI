@@ -9,6 +9,7 @@ if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then re
 local function skinMasterPlanGarrison()
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
+	S:HandleTab(GarrisonLandingPageTab4)
 end
 
 -- ShipYard Tab
