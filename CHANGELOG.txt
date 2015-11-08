@@ -1,4 +1,4 @@
-<b><u> v1.06, xx.xx.2015</b></u>
+<b><u> v1.06, 08.11.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix an issue with Custom Text in the Heal Layout.
 <font color=#FF8C00>&#9830;</font> Install: Set the vertical spacing for Raidframes to 25.
 <font color=#FF8C00>&#9830;</font> Install: showPlayer in GroupFrames.
