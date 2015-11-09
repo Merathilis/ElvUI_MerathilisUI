@@ -5,7 +5,7 @@ local MER = E:GetModule('MerathilisUI')
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end
 
 if E.db.muiMisc == nil then E.db.muiMisc = {} end -- prevent a nil Error.
-if E.db.muiMisc.FriendAlert == false then return; end
+--if E.db.muiMisc.FriendAlert == false then return; end
 
 local interval = 3
 local friends = {}
@@ -48,6 +48,8 @@ local function ScanFriends()
 	C_Timer.After(interval, ScanFriends)
 end
 
-local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
-f:SetScript("OnEvent", function() C_Timer.After(interval, ScanFriends); end)
-f:RegisterEvent("PLAYER_LOGIN")
+if E.db.muiMisc.FriendAlert then
+	local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
+	f:SetScript("OnEvent", function() C_Timer.After(interval, ScanFriends); end)
+	f:RegisterEvent("PLAYER_LOGIN")
+end
