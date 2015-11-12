@@ -4,9 +4,6 @@ local MER = E:GetModule('MerathilisUI')
 -- Code taken from Battle.net Friend Alert by Clinton Caldwell
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end
 
-if E.db.muiMisc == nil then E.db.muiMisc = {} end -- prevent a nil Error.
---if E.db.muiMisc.FriendAlert == false then return; end
-
 local interval = 3
 local friends = {}
 -- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
@@ -48,6 +45,7 @@ local function ScanFriends()
 	C_Timer.After(interval, ScanFriends)
 end
 
+if E.db.muiMisc == nil then E.db.muiMisc = {} end -- prevent a nil Error.
 if E.db.muiMisc.FriendAlert then
 	local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
 	f:SetScript("OnEvent", function() C_Timer.After(interval, ScanFriends); end)
