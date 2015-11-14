@@ -69,26 +69,6 @@ local function AddOptions()
 end
 tinsert(E.MerConfig, AddOptions)
 
-local function muiUnitframes()
-	E.Options.args.mui.args.unitframes = {
-		order = 8,
-		type = 'group',
-		name = L['UnitFrames'],
-		guiInline = true,
-		args = {
-			HoverClassColor = {
-				order = 1,
-				type = 'toggle',
-				name = L['Hover ClassColor'],
-				desc = L['Adds an Hovereffect for ClassColor to the Raidframes.'],
-				get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
-				set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-			},
-		},
-	}
-end
-tinsert(E.MerConfig, muiUnitframes)
-
 local function muiMisc()
 	E.Options.args.mui.args.misc = {
 		order = 9,

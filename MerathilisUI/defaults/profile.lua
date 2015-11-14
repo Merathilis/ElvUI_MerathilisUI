@@ -24,7 +24,3 @@ P['muiMisc'] = {
 P['muiSkins'] = {
 	['MasterPlan'] = true,
 }
-
-P['muiUnitframes'] = {
-	['HoverClassColor'] = true,
-}

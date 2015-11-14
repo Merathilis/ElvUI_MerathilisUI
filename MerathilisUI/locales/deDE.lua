@@ -33,10 +33,6 @@ if not L then return; end
 -- TooltipIcon
 	L['Tooltip Icon'] = true
 	L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"
--- UnitFrames/Hover
-	--L['UnitFrames'] = true -- translated in ElvUI
-	L['Hover ClassColor'] = "Klassenfarben Effekt"
-	L['Adds an Hovereffect for ClassColor to the Raidframes.'] = "Fügt ein MouseOver Klassenfarben Effekt zu dem Schlachtzugsfenster hinzu."
 -- RareAlert
 	L["Rare spotted!"] = "RarMob in deiner Nähe!"
 	L['RareAlert'] = true

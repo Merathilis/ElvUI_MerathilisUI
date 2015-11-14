@@ -33,10 +33,6 @@ if not L then return; end
 -- TooltipIcon
 	L['Tooltip Icon'] = true
 	L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
--- UnitFrames/Hover
-	--L['UnitFrames'] = true -- translated in ElvUI
-	L['Hover ClassColor'] = true
-	L['Adds an Hovereffect for ClassColor to the Raidframes.'] = true
 -- RareAlert
 	L["Rare spotted!"] = true
 	L['RareAlert'] = true
