@@ -1,3 +1,8 @@
+<b><u> v1.07, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Adjust the StanceBar Mover a bit.
+<font color=#FF8C00>&#9830;</font> UnitFrames: Delete the ClassColor Hovereffect. Use the BenikUI's by default now.
+<font color=#FF8C00>&#9830;</font> Misc: FriendAlert doesn't seems to be disabled even if the Options isn't checked, this should be fixed now. (I hope.)
+
 <b><u> v1.06, 08.11.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix an issue with Custom Text in the Heal Layout.
 <font color=#FF8C00>&#9830;</font> Install: Set the vertical spacing for Raidframes to 25.
