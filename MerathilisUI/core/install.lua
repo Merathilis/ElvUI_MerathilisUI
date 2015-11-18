@@ -1179,7 +1179,7 @@ local function SetupMERAddons()
 			E.db.VAT.enableStaticColor = true
 			E.db.VAT.noDuration = true
 			E.db.VAT.barHeight = 5
-			E.db.VAT.spacing = 0
+			E.db.VAT.spacing = -3
 			E.db.VAT.staticColor = {r = color.r, g = color.g, b = color.b}
 			E.db.VAT.showText = false
 			E.db.VAT.decimalThreshold = 5
