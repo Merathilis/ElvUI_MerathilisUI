@@ -16,7 +16,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 
 <font color=#FF8C00><b>Chat Commands:</b></font>
 <font color=#FF8C00>&#9830;</font> /mui = Options
-<font color=#FF8C00>&#9830;</font> /muisetup = Install Process
+<font color=#FF8C00>&#9830;</font> /muisetup = Install
 
 <font color=#FF8C00><b>BugTracker:</b></font>
 <font color=#FF8C00>&#9830;</font> Report any Issue or Suggestion on the <a href="http://git.tukui.org/Merathilis/UI-Settings/issues">TicketTracker</a> by creating a Ticket. Please give me as much Information you can get. <font color=#FF8C00>Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.</font>
@@ -28,18 +28,16 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 
 <font color=#FF8C00><b>Recommended Addons:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=128">AddOnSkins</a>
+<font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Shadow&Light</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=56">LocationPlus</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=91">ElvUI VisualAuraTimers</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=67">xCT+</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.curse.com/addons/wow/masque">Masque</a>
-<font color=#FF8C00>&#9830;</font> <a href="http://www.curse.com/addons/wow/masque-darkscail">Masque: Darkscail</a> <font color=#FF8C00>See Known Issue</font>
 
 <font color=#FF8C00><b>Features:</b></font>
 <font color=#FF8C00>&#9830;</font> There are two Raid-/GroupFrame Layouts: DPS & Heal.
 <font color=#FF8C00>&#9830;</font> A lot of the Frames are now movable. E.g. CharacterFrame, LFG Frame, GameMenu etc. ...
-<font color=#FF8C00>&#9830;</font> Styled GameMenu.
-<font color=#FF8C00>&#9830;</font> RaidFrames classcolor Hovereffect.
-<font color=#FF8C00>&#9830;</font> Adds an EmptyBar to the Raidframes (TukUI Style) based on TukUI Style by DarthPredator.
+<font color=#FF8C00>&#9830;</font> Styled and animated GameMenu.
 <font color=#FF8C00>&#9830;</font> Tooltip Icons for Items/Spells/Achievements.
 <font color=#FF8C00>&#9830;</font> Automatic Screenshot on Archievement earned by Sinaris.
 <font color=#FF8C00>&#9830;</font> RareAlert prints a RaidWarning and Sound if a RarMob appears on the Minimap by Haleth. <font color=#FF8C00>See Known Issue</font>
@@ -50,9 +48,8 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Option to automatically cancel Duels/ Pet Duels.
 <font color=#FF8C00>&#9830;</font> LootAnnouncer if you are the MasterLooter.
-<font color=#FF8C00>&#9830;</font> Skinned Quest Tracker.
-<font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & <font color=#FF8C00>NEW:</font> Shipyard Tabs.
-<font color=#FF8C00>&#9830; NEW:</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
+<font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs. <font color=#FF8C00>NEW:</font> Other Character Tab.
+<font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Profiles for: xCT+, BigWigs, Skada. You must select the "MerathilisUI" Profile in the AddOns.
 
 <font color=#FF8C00>Many Features can be disabled in the MerathilisUI Options.</font>
@@ -62,13 +59,9 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Elv, Blazeflack, Azilroka, DarthPredator, Sinaris, Tonyleila, Haleth and all AddOn Authors who inspired me and for their amazing Work.
 
 <font color=#FF8C00><b>Known Issues:</b></font>
-<font color=#FF8C00>&#9830;</font> Masque: Darkscail; the Text offset of some Elements is a bit wrong, if you want to use this Skin you have to adjust it manually in the LUA File.
 <font color=#FF8C00>&#9830;</font> RareAlert: Everytime you spawn in your Garrision it pops up a RaidWarning.
 <font color=#FF8C00>&#9830;</font> And maybe a lot of other things i could not test :D
 
 <font color=#FF8C00><b>Screenshots:</b></font>
-<font color=#FF8C00>&#9830;</font> Game Menu: <font color=#FF8C00>NEW:</font> Now with "Pepe"!! and a lot more Creature. ;)
-<a href='http://www.tukui.org/storage/viewer.php?id=87826WoWScrnShot_102215_154506.jpg'><img src='http://www.tukui.org/storage/thumbs/87826WoWScrnShot_102215_154506.jpg'></a>
-
-<font color=#FF8C00>&#9830;</font> RaidFrames with EmptyBars (Note: The RoleIcons are from ElvUI_SLE)
-<a href='http://www.tukui.org/storage/viewer.php?id=247096RaidFrames.png'><img src='http://www.tukui.org/storage/thumbs/247096RaidFrames.png'></a>
+<font color=#FF8C00>&#9830;</font> Game Menu:
+<a href='http://www.tukui.org/storage/viewer.php?id=631201WoWScrnShot_111915_102606.jpg'><img src='http://www.tukui.org/storage/thumbs/631201WoWScrnShot_111915_102606.jpg'></a>

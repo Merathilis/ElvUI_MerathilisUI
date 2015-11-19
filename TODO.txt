@@ -1,5 +1,4 @@
 .:: MerathilisUI ::. 
 
 #RarAlert shows a warning when you port in your Garrison
-#Masque: Darkscail; the Text offset of some Elements is a bit wrong, if you want to use this Skin you have to adjust it manually in the LUA File.
 #And maybe a lot of other things i could not test :D 
