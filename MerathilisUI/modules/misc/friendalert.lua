@@ -15,8 +15,8 @@ local icons = {
 	["WTCG"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-WTCG:14|t",
 	["Hero"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-HotS:14|t",
 	["S2"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-SC2:14|t",
-	["CLNT"] = "TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
-	--["OW"] = "TInterface\\CHATFRAME\\UI-ChatIcon-OW:14|t" -- Overwatch Icon not working yet!
+	["CLNT"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
+	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Pro:14|t" -- Overwatch Icon not working yet!
 };
 
 local function BNPlayerLink(presenceName, presenceID)
