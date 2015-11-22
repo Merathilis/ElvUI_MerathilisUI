@@ -22,7 +22,7 @@ TabBinder:SetScript("OnEvent", function(self, event, ...)
 		local RTB_BindSet = GetCurrentBindingSet()
 		local RTB_PVPType = GetZonePVPInfo()
 		local _, RTB_ZoneType = IsInInstance()
-
+		
 		RTB_TargetKey = GetBindingKey("TARGETNEARESTENEMYPLAYER")
 		if RTB_TargetKey == nil then
 			RTB_TargetKey = GetBindingKey("TARGETNEARESTENEMY")
@@ -30,7 +30,7 @@ TabBinder:SetScript("OnEvent", function(self, event, ...)
 		if RTB_TargetKey == nil and RTB_DefaultKey == true then
 			RTB_TargetKey = "TAB"
 		end
-
+		
 		RTB_LastTargetKey = GetBindingKey("TARGETPREVIOUSENEMYPLAYER")
 		if RTB_LastTargetKey == nil then
 			RTB_LastTargetKey = GetBindingKey("TARGETPREVIOUSENEMY")
@@ -38,11 +38,11 @@ TabBinder:SetScript("OnEvent", function(self, event, ...)
 		if RTB_LastTargetKey == nil and RTB_DefaultKey == true then
 			RTB_LastTargetKey = "SHIFT-TAB"
 		end
-
+		
 		if RTB_TargetKey ~= nil then
 			RTB_CurrentBind = GetBindingAction(RTB_TargetKey)
 		end
-
+		
 		if RTB_ZoneType == "arena" or RTB_PVPType == "combat" or RTB_ZoneType == "pvp" or event == "DUEL_REQUESTED" then
 			if RTB_CurrentBind ~= "TARGETNEARESTENEMYPLAYER" then
 				if RTB_TargetKey == nil then

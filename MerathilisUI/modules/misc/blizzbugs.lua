@@ -71,7 +71,7 @@ do
 			end
 		end
 	end
-
+	
 	local function InterfaceOptionsFrame_OpenToCategory_Fix(panel)
 		if doNotRun or InCombatLockdown() then return end
 		local panelName = get_panel_name(panel)
@@ -106,11 +106,11 @@ do
 		InterfaceOptionsFrame_OpenToCategory(panel)
 		doNotRun = false
 	end
-
+	
 	hooksecurefunc("InterfaceOptionsFrame_OpenToCategory", InterfaceOptionsFrame_OpenToCategory_Fix)
 end
 
--- Avoid taint from the UIFrameFlash usage of the chat frames.  More info here:
+-- Avoid taint from the UIFrameFlash usage of the chat frames. More info here:
 -- http://forums.wowace.com/showthread.php?p=324936
 -- Fixed by embedding LibChatAnims
 

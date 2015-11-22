@@ -13,7 +13,7 @@ local factionGroup = UnitFactionGroup("player")
 local function SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
 	if not _G[mover] then return end
 	local frame = _G[mover]
-
+	
 	frame:ClearAllPoints()
 	frame:SetPoint(point, anchor, secondaryPoint, x, y)
 	E:SaveMoverPosition(mover)
@@ -31,7 +31,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- General
+		-- General
 		E.private.general.pixelPerfect = true
 		E.global.general.autoScale = true
 		E.private.general.chatBubbles = 'nobackdrop'
@@ -94,7 +94,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Actionbars
+		-- Actionbars
 		E.db.actionbar.font = 'Merathilis Prototype'
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
@@ -148,7 +148,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Auras
+		-- Auras
 		if IsAddOnLoaded("Masque") then
 			E.private.auras.masque.consolidatedBuffs = true
 			E.private.auras.masque.buffs = true
@@ -172,7 +172,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Bags
+		-- Bags
 		E.db.bags.itemLevelFont = 'Merathilis Prototype'
 		E.db.bags.itemLevelFontSize = 8
 		E.db.bags.itemLevelFontOutline = 'OUTLINE'
@@ -191,7 +191,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Chat
+		-- Chat
 		E.db.chat.keywordSound = 'Whisper Alert'
 		E.db.chat.tabFont = 'Merathilis Roadway'
 		E.db.chat.tabFontOutline = 'OUTLINE'
@@ -214,7 +214,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Nameplates
+		-- Nameplates
 		E.db.nameplate.font = 'Merathilis Roadway'
 		E.db.nameplate.fontSize = 11
 		E.db.nameplate.fontOutline = 'OUTLINE'
@@ -246,7 +246,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Tooltip
+		-- Tooltip
 		E.db.tooltip.font = 'Merathilis Expressway'
 		E.db.tooltip.fontOutline = 'OUTLINE'
 		E.db.tooltip.combathide = true
@@ -262,7 +262,7 @@ local function SetupMERLayout(layout)
 	end
 	
 	do
-	-- Unitframes
+		-- Unitframes
 		E.db.unitframe.font = 'Merathilis Tukui'
 		E.db.unitframe.fontSize = 12
 		E.db.unitframe.fontOutline = 'OUTLINE'
@@ -288,7 +288,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachPlayerPortrait = false
 			E.db.ufb.detachTargetPortrait = false
 		end
-	-- Player
+		-- Player
 		E.db.unitframe.units.player.width = 220
 		E.db.unitframe.units.player.height = 35
 		E.db.unitframe.units.player.debuffs.fontSize = 11
@@ -301,7 +301,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.portrait.overlay = false
 		E.db.unitframe.units.player.portrait.camDistanceScale = 0.84
 		E.db.unitframe.units.player.portrait.width = 43
-	-- Use Classbar not for Druid, because of Balance PowerTracker
+		-- Use Classbar not for Druid, because of Balance PowerTracker
 		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
 			E.db.unitframe.units.player.classbar.enable = true
 			E.db.unitframe.units.player.classbar.detachFromFrame = true
@@ -342,7 +342,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachFromFrame = false
 		E.db.unitframe.units.player.buffs.enable = false
-	-- Target
+		-- Target
 		E.db.unitframe.units.target.width = 220
 		E.db.unitframe.units.target.height = 35
 		E.db.unitframe.units.target.castbar.latency = true
@@ -398,7 +398,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.buffs.fontSize = 12
 		E.db.unitframe.units.target.castbar.width = 220
 		E.db.unitframe.units.target.castbar.height = 18
-	-- TargetTarget
+		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
 		E.db.unitframe.units.targettarget.power.position = 'CENTER'
 		E.db.unitframe.units.targettarget.power.height = 2
@@ -413,13 +413,13 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.targettarget.emptybar.threat = true
 			E.db.unitframe.units.targettarget.emptybar.height = 11
 		end
-	-- Focus
+		-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.height = 20
 		E.db.unitframe.units.focus.castbar.height = 6
 		E.db.unitframe.units.focus.castbar.width = 122
-	-- FocusTarget
+		-- FocusTarget
 		E.db.unitframe.units.focustarget.debuffs.enable = true
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
@@ -428,7 +428,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.focustarget.width = 122
 		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
-	-- Raid
+		-- Raid
 		E.db.unitframe.units.raid.threatStyle = 'GLOW'
 		E.db.unitframe.units.raid.horizontalSpacing = 1
 		E.db.unitframe.units.raid.verticalSpacing = 25
@@ -481,7 +481,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.emptybar.transparent = true
 			E.db.unitframe.units.raid.classHover = true
 		end
-	-- Raid40
+		-- Raid40
 		E.db.unitframe.units.raid40.horizontalSpacing = 1
 		E.db.unitframe.units.raid40.debuffs.enable = true
 		E.db.unitframe.units.raid40.debuffs.yOffset = -9
@@ -533,7 +533,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
-	-- Party
+		-- Party
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 30
 			E.db.unitframe.units.party.width = 200
@@ -672,17 +672,17 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.buffs.noConsolidated = false
 			E.db.unitframe.units.party.buffs.sizeOverride = 22
 		end
-	-- Assist
+		-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
-	-- Pet
+		-- Pet
 		E.db.unitframe.units.pet.castbar.latency = true
 		E.db.unitframe.units.pet.castbar.width = 102
 		E.db.unitframe.units.pet.width = 102
 		E.db.unitframe.units.pet.height = 15
 		E.db.unitframe.units.pet.power.height = 2
-	-- Arena
+		-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
-	-- Boss
+		-- Boss
 		E.db.unitframe.units.boss.castbar.latency = true
 		E.db.unitframe.units.boss.castbar.width = 190
 		E.db.unitframe.units.boss.buffs.sizeOverride = 26
@@ -700,30 +700,30 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.boss.height = 26
 		E.db.unitframe.units.boss.threatStyle = 'BORDERS'
 		E.db.unitframe.units.boss.health.position = 'RIGHT'
-	-- PetTarget
+		-- PetTarget
 		E.db.unitframe.units.pettarget.power.width = 'inset'
 	end
 	
 	-- Movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 	do
-	-- DPS Layout
+		-- DPS Layout
 		if layout == 'DPS' then
-	-- PlayerMover
+			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
-	-- TargetMover
+			-- TargetMover
 			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 147)
 			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 110)
 			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
-	-- TargetTargetMover
+			-- TargetTargetMover
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
-	-- FocusMover
+			-- FocusMover
 			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
 			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
-	-- FocusTargetMover
+			-- FocusTargetMover
 			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
-	-- Raid/GroupMover
+			-- Raid/GroupMover
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 250)
 			else
@@ -732,12 +732,12 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
 			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
-	-- PetMover
+			-- PetMover
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
-	-- AlertMover for Garrison etc.
+			-- AlertMover for Garrison etc.
 			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
-	-- ActionBarMover
+			-- ActionBarMover
 			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
 			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
 			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
@@ -747,24 +747,24 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 915, 96)
 			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 450, 200)
-	-- XP/RepMover
+			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
 			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
-	-- TooltipMover
+			-- TooltipMover
 			SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
-	-- ChatMover
+			-- ChatMover
 			SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
 			SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
-	-- Buff/DebuffMover
+			-- Buff/DebuffMover
 			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -9)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
-	-- Arena/BossMover
+			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
 			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
-	-- Tank/AssistMover
+			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
-	-- MiscMover
+			-- MiscMover
 			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
@@ -786,9 +786,9 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('LootFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -495, -457)
 			SetMoverPosition('MinimapButtonAnchor', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -231)
 			SetMoverPosition('MinimapMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -6)
-	-- Heal Layout
+			-- Heal Layout
 		elseif layout == 'HEAL' then
-		-- Raid
+			-- Raid
 			E.db.unitframe.units.raid.height = 30
 			E.db.unitframe.units.raid.width = 114
 			E.db.unitframe.units.raid.debuffs.sizeOverride = 21
@@ -796,7 +796,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.name.yOffset = -18
 			E.db.unitframe.units.raid.power.height = 2
 			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
-		-- Party
+			-- Party
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 			E.db.unitframe.units.party.height = 30
 			E.db.unitframe.units.party.width = 114
@@ -829,26 +829,26 @@ local function SetupMERLayout(layout)
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				E.db.unitframe.units.party.portrait.overlay = true
 			end
-	-- PlayerMover
+			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
-	-- TargetMover
+			-- TargetMover
 			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 147)
 			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 179, 110)
 			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
-	-- TargetTargetMover
+			-- TargetTargetMover
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
-	-- FocusMover
+			-- FocusMover
 			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
 			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
-	-- FocusTargetMover
+			-- FocusTargetMover
 			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
-	-- PetMover
+			-- PetMover
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
-	-- AlertMover for Garrison etc.
+			-- AlertMover for Garrison etc.
 			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
-	-- ActionBarMover
+			-- ActionBarMover
 			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
 			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
 			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
@@ -858,24 +858,24 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
 			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
-	-- XP/RepMover
+			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
 			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
-	-- TooltipMover
+			-- TooltipMover
 			SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
-	-- ChatMover
+			-- ChatMover
 			SetMoverPosition('LeftChatMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 23)
 			SetMoverPosition('RightChatMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -2, 23)
-	-- Buff/DebuffMover
+			-- Buff/DebuffMover
 			SetMoverPosition('BuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -9)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
-	-- Arena/BossMover
+			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
 			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
-	-- Tank/AssistMover
+			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
-	-- MiscMover
+			-- MiscMover
 			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
@@ -964,7 +964,7 @@ local function SetupMERLayout(layout)
 	end
 	E:UpdateAll(true)
 end
-	-- Addons
+-- Addons
 local skadaName = GetAddOnMetadata('Skada', 'Title')
 local bigwigsName = GetAddOnMetadata('BigWigs', 'Title')
 local xctName = GetAddOnMetadata('xCT+', 'Title')
@@ -1116,9 +1116,9 @@ local function SetupMERAddons()
 			},
 		}
 	end
-
+	
 	do
-	-- BenikUI
+		-- BenikUI
 		if E.db.bui == nil then E.db.bui = {} end
 		if IsAddOnLoaded('ElvUI_BenikUI') then
 			E.db.bui.gameMenuColor = 1
@@ -1145,7 +1145,7 @@ local function SetupMERAddons()
 	end
 	
 	do
-	-- LocationPlus
+		-- LocationPlus
 		if E.db.locplus == nil then E.db.locplus = {} end
 		if IsAddOnLoaded('ElvUI_LocPlus') then
 			E.db.locplus.LoginMsg = false
@@ -1173,7 +1173,7 @@ local function SetupMERAddons()
 	end
 	
 	do
-	-- ElvUI_VisualAuraTimer
+		-- ElvUI_VisualAuraTimer
 		if E.db.VAT == nil then E.db.VAT = {} end
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			E.db.VAT.enableStaticColor = true
@@ -1189,7 +1189,7 @@ local function SetupMERAddons()
 		end
 	end
 	
-
+	
 	if IsAddOnLoaded('BigWigs') then
 		print(MER.Title..format(L[' - %s profile created!'], bigwigsName))
 		BigWigs3DB['profiles']['MerathilisUI'] = {
@@ -1923,72 +1923,72 @@ end
 
 function MER:SetupDts(role)
 	-- Data Texts
-		E.db.datatexts.font = 'Merathilis Roadway'
-		E.db.datatexts.fontSize = 13
-		E.db.datatexts.fontOutline = 'OUTLINE'
-		E.db.datatexts.panelTransparency = false
-		if IsAddOnLoaded('ElvUI_LocPlus') then
-			if IsAddOnLoaded('ElvUI_SLE') then
-				E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
-				E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
-			else
-				E.db.datatexts.panels.LeftCoordDtPanel = 'Guild'
-				E.db.datatexts.panels.RightCoordDtPanel = 'Friends'
-			end
+	E.db.datatexts.font = 'Merathilis Roadway'
+	E.db.datatexts.fontSize = 13
+	E.db.datatexts.fontOutline = 'OUTLINE'
+	E.db.datatexts.panelTransparency = false
+	if IsAddOnLoaded('ElvUI_LocPlus') then
+		if IsAddOnLoaded('ElvUI_SLE') then
+			E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
+			E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
+		else
+			E.db.datatexts.panels.LeftCoordDtPanel = 'Guild'
+			E.db.datatexts.panels.RightCoordDtPanel = 'Friends'
+		end
+	end
+	
+	if IsAddOnLoaded('ElvUI_BenikUI') then
+		-- define BenikUI Datetexts
+		if role == 'tank' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+		elseif role == 'dpsMelee' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+		elseif role == 'healer' or 'dpsCaster' then
+			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
+		end
+		E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
+		E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
+		E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
+		E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
+		
+		if IsAddOnLoaded('Skada') then
+			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
+		else
+			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Bags'
 		end
 		
-		if IsAddOnLoaded('ElvUI_BenikUI') then
-			 -- define BenikUI Datetexts
-			if role == 'tank' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
-			elseif role == 'dpsMelee' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
-			elseif role == 'healer' or 'dpsCaster' then
-				E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
-			end
-			E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
-			E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
-			E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-			E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
-			
-			if IsAddOnLoaded('Skada') then
-				E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
-			else
-				E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Bags'
-			end
-			
-			if IsAddOnLoaded('ElvUI_SLE') then
-				E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
-			else
-				E.db.datatexts.panels.BuiMiddleDTPanel.right = 'Gold'
-			end
-			
-			if IsAddOnLoaded('ElvUI_SystemDT') then
-				E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
-			else
-				E.db.datatexts.panels.BuiMiddleDTPanel.left = 'System'
-			end
-			E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
+		if IsAddOnLoaded('ElvUI_SLE') then
+			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
 		else
-			-- define the default ElvUI datatexts
-			if role == 'tank' then
-				E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
-			elseif role == 'dpsMelee' then
-				E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
-			elseif role == 'healer' or 'dpsCaster' then
-				E.db.datatexts.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
-			end
-			E.db.datatexts.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
-			E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability'
-			
-			if IsAddOnLoaded('Skada') then
-				E.db.datatexts.panels.RightChatDataPanel.left = 'Skada'
-			else
-				E.db.datatexts.panels.RightChatDataPanel.left = 'System'
-			end
-			E.db.datatexts.panels.RightChatDataPanel.middle = 'Time'
-			E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
+			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'Gold'
 		end
+		
+		if IsAddOnLoaded('ElvUI_SystemDT') then
+			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
+		else
+			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'System'
+		end
+		E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
+	else
+		-- define the default ElvUI datatexts
+		if role == 'tank' then
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
+		elseif role == 'dpsMelee' then
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
+		elseif role == 'healer' or 'dpsCaster' then
+			E.db.datatexts.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
+		end
+		E.db.datatexts.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
+		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability'
+		
+		if IsAddOnLoaded('Skada') then
+			E.db.datatexts.panels.RightChatDataPanel.left = 'Skada'
+		else
+			E.db.datatexts.panels.RightChatDataPanel.left = 'System'
+		end
+		E.db.datatexts.panels.RightChatDataPanel.middle = 'Time'
+		E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
+	end
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['DataTexts Set']
@@ -2049,7 +2049,7 @@ local function SetPage(PageNum)
 	else
 		InstallPrevButton:Enable()
 	end
-
+	
 	if PageNum == 1 then
 		f.SubTitle:SetFormattedText(L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'], MER.Version, E.version)
 		f.Desc1:SetFormattedText("%s", L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
@@ -2184,7 +2184,7 @@ function MER:SetupUI()
 		imsg.text:SetTextColor(1, 0.82, 0)
 		imsg.text:SetJustifyH('CENTER')
 	end
-
+	
 	--Create Frame
 	if not MERInstallFrame then
 		local f = CreateFrame('Button', 'MERInstallFrame', E.UIParent)
@@ -2265,7 +2265,7 @@ function MER:SetupUI()
 		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
 		f.Option3:SetText('')
 		f.Option3:Hide()
-		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45)  end)
+		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45) end)
 		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
 		E.Skins:HandleButton(f.Option3, true)			
 		
@@ -2282,7 +2282,7 @@ function MER:SetupUI()
 			f.Option1:ClearAllPoints(); 
 			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
 			f.Option2:ClearAllPoints(); 
-			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45)  
+			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) 
 		end)
 		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
 		E.Skins:HandleButton(f.Option4, true)			
@@ -2317,12 +2317,12 @@ function MER:SetupUI()
 			f:Hide()
 		end)		
 		E.Skins:HandleCloseButton(close)
-
+		
 		f.tutorialImage = f:CreateTexture(nil, 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
 		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga')
 		f.tutorialImage:Point('BOTTOM', 0, 75)
-
+		
 		f.side = CreateFrame('Frame', 'MERTitleFrame', f)
 		f.side:SetTemplate('Transparent')
 		--f.side:Point('LEFT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
@@ -2351,14 +2351,14 @@ function MER:SetupUI()
 			titleText[i].check:Point('LEFT', titleText[i].text, 'RIGHT', 0, -2)
 			titleText[i].check:SetTexture([[Interface\BUTTONS\UI-CheckBox-Check]])
 			titleText[i].check:Hide()
-
+			
 			if i == 1 then titleText[i].text:SetFormattedText("%s", L['Welcome'])
-				elseif i == 2 then titleText[i].text:SetFormattedText("%s", L['MerathilisUI Set'])
-				elseif i == 3 then titleText[i].text:SetFormattedText("%s", L['DataTexts Set'])
-				elseif i == 4 then titleText[i].text:SetFormattedText("%s", L['Addons Set'])
-				elseif i == 5 then titleText[i].text:SetFormattedText("%s", L['Finish'])
+			elseif i == 2 then titleText[i].text:SetFormattedText("%s", L['MerathilisUI Set'])
+			elseif i == 3 then titleText[i].text:SetFormattedText("%s", L['DataTexts Set'])
+			elseif i == 4 then titleText[i].text:SetFormattedText("%s", L['Addons Set'])
+			elseif i == 5 then titleText[i].text:SetFormattedText("%s", L['Finish'])
 			end
-
+			
 			if(i == 1) then
 				titleText[i]:Point('TOP', f.side, 'TOP', 0, -40)
 			else

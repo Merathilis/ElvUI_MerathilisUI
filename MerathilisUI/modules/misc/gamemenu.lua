@@ -39,7 +39,7 @@ function MER:GameMenu()
 		button:SetPoint("TOP", GameMenuButtonUIOptions, "BOTTOM", 0 , -1)
 		button:SetScript("OnClick", function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(GameMenuFrame) end)
 		button:SetText("|cffff7d0aMerathilisUI|r")
-	
+		
 		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
 			S:HandleButton(button)
 		end

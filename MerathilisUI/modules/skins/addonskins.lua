@@ -46,7 +46,7 @@ function AS:SkinCloseButton(CloseButton, Reposition)
 			end
 		end
 	end
-
+	
 	if not CloseButton.noBackdrop then
 		AS:StripTextures(CloseButton)
 		AS:CreateBackdrop(CloseButton)
@@ -54,12 +54,12 @@ function AS:SkinCloseButton(CloseButton, Reposition)
 		CloseButton.Backdrop:Point('TOPLEFT', 7, -8)
 		CloseButton.Backdrop:Point('BOTTOMRIGHT', -8, 8)
 	end
-
+	
 	CloseButton.Text = CloseButton:CreateFontString(nil, "OVERLAY")
 	CloseButton.Text:SetFont([[Interface\AddOns\AddOnSkins\Media\Fonts\PTSansNarrow.TTF]], 12)
 	CloseButton.Text:SetPoint("CENTER", CloseButton, 'CENTER')
 	CloseButton.Text:SetText('x')
-
+	
 	if not CloseButton.noBackdrop then
 		CloseButton:HookScript("OnEnter", function(self)
 			self.Text:SetTextColor(1, .2, .2)
@@ -76,7 +76,7 @@ function AS:SkinCloseButton(CloseButton, Reposition)
 	if CloseButton.Text and CloseButton.noBackdrop then
 		CloseButton.Text:SetAlpha(0)
 	end
-
+	
 	if Reposition then
 		CloseButton:Point("TOPRIGHT", Reposition, "TOPRIGHT", 2, 2)
 	end

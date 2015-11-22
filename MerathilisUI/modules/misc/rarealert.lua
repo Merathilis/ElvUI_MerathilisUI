@@ -21,7 +21,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("VIGNETTE_ADDED")
 f:SetScript("OnEvent", function()
 	if E.db.muiMisc.RareAlert then
-	
+		
 		if (tContains(blacklist, GetCurrentMapAreaID())) then return end
 		PlaySound("RaidWarning", "master"); 
 		RaidNotice_AddMessage(RaidWarningFrame, L["Rare spotted!"], ChatTypeInfo["RAID_WARNING"])
