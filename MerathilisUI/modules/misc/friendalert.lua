@@ -6,7 +6,6 @@ if IsAddOnLoaded("BattleNetFriendAlert") then return; end
 
 local interval = 3
 local friends = {}
--- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
 local icons = {
 	["Friend"] = "|TInterface\\FriendsFrame\\UI-Toast-FriendOnlineIcon:16:16:0:0:32:32:2:30:2:30|t",
 	["App"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Battlenet:14|t",
@@ -18,6 +17,16 @@ local icons = {
 	["CLNT"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
 	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Pro:14|t" -- Overwatch Icon not working yet!
 };
+
+-- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
+BNET_CLIENT_WOW = "WoW";
+BNET_CLIENT_SC2 = "S2";
+BNET_CLIENT_D3 = "D3";
+BNET_CLIENT_WTCG = "WTCG";
+BNET_CLIENT_APP = "App";
+BNET_CLIENT_HEROES = "Hero";
+BNET_CLIENT_OVERWATCH = "Pro";
+BNET_CLIENT_CLNT = "CLNT";
 
 local function BNPlayerLink(presenceName, presenceID)
 	return string.format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
