@@ -47,8 +47,6 @@ L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verän
 L['INFO_DUEL'] = "Duellanfrage Ignoriert von "
 L['INFO_PET_DUEL'] = "Haustier Duellanfrage Ignoriert von "
 L['No Duel'] = "Kein Duel"
--- Loot
-L['Loot Announcer'] = "Loot Ankündigung"
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"

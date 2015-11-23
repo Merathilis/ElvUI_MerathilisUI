@@ -17,7 +17,6 @@ P['muiMisc'] = {
 	['Screenshot'] = true,
 	['TooltipIcon'] = true,
 	['noDuel'] = false,
-	['LootAnnouncer'] = true,
 	['FriendAlert'] = false,
 }
 

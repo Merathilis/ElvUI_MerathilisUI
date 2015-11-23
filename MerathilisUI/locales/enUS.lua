@@ -47,8 +47,6 @@ L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
 L['INFO_DUEL'] = "Declined duel request from "
 L['INFO_PET_DUEL'] = "Declined pet duel request from "
 L['No Duel'] = true
--- Loot
-L['Loot Announcer'] = true
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = true

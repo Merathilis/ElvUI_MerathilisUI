@@ -123,13 +123,6 @@ local function muiMisc()
 				get = function(info) return E.db.muiMisc[ info[#info] ] end,
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
 			},
-			LootAnnouncer = {
-				order = 7,
-				type = 'toggle',
-				name = L['Loot Announcer'],
-				get = function(info) return E.db.muiMisc[ info[#info] ] end,
-				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-			},
 			FriendAlert = {
 				order = 8,
 				type = 'toggle',
