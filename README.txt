@@ -40,7 +40,6 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Styled and animated GameMenu.
 <font color=#FF8C00>&#9830;</font> Tooltip Icons for Items/Spells/Achievements.
 <font color=#FF8C00>&#9830;</font> Automatic Screenshot on Archievement earned by Sinaris.
-<font color=#FF8C00>&#9830;</font> RareAlert prints a RaidWarning and Sound if a RarMob appears on the Minimap by Haleth. <font color=#FF8C00>See Known Issue</font>
 <font color=#FF8C00>&#9830;</font> Hide Garrison Alert Frame if you are in Combat.
 <font color=#FF8C00>&#9830;</font> Resize the Mailinputbox and move the Shippingcost to the Bottom by Tonyleila.
 <font color=#FF8C00>&#9830;</font> ClassColor Names in the Friendlist and AFK/DND Text in the GuildFrame bye Yleaf.
@@ -58,8 +57,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Elv, Blazeflack, Azilroka, DarthPredator, Sinaris, Tonyleila, Haleth and all AddOn Authors who inspired me and for their amazing Work.
 
 <font color=#FF8C00><b>Known Issues:</b></font>
-<font color=#FF8C00>&#9830;</font> RareAlert: Everytime you spawn in your Garrision it pops up a RaidWarning.
-<font color=#FF8C00>&#9830;</font> And maybe a lot of other things i could not test :D
+<font color=#FF8C00>&#9830;</font> Maybe a lot of things i could not test :D
 
 <font color=#FF8C00><b>Screenshots:</b></font>
 <font color=#FF8C00>&#9830;</font> Game Menu:

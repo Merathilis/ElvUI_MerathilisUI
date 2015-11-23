@@ -8,7 +8,6 @@
 	<Script file="mailinputbox.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="noduel.lua"/>
-	<Script file="rarealert.lua"/>
 	<Script file="screenshot.lua"/>
 	<Script file="tabbinder.lua"/>
 </Ui>

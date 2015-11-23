@@ -33,10 +33,6 @@ L['Takes an automatic Screenshot on Achievement earned.'] = true
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
--- RareAlert
-L["Rare spotted!"] = true
-L['RareAlert'] = true
-L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'] = true
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = true
 L['Hides the Garrison Alert Frame while in combat.'] = true

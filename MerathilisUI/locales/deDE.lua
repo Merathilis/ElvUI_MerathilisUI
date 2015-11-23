@@ -33,10 +33,6 @@ L['Takes an automatic Screenshot on Achievement earned.'] = "Macht ein automatis
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"
--- RareAlert
-L["Rare spotted!"] = "RarMob in deiner Nähe!"
-L['RareAlert'] = true
-L['Add a Raidwarning and playes a warning sound whenever a RareMob is spotted on the Minimap.'] = "Sobald ein RarMob auf der Minimap gespotted wurde, erscheint eine RaidWarnung und ein WarningSound."
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = "Garnision Alarm Fenster"
 L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision Alarm Fenster während des Kampfes."

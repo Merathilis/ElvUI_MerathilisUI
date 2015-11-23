@@ -1,7 +1,8 @@
 <b><u> v1.08, xx.xx.xxxx</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Try to show Overwatch Icon for FriendAlert (not working yet)
 <font color=#FF8C00>&#9830;</font> Misc: Code optimation
-<font color=#FF8C00>&#9830;</font> Mist: Delete LootAnnouncer
+<font color=#FF8C00>&#9830;</font> Misc: Delete LootAnnouncer (I use the one from S&L)
+<font color=#FF8C00>&#9830;</font> Misc: Delete RareAlert (It's useless for me)
 
 <b><u> v1.07, 19.11.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust the StanceBar Mover a bit.

@@ -11,7 +11,6 @@ P['muiGeneral'] = {
 }
 
 P['muiMisc'] = {
-	['RareAlert'] = false, -- default off, because of spam using Hearthstone into Garrison
 	['HideAlertFrame'] = true,
 	['MailInputbox'] = true,
 	['Screenshot'] = true,
