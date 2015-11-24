@@ -2,9 +2,10 @@
 <font color=#FF8C00>&#9830;</font> Install: Adjust the Position of the BossButton and setScale to 0.75.
 <font color=#FF8C00>&#9830;</font> Install: Adjust the Position of the BuffMover a bit.
 <font color=#FF8C00>&#9830;</font> Misc: Try to show Overwatch Icon for FriendAlert in Chat(not working yet).
-<font color=#FF8C00>&#9830;</font> Misc: Code optimation.
+<font color=#FF8C00>&#9830;</font> Misc: Code optimization.
 <font color=#FF8C00>&#9830;</font> Misc: Delete LootAnnouncer (I use the one from S&L).
 <font color=#FF8C00>&#9830;</font> Misc: Delete RareAlert (It's useless for me).
+<font color=#FF8C00>&#9830;</font> Misc: Delete Tabbinder
 <font color=#FF8C00>&#9830;</font> Misc: Cached WoW API & Functions (I have no idea what i'm doing).
 
 <b><u> v1.07, 19.11.2015</b></u>
