@@ -3,6 +3,13 @@ local MER = E:GetModule('MerathilisUI');
 
 -- Class color guild/friends/etc list(yClassColor by Yleaf)
 
+-- Cache global variables
+local type, ipairs, pairs, unpack, select = type, ipairs, pairs, unpack, select
+local setmetatable = setmetatable
+local _G = _G
+local format, gsub = string.format, string.gsub
+local modf = math.modf
+
 local GUILD_INDEX_MAX = 12
 local SMOOTH = {1, 0, 0, 1, 1, 0, 0, 1, 0}
 local myName = UnitName("player")
@@ -39,7 +46,7 @@ local function ColorGradient(perc, ...)
 	
 	local num = select("#", ...) / 3
 	
-	local segment, relperc = math.modf(perc * (num - 1))
+	local segment, relperc = modf(perc * (num - 1))
 	local r1, g1, b1, r2, g2, b2 = select((segment * 3) + 1, ...)
 	
 	return r1 + (r2 - r1) * relperc, g1 + (g2 - g1) * relperc, b1 + (b2 - b1) * relperc

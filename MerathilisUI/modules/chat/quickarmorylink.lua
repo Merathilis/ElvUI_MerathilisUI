@@ -2,6 +2,10 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local LRI = LibStub:GetLibrary("LibRealmInfo");
 
+-- Cache global variables
+local tinsert = table.insert
+local gsub, byte, format, lower, upper = string.gsub, string.byte, string.format, string.lower, string.upper
+
 -- Credits: Driizt, Phanx
 
 local supportedRegion = {
@@ -13,19 +17,19 @@ local supportedRegion = {
 }
 
 UnitPopupButtons["AQL"] = {text = L['ARMORYQUICKLINK'], dist = 0};
-table.insert(UnitPopupMenus["PARTY"], #(UnitPopupMenus["PARTY"])-1, "AQL");
-table.insert(UnitPopupMenus["PLAYER"], #(UnitPopupMenus["PLAYER"])-1, "AQL");
-table.insert(UnitPopupMenus["RAID_PLAYER"], #(UnitPopupMenus["RAID_PLAYER"])-1, "AQL");
-table.insert(UnitPopupMenus["GUILD"], #(UnitPopupMenus["GUILD"])-1, "AQL");
-table.insert(UnitPopupMenus["GUILD_OFFLINE"], #(UnitPopupMenus["GUILD_OFFLINE"])-1, "AQL");
-table.insert(UnitPopupMenus["FRIEND"], #(UnitPopupMenus["FRIEND"])-1, "AQL");
-table.insert(UnitPopupMenus["FRIEND_OFFLINE"], #(UnitPopupMenus["FRIEND_OFFLINE"])-1, "AQL");
-table.insert(UnitPopupMenus["CHAT_ROSTER"], #(UnitPopupMenus["CHAT_ROSTER"])-1, "AQL");
+tinsert(UnitPopupMenus["PARTY"], #(UnitPopupMenus["PARTY"])-1, "AQL");
+tinsert(UnitPopupMenus["PLAYER"], #(UnitPopupMenus["PLAYER"])-1, "AQL");
+tinsert(UnitPopupMenus["RAID_PLAYER"], #(UnitPopupMenus["RAID_PLAYER"])-1, "AQL");
+tinsert(UnitPopupMenus["GUILD"], #(UnitPopupMenus["GUILD"])-1, "AQL");
+tinsert(UnitPopupMenus["GUILD_OFFLINE"], #(UnitPopupMenus["GUILD_OFFLINE"])-1, "AQL");
+tinsert(UnitPopupMenus["FRIEND"], #(UnitPopupMenus["FRIEND"])-1, "AQL");
+tinsert(UnitPopupMenus["FRIEND_OFFLINE"], #(UnitPopupMenus["FRIEND_OFFLINE"])-1, "AQL");
+tinsert(UnitPopupMenus["CHAT_ROSTER"], #(UnitPopupMenus["CHAT_ROSTER"])-1, "AQL");
 
 local function urlEscape(url)
-	return string.gsub(url, "([^A-Za-z0-9_:/?&=.-])",
+	return gsub(url, "([^A-Za-z0-9_:/?&=.-])",
 	function(ch)
-		return string.format("%%%02x", string.byte(ch))
+		return format("%%%02x", byte(ch))
 	end)
 end
 
@@ -49,7 +53,7 @@ local function constructUrl(name,server)
 	end
 	
 	if region then
-		region = string.lower(region)
+		region = lower(region)
 		if not region or region == "" then
 			DEFAULT_CHAT_FRAME:AddMessage(L['AQLCOLORLABEL']..L['REALMERROR']);
 			return;
@@ -62,7 +66,7 @@ local function constructUrl(name,server)
 	end
 	
 	if not supportedRegion[region] then
-		DEFAULT_CHAT_FRAME:AddMessage(L['AQLCOLORLABEL'].."["..string.upper(region).."]"..L['NOTSUPPORTEDLIST']);
+		DEFAULT_CHAT_FRAME:AddMessage(L['AQLCOLORLABEL'].."["..upper(region).."]"..L['NOTSUPPORTEDLIST']);
 		region = nil;
 		return;
 	end
@@ -78,8 +82,6 @@ local function constructUrl(name,server)
 	return url;
 end
 
-------------------------------------------------------------------------
-
 local function ShowUrl(name,server)
 	if not name then return end
 	local url = constructUrl(name,server);
@@ -92,8 +94,6 @@ local function ShowUrl(name,server)
 		end
 	end
 end
-
-------------------------------------------------------------------------
 
 local function LFGShowUrl(name)
 	if not name then return end
@@ -112,8 +112,6 @@ local function LFGShowUrl(name)
 		end
 	end
 end
-
-------------------------------------------------------------------------
 
 local CURRENT_NAME, CURRENT_SERVER
 

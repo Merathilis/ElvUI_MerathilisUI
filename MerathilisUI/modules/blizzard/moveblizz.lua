@@ -1,6 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local MER = E:GetModule('MerathilisUI');
 
+-- Cache global variables
+local pairs = pairs
+local _G = _G
+
 -- Move some Blizzard frames
 local frames = {
 	"CharacterFrame", "SpellBookFrame", "PVPFrame", "TaxiFrame", "QuestFrame", "PVEFrame",

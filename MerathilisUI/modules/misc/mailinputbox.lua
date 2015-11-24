@@ -1,6 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
+-- Cache global variables
+local unpack = unpack
+local _G = _G
+local CreateFrame = CreateFrame
+
 -- Credits Tonyleila (Mail Inputbox Reziser)
 if IsAddOnLoaded("MailinputboxResizer") then return end
 

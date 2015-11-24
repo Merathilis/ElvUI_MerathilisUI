@@ -1,6 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+-- Cache global variables
+local pairs = pairs
+local _G = _G
+
 -- Quest level
 hooksecurefunc("QuestLogQuests_Update", function()
 	for i, button in pairs(QuestMapFrame.QuestsFrame.Contents.Titles) do

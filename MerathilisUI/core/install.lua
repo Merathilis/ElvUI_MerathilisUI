@@ -1,9 +1,21 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+-- Cache global variables
+local _G = _G
+local unpack = unpack
+local format = format
+local ceil = ceil
+local CreateFrame = CreateFrame
+local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
+local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
+local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
+local FCF_SetLocked = FCF_SetLocked
+local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
+local FCF_StopDragging = FCF_StopDragging
+
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
-local ceil = ceil
 local titleText = {}
 
 local _, class = UnitClass("player")

@@ -1,6 +1,10 @@
 local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
 local MER = E:GetModule('MerathilisUI');
 
+-- Cache global variables
+local format = string.format
+local CreateFrame = CreateFrame
+
 -- Auto decline duel
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("DUEL_REQUESTED")

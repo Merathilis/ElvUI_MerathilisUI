@@ -1,8 +1,11 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
+-- Cache global variables
+local select = select
 local format = string.format
 local join = string.join
+
 local lastPanel, active
 local displayString = '';
 local talent = {}

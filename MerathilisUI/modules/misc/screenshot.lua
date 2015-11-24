@@ -1,6 +1,9 @@
 local E, L, V, P, G, _ = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+-- Cache global variables
+local CreateFrame = CreateFrame
+
 if E.db.muiMisc == nil then E.db.muiMisc = {} end
 if not E.db.muiMisc.Screenshot ~= true then return end
 

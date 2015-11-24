@@ -3,14 +3,17 @@ local MER = E:GetModule('MerathilisUI')
 local MERM = E:NewModule('BlizzOptionsMover', 'AceEvent-3.0')
 local S = E:GetModule('Skins')
 
+-- Cache global variables
+local random = random
+local CreateFrame = CreateFrame
+local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
+
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local logo = "Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
 local className = E.myclass
-
-local random = random
 
 local npc = {
 	86470, -- Pepe

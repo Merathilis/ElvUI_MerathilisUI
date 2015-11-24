@@ -1,6 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
+-- Cache global variables
+local format = string.format
+local CreateFrame = CreateFrame
+
 -- Code taken from Battle.net Friend Alert by Clinton Caldwell
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end
 
@@ -29,7 +33,7 @@ BNET_CLIENT_OVERWATCH = "Pro";
 BNET_CLIENT_CLNT = "CLNT";
 
 local function BNPlayerLink(presenceName, presenceID)
-	return string.format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
+	return format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
 end
 
 local function ScanFriends()
@@ -39,9 +43,9 @@ local function ScanFriends()
 			if game and friends[presenceID] and friends[presenceID]["game"] then
 				if game ~= friends[presenceID]["game"] then
 					if game == "App" then
-						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. string.format(L["%s stopped playing (%sIn Battle.net)."], BNPlayerLink(presenceName, presenceID), icons[game]) .. FONT_COLOR_CODE_CLOSE)
+						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s stopped playing (%sIn Battle.net)."], BNPlayerLink(presenceName, presenceID), icons[game]) .. FONT_COLOR_CODE_CLOSE)
 					else
-						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. string.format(L["%s is now playing (%s%s)."], BNPlayerLink(presenceName, presenceID), icons[game], characterName) .. FONT_COLOR_CODE_CLOSE)
+						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s is now playing (%s%s)."], BNPlayerLink(presenceName, presenceID), icons[game], characterName) .. FONT_COLOR_CODE_CLOSE)
 						PlaySound("UI_BnetToast")
 					end
 				end

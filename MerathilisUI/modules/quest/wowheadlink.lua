@@ -3,6 +3,9 @@ local MER = E:GetModule('MerathilisUI');
 local LI = GetLocale();
 if not LI then return end
 
+-- Cache global variables
+local format = string.format
+
 -- Add quest/achievement wowhead link
 local linkQuest, linkAchievement
 if LI == "ruRU" then
