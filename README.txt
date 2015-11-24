@@ -46,11 +46,11 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> ArmoryLink if you right click a Player in the Chat/Guild/LFG Browser by Driizt, Phanx.
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Option to automatically cancel Duels/ Pet Duels.
-<font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs. <font color=#FF8C00>NEW:</font> Other Character Tab.
+<font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Profiles for: xCT+, BigWigs, Skada. You must select the "MerathilisUI" Profile in the AddOns.
 
-<font color=#FF8C00>Many Features can be disabled in the MerathilisUI Options.</font>
+<font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>
 
 <font color=#FF8C00><b>Credits:</b></font>
 <font color=#FF8C00>&#9830;</font> A big big thanks goes to <font color=#2E9AFE><b>Benik</font></b> who make this possible. He helped me so much, give him some Love <3
