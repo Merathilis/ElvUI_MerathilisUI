@@ -7,7 +7,6 @@
 <font color=#FF8C00>&#9830;</font> Misc: Delete RareAlert (It's useless for me).
 <font color=#FF8C00>&#9830;</font> Misc: Delete Tabbinder
 <font color=#FF8C00>&#9830;</font> Misc: Cached WoW API & Functions (I have no idea what i'm doing).
-<font color=#FF8C00>&#9830;</font> Misc: Include my Font Folder & Textures i use.
 
 <b><u> v1.07, 19.11.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust the StanceBar Mover a bit.
