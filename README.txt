@@ -57,6 +57,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Elv, Blazeflack, Azilroka, DarthPredator, Sinaris, Tonyleila, Haleth and all AddOn Authors who inspired me and for their amazing Work.
 
 <font color=#FF8C00><b>Known Issues:</b></font>
+<font color=#FF8C00>&#9830;</font> Overwatch Icon not show properly for Battle.net Alert.
 <font color=#FF8C00>&#9830;</font> Maybe a lot of things i could not test :D
 
 <font color=#FF8C00><b>Screenshots:</b></font>

@@ -1,5 +1,5 @@
-<b><u> v1.08, xx.xx.xxxx</b></u>
-<font color=#FF8C00>&#9830;</font> Install: Adjust the Position of the BossButton and setScale to 0.75.
+<b><u> v1.08, 25.11.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Adjust the Position of the BossButton and setScale to 0.75. (Requires ElvUI 8.41)
 <font color=#FF8C00>&#9830;</font> Install: Adjust the Position of the BuffMover a bit.
 <font color=#FF8C00>&#9830;</font> Misc: Try to show Overwatch Icon for FriendAlert in Chat(not working yet).
 <font color=#FF8C00>&#9830;</font> Misc: Code optimization.
@@ -7,6 +7,7 @@
 <font color=#FF8C00>&#9830;</font> Misc: Delete RareAlert (It's useless for me).
 <font color=#FF8C00>&#9830;</font> Misc: Delete Tabbinder
 <font color=#FF8C00>&#9830;</font> Misc: Cached WoW API & Functions (I have no idea what i'm doing).
+<font color=#FF8C00>&#9830;</font> Misc: Include my Font Folder & Textures i use.
 
 <b><u> v1.07, 19.11.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust the StanceBar Mover a bit.
