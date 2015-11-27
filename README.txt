@@ -11,7 +11,6 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> <font color=#FF8C00>Install-Steps:</font> 1. Install ElvUI - 2. Install ElvUI_BenikUI (not needed but high recommended) - 3. Install MerathilisUI
 
 <font color=#FF8C00><b>Note:</b></font>
-<font color=#FF8C00>&#9830;</font> I have tested it only with a 1680x1050 resolution, you may have to adjust MerathilisUI if using a bigger resolution.
 <font color=#FF8C00>&#9830;</font> My LUA Knowledgement is very limited, so i will take my time to fix and add new Stuff ;)
 
 <font color=#FF8C00><b>Chat Commands:</b></font>
