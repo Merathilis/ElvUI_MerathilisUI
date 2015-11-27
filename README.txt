@@ -26,6 +26,11 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> ElvUI 8+
 <font color=#FF8C00>&#9830;</font> High Recommended: <a href="http://www.tukui.org/addons/index.php?act=view&id=228">ElvUI_BenikUI</a> to get the whole look and functionality from MerathilisUI.
 
+<font color=#FF8C00><b>NEW: MerathilisUI Art Pack:</b></font>
+<font color=#FF8C00>&#9830;</font> A mix of some UI Art Packs i use for my MerathilisUI. (Credits belong to the Authors)
+<font color=#FF8C00>&#9830;</font> Please read the README.txt inside the ZIP Folder.
+<font color=#FF8C00>&#9830;</font> Download: <a href="http://www.tukui.org/storage/download.php?file=604MerathilisUI_Art.zip">MerathilisUI_ArtPack</a>
+
 <font color=#FF8C00><b>Recommended Addons:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=128">AddOnSkins</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Shadow&Light</a>
@@ -33,6 +38,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=91">ElvUI VisualAuraTimers</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=67">xCT+</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.curse.com/addons/wow/masque">Masque</a>
+<font color=#FF8C00>&#9830;</font> <a href="http://www.wowinterface.com/downloads/info15923-MasqueRenaitre.html">Masque: Renaitre </a>
 
 <font color=#FF8C00><b>Features:</b></font>
 <font color=#FF8C00>&#9830;</font> There are two Raid-/GroupFrame Layouts: DPS & Heal.
