@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
@@ -6,6 +6,11 @@ local _G = _G
 local unpack = unpack
 local format = format
 local ceil = ceil
+
+local IsAddOnLoaded = IsAddOnLoaded
+local PlaySoundFile = PlaySoundFile
+local UIFrameFadeOut = UIFrameFadeOut
+local ReloadUI = ReloadUI
 local CreateFrame = CreateFrame
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
@@ -13,6 +18,10 @@ local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
 local FCF_SetLocked = FCF_SetLocked
 local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
 local FCF_StopDragging = FCF_StopDragging
+local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
+local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
+local LOOT, TRADE = LOOT, TRADE
+local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
@@ -59,9 +68,9 @@ local function SetupMERLayout(layout)
 		E.db.general.stickyFrames = false
 		E.db.general.loot = true
 		E.db.general.lootRoll = true
-		E.db.general.backdropcolor.r = 0.101960784313726
-		E.db.general.backdropcolor.g = 0.101960784313726
-		E.db.general.backdropcolor.b = 0.101960784313726
+		E.db.general.backdropcolor.r = 0.101
+		E.db.general.backdropcolor.g = 0.101
+		E.db.general.backdropcolor.b = 0.101
 		E.db.general.vendorGrays = true
 		E.db.general.bottomPanel = false
 		E.db.general.bonusObjectivePosition = 'AUTO'

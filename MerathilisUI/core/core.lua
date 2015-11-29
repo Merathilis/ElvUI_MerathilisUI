@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:NewModule('MerathilisUI', "AceConsole-3.0");
 local LSM = LibStub('LibSharedMedia-3.0');
 local EP = LibStub('LibElvUIPlugin-1.0');
@@ -8,6 +8,7 @@ local addon, ns = ...
 local format = string.format
 local pairs = pairs
 local GetAddOnMetadata = GetAddOnMetadata
+local IsAddOnLoaded = IsAddOnLoaded
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
