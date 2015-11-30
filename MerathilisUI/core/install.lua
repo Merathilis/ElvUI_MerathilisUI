@@ -1182,9 +1182,9 @@ local function SetupMERAddons()
 			E.db.locplus.lpfontsize = 13
 			E.db.locplus.lpfontflags = 'OUTLINE'
 			E.db.locplus.ttrecinst = false
-			E.db.locplus.ht = true
+			E.db.locplus.ht = false
 			E.db.locplus.displayOther = 'NONE'
-			E.db.locplus.profcap = true
+			E.db.locplus.profcap = false
 			E.db.locplus.shadow = true
 			E.db.locplus.customCoordsColor = 1
 			E.db.locplus.dig = false
