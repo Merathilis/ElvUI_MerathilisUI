@@ -5,8 +5,11 @@ local S = E:GetModule('Skins')
 
 -- Cache global variables
 local random = random
+
 local CreateFrame = CreateFrame
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
+local PlaySound = PlaySound
+local UIFrameFadeIn = UIFrameFadeIn
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos

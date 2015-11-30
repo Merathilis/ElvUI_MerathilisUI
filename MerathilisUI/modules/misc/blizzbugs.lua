@@ -1,7 +1,16 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.2.0-2-g2876c66
+-- Cache global variables
+local _G = _G
+local pairs, tonumber, type = pairs, tonumber, type
+
+local CreateFrame = CreateFrame
+local GetNumAddOns = GetNumAddOns
+local GetLocale = GetLocale
+local InCombatLockdown = InCombatLockdown
+local RegisterForClicks = RegisterForClicks
 
 local wow_version, wow_build, wow_data, tocversion = GetBuildInfo()
 wow_build = tonumber(wow_build)

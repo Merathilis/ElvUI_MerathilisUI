@@ -1,9 +1,16 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
-local pairs = pairs
 local _G = _G
+local pairs = pairs
+
+local EnableMouse = EnableMouse
+local SetMovable = SetMovable
+local SetClampedToScreen = SetClampedToScreen
+local RegisterForDrag = RegisterForDrag
+local StartMoving = StartMoving
+local StopMovingOrSizing = StopMovingOrSizing
 
 -- Move some Blizzard frames
 local frames = {
@@ -14,7 +21,7 @@ local frames = {
 	"ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame", "GameMenuFrame", 
 	"VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame", "BankFrame", "OpenMailFrame", 
 	"LootFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame", "StaticPopup1", 
-	"StaticPopup2", "MissingLootFrame", "ScrollOfResurrectionSelectionFrame", "AddonList",
+	"StaticPopup2", "MissingLootFrame", "ScrollOfResurrectionSelectionFrame", "AddonList"
 }
 
 for i, v in pairs(frames) do

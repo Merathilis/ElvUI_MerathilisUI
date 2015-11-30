@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local TT = E:GetModule('Tooltip');
 
@@ -6,7 +6,10 @@ local TT = E:GetModule('Tooltip');
 local _G = _G
 local select, type = select, type
 local find = string.find
+
 local CreateFrame = CreateFrame
+local GetItemIcon = GetItemIcon
+local GetSpellInfo = GetSpellInfo
 
 local function AddIcon(self, icon)
 	if not E.db.muiMisc.TooltipIcon then return end

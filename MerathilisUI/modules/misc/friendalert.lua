@@ -3,7 +3,13 @@ local MER = E:GetModule('MerathilisUI')
 
 -- Cache global variables
 local format = string.format
+
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
+local BNConnected = BNConnected
+local BNGetNumFriends = BNGetNumFriends
+local BNGetFriendInfo = BNGetFriendInfo
+local PlaySound = PlaySound
 
 -- Code taken from Battle.net Friend Alert by Clinton Caldwell
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end

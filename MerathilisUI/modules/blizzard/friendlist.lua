@@ -1,14 +1,23 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Class color guild/friends/etc list(yClassColor by Yleaf)
 
 -- Cache global variables
+local _G = _G
 local type, ipairs, pairs, unpack, select = type, ipairs, pairs, unpack, select
 local setmetatable = setmetatable
-local _G = _G
+local __index = __index
 local format, gsub = string.format, string.gsub
 local modf = math.modf
+local GetCVar = GetCVar
+local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
+local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
+local MAX_WORLDSTATE_SCORE_BUTTONS = MAX_WORLDSTATE_SCORE_BUTTONS
+local FRIENDS_BUTTON_TYPE_WOW = FRIENDS_BUTTON_TYPE_WOW
+local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
+local BATTLENET_NAME_FORMAT = BATTLENET_NAME_FORMAT
+local FRIENDS_WOW_NAME_COLOR_CODE = FRIENDS_WOW_NAME_COLOR_CODE
 
 local GUILD_INDEX_MAX = 12
 local SMOOTH = {1, 0, 0, 1, 1, 0, 0, 1, 0}

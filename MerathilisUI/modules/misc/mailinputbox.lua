@@ -2,9 +2,10 @@ local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
 -- Cache global variables
-local unpack = unpack
 local _G = _G
+local unpack = unpack
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Credits Tonyleila (Mail Inputbox Reziser)
 if IsAddOnLoaded("MailinputboxResizer") then return end
@@ -23,6 +24,7 @@ local moneyframe_pos = {
 
 local function MailInputBox()
 	if not E.db.muiMisc.MailInputbox then return end
+	
 	local c = SendMailCostMoneyFrame
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))

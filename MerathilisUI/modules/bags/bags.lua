@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local B = E:GetModule('Bags');
 
@@ -19,6 +19,6 @@ function B:PositionBagFrames()
 			self.BankFrame:SetPoint('TOPLEFT', 30, 30);
 		else
 			self.BankFrame:SetPoint('BOTTOMLEFT', 2, 24);
-		end		
+		end
 	end
 end

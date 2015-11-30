@@ -1,10 +1,21 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 -- Cache global variables
 local select = select
 local format = string.format
 local join = string.join
+
+local GetNumEquipmentSets = GetNumEquipmentSets
+local GetSpecialization = GetSpecialization
+local GetEquipmentSetInfo = GetEquipmentSetInfo
+local UseEquipmentSet = UseEquipmentSet
+local GetSpecializationInfo = GetSpecializationInfo
+local SetLootSpecialization = SetLootSpecialization
+local SetActiveSpecGroup = SetActiveSpecGroup
+local GetNumSpecGroups = GetNumSpecGroups
+local GetSpecializationInfoByID = GetSpecializationInfoByID
+local CreateFrame = CreateFrame
 
 local lastPanel, active
 local displayString = '';

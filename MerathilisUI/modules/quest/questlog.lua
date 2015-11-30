@@ -1,9 +1,16 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
-local pairs = pairs
 local _G = _G
+local pairs = pairs
+
+local GetQuestLink = GetQuestLink
+local GetQuestLogPushable = GetQuestLogPushable
+local AbandonQuest = AbandonQuest
+local IsModifiedClick = IsModifiedClick
+local IsControlKeyDown = IsControlKeyDown
+local IsAltKeyDown = IsAltKeyDown
 
 -- Quest level
 hooksecurefunc("QuestLogQuests_Update", function()

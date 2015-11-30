@@ -1,8 +1,9 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Hides the GarrisonAlertFrame when in combat (credits Sniffles)
 if IsAddOnLoaded("HideGarrisonAlertFrame") then return end

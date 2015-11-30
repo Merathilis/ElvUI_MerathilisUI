@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
@@ -6,6 +6,7 @@ local tostring = tostring
 local select = select
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
+local SetCVar = SetCVar
 local GetBattlefieldStatus = GetBattlefieldStatus
 local GetCategoryNumAchievements = GetCategoryNumAchievements
 local GetLFGDungeonInfo = GetLFGDungeonInfo
@@ -13,6 +14,7 @@ local GetLFGDungeonRewards = GetLFGDungeonRewards
 local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
+local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 
 -- Force readycheck warning
 local ShowReadyCheckHook = function(self, initiator)

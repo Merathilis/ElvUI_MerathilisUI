@@ -1,11 +1,10 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Import: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI');
+local AFK = E:GetModule('AFK');
+
 if not IsAddOnLoaded("ElvUI_BenikUI") then return end;
 
-local MER = E:GetModule('MerathilisUI');
-local AFK = E:GetModule('AFK')
-
 local SPACING = (E.PixelMode and 1 or 5)
-
 local classColor = RAID_CLASS_COLORS[E.myclass]
 
 AFK.InitializeMerAfk = AFK.Initialize

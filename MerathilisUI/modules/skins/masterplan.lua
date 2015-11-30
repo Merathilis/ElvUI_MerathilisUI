@@ -1,6 +1,10 @@
-local E, L, V, P, G, _ = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
+
+-- Cache global variables
+local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 
 if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
 if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
