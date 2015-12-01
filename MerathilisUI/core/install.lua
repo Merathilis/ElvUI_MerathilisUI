@@ -817,7 +817,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.debuffs.xOffset = 0
 			E.db.unitframe.units.raid.name.yOffset = -18
 			E.db.unitframe.units.raid.power.height = 2
-			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
+			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
 			-- Party
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 			E.db.unitframe.units.party.height = 30
@@ -847,7 +847,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
 			E.db.unitframe.units.party.roleIcon.size = 14
-			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 554, 221)
+			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				E.db.unitframe.units.party.portrait.overlay = true
 			end
