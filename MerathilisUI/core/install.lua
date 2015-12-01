@@ -555,6 +555,13 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
+		E.db.unitframe.units.party.portrait.enable = true
+		E.db.unitframe.units.party.portrait.overlay = false
+		E.db.unitframe.units.party.portrait.width = 40
+		E.db.unitframe.units.party.portrait.height = 0
+		E.db.unitframe.units.party.portrait.camDistanceScale = 0.8
+		E.db.unitframe.units.party.portrait.style = '3D'
+		E.db.unitframe.units.party.portrait.transparent = true
 		-- Party
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 30
@@ -567,13 +574,6 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.numrows = 2
 			E.db.unitframe.units.party.debuffs.perrow = 5
 			E.db.unitframe.units.party.debuffs.fontSize = 12
-			E.db.unitframe.units.party.portrait.enable = true
-			E.db.unitframe.units.party.portrait.overlay = false
-			E.db.unitframe.units.party.portrait.width = 40
-			E.db.unitframe.units.party.portrait.height = 0
-			E.db.unitframe.units.party.portrait.camDistanceScale = 0.8
-			E.db.unitframe.units.party.portrait.style = '3D'
-			E.db.unitframe.units.party.portrait.transparent = true
 			E.db.unitframe.units.party.showPlayer = true
 			E.db.unitframe.units.party.GPSArrow.size = 40
 			E.db.unitframe.units.party.health.position = 'RIGHT'
@@ -847,10 +847,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
 			E.db.unitframe.units.party.roleIcon.size = 14
+			E.db.unitframe.units.party.portrait.overlay = true
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
-			if IsAddOnLoaded("ElvUI_BenikUI") then
-				E.db.unitframe.units.party.portrait.overlay = true
-			end
 			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 110)
