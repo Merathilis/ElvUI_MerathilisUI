@@ -13,6 +13,8 @@ L[' Benik, Blazeflack, Azilroka, Elv and all other AddOn Authors who inspired me
 --L['Install'] = true -- translated in ElvUI
 --L['Run the installation process.'] = true -- translated in ElvUI
 --L['General'] = true -- translated in ElvUI
+--L['Bags'] = true -- translated in ElvUI
+L['This disable the forcing of the Bag Position.'] = "Dieses deaktiviert das Erzwingen der Taschen Position."
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"

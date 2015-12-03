@@ -8,6 +8,7 @@ P['mui'] = {
 P['muiGeneral'] = {
 	['LoginMsg'] = true,
 	['GameMenu'] = true,
+	['Bags'] = false,
 }
 
 P['muiMisc'] = {
