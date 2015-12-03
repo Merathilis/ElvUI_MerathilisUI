@@ -1,4 +1,4 @@
-<b><u> v1.09, xx.xx.xxxx</b></u>
+<b><u> v1.09, 03.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Cached WoW API & Functions (I have no idea what i'm doing 2.0).
 <font color=#FF8C00>&#9830;</font> Misc: Code cleanup
 <font color=#FF8C00>&#9830;</font> Bags: Add an Option to disable the forcing of the Bag-/Bank Frame position.
