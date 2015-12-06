@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
-local MERM = E:NewModule('BlizzOptionsMover', 'AceEvent-3.0')
 local S = E:GetModule('Skins')
 
 -- Cache global variables
@@ -160,12 +159,6 @@ function MER:GameMenu()
 	
 	GameMenuButtonKeybindings:ClearAllPoints()
 	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
-end
-
-function MERM:ADDON_LOADED(event, addon)
-	if addon == "Blizzard_BindingUI" then
-		self:UnregisterEvent(event)
-	end
 end
 
 function MER:LoadGameMenu()
