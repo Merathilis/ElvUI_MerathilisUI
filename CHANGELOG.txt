@@ -1,3 +1,7 @@
+<b><u> v1.10, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Misc: Add a versions check for ElvUI. If ElvUI is out of date = MerathilisUI don't load. ( So keep your ElvUI alway up to date D: )
+<font color=#FF8C00>&#9830;</font> ...
+
 <b><u> v1.09, 03.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Cached WoW API & Functions (I have no idea what i'm doing 2.0).
 <font color=#FF8C00>&#9830;</font> Misc: Code cleanup.
