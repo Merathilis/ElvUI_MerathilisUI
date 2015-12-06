@@ -7,12 +7,15 @@ local addon, ns = ...
 -- Cache global variables
 local format = string.format
 local pairs = pairs
+local tonumber = tonumber
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
+MER.ElvUIV = tonumber(E.version)
+MER.ElvUIB = tonumber(GetAddOnMetadata("MerathilisUI", "X-ElvVersion"))
 
 function MER:cOption(name)
 	local MER_COLOR = '|cffff7d0a%s |r'
@@ -58,7 +61,17 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("muisetup", "SetupUI")
 end
 
+function MER:MismatchText()
+	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIB)
+	return text
+end
+
 function MER:Initialize()
+	-- ElvUI versions check
+	if MER.ElvUIV < MER.ElvUIB then
+		E:StaticPopup_Show("VERSION_MISMATCH")
+		return -- If ElvUI Version is to outdated stop right here. So things dont get broken.
+	end
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()

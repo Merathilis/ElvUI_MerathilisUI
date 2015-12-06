@@ -7,6 +7,7 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
+## X-ElvVersion: 8.43
 
 developer\load_developer.xml
 libs\load_libs.xml
@@ -15,7 +16,6 @@ media\load_media.xml
 defaults\load_defaults.xml
 core\load_core.xml
 modules\load_modules.xml
- 
- 
+
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: MerathilisUI
