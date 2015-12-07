@@ -7,7 +7,7 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia
-## X-ElvVersion: 8.43
+## X-ElvVersion: 8.44
 
 developer\load_developer.xml
 libs\load_libs.xml
