@@ -18,7 +18,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = 'description',
-				name = L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] ..'\n\n'..MER:cOption(L['Credits:'])..L[' Benik, Blazeflack, Azilroka, Elv and all other AddOn Authors who inspired me.'],
+				name = L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] ..'\n\n'..MER:cOption(L['Credits:'])..L[' Benik, Blazeflack, Darth Predator, Azilroka, Elv and all other AddOn Authors who inspired me.'],
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga', 200, 100 end,
 				imageCoords = {0,0.99,0.01,0.99},

@@ -9,7 +9,7 @@ L[' is loaded.'] = " ist geladen."
 -- General Options
 L['by Merathilis (EU-Shattrath)'] = "von Merathilis (EU-Shattrath)"
 L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden."
-L[' Benik, Blazeflack, Azilroka, Elv and all other AddOn Authors who inspired me.'] = " Benik, Blazeflack, Azilroka, Elv und allen anderen AddOn-Autoren die mich inspiriert haben."
+L[' Benik, Blazeflack, Darth Predator, Azilroka, Elv and all other AddOn Authors who inspired me.'] = " Benik, Blazeflack, Darth Predator, Azilroka, Elv und allen anderen AddOn-Autoren die mich inspiriert haben."
 --L['Install'] = true -- translated in ElvUI
 --L['Run the installation process.'] = true -- translated in ElvUI
 --L['General'] = true -- translated in ElvUI
