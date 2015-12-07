@@ -1983,11 +1983,7 @@ function MER:SetupDts(role)
 			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'Gold'
 		end
 		
-		if IsAddOnLoaded('ElvUI_SystemDT') then
-			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'Improved System'
-		else
-			E.db.datatexts.panels.BuiMiddleDTPanel.left = 'System'
-		end
+		E.db.datatexts.panels.BuiMiddleDTPanel.left = 'MUI System'
 		E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
 	else
 		-- define the default ElvUI datatexts
@@ -1998,13 +1994,13 @@ function MER:SetupDts(role)
 		elseif role == 'healer' or 'dpsCaster' then
 			E.db.datatexts.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
 		end
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'Talent/Loot Specialization'
+		E.db.datatexts.panels.LeftChatDataPanel.left = 'MUI Talent/Loot Specialization'
 		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability'
 		
 		if IsAddOnLoaded('Skada') then
 			E.db.datatexts.panels.RightChatDataPanel.left = 'Skada'
 		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'System'
+			E.db.datatexts.panels.RightChatDataPanel.left = 'MUI System'
 		end
 		E.db.datatexts.panels.RightChatDataPanel.middle = 'Time'
 		E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
@@ -2012,7 +2008,7 @@ function MER:SetupDts(role)
 	
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['DataTexts Set']
-		InstallStepComplete:Show()		
+		InstallStepComplete:Show()
 		titleText[3].check:Show()
 	end
 	E:UpdateAll(true)
@@ -2029,7 +2025,7 @@ local function ResetAll()
 	InstallOption2Button:SetText('')
 	InstallOption3Button:Hide()
 	InstallOption3Button:SetScript('OnClick', nil)
-	InstallOption3Button:SetText('')	
+	InstallOption3Button:SetText('')
 	InstallOption4Button:Hide()
 	InstallOption4Button:SetScript('OnClick', nil)
 	InstallOption4Button:SetText('')
@@ -2076,7 +2072,7 @@ local function SetPage(PageNum)
 		f.Desc2:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
-		InstallOption1Button:SetText(L['Skip Process'])			
+		InstallOption1Button:SetText(L['Skip Process'])
 	elseif PageNum == 2 then
 		f.SubTitle:SetText(L['Layout'])
 		f.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
@@ -2119,12 +2115,12 @@ local function SetPage(PageNum)
 		f.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])			
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
-		InstallOption1Button:SetFormattedText("%s", L['Finished'])				
+		InstallOption1Button:SetFormattedText("%s", L['Finished'])
 		MERInstallFrame:Size(500, 400)
 		MERTitleFrame:Size(180, 400)
 		if InstallStepComplete then
 			InstallStepComplete.message = MER.Title..L['Installed']
-			InstallStepComplete:Show()		
+			InstallStepComplete:Show()
 		end
 	end
 end
@@ -2168,7 +2164,7 @@ function MER:SetupUI()
 				PlaySoundFile([[Sound\Interface\LevelUp.ogg]])
 				self.text:SetText(self.message)
 				UIFrameFadeOut(self, 3.5, 1, 0)
-				E:Delay(4, function() self:Hide() end)	
+				E:Delay(4, function() self:Hide() end)
 				self.message = nil
 			else
 				self:Hide()
@@ -2277,7 +2273,7 @@ function MER:SetupUI()
 		f.Option2:Hide()
 		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
 		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45) end)
-		E.Skins:HandleButton(f.Option2, true)		
+		E.Skins:HandleButton(f.Option2, true)
 		
 		f.Option3 = CreateFrame('Button', 'InstallOption3Button', f, 'UIPanelButtonTemplate')
 		f.Option3:StripTextures()
@@ -2287,7 +2283,7 @@ function MER:SetupUI()
 		f.Option3:Hide()
 		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45) end)
 		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
-		E.Skins:HandleButton(f.Option3, true)			
+		E.Skins:HandleButton(f.Option3, true)
 		
 		f.Option4 = CreateFrame('Button', 'InstallOption4Button', f, 'UIPanelButtonTemplate')
 		f.Option4:StripTextures()
@@ -2305,30 +2301,30 @@ function MER:SetupUI()
 			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) 
 		end)
 		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
-		E.Skins:HandleButton(f.Option4, true)			
+		E.Skins:HandleButton(f.Option4, true)
 		
 		f.SubTitle = f:CreateFontString(nil, 'OVERLAY')
-		f.SubTitle:FontTemplate(nil, 15, nil)		
+		f.SubTitle:FontTemplate(nil, 15, nil)
 		f.SubTitle:Point('TOP', 0, -40)
 		
 		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc1:FontTemplate()	
-		f.Desc1:Point('TOP', 0, -75)	
+		f.Desc1:Point('TOP', 0, -75)
 		f.Desc1:Width(f:GetWidth() - 40)
 		
 		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc2:FontTemplate()	
-		f.Desc2:Point('TOP', 0, -125)		
+		f.Desc2:Point('TOP', 0, -125)
 		f.Desc2:Width(f:GetWidth() - 40)
 		
 		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc3:FontTemplate()	
-		f.Desc3:Point('TOP', 0, -175)	
+		f.Desc3:Point('TOP', 0, -175)
 		f.Desc3:Width(f:GetWidth() - 40)
 		
 		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc4:FontTemplate()	
-		f.Desc4:Point('BOTTOM', 0, 75)	
+		f.Desc4:Point('BOTTOM', 0, 75)
 		f.Desc4:Width(f:GetWidth() - 40)
 		
 		local close = CreateFrame('Button', nil, f, 'UIPanelCloseButton')

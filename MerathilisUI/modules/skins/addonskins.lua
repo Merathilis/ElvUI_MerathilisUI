@@ -1,13 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+if not IsAddOnLoaded("AddOnSkins") then return; end
 local AS = unpack(AddOnSkins)
 
 -- Cache global variables
 local select, unpack = select, unpack
 
 local IsAddOnLoaded = IsAddOnLoaded
-
-if not IsAddOnLoaded("AddOnSkins") then return; end
 
 --Change some AddOnSkins defaults for ElvUI. Credit Blazeflack (AddOnSkinsTweaks)
 V["addonskins"]['EmbedSystemDual'] = true

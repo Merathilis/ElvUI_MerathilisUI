@@ -23,3 +23,12 @@ P['muiMisc'] = {
 P['muiSkins'] = {
 	['MasterPlan'] = true,
 }
+
+P['muiSystemDT'] = {
+	['maxAddons'] = 25,
+	['showFPS'] = true,
+	['showMS'] = true,
+	['latency'] = "home",
+	['showMemory'] = false,
+	['announceFreed'] = true
+}

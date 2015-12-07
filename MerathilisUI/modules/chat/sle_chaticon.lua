@@ -1,7 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local SLE = ElvUI_SLE[1]
-
 if not IsAddOnLoaded("ElvUI_SLE") then return end
+local SLE = ElvUI_SLE[1]
 
 -- Cache global variables
 local format = format

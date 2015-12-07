@@ -1,5 +1,7 @@
 <b><u> v1.10, xx.xx.xxxx</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Add a versions check for ElvUI. If ElvUI is out of date = MerathilisUI don't load. ( So keep your ElvUI alway up to date D: )
+<font color=#FF8C00>&#9830;</font> Install: Fix a few install errors if ElvUI_SLE or AddOnSkins are not enable.
+<font color=#FF8C00>&#9830;</font> Datatext: Add a MUI System Datatext. (Credits Lockslap - ElvUI_SystemDT)
 <font color=#FF8C00>&#9830;</font> ...
 
 <b><u> v1.09, 03.12.2015</b></u>
