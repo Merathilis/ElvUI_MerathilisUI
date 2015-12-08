@@ -15,6 +15,7 @@ L[' Benik, Blazeflack, Darth Predator, Azilroka, Elv and all other AddOn Authors
 --L['General'] = true -- translated in ElvUI
 --L['Bags'] = true -- translated in ElvUI
 L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = true
+L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
