@@ -28,7 +28,6 @@ L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktivi
 -- MasterPlan
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
-
 L['Misc'] = "Verschiedenes"
 -- Screenshot
 L['Screenshot'] = "Bildschirmfoto"
@@ -93,6 +92,9 @@ L["Total CPU:"] = "Gesamte CPU:"
 L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
+-- Loot
+L["Loot Icon"] = "Beute Symbol"
+L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol von einem Gegenstand, dass erbeutet/hergestellt wurde neben der Nachricht im Chat. Beeinflusst nicht die normalen Chatnachrichten."
 
 -- Install
 L['Welcome'] = "Willkommen"

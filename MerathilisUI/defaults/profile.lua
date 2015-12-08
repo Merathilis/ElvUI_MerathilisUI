@@ -32,3 +32,11 @@ P['muiSystemDT'] = {
 	['showMemory'] = false,
 	['announceFreed'] = true
 }
+
+P['muiLoot'] = {
+	['lootIcon'] = {
+		['enable'] = false,
+		['position'] = 'LEFT',
+		['size'] = 12,
+	},
+}
