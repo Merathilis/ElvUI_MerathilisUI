@@ -1,3 +1,7 @@
+<b><u> v1.11, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Config: Move the Datatext options to an own group.
+<font color=#FF8C00>&#9830;</font> ...
+
 <b><u> v1.10, 07.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Add a versions check for ElvUI. If ElvUI is out of date = MerathilisUI don't load. ( So keep your ElvUI alway up to date D: )
 <font color=#FF8C00>&#9830;</font> GameMenu: Remove an unused Function.
