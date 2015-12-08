@@ -15,7 +15,15 @@ MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
 MER.ElvUIV = tonumber(E.version)
-MER.ElvUIB = tonumber(GetAddOnMetadata("MerathilisUI", "X-ElvVersion"))
+MER.ElvUIX = tonumber(GetAddOnMetadata("MerathilisUI", "X-ElvVersion"))
+
+MER.roleIcons = {
+	["SVUI"] = {
+		TANK = [[Interface\AddOns\MerathilisUI\media\textures\roleIcons\svui-tank]],
+		HEALER = [[Interface\AddOns\MerathilisUI\media\textures\roleIcons\svui-healer]],
+		DAMAGER = [[Interface\AddOns\Merathilis\media\textures\roleIcons\svui-dps]]
+	},
+}
 
 function MER:cOption(name)
 	local MER_COLOR = '|cffff7d0a%s |r'
@@ -62,13 +70,13 @@ function MER:LoadCommands()
 end
 
 function MER:MismatchText()
-	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIB)
+	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text
 end
 
 function MER:Initialize()
 	-- ElvUI versions check
-	if MER.ElvUIV < MER.ElvUIB then
+	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
