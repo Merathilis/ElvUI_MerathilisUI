@@ -2,7 +2,7 @@
 <font color=#FF8C00>&#9830;</font> Config: Move the Datatext options to an own group.
 <font color=#FF8C00>&#9830;</font> Core: Add Roleicons from SVUI (Credit Munglunch) taken from ElvUI_SLE.
 <font color=#FF8C00>&#9830;</font> Core: Change the versions check a bit.
-<font color=#FF8C00>&#9830;</font> ...
+<font color=#FF8C00>&#9830;</font> Loot: Add an Icon near looted/crafted Items in Chat. (stolen from Darth Predator - S&L) *muhahaha*
 
 <b><u> v1.10, 07.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Add a versions check for ElvUI. If ElvUI is out of date = MerathilisUI don't load. ( So keep your ElvUI alway up to date D: )
