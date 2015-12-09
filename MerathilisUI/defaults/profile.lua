@@ -36,7 +36,7 @@ P['muiSystemDT'] = {
 P['muiLoot'] = {
 	['lootIcon'] = {
 		['enable'] = false,
-		['position'] = 'LEFT',
+		['position'] = 'RIGHT',
 		['size'] = 12,
 	},
 }

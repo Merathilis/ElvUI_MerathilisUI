@@ -1,11 +1,13 @@
-local E, L, V, P, G = unpack(ElvUI)
+local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local MERLT = E:NewModule('MuiLoot', 'AceHook-3.0', 'AceEvent-3.0')
 
+-- Credits belong to Darth Predator (ElvUI_SLE)
 -- Cache global variables
 local gsub = gsub
 local GetItemIcon = GetItemIcon
 
-function MER:AddLootIcons(event, message, ...)
+function MERLT:AddLootIcons(event, message, ...)
 	local function IconForLink(link)
 		local texture = GetItemIcon(link)
 		return (E.db.muiLoot.lootIcon.position == "LEFT") and "\124T" .. texture .. ":" .. E.db.muiLoot.lootIcon.size .. "\124t" .. link or link .. "\124T" .. texture .. ":" .. E.db.muiLoot.lootIcon.size .. "\124t"
@@ -14,16 +16,18 @@ function MER:AddLootIcons(event, message, ...)
 	return false, message, ...
 end
 
-function MER:LootIconToogle()
+function MERLT:LootIconToggle()
 	if E.db.muiLoot.lootIcon.enable then
-		ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", MER.AddLootIcons)
+		ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", MERLT.AddLootIcons)
 	else
-		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_LOOT", MER.AddLootIcons)
+		ChatFrame_RemoveMessageEventFilter("CHAT_MSG_LOOT", MERLT.AddLootIcons)
 	end
 end
 
-function MER:LoadLoot()
-	if E.db.muiLoot.lootIcon then
-		self:LootIconToogle()
+function MERLT:Initialize()
+	if E.db.muiLoot.lootIcon.enable then
+		MERLT:LootIconToggle()
 	end
 end
+
+E:RegisterModule(MERLT:GetName())

@@ -83,7 +83,6 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()
-	self:LoadLoot()
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
