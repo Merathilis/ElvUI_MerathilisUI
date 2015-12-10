@@ -95,6 +95,10 @@ L["World Latency:"] = "Weltlatenz"
 -- Loot
 L["Loot Icon"] = "Beute Symbol"
 L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol von einem Gegenstand, dass erbeutet/hergestellt wurde neben der Nachricht im Chat. Beeinflusst nicht die normalen Chatnachrichten."
+L["Channels"] = "Kanäle"
+L["Private channels"] = "Private Kanäle"
+L["Incoming"] = "Eingehend"
+L["Outgoing"] = "Ausgehend"
 
 -- Install
 L['Welcome'] = "Willkommen"

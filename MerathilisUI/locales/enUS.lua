@@ -95,6 +95,10 @@ L["World Latency:"] = true
 -- Loot
 L["Loot Icon"] = true
 L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = true
+L["Channels"] = true
+L["Private channels"] = true
+L["Incoming"] = true
+L["Outgoing"] = true
 
 -- Install
 L['Welcome'] = true
