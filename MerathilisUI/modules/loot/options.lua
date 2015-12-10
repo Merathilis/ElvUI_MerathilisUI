@@ -4,6 +4,7 @@ local MERLT = E:GetModule('MuiLoot');
 
 local _G = _G
 local tinsert = table.insert
+local gsub = gsub
 local CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM = CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM
 
 local function muiLoot()
