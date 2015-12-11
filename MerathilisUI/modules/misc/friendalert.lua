@@ -25,10 +25,11 @@ local icons = {
 	["Hero"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-HotS:14|t",
 	["S2"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-SC2:14|t",
 	["CLNT"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
-	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Pro:14|t" -- Overwatch Icon not working yet!
+	--["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Pro:14|t" -- Overwatch Icon not working yet!
 };
 
 -- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
+--[[
 BNET_CLIENT_WOW = "WoW";
 BNET_CLIENT_SC2 = "S2";
 BNET_CLIENT_D3 = "D3";
@@ -37,6 +38,7 @@ BNET_CLIENT_APP = "App";
 BNET_CLIENT_HEROES = "Hero";
 BNET_CLIENT_OVERWATCH = "Pro";
 BNET_CLIENT_CLNT = "CLNT";
+]]--
 
 local function BNPlayerLink(presenceName, presenceID)
 	return format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
