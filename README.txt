@@ -57,7 +57,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
-<font color=#FF8C00>&#9830;</font> Reminder, show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka - ElvUI_Reminder)
+<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>NEW:</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
 <font color=#FF8C00>&#9830;</font> Profiles for: xCT+, BigWigs, Skada. You must select the "MerathilisUI" Profile in the AddOns.
 
 <font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>

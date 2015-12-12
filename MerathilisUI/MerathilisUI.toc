@@ -1,7 +1,7 @@
 ## Interface: 60200
 ## Author: Merathilis
 ## Credits: Benik, Blazeflack, Azilroka, Darth Predator, Elv & all AddOn Authors who inspired me
-## Version: 1.10
+## Version: 1.11
 ## Title: |cff1784d1MerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## RequiredDeps: ElvUI
