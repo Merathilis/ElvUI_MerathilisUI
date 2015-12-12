@@ -75,11 +75,11 @@ G['reminder']['filters'] = {
 		},
 	},
 	HUNTER = {
-		["Aspects"] = {	-- Aspect of the Pack group
+		["Aspects of the Pack"] = {	-- Aspect of the Pack group
 			["spellGroup"] = {
 				[13159] = true, -- Aspect of the Pack
-				[5118] = true, -- Aspect of the Cheetah
 			},
+			["personal"] = true,
 			["combat"] = true,
 			["instance"] = true,
 			["pvp"] = true,
