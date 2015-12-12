@@ -1,32 +1,40 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local R = E:GetModule('Reminder');
-
-----------------------------------------------------------------------------------------
---[[------------------------------------------------------------------------------------
+--[[
 	Spell Reminder Arguments
-
+	
+	General:
+		enable - turn the reminder off and on.
+		strictFilter - allow the use of spells that are not actually in your spellbook (Spell Procs)
+		disableSound - Don't play the warning sound.
+		
 	Type of Check:
-		spells - List of spells in a group, if you have anyone of these spells the icon will hide.
-
+		spellGroup - List of spells in a group, if you have anyone of these spells the icon will hide.
+		weaponCheck - Run a weapon enchant check instead of a spell check
+		CDSpell - Run checks to see if a spell is on cooldown or not.
+		
 	Spells only Requirements:
-		negate_spells - List of spells in a group, if you have anyone of these spells the icon will immediately hide and stop running the spell check (these should be other peoples spells)
-		personal - like a negate_spells but only for your spells
-		reverseCheck - only works if you provide a role or a spec, instead of hiding the frame when you have the buff, it shows the frame when you have the buff
-		negate_reversecheck - if reverseCheck is set you can set a spec to not follow the reverse check
-
-	Requirements:
+		negateGroup - List of spells in a group, if you have anyone of these spells the icon will immediately hide and stop running the spell check (these should be other peoples spells)
+		reverseCheck - only works if you provide a role or a tree, instead of hiding the frame when you have the buff, it shows the frame when you have the buff, doesn't work with weapons
+		talentTreeException - if reverseCheck is set you can set a talent tree to follow the reverse check if not set then all trees follow the reverse check, doesn't work with weapons
+	
+	Cooldown only Requirements:
+		OnCooldown - Set to "SHOW or "HIDE".
+	
+	Requirements: (These work for both spell and weapon checks)
 		role - you must be a certain role for it to display (Tank, Melee, Caster)
-		spec - you must be active in a specific spec for it to display (1, 2, 3) note: spec order can be viewed from top to bottom when you open your talent pane
-		level - the minimum level you must be (most of the time we don't need to use this because it will register the spell learned event if you don't know the spell, but in some cases it may be useful)
-
+		tree - you must be active in a specific talent tree for it to display ([1] = true, [2] = true, [3] = true, [4] = true) note: tree order can be viewed from top to bottom when you open your talent pane
+		minLevel - the minimum level you must be (most of the time we don't need to use this because it will register the spell learned event if you don't know the spell, but in the case of weapon enchants this is useful)
+		personal - aura must come from the player
+		
 	Additional Checks: (Note we always run a check when gaining/losing an aura)
 		instance - check when entering a party/raid instance
 		pvp - check when entering a bg/arena
 		combat - check when entering combat
 
 	For every group created a new frame is created, it's a lot easier this way.
-]]--------------------------------------------------------------------------------------
+]]
 
 G['reminder']['filters'] = {
 	DEATHKNIGHT = {
@@ -106,7 +114,7 @@ G['reminder']['filters'] = {
 				[1459] = true,	-- Arcane Brilliance
 				[61316] = true,	-- Dalaran Brilliance
 			},
-			["negate_spells"] = {
+			["negateGroup"] = {
 				[126309] = true,	-- Still Water (Water Strider)
 				[128433] = true,	-- Serpent's Cunning (Serpent)
 				[90364] = true,	-- Qiraji Fortitude (Silithid)
