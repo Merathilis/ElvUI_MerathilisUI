@@ -3,18 +3,20 @@ local MER = E:GetModule('MerathilisUI');
 local R = E:NewModule('Reminder', 'AceTimer-3.0');
 local LSM = LibStub('LibSharedMedia-3.0');
 
--- Code taken from ElvUI_Reminders by Azilroka
+-- Cache global variables
+local pairs, type, select = pairs, type, select
+local IsAddOnLoaded = IsAddOnLoaded
+local GetSpellInfo = GetSpellInfo
+local GetSpellCooldown = GetSpellCooldown
+local GetSpecialization = GetSpecialization
 
+-- Code taken from ElvUI_Reminders by Azilroka
+if IsAddOnLoaded("ElvUI_Reminder") then return end
 R.CreatedReminders = {};
 
 E.Reminder = R
 
 G['reminder'] = {};
-
-V['reminder'] = {
-	['enable'] = true,
-	['sound'] = "Warning",
-}
 
 local HAND_OF_LIGHT = GetSpellInfo(96172);
 local SPELL_POWER_HOLY_POWER = SPELL_POWER_HOLY_POWER;
