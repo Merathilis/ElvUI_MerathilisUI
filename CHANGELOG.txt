@@ -1,3 +1,6 @@
+<b><u> v1.12a, 12.12.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Reminder: Another fix on the Reminder.
+
 <b><u> v1.12, 12.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Reminder: Fix a little Typo. Whooops ;)
 
