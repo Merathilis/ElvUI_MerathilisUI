@@ -12,8 +12,8 @@ local R = E:GetModule('Reminder');
 	Spells only Requirements:
 		negate_spells - List of spells in a group, if you have anyone of these spells the icon will immediately hide and stop running the spell check (these should be other peoples spells)
 		personal - like a negate_spells but only for your spells
-		reversecheck - only works if you provide a role or a spec, instead of hiding the frame when you have the buff, it shows the frame when you have the buff
-		negate_reversecheck - if reversecheck is set you can set a spec to not follow the reverse check
+		reverseCheck - only works if you provide a role or a spec, instead of hiding the frame when you have the buff, it shows the frame when you have the buff
+		negate_reversecheck - if reverseCheck is set you can set a spec to not follow the reverse check
 
 	Requirements:
 		role - you must be a certain role for it to display (Tank, Melee, Caster)
@@ -48,7 +48,7 @@ G['reminder']['filters'] = {
 			},
 			["role"] = "Tank",
 			["instance"] = true,
-			["reversecheck"] = true,
+			["reverseCheck"] = true,
 			["enable"] = true,
 			["strictFilter"] = true,
 		},
@@ -166,7 +166,7 @@ G['reminder']['filters'] = {
 			},
 			["role"] = "Tank",
 			["instance"] = true,
-			["reversecheck"] = true,
+			["reverseCheck"] = true,
 			["negate_reversecheck"] = 1,	-- Holy paladins use RF sometimes
 			["enable"] = true,
 			["strictFilter"] = true,
