@@ -87,6 +87,18 @@ G['reminder']['filters'] = {
 			["strictFilter"] = true,
 			["reverseCheck"] = true,
 		},
+		["Aspect of the Cheetah"] = { -- Aspect of the Cheetah group
+			["spellGroup"] = {
+				[5118] = true, -- Aspect of the Pack
+			},
+			["personal"] = true,
+			["combat"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["enable"] = true,
+			["strictFilter"] = true,
+			["reverseCheck"] = true,
+		},
 	},
 	MAGE = {
 		["Brilliance"] = {	-- Brilliance group
