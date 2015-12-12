@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 
-V['mui'] = {
-	
+V['reminder'] = {
+	['enable'] = true,
+	['sound'] = "Warning",
 }

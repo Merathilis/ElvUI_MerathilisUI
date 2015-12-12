@@ -1,44 +1,66 @@
 local E, L, V, P, G = unpack(ElvUI);
 
--- Core
+----------------------------------------------------------------------------------------
+--	Core options
+----------------------------------------------------------------------------------------
 P['mui'] = {
 	['installed'] = nil,
 }
 
+----------------------------------------------------------------------------------------
+--	General options
+----------------------------------------------------------------------------------------
+
 P['muiGeneral'] = {
-	['LoginMsg'] = true,
-	['GameMenu'] = true,
-	['Bags'] = true,
+	['LoginMsg'] = true, -- Enable welcome message in chat
+	['GameMenu'] = true, -- Enable the Styles GameMenu
+	['Bags'] = true, -- Enable the forcing of the Bag/Bank Position to the Datatext
 }
+
+----------------------------------------------------------------------------------------
+--	Misc options
+----------------------------------------------------------------------------------------
 
 P['muiMisc'] = {
-	['HideAlertFrame'] = true,
-	['MailInputbox'] = true,
-	['Screenshot'] = true,
-	['TooltipIcon'] = true,
-	['noDuel'] = false,
-	['FriendAlert'] = false,
+	['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
+	['MailInputbox'] = true, -- Resize the MailInputbox
+	['Screenshot'] = true, -- Automatically take a Screenshot on Archievement earned
+	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
+	['noDuel'] = false, -- Cancel Duell requests
+	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 }
+
+----------------------------------------------------------------------------------------
+--	Skins options
+----------------------------------------------------------------------------------------
 
 P['muiSkins'] = {
-	['MasterPlan'] = true,
+	['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
 }
 
+----------------------------------------------------------------------------------------
+--	System Datatext options
+----------------------------------------------------------------------------------------
+
 P['muiSystemDT'] = {
-	['maxAddons'] = 25,
-	['showFPS'] = true,
-	['showMS'] = true,
-	['latency'] = "home",
-	['showMemory'] = false,
-	['announceFreed'] = true
+	['maxAddons'] = 25, -- Sets how many Addons to show
+	['showFPS'] = true, -- Show Frames per seconds
+	['showMS'] = true, -- Show Ping
+	['latency'] = "home", -- Set the latency type ("home", "world")
+	['showMemory'] = false, -- Show Memory usage
+	['announceFreed'] = true -- Enable the Garbage Message in Chat
 }
+
+----------------------------------------------------------------------------------------
+--	Loot options
+----------------------------------------------------------------------------------------
 
 P['muiLoot'] = {
 	['lootIcon'] = {
-		['enable'] = false,
-		['position'] = 'RIGHT',
-		['size'] = 12,
-		["channels"] = {
+		['enable'] = false, -- Add a Icon to looted/crafted Items in Chat
+		['position'] = 'RIGHT', -- Set position ('LEFT', 'RIGHT')
+		['size'] = 12, -- Icon size
+		["channels"] = { -- Channels to show the Icon
 			["CHAT_MSG_BN_WHISPER"] = false,
 			["CHAT_MSG_BN_WHISPER_INFORM"] = false,
 			["CHAT_MSG_BN_CONVERSATION"] = false,
