@@ -75,7 +75,7 @@ G['reminder']['filters'] = {
 		},
 	},
 	HUNTER = {
-		["Aspects of the Pack"] = {	-- Aspect of the Pack group
+		["Aspect of the Pack"] = {	-- Aspect of the Pack group
 			["spellGroup"] = {
 				[13159] = true, -- Aspect of the Pack
 			},
