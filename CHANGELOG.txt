@@ -1,3 +1,6 @@
+<b><u> v1.13, xx.xx.2015</b></u>
+<font color=#FF8C00>&#9830;</font> Chat: Add a new Module "muiChat". For now, it only remove the Server Names in the System messages.
+
 <b><u> v1.12a, 12.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Reminder: Another fix on the Reminder.
 
