@@ -56,7 +56,6 @@ G['reminder']['filters'] = {
 			},
 			["role"] = "Tank",
 			["instance"] = true,
-			["reverseCheck"] = true,
 			["enable"] = true,
 			["strictFilter"] = true,
 		},
