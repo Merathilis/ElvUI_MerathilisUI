@@ -706,20 +706,22 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.arena.power.width = 'inset'
 		-- Boss
 		E.db.unitframe.units.boss.castbar.latency = true
-		E.db.unitframe.units.boss.castbar.width = 190
+		E.db.unitframe.units.boss.castbar.width = 156
+		E.db.unitframe.units.boss.castbar.height = 12
 		E.db.unitframe.units.boss.buffs.sizeOverride = 26
 		E.db.unitframe.units.boss.buffs.yOffset = -1
 		E.db.unitframe.units.boss.buffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.boss.debuffs.yOffset = 2
 		E.db.unitframe.units.boss.debuffs.perrow = 5
-		E.db.unitframe.units.boss.portrait.enable = true
+		E.db.unitframe.units.boss.portrait.enable = false
 		E.db.unitframe.units.boss.power.height = 2
 		E.db.unitframe.units.boss.power.position = 'LEFT'
 		E.db.unitframe.units.boss.name.xOffset = 6
 		E.db.unitframe.units.boss.name.yOffset = 16
 		E.db.unitframe.units.boss.name.position = 'RIGHT'
-		E.db.unitframe.units.boss.width = 190
+		E.db.unitframe.units.boss.width = 156
 		E.db.unitframe.units.boss.height = 26
+		E.db.unitframe.units.boss.spacing = 27
 		E.db.unitframe.units.boss.threatStyle = 'BORDERS'
 		E.db.unitframe.units.boss.health.position = 'RIGHT'
 		-- PetTarget
@@ -782,7 +784,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
 			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -181, -408)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -214, -391)
 			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
