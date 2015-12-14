@@ -357,7 +357,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
 		E.db.unitframe.units.player.health.xOffset = -3
 		E.db.unitframe.units.player.health.yOffset = -26
-		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent] - [health:current]'
+		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent_short] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
 		E.db.unitframe.units.player.power.yOffset = -26
 		E.db.unitframe.units.player.power.height = 2
@@ -406,7 +406,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Name1.text_format = '[difficultycolor][level] [namecolor][smartclass]'
 		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
 		E.db.unitframe.units.target.health.xOffset = 6
-		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:percent] - [health:current]'
+		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:current] - [health:percent_short]'
 		E.db.unitframe.units.target.health.yOffset = -26
 		E.db.unitframe.units.target.portrait.width = 43
 		E.db.unitframe.units.target.portrait.rotation = 0
