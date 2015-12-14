@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule('MerathilisUI')
 local ElvUF = ElvUI.oUF
 
 ElvUF.Tags.Events['health:percent_short'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
@@ -8,6 +9,6 @@ ElvUF.Tags.Methods['health:percent_short'] = function(unit)
 	if (status) then
 		return status
 	else
-		return E:GetFormattedText('PERCENT_SHORT', UnitHealth(unit), UnitHealthMax(unit))
+		return MER:GetFormattedText('PERCENT_SHORT', UnitHealth(unit), UnitHealthMax(unit))
 	end
 end

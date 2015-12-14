@@ -1,9 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI')
 
 --Cache global variables
 local format = string.format
---WoW API / Variables
-
 
 local styles = {
 	['CURRENT'] = '%s',
@@ -15,7 +14,7 @@ local styles = {
 	['DEFICIT'] = '-%s'
 }
 
-function E:GetFormattedText(style, min, max)
+function MER:GetFormattedText(style, min, max)
 	assert(styles[style], 'Invalid format style: '..style)
 	assert(min, 'You need to provide a current value. Usage: E:GetFormattedText(style, min, max)')
 	assert(max, 'You need to provide a maximum value. Usage: E:GetFormattedText(style, min, max)')
@@ -29,7 +28,7 @@ function E:GetFormattedText(style, min, max)
 		if deficit <= 0 then
 			return ''
 		else
-			return format(useStyle, E:ShortValue(deficit))
+			return format(useStyle, deficit)
 		end
 	elseif style == 'PERCENT' then
 		local s = format(useStyle, min / max * 100)
@@ -39,14 +38,14 @@ function E:GetFormattedText(style, min, max)
 		s = s:gsub(".0%%", "%%")
 		return s
 	elseif style == 'CURRENT' or ((style == 'CURRENT_MAX' or style == 'CURRENT_MAX_PERCENT' or style == 'CURRENT_PERCENT') and min == max) then
-		return format(styles['CURRENT'],  E:ShortValue(min))
+		return format(styles['CURRENT'], min)
 	elseif style == 'CURRENT_MAX' then
-		return format(useStyle,  E:ShortValue(min), E:ShortValue(max))
+		return format(useStyle, min, max)
 	elseif style == 'CURRENT_PERCENT' then
-		local s = format(useStyle, E:ShortValue(min), min / max * 100)
+		local s = format(useStyle, min, format("%.1f", min / max * 100))
 		return s
 	elseif style == 'CURRENT_MAX_PERCENT' then
-		local s = format(useStyle, E:ShortValue(min), E:ShortValue(max), min / max * 100)
+		local s = format(useStyle, min, max, format("%.1f", min / max * 100))
 		return s
 	end
 end
