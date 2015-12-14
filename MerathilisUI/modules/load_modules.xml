@@ -9,4 +9,5 @@
 	<Include file="reminder\load_reminder.xml"/>
 	<Include file="skins\load_skins.xml"/>
 	<Include file="tooltip\load_tooltip.xml"/>
+	<Include file="unitframes\load_unitframes.xml"/>
 </Ui>

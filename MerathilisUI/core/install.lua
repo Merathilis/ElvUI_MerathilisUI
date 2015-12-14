@@ -710,7 +710,8 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.boss.castbar.height = 12
 		E.db.unitframe.units.boss.buffs.sizeOverride = 26
 		E.db.unitframe.units.boss.buffs.yOffset = -1
-		E.db.unitframe.units.boss.buffs.anchorPoint = 'RIGHT'
+		E.db.unitframe.units.boss.buffs.anchorPoint = 'LEFT'
+		E.db.unitframe.units.boss.debuffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.boss.debuffs.yOffset = 2
 		E.db.unitframe.units.boss.debuffs.perrow = 5
 		E.db.unitframe.units.boss.portrait.enable = false
@@ -722,8 +723,10 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.boss.width = 156
 		E.db.unitframe.units.boss.height = 26
 		E.db.unitframe.units.boss.spacing = 27
-		E.db.unitframe.units.boss.threatStyle = 'BORDERS'
+		E.db.unitframe.units.boss.growthDirection = 'UP'
+		E.db.unitframe.units.boss.threatStyle = 'HEALTHBORDER'
 		E.db.unitframe.units.boss.health.position = 'RIGHT'
+		E.db.unitframe.units.boss.health.text_format = '[healthcolor][health:current] - [health:percent]'
 		-- PetTarget
 		E.db.unitframe.units.pettarget.power.width = 'inset'
 	end
@@ -770,7 +773,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 915, 96)
-			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 510, 130)
+			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -318, 32)
 			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
 			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
@@ -784,7 +787,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
 			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -214, -391)
+			SetMoverPosition('BossHeaderMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 451, 374)
 			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
@@ -1219,12 +1222,12 @@ local function SetupMERAddons()
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
 						["MerathilisUI"] = {
-							["posx"] = 796.821509323017,
-							["fontSize"] = 10.9999990463257,
+							["posx"] = 307.58,
+							["fontSize"] = 11,
 							["font"] = "Merathilis Prototype",
 							["fontOutline"] = "OUTLINE",
 							["lock"] = true,
-							["posy"] = 219.760042289181,
+							["posy"] = 130.87,
 						},
 					},
 				},
@@ -1239,14 +1242,14 @@ local function SetupMERAddons()
 				["BigWigs_Plugins_Messages"] = {
 					["profiles"] = {
 						["MerathilisUI"] = {
-							["BWEmphasizeMessageAnchor_x"] = 548.018613931999,
-							["BWEmphasizeCountdownMessageAnchor_x"] = 594.167263362324,
-							["BWMessageAnchor_x"] = 547.937125897879,
+							["BWEmphasizeMessageAnchor_x"] = 548.01,
+							["BWEmphasizeCountdownMessageAnchor_x"] = 594.17,
+							["BWMessageAnchor_x"] = 547.94,
 							["chat"] = false,
-							["BWEmphasizeCountdownMessageAnchor_y"] = 542.227131600485,
+							["BWEmphasizeCountdownMessageAnchor_y"] = 542.23,
 							["font"] = "Merathilis Prototype",
-							["BWEmphasizeMessageAnchor_y"] = 634.599967567738,
-							["BWMessageAnchor_y"] = 482.660092769766,
+							["BWEmphasizeMessageAnchor_y"] = 634.60,
+							["BWMessageAnchor_y"] = 482.66,
 							["growUpwards"] = true,
 							["fontSize"] = 20,
 						},
@@ -1256,10 +1259,10 @@ local function SetupMERAddons()
 					["profiles"] = {
 						["MerathilisUI"] = {
 							["fontSize"] = 20,
-							["width"] = 139.999969482422,
-							["posy"] = 245.263077730324,
+							["width"] = 140.00,
+							["posy"] = 129.35,
 							["lock"] = false,
-							["posx"] = 301.53977355616,
+							["posx"] = 908.83,
 							["sound"] = true,
 							["font"] = "Merathilis Prototype",
 						},
@@ -1277,20 +1280,20 @@ local function SetupMERAddons()
 							["outline"] = "OUTLINE",
 							["fontSize"] = 20,
 							["scale"] = 0.9,
-							["BigWigsAnchor_y"] = 143.539996791631,
+							["BigWigsAnchor_y"] = 139.94,
 							["emphasizeGrowup"] = true,
-							["BigWigsAnchor_x"] = 951.685603728169,
+							["BigWigsAnchor_x"] = 1131.91,
 							["texture"] = "MerathilisFlat",
 							["emphasizeTime"] = 14,
 							["barStyle"] = "AddOnSkins Half-Bar",
 							["monochrome"] = false,
-							["BigWigsEmphasizeAnchor_x"] = 445.301161921743,
+							["BigWigsEmphasizeAnchor_x"] = 497.56,
 							["font"] = "Merathilis Roadway",
-							["BigWigsEmphasizeAnchor_y"] = 188.360327821069,
+							["BigWigsEmphasizeAnchor_y"] = 155.55,
 							["fill"] = false,
-							["BigWigsAnchor_width"] = 363.885375976563,
-							["BigWigsEmphasizeAnchor_width"] = 532.931091308594,
-							["emphasizeScale"] = 1.1,
+							["BigWigsAnchor_width"] = 363.89,
+							["BigWigsEmphasizeAnchor_width"] = 532.93,
+							["emphasizeScale"] = 0.9,
 						},
 					},
 				},
