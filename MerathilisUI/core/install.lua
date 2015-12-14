@@ -403,7 +403,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Name1.xOffset = -42
 		E.db.unitframe.units.target.customTexts.Name1.size = 12
-		E.db.unitframe.units.target.customTexts.Name1.text_format = '[difficultycolor][level] [namecolor][smartclass]'
+		E.db.unitframe.units.target.customTexts.Name1.text_format = '[namecolor][smartclass] [difficultycolor][level]'
 		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
 		E.db.unitframe.units.target.health.xOffset = 6
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:current] - [health:percent_short]'
