@@ -65,6 +65,13 @@ local function AddOptions()
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					SplashScreen = {
+						order = 4,
+						type = 'toggle',
+						name = L['SplashScreen'],
+						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
+						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; end,
+					},
 				},
 			},
 			config = {

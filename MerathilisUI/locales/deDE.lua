@@ -14,6 +14,7 @@ L[' Benik, Blazeflack, Darth Predator, Azilroka, Elv and all other AddOn Authors
 --L['Run the installation process.'] = true -- translated in ElvUI
 --L['General'] = true -- translated in ElvUI
 --L['Bags'] = true -- translated in ElvUI
+L['SplashScreen'] = "Startbildschirm"
 L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = "Aktiviert/Deaktiviert das Erzwingen der Taschen/Bank Position"
 L['Options'] = "Einstellungen"
 L['CHAT_AFK'] = "[AFK]"

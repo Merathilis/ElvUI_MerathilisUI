@@ -1156,6 +1156,7 @@ local function SetupMERAddons()
 			E.db.bui.transparentDts = true
 			E.db.bui.garrisonCurrencyOil = true
 			E.db.bui.LoginMsg = false
+			E.db.bui.SplashScreen = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 1
 			E.db.dashboards.barColor = {r = color.r, g = color.g, b = color.b}
