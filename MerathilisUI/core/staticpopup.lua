@@ -4,7 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 -- Cache global variables
 local YES, OKAY, CLOSE = YES, OKAY, CLOSE
 
--- ElvUI Version check
+-- ElvUI Versions check
 E.PopupDialogs["VERSION_MISMATCH"] = {
 	text = MER:MismatchText(),
 	button1 = CLOSE,
