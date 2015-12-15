@@ -7,10 +7,10 @@ local CH = E:GetModule('Chat')
 local GetRealmName = GetRealmName
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
-function MERC:RemoveCurrentRealmName(self, event, msg, author, ...)
+function MERC:RemoveCurrentRealmName(self, msg, author, ...)
 	local realmName = string.gsub(GetRealmName(), " ", "")
 	
-	if msg:find("-" .. realmName) then
+	if msg and msg:find("-" .. realmName) then
 		return false, gsub(msg, "%-"..realmName, ""), author, ...
 	end
 end
