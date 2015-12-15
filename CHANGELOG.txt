@@ -4,7 +4,7 @@
 <font color=#FF8C00>&#9830;</font> Install: Adjust the BigWigs Profile a bit.
 <font color=#FF8C00>&#9830;</font> Reminder: Remove the reverseCheck for the Blood Presence.
 <font color=#FF8C00>&#9830;</font> Unitframes: Add a new Tag: 'health:percent_short' shows 100% instead of 100.0%.
-<font color=#FF8C00>&#9830;</font> Misc: Add a SplashScreen. (Stolen from Benik :p)
+<font color=#FF8C00>&#9830;</font> Misc: Add a SplashScreen. Can be disabled in the general options. (Stolen from Benik :p)
 
 <b><u> v1.12a, 12.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Reminder: Another fix on the Reminder.
