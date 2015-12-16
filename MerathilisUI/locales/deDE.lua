@@ -31,9 +31,6 @@ L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktivi
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
--- Screenshot
-L['Screenshot'] = "Bildschirmfoto"
-L['Takes an automatic Screenshot on Achievement earned.'] = "Macht ein automatisches Bildschirmfoto, wenn ein Erfolg erreicht wird."
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"

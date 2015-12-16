@@ -25,7 +25,6 @@ P['muiGeneral'] = {
 P['muiMisc'] = {
 	['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
 	['MailInputbox'] = true, -- Resize the MailInputbox
-	['Screenshot'] = true, -- Automatically take a Screenshot on Archievement earned
 	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
 	['noDuel'] = false, -- Cancel Duell requests
 	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games

@@ -102,16 +102,8 @@ local function muiMisc()
 				get = function(info) return E.db.muiMisc[ info[#info] ] end,
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
 			},
-			Screenshot = {
-				order = 2,
-				type = 'toggle',
-				name = L['Screenshot'],
-				desc = L['Takes an automatic Screenshot on Achievement earned.'],
-				get = function(info) return E.db.muiMisc[ info[#info] ] end,
-				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
-			},
 			HideAlertFrame = {
-				order = 3,
+				order = 2,
 				type = 'toggle',
 				name = L['Garrison Alert Frame'],
 				desc = L['Hides the Garrison Alert Frame while in combat.'],
@@ -119,7 +111,7 @@ local function muiMisc()
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			MailInputbox = {
-				order = 4,
+				order = 3,
 				type = 'toggle',
 				name = L['Mail Inputbox Resize'],
 				desc = L['Resize the Mail Inputbox and move the shipping cost to the Bottom'],
@@ -127,14 +119,14 @@ local function muiMisc()
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 			noDuel = {
-				order = 5,
+				order = 4,
 				type = 'toggle',
 				name = L['No Duel'],
 				get = function(info) return E.db.muiMisc[ info[#info] ] end,
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; end,
 			},
 			FriendAlert = {
-				order = 6,
+				order = 5,
 				type = 'toggle',
 				name = L['Battle.net Alert'],
 				desc = L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'],

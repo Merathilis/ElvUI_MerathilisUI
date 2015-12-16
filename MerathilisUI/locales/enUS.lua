@@ -31,9 +31,6 @@ L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
 L['Misc'] = true
--- Screenshot
-L['Screenshot'] = true
-L['Takes an automatic Screenshot on Achievement earned.'] = true
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
