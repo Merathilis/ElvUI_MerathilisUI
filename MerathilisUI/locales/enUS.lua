@@ -15,6 +15,7 @@ L[' Benik, Blazeflack, Darth Predator, Azilroka, Elv and all other AddOn Authors
 --L['General'] = true -- translated in ElvUI
 --L['Bags'] = true -- translated in ElvUI
 L['SplashScreen'] = true
+L['Enable/Disable the Splash Screen on Login.'] = true
 L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = true
 L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"

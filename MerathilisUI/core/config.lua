@@ -49,8 +49,16 @@ local function AddOptions()
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; end,	
 					},
-					GameMenu = {
+					SplashScreen = {
 						order = 2,
+						type = 'toggle',
+						name = L['SplashScreen'],
+						desc = L['Enable/Disable the Splash Screen on Login.'],
+						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
+						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; end,
+					},
+					GameMenu = {
+						order = 3,
 						type = 'toggle',
 						name = L['GameMenu'],
 						desc = L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'],
@@ -58,19 +66,12 @@ local function AddOptions()
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					Bags = {
-						order = 3,
+						order = 4,
 						type = 'toggle',
 						name = L['Bags'],
 						desc = L['Enable/Disable the forcing of the Bag/Bank Frame position.'],
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
-					SplashScreen = {
-						order = 4,
-						type = 'toggle',
-						name = L['SplashScreen'],
-						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
-						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; end,
 					},
 				},
 			},
