@@ -86,7 +86,7 @@ local function CreateSplashScreen()
 	f.bg = f:CreateTexture(nil, 'BACKGROUND')
 	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	f.bg:SetPoint('BOTTOM')
-	f.bg:Size(326, 103)
+	f.bg:Size(400, 240)
 	f.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	f.bg:SetVertexColor(1, 1, 1, 0.7)
 	

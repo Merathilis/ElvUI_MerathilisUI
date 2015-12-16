@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="addonskins.lua"/>
 	<Script file="masterplan.lua"/>
+	<Script file="skins.lua"/>
 </Ui>

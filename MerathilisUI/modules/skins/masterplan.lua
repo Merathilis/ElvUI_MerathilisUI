@@ -9,14 +9,14 @@ local IsAddOnLoaded = IsAddOnLoaded
 if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
 if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
 
--- Garrison Tab
+-- Garrison Tabs
 local function skinMasterPlanGarrison()
 	S:HandleTab(GarrisonMissionFrameTab3)
 	S:HandleTab(GarrisonMissionFrameTab4)
 	S:HandleTab(GarrisonLandingPageTab4)
 end
 
--- ShipYard Tab
+-- ShipYard Tabs
 local function skinMasterPlanShipyard()
 	S:HandleTab(GarrisonShipyardFrameTab3)
 end
