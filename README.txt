@@ -31,7 +31,8 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Download: <a href="http://www.tukui.org/storage/download.php?file=604MerathilisUI_Art.zip">MerathilisUI_ArtPack</a>
 
 <font color=#FF8C00><b>WeakAura Strings:</b></font>
-<font color=#FF8C00>&#9830;</font> <a href="http://pastebin.com/VZg670Tf">Boomkin CD's/ Proccs</a>
+<font color=#FF8C00>&#9830;</font> <a href="http://pastebin.com/qbQJXrha">MerathilisUI Boomkin</a>
+<a href='http://www.tukui.org/storage/viewer.php?id=154393wa.jpg'><img src='http://www.tukui.org/storage/thumbs/154393wa.jpg'></a>
 
 <font color=#FF8C00><b>Recommended Addons:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=128">AddOnSkins</a>
@@ -47,7 +48,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> A lot of the Frames are now movable. E.g. CharacterFrame, LFG Frame, GameMenu etc. ...
 <font color=#FF8C00>&#9830;</font> Styled and animated GameMenu.
 <font color=#FF8C00>&#9830;</font> Tooltip Icons for Items/Spells/Achievements.
-<font color=#FF8C00>&#9830;</font> Automatic Screenshot on Archievement earned by Sinaris.
+<font color=#FF8C00>&#9830;</font> Add new Tag: [health:percent_short] shows 100% instead of 100.0%
 <font color=#FF8C00>&#9830;</font> Hide Garrison Alert Frame if you are in Combat.
 <font color=#FF8C00>&#9830;</font> Resize the Mailinputbox and move the Shippingcost to the Bottom by Tonyleila.
 <font color=#FF8C00>&#9830;</font> ClassColor Names in the Friendlist and AFK/DND Text in the GuildFrame bye Yleaf.
