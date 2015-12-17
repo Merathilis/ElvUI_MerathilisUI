@@ -40,10 +40,13 @@ L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision 
 -- MailInputBox
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
--- Decline Duel
-L['INFO_DUEL'] = "Duellanfrage Ignoriert von "
-L['INFO_PET_DUEL'] = "Haustier Duellanfrage Ignoriert von "
-L['No Duel'] = "Kein Duel"
+-- PvP
+L["MER_DuelCancel_REGULAR"] = "Duel Anfrage von %s abgelehnt."
+L["MER_DuelCancel_PET"] = "Haustierkampf Duel von %s abgelehnt."
+L["Automatically cancel PvP duel requests."] = "Lehnt automatisch Duel Anfragen ab."
+L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duel Anfragen ab."
+L["Announce"] = "Ankündigung"
+L["Announce in chat if duel was rejected."] = "Kündigt im Chat an, wenn ein Duel abgelehnt wurde."
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"

@@ -26,7 +26,6 @@ P['muiMisc'] = {
 	['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
 	['MailInputbox'] = true, -- Resize the MailInputbox
 	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
-	['noDuel'] = false, -- Cancel Duell requests
 	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 }
 
@@ -82,5 +81,17 @@ P['muiLoot'] = {
 			["CHAT_MSG_WHISPER_INFORM"] = false,
 			["CHAT_MSG_YELL"] = false,
 		},
+	},
+}
+
+----------------------------------------------------------------------------------------
+--	PVP options
+----------------------------------------------------------------------------------------
+
+P['muiPVP'] = { -- Cancel Duel requests
+	['duels'] = {
+		['regular'] = false,
+		['pet'] = false,
+		['announce'] = false,
 	},
 }

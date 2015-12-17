@@ -7,6 +7,6 @@
 	<Script file="garrisonalertframe.lua"/>
 	<Script file="mailinputbox.lua"/>
 	<Script file="misc.lua"/>
-	<Script file="noduel.lua"/>
-	<Script file="tabbinder.lua"/>
+	<Script file="pvp.lua"/>
+	<Script file="options.lua"/>
 </Ui>

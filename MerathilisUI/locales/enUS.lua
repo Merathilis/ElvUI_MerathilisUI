@@ -40,10 +40,13 @@ L['Hides the Garrison Alert Frame while in combat.'] = true
 -- MailInputBox
 L['Mail Inputbox Resize'] = true
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
--- Decline Duel
-L['INFO_DUEL'] = "Declined duel request from "
-L['INFO_PET_DUEL'] = "Declined pet duel request from "
-L['No Duel'] = true
+-- PvP
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce"] = true
+L["Announce in chat if duel was rejected."] = true
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = true

@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local MERLT = E:GetModule('MuiLoot');
+local MERLT = E:GetModule('muiLoot');
 
 local _G = _G
 local tinsert = table.insert

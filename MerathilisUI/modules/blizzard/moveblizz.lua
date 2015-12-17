@@ -1,9 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local MER = E:GetModule('MerathilisUI')
+local B = E:NewModule('muiBlizzard', 'AceHook-3.0', 'AceEvent-3.0')
 
 -- Cache global variables
 local _G = _G
-local pairs = pairs
 
 local EnableMouse = EnableMouse
 local SetMovable = SetMovable
@@ -13,24 +13,72 @@ local StartMoving = StartMoving
 local StopMovingOrSizing = StopMovingOrSizing
 
 -- Move some Blizzard frames
-local frames = {
-	"CharacterFrame", "SpellBookFrame", "PVPFrame", "TaxiFrame", "QuestFrame", "PVEFrame",
-	"QuestLogFrame", "QuestLogDetailFrame", "MerchantFrame", "TradeFrame", "MailFrame",
-	"FriendsFrame", "CinematicFrame", "TabardFrame", "PVPBannerFrame", "PetStableFrame",
-	"GuildRegistrarFrame", "PetitionFrame", "HelpFrame", "GossipFrame", "DressUpFrame",
-	"ChatConfigFrame", "RaidBrowserFrame", "InterfaceOptionsFrame", "GameMenuFrame", 
-	"VideoOptionsFrame", "GuildInviteFrame", "ItemTextFrame", "BankFrame", "OpenMailFrame", 
-	"LootFrame", "StackSplitFrame", "MacOptionsFrame", "TutorialFrame", "StaticPopup1", 
-	"StaticPopup2", "MissingLootFrame", "ScrollOfResurrectionSelectionFrame", "AddonList"
+B.Frames = {
+	"AddonList",
+	"BankFrame",
+	"CharacterFrame",
+	"ChatConfigFrame",
+	"CinematicFrame",
+	"DressUpFrame",
+	"FriendsFrame",
+	"GameMenuFrame",
+	"GossipFrame",
+	"GuildInviteFrame",
+	"GuildRegistrarFrame",
+	"HelpFrame",
+	"InterfaceOptionsFrame",
+	"ItemTextFrame",
+	"LootFrame",
+	"MacOptionsFrame",
+	"MailFrame",
+	"MerchantFrame",
+	"MissingLootFrame",
+	"OpenMailFrame",
+	"PVEFrame",
+	"PVPBannerFrame",
+	"PVPFrame",
+	"PetStableFrame",
+	"PetitionFrame",
+	"QuestFrame",
+	"QuestLogDetailFrame",
+	"QuestLogFrame",
+	"RaidBrowserFrame",
+	"ScrollOfResurrectionSelectionFrame",
+	"SpellBookFrame",
+	"StackSplitFrame",
+	"StaticPopup1",
+	"StaticPopup2",
+	"TabardFrame",
+	"TaxiFrame",
+	"TradeFrame",
+	"TutorialFrame",
+	"VideoOptionsFrame",
 }
 
-for i, v in pairs(frames) do
-	if _G[v] then
-		_G[v]:EnableMouse(true)
-		_G[v]:SetMovable(true)
-		_G[v]:SetClampedToScreen(true)
-		_G[v]:RegisterForDrag("LeftButton")
-		_G[v]:SetScript("OnDragStart", function(self) self:StartMoving() end)
-		_G[v]:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+function B:Addons(event, addon)
+	if addon == "Blizzard_TradeSkillUI" then
+		_G["TradeSkillFrame"]:EnableMouse(true)
+		_G["TradeSkillFrame"]:SetMovable(true)
+		_G["TradeSkillFrame"]:SetClampedToScreen(true)
+		_G["TradeSkillFrame"]:RegisterForDrag("LeftButton")
+		_G["TradeSkillFrame"]:SetScript("OnDragStart", function(self) self:StartMoving() end)
+		_G["TradeSkillFrame"]:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 	end
+	B:UnregisterEvent(event)
 end
+
+function B:Initialize()
+	for i = 1, #B.Frames do
+		if _G[B.Frames[i]] then
+			_G[B.Frames[i]]:EnableMouse(true)
+			_G[B.Frames[i]]:SetMovable(true)
+			_G[B.Frames[i]]:SetClampedToScreen(true)
+			_G[B.Frames[i]]:RegisterForDrag("LeftButton")
+			_G[B.Frames[i]]:SetScript("OnDragStart", function(self) self:StartMoving() end)
+			_G[B.Frames[i]]:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+		end
+	end
+	self:RegisterEvent("ADDON_LOADED", "Addons")
+end
+
+E:RegisterModule(B:GetName())

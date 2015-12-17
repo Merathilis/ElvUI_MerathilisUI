@@ -75,6 +75,10 @@ function MER:MismatchText()
 	return text
 end
 
+function MER:Print(msg)
+	print(E["media"].hexvaluecolor..'MUI:|r', msg)
+end
+
 -- Splash Screen like BenikUI
 local function CreateSplashScreen()
 	local f = CreateFrame('Frame', 'SplashScreen', E.UIParent)

@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local MERLT = E:NewModule('MuiLoot', 'AceHook-3.0', 'AceEvent-3.0')
+local MERLT = E:NewModule('muiLoot', 'AceHook-3.0', 'AceEvent-3.0')
 
 -- Credits belong to Darth Predator (ElvUI_SLE)
 -- Cache global variables
