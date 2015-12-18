@@ -27,6 +27,9 @@ L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login
 -- GameMenu
 L['GameMenu'] = "Spielmenü"
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
+-- moveBlizz
+L['moveBlizz'] = true
+L['Make some Blizzard Frames movable.'] = "Erlaubt das Verschieben einiger Blizzardfenster."
 -- MasterPlan
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."

@@ -130,6 +130,7 @@ local function muiMisc()
 				order = 5,
 				type = 'toggle',
 				name = L['moveBlizz'],
+				desc = L['Make some Blizzard Frames movable.'],
 				get = function(info) return E.db.muiMisc[ info[#info] ] end,
 				set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},

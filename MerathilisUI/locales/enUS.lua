@@ -27,6 +27,9 @@ L['Enable/Disable the Login Message in Chat'] = true
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
+-- moveBlizz
+L['moveBlizz'] = true
+L['Make some Blizzard Frames movable.'] = true
 -- MasterPlan
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
