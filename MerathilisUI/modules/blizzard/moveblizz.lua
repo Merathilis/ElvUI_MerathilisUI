@@ -63,8 +63,8 @@ function B:Addons(event, addon)
 		_G["TradeSkillFrame"]:RegisterForDrag("LeftButton")
 		_G["TradeSkillFrame"]:SetScript("OnDragStart", function(self) self:StartMoving() end)
 		_G["TradeSkillFrame"]:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
+		B:UnregisterEvent(event)
 	end
-	B:UnregisterEvent(event)
 end
 
 function B:Initialize()
