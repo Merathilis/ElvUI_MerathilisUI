@@ -117,6 +117,7 @@ local function CreateSplashScreen()
 	f.version:FontTemplate(nil, 12, nil)
 	f.version:Point('TOP', f.logo, 'BOTTOM', 0, 30)
 	f.version:SetFormattedText("v%s", MER.Version)
+	f.version:SetTextColor(1, 0.5, 0.25, 1)
 end
 
 local function HideSplashScreen()
