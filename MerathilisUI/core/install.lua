@@ -135,6 +135,7 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.bar2.buttons = 12
 		E.db.actionbar.bar2.buttonsize = 28
 		E.db.actionbar.bar2.backdrop = false
+		E.db.actionbar.bar2.visibility = '[vehicleui][overridebar][petbattle][possessbar] hide; show'
 		E.db.actionbar.bar2.mouseover = false
 		E.db.actionbar.bar3.backdrop = true
 		E.db.actionbar.bar3.buttonsPerRow = 3
