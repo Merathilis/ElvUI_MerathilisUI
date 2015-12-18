@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI')
 local DT = E:GetModule("DataTexts")
 
 -- All Credits belong to Lockslap (ElvUI_SystemDT) --
@@ -226,16 +227,11 @@ local function Click(self, button)
 		Update(self, 20)
 		local postCollect = UpdateMemory()
 		if E.db.muiSystemDT.announceFreed then
-			DEFAULT_CHAT_FRAME:AddMessage(freedString:format(FormatMemory(preCollect - postCollect)), 1.0, 1.0, 1.0)
+			MER:Print(format(L["Garbage Collection Freed"]..(" |cff00ff00%s|r"):format(FormatMemory(preCollect - postCollect))))
 		end
 	elseif button == "RightButton" then
 		E:StaticPopup_Show("CONFIG_RL")
 	end
 end
-
-local function ValueColorUpdate(hex, r, g, b)
-	freedString = join("", hex, "ElvUI|r", " ", L["Garbage Collection Freed"], " ", "|cff00ff00%s|r")  
-end
-E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
 DT:RegisterDatatext("MUI System", nil, nil, Update, Click, OnEnter, OnLeave)
