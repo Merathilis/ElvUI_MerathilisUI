@@ -171,12 +171,14 @@ G['reminder']['filters'] = {
 			["spellGroup"] = {
 				[25780] = true,	-- Righteous Fury
 			},
-			["role"] = "Tank",
+			["role"] = "Any",
 			["instance"] = true,
 			["reverseCheck"] = true,
+			["talentTreeException"] = "Tank",
 			["negate_reversecheck"] = 1,	-- Holy paladins use RF sometimes
 			["enable"] = true,
 			["strictFilter"] = true,
+			["personal"] = true,
 		},
 		["Blessing of Kings"] = {	-- Blessing of Kings group
 			["spellGroup"] = {
