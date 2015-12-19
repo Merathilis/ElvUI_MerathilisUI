@@ -4,6 +4,6 @@ local E, L, V, P, G = unpack(ElvUI);
 --	Reminder options
 ----------------------------------------------------------------------------------------
 V['reminder'] = {
-	['enable'] = true,
+	['enable'] = false,
 	['sound'] = "Warning",
 }
