@@ -21,7 +21,9 @@ L['Options'] = "Einstellungen"
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
-L_MISC_SCROLL = "Rolle"
+L['MISC_SCROLL'] = "Rolle"
+L['Enchant on Scroll'] = "Verzauberung auf Rolle"
+L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = "Platziert einen Knopf in das Verzauberungsfenster, welches dir erlaubt automatisch eine Verzauberung auf eine Rolle zu wirken."
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"

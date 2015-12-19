@@ -21,7 +21,9 @@ L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
-L_MISC_SCROLL = "Scroll"
+L['MISC_SCROLL'] = "Scroll"
+L['Enchant on Scroll'] = true
+L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = true
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = true

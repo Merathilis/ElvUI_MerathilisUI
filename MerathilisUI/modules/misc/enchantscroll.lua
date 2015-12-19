@@ -14,10 +14,10 @@ local GetTradeSkillReagentInfo = GetTradeSkillReagentInfo
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(self, event, addon)
-	if IsAddOnLoaded("Blizzard_TradeSkillUI") and not IsAddOnLoaded("OneClickEnchantScroll") then
+	if IsAddOnLoaded("Blizzard_TradeSkillUI") and not IsAddOnLoaded("OneClickEnchantScroll") and E.db.muiMisc.enchantScroll then
 		local oldfunc = TradeSkillFrame_SetSelection
 		local button = CreateFrame("Button", "TradeSkillCreateScrollButton", TradeSkillFrame, "MagicButtonTemplate")
-		if E.private.skins.blizzard == true then
+		if E.private.skins.blizzard.tradeskill == true then
 			S:HandleButton(button)
 			button:StripTextures()
 			button:SetTemplate('Default', true)
@@ -43,7 +43,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					creatable = nil
 				end
 				local scrollnum = GetItemCount(38682)
-				TradeSkillCreateScrollButton:SetText(L_MISC_SCROLL.." ("..scrollnum..")")
+				TradeSkillCreateScrollButton:SetText(L['MISC_SCROLL'].." ("..scrollnum..")")
 				if scrollnum == 0 then
 					creatable = nil
 				end

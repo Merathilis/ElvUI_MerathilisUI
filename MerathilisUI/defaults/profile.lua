@@ -27,7 +27,8 @@ P['muiMisc'] = {
 	['MailInputbox'] = true, -- Resize the MailInputbox
 	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
 	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
-	['moveBlizz'] = true, -- Make Blizzards Frame movable.
+	['moveBlizz'] = true, -- Make Blizzards Frame movable
+	['enchantScroll'] = false, -- Place a button at the Enchant Trade Window
 }
 
 ----------------------------------------------------------------------------------------
