@@ -14,17 +14,9 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
-MER.Version = GetAddOnMetadata('MerathilisUI', 'Version') -- with this we get the addon version from toc file
+MER.Version = GetAddOnMetadata('MerathilisUI', 'Version')
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("MerathilisUI", "X-ElvVersion"))
-
-MER.roleIcons = {
-	["SVUI"] = {
-		TANK = [[Interface\AddOns\MerathilisUI\media\textures\roleIcons\svui-tank]],
-		HEALER = [[Interface\AddOns\MerathilisUI\media\textures\roleIcons\svui-healer]],
-		DAMAGER = [[Interface\AddOns\Merathilis\media\textures\roleIcons\svui-dps]]
-	},
-}
 
 function MER:cOption(name)
 	local MER_COLOR = '|cffff7d0a%s |r'
@@ -161,9 +153,6 @@ function MER:Initialize()
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
 	
-	-- if ElvUI installed and if in your profile the install is nil then run the SetupUI() function.
-	-- This is a check so that your setup won't run everytime you login
-	-- Enable it when you are done
 	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.bui.installed == nil then return end 
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end
 end

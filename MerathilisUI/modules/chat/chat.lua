@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI')
-local MERC = E:NewModule('MuiChat')
+local MERC = E:NewModule('muiChat')
 local CH = E:GetModule('Chat')
 
 -- Cache global variables
