@@ -3,6 +3,7 @@
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "moveBlizz" function and add Option for it.
 <font color=#FF8C00>&#9830;</font> Code Cleanup.
 <font color=#FF8C00>&#9830;</font> Datatext: Rewrite the print statement in the SystemDT.
+<font color=#FF8C00>&#9830;</font> Reminder: Change the filter for "Righteous Fury".
 
 <b><u> v1.13, 16.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Chat: Add a new Module "muiChat". For now, it only remove the Server Names in the System messages.
