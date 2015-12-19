@@ -21,6 +21,7 @@ L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
+L_MISC_SCROLL = "Scroll"
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = true
