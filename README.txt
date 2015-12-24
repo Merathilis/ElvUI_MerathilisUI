@@ -28,7 +28,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00><b>MerathilisUI Art Pack:</b></font>
 <font color=#FF8C00>&#9830;</font> A mix of some UI Art Packs i use for my MerathilisUI. (Credits belong to the Authors)
 <font color=#FF8C00>&#9830;</font> Please read the README.txt inside the ZIP Folder.
-<font color=#FF8C00>&#9830;</font> Download: <a href="http://www.tukui.org/storage/download.php?file=604MerathilisUI_Art.zip">MerathilisUI_ArtPack</a>
+<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>Update</font> Download: <a href="https://www.dropbox.com/s/fu5d65u3sa40nd1/MerathilisUI_ArtPack.zip?dl=0">MerathilisUI_ArtPack</a>
 
 <font color=#FF8C00><b>WeakAura Strings:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://pastebin.com/qbQJXrha">MerathilisUI Boomkin</a>
@@ -58,14 +58,14 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
-<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>NEW:</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
+<font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
 <font color=#FF8C00>&#9830;</font> Profiles for: xCT+, BigWigs, Skada. You must select the "MerathilisUI" Profile in the AddOns.
 
 <font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>
 
 <font color=#FF8C00><b>Credits:</b></font>
 <font color=#FF8C00>&#9830;</font> A big big thanks goes to <font color=#2E9AFE><b>Benik</font></b> who make this possible. He helped me so much, give him some Love <3
-<font color=#FF8C00>&#9830;</font> Elv, Blazeflack, Azilroka, DarthPredator, Sinaris, Tonyleila, Haleth and all AddOn Authors who inspired me and for their amazing Work.
+<font color=#FF8C00>&#9830;</font> Elv, DarthPredator, Blazeflack, Azilroka and all AddOn Authors who inspired me and for their amazing Work.
 
 <font color=#FF8C00><b>Known Issues:</b></font>
 <font color=#FF8C00>&#9830;</font> Overwatch Icon not show properly for Battle.net Alert.
