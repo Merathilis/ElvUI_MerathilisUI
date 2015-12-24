@@ -1,4 +1,4 @@
-<b><u> v1.14, xx.xx.xxxx</b></u>
+<b><u> v1.14, 24.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "Cancel Duel" function and move the Option for it in an own Tab.
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "moveBlizz" function and add Option for it.
 <font color=#FF8C00>&#9830;</font> Code Cleanup.
