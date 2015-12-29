@@ -334,7 +334,7 @@ function R:ReminderIcon_OnEvent(event, unit)
 		self:SetAlpha(1);
 		return;
 	elseif self.ForceShow then
-		E:Print(L['Attempted to show a reminder icon that does not have any spells. You must add a spell first.'])
+		MER:Print(L['Attempted to show a reminder icon that does not have any spells. You must add a spell first.'])
 		return;
 	end
 	
