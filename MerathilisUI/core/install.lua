@@ -322,7 +322,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 		E.db.unitframe.units.player.portrait.enable = true
 		E.db.unitframe.units.player.portrait.overlay = false
-		E.db.unitframe.units.player.portrait.camDistanceScale = 1.2
+		E.db.unitframe.units.player.portrait.camDistanceScale = 1
 		E.db.unitframe.units.player.portrait.width = 43
 		-- Use Classbar not for Druid, because of Balance PowerTracker
 		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
@@ -414,7 +414,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.portrait.overlay = false
 		E.db.unitframe.units.target.portrait.xOffset = 0
 		E.db.unitframe.units.target.portrait.enable = true
-		E.db.unitframe.units.target.portrait.camDistanceScale = 1.2
+		E.db.unitframe.units.target.portrait.camDistanceScale = 1
 		E.db.unitframe.units.target.buffs.xOffset = 2
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 11
