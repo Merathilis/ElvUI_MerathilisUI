@@ -1,3 +1,9 @@
+<b><u> v1.15, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> GameMenu: Adjust the MerathilisUI Config Button to be on Top of the GameMenu.
+<font color=#FF8C00>&#9830;</font> GameMenu: Adjust the PlayerModel SetCamDistanceScale.
+<font color=#FF8C00>&#9830;</font> Install: Adjust the camDistanceScale on Unitframes where Portraits are enable.
+<font color=#FF8C00>&#9830;</font> Reminder: Change the Print Statement.
+
 <b><u> v1.14, 24.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "Cancel Duel" function and move the Option for it in an own Tab.
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "moveBlizz" function and add Option for it.
