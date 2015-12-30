@@ -131,7 +131,7 @@ function MER:GameMenu()
 		end)
 		playerModel.isIdle = nil
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
-		playerModel:SetCamDistanceScale(5)
+		playerModel:SetCamDistanceScale(4.8)
 		playerModel:SetFacing(6.5)
 		playerModel:Show()
 	end
