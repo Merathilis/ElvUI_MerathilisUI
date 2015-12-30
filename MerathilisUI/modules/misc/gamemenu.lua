@@ -40,8 +40,9 @@ function MER:GameMenu()
 	-- GameMenu Frame
 	if not button then -- a check so that all the stuff is not created again when MER:GameMenu() is called, because the user might use Esc several times
 		local button = CreateFrame("Button", "MerConfigButton", GameMenuFrame, "GameMenuButtonTemplate")
-		button:Size(GameMenuButtonUIOptions:GetWidth(), GameMenuButtonUIOptions:GetHeight())
-		button:SetPoint("TOP", GameMenuButtonUIOptions, "BOTTOM", 0 , -1)
+		button:Size(GameMenuButtonHelp:GetWidth(), GameMenuButtonHelp:GetHeight())
+		button:SetPoint("CENTER", GameMenuFrame, "TOP", 0 , -42)
+		GameMenuButtonHelp:SetPoint("TOP", button, "BOTTOM", 0, -1)
 		button:SetScript("OnClick", function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(GameMenuFrame) end)
 		button:SetText("|cffff7d0aMerathilisUI|r")
 		
@@ -156,9 +157,6 @@ function MER:GameMenu()
 		npcModel:SetFacing(6)
 		npcModel:Show()
 	end
-	
-	GameMenuButtonKeybindings:ClearAllPoints()
-	GameMenuButtonKeybindings:Point("TOP", MerConfigButton, "BOTTOM", 0, -1)
 end
 
 function MER:LoadGameMenu()
