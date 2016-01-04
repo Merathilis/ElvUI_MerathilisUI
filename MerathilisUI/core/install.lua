@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
+-- GLOBALS: SkadaDB, BigWigs3DB, xCTSavedDB
 local _G = _G
 local unpack = unpack
 local print = print
@@ -13,6 +14,7 @@ local PlaySoundFile = PlaySoundFile
 local UIFrameFadeOut = UIFrameFadeOut
 local ReloadUI = ReloadUI
 local CreateFrame = CreateFrame
+local ChangeChatColor = ChangeChatColor
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
@@ -980,11 +982,11 @@ local function SetupMERLayout(layout)
 		
 		--Adjust Chat Colors
 		--General
-		_G["ChangeChatColor"]("CHANNEL1", 195/255, 230/255, 232/255)
+		ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
 		--Trade
-		_G["ChangeChatColor"]("CHANNEL2", 232/255, 158/255, 121/255)
+		ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
 		--Local Defense
-		_G["ChangeChatColor"]("CHANNEL3", 232/255, 228/255, 121/255)
+		ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
 	end
 	
 	if _G["InstallStepComplete"] then
