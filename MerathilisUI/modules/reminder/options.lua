@@ -2,7 +2,14 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local R = E:GetModule('Reminder');
 
+-- Cache global variables
+-- GLOBALS: muiReminder, MAX_PLAYER_LEVEL, AceGUIWidgetLSMlists
 local tinsert = table.insert
+local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type
+local SHOW, HIDE = SHOW, HIDE
+local GetSpecializationInfo = GetSpecializationInfo
+local GetSpellInfo = GetSpellInfo
+
 local selectedFilter
 local filters
 

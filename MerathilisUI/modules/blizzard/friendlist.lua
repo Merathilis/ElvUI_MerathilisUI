@@ -4,12 +4,15 @@ local MER = E:GetModule('MerathilisUI');
 -- Class color guild/friends/etc list(yClassColor by Yleaf)
 
 -- Cache global variables
+--GLOBALS: hooksecurefunc, BNET_CLIENT_WOW, REMOTE_CHAT, button, index
 local _G = _G
 local type, ipairs, pairs, unpack, select = type, ipairs, pairs, unpack, select
 local setmetatable = setmetatable
 local __index = __index
+local wipe = wipe
 local format, gsub = string.format, string.gsub
 local modf = math.modf
+local strsplit = strsplit
 local GetCVar = GetCVar
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
@@ -18,6 +21,19 @@ local FRIENDS_BUTTON_TYPE_WOW = FRIENDS_BUTTON_TYPE_WOW
 local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
 local BATTLENET_NAME_FORMAT = BATTLENET_NAME_FORMAT
 local FRIENDS_WOW_NAME_COLOR_CODE = FRIENDS_WOW_NAME_COLOR_CODE
+local BNGetFriendInfo = BNGetFriendInfo
+local BNGetToonInfo = BNGetToonInfo
+local GetBattlefieldScore = GetBattlefieldScore
+local GetQuestDifficultyColor = GetQuestDifficultyColor
+local GetRealZoneText = GetRealZoneText
+local GetFriendInfo = GetFriendInfo
+local GetGuildInfo = GetGuildInfo
+local GetGuildRosterInfo = GetGuildRosterInfo
+local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
+local GetWhoInfo = GetWhoInfo
+local IsActiveBattlefieldArena = IsActiveBattlefieldArena
+local SearchLFGGetResults = SearchLFGGetResults
+local UnitRace = UnitRace
 
 local GUILD_INDEX_MAX = 12
 local SMOOTH = {1, 0, 0, 1, 1, 0, 0, 1, 0}
@@ -116,13 +132,13 @@ end
 
 -- WhoList
 hooksecurefunc("WhoList_Update", function()
-	local whoOffset = FauxScrollFrame_GetOffset(WhoListScrollFrame)
+	local whoOffset = _G["FauxScrollFrame_GetOffset"](_G["WhoListScrollFrame"])
 	
 	local playerZone = GetRealZoneText()
 	local playerGuild = GetGuildInfo("player")
 	local playerRace = UnitRace("player")
 	
-	for i = 1, WHOS_TO_DISPLAY, 1 do
+	for i = 1, _G["WHOS_TO_DISPLAY"], 1 do
 		local index = whoOffset + i
 		local nameText = _G["WhoFrameButton"..i.."Name"]
 		local levelText = _G["WhoFrameButton"..i.."Level"]
@@ -145,7 +161,7 @@ hooksecurefunc("WhoList_Update", function()
 			local c = classColorRaw[classFileName]
 			nameText:SetTextColor(c.r, c.g, c.b)
 			levelText:SetText(diffColor[level]..level)
-			variableText:SetText(columnTable[UIDropDownMenu_GetSelectedID(WhoFrameDropDown)])
+			variableText:SetText(columnTable[_G["UIDropDownMenu_GetSelectedID"](_G["WhoFrameDropDown"])])
 		end
 	end
 end)
@@ -165,7 +181,7 @@ end)
 -- WorldStateScoreList
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	local inArena = IsActiveBattlefieldArena()
-	local offset = FauxScrollFrame_GetOffset(WorldStateScoreScrollFrame)
+	local offset = _G["FauxScrollFrame_GetOffset"](_G["WorldStateScoreScrollFrame"])
 	
 	for i = 1, MAX_WORLDSTATE_SCORE_BUTTONS do
 		local index = offset + i
@@ -213,7 +229,7 @@ end
 local function update()
 	_VIEW = _VIEW or GetCVar("guildRosterView")
 	local playerArea = GetRealZoneText()
-	local buttons = GuildRosterContainer.buttons
+	local buttons = _G["GuildRosterContainer"].buttons
 	
 	for i, button in ipairs(buttons) do
 		if button:IsShown() and button.online and button.guildIndex then
@@ -230,7 +246,7 @@ local function update()
 				end
 			else
 				local name, rank, rankIndex, level, _, zone, _, _, _, isAway, classFileName, _, _, isMobile = GetGuildRosterInfo(button.guildIndex)
-				name = string.gsub(name, "-.*", "")
+				name = gsub(name, "-.*", "")
 				local displayedName = classColor[classFileName]..name
 				if isMobile then
 					if isAway == 1 then
@@ -238,7 +254,7 @@ local function update()
 					elseif isAway == 2 then
 						displayedName = "|TInterface\\ChatFrame\\UI-ChatIcon-ArmoryChat-BusyMobile:14:14:0:0:16:16:0:16:0:16|t"..displayedName.." |cffff0000"..L['CHAT_DND'].."|r"
 					else
-						displayedName = ChatFrame_GetMobileEmbeddedTexture(0.3, 1, 0.3)..displayedName
+						displayedName = _G["ChatFrame_GetMobileEmbeddedTexture"](0.3, 1, 0.3)..displayedName
 					end
 				else
 					if isAway == 1 then
@@ -284,7 +300,7 @@ hooksecurefunc("GuildFrame_LoadUI", function()
 		loaded = true
 		hooksecurefunc("GuildRoster_SetView", viewChanged)
 		hooksecurefunc("GuildRoster_Update", update)
-		hooksecurefunc(GuildRosterContainer, "update", update)
+		hooksecurefunc(_G["GuildRosterContainer"], "update", update)
 	end
 end)
 
@@ -293,8 +309,8 @@ local WHITE = {r = 1, g = 1, b = 1}
 local FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%%d", "%%s")
 FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%$d", "%$s")
 local function friendsFrame()
-	local scrollFrame = FriendsFrameFriendsScrollFrame
-	local offset = HybridScrollFrame_GetOffset(scrollFrame)
+	local scrollFrame = _G["FriendsFrameFriendsScrollFrame"]
+	local offset = _G["HybridScrollFrame_GetOffset"](scrollFrame)
 	local buttons = scrollFrame.buttons
 	
 	local playerArea = GetRealZoneText()

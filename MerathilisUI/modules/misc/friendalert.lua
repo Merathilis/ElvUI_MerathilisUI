@@ -2,7 +2,9 @@ local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
 -- Cache global variables
+-- GLOBALS: BATTLENET_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, C_Timer
 local format = string.format
+local print = print
 
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded

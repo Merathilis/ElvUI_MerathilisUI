@@ -2,6 +2,9 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local MERLT = E:GetModule('muiPVP');
 
+-- Cache global variables
+-- GLOBALS: PET_BATTLE_PVP_DUEL, PVP, DUEL
+
 local function muiPVP()
 	E.Options.args.mui.args.config.args.pvp = {
 		order = 13,

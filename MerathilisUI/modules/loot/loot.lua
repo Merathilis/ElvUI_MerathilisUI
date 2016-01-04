@@ -4,6 +4,7 @@ local MERLT = E:NewModule('muiLoot', 'AceHook-3.0', 'AceEvent-3.0')
 
 -- Credits belong to Darth Predator (ElvUI_SLE)
 -- Cache global variables
+-- GLOBALS: ChatFrame_AddMessageEventFilter, ChatFrame_RemoveMessageEventFilter
 local gsub = gsub
 local GetItemIcon = GetItemIcon
 
@@ -46,12 +47,10 @@ function MERLT:LootIconToggle()
 		for i = 1, #MERLT.IconChannels do
 			ChatFrame_AddMessageEventFilter(MERLT.IconChannels[i], MERLT.AddLootIcons)
 		end
-		-- ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", MERLT.AddLootIcons)
 	else
 		for i = 1, #MERLT.IconChannels do
 			ChatFrame_RemoveMessageEventFilter(MERLT.IconChannels[i], MERLT.AddLootIcons)
 		end
-		-- ChatFrame_RemoveMessageEventFilter("CHAT_MSG_LOOT", MERLT.AddLootIcons)
 	end
 end
 

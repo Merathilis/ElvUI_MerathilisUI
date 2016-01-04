@@ -25,7 +25,7 @@ local moneyframe_pos = {
 local function MailInputBox()
 	if not E.db.muiMisc.MailInputbox then return end
 	
-	local c = SendMailCostMoneyFrame
+	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))
 	local f = "SendMailNameEditBox" 

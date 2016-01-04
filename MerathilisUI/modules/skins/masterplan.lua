@@ -3,6 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
 -- Cache global variables
+local _G = _G
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -11,14 +12,14 @@ if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then re
 
 -- Garrison Tabs
 local function skinMasterPlanGarrison()
-	S:HandleTab(GarrisonMissionFrameTab3)
-	S:HandleTab(GarrisonMissionFrameTab4)
-	S:HandleTab(GarrisonLandingPageTab4)
+	S:HandleTab(_G["GarrisonMissionFrameTab3"])
+	S:HandleTab(_G["GarrisonMissionFrameTab4"])
+	S:HandleTab(_G["GarrisonLandingPageTab4"])
 end
 
 -- ShipYard Tabs
 local function skinMasterPlanShipyard()
-	S:HandleTab(GarrisonShipyardFrameTab3)
+	S:HandleTab(_G["GarrisonShipyardFrameTab3"])
 end
 
 local f = CreateFrame("Frame")

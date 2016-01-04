@@ -3,8 +3,12 @@ local MER = E:GetModule('MerathilisUI');
 local LRI = LibStub:GetLibrary("LibRealmInfo");
 
 -- Cache global variables
+-- GLOBALS: realm, DEFAULT_CHAT_FRAME, AddIgnore, C_LFGList, LFGListUtil_GetSearchEntryMenu, LFGListUtil_GetApplicantMemberMenu, UIDROPDOWNMENU_INIT_MENU, UIDROPDOWNMENU_MENU_LEVEL
+local _G = _G
 local tinsert = table.insert
 local gsub, byte, format, lower, upper = string.gsub, string.byte, string.format, string.lower, string.upper
+
+local GetRealmName = GetRealmName
 
 -- Credits: Driizt, Phanx
 
@@ -86,8 +90,8 @@ local function ShowUrl(name,server)
 	if not name then return end
 	local url = constructUrl(name,server);
 	if url then
-		local edit_box = ChatEdit_ChooseBoxForSend()
-		ChatEdit_ActivateChat(edit_box)
+		local edit_box = _G["ChatEdit_ChooseBoxForSend"]()
+		_G["ChatEdit_ActivateChat"](edit_box)
 		if url then
 			edit_box:Insert(url);
 			edit_box:HighlightText();
@@ -97,15 +101,15 @@ end
 
 local function LFGShowUrl(name)
 	if not name then return end
-	pName = gsub(name, "%-[^|]+", "")
-	pServer = gsub(name, "[^|]+%-", "")
-	if pName == pServer then 
-		pServer = GetRealmName() 
+	_G["pName"] = gsub(name, "%-[^|]+", "")
+	_G["pServer"] = gsub(name, "[^|]+%-", "")
+	if _G["pName"] == _G["pServer"] then 
+		_G["pServer"] = GetRealmName() 
 	end
-	local url = constructUrl(pName,pServer);
+	local url = constructUrl(_G["pName"], _G["pServer"]);
 	if url then
-		local edit_box = ChatEdit_ChooseBoxForSend()
-		ChatEdit_ActivateChat(edit_box)
+		local edit_box = _G["ChatEdit_ChooseBoxForSend"]()
+		_G["ChatEdit_ActivateChat"](edit_box)
 		if url then
 			edit_box:Insert(url);
 			edit_box:HighlightText();
@@ -141,7 +145,7 @@ local LFG_LIST_SEARCH_ENTRY_MENU = {
 	},
 	{
 		text = WHISPER_LEADER,
-		func = function(_, name) ChatFrame_SendTell(name); end,
+		func = function(_, name) _G["ChatFrame_SendTell"](name); end,
 		notCheckable = true,
 		arg1 = nil, --Leader name goes here
 		disabled = nil, --Disabled if we don't have a leader name yet or you haven't applied
@@ -223,7 +227,7 @@ local LFG_LIST_APPLICANT_MEMBER_MENU = {
 	},
 	{
 		text = WHISPER,
-		func = function(_, name) ChatFrame_SendTell(name); end,
+		func = function(_, name) _G["ChatFrame_SendTell"](name); end,
 		notCheckable = true,
 		arg1 = nil, --Player name goes here
 		disabled = nil, --Disabled if we don't have a name yet

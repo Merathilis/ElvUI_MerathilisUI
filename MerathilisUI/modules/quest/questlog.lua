@@ -2,8 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
+-- GLOBALS: QuestMapQuestOptions_AbandonQuest, HideUIPanel, STATICPOPUP_NUMDIALOGS, StaticPopup_OnClick, QuestMapQuestOptions_ShareQuest, QuestObjectiveTracker_ShareQuest
 local _G = _G
 local pairs = pairs
+local strmatch = strmatch
 
 local GetQuestLink = GetQuestLink
 local GetQuestLogPushable = GetQuestLogPushable
@@ -14,7 +16,7 @@ local IsAltKeyDown = IsAltKeyDown
 
 -- Quest level
 hooksecurefunc("QuestLogQuests_Update", function()
-	for i, button in pairs(QuestMapFrame.QuestsFrame.Contents.Titles) do
+	for i, button in pairs(_G["QuestMapFrame"].QuestsFrame.Contents.Titles) do
 		if button:IsShown() then
 			local level = strmatch(GetQuestLink(button.questLogIndex), "quest:%d+:(%d+)")
 			if level then
@@ -33,8 +35,8 @@ hooksecurefunc("QuestMapLogTitleButton_OnClick", function(self, button)
 		if IsControlKeyDown() then
 			QuestMapQuestOptions_AbandonQuest(self.questID)
 			AbandonQuest()
-			if QuestLogPopupDetailFrame:IsShown() then
-				HideUIPanel(QuestLogPopupDetailFrame)
+			if _G["QuestLogPopupDetailFrame"]:IsShown() then
+				HideUIPanel(_G["QuestLogPopupDetailFrame"])
 			end
 			for i = 1, STATICPOPUP_NUMDIALOGS do
 				local frame = _G["StaticPopup"..i]

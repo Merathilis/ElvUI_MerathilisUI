@@ -4,11 +4,27 @@ local R = E:NewModule('Reminder', 'AceTimer-3.0');
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
-local pairs, type, select = pairs, type, select
+local pairs, print, type, select, unpack = pairs, print, type, select, unpack
+local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local GetInventoryItemTexture = GetInventoryItemTexture
 local GetSpellInfo = GetSpellInfo
 local GetSpellCooldown = GetSpellCooldown
 local GetSpecialization = GetSpecialization
+local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
+local IsSpellInRange = IsSpellInRange
+local isUsable = isUsable
+local IsUsableSpell = IsUsableSpell
+local PlaySoundFile = PlaySoundFile
+local OffhandHasWeapon = OffhandHasWeapon
+local UnitBuff, UnitDebuff = UnitBuff, UnitDebuff
+local UnitInVehicle = UnitInVehicle
+local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitLevel = UnitLevel
+local UnitPower = UnitPower
+
 
 -- Code taken from ElvUI_Reminders by Azilroka
 if IsAddOnLoaded("ElvUI_Reminder") then return end

@@ -3,6 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 -- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.2.0-2-g2876c66
 -- Cache global variables
+-- GLOBALS: hooksecurefunc, DAY_ONELETTER_ABBR, INTERFACEOPTIONS_ADDONCATEGORIES, doNotRun
 local _G = _G
 local pairs, tonumber, type = pairs, tonumber, type
 
@@ -96,7 +97,7 @@ do
 				if panel.name == panelName then
 					panel.collapsed = true
 					t.element = panel
-					InterfaceOptionsListButton_ToggleSubCategories(t)
+					_G["InterfaceOptionsListButton_ToggleSubCategories"](t)
 					noncollapsedHeaders[panel.name] = true
 					mypanel = shownpanels + 1
 				end
@@ -106,13 +107,13 @@ do
 				shownpanels = shownpanels + 1
 			end
 		end
-		local Smin, Smax = InterfaceOptionsFrameAddOnsListScrollBar:GetMinMaxValues()
+		local Smin, Smax = _G["InterfaceOptionsFrameAddOnsListScrollBar"]:GetMinMaxValues()
 		if shownpanels > 15 and Smin < Smax then
 			local val = (Smax/(shownpanels-15))*(mypanel-2)
-			InterfaceOptionsFrameAddOnsListScrollBar:SetValue(val)
+			_G["InterfaceOptionsFrameAddOnsListScrollBar"]:SetValue(val)
 		end
 		doNotRun = true
-		InterfaceOptionsFrame_OpenToCategory(panel)
+		_G["InterfaceOptionsFrame_OpenToCategory"](panel)
 		doNotRun = false
 	end
 	
@@ -149,7 +150,7 @@ end
 do
 	local orig = AddonTooltip_Update
 	_G.AddonTooltip_Update = function(owner, ...) 
-		if AddonList and AddonList:IsMouseOver() then
+		if _G["AddonList"] and _G["AddonList"]:IsMouseOver() then
 			local id = owner and owner.GetID and owner:GetID()
 			if id and id > 0 and id <= GetNumAddOns() then
 				orig(owner, ...) 

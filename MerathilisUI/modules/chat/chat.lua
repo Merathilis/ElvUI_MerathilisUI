@@ -4,11 +4,12 @@ local MERC = E:NewModule('muiChat')
 local CH = E:GetModule('Chat')
 
 -- Cache global variables
+local gsub = string.gsub
 local GetRealmName = GetRealmName
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 function MERC:RemoveCurrentRealmName(self, msg, author, ...)
-	local realmName = string.gsub(GetRealmName(), " ", "")
+	local realmName = gsub(GetRealmName(), " ", "")
 	
 	if msg and msg:find("-" .. realmName) then
 		return false, gsub(msg, "%-"..realmName, ""), author, ...

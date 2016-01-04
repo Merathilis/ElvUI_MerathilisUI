@@ -3,12 +3,16 @@ local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
 
 -- Cache global variables
+-- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel
+local _G = _G
 local random = random
 
 local CreateFrame = CreateFrame
+local CreateAnimationGroup = CreateAnimationGroup
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local PlaySound = PlaySound
 local UIFrameFadeIn = UIFrameFadeIn
+local HideUIPanel = HideUIPanel
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
@@ -39,24 +43,24 @@ local npc = {
 function MER:GameMenu()
 	-- GameMenu Frame
 	if not button then -- a check so that all the stuff is not created again when MER:GameMenu() is called, because the user might use Esc several times
-		local button = CreateFrame("Button", "MerConfigButton", GameMenuFrame, "GameMenuButtonTemplate")
-		button:Size(GameMenuButtonHelp:GetWidth(), GameMenuButtonHelp:GetHeight())
-		button:SetPoint("CENTER", GameMenuFrame, "TOP", 0 , -42)
-		GameMenuButtonHelp:SetPoint("TOP", button, "BOTTOM", 0, -1)
-		button:SetScript("OnClick", function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(GameMenuFrame) end)
+		local button = CreateFrame("Button", "MerConfigButton", _G["GameMenuFrame"], "GameMenuButtonTemplate")
+		button:Size(_G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight())
+		button:SetPoint("CENTER", _G["GameMenuFrame"], "TOP", 0 , -42)
+		_G["GameMenuButtonHelp"]:SetPoint("TOP", button, "BOTTOM", 0, -1)
+		button:SetScript("OnClick", function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end)
 		button:SetText("|cffff7d0aMerathilisUI|r")
 		
 		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
 			S:HandleButton(button)
 		end
 		
-		GameMenuFrame:HookScript("OnShow", function()
-			GameMenuFrame:Height(GameMenuFrame:GetHeight() + button:GetHeight())
+		_G["GameMenuFrame"]:HookScript("OnShow", function()
+			_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + button:GetHeight())
 		end)
 	end
 	
-	if not bottomPanel then
-		local bottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
+	if not _G["bottomPanel"] then
+		local bottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
 		MER:StyleFrame(bottomPanel)
@@ -80,14 +84,14 @@ function MER:GameMenu()
 		bottomPanel.Logo:SetTexture(logo)
 	end
 	
-	if not topPanel then
-		local topPanel = CreateFrame("Frame", nil, GameMenuFrame)
+	if not _G["topPanel"] then
+		local topPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		topPanel:SetFrameLevel(0)
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		
-		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
+		topPanel.style = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		topPanel.style:SetTemplate("Default", true)
 		topPanel.style:SetFrameStrata("BACKGROUND")
 		topPanel.style:SetInside()
@@ -118,7 +122,7 @@ function MER:GameMenu()
 	
 	-- Use this frame to control the position of the model - taken from ElvUI
 	if not modelHolder then
-		local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		local modelHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		modelHolder:SetSize(150, 150)
 		modelHolder:SetPoint("LEFT", E.UIParent, "LEFT", 400, -10)
 		
@@ -138,7 +142,7 @@ function MER:GameMenu()
 	end
 	
 	if not npcHolder then
-		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		local npcHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		npcHolder:SetSize(150, 150)
 		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", -400, -10)
 		

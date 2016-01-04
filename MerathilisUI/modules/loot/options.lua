@@ -2,10 +2,11 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local MERLT = E:GetModule('muiLoot');
 
+-- Cache global variables
 local _G = _G
 local tinsert = table.insert
 local gsub = gsub
-local CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM = CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM
+local CHAT_MSG_WHISPER_INFORM, CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM = CHAT_MSG_WHISPER_INFORM, CHAT_MSG_BN_WHISPER, CHAT_MSG_BN_WHISPER_INFORM
 
 local function muiLoot()
 	local function CreateChannel(Name, Order)

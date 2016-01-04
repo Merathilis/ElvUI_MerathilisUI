@@ -4,7 +4,10 @@ local LI = GetLocale();
 if not LI then return end
 
 -- Cache global variables
+-- GLOBALS: UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton, UIDROPDOWN_MENU_LEVEL, hooksecurefunc
 local format = string.format
+local GetQuestLogTitle = GetQuestLogTitle
+local IsControlKeyDown = IsControlKeyDown
 
 -- Add quest/achievement wowhead link
 local linkQuest, linkAchievement

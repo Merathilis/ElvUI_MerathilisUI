@@ -2,8 +2,11 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
--- Code taken from CodeNameBlaze
+-- Cache global variables
+local _G = _G
+local select, unpack = select, unpack
 
+-- Code taken from CodeNameBlaze
 -- Copied from ElvUI
 local function SetModifiedBackdrop(self)
 	if self.backdrop then self = self.backdrop end

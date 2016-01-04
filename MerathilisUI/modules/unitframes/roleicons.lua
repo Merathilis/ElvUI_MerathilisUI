@@ -2,7 +2,11 @@ local E, L, V, P, G, _ = unpack(ElvUI);
 local UF = E:GetModule('UnitFrames');
 local CH = E:GetModule('Chat');
 
-local twipe, pairs, select = table.wipe, pairs, select
+-- Cache local variables
+-- GLOBALS: hooksecurefunc
+local pairs, select = pairs, select
+local twipe = table.wipe
+local random = random
 
 local GetNumClasses = GetNumClasses
 local GetClassInfo = GetClassInfo

@@ -4,12 +4,15 @@ local DT = E:GetModule("DataTexts")
 
 -- All Credits belong to Lockslap (ElvUI_SystemDT) --
 
+local _G = _G
 local select = select
+local collectgarbage = collectgarbage
 local floor = floor
 local format = string.format
 local sort = table.sort
 local join = string.join
 local IsAddOnLoaded = IsAddOnLoaded
+local GetDownloadedPercentage = GetDownloadedPercentage
 local GetNumAddOns = GetNumAddOns
 local GetAddOnInfo = GetAddOnInfo
 local GetAddOnMemoryUsage = GetAddOnMemoryUsage
@@ -18,6 +21,7 @@ local GetAvailableBandwidth = GetAvailableBandwidth
 local GetCVar = GetCVar
 local GetNetStats = GetNetStats
 local GetFramerate = GetFramerate
+local IsShiftKeyDown = IsShiftKeyDown
 
 local int, int2 = 6, 5
 local memoryTable = {}
@@ -71,7 +75,7 @@ local function GetNumLoadedAddons()
 end
 
 local function UpdateMemory()
-	UpdateAddOnMemoryUsage()
+	_G["UpdateAddOnMemoryUsage"]()
 	
 	local addonMemory, totalMemory = 0, 0
 	for i = 1, #memoryTable do
@@ -90,7 +94,7 @@ local function UpdateMemory()
 end
 
 local function UpdateCPU()
-	UpdateAddOnCPUUsage()
+	_G["UpdateAddOnCPUUsage"]()
 
 	local addonCPU, totalCPU = 0, 0
 	for i = 1, #cpuTable do

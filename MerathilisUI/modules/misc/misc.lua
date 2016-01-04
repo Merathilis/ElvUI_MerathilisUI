@@ -2,6 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
+-- GLOBALS: ALL, AchievementFrame_GetCategoryNumAchievements_OldIncomplete, AchievementFrameFilters, ACHIEVEMENTFRAME_FILTER_ALL, AchievementFrame_GetCategoryNumAchievements_All, 
+-- GLOBALS: AchievementFrame_GetCategoryNumAchievements_Complete, ACHIEVEMENTFRAME_FILTER_COMPLETED, ACHIEVEMENTFRAME_FILTER_INCOMPLETE, AchievementFrame_GetCategoryNumAchievements_Incomplete,
+-- GLOBALS: old_nocomplete_filter_init, LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, 
+local _G = _G
 local tostring = tostring
 local select = select
 local CreateFrame = CreateFrame
@@ -127,10 +131,10 @@ local filter = CreateFrame("Frame")
 filter:RegisterEvent("ADDON_LOADED")
 filter:SetScript("OnEvent", function(self, event, addon, ...)
 	if addon == "Blizzard_AchievementUI" then
-		if AchievementFrame then
+		if _G["AchievementFrame"] then
 			old_nocomplete_filter_init()
 			if E.private.skins.blizzard.achievement == true then
-				AchievementFrameFilterDropDown:SetWidth(AchievementFrameFilterDropDown:GetWidth() + 20)
+				_G["AchievementFrameFilterDropDown"]:SetWidth(_G["AchievementFrameFilterDropDown"]:GetWidth() + 20)
 			end
 			filter:UnregisterEvent("ADDON_LOADED")
 		end

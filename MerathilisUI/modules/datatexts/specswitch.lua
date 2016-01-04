@@ -2,10 +2,13 @@ local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 -- Cache global variables
+-- GLOBALS: LOOT, SPECIALIZATION, SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT, EasyMenu
+local _G = _G
 local select = select
 local format = string.format
 local join = string.join
 
+local GetActiveSpecGroup = GetActiveSpecGroup
 local GetNumEquipmentSets = GetNumEquipmentSets
 local GetSpecialization = GetSpecialization
 local GetEquipmentSetInfo = GetEquipmentSetInfo
@@ -15,6 +18,7 @@ local SetLootSpecialization = SetLootSpecialization
 local SetActiveSpecGroup = SetActiveSpecGroup
 local GetNumSpecGroups = GetNumSpecGroups
 local GetSpecializationInfoByID = GetSpecializationInfoByID
+local GetLootSpecialization = GetLootSpecialization
 local CreateFrame = CreateFrame
 
 local lastPanel, active
@@ -49,17 +53,17 @@ local function SwitchGear()
 end
 
 local function specializationClick(self, specialization)
-	CloseDropDownMenus()
+	_G["CloseDropDownMenus"]()
 	SetLootSpecialization(specialization)
 end
 
 local function setCLick(self,set)
-	CloseDropDownMenus()
+	_G["CloseDropDownMenus"]()
 	UseEquipmentSet(set)
 end
 
 local function specCLick(self,spec)
-	CloseDropDownMenus()
+	_G["CloseDropDownMenus"]()
 	
 	if not(spec==active) then
 		SwitchGear()
@@ -183,7 +187,7 @@ local function OnClick(self, button)
 	
 	local lootSpecialization = GetLootSpecialization()
 	
-	lootSpecializationName = select(2,GetSpecializationInfoByID(lootSpecialization))
+	_G["lootSpecializationName"] = select(2,GetSpecializationInfoByID(lootSpecialization))
 	
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
@@ -207,7 +211,7 @@ local function OnClick(self, button)
 				menuList[index + 1].func = specializationClick
 				menuList[index + 1].arg1 = id
 				menuList[index + 1].notCheckable = false
-				menuList[index + 1].checked = (name == lootSpecializationName and true or false)
+				menuList[index + 1].checked = (name == _G["lootSpecializationName"] and true or false)
 			else
 				menuList[index + 1] = nil
 			end

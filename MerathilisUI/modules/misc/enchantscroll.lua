@@ -3,8 +3,12 @@ local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
 
 -- Cache global variables
+-- GLOBALS: TradeSkillFrame_SetSelection, CURRENT_TRADESKILL, UseItemByName, DoTradeSkill
+local _G = _G
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local IsTradeSkillLinked = IsTradeSkillLinked
+local IsTradeSkillGuild = IsTradeSkillGuild
 local GetItemCount = GetItemCount
 local GetTradeSkillInfo = GetTradeSkillInfo
 local GetSpellInfo = GetSpellInfo
@@ -15,19 +19,19 @@ local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:SetScript("OnEvent", function(self, event, addon)
 	if IsAddOnLoaded("Blizzard_TradeSkillUI") and not IsAddOnLoaded("OneClickEnchantScroll") and E.db.muiMisc.enchantScroll then
-		local oldfunc = TradeSkillFrame_SetSelection
-		local button = CreateFrame("Button", "TradeSkillCreateScrollButton", TradeSkillFrame, "MagicButtonTemplate")
+		local oldfunc = _G["TradeSkillFrame_SetSelection"]
+		local button = CreateFrame("Button", "TradeSkillCreateScrollButton", _G["TradeSkillFrame"], "MagicButtonTemplate")
 		if E.private.skins.blizzard.tradeskill == true then
 			S:HandleButton(button)
 			button:StripTextures()
 			button:SetTemplate('Default', true)
 			button:ClearAllPoints()
-			button:SetPoint("TOPRIGHT", TradeSkillCreateButton, "TOPLEFT", -1, 0)
+			button:SetPoint("TOPRIGHT", _G["TradeSkillCreateButton"], "TOPLEFT", -1, 0)
 		else
-			button:SetPoint("TOPRIGHT", TradeSkillCreateButton, "TOPLEFT")
+			button:SetPoint("TOPRIGHT", _G["TradeSkillCreateButton"], "TOPLEFT")
 		end
 		button:SetScript("OnClick", function()
-			DoTradeSkill(TradeSkillFrame.selectedSkill)
+			DoTradeSkill(_G["TradeSkillFrame"].selectedSkill)
 			UseItemByName(38682)
 		end)
 
@@ -43,7 +47,7 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					creatable = nil
 				end
 				local scrollnum = GetItemCount(38682)
-				TradeSkillCreateScrollButton:SetText(L['MISC_SCROLL'].." ("..scrollnum..")")
+				_G["TradeSkillCreateScrollButton"]:SetText(L['MISC_SCROLL'].." ("..scrollnum..")")
 				if scrollnum == 0 then
 					creatable = nil
 				end
@@ -54,9 +58,9 @@ frame:SetScript("OnEvent", function(self, event, addon)
 					end
 				end
 				if creatable then
-					TradeSkillCreateScrollButton:Enable()
+					_G["TradeSkillCreateScrollButton"]:Enable()
 				else
-					TradeSkillCreateScrollButton:Disable()
+					_G["TradeSkillCreateScrollButton"]:Disable()
 				end
 			else
 				button:Hide()

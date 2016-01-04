@@ -3,7 +3,9 @@ local MER = E:GetModule('MerathilisUI');
 local MERP = E:NewModule('muiPVP', 'AceHook-3.0', 'AceEvent-3.0')
 
 -- Cache global variables
+-- GLOBALS: StaticPopup_Hide, C_PetBattles
 local format = string.format
+local CancelDuel = CancelDuel
 
 function MERP:Duels(event, name)
 	local cancelled = false

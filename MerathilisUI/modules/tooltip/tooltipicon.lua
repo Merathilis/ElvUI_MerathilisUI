@@ -5,9 +5,10 @@ local TT = E:GetModule('Tooltip');
 -- Cache global variables
 local _G = _G
 local select, type = select, type
-local find = string.find
+local find, strmatch = string.find, string.match
 
 local CreateFrame = CreateFrame
+local GetAchievementInfo = GetAchievementInfo
 local GetItemIcon = GetItemIcon
 local GetSpellInfo = GetSpellInfo
 
