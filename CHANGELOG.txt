@@ -3,6 +3,7 @@
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the PlayerModel SetCamDistanceScale.
 <font color=#FF8C00>&#9830;</font> Install: Adjust the camDistanceScale on Unitframes where Portraits are enable.
 <font color=#FF8C00>&#9830;</font> Reminder: Change the Print Statement.
+<font color=#FF8C00>&#9830;</font> Misc: Code Optimation.
 
 <b><u> v1.14, 24.12.2015</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Rewrite the "Cancel Duel" function and move the Option for it in an own Tab.
