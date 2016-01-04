@@ -4,6 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 -- Cache global variables
 local _G = _G
 local unpack = unpack
+local print = print
 local format = format
 local ceil = ceil
 
@@ -12,6 +13,7 @@ local PlaySoundFile = PlaySoundFile
 local UIFrameFadeOut = UIFrameFadeOut
 local ReloadUI = ReloadUI
 local CreateFrame = CreateFrame
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
 local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
 local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
@@ -22,6 +24,7 @@ local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 local LOOT, TRADE = LOOT, TRADE
 local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
+local LeftChatToggleButton = LeftChatToggleButton
 
 local CURRENT_PAGE = 0
 local MAX_PAGE = 5
@@ -977,16 +980,16 @@ local function SetupMERLayout(layout)
 		
 		--Adjust Chat Colors
 		--General
-		ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
+		_G["ChangeChatColor"]("CHANNEL1", 195/255, 230/255, 232/255)
 		--Trade
-		ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
+		_G["ChangeChatColor"]("CHANNEL2", 232/255, 158/255, 121/255)
 		--Local Defense
-		ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
+		_G["ChangeChatColor"]("CHANNEL3", 232/255, 228/255, 121/255)
 	end
 	
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
-		InstallStepComplete:Show()			
+	if _G["InstallStepComplete"] then
+		_G["InstallStepComplete"].message = MER.Title..L['MerathilisUI Set']
+		_G["InstallStepComplete"]:Show()			
 		titleText[2].check:Show()
 	end
 	E:UpdateAll(true)
@@ -1941,9 +1944,9 @@ local function SetupMERAddons()
 		}
 	end
 	
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['Addons Set']
-		InstallStepComplete:Show()		
+	if _G["InstallStepComplete"] then
+		_G["InstallStepComplete"].message = MER.Title..L['Addons Set']
+		_G["InstallStepComplete"]:Show()		
 		titleText[4].check:Show()
 	end
 	E:UpdateAll(true)
@@ -2014,9 +2017,9 @@ function MER:SetupDts(role)
 		E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
 	end
 	
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['DataTexts Set']
-		InstallStepComplete:Show()
+	if _G["InstallStepComplete"] then
+		_G["InstallStepComplete"].message = MER.Title..L['DataTexts Set']
+		_G["InstallStepComplete"]:Show()
 		titleText[3].check:Show()
 	end
 	E:UpdateAll(true)
@@ -2037,13 +2040,13 @@ local function ResetAll()
 	InstallOption4Button:Hide()
 	InstallOption4Button:SetScript('OnClick', nil)
 	InstallOption4Button:SetText('')
-	MERInstallFrame.SubTitle:SetText('')
-	MERInstallFrame.Desc1:SetText('')
-	MERInstallFrame.Desc2:SetText('')
-	MERInstallFrame.Desc3:SetText('')
-	MERInstallFrame.Desc4:SetText('')
-	MERInstallFrame:Size(500, 400)
-	MERTitleFrame:Size(180, 400)
+	_G["MERInstallFrame"].SubTitle:SetText('')
+	_G["MERInstallFrame"].Desc1:SetText('')
+	_G["MERInstallFrame"].Desc2:SetText('')
+	_G["MERInstallFrame"].Desc3:SetText('')
+	_G["MERInstallFrame"].Desc4:SetText('')
+	_G["MERInstallFrame"]:Size(500, 400)
+	_G["MERTitleFrame"]:Size(180, 400)
 end
 
 local function InstallComplete()
@@ -2057,10 +2060,10 @@ local function SetPage(PageNum)
 	CURRENT_PAGE = PageNum
 	ResetAll()
 	
-	InstallStatus.anim.progress:SetChange(PageNum)
-	InstallStatus.anim.progress:Play()
+	_G["InstallStatus"].anim.progress:SetChange(PageNum)
+	_G["InstallStatus"].anim.progress:Play()
 	
-	local f = MERInstallFrame
+	local f = _G["MERInstallFrame"]
 	
 	if PageNum == MAX_PAGE then
 		InstallNextButton:Disable()
@@ -2099,10 +2102,10 @@ local function SetPage(PageNum)
 		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() MER:SetupDts('tank') end)
-		InstallOption1Button:SetFormattedText("%s", TANK)
+		InstallOption1Button:SetFormattedText("%s", _G["TANK"])
 		InstallOption2Button:Show()
 		InstallOption2Button:SetScript('OnClick', function() MER:SetupDts('healer') end)
-		InstallOption2Button:SetFormattedText("%s", HEALER)
+		InstallOption2Button:SetFormattedText("%s", _G["HEALER"])
 		InstallOption3Button:Show()
 		InstallOption3Button:SetScript('OnClick', function() MER:SetupDts('dpsMelee') end)
 		InstallOption3Button:SetFormattedText("%s", L['Physical DPS'])
@@ -2124,11 +2127,11 @@ local function SetPage(PageNum)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', InstallComplete)
 		InstallOption1Button:SetFormattedText("%s", L['Finished'])
-		MERInstallFrame:Size(500, 400)
-		MERTitleFrame:Size(180, 400)
-		if InstallStepComplete then
-			InstallStepComplete.message = MER.Title..L['Installed']
-			InstallStepComplete:Show()
+		_G["MERInstallFrame"]:Size(500, 400)
+		_G["MERTitleFrame"]:Size(180, 400)
+		if _G["InstallStepComplete"] then
+			_G["InstallStepComplete"].message = MER.Title..L['Installed']
+			_G["InstallStepComplete"]:Show()
 		end
 	end
 end
@@ -2162,7 +2165,7 @@ local function PreviousPage()
 end
 
 function MER:SetupUI()	
-	if not InstallStepComplete then
+	if not _G["InstallStepComplete"] then
 		local imsg = CreateFrame('Frame', 'InstallStepComplete', E.UIParent)
 		imsg:Size(418, 72)
 		imsg:Point('TOP', 0, -190)
@@ -2210,7 +2213,7 @@ function MER:SetupUI()
 	end
 	
 	--Create Frame
-	if not MERInstallFrame then
+	if not _G["MERInstallFrame"] then
 		local f = CreateFrame('Button', 'MERInstallFrame', E.UIParent)
 		f.SetPage = SetPage
 		f:Size(500, 400)
@@ -2252,7 +2255,7 @@ function MER:SetupUI()
 		f.Status:Point('TOPLEFT', f.Prev, 'TOPRIGHT', 6, -2)
 		f.Status:Point('BOTTOMRIGHT', f.Next, 'BOTTOMLEFT', -6, 2)
 		-- Setup StatusBar Animation
-		f.Status.anim = CreateAnimationGroup(f.Status)
+		f.Status.anim = _G["CreateAnimationGroup"](f.Status)
 		f.Status.anim.progress = f.Status.anim:CreateAnimation("Progress")
 		f.Status.anim.progress:SetSmoothing("Out")
 		f.Status.anim.progress:SetDuration(.3)
@@ -2361,7 +2364,7 @@ function MER:SetupUI()
 			titleText[i].text:SetTextColor(unpack(E['media'].rgbvaluecolor))
 			
 			-- Create Animation
-			titleText[i].text.anim = CreateAnimationGroup(titleText[i].text)
+			titleText[i].text.anim = _G["CreateAnimationGroup"](titleText[i].text)
 			titleText[i].text.anim.color = titleText[i].text.anim:CreateAnimation("Color")
 			titleText[i].text.anim.color:SetColorType("Text")
 			
@@ -2392,14 +2395,14 @@ function MER:SetupUI()
 	end
 	
 	-- Animations
-	MERTitleFrame:Point('LEFT', 'MERInstallFrame', 'LEFT', E.PixelMode and -1 or -3, 0)
-	local animGroup = CreateAnimationGroup(MERTitleFrame)
+	_G["MERTitleFrame"]:Point('LEFT', 'MERInstallFrame', 'LEFT', E.PixelMode and -1 or -3, 0)
+	local animGroup = _G["CreateAnimationGroup"](_G["MERTitleFrame"])
 	local anim = animGroup:CreateAnimation("Move")
 	anim:SetOffset(-180, 0)
 	anim:SetDuration(1)
 	anim:SetSmoothing("Bounce")
 	anim:Play()
 	
-	MERInstallFrame:Show()
+	_G["MERInstallFrame"]:Show()
 	NextPage()
 end

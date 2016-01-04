@@ -3,6 +3,7 @@ local MER = E:GetModule('MerathilisUI')
 
 --Cache global variables
 local format = string.format
+local assert = assert
 
 local styles = {
 	['CURRENT'] = '%s',

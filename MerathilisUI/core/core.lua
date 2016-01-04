@@ -5,9 +5,9 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 -- Cache global variables
+local _G = _G
 local format = string.format
-local pairs = pairs
-local tonumber = tonumber
+local print, pairs, tonumber = print, pairs, tonumber
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
@@ -113,19 +113,19 @@ local function CreateSplashScreen()
 end
 
 local function HideSplashScreen()
-	SplashScreen:Hide()
+	_G["SplashScreen"]:Hide()
 end
 
 local function FadeSplashScreen()
 	E:Delay(2, function()
-		E:UIFrameFadeOut(SplashScreen, 2, 1, 0)
-		SplashScreen.fadeInfo.finishedFunc = HideSplashScreen
+		E:UIFrameFadeOut(_G["SplashScreen"], 2, 1, 0)
+		_G["SplashScreen"].fadeInfo.finishedFunc = HideSplashScreen
 	end)
 end
 
 local function ShowSplashScreen()
-	E:UIFrameFadeIn(SplashScreen, 4, 0, 1)
-	SplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
+	E:UIFrameFadeIn(_G["SplashScreen"], 4, 0, 1)
+	_G["SplashScreen"].fadeInfo.finishedFunc = FadeSplashScreen
 end
 
 function MER:Initialize()
