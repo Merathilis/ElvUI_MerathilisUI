@@ -1004,7 +1004,7 @@ local xctName = GetAddOnMetadata('xCT+', 'Title')
 local function SetupMERAddons()
 	-- Skada Profile
 	if IsAddOnLoaded('Skada') then
-		print(MER.Title..format(L[' - %s profile created!'], skadaName))
+		MER:Print(format(L[' - %s profile created!'], skadaName))
 		SkadaDB['profiles']['MerathilisUI'] = {
 			["windows"] = {
 				{
@@ -1224,7 +1224,7 @@ local function SetupMERAddons()
 	
 	
 	if IsAddOnLoaded('BigWigs') then
-		print(MER.Title..format(L[' - %s profile created!'], bigwigsName))
+		MER:Print(format(L[' - %s profile created!'], bigwigsName))
 		BigWigs3DB['profiles']['MerathilisUI'] = {
 			["namespaces"] = {
 				["BigWigs_Plugins_Alt Power"] = {
@@ -1342,7 +1342,7 @@ local function SetupMERAddons()
 	
 	-- xCT Profile
 	if IsAddOnLoaded('xCT+') then
-		print(MER.Title..format(L[' - %s profile created!'], xctName))
+		MER:Print(format(L[' - %s profile created!'], xctName))
 		xCTSavedDB['profiles']["MerathilisUI"] = {
 			["frames"] = {
 				["general"] = {
