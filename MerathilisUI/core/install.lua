@@ -593,9 +593,9 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.roleIcon.tank = true
 			E.db.unitframe.units.party.roleIcon.healer = true
 			E.db.unitframe.units.party.roleIcon.damager = true
-			E.db.unitframe.units.party.roleIcon.size = 14
+			E.db.unitframe.units.party.roleIcon.size = 12
 			E.db.unitframe.units.party.roleIcon.xOffset = 0
-			E.db.unitframe.units.party.roleIcon.yOffset = 0
+			E.db.unitframe.units.party.roleIcon.yOffset = -18
 			E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.customTexts = {}
@@ -680,7 +680,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
 			E.db.unitframe.units.party.buffIndicator.size = 10
 			E.db.unitframe.units.party.power.text_format = ''
-			E.db.unitframe.units.party.power.height = 15
+			E.db.unitframe.units.party.power.height = 2
 			E.db.unitframe.units.party.positionOverride = 'BOTTOM'
 			E.db.unitframe.units.party.width = 69
 			E.db.unitframe.units.party.groupBy = 'ROLE'
@@ -700,6 +700,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
 			E.db.unitframe.units.party.buffs.noConsolidated = false
 			E.db.unitframe.units.party.buffs.sizeOverride = 22
+			E.db.unitframe.units.party.portrait.enable = false
 		end
 		-- Assist
 		E.db.unitframe.units.assist.targetsGroup.enable = false
@@ -825,10 +826,15 @@ local function SetupMERLayout(layout)
 			-- Raid
 			E.db.unitframe.units.raid.height = 30
 			E.db.unitframe.units.raid.width = 114
-			E.db.unitframe.units.raid.debuffs.sizeOverride = 21
+			E.db.unitframe.units.raid.debuffs.sizeOverride = 15
 			E.db.unitframe.units.raid.debuffs.xOffset = 0
-			E.db.unitframe.units.raid.name.yOffset = -18
+			E.db.unitframe.units.raid.name.xOffset = 2
+			E.db.unitframe.units.raid.name.yOffset = -19
+			E.db.unitframe.units.raid.name.text_format = '[namecolor][deficit:name]'
 			E.db.unitframe.units.raid.power.height = 2
+			E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
+			E.db.unitframe.units.raid.roleIcon.size = 12
+			E.db.unitframe.units.raid.roleIcon.yOffset = -18
 			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
 			-- Party
 			E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
@@ -838,10 +844,9 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.debuffs.sizeOverride = 21
 			E.db.unitframe.units.party.health.xOffset = 0
 			E.db.unitframe.units.party.health.yOffset = 0
-			E.db.unitframe.units.party.health.text_format = '[healthcolor][health:current]'
 			E.db.unitframe.units.party.name.yOffset = -19
 			E.db.unitframe.units.party.name.position = 'BOTTOM'
-			E.db.unitframe.units.party.name.text_format = '[namecolor][name:medium]'
+			E.db.unitframe.units.party.name.text_format = '[namecolor][deficit:name]'
 			E.db.unitframe.units.party.power.height = 2
 			E.db.unitframe.units.party.power.text_format = ''
 			E.db.unitframe.units.party.buffs.yOffset = 0
@@ -849,17 +854,18 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
 			E.db.unitframe.units.party.buffs.perrow = 1
 			E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
-			E.db.unitframe.units.party.debuffs.sizeOverride = 21
+			E.db.unitframe.units.party.debuffs.sizeOverride = 18
 			E.db.unitframe.units.party.debuffs.yOffset = 0
 			E.db.unitframe.units.party.debuffs.xOffset = 0
 			E.db.unitframe.units.party.debuffs.numrows = 1
 			E.db.unitframe.units.party.debuffs.perrow = 5
-			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
-			E.db.unitframe.units.party.customTexts.LevelClass.text_format = ''
-			E.db.unitframe.units.party.customTexts.HealthText.xOffset = 0
-			E.db.unitframe.units.party.roleIcon.position = 'BOTTOM'
-			E.db.unitframe.units.party.roleIcon.size = 14
+			E.db.unitframe.units.party.roleIcon.position = 'BOTTOMRIGHT'
+			E.db.unitframe.units.party.roleIcon.size = 12
 			E.db.unitframe.units.party.portrait.overlay = true
+			E.db.unitframe.units.party.customTexts.LevelClass = ''
+			E.db.unitframe.units.party.customTexts.Gesundheit = {}
+			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
+			E.db.unitframe.units.party.health.text_format = ''
 			SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
 			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -179, 147)
