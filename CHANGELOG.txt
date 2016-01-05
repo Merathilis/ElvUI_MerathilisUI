@@ -2,6 +2,7 @@
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the MerathilisUI Config Button to be on Top of the GameMenu.
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the PlayerModel SetCamDistanceScale.
 <font color=#FF8C00>&#9830;</font> Install: Adjust the camDistanceScale on Unitframes where Portraits are enable.
+<font color=#FF8C00>&#9830;</font> Install: Adjust the Heal Layout a bit.
 <font color=#FF8C00>&#9830;</font> Reminder: Change the Print Statement.
 <font color=#FF8C00>&#9830;</font> Misc: Code Optimation.
 
