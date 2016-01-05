@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
--- GLOBALS: SkadaDB, BigWigs3DB, xCTSavedDB
+-- GLOBALS: SkadaDB, xCTSavedDB
 local _G = _G
 local unpack = unpack
 local print = print
@@ -1004,7 +1004,6 @@ local function SetupMERLayout(layout)
 end
 -- Addons
 local skadaName = GetAddOnMetadata('Skada', 'Title')
-local bigwigsName = GetAddOnMetadata('BigWigs', 'Title')
 local xctName = GetAddOnMetadata('xCT+', 'Title')
 
 local function SetupMERAddons()
@@ -1226,124 +1225,6 @@ local function SetupMERAddons()
 			E.db.VAT.backdropTexture = 'MerathilisFlat'
 			E.db.VAT.position = 'TOP'
 		end
-	end
-	
-	
-	if IsAddOnLoaded('BigWigs') then
-		MER:Print(format(L[' - %s profile created!'], bigwigsName))
-		BigWigs3DB['profiles']['MerathilisUI'] = {
-			["namespaces"] = {
-				["BigWigs_Plugins_Alt Power"] = {
-					["profiles"] = {
-						["MerathilisUI"] = {
-							["posx"] = 307.58,
-							["fontSize"] = 11,
-							["font"] = "Merathilis Prototype",
-							["fontOutline"] = "OUTLINE",
-							["lock"] = true,
-							["posy"] = 130.87,
-						},
-					},
-				},
-				["LibDualSpec-1.0"] = {
-				},
-				["BigWigs_Plugins_Victory"] = {
-				},
-				["BigWigs_Plugins_Statistics"] = {
-				},
-				["BigWigs_Plugins_Sounds"] = {
-				},
-				["BigWigs_Plugins_Messages"] = {
-					["profiles"] = {
-						["MerathilisUI"] = {
-							["BWEmphasizeMessageAnchor_x"] = 548.01,
-							["BWEmphasizeCountdownMessageAnchor_x"] = 594.17,
-							["BWMessageAnchor_x"] = 547.94,
-							["chat"] = false,
-							["BWEmphasizeCountdownMessageAnchor_y"] = 542.23,
-							["font"] = "Merathilis Prototype",
-							["BWEmphasizeMessageAnchor_y"] = 634.60,
-							["BWMessageAnchor_y"] = 482.66,
-							["growUpwards"] = true,
-							["fontSize"] = 20,
-						},
-					},
-				},
-				["BigWigs_Plugins_Proximity"] = {
-					["profiles"] = {
-						["MerathilisUI"] = {
-							["fontSize"] = 20,
-							["width"] = 140.00,
-							["posy"] = 129.35,
-							["lock"] = false,
-							["posx"] = 908.83,
-							["sound"] = true,
-							["font"] = "Merathilis Prototype",
-						},
-					},
-				},
-				["BigWigs_Plugins_BossBlock"] = {
-				},
-				["BigWigs_Plugins_HeroesVoices"] = {
-				},
-				["BigWigs_Plugins_Raid Icons"] = {
-				},
-				["BigWigs_Plugins_Bars"] = {
-					["profiles"] = {
-						["MerathilisUI"] = {
-							["outline"] = "OUTLINE",
-							["fontSize"] = 20,
-							["scale"] = 0.9,
-							["BigWigsAnchor_y"] = 139.94,
-							["emphasizeGrowup"] = true,
-							["BigWigsAnchor_x"] = 1131.91,
-							["texture"] = "MerathilisFlat",
-							["emphasizeTime"] = 14,
-							["barStyle"] = "AddOnSkins Half-Bar",
-							["monochrome"] = false,
-							["BigWigsEmphasizeAnchor_x"] = 497.56,
-							["font"] = "Merathilis Roadway",
-							["BigWigsEmphasizeAnchor_y"] = 155.55,
-							["fill"] = false,
-							["BigWigsAnchor_width"] = 363.89,
-							["BigWigsEmphasizeAnchor_width"] = 532.93,
-							["emphasizeScale"] = 0.9,
-						},
-					},
-				},
-				["BigWigs_Plugins_Super Emphasize"] = {
-					["profiles"] = {
-						["MerathilisUI"] = {
-							["font"] = "Merathilis Prototype",
-						},
-					},
-				},
-				["BigWigs_Plugins_Colors"] = {
-				},
-				["BigWigs_Plugins_Respawn"] = {
-				},
-				["global"] = {
-					["watchedMovies"] = {
-						["993:2"] = true,
-						["984:1"] = {
-							true, -- [1]
-							[3] = true,
-						},
-						["964:1"] = true,
-						["969:2"] = true,
-						[294] = true,
-						[295] = true,
-						["994:3"] = true,
-						["993:4"] = true,
-					},
-				},
-				["profiles"] = {
-					["MerathilisUI"] = {
-						["fakeDBMVersion"] = true,
-					},
-				},
-			},
-		}
 	end
 	
 	-- xCT Profile
@@ -2122,7 +2003,7 @@ local function SetPage(PageNum)
 		InstallOption4Button:SetFormattedText("%s", L['Caster DPS'])
 	elseif PageNum == 4 then
 		f.SubTitle:SetFormattedText("%s", ADDONS)
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to the addons like Skada, BigWigs and ElvUI plugins'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to the addons like Skada, xCT+ and ElvUI plugins'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
