@@ -471,7 +471,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
 		E.db.unitframe.units.raid.name.xOffset = 2
 		E.db.unitframe.units.raid.name.yOffset = -20
-		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short] [difficultycolor][smartlevel]'
+		E.db.unitframe.units.raid.name.text_format = '[namecolor][deficit:name]'
 		E.db.unitframe.units.raid.name.position = 'BOTTOM'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 		E.db.unitframe.units.raid.buffIndicator.size = 10
@@ -485,7 +485,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
 		E.db.unitframe.units.raid.health.frequentUpdates = true
 		E.db.unitframe.units.raid.health.position = 'CENTER'
-		E.db.unitframe.units.raid.health.text_format = '[health:deficit]'
+		E.db.unitframe.units.raid.health.text_format = ''
 		E.db.unitframe.units.raid.buffs.enable = true
 		E.db.unitframe.units.raid.buffs.yOffset = 0
 		E.db.unitframe.units.raid.buffs.anchorPoint = 'CENTER'
@@ -503,6 +503,15 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.raidicon.xOffset = 9
 		E.db.unitframe.units.raid.raidicon.size = 13
 		E.db.unitframe.units.raid.raidicon.yOffset = 0
+		E.db.unitframe.units.raid.customTexts = {}
+		E.db.unitframe.units.raid.customTexts.Status = {}
+		E.db.unitframe.units.raid.customTexts.Status.font = 'Merathilis Tukui'
+		E.db.unitframe.units.raid.customTexts.Status.justifyH = 'CENTER'
+		E.db.unitframe.units.raid.customTexts.Status.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.raid.customTexts.Status.xOffset = 0
+		E.db.unitframe.units.raid.customTexts.Status.yOffset = 0
+		E.db.unitframe.units.raid.customTexts.Status.size = 10
+		E.db.unitframe.units.raid.customTexts.Status.text_format = '[namecolor][statustimer]'
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.raid.emptybar.enable = true
 			E.db.unitframe.units.raid.emptybar.threat = true
@@ -595,7 +604,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.roleIcon.damager = true
 			E.db.unitframe.units.party.roleIcon.size = 12
 			E.db.unitframe.units.party.roleIcon.xOffset = 0
-			E.db.unitframe.units.party.roleIcon.yOffset = -18
+			E.db.unitframe.units.party.roleIcon.yOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
 			E.db.unitframe.units.party.customTexts = {}
@@ -620,9 +629,9 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.customTexts.Gesundheit.justifyH = 'LEFT'
 			E.db.unitframe.units.party.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 			E.db.unitframe.units.party.customTexts.Gesundheit.xOffset = 40
-			E.db.unitframe.units.party.customTexts.Gesundheit.yOffset = 7
+			E.db.unitframe.units.party.customTexts.Gesundheit.yOffset = 6
 			E.db.unitframe.units.party.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-			E.db.unitframe.units.party.customTexts.Gesundheit.size = 20
+			E.db.unitframe.units.party.customTexts.Gesundheit.size = 19
 			E.db.unitframe.units.party.verticalSpacing = 25
 			E.db.unitframe.units.party.horizontalSpacing = 1
 			E.db.unitframe.units.party.raidicon.attachTo = 'LEFT'
