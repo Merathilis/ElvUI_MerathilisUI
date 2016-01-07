@@ -471,7 +471,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
 		E.db.unitframe.units.raid.name.xOffset = 2
 		E.db.unitframe.units.raid.name.yOffset = -20
-		E.db.unitframe.units.raid.name.text_format = '[namecolor][deficit:name]'
+		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:medium]'
 		E.db.unitframe.units.raid.name.position = 'BOTTOM'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 		E.db.unitframe.units.raid.buffIndicator.size = 10
@@ -485,7 +485,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
 		E.db.unitframe.units.raid.health.frequentUpdates = true
 		E.db.unitframe.units.raid.health.position = 'CENTER'
-		E.db.unitframe.units.raid.health.text_format = ''
+		E.db.unitframe.units.raid.health.text_format = '[healthcolor][health:deficit]'
 		E.db.unitframe.units.raid.buffs.enable = true
 		E.db.unitframe.units.raid.buffs.yOffset = 0
 		E.db.unitframe.units.raid.buffs.anchorPoint = 'CENTER'
