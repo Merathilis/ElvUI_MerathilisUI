@@ -15,6 +15,9 @@ local function skinMasterPlanGarrison()
 	S:HandleTab(_G["GarrisonMissionFrameTab3"])
 	S:HandleTab(_G["GarrisonMissionFrameTab4"])
 	S:HandleTab(_G["GarrisonLandingPageTab4"])
+	S:HandleButton(MPCompleteAll, true)
+	S:HandleButton(MPPokeTentativeParties, true)
+	S:HandleButton(MPLootSummaryDone, true)
 end
 
 -- ShipYard Tabs
@@ -28,6 +31,6 @@ f:SetScript("OnEvent", function(self, event, addon)
 	if addon == "MasterPlan" then
 		skinMasterPlanGarrison()
 		skinMasterPlanShipyard()
-		f:UnregisterEvent("ADDON_LOADED")
+		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)

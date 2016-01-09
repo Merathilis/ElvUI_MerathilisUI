@@ -28,7 +28,7 @@ local buttons = {
 
 -- Original close buttons, but desaturated. Like it used to be in ElvUI.
 function S:HandleCloseButton(f, point, text)
-	for i=1, f:GetNumRegions() do
+	for i = 1, f:GetNumRegions() do
 		local region = select(i, f:GetRegions())
 		if region:GetObjectType() == "Texture" then
 			region:SetDesaturated(1)
