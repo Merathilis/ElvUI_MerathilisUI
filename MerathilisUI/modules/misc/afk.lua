@@ -2,6 +2,11 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local AFK = E:GetModule('AFK');
 
+-- Cache global variables
+local CreateFrame = CreateFrame
+local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
+local IsAddOnLoaded = IsAddOnLoaded
+
 if not IsAddOnLoaded("ElvUI_BenikUI") then return end;
 
 local SPACING = (E.PixelMode and 1 or 5)
@@ -15,13 +20,13 @@ function AFK:Initialize()
 	-- NPC Model
 	self.AFKMode.bottom.npcHolder = CreateFrame("Frame", nil, self.AFKMode.bottom)
 	self.AFKMode.bottom.npcHolder:SetSize(150, 150)
-	self.AFKMode.bottom.npcHolder:SetPoint("BOTTOMLEFT", self.AFKMode.bottom, "BOTTOMLEFT", 200, 150)
+	self.AFKMode.bottom.npcHolder:SetPoint("BOTTOMLEFT", self.AFKMode.bottom, "BOTTOMLEFT", 200, 100)
 	
 	self.AFKMode.bottom.npc = CreateFrame("PlayerModel", "ElvUIAFKNPCModel", self.AFKMode.bottom.npcHolder)
 	self.AFKMode.bottom.npc:SetCreature(npc)
 	self.AFKMode.bottom.npc:SetPoint("CENTER", self.AFKMode.bottom.npcHolder, "CENTER")
 	self.AFKMode.bottom.npc:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
-	self.AFKMode.bottom.npc:SetCamDistanceScale(4.5)
+	self.AFKMode.bottom.npc:SetCamDistanceScale(6)
 	self.AFKMode.bottom.npc:SetFacing(6.9)
 	self.AFKMode.bottom.npc:SetAnimation(69)
 	self.AFKMode.bottom.npc:Show()
