@@ -107,7 +107,7 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 
-	if IsAddOnLoaded("ElvUI_SLE") then return end
+	if IsAddOnLoaded("ElvUI_SLE") or E.db.muiUnitframes.roleIcons == false then return end
 	SetRoleIcons()
 
 	hooksecurefunc(UF, 'Update_PartyFrames', SetRoleIcons)

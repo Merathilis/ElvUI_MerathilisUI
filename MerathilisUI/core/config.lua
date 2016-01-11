@@ -147,9 +147,29 @@ local function muiMisc()
 end
 tinsert(E.MerConfig, muiMisc)
 
+local function muiUnitframes()
+	E.Options.args.mui.args.unitframes = {
+		order = 10,
+		type = 'group',
+		name = L['UnitFrames'],
+		guiInline = true,
+		args = {
+			roleIcons = {
+				order = 7,
+				type = 'toggle',
+				name = L['Role Icon'],
+				desc = L['Replaces the default role icons with SVUI ones.'],
+				get = function(info) return E.db.muiUnitframes.roleIcons[ info[#info] ] end,
+				set = function(info, value) E.db.muiUnitframes.roleIcons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+		},
+	}
+end
+tinsert(E.MerConfig, muiUnitframes)
+
 local function muiSkins()
 	E.Options.args.mui.args.skins = {
-		order = 10,
+		order = 11,
 		type = 'group',
 		name = L['Skins'],
 		guiInline = true,
@@ -169,7 +189,7 @@ tinsert(E.MerConfig, muiSkins)
 
 local function muiDatatexts()
 	E.Options.args.mui.args.config.args.datatexts = {
-		order = 11,
+		order = 12,
 		type = 'group',
 		name = L["DataTexts"],
 		args = {
