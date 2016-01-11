@@ -6,10 +6,25 @@ if not IsAddOnLoaded("ElvUI_BenikUI") then return end;
 
 local SPACING = (E.PixelMode and 1 or 5)
 local classColor = RAID_CLASS_COLORS[E.myclass]
+local npc = 15358 -- Lurky
 
 AFK.InitializeMerAfk = AFK.Initialize
 function AFK:Initialize()
 	self:InitializeMerAfk()
+	
+	-- NPC Model
+	self.AFKMode.bottom.npcHolder = CreateFrame("Frame", nil, self.AFKMode.bottom)
+	self.AFKMode.bottom.npcHolder:SetSize(150, 150)
+	self.AFKMode.bottom.npcHolder:SetPoint("BOTTOMLEFT", self.AFKMode.bottom, "BOTTOMLEFT", 200, 150)
+	
+	self.AFKMode.bottom.npc = CreateFrame("PlayerModel", "ElvUIAFKNPCModel", self.AFKMode.bottom.npcHolder)
+	self.AFKMode.bottom.npc:SetCreature(npc)
+	self.AFKMode.bottom.npc:SetPoint("CENTER", self.AFKMode.bottom.npcHolder, "CENTER")
+	self.AFKMode.bottom.npc:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2)
+	self.AFKMode.bottom.npc:SetCamDistanceScale(4.5)
+	self.AFKMode.bottom.npc:SetFacing(6.9)
+	self.AFKMode.bottom.npc:SetAnimation(69)
+	self.AFKMode.bottom.npc:Show()
 	
 	-- MerathilisUI Name
 	self.AFKMode.bottom.merathilisui = self.AFKMode.top:CreateFontString(nil, 'OVERLAY')
