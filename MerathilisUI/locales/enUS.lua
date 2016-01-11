@@ -24,6 +24,8 @@ L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 L['MISC_SCROLL'] = "Scroll"
 L['Enchant on Scroll'] = true
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = true
+--L['Role Icon'] = true -- translated in ElvUI
+L['Replaces the default role icons with SVUI ones.'] = true
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = true

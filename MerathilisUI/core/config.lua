@@ -159,8 +159,8 @@ local function muiUnitframes()
 				type = 'toggle',
 				name = L['Role Icon'],
 				desc = L['Replaces the default role icons with SVUI ones.'],
-				get = function(info) return E.db.muiUnitframes.roleIcons[ info[#info] ] end,
-				set = function(info, value) E.db.muiUnitframes.roleIcons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+				get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
+				set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 			},
 		},
 	}

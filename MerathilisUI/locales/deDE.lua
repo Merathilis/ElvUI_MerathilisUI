@@ -24,6 +24,8 @@ L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 L['MISC_SCROLL'] = "Rolle"
 L['Enchant on Scroll'] = "Verzauberung auf Rolle"
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = "Platziert einen Knopf in das Verzauberungsfenster, welches dir erlaubt automatisch eine Verzauberung auf eine Rolle zu wirken."
+--L['Role Icon'] = true -- translated in ElvUI
+L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
