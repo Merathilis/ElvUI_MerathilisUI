@@ -37,7 +37,8 @@ local npc = {
 	34694, -- Gurgli
 	54438, -- Murkablo
 	85009, -- Murkidan
-	68267 -- Cinder Kitten
+	68267, -- Cinder Kitten
+	51601, -- Moonkin Hatchling
 }
 
 function MER:GameMenu()
