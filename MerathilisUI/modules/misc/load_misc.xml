@@ -2,7 +2,6 @@
 	<Script file="afk.lua"/>
 	<Script file="blizzbugs.lua"/>
 	<Script file="enchantscroll.lua"/>
-	<Script file="friendalert.lua"/>
 	<Script file="cinematic.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="garrisonalertframe.lua"/>

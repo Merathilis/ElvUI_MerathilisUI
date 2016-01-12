@@ -7,7 +7,7 @@ local CreateFrame = CreateFrame
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
 
-if not IsAddOnLoaded("ElvUI_BenikUI") then return end;
+if not IsAddOnLoaded("ElvUI_BenikUI") or E.db.muiGeneral.AFK == false then return end;
 
 local SPACING = (E.PixelMode and 1 or 5)
 local classColor = RAID_CLASS_COLORS[E.myclass]

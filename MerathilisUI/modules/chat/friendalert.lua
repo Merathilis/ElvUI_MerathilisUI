@@ -27,7 +27,7 @@ local icons = {
 	["Hero"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-HotS:14|t",
 	["S2"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-SC2:14|t",
 	["CLNT"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-CLNT:14|t",
-	--["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Pro:14|t" -- Overwatch Icon not working yet!
+	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Overwatch:14|t"
 };
 
 -- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end

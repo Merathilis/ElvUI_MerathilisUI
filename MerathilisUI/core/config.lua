@@ -57,8 +57,16 @@ local function AddOptions()
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; end,
 					},
-					GameMenu = {
+					AFK = {
 						order = 3,
+						type = 'toggle',
+						name = L['AFK'],
+						desc = L['Enable/Disable the MUI AFK Screen'],
+						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
+						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
+					GameMenu = {
+						order = 4,
 						type = 'toggle',
 						name = L['GameMenu'],
 						desc = L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'],
@@ -66,7 +74,7 @@ local function AddOptions()
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
 					Bags = {
-						order = 4,
+						order = 5,
 						type = 'toggle',
 						name = L['Bags'],
 						desc = L['Enable/Disable the forcing of the Bag/Bank Frame position.'],
