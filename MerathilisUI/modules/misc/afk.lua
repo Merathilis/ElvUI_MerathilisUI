@@ -17,7 +17,7 @@ AFK.InitializeMerAfk = AFK.Initialize
 function AFK:Initialize()
 	self:InitializeMerAfk()
 	
-		-- NPC Model
+	-- NPC Model
 	self.AFKMode.bottom.npcHolder = CreateFrame("Frame", nil, self.AFKMode.bottom)
 	self.AFKMode.bottom.npcHolder:SetSize(150, 150)
 	self.AFKMode.bottom.npcHolder:SetPoint("BOTTOMLEFT", self.AFKMode.bottom, "BOTTOMLEFT", 200, 100)
