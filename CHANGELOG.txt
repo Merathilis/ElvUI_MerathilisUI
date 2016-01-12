@@ -1,3 +1,11 @@
+<b><u> v1.16, 12.01.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Remove the BigWigs Profile from the install.
+<font color=#FF8C00>&#9830;</font> Install: Adjust Player, Party & RaidFrames a bit.
+<font color=#FF8C00>&#9830;</font> Skins: Skin a few MasterPlan Buttons.
+<font color=#FF8C00>&#9830;</font> Unitframes: Add Options for the SVUI Role Icons (Credit Benik)
+<font color=#FF8C00>&#9830;</font> AFK: Add Lurky to the AFK Screen (and he is dancing and do the "brblbrlbrl" Sound D:)
+<font color=#FF8C00>&#9830;</font> Chat: Move the friendalert.lua to the Chat Folder and hopefully finaly fix the Overwatch Icon.
+
 <b><u> v1.15, 05.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the MerathilisUI Config Button to be on Top of the GameMenu.
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the PlayerModel SetCamDistanceScale.
