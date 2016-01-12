@@ -1,13 +1,15 @@
 ## Interface: 60200
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
-## Version: 1.15
+## Version: 1.16
 ## Title: |cff1784d1MerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI
 ## X-ElvVersion: 8.48
+## X-Tukui-ProjectID: 286
+## X-Tukui-ProjectFolders: MerathilisUI
 
 developer\load_developer.xml
 libs\load_libs.xml
@@ -16,6 +18,3 @@ media\load_media.xml
 defaults\load_defaults.xml
 core\load_core.xml
 modules\load_modules.xml
-
-## X-Tukui-ProjectID: 286
-## X-Tukui-ProjectFolders: MerathilisUI
