@@ -308,10 +308,10 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.health.g = 0.23
 		E.db.unitframe.colors.health.b = 0.23
 		E.db.unitframe.colors.power.MANA = E:GetColor(classColor.r, classColor.b, classColor.g)
-		E.db.unitframe.colors.power.RAGE = {r = 79/255, g = 115/255, b = 161/255}
-		E.db.unitframe.colors.power.FOCUS = {r = 181/255, g = 110/255, b = 69/255}
-		E.db.unitframe.colors.power.ENERGY = {r = 166/255, g = 161/255, b = 89/255}
-		E.db.unitframe.colors.power.RUNIC_POWER = {r = 0/255, g = 09/255, b = 55/255}
+		E.db.unitframe.colors.power.RAGE = E:GetColor(classColor.r, classColor.b, classColor.g)
+		E.db.unitframe.colors.power.FOCUS = E:GetColor(classColor.r, classColor.b, classColor.g)
+		E.db.unitframe.colors.power.ENERGY = E:GetColor(classColor.r, classColor.b, classColor.g)
+		E.db.unitframe.colors.power.RUNIC_POWER = E:GetColor(classColor.r, classColor.b, classColor.g)
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.ufb.detachPlayerPortrait = false
 			E.db.ufb.detachTargetPortrait = false
