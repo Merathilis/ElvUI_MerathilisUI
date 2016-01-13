@@ -15,9 +15,9 @@ local function skinMasterPlanGarrison()
 	S:HandleTab(_G["GarrisonMissionFrameTab3"])
 	S:HandleTab(_G["GarrisonMissionFrameTab4"])
 	S:HandleTab(_G["GarrisonLandingPageTab4"])
-	S:HandleButton(MPCompleteAll, true)
-	S:HandleButton(MPPokeTentativeParties, true)
-	S:HandleButton(MPLootSummaryDone, true)
+	S:HandleButton(_G["MPCompleteAll"], true)
+	S:HandleButton(_G["MPPokeTentativeParties"], true)
+	S:HandleButton(_G["MPLootSummaryDone"], true)
 end
 
 -- ShipYard Tabs
