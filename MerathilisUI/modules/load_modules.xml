@@ -6,6 +6,7 @@
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="loot\load_loot.xml"/>
 	<Include file="misc\load_misc.xml"/>
+	<Include file="pvp\load_pvp.xml"/>
 	<Include file="quest\load_quest.xml"/>
 	<Include file="reminder\load_reminder.xml"/>
 	<Include file="skins\load_skins.xml"/>
