@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI');
 
 local function muiDatatexts()
 	E.Options.args.mui.args.config.args.datatexts = {
-		order = 13,
+		order = 14,
 		type = 'group',
 		name = L["DataTexts"],
 		args = {

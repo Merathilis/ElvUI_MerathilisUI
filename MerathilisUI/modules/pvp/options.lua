@@ -7,7 +7,7 @@ local MERLT = E:GetModule('muiPVP');
 
 local function muiPVP()
 	E.Options.args.mui.args.config.args.pvp = {
-		order = 14,
+		order = 15,
 		type = 'group',
 		name = PVP,
 		args = {
