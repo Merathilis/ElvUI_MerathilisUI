@@ -7,7 +7,7 @@ local MERLT = E:GetModule('muiPVP');
 
 local function muiPVP()
 	E.Options.args.mui.args.config.args.pvp = {
-		order = 13,
+		order = 14,
 		type = 'group',
 		name = PVP,
 		args = {
@@ -17,7 +17,7 @@ local function muiPVP()
 				name = DUEL,
 				guiInline = true,
 				get = function(info) return E.db.muiPVP.duels[ info[#info] ] end,
-				set = function(info, value) E.db.muiPVP.duels[ info[#info] ] = value end,
+				set = function(info, value) E.db.muiPVP.duels[ info[#info] ] = value; end,
 				args = {
 					regular = {
 						order = 1,

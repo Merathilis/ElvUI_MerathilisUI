@@ -197,7 +197,7 @@ tinsert(E.MerConfig, muiSkins)
 
 local function muiDatatexts()
 	E.Options.args.mui.args.config.args.datatexts = {
-		order = 12,
+		order = 13,
 		type = 'group',
 		name = L["DataTexts"],
 		args = {

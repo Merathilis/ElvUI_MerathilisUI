@@ -444,6 +444,7 @@ end
 function muiReminder()
 	E.Options.args.mui.args.config.args.reminder = {
 		type = "group",
+		order = 15,
 		name = L["Reminders"],
 		childGroups = "tree",
 		args = {

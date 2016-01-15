@@ -19,37 +19,6 @@ P['muiGeneral'] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Misc options
-----------------------------------------------------------------------------------------
-P['muiMisc'] = {
-	['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
-	['MailInputbox'] = true, -- Resize the MailInputbox
-	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
-	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
-	['moveBlizz'] = true, -- Make Blizzards Frame movable
-	['enchantScroll'] = false, -- Place a button at the Enchant Trade Window
-}
-
-----------------------------------------------------------------------------------------
---	Skins options
-----------------------------------------------------------------------------------------
-P['muiSkins'] = {
-	['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
-}
-
-----------------------------------------------------------------------------------------
---	System Datatext options
-----------------------------------------------------------------------------------------
-P['muiSystemDT'] = {
-	['maxAddons'] = 25, -- Sets how many Addons to show
-	['showFPS'] = true, -- Show Frames per seconds
-	['showMS'] = true, -- Show Ping
-	['latency'] = "home", -- Set the latency type ("home", "world")
-	['showMemory'] = false, -- Show Memory usage
-	['announceFreed'] = true -- Enable the Garbage Message in Chat
-}
-
-----------------------------------------------------------------------------------------
 --	Loot options
 ----------------------------------------------------------------------------------------
 P['muiLoot'] = {
@@ -83,6 +52,18 @@ P['muiLoot'] = {
 }
 
 ----------------------------------------------------------------------------------------
+--	Misc options
+----------------------------------------------------------------------------------------
+P['muiMisc'] = {
+	['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
+	['MailInputbox'] = true, -- Resize the MailInputbox
+	['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
+	['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
+	['moveBlizz'] = true, -- Make Blizzards Frame movable
+	['enchantScroll'] = false, -- Place a button at the Enchant Trade Window
+}
+
+----------------------------------------------------------------------------------------
 --	PVP options
 ----------------------------------------------------------------------------------------
 P['muiPVP'] = { -- Cancel Duel requests
@@ -91,6 +72,25 @@ P['muiPVP'] = { -- Cancel Duel requests
 		['pet'] = false,
 		['announce'] = false,
 	},
+}
+
+----------------------------------------------------------------------------------------
+--	Skins options
+----------------------------------------------------------------------------------------
+P['muiSkins'] = {
+	['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
+}
+
+----------------------------------------------------------------------------------------
+--	System Datatext options
+----------------------------------------------------------------------------------------
+P['muiSystemDT'] = {
+	['maxAddons'] = 25, -- Sets how many Addons to show
+	['showFPS'] = true, -- Show Frames per seconds
+	['showMS'] = true, -- Show Ping
+	['latency'] = "home", -- Set the latency type ("home", "world")
+	['showMemory'] = false, -- Show Memory usage
+	['announceFreed'] = true -- Enable the Garbage Message in Chat
 }
 
 ----------------------------------------------------------------------------------------

@@ -31,6 +31,9 @@ L['Replaces the default role icons with SVUI ones.'] = true
 -- LoginMessage
 --L['Login Message'] = true -- translated in ElvUI
 L['Enable/Disable the Login Message in Chat'] = true
+-- ActionBars
+L["Out of Range"] = true
+L["Change the Out of Range Check to be on the Hotkey instead of the Button."] = true
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
