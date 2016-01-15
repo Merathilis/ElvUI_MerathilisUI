@@ -1,3 +1,7 @@
+<b><u> v1.17, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Actionbars: Change the OOR-Check to be on Keybindtext and not on the Button. (Credits: Blazeflack (Code) and Sapzies (Idea)) - http://www.tukui.org/forums/topic.php?id=35421
+<font color=#FF8C00>&#9830;</font> Misc: Cleanup the Options.
+
 <b><u> v1.16, 12.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Remove the BigWigs Profile from the install.
 <font color=#FF8C00>&#9830;</font> Install: Adjust Player, Party & RaidFrames a bit.
