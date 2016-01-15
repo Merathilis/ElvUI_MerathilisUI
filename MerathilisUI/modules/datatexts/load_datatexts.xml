@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
+	<Script file="options.lua"/>
 	<Script file="specswitch.lua"/>
 	<Script file="system.lua"/>
 </Ui>
