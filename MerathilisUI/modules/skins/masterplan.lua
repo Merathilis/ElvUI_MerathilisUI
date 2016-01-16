@@ -8,7 +8,8 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
 if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
-if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.MasterPlan == false then return; end
+if E.db.muiSkins.addons == nil then E.db.muiSkins.addons = {} end -- Also a nil Error.
+if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.addons.MasterPlan == false then return; end
 
 -- Garrison Tabs
 local function skinMasterPlanGarrison()

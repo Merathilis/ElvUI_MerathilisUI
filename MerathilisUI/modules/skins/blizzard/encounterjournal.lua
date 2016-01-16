@@ -2,25 +2,29 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
+-- Cache global variables
+-- GLOBALS: styleEncounterJournal
+local _G = _G
+local pairs, unpack = pairs, unpack
+
 function styleEncounterJournal()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.db.muiSkins.EJTitle == false then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.db.muiSkins.blizzard.encounterjournal == false then return end
 	
-	local EJ = EncounterJournal
+	local EJ = _G["EncounterJournal"]
 	local EncounterInfo = EJ.encounter.info
-	local classColor = RAID_CLASS_COLORS[E.myclass]
-	EncounterInfo.instanceTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
-	EncounterInfo.encounterTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
+	EncounterInfo.instanceTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
+	EncounterInfo.encounterTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 	
 	local Tabs = {
-		EncounterJournalEncounterFrameInfoBossTab,
-		EncounterJournalEncounterFrameInfoLootTab,
-		EncounterJournalEncounterFrameInfoModelTab,
-		EncounterJournalEncounterFrameInfoOverviewTab
+		_G["EncounterJournalEncounterFrameInfoBossTab"],
+		_G["EncounterJournalEncounterFrameInfoLootTab"],
+		_G["EncounterJournalEncounterFrameInfoModelTab"],
+		_G["EncounterJournalEncounterFrameInfoOverviewTab"]
 	}
 	
 	for _, Tab in pairs(Tabs) do
 		Tab.backdrop:StripTextures(true)
-		Tab.backdrop:CreateBackdrop("Transparent")
+		Tab.backdrop:CreateBackdrop('Transparent')
 		Tab:SetSize(60, 60)
 	end
 end
