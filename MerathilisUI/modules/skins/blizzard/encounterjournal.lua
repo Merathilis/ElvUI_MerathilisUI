@@ -10,7 +10,6 @@ function styleEncounterJournal()
 	local classColor = RAID_CLASS_COLORS[E.myclass]
 	EncounterInfo.instanceTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
-	-- From AddOnSkins
 	local Tabs = {
 		EncounterJournalEncounterFrameInfoBossTab,
 		EncounterJournalEncounterFrameInfoLootTab,
@@ -21,6 +20,7 @@ function styleEncounterJournal()
 	for _, Tab in pairs(Tabs) do
 		Tab.backdrop:StripTextures(true)
 		Tab.backdrop:CreateBackdrop("Transparent")
+		Tab:SetSize(60, 60)
 	end
 end
 
