@@ -5,10 +5,23 @@ local S = E:GetModule('Skins');
 function styleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.db.muiSkins.EJTitle == false then return end
 	
-	local classColor = RAID_CLASS_COLORS[E.myclass]
 	local EJ = EncounterJournal
 	local EncounterInfo = EJ.encounter.info
+	local classColor = RAID_CLASS_COLORS[E.myclass]
 	EncounterInfo.instanceTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
+	
+	-- From AddOnSkins
+	local Tabs = {
+		EncounterJournalEncounterFrameInfoBossTab,
+		EncounterJournalEncounterFrameInfoLootTab,
+		EncounterJournalEncounterFrameInfoModelTab,
+		EncounterJournalEncounterFrameInfoOverviewTab
+	}
+	
+	for _, Tab in pairs(Tabs) do
+		Tab.backdrop:StripTextures(true)
+		Tab.backdrop:CreateBackdrop("Transparent")
+	end
 end
 
 local f = CreateFrame("Frame")
