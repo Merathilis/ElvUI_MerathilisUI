@@ -5,6 +5,7 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 -- Cache global variables
+-- GLOBALS: LibStub, C_Timer, ElvDB
 local _G = _G
 local format = string.format
 local print, pairs, tonumber = print, pairs, tonumber
