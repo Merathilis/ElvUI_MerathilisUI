@@ -78,6 +78,7 @@ P['muiPVP'] = { -- Cancel Duel requests
 --	Skins options
 ----------------------------------------------------------------------------------------
 P['muiSkins'] = {
+	['EJTitle'] = true, -- Color the EncounterJournal Info Title to classColor
 	['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
 }
 

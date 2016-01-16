@@ -33,7 +33,7 @@ L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rol
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 -- ActionBars
 L["Out of Range"] = "Außer Reichweite"
-L["Change the Out of Range Check to be on the Hotkey instead of the Button."] = "Ändert den Außer Reichweite Check auf den Tastaturbelegungstext anstatt auf den Knopf."
+L["Change the Out of Range Check to be on the Hotkey instead of the Button."] = "Ändert den außer Reichweite Check auf den Tastaturbelegungstext anstatt auf den Knopf."
 -- GameMenu
 L['GameMenu'] = "Spielmenü"
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."

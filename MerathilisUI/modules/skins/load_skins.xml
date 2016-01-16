@@ -3,4 +3,5 @@
 	<Script file="masterplan.lua"/>
 	<Script file="options.lua"/>
 	<Script file="skins.lua"/>
+	<Include file="blizzard\load_blizzard.xml"/>
 </Ui>
