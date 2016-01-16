@@ -9,6 +9,7 @@ function styleEncounterJournal()
 	local EncounterInfo = EJ.encounter.info
 	local classColor = RAID_CLASS_COLORS[E.myclass]
 	EncounterInfo.instanceTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
+	EncounterInfo.encounterTitle:SetTextColor(classColor.r, classColor.g, classColor.b)
 	
 	local Tabs = {
 		EncounterJournalEncounterFrameInfoBossTab,
