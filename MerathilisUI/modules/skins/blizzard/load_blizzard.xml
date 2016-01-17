@@ -1,3 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="encounterjournal.lua"/>
+	<Script file="spellbook.lua"/>
 </Ui>
