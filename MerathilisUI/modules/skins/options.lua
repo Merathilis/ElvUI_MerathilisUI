@@ -20,6 +20,13 @@ local function muiSkins()
 						get = function(info) return E.db.muiSkins.blizzard.encounterjournal end,
 						set = function(info, value) E.db.muiSkins.blizzard.encounterjournal = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
+					SPELLBOOK = {
+						order = 1,
+						type = 'toggle',
+						name = L["Spellbook"],
+						get = function(info) return E.db.muiSkins.blizzard.spellbook end,
+						set = function(info, value) E.db.muiSkins.blizzard.spellbook = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+					},
 				},
 			},
 			ADDONS = {
