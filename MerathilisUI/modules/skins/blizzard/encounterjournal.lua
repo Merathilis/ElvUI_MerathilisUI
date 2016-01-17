@@ -25,7 +25,7 @@ function styleEncounterJournal()
 	for _, Tab in pairs(Tabs) do
 		Tab.backdrop:StripTextures(true)
 		Tab.backdrop:CreateBackdrop('Transparent')
-		Tab:SetSize(60, 60)
+		MER:StyleOutside(Tab.backdrop)
 	end
 end
 

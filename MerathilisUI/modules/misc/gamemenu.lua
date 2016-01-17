@@ -65,7 +65,7 @@ function MER:GameMenu()
 		local bottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
-		MER:StyleFrame(bottomPanel)
+		MER:StyleOutside(bottomPanel)
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		
