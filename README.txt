@@ -56,6 +56,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Option to automatically cancel Duels/ Pet Duels.
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
+<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>New</font> Edited Skins for the SpellBook & EncounterJournal.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 <font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)

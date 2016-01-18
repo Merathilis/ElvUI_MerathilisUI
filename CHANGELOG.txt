@@ -1,10 +1,11 @@
-<b><u> v1.17, xx.xx.xxxx</b></u>
-<font color=#FF8C00>&#9830;</font> Actionbars: Change the OOR-Check to be on Keybindtext and not on the Button. (Credits: Blazeflack (Code) and Sapzies (Idea)) - http://www.tukui.org/forums/topic.php?id=35421
+<b><u> v1.17, 18.01.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Actionbars: Change the OOR-Check to be on Keybindtext and not on the Button. Disabled by default. (Credits: Blazeflack (Code) and Sapzies (Idea)) - http://www.tukui.org/forums/topic.php?id=35421
 <font color=#FF8C00>&#9830;</font> Misc: Cleanup the Options.
 <font color=#FF8C00>&#9830;</font> Misc: Move the Skin Menu to its own Tab.
 <font color=#FF8C00>&#9830;</font> Skins: Add Skin for the EncounterJournal. (ClassColor for: Encounter.Title and Encounter.Info)
 <font color=#FF8C00>&#9830;</font> Skins: Add Skin for SpellBook. (Removing the Parchement) (Credits: Darth Predator)
-<font color=#FF8C00>&#9830;</font> Install: Add MerathilisUI Logo to the Right Chat Frame only if ElvUI_SLE is enable, because of the Texture Alpha.
+<font color=#FF8C00>&#9830;</font> Install: Add a new Texture to the Right Chat Frame only if ElvUI_SLE is enable, because of the Texture Alpha.
+<font color=#FF8C00>&#9830;</font> Install: Adjust the DPS Layout. I hope you like it. :)
 
 <b><u> v1.16, 12.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Remove the BigWigs Profile from the install.

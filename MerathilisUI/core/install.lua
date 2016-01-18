@@ -328,10 +328,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.power.FOCUS = E:GetColor(classColor.r, classColor.b, classColor.g)
 		E.db.unitframe.colors.power.ENERGY = E:GetColor(classColor.r, classColor.b, classColor.g)
 		E.db.unitframe.colors.power.RUNIC_POWER = E:GetColor(classColor.r, classColor.b, classColor.g)
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db.ufb.detachPlayerPortrait = false
-			E.db.ufb.detachTargetPortrait = false
-		end
+
 		-- Player
 		E.db.unitframe.units.player.width = 180
 		E.db.unitframe.units.player.height = 25
@@ -384,7 +381,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.getPlayerPortraitSize = false
 			E.db.ufb.PlayerPortraitWidth = 92
 			E.db.ufb.PlayerPortraitHeight = 39
-			E.db.ufb.PlayerPortraitShadow = true
+			E.db.ufb.PlayerPortraitShadow = false
 		end
 		-- Target
 		E.db.unitframe.units.target.width = 180
@@ -434,7 +431,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.portrait.width = 0
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1
 		E.db.unitframe.units.target.buffs.enable = true
-		E.db.unitframe.units.target.buffs.xOffset = 2
+		E.db.unitframe.units.target.buffs.xOffset = 0
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 11
 		E.db.unitframe.units.target.buffs.fontSize = 12
@@ -442,7 +439,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachTargetPortrait = true
 			E.db.ufb.TargetPortraitWidth = 92
 			E.db.ufb.TargetPortraitHeight = 39
-			E.db.ufb.TargetPortraitShadow = true
+			E.db.ufb.TargetPortraitShadow = false
 		end
 		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
@@ -817,7 +814,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
 			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-			SetMoverPosition('BossHeaderMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 436, 260)
+			SetMoverPosition('BossHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -230, -404)
 			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
