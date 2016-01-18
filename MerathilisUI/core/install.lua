@@ -334,9 +334,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.height = 25
 		E.db.unitframe.units.player.debuffs.fontSize = 11
 		E.db.unitframe.units.player.debuffs.attachTo = 'FRAME'
-		E.db.unitframe.units.player.debuffs.sizeOverride = 25
-		E.db.unitframe.units.player.debuffs.xOffset = -3
-		E.db.unitframe.units.player.debuffs.yOffset = 25
+		E.db.unitframe.units.player.debuffs.sizeOverride = 28
+		E.db.unitframe.units.player.debuffs.xOffset = -94
+		E.db.unitframe.units.player.debuffs.yOffset = -2
 		E.db.unitframe.units.player.debuffs.perrow = 4
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 		E.db.unitframe.units.player.portrait.enable = true
@@ -389,9 +389,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.castbar.latency = true
 		E.db.unitframe.units.target.castbar.width = 180
 		E.db.unitframe.units.target.castbar.height = 15
-		E.db.unitframe.units.target.debuffs.sizeOverride = 25
-		E.db.unitframe.units.target.debuffs.yOffset = 25
-		E.db.unitframe.units.target.debuffs.xOffset = 0
+		E.db.unitframe.units.target.debuffs.sizeOverride = 28
+		E.db.unitframe.units.target.debuffs.yOffset = -2
+		E.db.unitframe.units.target.debuffs.xOffset = 94
 		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.target.debuffs.perrow = 4
 		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
