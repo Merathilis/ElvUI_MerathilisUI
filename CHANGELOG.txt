@@ -1,8 +1,8 @@
 <b><u> v1.17a, 18.01.2016</b></u>
-<font color=#FF8C00>&#9830;</font> Install: Correct some Movers and Unitframes i forget. Sorry about that. :/
+<font color=#FF8C00>&#9830;</font> Install: Correct some Movers and Unitframes i forgot. Sorry about that. :/
 
 <b><u> v1.17, 18.01.2016</b></u>
-<font color=#FF8C00>&#9830;</font> Actionbars: Change the OOR-Check to be on Keybindtext and not on the Button. Disabled by default. (Credits: Blazeflack (Code) and Sapzies (Idea)) - http://www.tukui.org/forums/topic.php?id=35421
+<font color=#FF8C00>&#9830;</font> Actionbars: Change the OOR-Check to be on Keybindtext and not on the Button. Disabled by default. (Credits: Blazeflack (Code), Darth Predator for the help and Sapzies (Idea)) - http://www.tukui.org/forums/topic.php?id=35421
 <font color=#FF8C00>&#9830;</font> Misc: Cleanup the Options.
 <font color=#FF8C00>&#9830;</font> Misc: Move the Skin Menu to its own Tab.
 <font color=#FF8C00>&#9830;</font> Skins: Add Skin for the EncounterJournal. (ClassColor for: Encounter.Title and Encounter.Info)
