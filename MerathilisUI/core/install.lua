@@ -390,9 +390,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.castbar.width = 180
 		E.db.unitframe.units.target.castbar.height = 15
 		E.db.unitframe.units.target.debuffs.sizeOverride = 25
-		E.db.unitframe.units.target.debuffs.yOffset = 5
+		E.db.unitframe.units.target.debuffs.yOffset = 25
 		E.db.unitframe.units.target.debuffs.xOffset = 0
-		E.db.unitframe.units.target.debuffs.anchorPoint = 'LEFT'
+		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.target.debuffs.perrow = 4
 		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
 		E.db.unitframe.units.target.aurabar.enable = false
@@ -724,8 +724,9 @@ local function SetupMERLayout(layout)
 		-- Pet
 		E.db.unitframe.units.pet.castbar.latency = true
 		E.db.unitframe.units.pet.castbar.width = 102
+		E.db.unitframe.units.pet.castbar.height = 13
 		E.db.unitframe.units.pet.width = 102
-		E.db.unitframe.units.pet.height = 15
+		E.db.unitframe.units.pet.height = 12
 		E.db.unitframe.units.pet.power.height = 2
 		-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
@@ -788,7 +789,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 			-- PetMover
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 465, 199)
-			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 465, 217)
 			-- AlertMover for Garrison etc.
 			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 			-- ActionBarMover
@@ -819,7 +820,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
 			-- MiscMover
-			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 167)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
 			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
