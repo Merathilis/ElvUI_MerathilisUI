@@ -433,7 +433,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.buffs.enable = true
 		E.db.unitframe.units.target.buffs.xOffset = 0
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
-		E.db.unitframe.units.target.buffs.perrow = 11
+		E.db.unitframe.units.target.buffs.perrow = 9
 		E.db.unitframe.units.target.buffs.fontSize = 12
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db.ufb.detachTargetPortrait = true
