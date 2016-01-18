@@ -124,6 +124,7 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.font = 'Merathilis Prototype'
 		E.db.actionbar.fontOutline = 'OUTLINE'
 		E.db.actionbar.macrotext = true
+		E.db.actionbar.showGrid = false
 		if IsAddOnLoaded("Masque") then
 			E.private.actionbar.masque.stanceBar = true
 			E.private.actionbar.masque.petBar = true
@@ -135,6 +136,7 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.bar1.heightMult = 2
 		E.db.actionbar.bar1.buttonsize = 28
 		E.db.actionbar.bar1.buttons = 12
+		
 		E.db.actionbar.bar2.enabled = true
 		E.db.actionbar.bar2.buttonspacing = 4
 		E.db.actionbar.bar2.buttons = 12
@@ -142,19 +144,24 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.bar2.backdrop = false
 		E.db.actionbar.bar2.visibility = '[vehicleui][overridebar][petbattle][possessbar] hide; show'
 		E.db.actionbar.bar2.mouseover = false
+		
 		E.db.actionbar.bar3.backdrop = true
-		E.db.actionbar.bar3.buttonsPerRow = 3
-		E.db.actionbar.bar3.buttonsize = 28
-		E.db.actionbar.bar3.buttonspacing = 2
-		E.db.actionbar.bar3.buttons = 6
+		E.db.actionbar.bar3.buttonsPerRow = 2
+		E.db.actionbar.bar3.buttonsize = 22
+		E.db.actionbar.bar3.buttonspacing = 4
+		E.db.actionbar.bar3.buttons = 12
+		E.db.actionbar.bar3.point = 'TOPLEFT'
+		
 		E.db.actionbar.bar4.buttonspacing = 4
 		E.db.actionbar.bar4.mouseover = true
 		E.db.actionbar.bar4.buttonsize = 24
+		
 		E.db.actionbar.bar5.backdrop = true
-		E.db.actionbar.bar5.buttonsPerRow = 3
-		E.db.actionbar.bar5.buttonsize = 28
-		E.db.actionbar.bar5.buttonspacing = 2
-		E.db.actionbar.bar5.buttons = 6
+		E.db.actionbar.bar5.buttonsPerRow = 2
+		E.db.actionbar.bar5.buttonsize = 22
+		E.db.actionbar.bar5.buttonspacing = 4
+		E.db.actionbar.bar5.buttons = 12
+		
 		E.db.actionbar.bar6.enabled = true
 		E.db.actionbar.bar6.backdrop = true
 		E.db.actionbar.bar6.buttonsPerRow = 1
@@ -163,15 +170,18 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.bar6.buttons = 4
 		E.db.actionbar.bar6.buttonsize = 28
 		E.db.actionbar.bar6.point = 'TOPLEFT'
+		
 		E.db.actionbar.barPet.point = 'BOTTOMLEFT'
 		E.db.actionbar.barPet.buttons = 8
 		E.db.actionbar.barPet.buttonspacing = 1
 		E.db.actionbar.barPet.buttonsPerRow = 1
 		E.db.actionbar.barPet.buttonsize = 19
+		
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
 		E.db.actionbar.stanceBar.backdrop = true
 		E.db.actionbar.stanceBar.buttonsPerRow = 6
 		E.db.actionbar.stanceBar.buttonsize = 20
+		
 		E.db.actionbar.extraActionButton.scale = 0.75
 	end
 	
@@ -235,9 +245,9 @@ local function SetupMERLayout(layout)
 		E.db.chat.keywords = '%MYNAME%, ElvUI'
 		E.db.chat.timeStampFormat = '%H:%M '
 		if IsAddOnLoaded ("ElvUI_SLE") then
-			E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga'
+			E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\nightsky.tga'
 			E.db.sle.chat.textureAlpha.enable = true
-			E.db.sle.chat.textureAlpha.alpha = 0.15
+			E.db.sle.chat.textureAlpha.alpha = 0.25
 		else
 			if factionGroup == "Alliance" then
 				E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\alliance.tga'
@@ -323,18 +333,19 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachTargetPortrait = false
 		end
 		-- Player
-		E.db.unitframe.units.player.width = 220
-		E.db.unitframe.units.player.height = 35
+		E.db.unitframe.units.player.width = 180
+		E.db.unitframe.units.player.height = 25
 		E.db.unitframe.units.player.debuffs.fontSize = 11
 		E.db.unitframe.units.player.debuffs.attachTo = 'FRAME'
-		E.db.unitframe.units.player.debuffs.sizeOverride = 32
+		E.db.unitframe.units.player.debuffs.sizeOverride = 25
 		E.db.unitframe.units.player.debuffs.xOffset = -3
-		E.db.unitframe.units.player.debuffs.yOffset = 5
+		E.db.unitframe.units.player.debuffs.yOffset = 25
+		E.db.unitframe.units.player.debuffs.perrow = 4
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 		E.db.unitframe.units.player.portrait.enable = true
 		E.db.unitframe.units.player.portrait.overlay = false
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1
-		E.db.unitframe.units.player.portrait.width = 43
+		E.db.unitframe.units.player.portrait.width = 0
 		-- Use Classbar not for Druid, because of Balance PowerTracker
 		if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
 			E.db.unitframe.units.player.classbar.enable = true
@@ -348,45 +359,44 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.aurabar.enable = false
 		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
 		E.db.unitframe.units.player.castbar.icon = true
-		E.db.unitframe.units.player.castbar.width = 220
-		E.db.unitframe.units.player.castbar.height = 18
+		E.db.unitframe.units.player.castbar.width = 180
+		E.db.unitframe.units.player.castbar.height = 15
 		E.db.unitframe.units.player.customTexts = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit = {}
 		E.db.unitframe.units.player.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.player.customTexts.Gesundheit.justifyH = 'LEFT'
 		E.db.unitframe.units.player.customTexts.Gesundheit.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 42
-		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 7
+		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 2
+		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
 		E.db.unitframe.units.player.customTexts.Gesundheit.size = 22
-		E.db.unitframe.units.player.customTexts.LevelClass = {}
-		E.db.unitframe.units.player.customTexts.LevelClass.font = 'Merathilis Tukui'
-		E.db.unitframe.units.player.customTexts.LevelClass.justifyH = 'LEFT'
-		E.db.unitframe.units.player.customTexts.LevelClass.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.player.customTexts.LevelClass.xOffset = 42
-		E.db.unitframe.units.player.customTexts.LevelClass.yOffset = -7
-		E.db.unitframe.units.player.customTexts.LevelClass.size = 12
-		E.db.unitframe.units.player.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
-		E.db.unitframe.units.player.health.xOffset = -3
-		E.db.unitframe.units.player.health.yOffset = -26
+		E.db.unitframe.units.player.health.xOffset = -2
+		E.db.unitframe.units.player.health.yOffset = -21
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent_short] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
-		E.db.unitframe.units.player.power.yOffset = -26
+		E.db.unitframe.units.player.power.yOffset = -21
 		E.db.unitframe.units.player.power.height = 2
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachFromFrame = false
 		E.db.unitframe.units.player.buffs.enable = false
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db.ufb.detachPlayerPortrait = true
+			E.db.ufb.getPlayerPortraitSize = false
+			E.db.ufb.PlayerPortraitWidth = 92
+			E.db.ufb.PlayerPortraitHeight = 39
+			E.db.ufb.PlayerPortraitShadow = true
+		end
 		-- Target
-		E.db.unitframe.units.target.width = 220
-		E.db.unitframe.units.target.height = 35
+		E.db.unitframe.units.target.width = 180
+		E.db.unitframe.units.target.height = 25
 		E.db.unitframe.units.target.castbar.latency = true
-		E.db.unitframe.units.target.castbar.width = 239.999954223633
-		E.db.unitframe.units.target.debuffs.sizeOverride = 32
+		E.db.unitframe.units.target.castbar.width = 180
+		E.db.unitframe.units.target.castbar.height = 15
+		E.db.unitframe.units.target.debuffs.sizeOverride = 25
 		E.db.unitframe.units.target.debuffs.yOffset = 5
-		E.db.unitframe.units.target.debuffs.xOffset = 3
-		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
-		E.db.unitframe.units.target.debuffs.numrows = 2
-		E.db.unitframe.units.target.debuffs.perrow = 3
+		E.db.unitframe.units.target.debuffs.xOffset = 0
+		E.db.unitframe.units.target.debuffs.anchorPoint = 'LEFT'
+		E.db.unitframe.units.target.debuffs.perrow = 4
 		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
 		E.db.unitframe.units.target.aurabar.enable = false
 		E.db.unitframe.units.target.aurabar.attachTo = 'BUFFS'
@@ -396,7 +406,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.name.text_format = ''
 		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
 		E.db.unitframe.units.target.power.xOffset = -2
-		E.db.unitframe.units.target.power.yOffset = -26
+		E.db.unitframe.units.target.power.yOffset = -21
 		E.db.unitframe.units.target.power.detachFromFrame = false
 		E.db.unitframe.units.target.power.hideonnpc = false
 		E.db.unitframe.units.target.power.height = 2
@@ -405,48 +415,43 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = -36
+		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 9
 		E.db.unitframe.units.target.customTexts.Gesundheit.size = 22
-		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor]'
-		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 7
+		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor][smartlevel] [shortclassification]'
+		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.target.customTexts.Name1 = {}
 		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
-		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'RIGHT'
+		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'LEFT'
 		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Name1.xOffset = -42
-		E.db.unitframe.units.target.customTexts.Name1.size = 12
-		E.db.unitframe.units.target.customTexts.Name1.text_format = '[namecolor][smartclass] [difficultycolor][level]'
-		E.db.unitframe.units.target.customTexts.Name1.yOffset = -7
-		E.db.unitframe.units.target.health.xOffset = 6
+		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
+		E.db.unitframe.units.target.customTexts.Name1.size = 14
+		E.db.unitframe.units.target.customTexts.Name1.text_format = '[powercolor][smartclass] [difficultycolor][level]'
+		E.db.unitframe.units.target.customTexts.Name1.yOffset = 0
+		E.db.unitframe.units.target.health.xOffset = 5
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:current] - [health:percent_short]'
-		E.db.unitframe.units.target.health.yOffset = -26
-		E.db.unitframe.units.target.portrait.width = 43
-		E.db.unitframe.units.target.portrait.rotation = 0
-		E.db.unitframe.units.target.portrait.overlay = false
-		E.db.unitframe.units.target.portrait.xOffset = 0
+		E.db.unitframe.units.target.health.yOffset = -21
 		E.db.unitframe.units.target.portrait.enable = true
+		E.db.unitframe.units.target.portrait.width = 0
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1
+		E.db.unitframe.units.target.buffs.enable = true
 		E.db.unitframe.units.target.buffs.xOffset = 2
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 11
 		E.db.unitframe.units.target.buffs.fontSize = 12
-		E.db.unitframe.units.target.castbar.width = 220
-		E.db.unitframe.units.target.castbar.height = 18
+		if IsAddOnLoaded ("ElvUI_BenikUI") then
+			E.db.ufb.detachTargetPortrait = true
+			E.db.ufb.TargetPortraitWidth = 92
+			E.db.ufb.TargetPortraitHeight = 39
+			E.db.ufb.TargetPortraitShadow = true
+		end
 		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
 		E.db.unitframe.units.targettarget.power.position = 'CENTER'
-		E.db.unitframe.units.targettarget.power.height = 2
+		E.db.unitframe.units.targettarget.power.height = 3
 		E.db.unitframe.units.targettarget.width = 100
 		E.db.unitframe.units.targettarget.name.yOffset = -1
-		E.db.unitframe.units.targettarget.health.position = 'CENTER'
-		E.db.unitframe.units.targettarget.health.yOffset = -16
-		E.db.unitframe.units.targettarget.health.text_format = '[healthcolor][health:percent] - [health:current]'
 		E.db.unitframe.units.targettarget.height = 20
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db.unitframe.units.targettarget.emptybar.enable = true
-			E.db.unitframe.units.targettarget.emptybar.threat = true
-			E.db.unitframe.units.targettarget.emptybar.height = 11
-		end
+		E.db.unitframe.units.targettarget.health.text_format = ""
 		-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
@@ -760,19 +765,21 @@ local function SetupMERLayout(layout)
 		-- DPS Layout
 		if layout == 'DPS' then
 			-- PlayerMover
-			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -178, 147)
-			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -177, 110)
+			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 141)
+			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
+			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 127)
 			-- TargetMover
-			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 178, 147)
-			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 178, 110)
+			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 141)
+			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 108)
 			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
+			SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 127)
 			-- TargetTargetMover
-			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
+			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 146)
 			-- FocusMover
-			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
-			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 199)
+			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 222)
 			-- FocusTargetMover
-			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
+			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 234)
 			-- Raid/GroupMover
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 250)
@@ -783,23 +790,23 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 			-- PetMover
-			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 465, 199)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
 			-- AlertMover for Garrison etc.
 			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 			-- ActionBarMover
-			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 26)
-			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 58)
-			SetMoverPosition('ElvAB_3', 'BOTTOM', E.UIParent, 'BOTTOM', 241, 32)
+			SetMoverPosition('ElvAB_1', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 27)
+			SetMoverPosition('ElvAB_2', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 60)
+			SetMoverPosition('ElvAB_3', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 3)
 			SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
-			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
-			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
-			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
-			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 915, 96)
+			SetMoverPosition('ElvAB_5', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 3)
+			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 249)
+			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 470, 4)
+			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 917, 99)
 			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -318, 32)
 			-- XP/RepMover
-			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -353, 23)
-			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 23)
+			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -410, 23)
+			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 410, 23)
 			-- TooltipMover
 			SetMoverPosition('TooltipMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -34, 367)
 			-- ChatMover
@@ -810,7 +817,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('DebuffsMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -158, -115)
 			-- Arena/BossMover
 			SetMoverPosition('ArenaHeaderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -150, -305)
-			SetMoverPosition('BossHeaderMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 451, 374)
+			SetMoverPosition('BossHeaderMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 436, 260)
 			-- Tank/AssistMover
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
@@ -819,7 +826,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
 			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
-			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 368, 3)
+			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 424, 2)
 			SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
 			SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
 			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
@@ -892,10 +899,10 @@ local function SetupMERLayout(layout)
 			-- TargetTargetMover
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 162)
 			-- FocusMover
-			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 239)
-			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 228)
+			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -465, 199)
+			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -465, 220)
 			-- FocusTargetMover
-			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 273)
+			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -465, 232)
 			-- PetMover
 			SetMoverPosition('ElvUF_PetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 135)
 			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 114)
@@ -908,7 +915,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 			SetMoverPosition('ElvAB_5', 'BOTTOM', E.UIParent, 'BOTTOM', -241, 32)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -367, 46)
-			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 366, 2)
+			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 469, 3)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 791, 97)
 			SetMoverPosition('BossButton', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 442, 125)
 			-- XP/RepMover
@@ -929,7 +936,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_TankMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 626)
 			SetMoverPosition('ElvUF_AssistMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 2, 571)
 			-- MiscMover
-			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -413, 195)
+			SetMoverPosition('ElvUF_BodyGuardMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -465, 152)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
 			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
