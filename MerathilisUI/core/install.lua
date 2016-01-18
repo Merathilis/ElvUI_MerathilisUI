@@ -369,7 +369,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 2
 		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-		E.db.unitframe.units.player.customTexts.Gesundheit.size = 22
+		E.db.unitframe.units.player.customTexts.Gesundheit.size = 20
 		E.db.unitframe.units.player.health.xOffset = -2
 		E.db.unitframe.units.player.health.yOffset = -21
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent_short] - [health:current]'
@@ -416,7 +416,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 9
-		E.db.unitframe.units.target.customTexts.Gesundheit.size = 22
+		E.db.unitframe.units.target.customTexts.Gesundheit.size = 20
 		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor][smartlevel] [shortclassification]'
 		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.target.customTexts.Name1 = {}
