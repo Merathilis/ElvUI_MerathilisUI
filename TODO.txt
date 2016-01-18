@@ -1,4 +1,6 @@
 .:: MerathilisUI ::. 
 
-#RarAlert shows a warning when you port in your Garrison
-#And maybe a lot of other things i could not test :D 
+#Preparation for Legion.
+#Made changes to the Unitframes. (Style)
+#Include S&L Settings to my Install.
+#Whatever comes in my Mind.
