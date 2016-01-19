@@ -388,7 +388,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachPlayerPortrait = true
 			E.db.ufb.getPlayerPortraitSize = false
 			E.db.ufb.PlayerPortraitWidth = 92
-			E.db.ufb.PlayerPortraitHeight = 44
+			E.db.ufb.PlayerPortraitHeight = 43
 			E.db.ufb.PlayerPortraitShadow = false
 		end
 		-- Target
@@ -454,7 +454,7 @@ local function SetupMERLayout(layout)
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db.ufb.detachTargetPortrait = true
 			E.db.ufb.TargetPortraitWidth = 92
-			E.db.ufb.TargetPortraitHeight = 44
+			E.db.ufb.TargetPortraitHeight = 43
 			E.db.ufb.TargetPortraitShadow = false
 		end
 		-- TargetTarget
