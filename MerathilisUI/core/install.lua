@@ -317,7 +317,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.castColor.r = 0.1
 		E.db.unitframe.colors.castColor.g = 0.1
 		E.db.unitframe.colors.castColor.b = 0.1
-		E.db.unitframe.colors.transparentHealth = false
+		E.db.unitframe.colors.transparentHealth = true
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentPower = false
 		E.db.unitframe.colors.transparentCastbar = true
@@ -337,7 +337,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.debuffs.attachTo = 'FRAME'
 		E.db.unitframe.units.player.debuffs.sizeOverride = 28
 		E.db.unitframe.units.player.debuffs.xOffset = -94
-		E.db.unitframe.units.player.debuffs.yOffset = -2
+		E.db.unitframe.units.player.debuffs.yOffset = 2
 		E.db.unitframe.units.player.debuffs.perrow = 4
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 		E.db.unitframe.units.player.portrait.enable = true
@@ -367,21 +367,28 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.customTexts.Gesundheit.xOffset = 2
 		E.db.unitframe.units.player.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.player.customTexts.Gesundheit.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-		E.db.unitframe.units.player.customTexts.Gesundheit.size = 20
+		E.db.unitframe.units.player.customTexts.Gesundheit.size = 22
 		E.db.unitframe.units.player.health.xOffset = -2
-		E.db.unitframe.units.player.health.yOffset = -21
+		E.db.unitframe.units.player.health.yOffset = -20
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent_short] - [health:current]'
 		E.db.unitframe.units.player.power.xOffset = 5
-		E.db.unitframe.units.player.power.yOffset = -21
-		E.db.unitframe.units.player.power.height = 2
+		E.db.unitframe.units.player.power.yOffset = 0
+		E.db.unitframe.units.player.power.height = 3
 		E.db.unitframe.units.player.power.hideonnpc = true
-		E.db.unitframe.units.player.power.detachFromFrame = false
+		E.db.unitframe.units.player.power.detachFromFrame = true
+		E.db.unitframe.units.player.power.detachedWidth = 178
+		E.db.unitframe.units.player.power.text_format = '[namecolor][power:current]'
 		E.db.unitframe.units.player.buffs.enable = false
+		E.db.unitframe.units.player.raidicon.enable = true
+		E.db.unitframe.units.player.raidicon.position = 'TOP'
+		E.db.unitframe.units.player.raidicon.size = 18
+		E.db.unitframe.units.player.raidicon.xOffset = 0
+		E.db.unitframe.units.player.raidicon.yOffset = 15
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.ufb.detachPlayerPortrait = true
 			E.db.ufb.getPlayerPortraitSize = false
 			E.db.ufb.PlayerPortraitWidth = 92
-			E.db.ufb.PlayerPortraitHeight = 39
+			E.db.ufb.PlayerPortraitHeight = 44
 			E.db.ufb.PlayerPortraitShadow = false
 		end
 		-- Target
@@ -391,7 +398,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.castbar.width = 180
 		E.db.unitframe.units.target.castbar.height = 15
 		E.db.unitframe.units.target.debuffs.sizeOverride = 28
-		E.db.unitframe.units.target.debuffs.yOffset = -2
+		E.db.unitframe.units.target.debuffs.yOffset = 2
 		E.db.unitframe.units.target.debuffs.xOffset = 94
 		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.target.debuffs.perrow = 4
@@ -403,43 +410,51 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.name.position = 'RIGHT'
 		E.db.unitframe.units.target.name.text_format = ''
 		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
-		E.db.unitframe.units.target.power.xOffset = -2
-		E.db.unitframe.units.target.power.yOffset = -21
-		E.db.unitframe.units.target.power.detachFromFrame = false
+		E.db.unitframe.units.target.power.xOffset = 0
+		E.db.unitframe.units.target.power.yOffset = 0
+		E.db.unitframe.units.target.power.detachFromFrame = true
+		E.db.unitframe.units.target.power.detachedWidth = 178
 		E.db.unitframe.units.target.power.hideonnpc = false
-		E.db.unitframe.units.target.power.height = 2
+		E.db.unitframe.units.target.power.height = 3
+		E.db.unitframe.units.target.power.text_format = '[namecolor][power:current]'
 		E.db.unitframe.units.target.customTexts = {}
 		E.db.unitframe.units.target.customTexts.Gesundheit = {}
 		E.db.unitframe.units.target.customTexts.Gesundheit.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Gesundheit.justifyH = 'RIGHT'
 		E.db.unitframe.units.target.customTexts.Gesundheit.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 9
-		E.db.unitframe.units.target.customTexts.Gesundheit.size = 20
-		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor][smartlevel] [shortclassification]'
+		E.db.unitframe.units.target.customTexts.Gesundheit.xOffset = 4
+		E.db.unitframe.units.target.customTexts.Gesundheit.size = 22
+		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor][shortclassification]'
 		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 1
 		E.db.unitframe.units.target.customTexts.Name1 = {}
 		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
 		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'LEFT'
 		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
 		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
-		E.db.unitframe.units.target.customTexts.Name1.size = 14
-		E.db.unitframe.units.target.customTexts.Name1.text_format = '[powercolor][smartclass] [difficultycolor][level]'
-		E.db.unitframe.units.target.customTexts.Name1.yOffset = 0
-		E.db.unitframe.units.target.health.xOffset = 5
+		E.db.unitframe.units.target.customTexts.Name1.size = 12
+		E.db.unitframe.units.target.customTexts.Name1.text_format = '[namecolor][smartclass] [difficultycolor][level]'
+		E.db.unitframe.units.target.customTexts.Name1.yOffset = -20
+		E.db.unitframe.units.target.health.xOffset = 4
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:current] - [health:percent_short]'
-		E.db.unitframe.units.target.health.yOffset = -21
+		E.db.unitframe.units.target.health.yOffset = -20
 		E.db.unitframe.units.target.portrait.enable = true
 		E.db.unitframe.units.target.portrait.width = 0
 		E.db.unitframe.units.target.portrait.camDistanceScale = 1
 		E.db.unitframe.units.target.buffs.enable = true
 		E.db.unitframe.units.target.buffs.xOffset = 0
+		E.db.unitframe.units.target.buffs.yOffset = 5
 		E.db.unitframe.units.target.buffs.sizeOverride = 20
 		E.db.unitframe.units.target.buffs.perrow = 9
 		E.db.unitframe.units.target.buffs.fontSize = 12
+		E.db.unitframe.units.target.raidicon.enable = true
+		E.db.unitframe.units.target.raidicon.position = 'TOP'
+		E.db.unitframe.units.target.raidicon.size = 18
+		E.db.unitframe.units.target.raidicon.xOffset = 0
+		E.db.unitframe.units.target.raidicon.yOffset = 15
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db.ufb.detachTargetPortrait = true
 			E.db.ufb.TargetPortraitWidth = 92
-			E.db.ufb.TargetPortraitHeight = 39
+			E.db.ufb.TargetPortraitHeight = 44
 			E.db.ufb.TargetPortraitShadow = false
 		end
 		-- TargetTarget
@@ -450,6 +465,11 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.targettarget.name.yOffset = -1
 		E.db.unitframe.units.targettarget.height = 20
 		E.db.unitframe.units.targettarget.health.text_format = ""
+		E.db.unitframe.units.targettarget.raidicon.enable = true
+		E.db.unitframe.units.targettarget.raidicon.position = 'TOP'
+		E.db.unitframe.units.targettarget.raidicon.size = 18
+		E.db.unitframe.units.targettarget.raidicon.xOffset = 0
+		E.db.unitframe.units.targettarget.raidicon.yOffset = 15
 		-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
@@ -478,13 +498,13 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
-		E.db.unitframe.units.raid.name.xOffset = 2
+		E.db.unitframe.units.raid.name.xOffset = -7
 		E.db.unitframe.units.raid.name.yOffset = -20
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:medium]'
 		E.db.unitframe.units.raid.name.position = 'BOTTOM'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 		E.db.unitframe.units.raid.buffIndicator.size = 10
-		E.db.unitframe.units.raid.roleIcon.size = 12
+		E.db.unitframe.units.raid.roleIcon.size = 10
 		E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.raid.power.enable = true
 		E.db.unitframe.units.raid.power.position = 'CENTER'
@@ -527,6 +547,11 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.emptybar.height = 15
 			E.db.unitframe.units.raid.emptybar.transparent = true
 			E.db.unitframe.units.raid.classHover = true
+			E.db.unitframe.units.raid.roleIcon.damager = true
+			E.db.unitframe.units.raid.roleIcon.tank = true
+			E.db.unitframe.units.raid.roleIcon.heal = true
+			E.db.unitframe.units.raid.roleIcon.yOffset = -18
+			E.db.unitframe.units.raid.roleIcon.xOffset = 0
 		end
 		-- Raid40
 		E.db.unitframe.units.raid40.horizontalSpacing = 1
@@ -580,13 +605,6 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
-		E.db.unitframe.units.party.portrait.enable = true
-		E.db.unitframe.units.party.portrait.overlay = false
-		E.db.unitframe.units.party.portrait.width = 40
-		E.db.unitframe.units.party.portrait.height = 0
-		E.db.unitframe.units.party.portrait.camDistanceScale = 1.2
-		E.db.unitframe.units.party.portrait.style = '3D'
-		E.db.unitframe.units.party.portrait.transparent = true
 		-- Party
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 30
@@ -611,7 +629,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.roleIcon.tank = true
 			E.db.unitframe.units.party.roleIcon.healer = true
 			E.db.unitframe.units.party.roleIcon.damager = true
-			E.db.unitframe.units.party.roleIcon.size = 12
+			E.db.unitframe.units.party.roleIcon.size = 10
 			E.db.unitframe.units.party.roleIcon.xOffset = 0
 			E.db.unitframe.units.party.roleIcon.yOffset = 0
 			E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
@@ -665,6 +683,13 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.emptybar.enable = true
 			E.db.unitframe.units.party.emptybar.height = 15
 			E.db.unitframe.units.party.emptybar.transparent = false
+			E.db.unitframe.units.party.portrait.enable = true
+			E.db.unitframe.units.party.portrait.overlay = false
+			E.db.unitframe.units.party.portrait.width = 40
+			E.db.unitframe.units.party.portrait.height = 0
+			E.db.unitframe.units.party.portrait.camDistanceScale = 1.2
+			E.db.unitframe.units.party.portrait.style = '3D'
+			E.db.unitframe.units.party.portrait.transparent = true
 		else
 			E.db.unitframe.units.party.debuffs.fontSize = 12
 			E.db.unitframe.units.party.debuffs.sizeOverride = 21
@@ -766,13 +791,14 @@ local function SetupMERLayout(layout)
 			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 141)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
-			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 127)
+			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 126)
+			SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 166)
 			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 168)
 			-- TargetMover
 			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 141)
 			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 108)
-			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 203, 429)
-			SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 127)
+			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 166)
+			SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 126)
 			-- TargetTargetMover
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 146)
 			-- FocusMover
@@ -854,7 +880,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.raid.name.text_format = '[namecolor][deficit:name]'
 			E.db.unitframe.units.raid.power.height = 2
 			E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
-			E.db.unitframe.units.raid.roleIcon.size = 12
+			E.db.unitframe.units.raid.roleIcon.size = 10
 			E.db.unitframe.units.raid.roleIcon.yOffset = -18
 			SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 674, 224)
 			-- Party

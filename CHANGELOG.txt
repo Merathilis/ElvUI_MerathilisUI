@@ -1,3 +1,6 @@
+<b><u> v1.18, 19.01.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Final adjustments to the DPS Layout (I hope D:)
+
 <b><u> v1.17a, 18.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Correct some Movers and Unitframes i forgot. Sorry about that. :/
 
