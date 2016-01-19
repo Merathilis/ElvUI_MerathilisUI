@@ -245,17 +245,6 @@ local function SetupMERLayout(layout)
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI'
 		E.db.chat.timeStampFormat = '%H:%M '
-		if IsAddOnLoaded ("ElvUI_SLE") then
-			E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\nightsky.tga'
-			E.db.sle.chat.textureAlpha.enable = true
-			E.db.sle.chat.textureAlpha.alpha = 0.25
-		else
-			if factionGroup == "Alliance" then
-				E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\alliance.tga'
-			else
-				E.db.chat.panelBackdropNameRight = 'Interface\\AddOns\\MerathilisUI\\media\\textures\\chatTextures\\horde.tga'
-			end
-		end
 	end
 	
 	do
