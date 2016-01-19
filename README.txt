@@ -1,5 +1,3 @@
-.:: MerathilisUI ::.
-
 <center><img src='http://www.tukui.org/storage/thumbs/801740merathilis_logo.png'></center>
 
 <font color=#FF8C00><b>What does this Plugin do?:</b></font>
@@ -69,9 +67,8 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> Elv, DarthPredator, Blazeflack, Azilroka and all AddOn Authors who inspired me and for their amazing Work.
 
 <font color=#FF8C00><b>Known Issues:</b></font>
-<font color=#FF8C00>&#9830;</font> Overwatch Icon not show properly for Battle.net Alert.
 <font color=#FF8C00>&#9830;</font> Maybe a lot of things i could not test :D
 
 <font color=#FF8C00><b>Screenshots:</b></font>
 <font color=#FF8C00>&#9830;</font> Game Menu:
-<a href='http://www.tukui.org/storage/viewer.php?id=631201WoWScrnShot_111915_102606.jpg'><img src='http://www.tukui.org/storage/thumbs/631201WoWScrnShot_111915_102606.jpg'></a>
+<a href='http://www.tukui.org/storage/viewer.php?id=291584WoWScrnShot_011916_110419.jpg'><img src='http://www.tukui.org/storage/thumbs/291584WoWScrnShot_011916_110419.jpg'></a>

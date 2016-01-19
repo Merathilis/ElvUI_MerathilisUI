@@ -175,6 +175,7 @@ L["By pressing the Continue button, MerathilisUI will be applied in your current
 L['Layout'] = true
 L['DPS Layout'] = true
 L['Heal Layout'] = true
+L['Buttons must be clicked twice'] = true
 L['This part of the installation changes the default ElvUI look.'] = true
 L['Please click the button below to apply the new layout.'] = true
 --L['Importance: |cff07D400High|r'] = true -- translated in ElvUI

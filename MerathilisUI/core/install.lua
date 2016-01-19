@@ -176,6 +176,7 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.barPet.buttonspacing = 1
 		E.db.actionbar.barPet.buttonsPerRow = 1
 		E.db.actionbar.barPet.buttonsize = 19
+		E.db.actionbar.barPet.mouseover = true
 		
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
 		E.db.actionbar.stanceBar.backdrop = true
@@ -766,6 +767,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 141)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
 			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 127)
+			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 168)
 			-- TargetMover
 			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 141)
 			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 108)
@@ -799,9 +801,9 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_4', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 367)
 			SetMoverPosition('ElvAB_5', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 3)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 249)
-			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 470, 4)
+			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 423, 2)
 			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 917, 99)
-			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -318, 32)
+			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -233, 29)
 			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -410, 23)
 			SetMoverPosition('ExperienceBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 410, 23)
@@ -824,10 +826,9 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('WatchFrameMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -122, -292)
 			SetMoverPosition('Top_Center_Mover', 'BOTTOM', E.UIParent, 'BOTTOM', -250, 2)
 			SetMoverPosition('VehicleSeatMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 2, -84)
-			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 424, 2)
+			SetMoverPosition('TotemBarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 446, 2)
 			SetMoverPosition('TempEnchantMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -5, -299)
 			SetMoverPosition('MicrobarMover', 'TOPLEFT', E.UIParent, 'TOPLEFT', 4, -4)
-			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 187)
 			SetMoverPosition('DigSiteProgressBarMover', 'TOP', E.UIParent, 'TOP', -2, 0)
 			SetMoverPosition('FlareMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 253)
 			SetMoverPosition('LocationMover', 'TOP', E.UIParent, 'TOP', 0, -7)
@@ -1998,6 +1999,7 @@ local function SetPage(PageNum)
 		f.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() SetupMERLayout('DPS') end)
 		InstallOption1Button:SetFormattedText("%s", L['DPS Layout'])
@@ -2244,7 +2246,7 @@ function MER:SetupUI()
 		
 		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
 		f.Desc4:FontTemplate()	
-		f.Desc4:Point('BOTTOM', 0, 75)
+		f.Desc4:Point('BOTTOM', 0, 80)
 		f.Desc4:Width(f:GetWidth() - 40)
 		
 		local close = CreateFrame('Button', nil, f, 'UIPanelCloseButton')
