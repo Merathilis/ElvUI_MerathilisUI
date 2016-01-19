@@ -245,6 +245,7 @@ local function SetupMERLayout(layout)
 		E.db.chat.panelBackdrop = 'SHOWBOTH'
 		E.db.chat.keywords = '%MYNAME%, ElvUI'
 		E.db.chat.timeStampFormat = '%H:%M '
+		E.db.chat.panelBackdropNameRight = ''
 	end
 	
 	do
