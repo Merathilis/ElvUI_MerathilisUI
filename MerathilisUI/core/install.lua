@@ -498,10 +498,10 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid.colorOverride = 'FORCE_ON'
-		E.db.unitframe.units.raid.name.xOffset = -7
-		E.db.unitframe.units.raid.name.yOffset = -20
-		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:medium]'
-		E.db.unitframe.units.raid.name.position = 'BOTTOM'
+		E.db.unitframe.units.raid.name.xOffset = 0
+		E.db.unitframe.units.raid.name.yOffset = -22
+		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short]'
+		E.db.unitframe.units.raid.name.position = 'CENTER'
 		E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 		E.db.unitframe.units.raid.buffIndicator.size = 10
 		E.db.unitframe.units.raid.roleIcon.size = 10
