@@ -371,7 +371,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.health.xOffset = -2
 		E.db.unitframe.units.player.health.yOffset = -20
 		E.db.unitframe.units.player.health.text_format = '[healthcolor][health:percent_short] - [health:current]'
-		E.db.unitframe.units.player.power.xOffset = 5
+		E.db.unitframe.units.player.power.xOffset = 0
 		E.db.unitframe.units.player.power.yOffset = 0
 		E.db.unitframe.units.player.power.height = 3
 		E.db.unitframe.units.player.power.hideonnpc = true
