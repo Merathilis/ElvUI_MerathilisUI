@@ -12,7 +12,9 @@ local function UpdateButtonConfig(self, bar, buttonName)
 	if InCombatLockdown() or not E.private.muiActionbars.oor.enable then return; end
 
 	bar.buttonConfig.outOfRangeColoring = "hotkey"
-	for _, button in pairs(bar.buttons) do
+	for i, button in pairs(bar.buttons) do
+		bar.buttonConfig.keyBoundTarget = format(buttonName.."%d", i)
+		button.keyBoundTarget = bar.buttonConfig.keyBoundTarget
 	end
 end
 hooksecurefunc(AB, "UpdateButtonConfig", UpdateButtonConfig)
