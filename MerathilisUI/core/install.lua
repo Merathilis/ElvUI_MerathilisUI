@@ -380,6 +380,11 @@ local function SetupMERLayout(layout)
 			E.db.ufb.PlayerPortraitWidth = 92
 			E.db.ufb.PlayerPortraitHeight = 43
 			E.db.ufb.PlayerPortraitShadow = false
+			-- attachedCastbar for Player/Target
+			E.db.ufb.attachCastbar = true
+			E.db.ufb.castText = true
+			E.db.ufb.yOffsetText = 0
+			E.db.ufb.hideText = true
 		end
 		-- Target
 		E.db.unitframe.units.target.width = 180
@@ -416,14 +421,14 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.customTexts.Gesundheit.size = 22
 		E.db.unitframe.units.target.customTexts.Gesundheit.text_format = '[name:short] [difficultycolor][shortclassification]'
 		E.db.unitframe.units.target.customTexts.Gesundheit.yOffset = 1
-		E.db.unitframe.units.target.customTexts.Name1 = {}
-		E.db.unitframe.units.target.customTexts.Name1.font = 'Merathilis Tukui'
-		E.db.unitframe.units.target.customTexts.Name1.justifyH = 'LEFT'
-		E.db.unitframe.units.target.customTexts.Name1.fontOutline = 'OUTLINE'
-		E.db.unitframe.units.target.customTexts.Name1.xOffset = 1
-		E.db.unitframe.units.target.customTexts.Name1.size = 12
-		E.db.unitframe.units.target.customTexts.Name1.text_format = '[namecolor][smartclass] [difficultycolor][level]'
-		E.db.unitframe.units.target.customTexts.Name1.yOffset = -20
+		E.db.unitframe.units.target.customTexts.Class = {}
+		E.db.unitframe.units.target.customTexts.Class.font = 'Merathilis Tukui'
+		E.db.unitframe.units.target.customTexts.Class.justifyH = 'LEFT'
+		E.db.unitframe.units.target.customTexts.Class.fontOutline = 'OUTLINE'
+		E.db.unitframe.units.target.customTexts.Class.xOffset = 1
+		E.db.unitframe.units.target.customTexts.Class.size = 12
+		E.db.unitframe.units.target.customTexts.Class.text_format = '[namecolor][smartclass] [difficultycolor][level]'
+		E.db.unitframe.units.target.customTexts.Class.yOffset = -20
 		E.db.unitframe.units.target.health.xOffset = 4
 		E.db.unitframe.units.target.health.text_format = '[healthcolor][health:current] - [health:percent_short]'
 		E.db.unitframe.units.target.health.yOffset = -20
