@@ -13,8 +13,8 @@ local function UpdateButtonConfig(self, bar, buttonName)
 
 	bar.buttonConfig.outOfRangeColoring = "hotkey"
 	for i, button in pairs(bar.buttons) do
-		bar.buttonConfig.keyBoundTarget = format(buttonName.."%d", i)
 		button.keyBoundTarget = bar.buttonConfig.keyBoundTarget
+		bar.buttonConfig.keyBoundTarget = format(buttonName.."%d", i)
 	end
 end
 hooksecurefunc(AB, "UpdateButtonConfig", UpdateButtonConfig)
