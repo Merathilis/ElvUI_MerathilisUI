@@ -5,13 +5,13 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 -- Cache global variables
--- GLOBALS: LibStub, C_Timer, ElvDB
-local _G = _G
+-- GLOBALS: LibStub, ElvDB, MUISplashScreen
 local format = string.format
 local print, pairs, tonumber = print, pairs, tonumber
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
+local C_TimerAfter = C_Timer.After
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
@@ -67,7 +67,7 @@ end
 
 -- Splash Screen like BenikUI
 local function CreateSplashScreen()
-	local f = CreateFrame('Frame', 'SplashScreen', E.UIParent)
+	local f = CreateFrame('Frame', 'MUISplashScreen', E.UIParent)
 	f:Size(300, 150)
 	f:SetPoint('CENTER', 0, 100)
 	f:SetFrameStrata('TOOLTIP')
@@ -107,19 +107,19 @@ local function CreateSplashScreen()
 end
 
 local function HideSplashScreen()
-	_G["SplashScreen"]:Hide()
+	MUISplashScreen:Hide()
 end
 
 local function FadeSplashScreen()
 	E:Delay(2, function()
-		E:UIFrameFadeOut(_G["SplashScreen"], 2, 1, 0)
-		_G["SplashScreen"].fadeInfo.finishedFunc = HideSplashScreen
+		E:UIFrameFadeOut(MUISplashScreen, 2, 1, 0)
+		MUISplashScreen.fadeInfo.finishedFunc = HideSplashScreen
 	end)
 end
 
 local function ShowSplashScreen()
-	E:UIFrameFadeIn(_G["SplashScreen"], 4, 0, 1)
-	_G["SplashScreen"].fadeInfo.finishedFunc = FadeSplashScreen
+	E:UIFrameFadeIn(MUISplashScreen, 4, 0, 1)
+	MUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
 function MER:Initialize()
@@ -136,7 +136,7 @@ function MER:Initialize()
 	end
 	
 	-- Show only Splash Screen if the install is completed
-	if (E.db.mui.installed == true and E.db.muiGeneral.SplashScreen) then C_Timer.After(6, ShowSplashScreen) end
+	if (E.db.mui.installed == true and E.db.muiGeneral.SplashScreen) then C_TimerAfter(6, ShowSplashScreen) end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
