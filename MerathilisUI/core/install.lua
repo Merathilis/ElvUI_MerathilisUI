@@ -471,7 +471,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
 		E.db.unitframe.units.focus.height = 20
-		E.db.unitframe.units.focus.castbar.height = 6
+		E.db.unitframe.units.focus.castbar.height = 10
 		E.db.unitframe.units.focus.castbar.width = 122
 		-- FocusTarget
 		E.db.unitframe.units.focustarget.debuffs.enable = true
@@ -746,10 +746,10 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.assist.targetsGroup.enable = false
 		-- Pet
 		E.db.unitframe.units.pet.castbar.latency = true
-		E.db.unitframe.units.pet.castbar.width = 102
-		E.db.unitframe.units.pet.castbar.height = 13
-		E.db.unitframe.units.pet.width = 102
-		E.db.unitframe.units.pet.height = 12
+		E.db.unitframe.units.pet.castbar.width = 122
+		E.db.unitframe.units.pet.castbar.height = 10
+		E.db.unitframe.units.pet.width = 122
+		E.db.unitframe.units.pet.height = 20
 		E.db.unitframe.units.pet.power.height = 2
 		-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
@@ -800,7 +800,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 146)
 			-- FocusMover
 			SetMoverPosition('ElvUF_FocusMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 199)
-			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 222)
+			SetMoverPosition('ElvUF_FocusCastbarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 220)
 			-- FocusTargetMover
 			SetMoverPosition('ElvUF_FocusTargetMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -452, 234)
 			-- Raid/GroupMover
@@ -813,8 +813,8 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 			SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 			-- PetMover
-			SetMoverPosition('ElvUF_PetMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 465, 199)
-			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 465, 217)
+			SetMoverPosition('ElvUF_PetMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 452, 199)
+			SetMoverPosition('ElvUF_PetCastbarMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 452, 220)
 			-- AlertMover for Garrison etc.
 			SetMoverPosition('AlertFrameMover', 'TOP', E.UIParent, 'TOP', 0, -140)
 			-- ActionBarMover
