@@ -228,6 +228,7 @@ local function SetupMERLayout(layout)
 		E.db.bags.bankWidth = 350
 		E.db.bags.moneyFormat = 'BLIZZARD'
 		E.db.bags.itemLevelThreshold = 650
+		E.db.bags.junkIcon = true
 	end
 	
 	do
