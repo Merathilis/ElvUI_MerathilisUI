@@ -1258,6 +1258,134 @@ local function SetupMERAddons()
 		end
 	end
 	
+	--[[do
+		-- ElvUI_SLE
+		-- enable this if Legion is live! this needs to be redone!!
+		if E.db.sle == nil then E.db.sle = {} end
+		if IsAddOnLoaded("ElvUI_SLE") then
+			E.private["sle"]["characterframeoptions"]["enable"] = true
+			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
+			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
+			E.private["sle"]["exprep"]["autotrack"] = true
+			E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
+			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
+			E.private["sle"]["professions"]["deconButton"]["enable"] = false
+			E.private["sle"]["farm"]["seedtrash"] = true
+			E.private["sle"]["farm"]["enable"] = true
+			E.private["sle"]["equip"]["spam"] = true
+			E.private["sle"]["equip"]["enable"] = true
+			E.private["sle"]["equip"]["setoverlay"] = true
+			E.private["sle"]["vehicle"]["enable"] = true
+			E.db["sle"]["misc"]["threat"]["enable"] = true
+			E.db["sle"]["misc"]["rumouseover"] = true
+			E.db["sle"]["Armory"]["Inspect"]["Enable"] = false
+			E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
+			E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Merathilis Prototype"
+			E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11
+			E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
+			E.db["sle"]["Armory"]["Character"]["Enchant"]["Display"] = "MouseoverOnly"
+			E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
+			E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Prototype"
+			E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
+			E.db["sle"]["Armory"]["Character"]["Level"]["ShowUpgradeLevel"] = true
+			E.db["sle"]["Armory"]["Character"]["Level"]["Font"] = "Merathilis Prototype"
+			E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "HIDE"
+			E.db["sle"]["unitframes"]["combatico"]["pos"] = "RIGHT"
+			E.db["sle"]["unitframes"]["offlineInd"]["party"]["enable"] = true
+			E.db["sle"]["unitframes"]["offlineInd"]["raid40"]["enable"] = true
+			E.db["sle"]["unitframes"]["offlineInd"]["raid"]["enable"] = true
+			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
+			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_WARNING"] = true
+			E.db["sle"]["loot"]["enable"] = true
+			E.db["sle"]["loot"]["history"]["autohide"] = true
+			E.db["sle"]["loot"]["announcer"]["enable"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["repIncrease"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["repDecreaseStyle"] = "STYLE2"
+			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame1"
+			E.db["sle"]["exprep"]["ChatFilters"]["enable"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["repDecrease"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["experience"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["repfilter"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["expfilter"] = true
+			E.db["sle"]["exprep"]["ChatFilters"]["repIncreaseStyle"] = "STYLE2"
+			E.db["sle"]["exprep"]["ChatFilters"]["experienceStyle"] = "STYLE2"
+			E.db["sle"]["exprep"]["explong"] = true
+			E.db["sle"]["exprep"]["replong"] = true
+			E.db["sle"]["farm"]["autotarget"] = true
+			E.db["sle"]["farm"]["quest"] = true
+			E.db["sle"]["farm"]["size"] = 28
+			E.db["sle"]["uibuttons"]["point"] = "TOP"
+			E.db["sle"]["uibuttons"]["orientation"] = "horizontal"
+			E.db["sle"]["uibuttons"]["menuBackdrop"] = true
+			E.db["sle"]["uibuttons"]["position"] = "uib_hor"
+			E.db["sle"]["uibuttons"]["dropdownBackdrop"] = true
+			E.db["sle"]["uibuttons"]["spacing"] = 5
+			E.db["sle"]["uibuttons"]["anchor"] = "BOTTOM"
+			E.db["sle"]["uibuttons"]["rfunc"]["enable"] = false
+			E.db["sle"]["uibuttons"]["size"] = 19
+			E.db["sle"]["raidmarkers"]["enable"] = false
+			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
+			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["media"]["fonts"]["zone"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Merathilis Roadway"
+			E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["media"]["fonts"]["editbox"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["minimap"]["instance"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["minimap"]["coords"]["display"] = "MOUSEOVER"
+			E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
+			E.db["sle"]["minimap"]["coords"]["decimals"] = false
+			E.db["sle"]["minimap"]["coords"]["middle"] = "CENTER"
+			E.db["sle"]["minimap"]["mapicons"]["iconsize"] = 20
+			E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
+			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
+			E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
+			E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
+			E.db["sle"]["lfrshow"]["enabled"] = true
+			E.db["sle"]["lfrshow"]["brf"] = true
+			E.db["sle"]["lfrshow"]["hm"] = true
+			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
+			E.db["sle"]["unitframes"]["combatico"]["pos"] = "CENTER"
+			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
+			E.db["sle"]["legacy"]["garrison"]["toolbar"]["buttonsize"] = 20
+			E.db["sle"]["auras"]["hideBuffsTimer"] = true
+			E.db["sle"]["auras"]["hideDebuffsTimer"] = true
+			E.db["sle"]["dt"]["hide_guildname"] = false
+			E.db["sle"]["dt"]["guild"]["minimize_gmotd"] = false
+			E.db["sle"]["dt"]["guild"]["hide_gmotd"] = true
+			E.db["sle"]["dt"]["guild"]["totals"] = true
+			E.db["sle"]["dt"]["guild"]["hide_hintline"] = true
+			E.db["sle"]["dt"]["friends"]["sortBN"] = "revREALID"
+			E.db["sle"]["dt"]["friends"]["totals"] = true
+			E.db["sle"]["dt"]["friends"]["expandBNBroadcast"] = true
+			E.db["sle"]["dt"]["friends"]["hide_hintline"] = true
+			E.db["sle"]["dt"]["currency"]["Unused"] = false
+			E.db["sle"]["dt"]["currency"]["Raid"] = false
+			E.db["sle"]["dt"]["currency"]["Archaeology"] = false
+			E.db["sle"]["dt"]["currency"]["Faction"] = false
+			E.db["sle"]["dt"]["currency"]["Jewelcrafting"] = false
+			E.db["sle"]["dt"]["currency"]["PvP"] = false
+			E.db["sle"]["dt"]["currency"]["Cooking"] = false
+			E.db["sle"]["dt"]["currency"]["Miscellaneous"] = false
+			E.db["sle"]["dt"]["expandBNBroadcast"] = true
+			E.db["sle"]["dt"]["hide_hintline"] = true
+			E.db["sle"]["dt"]["mail"]["icon"] = false
+			E.db["sle"]["dt"]["hide_gmotd"] = false
+			E.db["sle"]["dt"]["combat"] = false
+			E.db["sle"]["dt"]["totals"] = true
+			E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
+			E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.25
+			E.db["sle"]["chat"]["dpsSpam"] = true
+			E.db["sle"]["pvp"]["ChatFilters"]["awardStyle"] = "STYLE2"
+			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
+			E.db["sle"]["pvp"]["ChatFilters"]["award"] = true
+			E.db["sle"]["pvp"]["ChatFilters"]["hkStyle"] = "STYLE2"
+			SetMoverPosition("SalvageCrateMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -483)
+			SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT" ,-3, -260)
+		end
+	end]]
+	
 	do
 		-- ElvUI_VisualAuraTimer
 		if E.db.VAT == nil then E.db.VAT = {} end
