@@ -825,7 +825,11 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_5', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 3)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 249)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 423, 2)
-			SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 917, 99)
+			if E.myclass == "ROGUE" then
+				SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 948, 99)
+			else
+				SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 917, 99)
+			end
 			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -233, 29)
 			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -410, 23)
