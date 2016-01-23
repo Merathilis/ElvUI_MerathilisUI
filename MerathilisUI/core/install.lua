@@ -84,7 +84,7 @@ local function SetupMERLayout(layout)
 		E.db.general.backdropfadecolor.r = 0.0549
 		E.db.general.backdropfadecolor.g = 0.0549
 		E.db.general.backdropfadecolor.b = 0.0549
-		E.private.general.namefont = 'Merathilis Prototype'
+		E.private.general.namefont = 'Merathilis PrototypeRU'
 		E.private.general.dmgfont = 'ElvUI Combat'
 		E.private.general.normTex = 'MerathilisFlat'
 		E.private.general.glossTex = 'MerathilisFlat'
