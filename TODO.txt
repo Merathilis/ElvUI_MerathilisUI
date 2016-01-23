@@ -2,5 +2,6 @@
 
 #Preparation for Legion.
 #Made changes to the Unitframes. (Style)
-#Include S&L Settings to my Install.
+#Include S&L Settings to my Install. (Now in the Install - Check this!!)
 #Whatever comes in my Mind.
+#Cleanup the damn locales!
