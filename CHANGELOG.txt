@@ -5,7 +5,7 @@
 <font color=#FF8C00>&#9830;</font> Install: Use the JunkIcon on default (ElvUI 8.5).
 <font color=#FF8C00>&#9830;</font> Install: Use MerathilisPrototypeRU Font for Player Names.
 <font color=#FF8C00>&#9830;</font> Misc: Code cleanup.
-<font color=#FF8C00>&#9830;</font> Tooltip: Hide the Player arrow on the Map.
+<font color=#FF8C00>&#9830;</font> Tooltip: Hide the Player arrow Tooltip on the Map.
 <font color=#FF8C00>&#9830;</font> Minimap: Add custom textures for the Minimap "blip"; e.g. Resource node, Tracking, ... (Credits: Derangement).
 
 <b><u> v1.18, 19.01.2016</b></u>
