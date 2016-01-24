@@ -1234,7 +1234,7 @@ local function SetupMERAddons()
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = true
 			E.db.dashboards.tokens.tooltip = false
-			E.db.dashboards.tokens.flash = true
+			E.db.dashboards.tokens.flash = false
 			E.db.dashboards.tokens.width = 148
 			E.db.dashboards.professions.enableProfessions = false
 			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
