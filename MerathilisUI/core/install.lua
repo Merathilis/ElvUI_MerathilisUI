@@ -313,6 +313,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.colors.transparentAurabars = true
 		E.db.unitframe.colors.transparentPower = false
 		E.db.unitframe.colors.transparentCastbar = true
+		E.db.unitframe.colors.castClassColor = false
 		E.db.unitframe.colors.health.r = 0.23
 		E.db.unitframe.colors.health.g = 0.23
 		E.db.unitframe.colors.health.b = 0.23
@@ -389,6 +390,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.PlayerPortraitHeight = 43
 			E.db.ufb.PlayerPortraitShadow = false
 			-- attachedCastbar for Player/Target
+			E.db.ufb.barheight = 15
 			E.db.ufb.attachCastbar = true
 			E.db.ufb.castText = true
 			E.db.ufb.yOffsetText = 0
@@ -1275,18 +1277,12 @@ local function SetupMERAddons()
 		-- enable this if Legion is live! this needs to be redone!!
 		if E.db.sle == nil then E.db.sle = {} end
 		if IsAddOnLoaded("ElvUI_SLE") then
-			E.private["sle"]["characterframeoptions"]["enable"] = true
 			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
 			E.private["sle"]["exprep"]["autotrack"] = true
 			E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
-			E.private["sle"]["farm"]["seedtrash"] = true
-			E.private["sle"]["farm"]["enable"] = true
-			E.private["sle"]["equip"]["spam"] = true
-			E.private["sle"]["equip"]["enable"] = true
-			E.private["sle"]["equip"]["setoverlay"] = true
 			E.private["sle"]["vehicle"]["enable"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
 			E.db["sle"]["misc"]["rumouseover"] = true
@@ -1324,9 +1320,6 @@ local function SetupMERAddons()
 			E.db["sle"]["exprep"]["ChatFilters"]["experienceStyle"] = "STYLE2"
 			E.db["sle"]["exprep"]["explong"] = true
 			E.db["sle"]["exprep"]["replong"] = true
-			E.db["sle"]["farm"]["autotarget"] = true
-			E.db["sle"]["farm"]["quest"] = true
-			E.db["sle"]["farm"]["size"] = 28
 			E.db["sle"]["uibuttons"]["point"] = "TOP"
 			E.db["sle"]["uibuttons"]["orientation"] = "horizontal"
 			E.db["sle"]["uibuttons"]["menuBackdrop"] = true
@@ -1334,7 +1327,6 @@ local function SetupMERAddons()
 			E.db["sle"]["uibuttons"]["dropdownBackdrop"] = true
 			E.db["sle"]["uibuttons"]["spacing"] = 5
 			E.db["sle"]["uibuttons"]["anchor"] = "BOTTOM"
-			E.db["sle"]["uibuttons"]["rfunc"]["enable"] = false
 			E.db["sle"]["uibuttons"]["size"] = 19
 			E.db["sle"]["raidmarkers"]["enable"] = false
 			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
@@ -1354,9 +1346,6 @@ local function SetupMERAddons()
 			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
 			E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
 			E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
-			E.db["sle"]["lfrshow"]["enabled"] = true
-			E.db["sle"]["lfrshow"]["brf"] = true
-			E.db["sle"]["lfrshow"]["hm"] = true
 			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
 			E.db["sle"]["unitframes"]["combatico"]["pos"] = "CENTER"
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
