@@ -1,8 +1,9 @@
-<b><u> v1.19, xx.xx.xxxx</b></u>
-<font color=#FF8C00>&#9830;</font> Install: More adjustments to the DPS Layout. (It's never finished ^^)
+<b><u> v1.19, 24.01.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: More adjustments to the DPS Layout.
 <font color=#FF8C00>&#9830;</font> Install: Remove the right chat texture (so the layout looks more transparent).
 <font color=#FF8C00>&#9830;</font> Install: Use the Castbar now on the EmptyFrame (BenikUI required).
-<font color=#FF8C00>&#9830;</font> Install: Use the JunkIcon on default (ElvUI 8.50).
+<font color=#FF8C00>&#9830;</font> Install: Use the JunkIcon on default (ElvUI 8.5).
+<font color=#FF8C00>&#9830;</font> Install: Use MerathilisPrototypeRU Font for Player Names.
 <font color=#FF8C00>&#9830;</font> Misc: Code cleanup.
 <font color=#FF8C00>&#9830;</font> Tooltip: Hide the Player arrow on the Map.
 <font color=#FF8C00>&#9830;</font> Minimap: Add custom textures for the Minimap "blip"; e.g. Resource node, Tracking, ... (Credits: Derangement).
