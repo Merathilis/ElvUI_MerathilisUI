@@ -382,6 +382,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.power.hideonnpc = true
 		E.db.unitframe.units.player.power.detachFromFrame = true
 		E.db.unitframe.units.player.power.detachedWidth = 178
+		E.db.unitframe.units.player.power.druidMana = false
 		E.db.unitframe.units.player.power.text_format = ''
 		E.db.unitframe.units.player.buffs.enable = false
 		E.db.unitframe.units.player.raidicon.enable = true
