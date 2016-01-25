@@ -182,8 +182,12 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
 		E.db.actionbar.stanceBar.backdrop = true
 		E.db.actionbar.stanceBar.buttonsPerRow = 6
-		E.db.actionbar.stanceBar.buttonsize = 20
-		
+		E.db.actionbar.stanceBar.buttonsize = 18
+		if E.myclass == "DRUID" then
+			E.db.actionbar.stanceBar.mouseover = true
+		else
+			E.db.actionbar.stanceBar.mouseover = false
+		end
 		E.db.actionbar.extraActionButton.scale = 0.75
 	end
 	
@@ -333,7 +337,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.debuffs.yOffset = 2
 		E.db.unitframe.units.player.debuffs.perrow = 4
 		E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
-		E.db.unitframe.units.player.debuffs.smartAuraDisplay = 'DISABLED'
+		E.db.unitframe.units.player.smartAuraPosition = 'DISABLED'
 		E.db.unitframe.units.player.portrait.enable = true
 		E.db.unitframe.units.player.portrait.overlay = false
 		E.db.unitframe.units.player.portrait.camDistanceScale = 1
@@ -344,7 +348,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.player.classbar.detachFromFrame = true
 			E.db.unitframe.units.player.classbar.xOffset = 110
 			E.db.unitframe.units.player.classbar.detachedWidth = 135
-			E.db.unitframe.units.player.classbar.fill = 'spaced'
+			E.db.unitframe.units.player.classbar.fill = 'fill'
+			E.db.unitframe.units.player.classbar.autoHide = true
 		else
 			E.db.unitframe.units.player.classbar.enable = false
 		end
@@ -409,8 +414,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
 		E.db.unitframe.units.target.debuffs.perrow = 4
 		E.db.unitframe.units.target.debuffs.attachTo = 'FRAME'
-		E.db.unitframe.units.target.debuffs.smartAuraDisplay = 'DISABLED'
-		E.db.unitframe.units.target.smartAuraDisplay = 'DISABLED'
+		E.db.unitframe.units.target.smartAuraPosition = 'DISABLED'
 		E.db.unitframe.units.target.aurabar.enable = false
 		E.db.unitframe.units.target.aurabar.attachTo = 'BUFFS'
 		E.db.unitframe.units.target.name.xOffset = 8
@@ -490,6 +494,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.focus.height = 20
 		E.db.unitframe.units.focus.castbar.height = 10
 		E.db.unitframe.units.focus.castbar.width = 122
+		E.db.unitframe.units.focus.debuffs.anchorPoint = 'BOTTOMRIGHT'
 		-- FocusTarget
 		E.db.unitframe.units.focustarget.debuffs.enable = true
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
@@ -842,11 +847,7 @@ local function SetupMERLayout(layout)
 			SetMoverPosition('ElvAB_5', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 353, 3)
 			SetMoverPosition('ElvAB_6', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', 0, 249)
 			SetMoverPosition('PetAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 423, 2)
-			if E.myclass == "ROGUE" then
-				SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 948, 99)
-			else
-				SetMoverPosition('ShiftAB', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 917, 99)
-			end
+			SetMoverPosition('ShiftAB', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 99)
 			SetMoverPosition('BossButton', 'BOTTOM', E.UIParent, 'BOTTOM', -233, 29)
 			-- XP/RepMover
 			SetMoverPosition('ReputationBarMover', 'BOTTOMRIGHT', E.UIParent, 'BOTTOMRIGHT', -410, 23)
@@ -1235,6 +1236,7 @@ local function SetupMERAddons()
 			E.db.bui.SplashScreen = false
 			E.db.bui.StyleColor = 1
 			E.db.bui.abStyleColor = 1
+			E.db.bui.ilvl = false
 			E.db.dashboards.barColor = {r = color.r, g = color.g, b = color.b}
 			E.db.dashboards.system.enableSystem = false
 			E.db.dashboards.tokens.enableTokens = true
