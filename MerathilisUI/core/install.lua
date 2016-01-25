@@ -1404,7 +1404,7 @@ local function SetupMERAddons()
 				E.db["sle"]["pvp"]["ChatFilters"]["award"] = true
 				E.db["sle"]["pvp"]["ChatFilters"]["hkStyle"] = "STYLE2"
 				SetMoverPosition("SalvageCrateMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -483)
-				SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT" ,-3, -260)
+				SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -8, -256)
 			end
 		end
 	end
