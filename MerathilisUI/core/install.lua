@@ -348,7 +348,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.player.classbar.detachFromFrame = true
 			E.db.unitframe.units.player.classbar.xOffset = 110
 			E.db.unitframe.units.player.classbar.detachedWidth = 135
-			E.db.unitframe.units.player.classbar.fill = 'fill'
+			E.db.unitframe.units.player.classbar.fill = 'spaced'
 			E.db.unitframe.units.player.classbar.autoHide = true
 		else
 			E.db.unitframe.units.player.classbar.enable = false
