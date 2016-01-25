@@ -490,6 +490,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.targettarget.raidicon.size = 18
 		E.db.unitframe.units.targettarget.raidicon.xOffset = 0
 		E.db.unitframe.units.targettarget.raidicon.yOffset = 15
+		E.db.unitframe.units.targettarget.portrait.enable = false
 		-- Focus
 		E.db.unitframe.units.focus.power.height = 2
 		E.db.unitframe.units.focus.width = 122
@@ -497,15 +498,17 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.focus.castbar.height = 10
 		E.db.unitframe.units.focus.castbar.width = 122
 		E.db.unitframe.units.focus.debuffs.anchorPoint = 'BOTTOMRIGHT'
+		E.db.unitframe.units.focus.portrait.enable = false
 		-- FocusTarget
+		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.debuffs.enable = true
 		E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
 		E.db.unitframe.units.focustarget.power.enable = true
 		E.db.unitframe.units.focustarget.power.height = 2
 		E.db.unitframe.units.focustarget.width = 122
-		E.db.unitframe.units.focustarget.enable = true
 		E.db.unitframe.units.focustarget.height = 20
+		E.db.unitframe.units.focustarget.portrait.enable = false
 		-- Raid
 		E.db.unitframe.units.raid.threatStyle = 'GLOW'
 		E.db.unitframe.units.raid.horizontalSpacing = 1
@@ -519,6 +522,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.numGroups = 4
 		E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 		E.db.unitframe.units.raid.colorOverride = 'USE_DEFAULT'
+		E.db.unitframe.units.raid.portrait.enable = false
 		E.db.unitframe.units.raid.name.xOffset = 0
 		E.db.unitframe.units.raid.name.yOffset = -22
 		E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short]'
@@ -626,6 +630,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid40.raidicon.xOffset = 9
 		E.db.unitframe.units.raid40.raidicon.size = 13
 		E.db.unitframe.units.raid40.raidicon.yOffset = 0
+		E.db.unitframe.units.raid40.portrait.enable = false
 		-- Party
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db.unitframe.units.party.height = 30
@@ -768,7 +773,9 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.portrait.enable = false
 		end
 		-- Assist
-		E.db.unitframe.units.assist.targetsGroup.enable = false
+		E.db.unitframe.units.assist.enable = false
+		-- Tank
+		E.db.unitframe.units.tank.enable = false
 		-- Pet
 		E.db.unitframe.units.pet.castbar.latency = true
 		E.db.unitframe.units.pet.castbar.width = 122
@@ -776,6 +783,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.pet.width = 122
 		E.db.unitframe.units.pet.height = 20
 		E.db.unitframe.units.pet.power.height = 2
+		E.db.unitframe.units.pet.portrait.enable = false
 		-- Arena
 		E.db.unitframe.units.arena.power.width = 'inset'
 		-- Boss
@@ -802,7 +810,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.boss.health.position = 'RIGHT'
 		E.db.unitframe.units.boss.health.text_format = '[healthcolor][health:current] - [health:percent]'
 		-- PetTarget
-		E.db.unitframe.units.pettarget.power.width = 'inset'
+		E.db.unitframe.units.pettarget.enable = false
+		-- RaidPet
+		E.db.unitframe.units.raidpet.enable = false
 	end
 	
 	-- Movers
