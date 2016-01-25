@@ -163,14 +163,7 @@ local function SetupMERLayout(layout)
 		E.db.actionbar.bar5.buttonspacing = 4
 		E.db.actionbar.bar5.buttons = 12
 		
-		E.db.actionbar.bar6.enabled = true
-		E.db.actionbar.bar6.backdrop = true
-		E.db.actionbar.bar6.buttonsPerRow = 1
-		E.db.actionbar.bar6.buttonspacing = 1
-		E.db.actionbar.bar6.mouseover = true
-		E.db.actionbar.bar6.buttons = 4
-		E.db.actionbar.bar6.buttonsize = 28
-		E.db.actionbar.bar6.point = 'TOPLEFT'
+		E.db.actionbar.bar6.enabled = false
 		
 		E.db.actionbar.barPet.point = 'BOTTOMLEFT'
 		E.db.actionbar.barPet.buttons = 8
