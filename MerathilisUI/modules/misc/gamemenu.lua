@@ -43,23 +43,14 @@ local npc = {
 
 function MER:GameMenu()
 	-- GameMenu Frame
-	if not button then -- a check so that all the stuff is not created again when MER:GameMenu() is called, because the user might use Esc several times
-		local button = CreateFrame("Button", "MerConfigButton", _G["GameMenuFrame"], "GameMenuButtonTemplate")
-		button:Size(_G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight())
-		button:SetPoint("CENTER", _G["GameMenuFrame"], "TOP", 0 , -42)
-		_G["GameMenuButtonHelp"]:ClearAllPoints()
-		_G["GameMenuButtonHelp"]:SetPoint("TOP", button, "BOTTOM", 0, -1)
-		button:SetScript("OnClick", function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end)
-		button:SetText("|cffff7d0aMerathilisUI|r")
-		
-		if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then
-			S:HandleButton(button)
-		end
-		
-		_G["GameMenuFrame"]:HookScript("OnShow", function()
-			_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + button:GetHeight())
-		end)
-	end
+	local lib = LibStub('LibElv-GameMenu-1.0')
+	local button = {
+		["name"] = "MerConfigButton",
+		["text"] = "|cffff7d0aMerathilisUI|r",
+		["func"] = function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end,
+	}
+	lib:AddMenuButton(button)
+	lib:UpdateHolder()
 	
 	if not _G["bottomPanel"] then
 		local bottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
