@@ -354,7 +354,7 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.player.classbar.enable = false
 		end
 		E.db.unitframe.units.player.aurabar.enable = false
-		E.db.unitframe.units.player.threatStyle = 'ICONTOPRIGHT'
+		E.db.unitframe.units.player.threatStyle = 'GLOW'
 		E.db.unitframe.units.player.castbar.icon = true
 		E.db.unitframe.units.player.castbar.width = 180
 		E.db.unitframe.units.player.castbar.height = 15
@@ -398,6 +398,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.PlayerPortraitShadow = false
 			-- attachedCastbar for Player/Target
 			E.db.ufb.barheight = 15
+			E.db.ufb.threat = true
 			E.db.ufb.attachCastbar = true
 			E.db.ufb.castText = true
 			E.db.ufb.yOffsetText = 0
@@ -422,7 +423,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.target.name.yOffset = -32
 		E.db.unitframe.units.target.name.position = 'RIGHT'
 		E.db.unitframe.units.target.name.text_format = ''
-		E.db.unitframe.units.target.threatStyle = 'ICONTOPLEFT'
+		E.db.unitframe.units.target.threatStyle = 'GLOW'
 		E.db.unitframe.units.target.power.xOffset = 0
 		E.db.unitframe.units.target.power.yOffset = 0
 		E.db.unitframe.units.target.power.detachFromFrame = true
@@ -702,7 +703,8 @@ local function SetupMERLayout(layout)
 			E.db.unitframe.units.party.buffs.sizeOverride = 22
 			E.db.unitframe.units.party.emptybar.enable = true
 			E.db.unitframe.units.party.emptybar.height = 15
-			E.db.unitframe.units.party.emptybar.transparent = false
+			E.db.unitframe.units.party.emptybar.transparent = true
+			E.db.unitframe.units.party.emptybar.threat = true
 			E.db.unitframe.units.party.portrait.enable = true
 			E.db.unitframe.units.party.portrait.overlay = false
 			E.db.unitframe.units.party.portrait.width = 40
