@@ -349,6 +349,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.player.aurabar.enable = false
 		E.db.unitframe.units.player.threatStyle = 'GLOW'
 		E.db.unitframe.units.player.castbar.icon = true
+		E.db.unitframe.units.player.castbar.latency = true
 		E.db.unitframe.units.player.castbar.width = 180
 		E.db.unitframe.units.player.castbar.height = 15
 		E.db.unitframe.units.player.customTexts = {}
@@ -400,6 +401,7 @@ local function SetupMERLayout(layout)
 		-- Target
 		E.db.unitframe.units.target.width = 180
 		E.db.unitframe.units.target.height = 25
+		E.db.unitframe.units.target.castbar.icon = true
 		E.db.unitframe.units.target.castbar.latency = true
 		E.db.unitframe.units.target.castbar.width = 180
 		E.db.unitframe.units.target.castbar.height = 15
