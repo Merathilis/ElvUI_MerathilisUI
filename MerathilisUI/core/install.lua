@@ -394,7 +394,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.threat = true
 			E.db.ufb.attachCastbar = true
 			E.db.ufb.castText = true
-			E.db.ufb.yOffsetText = 0
+			E.db.ufb.yOffsetText = -1
 			E.db.ufb.hideText = true
 		end
 		-- Target
@@ -1250,6 +1250,7 @@ local function SetupMERAddons()
 			E.db.dashboards.tokens.flash = false
 			E.db.dashboards.tokens.width = 145
 			E.db.dashboards.professions.enableProfessions = false
+			E.db.ufb.powerstatusbar = 'MerathilisFlat'
 			SetMoverPosition('BuiMiddleDtMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 2)
 			SetMoverPosition('tokenHolderMover', 'TOPRIGHT', E.UIParent, 'TOPRIGHT', -8, -145)
 		end
