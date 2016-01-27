@@ -7,14 +7,20 @@ local function muiUnitframes()
 		type = 'group',
 		name = L['UnitFrames'],
 		guiInline = true,
+		get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
+		set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 		args = {
 			roleIcons = {
-				order = 7,
+				order = 1,
 				type = 'toggle',
 				name = L['Role Icon'],
 				desc = L['Replaces the default role icons with SVUI ones.'],
-				get = function(info) return E.db.muiUnitframes[ info[#info] ] end,
-				set = function(info, value) E.db.muiUnitframes[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+			},
+			setRole = {
+				order = 2,
+				type = 'toggle',
+				name = L['Set Role'],
+				desc = L['Automatically set your role based on your specc.'],
 			},
 		},
 	}
