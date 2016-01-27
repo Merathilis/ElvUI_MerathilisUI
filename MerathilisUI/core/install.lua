@@ -388,8 +388,9 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachPlayerPortrait = true
 			E.db.ufb.getPlayerPortraitSize = false
 			E.db.ufb.PlayerPortraitWidth = 92
-			E.db.ufb.PlayerPortraitHeight = 43
+			E.db.ufb.PlayerPortraitHeight = 40
 			E.db.ufb.PlayerPortraitShadow = false
+			E.db.ufb.PlayerPortraitStyle = true
 			-- attachedCastbar for Player/Target
 			E.db.ufb.barheight = 15
 			E.db.ufb.threat = true
@@ -469,8 +470,9 @@ local function SetupMERLayout(layout)
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db.ufb.detachTargetPortrait = true
 			E.db.ufb.TargetPortraitWidth = 92
-			E.db.ufb.TargetPortraitHeight = 43
+			E.db.ufb.TargetPortraitHeight = 40
 			E.db.ufb.TargetPortraitShadow = false
+			E.db.ufb.TargetPortraitStyle = true
 		end
 		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
