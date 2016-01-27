@@ -1271,7 +1271,7 @@ local function SetupMERAddons()
 			E.db.locplus.dtheight = 17
 			E.db.locplus.dtwidth = 80
 			E.db.locplus.fish = false
-			E.db.locplus.lpwidth = 130
+			E.db.locplus.lpauto = true
 			E.db.locplus.petlevel = false
 			E.db.locplus.ttreczones = false
 			E.db.locplus.ttinst = false
