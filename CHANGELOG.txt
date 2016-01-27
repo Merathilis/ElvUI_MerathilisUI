@@ -1,5 +1,8 @@
 <b><u> v1.20, xx.xx.xxxx</b></u>
-<font color=#FF8C00>&#9830;</font> Use LibElv-GameMenu-1.0 for the GameMenu Button. (Credits: Darth Predator for this amazing work ;) )
+<font color=#FF8C00>&#9830;</font> Install: Update the Heal-Layout.
+<font color=#FF8C00>&#9830;</font> Install: Even more updates to the DPS-Layout.
+<font color=#FF8C00>&#9830;</font> Misc: Use LibElv-GameMenu-1.0 for the GameMenu Button. (Credits: Darth Predator for this amazing work ;) )
+<font color=#FF8C00>&#9830;</font> Misc: Add an Option to automaticlly set your Role based on your Specialisation.
 
 <b><u> v1.19, 24.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: More adjustments to the DPS Layout.
