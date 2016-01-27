@@ -529,7 +529,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.power.enable = true
 		E.db.unitframe.units.raid.power.position = 'CENTER'
 		E.db.unitframe.units.raid.power.height = 2
-		E.db.unitframe.units.raid.healthPrediction = true
+		E.db.unitframe.units.raid.healPrediction = true
 		E.db.unitframe.units.raid.width = 69
 		E.db.unitframe.units.raid.groupBy = 'ROLE'
 		E.db.unitframe.units.raid.health.frequentUpdates = true
