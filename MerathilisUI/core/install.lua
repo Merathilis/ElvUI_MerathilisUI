@@ -391,6 +391,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.PlayerPortraitHeight = 40
 			E.db.ufb.PlayerPortraitShadow = false
 			E.db.ufb.PlayerPortraitStyle = true
+			E.db.ufb.PlayerPortraitStyleHeight = 4
 			-- attachedCastbar for Player/Target
 			E.db.ufb.barheight = 15
 			E.db.ufb.threat = true
@@ -473,6 +474,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.TargetPortraitHeight = 40
 			E.db.ufb.TargetPortraitShadow = false
 			E.db.ufb.TargetPortraitStyle = true
+			E.db.ufb.TargetPortraitStyleHeight = 4
 		end
 		-- TargetTarget
 		E.db.unitframe.units.targettarget.debuffs.enable = true
