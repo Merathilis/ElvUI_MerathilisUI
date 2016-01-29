@@ -1,9 +1,9 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
--- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.2.0-2-g2876c66
+-- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.0
 -- Cache global variables
--- GLOBALS: hooksecurefunc, DAY_ONELETTER_ABBR, INTERFACEOPTIONS_ADDONCATEGORIES, doNotRun
+-- GLOBALS: AddonList, hooksecurefunc, DAY_ONELETTER_ABBR, INTERFACEOPTIONS_ADDONCATEGORIES, doNotRun
 local _G = _G
 local pairs, tonumber, type = pairs, tonumber, type
 
@@ -81,7 +81,7 @@ do
 			end
 		end
 	end
-	
+
 	local function InterfaceOptionsFrame_OpenToCategory_Fix(panel)
 		if doNotRun or InCombatLockdown() then return end
 		local panelName = get_panel_name(panel)
@@ -97,7 +97,7 @@ do
 				if panel.name == panelName then
 					panel.collapsed = true
 					t.element = panel
-					_G["InterfaceOptionsListButton_ToggleSubCategories"](t)
+					InterfaceOptionsListButton_ToggleSubCategories(t)
 					noncollapsedHeaders[panel.name] = true
 					mypanel = shownpanels + 1
 				end
@@ -107,20 +107,20 @@ do
 				shownpanels = shownpanels + 1
 			end
 		end
-		local Smin, Smax = _G["InterfaceOptionsFrameAddOnsListScrollBar"]:GetMinMaxValues()
+		local Smin, Smax = InterfaceOptionsFrameAddOnsListScrollBar:GetMinMaxValues()
 		if shownpanels > 15 and Smin < Smax then
 			local val = (Smax/(shownpanels-15))*(mypanel-2)
-			_G["InterfaceOptionsFrameAddOnsListScrollBar"]:SetValue(val)
+			InterfaceOptionsFrameAddOnsListScrollBar:SetValue(val)
 		end
 		doNotRun = true
-		_G["InterfaceOptionsFrame_OpenToCategory"](panel)
+		InterfaceOptionsFrame_OpenToCategory(panel)
 		doNotRun = false
 	end
-	
+
 	hooksecurefunc("InterfaceOptionsFrame_OpenToCategory", InterfaceOptionsFrame_OpenToCategory_Fix)
 end
 
--- Avoid taint from the UIFrameFlash usage of the chat frames. More info here:
+-- Avoid taint from the UIFrameFlash usage of the chat frames.  More info here:
 -- http://forums.wowace.com/showthread.php?p=324936
 -- Fixed by embedding LibChatAnims
 
@@ -150,7 +150,7 @@ end
 do
 	local orig = AddonTooltip_Update
 	_G.AddonTooltip_Update = function(owner, ...) 
-		if _G["AddonList"] and _G["AddonList"]:IsMouseOver() then
+		if AddonList and AddonList:IsMouseOver() then
 			local id = owner and owner.GetID and owner:GetID()
 			if id and id > 0 and id <= GetNumAddOns() then
 				orig(owner, ...) 
