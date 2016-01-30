@@ -388,7 +388,7 @@ local function SetupMERLayout(layout)
 			E.db.ufb.detachPlayerPortrait = true
 			E.db.ufb.getPlayerPortraitSize = false
 			E.db.ufb.PlayerPortraitWidth = 92
-			E.db.ufb.PlayerPortraitHeight = 40
+			E.db.ufb.PlayerPortraitHeight = 39
 			E.db.ufb.PlayerPortraitShadow = false
 			E.db.ufb.PlayerPortraitStyle = true
 			E.db.ufb.PlayerPortraitStyleHeight = 4
@@ -471,7 +471,7 @@ local function SetupMERLayout(layout)
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db.ufb.detachTargetPortrait = true
 			E.db.ufb.TargetPortraitWidth = 92
-			E.db.ufb.TargetPortraitHeight = 40
+			E.db.ufb.TargetPortraitHeight = 39
 			E.db.ufb.TargetPortraitShadow = false
 			E.db.ufb.TargetPortraitStyle = true
 			E.db.ufb.TargetPortraitStyleHeight = 4
@@ -822,14 +822,14 @@ local function SetupMERLayout(layout)
 			-- PlayerMover
 			SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 141)
 			SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
-			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 126)
+			SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 127)
 			SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 166)
 			SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 168)
 			-- TargetMover
 			SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 141)
 			SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 108)
 			SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 166)
-			SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 126)
+			SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 127)
 			-- TargetTargetMover
 			SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 146)
 			-- FocusMover
