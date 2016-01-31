@@ -11,7 +11,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 if IsAddOnLoaded("MailinputboxResizer") then return end
 
 -- EditBox width: default: 224
-local editbox_width = 218
+local editbox_width = 220
 
 -- Money display position, default: {"RIGHT", "SendMailFrame", "RIGHT", -74, -94,}
 local moneyframe_pos = {
