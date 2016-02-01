@@ -321,15 +321,15 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.player.portrait.camDistanceScale = 1
 	E.db.unitframe.units.player.portrait.width = 0
 	-- Use Classbar not for Druid, because of Balance PowerTracker
-	if E.myclass == "PALADIN" or E.myclass == "DEATHKNIGHT" or E.myclass == "WARLOCK" or E.myclass == "PRIEST" or E.myclass == "MONK" then
+	if E.myclass == "DRUID" then
+		E.db.unitframe.units.player.classbar.enable = false
+	else
 		E.db.unitframe.units.player.classbar.enable = true
 		E.db.unitframe.units.player.classbar.detachFromFrame = true
 		E.db.unitframe.units.player.classbar.xOffset = 110
 		E.db.unitframe.units.player.classbar.detachedWidth = 135
 		E.db.unitframe.units.player.classbar.fill = 'spaced'
 		E.db.unitframe.units.player.classbar.autoHide = true
-	else
-		E.db.unitframe.units.player.classbar.enable = false
 	end
 	E.db.unitframe.units.player.aurabar.enable = false
 	E.db.unitframe.units.player.threatStyle = 'GLOW'
