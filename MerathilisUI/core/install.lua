@@ -1327,6 +1327,10 @@ local function SetupMERAddons()
 				E.db["sle"]["unitframes"]["offlineInd"]["raid40"]["enable"] = true
 				E.db["sle"]["unitframes"]["offlineInd"]["raid"]["enable"] = true
 				E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
+				E.db["sle"]["unitframes"]["offlineInd"]["raid"]["enable"] = true
+				E.db["sle"]["unitframes"]["offlineInd"]["raid"]["size"] = 22
+				E.db["sle"]["unitframes"]["offlineInd"]["party"]["enable"] = false
+				E.db["sle"]["unitframes"]["offlineInd"]["raid40"]["enable"] = false
 				E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
 				E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_WARNING"] = true
 				E.db["sle"]["loot"]["enable"] = true
