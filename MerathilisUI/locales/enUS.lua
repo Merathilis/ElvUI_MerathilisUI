@@ -18,7 +18,7 @@ L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = true
 L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
-L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
+-- Misc
 L['MISC_SCROLL'] = "Scroll"
 L['Enchant on Scroll'] = true
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = true
@@ -67,6 +67,7 @@ L["Announce in chat if duel was rejected."] = true
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = true
+L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
 L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "

@@ -18,7 +18,7 @@ L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = "Aktiviert/Dea
 L['Options'] = "Einstellungen"
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
-L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
+-- Misc
 L['MISC_SCROLL'] = "Rolle"
 L['Enchant on Scroll'] = "Verzauberung auf Rolle"
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = "Platziert einen Knopf in das Verzauberungsfenster, welches dir erlaubt automatisch eine Verzauberung auf eine Rolle zu wirken."
@@ -67,6 +67,7 @@ L["Announce in chat if duel was rejected."] = "Kündigt im Chat an, wenn ein Due
 -- Quest
 L['Quest'] = true
 L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"
+L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
 L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
