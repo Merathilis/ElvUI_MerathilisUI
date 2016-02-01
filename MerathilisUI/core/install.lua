@@ -1321,7 +1321,8 @@ local function SetupMERAddons()
 				E.db["sle"]["Armory"]["Character"]["Level"]["ShowUpgradeLevel"] = true
 				E.db["sle"]["Armory"]["Character"]["Level"]["Font"] = "Merathilis Prototype"
 				E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "HIDE"
-				E.db["sle"]["unitframes"]["combatico"]["pos"] = "RIGHT"
+				E.db["sle"]["unitframes"]["combatico"]["pos"] = "CENTER"
+				E.db["sle"]["unitframes"]["combatico"]["red"] = false
 				E.db["sle"]["unitframes"]["offlineInd"]["party"]["enable"] = true
 				E.db["sle"]["unitframes"]["offlineInd"]["raid40"]["enable"] = true
 				E.db["sle"]["unitframes"]["offlineInd"]["raid"]["enable"] = true
@@ -1398,6 +1399,8 @@ local function SetupMERAddons()
 				E.db["sle"]["dt"]["hide_gmotd"] = false
 				E.db["sle"]["dt"]["combat"] = false
 				E.db["sle"]["dt"]["totals"] = true
+				E.db["sle"]["dt"]["durability"]["threshold"] = 49
+				E.db["sle"]["dt"]["durability"]["gradient"] = true
 				E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
 				E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.25
 				E.db["sle"]["chat"]["dpsSpam"] = true
