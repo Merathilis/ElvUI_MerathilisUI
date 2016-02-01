@@ -11,27 +11,28 @@ if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
 if E.db.muiSkins.addons == nil then E.db.muiSkins.addons = {} end -- Also a nil Error.
 if not IsAddOnLoaded("MasterPlan") and E.db.muiSkins.addons.MasterPlan == false then return; end
 
--- Garrison Tabs
-local function skinMasterPlanGarrison()
+-- MasterPlan
+local function skinMasterPlan()
+	-- Garrison
 	S:HandleTab(_G["GarrisonMissionFrameTab3"])
 	S:HandleTab(_G["GarrisonMissionFrameTab4"])
+	-- Landing Page
 	S:HandleTab(_G["GarrisonLandingPageTab4"])
+	-- Shipyard
+	S:HandleTab(_G["GarrisonShipyardFrameTab3"])
 	S:HandleButton(_G["MPCompleteAll"], true)
 	S:HandleButton(_G["MPPokeTentativeParties"], true)
 	S:HandleButton(_G["MPLootSummaryDone"], true)
-end
-
--- ShipYard Tabs
-local function skinMasterPlanShipyard()
-	S:HandleTab(_G["GarrisonShipyardFrameTab3"])
+	-- Follower SearchBox
+	GarrisonMissionFrameFollowers.SearchBox:SetPoint("TOPLEFT", 20, 25)
+	GarrisonMissionFrameFollowers.SearchBox:SetSize(252, 20)
 end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, addon)
 	if addon == "MasterPlan" then
-		skinMasterPlanGarrison()
-		skinMasterPlanShipyard()
+		skinMasterPlan()
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)
