@@ -1,4 +1,4 @@
-<b><u> v1.20, xx.xx.xxxx</b></u>
+<b><u> v1.20, 02.02.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Update the Heal-Layout.
 <font color=#FF8C00>&#9830;</font> Install: Even more updates to the DPS-Layout.
 <font color=#FF8C00>&#9830;</font> Install: Adjust movers due to the recent changes in ElvUI & BenikUI

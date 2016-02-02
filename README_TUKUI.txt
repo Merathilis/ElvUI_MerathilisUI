@@ -23,11 +23,6 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> ElvUI 8+
 <font color=#FF8C00>&#9830;</font> High Recommended: <a href="http://www.tukui.org/addons/index.php?act=view&id=228">ElvUI_BenikUI</a> to get the whole look and functionality from MerathilisUI.
 
-<font color=#FF8C00><b>MerathilisUI Art Pack:</b></font>
-<font color=#FF8C00>&#9830;</font> A mix of some UI Art Packs i use for my MerathilisUI. (Credits belong to the Authors)
-<font color=#FF8C00>&#9830;</font> Please read the README.txt inside the ZIP Folder.
-<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>Update</font> Download: <a href="https://www.dropbox.com/s/fu5d65u3sa40nd1/MerathilisUI_ArtPack.zip?dl=0">MerathilisUI_ArtPack</a>
-
 <font color=#FF8C00><b>WeakAura Strings:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://pastebin.com/qbQJXrha">MerathilisUI Boomkin</a>
 <a href='http://www.tukui.org/storage/viewer.php?id=154393wa.jpg'><img src='http://www.tukui.org/storage/thumbs/154393wa.jpg'></a>
@@ -37,9 +32,6 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Shadow&Light</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=56">LocationPlus</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=91">ElvUI VisualAuraTimers</a>
-<font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=67">xCT+</a>
-<font color=#FF8C00>&#9830;</font> <a href="http://www.curse.com/addons/wow/masque">Masque</a>
-<font color=#FF8C00>&#9830;</font> <a href="http://www.wowinterface.com/downloads/info15923-MasqueRenaitre.html">Masque: Renaitre</a>
 
 <font color=#FF8C00><b>Features:</b></font>
 <font color=#FF8C00>&#9830;</font> There are two Raid-/GroupFrame Layouts: DPS & Heal.
@@ -54,11 +46,11 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Option to automatically cancel Duels/ Pet Duels.
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
-<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>New</font> Edited Skins for the SpellBook & EncounterJournal.
+<font color=#FF8C00>&#9830;</font> Edited Skins for the SpellBook & EncounterJournal.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 <font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
-<font color=#FF8C00>&#9830;</font> Profiles for: xCT+, BigWigs, Skada. You must select the "MerathilisUI" Profile in the AddOns.
+<font color=#FF8C00>&#9830;</font> Profiles for: xCT+, Skada. You must select the "MerathilisUI" Profile in the AddOns.
 
 <font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>
 

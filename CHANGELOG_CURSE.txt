@@ -1,0 +1,12 @@
+** v1.20, 02.02.2016**
+* Install: Update the Heal-Layout.
+* Install: Even more updates to the DPS-Layout.
+* Install: Adjust movers due to the recent changes in ElvUI & BenikUI
+* Install: Use the BenikUI Style for the detached Portrait. (Requires BenikUI 2.37)
+* Install: Code tweaks
+* Misc: Use LibElv-GameMenu-1.0 for the GameMenu Button. (Credits: Darth Predator for this amazing work ;) )
+* Misc: Add an Option to automaticlly set your Role based on your Specialisation.
+* Skins: Adjust the MasterPlan Follower Search Box.
+
+\\ \\
+..
