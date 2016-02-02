@@ -2,9 +2,11 @@
 <font color=#FF8C00>&#9830;</font> Install: Update the Heal-Layout.
 <font color=#FF8C00>&#9830;</font> Install: Even more updates to the DPS-Layout.
 <font color=#FF8C00>&#9830;</font> Install: Adjust movers due to the recent changes in ElvUI & BenikUI
-<font color=#FF8C00>&#9830;</font> Install: Use the BenikUI Style for the detached Portrait. (Requires BenikUI 2.37?!)
+<font color=#FF8C00>&#9830;</font> Install: Use the BenikUI Style for the detached Portrait. (Requires BenikUI 2.37)
+<font color=#FF8C00>&#9830;</font> Install: Code tweaks
 <font color=#FF8C00>&#9830;</font> Misc: Use LibElv-GameMenu-1.0 for the GameMenu Button. (Credits: Darth Predator for this amazing work ;) )
 <font color=#FF8C00>&#9830;</font> Misc: Add an Option to automaticlly set your Role based on your Specialisation.
+<font color=#FF8C00>&#9830;</font> Skins: Adjust the MasterPlan Follower Search Box.
 
 <b><u> v1.19, 24.01.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: More adjustments to the DPS Layout.
