@@ -7,7 +7,7 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE
-## X-ElvVersion: 8.5
+## X-ElvVersion: 8.52
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: MerathilisUI
 
