@@ -1391,6 +1391,8 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["dpsSpam"] = true
 			E.private["sle"]["chat"]["BubbleClass"] = true
 			E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
+			E.db["sle"]["chat"]["tab"]["select"] = true
+			E.db["sle"]["chat"]["tab"]["style"] = "ARROWRIGHT"
 			E.db["sle"]["pvp"]["ChatFilters"]["awardStyle"] = "STYLE2"
 			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
 			E.db["sle"]["pvp"]["ChatFilters"]["award"] = true
