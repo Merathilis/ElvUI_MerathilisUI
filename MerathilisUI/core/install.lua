@@ -1286,6 +1286,7 @@ local function SetupMERAddons()
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
 			E.private["sle"]["vehicle"]["enable"] = true
+			E.private["sle"]["bags"]["transparentSlots"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
 			E.db["sle"]["misc"]["rumouseover"] = true
 			E.db["sle"]["Armory"]["Inspect"]["Enable"] = false
