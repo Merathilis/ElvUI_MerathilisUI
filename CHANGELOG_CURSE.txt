@@ -1,4 +1,9 @@
 ** v1.20, 02.02.2016**
+* Install: Change the ChatTab Font to MerathilisPrototype.
+* Install: Add more Settings for SLE.
+
+\\ \\
+** v1.20, 02.02.2016**
 * Install: Update the Heal-Layout.
 * Install: Even more updates to the DPS-Layout.
 * Install: Adjust movers due to the recent changes in ElvUI & BenikUI
@@ -7,6 +12,3 @@
 * Misc: Use LibElv-GameMenu-1.0 for the GameMenu Button. (Credits: Darth Predator for this amazing work ;) )
 * Misc: Add an Option to automaticlly set your Role based on your Specialisation.
 * Skins: Adjust the MasterPlan Follower Search Box.
-
-\\ \\
-..
