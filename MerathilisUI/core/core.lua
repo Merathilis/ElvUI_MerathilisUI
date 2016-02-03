@@ -143,7 +143,7 @@ function MER:Initialize()
 	if ElvDB.profileKeys and profileKey == nil then self:SetupUI() end
 	
 	if E.db.muiGeneral.LoginMsg then
-		print(MER.Title..format('v|cff00c0fa%s|r',MER.Version)..L[' is loaded.'])
+		print(MER.Title..format('v|cff00c0fa%s|r', MER.Version)..L[' is loaded.'])
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
 	
