@@ -222,9 +222,9 @@ local function SetupMERLayout(layout)
 	
 	-- Chat
 	E.db.chat.keywordSound = 'Whisper Alert'
-	E.db.chat.tabFont = 'Merathilis Roadway'
+	E.db.chat.tabFont = 'Merathilis Prototype'
 	E.db.chat.tabFontOutline = 'OUTLINE'
-	E.db.chat.tabFontSize = 14
+	E.db.chat.tabFontSize = 10
 	E.db.chat.panelTabTransparency = true
 	E.db.chat.fontOutline = 'OUTLINE'
 	E.db.chat.chatHistory = false
@@ -1090,8 +1090,8 @@ local function SetupMERAddons()
 							["g"] = 0.101960784313725,
 							["b"] = 0.301960784313726,
 						},
-						["font"] = "Merathilis Roadway",
-						["fontsize"] = 14,
+						["font"] = "Merathilis Prototype",
+						["fontsize"] = 10,
 						["borderthickness"] = 0,
 						["fontflags"] = "OUTLINE",
 						["height"] = 15,
@@ -1153,9 +1153,9 @@ local function SetupMERAddons()
 							["r"] = 0.101960784313725,
 						},
 						["bordertexture"] = "None",
-						["font"] = "Merathilis Roadway",
+						["font"] = "Merathilis Prototype",
 						["borderthickness"] = 0,
-						["fontsize"] = 14,
+						["fontsize"] = 10,
 						["fontflags"] = "OUTLINE",
 						["height"] = 15,
 						["margin"] = 0,
