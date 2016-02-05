@@ -343,7 +343,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.player.customTexts.BigName.justifyH = 'LEFT'
 	E.db.unitframe.units.player.customTexts.BigName.fontOutline = 'OUTLINE'
 	E.db.unitframe.units.player.customTexts.BigName.xOffset = 2
-	E.db.unitframe.units.player.customTexts.BigName.yOffset = 1
+	E.db.unitframe.units.player.customTexts.BigName.yOffset = 0
 	E.db.unitframe.units.player.customTexts.BigName.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
 	E.db.unitframe.units.player.customTexts.BigName.size = 22
 	E.db.unitframe.units.player.customTexts.Percent = {}
@@ -419,9 +419,9 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.customTexts.BigName.justifyH = 'RIGHT'
 	E.db.unitframe.units.target.customTexts.BigName.fontOutline = 'OUTLINE'
 	E.db.unitframe.units.target.customTexts.BigName.xOffset = 4
+	E.db.unitframe.units.target.customTexts.BigName.yOffset = 0
 	E.db.unitframe.units.target.customTexts.BigName.size = 22
 	E.db.unitframe.units.target.customTexts.BigName.text_format = '[name:short] [difficultycolor][shortclassification]'
-	E.db.unitframe.units.target.customTexts.BigName.yOffset = 1
 	E.db.unitframe.units.target.customTexts.Class = {}
 	E.db.unitframe.units.target.customTexts.Class.font = 'Merathilis Tukui'
 	E.db.unitframe.units.target.customTexts.Class.justifyH = 'LEFT'
