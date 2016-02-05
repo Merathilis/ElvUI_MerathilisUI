@@ -353,7 +353,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.player.customTexts.Percent.justifyH = 'RIGHT'
 	E.db.unitframe.units.player.customTexts.Percent.text_format = '[namecolor][health:percent_short]'
 	E.db.unitframe.units.player.health.xOffset = -2
-	E.db.unitframe.units.player.health.yOffset = -20
+	E.db.unitframe.units.player.health.yOffset = -19
 	E.db.unitframe.units.player.health.text_format = '[healthcolor][health:current] - [namecolor][power:current]'
 	E.db.unitframe.units.player.power.xOffset = 0
 	E.db.unitframe.units.player.power.yOffset = 0
@@ -429,7 +429,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.customTexts.Class.xOffset = 1
 	E.db.unitframe.units.target.customTexts.Class.size = 12
 	E.db.unitframe.units.target.customTexts.Class.text_format = '[namecolor][smartclass] [difficultycolor][level]'
-	E.db.unitframe.units.target.customTexts.Class.yOffset = -20
+	E.db.unitframe.units.target.customTexts.Class.yOffset = -19
 	E.db.unitframe.units.target.customTexts.Percent = {}
 	E.db.unitframe.units.target.customTexts.Percent.font = 'Merathilis Tukui'
 	E.db.unitframe.units.target.customTexts.Percent.size = 20
@@ -437,8 +437,8 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.customTexts.Percent.justifyH = 'LEFT'
 	E.db.unitframe.units.target.customTexts.Percent.text_format = '[namecolor][health:percent_short]'
 	E.db.unitframe.units.target.health.xOffset = 4
+		E.db.unitframe.units.target.health.yOffset = -19
 	E.db.unitframe.units.target.health.text_format = '[namecolor][power:current][healthcolor] - [health:current]'
-	E.db.unitframe.units.target.health.yOffset = -20
 	E.db.unitframe.units.target.portrait.enable = true
 	E.db.unitframe.units.target.portrait.width = 0
 	E.db.unitframe.units.target.portrait.camDistanceScale = 1
