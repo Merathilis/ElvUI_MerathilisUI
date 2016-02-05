@@ -437,7 +437,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.customTexts.Percent.justifyH = 'LEFT'
 	E.db.unitframe.units.target.customTexts.Percent.text_format = '[namecolor][health:percent_short]'
 	E.db.unitframe.units.target.health.xOffset = 4
-		E.db.unitframe.units.target.health.yOffset = -19
+	E.db.unitframe.units.target.health.yOffset = -19
 	E.db.unitframe.units.target.health.text_format = '[namecolor][power:current][healthcolor] - [health:current]'
 	E.db.unitframe.units.target.portrait.enable = true
 	E.db.unitframe.units.target.portrait.width = 0
