@@ -23,13 +23,6 @@ L['MISC_SCROLL'] = "Rolle"
 L['Enchant on Scroll'] = "Verzauberung auf Rolle"
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = "Platziert einen Knopf in das Verzauberungsfenster, welches dir erlaubt automatisch eine Verzauberung auf eine Rolle zu wirken."
 L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
--- SetRole
-L['Set Role'] = "Setze Rolle"
-L['Automatically set your role based on your specc.'] = "Setzt automatisch deine Rolle, basierend auf deiner Spezialisierung."
-L["Role set to"] = "Rolle gesetzt zu"
-L["because your specc is"] = "specc ist"
-L["Cannot set role because you are below level 10."] = "Kann keine Rolle setzen, weil du unter Level 10 bist."
-L["Cannot set role because you have no specialization."] = "Kann keine Rolle setzen, weil du keine Spezialisierung hast."
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = "Ersetzt die Standard Minimap Blip Texturen mit Benutzerdefinierten."
