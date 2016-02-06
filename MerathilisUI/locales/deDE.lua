@@ -18,6 +18,8 @@ L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = "Aktiviert/Dea
 L['Options'] = "Einstellungen"
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
+L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
+L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
 -- Misc
 L['MISC_SCROLL'] = "Rolle"
 L['Enchant on Scroll'] = "Verzauberung auf Rolle"
