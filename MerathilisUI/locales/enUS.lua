@@ -18,6 +18,8 @@ L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = true
 L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
+L["has come |cff298F00online|r."] = true
+L["has gone |cffff0000offline|r."] = true
 -- Misc
 L['MISC_SCROLL'] = "Scroll"
 L['Enchant on Scroll'] = true
