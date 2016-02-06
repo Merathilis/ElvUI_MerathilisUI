@@ -502,7 +502,10 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.debuffs.yOffset = -5
 	E.db.unitframe.units.raid.debuffs.anchorPoint = 'TOPRIGHT'
 	E.db.unitframe.units.raid.debuffs.sizeOverride = 20
-	E.db.unitframe.units.raid.rdebuffs.fontSize = 12
+	E.db.unitframe.units.raid.rdebuffs.enable = true
+	E.db.unitframe.units.raid.rdebuffs.font = "Merathilis Prototype"
+	E.db.unitframe.units.raid.rdebuffs.fontSize = 10
+	E.db.unitframe.units.raid.rdebuffs.size = 20
 	E.db.unitframe.units.raid.numGroups = 4
 	E.db.unitframe.units.raid.growthDirection = 'RIGHT_UP'
 	E.db.unitframe.units.raid.colorOverride = 'USE_DEFAULT'
@@ -679,17 +682,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.party.power.height = 2
 		E.db.unitframe.units.party.power.position = 'LEFT'
 		E.db.unitframe.units.party.power.yOffset = -24
-		E.db.unitframe.units.party.buffs.enable = true
-		E.db.unitframe.units.party.buffs.yOffset = 0
-		E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
-		E.db.unitframe.units.party.buffs.clickTrough = true
-		E.db.unitframe.units.party.buffs.useBlacklist = false
-		E.db.unitframe.units.party.buffs.noDuration = false
-		E.db.unitframe.units.party.buffs.playerOnly = false
-		E.db.unitframe.units.party.buffs.perrow = 1
-		E.db.unitframe.units.party.buffs.useFilter = 'TurtleBuffs'
-		E.db.unitframe.units.party.buffs.noConsolidated = false
-		E.db.unitframe.units.party.buffs.sizeOverride = 22
+		E.db.unitframe.units.party.buffs.enable = false
 		E.db.unitframe.units.party.emptybar.enable = true
 		E.db.unitframe.units.party.emptybar.height = 15
 		E.db.unitframe.units.party.emptybar.transparent = true
@@ -701,6 +694,11 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.party.portrait.camDistanceScale = 1.2
 		E.db.unitframe.units.party.portrait.style = '3D'
 		E.db.unitframe.units.party.portrait.transparent = true
+		E.db.unitframe.units.party.rdebuffs.font = "Merathilis Prototype"
+		E.db.unitframe.units.party.rdebuffs.size = 23
+		E.db.unitframe.units.party.rdebuffs.xOffset = 20
+		E.db.unitframe.units.party.rdebuffs.enable = true
+		E.db.unitframe.units.party.rdebuffs.yOffset = 4
 	else
 		E.db.unitframe.units.party.debuffs.fontSize = 12
 		E.db.unitframe.units.party.debuffs.sizeOverride = 21
