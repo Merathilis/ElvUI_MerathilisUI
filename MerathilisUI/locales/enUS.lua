@@ -23,13 +23,6 @@ L['MISC_SCROLL'] = "Scroll"
 L['Enchant on Scroll'] = true
 L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = true
 L['Replaces the default role icons with SVUI ones.'] = true
--- SetRole
-L['Set Role'] = true
-L['Automatically set your role based on your specc.'] = true
-L["Role set to"] = true
-L["because your specc is"] = true
-L["Cannot set role because you are below level 10."] = true
-L["Cannot set role because you have no specialization."] = true
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = true
