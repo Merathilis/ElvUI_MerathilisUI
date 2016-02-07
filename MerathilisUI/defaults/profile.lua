@@ -81,7 +81,8 @@ P['muiPVP'] = { -- Cancel Duel requests
 P['muiSkins'] = {
 	['blizzard'] = {
 		['encounterjournal'] = true,
-		['spellbook'] = true -- Remove the Background of the Spellbook
+		['spellbook'] = true, -- Remove the Background of the Spellbook
+		['objectivetracker'] = true,
 	},
 	['addons'] = {
 		['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs

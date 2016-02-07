@@ -123,10 +123,13 @@ local function SkinProvingGroundButtons()
 end
 
 if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
--- scenario
+	if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
+	if E.db.muiSkins.blizzard == nil then E.db.muiSkins.blizzard = {} end -- Also a nil Error.
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.muiSkins.blizzard.objectivetracker == false then return end
+	-- scenario
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
--- proving grounds
+	-- proving grounds
 	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 end
