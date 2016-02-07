@@ -12,7 +12,7 @@ local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
 local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
-local width = 188
+local width = 190
 local dummy = function() return end
 
 -- Objective Tracker Bar
@@ -99,18 +99,20 @@ local function SkinProvingGroundButtons()
 	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
 	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
 
-	anim.BGAnim:SetSize(width + 21, 75)
+	anim.BGAnim:SetSize(width + 45, 85)
 	anim.BorderAnim:SetSize(width + 21, 75)
 	anim.BorderAnim:ClearAllPoints()
 	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
 	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
 
+	-- Timer
 	sb:StripTextures()
 	sb:SetTemplate('Transparent')
 	sb:SetStatusBarTexture(E['media'].MuiFlat)
 	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	sb:ClearAllPoints()
 	sb:SetPoint('TOPLEFT', block.MedalIcon, 'BOTTOMLEFT', -4, -5)
+	sb:SetSize(200, 15)
 
 	-- Create a little border around the Bar.
 	local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
