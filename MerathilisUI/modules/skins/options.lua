@@ -27,13 +27,6 @@ local function muiSkins()
 						get = function(info) return E.db.muiSkins.blizzard.spellbook end,
 						set = function(info, value) E.db.muiSkins.blizzard.spellbook = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 					},
-					OBJECTIVETRACKER = {
-						order = 3,
-						type = 'toggle',
-						name = OBJECTIVES_TRACKER_LABEL,
-						get = function(info) return E.db.muiSkins.blizzard.objectivetracker end,
-						set = function(info, value) E.db.muiSkins.blizzard.objectivetracker = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
 				},
 			},
 			ADDONS = {

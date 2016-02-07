@@ -16,9 +16,7 @@ local width = 188
 local dummy = function() return end
 
 -- Objective Tracker Bar
-hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
-	
+local function skinObjectiveBar(self, block, line)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
 	local icon = bar.Icon
@@ -45,7 +43,7 @@ hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, 
 	end
 
 	bar.IconBG:Hide()
-end)
+end
 
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
@@ -119,13 +117,15 @@ local function SkinProvingGroundButtons()
 	sb2:SetPoint('TOPLEFT', sb, -1, 1)
 	sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
 	sb2:SetTexture(E['media'].MuiFlat)
+	sb2:SetAlpha(0.5)
 	sb2:SetVertexColor(unpack(E.media.backdropcolor))
 end
 
 if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
-	if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error.
-	if E.db.muiSkins.blizzard == nil then E.db.muiSkins.blizzard = {} end -- Also a nil Error.
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.muiSkins.blizzard.objectivetracker == false then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
+
+	-- Objective Tracker Bar
+	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar) 
 	-- scenario
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
