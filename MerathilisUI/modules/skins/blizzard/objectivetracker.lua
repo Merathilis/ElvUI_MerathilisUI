@@ -15,23 +15,30 @@ local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
 local dummy = function() return end
 
--- Objective Tracker Bar. Recoloring bugs for some reason.
+-- Objective Tracker Bar. Seems to work atm. must still take a look at it.
 local function skinObjectiveBar(self, block, line, questID, finished)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
 	local icon = bar.Icon
+	local flare = progressBar.FullBarFlare1
+	
 
 	if not progressBar.styled then
 		local label = bar.Label
 
 		bar.BarBG:Hide()
 		bar.BarFrame:Hide()
+		bar.BarFrame2:Hide()
+		bar.BarFrame3:Hide()
 		bar.BarGlow:Kill()
-		bar:SetSize(200, 18)
+		bar:SetSize(225, 18)
 
 		bar:SetStatusBarTexture(E['media'].MuiFlat)
 		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		bar:SetTemplate('Transparent')
+		bar:CreateBackdrop('Transparent')
+		bar:SetFrameStrata('HIGH')
+
+		flare:Hide()
 
 		label:ClearAllPoints()
 		label:SetPoint('CENTER')
@@ -46,15 +53,16 @@ end
 
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
--- Timer bars. Recoloring bugs for some reason.
+-- Timer bars. Seems to work atm. must still take a look at it.
 local function SkinTimerBar(self, block, line, duration, startTime)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
 	if tb and tb:IsShown() and not tb.skinned then
+		tb.Bar.BorderMid:Hide()
 		tb.Bar:StripTextures()
+		tb.Bar:CreateBackdrop('Transparent')
 		tb.Bar:SetStatusBarTexture(E['media'].MuiFlat)
 		tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		tb.Bar:SetTemplate('Transparent')
 		tb.skinned = true
 	end
 end
@@ -106,7 +114,7 @@ local function SkinProvingGroundButtons()
 
 	-- Timer
 	sb:StripTextures()
-	sb:SetTemplate('Transparent')
+	sb:CreateBackdrop('Transparent')
 	sb:SetStatusBarTexture(E['media'].MuiFlat)
 	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	sb:ClearAllPoints()
