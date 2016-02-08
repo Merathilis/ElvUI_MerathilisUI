@@ -382,7 +382,7 @@ local function SetupMERLayout(layout)
 		E.db.ufb.threat = true
 		E.db.ufb.attachCastbar = true
 		E.db.ufb.castText = true
-		E.db.ufb.yOffsetText = -1
+		E.db.ufb.yOffsetText = 0
 		E.db.ufb.hideText = true
 	end
 	-- Target
