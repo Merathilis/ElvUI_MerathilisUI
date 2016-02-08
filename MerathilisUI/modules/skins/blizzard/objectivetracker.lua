@@ -15,8 +15,8 @@ local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
 local dummy = function() return end
 
--- Objective Tracker Bar
-local function skinObjectiveBar(self, block, line)
+-- Objective Tracker Bar. Recoloring bugs for some reason.
+local function skinObjectiveBar(self, block, line, questID, finished)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
 	local icon = bar.Icon
@@ -27,12 +27,11 @@ local function skinObjectiveBar(self, block, line)
 		bar.BarBG:Hide()
 		bar.BarFrame:Hide()
 		bar.BarGlow:Kill()
-		bar:SetSize(220, 18)
+		bar:SetSize(200, 18)
 
 		bar:SetStatusBarTexture(E['media'].MuiFlat)
 		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		bar:SetTemplate('Transparent')
-		bar:SetFrameLevel(1)
 
 		label:ClearAllPoints()
 		label:SetPoint('CENTER')
@@ -47,15 +46,15 @@ end
 
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
--- Timer bars. Need to take a deeper look at this. Sometimes it looks ugly as fuck!!
+-- Timer bars. Recoloring bugs for some reason.
 local function SkinTimerBar(self, block, line, duration, startTime)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
 	if tb and tb:IsShown() and not tb.skinned then
 		tb.Bar:StripTextures()
-		tb.Bar:SetTemplate('Transparent')
 		tb.Bar:SetStatusBarTexture(E['media'].MuiFlat)
 		tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		tb.Bar:SetTemplate('Transparent')
 		tb.skinned = true
 	end
 end
