@@ -20,19 +20,25 @@ local function skinObjectiveBar(self, block, line)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
 	local icon = bar.Icon
+	local flare = progressBar.FullBarFlare1
+	
 
 	if not progressBar.styled then
 		local label = bar.Label
 
 		bar.BarBG:Hide()
 		bar.BarFrame:Hide()
+		bar.BarFrame2:Hide()
+		bar.BarFrame3:Hide()
 		bar.BarGlow:Kill()
-		bar:SetSize(220, 18)
+		bar:SetSize(225, 18)
 
 		bar:SetStatusBarTexture(E['media'].MuiFlat)
 		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		bar:SetTemplate('Transparent')
-		bar:SetFrameLevel(1)
+		bar:CreateBackdrop('Transparent')
+		bar:SetFrameStrata('HIGH')
+
+		flare:Hide()
 
 		label:ClearAllPoints()
 		label:SetPoint('CENTER')
@@ -47,13 +53,14 @@ end
 
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
--- Timer bars. Need to take a deeper look at this. Sometimes it looks ugly as fuck!!
+-- Timer bars. Seems to work atm. must still take a look at it.
 local function SkinTimerBar(self, block, line, duration, startTime)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
 	if tb and tb:IsShown() and not tb.skinned then
+		tb.Bar.BorderMid:Hide()
 		tb.Bar:StripTextures()
-		tb.Bar:SetTemplate('Transparent')
+		tb.Bar:CreateBackdrop('Transparent')
 		tb.Bar:SetStatusBarTexture(E['media'].MuiFlat)
 		tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		tb.skinned = true
@@ -107,7 +114,7 @@ local function SkinProvingGroundButtons()
 
 	-- Timer
 	sb:StripTextures()
-	sb:SetTemplate('Transparent')
+	sb:CreateBackdrop('Transparent')
 	sb:SetStatusBarTexture(E['media'].MuiFlat)
 	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	sb:ClearAllPoints()
