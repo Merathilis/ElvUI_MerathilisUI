@@ -12,13 +12,11 @@ local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
 local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
 
 local classColor = RAID_CLASS_COLORS[E.myclass]
-local width = 188
+local width = 190
 local dummy = function() return end
 
 -- Objective Tracker Bar
-hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
-	
+local function skinObjectiveBar(self, block, line)
 	local progressBar = line.ProgressBar
 	local bar = progressBar.Bar
 	local icon = bar.Icon
@@ -45,7 +43,7 @@ hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, 
 	end
 
 	bar.IconBG:Hide()
-end)
+end
 
 -- Objective Tracker from ObbleYeah - Modified to fit my style
 
@@ -101,32 +99,39 @@ local function SkinProvingGroundButtons()
 	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
 	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
 
-	anim.BGAnim:SetSize(width + 21, 75)
+	anim.BGAnim:SetSize(width + 45, 85)
 	anim.BorderAnim:SetSize(width + 21, 75)
 	anim.BorderAnim:ClearAllPoints()
 	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
 	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
 
+	-- Timer
 	sb:StripTextures()
 	sb:SetTemplate('Transparent')
 	sb:SetStatusBarTexture(E['media'].MuiFlat)
 	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	sb:ClearAllPoints()
 	sb:SetPoint('TOPLEFT', block.MedalIcon, 'BOTTOMLEFT', -4, -5)
+	sb:SetSize(200, 15)
 
 	-- Create a little border around the Bar.
 	local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
 	sb2:SetPoint('TOPLEFT', sb, -1, 1)
 	sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
 	sb2:SetTexture(E['media'].MuiFlat)
+	sb2:SetAlpha(0.5)
 	sb2:SetVertexColor(unpack(E.media.backdropcolor))
 end
 
 if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
--- scenario
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true then return end
+
+	-- Objective Tracker Bar
+	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar) 
+	-- scenario
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
--- proving grounds
+	-- proving grounds
 	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 end
