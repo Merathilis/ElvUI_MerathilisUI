@@ -20,22 +20,11 @@ L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
--- Misc
-L['MISC_SCROLL'] = "Rolle"
-L['Enchant on Scroll'] = "Verzauberung auf Rolle"
-L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = "Platziert einen Knopf in das Verzauberungsfenster, welches dir erlaubt automatisch eine Verzauberung auf eine Rolle zu wirken."
-L['Replaces the default role icons with SVUI ones.'] = "Ersetzt die Standard Rollen Symbole mit denen von SVUI."
--- SetRole
-L['Set Role'] = "Setze Rolle"
-L['Automatically set your role based on your specc.'] = "Setzt automatisch deine Rolle, basierend auf deiner Spezialisierung."
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = "Ersetzt die Standard Minimap Blip Texturen mit Benutzerdefinierten."
 -- LoginMessage
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
--- ActionBars
-L["Out of Range"] = "Außer Reichweite"
-L["Change the Out of Range Check to be on the Hotkey instead of the Button."] = "Ändert den außer Reichweite Check auf den Tastaturbelegungstext anstatt auf den Knopf."
 -- GameMenu
 L['GameMenu'] = "Spielmenü"
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
@@ -55,16 +44,7 @@ L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision 
 -- MailInputBox
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
--- PvP
-L["MER_DuelCancel_REGULAR"] = "Duel Anfrage von %s abgelehnt."
-L["MER_DuelCancel_PET"] = "Haustierkampf Duel von %s abgelehnt."
-L["Automatically cancel PvP duel requests."] = "Lehnt automatisch Duel Anfragen ab."
-L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duel Anfragen ab."
-L["Announce"] = "Ankündigung"
-L["Announce in chat if duel was rejected."] = "Kündigt im Chat an, wenn ein Duel abgelehnt wurde."
 -- Quest
-L['Quest'] = true
-L['Skins the Questtracker to fit the MerathilisUI Sytle'] = "Passt den Questtracker vom Aussehen für MerathilisUI an"
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
@@ -110,13 +90,6 @@ L["Total CPU:"] = "Gesamte CPU:"
 L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
--- Loot
-L["Loot Icon"] = "Beute Symbol"
-L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = "Zeigt ein Symbol von einem Gegenstand, dass erbeutet/hergestellt wurde neben der Nachricht im Chat. Beeinflusst nicht die normalen Chatnachrichten."
-L["Channels"] = "Kanäle"
-L["Private channels"] = "Private Kanäle"
-L["Incoming"] = "Eingehend"
-L["Outgoing"] = "Ausgehend"
 -- Reminder
 L["Add Group"] = "Gruppe hinzufügen"
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = "Versuch ein Errinerungs-Symbol anzuzeigen das noch keine Zauber hat. Du musst zuerst einen Zauber hinzufügen."

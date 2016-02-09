@@ -19,39 +19,6 @@ P['muiGeneral'] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Loot options
-----------------------------------------------------------------------------------------
-P['muiLoot'] = {
-	['lootIcon'] = {
-		['enable'] = false, -- Add a Icon to looted/crafted Items in Chat
-		['position'] = 'RIGHT', -- Set position ('LEFT', 'RIGHT')
-		['size'] = 12, -- Icon size
-		["channels"] = { -- Channels to show the Icon
-			["CHAT_MSG_BN_WHISPER"] = false,
-			["CHAT_MSG_BN_WHISPER_INFORM"] = false,
-			["CHAT_MSG_BN_CONVERSATION"] = false,
-			["CHAT_MSG_CHANNEL"] = false,
-			["CHAT_MSG_EMOTE"] = false,
-			["CHAT_MSG_GUILD"] = false,
-			["CHAT_MSG_INSTANCE_CHAT"] = false,
-			["CHAT_MSG_INSTANCE_CHAT_LEADER"] = false,
-			["CHAT_MSG_LOOT"] = true,
-			["CHAT_MSG_OFFICER"] = false,
-			["CHAT_MSG_PARTY"] = false,
-			["CHAT_MSG_PARTY_LEADER"] = false,
-			["CHAT_MSG_RAID"] = false,
-			["CHAT_MSG_RAID_LEADER"] = false,
-			["CHAT_MSG_RAID_WARNING"] = false,
-			["CHAT_MSG_SAY"] = false,
-			["CHAT_MSG_SYSTEM"] = true,
-			["CHAT_MSG_WHISPER"] = false,
-			["CHAT_MSG_WHISPER_INFORM"] = false,
-			["CHAT_MSG_YELL"] = false,
-		},
-	},
-}
-
-----------------------------------------------------------------------------------------
 --	Misc options
 ----------------------------------------------------------------------------------------
 P['muiMisc'] = {
@@ -65,23 +32,13 @@ P['muiMisc'] = {
 }
 
 ----------------------------------------------------------------------------------------
---	PVP options
-----------------------------------------------------------------------------------------
-P['muiPVP'] = { -- Cancel Duel requests
-	['duels'] = {
-		['regular'] = false,
-		['pet'] = false,
-		['announce'] = false,
-	},
-}
-
-----------------------------------------------------------------------------------------
 --	Skins options
 ----------------------------------------------------------------------------------------
 P['muiSkins'] = {
 	['blizzard'] = {
 		['encounterjournal'] = true,
 		['spellbook'] = true, -- Remove the Background of the Spellbook
+		['objectivetracker'] = true,
 	},
 	['addons'] = {
 		['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs

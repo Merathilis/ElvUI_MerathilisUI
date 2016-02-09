@@ -7,11 +7,3 @@ V['reminder'] = {
 	['enable'] = false,
 	['sound'] = "Warning",
 }
-----------------------------------------------------------------------------------------
---	Actionbar options
-----------------------------------------------------------------------------------------
-V['muiActionbars'] = {
-	['oor'] = { -- Change the "Out of Range" Check to the Keybindtext
-		['enable'] = false,
-	},
-}

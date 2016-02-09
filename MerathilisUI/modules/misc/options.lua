@@ -40,14 +40,8 @@ local function muiMisc()
 				name = L['moveBlizz'],
 				desc = L['Make some Blizzard Frames movable.'],
 			},
-			enchantScroll = {
-				order = 6,
-				type = 'toggle',
-				name = L['Enchant on Scroll'],
-				desc = L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'],
-			},
 			minimapblip = {
-				order = 7,
+				order = 6,
 				type = 'toggle',
 				name = L['Minimap Blip'],
 				desc = L['Replaces the default minimap blips with custom textures.'],

@@ -20,22 +20,11 @@ L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
--- Misc
-L['MISC_SCROLL'] = "Scroll"
-L['Enchant on Scroll'] = true
-L['Place a button in the Enchant Trade Window, allow you to automatically place a enchant on a scroll.'] = true
-L['Replaces the default role icons with SVUI ones.'] = true
--- SetRole
-L['Set Role'] = true
-L['Automatically set your role based on your specc.'] = true
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = true
 -- LoginMessage
 L['Enable/Disable the Login Message in Chat'] = true
--- ActionBars
-L["Out of Range"] = true
-L["Change the Out of Range Check to be on the Hotkey instead of the Button."] = true
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
@@ -55,16 +44,7 @@ L['Hides the Garrison Alert Frame while in combat.'] = true
 -- MailInputBox
 L['Mail Inputbox Resize'] = true
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
--- PvP
-L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
-L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
-L["Automatically cancel PvP duel requests."] = true
-L["Automatically cancel pet battles duel requests."] = true
-L["Announce"] = true
-L["Announce in chat if duel was rejected."] = true
 -- Quest
-L['Quest'] = true
-L['Skins the Questtracker to fit the MerathilisUI Sytle'] = true
 L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
@@ -110,13 +90,6 @@ L["Total CPU:"] = true
 L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
--- Loot
-L["Loot Icon"] = true
-L["Showes icons of items looted/created near respective messages in chat. Does not affect usual messages."] = true
-L["Channels"] = true
-L["Private channels"] = true
-L["Incoming"] = true
-L["Outgoing"] = true
 -- Reminder
 L["Add Group"] = true
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = true
