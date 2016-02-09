@@ -194,61 +194,6 @@ local function QuestLogQuests_hook(self, poiTable)
 	end
 end
 
--- Add quest/achievement wowhead link
-local linkQuest, linkAchievement
-if GetLocale() == "ruRU" then
-	linkQuest = "http://ru.wowhead.com/quest=%d"
-	linkAchievement = "http://ru.wowhead.com/achievement=%d"
-elseif GetLocale() == "frFR" then
-	linkQuest = "http://fr.wowhead.com/quest=%d"
-	linkAchievement = "http://fr.wowhead.com/achievement=%d"
-elseif GetLocale() == "deDE" then
-	linkQuest = "http://de.wowhead.com/quest=%d"
-	linkAchievement = "http://de.wowhead.com/achievement=%d"
-elseif GetLocale() == "esES" or GetLocale() == "esMX" then
-	linkQuest = "http://es.wowhead.com/quest=%d"
-	linkAchievement = "http://es.wowhead.com/achievement=%d"
-elseif GetLocale() == "ptBR" or GetLocale() == "ptPT" then
-	linkQuest = "http://pt.wowhead.com/quest=%d"
-	linkAchievement = "http://pt.wowhead.com/achievement=%d"
-else
-	linkQuest = "http://www.wowhead.com/quest=%d"
-	linkAchievement = "http://www.wowhead.com/achievement=%d"
-end
-
-local function ObjectiveTrackerLink(self)
-	local _, b, i, info, questID
-	b = self.activeFrame
-	i = b.questLogIndex
-	_, _, _, _, _, _, _, questID = GetQuestLogTitle(i)
-	info = UIDropDownMenu_CreateInfo()
-	info.text = L['WATCH_WOWHEAD_LINK']
-	info.func = function(id)
-		local inputBox = E:StaticPopup_Show("WATCHFRAME_URL")
-		inputBox.editBox:SetText(linkQuest:format(questID))
-		inputBox.editBox:HighlightText()
-	end
-	info.arg1 = questID
-	info.notCheckable = true
-	UIDropDownMenu_AddButton(info, UIDROPDOWN_MENU_LEVEL)
-end
-
-local function AchievementTrackerLink(self)
-	local _, b, i, info
-	b = self.activeFrame
-	i = b.id
-	info = UIDropDownMenu_CreateInfo()
-	info.text = L['WATCH_WOWHEAD_LINK']
-	info.func = function(_, i)
-		local inputBox = E:StaticPopup_Show("WATCHFRAME_URL")
-		inputBox.editBox:SetText(linkAchievement:format(i))
-		inputBox.editBox:HighlightText()
-	end
-	info.arg1 = i
-	info.notCheckable = true
-	UIDropDownMenu_AddButton(info, UIDROPDOWN_MENU_LEVEL)
-end
-
 -- Initialize
 local function ObjectiveTrackerReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
@@ -326,9 +271,6 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc("GossipFrameUpdate", GossipFrameUpdate_hook)
 		hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
 		hooksecurefunc("QuestLogQuests_Update", QuestLogQuests_hook)
-		-- WoWHead Links
-		hooksecurefunc("QuestObjectiveTracker_OnOpenDropDown", ObjectiveTrackerLink)
-		hooksecurefunc("AchievementObjectiveTracker_OnOpenDropDown", AchievementTrackerLink) 
 		-- Menu Title
 		ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerFrame.HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)

@@ -44,8 +44,6 @@ L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision 
 -- MailInputBox
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
--- Quest
-L['WATCH_WOWHEAD_LINK'] = "Wowhead Link"
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
 L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
