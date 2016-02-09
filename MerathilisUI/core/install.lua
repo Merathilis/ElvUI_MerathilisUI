@@ -1311,6 +1311,23 @@ local function SetupMERAddons()
 			E.db["sle"]["loot"]["enable"] = true
 			E.db["sle"]["loot"]["history"]["autohide"] = true
 			E.db["sle"]["loot"]["announcer"]["enable"] = true
+			E.db["sle"]["loot"]["looticons"]["enable"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT_LEADER"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_GUILD"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_OFFICER"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY_LEADER"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_LEADER"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_YELL"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_SAY"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_WARNING"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_WHISPER_INFORM"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_CONVERSATION"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_WHISPER_INFORM"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_WHISPER"] = true
+			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_WHISPER"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["repIncrease"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["repDecreaseStyle"] = "STYLE2"
 			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame1"
@@ -1385,12 +1402,16 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["dpsSpam"] = true
 			E.private["sle"]["chat"]["BubbleClass"] = true
 			E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
+			E.private["sle"]["bags"]["transparentSlots"] = true
 			E.db["sle"]["chat"]["tab"]["select"] = true
 			E.db["sle"]["chat"]["tab"]["style"] = "ARROWRIGHT"
 			E.db["sle"]["pvp"]["ChatFilters"]["awardStyle"] = "STYLE2"
 			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
 			E.db["sle"]["pvp"]["ChatFilters"]["award"] = true
 			E.db["sle"]["pvp"]["ChatFilters"]["hkStyle"] = "STYLE2"
+			E.db["sle"]["pvp"]["duels"]["pet"] = true
+			E.db["sle"]["pvp"]["duels"]["announce"] = true
+			E.db["sle"]["pvp"]["duels"]["regular"] = true
 			SetMoverPosition("SalvageCrateMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -483)
 			SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -8, -256)
 		end
