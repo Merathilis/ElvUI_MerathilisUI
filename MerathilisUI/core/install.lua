@@ -1312,6 +1312,7 @@ local function SetupMERAddons()
 			E.db["sle"]["loot"]["history"]["autohide"] = true
 			E.db["sle"]["loot"]["announcer"]["enable"] = true
 			E.db["sle"]["loot"]["looticons"]["enable"] = true
+			E.db["sle"]["loot"]["looticons"]["position"] = "RIGHT"
 			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY"] = true
 			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT"] = true
 			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT_LEADER"] = true
