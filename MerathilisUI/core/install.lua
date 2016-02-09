@@ -1414,7 +1414,7 @@ local function SetupMERAddons()
 			E.db["sle"]["pvp"]["duels"]["announce"] = true
 			E.db["sle"]["pvp"]["duels"]["regular"] = true
 			SetMoverPosition("SalvageCrateMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -483)
-			SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -8, -256)
+			SetMoverPosition("SquareMinimapBar", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -3, -256)
 		end
 	end
 
