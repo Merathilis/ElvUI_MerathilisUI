@@ -329,6 +329,9 @@ local function ObjectiveTrackerReskin()
 		-- WoWHead Links
 		hooksecurefunc("QuestObjectiveTracker_OnOpenDropDown", ObjectiveTrackerLink)
 		hooksecurefunc("AchievementObjectiveTracker_OnOpenDropDown", AchievementTrackerLink) 
+		-- Menu Title
+		ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		ObjectiveTrackerFrame.HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
