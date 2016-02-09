@@ -63,9 +63,8 @@
 * ClassColor Names in the Friendlist and AFK/DND Text in the GuildFrame bye Yleaf.
 * ArmoryLink if you right click a Player in the Chat/Guild/LFG Browser by Driizt, Phanx.
 * WowheadLink if you right click a quest in the QuestTracker.
-* Option to automatically cancel Duels/ Pet Duels.
 * Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
-* <font color=#FF8C00>New</font> Edited Skins for the SpellBook & EncounterJournal.
+* Edited Skins for the SpellBook & EncounterJournal & ObjectiveTracker.
 * Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 * Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 * Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)

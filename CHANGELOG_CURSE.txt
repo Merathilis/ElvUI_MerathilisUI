@@ -1,6 +1,7 @@
 ** v1.20, 02.02.2016**
 * Install: Change the ChatTab Font to MerathilisPrototype.
 * Install: Add more Settings for SLE.
+* Skins: Own Skin for the ObjectiveTracker. With wowhead-link support! (With a lot of help from Darth Predator)
 
 \\ \\
 ** v1.20, 02.02.2016**

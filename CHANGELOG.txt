@@ -1,6 +1,7 @@
 <b><u> v1.21, xx.xx.xxxx</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Change the ChatTab Font to MerathilisPrototype.
 <font color=#FF8C00>&#9830;</font> Install: Add more Settings for SLE.
+<font color=#FF8C00>&#9830;</font> Skins: Own Skin for the ObjectiveTracker. With wowhead-link support! (With a lot of help from Darth Predator)
 
 <b><u> v1.20, 02.02.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Update the Heal-Layout.
