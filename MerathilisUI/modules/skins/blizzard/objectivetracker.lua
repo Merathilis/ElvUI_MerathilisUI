@@ -5,8 +5,7 @@ local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame, IsAddOnLoaded, TRIVIAL_QUEST_DISPLAY, NORMAL_QUEST_DISPLAY, QUEST_TRACKER_MODULE
--- GLOBALS: OBJECTIVE_TRACKER_COLOR, QuestLogQuests_GetTitleButton, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton, UIDROPDOWN_MENU_LEVEL, UIDROPDOWN_MENU_LEVEL
--- GLOBALS: BONUS_OBJECTIVE_TRACKER_MODULE, DEFAULT_OBJECTIVE_TRACKER_MODULE, SCENARIO_CONTENT_TRACKER_MODULE
+-- GLOBALS: OBJECTIVE_TRACKER_COLOR, QuestLogQuests_GetTitleButton, BONUS_OBJECTIVE_TRACKER_MODULE, DEFAULT_OBJECTIVE_TRACKER_MODULE, SCENARIO_CONTENT_TRACKER_MODULE
 local _G = _G
 local select, table, unpack = select, table, unpack
 
@@ -63,7 +62,7 @@ local function skinObjectiveBar(self, block, line)
 	bar.IconBG:Hide()
 end
 
--- Timer bars. Seems to work atm. must still take a look at it.
+-- Timer bars
 local function SkinTimerBar(self, block, line, duration, startTime)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
@@ -83,8 +82,6 @@ local function SkinScenarioButtons()
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
 	local inChallengeMode = C_Scenario.IsChallengeMode()
 
-	-- we have to independently resize the artwork
-	-- because we're messing with the tracker width >_>
 	-- pop-up artwork
 	block.NormalBG:SetSize(width + 21, 75)
 
@@ -199,7 +196,6 @@ local function ObjectiveTrackerReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.db.muiSkins.blizzard.objectivetracker ~= true then return end
 		
-		-- Objective Tracker Bar
 		-- Quest
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
