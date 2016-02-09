@@ -5,7 +5,7 @@ local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame, IsAddOnLoaded, TRIVIAL_QUEST_DISPLAY, NORMAL_QUEST_DISPLAY, QUEST_TRACKER_MODULE
--- GLOBALS: OBJECTIVE_TRACKER_COLOR, QuestLogQuests_GetTitleButton, BONUS_OBJECTIVE_TRACKER_MODULE, DEFAULT_OBJECTIVE_TRACKER_MODULE, SCENARIO_CONTENT_TRACKER_MODULE
+-- GLOBALS: OBJECTIVE_TRACKER_COLOR, QuestLogQuests_GetTitleButton, DEFAULT_OBJECTIVE_TRACKER_MODULE, SCENARIO_CONTENT_TRACKER_MODULE
 local _G = _G
 local select, table, unpack = select, table, unpack
 
@@ -227,13 +227,13 @@ local function ObjectiveTrackerReskin()
 		end
 		
 		-- Bonus Objectives
-		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		
-		local BonusUnderline =  CreateFrame("Frame", "BonusUnderline", BONUS_OBJECTIVE_TRACKER_MODULE.Header)
+		local BonusUnderline =  CreateFrame("Frame", "BonusUnderline", _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header)
 		if BonusUnderline then
-			BonusUnderline:SetPoint('BOTTOM', BONUS_OBJECTIVE_TRACKER_MODULE.Header, -1, 1)
-			BonusUnderline:SetSize(BONUS_OBJECTIVE_TRACKER_MODULE.Header:GetWidth(), 1)
+			BonusUnderline:SetPoint('BOTTOM', _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, -1, 1)
+			BonusUnderline:SetSize(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header:GetWidth(), 1)
 			BonusUnderline.Texture = BonusUnderline:CreateTexture(nil, 'OVERLAY')
 			BonusUnderline.Texture:SetTexture(flat)
 			BonusUnderline.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -262,14 +262,14 @@ local function ObjectiveTrackerReskin()
 		-- Proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 		-- Timer Bar
-		hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar)
+		hooksecurefunc(_G['BONUS_OBJECTIVE_TRACKER_MODULE'], "AddProgressBar", skinObjectiveBar)
 		-- QuestLevel
 		hooksecurefunc("GossipFrameUpdate", GossipFrameUpdate_hook)
 		hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
 		hooksecurefunc("QuestLogQuests_Update", QuestLogQuests_hook)
 		-- Menu Title
-		ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-		ObjectiveTrackerFrame.HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
