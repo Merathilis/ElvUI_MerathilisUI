@@ -51,7 +51,7 @@ local function skinObjectiveBar(self, block, line)
 		flare:Hide()
 
 		label:ClearAllPoints()
-		label:SetPoint('CENTER')
+		label:SetPoint('CENTER', bar, -1, 0)
 		label:FontTemplate()
 
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
