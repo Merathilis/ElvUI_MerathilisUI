@@ -1232,6 +1232,7 @@ local function SetupMERAddons()
 		E.db.bui.garrisonCurrencyOil = true
 		E.db.bui.LoginMsg = false
 		E.db.bui.SplashScreen = false
+		E.db.bui.GameMenuButton = true
 		E.db.bui.StyleColor = 1
 		E.db.bui.abStyleColor = 1
 		E.db.bui.ilvl = false
@@ -1443,8 +1444,7 @@ local function SetupMERAddons()
 			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
 			E.private["sle"]["exprep"]["autotrack"] = true
-			-- E.private["sle"]["skins"]["enable"] = true
-			-- E.private["sle"]["skins"]["objectivetracker"] = true
+			E.private["sle"]["skins"]["objectiveTracker"]["enable"] = false
 			E.private["sle"]["vehicle"]["enable"] = true
 			E.private["sle"]["equip"]["enable"] = true
 			E.private["sle"]["equip"]["setoverlay"] = true
