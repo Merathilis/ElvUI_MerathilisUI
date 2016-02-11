@@ -91,14 +91,14 @@ local function SetupMERLayout(layout)
 	E.db.general.experience.mouseover = false
 	E.db.general.experience.height = 140
 	E.db.general.experience.textSize = 10
-	E.db.general.experience.width = 12
+	E.db.general.experience.width = 10
 	E.db.general.experience.textFormat = 'NONE'
 	E.db.general.experience.orientation = 'VERTICAL'
 	E.db.general.reputation.enable = true
 	E.db.general.reputation.mouseover = false
 	E.db.general.reputation.height = 140
 	E.db.general.reputation.textSize = 10
-	E.db.general.reputation.width = 12
+	E.db.general.reputation.width = 10
 	E.db.general.reputation.textFormat = 'NONE'
 	E.db.general.reputation.orientation = 'VERTICAL'
 	if IsAddOnLoaded('ElvUI_BenikUI') then
