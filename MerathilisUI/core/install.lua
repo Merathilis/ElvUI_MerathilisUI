@@ -1447,9 +1447,7 @@ local function SetupMERAddons()
 			-- E.private["sle"]["skins"]["objectivetracker"] = true
 			E.private["sle"]["vehicle"]["enable"] = true
 			E.private["sle"]["equip"]["enable"] = true
-			E.private["sle"]["equip"]["primary"] = "Eule"
 			E.private["sle"]["equip"]["setoverlay"] = true
-			E.private["sle"]["equip"]["secondary"] = "Heal"
 			E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
