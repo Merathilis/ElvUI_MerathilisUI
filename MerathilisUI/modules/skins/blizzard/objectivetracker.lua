@@ -199,47 +199,17 @@ local function ObjectiveTrackerReskin()
 		-- Quest
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		
-		local QuestUnderline = CreateFrame("Frame", "QuestUnderline", ObjectiveTrackerBlocksFrame.QuestHeader)
-		if QuestUnderline then
-			QuestUnderline:SetPoint('BOTTOM', ObjectiveTrackerBlocksFrame.QuestHeader, -1, 1)
-			QuestUnderline:SetSize(ObjectiveTrackerBlocksFrame.QuestHeader:GetWidth(), 1)
-			QuestUnderline.Texture = QuestUnderline:CreateTexture(nil, 'OVERLAY')
-			QuestUnderline.Texture:SetTexture(flat)
-			QuestUnderline.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			QuestUnderline:CreateShadow()
-			QuestUnderline.Texture:SetAllPoints(QuestUnderline)
-		end
+		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
 		
 		-- Achievements
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		
-		local AchievementUnderline = CreateFrame("Frame", "AchievementUnderline", ObjectiveTrackerBlocksFrame.AchievementHeader)
-		if AchievementUnderline then
-			AchievementUnderline:SetPoint('BOTTOM', ObjectiveTrackerBlocksFrame.AchievementHeader, -1, 1)
-			AchievementUnderline:SetSize(ObjectiveTrackerBlocksFrame.AchievementHeader:GetWidth(), 1)
-			AchievementUnderline.Texture = AchievementUnderline:CreateTexture(nil, 'OVERLAY')
-			AchievementUnderline.Texture:SetTexture(flat)
-			AchievementUnderline.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			AchievementUnderline:CreateShadow()
-			AchievementUnderline.Texture:SetAllPoints(AchievementUnderline)
-		end
+		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
 		
 		-- Bonus Objectives
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		
-		local BonusUnderline =  CreateFrame("Frame", "BonusUnderline", _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header)
-		if BonusUnderline then
-			BonusUnderline:SetPoint('BOTTOM', _G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, -1, 1)
-			BonusUnderline:SetSize(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header:GetWidth(), 1)
-			BonusUnderline.Texture = BonusUnderline:CreateTexture(nil, 'OVERLAY')
-			BonusUnderline.Texture:SetTexture(flat)
-			BonusUnderline.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			BonusUnderline:CreateShadow()
-			BonusUnderline.Texture:SetAllPoints(BonusUnderline)
-		end
+		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
 		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
@@ -247,17 +217,7 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		
-		local ScenarioUnderline = CreateFrame("Frame", "ScenarioUnderline", ObjectiveTrackerBlocksFrame.ScenarioHeader)
-		if ScenarioUnderline then
-			ScenarioUnderline:SetPoint('BOTTOM',ObjectiveTrackerBlocksFrame.ScenarioHeader, -1, 1)
-			ScenarioUnderline:SetSize(ObjectiveTrackerBlocksFrame.ScenarioHeader:GetWidth(), 1)
-			ScenarioUnderline.Texture = ScenarioUnderline:CreateTexture(nil, 'OVERLAY')
-			ScenarioUnderline.Texture:SetTexture(flat)
-			ScenarioUnderline.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			ScenarioUnderline:CreateShadow()
-			ScenarioUnderline.Texture:SetAllPoints(ScenarioUnderline)
-		end
+		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
 		
 		-- Proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
