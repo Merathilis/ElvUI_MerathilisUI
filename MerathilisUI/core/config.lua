@@ -6,26 +6,6 @@ local tinsert = table.insert
 local select, unpack = select, unpack
 
 local function AddOptions()
-	-- Config Button for the future. maybe?!
-	--[[local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
-	MER.ACD = ACD
-	
-	local function CreateButton(number, text, ...)
-		local path = {}
-		local num = select("#", ...)
-		for i = 1, num do
-			local name = select(i, ...)
-			tinsert(path, #(path)+1, name)
-		end
-		local config = {
-			order = number,
-			type = 'execute',
-			name = text,
-			func = function() ACD:SelectGroup("ElvUI", "mui", unpack(path)) end,
-		}
-		return config
-	end]]
-	
 	-- Main options
 	E.Options.args.mui = {
 		order = 9001,
