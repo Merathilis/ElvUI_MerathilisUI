@@ -23,10 +23,6 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> ElvUI 8+
 <font color=#FF8C00>&#9830;</font> High Recommended: <a href="http://www.tukui.org/addons/index.php?act=view&id=228">ElvUI_BenikUI</a> to get the whole look and functionality from MerathilisUI.
 
-<font color=#FF8C00><b>WeakAura Strings:</b></font>
-<font color=#FF8C00>&#9830;</font> <a href="http://pastebin.com/qbQJXrha">MerathilisUI Boomkin</a>
-<a href='http://www.tukui.org/storage/viewer.php?id=154393wa.jpg'><img src='http://www.tukui.org/storage/thumbs/154393wa.jpg'></a>
-
 <font color=#FF8C00><b>Recommended Addons:</b></font>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=128">AddOnSkins</a>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=42">Shadow&Light</a>

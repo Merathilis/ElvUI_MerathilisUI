@@ -37,13 +37,6 @@
 
 \\
 
-<<color #FF8C00>>**MerathilisUI Art Pack:**<</color>>
-* A mix of some UI Art Packs i use for my MerathilisUI. (Credits belong to the Authors)
-* Please read the README.txt inside the ZIP Folder.
-* Download: [[https://www.dropbox.com/s/fu5d65u3sa40nd1/MerathilisUI_ArtPack.zip?dl=0|MerathilisUI_ArtPack]]
-
-\\
-
 <<color #FF8C00>>**Recommended Addons:**<</color>>
 * [[http://www.curse.com/addons/wow/elvui_addonskins|AddOnSkins]]
 * [[http://www.curse.com/addons/wow/shadow-and-light-edit|ElvUI_Shadow&Light]]
