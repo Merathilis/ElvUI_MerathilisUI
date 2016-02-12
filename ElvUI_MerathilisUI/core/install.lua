@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
@@ -2479,7 +2478,7 @@ function MER:SetupUI()
 		
 		f.tutorialImage = f:CreateTexture(nil, 'OVERLAY')
 		f.tutorialImage:Size(256, 128)
-		f.tutorialImage:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga')
+		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga')
 		f.tutorialImage:Point('BOTTOM', 0, 75)
 		
 		f.side = CreateFrame('Frame', 'MERTitleFrame', f)

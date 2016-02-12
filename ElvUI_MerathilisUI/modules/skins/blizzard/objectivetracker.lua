@@ -24,7 +24,7 @@ local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local width = 190
 local dummy = function() return end
-local flat = [[Interface\AddOns\MerathilisUI\media\textures\Flat]]
+local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- Objective Tracker Bar
 local function skinObjectiveBar(self, block, line)

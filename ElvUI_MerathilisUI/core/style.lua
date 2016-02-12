@@ -4,7 +4,7 @@ local MER = E:GetModule('MerathilisUI')
 -- Cache global varables
 local IsAddOnLoaded = IsAddOnLoaded
 local classColor = RAID_CLASS_COLORS[E.myclass]
-local flat = [[Interface\AddOns\MerathilisUI\media\textures\Flat]]
+local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- BenikUI Styles
 if not IsAddOnLoaded("ElvUI_BenikUI") then return end

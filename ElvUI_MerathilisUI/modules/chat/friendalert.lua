@@ -30,18 +30,6 @@ local icons = {
 	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Overwatch:14|t"
 };
 
--- Macro to get the current list in WoW: /run for i,v in pairs(_G) do if type(i)=="string" and i:match("BNET_CLIENT_") then print(i,"=",v) end end
---[[
-BNET_CLIENT_WOW = "WoW";
-BNET_CLIENT_SC2 = "S2";
-BNET_CLIENT_D3 = "D3";
-BNET_CLIENT_WTCG = "WTCG";
-BNET_CLIENT_APP = "App";
-BNET_CLIENT_HEROES = "Hero";
-BNET_CLIENT_OVERWATCH = "Pro";
-BNET_CLIENT_CLNT = "CLNT";
-]]--
-
 local function BNPlayerLink(presenceName, presenceID)
 	return format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
 end

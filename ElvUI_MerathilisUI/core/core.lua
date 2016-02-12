@@ -15,9 +15,9 @@ local C_TimerAfter = C_Timer.After
 
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
-MER.Version = GetAddOnMetadata('MerathilisUI', 'Version')
+MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
 MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("MerathilisUI", "X-ElvVersion"))
+MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
 function MER:cOption(name)
 	local MER_COLOR = '|cffff7d0a%s |r'
@@ -96,7 +96,7 @@ local function CreateSplashScreen()
 	
 	f.logo = f:CreateTexture(nil, 'OVERLAY')
 	f.logo:Size(256, 128)
-	f.logo:SetTexture('Interface\\AddOns\\MerathilisUI\\media\\textures\\merathilis_logo.tga')
+	f.logo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga')
 	f.logo:Point('CENTER', f, 'CENTER')
 	
 	f.version = f:CreateFontString(nil, 'OVERLAY')

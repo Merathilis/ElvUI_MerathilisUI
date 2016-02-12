@@ -2,19 +2,19 @@
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
 ## Version: 1.20
-## Title: |cff1784d1MerathilisUI|r
+## Title: |cff1784d1ElvUI|r_MerathilisUI
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE
 ## X-ElvVersion: 8.52
 ## X-Tukui-ProjectID: 286
-## X-Tukui-ProjectFolders: MerathilisUI
+## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
 
-developer\load_developer.xml
 libs\load_libs.xml
 locales\load_locales.xml
 media\load_media.xml
 defaults\load_defaults.xml
 core\load_core.xml
+developer\load_developer.xml
 modules\load_modules.xml

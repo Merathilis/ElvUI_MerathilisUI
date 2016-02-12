@@ -5,7 +5,7 @@ local MER = E:GetModule('MerathilisUI');
 -- GLOBALS: Minimap
 
 local function blipIcons()
-	Minimap:SetBlipTexture("Interface\\AddOns\\MerathilisUI\\media\\textures\\blipIcons.tga")
+	Minimap:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\blipIcons.tga")
 end
 
 local f = CreateFrame("Frame")
