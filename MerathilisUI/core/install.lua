@@ -887,12 +887,12 @@ local function SetupMERLayout(layout)
 		SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 141)
 		SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
 		SetMoverPosition('PlayerPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', -313, 127)
-		SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 166)
+		SetMoverPosition('PlayerPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 165)
 		SetMoverPosition('ClassBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 168)
 		-- TargetMover
 		SetMoverPosition('ElvUF_TargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 141)
 		SetMoverPosition('ElvUF_TargetCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 108)
-		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 166)
+		SetMoverPosition('TargetPowerBarMover', 'BOTTOM', E.UIParent, 'BOTTOM', 176, 165)
 		SetMoverPosition('TargetPortraitMover', 'BOTTOM', E.UIParent, 'BOTTOM', 313, 127)
 		-- TargetTargetMover
 		SetMoverPosition('ElvUF_TargetTargetMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 146)
@@ -914,6 +914,9 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
 		E.db.unitframe.units.raid.roleIcon.size = 10
 		E.db.unitframe.units.raid.roleIcon.yOffset = -18
+		E.db.unitframe.units.raid.rdebuffs.enable = false
+		E.db.unitframe.units.raid.buffs.enable = true
+		E.db.unitframe.units.raid.buffs.sizeOverride = 20
 		SetMoverPosition('ElvUF_RaidMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 210)
 		-- Party
 		E.db.unitframe.units.party.growthDirection = 'RIGHT_UP'
@@ -928,10 +931,12 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.party.name.text_format = '[namecolor][deficit:name]'
 		E.db.unitframe.units.party.power.height = 2
 		E.db.unitframe.units.party.power.text_format = ''
+		E.db.unitframe.units.party.buffs.enable = true
 		E.db.unitframe.units.party.buffs.yOffset = 0
 		E.db.unitframe.units.party.buffs.xOffset = 0
 		E.db.unitframe.units.party.buffs.anchorPoint = 'CENTER'
 		E.db.unitframe.units.party.buffs.perrow = 1
+		E.db.unitframe.units.party.buffs.sizeOverride = 20
 		E.db.unitframe.units.party.debuffs.anchorPoint = 'TOPRIGHT'
 		E.db.unitframe.units.party.debuffs.sizeOverride = 18
 		E.db.unitframe.units.party.debuffs.yOffset = 0
@@ -945,6 +950,7 @@ local function SetupMERLayout(layout)
 		E.db.unitframe.units.party.customTexts.Gesundheit = {}
 		E.db.unitframe.units.party.customTexts.Gesundheit.text_format = ''
 		E.db.unitframe.units.party.health.text_format = ''
+		E.db.unitframe.units.party.rdebuffs.enable = false
 		SetMoverPosition('ElvUF_PartyMover', 'BOTTOM', E.UIParent, 'BOTTOM', 0, 210)
 		-- PetMover
 		SetMoverPosition('ElvUF_PetMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 452, 199)
@@ -1362,15 +1368,7 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["BubbleClass"] = true
 			E.db["sle"]["misc"]["rumouseover"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
-			E.db["sle"]["unitframes"]["combatico"]["xoffset"] = 5
-			E.db["sle"]["unitframes"]["combatico"]["red"] = false
-			E.db["sle"]["unitframes"]["combatico"]["pos"] = "CENTER"
-			E.db["sle"]["unitframes"]["combatico"]["size"] = 20
 			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
-			E.db["sle"]["unitframes"]["offlineInd"]["raid"]["enable"] = true
-			E.db["sle"]["unitframes"]["offlineInd"]["raid"]["size"] = 22
-			E.db["sle"]["unitframes"]["statusTextures"]["castTexture"] = "Kait2"
-			E.db["sle"]["unitframes"]["statusTextures"]["powerTexture"] = "Gloss"
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = true
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["size"] = 22
 			E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
