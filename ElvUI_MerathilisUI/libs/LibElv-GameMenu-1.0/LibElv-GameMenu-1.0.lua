@@ -8,7 +8,7 @@ local TT = E:GetModule("Tooltip")
 local _G = _G
 local tinsert = tinsert
 
-local width, heigth = _G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight()
+local width, height = _G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight()
 local LibHolder = CreateFrame("Frame", "LibGameMenuHolder", _G["GameMenuFrame"])
 LibHolder:SetSize(width, 1)
 LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, 0)
@@ -16,7 +16,7 @@ LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, 0)
 lib.buttons = {}
 
 function lib:UpdateHolder()
-	LibHolder:SetSize(width, 1 + (heigth * #lib.buttons))
+	LibHolder:SetSize(width, 1 + (height * #lib.buttons))
 	if #lib.buttons > 0 then
 		LibHolder:ClearAllPoints()
 		LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, -16)
@@ -41,7 +41,7 @@ function lib:AddMenuButton(data)
 	if not data then return end
 	if _G[data.name] then return end
 	local button = CreateFrame("Button", data.name, _G["GameMenuFrame"], "GameMenuButtonTemplate")
-	button:Size(width, heigth)
+	button:Size(width, height)
 	button:SetScript("OnClick", data.func)
 	button:SetText(data.text)
 
@@ -56,7 +56,7 @@ _G["GameMenuFrame"]:HookScript("OnShow", function()
 	_G["GameMenuButtonLogout"]:ClearAllPoints()
 	_G["GameMenuButtonLogout"]:SetPoint("TOP", LibHolder, "BOTTOM", 0, -16)
 	
-	_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + 17 + (heigth * #lib.buttons))
+	_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + 17 + (height * #lib.buttons))
 end)
 
 
