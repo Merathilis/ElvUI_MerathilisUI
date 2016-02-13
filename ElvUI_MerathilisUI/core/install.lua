@@ -1335,7 +1335,7 @@ local function SetupMERAddons()
 			E.db["sle"]["loot"]["history"]["autohide"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["repIncrease"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["repDecreaseStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame1"
+			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame3"
 			E.db["sle"]["exprep"]["ChatFilters"]["enable"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["repDecrease"] = true
 			E.db["sle"]["exprep"]["ChatFilters"]["expfilter"] = true
