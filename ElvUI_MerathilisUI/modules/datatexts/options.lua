@@ -62,4 +62,4 @@ local function muiDatatexts()
 		},
 	}
 end
-tinsert(E.MerConfig, muiDatatexts)
+tinsert(MER.Config, muiDatatexts)

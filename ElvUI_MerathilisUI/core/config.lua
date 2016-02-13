@@ -95,4 +95,4 @@ local function AddOptions()
 		},
 	}
 end
-tinsert(E.MerConfig, AddOptions)
+tinsert(MER.Config, AddOptions)

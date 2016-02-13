@@ -55,4 +55,4 @@ local function muiSkins()
 		},
 	}
 end
-tinsert(E.MerConfig, muiSkins)
+tinsert(MER.Config, muiSkins)

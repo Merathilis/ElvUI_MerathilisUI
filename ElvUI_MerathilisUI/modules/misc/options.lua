@@ -49,4 +49,4 @@ local function muiMisc()
 		},
 	}
 end
-tinsert(E.MerConfig, muiMisc)
+tinsert(MER.Config, muiMisc)

@@ -13,6 +13,7 @@ local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
+MER.Config = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
@@ -39,10 +40,8 @@ function MER:RegisterMerMedia()
 	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
 end
 
-E.MerConfig = {}
-
 function MER:AddOptions()
-	for _, func in pairs(E.MerConfig) do
+	for _, func in pairs(MER.Config) do
 		func()
 	end	
 end

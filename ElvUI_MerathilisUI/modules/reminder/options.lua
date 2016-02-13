@@ -532,4 +532,4 @@ function muiReminder()
 		},
 	}
 end
-tinsert(E.MerConfig, muiReminder)
+tinsert(MER.Config, muiReminder)
