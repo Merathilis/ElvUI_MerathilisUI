@@ -1,12 +1,24 @@
 local MAJOR, MINOR = "LibElv-GameMenu-1.0", 1
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
-
+--GLOBALS: CreateFrame
 if not lib then return end
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
 local TT = E:GetModule("Tooltip")
 local _G = _G
 local tinsert = tinsert
+local menuWidth = _G["GameMenuFrame"]:GetWidth()
+local columns
+local newColumn = {
+	[9] = true,
+	[17] = true,
+	[24] = true,
+}
+local spaceCount = {
+	[4] = 5,
+	[12] = 8,
+	[20] = 16,
+}
 
 local width, height = _G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight()
 local LibHolder = CreateFrame("Frame", "LibGameMenuHolder", _G["GameMenuFrame"])
@@ -14,19 +26,49 @@ LibHolder:SetSize(width, 1)
 LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, 0)
 
 lib.buttons = {}
+lib.skincheck = false
+
+lib.Header = CreateFrame("Frame", "GameMenuAddonHeader", _G["GameMenuFrame"])
+lib.Header:SetSize(256, 64)
+lib.Header:SetPoint("BOTTOM", LibHolder, "TOP", 0, -25)
+lib.Header.Text = lib.Header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+lib.Header.Text:SetPoint("TOP", lib.Header, "TOP", 0, -14)
+lib.Header.Text:SetText(_G["ADDONS"])
+lib.Header.Art = lib.Header:CreateTexture(nil, "OVERLAY")
+lib.Header.Art:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Header")
+lib.Header.Art:SetAllPoints()
+
+function lib:CheckForSkin()
+	if E.private.skins.blizzard.enable == true and E.private.skins.blizzard.misc == true then lib.Header.Art:Hide() end
+	lib.skincheck = true
+end
 
 function lib:UpdateHolder()
-	LibHolder:SetSize(width, 1 + (height * #lib.buttons))
-	if #lib.buttons > 0 then
+	if not lib.skincheck then lib:CheckForSkin() end
+	local total = #lib.buttons
+	LibHolder:SetSize(width, 1 + (height * total))
+	if total > 0 and total <= 5 then
+		lib.Header:Hide()
 		LibHolder:ClearAllPoints()
 		LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, -16)
+	elseif total > 5 then
+		LibHolder:ClearAllPoints()
+		LibHolder:SetPoint("TOPLEFT", _G["GameMenuButtonHelp"], "TOPRIGHT", 1, 1)
 	end
-	for i = 1, #lib.buttons do
+	columns = 1
+	for i = 1, total do
 		local button = lib.buttons[i]
+		local space
+		if (spaceCount[i] and total > spaceCount[i]) then space = true end
 		if lib.buttons[i-1] then
-			button:SetPoint("TOP", lib.buttons[i-1], "BOTTOM", 0 , -1)
+			if newColumn[i] then
+				button:SetPoint("TOPLEFT", lib.buttons[i-8], "TOPRIGHT", 1 , 0)
+				columns = columns + 1
+			else
+				button:SetPoint("TOP", lib.buttons[i-1], "BOTTOM", 0 , space and -16 or -1)
+			end
 		else
-			button:SetPoint("TOP", LibHolder, "TOP", 0 , -1)
+			button:SetPoint("TOPLEFT", LibHolder, "TOPLEFT", 0 , -1)
 		end
 		
 	end
@@ -53,10 +95,20 @@ function lib:AddMenuButton(data)
 end
 
 _G["GameMenuFrame"]:HookScript("OnShow", function()
-	_G["GameMenuButtonLogout"]:ClearAllPoints()
-	_G["GameMenuButtonLogout"]:SetPoint("TOP", LibHolder, "BOTTOM", 0, -16)
-	
-	_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + 17 + (height * #lib.buttons))
+	if #lib.buttons <= 5 then
+		_G["GameMenuButtonLogout"]:ClearAllPoints()
+		_G["GameMenuButtonLogout"]:SetPoint("TOP", LibHolder, "BOTTOM", 0, -16)
+		_G["GameMenuFrame"]:Height(_G["GameMenuFrame"]:GetHeight() + 17 + (height * #lib.buttons))
+	else
+		LibHolder:SetWidth((width + 1) * columns)
+		_G["GameMenuFrameHeader"]:ClearAllPoints()
+		_G["GameMenuFrameHeader"]:SetPoint("BOTTOM", _G["GameMenuButtonHelp"], "TOP", 0, -25)
+		_G["GameMenuButtonHelp"]:ClearAllPoints()
+		_G["GameMenuButtonHelp"]:SetPoint("TOPLEFT", _G["GameMenuFrame"], "TOPLEFT", 25.5, -31.5)
+		_G["GameMenuFrame"]:Width(menuWidth + 1 + width * columns)
+		_G["GameMenuButtonLogout"]:ClearAllPoints()
+		_G["GameMenuButtonLogout"]:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOMLEFT", _G["GameMenuFrame"]:GetWidth()/2 - 25.5, -16)
+	end
 end)
 
 
