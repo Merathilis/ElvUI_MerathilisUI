@@ -21,8 +21,8 @@ MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 
 function MER:cOption(name)
-	local MER_COLOR = '|cffff7d0a%s |r'
-	return (MER_COLOR):format(name)
+	local color = '|cffff7d0a%s |r'
+	return (color):format(name)
 end
 
 function MER:RegisterMerMedia()
