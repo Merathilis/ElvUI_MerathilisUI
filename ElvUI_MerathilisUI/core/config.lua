@@ -14,6 +14,7 @@ local function AddOptions()
 		order = 9001,
 		type = 'group',
 		name = MER.Title,
+		desc = L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'],
 		args = {
 			name = {
 				order = 1,

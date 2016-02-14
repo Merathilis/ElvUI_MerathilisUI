@@ -7,6 +7,7 @@ if not L then return; end
 L[' is loaded.'] = " ist geladen."
 
 -- General Options
+L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
 L['by Merathilis (EU-Shattrath)'] = "von Merathilis (EU-Shattrath)"
 L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden."
 L['AFK'] = true
