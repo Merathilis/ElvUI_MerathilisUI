@@ -52,8 +52,9 @@ function MER:GameMenu()
 	lib:AddMenuButton(button)
 	lib:UpdateHolder()
 	
-	if not _G["bottomPanel"] then
-		local bottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+	if not GameMenuFrame.MUIbottomPanel then
+		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
 		MER:StyleOutside(bottomPanel)
@@ -77,8 +78,9 @@ function MER:GameMenu()
 		bottomPanel.Logo:SetTexture(logo)
 	end
 	
-	if not _G["topPanel"] then
-		local topPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+	if not GameMenuFrame.MUItopPanel then
+		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
@@ -117,7 +119,11 @@ function MER:GameMenu()
 	if not modelHolder then
 		local modelHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		modelHolder:SetSize(150, 150)
-		modelHolder:SetPoint("LEFT", E.UIParent, "LEFT", 400, -10)
+		modelHolder:SetPoint("RIGHT", _G["GameMenuFrame"], "LEFT", -200, -10)
+		modelHolder:SetScript("OnShow", function(self)
+			self:ClearAllPoints()
+			self:SetPoint("RIGHT", _G["GameMenuFrame"], "LEFT", -200, -10)
+		end)
 		
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
@@ -137,7 +143,11 @@ function MER:GameMenu()
 	if not npcHolder then
 		local npcHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		npcHolder:SetSize(150, 150)
-		npcHolder:SetPoint("RIGHT", E.UIParent, "RIGHT", -400, -10)
+		npcHolder:SetPoint("LEFT", _G["GameMenuFrame"], "RIGHT", 200, -10)
+		npcHolder:SetScript("OnShow", function(self)
+			self:ClearAllPoints()
+			self:SetPoint("LEFT", _G["GameMenuFrame"], "RIGHT", 200, -10)
+		end)
 		
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
