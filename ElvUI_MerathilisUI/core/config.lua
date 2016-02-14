@@ -2,6 +2,9 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 if E.db.mui == nil then E.db.mui = {} end
+-- Cache global variables
+-- GLOBALS: StaticPopup_Show
+local format = format
 local tinsert = table.insert
 local select, unpack = select, unpack
 
@@ -20,7 +23,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = 'description',
-				name = L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] ..'\n\n'..MER:cOption(L['Credits:'])..L[' Benik, Blazeflack, Darth Predator, Azilroka, Rockxana, Elv and all other AddOn Authors who inspired me.'],
+				name = L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'],
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga', 200, 100 end,
 				imageCoords = {0,0.99,0.01,0.99},
@@ -91,6 +94,87 @@ local function AddOptions()
 				name = L['Options'],
 				childGroups = 'tab',
 				args = {}
+			},
+			info = {
+				order = 21,
+				type = 'group',
+				name = L['Information'],
+				args = {
+					name = {
+						order = 1,
+						type = 'header',
+						name = MER.Title,
+					},
+					support = {
+						order = 2,
+						type = 'group',
+						name = MER:cOption(L['Support & Downloads']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'execute',
+								name = L['Tukui.org'],
+								func = function() StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=286") end,
+								},
+							git = {
+								order = 2,
+								type = 'execute',
+								name = L['Git Ticket tracker'],
+								func = function() StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://git.tukui.org/Merathilis/UI-Settings/issues") end,
+							},
+							curse = {
+								order = 2,
+								type = 'execute',
+								name = L['Curse.com'],
+								func = function() StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/merathilis-ui") end,
+							},
+						},
+					},
+					coding = {
+						order = 3,
+						type = 'group',
+						name = MER:cOption(L['Coding']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cffffd200%s|r', 'Elv, Benik, Darth Predator, Blazeflack'),
+							},
+						},
+					},
+					testing = {
+						order = 4,
+						type = 'group',
+						name = MER:cOption(L['Testing & Inspiration']),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = format('|cffffd200%s|r', 'Benik, Darth Predator, Rockxana, ElvUI community'),
+							},
+						},
+					},
+					addons = {
+						order = 5,
+						type = 'group',
+						name = MER:cOption(L['My other Addon']),
+						guiInline = true,
+						args = {
+							ttic = {
+								order = 1,
+								type = 'execute',
+								name = L['ElvUI Tooltip Icon'],
+								desc = L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'],
+								func = function() StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=269") end,
+							},
+						},
+					},
+				},
 			},
 		},
 	}

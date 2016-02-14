@@ -9,7 +9,6 @@ L[' is loaded.'] = true
 -- General Options
 L['by Merathilis (EU-Shattrath)'] = true
 L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = true
-L[' Benik, Blazeflack, Darth Predator, Azilroka, Rockxana, Elv and all other AddOn Authors who inspired me.'] = true
 L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = true
 L['SplashScreen'] = true
@@ -20,6 +19,17 @@ L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
+-- Information
+L['Information'] = true
+L['Support & Downloads'] = true
+L['Tukui.org'] = true
+L['Git Ticket tracker'] = true
+L['Curse.com'] = true
+L['Coding'] = true
+L['Testing & Inspiration'] = true
+L['My other Addon'] = true
+L['ElvUI Tooltip Icon'] = true
+L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = true

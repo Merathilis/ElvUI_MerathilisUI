@@ -9,7 +9,6 @@ L[' is loaded.'] = " ist geladen."
 -- General Options
 L['by Merathilis (EU-Shattrath)'] = "von Merathilis (EU-Shattrath)"
 L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden."
-L[' Benik, Blazeflack, Darth Predator, Azilroka, Rockxana, Elv and all other AddOn Authors who inspired me.'] = " Benik, Blazeflack, Darth Predator, Azilroka, Rockxana, Elv und allen anderen AddOn-Autoren die mich inspiriert haben."
 L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
 L['SplashScreen'] = "Startbildschirm"
@@ -20,6 +19,17 @@ L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
+-- Information
+L['Information'] = true
+L['Support & Downloads'] = true
+L['Tukui.org'] = true
+L['Git Ticket tracker'] = true
+L['Curse.com'] = true
+L['Coding'] = true
+L['Testing & Inspiration'] = "Tester & Inspiration"
+L['My other Addon'] = "Mein anderes Addon"
+L['ElvUI Tooltip Icon'] = true
+L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = "Ersetzt die Standard Minimap Blip Texturen mit Benutzerdefinierten."
