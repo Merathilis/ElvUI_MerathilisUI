@@ -1,8 +1,14 @@
 <b><u> v1.21, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> <font color=#FF0000>W A R N I N G:</font> Please do a complete new Install due to major changes in ElvUI_BenikUI & ElvUI.
+<font color=#FF8C00>&#9830;</font> Rename MerathilisUI to <font color=#FF8C00>ElvUI_MerathilisUI</font>.
+<font color=#FF8C00>&#9830;</font> Major Code Cleanup.
+<font color=#FF8C00>&#9830;</font> Install: Adjustments due to the ElvUI UnitFrames Overhaul.
 <font color=#FF8C00>&#9830;</font> Install: Change the ChatTab Font to MerathilisPrototype.
 <font color=#FF8C00>&#9830;</font> Install: Add more Settings for SLE.
-<font color=#FF8C00>&#9830;</font> Skins: Own Skin for the ObjectiveTracker. With wowhead-link support! (With a lot of help from Darth Predator)
-<font color=#FF8C00>&#9830;</font> Misc: Major Code cleanup.
+<font color=#FF8C00>&#9830;</font> Install: Remove the BenikUI PowerBar Texture. It's not there anymore.
+<font color=#FF8C00>&#9830;</font> Install: Enable BenikUI GameMenu Button by default.
+<font color=#FF8C00>&#9830;</font> Skins: Skin the ObjectiveTracker. With Wowhead-link support. (With a lot of help from Darth Predator)
+<font color=#FF8C00>&#9830;</font> Misc: Update the LibElv-GameMenu.
 
 <b><u> v1.20, 02.02.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Update the Heal-Layout.

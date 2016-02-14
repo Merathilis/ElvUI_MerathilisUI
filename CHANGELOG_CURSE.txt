@@ -1,8 +1,14 @@
 ** v1.20, 02.02.2016**
+* <<color #FF0000>>W A R N I N G:<</color>> Please do a complete new Install due to major changes in ElvUI_BenikUI & ElvUI.
+* Rename MerathilisUI to <<color #FF8C00>>ElvUI_MerathilisUI<</color>>.
+* Major Code Cleanup.
+* Install: Adjustments due to the ElvUI UnitFrames Overhaul.
 * Install: Change the ChatTab Font to MerathilisPrototype.
 * Install: Add more Settings for SLE.
-* Skins: Own Skin for the ObjectiveTracker. With wowhead-link support! (With a lot of help from Darth Predator)
-* Misc: Major Code cleanup.
+* Install: Remove the BenikUI PowerBar Texture. It's not there anymore.
+* Install: Enable BenikUI GameMenu Button by default.
+* Skins: Skin the ObjectiveTracker. With Wowhead-link support. (With a lot of help from Darth Predator)
+* Misc: Update the LibElv-GameMenu.
 
 \\ \\
 ** v1.20, 02.02.2016**
