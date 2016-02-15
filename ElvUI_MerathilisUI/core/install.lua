@@ -122,10 +122,18 @@ local function SetupMERLayout(layout)
 	E.db.actionbar.fontOutline = 'OUTLINE'
 	E.db.actionbar.macrotext = true
 	E.db.actionbar.showGrid = false
+	
 	if IsAddOnLoaded("Masque") then
 		E.private.actionbar.masque.stanceBar = true
 		E.private.actionbar.masque.petBar = true
 		E.private.actionbar.masque.actionbars = true
+	end
+	
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		E.db['bab']['transBack'] = true
+		E.db['bab']['enable'] = true
+		E.db['bab']['chooseAb'] = 'BAR1'
+		E.db['bab']['requestStop'] = true
 	end
 	
 	E.db.actionbar.bar1.buttonspacing = 4
