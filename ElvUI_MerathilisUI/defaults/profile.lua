@@ -32,20 +32,6 @@ P['muiMisc'] = {
 }
 
 ----------------------------------------------------------------------------------------
---	Skins options
-----------------------------------------------------------------------------------------
-P['muiSkins'] = {
-	['blizzard'] = {
-		['encounterjournal'] = true,
-		['spellbook'] = true, -- Remove the Background of the Spellbook
-		['objectivetracker'] = true,
-	},
-	['addons'] = {
-		['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
-	},
-}
-
-----------------------------------------------------------------------------------------
 --	System Datatext options
 ----------------------------------------------------------------------------------------
 P['muiSystemDT'] = {

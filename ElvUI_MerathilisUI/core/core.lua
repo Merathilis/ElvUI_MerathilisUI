@@ -12,6 +12,7 @@ local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
+local classColor = RAID_CLASS_COLORS[E.myclass]
 
 MER.Config = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
@@ -38,6 +39,21 @@ function MER:RegisterMerMedia()
 	E['media'].MuiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
 	E['media'].MuiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
 	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
+end
+
+local function objectiveTrackerFont()
+	if not E.private.muiSkins.blizzard.objectivetracker then return end
+	
+	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
 function MER:AddOptions()
@@ -130,6 +146,9 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()
+	if ElvUI_SLE then
+		hooksecurefunc(ElvUI_SLE[1]:GetModule('Media'), "SetBlizzFonts", objectiveTrackerFont)
+	end
 	if E.db.muiGeneral.SplashScreen then
 		CreateSplashScreen()
 	end
