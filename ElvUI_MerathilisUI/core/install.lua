@@ -217,7 +217,7 @@ local function SetupMERLayout(layout)
 	E.db.bags.countFontSize = 10
 	E.db.bags.countFontOutline = 'OUTLINE'
 	E.db.bags.yOffsetBank = 20
-	E.db.bags.yOffsetBags = 20
+	E.db.bags.yOffset = 20
 	E.db.bags.bagSize = 23
 	E.db.bags.alignToChat = false
 	E.db.bags.bagWidth = 350

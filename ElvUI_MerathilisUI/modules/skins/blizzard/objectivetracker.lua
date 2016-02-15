@@ -199,17 +199,14 @@ local function ObjectiveTrackerReskin()
 		-- Quest
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
 		
 		-- Achievements
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
 		
 		-- Bonus Objectives
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
 		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
@@ -217,19 +214,29 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
 		
 		-- Proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+		
 		-- Timer Bar
 		hooksecurefunc(_G['BONUS_OBJECTIVE_TRACKER_MODULE'], "AddProgressBar", skinObjectiveBar)
+		
 		-- QuestLevel
 		hooksecurefunc("GossipFrameUpdate", GossipFrameUpdate_hook)
 		hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
 		hooksecurefunc("QuestLogQuests_Update", QuestLogQuests_hook)
+		
 		-- Menu Title
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		
+		-- Underlines only working if BenikUI is loaded.
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
+			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
+			_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
+			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
+		end
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)

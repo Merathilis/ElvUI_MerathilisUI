@@ -13,6 +13,7 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local PlaySound = PlaySound
 local UIFrameFadeIn = UIFrameFadeIn
 local HideUIPanel = HideUIPanel
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
@@ -57,7 +58,9 @@ function MER:GameMenu()
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
-		MER:StyleOutside(bottomPanel)
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			MER:StyleOutside(bottomPanel)
+		end
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		
