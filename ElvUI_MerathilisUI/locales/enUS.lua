@@ -14,7 +14,6 @@ L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = true
 L['SplashScreen'] = true
 L['Enable/Disable the Splash Screen on Login.'] = true
-L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = true
 L['Options'] = true
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"

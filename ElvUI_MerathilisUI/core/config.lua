@@ -79,14 +79,6 @@ local function AddOptions()
 						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
 						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,	
 					},
-					Bags = {
-						order = 5,
-						type = 'toggle',
-						name = L['Bags'],
-						desc = L['Enable/Disable the forcing of the Bag/Bank Frame position.'],
-						get = function(info) return E.db.muiGeneral[ info[#info] ] end,
-						set = function(info, value) E.db.muiGeneral[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
-					},
 				},
 			},
 			config = {

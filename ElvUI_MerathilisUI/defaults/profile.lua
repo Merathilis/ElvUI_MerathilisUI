@@ -13,7 +13,6 @@ P['mui'] = {
 P['muiGeneral'] = {
 	['LoginMsg'] = true, -- Enable welcome message in chat
 	['GameMenu'] = true, -- Enable the Styles GameMenu
-	['Bags'] = true, -- Enable the forcing of the Bag/Bank Position to the Datatext
 	['SplashScreen'] = true, -- Enable the SplashScreen on LogIn
 	['AFK'] = true, -- Enable the pimped AFK Screen
 }

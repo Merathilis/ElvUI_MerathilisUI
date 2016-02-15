@@ -14,7 +14,6 @@ L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
 L['SplashScreen'] = "Startbildschirm"
 L['Enable/Disable the Splash Screen on Login.'] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
-L['Enable/Disable the forcing of the Bag/Bank Frame position.'] = "Aktiviert/Deaktiviert das Erzwingen der Taschen/Bank Position"
 L['Options'] = "Einstellungen"
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
