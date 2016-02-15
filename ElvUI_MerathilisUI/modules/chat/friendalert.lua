@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
 
 -- Cache global variables
 -- GLOBALS: BATTLENET_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, C_Timer
@@ -35,6 +34,8 @@ local function BNPlayerLink(presenceName, presenceID)
 end
 
 local function ScanFriends()
+	if E.db.muiMisc.FriendAlert ~= true then return; end
+	
 	if BNConnected() then
 		for index = 1, BNGetNumFriends() do
 			local presenceID, presenceName, _, _, characterName, _, game = BNGetFriendInfo(index)
@@ -56,9 +57,11 @@ local function ScanFriends()
 	C_Timer.After(interval, ScanFriends)
 end
 
-if E.db.muiMisc == nil then E.db.muiMisc = {} end -- prevent a nil Error.
-if E.db.muiMisc.FriendAlert then
-	local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
-	f:SetScript("OnEvent", function() C_Timer.After(interval, ScanFriends); end)
-	f:RegisterEvent("PLAYER_LOGIN")
-end
+local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_LOGIN" then
+		C_Timer.After(interval, ScanFriends)
+		self:UnregisterEvent("PLAYER_LOGIN")
+	end
+end)

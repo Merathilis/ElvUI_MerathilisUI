@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 
 -- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.0
 -- Cache global variables

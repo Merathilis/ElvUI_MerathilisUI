@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
 local _G = _G

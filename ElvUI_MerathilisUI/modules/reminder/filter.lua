@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 local R = E:GetModule('Reminder');
 --[[
 	Spell Reminder Arguments

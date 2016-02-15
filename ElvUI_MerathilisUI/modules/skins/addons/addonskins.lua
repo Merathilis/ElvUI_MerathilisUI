@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 if not IsAddOnLoaded("AddOnSkins") then return; end
 local AS = unpack(AddOnSkins)
 

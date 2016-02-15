@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
 -- GLOBALS: ALL, AchievementFrame_GetCategoryNumAchievements_OldIncomplete, AchievementFrameFilters, ACHIEVEMENTFRAME_FILTER_ALL, AchievementFrame_GetCategoryNumAchievements_All, 

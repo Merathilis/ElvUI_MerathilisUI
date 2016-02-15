@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 local TT = E:GetModule('Tooltip');
 
 -- Cache global variables
@@ -13,7 +12,7 @@ local GetItemIcon = GetItemIcon
 local GetSpellInfo = GetSpellInfo
 
 local function AddIcon(self, icon)
-	if not E.db.muiMisc.TooltipIcon then return end
+	if E.db.muiMisc.TooltipIcon ~= true then return; end
 	
 	if icon then
 		local title = _G[self:GetName() .. "TextLeft1"]

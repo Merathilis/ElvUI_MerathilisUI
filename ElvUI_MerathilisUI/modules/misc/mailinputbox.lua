@@ -1,14 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
 
 -- Cache global variables
 local _G = _G
 local unpack = unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
-
--- Credits Tonyleila (Mail Inputbox Reziser)
-if IsAddOnLoaded("MailinputboxResizer") then return end
 
 -- EditBox width: default: 224
 local editbox_width = 220
@@ -23,7 +19,7 @@ local moneyframe_pos = {
 }
 
 local function MailInputBox()
-	if not E.db.muiMisc.MailInputbox then return end
+	if IsAddOnLoaded("MailinputboxResizer") or E.db.muiMisc.MailInputbox ~= true then return; end
 	
 	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()

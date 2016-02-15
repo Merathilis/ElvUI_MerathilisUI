@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
 -- Cache global variables
@@ -7,12 +6,10 @@ local _G = _G
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
-if E.private.muiSkins == nil then E.private.muiSkins = {} end -- Prevent a nil Error.
-if E.private.muiSkins.addons == nil then E.private.muiSkins.addons = {} end -- Also a nil Error.
-if not IsAddOnLoaded("MasterPlan") and E.private.muiSkins.addons.MasterPlan == false then return; end
-
 -- MasterPlan
 local function skinMasterPlan()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.addons.MasterPlan ~= true then return end
+
 	-- Garrison
 	S:HandleTab(_G["GarrisonMissionFrameTab3"])
 	S:HandleTab(_G["GarrisonMissionFrameTab4"])

@@ -7,14 +7,14 @@ local CreateFrame = CreateFrame
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
 
-if not IsAddOnLoaded("ElvUI_BenikUI") or E.db.muiGeneral.AFK == false then return end;
-
 local SPACING = (E.PixelMode and 1 or 5)
 local classColor = RAID_CLASS_COLORS[E.myclass]
 local npc = 15358 -- Lurky
 
 AFK.InitializeMerAfk = AFK.Initialize
 function AFK:Initialize()
+	if E.db.general.afk ~= true or not IsAddOnLoaded("ElvUI_BenikUI") or E.db.muiGeneral.AFK ~= true then return; end
+	
 	self:InitializeMerAfk()
 	
 	-- NPC Model
