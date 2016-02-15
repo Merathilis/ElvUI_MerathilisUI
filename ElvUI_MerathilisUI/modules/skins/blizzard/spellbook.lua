@@ -6,22 +6,18 @@ local S = E:GetModule('Skins');
 local _G = _G
 
 local function styleSpellBook()
-	if E.db.muiSkins == nil then E.db.muiSkins = {} end -- Prevent a nil Error
-	if E.db.muiSkins.blizzard == nil then E.db.muiSkins.blizzard = {} end -- Prevent a nil Error
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.db.muiSkins.blizzard.spellbook == false then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return; end
  
 	if _G["SpellBookFrame"].pagebackdrop then
 		_G["SpellBookFrame"].pagebackdrop:Hide()
-	else
-		E:Delay(.1, styleSpellBook)
 	end
 end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, addon)
-	if addon == "MerathilisUI" then
-		styleSpellBook()
+	if addon == "ElvUI_MerathilisUI" then
+		E:Delay(1, styleSpellBook)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)
