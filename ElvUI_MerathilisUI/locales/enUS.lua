@@ -15,10 +15,15 @@ L['Enable/Disable the MUI AFK Screen'] = true
 L['SplashScreen'] = true
 L['Enable/Disable the Splash Screen on Login.'] = true
 L['Options'] = true
+-- LoginMessage
+L['Enable/Disable the Login Message in Chat'] = true
+
+-- Chat
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
+
 -- Information
 L['Information'] = true
 L['Support & Downloads'] = true
@@ -30,30 +35,36 @@ L['Testing & Inspiration'] = true
 L['My other Addon'] = true
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
+
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = true
--- LoginMessage
-L['Enable/Disable the Login Message in Chat'] = true
+
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
+
 -- moveBlizz
 L['moveBlizz'] = true
 L['Make some Blizzard Frames movable.'] = true
+
 -- MasterPlan
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
 L['Misc'] = true
+
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
+
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = true
 L['Hides the Garrison Alert Frame while in combat.'] = true
+
 -- MailInputBox
 L['Mail Inputbox Resize'] = true
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
+
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
 L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
@@ -61,11 +72,13 @@ L['REALMERROR'] = "Couldn't find realm list!"
 L['SERVERERROR'] = "Couldn't find server!"
 L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
 L['LANGUAGE'] = "en"
+
 -- Friend Alert
 L['Battle.net Alert'] = true
 L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = true
 L["%s stopped playing (%sIn Battle.net)."] = true
 L["%s is now playing (%s%s)."] = true
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
 L["Announce Freed"] = true
@@ -98,6 +111,7 @@ L["Total CPU:"] = true
 L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
+
 -- Reminder
 L["Add Group"] = true
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = true

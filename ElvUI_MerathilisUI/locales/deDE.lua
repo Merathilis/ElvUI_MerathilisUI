@@ -15,10 +15,15 @@ L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bild
 L['SplashScreen'] = "Startbildschirm"
 L['Enable/Disable the Splash Screen on Login.'] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L['Options'] = "Einstellungen"
+-- LoginMessage
+L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
+
+-- Chat
 L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
+
 -- Information
 L['Information'] = true
 L['Support & Downloads'] = true
@@ -30,30 +35,36 @@ L['Testing & Inspiration'] = "Tester & Inspiration"
 L['My other Addon'] = "Mein anderes Addon"
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
+
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = "Ersetzt die Standard Minimap Blip Texturen mit Benutzerdefinierten."
--- LoginMessage
-L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
+
 -- GameMenu
 L['GameMenu'] = "Spielmenü"
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
+
 -- moveBlizz
 L['moveBlizz'] = true
 L['Make some Blizzard Frames movable.'] = "Erlaubt das Verschieben einiger Blizzardfenster."
+
 -- MasterPlan
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
+
 -- TooltipIcon
 L['Tooltip Icon'] = true
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"
+
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = "Garnision Alarm Fenster"
 L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision Alarm Fenster während des Kampfes."
+
 -- MailInputBox
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
+
 -- QuickArmoryLink
 L['ARMORYQUICKLINK'] = "Armory QuickLink"
 L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
@@ -61,11 +72,13 @@ L['REALMERROR'] = "Couldn't find realm list!"
 L['SERVERERROR'] = "Couldn't find server!"
 L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
 L['LANGUAGE'] = "de"
+
 -- Friend Alert
 L['Battle.net Alert'] = "Battle.net Alarm"
 L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = "Zeigt eine Chatbenachrichtigung wenn ein Battle.net Freund ein Spiel wechselt oder offline geht."
 L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
 L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "
@@ -98,6 +111,7 @@ L["Total CPU:"] = "Gesamte CPU:"
 L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
+
 -- Reminder
 L["Add Group"] = "Gruppe hinzufügen"
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = "Versuch ein Errinerungs-Symbol anzuzeigen das noch keine Zauber hat. Du musst zuerst einen Zauber hinzufügen."
@@ -156,11 +170,12 @@ L['DataTexts Set'] = "Infotexte gesetzt"
 L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'] = "Willkommen zu MerathilisUI |cff00c0faVersion|r %s für ElvUI %s."
 L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die MerathilisUI Änderungen in der vorhandenen ElvUI Installation angewand.\r|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
 L['Layout'] = true
+L['DPS Layout'] = true
+L['Heal Layout'] = true
+L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
 L['This part of the installation changes the default ElvUI look.'] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
 L['Please click the button below to apply the new layout.'] = "Bitte drücke unten die Taste unten, um das neue Layout anzuwenden."
-L['DPS Layout'] = true
-L['Heal Layout'] = "Heiler Layout"
-L['Buttons must be clicked twice'] = "Bitte zweimal anklicken"
+L['Setup Layout'] = "Layout einstellen"
 L['DataTexts'] = "Infotexte"
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert|r"
 L['Please click the button below to setup your datatexts.'] = "Bitte drücke die Taste unten, um die Infotexte einzustellen."
