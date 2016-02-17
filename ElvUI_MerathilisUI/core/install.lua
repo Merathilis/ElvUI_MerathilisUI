@@ -513,7 +513,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.width = 69
 	E.db.unitframe.units.raid.threatStyle = 'GLOW'
 	E.db.unitframe.units.raid.horizontalSpacing = 1
-	E.db.unitframe.units.raid.verticalSpacing = 20
+	E.db.unitframe.units.raid.verticalSpacing = 10
 	E.db.unitframe.units.raid.debuffs.fontSize = 12
 	E.db.unitframe.units.raid.debuffs.enable = true
 	E.db.unitframe.units.raid.debuffs.yOffset = 0
