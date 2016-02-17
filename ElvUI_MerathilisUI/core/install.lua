@@ -516,7 +516,8 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.verticalSpacing = 10
 	E.db.unitframe.units.raid.debuffs.fontSize = 12
 	E.db.unitframe.units.raid.debuffs.enable = true
-	E.db.unitframe.units.raid.debuffs.yOffset = 0
+	E.db.unitframe.units.raid.debuffs.xOffset = 0
+	E.db.unitframe.units.raid.debuffs.yOffset = -10
 	E.db.unitframe.units.raid.debuffs.anchorPoint = 'TOPRIGHT'
 	E.db.unitframe.units.raid.debuffs.sizeOverride = 20
 	E.db.unitframe.units.raid.rdebuffs.enable = false
