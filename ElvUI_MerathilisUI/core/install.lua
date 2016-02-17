@@ -504,15 +504,17 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.focustarget.height = 20
 	E.db.unitframe.units.focustarget.portrait.enable = false
 	-- Raid
+	E.db.unitframe.units.raid.height = 35
+	E.db.unitframe.units.raid.width = 69
 	E.db.unitframe.units.raid.threatStyle = 'GLOW'
 	E.db.unitframe.units.raid.horizontalSpacing = 1
-	E.db.unitframe.units.raid.verticalSpacing = 25
+	E.db.unitframe.units.raid.verticalSpacing = 20
 	E.db.unitframe.units.raid.debuffs.fontSize = 12
 	E.db.unitframe.units.raid.debuffs.enable = true
-	E.db.unitframe.units.raid.debuffs.yOffset = -5
+	E.db.unitframe.units.raid.debuffs.yOffset = 0
 	E.db.unitframe.units.raid.debuffs.anchorPoint = 'TOPRIGHT'
 	E.db.unitframe.units.raid.debuffs.sizeOverride = 20
-	E.db.unitframe.units.raid.rdebuffs.enable = true
+	E.db.unitframe.units.raid.rdebuffs.enable = false
 	E.db.unitframe.units.raid.rdebuffs.font = "Merathilis Prototype"
 	E.db.unitframe.units.raid.rdebuffs.fontSize = 10
 	E.db.unitframe.units.raid.rdebuffs.size = 20
@@ -521,24 +523,24 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.colorOverride = 'USE_DEFAULT'
 	E.db.unitframe.units.raid.portrait.enable = false
 	E.db.unitframe.units.raid.name.xOffset = 0
-	E.db.unitframe.units.raid.name.yOffset = -22
+	E.db.unitframe.units.raid.name.yOffset = 0
 	E.db.unitframe.units.raid.name.text_format = '[namecolor][name:short]'
 	E.db.unitframe.units.raid.name.position = 'CENTER'
+	E.db.unitframe.units.raid.name.attachTextTo = 'InfoPanel'
 	E.db.unitframe.units.raid.buffIndicator.fontSize = 11
 	E.db.unitframe.units.raid.buffIndicator.size = 10
 	E.db.unitframe.units.raid.roleIcon.size = 10
 	E.db.unitframe.units.raid.roleIcon.position = 'BOTTOMRIGHT'
 	E.db.unitframe.units.raid.power.enable = true
-	E.db.unitframe.units.raid.power.position = 'CENTER'
-	E.db.unitframe.units.raid.power.height = 2
+	E.db.unitframe.units.raid.power.height = 4
 	E.db.unitframe.units.raid.healPrediction = true
-	E.db.unitframe.units.raid.width = 69
 	E.db.unitframe.units.raid.groupBy = 'ROLE'
 	E.db.unitframe.units.raid.health.frequentUpdates = true
 	E.db.unitframe.units.raid.health.position = 'CENTER'
 	E.db.unitframe.units.raid.health.text_format = '[healthcolor][health:deficit]'
+	E.db.unitframe.units.raid.health.attachTextTo = 'InfoPanel'
 	E.db.unitframe.units.raid.buffs.enable = true
-	E.db.unitframe.units.raid.buffs.yOffset = 0
+	E.db.unitframe.units.raid.buffs.yOffset = 5
 	E.db.unitframe.units.raid.buffs.anchorPoint = 'CENTER'
 	E.db.unitframe.units.raid.buffs.clickTrough = true
 	E.db.unitframe.units.raid.buffs.useBlacklist = false
@@ -549,7 +551,6 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.buffs.noConsolidated = false
 	E.db.unitframe.units.raid.buffs.sizeOverride = 20
 	E.db.unitframe.units.raid.buffs.xOffset = 0
-	E.db.unitframe.units.raid.height = 25
 	E.db.unitframe.units.raid.raidicon.attachTo = 'LEFT'
 	E.db.unitframe.units.raid.raidicon.xOffset = 9
 	E.db.unitframe.units.raid.raidicon.size = 13
@@ -563,12 +564,16 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.customTexts.Status.yOffset = 0
 	E.db.unitframe.units.raid.customTexts.Status.size = 10
 	E.db.unitframe.units.raid.customTexts.Status.text_format = '[namecolor][statustimer]'
+	E.db.unitframe.units.raid.infoPanel.enable = true
+	E.db.unitframe.units.raid.infoPanel.height = 13
+	E.db.unitframe.units.raid.infoPanel.transparent = true
+	E.db.unitframe.units.raid.roleIcon.damager = true
+	E.db.unitframe.units.raid.roleIcon.tank = true
+	E.db.unitframe.units.raid.roleIcon.heal = true
 	if IsAddOnLoaded("ElvUI_BenikUI") then
+		E.db.unitframe.units.raid.emptybar.enable = false -- force this to be false at the moment
 		E.db.unitframe.units.raid.classHover = true
-		E.db.unitframe.units.raid.roleIcon.damager = true
-		E.db.unitframe.units.raid.roleIcon.tank = true
-		E.db.unitframe.units.raid.roleIcon.heal = true
-		E.db.unitframe.units.raid.roleIcon.yOffset = -18
+		E.db.unitframe.units.raid.roleIcon.yOffset = -17
 		E.db.unitframe.units.raid.roleIcon.xOffset = 0
 	end
 	-- Raid40
@@ -826,7 +831,7 @@ local function SetupMERLayout(layout)
 	else
 		SetMoverPosition('ElvUF_PartyMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 	end
-	SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 190)
+	SetMoverPosition('ElvUF_RaidMover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 170)
 	SetMoverPosition('ElvUF_Raid40Mover', 'BOTTOMLEFT', E.UIParent, 'BOTTOMLEFT', 2, 171)
 	SetMoverPosition('ElvUF_RaidpetMover', 'TOPLEFT', E.UIParent, 'BOTTOMLEFT', 0, 808)
 	-- PetMover
