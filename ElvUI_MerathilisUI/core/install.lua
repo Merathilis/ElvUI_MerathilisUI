@@ -569,8 +569,9 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.customTexts.Status.fontOutline = 'OUTLINE'
 	E.db.unitframe.units.raid.customTexts.Status.xOffset = 0
 	E.db.unitframe.units.raid.customTexts.Status.yOffset = 0
-	E.db.unitframe.units.raid.customTexts.Status.size = 10
+	E.db.unitframe.units.raid.customTexts.Status.size = 12
 	E.db.unitframe.units.raid.customTexts.Status.text_format = '[namecolor][statustimer]'
+	E.db.unitframe.units.raid.customTexts.Status.attachTo = 'Health'
 	E.db.unitframe.units.raid.infoPanel.enable = true
 	E.db.unitframe.units.raid.infoPanel.height = 13
 	E.db.unitframe.units.raid.infoPanel.transparent = true
