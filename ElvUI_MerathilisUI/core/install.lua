@@ -340,7 +340,7 @@ local function SetupMERLayout(layout)
 	end
 	E.db.unitframe.units.player.aurabar.enable = false
 	E.db.unitframe.units.player.threatStyle = 'GLOW'
-	E.db.unitframe.units.player.castbar.icon = true
+	E.db.unitframe.units.player.castbar.icon = false -- must be adjust, temp solution
 	E.db.unitframe.units.player.castbar.latency = true
 	E.db.unitframe.units.player.castbar.width = 180
 	E.db.unitframe.units.player.castbar.insideInfoPanel = true
@@ -390,7 +390,7 @@ local function SetupMERLayout(layout)
 	-- Target
 	E.db.unitframe.units.target.width = 180
 	E.db.unitframe.units.target.height = 40
-	E.db.unitframe.units.target.castbar.icon = true
+	E.db.unitframe.units.target.castbar.icon = false -- must be adjust, temp solution
 	E.db.unitframe.units.target.castbar.latency = true
 	E.db.unitframe.units.target.castbar.width = 180
 	E.db.unitframe.units.target.castbar.height = 15
@@ -485,24 +485,27 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.targettarget.raidicon.xOffset = 0
 	E.db.unitframe.units.targettarget.raidicon.yOffset = 15
 	E.db.unitframe.units.targettarget.portrait.enable = false
+	E.db.unitframe.units.targettarget.infoPanel.enable = false
 	-- Focus
-	E.db.unitframe.units.focus.power.height = 2
+	E.db.unitframe.units.focus.power.height = 4
 	E.db.unitframe.units.focus.width = 122
 	E.db.unitframe.units.focus.height = 20
 	E.db.unitframe.units.focus.castbar.height = 10
 	E.db.unitframe.units.focus.castbar.width = 122
 	E.db.unitframe.units.focus.debuffs.anchorPoint = 'BOTTOMRIGHT'
 	E.db.unitframe.units.focus.portrait.enable = false
+	E.db.unitframe.units.focus.infoPanel.enable = false
 	-- FocusTarget
 	E.db.unitframe.units.focustarget.enable = true
 	E.db.unitframe.units.focustarget.debuffs.enable = true
 	E.db.unitframe.units.focustarget.debuffs.anchorPoint = 'TOPRIGHT'
 	E.db.unitframe.units.focustarget.threatStyle = 'GLOW'
 	E.db.unitframe.units.focustarget.power.enable = true
-	E.db.unitframe.units.focustarget.power.height = 2
+	E.db.unitframe.units.focustarget.power.height = 4
 	E.db.unitframe.units.focustarget.width = 122
 	E.db.unitframe.units.focustarget.height = 20
 	E.db.unitframe.units.focustarget.portrait.enable = false
+	E.db.unitframe.units.focustarget.infoPanel.enable = false
 	-- Raid
 	E.db.unitframe.units.raid.height = 35
 	E.db.unitframe.units.raid.width = 69
@@ -727,38 +730,65 @@ local function SetupMERLayout(layout)
 	-- Tank
 	E.db.unitframe.units.tank.enable = false
 	-- Pet
+	E.db.unitframe.units.pet.castbar.enable = true
 	E.db.unitframe.units.pet.castbar.latency = true
 	E.db.unitframe.units.pet.castbar.width = 122
 	E.db.unitframe.units.pet.castbar.height = 10
 	E.db.unitframe.units.pet.width = 122
 	E.db.unitframe.units.pet.height = 20
-	E.db.unitframe.units.pet.power.height = 2
+	E.db.unitframe.units.pet.power.height = 4
 	E.db.unitframe.units.pet.portrait.enable = false
+	E.db.unitframe.units.pet.infoPanel.enable = false -- LUA Error at the moment
 	-- Arena
 	E.db.unitframe.units.arena.power.width = 'inset'
 	-- Boss
 	E.db.unitframe.units.boss.castbar.latency = true
-	E.db.unitframe.units.boss.castbar.width = 156
-	E.db.unitframe.units.boss.castbar.height = 12
+	E.db.unitframe.units.boss.castbar.width = 155
+	E.db.unitframe.units.boss.castbar.height = 40
 	E.db.unitframe.units.boss.buffs.sizeOverride = 26
-	E.db.unitframe.units.boss.buffs.yOffset = -1
+	E.db.unitframe.units.boss.buffs.yOffset = 7
+	E.db.unitframe.units.boss.buffs.xOffset = -2
 	E.db.unitframe.units.boss.buffs.anchorPoint = 'LEFT'
+	E.db.unitframe.units.boss.buffs.attachTo = 'Frame'
 	E.db.unitframe.units.boss.debuffs.anchorPoint = 'RIGHT'
-	E.db.unitframe.units.boss.debuffs.yOffset = 2
+	E.db.unitframe.units.boss.debuffs.yOffset = 10
+	E.db.unitframe.units.boss.debuffs.xOffset = 2
 	E.db.unitframe.units.boss.debuffs.perrow = 5
-	E.db.unitframe.units.boss.portrait.enable = false
-	E.db.unitframe.units.boss.power.height = 2
+	E.db.unitframe.units.boss.debuffs.attachTo = 'Frame'
+	E.db.unitframe.units.boss.portrait.enable = true
+	E.db.unitframe.units.boss.portrait.overlay = false
+	E.db.unitframe.units.boss.power.enable = true
+	E.db.unitframe.units.boss.power.height = 4
 	E.db.unitframe.units.boss.power.position = 'LEFT'
 	E.db.unitframe.units.boss.name.xOffset = 6
 	E.db.unitframe.units.boss.name.yOffset = 16
 	E.db.unitframe.units.boss.name.position = 'RIGHT'
+	E.db.unitframe.units.boss.name.text_format = ''
 	E.db.unitframe.units.boss.width = 156
-	E.db.unitframe.units.boss.height = 26
+	E.db.unitframe.units.boss.height = 40
 	E.db.unitframe.units.boss.spacing = 27
 	E.db.unitframe.units.boss.growthDirection = 'UP'
 	E.db.unitframe.units.boss.threatStyle = 'HEALTHBORDER'
 	E.db.unitframe.units.boss.health.position = 'RIGHT'
-	E.db.unitframe.units.boss.health.text_format = '[healthcolor][health:current] - [health:percent]'
+	E.db.unitframe.units.boss.health.text_format = '[healthcolor][health:current] - [namecolor][power:current]'
+	E.db.unitframe.units.boss.health.attachTextTo = 'InfoPanel'
+	if not E.db.unitframe.units.boss.customTexts then E.db.unitframe.units.boss.customTexts = {} end
+	E.db.unitframe.units.boss.customTexts.BigName = {}
+	E.db.unitframe.units.boss.customTexts.BigName.font = 'Merathilis Tukui'
+	E.db.unitframe.units.boss.customTexts.BigName.justifyH = 'LEFT'
+	E.db.unitframe.units.boss.customTexts.BigName.fontOutline = 'OUTLINE'
+	E.db.unitframe.units.boss.customTexts.BigName.xOffset = 0
+	E.db.unitframe.units.boss.customTexts.BigName.yOffset = 0
+	E.db.unitframe.units.boss.customTexts.BigName.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
+	E.db.unitframe.units.boss.customTexts.BigName.size = 20
+	E.db.unitframe.units.boss.customTexts.BigName.attachTextTo = 'Health'
+	E.db.unitframe.units.boss.customTexts.Class = {}
+	E.db.unitframe.units.boss.customTexts.Class.font = 'Merathilis Tukui'
+	E.db.unitframe.units.boss.customTexts.Class.size = 12
+	E.db.unitframe.units.boss.customTexts.Class.fontOutline = 'OUTLINE'
+	E.db.unitframe.units.boss.customTexts.Class.justifyH = 'LEFT'
+	E.db.unitframe.units.boss.customTexts.Class.text_format = '[namecolor][smartclass] [difficultycolor][level]'
+	E.db.unitframe.units.boss.customTexts.Class.attachTextTo = 'InfoPanel'
 	-- PetTarget
 	E.db.unitframe.units.pettarget.enable = false
 	-- RaidPet
