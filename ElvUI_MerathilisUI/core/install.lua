@@ -315,11 +315,11 @@ local function SetupMERLayout(layout)
 	-- Player
 	E.db.unitframe.units.player.width = 180
 	E.db.unitframe.units.player.height = 40
-	E.db.unitframe.units.player.debuffs.fontSize = 11
+	E.db.unitframe.units.player.debuffs.fontSize = 12
 	E.db.unitframe.units.player.debuffs.attachTo = 'FRAME'
 	E.db.unitframe.units.player.debuffs.sizeOverride = 28
 	E.db.unitframe.units.player.debuffs.xOffset = -94
-	E.db.unitframe.units.player.debuffs.yOffset = 2
+	E.db.unitframe.units.player.debuffs.yOffset = 7
 	E.db.unitframe.units.player.debuffs.perrow = 4
 	E.db.unitframe.units.player.debuffs.anchorPoint = 'LEFT'
 	E.db.unitframe.units.player.smartAuraPosition = 'DISABLED'
@@ -396,8 +396,9 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.castbar.width = 180
 	E.db.unitframe.units.target.castbar.height = 15
 	E.db.unitframe.units.target.castbar.insideInfoPanel = true
+	E.db.unitframe.units.target.debuffs.fontSize = 12
 	E.db.unitframe.units.target.debuffs.sizeOverride = 28
-	E.db.unitframe.units.target.debuffs.yOffset = 2
+	E.db.unitframe.units.target.debuffs.yOffset = 7
 	E.db.unitframe.units.target.debuffs.xOffset = 94
 	E.db.unitframe.units.target.debuffs.anchorPoint = 'RIGHT'
 	E.db.unitframe.units.target.debuffs.perrow = 4
@@ -557,9 +558,10 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.buffs.noConsolidated = false
 	E.db.unitframe.units.raid.buffs.sizeOverride = 20
 	E.db.unitframe.units.raid.buffs.xOffset = 0
-	E.db.unitframe.units.raid.raidicon.attachTo = 'LEFT'
-	E.db.unitframe.units.raid.raidicon.xOffset = 9
-	E.db.unitframe.units.raid.raidicon.size = 13
+	E.db.unitframe.units.raid.raidicon.attachTo = 'CENTER'
+	E.db.unitframe.units.raid.raidicon.xOffset = 0
+	E.db.unitframe.units.raid.raidicon.yOffset = 5
+	E.db.unitframe.units.raid.raidicon.size = 15
 	E.db.unitframe.units.raid.raidicon.yOffset = 0
 	if not E.db.unitframe.units.raid.customTexts then E.db.unitframe.units.raid.customTexts = {} end
 	E.db.unitframe.units.raid.customTexts = {}
@@ -570,8 +572,8 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.customTexts.Status.xOffset = 0
 	E.db.unitframe.units.raid.customTexts.Status.yOffset = 0
 	E.db.unitframe.units.raid.customTexts.Status.size = 12
+	E.db.unitframe.units.raid.customTexts.Status.attachTextTo = 'Health'
 	E.db.unitframe.units.raid.customTexts.Status.text_format = '[namecolor][statustimer]'
-	E.db.unitframe.units.raid.customTexts.Status.attachTo = 'Health'
 	E.db.unitframe.units.raid.infoPanel.enable = true
 	E.db.unitframe.units.raid.infoPanel.height = 13
 	E.db.unitframe.units.raid.infoPanel.transparent = true
@@ -686,7 +688,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.party.customTexts.LevelClass.fontOutline = 'OUTLINE'
 	E.db.unitframe.units.party.customTexts.LevelClass.xOffset = 0
 	E.db.unitframe.units.party.customTexts.LevelClass.yOffset = 0
-	E.db.unitframe.units.party.customTexts.LevelClass.text_format = '[difficultycolor][level] [race] [namecolor][class]'
+	E.db.unitframe.units.party.customTexts.LevelClass.text_format = '[namecolor][smartclass] [difficultycolor][level]'
 	E.db.unitframe.units.party.customTexts.LevelClass.size = 12
 	E.db.unitframe.units.party.customTexts.LevelClass.attachTextTo = 'InfoPanel'
 	E.db.unitframe.units.party.customTexts.BigName = {}
