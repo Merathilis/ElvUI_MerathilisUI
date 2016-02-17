@@ -787,7 +787,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.boss.customTexts.BigName.xOffset = 0
 	E.db.unitframe.units.boss.customTexts.BigName.yOffset = 0
 	E.db.unitframe.units.boss.customTexts.BigName.text_format = '[name:medium] [difficultycolor][smartlevel] [shortclassification]'
-	E.db.unitframe.units.boss.customTexts.BigName.size = 20
+	E.db.unitframe.units.boss.customTexts.BigName.size = 16
 	E.db.unitframe.units.boss.customTexts.BigName.attachTextTo = 'Health'
 	E.db.unitframe.units.boss.customTexts.Class = {}
 	E.db.unitframe.units.boss.customTexts.Class.font = 'Merathilis Tukui'
