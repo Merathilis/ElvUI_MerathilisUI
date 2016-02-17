@@ -344,6 +344,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.player.castbar.latency = true
 	E.db.unitframe.units.player.castbar.width = 180
 	E.db.unitframe.units.player.castbar.insideInfoPanel = true
+	if not E.db.unitframe.units.player.customTexts then E.db.unitframe.units.player.customTexts = {} end
 	E.db.unitframe.units.player.customTexts = {}
 	E.db.unitframe.units.player.customTexts.BigName = {}
 	E.db.unitframe.units.player.customTexts.BigName.font = 'Merathilis Tukui'
@@ -414,6 +415,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.target.power.hideonnpc = false
 	E.db.unitframe.units.target.power.height = 5
 	E.db.unitframe.units.target.power.text_format = ''
+	if not E.db.unitframe.units.target.customTexts then E.db.unitframe.units.target.customTexts = {} end
 	E.db.unitframe.units.target.customTexts = {}
 	E.db.unitframe.units.target.customTexts.BigName = {}
 	E.db.unitframe.units.target.customTexts.BigName.font = 'Merathilis Tukui'
@@ -558,6 +560,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid.raidicon.xOffset = 9
 	E.db.unitframe.units.raid.raidicon.size = 13
 	E.db.unitframe.units.raid.raidicon.yOffset = 0
+	if not E.db.unitframe.units.raid.customTexts then E.db.unitframe.units.raid.customTexts = {} end
 	E.db.unitframe.units.raid.customTexts = {}
 	E.db.unitframe.units.raid.customTexts.Status = {}
 	E.db.unitframe.units.raid.customTexts.Status.font = 'Merathilis Tukui'
@@ -600,6 +603,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid40.power.enable = true
 	E.db.unitframe.units.raid40.power.position = 'CENTER'
 	E.db.unitframe.units.raid40.power.height = 2
+	if not E.db.unitframe.units.raid40.customTexts then E.db.unitframe.units.raid40.customTexts = {} end
 	E.db.unitframe.units.raid40.customTexts = {}
 	E.db.unitframe.units.raid40.customTexts.HealthText = {}
 	E.db.unitframe.units.raid40.customTexts.HealthText.font = 'Merathilis Tukui'
@@ -634,7 +638,7 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.raid40.portrait.enable = false
 	-- Party
 	E.db.unitframe.units.party.height = 40
-	E.db.unitframe.units.party.width = 200
+	E.db.unitframe.units.party.width = 180
 	E.db.unitframe.units.party.growthDirection = 'UP_RIGHT'
 	E.db.unitframe.units.party.debuffs.anchorPoint = 'RIGHT'
 	E.db.unitframe.units.party.debuffs.sizeOverride = 24
@@ -658,11 +662,12 @@ local function SetupMERLayout(layout)
 	E.db.unitframe.units.party.roleIcon.position = 'TOPRIGHT'
 	E.db.unitframe.units.party.roleIcon.size = 10
 	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db.unitframe.units.party.emptyBars = false -- force this to be false, temp solution
+		E.db.unitframe.units.party.emptybar.enable = false -- force this to be false, temp solution
 		E.db.unitframe.units.party.roleIcon.xOffset = 0
 		E.db.unitframe.units.party.roleIcon.yOffset = 0
 	end
 	E.db.unitframe.units.party.raidRoleIcons.position = 'TOPRIGHT'
+	if not E.db.unitframe.units.party.customTexts then E.db.unitframe.units.party.customTexts = {} end
 	E.db.unitframe.units.party.customTexts = {}
 	E.db.unitframe.units.party.customTexts.HealthText = {}
 	E.db.unitframe.units.party.customTexts.HealthText.font = 'Merathilis Tukui'
@@ -797,7 +802,6 @@ local function SetupMERLayout(layout)
 	-- Movers
 	if E.db.movers == nil then E.db.movers = {} end -- prevent a lua error when running the install after a profile gets deleted.
 
-	-- Layout
 	-- PlayerMover
 	SetMoverPosition('ElvUF_PlayerMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 127)
 	SetMoverPosition('ElvUF_PlayerCastbarMover', 'BOTTOM', E.UIParent, 'BOTTOM', -176, 108)
