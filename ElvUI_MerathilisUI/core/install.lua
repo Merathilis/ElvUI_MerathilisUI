@@ -118,199 +118,195 @@ local function SetupMERLayout(layout)
 	E.db["datatexts"]["noCombatHover"] = true
 
 	-- Actionbars
-	E.db.actionbar.font = 'Merathilis Prototype'
-	E.db.actionbar.fontOutline = 'OUTLINE'
-	E.db.actionbar.macrotext = true
-	E.db.actionbar.showGrid = false
+	E.db["actionbar"]["font"] = "Merathilis Prototype"
+	E.db["actionbar"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["macrotext"] = true
+	E.db["actionbar"]["showGrid"] = false
 	
 	if IsAddOnLoaded("Masque") then
-		E.private.actionbar.masque.stanceBar = true
-		E.private.actionbar.masque.petBar = true
-		E.private.actionbar.masque.actionbars = true
+		E.private["actionbar"]["masque"]["stanceBar"] = true
+		E.private["actionbar"]["masque"]["petBar"] = true
+		E.private["actionbar"]["masque"]["actionbars"] = true
 	end
 	
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db['bab']['transBack'] = true
 		E.db['bab']['enable'] = true
-		E.db['bab']['chooseAb'] = 'BAR1'
+		E.db['bab']['chooseAb'] = "BAR1"
 		E.db['bab']['requestStop'] = true
 	end
 	
-	E.db.actionbar.bar1.buttonspacing = 4
-	E.db.actionbar.bar1.backdrop = true
-	E.db.actionbar.bar1.heightMult = 2
-	E.db.actionbar.bar1.buttonsize = 28
-	E.db.actionbar.bar1.buttons = 12
+	E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar1"]["backdrop"] = true
+	E.db["actionbar"]["bar1"]["heightMult"] = 2
+	E.db["actionbar"]["bar1"]["buttonsize"] = 28
+	E.db["actionbar"]["bar1"]["buttons"] = 12
 	
-	E.db.actionbar.bar2.enabled = true
-	E.db.actionbar.bar2.buttonspacing = 4
-	E.db.actionbar.bar2.buttons = 12
-	E.db.actionbar.bar2.buttonsize = 28
-	E.db.actionbar.bar2.backdrop = false
-	E.db.actionbar.bar2.visibility = '[vehicleui][overridebar][petbattle][possessbar] hide; show'
-	E.db.actionbar.bar2.mouseover = false
+	E.db["actionbar"]["bar2"]["enabled"] = true
+	E.db["actionbar"]["bar2"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar2"]["buttons"] = 12
+	E.db["actionbar"]["bar2"]["buttonsize"] = 28
+	E.db["actionbar"]["bar2"]["backdrop"] = false
+	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
+	E.db["actionbar"]["bar2"]["mouseover"] = false
 	
-	E.db.actionbar.bar3.backdrop = true
-	E.db.actionbar.bar3.buttonsPerRow = 2
-	E.db.actionbar.bar3.buttonsize = 22
-	E.db.actionbar.bar3.buttonspacing = 4
-	E.db.actionbar.bar3.buttons = 12
-	E.db.actionbar.bar3.point = 'TOPLEFT'
+	E.db["actionbar"]["bar3"]["backdrop"] = true
+	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar3"]["buttonsize"] = 22
+	E.db["actionbar"]["bar3"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar3"]["buttons"] = 12
+	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	
-	E.db.actionbar.bar4.buttonspacing = 4
-	E.db.actionbar.bar4.mouseover = true
-	E.db.actionbar.bar4.buttonsize = 24
+	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar4"]["mouseover"] = true
+	E.db["actionbar"]["bar4"]["buttonsize"] = 24
 	
-	E.db.actionbar.bar5.backdrop = true
-	E.db.actionbar.bar5.buttonsPerRow = 2
-	E.db.actionbar.bar5.buttonsize = 22
-	E.db.actionbar.bar5.buttonspacing = 4
-	E.db.actionbar.bar5.buttons = 12
+	E.db["actionbar"]["bar5"]["backdrop"] = true
+	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar5"]["buttonsize"] = 22
+	E.db["actionbar"]["bar5"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar5"]["buttons"] = 12
 	
-	E.db.actionbar.bar6.enabled = false
+	E.db["actionbar"]["bar6"]["enabled"] = false
 	
-	E.db.actionbar.barPet.point = 'BOTTOMLEFT'
-	E.db.actionbar.barPet.buttons = 8
-	E.db.actionbar.barPet.buttonspacing = 1
-	E.db.actionbar.barPet.buttonsPerRow = 1
-	E.db.actionbar.barPet.buttonsize = 19
-	E.db.actionbar.barPet.mouseover = true
+	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["barPet"]["buttons"] = 8
+	E.db["actionbar"]["barPet"]["buttonspacing"] = 1
+	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
+	E.db["actionbar"]["barPet"]["buttonsize"] = 19
+	E.db["actionbar"]["barPet"]["mouseover"] = true
 	
-	E.db.actionbar.stanceBar.point = 'BOTTOMLEFT'
-	E.db.actionbar.stanceBar.backdrop = true
-	E.db.actionbar.stanceBar.buttonsPerRow = 6
-	E.db.actionbar.stanceBar.buttonsize = 18
+	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["stanceBar"]["backdrop"] = true
+	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
+	E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
 	if E.myclass == "DRUID" then
-		E.db.actionbar.stanceBar.mouseover = true
+		E.db["actionbar"]["stanceBar"]["mouseover"] = true
 	else
-		E.db.actionbar.stanceBar.mouseover = false
+		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
-	E.db.actionbar.extraActionButton.scale = 0.75
+	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
-		E.private.auras.masque.consolidatedBuffs = true
-		E.private.auras.masque.buffs = true
-		E.private.auras.masque.debuffs = true
+		E.private["auras"]["masque"]["consolidatedBuffs"] = true
+		E.private["auras"]["masque"]["buffs"] = true
+		E.private["auras"]["masque"]["debuffs"] = true
 	end
-	E.db.auras.debuffs.size = 30
-	E.db.auras.fadeThreshold = 10
-	E.db.auras.font = 'Merathilis Prototype'
-	E.db.auras.fontOutline = 'OUTLINE'
-	E.db.auras.consolidatedBuffs.fontSize = 11
-	E.db.auras.consolidatedBuffs.font = 'Merathilis Visitor1'
-	E.db.auras.consolidatedBuffs.fontOutline = 'OUTLINE'
-	E.db.auras.consolidatedBuffs.filter = false
-	E.db.auras.buffs.fontSize = 12
-	E.db.auras.buffs.horizontalSpacing = 10
-	E.db.auras.buffs.verticalSpacing = 15
-	E.db.auras.buffs.size = 24
-	E.db.auras.buffs.wrapAfter = 10
-	E.db.auras.debuffs.horizontalSpacing = 5
-	E.db.auras.debuffs.size = 30
+	E.db["auras"]["debuffs"]["size"] = 30
+	E.db["auras"]["fadeThreshold"] = 10
+	E.db["auras"]["font"] = "Merathilis Prototype"
+	E.db["auras"]["fontOutline"] = "OUTLINE"
+	E.db["auras"]["consolidatedBuffs"]["fontSize"] = 11
+	E.db["auras"]["consolidatedBuffs"]["font"] = "Merathilis Visitor1"
+	E.db["auras"]["consolidatedBuffs"]["fontOutline"] = "OUTLINE"
+	E.db["auras"]["consolidatedBuffs"]["filter"] = false
+	E.db["auras"]["buffs"]["fontSize"] = 12
+	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
+	E.db["auras"]["buffs"]["verticalSpacing"] = 15
+	E.db["auras"]["buffs"]["size"] = 24
+	E.db["auras"]["buffs"]["wrapAfter"] = 10
+	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
+	E.db["auras"]["debuffs"]["size"] = 30
 	
 	-- Bags
-	E.db.bags.itemLevelFont = 'Merathilis Prototype'
-	E.db.bags.itemLevelFontSize = 8
-	E.db.bags.itemLevelFontOutline = 'OUTLINE'
-	E.db.bags.countFont = 'Merathilis Prototype'
-	E.db.bags.countFontSize = 10
-	E.db.bags.countFontOutline = 'OUTLINE'
-	E.db.bags.yOffsetBank = 20
-	E.db.bags.yOffset = 20
-	E.db.bags.bagSize = 23
-	E.db.bags.alignToChat = false
-	E.db.bags.bagWidth = 350
-	E.db.bags.bankSize = 23
-	E.db.bags.bankWidth = 350
-	E.db.bags.moneyFormat = 'BLIZZARD'
-	E.db.bags.itemLevelThreshold = 650
-	E.db.bags.junkIcon = true
+	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
+	E.db["bags"]["itemLevelFontSize"] = 8
+	E.db["bags"]["itemLevelFontOutline"] = 'OUTLINE'
+	E.db["bags"]["countFont"] = "Merathilis Prototype"
+	E.db["bags"]["countFontSize"] = 10
+	E.db["bags"]["countFontOutline"] = "OUTLINE"
+	E.db["bags"]["yOffsetBank"] = 20
+	E.db["bags"]["yOffset"] = 20
+	E.db["bags"]["bagSize"] = 23
+	E.db["bags"]["alignToChat"] = false
+	E.db["bags"]["bagWidth"] = 350
+	E.db["bags"]["bankSize"] = 23
+	E.db["bags"]["bankWidth"] = 350
+	E.db["bags"]["moneyFormat"] = "BLIZZARD"
+	E.db["bags"]["itemLevelThreshold"] = 650
+	E.db["bags"]["junkIcon"] = true
 	
 	-- Chat
-	E.db.chat.keywordSound = 'Whisper Alert'
-	E.db.chat.tabFont = 'Merathilis Prototype'
-	E.db.chat.tabFontOutline = 'OUTLINE'
-	E.db.chat.tabFontSize = 10
-	E.db.chat.panelTabTransparency = true
-	E.db.chat.fontOutline = 'OUTLINE'
-	E.db.chat.chatHistory = false
-	E.db.chat.font = 'Merathilis Expressway'
-	E.db.chat.panelWidth = 350
-	E.db.chat.panelHeight = 140
-	E.db.chat.editBoxPosition = 'ABOVE_CHAT'
-	E.db.chat.panelBackdrop = 'SHOWBOTH'
-	E.db.chat.keywords = '%MYNAME%, ElvUI'
-	E.db.chat.timeStampFormat = '%H:%M '
-	E.db.chat.panelBackdropNameRight = ''
+	E.db["chat"]["keywordSound"] = "Whisper Alert"
+	E.db["chat"]["tabFont"] = "Merathilis Prototype"
+	E.db["chat"]["tabFontOutline"] = "OUTLINE"
+	E.db["chat"]["tabFontSize"] = 10
+	E.db["chat"]["panelTabTransparency"] = true
+	E.db["chat"]["fontOutline"] = "OUTLINE"
+	E.db["chat"]["chatHistory"] = false
+	E.db["chat"]["font"] = "Merathilis Expressway"
+	E.db["chat"]["panelWidth"] = 350
+	E.db["chat"]["panelHeight"] = 140
+	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
+	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
+	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
+	E.db["chat"]["timeStampFormat"] = "%H:%M "
+	E.db["chat"]["panelBackdropNameRight"] = ""
 	
 	-- Nameplates
-	E.db.nameplate.font = 'Merathilis Roadway'
-	E.db.nameplate.fontSize = 11
-	E.db.nameplate.fontOutline = 'OUTLINE'
-	E.db.nameplate.debuffs.font = 'Merathilis Prototype'
-	E.db.nameplate.debuffs.fontSize = 9
-	E.db.nameplate.debuffs.fontOutline = 'OUTLINE'
-	E.db.nameplate.auraFontOutline = 'OUTLINE'
-	E.db.nameplate.maxAuras = 5
-	E.db.nameplate.comboPoints = true
-	E.db.nameplate.sortDirection = 1
-	E.db.nameplate.colorByTime = true
-	E.db.nameplate.buffs.font = 'Merathilis Prototype'
-	E.db.nameplate.buffs.fontSize = 7
-	E.db.nameplate.buffs.fontOutline = 'OUTLINE'
-	E.db.nameplate.healthBar.text.enable = true
-	E.db.nameplate.healthBar.text.format = 'CURRENT_PERCENT'
-	E.db.nameplate.healthBar.height = 4
-	E.db.nameplate.healthBar.colorByRaidIcon = true
-	E.db.nameplate.healthBar.lowHPScale.enable = true
-	E.db.nameplate.healthBar.width = 100
-	E.db.nameplate.auraFont = 'ElvUI Font'
-	E.db.nameplate.healthtext = 'CURRENT_PERCENT'
-	E.db.nameplate.auraAnchor = 1
-	E.db.nameplate.targetIndicator.color.g = 0
-	E.db.nameplate.targetIndicator.color.b = 0
-	E.db.nameplate.wrapName = true
-	E.db.nameplate.buffs.fontOutline = 'OUTLINE'
-	E.db.nameplate.buffs.font = 'Merathilis Prototype'
+	E.db["nameplate"]["debuffs"]["fontSize"] = 9
+	E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
+	E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
+	E.db["nameplate"]["wrapName"] = true
+	E.db["nameplate"]["fontOutline"] = "OUTLINE"
+	E.db["nameplate"]["sortDirection"] = 1
+	E.db["nameplate"]["comboPoints"] = true
+	E.db["nameplate"]["colorByTime"] = true
+	E.db["nameplate"]["healthBar"]["colorByRaidIcon"] = true
+	E.db["nameplate"]["healthBar"]["height"] = 4
+	E.db["nameplate"]["healthBar"]["text"]["enable"] = true
+	E.db["nameplate"]["healthBar"]["text"]["format"] = "CURRENT_PERCENT"
+	E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
+	E.db["nameplate"]["healthBar"]["width"] = 100
+	E.db["nameplate"]["auraFont"] = "ElvUI Font"
+	E.db["nameplate"]["targetIndicator"]["color"]["g"] = 0
+	E.db["nameplate"]["targetIndicator"]["color"]["b"] = 0
+	E.db["nameplate"]["font"] = "Merathilis Roadway"
+	E.db["nameplate"]["maxAuras"] = 5
+	E.db["nameplate"]["fontSize"] = 11
+	E.db["nameplate"]["auraAnchor"] = 1
+	E.db["nameplate"]["buffs"]["fontOutline"] = "OUTLINE"
+	E.db["nameplate"]["buffs"]["font"] = "Merathilis Prototype"
+	E.db["nameplate"]["auraFontOutline"] = "OUTLINE"
+	E.db["nameplate"]["healthtext"] = "CURRENT_PERCENT"
 	
 	-- Tooltip
-	E.db.tooltip.font = 'Merathilis Expressway'
-	E.db.tooltip.fontOutline = 'OUTLINE'
-	E.db.tooltip.combathide = true
-	E.db.tooltip.style = 'inset'
-	E.db.tooltip.itemCount = 'NONE'
-	E.db.tooltip.headerFontSize = 12
-	E.db.tooltip.textFontSize = 11
-	E.db.tooltip.smallTextFontSize = 11
-	E.db.tooltip.healthBar.font = 'Merathilis Prototype'
-	E.db.tooltip.healthBar.fontSize = 10
-	E.db.tooltip.healthBar.fontOutline = 'OUTLINE'
-	E.db.tooltip.healthBar.height = 5
+	E.db["tooltip"]["itemCount"] = "NONE"
+	E.db["tooltip"]["healthBar"]["height"] = 5
+	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Prototype"
+	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["combathide"] = true
+	E.db["tooltip"]["textFontSize"] = 11
+	E.db["tooltip"]["font"] = "Merathilis Expressway"
+	E.db["tooltip"]["style"] = "inset"
+	E.db["tooltip"]["fontOutline"] = "OUTLINE"
+	E.db["tooltip"]["fontSize"] = 10
+	E.db["tooltip"]["smallTextFontSize"] = 11
 	
 	-- Unitframes
-	E.db.unitframe.font = 'Merathilis Tukui'
-	E.db.unitframe.fontSize = 12
-	E.db.unitframe.fontOutline = 'OUTLINE'
-	E.db.unitframe.smoothbars = true
-	E.db.unitframe.statusbar = 'MerathilisFlat'
-	E.db.unitframe.colors.powerclass = true
-	E.db.unitframe.colors.castColor.r = 0.1
-	E.db.unitframe.colors.castColor.g = 0.1
-	E.db.unitframe.colors.castColor.b = 0.1
-	E.db.unitframe.colors.transparentHealth = true
-	E.db.unitframe.colors.transparentAurabars = true
-	E.db.unitframe.colors.transparentPower = false
-	E.db.unitframe.colors.transparentCastbar = true
-	E.db.unitframe.colors.castClassColor = false
-	E.db.unitframe.colors.health.r = 0.23
-	E.db.unitframe.colors.health.g = 0.23
-	E.db.unitframe.colors.health.b = 0.23
-	E.db.unitframe.colors.power.MANA = E:GetColor(classColor.r, classColor.b, classColor.g)
-	E.db.unitframe.colors.power.RAGE = E:GetColor(classColor.r, classColor.b, classColor.g)
-	E.db.unitframe.colors.power.FOCUS = E:GetColor(classColor.r, classColor.b, classColor.g)
-	E.db.unitframe.colors.power.ENERGY = E:GetColor(classColor.r, classColor.b, classColor.g)
-	E.db.unitframe.colors.power.RUNIC_POWER = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["font"] = "Merathilis Tukui"
+	E.db["unitframe"]["fontSize"] = 12
+	E.db["unitframe"]["fontOutline"] = "OUTLINE"
+	E.db["unitframe"]["smoothbars"] = true
+	E.db["unitframe"]["statusbar"] = "MerathilisFlat"
+	E.db["unitframe"]["colors"]["powerclass"] = true
+	E.db["unitframe"]["colors"]["castColor"]["r"] = 0.1
+	E.db["unitframe"]["colors"]["castColor"]["g"] = 0.1
+	E.db["unitframe"]["colors"]["castColor"]["b"] = 0.1
+	E.db["unitframe"]["colors"]["transparentHealth"] = true
+	E.db["unitframe"]["colors"]["transparentAurabars"] = true
+	E.db["unitframe"]["colors"]["transparentPower"] = false
+	E.db["unitframe"]["colors"]["transparentCastbar"] = true
+	E.db["unitframe"]["colors"]["castClassColor"] = false
+	E.db["unitframe"]["colors"]["health"]["r"] = 0.23
+	E.db["unitframe"]["colors"]["health"]["g"] = 0.23
+	E.db["unitframe"]["colors"]["health"]["b"] = 0.23
+	E.db["unitframe"]["colors"]["power"]["MANA"] = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["colors"]["power"]["RAGE"] = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["colors"]["power"]["FOCUS"] = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["colors"]["power"]["ENERGY"] = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = E:GetColor(classColor.r, classColor.b, classColor.g)
 	
 	-- Player
 	E.db.unitframe.units.player.width = 180
