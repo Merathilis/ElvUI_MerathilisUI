@@ -137,34 +137,6 @@ local function ShowSplashScreen()
 	MUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
--- Clean ElvUI.lua in WTF folder from outdated settings. Credits Benik
-local function dbCleaning()
-	if E.db["muiPVP"]["duels"]["pet"] then E.db["muiPVP"]["duels"]["pet"] = nil end
-	if E.db["muiPVP"]["duels"]["announce"] then E.db["muiPVP"]["duels"]["announce"] = nil end
-	if E.db["muiPVP"]["duels"]["regular"] then E.db["muiPVP"]["duels"]["regular"] = nil end
-	if E.db["muiPVP"]["duels"]["pet"] then E.db["muiPVP"]["duels"]["pet"] = nil end
-	if E.db["muiPVP"]["duels"]["announce"] then E.db["muiPVP"]["duels"]["announce"] = nil end
-	if E.db["muiPVP"]["duels"]["regular"] then E.db["muiPVP"]["duels"]["regular"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["enable"] then E.db["muiLoot"]["lootIcon"]["enable"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_PARTY"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_PARTY"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_WHISPER_INFORM"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_WHISPER_INFORM"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_INSTANCE_CHAT"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_INSTANCE_CHAT"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_GUILD"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_GUILD"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_OFFICER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_OFFICER"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_PARTY_LEADER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_PARTY_LEADER"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID_LEADER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID_LEADER"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_YELL"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_YELL"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID_WARNING"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID_WARNING"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_SAY"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_SAY"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_RAID"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_INSTANCE_CHAT_LEADER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_INSTANCE_CHAT_LEADER"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_CONVERSATION"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_CONVERSATION"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_WHISPER_INFORM"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_WHISPER_INFORM"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_WHISPER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_WHISPER"] = nil end
-	if E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_WHISPER"] then E.db["muiLoot"]["lootIcon"]["channels"]["CHAT_MSG_BN_WHISPER"] = nil end
-	if E.db.muiGeneral.Bags then E.db.muiGeneral.Bags = nil end
-end
-
 function MER:Initialize()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -174,7 +146,6 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()
-	dbCleaning()
 
 	if ElvUI_SLE then
 		hooksecurefunc(ElvUI_SLE[1]:GetModule('Media'), "SetBlizzFonts", objectiveTrackerFont)
