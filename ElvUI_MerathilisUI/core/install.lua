@@ -355,7 +355,7 @@ local function SetupMERLayout(layout)
 		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
 	end
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
-	E.db["unitframe"]["units"]["player"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 180
@@ -432,7 +432,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = -32
 	E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
-	E.db["unitframe"]["units"]["target"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["target"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = true
 	E.db["unitframe"]["units"]["target"]["power"]["detachedWidth"] = 180
 	E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
@@ -717,8 +717,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["customTexts"]["HealthText"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"] = {}
 	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["justifyH"] = 'LEFT'
-	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["fontOutline"] = 'OUTLINE'
+	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["justifyH"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["customTexts"]["LevelClass"]["text_format"] = "[namecolor][smartclass] [difficultycolor][level]"
@@ -733,6 +733,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["customTexts"]["BigName"]["text_format"] = "[name:medium] [difficultycolor][smartlevel] [shortclassification]"
 	E.db["unitframe"]["units"]["party"]["customTexts"]["BigName"]["size"] = 20
 	E.db["unitframe"]["units"]["party"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["party"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 15
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 0
 	E.db["unitframe"]["units"]["party"]["raidicon.attachTo"] = "LEFT"
