@@ -45,7 +45,9 @@ local function SetupMERLayout(layout)
 	if not IsAddOnLoaded('ElvUI_BenikUI') then
 		E:StaticPopup_Show('BENIKUI')
 	end
-
+	
+	if E.db["movers"] == nil then E.db["movers"] = {} end -- prevent a lua error when running the install after a profile gets deleted.
+	
 	-- General
 	E.private["general"]["pixelPerfect"] = true
 	E.global["general"]["autoScale"] = true
@@ -107,7 +109,20 @@ local function SetupMERLayout(layout)
 	E.db["datatexts"]["time24"] = true
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
-
+	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
+	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
+	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-38"
+	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
+	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
+	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,446,2"
+	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,432"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,410,23"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-410,23"
+	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
+	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
+	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
+	
 	-- Actionbars
 	E.db["actionbar"]["font"] = "Merathilis Prototype"
 	E.db["actionbar"]["fontOutline"] = "OUTLINE"
@@ -177,6 +192,16 @@ local function SetupMERLayout(layout)
 		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,27"
+	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
+	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
+	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
+	E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,249"
+	E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,919,99"
+	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
+	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
+	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
@@ -199,6 +224,8 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 30
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-115"
 	
 	-- Bags
 	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
@@ -234,6 +261,8 @@ local function SetupMERLayout(layout)
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelBackdropNameRight"] = ""
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
+	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
 	
 	-- Nameplates
 	E.db["nameplate"]["debuffs"]["fontSize"] = 9
@@ -274,6 +303,7 @@ local function SetupMERLayout(layout)
 	E.db["tooltip"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["fontSize"] = 10
 	E.db["tooltip"]["smallTextFontSize"] = 11
+	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
 	
 	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
@@ -313,7 +343,6 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
-	E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
 	-- Use Classbar not for Druid, because of Balance PowerTracker
 	if E.myclass == "DRUID" then
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
@@ -374,6 +403,12 @@ local function SetupMERLayout(layout)
 		E.db["ufb"]["PlayerPortraitStyle"] = true
 		E.db["ufb"]["PlayerPortraitStyleHeight"] = 4
 	end
+	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
+	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
+	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,165"
+	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-313,127"
+	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,168"
+	
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 180
 	E.db["unitframe"]["units"]["target"]["height"] = 40
@@ -435,7 +470,6 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = false
-	E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
 	E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
 	E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
@@ -459,6 +493,11 @@ local function SetupMERLayout(layout)
 		E.db["ufb"]["TargetPortraitStyle"] = true
 		E.db["ufb"]["TargetPortraitStyleHeight"] = 4
 	end
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,127"
+	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,108"
+	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,165"
+	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,127"
+	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
@@ -475,6 +514,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
+	
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
@@ -484,6 +525,9 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,199"
+	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,220"
+	
 	-- FocusTarget
 	E.db["unitframe"]["units"]["focustarget"]["enable"] = true
 	E.db["unitframe"]["units"]["focustarget"]["debuffs"]["enable"] = true
@@ -495,6 +539,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["focustarget"]["height"] = 20
 	E.db["unitframe"]["units"]["focustarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focustarget"]["infoPanel"]["enable"] = false
+	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,234"
+	
 	-- Raid
 	E.db["unitframe"]["units"]["raid"]["height"] = 35
 	E.db["unitframe"]["units"]["raid"]["width"] = 69
@@ -571,60 +617,62 @@ local function SetupMERLayout(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -17
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 	end
+	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,170"
+	
 	-- Raid40
-	E.db.unitframe.units.raid40.horizontalSpacing = 1
-	E.db.unitframe.units.raid40.debuffs.enable = true
-	E.db.unitframe.units.raid40.debuffs.yOffset = -9
-	E.db.unitframe.units.raid40.debuffs.anchorPoint = 'TOPRIGHT'
-	E.db.unitframe.units.raid40.debuffs.clickTrough = true
-	E.db.unitframe.units.raid40.debuffs.useBlacklist = false
-	E.db.unitframe.units.raid40.debuffs.perrow = 2
-	E.db.unitframe.units.raid40.debuffs.useFilter = 'Whitlist (Strict)'
-	E.db.unitframe.units.raid40.debuffs.sizeOverride = 21
-	E.db.unitframe.units.raid40.debuffs.xOffset = -4
-	E.db.unitframe.units.raid40.rdebuffs.size = 26
-	E.db.unitframe.units.raid40.growthDirection = 'RIGHT_UP'
-	E.db.unitframe.units.raid40.name.position = 'TOP'
-	E.db.unitframe.units.raid40.groupBy = 'ROLE'
-	E.db.unitframe.units.raid40.roleIcon.position = 'RIGHT'
-	E.db.unitframe.units.raid40.roleIcon.enable = true
-	E.db.unitframe.units.raid40.raidWideSorting = false
-	E.db.unitframe.units.raid40.power.enable = true
-	E.db.unitframe.units.raid40.power.position = 'CENTER'
-	E.db.unitframe.units.raid40.power.height = 2
-	if not E.db.unitframe.units.raid40.customTexts then E.db.unitframe.units.raid40.customTexts = {} end
-	E.db.unitframe.units.raid40.customTexts = {}
-	E.db.unitframe.units.raid40.customTexts.HealthText = {}
-	E.db.unitframe.units.raid40.customTexts.HealthText.font = 'Merathilis Tukui'
-	E.db.unitframe.units.raid40.customTexts.HealthText.justifyH = 'CENTER'
-	E.db.unitframe.units.raid40.customTexts.HealthText.fontOutline = 'OUTLINE'
-	E.db.unitframe.units.raid40.customTexts.HealthText.xOffset = 0
-	E.db.unitframe.units.raid40.customTexts.HealthText.yOffset = -7
-	E.db.unitframe.units.raid40.customTexts.HealthText.text_format = '[healthcolor][health:deficit]'
-	E.db.unitframe.units.raid40.customTexts.HealthText.size = 10
-	E.db.unitframe.units.raid40.healPrediction = true
-	E.db.unitframe.units.raid40.width = 69
-	E.db.unitframe.units.raid40.positionOverride = 'BOTTOMRIGHT'
-	E.db.unitframe.units.raid40.health.frequentUpdates = true
-	E.db.unitframe.units.raid40.buffs.enable = true
-	E.db.unitframe.units.raid40.buffs.yOffset = 25
-	E.db.unitframe.units.raid40.buffs.anchorPoint = 'BOTTOMLEFT'
-	E.db.unitframe.units.raid40.buffs.clickTrough = true
-	E.db.unitframe.units.raid40.buffs.useBlacklist = false
-	E.db.unitframe.units.raid40.buffs.noDuration = false
-	E.db.unitframe.units.raid40.buffs.playerOnly = false
-	E.db.unitframe.units.raid40.buffs.perrow = 1
-	E.db.unitframe.units.raid40.buffs.useFilter = 'TurtleBuffs'
-	E.db.unitframe.units.raid40.buffs.noConsolidated = false
-	E.db.unitframe.units.raid40.buffs.sizeOverride = 17
-	E.db.unitframe.units.raid40.buffs.xOffset = 21
-	E.db.unitframe.units.raid40.height = 40
-	E.db.unitframe.units.raid40.verticalSpacing = 1
-	E.db.unitframe.units.raid40.raidicon.attachTo = 'LEFT'
-	E.db.unitframe.units.raid40.raidicon.xOffset = 9
-	E.db.unitframe.units.raid40.raidicon.size = 13
-	E.db.unitframe.units.raid40.raidicon.yOffset = 0
-	E.db.unitframe.units.raid40.portrait.enable = false
+	E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 21
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["yOffset"] = -9
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickTrough"] = true
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
+	E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
+	E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
+	E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
+	E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
+	E.db["unitframe"]["units"]["raid40"]["groupBy"] = "ROLE"
+	E.db["unitframe"]["units"]["raid40"]["classHover"] = true
+	E.db["unitframe"]["units"]["raid40"]["orientation"] = "RIGHT"
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["size"] = 9
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = -18
+	end
+	E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
+	E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
+	E.db["unitframe"]["units"]["raid40"]["health"]["frequentUpdates"] = true
+	E.db["unitframe"]["units"]["raid40"]["width"] = 69
+	E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 1
+	E.db["unitframe"]["units"]["raid40"]["name"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["raid40"]["positionOverride"] = "BOTTOMRIGHT"
+	E.db["unitframe"]["units"]["raid40"]["height"] = 35
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["noConsolidated"] = false
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["sizeOverride"] = 17
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["useBlacklist"] = false
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["noDuration"] = false
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["playerOnly"] = false
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["perrow"] = 1
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["clickTrough"] = true
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
+	E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
+	E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 3
+	E.db["unitframe"]["units"]["raid40"]["power"]["enable"] = true
+	E.db["unitframe"]["units"]["raid40"]["power"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["raid40"]["raidicon"]["attachTo"] = "LEFT"
+	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
+	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
+	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,171"
+	
 	-- Party
 	E.db["unitframe"]["units"]["party"]["height"] = 40
 	E.db["unitframe"]["units"]["party"]["width"] = 180
@@ -718,10 +766,16 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
+	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,200"
+	
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
+	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
+	
 	-- Tank
 	E.db["unitframe"]["units"]["tank"]["enable"] = false
+	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
+	
 	-- Pet
 	E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
@@ -732,8 +786,13 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,199"
+	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,220"
+	
 	-- Arena
 	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
+	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-150,-305"
+	
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 155
@@ -782,75 +841,18 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["text_format"] = "[namecolor][smartclass] [difficultycolor][level]"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["attachTextTo"] = "InfoPanel"
+	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
+	
+	-- Bodyguard
+	E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,167"
+	
 	-- PetTarget
 	E.db["unitframe"]["units"]["pettarget"]["enable"] = false
+	
 	-- RaidPet
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
-
-	-- Movers
-	if E.db["movers"] == nil then E.db["movers"] = {} end -- prevent a lua error when running the install after a profile gets deleted.
-
-	-- PlayerMover
-	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,220"
-	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
-	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,170"
-	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,234"
-	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
-	E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
-	E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
-	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
-	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
-	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,165"
-	E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,200"
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
-	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-313,127"
-	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
-	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,199"
-	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,446,2"
-	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
-	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,168"
-	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
-	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,220"
-	E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
-	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,410,23"
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,108"
-	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
-	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,171"
-	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,432"
-	E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,249"
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,27"
-	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
-	E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
-	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-410,23"
-	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
-	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
-	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-	E.db["movers"]["ElvUF_BodyGuardMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,167"
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,127"
-	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,165"
-	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
-	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-38"
-	E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,919,99"
-	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,127"
-	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
-	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-150,-305"
-	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
-	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
-	E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-145"
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,199"
-	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
-	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-115"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
-	
+
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -1093,8 +1095,9 @@ local function SetupMERAddons()
 		E.db.dashboards.tokens.flash = false
 		E.db.dashboards.tokens.width = 147
 		E.db.dashboards.professions.enableProfessions = false
-		E.db["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-145"
+		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-145"
+		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	end
 
 	-- LocationPlus
@@ -1120,7 +1123,7 @@ local function SetupMERAddons()
 		E.db.locplus.dig = false
 		E.db.locplus.showicon = false
 		E.db.locplus.ttlvl = false
-		E.db["LocationLiteMover"] = "TOP,ElvUIParent,TOP,0,-7"
+		E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	end
 
 	-- ElvUI_SLE
@@ -1292,8 +1295,9 @@ local function SetupMERAddons()
 			E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
-			E.db["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-			E.db["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
+			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
+			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
+			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 		end
 	end
 
