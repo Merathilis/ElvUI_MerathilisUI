@@ -473,7 +473,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
 	E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 5
+	E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 4
 	E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
 	E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
