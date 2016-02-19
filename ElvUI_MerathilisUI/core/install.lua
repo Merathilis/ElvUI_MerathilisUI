@@ -379,6 +379,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = -2
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [namecolor][power:current]"
+	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
