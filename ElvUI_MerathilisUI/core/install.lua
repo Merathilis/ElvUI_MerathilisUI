@@ -396,6 +396,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 	if IsAddOnLoaded("ElvUI_BenikUI") then
+		-- Detach portrait 
 		E.db["ufb"]["detachPlayerPortrait"] = true
 		E.db["ufb"]["getPlayerPortraitSize"] = false
 		E.db["ufb"]["PlayerPortraitWidth"] = 92
@@ -403,6 +404,12 @@ local function SetupMERLayout(layout)
 		E.db["ufb"]["PlayerPortraitShadow"] = false
 		E.db["ufb"]["PlayerPortraitStyle"] = true
 		E.db["ufb"]["PlayerPortraitStyleHeight"] = 4
+		-- Castbar
+		E.db["ufb"]["yOffsetText"] = 0
+		E.db["ufb"]["ShowInfoText"] = false
+		E.db["ufb"]["castText"] = true
+		-- Misc
+		E.db["ufb"]["svui"] = false
 	end
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
