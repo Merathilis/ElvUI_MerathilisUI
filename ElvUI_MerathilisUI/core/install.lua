@@ -1210,6 +1210,8 @@ local function SetupMERAddons()
 			E.db["sle"]["pvp"]["duels"]["announce"] = true
 			E.db["sle"]["pvp"]["duels"]["pet"] = true
 			E.db["sle"]["pvp"]["duels"]["regular"] = true
+			E.private["sle"]["pvp"]["KBbanner"]["enable"] = true
+			E.private["sle"]["pvp"]["KBbanner"]["sound"] = true
 			E.db["sle"]["tooltip"]["RaidProg"]["enable"] = true
 			E.db["sle"]["tooltip"]["RaidProg"]["DifStyle"] = "LONG"
 			E.db["sle"]["chat"]["tab"]["select"] = true
