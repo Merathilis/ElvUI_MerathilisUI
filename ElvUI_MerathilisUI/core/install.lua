@@ -76,7 +76,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.private["general"]["namefont"] = "Merathilis PrototypeRU"
-	E.private["general"]["dmgfont"] = "ElvUI Combat"
+	E.private["general"]["dmgfont"] = "Action Man"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
 	E.db["general"]["experience"]["enable"] = true
@@ -279,7 +279,7 @@ local function SetupMERLayout(layout)
 	E.db["nameplate"]["healthBar"]["text"]["format"] = "CURRENT_PERCENT"
 	E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
 	E.db["nameplate"]["healthBar"]["width"] = 100
-	E.db["nameplate"]["auraFont"] = "ElvUI Font"
+	E.db["nameplate"]["auraFont"] = "PT Sans Narrow"
 	E.db["nameplate"]["targetIndicator"]["color"]["g"] = 0
 	E.db["nameplate"]["targetIndicator"]["color"]["b"] = 0
 	E.db["nameplate"]["font"] = "Merathilis Roadway"
@@ -805,7 +805,9 @@ local function SetupMERLayout(layout)
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 155
-	E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 40
+	E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 16
+	E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = true
+	E.db["unitframe"]["units"]["boss"]["castbar"]["iconSize"] = 26
 	E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 26
 	E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 7
 	E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
@@ -830,6 +832,9 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["boss"]["spacing"] = 27
 	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
 	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
+	E.db["unitframe"]["units"]["boss"]["InfoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = "[healthcolor][health:current] - [namecolor][power:current]"
 	E.db["unitframe"]["units"]["boss"]["health"]["attachTextTo"] = "InfoPanel"
