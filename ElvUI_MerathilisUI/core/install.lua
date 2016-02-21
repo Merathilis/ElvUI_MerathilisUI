@@ -1225,6 +1225,8 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["BubbleClass"] = true
 			E.db["sle"]["misc"]["rumouseover"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
+			E.db["sle"]["misc"]["errorframe"]["height"] = 60
+			E.db["sle"]["misc"]["errorframe"]["width"] = 512
 			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = true
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["size"] = 22
@@ -1309,6 +1311,7 @@ local function SetupMERAddons()
 			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
 			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
+			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
 		end
 	end
 
