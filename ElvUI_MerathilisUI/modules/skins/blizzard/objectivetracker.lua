@@ -91,6 +91,7 @@ local function SkinScenarioButtons()
 	local inChallengeMode = C_Scenario.IsChallengeMode()
 
 	-- pop-up artwork
+	block.NormalBG:Hide()
 	block.NormalBG:SetSize(width + 21, 75)
 
 	-- pop-up final artwork
@@ -115,14 +116,18 @@ local function SkinProvingGroundButtons()
 	block.WaveLabel:ClearAllPoints()
 	block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
 
+	block.BG:Hide()
 	block.BG:SetSize(width + 21, 75)
 
+	block.GoldCurlies:Hide()
 	block.GoldCurlies:ClearAllPoints()
 	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
 	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
 
+	anim.BGAnim:Hide()
 	anim.BGAnim:SetSize(width + 45, 85)
 	anim.BorderAnim:SetSize(width + 21, 75)
+	anim.BorderAnim:Hide()
 	anim.BorderAnim:ClearAllPoints()
 	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
 	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
