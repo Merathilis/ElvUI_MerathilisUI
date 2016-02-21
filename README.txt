@@ -16,8 +16,8 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> /muisetup = Install
 
 <font color=#FF8C00><b>BugTracker:</b></font>
-<font color=#FF8C00>&#9830;</font> Report any Issue or Suggestion on the <a href="http://git.tukui.org/Merathilis/UI-Settings/issues">TicketTracker</a> by creating a Ticket. Please give me as much Information you can get. <font color=#FF8C00>Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.</font>
-<font color=#FF8C00>&#9830;</font> You can see the latest changes <a href="http://git.tukui.org/Merathilis/UI-Settings/commits/master">here.</a>
+<font color=#FF8C00>&#9830;</font> Report any Issue or Suggestion on the <a href="http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues">TicketTracker</a> by creating a Ticket. Please give me as much Information you can get. <font color=#FF8C00>Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.</font>
+<font color=#FF8C00>&#9830;</font> You can see the latest changes <a href="http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/master">here.</a>
 
 <font color=#FF8C00><b>Requirements:</b></font>
 <font color=#FF8C00>&#9830;</font> ElvUI 8+

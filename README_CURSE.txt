@@ -1,4 +1,4 @@
-== <<color #FF8C00>><<size 200%>>**MerathilisUI**<</size>><</color>> ==
+== <<color #FF8C00>><<size 100%>>**MerathilisUI**<</size>><</color>> ==
 
 \\
 
@@ -26,8 +26,8 @@
 \\
 
 <<color #FF8C00>>**BugTracker:**<</color>>
-* Report any Issue or Suggestion on the [[http://git.tukui.org/Merathilis/UI-Settings/issues|TicketTracker]] by creating a Ticket. Please give me as much Information you can get. <<color #FF8C00>>Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.<</color>>
-* You can see the latest changes [[http://git.tukui.org/Merathilis/UI-Settings/commits/master|here]]
+* Report any Issue or Suggestion on the [[http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues|TicketTracker]] by creating a Ticket. Please give me as much Information you can get. <<color #FF8C00>>Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.<</color>>
+* You can see the latest changes [[http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/master|here]]
 
 \\
 
