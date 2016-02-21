@@ -699,7 +699,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 2
 	E.db["unitframe"]["units"]["party"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["health"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["party"]["name.text_format"] = ""
+	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["tank"] = true
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["healer"] = true
