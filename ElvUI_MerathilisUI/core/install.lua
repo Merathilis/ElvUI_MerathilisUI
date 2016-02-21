@@ -832,7 +832,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["boss"]["spacing"] = 27
 	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
 	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
-	E.db["unitframe"]["units"]["boss"]["InfoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
@@ -855,6 +855,13 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["text_format"] = "[namecolor][smartclass] [difficultycolor][level]"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["font"] = "Merathilis Tukui"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["size"] = 16
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
 	
 	-- Bodyguard
