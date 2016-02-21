@@ -100,6 +100,7 @@ local function SkinScenarioButtons()
 	block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
 
 	-- pop-up glow
+	block.GlowTexture.AlphaAnim.Play = dummy
 	block.GlowTexture:SetSize(width+20, 75)
 end
 
