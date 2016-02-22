@@ -5,8 +5,7 @@ local E, L, V, P, G = unpack(ElvUI);
 -- GLOBALS: AchievementFrame_GetCategoryNumAchievements_Complete, ACHIEVEMENTFRAME_FILTER_COMPLETED, ACHIEVEMENTFRAME_FILTER_INCOMPLETE, AchievementFrame_GetCategoryNumAchievements_Incomplete,
 -- GLOBALS: old_nocomplete_filter_init, LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, 
 local _G = _G
-local print, tostring, select = print, tostring, select
-local strsplit = strsplit
+local tostring, select = tostring, select
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local SetCVar = SetCVar
@@ -18,8 +17,6 @@ local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
-local GetTime, C_Garrison, UnitGUID = GetTime, C_Garrison, UnitGUID
-local doubleClick, lastRight, showOnce, clickOnce, npc_id, guid = 0.75, 0, true
 
 -- Force readycheck warning
 local ShowReadyCheckHook = function(self, initiator)
@@ -138,39 +135,6 @@ filter:SetScript("OnEvent", function(self, event, addon, ...)
 				_G["AchievementFrameFilterDropDown"]:SetWidth(_G["AchievementFrameFilterDropDown"]:GetWidth() + 20)
 			end
 			filter:UnregisterEvent("ADDON_LOADED")
-		end
-	end
-end)
-
--- Garrison Shipyard Table Fix (Credit Dandruff)
-local locales = {
-	['deDE'] = "|cffFF2222Garrison Shipyard Table Fix:|r Wenn du Probleme hast, versuch einen |cffFF8000single-clicking|r auf den Tisch.",		-- German
-	['enGB'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- British English
-	['enUS'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- American English
-	['esES'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- Spanish (European)
-	['esMX'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- Spanish (Latin American)
-	['frFR'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- French
-	['koKR'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- Korean
-	['ruRU'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- Russian
-	['zhCN'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table.",		-- Chinese (simplified; mainland China)
-	['zhTW'] = "|cffFF2222Garrison Shipyard Table Fix:|r If you are having issues, try |cffFF8000single-clicking|r the table."		-- Chinese (traditional; Taiwan)
-}
-
-local L = locales[GetLocale()]
-
-WorldFrame:HookScript('OnMouseDown', function (self, button)
-	guid = UnitGUID('mouseover')
-	if guid then
-		npc_id = select(6, strsplit('-', guid))
-		if npc_id == '94398' then
-			if doubleClick + lastRight < GetTime() then
-				lastRight = GetTime()
-			else
-				if showOnce then
-					showOnce = print(L)
-				end
-			end
-			C_Garrison.CloseMissionNPC()
 		end
 	end
 end)
