@@ -334,10 +334,10 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["height"] = 40
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
-	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 28
+	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
 	E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 4
-	E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 4
+	E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 6
 	E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 	E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
@@ -830,6 +830,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
+	
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,127"
 	
 	-- Arena
