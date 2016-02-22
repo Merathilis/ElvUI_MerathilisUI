@@ -335,10 +335,10 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 28
-	E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = -94
-	E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 7
+	E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 4
 	E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 4
-	E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "LEFT"
+	E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 	E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
@@ -525,14 +525,28 @@ local function SetupMERLayout(layout)
 	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
 	
 	-- Focus
-	E.db["unitframe"]["units"]["focus"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
-	E.db["unitframe"]["units"]["focus"]["height"] = 20
-	E.db["unitframe"]["units"]["focus"]["castbar"]["height"] = 10
-	E.db["unitframe"]["units"]["focus"]["castbar"]["width"] = 122
+	E.db["unitframe"]["units"]["focus"]["height"] = 30
+	E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = "[healthcolor][health:current]"
+	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["health"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["health"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["focus"]["power"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["focus"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["focus"]["power"]["text_format"] = "[powercolor][power:current]"
+	E.db["unitframe"]["units"]["focus"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["power"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["focus"]["power"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["focus"]["castbar"]["enable"] = true
+	E.db["unitframe"]["units"]["focus"]["castbar"]["latency"] = true
+	E.db["unitframe"]["units"]["focus"]["castbar"]["insideInfoPanel"] = true
+	E.db["unitframe"]["units"]["focus"]["castbar"]["iconSize"] = 20
 	E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["focus"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["focus"]["infoPanel"]["transparent"] = true
 	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,199"
 	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,220"
 	
@@ -788,15 +802,36 @@ local function SetupMERLayout(layout)
 	-- Pet
 	E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
-	E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 122
-	E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
-	E.db["unitframe"]["units"]["pet"]["width"] = 122
-	E.db["unitframe"]["units"]["pet"]["height"] = 20
+	E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["sizeOverride"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+	E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = "[healthcolor][health:current]"
+	E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["health"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["health"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["pet"]["power"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
-	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,199"
-	E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,452,220"
+	E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = "[namecolor][power:current]"
+	E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["pet"]["width"] = 90
+	E.db["unitframe"]["units"]["pet"]["height"] = 40
+	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = true
+	E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
+	E.db["unitframe"]["units"]["pet"]["orientation"] = "LEFT"
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
+	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
+	
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,127"
 	
 	-- Arena
 	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
