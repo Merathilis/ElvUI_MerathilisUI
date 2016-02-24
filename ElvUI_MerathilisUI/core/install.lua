@@ -1993,67 +1993,75 @@ end
 
 function MER:SetupDts(role)
 	-- Data Texts
-	E.db.datatexts.font = 'Merathilis Roadway'
-	E.db.datatexts.fontSize = 13
-	E.db.datatexts.fontOutline = 'OUTLINE'
-	E.db.datatexts.panelTransparency = false
+	E.db["datatexts"]["font"] = "Merathilis Roadway"
+	E.db["datatexts"]["fontSize"] = 13
+	E.db["datatexts"]["fontOutline"] = "OUTLINE"
+	E.db["datatexts"]["panelTransparency"] = false
 	if IsAddOnLoaded('ElvUI_LocPlus') then
 		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db.datatexts.panels.LeftCoordDtPanel = 'S&L Guild'
-			E.db.datatexts.panels.RightCoordDtPanel = 'S&L Friends'
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = "S&L Guild"
+			E.db["datatexts"]["panels"]["RightCoordDtPanel"] = "S&L Friends"
 		else
-			E.db.datatexts.panels.LeftCoordDtPanel = 'Guild'
-			E.db.datatexts.panels.RightCoordDtPanel = 'Friends'
+			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = "Guild"
+			E.db["datatexts"]["panels"]["RightCoordDtPanel"] = "Friends"
 		end
 	end
 	
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		-- define BenikUI Datetexts
 		if role == 'tank' then
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Attack Power"
 		elseif role == 'dpsMelee' then
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Attack Power'
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Attack Power"
 		elseif role == 'healer' or 'dpsCaster' then
-			E.db.datatexts.panels.BuiLeftChatDTPanel.right = 'Spell/Heal Power'
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db.datatexts.panels.BuiLeftChatDTPanel.left = 'MUI Talent/Loot Specialization'
-		E.db.datatexts.panels.BuiLeftChatDTPanel.middle = 'Durability'
-		E.db.datatexts.panels.BuiRightChatDTPanel.middle = 'Garrison+ (BenikUI)'
-		E.db.datatexts.panels.BuiRightChatDTPanel.right = 'BuiMail'
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
-			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Skada'
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Skada"
 		else
-			E.db.datatexts.panels.BuiRightChatDTPanel.left = 'Bags'
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
 		end
 		
 		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'S&L Currency'
+			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "S&L Currency"
 		else
-			E.db.datatexts.panels.BuiMiddleDTPanel.right = 'Gold'
+			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Gold"
 		end
 		
-		E.db.datatexts.panels.BuiMiddleDTPanel.left = 'MUI System'
-		E.db.datatexts.panels.BuiMiddleDTPanel.middle = 'Time'
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "MUI System"
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "Time"
+		
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = ""
+		
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = ""
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
 	else
 		-- define the default ElvUI datatexts
 		if role == 'tank' then
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
+			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Attack Power"
 		elseif role == 'dpsMelee' then
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Attack Power'
+			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Attack Power"
 		elseif role == 'healer' or 'dpsCaster' then
-			E.db.datatexts.panels.LeftChatDataPanel.right = 'Spell/Heal Power'
+			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db.datatexts.panels.LeftChatDataPanel.left = 'MUI Talent/Loot Specialization'
-		E.db.datatexts.panels.LeftChatDataPanel.middle = 'Durability'
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
 		
 		if IsAddOnLoaded('Skada') then
-			E.db.datatexts.panels.RightChatDataPanel.left = 'Skada'
+			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "Skada"
 		else
-			E.db.datatexts.panels.RightChatDataPanel.left = 'MUI System'
+			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "MUI System"
 		end
-		E.db.datatexts.panels.RightChatDataPanel.middle = 'Time'
-		E.db.datatexts.panels.RightChatDataPanel.right = 'Gold'
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "Time"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Gold"
 	end
 	
 	if _G["InstallStepComplete"] then
