@@ -332,6 +332,7 @@ local function SetupMERLayout(layout)
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 180
 	E.db["unitframe"]["units"]["player"]["height"] = 40
+	E.db["unitframe"]["units"]["player"]['orientation'] = "RIGHT" -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -356,7 +357,8 @@ local function SetupMERLayout(layout)
 	end
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
-	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = false -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["player"]["castbar"]['iconSize'] = 24 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 180
 	E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
@@ -420,7 +422,9 @@ local function SetupMERLayout(layout)
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 180
 	E.db["unitframe"]["units"]["target"]["height"] = 40
-	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = false -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["target"]['orientation'] = "LEFT"
+	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["target"]["castbar"]['iconSize'] = 24 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 180
 	E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 15
@@ -830,7 +834,6 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-	
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,127"
 	
 	-- Arena
