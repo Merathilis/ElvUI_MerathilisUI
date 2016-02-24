@@ -3,7 +3,7 @@ local MER = E:GetModule('MerathilisUI')
 
 -- Cache global varables
 local IsAddOnLoaded = IsAddOnLoaded
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- BenikUI Styles

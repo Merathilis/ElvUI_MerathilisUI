@@ -41,7 +41,7 @@ end
 
 -- local functions must go up
 local function SetupMERLayout(layout)
-	local classColor = RAID_CLASS_COLORS[E.myclass]
+	local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 	if not IsAddOnLoaded('ElvUI_BenikUI') then
 		E:StaticPopup_Show('BENIKUI')
 	end

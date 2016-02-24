@@ -9,7 +9,7 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
 
 local SPACING = (E.PixelMode and 1 or 5)
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local npc = 15358 -- Lurky
 
 function muiAFK:Initialize()

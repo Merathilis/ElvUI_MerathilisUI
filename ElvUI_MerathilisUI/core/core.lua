@@ -12,7 +12,7 @@ local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 MER.Config = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}

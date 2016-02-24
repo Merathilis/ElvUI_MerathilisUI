@@ -43,7 +43,7 @@ local kiloByteString = "%d kb"
 local megaByteString = "%.2f mb"
 local freedString = ""
 
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function FormatMemory(memory)
 	local mult = 10 ^ 1

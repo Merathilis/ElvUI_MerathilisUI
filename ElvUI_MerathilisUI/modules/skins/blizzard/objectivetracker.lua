@@ -21,7 +21,7 @@ local ScenarioStageBlock = ScenarioStageBlock
 local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
 local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
 
-local classColor = RAID_CLASS_COLORS[E.myclass]
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local width = 190
 local dummy = function() return end
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
