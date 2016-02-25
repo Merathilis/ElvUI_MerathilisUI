@@ -7,27 +7,25 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- BenikUI Styles
-if not IsAddOnLoaded("ElvUI_BenikUI") then return end
-
 function MER:StyleOutside(frame)
-	if frame and not frame.style then
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
 		frame:Style("Outside")
 	end
 end
 
 function MER:StyleInside(frame)
-	if frame and not frame.style then
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
 		frame:Style("Inside")
 	end
 end
 function MER:StyleSmall(frame)
-	if frame and not frame.style then
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
 		frame:Style("Small")
 	end
 end
 
 function MER:StyleUnder(frame)
-	if frame and not frame.style then
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
 		frame:Style("Under")
 	end
 end

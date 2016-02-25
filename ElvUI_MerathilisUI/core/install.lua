@@ -2000,6 +2000,7 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["fontSize"] = 13
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	E.db["datatexts"]["panelTransparency"] = false
+	E.db["datatexts"]["panels"]["BottomMiniPanel"] = "Time"
 	if IsAddOnLoaded('ElvUI_LocPlus') then
 		if IsAddOnLoaded('ElvUI_SLE') then
 			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = "S&L Guild"
@@ -2021,7 +2022,7 @@ function MER:SetupDts(role)
 		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Bags"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
@@ -2037,7 +2038,7 @@ function MER:SetupDts(role)
 		end
 		
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "MUI System"
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "Time"
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "Garrison+ (BenikUI)"
 		
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
