@@ -13,7 +13,7 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local npc = 15358 -- Lurky
 
 function muiAFK:Initialize()
-	if E.db.general.afk ~= true or not IsAddOnLoaded("ElvUI_BenikUI") or E.db.muiGeneral.AFK ~= true then return; end
+	if E.db.general.afk ~= true or not IsAddOnLoaded("ElvUI_BenikUI") or E.db.mui.general.AFK ~= true then return; end
 	
 	-- NPC Model
 	AFK.AFKMode.bottom.npcHolder = CreateFrame("Frame", nil, AFK.AFKMode.bottom)

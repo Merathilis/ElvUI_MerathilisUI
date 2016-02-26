@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
-local function muiDatatexts()
+local function Datatexts()
 	E.Options.args.mui.args.config.args.datatexts = {
 		order = 14,
 		type = 'group',
@@ -12,8 +12,8 @@ local function muiDatatexts()
 				type = 'group',
 				name = L["System Datatext"],
 				guiInline = true,
-				get = function(info) return E.db.muiSystemDT[ info[#info] ] end,
-				set = function(info, value) E.db.muiSystemDT[ info[#info] ] = value; end,
+				get = function(info) return E.db.mui.systemDT[ info[#info] ] end,
+				set = function(info, value) E.db.mui.systemDT[ info[#info] ] = value; end,
 				args = {
 					maxAddons = {
 						type = "range",
@@ -51,7 +51,7 @@ local function muiDatatexts()
 						order = 6,
 						name = L["Latency Type"],
 						desc = L["Display world or home latency on the datatext. Home latency refers to your realm server. World latency refers to the current world server."],
-						disabled = function() return not E.db.muiSystemDT.showMS end,
+						disabled = function() return not E.db.mui.systemDT.showMS end,
 						values = {
 							["home"] = L["Home"],
 							["world"] = L["World"],
@@ -62,4 +62,4 @@ local function muiDatatexts()
 		},
 	}
 end
-tinsert(MER.Config, muiDatatexts)
+tinsert(MER.Config, Datatexts)

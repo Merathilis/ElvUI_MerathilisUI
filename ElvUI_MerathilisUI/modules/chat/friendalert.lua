@@ -34,7 +34,7 @@ local function BNPlayerLink(presenceName, presenceID)
 end
 
 local function ScanFriends()
-	if E.db.muiMisc.FriendAlert ~= true then return; end
+	if E.db.mui.misc.FriendAlert ~= true then return; end
 	
 	if BNConnected() then
 		for index = 1, BNGetNumFriends() do

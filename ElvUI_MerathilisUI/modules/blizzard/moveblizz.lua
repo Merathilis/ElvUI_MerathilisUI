@@ -68,7 +68,7 @@ function B:Addons(event, addon)
 end
 
 function B:Initialize()
-	if E.db.muiMisc.moveBlizz ~= true then return; end
+	if E.db.mui.misc.moveBlizz ~= true then return; end
 	for i = 1, #B.Frames do
 		if _G[B.Frames[i]] then
 			_G[B.Frames[i]]:EnableMouse(true)

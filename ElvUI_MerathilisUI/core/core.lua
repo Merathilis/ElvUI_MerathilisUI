@@ -42,7 +42,7 @@ function MER:RegisterMerMedia()
 end
 
 local function objectiveTrackerFont()
-	if not E.private.muiSkins.blizzard.objectivetracker then return end
+	if not E.private.mui.skins.blizzard.objectivetracker then return end
 	
 	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
@@ -80,7 +80,7 @@ function MER:Print(msg)
 	print(E["media"].hexvaluecolor..'MUI:|r', msg)
 end
 
--- Splash Screen like BenikUI
+-- Splash Screen
 local function CreateSplashScreen()
 	local f = CreateFrame('Frame', 'MUISplashScreen', E.UIParent)
 	f:Size(300, 150)
@@ -137,6 +137,18 @@ local function ShowSplashScreen()
 	MUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
+ -- Clean ElvUI.lua in WTF folder from outdated settings
+local function dbCleaning()
+	-- Clear the old db
+	if E.db.muiGeneral then E.db.muiGeneral = nil end
+	if E.db.muiMisc then E.db.muiMisc = nil end
+	if E.db.muiSystemDT then E.db.muiSystemDT = nil end
+	if E.db.muiUnitframes then E.db.muiUnitframes = nil end
+	if E.private.muiSkins then E.private.muiSkins = nil end
+	
+	E.db.mui.dbCleaned = true
+end
+
 function MER:Initialize()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -147,21 +159,25 @@ function MER:Initialize()
 	self:LoadCommands()
 	self:LoadGameMenu()
 
+	if E.db.mui.dbCleaned ~= true then
+		dbCleaning()
+	end
+
 	if ElvUI_SLE then
 		hooksecurefunc(ElvUI_SLE[1]:GetModule('Media'), "SetBlizzFonts", objectiveTrackerFont)
 	end
-	if E.db.muiGeneral.SplashScreen then
+	if E.db.mui.general.SplashScreen then
 		CreateSplashScreen()
 	end
 	
 	-- Show only Splash Screen if the install is completed
-	if (E.db.mui.installed == true and E.db.muiGeneral.SplashScreen) then C_TimerAfter(6, ShowSplashScreen) end
+	if (E.db.mui.installed == true and E.db.mui.general.SplashScreen) then C_TimerAfter(6, ShowSplashScreen) end
 	
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then self:SetupUI() end
 	
-	if E.db.muiGeneral.LoginMsg then
+	if E.db.mui.general.LoginMsg then
 		print(MER.Title..format('v|cff00c0fa%s|r', MER.Version)..L[' is loaded.'])
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)

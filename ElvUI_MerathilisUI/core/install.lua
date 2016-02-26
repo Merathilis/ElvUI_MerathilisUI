@@ -296,12 +296,12 @@ local function SetupMERLayout(layout)
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Prototype"
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
-	E.db["tooltip"]["combathide"] = true
-	E.db["tooltip"]["textFontSize"] = 11
+	E.db["tooltip"]["visibility"]["combat"] = true
 	E.db["tooltip"]["font"] = "Merathilis Expressway"
 	E.db["tooltip"]["style"] = "inset"
 	E.db["tooltip"]["fontOutline"] = "OUTLINE"
-	E.db["tooltip"]["fontSize"] = 10
+	E.db["tooltip"]["headerFontSize"] = 12
+	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
 	

@@ -170,7 +170,7 @@ function MER:GameMenu()
 end
 
 function MER:LoadGameMenu()
-	if E.db.muiGeneral.GameMenu then
+	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 	end
 end

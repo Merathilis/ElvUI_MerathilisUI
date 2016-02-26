@@ -10,7 +10,7 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
-	if not E.db.muiMisc.minimapblip then return; end
+	if not E.db.mui.misc.minimapblip then return; end
 	if event == "PLAYER_ENTERING_WORLD" then
 		blipIcons()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")

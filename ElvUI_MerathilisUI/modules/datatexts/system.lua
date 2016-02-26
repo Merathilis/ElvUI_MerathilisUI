@@ -145,7 +145,7 @@ local function OnEnter(self)
 	if IsShiftKeyDown() or not cpuProfiling then
 		DT.tooltip:AddLine(" ")
 		for i = 1, #memoryTable do
-			if E.db.muiSystemDT.maxAddons - shown <= 1 then break end
+			if E.db.mui.systemDT.maxAddons - shown <= 1 then break end
 			if (memoryTable[i][4]) then
 				local red = memoryTable[i][3] / totalMemory
 				local green = 1 - red
@@ -159,7 +159,7 @@ local function OnEnter(self)
 		shown = 0
 		DT.tooltip:AddLine(" ")
 		for i = 1, #cpuTable do
-			if E.db.muiSystemDT.maxAddons - shown <= 1 then break end
+			if E.db.mui.systemDT.maxAddons - shown <= 1 then break end
 			if (cpuTable[i][4]) then
 				local red = cpuTable[i][3] / totalCPU
 				local green = 1 - red
@@ -194,7 +194,7 @@ local function Update(self, t)
 	
 	if int2 <= 0 then
 		local fps, fpsColor = floor(GetFramerate()), 4
-		local latency = select(E.db.muiSystemDT.latency == "world" and 4 or 3, GetNetStats())
+		local latency = select(E.db.mui.systemDT.latency == "world" and 4 or 3, GetNetStats())
 		local latencyColor = 4
 		
 		-- determine latency color based on ping
@@ -216,9 +216,9 @@ local function Update(self, t)
 		end
 		
 		-- set the datatext
-		local fpsString = E.db.muiSystemDT.showFPS and ("%s: %s%d|r "):format(L["FPS"], statusColors[fpsColor], fps) or ""
-		local msString = E.db.muiSystemDT.showMS and ("%s: %s%d|r "):format(L["MS"], statusColors[latencyColor], latency) or ""
-		local memString = E.db.muiSystemDT.showMemory and ("|cffffff00%s|r"):format(FormatMemory(UpdateMemory())) or ""
+		local fpsString = E.db.mui.systemDT.showFPS and ("%s: %s%d|r "):format(L["FPS"], statusColors[fpsColor], fps) or ""
+		local msString = E.db.mui.systemDT.showMS and ("%s: %s%d|r "):format(L["MS"], statusColors[latencyColor], latency) or ""
+		local memString = E.db.mui.systemDT.showMemory and ("|cffffff00%s|r"):format(FormatMemory(UpdateMemory())) or ""
 		self.text:SetText(join("", fpsString, msString, memString))
 		int2 = 1
 		
@@ -232,7 +232,7 @@ local function Click(self, button)
 		collectgarbage("collect")
 		Update(self, 20)
 		local postCollect = UpdateMemory()
-		if E.db.muiSystemDT.announceFreed then
+		if E.db.mui.systemDT.announceFreed then
 			MER:Print(format(L["Garbage Collection Freed"]..(" |cff00ff00%s|r"):format(FormatMemory(preCollect - postCollect))))
 		end
 	elseif button == "RightButton" then

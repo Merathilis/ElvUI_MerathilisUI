@@ -12,7 +12,7 @@ local combat = CreateFrame("Frame")
 combat:RegisterEvent("PLAYER_REGEN_DISABLED")
 combat:RegisterEvent("PLAYER_REGEN_ENABLED")
 combat:SetScript("OnEvent", function(self, event, ...)
-	if E.db.muiMisc.HideAlertFrame then
+	if E.db.mui.misc.HideAlertFrame then
 		if event == "PLAYER_REGEN_DISABLED" then
 			_G["AlertFrame"]:UnregisterEvent("GARRISON_MISSION_FINISHED")
 		else

@@ -1,14 +1,14 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
-local function muiMisc()
+local function Misc()
 	E.Options.args.mui.args.misc = {
 		order = 9,
 		type = 'group',
 		name = L['Misc'],
 		guiInline = true,
-		get = function(info) return E.db.muiMisc[ info[#info] ] end,
-		set = function(info, value) E.db.muiMisc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+		get = function(info) return E.db.mui.misc[ info[#info] ] end,
+		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 		args = {
 			TooltipIcon = {
 				order = 1,
@@ -49,4 +49,4 @@ local function muiMisc()
 		},
 	}
 end
-tinsert(MER.Config, muiMisc)
+tinsert(MER.Config, Misc)

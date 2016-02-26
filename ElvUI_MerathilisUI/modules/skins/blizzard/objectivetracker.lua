@@ -154,7 +154,7 @@ end
 -- Initialize
 local function ObjectiveTrackerReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
-		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
+		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.mui.skins.blizzard.objectivetracker ~= true then return end
 		
 		-- Quest
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')

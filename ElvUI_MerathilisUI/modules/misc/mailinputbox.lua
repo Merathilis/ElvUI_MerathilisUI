@@ -19,7 +19,7 @@ local moneyframe_pos = {
 }
 
 local function MailInputBox()
-	if IsAddOnLoaded("MailinputboxResizer") or E.db.muiMisc.MailInputbox ~= true then return; end
+	if IsAddOnLoaded("MailinputboxResizer") or E.db.mui.misc.MailInputbox ~= true then return; end
 	
 	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()
