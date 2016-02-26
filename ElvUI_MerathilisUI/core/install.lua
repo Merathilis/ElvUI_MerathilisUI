@@ -409,9 +409,9 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['player']['portraitStyle'] = true
 		E.db['benikui']['unitframes']['player']['portraitStyleHeight'] = 4
 		-- Castbar
-		E.db['benikui']['unitframes']['castbar']['text']["yOffsetText"] = 0
-		E.db['benikui']['unitframes']['castbar']['text']["ShowInfoText"] = false
-		E.db['benikui']['unitframes']['castbar']['text']["castText"] = true
+		E.db['benikui']['unitframes']['castbar']['text']['yOffset'] = 0
+		E.db['benikui']['unitframes']['castbar']['text']['ShowInfoText'] = false
+		E.db['benikui']['unitframes']['castbar']['text']['castText'] = true
 		-- Misc
 		E.db['benikui']['unitframes']['misc']["svui"] = false
 	end
@@ -1136,6 +1136,9 @@ local function SetupMERAddons()
 	-- BenikUI
 	if E.db['benikui'] == nil then E.db['benikui'] = {} end
 	if IsAddOnLoaded('ElvUI_BenikUI') then
+		E.db['benikui']['general']['loginMessage'] = false
+		E.db['benikui']['general']['splashScreen'] = false
+		E.db['benikui']['general']['gameMenuButton'] = true
 		E.db['benikui']['colors']['gameMenuColor'] = 1
 		E.db['benikui']['misc']['ilevel']['enable'] = false
 		E.db['benikui']['datatexts']['chat']['enable'] = true
@@ -1152,6 +1155,7 @@ local function SetupMERAddons()
 		E.db['benikui']['datatexts']['mail']['toggle'] = true
 		E.db['benikui']['datatexts']['garrison']['currency'] = true
 		E.db['benikui']['datatexts']['garrison']['oil'] = true
+		E.db['benikui']['unitframes']['misc']['svui'] = true
 		E.db['dashboards']['barColor'] = {r = color.r, g = color.g, b = color.b}
 		E.db['dashboards']['system']['enableSystem'] = false
 		E.db['dashboards']['professions']['enableProfessions'] = false
