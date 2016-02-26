@@ -1328,6 +1328,8 @@ local function SetupMERAddons()
 			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
 			E.private["sle"]["exprep"]["autotrack"] = true
 			E.private["sle"]["skins"]["objectiveTracker"]["enable"] = false
+			E.private["sle"]["skins"]["merchant"]["enable"] = true
+			E.private["sle"]["skins"]["merchant"]["subpages"] = 2
 			E.private["sle"]["vehicle"]["enable"] = true
 			E.private["sle"]["equip"]["enable"] = true
 			E.private["sle"]["equip"]["setoverlay"] = true
