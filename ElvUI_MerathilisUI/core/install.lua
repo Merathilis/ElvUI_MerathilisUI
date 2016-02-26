@@ -136,10 +136,10 @@ local function SetupMERLayout(layout)
 	end
 	
 	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db['bab']['transBack'] = true
-		E.db['bab']['enable'] = true
-		E.db['bab']['chooseAb'] = "BAR1"
-		E.db['bab']['requestStop'] = true
+		E.db['benikui']['actionbars']['transparent'] = true
+		E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
+		E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
+		E.db['benikui']['actionbars']['requestStop'] = true
 	end
 	
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 4
@@ -328,6 +328,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["colors"]["power"]["FOCUS"] = E:GetColor(classColor.r, classColor.b, classColor.g)
 	E.db["unitframe"]["colors"]["power"]["ENERGY"] = E:GetColor(classColor.r, classColor.b, classColor.g)
 	E.db["unitframe"]["colors"]["power"]["RUNIC_POWER"] = E:GetColor(classColor.r, classColor.b, classColor.g)
+	E.db["unitframe"]["colors"]["castClassColor"] = false
+	E.db["unitframe"]["colors"]["castReactionColor"] = false
 	
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 180
@@ -399,19 +401,19 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		-- Detach portrait 
-		E.db["ufb"]["detachPlayerPortrait"] = true
-		E.db["ufb"]["getPlayerPortraitSize"] = false
-		E.db["ufb"]["PlayerPortraitWidth"] = 92
-		E.db["ufb"]["PlayerPortraitHeight"] = 39
-		E.db["ufb"]["PlayerPortraitShadow"] = false
-		E.db["ufb"]["PlayerPortraitStyle"] = true
-		E.db["ufb"]["PlayerPortraitStyleHeight"] = 4
+		E.db['benikui']['unitframes']['player']['detachPortrait'] = true
+		E.db['benikui']['unitframes']['player']['portraitWidth'] = 92
+		E.db['benikui']['unitframes']['player']['portraitHeight'] = 39
+		E.db['benikui']['unitframes']['player']['portraitShadow'] = false
+		E.db['benikui']['unitframes']['player']['portraitTransparent'] = true
+		E.db['benikui']['unitframes']['player']['portraitStyle'] = true
+		E.db['benikui']['unitframes']['player']['portraitStyleHeight'] = 4
 		-- Castbar
-		E.db["ufb"]["yOffsetText"] = 0
-		E.db["ufb"]["ShowInfoText"] = false
-		E.db["ufb"]["castText"] = true
+		E.db['benikui']['unitframes']['castbar']['text']["yOffsetText"] = 0
+		E.db['benikui']['unitframes']['castbar']['text']["ShowInfoText"] = false
+		E.db['benikui']['unitframes']['castbar']['text']["castText"] = true
 		-- Misc
-		E.db["ufb"]["svui"] = false
+		E.db['benikui']['unitframes']['misc']["svui"] = false
 	end
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
@@ -498,12 +500,13 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 	if IsAddOnLoaded ("ElvUI_BenikUI") then
-		E.db["ufb"]["detachTargetPortrait"] = true
-		E.db["ufb"]["TargetPortraitWidth"] = 92
-		E.db["ufb"]["TargetPortraitHeight"] = 39
-		E.db["ufb"]["TargetPortraitShadow"] = false
-		E.db["ufb"]["TargetPortraitStyle"] = true
-		E.db["ufb"]["TargetPortraitStyleHeight"] = 4
+		E.db['benikui']['unitframes']['target']['detachPortrait'] = true
+		E.db['benikui']['unitframes']['target']['portraitWidth'] = 92
+		E.db['benikui']['unitframes']['target']['portraitHeight'] = 39
+		E.db['benikui']['unitframes']['target']['portraitShadow'] = false
+		E.db['benikui']['unitframes']['target']['portraitTransparent'] = true
+		E.db['benikui']['unitframes']['target']['portraitStyle'] = true
+		E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 4
 	end
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,127"
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,108"
@@ -1131,29 +1134,32 @@ local function SetupMERAddons()
 	end
 
 	-- BenikUI
-	if E.db.bui == nil then E.db.bui = {} end
+	if E.db['benikui'] == nil then E.db['benikui'] = {} end
 	if IsAddOnLoaded('ElvUI_BenikUI') then
-		E.db.bui.gameMenuColor = 1
-		E.db.bui.styledChatDts = true
-		E.db.bui.garrisonCurrency = true
-		E.db.bui.middleDatatext.styled = true
-		E.db.bui.middleDatatext.backdrop = true
-		E.db.bui.middleDatatext.width = 388
-		E.db.bui.transparentDts = true
-		E.db.bui.garrisonCurrencyOil = true
-		E.db.bui.LoginMsg = false
-		E.db.bui.SplashScreen = false
-		E.db.bui.GameMenuButton = true
-		E.db.bui.StyleColor = 1
-		E.db.bui.abStyleColor = 1
-		E.db.bui.ilvl = false
-		E.db.dashboards.barColor = {r = color.r, g = color.g, b = color.b}
-		E.db.dashboards.system.enableSystem = false
-		E.db.dashboards.tokens.enableTokens = true
-		E.db.dashboards.tokens.tooltip = false
-		E.db.dashboards.tokens.flash = false
-		E.db.dashboards.tokens.width = 147
-		E.db.dashboards.professions.enableProfessions = false
+		E.db['benikui']['colors']['gameMenuColor'] = 1
+		E.db['benikui']['misc']['ilevel']['enable'] = false
+		E.db['benikui']['datatexts']['chat']['enable'] = true
+		E.db['benikui']['datatexts']['chat']['transparent'] = true
+		E.db['benikui']['datatexts']['chat']['editBoxPosition'] = 'BELOW_CHAT'
+		E.db['benikui']['datatexts']['chat']['styled'] = false
+		E.db['benikui']['datatexts']['chat']['backdrop'] = true
+		E.db['benikui']['datatexts']['middle']['enable'] = true
+		E.db['benikui']['datatexts']['middle']['transparent'] = true
+		E.db['benikui']['datatexts']['middle']['backdrop'] = true
+		E.db['benikui']['datatexts']['middle']['width'] = 388
+		E.db['benikui']['datatexts']['middle']['height'] = 19
+		E.db['benikui']['datatexts']['middle']['styled'] = true
+		E.db['benikui']['datatexts']['mail']['toggle'] = true
+		E.db['benikui']['datatexts']['garrison']['currency'] = true
+		E.db['benikui']['datatexts']['garrison']['oil'] = true
+		E.db['dashboards']['barColor'] = {r = color.r, g = color.g, b = color.b}
+		E.db['dashboards']['system']['enableSystem'] = false
+		E.db['dashboards']['professions']['enableProfessions'] = false
+		E.db['dashboards']['tokens']['enableTokens'] = true
+		E.db['dashboards']['tokens']['tooltip'] = false
+		E.db['dashboards']['tokens']['flash'] = false
+		E.db['dashboards']['tokens']['width'] = 147
+		E.db['dashboards']['tokens']['combat'] = true
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-145"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"

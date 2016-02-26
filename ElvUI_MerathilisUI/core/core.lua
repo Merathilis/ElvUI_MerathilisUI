@@ -166,7 +166,7 @@ function MER:Initialize()
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
 	
-	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.bui.installed == nil then return end 
+	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then return end 
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end
 end
 
