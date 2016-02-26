@@ -934,44 +934,10 @@ local function SetupMERLayout(layout)
 		end
 		FCF_SavePositionAndDimensions(frame)
 		FCF_StopDragging(frame)
-		
-		-- enable classcolor automatically on login and on each character without doing /configure each time.
-		ToggleChatColorNamesByClassGroup(true, "SAY")
-		ToggleChatColorNamesByClassGroup(true, "EMOTE")
-		ToggleChatColorNamesByClassGroup(true, "YELL")
-		ToggleChatColorNamesByClassGroup(true, "GUILD")
-		ToggleChatColorNamesByClassGroup(true, "OFFICER")
-		ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
-		ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
-		ToggleChatColorNamesByClassGroup(true, "WHISPER")
-		ToggleChatColorNamesByClassGroup(true, "PARTY")
-		ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
-		ToggleChatColorNamesByClassGroup(true, "RAID")
-		ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
-		ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
-		ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
-		ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")	
-		ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")	
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL6")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL7")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL8")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
-		ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
-		
-		--Adjust Chat Colors
-		--General
-		ChangeChatColor("CHANNEL1", 195/255, 230/255, 232/255)
-		--Trade
-		ChangeChatColor("CHANNEL2", 232/255, 158/255, 121/255)
-		--Local Defense
-		ChangeChatColor("CHANNEL3", 232/255, 228/255, 121/255)
 	end
+	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
+	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
+	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
 	
 	if _G["InstallStepComplete"] then
 		_G["InstallStepComplete"].message = MER.Title..L['MerathilisUI Set']
