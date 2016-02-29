@@ -412,8 +412,6 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['yOffset'] = 0
 		E.db['benikui']['unitframes']['castbar']['text']['ShowInfoText'] = false
 		E.db['benikui']['unitframes']['castbar']['text']['castText'] = true
-		-- Misc
-		E.db['benikui']['unitframes']['misc']["svui"] = false
 	end
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
