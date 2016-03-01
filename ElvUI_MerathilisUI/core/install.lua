@@ -359,8 +359,8 @@ local function SetupMERLayout(layout)
 	end
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
-	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true -- must be adjust, temp solution
-	E.db["unitframe"]["units"]["player"]["castbar"]['iconSize'] = 24 -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
+	E.db["unitframe"]["units"]["player"]["castbar"]['iconSize'] = 18 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 180
 	E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
@@ -423,8 +423,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["width"] = 180
 	E.db["unitframe"]["units"]["target"]["height"] = 40
 	E.db["unitframe"]["units"]["target"]['orientation'] = "LEFT"
-	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true -- must be adjust, temp solution
-	E.db["unitframe"]["units"]["target"]["castbar"]['iconSize'] = 24 -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
+	E.db["unitframe"]["units"]["target"]["castbar"]['iconSize'] = 18 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 180
 	E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 15
