@@ -12,7 +12,7 @@ local function attachIcon(unit, unitframe)
 	local castbar = unitframe.Castbar
 	
 	if cdb.icon == true then
-		castbar.ButtonIcon.bg:ClearAllPoints()
+		castbar.Icon.bg:ClearAllPoints()
 		if unit == 'player' then
 			castbar.Icon.bg:Point("LEFT", _G["InfoPanel"], "RIGHT", 2, 0)
 		elseif unit == 'target' then
