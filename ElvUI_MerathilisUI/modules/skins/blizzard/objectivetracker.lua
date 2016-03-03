@@ -57,17 +57,12 @@ local function skinObjectiveBar(self, block, line)
 		icon:SetPoint('RIGHT', 24, 0)
 		icon:SetSize(20, 20)
 
-		local border = CreateFrame('Frame', '$parentBorder', bar)
-		border:SetAllPoints(icon)
-		border:SetTemplate('Transparent')
-		border:SetBackdropColor(0, 0, 0, 0)
-		bar.newIconBg = border
-
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 		progressBar.styled = true
 	end
 
-	bar.newIconBg:SetShown(icon:IsShown())
+	if icon then icon:Hide() end
+	bar.IconBG:Hide()
 end
 
 -- Timer bars
