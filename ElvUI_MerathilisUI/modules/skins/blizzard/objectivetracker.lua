@@ -54,9 +54,6 @@ local function skinObjectiveBar(self, block, line)
 		label:SetPoint('CENTER', bar, -1, 0)
 		label:FontTemplate()
 
-		icon:SetPoint('RIGHT', 24, 0)
-		icon:SetSize(20, 20)
-
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 		progressBar.styled = true
 	end
