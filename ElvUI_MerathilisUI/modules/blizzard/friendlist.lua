@@ -22,7 +22,8 @@ local FRIENDS_BUTTON_TYPE_BNET = FRIENDS_BUTTON_TYPE_BNET
 local BATTLENET_NAME_FORMAT = BATTLENET_NAME_FORMAT
 local FRIENDS_WOW_NAME_COLOR_CODE = FRIENDS_WOW_NAME_COLOR_CODE
 local BNGetFriendInfo = BNGetFriendInfo
-local BNGetToonInfo = BNGetToonInfo
+-- local BNGetGameAccountInfo = BNGetGameAccountInfo -- 6.2.4
+local BNGetToonInfo = BNGetToonInfo -- 6.2.3
 local GetBattlefieldScore = GetBattlefieldScore
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetRealZoneText = GetRealZoneText
@@ -331,7 +332,8 @@ local function friendsFrame()
 			elseif button.buttonType == FRIENDS_BUTTON_TYPE_BNET then
 				local _, presenceName, _, _, toonName, toonID, client, isOnline = BNGetFriendInfo(button.id)
 				if isOnline and client == BNET_CLIENT_WOW then
-					local _, toonName, client, _, _, _, _, class, _, zoneName, level = BNGetToonInfo(toonID)
+					local _, toonName, client, _, _, _, _, class, _, zoneName, level = BNGetToonInfo(toonID) -- 6.2.3
+					-- local _, toonName, client, _, _, _, _, class, _, zoneName, level = BNGetGameAccountInfo(toonID) -- 6.2.4
 					if presenceName and toonName and class then
 						nameText = format(BATTLENET_NAME_FORMAT, presenceName, "").." "..FRIENDS_WOW_NAME_COLOR_CODE.."("..classColor[class]..classColor[class]..toonName..FRIENDS_WOW_NAME_COLOR_CODE..")"
 						if zoneName == playerArea then
