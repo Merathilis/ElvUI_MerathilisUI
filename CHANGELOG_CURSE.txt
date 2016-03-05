@@ -1,3 +1,7 @@
+** v1.22, 05.03.2016**
+* Install: Adjust the Player/Target Health xOffset.
+
+\\ \\
 ** v1.21, 05.03.2016**
 * <<color #FF0000>>W A R N I N G:<</color>> Please do a complete new Install due to major changes in ElvUI 9.00 & ElvUI_BenikUI 2.5.
 * Rename MerathilisUI to <<color #FF8C00>>ElvUI_MerathilisUI<</color>>.

@@ -1,3 +1,6 @@
+<b><u> v1.22, 05.03.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Adjust the Player/Target Health xOffset
+
 <b><u> v1.21, 05.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> <font color=#FF0000>W A R N I N G:</font> Please do a complete new Install due to major changes in ElvUI 9.00 & ElvUI_BenikUI 2.5.
 <font color=#FF8C00>&#9830;</font> Rename MerathilisUI to <font color=#FF8C00>ElvUI_MerathilisUI</font>.
