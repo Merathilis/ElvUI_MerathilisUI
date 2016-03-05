@@ -1,7 +1,7 @@
 <center><img src='http://www.tukui.org/storage/thumbs/801740merathilis_logo.png'></center>
 
 <font color=#FF8C00><b>What does this Plugin do?:</b></font>
-MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design</font> with a few additional Features.
+ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design</font> with a few additional Features.
 
 <font color=#FF8C00><b>Installation:</b></font>
 <font color=#FF8C00>&#9830;</font> The Installer will run on the first time you enable it or after the ElvUI Installation is complete. You can ran the Installer anytime by clicking the Install Button in the MerathilisUI Options.
@@ -20,7 +20,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> You can see the latest changes <a href="http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/master">here.</a>
 
 <font color=#FF8C00><b>Requirements:</b></font>
-<font color=#FF8C00>&#9830;</font> ElvUI 8+
+<font color=#FF8C00>&#9830;</font> ElvUI 9.00+
 <font color=#FF8C00>&#9830;</font> High Recommended: <a href="http://www.tukui.org/addons/index.php?act=view&id=228">ElvUI_BenikUI</a> to get the whole look and functionality from MerathilisUI.
 
 <font color=#FF8C00><b>Recommended Addons:</b></font>
@@ -41,7 +41,7 @@ MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design
 <font color=#FF8C00>&#9830;</font> ArmoryLink if you right click a Player in the Chat/Guild/LFG Browser by Driizt, Phanx.
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
-<font color=#FF8C00>&#9830;</font> Edited Skins for the SpellBook & EncounterJournal & ObjectiveTracker.
+<font color=#FF8C00>&#9830;</font> Edited Skins for the SpellBook & EncounterJournal & <font color=#FF8C00>NEW</font> QuestTracker.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 <font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)

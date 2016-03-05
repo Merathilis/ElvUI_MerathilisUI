@@ -32,7 +32,7 @@
 \\
 
 <<color #FF8C00>>**Requirements:**<</color>>
-* <<color #FF8C00>>Requires ElvUI 8+ installed<</color>>. Get it [[http://www.tukui.org/dl.php|here]].
+* <<color #FF8C00>>Requires ElvUI 9.00+ installed<</color>>. Get it [[http://www.tukui.org/dl.php|here]].
 * High Recommended: [[http://www.curse.com/addons/wow/benikui-v2|ElvUI_BenikUI]] to get the whole look and functionality from MerathilisUI.
 
 \\
