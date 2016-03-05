@@ -380,7 +380,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = -2
+	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [namecolor][power:current]"
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
@@ -476,7 +476,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 2
+	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
 	E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "InfoPanel"
