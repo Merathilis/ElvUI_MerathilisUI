@@ -2,6 +2,10 @@ local E, L, V, P, G = unpack(ElvUI);
 local MUF = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+-- Cache global variables
+-- GLOBALS: hooksecurefunc
+local _G = _G
+
 MUF.CombatTextures = {
 	["DEFAULT"] = [[Interface\CharacterFrame\UI-StateIcon]],
 	["SVUI"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\SVUI-StateIcon]],
