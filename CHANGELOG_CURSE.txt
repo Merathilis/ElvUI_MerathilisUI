@@ -1,3 +1,7 @@
+** v1.23, 06.03.2016**
+* UnitFrames: Add an option to choose a different Combat/Rested Icon (Credits: Darth Predator)
+
+\\ \\
 ** v1.22, 05.03.2016**
 * Install: Adjust the Player/Target Health xOffset.
 

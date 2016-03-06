@@ -1,3 +1,6 @@
+<b><u> v1.23, 06.03.2016</b></u>
+<font color=#FF8C00>&#9830;</font> UnitFrames: Add an option to choose a different Combat/Rested Icon (Credits: Darth Predator)
+
 <b><u> v1.22, 05.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust the Player/Target Health xOffset
 
