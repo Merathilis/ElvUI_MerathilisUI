@@ -336,10 +336,10 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["height"] = 40
 	E.db["unitframe"]["units"]["player"]['orientation'] = "RIGHT" -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
-	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
+	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "POWER"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
 	E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 4
+	E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 1
 	E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 6
 	E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 	E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
@@ -485,7 +485,8 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
 	E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 4
+	E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
+	E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "POWER"
 	E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
 	E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
