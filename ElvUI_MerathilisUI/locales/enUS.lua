@@ -161,6 +161,10 @@ L['Spells'] = true
 L['New ID'] = true
 L['Remove ID'] = true
 
+-- Unitframes
+L["Default"] = true
+L["Red Icon"] = true
+
 -- Install
 L['Welcome'] = true
 L['MerathilisUI Set'] = true

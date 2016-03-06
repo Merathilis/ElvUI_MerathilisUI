@@ -161,6 +161,10 @@ L['Spells'] = 'Zauber'
 L['New ID'] = "Neue ID"
 L['Remove ID'] = "Entferne ID"
 
+-- Unitframes
+L["Default"] = "Standard"
+L["Red Icon"] = "Rotes Symbol"
+
 -- Install
 L['Welcome'] = "Willkommen"
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"

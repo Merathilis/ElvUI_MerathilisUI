@@ -31,6 +31,26 @@ P['mui'] = {
 		['announceFreed'] = true -- Enable the Garbage Message in Chat
 	},
 
+	['unitframes'] = {
+		['unit'] = {
+			['player'] = {
+				["rested"] = {
+					["xoffset"] = 0,
+					["yoffset"] = 0,
+					["size"] = 22,
+					["texture"] = "DEFAULT",
+				},
+				["combatico"] = {
+					["xoffset"] = 0,
+					["yoffset"] = 0,
+					["size"] = 19,
+					["texture"] = "DEFAULT",
+					["red"] = true,
+				},
+			},
+		},
+	},
+
 	-- db
 	['dbCleaned'] = false
 }
