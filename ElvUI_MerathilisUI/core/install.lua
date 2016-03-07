@@ -334,7 +334,7 @@ local function SetupMERLayout(layout)
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 180
 	E.db["unitframe"]["units"]["player"]["height"] = 40
-	E.db["unitframe"]["units"]["player"]['orientation'] = "RIGHT" -- must be adjust, temp solution
+	E.db["unitframe"]["units"]["player"]['orientation'] = "RIGHT"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "POWER"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -360,9 +360,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
-	E.db["unitframe"]["units"]["player"]["castbar"]['iconSize'] = 18 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
-	E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 180
 	E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
@@ -424,10 +422,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["height"] = 40
 	E.db["unitframe"]["units"]["target"]['orientation'] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
-	E.db["unitframe"]["units"]["target"]["castbar"]['iconSize'] = 18 -- must be adjust, temp solution
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
-	E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 180
-	E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 15
 	E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
 	E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
