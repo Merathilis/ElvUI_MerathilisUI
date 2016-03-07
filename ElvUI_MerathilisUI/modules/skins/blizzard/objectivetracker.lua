@@ -159,6 +159,8 @@ local function ObjectiveTrackerReskin()
 		-- Bonus Objectives
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Background:Hide()
+		BonusObjectiveTracker_AnimateReward = dummy
 		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
@@ -166,6 +168,7 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		ScenarioObjectiveTracker_AnimateReward = dummy
 		
 		-- Proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
@@ -176,6 +179,7 @@ local function ObjectiveTrackerReskin()
 		-- Menu Title
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetAlpha(0)
 		
 		-- Underlines only working if BenikUI is loaded.
 		if IsAddOnLoaded("ElvUI_BenikUI") then
