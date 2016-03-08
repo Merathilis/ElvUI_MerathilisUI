@@ -729,7 +729,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["damager"] = true
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["attachTo"] = "Frame"
-	E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 12
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = -2
 	E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["position"] = "TOPRIGHT"
