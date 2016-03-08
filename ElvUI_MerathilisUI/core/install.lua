@@ -568,6 +568,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["raid"]["height"] = 35
 	E.db["unitframe"]["units"]["raid"]["width"] = 69
 	E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
+	E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 1
 	E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 10
 	E.db["unitframe"]["units"]["raid"]["debuffs"]["fontSize"] = 12
@@ -632,13 +633,17 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["damager"] = true
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["tank"] = true
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["heal"] = true
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["attachTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
+	E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "RIGHT"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
-		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -17
-		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 	end
 	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,170"
 	
@@ -658,14 +663,16 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
 	E.db["unitframe"]["units"]["raid40"]["groupBy"] = "ROLE"
 	E.db["unitframe"]["units"]["raid40"]["classHover"] = true
-	E.db["unitframe"]["units"]["raid40"]["orientation"] = "RIGHT"
+	E.db["unitframe"]["units"]["raid40"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
 	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["attachTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["damager"] = true
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["tank"] = true
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["heal"] = true
 	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["size"] = 9
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = -18
-	end
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
 	E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
 	E.db["unitframe"]["units"]["raid40"]["health"]["frequentUpdates"] = true
@@ -700,6 +707,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["height"] = 40
 	E.db["unitframe"]["units"]["party"]["width"] = 180
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
+	E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 	E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "RIGHT"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 24
 	E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 1
@@ -719,12 +727,11 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["tank"] = true
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["healer"] = true
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["damager"] = true
-	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["attachTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 10
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
-	end
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["raidRoleIcons"]["position"] = "TOPRIGHT"
 	if not E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = {} end
 	E.db["unitframe"]["units"]["party"]["customTexts"] = {}
@@ -827,7 +834,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
-	E.db["unitframe"]["units"]["pet"]["orientation"] = "LEFT"
+	E.db["unitframe"]["units"]["pet"]["orientation"] = "MIDDLE"
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
