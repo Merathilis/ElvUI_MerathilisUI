@@ -1,3 +1,9 @@
+<b><u> v1.24, 08.03.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Remove some unused Settings.
+<font color=#FF8C00>&#9830;</font> Install: Attach Player Debuffs/Target Buffs to the PowerBar.
+<font color=#FF8C00>&#9830;</font> Skins: Kill some animations in the ObjectiveTracker.
+<font color=#FF8C00>&#9830;</font> Rearrange the Options.
+
 <b><u> v1.23, 06.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UnitFrames: Add an option to choose a different Combat/Rested Icon (Credits: Darth Predator)
 

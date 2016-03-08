@@ -1,3 +1,10 @@
+** v1.24, 08.03.2016**
+* Install: Remove some unused Settings.
+* Install: Attach Player Debuffs/Target Buffs to the PowerBar.
+* Skins: Kill some animations in the ObjectiveTracker.
+* Rearrange the Options.
+
+\\ \\
 ** v1.23, 06.03.2016**
 * UnitFrames: Add an option to choose a different Combat/Rested Icon (Credits: Darth Predator)
 
