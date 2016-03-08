@@ -1,7 +1,7 @@
 <center><img src='http://www.tukui.org/storage/thumbs/801740merathilis_logo.png'></center>
 
 <font color=#FF8C00><b>What does this Plugin do?:</b></font>
-ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design</font> with a few additional Features.
+ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>Design in Class Color</font> with a few additional Features.
 
 <font color=#FF8C00><b>Installation:</b></font>
 <font color=#FF8C00>&#9830;</font> The Installer will run on the first time you enable it or after the ElvUI Installation is complete. You can ran the Installer anytime by clicking the Install Button in the MerathilisUI Options.

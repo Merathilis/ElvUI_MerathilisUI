@@ -3,7 +3,7 @@
 \\
 
 <<color #FF8C00>>**What does this Plugin do?:**<</color>>
-* MerathilisUI is an external ElvUI Mod. Mostly for the <<color #FF8C00>>Design<</color>> with a few additional Features.
+* MerathilisUI is an external ElvUI Mod. Mostly for the <<color #FF8C00>>Design in Class Color<</color>> with a few additional Features.
 
 \\
 
