@@ -2,13 +2,18 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 local function Skins()
-	E.Options.args.mui.args.config.args.skins = {
+	E.Options.args.mui.args.skins = {
 		order = 16,
 		type = 'group',
 		name = L['Skins'],
 		args = {
-			BLIZZARD = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = MER:cOption(L['Skins']),
+			},
+			BLIZZARD = {
+				order = 2,
 				type = 'group',
 				name = L["Blizzard"],
 				guiInline = true,
@@ -37,7 +42,7 @@ local function Skins()
 				},
 			},
 			ADDONS = {
-				order = 2,
+				order = 3,
 				type = 'group',
 				name = L["AddOns"],
 				guiInline = true,

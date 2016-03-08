@@ -81,15 +81,8 @@ local function AddOptions()
 					},
 				},
 			},
-			config = {
-				order = 20,
-				type = 'group',
-				name = L['Options'],
-				childGroups = 'tab',
-				args = {}
-			},
 			info = {
-				order = 21,
+				order = 20,
 				type = 'group',
 				name = L['Information'],
 				args = {

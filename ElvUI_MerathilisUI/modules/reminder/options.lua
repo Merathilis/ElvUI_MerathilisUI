@@ -25,8 +25,8 @@ local function UpdateFilterGroup(reset)
 		type = 'group',
 		name = selectedFilter,
 		guiInline = true,
-		order = -10,	
-		args = {},	
+		order = -10,
+		args = {},
 	}
 	
 	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.enable = {
@@ -34,7 +34,7 @@ local function UpdateFilterGroup(reset)
 		type = "toggle",
 		name = L["Enable"],
 		get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]['enable'] end,
-		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]['enable'] = value; R:CheckForNewReminders() end,			
+		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]['enable'] = value; R:CheckForNewReminders() end,
 	}
 	
 	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.filterType = {
@@ -52,8 +52,8 @@ local function UpdateFilterGroup(reset)
 			end 
 		end,
 		set = function(info, value) 
-			E.global['reminder']['filters'][E.myclass][selectedFilter].weaponCheck = false;	
-			E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell = false;	
+			E.global['reminder']['filters'][E.myclass][selectedFilter].weaponCheck = false;
+			E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell = false;
 			
 			if value == 'WEAPON' then
 				E.global['reminder']['filters'][E.myclass][selectedFilter].weaponCheck = true;
@@ -66,7 +66,7 @@ local function UpdateFilterGroup(reset)
 			end
 			R:CheckForNewReminders()
 			UpdateFilterGroup()
-		end,	
+		end,
 		values = {
 			['WEAPON'] = L['Weapon'],
 			['SPELL'] = L['Spell'],
@@ -87,7 +87,7 @@ local function UpdateFilterGroup(reset)
 		type = 'range',
 		min = - ( E.screenwidth / 2), max = ( E.screenwidth / 2), step = 1,
 		get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter]["xOffset"] or 0 end,
-		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["xOffset"] = value; R:SetIconPosition(selectedFilter) end,		
+		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["xOffset"] = value; R:SetIconPosition(selectedFilter) end,
 	}
 	
 	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.yOffset = {
@@ -96,7 +96,7 @@ local function UpdateFilterGroup(reset)
 		type = 'range',
 		min = -( (E.screenheight / 2) + 200), max = (E.screenheight / 2) - 200, step = 1,
 		get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter]["yOffset"] or 0 end,
-		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["yOffset"] = value; R:SetIconPosition(selectedFilter) end,		
+		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["yOffset"] = value; R:SetIconPosition(selectedFilter) end,
 	}
 	
 	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.size = {
@@ -105,8 +105,8 @@ local function UpdateFilterGroup(reset)
 		type = 'range',
 		min = 0, max = 300, step = 1,
 		get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter]["size"] or 0 end,
-		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["size"] = value; R:SetIconPosition(selectedFilter) end,		
-	}	
+		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["size"] = value; R:SetIconPosition(selectedFilter) end,
+	}
 
 	
 	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.Role = {
@@ -119,7 +119,7 @@ local function UpdateFilterGroup(reset)
 			["Melee"] = L["Physical DPS"],
 			["Caster"] = L["Caster"],
 			["ANY"] = L["Any"],
-		},	
+		},
 		get = function(info) 
 			if E.global['reminder']['filters'][E.myclass][selectedFilter]["role"] then 
 				return E.global['reminder']['filters'][E.myclass][selectedFilter]["role"] 
@@ -134,7 +134,7 @@ local function UpdateFilterGroup(reset)
 				E.global['reminder']['filters'][E.myclass][selectedFilter]["role"] = value 
 			end
 			R:CheckForNewReminders()
-		end,		
+		end,
 	}
 	
 	local spec1, spec2, spec3, spec4 = select(2, GetSpecializationInfo(1)), select(2, GetSpecializationInfo(2)), select(2, GetSpecializationInfo(3)), E.myclass == "DRUID" and (select(2,GetSpecializationInfo(4)))
@@ -145,7 +145,7 @@ local function UpdateFilterGroup(reset)
 		desc = L["You must be using a certain talent tree for the icon to show."],
 		order = 11,
 		get = function(info) if E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]["tree"] then return tostring(E.global['reminder']['filters'][E.myclass][selectedFilter].tree) else return "ANY" end end,
-		set = function(info, value) if value == "ANY" then E.global['reminder']['filters'][E.myclass][selectedFilter].tree = "ANY" else E.global['reminder']['filters'][E.myclass][selectedFilter].tree = tonumber(value) end; R:CheckForNewReminders() end,	
+		set = function(info, value) if value == "ANY" then E.global['reminder']['filters'][E.myclass][selectedFilter].tree = "ANY" else E.global['reminder']['filters'][E.myclass][selectedFilter].tree = tonumber(value) end; R:CheckForNewReminders() end,
 		values = {
 			["1"] = spec1,
 			["2"] = spec2,
@@ -241,15 +241,15 @@ local function UpdateFilterGroup(reset)
 			type = 'range',
 			min = 0, max = 1, step = 0.1,
 			get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter]["cdFade"] or 0 end,
-			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["cdFade"] = value; R:CheckForNewReminders() end,		
-		}		
+			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["cdFade"] = value; R:CheckForNewReminders() end,
+		}
 
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.OnCooldown = {
 			order = 7,
 			name = L['On Cooldown'],
 			type = 'select',
 			get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter]["OnCooldown"] or "SHOW" end,
-			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["OnCooldown"] = value; R:CheckForNewReminders() end,			
+			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["OnCooldown"] = value; R:CheckForNewReminders() end,
 			values = {
 				['SHOW'] = SHOW,
 				['HIDE'] = HIDE,
@@ -257,6 +257,7 @@ local function UpdateFilterGroup(reset)
 		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["Spell ID"] = {
+			order = 100,
 			type = 'input',
 			name = L["Spell ID"],
 			width = 'full',
@@ -272,35 +273,34 @@ local function UpdateFilterGroup(reset)
 					E:Print(L["Value must be a number"])
 				elseif not GetSpellInfo(value) then
 					E:Print(L["Not valid spell id"])
-				else							
+				else
 					value = tonumber(value)
 					E.global['reminder']['filters'][E.myclass][selectedFilter]["CDSpell"] = value
-
+					
 					R:CheckForNewReminders()
 					UpdateFilterGroup()
-				end					
+				end
 			end,
-			order = 100,
-		}	
+		}
 	end
 
 	if not E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell and not E.global['reminder']['filters'][E.myclass][selectedFilter].weaponCheck then
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["reverseCheck"] = {
+			order = 100,
 			type = "toggle",
 			name = L["Reverse Check"],
 			desc = L["Instead of hiding the frame when you have the buff, show the frame when you have the buff."],
-			order = 100,
 			get = function(info) return E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]["reverseCheck"] end,
 			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["reverseCheck"] = value; R:CheckForNewReminders() end,
 		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["talentTreeException"] = {
+			order = 101,
 			type = "select",
 			name = L["Tree Exception"],
 			desc = L["Set a talent tree to not follow the reverse check."],
-			order = 101,
 			get = function(info) if E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"] then return tostring(E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"]) else return "NONE" end end,
-			set = function(info, value) if value == "NONE" then E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"] = nil else E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"] = tonumber(value) end; R:CheckForNewReminders() end,	
+			set = function(info, value) if value == "NONE" then E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"] = nil else E.global['reminder']['filters'][E.myclass][selectedFilter]["talentTreeException"] = tonumber(value) end; R:CheckForNewReminders() end,
 			disabled = function() return E.global['reminder']['filters'][E.myclass][selectedFilter] and not E.global['reminder']['filters'][E.myclass][selectedFilter]["reverseCheck"] end,
 			values = {
 				["1"] = spec1,
@@ -311,10 +311,10 @@ local function UpdateFilterGroup(reset)
 		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["spellGroup"] = {
+			order = 102,
 			type = "group",
 			name = L["Spells"],
-			guiInline = true,	
-			order = 102,
+			guiInline = true,
 			args = {},
 		}
 		
@@ -323,7 +323,7 @@ local function UpdateFilterGroup(reset)
 			local name = GetSpellInfo(spell)
 			if E.Options.args.mui.args.config.args.reminder.args.filterGroup.args[name] == nil then
 				local sname = GetSpellInfo(spell)
-				sname = sname.." ("..spell..")"					
+				sname = sname.." ("..spell..")"
 				E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["spellGroup"]["args"][name] = {
 					name = sname,
 					type = "toggle",
@@ -331,35 +331,36 @@ local function UpdateFilterGroup(reset)
 					set = function(info, value)  E.global['reminder']['filters'][E.myclass][selectedFilter]['spellGroup'][spell] = value; R:CheckForNewReminders() end,
 				}
 			end
-		end			
+		end
 
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["AddSpell"] = {
+			order = 103,
 			type = 'input',
 			name = L["New ID"],
 			get = function(info) return "" end,
-			set = function(info, value)	
+			set = function(info, value)
 				if not tonumber(value) then
 					E:Print(L["Value must be a number"])
 				elseif not GetSpellInfo(value) then
 					E:Print(L["Not valid spell id"])
-				else							
+				else
 					value = tonumber(value)
 					E.global['reminder']['filters'][E.myclass][selectedFilter]["spellGroup"][value] = true
 
 					R:CheckForNewReminders()
 					UpdateFilterGroup()
-				end					
+				end
 			end,
-			order = 103,
 		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["RemoveSpell"] = {
+			order = 104,
 			type = 'input',
 			name = L["Remove ID"],
 			get = function(info) return "" end,
-			set = function(info, value)			
+			set = function(info, value)
 				if not tonumber(value) then
-					E:Print(L["Value must be a number"])							
+					E:Print(L["Value must be a number"])
 				elseif not GetSpellInfo(value) then
 					E:Print(L["Not valid spell id"])
 				elseif E.global['reminder']['filters'][E.myclass][selectedFilter]["spellGroup"][tonumber(value)] == nil then
@@ -367,18 +368,17 @@ local function UpdateFilterGroup(reset)
 				else
 					value = tonumber(value)
 					E.global['reminder']['filters'][E.myclass][selectedFilter]["spellGroup"][value] = nil
-					R:CheckForNewReminders()	
+					R:CheckForNewReminders()
 					UpdateFilterGroup()
-				end					
+				end
 			end,
-			order = 104,
-		}	
+		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"] = {
+			order = 105,
 			type = "group",
 			name = L["Negate Spells"],
-			guiInline = true,	
-			order = 105,
+			guiInline = true,
 			args = {},
 		}
 
@@ -387,7 +387,7 @@ local function UpdateFilterGroup(reset)
 			local name = GetSpellInfo(spell)
 			if E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] == nil then
 				local sname = GetSpellInfo(spell)
-				sname = sname.." ("..spell..")"					
+				sname = sname.." ("..spell..")"
 				E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] = {
 					name = sname,
 					type = "toggle",
@@ -395,35 +395,36 @@ local function UpdateFilterGroup(reset)
 					set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'][spell] = value; R:CheckForNewReminders() end,
 				}
 			end
-		end			
+		end
 
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["AddNegateSpell"] = {
+			order = 106,
 			type = 'input',
 			name = L["New ID (Negate)"],
 			desc = L["If any spell found inside this list is found the icon will hide as well"],
 			get = function(info) return "" end,
-			set = function(info, value)		
+			set = function(info, value)
 				if not tonumber(value) then
-					E:Print(L["Value must be a number"])								
+					E:Print(L["Value must be a number"])
 				elseif not GetSpellInfo(value) then
 					E:Print(L["Not valid spell id"])
 				else
 					value = tonumber(value)
 					E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'][value] = true
-					R:CheckForNewReminders()	
+					R:CheckForNewReminders()
 					UpdateFilterGroup()
-				end					
+				end
 			end,
-			order = 106,
 		}
 		
 		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["RemoveNegateSpell"] = {
+			order = 107,
 			type = 'input',
 			name = L["Remove ID (Negate)"],
 			get = function(info) return "" end,
 			set = function(info, value)	
 				if not tonumber(value) then
-					E:Print(L["Value must be a number"])						
+					E:Print(L["Value must be a number"])
 				elseif not GetSpellInfo(value) then
 					E:Print(L["Not valid spell id"])
 				elseif E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'][tonumber(value)] == nil then
@@ -431,30 +432,34 @@ local function UpdateFilterGroup(reset)
 				else
 					value = tonumber(value)
 					E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'][value] = nil
-					R:CheckForNewReminders()									
+					R:CheckForNewReminders()
 					UpdateFilterGroup()
-				end					
+				end
 			end,
-			order = 107,
-		}						
+		}
 	end
 	
 end
 
 function muiReminder()
-	E.Options.args.mui.args.config.args.reminder = {
+	E.Options.args.mui.args.reminder = {
 		type = "group",
 		order = 13,
 		name = L["Reminders"],
 		childGroups = "tree",
 		args = {
-			intro = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = MER:cOption(L['Reminders']),
+			},
+			intro = {
+				order = 2,
 				type = "description",
 				name = L["REMINDER_DESC"],
 			},
 			enable = {
-				order = 2,
+				order = 3,
 				type = "toggle",
 				name = L["Enable"],
 				get = function(info) return E.private.reminder[ info[#info] ] end,
@@ -462,7 +467,7 @@ function muiReminder()
 			},
 			sound = {
 				type = "select", dialogControl = 'LSM30_Sound',
-				order = 3,
+				order = 4,
 				name = L["Sound"],
 				desc = L["Sound that will play when you have a warning icon displayed."],
 				values = AceGUIWidgetLSMlists.sound,
@@ -471,13 +476,13 @@ function muiReminder()
 				set = function(info, value) E.private.reminder.sound = value; end		
 			},
 			spacer = {
-				order = 4,
+				order = 5,
 				type = "description",
 				name = '',
 			},	
 			addGroup = {
 				type = 'input',
-				order = 5,
+				order = 6,
 				name = L['Add Group'],
 				disabled = function() return not E.private.reminder.enable end,
 				get = function(info) return "" end,
@@ -497,7 +502,7 @@ function muiReminder()
 			},
 			deleteGroup = {
 				type = 'input',
-				order = 6,
+				order = 7,
 				name = L['Remove Group'],
 				disabled = function() return not E.private.reminder.enable end,
 				get = function(info) return "" end,
@@ -512,10 +517,10 @@ function muiReminder()
 					E.Options.args.mui.args.config.args.reminder.args.filterGroup = nil
 					UpdateFilterGroup()
 					R:CheckForNewReminders();
-				end,				
+				end,
 			},
 			selectGroup = {
-				order = 7,
+				order = 8,
 				type = 'select',
 				name = L['Select Group'],
 				disabled = function() return not E.private.reminder.enable end,
@@ -528,7 +533,7 @@ function muiReminder()
 					end
 					return filters
 				end,
-			},		
+			},
 		},
 	}
 end

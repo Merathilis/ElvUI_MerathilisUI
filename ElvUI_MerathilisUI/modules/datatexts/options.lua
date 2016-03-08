@@ -2,13 +2,18 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 local function Datatexts()
-	E.Options.args.mui.args.config.args.datatexts = {
+	E.Options.args.mui.args.datatexts = {
 		order = 14,
 		type = 'group',
 		name = L["DataTexts"],
 		args = {
-			muiSystemDT = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = MER:cOption(L['DataTexts']),
+			},
+			muiSystemDT = {
+				order = 2,
 				type = 'group',
 				name = L["System Datatext"],
 				guiInline = true,

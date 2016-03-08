@@ -6,16 +6,22 @@ local UF = E:GetModule('UnitFrames');
 local tinsert = table.insert
 
 local function UnitFrames()
-	E.Options.args.mui.args.config.args.unitframes = {
+	E.Options.args.mui.args.unitframes = {
 		order = 16,
 		type = 'group',
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			player = {
+			name = {
 				order = 1,
+				type = 'header',
+				name = MER:cOption(L['UnitFrames']),
+			},
+			player = {
+				order = 2,
 				type = "group",
 				name = L["Player Frame"],
+				guiInline = true,
 				args = {
 					rested = {
 						order = 2,
