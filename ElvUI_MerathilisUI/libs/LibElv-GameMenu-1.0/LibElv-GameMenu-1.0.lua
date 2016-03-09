@@ -31,6 +31,7 @@ lib.skincheck = false
 lib.Header = CreateFrame("Frame", "GameMenuAddonHeader", _G["GameMenuFrame"])
 lib.Header:SetSize(256, 64)
 lib.Header:SetPoint("BOTTOM", LibHolder, "TOP", 0, -25)
+lib.Header:Hide()
 lib.Header.Text = lib.Header:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 lib.Header.Text:SetPoint("TOP", lib.Header, "TOP", 0, -14)
 lib.Header.Text:SetText(_G["ADDONS"])
