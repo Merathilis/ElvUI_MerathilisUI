@@ -1,3 +1,8 @@
+<b><u> v1.25, 10.03.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Ajust settings for RoleIcons.
+<font color=#FF8C00>&#9830;</font> Install: Return of the BenikUI PowerBar Status Texture.
+<font color=#FF8C00>&#9830;</font> Update LibElv-GameMenu.
+
 <b><u> v1.24, 08.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Remove some unused Settings.
 <font color=#FF8C00>&#9830;</font> Install: Attach Player Debuffs/Target Buffs to the PowerBar.

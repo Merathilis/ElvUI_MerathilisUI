@@ -1,3 +1,9 @@
+** v1.25, 10.03.2016**
+* Install: Ajust settings for RoleIcons.
+* Install: Return of the BenikUI PowerBar Status Texture.
+* Update LibElv-GameMenu.
+
+\\ \\
 ** v1.24, 08.03.2016**
 * Install: Remove some unused Settings.
 * Install: Attach Player Debuffs/Target Buffs to the PowerBar.
