@@ -16,6 +16,7 @@ if not SLE.SpecialChatIcons["EU"]["Garrosh"] then SLE.SpecialChatIcons["EU"]["Ga
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Asragoth"] = format(toon, "inv_cloth_challengewarlock_d_01helm")
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Brítt"] = format(toon, "inv_helm_plate_challengewarrior_d_01")
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Damará"] = format(toon, "inv_helmet_plate_challengepaladin_d_01")
+SLE.SpecialChatIcons["EU"]["Shattrath"]["Jazira"] = format(toon, "inv_helmet_cloth_challengepriest_d_01")
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Jústice"] = format(toon, "inv_helmet_leather_challengerogue_d_01")
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Merathilis"] = format(toon, "inv_helmet_challengedruid_d_01")
 SLE.SpecialChatIcons["EU"]["Shattrath"]["Merathilîs"] = format(toon, "inv_helmet_mail_challengeshaman_d_01")
