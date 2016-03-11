@@ -46,7 +46,7 @@ ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 <font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
 <font color=#FF8C00>&#9830;</font> <font color=#FF8C00>NEW</font> Add an option to choose a different Combat/Rested Icon (Credits Darth Predator)
-<font color=#FF8C00>&#9830;</font> Profiles for: xCT+, Skada. You must select the "MerathilisUI" Profile in the AddOns.
+<font color=#FF8C00>&#9830;</font> Profile for: Skada. You must select the "MerathilisUI" Profile in Skada.
 
 <font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>
 

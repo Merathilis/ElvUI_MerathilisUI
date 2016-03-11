@@ -1,5 +1,8 @@
+** v1.25, xx.xx.2016**
+* Install: Delete the xCT+ Profile.
+
 ** v1.25, 10.03.2016**
-* Install: Ajust settings for RoleIcons.
+* Install: Adjust settings for RoleIcons.
 * Install: Return of the BenikUI PowerBar Status Texture.
 * Update LibElv-GameMenu.
 

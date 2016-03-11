@@ -1,5 +1,8 @@
+<b><u> v1.26, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Delete the xCT+ Profile.
+
 <b><u> v1.25, 10.03.2016</b></u>
-<font color=#FF8C00>&#9830;</font> Install: Ajust settings for RoleIcons.
+<font color=#FF8C00>&#9830;</font> Install: Adjust settings for RoleIcons.
 <font color=#FF8C00>&#9830;</font> Install: Return of the BenikUI PowerBar Status Texture.
 <font color=#FF8C00>&#9830;</font> Update LibElv-GameMenu.
 
