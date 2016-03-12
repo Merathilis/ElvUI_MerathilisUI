@@ -708,6 +708,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["width"] = 180
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 	E.db["unitframe"]["units"]["party"]["healPrediction"] = true
+	E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "RIGHT"
 	E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 24
 	E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 1
