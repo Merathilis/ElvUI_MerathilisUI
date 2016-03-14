@@ -158,8 +158,8 @@ local function SetupMERLayout(layout)
 	
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
-	E.db["actionbar"]["bar3"]["buttonsize"] = 22
-	E.db["actionbar"]["bar3"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar3"]["buttonsize"] = 24
+	E.db["actionbar"]["bar3"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar3"]["buttons"] = 12
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	
@@ -169,8 +169,8 @@ local function SetupMERLayout(layout)
 	
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
-	E.db["actionbar"]["bar5"]["buttonsize"] = 22
-	E.db["actionbar"]["bar5"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar5"]["buttonsize"] = 24
+	E.db["actionbar"]["bar5"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar5"]["buttons"] = 12
 	
 	E.db["actionbar"]["bar6"]["enabled"] = false
