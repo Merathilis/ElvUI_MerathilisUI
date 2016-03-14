@@ -1558,7 +1558,7 @@ local function SetPage(PageNum)
 	end
 end
 
-local function NextPage()	
+local function NextPage()
 	if CURRENT_PAGE ~= MAX_PAGE then
 		CURRENT_PAGE = CURRENT_PAGE + 1
 		SetPage(CURRENT_PAGE)

@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-if not IsAddOnLoaded("ElvUI_SLE") then return end
-local SLE = ElvUI_SLE[1]
+local SLE
+if ElvUI_SLE then SLE = ElvUI_SLE[1] else SLE = E:GetModule("SLE") end
 
 -- Cache global variables
 local format = format
