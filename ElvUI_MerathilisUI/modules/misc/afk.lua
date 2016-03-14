@@ -38,6 +38,7 @@ function muiAFK:Initialize()
 	AFK.AFKMode.bottom.merathilisui:SetText("MerathilisUI")
 	AFK.AFKMode.bottom.merathilisui:SetPoint("LEFT", AFK.AFKMode.bottom, "LEFT", 130, 8)
 	AFK.AFKMode.bottom.merathilisui:SetTextColor(classColor.r, classColor.g, classColor.b)
+	
 	-- Version
 	AFK.AFKMode.bottom.btext = AFK.AFKMode.top:CreateFontString(nil, 'OVERLAY')
 	AFK.AFKMode.bottom.btext:FontTemplate(nil, 10)

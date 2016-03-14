@@ -11,6 +11,7 @@ P['mui'] = {
 		['GameMenu'] = true, -- Enable the Styles GameMenu
 		['SplashScreen'] = true, -- Enable the SplashScreen on LogIn
 		['AFK'] = true, -- Enable the pimped AFK Screen
+		['FlightMode'] = true, -- Enable the FlightMode
 	},
 
 	['misc'] = {

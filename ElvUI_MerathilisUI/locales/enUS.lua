@@ -44,6 +44,10 @@ L['Replaces the default minimap blips with custom textures.'] = true
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
 
+-- FlightMode
+L['FlightMode'] = true
+L['Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options.'] = true
+
 -- moveBlizz
 L['moveBlizz'] = true
 L['Make some Blizzard Frames movable.'] = true

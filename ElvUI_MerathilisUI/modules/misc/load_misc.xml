@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">	
 	<Script file="afk.lua"/>
 	<Script file="blizzbugs.lua"/>
+	<Script file="flightMode.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="garrisonalertframe.lua"/>
 	<Script file="mailinputbox.lua"/>
