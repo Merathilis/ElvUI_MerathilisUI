@@ -4,10 +4,6 @@ if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 local BFM = E:GetModule('BUIFlightMode');
 local MFM = E:NewModule('MUIFlightMode');
 
--- Cache global variables
-local CreateFrame = CreateFrame
-local IsAddOnLoaded = IsAddOnLoaded
-
 function MFM:Initialize()
 	if E.db.mui.general.FlightMode then
 		-- Hide BenikUI Logo
