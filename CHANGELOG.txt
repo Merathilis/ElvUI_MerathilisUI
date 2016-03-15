@@ -1,5 +1,9 @@
 <b><u> v1.26, xx.xx.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Delete the xCT+ Profile.
+<font color=#FF8C00>&#9830;</font> Install: Use default for colorOverride in PartyFrames.
+<font color=#FF8C00>&#9830;</font> Install: Adjust actionbars due to recent changes in ElvUI.
+<font color=#FF8C00>&#9830;</font> Replace the BenikUI Logo & Version in FlightModus with mine.
+<font color=#FF8C00>&#9830;</font> Clean Up.
 
 <b><u> v1.25, 10.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust settings for RoleIcons.
