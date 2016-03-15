@@ -1121,7 +1121,7 @@ local function SetupMERAddons()
 		E.db['benikui']['datatexts']['middle']['enable'] = true
 		E.db['benikui']['datatexts']['middle']['transparent'] = true
 		E.db['benikui']['datatexts']['middle']['backdrop'] = true
-		E.db['benikui']['datatexts']['middle']['width'] = 390
+		E.db['benikui']['datatexts']['middle']['width'] = 388
 		E.db['benikui']['datatexts']['middle']['height'] = 19
 		E.db['benikui']['datatexts']['middle']['styled'] = true
 		E.db['benikui']['datatexts']['mail']['toggle'] = true
