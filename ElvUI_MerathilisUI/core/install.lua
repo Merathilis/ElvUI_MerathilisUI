@@ -147,6 +147,7 @@ local function SetupMERLayout(layout)
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
 	E.db["actionbar"]["bar1"]["buttonsize"] = 28
 	E.db["actionbar"]["bar1"]["buttons"] = 12
+	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 	
 	E.db["actionbar"]["bar2"]["enabled"] = true
 	E.db["actionbar"]["bar2"]["buttonspacing"] = 4
@@ -155,6 +156,7 @@ local function SetupMERLayout(layout)
 	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar2"]["mouseover"] = false
+	E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
 	
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
@@ -162,16 +164,19 @@ local function SetupMERLayout(layout)
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar3"]["buttons"] = 12
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 	
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 	E.db["actionbar"]["bar4"]["mouseover"] = true
 	E.db["actionbar"]["bar4"]["buttonsize"] = 24
+	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
 	
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
 	E.db["actionbar"]["bar5"]["buttonsize"] = 24
 	E.db["actionbar"]["bar5"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar5"]["buttons"] = 12
+	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
 	
 	E.db["actionbar"]["bar6"]["enabled"] = false
 	
