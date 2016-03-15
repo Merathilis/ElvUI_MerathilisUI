@@ -179,13 +179,11 @@ local function ObjectiveTrackerReskin()
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetAlpha(0)
 		
-		-- Underlines only working if BenikUI is loaded.
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
-			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
-			_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
-			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
-		end
+		-- Underlines
+		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
+		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
+		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
+		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
