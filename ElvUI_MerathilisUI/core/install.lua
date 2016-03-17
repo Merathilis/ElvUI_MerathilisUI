@@ -771,9 +771,10 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["party"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 15
 	E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 0
-	E.db["unitframe"]["units"]["party"]["raidicon.attachTo"] = "LEFT"
-	E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = 9
-	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 13
+	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "TOP"
+	E.db["unitframe"]["units"]["party"]["raidicon"]["attachToObject"] = "Health"
+	E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
