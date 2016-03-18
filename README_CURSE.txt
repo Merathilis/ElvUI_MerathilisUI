@@ -46,7 +46,6 @@
 \\
 
 <<color #FF8C00>>**Features:**<</color>>
-* There are two Raid-/GroupFrame Layouts: DPS & Heal.
 * A lot of the Frames are now movable. E.g. CharacterFrame, LFG Frame, GameMenu etc. ...
 * Styled and animated GameMenu.
 * Tooltip Icons for Items/Spells/Achievements.

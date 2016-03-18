@@ -30,7 +30,6 @@ ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>
 <font color=#FF8C00>&#9830;</font> <a href="http://www.tukui.org/addons/index.php?act=view&id=91">ElvUI VisualAuraTimers</a>
 
 <font color=#FF8C00><b>Features:</b></font>
-<font color=#FF8C00>&#9830;</font> There are two Raid-/GroupFrame Layouts: DPS & Heal.
 <font color=#FF8C00>&#9830;</font> A lot of the Frames are now movable. E.g. CharacterFrame, LFG Frame, GameMenu etc. ...
 <font color=#FF8C00>&#9830;</font> Styled and animated GameMenu.
 <font color=#FF8C00>&#9830;</font> Tooltip Icons for Items/Spells/Achievements.
