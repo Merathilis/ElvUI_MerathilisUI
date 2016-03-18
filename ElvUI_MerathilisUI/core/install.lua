@@ -1257,10 +1257,10 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.25
 			E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
 			E.db["sle"]["chat"]["BubbleClass"] = true
-			E.db["sle"]["misc"]["rumouseover"] = true
+			E.db["sle"]["blizzard"]["rumouseover"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
-			E.db["sle"]["misc"]["errorframe"]["height"] = 60
-			E.db["sle"]["misc"]["errorframe"]["width"] = 512
+			E.db["sle"]["blizzard"]["errorframe"]["height"] = 60
+			E.db["sle"]["blizzard"]["errorframe"]["width"] = 512
 			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = true
 			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["size"] = 22
