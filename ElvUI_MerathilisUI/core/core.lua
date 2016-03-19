@@ -72,15 +72,6 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("muisetup", "SetupUI")
 end
 
-function MER:MismatchText()
-	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
-	return text
-end
-
-function MER:Print(msg)
-	print(E["media"].hexvaluecolor..'MUI:|r', msg)
-end
-
 -- Splash Screen
 local function CreateSplashScreen()
 	local f = CreateFrame('Frame', 'MUISplashScreen', E.UIParent)
