@@ -1277,6 +1277,7 @@ local function SetupMERAddons()
 			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
 			E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
 			E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
+			E.db["sle"]["minimap"]["locPanel"]["enable"] = false
 			E.db["sle"]["dt"]["durability"]["threshold"] = 49
 			E.db["sle"]["dt"]["durability"]["gradient"] = true
 			E.db["sle"]["dt"]["hide_guildname"] = false
@@ -1348,6 +1349,7 @@ local function SetupMERAddons()
 			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
+			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-1"
 		end
 	end
 
