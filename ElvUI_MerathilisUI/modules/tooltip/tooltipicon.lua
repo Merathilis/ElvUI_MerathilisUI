@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local TT = E:GetModule('Tooltip');
 
 -- Cache global variables
 local _G = _G
@@ -62,7 +61,7 @@ end)
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
+f:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		AddIcon()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
