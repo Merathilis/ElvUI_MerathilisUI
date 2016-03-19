@@ -146,6 +146,8 @@ local function dbCleaning()
 	if E.db.muiSystemDT then E.db.muiSystemDT = nil end
 	if E.db.muiUnitframes then E.db.muiUnitframes = nil end
 	if E.private.muiSkins then E.private.muiSkins = nil end
+	if E.db.locplus then E.db.locplus = nil end
+	if E.db.movers.LocationMover then E.db.movers.LocationMover = nil end
 	
 	E.db.mui.dbCleaned = true
 end
@@ -167,6 +169,7 @@ function MER:Initialize()
 	if ElvUI_SLE then
 		hooksecurefunc(ElvUI_SLE[1]:GetModule('Media'), "SetBlizzFonts", objectiveTrackerFont)
 	end
+
 	if E.db.mui.general.SplashScreen then
 		CreateSplashScreen()
 	end
