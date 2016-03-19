@@ -22,6 +22,7 @@ local function UnitFrames()
 				type = "group",
 				name = L["Player Frame"],
 				guiInline = true,
+				disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
 				args = {
 					rested = {
 						order = 2,
