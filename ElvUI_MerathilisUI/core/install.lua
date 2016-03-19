@@ -96,7 +96,7 @@ local function SetupMERLayout(layout)
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db["datatexts"]["leftChatPanel"] = false
 		E.db["datatexts"]["rightChatPanel"] = false
-		E.db["datatexts"]["minimapPanels"] = false
+		E.db["datatexts"]["minimapPanels"] = true
 		E.db["datatexts"]["actionbar3"] = false
 		E.db["datatexts"]["actionbar5"] = false
 	else
@@ -1139,34 +1139,8 @@ local function SetupMERAddons()
 		E.db['dashboards']['tokens']['width'] = 147
 		E.db['dashboards']['tokens']['combat'] = true
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-145"
+		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-164"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
-	end
-
-	-- LocationPlus
-	if E.db.locplus == nil then E.db.locplus = {} end
-	if IsAddOnLoaded('ElvUI_LocPlus') then
-		E.db.locplus.LoginMsg = false
-		E.db.locplus.lpfont = 'Merathilis Roadway'
-		E.db.locplus.dtheight = 17
-		E.db.locplus.dtwidth = 80
-		E.db.locplus.fish = false
-		E.db.locplus.lpauto = true
-		E.db.locplus.petlevel = false
-		E.db.locplus.ttreczones = false
-		E.db.locplus.ttinst = false
-		E.db.locplus.lpfontsize = 13
-		E.db.locplus.lpfontflags = 'OUTLINE'
-		E.db.locplus.ttrecinst = false
-		E.db.locplus.ht = false
-		E.db.locplus.displayOther = 'NONE'
-		E.db.locplus.profcap = false
-		E.db.locplus.shadow = true
-		E.db.locplus.customCoordsColor = 1
-		E.db.locplus.dig = false
-		E.db.locplus.showicon = false
-		E.db.locplus.ttlvl = false
-		E.db["movers"]["LocationMover"] = "TOP,ElvUIParent,TOP,0,-7"
 	end
 
 	-- ElvUI_SLE
@@ -1277,17 +1251,30 @@ local function SetupMERAddons()
 			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
 			E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
 			E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
-			E.db["sle"]["minimap"]["locPanel"]["enable"] = false
+			E.db["sle"]["minimap"]["locPanel"]["enable"] = true
+			E.db["sle"]["minimap"]["locPanel"]["display"] = "SHOW"
+			E.db["sle"]["minimap"]["locPanel"]["format"] = "%.0f"
+			E.db["sle"]["minimap"]["locPanel"]["font"] = "Merathilis Prototype"
+			E.db["sle"]["minimap"]["locPanel"]["fontSize"] = 12
+			E.db["sle"]["minimap"]["locPanel"]["width"] = 300
+			E.db["sle"]["minimap"]["locPanel"]["height"] = 18
+			E.db["sle"]["minimap"]["locPanel"]["template"] = "Transparent"
+			E.db["sle"]["minimap"]["locPanel"]["colorType"] = "CUSTOM"
+			E.db["sle"]["minimap"]["locPanel"]["customColor"] = {r = color.r, g = color.g, b = color.b}
+			E.db["sle"]["minimap"]["locPanel"]["portals"]["enable"] = true
+			E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidth"] = true
+			E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidthValue"] = 200
+			E.db["sle"]["minimap"]["locPanel"]["portals"]["justify"] = "LEFT"
 			E.db["sle"]["dt"]["durability"]["threshold"] = 49
 			E.db["sle"]["dt"]["durability"]["gradient"] = true
 			E.db["sle"]["dt"]["hide_guildname"] = false
 			E.db["sle"]["dt"]["guild"]["minimize_gmotd"] = false
 			E.db["sle"]["dt"]["guild"]["hide_gmotd"] = true
-			E.db["sle"]["dt"]["guild"]["totals"] = true
+			E.db["sle"]["dt"]["guild"]["totals"] = false
 			E.db["sle"]["dt"]["guild"]["hide_hintline"] = true
 			E.db["sle"]["dt"]["friends"]["sortBN"] = "revREALID"
 			E.db["sle"]["dt"]["friends"]["expandBNBroadcast"] = true
-			E.db["sle"]["dt"]["friends"]["totals"] = true
+			E.db["sle"]["dt"]["friends"]["totals"] = false
 			E.db["sle"]["dt"]["friends"]["hide_hintline"] = true
 			E.db["sle"]["dt"]["currency"]["Unused"] = false
 			E.db["sle"]["dt"]["currency"]["PvP"] = false
@@ -1346,7 +1333,7 @@ local function SetupMERAddons()
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
 			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-256"
+			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-274"
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
 			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-1"
@@ -1382,16 +1369,15 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["fontSize"] = 13
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	E.db["datatexts"]["panelTransparency"] = false
-	if IsAddOnLoaded('ElvUI_LocPlus') then
-		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = "S&L Guild"
-			E.db["datatexts"]["panels"]["RightCoordDtPanel"] = "S&L Friends"
-		else
-			E.db["datatexts"]["panels"]["LeftCoordDtPanel"] = "Guild"
-			E.db["datatexts"]["panels"]["RightCoordDtPanel"] = "Friends"
-		end
+
+	if IsAddOnLoaded('ElvUI_SLE') then
+		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Guild"
+		E.db["datatexts"]["panels"]["RightMiniPanel"] = "S&L Friends"
+	else
+		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "Guild"
+		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Friends"
 	end
-	
+
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		-- define BenikUI Datetexts
 		if role == 'tank' then
@@ -1448,7 +1434,7 @@ function MER:SetupDts(role)
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "Time"
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Gold"
 	end
-	
+
 	if _G["InstallStepComplete"] then
 		_G["InstallStepComplete"].message = MER.Title..L['DataTexts Set']
 		_G["InstallStepComplete"]:Show()
