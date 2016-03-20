@@ -1133,7 +1133,7 @@ local function SetupMERAddons()
 		E.db['dashboards']['barColor'] = {r = color.r, g = color.g, b = color.b}
 		E.db['dashboards']['system']['enableSystem'] = false
 		E.db['dashboards']['professions']['enableProfessions'] = false
-		E.db['dashboards']['tokens']['enableTokens'] = true
+		E.db['dashboards']['tokens']['enableTokens'] = false
 		E.db['dashboards']['tokens']['tooltip'] = false
 		E.db['dashboards']['tokens']['flash'] = false
 		E.db['dashboards']['tokens']['width'] = 147
@@ -1333,7 +1333,7 @@ local function SetupMERAddons()
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
 			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-274"
+			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-159"
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
 			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-1"
