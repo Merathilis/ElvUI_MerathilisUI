@@ -8,8 +8,19 @@ function MFM:Initialize()
 	if E.db.mui.general.FlightMode then
 		-- Hide BenikUI Logo
 		BFM.FlightMode.bottom.logo:Hide()
+		
 		-- Hide BenikUI Version
 		BFM.FlightMode.bottom.benikui:Hide()
+		
+		-- Location Frame
+		BFM.FlightMode.top.location:Point("TOP", BFM.FlightMode.top, "CENTER", 0, -25)
+		BFM.FlightMode.top.location:Height(30)
+		
+		-- Coords X frame
+		BFM.FlightMode.top.location.x:Height(30)
+		
+		-- Coords Y frame
+		BFM.FlightMode.top.location.y:Height(30)
 		
 		-- MerathilisUI Logo
 		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, 'OVERLAY')
