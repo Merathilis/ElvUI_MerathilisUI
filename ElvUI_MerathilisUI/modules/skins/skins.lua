@@ -4,6 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
 -- Cache global variables
+-- GLOBALS: RaidMarkerBar.backdrop
 local _G = _G
 local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
 
@@ -92,7 +93,7 @@ function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
 	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
-			local sleFrames = {_G["RaidMarkerBar.backdrop"], _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_SquareMinimapButtonBar"]}
+			local sleFrames = { RaidMarkerBar.backdrop, _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_SquareMinimapButtonBar"] }
 			for _, frame in pairs(sleFrames) do
 				if frame then
 					MER:StyleOutside(frame)
