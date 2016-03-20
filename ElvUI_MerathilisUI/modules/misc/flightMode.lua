@@ -13,20 +13,23 @@ function MFM:Initialize()
 		BFM.FlightMode.bottom.benikui:Hide()
 		
 		-- Location Frame
+		BFM.FlightMode.top.location:SetTemplate("Transparent")
 		BFM.FlightMode.top.location:Point("TOP", BFM.FlightMode.top, "CENTER", 0, -25)
 		BFM.FlightMode.top.location:Height(30)
 		
 		-- Coords X frame
+		BFM.FlightMode.top.location.x:SetTemplate("Transparent")
 		BFM.FlightMode.top.location.x:Height(30)
 		
 		-- Coords Y frame
+		BFM.FlightMode.top.location.y:SetTemplate("Transparent")
 		BFM.FlightMode.top.location.y:Height(30)
 		
 		-- MerathilisUI Logo
-		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, 'OVERLAY')
+		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, "OVERLAY")
 		BFM.FlightMode.bottom.logo:Size(256, 128)
 		BFM.FlightMode.bottom.logo:Point("CENTER", BFM.FlightMode.bottom, "CENTER", 0, 35)
-		BFM.FlightMode.bottom.logo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga')
+		BFM.FlightMode.bottom.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga")
 		
 		-- MerathilisUI Version
 		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
