@@ -5,7 +5,10 @@ local S = E:GetModule('Skins');
 
 -- Cache global variables
 local _G = _G
-local select, unpack = select, unpack
+local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+
+local GetAddOnMetadata = GetAddOnMetadata
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -88,10 +91,12 @@ hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
 	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
-		local sleFrames = {RaidMarkerBar.backdrop, SLE_LocationPanel_RightClickMenu1, SLE_LocationPanel_RightClickMenu2, SLE_LocationPanel, SLE_LocationPanel_X, SLE_LocationPanel_Y, SLE_SquareMinimapButtonBar}
-		for _, frame in pairs(sleFrames) do
-			if frame then
-				MER:StyleOutside(frame)
+		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
+			local sleFrames = {_G["RaidMarkerBar.backdrop"], _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_SquareMinimapButtonBar"]}
+			for _, frame in pairs(sleFrames) do
+				if frame then
+					MER:StyleOutside(frame)
+				end
 			end
 		end
 	end
