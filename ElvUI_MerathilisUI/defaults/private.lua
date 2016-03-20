@@ -11,15 +11,16 @@ V['reminder'] = {
 ----------------------------------------------------------------------------------------
 --	Skins options
 ----------------------------------------------------------------------------------------
-V['mui'] = {
-	['skins'] = {
-		['blizzard'] = {
-			['encounterjournal'] = true,
-			['spellbook'] = true, -- Remove the Background of the Spellbook
-			['objectivetracker'] = true,
-		},
-		['addons'] = {
-			['MasterPlan'] = true, -- Skins the additional MasterPlan Tabs
-		},
+V['muiSkins'] = {
+	['blizzard'] = {
+		['encounterjournal'] = true,
+		['spellbook'] = true, -- Remove the Background of the Spellbook
+		['objectivetracker'] = true,
+	},
+	['addonSkins'] = {
+		['mp'] = true, -- Skins the additional MasterPlan Tabs
+	},
+	['elvuiAddons'] = {
+		['sle'] = true -- Skin some unskinned SLE_Legion Elements
 	},
 }

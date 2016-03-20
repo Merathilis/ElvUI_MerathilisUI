@@ -43,7 +43,7 @@ function MER:RegisterMerMedia()
 end
 
 local function objectiveTrackerFont()
-	if not E.private.mui.skins.blizzard.objectivetracker then return end
+	if not E.private.muiSkins.blizzard.objectivetracker then return end
 	
 	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)

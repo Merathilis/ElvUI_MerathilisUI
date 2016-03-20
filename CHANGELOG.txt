@@ -2,7 +2,8 @@
 <font color=#FF8C00>&#9830;</font> Install: Delete the xCT+ Profile.
 <font color=#FF8C00>&#9830;</font> Install: Use default for colorOverride in PartyFrames.
 <font color=#FF8C00>&#9830;</font> Install: Adjust actionbars due to recent changes in ElvUI.
-<font color=#FF8C00>&#9830;</font> Replace the BenikUI Logo & Version in FlightModus with mine.
+<font color=#FF8C00>&#9830;</font> Adjust the new BenikUI Flight Mode to fit my UI.
+<font color=#FF8C00>&#9830;</font> Rearrange the Skin Options.
 <font color=#FF8C00>&#9830;</font> Clean Up.
 
 <b><u> v1.25, 10.03.2016</b></u>

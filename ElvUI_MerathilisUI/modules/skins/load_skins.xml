@@ -1,6 +1,6 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="options.lua"/>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="skins.lua"/>
+	<Script file="options.lua"/>
 	<Include file="blizzard\load_blizzard.xml"/>
 	<Include file="addons\load_addons.xml"/>
 </Ui>

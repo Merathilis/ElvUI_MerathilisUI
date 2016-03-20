@@ -8,7 +8,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 -- MasterPlan
 local function skinMasterPlan()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.private.mui.skins.addons.MasterPlan ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.addonSkins.mp ~= true then return; end
 
 	-- Garrison
 	S:HandleTab(_G["GarrisonMissionFrameTab3"])

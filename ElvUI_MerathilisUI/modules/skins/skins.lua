@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
@@ -10,13 +11,13 @@ local select, unpack = select, unpack
 -- Copied from ElvUI
 local function SetModifiedBackdrop(self)
 	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))	
+	self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 end
 
 -- Copied from ElvUI
 local function SetOriginalBackdrop(self)
 	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].bordercolor))	
+	self:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 end
 
 local buttons = {
@@ -73,7 +74,7 @@ function S:HandleCloseButton(f, point, text)
 end
 
 -- Set scrollbar thumb backdrop color to value color for better visibility
-function MER:HandleScrollBar(frame, thumbTrim)
+function MERS:HandleScrollBar(frame, thumbTrim)
 	if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 		if frame.thumbbg and frame.thumbbg.backdropTexture then
 			frame.thumbbg.backdropTexture.SetVertexColor = nil
@@ -82,4 +83,22 @@ function MER:HandleScrollBar(frame, thumbTrim)
 		end
 	end
 end
-hooksecurefunc(S, "HandleScrollBar", MER.HandleScrollBar)
+hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
+
+function MERS:MerathilisUISkins()
+	-- ElvUI AddOn Styles
+	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
+		local sleFrames = {SLE_LocationPanel_RightClickMenu1, SLE_LocationPanel_RightClickMenu2, SLE_LocationPanel, SLE_LocationPanel_X, SLE_LocationPanel_Y, SLE_SquareMinimapButtonBar}
+		for _, frame in pairs(sleFrames) do
+			if frame then
+				MER:StyleOutside(frame)
+			end
+		end
+	end
+end
+
+function MERS:Initialize()
+	self:RegisterEvent('PLAYER_ENTERING_WORLD', 'MerathilisUISkins')
+end
+
+E:RegisterModule(MERS:GetName())

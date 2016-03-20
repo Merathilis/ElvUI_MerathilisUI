@@ -8,7 +8,7 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 
 function styleEncounterJournal()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.mui.skins.blizzard.encounterjournal == false then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
 	
 	local EJ = _G["EncounterJournal"]
 	local EncounterInfo = EJ.encounter.info

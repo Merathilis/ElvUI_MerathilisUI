@@ -2,7 +2,8 @@
 * Install: Delete the xCT+ Profile.
 * Install: Use default for colorOverride in PartyFrames.
 * Install: Adjust actionbars due to recent changes in ElvUI.
-* Replace the BenikUI Logo & Version in FlightModus with mine.
+* Adjust the new BenikUI Flight Mode to fit my UI.
+* Rearrange the Skin Options.
 * Clean Up.
 
 ** v1.25, 10.03.2016**
