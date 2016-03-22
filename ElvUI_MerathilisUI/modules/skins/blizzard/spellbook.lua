@@ -2,13 +2,17 @@ local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
+-- WoW API / Variables
+local SpellBookFrame = _G["SpellBookFrame"]
+
 
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return; end
  
-	if _G["SpellBookFrame"].pagebackdrop then
-		_G["SpellBookFrame"].pagebackdrop:Hide()
+	if SpellBookFrame.pagebackdrop then
+		SpellBookFrame.pagebackdrop:Hide()
 	end
 end
 

@@ -3,10 +3,11 @@ local MER = E:GetModule('MerathilisUI')
 local S = E:GetModule('Skins')
 
 -- Cache global variables
--- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel
+-- Lua functions
 local _G = _G
 local random = random
-
+-- WoW API / Variables
+local GameMenuFrame = _G["GameMenuFrame"]
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
@@ -14,6 +15,9 @@ local PlaySound = PlaySound
 local UIFrameFadeIn = UIFrameFadeIn
 local HideUIPanel = HideUIPanel
 local IsAddOnLoaded = IsAddOnLoaded
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel, LibStub
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos

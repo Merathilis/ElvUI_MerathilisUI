@@ -2,12 +2,19 @@ local E, L, V, P, G = unpack(ElvUI);
 local LRI = LibStub:GetLibrary("LibRealmInfo");
 
 -- Cache global variables
--- GLOBALS: realm, DEFAULT_CHAT_FRAME, AddIgnore, C_LFGList, LFGListUtil_GetSearchEntryMenu, LFGListUtil_GetApplicantMemberMenu, UIDROPDOWNMENU_INIT_MENU, UIDROPDOWNMENU_MENU_LEVEL
+-- Lua functions
 local _G = _G
 local tinsert = table.insert
 local gsub, byte, format, lower, upper = string.gsub, string.byte, string.format, string.lower, string.upper
-
+-- WoW API / Variables
 local GetRealmName = GetRealmName
+local DEFAULT_CHAT_FRAME = DEFAULT_CHAT_FRAME
+local C_LFGList = C_LFGList
+local LFGListUtil_GetSearchEntryMenu = LFGListUtil_GetSearchEntryMenu
+local LFGListUtil_GetApplicantMemberMenu = LFGListUtil_GetApplicantMemberMenu
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: realm, AddIgnore, UIDROPDOWNMENU_INIT_MENU, UIDROPDOWNMENU_MENU_LEVEL
 
 -- Credits: Driizt, Phanx
 

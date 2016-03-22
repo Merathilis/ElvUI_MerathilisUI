@@ -3,7 +3,12 @@ local MER = E:GetModule('MerathilisUI');
 local MUF = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+-- Cache global variables
+-- Lua functions
+local _G = _G
 local tinsert = table.insert
+-- WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
 
 local function UnitFrames()
 	E.Options.args.mui.args.unitframes = {
@@ -52,7 +57,7 @@ local function UnitFrames()
 						name = L["Combat Icon"],
 						guiInline = true,
 						get = function(info) return E.db['mui']['unitframes']['unit']['player']['combatico'][ info[#info] ] end,
-						set = function(info, value) E.db['mui']['unitframes']['unit']['player']['combatico'][ info[#info] ] = value; ElvUF_Player.Combat:PostUpdate(); end,
+						set = function(info, value) E.db['mui']['unitframes']['unit']['player']['combatico'][ info[#info] ] = value; _G["ElvUF_Player"].Combat:PostUpdate(); end,
 						args = {
 							xoffset = { order = 1, type = 'range', name = L["X-Offset"], min = -300, max = 300, step = 1 },
 							yoffset = { order = 2, type = 'range', name = L["Y-Offset"], min = -150, max = 150, step = 1 },

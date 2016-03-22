@@ -4,7 +4,9 @@ local R = E:NewModule('Reminder', 'AceTimer-3.0');
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
+-- Lua functions
 local pairs, print, type, select, unpack = pairs, print, type, select, unpack
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local GetInventoryItemTexture = GetInventoryItemTexture

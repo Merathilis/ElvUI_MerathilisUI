@@ -2,12 +2,12 @@ local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
 
 -- Cache global variables
--- GLOBALS: LOOT, SPECIALIZATION, SELECT_LOOT_SPECIALIZATION, LOOT_SPECIALIZATION_DEFAULT, EasyMenu
+-- Lua functions
 local _G = _G
 local select = select
 local format = string.format
 local join = string.join
-
+-- WoW API / Variables
 local GetActiveSpecGroup = GetActiveSpecGroup
 local GetNumEquipmentSets = GetNumEquipmentSets
 local GetSpecialization = GetSpecialization
@@ -20,6 +20,11 @@ local GetNumSpecGroups = GetNumSpecGroups
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local GetLootSpecialization = GetLootSpecialization
 local CreateFrame = CreateFrame
+local SELECT_LOOT_SPECIALIZATION = SELECT_LOOT_SPECIALIZATION
+local LOOT_SPECIALIZATION_DEFAULT = LOOT_SPECIALIZATION_DEFAULT
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LOOT, SPECIALIZATION, EasyMenu
 
 local lastPanel, active
 local displayString = '';
@@ -48,7 +53,7 @@ local function SwitchGear()
 	if GetSpecialization(false, false, active) then
 		local set = select(2, GetSpecializationInfo(GetSpecialization(false, false, active == 1 and 2 or 1)))
 		SetCurrentEquipmentSet(set)
-	end			
+	end
 	
 end
 

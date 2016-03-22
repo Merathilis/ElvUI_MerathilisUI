@@ -1,16 +1,22 @@
 local E, L, V, P, G = unpack(ElvUI);
 
 -- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.0
+
 -- Cache global variables
--- GLOBALS: AddonList, hooksecurefunc, DAY_ONELETTER_ABBR, INTERFACEOPTIONS_ADDONCATEGORIES, doNotRun
+-- Lua functions
 local _G = _G
 local pairs, tonumber, type = pairs, tonumber, type
-
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetNumAddOns = GetNumAddOns
 local GetLocale = GetLocale
 local InCombatLockdown = InCombatLockdown
 local RegisterForClicks = RegisterForClicks
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AddonList, hooksecurefunc, DAY_ONELETTER_ABBR, INTERFACEOPTIONS_ADDONCATEGORIES, doNotRun
+-- GLOBALS: InterfaceOptionsListButton_ToggleSubCategories, InterfaceOptionsFrameAddOnsListScrollBar
+-- GLOBALS: InterfaceOptionsFrame_OpenToCategory
 
 local wow_version, wow_build, wow_data, tocversion = GetBuildInfo()
 wow_build = tonumber(wow_build)

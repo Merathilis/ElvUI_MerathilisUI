@@ -3,8 +3,9 @@ if not IsAddOnLoaded("AddOnSkins") then return; end
 local AS = unpack(AddOnSkins)
 
 -- Cache global variables
+-- Lua functions
 local select, unpack = select, unpack
-
+-- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
 --Change some AddOnSkins defaults for ElvUI. Credit Blazeflack (AddOnSkinsTweaks)

@@ -1,16 +1,20 @@
 local E, L, V, P, G = unpack(ElvUI)
 
 -- Cache global variables
--- GLOBALS: BATTLENET_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, C_Timer
+-- Lua functions
 local format = string.format
 local print = print
-
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local BNConnected = BNConnected
 local BNGetNumFriends = BNGetNumFriends
 local BNGetFriendInfo = BNGetFriendInfo
 local PlaySound = PlaySound
+local C_TimerAfter = C_Timer.After
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: BATTLENET_FONT_COLOR_CODE, FONT_COLOR_CODE_CLOSE, C_Timer
 
 -- Code taken from Battle.net Friend Alert by Clinton Caldwell
 if IsAddOnLoaded("BattleNetFriendAlert") then return; end
@@ -54,14 +58,14 @@ local function ScanFriends()
 		end
 	end
 	-- Scan again in interval seconds
-	C_Timer.After(interval, ScanFriends)
+	C_TimerAfter(interval, ScanFriends)
 end
 
 local f = CreateFrame("Frame", "BNFAEventsFrame", E.UIParent)
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_LOGIN" then
-		C_Timer.After(interval, ScanFriends)
+		C_TimerAfter(interval, ScanFriends)
 		self:UnregisterEvent("PLAYER_LOGIN")
 	end
 end)

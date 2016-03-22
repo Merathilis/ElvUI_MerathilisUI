@@ -4,7 +4,8 @@ local SLE
 if ElvUI_SLE then SLE = ElvUI_SLE[1] else SLE = E:GetModule("SLE") end
 
 -- Cache global variables
-local format = format
+-- Lua functions
+local format = string.format
 
 local blizzPath = [[|TInterface\ICONS\]]
 local toon = blizzPath..[[%s:12:12:0:0:64:64:4:60:4:60|t]]

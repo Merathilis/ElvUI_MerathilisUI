@@ -1,9 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
--- Cache global variables
-local YES, OKAY, CLOSE = YES, OKAY, CLOSE
-
 -- MerathilisUI Credits
 StaticPopupDialogs["MERATHILISUI_CREDITS"] = {
 	text = MER.Title,

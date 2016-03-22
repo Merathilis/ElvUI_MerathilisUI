@@ -3,12 +3,16 @@ local MER = E:GetModule('MerathilisUI');
 local R = E:GetModule('Reminder');
 
 -- Cache global variables
--- GLOBALS: muiReminder, MAX_PLAYER_LEVEL, AceGUIWidgetLSMlists
+-- Lua functions
 local tinsert = table.insert
 local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type
 local SHOW, HIDE = SHOW, HIDE
+-- WoW API / Variables
 local GetSpecializationInfo = GetSpecializationInfo
 local GetSpellInfo = GetSpellInfo
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: muiReminder, MAX_PLAYER_LEVEL, AceGUIWidgetLSMlists
 
 local selectedFilter
 local filters

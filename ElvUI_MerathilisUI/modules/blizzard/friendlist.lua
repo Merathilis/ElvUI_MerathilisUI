@@ -4,15 +4,15 @@ local MER = E:GetModule('MerathilisUI');
 -- Class color guild/friends/etc list(yClassColor by Yleaf)
 
 -- Cache global variables
---GLOBALS: hooksecurefunc, BNET_CLIENT_WOW, REMOTE_CHAT, button, index
+-- Lua functions
 local _G = _G
 local type, ipairs, pairs, unpack, select = type, ipairs, pairs, unpack, select
 local setmetatable = setmetatable
 local __index = __index
-local wipe = wipe
-local format, gsub = string.format, string.gsub
-local modf = math.modf
+local wipe = table.wipe
+local format, gsub, modf = string.format, string.gsub, math.modf
 local strsplit = strsplit
+-- WoW API / Variables
 local GetCVar = GetCVar
 local LOCALIZED_CLASS_NAMES_MALE = LOCALIZED_CLASS_NAMES_MALE
 local LOCALIZED_CLASS_NAMES_FEMALE = LOCALIZED_CLASS_NAMES_FEMALE
@@ -35,6 +35,8 @@ local GetWhoInfo = GetWhoInfo
 local IsActiveBattlefieldArena = IsActiveBattlefieldArena
 local SearchLFGGetResults = SearchLFGGetResults
 local UnitRace = UnitRace
+
+-- GLOBALS: hooksecurefunc, BNET_CLIENT_WOW, REMOTE_CHAT, button, index
 
 local GUILD_INDEX_MAX = 12
 local SMOOTH = {1, 0, 0, 1, 1, 0, 0, 1, 0}

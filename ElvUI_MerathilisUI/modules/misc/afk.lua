@@ -4,9 +4,11 @@ local AFK = E:GetModule('AFK')
 local muiAFK = E:NewModule('muiAFK');
 
 -- Cache global variables
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
+local PlaySound = PlaySound
 
 local SPACING = (E.PixelMode and 1 or 5)
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])

@@ -2,7 +2,10 @@ local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 
 -- Cache global varables
+-- WoW API / Variables
+local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 

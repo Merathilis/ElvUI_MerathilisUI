@@ -4,22 +4,23 @@ local LSM = LibStub('LibSharedMedia-3.0');
 local S = E:GetModule('Skins');
 
 -- Cache global variables
--- GLOBALS: C_Scenario, BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc, CreateFrame, IsAddOnLoaded, TRIVIAL_QUEST_DISPLAY, NORMAL_QUEST_DISPLAY, QUEST_TRACKER_MODULE
--- GLOBALS: OBJECTIVE_TRACKER_COLOR, QuestLogQuests_GetTitleButton, DEFAULT_OBJECTIVE_TRACKER_MODULE, SCENARIO_CONTENT_TRACKER_MODULE
+-- Lua functions
 local _G = _G
-local select, table, unpack = select, table, unpack
+local unpack = unpack
+-- WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
+local C_Scenario = C_Scenario
+local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
+local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
+local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
+local ObjectiveTrackerBlocksFrame = _G["ObjectiveTrackerBlocksFrame"]
+local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
+local ScenarioStageBlock = _G["ScenarioStageBlock"]
+local ScenarioProvingGroundsBlock = _G["ScenarioProvingGroundsBlock"]
+local ScenarioProvingGroundsBlockAnim = _G["ScenarioProvingGroundsBlockAnim"]
 
-local GetGossipActiveQuests = GetGossipActiveQuests
-local GetGossipAvailableQuests = GetGossipAvailableQuests
-local GetNumQuestLogEntries = GetNumQuestLogEntries
-local GetNumQuestWatches = GetNumQuestWatches
-local GetQuestLogTitle = GetQuestLogTitle
-local GetQuestWatchInfo = GetQuestWatchInfo
-local GossipResize = GossipResize
-local ObjectiveTrackerBlocksFrame = ObjectiveTrackerBlocksFrame
-local ScenarioStageBlock = ScenarioStageBlock
-local ScenarioProvingGroundsBlock = ScenarioProvingGroundsBlock
-local ScenarioProvingGroundsBlockAnim = ScenarioProvingGroundsBlockAnim
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local width = 190
@@ -157,9 +158,9 @@ local function ObjectiveTrackerReskin()
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		
 		-- Bonus Objectives
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Background:Hide()
+		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
 		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
@@ -172,18 +173,18 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 		
 		-- Timer Bar
-		hooksecurefunc(_G['BONUS_OBJECTIVE_TRACKER_MODULE'], "AddProgressBar", skinObjectiveBar)
+		hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar)
 		
 		-- Menu Title
-		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-		_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetAlpha(0)
+		ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		ObjectiveTrackerFrame.HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		ObjectiveTrackerFrame.HeaderMenu.Title:SetAlpha(0)
 		
 		-- Underlines
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].QuestHeader, true, 1)
-		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].AchievementHeader, true, 1)
-		_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Underline = MER:Underline(_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header, true, 1)
-		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Underline = MER:Underline(_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader, true, 1)
+		ObjectiveTrackerBlocksFrame.QuestHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.QuestHeader, true, 1)
+		ObjectiveTrackerBlocksFrame.AchievementHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.AchievementHeader, true, 1)
+		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Underline = MER:Underline(BONUS_OBJECTIVE_TRACKER_MODULE.Header, true, 1)
+		ObjectiveTrackerBlocksFrame.ScenarioHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.ScenarioHeader, true, 1)
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)

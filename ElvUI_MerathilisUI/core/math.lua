@@ -1,7 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI')
 
---Cache global variables
+-- Cache global variables
+-- Lua functions
 local format = string.format
 local assert = assert
 

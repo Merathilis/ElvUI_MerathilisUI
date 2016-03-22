@@ -1,10 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI);
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
 local select, type = select, type
 local find, strmatch = string.find, string.match
-
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
 local GetItemIcon = GetItemIcon
@@ -30,10 +31,10 @@ local function hookItem(tip)
 		AddIcon(self, icon)
 	end)
 end
-hookItem(_G["GameTooltip"])
-hookItem(_G["ItemRefTooltip"])
-hookItem(_G["ShoppingTooltip1"])
-hookItem(_G["ShoppingTooltip2"])
+hookItem(GameTooltip)
+hookItem(ItemRefTooltip)
+hookItem(ShoppingTooltip1)
+hookItem(ShoppingTooltip2)
 
 -- Icon for Spells
 local function hookSpell(tip)
@@ -45,8 +46,8 @@ local function hookSpell(tip)
 		end
 	end)
 end
-hookSpell(_G["GameTooltip"])
-hookSpell(_G["ItemRefTooltip"])
+hookSpell(GameTooltip)
+hookSpell(ItemRefTooltip)
 
 -- Icon for Achievements (only GameTooltip)
 hooksecurefunc(GameTooltip, "SetHyperlink", function(self, link)

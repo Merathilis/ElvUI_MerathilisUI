@@ -3,9 +3,10 @@ local MER = E:GetModule('MerathilisUI')
 local ElvUF = ElvUI.oUF
 
 -- Cache global variables
--- GLOBALS: DEAD
+-- WoW API / Variables
 local UnitIsDead, UnitIsGhost, UnitIsConnected = UnitIsDead, UnitIsGhost, UnitIsConnected
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
+local DEAD = DEAD
 
 ElvUF.Tags.Events['health:percent_short'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
 ElvUF.Tags.Methods['health:percent_short'] = function(unit)

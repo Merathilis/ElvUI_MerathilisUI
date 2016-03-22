@@ -2,7 +2,9 @@ local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
@@ -21,8 +23,8 @@ local function skinMasterPlan()
 	S:HandleButton(_G["MPPokeTentativeParties"], true)
 	S:HandleButton(_G["MPLootSummaryDone"], true)
 	-- Follower SearchBox
-	GarrisonMissionFrameFollowers.SearchBox:SetPoint("TOPLEFT", 20, 25)
-	GarrisonMissionFrameFollowers.SearchBox:SetSize(252, 20)
+	_G["GarrisonMissionFrameFollowers"].SearchBox:SetPoint("TOPLEFT", 20, 25)
+	_G["GarrisonMissionFrameFollowers"].SearchBox:SetSize(252, 20)
 end
 
 local f = CreateFrame("Frame")

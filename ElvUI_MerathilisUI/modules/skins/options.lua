@@ -3,9 +3,10 @@ local MER = E:GetModule('MerathilisUI');
 local MERS = E:GetModule('MuiSkins');
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
 local ipairs, unpack = ipairs, unpack
-
+-- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
 local DecorElvUIAddons = {

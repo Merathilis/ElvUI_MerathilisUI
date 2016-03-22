@@ -2,15 +2,16 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI')
 local DT = E:GetModule("DataTexts")
 
--- All Credits belong to Lockslap (ElvUI_SystemDT) --
+-- All Credits belong to Lockslap (ElvUI_SystemDT)
 -- Caching global variables
-local _G = _G
+-- Lua functions
 local select = select
 local collectgarbage = collectgarbage
 local floor = floor
 local format = string.format
 local sort = table.sort
 local join = string.join
+-- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local GetDownloadedPercentage = GetDownloadedPercentage
 local GetNumAddOns = GetNumAddOns

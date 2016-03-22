@@ -5,13 +5,19 @@ local EP = LibStub('LibElvUIPlugin-1.0');
 local addon, ns = ...
 
 -- Cache global variables
--- GLOBALS: LibStub, ElvDB, MUISplashScreen
+-- Lua functions
+local _G = _G
 local format = string.format
 local print, pairs, tonumber = print, pairs, tonumber
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
+
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 MER.Config = {}
@@ -45,14 +51,14 @@ end
 local function objectiveTrackerFont()
 	if not E.private.muiSkins.blizzard.objectivetracker then return end
 	
-	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G['ObjectiveTrackerFrame'].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+	_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end

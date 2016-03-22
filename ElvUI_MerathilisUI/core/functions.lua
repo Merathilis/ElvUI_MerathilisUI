@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
+-- Lua functions
 local print = print
 local format = format
 

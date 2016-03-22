@@ -1,8 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI)
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
 local unpack = unpack
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 

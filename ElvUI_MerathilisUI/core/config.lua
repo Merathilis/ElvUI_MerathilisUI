@@ -2,11 +2,15 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 if E.db.mui == nil then E.db.mui = {} end
+
 -- Cache global variables
--- GLOBALS: StaticPopup_Show
+-- Lua functions
 local format = format
 local tinsert = table.insert
 local select, unpack = select, unpack
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: StaticPopup_Show
 
 local function AddOptions()
 	-- Main options

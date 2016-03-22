@@ -4,8 +4,10 @@ local MERC = E:NewModule('muiChat')
 local CH = E:GetModule('Chat')
 
 -- Cache global variables
+-- Lua functions
 local _G = _G
 local gsub = string.gsub
+-- WoW API / Variables
 local GetRealmName = GetRealmName
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 

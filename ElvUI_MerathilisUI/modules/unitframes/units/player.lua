@@ -3,8 +3,13 @@ local MUF = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
 
 -- Cache global variables
--- GLOBALS: hooksecurefunc
+-- Lua functions
 local _G = _G
+-- WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
 
 function MUF:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]

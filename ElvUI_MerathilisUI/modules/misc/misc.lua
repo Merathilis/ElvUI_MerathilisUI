@@ -1,22 +1,23 @@
 local E, L, V, P, G = unpack(ElvUI);
 
 -- Cache global variables
--- GLOBALS: ALL, AchievementFrame_GetCategoryNumAchievements_OldIncomplete, AchievementFrameFilters, ACHIEVEMENTFRAME_FILTER_ALL, AchievementFrame_GetCategoryNumAchievements_All, 
--- GLOBALS: AchievementFrame_GetCategoryNumAchievements_Complete, ACHIEVEMENTFRAME_FILTER_COMPLETED, ACHIEVEMENTFRAME_FILTER_INCOMPLETE, AchievementFrame_GetCategoryNumAchievements_Incomplete,
--- GLOBALS: old_nocomplete_filter_init, LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, 
+-- Lua functions
 local _G = _G
 local tostring, select = tostring, select
+-- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local SetCVar = SetCVar
 local GetBattlefieldStatus = GetBattlefieldStatus
-local GetCategoryNumAchievements = GetCategoryNumAchievements
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetLFGDungeonRewards = GetLFGDungeonRewards
 local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
+
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit
 
 -- Force readycheck warning
 local ShowReadyCheckHook = function(self, initiator)
@@ -106,35 +107,6 @@ CloseWoW:SetScript("OnEvent", function(self, event, msg)
 	if event == "CHAT_MSG_SYSTEM" then
 		if msg and msg == IDLE_MESSAGE then
 			ForceQuit()
-		end
-	end
-end)
-
--- Old achievements filter
-function AchievementFrame_GetCategoryNumAchievements_OldIncomplete(categoryID)
-	local numAchievements, numCompleted = GetCategoryNumAchievements(categoryID)
-	return numAchievements - numCompleted, 0, numCompleted
-end
-
-function old_nocomplete_filter_init()
-	AchievementFrameFilters = {
-		{text = ACHIEVEMENTFRAME_FILTER_ALL, func = AchievementFrame_GetCategoryNumAchievements_All},
-		{text = ACHIEVEMENTFRAME_FILTER_COMPLETED, func = AchievementFrame_GetCategoryNumAchievements_Complete},
-		{text = ACHIEVEMENTFRAME_FILTER_INCOMPLETE, func = AchievementFrame_GetCategoryNumAchievements_Incomplete},
-		{text = ACHIEVEMENTFRAME_FILTER_INCOMPLETE.." ("..ALL.." )", func = AchievementFrame_GetCategoryNumAchievements_OldIncomplete}
-	}
-end
-
-local filter = CreateFrame("Frame")
-filter:RegisterEvent("ADDON_LOADED")
-filter:SetScript("OnEvent", function(self, event, addon, ...)
-	if addon == "Blizzard_AchievementUI" then
-		if _G["AchievementFrame"] then
-			old_nocomplete_filter_init()
-			if E.private.skins.blizzard.achievement == true then
-				_G["AchievementFrameFilterDropDown"]:SetWidth(_G["AchievementFrameFilterDropDown"]:GetWidth() + 20)
-			end
-			filter:UnregisterEvent("ADDON_LOADED")
 		end
 	end
 end)
