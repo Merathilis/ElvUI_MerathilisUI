@@ -14,3 +14,7 @@ end
 function MER:Print(msg)
 	print(E["media"].hexvaluecolor..'MUI:|r', msg)
 end
+
+function MER:PrintURL(url)
+	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+end
