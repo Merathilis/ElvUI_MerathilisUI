@@ -35,7 +35,7 @@ local function SkinsTable()
 		order = 3,
 		type = 'group',
 		guiInline = true,
-		name = L['ElvUI AddOns'],
+		name = L['ElvUI AddOns']..MER.NewSign,
 		get = function(info) return E.private.muiSkins.elvuiAddons[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {

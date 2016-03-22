@@ -86,10 +86,11 @@ local function AddOptions()
 					FlightMode = {
 						order = 5,
 						type = 'toggle',
-						name = L['FlightMode'],
+						name = L['FlightMode']..MER.NewSign,
 						desc = L['Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options.'],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
+						disabled = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
 					},
 				},
 			},
