@@ -41,13 +41,6 @@ P['mui'] = {
 					["size"] = 22,
 					["texture"] = "DEFAULT",
 				},
-				["combatico"] = {
-					["xoffset"] = 0,
-					["yoffset"] = 0,
-					["size"] = 19,
-					["texture"] = "DEFAULT",
-					["red"] = true,
-				},
 			},
 		},
 	},

@@ -32,7 +32,7 @@ local function AddOptions()
 				fontSize = 'medium',
 				image = function() return 'Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga', 200, 100 end,
 				imageCoords = {0,0.99,0.01,0.99},
-			},			
+			},
 			install = {
 				order = 3,
 				type = 'execute',
