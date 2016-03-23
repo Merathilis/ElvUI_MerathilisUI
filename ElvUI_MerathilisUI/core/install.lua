@@ -1142,13 +1142,13 @@ local function SetupMERAddons()
 		E.db['dashboards']['barColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 		E.db['dashboards']['system']['enableSystem'] = false
 		E.db['dashboards']['professions']['enableProfessions'] = false
-		E.db['dashboards']['tokens']['enableTokens'] = false
+		E.db['dashboards']['tokens']['enableTokens'] = true
 		E.db['dashboards']['tokens']['tooltip'] = false
 		E.db['dashboards']['tokens']['flash'] = false
 		E.db['dashboards']['tokens']['width'] = 147
 		E.db['dashboards']['tokens']['combat'] = true
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-164"
+		E.db["movers"]["tokenHolderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-4"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	end
 

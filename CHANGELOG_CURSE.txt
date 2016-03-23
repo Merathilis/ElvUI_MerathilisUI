@@ -1,3 +1,7 @@
+** v1.27, xx.xx.2016**
+* Install: enable the BenikUI Token Dashboard again.
+
+\\ \\
 ** v1.26, 23.03.2016**
 * Install: Delete the xCT+ Profile.
 * Install: Use default for colorOverride in PartyFrames.
@@ -7,6 +11,7 @@
 * Battle.net API Changes.
 * Clean Up & Caching.
 
+\\ \\
 ** v1.25, 10.03.2016**
 * Install: Adjust settings for RoleIcons.
 * Install: Return of the BenikUI PowerBar Status Texture.
