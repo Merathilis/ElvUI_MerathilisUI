@@ -1,10 +1,11 @@
-** v1.26, xx.xx.2016**
+** v1.26, 23.03.2016**
 * Install: Delete the xCT+ Profile.
 * Install: Use default for colorOverride in PartyFrames.
-* Install: Adjust actionbars due to recent changes in ElvUI.
+* Install: Adjust Actionbars due to recent changes in ElvUI.
 * Adjust the new BenikUI Flight Mode to fit my UI.
 * Rearrange the Skin Options.
-* Clean Up.
+* Battle.net API Changes.
+* Clean Up & Caching.
 
 ** v1.25, 10.03.2016**
 * Install: Adjust settings for RoleIcons.

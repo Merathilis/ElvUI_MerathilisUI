@@ -60,7 +60,7 @@
 * Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 * Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 * Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
-* <<color #FF8C00>>NEW:<</color>> Add an option to choose a different Combat/Rested Icon (Credits Darth Predator)
+* Add an option to choose a different Combat/Rested Icon (Credits Darth Predator)
 * Profile for: Skada. You must select the "MerathilisUI" Profile in Skada.
 
 \\

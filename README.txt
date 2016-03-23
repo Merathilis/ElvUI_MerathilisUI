@@ -40,11 +40,11 @@ ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the <font color=#FF8C00>
 <font color=#FF8C00>&#9830;</font> ArmoryLink if you right click a Player in the Chat/Guild/LFG Browser by Driizt, Phanx.
 <font color=#FF8C00>&#9830;</font> WowheadLink if you right click a quest in the QuestTracker.
 <font color=#FF8C00>&#9830;</font> Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
-<font color=#FF8C00>&#9830;</font> Edited Skins for the SpellBook & EncounterJournal & <font color=#FF8C00>NEW</font> QuestTracker.
+<font color=#FF8C00>&#9830;</font> Edited Skins for the SpellBook & EncounterJournal & QuestTracker.
 <font color=#FF8C00>&#9830;</font> Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 <font color=#FF8C00>&#9830;</font> Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 <font color=#FF8C00>&#9830;</font> Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
-<font color=#FF8C00>&#9830;</font> <font color=#FF8C00>NEW</font> Add an option to choose a different Combat/Rested Icon (Credits Darth Predator)
+<font color=#FF8C00>&#9830;</font> Add an option to choose a different Combat/Rested Icon (Credits Darth Predator)
 <font color=#FF8C00>&#9830;</font> Profile for: Skada. You must select the "MerathilisUI" Profile in Skada.
 
 <font color=#FF8C00> Many Features can be disabled in the MerathilisUI Options.</font>
