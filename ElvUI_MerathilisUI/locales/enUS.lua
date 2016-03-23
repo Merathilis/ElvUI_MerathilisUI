@@ -23,6 +23,7 @@ L['CHAT_AFK'] = "[AFK]"
 L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
+L["Unknown"] = true
 
 -- Information
 L['Information'] = true

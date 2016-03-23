@@ -1,5 +1,6 @@
 <b><u> v1.27, xx.xx.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: enable the BenikUI Token Dashboard again.
+<font color=#FF8C00>&#9830;</font> Battle.net Alert fix a rar Error. (Credits: cmc3215)
 
 <b><u> v1.26, 23.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Delete the xCT+ Profile.

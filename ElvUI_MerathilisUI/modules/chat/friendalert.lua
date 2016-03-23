@@ -33,8 +33,8 @@ local icons = {
 	["Pro"] = "|TInterface\\CHATFRAME\\UI-ChatIcon-Overwatch:14|t"
 };
 
-local function BNPlayerLink(presenceName, presenceID)
-	return format("|HBNplayer:%s:%s|h[%s]|h", presenceName, presenceID, presenceName)
+local function BNPlayerLink(accountName, bnetIDAccount)
+	return format("|HBNplayer:%s:%s|h[%s]|h", accountName, bnetIDAccount, accountName)
 end
 
 local function ScanFriends()
@@ -42,19 +42,19 @@ local function ScanFriends()
 	
 	if BNConnected() then
 		for index = 1, BNGetNumFriends() do
-			local presenceID, presenceName, _, _, characterName, _, game = BNGetFriendInfo(index)
-			if game and friends[presenceID] and friends[presenceID]["game"] then
-				if game ~= friends[presenceID]["game"] then
+			local bnetIDAccount, accountName, _, _, characterName, _, game = BNGetFriendInfo(index)
+			if game and friends[bnetIDAccount] and friends[bnetIDAccount]["game"] then
+				if game ~= friends[bnetIDAccount]["game"] then
 					if game == "App" then
-						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s stopped playing (%sIn Battle.net)."], BNPlayerLink(presenceName, presenceID), icons[game]) .. FONT_COLOR_CODE_CLOSE)
+						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s stopped playing (%sIn Battle.net)."], BNPlayerLink(accountName, bnetIDAccount), icons[game]) .. FONT_COLOR_CODE_CLOSE)
 					else
-						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s is now playing (%s%s)."], BNPlayerLink(presenceName, presenceID), icons[game], characterName) .. FONT_COLOR_CODE_CLOSE)
+						print(BATTLENET_FONT_COLOR_CODE .. icons["Friend"] .. format(L["%s is now playing (%s%s)."], BNPlayerLink(accountName, bnetIDAccount), icons[game], characterName or L["Unknown"]) .. FONT_COLOR_CODE_CLOSE)
 						PlaySound("UI_BnetToast")
 					end
 				end
 			end
 			-- Record latest friend info
-			friends[presenceID] = {["game"] = game}
+			friends[bnetIDAccount] = {["game"] = game}
 		end
 	end
 	-- Scan again in interval seconds
