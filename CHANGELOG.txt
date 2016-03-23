@@ -1,3 +1,6 @@
+<b><u> v1.28, 23.03.2016</b></u>
+<font color=#FF8C00>&#9830;</font> UnitFrames: Fixed the greyed out Option in Unitframes.
+
 <b><u> v1.27, 23.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: enable the BenikUI Token Dashboard again.
 <font color=#FF8C00>&#9830;</font> Battle.net Alert fix a rar Error. (Credits: cmc3215)

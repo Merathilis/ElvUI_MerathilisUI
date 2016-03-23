@@ -1,4 +1,8 @@
 ** v1.27, 23.03.2016**
+* UnitFrames: Fixed the greyed out Option in Unitframes.
+
+\\ \\
+** v1.27, 23.03.2016**
 * Install: enable the BenikUI Token Dashboard again.
 * Battle.net Alert fix a rar Error. (Credits: cmc3215)
 
