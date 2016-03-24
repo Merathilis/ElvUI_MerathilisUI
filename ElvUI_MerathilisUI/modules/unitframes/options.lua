@@ -6,10 +6,8 @@ local UF = E:GetModule('UnitFrames');
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local tonumber = tonumber
 local tinsert = table.insert
 -- WoW API / Variables
-local GetAddOnMetadata = GetAddOnMetadata
 
 local function UnitFrames()
 	E.Options.args.mui.args.unitframes = {
@@ -28,7 +26,6 @@ local function UnitFrames()
 				type = "group",
 				name = L["Player Frame"],
 				guiInline = true,
-				disabled = function() return tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 end,
 				args = {
 					rested = {
 						order = 2,
