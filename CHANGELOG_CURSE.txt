@@ -1,5 +1,6 @@
-** v1.28, xx.xx.xxxx**
+** v1.29, 28.03.2016**
 * Install: Move the settings from the Datatexts where it belongs.
+* Skins: Change a few MasterPlan Fonts. Thx Darth Predator. (Requires AddOnSkins)
 
 \\ \\
 ** v1.28, 23.03.2016**

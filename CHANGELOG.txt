@@ -1,5 +1,6 @@
-<b><u> v1.29, xx.xx.xxxx</b></u>
+<b><u> v1.29, 28.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Move the settings from the Datatexts where it belongs.
+<font color=#FF8C00>&#9830;</font> Skins: Change a few MasterPlan Fonts. Thx Darth Predator. (Requires AddOnSkins)
 
 <b><u> v1.28, 23.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UnitFrames: Fixed the greyed out Option in Unitframes.
