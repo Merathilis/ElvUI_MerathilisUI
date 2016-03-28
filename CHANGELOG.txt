@@ -1,3 +1,6 @@
+<b><u> v1.29, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Move the settings from the Datatexts where it belongs.
+
 <b><u> v1.28, 23.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UnitFrames: Fixed the greyed out Option in Unitframes.
 

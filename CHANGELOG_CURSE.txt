@@ -1,4 +1,8 @@
-** v1.27, 23.03.2016**
+** v1.28, xx.xx.xxxx**
+* Install: Move the settings from the Datatexts where it belongs.
+
+\\ \\
+** v1.28, 23.03.2016**
 * UnitFrames: Fixed the greyed out Option in Unitframes.
 
 \\ \\
