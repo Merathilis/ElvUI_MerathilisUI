@@ -35,3 +35,32 @@ f:SetScript("OnEvent", function(self, event, addon)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)
+
+-- Hook to AddOnSkins Credit Darth Predator
+if not IsAddOnLoaded("AddOnSkins") then return; end
+local AS = unpack(AddOnSkins);
+local MPskin = AS.MasterPlan
+function AS:MasterPlan(event, addon)
+	MPskin(self, event, addon)
+	if addon == 'MasterPlan' or IsAddOnLoaded('MasterPlan') then
+		_G["MPCompleteAllText"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		_G["MPPokeTentativePartiesText"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		_G["MPPokeTentativeParties"]:SetWidth(235)
+
+		for i = 1, 4 do
+			_G["GarrisonMissionFrameTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		end
+		
+		for i = 1, 3 do
+			_G["GarrisonShipyardFrameTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		end
+
+		for i = 1, 4 do
+			_G["GarrisonLandingPageTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		end
+
+		_G["MPCompleteAll"]:SetTemplate("Transparent")
+		_G["MPPokeTentativeParties"]:SetTemplate("Transparent")
+	end
+end
+AS:RegisterSkin('MasterPlan', AS.MasterPlan, "ADDON_LOADED")
