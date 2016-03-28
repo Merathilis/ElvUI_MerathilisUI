@@ -102,22 +102,6 @@ local function SetupMERLayout(layout)
 	E.db["general"]["reputation"]["width"] = 10
 	E.db["general"]["reputation"]["textFormat"] = "NONE"
 	E.db["general"]["reputation"]["orientation"] = "VERTICAL"
-	if IsAddOnLoaded('ElvUI_BenikUI') then
-		E.db["datatexts"]["leftChatPanel"] = false
-		E.db["datatexts"]["rightChatPanel"] = false
-		E.db["datatexts"]["minimapPanels"] = true
-		E.db["datatexts"]["actionbar3"] = false
-		E.db["datatexts"]["actionbar5"] = false
-	else
-		E.db["datatexts"]["leftChatPanel"] = true
-		E.db["datatexts"]["rightChatPanel"] = true
-		E.db["datatexts"]["minimapPanels"] = true
-		E.db["datatexts"]["actionbar3"] = true
-		E.db["datatexts"]["actionbar5"] = true
-	end
-	E.db["datatexts"]["time24"] = true
-	E.db["datatexts"]["goldCoins"] = true
-	E.db["datatexts"]["noCombatHover"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
@@ -1376,7 +1360,25 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["font"] = "Merathilis Roadway"
 	E.db["datatexts"]["fontSize"] = 13
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
-	E.db["datatexts"]["panelTransparency"] = false
+	E.db["datatexts"]["time24"] = true
+	E.db["datatexts"]["goldCoins"] = true
+	E.db["datatexts"]["noCombatHover"] = true
+	E.db["datatexts"]["panelTransparency"] = true
+	E.db["datatexts"]["wordWrap"] = true
+
+	if IsAddOnLoaded('ElvUI_BenikUI') then
+		E.db["datatexts"]["leftChatPanel"] = false
+		E.db["datatexts"]["rightChatPanel"] = false
+		E.db["datatexts"]["minimapPanels"] = true
+		E.db["datatexts"]["actionbar3"] = false
+		E.db["datatexts"]["actionbar5"] = false
+	else
+		E.db["datatexts"]["leftChatPanel"] = true
+		E.db["datatexts"]["rightChatPanel"] = true
+		E.db["datatexts"]["minimapPanels"] = true
+		E.db["datatexts"]["actionbar3"] = true
+		E.db["datatexts"]["actionbar5"] = true
+	end
 
 	if IsAddOnLoaded('ElvUI_SLE') then
 		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Guild"
