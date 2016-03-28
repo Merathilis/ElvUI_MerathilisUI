@@ -30,7 +30,7 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, addon)
-	if addon == "MasterPlan" then
+	if addon == "MasterPlan" or IsAddOnLoaded('MasterPlan') then
 		skinMasterPlan()
 		self:UnregisterEvent("ADDON_LOADED")
 	end
