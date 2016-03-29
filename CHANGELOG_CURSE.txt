@@ -1,3 +1,7 @@
+** v1.30, 29.03.2016**
+* Install: Move the settings from AddOnSkins to my Install. So it will not to be forced.
+
+\\ \\
 ** v1.29, 28.03.2016**
 * Install: Move the settings from the Datatexts where it belongs.
 * Skins: Change a few MasterPlan Fonts. Thx Darth Predator. (Requires AddOnSkins)
