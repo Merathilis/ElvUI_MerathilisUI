@@ -8,24 +8,6 @@ local select, unpack = select, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
---Change some AddOnSkins defaults for ElvUI. Credit Blazeflack (AddOnSkinsTweaks)
-V["addonskins"]['EmbedSystemDual'] = true
-V["addonskins"]['EmbedBelowTop'] = false
-V["addonskins"]['TransparentEmbed'] = true
-V["addonskins"]['SkadaBackdrop'] = true
-V["addonskins"]["EmbedMain"] = 'Skada'
-V["addonskins"]["EmbedLeft"] = 'Skada'
-V["addonskins"]["EmbedRight"] = 'Skada'
-V["addonskins"]["EmbedLeftWidth"] = 170
-V["addonskins"]['AuctionHouse'] = false
-V['addonskins']['ParchmentRemover'] = true
-V['addonskins']['WeakAuraBar'] = true
-V['addonskins']['BigWigsHalfBar'] = true
-V['addonskins']['CliqueSkin'] = true
-V['addonskins']['Blizzard_ExtraActionButton'] = true
-V['addonskins']['Blizzard_DraenorAbilityButton'] = true
-V['addonskins']['Blizzard_WorldStateCaptureBar'] = true
-
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
 	"UI-Panel-MinimizeButton-Up",

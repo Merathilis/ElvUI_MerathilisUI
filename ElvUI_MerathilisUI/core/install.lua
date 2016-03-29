@@ -1099,6 +1099,30 @@ local function SetupMERAddons()
 		}
 	end
 
+	-- AddOnSkins
+	if E.private['addonskins'] == nil then E.private['addonskins'] = {} end
+	if IsAddOnLoaded('AddOnSkins') then
+		E.private['addonskins']['EmbedSystemDual'] = true
+		E.private['addonskins']['EmbedBelowTop'] = false
+		E.private['addonskins']['TransparentEmbed'] = true
+		E.private['addonskins']['EmbedRightChat'] = true
+		E.private['addonskins']['SkadaBackdrop'] = false
+		E.private['addonskins']['EmbedMain'] = 'Skada'
+		E.private['addonskins']['EmbedLeft'] = 'Skada'
+		E.private['addonskins']['EmbedRight'] = 'Skada'
+		E.private['addonskins']['EmbedLeftWidth'] = 170
+		E.private['addonskins']['ParchmentRemover'] = true
+		E.private['addonskins']['WeakAuraBar'] = true
+		E.private['addonskins']['WeakAuraIconCooldown'] = true
+		E.private['addonskins']['BigWigsHalfBar'] = true
+		E.private['addonskins']['CliqueSkin'] = true
+		E.private['addonskins']['SkinTemplate'] = 'Transparent'
+		E.private['addonskins']['SkinDebug'] = true
+		E.private['addonskins']['Blizzard_ExtraActionButton'] = true
+		E.private['addonskins']['Blizzard_DraenorAbilityButton'] = true
+		E.private['addonskins']['Blizzard_WorldStateCaptureBar'] = true
+	end
+
 	-- BenikUI
 	if E.db['benikui'] == nil then E.db['benikui'] = {} end
 	if IsAddOnLoaded('ElvUI_BenikUI') then
