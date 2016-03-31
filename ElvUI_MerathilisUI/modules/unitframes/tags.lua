@@ -24,13 +24,19 @@ end
 ElvUF.Tags.Events['num:targeting'] = "UNIT_TARGET PLAYER_TARGET_CHANGED GROUP_ROSTER_UPDATE"
 ElvUF.Tags.Methods['num:targeting'] = function(unit)
 	if not IsInGroup() then return "" end
-
 	local targetedByNum = 0
+
+	--Count the amount of other people targeting the unit
 	for i = 1, GetNumGroupMembers() do
 		local groupUnit = (IsInRaid() and "raid"..i or "party"..i);
-		if (UnitIsUnit(groupUnit.."target", unit) and not UnitIsUnit(groupUnit, "player")) or UnitIsUnit("playertarget", unit) then
+		if (UnitIsUnit(groupUnit.."target", unit) and not UnitIsUnit(groupUnit, "player")) then
 			targetedByNum = targetedByNum + 1
 		end
+	end
+
+	--Add 1 if we're targeting the unit too
+	if UnitIsUnit("playertarget", unit) then
+		targetedByNum = targetedByNum + 1
 	end
 
 	return (targetedByNum > 0 and targetedByNum or "")
