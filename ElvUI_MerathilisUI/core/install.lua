@@ -408,6 +408,7 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['yOffset'] = 0
 		E.db['benikui']['unitframes']['castbar']['text']['ShowInfoText'] = false
 		E.db['benikui']['unitframes']['castbar']['text']['castText'] = true
+		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisEmpty"
 	end
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
@@ -469,6 +470,13 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"] = {}
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["font"] = "Merathilis Tukui"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["size"] = 12
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["fontOutline"] = "OUTLINE"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["justifyH"] = "CENTER"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["text_format"] = "[num:targeting]"
 	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
@@ -1147,6 +1155,8 @@ local function SetupMERAddons()
 		E.db['benikui']['datatexts']['garrison']['oil'] = true
 		E.db['benikui']['unitframes']['misc']['svui'] = true
 		E.db['benikui']['unitframes']['powerbar']['statusBar'] = "MerathilisFlat"
+		E.db['benikui']['unitframes']['infoPanel']['fixInfoPanel'] = true
+		E.db['benikui']['unitframes']['infoPanel']['texture'] = "MerathilisEmpty"
 		E.db['dashboards']['barColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 		E.db['dashboards']['system']['enableSystem'] = false
 		E.db['dashboards']['professions']['enableProfessions'] = false
