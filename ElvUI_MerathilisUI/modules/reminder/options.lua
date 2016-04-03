@@ -25,7 +25,7 @@ local function UpdateFilterGroup(reset)
 		end
 	end
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup = {
+	E.Options.args.mui.args.reminder.args.filterGroup = {
 		type = 'group',
 		name = selectedFilter,
 		guiInline = true,
@@ -33,7 +33,7 @@ local function UpdateFilterGroup(reset)
 		args = {},
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.enable = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.enable = {
 		order = 1,
 		type = "toggle",
 		name = L["Enable"],
@@ -41,7 +41,7 @@ local function UpdateFilterGroup(reset)
 		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]['enable'] = value; R:CheckForNewReminders() end,
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.filterType = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.filterType = {
 		order = 2,
 		type = "select",
 		name = L["Filter Type"],
@@ -78,14 +78,14 @@ local function UpdateFilterGroup(reset)
 		},
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.buttonToggle = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.buttonToggle = {
 		order = 3,
 		type = "execute",
 		name = SHOW.. "\\" ..HIDE,
 		func = function() R:ToggleIcon(selectedFilter) end,
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.xOffset = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.xOffset = {
 		order = 4,
 		name = L['X Offset'],
 		type = 'range',
@@ -94,7 +94,7 @@ local function UpdateFilterGroup(reset)
 		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["xOffset"] = value; R:SetIconPosition(selectedFilter) end,
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.yOffset = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.yOffset = {
 		order = 5,
 		name = L['Y Offset'],
 		type = 'range',
@@ -103,7 +103,7 @@ local function UpdateFilterGroup(reset)
 		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["yOffset"] = value; R:SetIconPosition(selectedFilter) end,
 	}
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.size = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.size = {
 		order = 6,
 		name = L['Size'],
 		type = 'range',
@@ -113,7 +113,7 @@ local function UpdateFilterGroup(reset)
 	}
 
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.Role = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args.Role = {
 		type = 'select',
 		order = 10,
 		name = L['Role'],
@@ -143,7 +143,7 @@ local function UpdateFilterGroup(reset)
 	
 	local spec1, spec2, spec3, spec4 = select(2, GetSpecializationInfo(1)), select(2, GetSpecializationInfo(2)), select(2, GetSpecializationInfo(3)), E.myclass == "DRUID" and (select(2,GetSpecializationInfo(4)))
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["tree"] = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args["tree"] = {
 		type = 'select',
 		name = L["Talent Tree"],
 		desc = L["You must be using a certain talent tree for the icon to show."],
@@ -159,10 +159,10 @@ local function UpdateFilterGroup(reset)
 	}
 	
 	if E.myclass == "DRUID" then
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["tree"].values["4"] = spec4
+		E.Options.args.mui.args.reminder.args.filterGroup.args["tree"].values["4"] = spec4
 	end
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["level"] = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args["level"] = {
 		type = "range",
 		name = L["Level Requirement"],
 		desc = L["Level requirement for the icon to be able to display. 0 for disabled."],
@@ -181,7 +181,7 @@ local function UpdateFilterGroup(reset)
 	
 	
 	if not E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell then
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["personal"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["personal"] = {
 			type = "toggle",
 			name = L["Personal Buffs"],
 			desc = L["Only check if the buff is coming from you."],
@@ -191,7 +191,7 @@ local function UpdateFilterGroup(reset)
 		}
 	end
 	
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["instance"] = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args["instance"] = {
 		type = "toggle",
 		name = L["Inside Raid/Party"],
 		desc = L["Only run checks inside raid/party instances."],
@@ -200,7 +200,7 @@ local function UpdateFilterGroup(reset)
 		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["instance"] = value; R:CheckForNewReminders() end,
 	}
 
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["pvp"] = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args["pvp"] = {
 		type = "toggle",
 		name = L["Inside BG/Arena"],
 		desc = L["Only run checks inside BG/Arena instances."],
@@ -209,7 +209,7 @@ local function UpdateFilterGroup(reset)
 		set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["pvp"] = value; R:CheckForNewReminders() end,
 	}	
 
-	E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["combat"] = {
+	E.Options.args.mui.args.reminder.args.filterGroup.args["combat"] = {
 		type = "toggle",
 		name = L["Combat"],
 		desc = L["Only run checks during combat."],
@@ -219,7 +219,7 @@ local function UpdateFilterGroup(reset)
 	}
 	
 	if not E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell then
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["strictFilter"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["strictFilter"] = {
 			type = "toggle",
 			name = L["Strict Filter"],
 			desc = L["This ensures you can only see spells that you actually know. You may want to uncheck this option if you are trying to monitor a spell that is not directly clickable out of your spellbook."],
@@ -228,7 +228,7 @@ local function UpdateFilterGroup(reset)
 			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["strictFilter"] = value; R:CheckForNewReminders() end,
 		}	
 
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["disableSound"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["disableSound"] = {
 			type = "toggle",
 			name = L["Disable Sound"],
 			desc = L["Don't play the warning sound."],
@@ -239,7 +239,7 @@ local function UpdateFilterGroup(reset)
 	end
 	
 	if E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell ~= false and E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell ~= nil then
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.cdFade = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args.cdFade = {
 			order = 6,
 			name = L['CD Fade'],
 			type = 'range',
@@ -248,7 +248,7 @@ local function UpdateFilterGroup(reset)
 			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["cdFade"] = value; R:CheckForNewReminders() end,
 		}
 
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args.OnCooldown = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args.OnCooldown = {
 			order = 7,
 			name = L['On Cooldown'],
 			type = 'select',
@@ -260,7 +260,7 @@ local function UpdateFilterGroup(reset)
 			}
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["Spell ID"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["Spell ID"] = {
 			order = 100,
 			type = 'input',
 			name = L["Spell ID"],
@@ -289,7 +289,7 @@ local function UpdateFilterGroup(reset)
 	end
 
 	if not E.global['reminder']['filters'][E.myclass][selectedFilter].CDSpell and not E.global['reminder']['filters'][E.myclass][selectedFilter].weaponCheck then
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["reverseCheck"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["reverseCheck"] = {
 			order = 100,
 			type = "toggle",
 			name = L["Reverse Check"],
@@ -298,7 +298,7 @@ local function UpdateFilterGroup(reset)
 			set = function(info, value) E.global['reminder']['filters'][E.myclass][selectedFilter]["reverseCheck"] = value; R:CheckForNewReminders() end,
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["talentTreeException"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["talentTreeException"] = {
 			order = 101,
 			type = "select",
 			name = L["Tree Exception"],
@@ -314,7 +314,7 @@ local function UpdateFilterGroup(reset)
 			},
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["spellGroup"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["spellGroup"] = {
 			order = 102,
 			type = "group",
 			name = L["Spells"],
@@ -325,10 +325,10 @@ local function UpdateFilterGroup(reset)
 		if not E.global['reminder']['filters'][E.myclass][selectedFilter]['spellGroup'] then E.global['reminder']['filters'][E.myclass][selectedFilter]['spellGroup'] = {}; end
 		for spell, value in pairs(E.global['reminder']['filters'][E.myclass][selectedFilter]['spellGroup']) do
 			local name = GetSpellInfo(spell)
-			if E.Options.args.mui.args.config.args.reminder.args.filterGroup.args[name] == nil then
+			if E.Options.args.mui.args.reminder.args.filterGroup.args[name] == nil then
 				local sname = GetSpellInfo(spell)
 				sname = sname.." ("..spell..")"
-				E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["spellGroup"]["args"][name] = {
+				E.Options.args.mui.args.reminder.args.filterGroup.args["spellGroup"]["args"][name] = {
 					name = sname,
 					type = "toggle",
 					get = function(info) if E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]['spellGroup'][spell] then return true else return false end end,
@@ -337,7 +337,7 @@ local function UpdateFilterGroup(reset)
 			end
 		end
 
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["AddSpell"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["AddSpell"] = {
 			order = 103,
 			type = 'input',
 			name = L["New ID"],
@@ -357,7 +357,7 @@ local function UpdateFilterGroup(reset)
 			end,
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["RemoveSpell"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["RemoveSpell"] = {
 			order = 104,
 			type = 'input',
 			name = L["Remove ID"],
@@ -378,7 +378,7 @@ local function UpdateFilterGroup(reset)
 			end,
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["negateGroup"] = {
 			order = 105,
 			type = "group",
 			name = L["Negate Spells"],
@@ -389,10 +389,10 @@ local function UpdateFilterGroup(reset)
 		if not E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'] then E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'] = {}; end
 		for spell, value in pairs(E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup']) do
 			local name = GetSpellInfo(spell)
-			if E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] == nil then
+			if E.Options.args.mui.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] == nil then
 				local sname = GetSpellInfo(spell)
 				sname = sname.." ("..spell..")"
-				E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] = {
+				E.Options.args.mui.args.reminder.args.filterGroup.args["negateGroup"]["args"][name] = {
 					name = sname,
 					type = "toggle",
 					get = function(info) if E.global['reminder']['filters'][E.myclass][selectedFilter] and E.global['reminder']['filters'][E.myclass][selectedFilter]['negateGroup'][spell] then return true else return false end end,
@@ -401,7 +401,7 @@ local function UpdateFilterGroup(reset)
 			end
 		end
 
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["AddNegateSpell"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["AddNegateSpell"] = {
 			order = 106,
 			type = 'input',
 			name = L["New ID (Negate)"],
@@ -421,7 +421,7 @@ local function UpdateFilterGroup(reset)
 			end,
 		}
 		
-		E.Options.args.mui.args.config.args.reminder.args.filterGroup.args["RemoveNegateSpell"] = {
+		E.Options.args.mui.args.reminder.args.filterGroup.args["RemoveNegateSpell"] = {
 			order = 107,
 			type = 'input',
 			name = L["Remove ID (Negate)"],
@@ -477,7 +477,7 @@ function muiReminder()
 				values = AceGUIWidgetLSMlists.sound,
 				disabled = function() return not E.private.reminder.enable end,
 				get = function(info) return E.private.reminder.sound end,
-				set = function(info, value) E.private.reminder.sound = value; end		
+				set = function(info, value) E.private.reminder.sound = value; end
 			},
 			spacer = {
 				order = 5,
@@ -496,7 +496,7 @@ function muiReminder()
 						return
 					end
 					
-					E.Options.args.mui.args.config.args.reminder.args.filterGroup = nil
+					E.Options.args.mui.args.reminder.args.filterGroup = nil
 					E.global['reminder']['filters'][E.myclass][value] = {};	
 					E.global['reminder']['filters'][E.myclass][value].enable = true
 					E.global['reminder']['filters'][E.myclass][value].size = 50
@@ -518,7 +518,7 @@ function muiReminder()
 						E.global.reminder.filters[E.myclass][value] = nil;
 						selectedFilter = nil;
 					end
-					E.Options.args.mui.args.config.args.reminder.args.filterGroup = nil
+					E.Options.args.mui.args.reminder.args.filterGroup = nil
 					UpdateFilterGroup()
 					R:CheckForNewReminders();
 				end,
@@ -529,7 +529,7 @@ function muiReminder()
 				name = L['Select Group'],
 				disabled = function() return not E.private.reminder.enable end,
 				get = function(info) return selectedFilter end,
-				set = function(info, value) selectedFilter = value; UpdateFilterGroup(true) end,							
+				set = function(info, value) selectedFilter = value; UpdateFilterGroup(true) end,
 				values = function()
 					filters = {}
 					for filter in pairs(R.CreatedReminders) do
