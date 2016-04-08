@@ -1,3 +1,7 @@
+<b><u> v1.31, 08.04.2016</b></u>
+<font color=#FF8C00>&#9830;</font> UnitFrames: Add a new Tag [num:targeting] it will display a number which indicates how many people in your group is targeting the unit. (Credits Blazeflack - ElvUI_CustomTags)
+<font color=#FF8C00>&#9830;</font> Reminder: Fixed a nil Error in the Reminder Options.
+
 <b><u> v1.30, 29.03.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Move the settings from AddOnSkins to my Install. So it will not to be forced.
 

@@ -1,3 +1,7 @@
+** v1.31, 08.04.2016**
+* UnitFrames: Add a new Tag [num:targeting] it will display a number which indicates how many people in your group is targeting the unit. (Credits Blazeflack - ElvUI_CustomTags)
+* Reminder: Fixed a nil Error in the Reminder Options.
+
 ** v1.30, 29.03.2016**
 * Install: Move the settings from AddOnSkins to my Install. So it will not to be forced.
 
