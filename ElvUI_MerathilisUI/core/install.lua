@@ -227,7 +227,7 @@ local function SetupMERLayout(layout)
 	
 	-- Bags
 	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
-	E.db["bags"]["itemLevelFontSize"] = 8
+	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = 'OUTLINE'
 	E.db["bags"]["countFont"] = "Merathilis Prototype"
 	E.db["bags"]["countFontSize"] = 10
@@ -258,7 +258,12 @@ local function SetupMERLayout(layout)
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	E.db["chat"]["panelBackdropNameRight"] = ""
+	local name = UnitName("player")
+	if E.myclass == "DRUID" and name == "Merathilis" then
+		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
+	else
+		E.db["chat"]["panelBackdropNameRight"] = ""
+	end
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
 	
@@ -1254,8 +1259,7 @@ local function SetupMERAddons()
 			E.db["sle"]["chat"]["tab"]["color"] = {r = classColor.r, g = classColor.g, b = classColor.b}
 			E.db["sle"]["chat"]["BubbleThrottle"] = 0.1
 			E.db["sle"]["chat"]["dpsSpam"] = true
-			E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.25
-			E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
+			E.db["sle"]["chat"]["textureAlpha"]["enable"] = false
 			E.db["sle"]["chat"]["BubbleClass"] = true
 			E.db["sle"]["blizzard"]["rumouseover"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
