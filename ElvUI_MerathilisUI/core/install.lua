@@ -258,8 +258,7 @@ local function SetupMERLayout(layout)
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	local name = UnitName("player")
-	if E.myclass == "DRUID" and name == "Merathilis" then
+	if E.myclass == "DRUID" and E.myname == "Merathilis" then
 		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
 	else
 		E.db["chat"]["panelBackdropNameRight"] = ""
