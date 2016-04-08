@@ -39,6 +39,5 @@ ElvUF.Tags.Methods['num:targeting'] = function(unit)
 		targetedByNum = targetedByNum + 1
 	end
 
-	local formattedMsg = (targetedByNum > 0 and format("[%d]", targetedByNum) or "")
-	return formattedMsg
+	return (targetedByNum > 0 and targetedByNum or "")
 end
