@@ -1,3 +1,6 @@
+<b><u> v1.32, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Added BenikUI's option to change castbar text color (classcolor)
+
 <b><u> v1.31, 08.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UnitFrames: Add a new Tag [num:targeting] it will display a number which indicates how many people in your group is targeting the unit. (Credits Blazeflack - ElvUI_CustomTags)
 <font color=#FF8C00>&#9830;</font> Reminder: Fixed a nil Error in the Reminder Options.
