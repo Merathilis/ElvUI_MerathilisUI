@@ -85,12 +85,9 @@ local function SkinScenarioButtons()
 
 	-- pop-up artwork
 	block.NormalBG:Hide()
-	block.NormalBG:SetSize(width + 21, 75)
 
 	-- pop-up final artwork
-	block.FinalBG:ClearAllPoints()
-	block.FinalBG:SetPoint("TOPLEFT", block.NormalBG, 6, -6)
-	block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
+	block.FinalBG:Hide()
 
 	-- pop-up glow
 	block.GlowTexture.AlphaAnim.Play = dummy
