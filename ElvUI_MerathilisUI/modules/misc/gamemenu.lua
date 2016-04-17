@@ -23,8 +23,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga" -- loads on memory when gamemenu.lua loads and waits to be called. CPU wise it's better than searching for it everytime GameMenu function is called.
-local className = E.myclass
+local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga"
 
 local npc = {
 	86470, -- Pepe
@@ -95,7 +94,7 @@ function MER:GameMenu()
 		
 		topPanel.style = CreateFrame("Frame", nil, _G["GameMenuFrame"])
 		topPanel.style:SetTemplate("Default", true)
-		topPanel.style:SetFrameStrata("BACKGROUND")
+		topPanel.style:SetFrameStrata("HIGH")
 		topPanel.style:SetInside()
 		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
@@ -119,7 +118,7 @@ function MER:GameMenu()
 		topPanel.factionLogo = topPanel:CreateTexture(nil, 'ARTWORK')
 		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:SetSize(250, 250)
-		topPanel.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-'..className)
+		topPanel.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-'..E.myclass)
 	end
 	
 	-- Use this frame to control the position of the model - taken from ElvUI

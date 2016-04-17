@@ -1,5 +1,6 @@
 ** v1.32, xx.xx.2016**
-* Install: Added BenikUI's option to change castbar text color (classcolor)
+* Install: Added BenikUI's option to change castbar text color (classcolor).
+* GameMenu: Adjust the StrataLevel of the Top Style Bar.
 
 \\ \\
 ** v1.31, 08.04.2016**
