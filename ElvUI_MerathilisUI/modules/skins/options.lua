@@ -35,7 +35,7 @@ local function SkinsTable()
 		order = 3,
 		type = 'group',
 		guiInline = true,
-		name = L['ElvUI AddOns']..MER.NewSign,
+		name = L['ElvUI AddOns'],
 		get = function(info) return E.private.muiSkins.elvuiAddons[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
@@ -97,7 +97,12 @@ local function SkinsTable()
 				order = 3,
 				type = 'toggle',
 				name = _G["OBJECTIVES_TRACKER_LABEL"],
-			}, 
+			},
+			glyph = {
+				order = 4,
+				type = 'toggle',
+				name = L["Glyph Frame"]..MER.NewSign,
+			},
 		},
 	}
 end

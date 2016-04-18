@@ -4,7 +4,7 @@ local E, L, V, P, G = unpack(ElvUI);
 --	Reminder options
 ----------------------------------------------------------------------------------------
 V['reminder'] = {
-	['enable'] = false,
+	['enable'] = true,
 	['sound'] = "Warning",
 }
 
@@ -16,6 +16,7 @@ V['muiSkins'] = {
 		['encounterjournal'] = true,
 		['spellbook'] = true, -- Remove the Background of the Spellbook
 		['objectivetracker'] = true,
+		['glyph'] = true, -- Remove the Background of the GlyphFrame
 	},
 	['addonSkins'] = {
 		['mp'] = true, -- Skins the additional MasterPlan Tabs
