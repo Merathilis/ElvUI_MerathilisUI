@@ -7,6 +7,10 @@ local function styleGlyph()
 	if GlyphFrameBackground then
 		GlyphFrameBackground:Hide()
 	end
+	
+	if IsAddOnLoaded("AddOnSkins") and GlyphFrame.Backdrop then
+		GlyphFrame.Backdrop:Hide()
+	end
 
 	PlayerTalentFrameInset.backdrop.Show = function() end
 end
