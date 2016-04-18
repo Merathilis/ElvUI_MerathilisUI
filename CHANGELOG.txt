@@ -2,6 +2,9 @@
 <font color=#FF8C00>&#9830;</font> Install: Added BenikUI's option to change castbar text color (classcolor).
 <font color=#FF8C00>&#9830;</font> GameMenu: Adjust the StrataLevel of the Top Style Bar.
 <font color=#FF8C00>&#9830;</font> ObjectivTracker: For some reason some textures are left. Now hide them.
+<font color=#FF8C00>&#9830;</font> Skins: The Glyph Background are now transparent.
+<font color=#FF8C00>&#9830;</font> Skins: Overhaul the SpellBook Skin. (Code taken from AddOnSkins, a little bit at least :D)
+<font color=#FF8C00>&#9830;</font> Misc: Code Cleanup.
 
 <b><u> v1.31, 08.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UnitFrames: Add a new Tag [num:targeting] it will display a number which indicates how many people in your group is targeting the unit. (Credits Blazeflack - ElvUI_CustomTags)

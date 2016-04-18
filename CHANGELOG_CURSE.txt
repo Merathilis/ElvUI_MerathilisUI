@@ -2,6 +2,9 @@
 * Install: Added BenikUI's option to change castbar text color (classcolor).
 * GameMenu: Adjust the StrataLevel of the Top Style Bar.
 * ObjectivTracker: For some reason some textures are left. Now hide them.
+* Skins: The Glyph Background are now transparent.
+* Skins: Overhaul the SpellBook Skin. (Code taken from AddOnSkins, a little bit at least :D)
+* Misc: Code Cleanup.
 
 \\ \\
 ** v1.31, 08.04.2016**
