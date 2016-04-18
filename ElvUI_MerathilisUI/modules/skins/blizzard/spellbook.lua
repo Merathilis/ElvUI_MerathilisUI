@@ -4,8 +4,12 @@ local S = E:GetModule('Skins');
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local pairs, unpack = pairs, unpack
 -- WoW API / Variables
 local SpellBookFrame = _G["SpellBookFrame"]
+local SpellBookCoreAbilitiesFrame = _G["SpellBookCoreAbilitiesFrame"]
+local SpellBookPageText = _G["SpellBookPageText"]
+-- GLOBALS: hooksecurefunc
 
 
 local function styleSpellBook()
