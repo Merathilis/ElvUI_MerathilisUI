@@ -413,7 +413,9 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['ShowInfoText'] = false
 		E.db['benikui']['unitframes']['castbar']['text']['castText'] = true
 		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisEmpty"
-		E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
+		if tonumber(GetAddOnMetadata("ElvUI_BenikUI", "Version")) >= 2.58 then -- revert this when BenikUI 2.58 is live.
+			E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
+		end
 	end
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
