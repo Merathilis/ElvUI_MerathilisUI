@@ -1,3 +1,8 @@
+** v1.33, xx.xx.xxxx**
+* Delete QuickArmoryLink.
+* Add RealLinks (by p3lim) bugs a bit by Warforged or timless Items.
+
+\\ \\
 ** v1.32, 19.04.2016**
 * Install: Added BenikUI's option to change castbar text color (classcolor).
 * GameMenu: Adjust the StrataLevel of the Top Style Bar.

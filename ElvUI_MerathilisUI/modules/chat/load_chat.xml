@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="chat.lua"/>
 	<Script file="friendalert.lua"/>
+	<Script file="reallinks.lua"/>
 	<Script file="sle_chaticon.lua"/>
 </Ui>
