@@ -25,6 +25,7 @@ LSM:Register('statusbar','Kait2', [[Interface\AddOns\ElvUI_MerathilisUI\media\te
 LSM:Register('statusbar','AsphyxiaNormal', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Normal.tga]])
 LSM:Register('statusbar','AsphyxiaNormal2', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Normal2.tga]])
 LSM:Register('statusbar','AsphyxiaNormal3', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Normal3.tga]])
+LSM:Register('statusbar','Asphyxia', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Asphyxia.blp]])
 LSM:Register('statusbar','RenaitreDefile', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenaitreDefile.tga]])
 LSM:Register('statusbar','RenaitreDefileL', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenaitreDefileL.tga]])
 LSM:Register('statusbar','RenaitreDeity', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenaitreDeity.tga]])
