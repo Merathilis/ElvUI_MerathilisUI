@@ -24,7 +24,6 @@ MER.Config = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
-MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 

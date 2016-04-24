@@ -23,3 +23,5 @@ local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
+
+MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
