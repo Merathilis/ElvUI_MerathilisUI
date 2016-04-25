@@ -1,6 +1,9 @@
 ** v1.33, xx.xx.xxxx**
 * Delete QuickArmoryLink.
 * Add RealLinks (by p3lim) bugs a bit by Warforged or timless Items.
+* Change Nameplate Font to TukUI Font.
+* Add more Frames to blizzMove.
+* Overhaul the FriendList Skin. Based on Azilroka's EnhancedFriendsList.
 
 \\ \\
 ** v1.32, 19.04.2016**
