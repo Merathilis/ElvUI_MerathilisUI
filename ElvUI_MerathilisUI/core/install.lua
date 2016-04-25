@@ -270,7 +270,7 @@ local function SetupMERLayout(layout)
 	E.db["nameplate"]["debuffs"]["fontSize"] = 9
 	E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
 	E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
-	E.db["nameplate"]["wrapName"] = true
+	E.db["nameplate"]["wrapName"] = false
 	E.db["nameplate"]["fontOutline"] = "OUTLINE"
 	E.db["nameplate"]["sortDirection"] = 1
 	E.db["nameplate"]["comboPoints"] = true
@@ -284,9 +284,9 @@ local function SetupMERLayout(layout)
 	E.db["nameplate"]["auraFont"] = "PT Sans Narrow"
 	E.db["nameplate"]["targetIndicator"]["color"]["g"] = 0
 	E.db["nameplate"]["targetIndicator"]["color"]["b"] = 0
-	E.db["nameplate"]["font"] = "Merathilis Roadway"
+	E.db["nameplate"]["font"] = "Merathilis Tukui"
 	E.db["nameplate"]["maxAuras"] = 5
-	E.db["nameplate"]["fontSize"] = 11
+	E.db["nameplate"]["fontSize"] = 10
 	E.db["nameplate"]["auraAnchor"] = 1
 	E.db["nameplate"]["buffs"]["fontOutline"] = "OUTLINE"
 	E.db["nameplate"]["buffs"]["font"] = "Merathilis Prototype"
