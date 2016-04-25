@@ -88,7 +88,7 @@ local function ColoringFriendsList()
 					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
-			if client == BNET_CLIENT_PRO then -- Overwatch
+			if client == BNET_CLIENT_OVERWATCH then -- Overwatch
 				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
 				if icon then icon:SetTexture(E["media"].pro) end
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
