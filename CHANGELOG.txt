@@ -1,9 +1,9 @@
-<b><u> v1.33, xx.xx.xxxx</b></u>
+<b><u> v1.33, 25.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Delete QuickArmoryLink.
 <font color=#FF8C00>&#9830;</font> Add RealLinks (by p3lim) bugs a bit by Warforged or timless Items.
 <font color=#FF8C00>&#9830;</font> Change Nameplate Font to TukUI Font.
 <font color=#FF8C00>&#9830;</font> Add more Frames to blizzMove.
-<font color=#FF8C00>&#9830;</font> Overhaul the FriendList Skin. Based on Azilroka's EnhancedFriendsList.
+<font color=#FF8C00>&#9830;</font> Overhaul the FriendsList Skin. Based on Azilroka's EnhancedFriendsList.
 
 <b><u> v1.32, 19.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Added BenikUI's option to change castbar text color (classcolor).

@@ -56,7 +56,7 @@
 * ArmoryLink if you right click a Player in the Chat/Guild/LFG Browser by Driizt, Phanx.
 * WowheadLink if you right click a quest in the QuestTracker.
 * Skins the MasterPlan Garrision & Shipyard Tabs & Other Character Tab.
-* Edited Skins for the SpellBook & EncounterJournal & ObjectiveTracker.
+* Edited Skins for SpellBook, EncounterJournal, QuestTracker, Guild & FriendsFrame.
 * Shows a Chat Notification if a Battle.net Friend goes on-/offline.
 * Two Infotexte: MUI Talent/Loot Specialization & MUI System.
 * Reminder show warning icons on your screen when you are missing buffs or have buffs when you shouldn't. (Credits Azilroka)
