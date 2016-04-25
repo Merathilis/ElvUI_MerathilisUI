@@ -46,6 +46,16 @@ function MER:RegisterMerMedia()
 	E['media'].MuiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
 	E['media'].MuiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
 	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
+	
+	-- Icons
+	E['media']["app"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\battlenet]])
+	E['media']["alliance"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\alliance]])
+	E['media']["d3"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\d3]])
+	E['media']["heroes"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\heroes]])
+	E['media']["horde"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\horde]])
+	E['media']["pro"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\overwatch]])
+	E['media']["sc2"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\sc2]])
+	E['media']["wtcg"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\hearthstone]])
 end
 
 local function objectiveTrackerFont()

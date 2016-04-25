@@ -1,4 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	
-	<Script file="friendlist.lua"/>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="friends.lua"/>
+	<Script file="guild.lua"/>
 	<Script file="moveblizz.lua"/>
 </Ui>
