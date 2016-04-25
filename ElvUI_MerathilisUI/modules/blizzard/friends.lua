@@ -21,7 +21,7 @@ local GetRealmName = GetRealmName
 local LEVEL = LEVEL
 local UnitFactionGroup = UnitFactionGroup
 -- GLOBALS: BNET_CLIENT_APP, BNET_CLIENT_D3, BNET_CLIENT_HEROES, BNET_CLIENT_WOW, BNET_CLIENT_WTCG, BNET_CLIENT_PRO, LOCALIZED_CLASS_NAMES_MALE
--- GLOBALS: LOCALIZED_CLASS_NAMES_FEMALE
+-- GLOBALS: LOCALIZED_CLASS_NAMES_FEMALE, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC2
 
 local function ColoringFriendsList()
 	local friendOffset = _G["HybridScrollFrame_GetOffset"](_G["FriendsFrameFriendsScrollFrame"])
@@ -91,6 +91,20 @@ local function ColoringFriendsList()
 			if client == BNET_CLIENT_OVERWATCH then -- Overwatch
 				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
 				if icon then icon:SetTexture(E["media"].pro) end
+				local nameString = _G[button .. (i - friendOffset) .. "Name"]
+				if nameString then
+					nameString:SetTextColor(125/255,133/255,138/255)
+					local filename, fontHeight, flags = nameString:GetFont()
+				end
+				local nameString = _G[button .. (i - friendOffset) .. "Info"]
+				if nameString then
+					nameString:SetTextColor(125/255,133/255,138/255)
+					local filename, fontHeight, flags = nameString:GetFont()
+				end
+			end
+			if client == BNET_CLIENT_SC2 then -- StarCraft 2
+				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
+				if icon then icon:SetTexture(E["media"].sc2) end
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
