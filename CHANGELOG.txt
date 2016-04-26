@@ -1,3 +1,7 @@
+<b><u> v1.34, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Forgot StarCraft 2 Icon in the FriendsList.
+<font color=#FF8C00>&#9830;</font> Move the FriendsList Textures to an own Folder.
+
 <b><u> v1.33, 25.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Delete QuickArmoryLink.
 <font color=#FF8C00>&#9830;</font> Add RealLinks (by p3lim) bugs a bit by Warforged or timless Items.
