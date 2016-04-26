@@ -1,4 +1,4 @@
-<b><u> v1.34, xx.xx.xxxx</b></u>
+<b><u> v1.34, 26.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Forgot StarCraft 2 Icon in the FriendsList.
 <font color=#FF8C00>&#9830;</font> Move the FriendsList Textures to an own Folder.
 <font color=#FF8C00>&#9830;</font> Update RealLinks. (Credits Wetxius)
