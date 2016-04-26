@@ -10,7 +10,7 @@ local GetItemQualityColor = GetItemQualityColor
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 
 ----------------------------------------------------------------------------------------
---	Colors links in Battle.net whispers(RealLinks by p3lim)
+--	Colors links in Battle.net whispers(RealLinks by p3lim) maintained by ShestakUI
 ----------------------------------------------------------------------------------------
 local function GetLinkColor(data)
 	local type, arg1, arg2, arg3 = match(data, "(%w+):(%d+):(%d+):(%d+)")
@@ -29,12 +29,15 @@ local function GetLinkColor(data)
 		else
 			return "|cffffd200"
 		end
+	elseif type == "garrfollower" then
+		local _, _, _, color = GetItemQualityColor(arg2)
+		return "|c"..color
 	elseif type == "quest" then
 		local color = GetQuestDifficultyColor(arg2)
 		return format("|cff%2x%2x%2x", color.r * 255, color.g * 255, color.b * 255)
 	elseif type == "spell" then
 		return "|cff71d5ff"
-	elseif type == "achievement" then
+	elseif type == "achievement" or type == "garrmission" then
 		return "|cffffff00"
 	elseif type == "trade" or type == "enchant" then
 		return "|cffffd000"
