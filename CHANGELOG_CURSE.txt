@@ -2,6 +2,7 @@
 * Forgot StarCraft 2 Icon in the FriendsList.
 * Move the FriendsList Textures to an own Folder.
 * Update RealLinks. (Credits Wetxius)
+* Update BlizzBugs.
 
 \\ \\
 ** v1.33, 25.04.2016**

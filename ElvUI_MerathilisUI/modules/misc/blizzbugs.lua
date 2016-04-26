@@ -1,7 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 
--- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.0
-
+-- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.1
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -165,3 +164,28 @@ do
 		--print("ADDON LIST FIX ACTIVATED") 
 	end
 end
+
+-- Fix glitchy-ness of EnableAddOn/DisableAddOn API, which affects the stability of the default 
+-- UI's addon management list (both in-game and glue), as well as any addon-management addons.
+-- The problem is caused by broken defaulting logic used to merge AddOns.txt settings across 
+-- characters to those missing a setting in AddOns.txt, whereby toggling an addon for a single character 
+-- sometimes results in also toggling it for a different character on that realm for no obvious reason.
+-- The code below ensures each character gets an independent enable setting for each installed 
+-- addon in its AddOns.txt file, thereby avoiding the broken defaulting logic.
+-- Note the fix applies to each character the first time it loads there, and a given character 
+-- is not protected from the faulty logic on addon X until after the fix has run with addon X 
+-- installed (regardless of enable setting) and the character has logged out normally.
+-- Confirmed bugged in 6.2.3.20886
+do
+	local player = UnitName("player")
+	if player and #player > 0 then
+		for i=1,GetNumAddOns() do 
+			if GetAddOnEnableState(player, i) > 0 then  -- addon is enabled
+				EnableAddOn(i, player)
+			else
+				DisableAddOn(i, player)
+			end 
+		end
+	end
+end
+
