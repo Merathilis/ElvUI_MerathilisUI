@@ -1,3 +1,9 @@
+** v1.36, xx.xx.xxxx**
+* Install: Overhaul the install process.
+* Install: Seperate the chat install.
+* Install: Add install option for UnitFrames.
+* Install: Add install option for ActionBars. There are now two install options. (Two or three bottom ActionBars)
+
 ** v1.35, 28.04.2016**
 * Fix a Typo.
 

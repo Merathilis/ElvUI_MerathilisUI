@@ -53,7 +53,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 -- BenikUI Tip
 E.PopupDialogs['BENIKUI'] = {
 	text = L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"],
-	button1 = YES,
+	button1 = CLOSE,
 	OnAccept = E.noop,
 	showAlert = 1
 }

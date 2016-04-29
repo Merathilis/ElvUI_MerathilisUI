@@ -39,7 +39,7 @@ local CreateAnimationGroup = CreateAnimationGroup
 -- GLOBALS: InstallOption3Button,  InstallOption4Button
 
 local CURRENT_PAGE = 0
-local MAX_PAGE = 5
+local MAX_PAGE = 8
 local titleText = {}
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
@@ -49,7 +49,6 @@ function E:GetColor(r, b, g, a)
 	return { r = r, b = b, g = g, a = a }
 end
 
--- local functions must go up
 local function SetupMERLayout(layout)
 	if not IsAddOnLoaded('ElvUI_BenikUI') then
 		E:StaticPopup_Show('BENIKUI')
@@ -90,14 +89,14 @@ local function SetupMERLayout(layout)
 	E.private["general"]["glossTex"] = "MerathilisFlat"
 	E.db["general"]["experience"]["enable"] = true
 	E.db["general"]["experience"]["mouseover"] = false
-	E.db["general"]["experience"]["height"] = 140
+	E.db["general"]["experience"]["height"] = 155
 	E.db["general"]["experience"]["textSize"] = 10
 	E.db["general"]["experience"]["width"] = 10
 	E.db["general"]["experience"]["textFormat"] = "NONE"
 	E.db["general"]["experience"]["orientation"] = "VERTICAL"
 	E.db["general"]["reputation"]["enable"] = true
 	E.db["general"]["reputation"]["mouseover"] = false
-	E.db["general"]["reputation"]["height"] = 140
+	E.db["general"]["reputation"]["height"] = 155
 	E.db["general"]["reputation"]["textSize"] = 10
 	E.db["general"]["reputation"]["width"] = 10
 	E.db["general"]["reputation"]["textFormat"] = "NONE"
@@ -110,96 +109,11 @@ local function SetupMERLayout(layout)
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,446,2"
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,432"
-	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,410,23"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-410,23"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,413,23"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-413,23"
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
 	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
-	
-	-- Actionbars
-	E.db["actionbar"]["font"] = "Merathilis Prototype"
-	E.db["actionbar"]["fontOutline"] = "OUTLINE"
-	E.db["actionbar"]["macrotext"] = true
-	E.db["actionbar"]["showGrid"] = false
-	
-	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = true
-		E.private["actionbar"]["masque"]["petBar"] = true
-		E.private["actionbar"]["masque"]["actionbars"] = true
-	end
-	
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db['benikui']['actionbars']['transparent'] = true
-		E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
-		E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
-		E.db['benikui']['actionbars']['requestStop'] = true
-	end
-	
-	E.db["actionbar"]["bar1"]["buttonspacing"] = 4
-	E.db["actionbar"]["bar1"]["backdrop"] = true
-	E.db["actionbar"]["bar1"]["heightMult"] = 2
-	E.db["actionbar"]["bar1"]["buttonsize"] = 28
-	E.db["actionbar"]["bar1"]["buttons"] = 12
-	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
-	
-	E.db["actionbar"]["bar2"]["enabled"] = true
-	E.db["actionbar"]["bar2"]["buttonspacing"] = 4
-	E.db["actionbar"]["bar2"]["buttons"] = 12
-	E.db["actionbar"]["bar2"]["buttonsize"] = 28
-	E.db["actionbar"]["bar2"]["backdrop"] = false
-	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
-	E.db["actionbar"]["bar2"]["mouseover"] = false
-	E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
-	
-	E.db["actionbar"]["bar3"]["backdrop"] = true
-	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
-	E.db["actionbar"]["bar3"]["buttonsize"] = 24
-	E.db["actionbar"]["bar3"]["buttonspacing"] = 2
-	E.db["actionbar"]["bar3"]["buttons"] = 12
-	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
-	
-	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
-	E.db["actionbar"]["bar4"]["mouseover"] = true
-	E.db["actionbar"]["bar4"]["buttonsize"] = 24
-	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
-	
-	E.db["actionbar"]["bar5"]["backdrop"] = true
-	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
-	E.db["actionbar"]["bar5"]["buttonsize"] = 24
-	E.db["actionbar"]["bar5"]["buttonspacing"] = 2
-	E.db["actionbar"]["bar5"]["buttons"] = 12
-	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
-	
-	E.db["actionbar"]["bar6"]["enabled"] = false
-	
-	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["barPet"]["buttons"] = 8
-	E.db["actionbar"]["barPet"]["buttonspacing"] = 1
-	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
-	E.db["actionbar"]["barPet"]["buttonsize"] = 19
-	E.db["actionbar"]["barPet"]["mouseover"] = true
-	
-	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["stanceBar"]["backdrop"] = true
-	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-	E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
-	if E.myclass == "DRUID" then
-		E.db["actionbar"]["stanceBar"]["mouseover"] = true
-	else
-		E.db["actionbar"]["stanceBar"]["mouseover"] = false
-	end
-	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
-	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
-	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
-	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-	E.db["movers"]["ElvAB_6"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,249"
-	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,98"
-	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
-	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
-	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
@@ -242,30 +156,7 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["moneyFormat"] = "BLIZZARD"
 	E.db["bags"]["itemLevelThreshold"] = 650
 	E.db["bags"]["junkIcon"] = true
-	
-	-- Chat
-	E.db["chat"]["keywordSound"] = "Whisper Alert"
-	E.db["chat"]["tabFont"] = "Merathilis Prototype"
-	E.db["chat"]["tabFontOutline"] = "OUTLINE"
-	E.db["chat"]["tabFontSize"] = 10
-	E.db["chat"]["panelTabTransparency"] = true
-	E.db["chat"]["fontOutline"] = "OUTLINE"
-	E.db["chat"]["chatHistory"] = false
-	E.db["chat"]["font"] = "Merathilis Expressway"
-	E.db["chat"]["panelWidth"] = 350
-	E.db["chat"]["panelHeight"] = 140
-	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
-	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
-	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
-	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	if E.myclass == "DRUID" and E.myname == "Merathilis" then
-		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
-	else
-		E.db["chat"]["panelBackdropNameRight"] = ""
-	end
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
-	
+
 	-- Nameplates
 	E.db["nameplate"]["debuffs"]["fontSize"] = 9
 	E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
@@ -306,7 +197,264 @@ local function SetupMERLayout(layout)
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
+
+	if InstallStepComplete then
+		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
+		InstallStepComplete:Show()
+		titleText[2].check:Show()
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupMERChat(layout)
+
+	for i = 1, NUM_CHAT_WINDOWS do
+		local frame = _G[format('ChatFrame%s', i)]
+		local chatFrameId = frame:GetID()
+		local chatName = FCF_GetChatWindowInfo(chatFrameId)
+		
+		FCF_SetChatWindowFontSize(nil, frame, 12)
+		
+		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
+		if i == 3 and chatName == LOOT..' / '..TRADE then
+			FCF_UnDockFrame(frame)
+			frame:ClearAllPoints()
+			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
+			FCF_SetWindowName(frame, LOOT)
+			FCF_DockFrame(frame)
+			FCF_SetLocked(frame, 1)
+			frame:Show()
+		end
+		FCF_SavePositionAndDimensions(frame)
+		FCF_StopDragging(frame)
+	end
+	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
+	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
+	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
 	
+	-- Chat
+	E.db["chat"]["keywordSound"] = "Whisper Alert"
+	E.db["chat"]["tabFont"] = "Merathilis Prototype"
+	E.db["chat"]["tabFontOutline"] = "OUTLINE"
+	E.db["chat"]["tabFontSize"] = 10
+	E.db["chat"]["panelTabTransparency"] = true
+	E.db["chat"]["fontOutline"] = "OUTLINE"
+	E.db["chat"]["chatHistory"] = false
+	E.db["chat"]["font"] = "Merathilis Expressway"
+	E.db["chat"]["panelWidth"] = 350
+	E.db["chat"]["panelHeight"] = 155
+	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
+	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
+	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
+	E.db["chat"]["timeStampFormat"] = "%H:%M "
+	if E.myclass == "DRUID" and E.myname == "Merathilis" then
+		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
+	else
+		E.db["chat"]["panelBackdropNameRight"] = ""
+	end
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
+	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
+	
+	if InstallStepComplete then
+		InstallStepComplete.message = MER.Title..L['Chat Set']
+		InstallStepComplete:Show()
+		titleText[3].check:Show()
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupMERActionbars(layout)
+	-- Actionbars
+	if layout == 'small' then
+		E.db["actionbar"]["font"] = "Merathilis Prototype"
+		E.db["actionbar"]["fontOutline"] = "OUTLINE"
+		E.db["actionbar"]["macrotext"] = true
+		E.db["actionbar"]["showGrid"] = false
+		
+		if IsAddOnLoaded("Masque") then
+			E.private["actionbar"]["masque"]["stanceBar"] = true
+			E.private["actionbar"]["masque"]["petBar"] = true
+			E.private["actionbar"]["masque"]["actionbars"] = true
+		end
+		
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db['benikui']['actionbars']['transparent'] = true
+			E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
+			E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
+			E.db['benikui']['actionbars']['requestStop'] = true
+		end
+		
+		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar1"]["backdrop"] = true
+		E.db["actionbar"]["bar1"]["heightMult"] = 2
+		E.db["actionbar"]["bar1"]["buttonsize"] = 28
+		E.db["actionbar"]["bar1"]["buttons"] = 12
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+		
+		E.db["actionbar"]["bar2"]["enabled"] = true
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar2"]["buttons"] = 12
+		E.db["actionbar"]["bar2"]["buttonsize"] = 28
+		E.db["actionbar"]["bar2"]["backdrop"] = false
+		E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
+		E.db["actionbar"]["bar2"]["mouseover"] = false
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
+		
+		E.db["actionbar"]["bar3"]["backdrop"] = true
+		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
+		E.db["actionbar"]["bar3"]["buttonsize"] = 24
+		E.db["actionbar"]["bar3"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar3"]["buttons"] = 12
+		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar4"]["mouseover"] = true
+		E.db["actionbar"]["bar4"]["buttonsize"] = 24
+		E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar5"]["backdrop"] = true
+		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
+		E.db["actionbar"]["bar5"]["buttonsize"] = 24
+		E.db["actionbar"]["bar5"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar5"]["buttons"] = 12
+		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar6"]["enabled"] = false
+		
+		E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["barPet"]["buttons"] = 8
+		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
+		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
+		E.db["actionbar"]["barPet"]["buttonsize"] = 19
+		E.db["actionbar"]["barPet"]["mouseover"] = true
+		
+		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["stanceBar"]["backdrop"] = true
+		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
+		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
+		if E.myclass == "DRUID" then
+			E.db["actionbar"]["stanceBar"]["mouseover"] = true
+		else
+			E.db["actionbar"]["stanceBar"]["mouseover"] = false
+		end
+		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
+		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,98"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
+		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
+
+	elseif layout == 'big' then
+		E.db["actionbar"]["font"] = "Merathilis Prototype"
+		E.db["actionbar"]["fontOutline"] = "OUTLINE"
+		E.db["actionbar"]["macrotext"] = true
+		E.db["actionbar"]["showGrid"] = false
+		
+		if IsAddOnLoaded("Masque") then
+			E.private["actionbar"]["masque"]["stanceBar"] = true
+			E.private["actionbar"]["masque"]["petBar"] = true
+			E.private["actionbar"]["masque"]["actionbars"] = true
+		end
+		
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db['benikui']['actionbars']['transparent'] = true
+			E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
+			E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
+			E.db['benikui']['actionbars']['requestStop'] = true
+		end
+		
+		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar1"]["backdrop"] = true
+		E.db["actionbar"]["bar1"]["heightMult"] = 3
+		E.db["actionbar"]["bar1"]["buttonsize"] = 28
+		E.db["actionbar"]["bar1"]["buttons"] = 12
+		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+		
+		E.db["actionbar"]["bar2"]["enabled"] = true
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar2"]["buttons"] = 12
+		E.db["actionbar"]["bar2"]["buttonsize"] = 28
+		E.db["actionbar"]["bar2"]["backdrop"] = false
+		E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
+		E.db["actionbar"]["bar2"]["mouseover"] = false
+		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
+		E.db["actionbar"]["bar2"]["heightMult"] = 1
+		
+		E.db["actionbar"]["bar3"]["backdrop"] = true
+		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
+		E.db["actionbar"]["bar3"]["buttonsize"] = 24
+		E.db["actionbar"]["bar3"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar3"]["buttons"] = 12
+		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar4"]["mouseover"] = true
+		E.db["actionbar"]["bar4"]["buttonsize"] = 24
+		E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar5"]["backdrop"] = true
+		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
+		E.db["actionbar"]["bar5"]["buttonsize"] = 24
+		E.db["actionbar"]["bar5"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar5"]["buttons"] = 12
+		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
+		
+		E.db["actionbar"]["bar6"]["enabled"] = true
+		E.db["actionbar"]["bar6"]["enabled"] = true
+		E.db["actionbar"]["bar6"]["buttonspacing"] = 4
+		E.db["actionbar"]["bar6"]["buttons"] = 12
+		E.db["actionbar"]["bar6"]["buttonsize"] = 28
+		E.db["actionbar"]["bar6"]["backdrop"] = false
+		E.db["actionbar"]["bar6"]["mouseover"] = false
+		E.db["actionbar"]["bar6"]["backdropSpacing"] = 4
+		
+		E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["barPet"]["buttons"] = 8
+		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
+		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
+		E.db["actionbar"]["barPet"]["buttonsize"] = 19
+		E.db["actionbar"]["barPet"]["mouseover"] = true
+		
+		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
+		E.db["actionbar"]["stanceBar"]["backdrop"] = true
+		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
+		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
+		if E.myclass == "DRUID" then
+			E.db["actionbar"]["stanceBar"]["mouseover"] = true
+		else
+			E.db["actionbar"]["stanceBar"]["mouseover"] = false
+		end
+		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
+		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,91"
+		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,130"
+		E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
+		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
+	end
+
+	if InstallStepComplete then
+		InstallStepComplete.message = MER.Title..L['Actionbars Set']
+		InstallStepComplete:Show()
+		titleText[5].check:Show()
+	end
+	E:UpdateAll(true)
+end
+
+local function SetupUnitframes(layout)
+
 	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["fontSize"] = 12
@@ -415,11 +563,10 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisEmpty"
 		E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	end
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,127"
-	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,108"
-	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,165"
-	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-313,127"
-	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,168"
+	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,141"
+	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,179"
+	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-313,141"
+	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
 	
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 180
@@ -513,10 +660,9 @@ local function SetupMERLayout(layout)
 		E.db['benikui']['unitframes']['target']['portraitStyle'] = true
 		E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 4
 	end
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,127"
-	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,108"
-	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,165"
-	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,127"
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,141"
+	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,179"
+	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,141"
 	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -534,7 +680,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,146"
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,160"
 	
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
@@ -656,7 +802,7 @@ local function SetupMERLayout(layout)
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
-	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,170"
+	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 	
 	-- Raid40
 	E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
@@ -712,7 +858,7 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
-	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,171"
+	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 	
 	-- Party
 	E.db["unitframe"]["units"]["party"]["height"] = 40
@@ -929,34 +1075,10 @@ local function SetupMERLayout(layout)
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
-	for i = 1, NUM_CHAT_WINDOWS do
-		local frame = _G[format('ChatFrame%s', i)]
-		local chatFrameId = frame:GetID()
-		local chatName = FCF_GetChatWindowInfo(chatFrameId)
-		
-		FCF_SetChatWindowFontSize(nil, frame, 12)
-		
-		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
-		if i == 3 and chatName == LOOT..' / '..TRADE then
-			FCF_UnDockFrame(frame)
-			frame:ClearAllPoints()
-			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
-			FCF_SetWindowName(frame, LOOT)
-			FCF_DockFrame(frame)
-			FCF_SetLocked(frame, 1)
-			frame:Show()
-		end
-		FCF_SavePositionAndDimensions(frame)
-		FCF_StopDragging(frame)
-	end
-	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
-	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
-	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-	
 	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
+		InstallStepComplete.message = MER.Title..L['Unitframes Set']
 		InstallStepComplete:Show()
-		titleText[2].check:Show()
+		titleText[6].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1388,7 +1510,7 @@ local function SetupMERAddons()
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['Addons Set']
 		InstallStepComplete:Show()
-		titleText[4].check:Show()
+		titleText[7].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1486,7 +1608,7 @@ function MER:SetupDts(role)
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['DataTexts Set']
 		InstallStepComplete:Show()
-		titleText[3].check:Show()
+		titleText[4].check:Show()
 	end
 	E:UpdateAll(true)
 end
@@ -1555,11 +1677,18 @@ local function SetPage(PageNum)
 		f.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
-		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() SetupMERLayout('Layout') end)
 		InstallOption1Button:SetFormattedText("%s", L['Layout'])
 	elseif PageNum == 3 then
+		f.SubTitle:SetFormattedText("%s", L['Chat'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process sets up your chat fonts and colors.'])
+		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your chat windows.'])
+		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', SetupMERChat)
+		InstallOption1Button:SetFormattedText("%s", L['Setup Chat'])
+	elseif PageNum == 4 then
 		f.SubTitle:SetFormattedText("%s", L['DataTexts'])
 		f.Desc1:SetFormattedText("%s", L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
@@ -1576,15 +1705,35 @@ local function SetPage(PageNum)
 		InstallOption4Button:Show()
 		InstallOption4Button:SetScript('OnClick', function() MER:SetupDts('dpsCaster') end)
 		InstallOption4Button:SetFormattedText("%s", L['Caster DPS'])
-	elseif PageNum == 4 then
+	elseif PageNum == 5 then
+		f.SubTitle:SetText(L['ActionBars'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
+		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
+		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() SetupMERActionbars('small') end)
+		InstallOption1Button:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
+		InstallOption2Button:Show()
+		InstallOption2Button:SetScript('OnClick', function() SetupMERActionbars('big') end)
+		InstallOption2Button:SetFormattedText("%s", L['Setup ActionBars'].." - 2")
+	elseif PageNum == 6 then
+		f.SubTitle:SetFormattedText("%s", L['UnitFrames'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Unitframes.'])
+		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
+		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
+		InstallOption1Button:Show()
+		InstallOption1Button:SetScript('OnClick', function() SetupUnitframes() end)
+		InstallOption1Button:SetFormattedText("%s", L['Setup Unitframes'])
+	elseif PageNum == 7 then
 		f.SubTitle:SetFormattedText("%s", ADDONS)
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to the addons like Skada, xCT+ and ElvUI plugins'])
+		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to Skada and ElvUI plugins'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
 		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function() SetupMERAddons(); end)
-		InstallOption1Button:SetFormattedText("%s", L['Setup Addons'])	
-	elseif PageNum == 5 then
+		InstallOption1Button:SetFormattedText("%s", L['Setup Addons'])
+	elseif PageNum == 8 then
 		f.SubTitle:SetFormattedText("%s", L['Installation Complete'])
 		f.Desc1:SetFormattedText("%s", L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
 		f.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])
@@ -1844,10 +1993,13 @@ function MER:SetupUI()
 			titleText[i].check:Hide()
 			
 			if i == 1 then titleText[i].text:SetFormattedText("%s", L['Welcome'])
-			elseif i == 2 then titleText[i].text:SetFormattedText("%s", L['MerathilisUI Set'])
-			elseif i == 3 then titleText[i].text:SetFormattedText("%s", L['DataTexts Set'])
-			elseif i == 4 then titleText[i].text:SetFormattedText("%s", L['Addons Set'])
-			elseif i == 5 then titleText[i].text:SetFormattedText("%s", L['Finish'])
+				elseif i == 2 then titleText[i].text:SetFormattedText("%s", L['Layout'])
+				elseif i == 3 then titleText[i].text:SetFormattedText("%s", L['Chat'])
+				elseif i == 4 then titleText[i].text:SetFormattedText("%s", L['DataTexts'])
+				elseif i == 5 then titleText[i].text:SetFormattedText("%s", L['ActionBars'])
+				elseif i == 6 then titleText[i].text:SetFormattedText("%s", L['UnitFrames'])
+				elseif i == 7 then titleText[i].text:SetFormattedText("%s", ADDONS)
+				elseif i == 8 then titleText[i].text:SetFormattedText("%s", L['Finish'])
 			end
 			
 			if(i == 1) then

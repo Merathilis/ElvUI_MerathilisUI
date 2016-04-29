@@ -1,3 +1,9 @@
+<b><u> v1.36, xx.xx.xxxx</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Overhaul the install process.
+<font color=#FF8C00>&#9830;</font> Install: Seperate the chat install.
+<font color=#FF8C00>&#9830;</font> Install: Add install option for UnitFrames.
+<font color=#FF8C00>&#9830;</font> Install: Add install option for ActionBars. There are now two install options. (Two or three bottom ActionBars)
+
 <b><u> v1.35, 28.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a typo.
 
