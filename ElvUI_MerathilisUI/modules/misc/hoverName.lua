@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Credits nightcracker (ncHoverName)
--- if IsAddOnLoaded('ncHoverName') then return end
 if GetAddOnEnableState(E.myname, "ncHoverName") ~= 0 then return end
 
 -- Cache global variables
