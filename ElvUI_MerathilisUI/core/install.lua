@@ -997,7 +997,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,127"
+	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,141"
 	
 	-- Arena
 	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
