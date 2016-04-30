@@ -2,6 +2,8 @@ local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Credits nightcracker (ncHoverName)
+if IsAddOnLoaded('ncHoverName') then return end
+
 -- Cache global variables
 -- Lua functions
 local format = string.format
@@ -80,7 +82,7 @@ f:SetScript("OnEvent", function(self)
 	end
 
 	self:Show()
-	if IsAddOnLoaded('ncHoverName') or E.db['mui']['misc']['hoverName'] ~= true then
+	if E.db['mui']['misc']['hoverName'] ~= true then
 		self:Hide()
 	end
 end)
