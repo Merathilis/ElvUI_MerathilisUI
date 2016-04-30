@@ -9,7 +9,7 @@ L[' is loaded.'] = " ist geladen."
 -- General Options
 L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
 L['by Merathilis (EU-Shattrath)'] = "von Merathilis (EU-Shattrath)"
-L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden."
+L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden.\n\nNeue Funktionen sind gekennzeichnet mit:"
 L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
 L['SplashScreen'] = "Startbildschirm"

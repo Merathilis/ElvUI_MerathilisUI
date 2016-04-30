@@ -49,7 +49,7 @@ local function Misc()
 			hoverName = {
 				order = 7,
 				type = 'toggle',
-				name = L['hoverName'],
+				name = L['hoverName']..MER.NewSign,
 				desc = L['Shows UnitNames on mouseover.'],
 			},
 		},

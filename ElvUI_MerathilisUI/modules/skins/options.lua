@@ -101,7 +101,7 @@ local function SkinsTable()
 			glyph = {
 				order = 4,
 				type = 'toggle',
-				name = L["Glyph Frame"]..MER.NewSign,
+				name = L["Glyph Frame"],
 			},
 		},
 	}

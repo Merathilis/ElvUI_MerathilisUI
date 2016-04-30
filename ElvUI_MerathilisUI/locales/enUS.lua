@@ -9,7 +9,7 @@ L[' is loaded.'] = true
 -- General Options
 L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'] = true
 L['by Merathilis (EU-Shattrath)'] = true
-L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.'] = true
+L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:'] = true
 L['AFK'] = true
 L['Enable/Disable the MUI AFK Screen'] = true
 L['SplashScreen'] = true
