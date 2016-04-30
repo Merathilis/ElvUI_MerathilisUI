@@ -10,10 +10,12 @@ local unpack = unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local C_Scenario = C_Scenario
-local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
 local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
+local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
+local LevelUpDisplayScenarioFrame = _G["LevelUpDisplayScenarioFrame"]
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
 local ObjectiveTrackerBlocksFrame = _G["ObjectiveTrackerBlocksFrame"]
+local ObjectiveTrackerBonusBannerFrame = _G["ObjectiveTrackerBonusBannerFrame"]
 local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local ScenarioProvingGroundsBlock = _G["ScenarioProvingGroundsBlock"]
@@ -77,7 +79,7 @@ local function SkinTimerBar(self, block, line, duration, startTime)
 	end
 end
 
--- Scenario buttons
+-- Scenario/Instances
 local function SkinScenarioButtons()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
@@ -92,6 +94,9 @@ local function SkinScenarioButtons()
 	-- pop-up glow
 	block.GlowTexture.AlphaAnim.Play = dummy
 	block.GlowTexture:SetSize(width+20, 75)
+	
+	-- font
+	block.Stage:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
 -- Proving grounds
@@ -159,6 +164,10 @@ local function ObjectiveTrackerReskin()
 		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
 		
+		-- Bonus Objectives Banner Frame
+		ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		ObjectiveTrackerBonusBannerFrame.BonusLabel:SetVertexColor(1, 1, 1)
+		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
 		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
@@ -182,6 +191,9 @@ local function ObjectiveTrackerReskin()
 		ObjectiveTrackerBlocksFrame.AchievementHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.AchievementHeader, true, 1)
 		BONUS_OBJECTIVE_TRACKER_MODULE.Header.Underline = MER:Underline(BONUS_OBJECTIVE_TRACKER_MODULE.Header, true, 1)
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.ScenarioHeader, true, 1)
+		
+		-- Instances
+		LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
