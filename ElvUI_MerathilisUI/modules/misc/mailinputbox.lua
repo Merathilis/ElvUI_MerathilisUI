@@ -40,7 +40,7 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent",function(self, event)
+f:SetScript("OnEvent", function(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		MailInputBox()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")

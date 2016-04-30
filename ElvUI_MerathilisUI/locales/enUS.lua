@@ -70,19 +70,15 @@ L['Hides the Garrison Alert Frame while in combat.'] = true
 L['Mail Inputbox Resize'] = true
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
 
--- QuickArmoryLink
-L['ARMORYQUICKLINK'] = "Armory QuickLink"
-L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
-L['REALMERROR'] = "Couldn't find realm list!"
-L['SERVERERROR'] = "Couldn't find server!"
-L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
-L['LANGUAGE'] = "en"
-
 -- Friend Alert
 L['Battle.net Alert'] = true
 L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = true
 L["%s stopped playing (%sIn Battle.net)."] = true
 L["%s is now playing (%s%s)."] = true
+
+-- hoverName
+L['hoverName'] = true
+L['Shows UnitNames on mouseover.'] = true
 
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true

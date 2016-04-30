@@ -70,19 +70,15 @@ L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision 
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
 
--- QuickArmoryLink
-L['ARMORYQUICKLINK'] = "Armory QuickLink"
-L['AQLCOLORLABEL'] = "|CFFCC33FFArmory QuickLink|r: "
-L['REALMERROR'] = "Couldn't find realm list!"
-L['SERVERERROR'] = "Couldn't find server!"
-L['NOTSUPPORTEDLIST'] = " is not a supported Realm List."
-L['LANGUAGE'] = "de"
-
 -- Friend Alert
 L['Battle.net Alert'] = "Battle.net Alarm"
 L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = "Zeigt eine Chatbenachrichtigung wenn ein Battle.net Freund ein Spiel wechselt oder offline geht."
 L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
 L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
+
+-- hoverName
+L['hoverName'] = true
+L['Shows UnitNames on mouseover.'] = "Zeigt Einheitennamen bei Mouseover."
 
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
