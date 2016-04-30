@@ -66,7 +66,6 @@ f:SetScript("OnEvent", function(self)
 
 	local name = UnitName("mouseover")
 	local level = UnitLevel("mouseover")
-	local target = UnitName("mouseovertarget")
 	local prefix = ""
 
 	if level and level ~= UnitLevel("player") then
@@ -76,10 +75,7 @@ f:SetScript("OnEvent", function(self)
 	end
 
 	self.text:SetTextColor(getcolor("mouseover"))
-	if target then
-		local r, g, b = getcolor("mouseovertarget")
-		self.text:SetText(prefix..name..(("|cFFFFFFFF > |cFF%02x%02x%02x"):format(r*255, g*255, b*255))..target)
-	else
+	if name then
 		self.text:SetText(prefix..name)
 	end
 
