@@ -2,7 +2,8 @@ local E, L, V, P, G = unpack(ElvUI)
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Credits nightcracker (ncHoverName)
-if IsAddOnLoaded('ncHoverName') then return end
+-- if IsAddOnLoaded('ncHoverName') then return end
+if GetAddOnEnableState(E.myname, "ncHoverName") ~= 0 then return end
 
 -- Cache global variables
 -- Lua functions
@@ -50,12 +51,12 @@ local function getcolor(unit)
 	end
 end
 
-
 local f = CreateFrame("Frame")
 f:SetFrameStrata("TOOLTIP")
 f.text = f:CreateFontString(nil, "OVERLAY")
 f.text:SetFont(LSM:Fetch('font', 'Merathilis Tukui'), 10, "OUTLINE")
 
+f:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 f:SetScript("OnUpdate", function(self)
 	if not UnitExists("mouseover") then self:Hide() return end
 	local x, y = GetCursorPosition()
@@ -63,27 +64,27 @@ f:SetScript("OnUpdate", function(self)
 	self.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)
 end)
 f:SetScript("OnEvent", function(self)
-	local focus = GetMouseFocus()
-	if focus and focus:GetName() ~= "WorldFrame" then return end
-
-	local name = UnitName("mouseover")
-	local level = UnitLevel("mouseover")
-	local prefix = ""
-
-	if level and level ~= UnitLevel("player") then
-		local difficulty = GetQuestDifficultyColor(level)
-
-		prefix = format("|cFF%02x%02x%02x%s |r ", difficulty.r*255, difficulty.g*255, difficulty.b*255, tostring(level))
-	end
-
-	self.text:SetTextColor(getcolor("mouseover"))
-	if name then
-		self.text:SetText(prefix..name)
-	end
-
-	self:Show()
-	if E.db['mui']['misc']['hoverName'] ~= true then
+	if E.db['mui']['misc']['hoverName'] == true then
+		local focus = GetMouseFocus()
+		if focus and focus:GetName() ~= "WorldFrame" then return end
+	
+		local name = UnitName("mouseover")
+		local level = UnitLevel("mouseover")
+		local prefix = ""
+	
+		if level and level ~= UnitLevel("player") then
+			local difficulty = GetQuestDifficultyColor(level)
+			
+			prefix = format("|cFF%02x%02x%02x%s |r ", difficulty.r*255, difficulty.g*255, difficulty.b*255, tostring(level))
+		end
+		
+		self.text:SetTextColor(getcolor("mouseover"))
+		if name then
+			self.text:SetText(prefix..name)
+		end
+		
+		self:Show()
+	else
 		self:Hide()
 	end
 end)
-f:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
