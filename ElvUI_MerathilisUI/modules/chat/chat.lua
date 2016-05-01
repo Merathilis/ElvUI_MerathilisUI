@@ -11,7 +11,6 @@ local gsub, split, strlen = string.gsub, string.split, string.len
 local GetRealmName = GetRealmName
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
-local leader = [[|TInterface\GroupFrame\UI-Group-LeaderIcon:12:12|t]]
 local specialChatIcons
 local lfgChannels = {
 	"PARTY_LEADER",
