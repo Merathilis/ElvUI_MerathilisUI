@@ -6,10 +6,18 @@ local CH = E:GetModule('Chat')
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local twipe = table.wipe
 local gsub, split, strlen = string.gsub, string.split, string.len
--- WoW API / Variables
-local GetRealmName = GetRealmName
+-- WoW API / Variable
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
+local GetNumGroupMembers = GetNumGroupMembers
+local GetRealmName = GetRealmName
+local IsInGroup = IsInGroup
+local IsInRaid = IsInRaid
+local UnitExists = UnitExists
+local UnitIsUnit = UnitIsUnit
+local UnitName = UnitName
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 
 local specialChatIcons
 local lfgChannels = {
@@ -23,6 +31,7 @@ local lfgChannels = {
 }
 MERC.lfgRolesTable = {}
 MERC.PlayerRealm = gsub(E.myrealm,'[%s%-]','')
+MERC.PlayerName = E.myname.."-"..MERC.PlayerRealm
 
 function MERC:RemoveCurrentRealmName(self, msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
@@ -49,6 +58,7 @@ function MERC:GetChatIcon(sender)
 	if specialChatIcons[senderRealm] and specialChatIcons[senderRealm][senderName] then
 		return specialChatIcons[senderRealm][senderName]
 	end
+	return ""
 end
 
 function CH:GetPluginReplacementIcon(arg2, arg6, type)
@@ -79,6 +89,31 @@ function CH:GetPluginReplacementIcon(arg2, arg6, type)
 	return icon, true
 end
 
+function CH:CheckLFGRoles()
+	local isInGroup, isInRaid = IsInGroup(), IsInRaid()
+	local unit = isInRaid and "raid" or "party"
+	local name, realm
+	twipe(MERC.lfgRolesTable)
+	if(not isInGroup or not self.db.lfgIcons) then return end
+
+	local role = UnitGroupRolesAssigned("player")
+	if(role and role ~= "NONE") then
+		local path = MER.rolePaths[E.db.mui.unitframes.roleicons][role]
+		MERC.lfgRolesTable[MERC.PlayerName] = "|T"..path..":15:15:0:0:64:64:2:56:2:56|t"
+	end
+
+	for i=1, GetNumGroupMembers() do
+		if(UnitExists(unit..i) and not UnitIsUnit(unit..i, "player")) then
+			role = UnitGroupRolesAssigned(unit..i)
+			name, realm = UnitName(unit..i)
+			if(role and name) then
+				name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..MERC.PlayerRealm;
+				MERC.lfgRolesTable[name] = role ~= "NONE" and "|T"..MER.rolePaths[E.db.mui.unitframes.roleicons][role]..":15:15:0:0:64:64:2:56:2:56|t" or nil
+			end
+		end
+	end
+end
+
 _G.ERR_FRIEND_ONLINE_SS = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
 _G.ERR_FRIEND_OFFLINE_S = "[%s] "..L["has gone |cffff0000offline|r."]
 
@@ -87,6 +122,8 @@ function MERC:LoadChat()
 	
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
+	
+	self:RegisterEvent("GROUP_JOINED", function() E:Delay(5, function() CH:CheckLFGRoles() end) end)
 end
 hooksecurefunc(CH, "Initialize", MERC.LoadChat)
 

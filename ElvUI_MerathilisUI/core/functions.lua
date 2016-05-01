@@ -22,6 +22,18 @@ local classTable = {
 	warlock = blizzPath..[[ClassIcon_Warlock:16:16|t ]],
 	warrior = blizzPath..[[ClassIcon_Warrior:16:16|t ]],
 }
+MER.rolePaths = {
+	["ElvUI"] = {
+		TANK = [[Interface\AddOns\ElvUI\media\textures\tank]],
+		HEALER = [[Interface\AddOns\ElvUI\media\textures\healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI\media\textures\dps]]
+	},
+	["SupervillainUI"] = {
+		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\tank]],
+		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\dps]]
+	},
+}
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 MER.SpecialChatIcons = {
 	["EU"] = {
