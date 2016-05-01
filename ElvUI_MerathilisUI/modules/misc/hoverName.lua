@@ -70,7 +70,7 @@ f:SetScript("OnEvent", function(self)
 		local name = UnitName("mouseover")
 		local level = UnitLevel("mouseover")
 		local prefix = ""
-	
+		
 		if level and level ~= UnitLevel("player") then
 			local difficulty = GetQuestDifficultyColor(level)
 			
