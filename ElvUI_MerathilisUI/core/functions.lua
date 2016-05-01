@@ -22,7 +22,7 @@ local classTable = {
 	warlock = blizzPath..[[ClassIcon_Warlock:16:16|t ]],
 	warrior = blizzPath..[[ClassIcon_Warrior:16:16|t ]],
 }
-
+MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 MER.SpecialChatIcons = {
 	["EU"] = {
 		["Shattrath"] = {
@@ -64,8 +64,6 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
-MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
-
 -- Trying to determine the region player is in, not entirely reliable cause based on a client not an actual region id
 local GetCurrentRegion = GetCurrentRegion
 function MER:GetRegion()
@@ -79,7 +77,7 @@ function MER:GetRegion()
 	}
 	MER.region = region[rid]
 	if not MER.region then 
-		MER.region = format("An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cffff7d0aMerathilisUI|r authors.", E.myrealm, rid)
+		MER.region = format(L["An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cffff7d0aMerathilisUI|r."], E.myrealm, rid)
 		MER:Print(MER.region)
 		MER.region = ""
 	end
