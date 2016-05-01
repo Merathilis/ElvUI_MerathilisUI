@@ -44,7 +44,7 @@ P['mui'] = {
 				},
 			},
 		},
-		['roleicons'] = "SupervillainUI",
+		['roleIcons'] = "SupervillainUI",
 	},
 
 	-- db

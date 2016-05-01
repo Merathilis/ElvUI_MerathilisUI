@@ -29,9 +29,14 @@ MER.rolePaths = {
 		DAMAGER = [[Interface\AddOns\ElvUI\media\textures\dps]]
 	},
 	["SupervillainUI"] = {
-		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\tank]],
-		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\healer]],
-		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\roleIcons\dps]]
+		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\svui-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\svui-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\svui-dps]]
+	},
+	["Blizzard"] = {
+		TANK = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\blizz-tank]],
+		HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\blizz-healer]],
+		DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\role\blizz-dps]]
 	},
 }
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"

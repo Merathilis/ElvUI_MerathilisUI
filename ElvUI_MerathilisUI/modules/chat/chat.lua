@@ -98,7 +98,7 @@ function CH:CheckLFGRoles()
 
 	local role = UnitGroupRolesAssigned("player")
 	if(role and role ~= "NONE") then
-		local path = MER.rolePaths[E.db.mui.unitframes.roleicons][role]
+		local path = MER.rolePaths[E.db.mui.unitframes.roleIcons][role]
 		MERC.lfgRolesTable[MERC.PlayerName] = "|T"..path..":15:15:0:0:64:64:2:56:2:56|t"
 	end
 
@@ -108,7 +108,7 @@ function CH:CheckLFGRoles()
 			name, realm = UnitName(unit..i)
 			if(role and name) then
 				name = (realm and realm ~= '') and name..'-'..realm or name ..'-'..MERC.PlayerRealm;
-				MERC.lfgRolesTable[name] = role ~= "NONE" and "|T"..MER.rolePaths[E.db.mui.unitframes.roleicons][role]..":15:15:0:0:64:64:2:56:2:56|t" or nil
+				MERC.lfgRolesTable[name] = role ~= "NONE" and "|T"..MER.rolePaths[E.db.mui.unitframes.roleIcons][role]..":15:15:0:0:64:64:2:56:2:56|t" or nil
 			end
 		end
 	end
