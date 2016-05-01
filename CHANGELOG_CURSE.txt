@@ -5,6 +5,7 @@
 * Install: Add install option for ActionBars. There are now two install options. (Two or three bottom ActionBars)
 * Misc: Add option to show UnitNames on mouseover. (Credits nightcracker - ncHoverName)
 * Skins: More work on the ObjectiveTracker
+* Chat: Add a special Chat Icon to my toons -- All Credits belong to Darth Predator (ElvUI_SLE)
 
 ** v1.35, 28.04.2016**
 * Fix a Typo.

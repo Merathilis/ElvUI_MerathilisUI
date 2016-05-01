@@ -5,6 +5,7 @@
 <font color=#FF8C00>&#9830;</font> Install: Add install option for ActionBars. There are now two install options. (Two or three bottom ActionBars)
 <font color=#FF8C00>&#9830;</font> Misc: Add option to show UnitNames on mouseover. (Credits nightcracker - ncHoverName)
 <font color=#FF8C00>&#9830;</font> Skins: More work on the ObjectiveTracker
+<font color=#FF8C00>&#9830;</font> Chat: Add a special Chat Icon to my toons -- All Credits belong to Darth Predator (ElvUI_SLE)
 
 <b><u> v1.35, 28.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a typo.
