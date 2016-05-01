@@ -94,6 +94,8 @@ local function SetupMERLayout(layout)
 	E.db["general"]["experience"]["width"] = 10
 	E.db["general"]["experience"]["textFormat"] = "NONE"
 	E.db["general"]["experience"]["orientation"] = "VERTICAL"
+	E.db["general"]["experience"]["hideAtMaxLevel"] = true
+	E.db["general"]["experience"]["hideInVehicle"] = true
 	E.db["general"]["reputation"]["enable"] = true
 	E.db["general"]["reputation"]["mouseover"] = false
 	E.db["general"]["reputation"]["height"] = 155
@@ -101,6 +103,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["reputation"]["width"] = 10
 	E.db["general"]["reputation"]["textFormat"] = "NONE"
 	E.db["general"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["general"]["reputation"]["hideInVehicle"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
