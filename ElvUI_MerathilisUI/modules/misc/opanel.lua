@@ -12,8 +12,7 @@ local optionPanel = _G["optionPanel"]
 function MER:OptionPanel()
 	-- Option Panel
 	if not optionPanel then
-		print("opanel")
-		local optionPanel = CreateFrame("Button", "optionPanel", E.UIParent)
+		local optionPanel = CreateFrame("Frame", "optionPanel", E.UIParent)
 		optionPanel:SetFrameLevel(0)
 		optionPanel:SetSize(300, 70)
 		optionPanel:SetTemplate("Transparent")
@@ -22,8 +21,7 @@ function MER:OptionPanel()
 		E:CreateMover(optionPanel, "OptionPanel", "Option Panel", nil, nil, nil, "ALL")
 	
 	--Move Button
-		optionPanel.MoveBtn = CreateFrame("Button", "MoveBtn", optionPanel, "UIPanelButtonTemplate")
-		optionPanel.MoveBtn:StripTextures()
+		optionPanel.MoveBtn = CreateFrame("Button", "MoveBtn", optionPanel)
 		optionPanel.MoveBtn:SetTemplate('Transparent')
 		optionPanel.MoveBtn:SetFrameStrata('HIGH')
 		optionPanel.MoveBtn:Size(64, 64)
@@ -37,7 +35,7 @@ function MER:OptionPanel()
 		optionPanel.MoveBtnT:Point('LEFT', "optionPanel", 1, 0)
 		MoveBtn:SetScript("OnClick", function() E:ToggleConfigMode() end)
 		
-		optionPanel:Hide()
+		-- optionPanel:Hide()
 	end
 end
 
