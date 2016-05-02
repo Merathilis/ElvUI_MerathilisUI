@@ -24,6 +24,8 @@ L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
 L["Unknown"] = true
+L["Chat Icons"] = true
+L["Choose what icon set will chat use."] = true
 
 -- Information
 L['Information'] = true
