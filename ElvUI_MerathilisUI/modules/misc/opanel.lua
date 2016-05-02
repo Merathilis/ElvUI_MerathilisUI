@@ -57,7 +57,7 @@ function MER:OptionPanel()
 		optionPanel.CloseBtn:Size(64, 64)
 		optionPanel.CloseBtn:SetAlpha(.1)
 		optionPanel.CloseBtn:SetText("")
-		optionPanel.CloseBtn:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
+		optionPanel.CloseBtn:Point('RIGHT', optionPanel.AddOnBtn, 64, 0)
 		S:HandleButton(optionPanel.CloseBtn, true)
 		optionPanel.CloseBtn:SetScript("OnClick", function() optionPanel:Hide() end)
 		
