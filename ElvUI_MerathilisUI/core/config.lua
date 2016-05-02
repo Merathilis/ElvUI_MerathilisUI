@@ -44,7 +44,7 @@ local function AddOptions()
 				order = 4,
 				type = 'execute',
 				name = L['OptionPanel'],
-				func = function() MER:OptionPanel(); E:ToggleConfig(); end,
+				func = function() MER:OptionPanel(); optionPanel:Show(); E:ToggleConfig(); end,
 			},
 			spacer1 = {
 				order = 5,

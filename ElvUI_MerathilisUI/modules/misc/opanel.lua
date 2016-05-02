@@ -23,28 +23,47 @@ function MER:OptionPanel()
 	--Move Button
 		optionPanel.MoveBtn = CreateFrame("Button", "MoveBtn", optionPanel)
 		optionPanel.MoveBtn:SetTemplate('Transparent')
-		optionPanel.MoveBtn:SetFrameStrata('HIGH')
+		optionPanel.MoveBtn:SetFrameStrata('MEDIUM')
 		optionPanel.MoveBtn:Size(64, 64)
 		optionPanel.MoveBtn:SetAlpha(.1)
 		optionPanel.MoveBtn:SetText("")
 		optionPanel.MoveBtn:Point("LEFT", 1, 0)
 		S:HandleButton(optionPanel.MoveBtn, true)
+		optionPanel.MoveBtn:SetScript("OnClick", function() E:ToggleConfigMode(); optionPanel:Hide(); end)
 		
 		optionPanel.MoveBtnT = optionPanel:CreateTexture('MoveButton')
 		optionPanel.MoveBtnT:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\move.tga')
 		optionPanel.MoveBtnT:Point('LEFT', "optionPanel", 1, 0)
-		MoveBtn:SetScript("OnClick", function() E:ToggleConfigMode() optionPanel:Hide() end)
 		
+	-- AddOn Button
+		optionPanel.AddOnBtn = CreateFrame("Button", "AddOnBtn", optionPanel)
+		optionPanel.AddOnBtn:SetTemplate('Transparent')
+		optionPanel.AddOnBtn:SetFrameStrata('MEDIUM')
+		optionPanel.AddOnBtn:Size(64, 64)
+		optionPanel.AddOnBtn:SetAlpha(.1)
+		optionPanel.AddOnBtn:SetText("")
+		optionPanel.AddOnBtn:Point("RIGHT", optionPanel.MoveBtn, 64, 0)
+		S:HandleButton(optionPanel.AddOnBtn, true)
+		optionPanel.AddOnBtn:SetScript("OnClick", function() GameMenuButtonAddons:Click(); end)
+		
+		optionPanel.AddOnBtnT = optionPanel:CreateTexture('AddOnButton')
+		optionPanel.AddOnBtnT:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\addons.tga')
+		optionPanel.AddOnBtnT:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
+	
 	-- Close Button
-		local close = CreateFrame("Button", "CloseButton", optionPanel)
-		close:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
-		close:Size(64, 64)
-		close:SetAlpha(0.1)
-		close:SetScript("OnClick", function() optionPanel:Hide() end)
-		
-		optionPanel.CloseBtn = optionPanel:CreateTexture('CloseButton')
-		optionPanel.CloseBtn:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\close.tga')
+		optionPanel.CloseBtn = CreateFrame("Button", "CloseButton", optionPanel)
+		optionPanel.CloseBtn:SetTemplate('Transparent')
+		optionPanel.CloseBtn:SetFrameStrata('MEDIUM')
+		optionPanel.CloseBtn:Size(64, 64)
+		optionPanel.CloseBtn:SetAlpha(.1)
+		optionPanel.CloseBtn:SetText("")
 		optionPanel.CloseBtn:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
+		S:HandleButton(optionPanel.CloseBtn, true)
+		optionPanel.CloseBtn:SetScript("OnClick", function() optionPanel:Hide() end)
+		
+		optionPanel.CloseBtnT = optionPanel:CreateTexture('CloseButton')
+		optionPanel.CloseBtnT:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\close.tga')
+		optionPanel.CloseBtnT:Point('RIGHT', optionPanel.AddOnBtn, 64, 0)
 		
 		optionPanel:Hide()
 	end
