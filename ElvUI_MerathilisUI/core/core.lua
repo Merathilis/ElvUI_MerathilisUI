@@ -32,6 +32,21 @@ function MER:cOption(name)
 	return (color):format(name)
 end
 
+function MER:AddOptions()
+	for _, func in pairs(MER.Config) do
+		func()
+	end	
+end
+
+function MER:DasOptions()
+	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
+end
+
+function MER:LoadCommands()
+	self:RegisterChatCommand("mui", "DasOptions")
+	self:RegisterChatCommand("muisetup", "SetupUI")
+end
+
 function MER:RegisterMerMedia()
 	--Fonts
 	E['media'].muiFont = LSM:Fetch('font', 'Merathilis Prototype')
@@ -71,21 +86,6 @@ local function objectiveTrackerFont()
 	_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-end
-
-function MER:AddOptions()
-	for _, func in pairs(MER.Config) do
-		func()
-	end	
-end
-
-function MER:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
-end
-
-function MER:LoadCommands()
-	self:RegisterChatCommand("mui", "DasOptions")
-	self:RegisterChatCommand("muisetup", "SetupUI")
 end
 
 -- Splash Screen
