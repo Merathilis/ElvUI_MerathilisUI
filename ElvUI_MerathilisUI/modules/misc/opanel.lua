@@ -33,9 +33,20 @@ function MER:OptionPanel()
 		optionPanel.MoveBtnT = optionPanel:CreateTexture('MoveButton')
 		optionPanel.MoveBtnT:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\move.tga')
 		optionPanel.MoveBtnT:Point('LEFT', "optionPanel", 1, 0)
-		MoveBtn:SetScript("OnClick", function() E:ToggleConfigMode() end)
+		MoveBtn:SetScript("OnClick", function() E:ToggleConfigMode() optionPanel:Hide() end)
 		
-		-- optionPanel:Hide()
+	-- Close Button
+		local close = CreateFrame("Button", "CloseButton", optionPanel)
+		close:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
+		close:Size(64, 64)
+		close:SetAlpha(0.1)
+		close:SetScript("OnClick", function() optionPanel:Hide() end)
+		
+		optionPanel.CloseBtn = optionPanel:CreateTexture('CloseButton')
+		optionPanel.CloseBtn:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\close.tga')
+		optionPanel.CloseBtn:Point('RIGHT', optionPanel.MoveBtn, 64, 0)
+		
+		optionPanel:Hide()
 	end
 end
 
