@@ -7,5 +7,6 @@
 	<Script file="garrisonalertframe.lua"/>
 	<Script file="mailinputbox.lua"/>
 	<Script file="misc.lua"/>
+	<Script file="opanel.lua"/>
 	<Script file="options.lua"/>
 </Ui>
