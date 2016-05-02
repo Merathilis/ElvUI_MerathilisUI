@@ -40,19 +40,13 @@ local function AddOptions()
 				desc = L['Run the installation process.'],
 				func = function() MER:SetupUI(); E:ToggleConfig(); end,
 			},
-			optionPanel = {
-				order = 4,
-				type = 'execute',
-				name = L['OptionPanel'],
-				func = function() MER:OptionPanel(); optionPanel:Show(); E:ToggleConfig(); end,
-			},
 			spacer1 = {
-				order = 5,
+				order = 4,
 				type = 'header',
 				name = '',
 			},
 			general = {
-				order = 6,
+				order = 5,
 				type = 'group',
 				name = L['General'],
 				guiInline = true,
