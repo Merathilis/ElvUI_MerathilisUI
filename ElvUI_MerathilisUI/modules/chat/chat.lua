@@ -123,7 +123,7 @@ function MERC:LoadChat()
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 	
-	self:RegisterEvent("GROUP_JOINED", function() E:Delay(5, function() CH:CheckLFGRoles() end) end)
+	self:RegisterEvent("GROUP_JOINED", function() E:Delay(8, function() CH:CheckLFGRoles() end) end)
 end
 hooksecurefunc(CH, "Initialize", MERC.LoadChat)
 

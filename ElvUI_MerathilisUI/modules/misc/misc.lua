@@ -111,7 +111,7 @@ CloseWoW:SetScript("OnEvent", function(self, event, msg)
 	end
 end)
 
---	Fix blank tooltip
+-- Fix blank tooltip
 local FixTooltip = CreateFrame("Frame")
 FixTooltip:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 FixTooltip:RegisterEvent("ACTIONBAR_PAGE_CHANGED")
