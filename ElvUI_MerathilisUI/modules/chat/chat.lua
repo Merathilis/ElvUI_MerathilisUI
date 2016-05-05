@@ -6,7 +6,7 @@ local CH = E:GetModule('Chat')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local gsub  = string.gsub
+local gsub = string.gsub
 -- WoW API / Variable
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 local GetNumGroupMembers = GetNumGroupMembers
