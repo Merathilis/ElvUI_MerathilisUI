@@ -24,8 +24,6 @@ L['CHAT_DND'] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
 L["Unknown"] = "Unbekannt"
-L["Chat Icons"] = "Chat Symbole"
-L["Choose what icon set will chat use."] = "Wähle aus welche Symbol-Sammlung du im Chat verwenden möchtest."
 
 -- Information
 L['Information'] = true
@@ -202,6 +200,3 @@ L['Installed'] = "Installiert"
 -- Staticpopup
 L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = "Um alle Funktionen und das Aussehen von MerathilisUI zu erlangen, lade dir bitte |cff00c0faElvUI_BenikUI|r herrunter!"
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter wie die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). MerathilisUI ist nicht geladen! Bitte aktuallisiere dein ElvUI."
-
--- Functions
-L["An error happened. Your region is unknown. Realm: %s. RID: %s. Please report your realm name and the region you are playing in to |cffff7d0aMerathilisUI|r."] = "Da ist ein Fehler aufgetreten. Deine Region ist unbekannt. Realm: %s. RID: %s. Bitte berichte deinen Realmnamen und die Region wo du spielst an |cffff7d0aMerathilisUI|r."
