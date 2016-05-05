@@ -7,6 +7,7 @@
 <font color=#FF8C00>&#9830;</font> Skins: More work on the ObjectiveTracker
 <font color=#FF8C00>&#9830;</font> Chat: Add a special Chat Icon to my toons -- All Credits belong to Darth Predator (ElvUI_SLE)
 <font color=#FF8C00>&#9830;</font> Update RealLinks. (Credits Wetxius)
+<font color=#FF8C00>&#9830;</font> Update Overwatch Icon for the FriendsList.
 
 <b><u> v1.35, 28.04.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a typo.

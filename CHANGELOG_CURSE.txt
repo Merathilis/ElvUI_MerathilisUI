@@ -7,6 +7,7 @@
 * Skins: More work on the ObjectiveTracker
 * Chat: Add a special Chat Icon to my toons -- All Credits belong to Darth Predator (ElvUI_SLE)
 * Update RealLinks. (Credits Wetxius)
+* Update Overwatch Icon for the FriendsList.
 
 ** v1.35, 28.04.2016**
 * Fix a Typo.
