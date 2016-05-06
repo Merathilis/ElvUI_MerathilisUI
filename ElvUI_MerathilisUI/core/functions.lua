@@ -79,3 +79,25 @@ local function CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
+-- Test Blizz Alerts / AlertFrames
+SlashCmdList.TEST_ACHIEVEMENT = function()
+	PlaySound("LFG_Rewards")
+	if not AchievementFrame then
+		AchievementFrame_LoadUI()
+	end
+	AchievementAlertFrame_ShowAlert(4912)
+	AchievementAlertFrame_ShowAlert(6193)
+	GuildChallengeAlertFrame_ShowAlert(3, 2, 5)
+	CriteriaAlertFrame_ShowAlert(6301, 29918)
+	MoneyWonAlertFrame_ShowAlert(9999999)
+	LootWonAlertFrame_ShowAlert(select(2, GetItemInfo(6948)) or GetInventoryItemLink("player", 5), -1, 1, 100, 70)
+	ChallengeModeAlertFrame_ShowAlert()
+	AlertFrame_AnimateIn(ScenarioAlertFrame1)
+	AlertFrame_AnimateIn(GarrisonMissionAlertFrame)
+	StorePurchaseAlertFrame_ShowAlert(select(3, GetSpellInfo(2060)), GetSpellInfo(2060), 2060)
+	LootUpgradeFrame_ShowAlert(select(2, GetItemInfo(6948)) or GetInventoryItemLink("player", 5), 1, 1, 1)
+	GarrisonBuildingAlertFrame_ShowAlert(E.myname)
+	-- AlertFrame_AnimateIn(GarrisonFollowerAlertFrame)
+	AlertFrame_FixAnchors()
+end
+SLASH_TEST_ACHIEVEMENT1 = "/tav"
