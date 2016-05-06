@@ -1284,7 +1284,8 @@ local function SetupMERAddons()
 		E.db['benikui']['datatexts']['garrison']['currency'] = true
 		E.db['benikui']['datatexts']['garrison']['oil'] = true
 		E.db['benikui']['unitframes']['misc']['svui'] = true
-		E.db['benikui']['unitframes']['powerbar']['statusBar'] = "MerathilisFlat"
+		E.db['benikui']['unitframes']['textures']['power'] = "MerathilisFlat"
+		E.db['benikui']['unitframes']['textures']['health'] = "MerathilisEmpty"
 		E.db['benikui']['unitframes']['infoPanel']['fixInfoPanel'] = true
 		E.db['benikui']['unitframes']['infoPanel']['texture'] = "MerathilisEmpty"
 		E.db['dashboards']['barColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
