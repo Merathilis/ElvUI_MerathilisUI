@@ -65,6 +65,27 @@ local function skinObjectiveBar(self, block, line)
 	bar.IconBG:Hide()
 end
 
+-- Dynamic Tooltip position for the Bonus Reward Frame
+local function IsFramePositionedLeft(frame)
+	local x = frame:GetCenter()
+	local screenWidth = GetScreenWidth()
+	local screenHeight = GetScreenHeight()
+	local positionedLeft = false
+
+	if x and x < (screenWidth / 2) then
+		positionedLeft = true
+	end
+
+	return positionedLeft
+end
+
+hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
+	if IsFramePositionedLeft(ObjectiveTrackerFrame) then
+		GameTooltip:ClearAllPoints()
+		GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+	end
+end)
+
 -- Timer bars
 local function SkinTimerBar(self, block, line, duration, startTime)
 	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
