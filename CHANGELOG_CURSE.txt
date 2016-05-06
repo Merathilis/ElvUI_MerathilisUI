@@ -1,12 +1,11 @@
-** v1.36, xx.xx.xxxx**
+** v1.36, 06.05.2016**
 * Install: Overhaul the install process.
 * Install: Seperate the chat install.
 * Install: Add install option for UnitFrames.
 * Install: Add install option for ActionBars. There are now two install options. (Two or three bottom ActionBars)
 * Misc: Add option to show UnitNames on mouseover. (Credits nightcracker - ncHoverName)
 * Skins: More work on the ObjectiveTracker
-* Chat: Add a special Chat Icon to my toons -- All Credits belong to Darth Predator (ElvUI_SLE)
-* Update RealLinks. (Credits Wetxius)
+* Delete RealLinks. (Note to me: Don't mess with the chat! xD)
 * Update Overwatch Icon for the FriendsList.
 
 ** v1.35, 28.04.2016**
