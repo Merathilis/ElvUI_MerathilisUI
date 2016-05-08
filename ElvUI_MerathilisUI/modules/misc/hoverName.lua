@@ -51,7 +51,7 @@ local function getcolor(unit)
 end
 
 local f = CreateFrame("Frame")
-f:SetFrameStrata("TOOLTIP")
+f:SetFrameStrata("LOW")
 f.text = f:CreateFontString(nil, "OVERLAY")
 f.text:SetFont(LSM:Fetch('font', 'Merathilis Tukui'), 10, "OUTLINE")
 

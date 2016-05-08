@@ -1,3 +1,7 @@
+** v1.37, xx.xx.2016**
+* Change the Strata for hoverName to "LOW".
+
+\\ \\
 ** v1.36, 06.05.2016**
 * Install: Overhaul the install process.
 * Install: Seperate the chat install.
@@ -8,6 +12,7 @@
 * Delete RealLinks. (Note to me: Don't mess with the chat! xD)
 * Update Overwatch Icon for the FriendsList.
 
+\\ \\
 ** v1.35, 28.04.2016**
 * Fix a Typo.
 

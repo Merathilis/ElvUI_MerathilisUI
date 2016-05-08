@@ -1,3 +1,6 @@
+<b><u> v1.37, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Change the Strata for hoverName to "LOW".
+
 <b><u> v1.36, 06.05.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Overhaul the install process.
 <font color=#FF8C00>&#9830;</font> Install: Seperate the chat install.
