@@ -1247,6 +1247,7 @@ local function SetupMERAddons()
 	-- AddOnSkins
 	if E.private['addonskins'] == nil then E.private['addonskins'] = {} end
 	if IsAddOnLoaded('AddOnSkins') then
+		E.private['addonskins']['LoginMsg'] = false
 		E.private['addonskins']['EmbedSystemDual'] = true
 		E.private['addonskins']['EmbedBelowTop'] = false
 		E.private['addonskins']['TransparentEmbed'] = true
