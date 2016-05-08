@@ -15,6 +15,7 @@ local DecorElvUIAddons = {
 
 local DecorAddons = {
 	{'MasterPlan', L["MasterPlan"], 'mp'},
+	{'BigWigs', L["BigWigs"], 'bw'},
 }
 
 local function SkinsTable()

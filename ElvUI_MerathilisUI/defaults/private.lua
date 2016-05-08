@@ -20,6 +20,7 @@ V['muiSkins'] = {
 	},
 	['addonSkins'] = {
 		['mp'] = true, -- Skins the additional MasterPlan Tabs
+		['bw'] = true, -- BigWigs Skin
 	},
 	['elvuiAddons'] = {
 		['sle'] = true -- Skin some unskinned SLE_Legion Elements
