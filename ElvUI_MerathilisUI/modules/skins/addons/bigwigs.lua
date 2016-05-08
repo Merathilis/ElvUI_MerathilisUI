@@ -124,14 +124,9 @@ function AS:BigWigs(event, addon)
 			bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 			bar.candyBarIconFrame.SetWidth = AS.Noop
 
-			bar.candyBarLabel:SetFont(E['media'].muiTuk, 18, 'OUTLINE')
 			bar.candyBarLabel:SetShadowOffset(2, -2)
-			bar.candyBarLabel:SetJustifyH("LEFT")
-			bar.candyBarLabel:SetJustifyV("CENTER")
 
-			bar.candyBarDuration:SetFont(E['media'].muiTuk, 18, 'OUTLINE')
 			bar.candyBarDuration:SetShadowOffset(2, -2)
-			bar.candyBarDuration:SetJustifyH("RIGHT")
 
 			AS:SkinTexture(bar.candyBarIconFrame)
 		end
