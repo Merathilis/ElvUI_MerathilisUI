@@ -51,8 +51,9 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
-local function CreateWideShadow(f)
-	local borderr, borderg, borderb = 0, 0, 0
+function MER:CreateWideShadow(f)
+	local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+	local borderr, borderg, borderb = classColor.r, classColor.g, classColor.b
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
@@ -68,8 +69,9 @@ local function CreateWideShadow(f)
 	f.shadow = shadow
 end
 
-local function CreateSoftShadow(f)
-	local borderr, borderg, borderb = 0, 0, 0
+function MER:CreateSoftShadow(f)
+	local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+	local borderr, borderg, borderb = classColor.r, classColor.g, classColor.b
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
 	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
@@ -85,10 +87,11 @@ local function CreateSoftShadow(f)
 	f.shadow = shadow
 end
 
-local function CreateSoftGlow(f)
+function MER:CreateSoftGlow(f)
 	if f.sglow then return end
 
-	local borderr, borderg, borderb = 1, 1, .5
+	local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+	local borderr, borderg, borderb = classColor.r, classColor.g, classColor.b
 	local backdropr, backdropg, backdropb = 1, 1, .5
 
 	local sglow = CreateFrame('Frame', nil, f)
