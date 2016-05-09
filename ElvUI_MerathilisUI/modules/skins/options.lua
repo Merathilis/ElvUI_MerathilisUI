@@ -15,14 +15,14 @@ local DecorElvUIAddons = {
 
 local DecorAddons = {
 	{'MasterPlan', L["MasterPlan"], 'mp'},
-	{'BigWigs', L["BigWigs"], 'bw'},
+	{'BigWigs', L["BigWigs"]..MER.NewSign, 'bw'},
 }
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 16,
 		type = 'group',
-		name = L['Skins'],
+		name = L['Skins']..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
