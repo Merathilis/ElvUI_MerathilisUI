@@ -1,6 +1,7 @@
 ** v1.37, xx.xx.2016**
 * Change the Strata for hoverName to "LOW".
 * Skins: Add a dynamic Tooltip position for the Bonus Reward Frame (Credits: Shestak UI)
+* Skins: Add a BigWigs Skin (Code taken from AddOnSkins)
 * Install: Change the ComboBar position.
 
 \\ \\
