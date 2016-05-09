@@ -116,6 +116,7 @@ function AS:BigWigs(event, addon)
 			bar.candyBarBar:SetAllPoints(bar)
 			bar.candyBarBar.SetPoint = AS.Noop
 			bar.candyBarBar:SetStatusBarTexture(E['media'].MuiFlat)
+			MER:CreateSoftGlow(bar.candyBarBar)
 
 			bar.candyBarBackground:SetTexture(unpack(AS.BackdropColor))
 
