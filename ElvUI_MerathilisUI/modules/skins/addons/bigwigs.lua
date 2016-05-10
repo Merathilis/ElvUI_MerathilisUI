@@ -26,6 +26,7 @@ function AS:BigWigs(event, addon)
 			BigWigsLoader.RegisterMessage('AddOnSkins', "BigWigs_FrameCreated", function(event, frame, name)
 				if name == "QueueTimer" then
 					AS:SkinStatusBar(frame)
+					MER:CreateWideShadow(frame)
 					frame:ClearAllPoints()
 					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(AS.PixelPerfect and 2 or 4))
 					frame:SetHeight(16)
