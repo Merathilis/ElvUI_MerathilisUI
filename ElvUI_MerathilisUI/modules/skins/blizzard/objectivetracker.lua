@@ -8,6 +8,7 @@ local S = E:GetModule('Skins');
 local _G = _G
 local unpack = unpack
 -- WoW API / Variables
+local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
 local IsAddOnLoaded = IsAddOnLoaded
 local C_Scenario = C_Scenario
 local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
@@ -16,6 +17,7 @@ local LevelUpDisplayScenarioFrame = _G["LevelUpDisplayScenarioFrame"]
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
 local ObjectiveTrackerBlocksFrame = _G["ObjectiveTrackerBlocksFrame"]
 local ObjectiveTrackerBonusBannerFrame = _G["ObjectiveTrackerBonusBannerFrame"]
+local ObjectiveTrackerBonusRewardsFrame = _G["ObjectiveTrackerBonusRewardsFrame"]
 local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local ScenarioProvingGroundsBlock = _G["ScenarioProvingGroundsBlock"]
@@ -84,6 +86,14 @@ hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
 		GameTooltip:ClearAllPoints()
 		GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
 	end
+end)
+
+-- Hide the reward Animation for Dungeon and BonusObjective
+ObjectiveTrackerScenarioRewardsFrame.Show = dummy
+
+hooksecurefunc("BonusObjectiveTracker_AnimateReward", function(block)
+	ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
+	ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", E.UIParent, "TOP", 0, 90)
 end)
 
 -- Timer bars
