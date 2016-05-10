@@ -31,7 +31,6 @@ local npc = {
 	15552, -- Doctor Weavil
 	32398, -- King Ping
 	82464, -- Elekk Plushie
-	72113, -- Carpe Diem
 	71163, -- Unborn Val'kir
 	91226, -- Graves
 	54128, -- Creepy Crate
@@ -43,6 +42,8 @@ local npc = {
 	85009, -- Murkidan
 	68267, -- Cinder Kitten
 	51601, -- Moonkin Hatchling
+	85283, -- Brightpaw
+	103159, -- Baby Winston
 }
 
 function MER:GameMenu()
@@ -51,13 +52,13 @@ function MER:GameMenu()
 	local button = {
 		["name"] = "MerConfigButton",
 		["text"] = "|cffff7d0aMerathilisUI|r",
-		["func"] = function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(_G["GameMenuFrame"]) end,
+		["func"] = function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(GameMenuFrame) end,
 	}
 	lib:AddMenuButton(button)
 	lib:UpdateHolder()
 	
 	if not GameMenuFrame.MUIbottomPanel then
-		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
@@ -85,14 +86,14 @@ function MER:GameMenu()
 	end
 	
 	if not GameMenuFrame.MUItopPanel then
-		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		
-		topPanel.style = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
 		topPanel.style:SetFrameStrata("HIGH")
 		topPanel.style:SetInside()
@@ -123,12 +124,12 @@ function MER:GameMenu()
 	
 	-- Use this frame to control the position of the model - taken from ElvUI
 	if not modelHolder then
-		local modelHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		modelHolder:SetSize(150, 150)
-		modelHolder:SetPoint("RIGHT", _G["GameMenuFrame"], "LEFT", -300, 0)
+		modelHolder:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
 		modelHolder:SetScript("OnShow", function(self)
 			self:ClearAllPoints()
-			self:SetPoint("RIGHT", _G["GameMenuFrame"], "LEFT", -300, 0)
+			self:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
 		end)
 		
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
@@ -147,12 +148,12 @@ function MER:GameMenu()
 	end
 	
 	if not npcHolder then
-		local npcHolder = CreateFrame("Frame", nil, _G["GameMenuFrame"])
+		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		npcHolder:SetSize(150, 150)
-		npcHolder:SetPoint("LEFT", _G["GameMenuFrame"], "RIGHT", 300, 0)
+		npcHolder:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 		npcHolder:SetScript("OnShow", function(self)
 			self:ClearAllPoints()
-			self:SetPoint("LEFT", _G["GameMenuFrame"], "RIGHT", 300, 0)
+			self:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 		end)
 		
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
