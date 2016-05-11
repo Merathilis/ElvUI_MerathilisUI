@@ -273,6 +273,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["macrotext"] = true
 		E.db["actionbar"]["showGrid"] = false
+		E.db["actionbar"]["lockActionBars"] = true
 		
 		if IsAddOnLoaded("Masque") then
 			E.private["actionbar"]["masque"]["stanceBar"] = true
@@ -358,6 +359,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["fontOutline"] = "OUTLINE"
 		E.db["actionbar"]["macrotext"] = true
 		E.db["actionbar"]["showGrid"] = false
+		E.db["actionbar"]["lockActionBars"] = true
 		
 		if IsAddOnLoaded("Masque") then
 			E.private["actionbar"]["masque"]["stanceBar"] = true
