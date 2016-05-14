@@ -116,7 +116,6 @@ function AS:BigWigs(event, addon)
 			bar.candyBarBar:ClearAllPoints()
 			bar.candyBarBar:SetAllPoints(bar)
 			bar.candyBarBar.SetPoint = AS.Noop
-			bar.candyBarBar:SetStatusBarTexture(E['media'].MuiFlat)
 			bar.candyBarBar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 			MER:CreateWideShadow(bar.candyBarBar)
 
