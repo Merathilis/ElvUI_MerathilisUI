@@ -3,6 +3,7 @@
 * Skins: Add a dynamic Tooltip position for the Bonus Reward Frame (Credits: Shestak UI)
 * Skins: Add a BigWigs Skin (Code taken from AddOnSkins)
 * Install: Change the ComboBar position.
+* Code cleanup
 
 \\ \\
 ** v1.36, 06.05.2016**

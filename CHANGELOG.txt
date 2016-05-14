@@ -3,6 +3,7 @@
 <font color=#FF8C00>&#9830;</font> Skins: Add a dynamic Tooltip position for the Bonus Reward Frame (Credits: Shestak UI)
 <font color=#FF8C00>&#9830;</font> Skins: Add a BigWigs Skin (Code taken from AddOnSkins)
 <font color=#FF8C00>&#9830;</font> Install: Change the ComboBar position.
+<font color=#FF8C00>&#9830;</font> Code cleanup
 
 <b><u> v1.36, 06.05.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Overhaul the install process.
