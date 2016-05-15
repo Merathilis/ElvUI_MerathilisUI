@@ -40,7 +40,7 @@ function AS:BigWigs(event, addon)
 	if IsAddOnLoaded('BigWigs_Plugins') or (addon == 'BigWigs_Plugins') then
 		AS:UnregisterSkinEvent('BigWigs', "ADDON_LOADED")
 
-		local buttonsize = 19
+		local buttonsize = 20
 		local FreeBackgrounds = {}
 
 		local CreateBG = function()
@@ -50,7 +50,7 @@ function AS:BigWigs(event, addon)
 		end
 
 		local function FreeStyle(bar)
-			local bg = bar:Get('bigwigs:AddOnSkins:bg')
+			local bg = bar:Get('bigwigs:MerathilisUI:bg')
 			if bg then
 				bg:ClearAllPoints()
 				bg:SetParent(UIParent)
@@ -58,7 +58,7 @@ function AS:BigWigs(event, addon)
 				FreeBackgrounds[#FreeBackgrounds + 1] = bg
 			end
 
-			local ibg = bar:Get('bigwigs:AddOnSkins:ibg')
+			local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
 			if ibg then
 				ibg:ClearAllPoints()
 				ibg:SetParent(UIParent)
@@ -127,9 +127,7 @@ function AS:BigWigs(event, addon)
 			bar.candyBarIconFrame.SetWidth = AS.Noop
 
 			bar.candyBarLabel:SetShadowOffset(2, -2)
-
 			bar.candyBarDuration:SetShadowOffset(2, -2)
-
 			AS:SkinTexture(bar.candyBarIconFrame)
 		end
 
