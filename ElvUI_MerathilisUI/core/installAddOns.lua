@@ -309,7 +309,8 @@ function MER:SetupMERAddons()
 			E.db["sle"]["chat"]["tab"]["color"] = {r = classColor.r, g = classColor.g, b = classColor.b}
 			E.db["sle"]["chat"]["BubbleThrottle"] = 0.1
 			E.db["sle"]["chat"]["dpsSpam"] = true
-			E.db["sle"]["chat"]["textureAlpha"]["enable"] = false
+			E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
+			E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.45
 			E.db["sle"]["chat"]["BubbleClass"] = true
 			E.db["sle"]["blizzard"]["rumouseover"] = true
 			E.db["sle"]["misc"]["threat"]["enable"] = true
