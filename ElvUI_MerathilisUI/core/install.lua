@@ -248,7 +248,11 @@ local function SetupMERChat(layout)
 	E.db["chat"]["panelHeight"] = 155
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
-	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI"
+	if E.myname == "Merathilis" or "Damará" or "Melisendra" or "Asragoth" or "Róhal" or "Jústice" or "Jazira" or "Brítt" or "Jahzzy" then
+		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, ElvUI_MerathilisUI, Andy"
+	else
+		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, ElvUI_MerathilisUI"
+	end
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	if E.myclass == "DRUID" and E.myname == "Merathilis" then
 		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
