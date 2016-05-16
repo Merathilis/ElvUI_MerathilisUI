@@ -249,9 +249,9 @@ local function SetupMERChat(layout)
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	if E.myname == "Merathilis" or "Damará" or "Melisendra" or "Asragoth" or "Róhal" or "Jústice" or "Jazira" or "Brítt" or "Jahzzy" then
-		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, ElvUI_MerathilisUI, Andy"
+		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, Andy"
 	else
-		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, ElvUI_MerathilisUI"
+		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	end
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	if E.myclass == "DRUID" and E.myname == "Merathilis" then
