@@ -23,6 +23,8 @@ function MER:SetupMERAddons()
 				{
 					["titleset"] = false,
 					["barheight"] = 16,
+					["classicons"] = true,
+					["roleicons"] = false,
 					["barslocked"] = true,
 					["background"] = {
 						["height"] = 146,
@@ -41,7 +43,7 @@ function MER:SetupMERAddons()
 					["mode"] = "Schaden",
 					["enabletitle"] = false,
 					["spark"] = false,
-					["bartexture"] = "MerathilisDefault",
+					["bartexture"] = "MerathilisFlat",
 					["barwidth"] = 165.999954223633,
 					["barspacing"] = 2,
 					["barcolor"] = {
@@ -82,6 +84,7 @@ function MER:SetupMERAddons()
 					["scale"] = 1,
 					["reversegrowth"] = false,
 					["barfontsize"] = 12,
+					["roleicons"] = false,
 					["barorientation"] = 1,
 					["snapto"] = true,
 					["x"] = 1739.00001525879,
@@ -127,7 +130,7 @@ function MER:SetupMERAddons()
 					},
 					["classcolorbars"] = true,
 					["clickthrough"] = false,
-					["bartexture"] = "MerathilisDefault",
+					["bartexture"] = "MerathilisFlat",
 					["title"] = {
 						["color"] = {
 							["a"] = 0.800000011920929,
@@ -148,7 +151,6 @@ function MER:SetupMERAddons()
 				}, -- [2]
 			},
 			["icon"] = {
-				["minimapPos"] = 216.201067430819,
 				["hide"] = true,
 			},
 			["columns"] = {
@@ -176,7 +178,7 @@ function MER:SetupMERAddons()
 		E.private['addonskins']['ParchmentRemover'] = true
 		E.private['addonskins']['WeakAuraBar'] = true
 		E.private['addonskins']['WeakAuraIconCooldown'] = true
-		E.private['addonskins']['BigWigsHalfBar'] = true
+		E.private['addonskins']['BigWigsHalfBar'] = false
 		E.private['addonskins']['CliqueSkin'] = true
 		E.private['addonskins']['SkinTemplate'] = 'Transparent'
 		E.private['addonskins']['SkinDebug'] = true
