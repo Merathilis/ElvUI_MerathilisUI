@@ -117,7 +117,9 @@ function AS:BigWigs(event, addon)
 			bar.candyBarBar:SetAllPoints(bar)
 			bar.candyBarBar.SetPoint = AS.Noop
 			bar.candyBarBar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			MER:CreateWideShadow(bar.candyBarBar)
+			if bar.candyBarBar then
+				MER:CreateWideShadow(bar.candyBarBar)
+			end
 
 			bar.candyBarBackground:SetTexture(unpack(AS.BackdropColor))
 
@@ -126,8 +128,13 @@ function AS:BigWigs(event, addon)
 			bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 			bar.candyBarIconFrame.SetWidth = AS.Noop
 
-			bar.candyBarLabel:SetShadowOffset(2, -2)
-			bar.candyBarDuration:SetShadowOffset(2, -2)
+			if bar.candyBarLabel then
+				bar.candyBarLabel:SetShadowOffset(2, -2)
+			end
+			
+			if bar.candyBarDuration then
+				bar.candyBarDuration:SetShadowOffset(2, -2)
+			end
 			AS:SkinTexture(bar.candyBarIconFrame)
 		end
 
