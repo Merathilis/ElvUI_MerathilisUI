@@ -15,7 +15,6 @@ local DecorElvUIAddons = {
 
 local DecorAddons = {
 	{'MasterPlan', L["MasterPlan"], 'mp'},
-	{'BigWigs', L["BigWigs"]..MER.NewSign, 'bw'},
 }
 
 local function SkinsTable()
