@@ -696,7 +696,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,160"
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,163"
 	
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
