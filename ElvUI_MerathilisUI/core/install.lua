@@ -295,14 +295,14 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar1"]["backdrop"] = true
 		E.db["actionbar"]["bar1"]["heightMult"] = 2
-		E.db["actionbar"]["bar1"]["buttonsize"] = 28
+		E.db["actionbar"]["bar1"]["buttonsize"] = 30
 		E.db["actionbar"]["bar1"]["buttons"] = 12
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 		
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar2"]["buttons"] = 12
-		E.db["actionbar"]["bar2"]["buttonsize"] = 28
+		E.db["actionbar"]["bar2"]["buttonsize"] = 30
 		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 		E.db["actionbar"]["bar2"]["mouseover"] = false
@@ -349,7 +349,7 @@ local function SetupMERActionbars(layout)
 		end
 		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
 		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
