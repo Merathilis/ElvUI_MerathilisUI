@@ -76,10 +76,6 @@ L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline
 L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
 L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 
--- hoverName
-L['hoverName'] = true
-L['Shows UnitNames on mouseover.'] = "Zeigt Einheitennamen bei Mouseover."
-
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "
