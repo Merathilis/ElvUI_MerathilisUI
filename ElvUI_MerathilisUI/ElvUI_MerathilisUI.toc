@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70000
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
 ## Version: 1.37
