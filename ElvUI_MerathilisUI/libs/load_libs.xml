@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="LibAnim\LibAnim.lua"/>
+	<Script file="LibElv-GameMenu-1.0\LibElv-GameMenu-1.0.lua"/>
+</Ui>

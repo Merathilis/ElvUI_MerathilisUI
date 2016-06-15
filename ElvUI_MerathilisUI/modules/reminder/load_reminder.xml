@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="reminder.lua"/>
+	<Script file="options.lua"/>
+	<Script file="filter.lua"/>
+</Ui>
