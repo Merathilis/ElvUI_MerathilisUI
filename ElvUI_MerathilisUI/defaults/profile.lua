@@ -20,7 +20,6 @@ P['mui'] = {
 		['TooltipIcon'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
 		['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 		['moveBlizz'] = true, -- Make Blizzards Frame movable
-		['minimapblip'] = true, -- Custom Textures for the Minimap blibs
 	},
 
 	['systemDT'] = {

@@ -37,10 +37,6 @@ L['My other Addon'] = true
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
 
--- Minimap blip
-L['Minimap Blip'] = true
-L['Replaces the default minimap blips with custom textures.'] = true
-
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true

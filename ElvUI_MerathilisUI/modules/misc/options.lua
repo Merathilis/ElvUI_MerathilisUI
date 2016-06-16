@@ -40,12 +40,6 @@ local function Misc()
 				name = L['moveBlizz'],
 				desc = L['Make some Blizzard Frames movable.'],
 			},
-			minimapblip = {
-				order = 6,
-				type = 'toggle',
-				name = L['Minimap Blip'],
-				desc = L['Replaces the default minimap blips with custom textures.'],
-			},
 		},
 	}
 end
