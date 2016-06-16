@@ -1145,7 +1145,7 @@ function MER:SetupDts(role)
 		elseif role == 'healer' or 'dpsCaster' then
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
@@ -1181,7 +1181,7 @@ function MER:SetupDts(role)
 		elseif role == 'healer' or 'dpsCaster' then
 			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
 		
 		if IsAddOnLoaded('Skada') then

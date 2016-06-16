@@ -15,7 +15,6 @@ local GetEquipmentSetInfo = GetEquipmentSetInfo
 local UseEquipmentSet = UseEquipmentSet
 local GetSpecializationInfo = GetSpecializationInfo
 local SetLootSpecialization = SetLootSpecialization
-local SetActiveSpecGroup = SetActiveSpecGroup
 local GetNumSpecGroups = GetNumSpecGroups
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local GetLootSpecialization = GetLootSpecialization
@@ -34,29 +33,6 @@ local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
 local menuFrame = CreateFrame("Frame", "LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
 
-local function SetCurrentEquipmentSet(set)
-	if GetNumEquipmentSets() == 0 then return false end
-	for i = 1, GetNumEquipmentSets() do
-		local name, _, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
-		if set == name then
-			if not isEquipped then
-				UseEquipmentSet(set)
-			end
-			return true
-		end
-	end
-	return false
-end
-
-local function SwitchGear()	
-	
-	if GetSpecialization(false, false, active) then
-		local set = select(2, GetSpecializationInfo(GetSpecialization(false, false, active == 1 and 2 or 1)))
-		SetCurrentEquipmentSet(set)
-	end
-	
-end
-
 local function specializationClick(self, specialization)
 	_G["CloseDropDownMenus"]()
 	SetLootSpecialization(specialization)
@@ -71,7 +47,6 @@ local function specCLick(self,spec)
 	_G["CloseDropDownMenus"]()
 	
 	if not(spec==active) then
-		SwitchGear()
 		SetActiveSpecGroup(active == 1 and 2 or 1)
 	end
 	
@@ -182,8 +157,8 @@ local function OnEnter(self)
 	end
 	
 	DT.tooltip:AddLine(' ')
-	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
-	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])	
+	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
+	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
 	
 	DT.tooltip:Show()
 end
@@ -198,8 +173,15 @@ local function OnClick(self, button)
 	if not specIndex then return end
 	
 	if button == "LeftButton" then
-		SwitchGear()
-		SetActiveSpecGroup(active == 1 and 2 or 1)
+		if not PlayerTalentFrame then
+			TalentFrame_LoadUI()
+		end
+		
+		if not PlayerTalentFrame:IsShown() then
+			ShowUIPanel(PlayerTalentFrame)
+		else
+			HideUIPanel(PlayerTalentFrame)
+		end
 	else
 		DT.tooltip:Hide()
 		local specID, specName, _, texture = GetSpecializationInfo(specIndex);
