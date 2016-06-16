@@ -104,6 +104,13 @@ local function SetupMERLayout(layout)
 	E.db["general"]["reputation"]["textFormat"] = "NONE"
 	E.db["general"]["reputation"]["orientation"] = "VERTICAL"
 	E.db["general"]["reputation"]["hideInVehicle"] = true
+	E.db["general"]["artifact"]["enable"] = true
+	E.db["general"]["artifact"]["height"] = 155
+	E.db["general"]["artifact"]["textSize"] = 11
+	E.db["general"]["honor"]['enable'] = true
+	E.db["general"]["honor"]["height"] = 155
+	E.db["general"]["honor"]["textSize"] = 11
+	E.db["general"]["honor"]["mouseover"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
@@ -117,6 +124,8 @@ local function SetupMERLayout(layout)
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
 	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
+	E.db["movers"]["ArtifactBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,413,22"
+	E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-424,23"
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
@@ -1136,7 +1145,7 @@ function MER:SetupDts(role)
 		elseif role == 'healer' or 'dpsCaster' then
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
@@ -1172,7 +1181,7 @@ function MER:SetupDts(role)
 		elseif role == 'healer' or 'dpsCaster' then
 			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Spell/Heal Power"
 		end
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
 		
 		if IsAddOnLoaded('Skada') then
