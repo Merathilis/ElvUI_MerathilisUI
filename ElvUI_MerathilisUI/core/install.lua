@@ -164,32 +164,14 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["itemLevelThreshold"] = 650
 	E.db["bags"]["junkIcon"] = true
 
-	-- Nameplates need to be redone
-	-- E.db["nameplate"]["debuffs"]["fontSize"] = 9
-	-- E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
-	-- E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
-	-- E.db["nameplate"]["wrapName"] = false
-	-- E.db["nameplate"]["fontOutline"] = "OUTLINE"
-	-- E.db["nameplate"]["sortDirection"] = 1
-	-- E.db["nameplate"]["comboPoints"] = true
-	-- E.db["nameplate"]["colorByTime"] = true
-	-- E.db["nameplate"]["healthBar"]["colorByRaidIcon"] = true
-	-- E.db["nameplate"]["healthBar"]["height"] = 4
-	-- E.db["nameplate"]["healthBar"]["text"]["enable"] = true
-	-- E.db["nameplate"]["healthBar"]["text"]["format"] = "CURRENT_PERCENT"
-	-- E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
-	-- E.db["nameplate"]["healthBar"]["width"] = 100
-	-- E.db["nameplate"]["auraFont"] = "PT Sans Narrow"
-	-- E.db["nameplate"]["targetIndicator"]["color"]["g"] = 0
-	-- E.db["nameplate"]["targetIndicator"]["color"]["b"] = 0
-	-- E.db["nameplate"]["font"] = "Merathilis Tukui"
-	-- E.db["nameplate"]["maxAuras"] = 5
-	-- E.db["nameplate"]["fontSize"] = 10
-	-- E.db["nameplate"]["auraAnchor"] = 1
-	-- E.db["nameplate"]["buffs"]["fontOutline"] = "OUTLINE"
-	-- E.db["nameplate"]["buffs"]["font"] = "Merathilis Prototype"
-	-- E.db["nameplate"]["auraFontOutline"] = "OUTLINE"
-	-- E.db["nameplate"]["healthtext"] = "CURRENT_PERCENT"
+	-- Nameplates
+	E.db["nameplate"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplate"]["font"] = "Merathilis Expressway"
+	E.db["nameplate"]["fontSize"] = 10
+	E.db["nameplate"]["fontOutline"] = 'OUTLINE'
+	E.db["nameplate"]['targetScale'] = 1.05
+	E.db["nameplate"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplate"]["units"]["HEALER"]["healthbar"]["enable"] = false
 	
 	-- Tooltip
 	E.db["tooltip"]["itemCount"] = "NONE"
