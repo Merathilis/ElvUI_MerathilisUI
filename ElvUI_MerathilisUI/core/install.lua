@@ -165,13 +165,13 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["junkIcon"] = true
 
 	-- Nameplates
-	E.db["nameplate"]["statusbar"] = "MerathilisFlat"
-	E.db["nameplate"]["font"] = "Merathilis Expressway"
-	E.db["nameplate"]["fontSize"] = 10
-	E.db["nameplate"]["fontOutline"] = 'OUTLINE'
-	E.db["nameplate"]['targetScale'] = 1.05
-	E.db["nameplate"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplate"]["units"]["HEALER"]["healthbar"]["enable"] = false
+	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplates"]["font"] = "Merathilis Expressway"
+	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontOutline"] = 'OUTLINE'
+	E.db["nameplates"]['targetScale'] = 1.05
+	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
 	
 	-- Tooltip
 	E.db["tooltip"]["itemCount"] = "NONE"
