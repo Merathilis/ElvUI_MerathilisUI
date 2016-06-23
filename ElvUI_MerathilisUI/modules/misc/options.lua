@@ -46,12 +46,6 @@ local function Misc()
 				name = L['Minimap Blip'],
 				desc = L['Replaces the default minimap blips with custom textures.'],
 			},
-			hoverName = {
-				order = 7,
-				type = 'toggle',
-				name = L['hoverName'],
-				desc = L['Shows UnitNames on mouseover.'],
-			},
 		},
 	}
 end
