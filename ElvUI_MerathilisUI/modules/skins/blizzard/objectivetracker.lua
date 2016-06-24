@@ -130,6 +130,21 @@ local function SkinScenarioButtons()
 	block.Stage:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
+-- Challenge Mode
+local function SkinChallengeModeButtons()
+	local block = ScenarioChallengeModeBlock
+	local sb = block.StatusBar
+
+	-- Timer
+	sb:StripTextures()
+	sb:CreateBackdrop('Transparent')
+	sb:SetStatusBarTexture(flat)
+	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+	sb:ClearAllPoints()
+	sb:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
+	sb:SetSize(200, 15)
+end
+
 -- Proving grounds
 local function SkinProvingGroundButtons()
 	local block = ScenarioProvingGroundsBlock
@@ -208,6 +223,9 @@ local function ObjectiveTrackerReskin()
 		
 		-- Proving grounds
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+		
+		-- Challenge Mode
+		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeButtons)
 		
 		-- Timer Bar
 		hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar)
