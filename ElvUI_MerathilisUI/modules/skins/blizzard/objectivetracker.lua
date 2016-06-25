@@ -8,7 +8,7 @@ local S = E:GetModule('Skins');
 local _G = _G
 local unpack = unpack
 -- WoW API / Variables
-local GetScreenHeight, GetScreenWidth = GetScreenHeight, GetScreenWidth
+local GetScreenWidth = GetScreenWidth
 local IsAddOnLoaded = IsAddOnLoaded
 local C_Scenario = C_Scenario
 local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
@@ -22,6 +22,7 @@ local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local ScenarioProvingGroundsBlock = _G["ScenarioProvingGroundsBlock"]
 local ScenarioProvingGroundsBlockAnim = _G["ScenarioProvingGroundsBlockAnim"]
+local ScenarioChallengeModeBlock = _G["ScenarioChallengeModeBlock"]
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, hooksecurefunc
@@ -71,7 +72,6 @@ end
 local function IsFramePositionedLeft(frame)
 	local x = frame:GetCenter()
 	local screenWidth = GetScreenWidth()
-	local screenHeight = GetScreenHeight()
 	local positionedLeft = false
 
 	if x and x < (screenWidth / 2) then
@@ -83,8 +83,8 @@ end
 
 hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
 	if IsFramePositionedLeft(ObjectiveTrackerFrame) then
-		GameTooltip:ClearAllPoints()
-		GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+		_G["GameTooltip"]:ClearAllPoints()
+		_G["GameTooltip"]:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
 	end
 end)
 
@@ -111,7 +111,7 @@ local function SkinTimerBar(self, block, line, duration, startTime)
 end
 
 -- Scenario/Instances
-local function SkinScenarioButtons()
+local function SkinScenario()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
 	local inChallengeMode = C_Scenario.IsChallengeMode()
@@ -130,23 +130,8 @@ local function SkinScenarioButtons()
 	block.Stage:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
--- Challenge Mode
-local function SkinChallengeModeButtons()
-	local block = ScenarioChallengeModeBlock
-	local sb = block.StatusBar
-
-	-- Timer
-	sb:StripTextures()
-	sb:CreateBackdrop('Transparent')
-	sb:SetStatusBarTexture(flat)
-	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-	sb:ClearAllPoints()
-	sb:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
-	sb:SetSize(200, 15)
-end
-
 -- Proving grounds
-local function SkinProvingGroundButtons()
+local function SkinProvingGround()
 	local block = ScenarioProvingGroundsBlock
 	local sb = block.StatusBar
 	local anim = ScenarioProvingGroundsBlockAnim
@@ -192,10 +177,36 @@ local function SkinProvingGroundButtons()
 	sb2:SetVertexColor(unpack(E.media.backdropcolor))
 end
 
+-- Challenge Mode
+local function SkinChallengeMode()
+	local block = ScenarioChallengeModeBlock
+	local sb = block.StatusBar
+
+	-- Timer
+	sb:StripTextures()
+	sb:CreateBackdrop('Transparent')
+	sb:SetStatusBarTexture(flat)
+	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+	sb:ClearAllPoints()
+	sb:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
+	sb:SetSize(200, 15)
+	
+	-- Create a little border around the Bar.
+	local sb2 = sb:GetParent():CreateTexture(nil, 'BACKGROUND')
+	sb2:SetPoint('TOPLEFT', sb, -1, 1)
+	sb2:SetPoint('BOTTOMRIGHT', sb, 1, -1)
+	sb2:SetTexture(flat)
+	sb2:SetAlpha(0.5)
+	sb2:SetVertexColor(unpack(E.media.backdropcolor))
+end
+
 -- Initialize
 local function ObjectiveTrackerReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
+		
+		-- Timer Bar
+		hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar)
 		
 		-- Quest
 		ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
@@ -216,19 +227,16 @@ local function ObjectiveTrackerReskin()
 		
 		-- Scenario
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", SkinTimerBar)
-		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
-		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenario)
+		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenario)
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
 		ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		
 		-- Proving grounds
-		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGround)
 		
 		-- Challenge Mode
-		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeModeButtons)
-		
-		-- Timer Bar
-		hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", skinObjectiveBar)
+		hooksecurefunc("Scenario_ChallengeMode_ShowBlock", SkinChallengeMode)
 		
 		-- Menu Title
 		ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
