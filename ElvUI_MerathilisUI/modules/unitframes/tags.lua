@@ -7,11 +7,14 @@ local ElvUF = ElvUI.oUF
 local DEAD = DEAD
 local GetNumGroupMembers = GetNumGroupMembers
 local IsInGroup, IsInRaid = IsInGroup, IsInRaid
+local UnitClass = UnitClass
 local UnitIsDead, UnitIsGhost, UnitIsConnected, UnitIsUnit = UnitIsDead, UnitIsGhost, UnitIsConnected, UnitIsUnit
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 
-ElvUF.Tags.Events['health:percent_short'] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
-ElvUF.Tags.Methods['health:percent_short'] = function(unit)
+-- GLOBALS: Hex, _COLORS
+
+ElvUF.Tags.Events["health:percent_short"] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
+ElvUF.Tags.Methods["health:percent_short"] = function(unit)
 	local status = UnitIsDead(unit) and DEAD or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 
 	if (status) then
@@ -21,23 +24,59 @@ ElvUF.Tags.Methods['health:percent_short'] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events['num:targeting'] = "UNIT_TARGET PLAYER_TARGET_CHANGED GROUP_ROSTER_UPDATE"
-ElvUF.Tags.Methods['num:targeting'] = function(unit)
-	if not IsInGroup() then return "" end
-	local targetedByNum = 0
+ElvUF.Tags.Methods["classcolor:player"] = function()
+	local _, unitClass = UnitClass("player")
+	local String
 
-	--Count the amount of other people targeting the unit
-	for i = 1, GetNumGroupMembers() do
-		local groupUnit = (IsInRaid() and "raid"..i or "party"..i);
-		if (UnitIsUnit(groupUnit.."target", unit) and not UnitIsUnit(groupUnit, "player")) then
-			targetedByNum = targetedByNum + 1
-		end
+	if unitClass then
+		String = Hex(_COLORS.class[unitClass])
+	else
+		String = "|cFFC2C2C2"
 	end
 
-	--Add 1 if we're targeting the unit too
-	if UnitIsUnit("playertarget", unit) then
-		targetedByNum = targetedByNum + 1
-	end
+	return String
+end
 
-	return (targetedByNum > 0 and targetedByNum or "")
+ElvUF.Tags.Methods["classcolor:hunter"] = function()
+	return Hex(_COLORS.class["HUNTER"])
+end
+
+ElvUF.Tags.Methods["classcolor:warrior"] = function()
+	return Hex(_COLORS.class["WARRIOR"])
+end
+
+ElvUF.Tags.Methods["classcolor:paladin"] = function()
+	return Hex(_COLORS.class["PALADIN"])
+end
+
+ElvUF.Tags.Methods["classcolor:mage"] = function()
+	return Hex(_COLORS.class["MAGE"])
+end
+
+ElvUF.Tags.Methods["classcolor:priest"] = function()
+	return Hex(_COLORS.class["PRIEST"])
+end
+
+ElvUF.Tags.Methods["classcolor:warlock"] = function()
+	return Hex(_COLORS.class["WARLOCK"])
+end
+
+ElvUF.Tags.Methods["classcolor:shaman"] = function()
+	return Hex(_COLORS.class["SHAMAN"])
+end
+
+ElvUF.Tags.Methods["classcolor:deathknight"] = function()
+	return Hex(_COLORS.class["DEATHKNIGHT"])
+end
+
+ElvUF.Tags.Methods["classcolor:druid"] = function()
+	return Hex(_COLORS.class["DRUID"])
+end
+
+ElvUF.Tags.Methods["classcolor:monk"] = function()
+	return Hex(_COLORS.class["MONK"])
+end
+
+ElvUF.Tags.Methods["classcolor:rogue"] = function()
+	return Hex(_COLORS.class["ROGUE"])
 end

@@ -535,11 +535,11 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["size"] = 20
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
+	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[classcolor:player][health:percent_short]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [namecolor][power:current]"
+	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [classcolor:player][power:current]"
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
@@ -631,13 +631,6 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["size"] = 12
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["justifyH"] = "CENTER"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["text_format"] = "[num:targeting]"
 	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
