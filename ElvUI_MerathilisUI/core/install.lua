@@ -87,6 +87,8 @@ local function SetupMERLayout(layout)
 	E.private["general"]["dmgfont"] = "Action Man"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
+	-- must be redone!
+	--[[
 	E.db["general"]["experience"]["enable"] = true
 	E.db["general"]["experience"]["mouseover"] = false
 	E.db["general"]["experience"]["height"] = 155
@@ -111,6 +113,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["honor"]["height"] = 155
 	E.db["general"]["honor"]["textSize"] = 11
 	E.db["general"]["honor"]["mouseover"] = true
+	]]
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
