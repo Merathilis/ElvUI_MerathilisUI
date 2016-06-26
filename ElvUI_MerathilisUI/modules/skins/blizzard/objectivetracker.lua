@@ -114,7 +114,7 @@ end
 local function SkinScenario()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
-	local inChallengeMode = C_Scenario.IsChallengeMode()
+	-- local inChallengeMode = C_Scenario.IsChallengeMode()
 
 	-- pop-up artwork
 	block.NormalBG:Hide()
