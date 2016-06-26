@@ -521,11 +521,11 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["size"] = 20
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
+	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[classcolor:player][health:percent_short]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [namecolor][power:current]"
+	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [classcolor:player][power:current]"
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
