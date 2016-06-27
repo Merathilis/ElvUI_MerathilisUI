@@ -60,7 +60,13 @@ local menuList = {
 	{ notCheckable = false }
 }
 
-local specList = {}
+local specList = {
+	{ text = SPECIALIZATION, isTitle = true, notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+}
 
 local setList = {}
 
@@ -157,30 +163,51 @@ local function OnEnter(self)
 	end
 	
 	DT.tooltip:AddLine(' ')
-	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
+	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
+	DT.tooltip:AddLine(L["|cffFFFFFFShift + Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
 	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
 	
 	DT.tooltip:Show()
 end
 
+local function SetSpec(id)
+	local spec = _G["PlayerTalentFrameSpecializationSpecButton"..id]
+	SpecButton_OnClick(spec)
+	local learn = PlayerTalentFrameSpecializationLearnButton
+
+	StaticPopup_Show("CONFIRM_LEARN_SPEC", nil, nil, learn:GetParent())
+end
+
 local function OnClick(self, button)
-	
 	local lootSpecialization = GetLootSpecialization()
-	
 	_G["lootSpecializationName"] = select(2,GetSpecializationInfoByID(lootSpecialization))
 	
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
 	
 	if button == "LeftButton" then
+		DT.tooltip:Hide()
 		if not PlayerTalentFrame then
-			TalentFrame_LoadUI()
+			LoadAddOn("Blizzard_TalentUI")
 		end
 		
-		if not PlayerTalentFrame:IsShown() then
-			ShowUIPanel(PlayerTalentFrame)
+		if IsShiftKeyDown() then 
+			if not PlayerTalentFrame:IsShown() then
+				ShowUIPanel(PlayerTalentFrame)
+			else
+				HideUIPanel(PlayerTalentFrame)
+			end
 		else
-			HideUIPanel(PlayerTalentFrame)
+			for index = 1, 4 do
+				local id, name, _, texture = GetSpecializationInfo(index);
+				if ( id ) then
+					specList[index + 1].text = format('|T%s:14:14:0:0:64:64:4:60:4:60|t  %s', texture, name)
+					specList[index + 1].func = function() SetSpec(index) end
+				else
+					specList[index + 1] = nil
+				end
+			end
+			EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
 		end
 	else
 		DT.tooltip:Hide()
@@ -248,14 +275,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
---[[
-DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc)
-
-name - name of the datatext (required)
-events - must be a table with string values of event names to register
-eventFunc - function that gets fired when an event gets triggered
-	updateFunc - onUpdate script target function
-		click - function to fire when clicking the datatext
-			onEnterFunc - function to fire OnEnter
-				]]
 DT:RegisterDatatext('MUI Talent/Loot Specialization',{"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", 'PLAYER_LOOT_SPEC_UPDATED'}, OnEvent, nil, OnClick, OnEnter)
