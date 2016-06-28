@@ -87,33 +87,30 @@ local function SetupMERLayout(layout)
 	E.private["general"]["dmgfont"] = "Action Man"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
-	-- must be redone!
-	--[[
-	E.db["general"]["experience"]["enable"] = true
-	E.db["general"]["experience"]["mouseover"] = false
-	E.db["general"]["experience"]["height"] = 155
-	E.db["general"]["experience"]["textSize"] = 10
-	E.db["general"]["experience"]["width"] = 10
-	E.db["general"]["experience"]["textFormat"] = "NONE"
-	E.db["general"]["experience"]["orientation"] = "VERTICAL"
-	E.db["general"]["experience"]["hideAtMaxLevel"] = true
-	E.db["general"]["experience"]["hideInVehicle"] = true
-	E.db["general"]["reputation"]["enable"] = true
-	E.db["general"]["reputation"]["mouseover"] = false
-	E.db["general"]["reputation"]["height"] = 155
-	E.db["general"]["reputation"]["textSize"] = 10
-	E.db["general"]["reputation"]["width"] = 10
-	E.db["general"]["reputation"]["textFormat"] = "NONE"
-	E.db["general"]["reputation"]["orientation"] = "VERTICAL"
-	E.db["general"]["reputation"]["hideInVehicle"] = true
-	E.db["general"]["artifact"]["enable"] = true
-	E.db["general"]["artifact"]["height"] = 155
-	E.db["general"]["artifact"]["textSize"] = 11
-	E.db["general"]["honor"]['enable'] = true
-	E.db["general"]["honor"]["height"] = 155
-	E.db["general"]["honor"]["textSize"] = 11
-	E.db["general"]["honor"]["mouseover"] = true
-	]]
+	E.db["databars"]["experience"]["enable"] = true
+	E.db["databars"]["experience"]["mouseover"] = false
+	E.db["databars"]["experience"]["height"] = 155
+	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["width"] = 10
+	E.db["databars"]["experience"]["textFormat"] = "NONE"
+	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
+	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
+	E.db["databars"]["experience"]["hideInVehicle"] = true
+	E.db["databars"]["reputation"]["enable"] = true
+	E.db["databars"]["reputation"]["mouseover"] = false
+	E.db["databars"]["reputation"]["height"] = 155
+	E.db["databars"]["reputation"]["textSize"] = 10
+	E.db["databars"]["reputation"]["width"] = 10
+	E.db["databars"]["reputation"]["textFormat"] = "NONE"
+	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["databars"]["reputation"]["hideInVehicle"] = true
+	E.db["databars"]["artifact"]["enable"] = true
+	E.db["databars"]["artifact"]["height"] = 155
+	E.db["databars"]["artifact"]["textSize"] = 11
+	E.db["databars"]["honor"]['enable'] = true
+	E.db["databars"]["honor"]["height"] = 155
+	E.db["databars"]["honor"]["textSize"] = 11
+	E.db["databars"]["honor"]["mouseover"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
@@ -620,13 +617,6 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["size"] = 12
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["justifyH"] = "CENTER"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Targeting"]["text_format"] = "[num:targeting]"
 	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
@@ -1097,7 +1087,7 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["panelTransparency"] = true
-	E.db["datatexts"]["wordWrap"] = true
+	E.db["datatexts"]["wordWrap"] = false
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db["datatexts"]["leftChatPanel"] = false
@@ -1132,7 +1122,7 @@ function MER:SetupDts(role)
 		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
