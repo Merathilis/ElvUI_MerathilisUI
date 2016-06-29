@@ -36,7 +36,7 @@ local textFormatStylesNoDecimal = {
 	["DEFICIT"] = "-%s"
 }
 
-local function GetFormattedText(min, max, style, noDecimal)
+function MER:GetFormattedText(min, max, style, noDecimal)
 	assert(textFormatStyles[style] or textFormatStylesNoDecimal[style], "CustomTags Invalid format style: "..style)
 	assert(min, "CustomTags - You need to provide a current value. Usage: GetFormattedText(min, max, style, noDecimal)")
 	assert(max, "CustomTags - You need to provide a maximum value. Usage: GetFormattedText(min, max, style, noDecimal)")
@@ -71,17 +71,6 @@ local function GetFormattedText(min, max, style, noDecimal)
 		return format(chosenFormat, E:ShortValue(min), min / max * 100)
 	elseif style == "CURRENT_MAX_PERCENT" then
 		return format(chosenFormat, E:ShortValue(min), E:ShortValue(max), min / max * 100)
-	end
-end
-
-ElvUF.Tags.Events["health:percent_short"] = 'UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED'
-ElvUF.Tags.Methods["health:percent_short"] = function(unit)
-	local status = UnitIsDead(unit) and DEAD or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
-
-	if (status) then
-		return status
-	else
-		return MER:GetFormattedText('PERCENT_SHORT', UnitHealth(unit), UnitHealthMax(unit))
 	end
 end
 
@@ -151,7 +140,7 @@ ElvUF.Tags.Methods["health:percent:hidefull:hidezero"] = function(unit)
 	if (deficit <= 0) or (min == 0) then
 		String = ""
 	else
-		String = GetFormattedText(min, max, "PERCENT", true)
+		String = MER:GetFormattedText(min, max, "PERCENT", true)
 	end
 
 	return String
@@ -166,7 +155,7 @@ ElvUF.Tags.Methods["health:current:hidefull:hidezero"] = function(unit)
 	if (deficit <= 0) or (min == 0) then
 		String = ""
 	else
-		String = GetFormattedText(min, max, "CURRENT", true)
+		String = MER:GetFormattedText(min, max, "CURRENT", true)
 	end
 
 	return String
@@ -181,7 +170,7 @@ ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
 	if (deficit <= 0) or (min == 0) then
 		String = ""
 	else
-		String = GetFormattedText(min, max, "CURRENT_PERCENT", true)
+		String = MER:GetFormattedText(min, max, "CURRENT_PERCENT", true)
 	end
 
 	return String
