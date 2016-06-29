@@ -149,11 +149,7 @@ end
 local function dbCleaning()
 	-- Clear the old db
 	if E.db.muiGeneral then E.db.muiGeneral = nil end
-	if E.db.muiMisc then E.db.muiMisc = nil end
-	if E.db.muiSystemDT then E.db.muiSystemDT = nil end
-	if E.db.muiUnitframes then E.db.muiUnitframes = nil end
-	if E.private.muiSkins then E.private.muiSkins = nil end
-	
+
 	E.db.mui.dbCleaned = true
 end
 
