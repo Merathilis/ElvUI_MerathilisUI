@@ -1070,7 +1070,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["size"] = 16
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent_short]"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent:hidefull:hidezero]"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
 	
