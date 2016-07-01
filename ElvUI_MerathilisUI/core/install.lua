@@ -153,7 +153,9 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["countFont"] = "Merathilis Prototype"
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["yOffsetBank"] = 20
+	E.db["bags"]["yOffsetBank"] = -3
+	E.db["bags"]["xOffsetBank"] = 3
+	E.db["bags"]["xOffset"] = 3
 	E.db["bags"]["yOffset"] = 20
 	E.db["bags"]["bagSize"] = 23
 	E.db["bags"]["alignToChat"] = false
