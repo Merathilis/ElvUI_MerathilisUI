@@ -156,7 +156,7 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["yOffsetBank"] = -3
 	E.db["bags"]["xOffsetBank"] = 3
 	E.db["bags"]["xOffset"] = 3
-	E.db["bags"]["yOffset"] = 20
+	E.db["bags"]["yOffset"] = -3
 	E.db["bags"]["bagSize"] = 23
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["bagWidth"] = 350
