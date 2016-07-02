@@ -329,6 +329,7 @@ function MER:SetupMERAddons()
 			E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
 			E.db["sle"]["minimap"]["coords"]["decimals"] = false
 			E.db["sle"]["minimap"]["coords"]["middle"] = "CENTER"
+			E.private["sle"]["minimap"]["buttons"]["enable"] = true
 			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
 			E.db["sle"]["minimap"]["mapicons"]["iconsize"] = 20
 			E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
