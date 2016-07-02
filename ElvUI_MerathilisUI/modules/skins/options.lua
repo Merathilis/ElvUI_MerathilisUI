@@ -21,7 +21,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 16,
 		type = 'group',
-		name = L['Skins']..MER.NewSign,
+		name = L['Skins'],
 		args = {
 			name = {
 				order = 1,
