@@ -72,9 +72,6 @@ local setList = {}
 
 local menu = {
 	{ text = OPTIONS_MENU, isTitle = true, notCheckable = true},
-	{ text = _G.SPECIALIZATION, hasArrow = true, notCheckable = true,
-		menuList = specList,
-	},
 	{ text = SELECT_LOOT_SPECIALIZATION, hasArrow = true, notCheckable = true,
 		menuList = menuList,
 	},
@@ -87,7 +84,10 @@ local function OnEvent(self, event)
 	lastPanel = self
 	
 	local specIndex = GetSpecialization();
-	if not specIndex then return end
+	if not specIndex then
+		self.text:SetText('N/A')
+		return
+	end
 	
 	active = GetActiveSpecGroup()
 	
@@ -243,22 +243,6 @@ local function OnClick(self, button)
 				setList[i].checked = (isEquipped and true or false)
 				setList[i].func = setCLick
 				setList[i].arg1 = name
-			end
-		else
-			--menu[3] = nil
-		end		
-		
-		for i = 1, GetNumSpecGroups() do
-			if GetSpecialization(false, false, i) then
-				local specID, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
-				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-				
-				specList[i]={}
-				specList[i].notCheckable = false
-				specList[i].text = join("",icon," ", name)
-				specList[i].checked = (i == active and true or false)
-				specList[i].func = specCLick
-				specList[i].arg1 = i
 			end
 		end
 		
