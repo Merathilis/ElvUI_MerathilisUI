@@ -51,7 +51,7 @@ function lib:UpdateHolder()
 	if total > 0 and total <= 5 then
 		lib.Header:Hide()
 		LibHolder:ClearAllPoints()
-		LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, -16)
+		LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, -22)
 	elseif total > 5 then
 		lib.Header:Show()
 		LibHolder:ClearAllPoints()
