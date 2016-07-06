@@ -98,11 +98,6 @@ local function SkinsTable()
 				type = 'toggle',
 				name = _G["OBJECTIVES_TRACKER_LABEL"],
 			},
-			glyph = {
-				order = 4,
-				type = 'toggle',
-				name = L["Glyph Frame"],
-			},
 		},
 	}
 end
