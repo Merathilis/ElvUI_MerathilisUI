@@ -198,7 +198,6 @@ local function SetupMERLayout(layout)
 end
 
 local function SetupMERChat(layout)
-
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -451,7 +450,6 @@ local function SetupMERActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
-
 	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["fontSize"] = 12
