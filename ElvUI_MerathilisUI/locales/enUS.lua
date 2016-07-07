@@ -111,6 +111,7 @@ L["Red Icon"] = true
 
 -- Install
 L['Welcome'] = true
+L["|cffff7d0aMerathilisUI|r Installation"] = true
 L['MerathilisUI Set'] = true
 L[' - %s profile created!'] = true
 L['Actionbars Set'] = true

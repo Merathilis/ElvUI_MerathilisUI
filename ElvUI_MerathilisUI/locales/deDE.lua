@@ -111,6 +111,7 @@ L["Red Icon"] = "Rotes Symbol"
 
 -- Install
 L['Welcome'] = "Willkommen"
+L["|cffff7d0aMerathilisUI|r Installation"] = true
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"
 L[' - %s profile created!'] = " - %s Profil erstellt!"
 L['Actionbars Set'] = "Aktionsleisten gesetzt"
