@@ -38,18 +38,9 @@ local function specializationClick(self, specialization)
 	SetLootSpecialization(specialization)
 end
 
-local function setCLick(self,set)
+local function setClick(self,set)
 	_G["CloseDropDownMenus"]()
 	UseEquipmentSet(set)
-end
-
-local function specCLick(self,spec)
-	_G["CloseDropDownMenus"]()
-	
-	if not(spec==active) then
-		SetActiveSpecGroup(active == 1 and 2 or 1)
-	end
-	
 end
 
 local menuList = {
@@ -106,7 +97,11 @@ local function OnEvent(self, event)
 		
 		if specIndex then
 			local specID, _, _, texture = GetSpecializationInfo(specIndex);
-			loot = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+			if texture then
+				loot = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+			else
+				loot = 'N/A'
+			end
 		else
 			loot = 'N/A'
 		end
@@ -235,7 +230,7 @@ local function OnClick(self, button)
 			end
 		end
 		
-		if not (GetNumEquipmentSets() == 0) then 
+		if (GetNumEquipmentSets() >= 1) then 
 			
 			for i = 1, GetNumEquipmentSets() do
 				local name, texture, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
@@ -245,7 +240,7 @@ local function OnClick(self, button)
 				setList[i].notCheckable = false
 				setList[i].text = join("",icon," ", name)
 				setList[i].checked = (isEquipped and true or false)
-				setList[i].func = setCLick
+				setList[i].func = setClick
 				setList[i].arg1 = name
 			end
 		end
