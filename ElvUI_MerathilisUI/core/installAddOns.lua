@@ -233,7 +233,6 @@ function MER:SetupMERAddons()
 	if IsAddOnLoaded("ElvUI_SLE") then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
 			E.db["sle"]["raidmarkers"]["enable"] = false
-			E.db["sle"]["media"]["fonts"]["gossip"]["outline"] = "OUTLINE"
 			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Prototype"
 			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
 			E.db["sle"]["media"]["fonts"]["editbox"]["font"] = "Merathilis Prototype"
