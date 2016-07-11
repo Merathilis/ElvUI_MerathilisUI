@@ -175,15 +175,15 @@ function MER:SetupMERAddons()
 		E.private['addonskins']['EmbedLeft'] = 'Skada'
 		E.private['addonskins']['EmbedRight'] = 'Skada'
 		E.private['addonskins']['EmbedLeftWidth'] = 170
-		E.private['addonskins']['ParchmentRemover'] = true
+		E.private['addonskins']['ParchmentRemover'] = false
 		E.private['addonskins']['WeakAuraBar'] = true
 		E.private['addonskins']['WeakAuraIconCooldown'] = true
 		E.private['addonskins']['BigWigsHalfBar'] = false
 		E.private['addonskins']['CliqueSkin'] = true
 		E.private['addonskins']['SkinTemplate'] = 'Transparent'
 		E.private['addonskins']['SkinDebug'] = true
-		E.private['addonskins']['Blizzard_ExtraActionButton'] = true
-		E.private['addonskins']['Blizzard_DraenorAbilityButton'] = true
+		E.private['addonskins']['Blizzard_ExtraActionButton'] = false
+		E.private['addonskins']['Blizzard_DraenorAbilityButton'] = false
 		E.private['addonskins']['Blizzard_WorldStateCaptureBar'] = true
 	end
 
