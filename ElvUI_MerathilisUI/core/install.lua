@@ -37,6 +37,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 130
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
+	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
