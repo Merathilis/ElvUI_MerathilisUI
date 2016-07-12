@@ -220,7 +220,7 @@ function MER:SetupMERAddons()
 		E.db['dashboards']['tokens']['enableTokens'] = true
 		E.db['dashboards']['tokens']['tooltip'] = false
 		E.db['dashboards']['tokens']['flash'] = false
-		E.db['dashboards']['tokens']['width'] = 131
+		E.db['dashboards']['tokens']['width'] = 130
 		E.db['dashboards']['tokens']['combat'] = true
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-164"
