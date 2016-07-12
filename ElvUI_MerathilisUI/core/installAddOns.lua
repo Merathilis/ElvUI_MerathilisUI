@@ -280,18 +280,6 @@ function MER:SetupMERAddons()
 			E.db["sle"]["loot"]["announcer"]["enable"] = true
 			E.db["sle"]["loot"]["enable"] = true
 			E.db["sle"]["loot"]["history"]["autohide"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repIncrease"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repDecreaseStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame3"
-			E.db["sle"]["exprep"]["ChatFilters"]["enable"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repDecrease"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["expfilter"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["experience"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repfilter"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repIncreaseStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["ChatFilters"]["experienceStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["explong"] = true
-			E.db["sle"]["exprep"]["replong"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["buttonsize"] = 20
 			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
@@ -385,7 +373,6 @@ function MER:SetupMERAddons()
 			E.db["sle"]["uibuttons"]["size"] = 19
 			E.private["sle"]["uiButtonStyle"] = "dropdown"
 			E.private["sle"]["bags"]["transparentSlots"] = true
-			E.private["sle"]["exprep"]["autotrack"] = true
 			E.private["sle"]["skins"]["objectiveTracker"]["enable"] = false
 			E.private["sle"]["skins"]["merchant"]["enable"] = true
 			E.private["sle"]["skins"]["merchant"]["subpages"] = 2
