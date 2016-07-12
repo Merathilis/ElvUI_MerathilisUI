@@ -209,6 +209,9 @@ function MER:SetupMERAddons()
 		E.db['benikui']['datatexts']['mail']['toggle'] = true
 		E.db['benikui']['datatexts']['garrison']['currency'] = true
 		E.db['benikui']['datatexts']['garrison']['oil'] = true
+		E.db['benikuiDatabars']['experience']['notifiers']['enable'] = false
+		E.db['benikuiDatabars']['reputation']['notifiers']['enable'] = false
+		E.db['benikuiDatabars']['artifact']['notifiers']['enable'] = false
 		E.db['benikui']['unitframes']['misc']['svui'] = true
 		E.db['benikui']['unitframes']['textures']['power'] = "MerathilisFlat"
 		E.db['benikui']['unitframes']['textures']['health'] = "MerathilisEmpty"
