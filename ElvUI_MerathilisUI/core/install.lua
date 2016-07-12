@@ -461,9 +461,12 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
-	-- Use Classbar not for Druid, because of Balance PowerTracker
 	if E.myclass == "DRUID" then
-		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
+		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
 	else
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
