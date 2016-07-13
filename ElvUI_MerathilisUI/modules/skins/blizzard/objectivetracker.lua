@@ -114,7 +114,7 @@ end
 local function SkinScenario()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
-	-- local inChallengeMode = C_Scenario.IsChallengeMode()
+	local bar = ScenarioObjectiveBlock.Bar
 
 	-- pop-up artwork
 	block.NormalBG:Hide()
@@ -125,9 +125,21 @@ local function SkinScenario()
 	-- pop-up glow
 	block.GlowTexture.AlphaAnim.Play = dummy
 	block.GlowTexture:SetSize(width+20, 75)
-	
+
 	-- font
 	block.Stage:SetVertexColor(classColor.r, classColor.g, classColor.b)
+
+	-- Bar
+	if bar and bar:IsShown() then
+		bar:StripTextures()
+		bar:CreateBackdrop('Transparent')
+		bar:SetStatusBarTexture(flat)
+		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		bar:SetSize(200, 15)
+		
+		bar.Label:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
+		bar.Label:SetPoint("CENTER", bar, "CENTER", 0, 1)
+	end
 end
 
 -- Proving grounds
