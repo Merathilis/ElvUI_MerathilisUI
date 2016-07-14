@@ -7,7 +7,6 @@ local _G = _G
 local print, tonumber, unpack = print, tonumber, unpack
 local format = format
 local ceil = ceil
-local twipe = table.wipe
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local GetAddOnMetadata = GetAddOnMetadata
@@ -55,7 +54,7 @@ local function SetupMERLayout(layout)
 		E:StaticPopup_Show('BENIKUI')
 	end
 	
-	if E.db["movers"] then twipe(E.db["movers"]) else E.db["movers"] = {} end
+	if E.db["movers"] == nil then E.db["movers"] = {} end
 	
 	-- General
 	E.private["general"]["pixelPerfect"] = true
