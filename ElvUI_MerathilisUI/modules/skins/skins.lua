@@ -91,6 +91,8 @@ hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 
 function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
+	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
+	
 	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
 			local sleFrames = { _G["RaidMarkerBar"].backdrop, _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_SquareMinimapButtonBar"] }
