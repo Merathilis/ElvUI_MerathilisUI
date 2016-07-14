@@ -275,6 +275,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -362,6 +363,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -614,11 +616,6 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
-	E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
-	E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-	E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 10
-	E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 135
-	E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 	
 	if IsAddOnLoaded ("ElvUI_BenikUI") then
 		E.db['benikui']['unitframes']['target']['detachPortrait'] = true
@@ -632,7 +629,6 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,141"
 	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,179"
 	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,141"
-	E.db["movers"]["ComboBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,196"
 	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
