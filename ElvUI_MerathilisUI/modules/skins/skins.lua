@@ -77,18 +77,6 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
--- Set scrollbar thumb backdrop color to value color for better visibility
-function MERS:HandleScrollBar(frame, thumbTrim)
-	if frame:GetThumbTexture() then
-		if frame.thumbbg and frame.thumbbg.backdropTexture then
-			frame.thumbbg.backdropTexture.SetVertexColor = nil
-			frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
-			frame.thumbbg.backdropTexture.SetVertexColor = E.noop
-		end
-	end
-end
-hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
-
 function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
 	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
