@@ -114,7 +114,6 @@ end
 local function SkinScenario()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
-	local bar = ScenarioObjectiveBlock.Bar
 
 	-- pop-up artwork
 	block.NormalBG:Hide()
@@ -131,6 +130,8 @@ local function SkinScenario()
 
 	-- Bar
 	if bar and bar:IsShown() then
+		local bar = ScenarioObjectiveBlock.currentLine.Bar
+
 		bar:StripTextures()
 		bar:CreateBackdrop('Transparent')
 		bar:SetStatusBarTexture(flat)
