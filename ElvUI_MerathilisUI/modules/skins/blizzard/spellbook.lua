@@ -35,6 +35,13 @@ local function styleSpellBook()
 		_G[header.."Missing"]:SetShadowOffset(1, -1)
 		_G[header].missingText:SetTextColor(0.6, 0.6, 0.6)
 	end
+	
+	for i = 1, #SpellButton do
+		local Button = SpellButton[i]
+		local Text = Button.SubSpellName
+		
+		text:SetTextColor(unpack(E.media.rgbvaluecolor))
+	end
 end
 
 local f = CreateFrame("Frame")
