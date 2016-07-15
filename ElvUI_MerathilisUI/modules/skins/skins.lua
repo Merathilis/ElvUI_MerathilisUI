@@ -92,6 +92,7 @@ hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
 	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
+	if E.private["muiSkins"]["elvuiAddons"] == nil then E.private["muiSkins"]["elvuiAddons"] = {} end
 	
 	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
