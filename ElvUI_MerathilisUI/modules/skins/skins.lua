@@ -79,7 +79,7 @@ end
 
 -- Set scrollbar thumb backdrop color to value color for better visibility
 function MERS:HandleScrollBar(frame, thumbTrim)
-	if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
+	if frame:GetThumbTexture() then
 		if frame.thumbbg and frame.thumbbg.backdropTexture then
 			frame.thumbbg.backdropTexture.SetVertexColor = nil
 			frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
