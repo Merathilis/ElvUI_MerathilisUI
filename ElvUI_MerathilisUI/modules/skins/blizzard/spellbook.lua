@@ -17,9 +17,9 @@ local function styleSpellBook()
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end
-	
+
 	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
-	
+
 	local professionheaders = {
 		"PrimaryProfession1",
 		"PrimaryProfession2",
@@ -28,20 +28,19 @@ local function styleSpellBook()
 		"SecondaryProfession3",
 		"SecondaryProfession4"
 	}
-	
+
 	for _, header in pairs(professionheaders) do
 		_G[header.."Missing"]:SetTextColor(1, 0.8, 0)
 		_G[header.."Missing"]:SetShadowColor(0, 0, 0)
 		_G[header.."Missing"]:SetShadowOffset(1, -1)
 		_G[header].missingText:SetTextColor(0.6, 0.6, 0.6)
 	end
-	
-	for i = 1, #SpellButton do
-		local Button = SpellButton[i]
-		local Text = Button.SubSpellName
-		
-		text:SetTextColor(unpack(E.media.rgbvaluecolor))
-	end
+
+	hooksecurefunc("SpellButton_UpdateButton", function(self)
+		if self.SpellSubName then
+			self.SpellSubName:SetTextColor(unpack(E.media.rgbvaluecolor))
+		end
+	end)
 end
 
 local f = CreateFrame("Frame")
