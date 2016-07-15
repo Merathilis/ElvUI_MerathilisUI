@@ -74,6 +74,7 @@ function MER:RegisterMerMedia()
 end
 
 local function objectiveTrackerFont()
+	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
 	if not E.private.muiSkins.blizzard.objectivetracker then return end
 	
 	_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
@@ -191,8 +192,7 @@ function MER:Initialize()
 	end
 	EP:RegisterPlugin(addon, self.AddOptions)
 	
-	-- if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then return end
-	-- if E.private.install_complete == E.version and E.db.mui.installed == nil then self:SetupUI() end
+	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then return end
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then E:GetModule("PluginInstaller"):Queue(MER.installTable) end
 end
 
