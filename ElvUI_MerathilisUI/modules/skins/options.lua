@@ -21,11 +21,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 16,
 		type = 'group',
-<<<<<<< HEAD
 		name = L['Skins']..MER.NewSign,
-=======
-		name = L['Skins'],
->>>>>>> legion/master
 		args = {
 			name = {
 				order = 1,
@@ -102,14 +98,11 @@ local function SkinsTable()
 				type = 'toggle',
 				name = _G["OBJECTIVES_TRACKER_LABEL"],
 			},
-<<<<<<< HEAD
 			glyph = {
 				order = 4,
 				type = 'toggle',
 				name = L["Glyph Frame"],
 			},
-=======
->>>>>>> legion/master
 		},
 	}
 end

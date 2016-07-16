@@ -1,7 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 
 ----------------------------------------------------------------------------------------
-<<<<<<< HEAD
 --	Reminder options
 ----------------------------------------------------------------------------------------
 V['reminder'] = {
@@ -10,14 +9,11 @@ V['reminder'] = {
 }
 
 ----------------------------------------------------------------------------------------
-=======
->>>>>>> legion/master
 --	Skins options
 ----------------------------------------------------------------------------------------
 V['muiSkins'] = {
 	['blizzard'] = {
 		['encounterjournal'] = true,
-<<<<<<< HEAD
 		['spellbook'] = true, -- Remove the Background of the Spellbook
 		['objectivetracker'] = true,
 		['glyph'] = true, -- Remove the Background of the GlyphFrame
@@ -27,15 +23,5 @@ V['muiSkins'] = {
 	},
 	['elvuiAddons'] = {
 		['sle'] = true -- Skin some unskinned SLE_Legion Elements
-=======
-		['spellbook'] = true,
-		['objectivetracker'] = true,
-	},
-	['addonSkins'] = {
-		['mp'] = false,
-	},
-	['elvuiAddons'] = {
-		['sle'] = false
->>>>>>> legion/master
 	},
 }

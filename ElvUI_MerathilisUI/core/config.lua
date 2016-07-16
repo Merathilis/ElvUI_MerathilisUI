@@ -38,12 +38,7 @@ local function AddOptions()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-<<<<<<< HEAD
 				func = function() MER:SetupUI(); E:ToggleConfig(); end,
-=======
-				-- func = function() MER:SetupUI(); E:ToggleConfig(); end,
-				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleConfig() end,
->>>>>>> legion/master
 			},
 			spacer1 = {
 				order = 4,

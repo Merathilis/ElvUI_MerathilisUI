@@ -1,7 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="map.lua"/>
-<<<<<<< HEAD
 	<Script file="minimap.lua"/>
-=======
->>>>>>> legion/master
 </Ui>

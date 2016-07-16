@@ -37,13 +37,10 @@ L['My other Addon'] = true
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
 
-<<<<<<< HEAD
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = true
 
-=======
->>>>>>> legion/master
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
@@ -79,13 +76,10 @@ L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline
 L["%s stopped playing (%sIn Battle.net)."] = true
 L["%s is now playing (%s%s)."] = true
 
-<<<<<<< HEAD
 -- hoverName
 L['hoverName'] = true
 L['Shows UnitNames on mouseover.'] = true
 
-=======
->>>>>>> legion/master
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
 L["Announce Freed"] = true
@@ -119,7 +113,6 @@ L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
 
-<<<<<<< HEAD
 -- Reminder
 L["Add Group"] = true
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = true
@@ -169,18 +162,12 @@ L['Spells'] = true
 L['New ID'] = true
 L['Remove ID'] = true
 
-=======
->>>>>>> legion/master
 -- Unitframes
 L["Default"] = true
 L["Red Icon"] = true
 
 -- Install
 L['Welcome'] = true
-<<<<<<< HEAD
-=======
-L["|cffff7d0aMerathilisUI|r Installation"] = true
->>>>>>> legion/master
 L['MerathilisUI Set'] = true
 L[' - %s profile created!'] = true
 L['Actionbars Set'] = true
