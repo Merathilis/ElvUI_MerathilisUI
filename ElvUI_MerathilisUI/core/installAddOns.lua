@@ -175,15 +175,15 @@ function MER:SetupMERAddons()
 		E.private['addonskins']['EmbedLeft'] = 'Skada'
 		E.private['addonskins']['EmbedRight'] = 'Skada'
 		E.private['addonskins']['EmbedLeftWidth'] = 170
-		E.private['addonskins']['ParchmentRemover'] = true
+		E.private['addonskins']['ParchmentRemover'] = false
 		E.private['addonskins']['WeakAuraBar'] = true
 		E.private['addonskins']['WeakAuraIconCooldown'] = true
 		E.private['addonskins']['BigWigsHalfBar'] = false
 		E.private['addonskins']['CliqueSkin'] = true
 		E.private['addonskins']['SkinTemplate'] = 'Transparent'
 		E.private['addonskins']['SkinDebug'] = true
-		E.private['addonskins']['Blizzard_ExtraActionButton'] = true
-		E.private['addonskins']['Blizzard_DraenorAbilityButton'] = true
+		E.private['addonskins']['Blizzard_ExtraActionButton'] = false
+		E.private['addonskins']['Blizzard_DraenorAbilityButton'] = false
 		E.private['addonskins']['Blizzard_WorldStateCaptureBar'] = true
 	end
 
@@ -209,6 +209,9 @@ function MER:SetupMERAddons()
 		E.db['benikui']['datatexts']['mail']['toggle'] = true
 		E.db['benikui']['datatexts']['garrison']['currency'] = true
 		E.db['benikui']['datatexts']['garrison']['oil'] = true
+		E.db['benikuiDatabars']['experience']['notifiers']['enable'] = false
+		E.db['benikuiDatabars']['reputation']['notifiers']['enable'] = false
+		E.db['benikuiDatabars']['artifact']['notifiers']['enable'] = false
 		E.db['benikui']['unitframes']['misc']['svui'] = true
 		E.db['benikui']['unitframes']['textures']['power'] = "MerathilisFlat"
 		E.db['benikui']['unitframes']['textures']['health'] = "MerathilisEmpty"
@@ -220,10 +223,10 @@ function MER:SetupMERAddons()
 		E.db['dashboards']['tokens']['enableTokens'] = true
 		E.db['dashboards']['tokens']['tooltip'] = false
 		E.db['dashboards']['tokens']['flash'] = false
-		E.db['dashboards']['tokens']['width'] = 147
+		E.db['dashboards']['tokens']['width'] = 130
 		E.db['dashboards']['tokens']['combat'] = true
 		E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-164"
+		E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-164"
 		E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 	end
 
@@ -233,7 +236,6 @@ function MER:SetupMERAddons()
 	if IsAddOnLoaded("ElvUI_SLE") then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
 			E.db["sle"]["raidmarkers"]["enable"] = false
-			E.db["sle"]["media"]["fonts"]["gossip"]["outline"] = "OUTLINE"
 			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Prototype"
 			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
 			E.db["sle"]["media"]["fonts"]["editbox"]["font"] = "Merathilis Prototype"
@@ -281,18 +283,6 @@ function MER:SetupMERAddons()
 			E.db["sle"]["loot"]["announcer"]["enable"] = true
 			E.db["sle"]["loot"]["enable"] = true
 			E.db["sle"]["loot"]["history"]["autohide"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repIncrease"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repDecreaseStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["ChatFilters"]["repChatFrame"] = "ChatFrame3"
-			E.db["sle"]["exprep"]["ChatFilters"]["enable"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repDecrease"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["expfilter"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["experience"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repfilter"] = true
-			E.db["sle"]["exprep"]["ChatFilters"]["repIncreaseStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["ChatFilters"]["experienceStyle"] = "STYLE2"
-			E.db["sle"]["exprep"]["explong"] = true
-			E.db["sle"]["exprep"]["replong"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["buttonsize"] = 20
 			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
@@ -329,7 +319,9 @@ function MER:SetupMERAddons()
 			E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
 			E.db["sle"]["minimap"]["coords"]["decimals"] = false
 			E.db["sle"]["minimap"]["coords"]["middle"] = "CENTER"
+			E.private["sle"]["minimap"]["buttons"]["enable"] = true
 			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
+			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
 			E.db["sle"]["minimap"]["mapicons"]["iconsize"] = 20
 			E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
 			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
@@ -384,7 +376,6 @@ function MER:SetupMERAddons()
 			E.db["sle"]["uibuttons"]["size"] = 19
 			E.private["sle"]["uiButtonStyle"] = "dropdown"
 			E.private["sle"]["bags"]["transparentSlots"] = true
-			E.private["sle"]["exprep"]["autotrack"] = true
 			E.private["sle"]["skins"]["objectiveTracker"]["enable"] = false
 			E.private["sle"]["skins"]["merchant"]["enable"] = true
 			E.private["sle"]["skins"]["merchant"]["subpages"] = 2

@@ -15,7 +15,6 @@ local GetEquipmentSetInfo = GetEquipmentSetInfo
 local UseEquipmentSet = UseEquipmentSet
 local GetSpecializationInfo = GetSpecializationInfo
 local SetLootSpecialization = SetLootSpecialization
-local SetActiveSpecGroup = SetActiveSpecGroup
 local GetNumSpecGroups = GetNumSpecGroups
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local GetLootSpecialization = GetLootSpecialization
@@ -34,47 +33,14 @@ local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
 
 local menuFrame = CreateFrame("Frame", "LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
 
-local function SetCurrentEquipmentSet(set)
-	if GetNumEquipmentSets() == 0 then return false end
-	for i = 1, GetNumEquipmentSets() do
-		local name, _, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
-		if set == name then
-			if not isEquipped then
-				UseEquipmentSet(set)
-			end
-			return true
-		end
-	end
-	return false
-end
-
-local function SwitchGear()	
-	
-	if GetSpecialization(false, false, active) then
-		local set = select(2, GetSpecializationInfo(GetSpecialization(false, false, active == 1 and 2 or 1)))
-		SetCurrentEquipmentSet(set)
-	end
-	
-end
-
 local function specializationClick(self, specialization)
 	_G["CloseDropDownMenus"]()
 	SetLootSpecialization(specialization)
 end
 
-local function setCLick(self,set)
+local function setClick(self,set)
 	_G["CloseDropDownMenus"]()
 	UseEquipmentSet(set)
-end
-
-local function specCLick(self,spec)
-	_G["CloseDropDownMenus"]()
-	
-	if not(spec==active) then
-		SwitchGear()
-		SetActiveSpecGroup(active == 1 and 2 or 1)
-	end
-	
 end
 
 local menuList = {
@@ -85,15 +51,18 @@ local menuList = {
 	{ notCheckable = false }
 }
 
-local specList = {}
+local specList = {
+	{ text = SPECIALIZATION, isTitle = true, notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+	{ notCheckable = true },
+}
 
 local setList = {}
 
 local menu = {
 	{ text = OPTIONS_MENU, isTitle = true, notCheckable = true},
-	{ text = _G.SPECIALIZATION, hasArrow = true, notCheckable = true,
-		menuList = specList,
-	},
 	{ text = SELECT_LOOT_SPECIALIZATION, hasArrow = true, notCheckable = true,
 		menuList = menuList,
 	},
@@ -106,13 +75,20 @@ local function OnEvent(self, event)
 	lastPanel = self
 	
 	local specIndex = GetSpecialization();
-	if not specIndex then return end
+	if not specIndex then
+		self.text:SetText('N/A')
+		return
+	end
 	
 	active = GetActiveSpecGroup()
 	
 	local talent, loot = '', ''
-	if GetSpecialization(false, false, active) then
-		talent = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', select(4, GetSpecializationInfo(GetSpecialization(false, false, active))))
+	local i = GetSpecialization(false, false, active)
+	if i then
+		i = select(4, GetSpecializationInfo(i))
+		if(i) then
+			talent = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', i)
+		end
 	end
 	
 	local specialization = GetLootSpecialization()
@@ -121,7 +97,11 @@ local function OnEvent(self, event)
 		
 		if specIndex then
 			local specID, _, _, texture = GetSpecializationInfo(specIndex);
-			loot = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+			if texture then
+				loot = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+			else
+				loot = 'N/A'
+			end
 		else
 			loot = 'N/A'
 		end
@@ -183,23 +163,51 @@ local function OnEnter(self)
 	
 	DT.tooltip:AddLine(' ')
 	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
-	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])	
+	DT.tooltip:AddLine(L["|cffFFFFFFShift + Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
+	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
 	
 	DT.tooltip:Show()
 end
 
+local function SetSpec(id)
+	local spec = _G["PlayerTalentFrameSpecializationSpecButton"..id]
+	SpecButton_OnClick(spec)
+	local learn = PlayerTalentFrameSpecializationLearnButton
+
+	StaticPopup_Show("CONFIRM_LEARN_SPEC", nil, nil, learn:GetParent())
+end
+
 local function OnClick(self, button)
-	
 	local lootSpecialization = GetLootSpecialization()
-	
 	_G["lootSpecializationName"] = select(2,GetSpecializationInfoByID(lootSpecialization))
 	
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
 	
 	if button == "LeftButton" then
-		SwitchGear()
-		SetActiveSpecGroup(active == 1 and 2 or 1)
+		DT.tooltip:Hide()
+		if not PlayerTalentFrame then
+			LoadAddOn("Blizzard_TalentUI")
+		end
+		
+		if IsShiftKeyDown() then 
+			if not PlayerTalentFrame:IsShown() then
+				ShowUIPanel(PlayerTalentFrame)
+			else
+				HideUIPanel(PlayerTalentFrame)
+			end
+		else
+			for index = 1, 4 do
+				local id, name, _, texture = GetSpecializationInfo(index);
+				if ( id ) then
+					specList[index + 1].text = format('|T%s:14:14:0:0:64:64:4:60:4:60|t  %s', texture, name)
+					specList[index + 1].func = function() SetSpec(index) end
+				else
+					specList[index + 1] = nil
+				end
+			end
+			EasyMenu(specList, menuFrame, "cursor", -15, -7, "MENU", 2)
+		end
 	else
 		DT.tooltip:Hide()
 		local specID, specName, _, texture = GetSpecializationInfo(specIndex);
@@ -222,7 +230,7 @@ local function OnClick(self, button)
 			end
 		end
 		
-		if not (GetNumEquipmentSets() == 0) then 
+		if (GetNumEquipmentSets() >= 1) then 
 			
 			for i = 1, GetNumEquipmentSets() do
 				local name, texture, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
@@ -232,24 +240,8 @@ local function OnClick(self, button)
 				setList[i].notCheckable = false
 				setList[i].text = join("",icon," ", name)
 				setList[i].checked = (isEquipped and true or false)
-				setList[i].func = setCLick
+				setList[i].func = setClick
 				setList[i].arg1 = name
-			end
-		else
-			--menu[3] = nil
-		end		
-		
-		for i = 1, GetNumSpecGroups() do
-			if GetSpecialization(false, false, i) then
-				local specID, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
-				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-				
-				specList[i]={}
-				specList[i].notCheckable = false
-				specList[i].text = join("",icon," ", name)
-				specList[i].checked = (i == active and true or false)
-				specList[i].func = specCLick
-				specList[i].arg1 = i
 			end
 		end
 		
@@ -266,14 +258,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
---[[
-DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onEnterFunc)
-
-name - name of the datatext (required)
-events - must be a table with string values of event names to register
-eventFunc - function that gets fired when an event gets triggered
-	updateFunc - onUpdate script target function
-		click - function to fire when clicking the datatext
-			onEnterFunc - function to fire OnEnter
-				]]
 DT:RegisterDatatext('MUI Talent/Loot Specialization',{"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", 'PLAYER_LOOT_SPEC_UPDATED'}, OnEvent, nil, OnClick, OnEnter)

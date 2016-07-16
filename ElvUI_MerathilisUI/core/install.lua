@@ -9,38 +9,6 @@ local format = format
 local ceil = ceil
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
-local GetAddOnMetadata = GetAddOnMetadata
-local PlaySoundFile = PlaySoundFile
-local UIFrameFadeOut = UIFrameFadeOut
-local ReloadUI = ReloadUI
-local CreateFrame = CreateFrame
-local ChangeChatColor = ChangeChatColor
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
-local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
-local FCF_DockFrame, FCF_UnDockFrame = FCF_DockFrame, FCF_UnDockFrame
-local FCF_SetLocked = FCF_SetLocked
-local FCF_SetWindowName = FCF_SetWindowName
-local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
-local FCF_StopDragging = FCF_StopDragging
-local ChatFrame_RemoveChannel = ChatFrame_RemoveChannel
-local ChatFrame_AddChannel = ChatFrame_AddChannel
-local ChatFrame_AddMessageGroup = ChatFrame_AddMessageGroup
-local CONTINUE, PREVIOUS, ADDONS = CONTINUE, PREVIOUS, ADDONS
-local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
-local LOOT, TRADE = LOOT, TRADE
-local ToggleChatColorNamesByClassGroup = ToggleChatColorNamesByClassGroup
-local LeftChatToggleButton = LeftChatToggleButton
-local CreateAnimationGroup = CreateAnimationGroup
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: SkadaDB, xCTSavedDB, MERTitleFrame, MERInstallFrame, InstallStatus, InstallStepComplete
--- GLOBALS: ChatFrame3, ChatFrame1, InstallNextButton, InstallPrevButton, InstallOption1Button, InstallOption2Button
--- GLOBALS: InstallOption3Button,  InstallOption4Button
-
-local CURRENT_PAGE = 0
-local MAX_PAGE = 8
-local titleText = {}
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local factionGroup = UnitFactionGroup("player")
@@ -69,6 +37,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 130
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
+	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
@@ -87,40 +56,50 @@ local function SetupMERLayout(layout)
 	E.private["general"]["dmgfont"] = "Action Man"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
-	E.db["general"]["experience"]["enable"] = true
-	E.db["general"]["experience"]["mouseover"] = false
-	E.db["general"]["experience"]["height"] = 155
-	E.db["general"]["experience"]["textSize"] = 10
-	E.db["general"]["experience"]["width"] = 10
-	E.db["general"]["experience"]["textFormat"] = "NONE"
-	E.db["general"]["experience"]["orientation"] = "VERTICAL"
-	E.db["general"]["experience"]["hideAtMaxLevel"] = true
-	E.db["general"]["experience"]["hideInVehicle"] = true
-	E.db["general"]["reputation"]["enable"] = true
-	E.db["general"]["reputation"]["mouseover"] = false
-	E.db["general"]["reputation"]["height"] = 155
-	E.db["general"]["reputation"]["textSize"] = 10
-	E.db["general"]["reputation"]["width"] = 10
-	E.db["general"]["reputation"]["textFormat"] = "NONE"
-	E.db["general"]["reputation"]["orientation"] = "VERTICAL"
-	E.db["general"]["reputation"]["hideInVehicle"] = true
+	E.db["databars"]["experience"]["enable"] = true
+	E.db["databars"]["experience"]["mouseover"] = false
+	E.db["databars"]["experience"]["height"] = 155
+	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["width"] = 10
+	E.db["databars"]["experience"]["textFormat"] = "NONE"
+	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
+	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
+	E.db["databars"]["experience"]["hideInVehicle"] = true
+	E.db["databars"]["reputation"]["enable"] = true
+	E.db["databars"]["reputation"]["mouseover"] = false
+	E.db["databars"]["reputation"]["height"] = 155
+	E.db["databars"]["reputation"]["textSize"] = 10
+	E.db["databars"]["reputation"]["width"] = 10
+	E.db["databars"]["reputation"]["textFormat"] = "NONE"
+	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["databars"]["reputation"]["hideInVehicle"] = true
+	E.db["databars"]["artifact"]["enable"] = true
+	E.db["databars"]["artifact"]["height"] = 155
+	E.db["databars"]["artifact"]["textSize"] = 11
+	E.db["databars"]["artifact"]["width"] = 10
+	E.db["databars"]["honor"]['enable'] = true
+	E.db["databars"]["honor"]["height"] = 155
+	E.db["databars"]["honor"]["textSize"] = 11
+	E.db["databars"]["honor"]["mouseover"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-6"
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-38"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,446,2"
-	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,432"
+	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,413,23"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-413,23"
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
 	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
+	E.db["movers"]["ArtifactBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,424,23"
+	E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-424,23"
+	E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
-		E.private["auras"]["masque"]["consolidatedBuffs"] = true
 		E.private["auras"]["masque"]["buffs"] = true
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
@@ -128,10 +107,6 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Prototype"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["consolidatedBuffs"]["fontSize"] = 11
-	E.db["auras"]["consolidatedBuffs"]["font"] = "Merathilis Visitor1"
-	E.db["auras"]["consolidatedBuffs"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["consolidatedBuffs"]["filter"] = false
 	E.db["auras"]["buffs"]["fontSize"] = 12
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
@@ -139,8 +114,8 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 30
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-115"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-5"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-131"
 	
 	-- Bags
 	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
@@ -163,31 +138,13 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["junkIcon"] = true
 
 	-- Nameplates
-	E.db["nameplate"]["debuffs"]["fontSize"] = 9
-	E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
-	E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
-	E.db["nameplate"]["wrapName"] = false
-	E.db["nameplate"]["fontOutline"] = "OUTLINE"
-	E.db["nameplate"]["sortDirection"] = 1
-	E.db["nameplate"]["comboPoints"] = true
-	E.db["nameplate"]["colorByTime"] = true
-	E.db["nameplate"]["healthBar"]["colorByRaidIcon"] = true
-	E.db["nameplate"]["healthBar"]["height"] = 4
-	E.db["nameplate"]["healthBar"]["text"]["enable"] = true
-	E.db["nameplate"]["healthBar"]["text"]["format"] = "CURRENT_PERCENT"
-	E.db["nameplate"]["healthBar"]["lowHPScale"]["enable"] = true
-	E.db["nameplate"]["healthBar"]["width"] = 100
-	E.db["nameplate"]["auraFont"] = "PT Sans Narrow"
-	E.db["nameplate"]["targetIndicator"]["color"]["g"] = 0
-	E.db["nameplate"]["targetIndicator"]["color"]["b"] = 0
-	E.db["nameplate"]["font"] = "Merathilis Tukui"
-	E.db["nameplate"]["maxAuras"] = 5
-	E.db["nameplate"]["fontSize"] = 10
-	E.db["nameplate"]["auraAnchor"] = 1
-	E.db["nameplate"]["buffs"]["fontOutline"] = "OUTLINE"
-	E.db["nameplate"]["buffs"]["font"] = "Merathilis Prototype"
-	E.db["nameplate"]["auraFontOutline"] = "OUTLINE"
-	E.db["nameplate"]["healthtext"] = "CURRENT_PERCENT"
+	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplates"]["font"] = "Merathilis Expressway"
+	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontOutline"] = 'OUTLINE'
+	E.db["nameplates"]['targetScale'] = 1.05
+	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
 	
 	-- Tooltip
 	E.db["tooltip"]["itemCount"] = "NONE"
@@ -212,7 +169,6 @@ local function SetupMERLayout(layout)
 end
 
 local function SetupMERChat(layout)
-
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -318,6 +274,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -405,6 +362,7 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -465,7 +423,6 @@ local function SetupMERActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
-
 	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["fontSize"] = 12
@@ -507,9 +464,12 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
-	-- Use Classbar not for Druid, because of Balance PowerTracker
 	if E.myclass == "DRUID" then
-		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
+		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
 	else
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
@@ -655,11 +615,6 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
-	E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
-	E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
-	E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 10
-	E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 135
-	E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
 	
 	if IsAddOnLoaded ("ElvUI_BenikUI") then
 		E.db['benikui']['unitframes']['target']['detachPortrait'] = true
@@ -673,7 +628,6 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,141"
 	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,179"
 	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,141"
-	E.db["movers"]["ComboBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,196"
 	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -1103,7 +1057,7 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["panelTransparency"] = true
-	E.db["datatexts"]["wordWrap"] = true
+	E.db["datatexts"]["wordWrap"] = false
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db["datatexts"]["leftChatPanel"] = false
@@ -1138,7 +1092,7 @@ function MER:SetupDts(role)
 		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Orderhall"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
@@ -1201,412 +1155,120 @@ local function SetupMERAddons()
 	E:UpdateAll(true)
 end
 
-local function ResetAll()
-	InstallNextButton:Disable()
-	InstallPrevButton:Disable()
-	InstallOption1Button:Hide()
-	InstallOption1Button:SetScript('OnClick', nil)
-	InstallOption1Button:SetText('')
-	InstallOption2Button:Hide()
-	InstallOption2Button:SetScript('OnClick', nil)
-	InstallOption2Button:SetText('')
-	InstallOption3Button:Hide()
-	InstallOption3Button:SetScript('OnClick', nil)
-	InstallOption3Button:SetText('')
-	InstallOption4Button:Hide()
-	InstallOption4Button:SetScript('OnClick', nil)
-	InstallOption4Button:SetText('')
-	MERInstallFrame.SubTitle:SetText('')
-	MERInstallFrame.Desc1:SetText('')
-	MERInstallFrame.Desc2:SetText('')
-	MERInstallFrame.Desc3:SetText('')
-	MERInstallFrame.Desc4:SetText('')
-	MERInstallFrame:Size(500, 400)
-	MERTitleFrame:Size(180, 400)
-end
-
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
 	
+	if GetCVarBool("Sound_EnableMusic") then
+		StopMusic()
+	end
+	
 	ReloadUI()
 end
 
-local function SetPage(PageNum)
-	CURRENT_PAGE = PageNum
-	ResetAll()
-	
-	InstallStatus.anim.progress:SetChange(PageNum)
-	InstallStatus.anim.progress:Play()
-	
-	local f = MERInstallFrame
-	
-	if PageNum == MAX_PAGE then
-		InstallNextButton:Disable()
-	else
-		InstallNextButton:Enable()
-	end
-	
-	if PageNum == 1 then
-		InstallPrevButton:Disable()
-	else
-		InstallPrevButton:Enable()
-	end
-	
-	if PageNum == 1 then
-		f.SubTitle:SetFormattedText(L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'], MER.Version, E.version)
-		f.Desc1:SetFormattedText("%s", L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
-		f.Desc2:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', InstallComplete)
-		InstallOption1Button:SetText(L['Skip Process'])
-	elseif PageNum == 2 then
-		f.SubTitle:SetText(L['Layout'])
-		f.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupMERLayout('Layout') end)
-		InstallOption1Button:SetFormattedText("%s", L['Layout'])
-	elseif PageNum == 3 then
-		f.SubTitle:SetFormattedText("%s", L['Chat'])
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process sets up your chat fonts and colors.'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your chat windows.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', SetupMERChat)
-		InstallOption1Button:SetFormattedText("%s", L['Setup Chat'])
-	elseif PageNum == 4 then
-		f.SubTitle:SetFormattedText("%s", L['DataTexts'])
-		f.Desc1:SetFormattedText("%s", L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() MER:SetupDts('tank') end)
-		InstallOption1Button:SetFormattedText("%s", _G["TANK"])
-		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() MER:SetupDts('healer') end)
-		InstallOption2Button:SetFormattedText("%s", _G["HEALER"])
-		InstallOption3Button:Show()
-		InstallOption3Button:SetScript('OnClick', function() MER:SetupDts('dpsMelee') end)
-		InstallOption3Button:SetFormattedText("%s", L['Physical DPS'])
-		InstallOption4Button:Show()
-		InstallOption4Button:SetScript('OnClick', function() MER:SetupDts('dpsCaster') end)
-		InstallOption4Button:SetFormattedText("%s", L['Caster DPS'])
-	elseif PageNum == 5 then
-		f.SubTitle:SetText(L['ActionBars'])
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupMERActionbars('small') end)
-		InstallOption1Button:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
-		InstallOption2Button:Show()
-		InstallOption2Button:SetScript('OnClick', function() SetupMERActionbars('big') end)
-		InstallOption2Button:SetFormattedText("%s", L['Setup ActionBars'].." - 2")
-	elseif PageNum == 6 then
-		f.SubTitle:SetFormattedText("%s", L['UnitFrames'])
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Unitframes.'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
-		f.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() SetupUnitframes() end)
-		InstallOption1Button:SetFormattedText("%s", L['Setup Unitframes'])
-	elseif PageNum == 7 then
-		f.SubTitle:SetFormattedText("%s", ADDONS)
-		f.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to Skada and ElvUI plugins'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
-		f.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', function() MER:SetupMERAddons(); SetupMERAddons(); end)
-		InstallOption1Button:SetFormattedText("%s", L['Setup Addons'])
-	elseif PageNum == 8 then
-		f.SubTitle:SetFormattedText("%s", L['Installation Complete'])
-		f.Desc1:SetFormattedText("%s", L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
-		f.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])
-		InstallOption1Button:Show()
-		InstallOption1Button:SetScript('OnClick', InstallComplete)
-		InstallOption1Button:SetFormattedText("%s", L['Finished'])
-		MERInstallFrame:Size(500, 400)
-		MERTitleFrame:Size(180, 400)
-		if InstallStepComplete then
-			InstallStepComplete.message = MER.Title..L['Installed']
-			InstallStepComplete:Show()
-		end
-	end
-end
-
-local function NextPage()
-	if CURRENT_PAGE ~= MAX_PAGE then
-		CURRENT_PAGE = CURRENT_PAGE + 1
-		SetPage(CURRENT_PAGE)
-		titleText[CURRENT_PAGE].text.anim.color:SetChange(1, 1, 0)
-		titleText[CURRENT_PAGE].text.anim:Play()
-		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 0, 1)
-		if CURRENT_PAGE > 1 then
-			E:UIFrameFadeIn(titleText[CURRENT_PAGE - 1].hoverTex, .3, 1, 0)
-			titleText[CURRENT_PAGE - 1].text.anim.color:SetChange(unpack(E['media'].rgbvaluecolor))
-			titleText[CURRENT_PAGE - 1].text.anim:Play()
-		end
-	end
-end
-
-local function PreviousPage()
-	if CURRENT_PAGE ~= 1 then
-		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 1, 0)
-		titleText[CURRENT_PAGE].text.anim.color:SetChange(unpack(E['media'].rgbvaluecolor))
-		titleText[CURRENT_PAGE].text.anim:Play()
-		CURRENT_PAGE = CURRENT_PAGE - 1
-		SetPage(CURRENT_PAGE)
-		E:UIFrameFadeIn(titleText[CURRENT_PAGE].hoverTex, .3, 0, 1)
-		titleText[CURRENT_PAGE].text.anim.color:SetChange(1, 1, 0)
-		titleText[CURRENT_PAGE].text.anim:Play()
-	end
-end
-
-function MER:SetupUI()
-	if not InstallStepComplete then
-		local imsg = CreateFrame('Frame', 'InstallStepComplete', E.UIParent)
-		imsg:Size(418, 72)
-		imsg:Point('TOP', 0, -190)
-		imsg:Hide()
-		imsg:SetScript('OnShow', function(self)
-			if self.message then 
-				PlaySoundFile([[Sound\Interface\LevelUp.ogg]])
-				self.text:SetText(self.message)
-				UIFrameFadeOut(self, 3.5, 1, 0)
-				E:Delay(4, function() self:Hide() end)
-				self.message = nil
-			else
-				self:Hide()
+MER.installTable = {
+	["Name"] = "|cffff7d0aMerathilisUI|r",
+	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
+ 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
+ 	["Pages"] = {
+		[1] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText(L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'], MER.Version, E.version)
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetText(L['Skip Process'])
+		end,
+		[2] = function()
+			PluginInstallFrame.SubTitle:SetText(L['Layout'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERLayout('Layout') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Layout'])
+		end,
+		[3] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Chat'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process sets up your chat fonts and colors.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your chat windows.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', SetupMERChat)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Chat'])
+		end,
+		[4] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['DataTexts'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('tank') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", _G["TANK"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupDts('healer') end)
+			PluginInstallFrame.Option2:SetFormattedText("%s", _G["HEALER"])
+			PluginInstallFrame.Option3:Show()
+			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupDts('dpsMelee') end)
+			PluginInstallFrame.Option3:SetFormattedText("%s", L['Physical DPS'])
+			PluginInstallFrame.Option4:Show()
+			PluginInstallFrame.Option4:SetScript('OnClick', function() MER:SetupDts('dpsCaster') end)
+			PluginInstallFrame.Option4:SetFormattedText("%s", L['Caster DPS'])
+		end,
+		[5] = function()
+			PluginInstallFrame.SubTitle:SetText(L['ActionBars'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERActionbars('small') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERActionbars('big') end)
+			PluginInstallFrame.Option2:SetFormattedText("%s", L['Setup ActionBars'].." - 2")
+		end,
+		[6] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['UnitFrames'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Unitframes.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			-- PluginInstallFrame.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupUnitframes() end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Unitframes'])
+		end,
+		[7] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to Skada and ElvUI plugins'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupMERAddons(); SetupMERAddons(); end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Addons'])
+		end,
+		[8] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Installation Complete'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Finished'])
+			if InstallStepComplete then
+				InstallStepComplete.message = MER.Title..L['Installed']
+				InstallStepComplete:Show()
 			end
-		end)
-		
-		imsg.firstShow = false
-		
-		imsg.bg = imsg:CreateTexture(nil, 'BACKGROUND')
-		imsg.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
-		imsg.bg:SetPoint('BOTTOM')
-		imsg.bg:Size(326, 103)
-		imsg.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
-		imsg.bg:SetVertexColor(1, 1, 1, 0.6)
-		
-		imsg.lineTop = imsg:CreateTexture(nil, 'BACKGROUND')
-		imsg.lineTop:SetDrawLayer('BACKGROUND', 2)
-		imsg.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
-		imsg.lineTop:SetPoint('TOP')
-		imsg.lineTop:Size(418, 7)
-		imsg.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-		
-		imsg.lineBottom = imsg:CreateTexture(nil, 'BACKGROUND')
-		imsg.lineBottom:SetDrawLayer('BACKGROUND', 2)
-		imsg.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
-		imsg.lineBottom:SetPoint('BOTTOM')
-		imsg.lineBottom:Size(418, 7)
-		imsg.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-		
-		imsg.text = imsg:CreateFontString(nil, 'ARTWORK')
-		imsg.text:FontTemplate(nil, 32)
-		imsg.text:Point('CENTER', 0, -4)
-		imsg.text:SetTextColor(1, 0.82, 0)
-		imsg.text:SetJustifyH('CENTER')
-	end
-	
-	--Create Frame
-	if not MERInstallFrame then
-		local f = CreateFrame('Button', 'MERInstallFrame', E.UIParent)
-		f.SetPage = SetPage
-		f:Size(500, 400)
-		f:SetTemplate('Transparent')
-		f:SetPoint('CENTER', 70, 0)
-		f:SetFrameStrata('TOOLTIP')
-		
-		f.Title = f:CreateFontString(nil, 'OVERLAY')
-		f.Title:FontTemplate(nil, 17, nil)
-		f.Title:Point('TOP', 0, -5)
-		f.Title:SetFormattedText("%s", MER.Title..L['Installation'])
-		
-		f.Next = CreateFrame('Button', 'InstallNextButton', f, 'UIPanelButtonTemplate')
-		f.Next:StripTextures()
-		f.Next:SetTemplate('Default', true)
-		f.Next:Size(110, 25)
-		f.Next:Point('BOTTOMRIGHT', -5, 5)
-		f.Next:SetFormattedText("%s", CONTINUE)
-		f.Next:Disable()
-		f.Next:SetScript('OnClick', NextPage)
-		E.Skins:HandleButton(f.Next, true)
-		
-		f.Prev = CreateFrame('Button', 'InstallPrevButton', f, 'UIPanelButtonTemplate')
-		f.Prev:StripTextures()
-		f.Prev:SetTemplate('Default', true)
-		f.Prev:Size(110, 25)
-		f.Prev:Point('BOTTOMLEFT', 5, 5)
-		f.Prev:SetFormattedText("%s", PREVIOUS)	
-		f.Prev:Disable()
-		f.Prev:SetScript('OnClick', PreviousPage)
-		E.Skins:HandleButton(f.Prev, true)
-		
-		f.Status = CreateFrame('StatusBar', 'InstallStatus', f)
-		f.Status:SetFrameLevel(f.Status:GetFrameLevel() + 2)
-		f.Status:CreateBackdrop('Default')
-		f.Status:SetStatusBarTexture(E['media'].normTex)
-		f.Status:SetStatusBarColor(unpack(E['media'].rgbvaluecolor))
-		f.Status:SetMinMaxValues(0, MAX_PAGE)
-		f.Status:Point('TOPLEFT', f.Prev, 'TOPRIGHT', 6, -2)
-		f.Status:Point('BOTTOMRIGHT', f.Next, 'BOTTOMLEFT', -6, 2)
-		-- Setup StatusBar Animation
-		f.Status.anim = CreateAnimationGroup(f.Status)
-		f.Status.anim.progress = f.Status.anim:CreateAnimation("Progress")
-		f.Status.anim.progress:SetSmoothing("Out")
-		f.Status.anim.progress:SetDuration(.3)
-		
-		f.Status.text = f.Status:CreateFontString(nil, 'OVERLAY')
-		f.Status.text:FontTemplate()
-		f.Status.text:SetPoint('CENTER')
-		f.Status.text:SetFormattedText("%s / %s", CURRENT_PAGE, MAX_PAGE)
-		f.Status:SetScript('OnValueChanged', function(self)
-			self.text:SetText(ceil(self:GetValue())..' / '..MAX_PAGE)
-		end)
-		
-		f.Option1 = CreateFrame('Button', 'InstallOption1Button', f, 'UIPanelButtonTemplate')
-		f.Option1:StripTextures()
-		f.Option1:Size(160, 30)
-		f.Option1:Point('BOTTOM', 0, 45)
-		f.Option1:SetText('')
-		f.Option1:Hide()
-		E.Skins:HandleButton(f.Option1, true)
-		
-		f.Option2 = CreateFrame('Button', 'InstallOption2Button', f, 'UIPanelButtonTemplate')
-		f.Option2:StripTextures()
-		f.Option2:Size(110, 30)
-		f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45)
-		f.Option2:SetText('')
-		f.Option2:Hide()
-		f.Option2:SetScript('OnShow', function() f.Option1:SetWidth(110); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) end)
-		f.Option2:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45) end)
-		E.Skins:HandleButton(f.Option2, true)
-		
-		f.Option3 = CreateFrame('Button', 'InstallOption3Button', f, 'UIPanelButtonTemplate')
-		f.Option3:StripTextures()
-		f.Option3:Size(100, 30)
-		f.Option3:Point('LEFT', f.Option2, 'RIGHT', 4, 0)
-		f.Option3:SetText('')
-		f.Option3:Hide()
-		f.Option3:SetScript('OnShow', function() f.Option1:SetWidth(100); f.Option1:ClearAllPoints(); f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); f.Option2:SetWidth(100); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOM', f, 'BOTTOM', 0, 45) end)
-		f.Option3:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
-		E.Skins:HandleButton(f.Option3, true)
-		
-		f.Option4 = CreateFrame('Button', 'InstallOption4Button', f, 'UIPanelButtonTemplate')
-		f.Option4:StripTextures()
-		f.Option4:Size(100, 30)
-		f.Option4:Point('LEFT', f.Option3, 'RIGHT', 4, 0)
-		f.Option4:SetText('')
-		f.Option4:Hide()
-		f.Option4:SetScript('OnShow', function() 
-			f.Option1:Width(100)
-			f.Option2:Width(100)
-			
-			f.Option1:ClearAllPoints(); 
-			f.Option1:Point('RIGHT', f.Option2, 'LEFT', -4, 0); 
-			f.Option2:ClearAllPoints(); 
-			f.Option2:Point('BOTTOMRIGHT', f, 'BOTTOM', -4, 45) 
-		end)
-		f.Option4:SetScript('OnHide', function() f.Option1:SetWidth(160); f.Option1:ClearAllPoints(); f.Option1:Point('BOTTOM', 0, 45); f.Option2:SetWidth(110); f.Option2:ClearAllPoints(); f.Option2:Point('BOTTOMLEFT', f, 'BOTTOM', 4, 45) end)
-		E.Skins:HandleButton(f.Option4, true)
-		
-		f.SubTitle = f:CreateFontString(nil, 'OVERLAY')
-		f.SubTitle:FontTemplate(nil, 15, nil)
-		f.SubTitle:Point('TOP', 0, -40)
-		
-		f.Desc1 = f:CreateFontString(nil, 'OVERLAY')
-		f.Desc1:FontTemplate()
-		f.Desc1:Point('TOP', 0, -75)
-		f.Desc1:Width(f:GetWidth() - 40)
-		
-		f.Desc2 = f:CreateFontString(nil, 'OVERLAY')
-		f.Desc2:FontTemplate()
-		f.Desc2:Point('TOP', 0, -125)
-		f.Desc2:Width(f:GetWidth() - 40)
-		
-		f.Desc3 = f:CreateFontString(nil, 'OVERLAY')
-		f.Desc3:FontTemplate()
-		f.Desc3:Point('TOP', 0, -175)
-		f.Desc3:Width(f:GetWidth() - 40)
-		
-		f.Desc4 = f:CreateFontString(nil, 'OVERLAY')
-		f.Desc4:FontTemplate()
-		f.Desc4:Point('BOTTOM', 0, 80)
-		f.Desc4:Width(f:GetWidth() - 40)
-		
-		local close = CreateFrame('Button', nil, f, 'UIPanelCloseButton')
-		close:SetPoint('TOPRIGHT', f, 'TOPRIGHT')
-		close:SetScript('OnClick', function()
-			f:Hide()
-		end)
-		E.Skins:HandleCloseButton(close)
-		
-		f.tutorialImage = f:CreateTexture(nil, 'OVERLAY')
-		f.tutorialImage:Size(256, 128)
-		f.tutorialImage:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga')
-		f.tutorialImage:Point('BOTTOM', 0, 75)
-		
-		f.side = CreateFrame('Frame', 'MERTitleFrame', f)
-		f.side:SetTemplate('Transparent')
-		--f.side:Point('LEFT', f, 'LEFT', E.PixelMode and -1 or -3, 0)
-		f.side:Size(180, 400)
-		
-		for i = 1, MAX_PAGE do
-			titleText[i] = CreateFrame('Frame', nil, f.side)
-			titleText[i]:Size(180, 20)
-			titleText[i].text = titleText[i]:CreateFontString(nil, 'OVERLAY')
-			titleText[i].text:SetPoint('LEFT', 27, 0)
-			titleText[i].text:FontTemplate(nil, 12)
-			titleText[i].text:SetTextColor(unpack(E['media'].rgbvaluecolor))
-			
-			-- Create Animation
-			titleText[i].text.anim = CreateAnimationGroup(titleText[i].text)
-			titleText[i].text.anim.color = titleText[i].text.anim:CreateAnimation("Color")
-			titleText[i].text.anim.color:SetColorType("Text")
-			
-			titleText[i].hoverTex = titleText[i]:CreateTexture(nil, 'OVERLAY')
-			titleText[i].hoverTex:SetTexture([[Interface\MONEYFRAME\Arrow-Right-Up]])
-			titleText[i].hoverTex:Size(14)
-			titleText[i].hoverTex:Point('RIGHT', titleText[i].text, 'LEFT', 4, -2)
-			titleText[i].hoverTex:SetAlpha(0)
-			titleText[i].check = titleText[i]:CreateTexture(nil, 'OVERLAY')
-			titleText[i].check:Size(20)
-			titleText[i].check:Point('LEFT', titleText[i].text, 'RIGHT', 0, -2)
-			titleText[i].check:SetTexture([[Interface\BUTTONS\UI-CheckBox-Check]])
-			titleText[i].check:Hide()
-			
-			if i == 1 then titleText[i].text:SetFormattedText("%s", L['Welcome'])
-				elseif i == 2 then titleText[i].text:SetFormattedText("%s", L['Layout'])
-				elseif i == 3 then titleText[i].text:SetFormattedText("%s", L['Chat'])
-				elseif i == 4 then titleText[i].text:SetFormattedText("%s", L['DataTexts'])
-				elseif i == 5 then titleText[i].text:SetFormattedText("%s", L['ActionBars'])
-				elseif i == 6 then titleText[i].text:SetFormattedText("%s", L['UnitFrames'])
-				elseif i == 7 then titleText[i].text:SetFormattedText("%s", ADDONS)
-				elseif i == 8 then titleText[i].text:SetFormattedText("%s", L['Finish'])
-			end
-			
-			if(i == 1) then
-				titleText[i]:Point('TOP', f.side, 'TOP', 0, -40)
-			else
-				titleText[i]:Point('TOP', titleText[i - 1], 'BOTTOM')
-			end
-		end
-	end
-	
-	-- Animations
-	MERTitleFrame:Point('LEFT', 'MERInstallFrame', 'LEFT', E.PixelMode and -1 or -3, 0)
-	local animGroup = CreateAnimationGroup(MERTitleFrame)
-	local anim = animGroup:CreateAnimation("Move")
-	anim:SetOffset(-180, 0)
-	anim:SetDuration(1)
-	anim:SetSmoothing("Bounce")
-	anim:Play()
-	
-	MERInstallFrame:Show()
-	NextPage()
-end
+		end,
+	},
+
+	["StepTitles"] = {
+		[1] = START,
+		[2] = L['Layout'],
+		[3] = L['Chat'],
+		[4] = L['DataTexts'],
+		[5] = L['ActionBars'],
+		[6] = L['UnitFrames'],
+		[7] = ADDONS,
+		[8] = L['Installation Complete'],
+	},
+	["StepTitlesColorSelected"] = RAID_CLASS_COLORS[E.myclass],
+}

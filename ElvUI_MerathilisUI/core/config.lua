@@ -38,7 +38,8 @@ local function AddOptions()
 				type = 'execute',
 				name = L['Install'],
 				desc = L['Run the installation process.'],
-				func = function() MER:SetupUI(); E:ToggleConfig(); end,
+				-- func = function() MER:SetupUI(); E:ToggleConfig(); end,
+				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleConfig() end,
 			},
 			spacer1 = {
 				order = 4,

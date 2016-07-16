@@ -58,7 +58,7 @@ B.Frames = {
 	"TradeFrame",
 	"TutorialFrame",
 	"VideoOptionsFrame",
-	"WorldMapFrame",
+	"WorldMapFrame"
 }
 
 B.AddonsList = {

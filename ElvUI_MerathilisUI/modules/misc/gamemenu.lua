@@ -95,7 +95,7 @@ function MER:GameMenu()
 		
 		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
-		topPanel.style:SetFrameStrata("HIGH")
+		topPanel.style:SetFrameStrata("TOOLTIP") -- the Orderhall CommandBar seems on the highest layer -.-
 		topPanel.style:SetInside()
 		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))

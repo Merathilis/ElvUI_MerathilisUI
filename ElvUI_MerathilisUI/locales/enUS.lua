@@ -37,10 +37,6 @@ L['My other Addon'] = true
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
 
--- Minimap blip
-L['Minimap Blip'] = true
-L['Replaces the default minimap blips with custom textures.'] = true
-
 -- GameMenu
 L['GameMenu'] = true
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
@@ -76,10 +72,6 @@ L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline
 L["%s stopped playing (%sIn Battle.net)."] = true
 L["%s is now playing (%s%s)."] = true
 
--- hoverName
-L['hoverName'] = true
-L['Shows UnitNames on mouseover.'] = true
-
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
 L["Announce Freed"] = true
@@ -113,61 +105,13 @@ L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
 
--- Reminder
-L["Add Group"] = true
-L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = true
-L["Change this if you want the Reminder module to check for weapon enchants, setting this will cause it to ignore any spells listed."] = true
-L["Combat"] = true
-L["Disable Sound"] = true
-L["Don't play the warning sound."] = true
-L["Group already exists!"] = true
-L["If any spell found inside this list is found the icon will hide as well"] = true
-L["Inside BG/Arena"] = true
-L["Inside Raid/Party"] = true
-L["Instead of hiding the frame when you have the buff, show the frame when you have the buff."] = true
-L["Level Requirement"] = true
-L["Level requirement for the icon to be able to display. 0 for disabled."] = true
-L["Negate Spells"] = true
-L["New ID (Negate)"] = true
-L["Only run checks during combat."] = true
-L["Only run checks inside BG/Arena instances."] = true
-L["Only run checks inside raid/party instances."] = true
-L["REMINDER_DESC"] = "This module will show warning icons on your screen when you are missing buffs or have buffs when you shouldn't."
-L["Remove ID (Negate)"] = true
-L["Reverse Check"] = true
-L["Set a talent tree to not follow the reverse check."] = true
-L["Sound"] = true
-L["Sound that will play when you have a warning icon displayed."] = true
-L["Spell"] = true
-L["Strict Filter"] = true
-L["Talent Tree"] = true
-L["This ensures you can only see spells that you actually know. You may want to uncheck this option if you are trying to monitor a spell that is not directly clickable out of your spellbook."] = true
-L["Tree Exception"] = true
-L["Weapon"] = true
-L["You can't remove a default group from the list, disabling the group."] = true
-L["You must be a certain role for the icon to appear."] = true
-L["You must be using a certain talent tree for the icon to show."] = true
-L['CD Fade'] = true
-L["Cooldown"] = true
-L['On Cooldown'] = true
-L['Reminders'] = true
-L['Remove Group'] = true
-L['Select Group'] = true
-L['Role'] = true
-L['Caster'] = true
-L['Any'] = true
-L['Personal Buffs'] = true
-L['Only check if the buff is coming from you.'] = true
-L['Spells'] = true
-L['New ID'] = true
-L['Remove ID'] = true
-
 -- Unitframes
 L["Default"] = true
 L["Red Icon"] = true
 
 -- Install
 L['Welcome'] = true
+L["|cffff7d0aMerathilisUI|r Installation"] = true
 L['MerathilisUI Set'] = true
 L[' - %s profile created!'] = true
 L['Actionbars Set'] = true

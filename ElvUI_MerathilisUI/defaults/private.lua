@@ -1,27 +1,18 @@
 local E, L, V, P, G = unpack(ElvUI);
 
 ----------------------------------------------------------------------------------------
---	Reminder options
-----------------------------------------------------------------------------------------
-V['reminder'] = {
-	['enable'] = true,
-	['sound'] = "Warning",
-}
-
-----------------------------------------------------------------------------------------
 --	Skins options
 ----------------------------------------------------------------------------------------
 V['muiSkins'] = {
 	['blizzard'] = {
 		['encounterjournal'] = true,
-		['spellbook'] = true, -- Remove the Background of the Spellbook
+		['spellbook'] = true,
 		['objectivetracker'] = true,
-		['glyph'] = true, -- Remove the Background of the GlyphFrame
 	},
 	['addonSkins'] = {
-		['mp'] = true, -- Skins the additional MasterPlan Tabs
+		['mp'] = false,
 	},
 	['elvuiAddons'] = {
-		['sle'] = true -- Skin some unskinned SLE_Legion Elements
+		['sle'] = false
 	},
 }
