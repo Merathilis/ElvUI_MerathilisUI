@@ -451,7 +451,7 @@ local function SetupUnitframes(layout)
 	
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 180
-	E.db["unitframe"]["units"]["player"]["height"] = 40
+	E.db["unitframe"]["units"]["player"]["height"] = 26
 	E.db["unitframe"]["units"]["player"]['orientation'] = "RIGHT"
 	E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 	E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "POWER"
@@ -464,20 +464,11 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
-	if E.myclass == "DRUID" then
-		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
-		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
-		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
-		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
-	else
-		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["classbar"]["xOffset"] = 110
-		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 135
-		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "spaced"
-		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
-	end
+	E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
+	E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
+	E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
+	E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
+	E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
 	E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
@@ -490,7 +481,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[name:medium] [difficultycolor][smartlevel] [shortclassification]"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 22
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["attachTextTo"] = 'Health'
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["font"] = "Merathilis Tukui"
@@ -541,7 +532,7 @@ local function SetupUnitframes(layout)
 	
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 180
-	E.db["unitframe"]["units"]["target"]["height"] = 40
+	E.db["unitframe"]["units"]["target"]["height"] = 26
 	E.db["unitframe"]["units"]["target"]['orientation'] = "LEFT"
 	E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
@@ -574,7 +565,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["xOffset"] = 4
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 22
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 20
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[name:short] [difficultycolor][shortclassification]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {}
