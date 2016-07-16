@@ -77,6 +77,7 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
+<<<<<<< HEAD
 -- Set scrollbar thumb backdrop color to value color for better visibility
 function MERS:HandleScrollBar(frame, thumbTrim)
 	if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
@@ -91,6 +92,13 @@ hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 
 function MERS:MerathilisUISkins()
 	-- ElvUI AddOn Styles
+=======
+function MERS:MerathilisUISkins()
+	-- ElvUI AddOn Styles
+	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
+	if E.private["muiSkins"]["elvuiAddons"] == nil then E.private["muiSkins"]["elvuiAddons"] = {} end
+	
+>>>>>>> legion/master
 	if IsAddOnLoaded('ElvUI_SLE') and E.private.muiSkins.elvuiAddons.sle then
 		if tonumber(GetAddOnMetadata("ElvUI_SLE", "Version")) >= 3.00 then
 			local sleFrames = { _G["RaidMarkerBar"].backdrop, _G["SLE_LocationPanel_RightClickMenu1"], _G["SLE_LocationPanel_RightClickMenu2"], _G["SLE_LocationPanel"], _G["SLE_LocationPanel_X"], _G["SLE_LocationPanel_Y"], _G["SLE_SquareMinimapButtonBar"] }

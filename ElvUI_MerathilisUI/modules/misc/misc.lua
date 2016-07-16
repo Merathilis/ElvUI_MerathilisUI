@@ -80,6 +80,7 @@ LFDParentFrame:HookScript("OnShow", function()
 	end
 end)
 
+<<<<<<< HEAD
 -- Custom Lag Tolerance by Elv
 InterfaceOptionsCombatPanelMaxSpellStartRecoveryOffset:Hide()
 InterfaceOptionsCombatPanelReducedLagTolerance:Hide()
@@ -100,6 +101,8 @@ end
 customlag:SetScript("OnUpdate", LatencyUpdate)
 LatencyUpdate(customlag, 10)
 
+=======
+>>>>>>> legion/master
 -- Force quit
 local CloseWoW = CreateFrame("Frame")
 CloseWoW:RegisterEvent("CHAT_MSG_SYSTEM")

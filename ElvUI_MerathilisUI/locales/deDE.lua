@@ -37,10 +37,13 @@ L['My other Addon'] = "Mein anderes Addon"
 L['ElvUI Tooltip Icon'] = true
 L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
 
+<<<<<<< HEAD
 -- Minimap blip
 L['Minimap Blip'] = true
 L['Replaces the default minimap blips with custom textures.'] = "Ersetzt die Standard Minimap Blip Texturen mit Benutzerdefinierten."
 
+=======
+>>>>>>> legion/master
 -- GameMenu
 L['GameMenu'] = "Spielmenü"
 L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
@@ -76,10 +79,13 @@ L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline
 L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
 L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 
+<<<<<<< HEAD
 -- hoverName
 L['hoverName'] = true
 L['Shows UnitNames on mouseover.'] = "Zeigt Einheitennamen bei Mouseover."
 
+=======
+>>>>>>> legion/master
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "
@@ -113,6 +119,7 @@ L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
 
+<<<<<<< HEAD
 -- Reminder
 L["Add Group"] = "Gruppe hinzufügen"
 L["Attempted to show a reminder icon that does not have any spells. You must add a spell first."] = "Versuch ein Errinerungs-Symbol anzuzeigen das noch keine Zauber hat. Du musst zuerst einen Zauber hinzufügen."
@@ -162,12 +169,18 @@ L['Spells'] = 'Zauber'
 L['New ID'] = "Neue ID"
 L['Remove ID'] = "Entferne ID"
 
+=======
+>>>>>>> legion/master
 -- Unitframes
 L["Default"] = "Standard"
 L["Red Icon"] = "Rotes Symbol"
 
 -- Install
 L['Welcome'] = "Willkommen"
+<<<<<<< HEAD
+=======
+L["|cffff7d0aMerathilisUI|r Installation"] = true
+>>>>>>> legion/master
 L['MerathilisUI Set'] = "MerathilisUI gesetzt"
 L[' - %s profile created!'] = " - %s Profil erstellt!"
 L['Actionbars Set'] = "Aktionsleisten gesetzt"

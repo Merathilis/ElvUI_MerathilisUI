@@ -9,6 +9,7 @@ local format = format
 local ceil = ceil
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
+<<<<<<< HEAD
 local GetAddOnMetadata = GetAddOnMetadata
 local PlaySoundFile = PlaySoundFile
 local UIFrameFadeOut = UIFrameFadeOut
@@ -41,6 +42,8 @@ local CreateAnimationGroup = CreateAnimationGroup
 local CURRENT_PAGE = 0
 local MAX_PAGE = 8
 local titleText = {}
+=======
+>>>>>>> legion/master
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local factionGroup = UnitFactionGroup("player")
@@ -69,6 +72,10 @@ local function SetupMERLayout(layout)
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 130
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
+<<<<<<< HEAD
+=======
+	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
+>>>>>>> legion/master
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
@@ -87,6 +94,7 @@ local function SetupMERLayout(layout)
 	E.private["general"]["dmgfont"] = "Action Man"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
+<<<<<<< HEAD
 	E.db["general"]["experience"]["enable"] = true
 	E.db["general"]["experience"]["mouseover"] = false
 	E.db["general"]["experience"]["height"] = 155
@@ -106,21 +114,63 @@ local function SetupMERLayout(layout)
 	E.db["general"]["reputation"]["hideInVehicle"] = true
 	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-5,-6"
+=======
+	E.db["databars"]["experience"]["enable"] = true
+	E.db["databars"]["experience"]["mouseover"] = false
+	E.db["databars"]["experience"]["height"] = 155
+	E.db["databars"]["experience"]["textSize"] = 10
+	E.db["databars"]["experience"]["width"] = 10
+	E.db["databars"]["experience"]["textFormat"] = "NONE"
+	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
+	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
+	E.db["databars"]["experience"]["hideInVehicle"] = true
+	E.db["databars"]["reputation"]["enable"] = true
+	E.db["databars"]["reputation"]["mouseover"] = false
+	E.db["databars"]["reputation"]["height"] = 155
+	E.db["databars"]["reputation"]["textSize"] = 10
+	E.db["databars"]["reputation"]["width"] = 10
+	E.db["databars"]["reputation"]["textFormat"] = "NONE"
+	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["databars"]["reputation"]["hideInVehicle"] = true
+	E.db["databars"]["artifact"]["enable"] = true
+	E.db["databars"]["artifact"]["height"] = 155
+	E.db["databars"]["artifact"]["textSize"] = 11
+	E.db["databars"]["artifact"]["width"] = 10
+	E.db["databars"]["honor"]['enable'] = true
+	E.db["databars"]["honor"]["height"] = 155
+	E.db["databars"]["honor"]["textSize"] = 11
+	E.db["databars"]["honor"]["mouseover"] = true
+	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
+	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-6"
+>>>>>>> legion/master
 	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,329,0"
 	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-38"
 	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
 	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,446,2"
+<<<<<<< HEAD
 	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,432"
+=======
+	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
+>>>>>>> legion/master
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,413,23"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-413,23"
 	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-200,-281"
 	E.db["movers"]["VehicleSeatMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-84"
 	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
+<<<<<<< HEAD
 	
 	-- Auras
 	if IsAddOnLoaded("Masque") then
 		E.private["auras"]["masque"]["consolidatedBuffs"] = true
+=======
+	E.db["movers"]["ArtifactBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,424,23"
+	E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-424,23"
+	E.db["movers"]["TalkingHeadFrameMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,230"
+	
+	-- Auras
+	if IsAddOnLoaded("Masque") then
+>>>>>>> legion/master
 		E.private["auras"]["masque"]["buffs"] = true
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
@@ -128,10 +178,13 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Prototype"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
+<<<<<<< HEAD
 	E.db["auras"]["consolidatedBuffs"]["fontSize"] = 11
 	E.db["auras"]["consolidatedBuffs"]["font"] = "Merathilis Visitor1"
 	E.db["auras"]["consolidatedBuffs"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["consolidatedBuffs"]["filter"] = false
+=======
+>>>>>>> legion/master
 	E.db["auras"]["buffs"]["fontSize"] = 12
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
@@ -139,8 +192,13 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 30
+<<<<<<< HEAD
 	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-6"
 	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-158,-115"
+=======
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-5"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-131"
+>>>>>>> legion/master
 	
 	-- Bags
 	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
@@ -163,6 +221,7 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["junkIcon"] = true
 
 	-- Nameplates
+<<<<<<< HEAD
 	E.db["nameplate"]["debuffs"]["fontSize"] = 9
 	E.db["nameplate"]["debuffs"]["font"] = "Merathilis Prototype"
 	E.db["nameplate"]["debuffs"]["fontOutline"] = "OUTLINE"
@@ -188,6 +247,15 @@ local function SetupMERLayout(layout)
 	E.db["nameplate"]["buffs"]["font"] = "Merathilis Prototype"
 	E.db["nameplate"]["auraFontOutline"] = "OUTLINE"
 	E.db["nameplate"]["healthtext"] = "CURRENT_PERCENT"
+=======
+	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplates"]["font"] = "Merathilis Expressway"
+	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontOutline"] = 'OUTLINE'
+	E.db["nameplates"]['targetScale'] = 1.05
+	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
+>>>>>>> legion/master
 	
 	-- Tooltip
 	E.db["tooltip"]["itemCount"] = "NONE"
@@ -212,7 +280,10 @@ local function SetupMERLayout(layout)
 end
 
 local function SetupMERChat(layout)
+<<<<<<< HEAD
 
+=======
+>>>>>>> legion/master
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -318,6 +389,10 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+<<<<<<< HEAD
+=======
+		E.db["actionbar"]["bar4"]["enabled"] = true
+>>>>>>> legion/master
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -405,6 +480,10 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
 		
+<<<<<<< HEAD
+=======
+		E.db["actionbar"]["bar4"]["enabled"] = true
+>>>>>>> legion/master
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
@@ -465,7 +544,10 @@ local function SetupMERActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
+<<<<<<< HEAD
 
+=======
+>>>>>>> legion/master
 	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["fontSize"] = 12
@@ -507,9 +589,18 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
+<<<<<<< HEAD
 	-- Use Classbar not for Druid, because of Balance PowerTracker
 	if E.myclass == "DRUID" then
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = false
+=======
+	if E.myclass == "DRUID" then
+		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
+		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = true
+		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
+>>>>>>> legion/master
 	else
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
@@ -655,11 +746,14 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
+<<<<<<< HEAD
 	E.db["unitframe"]["units"]["target"]["combobar"]["autoHide"] = true
 	E.db["unitframe"]["units"]["target"]["combobar"]["fill"] = "spaced"
 	E.db["unitframe"]["units"]["target"]["combobar"]["height"] = 10
 	E.db["unitframe"]["units"]["target"]["combobar"]["detachedWidth"] = 135
 	E.db["unitframe"]["units"]["target"]["combobar"]["detachFromFrame"] = true
+=======
+>>>>>>> legion/master
 	
 	if IsAddOnLoaded ("ElvUI_BenikUI") then
 		E.db['benikui']['unitframes']['target']['detachPortrait'] = true
@@ -673,7 +767,10 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,141"
 	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,179"
 	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,141"
+<<<<<<< HEAD
 	E.db["movers"]["ComboBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,196"
+=======
+>>>>>>> legion/master
 	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -1103,7 +1200,11 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["panelTransparency"] = true
+<<<<<<< HEAD
 	E.db["datatexts"]["wordWrap"] = true
+=======
+	E.db["datatexts"]["wordWrap"] = false
+>>>>>>> legion/master
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db["datatexts"]["leftChatPanel"] = false
@@ -1138,7 +1239,11 @@ function MER:SetupDts(role)
 		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
+<<<<<<< HEAD
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison+ (BenikUI)"
+=======
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Orderhall"
+>>>>>>> legion/master
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
@@ -1201,6 +1306,7 @@ local function SetupMERAddons()
 	E:UpdateAll(true)
 end
 
+<<<<<<< HEAD
 local function ResetAll()
 	InstallNextButton:Disable()
 	InstallPrevButton:Disable()
@@ -1225,10 +1331,13 @@ local function ResetAll()
 	MERTitleFrame:Size(180, 400)
 end
 
+=======
+>>>>>>> legion/master
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
 	
+<<<<<<< HEAD
 	ReloadUI()
 end
 
@@ -1610,3 +1719,118 @@ function MER:SetupUI()
 	MERInstallFrame:Show()
 	NextPage()
 end
+=======
+	if GetCVarBool("Sound_EnableMusic") then
+		StopMusic()
+	end
+	
+	ReloadUI()
+end
+
+MER.installTable = {
+	["Name"] = "|cffff7d0aMerathilisUI|r",
+	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
+ 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
+ 	["Pages"] = {
+		[1] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText(L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'], MER.Version, E.version)
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetText(L['Skip Process'])
+		end,
+		[2] = function()
+			PluginInstallFrame.SubTitle:SetText(L['Layout'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERLayout('Layout') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Layout'])
+		end,
+		[3] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Chat'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process sets up your chat fonts and colors.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your chat windows.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', SetupMERChat)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Chat'])
+		end,
+		[4] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['DataTexts'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('tank') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", _G["TANK"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupDts('healer') end)
+			PluginInstallFrame.Option2:SetFormattedText("%s", _G["HEALER"])
+			PluginInstallFrame.Option3:Show()
+			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupDts('dpsMelee') end)
+			PluginInstallFrame.Option3:SetFormattedText("%s", L['Physical DPS'])
+			PluginInstallFrame.Option4:Show()
+			PluginInstallFrame.Option4:SetScript('OnClick', function() MER:SetupDts('dpsCaster') end)
+			PluginInstallFrame.Option4:SetFormattedText("%s", L['Caster DPS'])
+		end,
+		[5] = function()
+			PluginInstallFrame.SubTitle:SetText(L['ActionBars'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERActionbars('small') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERActionbars('big') end)
+			PluginInstallFrame.Option2:SetFormattedText("%s", L['Setup ActionBars'].." - 2")
+		end,
+		[6] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['UnitFrames'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Unitframes.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			-- PluginInstallFrame.Desc4:SetFormattedText("%s", L['Buttons must be clicked twice'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupUnitframes() end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Unitframes'])
+		end,
+		[7] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to Skada and ElvUI plugins'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
+			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupMERAddons(); SetupMERAddons(); end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Addons'])
+		end,
+		[8] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Installation Complete'])
+			PluginInstallFrame.Desc1:SetFormattedText("%s", L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
+			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Finished'])
+			if InstallStepComplete then
+				InstallStepComplete.message = MER.Title..L['Installed']
+				InstallStepComplete:Show()
+			end
+		end,
+	},
+
+	["StepTitles"] = {
+		[1] = START,
+		[2] = L['Layout'],
+		[3] = L['Chat'],
+		[4] = L['DataTexts'],
+		[5] = L['ActionBars'],
+		[6] = L['UnitFrames'],
+		[7] = ADDONS,
+		[8] = L['Installation Complete'],
+	},
+	["StepTitlesColorSelected"] = RAID_CLASS_COLORS[E.myclass],
+}
+>>>>>>> legion/master

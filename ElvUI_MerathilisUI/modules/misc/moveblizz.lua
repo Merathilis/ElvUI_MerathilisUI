@@ -58,7 +58,11 @@ B.Frames = {
 	"TradeFrame",
 	"TutorialFrame",
 	"VideoOptionsFrame",
+<<<<<<< HEAD
 	"WorldMapFrame",
+=======
+	"WorldMapFrame"
+>>>>>>> legion/master
 }
 
 B.AddonsList = {

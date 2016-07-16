@@ -10,20 +10,34 @@ local tinsert = tinsert
 local menuWidth = _G["GameMenuFrame"]:GetWidth()
 local columns
 local newColumn = {
+<<<<<<< HEAD
 	[9] = true,
 	[17] = true,
+=======
+	[10] = true,
+	[19] = true,
+>>>>>>> legion/master
 	[24] = true,
 }
 local spaceCount = {
 	[4] = 5,
+<<<<<<< HEAD
 	[12] = 8,
 	[20] = 16,
+=======
+	[13] = 8,
+	[22] = 16,
+>>>>>>> legion/master
 }
 
 local width, height = _G["GameMenuButtonHelp"]:GetWidth(), _G["GameMenuButtonHelp"]:GetHeight()
 local LibHolder = CreateFrame("Frame", "LibGameMenuHolder", _G["GameMenuFrame"])
 LibHolder:SetSize(width, 1)
+<<<<<<< HEAD
 LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, 0)
+=======
+LibHolder:SetPoint("TOP", _G["GameMenuFrame"].ElvUI, "BOTTOM", 0, 0)
+>>>>>>> legion/master
 
 lib.buttons = {}
 lib.skincheck = false
@@ -51,7 +65,11 @@ function lib:UpdateHolder()
 	if total > 0 and total <= 5 then
 		lib.Header:Hide()
 		LibHolder:ClearAllPoints()
+<<<<<<< HEAD
 		LibHolder:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOM", 0, -16)
+=======
+		LibHolder:SetPoint("TOP", _G["GameMenuFrame"].ElvUI, "BOTTOM", 0, -1)
+>>>>>>> legion/master
 	elseif total > 5 then
 		lib.Header:Show()
 		LibHolder:ClearAllPoints()
@@ -64,7 +82,11 @@ function lib:UpdateHolder()
 		if (spaceCount[i] and total > spaceCount[i]) then space = true end
 		if lib.buttons[i-1] then
 			if newColumn[i] then
+<<<<<<< HEAD
 				button:SetPoint("TOPLEFT", lib.buttons[i-8], "TOPRIGHT", 1 , 0)
+=======
+				button:SetPoint("TOPLEFT", lib.buttons[i-9], "TOPRIGHT", 1 , 0)
+>>>>>>> legion/master
 				columns = columns + 1
 			else
 				button:SetPoint("TOP", lib.buttons[i-1], "BOTTOM", 0 , space and -16 or -1)
@@ -109,7 +131,11 @@ _G["GameMenuFrame"]:HookScript("OnShow", function()
 		_G["GameMenuButtonHelp"]:SetPoint("TOPLEFT", _G["GameMenuFrame"], "TOPLEFT", 25.5, -31.5)
 		_G["GameMenuFrame"]:Width(menuWidth + 1 + width * columns)
 		_G["GameMenuButtonLogout"]:ClearAllPoints()
+<<<<<<< HEAD
 		_G["GameMenuButtonLogout"]:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOMLEFT", _G["GameMenuFrame"]:GetWidth()/2 - 25.5, -16)
+=======
+		_G["GameMenuButtonLogout"]:SetPoint("TOP", _G["GameMenuButtonAddons"], "BOTTOMLEFT", _G["GameMenuFrame"]:GetWidth()/2 - 25.5, -29)
+>>>>>>> legion/master
 	end
 end)
 
