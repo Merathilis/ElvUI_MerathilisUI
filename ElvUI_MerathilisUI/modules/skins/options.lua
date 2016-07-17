@@ -88,15 +88,20 @@ local function SkinsTable()
 				type = 'toggle',
 				name = L["Encounter Journal"],
 			},
-			spellbook = {
+			objectivetracker = {
 				order = 2,
+				type = 'toggle',
+				name = _G["OBJECTIVES_TRACKER_LABEL"],
+			},
+			spellbook = {
+				order = 3,
 				type = 'toggle',
 				name = L["Spellbook"],
 			},
-			objectivetracker = {
-				order = 3,
+			charackter = {
+				order = 4,
 				type = 'toggle',
-				name = _G["OBJECTIVES_TRACKER_LABEL"],
+				name = L["Character Frame"],
 			},
 		},
 	}

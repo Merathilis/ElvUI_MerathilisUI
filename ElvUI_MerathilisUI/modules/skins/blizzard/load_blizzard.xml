@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="character.lua"/>
 	<Script file="encounterjournal.lua"/>
 	<Script file="friends.lua"/>
 	<Script file="guild.lua"/>
