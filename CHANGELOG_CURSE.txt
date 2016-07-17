@@ -10,6 +10,7 @@
 * Skins: Attempt to skin a Timer in Scenario (maybe buggy)
 * Reminder: Delete Reminder, as they are no buffs anymore.
 * Remove my custom ScrollBar Code.
+* Add Demon Hunter Crest in GameMenu (thx dvdio)
 
 ** v1.37, 03.06.2016**
 * Change the Strata for hoverName to "LOW".

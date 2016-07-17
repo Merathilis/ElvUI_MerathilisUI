@@ -10,6 +10,7 @@
 <font color=#FF8C00>&#9830;</font> Skins: Attempt to skin a Timer in Scenario (maybe buggy)
 <font color=#FF8C00>&#9830;</font> Reminder: Delete Reminder, as they are no buffs anymore.
 <font color=#FF8C00>&#9830;</font> Remove my custom ScrollBar Code.
+<font color=#FF8C00>&#9830;</font> Add Demon Hunter Crest in GameMenu (thx dvdio)
 
 <b><u> v1.37, 03.06.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Misc: Change the Strata for hoverName to "LOW".
