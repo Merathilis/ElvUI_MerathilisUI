@@ -817,7 +817,7 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 	
 	-- Party
-	E.db["unitframe"]["units"]["party"]["height"] = 40
+	E.db["unitframe"]["units"]["party"]["height"] = 26
 	E.db["unitframe"]["units"]["party"]["width"] = 180
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 	E.db["unitframe"]["units"]["party"]["healPrediction"] = true
