@@ -5,6 +5,7 @@ local E, L, V, P, G = unpack(ElvUI);
 ----------------------------------------------------------------------------------------
 V['muiSkins'] = {
 	['blizzard'] = {
+		['character'] = true,
 		['encounterjournal'] = true,
 		['spellbook'] = true,
 		['objectivetracker'] = true,
