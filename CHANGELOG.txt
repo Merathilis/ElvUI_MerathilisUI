@@ -1,13 +1,13 @@
 <b><u> v2.00, 19.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UPDATE FOR LEGION
-<font color=#FF8C00>&#9830;</font> Install: Using the new ElvUI PlugIn Installer.
+<font color=#FF8C00>&#9830;</font> Install: Using the new ElvUI PlugIn Installer. (WIP)
 <font color=#FF8C00>&#9830;</font> Install: Delete settings for ComboBar as they are now in the ClassBar.
 <font color=#FF8C00>&#9830;</font> Install: Enable ClassBar for all Classes by default.
 <font color=#FF8C00>&#9830;</font> Install: Add new settings for DataBars.
 <font color=#FF8C00>&#9830;</font> Update SpeccSwitch Datatext
 <font color=#FF8C00>&#9830;</font> Skins: Remove Glyph Skin.
 <font color=#FF8C00>&#9830;</font> Skins: Update SpellBook Skin, SpellSubNames should be in ClassColor.
-<font color=#FF8C00>&#9830;</font> Skins: Attempt to skin a Timer in Scenario (maybe buggy)
+<font color=#FF8C00>&#9830;</font> Skins: Remove the skinning of TimerBars etc. in ObjectiveTracker. Just change the Font and add Underlines.
 <font color=#FF8C00>&#9830;</font> Reminder: Delete Reminder, as they are no buffs anymore.
 <font color=#FF8C00>&#9830;</font> Remove my custom ScrollBar Code.
 <font color=#FF8C00>&#9830;</font> Add Demon Hunter Crest in GameMenu (thx dvdio)
