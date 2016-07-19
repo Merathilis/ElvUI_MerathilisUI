@@ -37,6 +37,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 130
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
+	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
@@ -53,7 +54,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.private["general"]["namefont"] = "Merathilis PrototypeRU"
-	E.private["general"]["dmgfont"] = "Action Man"
+	E.private["general"]["dmgfont"] = "Merathilis Prototype"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
 	E.db["databars"]["experience"]["enable"] = true
@@ -1149,10 +1150,6 @@ end
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
-	
-	if GetCVarBool("Sound_EnableMusic") then
-		StopMusic()
-	end
 	
 	ReloadUI()
 end
