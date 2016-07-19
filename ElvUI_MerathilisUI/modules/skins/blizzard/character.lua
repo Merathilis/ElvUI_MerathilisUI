@@ -22,7 +22,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, addon)
 	if addon == "ElvUI_MerathilisUI" then
-		E:Delay(1, styleCharacter)
+		E:Delay(.5, styleCharacter)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)

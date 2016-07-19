@@ -98,7 +98,7 @@ local function SkinsTable()
 				type = 'toggle',
 				name = L["Spellbook"],
 			},
-			charackter = {
+			character = {
 				order = 4,
 				type = 'toggle',
 				name = L["Character Frame"],
