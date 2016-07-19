@@ -73,22 +73,6 @@ function MER:RegisterMerMedia()
 	E['media']["wtcg"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\hearthstone]])
 end
 
-local function objectiveTrackerFont()
-	if E.private["muiSkins"] == nil then E.private["muiSkins"] = {} end
-	if not E.private.muiSkins.blizzard.objectivetracker then return end
-	
-	_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Prototype'), 12, 'OUTLINE')
-	_G['BONUS_OBJECTIVE_TRACKER_MODULE'].Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-end
-
 -- Splash Screen
 local function CreateSplashScreen()
 	local f = CreateFrame('Frame', 'MUISplashScreen', E.UIParent)
@@ -165,10 +149,6 @@ function MER:Initialize()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
-	end
-
-	if ElvUI_SLE then
-		hooksecurefunc(ElvUI_SLE[1]:GetModule('Media'), "SetBlizzFonts", objectiveTrackerFont)
 	end
 
 	if E.db.mui.general.SplashScreen then
