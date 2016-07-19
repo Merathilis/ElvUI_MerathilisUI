@@ -1,5 +1,6 @@
 <b><u> v2.00, 19.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UPDATE FOR LEGION
+<font color=#FF8C00>&#9830;</font> REQUIRES ELVUI v.10.00 to work.
 <font color=#FF8C00>&#9830;</font> Install: Using the new ElvUI PlugIn Installer. (WIP)
 <font color=#FF8C00>&#9830;</font> Install: Delete settings for ComboBar as they are now in the ClassBar.
 <font color=#FF8C00>&#9830;</font> Install: Enable ClassBar for all Classes by default.

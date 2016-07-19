@@ -1,5 +1,6 @@
 ** v2.00, 19.07.2016**
 * UPDATE FOR LEGION
+* REQUIRES ELVUI v.10.00 to work.
 * Install: Using the new ElvUI PlugIn Installer. (WIP)
 * Install: Delete settings for ComboBar as they are now in the ClassBar.
 * Install: Enable ClassBar for all Classes by default.
