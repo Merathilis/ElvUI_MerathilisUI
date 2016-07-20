@@ -35,12 +35,6 @@ local function styleSpellBook()
 		_G[header.."Missing"]:SetShadowOffset(1, -1)
 		_G[header].missingText:SetTextColor(0.6, 0.6, 0.6)
 	end
-
-	hooksecurefunc("SpellButton_UpdateButton", function(self)
-		if self.SpellSubName then
-			self.SpellSubName:SetTextColor(unpack(E.media.rgbvaluecolor))
-		end
-	end)
 end
 
 local f = CreateFrame("Frame")
