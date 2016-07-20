@@ -679,7 +679,7 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,234"
 	
 	-- Raid
-	E.db["unitframe"]["units"]["raid"]["height"] = 35
+	E.db["unitframe"]["units"]["raid"]["height"] = 25
 	E.db["unitframe"]["units"]["raid"]["width"] = 69
 	E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
 	E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
