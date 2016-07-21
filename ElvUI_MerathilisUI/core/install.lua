@@ -27,9 +27,11 @@ local function SetupMERLayout(layout)
 	-- General
 	E.private["general"]["pixelPerfect"] = true
 	E.global["general"]["autoScale"] = true
+	E.global["genaral"]["animateConfig"] = false
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.private["general"]["chatBubbleFont"] = "Merathilis Prototype"
 	E.private["general"]["chatBubbleFontSize"] = 11
+	E.private["general"]["classColorMentionsSpeech"] = true
 	E.db["general"]["valuecolor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	E.db["general"]["totems"]["size"] = 36
 	E.db["general"]["font"] = "Merathilis Prototype"
@@ -641,7 +643,7 @@ local function SetupUnitframes(layout)
 	
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
-	E.db["unitframe"]["units"]["focus"]["height"] = 30
+	E.db["unitframe"]["units"]["focus"]["height"] = 20
 	E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = "[healthcolor][health:current]"
 	E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
