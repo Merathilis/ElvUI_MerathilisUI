@@ -1,3 +1,10 @@
+** v2.01, 21.07.2016**
+* Install: Add some general ElvUI options.
+* Install: Remove coloring for SubSpell Names in SpellBook.
+* Install: Change the height of the RaidFrames/ FocusFrames.
+* Install: Remove some SLE settings.
+
+\\ \\
 ** v2.00, 19.07.2016**
 * UPDATE FOR LEGION
 * REQUIRES ELVUI v.10.00 to work.
@@ -13,6 +20,7 @@
 * Remove my custom ScrollBar Code.
 * Add Demon Hunter Crest in GameMenu (thx dvdio)
 
+\\ \\
 ** v1.37, 03.06.2016**
 * Change the Strata for hoverName to "LOW".
 * Skins: Add a dynamic Tooltip position for the Bonus Reward Frame (Credits: Shestak UI)

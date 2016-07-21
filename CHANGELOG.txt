@@ -1,3 +1,9 @@
+<b><u> v2.01, 21.07.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Add some general ElvUI options.
+<font color=#FF8C00>&#9830;</font> Install: Remove coloring for SubSpell Names in SpellBook.
+<font color=#FF8C00>&#9830;</font> Install: Change the height of the RaidFrames/ FocusFrames.
+<font color=#FF8C00>&#9830;</font> Install: Remove some SLE settings.
+
 <b><u> v2.00, 19.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> UPDATE FOR LEGION
 <font color=#FF8C00>&#9830;</font> REQUIRES ELVUI v.10.00 to work.
