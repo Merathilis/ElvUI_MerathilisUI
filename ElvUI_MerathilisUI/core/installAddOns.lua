@@ -285,10 +285,6 @@ function MER:SetupMERAddons()
 			E.db["sle"]["loot"]["history"]["autohide"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
 			E.db["sle"]["legacy"]["garrison"]["toolbar"]["buttonsize"] = 20
-			E.db["sle"]["pvp"]["ChatFilters"]["enable"] = true
-			E.db["sle"]["pvp"]["ChatFilters"]["awardStyle"] = "STYLE2"
-			E.db["sle"]["pvp"]["ChatFilters"]["award"] = true
-			E.db["sle"]["pvp"]["ChatFilters"]["hkStyle"] = "STYLE2"
 			E.db["sle"]["pvp"]["duels"]["announce"] = true
 			E.db["sle"]["pvp"]["duels"]["pet"] = true
 			E.db["sle"]["pvp"]["duels"]["regular"] = true
