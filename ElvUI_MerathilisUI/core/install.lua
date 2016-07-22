@@ -27,7 +27,6 @@ local function SetupMERLayout(layout)
 	-- General
 	E.private["general"]["pixelPerfect"] = true
 	E.global["general"]["autoScale"] = true
-	E.global["genaral"]["animateConfig"] = false
 	E.private["general"]["chatBubbles"] = "nobackdrop"
 	E.private["general"]["chatBubbleFont"] = "Merathilis Prototype"
 	E.private["general"]["chatBubbleFontSize"] = 11
