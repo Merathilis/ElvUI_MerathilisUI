@@ -1,3 +1,8 @@
+** v2.02, xx.xx.2016**
+* Install: Fix a lua error.
+* Install: Adjust some SLE settings.
+
+\\ \\
 ** v2.01, 21.07.2016**
 * Install: Add some general ElvUI options.
 * Install: Remove coloring for SubSpell Names in SpellBook.
