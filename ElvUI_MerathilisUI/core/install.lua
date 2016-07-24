@@ -993,7 +993,7 @@ function MER:SetupDts(role)
 		else
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Gold"
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "MUI System"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
