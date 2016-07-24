@@ -43,20 +43,20 @@ local MPskin = AS.MasterPlan
 function AS:MasterPlan(event, addon)
 	MPskin(self, event, addon)
 	if addon == 'MasterPlan' or IsAddOnLoaded('MasterPlan') then
-		_G["MPCompleteAllText"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
-		_G["MPPokeTentativePartiesText"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+		_G["MPCompleteAllText"]:SetFont(E['media'].muiRoboto, 12, 'OUTLINE')
+		_G["MPPokeTentativePartiesText"]:SetFont(E['media'].muiRoboto, 12, 'OUTLINE')
 		_G["MPPokeTentativeParties"]:SetWidth(235)
 
 		for i = 1, 4 do
-			_G["GarrisonMissionFrameTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+			_G["GarrisonMissionFrameTab"..i.."Text"]:SetFont(E['media'].muiRoboto, 12, 'OUTLINE')
 		end
 		
 		for i = 1, 3 do
-			_G["GarrisonShipyardFrameTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+			_G["GarrisonShipyardFrameTab"..i.."Text"]:SetFont(E['media'].muiRoboto, 12, 'OUTLINE')
 		end
 
 		for i = 1, 4 do
-			_G["GarrisonLandingPageTab"..i.."Text"]:SetFont(E['media'].muiFont, 12, 'OUTLINE')
+			_G["GarrisonLandingPageTab"..i.."Text"]:SetFont(E['media'].muiRoboto, 12, 'OUTLINE')
 		end
 
 		_G["MPCompleteAll"]:SetTemplate("Transparent")
