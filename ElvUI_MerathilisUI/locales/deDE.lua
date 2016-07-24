@@ -146,6 +146,7 @@ L['Installed'] = "Installiert"
 L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = "Um alle Funktionen und das Aussehen von MerathilisUI zu erlangen, lade dir bitte |cff00c0faElvUI_BenikUI|r herrunter!"
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter wie die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). MerathilisUI ist nicht geladen! Bitte aktuallisiere dein ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast LocationPlus und Shadow & Light zur gleichen Zeit aktiviert. Wähle ein AddOn aus, was du deaktivieren möchtest."
+
 -- Addons
 L["BigWigs"] = true
 L["MasterPlan"] = true
