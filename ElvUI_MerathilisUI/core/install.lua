@@ -37,8 +37,9 @@ local function SetupMERLayout(layout)
 	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 150
-	E.db["general"]["minimap"]["locationText"] = "HIDE"
+	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
+	E.db["general"]["minimap"]["icons"]["classHall"]['scale'] = 0.5
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
@@ -961,12 +962,14 @@ function MER:SetupDts(role)
 		E.db["datatexts"]["leftChatPanel"] = false
 		E.db["datatexts"]["rightChatPanel"] = false
 		E.db["datatexts"]["minimapPanels"] = true
+		E.db["datatexts"]["minimapBottom"] = true
 		E.db["datatexts"]["actionbar3"] = false
 		E.db["datatexts"]["actionbar5"] = false
 	else
 		E.db["datatexts"]["leftChatPanel"] = true
 		E.db["datatexts"]["rightChatPanel"] = true
 		E.db["datatexts"]["minimapPanels"] = true
+		E.db["datatexts"]["minimapBottom"] = true
 		E.db["datatexts"]["actionbar3"] = true
 		E.db["datatexts"]["actionbar5"] = true
 	end
@@ -974,9 +977,11 @@ function MER:SetupDts(role)
 	if IsAddOnLoaded('ElvUI_SLE') then
 		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Guild"
 		E.db["datatexts"]["panels"]["RightMiniPanel"] = "S&L Friends"
+		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
 	else
 		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "Guild"
 		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Friends"
+		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
 	end
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
@@ -988,7 +993,7 @@ function MER:SetupDts(role)
 		else
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Gold"
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Time"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Garrison"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
