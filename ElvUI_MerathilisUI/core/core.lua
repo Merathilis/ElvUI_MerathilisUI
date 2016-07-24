@@ -54,6 +54,7 @@ function MER:RegisterMerMedia()
 	E['media'].muiVisitor2 = LSM:Fetch('font', 'Merathilis Visitor2')
 	E['media'].muiTuk = LSM:Fetch('font', 'Merathilis Tukui')
 	E['media'].muiExpressway = LSM:Fetch('font', 'Merathilis Expressway')
+	E['media'].muiRoboto = LSM:Fetch('font', 'Merathilis Roboto-Black')
 	
 	--Textures
 	E['media'].MuiEmpty = LSM:Fetch('statusbar', 'MerathilisEmpty')
