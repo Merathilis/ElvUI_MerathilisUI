@@ -35,7 +35,7 @@ end
 function MER:AddOptions()
 	for _, func in pairs(MER.Config) do
 		func()
-	end	
+	end
 end
 
 function MER:DasOptions()
@@ -133,6 +133,7 @@ end
  -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
 	-- Clear the old db
+	if E.db.benikui.general.gameMenuButton then E.db.benikui.general.gameMenuButton = nil end
 	
 	E.db.mui.dbCleaned = true
 end

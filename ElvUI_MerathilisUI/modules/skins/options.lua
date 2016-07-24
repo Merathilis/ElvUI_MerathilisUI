@@ -103,6 +103,16 @@ local function SkinsTable()
 				type = 'toggle',
 				name = L["Character Frame"],
 			},
+			gossip = {
+				order = 5,
+				type = 'toggle',
+				name = L["Gossip Frame"],
+			},
+			quest = {
+				order = 5,
+				type = 'toggle',
+				name = L["Quest Frames"],
+			},
 		},
 	}
 end

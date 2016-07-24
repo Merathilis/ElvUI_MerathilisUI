@@ -192,7 +192,6 @@ function MER:SetupMERAddons()
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db['benikui']['general']['loginMessage'] = false
 		E.db['benikui']['general']['splashScreen'] = false
-		E.db['benikui']['general']['gameMenuButton'] = true
 		E.db['benikui']['colors']['gameMenuColor'] = 1
 		E.db['benikui']['misc']['ilevel']['enable'] = false
 		E.db['benikui']['datatexts']['chat']['enable'] = true
