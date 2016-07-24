@@ -36,7 +36,7 @@ local function SetupMERLayout(layout)
 	E.db["general"]["font"] = "Merathilis Prototype"
 	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
-	E.db["general"]["minimap"]["size"] = 130
+	E.db["general"]["minimap"]["size"] = 150
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
@@ -105,19 +105,19 @@ local function SetupMERLayout(layout)
 		E.private["auras"]["masque"]["buffs"] = true
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
-	E.db["auras"]["debuffs"]["size"] = 30
+	E.db["auras"]["debuffs"]["size"] = 38
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Prototype"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["fontSize"] = 12
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
-	E.db["auras"]["buffs"]["size"] = 24
+	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 30
-	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-5"
-	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-140,-131"
+	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-5"
+	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-131"
 	
 	-- Bags
 	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
@@ -232,189 +232,99 @@ end
 
 local function SetupMERActionbars(layout)
 	-- Actionbars
-	if layout == 'small' then
-		E.db["actionbar"]["font"] = "Merathilis Prototype"
-		E.db["actionbar"]["fontOutline"] = "OUTLINE"
-		E.db["actionbar"]["macrotext"] = true
-		E.db["actionbar"]["showGrid"] = false
-		E.db["actionbar"]["lockActionBars"] = true
-		
-		if IsAddOnLoaded("Masque") then
-			E.private["actionbar"]["masque"]["stanceBar"] = true
-			E.private["actionbar"]["masque"]["petBar"] = true
-			E.private["actionbar"]["masque"]["actionbars"] = true
-		end
-		
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db['benikui']['actionbars']['transparent'] = true
-			E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
-			E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
-			E.db['benikui']['actionbars']['requestStop'] = true
-		end
-		
-		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar1"]["backdrop"] = true
-		E.db["actionbar"]["bar1"]["heightMult"] = 2
-		E.db["actionbar"]["bar1"]["buttonsize"] = 30
-		E.db["actionbar"]["bar1"]["buttons"] = 12
-		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
-		
-		E.db["actionbar"]["bar2"]["enabled"] = true
-		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar2"]["buttons"] = 12
-		E.db["actionbar"]["bar2"]["buttonsize"] = 30
-		E.db["actionbar"]["bar2"]["backdrop"] = false
-		E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
-		E.db["actionbar"]["bar2"]["mouseover"] = false
-		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
-		
-		E.db["actionbar"]["bar3"]["backdrop"] = true
-		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar3"]["buttonsize"] = 24
-		E.db["actionbar"]["bar3"]["buttonspacing"] = 5
-		E.db["actionbar"]["bar3"]["buttons"] = 12
-		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar4"]["enabled"] = true
-		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar4"]["mouseover"] = true
-		E.db["actionbar"]["bar4"]["buttonsize"] = 24
-		E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar5"]["backdrop"] = true
-		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar5"]["buttonsize"] = 24
-		E.db["actionbar"]["bar5"]["buttonspacing"] = 5
-		E.db["actionbar"]["bar5"]["buttons"] = 12
-		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar6"]["enabled"] = false
-		
-		E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["barPet"]["buttons"] = 8
-		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
-		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
-		E.db["actionbar"]["barPet"]["buttonsize"] = 19
-		E.db["actionbar"]["barPet"]["mouseover"] = true
-		
-		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["stanceBar"]["backdrop"] = true
-		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
-		if E.myclass == "DRUID" then
-			E.db["actionbar"]["stanceBar"]["mouseover"] = true
-		else
-			E.db["actionbar"]["stanceBar"]["mouseover"] = false
-		end
-		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,60"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
-		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,98"
-		E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
-		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
-		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
-
-	elseif layout == 'big' then
-		E.db["actionbar"]["font"] = "Merathilis Prototype"
-		E.db["actionbar"]["fontOutline"] = "OUTLINE"
-		E.db["actionbar"]["macrotext"] = true
-		E.db["actionbar"]["showGrid"] = false
-		E.db["actionbar"]["lockActionBars"] = true
-		
-		if IsAddOnLoaded("Masque") then
-			E.private["actionbar"]["masque"]["stanceBar"] = true
-			E.private["actionbar"]["masque"]["petBar"] = true
-			E.private["actionbar"]["masque"]["actionbars"] = true
-		end
-		
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db['benikui']['actionbars']['transparent'] = true
-			E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
-			E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
-			E.db['benikui']['actionbars']['requestStop'] = true
-		end
-		
-		E.db["actionbar"]["bar1"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar1"]["backdrop"] = true
-		E.db["actionbar"]["bar1"]["heightMult"] = 3
-		E.db["actionbar"]["bar1"]["buttonsize"] = 28
-		E.db["actionbar"]["bar1"]["buttons"] = 12
-		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
-		
-		E.db["actionbar"]["bar2"]["enabled"] = true
-		E.db["actionbar"]["bar2"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar2"]["buttons"] = 12
-		E.db["actionbar"]["bar2"]["buttonsize"] = 28
-		E.db["actionbar"]["bar2"]["backdrop"] = false
-		E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
-		E.db["actionbar"]["bar2"]["mouseover"] = false
-		E.db["actionbar"]["bar2"]["backdropSpacing"] = 4
-		E.db["actionbar"]["bar2"]["heightMult"] = 1
-		
-		E.db["actionbar"]["bar3"]["backdrop"] = true
-		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar3"]["buttonsize"] = 24
-		E.db["actionbar"]["bar3"]["buttonspacing"] = 5
-		E.db["actionbar"]["bar3"]["buttons"] = 12
-		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar4"]["enabled"] = true
-		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar4"]["mouseover"] = true
-		E.db["actionbar"]["bar4"]["buttonsize"] = 24
-		E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar5"]["backdrop"] = true
-		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar5"]["buttonsize"] = 24
-		E.db["actionbar"]["bar5"]["buttonspacing"] = 5
-		E.db["actionbar"]["bar5"]["buttons"] = 12
-		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
-		
-		E.db["actionbar"]["bar6"]["enabled"] = true
-		E.db["actionbar"]["bar6"]["enabled"] = true
-		E.db["actionbar"]["bar6"]["buttonspacing"] = 4
-		E.db["actionbar"]["bar6"]["buttons"] = 12
-		E.db["actionbar"]["bar6"]["buttonsize"] = 28
-		E.db["actionbar"]["bar6"]["backdrop"] = false
-		E.db["actionbar"]["bar6"]["mouseover"] = false
-		E.db["actionbar"]["bar6"]["backdropSpacing"] = 4
-		
-		E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["barPet"]["buttons"] = 8
-		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
-		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
-		E.db["actionbar"]["barPet"]["buttonsize"] = 19
-		E.db["actionbar"]["barPet"]["mouseover"] = true
-		
-		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["stanceBar"]["backdrop"] = true
-		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-		E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
-		if E.myclass == "DRUID" then
-			E.db["actionbar"]["stanceBar"]["mouseover"] = true
-		else
-			E.db["actionbar"]["stanceBar"]["mouseover"] = false
-		end
-		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,26"
-		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
-		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,91"
-		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,130"
-		E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
-		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,-233,29"
-		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
+	E.db["actionbar"]["font"] = "Merathilis Prototype"
+	E.db["actionbar"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["macrotext"] = true
+	E.db["actionbar"]["showGrid"] = false
+	E.db["actionbar"]["lockActionBars"] = true
+	
+	if IsAddOnLoaded("Masque") then
+		E.private["actionbar"]["masque"]["stanceBar"] = true
+		E.private["actionbar"]["masque"]["petBar"] = true
+		E.private["actionbar"]["masque"]["actionbars"] = true
 	end
+	
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		E.db['benikui']['actionbars']['transparent'] = true
+		E.db['benikui']['actionbars']['toggleButtons']['enable'] = true
+		E.db['benikui']['actionbars']['toggleButtons']['chooseAb'] = "BAR1"
+		E.db['benikui']['actionbars']['requestStop'] = true
+	end
+	
+	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
+	E.db["actionbar"]["bar1"]["backdrop"] = true
+	E.db["actionbar"]["bar1"]["heightMult"] = 1
+	E.db["actionbar"]["bar1"]["buttonsize"] = 45
+	E.db["actionbar"]["bar1"]["buttons"] = 6
+	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+	
+	E.db["actionbar"]["bar2"]["enabled"] = true
+	E.db["actionbar"]["bar2"]["buttonspacing"] = 0
+	E.db["actionbar"]["bar2"]["buttons"] = 7
+	E.db["actionbar"]["bar2"]["buttonsize"] = 32
+	E.db["actionbar"]["bar2"]["backdrop"] = false
+	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
+	E.db["actionbar"]["bar2"]["mouseover"] = false
+	E.db["actionbar"]["bar2"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar2"]["showGrid"] = false
+	E.db["actionbar"]["bar2"]["heightMult"] = 1
+	
+	E.db["actionbar"]["bar3"]["backdrop"] = true
+	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar3"]["buttonsize"] = 24
+	E.db["actionbar"]["bar3"]["buttonspacing"] = 5
+	E.db["actionbar"]["bar3"]["buttons"] = 12
+	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
+	E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
+	
+	E.db["actionbar"]["bar4"]["enabled"] = true
+	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
+	E.db["actionbar"]["bar4"]["mouseover"] = true
+	E.db["actionbar"]["bar4"]["buttonsize"] = 24
+	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
+	
+	E.db["actionbar"]["bar5"]["backdrop"] = true
+	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar5"]["buttonsize"] = 24
+	E.db["actionbar"]["bar5"]["buttonspacing"] = 5
+	E.db["actionbar"]["bar5"]["buttons"] = 12
+	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
+	
+	E.db["actionbar"]["bar6"]["enabled"] = true
+	E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar6"]["buttons"] = 7
+	E.db["actionbar"]["bar6"]["buttonspacing"] = 0
+	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
+	E.db["actionbar"]["bar6"]["showGrid"] = false
+	
+	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["barPet"]["buttons"] = 8
+	E.db["actionbar"]["barPet"]["buttonspacing"] = 1
+	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
+	E.db["actionbar"]["barPet"]["buttonsize"] = 19
+	E.db["actionbar"]["barPet"]["mouseover"] = true
+	
+	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["stanceBar"]["backdrop"] = true
+	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
+	E.db["actionbar"]["stanceBar"]["buttonsize"] = 18
+	if E.myclass == "DRUID" then
+		E.db["actionbar"]["stanceBar"]["mouseover"] = true
+	else
+		E.db["actionbar"]["stanceBar"]["mouseover"] = false
+	end
+	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,5"
+	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-258,4"
+	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
+	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
+	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,258,4"
+	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
+	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
+	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,86"
+	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 
 	if InstallStepComplete then
 		InstallStepComplete.message = MER.Title..L['Actionbars Set']
@@ -527,10 +437,9 @@ local function SetupUnitframes(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisEmpty"
 		E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	end
-	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,141"
-	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-176,179"
-	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-313,141"
-	E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
+	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,141"
+	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,179"
+	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-323,141"
 	
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 180
@@ -618,9 +527,9 @@ local function SetupUnitframes(layout)
 		E.db['benikui']['unitframes']['target']['portraitStyle'] = true
 		E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 4
 	end
-	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,141"
-	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,176,179"
-	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,313,141"
+	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,186,141"
+	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,186,179"
+	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,323,141"
 	
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -629,7 +538,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 100
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = -1
-	E.db["unitframe"]["units"]["targettarget"]["height"] = 20
+	E.db["unitframe"]["units"]["targettarget"]["height"] = 32
 	E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["position"] = "TOP"
@@ -638,7 +547,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
-	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,163"
+	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,150"
 	
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 122
@@ -680,7 +589,7 @@ local function SetupUnitframes(layout)
 	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,234"
 	
 	-- Raid
-	E.db["unitframe"]["units"]["raid"]["height"] = 25
+	E.db["unitframe"]["units"]["raid"]["height"] = 24
 	E.db["unitframe"]["units"]["raid"]["width"] = 69
 	E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
 	E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
@@ -1076,16 +985,14 @@ function MER:SetupDts(role)
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		-- define BenikUI Datetexts
-		if role == 'tank' then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Attack Power"
-		elseif role == 'dpsMelee' then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Attack Power"
-		elseif role == 'healer' or 'dpsCaster' then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Spell/Heal Power"
-		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Orderhall"
+		if IsAddOnLoaded('ElvUI_SLE') then
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "S&L Currency"
+		else
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Gold"
+		end
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Time"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then
@@ -1094,14 +1001,9 @@ function MER:SetupDts(role)
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
 		end
 		
-		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "S&L Currency"
-		else
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Gold"
-		end
-		
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "MUI System"
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "Time"
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = ""
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = ""
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = ""
 		
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
@@ -1112,13 +1014,6 @@ function MER:SetupDts(role)
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
 	else
 		-- define the default ElvUI datatexts
-		if role == 'tank' then
-			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Attack Power"
-		elseif role == 'dpsMelee' then
-			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Attack Power"
-		elseif role == 'healer' or 'dpsCaster' then
-			E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "Spell/Heal Power"
-		end
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
 		
@@ -1192,17 +1087,8 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
 			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('tank') end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", _G["TANK"])
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupDts('healer') end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", _G["HEALER"])
-			PluginInstallFrame.Option3:Show()
-			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupDts('dpsMelee') end)
-			PluginInstallFrame.Option3:SetFormattedText("%s", L['Physical DPS'])
-			PluginInstallFrame.Option4:Show()
-			PluginInstallFrame.Option4:SetScript('OnClick', function() MER:SetupDts('dpsCaster') end)
-			PluginInstallFrame.Option4:SetFormattedText("%s", L['Caster DPS'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('role') end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Datatexts'])
 		end,
 		[5] = function()
 			PluginInstallFrame.SubTitle:SetText(L['ActionBars'])
@@ -1210,11 +1096,8 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
 			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERActionbars('small') end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup ActionBars'].." - 1")
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERActionbars('big') end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", L['Setup ActionBars'].." - 2")
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERActionbars() end)
+			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup ActionBars'])
 		end,
 		[6] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['UnitFrames'])

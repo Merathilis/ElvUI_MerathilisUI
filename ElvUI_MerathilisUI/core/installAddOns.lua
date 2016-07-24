@@ -200,7 +200,7 @@ function MER:SetupMERAddons()
 		E.db['benikui']['datatexts']['chat']['editBoxPosition'] = 'BELOW_CHAT'
 		E.db['benikui']['datatexts']['chat']['styled'] = false
 		E.db['benikui']['datatexts']['chat']['backdrop'] = true
-		E.db['benikui']['datatexts']['middle']['enable'] = true
+		E.db['benikui']['datatexts']['middle']['enable'] = false
 		E.db['benikui']['datatexts']['middle']['transparent'] = true
 		E.db['benikui']['datatexts']['middle']['backdrop'] = true
 		E.db['benikui']['datatexts']['middle']['width'] = 412
@@ -220,7 +220,7 @@ function MER:SetupMERAddons()
 		E.db['dashboards']['barColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 		E.db['dashboards']['system']['enableSystem'] = false
 		E.db['dashboards']['professions']['enableProfessions'] = false
-		E.db['dashboards']['tokens']['enableTokens'] = true
+		E.db['dashboards']['tokens']['enableTokens'] = false
 		E.db['dashboards']['tokens']['tooltip'] = false
 		E.db['dashboards']['tokens']['flash'] = false
 		E.db['dashboards']['tokens']['width'] = 130
@@ -362,7 +362,7 @@ function MER:SetupMERAddons()
 			E.db["sle"]["dt"]["hide_gmotd"] = false
 			E.db["sle"]["dt"]["totals"] = true
 			E.db["sle"]["dt"]["combat"] = false
-			E.db["sle"]["uibuttons"]["enable"] = true
+			E.db["sle"]["uibuttons"]["enable"] = false
 			E.db["sle"]["uibuttons"]["point"] = "TOP"
 			E.db["sle"]["uibuttons"]["menuBackdrop"] = true
 			E.db["sle"]["uibuttons"]["orientation"] = "vertical"
@@ -384,7 +384,7 @@ function MER:SetupMERAddons()
 			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 			E.private["sle"]["professions"]["deconButton"]["enable"] = false
 			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-275"
+			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-185"
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
 			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-6"
