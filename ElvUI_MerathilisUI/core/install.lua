@@ -532,7 +532,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["power"]["position"] = "CENTER"
-	E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 5
+	E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 6
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 100
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 32
