@@ -104,7 +104,7 @@ local function SetupMERLayout(layout)
 		E.private["auras"]["masque"]["buffs"] = true
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
-	E.db["auras"]["debuffs"]["size"] = 38
+	E.db["auras"]["debuffs"]["size"] = 42
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Roboto-Black"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
