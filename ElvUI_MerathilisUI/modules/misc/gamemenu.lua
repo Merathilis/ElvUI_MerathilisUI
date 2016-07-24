@@ -48,15 +48,6 @@ local npc = {
 
 function MER:GameMenu()
 	-- GameMenu Frame
-	local lib = LibStub('LibElv-GameMenu-1.0')
-	local button = {
-		["name"] = "MerConfigButton",
-		["text"] = "|cffff7d0aMerathilisUI|r",
-		["func"] = function() MER:DasOptions() PlaySound("igMainMenuOption") HideUIPanel(GameMenuFrame) end,
-	}
-	lib:AddMenuButton(button)
-	lib:UpdateHolder()
-	
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local bottomPanel = GameMenuFrame.MUIbottomPanel

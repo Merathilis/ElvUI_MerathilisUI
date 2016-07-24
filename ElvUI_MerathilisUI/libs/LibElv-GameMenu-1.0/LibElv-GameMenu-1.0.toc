@@ -1,7 +1,0 @@
-## Interface: 60200
-## Author: Darth Predator
-## Version: 1.0
-## Title: Lib GameMenu 1.0
-## RequiredDeps: ElvUI
-
-LibElv-GameMenu-1.0.lua
