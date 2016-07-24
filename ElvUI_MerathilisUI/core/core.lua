@@ -137,6 +137,23 @@ local function dbCleaning()
 	E.db.mui.dbCleaned = true
 end
 
+function MER:IncompatibleAddOn(addon, module, optiontable, value)
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button1 = addon
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button2 = 'MER: '..module
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].addon = addon
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].module = module
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].optiontable = optiontable
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value = value
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].showAlert = true
+	E:StaticPopup_Show('MER_INCOMPATIBLE_ADDON', addon, module)
+end
+
+function MER:CheckIncompatible()
+	if IsAddOnLoaded('ElvUI_LocPlus') and E.db.sle.minimap.locPanel.enable then
+		E:StaticPopup_Show('LOCATION_PLUS_INCOMPATIBLE')
+	end
+end
+
 function MER:Initialize()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -146,6 +163,7 @@ function MER:Initialize()
 	self:RegisterMerMedia()
 	self:LoadCommands()
 	self:LoadGameMenu()
+	self:CheckIncompatible()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
