@@ -146,6 +146,10 @@ local function SetupMERLayout(layout)
 	E.db["nameplates"]["fontOutline"] = 'OUTLINE'
 	E.db["nameplates"]['targetScale'] = 1.05
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
 	
 	-- Tooltip
