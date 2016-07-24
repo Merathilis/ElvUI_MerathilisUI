@@ -1,6 +1,8 @@
-<b><u> v2.02, xx.xx.2016</b></u>
+<b><u> v2.02, 24.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix a lua error.
 <font color=#FF8C00>&#9830;</font> Install: Adjust some SLE settings.
+<font color=#FF8C00>&#9830;</font> Install: Adjust the Layout. I hope you like it.
+<font color=#FF8C00>&#9830;</font> Misc: Add an incompatibily check if LocPlus and Shadow & Light (LocPanel) are enable at the same time.
 
 <b><u> v2.01, 21.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Add some general ElvUI options.

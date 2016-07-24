@@ -1,6 +1,8 @@
 ** v2.02, xx.xx.2016**
 * Install: Fix a lua error.
 * Install: Adjust some SLE settings.
+* Install: Adjust the Layout. I hope you like it.
+* Misc: Add an incompatibily check if LocPlus and Shadow & Light (LocPanel) are enable at the same time.
 
 \\ \\
 ** v2.01, 21.07.2016**
