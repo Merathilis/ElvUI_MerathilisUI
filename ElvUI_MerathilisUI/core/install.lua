@@ -28,18 +28,17 @@ local function SetupMERLayout(layout)
 	E.private["general"]["pixelPerfect"] = true
 	E.global["general"]["autoScale"] = true
 	E.private["general"]["chatBubbles"] = "nobackdrop"
-	E.private["general"]["chatBubbleFont"] = "Merathilis Prototype"
+	E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 	E.private["general"]["chatBubbleFontSize"] = 11
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.db["general"]["valuecolor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	E.db["general"]["totems"]["size"] = 36
-	E.db["general"]["font"] = "Merathilis Prototype"
+	E.db["general"]["font"] = "Merathilis Roboto-Black"
 	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["size"] = 150
 	E.db["general"]["minimap"]["locationText"] = "HIDE"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
-	E.db["general"]["minimap"]["icons"]["classHall"]["hide"] = true
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
@@ -54,8 +53,8 @@ local function SetupMERLayout(layout)
 	E.db["general"]["backdropfadecolor"]["r"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
-	E.private["general"]["namefont"] = "Merathilis PrototypeRU"
-	E.private["general"]["dmgfont"] = "Merathilis Prototype"
+	E.private["general"]["namefont"] = "Merathilis Roboto-Black"
+	E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
 	E.db["databars"]["experience"]["enable"] = true
@@ -107,7 +106,7 @@ local function SetupMERLayout(layout)
 	end
 	E.db["auras"]["debuffs"]["size"] = 38
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Prototype"
+	E.db["auras"]["font"] = "Merathilis Roboto-Black"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["buffs"]["fontSize"] = 12
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
@@ -120,10 +119,10 @@ local function SetupMERLayout(layout)
 	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-131"
 	
 	-- Bags
-	E.db["bags"]["itemLevelFont"] = "Merathilis Prototype"
+	E.db["bags"]["itemLevelFont"] = "Merathilis Roboto-Black"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = 'OUTLINE'
-	E.db["bags"]["countFont"] = "Merathilis Prototype"
+	E.db["bags"]["countFont"] = "Merathilis Roboto-Black"
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["yOffsetBank"] = -3
@@ -141,7 +140,7 @@ local function SetupMERLayout(layout)
 
 	-- Nameplates
 	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
-	E.db["nameplates"]["font"] = "Merathilis Expressway"
+	E.db["nameplates"]["font"] = "Merathilis Roboto-Black"
 	E.db["nameplates"]["fontSize"] = 10
 	E.db["nameplates"]["fontOutline"] = 'OUTLINE'
 	E.db["nameplates"]['targetScale'] = 1.05
@@ -195,13 +194,12 @@ local function SetupMERChat(layout)
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
 	
-	-- Chat
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
-	E.db["chat"]["tabFont"] = "Merathilis Prototype"
+	E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
 	E.db["chat"]["tabFontOutline"] = "OUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 	E.db["chat"]["panelTabTransparency"] = true
-	E.db["chat"]["fontOutline"] = "OUTLINE"
+	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
 	E.db["chat"]["font"] = "Merathilis Expressway"
 	E.db["chat"]["panelWidth"] = 350
@@ -231,9 +229,9 @@ local function SetupMERChat(layout)
 end
 
 local function SetupMERActionbars(layout)
-	-- Actionbars
-	E.db["actionbar"]["font"] = "Merathilis Prototype"
+	E.db["actionbar"]["font"] = "Merathilis Roboto-Black"
 	E.db["actionbar"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["fontSize"] = 10
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
@@ -335,7 +333,6 @@ local function SetupMERActionbars(layout)
 end
 
 local function SetupUnitframes(layout)
-	-- Unitframes
 	E.db["unitframe"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["fontSize"] = 12
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
@@ -951,15 +948,14 @@ local function SetupUnitframes(layout)
 end
 
 function MER:SetupDts(role)
-	-- Data Texts
-	E.db["datatexts"]["font"] = "Merathilis Roadway"
-	E.db["datatexts"]["fontSize"] = 13
+	E.db["datatexts"]["font"] = "Merathilis Roboto-Black"
+	E.db["datatexts"]["fontSize"] = 10
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	E.db["datatexts"]["time24"] = true
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["panelTransparency"] = true
-	E.db["datatexts"]["wordWrap"] = false
+	E.db["datatexts"]["wordWrap"] = true
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		E.db["datatexts"]["leftChatPanel"] = false

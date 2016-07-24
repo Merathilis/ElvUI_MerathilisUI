@@ -137,6 +137,7 @@ L['Please click the button below to setup your addons.'] = "Bitte drücke die Ta
 L['Setup ActionBars'] = "Aktionsleisten einstellen"
 L['Setup Unitframes'] = "Einheitenfenster einstellen"
 L['DataTexts'] = "Infotexte"
+L['Setup Datatexts'] = "Infotexte einstellen"
 L['Setup Addons'] = "Addons einstellen"
 L['Finish'] = "Fertig"
 L['Installed'] = "Installiert"

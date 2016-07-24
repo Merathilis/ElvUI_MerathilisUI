@@ -137,6 +137,7 @@ L['Please click the button below to setup your addons.'] = true
 L['Setup ActionBars'] = true
 L['Setup Unitframes'] = true
 L['DataTexts'] = true
+L['Setup Datatexts'] = true
 L['Setup Addons'] = true
 L['Finish'] = true
 L['Installed'] = true

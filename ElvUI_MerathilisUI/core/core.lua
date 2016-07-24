@@ -44,7 +44,6 @@ end
 
 function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
-	self:RegisterChatCommand("muisetup", "SetupUI")
 end
 
 function MER:RegisterMerMedia()
