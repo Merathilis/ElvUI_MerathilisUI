@@ -532,7 +532,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
 	E.db["unitframe"]["units"]["targettarget"]["power"]["position"] = "CENTER"
-	E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 4
+	E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["targettarget"]["width"] = 100
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = -1
 	E.db["unitframe"]["units"]["targettarget"]["height"] = 32
@@ -893,7 +893,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["width"] = 156
-	E.db["unitframe"]["units"]["boss"]["height"] = 40
+	E.db["unitframe"]["units"]["boss"]["height"] = 26
 	E.db["unitframe"]["units"]["boss"]["spacing"] = 27
 	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
 	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
