@@ -318,12 +318,12 @@ local function SetupMERActionbars(layout)
 		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
-	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,5"
-	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-258,4"
+	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,3"
+	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-258,2"
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,258,4"
+	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,258,2"
 	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
 	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
 	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,86"
