@@ -271,6 +271,7 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["bar2"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar2"]["showGrid"] = false
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
+	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
@@ -300,6 +301,10 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["bar6"]["buttonspacing"] = 0
 	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar6"]["showGrid"] = false
+	E.db["actionbar"]["bar6"]["mouseover"] = false
+	E.db["actionbar"]["bar6"]["buttonsize"] = 32
+	E.db["actionbar"]["bar6"]["backdrop"] = false
+	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 12
 	
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["buttons"] = 8
