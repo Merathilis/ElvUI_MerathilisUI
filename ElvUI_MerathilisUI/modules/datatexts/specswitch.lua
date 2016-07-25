@@ -5,6 +5,7 @@ local DT = E:GetModule('DataTexts')
 -- Lua functions
 local _G = _G
 local select = select
+local twipe = table.wipe
 local format = string.format
 local join = string.join
 -- WoW API / Variables
@@ -21,9 +22,14 @@ local GetLootSpecialization = GetLootSpecialization
 local CreateFrame = CreateFrame
 local SELECT_LOOT_SPECIALIZATION = SELECT_LOOT_SPECIALIZATION
 local LOOT_SPECIALIZATION_DEFAULT = LOOT_SPECIALIZATION_DEFAULT
+local InCombatLockdown = InCombatLockdown
+local IsShiftKeyDown = IsShiftKeyDown
+local LoadAddOn = LoadAddOn
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: LOOT, SPECIALIZATION, EasyMenu
+-- GLOBALS: LOOT, SPECIALIZATION, EasyMenu, SpecButton_OnClick, PlayerTalentFrame
+-- GLOBALS: PlayerTalentFrameSpecializationLearnButton, ShowUIPanel, HideUIPanel
+-- GLOBALS: StaticPopup_Show
 
 local lastPanel, active
 local displayString = '';
@@ -118,55 +124,57 @@ local function OnEvent(self, event)
 end
 
 local function OnEnter(self)
-	DT:SetupTooltip(self)
-	
-	DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SPECIALIZATION))
-	for i = 1, GetNumSpecGroups() do
-		if GetSpecialization(false, false, i) then
-			local specID, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
-			local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-			DT.tooltip:AddDoubleLine( format("%s %s", icon, name), ( i == active and activeString or inactiveString) )
-		end
-	end
-	
-	DT.tooltip:AddLine(' ')
-	local specialization = GetLootSpecialization()
-	if specialization == 0 then
-		local specIndex = GetSpecialization();
+	if not InCombatLockdown() then
+		DT:SetupTooltip(self)
 		
-		if specIndex then
-			local specID, name, _, texture = GetSpecializationInfo(specIndex);
-			local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-			DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SELECT_LOOT_SPECIALIZATION))
-			DT.tooltip:AddLine(format(join("", "%s ", LOOT_SPECIALIZATION_DEFAULT), icon, name))
+		DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SPECIALIZATION))
+		for i = 1, GetNumSpecGroups() do
+			if GetSpecialization(false, false, i) then
+				local specID, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+				DT.tooltip:AddDoubleLine( format("%s %s", icon, name), ( i == active and activeString or inactiveString) )
+			end
 		end
-	else
-		local specID, name, _, texture = GetSpecializationInfoByID(specialization);
-		if specID then
-			local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-			DT.tooltip:AddLine(format('|cffFFFFFF%s:|r' , SELECT_LOOT_SPECIALIZATION))
-			DT.tooltip:AddLine(format('%s %s', icon, name))
-		end
-	end
-	
-	if not (GetNumEquipmentSets() == 0) then
+		
 		DT.tooltip:AddLine(' ')
-		DT.tooltip:AddLine(join("", "|cffFFFFFF" , _G.BAG_FILTER_EQUIPMENT, ":|r"))
-		
-		for i = 1, GetNumEquipmentSets() do
-			local name, texture, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
-			local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
-			DT.tooltip:AddDoubleLine(format('%s %s', icon, name), (isEquipped and activeString or inactiveString) )
+		local specialization = GetLootSpecialization()
+		if specialization == 0 then
+			local specIndex = GetSpecialization();
+			
+			if specIndex then
+				local specID, name, _, texture = GetSpecializationInfo(specIndex);
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+				DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SELECT_LOOT_SPECIALIZATION))
+				DT.tooltip:AddLine(format(join("", "%s ", LOOT_SPECIALIZATION_DEFAULT), icon, name))
+			end
+		else
+			local specID, name, _, texture = GetSpecializationInfoByID(specialization);
+			if specID then
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+				DT.tooltip:AddLine(format('|cffFFFFFF%s:|r' , SELECT_LOOT_SPECIALIZATION))
+				DT.tooltip:AddLine(format('%s %s', icon, name))
+			end
 		end
 		
+		if GetNumEquipmentSets() > 0 then
+			DT.tooltip:AddLine(' ')
+			DT.tooltip:AddLine(join("", "|cffFFFFFF" , _G.BAG_FILTER_EQUIPMENT, ":|r"))
+			
+			for i = 1, GetNumEquipmentSets() do
+				local name, texture, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture or "")
+				DT.tooltip:AddDoubleLine(format('%s %s', icon, name), (isEquipped and activeString or inactiveString))
+			end
+			
+		end
+		
+		DT.tooltip:AddLine(' ')
+		DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
+		DT.tooltip:AddLine(L["|cffFFFFFFShift + Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
+		DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
+		
+		DT.tooltip:Show()
 	end
-	
-	DT.tooltip:AddLine(' ')
-	DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
-	DT.tooltip:AddLine(L["|cffFFFFFFShift + Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
-	DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
-	
-	DT.tooltip:Show()
 end
 
 local function SetSpec(id)
@@ -219,7 +227,7 @@ local function OnClick(self, button)
 		for index = 1, 4 do
 			local id, name, _, texture = GetSpecializationInfo(index);
 			if ( id ) then
-				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture or "")
 				menuList[index + 1].text = join("",icon," ", name)
 				menuList[index + 1].func = specializationClick
 				menuList[index + 1].arg1 = id
@@ -230,11 +238,11 @@ local function OnClick(self, button)
 			end
 		end
 		
+		twipe(setList)
 		if (GetNumEquipmentSets() >= 1) then 
-			
 			for i = 1, GetNumEquipmentSets() do
 				local name, texture, _, isEquipped, _, _, _, _, _ = GetEquipmentSetInfo(i)
-				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
+				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture or "")
 				
 				setList[i]={}
 				setList[i].notCheckable = false
