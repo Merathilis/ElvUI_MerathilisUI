@@ -9,9 +9,7 @@ local ipairs, unpack = ipairs, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
-local DecorElvUIAddons = {
-	{'ElvUI_SLE', L["Shadow & Light"], 'sle'},
-}
+local DecorElvUIAddons = {}
 
 local DecorAddons = {
 	{'MasterPlan', L["MasterPlan"], 'mp'},
