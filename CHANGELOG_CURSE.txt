@@ -1,3 +1,10 @@
+** v2.03, 25.07.2016**
+* Remove GameMenu Button. (ElvUI's Button is enough)
+* Fix a lua error in speccswitch datatext if there is no texture selected.
+* Install: Add missing settings for ActionBar6. (damn it)
+* Skins: Delete skining of SLE, will be part in BenikUI.
+* Skins: Add skins for gossip frame & quest frame (taken from AddOnSkins)
+
 ** v2.02, 24.07.2016**
 * Install: Fix a lua error.
 * Install: Adjust some SLE settings.

@@ -1,3 +1,10 @@
+<b><u> v2.03, 25.07.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Remove GameMenu Button. (ElvUI's Button is enough)
+<font color=#FF8C00>&#9830;</font> Fix a lua error in speccswitch datatext if there is no texture selected. (<a href="http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues/15">#15</a>)
+<font color=#FF8C00>&#9830;</font> Install: Add missing settings for ActionBar6. (damn it)
+<font color=#FF8C00>&#9830;</font> Skins: Delete skining of SLE, will be part in BenikUI.
+<font color=#FF8C00>&#9830;</font> Skins: Add skins for gossip frame & quest frame (taken from AddOnSkins)
+
 <b><u> v2.02, 24.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix a lua error.
 <font color=#FF8C00>&#9830;</font> Install: Adjust some SLE settings.
