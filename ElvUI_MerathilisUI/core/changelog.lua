@@ -18,7 +18,8 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.04|r, xx.07.2016
 
-|cffff7d0a•|r Add an inGame Changelog (thx Blazeflack for helping me). 
+ |cffff7d0a•|r Add an inGame Changelog (thx Blazeflack for helping me).
+ |cffff7d0a•|r Install: Enable AB3 + 5 better safe than sorry.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
@@ -41,8 +42,8 @@ title:SetTemplate("Transparent")
 MER:CreateSoftShadow(title)
 
 title.text = title:CreateFontString(nil, "OVERLAY")
-title.text:SetPoint("CENTER", title, 0, -1)
-title.text:SetFont(LSM:Fetch("font", 'Merathilis Prototype'), 15, 'OUTLINE')
+title.text:SetPoint("CENTER", title, 0, 0)
+title.text:SetFont(LSM:Fetch("font", "Merathilis Prototype"), 14, "OUTLINE")
 title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
 title.style = CreateFrame("Frame", nil, title)
@@ -68,7 +69,7 @@ S:HandleCloseButton(close)
 local data = frame:CreateFontString(nil, "OVERLAY")
 data:SetPoint("TOP", frame, "TOP", 0, -5)
 data:SetWidth(frame:GetRight() - frame:GetLeft() - 10)
-data:FontTemplate(E['media'].muiFont, 11)
+data:FontTemplate(E['media'].muiFont, 11, "OUTLINE")
 data:SetText(ChangeLogData)
 data:SetJustifyH("LEFT")
 frame:SetHeight(data:GetHeight() + 30)
