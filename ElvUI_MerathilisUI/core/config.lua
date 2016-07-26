@@ -98,7 +98,7 @@ local function AddOptions()
 			info = {
 				order = 20,
 				type = 'group',
-				name = L['Information'],
+				name = L['Information']..MER.NewSign,
 				args = {
 					name = {
 						order = 1,
@@ -177,7 +177,7 @@ local function AddOptions()
 					changelog = {
 						order = 6,
 						type = 'group',
-						name = MER:cOption(L['Changelog']),
+						name = MER:cOption(L['Changelog'])..MER.NewSign,
 						guiInline = true,
 						args = {
 							changelog = {
