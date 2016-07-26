@@ -44,8 +44,8 @@ title:SetTemplate("Transparent")
 MER:CreateSoftShadow(title)
 
 title.text = title:CreateFontString(nil, "OVERLAY")
-title.text:SetPoint("CENTER", title, 0, 0)
-title.text:SetFont(LSM:Fetch("font", 'Merathilis Prototype'), 16, 'OUTLINE')
+title.text:SetPoint("CENTER", title, 0, -1)
+title.text:SetFont(LSM:Fetch("font", 'Merathilis Prototype'), 15, 'OUTLINE')
 title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
 title.style = CreateFrame("Frame", nil, title)
@@ -84,3 +84,16 @@ function MER:ToggleChangeLog()
 		PlaySound("igMainMenuOptionCheckBoxOff")
 	end
 end
+
+function MER:OnCheckVersion(self)
+	if not MerathilisUIData["Version"] or (MerathilisUIData["Version"] and MerathilisUIData["Version"] ~= MER.Version) then
+		MerathilisUIData["Version"] = MER.Version
+		MerathilisUIChangeLog:Show()
+	end
+end
+
+ChangeLog:RegisterEvent("ADDON_LOADED")
+ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
+ChangeLog:SetScript("OnEvent", function(self, event, ...)
+	MER:OnCheckVersion()
+end)

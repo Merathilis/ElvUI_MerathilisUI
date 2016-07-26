@@ -6,6 +6,7 @@
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
+## SavedVariables: MerathilisUIData
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE
 ## X-ElvVersion: 10.09
 ## X-Tukui-ProjectID: 286
