@@ -16,13 +16,10 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.03|r, 25.07.2016
+local ChangeLogData = [=[|cffff7d0av2.04|r, xx.07.2016
 
-|cffff7d0a•|r Remove GameMenu Button. (ElvUI's Button is enough) 
-|cffff7d0a•|r Fix a lua error in speccswitch datatext if there is no texture selected. 
-|cffff7d0a•|r Install: Add missing settings for ActionBar6. (damn it) 
-|cffff7d0a•|r Skins: Delete skining of SLE, will be part in BenikUI. 
-|cffff7d0a•|r Skins: Add skins for gossip frame & quest frame (taken from AddOnSkins)]=];
+|cffff7d0a•|r Add an inGame Changelog (thx Blazeflack for helping me). 
+]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 frame:SetPoint("CENTER")
