@@ -273,6 +273,7 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	
+	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
 	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
 	E.db["actionbar"]["bar3"]["buttonsize"] = 24
@@ -287,6 +288,7 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["bar4"]["buttonsize"] = 24
 	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
 	
+	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
 	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
 	E.db["actionbar"]["bar5"]["buttonsize"] = 24
@@ -322,6 +324,7 @@ local function SetupMERActionbars(layout)
 	else
 		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
+	E.db["actionbar"]["microbar"]["enabled"] = false
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
 	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,3"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-258,2"
