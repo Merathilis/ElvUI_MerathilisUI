@@ -12,6 +12,9 @@ local CreateFrame = CreateFrame
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UISpecialFrames
 
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.03|r, 25.07.2016
 
@@ -39,10 +42,23 @@ title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
 title:SetSize(400, 20)
 title:SetTemplate("Transparent")
 MER:CreateSoftShadow(title)
+
 title.text = title:CreateFontString(nil, "OVERLAY")
 title.text:SetPoint("CENTER", title, 0, 0)
 title.text:SetFont(LSM:Fetch("font", 'Merathilis Prototype'), 16, 'OUTLINE')
 title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
+
+title.style = CreateFrame("Frame", nil, title)
+title.style:SetTemplate("Default", true)
+title.style:SetFrameStrata("TOOLTIP")
+title.style:SetInside()
+title.style:Point("TOPLEFT", title, "BOTTOMLEFT", 0, 1)
+title.style:Point("BOTTOMRIGHT", title, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
+
+title.style.color = title.style:CreateTexture(nil, 'ARTWORK')
+title.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+title.style.color:SetInside()
+title.style.color:SetTexture(flat)
 
 local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
 close:Point("TOPRIGHT", frame, "TOPRIGHT", 0, 26)
