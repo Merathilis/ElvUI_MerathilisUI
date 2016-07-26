@@ -43,7 +43,7 @@ MER:CreateSoftShadow(title)
 
 title.text = title:CreateFontString(nil, "OVERLAY")
 title.text:SetPoint("CENTER", title, 0, 0)
-title.text:SetFont(LSM:Fetch("font", "Merathilis Prototype"), 14, "OUTLINE")
+title.text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
 title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
 title.style = CreateFrame("Frame", nil, title)
