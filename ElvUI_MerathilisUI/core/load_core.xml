@@ -6,4 +6,5 @@
 	<Script file="installAddOns.lua"/>
 	<Script file="staticpopup.lua"/>
 	<Script file="style.lua"/>
+	<Script file="changelog.lua"/>
 </Ui>

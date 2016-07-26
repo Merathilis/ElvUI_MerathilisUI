@@ -151,3 +151,6 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["BigWigs"] = true
 L["MasterPlan"] = true
 L["Shadow & Light"] = true
+
+-- Changelog
+L['Changelog'] = true

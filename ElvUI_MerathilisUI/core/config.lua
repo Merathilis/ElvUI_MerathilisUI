@@ -174,6 +174,20 @@ local function AddOptions()
 							},
 						},
 					},
+					changelog = {
+						order = 6,
+						type = 'group',
+						name = MER:cOption(L['Changelog']),
+						guiInline = true,
+						args = {
+							changelog = {
+								order = 1,
+								type = 'execute',
+								name = L['Changelog'],
+								func = function() MER:ToggleChangeLog(); E:ToggleConfig() end,
+							},
+						},
+					}, 
 				},
 			},
 		},
