@@ -2,6 +2,11 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 if LSM == nil then return end
 
+-- Backgrounds
+LSM:Register("background", "RageGuy", [[Interface\Addons\ElvUI_MerathilisUI\media\background\RageGuy.tga]]) 
+LSM:Register("background", "RageGuyFu", [[Interface\Addons\ElvUI_MerathilisUI\media\background\RageGuyFu.tga]]) 
+
+-- Fonts
 LSM:Register('font','Merathilis Prototype', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\PROTOTYPE.TTF]])
 LSM:Register('font','Merathilis PrototypeRU', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\PROTOTYPE_RU.TTF]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register('font','Merathilis Visitor1', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\visitor1.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
@@ -13,6 +18,8 @@ LSM:Register('font','Merathilis Roadway', [[Interface\AddOns\ElvUI_MerathilisUI\
 LSM:Register('font','Merathilis Expressway', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Expressway.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register('font','Merathilis Default', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\default.ttf]])
 LSM:Register('font','Merathilis Roboto-Black', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Black.ttf]])
+
+-- Statusbars
 LSM:Register('statusbar','MerathilisFlat', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])
 LSM:Register('statusbar','MerathilisOnePixel', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\OnePixel.tga]])
 LSM:Register('statusbar','MerathilisMelli', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Melli.tga]])
@@ -57,4 +64,6 @@ LSM:Register('statusbar','RenFeintDark', [[Interface\AddOns\ElvUI_MerathilisUI\m
 LSM:Register('statusbar','RenFeintDouble', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenFeintDouble.tga]])
 LSM:Register('statusbar','RenHorizonDown', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenHorizonDown.tga]])
 LSM:Register('statusbar','RenHorizonUp', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\RenHorizonUp.tga]])
+
+-- Sounds
 LSM:Register('sounds','warning', [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])
