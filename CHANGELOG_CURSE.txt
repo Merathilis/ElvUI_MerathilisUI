@@ -1,3 +1,6 @@
+** v2.04, xx.xx.2016**
+* Add an inGame Changelog (thx Blazeflack for helping me)
+
 ** v2.03, 25.07.2016**
 * Remove GameMenu Button. (ElvUI's Button is enough)
 * Fix a lua error in speccswitch datatext if there is no texture selected.

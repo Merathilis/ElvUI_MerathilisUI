@@ -1,3 +1,6 @@
+<b><u> v2.04, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Add an inGame Changelog (thx Blazeflack for helping me)
+
 <b><u> v2.03, 25.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Remove GameMenu Button. (ElvUI's Button is enough)
 <font color=#FF8C00>&#9830;</font> Fix a lua error in speccswitch datatext if there is no texture selected. (<a href="http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues/15">#15</a>)
