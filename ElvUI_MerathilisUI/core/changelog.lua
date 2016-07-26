@@ -31,12 +31,14 @@ frame:RegisterForDrag("LeftButton")
 frame:SetScript("OnDragStart", frame.StartMoving)
 frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 frame:SetClampedToScreen(true)
+MER:CreateSoftShadow(frame)
 frame:Hide()
 
 local title = CreateFrame("Frame", nil, frame)
 title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
 title:SetSize(400, 20)
 title:SetTemplate("Transparent")
+MER:CreateSoftShadow(title)
 title.text = title:CreateFontString(nil, "OVERLAY")
 title.text:SetPoint("CENTER", title, 0, 0)
 title.text:SetFont(LSM:Fetch("font", 'Merathilis Prototype'), 16, 'OUTLINE')
@@ -62,5 +64,6 @@ function MER:ToggleChangeLog()
 		MerathilisUIChangeLog:Hide()
 	else
 		MerathilisUIChangeLog:Show()
+		PlaySound("igMainMenuOptionCheckBoxOff")
 	end
 end
