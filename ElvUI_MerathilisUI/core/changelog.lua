@@ -21,6 +21,7 @@ local ChangeLogData = [=[|cffff7d0av2.04|r, xx.07.2016
  |cffff7d0a•|r Add an inGame Changelog (thx Blazeflack for helping me).
  |cffff7d0a•|r Install: Enable AB3 + 5 better safe than sorry.
  |cffff7d0a•|r Install: Change the goldformat to 'CONDENSED'.
+ |cffff7d0a•|r Install: Switch Datatext position of S&L Currency + MUI System.
  |cffff7d0a•|r Remove fix for blank tooltip. Part of ElvUI now.
 ]=];
 

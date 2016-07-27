@@ -1002,11 +1002,11 @@ function MER:SetupDts(role)
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
 		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "S&L Currency"
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "MUI System"
 		else
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Gold"
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "MUI System"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Currency"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		if IsAddOnLoaded('Skada') then

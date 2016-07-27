@@ -2,6 +2,7 @@
 * Add an inGame Changelog (thx Blazeflack for helping me).
 * Install: Enable AB3 + 5 better safe than sorry.
 * Install: Change the goldformat to 'CONDENSED'.
+* Install: Switch Datatext position of S&L Currency + MUI System.
 * Remove fix for blank tooltip. Part of ElvUI now.
 
 ** v2.03, 25.07.2016**
