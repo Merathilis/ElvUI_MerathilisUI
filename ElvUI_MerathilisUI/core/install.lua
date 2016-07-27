@@ -135,7 +135,7 @@ local function SetupMERLayout(layout)
 	E.db["bags"]["bagWidth"] = 350
 	E.db["bags"]["bankSize"] = 23
 	E.db["bags"]["bankWidth"] = 350
-	E.db["bags"]["moneyFormat"] = "BLIZZARD"
+	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 650
 	E.db["bags"]["junkIcon"] = true
 
@@ -965,6 +965,7 @@ function MER:SetupDts(role)
 	E.db["datatexts"]["fontSize"] = 10
 	E.db["datatexts"]["fontOutline"] = "OUTLINE"
 	E.db["datatexts"]["time24"] = true
+	E.db["datatexts"]["goldFormat"] = "CONDENSED"
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["panelTransparency"] = true
