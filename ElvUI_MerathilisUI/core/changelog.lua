@@ -16,13 +16,14 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.04|r, xx.07.2016
+local ChangeLogData = [=[|cffff7d0av2.04|r, 28.07.2016
 
  |cffff7d0a•|r Add an inGame Changelog (thx Blazeflack for helping me).
  |cffff7d0a•|r Install: Enable AB3 + 5 better safe than sorry.
  |cffff7d0a•|r Install: Change the goldformat to 'CONDENSED'.
  |cffff7d0a•|r Install: Switch Datatext position of S&L Currency + MUI System.
  |cffff7d0a•|r Remove fix for blank tooltip. Part of ElvUI now.
+ |cffff7d0a•|r Skins: Update quest skin.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
