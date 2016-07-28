@@ -332,9 +332,9 @@ local function SetupMERActionbars(layout)
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
 	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,258,2"
-	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,62"
+	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,75"
 	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
-	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,86"
+	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 
 	if InstallStepComplete then
