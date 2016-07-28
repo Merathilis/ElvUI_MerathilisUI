@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 
 -- Cache global variables
@@ -28,14 +29,22 @@ local function styleQuest()
 		self.spellTex:SetTexture("")
 	end)
 
+	QuestGreetingScrollFrame:StripTextures(true)
+	GreetingText:SetTextColor(1, 1, 1)
+	GreetingText.SetTextColor = MER.dummy
+
+	AvailableQuestsText:SetTextColor(1, 1, 1)
+	AvailableQuestsText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetShadowColor(0, 0, 0)
+
+	CurrentQuestsText:SetTextColor(1, 1, 1)
+	CurrentQuestsText.SetTextColor = MER.dummy
+	CurrentQuestsText:SetShadowColor(0, 0, 0)
+
 	QuestMapFrame.DetailsFrame:StripTextures(true)
 
 	if QuestProgressScrollFrame.spellTex then
 		QuestProgressScrollFrame.spellTex:SetTexture("")
-	end
-
-	if QuestGreetingScrollFrame.spellTex then
-		QuestGreetingScrollFrame.spellTex:SetTexture("")
 	end
 
 	hooksecurefunc('QuestInfoItem_OnClick', function(self)
@@ -49,13 +58,6 @@ local function styleQuest()
 		QuestProgressRequiredItemsText:SetTextColor(1, 1, 0)
 		QuestProgressRequiredMoneyText:SetTextColor(1, 1, 0)
 	end)
-
-	QuestFrameGreetingPanel:StripTextures()
-	QuestGreetingScrollFrame:StripTextures()
-	QuestGreetingFrameHorizontalBreak:Kill()
-	GreetingText:SetTextColor(1, 1, 1)
-	CurrentQuestsText:SetTextColor(1, 1, 0)
-	AvailableQuestsText:SetTextColor(1, 1, 0)
 
 	for i = 1, MAX_NUM_QUESTS do
 		local button = _G['QuestTitleButton'..i]
@@ -140,7 +142,6 @@ f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, addon)
 	if addon == "ElvUI_MerathilisUI" then
 		E:Delay(1, styleQuest)
-		print("Geladen")
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)

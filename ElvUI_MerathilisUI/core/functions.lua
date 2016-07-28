@@ -31,6 +31,7 @@ local StorePurchaseAlertFrame_ShowAlert = _G["StorePurchaseAlertFrame_ShowAlert"
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
+MER.dummy = function() return end
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 
 function MER:MismatchText()
