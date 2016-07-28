@@ -27,7 +27,7 @@ local ChangeLogData = [=[|cffff7d0av2.04|r, 28.07.2016
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-frame:SetPoint("CENTER")
+frame:SetPoint("CENTER", E.UIParent, "CENTER", 0, 200)
 frame:SetSize(400, 300)
 frame:SetTemplate("Transparent")
 frame:SetMovable(true)
