@@ -230,7 +230,6 @@ function MER:SetupMERAddons()
 	end
 
 	-- ElvUI_SLE
-	-- This needs to be redone!!
 	if E.db.sle == nil then E.db.sle = {} end
 	if IsAddOnLoaded("ElvUI_SLE") then
 		E.db["sle"]["raidmarkers"]["enable"] = false
@@ -321,20 +320,20 @@ function MER:SetupMERAddons()
 		E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
 		E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
 		E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
-		E.db["sle"]["minimap"]["locPanel"]["enable"] = true
-		E.db["sle"]["minimap"]["locPanel"]["display"] = "SHOW"
-		E.db["sle"]["minimap"]["locPanel"]["format"] = "%.0f"
-		E.db["sle"]["minimap"]["locPanel"]["font"] = "Merathilis Roboto-Black"
-		E.db["sle"]["minimap"]["locPanel"]["fontSize"] = 12
-		E.db["sle"]["minimap"]["locPanel"]["width"] = 300
-		E.db["sle"]["minimap"]["locPanel"]["height"] = 18
-		E.db["sle"]["minimap"]["locPanel"]["template"] = "Transparent"
-		E.db["sle"]["minimap"]["locPanel"]["colorType"] = "CUSTOM"
-		E.db["sle"]["minimap"]["locPanel"]["customColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
-		E.db["sle"]["minimap"]["locPanel"]["portals"]["enable"] = true
-		E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidth"] = true
-		E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidthValue"] = 200
-		E.db["sle"]["minimap"]["locPanel"]["portals"]["justify"] = "LEFT"
+		E.db["sle"]["minimap"]["locPanel"]["enable"] = false
+		-- E.db["sle"]["minimap"]["locPanel"]["display"] = "SHOW"
+		-- E.db["sle"]["minimap"]["locPanel"]["format"] = "%.0f"
+		-- E.db["sle"]["minimap"]["locPanel"]["font"] = "Merathilis Roboto-Black"
+		-- E.db["sle"]["minimap"]["locPanel"]["fontSize"] = 12
+		-- E.db["sle"]["minimap"]["locPanel"]["width"] = 300
+		-- E.db["sle"]["minimap"]["locPanel"]["height"] = 18
+		-- E.db["sle"]["minimap"]["locPanel"]["template"] = "Transparent"
+		-- E.db["sle"]["minimap"]["locPanel"]["colorType"] = "CUSTOM"
+		-- E.db["sle"]["minimap"]["locPanel"]["customColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["enable"] = true
+		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidth"] = true
+		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidthValue"] = 200
+		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["justify"] = "LEFT"
 		E.db["sle"]["dt"]["durability"]["threshold"] = 49
 		E.db["sle"]["dt"]["durability"]["gradient"] = true
 		E.db["sle"]["dt"]["hide_guildname"] = false

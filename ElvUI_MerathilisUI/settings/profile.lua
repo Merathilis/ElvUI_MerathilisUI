@@ -44,6 +44,29 @@ P['mui'] = {
 		},
 	},
 
+	["locPanel"] = {
+		["enable"] = false,
+		["width"] = 245,
+		["height"] = 21,
+		["linkcoords"] = true,
+		["template"] = "Transparent",
+		["font"] = "Merathilis Roboto-Black",
+		["fontSize"] = 11,
+		["fontOutline"] = "OUTLINE",
+		["throttle"] = 0.2,
+		["format"] = "%.0f",
+		["zoneText"] = true,
+		["colorType"] = "REACTION",
+		["customColor"] = {r = 1, g = 1, b = 1 },
+		["portals"] = {
+			["enable"] = true,
+			["customWidth"] = false,
+			["customWidthValue"] = 200,
+			["justify"] = "LEFT",
+			["cdFormat"] = "DEFAULT",
+		},
+	},
+
 	-- db
 	['dbCleaned'] = false
 }

@@ -96,7 +96,7 @@ local function AddOptions()
 				},
 			},
 			info = {
-				order = 20,
+				order = 30,
 				type = 'group',
 				name = L['Information']..MER.NewSign,
 				args = {

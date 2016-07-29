@@ -109,6 +109,23 @@ L["World Latency:"] = true
 L["Default"] = true
 L["Red Icon"] = true
 
+-- LocationPanel
+L["Location Panel"] = true
+L["Update Throttle"] = true
+L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
+L["Full Location"] = true
+L["Color Type"] = true
+L["Reaction"] = true
+L["Teleports"] = true
+L["Portals"] = true
+L["Link Position"] = true
+L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = true
+L["Relocation Menu"] = true
+L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] = true
+L["Custom Width"] = true
+L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = true
+L["Justify Text"] = true
+
 -- Install
 L['Welcome'] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

@@ -17,7 +17,7 @@ local DecorAddons = {
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
-		order = 16,
+		order = 15,
 		type = 'group',
 		name = L['Skins'],
 		args = {

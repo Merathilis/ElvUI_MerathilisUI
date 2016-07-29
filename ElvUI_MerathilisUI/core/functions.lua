@@ -105,12 +105,24 @@ function MER:CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
-function MER:CheckIncompatible()
-	if IsAddOnLoaded('ElvUI_SLE') then
-		if IsAddOnLoaded('ElvUI_LocPlus') and E.db.sle.minimap.locPanel.enable then
-			E:StaticPopup_Show('LOCATION_PLUS_INCOMPATIBLE')
-			return true
+function MER:GetIconFromID(type, id)
+	local path
+	if type == "item" then
+		path = select(10, GetItemInfo(id))
+	elseif type == "spell" then
+		path = select(3, GetSpellInfo(id))
+	elseif type == "achiev" then
+		path = select(10, GetAchievementInfo(id))
+	end
+	return path or nil
+end
+
+function MER:BagSearch(itemId)
+	for container = 0, NUM_BAG_SLOTS do
+		for slot = 1, GetContainerNumSlots(container) do
+			if itemId == GetContainerItemID(container, slot) then
+				return container, slot
+			end
 		end
 	end
-	return false
 end

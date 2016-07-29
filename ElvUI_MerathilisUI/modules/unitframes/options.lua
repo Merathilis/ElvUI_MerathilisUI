@@ -9,9 +9,9 @@ local _G = _G
 local tinsert = table.insert
 -- WoW API / Variables
 
-local function UnitFrames()
+local function UnitFramesTable()
 	E.Options.args.mui.args.unitframes = {
-		order = 16,
+		order = 15,
 		type = 'group',
 		name = L['UnitFrames'],
 		disabled = function() return not E.private.unitframe.enable end,
@@ -54,4 +54,4 @@ local function UnitFrames()
 		},
 	}
 end
-tinsert(MER.Config, UnitFrames)
+tinsert(MER.Config, UnitFramesTable)

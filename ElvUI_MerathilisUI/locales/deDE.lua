@@ -109,6 +109,23 @@ L["World Latency:"] = "Weltlatenz"
 L["Default"] = "Standard"
 L["Red Icon"] = "Rotes Symbol"
 
+-- LocationPanel
+L["Location Panel"] = true
+L["Update Throttle"] = "Aktualisierung drosseln"
+L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = "Die Frequenz wie oft die Koordinaten und der Zonentext aktualisiert wird. Je geringer der Wert, desto öfter wird aktualisiert."
+L["Full Location"] = "Vollständige Position "
+L["Color Type"] = "Farben type"
+L["Reaction"] = "Reaktion"
+L["Teleports"] = "Teleport"
+L["Portals"] = "Portale"
+L["Link Position"] = "Linke Position"
+L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."] = "Erlaubt die Koordinaten im Chat zu verlinken, via Shift+Links klick."
+L["Relocation Menu"] = "Menu versetzen"
+L["Right click on the location panel will bring up a menu with available options for relocating your character (e.g. Hearthstones, Portals, etc)."] = "Rechts klicke auf das Location Panel um ein Menu zu öffnen um mehrere Portmöglichkeiten zu erhalten (z.B. Ruhestein, Portale, etc.)."
+L["Custom Width"] = "Benutzerdefinerte Breite"
+L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = "Standardmäßig hat das Menu die Breite des LocationPanel. Wenn du diese Option aktivierst, kannst du die Breite ändern."
+L["Justify Text"] = "Text ausrichten"
+
 -- Install
 L['Welcome'] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true
