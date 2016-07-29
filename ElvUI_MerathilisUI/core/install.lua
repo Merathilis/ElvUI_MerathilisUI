@@ -105,7 +105,6 @@ local function SetupMERLayout(layout)
 		E.private["auras"]["masque"]["buffs"] = true
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
-	E.db["auras"]["debuffs"]["size"] = 42
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Roboto-Black"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
@@ -115,7 +114,7 @@ local function SetupMERLayout(layout)
 	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
-	E.db["auras"]["debuffs"]["size"] = 30
+	E.db["auras"]["debuffs"]["size"] = 42
 	E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-5"
 	E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-131"
 	
