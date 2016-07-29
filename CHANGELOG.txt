@@ -1,3 +1,7 @@
+<b><u> v2.06, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light).
+<font color=#FF8C00>&#9830;</font> Code cleanup.
+
 <b><u> v2.05, 29.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Fix Datatexts if ElvUI_SLE is enabled.
 <font color=#FF8C00>&#9830;</font> Misc: Attempt to fix a weird nil error.

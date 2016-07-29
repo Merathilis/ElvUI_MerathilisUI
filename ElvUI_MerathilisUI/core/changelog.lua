@@ -16,11 +16,10 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.05|r, 29.07.2016
+local ChangeLogData = [=[|cffff7d0av2.06|r, xx.xx.2016
 
- |cffff7d0a•|r Install: Fix Datatexts if ElvUI_SLE is enabled.
- |cffff7d0a•|r Misc: Attempt to fix a weird nil error.
- |cffff7d0a•|r Skins: Add quest level to the ObjectiveTracker.
+ |cffff7d0a•|r Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light)
+ |cffff7d0a•|r Code cleanup.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
