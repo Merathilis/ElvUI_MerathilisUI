@@ -1,3 +1,9 @@
+** v2.05, 28.07.2016**
+* Install: Fix Datatexts if ElvUI_SLE is enabled.
+* Misc: Attempt to fix a weird nil error.
+* Skins: Add quest level to the ObjectiveTracker.
+
+\\ \\
 ** v2.04, 28.07.2016**
 * Add an inGame Changelog (thx Blazeflack for helping me).
 * Install: Enable AB3 + 5 better safe than sorry.

@@ -1,3 +1,8 @@
+<b><u> v2.05, 29.07.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Install: Fix Datatexts if ElvUI_SLE is enabled.
+<font color=#FF8C00>&#9830;</font> Misc: Attempt to fix a weird nil error.
+<font color=#FF8C00>&#9830;</font> Skins: Add quest level to the ObjectiveTracker.
+
 <b><u> v2.04, 28.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add an inGame Changelog (thx Blazeflack for helping me).
 <font color=#FF8C00>&#9830;</font> Install: Enable AB3 + 5 better safe than sorry.
