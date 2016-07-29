@@ -11,7 +11,6 @@ local format = string.format
 local print, pairs, tonumber = print, pairs, tonumber
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetAddOnEnableState = GetAddOnEnableState
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
@@ -148,16 +147,6 @@ function MER:IncompatibleAddOn(addon, module, optiontable, value)
 	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value = value
 	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].showAlert = true
 	E:StaticPopup_Show('MER_INCOMPATIBLE_ADDON', addon, module)
-end
-
-function MER:CheckIncompatible()
-	if GetAddOnEnableState('ElvUI_SLE', 1) then
-		if IsAddOnLoaded('ElvUI_LocPlus') and E.db.sle.minimap.locPanel.enable then
-			E:StaticPopup_Show('LOCATION_PLUS_INCOMPATIBLE')
-			return true
-		end
-	end
-	return false
 end
 
 function MER:Initialize()

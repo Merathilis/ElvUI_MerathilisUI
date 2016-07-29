@@ -104,3 +104,13 @@ function MER:CreateSoftGlow(f)
 	sglow:SetBackdropBorderColor(MER:unpackColor(E.db.general.valuecolor), 0.4)
 	f.sglow = sglow
 end
+
+function MER:CheckIncompatible()
+	if IsAddOnLoaded('ElvUI_SLE') then
+		if IsAddOnLoaded('ElvUI_LocPlus') and E.db.sle.minimap.locPanel.enable then
+			E:StaticPopup_Show('LOCATION_PLUS_INCOMPATIBLE')
+			return true
+		end
+	end
+	return false
+end
