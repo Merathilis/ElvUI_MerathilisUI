@@ -38,10 +38,18 @@ local function ObjectiveTrackerReskin()
 			for i = 1, GetNumQuestWatches() do
 				local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
 				if not questID then break end
+				local block = QUEST_TRACKER_MODULE:GetBlock(questID)
 				local oldBlock = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
 				if oldBlock then
 					local newTitle = "[" .. select(2, GetQuestLogTitle(questLogIndex)) .. "] " .. title
 					QUEST_TRACKER_MODULE:SetStringText(oldBlock.HeaderText, newTitle, nil, OBJECTIVE_TRACKER_COLOR["Header"])
+				end
+
+				local heightcheck = block.HeaderText:GetNumLines()
+
+				if heightcheck == 2 then
+					local height = block:GetHeight()
+					block:SetHeight(height + 16)
 				end
 			end
 		end)
