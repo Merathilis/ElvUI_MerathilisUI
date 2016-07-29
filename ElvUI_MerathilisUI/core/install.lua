@@ -1001,19 +1001,20 @@ function MER:SetupDts(role)
 		-- define BenikUI Datetexts
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "MUI System"
+
 		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "MUI System"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Currency"
 		else
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Gold"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Gold"
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Currency"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
-		
+
 		if IsAddOnLoaded('Skada') then
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Skada"
 		else
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
 		end
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
 		
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = ""
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = ""
