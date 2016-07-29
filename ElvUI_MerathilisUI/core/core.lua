@@ -154,8 +154,10 @@ function MER:CheckIncompatible()
 	if GetAddOnEnableState('ElvUI_SLE', 1) then
 		if IsAddOnLoaded('ElvUI_LocPlus') and E.db.sle.minimap.locPanel.enable then
 			E:StaticPopup_Show('LOCATION_PLUS_INCOMPATIBLE')
+			return true
 		end
 	end
+	return false
 end
 
 function MER:Initialize()
