@@ -40,6 +40,8 @@ local function SetupMERLayout(layout)
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]['scale'] = 0.5
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
+	E.db["general"]["minimap"]["icons"]["lfgEye"]['xOffset'] = -3
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["loot"] = true
