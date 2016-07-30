@@ -6,7 +6,7 @@ local DEFAULT = DEFAULT
 local function LocPanelTable()
 	E.Options.args.mui.args.locPanel = {
 		type = "group",
-		name = L["Location Panel"],
+		name = L["Location Panel"]..MER.NewSign,
 		order = 16,
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
