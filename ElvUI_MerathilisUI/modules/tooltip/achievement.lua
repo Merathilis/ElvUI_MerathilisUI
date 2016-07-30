@@ -93,8 +93,8 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
+	if E.db.mui.misc.Tooltip ~= true then return; end
 	if event == "PLAYER_ENTERING_WORLD" then
-		if E.db.mui.misc.Tooltip ~= true then return; end
 		hooksecurefunc(GameTooltip, "SetHyperlink", SetHyperlink)
 		hooksecurefunc(ItemRefTooltip, "SetHyperlink", SetHyperlink)
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
