@@ -20,10 +20,11 @@ local ChangeLogData = [=[|cffff7d0av2.06|r, xx.xx.2016
 
  |cffff7d0a•|r Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light)
  |cffff7d0a•|r Code cleanup.
+ |cffff7d0a•|r Changed specswitch datatext to change spec immediately, no need for a popup.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-frame:SetPoint("CENTER", E.UIParent, "TOP", 0, 200)
+frame:SetPoint("CENTER")
 frame:SetSize(400, 300)
 frame:SetTemplate("Transparent")
 frame:SetMovable(true)
