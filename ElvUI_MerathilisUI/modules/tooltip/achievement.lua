@@ -4,12 +4,15 @@ local E, L, V, P, G = unpack(ElvUI);
 -- Lua functions
 local find, sub = string.find, string.sub
 local select = select
+local date = date
 -- WoW API / Variables
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local IsAddOnLoaded = IsAddOnLoaded
 local UnitGUID = UnitGUID
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: GameTooltip, hooksecurefunc, ItemRefTooltip
 
 -- Credits: Enhanced Achievements by Syzgyn
 if IsAddOnLoaded("Enhanced Achievements") then return; end
@@ -51,7 +54,7 @@ local function SetHyperlink(tooltip, refString)
 	if completed then
 		if year < 10 then year = "0" .. year end
 		
-		tooltip:AddLine(L["Your Status: Completed on "] .. day .. "." .. month .. "." .. year, 0, 1, 0)
+		tooltip:AddLine(L["Your Status: Completed on "] .. date("%d/%m/%y"))
 	-- If its not completed, show the individual criteria
 	elseif numCriteria == 0 then
 		tooltip:AddLine(L["Your Status: Incomplete"])
