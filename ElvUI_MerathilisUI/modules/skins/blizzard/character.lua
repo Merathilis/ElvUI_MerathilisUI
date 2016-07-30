@@ -1,14 +1,13 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
-local _G = _G
-local pairs, unpack = pairs, unpack
+local unpack = unpack
+-- WoW API
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleEncounterJournal
+-- GLOBALS: styleCharacter, CharacterStatsPane
 
 function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end

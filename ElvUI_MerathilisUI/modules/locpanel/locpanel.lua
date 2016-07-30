@@ -163,7 +163,7 @@ end
 
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
+	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -4)
 	loc_panel:SetFrameStrata('LOW')
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)

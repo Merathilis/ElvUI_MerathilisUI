@@ -60,24 +60,3 @@ E.PopupDialogs['BENIKUI'] = {
 	OnAccept = E.noop,
 	showAlert = 1
 }
-
---Incompatibility messages
-E.PopupDialogs["MER_INCOMPATIBLE_ADDON"] = {
-	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "ElvUI_MerathilisUI"),
-	OnAccept = function(self) DisableAddOn(E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].addon); ReloadUI(); end,
-	OnCancel = function(self) E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].optiontable[E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value] = false; ReloadUI(); end,
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
-
-E.PopupDialogs["LOCATION_PLUS_INCOMPATIBLE"] = {
-	text = L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."],
-	OnAccept = function() DisableAddOn("ElvUI_LocPlus"); ReloadUI() end,
-	OnCancel = function() DisableAddOn("ElvUI_SLE"); ReloadUI() end,
-	button1 = 'Location Plus',
-	button2 = 'Shadow & Light',
-	timeout = 0,
-	whileDead = 1,
-	hideOnEscape = false,
-}
