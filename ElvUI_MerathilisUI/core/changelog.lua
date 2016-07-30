@@ -16,12 +16,9 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.06|r, 30.07.2016
+local ChangeLogData = [=[|cffff7d0av2.07|r, xx.xx.2016
 
- |cffff7d0a•|r Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light).
- |cffff7d0a•|r Add a Achievement status in tooltip. Based on Enhanced Achievements.
- |cffff7d0a•|r Code cleanup.
- |cffff7d0a•|r Changed specswitch datatext to change spec immediately, no need for a popup.
+ |cffff7d0a•|r QuestTracker: Color the Quest by difficulty.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
