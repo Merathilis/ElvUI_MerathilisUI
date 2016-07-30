@@ -12,7 +12,7 @@ local GetItemIcon = GetItemIcon
 local GetSpellInfo = GetSpellInfo
 
 local function AddIcon(self, icon)
-	if E.db.mui.misc.TooltipIcon ~= true then return; end
+	if E.db.mui.misc.Tooltip ~= true then return; end
 	
 	if icon then
 		local title = _G[self:GetName() .. "TextLeft1"]

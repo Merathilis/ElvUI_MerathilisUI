@@ -55,8 +55,11 @@ L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs 
 L['Misc'] = "Verschiedenes"
 
 -- TooltipIcon
-L['Tooltip Icon'] = true
-L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu"
+L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."
+L['Tooltip'] = true
+L["Your Status:"] = "Dein Status:"
+L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
+L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = "Garnision Alarm Fenster"

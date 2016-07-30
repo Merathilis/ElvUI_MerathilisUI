@@ -54,9 +54,12 @@ L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
 L['Misc'] = true
 
--- TooltipIcon
-L['Tooltip Icon'] = true
-L['Adds an Icon for Items/Spells/Achievement on the Tooltip'] = true
+-- Tooltip
+L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = true
+L['Tooltip'] = true
+L["Your Status:"] = true
+L["Your Status: Incomplete"] = true
+L["Your Status: Completed on "] = true
 
 -- GarrisonAlertFrame
 L['Garrison Alert Frame'] = true

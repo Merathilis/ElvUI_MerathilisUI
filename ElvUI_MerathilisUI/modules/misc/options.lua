@@ -10,11 +10,11 @@ local function Misc()
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL'); end,
 		args = {
-			TooltipIcon = {
+			Tooltip = {
 				order = 1,
 				type = 'toggle',
-				name = L['Tooltip Icon'],
-				desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip'],
+				name = L['Tooltip']..MER.NewSign,
+				desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'],
 			},
 			HideAlertFrame = {
 				order = 2,
