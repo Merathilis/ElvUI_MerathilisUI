@@ -2,15 +2,17 @@ local E, L, V, P, G = unpack(ElvUI);
 
 -- Cache global variables
 -- Lua functions
-local find, sub = string.find, string.sub
+local find, format, sub = string.find, string.format, string.sub
 local select = select
 local date = date
 -- WoW API / Variables
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
+local GetLocale = GetLocale
 local IsAddOnLoaded = IsAddOnLoaded
 local UnitGUID = UnitGUID
+local UnitName = UnitName
 local ACHIEVEMENT_EARNED_BY = ACHIEVEMENT_EARNED_BY
 local ACHIEVEMENT_NOT_COMPLETED_BY = ACHIEVEMENT_NOT_COMPLETED_BY
 local ACHIEVEMENT_COMPLETED_BY = ACHIEVEMENT_COMPLETED_BY
@@ -35,11 +37,11 @@ local colors = {
 
 local function SetHyperlink(tooltip, refString)
 	local output = {[0] = {}, [1] = {}}
-	if select(3, string.find(refString, "(%a-):")) ~= "achievement" then return end
+	if select(3, find(refString, "(%a-):")) ~= "achievement" then return end
 
-	local _, _, achievementID = string.find(refString, ":(%d+):")
+	local _, _, achievementID = find(refString, ":(%d+):")
 	local numCriteria = GetAchievementNumCriteria(achievementID)
-	local _, _, GUID = string.find(refString, ":%d+:(.-):")
+	local _, _, GUID = find(refString, ":%d+:(.-):")
 	local Name = UnitName("player")
 
 	if GUID == UnitGUID("player") then
