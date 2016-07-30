@@ -1,9 +1,10 @@
-** v2.05, 29.07.2016**
+** v2.06, 30.07.2016**
 * Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light).
 * Add a Achievement status in tooltip. Based on Enhanced Achievements.
 * Code cleanup.
 * Changed specswitch datatext to change spec immediately, no need for a popup.
 
+\\ \\
 ** v2.05, 29.07.2016**
 * Install: Fix Datatexts if ElvUI_SLE is enabled.
 * Misc: Attempt to fix a weird nil error.
