@@ -11,6 +11,9 @@ local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
 local IsAddOnLoaded = IsAddOnLoaded
 local UnitGUID = UnitGUID
+local ACHIEVEMENT_EARNED_BY = ACHIEVEMENT_EARNED_BY
+local ACHIEVEMENT_NOT_COMPLETED_BY = ACHIEVEMENT_NOT_COMPLETED_BY
+local ACHIEVEMENT_COMPLETED_BY = ACHIEVEMENT_COMPLETED_BY
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: GameTooltip, hooksecurefunc, ItemRefTooltip
 
@@ -31,47 +34,57 @@ local colors = {
 }
 
 local function SetHyperlink(tooltip, refString)
-	local achievementID, numCriteria, GUID, name, completed, quantity, reqQuantity, month, day, year
 	local output = {[0] = {}, [1] = {}}
-	
-	--If its not an achievement link, I dont care.
-	if select(3, find(refString, "(%a-):")) ~= "achievement" then return end
-	
-	achievementID = select(3, find(refString, ":(%d+):"))
-	numCriteria = GetAchievementNumCriteria(achievementID)
-	GUID = select(3, find(refString, ":%d+:(.-):"))
-	
-	-- If I linked the tooltip, I dont need to see the info twice.
-	if GUID == sub(UnitGUID("player"), 3) then 
+	if select(3, string.find(refString, "(%a-):")) ~= "achievement" then return end
+
+	local _, _, achievementID = string.find(refString, ":(%d+):")
+	local numCriteria = GetAchievementNumCriteria(achievementID)
+	local _, _, GUID = string.find(refString, ":%d+:(.-):")
+	local Name = UnitName("player")
+
+	if GUID == UnitGUID("player") then
 		tooltip:Show()
-		return 
+		return
 	end
-	
+
 	tooltip:AddLine(" ")
 	local _, _, _, completed, month, day, year, _, _, _, _, _, wasEarnedByMe, earnedBy = GetAchievementInfo(achievementID)
-	
-	-- If its completed, show the completion date
+
 	if completed then
-		if year < 10 then year = "0" .. year end
-		
-		tooltip:AddLine(L["Your Status: Completed on "] .. date("%d/%m/%y"))
-	-- If its not completed, show the individual criteria
+		if year < 10 then year = "0"..year end
+
+		if GetLocale() == "ruRU" or "deDE" then
+			tooltip:AddLine(L["Your Status: Completed on "]..day.."/"..month.."/"..year, 0, 1, 0)
+		else
+			tooltip:AddLine(L["Your Status: Completed on "]..month.."/"..day.."/"..year, 0, 1, 0)
+		end
+
+		if earnedBy then
+			if earnedBy ~= "" then
+				tooltip:AddLine(format(ACHIEVEMENT_EARNED_BY, earnedBy))
+			end
+			if not wasEarnedByMe then
+				tooltip:AddLine(format(ACHIEVEMENT_NOT_COMPLETED_BY, Name))
+			elseif Name ~= earnedBy then
+				tooltip:AddLine(format(ACHIEVEMENT_COMPLETED_BY, Name))
+			end
+		end
 	elseif numCriteria == 0 then
 		tooltip:AddLine(L["Your Status: Incomplete"])
 	else
 		tooltip:AddLine(L["Your Status:"])
-		for i=1, numCriteria, 2 do
-			for a=0, 1 do
+		for i = 1, numCriteria, 2 do
+			for a = 0, 1 do
 				output[a].text = nil
 				output[a].color = nil
-				if i+a <= numCriteria then
-					name,_,completed,quantity,reqQuantity = GetAchievementCriteriaInfo(achievementID, i+a)
+				if i + a <= numCriteria then
+					local name, _, completed, quantity, reqQuantity = GetAchievementCriteriaInfo(achievementID, i + a)
 					if completed then
 						output[a].text = name
 						output[a].color = "GREEN"
 					else
 						if quantity < reqQuantity and reqQuantity > 1 then
-							output[a].text = name .. " (" .. quantity .. "/" .. reqQuantity .. ")"
+							output[a].text = name.." ("..quantity.."/"..reqQuantity..")"
 							output[a].color = "GRAY"
 						else
 							output[a].text = name
