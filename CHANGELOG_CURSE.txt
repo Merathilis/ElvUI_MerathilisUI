@@ -1,4 +1,5 @@
 ** v2.07, xx.xx.2016**
+* Install: Adjust the ActionBar layout.
 * QuestTracker: Color the Quest by difficulty.
 
 ** v2.06, 30.07.2016**

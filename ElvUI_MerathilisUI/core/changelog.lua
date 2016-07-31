@@ -18,6 +18,7 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.07|r, xx.xx.2016
 
+ |cffff7d0a•|r Install: Adjust the ActionBar layout.
  |cffff7d0a•|r QuestTracker: Color the Quest by difficulty.
 ]=];
 

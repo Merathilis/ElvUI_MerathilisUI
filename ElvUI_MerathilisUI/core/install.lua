@@ -261,18 +261,19 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["bar1"]["buttonsize"] = 45
 	E.db["actionbar"]["bar1"]["buttons"] = 6
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	
 	E.db["actionbar"]["bar2"]["enabled"] = true
-	E.db["actionbar"]["bar2"]["buttonspacing"] = 0
-	E.db["actionbar"]["bar2"]["buttons"] = 7
-	E.db["actionbar"]["bar2"]["buttonsize"] = 32
-	E.db["actionbar"]["bar2"]["backdrop"] = false
+	E.db["actionbar"]["bar2"]["buttonspacing"] = 1
+	E.db["actionbar"]["bar2"]["buttons"] = 8
+	E.db["actionbar"]["bar2"]["buttonsize"] = 24
+	E.db["actionbar"]["bar2"]["backdrop"] = true
 	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar2"]["mouseover"] = false
 	E.db["actionbar"]["bar2"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar2"]["showGrid"] = false
 	E.db["actionbar"]["bar2"]["heightMult"] = 1
-	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
+	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 4
 	
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
@@ -300,14 +301,15 @@ local function SetupMERActionbars(layout)
 	
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
-	E.db["actionbar"]["bar6"]["buttons"] = 7
-	E.db["actionbar"]["bar6"]["buttonspacing"] = 0
+	E.db["actionbar"]["bar6"]["buttons"] = 8
+	E.db["actionbar"]["bar6"]["buttonspacing"] = 1
 	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar6"]["showGrid"] = false
 	E.db["actionbar"]["bar6"]["mouseover"] = false
-	E.db["actionbar"]["bar6"]["buttonsize"] = 32
-	E.db["actionbar"]["bar6"]["backdrop"] = false
-	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 12
+	E.db["actionbar"]["bar6"]["buttonsize"] = 24
+	E.db["actionbar"]["bar6"]["backdrop"] = true
+	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 4
+	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["buttons"] = 8
@@ -328,11 +330,11 @@ local function SetupMERActionbars(layout)
 	E.db["actionbar"]["microbar"]["enabled"] = false
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
 	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,3"
-	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-258,2"
+	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-196,3"
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
 	E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 	E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,353,3"
-	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,258,2"
+	E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,197,3"
 	E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,75"
 	E.db["movers"]["PetAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,423,2"
 	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
