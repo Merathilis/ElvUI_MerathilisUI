@@ -129,6 +129,7 @@ local function LocPanelTable()
 						name = L["Link Position"],
 						desc = L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."],
 						order = 10,
+						disabled = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
 					portals = {
