@@ -181,7 +181,7 @@ local function SetupMERChat(layout)
 		local chatFrameId = frame:GetID()
 		local chatName = FCF_GetChatWindowInfo(chatFrameId)
 		
-		FCF_SetChatWindowFontSize(nil, frame, 12)
+		FCF_SetChatWindowFontSize(nil, frame, 11)
 		
 		-- move ElvUI default loot frame to the left chat, so that Recount/Skada can go to the right chat.
 		if i == 3 and chatName == LOOT..' / '..TRADE then
@@ -207,7 +207,7 @@ local function SetupMERChat(layout)
 	E.db["chat"]["panelTabTransparency"] = true
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
-	E.db["chat"]["font"] = "Merathilis Expressway"
+	E.db["chat"]["font"] = "Merathilis Roboto-Medium"
 	E.db["chat"]["panelWidth"] = 350
 	E.db["chat"]["panelHeight"] = 155
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"

@@ -18,6 +18,9 @@ LSM:Register('font','Merathilis Roadway', [[Interface\AddOns\ElvUI_MerathilisUI\
 LSM:Register('font','Merathilis Expressway', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Expressway.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register('font','Merathilis Default', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\default.ttf]])
 LSM:Register('font','Merathilis Roboto-Black', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Black.ttf]])
+LSM:Register('font','Merathilis Roboto-Bold', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Bold.ttf]])
+LSM:Register('font','Merathilis Roboto-Medium', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Medium.ttf]])
+LSM:Register('font','Merathilis Roboto-Regular', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Regular.ttf]])
 
 -- Statusbars
 LSM:Register('statusbar','MerathilisFlat', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])
