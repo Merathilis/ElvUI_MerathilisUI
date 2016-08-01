@@ -20,6 +20,8 @@ local ChangeLogData = [=[|cffff7d0av2.07|r, xx.xx.2016
 
  |cffff7d0a•|r Install: Adjust the ActionBar layout.
  |cffff7d0a•|r QuestTracker: Color the Quest by difficulty.
+ |cffff7d0a•|r Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
+ |cffff7d0a•|r LocPanel: Added option for Auto Width. Change width based on the zone name length.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

@@ -1,6 +1,8 @@
 <b><u> v2.07, xx.xx.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Adjust the ActionBar layout.
 <font color=#FF8C00>&#9830;</font> QuestTracker: Color the Quest by difficulty.
+<font color=#FF8C00>&#9830;</font> Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
+<font color=#FF8C00>&#9830;</font> LocPanel: Added option for Auto Width. Change width based on the zone name length.
 
 <b><u> v2.06, 30.07.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light).

@@ -46,6 +46,7 @@ P['mui'] = {
 
 	["locPanel"] = {
 		["enable"] = false,
+		["autowidth"] = false,
 		["width"] = 245,
 		["height"] = 21,
 		["linkcoords"] = true,

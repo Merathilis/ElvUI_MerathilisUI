@@ -1,6 +1,8 @@
 ** v2.07, xx.xx.2016**
 * Install: Adjust the ActionBar layout.
 * QuestTracker: Color the Quest by difficulty.
+* Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
+* LocPanel: Added option for Auto Width. Change width based on the zone name length.
 
 ** v2.06, 30.07.2016**
 * Add a LocationPanel. All credits belong to Darth Predator (Shadow&Light).

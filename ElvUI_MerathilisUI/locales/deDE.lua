@@ -128,6 +128,8 @@ L["Right click on the location panel will bring up a menu with available options
 L["Custom Width"] = "Benutzerdefinerte Breite"
 L["By default menu's width will be equal to the location panel width. Checking this option will allow you to set own width."] = "Standardmäßig hat das Menu die Breite des LocationPanel. Wenn du diese Option aktivierst, kannst du die Breite ändern."
 L["Justify Text"] = "Text ausrichten"
+L["Auto Width"] = "Auto Breite"
+L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonen Text."
 
 -- Install
 L['Welcome'] = "Willkommen"
