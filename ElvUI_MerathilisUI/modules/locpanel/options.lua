@@ -62,7 +62,7 @@ local function LocPanelTable()
 						name = L["Height"],
 						min = 10, max = 50, step = 1,
 						disabled = function() return not E.db.mui.locPanel.enable end,
-						set = function(info, value) E.db.sle.minimap.locPanel[ info[#info] ] = value; LP:Resize() end,
+						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Resize() end,
 					},
 					template = {
 						order = 5,
