@@ -207,7 +207,7 @@ local function SetupMERChat(layout)
 	E.db["chat"]["panelTabTransparency"] = true
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
-	E.db["chat"]["font"] = "Merathilis Roboto-Bold"
+	E.db["chat"]["font"] = "Merathilis Roboto-Medium"
 	E.db["chat"]["panelWidth"] = 350
 	E.db["chat"]["panelHeight"] = 155
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
@@ -408,6 +408,7 @@ local function SetupUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[name:medium] [difficultycolor][smartlevel] [shortclassification]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["attachTextTo"] = 'Health'
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {}
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
