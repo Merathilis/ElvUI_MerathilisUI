@@ -1,5 +1,5 @@
 ** v2.07, xx.xx.2016**
-* Install: Adjust the ActionBar layout.
+* Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
 * QuestTracker: Color the Quest by difficulty.
 * Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
 * LocPanel: Added option for Auto Width. Change width based on the zone name length.
