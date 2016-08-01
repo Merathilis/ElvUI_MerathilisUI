@@ -370,9 +370,6 @@ function MER:SetupMERAddons()
 		E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
 		E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 		E.private["sle"]["professions"]["deconButton"]["enable"] = false
-		E.private["sle"]["module"]["shadows"]["actionbars"]["bar1"] = true
-		E.db["sle"]["shadows"]["classcolor"] = true
-		E.db["sle"]["shadows"]["size"] = 3
 		E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
 		E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-185"
 		E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
