@@ -207,7 +207,7 @@ local function SetupMERChat(layout)
 	E.db["chat"]["panelTabTransparency"] = true
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
-	E.db["chat"]["font"] = "Merathilis Roboto-Medium"
+	E.db["chat"]["font"] = "Merathilis Roboto-Bold"
 	E.db["chat"]["panelWidth"] = 350
 	E.db["chat"]["panelHeight"] = 155
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
