@@ -321,19 +321,6 @@ function MER:SetupMERAddons()
 		E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
 		E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
 		E.db["sle"]["minimap"]["locPanel"]["enable"] = false
-		-- E.db["sle"]["minimap"]["locPanel"]["display"] = "SHOW"
-		-- E.db["sle"]["minimap"]["locPanel"]["format"] = "%.0f"
-		-- E.db["sle"]["minimap"]["locPanel"]["font"] = "Merathilis Roboto-Black"
-		-- E.db["sle"]["minimap"]["locPanel"]["fontSize"] = 12
-		-- E.db["sle"]["minimap"]["locPanel"]["width"] = 300
-		-- E.db["sle"]["minimap"]["locPanel"]["height"] = 18
-		-- E.db["sle"]["minimap"]["locPanel"]["template"] = "Transparent"
-		-- E.db["sle"]["minimap"]["locPanel"]["colorType"] = "CUSTOM"
-		-- E.db["sle"]["minimap"]["locPanel"]["customColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
-		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["enable"] = true
-		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidth"] = true
-		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["customWidthValue"] = 200
-		-- E.db["sle"]["minimap"]["locPanel"]["portals"]["justify"] = "LEFT"
 		E.db["sle"]["dt"]["durability"]["threshold"] = 49
 		E.db["sle"]["dt"]["durability"]["gradient"] = true
 		E.db["sle"]["dt"]["hide_guildname"] = false
@@ -380,6 +367,9 @@ function MER:SetupMERAddons()
 		E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
 		E.private["sle"]["professions"]["fishing"]["FromMount"] = true
 		E.private["sle"]["professions"]["deconButton"]["enable"] = false
+		E.private["sle"]["module"]["shadows"]["actionbars"]["bar1"] = true
+		E.db["sle"]["shadows"]["classcolor"] = true
+		E.db["sle"]["shadows"]["size"] = 3
 		E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
 		E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-185"
 		E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
