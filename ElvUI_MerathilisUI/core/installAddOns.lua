@@ -254,6 +254,9 @@ function MER:SetupMERAddons()
 		E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
 		E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
 		E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
+		E.private["sle"]["Armory"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
+		E.private["sle"]["Armory"]["ItemLevel"]["size"] = 16
+		E.private["sle"]["Armory"]["ItemLevel"]["outline"] = "OUTLINE"
 		E.db["sle"]["Armory"]["Inspect"]["Enable"] = false
 		E.db["sle"]["auras"]["hideDebuffsTimer"] = true
 		E.db["sle"]["auras"]["hideBuffsTimer"] = true
