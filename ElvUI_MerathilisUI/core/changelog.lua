@@ -16,7 +16,7 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.07|r, xx.xx.2016
+local ChangeLogData = [=[|cffff7d0av2.07|r, 02.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
