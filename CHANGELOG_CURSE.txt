@@ -1,5 +1,6 @@
 ** v2.07, xx.xx.2016**
 * Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
+* Install: Adjust the ActionBar Layout for DPS-Layout.
 * QuestTracker: Color the Quest by difficulty.
 * QuestTracker: Style the progress bar for Bonus Objectives.
 * Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
