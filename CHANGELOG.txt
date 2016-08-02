@@ -1,6 +1,7 @@
 <b><u> v2.07, xx.xx.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
 <font color=#FF8C00>&#9830;</font> QuestTracker: Color the Quest by difficulty.
+<font color=#FF8C00>&#9830;</font> QuestTracker: Style the progress bar for Bonus Objectives.
 <font color=#FF8C00>&#9830;</font> Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
 <font color=#FF8C00>&#9830;</font> LocPanel: Added option for Auto Width. Change width based on the zone name length.
 
