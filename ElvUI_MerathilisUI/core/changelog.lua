@@ -21,6 +21,7 @@ local ChangeLogData = [=[|cffff7d0av2.07|r, xx.xx.2016
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
  |cffff7d0a•|r Install: Adjust the ActionBar Layout for DPS-Layout.
+ |cffff7d0a•|r Install: Adjust new SLE settings. (Required SLE v.3.09)
  |cffff7d0a•|r QuestTracker: Color the Quest by difficulty.
  |cffff7d0a•|r QuestTracker: Style the progress bar for Bonus Objectives.
  |cffff7d0a•|r Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
