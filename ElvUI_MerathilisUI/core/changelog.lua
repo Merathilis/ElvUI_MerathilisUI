@@ -16,19 +16,14 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.07|r, 02.08.2016
+local ChangeLogData = [=[|cffff7d0av2.08|r, xx.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
- |cffff7d0a•|r Install: Adjust the ActionBar Layout for DPS-Layout.
- |cffff7d0a•|r Install: Adjust new SLE settings. (Required SLE v.3.09)
- |cffff7d0a•|r QuestTracker: Color the Quest by difficulty.
- |cffff7d0a•|r QuestTracker: Style the progress bar for Bonus Objectives.
- |cffff7d0a•|r Added more Roboto fonts. Use Merathilis-Roboto-Medium for chat.
- |cffff7d0a•|r LocPanel: Added option for Auto Width. Change width based on the zone name length.
+ |cffff7d0a•|r Add tabs for professions on the TradeSkill Frame.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
+ |cffff7d0a•|r The LocPanel can cause a lua error on profle switch. A reload fixes this. (WIP)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

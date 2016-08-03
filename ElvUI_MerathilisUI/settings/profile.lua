@@ -20,6 +20,7 @@ P['mui'] = {
 		['Tooltip'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
 		['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 		['moveBlizz'] = true, -- Make Blizzards Frame movable
+		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
 	},
 
 	['systemDT'] = {

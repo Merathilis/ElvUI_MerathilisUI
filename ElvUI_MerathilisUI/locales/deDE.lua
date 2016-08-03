@@ -75,6 +75,10 @@ L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline
 L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
 L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 
+-- Tradeskill Tabs
+L['TradeSkill Tabs'] = "Berufsfenster Tabs"
+L['Add tabs for professions on the TradeSkill Frame.'] = "Fügt Tabs am Berufsfenster hinzu."
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "

@@ -1,3 +1,6 @@
+<b><u> v2.08, xx.08.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Add tabs for professions on the TradeSkill Frame.
+
 <b><u> v2.07, 02.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
 <font color=#FF8C00>&#9830;</font> Install: Adjust the ActionBar Layout for DPS-Layout.

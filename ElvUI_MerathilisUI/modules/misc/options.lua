@@ -40,6 +40,12 @@ local function Misc()
 				name = L['moveBlizz'],
 				desc = L['Make some Blizzard Frames movable.'],
 			},
+			tradeTabs = {
+				order = 6,
+				type = 'toggle',
+				name = L['TradeSkill Tabs'],
+				desc = L['Add tabs for professions on the TradeSkill Frame.'],
+			},
 		},
 	}
 end

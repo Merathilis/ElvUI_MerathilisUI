@@ -8,4 +8,5 @@
 	<Script file="misc.lua"/>
 	<Script file="moveblizz.lua"/>
 	<Script file="options.lua"/>
+	<Script file="tradeskilltabs.lua"/>
 </Ui>
