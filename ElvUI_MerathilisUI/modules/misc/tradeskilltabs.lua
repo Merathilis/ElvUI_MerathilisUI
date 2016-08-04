@@ -20,10 +20,11 @@ local function addTab(id, index, isSub)
 	tab:SetTemplate("Default")
 	tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	tab:GetNormalTexture():SetInside()
-	tab.pushed = true;
-	tab:CreateBackdrop()
-	tab.backdrop:SetAllPoints()
 	tab:SetPoint("TOPLEFT", TradeSkillFrame, "TOPRIGHT", 1, -44 * index + (-50 * isSub))
+	tab.pushed = true;
+	tab:CreateBackdrop("Default")
+	tab.backdrop:SetAllPoints()
+	tab:StyleButton(true)
 	MER:StyleOutside(tab)
 
 	tab:SetScript("OnEvent", isCurrentTab)
@@ -35,6 +36,8 @@ local function addTab(id, index, isSub)
 	tab:SetAttribute("spell", name)
 	tab:SetNormalTexture(icon)
 	tab:Show()
+
+	tab.isSkinned = true
 
 	isCurrentTab(tab)
 end
