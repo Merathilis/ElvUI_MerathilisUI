@@ -348,7 +348,9 @@ local function SetupMERChat(layout)
 			frame:Point('BOTTOMLEFT', LeftChatToggleButton, 'TOPLEFT', 1, 3)
 			FCF_SetWindowName(frame, LOOT)
 			FCF_DockFrame(frame)
-			FCF_SetLocked(frame, 1)
+			if not frame.isLocked then
+				FCF_SetLocked(frame, 1)
+			end
 			frame:Show()
 		end
 		FCF_SavePositionAndDimensions(frame)
@@ -357,6 +359,38 @@ local function SetupMERChat(layout)
 	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
+
+	-- Setup CVar
+	SetCVar("screenshotQuality", 10)
+	SetCVar("cameraDistanceMaxFactor", 2.6)
+	SetCVar("showTutorials", 0)
+	SetCVar("autoQuestProgress", 1)
+	SetCVar("nameplateShowSelf", 0)
+	SetCVar("removeChatDelay", 1)
+	SetCVar("taintLog", 0)
+	SetCVar("scriptErrors", 1)
+
+	-- Enable classcolor automatically on login and on each character without doing /configure each time
+	ToggleChatColorNamesByClassGroup(true, "SAY")
+	ToggleChatColorNamesByClassGroup(true, "EMOTE")
+	ToggleChatColorNamesByClassGroup(true, "YELL")
+	ToggleChatColorNamesByClassGroup(true, "GUILD")
+	ToggleChatColorNamesByClassGroup(true, "OFFICER")
+	ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
+	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
+	ToggleChatColorNamesByClassGroup(true, "WHISPER")
+	ToggleChatColorNamesByClassGroup(true, "PARTY")
+	ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "RAID")
+	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
 
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
 	E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
