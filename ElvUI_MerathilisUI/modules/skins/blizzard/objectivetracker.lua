@@ -26,6 +26,7 @@ local GetQuestWatchInfo = GetQuestWatchInfo
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
+local otf = ObjectiveTrackerFrame
 
 -- Level Text for QuestTracker
 hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function(self)
@@ -76,6 +77,32 @@ hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, 
 	if block.module == ACHIEVEMENT_TRACKER_MODULE then
 		block.HeaderText:SetTextColor(0.75, 0.61, 0)
 		block.HeaderText.col = nil
+	end
+end)
+
+-- Skin ObjectiveTrackerFrame item buttons
+hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+	local item = block.itemButton
+
+	if item and not item.skinned then
+		item:SetSize(25, 25)
+		item:SetTemplate("Transparent")
+		item:StyleButton()
+
+		item:SetNormalTexture(nil)
+
+		item.icon:SetTexCoord(unpack(E.TexCoords))
+		item.icon:SetPoint("TOPLEFT", item, 2, -2)
+		item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+
+		item.Cooldown:SetAllPoints(item.icon)
+
+		item.Count:ClearAllPoints()
+		item.Count:SetPoint("TOPLEFT", 1, -1)
+		item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
+		item.Count:SetShadowOffset(5, -5)
+
+		item.skinned = true
 	end
 end)
 
@@ -143,6 +170,73 @@ hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
 	end
 end)
 
+-- Dashes to dots
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block, objectiveKey, _, lineType)
+	local line = self:GetLine(block, objectiveKey, lineType)
+	if line.Dash and line.Dash:IsShown() then line.Dash:SetText("• ") end
+end)
+
+-- Timer bars
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", function(self, block, line, duration, startTime)
+	local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
+	if tb and tb:IsShown() and not tb.skinned then
+		tb.Bar:StripTextures()
+		tb.Bar:SetStatusBarTexture(E["media"].MuiFlat)
+		tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		tb.Bar:CreateBackdrop()
+		tb.Bar.backdrop:SetAllPoints()
+		tb.skinned = true
+	end
+end)
+
+-- Skin scenario buttons
+local function SkinScenarioButtons()
+	local block = ScenarioStageBlock
+	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
+
+	block:StripTextures()
+	block.NormalBG:SetSize(otf:GetWidth(), 50)
+	block.FinalBG:ClearAllPoints()
+	block.FinalBG:SetPoint("TOPLEFT", block.NormalBG, 6, -6)
+	block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
+	block.GlowTexture:SetSize(otf:GetWidth(), 50)
+end
+
+-- Skinn proving grounds
+local function SkinProvingGroundButtons()
+	local block = ScenarioProvingGroundsBlock
+	local sb = block.StatusBar
+	local anim = ScenarioProvingGroundsBlockAnim
+
+	block:StripTextures()
+	block.MedalIcon:SetSize(32, 32)
+	block.MedalIcon:ClearAllPoints()
+	block.MedalIcon:SetPoint("TOPLEFT", block, 20, -10)
+
+	block.WaveLabel:ClearAllPoints()
+	block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
+
+	block.BG:SetSize(otf:GetWidth(), 50)
+
+	block.GoldCurlies:ClearAllPoints()
+	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
+	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
+
+	anim.BGAnim:SetSize(otf:GetWidth(), 50)
+	anim.BorderAnim:SetSize(otf:GetWidth(), 50)
+	anim.BorderAnim:ClearAllPoints()
+	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
+	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
+
+	sb:StripTextures()
+	sb:SetStatusBarTexture(E["media"].MuiFlat)
+	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+	sb:ClearAllPoints()
+	sb:SetPoint("TOPLEFT", block.MedalIcon, "BOTTOMLEFT", -4, -5)
+	sb:CreateBackdrop()
+	sb.backdrop:SetAllPoints()
+end
+
 local function ObjectiveTrackerReskin()
 	if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
@@ -187,3 +281,9 @@ local function ObjectiveTrackerReskin()
 	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
+
+if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
+	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
+	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+end
