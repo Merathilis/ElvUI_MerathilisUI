@@ -9,6 +9,7 @@ local _G = _G
 local select, pairs, unpack = select, pairs, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local GetScreenHeight = GetScreenHeight
 local GetScreenWidth = GetScreenWidth
 local IsAddOnLoaded = IsAddOnLoaded
 local C_Scenario = C_Scenario
@@ -21,7 +22,6 @@ local GetNumQuestWatches = GetNumQuestWatches
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestWatchInfo = GetQuestWatchInfo
-local GetScreenHeight = GetScreenHeight
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, OBJECTIVE_TRACKER_COLOR, ACHIEVEMENT_TRACKER_MODULE
