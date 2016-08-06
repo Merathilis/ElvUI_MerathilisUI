@@ -2,6 +2,7 @@
 * Add tabs for professions on the TradeSkill Frame.
 * Add a few CVars to the chat install.
 * Return of the skin for Scenario/Proving Ground.
+* Add new SLE settings for Guild/Friends DT's.
 
 ** v2.07, 02.08.2016**
 * Install: Add a new Heal Layout to the install process (WIP). Inspired by insertuseralias.
