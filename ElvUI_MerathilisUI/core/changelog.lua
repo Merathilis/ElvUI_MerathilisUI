@@ -20,6 +20,8 @@ local ChangeLogData = [=[|cffff7d0av2.08|r, xx.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Add tabs for professions on the TradeSkill Frame.
+ |cffff7d0a•|r Add a few CVars to the chat install.
+ |cffff7d0a•|r Return of the skin for Scenario/Proving Ground.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
