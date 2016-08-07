@@ -1,5 +1,6 @@
 <b><u> v2.09, xx.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Change the default position of the Changelog.
+<font color=#FF8C00>&#9830;</font> Fix lua error in install.
 
 <b><u> v2.08, 07.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add tabs for professions on the TradeSkill Frame.

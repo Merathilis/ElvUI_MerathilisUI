@@ -1,5 +1,6 @@
 ** v2.09, xx.08.2016**
 * Change the default position of the Changelog.
+* Fix lua error in install.
 
 ** v2.08, 07.08.2016**
 * Add tabs for professions on the TradeSkill Frame.

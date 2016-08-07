@@ -1184,9 +1184,9 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
+	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil end
 	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = nil end
-	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {}
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"

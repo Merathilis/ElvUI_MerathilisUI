@@ -20,6 +20,7 @@ local ChangeLogData = [=[|cffff7d0av2.09|r, xx.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Change the default position of the Changelog
+ |cffff7d0a•|r Fix lua error in install.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
