@@ -1,7 +1,7 @@
 ## Interface: 70000
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
-## Version: 2.07
+## Version: 2.08
 ## Title: |cff1784d1ElvUI|r_MerathilisUI
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## eMail: neo0608@gmail.com
@@ -12,7 +12,7 @@
 ## X-ElvVersion: 10.14
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
-## X-Curse-Packaged-Version: 2.07
+## X-Curse-Packaged-Version: 2.08
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
 

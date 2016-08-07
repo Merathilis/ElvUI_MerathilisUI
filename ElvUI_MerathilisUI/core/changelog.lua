@@ -16,7 +16,7 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.08|r, xx.08.2016
+local ChangeLogData = [=[|cffff7d0av2.08|r, 07.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Add tabs for professions on the TradeSkill Frame.
