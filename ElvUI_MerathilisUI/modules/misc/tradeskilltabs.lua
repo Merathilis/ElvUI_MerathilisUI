@@ -17,6 +17,7 @@ local function addTab(id, index, isSub)
 	if (not name) or (not icon) then return end
 
 	local tab = _G["TSTab" .. index] or CreateFrame("CheckButton", "TSTab" .. index, TradeSkillFrame, "SpellBookSkillLineTabTemplate, SecureActionButtonTemplate")
+	tab:StripTextures()
 	tab:SetTemplate("Default")
 	tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	tab:GetNormalTexture():SetInside()
