@@ -16,13 +16,10 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.08|r, 07.08.2016
+local ChangeLogData = [=[|cffff7d0av2.09|r, xx.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add tabs for professions on the TradeSkill Frame.
- |cffff7d0a•|r Add a few CVars to the chat install.
- |cffff7d0a•|r Return of the skin for Scenario/Proving Ground.
- |cffff7d0a•|r Add new SLE settings for Guild/Friends DT's.
+ |cffff7d0a•|r Change the default position of the Changelog
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
@@ -30,7 +27,7 @@ local ChangeLogData = [=[|cffff7d0av2.08|r, 07.08.2016
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-frame:SetPoint("CENTER")
+frame:SetPoint("CENTER", UIParent, "BOTTOM", 0, 350)
 frame:SetSize(400, 300)
 frame:SetTemplate("Transparent")
 frame:SetMovable(true)
