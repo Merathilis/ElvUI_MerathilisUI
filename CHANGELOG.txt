@@ -1,4 +1,4 @@
-<b><u> v2.09, xx.08.2016</b></u>
+<b><u> v2.09, 08.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Change the default position of the Changelog.
 <font color=#FF8C00>&#9830;</font> Fix lua error in install.
 

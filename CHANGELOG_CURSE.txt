@@ -1,4 +1,4 @@
-** v2.09, xx.08.2016**
+** v2.09, 08.08.2016**
 * Change the default position of the Changelog.
 * Fix lua error in install.
 
