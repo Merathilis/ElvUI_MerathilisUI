@@ -2,6 +2,7 @@
 * Overhaul the install process for AddOns.
 * Some tweaks to the Layouts.
 * Fix a nil error if BenikUI is not loaded.
+* Add hearthstone position to the LocPanel menu.
 
 ** v2.09, 08.08.2016**
 * Change the default position of the Changelog.
