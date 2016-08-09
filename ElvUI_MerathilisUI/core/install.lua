@@ -924,10 +924,10 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["growthDirection"] = "RIGHT_UP"
 	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
 	E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
-	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["size"] = 10
@@ -1089,9 +1089,9 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
-	E.db["unitframe"]["units"]["party"]["name"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["party"]["name"]["position"] = "LEFT"
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
@@ -1498,8 +1498,11 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
-	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
+	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 15
 	E.db["unitframe"]["units"]["raid"]["height"] = 24
 	E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
@@ -1623,6 +1626,9 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
+	E.db["unitframe"]["units"]["party"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
