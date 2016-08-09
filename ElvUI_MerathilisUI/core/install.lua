@@ -700,7 +700,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[name:medium] [difficultycolor][smartlevel] [shortclassification]"
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[name:medium:status]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["attachTextTo"] = 'Health'
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["xOffset"] = 1
@@ -787,7 +787,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["xOffset"] = 4
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[name:short] [difficultycolor][shortclassification]"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[name:medium:status]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {}
 	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["font"] = "Merathilis Tukui"
@@ -926,7 +926,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:short]"
+	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
@@ -1093,7 +1093,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:short]"
+	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 	E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
@@ -1314,7 +1314,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor][name:medium]"
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["yOffset"] = 16
 	E.db["unitframe"]["units"]["player"]["width"] = 210
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Frame"
@@ -1364,7 +1364,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor] [name:medium]"
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["yOffset"] = 16
 	E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 16
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
@@ -1499,6 +1499,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 15
 	E.db["unitframe"]["units"]["raid"]["height"] = 24
 	E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
@@ -1623,7 +1624,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:short]"
+	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 	E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
 	E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
