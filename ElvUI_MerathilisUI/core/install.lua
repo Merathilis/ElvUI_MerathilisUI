@@ -167,11 +167,6 @@ local function SetupMERDPSLayout(layout)
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
-		InstallStepComplete:Show()
-		titleText[2].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -325,12 +320,30 @@ local function SetupMERHEALLayout(layout)
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,278"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['MerathilisUI Set']
-		InstallStepComplete:Show()
-		titleText[2].check:Show()
-	end
 	E:UpdateAll(true)
+end
+
+local function SetupMERCVars()
+	-- Setup CVar
+	SetCVar("autoQuestProgress", 1)
+	SetCVar("autoDismountFlying", 1)
+	SetCVar("cameraDistanceMaxFactor", 2.6)
+	SetCVar("guildMemberNotify", 1)
+	SetCVar("screenshotQuality", 10)
+	SetCVar("showTutorials", 0)
+	SetCVar("nameplateShowSelf", 0)
+	SetCVar("nameplateShowEnemies", 1)
+	SetCVar("nameplateShowEnemyPets", 1)
+	SetCVar("nameplateShowFriendlyGuardians", 0)
+	SetCVar("nameplateShowFriendlyPets", 0)
+	SetCVar("nameplateShowFriendlyTotems", 0)
+	SetCVar("nameplateShowFriends", 0)
+	SetCVar("removeChatDelay", 1)
+	SetCVar("taintLog", 0)
+	SetCVar("screenshotQuality", 10)
+	SetCVar("scriptErrors", 1)
+	SetCVar("showTimestamps", "%H:%M:%S ")
+	SetCVar("showTutorials", 0)
 end
 
 local function SetupMERChat(layout)
@@ -359,16 +372,6 @@ local function SetupMERChat(layout)
 	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-
-	-- Setup CVar
-	SetCVar("screenshotQuality", 10)
-	SetCVar("cameraDistanceMaxFactor", 2.6)
-	SetCVar("showTutorials", 0)
-	SetCVar("autoQuestProgress", 1)
-	SetCVar("nameplateShowSelf", 0)
-	SetCVar("removeChatDelay", 1)
-	SetCVar("taintLog", 0)
-	SetCVar("scriptErrors", 1)
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "SAY")
@@ -418,11 +421,6 @@ local function SetupMERChat(layout)
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['Chat Set']
-		InstallStepComplete:Show()
-		titleText[3].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -533,11 +531,6 @@ local function SetupMERDPSActionbars(layout)
 	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,185"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['Actionbars Set']
-		InstallStepComplete:Show()
-		titleText[5].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -635,11 +628,6 @@ local function SetupMERHEALActionbars(layout)
 	E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,0,156"
 	E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['Actionbars Set']
-		InstallStepComplete:Show()
-		titleText[5].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -924,10 +912,10 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["growthDirection"] = "RIGHT_UP"
 	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
 	E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
-	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["size"] = 10
@@ -1089,9 +1077,9 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
-	E.db["unitframe"]["units"]["party"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["name"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
@@ -1232,11 +1220,6 @@ local function SetupMERDPSUnitframes(layout)
 
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['DPS Unitframes Set']
-		InstallStepComplete:Show()
-		titleText[6].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -1498,10 +1481,10 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["raid"]["buffIndicator"]["fontSize"] = 11
-	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = "[namecolor][name:medium:status]"
-	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["raid"]["name"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["raid"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 15
 	E.db["unitframe"]["units"]["raid"]["height"] = 24
@@ -1626,9 +1609,9 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
-	E.db["unitframe"]["units"]["party"]["name"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["party"]["name"]["position"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["name"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 1
+	E.db["unitframe"]["units"]["party"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["name"]["attachTextTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["name"]["text_format"] = "[namecolor][name:medium:status]"
 	E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
@@ -1762,11 +1745,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['Heal Unitframes Set']
-		InstallStepComplete:Show()
-		titleText[6].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -1851,11 +1829,6 @@ function MER:SetupDts(role)
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Gold"
 	end
 
-	if InstallStepComplete then
-		InstallStepComplete.message = MER.Title..L['DataTexts Set']
-		InstallStepComplete:Show()
-		titleText[4].check:Show()
-	end
 	E:UpdateAll(true)
 end
 
@@ -2281,89 +2254,98 @@ MER.installTable = {
  	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
  	["Pages"] = {
 		[1] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText(L['Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s.'], MER.Version, E.version)
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please press the continue button to go onto the next step.'])
+			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."], MER.Version, E.version)
+			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
+			PluginInstallFrame.Desc2:SetText(L["Please press the continue button to go onto the next step."])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
-			PluginInstallFrame.Option1:SetText(L['Skip Process'])
+			PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
-			PluginInstallFrame.SubTitle:SetText(L['Layout'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation changes the default ElvUI look.'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to apply the new layout.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.SubTitle:SetText(L["Layout"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation changes the default ElvUI look."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to apply the new layout."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSLayout('Layout') end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['DPS Layout'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSLayout("Layout") end)
+			PluginInstallFrame.Option1:SetText(L["DPS Layout"])
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALLayout('Layout') end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", L['Heal Layout'])
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALLayout("Layout") end)
+			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
 		[3] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Chat'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process sets up your chat fonts and colors.'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your chat windows.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.SubTitle:SetText(L["CVars"])
+			PluginInstallFrame.Desc1:SetFormattedText(L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."], MER.Title)
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your CVars."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', SetupMERChat)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Chat'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERCVars() end)
+			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
 		[4] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['DataTexts'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your datatexts.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.SubTitle:SetText(L["Chat"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process sets up your chat fonts and colors."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your chat windows."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('role') end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup Datatexts'])
+			PluginInstallFrame.Option1:SetScript('OnClick', SetupMERChat)
+			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
 		[5] = function()
-			PluginInstallFrame.SubTitle:SetText(L['ActionBars'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Actionbars and will enable backdrops'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your actionbars.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your datatexts."])
+			PluginInstallFrame.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSActionbars() end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup DPS ActionBars'])
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALActionbars() end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", L['Setup Heal ActionBars'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('role') end)
+			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
 		[6] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['UnitFrames'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will reposition your Unitframes.'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your Unitframes.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cff07D400High|r'])
+			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Actionbars and will enable backdrops"])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your actionbars."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSUnitframes() end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Setup DPS Unitframes'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSActionbars() end)
+			PluginInstallFrame.Option1:SetText(L["Setup DPS ActionBars"])
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALUnitframes() end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", L['Setup Heal Unitframes'])
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALActionbars() end)
+			PluginInstallFrame.Option2:SetText(L["Setup Heal ActionBars"])
 		end,
 		[7] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['This part of the installation process will apply changes to Skada and ElvUI plugins'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below to setup your addons.'])
-			PluginInstallFrame.Desc3:SetFormattedText("%s", L['Importance: |cffD3CF00Medium|r'])
+			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupMERAddons('Skada'); end)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Skada'])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERDPSUnitframes() end)
+			PluginInstallFrame.Option1:SetText(L["Setup DPS Unitframes"])
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupMERAddons('AddOnSkins'); end)
-			PluginInstallFrame.Option2:SetFormattedText("%s", L['AddOnSkins'])
-			PluginInstallFrame.Option3:Show()
-			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupMERAddons('ElvUI_BenikUI'); MER:SetupMERAddons('ElvUI_SLE'); MER:SetupMERAddons('ElvUI_VisualAuraTimers'); end)
-			PluginInstallFrame.Option3:SetFormattedText("%s", L['ElvUI Addons'])
+			PluginInstallFrame.Option2:SetScript('OnClick', function() SetupMERHEALUnitframes() end)
+			PluginInstallFrame.Option2:SetText(L["Setup Heal Unitframes"])
 		end,
 		[8] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", L['Installation Complete'])
-			PluginInstallFrame.Desc1:SetFormattedText("%s", L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
-			PluginInstallFrame.Desc2:SetFormattedText("%s", L['Please click the button below so you can setup variables and ReloadUI.'])
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to Skada and ElvUI plugins"])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your addons."])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupMERAddons('Skada'); end)
+			PluginInstallFrame.Option1:SetText(L["Skada"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupMERAddons('AddOnSkins'); end)
+			PluginInstallFrame.Option2:SetText(L["AddOnSkins"])
+			PluginInstallFrame.Option3:Show()
+			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupMERAddons('ElvUI_BenikUI'); MER:SetupMERAddons('ElvUI_SLE'); MER:SetupMERAddons('ElvUI_VisualAuraTimers'); end)
+			PluginInstallFrame.Option3:SetText(L["ElvUI Addons"])
+		end,
+		[9] = function()
+			PluginInstallFrame.SubTitle:SetText(L['Installation Complete'])
+			PluginInstallFrame.Desc1:SetText(L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
+			PluginInstallFrame.Desc2:SetText(L['Please click the button below so you can setup variables and ReloadUI.'])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
-			PluginInstallFrame.Option1:SetFormattedText("%s", L['Finished'])
+			PluginInstallFrame.Option1:SetText(L['Finished'])
 			if InstallStepComplete then
 				InstallStepComplete.message = MER.Title..L['Installed']
 				InstallStepComplete:Show()
@@ -2374,12 +2356,13 @@ MER.installTable = {
 	["StepTitles"] = {
 		[1] = START,
 		[2] = L['Layout'],
-		[3] = L['Chat'],
-		[4] = L['DataTexts'],
-		[5] = L['ActionBars'],
-		[6] = L['UnitFrames'],
-		[7] = ADDONS,
-		[8] = L['Installation Complete'],
+		[3] = L['CVars'],
+		[4] = L['Chat'],
+		[5] = L['DataTexts'],
+		[6] = L['ActionBars'],
+		[7] = L['UnitFrames'],
+		[8] = ADDONS,
+		[9] = L['Installation Complete'],
 	},
 	["StepTitlesColorSelected"] = RAID_CLASS_COLORS[E.myclass],
 }

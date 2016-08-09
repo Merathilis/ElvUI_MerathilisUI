@@ -163,6 +163,7 @@ L["This part of the installation process will fill MerathilisUI datatexts.\r|cff
 L['This part of the installation process will reposition your Actionbars and will enable backdrops'] = true
 L['This part of the installation process will reposition your Unitframes.'] = true
 L['This part of the installation process will apply changes to Skada and ElvUI plugins'] = true
+L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
 L['Please click the button below to apply the new layout.'] = true
 L['Please click the button below to setup your chat windows.'] = true
 L['Please click the button below to setup your actionbars.'] = true
