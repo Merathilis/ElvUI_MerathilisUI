@@ -1,3 +1,7 @@
+** v2.10, xx.08.2016**
+* Overhaul the install process for AddOns.
+* Some tweaks to the Layouts.
+
 ** v2.09, 08.08.2016**
 * Change the default position of the Changelog.
 * Fix lua error in install.
