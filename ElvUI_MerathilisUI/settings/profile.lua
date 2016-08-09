@@ -62,6 +62,7 @@ P['mui'] = {
 		["customColor"] = {r = 1, g = 1, b = 1 },
 		["portals"] = {
 			["enable"] = true,
+			["HSplace"] = true,
 			["customWidth"] = false,
 			["customWidthValue"] = 200,
 			["justify"] = "LEFT",

@@ -333,13 +333,19 @@ function LP:ItemList(check)
 			else
 				local tmp = {}
 				local cd = DD:GetCooldown("Item", data.secure.ID)
-				if cd then
-					E:CopyTable(tmp, data)
-					tmp.text = tmp.text..format(LP.CDformats[LP.db.portals.cdFormat], cd)
-					tinsert(LP.MainMenu, tmp)
-				else
-					tinsert(LP.MainMenu, data)
+				local HSplace = ""
+				if LP.db.portals.HSplace and data.secure.ID == 6948 then
+					HSplace = " - "..GetBindLocation()
+				elseif LP.db.portals.HSplace and data.secure.ID == 64488 then
+					HSplace = " - "..GetBindLocation()
 				end
+				E:CopyTable(tmp, data)
+				if cd then
+					tmp.text = tmp.text..HSplace..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+				else
+					tmp.text = tmp.text..HSplace
+				end
+				tinsert(LP.MainMenu, tmp)
 			end
 		end
 	end

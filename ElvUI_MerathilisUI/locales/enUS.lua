@@ -134,6 +134,8 @@ L["By default menu's width will be equal to the location panel width. Checking t
 L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
+L["Hearthstone Location"] = true
+L["Show the name on location your Heathstone is bound to."] = true
 
 -- Install
 L['Welcome'] = true

@@ -134,6 +134,8 @@ L["By default menu's width will be equal to the location panel width. Checking t
 L["Justify Text"] = "Text ausrichten"
 L["Auto Width"] = "Auto Breite"
 L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonen Text."
+L["Hearthstone Location"] = "Ruhestein Position"
+L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 
 -- Install
 L['Welcome'] = "Willkommen"

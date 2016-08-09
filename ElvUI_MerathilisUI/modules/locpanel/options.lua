@@ -186,6 +186,12 @@ local function LocPanelTable()
 									["DEFAULT_ICONFIRST"] = [[( |TInterface\FriendsFrame\StatusIcon-Away:16|t10m)]],
 								},
 							},
+							HSplace = {
+								order = 6,
+								type = "toggle",
+								name = L["Hearthstone Location"],
+								desc = L["Show the name on location your Heathstone is bound to."],
+							},
 						},
 					},
 					fontGroup = {
