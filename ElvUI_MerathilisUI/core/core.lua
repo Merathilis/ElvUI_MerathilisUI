@@ -133,8 +133,6 @@ end
  -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
 	-- Clear the old db
-	if E.db.benikui.general.gameMenuButton then E.db.benikui.general.gameMenuButton = nil end
-	if E.db.mui.misc.TooltipIcon then E.db.mui.misc.TooltipIcon = nil end
 
 	E.db.mui.dbCleaned = true
 end
