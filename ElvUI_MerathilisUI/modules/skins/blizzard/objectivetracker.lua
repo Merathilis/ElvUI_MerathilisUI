@@ -87,7 +87,6 @@ end)
 -- ProgressBar in the ObjectiveTacker
 hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
 	local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
-	local anchor = block.currentLine or block.HeaderText;
 
 	if progressBar and progressBar:IsShown() and not progressBar.skinned then
 		progressBar.Bar:StripTextures()
