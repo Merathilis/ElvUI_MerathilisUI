@@ -136,21 +136,12 @@ hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, 
 		label:SetPoint("CENTER", bar, "CENTER", 0, 0)
 		label:FontTemplate(LSM:Fetch('font', 'Merathilis Expressway', 16))
 
-		icon:SetPoint("RIGHT", 24, 0)
-		icon:SetSize(20, 20)
-
-		local border = CreateFrame("Frame", "$parentBorder", bar)
-		border:SetAllPoints(icon)
-		border:SetTemplate("Transparent")
-		border:SetBackdropColor(0, 0, 0, 0)
-		bar.newIconBg = border
+		icon:Hide()
 
 		bar.AnimIn.Play = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 		progressBar.styled = true
 	end
-
-	bar.newIconBg:SetShown(icon:IsShown())
 end)
 
 -- Set tooltip depending on position
