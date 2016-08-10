@@ -1,9 +1,9 @@
-** v2.10, xx.08.2016**
+** v2.10, 10.08.2016**
 * Overhaul the install process for AddOns.
 * Some tweaks to the Layouts.
 * Fix a nil error if BenikUI is not loaded.
 * Add hearthstone position to the LocPanel menu.
-* Skin a progressBar in ObjectiveTracker skin.
+* Skin progressBars in ObjectiveTracker skin.
 
 ** v2.09, 08.08.2016**
 * Change the default position of the Changelog.
