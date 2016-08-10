@@ -327,7 +327,6 @@ local function SetupMERCVars()
 	-- Setup CVar
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("autoDismountFlying", 1)
-	SetCVar("cameraDistanceMaxFactor", 2.6)
 	SetCVar("guildMemberNotify", 1)
 	SetCVar("nameplateShowSelf", 0)
 	SetCVar("nameplateShowEnemies", 1)
