@@ -84,6 +84,21 @@ hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, 
 	end
 end)
 
+-- ProgressBar in the ObjectiveTacker
+hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
+	local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+	local anchor = block.currentLine or block.HeaderText;
+
+	if progressBar and progressBar:IsShown() and not progressBar.skinned then
+		progressBar.Bar:StripTextures()
+		progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
+		progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		progressBar.Bar:CreateBackdrop()
+		progressBar.Bar.backdrop:SetAllPoints()
+		progressBar.skinned = true
+	end
+end)
+
 -- Skin ObjectiveTrackerFrame item buttons
 hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
 	local item = block.itemButton

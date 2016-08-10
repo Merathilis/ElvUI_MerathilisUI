@@ -3,6 +3,7 @@
 <font color=#FF8C00>&#9830;</font> Some tweaks to the Layouts.
 <font color=#FF8C00>&#9830;</font> Fix a nil error if BenikUI is not loaded.
 <font color=#FF8C00>&#9830;</font> Add hearthstone position to the LocPanel menu.
+<font color=#FF8C00>&#9830;</font> Skin a progressBar in ObjectiveTracker skin.
 
 <b><u> v2.09, 08.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Change the default position of the Changelog.
