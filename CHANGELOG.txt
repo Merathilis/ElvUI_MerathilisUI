@@ -1,3 +1,9 @@
+<b><u> v2.11, xx.xx.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
+<font color=#FF8C00>&#9830;</font> "Maybe" fixed a nil error in changelog.
+<font color=#FF8C00>&#9830;</font> More work on the ObjectivTracker skin.
+<font color=#FF8C00>&#9830;</font> More work on the Quest skin
+
 <b><u> v2.10, 10.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Overhaul the install process for AddOns.
 <font color=#FF8C00>&#9830;</font> Some tweaks to the Layouts.

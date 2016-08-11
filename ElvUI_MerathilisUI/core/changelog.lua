@@ -19,11 +19,11 @@ local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.10|r, 10.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Overhaul the install process for AddOns.
- |cffff7d0a•|r Some tweaks to the Layouts.
- |cffff7d0a•|r Fix a nil error if BenikUI is not loaded.
- |cffff7d0a•|r Add hearthstone position to the LocPanel menu.
- |cffff7d0a•|r Skin progressBars in ObjectiveTracker skin.
+ |cffff7d0a•|r Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
+ |cffff7d0a•|r "Maybe" fixed a nil error in changelog.
+ |cffff7d0a•|r More work on the ObjectivTracker skin.
+ |cffff7d0a•|r More work on the Quest skin
+
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
