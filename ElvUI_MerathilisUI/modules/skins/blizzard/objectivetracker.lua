@@ -109,6 +109,8 @@ hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, 
 		progressBar.Bar:CreateBackdrop()
 		progressBar.Bar.backdrop:SetAllPoints()
 		progressBar.skinned = true
+
+		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 	end
 end)
 
@@ -158,13 +160,13 @@ hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, 
 		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		bar:SetBackdropColor(0, 0, 0, 0)
 
-		flare:Hide()
+		flare:Kill()
 
 		label:ClearAllPoints()
 		label:SetPoint("CENTER", bar, "CENTER", 0, 0)
 		label:FontTemplate(LSM:Fetch('font', 'Merathilis Expressway', 16))
 
-		icon:Hide()
+		icon:Kill()
 
 		bar.AnimIn.Play = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
