@@ -671,6 +671,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
+	
 	E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
 	E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
@@ -719,6 +720,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		-- Detach portrait
+		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
 		E.db['benikui']['unitframes']['player']['detachPortrait'] = true
 		E.db['benikui']['unitframes']['player']['portraitWidth'] = 92
 		E.db['benikui']['unitframes']['player']['portraitHeight'] = 39
@@ -816,6 +818,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 
 	if IsAddOnLoaded ("ElvUI_BenikUI") then
+		E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
 		E.db['benikui']['unitframes']['target']['detachPortrait'] = true
 		E.db['benikui']['unitframes']['target']['portraitWidth'] = 92
 		E.db['benikui']['unitframes']['target']['portraitHeight'] = 39
