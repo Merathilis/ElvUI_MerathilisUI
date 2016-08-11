@@ -30,6 +30,7 @@ local function styleQuest()
 	end)
 
 	QuestGreetingScrollFrame:StripTextures(true)
+	QuestFrameInset:StripTextures(true)
 	GreetingText:SetTextColor(1, 1, 1)
 	GreetingText.SetTextColor = MER.dummy
 
@@ -94,6 +95,7 @@ local function styleQuest()
 		QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
 		QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
 		QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 0)
+		QuestInfoRequiredMoneyText:SetTextColor(1, 1, 1)
 		QuestInfoDescriptionText:SetTextColor(1, 1, 1)
 		QuestInfoObjectivesText:SetTextColor(1, 1, 1)
 		QuestInfoGroupSize:SetTextColor(1, 1, 1)
@@ -127,14 +129,14 @@ local function styleQuest()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then
-				QuestInfoRequiredMoneyText:SetTextColor(0.6, 0.6, 0.6)
+				QuestInfoRequiredMoneyText:SetTextColor(0, 0, 0);
+				SetMoneyFrameColor("QuestInfoRequiredMoneyDisplay", "red");
 			else
-				QuestInfoRequiredMoneyText:SetTextColor(1, 1, 0)
+				QuestInfoRequiredMoneyText:SetTextColor(0.2, 0.2, 0.2);
+				SetMoneyFrameColor("QuestInfoRequiredMoneyDisplay", "white");
 			end
 		end
 	end)
-
-	QuestFrameInset:StripTextures()
 end
 
 local f = CreateFrame("Frame")
