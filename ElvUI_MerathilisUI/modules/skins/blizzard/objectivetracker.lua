@@ -219,36 +219,40 @@ local function SkinScenarioButtons()
 	local block = ScenarioStageBlock
 	local _, currentStage, numStages, flags = C_Scenario.GetInfo()
 
-	block:StripTextures()
-	block.NormalBG:SetSize(otf:GetWidth(), 50)
+	block.NormalBG:ClearAllPoints()
+	block.NormalBG:Point("CENTER", block, 25, 0)
+	block.NormalBG:SetSize(otf:GetWidth(), 70)
 	block.FinalBG:ClearAllPoints()
 	block.FinalBG:SetPoint("TOPLEFT", block.NormalBG, 6, -6)
 	block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
-	block.GlowTexture:SetSize(otf:GetWidth(), 50)
+	block.GlowTexture:SetSize(otf:GetWidth(), 70)
 end
 
--- Skinn proving grounds
+-- Skin proving grounds
 local function SkinProvingGroundButtons()
 	local block = ScenarioProvingGroundsBlock
 	local sb = block.StatusBar
 	local anim = ScenarioProvingGroundsBlockAnim
 
-	block:StripTextures()
+	block.BG:ClearAllPoints()
+	block.BG:Point("CENTER", block, 25, 0)
+
 	block.MedalIcon:SetSize(32, 32)
 	block.MedalIcon:ClearAllPoints()
-	block.MedalIcon:SetPoint("TOPLEFT", block, 20, -10)
+	block.MedalIcon:SetPoint("LEFT", block.BG, 3, 0)
 
 	block.WaveLabel:ClearAllPoints()
 	block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
 
 	block.BG:SetSize(otf:GetWidth(), 50)
 
-	block.GoldCurlies:ClearAllPoints()
-	block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
-	block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
+	block.GoldCurlies:Hide()
 
-	anim.BGAnim:SetSize(otf:GetWidth(), 50)
-	anim.BorderAnim:SetSize(otf:GetWidth(), 50)
+	anim.Glow:Kill()
+	anim.BGAnim:ClearAllPoints()
+	anim.BGAnim:Point("CENTER", block, 25, 0)
+	anim.BGAnim:SetSize(otf:GetWidth(), 70)
+	anim.BorderAnim:SetSize(otf:GetWidth(), 70)
 	anim.BorderAnim:ClearAllPoints()
 	anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
 	anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
@@ -257,17 +261,13 @@ local function SkinProvingGroundButtons()
 	sb:SetStatusBarTexture(E["media"].MuiFlat)
 	sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	sb:ClearAllPoints()
-	sb:SetPoint("TOPLEFT", block.MedalIcon, "BOTTOMLEFT", -4, -5)
+	sb:SetPoint("CENTER", block.BG, 5, -34)
 	sb:CreateBackdrop()
 	sb.backdrop:SetAllPoints()
 end
 
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
-
-	for _, headerName in pairs({"QuestHeader", "AchievementHeader", "ScenarioHeader"}) do
-		ObjectiveTrackerFrame.BlocksFrame[headerName].Background:Hide()
-	end
 
 	-- Quest
 	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
