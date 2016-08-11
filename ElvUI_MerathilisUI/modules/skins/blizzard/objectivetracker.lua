@@ -225,7 +225,6 @@ local function ObjectiveTrackerReskin()
 		if x and x < (screenWidth / 2) then
 			positionedLeft = true
 		end
-	
 		return positionedLeft
 	end
 
@@ -258,8 +257,7 @@ local function ObjectiveTrackerReskin()
 	-- Skin scenario buttons
 	local function SkinScenarioButtons()
 		local block = ScenarioStageBlock
-		local _, currentStage, numStages, flags = C_Scenario.GetInfo()
-	
+
 		block.NormalBG:ClearAllPoints()
 		block.NormalBG:Point("CENTER", block, 25, 0)
 		block.NormalBG:SetSize(otf:GetWidth(), 70)
@@ -268,6 +266,8 @@ local function ObjectiveTrackerReskin()
 		block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
 		block.GlowTexture:SetSize(otf:GetWidth(), 70)
 	end
+	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
+	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 
 	-- Skin proving grounds
 	local function SkinProvingGroundButtons()
@@ -287,24 +287,20 @@ local function ObjectiveTrackerReskin()
 
 		block.BG:SetSize(otf:GetWidth(), 50)
 
-		block.GoldCurlies:Hide()
+		block.GoldCurlies:Kill()
 
 		anim.Glow:Kill()
-		anim.BGAnim:ClearAllPoints()
-		anim.BGAnim:Point("CENTER", block, 25, 0)
-		anim.BGAnim:SetSize(otf:GetWidth(), 70)
-		anim.BorderAnim:SetSize(otf:GetWidth(), 70)
-		anim.BorderAnim:ClearAllPoints()
-		anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
-		anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
-	
+		anim.BGAnim:Kill()
+		anim.BorderAnim:Kill()
+
 		sb:StripTextures()
 		sb:SetStatusBarTexture(E["media"].MuiFlat)
 		sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		sb:ClearAllPoints()
-		sb:SetPoint("CENTER", block.BG, 5, -34)
+		sb:SetPoint("CENTER", block.BG, 0, -34)
 		sb:CreateBackdrop()
 		sb.backdrop:SetAllPoints()
 	end
+	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
