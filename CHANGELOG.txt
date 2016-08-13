@@ -3,6 +3,7 @@
 <font color=#FF8C00>&#9830;</font> "Maybe" fixed a nil error in changelog.
 <font color=#FF8C00>&#9830;</font> More work on the ObjectivTracker skin.
 <font color=#FF8C00>&#9830;</font> More work on the Quest skin
+<font color=#FF8C00>&#9830;</font> Update addonskins setting in install. (Disable WeakAuras)
 
 <b><u> v2.10, 10.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Overhaul the install process for AddOns.
