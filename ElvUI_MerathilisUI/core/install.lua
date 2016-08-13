@@ -2003,8 +2003,7 @@ function MER:SetupMERAddons(addon)
 			E.private['addonskins']['EmbedRight'] = 'Skada'
 			E.private['addonskins']['EmbedLeftWidth'] = 170
 			E.private['addonskins']['ParchmentRemover'] = false
-			E.private['addonskins']['WeakAuraAuraBar'] = false
-			E.private['addonskins']['WeakAuraIconCooldown'] = false
+			E.private['addonskins']['WeakAuras'] = false
 			E.private['addonskins']['BigWigsHalfBar'] = false
 			E.private['addonskins']['CliqueSkin'] = true
 			E.private['addonskins']['SkinTemplate'] = 'Transparent'
