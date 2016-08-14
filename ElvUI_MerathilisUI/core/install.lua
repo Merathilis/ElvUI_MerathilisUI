@@ -1144,8 +1144,12 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = 'Health'
+	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:medium]"
+	E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["width"] = 90
-	E.db["unitframe"]["units"]["pet"]["height"] = 40
+	E.db["unitframe"]["units"]["pet"]["height"] = 25
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
@@ -1672,8 +1676,12 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
+	E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:medium]"
+	E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["pet"]["width"] = 90
-	E.db["unitframe"]["units"]["pet"]["height"] = 40
+	E.db["unitframe"]["units"]["pet"]["height"] = 25
 	E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true

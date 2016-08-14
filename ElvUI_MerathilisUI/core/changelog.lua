@@ -23,7 +23,7 @@ local ChangeLogData = [=[|cffff7d0av2.10|r, 10.08.2016
  |cffff7d0a•|r "Maybe" fixed a nil error in changelog.
  |cffff7d0a•|r More work on the ObjectivTracker skin.
  |cffff7d0a•|r More work on the Quest skin
- |cffff7d0a•|r Update addonskins setting in install. (Disable WeakAuras)
+ |cffff7d0a•|r Update settings in install.
 
  
 |cffff7d0aNotes:|r

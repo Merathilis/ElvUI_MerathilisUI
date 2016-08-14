@@ -3,7 +3,7 @@
 * "Maybe" fixed a nil error in changelog.
 * More work on the ObjectivTracker skin.
 * More work on the Quest skin
-* Update addonskins setting in install. (Disable WeakAuras)
+* Update settings in install.
 
 ** v2.10, 10.08.2016**
 * Overhaul the install process for AddOns.
