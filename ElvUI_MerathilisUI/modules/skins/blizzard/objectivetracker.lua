@@ -130,7 +130,8 @@ local function ObjectiveTrackerReskin()
 			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
 			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:SetAllPoints()
+			progressBar.Bar.backdrop:Point("TOPLEFT", progressBar, -1, 1)
+			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", progressBar, 1, -1)
 			progressBar.skinned = true
 		end
 	end)
@@ -144,7 +145,8 @@ local function ObjectiveTrackerReskin()
 			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
 			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:SetAllPoints()
+			progressBar.Bar.backdrop:Point("TOPLEFT", progressBar, -1, 1)
+			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", progressBar, 1, -1)
 			progressBar.skinned = true
 
 			ScenarioTrackerProgressBar_PlayFlareAnim = dummy
@@ -193,7 +195,8 @@ local function ObjectiveTrackerReskin()
 			bar.IconBG:Kill()
 			BG:Hide()
 			bar:CreateBackdrop("Transparent")
-			bar.backdrop:SetAllPoints()
+			bar.backdrop:Point("TOPLEFT", bar, -1, 1)
+			bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
 			bar:SetSize(225, 18)
 			bar:SetStatusBarTexture(LSM:Fetch('statusbar', 'MerathilisFlat'))
 			bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
@@ -242,8 +245,9 @@ local function ObjectiveTrackerReskin()
 			tb.Bar:StripTextures()
 			tb.Bar:SetStatusBarTexture(E["media"].MuiFlat)
 			tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			tb.Bar:CreateBackdrop()
-			tb.Bar.backdrop:SetAllPoints()
+			tb.Bar:CreateBackdrop("Transparent")
+			tb.Bar.backdrop:Point("TOPLEFT", tb.Bar, -1, 1)
+			tb.Bar.backdrop:Point("BOTTOMRIGHT", tb.Bar, 1, -1)
 			tb.skinned = true
 		end
 	end)
@@ -270,7 +274,7 @@ local function ObjectiveTrackerReskin()
 		local anim = ScenarioProvingGroundsBlockAnim
 
 		block.BG:ClearAllPoints()
-		block.BG:Point("CENTER", block, 25, 0)
+		block.BG:Point("CENTER", block, 25, 4)
 
 		block.MedalIcon:SetSize(32, 32)
 		block.MedalIcon:ClearAllPoints()
@@ -292,8 +296,9 @@ local function ObjectiveTrackerReskin()
 		sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 		sb:ClearAllPoints()
 		sb:SetPoint("CENTER", block.BG, 0, -34)
-		sb:CreateBackdrop()
-		sb.backdrop:SetAllPoints()
+		sb:CreateBackdrop("Transparent")
+		sb.backdrop:Point("TOPLEFT", sb, -1, 1)
+		sb.backdrop:Point("BOTTOMRIGHT", sb, 1, -1)
 	end
 	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 end
