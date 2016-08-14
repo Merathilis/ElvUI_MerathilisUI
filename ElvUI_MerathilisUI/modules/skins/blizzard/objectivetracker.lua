@@ -186,8 +186,6 @@ local function ObjectiveTrackerReskin()
 		local BG = bar.BarBG
 
 		if not progressBar.styled then
-			local label = bar.Label
-
 			bar.BarFrame:Hide()
 			bar.BarFrame2:Hide()
 			bar.BarFrame3:Hide()
@@ -202,10 +200,6 @@ local function ObjectiveTrackerReskin()
 			bar:SetBackdropColor(0, 0, 0, 0)
 
 			flare:Kill()
-
-			label:ClearAllPoints()
-			label:SetPoint("CENTER", bar, "CENTER", 0, 0)
-			label:FontTemplate(LSM:Fetch('font', 'Merathilis Expressway', 16))
 
 			icon:Kill()
 
