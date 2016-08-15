@@ -1,10 +1,12 @@
-<b><u> v2.11, xx.xx.2016</b></u>
-<font color=#FF8C00>&#9830;</font> Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
+<b><u> v2.11, 15.08.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
 <font color=#FF8C00>&#9830;</font> "Maybe" fixed a nil error in changelog.
 <font color=#FF8C00>&#9830;</font> More work on the ObjectivTracker skin.
 <font color=#FF8C00>&#9830;</font> More work on the Quest skin
 <font color=#FF8C00>&#9830;</font> Update settings in install.
 <font color=#FF8C00>&#9830;</font> If you visit the Auction House, the bags should be open/close automatically.
+<font color=#FF8C00>&#9830;</font> Enable tooltip scanning for bags in my install. It cost more resources, so if you experience performance issues turn it off in the Bags settings.
+<font color=#FF8C00>&#9830;</font> Adjust the width of the changelog.
 
 <b><u> v2.10, 10.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Overhaul the install process for AddOns.

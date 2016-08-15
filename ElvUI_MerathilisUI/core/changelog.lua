@@ -16,15 +16,17 @@ local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COL
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.10|r, 10.08.2016
+local ChangeLogData = [=[|cffff7d0av2.11|r, 15.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
+ |cffff7d0a•|r Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
  |cffff7d0a•|r "Maybe" fixed a nil error in changelog.
  |cffff7d0a•|r More work on the ObjectivTracker skin.
  |cffff7d0a•|r More work on the Quest skin.
  |cffff7d0a•|r Update settings in install.
  |cffff7d0a•|r If you visit the Auction House, the bags should be open/close automatically.
+ |cffff7d0a•|r Enable tooltip scanning for bags in my install. It cost more resources, so if you experience performance issues turn it off in the Bags settings.
+ |cffff7d0a•|r Adjust the width of the changelog. 
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
@@ -33,7 +35,7 @@ local ChangeLogData = [=[|cffff7d0av2.10|r, 10.08.2016
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 frame:SetPoint("CENTER", UIParent, "BOTTOM", 0, 350)
-frame:SetSize(400, 300)
+frame:SetSize(450, 300)
 frame:SetTemplate("Transparent")
 frame:SetMovable(true)
 frame:EnableMouse(true)
@@ -46,7 +48,7 @@ frame:Hide()
 
 local title = CreateFrame("Frame", nil, frame)
 title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
-title:SetSize(400, 20)
+title:SetSize(450, 20)
 title:SetTemplate("Transparent")
 MER:CreateSoftShadow(title)
 

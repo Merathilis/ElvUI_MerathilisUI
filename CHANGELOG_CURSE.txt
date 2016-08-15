@@ -1,10 +1,12 @@
-** v2.11, xx.xx.2016**
-* Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
+** v2.11, 15.08.2016**
+* Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
 * "Maybe" fixed a nil error in changelog.
 * More work on the ObjectivTracker skin.
 * More work on the Quest skin.
 * Update settings in install.
 * If you visit the Auction House, the bags should be open/close automatically.
+* Enable tooltip scanning for bags in my install. It cost more resources, so if you experience performance issues, turn it off in the Bags settings.
+* Adjust the width of the changelog.
 
 ** v2.10, 10.08.2016**
 * Overhaul the install process for AddOns.
