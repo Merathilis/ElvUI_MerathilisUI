@@ -139,6 +139,7 @@ local function SetupMERDPSLayout(layout)
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 650
 	E.db["bags"]["junkIcon"] = true
+	E.db["bags"]["useTooltipScanning"] = true
 
 	-- Nameplates
 	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
