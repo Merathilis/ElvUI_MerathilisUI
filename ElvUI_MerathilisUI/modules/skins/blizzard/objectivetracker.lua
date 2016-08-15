@@ -130,8 +130,8 @@ local function ObjectiveTrackerReskin()
 			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
 			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:Point("TOPLEFT", progressBar, -1, 1)
-			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", progressBar, 1, -1)
+			progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
 			progressBar.skinned = true
 		end
 	end)
@@ -145,8 +145,8 @@ local function ObjectiveTrackerReskin()
 			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
 			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:Point("TOPLEFT", progressBar, -1, 1)
-			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", progressBar, 1, -1)
+			progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
 			progressBar.skinned = true
 
 			ScenarioTrackerProgressBar_PlayFlareAnim = dummy
