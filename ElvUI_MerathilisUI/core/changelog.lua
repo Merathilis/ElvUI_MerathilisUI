@@ -22,9 +22,9 @@ local ChangeLogData = [=[|cffff7d0av2.10|r, 10.08.2016
  |cffff7d0a•|r Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
  |cffff7d0a•|r "Maybe" fixed a nil error in changelog.
  |cffff7d0a•|r More work on the ObjectivTracker skin.
- |cffff7d0a•|r More work on the Quest skin
+ |cffff7d0a•|r More work on the Quest skin.
  |cffff7d0a•|r Update settings in install.
-
+ |cffff7d0a•|r If you visit the Auction House, the bags should be open/close automatically.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.

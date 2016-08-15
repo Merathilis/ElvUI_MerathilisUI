@@ -4,6 +4,7 @@
 <font color=#FF8C00>&#9830;</font> More work on the ObjectivTracker skin.
 <font color=#FF8C00>&#9830;</font> More work on the Quest skin
 <font color=#FF8C00>&#9830;</font> Update settings in install.
+<font color=#FF8C00>&#9830;</font> If you visit the Auction House, the bags should be open/close automatically.
 
 <b><u> v2.10, 10.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Overhaul the install process for AddOns.

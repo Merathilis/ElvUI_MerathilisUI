@@ -2,8 +2,9 @@
 * Fixed the empty space on unitframes. Finally, thanks goes to Benik. :)
 * "Maybe" fixed a nil error in changelog.
 * More work on the ObjectivTracker skin.
-* More work on the Quest skin
+* More work on the Quest skin.
 * Update settings in install.
+* If you visit the Auction House, the bags should be open/close automatically.
 
 ** v2.10, 10.08.2016**
 * Overhaul the install process for AddOns.
