@@ -21,6 +21,7 @@ P['mui'] = {
 		['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 		['moveBlizz'] = true, -- Make Blizzards Frame movable
 		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
+		['gmotd'] = true, -- Show a GMOTD frame
 	},
 
 	['systemDT'] = {

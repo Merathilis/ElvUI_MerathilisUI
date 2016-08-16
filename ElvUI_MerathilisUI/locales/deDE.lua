@@ -137,6 +137,9 @@ L["Change width based on the zone name length."] = "Ändert die Breite nach dem 
 L["Hearthstone Location"] = "Ruhestein Position"
 L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 
+-- GMOTD
+L["Guild Message Of The Day"] = "Gildennachricht des Tages"
+
 -- Install
 L['Welcome'] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true

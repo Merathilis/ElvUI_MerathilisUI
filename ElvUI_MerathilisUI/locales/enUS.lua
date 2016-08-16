@@ -137,6 +137,9 @@ L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 
+-- GMOTD
+L["Guild Message Of The Day"] = true
+
 -- Install
 L['Welcome'] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

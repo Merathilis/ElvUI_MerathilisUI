@@ -15,20 +15,12 @@ local CreateFrame = CreateFrame
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
-if MerathilisUIData == nil then MerathilisUIData = {} end
-
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.11|r, 15.08.2016
+local ChangeLogData = [=[|cffff7d0av2.12|r, xx.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
- |cffff7d0a•|r "Maybe" fixed a nil error in changelog.
- |cffff7d0a•|r More work on the ObjectivTracker skin.
- |cffff7d0a•|r More work on the Quest skin.
- |cffff7d0a•|r Update settings in install.
- |cffff7d0a•|r If you visit the Auction House, the bags should be open/close automatically.
- |cffff7d0a•|r Enable tooltip scanning for bags in my install. It cost more resources, so if you experience performance issues turn it off in the Bags settings.
- |cffff7d0a•|r Adjust the width of the changelog. 
+ |cffff7d0a•|r An extra frame will show up, if the GMOTD gets updated.
+ |cffff7d0a•|r 
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
@@ -97,13 +89,13 @@ function MER:ToggleChangeLog()
 end
 
 function MER:OnCheckVersion(self)
+	if MerathilisUIData == nil then MerathilisUIData = {} end
 	if not MerathilisUIData["Version"] or (MerathilisUIData["Version"] and MerathilisUIData["Version"] ~= MER.Version) then
 		MerathilisUIData["Version"] = MER.Version
 		MerathilisUIChangeLog:Show()
 	end
 end
 
-ChangeLog:RegisterEvent("ADDON_LOADED")
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
 ChangeLog:SetScript("OnEvent", function(self, event, ...)
 	MER:OnCheckVersion()

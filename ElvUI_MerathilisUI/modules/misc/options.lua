@@ -46,6 +46,12 @@ local function Misc()
 				name = L['TradeSkill Tabs'],
 				desc = L['Add tabs for professions on the TradeSkill Frame.'],
 			},
+			gmotd = {
+				order = 7,
+				type = 'toggle',
+				name = L["GMOTD"],
+				desc = L["Display the Guild Message of the Day in an extra window."],
+			},
 		},
 	}
 end

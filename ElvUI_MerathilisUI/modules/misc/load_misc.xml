@@ -4,6 +4,7 @@
 	<Script file="flightMode.lua"/>
 	<Script file="gamemenu.lua"/>
 	<Script file="garrisonalertframe.lua"/>
+	<Script file="gmotd.lua"/>
 	<Script file="mailinputbox.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="moveblizz.lua"/>
