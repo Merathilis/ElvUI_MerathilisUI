@@ -154,7 +154,8 @@ local function ObjectiveTrackerReskin()
 	end)
 
 	-- Skin ObjectiveTrackerFrame item buttons
-	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+	-- Comment this out, as is now on ElvUI, for now :)
+	--[[hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
 		local item = block.itemButton
 
 		if item and not item.skinned then
@@ -177,7 +178,7 @@ local function ObjectiveTrackerReskin()
 
 			item.skinned = true
 		end
-	end)
+	end)]]
 
 	-- Skin bonus objective progress bar
 	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
