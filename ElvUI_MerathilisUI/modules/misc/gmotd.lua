@@ -82,7 +82,7 @@ function MER:GMOTD()
 			else
 				GMOTD = IsInGuild() and GetGuildRosterMOTD() or ""
 			end
-			if (GMOTD ~= "") then
+			if (GMOTD ~= "") and not InCombatLockdown() then 
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
 				gmotd.text:SetText(GMOTD)
 				gmotd:SetHeight(gmotd.text:GetHeight() + 65)
