@@ -138,7 +138,7 @@ L["Hearthstone Location"] = "Ruhestein Position"
 L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 
 -- GMOTD
-L["Guild Message Of The Day"] = "Gildennachricht des Tages"
+L["Display the Guild Message of the Day in an extra window."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an."
 
 -- Install
 L['Welcome'] = "Willkommen"

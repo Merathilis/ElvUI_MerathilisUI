@@ -49,7 +49,7 @@ local function Misc()
 			gmotd = {
 				order = 7,
 				type = 'toggle',
-				name = L["GMOTD"],
+				name = GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window."],
 			},
 		},
