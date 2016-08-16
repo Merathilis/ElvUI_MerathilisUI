@@ -8,11 +8,13 @@ local LSM = LibStub('LibSharedMedia-3.0');
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
+local GetScreenHeight = GetScreenHeight
+local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GMOTD
+-- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
@@ -82,7 +84,7 @@ function MER:GMOTD()
 			else
 				GMOTD = IsInGuild() and GetGuildRosterMOTD() or ""
 			end
-			if (GMOTD ~= "") and not InCombatLockdown() then 
+			if (GMOTD ~= "") and not InCombatLockdown() then
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
 				gmotd.text:SetText(GMOTD)
 				gmotd:SetHeight(gmotd.text:GetHeight() + 65)

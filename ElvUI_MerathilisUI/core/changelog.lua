@@ -9,8 +9,9 @@ local pairs, tostring = pairs, tostring
 local gmatch, tinsert = gmatch, table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UISpecialFrames, MerathilisUIChangeLog, PlaySound
+-- GLOBALS: UISpecialFrames, MerathilisUIChangeLog, PlaySound, MerathilisUIData
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
@@ -82,7 +83,7 @@ frame:SetHeight(data:GetHeight() + 30)
 function MER:ToggleChangeLog()
 	if MerathilisUIChangeLog:IsShown() then
 		MerathilisUIChangeLog:Hide()
-	else
+	elseif not InCombatLockdown() then
 		MerathilisUIChangeLog:Show()
 		PlaySound("igMainMenuOptionCheckBoxOff")
 	end
