@@ -10,10 +10,12 @@ local gmatch, tinsert = gmatch, table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UISpecialFrames
+-- GLOBALS: UISpecialFrames, MerathilisUIChangeLog, PlaySound
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+
+if MerathilisUIData == nil then MerathilisUIData = {} end
 
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.11|r, 15.08.2016

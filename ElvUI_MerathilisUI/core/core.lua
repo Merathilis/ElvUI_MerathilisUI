@@ -21,7 +21,7 @@ local C_TimerAfter = C_Timer.After
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 MER.Config = {}
-MER.MerathilisUIData = {}
+MerathilisUIData = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
