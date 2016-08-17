@@ -138,7 +138,7 @@ L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 
 -- GMOTD
-L["Display the Guild Message of the Day in an extra window."] = true
+L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
 -- Install
 L['Welcome'] = true
