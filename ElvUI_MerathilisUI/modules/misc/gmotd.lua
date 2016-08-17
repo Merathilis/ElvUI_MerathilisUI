@@ -5,6 +5,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
 -- Lua functions
+local tinsert = table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
@@ -101,5 +102,6 @@ end
 function MER:LoadGMOTD()
 	if E.db.mui.misc.gmotd then
 		self:GMOTD()
+		tinsert(UISpecialFrames, "MER.GMOTD");
 	end
 end
