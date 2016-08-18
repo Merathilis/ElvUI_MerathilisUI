@@ -165,7 +165,7 @@ function MER:Initialize()
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname..' - '..E.myrealm]
 	if ElvDB.profileKeys and profileKey == nil then 
-		self:SetupUI()
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	if E.db.mui.general.LoginMsg then
