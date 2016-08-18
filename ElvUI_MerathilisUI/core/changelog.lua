@@ -90,7 +90,6 @@ function MER:ToggleChangeLog()
 end
 
 function MER:OnCheckVersion(self)
-	if MerathilisUIData == nil then MerathilisUIData = {} end
 	if not MerathilisUIData["Version"] or (MerathilisUIData["Version"] and MerathilisUIData["Version"] ~= MER.Version) then
 		MerathilisUIData["Version"] = MER.Version
 		MerathilisUIChangeLog:Show()

@@ -26,6 +26,7 @@ MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MerathilisUIData = {}
 
 function MER:cOption(name)
 	local color = '|cffff7d0a%s |r'
@@ -157,6 +158,10 @@ function MER:Initialize()
 		CreateSplashScreen()
 	end
 
+	if MerathilisUIData == nil then
+		MerathilisUIData = {}
+	end
+
 	-- Show only Splash Screen if the install is completed
 	if (E.db.mui.installed == true and E.db.mui.general.SplashScreen) then
 		C_TimerAfter(6, ShowSplashScreen)
@@ -171,7 +176,6 @@ function MER:Initialize()
 	if E.db.mui.general.LoginMsg then
 		print(MER.Title..format('v|cff00c0fa%s|r', MER.Version)..L[' is loaded.'])
 	end
-	EP:RegisterPlugin(addon, self.AddOptions)
 
 	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then
 		return
@@ -180,6 +184,8 @@ function MER:Initialize()
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then 
 		E:GetModule("PluginInstaller"):Queue(MER.installTable) 
 	end
+
+	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
 E:RegisterModule(MER:GetName())
