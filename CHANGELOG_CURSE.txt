@@ -1,3 +1,9 @@
+** v2.12, 18.08.2016**
+* An extra frame will show up, if the GMOTD gets updated.
+* Hopefully fix now the lua error in changelog. X.x
+* Removed the skinning of items in the ObjectiveTracker, will be in the next ElvUI version.
+* Update the Skada profile in setup.
+
 ** v2.11, 15.08.2016**
 * Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
 * "Maybe" fixed a nil error in changelog.

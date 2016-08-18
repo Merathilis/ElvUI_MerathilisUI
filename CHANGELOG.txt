@@ -1,3 +1,9 @@
+<b><u> v2.12, 18.08.2016</b></u>
+<font color=#FF8C00>&#9830;</font> An extra frame will show up, if the GMOTD gets updated.
+<font color=#FF8C00>&#9830;</font> Hopefully fix now the lua error in changelog. X.x
+<font color=#FF8C00>&#9830;</font> Removed the skinning of items in the ObjectiveTracker, will be in the next ElvUI version.
+<font color=#FF8C00>&#9830;</font> Update the Skada profile in setup.
+
 <b><u> v2.11, 15.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fixed the empty space on unitframes after install. Finally, thanks goes to Benik. :)
 <font color=#FF8C00>&#9830;</font> "Maybe" fixed a nil error in changelog.
