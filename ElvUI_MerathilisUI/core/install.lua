@@ -1033,6 +1033,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
+	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "USE_DEFAULT"
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
 	-- Party
@@ -1109,6 +1110,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
 	if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
@@ -1511,6 +1513,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["size"] = 15
+	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
@@ -1571,6 +1574,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
+	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "USE_DEFAULT"
 
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
@@ -1644,6 +1648,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
+	E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
 
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,706,219"
 
