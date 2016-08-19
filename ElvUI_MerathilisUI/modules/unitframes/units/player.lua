@@ -13,7 +13,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 function MUF:Construct_PlayerFrame()
 	local frame = _G["ElvUF_Player"]
-	
+
 	self:ArrangePlayer()
 end
 
@@ -52,7 +52,5 @@ end
 
 function MUF:InitPlayer()
 	self:Construct_PlayerFrame()
-	if not IsAddOnLoaded("ElvUI_SLE") then
-		hooksecurefunc(UF, "Configure_RestingIndicator", MUF.Configure_RestingIndicator)
-	end
+	hooksecurefunc(UF, "Configure_RestingIndicator", MUF.Configure_RestingIndicator)
 end
