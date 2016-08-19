@@ -346,7 +346,7 @@ local function SetupMERCVars()
 	SetCVar("showTutorials", 0)
 end
 
-local function SetupMERChat(layout)
+local function SetupMERChat()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -972,7 +972,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "RIGHT"
-	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_OFF"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
@@ -1033,7 +1033,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
-	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_OFF"
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
 	-- Party
@@ -1112,7 +1112,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 	if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
@@ -1515,7 +1515,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["size"] = 15
-	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_OFF"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
@@ -1576,7 +1576,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
-	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_OFF"
 
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
@@ -1650,7 +1650,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
-	E.db["unitframe"]["units"]["party"]["colorOverride"] = "USE_DEFAULT"
+	E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,706,219"
 
@@ -2071,8 +2071,8 @@ function MER:SetupMERAddons(addon)
 			E.db['benikuiDatabars']['reputation']['notifiers']['enable'] = false
 			E.db['benikuiDatabars']['artifact']['notifiers']['enable'] = false
 			E.db['benikui']['unitframes']['misc']['svui'] = true
-			E.db['benikui']['unitframes']['textures']['power'] = "MerathilisFlat"
-			E.db['benikui']['unitframes']['textures']['health'] = "MerathilisEmpty"
+			E.db['benikui']['unitframes']['textures']['power'] = E.db.unitframe.statusbar
+			E.db['benikui']['unitframes']['textures']['health'] = E.db.unitframe.statusbar
 			E.db['benikui']['unitframes']['infoPanel']['fixInfoPanel'] = true
 			E.db['benikui']['unitframes']['infoPanel']['texture'] = "MerathilisEmpty"
 			E.db['dashboards']['barColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
@@ -2273,7 +2273,7 @@ end
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
-	
+
 	ReloadUI()
 end
 
@@ -2287,7 +2287,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
 			PluginInstallFrame.Desc2:SetText(L["Please press the continue button to go onto the next step."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() InstallComplete() end)
 			PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
@@ -2317,7 +2317,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your chat windows."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', SetupMERChat)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERChat() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
 		[5] = function()
@@ -2373,7 +2373,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc1:SetText(L['You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org.'])
 			PluginInstallFrame.Desc2:SetText(L['Please click the button below so you can setup variables and ReloadUI.'])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', InstallComplete)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() InstallComplete() end)
 			PluginInstallFrame.Option1:SetText(L['Finished'])
 			if InstallStepComplete then
 				InstallStepComplete.message = MER.Title..L['Installed']
