@@ -16,6 +16,9 @@ local InCombatLockdown = InCombatLockdown
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
+-- Don't show the frame if my install isn't finished
+if E.db.mui.installed == nil then return; end
+
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.12|r, 18.08.2016
 
