@@ -28,6 +28,7 @@ local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSe
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local PlayerHasToy = PlayerHasToy
+local IsToyUsable = C_ToyBox.IsToyUsable
 local UnitFactionGroup = UnitFactionGroup
 
 local loc_panel
@@ -326,7 +327,7 @@ end
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local data = LP.PortItems[i]
-		if MER:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)then
+		if MER:BagSearch(data.secure.ID) or IsToyUsable(data.secure.ID)then
 			if check then 
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
@@ -334,9 +335,7 @@ function LP:ItemList(check)
 				local tmp = {}
 				local cd = DD:GetCooldown("Item", data.secure.ID)
 				local HSplace = ""
-				if LP.db.portals.HSplace and data.secure.ID == 6948 then
-					HSplace = " - "..GetBindLocation()
-				elseif LP.db.portals.HSplace and data.secure.ID == 64488 then
+				if LP.db.portals.HSplace and (data.secure.ID == 6948 or data.secure.ID == 64488) then
 					HSplace = " - "..GetBindLocation()
 				end
 				E:CopyTable(tmp, data)
