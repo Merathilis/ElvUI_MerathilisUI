@@ -913,7 +913,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["rdebuffs"]["size"] = 20
 	E.db["unitframe"]["units"]["raid"]["numGroups"] = 4
 	E.db["unitframe"]["units"]["raid"]["growthDirection"] = "RIGHT_UP"
-	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
 	E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["raid"]["name"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["name"]["yOffset"] = 0
@@ -973,6 +972,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
 	E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["raid"]["colorOverride"] = "USE_DEFAULT"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
