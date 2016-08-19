@@ -20,13 +20,13 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.12|r, 18.08.2016
+local ChangeLogData = [=[|cffff7d0av2.13|r, xx.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r An extra frame will show up, if the GMOTD gets updated.
- |cffff7d0a•|r Hopefully fix now the lua error in changelog. X.x
- |cffff7d0a•|r Removed the skinning of items in the ObjectiveTracker, will be in the next ElvUI version.
- |cffff7d0a•|r Update the Skada profile in setup.
+ |cffff7d0a•|r Adjustments to the Layouts.
+ |cffff7d0a•|r Update LocPanel, credits Darth Predator.
+ |cffff7d0a•|r Change the changelog to only show if my UI is installed.
+ |cffff7d0a•|r Fix an issue wich prevent to use ClassColorOverride if transparent isn't selected.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
