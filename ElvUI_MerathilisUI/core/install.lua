@@ -1062,6 +1062,8 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["attachTo"] = "InfoPanel"
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 10
 	E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "RIGHT"
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "RIGHT"
 	E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 1
 	E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -14
