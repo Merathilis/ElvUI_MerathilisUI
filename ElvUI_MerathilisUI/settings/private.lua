@@ -13,9 +13,9 @@ V['muiSkins'] = {
 		['spellbook'] = true,
 	},
 	['addonSkins'] = {
-		['mp'] = false,
+		['mp'] = true,
 	},
 	['elvuiAddons'] = {
-		['sle'] = false
+		['sle'] = true,
 	},
 }
