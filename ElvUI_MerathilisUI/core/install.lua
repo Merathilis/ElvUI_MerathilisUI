@@ -2010,6 +2010,7 @@ function MER:SetupMERAddons(addon)
 					["Schaden_Percent"] = false,
 				},
 			}
+			Skada.db:SetProfile("MerathilisUI")
 		else
 			MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
 		end
