@@ -2269,6 +2269,8 @@ function MER:SetupMERAddons(addon)
 			MER:Print(L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."])
 		end
 	end
+
+	E:UpdateAll(true) -- this will cause a lag on the AddOn install
 end
 
 local function InstallComplete()
