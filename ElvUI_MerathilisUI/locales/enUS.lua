@@ -136,6 +136,8 @@ L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
+L["Combat Hide"] = true
+L["Show/Hide all panels when in combat"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true

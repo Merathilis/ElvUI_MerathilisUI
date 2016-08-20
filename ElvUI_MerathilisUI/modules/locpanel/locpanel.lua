@@ -54,6 +54,11 @@ LP.ReactionColors = {
 LP.MainMenu = {}
 LP.SecondaryMenu = {}
 
+-- Hide in combat, after fade function ends
+local function LocPanelOnFade()
+	loc_panel:Hide()
+end
+
 local function GetDirection()
 	local x, y = _G["MER_LocPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
@@ -194,6 +199,25 @@ function LP:CreateLocationPanel()
 	LP:Resize()
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, "ALL, SOLO")
+
+	-- Hide in combat/pet battle
+	loc_panel:SetScript("OnEvent",function(self, event)
+		if event == "PET_BATTLE_OPENING_START" then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+			self.fadeInfo.finishedFunc = LocPanelOnFade
+		elseif event == "PET_BATTLE_CLOSE" then
+			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			self:Show()
+		elseif E.db.mui.locPanel.combat then
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				self.fadeInfo.finishedFunc = LocPanelOnFade
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				self:Show()
+			end
+		end
+	end)
 
 	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
 	LP.Menu1:SetTemplate("Transparent", true)
@@ -417,6 +441,10 @@ function LP:Initialize()
 
 	LP.elapsed = 0
 	LP:CreateLocationPanel()
+	loc_panel:RegisterEvent("PLAYER_REGEN_DISABLED")
+	loc_panel:RegisterEvent("PLAYER_REGEN_ENABLED")
+	loc_panel:RegisterEvent("PET_BATTLE_CLOSE")
+	loc_panel:RegisterEvent("PET_BATTLE_OPENING_START")
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()

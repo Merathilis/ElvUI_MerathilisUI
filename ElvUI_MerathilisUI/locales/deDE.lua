@@ -136,6 +136,8 @@ L["Auto Width"] = "Auto Breite"
 L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonen Text."
 L["Hearthstone Location"] = "Ruhestein Position"
 L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
+L["Combat Hide"] = "Im Kampf ausblenden"
+L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."

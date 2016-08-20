@@ -139,8 +139,17 @@ local function LocPanelTable()
 						disabled = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
-					portals = {
+					combat = {
 						order = 12,
+						name = L["Combat Hide"],
+						desc = L["Show/Hide all panels when in combat"],
+						type = "toggle",
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
+						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
+					},
+					portals = {
+						order = 13,
 						type = "group",
 						name = L["Relocation Menu"],
 						guiInline = true,
@@ -195,7 +204,7 @@ local function LocPanelTable()
 						},
 					},
 					fontGroup = {
-						order = 13,
+						order = 14,
 						type = "group",
 						name = L["Fonts"],
 						guiInline = true,
