@@ -139,7 +139,7 @@ local function LocPanelTable()
 						disabled = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
-					combat = {
+					combathide = {
 						order = 12,
 						name = L["Combat Hide"],
 						desc = L["Show/Hide all panels when in combat"],

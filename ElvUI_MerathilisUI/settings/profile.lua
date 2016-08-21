@@ -59,9 +59,9 @@ P['mui'] = {
 		["throttle"] = 0.2,
 		["format"] = "%.0f",
 		["zoneText"] = true,
-		["combat"] = false,
 		["colorType"] = "REACTION",
 		["customColor"] = {r = 1, g = 1, b = 1 },
+		["combathide"] = false,
 		["portals"] = {
 			["enable"] = true,
 			["HSplace"] = true,

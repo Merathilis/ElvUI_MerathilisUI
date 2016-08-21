@@ -2,7 +2,7 @@
 local MER = E:GetModule('MerathilisUI');
 local M = E:GetModule('Minimap')
 local DD = E:GetModule("Dropdown")
-local LP = E:NewModule("LocPanel", "AceTimer-3.0")
+local LP = E:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0");
 
 -- Cache global variables
@@ -53,11 +53,6 @@ LP.ReactionColors = {
 
 LP.MainMenu = {}
 LP.SecondaryMenu = {}
-
--- Hide in combat, after fade function ends
-local function LocPanelOnFade()
-	loc_panel:Hide()
-end
 
 local function GetDirection()
 	local x, y = _G["MER_LocPanel"]:GetCenter()
@@ -219,25 +214,6 @@ function LP:CreateLocationPanel()
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, "ALL, SOLO")
 
-	-- Hide in combat/pet battle
-	loc_panel:SetScript("OnEvent",function(self, event)
-		if event == "PET_BATTLE_OPENING_START" then
-			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			self.fadeInfo.finishedFunc = LocPanelOnFade
-		elseif event == "PET_BATTLE_CLOSE" then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			self:Show()
-		elseif E.db.mui.locPanel.combat then
-			if event == "PLAYER_REGEN_DISABLED" then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				self.fadeInfo.finishedFunc = LocPanelOnFade
-			elseif event == "PLAYER_REGEN_ENABLED" then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				self:Show()
-			end
-		end
-	end)
-
 	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
 	LP.Menu1:SetTemplate("Transparent", true)
 	LP.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
@@ -356,15 +332,23 @@ function LP:PopulateItems()
 		E:Delay(2, LP.PopulateItems)
 	else
 		LP.PortItems[1] = {text = GetItemInfo(6948), icon = MER:GetIconFromID("item", 6948),secure = {buttonType = "item",ID = 6948}} --Hearthstone
-		LP.PortItems[2] = {text = GetItemInfo(64488), icon = MER:GetIconFromID("item", 64488),secure = {buttonType = "item",ID = 64488}} -- The Innkeeper's Daughter
+		LP.PortItems[2] = {text = GetItemInfo(64488), icon = MER:GetIconFromID("item", 64488),secure = {buttonType = "item",ID = 64488}} --The Innkeeper's Daughter
 		LP.PortItems[3] = {text = GARRISON_LOCATION_TOOLTIP, icon = MER:GetIconFromID("item", 110560),secure = {buttonType = "item",ID = 110560}} --Garrison Hearthstone
-		LP.PortItems[4] = {text = DUNGEON_FLOOR_DALARAN1, icon = MER:GetIconFromID("item", 140192),secure = {buttonType = "item",ID = 140192}} --Dalaran Hearthstone
-		LP.PortItems[5] = {text = GetItemInfo(48933), icon = MER:GetIconFromID("item", 48933),secure = {buttonType = "item",ID = 48933}} --Wormhole Generator: Northrend
-		LP.PortItems[6] = {text = GetItemInfo(87215), icon = MER:GetIconFromID("item", 87215),secure = {buttonType = "item",ID = 87215}} --Wormhole Generator: Pandaria
-		LP.PortItems[7] = {text = GetItemInfo(112059), icon = MER:GetIconFromID("item", 112059),secure = {buttonType = "item",ID = 112059}} --Wormhole Centrifuge
-		LP.PortItems[8] = {text = GetItemInfo(128502), icon = MER:GetIconFromID("item", 128502),secure = {buttonType = "item",ID = 128502}} --Hunter's Seeking Crystal
-		LP.PortItems[9] = {text = GetItemInfo(128503), icon = MER:GetIconFromID("item", 128503),secure = {buttonType = "item",ID = 128503}} --Master Hunter's Seeking Crystal
-		LP.PortItems[10] = {text = GetItemInfo(18986), icon = MER:GetIconFromID("item", 18986),secure = {buttonType = "item",ID = 18986}} --Safe transporter
+		LP.PortItems[4] = {text = GetItemInfo(128353), icon = MER:GetIconFromID("item", 128353),secure = {buttonType = "item",ID = 128353}} --Admiral's Compass
+		LP.PortItems[5] = {text = DUNGEON_FLOOR_DALARAN1, icon = MER:GetIconFromID("item", 140192),secure = {buttonType = "item",ID = 140192}} --Dalaran Hearthstone
+		LP.PortItems[6] = {text = GetItemInfo(52251), icon = MER:GetIconFromID("item", 52251),secure = {buttonType = "item",ID = 52251}} --Jaina's Locket
+		LP.PortItems[7] = {text = GetItemInfo(48933), icon = MER:GetIconFromID("item", 48933),secure = {buttonType = "item",ID = 48933}} --Wormhole Generator: Northrend
+		LP.PortItems[8] = {text = GetItemInfo(87215), icon = MER:GetIconFromID("item", 87215),secure = {buttonType = "item",ID = 87215}} --Wormhole Generator: Pandaria
+		LP.PortItems[9] = {text = GetItemInfo(112059), icon = MER:GetIconFromID("item", 112059),secure = {buttonType = "item",ID = 112059}} --Wormhole Centrifuge
+		LP.PortItems[10] = {text = GetItemInfo(18986), icon = MER:GetIconFromID("item", 18986),secure = {buttonType = "item",ID = 18986}} --Ultrasafe Transporter: Gadgetzan
+		LP.PortItems[11] = {text = GetItemInfo(30544), icon = MER:GetIconFromID("item", 30544),secure = {buttonType = "item",ID = 30544}} --Ultrasafe Transporter: Toshley's Station
+		LP.PortItems[12] = {text = GetItemInfo(18984), icon = MER:GetIconFromID("item", 18984),secure = {buttonType = "item",ID = 18984}} --Dimensional Ripper - Everlook
+		LP.PortItems[13] = {text = GetItemInfo(30542), icon = MER:GetIconFromID("item", 30542),secure = {buttonType = "item",ID = 30542}} --Dimensional Ripper - Area 52
+		LP.PortItems[14] = {text = GetItemInfo(58487), icon = MER:GetIconFromID("item", 58487),secure = {buttonType = "item",ID = 58487}} --Potion of Deepholm
+		LP.PortItems[15] = {text = GetItemInfo(43824), icon = MER:GetIconFromID("item", 43824),secure = {buttonType = "item",ID = 43824}} --The Schools of Arcane Magic - Mastery
+		LP.PortItems[16] = {text = GetItemInfo(64457), icon = MER:GetIconFromID("item", 64457),secure = {buttonType = "item",ID = 64457}} --The Last Relic of Argus
+		LP.PortItems[17] = {text = GetItemInfo(128502), icon = MER:GetIconFromID("item", 128502),secure = {buttonType = "item",ID = 128502}} --Hunter's Seeking Crystal
+		LP.PortItems[18] = {text = GetItemInfo(128503), icon = MER:GetIconFromID("item", 128503),secure = {buttonType = "item",ID = 128503}} --Master Hunter's Seeking Crystal
 	end
 end
 
@@ -464,6 +448,18 @@ function LP:PopulateDropdown()
 	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 0, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 end
 
+function LP:PLAYER_REGEN_DISABLED()
+	if LP.db.combathide then
+		loc_panel:Hide()
+	end
+end
+
+function LP:PLAYER_REGEN_ENABLED()
+	if LP.db.enable then
+		loc_panel:Show()
+	end
+end
+
 function LP:Initialize()
 	LP.db = E.db.mui.locPanel
 
@@ -472,10 +468,6 @@ function LP:Initialize()
 
 	LP.elapsed = 0
 	LP:CreateLocationPanel()
-	loc_panel:RegisterEvent("PLAYER_REGEN_DISABLED")
-	loc_panel:RegisterEvent("PLAYER_REGEN_ENABLED")
-	loc_panel:RegisterEvent("PET_BATTLE_CLOSE")
-	loc_panel:RegisterEvent("PET_BATTLE_OPENING_START")
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()
@@ -486,6 +478,9 @@ function LP:Initialize()
 		LP:Fonts()
 		LP:Toggle()
 	end
+
+	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
+	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
 end
 
 E:RegisterModule(LP:GetName())
