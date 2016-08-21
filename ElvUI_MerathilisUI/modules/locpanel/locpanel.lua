@@ -10,8 +10,9 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
-local select = select
+local select, unpack = select, unpack
 -- WoW API / Variables
+local GetBindLocation = GetBindLocation
 local GetPlayerMapPosition = GetPlayerMapPosition
 local GetItemInfo = GetItemInfo
 local GetMinimapZoneText = GetMinimapZoneText
@@ -27,9 +28,12 @@ local IsSpellKnown = IsSpellKnown
 local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
+local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local IsToyUsable = C_ToyBox.IsToyUsable
 local UnitFactionGroup = UnitFactionGroup
+
+--GLOBALS: HSplace
 
 local loc_panel
 local COORDS_WIDTH = 35 -- Coord panels width
@@ -65,7 +69,29 @@ local function GetDirection()
 	return anchor, point
 end
 
-LP.PortItems = {}
+--{ItemID, ButtonText, isToy}
+LP.PortItems = {
+	{6948}, --Hearthstone
+	{64488, nil, true}, --The Innkeeper's Daughter
+	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
+	{128353}, --Admiral's Compass
+	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
+	{37863}, --Grim Guzzler
+	{52251}, --Jaina's Locket
+	{48933, nil, true}, --Wormhole Generator: Northrend
+	{87215, nil, true}, --Wormhole Generator: Pandaria
+	{112059, nil, true}, --Wormhole Centrifuge
+	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
+	{30544, nil, true}, --Ultrasafe Transporter: Toshley's Station
+	{18984, nil, true}, --Dimensional Ripper - Everlook
+	{30542, nil, true}, --Dimensional Ripper - Area 52
+	{58487}, --Potion of Deepholm
+	{43824, nil, true}, --The Schools of Arcane Magic - Mastery
+	{64457}, --The Last Relic of Argus
+	{128502}, --Hunter's Seeking Crystal
+	{128503}, --Master Hunter's Seeking Crystal
+}
+
 LP.Spells = {
 	["DEATHKNIGHT"] = {
 		[1] = {text =  GetSpellInfo(50977),icon = MER:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}},
@@ -220,6 +246,8 @@ function LP:CreateLocationPanel()
 	LP.Menu2:SetTemplate("Transparent", true)
 	DD:RegisterMenu(LP.Menu1)
 	DD:RegisterMenu(LP.Menu2)
+	LP.Menu1:SetScript("OnHide", function() twipe(LP.MainMenu) end)
+	LP.Menu2:SetScript("OnHide", function() twipe(LP.SecondaryMenu) end)
 end
 
 function LP:OnClick(btn)
@@ -331,31 +359,17 @@ function LP:PopulateItems()
 	if noItem then
 		E:Delay(2, LP.PopulateItems)
 	else
-		LP.PortItems[1] = {text = GetItemInfo(6948), icon = MER:GetIconFromID("item", 6948),secure = {buttonType = "item",ID = 6948}} --Hearthstone
-		LP.PortItems[2] = {text = GetItemInfo(64488), icon = MER:GetIconFromID("item", 64488),secure = {buttonType = "item",ID = 64488}} --The Innkeeper's Daughter
-		LP.PortItems[3] = {text = GARRISON_LOCATION_TOOLTIP, icon = MER:GetIconFromID("item", 110560),secure = {buttonType = "item",ID = 110560}} --Garrison Hearthstone
-		LP.PortItems[4] = {text = GetItemInfo(128353), icon = MER:GetIconFromID("item", 128353),secure = {buttonType = "item",ID = 128353}} --Admiral's Compass
-		LP.PortItems[5] = {text = DUNGEON_FLOOR_DALARAN1, icon = MER:GetIconFromID("item", 140192),secure = {buttonType = "item",ID = 140192}} --Dalaran Hearthstone
-		LP.PortItems[6] = {text = GetItemInfo(52251), icon = MER:GetIconFromID("item", 52251),secure = {buttonType = "item",ID = 52251}} --Jaina's Locket
-		LP.PortItems[7] = {text = GetItemInfo(48933), icon = MER:GetIconFromID("item", 48933),secure = {buttonType = "item",ID = 48933}} --Wormhole Generator: Northrend
-		LP.PortItems[8] = {text = GetItemInfo(87215), icon = MER:GetIconFromID("item", 87215),secure = {buttonType = "item",ID = 87215}} --Wormhole Generator: Pandaria
-		LP.PortItems[9] = {text = GetItemInfo(112059), icon = MER:GetIconFromID("item", 112059),secure = {buttonType = "item",ID = 112059}} --Wormhole Centrifuge
-		LP.PortItems[10] = {text = GetItemInfo(18986), icon = MER:GetIconFromID("item", 18986),secure = {buttonType = "item",ID = 18986}} --Ultrasafe Transporter: Gadgetzan
-		LP.PortItems[11] = {text = GetItemInfo(30544), icon = MER:GetIconFromID("item", 30544),secure = {buttonType = "item",ID = 30544}} --Ultrasafe Transporter: Toshley's Station
-		LP.PortItems[12] = {text = GetItemInfo(18984), icon = MER:GetIconFromID("item", 18984),secure = {buttonType = "item",ID = 18984}} --Dimensional Ripper - Everlook
-		LP.PortItems[13] = {text = GetItemInfo(30542), icon = MER:GetIconFromID("item", 30542),secure = {buttonType = "item",ID = 30542}} --Dimensional Ripper - Area 52
-		LP.PortItems[14] = {text = GetItemInfo(58487), icon = MER:GetIconFromID("item", 58487),secure = {buttonType = "item",ID = 58487}} --Potion of Deepholm
-		LP.PortItems[15] = {text = GetItemInfo(43824), icon = MER:GetIconFromID("item", 43824),secure = {buttonType = "item",ID = 43824}} --The Schools of Arcane Magic - Mastery
-		LP.PortItems[16] = {text = GetItemInfo(64457), icon = MER:GetIconFromID("item", 64457),secure = {buttonType = "item",ID = 64457}} --The Last Relic of Argus
-		LP.PortItems[17] = {text = GetItemInfo(128502), icon = MER:GetIconFromID("item", 128502),secure = {buttonType = "item",ID = 128502}} --Hunter's Seeking Crystal
-		LP.PortItems[18] = {text = GetItemInfo(128503), icon = MER:GetIconFromID("item", 128503),secure = {buttonType = "item",ID = 128503}} --Master Hunter's Seeking Crystal
+		for i = 1, #LP.PortItems do
+			local id, name, toy = unpack(LP.PortItems[i])
+			LP.PortItems[i] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+		end
 	end
 end
 
 function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local data = LP.PortItems[i]
-		if (MER:BagSearch(data.secure.ID) or PlayerHasToy(data.secure.ID)) and IsToyUsable(data.secure.ID) then
+		if MER:BagSearch(data.secure.ID) or (PlayerHasToy(data.secure.ID) and IsToyUsable(data.secure.ID)) then
 			if check then 
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
@@ -389,7 +403,7 @@ function LP:SpellList(list, dropdown, check)
 				local cd = DD:GetCooldown("Spell", data.secure.ID)
 				if cd then
 					E:CopyTable(tmp, data)
-					tmp.text = tmp.text..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 					tinsert(dropdown, tmp)
 				else
 					tinsert(dropdown, data)
@@ -401,13 +415,16 @@ end
 
 function LP:PopulateDropdown()
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) end
-	twipe(LP.MainMenu)
+	if #LP.MainMenu > 0 then
+		MER:DropDown(LP.MainMenu, LP.Menu1)
+		return
+	end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 	if LP:ItemList(true) then
 		LP:ItemList() 
 	end
-	
+
 	if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
 		tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 		LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
@@ -415,10 +432,10 @@ function LP:PopulateDropdown()
 			tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
 				twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
-				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 			end})
 		end
@@ -426,7 +443,7 @@ function LP:PopulateDropdown()
 			tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function() 
 				twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
 				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
@@ -435,17 +452,17 @@ function LP:PopulateDropdown()
 			tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function() 
 				twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() LP:PopulateDropdown() end})
+				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
-				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
+				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 0, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 			end})
 		end
 	end
-	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu1) end})
+	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 0, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 end
 
 function LP:PLAYER_REGEN_DISABLED()

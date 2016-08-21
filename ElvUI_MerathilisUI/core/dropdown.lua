@@ -33,11 +33,44 @@ local function OnClick(btn)
 end
 
 local function OnEnter(btn)
-	btn.hoverTex:Show()
+	if not btn.nohighlight then btn.hoverTex:Show() end
+	if btn.UseTooltip then
+		_G["GameTooltip"]:SetOwner(btn, "ANCHOR_BOTTOMLEFT", -9)
+		if btn.TooltipText then
+			_G["GameTooltip"]:SetText(btn.TooltipText)
+		elseif btn.secure.isToy then
+			_G["GameTooltip"]:SetToyByItemID(btn.secure.ID)
+		elseif btn.secure.buttonType == "item" then
+			_G["GameTooltip"]:SetItemByID(btn.secure.ID)
+		elseif btn.secure.buttonType == "spell" then
+			_G["GameTooltip"]:SetSpellByID(btn.secure.ID)
+		end
+		_G["GameTooltip"]:Show()
+	end
 end
 
 local function OnLeave(btn)
+	_G["GameTooltip"]:Hide()
 	btn.hoverTex:Hide()
+end
+
+local function CreateListButton(frame)
+	local button = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
+
+	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
+	button.hoverTex:SetAllPoints()
+	button.hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
+	button.hoverTex:SetBlendMode("ADD")
+	button.hoverTex:Hide()
+
+	button.text = button:CreateFontString(nil, 'BORDER')
+	button.text:SetAllPoints()
+	button.text:FontTemplate()
+
+	button:SetScript("OnEnter", OnEnter)
+	button:SetScript("OnLeave", OnLeave)
+
+	return button
 end
 
 function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
@@ -57,73 +90,55 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		local AddOffset = 0
 
 		for i=1, #frame.buttons do
+			frame.buttons[i].UseTooltip = false
 			frame.buttons[i]:Hide()
 		end
 		if not parent then FramePoint = "CURSOR" end
 
 		for i=1, #list do
-			if not frame.buttons[i] then
-				if list[i].secure then
-					frame.buttons[i] = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
-				else
-					frame.buttons[i] = CreateFrame("Button", nil, frame)
-				end
+			frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
+			local btn = frame.buttons[i]
 
-				frame.buttons[i].hoverTex = frame.buttons[i]:CreateTexture(nil, 'OVERLAY')
-				frame.buttons[i].hoverTex:SetAllPoints()
-				frame.buttons[i].hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
-				frame.buttons[i].hoverTex:SetBlendMode("ADD")
-				frame.buttons[i].hoverTex:Hide()
-
-				frame.buttons[i].text = frame.buttons[i]:CreateFontString(nil, 'BORDER')
-				frame.buttons[i].text:SetAllPoints()
-				frame.buttons[i].text:FontTemplate()
-
-				if not list[i].nohighlight then
-					frame.buttons[i]:SetScript("OnEnter", OnEnter)
-					frame.buttons[i]:SetScript("OnLeave", OnLeave)
-				end
-
-				if list[i].func then
-					frame.buttons[i].func = list[i].func
-				end
-			end
-			frame.buttons[i].text:SetJustifyH(justify or "LEFT")
-			frame.buttons[i]:Show()
-			frame.buttons[i]:Height(BUTTON_HEIGHT)
-			frame.buttons[i]:Width(customWidth or BUTTON_WIDTH)
+			btn.func = list[i].func or nil
+			btn.nohighlight = list[i].nohighlight
+			btn.text:SetJustifyH(justify or "LEFT")
+			btn:Show()
+			btn:Height(BUTTON_HEIGHT)
+			btn:Width(customWidth or BUTTON_WIDTH)
 			local icon = ""
 			if list[i].icon then
 				icon = "|T"..list[i].icon..":14:14|t "
 			end
-			frame.buttons[i].text:SetText(icon..list[i].text)
+			btn.text:SetText(icon..list[i].text)
 			if list[i].title then
 				TitleCount = TitleCount + 1
-				frame.buttons[i].text:SetTextColor(0.98, 0.95, 0.05)
+				btn.text:SetTextColor(0.98, 0.95, 0.05)
 				if list[i].ending or i == 1 or list[i-1].title then
 					AddOffset = AddOffset + 1
 				end
 			else
-				frame.buttons[i].text:SetTextColor(1, 1, 1)
+				btn.text:SetTextColor(1, 1, 1)
 			end
 			if list[i].secure then
-				frame.buttons[i].secure = list[i].secure
-				frame.buttons[i]:SetAttribute("type", frame.buttons[i].secure.buttonType)
-				if frame.buttons[i].secure.buttonType == "item" then
-					local name = GetItemInfo(frame.buttons[i].secure.ID)
-					frame.buttons[i]:SetAttribute("item", name)
-				elseif frame.buttons[i].secure.buttonType == "spell" then
-					local name = GetSpellInfo(frame.buttons[i].secure.ID)
-					frame.buttons[i]:SetAttribute("spell", name)
-				elseif frame.buttons[i].secure.buttonType == "macro" then
-					frame.buttons[i]:SetAttribute("macrotext", frame.buttons[i].secure.ID)
+				btn.secure = list[i].secure
+				btn:SetAttribute("type", btn.secure.buttonType)
+				if btn.secure.buttonType == "item" then
+					local name = GetItemInfo(btn.secure.ID)
+					btn:SetAttribute("item", name)
+				elseif btn.secure.buttonType == "spell" then
+					local name = GetSpellInfo(btn.secure.ID)
+					btn:SetAttribute("spell", name)
+				elseif btn.secure.buttonType == "macro" then
+					btn:SetAttribute("macrotext", btn.secure.ID)
 				else
-					MER:Print("Wrong argument for button type: "..frame.buttons[i].secure.buttonType)
+					MER:Print("Wrong argument for button type: "..btn.secure.buttonType)
 				end
-				frame.buttons[i]:HookScript("OnClick", OnClick)
+				btn:HookScript("OnClick", OnClick)
 			else
-				frame.buttons[i]:SetScript("OnClick", OnClick)
+				btn:SetScript("OnClick", OnClick)
 			end
+			btn.UseTooltip = list[i].UseTooltip
+			if list[i].TooltipText then btn.TooltipText = list[i].TooltipText end
 
 			local MARGIN = 10
 			if justify then
@@ -132,9 +147,9 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			end
 
 			if i == 1 then
-				frame.buttons[i]:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
+				btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
 			else
-				frame.buttons[i]:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+				btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
 			end
 		end
 
