@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 
--- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.6.2.3.1
+-- Code from BlizzBugsSuck (http://www.wowace.com/addons/blizzbugssuck/) v.7.0.3.1
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -23,14 +23,52 @@ wow_build = tonumber(wow_build)
 -- Fix incorrect translations in the German localization
 if GetLocale() == "deDE" then
 	-- Day one-letter abbreviation is using a whole word instead of one letter.
-	-- Confirmed still bugged in 6.2.2.20490 (6.2.2a)
+	-- Confirmed still bugged in 7.0.3.22293
 	DAY_ONELETTER_ABBR = "%d d"
+end
+
+-- Fix error when shift-clicking header rows in the tradeskill UI.
+-- This is caused by the TradeSkillRowButtonTemplate's OnClick script
+-- failing to account for some rows being headers. Fix by ignoring
+-- modifiers when clicking header rows.
+-- New in 7.0
+do
+	local frame = CreateFrame("Frame")
+	frame:RegisterEvent("ADDON_LOADED")
+	frame:SetScript("OnEvent", function(self, event, name)
+		if name == "Blizzard_TradeSkillUI" then
+			local old_OnClick = TradeSkillFrame.RecipeList.buttons[1]:GetScript("OnClick")
+			local new_OnClick = function(self, button)
+				if IsModifiedClick() and self.isHeader then
+					return self:GetParent():GetParent():OnHeaderButtonClicked(self, self.tradeSkillInfo, button)
+				end
+				old_OnClick(self, button)
+			end
+			for i = 1, #TradeSkillFrame.RecipeList.buttons do
+				TradeSkillFrame.RecipeList.buttons[i]:SetScript("OnClick", new_OnClick)
+			end
+			self:UnregisterAllEvents()
+		end
+	end)
+end
+
+-- Fix error when mousing over the Nameplate Motion Type dropdown in
+-- Interface Options > Names panel if the current setting isn't listed.
+-- Happens if the user had previously selected the Spreading Nameplates
+-- option, which was removed from the game in 7.0.
+do
+	local OnEnter = InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:GetScript("OnEnter")
+	InterfaceOptionsNamesPanelUnitNameplatesMotionDropDown:SetScript("OnEnter", function(self)
+		if self.tooltip then
+			OnEnter(self)
+		end
+	end)
 end
 
 -- Fix missing bonus effects on shipyard map in non-English locales
 -- Problem is caused by Blizzard checking a localized API value
 -- against a hardcoded English string.
--- New in 6.2, confirmed still bugged in 6.2.2.20490 (6.2.2a)
+-- New in 6.2, confirmed still bugged in 7.0.3.22293
 if GetLocale() ~= "enUS" then
 	local frame = CreateFrame("Frame")
 	frame:RegisterEvent("ADDON_LOADED")
@@ -128,9 +166,10 @@ end
 -- http://forums.wowace.com/showthread.php?p=324936
 -- Fixed by embedding LibChatAnims
 
--- Fix an issue where the PetJournal drag buttons cannot be clicked to link a pet into chat.
+-- Fix an issue where the PetJournal drag buttons (the pet icons in the ACTIVE team on the right
+-- pane of the PetJournal) cannot be clicked to link a pet into chat.
 -- The necessary code is already present, but the buttons are not registered for the correct click.
--- Confirmed still bugged in 6.2.2.20490 (6.2.2a)
+-- Confirmed still bugged in 7.0.3.22293
 do
 	local frame = CreateFrame("Frame")
 	frame:RegisterEvent("ADDON_LOADED")
@@ -150,7 +189,7 @@ end
 -- Fix a lua error when scrolling the in-game Addon list, where the mouse
 -- passes over a world object that activates GameTooltip.
 -- Caused because the FrameXML code erroneously assumes it exclusively owns the GameTooltip object
--- Confirmed still bugged in 6.2.2.20574
+-- Confirmed still bugged in 7.0.3.22293
 do
 	local orig = AddonTooltip_Update
 	_G.AddonTooltip_Update = function(owner, ...) 
@@ -188,4 +227,3 @@ do
 		end
 	end
 end
-
