@@ -733,7 +733,7 @@ local function SetupMERDPSUnitframes(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['yOffset'] = 0
 		E.db['benikui']['unitframes']['castbar']['text']['ShowInfoText'] = false
 		E.db['benikui']['unitframes']['castbar']['text']['castText'] = true
-		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisEmpty"
+		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisFlat"
 		E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	end
 
