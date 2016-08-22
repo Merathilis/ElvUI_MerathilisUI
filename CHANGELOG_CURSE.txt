@@ -1,8 +1,9 @@
-** v2.13, xx.08.2016**
+** v2.13, 22.08.2016**
 * Adjustments to the Layouts.
 * Update LocPanel, credits Darth Predator.
 * Change the changelog to only show if my UI is installed.
 * Fix an issue wich prevent to use ClassColorOverride if transparent isn't selected.
+* Code cleanup.
 
 ** v2.12, 18.08.2016**
 * An extra frame will show up, if the GMOTD gets updated.
