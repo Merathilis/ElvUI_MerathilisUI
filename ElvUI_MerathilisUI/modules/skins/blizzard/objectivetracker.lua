@@ -103,6 +103,9 @@ local function ObjectiveTrackerReskin()
 			if block then
 				block.HeaderText:SetTextColor(col.r, col.g, col.b)
 				block.HeaderText.col = col
+				block.HeaderText:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
+				block.HeaderText:SetShadowOffset(1, -1)
+				block.HeaderText:SetShadowColor(0, 0, 0)
 			end
 		end
 	end)
@@ -153,33 +156,6 @@ local function ObjectiveTrackerReskin()
 		end
 	end)
 
-	-- Skin ObjectiveTrackerFrame item buttons
-	-- Comment this out, as is now on ElvUI, for now :)
-	--[[hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
-		local item = block.itemButton
-
-		if item and not item.skinned then
-			item:SetSize(25, 25)
-			item:SetTemplate("Transparent")
-			item:StyleButton()
-
-			item:SetNormalTexture(nil)
-
-			item.icon:SetTexCoord(unpack(E.TexCoords))
-			item.icon:SetPoint("TOPLEFT", item, 2, -2)
-			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
-
-			item.Cooldown:SetAllPoints(item.icon)
-
-			item.Count:ClearAllPoints()
-			item.Count:SetPoint("TOPLEFT", 1, -1)
-			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
-			item.Count:SetShadowOffset(5, -5)
-
-			item.skinned = true
-		end
-	end)]]
-
 	-- Skin bonus objective progress bar
 	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
 		local progressBar = line.ProgressBar
@@ -210,6 +186,19 @@ local function ObjectiveTrackerReskin()
 			bar.AnimIn.Play = dummy
 			BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 			progressBar.styled = true
+		end
+	end)
+
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block, objectiveKey, _, lineType)
+		local line = self:GetLine(block, objectiveKey, lineType)
+		if not line.styled then
+			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, 'THINOUTLINE')
+			line.Text:SetShadowOffset(1, -1)
+			line.Text:SetShadowColor(0, 0, 0)
+			line.styled = true
+		end
+		if line.Dash and line.Dash:IsShown() then
+			line.Dash:SetText("")
 		end
 	end)
 
@@ -263,6 +252,7 @@ local function ObjectiveTrackerReskin()
 		block.FinalBG:ClearAllPoints()
 		block.FinalBG:SetPoint("TOPLEFT", block.NormalBG, 6, -6)
 		block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
+		block.FinalBG:SetAlpha(0)
 		block.GlowTexture:SetSize(otf:GetWidth(), 70)
 	end
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
