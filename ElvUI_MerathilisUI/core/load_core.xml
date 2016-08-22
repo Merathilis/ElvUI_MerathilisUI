@@ -2,6 +2,7 @@
 	<Script file="core.lua"/>
 	<Script file="config.lua"/>
 	<Script file="dropdown.lua"/>
+	<Script file="fonts.lua"/>
 	<Script file="functions.lua"/>
 	<Script file="install.lua"/>
 	<Script file="staticpopup.lua"/>
