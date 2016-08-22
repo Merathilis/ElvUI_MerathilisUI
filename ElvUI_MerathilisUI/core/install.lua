@@ -673,7 +673,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["portrait"]["overlay"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["camDistanceScale"] = 1
-	
 	E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
 	E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = false
 	E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 5
@@ -685,22 +684,26 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
+	-- Delete old customTexts
 	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[name:medium:status]"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["attachTextTo"] = 'Health'
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["xOffset"] = 1
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["size"] = 20
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["justifyH"] = "RIGHT"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["text_format"] = "[classcolor:player][health:percent:hidefull:hidezero]"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
+	-- Create own customText
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["text_format"] = "[name:medium:status]",
+		["size"] = 20,
+		["attachTextTo"] = 'Health',
+		["xOffset"] = 1,
+	}
+	E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
+		["font"] = "Merathilis Tukui",
+		["fontOutline"] = "OUTLINE",
+		["size"] = 20,
+		["justifyH"] = "RIGHT",
+		["text_format"] = "[classcolor:player][health:percent:hidefull:hidezero]",
+		["attachTextTo"] = "Health",
+	}
 	E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [classcolor:player][power:current]"
@@ -770,32 +773,37 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["target"]["power"]["text_format"] = ""
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
+	-- Delete old customTexts
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["justifyH"] = "RIGHT"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["xOffset"] = 4
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[name:medium:status]"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["xOffset"] = 1
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["size"] = 12
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["text_format"] = "[namecolor][smartclass] [difficultycolor][level]"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"]["attachTextTo"] = "InfoPanel"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["size"] = 20
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["text_format"] = "[namecolor][health:percent:hidefull:hidezero]"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"]["attachTextTo"] = "Health"
+	-- Create own customText
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 4,
+		["yOffset"] = 0,
+		["size"] = 20,
+		["text_format"] = "[name:medium:status]",
+		["attachTextTo"] = "Health",
+	}
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 1,
+		["size"] = 12,
+		["text_format"] = "[namecolor][smartclass] [difficultycolor][level]",
+		["yOffset"] = 0,
+		["attachTextTo"] = "InfoPanel",
+	}
+	E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
+		["font"] = "Merathilis Tukui",
+		["size"] = 20,
+		["fontOutline"] = "OUTLINE",
+		["justifyH"] = "LEFT",
+		["text_format"] = "[namecolor][health:percent:hidefull:hidezero]",
+		["attachTextTo"] = "Health",
+	}
 	E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
@@ -1185,17 +1193,17 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
-	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil end
-	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = nil end
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["size"] = 16
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["text_format"] = "[level][shortclassification] | [namecolor][name:short]"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["yOffset"] = 15
+	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 16,
+		["text_format"] = "[level][shortclassification] | [namecolor][name:short]",
+		["yOffset"] = 15,
+	}
 	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "LEFT"
@@ -1300,17 +1308,19 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 390
 	E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current]"
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
-	if E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] then E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = nil end
+	-- Delete old customTexts
 	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["attachTextTo"] = "Frame"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor][name:medium:status]"
-	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"]["yOffset"] = 16
+	-- Create own customTexts
+	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+		["attachTextTo"] = "Frame",
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 20,
+		["text_format"] = "[level] | [namecolor][name:medium:status]",
+		["yOffset"] = 16,
+	}
 	E.db["unitframe"]["units"]["player"]["width"] = 210
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Frame"
 	E.db["unitframe"]["units"]["player"]["health"]["position"] = "RIGHT"
@@ -1349,18 +1359,19 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
-	if E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = nil end
-	if E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = nil end
+	-- Delete old customTexts
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["attachTextTo"] = "Frame"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["size"] = 20
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["text_format"] = "[level] | [namecolor][name:medium:status]"
-	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"]["yOffset"] = 16
+	-- Create own customTexts
+	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
+		["attachTextTo"] = "Frame",
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 20,
+		["text_format"] = "[level] | [namecolor][name:medium:status]",
+		["yOffset"] = 16,
+	}
 	E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 16
 	E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 210
@@ -1717,18 +1728,20 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
-	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil end
-	if E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = nil end
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {}
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["justifyH"] = "LEFT"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["size"] = 16
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["text_format"] = "[level][shortclassification] | [namecolor][name:short]"
-	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"]["yOffset"] = 15
+	-- Delete old customTexts
+	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+	-- Create own customTexts
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 16,
+		["text_format"] = "[level][shortclassification] | [namecolor][name:short]",
+		["yOffset"] = 15,
+	}
 	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 4
 	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "LEFT"
@@ -2281,6 +2294,7 @@ local function InstallComplete()
 	ReloadUI()
 end
 
+-- ElvUI PlugIn installer
 MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
