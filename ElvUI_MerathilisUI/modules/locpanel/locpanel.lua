@@ -10,7 +10,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
-local select, tonumber, unpack = select, tonumber, unpack
+local select, unpack = select, unpack
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
 local GetPlayerMapPosition = GetPlayerMapPosition
@@ -381,7 +381,7 @@ function LP:ItemList(check)
 					HSplace = " - "..GetBindLocation()
 				end
 				E:CopyTable(tmp, data)
-				if cd and tonumber(cd) > 1.5 then
+				if cd then
 					tmp.text = tmp.text..HSplace..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 				else
 					tmp.text = tmp.text..HSplace
@@ -401,7 +401,7 @@ function LP:SpellList(list, dropdown, check)
 				return true 
 			else
 				local cd = DD:GetCooldown("Spell", data.secure.ID)
-				if cd and tonumber(cd) > 1.5 then
+				if cd then
 					E:CopyTable(tmp, data)
 					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 					tinsert(dropdown, tmp)
