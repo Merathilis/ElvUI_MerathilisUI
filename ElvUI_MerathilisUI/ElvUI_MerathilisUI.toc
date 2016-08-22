@@ -4,6 +4,7 @@
 ## Version: 2.13
 ## Title: |cff1784d1ElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
+## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen. Es wird empfohlen mein Edit mit BenikUI zu nutzen.
 ## eMail: neo0608@gmail.com
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
