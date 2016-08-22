@@ -27,6 +27,7 @@ local function SetupMERDPSLayout(layout)
 	-- General
 	E.private["general"]["pixelPerfect"] = true
 	E.global["general"]["autoScale"] = true
+	E.global["general"]["animateConfig"] = false
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 	E.private["general"]["chatBubbleFontSize"] = 11
