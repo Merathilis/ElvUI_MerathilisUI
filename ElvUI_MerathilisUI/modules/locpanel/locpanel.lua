@@ -381,8 +381,8 @@ function LP:ItemList(check)
 					HSplace = " - "..GetBindLocation()
 				end
 				E:CopyTable(tmp, data)
-				if cd then
-					tmp.text = tmp.text..HSplace..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+				if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
+					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 				else
 					tmp.text = tmp.text..HSplace
 				end
@@ -401,9 +401,9 @@ function LP:SpellList(list, dropdown, check)
 				return true 
 			else
 				local cd = DD:GetCooldown("Spell", data.secure.ID)
-				if cd then
+				if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 					E:CopyTable(tmp, data)
-					tmp.text = "|cff636363"..tmp.text..HSplace.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+					tmp.text = tmp.text..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 					tinsert(dropdown, tmp)
 				else
 					tinsert(dropdown, data)
