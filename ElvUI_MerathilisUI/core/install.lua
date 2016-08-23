@@ -343,7 +343,7 @@ local function SetupMERCVars()
 	SetCVar("Targetnearestuseold", 1)
 	SetCVar("screenshotQuality", 10)
 	SetCVar("scriptErrors", 1)
-	SetCVar("showTimestamps", "%H:%M:%S ")
+	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
 end
 
@@ -518,9 +518,9 @@ local function SetupMERDPSActionbars(layout)
 	else
 		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
-
 	E.db["actionbar"]["microbar"]["enabled"] = false
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+
 	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,3"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,-196,3"
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
@@ -618,6 +618,7 @@ local function SetupMERHEALActionbars(layout)
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+
 	E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,0"
 	E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,35"
 	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-353,3"
@@ -684,7 +685,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 	E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
-	-- Delete old customTexts
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 	-- Create own customText
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
@@ -740,7 +741,6 @@ local function SetupMERDPSUnitframes(layout)
 		E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisFlat"
 		E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	end
-
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,141"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-186,179"
 	E.db["movers"]["PlayerPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,-323,141"
@@ -773,7 +773,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["target"]["power"]["text_format"] = ""
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
-	-- Delete old customTexts
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 	-- Create own customText
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
@@ -837,7 +837,6 @@ local function SetupMERDPSUnitframes(layout)
 		E.db['benikui']['unitframes']['target']['portraitStyle'] = true
 		E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 4
 	end
-
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,186,141"
 	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,186,179"
 	E.db["movers"]["TargetPortraitMover"] = "BOTTOM,ElvUIParent,BOTTOM,323,141"
@@ -859,7 +858,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
-
 	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,150"
 
 	-- Focus
@@ -885,7 +883,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["transparent"] = true
-
 	E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,199"
 	E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,220"
 
@@ -900,7 +897,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["focustarget"]["height"] = 20
 	E.db["unitframe"]["units"]["focustarget"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focustarget"]["infoPanel"]["enable"] = false
-
 	E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-452,234"
 
 	-- Raid
@@ -959,16 +955,19 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 0
 	if not E.db["unitframe"]["units"]["raid"]["customTexts"] then E.db["unitframe"]["units"]["raid"]["customTexts"] = {} end
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {}
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["font"] = "Merathilis Tukui"
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["justifyH"] = "CENTER"
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["fontOutline"] = "OUTLINE"
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["xOffset"] = 0
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["yOffset"] = 0
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["size"] = 12
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["attachTextTo"] = "Health"
-	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"]["text_format"] = "[namecolor][statustimer]"
+	-- Create own customTexts
+	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
+		["font"] = "Merathilis Tukui",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = 0,
+		["size"] = 12,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[namecolor][statustimer]",
+	}
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
@@ -985,7 +984,6 @@ local function SetupMERDPSUnitframes(layout)
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
-
 	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
 	-- Raid40
@@ -1123,17 +1121,14 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 	if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
-
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
-
 	E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 
 	-- Tank
 	E.db["unitframe"]["units"]["tank"]["enable"] = false
-
 	E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 
 	-- Pet
@@ -1171,12 +1166,10 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-
 	E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,498,141"
 
 	-- Arena
 	E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
-
 	E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-150,-305"
 
 	-- Boss
@@ -1193,7 +1186,9 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+	-- Create own customTexts
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
 		["attachTextTo"] = "Health",
 		["font"] = "Merathilis Tukui",
@@ -1229,7 +1224,6 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
-
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
 
 	-- PetTarget
@@ -1237,7 +1231,6 @@ local function SetupMERDPSUnitframes(layout)
 
 	-- RaidPet
 	E.db["unitframe"]["units"]["raidpet"]["enable"] = false
-
 	E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 
 	E:UpdateAll(true)
@@ -1308,7 +1301,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 390
 	E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current]"
 	if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
-	-- Delete old customTexts
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
@@ -1340,7 +1333,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["raidicon"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
-
 	E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-200,125"
 	E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,74"
 	E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-200,105"
@@ -1359,7 +1351,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["threatStyle"] = "INFOPANELBORDER"
 	E.db["unitframe"]["units"]["target"]["smartAuraDisplay"] = "DISABLED"
 	if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
-	-- Delete old customTexts
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
@@ -1401,7 +1393,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 	E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = false
-
 	E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,200,125"
 	E.db["movers"]["TargetPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,200,121"
 	E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,200,105"
@@ -1418,7 +1409,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 15
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["position"] = "TOP"
 	E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
-
 	E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,125"
 
 	-- Focus
@@ -1531,7 +1521,6 @@ local function SetupMERHEALUnitframes(layout)
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
-
 	E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,706,219"
 
 	-- Raid40
@@ -1589,7 +1578,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 	E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
 	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_OFF"
-
 	E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,185"
 
 	-- Party
@@ -1663,7 +1651,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 	E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
-
 	E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,706,219"
 
 	-- Assist
@@ -1729,7 +1716,7 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
-	-- Delete old customTexts
+	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
@@ -1767,7 +1754,6 @@ local function SetupMERHEALUnitframes(layout)
 	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
-
 	E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-230,-404"
 
 	-- PetTarget
