@@ -709,6 +709,7 @@ local function SetupMERDPSUnitframes(layout)
 	E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 	E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [classcolor:player][power:current]"
 	E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
+	E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 	E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 	E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
