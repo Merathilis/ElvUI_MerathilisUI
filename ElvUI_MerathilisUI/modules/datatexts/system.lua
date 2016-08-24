@@ -12,7 +12,9 @@ local format = string.format
 local sort = table.sort
 local join = string.join
 -- WoW API / Variables
+local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
+local IsShiftKeyDown = IsShiftKeyDown
 local GetDownloadedPercentage = GetDownloadedPercentage
 local GetNumAddOns = GetNumAddOns
 local GetAddOnInfo = GetAddOnInfo
@@ -22,7 +24,6 @@ local GetAvailableBandwidth = GetAvailableBandwidth
 local GetCVar = GetCVar
 local GetNetStats = GetNetStats
 local GetFramerate = GetFramerate
-local IsShiftKeyDown = IsShiftKeyDown
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local UpdateAddOnCPUUsage = UpdateAddOnCPUUsage
 
@@ -228,7 +229,7 @@ local function Update(self, t)
 end
 
 local function Click(self, button)
-	if button == "LeftButton" then
+	if button == "LeftButton" and not InCombatLockdown() then
 		local preCollect = UpdateMemory()
 		collectgarbage("collect")
 		Update(self, 20)
@@ -236,7 +237,7 @@ local function Click(self, button)
 		if E.db.mui.systemDT.announceFreed then
 			MER:Print(format(L["Garbage Collection Freed"]..(" |cff00ff00%s|r"):format(FormatMemory(preCollect - postCollect))))
 		end
-	elseif button == "RightButton" then
+	elseif button == "RightButton" and not InCombatLockdown() then
 		E:StaticPopup_Show("CONFIG_RL")
 	end
 end
