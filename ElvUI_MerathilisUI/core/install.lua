@@ -2110,6 +2110,7 @@ function MER:SetupMERAddons(addon)
 			E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
+			E.db["sle"]["Armory"]["Character"]["Gradation"]["Display"] = true
 			E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
 			E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11
@@ -2120,10 +2121,9 @@ function MER:SetupMERAddons(addon)
 			E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
 			E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
-			E.private["sle"]["Armory"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
-			E.private["sle"]["Armory"]["ItemLevel"]["size"] = 16
-			E.private["sle"]["Armory"]["ItemLevel"]["outline"] = "OUTLINE"
-			E.db["sle"]["Armory"]["Inspect"]["Enable"] = false
+			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
+			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["size"] = 16
+			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["outline"] = "OUTLINE"
 			E.db["sle"]["auras"]["hideDebuffsTimer"] = true
 			E.db["sle"]["auras"]["hideBuffsTimer"] = true
 			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
