@@ -20,14 +20,15 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.13|r, 22.08.2016
+local ChangeLogData = [=[|cffff7d0av2.14|r, xx.08.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Adjustments to the Layouts.
- |cffff7d0a•|r Update LocPanel, credits Darth Predator.
- |cffff7d0a•|r Change the changelog to only show if my UI is installed.
- |cffff7d0a•|r Fix an issue wich prevent to use ClassColorOverride if transparent isn't selected.
- |cffff7d0a•|r Code cleanup.
+ |cffff7d0a•|r Rearrange customTexts in install.
+ |cffff7d0a•|r Color the my UI name in the TOC file.
+ |cffff7d0a•|r Add font file to core, it will replace some blizz default fonts.
+ |cffff7d0a•|r More work on the ObjectiveTracker.
+ |cffff7d0a•|r Add Tooltips for spells in the LocPanel. And some code adjustments.
+ |cffff7d0a•|r Enhance the skins options.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
