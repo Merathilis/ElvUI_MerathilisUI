@@ -81,35 +81,62 @@ local function SkinsTable()
 		get = function(info) return E.private.muiSkins.blizzard[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.blizzard[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			encounterjournal = {
+			info = {
 				order = 1,
+				type = "description",
+				name = L["MER_SKINS_DESC"],
+			},
+			space1 = {
+				order = 2,
+				type = "description",
+				name = "",
+			},
+			gotoskins = {
+				order = 3,
+				type = "execute",
+				name = L["ElvUI Skins"],
+				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
+			},
+			space2 = {
+				order = 4,
+				type = "description",
+				name = "",
+			},
+			encounterjournal = {
+				order = 10,
 				type = 'toggle',
 				name = L["Encounter Journal"],
+				disabled = function () return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal end
 			},
 			objectivetracker = {
-				order = 2,
+				order = 11,
 				type = 'toggle',
 				name = _G["OBJECTIVES_TRACKER_LABEL"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 			},
 			spellbook = {
-				order = 3,
+				order = 12,
 				type = 'toggle',
 				name = L["Spellbook"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.spellbook end,
 			},
 			character = {
-				order = 4,
+				order = 13,
 				type = 'toggle',
 				name = L["Character Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 			},
 			gossip = {
-				order = 5,
+				order = 14,
 				type = 'toggle',
 				name = L["Gossip Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gossip end,
 			},
 			quest = {
-				order = 5,
+				order = 15,
 				type = 'toggle',
 				name = L["Quest Frames"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},
 		},
 	}

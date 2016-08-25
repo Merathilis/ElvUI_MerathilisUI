@@ -192,6 +192,11 @@ L["To get the whole MerathilisUI functionality and look it's recommended that yo
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 
+-- Skins
+L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
+
+Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
+
 -- Addons
 L["BigWigs"] = true
 L["MasterPlan"] = true
