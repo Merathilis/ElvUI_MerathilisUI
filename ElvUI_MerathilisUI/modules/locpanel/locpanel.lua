@@ -11,6 +11,7 @@ local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
 local select, tonumber, unpack = select, tonumber, unpack
+local collectgarbage = collectgarbage
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
 local GetPlayerMapPosition = GetPlayerMapPosition
@@ -392,8 +393,8 @@ function LP:ItemList(check)
 end
 
 function LP:SpellList(list, dropdown, check)
-	local tmp = {}
 	for i = 1, #list do
+		local tmp = {}
 		local data = list[i]
 		if IsSpellKnown(data.secure.ID) then
 			if check then 
@@ -431,7 +432,7 @@ function LP:PopulateDropdown()
 			tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
 				twipe(LP.SecondaryMenu)
 				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
+				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
@@ -462,6 +463,8 @@ function LP:PopulateDropdown()
 	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
 	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+
+	collectgarbage('collect');
 end
 
 function LP:PLAYER_REGEN_DISABLED()

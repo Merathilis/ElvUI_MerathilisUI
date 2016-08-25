@@ -109,6 +109,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			if list[i].icon then
 				icon = "|T"..list[i].icon..":14:14|t "
 			end
+
 			btn.text:SetText(icon..list[i].text)
 			if list[i].title then
 				TitleCount = TitleCount + 1
