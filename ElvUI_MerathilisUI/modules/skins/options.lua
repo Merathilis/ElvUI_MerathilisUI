@@ -9,7 +9,7 @@ local ipairs, unpack = ipairs, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
-local DecorElvUIAddons = {}
+-- local DecorElvUIAddons = {}
 
 local DecorAddons = {
 	{'MasterPlan', L["MasterPlan"], 'mp'},
@@ -28,8 +28,8 @@ local function SkinsTable()
 			},
 		},
 	}
-	
-	E.Options.args.mui.args.skins.args.elvuiaddons = {
+
+	--[[E.Options.args.mui.args.skins.args.elvuiaddons = {
 		order = 3,
 		type = 'group',
 		guiInline = true,
@@ -39,7 +39,7 @@ local function SkinsTable()
 		args = {
 			},
 		}
-	
+
 	local elvorder = 0
 	for i, v in ipairs(DecorElvUIAddons) do
 		local addonName, addonString, addonOption = unpack( v )
@@ -49,8 +49,8 @@ local function SkinsTable()
 			name = addonString,
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
-	end
-	
+	end]]
+
 	E.Options.args.mui.args.skins.args.addonskins = {
 		order = 4,
 		type = 'group',
@@ -61,7 +61,7 @@ local function SkinsTable()
 		args = {
 			},
 		}
-	
+
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
 		local addonName, addonString, addonOption = unpack( v )
@@ -72,7 +72,7 @@ local function SkinsTable()
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
 	end
-	
+
 	E.Options.args.mui.args.skins.args.blizzard = {
 		order = 5,
 		type = 'group',
