@@ -24,7 +24,7 @@ local ChangeLogData = [=[|cffff7d0av2.14|r, xx.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Rearrange customTexts in install.
- |cffff7d0a•|r Color the my UI name in the TOC file.
+ |cffff7d0a•|r Color my UI name in the TOC file.
  |cffff7d0a•|r Add font file to core, it will replace some blizz default fonts.
  |cffff7d0a•|r More work on the ObjectiveTracker.
  |cffff7d0a•|r Add Tooltips for spells in the LocPanel. And some code adjustments.
