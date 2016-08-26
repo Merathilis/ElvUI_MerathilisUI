@@ -121,6 +121,9 @@ local function ObjectiveTrackerReskin()
 		if block.module == ACHIEVEMENT_TRACKER_MODULE then
 			block.HeaderText:SetTextColor(0.75, 0.61, 0)
 			block.HeaderText.col = nil
+			block.HeaderText:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
+			block.HeaderText:SetShadowOffset(1, -1)
+			block.HeaderText:SetShadowColor(0, 0, 0)
 		end
 	end)
 
@@ -245,6 +248,7 @@ local function ObjectiveTrackerReskin()
 	-- Skin scenario buttons
 	local function SkinScenarioButtons()
 		local block = ScenarioStageBlock
+		local stage = block.Stage
 
 		block.NormalBG:ClearAllPoints()
 		block.NormalBG:Point("CENTER", block, 25, 0)
@@ -254,6 +258,9 @@ local function ObjectiveTrackerReskin()
 		block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
 		block.FinalBG:SetAlpha(0)
 		block.GlowTexture:SetSize(otf:GetWidth(), 70)
+
+		stage:ClearAllPoints()
+		stage:SetPoint("TOPLEFT", block.NormalBG, 8, -5)
 	end
 	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
