@@ -585,6 +585,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
 			E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] - [classcolor:player][power:current]"
 			E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
+			E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 			E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 			E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 			E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
@@ -685,6 +686,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
 			E.db["unitframe"]["units"]["target"]["health"]["text_format"] = "[namecolor][power:current][healthcolor] - [health:current]"
 			E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "InfoPanel"
+			E.db["unitframe"]["units"]["target"]["health"]["position"] = "RIGHT"
 			E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = true
 			E.db["unitframe"]["units"]["target"]["portrait"]["overlay"] = false
 			E.db["unitframe"]["units"]["target"]["portrait"]["camDistanceScale"] = 1
