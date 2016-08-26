@@ -17,7 +17,7 @@ function E:GetColor(r, b, g, a)
 	return { r = r, b = b, g = g, a = a }
 end
 
-local function SetupMERCVars()
+local function SetupCVars()
 	-- Setup CVar
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("autoDismountFlying", 1)
@@ -39,7 +39,7 @@ local function SetupMERCVars()
 	SetCVar("showTutorials", 0)
 end
 
-local function SetupMERChat()
+local function SetupChat()
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format('ChatFrame%s', i)]
 		local chatFrameId = frame:GetID()
@@ -122,7 +122,6 @@ function MER:SetupLayout(layout, noDataReset)
 		E:StaticPopup_Show('BENIKUI')
 	end
 
-	--Set up various settings shared across all layouts
 	if not noDataReset then
 		--[[----------------------------------
 		--	PrivateDB - General
@@ -725,7 +724,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["targettarget"]["power"]["position"] = "CENTER"
 			E.db["unitframe"]["units"]["targettarget"]["power"]["height"] = 6
 			E.db["unitframe"]["units"]["targettarget"]["width"] = 100
-			E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = -1
+			E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
 			E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:medium]"
 			E.db["unitframe"]["units"]["targettarget"]["height"] = 32
 			E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
@@ -2188,7 +2187,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your CVars."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffFF0000Low|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERCVars() end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupCVars() end)
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
 		[4] = function()
@@ -2197,7 +2196,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your chat windows."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupMERChat() end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() SetupChat() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
 		[5] = function()
@@ -2212,7 +2211,7 @@ MER.installTable = {
 		[6] = function()
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Actionbars and will enable backdrops"])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your actionbars."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below |cff07D400twice|r to setup your actionbars."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupActionbars("dps") end)
@@ -2224,7 +2223,7 @@ MER.installTable = {
 		[7] = function()
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below |cff07D400twice|r to setup your Unitframes."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupUnitframes("dps") end)
