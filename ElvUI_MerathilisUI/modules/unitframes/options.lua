@@ -9,6 +9,7 @@ local TC = E:GetModule('TargetClass');
 local _G = _G
 local tinsert = table.insert
 -- WoW API / Variables
+local DEFAULT = DEFAULT
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.unitframes = {
@@ -44,7 +45,7 @@ local function UnitFramesTable()
 								type = "select",
 								name = L["Texture"],
 								values = {
-									["DEFAULT"] = L["Default"],
+									["DEFAULT"] = DEFAULT,
 									["SVUI"] = "Supervillian UI",
 								},
 							},
@@ -69,26 +70,26 @@ local function UnitFramesTable()
 							enable = {
 								type = 'toggle',
 								order = 1,
-								name = L['Enable'],
-								desc = L['Show class icon for units.'],
+								name = L["Enable"],
+								desc = L["Show class icon for units."],
 							},
 							size = {
 								order = 4,
 								type = 'range',
-								name = L['Size'],
-								desc = L['Size of the indicator icon.'],
+								name = L["Size"],
+								desc = L["Size of the indicator icon."],
 								min = 12, max = 30, step = 1,
 							},
 							xOffset = {
 								order = 5,
 								type = 'range',
-								name = L['xOffset'],
+								name = L["xOffset"],
 								min = -100, max = 100, step = 1,
 							},
 							yOffset = {
 								order = 6,
 								type = 'range',
-								name = L['yOffset'],
+								name = L["yOffset"],
 								min = -80, max = 40, step = 1,
 							},
 						},

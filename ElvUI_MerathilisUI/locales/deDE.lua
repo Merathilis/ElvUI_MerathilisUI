@@ -113,8 +113,9 @@ L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
 
 -- Unitframes
-L["Default"] = "Standard"
 L["Red Icon"] = "Rotes Symbol"
+L["Target Class Icon"] = "Ziel Klassensymbol"
+L["Show class icon for units."] = "Zeigt ein Klassensymbol für die Einheit."
 
 -- LocationPanel
 L["Location Panel"] = true

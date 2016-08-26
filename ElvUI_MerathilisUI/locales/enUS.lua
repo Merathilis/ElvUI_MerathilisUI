@@ -113,8 +113,9 @@ L["World"] = true
 L["World Latency:"] = true
 
 -- Unitframes
-L["Default"] = true
 L["Red Icon"] = true
+L["Target Class Icon"] = true
+L["Show class icon for units."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
