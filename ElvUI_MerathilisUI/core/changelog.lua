@@ -95,6 +95,7 @@ function MER:ToggleChangeLog()
 	elseif not InCombatLockdown() then
 		MerathilisUIChangeLog:Show()
 		PlaySound("igMainMenuOptionCheckBoxOff")
+		tinsert(UISpecialFrames, "MerathilisUIChangeLog")
 	end
 end
 
