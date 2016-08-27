@@ -118,7 +118,10 @@ f:SetScript("OnEvent", function(self, event, ...)
 	if E.db.mui.misc.tradeTabs ~= true then return end
 	if (event == "TRADE_SKILL_LIST_UPDATE") then
 		if TradeSkillFrame and TradeSkillFrame.RecipeList then
-			if TradeSkillFrame.RecipeList.buttons and #TradeSkillFrame.RecipeList.buttons < (itemDisplay + 2) then HybridScrollFrame_CreateButtons(TradeSkillFrame.RecipeList, "TradeSkillRowButtonTemplate", 0, 0) end
+			if TradeSkillFrame.RecipeList.buttons and #TradeSkillFrame.RecipeList.buttons < (itemDisplay + 2) then 
+				HybridScrollFrame_CreateButtons(TradeSkillFrame.RecipeList, "TradeSkillRowButtonTemplate", 0, 0)
+				self:UnregisterEvent("TRADE_SKILL_LIST_UPDATE")
+			end
 			if not InCombatLockdown() then updateTabs() end
 		end
 	end
