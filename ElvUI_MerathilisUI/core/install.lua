@@ -8,7 +8,18 @@ local print, tonumber, unpack = print, tonumber, unpack
 local format = format
 local ceil = ceil
 -- WoW API / Variables
+local ADDONS = ADDONS
+local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
+local LOOT = LOOT
+local ReloadUI = ReloadUI
+local SetCVar = SetCVar
+local TRADE = TRADE
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: PluginInstallFrame, InstallStepComplete, ElvUIParent, NUM_CHAT_WINDOWS, FCF_GetChatWindowInfo, FCF_DockFrame
+-- GLOBALS: FCF_SavePositionAndDimensions, FCF_SavePositionAndDimensions, FCF_SetChatWindowFontSize, FCF_UnDockFrame
+-- GLOBALS: FCF_SetWindowName, FCF_SetLocked, FCF_StopDragging, LeftChatToggleButton, ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel
+-- GLOBALS: ChatFrame_AddChannel, ChatFrame_AddMessageGroup, ToggleChatColorNamesByClassGroup, Skada, SkadaDB
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local factionGroup = UnitFactionGroup("player")
@@ -259,15 +270,15 @@ function MER:SetupLayout(layout, noDataReset)
 		--]]----------------------------------
 		E.db["tooltip"]["itemCount"] = "NONE"
 		E.db["tooltip"]["healthBar"]["height"] = 5
-		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Prototype"
+		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 		E.db["tooltip"]["visibility"]["combat"] = true
-		E.db["tooltip"]["font"] = "Merathilis Expressway"
+		E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["style"] = "inset"
 		E.db["tooltip"]["fontOutline"] = "OUTLINE"
-		E.db["tooltip"]["headerFontSize"] = 12
-		E.db["tooltip"]["textFontSize"] = 11
-		E.db["tooltip"]["smallTextFontSize"] = 11
+		E.db["tooltip"]["headerFontSize"] = 11
+		E.db["tooltip"]["textFontSize"] = 10
+		E.db["tooltip"]["smallTextFontSize"] = 10
 
 		--[[----------------------------------
 		--	Movers - Layout
@@ -1724,7 +1735,9 @@ function MER:SetupDts(role)
 end
 
 function MER:SetupSkada(addon)
-	-- Skada
+	--[[----------------------------------
+	--	Skada - Settings
+	--]]----------------------------------
 	if addon == 'Skada' then
 		if IsAddOnLoaded('Skada') then
 			local skadaName = GetAddOnMetadata('Skada', 'Title')
@@ -1891,7 +1904,9 @@ function MER:SetupSkada(addon)
 end
 
 function MER:SetupAddOnSkins(addon)
-	-- AddOnSkins
+	--[[----------------------------------
+	--	AddOnSkins - Settings
+	--]]----------------------------------
 	if addon == 'AddOnSkins' then
 		if E.private['addonskins'] == nil then E.private['addonskins'] = {} end
 		if IsAddOnLoaded('AddOnSkins') then
@@ -1923,7 +1938,9 @@ function MER:SetupAddOnSkins(addon)
 end
 
 function MER:SetupElvUIAddOns(addon)
-	-- BenikUI
+	--[[----------------------------------
+	--	BenikUI - Settings
+	--]]----------------------------------
 	if addon == 'ElvUI_BenikUI' then
 		if E.db['benikui'] == nil then E.db['benikui'] = {} end
 		if IsAddOnLoaded('ElvUI_BenikUI') then
@@ -1970,7 +1987,9 @@ function MER:SetupElvUIAddOns(addon)
 			MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
 		end
 
-	-- ElvUI_SLE
+	--[[----------------------------------
+	--	S&L - Settings
+	--]]----------------------------------
 	elseif addon == 'ElvUI_SLE' then
 		if E.db.sle == nil then E.db.sle = {} end
 		if IsAddOnLoaded("ElvUI_SLE") then
@@ -2128,7 +2147,9 @@ function MER:SetupElvUIAddOns(addon)
 			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
 		end
 
-	-- ElvUI_VisualAuraTimer
+	--[[----------------------------------
+	--	VAT - Settings
+	--]]----------------------------------
 	elseif addon == 'ElvUI_VisualAuraTimers' then
 		if E.db.VAT == nil then E.db.VAT = {} end
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
