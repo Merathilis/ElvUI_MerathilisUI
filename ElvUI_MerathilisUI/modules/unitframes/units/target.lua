@@ -1,6 +1,18 @@
 local E, L, V, P, G = unpack(ElvUI);
 local TC = E:NewModule('TargetClass', 'AceEvent-3.0')
 
+-- Cache global variables
+-- Lua functions
+local _G = _G
+local select = select
+-- WoW API / Variables
+local CreateFrame = CreateFrame
+local UnitClass = UnitClass
+local UnitClassification = UnitClassification
+local UnitIsPlayer = UnitIsPlayer
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: CLASS_ICON_TCOORDS
+
 local classIcon
 
 function TC:TargetChanged()
@@ -22,7 +34,7 @@ function TC:ToggleSettings()
 	if classIcon.db.enable then
 		classIcon:SetSize(classIcon.db.size, classIcon.db.size)
 		classIcon:ClearAllPoints()
-		classIcon:SetPoint("CENTER", ElvUF_Target, "CENTER", classIcon.db.xOffset, classIcon.db.yOffset)
+		classIcon:SetPoint("CENTER", _G["ElvUF_Target"], "CENTER", classIcon.db.xOffset, classIcon.db.yOffset)
 
 		TC:RegisterEvent("PLAYER_TARGET_CHANGED", "TargetChanged")
 		TC:TargetChanged()
@@ -33,11 +45,11 @@ function TC:ToggleSettings()
 end
 
 function TC:Initialize()
-	classIcon = CreateFrame("Frame", "TargetClass", ElvUF_Target)
+	classIcon = CreateFrame("Frame", "TargetClass", _G["ElvUF_Target"])
 	classIcon:SetFrameLevel(12)
-	classIcon.Texture = classIcon:CreateTexture(ElvUF_Target, "ARTWORK")
+	classIcon.Texture = classIcon:CreateTexture(_G["ElvUF_Target"], "ARTWORK")
 	classIcon.Texture:SetAllPoints()
-	classIcon.Texture:SetTexture([[Interface\ArenaEnemyFrame\UI-Classes-Circles]])
+	classIcon.Texture:SetTexture([[Interface\TargetingFrame\UI-Classes-Circles]])
 	classIcon.db = E.db.mui.unitframes.unit.target.classicon
 
 	self:ToggleSettings()
