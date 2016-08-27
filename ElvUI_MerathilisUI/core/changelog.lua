@@ -29,6 +29,8 @@ local ChangeLogData = [=[|cffff7d0av2.14|r, xx.08.2016
  |cffff7d0a•|r More work on the ObjectiveTracker.
  |cffff7d0a•|r Add Tooltips for spells in the LocPanel. And some code adjustments.
  |cffff7d0a•|r Enhance the skins options.
+ |cffff7d0a•|r Completly overhaul my install file.
+ |cffff7d0a•|r Add a classIcon for the target frame. Disabled by default.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.

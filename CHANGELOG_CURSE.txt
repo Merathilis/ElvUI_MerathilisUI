@@ -5,6 +5,9 @@
 * More work on the ObjectiveTracker.
 * Add Tooltips for spells in the LocPanel. And some code adjustments.
 * Enhance the skins options.
+* Completly overhaul my install file.
+* Add a classIcon for the target frame. Disabled by default.
+
 
 ** v2.13, 22.08.2016**
 * Adjustments to the Layouts.
