@@ -9,6 +9,14 @@ local format = format
 local ceil = ceil
 -- WoW API / Variables
 local ADDONS = ADDONS
+local FCF_DockFrame = FCF_DockFrame
+local FCF_GetChatWindowInfo = FCF_GetChatWindowInfo
+local FCF_SavePositionAndDimensions = FCF_SavePositionAndDimensions
+local FCF_SetChatWindowFontSize = FCF_SetChatWindowFontSize
+local FCF_SetLocked = FCF_SetLocked
+local FCF_SetWindowName = FCF_SetWindowName
+local FCF_StopDragging = FCF_StopDragging
+local FCF_UnDockFrame = FCF_UnDockFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
 local LOOT = LOOT
@@ -16,10 +24,9 @@ local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 local TRADE = TRADE
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: PluginInstallFrame, InstallStepComplete, ElvUIParent, NUM_CHAT_WINDOWS, FCF_GetChatWindowInfo, FCF_DockFrame
--- GLOBALS: FCF_SavePositionAndDimensions, FCF_SavePositionAndDimensions, FCF_SetChatWindowFontSize, FCF_UnDockFrame
--- GLOBALS: FCF_SetWindowName, FCF_SetLocked, FCF_StopDragging, LeftChatToggleButton, ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel
--- GLOBALS: ChatFrame_AddChannel, ChatFrame_AddMessageGroup, ToggleChatColorNamesByClassGroup, Skada, SkadaDB
+-- GLOBALS: PluginInstallFrame, InstallStepComplete, ElvUIParent, NUM_CHAT_WINDOWS, LeftChatToggleButton
+-- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
+-- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local factionGroup = UnitFactionGroup("player")
@@ -257,7 +264,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["nameplates"]["font"] = "Merathilis Roboto-Black"
 		E.db["nameplates"]["fontSize"] = 10
 		E.db["nameplates"]["fontOutline"] = 'OUTLINE'
-		E.db["nameplates"]['targetScale'] = 1.05
+		E.db["nameplates"]["targetScale"] = 1.05
+		E.db["nameplates"]["displayStyle"] = "BLIZZARD"
 		E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
