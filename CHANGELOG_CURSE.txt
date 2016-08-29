@@ -7,7 +7,7 @@
 * Enhance the skins options.
 * Completly overhaul my install file.
 * Add a classIcon for the target frame. Disabled by default.
-
+* Enable new eliteIcon on Nameplates for FRIENDLY/ENEMY_NPC's.
 
 ** v2.13, 22.08.2016**
 * Adjustments to the Layouts.

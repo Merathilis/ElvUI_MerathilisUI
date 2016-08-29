@@ -271,6 +271,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 		E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
+		E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+		E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
 		E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
 
 		--[[----------------------------------

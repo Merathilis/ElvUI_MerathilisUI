@@ -7,6 +7,7 @@
 <font color=#FF8C00>&#9830;</font> Enhance the skins options.
 <font color=#FF8C00>&#9830;</font> Completly overhaul my install file.
 <font color=#FF8C00>&#9830;</font> Add a classIcon for the target frame. Disabled by default.
+<font color=#FF8C00>&#9830;</font> Enable new eliteIcon on Nameplates for FRIENDLY/ENEMY_NPC's.
 
 <b><u> v2.13, 22.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Adjustments to the Layouts.
