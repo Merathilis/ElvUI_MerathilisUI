@@ -20,7 +20,7 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.14|r, xx.08.2016
+local ChangeLogData = [=[|cffff7d0av2.14|r, 29.08.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Rearrange customTexts in install.

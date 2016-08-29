@@ -1,4 +1,4 @@
-** v2.14, xx.08.2016**
+** v2.14, 29.08.2016**
 * Rearrange customTexts in install.
 * Color my UI name in the TOC file.
 * Add font file to core, it will replace some blizz default fonts.

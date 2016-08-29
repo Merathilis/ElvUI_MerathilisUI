@@ -1,4 +1,4 @@
-<b><u> v2.14, xx.08.2016</b></u>
+<b><u> v2.14, 29.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Rearrange customTexts in install.
 <font color=#FF8C00>&#9830;</font> Color my UI name in the TOC file.
 <font color=#FF8C00>&#9830;</font> Add font file to core, it will replace some blizz default fonts.
