@@ -138,6 +138,12 @@ local function SkinsTable()
 				name = L["Quest Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},
+			worldmap= {
+				order = 16,
+				type = 'toggle',
+				name = L["World Map"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
+			},
 		},
 	}
 end

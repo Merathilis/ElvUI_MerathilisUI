@@ -11,6 +11,7 @@ V['muiSkins'] = {
 		['objectivetracker'] = true,
 		['quest'] = true,
 		['spellbook'] = true,
+		['worldMap'] = true,
 	},
 	['addonSkins'] = {
 		['mp'] = true,
