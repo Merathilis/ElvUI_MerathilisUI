@@ -26,7 +26,8 @@ local GetQuestWatchInfo = GetQuestWatchInfo
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, OBJECTIVE_TRACKER_COLOR, ACHIEVEMENT_TRACKER_MODULE
 -- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, GameTooltip, ScenarioStageBlock
--- GLOBALS: ScenarioProvingGroundsBlock, ScenarioProvingGroundsBlockAnim
+-- GLOBALS: ScenarioProvingGroundsBlock, ScenarioProvingGroundsBlockAnim,  DEFAULT_OBJECTIVE_TRACKER_MODULE
+-- GLOBALS: SCENARIO_TRACKER_MODULE, ScenarioTrackerProgressBar_PlayFlareAnim, SCENARIO_CONTENT_TRACKER_MODULE
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
@@ -35,39 +36,21 @@ local otf = ObjectiveTrackerFrame
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
 
-	-- Quest
-	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.QuestHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-
-	-- Achievements
-	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.AchievementHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	
-	-- Bonus Objectives
-	BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
-	BONUS_OBJECTIVE_TRACKER_MODULE.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	BONUS_OBJECTIVE_TRACKER_MODULE.Header.Background:Hide()
-
-	-- Bonus Objectives Banner Frame
-	ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	ObjectiveTrackerBonusBannerFrame.BonusLabel:SetVertexColor(1, 1, 1)
-
-	-- Scenario/Instances
-	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
-	ObjectiveTrackerBlocksFrame.ScenarioHeader.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-
 	LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
 
-	-- Menu Title
-	ObjectiveTrackerFrame.HeaderMenu.Title:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 12, 'OUTLINE')
-	ObjectiveTrackerFrame.HeaderMenu.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	ObjectiveTrackerFrame.HeaderMenu.Title:SetAlpha(0)
-
-	-- Underlines
-	ObjectiveTrackerBlocksFrame.QuestHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.QuestHeader, true, 1)
-	ObjectiveTrackerBlocksFrame.AchievementHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.AchievementHeader, true, 1)
-	BONUS_OBJECTIVE_TRACKER_MODULE.Header.Underline = MER:Underline(BONUS_OBJECTIVE_TRACKER_MODULE.Header, true, 1)
-	ObjectiveTrackerBlocksFrame.ScenarioHeader.Underline = MER:Underline(ObjectiveTrackerBlocksFrame.ScenarioHeader, true, 1)
+	-- Underlines and header text
+	hooksecurefunc("ObjectiveTracker_AddBlock", function(moduleHeader)
+		if otf.MODULES then
+			for i = 1, #otf.MODULES do
+				if moduleHeader then
+					local module = otf.MODULES[i]
+					module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
+					module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
+					module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+				end
+			end
+		end
+	end)
 
 	-- Level Text for QuestTracker
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function(self)
@@ -93,11 +76,11 @@ local function ObjectiveTrackerReskin()
 	-- Level Color for QuestTracker
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function()
 		for i = 1, GetNumQuestWatches() do
-			local questID, _, questIndex = GetQuestWatchInfo(i)
+			local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isBounty, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
 			if not questID then
 				break
 			end
-			local _, level = GetQuestLogTitle(questIndex)
+			local _, level = GetQuestLogTitle(questLogIndex)
 			local col = GetQuestDifficultyColor(level)
 			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
 			if block then
@@ -124,6 +107,7 @@ local function ObjectiveTrackerReskin()
 			block.HeaderText:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
 			block.HeaderText:SetShadowOffset(1, -1)
 			block.HeaderText:SetShadowColor(0, 0, 0)
+			block.HeaderText:SetWordWrap(true)
 		end
 	end)
 
