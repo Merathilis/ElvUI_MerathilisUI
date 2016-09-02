@@ -31,12 +31,21 @@ local GetQuestWatchInfo = GetQuestWatchInfo
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
+
 local otf = ObjectiveTrackerFrame
+local height = 450 -- overall height
+local width = 188 -- overall width
 
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
 
-	LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	if not ObjectiveTrackerFrame then
+		UIParentLoadAddOn'Blizzard_ObjectiveTracker'
+	end
+
+	if not ObjectiveTrackerFrame.initialized then
+		ObjectiveTracker_Initialize(ObjectiveTrackerFrame)
+	end
 
 	-- Underlines and header text
 	hooksecurefunc("ObjectiveTracker_AddBlock", function(moduleHeader)
@@ -52,236 +61,131 @@ local function ObjectiveTrackerReskin()
 		end
 	end)
 
-	-- Level Text for QuestTracker
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function(self)
-		for i = 1, GetNumQuestWatches() do
-			local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
-			if not questID then
-				break
-			end
-			local block = QUEST_TRACKER_MODULE:GetBlock(questID)
-			local oldBlock = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
-			if oldBlock then
-				local newTitle = "[" .. select(2, GetQuestLogTitle(questLogIndex)) .. "] " .. title
-				QUEST_TRACKER_MODULE:SetStringText(oldBlock.HeaderText, newTitle, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-			end
-			local heightcheck = block.HeaderText:GetNumLines()
-			if heightcheck == 2 then
+	-- Quest Header Font
+	local AddObjective = function(self, block, objectiveKey)
+		local header = block.HeaderText
+		local line = self:GetLine(block, objectiveKey)
+
+		if header then
+			local wrap = header:GetNumLines()
+			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
+			header:SetShadowOffset(1, -1)
+			header:SetShadowColor(0, 0, 0)
+			header:SetWidth(width)
+			header:SetWordWrap(true)
+			if wrap > 1 then
 				local height = block:GetHeight()
-				block:SetHeight(height + 16)
+				block:SetHeight(height*2)
 			end
+			header.styled = true
 		end
-	end)
 
-	-- Level Color for QuestTracker
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", function()
-		for i = 1, GetNumQuestWatches() do
-			local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isBounty, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
-			if not questID then
-				break
-			end
-			local _, level = GetQuestLogTitle(questLogIndex)
-			local col = GetQuestDifficultyColor(level)
-			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
-			if block then
-				block.HeaderText:SetTextColor(col.r, col.g, col.b)
-				block.HeaderText.col = col
-				block.HeaderText:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
-				block.HeaderText:SetShadowOffset(1, -1)
-				block.HeaderText:SetShadowColor(0, 0, 0)
-			end
-		end
-	end)
+		line.Text:SetWidth(width)
 
-	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", function(self)
-		local block = self:GetParent()
-		if block.HeaderText.col then
-			block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
-		end
-	end)
-
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block)
-		if block.module == ACHIEVEMENT_TRACKER_MODULE then
-			block.HeaderText:SetTextColor(0.75, 0.61, 0)
-			block.HeaderText.col = nil
-			block.HeaderText:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
-			block.HeaderText:SetShadowOffset(1, -1)
-			block.HeaderText:SetShadowColor(0, 0, 0)
-			block.HeaderText:SetWordWrap(true)
-		end
-	end)
-
-	-- ProgressBar in the ObjectiveTacker
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line, questID)
-		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
-
-		if progressBar and progressBar:IsShown() and not progressBar.skinned then
-			progressBar.Bar:StripTextures()
-			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
-			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
-			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
-			progressBar.skinned = true
-		end
-	end)
-
-	-- Another ProgressBar in the ObjectiveTracker (e.g. Legion Pre-Event)
-	hooksecurefunc(SCENARIO_TRACKER_MODULE, "AddProgressBar", function(self, block, line, criteriaIndex)
-		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
-
-		if progressBar and progressBar:IsShown() and not progressBar.skinned then
-			progressBar.Bar:StripTextures()
-			progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
-			progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			progressBar.Bar:CreateBackdrop()
-			progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
-			progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
-			progressBar.skinned = true
-
-			ScenarioTrackerProgressBar_PlayFlareAnim = dummy
-		end
-	end)
-
-	-- Skin bonus objective progress bar
-	hooksecurefunc(BONUS_OBJECTIVE_TRACKER_MODULE, "AddProgressBar", function(self, block, line)
-		local progressBar = line.ProgressBar
-		local bar = progressBar.Bar
-		local icon = bar.Icon
-		local flare = progressBar.FullBarFlare1
-		local BG = bar.BarBG
-
-		if not progressBar.styled then
-			bar.BarFrame:Hide()
-			bar.BarFrame2:Hide()
-			bar.BarFrame3:Hide()
-			bar.BarGlow:Kill()
-			bar.IconBG:Kill()
-			BG:Hide()
-			bar:CreateBackdrop("Transparent")
-			bar.backdrop:Point("TOPLEFT", bar, -1, 1)
-			bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
-			bar:SetSize(225, 18)
-			bar:SetStatusBarTexture(LSM:Fetch('statusbar', 'MerathilisFlat'))
-			bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			bar:SetBackdropColor(0, 0, 0, 0)
-
-			flare:Kill()
-
-			icon:Kill()
-
-			bar.AnimIn.Play = dummy
-			BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
-			progressBar.styled = true
-		end
-	end)
-
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block, objectiveKey, _, lineType)
-		local line = self:GetLine(block, objectiveKey, lineType)
-		if not line.styled then
-			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, 'THINOUTLINE')
-			line.Text:SetShadowOffset(1, -1)
-			line.Text:SetShadowColor(0, 0, 0)
-			line.styled = true
-		end
 		if line.Dash and line.Dash:IsShown() then
-			line.Dash:SetText("")
+			line.Dash:SetText'• '
 		end
-	end)
-
-	-- Set tooltip depending on position
-	local function IsFramePositionedLeft(frame)
-		local x = frame:GetCenter()
-		local screenWidth = GetScreenWidth()
-		local screenHeight = GetScreenHeight()
-		local positionedLeft = false
-
-		if x and x < (screenWidth / 2) then
-			positionedLeft = true
-		end
-		return positionedLeft
 	end
 
-	hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
-		if IsFramePositionedLeft(ObjectiveTrackerFrame) then
-			GameTooltip:ClearAllPoints()
-			GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+	-- ProgressBars
+	local AddProgressBar = function(self, block, line)
+		local frame = line.ProgressBar
+		local bar = frame.Bar
+
+		bar:StripTextures()
+		bar:SetStatusBarTexture(E["media"].MuiFlat)
+		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		bar:CreateBackdrop("Transparent")
+		bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+		bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
+		bar.skinned = true
+
+		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
+		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
+
+		if self == QUEST_TRACKER_MODULE then
+			local x = {frame:GetPoint()}
+			frame:ClearAllPoints()
+			frame:SetPoint(x[1], x[2], x[3], x[4] - 30, x[5])
 		end
-	end)
 
-	-- Dashes to dots
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block, objectiveKey, _, lineType)
-		local line = self:GetLine(block, objectiveKey, lineType)
-		if line.Dash and line.Dash:IsShown() then line.Dash:SetText("• ") end
-	end)
-
-	-- Timer bars
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddTimerBar", function(self, block, line, duration, startTime)
-		local tb = self.usedTimerBars[block] and self.usedTimerBars[block][line]
-		if tb and tb:IsShown() and not tb.skinned then
-			tb.Bar:StripTextures()
-			tb.Bar:SetStatusBarTexture(E["media"].MuiFlat)
-			tb.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			tb.Bar:CreateBackdrop("Transparent")
-			tb.Bar.backdrop:Point("TOPLEFT", tb.Bar, -1, 1)
-			tb.Bar.backdrop:Point("BOTTOMRIGHT", tb.Bar, 1, -1)
-			tb.skinned = true
+		if not bar.styled then
+			local bg = CreateFrame("Frame", nil, bar)
+			bg:SetPoint("TOPLEFT", bar)
+			bg:SetPoint("BOTTOMRIGHT", bar)
+			bg:SetFrameLevel(0)
+			bar.styled = true
 		end
-	end)
 
-	-- Skin scenario buttons
-	local function SkinScenarioButtons()
-		local block = ScenarioStageBlock
-		local stage = block.Stage
-
-		block.NormalBG:ClearAllPoints()
-		block.NormalBG:Point("CENTER", block, 25, 0)
-		block.NormalBG:SetSize(otf:GetWidth(), 70)
-		block.FinalBG:ClearAllPoints()
-		block.FinalBG:SetPoint("TOPLEFT", block.NormalBG, 6, -6)
-		block.FinalBG:SetPoint("BOTTOMRIGHT", block.NormalBG, -6, 6)
-		block.FinalBG:SetAlpha(0)
-		block.GlowTexture:SetSize(otf:GetWidth(), 70)
-
-		stage:ClearAllPoints()
-		stage:SetPoint("TOPLEFT", block.NormalBG, 8, -5)
+		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG, bar.BorderLeft, bar.BorderRight, bar.BorderMid}) do
+			if v then v:Hide() end -- causes a taint
+		end
 	end
-	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
-	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 
-	-- Skin proving grounds
-	local function SkinProvingGroundButtons()
-		local block = ScenarioProvingGroundsBlock
-		local sb = block.StatusBar
-		local anim = ScenarioProvingGroundsBlockAnim
+	local AddTimerBar = function(self, block, line, duration, startTime)
+		local bar = self.usedTimerBars[block] and self.usedTimerBars[block][line]
 
-		block.BG:ClearAllPoints()
-		block.BG:Point("CENTER", block, 25, 4)
+		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 
-		block.MedalIcon:SetSize(32, 32)
-		block.MedalIcon:ClearAllPoints()
-		block.MedalIcon:SetPoint("LEFT", block.BG, 3, 0)
+		if not bar.styled then
+			local bg = CreateFrame('Frame', nil, bar)
+			bg:SetPoint('TOPLEFT', bar)
+			bg:SetPoint('BOTTOMRIGHT', bar)
+			bg:SetFrameLevel(0)
+			bar.styled = true
+		end
 
-		block.WaveLabel:ClearAllPoints()
-		block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
-
-		block.BG:SetSize(otf:GetWidth(), 50)
-
-		block.GoldCurlies:Kill()
-
-		anim.Glow:Kill()
-		anim.BGAnim:Kill()
-		anim.BorderAnim:Kill()
-
-		sb:StripTextures()
-		sb:SetStatusBarTexture(E["media"].MuiFlat)
-		sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		sb:ClearAllPoints()
-		sb:SetPoint("CENTER", block.BG, 0, -34)
-		sb:CreateBackdrop("Transparent")
-		sb.backdrop:Point("TOPLEFT", sb, -1, 1)
-		sb.backdrop:Point("BOTTOMRIGHT", sb, 1, -1)
+		bar.Label:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
+		bar.Label:SetShadowOffset(0, -0)
+		bar.Label:ClearAllPoints()
+		bar.Label:SetPoint('CENTER', bar, 'BOTTOM', 1, -2)
+		bar.Label:SetDrawLayer('OVERLAY', 7)
 	end
-	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+
+	-- Acts as quest difficulty/daily indicator
+	local Dash = function(block)
+		for i = 1, GetNumQuestWatches() do
+			local questIndex = GetQuestIndexForWatch(i)
+			if questIndex then
+				local id = GetQuestWatchInfo(i)
+				local block = QUEST_TRACKER_MODULE:GetBlock(id)
+				local title, level, _, _, _, _, frequency = GetQuestLogTitle(questIndex)
+				if block.lines then
+					for key, line in pairs(block.lines) do
+						if frequency == LE_QUEST_FREQUENCY_DAILY then
+							local red, green, blue = 1/4, 6/9, 1
+							line.dash:SetVertexColor(red, green, blue)
+						elseif frequency == LE_QUEST_FREQUENCY_WEEKLY then
+							local red, green, blue = 0, 252/255, 177/255
+							line.Dash:SetVertexColor(red, green, blue)
+						else
+							local col = GetQuestDifficultyColor(level)
+							line.Dash:SetVertexColor(col.r, col.g, col.b)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local QuestOnEnter = function()
+		for i = 1, GetNumQuestWatches() do
+			local id = GetQuestWatchInfo(i)
+			if not id then break end
+			local block = QUEST_TRACKER_MODULE:GetBlock(id)
+			Dash()
+		end
+	end
+
+	-- Hooks
+	for i = 1, #otf.MODULES do
+		local module = otf.MODULES[i]
+		hooksecurefunc(module, "AddObjective", AddObjective)
+		hooksecurefunc(module, "AddProgressBar", AddProgressBar)
+		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
+	end
+
+	hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
+	hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderLeave', QuestOnEnter)
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
