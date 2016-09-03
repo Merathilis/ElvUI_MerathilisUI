@@ -243,19 +243,17 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["bags"]["countFont"] = "Merathilis Roboto-Black"
 		E.db["bags"]["countFontSize"] = 10
 		E.db["bags"]["countFontOutline"] = "OUTLINE"
-		E.db["bags"]["yOffsetBank"] = -3
-		E.db["bags"]["xOffsetBank"] = -3
-		E.db["bags"]["xOffset"] = 3
-		E.db["bags"]["yOffset"] = -3
 		E.db["bags"]["bagSize"] = 23
 		E.db["bags"]["alignToChat"] = false
 		E.db["bags"]["bagWidth"] = 350
 		E.db["bags"]["bankSize"] = 23
 		E.db["bags"]["bankWidth"] = 350
 		E.db["bags"]["moneyFormat"] = "CONDENSED"
-		E.db["bags"]["itemLevelThreshold"] = 650
+		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
 		E.db["bags"]["useTooltipScanning"] = true
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-74,25"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,77,23"
 
 		--[[----------------------------------
 		--	ProfileDB - NamePlate
