@@ -111,7 +111,7 @@ local function ObjectiveTrackerReskin()
 			bar.styled = true
 		end
 
-		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG, bar.BorderLeft, bar.BorderRight, bar.BorderMid}) do
+		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG}) do
 			if v then v:Hide() end -- causes a taint
 		end
 	end
