@@ -9,6 +9,7 @@ local _G = _G
 local pairs = pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local GetNumQuestWatches = GetNumQuestWatches
@@ -16,6 +17,8 @@ local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestIndexForWatch = GetQuestIndexForWatch
 local GetQuestWatchInfo = GetQuestWatchInfo
+local GetScreenHeight = GetScreenHeight
+local GetScreenWidth = GetScreenWidth
 local LE_QUEST_FREQUENCY_DAILY = LE_QUEST_FREQUENCY_DAILY
 local LE_QUEST_FREQUENCY_WEEKLY = LE_QUEST_FREQUENCY_WEEKLY
 local UIParentLoadAddOn = UIParentLoadAddOn
@@ -23,7 +26,7 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, ScenarioTrackerProgressBar_PlayFlareAnim, C_Scenario, Bar
 -- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, ObjectiveTracker_Initialize, ScenarioProvingGroundsBlock
--- GLOBALS: ScenarioProvingGroundsBlockAnim
+-- GLOBALS: ScenarioProvingGroundsBlockAnim, GameTooltip
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
@@ -56,15 +59,13 @@ local function ObjectiveTrackerReskin()
 	end)
 
 	-- Quest Header Font
-	local AddObjective = function(self, block, objectiveKey)
+	local AddObjective = function(self, block, Key)
 		local header = block.HeaderText
-		local line = self:GetLine(block, objectiveKey)
+		local line = self:GetLine(block, Key)
 
 		if header then
 			local wrap = header:GetNumLines()
-			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
-			header:SetShadowOffset(1, -1)
-			header:SetShadowColor(0, 0, 0)
+			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
 			header:SetWidth(width)
 			header:SetWordWrap(true)
 			if wrap > 1 then
@@ -97,12 +98,6 @@ local function ObjectiveTrackerReskin()
 		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 
-		if self == QUEST_TRACKER_MODULE then
-			local x = {frame:GetPoint()}
-			frame:ClearAllPoints()
-			frame:SetPoint(x[1], x[2], x[3], x[4] - 30, x[5])
-		end
-
 		if not bar.styled then
 			local bg = CreateFrame("Frame", nil, bar)
 			bg:SetPoint("TOPLEFT", bar)
@@ -112,7 +107,7 @@ local function ObjectiveTrackerReskin()
 		end
 
 		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG}) do
-			if v then v:Hide() end -- causes a taint
+			if v then v:Kill() end -- causes a taint
 		end
 	end
 
@@ -161,6 +156,27 @@ local function ObjectiveTrackerReskin()
 			end
 		end
 	end
+
+	--Set tooltip depending on position
+	local function IsFramePositionedLeft(frame)
+		local x = frame:GetCenter()
+		local screenWidth = GetScreenWidth()
+		local screenHeight = GetScreenHeight()
+		local positionedLeft = false
+
+		if x and x < (screenWidth / 2) then
+			positionedLeft = true
+		end
+
+		return positionedLeft
+	end
+
+	hooksecurefunc("BonusObjectiveTracker_ShowRewardsTooltip", function(block)
+		if IsFramePositionedLeft(ObjectiveTrackerFrame) then
+			GameTooltip:ClearAllPoints()
+			GameTooltip:SetPoint("TOPLEFT", block, "TOPRIGHT", 0, 0)
+		end
+	end)
 
 	-- Scenario buttons
 	local function SkinScenarioButtons()
@@ -219,14 +235,46 @@ local function ObjectiveTrackerReskin()
 		sb:SetSize(200, 15)
 	end
 
-	local function MinOnClick(self)
-		local textObject = self.text
-		textObject:SetText("")
-	end
-	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetSize(14,14)
-	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetNormalTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\NewQuestMinimize]])
-	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetPushedTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\NewQuestMinimize]])
-	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:HookScript('OnClick', MinOnClick)
+	local min = otf.HeaderMenu.MinimizeButton
+	min:SetSize(15, 15)
+	min:SetNormalTexture''
+	min:SetPushedTexture''
+
+	min.minus = min:CreateFontString(nil, 'OVERLAY')
+	min.minus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
+	min.minus:SetText('>')
+	min.minus:SetPoint('CENTER')
+	min.minus:SetTextColor(1, 1, 1)
+	min.minus:SetShadowOffset(1, -1)
+	min.minus:SetShadowColor(0, 0, 0)
+
+	min.plus = min:CreateFontString(nil, 'OVERLAY')
+	min.plus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, 'THINOUTLINE')
+	min.plus:SetText('<')
+	min.plus:SetPoint('CENTER')
+	min.plus:SetTextColor(1, 1, 1)
+	min.plus:SetShadowOffset(1, -1)
+	min.plus:SetShadowColor(0, 0, 0)
+	min.plus:Hide()
+
+	local title = otf.HeaderMenu.Title
+	title:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 13, nil)
+	title:ClearAllPoints()
+	title:SetPoint('RIGHT', min, 'LEFT', -8, 0)
+
+	min:HookScript('OnEnter', function() min.minus:SetTextColor(.7, .5, 0) min.plus:SetTextColor(.7, .5, 0) end)
+	min:HookScript('OnLeave', function() min.minus:SetTextColor(1, 1, 1) min.plus:SetTextColor(1, 1, 1) end)
+
+	hooksecurefunc('ObjectiveTracker_Collapse', function() min.plus:Show() min.minus:Hide() end)
+	hooksecurefunc('ObjectiveTracker_Expand', function()   min.plus:Hide() min.minus:Show() end)
+
+	-- Kill reward animation when finished dungeon or bonus objectives
+	ObjectiveTrackerScenarioRewardsFrame.Show = dummy
+
+	hooksecurefunc("BonusObjectiveTracker_AnimateReward", function(block)
+		ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
+		ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+	end)
 
 	-- Hooks
 	for i = 1, #otf.MODULES do
@@ -236,9 +284,11 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
 	end
 
-	hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
-	hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
-	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
+		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
+		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
+		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+	end
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
