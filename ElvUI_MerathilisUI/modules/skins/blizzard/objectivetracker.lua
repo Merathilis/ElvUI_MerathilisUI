@@ -6,27 +6,24 @@ local S = E:GetModule('Skins');
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local pairs = pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetScreenHeight = GetScreenHeight
-local GetScreenWidth = GetScreenWidth
-local IsAddOnLoaded = IsAddOnLoaded
-local C_Scenario = C_Scenario
-local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
-local LevelUpDisplayScenarioFrame = _G["LevelUpDisplayScenarioFrame"]
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
-local ObjectiveTrackerBlocksFrame = _G["ObjectiveTrackerBlocksFrame"]
-local ObjectiveTrackerBonusBannerFrame = _G["ObjectiveTrackerBonusBannerFrame"]
+local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local GetNumQuestWatches = GetNumQuestWatches
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetQuestLogTitle = GetQuestLogTitle
+local GetQuestIndexForWatch = GetQuestIndexForWatch
 local GetQuestWatchInfo = GetQuestWatchInfo
+local LE_QUEST_FREQUENCY_DAILY = LE_QUEST_FREQUENCY_DAILY
+local LE_QUEST_FREQUENCY_WEEKLY = LE_QUEST_FREQUENCY_WEEKLY
+local UIParentLoadAddOn = UIParentLoadAddOn
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, OBJECTIVE_TRACKER_COLOR, ACHIEVEMENT_TRACKER_MODULE
--- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, GameTooltip, ScenarioStageBlock
--- GLOBALS: ScenarioProvingGroundsBlock, ScenarioProvingGroundsBlockAnim,  DEFAULT_OBJECTIVE_TRACKER_MODULE
--- GLOBALS: SCENARIO_TRACKER_MODULE, ScenarioTrackerProgressBar_PlayFlareAnim, SCENARIO_CONTENT_TRACKER_MODULE
+-- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, ScenarioTrackerProgressBar_PlayFlareAnim, C_Scenario, Bar
+-- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, ObjectiveTracker_Initialize, ScenarioProvingGroundsBlock
+-- GLOBALS: ScenarioProvingGroundsBlockAnim
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
@@ -39,7 +36,7 @@ local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
 
 	if not ObjectiveTrackerFrame then
-		UIParentLoadAddOn'Blizzard_ObjectiveTracker'
+		UIParentLoadAddOn('Blizzard_ObjectiveTracker')
 	end
 
 	if not ObjectiveTrackerFrame.initialized then
@@ -165,14 +162,71 @@ local function ObjectiveTrackerReskin()
 		end
 	end
 
-	local QuestOnEnter = function()
-		for i = 1, GetNumQuestWatches() do
-			local id = GetQuestWatchInfo(i)
-			if not id then break end
-			local block = QUEST_TRACKER_MODULE:GetBlock(id)
-			Dash()
-		end
+	-- Scenario buttons
+	local function SkinScenarioButtons()
+		local block = ScenarioStageBlock
+		local _, currentStage, numStages, flags = C_Scenario.GetInfo()
+
+		-- pop-up artwork
+		block.NormalBG:Hide()
+
+		-- pop-up final artwork
+		block.FinalBG:Hide()
+
+		-- pop-up glow
+		block.GlowTexture:SetSize(width+20, 75)
+		block.GlowTexture.AlphaAnim.Play = dummy
 	end
+
+	-- Proving grounds
+	local function SkinProvingGroundButtons()
+		local block = ScenarioProvingGroundsBlock
+		local sb = block.StatusBar
+		local anim = ScenarioProvingGroundsBlockAnim
+
+		block.MedalIcon:SetSize(42, 42)
+		block.MedalIcon:ClearAllPoints()
+		block.MedalIcon:SetPoint("TOPLEFT", block, 20, -10)
+
+		block.WaveLabel:ClearAllPoints()
+		block.WaveLabel:SetPoint("LEFT", block.MedalIcon, "RIGHT", 3, 0)
+
+		block.BG:Hide()
+		block.BG:SetSize(width + 21, 75)
+
+		block.GoldCurlies:Hide()
+		block.GoldCurlies:ClearAllPoints()
+		block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
+		block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
+	
+		anim.BGAnim:Hide()
+		anim.BGAnim:SetSize(width + 45, 85)
+		anim.BorderAnim:SetSize(width + 21, 75)
+		anim.BorderAnim:Hide()
+		anim.BorderAnim:ClearAllPoints()
+		anim.BorderAnim:SetPoint("TOPLEFT", block.BG, 8, -8)
+		anim.BorderAnim:SetPoint("BOTTOMRIGHT", block.BG, -8, 8)
+
+		-- Timer
+		sb:StripTextures()
+		sb:CreateBackdrop('Transparent')
+		sb.backdrop:Point('TOPLEFT', sb, -1, 1)
+		sb.backdrop:Point('BOTTOMRIGHT', sb, 1, -1)
+		sb:SetStatusBarTexture(E["media"].MuiFlat)
+		sb:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		sb:ClearAllPoints()
+		sb:SetPoint('TOPLEFT', block.MedalIcon, 'BOTTOMLEFT', -4, -5)
+		sb:SetSize(200, 15)
+	end
+
+	local function MinOnClick(self)
+		local textObject = self.text
+		textObject:SetText("")
+	end
+	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetSize(14,14)
+	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetNormalTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\NewQuestMinimize]])
+	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:SetPushedTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\NewQuestMinimize]])
+	_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton:HookScript('OnClick', MinOnClick)
 
 	-- Hooks
 	for i = 1, #otf.MODULES do
@@ -183,6 +237,8 @@ local function ObjectiveTrackerReskin()
 	end
 
 	hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
-	hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderLeave', QuestOnEnter)
+	hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
+	hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+	hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 end
 hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
