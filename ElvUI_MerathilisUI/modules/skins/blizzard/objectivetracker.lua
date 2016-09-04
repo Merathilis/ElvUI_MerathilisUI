@@ -47,7 +47,7 @@ local function ObjectiveTrackerReskin()
 	end
 
 	-- Underlines and header text
-	hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+	if ObjectiveTrackerFrame and ObjectiveTrackerFrame:IsShown() then
 		if otf.MODULES then
 			for i = 1, #otf.MODULES do
 				local module = otf.MODULES[i]
@@ -56,7 +56,7 @@ local function ObjectiveTrackerReskin()
 				module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			end
 		end
-	end)
+	end
 
 	local AddObjective = function(self, block, key)
 		local header = block.HeaderText
@@ -87,6 +87,7 @@ local function ObjectiveTrackerReskin()
 	local AddProgressBar = function(self, block, line)
 		local frame = line.ProgressBar
 		local bar = frame.Bar
+		local flare = frame.FullBarFlare1
 
 		bar:StripTextures()
 		bar:SetStatusBarTexture(E["media"].MuiFlat)
@@ -95,6 +96,8 @@ local function ObjectiveTrackerReskin()
 		bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
 		bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
 		bar.skinned = true
+
+		flare:Kill()
 
 		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
@@ -108,7 +111,7 @@ local function ObjectiveTrackerReskin()
 		end
 
 		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG}) do
-			if v then v:Kill() end -- causes a taint
+			if v then v:Kill() end
 		end
 	end
 
