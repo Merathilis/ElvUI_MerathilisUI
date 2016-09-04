@@ -83,6 +83,18 @@ local function SetupChat()
 	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
+	ChatFrame_RemoveMessageGroup(ChatFrame1, "WHISPER")
+	ChatFrame_RemoveMessageGroup(ChatFrame1, "BN_WHISPER")
+	ChatFrame_RemoveMessageGroup(ChatFrame1, "BN_CONVERSATION")
+
+	-- Set up the W chat frame
+	FCF_OpenNewWindow("W")
+	FCF_DockFrame(ChatFrame1)
+	FCF_SetLocked(ChatFrame1, 1)
+	ChatFrame_RemoveAllMessageGroups(ChatFrame4)
+	ChatFrame_AddMessageGroup(ChatFrame4, "WHISPER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BN_WHISPER")
+	ChatFrame_AddMessageGroup(ChatFrame4, "BN_CONVERSATION")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "SAY")
