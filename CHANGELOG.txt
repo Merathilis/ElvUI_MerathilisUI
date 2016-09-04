@@ -1,3 +1,10 @@
+<b><u> v2.15, 04.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Change Tooltip font.
+<font color=#FF8C00>&#9830;</font> Update the ObjectiveTracker skin.
+<font color=#FF8C00>&#9830;</font> Add new bank/bag mover to install.
+<font color=#FF8C00>&#9830;</font> Add "Flight Masters's Whistle" to the LocPanel teleport menu.
+<font color=#FF8C00>&#9830;</font> Add a new Chat Tab for whispers. Do the install for Chat again.
+
 <b><u> v2.14, 29.08.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Rearrange customTexts in install.
 <font color=#FF8C00>&#9830;</font> Color my UI name in the TOC file.

@@ -1,3 +1,10 @@
+** v2.15, 04.09.2016**
+* Change Tooltip font.
+* Update the ObjectiveTracker skin.
+* Add new bank/bag mover to install.
+* Add "Flight Masters's Whistle" to the LocPanel teleport menu.
+* Add a new Chat Tab for whispers. Do the install for Chat again.
+
 ** v2.14, 29.08.2016**
 * Rearrange customTexts in install.
 * Color my UI name in the TOC file.

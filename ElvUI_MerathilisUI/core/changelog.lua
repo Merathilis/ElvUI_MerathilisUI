@@ -20,22 +20,19 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.14|r, 29.08.2016
+local ChangeLogData = [=[|cffff7d0av2.15|r, 04.09.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Rearrange customTexts in install.
- |cffff7d0a•|r Color my UI name in the TOC file.
- |cffff7d0a•|r Add font file to core, it will replace some blizz default fonts.
- |cffff7d0a•|r More work on the ObjectiveTracker.
- |cffff7d0a•|r Add Tooltips for spells in the LocPanel. And some code adjustments.
- |cffff7d0a•|r Enhance the skins options.
- |cffff7d0a•|r Completly overhaul my install file.
- |cffff7d0a•|r Add a classIcon for the target frame. Disabled by default.
- |cffff7d0a•|r Enable new eliteIcon on Nameplates for FRIENDLY/ENEMY_NPC's.
- 
+ |cffff7d0a•|r Change Tooltip font.
+ |cffff7d0a•|r Update the ObjectiveTracker skin.
+ |cffff7d0a•|r Add new bank/bag mover to install.
+ |cffff7d0a•|r Add "Flight Masters's Whistle" to the LocPanel teleport menu.
+ |cffff7d0a•|r Add a new Chat Tab for whispers. Do the install for Chat again.
+
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
  |cffff7d0a•|r The LocPanel can cause a lua error on profle switch. A reload fixes this. (WIP)
+ |cffff7d0a•|r The ObjectiveTracker can cause taints. If it's not game breaking for you, you can life with this errors.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
