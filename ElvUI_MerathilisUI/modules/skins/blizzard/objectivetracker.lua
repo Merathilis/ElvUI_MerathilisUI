@@ -58,14 +58,15 @@ local function ObjectiveTrackerReskin()
 		end
 	end)
 
-	-- Quest Header Font
-	local AddObjective = function(self, block, Key)
+	local AddObjective = function(self, block, key)
 		local header = block.HeaderText
-		local line = self:GetLine(block, Key)
+		local line = block.lines[key]
 
-		if header then
+		if  header then
 			local wrap = header:GetNumLines()
-			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
+			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, n)
+			header:SetShadowOffset(.7, -.7)
+			header:SetShadowColor(0, 0, 0, 1)
 			header:SetWidth(width)
 			header:SetWordWrap(true)
 			if wrap > 1 then
@@ -78,7 +79,7 @@ local function ObjectiveTrackerReskin()
 		line.Text:SetWidth(width)
 
 		if line.Dash and line.Dash:IsShown() then
-			line.Dash:SetText'• '
+			line.Dash:SetText('• ')
 		end
 	end
 
@@ -129,32 +130,6 @@ local function ObjectiveTrackerReskin()
 		bar.Label:ClearAllPoints()
 		bar.Label:SetPoint('CENTER', bar, 'BOTTOM', 1, -2)
 		bar.Label:SetDrawLayer('OVERLAY', 7)
-	end
-
-	-- Acts as quest difficulty/daily indicator
-	local Dash = function(block)
-		for i = 1, GetNumQuestWatches() do
-			local questIndex = GetQuestIndexForWatch(i)
-			if questIndex then
-				local id = GetQuestWatchInfo(i)
-				local block = QUEST_TRACKER_MODULE:GetBlock(id)
-				local title, level, _, _, _, _, frequency = GetQuestLogTitle(questIndex)
-				if block.lines then
-					for key, line in pairs(block.lines) do
-						if frequency == LE_QUEST_FREQUENCY_DAILY then
-							local red, green, blue = 1/4, 6/9, 1
-							line.dash:SetVertexColor(red, green, blue)
-						elseif frequency == LE_QUEST_FREQUENCY_WEEKLY then
-							local red, green, blue = 0, 252/255, 177/255
-							line.Dash:SetVertexColor(red, green, blue)
-						else
-							local col = GetQuestDifficultyColor(level)
-							line.Dash:SetVertexColor(col.r, col.g, col.b)
-						end
-					end
-				end
-			end
-		end
 	end
 
 	--Set tooltip depending on position
@@ -279,13 +254,12 @@ local function ObjectiveTrackerReskin()
 	-- Hooks
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
-		hooksecurefunc(module, "AddObjective", AddObjective)
+		hooksecurefunc(module, 'AddObjective', AddObjective)
 		hooksecurefunc(module, "AddProgressBar", AddProgressBar)
 		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
 	end
 
 	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
-		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
