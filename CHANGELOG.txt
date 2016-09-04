@@ -1,3 +1,7 @@
+<b><u> v2.15.1, 04.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Disabled ObjectiveTracker skin, it caused the UI hide. -.-
+
+
 <b><u> v2.15, 04.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Change Tooltip font.
 <font color=#FF8C00>&#9830;</font> Update the ObjectiveTracker skin.
