@@ -31,7 +31,7 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
 
-local otf = ObjectiveTrackerFrame
+local otf = _G["ObjectiveTrackerFrame"]
 local height = 450 -- overall height
 local width = 188 -- overall width
 
@@ -47,7 +47,7 @@ local function ObjectiveTrackerReskin()
 	end
 
 	-- Underlines and header text
-	if ObjectiveTrackerFrame and ObjectiveTrackerFrame:IsShown() then
+	if otf and otf:IsShown() then
 		if otf.MODULES then
 			for i = 1, #otf.MODULES do
 				local module = otf.MODULES[i]
@@ -62,7 +62,7 @@ local function ObjectiveTrackerReskin()
 		local header = block.HeaderText
 		local line = block.lines[key]
 
-		if  header then
+		if header then
 			local wrap = header:GetNumLines()
 			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, n)
 			header:SetShadowOffset(.7, -.7)
@@ -213,38 +213,38 @@ local function ObjectiveTrackerReskin()
 		sb:SetSize(200, 15)
 	end
 
-	local min = otf.HeaderMenu.MinimizeButton
-	min:SetSize(15, 15)
-	min:SetNormalTexture''
-	min:SetPushedTexture''
+	local minimize = otf.HeaderMenu.MinimizeButton
+	minimize:SetSize(15, 15)
+	minimize:SetNormalTexture('')
+	minimize:SetPushedTexture('')
 
-	min.minus = min:CreateFontString(nil, 'OVERLAY')
-	min.minus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
-	min.minus:SetText('>')
-	min.minus:SetPoint('CENTER')
-	min.minus:SetTextColor(1, 1, 1)
-	min.minus:SetShadowOffset(1, -1)
-	min.minus:SetShadowColor(0, 0, 0)
+	minimize.minus = minimize:CreateFontString(nil, 'OVERLAY')
+	minimize.minus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
+	minimize.minus:SetText('>')
+	minimize.minus:SetPoint('CENTER')
+	minimize.minus:SetTextColor(1, 1, 1)
+	minimize.minus:SetShadowOffset(1, -1)
+	minimize.minus:SetShadowColor(0, 0, 0)
 
-	min.plus = min:CreateFontString(nil, 'OVERLAY')
-	min.plus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, 'THINOUTLINE')
-	min.plus:SetText('<')
-	min.plus:SetPoint('CENTER')
-	min.plus:SetTextColor(1, 1, 1)
-	min.plus:SetShadowOffset(1, -1)
-	min.plus:SetShadowColor(0, 0, 0)
-	min.plus:Hide()
+	minimize.plus = minimize:CreateFontString(nil, 'OVERLAY')
+	minimize.plus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, 'THINOUTLINE')
+	minimize.plus:SetText('<')
+	minimize.plus:SetPoint('CENTER')
+	minimize.plus:SetTextColor(1, 1, 1)
+	minimize.plus:SetShadowOffset(1, -1)
+	minimize.plus:SetShadowColor(0, 0, 0)
+	minimize.plus:Hide()
 
 	local title = otf.HeaderMenu.Title
 	title:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 13, nil)
 	title:ClearAllPoints()
-	title:SetPoint('RIGHT', min, 'LEFT', -8, 0)
+	title:SetPoint('RIGHT', minimize, 'LEFT', -8, 0)
 
-	min:HookScript('OnEnter', function() min.minus:SetTextColor(.7, .5, 0) min.plus:SetTextColor(.7, .5, 0) end)
-	min:HookScript('OnLeave', function() min.minus:SetTextColor(1, 1, 1) min.plus:SetTextColor(1, 1, 1) end)
+	minimize:HookScript('OnEnter', function() minimize.minus:SetTextColor(classColor.r, classColor.g, classColor.b) minimize.plus:SetTextColor(classColor.r, classColor.g, classColor.b) end)
+	minimize:HookScript('OnLeave', function() minimize.minus:SetTextColor(1, 1, 1) minimize.plus:SetTextColor(1, 1, 1) end)
 
-	hooksecurefunc('ObjectiveTracker_Collapse', function() min.plus:Show() min.minus:Hide() end)
-	hooksecurefunc('ObjectiveTracker_Expand', function()   min.plus:Hide() min.minus:Show() end)
+	hooksecurefunc('ObjectiveTracker_Collapse', function() minimize.plus:Show() minimize.minus:Hide() end)
+	hooksecurefunc('ObjectiveTracker_Expand', function() minimize.plus:Hide() minimize.minus:Show() end)
 
 	-- Kill reward animation when finished dungeon or bonus objectives
 	ObjectiveTrackerScenarioRewardsFrame.Show = dummy
