@@ -93,6 +93,7 @@ LP.PortItems = {
 	{64457}, --The Last Relic of Argus
 	{128502}, --Hunter's Seeking Crystal
 	{128503}, --Master Hunter's Seeking Crystal
+	{141605}, --Flight Masters's Whistle
 }
 
 LP.Spells = {
