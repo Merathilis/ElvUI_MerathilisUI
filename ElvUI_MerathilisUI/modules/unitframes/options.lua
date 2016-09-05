@@ -16,6 +16,7 @@ local function UnitFramesTable()
 		order = 15,
 		type = 'group',
 		name = L['UnitFrames'],
+		childGroups = 'tab',
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
@@ -27,7 +28,6 @@ local function UnitFramesTable()
 				order = 2,
 				type = "group",
 				name = L["Player Frame"],
-				guiInline = true,
 				args = {
 					rested = {
 						order = 1,
@@ -57,7 +57,6 @@ local function UnitFramesTable()
 				order = 3,
 				type = "group",
 				name = L["Target Frame"],
-				guiInline = true,
 				args = {
 					classIcon = {
 						order = 1,
