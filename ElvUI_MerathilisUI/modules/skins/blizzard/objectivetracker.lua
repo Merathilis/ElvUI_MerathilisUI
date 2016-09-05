@@ -26,7 +26,7 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, QUEST_TRACKER_MODULE, ScenarioTrackerProgressBar_PlayFlareAnim, C_Scenario, Bar
 -- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, ObjectiveTracker_Initialize, ScenarioProvingGroundsBlock
--- GLOBALS: ScenarioProvingGroundsBlockAnim, GameTooltip
+-- GLOBALS: ScenarioProvingGroundsBlockAnim, GameTooltip, UIParent
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local dummy = function() return end
@@ -38,11 +38,11 @@ local width = 188 -- overall width
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
 
-	if not ObjectiveTrackerFrame then
+	if not otf then
 		UIParentLoadAddOn('Blizzard_ObjectiveTracker')
 	end
 
-	if not ObjectiveTrackerFrame.initialized then
+	if not otf.initialized then
 		ObjectiveTracker_Initialize(ObjectiveTrackerFrame)
 	end
 
@@ -58,13 +58,20 @@ local function ObjectiveTrackerReskin()
 		end
 	end
 
+	-- Scenario LevelUp Display
+	_G["LevelUpDisplayScenarioFrame"].level:SetVertexColor(classColor.r, classColor.g, classColor.b)
+
+	-- Bonus Objectives Banner Frame
+	_G["ObjectiveTrackerBonusBannerFrame"].Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	_G["ObjectiveTrackerBonusBannerFrame"].BonusLabel:SetVertexColor(1, 1, 1)
+
 	local AddObjective = function(self, block, key)
 		local header = block.HeaderText
 		local line = block.lines[key]
 
 		if header then
 			local wrap = header:GetNumLines()
-			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, n)
+			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
 			header:SetShadowOffset(.7, -.7)
 			header:SetShadowColor(0, 0, 0, 1)
 			header:SetWidth(width)
@@ -247,11 +254,25 @@ local function ObjectiveTrackerReskin()
 	hooksecurefunc('ObjectiveTracker_Expand', function() minimize.plus:Hide() minimize.minus:Show() end)
 
 	-- Kill reward animation when finished dungeon or bonus objectives
-	ObjectiveTrackerScenarioRewardsFrame.Show = dummy
+	_G["ObjectiveTrackerScenarioRewardsFrame"].Show = dummy
+
+	local AnimateReward = function(reward)
+		for i = 1, #reward do
+			local button = reward[i]
+			S:HandleButton(button)
+		end
+	end
 
 	hooksecurefunc("BonusObjectiveTracker_AnimateReward", function(block)
-		ObjectiveTrackerBonusRewardsFrame:ClearAllPoints()
-		ObjectiveTrackerBonusRewardsFrame:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+		_G["ObjectiveTrackerBonusRewardsFrame"]:ClearAllPoints()
+		_G["ObjectiveTrackerBonusRewardsFrame"]:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+		AnimateReward(_G["ObjectiveTrackerBonusRewardsFrame"])
+	end)
+
+	hooksecurefunc('ScenarioObjectiveTracker_AnimateReward', function(block)
+		_G["ScenarioObjectiveTrackerBonusRewardsFrame"]:ClearAllPoints()
+		_G["ScenarioObjectiveTrackerBonusRewardsFrame"]:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
+		AnimateReward(_G["ObjectiveTrackerScenarioRewardsFrame"])
 	end)
 
 	-- Hooks

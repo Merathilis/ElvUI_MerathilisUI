@@ -108,12 +108,12 @@ local function SkinsTable()
 				name = L["Encounter Journal"],
 				disabled = function () return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal end
 			},
-			--[[objectivetracker = {
+			objectivetracker = {
 				order = 11,
 				type = 'toggle',
 				name = _G["OBJECTIVES_TRACKER_LABEL"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-			},]]
+			},
 			spellbook = {
 				order = 12,
 				type = 'toggle',
