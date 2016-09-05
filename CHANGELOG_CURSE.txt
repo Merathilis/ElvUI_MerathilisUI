@@ -1,4 +1,9 @@
-** v2.15, 04.09.2016**
+** v2.16, 05.09.2016**
+* Revert changes to the Chat Tab.
+* Add own skin for Oderhall CommandBar. It's movable now.
+* More work on the ObjectiveTracker. The error with the UI to hide should be fixed. Still a tain left.
+
+** v2.15.1, 04.09.2016**
 * Disabled ObjectiveTracker skin, it caused the UI hide. -.-
 
 ** v2.15, 04.09.2016**

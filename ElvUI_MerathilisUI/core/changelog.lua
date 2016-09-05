@@ -20,10 +20,12 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.15.1|r, 04.09.2016
+local ChangeLogData = [=[|cffff7d0av2.16|r, 05.09.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Disabled ObjectiveTracker skin, it caused the UI hide. -.-
+ |cffff7d0a•|r Revert changes to the Chat Tab.
+ |cffff7d0a•|r Add own skin for Oderhall CommandBar. It's movable now.
+ |cffff7d0a•|r More work on the ObjectiveTracker. The error with the UI to hide should be fixed. Still a tain left.
 
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
