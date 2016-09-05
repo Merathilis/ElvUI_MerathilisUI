@@ -90,7 +90,7 @@ local function ObjectiveTrackerReskin()
 		end
 	end
 
-	-- ProgressBars
+	-- General ProgressBars
 	local AddProgressBar = function(self, block, line)
 		local frame = line.ProgressBar
 		local bar = frame.Bar
@@ -106,6 +106,7 @@ local function ObjectiveTrackerReskin()
 
 		flare:Kill()
 
+		bar.AnimIn.Play = dummy
 		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 
@@ -120,6 +121,25 @@ local function ObjectiveTrackerReskin()
 		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG}) do
 			if v then v:Kill() end
 		end
+	end
+
+	-- Scenario ProgressBars
+	local AddProgressBar1 = function(self, block, line, criteriaIndex)
+		local progressBar = self.usedProgressBars[block] and self.usedProgressBars[block][line];
+
+		progressBar.Bar:StripTextures()
+		progressBar.Bar:SetStatusBarTexture(E["media"].MuiFlat)
+		progressBar.Bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		progressBar.Bar:CreateBackdrop("Transparent")
+		progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+		progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
+		progressBar.Bar.skinned = true
+
+		progressBar.Bar.Icon:Kill()
+		progressBar.Bar.IconBG:Kill()
+		progressBar.Bar.BarGlow:Kill()
+
+		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 	end
 
 	local AddTimerBar = function(self, block, line, duration, startTime)
@@ -199,7 +219,7 @@ local function ObjectiveTrackerReskin()
 		block.GoldCurlies:ClearAllPoints()
 		block.GoldCurlies:SetPoint("TOPLEFT", block.BG, 6, -6)
 		block.GoldCurlies:SetPoint("BOTTOMRIGHT", block.BG, -6, 6)
-	
+
 		anim.BGAnim:Hide()
 		anim.BGAnim:SetSize(width + 45, 85)
 		anim.BorderAnim:SetSize(width + 21, 75)
@@ -278,9 +298,10 @@ local function ObjectiveTrackerReskin()
 	-- Hooks
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
-		hooksecurefunc(module, 'AddObjective', AddObjective)
+		hooksecurefunc(module, "AddObjective", AddObjective)
 		hooksecurefunc(module, "AddProgressBar", AddProgressBar)
-		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
+		hooksecurefunc(module, "AddTimerBar", AddTimerBar)
+		hooksecurefunc(_G["SCENARIO_TRACKER_MODULE"], "AddProgressBar", AddProgressBar1)
 	end
 
 	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
