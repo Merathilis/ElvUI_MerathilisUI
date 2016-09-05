@@ -144,6 +144,12 @@ local function SkinsTable()
 				name = L["World Map"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},]]
+			orderhall = {
+				order = 17,
+				type = 'toggle',
+				name = L["Orderhall"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
+			},
 		},
 	}
 end
