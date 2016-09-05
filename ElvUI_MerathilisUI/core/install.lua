@@ -83,18 +83,6 @@ local function SetupChat()
 	ChatFrame_RemoveChannel(ChatFrame3, L["Trade"])
 	ChatFrame_AddChannel(ChatFrame1, L["Trade"])
 	ChatFrame_AddMessageGroup(ChatFrame1, "TARGETICONS")
-	ChatFrame_RemoveMessageGroup(ChatFrame1, "WHISPER")
-	ChatFrame_RemoveMessageGroup(ChatFrame1, "BN_WHISPER")
-	ChatFrame_RemoveMessageGroup(ChatFrame1, "BN_CONVERSATION")
-
-	-- Set up the W chat frame
-	FCF_OpenNewWindow("W")
-	FCF_DockFrame(ChatFrame1)
-	FCF_SetLocked(ChatFrame1, 1)
-	ChatFrame_RemoveAllMessageGroups(ChatFrame4)
-	ChatFrame_AddMessageGroup(ChatFrame4, "WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BN_WHISPER")
-	ChatFrame_AddMessageGroup(ChatFrame4, "BN_CONVERSATION")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
 	ToggleChatColorNamesByClassGroup(true, "SAY")
@@ -187,6 +175,7 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["general"]["minimap"]["icons"]["classHall"]['scale'] = 0.5
 		E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 		E.db["general"]["minimap"]["icons"]["lfgEye"]['xOffset'] = -3
+		E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 		E.db["general"]["loginmessage"] = false
 		E.db["general"]["stickyFrames"] = false
 		E.db["general"]["loot"] = true
@@ -1724,7 +1713,7 @@ function MER:SetupDts(role)
 		else
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "BuiMail"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "Orderhall"
 
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = ""
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = ""
@@ -1981,7 +1970,7 @@ function MER:SetupElvUIAddOns(addon)
 			E.db['benikui']['datatexts']['middle']['width'] = 412
 			E.db['benikui']['datatexts']['middle']['height'] = 19
 			E.db['benikui']['datatexts']['middle']['styled'] = true
-			E.db['benikui']['datatexts']['mail']['toggle'] = true
+			E.db['benikui']['datatexts']['mail']['toggle'] = false
 			E.db['benikui']['datatexts']['garrison']['currency'] = true
 			E.db['benikui']['datatexts']['garrison']['oil'] = true
 			E.db['benikuiDatabars']['experience']['notifiers']['enable'] = false
