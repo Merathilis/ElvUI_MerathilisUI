@@ -15,7 +15,7 @@ local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
 	OrderHallCommandBar:ClearAllPoints()
-	OrderHallCommandBar:SetPoint("TOP", E.UIParent, -5, -5)
+	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, 2, -5)
 	OrderHallCommandBar:SetWidth(500)
 
 	OrderHallCommandBar.AreaName:ClearAllPoints()
