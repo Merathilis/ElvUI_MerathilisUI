@@ -7,9 +7,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 -- Lua functions
 local _G = _G
 -- WoW API / Variables
--- GLOBALS: 
-
-local OrderHallCommandBar = _G["OrderHallCommandBar"]
+-- GLOBALS: OrderHallCommandBar
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
