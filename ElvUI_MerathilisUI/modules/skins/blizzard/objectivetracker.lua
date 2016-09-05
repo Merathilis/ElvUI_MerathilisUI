@@ -94,7 +94,6 @@ local function ObjectiveTrackerReskin()
 	local AddProgressBar = function(self, block, line)
 		local frame = line.ProgressBar
 		local bar = frame.Bar
-		local flare = frame.FullBarFlare1
 
 		bar:StripTextures()
 		bar:SetStatusBarTexture(E["media"].MuiFlat)
@@ -104,9 +103,6 @@ local function ObjectiveTrackerReskin()
 		bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
 		bar.skinned = true
 
-		flare:Kill()
-
-		bar.AnimIn.Play = dummy
 		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
 
