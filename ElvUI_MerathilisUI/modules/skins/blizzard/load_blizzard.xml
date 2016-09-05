@@ -8,4 +8,5 @@
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
 	<!-- Script file="worldmap.lua"/ -->
+	<Script file="orderhall.lua"/>
 </Ui>
