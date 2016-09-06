@@ -1,3 +1,8 @@
+<b><u> v2.17, xx.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Add BigWigs settings to my install.
+<font color=#FF8C00>&#9830;</font> Add option to hide the Zone Text in OrderHall CommandBar.
+<font color=#FF8C00>&#9830;</font> More work on the ObjectiveTracker.
+
 <b><u> v2.16, 05.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Revert changes to the Chat Tab.
 <font color=#FF8C00>&#9830;</font> Add own skin for Oderhall CommandBar. It's movable now.
