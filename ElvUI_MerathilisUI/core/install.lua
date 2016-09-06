@@ -1927,11 +1927,6 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Colors"] = {},
 					["BigWigs_Plugins_Alt Power"] = {
 						["profiles"] = {
-							["Default"] = {
-								["font"] = "Friz Quadrata TT",
-								["fontOutline"] = "",
-								["fontSize"] = 11,
-							},
 							["MerathilisUI"] = {
 								["posx"] = 305,
 								["fontSize"] = 11,
@@ -1946,10 +1941,6 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_BossBlock"] = {},
 					["BigWigs_Plugins_Bars"] = {
 						["profiles"] = {
-							["Default"] = {
-								["font"] = "Friz Quadrata TT",
-								["BigWigsAnchor_width"] = 199.999908447266,
-							},
 							["MerathilisUI"] = {
 								["BigWigsEmphasizeAnchor_y"] = 161,
 								["fontSize"] = 11,
@@ -1969,9 +1960,6 @@ function MER:SetupBigWigs(addon)
 					},
 					["BigWigs_Plugins_Super Emphasize"] = {
 						["profiles"] = {
-							["Default"] = {
-								["font"] = "Friz Quadrata TT",
-							},
 							["MerathilisUI"] = {
 								["font"] = "Merathilis Roboto-Bold",
 							},
@@ -1980,10 +1968,6 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Sounds"] = {},
 					["BigWigs_Plugins_Messages"] = {
 						["profiles"] = {
-							["Default"] = {
-								["fontSize"] = 20,
-								["font"] = "Friz Quadrata TT",
-							},
 							["MerathilisUI"] = {
 								["outline"] = "OUTLINE",
 								["fontSize"] = 20,
@@ -2002,11 +1986,6 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Respawn"] = {},
 					["BigWigs_Plugins_Proximity"] = {
 						["profiles"] = {
-							["Default"] = {
-								["fontSize"] = 20,
-								["font"] = "Friz Quadrata TT",
-								["height"] = 120,
-							},
 							["MerathilisUI"] = {
 								["fontSize"] = 20,
 								["font"] = "Merathilis Roboto-Bold",
@@ -2021,8 +2000,7 @@ function MER:SetupBigWigs(addon)
 					["LibDualSpec-1.0"] = {},
 				},
 				["profiles"] = {
-					["MerathilisUI"] = {
-					},
+					["MerathilisUI"] = {},
 				},
 			}
 		else
