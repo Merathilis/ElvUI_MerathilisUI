@@ -272,25 +272,6 @@ local function ObjectiveTrackerReskin()
 	-- Kill reward animation when finished dungeon or bonus objectives
 	_G["ObjectiveTrackerScenarioRewardsFrame"].Show = dummy
 
-	local AnimateReward = function(reward)
-		for i = 1, #reward do
-			local button = reward[i]
-			S:HandleButton(button)
-		end
-	end
-
-	hooksecurefunc("BonusObjectiveTracker_AnimateReward", function(block)
-		_G["ObjectiveTrackerBonusRewardsFrame"]:ClearAllPoints()
-		_G["ObjectiveTrackerBonusRewardsFrame"]:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
-		AnimateReward(_G["ObjectiveTrackerBonusRewardsFrame"])
-	end)
-
-	hooksecurefunc('ScenarioObjectiveTracker_AnimateReward', function(block)
-		_G["ScenarioObjectiveTrackerBonusRewardsFrame"]:ClearAllPoints()
-		_G["ScenarioObjectiveTrackerBonusRewardsFrame"]:SetPoint("BOTTOM", UIParent, "TOP", 0, 90)
-		AnimateReward(_G["ObjectiveTrackerScenarioRewardsFrame"])
-	end)
-
 	-- Hooks
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
