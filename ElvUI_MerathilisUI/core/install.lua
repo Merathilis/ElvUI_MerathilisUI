@@ -26,7 +26,7 @@ local TRADE = TRADE
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: PluginInstallFrame, InstallStepComplete, ElvUIParent, NUM_CHAT_WINDOWS, LeftChatToggleButton
 -- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
--- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB
+-- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local factionGroup = UnitFactionGroup("player")
@@ -880,7 +880,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 0
 			E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
 			E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "RIGHT"
-			E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_OFF"
+			E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
 			if IsAddOnLoaded("ElvUI_BenikUI") then
 				E.db["unitframe"]["units"]["raid"]["classHover"] = true
 			end
@@ -940,7 +940,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 			E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 			E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
-			E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_OFF"
+			E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
 			MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 185)
 
 			-- Party
@@ -1019,7 +1019,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
 			E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 			E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
-			E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
+			E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 			if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 			MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 185)
 
@@ -1913,6 +1913,124 @@ function MER:SetupSkada(addon)
 	end
 end
 
+function MER:SetupBigWigs(addon)
+	--[[----------------------------------
+	--	BigWigs - Settings
+	--]]----------------------------------
+	if addon == 'BigWigs' then
+		if IsAddOnLoaded('BigWigs') then
+			local bigWigName = GetAddOnMetadata('BigWigs', 'Title')
+			MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
+			BigWigs3DB = {
+				["namespaces"] = {
+					["BigWigs_Plugins_Victory"] = {},
+					["BigWigs_Plugins_Colors"] = {},
+					["BigWigs_Plugins_Alt Power"] = {
+						["profiles"] = {
+							["Default"] = {
+								["font"] = "Friz Quadrata TT",
+								["fontOutline"] = "",
+								["fontSize"] = 11,
+							},
+							["MerathilisUI"] = {
+								["posx"] = 305,
+								["fontSize"] = 11,
+								["disabled"] = false,
+								["posy"] = 59,
+								["fontOutline"] = "",
+								["font"] = "Merathilis Roboto-Bold",
+								["lock"] = true,
+							},
+						},
+					},
+					["BigWigs_Plugins_BossBlock"] = {},
+					["BigWigs_Plugins_Bars"] = {
+						["profiles"] = {
+							["Default"] = {
+								["font"] = "Friz Quadrata TT",
+								["BigWigsAnchor_width"] = 199.999908447266,
+							},
+							["MerathilisUI"] = {
+								["BigWigsEmphasizeAnchor_y"] = 161,
+								["fontSize"] = 11,
+								["BigWigsAnchor_y"] = 145,
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 1133,
+								["texture"] = "MerathilisLight",
+								["barStyle"] = "AddOnSkins",
+								["BigWigsAnchor_width"] = 322,
+								["BigWigsEmphasizeAnchor_width"] = 245,
+								["BigWigsEmphasizeAnchor_x"] = 439,
+								["font"] = "Merathilis Roboto-Bold",
+								["outline"] = "OUTLINE",
+								["emphasizeScale"] = 1,
+							},
+						},
+					},
+					["BigWigs_Plugins_Super Emphasize"] = {
+						["profiles"] = {
+							["Default"] = {
+								["font"] = "Friz Quadrata TT",
+							},
+							["MerathilisUI"] = {
+								["font"] = "Merathilis Roboto-Bold",
+							},
+						},
+					},
+					["BigWigs_Plugins_Sounds"] = {},
+					["BigWigs_Plugins_Messages"] = {
+						["profiles"] = {
+							["Default"] = {
+								["fontSize"] = 20,
+								["font"] = "Friz Quadrata TT",
+							},
+							["MerathilisUI"] = {
+								["outline"] = "OUTLINE",
+								["fontSize"] = 20,
+								["BWMessageAnchor_x"] = 608,
+								["BWEmphasizeMessageAnchor_x"] = 610,
+								["BWEmphasizeCountdownMessageAnchor_x"] = 664,
+								["BWEmphasizeMessageAnchor_y"] = 614,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 523,
+								["growUpwards"] = false,
+								["font"] = "Merathilis Roboto-Bold",
+								["BWMessageAnchor_y"] = 676,
+							},
+						},
+					},
+					["BigWigs_Plugins_Statistics"] = {},
+					["BigWigs_Plugins_Respawn"] = {},
+					["BigWigs_Plugins_Proximity"] = {
+						["profiles"] = {
+							["Default"] = {
+								["fontSize"] = 20,
+								["font"] = "Friz Quadrata TT",
+								["height"] = 120,
+							},
+							["MerathilisUI"] = {
+								["fontSize"] = 20,
+								["font"] = "Merathilis Roboto-Bold",
+								["posx"] = 957,
+								["height"] = 120,
+								["posy"] = 88,
+								["lock"] = true,
+							},
+						},
+					},
+					["BigWigs_Plugins_Raid Icons"] = {},
+					["LibDualSpec-1.0"] = {},
+				},
+				["profiles"] = {
+					["MerathilisUI"] = {
+					},
+				},
+			}
+		else
+			MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
+		end
+	end
+end
+
 function MER:SetupAddOnSkins(addon)
 	--[[----------------------------------
 	--	AddOnSkins - Settings
@@ -2271,8 +2389,8 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your addons."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupSkada('Skada'); end)
-			PluginInstallFrame.Option1:SetText(L["Skada"])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupSkada('Skada'); MER:SetupBigWigs('BigWigs'); end)
+			PluginInstallFrame.Option1:SetText(L["Skada/BigWigs"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupAddOnSkins('AddOnSkins'); end)
 			PluginInstallFrame.Option2:SetText(L["AddOnSkins"])
