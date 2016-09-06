@@ -12,7 +12,10 @@ V['muiSkins'] = {
 		['quest'] = true,
 		['spellbook'] = true,
 		-- ['worldmap'] = true,
-		['orderhall'] = true
+		['orderhall'] = {
+			['enable'] = true,
+			['zoneText'] = true,
+		},
 	},
 	['addonSkins'] = {
 		['mp'] = true,
