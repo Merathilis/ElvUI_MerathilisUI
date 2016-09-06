@@ -20,7 +20,7 @@ local function styleOrderhall()
 	OrderHallCommandBar:SetWidth(500)
 
 	OrderHallCommandBar.AreaName:ClearAllPoints()
-	OrderHallCommandBar.AreaName:SetPoint("CENTER", -40, 0)
+	OrderHallCommandBar.AreaName:SetPoint("CENTER", 0, 0)
 	OrderHallCommandBar.AreaName:SetWordWrap(true)
 
 	OrderHallCommandBar.Currency:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
