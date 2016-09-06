@@ -6,6 +6,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local ipairs = ipairs
 -- WoW API / Variables
 -- GLOBALS: OrderHallCommandBar
 
@@ -21,6 +22,8 @@ local function styleOrderhall()
 	OrderHallCommandBar.AreaName:ClearAllPoints()
 	OrderHallCommandBar.AreaName:SetPoint("CENTER", -40, 0)
 	OrderHallCommandBar.AreaName:SetWordWrap(true)
+
+	OrderHallCommandBar.Currency:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
 
 	OrderHallCommandBar.WorldMapButton:Show()
 	OrderHallCommandBar.WorldMapButton:ClearAllPoints()
@@ -41,6 +44,21 @@ local function styleOrderhall()
 
 	mapButton:HookScript('OnEnter', function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
 	mapButton:HookScript('OnLeave', function() mapButton.Text:SetTextColor(1, 1, 1) end)
+
+	local index = 1
+	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
+		if child.Icon and child.Count and child.TroopPortraitCover then
+			child.TroopPortraitCover:Hide()
+
+			child.Icon:SetSize(40, 20)
+
+			child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
+			child.Count:SetTextColor(1, 1, 1)
+			child.Count:SetShadowOffset(0, 0)
+
+			index = index + 1
+		end
+	end
 
 	MER:StyleOutside(OrderHallCommandBar)
 
