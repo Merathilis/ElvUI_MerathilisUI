@@ -20,16 +20,17 @@ local function styleOrderhall()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, 2, -5)
 	OrderHallCommandBar:SetWidth(500)
 
+	OrderHallCommandBar.Currency:Hide()
+	OrderHallCommandBar.CurrencyIcon:Hide()
+
 	if E.private.muiSkins.blizzard.orderhall.zoneText then
 		OrderHallCommandBar.AreaName:ClearAllPoints()
-		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.CurrencyIcon, "RIGHT", 0,0)
+		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0,0)
 		OrderHallCommandBar.AreaName:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
 		OrderHallCommandBar.AreaName:SetWordWrap(true)
 	else
 		OrderHallCommandBar.AreaName:Hide()
 	end
-
-	OrderHallCommandBar.Currency:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 
 	OrderHallCommandBar.WorldMapButton:Show()
 	OrderHallCommandBar.WorldMapButton:ClearAllPoints()
