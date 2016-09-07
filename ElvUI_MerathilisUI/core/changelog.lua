@@ -26,10 +26,12 @@ local ChangeLogData = [=[|cffff7d0av2.17|r, xx.09.2016
  |cffff7d0a•|r Add BigWigs settings to my install.
  |cffff7d0a•|r Add option to hide the Zone Text in OrderHall CommandBar.
  |cffff7d0a•|r More work on the ObjectiveTracker.
+ |cffff7d0a•|r Hide the currency text and icon, since i'm using the orderhall datatext.
 
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
  |cffff7d0a•|r The LocPanel can cause a lua error on profle switch. A reload fixes this. (WIP)
+ |cffff7d0a•|r The ObjectiveTracker can cause a taint. It should be not game breaking. (WIP)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
