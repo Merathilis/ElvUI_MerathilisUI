@@ -92,19 +92,13 @@ local function ObjectiveTrackerReskin()
 	local AddProgressBar = function(self, block, line)
 		local progressBar = line.ProgressBar
 		local bar = progressBar.Bar
-		local flare = progressBar.FullBarFlare1
 
-		if not progressBar.styled then
-			bar:StripTextures()
-			bar:SetStatusBarTexture(E["media"].MuiFlat)
-			bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-			bar:CreateBackdrop("Transparent")
-			bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
-			bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
-			progressBar.styled = true
-
-			flare:Hide()
-		end
+		bar:StripTextures()
+		bar:SetStatusBarTexture(E["media"].MuiFlat)
+		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+		bar:CreateBackdrop("Transparent")
+		bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+		bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
 	end
 
 	-- Scenario ProgressBars
@@ -117,12 +111,10 @@ local function ObjectiveTrackerReskin()
 		progressBar.Bar:CreateBackdrop("Transparent")
 		progressBar.Bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
 		progressBar.Bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
-		progressBar.Bar.skinned = true
 
 		progressBar.Bar.Icon:Kill()
 		progressBar.Bar.IconBG:Kill()
 		progressBar.Bar.BarGlow:Kill()
-
 	end
 
 	local AddTimerBar = function(self, block, line, duration, startTime)
@@ -135,7 +127,7 @@ local function ObjectiveTrackerReskin()
 			bg:SetPoint('TOPLEFT', bar)
 			bg:SetPoint('BOTTOMRIGHT', bar)
 			bg:SetFrameLevel(0)
-			-- bar.styled = true
+			bar.styled = true
 		end
 
 		bar.Label:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
