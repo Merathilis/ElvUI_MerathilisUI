@@ -70,7 +70,7 @@ local function ObjectiveTrackerReskin()
 
 		if header then
 			local wrap = header:GetNumLines()
-			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
+			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
 			header:SetShadowOffset(.7, -.7)
 			header:SetShadowColor(0, 0, 0, 1)
 			header:SetWidth(width)
@@ -214,38 +214,25 @@ local function ObjectiveTrackerReskin()
 		sb:SetSize(200, 15)
 	end
 
-	local minimize = otf.HeaderMenu.MinimizeButton
-	minimize:SetSize(15, 15)
-	minimize:SetNormalTexture('')
-	minimize:SetPushedTexture('')
-
-	minimize.minus = minimize:CreateFontString(nil, 'OVERLAY')
-	minimize.minus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
-	minimize.minus:SetText('>')
-	minimize.minus:SetPoint('CENTER')
-	minimize.minus:SetTextColor(1, 1, 1)
-	minimize.minus:SetShadowOffset(1, -1)
-	minimize.minus:SetShadowColor(0, 0, 0)
-
-	minimize.plus = minimize:CreateFontString(nil, 'OVERLAY')
-	minimize.plus:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, 'THINOUTLINE')
-	minimize.plus:SetText('<')
-	minimize.plus:SetPoint('CENTER')
-	minimize.plus:SetTextColor(1, 1, 1)
-	minimize.plus:SetShadowOffset(1, -1)
-	minimize.plus:SetShadowColor(0, 0, 0)
-	minimize.plus:Hide()
-
-	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 13, nil)
-	title:ClearAllPoints()
-	title:SetPoint('RIGHT', minimize, 'LEFT', -8, 0)
-
-	minimize:HookScript('OnEnter', function() minimize.minus:SetTextColor(classColor.r, classColor.g, classColor.b) minimize.plus:SetTextColor(classColor.r, classColor.g, classColor.b) end)
-	minimize:HookScript('OnLeave', function() minimize.minus:SetTextColor(1, 1, 1) minimize.plus:SetTextColor(1, 1, 1) end)
-
-	hooksecurefunc('ObjectiveTracker_Collapse', function() minimize.plus:Show() minimize.minus:Hide() end)
-	hooksecurefunc('ObjectiveTracker_Expand', function() minimize.plus:Hide() minimize.minus:Show() end)
+	--Skin ObjectiveTrackerFrame item buttons
+	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		local item = block.itemButton
+		if item and not item.skinned then
+			item:SetSize(25, 25)
+			item:SetTemplate("Transparent")
+			item:StyleButton()
+			item:SetNormalTexture(nil)
+			item.icon:SetTexCoord(unpack(E.TexCoords))
+			item.icon:SetPoint("TOPLEFT", item, 2, -2)
+			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+			item.Cooldown:SetAllPoints(item.icon)
+			item.Count:ClearAllPoints()
+			item.Count:SetPoint("TOPLEFT", 1, -1)
+			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
+			item.Count:SetShadowOffset(5, -5)
+			item.skinned = true
+		end
+	end)
 
 	-- Hooks
 	for i = 1, #otf.MODULES do
