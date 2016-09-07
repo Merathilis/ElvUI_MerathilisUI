@@ -51,23 +51,6 @@ local function styleOrderhall()
 	mapButton:HookScript('OnEnter', function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
 	mapButton:HookScript('OnLeave', function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
-	if C_Garrison.IsPlayerInGarrison(3) then
-		local index = 1
-		for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
-			if child.Icon and child.Count and child.TroopPortraitCover then
-				child.TroopPortraitCover:Hide()
-
-				child.Icon:SetSize(40, 20)
-
-				child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
-				child.Count:SetTextColor(1, 1, 1)
-				child.Count:SetShadowOffset(0, 0)
-
-				index = index + 1
-			end
-		end
-	end
-
 	MER:StyleOutside(OrderHallCommandBar)
 
 	E:CreateMover(OrderHallCommandBar, "OrderhallMover", L["Orderhall"])
@@ -75,11 +58,9 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event, arg1)
 	if event == "ADDON_LOADED" and arg1 == "Blizzard_OrderHallUI" then
 		E:Delay(.5, styleOrderhall)
 		self:UnregisterEvent("ADDON_LOADED")
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
