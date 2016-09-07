@@ -258,16 +258,16 @@ local function ObjectiveTrackerReskin()
 	-- Hooks
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
-		-- hooksecurefunc(module, "AddObjective", AddObjective)
+		hooksecurefunc(module, "AddObjective", AddObjective)
 		hooksecurefunc(module, "AddProgressBar", AddProgressBar)
-		-- hooksecurefunc(module, "AddTimerBar", AddTimerBar)
-		-- hooksecurefunc(_G["SCENARIO_TRACKER_MODULE"], "AddProgressBar", AddProgressBar1)
+		hooksecurefunc(module, "AddTimerBar", AddTimerBar)
+		hooksecurefunc(_G["SCENARIO_TRACKER_MODULE"], "AddProgressBar", AddProgressBar1)
 	end
 
 	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
-		-- hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
-		-- hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-		-- hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
+		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 	end
 end
 S:RegisterSkin('ElvUI', ObjectiveTrackerReskin)
