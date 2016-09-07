@@ -254,8 +254,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
 		E.db["bags"]["useTooltipScanning"] = true
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-74,25"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,77,23"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,23"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,3,23"
 
 		--[[----------------------------------
 		--	ProfileDB - NamePlate
