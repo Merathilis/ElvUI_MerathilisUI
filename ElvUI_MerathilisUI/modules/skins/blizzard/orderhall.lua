@@ -22,13 +22,14 @@ local function styleOrderhall()
 
 	if E.private.muiSkins.blizzard.orderhall.zoneText then
 		OrderHallCommandBar.AreaName:ClearAllPoints()
-		OrderHallCommandBar.AreaName:SetPoint("CENTER", 0, 0)
+		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.CurrencyIcon, "RIGHT", 0,0)
+		OrderHallCommandBar.AreaName:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
 		OrderHallCommandBar.AreaName:SetWordWrap(true)
 	else
 		OrderHallCommandBar.AreaName:Hide()
 	end
 
-	OrderHallCommandBar.Currency:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
+	OrderHallCommandBar.Currency:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 
 	OrderHallCommandBar.WorldMapButton:Show()
 	OrderHallCommandBar.WorldMapButton:ClearAllPoints()
@@ -58,7 +59,7 @@ local function styleOrderhall()
 
 				child.Icon:SetSize(40, 20)
 
-				child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
+				child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 				child.Count:SetTextColor(1, 1, 1)
 				child.Count:SetShadowOffset(0, 0)
 
@@ -74,15 +75,11 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:RegisterEvent("GARRISON_FOLLOWER_CATEGORIES_UPDATED")
-f:RegisterEvent("GARRISON_FOLLOWER_ADDED")
-f:RegisterEvent("GARRISON_FOLLOWER_REMOVED")
+f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event, arg1)
 	if event == "ADDON_LOADED" and arg1 == "Blizzard_OrderHallUI" then
 		E:Delay(.5, styleOrderhall)
 		self:UnregisterEvent("ADDON_LOADED")
-		self:UnregisterEvent("GARRISON_FOLLOWER_CATEGORIES_UPDATED")
-		self:UnregisterEvent("GARRISON_FOLLOWER_ADDED")
-		self:UnregisterEvent("GARRISON_FOLLOWER_REMOVED")
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
