@@ -29,7 +29,6 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 -- GLOBALS: ScenarioProvingGroundsBlockAnim, GameTooltip, UIParent
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local dummy = function() return end
 
 local otf = _G["ObjectiveTrackerFrame"]
 local height = 450 -- overall height
@@ -80,7 +79,6 @@ local function ObjectiveTrackerReskin()
 				local height = block:GetHeight()
 				block:SetHeight(height*2)
 			end
-			header.styled = true
 		end
 
 		line.Text:SetWidth(width)
@@ -92,30 +90,20 @@ local function ObjectiveTrackerReskin()
 
 	-- General ProgressBars
 	local AddProgressBar = function(self, block, line)
-		local frame = line.ProgressBar
-		local bar = frame.Bar
+		local progressBar = line.ProgressBar
+		local bar = progressBar.Bar
+		local flare = progressBar.FullBarFlare1
 
-		bar:StripTextures()
-		bar:SetStatusBarTexture(E["media"].MuiFlat)
-		bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
-		bar:CreateBackdrop("Transparent")
-		bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
-		bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
-		bar.skinned = true
+		if not progressBar.styled then
+			bar:StripTextures()
+			bar:SetStatusBarTexture(E["media"].MuiFlat)
+			bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+			bar:CreateBackdrop("Transparent")
+			bar.backdrop:Point("TOPLEFT", Bar, -1, 1)
+			bar.backdrop:Point("BOTTOMRIGHT", Bar, 1, -1)
+			progressBar.styled = true
 
-		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
-		BonusObjectiveTrackerProgressBar_PlayFlareAnim = dummy
-
-		if not bar.styled then
-			local bg = CreateFrame("Frame", nil, bar)
-			bg:SetPoint("TOPLEFT", bar)
-			bg:SetPoint("BOTTOMRIGHT", bar)
-			bg:SetFrameLevel(0)
-			bar.styled = true
-		end
-
-		for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG}) do
-			if v then v:Kill() end
+			flare:Hide()
 		end
 	end
 
@@ -135,7 +123,6 @@ local function ObjectiveTrackerReskin()
 		progressBar.Bar.IconBG:Kill()
 		progressBar.Bar.BarGlow:Kill()
 
-		ScenarioTrackerProgressBar_PlayFlareAnim = dummy
 	end
 
 	local AddTimerBar = function(self, block, line, duration, startTime)
@@ -148,7 +135,7 @@ local function ObjectiveTrackerReskin()
 			bg:SetPoint('TOPLEFT', bar)
 			bg:SetPoint('BOTTOMRIGHT', bar)
 			bg:SetFrameLevel(0)
-			bar.styled = true
+			-- bar.styled = true
 		end
 
 		bar.Label:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
@@ -192,7 +179,6 @@ local function ObjectiveTrackerReskin()
 
 		-- pop-up glow
 		block.GlowTexture:SetSize(width+20, 75)
-		block.GlowTexture.AlphaAnim.Play = dummy
 	end
 
 	-- Proving grounds
@@ -269,22 +255,19 @@ local function ObjectiveTrackerReskin()
 	hooksecurefunc('ObjectiveTracker_Collapse', function() minimize.plus:Show() minimize.minus:Hide() end)
 	hooksecurefunc('ObjectiveTracker_Expand', function() minimize.plus:Hide() minimize.minus:Show() end)
 
-	-- Kill reward animation when finished dungeon or bonus objectives
-	_G["ObjectiveTrackerScenarioRewardsFrame"].Show = dummy
-
 	-- Hooks
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
-		hooksecurefunc(module, "AddObjective", AddObjective)
+		-- hooksecurefunc(module, "AddObjective", AddObjective)
 		hooksecurefunc(module, "AddProgressBar", AddProgressBar)
-		hooksecurefunc(module, "AddTimerBar", AddTimerBar)
-		hooksecurefunc(_G["SCENARIO_TRACKER_MODULE"], "AddProgressBar", AddProgressBar1)
+		-- hooksecurefunc(module, "AddTimerBar", AddTimerBar)
+		-- hooksecurefunc(_G["SCENARIO_TRACKER_MODULE"], "AddProgressBar", AddProgressBar1)
 	end
 
 	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
-		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
-		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
-		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
+		-- hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
+		-- hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
+		-- hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 	end
 end
-hooksecurefunc(S, "Initialize", ObjectiveTrackerReskin)
+S:RegisterSkin('ElvUI', ObjectiveTrackerReskin)
