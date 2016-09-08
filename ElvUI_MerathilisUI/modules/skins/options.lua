@@ -108,42 +108,58 @@ local function SkinsTable()
 				name = L["Encounter Journal"],
 				disabled = function () return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.encounterjournal end
 			},
-			objectivetracker = {
-				order = 11,
-				type = 'toggle',
-				name = _G["OBJECTIVES_TRACKER_LABEL"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-			},
 			spellbook = {
-				order = 12,
+				order = 11,
 				type = 'toggle',
 				name = L["Spellbook"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.spellbook end,
 			},
 			character = {
-				order = 13,
+				order = 12,
 				type = 'toggle',
 				name = L["Character Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.character end,
 			},
 			gossip = {
-				order = 14,
+				order = 13,
 				type = 'toggle',
 				name = L["Gossip Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gossip end,
 			},
 			quest = {
-				order = 15,
+				order = 14,
 				type = 'toggle',
 				name = L["Quest Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},
 			--[[worldmap = {
-				order = 16,
+				order = 15,
 				type = 'toggle',
 				name = L["World Map"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},]]
+			objectivetracker = {
+				order = 16,
+				type = 'group',
+				name = _G["OBJECTIVES_TRACKER_LABEL"],
+				guiInline = true,
+				get = function(info) return E.private.muiSkins.blizzard.objectivetracker[ info[#info] ] end,
+				set = function(info, value) E.private.muiSkins.blizzard.objectivetracker[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+					},
+					autoHide = {
+						order = 2,
+						type = 'toggle',
+						name = L["Hide in Combat"],
+						desc = L["Automatically hide the ObjectiveTracker inFight."],
+					},
+				},
+			},
 			orderhall = {
 				order = 17,
 				type = 'group',
@@ -162,7 +178,7 @@ local function SkinsTable()
 						order = 2,
 						type = 'toggle',
 						name = L["Zone Text"],
-						desc = L["Enable/Disable the Zone Text in the OrderHall Commandbar"],
+						desc = L["Enable/Disable the Zone Text in the OrderHall Commandbar."],
 					},
 				},
 			},

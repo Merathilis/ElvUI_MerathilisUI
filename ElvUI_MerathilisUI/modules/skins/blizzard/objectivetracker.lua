@@ -36,7 +36,7 @@ local height = 450 -- overall height
 local width = 188 -- overall width
 
 local function ObjectiveTrackerReskin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker.enable ~= true then return end
 
 	if not otf.initialized then
 		ObjectiveTracker_Initialize(otf)
@@ -81,6 +81,21 @@ local function ObjectiveTrackerReskin()
 			item.skinned = true
 		end
 	end)
+
+	if E.private.muiSkins.blizzard.objectivetracker.autoHide then
+		-- Collaps ObjectiveTrackerFrame
+		local collapse = CreateFrame("Frame")
+		collapse:RegisterEvent("PLAYER_REGEN_DISABLED")
+		collapse:RegisterEvent("PLAYER_REGEN_ENABLED")
+		collapse:SetScript("OnEvent", function(self, event)
+			if event == "PLAYER_REGEN_DISABLED" then
+				ObjectiveTracker_Collapse()
+			-- Expand the frame after combat
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				ObjectiveTracker_Expand()
+			end
+		end)
+	end
 
 	-- Underlines and header text
 	if otf and otf:IsShown() then
