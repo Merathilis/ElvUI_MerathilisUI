@@ -6,7 +6,7 @@ local S = E:GetModule('Skins');
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -15,6 +15,7 @@ local ScenarioStageBlock = _G["ScenarioStageBlock"]
 local GetNumQuestWatches = GetNumQuestWatches
 local GetQuestDifficultyColor = GetQuestDifficultyColor
 local GetQuestLogTitle = GetQuestLogTitle
+local GetQuestLogSpecialItemInfo = GetQuestLogSpecialItemInfo
 local GetQuestIndexForWatch = GetQuestIndexForWatch
 local GetQuestWatchInfo = GetQuestWatchInfo
 local GetScreenHeight = GetScreenHeight
@@ -37,13 +38,49 @@ local width = 188 -- overall width
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker ~= true then return end
 
-	if not otf then
-		UIParentLoadAddOn('Blizzard_ObjectiveTracker')
+	if not otf.initialized then
+		ObjectiveTracker_Initialize(otf)
 	end
 
-	if not otf.initialized then
-		ObjectiveTracker_Initialize(ObjectiveTrackerFrame)
-	end
+	--Skin ObjectiveTrackerFrame item buttons
+	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		local item = block.itemButton
+		if item and not item.skinned then
+			item:SetSize(25, 25)
+			item:SetTemplate("Transparent")
+			item:StyleButton()
+			item:SetNormalTexture(nil)
+			item.icon:SetTexCoord(unpack(E.TexCoords))
+			item.icon:SetPoint("TOPLEFT", item, 2, -2)
+			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+			item.Cooldown:SetAllPoints(item.icon)
+			item.Count:ClearAllPoints()
+			item.Count:SetPoint("TOPLEFT", 1, -1)
+			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
+			item.Count:SetShadowOffset(5, -5)
+			item.skinned = true
+		end
+	end)
+
+	-- World Quest Items?
+	hooksecurefunc("QuestObjectiveItem_Initialize", function(itemButton, questLogIndex)
+		local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(questLogIndex)
+		if item and not item.skinned then
+			item:SetSize(25, 25)
+			item:SetTemplate("Transparent")
+			item:StyleButton()
+			item:SetNormalTexture(nil)
+			item.icon:SetTexCoord(unpack(E.TexCoords))
+			item.icon:SetPoint("TOPLEFT", item, 2, -2)
+			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+			item.Cooldown:SetAllPoints(item.icon)
+			item.Count:ClearAllPoints()
+			item.Count:SetPoint("TOPLEFT", 1, -1)
+			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
+			item.Count:SetShadowOffset(5, -5)
+			item.skinned = true
+		end
+	end)
 
 	-- Underlines and header text
 	if otf and otf:IsShown() then
@@ -214,25 +251,62 @@ local function ObjectiveTrackerReskin()
 		sb:SetSize(200, 15)
 	end
 
-	--Skin ObjectiveTrackerFrame item buttons
-	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
-		local item = block.itemButton
-		if item and not item.skinned then
-			item:SetSize(25, 25)
-			item:SetTemplate("Transparent")
-			item:StyleButton()
-			item:SetNormalTexture(nil)
-			item.icon:SetTexCoord(unpack(E.TexCoords))
-			item.icon:SetPoint("TOPLEFT", item, 2, -2)
-			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
-			item.Cooldown:SetAllPoints(item.icon)
-			item.Count:ClearAllPoints()
-			item.Count:SetPoint("TOPLEFT", 1, -1)
-			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
-			item.Count:SetShadowOffset(5, -5)
-			item.skinned = true
+	local function OnClick(self)
+		local textObject = self.text
+		local text = textObject:GetText()
+
+		if (text and text == "-") then
+			textObject:SetText("+")
+		else
+			textObject:SetText("-")
 		end
-	end)
+	end
+
+	local minimizeButton = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+	S:HandleButton(minimizeButton)
+	minimizeButton:Size(16, 14)
+	minimizeButton.text = minimizeButton:CreateFontString(nil, "OVERLAY")
+	minimizeButton.text:FontTemplate()
+	minimizeButton.text:Point("CENTER", minimizeButton, "CENTER", 0, 0)
+	minimizeButton.text:SetText("-")
+	minimizeButton.text:SetJustifyH("CENTER")
+	minimizeButton.text:SetJustifyV("MIDDLE")
+	minimizeButton:HookScript('OnClick', OnClick)
+
+	-- Acts as quest difficulty/daily indicator
+	local Dash = function(block)
+	for i = 1, GetNumQuestWatches() do
+			local questIndex = GetQuestIndexForWatch(i)
+			if questIndex then
+				local id = GetQuestWatchInfo(i)
+				local block = QUEST_TRACKER_MODULE:GetBlock(id)
+				local title, level, _, _, _, _, frequency = GetQuestLogTitle(questIndex)
+				if block.lines then
+					for key, line in pairs(block.lines) do
+						if frequency == LE_QUEST_FREQUENCY_DAILY then
+							local red, green, blue = 1/4, 6/9, 1
+							line.Dash:SetVertexColor(red, green, blue)
+						elseif frequency == LE_QUEST_FREQUENCY_WEEKLY then
+							local red, green, blue = 0, 252/255, 177/255
+							line.Dash:SetVertexColor(red, green, blue)
+						else
+							local col = GetQuestDifficultyColor(level)
+							line.Dash:SetVertexColor(col.r, col.g, col.b)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local QuestOnEnter = function()
+		for i = 1, GetNumQuestWatches() do
+			local id = GetQuestWatchInfo(i)
+			if not id then break end
+			local block = QUEST_TRACKER_MODULE:GetBlock(id)
+			Dash()
+		end
+	end
 
 	-- Hooks
 	for i = 1, #otf.MODULES do
@@ -244,6 +318,9 @@ local function ObjectiveTrackerReskin()
 	end
 
 	if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
+		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
+		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderEnter', QuestOnEnter)
+		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderLeave', QuestOnEnter)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
