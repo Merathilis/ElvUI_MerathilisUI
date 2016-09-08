@@ -53,18 +53,6 @@ local function styleOrderhall()
 
 	MER:StyleOutside(OrderHallCommandBar)
 
-	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
-		if child.Icon and child.Count and child.TroopPortraitCover then
-			child.TroopPortraitCover:Hide()
-
-			child.Icon:SetSize(40, 20)
-
-			child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil)
-			child.Count:SetTextColor(1, 1, 1)
-			child.Count:SetShadowOffset(0, 0)
-		end
-	end
-
 	E:CreateMover(OrderHallCommandBar, "OrderhallMover", L["Orderhall"])
 end
 
