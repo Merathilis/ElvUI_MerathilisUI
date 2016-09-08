@@ -8,7 +8,6 @@ local LSM = LibStub('LibSharedMedia-3.0');
 local _G = _G
 local ipairs = ipairs
 -- WoW API / Variables
-local C_Garrison = C_Garrison
 -- GLOBALS: OrderHallCommandBar
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
@@ -53,6 +52,18 @@ local function styleOrderhall()
 	mapButton:HookScript('OnLeave', function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
 	MER:StyleOutside(OrderHallCommandBar)
+
+	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
+		if child.Icon and child.Count and child.TroopPortraitCover then
+			child.TroopPortraitCover:Hide()
+
+			child.Icon:SetSize(40, 20)
+
+			child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil)
+			child.Count:SetTextColor(1, 1, 1)
+			child.Count:SetShadowOffset(0, 0)
+		end
+	end
 
 	E:CreateMover(OrderHallCommandBar, "OrderhallMover", L["Orderhall"])
 end
