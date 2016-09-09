@@ -256,8 +256,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
 		E.db["bags"]["useTooltipScanning"] = true
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-3,23"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,3,23"
+		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
+		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
 
 		--[[----------------------------------
 		--	ProfileDB - NamePlate
@@ -2002,7 +2002,9 @@ function MER:SetupBigWigs(addon)
 					["LibDualSpec-1.0"] = {},
 				},
 				["profiles"] = {
-					["MerathilisUI"] = {},
+					["MerathilisUI"] = {
+						["fakeDBMVersion"] = true,
+					},
 				},
 			}
 		else
