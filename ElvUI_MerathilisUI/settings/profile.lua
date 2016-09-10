@@ -68,7 +68,9 @@ P['mui'] = {
 		["format"] = "%.0f",
 		["zoneText"] = true,
 		["colorType"] = "REACTION",
+		["colorType_Coords"] = "DEFAULT",
 		["customColor"] = {r = 1, g = 1, b = 1 },
+		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
 		["combathide"] = false,
 		["portals"] = {
 			["enable"] = true,
