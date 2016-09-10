@@ -63,24 +63,35 @@ local function ObjectiveTrackerReskin()
 	end)
 
 	-- World Quest Items?
-	hooksecurefunc("QuestObjectiveItem_Initialize", function(itemButton, questLogIndex)
-		local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(questLogIndex)
-		if item and not item.skinned then
-			item:SetSize(25, 25)
-			item:SetTemplate("Transparent")
-			item:StyleButton()
-			item:SetNormalTexture(nil)
-			item.icon:SetTexCoord(unpack(E.TexCoords))
-			item.icon:SetPoint("TOPLEFT", item, 2, -2)
-			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
-			item.Cooldown:SetAllPoints(item.icon)
-			item.Count:ClearAllPoints()
-			item.Count:SetPoint("TOPLEFT", 1, -1)
-			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
-			item.Count:SetShadowOffset(5, -5)
-			item.skinned = true
+	local AddBonusObjectiveQuest = function(self, questID, posIndex, isTrackedWorldQuest)
+		local isInArea, isOnMap, numObjectives, taskName, displayAsObjective = InternalGetTaskInfo(questID);
+		local treatAsInArea = isTrackedWorldQuest or isInArea;
+		local isSuperTracked = questID == GetSuperTrackedQuestID();
+
+		if ( numObjectives and ( treatAsInArea or ( isOnMap and existingTask ) ) ) then
+			local block = module:GetBlock(questID);
+			local questLogIndex = GetQuestLogIndexByID(questID);
+			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(questLogIndex);
+			local itemButton = block.itemButton;
+				if ( item and ( not isQuestComplete or showItemWhenComplete ) ) then
+					if item and not item.skinned then
+						item:SetSize(25, 25)
+						item:SetTemplate("Transparent")
+						item:StyleButton()
+						item:SetNormalTexture(nil)
+						item.icon:SetTexCoord(unpack(E.TexCoords))
+						item.icon:SetPoint("TOPLEFT", item, 2, -2)
+						item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
+						item.Cooldown:SetAllPoints(item.icon)
+						item.Count:ClearAllPoints()
+						item.Count:SetPoint("TOPLEFT", 1, -1)
+						item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
+						item.Count:SetShadowOffset(5, -5)
+						item.skinned = true
+					end
+				end
 		end
-	end)
+	end
 
 	if E.private.muiSkins.blizzard.objectivetracker.autoHide then
 		-- Collaps ObjectiveTrackerFrame
@@ -336,6 +347,7 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderEnter', QuestOnEnter)
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderLeave', QuestOnEnter)
+		hooksecurefunc("BonusObjectiveTracker_OnHeaderLoad", AddBonusObjectiveQuest)
 		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
