@@ -79,7 +79,7 @@ local function ObjectiveTrackerReskin()
 		end)
 	end
 
-	-- Underlines and header text
+	-- Underlines, Header text, backdrop
 	if otf and otf:IsShown() then
 		if otf.MODULES then
 			for i = 1, #otf.MODULES do
@@ -87,6 +87,11 @@ local function ObjectiveTrackerReskin()
 				module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
 				module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 				module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+
+				if E.private.muiSkins.blizzard.objectivetracker.backdrop then
+					module.Header:CreateBackdrop("Transparent")
+					module.Header.backdrop:Point("TOPLEFT", -3, 0)
+				end
 			end
 		end
 	end
@@ -120,6 +125,7 @@ local function ObjectiveTrackerReskin()
 		if line.Dash and line.Dash:IsShown() then
 			line.Dash:SetText('• ')
 		end
+		
 	end
 
 	-- General ProgressBars
@@ -260,6 +266,8 @@ local function ObjectiveTrackerReskin()
 	end
 
 	local minimizeButton = ObjectiveTrackerFrame.HeaderMenu.MinimizeButton
+	minimizeButton:ClearAllPoints()
+	minimizeButton:SetPoint("RIGHT", ObjectiveTrackerFrame.HeaderMenu, "LEFT", 0, -1)
 	S:HandleButton(minimizeButton)
 	minimizeButton:Size(16, 14)
 	minimizeButton.text = minimizeButton:CreateFontString(nil, "OVERLAY")

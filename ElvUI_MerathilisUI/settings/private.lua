@@ -11,6 +11,7 @@ V['muiSkins'] = {
 		['objectivetracker'] = {
 			['enable'] = true,
 			['autoHide'] = false,
+			['backdrop'] = true,
 		},
 
 		['quest'] = true,

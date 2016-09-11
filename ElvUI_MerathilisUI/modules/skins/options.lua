@@ -158,6 +158,12 @@ local function SkinsTable()
 						name = L["Hide in Combat"],
 						desc = L["Automatically hide the ObjectiveTracker inFight."],
 					},
+					backdrop = {
+						order = 3,
+						type = 'toggle',
+						name = L["Backdrop"],
+						desc = L["Create a transparent Backdrop arount the Header."],
+					},
 				},
 			},
 			orderhall = {
