@@ -3,6 +3,7 @@
 * Add option to hide the Zone Text in OrderHall CommandBar.
 * More work on the ObjectiveTracker.
 * Hide the currency text and icon, since i'm using the orderhall datatext.
+* Update the quest skin.
 
 ** v2.16, 05.09.2016**
 * Revert changes to the Chat Tab.
