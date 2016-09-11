@@ -1,10 +1,11 @@
-<b><u> v2.17, xx.09.2016</b></u>
+<b><u> v2.17, 11.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add BigWigs settings to my install.
 <font color=#FF8C00>&#9830;</font> Add option to hide the Zone Text in OrderHall CommandBar.
 <font color=#FF8C00>&#9830;</font> More work on the ObjectiveTracker.
 <font color=#FF8C00>&#9830;</font> Hide the currency text and icon, since i'm using the orderhall datatext.
 <font color=#FF8C00>&#9830;</font> Update the quest skin.
-
+<font color=#FF8C00>&#9830;</font> Update the LocPanel. It should now register clicks properly.
+<font color=#FF8C00>&#9830;</font> Fix a incompatibly with ElvUI_Enhanced.
 
 <b><u> v2.16, 05.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Revert changes to the Chat Tab.

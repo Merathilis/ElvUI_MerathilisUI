@@ -20,7 +20,7 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.17|r, xx.09.2016
+local ChangeLogData = [=[|cffff7d0av2.17|r, 11.09.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Add BigWigs settings to my install.
@@ -28,6 +28,8 @@ local ChangeLogData = [=[|cffff7d0av2.17|r, xx.09.2016
  |cffff7d0a•|r More work on the ObjectiveTracker.
  |cffff7d0a•|r Hide the currency text and icon, since i'm using the orderhall datatext.
  |cffff7d0a•|r Update the quest skin.
+ |cffff7d0a•|r Update the LocPanel. It should now register clicks properly.
+ |cffff7d0a•|r Fix a incompatibly with ElvUI_Enhanced.
 
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
