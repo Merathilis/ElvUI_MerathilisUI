@@ -203,6 +203,7 @@ L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in El
 
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
 L["Automatically hide the ObjectiveTracker inFight."] = true
+L["Create a transparent backdrop around the header."] = true
 L["Enable/Disable the Zone Text in the OrderHall Commandbar."] = true
 L["Zone Text"] = true
 

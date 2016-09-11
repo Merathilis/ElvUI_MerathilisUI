@@ -203,6 +203,7 @@ L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI
 
 Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige Skin in ElvUI |cff636363deaktiviert|r ist.]]
 L["Automatically hide the ObjectiveTracker inFight."] = "Blendet automatisch den ObjectiveTracker im Kampf aus."
+L["Create a transparent backdrop around the header."] = "Fügt einen transparenten Hintergrund um die Kopfzeile."
 L["Enable/Disable the Zone Text in the OrderHall Commandbar."] = "Aktivert/Deaktiviert den Zonen Text in der Ordenhallen Leiste."
 L["Zone Text"] = "Zonen Text"
 
