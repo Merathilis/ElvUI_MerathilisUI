@@ -7,6 +7,17 @@ local S = E:GetModule('Skins');
 -- WoW API / Variables
 -- GLOBALS: hooksecurefunc
 
+local function StyleScrollFrame(scrollFrame, widthOverride, heightOverride, inset)
+	scrollFrame:SetTemplate()
+	if inset then
+		scrollFrame.spellTex:Point("TOPLEFT", 2, -2)
+	else
+		scrollFrame.spellTex:Point("TOPLEFT")
+	end
+	scrollFrame.spellTex:Size(widthOverride or 506, heightOverride or 615)
+	scrollFrame.spellTex:SetTexCoord(0, 1, 0.02, 1)
+end
+
 local function styleQuest()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
@@ -20,9 +31,11 @@ local function styleQuest()
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
-	QuestRewardScrollFrame:HookScript('OnUpdate', function(self)
+	QuestRewardScrollFrame:HookScript('OnShow', function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
+		StyleScrollFrame(self, 509, 630, false)
+		self:Height(self:GetHeight() - 2)
 	end)
 	QuestLogPopupDetailFrameScrollFrame:HookScript('OnUpdate', function(self)
 		self:SetTemplate("Transparent")
@@ -50,7 +63,16 @@ local function styleQuest()
 
 	hooksecurefunc('QuestInfoItem_OnClick', function(self)
 		QuestInfoItemHighlight:ClearAllPoints()
-		QuestInfoItemHighlight:SetAllPoints(self)
+		QuestInfoItemHighlight:SetOutside(self.Icon)
+
+		self.Name:SetTextColor(1, 1, 0)
+		local parent = self:GetParent()
+		for i=1, #parent.RewardButtons do
+			local questItem = QuestInfoRewardsFrame.RewardButtons[i]
+			if(questItem ~= self) then
+				questItem.Name:SetTextColor(1, 1, 1)
+			end
+		end
 	end)
 
 	hooksecurefunc('QuestFrameProgressItems_Update', function()
