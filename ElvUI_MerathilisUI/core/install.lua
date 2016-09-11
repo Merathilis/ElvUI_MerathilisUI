@@ -1087,6 +1087,8 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 			E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 			E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
+			E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
+			E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
 			if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 			-- Delete old customTexts/ Create empty table
 			E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
@@ -1606,6 +1608,8 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 			E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
 			E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
+			E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
+			E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
 			if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 			-- Delete old customTexts/ Create empty table
 			E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
