@@ -31,6 +31,93 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
+function MER:BD(bu, a)
+	local f = bu
+	if bu:GetObjectType() == 'Texture' then
+		f = bu:GetParent()
+	end
+	f:SetBackdrop(texture)
+	f:SetBackdropColor(0, 0, 0, a or 1)
+end
+
+function MER:BU(bu, a, hover)
+	MER:BD(bu, a)
+	bu:SetNormalTexture('')
+	bu:SetHighlightTexture('')
+	bu:SetPushedTexture('')
+	if not InCombatLockdown() then 
+		bu:SetSize(21, 21)
+	end
+	bu:HookScript('OnEnter', function() 
+		if hover then 
+			highlight(bu, true) 
+		end
+	end)
+	bu:HookScript('OnLeave', function()
+		if hover then
+			highlight(bu, false)
+		end
+	end)
+end
+
+function MER:BUElements(bu)
+	local c  = bu.Count or _G[bu:GetName()..'Count']
+	local cd = bu.Cooldown or _G[bu:GetName()..'Cooldown']
+	local i  = bu.icon or bu.Icon or bu.IconTexture or _G[bu:GetName()..'Icon'] or _G[bu:GetName()..'IconTexture']
+
+	for _, v in pairs({bu.Border, bu.FloatingBG, bu.IconBorder}) do
+		if v then v:SetAlpha(0) end
+	end
+
+	if c then
+		c:ClearAllPoints()
+		c:SetPoint('BOTTOM', bu, 0, -1)
+		c:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
+		c:SetShadowOffset(0, 0)
+		c:SetJustifyH('CENTER')
+		c:SetDrawLayer('OVERLAY', 7)
+	end
+
+	if cd then
+		--
+	end
+
+	if bu.HotKey then
+		bu.HotKey:SetFont(STANDARD_TEXT_FONT, 11, 'OUTLINE')
+		bu.HotKey:SetShadowOffset(0, 0)
+		bu.HotKey:ClearAllPoints()
+		bu.HotKey:SetPoint('TOPRIGHT', bu, -2, 4)
+		bu.HotKey:SetDrawLayer('OVERLAY')
+		NumberFontNormalSmallGray:SetFontObject('GameFontHighlight')
+	end
+
+	if i then
+		i:SetTexCoord(.1, .9, .1, .9)
+		i:SetDrawLayer('ARTWORK')
+	end
+
+	if  bu.JunkIcon then
+		bu.JunkIcon:ClearAllPoints()
+		bu.JunkIcon:SetPoint('CENTER')
+	end
+
+	if bu.Name then
+		bu.Name:SetWidth(bu:GetWidth() + 15)
+		bu.Name:SetFontObject('GameFontHighlight')
+	end
+
+	if bu.NewItemTexture then
+		bu.NewItemTexture:SetTexture('')
+		bu.NewItemTexture:SetSize(23, 23)
+	end
+
+	if bu.QuestIcomTexture then
+		bu.QuestIconTexture:SetDrawLayer('BACKGROUND')
+		bu.QuestIconTexture:SetSize(1, 1)
+		bu.forQuest = true
+	end
+end
+
 -- Original close buttons, but desaturated. Like it used to be in ElvUI.
 function S:HandleCloseButton(f, point, text)
 	for i = 1, f:GetNumRegions() do

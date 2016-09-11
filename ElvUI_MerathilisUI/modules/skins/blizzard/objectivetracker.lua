@@ -31,9 +31,11 @@ local UIParentLoadAddOn = UIParentLoadAddOn
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local otf = _G["ObjectiveTrackerFrame"]
 local height = 450 -- overall height
 local width = 188 -- overall width
+
+-- Blizzard Frames
+local otf = _G["ObjectiveTrackerFrame"]
 
 local function ObjectiveTrackerReskin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectivetracker.enable ~= true then return end
@@ -42,56 +44,25 @@ local function ObjectiveTrackerReskin()
 		ObjectiveTracker_Initialize(otf)
 	end
 
-	--Skin ObjectiveTrackerFrame item buttons
-	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
-		local item = block.itemButton
-		if item and not item.skinned then
-			item:SetSize(25, 25)
-			item:SetTemplate("Transparent")
-			item:StyleButton()
-			item:SetNormalTexture(nil)
-			item.icon:SetTexCoord(unpack(E.TexCoords))
-			item.icon:SetPoint("TOPLEFT", item, 2, -2)
-			item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
-			item.Cooldown:SetAllPoints(item.icon)
-			item.Count:ClearAllPoints()
-			item.Count:SetPoint("TOPLEFT", 1, -1)
-			item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
-			item.Count:SetShadowOffset(5, -5)
-			item.skinned = true
-		end
-	end)
-
-	-- World Quest Items?
-	local AddBonusObjectiveQuest = function(self, questID, posIndex, isTrackedWorldQuest)
-		local isInArea, isOnMap, numObjectives, taskName, displayAsObjective = InternalGetTaskInfo(questID);
-		local treatAsInArea = isTrackedWorldQuest or isInArea;
-		local isSuperTracked = questID == GetSuperTrackedQuestID();
-
-		if ( numObjectives and ( treatAsInArea or ( isOnMap and existingTask ) ) ) then
-			local block = module:GetBlock(questID);
-			local questLogIndex = GetQuestLogIndexByID(questID);
-			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(questLogIndex);
-			local itemButton = block.itemButton;
-				if ( item and ( not isQuestComplete or showItemWhenComplete ) ) then
-					if item and not item.skinned then
-						item:SetSize(25, 25)
-						item:SetTemplate("Transparent")
-						item:StyleButton()
-						item:SetNormalTexture(nil)
-						item.icon:SetTexCoord(unpack(E.TexCoords))
-						item.icon:SetPoint("TOPLEFT", item, 2, -2)
-						item.icon:SetPoint("BOTTOMRIGHT", item, -2, 2)
-						item.Cooldown:SetAllPoints(item.icon)
-						item.Count:ClearAllPoints()
-						item.Count:SetPoint("TOPLEFT", 1, -1)
-						item.Count:SetFont(E["media"].normFont, 14, "OUTLINE")
-						item.Count:SetShadowOffset(5, -5)
-						item.skinned = true
-					end
-				end
+	-- Skin Quest Items
+	local function skinQuestObjectiveFrameItems(self)
+		if self and not self.skinned then
+			MER:BU(self)
+			MER:BUElements(self)
+			self.skinned = true
 		end
 	end
+
+	-- Implement
+	local qitime = 0
+	local qiinterval = 1
+	hooksecurefunc('QuestObjectiveItem_OnUpdate', function(self, elapsed)
+		qitime = qitime + elapsed
+		if qitime > qiinterval then
+			skinQuestObjectiveFrameItems(self)
+			qitime = 0
+		end
+	end)
 
 	if E.private.muiSkins.blizzard.objectivetracker.autoHide then
 		-- Collaps ObjectiveTrackerFrame
@@ -347,8 +318,7 @@ local function ObjectiveTrackerReskin()
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', Dash)
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderEnter', QuestOnEnter)
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'OnBlockHeaderLeave', QuestOnEnter)
-		hooksecurefunc("BonusObjectiveTracker_OnHeaderLoad", AddBonusObjectiveQuest)
-		hooksecurefunc(_G["SCENARIO_CONTENT_TRACKER_MODULE"], "Update", SkinScenarioButtons)
+		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", SkinScenarioButtons)
 		hooksecurefunc("ScenarioBlocksFrame_OnLoad", SkinScenarioButtons)
 		hooksecurefunc("Scenario_ProvingGrounds_ShowBlock", SkinProvingGroundButtons)
 	end
