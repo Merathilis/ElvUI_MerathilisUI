@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local MUF = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
-local TC = E:GetModule('TargetClass');
+local TC = E:GetModule('TargetClassIcon');
 
 -- Cache global variables
 -- Lua functions

@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local TC = E:NewModule('TargetClass', 'AceEvent-3.0')
+local TC = E:NewModule('TargetClassIcon', 'AceEvent-3.0')
 
 -- Cache global variables
 -- Lua functions
@@ -12,6 +12,8 @@ local UnitClassification = UnitClassification
 local UnitIsPlayer = UnitIsPlayer
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: CLASS_ICON_TCOORDS
+
+if IsAddOnLoaded("ElvUI_Enhanced") then return end;
 
 local classIcon
 
