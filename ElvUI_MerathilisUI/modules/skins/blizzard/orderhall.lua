@@ -12,6 +12,21 @@ local ipairs = ipairs
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
+local function follower(self)
+	local index = 1
+	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
+		if child.Icon and child.Count and child.TroopPortraitCover then
+			child.TroopPortraitCover:Hide()
+			child.Icon:SetSize(40, 20)
+			child.Count:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
+			child.Count:SetTextColor(1, 1, 1)
+			child.Count:SetShadowOffset(0, 0)
+
+			index = index + 1
+		end
+	end
+end
+
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall.enable ~= true then return end
 
@@ -61,6 +76,7 @@ f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, arg1)
 	if event == "ADDON_LOADED" and arg1 == "Blizzard_OrderHallUI" then
 		E:Delay(.5, styleOrderhall)
+		E:Delay(.1, follower)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)
