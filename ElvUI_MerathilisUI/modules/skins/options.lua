@@ -159,8 +159,15 @@ local function SkinsTable()
 						desc = L["Automatically hide the ObjectiveTracker inFight."],
 						disabled = function() return not E.private.muiSkins.blizzard.objectivetracker.enable end,
 					},
-					backdrop = {
+					underlines = {
 						order = 3,
+						type = 'toggle',
+						name = L["Underlines"],
+						desc = L["Create decorative underline in class color under the header."],
+						disabled = function() return not E.private.muiSkins.blizzard.objectivetracker.enable end,
+					},
+					backdrop = {
+						order = 4,
 						type = 'toggle',
 						name = L["Backdrop"],
 						desc = L["Create a transparent backdrop around the header."],

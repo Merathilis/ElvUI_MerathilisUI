@@ -84,7 +84,9 @@ local function ObjectiveTrackerReskin()
 		if otf.MODULES then
 			for i = 1, #otf.MODULES do
 				local module = otf.MODULES[i]
-				module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
+				if E.private.muiSkins.blizzard.objectivetracker.underlines then
+					module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
+				end
 				module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 				module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 
