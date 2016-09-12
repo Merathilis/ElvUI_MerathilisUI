@@ -110,16 +110,12 @@ local function ObjectiveTrackerReskin()
 		local line = block.lines[key]
 
 		if header then
-			local wrap = header:GetNumLines()
 			header:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
 			header:SetShadowOffset(.7, -.7)
 			header:SetShadowColor(0, 0, 0, 1)
 			header:SetWidth(width)
 			header:SetWordWrap(true)
-			if wrap > 1 then
-				local height = block:GetHeight()
-				block:SetHeight(height*2)
-			end
+			if header:GetNumLines() > 1 then header:SetHeight(15) end
 		end
 
 		line.Text:SetWidth(width)
