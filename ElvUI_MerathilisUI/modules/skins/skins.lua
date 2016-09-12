@@ -31,6 +31,7 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
+-- Backdrop
 function MER:BD(bu, a)
 	local f = bu
 	if bu:GetObjectType() == 'Texture' then
@@ -61,9 +62,9 @@ function MER:BU(bu, a, hover)
 end
 
 function MER:BUElements(bu)
-	local c  = bu.Count or _G[bu:GetName()..'Count']
+	local c = bu.Count or _G[bu:GetName()..'Count']
 	local cd = bu.Cooldown or _G[bu:GetName()..'Cooldown']
-	local i  = bu.icon or bu.Icon or bu.IconTexture or _G[bu:GetName()..'Icon'] or _G[bu:GetName()..'IconTexture']
+	local i = bu.icon or bu.Icon or bu.IconTexture or _G[bu:GetName()..'Icon'] or _G[bu:GetName()..'IconTexture']
 
 	for _, v in pairs({bu.Border, bu.FloatingBG, bu.IconBorder}) do
 		if v then v:SetAlpha(0) end
@@ -96,7 +97,7 @@ function MER:BUElements(bu)
 		i:SetDrawLayer('ARTWORK')
 	end
 
-	if  bu.JunkIcon then
+	if bu.JunkIcon then
 		bu.JunkIcon:ClearAllPoints()
 		bu.JunkIcon:SetPoint('CENTER')
 	end
