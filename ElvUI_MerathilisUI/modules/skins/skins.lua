@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
+local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 
 -- Cache global variables
 -- Lua functions
@@ -32,7 +32,7 @@ local buttons = {
 }
 
 -- Backdrop
-function MER:BD(bu, a)
+function MERS:BD(bu, a)
 	local f = bu
 	if bu:GetObjectType() == 'Texture' then
 		f = bu:GetParent()
@@ -41,8 +41,8 @@ function MER:BD(bu, a)
 	f:SetBackdropColor(0, 0, 0, a or 1)
 end
 
-function MER:BU(bu, a, hover)
-	MER:BD(bu, a)
+function MERS:BU(bu, a, hover)
+	MERS:BD(bu, a)
 	bu:SetNormalTexture('')
 	bu:SetHighlightTexture('')
 	bu:SetPushedTexture('')
@@ -61,7 +61,7 @@ function MER:BU(bu, a, hover)
 	end)
 end
 
-function MER:BUElements(bu)
+function MERS:BUElements(bu)
 	local c = bu.Count or _G[bu:GetName()..'Count']
 	local cd = bu.Cooldown or _G[bu:GetName()..'Cooldown']
 	local i = bu.icon or bu.Icon or bu.IconTexture or _G[bu:GetName()..'Icon'] or _G[bu:GetName()..'IconTexture']
