@@ -52,6 +52,11 @@ local function Misc()
 				name = GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
+			bossemote = {
+				order = 8,
+				type = 'toggle',
+				name = L["Bossemote"],
+			},
 		},
 	}
 end

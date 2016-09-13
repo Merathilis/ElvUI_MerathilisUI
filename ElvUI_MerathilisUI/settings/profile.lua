@@ -22,6 +22,7 @@ P['mui'] = {
 		['moveBlizz'] = true, -- Make Blizzards Frame movable
 		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
 		['gmotd'] = true, -- Show a GMOTD frame
+		['bossemote'] = true, -- Show Bossemotes
 	},
 
 	['systemDT'] = {

@@ -117,5 +117,3 @@ function E:UpdateBlizzardFonts()
 		--SetFont(DestinyFontLarge,					NORMAL, 14);
 	end
 end
-
-RaidWarningFrame:SetScale(1.5) -- Too increase the raid warning font size
