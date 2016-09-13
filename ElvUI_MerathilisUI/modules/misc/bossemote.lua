@@ -13,7 +13,7 @@ local _G = _G
 
 RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 
-function MER:bossemote()
+function MER:Bossemote()
 	RaidWarningFrame:SetWidth(250)
 	RaidWarningFrame:ClearAllPoints()
 	RaidWarningFrame:SetPoint('CENTER', E.UIParent, 'TOP', 0, -100)
@@ -44,8 +44,8 @@ function MER:bossemote()
 	end
 end
 
-function MER:Loadbossemote()
+function MER:LoadBossemote()
 	if E.db.mui.misc.bossemote then
-		self:bossemote()
+		self:Bossemote()
 	end
 end
