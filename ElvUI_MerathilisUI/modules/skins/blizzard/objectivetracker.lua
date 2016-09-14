@@ -120,22 +120,6 @@ local function AddHeaderTitle()
 	DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
 end
 
--- Skin Items
-local function SkinObjectiveItems(self)
-	if self and not self.skinned then
-		MER:BU(self)
-		self.skinned = true
-	end
-end
-
--- Move Items
-local function MoveObjectiveItem(self)
-	local _, parent = self:GetPoint()
-	self:ClearAllPoints()
-	self:SetPoint('TOPRIGHT', parent, 'TOPLEFT', -13, -7)
-	self:SetFrameLevel(0)
-end
-
 local function AddTitleSubs(line)
 	local t = line.Text:GetText()
 	t = gsub(t, 'WANTED:', '|cffff0000W:|r')
@@ -485,17 +469,6 @@ local function AddHooks()
 
 	hooksecurefunc('ScenarioObjectiveTracker_AnimateReward', function()
 		AnimateReward(ObjectiveTrackerScenarioRewardsFrame)
-	end)
-
-	local qitime  = 0
-	local throttle = 1
-	hooksecurefunc('QuestObjectiveItem_OnUpdate', function(bu, elapsed)
-		qitime = qitime + elapsed
-		if qitime > throttle then
-			SkinObjectiveItem(bu)
-			MoveObjectiveItem(bu)
-			qitime = 0
-		end
 	end)
 end
 
