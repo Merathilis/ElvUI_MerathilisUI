@@ -23,7 +23,7 @@ function MER:Bossemote()
 		local bu = CreateFrame('Frame', 'bossemoteicon'..i, RaidBossEmoteFrame)
 		MERS:BD(bu)
 		bu:SetSize(20, 20)
-		bu:SetPoint('RIGHT', 'RaidBossEmoteFrameSlot'..i, 'LEFT', -20, i > 1 and 2 or 0)
+		bu:SetPoint('RIGHT', 'RaidBossEmoteFrameSlot'..i, 'LEFT', 0, i > 1 and 2 or 0)
 
 		bu.icon = bu:CreateTexture(nil, 'ARTWORK')
 		bu.icon:SetTexCoord(.1, .9, .1, .9)
