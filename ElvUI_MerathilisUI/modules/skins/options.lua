@@ -156,7 +156,7 @@ local function SkinsTable()
 						order = 2,
 						type = 'toggle',
 						name = L["Hide in Combat"],
-						desc = L["Automatically hide the ObjectiveTracker inFight."],
+						desc = L["Automatically hide the ObjectiveTracker in boss/arena fights."],
 						disabled = function() return not E.private.muiSkins.blizzard.objectivetracker.enable end,
 					},
 					underlines = {
