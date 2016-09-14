@@ -150,7 +150,7 @@ local function AddLines(line, key)
 	line:SetWidth(width)
 
 	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
-	line.Text:SetWidth(width)
+	line.Text:SetWidth(width+55)
 
 	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
