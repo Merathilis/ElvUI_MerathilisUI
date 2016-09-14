@@ -154,6 +154,7 @@ local function AddLines(line, key)
 
 	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
+		line.Text:SetJustifyH('LEFT')
 	end
 end
 
@@ -166,7 +167,8 @@ local function AddHeader()
 			module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
 			module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 			module.Header.Text:ClearAllPoints()
-			module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -62, 0)
+			module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
+			module.Header.Text:SetJustifyH('RIGHT')
 
 			-- Underlines
 			if E.private.muiSkins.blizzard.objectivetracker.underlines then
@@ -413,6 +415,7 @@ local function AddCriteria(self, num, block)
 			line.Text:SetWordWrap(true)
 			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
 			line.Text:SetWidth(width + 25)
+			line.Text:SetJustifyH('RIGHT')
 
 			line.Icon:Hide()
 
