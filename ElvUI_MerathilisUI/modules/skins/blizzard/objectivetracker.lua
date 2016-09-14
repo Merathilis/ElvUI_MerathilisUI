@@ -110,13 +110,14 @@ end
 -- Headermenu Title
 local function AddHeaderTitle()
 	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 13, "OUTLINE")
+	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	title:ClearAllPoints()
 	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', 0, 0)
 
 	OBJECTIVE_TRACKER_COLOR['Header'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	OBJECTIVE_TRACKER_COLOR['HeaderHighlight'] = {r = classColor.r*1.2, g = classColor.g*1.2, b = classColor.b*1.2}
+	DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
 end
 
 -- Skin Items
@@ -149,7 +150,7 @@ local function AddLines(line, key)
 	line:SetWidth(width)
 
 	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
-	line.Text:SetWidth(width+55)
+	line.Text:SetWidth(width+60)
 
 	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
@@ -407,11 +408,11 @@ end
 local function AddCriteria(self, num, block)
 	for i = 1, num do
 		local line = block.lines[i]
-		block:SetWidth(width + 18)
+		block:SetWidth(width + 25)
 		if line then
 			line.Text:SetWordWrap(true)
 			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
-			line.Text:SetWidth(width + 18)
+			line.Text:SetWidth(width + 25)
 
 			line.Icon:Hide()
 
