@@ -394,11 +394,11 @@ end
 local function AddCriteria(self, num, block)
 	for i = 1, num do
 		local line = block.lines[i]
-		block:SetWidth(width + 25)
+		block:SetWidth(width + 60)
 		if line then
 			line.Text:SetWordWrap(true)
 			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
-			line.Text:SetWidth(width + 25)
+			line.Text:SetWidth(width+60)
 			line.Text:SetJustifyH('RIGHT')
 
 			line.Icon:Hide()
@@ -423,6 +423,11 @@ local function AddCriteria(self, num, block)
 				line:SetHeight(4)
 			end
 		end
+
+		LevelUpDisplayScenarioFrame:StripTextures()
+		LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
+
+		ScenarioStageBlock.Stage:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	end
 end
 
@@ -486,7 +491,6 @@ end
 function MER:LoadObjectiveTracker()
 	if E.private.muiSkins.blizzard.objectivetracker.enable == true then
 		-- Scenario LevelUp Display
-		LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 
 		local f = CreateFrame("Frame")
