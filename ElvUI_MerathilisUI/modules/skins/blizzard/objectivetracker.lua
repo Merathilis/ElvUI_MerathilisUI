@@ -110,7 +110,7 @@ end
 -- Headermenu Title
 local function AddHeaderTitle()
 	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
+	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
 	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	title:ClearAllPoints()
 	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', 0, 0)
