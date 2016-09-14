@@ -213,6 +213,7 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["databars"]["artifact"]["height"] = 155
 		E.db["databars"]["artifact"]["textSize"] = 11
 		E.db["databars"]["artifact"]["width"] = 10
+		E.db["databars"]["artifact"]["hideInVehicle"] = true
 		E.db["databars"]["honor"]['enable'] = true
 		E.db["databars"]["honor"]["height"] = 155
 		E.db["databars"]["honor"]["textSize"] = 11
