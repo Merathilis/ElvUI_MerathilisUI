@@ -117,7 +117,6 @@ local function AddHeaderTitle()
 
 	OBJECTIVE_TRACKER_COLOR['Header'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	OBJECTIVE_TRACKER_COLOR['HeaderHighlight'] = {r = classColor.r*1.2, g = classColor.g*1.2, b = classColor.b*1.2}
-	DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
 end
 
 -- Skin Items
