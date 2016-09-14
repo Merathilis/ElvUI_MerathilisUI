@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local MERO = E:NewModule('MuiObjectiveTracker')
 local MERS = E:GetModule('MuiSkins')
 local LSM = LibStub('LibSharedMedia-3.0');
 
@@ -65,11 +64,9 @@ local function CollapseExpandOTF(self, event)
 		-- collapse if there's a boss
 		if bossexists() or arenaexists() then
 			if not otf.boss then ObjectiveTracker_Collapse() otf.boss = true end
-		-- or we're pvping
 		-- or if we get a tracker bar appear.
 		elseif event == 'UPDATE_WORLD_STATES' and bar and bar:IsVisible() then
 			if not otf.boss then ObjectiveTracker_Collapse() otf.boss = true end
-			-- open back up afterward if we're in a raid
 		else
 			ObjectiveTracker_Expand()
 			otf.boss = false
@@ -120,6 +117,7 @@ local function AddHeaderTitle()
 
 	OBJECTIVE_TRACKER_COLOR['Header'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 	OBJECTIVE_TRACKER_COLOR['HeaderHighlight'] = {r = classColor.r*1.2, g = classColor.g*1.2, b = classColor.b*1.2}
+	DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
 end
 
 -- Skin Items
@@ -160,25 +158,6 @@ local function AddHeader()
 				module.Header:CreateBackdrop("Transparent")
 				module.Header.backdrop:Point("TOPLEFT", -3, 0)
 			end
-
-			for _, v in pairs(module.usedBlocks) do
-				for _, line in pairs(v.lines) do
-					local r, g, b = line.Text:GetTextColor()
-					line.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 10, nil)
-					line.Text:SetWidth(width)
-				end
-			end
-		end
-	end
-end
-
-local function FixHeader(self, t, text, _, rgb)
-	if rgb then
-		if not (rgb.r == .8 and rgb.g == .1 and rgb.b == .1) then
-			t:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
-			t.SetFont = function() end -- probably taint
-			t:SetJustifyH('LEFT')
-			t:SetWordWrap(true)
 		end
 	end
 end
@@ -191,12 +170,26 @@ local function AddTitleSubs(line)
 	line.Text:SetText(t)
 end
 
+local function AddLines(line, key)
+	local r, g, b = line.Text:GetTextColor()
+	AddTitleSubs(line)
+	line:SetWidth(width)
+
+	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
+	line.Text:SetWidth(width)
+
+	if line.Dash and line.Dash:IsShown() then
+		line.Dash:SetText('• ')
+	end
+end
+
 local function AddObjective(self, block, key)
 	local header = block.HeaderText
 	local line = block.lines[key]
 
 	if header then
 		local r, g, b = header:GetTextColor()
+		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil")
 		header:SetShadowOffset(.7, -.7)
 		header:SetShadowColor(0, 0, 0, 1)
 		header:SetJustifyH('LEFT')
@@ -209,13 +202,9 @@ local function AddObjective(self, block, key)
 		end
 	end
 
-	line:SetWidth(width + 35)
-	AddTitleSubs(line)
-	line.Text:SetWidth(width + 35)
+	block.lineWidth = width + 21
 
-	if line.Dash and line.Dash:IsShown() then
-		line.Dash:SetText('• ')
-	end
+	AddLines(line, key)
 end
 
 local function AddProgressBar(self, block, line)
@@ -237,7 +226,8 @@ local function AddProgressBar(self, block, line)
 	progressBar:SetPoint('BOTTOMRIGHT', parent, 'BOTTOMRIGHT', 0, -20)
 
 	bar:ClearAllPoints()
-	bar:SetPoint('TOP', progressBar, 20, 0)
+	bar:SetPoint('TOPLEFT', progressBar, 20, 0)
+	bar:SetWidth(width + 21)
 
 	for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG, bar.BorderLeft, bar.BorderRight, bar.BorderMid}) do
 		if v then v:Hide() end
@@ -440,9 +430,9 @@ local function AddCriteria(self, num, block)
 			end)
 
 			if line.Text:GetNumLines() > 1 then
-				line:SetHeight(20)
+				line:SetHeight(14)
 			else
-				line:SetHeight(2)
+				line:SetHeight(4)
 			end
 		end
 	end
@@ -464,7 +454,6 @@ end
 local function AddModules()
 	for i = 1, #otf.MODULES do
 		local module = otf.MODULES[i]
-		hooksecurefunc(module, 'SetStringText', FixHeader)
 		hooksecurefunc(module, 'OnBlockHeaderEnter', AddDash)
 		hooksecurefunc(module, 'OnBlockHeaderLeave', AddDash)
 		hooksecurefunc(module, 'AddObjective', AddObjective)
@@ -530,4 +519,3 @@ function MER:LoadObjectiveTracker()
 		end
 	end
 end
-E:RegisterModule(MERO:GetName());
