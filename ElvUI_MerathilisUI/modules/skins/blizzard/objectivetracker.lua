@@ -227,8 +227,6 @@ local function AddProgressBar(self, block, line)
 	bar:SetStatusBarTexture(E["media"].MuiFlat)
 	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 
-	bar:SetStatusBarTexture(E["media"].MuiFlat)
-	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	bar:CreateBackdrop("Transparent")
 	bar.backdrop:Point("TOPLEFT", bar, -1, 1)
 	bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
