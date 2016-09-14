@@ -149,12 +149,11 @@ local function AddLines(line, key)
 	local r, g, b = line.Text:GetTextColor()
 	AddTitleSubs(line)
 	line:SetWidth(width)
-	line.width = width
 
 	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
 	line.Text:SetWidth(width)
 
-	if  line.Dash and line.Dash:IsShown() then
+	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
 	end
 end
@@ -229,7 +228,7 @@ local function AddProgressBar(self, block, line)
 	progressBar:SetPoint('BOTTOMRIGHT', parent, 'BOTTOMRIGHT', 0, -20)
 
 	bar:ClearAllPoints()
-	bar:SetPoint('TOPLEFTP', progressBar, 20, 0)
+	bar:SetPoint('TOPLEFT', progressBar, 20, 0)
 	bar:SetWidth(width + 21)
 
 	for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG, bar.BorderLeft, bar.BorderRight, bar.BorderMid}) do
@@ -511,6 +510,10 @@ end
 
 function MER:LoadObjectiveTracker()
 	if E.private.muiSkins.blizzard.objectivetracker.enable == true then
+		-- Scenario LevelUp Display
+		LevelUpDisplayScenarioFrame.level:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+
 		local f = CreateFrame("Frame")
 		f:RegisterEvent('ADDON_LOADED', InitializeObjectiveTracker)
 		f:RegisterEvent('PLAYER_ENTERING_WORLD', CollapseExpandOTF)
