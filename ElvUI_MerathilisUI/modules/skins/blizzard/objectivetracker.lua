@@ -137,6 +137,28 @@ local function MoveObjectiveItem(self)
 	self:SetFrameLevel(0)
 end
 
+local function AddTitleSubs(line)
+	local t = line.Text:GetText()
+	t = gsub(t, 'WANTED:', '|cffff0000W:|r')
+	t = gsub(t, 'DANGER:', '|cffff0000D:|r')
+	t = gsub(t, 'Warden Tower Assault:', '|cffff0000PvP:|r')
+	line.Text:SetText(t)
+end
+
+local function AddLines(line, key)
+	local r, g, b = line.Text:GetTextColor()
+	AddTitleSubs(line)
+	line:SetWidth(width)
+	line.width = width
+
+	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
+	line.Text:SetWidth(width)
+
+	if  line.Dash and line.Dash:IsShown() then
+		line.Dash:SetText'• '
+	end
+end
+
 local function AddHeader()
 	if otf.MODULES then
 		for i = 1, #otf.MODULES do
@@ -162,34 +184,13 @@ local function AddHeader()
 	end
 end
 
-local function AddTitleSubs(line)
-	local t = line.Text:GetText()
-	t = gsub(t, 'WANTED:', '|cffff0000W:|r')
-	t = gsub(t, 'DANGER:', '|cffff0000D:|r')
-	t = gsub(t, 'Warden Tower Assault:', '|cffff0000PvP:|r')
-	line.Text:SetText(t)
-end
-
-local function AddLines(line, key)
-	local r, g, b = line.Text:GetTextColor()
-	AddTitleSubs(line)
-	line:SetWidth(width)
-
-	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
-	line.Text:SetWidth(width)
-
-	if line.Dash and line.Dash:IsShown() then
-		line.Dash:SetText('• ')
-	end
-end
-
 local function AddObjective(self, block, key)
 	local header = block.HeaderText
 	local line = block.lines[key]
 
 	if header then
 		local r, g, b = header:GetTextColor()
-		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil")
+		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil)
 		header:SetShadowOffset(.7, -.7)
 		header:SetShadowColor(0, 0, 0, 1)
 		header:SetJustifyH('LEFT')
@@ -216,6 +217,8 @@ local function AddProgressBar(self, block, line)
 	bar:SetStatusBarTexture(E["media"].MuiFlat)
 	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 
+	bar:SetStatusBarTexture(E["media"].MuiFlat)
+	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 	bar:CreateBackdrop("Transparent")
 	bar.backdrop:Point("TOPLEFT", bar, -1, 1)
 	bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
@@ -226,7 +229,7 @@ local function AddProgressBar(self, block, line)
 	progressBar:SetPoint('BOTTOMRIGHT', parent, 'BOTTOMRIGHT', 0, -20)
 
 	bar:ClearAllPoints()
-	bar:SetPoint('TOPLEFT', progressBar, 20, 0)
+	bar:SetPoint('TOPLEFTP', progressBar, 20, 0)
 	bar:SetWidth(width + 21)
 
 	for _, v in pairs({bar.BarFrame, bar.Icon, bar.IconBG, bar.BorderLeft, bar.BorderRight, bar.BorderMid}) do
