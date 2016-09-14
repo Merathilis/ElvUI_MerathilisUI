@@ -124,7 +124,6 @@ end
 local function SkinObjectiveItems(self)
 	if self and not self.skinned then
 		MER:BU(self)
-		MER:BUElements(self)
 		self.skinned = true
 	end
 end
