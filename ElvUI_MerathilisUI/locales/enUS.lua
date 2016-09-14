@@ -146,6 +146,21 @@ L["Show/Hide all panels when in combat"] = true
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
+-- ObjectiveTracker
+L['WANTED:'] = true
+L['DANGER:'] = true
+L['Warden Tower Assault:'] = true
+L['Assault on Violet Hold'] = true
+L['Black Rook Hold'] = true
+L['Court of Stars'] = true
+L['Darkheart Thicket'] = true
+L['Eye of Azshara'] = true
+L['Halls of Valor'] = true
+L['Maw of Souls'] = true
+L['Neltharion\'s Lair'] = true
+L['The Arcway'] = true 
+L['Vault of the Wardens'] = true
+
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

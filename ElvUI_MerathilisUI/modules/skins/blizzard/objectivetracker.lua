@@ -37,23 +37,23 @@ local LE_QUEST_FREQUENCY_WEEKLY = LE_QUEST_FREQUENCY_WEEKLY
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local height = 500 -- overall height
-local width = 160 -- overall width
+local width = 180 -- overall width
 
 -- Blizzard Frames
 local otf = _G["ObjectiveTrackerFrame"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 
-local dungeons = {
-	'Assault on Violet Hold',
-	'Black Rook Hold',
-	'Court of Stars',
-	'Darkheart Thicket',
-	'Eye of Azshara',
-	'Halls of Valor',
-	'Maw of Souls',
-	'Neltharion\'s Lair',
-	'The Arcway', 
-	'Vault of the Wardens',
+local dungeons  = {
+	L['Assault on Violet Hold'],
+	L['Black Rook Hold'],
+	L['Court of Stars'],
+	L['Darkheart Thicket'],
+	L['Eye of Azshara'],
+	L['Halls of Valor'],
+	L['Maw of Souls'],
+	L['Neltharion\'s Lair'],
+	L['The Arcway'], 
+	L['Vault of the Wardens'],
 }
 
 -- Boss check
@@ -135,9 +135,9 @@ end
 
 local function AddTitleSubs(line)
 	local t = line.Text:GetText()
-	t = gsub(t, 'WANTED:', '|cffff0000W:|r')
-	t = gsub(t, 'DANGER:', '|cffff0000D:|r')
-	t = gsub(t, 'Warden Tower Assault:', '|cffff0000PvP:|r')
+	t = gsub(t, L['WANTED:'], '|cffff0000W:|r')
+	t = gsub(t, L['DANGER:'], '|cffff0000D:|r')
+	t = gsub(t, L['Warden Tower Assault:'], '|cffff0000PvP:|r')
 
 	for _, v in pairs(dungeons) do 
 		t = gsub(t, v..':', '|cff9063ed'..v..':|r')
@@ -157,32 +157,6 @@ local function AddLines(line, key)
 	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
 		line.Text:SetJustifyH('LEFT')
-	end
-end
-
-local function AddHeader()
-	if otf.MODULES then
-		for i = 1, #otf.MODULES do
-			local module = otf.MODULES[i]
-			module.Header.Background:SetAtlas(nil)
-			-- Header font
-			module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
-			module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			module.Header.Text:ClearAllPoints()
-			module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
-			module.Header.Text:SetJustifyH('RIGHT')
-
-			-- Underlines
-			if E.private.muiSkins.blizzard.objectivetracker.underlines then
-				module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
-			end
-
-			-- Backdrop
-			if E.private.muiSkins.blizzard.objectivetracker.backdrop then
-				module.Header:CreateBackdrop("Transparent")
-				module.Header.backdrop:Point("TOPLEFT", -3, 0)
-			end
-		end
 	end
 end
 
@@ -463,24 +437,43 @@ local function AddDefaults()
 end
 
 local function AddModules()
-	for i = 1, #otf.MODULES do
-		local module = otf.MODULES[i]
-		hooksecurefunc(module, 'OnBlockHeaderEnter', AddDash)
-		hooksecurefunc(module, 'OnBlockHeaderLeave', AddDash)
-		hooksecurefunc(module, 'AddObjective', AddObjective)
-		hooksecurefunc(module, 'AddProgressBar', AddProgressBar)
-		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
-		if module == AUTO_QUEST_POPUP_TRACKER_MODULE then
-			hooksecurefunc(module, 'Update', AddPopUp)
-		end
-		if module == SCENARIO_CONTENT_TRACKER_MODULE then
-			hooksecurefunc(module, 'Update', AddScenarioButton)
+	if otf.MODULES then
+		for i = 1, #otf.MODULES do
+			local module = otf.MODULES[i]
+			hooksecurefunc(module, 'OnBlockHeaderEnter', AddDash)
+			hooksecurefunc(module, 'OnBlockHeaderLeave', AddDash)
+			hooksecurefunc(module, 'AddObjective', AddObjective)
+			hooksecurefunc(module, 'AddProgressBar', AddProgressBar)
+			hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
+			if module == AUTO_QUEST_POPUP_TRACKER_MODULE then
+				hooksecurefunc(module, 'Update', AddPopUp)
+			end
+			if module == SCENARIO_CONTENT_TRACKER_MODULE then
+				hooksecurefunc(module, 'Update', AddScenarioButton)
+			end
+
+			-- Header font
+			module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
+			module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			module.Header.Text:ClearAllPoints()
+			module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
+			module.Header.Text:SetJustifyH('RIGHT')
+
+			-- Underlines
+			if E.private.muiSkins.blizzard.objectivetracker.underlines then
+				module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
+			end
+
+			-- Backdrop
+			if E.private.muiSkins.blizzard.objectivetracker.backdrop then
+				module.Header:CreateBackdrop("Transparent")
+				module.Header.backdrop:Point("TOPLEFT", -3, 0)
+			end
 		end
 	end
 end
 
 local function AddHooks()
-	hooksecurefunc('ObjectiveTracker_Update', AddHeader)
 	hooksecurefunc('ScenarioBlocksFrame_OnLoad', AddScenarioButton)
 	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', AddProvingGroundButton)
 	hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', AddDash)

@@ -146,6 +146,21 @@ L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während d
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 
+-- ObjectiveTracker
+L['WANTED:'] = "GESUCHT:"
+L['DANGER:'] = "GEFAHR"
+L['Warden Tower Assault:'] = "Angriff auf den Turm der Wächter:"
+L['Assault on Violet Hold'] = "Die Violette Festung"
+L['Black Rook Hold'] = "Die Rabenwehr"
+L['Court of Stars'] = "Der Hof der Sterne"
+L['Darkheart Thicket'] = "Das Finsterherzdickicht"
+L['Eye of Azshara'] = "Das Auge Azsharas"
+L['Halls of Valor'] = "Die Hallen der Tapferkeit"
+L['Maw of Souls'] = "Die Helmaulklippen"
+L['Neltharion\'s Lair'] = "Neltharions Hort"
+L['The Arcway'] = "Der Arkus" 
+L['Vault of the Wardens'] = "Das Verlies der Wächterinnen"
+
 -- Install
 L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true
