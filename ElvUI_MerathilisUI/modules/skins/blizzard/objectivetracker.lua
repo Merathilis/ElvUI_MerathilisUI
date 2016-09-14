@@ -43,6 +43,19 @@ local width = 160 -- overall width
 local otf = _G["ObjectiveTrackerFrame"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 
+local dungeons = {
+	'Assault on Violet Hold',
+	'Black Rook Hold',
+	'Court of Stars',
+	'Darkheart Thicket',
+	'Eye of Azshara',
+	'Halls of Valor',
+	'Maw of Souls',
+	'Neltharion\'s Lair',
+	'The Arcway', 
+	'Vault of the Wardens',
+}
+
 -- Boss check
 local function bossexist()
 	for i = 1, MAX_BOSS_FRAMES do
@@ -125,6 +138,11 @@ local function AddTitleSubs(line)
 	t = gsub(t, 'WANTED:', '|cffff0000W:|r')
 	t = gsub(t, 'DANGER:', '|cffff0000D:|r')
 	t = gsub(t, 'Warden Tower Assault:', '|cffff0000PvP:|r')
+
+	for _, v in pairs(dungeons) do 
+		t = gsub(t, v..':', '|cff9063ed'..v..':|r')
+	end
+
 	line.Text:SetText(t)
 end
 
@@ -134,7 +152,7 @@ local function AddLines(line, key)
 	line:SetWidth(width)
 
 	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
-	line.Text:SetWidth(width+60)
+	line.Text:SetWidth(key == 0 and width + 21 or width)
 
 	if line.Dash and line.Dash:IsShown() then
 		line.Dash:SetText'• '
@@ -394,11 +412,11 @@ end
 local function AddCriteria(self, num, block)
 	for i = 1, num do
 		local line = block.lines[i]
-		block:SetWidth(width + 60)
+		block:SetWidth(width + 50)
 		if line then
 			line.Text:SetWordWrap(true)
 			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
-			line.Text:SetWidth(width+60)
+			line.Text:SetWidth(width+50)
 			line.Text:SetJustifyH('RIGHT')
 
 			line.Icon:Hide()
