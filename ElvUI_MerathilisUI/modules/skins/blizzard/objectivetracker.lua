@@ -258,9 +258,6 @@ local function AddPopUp()
 				f.FlashFrame:Hide()
 				f.Bg:Hide()
 
-				f:CreateBackdrop("Transparent")
-				f.backdrop:SetAllPoints()
-
 				for _, v in pairs({f.BorderTopLeft, f.BorderTopRight, f.BorderBotLeft, f.BorderBotRight, f.BorderLeft, f.BorderRight, f.BorderTop, f.BorderBottom}) do
 					v:Hide()
 				end
