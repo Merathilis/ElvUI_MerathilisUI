@@ -288,6 +288,7 @@ local function AddScenarioButton()
 	block.GlowTexture:SetTexture('')
 
 	ScenarioStageBlock.Stage:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
+	ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
 local function AddProvingGroundButton()
