@@ -59,37 +59,6 @@ local dungeons  = {
 	L['Vault of the Wardens'],
 }
 
--- Boss check
-local function bossexist()
-	for i = 1, MAX_BOSS_FRAMES do
-		if UnitExists('boss'..i) then return true end
-	end
-end
-
--- Arena check
-local function arenaexists()
-	for i = 1, 5 do
-		if UnitExists('arena'..i) then return true end
-	end
-end
-
-local function CollapseExpandOTF(self, event)
-	local _, instanceType = IsInInstance()
-	local bar = _G['WorldStateCaptureBar1']
-	if E.private.muiSkins.blizzard.objectivetracker.autoHide then
-		-- collapse if there's a boss
-		if bossexists() or arenaexists() then
-			if not otf.boss then ObjectiveTracker_Collapse() otf.boss = true end
-		-- or if we get a tracker bar appear.
-		elseif event == 'UPDATE_WORLD_STATES' and bar and bar:IsVisible() then
-			if not otf.boss then ObjectiveTracker_Collapse() otf.boss = true end
-		else
-			ObjectiveTracker_Expand()
-			otf.boss = false
-		end
-	end
-end
-
 -- Minimize button
 local function AddMinimizeButton()
 	local min = otf.HeaderMenu.MinimizeButton
@@ -151,11 +120,11 @@ local function AddLines(line, key)
 	AddTitleSubs(line)
 	line:SetWidth(width)
 
-	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
+	line.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
 	line.Text:SetWidth(key == 0 and width + 21 or width)
 
 	if line.Dash and line.Dash:IsShown() then
-		line.Dash:SetText'• '
+		line.Dash:SetText('• ')
 		line.Text:SetJustifyH('LEFT')
 	end
 end
@@ -166,7 +135,7 @@ local function AddObjective(self, block, key)
 
 	if header then
 		local r, g, b = header:GetTextColor()
-		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, nil)
+		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
 		header:SetShadowOffset(.7, -.7)
 		header:SetShadowColor(0, 0, 0, 1)
 		header:SetJustifyH('LEFT')
@@ -443,79 +412,66 @@ local function AddDefaults()
 end
 
 local function AddModules()
-	if otf.MODULES then
-		for i = 1, #otf.MODULES do
-			local module = otf.MODULES[i]
-			hooksecurefunc(module, 'OnBlockHeaderEnter', AddDash)
-			hooksecurefunc(module, 'OnBlockHeaderLeave', AddDash)
-			hooksecurefunc(module, 'AddObjective', AddObjective)
-			hooksecurefunc(module, 'AddProgressBar', AddProgressBar)
-			hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
-			if module == AUTO_QUEST_POPUP_TRACKER_MODULE then
-				hooksecurefunc(module, 'Update', AddPopUp)
-			end
-			if module == SCENARIO_CONTENT_TRACKER_MODULE then
-				hooksecurefunc(module, 'Update', AddScenarioButton)
-			end
+	for i = 1, #otf.MODULES do
+		local module = otf.MODULES[i]
+		hooksecurefunc(module, 'OnBlockHeaderEnter', AddDash)
+		hooksecurefunc(module, 'OnBlockHeaderLeave', AddDash)
+		hooksecurefunc(module, 'AddObjective', AddObjective)
+		hooksecurefunc(module, 'AddProgressBar', AddProgressBar)
+		hooksecurefunc(module, 'AddTimerBar', AddTimerBar)
 
-			-- Header font
-			module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
-			module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
-			module.Header.Text:ClearAllPoints()
-			module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
-			module.Header.Text:SetJustifyH('RIGHT')
+		if module == AUTO_QUEST_POPUP_TRACKER_MODULE then
+			hooksecurefunc(module, 'Update', AddPopUp)
+		end
+		if module == SCENARIO_CONTENT_TRACKER_MODULE then
+			hooksecurefunc(module, 'Update', AddScenarioButton)
+		end
 
-			-- Underlines
-			if E.private.muiSkins.blizzard.objectivetracker.underlines then
-				module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
-			end
+		-- Header font
+		module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
+		module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		module.Header.Text:ClearAllPoints()
+		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
+		module.Header.Text:SetJustifyH('RIGHT')
 
-			-- Backdrop
-			if E.private.muiSkins.blizzard.objectivetracker.backdrop then
-				module.Header:CreateBackdrop("Transparent")
-				module.Header.backdrop:Point("TOPLEFT", -3, 0)
-			end
+		-- Underlines
+		if E.private.muiSkins.blizzard.objectivetracker.underlines then
+			module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
+		end
+
+		-- Backdrop
+		if E.private.muiSkins.blizzard.objectivetracker.backdrop then
+			module.Header:CreateBackdrop("Transparent")
+			module.Header.backdrop:Point("TOPLEFT", -3, 0)
 		end
 	end
 end
 
-local function AddHooks()
-	hooksecurefunc('ScenarioBlocksFrame_OnLoad', AddScenarioButton)
-	hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', AddProvingGroundButton)
-	hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', AddDash)
-	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, 'UpdateCriteria', AddCriteria)
-
-	hooksecurefunc('BonusObjectiveTracker_AnimateReward', function()
-		AnimateReward(ObjectiveTrackerBonusRewardsFrame)
-	end)
-
-	hooksecurefunc('ScenarioObjectiveTracker_AnimateReward', function()
-		AnimateReward(ObjectiveTrackerScenarioRewardsFrame)
-	end)
-end
-
 local function InitializeObjectiveTracker(self, event, addon)
 	if addon == 'Blizzard_ObjectiveTracker' then
-		AddMinimizeButton()
-		AddHeaderTitle()
+		hooksecurefunc('ScenarioBlocksFrame_OnLoad', AddScenarioButton)
+		hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', AddProvingGroundButton)
+		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', AddDash)
+		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, 'UpdateCriteria', AddCriteria)
+
+		hooksecurefunc('BonusObjectiveTracker_AnimateReward', function()
+			AnimateReward(ObjectiveTrackerBonusRewardsFrame)
+		end)
+
+		hooksecurefunc('ScenarioObjectiveTracker_AnimateReward', function()
+			AnimateReward(ObjectiveTrackerScenarioRewardsFrame)
+		end)
+
 		AddDefaults()
 		AddModules()
 		AddScenarioButton()
-		AddHooks()
+		AddMinimizeButton()
+		AddHeaderTitle()
 	end
 end
 
 function MER:LoadObjectiveTracker()
 	if E.private.muiSkins.blizzard.objectivetracker.enable == true then
-		-- Scenario LevelUp Display
-		ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-
-		local f = CreateFrame("Frame")
-		f:RegisterEvent('ADDON_LOADED', InitializeObjectiveTracker)
-		f:RegisterEvent('PLAYER_ENTERING_WORLD', CollapseExpandOTF)
-		f:RegisterEvent('INSTANCE_ENCOUNTER_ENGAGE_UNIT', CollapseExpandOTF)
-		f:RegisterEvent('PLAYER_REGEN_ENABLED', CollapseExpandOTF)
-		f:RegisterEvent('UPDATE_WORLD_STATES', CollapseExpandOTF)
 		if IsAddOnLoaded('Blizzard_ObjectiveTracker') then
 			InitializeObjectiveTracker(_, _, 'Blizzard_ObjectiveTracker')
 		end
