@@ -20,21 +20,17 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.17|r, 11.09.2016
+local ChangeLogData = [=[|cffff7d0av2.18|r, 15.09.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add BigWigs settings to my install.
- |cffff7d0a•|r Add option to hide the Zone Text in OrderHall CommandBar.
- |cffff7d0a•|r More work on the ObjectiveTracker.
- |cffff7d0a•|r Hide the currency text and icon, since i'm using the orderhall datatext.
- |cffff7d0a•|r Update the quest skin.
- |cffff7d0a•|r Update the LocPanel. It should now register clicks properly.
- |cffff7d0a•|r Fix a incompatibly with ElvUI_Enhanced.
+ |cffff7d0a•|r Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
+ |cffff7d0a•|r Add a bossEmote frame. (WIP)
+ |cffff7d0a•|r Adjust spell ID for Dalaran Teleport/Portal in the LocPanel.
+ |cffff7d0a•|r Some layout adjustments.
 
 |cffff7d0aNotes:|r
- |cffff7d0a•|r The Heal Layout is not finished yet. Will work on it in the future.
- |cffff7d0a•|r The LocPanel can cause a lua error on profle switch. A reload fixes this. (WIP)
- |cffff7d0a•|r The ObjectiveTracker can cause a taint. It should be not game breaking. (WIP)
+ |cffff7d0a•|r The ObjectiveTracker can cause a taint if you entering combat.It should not be game breaking.
+ |cffff7d0a•|r Another taint can occur for the QuestItems in the Tracker. A reload should fix it. (WIP)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

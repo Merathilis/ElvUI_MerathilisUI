@@ -1,3 +1,9 @@
+<b><u> v2.18, 15.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
+<font color=#FF8C00>&#9830;</font> Add a bossEmote frame. (WIP)
+<font color=#FF8C00>&#9830;</font> Adjust spell ID for Dalaran Teleport/Portal in the LocPanel.
+<font color=#FF8C00>&#9830;</font> Some layout adjustments.
+
 <b><u> v2.17, 11.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add BigWigs settings to my install.
 <font color=#FF8C00>&#9830;</font> Add option to hide the Zone Text in OrderHall CommandBar.

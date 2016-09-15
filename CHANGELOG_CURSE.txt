@@ -1,3 +1,9 @@
+** v2.18, 15.09.2016**
+* Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
+* Add a bossEmote frame. (WIP)
+* Adjust spell ID for Dalaran Teleport/Portal in the LocPanel.
+* Some layout adjustments.
+
 ** v2.17, 11.09.2016**
 * Add BigWigs settings to my install.
 * Add option to hide the Zone Text in OrderHall CommandBar.
