@@ -148,7 +148,7 @@ L["Display the Guild Message of the Day in an extra window, if updated."] = "Zei
 
 -- ObjectiveTracker
 L['WANTED:'] = "GESUCHT:"
-L['DANGER:'] = "GEFAHR"
+L['DANGER:'] = "GEFAHR:"
 L['Warden Tower Assault:'] = "Angriff auf den Turm der Wächter:"
 L['Assault on Violet Hold'] = "Die Violette Festung"
 L['Black Rook Hold'] = "Die Rabenwehr"

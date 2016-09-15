@@ -32,7 +32,8 @@ local LE_QUEST_FREQUENCY_WEEKLY = LE_QUEST_FREQUENCY_WEEKLY
 -- GLOBALS: ScenarioProvingGroundsBlockAnim, OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT, OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
 -- GLOBALS: QUEST_TRACKER_MODULE, ObjectiveTracker_Initialize, ObjectiveTracker_Initialize, QuestSuperTracking_ChooseClosestQuest
 -- GLOBALS: ObjectiveTracker_Update, SCENARIO_CONTENT_TRACKER_MODULE, ObjectiveTrackerBonusRewardsFrame
--- GLOBALS: ObjectiveTrackerScenarioRewardsFrame, SkinObjectiveItem, _, bossexists
+-- GLOBALS: ObjectiveTrackerScenarioRewardsFrame, SkinObjectiveItem, _, bossexists, DEFAULT_OBJECTIVE_TRACKER_MODULE
+-- GLOBALS: STANDARD_TEXT_FONT, LevelUpDisplayScenarioFrame, ObjectiveTrackerBonusBannerFrame
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -286,6 +287,10 @@ local function AddPopUp()
 
 				f.FlashFrame:Hide()
 				f.Bg:Hide()
+
+				f:CreateBackdrop("Transparent")
+				f.backdrop:SetAllPoints()
+
 				for _, v in pairs({f.BorderTopLeft, f.BorderTopRight, f.BorderBotLeft, f.BorderBotRight, f.BorderLeft, f.BorderRight, f.BorderTop, f.BorderBottom}) do
 					v:Hide()
 				end
