@@ -44,6 +44,8 @@ local width = 180 -- overall width
 local otf = _G["ObjectiveTrackerFrame"]
 local ScenarioStageBlock = _G["ScenarioStageBlock"]
 
+DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
+
 local dungeons  = {
 	L['Assault on Violet Hold'],
 	L['Black Rook Hold'],
@@ -127,11 +129,7 @@ local function AddHeaderTitle()
 	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
 	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	title:ClearAllPoints()
-	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', 0, 0)
-
-	OBJECTIVE_TRACKER_COLOR['Header'] = {r = classColor.r, g = classColor.g, b = classColor.b}
-	OBJECTIVE_TRACKER_COLOR['HeaderHighlight'] = {r = classColor.r*1.2, g = classColor.g*1.2, b = classColor.b*1.2}
-	DEFAULT_OBJECTIVE_TRACKER_MODULE['blockOffsetY'] = -10
+	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', -8, 0)
 end
 
 local function AddTitleSubs(line)
@@ -147,6 +145,7 @@ local function AddTitleSubs(line)
 	line.Text:SetText(t)
 end
 
+-- World Quest Tracker
 local function AddLines(line, key)
 	local r, g, b = line.Text:GetTextColor()
 	AddTitleSubs(line)
@@ -183,6 +182,8 @@ local function AddObjective(self, block, key)
 	block.lineWidth = width + 21
 
 	AddLines(line, key)
+	OBJECTIVE_TRACKER_COLOR['Header'] = {r = classColor.r, g = classColor.g, b = classColor.b}
+	OBJECTIVE_TRACKER_COLOR['HeaderHighlight'] = {r = classColor.r*1.2, g = classColor.g*1.2, b = classColor.b*1.2}
 end
 
 local function AddProgressBar(self, block, line)
