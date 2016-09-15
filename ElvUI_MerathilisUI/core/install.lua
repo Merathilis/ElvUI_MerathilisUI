@@ -229,7 +229,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["auras"]["fadeThreshold"] = 10
 		E.db["auras"]["font"] = "Merathilis Roboto-Black"
 		E.db["auras"]["fontOutline"] = "OUTLINE"
-		E.db["auras"]["buffs"]["fontSize"] = 12
+		E.db["auras"]["fontSize"] = 12
+		E.db["auras"]["timeYOffset"] = 5
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 		E.db["auras"]["buffs"]["verticalSpacing"] = 15
 		E.db["auras"]["buffs"]["size"] = 32
@@ -2136,8 +2137,8 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["size"] = 16
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["outline"] = "OUTLINE"
-			E.db["sle"]["auras"]["hideDebuffsTimer"] = true
-			E.db["sle"]["auras"]["hideBuffsTimer"] = true
+			E.db["sle"]["auras"]["hideDebuffsTimer"] = false
+			E.db["sle"]["auras"]["hideBuffsTimer"] = false
 			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
 			E.db["sle"]["loot"]["looticons"]["enable"] = true
 			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY_LEADER"] = true
@@ -2270,16 +2271,17 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			local VATName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], VATName))
-			E.db.VAT.enableStaticColor = true
-			E.db.VAT.noDuration = true
-			E.db.VAT.barHeight = 5
-			E.db.VAT.spacing = -3
-			E.db.VAT.staticColor = {r = classColor.r, g = classColor.g, b = classColor.b}
-			E.db.VAT.showText = false
-			E.db.VAT.decimalThreshold = 5
-			E.db.VAT.statusbarTexture = 'MerathilisFlat'
-			E.db.VAT.backdropTexture = 'MerathilisFlat'
-			E.db.VAT.position = 'TOP'
+			E.db["VAT"]["enableStaticColor"] = true
+			E.db["VAT"]["noDuration"] = true
+			E.db["VAT"]["barHeight"] = 5
+			E.db["VAT"]["spacing"] = -3
+			E.db["VAT"]["staticColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+			E.db["VAT"]["showText"] = false
+			E.db["VAT"]["decimalThreshold"] = 5
+			E.db["VAT"]["statusbarTexture"] = 'MerathilisFlat'
+			E.db["VAT"]["backdropTexture"] = 'MerathilisFlat'
+			E.db["VAT"]["position"] = 'TOP'
+			E.db["VAT"]["showText"] = true
 		else
 			MER:Print(L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."])
 		end
