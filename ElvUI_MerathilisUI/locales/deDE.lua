@@ -219,10 +219,8 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.
 
 Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige Skin in ElvUI |cff636363deaktiviert|r ist.]]
-L["Create decorative underline in class color under the header."] = "Fügt dekorative Unterstriche in Klassenfarbe unter der Kopfzeile hinzu."
 L["Create a transparent backdrop around the header."] = "Fügt einen transparenten Hintergrund um die Kopfzeile."
 L["Enable/Disable the Zone Text in the OrderHall Commandbar."] = "Aktivert/Deaktiviert den Zonen Text in der Ordenhallen Leiste."
-L["Underlines"] = "Unterstriche"
 L["Zone Text"] = "Zonen Text"
 
 -- Addons

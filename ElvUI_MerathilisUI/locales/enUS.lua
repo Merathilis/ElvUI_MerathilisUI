@@ -219,10 +219,8 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
 
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
-L["Create decorative underline in class color under the header."] = true
 L["Create a transparent backdrop around the header."] = true
 L["Enable/Disable the Zone Text in the OrderHall Commandbar."] = true
-L["Underlines"] = true
 L["Zone Text"] = true
 
 -- Addons

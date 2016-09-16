@@ -144,9 +144,8 @@ end
 local function AddLines(line, key)
 	local r, g, b = line.Text:GetTextColor()
 	AddTitleSubs(line)
-	line:SetWidth(width)
 
-	line.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
+	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
 	line.Text:SetWidth(key == 0 and width + 21 or width)
 
 	line:SetHeight(line.Text:GetNumLines()*11)
@@ -154,8 +153,8 @@ local function AddLines(line, key)
 	line.width = width
 
 	if line.Dash and line.Dash:IsShown() then
-		line.Dash:SetText('• ')
 		line.Text:SetJustifyH('LEFT')
+		line.Dash:SetText('• ')
 	end
 end
 
@@ -202,8 +201,6 @@ local function AddProgressBar(self, block, line)
 
 	bar:StripTextures()
 	bar:SetHeight(9)
-	bar:SetStatusBarTexture(E["media"].MuiFlat)
-	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
 
 	bar:SetStatusBarTexture(E["media"].MuiFlat)
 	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
@@ -327,6 +324,26 @@ local function AddScenarioButton()
 
 	ScenarioStageBlock.Stage:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
 	ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
+end
+
+local function AddScenarioBar()
+	local bar = ScenarioObjectiveBlock.currentLine.Bar
+
+	bar:StripTextures()
+	bar:SetHeight(9)
+
+	bar:SetStatusBarTexture(E["media"].MuiFlat)
+	bar:SetStatusBarColor(classColor.r, classColor.g, classColor.b)
+	bar:CreateBackdrop("Transparent")
+	bar.backdrop:Point("TOPLEFT", bar, -1, 1)
+	bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
+
+	bar.Label:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 15, "OUTLINE")
+	bar.Label:SetShadowOffset(0, -0)
+	bar.Label:SetJustifyH('CENTER')
+	bar.Label:ClearAllPoints()
+	bar.Label:SetPoint('CENTER', bar, 'BOTTOM', 0, -1)
+	bar.Label:SetDrawLayer('OVERLAY', 7)
 end
 
 local function AddProvingGroundButton()
@@ -471,6 +488,7 @@ end
 local function InitializeObjectiveTracker(self, event, addon)
 	if addon == 'Blizzard_ObjectiveTracker' then
 		hooksecurefunc('ScenarioBlocksFrame_OnLoad', AddScenarioButton)
+		hooksecurefunc(SCENARIO_TRACKER_MODULE, 'AddProgressBar', AddScenarioBar)
 		hooksecurefunc('Scenario_ProvingGrounds_ShowBlock', AddProvingGroundButton)
 		hooksecurefunc(QUEST_TRACKER_MODULE, 'Update', AddDash)
 		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, 'UpdateCriteria', AddCriteria)

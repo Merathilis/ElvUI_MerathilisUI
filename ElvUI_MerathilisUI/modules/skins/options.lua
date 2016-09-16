@@ -152,15 +152,8 @@ local function SkinsTable()
 						type = 'toggle',
 						name = L["Enable"],
 					},
-					underlines = {
-						order = 2,
-						type = 'toggle',
-						name = L["Underlines"],
-						desc = L["Create decorative underline in class color under the header."],
-						disabled = function() return not E.private.muiSkins.blizzard.objectivetracker.enable end,
-					},
 					backdrop = {
-						order = 3,
+						order = 2,
 						type = 'toggle',
 						name = L["Backdrop"],
 						desc = L["Create a transparent backdrop around the header."],
