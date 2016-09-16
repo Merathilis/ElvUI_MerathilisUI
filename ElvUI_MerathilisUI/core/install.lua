@@ -230,7 +230,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["auras"]["font"] = "Merathilis Roboto-Black"
 		E.db["auras"]["fontOutline"] = "OUTLINE"
 		E.db["auras"]["fontSize"] = 12
-		E.db["auras"]["timeYOffset"] = 6
+		E.db["auras"]["timeYOffset"] = 0
+		E.db["auras"]["timeXOffset"] = 0
 		E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 		E.db["auras"]["buffs"]["verticalSpacing"] = 15
 		E.db["auras"]["buffs"]["size"] = 32
@@ -309,7 +310,7 @@ function MER:SetupLayout(layout, noDataReset)
 			MER:SetMoverPosition("LossControlMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 465)
 			MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 424, 23)
 			MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -413, 23)
-			MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -200, -281)
+			MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -125, -240)
 			MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -84)
 			MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -3, -184)
 			MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 413, 23)
