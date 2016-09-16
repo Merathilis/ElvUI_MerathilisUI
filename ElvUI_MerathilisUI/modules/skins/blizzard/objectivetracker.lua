@@ -127,15 +127,11 @@ local function AddHeader()
 		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
 		module.Header.Text:SetJustifyH('RIGHT')
 
-		-- Underlines
-		if E.private.muiSkins.blizzard.objectivetracker.underlines then
-			module.Header.Underline = MER:Underline(otf.MODULES[i].Header, true, 1)
-		end
-
 		-- Backdrop
 		if E.private.muiSkins.blizzard.objectivetracker.backdrop then
 			module.Header:CreateBackdrop("Transparent")
 			module.Header.backdrop:Point("TOPLEFT", -3, 0)
+			MER:StyleInside(module.Header.backdrop)
 		end
 	end
 end
