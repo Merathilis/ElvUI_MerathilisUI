@@ -9,15 +9,15 @@ local _G = _G
 -- WoW API / Variables
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel, LibStub
+-- GLOBALS: 
 
 RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 
 function MER:Bossemote()
 	RaidWarningFrame:SetWidth(250)
 	RaidWarningFrame:ClearAllPoints()
-	RaidWarningFrame:SetPoint('CENTER', E.UIParent, 'TOP', 0, -100)
-	RaidWarningFrame:SetScale(1) -- Too increase the raid warning font size
+	RaidWarningFrame:SetPoint('TOP', UIParent, 'CENTER', 0, -100)
+	RaidWarningFrame:SetScale(1)
 
 	for i = 1, 2 do
 		local bu = CreateFrame('Frame', 'bossemoteicon'..i, RaidBossEmoteFrame)
@@ -35,7 +35,7 @@ function MER:Bossemote()
 		FadingFrame_SetFadeOutTime(bu, RAID_NOTICE_FADE_OUT_TIME)
 
 		for _, slot in pairs({_G['RaidBossEmoteFrameSlot'..i], _G['RaidWarningFrameSlot'..i]}) do
-			slot:SetJustifyH('LEFT')
+			slot:SetJustifyH('CENTER')
 			if i == 2 then
 				slot:ClearAllPoints()
 				slot:SetPoint('BOTTOM', slot == _G['RaidBossEmoteFrameSlot2'] and _G['RaidBossEmoteFrameSlot1'] or _G['RaidWarningFrameSlot1'], 'TOP', 0, 10)
