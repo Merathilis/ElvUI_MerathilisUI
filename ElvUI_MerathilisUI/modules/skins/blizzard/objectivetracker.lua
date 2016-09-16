@@ -160,21 +160,11 @@ local function AddLines(line, key)
 	end
 end
 
-local function AddBlock(line, key, block)
-	if key == 0 or key == 1 then block.x = 0 end
-	local height = line.Text:GetNumLines()*13
-	if block.x then
-		block.x = block.x + height
-		block.height = block.x + height
-	end
-end
-
 local function AddObjective(self, block, key)
 	local header = block.HeaderText
 	local line = block.lines[key]
 
 	AddLines(line, key)
-	AddBlock(line, key, block)
 
 	if header then
 		local r, g, b = header:GetTextColor()
