@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI');
 
 -- Cache global variables
 -- Lua functions
@@ -25,7 +26,7 @@ local create = function(button, z)
 		p:SetScript('OnClick', function()
 			if arg1 == 'RightButton' then
 				focus = p
-				E:StaticPopup_Show('MAP_PIN_NOTE')
+				-- StaticPopup_Show('MAP_PIN_NOTE')
 			else
 				p:Hide() p.disable = true p.note = nil
 			end

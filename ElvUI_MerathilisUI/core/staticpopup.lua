@@ -60,36 +60,3 @@ E.PopupDialogs['BENIKUI'] = {
 	OnAccept = E.noop,
 	showAlert = 1
 }
-
-E.PopupDialogs['MAP_PIN_NOTE'] = {
-	text = 'Add a Note',
-	button2 = CLOSE,
-	timeout = 0,
-	hasEditBox = 1,
-	maxLetters = 1024,
-	editBoxWidth = 350,
-	whileDead = true,
-	hideOnEscape = true,
-	OnShow = function(self)
-		(self.icon or _G[self:GetName()..'AlertIcon']):Hide()
-		local editBox = self.editBox or _G[self:GetName()..'EditBox']
-		local pin = focus
-		if pin.note then editBox:SetText(pin.note) else editBox:SetText('') end
-		editBox:SetFocus()
-		local button2 = self.button2 or _G[self:GetName()..'Button2']
-		button2:ClearAllPoints()
-		button2:SetPoint('TOP', editBox, 'BOTTOM', 0, -6)
-		button2:SetWidth(150)
-		self:SetFrameStrata('FULLSCREEN')
-		WorldMapFrame:SetFrameStrata('DIALOG')
-	end,
-	OnHide = function(self)
-		local editBox = self.editBox or _G[self:GetName()..'EditBox']
-		local t = editBox:GetText()
-		local pin = focus
-		pin.note = t
-		focus = nil
-		self:SetFrameStrata('DIALOG')
-		WorldMapFrame:SetFrameStrata('FULLSCREEN')
-	end,
-}
