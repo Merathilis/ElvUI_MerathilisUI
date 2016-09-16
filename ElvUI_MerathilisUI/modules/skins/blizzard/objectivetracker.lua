@@ -124,14 +124,20 @@ local function AddHeader()
 		module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
 		module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		module.Header.Text:ClearAllPoints()
-		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, 0)
+		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, -2)
 		module.Header.Text:SetJustifyH('RIGHT')
 
-		-- Backdrop
 		if E.private.muiSkins.blizzard.objectivetracker.backdrop then
+			-- Backdrop
 			module.Header:CreateBackdrop("Transparent")
 			module.Header.backdrop:Point("TOPLEFT", -3, 0)
 			MER:StyleInside(module.Header.backdrop)
+
+			-- Texture
+			module.Header.Icon = module.Header.backdrop:CreateTexture(nil, 'ARTWORK')
+			module.Header.Icon:SetPoint('LEFT', module.Header, 'LEFT', 0, -2)
+			module.Header.Icon:SetSize(16, 16)
+			module.Header.Icon:SetTexture("Interface\\GossipFrame\\AvailableLegendaryQuestIcon")
 		end
 	end
 end
