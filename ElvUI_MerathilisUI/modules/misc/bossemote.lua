@@ -16,7 +16,7 @@ RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 function MER:Bossemote()
 	RaidWarningFrame:SetWidth(250)
 	RaidWarningFrame:ClearAllPoints()
-	RaidWarningFrame:SetPoint('TOP', UIParent, 'CENTER', 0, -100)
+	RaidWarningFrame:SetPoint('TOP', UIParent, 'CENTER', 0, 200)
 	RaidWarningFrame:SetScale(1)
 
 	for i = 1, 2 do
