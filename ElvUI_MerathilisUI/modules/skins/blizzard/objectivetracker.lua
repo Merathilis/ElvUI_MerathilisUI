@@ -27,7 +27,7 @@ local LE_QUEST_FREQUENCY_WEEKLY = LE_QUEST_FREQUENCY_WEEKLY
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, MAX_BOSS_FRAMES, ObjectiveTracker_Collapse, ObjectiveTracker_Expand, OBJECTIVE_TRACKER_COLOR
--- GLOBALS: OBJECTIVE_TRACKER_COLOR, OBJECTIVE_TRACKER_COLOR, OBJECTIVE_TRACKER_HEADER_HEIGHT, OBJECTIVE_TRACKER_HEADER_HEIGHT
+-- GLOBALS: OBJECTIVE_TRACKER_COLOR, OBJECTIVE_TRACKER_COLOR, OBJECTIVE_TRACKER_HEADER_HEIGHT
 -- GLOBALS: BonusObjectiveTrackerProgressBar_PlayFlareAnim, AUTO_QUEST_POPUP_TRACKER_MODULE, ScenarioProvingGroundsBlock
 -- GLOBALS: ScenarioProvingGroundsBlockAnim, OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT, OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
 -- GLOBALS: QUEST_TRACKER_MODULE, ObjectiveTracker_Initialize, ObjectiveTracker_Initialize, QuestSuperTracking_ChooseClosestQuest
@@ -92,20 +92,11 @@ local function AddMinimizeButton()
 	hooksecurefunc('ObjectiveTracker_Expand', function() min.plus:Hide() min.minus:Show() end)
 end
 
--- Headermenu Title
-local function AddHeaderTitle()
-	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
-	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	title:ClearAllPoints()
-	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', -8, 0)
-end
-
 local function AddTitleSubs(line)
 	local t = line.Text:GetText()
-	t = gsub(t, L['WANTED:'], '|cffff0000W:|r')
-	t = gsub(t, L['DANGER:'], '|cffff0000D:|r')
-	t = gsub(t, L['Warden Tower Assault:'], '|cffff0000PvP:|r')
+	t = gsub(t, L['WANTED:'], L['|cffff0000W:|r'])
+	t = gsub(t, L['DANGER:'], L['|cffff0000D:|r'])
+	t = gsub(t, L['Warden Tower Assault:'], L['|cffff0000PvP:|r'])
 	t = gsub(t, L['Black Rook Rumble'], L['|cffff0000PvP:|r Black Rook Rumble']) 
 
 	for _, v in pairs(dungeons) do 
@@ -160,11 +151,21 @@ local function AddLines(line, key)
 	end
 end
 
+local function AddBlock(line, key, block)
+	if key == 0 or key == 1 then block.x = 0 end
+	local height = line.Text:GetNumLines()*13
+	if block.x then
+		block.x = block.x + height
+		block.height = block.x + height
+	end
+end
+
 local function AddObjective(self, block, key)
 	local header = block.HeaderText
 	local line = block.lines[key]
 
 	AddLines(line, key)
+	AddBlock(line, key, block)
 
 	if header then
 		local r, g, b = header:GetTextColor()
@@ -412,7 +413,7 @@ local function AddCriteria(self, num, block)
 		block:SetWidth(width + 50)
 		if line then
 			line.Text:SetWordWrap(true)
-			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, nil)
+			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
 			line.Text:SetWidth(width+50)
 			line.Text:SetJustifyH('RIGHT')
 
@@ -496,7 +497,6 @@ local function InitializeObjectiveTracker(self, event, addon)
 		AddDefaults()
 		AddModules()
 		AddHeader()
-		AddHeaderTitle()
 		AddScenarioButton()
 		AddMinimizeButton()
 	end

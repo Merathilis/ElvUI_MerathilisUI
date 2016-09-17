@@ -148,8 +148,11 @@ L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
 -- ObjectiveTracker
 L['WANTED:'] = true
+L['|cffff0000W:|r'] = true
 L['DANGER:'] = true
+L['|cffff0000D:|r'] = true
 L['Warden Tower Assault:'] = true
+L['|cffff0000PvP:|r'] = true
 L['Assault on Violet Hold'] = true
 L['Black Rook Hold'] = true
 L['Black Rook Rumble'] = true
