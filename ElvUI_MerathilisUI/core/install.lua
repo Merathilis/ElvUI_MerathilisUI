@@ -116,8 +116,11 @@ local function SetupChat()
 	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
 	E.db["chat"]["font"] = "Merathilis Roboto-Medium"
-	E.db["chat"]["panelWidth"] = 350
+	E.db["chat"]["separateSizes"] = true
+	E.db["chat"]["panelWidth"] = 400
 	E.db["chat"]["panelHeight"] = 155
+	E.db["chat"]["panelHeightRight"] = 155
+	E.db["chat"]["panelWidthRight"] = 280
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	if E.myname == "Merathilis" or "Damará" or "Melisendra" or "Asragoth" or "Róhal" or "Jústice" or "Jazira" or "Brítt" or "Jahzzy" then
@@ -126,13 +129,9 @@ local function SetupChat()
 		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	end
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	if E.myclass == "DRUID" and E.myname == "Merathilis" then
-		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chat.tga"
-	else
-		E.db["chat"]["panelBackdropNameRight"] = ""
-	end
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
+	E.db["chat"]["panelBackdropNameRight"] = ""
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,22"
+	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 
 	E:UpdateAll(true)
 end
@@ -172,7 +171,7 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["general"]["font"] = "Merathilis Roboto-Black"
 		E.db["general"]["fontSize"] = 10
 		E.db["general"]["interruptAnnounce"] = "RAID"
-		E.db["general"]["minimap"]["size"] = 150
+		E.db["general"]["minimap"]["size"] = 153
 		E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 		E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 		E.db["general"]["minimap"]["icons"]["classHall"]['scale'] = 0.5
@@ -238,8 +237,8 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["auras"]["buffs"]["wrapAfter"] = 10
 		E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 		E.db["auras"]["debuffs"]["size"] = 42
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-5"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-159,-131"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-4"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-148"
 
 		--[[----------------------------------
 		--	ProfileDB - Bags
@@ -252,9 +251,9 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["bags"]["countFontOutline"] = "OUTLINE"
 		E.db["bags"]["bagSize"] = 23
 		E.db["bags"]["alignToChat"] = false
-		E.db["bags"]["bagWidth"] = 350
+		E.db["bags"]["bagWidth"] = 436
 		E.db["bags"]["bankSize"] = 23
-		E.db["bags"]["bankWidth"] = 350
+		E.db["bags"]["bankWidth"] = 400
 		E.db["bags"]["moneyFormat"] = "CONDENSED"
 		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
@@ -301,20 +300,20 @@ function MER:SetupLayout(layout, noDataReset)
 		if layout == "dps" then
 			MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT" ,-3, 278)
 			MER:SetMoverPosition("AltPowerBarMover", "TOP", ElvUIParent, "TOP" ,1, -272)
-			MER:SetMoverPosition("MinimapMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -6)
+			MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -283, 4)
 			MER:SetMoverPosition("GMMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 329, 0)
 			MER:SetMoverPosition("BNETMover", "TOP", ElvUIParent, "TOP", 0, -38)
 			MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -495, -457)
 			MER:SetMoverPosition("AlertFrameMover", "TOP", ElvUIParent, "TOP", 0, -140)
-			MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 446, 2)
+			MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 511, 12)
 			MER:SetMoverPosition("LossControlMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 465)
-			MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 424, 23)
-			MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -413, 23)
+			MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 474, 22)
+			MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -499, 22)
 			MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -125, -240)
 			MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -84)
 			MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -3, -184)
-			MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 413, 23)
-			MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -424, 23)
+			MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 463, 22)
+			MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -511, 22)
 			MER:SetMoverPosition("TalkingHeadFrameMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 230)
 		elseif layout == "healer" then
 			MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 434, 2)
@@ -436,12 +435,12 @@ function MER:SetupActionbars(layout, noDataReset)
 
 			MER:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 3)
 			MER:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", -196, 3)
-			MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -353, 3)
+			MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -439, 2)
 			MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", 0, 367)
-			MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 353, 3)
+			MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 403, 2)
 			MER:SetMoverPosition("ElvAB_6", "BOTTOM", ElvUIParent, "BOTTOM", 197, 3)
 			MER:SetMoverPosition("ShiftAB", "BOTTOM", ElvUIParent, "BOTTOM", 0, 75)
-			MER:SetMoverPosition("PetAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 423, 2)
+			MER:SetMoverPosition("PetAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 483, 18)
 			MER:SetMoverPosition("BossButton", "BOTTOM", ElvUIParent, "BOTTOM", 0, 185)
 			MER:SetMoverPosition("MicrobarMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 4, -4)
 
@@ -516,7 +515,7 @@ function MER:SetupActionbars(layout, noDataReset)
 			MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 353, 3)
 			MER:SetMoverPosition("ElvAB_6", "BOTTOMRIGHT", ElvUIParent ,"BOTTOMRIGHT", -555, 390)
 			MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 353, 2)
-			MER:SetMoverPosition("PetAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 412, 18)
+			MER:SetMoverPosition("PetAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 486, 16)
 			MER:SetMoverPosition("BossButton", "BOTTOM", ElvUIParent, "BOTTOM", 0, 156)
 			MER:SetMoverPosition("MicrobarMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 4, -4)
 		end
@@ -646,9 +645,9 @@ function MER:SetupUnitframes(layout, noDataReset)
 				E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisFlat"
 				E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 			end
-			MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 141)
-			MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 179)
-			MER:SetMoverPosition("PlayerPortraitMover", "BOTTOM", ElvUIParent, "BOTTOM", -323, 141)
+			MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 139)
+			MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 177)
+			MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 591, 139)
 
 			-- Target
 			E.db["unitframe"]["units"]["target"]["width"] = 180
@@ -743,9 +742,9 @@ function MER:SetupUnitframes(layout, noDataReset)
 				E.db['benikui']['unitframes']['target']['portraitStyle'] = true
 				E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 4
 			end
-			MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 141)
-			MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 179)
-			MER:SetMoverPosition("TargetPortraitMover", "BOTTOM", ElvUIParent, "BOTTOM", 323, 141)
+			MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 139)
+			MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 177)
+			MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -591, 139)
 
 			-- TargetTarget
 			E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -807,7 +806,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 
 			-- Raid
 			E.db["unitframe"]["units"]["raid"]["height"] = 24
-			E.db["unitframe"]["units"]["raid"]["width"] = 69
+			E.db["unitframe"]["units"]["raid"]["width"] = 79
 			E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
 			E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
 			E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 1
@@ -990,7 +989,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["numGroups"] = 1
 			E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 			E.db["unitframe"]["units"]["party"]["orientation"] = "MIDDLE"
-			E.db["unitframe"]["units"]["party"]["width"] = 69
+			E.db["unitframe"]["units"]["party"]["width"] = 79
 			E.db["unitframe"]["units"]["party"]["infoPanel"]["height"] = 13
 			E.db["unitframe"]["units"]["party"]["infoPanel"]["enable"] = true
 			E.db["unitframe"]["units"]["party"]["infoPanel"]["transparent"] = true
@@ -1076,7 +1075,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 
 			-- Arena
 			E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
-			MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -150, -305)
+			MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -33, 367)
 
 			-- Boss
 			E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
@@ -1132,7 +1131,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
 			E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 			E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
-			MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -230, -404)
+			MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -123, -378)
 
 			-- PetTarget
 			E.db["unitframe"]["units"]["pettarget"]["enable"] = false
@@ -1765,8 +1764,8 @@ function MER:SetupSkada(addon)
 			SkadaDB['profiles']['MerathilisUI'] = {
 				["windows"] = {
 					{
-						["titleset"] = false,
-						["barheight"] = 16,
+						["titleset"] = true,
+						["barheight"] = 20,
 						["classicons"] = true,
 						["roleicons"] = false,
 						["barslocked"] = true,
@@ -1785,7 +1784,7 @@ function MER:SetupSkada(addon)
 							},
 						},
 						["y"] = 23.0000915527344,
-						["barfont"] = "Merathilis Tukui",
+						["barfont"] = "Merathilis Roboto-Bold",
 						["name"] = "DPS",
 						["barfontflags"] = "OUTLINE",
 						["point"] = "TOPRIGHT",
@@ -1796,7 +1795,7 @@ function MER:SetupSkada(addon)
 							["b"] = 0.301960784313726,
 						},
 						["mode"] = "Schaden",
-						["enabletitle"] = false,
+						["enabletitle"] = true,
 						["spark"] = false,
 						["bartexture"] = "MerathilisFlat",
 						["barwidth"] = 165.999954223633,
@@ -1806,105 +1805,27 @@ function MER:SetupSkada(addon)
 							["g"] = 0.301960784313726,
 							["r"] = 0.301960784313726,
 						},
-						["barfontsize"] = 12,
+						["barfontsize"] = 10,
 						["title"] = {
+							["textcolor"] = {
+								["b"] = 0.0392156862745098,
+								["g"] = 0.490196078431373,
+								["r"] = 1,
+							},
 							["color"] = {
 								["a"] = 0,
 								["b"] = 0.301960784313726,
 								["g"] = 0.101960784313725,
 								["r"] = 0.101960784313725,
 							},
-							["font"] = "Merathilis Prototype",
+							["font"] = "Merathilis Tukui",
 							["borderthickness"] = 0,
-							["fontsize"] = 10,
+							["fontsize"] = 14,
 							["fontflags"] = "OUTLINE",
 							["texture"] = "MerathilisFlat",
 						},
-						["x"] = 1567.99992370605,
-					}, -- [1]
-					{
-						["barheight"] = 16,
-						["classicons"] = true,
-						["barslocked"] = true,
-						["enabletitle"] = false,
-						["wipemode"] = "",
-						["set"] = "current",
-						["hidden"] = false,
-						["y"] = 23.0000915527344,
-						["barfont"] = "Merathilis Tukui",
-						["name"] = "HPS",
-						["display"] = "bar",
-						["barfontflags"] = "OUTLINE",
-						["classcolortext"] = false,
-						["scale"] = 1,
-						["reversegrowth"] = false,
-						["barfontsize"] = 12,
-						["roleicons"] = false,
-						["barorientation"] = 1,
-						["snapto"] = true,
 						["x"] = 1739.00001525879,
-						["mode"] = "Heilung",
-						["returnaftercombat"] = false,
-						["spark"] = false,
-						["buttons"] = {
-							["segment"] = true,
-							["menu"] = true,
-							["stop"] = false,
-							["mode"] = true,
-							["report"] = true,
-							["reset"] = true,
-						},
-						["barwidth"] = 170.999984741211,
-						["barspacing"] = 2,
-						["modeincombat"] = "",
-						["point"] = "TOPRIGHT",
-						["barbgcolor"] = {
-							["a"] = 0,
-							["r"] = 0.301960784313726,
-							["g"] = 0.301960784313726,
-							["b"] = 0.301960784313726,
-						},
-						["barcolor"] = {
-							["a"] = 0,
-							["r"] = 0.301960784313726,
-							["g"] = 0.301960784313726,
-							["b"] = 0.8,
-						},
-						["background"] = {
-							["borderthickness"] = 0,
-							["height"] = 146,
-							["color"] = {
-								["a"] = 0.2,
-								["b"] = 0.5,
-								["g"] = 0,
-								["r"] = 0,
-							},
-							["bordertexture"] = "None",
-							["margin"] = 0,
-							["texture"] = "Solid",
-							["strata"] = "LOW",
-						},
-						["classcolorbars"] = true,
-						["clickthrough"] = false,
-						["bartexture"] = "MerathilisFlat",
-						["title"] = {
-							["color"] = {
-								["a"] = 0.800000011920929,
-								["r"] = 0.101960784313725,
-								["g"] = 0.101960784313725,
-								["b"] = 0.301960784313726,
-							},
-							["bordertexture"] = "None",
-							["font"] = "Merathilis Prototype",
-							["borderthickness"] = 0,
-							["fontsize"] = 10,
-							["fontflags"] = "OUTLINE",
-							["height"] = 15,
-							["margin"] = 0,
-							["texture"] = "MerathilisFlat",
-						},
-						["version"] = 1,
-					}, -- [2]
+					}, -- [1]
 				},
 				["icon"] = {
 					["hide"] = true,
@@ -1913,7 +1834,7 @@ function MER:SetupSkada(addon)
 					["Heilung_Percent"] = false,
 					["Schaden_Damage"] = true,
 					["Schaden_DPS"] = true,
-					["Schaden_Percent"] = false,
+					["Schaden_Percent"] = true,
 				},
 			}
 			Skada.db:SetProfile("MerathilisUI")
@@ -1938,13 +1859,12 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Alt Power"] = {
 						["profiles"] = {
 							["MerathilisUI"] = {
-								["posx"] = 305,
+								["posx"] = 339.84443097218,
 								["fontSize"] = 11,
-								["disabled"] = false,
-								["posy"] = 59,
 								["fontOutline"] = "",
 								["font"] = "Merathilis Roboto-Bold",
 								["lock"] = true,
+								["posy"] = 61.8444405166224,
 							},
 						},
 					},
@@ -1952,19 +1872,19 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Bars"] = {
 						["profiles"] = {
 							["MerathilisUI"] = {
-								["BigWigsEmphasizeAnchor_y"] = 161,
+								["BigWigsEmphasizeAnchor_y"] = 274.777784431353,
 								["fontSize"] = 11,
-								["BigWigsAnchor_y"] = 145,
-								["emphasizeGrowup"] = true,
-								["BigWigsAnchor_x"] = 1133,
-								["texture"] = "MerathilisLight",
+								["BigWigsAnchor_width"] = 239.999954223633,
+								["BigWigsAnchor_y"] = 265.177697393337,
+								["BigWigsEmphasizeAnchor_x"] = 251.977762177876,
 								["barStyle"] = "AddOnSkins",
-								["BigWigsAnchor_width"] = 322,
-								["BigWigsEmphasizeAnchor_width"] = 245,
-								["BigWigsEmphasizeAnchor_x"] = 439,
-								["font"] = "Merathilis Roboto-Bold",
+								["emphasizeGrowup"] = true,
+								["BigWigsAnchor_x"] = 1018.51096216262,
 								["outline"] = "OUTLINE",
-								["emphasizeScale"] = 1,
+								["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
+								["font"] = "Merathilis Roboto-Bold",
+								["emphasizeScale"] = 1.1,
+								["texture"] = "MerathilisLight",
 							},
 						},
 					},
@@ -1981,14 +1901,14 @@ function MER:SetupBigWigs(addon)
 							["MerathilisUI"] = {
 								["outline"] = "OUTLINE",
 								["fontSize"] = 20,
-								["BWMessageAnchor_x"] = 608,
-								["BWEmphasizeMessageAnchor_x"] = 610,
 								["BWEmphasizeCountdownMessageAnchor_x"] = 664,
-								["BWEmphasizeMessageAnchor_y"] = 614,
-								["BWEmphasizeCountdownMessageAnchor_y"] = 523,
+								["BWMessageAnchor_x"] = 608,
 								["growUpwards"] = false,
+								["BWEmphasizeCountdownMessageAnchor_y"] = 523,
 								["font"] = "Merathilis Roboto-Bold",
+								["BWEmphasizeMessageAnchor_y"] = 614,
 								["BWMessageAnchor_y"] = 676,
+								["BWEmphasizeMessageAnchor_x"] = 610,
 							},
 						},
 					},
@@ -1997,12 +1917,11 @@ function MER:SetupBigWigs(addon)
 					["BigWigs_Plugins_Proximity"] = {
 						["profiles"] = {
 							["MerathilisUI"] = {
-								["fontSize"] = 20,
+								["posx"] = 900.11113290675,
 								["font"] = "Merathilis Roboto-Bold",
-								["posx"] = 957,
-								["height"] = 120,
-								["posy"] = 88,
 								["lock"] = true,
+								["height"] = 99.0000381469727,
+								["posy"] = 70.4000288314296,
 							},
 						},
 					},
@@ -2031,7 +1950,7 @@ function MER:SetupAddOnSkins(addon)
 			local AddOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], AddOnSkinsName))
 			E.private['addonskins']['LoginMsg'] = false
-			E.private['addonskins']['EmbedSystemDual'] = true
+			E.private['addonskins']['EmbedSystemDual'] = false
 			E.private['addonskins']['EmbedBelowTop'] = false
 			E.private['addonskins']['TransparentEmbed'] = true
 			E.private['addonskins']['EmbedRightChat'] = true
