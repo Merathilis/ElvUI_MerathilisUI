@@ -20,7 +20,6 @@ local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 -- GLOBALS: RAID_CLASS_COLORS
 
 local watches = {}
-
 local frame = CreateFrame('Button', nil, UIParent)
 
 local header = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
@@ -80,11 +79,13 @@ local update = function(self, elapsed)
 			end
 		end
 		if max > 0 then
-			header:Show()
-			header:SetText(UnitInRaid('player') and ('RAID') or ('PARTY'))
-			t:SetFormattedText(alive..'/'..max..' alive')
-			t:Show()
-			frame:SetWidth(t:GetWidth())
+			if E.db.mui.unitframes.groupinfo then
+				header:Show()
+				header:SetText(UnitInRaid('player') and ('RAID') or ('PARTY'))
+				t:SetFormattedText(alive..'/'..max..L[' alive'])
+				t:Show()
+				frame:SetWidth(t:GetWidth())
+			end
 		else
 			header:Hide()
 			t:Hide()
@@ -141,7 +142,7 @@ MER:AddWatch('|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Healer.t
 	end
 end)
 
-frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 5, -5)
+frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, -100)
 frame:SetHeight(16)
 frame:SetScript('OnUpdate', update)
 frame:SetScript('OnEnter', enter)

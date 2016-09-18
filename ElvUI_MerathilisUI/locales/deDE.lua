@@ -116,6 +116,9 @@ L["World Latency:"] = "Weltlatenz"
 L["Red Icon"] = "Rotes Symbol"
 L["Target Class Icon"] = "Ziel Klassensymbol"
 L["Show class icon for units."] = "Zeigt ein Klassensymbol für die Einheit."
+L["Group Info"] = "Gruppeninfo"
+L["Shows an extra frame with information about the party/raid."] = "Zeigt ein extra Fenster mit Informationen über die/den Gruppe/Raid an."
+L[' alive'] = " am Leben"
 
 -- LocationPanel
 L["Location Panel"] = true
