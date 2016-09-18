@@ -1,3 +1,9 @@
+** v2.19, xx.09.2016**
+* Add pins to the worldmap. (Shift+ Left-click to add a pin)
+* Adjust position of BossEmotes.
+* Add a GroupInfo frame.
+* More work on the ObjectiveTracker.
+
 ** v2.18, 15.09.2016**
 * Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
 * Add a bossEmote frame. (WIP)

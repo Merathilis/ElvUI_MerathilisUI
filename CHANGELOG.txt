@@ -1,3 +1,9 @@
+<b><u> v2.19, xx.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Add pins to the worldmap. (Shift+ Left-click to add a pin)
+<font color=#FF8C00>&#9830;</font> Adjust position of BossEmotes.
+<font color=#FF8C00>&#9830;</font> Add a GroupInfo frame.
+<font color=#FF8C00>&#9830;</font> More work on the ObjectiveTracker.
+
 <b><u> v2.18, 15.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
 <font color=#FF8C00>&#9830;</font> Add a bossEmote frame. (WIP)

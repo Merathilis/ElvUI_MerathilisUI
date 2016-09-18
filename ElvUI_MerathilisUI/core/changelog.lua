@@ -20,13 +20,13 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.18|r, 15.09.2016
+local ChangeLogData = [=[|cffff7d0av2.19|r, xx.09.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
- |cffff7d0a•|r Add a bossEmote frame. (WIP)
- |cffff7d0a•|r Adjust spell ID for Dalaran Teleport/Portal in the LocPanel.
- |cffff7d0a•|r Some layout adjustments.
+ |cffff7d0a•|r Add pins to the worldmap. (Shift+ Left-click to add a pin)
+ |cffff7d0a•|r Adjust position of BossEmotes.
+ |cffff7d0a•|r Add a GroupInfo frame.
+ |cffff7d0a•|r More work on the ObjectiveTracker.
 
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The ObjectiveTracker can cause a taint if you entering combat.It should not be game breaking.
