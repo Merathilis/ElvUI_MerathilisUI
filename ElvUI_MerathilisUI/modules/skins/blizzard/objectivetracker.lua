@@ -222,7 +222,7 @@ local function AddProgressBar(self, block, line)
 		if v then v:Hide() end
 	end
 
-	bar.Label:FontTemplate()
+	bar.Label:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 	bar.Label:SetShadowOffset(0, -0)
 	bar.Label:SetJustifyH('CENTER')
 	bar.Label:ClearAllPoints()
@@ -339,7 +339,7 @@ local function AddScenarioBar()
 	bar.backdrop:Point("TOPLEFT", bar, -1, 1)
 	bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
 
-	bar.Label:FontTemplate()
+	bar.Label:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 12, "OUTLINE")
 	bar.Label:SetShadowOffset(0, -0)
 	bar.Label:SetJustifyH('CENTER')
 	bar.Label:ClearAllPoints()
