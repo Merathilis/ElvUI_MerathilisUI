@@ -1765,7 +1765,7 @@ function MER:SetupSkada(addon)
 				["windows"] = {
 					{
 						["titleset"] = true,
-						["barheight"] = 20,
+						["barheight"] = 16,
 						["classicons"] = true,
 						["roleicons"] = false,
 						["barslocked"] = true,
@@ -1784,7 +1784,7 @@ function MER:SetupSkada(addon)
 							},
 						},
 						["y"] = 23.0000915527344,
-						["barfont"] = "Merathilis Roboto-Bold",
+						["barfont"] = "Merathilis Tukui",
 						["name"] = "DPS",
 						["barfontflags"] = "OUTLINE",
 						["point"] = "TOPRIGHT",
@@ -1805,7 +1805,7 @@ function MER:SetupSkada(addon)
 							["g"] = 0.301960784313726,
 							["r"] = 0.301960784313726,
 						},
-						["barfontsize"] = 10,
+						["barfontsize"] = 12,
 						["title"] = {
 							["textcolor"] = {
 								["b"] = 0.0392156862745098,
