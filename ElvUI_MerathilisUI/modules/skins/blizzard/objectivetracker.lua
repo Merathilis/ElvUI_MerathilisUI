@@ -64,7 +64,7 @@ local function AddMinimizeButton()
 	local min = otf.HeaderMenu.MinimizeButton
 	min:SetSize(15, 15)
 	min:ClearAllPoints()
-	min:SetPoint('TOPRIGHT', otf, 25, -4)
+	min:SetPoint('TOPRIGHT', otf, 10, -4)
 	min:SetNormalTexture('')
 	min:SetPushedTexture('')
 
