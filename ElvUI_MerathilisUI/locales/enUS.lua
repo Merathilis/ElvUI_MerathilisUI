@@ -168,6 +168,12 @@ L['Maw of Souls'] = true
 L['Neltharion\'s Lair'] = true
 L['The Arcway'] = true 
 L['Vault of the Wardens'] = true
+L["Header Title"] = true
+L["Header Title Font"] = true
+L["Header"] = true
+L["Header Font"] = true
+L["Objective Header"] = true
+L["Objective Header Font"] = true
 
 -- Install
 L["Welcome"] = true

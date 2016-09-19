@@ -108,7 +108,7 @@ end
 
 local function AddHeaderTitle()
 	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
+	title:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.headerTitle.font), E.private.muiSkins.blizzard.objectivetracker.headerTitle.size, E.private.muiSkins.blizzard.objectivetracker.headerTitle.outline)
 	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	title:ClearAllPoints()
 	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', -8, 0)
@@ -120,7 +120,7 @@ local function AddHeader()
 		local module = otf.MODULES[i]
 
 		-- Header font
-		module.Header.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
+		module.Header.Text:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.header.font), E.private.muiSkins.blizzard.objectivetracker.header.size, E.private.muiSkins.blizzard.objectivetracker.header.outline)
 		module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		module.Header.Text:ClearAllPoints()
 		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, -2)
@@ -177,7 +177,7 @@ local function AddObjective(self, block, key)
 
 	if header then
 		local r, g, b = header:GetTextColor()
-		header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, nil)
+		header:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.font), E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.size, E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.outline)
 		header:SetShadowOffset(.7, -.7)
 		header:SetShadowColor(0, 0, 0, 1)
 		header:SetJustifyH('LEFT')
