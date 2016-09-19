@@ -23,7 +23,7 @@ local watches = {}
 local frame = CreateFrame('Button', nil, UIParent)
 
 local header = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
-header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 13, "OUTLINE")
+header:FontTemplate()
 header:SetTextColor(1, 1, 1)
 header:SetPoint('TOPLEFT', frame, -3, 0)
 
@@ -34,7 +34,7 @@ local t2 = frame:CreateFontString('MuiRaidStats_Roles', 'ARTWORK', 'GameFontHigh
 t2:SetPoint('TOPLEFT', t, 'BOTTOMLEFT', 0, -3)
 
 local name = frame:CreateFontString('MuiRaidStats_GRIDName', 'ARTWORK', 'GameFontHighlight')
-name:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 13, "OUTLINE")
+name:FontTemplate()
 name:SetTextColor(1, 1, 1)
 name:SetPoint('TOPLEFT', t2, 'BOTTOMLEFT', 20, -8)
 
