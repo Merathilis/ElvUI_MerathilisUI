@@ -75,7 +75,7 @@ function MER:GMOTD()
 		gmotd.text = gmotd:CreateFontString(nil, "OVERLAY")
 		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 22, -40)
 		gmotd.text:SetWidth(gmotd:GetRight() - gmotd:GetLeft() - 40)
-		gmotd.text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 10, "OUTLINE")
+		gmotd.text:FontTemplate()
 		gmotd.text:SetTextColor(1, 1, 1)
 		gmotd.text:SetJustifyH("LEFT")
 
