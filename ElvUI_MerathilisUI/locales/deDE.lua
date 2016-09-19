@@ -168,12 +168,6 @@ L['Maw of Souls'] = "Die Helmaulklippen"
 L['Neltharion\'s Lair'] = "Neltharions Hort"
 L['The Arcway'] = "Der Arkus" 
 L['Vault of the Wardens'] = "Das Verlies der Wächterinnen"
-L["Header Title"] = "Kopfzeilen Titel"
-L["Header Title Font"] = "Kopfzeile Titel Schriftart"
-L["Header"] = "Kopfzeile"
-L["Header Font"] = "Kopfzeile Schrifart"
-L["Objective Header"] = "Ziel Kopfzeile"
-L["Objective Header Font"] = "Ziel Kopfzeile Schriftart"
 
 -- Install
 L["Welcome"] = "Willkommen"

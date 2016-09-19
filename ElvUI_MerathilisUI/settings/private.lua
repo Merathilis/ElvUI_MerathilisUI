@@ -12,21 +12,6 @@ V['muiSkins'] = {
 			["enable"] = true,
 			["underlines"] = true,
 			["backdrop"] = true,
-			["headerTitle"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 14,
-				["outline"] = "OUTLINE",
-			},
-			["header"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 14,
-				["outline"] = "OUTLINE",
-			},
-			["objectiveHeader"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
 		},
 		['quest'] = true,
 		['spellbook'] = true,

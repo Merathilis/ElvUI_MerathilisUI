@@ -69,7 +69,7 @@ local function AddMinimizeButton()
 	min:SetPushedTexture('')
 
 	min.minus = min:CreateFontString(nil, 'OVERLAY')
-	min.minus:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 15, nil)
+	min.minus:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, nil)
 	min.minus:SetText('>')
 	min.minus:SetPoint('CENTER')
 	min.minus:SetTextColor(1, 1, 1)
@@ -77,7 +77,7 @@ local function AddMinimizeButton()
 	min.minus:SetShadowColor(0, 0, 0, 1)
 
 	min.plus = min:CreateFontString(nil, 'OVERLAY')
-	min.plus:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 15, nil)
+	min.plus:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, nil)
 	min.plus:SetText('<')
 	min.plus:SetPoint('CENTER')
 	min.plus:SetTextColor(1, 1, 1)
@@ -108,7 +108,7 @@ end
 
 local function AddHeaderTitle()
 	local title = otf.HeaderMenu.Title
-	title:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.headerTitle.font), E.private.muiSkins.blizzard.objectivetracker.headerTitle.size, E.private.muiSkins.blizzard.objectivetracker.headerTitle.outline)
+	title:FontTemplate()
 	title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 	title:ClearAllPoints()
 	title:SetPoint('RIGHT', otf.HeaderMenu.MinimizeButton, 'LEFT', -8, 0)
@@ -120,7 +120,7 @@ local function AddHeader()
 		local module = otf.MODULES[i]
 
 		-- Header font
-		module.Header.Text:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.header.font), E.private.muiSkins.blizzard.objectivetracker.header.size, E.private.muiSkins.blizzard.objectivetracker.header.outline)
+		module.Header.Text:FontTemplate()
 		module.Header.Text:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		module.Header.Text:ClearAllPoints()
 		module.Header.Text:SetPoint('RIGHT', otf.MODULES[i].Header, -10, -2)
@@ -146,7 +146,7 @@ local function AddLines(line, key)
 	local r, g, b = line.Text:GetTextColor()
 	AddTitleSubs(line)
 
-	line.Text:SetFont(STANDARD_TEXT_FONT, key == 0 and 12 or 11)
+	line.Text:FontTemplate()
 	line.Text:SetWidth(key == 0 and width + 21 or width)
 
 	line:SetHeight(line.Text:GetNumLines()*11)
@@ -177,7 +177,7 @@ local function AddObjective(self, block, key)
 
 	if header then
 		local r, g, b = header:GetTextColor()
-		header:SetFont(LSM:Fetch("font", E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.font), E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.size, E.private.muiSkins.blizzard.objectivetracker.objectiveHeader.outline)
+		header:FontTemplate()
 		header:SetShadowOffset(.7, -.7)
 		header:SetShadowColor(0, 0, 0, 1)
 		header:SetJustifyH('LEFT')
@@ -222,7 +222,7 @@ local function AddProgressBar(self, block, line)
 		if v then v:Hide() end
 	end
 
-	bar.Label:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 15, "OUTLINE")
+	bar.Label:FontTemplate()
 	bar.Label:SetShadowOffset(0, -0)
 	bar.Label:SetJustifyH('CENTER')
 	bar.Label:ClearAllPoints()
@@ -254,7 +254,7 @@ local function AddTimerBar(self, block, line, duration, startTime)
 		bar.styled = true
 	end
 
-	bar.Label:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 11, 'THINOUTLINE')
+	bar.Label:FontTemplate()
 	bar.Label:SetShadowOffset(0, -0)
 	bar.Label:ClearAllPoints()
 	bar.Label:SetPoint('CENTER', bar, 'BOTTOM', 1, -2)
@@ -323,7 +323,7 @@ local function AddScenarioButton()
 	block.GlowTexture:SetWidth(width + 20)
 	block.GlowTexture:SetTexture('')
 
-	ScenarioStageBlock.Stage:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 14, nil)
+	ScenarioStageBlock.Stage:FontTemplate()
 	ObjectiveTrackerBonusBannerFrame.Title:SetVertexColor(classColor.r, classColor.g, classColor.b)
 end
 
@@ -339,7 +339,7 @@ local function AddScenarioBar()
 	bar.backdrop:Point("TOPLEFT", bar, -1, 1)
 	bar.backdrop:Point("BOTTOMRIGHT", bar, 1, -1)
 
-	bar.Label:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 15, "OUTLINE")
+	bar.Label:FontTemplate()
 	bar.Label:SetShadowOffset(0, -0)
 	bar.Label:SetJustifyH('CENTER')
 	bar.Label:ClearAllPoints()
@@ -421,7 +421,7 @@ local function AddCriteria(self, num, block)
 		block:SetWidth(width + 50)
 		if line then
 			line.Text:SetWordWrap(true)
-			line.Text:SetFont(LSM:Fetch('font', 'Merathilis Roboto-Black'), 10, nil)
+			line.Text:FontTemplate()
 			line.Text:SetWidth(width+50)
 			line.Text:SetJustifyH('RIGHT')
 
