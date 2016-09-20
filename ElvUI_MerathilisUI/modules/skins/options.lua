@@ -138,29 +138,6 @@ local function SkinsTable()
 				name = L["World Map"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},]]
-			objectivetracker = {
-				order = 16,
-				type = 'group',
-				name = _G["OBJECTIVES_TRACKER_LABEL"],
-				guiInline = true,
-				get = function(info) return E.private.muiSkins.blizzard.objectivetracker[ info[#info] ] end,
-				set = function(info, value) E.private.muiSkins.blizzard.objectivetracker[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
-				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-					},
-					backdrop = {
-						order = 2,
-						type = 'toggle',
-						name = L["Backdrop"],
-						desc = L["Create a transparent backdrop around the header."],
-						disabled = function() return not E.private.muiSkins.blizzard.objectivetracker.enable end,
-					},
-				},
-			},
 			orderhall = {
 				order = 17,
 				type = 'group',

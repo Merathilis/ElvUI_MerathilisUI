@@ -8,11 +8,6 @@ V['muiSkins'] = {
 		['character'] = true,
 		['encounterjournal'] = true,
 		['gossip'] = true,
-		["objectivetracker"] = {
-			["enable"] = true,
-			["underlines"] = true,
-			["backdrop"] = true,
-		},
 		['quest'] = true,
 		['spellbook'] = true,
 		-- ['worldmap'] = true,

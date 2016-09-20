@@ -159,7 +159,6 @@ function MER:Initialize()
 	self:LoadGameMenu()
 	self:LoadGMOTD()
 	self:LoadBossemote()
-	self:LoadObjectiveTracker()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
