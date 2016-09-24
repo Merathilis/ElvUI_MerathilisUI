@@ -20,17 +20,17 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.19|r, xx.09.2016
+local ChangeLogData = [=[|cffff7d0av2.19|r, 24.09.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Add pins to the worldmap. (Shift+ Left-click to add a pin)
  |cffff7d0a•|r Adjust position of BossEmotes.
- |cffff7d0a•|r Add a GroupInfo frame.
- |cffff7d0a•|r More work on the ObjectiveTracker.
+ |cffff7d0a•|r Add a GroupInfo frame. Wich shows additional info's about the raid.
+ |cffff7d0a•|r Remove the skin for the ObjectiveTracker. Had too much trouble with it.
+ |cffff7d0a•|r Massive overhaul of the DPS Layout.
 
 |cffff7d0aNotes:|r
- |cffff7d0a•|r The ObjectiveTracker can cause a taint if you entering combat.It should not be game breaking.
- |cffff7d0a•|r Another taint can occur for the QuestItems in the Tracker. A reload should fix it. (WIP)
+ |cffff7d0a•|r Have fun! :)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

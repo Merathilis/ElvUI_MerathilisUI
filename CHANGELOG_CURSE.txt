@@ -1,8 +1,9 @@
-** v2.19, xx.09.2016**
+** v2.19, 24.09.2016**
 * Add pins to the worldmap. (Shift+ Left-click to add a pin)
 * Adjust position of BossEmotes.
-* Add a GroupInfo frame.
-* More work on the ObjectiveTracker.
+* Add a GroupInfo frame. Wich shows additional info's about the raid.
+* Remove the skin for the ObjectiveTracker. Had too much trouble with it.
+* Massive overhaul of the DPS Layout.
 
 ** v2.18, 15.09.2016**
 * Completly rewrite and overhaul the ObjectiveTracker Skin. (Still WIP)
