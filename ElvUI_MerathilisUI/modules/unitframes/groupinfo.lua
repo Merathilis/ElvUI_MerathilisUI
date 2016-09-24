@@ -142,7 +142,7 @@ MER:AddWatch('|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Healer.t
 	end
 end)
 
-frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, -100)
+frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, 200)
 frame:SetHeight(16)
 frame:SetScript('OnUpdate', update)
 frame:SetScript('OnEnter', enter)
