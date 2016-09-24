@@ -1,4 +1,4 @@
-<b><u> v2.19, xx.09.2016</b></u>
+<b><u> v2.19, 24.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add pins to the worldmap. (Shift+ Left-click to add a pin)
 <font color=#FF8C00>&#9830;</font> Adjust position of BossEmotes.
 <font color=#FF8C00>&#9830;</font> Add a GroupInfo frame. Wich shows additional info's about the raid.
