@@ -594,7 +594,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 				["font"] = "Merathilis Tukui",
 				["justifyH"] = "LEFT",
 				["fontOutline"] = "OUTLINE",
-				["text_format"] = "[name:medium:status]",
+				["text_format"] = "[name:medium]",
 				["size"] = 20,
 				["attachTextTo"] = 'Health',
 				["xOffset"] = 1,
@@ -687,7 +687,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 				["xOffset"] = 4,
 				["yOffset"] = 0,
 				["size"] = 20,
-				["text_format"] = "[name:medium:status]",
+				["text_format"] = "[name:medium]",
 				["attachTextTo"] = "Health",
 			}
 			E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {
