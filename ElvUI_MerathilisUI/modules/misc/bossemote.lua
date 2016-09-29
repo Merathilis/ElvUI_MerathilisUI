@@ -14,11 +14,6 @@ local _G = _G
 RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 
 function MER:Bossemote()
-	RaidWarningFrame:SetWidth(250)
-	RaidWarningFrame:ClearAllPoints()
-	RaidWarningFrame:SetPoint('CENTER', UIParent, 'CENTER', 0, -100)
-	RaidWarningFrame:SetScale(1)
-
 	for i = 1, 2 do
 		local bu = CreateFrame('Frame', 'bossemoteicon'..i, RaidBossEmoteFrame)
 		MERS:BD(bu)
