@@ -44,7 +44,7 @@ end
 
 local result = nil
 local last, alive, c_alive, max = 0, 0, 0, 0
-local update = function(self, elapsed)
+local function update(self, elapsed)
 	last = last + elapsed
 	if last > 1 then
 		last = 0
@@ -78,29 +78,29 @@ local update = function(self, elapsed)
 				end
 			end
 		end
-		if max > 0 then
-			if E.db.mui.unitframes.groupinfo then
+		if E.db.mui.unitframes.groupinfo then
+			if max > 0 then
 				header:Show()
 				header:SetText(UnitInRaid('player') and ('RAID') or ('PARTY'))
 				t:SetFormattedText(alive..'/'..max..L[' alive'])
 				t:Show()
 				frame:SetWidth(t:GetWidth())
+			else
+				header:Hide()
+				t:Hide()
 			end
-		else
-			header:Hide()
-			t:Hide()
-		end
-		if result then
-			t2:SetText(result)
-			t2:Show()
-			frame:SetWidth(t:GetWidth())
-		else
-			t2:Hide()
+			if result then
+				t2:SetText(result)
+				t2:Show()
+				frame:SetWidth(t:GetWidth())
+			else
+				t2:Hide()
+			end
 		end
 	end
 end
 
-local enter = function()
+local function enter()
 	GameTooltip:SetOwner(frame, 'ANCHOR_BOTTOMRIGHT', 50, -15)
 	for name, callback in pairs(watches) do
 		local matches = {}
