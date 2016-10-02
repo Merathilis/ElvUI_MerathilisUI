@@ -130,7 +130,7 @@ local function SetupChat()
 	end
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	E.db["chat"]["panelBackdropNameRight"] = ""
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,22"
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-158,22"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 
 	E:UpdateAll(true)
@@ -300,7 +300,7 @@ function MER:SetupLayout(layout, noDataReset)
 		if layout == "dps" then
 			MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT" ,-3, 278)
 			MER:SetMoverPosition("AltPowerBarMover", "TOP", ElvUIParent, "TOP" ,1, -272)
-			MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -283, 4)
+			MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -2, 4)
 			MER:SetMoverPosition("GMMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 329, 0)
 			MER:SetMoverPosition("BNETMover", "TOP", ElvUIParent, "TOP", 0, -38)
 			MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -495, -457)
