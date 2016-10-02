@@ -35,7 +35,6 @@ P['mui'] = {
 	},
 
 	["unitframes"] = {
-		["groupinfo"] = true,
 		["unit"] = {
 			["player"] = {
 				["rested"] = {
