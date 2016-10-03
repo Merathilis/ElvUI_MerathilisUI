@@ -32,7 +32,7 @@ local function styleOrderhall()
 
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, 2, -5)
-	OrderHallCommandBar:SetWidth(500)
+	OrderHallCommandBar:SetWidth(600)
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
