@@ -76,26 +76,29 @@ end
 
 function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, parent, customWidth, justify)
 	if InCombatLockdown() then return end
+	if not frame.buttons then
+		frame.buttons = {}
+		frame:SetFrameStrata("DIALOG")
+		frame:SetClampedToScreen(true)
+		tinsert(UISpecialFrames, frame:GetName())
+		frame:Hide()
+	end
+	for i=1, #frame.buttons do
+		local btn = frame.buttons[i]
+		btn.UseTooltip = false
+		btn.func = nil
+		btn.secure = nil
+		list[i].TooltipText = nil
+		btn.text:SetText("")
+		btn:Hide()
+	end
 	if not frame:IsShown() then
-		if not frame.buttons then
-			frame.buttons = {}
-			frame:SetFrameStrata("DIALOG")
-			frame:SetClampedToScreen(true)
-			tinsert(UISpecialFrames, frame:GetName())
-			frame:Hide()
-		end
-
 		xOffset = xOffset or 0
 		yOffset = yOffset or 0
 		local TitleCount = 0
 		local AddOffset = 0
 
-		for i=1, #frame.buttons do
-			frame.buttons[i].UseTooltip = false
-			frame.buttons[i]:Hide()
-		end
 		if not parent then FramePoint = "CURSOR" end
-
 		for i=1, #list do
 			frame.buttons[i] = frame.buttons[i] or CreateListButton(frame)
 			local btn = frame.buttons[i]
