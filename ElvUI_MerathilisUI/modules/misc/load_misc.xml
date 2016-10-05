@@ -11,4 +11,5 @@
 	<Script file="moveblizz.lua"/>
 	<Script file="options.lua"/>
 	<Script file="tradeskilltabs.lua"/>
+	<Script file="vignette.lua"/>
 </Ui>
