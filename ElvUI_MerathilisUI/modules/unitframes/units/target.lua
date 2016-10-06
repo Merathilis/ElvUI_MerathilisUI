@@ -51,7 +51,8 @@ function TC:Initialize()
 	classIcon:SetFrameLevel(12)
 	classIcon.Texture = classIcon:CreateTexture(_G["ElvUF_Target"], "ARTWORK")
 	classIcon.Texture:SetAllPoints()
-	classIcon.Texture:SetTexture([[Interface\TargetingFrame\UI-Classes-Circles]])
+	classIcon.Texture:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\classIcons\UI-Classes-Circles]])
+	-- classIcon.Texture:SetTexture([[Interface\TargetingFrame\UI-Classes-Circles]])
 	classIcon.db = E.db.mui.unitframes.unit.target.classicon
 
 	self:ToggleSettings()

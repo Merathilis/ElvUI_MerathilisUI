@@ -47,9 +47,9 @@ P['mui'] = {
 			["target"] = {
 				["classicon"] = {
 					["enable"] = false,
-					["size"] = 14,
-					["xOffset"] = 0,
-					["yOffset"] = -13,
+					["size"] = 22,
+					["xOffset"] = -180,
+					["yOffset"] = 21,
 				},
 			},
 		},
