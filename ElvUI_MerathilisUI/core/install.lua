@@ -1065,7 +1065,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["pet"]["width"] = 122
 			E.db["unitframe"]["units"]["pet"]["height"] = 20
 			E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
-			E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = true
+			E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
 			E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
 			E.db["unitframe"]["units"]["pet"]["orientation"] = "MIDDLE"
 			E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
