@@ -24,7 +24,7 @@ function MUF:ArrangePlayer()
 	-- RestIcon
 	MUF:Configure_RestingIndicator(frame)
 	
-	frame:UpdateAllElements()
+	frame:UpdateAllElements("MerathilisUI_UpdateAllElements")
 end
 
 function MUF:Configure_RestingIndicator(frame)
