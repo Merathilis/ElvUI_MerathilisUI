@@ -1,12 +1,22 @@
 local E, L, V, P, G = unpack(ElvUI)
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local format, gmatch, gsub = string.format, string.match, string.gsub
+local strmatch = strmatch
 -- WoW API / Variables
+local GetItemCooldown = GetItemCooldown
+local GetItemIcon = GetItemIcon
+local GetContainerNumSlots = GetContainerNumSlots
+local GetContainerItemLink = GetContainerItemLink
+local GetContainerItemID = GetContainerItemID
+local HasExtraActionBar = HasExtraActionBar
+local InCombatLockdown = InCombatLockdown
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: GameTooltip
 
 local tooltip = CreateFrame('GameTooltip', 'ArtifactScanner', E.UIParent, 'GameTooltipTemplate')
 tooltip:SetOwner(E.UIParent, 'ANCHOR_NONE')
@@ -17,15 +27,17 @@ button:SetFrameLevel(0)
 button:SetAttribute('type', 'item')
 button:CreateBackdrop('Transparent')
 button:Hide()
+S:HandleButton(button)
 
 button.texture = button:CreateTexture()
 button.texture:SetTexCoord(.1, .9, .1, .9)
 button.texture:SetAllPoints()
+S:HandleIcon(button.texture)
 
 button.cd = CreateFrame('Cooldown', nil, button, 'CooldownFrameTemplate')
 button.cd:SetAllPoints()
 
-button.text = button:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightSmall')
+button.text = button:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
 button.text:SetPoint('RIGHT', button, 'LEFT', -7, 1)
 
 local function cooldown()
@@ -49,8 +61,12 @@ local function show(id, ap)
 	button:ClearAllPoints()
 	button:Show()
 	button.texture:SetTexture(GetItemIcon(id))
-	button.text:SetText(string.format('%d %s'..' +', ap, L['Artifact Power']))
-	button:SetPoint('BOTTOM', _G["BossButton"], 'TOP', 0, 8)
+	button.text:SetText(format('%d %s'..' +', ap, L['Artifact Power']))
+	if _G["ZoneAbilityFrame"]:IsShown() or HasExtraActionBar() then
+		button:SetPoint('BOTTOMRIGHT', _G["ZoneAbility"], 'TOPLEFT', -3, 8)
+	else
+		button:SetPoint('BOTTOM', _G["ZoneAbility"], 'TOP', 0, 8)
+	end
 end
 
 local function scan()
@@ -67,7 +83,7 @@ local function scan()
 					if strmatch(two:GetText(), L['Artifact Power']) then
 						local four = _G[tooltip:GetName()..'TextLeft4']:GetText()
 						four = gsub(four, ',', '')  --  strip BreakUpLargeNumbers
-						local ap = string.match(four, '%d+')
+						local ap = gmatch(four, '%d+')
 						if ap then show(id, ap) break end
 					end
 				end
