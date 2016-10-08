@@ -4,7 +4,7 @@ local S = E:GetModule('Skins')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local format, gmatch, gsub = string.format, string.match, string.gsub
+local format, match, gsub = string.format, string.match, string.gsub
 local strmatch = strmatch
 -- WoW API / Variables
 local GetItemCooldown = GetItemCooldown
@@ -37,9 +37,6 @@ S:HandleIcon(button.texture)
 button.cd = CreateFrame('Cooldown', nil, button, 'CooldownFrameTemplate')
 button.cd:SetAllPoints()
 
-button.text = button:CreateFontString(nil, 'OVERLAY', 'GameFontHighlight')
-button.text:SetPoint('RIGHT', button, 'LEFT', -7, 1)
-
 local function cooldown()
 	if button.id then
 		local start, cd = GetItemCooldown(button.id)
@@ -52,7 +49,6 @@ local function hide()
 	button:SetAttribute('item', nil)
 	button:Hide()
 	button.texture:SetTexture('')
-	button.text:SetText('')
 end
 
 local function show(id, ap)
@@ -61,7 +57,6 @@ local function show(id, ap)
 	button:ClearAllPoints()
 	button:Show()
 	button.texture:SetTexture(GetItemIcon(id))
-	button.text:SetText(format('%d %s'..' +', ap, L['Artifact Power']))
 	if _G["ZoneAbilityFrame"]:IsShown() or HasExtraActionBar() then
 		button:SetPoint('BOTTOMRIGHT', _G["ZoneAbility"], 'TOPLEFT', -3, 8)
 	else
@@ -83,7 +78,7 @@ local function scan()
 					if strmatch(two:GetText(), L['Artifact Power']) then
 						local four = _G[tooltip:GetName()..'TextLeft4']:GetText()
 						four = gsub(four, ',', '')  --  strip BreakUpLargeNumbers
-						local ap = gmatch(four, '%d+')
+						local ap = match(four, '%d+')
 						if ap then show(id, ap) break end
 					end
 				end
