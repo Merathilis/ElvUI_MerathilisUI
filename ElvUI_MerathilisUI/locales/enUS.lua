@@ -15,6 +15,7 @@ L['Enable/Disable the MUI AFK Screen'] = true
 L['SplashScreen'] = true
 L['Enable/Disable the Splash Screen on Login.'] = true
 L['Options'] = true
+
 -- LoginMessage
 L['Enable/Disable the Login Message in Chat'] = true
 
@@ -53,6 +54,9 @@ L['Make some Blizzard Frames movable.'] = true
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
 L['Misc'] = true
+
+-- Misc
+L['Artifact Power'] = true
 
 -- Tooltip
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = true

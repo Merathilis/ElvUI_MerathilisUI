@@ -15,6 +15,7 @@ L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bild
 L['SplashScreen'] = "Startbildschirm"
 L['Enable/Disable the Splash Screen on Login.'] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L['Options'] = "Einstellungen"
+
 -- LoginMessage
 L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
@@ -53,6 +54,9 @@ L['Make some Blizzard Frames movable.'] = "Erlaubt das Verschieben einiger Blizz
 L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
+
+-- Misc
+L['Artifact Power'] = "Artefaktmacht"
 
 -- TooltipIcon
 L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."

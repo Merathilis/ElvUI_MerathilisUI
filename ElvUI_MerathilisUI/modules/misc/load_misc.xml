@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="afk.lua"/>
+	<Script file="artifactItems.lua"/>
 	<Script file="blizzbugs.lua"/>
 	<Script file="bossemote.lua"/>
 	<Script file="flightMode.lua"/>
