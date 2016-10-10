@@ -88,7 +88,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		btn.UseTooltip = false
 		btn.func = nil
 		btn.secure = nil
-		list[i].TooltipText = nil
+		btn.TooltipText = nil
 		btn.text:SetText("")
 		btn:Hide()
 	end
