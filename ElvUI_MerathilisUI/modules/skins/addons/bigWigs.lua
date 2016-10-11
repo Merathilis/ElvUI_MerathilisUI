@@ -14,103 +14,98 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 -- Based on AddOnSkins for BigWigs
 
-local FreeBG = {}
 local BigWigsLoaded
+local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local textureNormal = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Normal"
 
-local buttonsize = 19
+local backdropBorder = {
+	bgFile = "Interface\\Buttons\\WHITE8X8",
+	edgeFile = "Interface\\Buttons\\WHITE8X8",
+	tile = false, tileSize = 0, edgeSize = 1,
+	insets = {left = 0, right = 0, top = 0, bottom = 0}
+}
 
-local CreateBG = function()
-	local BG = CreateFrame('Frame')
-	BG:SetTemplate('Transparent')
-	return BG
+local function createBorder(self)
+	local border = UIParent:CreateTexture(nil, "OVERLAY")
+	border:SetParent(self)
+	border:SetTexture(textureNormal)
+	border:SetWidth(10)
+	border:SetHeight(10)
+	border:SetVertexColor(classColor.r, classColor.g, classColor.b)
+	return border
 end
 
-local function freestyle(bar)
-	local bg = bar:Get("bigwigs:elvui:barbg")
-	if bg then
-		bg:ClearAllPoints()
-		bg:SetParent(UIParent)
-		bg:Hide()
-		FreeBG[#FreeBG + 1] = bg
-	end
+local freeBorderSets = {}
 
-	local ibg = bar:Get("bigwigs:elvui:iconbg")
-	if ibg then
-		ibg:ClearAllPoints()
-		ibg:SetParent(UIParent)
-		ibg:Hide()
-		FreeBG[#FreeBG + 1] = ibg
-	end
-
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame.SetWidth = nil
-	bar.candyBarIconFrame:SetPoint('TOPLEFT')
-	bar.candyBarIconFrame:SetPoint('BOTTOMLEFT')
-
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar.SetPoint = nil
-	bar.candyBarBar:SetPoint("TOPRIGHT")
-	bar.candyBarBar:SetPoint("BOTTOMRIGHT")
-end
-
-local function applystyle(bar)
-	bar:SetHeight(buttonsize)
-
-	local bg
-	if #FreeBG > 0 then
-		bg = tremove(FreeBG)
-	else
-		bg = CreateBG()
-	end
-
-	bg:SetParent(bar)
-	bg:SetFrameStrata(bar:GetFrameStrata())
-	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
-	bg:ClearAllPoints()
-	bg:SetOutside(bar)
-	bg:SetTemplate('Transparent')
-	bg:Show()
-	bar:Set("bigwigs:elvui:barbg", bg)
-
-	if bar.candyBarIconFrame:GetTexture() then
-		local ibg
-		if #FreeBG > 0 then
-			ibg = tremove(FreeBG)
-		else
-			ibg = CreateBG()
+local function freeStyle(bar)
+	local borders = bar:Get("bigwigs:MerathilisUI:borders")
+	if borders then
+		for i, border in next, borders do
+			border:SetParent(UIParent)
+			border:Hide()
 		end
-		ibg:SetParent(bar)
-		ibg:SetFrameStrata(bar:GetFrameStrata())
-		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
-		ibg:ClearAllPoints()
-		ibg:SetOutside(bar.candyBarIconFrame)
-		ibg:SetBackdropColor(0, 0, 0, 0)
-		ibg:Show()
-		bar:Set("bigwigs:elvui:iconbg", ibg)
+		freeBorderSets[#freeBorderSets + 1] = borders
+	end
+end
+
+local function styleBar(bar)
+	local bd = bar.candyBarBackdrop
+
+	bd:SetTemplate('Transparent')
+	bd:SetOutside(bar)
+
+	bd:ClearAllPoints()
+	bd:SetPoint("TOPLEFT", bar, "TOPLEFT", -1, 1)
+	bd:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 1, -1)
+	bd:Show()
+
+	local borders = nil
+	if #freeBorderSets > 0 then
+		borders = tremove(freeBorderSets)
+		for i, border in next, borders do
+			border:SetParent(bar.candyBarBar)
+			border:ClearAllPoints()
+			border:Show()
+		end
+	else
+		borders = {}
+		for i = 1, 8 do
+			borders[i] = createBorder(bar.candyBarBar)
+		end
+	end
+	for i, border in next, borders do
+		if i == 1 then
+			border:SetTexCoord(0, 1/3, 0, 1/3)
+			border:SetPoint("TOPLEFT", -18, 4)
+		elseif i == 2 then
+			border:SetTexCoord(2/3, 1, 0, 1/3)
+			border:SetPoint("TOPRIGHT", 4, 4)
+		elseif i == 3 then
+			border:SetTexCoord(0, 1/3, 2/3, 1)
+			border:SetPoint("BOTTOMLEFT", -18, -4)
+		elseif i == 4 then
+			border:SetTexCoord(2/3, 1, 2/3, 1)
+			border:SetPoint("BOTTOMRIGHT", 4, -4)
+		elseif i == 5 then
+			border:SetTexCoord(1/3, 2/3, 0, 1/3)
+			border:SetPoint("TOPLEFT", borders[1], "TOPRIGHT")
+			border:SetPoint("TOPRIGHT", borders[2], "TOPLEFT")
+		elseif i == 6 then
+			border:SetTexCoord(1/3, 2/3, 2/3, 1)
+			border:SetPoint("BOTTOMLEFT", borders[3], "BOTTOMRIGHT")
+			border:SetPoint("BOTTOMRIGHT", borders[4], "BOTTOMLEFT")
+		elseif i == 7 then
+			border:SetTexCoord(0, 1/3, 1/3, 2/3)
+			border:SetPoint("TOPLEFT", borders[1], "BOTTOMLEFT")
+			border:SetPoint("BOTTOMLEFT", borders[3], "TOPLEFT")
+		elseif i == 8 then
+			border:SetTexCoord(2/3, 1, 1/3, 2/3)
+			border:SetPoint("TOPRIGHT", borders[2], "BOTTOMRIGHT")
+			border:SetPoint("BOTTOMRIGHT", borders[4], "TOPRIGHT")
+		end
 	end
 
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.SetPoint = function() end
-	bar.candyBarBar:SetStatusBarTexture(LSM:Fetch('statusbar', 'MerathilisFlat'))
-	MER:CreateSoftShadow(bar.candyBarBar)
-
-	bar.candyBarBackground:SetTexture(unpack(E['media'].backdropcolor))
-
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
-	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
-	bar.candyBarIconFrame.SetWidth = function() end
-
-	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetJustifyH("LEFT")
-	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
-
-	bar.candyBarDuration:SetJustifyH("RIGHT")
-	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", 2, 0)
-	bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", -2, 0)
+	bar:Set("bigwigs:MerathilisUI:borders", borders)
 end
 
 local function StyleBigWigs(event, addon)
@@ -124,8 +119,8 @@ local function StyleBigWigs(event, addon)
 			apiVersion = 1,
 			version = 1,
 			GetSpacing = function(bar) return 8 end,
-			ApplyStyle = applystyle,
-			BarStopped = freestyle,
+			ApplyStyle = styleBar,
+			BarStopped = freeStyle,
 			GetStyleName = function() return styleName end,
 		})
 		BigWigsBars:SetBarStyle(styleName)
@@ -139,6 +134,18 @@ f:SetScript("OnEvent", function(self, event, addon)
 		if addon == "BigWigs_Plugins" then
 			StyleBigWigs()
 			f:UnregisterEvent("ADDON_LOADED")
+		end
+	end
+	if event == 'PLAYER_ENTERING_WORLD' then
+		if BigWigsLoader then
+			BigWigsLoader.RegisterMessage('ElvUI_MerathilisUI', "BigWigs_FrameCreated", function(event, frame, name)
+				if name == "QueueTimer" then
+					S:HandleStatusBar(frame)
+					frame:ClearAllPoints()
+					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(E.PixelMode and 2 or 4))
+					frame:SetHeight(16)
+				end
+			end)
 		end
 	end
 end)
