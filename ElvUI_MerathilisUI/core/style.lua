@@ -107,4 +107,3 @@ function MER:CreateSoftGlow(f)
 	sglow:SetBackdropBorderColor(MER:unpackColor(E.db.general.valuecolor), 0.4)
 	f.sglow = sglow
 end
-

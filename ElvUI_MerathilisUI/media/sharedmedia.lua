@@ -22,8 +22,6 @@ LSM:Register('statusbar','MerathilisOnePixel', [[Interface\AddOns\ElvUI_Merathil
 LSM:Register('statusbar','MerathilisMelli', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Melli.tga]])
 LSM:Register('statusbar','MerathilisMelliDark', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MelliDark.tga]])
 LSM:Register('statusbar','MerathilisEmpty', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Empty.tga]])
-LSM:Register('statusbar','MerathilisKait1', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Kait1.tga]])
-LSM:Register('statusbar','MerathilisKait2', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Kait2.tga]])
 LSM:Register('statusbar','MerathilisnormTex', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\normTex.tga]])
 LSM:Register('statusbar','Merathilisblank', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\blank.tga]])
 LSM:Register('statusbar','MerathilisDefault', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\default.blp]])
