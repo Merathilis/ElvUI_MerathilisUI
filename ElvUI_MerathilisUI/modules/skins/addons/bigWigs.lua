@@ -1,28 +1,25 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local S = E:GetModule('Skins');
 local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
 -- Lua functions
-local assert, unpack = assert, unpack
+local assert, next, unpack = assert, next, unpack
 local tremove = table.remove
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
--- GLOBALS: UIParent, BigWigs
-
--- Based on AddOnSkins for BigWigs
+-- GLOBALS: UIParent, BigWigs, BigWigsLoader
 
 local BigWigsLoaded
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local textureNormal = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Normal"
 
-local backdropBorder = {
-	bgFile = "Interface\\Buttons\\WHITE8X8",
-	edgeFile = "Interface\\Buttons\\WHITE8X8",
-	tile = false, tileSize = 0, edgeSize = 1,
-	insets = {left = 0, right = 0, top = 0, bottom = 0}
+local backdropbc = {
+	bgFile = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat",
+	insets = {top = 1, left = 1, bottom = 1, right = 1},
 }
 
 local function createBorder(self)
@@ -51,10 +48,13 @@ end
 local function styleBar(bar)
 	local bd = bar.candyBarBackdrop
 
-	bd:SetTemplate('Transparent')
-	bd:SetOutside(bar)
+	bd:SetBackdrop(backdropbc)
+	bd:SetBackdropColor(0, 0, 0, 0.8)
 
+	bd:SetFrameStrata(bar:GetFrameStrata())
+	bd:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bd:ClearAllPoints()
+	bd:SetOutside(bar)
 	bd:SetPoint("TOPLEFT", bar, "TOPLEFT", -1, 1)
 	bd:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 1, -1)
 	bd:Show()
