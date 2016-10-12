@@ -12,6 +12,20 @@ local ipairs = ipairs
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
+local function onLeave()
+	if E.private.muiSkins.blizzard.orderhall.mouseover then
+		E:UIFrameFadeOut(OrderHallCommandBar, 1, OrderHallCommandBar:GetAlpha(), 0)
+	end
+	GameTooltip:Hide()
+end
+
+local function onEnter()
+	if E.private.muiSkins.blizzard.orderhall.mouseover then
+		E:UIFrameFadeIn(OrderHallCommandBar, 1, OrderHallCommandBar:GetAlpha(), 1)
+	end
+	GameTooltip:Show()
+end
+
 local function follower(self)
 	local index = 1
 	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
@@ -33,6 +47,8 @@ local function styleOrderhall()
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, 2, -5)
 	OrderHallCommandBar:SetWidth(600)
+	OrderHallCommandBar:SetScript('OnEnter', onEnter)
+	OrderHallCommandBar:SetScript('OnLeave', onLeave)
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()

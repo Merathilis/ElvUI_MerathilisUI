@@ -14,6 +14,7 @@ V['muiSkins'] = {
 		['orderhall'] = {
 			['enable'] = true,
 			['zoneText'] = true,
+			['mouseover'] = true,
 		},
 	},
 	['addonSkins'] = {
