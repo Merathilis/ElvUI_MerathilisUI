@@ -57,6 +57,12 @@ local function Misc()
 				type = 'toggle',
 				name = L["Bossemote"],
 			},
+			vignette = {
+				order = 9,
+				type = 'toggle',
+				name = L["Vignette"],
+				desc = L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."],
+			},
 		},
 	}
 end

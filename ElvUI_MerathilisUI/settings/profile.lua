@@ -23,6 +23,7 @@ P['mui'] = {
 		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
 		['gmotd'] = true, -- Show a GMOTD frame
 		['bossemote'] = true, -- Show Bossemotes
+		['vignette'] = true, -- Shows Rars/Treasures
 	},
 
 	['systemDT'] = {

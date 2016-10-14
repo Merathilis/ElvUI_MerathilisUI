@@ -18,12 +18,17 @@ local function OnVignetteAdded(self, event, id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
-	RaidNotice_AddMessage(RaidWarningFrame, str..name.." spotted!", ChatTypeInfo["RAID_WARNING"])
+	RaidNotice_AddMessage(RaidWarningFrame, str..name..L[" spotted!"], ChatTypeInfo["RAID_WARNING"])
 
-	MER:Print(str..name,"spotted!")
+	MER:Print(str..name, L[" spotted!"])
 	self.vignettes[id] = true
 end
 
-local eventHandler = CreateFrame("Frame")
-eventHandler:RegisterEvent("VIGNETTE_ADDED")
-eventHandler:SetScript("OnEvent", OnVignetteAdded)
+
+function MER:LoadVignette()
+	if E.db.mui.misc.vignette then
+		local eventHandler = CreateFrame("Frame")
+		eventHandler:RegisterEvent("VIGNETTE_ADDED")
+		eventHandler:SetScript("OnEvent", OnVignetteAdded)
+	end
+end
