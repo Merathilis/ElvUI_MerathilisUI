@@ -15,9 +15,9 @@ local _G = _G
 
 RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 
-local function Bossemote()
+function MER:Bossemote()
 	for i = 1, 2 do
-		local bu = CreateFrame('Frame', 'bossemoteicon'..i, RaidBossEmoteFrame)
+		local bu = CreateFrame('Frame', 'MERbossemoteicon'..i, RaidBossEmoteFrame)
 		MERS:BD(bu)
 		bu:SetSize(20, 20)
 		bu:SetPoint('RIGHT', 'RaidBossEmoteFrameSlot'..i, 'LEFT', 0, i > 1 and 2 or 0)
@@ -43,6 +43,6 @@ end
 
 function MER:LoadBossemote()
 	if E.db.mui.misc.bossemote then
-		Bossemote()
+		self:Bossemote()
 	end
 end
