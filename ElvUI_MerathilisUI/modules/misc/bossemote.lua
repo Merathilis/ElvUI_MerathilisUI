@@ -11,9 +11,11 @@ local _G = _G
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: 
 
+-- Test the Frame: /run RaidNotice_AddMessage( RaidBossEmoteFrame, "This is a TEST of the MESSAGE of EXTREME IMPORTANCE!", ChatTypeInfo["RAID_BOSS_EMOTE"] );
+
 RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 
-function MER:Bossemote()
+local function Bossemote()
 	for i = 1, 2 do
 		local bu = CreateFrame('Frame', 'bossemoteicon'..i, RaidBossEmoteFrame)
 		MERS:BD(bu)
@@ -41,6 +43,6 @@ end
 
 function MER:LoadBossemote()
 	if E.db.mui.misc.bossemote then
-		self:Bossemote()
+		Bossemote()
 	end
 end
