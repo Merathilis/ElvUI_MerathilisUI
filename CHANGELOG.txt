@@ -1,3 +1,16 @@
+<b><u> v2.20, xx.09.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Change the tag for BigName in Player-/TargetFrame.
+<font color=#FF8C00>&#9830;</font> Let the Bossmods handle the RaidWarnigFrame.
+<font color=#FF8C00>&#9830;</font> Delete GroupInfo.
+<font color=#FF8C00>&#9830;</font> Some Layout adjustments.
+<font color=#FF8C00>&#9830;</font> Added a Vignette-Alert (For Rars/Treasures).
+<font color=#FF8C00>&#9830;</font> Updated LocPanel and fix a error in Dropdown.
+<font color=#FF8C00>&#9830;</font> Change the ClassIcon texture for the TargetFrame.
+<font color=#FF8C00>&#9830;</font> Adopted latest oUF changes from ElvUI.
+<font color=#FF8C00>&#9830;</font> Add an own BigWigs Skin.
+<font color=#FF8C00>&#9830;</font> Delte the MasterPlan Skin.
+<font color=#FF8C00>&#9830;</font> Cleanup for BossEmotes.
+
 <b><u> v2.19, 24.09.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Add pins to the worldmap. (Shift+ Left-click to add a pin)
 <font color=#FF8C00>&#9830;</font> Adjust position of BossEmotes.

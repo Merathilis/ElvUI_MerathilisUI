@@ -1,3 +1,17 @@
+** v2.20, xx.09.2016**
+* Change the tag for BigName in Player-/TargetFrame.
+* Let the Bossmods handle the RaidWarnigFrame.
+* Delete GroupInfo.
+* Some Layout adjustments.
+* Added a Vignette-Alert (For Rars/Treasures).
+* Updated LocPanel and fix a error in Dropdown.
+* Change the ClassIcon texture for the TargetFrame.
+* Adopted latest oUF changes from ElvUI.
+* Add an own BigWigs Skin.
+* Delte the MasterPlan Skin.
+* Cleanup for BossEmotes.
+
+
 ** v2.19, 24.09.2016**
 * Add pins to the worldmap. (Shift+ Left-click to add a pin)
 * Adjust position of BossEmotes.

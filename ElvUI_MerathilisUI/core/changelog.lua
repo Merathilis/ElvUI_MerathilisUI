@@ -20,14 +20,20 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.19|r, 24.09.2016
+local ChangeLogData = [=[|cffff7d0av2.20|r, xx.09.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add pins to the worldmap. (Shift+ Left-click to add a pin)
- |cffff7d0a•|r Adjust position of BossEmotes.
- |cffff7d0a•|r Add a GroupInfo frame. Wich shows additional info's about the raid.
- |cffff7d0a•|r Remove the skin for the ObjectiveTracker. Had too much trouble with it.
- |cffff7d0a•|r Massive overhaul of the DPS Layout.
+ |cffff7d0a•|r Change the tag for BigName in Player-/TargetFrame.
+ |cffff7d0a•|r Let the Bossmods handle the RaidWarnigFrame.
+ |cffff7d0a•|r Delete GroupInfo.
+ |cffff7d0a•|r Some Layout adjustments.
+ |cffff7d0a•|r Added a Vignette-Alert (For Rars/Treasures).
+ |cffff7d0a•|r Updated LocPanel and fix a error in Dropdown.
+ |cffff7d0a•|r Change the ClassIcon texture for the TargetFrame.
+ |cffff7d0a•|r Adopted latest oUF changes from ElvUI.
+ |cffff7d0a•|r Add an own BigWigs Skin.
+ |cffff7d0a•|r Delte the MasterPlan Skin.
+ |cffff7d0a•|r Cleanup for BossEmotes.
 
 |cffff7d0aNotes:|r
  |cffff7d0a•|r Have fun! :)
