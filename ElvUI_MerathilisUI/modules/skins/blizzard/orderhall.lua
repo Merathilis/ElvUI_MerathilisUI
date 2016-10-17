@@ -38,10 +38,11 @@ local function styleOrderhall()
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
+	OrderHallCommandBar.CurrencyHitTest:Hide()
 
 	if E.private.muiSkins.blizzard.orderhall.zoneText then
 		OrderHallCommandBar.AreaName:ClearAllPoints()
-		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0,0)
+		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
 		OrderHallCommandBar.AreaName:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
 		OrderHallCommandBar.AreaName:SetWordWrap(true)
 	else
