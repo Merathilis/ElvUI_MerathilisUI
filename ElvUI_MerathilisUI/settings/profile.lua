@@ -41,15 +41,15 @@ P['mui'] = {
 				["rested"] = {
 					["xoffset"] = 0,
 					["yoffset"] = 0,
-					["size"] = 22,
+					["size"] = 16,
 					["texture"] = "DEFAULT",
 				},
 			},
 			["target"] = {
 				["classicon"] = {
 					["enable"] = false,
-					["size"] = 22,
-					["xOffset"] = -180,
+					["size"] = 16,
+					["xOffset"] = -88,
 					["yOffset"] = 21,
 				},
 			},

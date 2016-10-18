@@ -48,7 +48,7 @@ end
 
 function TC:Initialize()
 	classIcon = CreateFrame("Frame", "TargetClass", _G["ElvUF_Target"])
-	classIcon:SetFrameLevel(12)
+	classIcon:SetFrameLevel(100)
 	classIcon.Texture = classIcon:CreateTexture(_G["ElvUF_Target"], "ARTWORK")
 	classIcon.Texture:SetAllPoints()
 	classIcon.Texture:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\classIcons\UI-Classes-Circles]])
