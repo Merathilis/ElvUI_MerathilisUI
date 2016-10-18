@@ -51,7 +51,6 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("taintLog", 0)
-	SetCVar("TargetPriorityAllowAnyOnScreen", 0)
 	SetCVar("Targetnearestuseold", 1)
 	SetCVar("screenshotQuality", 10)
 	SetCVar("scriptErrors", 1)
@@ -257,7 +256,6 @@ function MER:SetupLayout(layout, noDataReset)
 		E.db["bags"]["moneyFormat"] = "CONDENSED"
 		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
-		E.db["bags"]["useTooltipScanning"] = true
 		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
 		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
 
