@@ -9,7 +9,6 @@ local twipe = table.wipe
 local format = string.format
 local join = string.join
 -- WoW API / Variables
-local GetActiveSpecGroup = GetActiveSpecGroup
 local GetNumEquipmentSets = GetNumEquipmentSets
 local GetSpecialization = GetSpecialization
 local GetEquipmentSetInfo = GetEquipmentSetInfo
@@ -86,7 +85,7 @@ local function OnEvent(self, event)
 		return
 	end
 
-	active = GetActiveSpecGroup()
+	active = GetSpecialization()
 
 	local talent, loot = '', ''
 	local i = GetSpecialization(false, false, active)
