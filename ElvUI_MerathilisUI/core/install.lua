@@ -2174,6 +2174,7 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
 			E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
 			E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["texture"] = "SVUI"
+			E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["size"] = 16
 			E.db["sle"]["minimap"]["instance"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["minimap"]["coords"]["display"] = "MOUSEOVER"
 			E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
