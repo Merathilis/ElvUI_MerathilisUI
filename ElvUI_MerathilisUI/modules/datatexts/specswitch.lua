@@ -88,7 +88,7 @@ local function OnEvent(self)
 	if specialization == 0 then
 		local specIndex = GetSpecialization();
 		if specIndex then
-			local specID, _, _, texture = GetSpecializationInfo(specIndex);
+			local _, _, _, texture = GetSpecializationInfo(specIndex);
 			if texture then
 				loot = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
 			else
@@ -114,7 +114,7 @@ local function OnEnter(self)
 		DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SPECIALIZATION))
 		for i = 1, GetNumSpecGroups() do
 			if GetSpecialization(false, false, i) then
-				local specID, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
+				local _, name, _, texture = GetSpecializationInfo(GetSpecialization(false, false, i));
 				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
 				DT.tooltip:AddDoubleLine( format("%s %s", icon, name), ( i == active and activeString or inactiveString) )
 			end
@@ -124,7 +124,7 @@ local function OnEnter(self)
 		if specialization == 0 then
 			local specIndex = GetSpecialization();
 			if specIndex then
-				local specID, name, _, texture = GetSpecializationInfo(specIndex);
+				local _, name, _, texture = GetSpecializationInfo(specIndex);
 				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
 				DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SELECT_LOOT_SPECIALIZATION))
 				DT.tooltip:AddLine(format(join("", "%s ", LOOT_SPECIALIZATION_DEFAULT), icon, name))
@@ -185,7 +185,7 @@ local function OnClick(_, button)
 		end
 	else
 		DT.tooltip:Hide()
-		local specID, specName, _, texture = GetSpecializationInfo(specIndex);
+		local _, specName, _, texture = GetSpecializationInfo(specIndex);
 		local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
 		menuList[1].text = join("", icon, " ", format(LOOT_SPECIALIZATION_DEFAULT, specName));
 		menuList[1].notCheckable = false
