@@ -12,7 +12,7 @@ local ipairs = ipairs
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
-local function follower(self)
+local function follower()
 	local index = 1
 	for i, child in ipairs({OrderHallCommandBar:GetChildren()}) do
 		if child.Icon and child.Count and child.TroopPortraitCover then

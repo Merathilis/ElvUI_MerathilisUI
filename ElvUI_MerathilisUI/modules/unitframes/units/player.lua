@@ -6,24 +6,21 @@ local UF = E:GetModule('UnitFrames');
 -- Lua functions
 local _G = _G
 -- WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
 function MUF:Construct_PlayerFrame()
-	local frame = _G["ElvUF_Player"]
 
 	self:ArrangePlayer()
 end
 
 function MUF:ArrangePlayer()
 	local frame = _G["ElvUF_Player"]
-	local db = E.db['unitframe']['units'].player
 
 	-- RestIcon
 	MUF:Configure_RestingIndicator(frame)
-	
+
 	frame:UpdateAllElements("MerathilisUI_UpdateAllElements")
 end
 

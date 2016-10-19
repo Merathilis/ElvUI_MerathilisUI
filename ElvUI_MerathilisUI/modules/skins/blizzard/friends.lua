@@ -28,7 +28,7 @@ local function ColoringFriendsList()
 	if not friendOffset then return end
 	if friendOffset < 0 then friendOffset = 0 end
 	local button = "FriendsFrameFriendsScrollFrameButton"
-	local numBNetTotal, numBNetOnline = BNGetNumFriends()
+	local _, numBNetOnline = BNGetNumFriends()
 	if numBNetOnline > 0 then
 		for i = 1, numBNetOnline, 1 do
 			local _, realName, _, _, toonName, toonID, client, _, _, _, _, _, _, _, _ = BNGetFriendInfo(i)
@@ -38,12 +38,10 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_D3 then -- Diablo 3
@@ -52,12 +50,10 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_HEROES then -- Heroes of the Storm
@@ -66,12 +62,10 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_WTCG then -- Hearthstone
@@ -80,12 +74,10 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_OVERWATCH then -- Overwatch
@@ -94,12 +86,10 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_SC2 then -- StarCraft 2
@@ -108,16 +98,14 @@ local function ColoringFriendsList()
 				local nameString = _G[button .. (i - friendOffset) .. "Name"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				local nameString = _G[button .. (i - friendOffset) .. "Info"]
 				if nameString then
 					nameString:SetTextColor(125/255,133/255,138/255)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 			if client == BNET_CLIENT_WOW then -- World of Warcraft
-				local _, _, _, realmName, _, faction, race, class, _, zoneName, level, _ = BNGetGameAccountInfo(toonID)
+				local _, _, _, realmName, _, faction, _, class, _, zoneName, level, _ = BNGetGameAccountInfo(toonID)
 				for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
 					if class == v then class = k end
 				end
@@ -137,7 +125,6 @@ local function ColoringFriendsList()
 					nameString:SetTextColor(classc.r, classc.g, classc.b)
 					nameString:SetText("|cFF82C4FC" .. realName .. "|r |cFFFFFFFF(|r" .. toonName .. "|cFFFFFFFF - " .. LEVEL .. "|r " .. Diff .. level .. "|r|cFFFFFFFF)|r")
 					icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\]] .. faction)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 				if CanCooperateWithGameAccount(toonID) ~= true then
 					local nameString = _G[button .. (i - friendOffset) .. "Info"]
@@ -150,17 +137,16 @@ local function ColoringFriendsList()
 						else
 							nameString:SetText(zoneName .. " (" .. realmName .. ")")
 						end
-						local filename, fontHeight, flags = nameString:GetFont()
 					end
 				end
 			end
 		end
 	end
-	local numberOfFriends, onlineFriends = GetNumFriends()
+	local onlineFriends = GetNumFriends()
 	if onlineFriends > 0 then
 		for i = 1, onlineFriends, 1 do
 			j = i + numBNetOnline
-			local name, level, class, area, connected, status, note, RAF = GetFriendInfo(i)
+			local name, level, class, _, connected = GetFriendInfo(i)
 			for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
 				if class == v then class = k end
 			end
@@ -178,7 +164,6 @@ local function ColoringFriendsList()
 				if(nameString and name) then
 					nameString:SetText(name .. "|cFFFFFFFF - " .. LEVEL .. "|r " .. Diff .. level)
 					nameString:SetTextColor(classc.r, classc.g, classc.b)
-					local filename, fontHeight, flags = nameString:GetFont()
 				end
 			end
 		end

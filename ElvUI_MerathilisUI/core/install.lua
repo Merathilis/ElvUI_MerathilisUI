@@ -4,9 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local print, tonumber, unpack = print, tonumber, unpack
 local format = format
-local ceil = ceil
 -- WoW API / Variables
 local ADDONS = ADDONS
 local FCF_DockFrame = FCF_DockFrame
@@ -29,7 +27,6 @@ local TRADE = TRADE
 -- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local factionGroup = UnitFactionGroup("player")
 
 function E:GetColor(r, b, g, a)
 	return { r = r, b = b, g = g, a = a }
@@ -1673,7 +1670,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 	E:UpdateAll(true)
 end
 
-function MER:SetupDts(role)
+function MER:SetupDts()
 	--[[----------------------------------
 	--	ProfileDB - Datatexts
 	--]]----------------------------------
@@ -2331,7 +2328,7 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your datatexts."])
 			PluginInstallFrame.Desc3:SetText(L['Importance: |cffD3CF00Medium|r'])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts('role') end)
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupDts() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
 		[6] = function()

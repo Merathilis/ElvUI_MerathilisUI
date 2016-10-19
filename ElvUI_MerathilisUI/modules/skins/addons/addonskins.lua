@@ -6,7 +6,6 @@ local AS = unpack(AddOnSkins)
 -- Lua functions
 local select, unpack = select, unpack
 -- WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
 
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",

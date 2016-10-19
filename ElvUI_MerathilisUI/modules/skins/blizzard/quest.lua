@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
@@ -98,7 +97,7 @@ local function styleQuest()
 	if (QuestInfoRewardsFrame.spellHeaderPool) then
 		for _, pool in pairs({"followerRewardPool", "spellRewardPool"}) do
 			QuestInfoRewardsFrame[pool]._acquire = QuestInfoRewardsFrame[pool].Acquire;
-			QuestInfoRewardsFrame[pool].Acquire = function(self)
+			QuestInfoRewardsFrame[pool].Acquire = function()
 				local frame = QuestInfoRewardsFrame[pool]:_acquire();
 				frame.Name:SetTextColor(1, 1, 1);
 				return frame;
@@ -112,7 +111,7 @@ local function styleQuest()
 		end
 	end
 
-	hooksecurefunc('QuestInfo_Display', function(template, parentFrame, acceptButton, material)
+	hooksecurefunc('QuestInfo_Display', function()
 		QuestInfoTitleHeader:SetTextColor(1, 1, 0)
 		QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
 		QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
@@ -163,7 +162,7 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, addon)
+f:SetScript("OnEvent", function(self, _, addon)
 	if addon == "ElvUI_MerathilisUI" then
 		E:Delay(1, styleQuest)
 		self:UnregisterEvent("ADDON_LOADED")

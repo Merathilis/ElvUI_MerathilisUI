@@ -43,7 +43,6 @@ local percentageString = "%.2f%%"
 local homeLatencyString = "%d ms"
 local kiloByteString = "%d kb"
 local megaByteString = "%.2f mb"
-local freedString = ""
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -180,7 +179,7 @@ local function OnEnter(self)
 	DT.tooltip:Show()
 end
 
-local function OnLeave(self)
+local function OnLeave()
 	enteredFrame = false
 	DT.tooltip:Hide()
 end

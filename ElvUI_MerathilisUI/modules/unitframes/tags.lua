@@ -9,11 +9,7 @@ assert(ElvUF, "ElvUI was unable to locate oUF.")
 local format = string.format
 local assert = assert
 -- WoW API / Variables
-local DEAD = DEAD
-local GetNumGroupMembers = GetNumGroupMembers
-local IsInGroup, IsInRaid = IsInGroup, IsInRaid
 local UnitClass = UnitClass
-local UnitIsDead, UnitIsGhost, UnitIsConnected, UnitIsUnit = UnitIsDead, UnitIsGhost, UnitIsConnected, UnitIsUnit
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 
 -- GLOBALS: Hex, _COLORS

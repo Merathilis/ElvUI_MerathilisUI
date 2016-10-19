@@ -2,9 +2,8 @@ local E, L, V, P, G = unpack(ElvUI);
 
 -- Cache global variables
 -- Lua functions
-local find, format, sub = string.find, string.format, string.sub
+local find, format = string.find, string.format
 local select = select
-local date = date
 -- WoW API / Variables
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
 local GetAchievementInfo = GetAchievementInfo
@@ -110,7 +109,7 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self, event)
+f:SetScript("OnEvent", function(_, event)
 	if E.db.mui.misc.Tooltip ~= true then return; end
 	if event == "PLAYER_ENTERING_WORLD" then
 		hooksecurefunc(GameTooltip, "SetHyperlink", SetHyperlink)

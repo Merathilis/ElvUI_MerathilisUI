@@ -46,11 +46,11 @@ local function Hex(r, g, b)
 	if type(r) == "table" then
 		if (r.r) then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
 	end
-	
+
 	if not r or not g or not b then
 		r, g, b = 1, 1, 1
 	end
-	
+
 	return format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
 end
 
@@ -62,7 +62,7 @@ local function ColorGradient(perc, ...)
 		local r, g, b = ...
 		return r, g, b
 	end
-	
+
 	local num = select("#", ...) / 3
 	
 	local segment, relperc = modf(perc * (num - 1))
@@ -127,19 +127,18 @@ end
 -- WhoList
 hooksecurefunc("WhoList_Update", function()
 	local whoOffset = _G["FauxScrollFrame_GetOffset"](_G["WhoListScrollFrame"])
-	
+
 	local playerZone = GetRealZoneText()
 	local playerGuild = GetGuildInfo("player")
 	local playerRace = UnitRace("player")
-	
+
 	for i = 1, _G["WHOS_TO_DISPLAY"], 1 do
 		local index = whoOffset + i
 		local nameText = _G["WhoFrameButton"..i.."Name"]
 		local levelText = _G["WhoFrameButton"..i.."Level"]
-		local classText = _G["WhoFrameButton"..i.."Class"]
 		local variableText = _G["WhoFrameButton"..i.."Variable"]
-		
-		local name, guild, level, race, class, zone, classFileName = GetWhoInfo(index)
+
+		local name, guild, level, race, _, zone, classFileName = GetWhoInfo(index)
 		if name then
 			if zone == playerZone then
 				zone = "|cff00ff00"..zone
@@ -151,7 +150,7 @@ hooksecurefunc("WhoList_Update", function()
 				race = "|cff00ff00"..race
 			end
 			local columnTable = {zone, guild, race}
-			
+
 			local c = classColorRaw[classFileName]
 			nameText:SetTextColor(c.r, c.g, c.b)
 			levelText:SetText(diffColor[level]..level)
@@ -163,7 +162,7 @@ end)
 -- LFRBrowseList
 hooksecurefunc("LFRBrowseFrameListButton_SetData", function(button, index)
 	local name, level, _, className, _, _, _, class = SearchLFGGetResults(index)
-	
+
 	if index and class and name and level then
 		button.name:SetText(classColor[class]..name)
 		button.class:SetText(classColor[class]..className)
@@ -176,18 +175,18 @@ end)
 hooksecurefunc("WorldStateScoreFrame_Update", function()
 	local inArena = IsActiveBattlefieldArena()
 	local offset = _G["FauxScrollFrame_GetOffset"](_G["WorldStateScoreScrollFrame"])
-	
+
 	for i = 1, MAX_WORLDSTATE_SCORE_BUTTONS do
 		local index = offset + i
 		local name, _, _, _, _, faction, _, _, class = GetBattlefieldScore(index)
 		if name then
 			local n, r = strsplit("-", name, 2)
 			n = classColor[class]..n.."|r"
-			
+
 			if name == myName then
 				n = ">>> "..n.." <<<"
 			end
-			
+
 			if r then
 				local color
 				if inArena then
@@ -206,7 +205,7 @@ hooksecurefunc("WorldStateScoreFrame_Update", function()
 				r = color..r.."|r"
 				n = n.."|cffffffff - |r"..r
 			end
-			
+
 			local button = _G["WorldStateScoreButton"..i]
 			button.name.text:SetText(n)
 		end
@@ -224,7 +223,7 @@ local function update()
 	_VIEW = _VIEW or GetCVar("guildRosterView")
 	local playerArea = GetRealZoneText()
 	local buttons = _G["GuildRosterContainer"].buttons
-	
+
 	for i, button in ipairs(buttons) do
 		if button:IsShown() and button.online and button.guildIndex then
 			if _VIEW == "tradeskill" then

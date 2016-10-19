@@ -1,9 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
-local DisableAddOn = DisableAddOn
-local ReloadUI = ReloadUI
-
 -- MerathilisUI Credits
 StaticPopupDialogs["MERATHILISUI_CREDITS"] = {
 	text = MER.Title,

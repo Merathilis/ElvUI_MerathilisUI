@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local DT = E:GetModule('DataTexts')
-
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -24,26 +23,22 @@ local LOOT_SPECIALIZATION_DEFAULT = LOOT_SPECIALIZATION_DEFAULT
 local InCombatLockdown = InCombatLockdown
 local IsShiftKeyDown = IsShiftKeyDown
 local LoadAddOn = LoadAddOn
-
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LOOT, SPECIALIZATION, EasyMenu, SpecButton_OnClick, PlayerTalentFrame
 -- GLOBALS: PlayerTalentFrameSpecializationLearnButton, ShowUIPanel, HideUIPanel
 -- GLOBALS: StaticPopup_Show
 
 local lastPanel, active
-local displayString = '';
-local talent = {}
 local activeString = join("", "|cff00FF00" , ACTIVE_PETS, "|r")
 local inactiveString = join("", "|cffFF0000", FACTION_INACTIVE, "|r")
-
 local menuFrame = CreateFrame("Frame", "LootSpecializationDatatextClickMenu", E.UIParent, "UIDropDownMenuTemplate")
 
-local function specializationClick(self, specialization)
+local function specializationClick(_, specialization)
 	_G["CloseDropDownMenus"]()
 	SetLootSpecialization(specialization)
 end
 
-local function setClick(self,set)
+local function setClick(_, set)
 	_G["CloseDropDownMenus"]()
 	UseEquipmentSet(set)
 end
@@ -55,7 +50,6 @@ local menuList = {
 	{ notCheckable = false },
 	{ notCheckable = false }
 }
-
 local specList = {
 	{ text = SPECIALIZATION, isTitle = true, notCheckable = true },
 	{ notCheckable = true },
@@ -63,9 +57,7 @@ local specList = {
 	{ notCheckable = true },
 	{ notCheckable = true },
 }
-
 local setList = {}
-
 local menu = {
 	{ text = OPTIONS_MENU, isTitle = true, notCheckable = true},
 	{ text = SELECT_LOOT_SPECIALIZATION, hasArrow = true, notCheckable = true,
@@ -76,17 +68,14 @@ local menu = {
 	},
 }
 
-local function OnEvent(self, event)
+local function OnEvent(self)
 	lastPanel = self
-
 	local specIndex = GetSpecialization();
 	if not specIndex then
 		self.text:SetText('N/A')
 		return
 	end
-
 	active = GetSpecialization()
-
 	local talent, loot = '', ''
 	local i = GetSpecialization(false, false, active)
 	if i then
@@ -95,11 +84,9 @@ local function OnEvent(self, event)
 			talent = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', i)
 		end
 	end
-
 	local specialization = GetLootSpecialization()
 	if specialization == 0 then
 		local specIndex = GetSpecialization();
-
 		if specIndex then
 			local specID, _, _, texture = GetSpecializationInfo(specIndex);
 			if texture then
@@ -118,14 +105,12 @@ local function OnEvent(self, event)
 			loot = 'N/A'
 		end
 	end
-
 	self.text:SetFormattedText('%s: %s %s: %s', L["Spec"], talent, LOOT, loot)
 end
 
 local function OnEnter(self)
 	if not InCombatLockdown() then
 		DT:SetupTooltip(self)
-
 		DT.tooltip:AddLine(format('|cffFFFFFF%s:|r', SPECIALIZATION))
 		for i = 1, GetNumSpecGroups() do
 			if GetSpecialization(false, false, i) then
@@ -134,12 +119,10 @@ local function OnEnter(self)
 				DT.tooltip:AddDoubleLine( format("%s %s", icon, name), ( i == active and activeString or inactiveString) )
 			end
 		end
-
 		DT.tooltip:AddLine(' ')
 		local specialization = GetLootSpecialization()
 		if specialization == 0 then
 			local specIndex = GetSpecialization();
-
 			if specIndex then
 				local specID, name, _, texture = GetSpecializationInfo(specIndex);
 				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture)
@@ -154,7 +137,6 @@ local function OnEnter(self)
 				DT.tooltip:AddLine(format('%s %s', icon, name))
 			end
 		end
-
 		if GetNumEquipmentSets() > 0 then
 			DT.tooltip:AddLine(' ')
 			DT.tooltip:AddLine(join("", "|cffFFFFFF" , _G.BAG_FILTER_EQUIPMENT, ":|r"))
@@ -164,31 +146,25 @@ local function OnEnter(self)
 				local icon = format('|T%s:14:14:0:0:64:64:4:60:4:60|t', texture or "")
 				DT.tooltip:AddDoubleLine(format('%s %s', icon, name), (isEquipped and activeString or inactiveString))
 			end
-
 		end
-
 		DT.tooltip:AddLine(' ')
 		DT.tooltip:AddLine(L["|cffFFFFFFLeft Click:|r Change Talent Specialization"])
 		DT.tooltip:AddLine(L["|cffFFFFFFShift + Click:|r Show Talent Specialization UI"]) -- should be translated in ElvUI
 		DT.tooltip:AddLine(L["|cffFFFFFFRight Click:|r Change Loot Specialization"])
-
 		DT.tooltip:Show()
 	end
 end
 
-local function OnClick(self, button)
+local function OnClick(_, button)
 	local lootSpecialization = GetLootSpecialization()
 	_G["lootSpecializationName"] = select(2,GetSpecializationInfoByID(lootSpecialization))
-
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
-
 	if button == "LeftButton" then
 		DT.tooltip:Hide()
 		if not PlayerTalentFrame then
 			LoadAddOn("Blizzard_TalentUI")
 		end
-
 		if IsShiftKeyDown() then 
 			if not PlayerTalentFrame:IsShown() then
 				ShowUIPanel(PlayerTalentFrame)
@@ -214,7 +190,6 @@ local function OnClick(self, button)
 		menuList[1].text = join("", icon, " ", format(LOOT_SPECIALIZATION_DEFAULT, specName));
 		menuList[1].notCheckable = false
 		menuList[1].checked = (lootSpecialization == 0 and true or false)
-
 		for index = 1, 4 do
 			local id, name, _, texture = GetSpecializationInfo(index);
 			if ( id ) then
@@ -228,7 +203,6 @@ local function OnClick(self, button)
 				menuList[index + 1] = nil
 			end
 		end
-
 		twipe(setList)
 		if (GetNumEquipmentSets() >= 1) then 
 			for i = 1, GetNumEquipmentSets() do
@@ -243,18 +217,15 @@ local function OnClick(self, button)
 				setList[i].arg1 = name
 			end
 		end
-
 		EasyMenu(menu, menuFrame, "cursor", 0, 0, "MENU", 2)
 	end
 end
 
-local function ValueColorUpdate(hex, r, g, b)
-	displayString = join("", "|cffFFFFFF%s:|r ")
-	
+local function ValueColorUpdate()
 	if lastPanel ~= nil then
 		OnEvent(lastPanel)
 	end
 end
-E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 
+E['valueColorUpdateFuncs'][ValueColorUpdate] = true
 DT:RegisterDatatext('MUI Talent/Loot Specialization',{"PLAYER_ENTERING_WORLD", "CHARACTER_POINTS_CHANGED", "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", 'PLAYER_LOOT_SPEC_UPDATED'}, OnEvent, nil, OnClick, OnEnter)

@@ -11,9 +11,7 @@ local GameMenuFrame = _G["GameMenuFrame"]
 local CreateFrame = CreateFrame
 local CreateAnimationGroup = CreateAnimationGroup
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
-local PlaySound = PlaySound
 local UIFrameFadeIn = UIFrameFadeIn
-local HideUIPanel = HideUIPanel
 local IsAddOnLoaded = IsAddOnLoaded
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script

@@ -1,6 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
@@ -34,7 +33,7 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, addon)
+f:SetScript("OnEvent", function(self, _, addon)
 	if addon == "Blizzard_EncounterJournal" then
 		styleEncounterJournal()
 		self:UnregisterEvent("ADDON_LOADED")

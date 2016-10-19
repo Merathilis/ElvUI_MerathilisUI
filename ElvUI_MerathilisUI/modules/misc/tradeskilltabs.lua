@@ -67,7 +67,7 @@ local function updateTabs()
 	local _, class = UnitClass("player")
 	if class == "DEATHKNIGHT" and isUseable(53428) then mainTabs[1] = 53428 elseif class == "ROGUE" and isUseable(1804) then subTabs[1] = 1804 end
 
-	local prof1, prof2, arch, fishing, cooking, firstaid = GetProfessions()
+	local prof1, prof2, cooking, firstaid = GetProfessions()
 	local profs = {prof1, prof2, cooking, firstaid}
 	for _, prof in pairs(profs) do
 		local num, offset, _, _, _, spec = select(5, GetProfessionInfo(prof))
@@ -114,7 +114,7 @@ C_TradeSkillUI.GetRecipeLink = function(link)
 end
 
 -- Initalizise
-f:SetScript("OnEvent", function(self, event, ...)
+f:SetScript("OnEvent", function(self, event)
 	if E.db.mui.misc.tradeTabs ~= true then return end
 	if (event == "TRADE_SKILL_LIST_UPDATE") then
 		if TradeSkillFrame and TradeSkillFrame.RecipeList then

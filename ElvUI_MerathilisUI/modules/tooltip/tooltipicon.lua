@@ -4,7 +4,7 @@ local E, L, V, P, G = unpack(ElvUI);
 -- Lua functions
 local _G = _G
 local select, type = select, type
-local find, strmatch = string.find, string.match
+local strmatch = string.match
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -13,7 +13,7 @@ local GetSpellInfo = GetSpellInfo
 
 local function AddIcon(self, icon)
 	if E.db.mui.misc.Tooltip ~= true then return; end
-	
+
 	if icon then
 		local title = _G[self:GetName() .. "TextLeft1"]
 		if title and not title:GetText():find("|T" .. icon) then
@@ -24,9 +24,9 @@ end
 
 -- Icon for Items
 local function hookItem(tip)
-	tip:HookScript("OnTooltipSetItem", function(self, ...)
-		
-		local name, link = self:GetItem()
+	tip:HookScript("OnTooltipSetItem", function(self)
+
+		local link = self:GetItem()
 		local icon = link and GetItemIcon(link)
 		AddIcon(self, icon)
 	end)
@@ -38,8 +38,8 @@ hookItem(ShoppingTooltip2)
 
 -- Icon for Spells
 local function hookSpell(tip)
-	tip:HookScript("OnTooltipSetSpell", function(self, ...)
-		
+	tip:HookScript("OnTooltipSetSpell", function(self)
+
 		local _, _, id = self:GetSpell()
 		if id then
 			AddIcon(self, select(3, GetSpellInfo(id)))
@@ -51,18 +51,17 @@ hookSpell(ItemRefTooltip)
 
 -- Icon for Achievements (only GameTooltip)
 hooksecurefunc(GameTooltip, "SetHyperlink", function(self, link)
-	
 	if type(link) ~= "string" then return end
 	local linkType, id = strmatch(link, "^([^:]+):(%d+)")
 	if linkType == "achievement" then
-		local id, name, _, accountCompleted, month, day, year, _, _, icon, _, isGuild, characterCompleted, whoCompleted = GetAchievementInfo(id)
+		local _, _, _, _, _, _, _, _, _, icon, _, _, _, _ = GetAchievementInfo(id)
 		AddIcon(self, icon)
 	end
 end)
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self, event)
+f:SetScript("OnEvent", function(_, event)
 	if event == "PLAYER_ENTERING_WORLD" then
 		AddIcon()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")

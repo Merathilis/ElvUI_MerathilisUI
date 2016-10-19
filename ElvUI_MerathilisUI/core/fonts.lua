@@ -1,5 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 local LSM = LibStub('LibSharedMedia-3.0')
 
 -- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline
@@ -31,10 +30,8 @@ function E:UpdateBlizzardFonts()
 	local NORMAL		= self["media"].normFont
 	local COMBAT		= LSM:Fetch('font', self.private.general.dmgfont)
 	local NUMBER		= self["media"].normFont
-	local NAMEFONT		= LSM:Fetch('font', self.private.general.namefont)
 	local MONOCHROME	= ''
 	local SHADOWCOLOR	= 0, 0, 0, .4	-- add alpha for shadows
-	local NO_OFFSET		= 0, 0
 	local NORMALOFFSET	= 1.25, -1.25	-- shadow offset for small fonts
 	local BIGOFFSET		= 2, -2 		-- shadow offset for large fonts
 

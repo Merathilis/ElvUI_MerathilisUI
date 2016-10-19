@@ -23,7 +23,6 @@ local GetSubZoneText = GetSubZoneText
 local GetZonePVPInfo = GetZonePVPInfo
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
-local HOME = HOME
 local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
@@ -40,9 +39,6 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 --GLOBALS: HSplace
 
 local loc_panel
-local COORDS_WIDTH = 35 -- Coord panels width
-
-local cluster = _G["MinimapCluster"]
 local faction
 
 LP.CDformats = {
@@ -63,7 +59,7 @@ LP.MainMenu = {}
 LP.SecondaryMenu = {}
 
 local function GetDirection()
-	local x, y = _G["MER_LocPanel"]:GetCenter()
+	local y = _G["MER_LocPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
 	local anchor, point = "TOP", "BOTTOM"
 	if y and y < (screenHeight / 2) then

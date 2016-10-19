@@ -3,11 +3,9 @@ local E, L, V, P, G = unpack(ElvUI);
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local tostring, select = tostring, select
+local select = select
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetCVar = GetCVar
-local SetCVar = SetCVar
 local GetBattlefieldStatus = GetBattlefieldStatus
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetLFGDungeonRewards = GetLFGDungeonRewards
@@ -20,7 +18,7 @@ local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit
 
 -- Force readycheck warning
-local ShowReadyCheckHook = function(self, initiator)
+local ShowReadyCheckHook = function(_, initiator)
 	if initiator ~= "player" then
 		PlaySound("ReadyCheck", "Master")
 	end
@@ -33,7 +31,7 @@ ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
 ForceWarning:RegisterEvent("RESURRECT_REQUEST")
-ForceWarning:SetScript("OnEvent", function(self, event)
+ForceWarning:SetScript("OnEvent", function(_, event)
 	if event == "UPDATE_BATTLEFIELD_STATUS" then
 		for i = 1, GetMaxBattlefieldID() do
 			local status = GetBattlefieldStatus(i)
@@ -82,7 +80,7 @@ end)
 -- Force quit
 local CloseWoW = CreateFrame("Frame")
 CloseWoW:RegisterEvent("CHAT_MSG_SYSTEM")
-CloseWoW:SetScript("OnEvent", function(self, event, msg)
+CloseWoW:SetScript("OnEvent", function(_, event, msg)
 	if event == "CHAT_MSG_SYSTEM" then
 		if msg and msg == IDLE_MESSAGE then
 			ForceQuit()

@@ -79,7 +79,7 @@ function MER:GMOTD()
 		gmotd.text:SetTextColor(1, 1, 1)
 		gmotd.text:SetJustifyH("LEFT")
 
-		gmotd:SetScript("OnEvent", function(self, event, arg1)
+		gmotd:SetScript("OnEvent", function(_, event, arg1)
 			if (event == "GUILD_MOTD") then
 				GMOTD = arg1
 			else

@@ -15,8 +15,6 @@ local GetContainerNumSlots = GetContainerNumSlots
 
 --GLOBALS: NUM_BAG_SLOTS
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 MER.dummy = function() return end
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 
@@ -33,7 +31,6 @@ function MER:PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
-local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end

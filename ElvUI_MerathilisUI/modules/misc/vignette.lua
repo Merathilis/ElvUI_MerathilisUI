@@ -5,16 +5,19 @@ local MER = E:GetModule('MerathilisUI');
 -- Lua functions
 
 -- WoW API / Variables
-
+local C_Vignettes = C_Vignettes
+local GetObjectIconTextureCoords = GetObjectIconTextureCoords
+local ChatTypeInfo = ChatTypeInfo
+local PlaySoundFile = PlaySoundFile
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: RaidNotice_AddMessage, RaidWarningFrame
 
-local function OnVignetteAdded(self, event, id)
+local function OnVignetteAdded(self, _, id)
 	if not id then return end
 	self.vignettes = self.vignettes or {}
 	if self.vignettes[id] then return end
 
-	local x, y, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
+	local name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
@@ -23,7 +26,6 @@ local function OnVignetteAdded(self, event, id)
 	MER:Print(str..name, L[" spotted!"])
 	self.vignettes[id] = true
 end
-
 
 function MER:LoadVignette()
 	if E.db.mui.misc.vignette then

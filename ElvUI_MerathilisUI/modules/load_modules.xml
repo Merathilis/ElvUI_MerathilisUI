@@ -3,7 +3,6 @@
 	<Include file="chat\load_chat.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="locpanel\load_locpanel.xml"/>
-	<Include file="maps\load_maps.xml"/>
 	<Include file="skins\load_skins.xml"/>
 	<Include file="misc\load_misc.xml"/>
 	<Include file="tooltip\load_tooltip.xml"/>

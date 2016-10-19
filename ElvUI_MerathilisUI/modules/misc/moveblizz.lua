@@ -1,17 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI')
 local B = E:NewModule('muiBlizzard', 'AceHook-3.0', 'AceEvent-3.0')
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local type = type
 -- WoW API / Variables
-local EnableMouse = EnableMouse
-local SetMovable = SetMovable
-local SetClampedToScreen = SetClampedToScreen
-local RegisterForDrag = RegisterForDrag
-local StartMoving = StartMoving
-local StopMovingOrSizing = StopMovingOrSizing
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: TradeSkillFrame

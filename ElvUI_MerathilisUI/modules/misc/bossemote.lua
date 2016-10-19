@@ -1,7 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule('MerathilisUI')
 local MERS = E:GetModule('MuiSkins')
-local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
 -- Lua functions

@@ -5,8 +5,7 @@ local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
 -- Lua functions
-local pairs, tostring = pairs, tostring
-local gmatch, tinsert = gmatch, table.insert
+local tinsert = table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
@@ -101,7 +100,7 @@ function MER:ToggleChangeLog()
 	end
 end
 
-function MER:OnCheckVersion(self)
+function MER:OnCheckVersion()
 	if not MerathilisUIData["Version"] or (MerathilisUIData["Version"] and MerathilisUIData["Version"] ~= MER.Version) then
 		MerathilisUIData["Version"] = MER.Version
 		MerathilisUIChangeLog:Show()
@@ -109,6 +108,6 @@ function MER:OnCheckVersion(self)
 end
 
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
-ChangeLog:SetScript("OnEvent", function(self, event, ...)
+ChangeLog:SetScript("OnEvent", function()
 	MER:OnCheckVersion()
 end)

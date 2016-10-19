@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:NewModule('MerathilisUI', "AceConsole-3.0");
 local LSM = LibStub('LibSharedMedia-3.0');
 local EP = LibStub('LibElvUIPlugin-1.0');
-local addon, ns = ...
+local addon = ...
 
 -- Cache global variables
 -- Lua functions
@@ -17,8 +17,6 @@ local C_TimerAfter = C_Timer.After
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
-
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 MER.Config = {}
 MER.TexCoords = {.08, 0.92, -.04, 0.92}

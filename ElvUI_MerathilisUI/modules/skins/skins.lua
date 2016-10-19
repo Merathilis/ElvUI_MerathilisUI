@@ -1,15 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
 local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+local select, unpack = select, unpack
 -- WoW API / Variables
-local GetAddOnMetadata = GetAddOnMetadata
-local IsAddOnLoaded = IsAddOnLoaded
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI

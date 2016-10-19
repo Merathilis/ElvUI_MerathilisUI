@@ -1,16 +1,14 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 local S = E:GetModule('Skins');
-local LSM = LibStub('LibSharedMedia-3.0');
 
 -- Cache global variables
 -- Lua functions
-local assert, next, unpack = assert, next, unpack
+local assert, next = assert, next
 local tremove = table.remove
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
-
 -- GLOBALS: UIParent, BigWigs, BigWigsLoader
 
 local BigWigsLoaded
@@ -33,7 +31,6 @@ local function createBorder(self)
 end
 
 local freeBorderSets = {}
-
 local function freeStyle(bar)
 	local borders = bar:Get("bigwigs:MerathilisUI:borders")
 	if borders then
@@ -47,10 +44,8 @@ end
 
 local function styleBar(bar)
 	local bd = bar.candyBarBackdrop
-
 	bd:SetBackdrop(backdropbc)
 	bd:SetBackdropColor(0, 0, 0, 0.8)
-
 	bd:SetFrameStrata(bar:GetFrameStrata())
 	bd:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bd:ClearAllPoints()
@@ -58,7 +53,6 @@ local function styleBar(bar)
 	bd:SetPoint("TOPLEFT", bar, "TOPLEFT", -1, 1)
 	bd:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 1, -1)
 	bd:Show()
-
 	local borders = nil
 	if #freeBorderSets > 0 then
 		borders = tremove(freeBorderSets)
@@ -104,7 +98,6 @@ local function styleBar(bar)
 			border:SetPoint("BOTTOMRIGHT", borders[4], "TOPRIGHT")
 		end
 	end
-
 	bar:Set("bigwigs:MerathilisUI:borders", borders)
 end
 
@@ -118,7 +111,7 @@ local function StyleBigWigs(event, addon)
 		BigWigsBars:RegisterBarStyle(styleName, {
 			apiVersion = 1,
 			version = 1,
-			GetSpacing = function(bar) return 8 end,
+			GetSpacing = function() return 8 end,
 			ApplyStyle = styleBar,
 			BarStopped = freeStyle,
 			GetStyleName = function() return styleName end,
@@ -129,23 +122,11 @@ end
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, addon)
+f:SetScript("OnEvent", function(_, event, addon)
 	if event == "ADDON_LOADED" then
 		if addon == "BigWigs_Plugins" then
 			StyleBigWigs()
 			f:UnregisterEvent("ADDON_LOADED")
-		end
-	end
-	if event == 'PLAYER_ENTERING_WORLD' then
-		if BigWigsLoader then
-			BigWigsLoader.RegisterMessage('ElvUI_MerathilisUI', "BigWigs_FrameCreated", function(event, frame, name)
-				if name == "QueueTimer" then
-					S:HandleStatusBar(frame)
-					frame:ClearAllPoints()
-					frame:SetPoint('TOP', '$parent', 'BOTTOM', 0, -(E.PixelMode and 2 or 4))
-					frame:SetHeight(16)
-				end
-			end)
 		end
 	end
 end)
