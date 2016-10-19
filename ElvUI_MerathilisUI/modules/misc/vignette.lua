@@ -17,7 +17,7 @@ local function OnVignetteAdded(self, _, id)
 	self.vignettes = self.vignettes or {}
 	if self.vignettes[id] then return end
 
-	local name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
+	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
