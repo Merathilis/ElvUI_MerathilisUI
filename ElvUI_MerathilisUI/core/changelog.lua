@@ -19,9 +19,10 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.20|r, xx.09.2016
+local ChangeLogData = [=[|cffff7d0av2.20|r, 21.10.2016
 
 |cffff7d0aChanges:|r
+ |cffff7d0a•|r Massive Code cleanup.
  |cffff7d0a•|r Change the tag for BigName in Player-/TargetFrame.
  |cffff7d0a•|r Let the Bossmods handle the RaidWarnigFrame.
  |cffff7d0a•|r Delete GroupInfo.

@@ -1,4 +1,5 @@
-<b><u> v2.20, xx.09.2016</b></u>
+<b><u> v2.20, 21.10.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Massive Code cleanup.
 <font color=#FF8C00>&#9830;</font> Change the tag for BigName in Player-/TargetFrame.
 <font color=#FF8C00>&#9830;</font> Let the Bossmods handle the RaidWarnigFrame.
 <font color=#FF8C00>&#9830;</font> Delete GroupInfo.
