@@ -20,7 +20,7 @@ local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 -- GLOBALS: RAID_CLASS_COLORS
 
 local watches = {}
-local frame = CreateFrame('Frame', nil, UIParent)
+local frame = CreateFrame('Frame', "MUIGroupInfo", UIParent)
 
 local header = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
 header:FontTemplate()
@@ -38,53 +38,54 @@ name:FontTemplate()
 name:SetTextColor(1, 1, 1)
 name:SetPoint('TOPLEFT', t2, 'BOTTOMLEFT', 20, -8)
 
-local sort = function(a, b)
+local function sort(a, b)
 	return ((a.color.r + a.color.g + a.color.b)..a.name) < ((b.color.r + b.color.g + b.color.b)..b.name)
 end
 
 local result = nil
 local last, alive, c_alive, max = 0, 0, 0, 0
 function Update(self, elapsed)
-	last = last + elapsed
-	if last > 1 then
-		last = 0
-		result = nil
-		alive, max = 0, 0
-		local num = GetNumGroupMembers()
-		if num > 0 then
-			-- total raid
-			for i = 1, num do
-				local unit = UnitInRaid('player') and ('raid'..i) or ('party'..i)
-				if UnitExists(unit) then
-					max = max + 1
-					if not UnitIsDeadOrGhost(unit) then alive = alive + 1 end
-				end
-			end
-			-- role callback handler
-			for name, callback in pairs(watches) do
-				local count = 0
-				c_alive = 0
+	if E.db.mui.unitframes.groupinfo then
+		last = last + elapsed
+		if last > 1 then
+			last = 0
+			result = nil
+			alive, max = 0, 0
+			local num = GetNumGroupMembers()
+			if num > 0 then
+				-- total raid
 				for i = 1, num do
 					local unit = UnitInRaid('player') and ('raid'..i) or ('party'..i)
-					if UnitExists(unit) and callback(unit) then
-						count = count + 1
-						if not UnitIsDeadOrGhost(unit) then
-							c_alive = c_alive + 1
-						end
+					if UnitExists(unit) then
+						max = max + 1
+						if not UnitIsDeadOrGhost(unit) then alive = alive + 1 end
 					end
 				end
-				if count > 0 then
-					result = (result and result..'   ' or '')..name ..': '..count..'/'..c_alive
+				-- role callback handler
+				for name, callback in pairs(watches) do
+					local count = 0
+					c_alive = 0
+					for i = 1, num do
+						local unit = UnitInRaid('player') and ('raid'..i) or ('party'..i)
+						if UnitExists(unit) and callback(unit) then
+							count = count + 1
+							if not UnitIsDeadOrGhost(unit) then
+								c_alive = c_alive + 1
+							end
+						end
+					end
+					if count > 0 then
+						result = (result and result..'   ' or '')..name ..': '..count..'/'..c_alive
+					end
 				end
 			end
-		end
-		if E.db.mui.unitframes.groupinfo then
 			if max > 0 then
 				header:Show()
 				header:SetText(UnitInRaid('player') and ('RAID') or ('PARTY'))
 				t:SetFormattedText(alive..'/'..max..L[' alive'])
 				t:Show()
 				frame:SetWidth(t:GetWidth())
+				E:CreateMover(frame, frame:GetName()..'Mover', L["MUIGroupInfo"], nil, nil, nil, 'ALL,PARTY,RAID')
 			else
 				header:Hide()
 				t:Hide()
@@ -142,14 +143,10 @@ MER:AddWatch('|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Healer.t
 	end
 end)
 
-frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, 500)
+frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 40, 0)
 frame:SetHeight(16)
-frame:SetMovable(true)
-frame:EnableMouse(true)
-frame:RegisterForDrag("LeftButton")
 frame:SetClampedToScreen(true)
-frame:SetScript("OnDragStart", frame.StartMoving)
-frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 frame:SetScript('OnUpdate', Update)
 frame:SetScript('OnEnter', OnEnter)
 frame:SetScript('OnLeave', function() GameTooltip:Hide() end)
+frame:RegisterEvent('GROUP_ROSTER_UPDATE')
