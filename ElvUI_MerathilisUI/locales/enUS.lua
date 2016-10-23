@@ -123,6 +123,9 @@ L["World Latency:"] = true
 L["Red Icon"] = true
 L["Target Class Icon"] = true
 L["Show class icon for units."] = true
+L["Group Info"] = true
+L["Shows an extra frame with information about the party/raid."] = true
+L[' alive'] = true
 
 -- LocationPanel
 L["Location Panel"] = true

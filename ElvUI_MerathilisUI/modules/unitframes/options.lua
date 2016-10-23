@@ -27,7 +27,16 @@ local function UnitFramesTable()
 				order = 2,
 				type = "group",
 				name = L["General"],
-				args = {},
+				args = {
+					groupinfo = {
+						order = 2,
+						type = "toggle",
+						name = L["Group Info"],
+						desc = L["Shows an extra frame with information about the party/raid."],
+						get = function(info) return E.db['mui']['unitframes'][ info[#info] ] end,
+						set = function(info, value) E.db['mui']['unitframes'][ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+				},
 			},
 			player = {
 				order = 2,

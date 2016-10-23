@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="groupinfo.lua"/>
 	<Script file="tags.lua"/>
 	<Script file="unitframes.lua"/>
 	<Include file="units\load_units.xml"/>
