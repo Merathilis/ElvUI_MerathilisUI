@@ -20,7 +20,7 @@ local UnitIsDeadOrGhost = UnitIsDeadOrGhost
 -- GLOBALS: RAID_CLASS_COLORS
 
 local watches = {}
-local frame = CreateFrame('Button', nil, UIParent)
+local frame = CreateFrame('Frame', nil, UIParent)
 
 local header = frame:CreateFontString(nil, 'ARTWORK', 'GameFontHighlight')
 header:FontTemplate()
@@ -44,7 +44,7 @@ end
 
 local result = nil
 local last, alive, c_alive, max = 0, 0, 0, 0
-local function update(self, elapsed)
+function Update(self, elapsed)
 	last = last + elapsed
 	if last > 1 then
 		last = 0
@@ -100,7 +100,7 @@ local function update(self, elapsed)
 	end
 end
 
-local function enter()
+function OnEnter()
 	GameTooltip:SetOwner(frame, 'ANCHOR_BOTTOMRIGHT', 50, -15)
 	for name, callback in pairs(watches) do
 		local matches = {}
@@ -142,8 +142,14 @@ MER:AddWatch('|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Healer.t
 	end
 end)
 
-frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, 200)
+frame:SetPoint("CENTER", LeftChatPanel, "LEFT", 45, 500)
 frame:SetHeight(16)
-frame:SetScript('OnUpdate', update)
-frame:SetScript('OnEnter', enter)
+frame:SetMovable(true)
+frame:EnableMouse(true)
+frame:RegisterForDrag("LeftButton")
+frame:SetClampedToScreen(true)
+frame:SetScript("OnDragStart", frame.StartMoving)
+frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+frame:SetScript('OnUpdate', Update)
+frame:SetScript('OnEnter', OnEnter)
 frame:SetScript('OnLeave', function() GameTooltip:Hide() end)
