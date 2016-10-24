@@ -985,7 +985,6 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = -14
 			E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
 			E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 70
-			E.db["unitframe"]["units"]["party"]["GPSArrow"]["size"] = 40
 			E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
 			E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 			E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
@@ -1513,7 +1512,6 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 			E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 			E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-			E.db["unitframe"]["units"]["party"]["GPSArrow"]["size"] = 40
 			E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 			E.db["unitframe"]["units"]["party"]["orientation"] = "MIDDLE"
 			E.db["unitframe"]["units"]["party"]["width"] = 100
