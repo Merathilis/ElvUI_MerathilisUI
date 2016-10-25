@@ -1,3 +1,8 @@
+** v2.21, 25.10.2016**
+* FOR PATCH 7.1
+* Add back GroupInfo Frame. It's now movable via mover if you are in a Raid/Group.
+* Remove settings from ElvUI that are no longer exist.
+
 ** v2.20, 21.10.2016**
 * Massive Code cleanup.
 * Change the tag for BigName in Player-/TargetFrame.
