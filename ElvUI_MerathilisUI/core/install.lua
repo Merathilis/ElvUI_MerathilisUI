@@ -1949,84 +1949,27 @@ function MER:SetupAddOnSkins(addon)
 	if addon == 'AddOnSkins' then
 		if E.private['addonskins'] == nil then E.private['addonskins'] = {} end
 		if IsAddOnLoaded('AddOnSkins') then
+			local AS = unpack(AddOnSkins) or nil
 			local AddOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], AddOnSkinsName))
-			AddOnSkinsDB = {
-				["profiles"] = {
-					["MerathilisUI"] = {
-						["Blizzard_WorldStateCaptureBar"] = true,
-						["Blizzard_AbilityButton"] = false,
-						["Blizzard_Transmogrify"] = false,
-						["Blizzard_Collections"] = false,
-						["Blizzard_TradeSkill"] = false,
-						["EmbedIsHidden"] = false,
-						["Blizzard_Options"] = false,
-						["BigWigs"] = true,
-						["ElvUISkinModule"] = true,
-						["SkadaBackdrop"] = false,
-						["TransparentEmbed"] = true,
-						["Blizzard_Quest"] = false,
-						["MiscellaneousFixes"] = true,
-						["Blizzard_MacroUI"] = false,
-						["BagSync"] = true,
-						["Blizzard_AddonManager"] = false,
-						["Blizzard_BarberShop"] = false,
-						["Blizzard_Inspect"] = false,
-						["DBMFont"] = "Merathilis Roboto-Bold",
-						["Blizzard_ExtraActionButton"] = false,
-						["Blizzard_AuctionHouse"] = false,
-						["Auctionator"] = true,
-						["Blizzard_WorldMap"] = false,
-						["Blizzard_Mail"] = false,
-						["Blizzard_Spellbook"] = false,
-						["Blizzard_Garrison"] = false,
-						["Blizzard_Gossip"] = false,
-						["Blizzard_Bags"] = false,
-						["Blizzard_Taxi"] = false,
-						["EmbedLeft"] = "",
-						["EmbedLeftWidth"] = 170,
-						["Blizzard_VoidStorage"] = false,
-						["EmbedSystem"] = true,
-						["Blizzard_TimeManager"] = false,
-						["Postal"] = true,
-						["EmbedRight"] = "",
-						["Blizzard_StackSplit"] = false,
-						["oRA3"] = true,
-						["Blizzard_LootFrames"] = false,
-						["Blizzard_DebugTools"] = false,
-						["Skada"] = true,
-						["BugSack"] = true,
-						["Blizzard_Guild"] = false,
-						["WowLua"] = true,
-						["Blizzard_PvE"] = false,
-						["Blizzard_PVPUI"] = false,
-						["Blizzard_CharacterFrame"] = false,
-						["Blizzard_ArchaeologyUI"] = false,
-						["Blizzard_Friends"] = false,
-						["Blizzard_DressUpFrame"] = false,
-						["ParchmentRemover"] = false,
-						["RCLootCouncil"] = true,
-						["WeakAuras"] = false,
-						["MasterPlan"] = true,
-						["Blizzard_ChallengesUI"] = false,
-						["Blizzard_RaidUI"] = false,
-						["Blizzard_ItemSocketing"] = false,
-						["Blizzard_Trainer"] = false,
-						["Blizzard_Merchant"] = false,
-						["Clique"] = true,
-						["Blizzard_Others"] = false,
-						["Blizzard_EncounterJournal"] = false,
-						["Blizzard_Talent"] = false,
-						["Blizzard_Calendar"] = false,
-						["Blizzard_DeathRecap"] = false,
-						["Blizzard_AchievementUI"] = false,
-						["Blizzard_BlackMarket"] = false,
-						["Blizzard_TradeWindow"] = false,
-						["Blizzard_ChatBubbles"] = false,
-						["LoginMsg"] = false,
-					},
-				},
-			}
+			AS.db['EmbedSystem'] = true
+			AS.db['EmbedSystemDual'] = false
+			AS.db['EmbedBelowTop'] = false
+			AS.db['TransparentEmbed'] = true
+			AS.db['EmbedMain'] = 'Skada'
+			AS.db['EmbedLeft'] = ''
+			AS.db['EmbedRight'] = ''
+			AS.db['RecountBackdrop'] = false
+			AS.db['SkadaBackdrop'] = false
+			AS.db['DetailsBackdrop'] = false
+			AS.db['Parchment'] = false
+			AS.db['WeakAura'] = false
+			AS.db['WeakAuraAuraBar'] = false
+			AS.db['WeakAuraIconCooldown'] = false
+			AS.db['SkinDebug'] = false
+			AS.db['LoginMsg'] = false
+			AS.db['EmbedSystemMessage'] = false
+			AS.db['ElvUISkinModule'] = true
 		else
 			MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
 		end
