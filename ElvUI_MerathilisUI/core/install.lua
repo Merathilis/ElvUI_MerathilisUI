@@ -1947,7 +1947,6 @@ function MER:SetupAddOnSkins(addon)
 	--	AddOnSkins - Settings
 	--]]----------------------------------
 	if addon == 'AddOnSkins' then
-		if E.private['addonskins'] == nil then E.private['addonskins'] = {} end
 		if IsAddOnLoaded('AddOnSkins') then
 			local AS = unpack(AddOnSkins) or nil
 			local AddOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
