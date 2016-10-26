@@ -1,3 +1,6 @@
+** v2.22, 26.10.2016**
+* Fix a nil error in locPanel if entering an instance.
+
 ** v2.21, 25.10.2016**
 * FOR PATCH 7.1
 * Add back GroupInfo Frame. It's now movable via mover if you are in a Raid/Group.
