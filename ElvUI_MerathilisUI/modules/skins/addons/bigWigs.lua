@@ -41,9 +41,6 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
 	end
 
-	bar.candyBarBarIconFrame:ClearAllPoints()
-	bar.candyBarBarIconFrame.SetPoint = nil
-
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar.SetPoint = nil
 	bar.candyBarBar:SetPoint('TOPRIGHT')
