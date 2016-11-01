@@ -7,6 +7,8 @@ local CH = E:GetModule('Chat')
 local _G = _G
 local gsub = string.gsub
 -- WoW API / Variable
+local GetRealmName = GetRealmName
+
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 _G.ERR_FRIEND_ONLINE_SS = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
