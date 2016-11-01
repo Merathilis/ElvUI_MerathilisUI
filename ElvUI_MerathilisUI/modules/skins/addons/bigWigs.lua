@@ -4,101 +4,109 @@ local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
-local assert, next = assert, next
+local assert, unpack = assert, unpack
 local tremove = table.remove
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: UIParent, BigWigs, BigWigsLoader
 
+-- Based on AddOnSkins HalfBar Style. Credits Azilroka
+
 local BigWigsLoaded
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local textureNormal = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Normal"
+local FreeBackgrounds = {}
+local buttonsize = 19
+local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
-local backdropbc = {
-	bgFile = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat",
-	insets = {top = 1, left = 1, bottom = 1, right = 1},
-}
-
-local function createBorder(self)
-	local border = UIParent:CreateTexture(nil, "OVERLAY")
-	border:SetParent(self)
-	border:SetTexture(textureNormal)
-	border:SetWidth(10)
-	border:SetHeight(10)
-	border:SetVertexColor(classColor.r, classColor.g, classColor.b)
-	return border
+local function CreateBG()
+	local BG = CreateFrame('Frame')
+	BG:SetTemplate('Transparent')
+	return BG
 end
 
-local freeBorderSets = {}
-local function freeStyle(bar)
-	local borders = bar:Get("bigwigs:MerathilisUI:borders")
-	if borders then
-		for i, border in next, borders do
-			border:SetParent(UIParent)
-			border:Hide()
-		end
-		freeBorderSets[#freeBorderSets + 1] = borders
+local function FreeStyle(bar)
+	local bg = bar:Get('bigwigs:MerathilisUI:bg')
+	if bg then
+		bg:ClearAllPoints()
+		bg:SetParent(UIParent)
+		bg:Hide()
+		FreeBackgrounds[#FreeBackgrounds + 1] = bg
 	end
+
+	local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
+	if ibg then
+		ibg:ClearAllPoints()
+		ibg:SetParent(UIParent)
+		ibg:Hide()
+		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
+	end
+
+	bar.candyBarBarIconFrame:ClearAllPoints()
+	bar.candyBarBarIconFrame.SetPoint = nil
+
+	bar.candyBarBar:ClearAllPoints()
+	bar.candyBarBar.SetPoint = nil
+	bar.candyBarBar:SetPoint('TOPRIGHT')
+	bar.candyBarBar:SetPoint('BOTTOMRIGHT')
 end
 
-local function styleBar(bar)
-	local bd = bar.candyBarBackdrop
-	bd:SetBackdrop(backdropbc)
-	bd:SetBackdropColor(0, 0, 0, 0.8)
-	bd:SetFrameStrata(bar:GetFrameStrata())
-	bd:SetFrameLevel(bar:GetFrameLevel() - 1)
-	bd:ClearAllPoints()
-	bd:SetOutside(bar)
-	bd:SetPoint("TOPLEFT", bar, "TOPLEFT", -1, 1)
-	bd:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 1, -1)
-	bd:Show()
-	local borders = nil
-	if #freeBorderSets > 0 then
-		borders = tremove(freeBorderSets)
-		for i, border in next, borders do
-			border:SetParent(bar.candyBarBar)
-			border:ClearAllPoints()
-			border:Show()
-		end
+local function ApplyStyleHalfBar(bar)
+	local bg
+	if #FreeBackgrounds > 0 then
+		bg = tremove(FreeBackgrounds)
 	else
-		borders = {}
-		for i = 1, 8 do
-			borders[i] = createBorder(bar.candyBarBar)
-		end
+		bg = CreateBG()
 	end
-	for i, border in next, borders do
-		if i == 1 then
-			border:SetTexCoord(0, 1/3, 0, 1/3)
-			border:SetPoint("TOPLEFT", -18, 4)
-		elseif i == 2 then
-			border:SetTexCoord(2/3, 1, 0, 1/3)
-			border:SetPoint("TOPRIGHT", 4, 4)
-		elseif i == 3 then
-			border:SetTexCoord(0, 1/3, 2/3, 1)
-			border:SetPoint("BOTTOMLEFT", -18, -4)
-		elseif i == 4 then
-			border:SetTexCoord(2/3, 1, 2/3, 1)
-			border:SetPoint("BOTTOMRIGHT", 4, -4)
-		elseif i == 5 then
-			border:SetTexCoord(1/3, 2/3, 0, 1/3)
-			border:SetPoint("TOPLEFT", borders[1], "TOPRIGHT")
-			border:SetPoint("TOPRIGHT", borders[2], "TOPLEFT")
-		elseif i == 6 then
-			border:SetTexCoord(1/3, 2/3, 2/3, 1)
-			border:SetPoint("BOTTOMLEFT", borders[3], "BOTTOMRIGHT")
-			border:SetPoint("BOTTOMRIGHT", borders[4], "BOTTOMLEFT")
-		elseif i == 7 then
-			border:SetTexCoord(0, 1/3, 1/3, 2/3)
-			border:SetPoint("TOPLEFT", borders[1], "BOTTOMLEFT")
-			border:SetPoint("BOTTOMLEFT", borders[3], "TOPLEFT")
-		elseif i == 8 then
-			border:SetTexCoord(2/3, 1, 1/3, 2/3)
-			border:SetPoint("TOPRIGHT", borders[2], "BOTTOMRIGHT")
-			border:SetPoint("BOTTOMRIGHT", borders[4], "TOPRIGHT")
+
+	bg:SetParent(bar)
+	bg:SetFrameStrata(bar:GetFrameStrata())
+	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
+	bg:ClearAllPoints()
+	bg:SetOutside(bar)
+	bg:SetTemplate('Transparent')
+	bg:Show()
+	bar:Set('bigwigs:MerathilisUI:bg', bg)
+
+	if bar.candyBarIconFrame:GetTexture() then
+		local ibg
+		if #FreeBackgrounds > 0 then
+			ibg = tremove(FreeBackgrounds)
+		else
+			ibg = CreateBG()
 		end
+		ibg:SetParent(bar)
+		ibg:SetFrameStrata(bar:GetFrameStrata())
+		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
+		ibg:ClearAllPoints()
+		ibg:SetOutside(bar.candyBarIconFrame)
+		ibg:SetBackdropColor(0, 0, 0, 0)
+		ibg:Show()
+		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
 	end
-	bar:Set("bigwigs:MerathilisUI:borders", borders)
+
+	bar:SetHeight(buttonsize / 2)
+
+	bar.candyBarBar:ClearAllPoints()
+	bar.candyBarBar:SetAllPoints(bar)
+	bar.candyBarBar.SetPoint = function() end
+	bar.candyBarBar:SetStatusBarTexture(flat)
+
+	bar.candyBarBackground:SetTexture(unpack(E["media"].bordercolor))
+
+	bar.candyBarIconFrame:ClearAllPoints()
+	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
+	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
+	bar.candyBarIconFrame.SetWidth = function() end
+
+	bar.candyBarLabel:ClearAllPoints()
+	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
+	bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+
+	bar.candyBarDuration:ClearAllPoints()
+	bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, 10)
+	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+
+	S:HandleIcon(bar.candyBarIconFrame)
 end
 
 local function StyleBigWigs(event, addon)
@@ -111,9 +119,9 @@ local function StyleBigWigs(event, addon)
 		BigWigsBars:RegisterBarStyle(styleName, {
 			apiVersion = 1,
 			version = 1,
-			GetSpacing = function() return 8 end,
-			ApplyStyle = styleBar,
-			BarStopped = freeStyle,
+			GetSpacing = function() return 20 end,
+			ApplyStyle = ApplyStyleHalfBar,
+			BarStopped = FreeStyle,
 			GetStyleName = function() return styleName end,
 		})
 		BigWigsBars:SetBarStyle(styleName)
