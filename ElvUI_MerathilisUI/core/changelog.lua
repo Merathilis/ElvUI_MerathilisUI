@@ -19,10 +19,12 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.22|r, 26.10.2016
+local ChangeLogData = [=[|cffff7d0av2.23|r, 02.11.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Fix a nil error in locPanel if entering an instance.
+ |cffff7d0a•|r Fix a taint in WorldMap #40
+ |cffff7d0a•|r Update BigWigs Skin. Now based on HalfBar Skin from AddOnSkins. Credits Azilroka
+ |cffff7d0a•|r Let BenikUI handle the fonts.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r For Patch 7.1
