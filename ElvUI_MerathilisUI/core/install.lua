@@ -1969,6 +1969,7 @@ function MER:SetupAddOnSkins(addon)
 			AS.db['LoginMsg'] = false
 			AS.db['EmbedSystemMessage'] = false
 			AS.db['ElvUISkinModule'] = true
+			AS.db['EmbedFrameStrata'] = "2-LOW"
 		else
 			MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
 		end
