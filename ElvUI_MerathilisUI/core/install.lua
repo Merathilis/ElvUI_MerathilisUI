@@ -1710,7 +1710,7 @@ function MER:SetupDts()
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		-- define BenikUI Datetexts
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "MUI System"
 
@@ -1740,7 +1740,7 @@ function MER:SetupDts()
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
 	else
 		-- define the default ElvUI datatexts
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "MUI Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Talent/Loot Specialization"
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
 		
 		if IsAddOnLoaded('Skada') then
