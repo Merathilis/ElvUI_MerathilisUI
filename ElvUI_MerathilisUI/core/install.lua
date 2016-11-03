@@ -1962,9 +1962,9 @@ function MER:SetupAddOnSkins(addon)
 			AS.db['SkadaBackdrop'] = false
 			AS.db['DetailsBackdrop'] = false
 			AS.db['Parchment'] = false
-			AS.db['WeakAura'] = false
-			AS.db['WeakAuraAuraBar'] = false
-			AS.db['WeakAuraIconCooldown'] = false
+			AS.db['WeakAura'] = true
+			AS.db['WeakAuraAuraBar'] = true
+			AS.db['WeakAuraIconCooldown'] = true
 			AS.db['SkinDebug'] = false
 			AS.db['LoginMsg'] = false
 			AS.db['EmbedSystemMessage'] = false
