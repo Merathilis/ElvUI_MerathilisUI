@@ -24,6 +24,7 @@ P['mui'] = {
 		['gmotd'] = true, -- Show a GMOTD frame
 		['bossemote'] = true, -- Show Bossemotes
 		['vignette'] = true, -- Shows Rars/Treasures
+		['minimapping'] = true, -- Shows the PlayerName on the MiniMap if someone pings.
 	},
 
 	['systemDT'] = {

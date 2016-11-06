@@ -55,6 +55,10 @@ L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
 
+-- MinimapPing
+L["MinimapPing"] = true
+L["Shows the PlayerName on the Minimap if someone pings."] = "Zeigt den Spielernamen wenn einer auf der Minimap pingt."
+
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
 L["Vignette"] = true

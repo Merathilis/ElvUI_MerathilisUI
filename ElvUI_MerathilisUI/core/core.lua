@@ -158,6 +158,7 @@ function MER:Initialize()
 	self:LoadGMOTD()
 	self:LoadBossemote()
 	self:LoadVignette()
+	self:LoadMinimapPing()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()

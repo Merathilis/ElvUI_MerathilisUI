@@ -63,6 +63,12 @@ local function Misc()
 				name = L["Vignette"],
 				desc = L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."],
 			},
+			minimapping = {
+				order = 10,
+				type = 'toggle',
+				name = L["MinimapPing"],
+				desc = L["Shows the PlayerName on the Minimap if someone pings."],
+			},
 		},
 	}
 end
