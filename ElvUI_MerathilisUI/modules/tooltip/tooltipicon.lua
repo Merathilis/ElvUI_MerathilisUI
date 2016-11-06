@@ -59,6 +59,15 @@ hooksecurefunc(GameTooltip, "SetHyperlink", function(self, link)
 	end
 end)
 
+-- WorldQuest Tooltip
+hooksecurefunc("EmbeddedItemTooltip_SetItemByQuestReward", function(self)
+	if self.Icon then
+		self.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		self.IconBorder:Hide()
+	end
+end)
+BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT = "|T%1$s:16:16:0:0:64:64:5:59:5:59|t |cffffffff%2$d|r %3$s"
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(_, event)
