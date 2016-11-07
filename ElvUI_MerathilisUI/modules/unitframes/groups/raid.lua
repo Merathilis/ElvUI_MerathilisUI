@@ -5,10 +5,6 @@ local UF = E:GetModule('UnitFrames');
 function MUF:Update_RaidFrames(frame, db)
 	frame.db = db
 
-	do
-
-	end
-
 	-- Readycheck
 	MUF:Configure_ReadyCheckIcon(frame)
 
