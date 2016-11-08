@@ -1961,7 +1961,7 @@ function MER:SetupAddOnSkins(addon)
 			AS.db['RecountBackdrop'] = false
 			AS.db['SkadaBackdrop'] = false
 			AS.db['DetailsBackdrop'] = false
-			AS.db['Parchment'] = false
+			AS.db['ParchmentRemover'] = false
 			AS.db['WeakAura'] = true
 			AS.db['WeakAuraAuraBar'] = false
 			AS.db['WeakAuraIconCooldown'] = true
