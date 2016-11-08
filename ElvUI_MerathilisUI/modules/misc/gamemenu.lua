@@ -56,24 +56,24 @@ function MER:GameMenu()
 		end
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		
+
 		bottomPanel.anim = CreateAnimationGroup(bottomPanel)
 		bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
 		bottomPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
 		bottomPanel.anim.height:SetDuration(1.4)
 		bottomPanel.anim.height:SetSmoothing("Bounce")
-		
+
 		bottomPanel:SetScript("OnShow", function(self)
 			self:SetHeight(0)
 			self.anim.height:Play()
 		end)
-		
+
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, 'ARTWORK')
 		bottomPanel.Logo:SetSize(285, 128)
 		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -60)
 		bottomPanel.Logo:SetTexture(logo)
 	end
-	
+
 	if not GameMenuFrame.MUItopPanel then
 		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local topPanel = GameMenuFrame.MUItopPanel
@@ -81,25 +81,25 @@ function MER:GameMenu()
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		
+
 		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
 		topPanel.style:SetTemplate("Default", true)
 		topPanel.style:SetFrameStrata("HIGH")
 		topPanel.style:SetInside()
 		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
 		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
-		
+
 		topPanel.anim = CreateAnimationGroup(topPanel)
 		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
 		topPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
 		topPanel.anim.height:SetDuration(1.4)
 		topPanel.anim.height:SetSmoothing("Bounce")
-		
+
 		topPanel:SetScript("OnShow", function(self)
 			self:SetHeight(0)
 			self.anim.height:Play()
 		end)
-		
+
 		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		topPanel.style.color:SetInside()
@@ -120,7 +120,7 @@ function MER:GameMenu()
 			self:ClearAllPoints()
 			self:SetPoint("RIGHT", GameMenuFrame, "LEFT", -300, 0)
 		end)
-		
+
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
 		playerModel:ClearModel()
@@ -144,7 +144,7 @@ function MER:GameMenu()
 			self:ClearAllPoints()
 			self:SetPoint("LEFT", GameMenuFrame, "RIGHT", 300, 0)
 		end)
-		
+
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
 		npcModel:ClearModel()
