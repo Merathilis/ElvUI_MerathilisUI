@@ -18,10 +18,6 @@ function MUF:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 
 	self:InitPlayer()
-
-	self:InitParty()
-	self:InitRaid()
-	self:InitRaid40()
 end
 
 E:RegisterModule(MUF:GetName())
