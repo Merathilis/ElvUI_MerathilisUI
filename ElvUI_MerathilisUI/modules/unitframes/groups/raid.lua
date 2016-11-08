@@ -2,6 +2,8 @@
 local MUF = E:GetModule('MuiUnits');
 local UF = E:GetModule('UnitFrames');
 
+-- GLOBALS: hooksecurefunc
+
 function MUF:Update_RaidFrames(frame, db)
 	frame.db = db
 

@@ -8,6 +8,10 @@ MUF.CombatTextures = {
 
 function MUF:UpdateUF()
 	MUF:ArrangePlayer()
+
+	if E.db.unitframe.units.party.enable then
+		UF:CreateAndUpdateHeaderGroup('party')
+	end
 end
 
 function MUF:Initialize()
