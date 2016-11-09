@@ -204,8 +204,8 @@ LP.Spells = {
 
 local function CreateCoords()
 	local x, y = GetPlayerMapPosition("player")
-	if x then x = format(LP.db.format, x * 100) else x = "0" end
-	if y then y = format(LP.db.format, y * 100) else y = "0" end
+	if x then x = format(E.db.mui.locPanel.format, x * 100) else x = "0" end
+	if y then y = format(E.db.mui.locPanel.format, y * 100) else y = "0" end
 
 	return x, y
 end
@@ -256,7 +256,7 @@ end
 function LP:OnClick(btn)
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
-		if IsShiftKeyDown() and LP.db.linkcoords then
+		if IsShiftKeyDown() and E.db.mui.locPanel.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
 			local message
@@ -271,18 +271,19 @@ function LP:OnClick(btn)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
-	elseif btn == "RightButton" and LP.db.portals.enable and not InCombatLockdown() then
+	elseif btn == "RightButton" and E.db.mui.locPanel.portals.enable and not InCombatLockdown() then
 		LP:PopulateDropdown()
 	end
 end
 
 function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
-	if LP.elapsed < LP.db.throttle then return end
+	if LP.elapsed < (E.db.mui.locPanel.throttle or 0.2) then return end
 
 	--Coords
 	if not LP.RestrictedArea then
 		local x, y = CreateCoords()
+		-- print(x, y)
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
@@ -294,7 +295,7 @@ function LP:UpdateCoords(elapsed)
 
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
-	if LP.db.colorType_Coords == "REACTION" then
+	if E.db.mui.locPanel.colorType_Coords == "REACTION" then
 		local inInstance, _ = IsInInstance()
 		if inInstance then
 			colorC = {r = 1, g = 0.1,b =  0.1}
@@ -302,9 +303,9 @@ function LP:UpdateCoords(elapsed)
 			local pvpType = GetZonePVPInfo()
 			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 		end
-	elseif LP.db.colorType_Coords == "CUSTOM" then
-		colorC = LP.db.customColor_Coords
-	elseif LP.db.colorType_Coords == "CLASS" then
+	elseif E.db.mui.locPanel.colorType_Coords == "CUSTOM" then
+		colorC = E.db.mui.locPanel.customColor_Coords
+	elseif E.db.mui.locPanel.colorType_Coords == "CLASS" then
 		colorC = RAID_CLASS_COLORS[E.myclass]
 	end
 	loc_panel.Xcoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
@@ -314,7 +315,7 @@ function LP:UpdateCoords(elapsed)
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	local displayLine
-	if LP.db.zoneText then
+	if E.db.mui.locPanel.zoneText then
 		if (subZoneText ~= "") and (subZoneText ~= zoneText) then
 			displayLine = zoneText .. ": " .. subZoneText
 		else
@@ -324,14 +325,14 @@ function LP:UpdateCoords(elapsed)
 		displayLine = subZoneText
 	end
 	loc_panel.Text:SetText(displayLine)
-	if LP.db.autowidth then
+	if E.db.mui.locPanel.autowidth then
 		loc_panel:Width(loc_panel.Text:GetStringWidth() + 10)
 	end
 
 	--Location Colorings
 	if displayLine ~= "" then
 		local color = {r = 1, g = 1, b = 1}
-		if LP.db.colorType == "REACTION" then
+		if E.db.mui.locPanel.colorType == "REACTION" then
 			local inInstance, _ = IsInInstance()
 			if inInstance then
 				color = {r = 1, g = 0.1,b =  0.1}
@@ -339,9 +340,9 @@ function LP:UpdateCoords(elapsed)
 				local pvpType = GetZonePVPInfo()
 				color = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 			end
-		elseif LP.db.colorType == "CUSTOM" then
-			color = LP.db.customColor
-		elseif LP.db.colorType == "CLASS" then
+		elseif E.db.mui.locPanel.colorType == "CUSTOM" then
+			color = E.db.mui.locPanel.customColor
+		elseif E.db.mui.locPanel.colorType == "CLASS" then
 			color = RAID_CLASS_COLORS[E.myclass]
 		end
 		loc_panel.Text:SetTextColor(color.r, color.g, color.b)
@@ -351,30 +352,30 @@ function LP:UpdateCoords(elapsed)
 end
 
 function LP:Resize()
-	if LP.db.autowidth then
-		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, LP.db.height)
+	if E.db.mui.locPanel.autowidth then
+		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, E.db.mui.locPanel.height)
 	else
-		loc_panel:Size(LP.db.width, LP.db.height)
+		loc_panel:Size(E.db.mui.locPanel.width, E.db.mui.locPanel.height)
 	end
-	loc_panel.Text:Width(LP.db.width - 18)
-	loc_panel.Xcoord:Size(LP.db.fontSize * 3, LP.db.height)
-	loc_panel.Ycoord:Size(LP.db.fontSize * 3, LP.db.height)
+	loc_panel.Text:Width(E.db.mui.locPanel.width - 18)
+	loc_panel.Xcoord:Size(E.db.mui.locPanel.fontSize * 3, E.db.mui.locPanel.height)
+	loc_panel.Ycoord:Size(E.db.mui.locPanel.fontSize * 3, E.db.mui.locPanel.height)
 end
 
 function LP:Fonts()
-	loc_panel.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Xcoord.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Ycoord.Text:SetFont(LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Text:SetFont(LSM:Fetch('font', E.db.mui.locPanel.font), E.db.mui.locPanel.fontSize, E.db.mui.locPanel.fontOutline)
+	loc_panel.Xcoord.Text:SetFont(LSM:Fetch('font', E.db.mui.locPanel.font), E.db.mui.locPanel.fontSize, E.db.mui.locPanel.fontOutline)
+	loc_panel.Ycoord.Text:SetFont(LSM:Fetch('font', E.db.mui.locPanel.font), E.db.mui.locPanel.fontSize, E.db.mui.locPanel.fontOutline)
 end
 
 function LP:Template()
-	loc_panel:SetTemplate(LP.db.template)
-	loc_panel.Xcoord:SetTemplate(LP.db.template)
-	loc_panel.Ycoord:SetTemplate(LP.db.template)
+	loc_panel:SetTemplate(E.db.mui.locPanel.template)
+	loc_panel.Xcoord:SetTemplate(E.db.mui.locPanel.template)
+	loc_panel.Ycoord:SetTemplate(E.db.mui.locPanel.template)
 end
 
 function LP:Toggle()
-	if LP.db.enable then
+	if E.db.mui.locPanel.enable then
 		loc_panel:Show()
 		E:EnableMover(loc_panel.mover:GetName())
 	else
@@ -402,7 +403,7 @@ function LP:ItemList(check)
 		local data = LP.PortItems[i]
 		if MER:BagSearch(data.secure.ID) or (PlayerHasToy(data.secure.ID) and IsToyUsable(data.secure.ID)) then
 			if check then 
-				if LP.db.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+				if E.db.mui.locPanel.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
 			else
@@ -410,7 +411,7 @@ function LP:ItemList(check)
 					local cd = DD:GetCooldown("Item", data.secure.ID)
 					E:CopyTable(tmp, data)
 					if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
-						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[E.db.mui.locPanel.portals.cdFormat], cd)
 						tinsert(LP.MainMenu, tmp)
 					else
 						-- tmp.text = tmp.text
@@ -434,7 +435,7 @@ function LP:SpellList(list, dropdown, check)
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
 					if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 						E:CopyTable(tmp, data)
-						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[E.db.mui.locPanel.portals.cdFormat], cd)
 						tinsert(dropdown, tmp)
 					else
 						tinsert(dropdown, data)
@@ -463,50 +464,50 @@ function LP:PopulateDropdown()
 		if LP:SpellList(LP.Spells.challenge, nil, true) then
 			tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
 				twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+				MENU_WIDTH = E.db.mui.locPanel.portals.customWidth and E.db.mui.locPanel.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, E.db.mui.locPanel.portals.justify)
 			end})
 		end
 		if E.myclass == "MAGE" then
 			tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function() 
 				twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+				MENU_WIDTH = E.db.mui.locPanel.portals.customWidth and E.db.mui.locPanel.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
 				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() ToggleFrame(LP.Menu2) end})
-				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, E.db.mui.locPanel.portals.justify)
 			end})
 			tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function() 
 				twipe(LP.SecondaryMenu)
-				MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+				MENU_WIDTH = E.db.mui.locPanel.portals.customWidth and E.db.mui.locPanel.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 				tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 				tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 				LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
 				tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+				MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, E.db.mui.locPanel.portals.justify)
 			end})
 		end
 	end
 	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
-	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+	MENU_WIDTH = E.db.mui.locPanel.portals.customWidth and E.db.mui.locPanel.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, E.db.mui.locPanel.portals.justify)
 
 	collectgarbage('collect');
 end
 
 function LP:PLAYER_REGEN_DISABLED()
-	if LP.db.combathide then
+	if E.db.mui.locPanel.combathide then
 		loc_panel:Hide()
 	end
 end
 
 function LP:PLAYER_REGEN_ENABLED()
-	if LP.db.enable then
+	if E.db.mui.locPanel.enable then
 		loc_panel:Show()
 	end
 end
@@ -521,8 +522,6 @@ function LP:PLAYER_ENTERING_WORLD()
 end
 
 function LP:Initialize()
-	LP.db = E.db.mui.locPanel
-
 	faction = UnitFactionGroup('player')
 	LP:PopulateItems()
 
@@ -532,7 +531,6 @@ function LP:Initialize()
 	LP:Fonts()
 	LP:Toggle()
 	function LP:ForUpdateAll()
-		LP.db = E.db.mui.locPanel
 		LP:Resize()
 		LP:Template()
 		LP:Fonts()
