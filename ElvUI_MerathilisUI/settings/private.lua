@@ -18,6 +18,7 @@ V['muiSkins'] = {
 	},
 	['addonSkins'] = {
 		['bw'] = true,
+		['wa'] = true,
 	},
 	['elvuiAddons'] = {
 		-- ['sle'] = true,

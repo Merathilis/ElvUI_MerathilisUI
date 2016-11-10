@@ -12,13 +12,14 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local DecorAddons = {
 	{'BigWigs', L["BigWigs"], 'bw'},
+	{'WeakAuras', L["WeakAuras"]..MER.NewSign, 'wa'},
 }
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = 'group',
-		name = L['Skins'],
+		name = L['Skins']..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
