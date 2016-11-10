@@ -13,7 +13,7 @@ local function Misc()
 			Tooltip = {
 				order = 1,
 				type = 'toggle',
-				name = L['Tooltip']..MER.NewSign,
+				name = L['Tooltip'],
 				desc = L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'],
 			},
 			HideAlertFrame = {

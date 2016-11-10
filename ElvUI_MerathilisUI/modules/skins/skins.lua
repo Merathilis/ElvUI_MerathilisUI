@@ -5,8 +5,9 @@ local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, unpack = select, unpack
+local select, type, unpack = select, type, unpack
 -- WoW API / Variables
+local InCombatLockdown = InCombatLockdown
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI

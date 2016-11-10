@@ -39,7 +39,7 @@ function MFM:Initialize()
 		BFM.FlightMode.bottom.merathilisui:SetPoint("TOP", BFM.FlightMode.bottom.logo, "BOTTOM", 0, 30)
 		BFM.FlightMode.bottom.merathilisui:SetTextColor(1, 1, 1)
 
-		-- Pepe!!
+		-- Pepe!
 		BFM.FlightMode.top.npcHolder = CreateFrame("Frame", nil, BFM.FlightMode.top)
 		BFM.FlightMode.top.npcHolder:SetSize(60, 60)
 		BFM.FlightMode.top.npcHolder:SetPoint("CENTER", BFM.FlightMode.top, "CENTER", 0, -2)
