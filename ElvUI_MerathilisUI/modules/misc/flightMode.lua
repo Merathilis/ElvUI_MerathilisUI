@@ -52,6 +52,7 @@ function MFM:Initialize()
 		BFM.FlightMode.top.pepe:SetFacing(6.5)
 		BFM.FlightMode.top.pepe:SetCamDistanceScale(1)
 		BFM.FlightMode.top.pepe.isIdle = nil
+		BFM.FlightMode.top.pepe:Show()
 	end
 end
 
