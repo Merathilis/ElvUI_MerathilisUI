@@ -227,3 +227,12 @@ L["Shadow & Light"] = true
 
 -- Changelog
 L["Changelog"] = true
+
+-- Developer
+L["AddOn Presets"] = true
+L["Choose an AddOn Presets, where selected AddOns gets loaded."] = true
+L["Choose a Preset!"] = true
+L["Choose this Preset?"] = true
+L["Default"] = true
+L["ElvUI Only"] = true
+L["Instance"] = true

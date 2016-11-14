@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 -- MerathilisUI Credits
-StaticPopupDialogs["MERATHILISUI_CREDITS"] = {
+E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 	text = MER.Title,
 	button1 = OKAY,
 	hasEditBox = 1,
