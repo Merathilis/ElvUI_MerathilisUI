@@ -53,6 +53,9 @@ local function SetupCVars()
 	SetCVar("scriptErrors", 1)
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
+
+	PluginInstallStepComplete.message = L["CVars Set"]
+	PluginInstallStepComplete:Show()
 end
 
 local function SetupChat()
@@ -130,6 +133,9 @@ local function SetupChat()
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 
 	E:UpdateAll(true)
+
+	PluginInstallStepComplete.message = L["Chat Set"]
+	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupLayout(layout, noDataReset)
@@ -321,6 +327,9 @@ function MER:SetupLayout(layout, noDataReset)
 	end
 
 	E:UpdateAll(true)
+
+	PluginInstallStepComplete.message = L["Layout Set"]
+	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupActionbars(layout, noDataReset)
@@ -517,6 +526,9 @@ function MER:SetupActionbars(layout, noDataReset)
 	end
 
 	E:UpdateAll(true)
+
+	PluginInstallStepComplete.message = L["ActionBars Set"]
+	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupUnitframes(layout, noDataReset)
@@ -1666,6 +1678,9 @@ function MER:SetupUnitframes(layout, noDataReset)
 	end
 
 	E:UpdateAll(true)
+
+	PluginInstallStepComplete.message = L["UnitFrames Set"]
+	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupDts()
@@ -1753,6 +1768,9 @@ function MER:SetupDts()
 	end
 
 	E:UpdateAll(true)
+
+	PluginInstallStepComplete.message = L["DataTexts Set"]
+	PluginInstallStepComplete:Show()
 end
 
 function MER:SetupSkada(addon)
@@ -1763,6 +1781,8 @@ function MER:SetupSkada(addon)
 		if IsAddOnLoaded('Skada') then
 			local skadaName = GetAddOnMetadata('Skada', 'Title')
 			MER:Print(format(L[' - %s profile created!'], skadaName))
+			PluginInstallStepComplete.message = L["Skada Profile Created"]
+			PluginInstallStepComplete:Show()
 			SkadaDB['profiles']['MerathilisUI'] = {
 				["windows"] = {
 					{
@@ -1842,6 +1862,8 @@ function MER:SetupSkada(addon)
 			Skada.db:SetProfile("MerathilisUI")
 		else
 			MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
+			PluginInstallStepComplete.message = L["Skada is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 	end
 end
@@ -1854,6 +1876,8 @@ function MER:SetupBigWigs(addon)
 		if IsAddOnLoaded('BigWigs') then
 			local bigWigName = GetAddOnMetadata('BigWigs', 'Title')
 			MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
+			PluginInstallStepComplete.message = L["BigWigs Profile Created"]
+			PluginInstallStepComplete:Show()
 			BigWigs3DB = {
 				["namespaces"] = {
 					["BigWigs_Plugins_Victory"] = {},
@@ -1938,6 +1962,8 @@ function MER:SetupBigWigs(addon)
 			}
 		else
 			MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
+			PluginInstallStepComplete.message = L["BigWigs is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 	end
 end
@@ -1951,6 +1977,8 @@ function MER:SetupAddOnSkins(addon)
 			local AS = unpack(AddOnSkins) or nil
 			local AddOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], AddOnSkinsName))
+			PluginInstallStepComplete.message = L["AddOnSkins settings applied."]
+			PluginInstallStepComplete:Show()
 			AS.db['EmbedSystem'] = true
 			AS.db['EmbedSystemDual'] = false
 			AS.db['EmbedBelowTop'] = false
@@ -1973,6 +2001,8 @@ function MER:SetupAddOnSkins(addon)
 			AS.db['EmbedFrameLevel'] = 2
 		else
 			MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
+			PluginInstallStepComplete.message = L["AddOnSkins is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 	end
 end
@@ -1986,6 +2016,8 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_BenikUI') then
 			local BenikUIName = GetAddOnMetadata('ElvUI_BenikUI', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], BenikUIName))
+			PluginInstallStepComplete.message = L["ElvUI_BenikUI settings applied."]
+			PluginInstallStepComplete:Show()
 			E.db['benikui']['general']['loginMessage'] = false
 			E.db['benikui']['general']['splashScreen'] = false
 			E.db['benikui']['colors']['gameMenuColor'] = 1
@@ -2025,6 +2057,8 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 		else
 			MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
+			PluginInstallStepComplete.message = L["ElvUI_BenikUI is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 
 	--[[----------------------------------
@@ -2035,6 +2069,8 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded("ElvUI_SLE") then
 			local SLEName = GetAddOnMetadata('ElvUI_SLE', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], SLEName))
+			PluginInstallStepComplete.message = L["ElvUI_SLE settings applied."]
+			PluginInstallStepComplete:Show()
 			E.db["sle"]["raidmarkers"]["enable"] = false
 			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
@@ -2186,6 +2222,8 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["movers"]["RaidMarkerBar"] = "BOTTOM,ElvUIParent,BOTTOM,0,208"
 		else
 			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
+			PluginInstallStepComplete.message = L["ElvUI_SLE is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 
 	--[[----------------------------------
@@ -2196,6 +2234,8 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			local VATName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], VATName))
+			PluginInstallStepComplete.message = L["ElvUI_VisualAuraTimers settings applied."]
+			PluginInstallStepComplete:Show()
 			E.db["VAT"]["enableStaticColor"] = true
 			E.db["VAT"]["noDuration"] = true
 			E.db["VAT"]["barHeight"] = 5
@@ -2209,6 +2249,8 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["VAT"]["showText"] = true
 		else
 			MER:Print(L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."])
+			PluginInstallStepComplete.message = L["ElvUI_VisualAuraTimers is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
 		end
 	end
 end
