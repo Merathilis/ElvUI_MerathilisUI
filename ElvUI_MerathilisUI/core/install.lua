@@ -54,7 +54,7 @@ local function SetupCVars()
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
 
-	PluginInstallStepComplete.message = L["CVars Set"]
+	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -134,7 +134,7 @@ local function SetupChat()
 
 	E:UpdateAll(true)
 
-	PluginInstallStepComplete.message = L["Chat Set"]
+	PluginInstallStepComplete.message = MER.Title..L["Chat Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -328,7 +328,7 @@ function MER:SetupLayout(layout, noDataReset)
 
 	E:UpdateAll(true)
 
-	PluginInstallStepComplete.message = L["Layout Set"]
+	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -527,7 +527,7 @@ function MER:SetupActionbars(layout, noDataReset)
 
 	E:UpdateAll(true)
 
-	PluginInstallStepComplete.message = L["ActionBars Set"]
+	PluginInstallStepComplete.message = MER.Title..L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -857,7 +857,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid"]["health"]["position"] = "CENTER"
 			E.db["unitframe"]["units"]["raid"]["health"]["text_format"] = "[healthcolor][health:deficit]"
 			E.db["unitframe"]["units"]["raid"]["health"]["attachTextTo"] = "Health"
-			E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 5
 			E.db["unitframe"]["units"]["raid"]["buffs"]["anchorPoint"] = "CENTER"
 			E.db["unitframe"]["units"]["raid"]["buffs"]["clickTrough"] = false
@@ -952,7 +952,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["clickTrough"] = true
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
-			E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
 			E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 3
 			E.db["unitframe"]["units"]["raid40"]["power"]["enable"] = true
@@ -1026,7 +1026,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["buffs"]["clickTrough"] = false
 			E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "TurtleBuffs"
 			E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
-			E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["party"]["buffs"]['countFontSize'] = 12
 			E.db["unitframe"]["units"]["party"]["buffs"]["attachTo"] = "FRAME"
 			E.db["unitframe"]["units"]["party"]["height"] = 24
@@ -1423,7 +1423,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid"]["buffs"]["clickTrough"] = false
 			E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "TurtleBuffs"
 			E.db["unitframe"]["units"]["raid"]["buffs"]["perrow"] = 1
-			E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["raid"]["power"]["height"] = 4
 			E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
 			E.db["unitframe"]["units"]["raid"]["raidicon"]["yOffset"] = 0
@@ -1479,7 +1479,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["clickTrough"] = true
 			E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
-			E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
 			E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 3
 			E.db["unitframe"]["units"]["raid40"]["power"]["enable"] = true
@@ -1550,7 +1550,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
 			E.db["unitframe"]["units"]["party"]["buffs"]["attachTo"] = "FRAME"
 			E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
-			E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
+			E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = false
 			E.db["unitframe"]["units"]["party"]["height"] = 24
 			E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 15
 			E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 18
@@ -1679,7 +1679,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 
 	E:UpdateAll(true)
 
-	PluginInstallStepComplete.message = L["UnitFrames Set"]
+	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -1769,7 +1769,7 @@ function MER:SetupDts()
 
 	E:UpdateAll(true)
 
-	PluginInstallStepComplete.message = L["DataTexts Set"]
+	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
 end
 
@@ -1781,7 +1781,7 @@ function MER:SetupSkada(addon)
 		if IsAddOnLoaded('Skada') then
 			local skadaName = GetAddOnMetadata('Skada', 'Title')
 			MER:Print(format(L[' - %s profile created!'], skadaName))
-			PluginInstallStepComplete.message = L["Skada Profile Created"]
+			PluginInstallStepComplete.message = MER.Title..L["Skada Profile Created"]
 			PluginInstallStepComplete:Show()
 			SkadaDB['profiles']['MerathilisUI'] = {
 				["windows"] = {
@@ -1862,7 +1862,7 @@ function MER:SetupSkada(addon)
 			Skada.db:SetProfile("MerathilisUI")
 		else
 			MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
-			PluginInstallStepComplete.message = L["Skada is not enabled, aborting."]
+			PluginInstallStepComplete.message = MER.Title..L["Skada is not enabled, aborting."]
 			PluginInstallStepComplete:Show()
 		end
 	end
@@ -1876,7 +1876,7 @@ function MER:SetupBigWigs(addon)
 		if IsAddOnLoaded('BigWigs') then
 			local bigWigName = GetAddOnMetadata('BigWigs', 'Title')
 			MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
-			PluginInstallStepComplete.message = L["BigWigs Profile Created"]
+			PluginInstallStepComplete.message = MER.Title..L["BigWigs Profile Created"]
 			PluginInstallStepComplete:Show()
 			BigWigs3DB = {
 				["namespaces"] = {
@@ -1962,7 +1962,7 @@ function MER:SetupBigWigs(addon)
 			}
 		else
 			MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
-			PluginInstallStepComplete.message = L["BigWigs is not enabled, aborting."]
+			PluginInstallStepComplete.message = MER.Title..L["BigWigs is not enabled, aborting."]
 			PluginInstallStepComplete:Show()
 		end
 	end
@@ -1977,7 +1977,7 @@ function MER:SetupAddOnSkins(addon)
 			local AS = unpack(AddOnSkins) or nil
 			local AddOnSkinsName = GetAddOnMetadata('AddOnSkins', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], AddOnSkinsName))
-			PluginInstallStepComplete.message = L["AddOnSkins settings applied."]
+			PluginInstallStepComplete.message = MER.Title..L["AddOnSkins settings applied."]
 			PluginInstallStepComplete:Show()
 			AS.db['EmbedSystem'] = true
 			AS.db['EmbedSystemDual'] = false
@@ -2001,7 +2001,7 @@ function MER:SetupAddOnSkins(addon)
 			AS.db['EmbedFrameLevel'] = 2
 		else
 			MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
-			PluginInstallStepComplete.message = L["AddOnSkins is not enabled, aborting."]
+			PluginInstallStepComplete.message = MER.Title..L["AddOnSkins is not enabled, aborting."]
 			PluginInstallStepComplete:Show()
 		end
 	end
@@ -2016,8 +2016,6 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_BenikUI') then
 			local BenikUIName = GetAddOnMetadata('ElvUI_BenikUI', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], BenikUIName))
-			PluginInstallStepComplete.message = L["ElvUI_BenikUI settings applied."]
-			PluginInstallStepComplete:Show()
 			E.db['benikui']['general']['loginMessage'] = false
 			E.db['benikui']['general']['splashScreen'] = false
 			E.db['benikui']['colors']['gameMenuColor'] = 1
@@ -2057,8 +2055,6 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
 		else
 			MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
-			PluginInstallStepComplete.message = L["ElvUI_BenikUI is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
 		end
 
 	--[[----------------------------------
@@ -2069,8 +2065,6 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded("ElvUI_SLE") then
 			local SLEName = GetAddOnMetadata('ElvUI_SLE', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], SLEName))
-			PluginInstallStepComplete.message = L["ElvUI_SLE settings applied."]
-			PluginInstallStepComplete:Show()
 			E.db["sle"]["raidmarkers"]["enable"] = false
 			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
@@ -2222,8 +2216,6 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["movers"]["RaidMarkerBar"] = "BOTTOM,ElvUIParent,BOTTOM,0,208"
 		else
 			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
-			PluginInstallStepComplete.message = L["ElvUI_SLE is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
 		end
 
 	--[[----------------------------------
@@ -2234,7 +2226,7 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			local VATName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], VATName))
-			PluginInstallStepComplete.message = L["ElvUI_VisualAuraTimers settings applied."]
+			PluginInstallStepComplete.message = MER.Title..L["ElvUI_VisualAuraTimers settings applied."]
 			PluginInstallStepComplete:Show()
 			E.db["VAT"]["enableStaticColor"] = true
 			E.db["VAT"]["noDuration"] = true
@@ -2249,10 +2241,10 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["VAT"]["showText"] = true
 		else
 			MER:Print(L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."])
-			PluginInstallStepComplete.message = L["ElvUI_VisualAuraTimers is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
 		end
 	end
+	PluginInstallStepComplete.message = MER.Title..L["ElvUI AddOns settings applied."]
+	PluginInstallStepComplete:Show()
 end
 
 local function InstallComplete()
@@ -2379,5 +2371,8 @@ MER.installTable = {
 		[8] = ADDONS,
 		[9] = L['Installation Complete'],
 	},
-	["StepTitlesColorSelected"] = RAID_CLASS_COLORS[E.myclass],
+	StepTitlesColorSelected = RAID_CLASS_COLORS[E.myclass],
+	StepTitleWidth = 200,
+	StepTitleButtonWidth = 200,
+	StepTitleTextJustification = "CENTER",
 }

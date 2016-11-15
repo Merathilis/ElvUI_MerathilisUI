@@ -294,6 +294,8 @@ function MER:ElvUITest()
 	DisableAllAddOns(E.myname)
 	EnableAddOn("ElvUI")
 	EnableAddOn("ElvUI_Config")
+	EnableAddOn("!BugGrabber")
+	EnableAddOn("BugSack")
 
 	ReloadUI()
 end
