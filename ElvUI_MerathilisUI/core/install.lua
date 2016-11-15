@@ -2226,8 +2226,6 @@ function MER:SetupElvUIAddOns(addon)
 		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
 			local VATName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
 			MER:Print(format(L[' - %s settings applied.'], VATName))
-			PluginInstallStepComplete.message = MER.Title..L["ElvUI_VisualAuraTimers settings applied."]
-			PluginInstallStepComplete:Show()
 			E.db["VAT"]["enableStaticColor"] = true
 			E.db["VAT"]["noDuration"] = true
 			E.db["VAT"]["barHeight"] = 5
