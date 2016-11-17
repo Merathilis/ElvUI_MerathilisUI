@@ -1819,7 +1819,7 @@ function MER:SetupSkada(addon)
 						["mode"] = "Schaden",
 						["enabletitle"] = true,
 						["spark"] = false,
-						["bartexture"] = "MerathilisFlat",
+						["bartexture"] = "Lyn1",
 						["barwidth"] = 165.999954223633,
 						["barspacing"] = 2,
 						["barcolor"] = {
@@ -1844,7 +1844,7 @@ function MER:SetupSkada(addon)
 							["borderthickness"] = 0,
 							["fontsize"] = 14,
 							["fontflags"] = "OUTLINE",
-							["texture"] = "MerathilisFlat",
+							["texture"] = "Lyn1",
 						},
 						["x"] = 1739.00001525879,
 					}, -- [1]

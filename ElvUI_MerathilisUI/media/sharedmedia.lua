@@ -26,6 +26,7 @@ LSM:Register('statusbar','MerathilisnormTex', [[Interface\AddOns\ElvUI_Merathili
 LSM:Register('statusbar','Merathilisblank', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\blank.tga]])
 LSM:Register('statusbar','MerathilisDefault', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\default.blp]])
 LSM:Register('statusbar','MerathilisLight', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Light.tga]])
+LSM:Register('statusbar','Lyn1', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\lyn1.tga]])
 
 -- Sounds
 LSM:Register('sounds','warning', [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])
