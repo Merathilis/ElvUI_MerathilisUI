@@ -22,9 +22,13 @@ local ChangeLog = CreateFrame("frame")
 local ChangeLogData = [=[|cffff7d0av2.23|r, 02.11.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Fix a taint in WorldMap #40
- |cffff7d0a•|r Update BigWigs Skin. Now based on HalfBar Skin from AddOnSkins. Credits Azilroka
- |cffff7d0a•|r Let BenikUI handle the fonts.
+ |cffff7d0a•|r Changed AddOnSkins embedded settings for Skada.
+ |cffff7d0a•|r Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
+ |cffff7d0a•|r Add WorldQuest Tooltip Icons.
+ |cffff7d0a•|r Add MiniMapPing. Show the PlayerName who pinged on the MiniMap.
+ |cffff7d0a•|r Pepe is now in your flightMode. :)
+ |cffff7d0a•|r Fix install steps messages.
+ |cffff7d0a•|r Change readyCheck textures.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r For Patch 7.1

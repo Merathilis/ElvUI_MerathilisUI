@@ -1,3 +1,12 @@
+** v2.24, xx.11.2016**
+* Changed AddOnSkins embedded settings for Skada.
+* Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
+* Add WorldQuest Tooltip Icons.
+* Add MiniMapPing. Show the PlayerName who pinged on the MiniMap.
+* Pepe is now in your flightMode. :)
+* Fix install steps messages.
+* Change readyCheck textures.
+
 ** v2.23, 02.11.2016**
 * Fix a taint in WorldMap #40
 * Update BigWigs Skin. Now based on HalfBar Skin from AddOnSkins. Credits Azilroka

@@ -1,3 +1,12 @@
+<b><u> v2.24, xx.11.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Changed AddOnSkins embedded settings for Skada.
+<font color=#FF8C00>&#9830;</font> Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
+<font color=#FF8C00>&#9830;</font> Add WorldQuest Tooltip Icons.
+<font color=#FF8C00>&#9830;</font> Add MiniMapPing. Show the PlayerName who pinged on the MiniMap.
+<font color=#FF8C00>&#9830;</font> Pepe is now in your flightMode. :)
+<font color=#FF8C00>&#9830;</font> Fix install steps messages.
+<font color=#FF8C00>&#9830;</font> Change readyCheck textures.
+
 <b><u> v2.23, 02.11.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a taint in WorldMap #40
 <font color=#FF8C00>&#9830;</font> Update BigWigs Skin. Now based on HalfBar Skin from AddOnSkins. Credits Azilroka
