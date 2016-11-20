@@ -76,7 +76,7 @@ function S:HandleCloseButton(f, point, text)
 			end
 		end
 	end
-	
+
 	-- Create backdrop for the few close buttons that do not use original close button
 	if not f.backdrop and not f.noBackdrop then
 		f:CreateBackdrop('Default', true)
@@ -85,7 +85,7 @@ function S:HandleCloseButton(f, point, text)
 		f:HookScript('OnEnter', SetModifiedBackdrop)
 		f:HookScript('OnLeave', SetOriginalBackdrop)
 	end
-	
+
 	-- Have to create the text, ElvUI code expects the element to be there. It won't show up for original close buttons anyway.
 	if not f.text then
 		f.text = f:CreateFontString(nil, 'OVERLAY')
@@ -94,15 +94,37 @@ function S:HandleCloseButton(f, point, text)
 		f.text:SetJustifyH('CENTER')
 		f.text:SetPoint('CENTER', f, 'CENTER')
 	end
-	
+
 	-- Hide text if button is using original skin
 	if f.text and f.noBackdrop then
 		f.text:SetAlpha(0)
 	end
-	
+
 	if point then
 		f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
 	end
 end
+
+-- ClassColored ScrollBars
+function MERS:HandleScrollBar(frame, thumbTrim)
+	if frame:GetName() then
+		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			end
+		end
+	else
+		if frame.ScrollUpButton and frame.ScrollDownButton then
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			end
+		end
+	end
+end
+hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 
 E:RegisterModule(MERS:GetName())
