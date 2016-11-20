@@ -101,5 +101,6 @@ end
 
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
 ChangeLog:SetScript("OnEvent", function()
+	if MerathilisUIData == nil then MerathilisUIData = {} end
 	MER:OnCheckVersion()
 end)
