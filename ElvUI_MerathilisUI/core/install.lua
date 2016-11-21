@@ -735,6 +735,7 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 20
 			E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
 			E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
+			E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPLEFT"
 			E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 			E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 			E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
