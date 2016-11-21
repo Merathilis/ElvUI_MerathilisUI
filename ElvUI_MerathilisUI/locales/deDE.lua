@@ -90,6 +90,10 @@ L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 L['TradeSkill Tabs'] = "Berufsfenster Tabs"
 L['Add tabs for professions on the TradeSkill Frame.'] = "Fügt Tabs am Berufsfenster hinzu."
 
+-- DataTexts
+L["ChatTab_Datatext_Panel"] = "Rechter ChatTab Infotextleisten"
+L["Enable/Disable the right chat tab datatext panel."] = "Aktivert/Deaktiviert die rechten ChatTab Infoleisten."
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "

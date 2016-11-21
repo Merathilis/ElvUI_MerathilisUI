@@ -90,6 +90,10 @@ L["%s is now playing (%s%s)."] = true
 L['TradeSkill Tabs'] = true
 L['Add tabs for professions on the TradeSkill Frame.'] = true
 
+-- DataTexts
+L["ChatTab_Datatext_Panel"] = "Right Chat Tab Datatext Panel"
+L['Enable/Disable the right chat tab datatext panel.'] = true
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
 L["Announce Freed"] = true

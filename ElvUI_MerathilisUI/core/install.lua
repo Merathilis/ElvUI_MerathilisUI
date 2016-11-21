@@ -1717,10 +1717,24 @@ function MER:SetupDts()
 		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Guild"
 		E.db["datatexts"]["panels"]["RightMiniPanel"] = "S&L Friends"
 		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.left = "S&L Item Level"
 	else
 		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "Guild"
 		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Friends"
 		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.left = "Call to Arms"
+	end
+
+	if IsAddOnLoaded('ExRT') then
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.middle = "ExRT"
+	else
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.middle = "Coords"
+	end
+
+	if IsAddOnLoaded('SavedInstances') then
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.right = "SavedInstances"
+	else
+		E.db.mui.datatexts.panels.ChatTab_Datatext_Panel.right = "Bags"
 	end
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
@@ -1817,9 +1831,9 @@ function MER:SetupSkada(addon)
 							["b"] = 0.301960784313726,
 						},
 						["mode"] = "Schaden",
-						["enabletitle"] = true,
+						["enabletitle"] = false,
 						["spark"] = false,
-						["bartexture"] = "Lyn1",
+						["bartexture"] = "MerathilisFlat",
 						["barwidth"] = 165.999954223633,
 						["barspacing"] = 2,
 						["barcolor"] = {
@@ -1844,7 +1858,7 @@ function MER:SetupSkada(addon)
 							["borderthickness"] = 0,
 							["fontsize"] = 14,
 							["fontflags"] = "OUTLINE",
-							["texture"] = "Lyn1",
+							["texture"] = "MerathilisFlat",
 						},
 						["x"] = 1739.00001525879,
 					}, -- [1]

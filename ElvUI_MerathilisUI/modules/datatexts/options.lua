@@ -1,5 +1,43 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local LO = E:GetModule('Layout')
+local DT = E:GetModule('DataTexts')
+
+--Cache global variables
+--Lua functions
+local _G = _G
+local pairs, type = pairs, type
+--WoW API / Variables
+local NONE = NONE
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: LeftMiniPanel, Minimap
+
+function MER:LoadDataTexts()
+	local db = E.db.mui.datatexts
+
+	for panelName, panel in pairs(DT.RegisteredPanels) do
+		for i=1, panel.numPoints do
+			local pointIndex = DT.PointLocation[i]
+
+			--Register Panel to Datatext
+			for name, data in pairs(DT.RegisteredDataTexts) do
+				for option, value in pairs(db.panels) do
+					if value and type(value) == 'table' then
+						if option == panelName and db.panels[option][pointIndex] and db.panels[option][pointIndex] == name then
+							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
+						end
+					elseif value and type(value) == 'string' and value == name then
+						if db.panels[option] == name and option == panelName then
+							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+hooksecurefunc(DT, "LoadDataTexts", MER.LoadDataTexts)
 
 local function Datatexts()
 	E.Options.args.mui.args.datatexts = {
@@ -64,7 +102,70 @@ local function Datatexts()
 					},
 				},
 			},
+			general = {
+				order = 2,
+				type = 'group',
+				name = L['General'],
+				guiInline = true,
+				args = {
+					rightChatTabDatatextPanel = {
+						order = 1,
+						type = 'toggle',
+						name = L['ChatTab_Datatext_Panel'],
+						desc = L['Enable/Disable the right chat tab datatext panel.'],
+						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel end,
+						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel = value; MER:ToggleDataPanels() end,
+					},
+				},
+			},
+			panels = {
+				order = 3,
+				type = 'group',
+				name = L['Panels'],
+				guiInline = true,
+				args = {},
+			},
 		},
 	}
+
+	local datatexts = {}
+	for name, _ in pairs(DT.RegisteredDataTexts) do
+		datatexts[name] = name
+	end
+	datatexts[''] = NONE
+
+	local table = E.Options.args.mui.args.datatexts.args.panels.args
+	local i = 0
+	for pointLoc, tab in pairs(P.mui.datatexts.panels) do
+		i = i + 1
+		if not _G[pointLoc] then table[pointLoc] = nil; return; end
+		if type(tab) == 'table' then
+			table[pointLoc] = {
+				type = 'group',
+				args = {},
+				name = L[pointLoc] or pointLoc,
+				guiInline = true,
+				order = i,
+			}
+			for option, value in pairs(tab) do
+				table[pointLoc].args[option] = {
+					type = 'select',
+					name = L[option] or option:upper(),
+					values = datatexts,
+					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
+					set = function(info, value) E.db.mui.datatexts.panels[pointLoc][ info[#info] ] = value; DT:LoadDataTexts() end,
+				}
+			end
+		elseif type(tab) == 'string' then
+			table[pointLoc] = {
+				type = 'select',
+				name = L[pointLoc] or pointLoc,
+				values = datatexts,
+				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,
+				set = function(info, value) E.db.mui.datatexts.panels[pointLoc] = value; DT:LoadDataTexts() end,
+				print(pointLoc)
+			}
+		end
+	end
 end
 tinsert(MER.Config, Datatexts)

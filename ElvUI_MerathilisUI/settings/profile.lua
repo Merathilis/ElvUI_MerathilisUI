@@ -27,6 +27,17 @@ P['mui'] = {
 		['minimapping'] = true, -- Shows the PlayerName on the MiniMap if someone pings.
 	},
 
+	['datatexts'] = {
+		['rightChatTabDatatextPanel'] = true,
+		['panels'] = {
+			['ChatTab_Datatext_Panel'] = {
+				['left'] = 'Call to Arms',
+				['middle'] = 'Coords',
+				['right'] = 'Bags',
+			},
+		},
+	},
+
 	['systemDT'] = {
 		['maxAddons'] = 25, -- Sets how many Addons to show
 		['showFPS'] = true, -- Show Frames per seconds

@@ -23,4 +23,5 @@ media\load_media.xml
 core\load_core.xml
 settings\load_settings.xml
 developer\load_developer.xml
+layout\layout.lua
 modules\load_modules.xml
