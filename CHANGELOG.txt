@@ -6,6 +6,7 @@
 <font color=#FF8C00>&#9830;</font> Pepe is now in your flightMode. :)
 <font color=#FF8C00>&#9830;</font> Fix install steps messages.
 <font color=#FF8C00>&#9830;</font> Change readyCheck textures.
+<font color=#FF8C00>&#9830;</font> Add a ChatTab Datatext Panel.
 
 <b><u> v2.23, 02.11.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a taint in WorldMap #40

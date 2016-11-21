@@ -6,6 +6,7 @@
 * Pepe is now in your flightMode. :)
 * Fix install steps messages.
 * Change readyCheck textures.
+* Add a ChatTab Datatext Panel.
 
 ** v2.23, 02.11.2016**
 * Fix a taint in WorldMap #40

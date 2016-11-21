@@ -29,6 +29,7 @@ local ChangeLogData = [=[|cffff7d0av2.24|r, xx.11.2016
  |cffff7d0a•|r Pepe is now in your flightMode. :)
  |cffff7d0a•|r Fix install steps messages.
  |cffff7d0a•|r Change readyCheck textures.
+ |cffff7d0a•|r Add a ChatTab Datatext Panel.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r For Patch 7.1
