@@ -193,7 +193,21 @@ local function AddOptions()
 								func = function() MER:ToggleChangeLog(); E:ToggleConfig() end,
 							},
 						},
-					}, 
+					},
+					version = {
+						order = 7,
+						type = 'group',
+						name = MER:cOption(L['Version']),
+						guiInline = true,
+						args = {
+							version = {
+								order = 1,
+								type = 'description',
+								fontSize = 'medium',
+								name = MER.Title..MER.Version,
+							},
+						},
+					},
 				},
 			},
 		},
