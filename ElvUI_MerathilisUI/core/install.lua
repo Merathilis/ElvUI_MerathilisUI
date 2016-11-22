@@ -780,6 +780,16 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 			E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 			E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"] = E.db["unitframe"]["units"]["targettarget"]["customTexts"] or {}
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"] = {}
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["attachTextTo"] = "Health"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["font"] = "Merathilis Roboto-Black"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["justifyH"] = "RIGHT"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["fontOutline"] = "OUTLINE"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["xOffset"] = 1
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["size"] = 12
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["text_format"] = "[namecolor]ToT"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["yOffset"] = 16
 			MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 150)
 
 			-- Focus
@@ -1732,8 +1742,8 @@ function MER:SetupDts()
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Coords"
 	end
 
-	if IsAddOnLoaded('SavedInstances') then
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "SavedInstances"
+	if IsAddOnLoaded('WIM') then
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "WIM"
 	else
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Bags"
 	end
@@ -1996,7 +2006,7 @@ function MER:SetupAddOnSkins(addon)
 			PluginInstallStepComplete:Show()
 			AS.db['EmbedSystem'] = true
 			AS.db['EmbedSystemDual'] = false
-			AS.db['EmbedBelowTop'] = false
+			AS.db['EmbedBelowTop'] = true
 			AS.db['TransparentEmbed'] = true
 			AS.db['EmbedMain'] = 'Skada'
 			AS.db['EmbedLeft'] = ''
