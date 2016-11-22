@@ -125,6 +125,12 @@ local function Datatexts()
 				guiInline = true,
 				args = {},
 			},
+			gotodatatexts = {
+				order = 4,
+				type = "execute",
+				name = L["ElvUI DataTexts"],
+				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts") end,
+			},
 		},
 	}
 
