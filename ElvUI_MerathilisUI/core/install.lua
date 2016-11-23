@@ -128,7 +128,11 @@ local function SetupChat()
 		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	end
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	E.db["chat"]["panelBackdropNameRight"] = ""
+	if E.myname == "Merathilis" then
+		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\moonkin.tga"
+	else
+		E.db["chat"]["panelBackdropNameRight"] = ""
+	end
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-158,22"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
 
