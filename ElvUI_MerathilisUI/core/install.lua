@@ -598,11 +598,11 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 			-- Create own customText
 			E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-				["font"] = "Merathilis GoodDogCool",
+				["font"] = "Merathilis Tukui",
 				["justifyH"] = "LEFT",
 				["fontOutline"] = "OUTLINE",
 				["text_format"] = "[name:medium]",
-				["size"] = 24,
+				["size"] = 20,
 				["attachTextTo"] = 'Health',
 				["xOffset"] = 1,
 			}
@@ -693,12 +693,12 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 			-- Create own customText
 			E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-				["font"] = "Merathilis GoodDogCool",
+				["font"] = "Merathilis Tukui",
 				["justifyH"] = "RIGHT",
 				["fontOutline"] = "OUTLINE",
 				["xOffset"] = 4,
 				["yOffset"] = 0,
-				["size"] = 24,
+				["size"] = 20,
 				["text_format"] = "[name:medium]",
 				["attachTextTo"] = "Health",
 			}
