@@ -598,11 +598,11 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 			-- Create own customText
 			E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-				["font"] = "Merathilis Tukui",
+				["font"] = "Merathilis GoodDogCool",
 				["justifyH"] = "LEFT",
 				["fontOutline"] = "OUTLINE",
 				["text_format"] = "[name:medium]",
-				["size"] = 20,
+				["size"] = 24,
 				["attachTextTo"] = 'Health',
 				["xOffset"] = 1,
 			}
@@ -693,12 +693,12 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 			-- Create own customText
 			E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-				["font"] = "Merathilis Tukui",
+				["font"] = "Merathilis GoodDogCool",
 				["justifyH"] = "RIGHT",
 				["fontOutline"] = "OUTLINE",
 				["xOffset"] = 4,
 				["yOffset"] = 0,
-				["size"] = 20,
+				["size"] = 24,
 				["text_format"] = "[name:medium]",
 				["attachTextTo"] = "Health",
 			}
@@ -783,11 +783,11 @@ function MER:SetupUnitframes(layout, noDataReset)
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"] = E.db["unitframe"]["units"]["targettarget"]["customTexts"] or {}
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"] = {}
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["attachTextTo"] = "Health"
-			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["font"] = "Merathilis Roboto-Black"
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["font"] = "Merathilis GoodDogCool"
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["justifyH"] = "RIGHT"
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["fontOutline"] = "OUTLINE"
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["xOffset"] = 1
-			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["size"] = 12
+			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["size"] = 20
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["text_format"] = "[namecolor]ToT"
 			E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["yOffset"] = 16
 			MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 150)
