@@ -2,4 +2,5 @@
 	<Script file="addonskins.lua"/>
 	<Script file="bigWigs.lua"/>
 	<Script file="weakAuras.lua"/>
+	<Script file="worldQuestTab.lua"/>
 </Ui>
