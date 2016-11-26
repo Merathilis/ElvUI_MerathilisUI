@@ -2120,6 +2120,16 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["size"] = 16
 			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["outline"] = "OUTLINE"
+			E.db["sle"]["Armory"]["Inspect"]["Enable"] = true
+			E.db["sle"]["Armory"]["Inspect"]["Level"]["ShowUpgradeLevel"] = true
+			E.db["sle"]["Armory"]["Inspect"]["Level"]["Font"] = "Merathilis Roboto-Black"
+			E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 10
+			E.db["sle"]["Armory"]["Inspect"]["Backdrop"]["SelectedBG"] = "HIDE"
+			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["Display"] = "MouseoverOnly"
+			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 9
+			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
+			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["WarningIconOnly"] = true
+			E.db["sle"]["Armory"]["Inspect"]["Gem"]["SocketSize"] = 15
 			E.db["sle"]["auras"]["hideDebuffsTimer"] = false
 			E.db["sle"]["auras"]["hideBuffsTimer"] = false
 			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
