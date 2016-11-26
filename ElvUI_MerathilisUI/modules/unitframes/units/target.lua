@@ -47,6 +47,7 @@ function TC:ToggleSettings()
 end
 
 function TC:Initialize()
+	if not E.db.unitframe.units.target.enable then return end
 	classIcon = CreateFrame("Frame", "TargetClass", _G["ElvUF_Target"])
 	classIcon:SetFrameLevel(100)
 	classIcon.Texture = classIcon:CreateTexture(_G["ElvUF_Target"], "ARTWORK")

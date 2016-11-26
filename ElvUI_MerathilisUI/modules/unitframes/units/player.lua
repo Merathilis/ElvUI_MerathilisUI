@@ -48,6 +48,7 @@ function MUF:Configure_RestingIndicator(frame)
 end
 
 function MUF:InitPlayer()
+	if not E.db.unitframe.units.player.enable then return end
 	self:Construct_PlayerFrame()
 	hooksecurefunc(UF, "Configure_RestingIndicator", MUF.Configure_RestingIndicator)
 end
