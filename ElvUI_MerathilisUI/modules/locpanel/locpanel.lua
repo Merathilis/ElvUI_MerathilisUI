@@ -386,13 +386,17 @@ end
 
 function LP:PopulateItems()
 	local noItem = false
-	if select(2, GetItemInfo(6948)) == nil then noItem = true end
+
+	for index, data in pairs(LP.PortItems) do
+		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
+	end
+
 	if noItem then
 		E:Delay(2, LP.PopulateItems)
 	else
-		for i = 1, #LP.PortItems do
-			local id, name, toy = unpack(LP.PortItems[i])
-			LP.PortItems[i] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
+		for index, data in pairs(LP.PortItems) do
+			local id, name, toy = data[1], data[2], data[3]
+			LP.PortItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true}
 		end
 	end
 end
@@ -414,7 +418,6 @@ function LP:ItemList(check)
 						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[E.db.mui.locPanel.portals.cdFormat], cd)
 						tinsert(LP.MainMenu, tmp)
 					else
-						-- tmp.text = tmp.text
 						tinsert(LP.MainMenu, data)
 					end
 				end
