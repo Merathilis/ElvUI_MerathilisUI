@@ -2130,6 +2130,7 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
 			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["WarningIconOnly"] = true
 			E.db["sle"]["Armory"]["Inspect"]["Gem"]["SocketSize"] = 15
+			E.db["sle"]["Armory"]["Inspect"]["Gradation"]["CurrentClassColor"] = true
 			E.db["sle"]["auras"]["hideDebuffsTimer"] = false
 			E.db["sle"]["auras"]["hideBuffsTimer"] = false
 			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
