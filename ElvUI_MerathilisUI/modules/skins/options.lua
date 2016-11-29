@@ -8,12 +8,14 @@ local ipairs, unpack = ipairs, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
--- local DecorElvUIAddons = {}
-
 local DecorAddons = {
 	{'BigWigs', L["BigWigs"], 'bw'},
 	{'WeakAuras', L["WeakAuras"]..MER.NewSign, 'wa'},
 }
+
+--[[local DecorElvUIAddons = {
+	{'ElvUI_SLE', L['Shadow & Light'], 'sle'},
+}]]
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
