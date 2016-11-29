@@ -7,7 +7,7 @@ local E, L, V, P, G = unpack(ElvUI);
 
 local function styleGossip()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
-	
+
 	GossipGreetingScrollFrame:StripTextures()
 	GossipGreetingText:SetTextColor(1, 1, 1)
 
