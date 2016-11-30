@@ -1,4 +1,4 @@
-** v2.24, xx.11.2016**
+** v2.24, 30.11.2016**
 * Changed AddOnSkins embedded settings for Skada.
 * Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
 * Add WorldQuest Tooltip Icons.
@@ -7,6 +7,7 @@
 * Fix install steps messages.
 * Change readyCheck textures.
 * Add a ChatTab Datatext Panel.
+* Fix a lua error if the Player/Target Frames are not enabled.
 
 ** v2.23, 02.11.2016**
 * Fix a taint in WorldMap #40

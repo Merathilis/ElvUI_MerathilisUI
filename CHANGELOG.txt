@@ -1,4 +1,4 @@
-<b><u> v2.24, xx.11.2016</b></u>
+<b><u> v2.24, 30.11.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Changed AddOnSkins embedded settings for Skada.
 <font color=#FF8C00>&#9830;</font> Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
 <font color=#FF8C00>&#9830;</font> Add WorldQuest Tooltip Icons.
@@ -7,6 +7,7 @@
 <font color=#FF8C00>&#9830;</font> Fix install steps messages.
 <font color=#FF8C00>&#9830;</font> Change readyCheck textures.
 <font color=#FF8C00>&#9830;</font> Add a ChatTab Datatext Panel.
+<font color=#FF8C00>&#9830;</font> Fix a lua error if the Player/Target Frames are not enabled.
 
 <b><u> v2.23, 02.11.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Fix a taint in WorldMap #40

@@ -19,7 +19,7 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.24|r, xx.11.2016
+local ChangeLogData = [=[|cffff7d0av2.24|r, 30.11.2016
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Changed AddOnSkins embedded settings for Skada.
@@ -30,9 +30,10 @@ local ChangeLogData = [=[|cffff7d0av2.24|r, xx.11.2016
  |cffff7d0a•|r Fix install steps messages.
  |cffff7d0a•|r Change readyCheck textures.
  |cffff7d0a•|r Add a ChatTab Datatext Panel.
+ |cffff7d0a•|r Fix a lua error if the Player/Target Frames are not enabled.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r For Patch 7.1
+ |cffff7d0a•|r Some settings for Shadow&Light are for the Alpha Version. So it may cause a lua error in install.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
