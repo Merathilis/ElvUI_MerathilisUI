@@ -10,10 +10,7 @@ V['muiSkins'] = {
 		['gossip'] = true,
 		['quest'] = true,
 		['spellbook'] = true,
-		['orderhall'] = {
-			['enable'] = true,
-			['zoneText'] = true,
-		},
+		['orderhall'] = true,
 		['talent'] = true,
 	},
 	['addonSkins'] = {

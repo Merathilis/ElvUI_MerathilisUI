@@ -28,7 +28,7 @@ local function follower()
 end
 
 local function styleOrderhall()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall.enable ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, 2, -5)
@@ -40,14 +40,10 @@ local function styleOrderhall()
 	OrderHallCommandBar.CurrencyIcon:Hide()
 	OrderHallCommandBar.CurrencyHitTest:Hide()
 
-	if E.private.muiSkins.blizzard.orderhall.zoneText then
-		OrderHallCommandBar.AreaName:ClearAllPoints()
-		OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
-		OrderHallCommandBar.AreaName:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
-		OrderHallCommandBar.AreaName:SetWordWrap(true)
-	else
-		OrderHallCommandBar.AreaName:Hide()
-	end
+	OrderHallCommandBar.AreaName:ClearAllPoints()
+	OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
+	OrderHallCommandBar.AreaName:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 11, "OUTLINE")
+	OrderHallCommandBar.AreaName:SetWordWrap(true)
 
 	OrderHallCommandBar.WorldMapButton:Show()
 	OrderHallCommandBar.WorldMapButton:ClearAllPoints()

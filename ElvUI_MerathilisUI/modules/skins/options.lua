@@ -136,26 +136,9 @@ local function SkinsTable()
 			},
 			orderhall = {
 				order = 15,
-				type = 'group',
+				type = 'toggle',
 				name = L["Orderhall"],
-				guiInline = true,
-				get = function(info) return E.private.muiSkins.blizzard.orderhall[ info[#info] ] end,
-				set = function(info, value) E.private.muiSkins.blizzard.orderhall[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
-				args = {
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-					},
-					zoneText = {
-						order = 2,
-						type = 'toggle',
-						name = L["Zone Text"],
-						desc = L["Enable/Disable the Zone Text in the OrderHall Commandbar."],
-						disabled = function() return not E.private.muiSkins.blizzard.orderhall.enable end,
-					},
-				},
 			},
 			talent = {
 				order = 16,
