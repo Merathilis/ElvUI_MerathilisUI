@@ -15,6 +15,7 @@ local function styleTalents()
 		local bu = PlayerTalentFrameSpecialization["specButton"..i]
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
+		bu.SelectedTexture = bu:CreateTexture(nil, 'BACKGROUND')
 		bu.SelectedTexture:SetColorTexture(classColor.r, classColor.g, classColor.b)
 	end
 
