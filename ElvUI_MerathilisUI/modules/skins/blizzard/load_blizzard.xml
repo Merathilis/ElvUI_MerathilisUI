@@ -7,4 +7,5 @@
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>
+	<Script file="talent.lua"/>
 </Ui>

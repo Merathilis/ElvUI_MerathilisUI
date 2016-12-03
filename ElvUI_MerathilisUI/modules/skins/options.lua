@@ -134,14 +134,8 @@ local function SkinsTable()
 				name = L["Quest Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},
-			--[[worldmap = {
-				order = 15,
-				type = 'toggle',
-				name = L["World Map"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
-			},]]
 			orderhall = {
-				order = 17,
+				order = 15,
 				type = 'group',
 				name = L["Orderhall"],
 				guiInline = true,
@@ -162,6 +156,12 @@ local function SkinsTable()
 						disabled = function() return not E.private.muiSkins.blizzard.orderhall.enable end,
 					},
 				},
+			},
+			talent = {
+				order = 16,
+				type = 'toggle',
+				name = L["Talent Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent end,
 			},
 		},
 	}
