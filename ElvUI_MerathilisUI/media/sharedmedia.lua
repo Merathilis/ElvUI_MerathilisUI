@@ -17,6 +17,10 @@ LSM:Register('font','Merathilis Roboto-Medium', [[Interface\AddOns\ElvUI_Merathi
 LSM:Register('font','Merathilis Roboto-Regular', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Regular.ttf]])
 LSM:Register('font','Merathilis GoodDogCool', [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\gdcool.ttf]])
 
+-- Backgrounds
+LSM:Register('background','Merathilis BrushedMetal', [[Interface\AddOns\ElvUI_MerathilisUI\media\background\brushedmetal.tga]])
+LSM:Register('background','Merathilis Smoke', [[Interface\AddOns\ElvUI_MerathilisUI\media\background\smoke.tga]])
+
 -- Statusbars
 LSM:Register('statusbar','MerathilisFlat', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])
 LSM:Register('statusbar','MerathilisOnePixel', [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\OnePixel.tga]])

@@ -35,15 +35,15 @@ function MERS:SkinTexture(frame)
 end
 
 function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
-	local Texture = E['media'].MuiBlank
+	local Texture = E['media'].muiBlank
 
 	if UseTexture then 
-		Texture = TextureFile or E['media'].MuiNormTex
+		Texture = TextureFile or E['media'].muiNormTex
 	end
 
 	Frame:SetBackdrop({
 		bgFile = Texture,
-		edgeFile = E['media'].MuiBlank,
+		edgeFile = E['media'].muiBlank,
 		tile = false, tileSize = 0, edgeSize = 1,
 		insets = { left = 0, right = 0, top = 0, bottom = 0},
 	})

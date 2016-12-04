@@ -63,14 +63,18 @@ function MER:RegisterMerMedia()
 	E['media'].muiExpressway = LSM:Fetch('font', 'Merathilis Expressway')
 	E['media'].muiRoboto = LSM:Fetch('font', 'Merathilis Roboto-Black')
 
+	-- Background
+	E['media'].muiBrushedMetal = LSM:Fetch('background', 'Merathilis BrushedMetal')
+	E['media'].muiSmoke = LSM:Fetch('background', 'Merathilis Smoke')
+	E['media'].muiBlank = LSM:Fetch('background', 'Solid')
+
 	--Textures
-	E['media'].MuiEmpty = LSM:Fetch('statusbar', 'MerathilisEmpty')
-	E['media'].MuiFlat = LSM:Fetch('statusbar', 'MerathilisFlat')
-	E['media'].MuiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
-	E['media'].MuiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
-	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
-	E['media'].MuiBlank = LSM:Fetch('background', 'Solid')
-	E['media'].MuiNormTex = LSM:Fetch('statusbar', 'Blizzard Character Skills Bar')
+	E['media'].muiEmpty = LSM:Fetch('statusbar', 'MerathilisEmpty')
+	E['media'].muiFlat = LSM:Fetch('statusbar', 'MerathilisFlat')
+	E['media'].muiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
+	E['media'].muiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
+	E['media'].muiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
+	E['media'].muiNormTex = LSM:Fetch('statusbar', 'Blizzard Character Skills Bar')
 
 	-- Icons
 	E['media']["app"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\battlenet]])

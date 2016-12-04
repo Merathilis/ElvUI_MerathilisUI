@@ -33,6 +33,7 @@ function styleEncounterJournal()
 		MERS:SkinBackdropFrame(Tab, nil, true)
 		Tab.Backdrop:SetPoint('TOPLEFT', 11, -8)
 		Tab.Backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
+		MER:StyleOutside(Tab.backdrop)
 	end
 end
 

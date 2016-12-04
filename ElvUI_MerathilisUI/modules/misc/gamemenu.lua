@@ -103,7 +103,7 @@ function MER:GameMenu()
 		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		topPanel.style.color:SetInside()
-		topPanel.style.color:SetTexture(E['media'].MuiFlat)
+		topPanel.style.color:SetTexture(E['media'].muiFlat)
 		
 		topPanel.factionLogo = topPanel:CreateTexture(nil, 'ARTWORK')
 		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
