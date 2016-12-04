@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local MERS = E:GetModule('MuiSkins');
 
 -- Cache global variables
 -- Lua functions
@@ -11,23 +12,27 @@ local pairs, unpack = pairs, unpack
 
 function styleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
-	
+
 	local EJ = _G["EncounterJournal"]
 	local EncounterInfo = EJ.encounter.info
 	EncounterInfo.instanceTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 	EncounterInfo.encounterTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
-	
+
 	local Tabs = {
 		_G["EncounterJournalEncounterFrameInfoBossTab"],
 		_G["EncounterJournalEncounterFrameInfoLootTab"],
 		_G["EncounterJournalEncounterFrameInfoModelTab"],
 		_G["EncounterJournalEncounterFrameInfoOverviewTab"]
 	}
-	
+
 	for _, Tab in pairs(Tabs) do
-		Tab.backdrop:StripTextures(true)
-		Tab.backdrop:CreateBackdrop('Transparent')
-		MER:StyleOutside(Tab.backdrop)
+		Tab:GetNormalTexture():SetTexture(nil)
+		Tab:GetPushedTexture():SetTexture(nil)
+		Tab:GetDisabledTexture():SetTexture(nil)
+		Tab:GetHighlightTexture():SetTexture(nil)
+		MERS:SkinBackdropFrame(Tab, nil, true)
+		Tab.Backdrop:SetPoint('TOPLEFT', 11, -8)
+		Tab.Backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
 	end
 end
 

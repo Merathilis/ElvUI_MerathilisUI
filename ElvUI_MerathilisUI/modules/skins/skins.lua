@@ -130,6 +130,29 @@ function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
 	Frame.Backdrop = Backdrop
 end
 
+function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
+	if not override then MERS:StripTextures(frame, kill) end
+	MERS:CreateBackdrop(frame, template)
+	if setpoints then
+		frame.Backdrop:SetAllPoints()
+	end
+end
+
+function MERS:StripTextures(Object, Kill, Alpha)
+	for i = 1, Object:GetNumRegions() do
+		local Region = select(i, Object:GetRegions())
+		if Region and Region:GetObjectType() == "Texture" then
+			if Kill then
+				Region:Kill()
+			elseif Alpha then
+				Region:SetAlpha(0)
+			else
+				Region:SetTexture(nil)
+			end
+		end
+	end
+end
+
 -- Original close buttons, but desaturated. Like it used to be in ElvUI.
 function MERS:HandleCloseButton(f, point, text)
 	for i = 1, f:GetNumRegions() do
