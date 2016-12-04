@@ -29,38 +29,109 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
--- Backdrop
-function MERS:BD(bu, a)
-	local f = bu
-	if bu:GetObjectType() == 'Texture' then
-		f = bu:GetParent()
-	end
-	f:SetBackdrop(texture)
-	f:SetBackdropColor(0, 0, 0, a or 1)
+-- Taken from AddOnSkins 
+function MERS:SkinTexture(frame)
+	frame:SetTexCoord(unpack(E.TexCoords))
 end
 
-function MERS:BU(bu, a, hover)
-	MERS:BD(bu, a)
-	bu:SetNormalTexture('')
-	bu:SetHighlightTexture('')
-	bu:SetPushedTexture('')
-	if not InCombatLockdown() then 
-		bu:SetSize(21, 21)
+function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
+	local Texture = E['media'].MuiBlank
+
+	if UseTexture then 
+		Texture = TextureFile or E['media'].MuiNormTex
 	end
-	bu:HookScript('OnEnter', function() 
-		if hover then 
-			highlight(bu, true) 
-		end
-	end)
-	bu:HookScript('OnLeave', function()
-		if hover then
-			highlight(bu, false)
-		end
-	end)
+
+	Frame:SetBackdrop({
+		bgFile = Texture,
+		edgeFile = E['media'].MuiBlank,
+		tile = false, tileSize = 0, edgeSize = 1,
+		insets = { left = 0, right = 0, top = 0, bottom = 0},
+	})
+    
+	if not Frame.isInsetDone then
+		Frame.InsetTop = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetTop:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
+		Frame.InsetTop:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, -1)
+		Frame.InsetTop:Height(1)
+		Frame.InsetTop:SetColorTexture(0, 0, 0)
+		Frame.InsetTop:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetBottom = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, -1)
+		Frame.InsetBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, -1)
+		Frame.InsetBottom:Height(1)
+		Frame.InsetBottom:SetColorTexture(0, 0, 0)
+		Frame.InsetBottom:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetLeft = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetLeft:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
+		Frame.InsetLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, -1)
+		Frame.InsetLeft:Width(1)
+		Frame.InsetLeft:SetColorTexture(0, 0, 0)
+		Frame.InsetLeft:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetRight = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetRight:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, 1)
+		Frame.InsetRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, -1)
+		Frame.InsetRight:Width(1)
+		Frame.InsetRight:SetColorTexture(0, 0, 0)
+		Frame.InsetRight:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetInsideTop = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetInsideTop:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
+		Frame.InsetInsideTop:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, 1)
+		Frame.InsetInsideTop:Height(1)
+		Frame.InsetInsideTop:SetColorTexture(0, 0, 0)
+		Frame.InsetInsideTop:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetInsideBottom = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetInsideBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, 1)
+		Frame.InsetInsideBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, 1)
+		Frame.InsetInsideBottom:Height(1)
+		Frame.InsetInsideBottom:SetColorTexture(0, 0, 0)
+		Frame.InsetInsideBottom:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetInsideLeft = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetInsideLeft:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
+		Frame.InsetInsideLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, 1)
+		Frame.InsetInsideLeft:Width(1)
+		Frame.InsetInsideLeft:SetColorTexture(0, 0, 0)
+		Frame.InsetInsideLeft:SetDrawLayer("BORDER", -7)
+    
+		Frame.InsetInsideRight = Frame:CreateTexture(nil, "BORDER")
+		Frame.InsetInsideRight:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, -1)
+		Frame.InsetInsideRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, 1)
+		Frame.InsetInsideRight:Width(1)
+		Frame.InsetInsideRight:SetColorTexture(0, 0, 0)
+		Frame.InsetInsideRight:SetDrawLayer("BORDER", -7)
+    
+		Frame.isInsetDone = true
+	end
+	local R, G, B = unpack(E['media'].backdropcolor)
+	local Alpha = (Template == "Transparent" and .8 or 1)
+
+	Frame:SetBackdropBorderColor(unpack(E['media'].bordercolor))
+	Frame:SetBackdropColor(R, G, B, Alpha)
+end
+
+function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
+	if Frame.Backdrop then return end
+
+	local Backdrop = CreateFrame("Frame", nil, Frame)
+	Backdrop:SetOutside()
+	MERS:SetTemplate(Backdrop, Template, UseTexture, TextureFile)
+
+	if Frame:GetFrameLevel() - 1 >= 0 then
+		Backdrop:SetFrameLevel(Frame:GetFrameLevel() - 1)
+	else
+		Backdrop:SetFrameLevel(0)
+	end
+
+	Frame.Backdrop = Backdrop
 end
 
 -- Original close buttons, but desaturated. Like it used to be in ElvUI.
-function S:HandleCloseButton(f, point, text)
+function MERS:HandleCloseButton(f, point, text)
 	for i = 1, f:GetNumRegions() do
 		local region = select(i, f:GetRegions())
 		if region:GetObjectType() == "Texture" then

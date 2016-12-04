@@ -17,12 +17,12 @@ RAID_NOTICE_DEFAULT_HOLD_TIME = 5
 function MER:Bossemote()
 	for i = 1, 2 do
 		local bu = CreateFrame('Frame', 'MERbossemoteicon'..i, RaidBossEmoteFrame)
-		MERS:BD(bu)
-		bu:SetSize(20, 20)
+		MERS:CreateBackdrop(bu, 'Transparent')
+		bu:SetSize(40, 40)
 		bu:SetPoint('RIGHT', 'RaidBossEmoteFrameSlot'..i, 'LEFT', 0, i > 1 and 2 or 0)
 
 		bu.icon = bu:CreateTexture(nil, 'ARTWORK')
-		bu.icon:SetTexCoord(.1, .9, .1, .9)
+		bu.icon:SetTexCoord(unpack(E.TexCoords))
 		bu.icon:SetAllPoints()
 
 		FadingFrame_OnLoad(bu)

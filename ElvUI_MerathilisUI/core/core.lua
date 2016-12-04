@@ -69,6 +69,8 @@ function MER:RegisterMerMedia()
 	E['media'].MuiMelli = LSM:Fetch('statusbar', 'MerathilisMelli')
 	E['media'].MuiMelliDark = LSM:Fetch('statusbar', 'MerathilisMelliDark')
 	E['media'].MuiOnePixel = LSM:Fetch('statusbar', 'MerathilisOnePixel')
+	E['media'].MuiBlank = LSM:Fetch('background', 'Solid')
+	E['media'].MuiNormTex = LSM:Fetch('statusbar', 'Blizzard Character Skills Bar')
 
 	-- Icons
 	E['media']["app"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\battlenet]])
@@ -79,6 +81,8 @@ function MER:RegisterMerMedia()
 	E['media']["pro"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\overwatch]])
 	E['media']["sc2"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\sc2]])
 	E['media']["wtcg"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\hearthstone]])
+
+	E:UpdateMedia()
 end
 
 -- Splash Screen
