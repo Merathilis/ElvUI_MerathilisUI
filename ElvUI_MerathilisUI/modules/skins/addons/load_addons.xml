@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="actionBarProfiles.lua"/>
 	<Script file="addonskins.lua"/>
 	<Script file="bigWigs.lua"/>
 	<Script file="weakAuras.lua"/>
