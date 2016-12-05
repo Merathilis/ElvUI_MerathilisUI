@@ -19,21 +19,19 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.24|r, 30.11.2016
+local ChangeLogData = [=[|cffff7d0av2.25|r, 05.12.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Changed AddOnSkins embedded settings for Skada.
- |cffff7d0a•|r Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.
- |cffff7d0a•|r Add WorldQuest Tooltip Icons.
- |cffff7d0a•|r Add MiniMapPing. Show the PlayerName who pinged on the MiniMap.
- |cffff7d0a•|r Pepe is now in your flightMode. :)
- |cffff7d0a•|r Fix install steps messages.
- |cffff7d0a•|r Change readyCheck textures.
- |cffff7d0a•|r Add a ChatTab Datatext Panel.
- |cffff7d0a•|r Fix a lua error if the Player/Target Frames are not enabled.
+ |cffff7d0a•|r Deleted the Heal-Layout.
+ |cffff7d0a•|r Add a Talent skin in classColor.
+ |cffff7d0a•|r Remove options for Orderhall Zone Text.
+ |cffff7d0a•|r Adopt some AddOnSkins functions.
+ |cffff7d0a•|r Add some background Textures to LibSharedMedia.
+ |cffff7d0a•|r Tweak the WeakAura & EncounterJournal Skin.
+ |cffff7d0a•|r Add a skin for ActionBarProfiles.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r Some settings for Shadow&Light are for the Alpha Version. So it may cause a lua error in install.
+ |cffff7d0a•|r ---
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

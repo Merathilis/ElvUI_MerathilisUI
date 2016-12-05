@@ -1,3 +1,12 @@
+** v2.25, 05.12.2016**
+* Deleted the Heal-Layout.
+* Add a Talent skin in classColor.
+* Remove options for Orderhall Zone Text.
+* Adopt some AddOnSkins functions.
+* Add some background Textures to LibSharedMedia.
+* Tweak the WeakAura & EncounterJournal Skin.
+* Add a skin for ActionBarProfiles.
+
 ** v2.24, 30.11.2016**
 * Changed AddOnSkins embedded settings for Skada.
 * Remove the MUI SpeccSwitch Datatext. I use the ElvUI default ones.

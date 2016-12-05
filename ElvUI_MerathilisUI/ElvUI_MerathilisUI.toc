@@ -1,7 +1,7 @@
 ## Interface: 70100
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
-## Version: 2.24
+## Version: 2.25
 ## Title: |cff1784d1ElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen. Es wird empfohlen mein Edit mit BenikUI zu nutzen.
@@ -18,10 +18,10 @@
 ## X-Curse-Project-ID: merathilis-ui
 
 libs\load_libs.xml
-locales\load_locales.xml
 media\load_media.xml
-core\load_core.xml
+locales\load_locales.xml
 settings\load_settings.xml
+core\load_core.xml
 developer\load_developer.xml
 layout\layout.lua
 modules\load_modules.xml
