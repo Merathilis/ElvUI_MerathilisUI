@@ -52,19 +52,14 @@ local function Misc()
 				name = GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			bossemote = {
-				order = 8,
-				type = 'toggle',
-				name = L["Bossemote"],
-			},
 			vignette = {
-				order = 9,
+				order = 8,
 				type = 'toggle',
 				name = L["Vignette"],
 				desc = L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."],
 			},
 			minimapping = {
-				order = 10,
+				order = 9,
 				type = 'toggle',
 				name = L["MinimapPing"],
 				desc = L["Shows the PlayerName on the Minimap if someone pings."],

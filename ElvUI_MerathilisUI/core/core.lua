@@ -164,7 +164,6 @@ function MER:Initialize()
 	self:LoadCommands()
 	self:LoadGameMenu()
 	self:LoadGMOTD()
-	self:LoadBossemote()
 	self:LoadVignette()
 	self:LoadMinimapPing()
 
