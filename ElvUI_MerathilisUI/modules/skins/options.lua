@@ -10,7 +10,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local DecorAddons = {
 	{'BigWigs', L["BigWigs"], 'bw'},
-	{'WeakAuras', L["WeakAuras"]..MER.NewSign, 'wa'},
+	{'WeakAuras', L["WeakAuras"], 'wa'},
 }
 
 --[[local DecorElvUIAddons = {
@@ -21,7 +21,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = 'group',
-		name = L['Skins']..MER.NewSign,
+		name = L['Skins'],
 		args = {
 			name = {
 				order = 1,

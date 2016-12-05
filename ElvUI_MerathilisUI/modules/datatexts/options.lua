@@ -43,7 +43,7 @@ local function Datatexts()
 	E.Options.args.mui.args.datatexts = {
 		order = 14,
 		type = 'group',
-		name = L["DataTexts"]..MER.NewSign,
+		name = L["DataTexts"],
 		args = {
 			name = {
 				order = 1,
@@ -121,14 +121,14 @@ local function Datatexts()
 			panels = {
 				order = 3,
 				type = 'group',
-				name = L['Panels']..MER.NewSign,
+				name = L['Panels'],
 				guiInline = true,
 				args = {},
 			},
 			gotodatatexts = {
 				order = 4,
 				type = "execute",
-				name = L["ElvUI DataTexts"]..MER.NewSign,
+				name = L["ElvUI DataTexts"],
 				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts") end,
 			},
 		},
