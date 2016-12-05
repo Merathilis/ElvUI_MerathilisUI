@@ -12,7 +12,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local function styleActionBarProfile()
 	if not IsAddOnLoaded("ActionBarProfiles") then return; end
 
-	S:HandleScrollBar(_G["PaperDollActionBarProfilesPaneScrollBar"])
+	S:HandleScrollBar(_G["PaperDollActionBarProfilesPaneScrollBar"], 5)
 	S:HandleButton(_G["PaperDollActionBarProfilesPaneUseProfile"])
 	S:HandleButton(_G["PaperDollActionBarProfilesPaneSaveProfile"])
 	_G["PaperDollActionBarProfilesPaneUseProfile"]:Width(_G["PaperDollActionBarProfilesPaneUseProfile"]:GetWidth() - 8)
