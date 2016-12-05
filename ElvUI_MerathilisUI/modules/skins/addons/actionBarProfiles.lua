@@ -1,16 +1,16 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule('Skins');
+if not IsAddOnLoaded("ActionBarProfiles") then return; end
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
 local pairs = pairs
 -- WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: 
 
 local function styleActionBarProfile()
-	if not IsAddOnLoaded("ActionBarProfiles") then return; end
+	if E.private.muiSkins.addonSkins.abp ~= true then return; end
 
 	S:HandleScrollBar(_G["PaperDollActionBarProfilesPaneScrollBar"], 5)
 	S:HandleButton(_G["PaperDollActionBarProfilesPaneUseProfile"])
@@ -46,7 +46,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, _, addon)
 	if addon == "ElvUI_MerathilisUI" then
-		styleActionBarProfile()
+		E:Delay(.5, styleActionBarProfile)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end)

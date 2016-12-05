@@ -14,6 +14,7 @@ V['muiSkins'] = {
 		['talent'] = true,
 	},
 	['addonSkins'] = {
+		['abp'] = true,
 		['bw'] = true,
 		['wa'] = true,
 	},

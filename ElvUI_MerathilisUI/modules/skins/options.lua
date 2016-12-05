@@ -9,6 +9,7 @@ local ipairs, unpack = ipairs, unpack
 local IsAddOnLoaded = IsAddOnLoaded
 
 local DecorAddons = {
+	{'ActionBarProfiles', L["ActonBarProfiles"], 'abp'},
 	{'BigWigs', L["BigWigs"], 'bw'},
 	{'WeakAuras', L["WeakAuras"], 'wa'},
 }
