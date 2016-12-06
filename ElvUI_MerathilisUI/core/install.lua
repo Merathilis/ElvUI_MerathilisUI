@@ -318,7 +318,7 @@ function MER:SetupLayout(noDataReset)
 		MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -3, -184)
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 463, 22)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -511, 22)
-		MER:SetMoverPosition("TalkingHeadFrameMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 230)
+		MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", ElvUIParent, "TOP", 0, -30)
 	end
 
 	E:UpdateAll(true)
