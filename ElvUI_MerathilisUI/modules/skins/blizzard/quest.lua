@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
@@ -63,6 +64,7 @@ local function styleQuest()
 	CurrentQuestsText:SetShadowColor(0, 0, 0)
 
 	QuestMapFrame.DetailsFrame:StripTextures(true)
+	S:HandleScrollBar(QuestMapDetailsScrollFrameScrollBar)
 
 	if QuestProgressScrollFrame.spellTex then
 		QuestProgressScrollFrame.spellTex:SetTexture("")
