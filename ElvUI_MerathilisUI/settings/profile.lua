@@ -58,14 +58,6 @@ P['mui'] = {
 					["texture"] = "DEFAULT",
 				},
 			},
-			["target"] = {
-				["classicon"] = {
-					["enable"] = false,
-					["size"] = 16,
-					["xOffset"] = -88,
-					["yOffset"] = 21,
-				},
-			},
 		},
 	},
 
