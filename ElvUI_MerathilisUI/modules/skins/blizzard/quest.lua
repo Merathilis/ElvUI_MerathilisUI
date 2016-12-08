@@ -4,8 +4,15 @@ local S = E:GetModule('Skins');
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
+local pairs = pairs
+local gsub = string.gsub
 -- WoW API / Variables
--- GLOBALS: hooksecurefunc
+local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
+local GetMoney = GetMoney
+local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
+local GetQuestLogRequiredMoney = GetQuestLogRequiredMoney
+-- GLOBALS: hooksecurefunc, MAX_NUM_QUESTS, SetMoneyFrameColor
 
 local function StyleScrollFrame(scrollFrame, widthOverride, heightOverride, inset)
 	scrollFrame:SetTemplate()
@@ -21,13 +28,13 @@ end
 local function styleQuest()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	QuestScrollFrame:HookScript('OnUpdate', function(self)
+	_G["QuestScrollFrame"]:HookScript('OnUpdate', function(self)
 		if self.spellTex and self.spellTex2 then
 			self.spellTex:SetTexture("")
 			self.spellTex:SetTexture("")
 		end
 	end)
-	QuestScrollFrame:HookScript('OnShow', function(self)
+	_G["QuestScrollFrame"]:HookScript('OnShow', function(self)
 		self.Contents.StoryHeader:StripTextures()
 		self.Contents.StoryHeader:SetTemplate('Transparent')
 		self.Contents.StoryHeader.AchIcon:ClearAllPoints()
@@ -35,49 +42,49 @@ local function styleQuest()
 		self.Contents.StoryHeader.AchIcon:SetTexture([[Interface\ACHIEVEMENTFRAME\UI-Achievement-Shield]])
 		self.Contents.StoryHeader.AchIcon:SetSize(80, 80)
 	end)
-	QuestDetailScrollFrame:HookScript('OnUpdate', function(self)
+	_G["QuestDetailScrollFrame"]:HookScript('OnUpdate', function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
-	QuestRewardScrollFrame:HookScript('OnShow', function(self)
+	_G["QuestRewardScrollFrame"]:HookScript('OnShow', function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 		StyleScrollFrame(self, 509, 630, false)
 		self:Height(self:GetHeight() - 2)
 	end)
-	QuestLogPopupDetailFrameScrollFrame:HookScript('OnUpdate', function(self)
+	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript('OnUpdate', function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
 
-	QuestGreetingScrollFrame:StripTextures(true)
-	QuestFrameInset:StripTextures(true)
-	GreetingText:SetTextColor(1, 1, 1)
-	GreetingText.SetTextColor = MER.dummy
+	_G["QuestGreetingScrollFrame"]:StripTextures(true)
+	_G["QuestFrameInset"]:StripTextures(true)
+	_G["GreetingText"]:SetTextColor(1, 1, 1)
+	_G["GreetingText"].SetTextColor = MER.dummy
 
-	AvailableQuestsText:SetTextColor(1, 1, 1)
-	AvailableQuestsText.SetTextColor = MER.dummy
-	AvailableQuestsText:SetShadowColor(0, 0, 0)
+	_G["AvailableQuestsText"]:SetTextColor(1, 1, 1)
+	_G["AvailableQuestsText"].SetTextColor = MER.dummy
+	_G["AvailableQuestsText"]:SetShadowColor(0, 0, 0)
 
-	CurrentQuestsText:SetTextColor(1, 1, 1)
-	CurrentQuestsText.SetTextColor = MER.dummy
-	CurrentQuestsText:SetShadowColor(0, 0, 0)
+	_G["CurrentQuestsText"]:SetTextColor(1, 1, 1)
+	_G["CurrentQuestsText"].SetTextColor = MER.dummy
+	_G["CurrentQuestsText"]:SetShadowColor(0, 0, 0)
 
-	QuestMapFrame.DetailsFrame:StripTextures(true)
-	S:HandleScrollBar(QuestMapDetailsScrollFrameScrollBar)
+	_G["QuestMapFrame"].DetailsFrame:StripTextures(true)
+	S:HandleScrollBar(_G["QuestMapDetailsScrollFrameScrollBar"])
 
-	if QuestProgressScrollFrame.spellTex then
-		QuestProgressScrollFrame.spellTex:SetTexture("")
+	if _G["QuestProgressScrollFrame"].spellTex then
+		_G["QuestProgressScrollFrame"].spellTex:SetTexture("")
 	end
 
 	hooksecurefunc('QuestInfoItem_OnClick', function(self)
-		QuestInfoItemHighlight:ClearAllPoints()
-		QuestInfoItemHighlight:SetOutside(self.Icon)
+		_G["QuestInfoItemHighlight"]:ClearAllPoints()
+		_G["QuestInfoItemHighlight"]:SetOutside(self.Icon)
 
 		self.Name:SetTextColor(1, 1, 0)
 		local parent = self:GetParent()
 		for i=1, #parent.RewardButtons do
-			local questItem = QuestInfoRewardsFrame.RewardButtons[i]
+			local questItem = _G["QuestInfoRewardsFrame"].RewardButtons[i]
 			if(questItem ~= self) then
 				questItem.Name:SetTextColor(1, 1, 1)
 			end
@@ -85,10 +92,10 @@ local function styleQuest()
 	end)
 
 	hooksecurefunc('QuestFrameProgressItems_Update', function()
-		QuestProgressTitleText:SetTextColor(1, 1, 0)
-		QuestProgressText:SetTextColor(1, 1, 1)
-		QuestProgressRequiredItemsText:SetTextColor(1, 1, 0)
-		QuestProgressRequiredMoneyText:SetTextColor(1, 1, 0)
+		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 0)
 	end)
 
 	for i = 1, MAX_NUM_QUESTS do
@@ -97,24 +104,24 @@ local function styleQuest()
 			hooksecurefunc(button, 'SetFormattedText', function()
 				if button:GetFontString() then
 					if button:GetFontString():GetText() and button:GetFontString():GetText():find('|cff000000') then
-						button:GetFontString():SetText(string.gsub(button:GetFontString():GetText(), '|cff000000', '|cffFFFF00'))
+						button:GetFontString():SetText(gsub(button:GetFontString():GetText(), '|cff000000', '|cffFFFF00'))
 					end
 				end
 			end)
 		end
 	end
 
-	if (QuestInfoRewardsFrame.spellHeaderPool) then
+	if (_G["QuestInfoRewardsFrame"].spellHeaderPool) then
 		for _, pool in pairs({"followerRewardPool", "spellRewardPool"}) do
-			QuestInfoRewardsFrame[pool]._acquire = QuestInfoRewardsFrame[pool].Acquire;
-			QuestInfoRewardsFrame[pool].Acquire = function()
-				local frame = QuestInfoRewardsFrame[pool]:_acquire();
+			_G["QuestInfoRewardsFrame"][pool]._acquire = _G["QuestInfoRewardsFrame"][pool].Acquire;
+			_G["QuestInfoRewardsFrame"][pool].Acquire = function()
+				local frame = _G["QuestInfoRewardsFrame"][pool]:_acquire();
 				frame.Name:SetTextColor(1, 1, 1);
 				return frame;
 			end
 		end
-		QuestInfoRewardsFrame.spellHeaderPool._acquire = QuestInfoRewardsFrame.spellHeaderPool.Acquire;
-		QuestInfoRewardsFrame.spellHeaderPool.Acquire = function(self)
+		_G["QuestInfoRewardsFrame"].spellHeaderPool._acquire = _G["QuestInfoRewardsFrame"].spellHeaderPool.Acquire;
+		_G["QuestInfoRewardsFrame"].spellHeaderPool.Acquire = function(self)
 			local frame = self:_acquire();
 			frame:SetTextColor(1, 1, 1);
 			return frame;
@@ -122,22 +129,22 @@ local function styleQuest()
 	end
 
 	hooksecurefunc('QuestInfo_Display', function()
-		QuestInfoTitleHeader:SetTextColor(1, 1, 0)
-		QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
-		QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
-		QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 0)
-		QuestInfoRequiredMoneyText:SetTextColor(1, 1, 1)
-		QuestInfoDescriptionText:SetTextColor(1, 1, 1)
-		QuestInfoObjectivesText:SetTextColor(1, 1, 1)
-		QuestInfoGroupSize:SetTextColor(1, 1, 1)
-		QuestInfoRewardText:SetTextColor(1, 1, 1)
-		QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1);
-		QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1);
-		if (QuestInfoRewardsFrame.SpellLearnText) then
-			QuestInfoRewardsFrame.SpellLearnText:SetTextColor(1, 1, 1);
+		_G["QuestInfoTitleHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoDescriptionHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoObjectivesHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoRewardsFrame"].Header:SetTextColor(1, 1, 0)
+		_G["QuestInfoRequiredMoneyText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoDescriptionText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoObjectivesText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoGroupSize"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoRewardText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoRewardsFrame"].ItemChooseText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].ItemReceiveText:SetTextColor(1, 1, 1);
+		if (_G["QuestInfoRewardsFrame"].SpellLearnText) then
+			_G["QuestInfoRewardsFrame"].SpellLearnText:SetTextColor(1, 1, 1);
 		end
-		QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1);
-		QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].PlayerTitleText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].XPFrame.ReceiveText:SetTextColor(1, 1, 1);
 		local numObjectives = GetNumQuestLeaderBoards()
 		local numVisibleObjectives = 0
 		for i = 1, numObjectives do
@@ -160,10 +167,10 @@ local function styleQuest()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then
-				QuestInfoRequiredMoneyText:SetTextColor(0, 0, 0);
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(0, 0, 0);
 				SetMoneyFrameColor("QuestInfoRequiredMoneyDisplay", "red");
 			else
-				QuestInfoRequiredMoneyText:SetTextColor(0.2, 0.2, 0.2);
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(0.2, 0.2, 0.2);
 				SetMoneyFrameColor("QuestInfoRequiredMoneyDisplay", "white");
 			end
 		end
