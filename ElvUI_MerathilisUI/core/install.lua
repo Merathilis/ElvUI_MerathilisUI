@@ -133,8 +133,8 @@ local function SetupChat()
 	else
 		E.db["chat"]["panelBackdropNameRight"] = ""
 	end
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-158,22"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,22"
+	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -158, 2)
+	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 2)
 
 	E:UpdateAll(true)
 
@@ -199,7 +199,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 		E.db["databars"]["experience"]["enable"] = true
 		E.db["databars"]["experience"]["mouseover"] = false
-		E.db["databars"]["experience"]["height"] = 155
+		E.db["databars"]["experience"]["height"] = 135
 		E.db["databars"]["experience"]["textSize"] = 10
 		E.db["databars"]["experience"]["width"] = 10
 		E.db["databars"]["experience"]["textFormat"] = "NONE"
@@ -208,21 +208,21 @@ function MER:SetupLayout(noDataReset)
 		E.db["databars"]["experience"]["hideInVehicle"] = true
 		E.db["databars"]["reputation"]["enable"] = true
 		E.db["databars"]["reputation"]["mouseover"] = false
-		E.db["databars"]["reputation"]["height"] = 155
+		E.db["databars"]["reputation"]["height"] = 135
 		E.db["databars"]["reputation"]["textSize"] = 10
 		E.db["databars"]["reputation"]["width"] = 10
 		E.db["databars"]["reputation"]["textFormat"] = "NONE"
 		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 		E.db["databars"]["reputation"]["hideInVehicle"] = true
 		E.db["databars"]["artifact"]["enable"] = true
-		E.db["databars"]["artifact"]["height"] = 155
+		E.db["databars"]["artifact"]["height"] = 135
 		E.db["databars"]["artifact"]["textSize"] = 11
 		E.db["databars"]["artifact"]["width"] = 10
 		E.db["databars"]["artifact"]["hideInVehicle"] = true
 		E.db["databars"]["honor"]['enable'] = true
-		E.db["databars"]["honor"]["height"] = 155
+		E.db["databars"]["honor"]["height"] = 135
 		E.db["databars"]["honor"]["textSize"] = 11
-		E.db["databars"]["honor"]["mouseover"] = true
+		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 
 		--[[----------------------------------
 		--	ProfileDB - Auras
@@ -243,8 +243,8 @@ function MER:SetupLayout(noDataReset)
 		E.db["auras"]["buffs"]["wrapAfter"] = 10
 		E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 		E.db["auras"]["debuffs"]["size"] = 42
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-4"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-148"
+		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -27)
+		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -148)
 
 		--[[----------------------------------
 		--	ProfileDB - Bags
@@ -263,8 +263,8 @@ function MER:SetupLayout(noDataReset)
 		E.db["bags"]["moneyFormat"] = "CONDENSED"
 		E.db["bags"]["itemLevelThreshold"] = 815
 		E.db["bags"]["junkIcon"] = true
-		E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,23"
-		E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,23"
+		MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -2, 2)
+		MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 2)
 
 		--[[----------------------------------
 		--	ProfileDB - NamePlate
@@ -298,27 +298,29 @@ function MER:SetupLayout(noDataReset)
 		E.db["tooltip"]["headerFontSize"] = 11
 		E.db["tooltip"]["textFontSize"] = 10
 		E.db["tooltip"]["smallTextFontSize"] = 10
+		MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT" ,-3, 220)
 
 		--[[----------------------------------
 		--	Movers - Layout
 		--]]----------------------------------
-		MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT" ,-3, 278)
 		MER:SetMoverPosition("AltPowerBarMover", "TOP", ElvUIParent, "TOP" ,1, -272)
-		MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -2, 4)
-		MER:SetMoverPosition("GMMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 329, 0)
+		MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -2, 3)
+		MER:SetMoverPosition("GMMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 329, -24)
 		MER:SetMoverPosition("BNETMover", "TOP", ElvUIParent, "TOP", 0, -38)
 		MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -495, -457)
 		MER:SetMoverPosition("AlertFrameMover", "TOP", ElvUIParent, "TOP", 0, -140)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 511, 12)
 		MER:SetMoverPosition("LossControlMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 465)
 		MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 474, 22)
-		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -499, 22)
+		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -491, 22)
 		MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -125, -240)
 		MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2, -84)
 		MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -3, -184)
-		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 463, 22)
-		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -511, 22)
+		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 455, 22)
+		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -502, 22)
 		MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", ElvUIParent, "TOP", 0, -30)
+		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", ElvUIParent, "TOP", 0, -28)
+		MER:SetMoverPosition("OrderhallMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2 -28)
 	end
 
 	E:UpdateAll(true)
@@ -356,7 +358,7 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
 
 		--[[----------------------------------
-		--	ActionBars - DPS Layout
+		--	ActionBars
 		--]]----------------------------------
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 		E.db["actionbar"]["bar1"]["backdrop"] = true
@@ -381,11 +383,11 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar3"]["enabled"] = true
 		E.db["actionbar"]["bar3"]["backdrop"] = true
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar3"]["buttonsize"] = 24
-		E.db["actionbar"]["bar3"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar3"]["buttonsize"] = 23
+		E.db["actionbar"]["bar3"]["buttonspacing"] = 3
 		E.db["actionbar"]["bar3"]["buttons"] = 12
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
-		E.db["actionbar"]["bar3"]["backdropSpacing"] = 2
+		E.db["actionbar"]["bar3"]["backdropSpacing"] = 0
     
 		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -396,11 +398,11 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar5"]["enabled"] = true
 		E.db["actionbar"]["bar5"]["backdrop"] = true
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
-		E.db["actionbar"]["bar5"]["buttonsize"] = 24
-		E.db["actionbar"]["bar5"]["buttonspacing"] = 5
+		E.db["actionbar"]["bar5"]["buttonsize"] = 23
+		E.db["actionbar"]["bar5"]["buttonspacing"] = 3
 		E.db["actionbar"]["bar5"]["buttons"] = 12
 		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
-		E.db["actionbar"]["bar5"]["backdropSpacing"] = 2
+		E.db["actionbar"]["bar5"]["backdropSpacing"] = 0
     
 		E.db["actionbar"]["bar6"]["enabled"] = true
 		E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
@@ -431,12 +433,12 @@ function MER:SetupActionbars(noDataReset)
 			E.db["actionbar"]["stanceBar"]["mouseover"] = false
 		end
     
-		MER:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 3)
-		MER:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", -196, 3)
+		MER:SetMoverPosition("ElvAB_1", "BOTTOM", ElvUIParent, "BOTTOM", 0, 2)
+		MER:SetMoverPosition("ElvAB_2", "BOTTOM", ElvUIParent, "BOTTOM", -196, 2)
 		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -439, 2)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 403, 2)
-		MER:SetMoverPosition("ElvAB_6", "BOTTOM", ElvUIParent, "BOTTOM", 197, 3)
+		MER:SetMoverPosition("ElvAB_6", "BOTTOM", ElvUIParent, "BOTTOM", 197, 2)
 		MER:SetMoverPosition("ShiftAB", "BOTTOM", ElvUIParent, "BOTTOM", 0, 75)
 		MER:SetMoverPosition("PetAB", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 483, 18)
 		MER:SetMoverPosition("BossButton", "BOTTOM", ElvUIParent, "BOTTOM", 0, 185)
@@ -574,9 +576,9 @@ function MER:SetupUnitframes(noDataReset)
 			E.db['benikui']['unitframes']['castbar']['text']['texture'] = "MerathilisFlat"
 			E.db['benikui']['unitframes']['castbar']['text']['textColor'] = {r = classColor.r, g = classColor.g, b = classColor.b}
 		end
-		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 139)
-		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 177)
-		MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 591, 139)
+		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 120)
+		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", -186, 158)
+		MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 591, 120)
     
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 180
@@ -676,9 +678,9 @@ function MER:SetupUnitframes(noDataReset)
 			E.db['benikui']['unitframes']['target']['portraitStyle'] = true
 			E.db['benikui']['unitframes']['target']['portraitStyleHeight'] = 5
 		end
-		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 139)
-		MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 177)
-		MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -591, 139)
+		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 120)
+		MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", ElvUIParent, "BOTTOM", 186, 158)
+		MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -591, 120)
     
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -707,7 +709,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["size"] = 20
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["text_format"] = "[namecolor]ToT"
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"]["ToT"]["yOffset"] = 16
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 150)
+		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", ElvUIParent, "BOTTOM", 0, 127)
     
 		-- Focus
 		E.db["unitframe"]["units"]["focus"]["width"] = 122
@@ -833,7 +835,7 @@ function MER:SetupUnitframes(noDataReset)
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
 		end
-		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 185)
+		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 163)
     
 		-- Raid40
 		E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
@@ -969,7 +971,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
-		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 185)
+		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 2, 163)
     
 		-- Assist
 		E.db["unitframe"]["units"]["assist"]["enable"] = false
@@ -1018,7 +1020,7 @@ function MER:SetupUnitframes(noDataReset)
     
 		-- Arena
 		E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
-		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -33, 367)
+		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -52, 370)
     
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
@@ -1104,36 +1106,22 @@ function MER:SetupDts()
 	E.db["datatexts"]["panelTransparency"] = true
 	E.db["datatexts"]["wordWrap"] = true
 
-	if IsAddOnLoaded('ElvUI_BenikUI') then
-		E.db["datatexts"]["leftChatPanel"] = false
-		E.db["datatexts"]["rightChatPanel"] = false
-		E.db["datatexts"]["minimapPanels"] = true
-		E.db["datatexts"]["minimapBottom"] = true
-		E.db["datatexts"]["actionbar3"] = false
-		E.db["datatexts"]["actionbar5"] = false
-	else
-		E.db["datatexts"]["leftChatPanel"] = true
-		E.db["datatexts"]["rightChatPanel"] = true
-		E.db["datatexts"]["minimapPanels"] = true
-		E.db["datatexts"]["minimapBottom"] = true
-		E.db["datatexts"]["actionbar3"] = true
-		E.db["datatexts"]["actionbar5"] = true
-	end
+	E.db["datatexts"]["leftChatPanel"] = false
+	E.db["datatexts"]["rightChatPanel"] = false
+	E.db["datatexts"]["minimapPanels"] = false
+	E.db["datatexts"]["minimapBottom"] = false
+	E.db["datatexts"]["actionbar3"] = false
+	E.db["datatexts"]["actionbar5"] = false
+
 
 	if IsAddOnLoaded('ElvUI_SLE') then
-		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "S&L Guild"
-		E.db["datatexts"]["panels"]["RightMiniPanel"] = "S&L Friends"
-		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "S&L Item Level"
 	else
-		E.db["datatexts"]["panels"]["LeftMiniPanel"] = "Guild"
-		E.db["datatexts"]["panels"]["RightMiniPanel"] = "Friends"
-		E.db["datatexts"]["panels"]['BottomMiniPanel'] = "Time"
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Call to Arms"
 	end
 
-	if IsAddOnLoaded('ExRT') then
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "ExRT"
+	if IsAddOnLoaded('Skada') then
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
 	else
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Coords"
 	end
@@ -1146,22 +1134,22 @@ function MER:SetupDts()
 
 	if IsAddOnLoaded('ElvUI_BenikUI') then
 		-- define BenikUI Datetexts
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Talent/Loot Specialization"
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Durability"
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "MUI System"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = ""
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = ""
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = ""
 
 		if IsAddOnLoaded('ElvUI_SLE') then
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Currency"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = ""
 		else
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Gold"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = ""
 		end
 
 		if IsAddOnLoaded('Skada') then
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Skada"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = ""
 		else
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = ""
 		end
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "Orderhall"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = ""
 
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = ""
 		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = ""
@@ -1176,16 +1164,16 @@ function MER:SetupDts()
 		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
 	else
 		-- define the default ElvUI datatexts
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Talent/Loot Specialization"
-		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Durability"
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
+		E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = ""
 		
 		if IsAddOnLoaded('Skada') then
-			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "Skada"
+			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = ""
 		else
-			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "MUI System"
+			E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = ""
 		end
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "Time"
-		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Gold"
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
+		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 	end
 
 	E:UpdateAll(true)
@@ -1389,6 +1377,53 @@ function MER:SetupBigWigs(addon)
 	end
 end
 
+function MER:SetupXIVDatabar(addon)
+	--[[----------------------------------
+	--	XIV_Databar - Settings
+	--]]----------------------------------
+	if addon == 'XIV_Databar' then
+		if IsAddOnLoaded('XIV_Databar') then
+			local XIV_Databar = GetAddOnMetadata('XIV_Databar', 'Title')
+			MER:Print(format(L[" - %s profile created!"], XIV_Databar))
+			PluginInstallStepComplete.message = MER.Title..L["XIV_Databar Profile Created"]
+			PluginInstallStepComplete:Show()
+			XIVBarDB = {
+				["profiles"] = {
+					["MerathilisUI"] = {
+						["modules"] = {
+							["tradeskill"] = {
+								["barCC"] = true,
+							},
+							["talent"] = {
+								["barCC"] = true,
+							},
+							["currency"] = {
+								["currencyTwo"] = "1220",
+								["currencyOne"] = "1273",
+							},
+							["clock"] = {
+								["timeFormat"] = "twoFour",
+							},
+						},
+						["text"] = {
+							["flags"] = 2,
+							["fontSize"] = 10,
+							["font"] = "Merathilis Roboto-Medium",
+						},
+						["general"] = {
+							["barPosition"] = "TOP",
+						},
+					},
+				},
+			}
+		else
+			MER:Print(L["The Addon 'XIV_Databar' is not enabled. Profile not created."])
+			PluginInstallStepComplete.message = MER.Title..L["XIV_Databar is not enabled, aborting."]
+			PluginInstallStepComplete:Show()
+		end
+	end
+end
+
 function MER:SetupAddOnSkins(addon)
 	--[[----------------------------------
 	--	AddOnSkins - Settings
@@ -1441,7 +1476,7 @@ function MER:SetupElvUIAddOns(addon)
 			E.db['benikui']['general']['splashScreen'] = false
 			E.db['benikui']['colors']['gameMenuColor'] = 1
 			E.db['benikui']['misc']['ilevel']['enable'] = false
-			E.db['benikui']['datatexts']['chat']['enable'] = true
+			E.db['benikui']['datatexts']['chat']['enable'] = false
 			E.db['benikui']['datatexts']['chat']['transparent'] = true
 			E.db['benikui']['datatexts']['chat']['editBoxPosition'] = 'BELOW_CHAT'
 			E.db['benikui']['datatexts']['chat']['styled'] = false
@@ -1758,8 +1793,8 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your addons."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupSkada('Skada'); MER:SetupBigWigs('BigWigs'); end)
-			PluginInstallFrame.Option1:SetText(L["Skada/BigWigs"])
+			PluginInstallFrame.Option1:SetScript('OnClick', function() MER:SetupSkada('Skada'); MER:SetupBigWigs('BigWigs'); MER:SetupXIVDatabar('XIV_Databar'); end)
+			PluginInstallFrame.Option1:SetText(L["Skada/BigWigs/XIV"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupAddOnSkins('AddOnSkins'); end)
 			PluginInstallFrame.Option2:SetText(L["AddOnSkins"])
