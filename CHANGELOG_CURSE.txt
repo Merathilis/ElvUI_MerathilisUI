@@ -1,3 +1,9 @@
+** v2.26, 05.12.2016**
+* Minor Layout adjustments. Recommended AddOn: XIV_Databar.
+* Add an option for ActionBarProfiles in Skin options.
+* Adjust the QuestLog skin.
+* Remove TargetIcon.
+
 ** v2.25, 05.12.2016**
 * Deleted the Heal-Layout.
 * Add a Talent skin in classColor.

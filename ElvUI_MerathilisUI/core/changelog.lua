@@ -19,19 +19,16 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.25|r, 05.12.2016
+local ChangeLogData = [=[|cffff7d0av2.26|r, 19.12.2016
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Deleted the Heal-Layout.
- |cffff7d0a•|r Add a Talent skin in classColor.
- |cffff7d0a•|r Remove options for Orderhall Zone Text.
- |cffff7d0a•|r Adopt some AddOnSkins functions.
- |cffff7d0a•|r Add some background Textures to LibSharedMedia.
- |cffff7d0a•|r Tweak the WeakAura & EncounterJournal Skin.
- |cffff7d0a•|r Add a skin for ActionBarProfiles.
+ |cffff7d0a•|r Minor Layout adjustments. Recommended AddOn: XIV_Databar.
+ |cffff7d0a•|r Add an option for ActionBarProfiles in Skin options.
+ |cffff7d0a•|r Adjust the QuestLog skin.
+ |cffff7d0a•|r Remove TargetIcon.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r ---
+ |cffff7d0a•|r Recommended AddOn: XIV_Databar.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

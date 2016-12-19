@@ -1,3 +1,9 @@
+<b><u> v2.26, 19.12.2016</b></u>
+<font color=#FF8C00>&#9830;</font> Minor Layout adjustments. Recommended AddOn: XIV_Databar.
+<font color=#FF8C00>&#9830;</font> Add an option for ActionBarProfiles in Skin options.
+<font color=#FF8C00>&#9830;</font> Adjust the QuestLog skin.
+<font color=#FF8C00>&#9830;</font> Remove TargetIcon.
+
 <b><u> v2.25, 05.12.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Deleted the Heal-Layout.
 <font color=#FF8C00>&#9830;</font> Add a Talent skin in classColor.
