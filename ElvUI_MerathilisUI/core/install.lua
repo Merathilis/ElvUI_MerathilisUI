@@ -1114,11 +1114,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["actionbar5"] = false
 
 
-	if IsAddOnLoaded('ElvUI_SLE') then
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "S&L Item Level"
-	else
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Call to Arms"
-	end
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "ElvUI Config"
 
 	if IsAddOnLoaded('Skada') then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
