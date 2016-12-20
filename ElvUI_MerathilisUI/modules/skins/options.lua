@@ -12,6 +12,7 @@ local DecorAddons = {
 	{'ActionBarProfiles', L["ActonBarProfiles"], 'abp'},
 	{'BigWigs', L["BigWigs"], 'bw'},
 	{'WeakAuras', L["WeakAuras"], 'wa'},
+	{'XIV_Databar', L["XIV_Databar"], 'xiv'},
 }
 
 --[[local DecorElvUIAddons = {

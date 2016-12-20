@@ -9,7 +9,7 @@
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## SavedVariables: MerathilisUIData
-## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE
+## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE, XIV_Databar
 ## X-ElvVersion: 10.33
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
