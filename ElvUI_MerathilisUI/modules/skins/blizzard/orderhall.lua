@@ -65,8 +65,6 @@ local function styleOrderhall()
 	mapButton:HookScript('OnEnter', function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
 	mapButton:HookScript('OnLeave', function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
-	MER:StyleOutside(OrderHallCommandBar)
-
 	E:CreateMover(OrderHallCommandBar, "OrderhallMover", L["Orderhall"])
 end
 
