@@ -12,6 +12,7 @@ local function styleXIV_Databar()
 
 	_G["XIV_Databar"]:StripTextures()
 	_G["XIV_Databar"]:SetTemplate("Transparent")
+	_G["XIV_Databar"]:SetParent(E.UIParent)
 	MER:StyleUnder(XIV_Databar)
 end
 
