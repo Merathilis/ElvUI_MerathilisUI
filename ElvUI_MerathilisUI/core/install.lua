@@ -1224,7 +1224,7 @@ function MER:SetupSkada(addon)
 						["mode"] = "Schaden",
 						["enabletitle"] = false,
 						["spark"] = false,
-						["bartexture"] = "MerathilisFlat",
+						["bartexture"] = "Lyn1",
 						["barwidth"] = 165.999954223633,
 						["barspacing"] = 2,
 						["barcolor"] = {
@@ -1680,32 +1680,7 @@ function MER:SetupElvUIAddOns(addon)
 		else
 			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
 		end
-
-	--[[----------------------------------
-	--	VAT - Settings
-	--]]----------------------------------
-	elseif addon == 'ElvUI_VisualAuraTimers' then
-		if E.db.VAT == nil then E.db.VAT = {} end
-		if IsAddOnLoaded('ElvUI_VisualAuraTimers') then
-			local VATName = GetAddOnMetadata('ElvUI_VisualAuraTimers', 'Title')
-			MER:Print(format(L[' - %s settings applied.'], VATName))
-			E.db["VAT"]["enableStaticColor"] = true
-			E.db["VAT"]["noDuration"] = true
-			E.db["VAT"]["barHeight"] = 5
-			E.db["VAT"]["spacing"] = -3
-			E.db["VAT"]["staticColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
-			E.db["VAT"]["showText"] = false
-			E.db["VAT"]["decimalThreshold"] = 5
-			E.db["VAT"]["statusbarTexture"] = 'MerathilisFlat'
-			E.db["VAT"]["backdropTexture"] = 'MerathilisFlat'
-			E.db["VAT"]["position"] = 'TOP'
-			E.db["VAT"]["showText"] = true
-		else
-			MER:Print(L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."])
-		end
 	end
-	PluginInstallStepComplete.message = MER.Title..L["ElvUI AddOns settings applied."]
-	PluginInstallStepComplete:Show()
 end
 
 local function InstallComplete()
@@ -1795,7 +1770,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetScript('OnClick', function() MER:SetupAddOnSkins('AddOnSkins'); end)
 			PluginInstallFrame.Option2:SetText(L["AddOnSkins"])
 			PluginInstallFrame.Option3:Show()
-			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupElvUIAddOns('ElvUI_BenikUI'); MER:SetupElvUIAddOns('ElvUI_SLE'); MER:SetupElvUIAddOns('ElvUI_VisualAuraTimers'); end)
+			PluginInstallFrame.Option3:SetScript('OnClick', function() MER:SetupElvUIAddOns('ElvUI_BenikUI'); MER:SetupElvUIAddOns('ElvUI_SLE'); end)
 			PluginInstallFrame.Option3:SetText(L["ElvUI Addons"])
 		end,
 		[9] = function()

@@ -187,7 +187,6 @@ L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = tru
 L["The Addon 'Big Wigs' is not enabled. Profile not created."] = true
 L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] = true
 L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = true
-L["The AddOn 'ElvUI_VisualAuraTimers' is not enabled. No settings have been changed."] = true
 L["The Addon 'Skada' is not enabled. Profile not created."] = true
 L["This part of the installation process sets up your chat fonts and colors."] = true
 L["This part of the installation changes the default ElvUI look."] = true
