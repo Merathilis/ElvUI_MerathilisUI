@@ -35,6 +35,7 @@ local function styleOrderhall()
 	OrderHallCommandBar:SetWidth(600)
 	OrderHallCommandBar:SetScript('OnEnter', onEnter)
 	OrderHallCommandBar:SetScript('OnLeave', onLeave)
+	OrderHallCommandBar:SetParent(E.UIParent)
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
