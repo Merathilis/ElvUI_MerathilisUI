@@ -134,7 +134,7 @@ local function StyleBigWigs(event, addon)
 			})
 			BigWigsBars:SetBarStyle(styleName)
 		end
-		if E.private.muiSkins.addonSkins.bw then
+		if BigWigsProx then
 			BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
 				BigWigsProximityAnchor:SetTemplate("Transparent")
 			end)
