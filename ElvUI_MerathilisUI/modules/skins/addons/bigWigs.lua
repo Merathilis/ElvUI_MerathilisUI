@@ -16,7 +16,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local BigWigsLoaded
 local FreeBackgrounds = {}
 local buttonsize = 19
-local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+local texture = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint]]
 
 local barcolor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -92,7 +92,7 @@ local function ApplyStyleHalfBar(bar)
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.SetPoint = function() end
-	bar.candyBarBar:SetStatusBarTexture(flat)
+	bar.candyBarBar:SetStatusBarTexture(texture)
 	if not bar.data["bigwigs:emphasized"] == true then
 		bar.candyBarBar:SetStatusBarColor(barcolor.r, barcolor.g, barcolor.b, 1)
 	end
