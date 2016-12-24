@@ -18,6 +18,8 @@ local FreeBackgrounds = {}
 local buttonsize = 19
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
+local barcolor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 local function CreateBG()
 	local BG = CreateFrame('Frame')
 	BG:SetTemplate('Transparent')
@@ -45,6 +47,10 @@ local function FreeStyle(bar)
 	bar.candyBarBar.SetPoint = nil
 	bar.candyBarBar:SetPoint('TOPRIGHT')
 	bar.candyBarBar:SetPoint('BOTTOMRIGHT')
+
+	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
+
+	bar.candyBarBackground:SetAllPoints()
 end
 
 local function ApplyStyleHalfBar(bar)
@@ -87,13 +93,18 @@ local function ApplyStyleHalfBar(bar)
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.SetPoint = function() end
 	bar.candyBarBar:SetStatusBarTexture(flat)
+	if not bar.data["bigwigs:emphasized"] == true then
+		bar.candyBarBar:SetStatusBarColor(barcolor.r, barcolor.g, barcolor.b, 1)
+	end
 
+	bar.candyBarBackground:SetAllPoints()
 	bar.candyBarBackground:SetTexture(unpack(E["media"].bordercolor))
 
 	bar.candyBarIconFrame:ClearAllPoints()
 	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 	bar.candyBarIconFrame.SetWidth = function() end
+	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
@@ -110,18 +121,24 @@ local function StyleBigWigs(event, addon)
 	assert(BigWigs, "AddOn Not Loaded")
 	if (IsAddOnLoaded('BigWigs_Plugins') or event == "ADDON_LOADED" and addon == 'BigWigs_Plugins' and E.private.muiSkins.addonSkins.bw) then
 		local styleName = MER.Title
-		local BigWigsBars = BigWigs:GetPlugin('Bars')
-		if BigWigsLoaded then return end
-		BigWigsLoaded = true
-		BigWigsBars:RegisterBarStyle(styleName, {
-			apiVersion = 1,
-			version = 1,
-			GetSpacing = function() return 20 end,
-			ApplyStyle = ApplyStyleHalfBar,
-			BarStopped = FreeStyle,
-			GetStyleName = function() return styleName end,
-		})
-		BigWigsBars:SetBarStyle(styleName)
+		local BigWigsBars = BigWigs:GetPlugin('Bars', true)
+		local BigWigsProx = BigWigs:GetPlugin("Proximity", true)
+		if BigWigsBars then
+			BigWigsBars:RegisterBarStyle(styleName, {
+				apiVersion = 1,
+				version = 1,
+				GetSpacing = function() return 20 end,
+				ApplyStyle = ApplyStyleHalfBar,
+				BarStopped = FreeStyle,
+				GetStyleName = function() return styleName end,
+			})
+			BigWigsBars:SetBarStyle(styleName)
+		end
+		if E.private.muiSkins.addonSkins.bw then
+			BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
+				BigWigsProximityAnchor:SetTemplate("Transparent")
+			end)
+		end
 	end
 end
 
