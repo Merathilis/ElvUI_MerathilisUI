@@ -243,7 +243,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["auras"]["buffs"]["wrapAfter"] = 10
 		E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 		E.db["auras"]["debuffs"]["size"] = 42
-		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -27)
+		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -29)
 		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", ElvUIParent, "TOPRIGHT", -2, -148)
 
 		--[[----------------------------------
@@ -319,8 +319,8 @@ function MER:SetupLayout(noDataReset)
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", ElvUIParent, "BOTTOMLEFT", 455, 22)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT", -502, 22)
 		MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", ElvUIParent, "TOP", 0, -65)
-		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", ElvUIParent, "TOP", 0, -28)
-		MER:SetMoverPosition("OrderhallMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2 -28)
+		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", ElvUIParent, "TOP", 0, -29)
+		MER:SetMoverPosition("OrderhallMover", "TOPLEFT", ElvUIParent, "TOPLEFT", 2 -29)
 	end
 
 	E:UpdateAll(true)
