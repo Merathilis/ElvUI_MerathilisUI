@@ -43,14 +43,35 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
 	end
 
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar.SetPoint = nil
-	bar.candyBarBar:SetPoint('TOPRIGHT')
-	bar.candyBarBar:SetPoint('BOTTOMRIGHT')
+	-- replace dummies with original method functions
+	bar.candyBarBar.SetPoint = bar.candyBarBar.OldSetPoint
+	bar.candyBarIconFrame.SetWidth = bar.candyBarIconFrame.OldSetWidth
+	bar.SetScale = bar.OldSetScale
 
+	-- Reset Positions
+	-- Icon
+	bar.candyBarIconFrame:ClearAllPoints()
+	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
+	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
+	bar.candyBarIconFrame.SetWidth = function() end
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
+	-- Status Bar
+	bar.candyBarBar:ClearAllPoints()
+	bar.candyBarBar:SetPoint("TOPRIGHT")
+	bar.candyBarBar:SetPoint("BOTTOMRIGHT")
+
+	-- BG
 	bar.candyBarBackground:SetAllPoints()
+
+	-- Duration
+	bar.candyBarDuration:ClearAllPoints()
+	bar.candyBarDuration:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
+
+	-- Name
+	bar.candyBarLabel:ClearAllPoints()
+	bar.candyBarLabel:SetPoint("LEFT", bar.candyBarBar, "LEFT", 2, 0)
+	bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
 end
 
 local function ApplyStyleHalfBar(bar)
@@ -60,6 +81,10 @@ local function ApplyStyleHalfBar(bar)
 	else
 		bg = CreateBG()
 	end
+
+	bar:SetScale(1)
+	bar.OldSetScale = bar.SetScale
+	bar.SetScale = function() end
 
 	bg:SetParent(bar)
 	bg:SetFrameStrata(bar:GetFrameStrata())
@@ -103,6 +128,7 @@ local function ApplyStyleHalfBar(bar)
 	bar.candyBarIconFrame:ClearAllPoints()
 	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
+	bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
 	bar.candyBarIconFrame.SetWidth = function() end
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
@@ -123,6 +149,7 @@ local function StyleBigWigs(event, addon)
 		local styleName = MER.Title
 		local BigWigsBars = BigWigs:GetPlugin('Bars', true)
 		local BigWigsProx = BigWigs:GetPlugin("Proximity", true)
+		local BigWigsInfo = BigWigs:GetPlugin("InfoBox", true)
 		if BigWigsBars then
 			BigWigsBars:RegisterBarStyle(styleName, {
 				apiVersion = 1,
@@ -135,8 +162,13 @@ local function StyleBigWigs(event, addon)
 			BigWigsBars:SetBarStyle(styleName)
 		end
 		if BigWigsProx then
-			BigWigsLoader.RegisterMessage("BigWigs_Plugins", "BigWigs_FrameCreated", function()
+			BigWigsLoader.RegisterMessage("Proximity", "BigWigs_FrameCreated", function()
 				BigWigsProximityAnchor:SetTemplate("Transparent")
+			end)
+		end
+		if BigWigsInfo then
+			BigWigsLoader.RegisterMessage("InfoBox", "BigWigs_FrameCreated", function()
+				BigWigsInfoBox:SetTemplate("Transparent")
 			end)
 		end
 	end
