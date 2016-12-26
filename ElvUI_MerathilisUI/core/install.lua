@@ -160,6 +160,13 @@ function MER:SetupLayout(noDataReset)
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
 		E.private["general"]["normTex"] = "MerathilisFlat"
 		E.private["general"]["glossTex"] = "MerathilisFlat"
+		if IsAddOnLoaded("XLoot") then
+			E.private["general"]["loot"] = false
+			E.private["general"]["lootRoll"] = false
+		else
+			E.private["general"]["loot"] = true
+			E.private["general"]["lootRoll"] = true
+		end
 
 		--[[----------------------------------
 		--	GlobalDB - General
@@ -186,8 +193,6 @@ function MER:SetupLayout(noDataReset)
 		E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 		E.db["general"]["loginmessage"] = false
 		E.db["general"]["stickyFrames"] = false
-		E.db["general"]["loot"] = true
-		E.db["general"]["lootRoll"] = true
 		E.db["general"]["backdropcolor"]["r"] = 0.101
 		E.db["general"]["backdropcolor"]["g"] = 0.101
 		E.db["general"]["backdropcolor"]["b"] = 0.101
