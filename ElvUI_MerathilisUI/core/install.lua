@@ -301,6 +301,15 @@ function MER:SetupLayout(noDataReset)
 		MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", ElvUIParent, "BOTTOMRIGHT" ,-3, 220)
 
 		--[[----------------------------------
+		--	Skins - Layout
+		--]]----------------------------------
+		if IsAddOnLoaded("ls_Toasts") then
+			E.private["skins"]["blizzard"]["alertframes"] = false
+		else
+			E.private["skins"]["blizzard"]["alertframes"] = true
+		end
+
+		--[[----------------------------------
 		--	Movers - Layout
 		--]]----------------------------------
 		MER:SetMoverPosition("AltPowerBarMover", "TOP", ElvUIParent, "TOP" ,1, -272)
