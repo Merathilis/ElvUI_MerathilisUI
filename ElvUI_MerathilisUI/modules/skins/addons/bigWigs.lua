@@ -9,11 +9,10 @@ local tremove = table.remove
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS: UIParent, BigWigs, BigWigsLoader
+-- GLOBALS: UIParent, BigWigs, BigWigsLoader, BigWigsProximityAnchor, BigWigsInfoBox
 
 -- Based on AddOnSkins HalfBar Style. Credits Azilroka
 
-local BigWigsLoaded
 local FreeBackgrounds = {}
 local buttonsize = 19
 local texture = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint]]
@@ -43,35 +42,11 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
 	end
 
-	-- replace dummies with original method functions
-	bar.candyBarBar.SetPoint = bar.candyBarBar.OldSetPoint
-	bar.candyBarIconFrame.SetWidth = bar.candyBarIconFrame.OldSetWidth
-	bar.SetScale = bar.OldSetScale
-
-	-- Reset Positions
-	-- Icon
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
-	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
-	bar.candyBarIconFrame.SetWidth = function() end
-	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
-
-	-- Status Bar
+	bar.candyBarIconFrame.SetWidth = nil
+    
 	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar:SetPoint("TOPRIGHT")
-	bar.candyBarBar:SetPoint("BOTTOMRIGHT")
-
-	-- BG
-	bar.candyBarBackground:SetAllPoints()
-
-	-- Duration
-	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
-
-	-- Name
-	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("LEFT", bar.candyBarBar, "LEFT", 2, 0)
-	bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
+	bar.candyBarBar.SetPoint = nil
 end
 
 local function ApplyStyleHalfBar(bar)
