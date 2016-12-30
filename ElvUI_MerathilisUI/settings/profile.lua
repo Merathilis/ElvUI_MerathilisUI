@@ -15,16 +15,12 @@ P['mui'] = {
 	},
 
 	['misc'] = {
-		['HideAlertFrame'] = true, -- Hide the Garison AlertFrame in Combat
 		['MailInputbox'] = true, -- Resize the MailInputbox
 		['Tooltip'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
-		['FriendAlert'] = false, -- Show a chat notification if a friend switches Games
 		['moveBlizz'] = true, -- Make Blizzards Frame movable
 		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
 		['gmotd'] = true, -- Show a GMOTD frame
-		['bossemote'] = true, -- Show Bossemotes
 		['vignette'] = true, -- Shows Rars/Treasures
-		['minimapping'] = true, -- Shows the PlayerName on the MiniMap if someone pings.
 	},
 
 	['datatexts'] = {

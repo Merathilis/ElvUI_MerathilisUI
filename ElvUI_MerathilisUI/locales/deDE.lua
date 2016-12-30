@@ -55,10 +55,6 @@ L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
 L['Misc'] = "Verschiedenes"
 
--- MinimapPing
-L["MinimapPing"] = true
-L["Shows the PlayerName on the Minimap if someone pings."] = "Zeigt den Spielernamen wenn einer auf der Minimap pingt."
-
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
 L["Vignette"] = true
@@ -72,19 +68,9 @@ L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 
--- GarrisonAlertFrame
-L['Garrison Alert Frame'] = "Garnision Alarm Fenster"
-L['Hides the Garrison Alert Frame while in combat.'] = "Versteckt das Garnision Alarm Fenster während des Kampfes."
-
 -- MailInputBox
 L['Mail Inputbox Resize'] = "Post Eingabefeld"
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
-
--- Friend Alert
-L['Battle.net Alert'] = "Battle.net Alarm"
-L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = "Zeigt eine Chatbenachrichtigung wenn ein Battle.net Freund ein Spiel wechselt oder offline geht."
-L["%s stopped playing (%sIn Battle.net)."] = "%s spielt nicht mehr (%sIn Battle.net)."
-L["%s is now playing (%s%s)."] = "%s spielt jetzt (%s%s)"
 
 -- Tradeskill Tabs
 L['TradeSkill Tabs'] = "Berufsfenster Tabs"

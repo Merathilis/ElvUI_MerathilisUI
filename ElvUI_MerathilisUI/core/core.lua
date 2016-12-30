@@ -165,7 +165,6 @@ function MER:Initialize()
 	self:LoadGameMenu()
 	self:LoadGMOTD()
 	self:LoadVignette()
-	self:LoadMinimapPing()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()

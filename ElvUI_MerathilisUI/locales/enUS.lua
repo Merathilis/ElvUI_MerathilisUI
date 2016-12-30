@@ -55,10 +55,6 @@ L['MasterPlan'] = true
 L['Skins the additional Tabs from MasterPlan.'] = true
 L['Misc'] = true
 
--- MinimapPing
-L["MinimapPing"] = true
-L["Shows the PlayerName on the Minimap if someone pings."] = true
-
 -- Misc
 L["Artifact Power"] = true
 L["Vignette"] = true
@@ -72,19 +68,9 @@ L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
 
--- GarrisonAlertFrame
-L['Garrison Alert Frame'] = true
-L['Hides the Garrison Alert Frame while in combat.'] = true
-
 -- MailInputBox
 L['Mail Inputbox Resize'] = true
 L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
-
--- Friend Alert
-L['Battle.net Alert'] = true
-L['Shows a Chat notification if a Battle.net Friend switch Games or goes offline.'] = true
-L["%s stopped playing (%sIn Battle.net)."] = true
-L["%s is now playing (%s%s)."] = true
 
 -- Tradeskill Tabs
 L['TradeSkill Tabs'] = true
