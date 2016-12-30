@@ -32,6 +32,10 @@ P['mui'] = {
 				['right'] = 'Bags',
 			},
 		},
+		['threatBar'] = {
+			['enable'] = true,
+			['textSize'] = 10,
+		},
 	},
 
 	['systemDT'] = {

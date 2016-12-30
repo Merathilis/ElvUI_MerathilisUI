@@ -125,8 +125,33 @@ local function Datatexts()
 				guiInline = true,
 				args = {},
 			},
-			gotodatatexts = {
+			threatBar = {
 				order = 4,
+				type = 'group',
+				name = L["Threat"]..MER.NewSign,
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						get = function(info) return E.db.mui.datatexts.threatBar.enable end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.enable = value; E:GetModule('ThreatBar'):ToggleEnable()end,
+						disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
+					},
+					textSize = {
+						order = 2,
+						name = L["Font Size"],
+						type = 'range',
+						min = 6, max = 22, step = 1,
+						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule('ThreatBar'):UpdatePosition() end,
+						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
+					},
+				},
+			},
+			gotodatatexts = {
+				order = 5,
 				type = "execute",
 				name = L["ElvUI DataTexts"],
 				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts") end,
@@ -160,6 +185,7 @@ local function Datatexts()
 					values = datatexts,
 					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
 					set = function(info, value) E.db.mui.datatexts.panels[pointLoc][ info[#info] ] = value; DT:LoadDataTexts() end,
+					disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				}
 			end
 		elseif type(tab) == 'string' then
@@ -169,6 +195,7 @@ local function Datatexts()
 				values = datatexts,
 				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,
 				set = function(info, value) E.db.mui.datatexts.panels[pointLoc] = value; DT:LoadDataTexts() end,
+				disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				print(pointLoc)
 			}
 		end

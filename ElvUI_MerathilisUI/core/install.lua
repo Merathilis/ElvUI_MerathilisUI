@@ -202,6 +202,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["general"]["backdropfadecolor"]["r"] = 0.0549
 		E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 		E.db["general"]["backdropfadecolor"]["b"] = 0.0549
+		E.db["general"]["threat"]["enable"] = false
 		E.db["databars"]["experience"]["enable"] = true
 		E.db["databars"]["experience"]["mouseover"] = false
 		E.db["databars"]["experience"]["height"] = 135
