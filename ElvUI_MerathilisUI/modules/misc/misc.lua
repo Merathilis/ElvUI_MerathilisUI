@@ -87,3 +87,11 @@ CloseWoW:SetScript("OnEvent", function(_, event, msg)
 		end
 	end
 end)
+
+-- Test to fix the BlackWorldMap
+local fixMap = CreateFrame("Frame")
+fixMap:RegisterEvent("PLAYER_REGEN_ENABLED")
+fixMap:SetScript("OnEvent", function(self, event, ...)
+	WorldMapScrollFrame:SetHorizontalScroll(0)
+	WorldMapScrollFrame:SetVerticalScroll(0)
+end)
