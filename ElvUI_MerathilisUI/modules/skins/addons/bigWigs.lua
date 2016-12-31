@@ -11,11 +11,8 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: UIParent, BigWigs, BigWigsLoader, BigWigsProximityAnchor, BigWigsInfoBox
 
--- Based on AddOnSkins HalfBar Style. Credits Azilroka
-
 local FreeBackgrounds = {}
-local buttonsize = 19
-local texture = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint]]
+local buttonsize = 18
 
 local barcolor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
@@ -42,15 +39,15 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
 	end
 
-	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame.SetWidth = nil
-    
-	bar.candyBarBar:ClearAllPoints()
-	bar.candyBarBar.SetPoint = nil
+	-- replace dummies with original method functions
+	bar.candyBarBar.SetPoint = bar.candyBarBar.OldSetPoint
+	bar.candyBarIconFrame.SetWidth = bar.candyBarIconFrame.OldSetWidth
+	bar.SetScale = bar.OldSetScale
 end
 
-local function ApplyStyleHalfBar(bar)
-	local bg
+
+local function ApplyStyle(bar)
+	local bg = nil
 	if #FreeBackgrounds > 0 then
 		bg = tremove(FreeBackgrounds)
 	else
@@ -58,20 +55,22 @@ local function ApplyStyleHalfBar(bar)
 	end
 
 	bar:SetScale(1)
+	bar:SetHeight(buttonsize)
 	bar.OldSetScale = bar.SetScale
-	bar.SetScale = function() end
+	bar.SetScale = MER.dummy
 
 	bg:SetParent(bar)
 	bg:SetFrameStrata(bar:GetFrameStrata())
 	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bg:ClearAllPoints()
-	bg:SetOutside(bar)
+	bg:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
+	bg:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 2, -2)
 	bg:SetTemplate('Transparent')
 	bg:Show()
 	bar:Set('bigwigs:MerathilisUI:bg', bg)
 
 	if bar.candyBarIconFrame:GetTexture() then
-		local ibg
+		local ibg = nil
 		if #FreeBackgrounds > 0 then
 			ibg = tremove(FreeBackgrounds)
 		else
@@ -81,39 +80,44 @@ local function ApplyStyleHalfBar(bar)
 		ibg:SetFrameStrata(bar:GetFrameStrata())
 		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
 		ibg:ClearAllPoints()
-		ibg:SetOutside(bar.candyBarIconFrame)
+		ibg:SetPoint("TOPLEFT", bar.candyBarIconFrame, "TOPLEFT", -2, 2)
+		ibg:SetPoint("BOTTOMRIGHT", bar.candyBarIconFrame, "BOTTOMRIGHT", 2, -2)
 		ibg:SetBackdropColor(0, 0, 0, 0)
 		ibg:Show()
 		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
 	end
 
-	bar:SetHeight(buttonsize / 2)
+	-- setup bar positions and look
+	bar:SetHeight(buttonsize)
 
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.SetPoint = function() end
-	bar.candyBarBar:SetStatusBarTexture(texture)
+	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
+	bar.candyBarBar.SetPoint = MER.dummy
+	bar.candyBarBar:SetStatusBarTexture(E['media'].muiFlat)
 	if not bar.data["bigwigs:emphasized"] == true then
 		bar.candyBarBar:SetStatusBarColor(barcolor.r, barcolor.g, barcolor.b, 1)
 	end
 
+	-- setup icon positions and other things
 	bar.candyBarBackground:SetAllPoints()
 	bar.candyBarBackground:SetTexture(unpack(E["media"].bordercolor))
 
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
+	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", -buttonsize - buttonsize/3 , 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 	bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
-	bar.candyBarIconFrame.SetWidth = function() end
+	bar.candyBarIconFrame.SetWidth = MER.dummy
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
+	-- setup timer and bar name fonts and positions
+	bar.candyBarLabel:SetFont(E['media'].muiRoboto, 10, "OUTLINE")
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
-	bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+	bar.candyBarLabel:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 2, -14)
 
+	bar.candyBarDuration:SetFont(E['media'].muiRoboto, 10, "OUTLINE")
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, 10)
-	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", -2, -14)
 
 	S:HandleIcon(bar.candyBarIconFrame)
 end
@@ -129,8 +133,8 @@ local function StyleBigWigs(event, addon)
 			BigWigsBars:RegisterBarStyle(styleName, {
 				apiVersion = 1,
 				version = 1,
-				GetSpacing = function() return 20 end,
-				ApplyStyle = ApplyStyleHalfBar,
+				GetSpacing = function() return 10 end,
+				ApplyStyle = ApplyStyle,
 				BarStopped = FreeStyle,
 				GetStyleName = function() return styleName end,
 			})
