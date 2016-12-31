@@ -24,6 +24,7 @@ MER.Title = format('|cffff7d0a%s |r', 'MerathilisUI')
 MER.Version = GetAddOnMetadata('ElvUI_MerathilisUI', 'Version')
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.dummy = function() end
 MerathilisUIData = {}
 
 function MER:cOption(name)
