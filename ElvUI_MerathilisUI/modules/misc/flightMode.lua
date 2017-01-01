@@ -30,7 +30,7 @@ function MFM:Initialize()
 		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, "OVERLAY")
 		BFM.FlightMode.bottom.logo:Size(256, 128)
 		BFM.FlightMode.bottom.logo:Point("CENTER", BFM.FlightMode.bottom, "CENTER", 0, 35)
-		BFM.FlightMode.bottom.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga")
+		BFM.FlightMode.bottom.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI.tga")
 
 		-- MerathilisUI Version
 		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')

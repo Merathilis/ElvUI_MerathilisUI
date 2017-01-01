@@ -121,7 +121,7 @@ local function CreateSplashScreen()
 
 	f.logo = f:CreateTexture(nil, 'OVERLAY')
 	f.logo:Size(256, 128)
-	f.logo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\merathilis_logo.tga')
+	f.logo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI.tga')
 	f.logo:Point('CENTER', f, 'CENTER')
 
 	f.version = f:CreateFontString(nil, 'OVERLAY')
