@@ -69,7 +69,7 @@ function MER:GameMenu()
 		end)
 
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, 'ARTWORK')
-		bottomPanel.Logo:SetSize(285, 128)
+		bottomPanel.Logo:SetSize(256, 128)
 		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -60)
 		bottomPanel.Logo:SetTexture(logo)
 	end
@@ -107,7 +107,7 @@ function MER:GameMenu()
 		
 		topPanel.factionLogo = topPanel:CreateTexture(nil, 'ARTWORK')
 		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
-		topPanel.factionLogo:SetSize(250, 250)
+		topPanel.factionLogo:SetSize(256, 250)
 		topPanel.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-'..E.myclass)
 	end
 	
