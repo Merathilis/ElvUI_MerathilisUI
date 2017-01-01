@@ -138,7 +138,7 @@ local function StyleBigWigs(event, addon)
 				BarStopped = FreeStyle,
 				GetStyleName = function() return styleName end,
 			})
-			BigWigsBars:SetBarStyle(styleName)
+			BigWigsBars.defaultDB.barStyle = styleName
 		end
 		if BigWigsProx then
 			BigWigsLoader.RegisterMessage("Proximity", "BigWigs_FrameCreated", function()
