@@ -34,7 +34,7 @@ function MFM:Initialize()
 
 		-- MerathilisUI Version
 		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
-		BFM.FlightMode.bottom.merathilisui:FontTemplate(nil, 10)
+		BFM.FlightMode.bottom.merathilisui:FontTemplate(nil, 14)
 		BFM.FlightMode.bottom.merathilisui:SetFormattedText("v%s", MER.Version)
 		BFM.FlightMode.bottom.merathilisui:SetPoint("BOTTOM", BFM.FlightMode.bottom.logo, "BOTTOM", 0, 5)
 		BFM.FlightMode.bottom.merathilisui:SetTextColor(1, 1, 1)

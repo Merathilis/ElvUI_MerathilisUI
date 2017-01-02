@@ -21,7 +21,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
 local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI.tga"
+local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga"
 
 local npc = {
 	86470, -- Pepe
@@ -69,8 +69,8 @@ function MER:GameMenu()
 		end)
 
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, 'ARTWORK')
-		bottomPanel.Logo:SetSize(256, 128)
-		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -60)
+		bottomPanel.Logo:SetSize(200, 200)
+		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -30)
 		bottomPanel.Logo:SetTexture(logo)
 	end
 
