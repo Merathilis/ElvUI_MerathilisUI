@@ -1,3 +1,11 @@
+<b><u> v2.27, 02.01.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add skin for XIV_Databar.
+<font color=#FF8C00>&#9830;</font> Minor UI improvements.
+<font color=#FF8C00>&#9830;</font> Update BigWigs skin.
+<font color=#FF8C00>&#9830;</font> CleanUP: Removed: FriendAlert, MiniMapPing.
+<font color=#FF8C00>&#9830;</font> Create an own ThreatBar on my Datatext Panel.
+<font color=#FF8C00>&#9830;</font> New Year, new logo! :)
+
 <b><u> v2.26, 19.12.2016</b></u>
 <font color=#FF8C00>&#9830;</font> Minor Layout adjustments. Recommended AddOn: XIV_Databar.
 <font color=#FF8C00>&#9830;</font> Add an option for ActionBarProfiles in Skin options.

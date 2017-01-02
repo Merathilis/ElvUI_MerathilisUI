@@ -1,3 +1,11 @@
+** v2.27, 02.01.2017**
+* Add skin for XIV_Databar.
+* Minor UI improvements.
+* Update BigWigs skin.
+* CleanUP: Removed: FriendAlert, MiniMapPing.
+* Create an own ThreatBar on my Datatext Panel.
+* New Year, new logo! :)
+
 ** v2.26, 05.12.2016**
 * Minor Layout adjustments. Recommended AddOn: XIV_Databar.
 * Add an option for ActionBarProfiles in Skin options.

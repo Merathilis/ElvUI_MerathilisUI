@@ -19,16 +19,17 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.26|r, 19.12.2016
+local ChangeLogData = [=[|cffff7d0av2.27|r, 02.01.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Minor Layout adjustments. Recommended AddOn: XIV_Databar.
- |cffff7d0a•|r Add an option for ActionBarProfiles in Skin options.
- |cffff7d0a•|r Adjust the QuestLog skin.
- |cffff7d0a•|r Remove TargetIcon.
+ |cffff7d0a•|r Add skin for XIV_Databar.
+ |cffff7d0a•|r Minor UI improvements.
+ |cffff7d0a•|r Update BigWigs skin.
+ |cffff7d0a•|r CleanUP: Removed: FriendAlert, MiniMapPing.
+ |cffff7d0a•|r Create an own ThreatBar on my Datatext Panel.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r Recommended AddOn: XIV_Databar.
+ |cffff7d0a•|r New Year, new Logo! :)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
