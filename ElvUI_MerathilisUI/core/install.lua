@@ -633,7 +633,7 @@ function MER:SetupUnitframes(noDataReset)
 			["xOffset"] = 4,
 			["yOffset"] = 0,
 			["size"] = 20,
-			["text_format"] = "[name:medium]",
+			["text_format"] = "[name:abbrev]",
 			["attachTextTo"] = "Health",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {

@@ -171,3 +171,28 @@ ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
 
 	return String
 end
+
+-- Credits goes to Simpy 
+local function abbrev(text)
+	local endname = string.match(text, '.+%s(.+)$')
+	if endname then
+		local newname = ''
+		for k, v in string.gmatch(text, '%S-%s') do
+			newname = newname .. string.sub(k,1,1) .. ". "
+		end
+		text = newname .. endname
+	end
+	return text
+end
+
+ElvUF.Tags.Events['name:abbrev'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:abbrev'] = function(unit)
+	local name = UnitName(unit)
+	name = abbrev(name)
+
+	if name and name:find(' ') then
+		name = abbrev(name)
+	end
+
+	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+end
