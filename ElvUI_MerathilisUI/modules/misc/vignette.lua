@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local MER = E:GetModule("MerathilisUI");
 
 -- Cache global variables
 -- Lua functions
@@ -9,7 +9,7 @@ local C_Vignettes = C_Vignettes
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
 local ChatTypeInfo = ChatTypeInfo
 local PlaySoundFile = PlaySoundFile
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: RaidNotice_AddMessage, RaidWarningFrame
 
 local function OnVignetteAdded(self, _, id)

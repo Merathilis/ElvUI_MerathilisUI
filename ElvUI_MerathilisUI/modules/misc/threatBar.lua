@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local MERTB = E:NewModule('ThreatBar', 'AceEvent-3.0')
+local MER = E:GetModule("MerathilisUI");
+local MERTB = E:NewModule("ThreatBar", "AceEvent-3.0")
 
 -- Cache global variables
 -- Lua functions
@@ -20,7 +20,7 @@ local GetThreatStatusColor = GetThreatStatusColor
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local UNKNOWN = UNKNOWN
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: ElvUF, UIParent, ChatTab_Datatext_Panel
 
 E.Threat = MERTB
@@ -33,7 +33,7 @@ function MERTB:UpdatePosition()
 	end
 
 	self.bar.text:FontTemplate(nil, self.db.textSize)
-	self.bar:SetFrameStrata('HIGH')
+	self.bar:SetFrameStrata("HIGH")
 end
 
 function MERTB:GetLargestThreatOnList(percent)
@@ -49,14 +49,14 @@ function MERTB:GetLargestThreatOnList(percent)
 end
 
 function MERTB:GetColor(unit)
-	local unitReaction = UnitReaction(unit, 'player')
+	local unitReaction = UnitReaction(unit, "player")
 	local _, unitClass = UnitClass(unit)
 	if (UnitIsPlayer(unit)) then
 		local class = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[unitClass] or RAID_CLASS_COLORS[unitClass]
 		if not class then return 194, 194, 194 end
 		return class.r*255, class.g*255, class.b*255
 	elseif (unitReaction) then
-		local reaction = ElvUF['colors'].reaction[unitReaction]
+		local reaction = ElvUF["colors"].reaction[unitReaction]
 		return reaction[1]*255, reaction[2]*255, reaction[3]*255
 	else
 		return 194, 194, 194
@@ -64,27 +64,27 @@ function MERTB:GetColor(unit)
 end
 
 function MERTB:Update()
-	local isInGroup, isInRaid, petExists = IsInGroup(), IsInRaid(), UnitExists('pet')
-	local _, status, percent = UnitDetailedThreatSituation('player', 'target')
+	local isInGroup, isInRaid, petExists = IsInGroup(), IsInRaid(), UnitExists("pet")
+	local _, status, percent = UnitDetailedThreatSituation("player", "target")
 	if percent and percent > 0 and (isInGroup or petExists) then
-		local name = UnitName('target')
+		local name = UnitName("target")
 		self.bar:Show()
 		if percent == 100 then
 			--Build threat list
 			if petExists then
-				self.list['pet'] = select(3, UnitDetailedThreatSituation('pet', 'target'))
+				self.list["pet"] = select(3, UnitDetailedThreatSituation("pet", "target"))
 			end
 
 			if isInRaid then
 				for i=1, 40 do
-					if UnitExists('raid'..i) and not UnitIsUnit('raid'..i, 'player') then
-						self.list['raid'..i] = select(3, UnitDetailedThreatSituation('raid'..i, 'target'))
+					if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") then
+						self.list["raid"..i] = select(3, UnitDetailedThreatSituation("raid"..i, "target"))
 					end
 				end
 			else
 				for i=1, 4 do
-					if UnitExists('party'..i) then
-						self.list['party'..i] = select(3, UnitDetailedThreatSituation('party'..i, 'target'))
+					if UnitExists("party"..i) then
+						self.list["party"..i] = select(3, UnitDetailedThreatSituation("party"..i, "target"))
 					end
 				end
 			end
@@ -94,7 +94,7 @@ function MERTB:Update()
 				local r, g, b = self:GetColor(largestUnit)
 				self.bar.text:SetFormattedText(L["ABOVE_THREAT_FORMAT"], name, percent, leadPercent, r, g, b, UnitName(largestUnit) or UNKNOWN)
 
-				if E.role == 'Tank' then
+				if E.role == "Tank" then
 					self.bar:SetStatusBarColor(0, 0.839, 0)
 					self.bar:SetValue(leadPercent)
 				else
@@ -103,12 +103,12 @@ function MERTB:Update()
 				end
 			else
 				self.bar:SetStatusBarColor(GetThreatStatusColor(status))
-				self.bar.text:SetFormattedText('%s: %.0f%%', name, percent)
+				self.bar.text:SetFormattedText("%s: %.0f%%", name, percent)
 				self.bar:SetValue(percent)
 			end
 		else
 			self.bar:SetStatusBarColor(GetThreatStatusColor(status))
-			self.bar.text:SetFormattedText('%s: %.0f%%', name, percent)
+			self.bar.text:SetFormattedText("%s: %.0f%%", name, percent)
 			self.bar:SetValue(percent)
 		end
 	else
@@ -120,32 +120,32 @@ end
 
 function MERTB:ToggleEnable()
 	if self.db.enable then
-		self:RegisterEvent('PLAYER_TARGET_CHANGED', 'Update')
-		self:RegisterEvent('UNIT_THREAT_LIST_UPDATE', 'Update')
-		self:RegisterEvent('GROUP_ROSTER_UPDATE', 'Update')
-		self:RegisterEvent('UNIT_PET', 'Update')
+		self:RegisterEvent("PLAYER_TARGET_CHANGED", "Update")
+		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", "Update")
+		self:RegisterEvent("GROUP_ROSTER_UPDATE", "Update")
+		self:RegisterEvent("UNIT_PET", "Update")
 		self:Update()
 	else
 		self.bar:Hide()
-		self:UnregisterEvent('PLAYER_TARGET_CHANGED')
-		self:UnregisterEvent('UNIT_THREAT_LIST_UPDATE')
-		self:UnregisterEvent('GROUP_ROSTER_UPDATE')
-		self:UnregisterEvent('UNIT_PET')
+		self:UnregisterEvent("PLAYER_TARGET_CHANGED")
+		self:UnregisterEvent("UNIT_THREAT_LIST_UPDATE")
+		self:UnregisterEvent("GROUP_ROSTER_UPDATE")
+		self:UnregisterEvent("UNIT_PET")
 	end
 end
 
 function MERTB:Initialize()
 	self.db = E.db.mui.datatexts.threatBar
 
-	self.bar = CreateFrame('StatusBar', 'mui_ThreatBar', UIParent)
-	self.bar:SetStatusBarTexture(E['media'].normTex)
+	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", UIParent)
+	self.bar:SetStatusBarTexture(E["media"].muiFlat)
 	E:RegisterStatusBar(self.bar)
 	self.bar:SetMinMaxValues(0, 100)
-	self.bar:CreateBackdrop('Default')
+	self.bar:CreateBackdrop("Default")
 
-	self.bar.text = self.bar:CreateFontString(nil, 'OVERLAY')
+	self.bar.text = self.bar:CreateFontString(nil, "OVERLAY")
 	self.bar.text:FontTemplate(nil, self.db.textSize)
-	self.bar.text:Point('CENTER', self.bar, 'CENTER')
+	self.bar.text:Point("CENTER", self.bar, "CENTER")
 
 	self:UpdatePosition()
 	self:ToggleEnable()

@@ -1,11 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule('Skins');
+local S = E:GetModule("Skins");
 
 --Cache global variables
 --Lua functions
 local _G = _G
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
@@ -15,7 +15,7 @@ local function styleTalents()
 		local bu = PlayerTalentFrameSpecialization["specButton"..i]
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
-		bu.SelectedTexture = bu:CreateTexture(nil, 'BACKGROUND')
+		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(classColor.r, classColor.g, classColor.b)
 	end
 

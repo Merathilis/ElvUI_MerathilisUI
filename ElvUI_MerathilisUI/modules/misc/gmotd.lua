@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
-local LSM = LibStub('LibSharedMedia-3.0');
+local MER = E:GetModule("MerathilisUI");
+local S = E:GetModule("Skins");
+local LSM = LibStub("LibSharedMedia-3.0");
 
 -- Cache global variables
 -- Lua functions
@@ -14,10 +14,10 @@ local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- Code taken from bitbyte - SayGMOTD

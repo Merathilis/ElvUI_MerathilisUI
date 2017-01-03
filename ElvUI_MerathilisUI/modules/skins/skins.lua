@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule('Skins');
-local MERS = E:NewModule('MuiSkins', 'AceHook-3.0', 'AceEvent-3.0');
+local S = E:GetModule("Skins");
+local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0");
 
 -- Cache global variables
 -- Lua functions
@@ -35,15 +35,15 @@ function MERS:SkinTexture(frame)
 end
 
 function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
-	local Texture = E['media'].muiBlank
+	local Texture = E["media"].muiBlank
 
 	if UseTexture then 
-		Texture = TextureFile or E['media'].muiNormTex
+		Texture = TextureFile or E["media"].muiNormTex
 	end
 
 	Frame:SetBackdrop({
 		bgFile = Texture,
-		edgeFile = E['media'].muiBlank,
+		edgeFile = E["media"].muiBlank,
 		tile = false, tileSize = 0, edgeSize = 1,
 		insets = { left = 0, right = 0, top = 0, bottom = 0},
 	})
@@ -107,10 +107,10 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
     
 		Frame.isInsetDone = true
 	end
-	local R, G, B = unpack(E['media'].backdropcolor)
+	local R, G, B = unpack(E["media"].backdropcolor)
 	local Alpha = (Template == "Transparent" and .8 or 1)
 
-	Frame:SetBackdropBorderColor(unpack(E['media'].bordercolor))
+	Frame:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 	Frame:SetBackdropColor(R, G, B, Alpha)
 end
 
@@ -173,20 +173,20 @@ function MERS:HandleCloseButton(f, point, text)
 
 	-- Create backdrop for the few close buttons that do not use original close button
 	if not f.backdrop and not f.noBackdrop then
-		f:CreateBackdrop('Default', true)
-		f.backdrop:Point('TOPLEFT', 7, -8)
-		f.backdrop:Point('BOTTOMRIGHT', -8, 8)
-		f:HookScript('OnEnter', SetModifiedBackdrop)
-		f:HookScript('OnLeave', SetOriginalBackdrop)
+		f:CreateBackdrop("Default", true)
+		f.backdrop:Point("TOPLEFT", 7, -8)
+		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
+		f:HookScript("OnEnter", SetModifiedBackdrop)
+		f:HookScript("OnLeave", SetOriginalBackdrop)
 	end
 
-	-- Have to create the text, ElvUI code expects the element to be there. It won't show up for original close buttons anyway.
+	-- Have to create the text, ElvUI code expects the element to be there. It won"t show up for original close buttons anyway.
 	if not f.text then
-		f.text = f:CreateFontString(nil, 'OVERLAY')
-		f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
+		f.text = f:CreateFontString(nil, "OVERLAY")
+		f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, "OUTLINE")
 		f.text:SetText(text)
-		f.text:SetJustifyH('CENTER')
-		f.text:SetPoint('CENTER', f, 'CENTER')
+		f.text:SetJustifyH("CENTER")
+		f.text:SetPoint("CENTER", f, "CENTER")
 	end
 
 	-- Hide text if button is using original skin

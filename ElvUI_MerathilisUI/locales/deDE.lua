@@ -1,59 +1,59 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
-local L = AceLocale:NewLocale('ElvUI', 'deDE');
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "deDE");
 if not L then return; end
 
 -- Core
-L[' is loaded.'] = " ist geladen."
+L[" is loaded."] = " ist geladen."
 
 -- General Options
-L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
-L['by Merathilis (EU-Shattrath)'] = "von Merathilis (EU-Shattrath)"
-L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:'] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden.\n\nNeue Funktionen sind gekennzeichnet mit:"
-L['AFK'] = true
-L['Enable/Disable the MUI AFK Screen'] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
-L['SplashScreen'] = "Startbildschirm"
-L['Enable/Disable the Splash Screen on Login.'] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
-L['Options'] = "Einstellungen"
+L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
+L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
+L["MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:"] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich nur den Look von eurem UI. Um den kompletten Style zu erreichen wird empfohlen |cff00c0faElvUI BenikUI|r herrunter zu laden.\n\nNeue Funktionen sind gekennzeichnet mit:"
+L["AFK"] = true
+L["Enable/Disable the MUI AFK Screen"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
+L["SplashScreen"] = "Startbildschirm"
+L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
+L["Options"] = "Einstellungen"
 
 -- LoginMessage
-L['Enable/Disable the Login Message in Chat'] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
+L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Chat
-L['CHAT_AFK'] = "[AFK]"
-L['CHAT_DND'] = "[DND]"
+L["CHAT_AFK"] = "[AFK]"
+L["CHAT_DND"] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
 L["Unknown"] = "Unbekannt"
 
 -- Information
-L['Information'] = true
-L['Support & Downloads'] = true
-L['Tukui.org'] = true
-L['Git Ticket tracker'] = true
-L['Curse.com'] = true
-L['Coding'] = true
-L['Testing & Inspiration'] = "Tester & Inspiration"
-L['My other Addon'] = "Mein anderes Addon"
-L['ElvUI Tooltip Icon'] = true
-L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
+L["Information"] = true
+L["Support & Downloads"] = true
+L["Tukui.org"] = true
+L["Git Ticket tracker"] = true
+L["Curse.com"] = true
+L["Coding"] = true
+L["Testing & Inspiration"] = "Tester & Inspiration"
+L["My other Addon"] = "Mein anderes Addon"
+L["ElvUI Tooltip Icon"] = true
+L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
 
 -- GameMenu
-L['GameMenu'] = "Spielmenü"
-L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
+L["GameMenu"] = "Spielmenü"
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktiviert/Deaktiviert den MerathilisUI Style aus dem Blizzard Spielmenü."
 
 -- FlightMode
-L['FlightMode'] = "Flugmodus"
-L['Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options.'] = "Aktiviert/Deaktiviert den MerathilisUI Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
+L["FlightMode"] = "Flugmodus"
+L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Aktiviert/Deaktiviert den MerathilisUI Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
 
 -- moveBlizz
-L['moveBlizz'] = true
-L['Make some Blizzard Frames movable.'] = "Erlaubt das Verschieben einiger Blizzardfenster."
+L["moveBlizz"] = true
+L["Make some Blizzard Frames movable."] = "Erlaubt das Verschieben einiger Blizzardfenster."
 
 -- MasterPlan
-L['MasterPlan'] = true
-L['Skins the additional Tabs from MasterPlan.'] = "Skint die zusätzlichen Tabs von MasterPlan."
-L['Misc'] = "Verschiedenes"
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
+L["Misc"] = "Verschiedenes"
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
@@ -62,19 +62,19 @@ L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = "Zei
 L[" spotted!"] = " entdeckt!"
 
 -- TooltipIcon
-L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."
-L['Tooltip'] = true
+L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."
+L["Tooltip"] = true
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 
 -- MailInputBox
-L['Mail Inputbox Resize'] = "Post Eingabefeld"
-L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
+L["Mail Inputbox Resize"] = "Post Eingabefeld"
+L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
 
 -- Tradeskill Tabs
-L['TradeSkill Tabs'] = "Berufsfenster Tabs"
-L['Add tabs for professions on the TradeSkill Frame.'] = "Fügt Tabs am Berufsfenster hinzu."
+L["TradeSkill Tabs"] = "Berufsfenster Tabs"
+L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
 
 -- DataTexts
 L["ChatTab_Datatext_Panel"] = "Rechter ChatTab Infotextleisten"
@@ -117,7 +117,7 @@ L["World Latency:"] = "Weltlatenz"
 L["Red Icon"] = "Rotes Symbol"
 L["Group Info"] = "Gruppeninfo"
 L["Shows an extra frame with information about the party/raid."] = "Zeigt ein extra Fenster mit Informationen über die/den Gruppe/Raid an."
-L[' alive'] = " am Leben"
+L[" alive"] = " am Leben"
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -213,7 +213,7 @@ L["Shadow & Light"] = true
 L["Changelog"] = true
 
 -- Developer
-L['AddOn Presets'] = "AddOn Voreinstellungen"
+L["AddOn Presets"] = "AddOn Voreinstellungen"
 L["Choose an AddOn Presets, where selected AddOns gets loaded."] = "Wähle eine Addon Voreinstellung wo ausgewählte AddOns geladen werden."
 L["Choose a preset!"] = "Wähle eine Voreinstellung!"
 L["Choose this preset?"] = "Diese Voreinstellung auswählen?"

@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
+local MER = E:GetModule("MerathilisUI");
+local S = E:GetModule("Skins");
 
 -- Cache global variables
 -- Lua functions
@@ -14,16 +14,16 @@ local IsAddOnLoaded = IsAddOnLoaded
 local FreeBackgrounds = {}
 local buttonsize = 18
 
-local barcolor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local barcolor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function CreateBG()
-	local BG = CreateFrame('Frame')
-	BG:SetTemplate('Transparent')
+	local BG = CreateFrame("Frame")
+	BG:SetTemplate("Transparent")
 	return BG
 end
 
 local function FreeStyle(bar)
-	local bg = bar:Get('bigwigs:MerathilisUI:bg')
+	local bg = bar:Get("bigwigs:MerathilisUI:bg")
 	if bg then
 		bg:ClearAllPoints()
 		bg:SetParent(UIParent)
@@ -31,7 +31,7 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = bg
 	end
 
-	local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
+	local ibg = bar:Get("bigwigs:MerathilisUI:ibg")
 	if ibg then
 		ibg:ClearAllPoints()
 		ibg:SetParent(UIParent)
@@ -65,9 +65,9 @@ local function ApplyStyle(bar)
 	bg:ClearAllPoints()
 	bg:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
 	bg:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 2, -2)
-	bg:SetTemplate('Transparent')
+	bg:SetTemplate("Transparent")
 	bg:Show()
-	bar:Set('bigwigs:MerathilisUI:bg', bg)
+	bar:Set("bigwigs:MerathilisUI:bg", bg)
 
 	if bar.candyBarIconFrame:GetTexture() then
 		local ibg = nil
@@ -84,7 +84,7 @@ local function ApplyStyle(bar)
 		ibg:SetPoint("BOTTOMRIGHT", bar.candyBarIconFrame, "BOTTOMRIGHT", 2, -2)
 		ibg:SetBackdropColor(0, 0, 0, 0)
 		ibg:Show()
-		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
+		bar:Set("bigwigs:MerathilisUI:ibg", ibg)
 	end
 
 	-- setup bar positions and look
@@ -94,7 +94,7 @@ local function ApplyStyle(bar)
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
 	bar.candyBarBar.SetPoint = MER.dummy
-	bar.candyBarBar:SetStatusBarTexture(E['media'].muiFlat)
+	bar.candyBarBar:SetStatusBarTexture(E["media"].muiFlat)
 	if not bar.data["bigwigs:emphasized"] == true then
 		bar.candyBarBar:SetStatusBarColor(barcolor.r, barcolor.g, barcolor.b, 1)
 	end
@@ -111,11 +111,11 @@ local function ApplyStyle(bar)
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
 	-- setup timer and bar name fonts and positions
-	bar.candyBarLabel:SetFont(E['media'].muiRoboto, 10, "OUTLINE")
+	bar.candyBarLabel:SetFont(E["media"].muiRoboto, 10, "OUTLINE")
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 2, -14)
 
-	bar.candyBarDuration:SetFont(E['media'].muiRoboto, 10, "OUTLINE")
+	bar.candyBarDuration:SetFont(E["media"].muiRoboto, 10, "OUTLINE")
 	bar.candyBarDuration:ClearAllPoints()
 	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", -2, -14)
 
@@ -124,9 +124,9 @@ end
 
 local function StyleBigWigs(event, addon)
 	assert(BigWigs, "AddOn Not Loaded")
-	if (IsAddOnLoaded('BigWigs_Plugins') or event == "ADDON_LOADED" and addon == 'BigWigs_Plugins' and E.private.muiSkins.addonSkins.bw) then
+	if (IsAddOnLoaded("BigWigs_Plugins") or event == "ADDON_LOADED" and addon == "BigWigs_Plugins" and E.private.muiSkins.addonSkins.bw) then
 		local styleName = MER.Title
-		local BigWigsBars = BigWigs:GetPlugin('Bars', true)
+		local BigWigsBars = BigWigs:GetPlugin("Bars", true)
 		local BigWigsProx = BigWigs:GetPlugin("Proximity", true)
 		local BigWigsInfo = BigWigs:GetPlugin("InfoBox", true)
 		if BigWigsBars then

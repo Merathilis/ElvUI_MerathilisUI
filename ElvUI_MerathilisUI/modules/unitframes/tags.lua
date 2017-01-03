@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
+local MER = E:GetModule("MerathilisUI")
 local ElvUF = ElvUI.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
@@ -174,10 +174,10 @@ end
 
 -- Credits goes to Simpy 
 local function abbrev(text)
-	local endname = string.match(text, '.+%s(.+)$')
+	local endname = string.match(text, ".+%s(.+)$")
 	if endname then
-		local newname = ''
-		for k, v in string.gmatch(text, '%S-%s') do
+		local newname = ""
+		for k, v in string.gmatch(text, "%S-%s") do
 			newname = newname .. string.sub(k,1,1) .. ". "
 		end
 		text = newname .. endname
@@ -185,14 +185,14 @@ local function abbrev(text)
 	return text
 end
 
-ElvUF.Tags.Events['name:abbrev'] = 'UNIT_NAME_UPDATE'
-ElvUF.Tags.Methods['name:abbrev'] = function(unit)
+ElvUF.Tags.Events["name:abbrev"] = "UNIT_NAME_UPDATE"
+ElvUF.Tags.Methods["name:abbrev"] = function(unit)
 	local name = UnitName(unit)
 	name = abbrev(name)
 
-	if name and name:find(' ') then
+	if name and name:find(" ") then
 		name = abbrev(name)
 	end
 
-	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+	return name ~= nil and E:ShortenString(name, 20) or "" --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end

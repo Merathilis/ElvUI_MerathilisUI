@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI')
-local S = E:GetModule('Skins');
-local LSM = LibStub('LibSharedMedia-3.0');
+local MER = E:GetModule("MerathilisUI")
+local S = E:GetModule("Skins");
+local LSM = LibStub("LibSharedMedia-3.0");
 
 -- Cache global variables
 -- Lua functions
@@ -10,7 +10,7 @@ local ipairs = ipairs
 -- WoW API / Variables
 -- GLOBALS: OrderHallCommandBar
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function follower()
 	local index = 1
@@ -33,8 +33,8 @@ local function styleOrderhall()
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -29)
 	OrderHallCommandBar:SetWidth(600)
-	OrderHallCommandBar:SetScript('OnEnter', onEnter)
-	OrderHallCommandBar:SetScript('OnLeave', onLeave)
+	OrderHallCommandBar:SetScript("OnEnter", onEnter)
+	OrderHallCommandBar:SetScript("OnLeave", onLeave)
 	OrderHallCommandBar:SetParent(E.UIParent)
 
 	OrderHallCommandBar.Currency:Hide()
@@ -55,16 +55,16 @@ local function styleOrderhall()
 
 	local mapButton = OrderHallCommandBar.WorldMapButton
 	mapButton:Size(20,20)
-	mapButton:SetNormalTexture('')
-	mapButton:SetPushedTexture('')
+	mapButton:SetNormalTexture("")
+	mapButton:SetPushedTexture("")
 
 	mapButton.Text = mapButton:CreateFontString(nil, "OVERLAY")
 	mapButton.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 13, nil)
 	mapButton.Text:SetText("M")
 	mapButton.Text:SetPoint("CENTER", -1, 0)
 
-	mapButton:HookScript('OnEnter', function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
-	mapButton:HookScript('OnLeave', function() mapButton.Text:SetTextColor(1, 1, 1) end)
+	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
+	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
 	E:CreateMover(OrderHallCommandBar, "OrderhallMover", L["Orderhall"])
 end

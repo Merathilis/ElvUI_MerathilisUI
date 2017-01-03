@@ -12,16 +12,16 @@ local function styleGossip()
 	GossipGreetingText:SetTextColor(1, 1, 1)
 
 	for i = 1, NUMGOSSIPBUTTONS do
-		obj = select(3, _G['GossipTitleButton'..i]:GetRegions())
+		obj = select(3, _G["GossipTitleButton"..i]:GetRegions())
 		obj:SetTextColor(1, 1, 1)
 	end
 
-	hooksecurefunc('GossipFrameUpdate', function()
+	hooksecurefunc("GossipFrameUpdate", function()
 		for i = 1, NUMGOSSIPBUTTONS do
-			local button = _G['GossipTitleButton'..i]
+			local button = _G["GossipTitleButton"..i]
 			if button:GetFontString() then
-				if button:GetFontString():GetText() and button:GetFontString():GetText():find('|cff000000') then
-					button:GetFontString():SetText(string.gsub(button:GetFontString():GetText(), '|cff000000', '|cffFFFF00'))
+				if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
+					button:GetFontString():SetText(string.gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
 				end
 			end
 		end

@@ -1,59 +1,59 @@
 -- English localization file for enUS
-local AceLocale = LibStub:GetLibrary('AceLocale-3.0');
-local L = AceLocale:NewLocale('ElvUI', 'enUS');
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "enUS");
 if not L then return; end
 
 -- Core
-L[' is loaded.'] = true
+L[" is loaded."] = true
 
 -- General Options
-L['Plugin for |cff1784d1ElvUI|r by\nMerathilis.'] = true
-L['by Merathilis (EU-Shattrath)'] = true
-L['MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:'] = true
-L['AFK'] = true
-L['Enable/Disable the MUI AFK Screen'] = true
-L['SplashScreen'] = true
-L['Enable/Disable the Splash Screen on Login.'] = true
-L['Options'] = true
+L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
+L["by Merathilis (EU-Shattrath)"] = true
+L["MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:"] = true
+L["AFK"] = true
+L["Enable/Disable the MUI AFK Screen"] = true
+L["SplashScreen"] = true
+L["Enable/Disable the Splash Screen on Login."] = true
+L["Options"] = true
 
 -- LoginMessage
-L['Enable/Disable the Login Message in Chat'] = true
+L["Enable/Disable the Login Message in Chat"] = true
 
 -- Chat
-L['CHAT_AFK'] = "[AFK]"
-L['CHAT_DND'] = "[DND]"
+L["CHAT_AFK"] = "[AFK]"
+L["CHAT_DND"] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
 L["Unknown"] = true
 
 -- Information
-L['Information'] = true
-L['Support & Downloads'] = true
-L['Tukui.org'] = true
-L['Git Ticket tracker'] = true
-L['Curse.com'] = true
-L['Coding'] = true
-L['Testing & Inspiration'] = true
-L['My other Addon'] = true
-L['ElvUI Tooltip Icon'] = true
-L['Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip.'] = true
+L["Information"] = true
+L["Support & Downloads"] = true
+L["Tukui.org"] = true
+L["Git Ticket tracker"] = true
+L["Curse.com"] = true
+L["Coding"] = true
+L["Testing & Inspiration"] = true
+L["My other Addon"] = true
+L["ElvUI Tooltip Icon"] = true
+L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."] = true
 
 -- GameMenu
-L['GameMenu'] = true
-L['Enable/Disable the MerathilisUI Style from the Blizzard GameMenu.'] = true
+L["GameMenu"] = true
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 
 -- FlightMode
-L['FlightMode'] = true
-L['Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options.'] = true
+L["FlightMode"] = true
+L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
 
 -- moveBlizz
-L['moveBlizz'] = true
-L['Make some Blizzard Frames movable.'] = true
+L["moveBlizz"] = true
+L["Make some Blizzard Frames movable."] = true
 
 -- MasterPlan
-L['MasterPlan'] = true
-L['Skins the additional Tabs from MasterPlan.'] = true
-L['Misc'] = true
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
+L["Misc"] = true
 
 -- Misc
 L["Artifact Power"] = true
@@ -62,23 +62,23 @@ L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = true
 L[" spotted!"] = true
 
 -- Tooltip
-L['Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress.'] = true
-L['Tooltip'] = true
+L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = true
+L["Tooltip"] = true
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
 
 -- MailInputBox
-L['Mail Inputbox Resize'] = true
-L['Resize the Mail Inputbox and move the shipping cost to the Bottom'] = true
+L["Mail Inputbox Resize"] = true
+L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
 -- Tradeskill Tabs
-L['TradeSkill Tabs'] = true
-L['Add tabs for professions on the TradeSkill Frame.'] = true
+L["TradeSkill Tabs"] = true
+L["Add tabs for professions on the TradeSkill Frame."] = true
 
 -- DataTexts
 L["ChatTab_Datatext_Panel"] = "Right Chat Tab Datatext Panel"
-L['Enable/Disable the right chat tab datatext panel.'] = true
+L["Enable/Disable the right chat tab datatext panel."] = true
 
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
@@ -117,7 +117,7 @@ L["World Latency:"] = true
 L["Red Icon"] = true
 L["Group Info"] = true
 L["Shows an extra frame with information about the party/raid."] = true
-L[' alive'] = true
+L[" alive"] = true
 
 -- LocationPanel
 L["Location Panel"] = true

@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
-local MUF = E:GetModule('MuiUnits');
-local UF = E:GetModule('UnitFrames');
+local MUF = E:GetModule("muiUnits");
+local UF = E:GetModule("UnitFrames");
 
 --Cache global variables
 --Lua functions
@@ -18,6 +18,6 @@ end
 
 function MUF:InitParty()
 	if not E.db.unitframe.units.party.enable then return end
-	-- hooksecurefunc(UF, 'Update_PartyFrames', MUF.Update_PartyFrames)
+	-- hooksecurefunc(UF, "Update_PartyFrames", MUF.Update_PartyFrames)
 end
 

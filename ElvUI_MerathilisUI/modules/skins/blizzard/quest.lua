@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local S = E:GetModule('Skins');
+local MER = E:GetModule("MerathilisUI");
+local S = E:GetModule("Skins");
 
 -- Cache global variables
 -- Lua functions
@@ -28,31 +28,31 @@ end
 local function styleQuest()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	_G["QuestScrollFrame"]:HookScript('OnUpdate', function(self)
+	_G["QuestScrollFrame"]:HookScript("OnUpdate", function(self)
 		if self.spellTex and self.spellTex2 then
 			self.spellTex:SetTexture("")
 			self.spellTex:SetTexture("")
 		end
 	end)
-	_G["QuestScrollFrame"]:HookScript('OnShow', function(self)
+	_G["QuestScrollFrame"]:HookScript("OnShow", function(self)
 		self.Contents.StoryHeader:StripTextures()
-		self.Contents.StoryHeader:SetTemplate('Transparent')
+		self.Contents.StoryHeader:SetTemplate("Transparent")
 		self.Contents.StoryHeader.AchIcon:ClearAllPoints()
 		self.Contents.StoryHeader.AchIcon:Point("LEFT", self.Contents.StoryHeader.Progress, "RIGHT", 0, 10)
 		self.Contents.StoryHeader.AchIcon:SetTexture([[Interface\ACHIEVEMENTFRAME\UI-Achievement-Shield]])
 		self.Contents.StoryHeader.AchIcon:SetSize(80, 80)
 	end)
-	_G["QuestDetailScrollFrame"]:HookScript('OnUpdate', function(self)
+	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
-	_G["QuestRewardScrollFrame"]:HookScript('OnShow', function(self)
+	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 		StyleScrollFrame(self, 509, 630, false)
 		self:Height(self:GetHeight() - 2)
 	end)
-	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript('OnUpdate', function(self)
+	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript("OnUpdate", function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
@@ -77,7 +77,7 @@ local function styleQuest()
 		_G["QuestProgressScrollFrame"].spellTex:SetTexture("")
 	end
 
-	hooksecurefunc('QuestInfoItem_OnClick', function(self)
+	hooksecurefunc("QuestInfoItem_OnClick", function(self)
 		_G["QuestInfoItemHighlight"]:ClearAllPoints()
 		_G["QuestInfoItemHighlight"]:SetOutside(self.Icon)
 
@@ -91,7 +91,7 @@ local function styleQuest()
 		end
 	end)
 
-	hooksecurefunc('QuestFrameProgressItems_Update', function()
+	hooksecurefunc("QuestFrameProgressItems_Update", function()
 		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 0)
 		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
 		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 0)
@@ -99,12 +99,12 @@ local function styleQuest()
 	end)
 
 	for i = 1, MAX_NUM_QUESTS do
-		local button = _G['QuestTitleButton'..i]
+		local button = _G["QuestTitleButton"..i]
 		if button then
-			hooksecurefunc(button, 'SetFormattedText', function()
+			hooksecurefunc(button, "SetFormattedText", function()
 				if button:GetFontString() then
-					if button:GetFontString():GetText() and button:GetFontString():GetText():find('|cff000000') then
-						button:GetFontString():SetText(gsub(button:GetFontString():GetText(), '|cff000000', '|cffFFFF00'))
+					if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
+						button:GetFontString():SetText(gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
 					end
 				end
 			end)
@@ -128,7 +128,7 @@ local function styleQuest()
 		end
 	end
 
-	hooksecurefunc('QuestInfo_Display', function()
+	hooksecurefunc("QuestInfo_Display", function()
 		_G["QuestInfoTitleHeader"]:SetTextColor(1, 1, 0)
 		_G["QuestInfoDescriptionHeader"]:SetTextColor(1, 1, 0)
 		_G["QuestInfoObjectivesHeader"]:SetTextColor(1, 1, 0)
@@ -149,9 +149,9 @@ local function styleQuest()
 		local numVisibleObjectives = 0
 		for i = 1, numObjectives do
 			local _, type, finished = GetQuestLogLeaderBoard(i)
-			if type ~= 'spell' then
+			if type ~= "spell" then
 				numVisibleObjectives = numVisibleObjectives + 1
-				local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+				local objective = _G["QuestInfoObjective"..numVisibleObjectives]
 				if objective then
 					if finished then
 						objective:SetTextColor(1, 1, 0)
@@ -163,7 +163,7 @@ local function styleQuest()
 		end
 	end)
 
-	hooksecurefunc('QuestInfo_ShowRequiredMoney', function()
+	hooksecurefunc("QuestInfo_ShowRequiredMoney", function()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then

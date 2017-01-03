@@ -1,8 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local MER = E:GetModule("MerathilisUI");
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
-local BFM = E:GetModule('BUIFlightMode');
-local MFM = E:NewModule('MUIFlightMode');
+local BFM = E:GetModule("BUIFlightMode");
+local MFM = E:NewModule("MUIFlightMode");
 
 function MFM:Initialize()
 	if E.db.mui.general.FlightMode then
@@ -33,7 +33,7 @@ function MFM:Initialize()
 		BFM.FlightMode.bottom.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI.tga")
 
 		-- MerathilisUI Version
-		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, 'OVERLAY')
+		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, "OVERLAY")
 		BFM.FlightMode.bottom.merathilisui:FontTemplate(nil, 14)
 		BFM.FlightMode.bottom.merathilisui:SetFormattedText("v%s", MER.Version)
 		BFM.FlightMode.bottom.merathilisui:SetPoint("BOTTOM", BFM.FlightMode.bottom.logo, "BOTTOM", 0, 5)

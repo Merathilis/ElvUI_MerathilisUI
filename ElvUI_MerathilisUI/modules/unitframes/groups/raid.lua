@@ -1,6 +1,6 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
-local MUF = E:GetModule('MuiUnits');
-local UF = E:GetModule('UnitFrames');
+local MUF = E:GetModule("muiUnits");
+local UF = E:GetModule("UnitFrames");
 
 --Cache global variables
 --Lua functions
@@ -18,5 +18,5 @@ end
 
 function MUF:InitRaid()
 	if not E.db.unitframe.units.raid.enable then return end
-	-- hooksecurefunc(UF, 'Update_RaidFrames', MUF.Update_RaidFrames)
+	-- hooksecurefunc(UF, "Update_RaidFrames", MUF.Update_RaidFrames)
 end

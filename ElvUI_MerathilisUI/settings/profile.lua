@@ -3,48 +3,48 @@ local E, L, V, P, G = unpack(ElvUI);
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
-P['mui'] = {
-	['installed'] = nil,
+P["mui"] = {
+	["installed"] = nil,
 	
-	['general'] = {
-		['LoginMsg'] = true, -- Enable welcome message in chat
-		['GameMenu'] = true, -- Enable the Styles GameMenu
-		['SplashScreen'] = true, -- Enable the SplashScreen on LogIn
-		['AFK'] = true, -- Enable the pimped AFK Screen
-		['FlightMode'] = true, -- Enable the FlightMode
+	["general"] = {
+		["LoginMsg"] = true, -- Enable welcome message in chat
+		["GameMenu"] = true, -- Enable the Styles GameMenu
+		["SplashScreen"] = true, -- Enable the SplashScreen on LogIn
+		["AFK"] = true, -- Enable the pimped AFK Screen
+		["FlightMode"] = true, -- Enable the FlightMode
 	},
 
-	['misc'] = {
-		['MailInputbox'] = true, -- Resize the MailInputbox
-		['Tooltip'] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
-		['moveBlizz'] = true, -- Make Blizzards Frame movable
-		['tradeTabs'] = true, -- Add tabs for Professions on the Tradeskillframe
-		['gmotd'] = true, -- Show a GMOTD frame
-		['vignette'] = true, -- Shows Rars/Treasures
+	["misc"] = {
+		["MailInputbox"] = true, -- Resize the MailInputbox
+		["Tooltip"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
+		["moveBlizz"] = true, -- Make Blizzards Frame movable
+		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
+		["gmotd"] = true, -- Show a GMOTD frame
+		["vignette"] = true, -- Shows Rars/Treasures
 	},
 
-	['datatexts'] = {
-		['rightChatTabDatatextPanel'] = true,
-		['panels'] = {
-			['ChatTab_Datatext_Panel'] = {
-				['left'] = 'Call to Arms',
-				['middle'] = 'Coords',
-				['right'] = 'Bags',
+	["datatexts"] = {
+		["rightChatTabDatatextPanel"] = true,
+		["panels"] = {
+			["ChatTab_Datatext_Panel"] = {
+				["left"] = "Call to Arms",
+				["middle"] = "Coords",
+				["right"] = "Bags",
 			},
 		},
-		['threatBar'] = {
-			['enable'] = true,
-			['textSize'] = 10,
+		["threatBar"] = {
+			["enable"] = true,
+			["textSize"] = 10,
 		},
 	},
 
-	['systemDT'] = {
-		['maxAddons'] = 25, -- Sets how many Addons to show
-		['showFPS'] = true, -- Show Frames per seconds
-		['showMS'] = true, -- Show Ping
-		['latency'] = "home", -- Set the latency type ("home", "world")
-		['showMemory'] = false, -- Show Memory usage
-		['announceFreed'] = true -- Enable the Garbage Message in Chat
+	["systemDT"] = {
+		["maxAddons"] = 25, -- Sets how many Addons to show
+		["showFPS"] = true, -- Show Frames per seconds
+		["showMS"] = true, -- Show Ping
+		["latency"] = "home", -- Set the latency type ("home", "world")
+		["showMemory"] = false, -- Show Memory usage
+		["announceFreed"] = true -- Enable the Garbage Message in Chat
 	},
 
 	["unitframes"] = {

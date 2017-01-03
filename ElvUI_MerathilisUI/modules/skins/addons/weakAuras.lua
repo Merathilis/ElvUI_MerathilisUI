@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MERS = E:GetModule('MuiSkins')
+local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
@@ -17,22 +17,22 @@ frame:SetScript("OnEvent", function(self, event)
 
 	local function Skin_WeakAuras(frame, ftype)
 		if not frame.backdrop then
-			MERS:CreateBackdrop(frame, 'Transparent')
+			MERS:CreateBackdrop(frame, "Transparent")
 			MERS:SkinTexture(frame.icon)
 			frame.icon.SetTexCoord = function () end
 
-			if ftype == 'icon' then
-				frame.Backdrop:HookScript('OnUpdate', function(self)
+			if ftype == "icon" then
+				frame.Backdrop:HookScript("OnUpdate", function(self)
 					self:SetAlpha(self:GetParent().icon:GetAlpha())
 				end)
 			end
 		end
 
-		if ftype == 'aurabar' then
+		if ftype == "aurabar" then
 			frame.Backdrop:Hide()
 		end
 
-		if ftype == 'icon' then
+		if ftype == "icon" then
 			E:RegisterCooldown(frame.cooldown)
 		end
 
@@ -51,22 +51,22 @@ frame:SetScript("OnEvent", function(self, event)
 		end
 
 		if frame.stacks then
-			frame.stacks:SetFont(E['media'].muiRoboto, 14, "OUTLINE")
+			frame.stacks:SetFont(E["media"].muiRoboto, 14, "OUTLINE")
 			frame.stacks:SetShadowOffset(0, -0)
 		end
 
 		if frame.timer then
-			frame.timer:SetFont(E['media'].muiRoboto, 16, "OUTLINE")
+			frame.timer:SetFont(E["media"].muiRoboto, 16, "OUTLINE")
 			frame.timer:SetShadowOffset(0, -0)
 		end
 
 		if frame.text then
-			frame.text:SetFont(E['media'].muiRoboto, 14, "OUTLINE")
+			frame.text:SetFont(E["media"].muiRoboto, 14, "OUTLINE")
 			frame.text:SetShadowOffset(0, -0)
 		end
 
 		if frame.cooldown then
-			frame.cooldown:GetRegions():SetFont(E['media'].muiRoboto, 14, "OUTLINE")
+			frame.cooldown:GetRegions():SetFont(E["media"].muiRoboto, 14, "OUTLINE")
 		end
 	end
 
@@ -75,24 +75,24 @@ frame:SetScript("OnEvent", function(self, event)
 
 	WeakAuras.regionTypes.icon.create = function(parent, data)
 		local region = Create_Icon(parent, data)
-		Skin_WeakAuras(region, 'icon')
+		Skin_WeakAuras(region, "icon")
 		return region
 	end
 
 	WeakAuras.regionTypes.aurabar.create = function(parent)
 		local region = Create_AuraBar(parent)
-		Skin_WeakAuras(region, 'aurabar')
+		Skin_WeakAuras(region, "aurabar")
 		return region
 	end
 
 	WeakAuras.regionTypes.icon.modify = function(parent, region, data)
 		Modify_Icon(parent, region, data)
-		Skin_WeakAuras(region, 'icon')
+		Skin_WeakAuras(region, "icon")
 	end
 
 	WeakAuras.regionTypes.aurabar.modify = function(parent, region, data)
 		Modify_AuraBar(parent, region, data)
-		Skin_WeakAuras(region, 'aurabar')
+		Skin_WeakAuras(region, "aurabar")
 	end
 
 	for weakAura, _ in pairs(WeakAuras.regions) do

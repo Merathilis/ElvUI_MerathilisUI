@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI')
+local MER = E:GetModule("MerathilisUI")
 local DT = E:GetModule("DataTexts")
 
 -- All Credits belong to Lockslap (ElvUI_SystemDT)
@@ -44,7 +44,7 @@ local homeLatencyString = "%d ms"
 local kiloByteString = "%d kb"
 local megaByteString = "%.2f mb"
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 local function FormatMemory(memory)
 	local mult = 10 ^ 1

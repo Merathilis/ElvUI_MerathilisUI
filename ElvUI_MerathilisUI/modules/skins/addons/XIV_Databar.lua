@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
+local MER = E:GetModule("MerathilisUI")
 if not IsAddOnLoaded("XIV_Databar") then return end
 
 -- Cache global variables

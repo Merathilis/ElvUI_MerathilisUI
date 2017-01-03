@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local MER = E:GetModule("MerathilisUI");
 local LP = E:GetModule("LocPanel")
 local DEFAULT = DEFAULT
 
@@ -12,20 +12,20 @@ local function LocPanelTable()
 		args = {
 			name = {
 				order = 1,
-				type = 'header',
-				name = MER:cOption(L['Location Panel']),
+				type = "header",
+				name = MER:cOption(L["Location Panel"]),
 			},
 			credits = {
 				order = 2,
-				type = 'group',
-				name = MER:cOption(L['Credits']),
+				type = "group",
+				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
 					tukui = {
 						order = 1,
-						type = 'description',
-						fontSize = 'medium',
-						name = format('|cff9482c9Shadow&Light - Darth Predator|r'),
+						type = "description",
+						fontSize = "medium",
+						name = format("|cff9482c9Shadow&Light - Darth Predator|r"),
 					},
 				},
 			},
@@ -68,7 +68,7 @@ local function LocPanelTable()
 					},
 					width = {
 						order = 5,
-						type = 'range',
+						type = "range",
 						name = L["Width"],
 						min = 100, max = E.screenwidth/2, step = 1,
 						disabled = function() return not E.db.mui.locPanel.enable or  E.db.mui.locPanel.autowidth end,
@@ -76,7 +76,7 @@ local function LocPanelTable()
 					},
 					height = {
 						order = 6,
-						type = 'range',
+						type = "range",
 						name = L["Height"],
 						min = 10, max = 50, step = 1,
 						disabled = function() return not E.db.mui.locPanel.enable end,
@@ -84,7 +84,7 @@ local function LocPanelTable()
 					},
 					throttle = {
 						order = 7,
-						type = 'range',
+						type = "range",
 						name = L["Update Throttle"],
 						desc = L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."],
 						min = 0.1, max = 2, step = 0.1,
@@ -124,7 +124,7 @@ local function LocPanelTable()
 								},
 							},
 							customColor = {
-								type = 'color',
+								type = "color",
 								order = 3,
 								name = L["Custom Color"],
 								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType == "CUSTOM" end,
@@ -172,7 +172,7 @@ local function LocPanelTable()
 								},
 							},
 							customColor_Coords = {
-								type = 'color',
+								type = "color",
 								order = 3,
 								name = L["Custom Color"],
 								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType_Coords == "CUSTOM" end,
@@ -252,7 +252,7 @@ local function LocPanelTable()
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Fonts() end,
 						args = {
 							font = {
-								type = "select", dialogControl = 'LSM30_Font',
+								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
@@ -270,9 +270,9 @@ local function LocPanelTable()
 								type = "select",
 								values = {
 									["NONE"] = L["None"],
-									["OUTLINE"] = 'OUTLINE',
-									["MONOCHROMEOUTLINE"] = 'MONOCROMEOUTLINE',
-									["THICKOUTLINE"] = 'THICKOUTLINE',
+									["OUTLINE"] = "OUTLINE",
+									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
+									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
 							},
 						},
@@ -282,5 +282,4 @@ local function LocPanelTable()
 		},
 	}
 end
-
 tinsert(MER.Config, LocPanelTable)

@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule('Skins');
+local S = E:GetModule("Skins");
 if not IsAddOnLoaded("ActionBarProfiles") then return; end
 
 -- Cache global variables

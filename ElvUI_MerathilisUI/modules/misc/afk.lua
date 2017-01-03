@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local AFK = E:GetModule('AFK')
-local muiAFK = E:NewModule('muiAFK');
+local MER = E:GetModule("MerathilisUI");
+local AFK = E:GetModule("AFK")
+local muiAFK = E:NewModule("muiAFK");
 
 -- Cache global variables
 -- WoW API / Variables
@@ -10,7 +10,7 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
 local PlaySound = PlaySound
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local npc = 15358 -- Lurky
 
 function muiAFK:Initialize()
@@ -34,14 +34,14 @@ function muiAFK:Initialize()
 	AFK.AFKMode.bottom.npc:Show()
 
 	-- MerathilisUI Name
-	AFK.AFKMode.bottom.merathilisui = AFK.AFKMode.top:CreateFontString(nil, 'OVERLAY')
+	AFK.AFKMode.bottom.merathilisui = AFK.AFKMode.top:CreateFontString(nil, "OVERLAY")
 	AFK.AFKMode.bottom.merathilisui:FontTemplate(nil, 24)
 	AFK.AFKMode.bottom.merathilisui:SetText("MerathilisUI")
 	AFK.AFKMode.bottom.merathilisui:SetPoint("LEFT", AFK.AFKMode.bottom, "LEFT", 130, 8)
 	AFK.AFKMode.bottom.merathilisui:SetTextColor(classColor.r, classColor.g, classColor.b)
 
 	-- Version
-	AFK.AFKMode.bottom.btext = AFK.AFKMode.top:CreateFontString(nil, 'OVERLAY')
+	AFK.AFKMode.bottom.btext = AFK.AFKMode.top:CreateFontString(nil, "OVERLAY")
 	AFK.AFKMode.bottom.btext:FontTemplate(nil, 10)
 	AFK.AFKMode.bottom.btext:SetFormattedText("v%s", MER.Version)
 	AFK.AFKMode.bottom.btext:SetPoint("TOP", AFK.AFKMode.bottom.merathilisui, "BOTTOM")

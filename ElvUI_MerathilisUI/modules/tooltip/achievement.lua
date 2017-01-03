@@ -15,7 +15,7 @@ local UnitName = UnitName
 local ACHIEVEMENT_EARNED_BY = ACHIEVEMENT_EARNED_BY
 local ACHIEVEMENT_NOT_COMPLETED_BY = ACHIEVEMENT_NOT_COMPLETED_BY
 local ACHIEVEMENT_COMPLETED_BY = ACHIEVEMENT_COMPLETED_BY
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: GameTooltip, hooksecurefunc, ItemRefTooltip
 
 -- Credits: Enhanced Achievements by Syzgyn

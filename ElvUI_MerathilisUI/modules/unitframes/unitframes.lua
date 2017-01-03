@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MUF = E:NewModule('MuiUnits', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+local MUF = E:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0");
 
 --Cache global variables
 --Lua functions
@@ -14,7 +14,7 @@ function MUF:UpdateUF()
 	MUF:ArrangePlayer()
 
 	if E.db.unitframe.units.party.enable then
-		UF:CreateAndUpdateHeaderGroup('party')
+		UF:CreateAndUpdateHeaderGroup("party")
 	end
 end
 

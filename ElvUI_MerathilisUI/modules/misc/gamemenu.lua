@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
-local S = E:GetModule('Skins')
+local MER = E:GetModule("MerathilisUI")
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
@@ -14,13 +14,13 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
 local IsAddOnLoaded = IsAddOnLoaded
 
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel, LibStub
 
 -- Credit for the Class logos: ADDOriN @DevianArt
 -- http://addorin.deviantart.com/gallery/43689290/World-of-Warcraft-Class-Logos
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local logo = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga"
 
 local npc = {
@@ -29,7 +29,7 @@ local npc = {
 	15552, -- Doctor Weavil
 	32398, -- King Ping
 	82464, -- Elekk Plushie
-	71163, -- Unborn Val'kir
+	71163, -- Unborn Val"kir
 	91226, -- Graves
 	54128, -- Creepy Crate
 	28883, -- Frosty
@@ -68,7 +68,7 @@ function MER:GameMenu()
 			self.anim.height:Play()
 		end)
 
-		bottomPanel.Logo = bottomPanel:CreateTexture(nil, 'ARTWORK')
+		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "ARTWORK")
 		bottomPanel.Logo:SetSize(200, 200)
 		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -30)
 		bottomPanel.Logo:SetTexture(logo)
@@ -100,15 +100,15 @@ function MER:GameMenu()
 			self.anim.height:Play()
 		end)
 
-		topPanel.style.color = topPanel.style:CreateTexture(nil, 'ARTWORK')
+		topPanel.style.color = topPanel.style:CreateTexture(nil, "ARTWORK")
 		topPanel.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		topPanel.style.color:SetInside()
-		topPanel.style.color:SetTexture(E['media'].muiFlat)
+		topPanel.style.color:SetTexture(E["media"].muiFlat)
 		
-		topPanel.factionLogo = topPanel:CreateTexture(nil, 'ARTWORK')
+		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:SetSize(256, 250)
-		topPanel.factionLogo:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-'..E.myclass)
+		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..E.myclass)
 	end
 	
 	-- Use this frame to control the position of the model - taken from ElvUI

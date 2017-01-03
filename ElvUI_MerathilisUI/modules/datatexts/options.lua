@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local LO = E:GetModule('Layout')
-local DT = E:GetModule('DataTexts')
+local MER = E:GetModule("MerathilisUI");
+local LO = E:GetModule("Layout")
+local DT = E:GetModule("DataTexts")
 
 --Cache global variables
 --Lua functions
@@ -10,7 +10,7 @@ local pairs, type = pairs, type
 --WoW API / Variables
 local NONE = NONE
 
---Global variables that we don't cache, list them here for mikk's FindGlobals script
+--Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: LeftMiniPanel, Minimap
 
 function MER:LoadDataTexts()
@@ -23,11 +23,11 @@ function MER:LoadDataTexts()
 			--Register Panel to Datatext
 			for name, data in pairs(DT.RegisteredDataTexts) do
 				for option, value in pairs(db.panels) do
-					if value and type(value) == 'table' then
+					if value and type(value) == "table" then
 						if option == panelName and db.panels[option][pointIndex] and db.panels[option][pointIndex] == name then
 							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
 						end
-					elseif value and type(value) == 'string' and value == name then
+					elseif value and type(value) == "string" and value == name then
 						if db.panels[option] == name and option == panelName then
 							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
 						end
@@ -42,17 +42,17 @@ hooksecurefunc(DT, "LoadDataTexts", MER.LoadDataTexts)
 local function Datatexts()
 	E.Options.args.mui.args.datatexts = {
 		order = 14,
-		type = 'group',
+		type = "group",
 		name = L["DataTexts"],
 		args = {
 			name = {
 				order = 1,
-				type = 'header',
-				name = MER:cOption(L['DataTexts']),
+				type = "header",
+				name = MER:cOption(L["DataTexts"]),
 			},
 			muiSystemDT = {
 				order = 2,
-				type = 'group',
+				type = "group",
 				name = L["System Datatext"],
 				guiInline = true,
 				get = function(info) return E.db.mui.systemDT[ info[#info] ] end,
@@ -104,15 +104,15 @@ local function Datatexts()
 			},
 			general = {
 				order = 2,
-				type = 'group',
-				name = L['General']..MER.NewSign,
+				type = "group",
+				name = L["General"]..MER.NewSign,
 				guiInline = true,
 				args = {
 					rightChatTabDatatextPanel = {
 						order = 1,
-						type = 'toggle',
-						name = L['ChatTab_Datatext_Panel'],
-						desc = L['Enable/Disable the right chat tab datatext panel.'],
+						type = "toggle",
+						name = L["ChatTab_Datatext_Panel"],
+						desc = L["Enable/Disable the right chat tab datatext panel."],
 						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel end,
 						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel = value; MER:ToggleDataPanels() end,
 					},
@@ -120,32 +120,32 @@ local function Datatexts()
 			},
 			panels = {
 				order = 3,
-				type = 'group',
-				name = L['Panels'],
+				type = "group",
+				name = L["Panels"],
 				guiInline = true,
 				args = {},
 			},
 			threatBar = {
 				order = 4,
-				type = 'group',
+				type = "group",
 				name = L["Threat"]..MER.NewSign,
 				guiInline = true,
 				args = {
 					enable = {
 						order = 1,
-						type = 'toggle',
+						type = "toggle",
 						name = L["Enable"],
 						get = function(info) return E.db.mui.datatexts.threatBar.enable end,
-						set = function(info, value) E.db.mui.datatexts.threatBar.enable = value; E:GetModule('ThreatBar'):ToggleEnable()end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.enable = value; E:GetModule("ThreatBar"):ToggleEnable()end,
 						disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 					},
 					textSize = {
 						order = 2,
 						name = L["Font Size"],
-						type = 'range',
+						type = "range",
 						min = 6, max = 22, step = 1,
 						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,
-						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule('ThreatBar'):UpdatePosition() end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule("ThreatBar"):UpdatePosition() end,
 						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 					},
 				},
@@ -163,16 +163,16 @@ local function Datatexts()
 	for name, _ in pairs(DT.RegisteredDataTexts) do
 		datatexts[name] = name
 	end
-	datatexts[''] = NONE
+	datatexts[""] = NONE
 
 	local table = E.Options.args.mui.args.datatexts.args.panels.args
 	local i = 0
 	for pointLoc, tab in pairs(P.mui.datatexts.panels) do
 		i = i + 1
 		if not _G[pointLoc] then table[pointLoc] = nil; return; end
-		if type(tab) == 'table' then
+		if type(tab) == "table" then
 			table[pointLoc] = {
-				type = 'group',
+				type = "group",
 				args = {},
 				name = L[pointLoc] or pointLoc,
 				guiInline = true,
@@ -180,7 +180,7 @@ local function Datatexts()
 			}
 			for option, value in pairs(tab) do
 				table[pointLoc].args[option] = {
-					type = 'select',
+					type = "select",
 					name = L[option] or option:upper(),
 					values = datatexts,
 					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
@@ -188,9 +188,9 @@ local function Datatexts()
 					disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				}
 			end
-		elseif type(tab) == 'string' then
+		elseif type(tab) == "string" then
 			table[pointLoc] = {
-				type = 'select',
+				type = "select",
 				name = L[pointLoc] or pointLoc,
 				values = datatexts,
 				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,

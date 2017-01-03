@@ -1,13 +1,13 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule('MerathilisUI')
-local LSM = LibStub('LibSharedMedia-3.0');
+local MER = E:GetModule("MerathilisUI")
+local LSM = LibStub("LibSharedMedia-3.0");
 
 -- Cache global varables
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
-local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- BenikUI Styles
@@ -38,9 +38,9 @@ end
 function MER:Underline(frame, shadow, height)
 	local line = CreateFrame("Frame", nil, frame)
 	if line then
-		line:SetPoint('BOTTOM', frame, -1, 1)
+		line:SetPoint("BOTTOM", frame, -1, 1)
 		line:SetSize(frame:GetWidth(), height or 1)
-		line.Texture = line:CreateTexture(nil, 'OVERLAY')
+		line.Texture = line:CreateTexture(nil, "OVERLAY")
 		line.Texture:SetTexture(flat)
 		line.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
 		if shadow then
@@ -59,12 +59,12 @@ function MER:CreateWideShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 6, 6)
 	shadow:SetBackdrop( { 
-		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(6),
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
 		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
 	})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
@@ -76,12 +76,12 @@ function MER:CreateSoftShadow(f)
 	local borderr, borderg, borderb = 0, 0, 0
 	local backdropr, backdropg, backdropb = 0, 0, 0
 
-	local shadow = f.shadow or CreateFrame('Frame', nil, f) -- This way you can replace current shadows.
+	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
 	shadow:SetBackdrop( { 
-		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(2),
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
@@ -92,12 +92,12 @@ end
 function MER:CreateSoftGlow(f)
 	if f.sglow then return end
 
-	local sglow = CreateFrame('Frame', nil, f)
+	local sglow = CreateFrame("Frame", nil, f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 2, 2)
 	sglow:SetBackdrop( { 
-		edgeFile = LSM:Fetch('border', 'ElvUI GlowBorder'), edgeSize = E:Scale(3),
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
 	sglow:SetBackdropColor(MER:unpackColor(E.db.general.valuecolor), 0)
