@@ -69,8 +69,8 @@ function MER:GameMenu()
 		end)
 
 		bottomPanel.Logo = bottomPanel:CreateTexture(nil, "ARTWORK")
-		bottomPanel.Logo:SetSize(200, 200)
-		bottomPanel.Logo:SetPoint("TOP", bottomPanel, "TOP", 0, -30)
+		bottomPanel.Logo:SetSize(150, 150)
+		bottomPanel.Logo:SetPoint("CENTER", bottomPanel, "CENTER", 0, 0)
 		bottomPanel.Logo:SetTexture(logo)
 	end
 

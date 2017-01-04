@@ -28,16 +28,20 @@ function MFM:Initialize()
 
 		-- MerathilisUI Logo
 		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, "OVERLAY")
-		BFM.FlightMode.bottom.logo:Size(200, 100)
-		BFM.FlightMode.bottom.logo:Point("CENTER", BFM.FlightMode.bottom, "CENTER", 0, 35)
+		BFM.FlightMode.bottom.logo:Size(180, 90)
+		BFM.FlightMode.bottom.logo:Point("CENTER", BFM.FlightMode.bottom, "CENTER", 0, 45)
 		BFM.FlightMode.bottom.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI.tga")
 
 		-- MerathilisUI Version
-		BFM.FlightMode.bottom.merathilisui = BFM.FlightMode.bottom:CreateFontString(nil, "OVERLAY")
-		BFM.FlightMode.bottom.merathilisui:FontTemplate(nil, 14)
-		BFM.FlightMode.bottom.merathilisui:SetFormattedText("v%s", MER.Version)
-		BFM.FlightMode.bottom.merathilisui:SetPoint("BOTTOM", BFM.FlightMode.bottom.logo, "BOTTOM", 0, 5)
-		BFM.FlightMode.bottom.merathilisui:SetTextColor(1, 1, 1)
+		BFM.FlightMode.bottom.merathilisui = CreateFrame("Frame", nil, BFM.FlightMode.bottom)
+		BFM.FlightMode.bottom.merathilisui:Point("CENTER", BFM.FlightMode.bottom, "CENTER", -10, 0)
+		BFM.FlightMode.bottom.merathilisui:SetTemplate("Default")
+		BFM.FlightMode.bottom.merathilisui:SetSize(70,30)
+		BFM.FlightMode.bottom.merathilisui.txt = BFM.FlightMode.bottom.merathilisui:CreateFontString(nil, "OVERLAY")
+		BFM.FlightMode.bottom.merathilisui.txt:FontTemplate(nil, 14)
+		BFM.FlightMode.bottom.merathilisui.txt:SetFormattedText("v%s", MER.Version)
+		BFM.FlightMode.bottom.merathilisui.txt:SetPoint("CENTER", BFM.FlightMode.bottom.merathilisui, "CENTER")
+		BFM.FlightMode.bottom.merathilisui.txt:SetTextColor(1, 1, 1)
 
 		-- Pepe!
 		BFM.FlightMode.top.npcHolder = CreateFrame("Frame", nil, BFM.FlightMode.top)
