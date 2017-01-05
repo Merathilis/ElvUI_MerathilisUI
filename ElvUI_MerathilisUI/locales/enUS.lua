@@ -145,6 +145,20 @@ L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 
+--Raid Marks
+L["Raid Markers"] = true
+L["Click to clear the mark."] = true
+L["Click to mark the target."] = true
+L["%sClick to remove all worldmarkers."] = true
+L["%sClick to place a worldmarker."] = true
+L["Raid Marker Bar"] = true
+L["Options for panels providing fast access to raid markers and flares."] = true
+L["Show/Hide raid marks."] = true
+L["Reverse"] = true
+L["Modifier Key"] = true
+L["Set the modifier key for placing world markers."] = true
+L["Visibility State"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 

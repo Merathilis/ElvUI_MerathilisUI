@@ -145,6 +145,20 @@ L["Show the name on location your Heathstone is bound to."] = "Zeige die Positio
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 
+--Raid Marks
+L["Raid Markers"] = "Schlachtzugs-Markierungen"
+L["Click to clear the mark."] = "Klicken um die Marker zu löschen."
+L["Click to mark the target."] = "Klicken um ein Ziel zu markieren."
+L["%sClick to remove all worldmarkers."] = "%sKlicken um alle Weltmarkierungen zu entfernen."
+L["%sClick to place a worldmarker."] = "%sKlicken um ein Weltmarker zu setzen."
+L["Raid Marker Bar"] = "Schlachtzugs-Markierungs-Leiste"
+L["Options for panels providing fast access to raid markers and flares."] = "Option für eine Schlachtzugs-Markierungs-Leiste um schnelleren Zugriff auf Schlachtzugsmarkierung und Weltmarker zu bekommen."
+L["Show/Hide raid marks."] = "Zeige/Verstecke Schlachtzugsmarkierung"
+L["Reverse"] = "Umkehren"
+L["Modifier Key"] = "Modifier Taste"
+L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
+L["Visibility State"] = "Sichtbarkeit"
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 

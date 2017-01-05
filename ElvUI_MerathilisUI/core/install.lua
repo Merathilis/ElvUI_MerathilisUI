@@ -1691,7 +1691,7 @@ function MER:SetupElvUIAddOns(addon)
 			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
 			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
 			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-6"
-			E.db["movers"]["RaidMarkerBar"] = "BOTTOM,ElvUIParent,BOTTOM,0,208"
+			E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,57"
 		else
 			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
 		end

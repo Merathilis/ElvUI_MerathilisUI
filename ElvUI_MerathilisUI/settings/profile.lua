@@ -89,6 +89,32 @@ P["mui"] = {
 		},
 	},
 
+	["raidmarkers"] = {
+		["enable"] = true,
+		["visibility"] = "DEFAULT",
+		["customVisibility"] = "[noexists, nogroup] hide; show",
+		["backdrop"] = false,
+		["buttonSize"] = 18,
+		["spacing"] = 2,
+		["orientation"] = "HORIZONTAL",
+		["modifier"] = "shift-",
+		["reverse"] = false,
+	},
+
+	["quests"] = {
+		["visibility"] = {
+			["enable"] = false,
+			["bg"] = "COLLAPSED",
+			["arena"] = "COLLAPSED",
+			["dungeon"] = "FULL",
+			["raid"] = "COLLAPSED",
+			["scenario"] = "FULL",
+			["rested"] = "FULL",
+			["garrison"] = "FULL",
+			["orderhall"] = "FULL",
+		},
+	},
+
 	-- db
 	["dbCleaned"] = false
 }

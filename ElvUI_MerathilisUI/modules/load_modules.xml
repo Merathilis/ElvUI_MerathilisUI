@@ -8,4 +8,5 @@
 	<Include file="misc\load_misc.xml"/>
 	<Include file="tooltip\load_tooltip.xml"/>
 	<Include file="unitframes\load_unitframes.xml"/>
+	<Include file="raidmarkers\load_raidmarkers.xml"/>
 </Ui>
