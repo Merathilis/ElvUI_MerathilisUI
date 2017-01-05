@@ -182,7 +182,7 @@ function RMA:Initialize()
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
 	self.frame:ClearAllPoints()
-	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 185)
+	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 164)
 	self.frame.buttons = {}
 
 	self.frame.backdrop:SetAllPoints()
