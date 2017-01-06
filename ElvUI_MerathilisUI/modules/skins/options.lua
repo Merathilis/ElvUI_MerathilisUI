@@ -59,7 +59,7 @@ local function SkinsTable()
 		order = 4,
 		type = "group",
 		guiInline = true,
-		name = L["AddOnSkins"],
+		name = MER:cOption(L["AddOnSkins"]),
 		get = function(info) return E.private.muiSkins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
@@ -81,7 +81,7 @@ local function SkinsTable()
 		order = 5,
 		type = "group",
 		guiInline = true,
-		name = L["Blizzard"],
+		name = MER:cOption(L["Blizzard"]),
 		get = function(info) return E.private.muiSkins.blizzard[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {

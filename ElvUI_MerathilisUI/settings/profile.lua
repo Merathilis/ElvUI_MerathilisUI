@@ -91,7 +91,7 @@ P["mui"] = {
 
 	["raidmarkers"] = {
 		["enable"] = true,
-		["visibility"] = "DEFAULT",
+		["visibility"] = "INPARTY",
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 		["backdrop"] = false,
 		["buttonSize"] = 18,

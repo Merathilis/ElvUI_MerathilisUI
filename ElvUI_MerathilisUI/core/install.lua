@@ -297,7 +297,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["tooltip"]["healthBar"]["height"] = 5
 		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
-		E.db["tooltip"]["visibility"]["combat"] = true
+		E.db["tooltip"]["visibility"]["combat"] = false
 		E.db["tooltip"]["font"] = "Merathilis Roboto-Medium"
 		E.db["tooltip"]["style"] = "inset"
 		E.db["tooltip"]["fontOutline"] = "NONE"

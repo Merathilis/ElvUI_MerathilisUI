@@ -5,7 +5,7 @@ local function Misc()
 	E.Options.args.mui.args.misc = {
 		order = 9,
 		type = "group",
-		name = L["Misc"],
+		name = MER:cOption(L["Misc"]),
 		guiInline = true,
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

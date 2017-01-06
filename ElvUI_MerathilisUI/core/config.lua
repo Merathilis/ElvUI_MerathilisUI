@@ -55,7 +55,7 @@ local function AddOptions()
 			general = {
 				order = 6,
 				type = "group",
-				name = L["General"],
+				name = MER:cOption(L["General"]),
 				guiInline = true,
 				args = {
 					LoginMsg = {

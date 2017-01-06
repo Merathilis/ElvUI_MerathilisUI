@@ -53,7 +53,7 @@ local function Datatexts()
 			muiSystemDT = {
 				order = 2,
 				type = "group",
-				name = L["System Datatext"],
+				name = MER:cOption(L["System Datatext"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.systemDT[ info[#info] ] end,
 				set = function(info, value) E.db.mui.systemDT[ info[#info] ] = value; end,
@@ -105,7 +105,7 @@ local function Datatexts()
 			general = {
 				order = 2,
 				type = "group",
-				name = L["General"]..MER.NewSign,
+				name = MER:cOption(L["General"])..MER.NewSign,
 				guiInline = true,
 				args = {
 					rightChatTabDatatextPanel = {
@@ -121,14 +121,14 @@ local function Datatexts()
 			panels = {
 				order = 3,
 				type = "group",
-				name = L["Panels"],
+				name = MER:cOption(L["Panels"]),
 				guiInline = true,
 				args = {},
 			},
 			threatBar = {
 				order = 4,
 				type = "group",
-				name = L["Threat"]..MER.NewSign,
+				name = MER:cOption(L["Threat"])..MER.NewSign,
 				guiInline = true,
 				args = {
 					enable = {
