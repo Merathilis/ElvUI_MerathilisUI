@@ -25,6 +25,7 @@ function MER:CreateExtraDataBarPanels()
 		chattab:SetPoint("BOTTOMLEFT", RightChatTab, "BOTTOMLEFT", 0, 0)
 	end)
 	chattab:Hide()
+	E.FrameLocks["ChatTab_Datatext_Panel"] = true
 	E:GetModule("DataTexts"):RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
 end
 
