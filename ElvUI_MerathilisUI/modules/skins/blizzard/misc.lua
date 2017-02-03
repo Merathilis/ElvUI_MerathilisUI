@@ -10,8 +10,10 @@ local _G = _G
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	_G["AlwaysUpFrame1"]:ClearAllPoints()
-	_G["AlwaysUpFrame1"]:SetPoint("CENTER", E.UIParent, "TOP", -80, -70) --e.g. Violat Hold
+	if _G["AlwaysUpFrame1"] then
+		_G["AlwaysUpFrame1"]:ClearAllPoints()
+		_G["AlwaysUpFrame1"]:SetPoint("CENTER", E.UIParent, "TOP", -80, -70) --e.g. Violat Hold
+	end
 end
 
 local f = CreateFrame("Frame")
