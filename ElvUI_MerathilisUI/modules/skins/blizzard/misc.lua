@@ -10,7 +10,7 @@ local WorldStateAlwaysUpFrame = WorldStateAlwaysUpFrame
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	hooksecurefunc("WorldStateAlwaysUpFrame_Update", function()
+	hooksecurefunc("WorldStateAlwaysUpFrame_AddFrame", function()
 		WorldStateAlwaysUpFrame:ClearAllPoints()
 		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
 
