@@ -19,17 +19,19 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.27|r, 02.01.2017
+local ChangeLogData = [=[|cffff7d0av2.28|r, 05.02.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add skin for XIV_Databar.
- |cffff7d0a•|r Minor UI improvements.
- |cffff7d0a•|r Update BigWigs skin.
- |cffff7d0a•|r CleanUP: Removed: FriendAlert, MiniMapPing.
- |cffff7d0a•|r Create an own ThreatBar on my Datatext Panel.
+ |cffff7d0a•|r Add new Tag [name:abbrev], will shorten long names.
+ |cffff7d0a•|r Add Tome of Town Portal to LocationPanel.
+ |cffff7d0a•|r Add an own RaidMarkBar (Credits S&L).
+ |cffff7d0a•|r Delete ReadycheckIcon since BenikUI has it.
+ |cffff7d0a•|r Add my own font file to adjust fonts.
+ |cffff7d0a•|r Reposition the AlwaysUpFrame.
+ |cffff7d0a•|r Cleanup the install file. Make an own file for each Addon.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r New Year, new Logo! :)
+ |cffff7d0a•|r :)
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

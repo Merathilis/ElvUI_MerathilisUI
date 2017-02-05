@@ -1,3 +1,12 @@
+** v2.28, 05.02.2017**
+* Add new Tag [name:abbrev], will shorten long names.
+* Add Tome of Town Portal to LocationPanel.
+* Add an own RaidMarkBar (Credits S&L).
+* Delete ReadycheckIcon since BenikUI has it.
+* Add my own font file to adjust fonts.
+* Reposition the AlwaysUpFrame.
+* Cleanup the install file. Make an own file for each Addon.
+
 ** v2.27, 02.01.2017**
 * Add skin for XIV_Databar.
 * Minor UI improvements.

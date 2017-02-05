@@ -1,3 +1,12 @@
+<b><u> v2.28, 05.02.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add new Tag [name:abbrev], will shorten long names.
+<font color=#FF8C00>&#9830;</font> Add Tome of Town Portal to LocationPanel.
+<font color=#FF8C00>&#9830;</font> Add an own RaidMarkBar (Credits S&L).
+<font color=#FF8C00>&#9830;</font> Delete ReadycheckIcon since BenikUI has it.
+<font color=#FF8C00>&#9830;</font> Add my own font file to adjust fonts.
+<font color=#FF8C00>&#9830;</font> Reposition the AlwaysUpFrame.
+<font color=#FF8C00>&#9830;</font> Cleanup the install file. Make an own file for each Addon.
+
 <b><u> v2.27, 02.01.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add skin for XIV_Databar.
 <font color=#FF8C00>&#9830;</font> Minor UI improvements.
