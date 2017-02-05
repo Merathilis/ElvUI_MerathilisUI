@@ -8,4 +8,5 @@
 	<Script file="staticpopup.lua"/>
 	<Script file="style.lua"/>
 	<Script file="changelog.lua"/>
+	<Include file="addonProfiles\load_addonProfiles.xml"/>
 </Ui>

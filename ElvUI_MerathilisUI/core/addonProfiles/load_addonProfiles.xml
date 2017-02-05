@@ -1,0 +1,9 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="AddOnSkins.lua"/>
+	<script file="BenikUI.lua"/>
+	<script file="BigWigs.lua"/>
+	<script file="ShadowandLight.lua"/>
+	<script file="Skada.lua"/>
+	<script file="template.lua"/>
+	<script file="XIVDatabar.lua"/>
+</Ui>

@@ -482,7 +482,6 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["colors"]["transparentPower"] = false
 		E.db["unitframe"]["colors"]["transparentCastbar"] = true
 		E.db["unitframe"]["colors"]["castClassColor"] = false
-		E.db["unitframe"]["colors"]["castClassColor"] = false
 		E.db["unitframe"]["colors"]["castReactionColor"] = false
 
 		--[[----------------------------------
@@ -1193,509 +1192,79 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
-function MER:SetupSkada(addon)
+local AddOnSkinsName = GetAddOnMetadata("AddOnSkins", "Title")
+local BenikUIName = GetAddOnMetadata("ElvUI_BenikUI", "Title")
+local bigWigName = GetAddOnMetadata("BigWigs", "Title")
+local skadaName = GetAddOnMetadata("Skada", "Title")
+local SLEName = GetAddOnMetadata("ElvUI_SLE", "Title")
+local XIV_Databar = GetAddOnMetadata("XIV_Databar", "Title")
+
+local function SetupAddons()
 	--[[----------------------------------
 	--	Skada - Settings
 	--]]----------------------------------
-	if addon == "Skada" then
-		if IsAddOnLoaded("Skada") then
-			local skadaName = GetAddOnMetadata("Skada", "Title")
-			MER:Print(format(L[" - %s profile created!"], skadaName))
-			PluginInstallStepComplete.message = MER.Title..L["Skada Profile Created"]
-			PluginInstallStepComplete:Show()
-			SkadaDB["profiles"]["MerathilisUI"] = {
-				["windows"] = {
-					{
-						["titleset"] = true,
-						["barheight"] = 16,
-						["classicons"] = true,
-						["roleicons"] = false,
-						["barslocked"] = true,
-						["background"] = {
-							["borderthickness"] = 0,
-							["height"] = 146,
-							["bordertexture"] = "None",
-							["margin"] = 0,
-							["texture"] = "Solid",
-							["strata"] = "LOW",
-							["color"] = {
-								["a"] = 0.2,
-								["b"] = 0.5,
-								["g"] = 0,
-								["r"] = 0,
-							},
-						},
-						["y"] = 23.0000915527344,
-						["barfont"] = "Merathilis Roboto-Bold",
-						["name"] = "DPS",
-						["barfontflags"] = "OUTLINE",
-						["point"] = "TOPRIGHT",
-						["barbgcolor"] = {
-							["a"] = 0,
-							["r"] = 0.301960784313726,
-							["g"] = 0.301960784313726,
-							["b"] = 0.301960784313726,
-						},
-						["mode"] = "Schaden",
-						["enabletitle"] = false,
-						["spark"] = false,
-						["bartexture"] = "Lyn1",
-						["barwidth"] = 165.999954223633,
-						["barspacing"] = 2,
-						["barcolor"] = {
-							["a"] = 0,
-							["g"] = 0.301960784313726,
-							["r"] = 0.301960784313726,
-						},
-						["barfontsize"] = 10,
-						["title"] = {
-							["textcolor"] = {
-								["b"] = 0.0392156862745098,
-								["g"] = 0.490196078431373,
-								["r"] = 1,
-							},
-							["color"] = {
-								["a"] = 0,
-								["b"] = 0.301960784313726,
-								["g"] = 0.101960784313725,
-								["r"] = 0.101960784313725,
-							},
-							["font"] = "Merathilis Tukui",
-							["borderthickness"] = 0,
-							["fontsize"] = 14,
-							["fontflags"] = "OUTLINE",
-							["texture"] = "MerathilisFlat",
-						},
-						["x"] = 1739.00001525879,
-					}, -- [1]
-				},
-				["icon"] = {
-					["hide"] = true,
-				},
-				["columns"] = {
-					["Heilung_Percent"] = false,
-					["Schaden_Damage"] = true,
-					["Schaden_DPS"] = true,
-					["Schaden_Percent"] = true,
-				},
-			}
-			Skada.db:SetProfile("MerathilisUI")
-		else
-			MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
-			PluginInstallStepComplete.message = MER.Title..L["Skada is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
-		end
+	if IsAddOnLoaded("Skada") then
+		MER:LoadSkadaProfile()
+		MER:Print(format(L[" - %s profile created!"], skadaName))
+	else
+		MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
 	end
-end
 
-function MER:SetupBigWigs(addon)
 	--[[----------------------------------
 	--	BigWigs - Settings
 	--]]----------------------------------
-	if addon == "BigWigs" then
-		if IsAddOnLoaded("BigWigs") then
-			local bigWigName = GetAddOnMetadata("BigWigs", "Title")
-			MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
-			PluginInstallStepComplete.message = MER.Title..L["BigWigs Profile Created"]
-			PluginInstallStepComplete:Show()
-			BigWigs3DB = {
-				["namespaces"] = {
-					["BigWigs_Plugins_Victory"] = {},
-					["BigWigs_Plugins_Colors"] = {},
-					["BigWigs_Plugins_Alt Power"] = {
-						["profiles"] = {
-							["MerathilisUI"] = {
-								["posx"] = 339.84443097218,
-								["fontSize"] = 11,
-								["fontOutline"] = "",
-								["font"] = "Merathilis Roboto-Bold",
-								["lock"] = true,
-								["posy"] = 61.8444405166224,
-							},
-						},
-					},
-					["BigWigs_Plugins_BossBlock"] = {},
-					["BigWigs_Plugins_Bars"] = {
-						["profiles"] = {
-							["MerathilisUI"] = {
-								["BigWigsEmphasizeAnchor_y"] = 274.777784431353,
-								["fontSize"] = 11,
-								["BigWigsAnchor_width"] = 239.999954223633,
-								["BigWigsAnchor_y"] = 265.177697393337,
-								["BigWigsEmphasizeAnchor_x"] = 251.977762177876,
-								["barStyle"] = "AddOnSkins",
-								["emphasizeGrowup"] = true,
-								["BigWigsAnchor_x"] = 1018.51096216262,
-								["outline"] = "OUTLINE",
-								["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
-								["font"] = "Merathilis Roboto-Bold",
-								["emphasizeScale"] = 1.1,
-								["texture"] = "MerathilisLight",
-							},
-						},
-					},
-					["BigWigs_Plugins_Super Emphasize"] = {
-						["profiles"] = {
-							["MerathilisUI"] = {
-								["font"] = "Merathilis Roboto-Bold",
-							},
-						},
-					},
-					["BigWigs_Plugins_Sounds"] = {},
-					["BigWigs_Plugins_Messages"] = {
-						["profiles"] = {
-							["MerathilisUI"] = {
-								["outline"] = "OUTLINE",
-								["fontSize"] = 20,
-								["BWEmphasizeCountdownMessageAnchor_x"] = 664,
-								["BWMessageAnchor_x"] = 608,
-								["growUpwards"] = false,
-								["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-								["font"] = "Merathilis Roboto-Bold",
-								["BWEmphasizeMessageAnchor_y"] = 614,
-								["BWMessageAnchor_y"] = 676,
-								["BWEmphasizeMessageAnchor_x"] = 610,
-							},
-						},
-					},
-					["BigWigs_Plugins_Statistics"] = {},
-					["BigWigs_Plugins_Respawn"] = {},
-					["BigWigs_Plugins_Proximity"] = {
-						["profiles"] = {
-							["MerathilisUI"] = {
-								["posx"] = 900.11113290675,
-								["font"] = "Merathilis Roboto-Bold",
-								["lock"] = true,
-								["height"] = 99.0000381469727,
-								["posy"] = 70.4000288314296,
-							},
-						},
-					},
-					["BigWigs_Plugins_Raid Icons"] = {},
-					["LibDualSpec-1.0"] = {},
-				},
-				["profiles"] = {
-					["MerathilisUI"] = {
-						["fakeDBMVersion"] = true,
-					},
-				},
-			}
-		else
-			MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
-			PluginInstallStepComplete.message = MER.Title..L["BigWigs is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
-		end
+	if IsAddOnLoaded("BigWigs") then
+		MER:LoadBigWigsProfile()
+		MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
+	else
+		MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
 	end
-end
 
-function MER:SetupXIVDatabar(addon)
 	--[[----------------------------------
 	--	XIV_Databar - Settings
 	--]]----------------------------------
-	if addon == "XIV_Databar" then
-		if IsAddOnLoaded("XIV_Databar") then
-			local XIV_Databar = GetAddOnMetadata("XIV_Databar", "Title")
-			MER:Print(format(L[" - %s profile created!"], XIV_Databar))
-			PluginInstallStepComplete.message = MER.Title..L["XIV_Databar Profile Created"]
-			PluginInstallStepComplete:Show()
-			XIVBarDB = {
-				["profiles"] = {
-					["MerathilisUI"] = {
-						["modules"] = {
-							["tradeskill"] = {
-								["barCC"] = true,
-							},
-							["talent"] = {
-								["barCC"] = true,
-							},
-							["currency"] = {
-								["currencyTwo"] = "1220",
-								["currencyOne"] = "1273",
-							},
-							["clock"] = {
-								["timeFormat"] = "twoFour",
-							},
-						},
-						["text"] = {
-							["flags"] = 2,
-							["fontSize"] = 10,
-							["font"] = "Merathilis Roboto-Medium",
-						},
-						["general"] = {
-							["barPosition"] = "TOP",
-						},
-					},
-				},
-			}
-		else
-			MER:Print(L["The Addon 'XIV_Databar' is not enabled. Profile not created."])
-			PluginInstallStepComplete.message = MER.Title..L["XIV_Databar is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
-		end
+	if IsAddOnLoaded("XIV_Databar") then
+		MER:LoadXIVDatabarProfile()
+		MER:Print(format(L[" - %s profile created!"], XIV_Databar))
+	else
+		MER:Print(L["The Addon 'XIV_Databar' is not enabled. Profile not created."])
 	end
-end
 
-function MER:SetupAddOnSkins(addon)
 	--[[----------------------------------
 	--	AddOnSkins - Settings
 	--]]----------------------------------
-	if addon == "AddOnSkins" then
-		if IsAddOnLoaded("AddOnSkins") then
-			local AS = unpack(AddOnSkins) or nil
-			local AddOnSkinsName = GetAddOnMetadata("AddOnSkins", "Title")
-			MER:Print(format(L[" - %s settings applied."], AddOnSkinsName))
-			PluginInstallStepComplete.message = MER.Title..L["AddOnSkins settings applied."]
-			PluginInstallStepComplete:Show()
-			AS.db["EmbedSystem"] = true
-			AS.db["EmbedSystemDual"] = false
-			AS.db["EmbedBelowTop"] = true
-			AS.db["TransparentEmbed"] = true
-			AS.db["EmbedMain"] = "Skada"
-			AS.db["EmbedLeft"] = ""
-			AS.db["EmbedRight"] = ""
-			AS.db["RecountBackdrop"] = false
-			AS.db["SkadaBackdrop"] = false
-			AS.db["DetailsBackdrop"] = false
-			AS.db["ParchmentRemover"] = false
-			AS.db["WeakAura"] = true
-			AS.db["WeakAuraAuraBar"] = false
-			AS.db["WeakAuraIconCooldown"] = true
-			AS.db["SkinDebug"] = false
-			AS.db["LoginMsg"] = false
-			AS.db["EmbedSystemMessage"] = false
-			AS.db["ElvUISkinModule"] = true
-			AS.db["EmbedFrameStrata"] = "2-LOW"
-			AS.db["EmbedFrameLevel"] = 2
-		else
-			MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
-			PluginInstallStepComplete.message = MER.Title..L["AddOnSkins is not enabled, aborting."]
-			PluginInstallStepComplete:Show()
-		end
+	if IsAddOnLoaded("AddOnSkins") then
+		MER:LoadAddOnSkinsProfile()
+		MER:Print(format(L[" - %s settings applied."], AddOnSkinsName))
+	else
+		MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
 	end
-end
 
-function MER:SetupElvUIAddOns(addon)
 	--[[----------------------------------
 	--	BenikUI - Settings
 	--]]----------------------------------
-	if addon == "ElvUI_BenikUI" then
+	if IsAddOnLoaded("ElvUI_BenikUI") then
 		if E.db["benikui"] == nil then E.db["benikui"] = {} end
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			local BenikUIName = GetAddOnMetadata("ElvUI_BenikUI", "Title")
-			MER:Print(format(L[" - %s settings applied."], BenikUIName))
-			E.db["benikui"]["general"]["loginMessage"] = false
-			E.db["benikui"]["general"]["splashScreen"] = false
-			E.db["benikui"]["colors"]["gameMenuColor"] = 1
-			E.db["benikui"]["misc"]["ilevel"]["enable"] = false
-			E.db["benikui"]["datatexts"]["chat"]["enable"] = false
-			E.db["benikui"]["datatexts"]["chat"]["transparent"] = true
-			E.db["benikui"]["datatexts"]["chat"]["editBoxPosition"] = "BELOW_CHAT"
-			E.db["benikui"]["datatexts"]["chat"]["styled"] = false
-			E.db["benikui"]["datatexts"]["chat"]["backdrop"] = true
-			E.db["benikui"]["datatexts"]["middle"]["enable"] = false
-			E.db["benikui"]["datatexts"]["middle"]["transparent"] = true
-			E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
-			E.db["benikui"]["datatexts"]["middle"]["width"] = 412
-			E.db["benikui"]["datatexts"]["middle"]["height"] = 19
-			E.db["benikui"]["datatexts"]["middle"]["styled"] = true
-			E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
-			E.db["benikui"]["datatexts"]["garrison"]["currency"] = true
-			E.db["benikui"]["datatexts"]["garrison"]["oil"] = true
-			E.db["benikuiDatabars"]["experience"]["notifiers"]["enable"] = false
-			E.db["benikuiDatabars"]["reputation"]["notifiers"]["enable"] = false
-			E.db["benikuiDatabars"]["artifact"]["notifiers"]["enable"] = false
-			E.db["benikui"]["unitframes"]["misc"]["svui"] = true
-			E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
-			E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
-			E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
-			E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
-			E.db["dashboards"]["barColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
-			E.db["dashboards"]["system"]["enableSystem"] = false
-			E.db["dashboards"]["professions"]["enableProfessions"] = false
-			E.db["dashboards"]["tokens"]["enableTokens"] = false
-			E.db["dashboards"]["tokens"]["tooltip"] = false
-			E.db["dashboards"]["tokens"]["flash"] = false
-			E.db["dashboards"]["tokens"]["width"] = 130
-			E.db["dashboards"]["tokens"]["combat"] = true
-			E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-			E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-164"
-			E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
-		else
-			MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
-		end
+		MER:LoadBenikUIProfile()
+		MER:Print(format(L[" - %s settings applied."], BenikUIName))
+	else
+		MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
+	end
 
 	--[[----------------------------------
 	--	S&L - Settings
 	--]]----------------------------------
-	elseif addon == "ElvUI_SLE" then
+	if IsAddOnLoaded("ElvUI_SLE") then
 		if E.db.sle == nil then E.db.sle = {} end
-		if IsAddOnLoaded("ElvUI_SLE") then
-			local SLEName = GetAddOnMetadata("ElvUI_SLE", "Title")
-			MER:Print(format(L[" - %s settings applied."], SLEName))
-			E.db["sle"]["raidmarkers"]["enable"] = false
-			E.db["sle"]["media"]["fonts"]["gossip"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["gossip"]["size"] = 11
-			E.db["sle"]["media"]["fonts"]["editbox"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["objective"]["size"] = 10
-			E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["zone"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
-			E.db["sle"]["Armory"]["Character"]["Gradation"]["Display"] = true
-			E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
-			E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11
-			E.db["sle"]["Armory"]["Character"]["Level"]["ShowUpgradeLevel"] = true
-			E.db["sle"]["Armory"]["Character"]["Level"]["Font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "HIDE"
-			E.db["sle"]["Armory"]["Character"]["Enchant"]["Display"] = "MouseoverOnly"
-			E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
-			E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
-			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["size"] = 16
-			E.db["sle"]["Armory"]["Character"]["ItemLevel"]["outline"] = "OUTLINE"
-			E.db["sle"]["Armory"]["Inspect"]["Enable"] = true
-			E.db["sle"]["Armory"]["Inspect"]["Level"]["ShowUpgradeLevel"] = true
-			E.db["sle"]["Armory"]["Inspect"]["Level"]["Font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Inspect"]["Level"]["FontSize"] = 10
-			E.db["sle"]["Armory"]["Inspect"]["Backdrop"]["SelectedBG"] = "HIDE"
-			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["Display"] = "MouseoverOnly"
-			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["FontSize"] = 9
-			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["Armory"]["Inspect"]["Enchant"]["WarningIconOnly"] = true
-			E.db["sle"]["Armory"]["Inspect"]["Gem"]["SocketSize"] = 15
-			E.db["sle"]["Armory"]["Inspect"]["Gradation"]["CurrentClassColor"] = true
-			E.db["sle"]["auras"]["hideDebuffsTimer"] = false
-			E.db["sle"]["auras"]["hideBuffsTimer"] = false
-			E.db["sle"]["loot"]["autoroll"]["autogreed"] = true
-			E.db["sle"]["loot"]["looticons"]["enable"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY_LEADER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_GUILD"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_SAY"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_CONVERSATION"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_WHISPER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_WHISPER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_PARTY"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_INSTANCE_CHAT_LEADER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_OFFICER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_LEADER"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_YELL"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_CHANNEL"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_BN_WHISPER_INFORM"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_WHISPER_INFORM"] = true
-			E.db["sle"]["loot"]["looticons"]["channels"]["CHAT_MSG_RAID_WARNING"] = true
-			E.db["sle"]["loot"]["looticons"]["position"] = "RIGHT"
-			E.db["sle"]["loot"]["announcer"]["enable"] = true
-			E.db["sle"]["loot"]["enable"] = true
-			E.db["sle"]["loot"]["history"]["autohide"] = true
-			E.db["sle"]["legacy"]["garrison"]["toolbar"]["enable"] = true
-			E.db["sle"]["legacy"]["garrison"]["toolbar"]["buttonsize"] = 20
-			E.db["sle"]["pvp"]["duels"]["announce"] = true
-			E.db["sle"]["pvp"]["duels"]["pet"] = true
-			E.db["sle"]["pvp"]["duels"]["regular"] = true
-			E.private["sle"]["pvp"]["KBbanner"]["enable"] = true
-			E.private["sle"]["pvp"]["KBbanner"]["sound"] = true
-			E.db["sle"]["tooltip"]["RaidProg"]["enable"] = true
-			E.db["sle"]["tooltip"]["RaidProg"]["DifStyle"] = "LONG"
-			E.db["sle"]["chat"]["tab"]["select"] = true
-			E.db["sle"]["chat"]["tab"]["style"] = "DEFAULT"
-			E.db["sle"]["chat"]["tab"]["color"] = {r = classColor.r, g = classColor.g, b = classColor.b}
-			E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
-			E.private["sle"]["chat"]["BubbleClass"] = true
-			E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
-			E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.45
-			E.db["sle"]["chat"]["dpsSpam"] = true
-			E.db["sle"]["blizzard"]["rumouseover"] = true
-			E.db["sle"]["misc"]["threat"]["enable"] = true
-			E.db["sle"]["blizzard"]["errorframe"]["height"] = 60
-			E.db["sle"]["blizzard"]["errorframe"]["width"] = 512
-			E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
-			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = true
-			E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["size"] = 22
-			E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
-			E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
-			E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["texture"] = "SVUI"
-			E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["size"] = 16
-			E.db["sle"]["minimap"]["instance"]["font"] = "Merathilis Roboto-Black"
-			E.db["sle"]["minimap"]["coords"]["display"] = "MOUSEOVER"
-			E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
-			E.db["sle"]["minimap"]["coords"]["decimals"] = false
-			E.db["sle"]["minimap"]["coords"]["middle"] = "CENTER"
-			E.private["sle"]["minimap"]["buttons"]["enable"] = true
-			E.private["sle"]["minimap"]["mapicons"]["enable"] = true
-			E.private["sle"]["minimap"]["mapicons"]["barenable"] = true
-			E.db["sle"]["minimap"]["mapicons"]["iconsize"] = 20
-			E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
-			E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
-			E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
-			E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
-			E.db["sle"]["minimap"]["locPanel"]["enable"] = false
-			E.db["sle"]["dt"]["durability"]["threshold"] = 49
-			E.db["sle"]["dt"]["durability"]["gradient"] = true
-			E.db["sle"]["dt"]["hide_guildname"] = false
-			E.db["sle"]["dt"]["guild"]["minimize_gmotd"] = false
-			E.db["sle"]["dt"]["guild"]["hide_gmotd"] = true
-			E.db["sle"]["dt"]["guild"]["totals"] = true
-			E.db["sle"]["dt"]["guild"]["hide_hintline"] = true
-			E.db["sle"]["dt"]["guild"]["hide_titleline"] = true
-			E.db["sle"]["dt"]["guild"]["textStyle"] = "Icon"
-			E.db["sle"]["dt"]["friends"]["sortBN"] = "revREALID"
-			E.db["sle"]["dt"]["friends"]["expandBNBroadcast"] = true
-			E.db["sle"]["dt"]["friends"]["totals"] = true
-			E.db["sle"]["dt"]["friends"]["hide_hintline"] = true
-			E.db["sle"]["dt"]["friends"]["hide_titleline"] = true
-			E.db["sle"]["dt"]["friends"]["textStyle"] = "Icon"
-			E.db["sle"]["dt"]["currency"]["Unused"] = false
-			E.db["sle"]["dt"]["currency"]["PvP"] = false
-			E.db["sle"]["dt"]["currency"]["Archaeology"] = false
-			E.db["sle"]["dt"]["currency"]["Faction"] = false
-			E.db["sle"]["dt"]["currency"]["Jewelcrafting"] = false
-			E.db["sle"]["dt"]["currency"]["Raid"] = false
-			E.db["sle"]["dt"]["currency"]["Cooking"] = false
-			E.db["sle"]["dt"]["currency"]["Miscellaneous"] = false
-			E.db["sle"]["dt"]["expandBNBroadcast"] = true
-			E.db["sle"]["dt"]["hide_hintline"] = true
-			E.db["sle"]["dt"]["mail"]["icon"] = false
-			E.db["sle"]["dt"]["hide_gmotd"] = false
-			E.db["sle"]["dt"]["totals"] = true
-			E.db["sle"]["dt"]["combat"] = false
-			E.db["sle"]["uibuttons"]["enable"] = false
-			E.db["sle"]["uibuttons"]["point"] = "TOP"
-			E.db["sle"]["uibuttons"]["menuBackdrop"] = true
-			E.db["sle"]["uibuttons"]["orientation"] = "vertical"
-			E.db["sle"]["uibuttons"]["dropdownBackdrop"] = false
-			E.db["sle"]["uibuttons"]["menuBackdrop"] = false
-			E.db["sle"]["uibuttons"]["spacing"] = 0
-			E.db["sle"]["uibuttons"]["anchor"] = "BOTTOM"
-			E.db["sle"]["uibuttons"]["point"] = "TOPLEFT"
-			E.db["sle"]["uibuttons"]["size"] = 19
-			E.private["sle"]["uiButtonStyle"] = "dropdown"
-			E.private["sle"]["bags"]["transparentSlots"] = true
-			E.private["sle"]["skins"]["objectiveTracker"]["enable"] = false
-			E.private["sle"]["skins"]["merchant"]["enable"] = true
-			E.private["sle"]["skins"]["merchant"]["subpages"] = 2
-			E.private["sle"]["vehicle"]["enable"] = true
-			E.private["sle"]["equip"]["enable"] = true
-			E.private["sle"]["equip"]["setoverlay"] = true
-			E.private["sle"]["professions"]["fishing"]["EasyCast"] = true
-			E.private["sle"]["professions"]["fishing"]["FromMount"] = true
-			E.private["sle"]["professions"]["deconButton"]["enable"] = false
-			E.db["movers"]["SalvageCrateMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-483"
-			E.db["movers"]["SquareMinimapBar"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-185"
-			E.db["movers"]["SLE_UIButtonsMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,0,-460"
-			E.db["movers"]["UIErrorsFrameMover"] = "TOP,ElvUIParent,TOP,0,-195"
-			E.db["movers"]["SLE_Location_Mover"] = "TOP,ElvUIParent,TOP,0,-6"
-			E.db["movers"]["RaidMarkerBarAnchor"] = "BOTTOM,ElvUIParent,BOTTOM,0,57"
-		else
-			MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
-		end
+		MER:LoadShadowandLightProfile()
+		MER:Print(format(L[" - %s settings applied."], SLEName))
+	else
+		MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
 	end
+
+	PluginInstallStepComplete.message = MER.Title..L["Addons Set"]
+	PluginInstallStepComplete:Show()
+	E:UpdateAll(true)
 end
 
 local function InstallComplete()
@@ -1775,18 +1344,12 @@ MER.installTable = {
 		end,
 		[8] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to Skada and ElvUI plugins"])
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to the addons like Skada and ElvUI plugins"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your addons."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupSkada("Skada"); MER:SetupBigWigs("BigWigs"); MER:SetupXIVDatabar("XIV_Databar"); end)
-			PluginInstallFrame.Option1:SetText(L["Skada/BigWigs/XIV"])
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupAddOnSkins("AddOnSkins"); end)
-			PluginInstallFrame.Option2:SetText(L["AddOnSkins"])
-			PluginInstallFrame.Option3:Show()
-			PluginInstallFrame.Option3:SetScript("OnClick", function() MER:SetupElvUIAddOns("ElvUI_BenikUI"); MER:SetupElvUIAddOns("ElvUI_SLE"); end)
-			PluginInstallFrame.Option3:SetText(L["ElvUI Addons"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupAddons(); end)
+			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
 		[9] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
