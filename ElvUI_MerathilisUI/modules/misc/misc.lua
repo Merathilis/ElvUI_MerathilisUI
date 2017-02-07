@@ -87,3 +87,15 @@ CloseWoW:SetScript("OnEvent", function(_, event, msg)
 		end
 	end
 end)
+
+-- Display combat state changes
+local CombatState = CreateFrame("Frame")
+CombatState:RegisterEvent("PLAYER_REGEN_ENABLED")
+CombatState:RegisterEvent("PLAYER_REGEN_DISABLED")
+CombatState:SetScript("OnEvent", function(self, event)
+	if event == "PLAYER_REGEN_DISABLED" then
+		UIErrorsFrame:AddMessage("+ " .. COMBAT, 255, 0, 0)
+	elseif event == "PLAYER_REGEN_ENABLED" then
+		UIErrorsFrame:AddMessage("- " .. COMBAT, 0, 255, 0)
+	end
+end)
