@@ -116,6 +116,12 @@ P["mui"] = {
 		},
 	},
 
+	["error"] = {
+		["black"] = true,
+		["combat"] = false,
+		["white"] = false,
+	},
+
 	-- db
 	["dbCleaned"] = false
 }

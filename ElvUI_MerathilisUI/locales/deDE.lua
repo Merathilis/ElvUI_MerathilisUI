@@ -229,6 +229,11 @@ L["Shadow & Light"] = true
 -- Changelog
 L["Changelog"] = true
 
+-- Errors
+L["Info"] = {
+	["Errors"] = "Keine Fehler bisher.",
+}
+
 -- Developer
 L["AddOn Presets"] = "AddOn Voreinstellungen"
 L["Choose an AddOn Presets, where selected AddOns gets loaded."] = "Wähle eine Addon Voreinstellung wo ausgewählte AddOns geladen werden."
