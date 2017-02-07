@@ -12,6 +12,7 @@ P["mui"] = {
 		["SplashScreen"] = true, -- Enable the SplashScreen on LogIn
 		["AFK"] = true, -- Enable the pimped AFK Screen
 		["FlightMode"] = true, -- Enable the FlightMode
+		["CombatState"] = true, -- Enable the +/- Combat Message
 	},
 
 	["misc"] = {

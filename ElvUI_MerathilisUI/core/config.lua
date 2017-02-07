@@ -99,6 +99,14 @@ local function AddOptions()
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 						disabled = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
 					},
+					CombatState = {
+						order = 6,
+						type = "toggle",
+						name = L["Combat State"],
+						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; end,
+					},
 				},
 			},
 			info = {

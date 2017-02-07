@@ -93,6 +93,7 @@ local CombatState = CreateFrame("Frame")
 CombatState:RegisterEvent("PLAYER_REGEN_ENABLED")
 CombatState:RegisterEvent("PLAYER_REGEN_DISABLED")
 CombatState:SetScript("OnEvent", function(self, event)
+	if not E.db.mui.general.CombatState then return end
 	if event == "PLAYER_REGEN_DISABLED" then
 		UIErrorsFrame:AddMessage("+ " .. COMBAT, 255, 0, 0)
 	elseif event == "PLAYER_REGEN_ENABLED" then

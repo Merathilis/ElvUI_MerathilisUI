@@ -15,6 +15,8 @@ L["Enable/Disable the MUI AFK Screen"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
+L["Combat State"] = true
+L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
