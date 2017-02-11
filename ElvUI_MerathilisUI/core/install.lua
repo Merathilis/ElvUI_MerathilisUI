@@ -4,7 +4,8 @@ local MER = E:GetModule("MerathilisUI");
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local format = format
+local ceil, format, checkTable = ceil, format, next
+local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
 -- WoW API / Variables
 local ADDONS = ADDONS
 local FCF_DockFrame = FCF_DockFrame
@@ -1192,12 +1193,8 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
-local AddOnSkinsName = GetAddOnMetadata("AddOnSkins", "Title")
-local BenikUIName = GetAddOnMetadata("ElvUI_BenikUI", "Title")
-local bigWigName = GetAddOnMetadata("BigWigs", "Title")
-local skadaName = GetAddOnMetadata("Skada", "Title")
-local SLEName = GetAddOnMetadata("ElvUI_SLE", "Title")
-local XIV_Databar = GetAddOnMetadata("XIV_Databar", "Title")
+local addonNames = {}
+local profilesFailed = format('|cff00c0fa%s |r', L["MerathilisUI didn't find any supported addons for profile creation"])
 
 local function SetupAddons()
 	--[[----------------------------------
@@ -1205,9 +1202,7 @@ local function SetupAddons()
 	--]]----------------------------------
 	if IsAddOnLoaded("Skada") then
 		MER:LoadSkadaProfile()
-		MER:Print(format(L[" - %s profile created!"], skadaName))
-	else
-		MER:Print(L["The Addon 'Skada' is not enabled. Profile not created."])
+		tinsert(addonNames, 'Skada')
 	end
 
 	--[[----------------------------------
@@ -1215,9 +1210,7 @@ local function SetupAddons()
 	--]]----------------------------------
 	if IsAddOnLoaded("BigWigs") then
 		MER:LoadBigWigsProfile()
-		MER:Print(format(L[" - %s profile created! Type /bw, go to Profiles, and change your profile to MerathilisUI."], bigWigName))
-	else
-		MER:Print(L["The Addon 'Big Wigs' is not enabled. Profile not created."])
+		tinsert(addonNames, 'BigWigs')
 	end
 
 	--[[----------------------------------
@@ -1225,9 +1218,7 @@ local function SetupAddons()
 	--]]----------------------------------
 	if IsAddOnLoaded("XIV_Databar") then
 		MER:LoadXIVDatabarProfile()
-		MER:Print(format(L[" - %s profile created!"], XIV_Databar))
-	else
-		MER:Print(L["The Addon 'XIV_Databar' is not enabled. Profile not created."])
+		tinsert(addonNames, 'XIV_Databar')
 	end
 
 	--[[----------------------------------
@@ -1235,9 +1226,7 @@ local function SetupAddons()
 	--]]----------------------------------
 	if IsAddOnLoaded("AddOnSkins") then
 		MER:LoadAddOnSkinsProfile()
-		MER:Print(format(L[" - %s settings applied."], AddOnSkinsName))
-	else
-		MER:Print(L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."])
+		tinsert(addonNames, 'AddOnSkins')
 	end
 
 	--[[----------------------------------
@@ -1246,9 +1235,7 @@ local function SetupAddons()
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		if E.db["benikui"] == nil then E.db["benikui"] = {} end
 		MER:LoadBenikUIProfile()
-		MER:Print(format(L[" - %s settings applied."], BenikUIName))
-	else
-		MER:Print(L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."])
+		tinsert(addonNames, 'ElvUI_BenikUI')
 	end
 
 	--[[----------------------------------
@@ -1257,13 +1244,29 @@ local function SetupAddons()
 	if IsAddOnLoaded("ElvUI_SLE") then
 		if E.db.sle == nil then E.db.sle = {} end
 		MER:LoadShadowandLightProfile()
-		MER:Print(format(L[" - %s settings applied."], SLEName))
+		tinsert(addonNames, 'ElvUI_SLE')
+	end
+
+	if checkTable(addonNames) ~= nil then
+		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
+
+		tsort(addonNames, function(a, b) return a < b end)
+
+		for _, names in pairs(addonNames) do
+			names = format('|cfffff400%s, |r', names)
+			profileString = profileString..names
+		end
+
+		profileString = sub(profileString, 1, -5) -- trim the last comma
+
+		PluginInstallFrame.Desc4:SetText(profileString..'.')
 	else
-		MER:Print(L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."])
+		PluginInstallFrame.Desc4:SetText(profilesFailed)
 	end
 
 	PluginInstallStepComplete.message = MER.Title..L["Addons Set"]
 	PluginInstallStepComplete:Show()
+	twipe(addonNames)
 	E:UpdateAll(true)
 end
 
