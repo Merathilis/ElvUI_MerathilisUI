@@ -22,6 +22,7 @@ local LOOT = LOOT
 local ReloadUI = ReloadUI
 local SetCVar = SetCVar
 local TRADE = TRADE
+
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: PluginInstallFrame, InstallStepComplete, ElvUIParent, NUM_CHAT_WINDOWS, LeftChatToggleButton
 -- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
