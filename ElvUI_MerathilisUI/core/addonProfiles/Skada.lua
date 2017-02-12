@@ -81,5 +81,7 @@ function MER:LoadSkadaProfile()
 			["Schaden_Percent"] = true,
 		},
 	}
-	Skada.db:SetProfile("MerathilisUI")
+
+	local db = LibStub("AceDB-3.0"):New(SkadaDB, nil, true)
+	db:SetProfile("MerathilisUI")
 end
