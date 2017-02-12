@@ -35,6 +35,7 @@ function MER:LoadXIVDatabarProfile()
 		},
 	}
 
+	-- Profile creation
 	local db = LibStub("AceDB-3.0"):New(XIVBarDB, nil, true)
 	db:SetProfile("MerathilisUI")
 end

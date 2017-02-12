@@ -1248,6 +1248,22 @@ local function SetupAddons()
 		tinsert(addonNames, 'ElvUI_SLE')
 	end
 
+	--[[----------------------------------
+	--	SorhaQuestLog - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("SorhaQuestLog") then
+		MER:LoadSorhaQuestLogProfile()
+		tinsert(addonNames, 'SorhaQuestLog')
+	end
+
+	--[[----------------------------------
+	--	KuiNamePlates - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("Kui_Nameplates_Core") then
+		MER:LoadKuiNamePlatesCoreProfile()
+		tinsert(addonNames, 'KuiNamePlates')
+	end
+
 	if checkTable(addonNames) ~= nil then
 		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
 

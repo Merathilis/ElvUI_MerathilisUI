@@ -2,8 +2,10 @@
 	<script file="AddOnSkins.lua"/>
 	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
+	<script file="KuiNamePlatesCore.lua"/>
 	<script file="ShadowandLight.lua"/>
 	<script file="Skada.lua"/>
+	<script file="SorhaQuestLog.lua"/>
 	<script file="template.lua"/>
 	<script file="XIVDatabar.lua"/>
 </Ui>

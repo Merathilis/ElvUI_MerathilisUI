@@ -82,6 +82,7 @@ function MER:LoadSkadaProfile()
 		},
 	}
 
+	-- Profile creation
 	local db = LibStub("AceDB-3.0"):New(SkadaDB, nil, true)
 	db:SetProfile("MerathilisUI")
 end
