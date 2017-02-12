@@ -30,7 +30,7 @@ function MER:LoadBigWigsProfile()
 						["BigWigsAnchor_width"] = 239.999954223633,
 						["BigWigsAnchor_y"] = 265.177697393337,
 						["BigWigsEmphasizeAnchor_x"] = 251.977762177876,
-						["barStyle"] = "AddOnSkins",
+						["barStyle"] = "MerathilisUI",
 						["emphasizeGrowup"] = true,
 						["BigWigsAnchor_x"] = 1018.51096216262,
 						["outline"] = "OUTLINE",
