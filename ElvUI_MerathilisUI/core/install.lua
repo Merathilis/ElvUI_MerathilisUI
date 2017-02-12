@@ -5,7 +5,7 @@ local MER = E:GetModule("MerathilisUI");
 -- Lua functions
 local _G = _G
 local ceil, format, checkTable = ceil, format, next
-local tinsert, twipe, tsort, sub = table.insert, table.wipe, table.sort, string.sub
+local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 -- WoW API / Variables
 local ADDONS = ADDONS
 local FCF_DockFrame = FCF_DockFrame
@@ -1252,12 +1252,8 @@ local function SetupAddons()
 
 		tsort(addonNames, function(a, b) return a < b end)
 
-		for _, names in pairs(addonNames) do
-			names = format('|cfffff400%s, |r', names)
-			profileString = profileString..names
-		end
-
-		profileString = sub(profileString, 1, -5) -- trim the last comma
+		local names = tconcat(addonNames, ", ")
+		profileString = profileString..names
 
 		PluginInstallFrame.Desc4:SetText(profileString..'.')
 	else
