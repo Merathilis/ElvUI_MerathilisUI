@@ -1130,7 +1130,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["actionbar5"] = false
 
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "ElvUI Config"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
 
 	if IsAddOnLoaded("Skada") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
