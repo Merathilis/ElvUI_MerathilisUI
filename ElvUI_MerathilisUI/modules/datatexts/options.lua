@@ -105,7 +105,7 @@ local function Datatexts()
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"])..MER.NewSign,
+				name = MER:cOption(L["General"]),
 				guiInline = true,
 				args = {
 					rightChatTabDatatextPanel = {
@@ -128,7 +128,7 @@ local function Datatexts()
 			threatBar = {
 				order = 4,
 				type = "group",
-				name = MER:cOption(L["Threat"])..MER.NewSign,
+				name = MER:cOption(L["Threat"]),
 				guiInline = true,
 				args = {
 					enable = {
