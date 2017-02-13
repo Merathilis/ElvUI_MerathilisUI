@@ -162,6 +162,8 @@ local function SkinsTable()
 					MER:LoadBenikUIProfile()
 				elseif addon == 'ElvUI_SLE' then
 					MER:LoadShadowandLightProfile()
+				elseif addon == 'Kui_Nameplates_Core' then
+					MER:LoadKuiNamePlatesCoreProfile()
 				elseif addon == 'SorhaQuestLog' then
 					MER:LoadSorhaQuestLogProfile()
 				elseif addon == 'Skada' then
