@@ -158,20 +158,28 @@ local function SkinsTable()
 			func = function()
 				if addon == 'BigWigs' then
 					MER:LoadBigWigsProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_BenikUI' then
 					MER:LoadBenikUIProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_SLE' then
 					MER:LoadShadowandLightProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Kui_Nameplates_Core' then
 					MER:LoadKuiNamePlatesCoreProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'SorhaQuestLog' then
 					MER:LoadSorhaQuestLogProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Skada' then
 					MER:LoadSkadaProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'XIV_Databar' then
 					MER:LoadXIVDatabarProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					MER:LoadAddOnSkinsProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				print(profileString..addonName)
 			end,
