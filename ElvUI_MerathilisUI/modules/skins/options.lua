@@ -18,9 +18,9 @@ local DecorAddons = {
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	{'BigWigs', 'BigWigs'},
-	{'ElvUI_BenikUI', 'ElvUI_BenikUI'},
-	{'ElvUI_SLE', 'ElvUI_SLE'},
-	{'Kui_Nameplates_Core', 'KuiNamePlatesCore'},
+	{'ElvUI_BenikUI', 'BenikUI'},
+	{'ElvUI_SLE', 'Shadow&Light'},
+	{'Kui_Nameplates_Core', 'KuiNamePlates'},
 	{'Skada', 'Skada'},
 	{'SorhaQuestLog', 'SorhaQuestLog'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -142,7 +142,7 @@ local function SkinsTable()
 		order = 6,
 		type = 'group',
 		guiInline = true,
-		name = L["Profiles"]..MER.NewSign,
+		name = MER:cOption(L["Profiles"])..MER.NewSign,
 		args = {
 		},
 	}
