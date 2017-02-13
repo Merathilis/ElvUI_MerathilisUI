@@ -220,9 +220,12 @@ Please note that some of these options will not be available if corresponding sk
 L["Create a transparent backdrop around the header."] = true
 
 -- Addons
+L["Skins/AddOns"] = true
+L["Profiles"] = true
 L["BigWigs"] = true
 L["MasterPlan"] = true
 L["Shadow & Light"] = true
+L["This will create and apply profile for "] = true
 
 -- Changelog
 L["Changelog"] = true

@@ -170,7 +170,7 @@ L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = "MerathilisUI gesetzt"
 L["MerathilisUI didn't find any supported addons for profile creation"] = "MerathilisUI konnte keine unterstütze Profile für Addons finden"
-L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich Addon Profile erstellt und angewandt für:"
+L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich ein Profil erstellt und angewandt für:"
 L["Chat Set"] = "Chat eingestellt"
 L["ActionBars Set"] = "Aktionsleisten gesetzt"
 L["DataTexts Set"] = "Infotexte gesetzt"
@@ -221,9 +221,12 @@ Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige
 L["Create a transparent backdrop around the header."] = "Fügt einen transparenten Hintergrund um die Kopfzeile."
 
 -- Addons
+L["Skins/AddOns"] = true
+L["Profiles"] = "Profile"
 L["BigWigs"] = true
 L["MasterPlan"] = true
 L["Shadow & Light"] = true
+L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen und anwenden für "
 
 -- Changelog
 L["Changelog"] = true

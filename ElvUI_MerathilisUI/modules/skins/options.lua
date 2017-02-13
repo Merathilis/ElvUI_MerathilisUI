@@ -15,15 +15,24 @@ local DecorAddons = {
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
 }
 
---[[local DecorElvUIAddons = {
-	{"ElvUI_SLE", L["Shadow & Light"], "sle"},
-}]]
+local SupportedProfiles = {
+	{'AddOnSkins', 'AddOnSkins'},
+	{'BigWigs', 'BigWigs'},
+	{'ElvUI_BenikUI', 'ElvUI_BenikUI'},
+	{'ElvUI_SLE', 'ElvUI_SLE'},
+	{'Kui_Nameplates_Core', 'KuiNamePlatesCore'},
+	{'Skada', 'Skada'},
+	{'SorhaQuestLog', 'SorhaQuestLog'},
+	{'XIV_Databar', 'XIV_Databar'},
+}
+
+local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = L["Skins"],
+		name = L["Skins/AddOns"]..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
@@ -32,28 +41,6 @@ local function SkinsTable()
 			},
 		},
 	}
-
-	--[[E.Options.args.mui.args.skins.args.elvuiaddons = {
-		order = 3,
-		type = "group",
-		guiInline = true,
-		name = L["ElvUI AddOns"],
-		get = function(info) return E.private.muiSkins.elvuiAddons[ info[#info] ] end,
-		set = function(info, value) E.private.muiSkins.elvuiAddons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		args = {
-			},
-		}
-
-	local elvorder = 0
-	for i, v in ipairs(DecorElvUIAddons) do
-		local addonName, addonString, addonOption = unpack( v )
-		E.Options.args.mui.args.skins.args.elvuiaddons.args[addonOption] = {
-			order = elvorder + 1,
-			type = "toggle",
-			name = addonString,
-			disabled = function() return not IsAddOnLoaded(addonName) end,
-		}
-	end]]
 
 	E.Options.args.mui.args.skins.args.addonskins = {
 		order = 4,
@@ -150,5 +137,44 @@ local function SkinsTable()
 			},
 		},
 	}
+
+	E.Options.args.mui.args.skins.args.profiles = {
+		order = 6,
+		type = 'group',
+		guiInline = true,
+		name = L["Profiles"]..MER.NewSign,
+		args = {
+		},
+	}
+
+	for i, v in ipairs(SupportedProfiles) do
+		local addon, addonName = unpack(v)
+		local optionOrder = 1
+		E.Options.args.mui.args.skins.args.profiles.args[addon] = {
+			order = optionOrder + 1,
+			type = 'execute',
+			name = addonName,
+			desc = L['This will create and apply profile for ']..addonName,
+			func = function()
+				if addon == 'BigWigs' then
+					MER:LoadBigWigsProfile()
+				elseif addon == 'ElvUI_BenikUI' then
+					MER:LoadBenikUIProfile()
+				elseif addon == 'ElvUI_SLE' then
+					MER:LoadShadowandLightProfile()
+				elseif addon == 'SorhaQuestLog' then
+					MER:LoadSorhaQuestLogProfile()
+				elseif addon == 'Skada' then
+					MER:LoadSkadaProfile()
+				elseif addon == 'XIV_Databar' then
+					MER:LoadXIVDatabarProfile()
+				elseif addon == 'AddOnSkins' then
+					MER:LoadAddOnSkinsProfile()
+				end
+				print(profileString..addonName)
+			end,
+			disabled = function() return not IsAddOnLoaded(addon) end,
+		}
+	end
 end
 tinsert(MER.Config, SkinsTable)
