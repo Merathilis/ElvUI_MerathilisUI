@@ -1207,6 +1207,14 @@ local function SetupAddons()
 	end
 
 	--[[----------------------------------
+	--	Details - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("Details") then
+		MER:LoadDetailsProfile()
+		tinsert(addonNames, 'Details')
+	end
+
+	--[[----------------------------------
 	--	BigWigs - Settings
 	--]]----------------------------------
 	if IsAddOnLoaded("BigWigs") then

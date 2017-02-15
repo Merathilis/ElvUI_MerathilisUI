@@ -2,6 +2,7 @@
 	<script file="AddOnSkins.lua"/>
 	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
+	<script file="Details.lua"/>
 	<script file="KuiNamePlatesCore.lua"/>
 	<script file="ShadowandLight.lua"/>
 	<script file="Skada.lua"/>

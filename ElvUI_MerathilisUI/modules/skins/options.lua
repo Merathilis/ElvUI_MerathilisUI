@@ -18,6 +18,7 @@ local DecorAddons = {
 local SupportedProfiles = {
 	{'AddOnSkins', 'AddOnSkins'},
 	{'BigWigs', 'BigWigs'},
+	{'Details', 'Details'},
 	{'ElvUI_BenikUI', 'BenikUI'},
 	{'ElvUI_SLE', 'Shadow&Light'},
 	{'Kui_Nameplates_Core', 'KuiNamePlates'},
@@ -173,6 +174,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Skada' then
 					MER:LoadSkadaProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'Details' then
+					MER:LoadDetailsProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'XIV_Databar' then
 					MER:LoadXIVDatabarProfile()
