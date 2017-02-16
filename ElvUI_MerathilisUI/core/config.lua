@@ -144,7 +144,7 @@ local function AddOptions()
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/merathilis-ui") end,
 							},
 							discord = {
-								order = 3,
+								order = 4,
 								type = "execute",
 								name = L["TukUI.org Discord Server"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
