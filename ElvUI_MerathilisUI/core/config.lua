@@ -128,7 +128,7 @@ local function AddOptions()
 							tukui = {
 								order = 1,
 								type = "execute",
-								name = L["Tukui.org"],
+								name = L["TukUI.org"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=286") end,
 								},
 							git = {
@@ -138,10 +138,16 @@ local function AddOptions()
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://git.tukui.org/Merathilis/UI-Settings/issues") end,
 							},
 							curse = {
-								order = 2,
+								order = 3,
 								type = "execute",
 								name = L["Curse.com"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.curse.com/addons/wow/merathilis-ui") end,
+							},
+							discord = {
+								order = 3,
+								type = "execute",
+								name = L["TukUI.org Discord Server"],
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
 							},
 						},
 					},
