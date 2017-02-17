@@ -19,7 +19,7 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.299|r, 17.02.2017
+local ChangeLogData = [=[|cffff7d0av2.29|r, 17.02.2017
 
 |cffff7d0aChanges:|r
  |cffff7d0a•|r Add own combat state indicator.
