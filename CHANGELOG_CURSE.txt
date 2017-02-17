@@ -1,3 +1,12 @@
+** v2.28, 17.02.2017**
+* Add own combat state indicator.
+* Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.
+* Overhaul the profile creation messages. Now it is in the Install frame and will not spam the chat anymore. Credits: Benik
+* Profiles for KuiNamePlates, SorhaQuestLog, Details.
+* Added button options to re apply addon profiles seperately. Also moved the default tables from ElvUI addons, inside their profile function.
+* Add some MessageGroups to the chat install.
+* Added Discord link button to the information.
+
 ** v2.28, 05.02.2017**
 * Add new Tag [name:abbrev], will shorten long names.
 * Add Tome of Town Portal to LocationPanel.

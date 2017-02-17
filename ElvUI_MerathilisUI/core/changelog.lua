@@ -19,16 +19,16 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.28|r, 05.02.2017
+local ChangeLogData = [=[|cffff7d0av2.299|r, 17.02.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add new Tag [name:abbrev], will shorten long names.
- |cffff7d0a•|r Add Tome of Town Portal to LocationPanel.
- |cffff7d0a•|r Add an own RaidMarkBar (Credits S&L).
- |cffff7d0a•|r Delete ReadycheckIcon since BenikUI has it.
- |cffff7d0a•|r Add my own font file to adjust fonts.
- |cffff7d0a•|r Reposition the AlwaysUpFrame.
- |cffff7d0a•|r Cleanup the install file. Make an own file for each Addon.
+ |cffff7d0a•|r Add own combat state indicator.
+ |cffff7d0a•|r Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.
+ |cffff7d0a•|r Overhaul the profile creation messages. Now it is in the Install frame and will not spam the chat anymore. Credits: Benik
+ |cffff7d0a•|r Profiles for KuiNamePlates, SorhaQuestLog, Details.
+ |cffff7d0a•|r Added button options to re apply addon profiles seperately. Also moved the default tables from ElvUI addons, inside their profile function.
+ |cffff7d0a•|r Add some MessageGroups to the chat install.
+ |cffff7d0a•|r Added Discord link button to the information.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r :)

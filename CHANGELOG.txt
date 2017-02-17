@@ -1,3 +1,13 @@
+<b><u> v2.29, 17.02.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add own combat state indicator.
+<font color=#FF8C00>&#9830;</font> Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.
+<font color=#FF8C00>&#9830;</font> Overhaul the profile creation messages. Now it is in the Install frame and will not spam the chat anymore. Credits: Benik
+<font color=#FF8C00>&#9830;</font> Profiles for KuiNamePlates, SorhaQuestLog, Details.
+<font color=#FF8C00>&#9830;</font> Added button options to re apply addon profiles seperately. Also moved the default tables from ElvUI addons, inside their profile function.
+<font color=#FF8C00>&#9830;</font> Add some MessageGroups to the chat install.
+<font color=#FF8C00>&#9830;</font> Added Discord link button to the information.
+
+
 <b><u> v2.28, 05.02.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add new Tag [name:abbrev], will shorten long names.
 <font color=#FF8C00>&#9830;</font> Add Tome of Town Portal to LocationPanel.
