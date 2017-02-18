@@ -4,7 +4,7 @@ local MER = E:GetModule('MerathilisUI');
 function MER:LoadMasqueProfile()
 	local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 	--[[----------------------------------
-	--	Masque - Settings
+	--	Masque - Settings | Note: You have to create a seperate profile for each class to use the class color.
 	--]]----------------------------------
 	MasqueDB = {
 		["namespaces"] = {
