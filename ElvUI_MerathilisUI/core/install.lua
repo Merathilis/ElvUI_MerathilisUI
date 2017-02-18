@@ -1282,6 +1282,14 @@ local function SetupAddons()
 		tinsert(addonNames, 'KuiNamePlates')
 	end
 
+	--[[----------------------------------
+	--	Masque - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("Masque") then
+		MER:LoadMasqueProfile()
+		tinsert(addonNames, 'Masque')
+	end
+
 	if checkTable(addonNames) ~= nil then
 		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
 

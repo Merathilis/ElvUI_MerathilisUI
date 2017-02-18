@@ -4,6 +4,7 @@
 	<script file="BigWigs.lua"/>
 	<script file="Details.lua"/>
 	<script file="KuiNamePlatesCore.lua"/>
+	<script file="Masque.lua"/>
 	<script file="ShadowandLight.lua"/>
 	<script file="Skada.lua"/>
 	<script file="SorhaQuestLog.lua"/>

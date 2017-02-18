@@ -22,6 +22,7 @@ local SupportedProfiles = {
 	{'ElvUI_BenikUI', 'BenikUI'},
 	{'ElvUI_SLE', 'Shadow&Light'},
 	{'Kui_Nameplates_Core', 'KuiNamePlates'},
+	{'Masque', 'Masque'},
 	{'Skada', 'Skada'},
 	{'SorhaQuestLog', 'SorhaQuestLog'},
 	{'XIV_Databar', 'XIV_Databar'},
@@ -168,6 +169,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Kui_Nameplates_Core' then
 					MER:LoadKuiNamePlatesCoreProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'Masque' then
+					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'SorhaQuestLog' then
 					MER:LoadSorhaQuestLogProfile()
