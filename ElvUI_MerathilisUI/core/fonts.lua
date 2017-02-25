@@ -16,6 +16,8 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
+	if (not obj) then return end
+
 	obj:SetFont(font, size, style)
 	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb, sa) end
 	if sox and soy then obj:SetShadowOffset(sox, soy) end
@@ -115,7 +117,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFontHighlightSmall2,			NORMAL, self.db.general.fontSize);			 -- Skill or Recipe description on TradeSkill frame
 		SetFont(Game18Font,							NORMAL, 18)									 -- MissionUI Bonus Chance
 		SetFont(GameFontNormalSmall2,				NORMAL, 12)			 					 	 -- MissionUI Followers names
-		SetFont(GameFontNormalHuge2,				NORMAL, 22)			 					 	 -- Mythic weekly best dungeon name
+		SetFont(GameFontNormalHuge2,				NORMAL, 24)			 					 	 -- Mythic weekly best dungeon name
 		SetFont(Game15Font_o1,						NORMAL, 15)									 -- CharacterStatsPane (ItemLevelFrame)
 		SetFont(Game13FontShadow,					NORMAL, 14)									 -- InspectPvpFrame
 		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
