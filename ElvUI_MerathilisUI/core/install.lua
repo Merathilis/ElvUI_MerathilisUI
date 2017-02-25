@@ -48,6 +48,7 @@ local function SetupCVars()
 	SetCVar("nameplateShowFriends", 0)
 	SetCVar("nameplateLargerScale", 1)
 	SetCVar("nameplateMaxAlpha", 1)
+	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("taintLog", 0)
 	SetCVar("Targetnearestuseold", 1)
@@ -55,6 +56,11 @@ local function SetupCVars()
 	SetCVar("scriptErrors", 1)
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
+	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
+	SetCVar("UberTooltips", 1)
+	SetCVar("lockActionBars", 1)
+	SetCVar("chatMouseScroll", 1)
+	SetCVar("chatStyle", "classic")
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -96,26 +102,34 @@ local function SetupChat()
 	ChatFrame_AddMessageGroup(ChatFrame3, "SKILL")
 
 	-- Enable classcolor automatically on login and on each character without doing /configure each time
-	ToggleChatColorNamesByClassGroup(true, "SAY")
-	ToggleChatColorNamesByClassGroup(true, "EMOTE")
-	ToggleChatColorNamesByClassGroup(true, "YELL")
-	ToggleChatColorNamesByClassGroup(true, "GUILD")
-	ToggleChatColorNamesByClassGroup(true, "OFFICER")
-	ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
 	ToggleChatColorNamesByClassGroup(true, "ACHIEVEMENT")
-	ToggleChatColorNamesByClassGroup(true, "WHISPER")
-	ToggleChatColorNamesByClassGroup(true, "PARTY")
-	ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "RAID")
-	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
-	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
-	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "BATTLEGROUND")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL1")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL10")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL11")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL2")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL3")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL4")
 	ToggleChatColorNamesByClassGroup(true, "CHANNEL5")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL6")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL7")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL8")
+	ToggleChatColorNamesByClassGroup(true, "CHANNEL9")
+	ToggleChatColorNamesByClassGroup(true, "EMOTE")
+	ToggleChatColorNamesByClassGroup(true, "GUILD_ACHIEVEMENT")
+	ToggleChatColorNamesByClassGroup(true, "GUILD")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "INSTANCE_CHAT")
+	ToggleChatColorNamesByClassGroup(true, "OFFICER")
+	ToggleChatColorNamesByClassGroup(true, "PARTY_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "PARTY")
+	ToggleChatColorNamesByClassGroup(true, "RAID_LEADER")
+	ToggleChatColorNamesByClassGroup(true, "RAID_WARNING")
+	ToggleChatColorNamesByClassGroup(true, "RAID")
+	ToggleChatColorNamesByClassGroup(true, "SAY")
+	ToggleChatColorNamesByClassGroup(true, "WHISPER")
+	ToggleChatColorNamesByClassGroup(true, "YELL")
 
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
 	E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
@@ -308,7 +322,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 		E.db["tooltip"]["visibility"]["combat"] = false
-		E.db["tooltip"]["font"] = "Merathilis Roboto-Medium"
+		E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["style"] = "inset"
 		E.db["tooltip"]["fontOutline"] = "NONE"
 		E.db["tooltip"]["headerFontSize"] = 11
