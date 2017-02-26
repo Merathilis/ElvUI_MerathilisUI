@@ -5,7 +5,7 @@ local S = E:GetModule("Skins");
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs = pairs
+local pairs, select = pairs, select
 local gsub = string.gsub
 -- WoW API / Variables
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
@@ -70,8 +70,33 @@ local function styleQuest()
 	_G["CurrentQuestsText"].SetTextColor = MER.dummy
 	_G["CurrentQuestsText"]:SetShadowColor(0, 0, 0)
 
-	_G["QuestMapFrame"].DetailsFrame:StripTextures(true)
+	-- Taken from Aurora
+	-- Quest details
+	local DetailsFrame = _G["QuestMapFrame"].DetailsFrame
+	local RewardsFrame = DetailsFrame.RewardsFrame
+
+	DetailsFrame:GetRegions():Hide()
+	select(2, DetailsFrame:GetRegions()):Hide()
+	select(4, DetailsFrame:GetRegions()):Hide()
+	select(6, DetailsFrame.ShareButton:GetRegions()):Hide()
+	select(7, DetailsFrame.ShareButton:GetRegions()):Hide()
 	S:HandleScrollBar(_G["QuestMapDetailsScrollFrameScrollBar"])
+
+	DetailsFrame.AbandonButton:ClearAllPoints()
+	DetailsFrame.AbandonButton:SetPoint("BOTTOMLEFT", DetailsFrame, -1, 0)
+	DetailsFrame.AbandonButton:SetWidth(95)
+
+	DetailsFrame.ShareButton:ClearAllPoints()
+	DetailsFrame.ShareButton:SetPoint("LEFT", DetailsFrame.AbandonButton, "RIGHT", 1, 0)
+	DetailsFrame.ShareButton:SetWidth(94)
+
+	DetailsFrame.TrackButton:ClearAllPoints()
+	DetailsFrame.TrackButton:SetPoint("LEFT", DetailsFrame.ShareButton, "RIGHT", 1, 0)
+	DetailsFrame.TrackButton:SetWidth(96)
+
+	-- Rewards frame
+	RewardsFrame.Background:Hide()
+	select(2, RewardsFrame:GetRegions()):Hide()
 
 	if _G["QuestProgressScrollFrame"].spellTex then
 		_G["QuestProgressScrollFrame"].spellTex:SetTexture("")
