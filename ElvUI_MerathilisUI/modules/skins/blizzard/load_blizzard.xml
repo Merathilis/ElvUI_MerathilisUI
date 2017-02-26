@@ -3,7 +3,6 @@
 	<Script file="encounterjournal.lua"/>
 	<Script file="friends.lua"/>
 	<Script file="gossip.lua"/>
-	<Script file="guild.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="misc.lua"/>
