@@ -233,6 +233,7 @@ L["Changelog"] = true
 -- Errors
 L["Info"] = {
 	["Errors"] = "No error yet.",
+	["TriedToCall"] = "%s: %s tried to call the protected function '%s'.",
 }
 
 -- Developer
