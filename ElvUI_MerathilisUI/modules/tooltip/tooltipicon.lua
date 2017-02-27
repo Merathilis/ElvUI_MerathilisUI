@@ -3,7 +3,7 @@ local E, L, V, P, G = unpack(ElvUI);
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, type = select, type
+local pairs, select = pairs, select
 local strmatch = string.match
 -- WoW API / Variables
 local GetItemIcon = GetItemIcon
