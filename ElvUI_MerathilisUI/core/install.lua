@@ -510,11 +510,6 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["colors"]["transparentCastbar"] = true
 		E.db["unitframe"]["colors"]["castClassColor"] = false
 		E.db["unitframe"]["colors"]["castReactionColor"] = false
-
-		--[[----------------------------------
-		--	UnitFrames - DPS Layout
-		--]]----------------------------------
-		-- General
 		E.db["unitframe"]["colors"]["powerclass"] = false
 		E.db["unitframe"]["colors"]["transparentHealth"] = true
 		E.db["unitframe"]["colors"]["health"] = {
