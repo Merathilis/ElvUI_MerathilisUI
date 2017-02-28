@@ -606,6 +606,7 @@ function MER:SetupUnitframes(noDataReset)
 			E.db["benikui"]["unitframes"]["player"]["portraitShadow"] = false
 			E.db["benikui"]["unitframes"]["player"]["portraitTransparent"] = true
 			E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
+			E.db["benikui"]["unitframes"]["player"]["portraitFrameStrata"] = "BACKGROUND"
 			-- Castbar
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = 0
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
