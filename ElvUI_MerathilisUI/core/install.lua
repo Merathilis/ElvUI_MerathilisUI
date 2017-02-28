@@ -863,7 +863,7 @@ function MER:SetupUnitframes(noDataReset)
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
-			["yOffset"] = 0,
+			["yOffset"] = -10,
 			["size"] = 12,
 			["attachTextTo"] = "Health",
 			["text_format"] = "[namecolor][statustimer]",
