@@ -91,8 +91,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["blizzard"]["errorframe"]["height"] = 60
 	E.db["sle"]["blizzard"]["errorframe"]["width"] = 512
 	E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
-	E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = true
-	E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["size"] = 22
+	E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = false
 	E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
 	E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
 	E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["texture"] = "SVUI"
