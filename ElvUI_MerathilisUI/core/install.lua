@@ -566,10 +566,12 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 			["font"] = "Merathilis Tukui",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 20,
+			["size"] = 19,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[classcolor:player][health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
+			["xOffset"] = 0,
+			["yOffset"] = -1,
 		}
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
@@ -667,11 +669,13 @@ function MER:SetupUnitframes(noDataReset)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Merathilis Tukui",
-			["size"] = 20,
+			["size"] = 19,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[namecolor][health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
+			["yOffset"] = -1,
+			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
