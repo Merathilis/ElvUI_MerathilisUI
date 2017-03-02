@@ -15,14 +15,10 @@ local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COL
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	local classColor = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 	OrderHallCommandBar:SetParent(E.UIParent)
 	OrderHallCommandBar:ClearAllPoints()
 	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -29)
 	OrderHallCommandBar:SetWidth(600)
-	OrderHallCommandBar:SetScript("OnEnter", onEnter)
-	OrderHallCommandBar:SetScript("OnLeave", onLeave)
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
