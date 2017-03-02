@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="afk.lua"/>
 	<Script file="flightMode.lua"/>
+	<Script file="flightPoint.lua"/>
+	<Include file="flightPoint.xml" />
 	<Script file="gamemenu.lua"/>
 	<Script file="gmotd.lua"/>
 	<Script file="mailinputbox.lua"/>
