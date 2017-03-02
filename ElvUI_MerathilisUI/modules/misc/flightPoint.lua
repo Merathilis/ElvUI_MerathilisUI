@@ -1,13 +1,21 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local next, pairs, table, getmetatable = next, pairs, table, getmetatable
+local match = string.match
 -- WoW API / Variables
+local TaxiFrame = TaxiFrame
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
+-- GLOBALS: FlightPointsTaxiChoiceContainer, FlightPointsTaxiChoiceContainerScrollBar
+-- GLOBALS: FlightMapFrame, FlightPointsTaxiChoice, NumTaxiNodes, FlightPointsTaxiChoiceContainer_Update
+-- GLOBALS: TaxiNodeName, TaxiNodeGetType, TakeTaxiNode, HybridScrollFrame_CreateButtons
+-- GLOBALS: HybridScrollFrame_GetOffset, FlightPoints_CreateFlyPathTable, FlightPoints_GetFlight
+-- GLOBALS: HybridScrollFrame_Update, FlightPoints_GetFlight
 
 -- Credits liquidbase (DuffedUI)
 
@@ -146,7 +154,7 @@ function FlightPoints_CreateFlyPathTable()
 	taxinodeinfos = {}
 	for i = 1, NumTaxiNodes() do
 		if TaxiNodeGetType(i) == "REACHABLE" then
-			local match1, match2 = strmatch(TaxiNodeName(i), "^(.*),(.*)")
+			local match1, match2 = match(TaxiNodeName(i), "^(.*),(.*)")
 			if match2 == nil then
 				match1 = TaxiNodeName(i)
 				match2 = TaxiNodeName(i)
@@ -204,4 +212,6 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}
 	end
+
+	MER:StyleOutside(FlightPointsTaxiChoice)
 end
