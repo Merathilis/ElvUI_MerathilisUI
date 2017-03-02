@@ -24,7 +24,7 @@ local SetCVar = SetCVar
 local TRADE = TRADE
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: PluginInstallFrame, InstallStepComplete, E.UIParent, NUM_CHAT_WINDOWS, LeftChatToggleButton
+-- GLOBALS: PluginInstallFrame, InstallStepComplete, PluginInstallStepComplete, NUM_CHAT_WINDOWS, LeftChatToggleButton
 -- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
 -- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
@@ -1005,7 +1005,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickTrough"] = false
-		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "RaidCDs"
+		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
