@@ -575,7 +575,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
-		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
@@ -638,7 +638,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = "INFOPANELBORDER"
 		E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
-		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
+		E.db["unitframe"]["units"]["target"]["power"]["height"] = 5
 		E.db["unitframe"]["units"]["target"]["power"]["text_format"] = ""
 		if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
