@@ -10,14 +10,33 @@ local ipairs = ipairs
 -- WoW API / Variables
 -- GLOBALS: OrderHallCommandBar
 
+local isInit = false
+
 local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
+local function repositionOrderHallCommandBar()
+	if not isInit then
+		local isLoaded = true
+
+		if not IsAddOnLoaded("Blizzard_OrderHallUI") then
+			isLoaded = LoadAddOn("Blizzard_OrderHallUI")
+		end
+
+		if isLoaded then
+			OrderHallCommandBar:ClearAllPoints()
+			OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -29)
+			OrderHallCommandBar:SetParent(E.UIParent)
+		end
+
+		isInit = true
+
+		return true
+	end
+end
 
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	OrderHallCommandBar:SetParent(E.UIParent)
-	OrderHallCommandBar:ClearAllPoints()
-	OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -29)
 	OrderHallCommandBar:SetWidth(600)
 
 	OrderHallCommandBar.Currency:Hide()
@@ -46,15 +65,11 @@ local function styleOrderhall()
 
 	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
-
-	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")
 end
 
 local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, event, arg1)
-	if event == "ADDON_LOADED" and arg1 == "Blizzard_OrderHallUI" then
-		styleOrderhall()
-		self:UnregisterEvent("ADDON_LOADED")
-	end
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function()
+	repositionOrderHallCommandBar()
+	styleOrderhall()
 end)
