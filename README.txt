@@ -1,3 +1,5 @@
+### Note! UI Does not currently work for WoW 7.2.0, but a beta of KkthnxUI is in progress and will be available as soon as possible.
+
 What does this Plugin do?:
  ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the Design in Class Color with a few additional Features.
 
