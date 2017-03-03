@@ -70,7 +70,7 @@
 			</Anchors>
 		</ButtonText>
 		<NormalFont style="GameFontNormal"/>
-		<HighlightTexture name="$parentHighlight" file="Interface\TokenFrame\UI-TokenFrame-CategoryButton" alphaMode="ADD">
+		<HighlightTexture name="$parentHighlight" file="Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga" alphaMode="ADD">
 			<Anchors>
 				<Anchor point="TOPLEFT">
 					<Offset x="3" y="-2"/>

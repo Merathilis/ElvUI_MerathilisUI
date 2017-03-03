@@ -24,6 +24,8 @@ local firstshow = false
 FlightPoints_Config = {}
 FlightPoints_Config.notexpanded = {}
 
+local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
 function FlightPoints_OnLoad(self)
 	self:RegisterEvent("TAXIMAP_OPENED")
 	self:RegisterEvent("TAXIMAP_CLOSED")
@@ -97,7 +99,8 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.categoryRight:Show()
 				button.categoryMiddle:Show()
 				hidebuttons = false
-				button.highlight:SetTexture("Interface\\TokenFrame\\UI-TokenFrame-CategoryButton")
+				button.highlight:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat.tga")
+				button.highlight:SetVertexColor(classColor.r, classColor.g, classColor.b)
 				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -2)
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -3, 2)
 				button.name:SetText(name)
