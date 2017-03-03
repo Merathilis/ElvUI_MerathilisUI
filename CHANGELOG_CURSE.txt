@@ -1,4 +1,15 @@
-** v2.28, 17.02.2017**
+** v2.30, 03.03.2017**
+* Add a Masque addon profile.
+* Add some CVars to the install.
+* Skin the QuestMapFrame DetailsFrame.
+* Delete the custom guild skin.
+* Update tooltip icon code.
+* Update orderhall skin.
+* Overhaul my layout (WIP) as usual.
+* Add an own filter for "RaidCDs" most likly copy&paste the "TurtleDebuffs" but removed a few spells that are not necessary for me. => "MER_RaidCDs"
+* Add a FlightPoint Frame next to the TaxiMap. All credits belong to DuffedUI.
+
+** v2.29, 17.02.2017**
 * Add own combat state indicator.
 * Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.
 * Overhaul the profile creation messages. Now it is in the Install frame and will not spam the chat anymore. Credits: Benik

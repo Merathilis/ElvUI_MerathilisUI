@@ -1,3 +1,14 @@
+<b><u> v2.30, 03.03.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add a Masque addon profile.
+<font color=#FF8C00>&#9830;</font> Add some CVars to the install.
+<font color=#FF8C00>&#9830;</font> Skin the QuestMapFrame DetailsFrame.
+<font color=#FF8C00>&#9830;</font> Delete the custom guild skin.
+<font color=#FF8C00>&#9830;</font> Update tooltip icon code.
+<font color=#FF8C00>&#9830;</font> Update orderhall skin.
+<font color=#FF8C00>&#9830;</font> Overhaul my layout (WIP) as usual.
+<font color=#FF8C00>&#9830;</font> Add an own filter for "RaidCDs" most likly copy&paste the "TurtleDebuffs" but removed a few spells that are not necessary for me. => "MER_RaidCDs"
+<font color=#FF8C00>&#9830;</font> Add a FlightPoint Frame next to the TaxiMap. All credits belong to DuffedUI.
+
 <b><u> v2.29, 17.02.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add own combat state indicator.
 <font color=#FF8C00>&#9830;</font> Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.

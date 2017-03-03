@@ -19,19 +19,21 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.29|r, 17.02.2017
+local ChangeLogData = [=[|cffff7d0av2.30|r, 03.03.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add own combat state indicator.
- |cffff7d0a•|r Hide some blizzard errors by default. To add or remove an error you have to look at the core/filter/errorFilter.lua file.
- |cffff7d0a•|r Overhaul the profile creation messages. Now it is in the Install frame and will not spam the chat anymore. Credits: Benik
- |cffff7d0a•|r Profiles for KuiNamePlates, SorhaQuestLog, Details.
- |cffff7d0a•|r Added button options to re apply addon profiles seperately. Also moved the default tables from ElvUI addons, inside their profile function.
- |cffff7d0a•|r Add some MessageGroups to the chat install.
- |cffff7d0a•|r Added Discord link button to the information.
+ |cffff7d0a•|r Add a Masque addon profile.
+ |cffff7d0a•|r Add some CVars to the install.
+ |cffff7d0a•|r Skin the QuestMapFrame DetailsFrame.
+ |cffff7d0a•|r Delete the custom guild skin.
+ |cffff7d0a•|r Update tooltip icon code.
+ |cffff7d0a•|r Update orderhall skin.
+ |cffff7d0a•|r Overhaul my layout (WIP) as usual.
+ |cffff7d0a•|r Add an own filter for "RaidCDs" most likly copy&paste the "TurtleDebuffs" but removed a few spells that are not necessary for me. => "MER_RaidCDs"
+ |cffff7d0a•|r Add a FlightPoint Frame next to the TaxiMap. All credits belong to DuffedUI.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r :)
+ |cffff7d0a•|r The Layout isn't finished. Still working on it.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
