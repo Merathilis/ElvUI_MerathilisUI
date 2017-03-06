@@ -17,7 +17,6 @@ local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
 
-local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- Code taken from bitbyte - SayGMOTD
@@ -53,7 +52,7 @@ function MER:GMOTD()
 			gmotd.style:Point("TOP", gmotd, 0, 1)
 
 			gmotd.style.color = gmotd.style:CreateTexture(nil, "OVERLAY")
-			gmotd.style.color:SetVertexColor(classColor.r, classColor.g, classColor.b)
+			gmotd.style.color:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
 			gmotd.style.color:SetInside()
 			gmotd.style.color:SetTexture(flat)
 		end

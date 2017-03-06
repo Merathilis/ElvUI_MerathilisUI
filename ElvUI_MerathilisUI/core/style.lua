@@ -7,7 +7,6 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 
-local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- BenikUI Styles
@@ -42,7 +41,7 @@ function MER:Underline(frame, shadow, height)
 		line:SetSize(frame:GetWidth(), height or 1)
 		line.Texture = line:CreateTexture(nil, "OVERLAY")
 		line.Texture:SetTexture(flat)
-		line.Texture:SetVertexColor(classColor.r, classColor.g, classColor.b)
+		line.Texture:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
 		if shadow then
 			if shadow == "backdrop" then
 				line:CreateShadow()

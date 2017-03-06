@@ -12,8 +12,6 @@ local ipairs = ipairs
 
 local isInit = false
 
-local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 local function repositionOrderHallCommandBar()
 	if not isInit then
 		local isLoaded = true
@@ -63,7 +61,7 @@ local function styleOrderhall()
 	mapButton.Text:SetText("M")
 	mapButton.Text:SetPoint("CENTER", -1, 0)
 
-	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(classColor.r, classColor.g, classColor.b) end)
+	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(MER.Color.r, MER.Color.g, MER.Color.b) end)
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
 end
 

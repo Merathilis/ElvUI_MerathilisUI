@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 function MER:LoadShadowandLightProfile()
-	local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 	--[[----------------------------------
 	--	S&L - Settings
 	--]]----------------------------------
@@ -80,7 +79,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["tooltip"]["RaidProg"]["DifStyle"] = "LONG"
 	E.db["sle"]["chat"]["tab"]["select"] = true
 	E.db["sle"]["chat"]["tab"]["style"] = "DEFAULT"
-	E.db["sle"]["chat"]["tab"]["color"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+	E.db["sle"]["chat"]["tab"]["color"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
 	E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
 	E.private["sle"]["chat"]["BubbleClass"] = true
 	E.db["sle"]["chat"]["textureAlpha"]["enable"] = true

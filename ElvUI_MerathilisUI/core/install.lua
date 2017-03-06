@@ -28,8 +28,6 @@ local TRADE = TRADE
 -- GLOBALS: ChatFrame1, ChatFrame3, ChatFrame_RemoveChannel, ChatFrame_AddChannel, ChatFrame_AddMessageGroup
 -- GLOBALS: ToggleChatColorNamesByClassGroup, Skada, SkadaDB, BigWigs3DB
 
-local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 function E:GetColor(r, b, g, a)
 	return { r = r, b = b, g = g, a = a }
 end
@@ -203,7 +201,7 @@ function MER:SetupLayout(noDataReset)
 		--[[----------------------------------
 		--	ProfileDB - General
 		--]]----------------------------------
-		E.db["general"]["valuecolor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+		E.db["general"]["valuecolor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
 		E.db["general"]["totems"]["size"] = 36
 		E.db["general"]["font"] = "Merathilis Roboto-Black"
 		E.db["general"]["fontSize"] = 10
@@ -608,7 +606,7 @@ function MER:SetupUnitframes(noDataReset)
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["texture"] = "MerathilisFlat"
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
 		end
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 120)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 158)

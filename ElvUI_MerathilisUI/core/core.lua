@@ -19,12 +19,6 @@ local C_TimerAfter = C_Timer.After
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
 
 MER.Config = {}
-MER.TexCoords = {.08, 0.92, -.04, 0.92}
-MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
-MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
-MER.ElvUIV = tonumber(E.version)
-MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.dummy = function() end
 MerathilisUIData = {}
 
 function MER:cOption(name)

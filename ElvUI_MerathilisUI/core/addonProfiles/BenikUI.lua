@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
 function MER:LoadBenikUIProfile()
-	local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 	--[[----------------------------------
 	--	BenikUI - Settings
 	--]]----------------------------------
@@ -33,7 +32,7 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
 	E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
 	E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
-	E.db["dashboards"]["barColor"] = {r = classColor.r, g = classColor.g, b = classColor.b}
+	E.db["dashboards"]["barColor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
 	E.db["dashboards"]["system"]["enableSystem"] = false
 	E.db["dashboards"]["professions"]["enableProfessions"] = false
 	E.db["dashboards"]["tokens"]["enableTokens"] = false

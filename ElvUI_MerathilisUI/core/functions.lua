@@ -17,6 +17,12 @@ local GetContainerNumSlots = GetContainerNumSlots
 
 MER.dummy = function() return end
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
+MER.TexCoords = {.08, 0.92, -.04, 0.92}
+MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
+MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
+MER.ElvUIV = tonumber(E.version)
+MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.Color = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)

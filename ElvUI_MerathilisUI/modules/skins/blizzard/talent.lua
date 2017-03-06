@@ -5,8 +5,6 @@ local S = E:GetModule("Skins");
 --Lua functions
 local _G = _G
 
-local classColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
@@ -16,7 +14,7 @@ local function styleTalents()
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
 		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(classColor.r, classColor.g, classColor.b)
+		bu.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
 	end
 
 	-- Talents
@@ -26,7 +24,7 @@ local function styleTalents()
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
-					button.bg.SelectedTexture:SetColorTexture(classColor.r, classColor.g, classColor.b)
+					button.bg.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
 				else
 					button.bg.SelectedTexture:Hide()
 				end
@@ -42,7 +40,7 @@ local function styleTalents()
 				if button.knownSelection then
 					if button.knownSelection:IsShown() then
 						button.bg.SelectedTexture:Show()
-						button.bg.SelectedTexture:SetColorTexture(classColor.r, classColor.g, classColor.b)
+						button.bg.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
 					else
 						button.bg.SelectedTexture:Hide()
 					end
