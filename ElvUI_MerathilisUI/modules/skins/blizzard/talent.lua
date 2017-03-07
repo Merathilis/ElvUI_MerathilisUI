@@ -1,5 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule("Skins");
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
+local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
