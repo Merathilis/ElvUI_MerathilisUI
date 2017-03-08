@@ -6,9 +6,11 @@
 	<Script file="gamemenu.lua"/>
 	<Script file="gmotd.lua"/>
 	<Script file="mailinputbox.lua"/>
+	<Script file="merchant.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="moveblizz.lua"/>
 	<Script file="options.lua"/>
+	<Script file="sumAuctions.lua"/>
 	<Script file="threatBar.lua"/>
 	<Script file="tradeskilltabs.lua"/>
 	<Script file="vignette.lua"/>

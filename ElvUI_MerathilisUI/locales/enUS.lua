@@ -62,6 +62,7 @@ L["Artifact Power"] = true
 L["Vignette"] = true
 L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = true
 L[" spotted!"] = true
+L["Alt-click, to buy an stack"] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = true

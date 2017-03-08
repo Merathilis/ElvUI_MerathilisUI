@@ -63,6 +63,7 @@ L["Artifact Power"] = "Artefaktmacht"
 L["Vignette"] = true
 L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = "Zeigt eine Raidwarnung wenn ein Rar/Schatz auf der Minimap entdeckt wird."
 L[" spotted!"] = " entdeckt!"
+L["Alt-click, to buy an stack"] = "Alt-Klick, um einen Stapel zu kaufen"
 
 -- TooltipIcon
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."
