@@ -1,5 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="deDE.lua"/>
 	<Script file="enUS.lua"/>
+	<Script file="frFR.lua"/>
+	<Script file="ruRU.lua"/>
 	<Script file="zhCN.lua"/>
+	<Script file="zhTW.lua"/>
 </Ui>
