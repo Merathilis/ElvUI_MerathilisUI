@@ -49,25 +49,6 @@ frame:SetScript("OnEvent", function(self, event)
 			frame.bar.fg:SetTexture(E["media"].normTex)
 			frame.bar.bg:SetTexture(E["media"].blankTex)
 		end
-
-		if frame.stacks then
-			frame.stacks:SetFont(E["media"].muiRoboto, 14, "OUTLINE")
-			frame.stacks:SetShadowOffset(0, -0)
-		end
-
-		if frame.timer then
-			frame.timer:SetFont(E["media"].muiRoboto, 16, "OUTLINE")
-			frame.timer:SetShadowOffset(0, -0)
-		end
-
-		if frame.text then
-			frame.text:SetFont(E["media"].muiRoboto, 14, "OUTLINE")
-			frame.text:SetShadowOffset(0, -0)
-		end
-
-		if frame.cooldown then
-			frame.cooldown:GetRegions():SetFont(E["media"].muiRoboto, 14, "OUTLINE")
-		end
 	end
 
 	local Create_Icon, Modify_Icon = WeakAuras.regionTypes.icon.create, WeakAuras.regionTypes.icon.modify
