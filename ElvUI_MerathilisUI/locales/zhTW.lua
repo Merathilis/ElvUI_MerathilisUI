@@ -17,6 +17,7 @@ L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
+L["Hide OrderHallBar"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true

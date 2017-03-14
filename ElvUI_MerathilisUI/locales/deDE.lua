@@ -17,7 +17,7 @@ L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Sta
 L["Options"] = "Einstellungen"
 L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
-
+L["Hide OrderHallBar"] = "OrderHallBar ausblenden"
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"

@@ -13,6 +13,7 @@ P["mui"] = {
 		["AFK"] = true, -- Enable the pimped AFK Screen
 		["FlightMode"] = true, -- Enable the FlightMode
 		["CombatState"] = true, -- Enable the +/- Combat Message
+		["HideOrderhallBar"] = false, -- Hide the OrderHallCommandBar
 	},
 
 	["misc"] = {

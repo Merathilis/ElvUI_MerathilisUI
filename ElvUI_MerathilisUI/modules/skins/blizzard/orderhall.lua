@@ -27,7 +27,6 @@ local function repositionOrderHallCommandBar()
 		end
 
 		isInit = true
-
 		return true
 	end
 end
@@ -36,6 +35,18 @@ local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
 	OrderHallCommandBar:SetWidth(600)
+	OrderHallCommandBar:Show()
+
+	if E.db.mui.general.HideOrderhallBar then
+		local b = OrderHallCommandBar
+		b:SetScript("OnShow", b.Hide)
+		b:Hide()
+
+		b:RequestCategoryInfo()
+		b:RegisterEvent("GARRISON_TALENT_COMPLETE")
+		b:RegisterEvent("GARRISON_TALENT_UPDATE")
+		b:RegisterUnitEvent("UNIT_PHASE", "player")
+	end
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()

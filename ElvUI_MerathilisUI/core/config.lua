@@ -107,6 +107,13 @@ local function AddOptions()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; end,
 					},
+					HideOrderhallBar = {
+						order = 7,
+						type = "toggle",
+						name = L["Hide OrderHallBar"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
 				},
 			},
 			info = {
