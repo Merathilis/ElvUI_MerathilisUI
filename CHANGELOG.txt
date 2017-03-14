@@ -1,3 +1,12 @@
+<b><u> v2.31, 14.03.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add an compatibily issue in flightMap.
+<font color=#FF8C00>&#9830;</font> Remove my own debugTool. I fucked this up.
+<font color=#FF8C00>&#9830;</font> Add a frame for the total amount of auctions.
+<font color=#FF8C00>&#9830;</font> Add the possibility to buy with Alt+Click a stack of merchants.
+<font color=#FF8C00>&#9830;</font> Add more locale files to prevent an error. (Not translatet yet.)
+<font color=#FF8C00>&#9830;</font> Don't force the fonts in my WeakAura skin. This fixes #47
+<font color=#FF8C00>&#9830;</font> Add back the mover for the OrderHallCommandBar. Also add an option to hide it.
+
 <b><u> v2.30, 03.03.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add a Masque addon profile.
 <font color=#FF8C00>&#9830;</font> Add some CVars to the install.

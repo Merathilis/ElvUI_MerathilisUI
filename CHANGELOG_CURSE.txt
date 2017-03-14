@@ -1,3 +1,12 @@
+** v2.31, 14.03.2017**
+* Add an compatibily issue in flightMap.
+* Remove my own debugTool. I fucked this up.
+* Add a frame for the total amount of auctions.
+* Add the possibility to buy with Alt+Click a stack of merchants.
+* Add more locale files to prevent an error. (Not translatet yet.)
+* Don't force the fonts in my WeakAura skin. This fixes #47
+* Add back the mover for the OrderHallCommandBar. Also add an option to hide it.
+
 ** v2.30, 03.03.2017**
 * Add a Masque addon profile.
 * Add some CVars to the install.

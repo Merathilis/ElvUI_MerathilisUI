@@ -18,18 +18,16 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.30|r, 03.03.2017
+local ChangeLogData = [=[|cffff7d0av2.31|r, 14.03.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add a Masque addon profile.
- |cffff7d0a•|r Add some CVars to the install.
- |cffff7d0a•|r Skin the QuestMapFrame DetailsFrame.
- |cffff7d0a•|r Delete the custom guild skin.
- |cffff7d0a•|r Update tooltip icon code.
- |cffff7d0a•|r Update orderhall skin.
- |cffff7d0a•|r Overhaul my layout (WIP) as usual.
- |cffff7d0a•|r Add an own filter for "RaidCDs" most likly copy&paste the "TurtleDebuffs" but removed a few spells that are not necessary for me. => "MER_RaidCDs"
- |cffff7d0a•|r Add a FlightPoint Frame next to the TaxiMap. All credits belong to DuffedUI.
+ |cffff7d0a•|r Add an compatibily issue in flightMap.
+ |cffff7d0a•|r Remove my own debugTool. I fucked this up.
+ |cffff7d0a•|r Add a frame for the total amount of auctions.
+ |cffff7d0a•|r Add the possibility to buy with Alt+Click a stack of merchants.
+ |cffff7d0a•|r Add more locale files to prevent an error. (Not translatet yet.)
+ |cffff7d0a•|r Don't force the fonts in my WeakAura skin. This fixes #47
+ |cffff7d0a•|r Add back the mover for the OrderHallCommandBar. Also add an option to hide it.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r The Layout isn't finished. Still working on it.
