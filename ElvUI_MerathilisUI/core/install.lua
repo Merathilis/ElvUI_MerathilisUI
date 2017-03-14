@@ -59,6 +59,7 @@ local function SetupCVars()
 	SetCVar("lockActionBars", 1)
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
+	SetCVar("violenceLevel", 5)
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
