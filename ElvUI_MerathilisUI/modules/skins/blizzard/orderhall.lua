@@ -34,9 +34,6 @@ end
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	OrderHallCommandBar:SetWidth(600)
-	OrderHallCommandBar:Show()
-
 	if E.db.mui.general.HideOrderhallBar then
 		local b = OrderHallCommandBar
 		b:SetScript("OnShow", b.Hide)
@@ -48,12 +45,15 @@ local function styleOrderhall()
 		b:RegisterUnitEvent("UNIT_PHASE", "player")
 	end
 
+	OrderHallCommandBar:SetWidth(OrderHallCommandBar.AreaName:GetStringWidth() + 500)
+	OrderHallCommandBar:Show()
+
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
 	OrderHallCommandBar.CurrencyHitTest:Hide()
 
 	OrderHallCommandBar.AreaName:ClearAllPoints()
-	OrderHallCommandBar.AreaName:Point("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
+	OrderHallCommandBar.AreaName:SetPoint("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
 
 	OrderHallCommandBar.WorldMapButton:Show()
 	OrderHallCommandBar.WorldMapButton:ClearAllPoints()
