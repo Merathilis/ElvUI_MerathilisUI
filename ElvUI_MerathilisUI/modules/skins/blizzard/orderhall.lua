@@ -46,7 +46,6 @@ local function styleOrderhall()
 	end
 
 	OrderHallCommandBar:SetWidth(OrderHallCommandBar.AreaName:GetStringWidth() + 500)
-	OrderHallCommandBar:Show()
 
 	OrderHallCommandBar.Currency:Hide()
 	OrderHallCommandBar.CurrencyIcon:Hide()
