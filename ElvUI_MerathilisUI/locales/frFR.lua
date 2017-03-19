@@ -18,6 +18,8 @@ L["Options"] = true
 L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
 L["Hide OrderHallBar"] = true
+L["Show Merchant ItemLevel"] = true
+L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true

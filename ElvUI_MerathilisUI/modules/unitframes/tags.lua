@@ -6,11 +6,12 @@ assert(ElvUF, "ElvUI was unable to locate oUF.")
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
-local format = string.format
+local format, gmatch, match, sub = string.format, string.gmatch, string.match, string.sub
 local assert = assert
 -- WoW API / Variables
 local UnitClass = UnitClass
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
+local UnitName = UnitName
 
 -- GLOBALS: Hex, _COLORS
 
@@ -174,11 +175,11 @@ end
 
 -- Credits goes to Simpy 
 local function abbrev(text)
-	local endname = string.match(text, ".+%s(.+)$")
+	local endname = match(text, ".+%s(.+)$")
 	if endname then
 		local newname = ""
-		for k, v in string.gmatch(text, "%S-%s") do
-			newname = newname .. string.sub(k,1,1) .. ". "
+		for k, v in gmatch(text, "%S-%s") do
+			newname = newname .. sub(k,1,1) .. ". "
 		end
 		text = newname .. endname
 	end

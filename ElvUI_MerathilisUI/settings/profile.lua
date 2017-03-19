@@ -14,6 +14,7 @@ P["mui"] = {
 		["FlightMode"] = true, -- Enable the FlightMode
 		["CombatState"] = true, -- Enable the +/- Combat Message
 		["HideOrderhallBar"] = false, -- Hide the OrderHallCommandBar
+		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 	},
 
 	["misc"] = {
