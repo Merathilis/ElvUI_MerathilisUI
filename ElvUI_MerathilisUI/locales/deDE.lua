@@ -18,7 +18,7 @@ L["Options"] = "Einstellungen"
 L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
 L["Hide OrderHallBar"] = "OrderHallBar ausblenden"
-L["Show Merchant ItemLevel"] = "Zeige ItemLevel bei Händlern"
+L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 
 -- LoginMessage
