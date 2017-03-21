@@ -5,7 +5,7 @@ local E, L, V, P, G = unpack(ElvUI);
 ----------------------------------------------------------------------------------------
 P["mui"] = {
 	["installed"] = nil,
-	
+
 	["general"] = {
 		["LoginMsg"] = true, -- Enable welcome message in chat
 		["GameMenu"] = true, -- Enable the Styles GameMenu
