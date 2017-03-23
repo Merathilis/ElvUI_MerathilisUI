@@ -42,3 +42,34 @@ frame:SetScript("OnEvent", function(self, event, addon)
 		end)
 	end
 end)
+
+-- Show BID and highlight price
+hooksecurefunc("AuctionFrame_LoadUI", function()
+	if AuctionFrameBrowse_Update then
+		hooksecurefunc("AuctionFrameBrowse_Update", function()
+			local numBatchAuctions = GetNumAuctionItems("list")
+			local offset = FauxScrollFrame_GetOffset(BrowseScrollFrame)
+			for i=1, NUM_BROWSE_TO_DISPLAY do
+				local index = offset + i + (NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse.page)
+				if index <= numBatchAuctions + (NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse.page) then
+					local name, _, count, _, _, _, _, _, _, buyoutPrice, bidAmount =  GetAuctionItemInfo("list", offset + i)
+					local alpha = 0.5
+					local color = "yellow"
+					if name then
+						local itemName = _G["BrowseButton"..i.."Name"]
+						local moneyFrame = _G["BrowseButton"..i.."MoneyFrame"]
+						local buyoutMoney = _G["BrowseButton"..i.."BuyoutFrameMoney"]
+						if (buyoutPrice/10000) >= 5000 then color = "red" end
+						if bidAmount > 0 then
+							name = name .. " |cffffff00"..BID.."|r"
+							alpha = 1.0
+						end
+						itemName:SetText(name)
+						moneyFrame:SetAlpha(alpha)
+						SetMoneyFrameColor(buyoutMoney:GetName(), color)
+					end
+				end
+			end
+		end)
+	end
+end)
