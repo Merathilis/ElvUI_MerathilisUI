@@ -236,7 +236,7 @@ L["Changelog"] = true
 
 -- Errors
 L["Info"] = {
-	["Errors"] = "No error yet.",
+	["Errors"] = "Ancora nessun errore.",
 }
 
 -- Developer
