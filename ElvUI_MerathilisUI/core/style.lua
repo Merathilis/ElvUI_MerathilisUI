@@ -88,7 +88,7 @@ function MER:CreateSoftShadow(f)
 	f.shadow = shadow
 end
 
--- create shadow
+-- Create shadow for textures
 function MER:CreateSD(f, m, s, n)
 	if f.Shadow then return end
 	local frame = f
