@@ -15,7 +15,7 @@ local function styleTalents()
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
 		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
+		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
 
 	-- Talents
@@ -25,7 +25,7 @@ local function styleTalents()
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
-					button.bg.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
+					button.bg.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 				else
 					button.bg.SelectedTexture:Hide()
 				end
@@ -41,7 +41,7 @@ local function styleTalents()
 				if button.knownSelection then
 					if button.knownSelection:IsShown() then
 						button.bg.SelectedTexture:Show()
-						button.bg.SelectedTexture:SetColorTexture(MER.Color.r, MER.Color.g, MER.Color.b)
+						button.bg.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 					else
 						button.bg.SelectedTexture:Hide()
 					end

@@ -22,7 +22,7 @@ MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.Color = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
 

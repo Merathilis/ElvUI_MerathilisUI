@@ -100,7 +100,7 @@ function MER:GameMenu()
 		end)
 
 		topPanel.style.color = topPanel.style:CreateTexture(nil, "ARTWORK")
-		topPanel.style.color:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
+		topPanel.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		topPanel.style.color:SetInside()
 		topPanel.style.color:SetTexture(E["media"].muiFlat)
 		

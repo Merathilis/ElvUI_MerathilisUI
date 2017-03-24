@@ -202,7 +202,7 @@ function MER:SetupLayout(noDataReset)
 		--[[----------------------------------
 		--	ProfileDB - General
 		--]]----------------------------------
-		E.db["general"]["valuecolor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
+		E.db["general"]["valuecolor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		E.db["general"]["totems"]["size"] = 36
 		E.db["general"]["font"] = "Merathilis Roboto-Black"
 		E.db["general"]["fontSize"] = 10
@@ -607,7 +607,7 @@ function MER:SetupUnitframes(noDataReset)
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["texture"] = "MerathilisFlat"
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
+			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		end
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 120)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 158)

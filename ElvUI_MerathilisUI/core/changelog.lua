@@ -65,7 +65,7 @@ title.style:Point("TOPLEFT", title, "BOTTOMLEFT", 0, 1)
 title.style:Point("BOTTOMRIGHT", title, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
 
 title.style.color = title.style:CreateTexture(nil, "OVERLAY")
-title.style.color:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
+title.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 title.style.color:SetInside()
 title.style.color:SetTexture(flat)
 

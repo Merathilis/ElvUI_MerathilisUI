@@ -32,7 +32,7 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
 	E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
 	E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
-	E.db["dashboards"]["barColor"] = {r = MER.Color.r, g = MER.Color.g, b = MER.Color.b}
+	E.db["dashboards"]["barColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 	E.db["dashboards"]["system"]["enableSystem"] = false
 	E.db["dashboards"]["professions"]["enableProfessions"] = false
 	E.db["dashboards"]["tokens"]["enableTokens"] = false

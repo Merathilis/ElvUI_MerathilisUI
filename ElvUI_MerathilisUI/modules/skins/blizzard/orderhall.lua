@@ -71,7 +71,7 @@ local function styleOrderhall()
 	mapButton.Text:SetText("M")
 	mapButton.Text:SetPoint("CENTER", -1, 0)
 
-	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(MER.Color.r, MER.Color.g, MER.Color.b) end)
+	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b) end)
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
 	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")

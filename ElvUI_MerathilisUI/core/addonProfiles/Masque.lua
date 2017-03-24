@@ -16,9 +16,9 @@ function MER:LoadMasqueProfile()
 					["ElvUI"] = {
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -28,9 +28,9 @@ function MER:LoadMasqueProfile()
 					["ElvUI_Buffs"] = {
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -40,9 +40,9 @@ function MER:LoadMasqueProfile()
 					["ElvUI_Debuffs"] = {
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -54,9 +54,9 @@ function MER:LoadMasqueProfile()
 						["SkinID"] = "MerathilisUI",
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -66,9 +66,9 @@ function MER:LoadMasqueProfile()
 						["SkinID"] = "MerathilisUI",
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -78,9 +78,9 @@ function MER:LoadMasqueProfile()
 						["SkinID"] = "MerathilisUI",
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},
@@ -90,9 +90,9 @@ function MER:LoadMasqueProfile()
 						["SkinID"] = "MerathilisUI",
 						["Colors"] = {
 							["Normal"] = {
-								MER.Color.r, -- [1]
-								MER.Color.g, -- [2]
-								MER.Color.b, -- [3]
+								MER.ClassColor.r, -- [1]
+								MER.ClassColor.g, -- [2]
+								MER.ClassColor.b, -- [3]
 								1, -- [4]
 							},
 						},

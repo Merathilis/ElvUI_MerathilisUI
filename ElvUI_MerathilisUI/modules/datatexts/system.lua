@@ -122,23 +122,23 @@ local function OnEnter(self)
 	local _, _, home_latency, world_latency = GetNetStats() 
 	local shown = 0
 	
-	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), MER.Color.r, MER.Color.g, MER.Color.b)
-	DT.tooltip:AddDoubleLine(L["World Latency:"], format(homeLatencyString, world_latency), MER.Color.r, MER.Color.g, MER.Color.b)
+	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	DT.tooltip:AddDoubleLine(L["World Latency:"], format(homeLatencyString, world_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	if bandwidth ~= 0 then
-		DT.tooltip:AddDoubleLine(L["Bandwidth"] , format(bandwidthString, bandwidth), MER.Color.r, MER.Color.g, MER.Color.b)
-		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), MER.Color.r, MER.Color.g, MER.Color.b)
+		DT.tooltip:AddDoubleLine(L["Bandwidth"] , format(bandwidthString, bandwidth), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		DT.tooltip:AddLine(" ")
 	end
 	
-	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), MER.Color.r, MER.Color.g, MER.Color.b)
-	DT.tooltip:AddDoubleLine(L["Total Addons:"], GetNumAddOns(), MER.Color.r, MER.Color.g, MER.Color.b)
+	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	DT.tooltip:AddDoubleLine(L["Total Addons:"], GetNumAddOns(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	
 	local totalMemory = UpdateMemory()
 	local totalCPU = nil
-	DT.tooltip:AddDoubleLine(L["Total Memory:"], FormatMemory(totalMemory), MER.Color.r, MER.Color.g, MER.Color.b)
+	DT.tooltip:AddDoubleLine(L["Total Memory:"], FormatMemory(totalMemory), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	if cpuProfiling then
 		totalCPU = UpdateCPU()
-		DT.tooltip:AddDoubleLine(L["Total CPU:"], format(homeLatencyString, totalCPU), MER.Color.r, MER.Color.g, MER.Color.b)
+		DT.tooltip:AddDoubleLine(L["Total CPU:"], format(homeLatencyString, totalCPU), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
 	
 	if IsShiftKeyDown() or not cpuProfiling then

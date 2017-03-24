@@ -52,7 +52,7 @@ function MER:GMOTD()
 			gmotd.style:Point("TOP", gmotd, 0, 1)
 
 			gmotd.style.color = gmotd.style:CreateTexture(nil, "OVERLAY")
-			gmotd.style.color:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
+			gmotd.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 			gmotd.style.color:SetInside()
 			gmotd.style.color:SetTexture(flat)
 		end

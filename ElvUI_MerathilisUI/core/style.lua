@@ -41,7 +41,7 @@ function MER:Underline(frame, shadow, height)
 		line:SetSize(frame:GetWidth(), height or 1)
 		line.Texture = line:CreateTexture(nil, "OVERLAY")
 		line.Texture:SetTexture(flat)
-		line.Texture:SetVertexColor(MER.Color.r, MER.Color.g, MER.Color.b)
+		line.Texture:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		if shadow then
 			if shadow == "backdrop" then
 				line:CreateShadow()
