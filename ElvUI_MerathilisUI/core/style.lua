@@ -88,6 +88,25 @@ function MER:CreateSoftShadow(f)
 	f.shadow = shadow
 end
 
+-- create shadow
+function MER:CreateSD(f, m, s, n)
+	if f.Shadow then return end
+	local frame = f
+	if f:GetObjectType() == "Texture" then
+		frame = f:GetParent()
+	end
+	local lvl = frame:GetFrameLevel()
+
+	f.Shadow = CreateFrame("Frame", nil, frame)
+	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
+	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
+	f.Shadow:SetBackdrop({
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = s })
+	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	f.Shadow:SetFrameLevel(n or lvl)
+	return f.Shadow
+end
+
 function MER:CreateSoftGlow(f)
 	if f.sglow then return end
 

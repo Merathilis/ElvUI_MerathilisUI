@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI")
 
 -- Cache global variables
 -- Lua functions
@@ -96,6 +97,7 @@ local function InsertRoleFrame(self, role)
 		f:SetPoint("TOPRIGHT", self, "TOPLEFT", -1, -3)
 		f:SetSize(20, 20)
 		f:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
+		MER:CreateSD(f, 3, 3)
 		self.roleFrame = f
 	end
 	self.roleFrame:SetTexCoord(unpack(roleTex[role]))
