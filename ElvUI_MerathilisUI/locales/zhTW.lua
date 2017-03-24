@@ -41,7 +41,6 @@ L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["My other Addon"] = true
 L["ElvUI Tooltip Icon"] = true
-L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."] = true
 
 -- GameMenu
 L["GameMenu"] = true
@@ -73,6 +72,13 @@ L["Tooltip"] = true
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
+L["Tooltip Icon"] = true
+L["Pet Icon"] = "Haustier Symbol"
+L["Adds an Icon for battle pets on the tooltip."] = true
+L["Faction Icon"] = "Fraktionssymbol"
+L["Adds an Icon for the faction on the tooltip."] = true
+L["Role Icon"] = true
+L["Adds an role icon on the tooltip."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true

@@ -41,7 +41,6 @@ L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["My other Addon"] = true
 L["ElvUI Tooltip Icon"] = true
-L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."] = true
 
 -- GameMenu
 L["GameMenu"] = true
@@ -69,10 +68,16 @@ L["Alt-click, to buy an stack"] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = true
-L["Tooltip"] = true
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
+L["Tooltip Icon"] = true
+L["Pet Icon"] = "Haustier Symbol"
+L["Adds an Icon for battle pets on the tooltip."] = true
+L["Faction Icon"] = "Fraktionssymbol"
+L["Adds an Icon for the faction on the tooltip."] = true
+L["Role Icon"] = true
+L["Adds an role icon on the tooltip."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -151,7 +156,7 @@ L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 
---Raid Marks
+-- Raid Marks
 L["Raid Markers"] = true
 L["Click to clear the mark."] = true
 L["Click to mark the target."] = true
@@ -236,7 +241,7 @@ L["Changelog"] = true
 
 -- Errors
 L["Info"] = {
-	["Errors"] = "Ancora nessun errore.",
+	["Errors"] = "No error yet.",
 }
 
 -- Developer

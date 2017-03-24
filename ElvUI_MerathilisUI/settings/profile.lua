@@ -19,7 +19,6 @@ P["mui"] = {
 
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
-		["Tooltip"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
 		["moveBlizz"] = true, -- Make Blizzards Frame movable
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
@@ -104,18 +103,11 @@ P["mui"] = {
 		["reverse"] = false,
 	},
 
-	["quests"] = {
-		["visibility"] = {
-			["enable"] = false,
-			["bg"] = "COLLAPSED",
-			["arena"] = "COLLAPSED",
-			["dungeon"] = "FULL",
-			["raid"] = "COLLAPSED",
-			["scenario"] = "FULL",
-			["rested"] = "FULL",
-			["garrison"] = "FULL",
-			["orderhall"] = "FULL",
-		},
+	["tooltip"] = {
+		["tooltipIcon"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
+		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
+		["factionIcon"] = true, -- Add a faction icon on the tooltip
+		["roleIcon"] = true,	-- Add a role icon on the tooltip?
 	},
 
 	["error"] = {

@@ -34,7 +34,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = L["Skins/AddOns"]..MER.NewSign,
+		name = L["Skins/AddOns"],
 		args = {
 			name = {
 				order = 1,
@@ -144,7 +144,7 @@ local function SkinsTable()
 		order = 6,
 		type = 'group',
 		guiInline = true,
-		name = MER:cOption(L["Profiles"])..MER.NewSign,
+		name = MER:cOption(L["Profiles"]),
 		args = {
 		},
 	}

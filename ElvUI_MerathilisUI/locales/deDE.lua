@@ -41,7 +41,6 @@ L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
 L["My other Addon"] = "Mein anderes Addon"
 L["ElvUI Tooltip Icon"] = true
-L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."] = "Zeigt ein Symbol für Zauber, Gegenstände und Erfolge (nur Spieltooltip) am Tooltip an."
 
 -- GameMenu
 L["GameMenu"] = "Spielmenü"
@@ -69,10 +68,16 @@ L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 
 -- TooltipIcon
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu und zeigt den Erfolgsfortschritt."
-L["Tooltip"] = true
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
+L["Tooltip Icon"] = "Tooltip Symbol"
+L["Pet Icon"] = "Haustier Symbol"
+L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
+L["Faction Icon"] = "Fraktionssymbol"
+L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
+L["Role Icon"] = "Rollensymbol"
+L["Adds an role icon on the tooltip."] = "Fügt ein Rollensymbol am Tooltip hinzu."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -151,7 +156,7 @@ L["Show the name on location your Heathstone is bound to."] = "Zeige die Positio
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 
---Raid Marks
+-- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
 L["Click to clear the mark."] = "Klicken um die Marker zu löschen."
 L["Click to mark the target."] = "Klicken um ein Ziel zu markieren."

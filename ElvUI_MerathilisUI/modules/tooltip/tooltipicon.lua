@@ -10,7 +10,7 @@ local GetItemIcon = GetItemIcon
 local GetSpellInfo = GetSpellInfo
 
 local function setTooltipIcon(self, icon)
-	if E.db.mui.misc.Tooltip ~= true then return; end
+	if E.db.mui.tooltip.tooltipIcon ~= true then return; end
 
 	local title = icon and _G[self:GetName().."TextLeft1"]
 	if title then
@@ -70,3 +70,79 @@ hooksecurefunc("EmbeddedItemTooltip_SetItemByID", function(self)
 		self.IconBorder:Hide()
 	end
 end)
+
+-- Add a faction badge
+local function InsertFactionFrame(self, faction)
+	if not self.factionFrame then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPRIGHT", 0, -5)
+		f:SetBlendMode("ADD")
+		self.factionFrame = f
+	end
+	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-"..faction)
+	self.factionFrame:SetAlpha(.5)
+	self.factionFrame:SetSize(35, 35)
+end
+
+local roleTex = {
+	["HEALER"] = {.066, .222, .133, .445},
+	["TANK"] = {.375, .532, .133, .445},
+	["DAMAGER"] = {.66, .813, .133, .445},
+}
+
+local function InsertRoleFrame(self, role)
+	if not self.roleFrame then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPRIGHT", self, "TOPLEFT", -1, -3)
+		f:SetSize(20, 20)
+		f:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
+		self.roleFrame = f
+	end
+	self.roleFrame:SetTexCoord(unpack(roleTex[role]))
+	self.roleFrame:SetAlpha(1)
+	self.roleFrame.Shadow:SetAlpha(1)
+end
+
+GameTooltip:HookScript("OnTooltipCleared", function(self)
+	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
+		self.factionFrame:SetAlpha(0)
+	end
+	if self.roleFrame and self.roleFrame:GetAlpha() ~= 0 then
+		self.roleFrame:SetAlpha(0)
+		self.roleFrame.Shadow:SetAlpha(0)
+	end
+end)
+
+
+local function getUnit(self)
+	local _, unit = self and self:GetUnit()
+	if(not unit) then
+		local mFocus = GetMouseFocus()
+		unit = mFocus and (mFocus.unit or (mFocus.GetAttribute and mFocus:GetAttribute("unit"))) or "mouseover"
+	end
+	return unit
+end
+
+GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+	local unit = getUnit(self)
+
+	if UnitExists(unit) then
+		if UnitIsPlayer(unit) then
+			if E.db.mui.tooltip.factionIcon then
+				local faction = UnitFactionGroup(unit)
+				if faction and faction ~= "Neutral" then
+					InsertFactionFrame(self, faction)
+				end
+			end
+        
+			if E.db.mui.tooltip.roleIcon then
+				local role = UnitGroupRolesAssigned(unit)
+				if role ~= "NONE" then
+					InsertRoleFrame(self, role)
+				end
+			end
+		end
+	end
+end)
+
+
