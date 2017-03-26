@@ -181,8 +181,8 @@ function MER:SetupLayout(noDataReset)
 		E.private["general"]["classColorMentionsSpeech"] = true
 		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
-		E.private["general"]["normTex"] = "MerathilisFlat"
-		E.private["general"]["glossTex"] = "MerathilisFlat"
+		E.private["general"]["normTex"] = "MerathilisBorder"
+		E.private["general"]["glossTex"] = "MerathilisBorder"
 		if IsAddOnLoaded("XLoot") then
 			E.private["general"]["loot"] = false
 			E.private["general"]["lootRoll"] = false
@@ -498,7 +498,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["fontSize"] = 12
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
-		E.db["unitframe"]["statusbar"] = "MerathilisFlat"
+		E.db["unitframe"]["statusbar"] = "MerathilisBorder"
 		E.db["unitframe"]["colors"]["castColor"] = { 
 			["r"] = 0.1,
 			["g"] = 0.1,
@@ -510,12 +510,8 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["colors"]["castClassColor"] = false
 		E.db["unitframe"]["colors"]["castReactionColor"] = false
 		E.db["unitframe"]["colors"]["powerclass"] = false
-		E.db["unitframe"]["colors"]["transparentHealth"] = true
-		E.db["unitframe"]["colors"]["health"] = {
-			["r"] = 0.23,
-			["g"] = 0.23,
-			["b"] = 0.23,
-		}
+		E.db["unitframe"]["colors"]["transparentHealth"] = false
+		E.db["unitframe"]["colors"]["healthclass"] = true
     
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 180
@@ -753,7 +749,7 @@ function MER:SetupUnitframes(noDataReset)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[namecolor][name:medium]",
+			["text_format"] = "[name:medium]",
 			["yOffset"] = 0,
 		}
 		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 127)
