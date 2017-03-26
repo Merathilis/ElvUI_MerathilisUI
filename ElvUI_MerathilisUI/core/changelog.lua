@@ -18,19 +18,18 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.31|r, 14.03.2017
+local ChangeLogData = [=[|cffff7d0av2.32|r, 26.03.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add an compatibily issue in flightMap.
- |cffff7d0a•|r Remove my own debugTool. I fucked this up.
- |cffff7d0a•|r Add a frame for the total amount of auctions.
- |cffff7d0a•|r Add the possibility to buy with Alt+Click a stack of merchants.
- |cffff7d0a•|r Add more locale files to prevent an error. (Not translatet yet.)
- |cffff7d0a•|r Don't force the fonts in my WeakAura skin. This fixes #47
- |cffff7d0a•|r Add back the mover for the OrderHallCommandBar. Also add an option to hide it.
+ |cffff7d0a•|r Add an itemlevel text on the merchant frame.
+ |cffff7d0a•|r ToolTip Icons: Add PVPReward Icon.
+ |cffff7d0a•|r Update TradeSkill Tabs.
+ |cffff7d0a•|r Adds an italian locale file.
+ |cffff7d0a•|r Add Tooltip Icons for BattlePets, Faction, Role and move the config to its own section.
+ |cffff7d0a•|r Change the main texture.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r The Layout isn't finished. Still working on it.
+ |cffff7d0a•|r Patch 7.2 ready.
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

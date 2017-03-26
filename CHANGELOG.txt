@@ -1,3 +1,12 @@
+<b><u> v2.32, 26.03.2017</b></u>
+<font color=#FF8C00>&#9830;</font> 7.2 ready
+<font color=#FF8C00>&#9830;</font> Add an itemlevel text on the merchant frame.
+<font color=#FF8C00>&#9830;</font> ToolTip Icons: Add PVPReward Icon.
+<font color=#FF8C00>&#9830;</font> Update TradeSkill Tabs.
+<font color=#FF8C00>&#9830;</font> Adds an italian locale file.
+<font color=#FF8C00>&#9830;</font> Add Tooltip Icons for BattlePets, Faction, Role and move the config to its own section.
+<font color=#FF8C00>&#9830;</font> Change the main texture.
+
 <b><u> v2.31, 14.03.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add an compatibily issue in flightMap.
 <font color=#FF8C00>&#9830;</font> Remove my own debugTool. I fucked this up.

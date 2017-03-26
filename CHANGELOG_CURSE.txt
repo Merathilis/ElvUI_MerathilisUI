@@ -1,3 +1,12 @@
+** v2.32, 26.03.2017**
+* 7.2 ready
+* Add an itemlevel text on the merchant frame.
+* ToolTip Icons: Add PVPReward Icon.
+* Update TradeSkill Tabs.
+* Adds an italian locale file.
+* Add Tooltip Icons for BattlePets, Faction, Role and move the config to its own section.
+* Change the main texture.
+
 ** v2.31, 14.03.2017**
 * Add an compatibily issue in flightMap.
 * Remove my own debugTool. I fucked this up.
