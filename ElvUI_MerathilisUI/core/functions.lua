@@ -32,7 +32,7 @@ function MER:MismatchText()
 end
 
 function MER:Print(msg)
-	print(E["media"].hexvaluecolor..'MUI:|r', msg)
+	print(E["media"].hexvaluecolor..'mUI:|r', msg)
 end
 
 function MER:PrintURL(url)
