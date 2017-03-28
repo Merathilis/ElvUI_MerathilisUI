@@ -130,7 +130,7 @@ function MUB:Initialize()
 	MUB.Holder = lib:CreateFrame("MER_uiButtons", E.db.mui.uiButtons, P.mui.uiButtons, E.db.mui.uiButtons.style, "dropdown", E.db.mui.uiButtons.strata, E.db.mui.uiButtons.level, E.db.mui.uiButtons.transparent)
 	local menu = MUB.Holder
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
-	menu:SetupMover(L["MER UI Buttons"], "ALL,S&L,S&L MISC")
+	menu:SetupMover(L["MER UI Buttons"], "ALL,MISC")
 
 	function MUB:ForUpdateAll()
 		MUB.Holder.db = E.db.mui.uiButtons

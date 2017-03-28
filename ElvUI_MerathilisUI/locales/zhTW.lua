@@ -171,6 +171,42 @@ L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
+-- UIButtons
+L["uiButtons"] = true
+L["Show/Hide UI buttons."] = true
+L["UI Buttons Style"] = true
+L["Classic"] = true
+L["Dropdown"] = true
+L["Size"] = true
+L["Sets size of buttons"] = true
+L["Button Spacing"] = true
+L["The spacing between buttons."] = true
+L["Mouse Over"] = true
+L["Show on mouse over."] = true
+L["Backdrop"] = true
+L["Dropdown Backdrop"] = true
+L["Buttons position"] = true
+L["Layout for UI buttons."] = true
+L["Anchor Point"] = true
+L["What point of dropdown will be attached to the toggle button."] = true
+L["Attach To"] = true
+L["What point to anchor dropdown on the toggle button."] = true
+L["Minimum Roll Value"] = true
+L["Maximum Roll Value"] = true
+L["Function"] = true
+L["Custom roll limits are set incorrectly! Minimum should be smaller then or equial to maximum."] = true
+L["Click to toggle config window"] = true
+L["Click to toggle MerathilisUI config group"] = true
+L["Reload UI"] = true
+L["Click to reload your interface"] = true
+L["Move UI"] = true
+L["Click to unlock moving ElvUI elements"] = true
+L["AddOns"] = true
+L["AddOns Manager"] = true
+L["Click to toggle the AddOn Manager frame."] = true
+L["Boss Mod"] = true
+L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 

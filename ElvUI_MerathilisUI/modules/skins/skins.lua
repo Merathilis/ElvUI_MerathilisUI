@@ -153,6 +153,15 @@ function MERS:StripTextures(Object, Kill, Alpha)
 	end
 end
 
+function MERS:SkinStatusBar(frame, ClassColor)
+	MERS:SkinBackdropFrame(frame)
+	frame:SetStatusBarTexture(AS.NormTex)
+	if ClassColor then
+		frame:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	end
+	ElvUI[1]:RegisterStatusBar(Frame)
+end
+
 -- Original close buttons, but desaturated. Like it used to be in ElvUI.
 function MERS:HandleCloseButton(f, point, text)
 	for i = 1, f:GetNumRegions() do
