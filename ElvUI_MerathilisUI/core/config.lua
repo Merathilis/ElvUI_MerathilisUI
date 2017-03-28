@@ -13,6 +13,8 @@ local tinsert = table.insert
 
 local function AddOptions()
 	-- Main options
+	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
+	MER.ACD = ACD
 	E.Options.args.mui = {
 		order = 9001,
 		type = 'group',

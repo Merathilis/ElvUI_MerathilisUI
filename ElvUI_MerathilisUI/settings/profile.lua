@@ -116,6 +116,46 @@ P["mui"] = {
 		["white"] = false,
 	},
 
+	--UI Buttons
+	["uiButtons"] = {
+		["style"] = "classic",
+		["strata"] = "MEDIUM",
+		["level"] = 5,
+		["transparent"] = "Default",
+		["enable"] = true,
+		["size"] = 17,
+		["mouse"] = false,
+		["menuBackdrop"] = false,
+		["dropdownBackdrop"] = false,
+		["orientation"] = "vertical",
+		["spacing"] = 3,
+		["point"] = "TOPLEFT",
+		["anchor"] = "TOPRIGHT",
+		["xoffset"] = 0,
+		["yoffset"] = 0,
+		["visibility"] = "show",
+		["customroll"] = {
+			["min"] = "1",
+			["max"] = "50",
+		},
+		["Config"] = {
+			["enabled"] = false,
+			["called"] = "Reload",
+		},
+		["Addon"] = {
+			["enabled"] = false,
+			["called"] = "Manager",
+		},
+		["Status"] = {
+			["enabled"] = false,
+			["called"] = "AFK",
+		},
+		["Roll"] = {
+			["enabled"] = false,
+			["called"] = "Hundred",
+		},
+	},
+
 	-- db
 	["dbCleaned"] = false
 }

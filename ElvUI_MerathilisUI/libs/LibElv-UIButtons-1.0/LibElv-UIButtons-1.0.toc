@@ -1,0 +1,7 @@
+## Interface: 40300
+## Author: Darth Predator
+## Version: 1.0
+## Title: Lib UIButtons 1.0
+## RequiredDeps: ElvUI
+
+LibElv-UIButtons-1.0.lua

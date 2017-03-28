@@ -122,3 +122,20 @@ function MER:CreateSoftGlow(f)
 	sglow:SetBackdropBorderColor(MER:unpackColor(E.db.general.valuecolor), 0.4)
 	f.sglow = sglow
 end
+
+-- frame text
+function MER:CreateFS(f, size, text, classcolor, anchor, x, y)
+	local fs = f:CreateFontString(nil, "OVERLAY")
+	fs:FontTemplate(nil, nil, 'OUTLINE')
+	fs:SetText(text)
+	fs:SetWordWrap(false)
+	if classcolor then
+		fs:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	end
+	if (anchor and x and y) then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 1, 0)
+	end
+	return fs
+end
