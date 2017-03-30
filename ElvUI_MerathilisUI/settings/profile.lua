@@ -104,7 +104,7 @@ P["mui"] = {
 	},
 
 	["tooltip"] = {
-		["tooltipIcon"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip and show the Achievement Progress
+		["tooltipIcon"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["roleIcon"] = true,	-- Add a role icon on the tooltip?

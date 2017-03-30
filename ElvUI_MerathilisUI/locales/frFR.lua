@@ -67,7 +67,7 @@ L[" spotted!"] = true
 L["Alt-click, to buy an stack"] = true
 
 -- Tooltip
-L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."] = true
+L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true

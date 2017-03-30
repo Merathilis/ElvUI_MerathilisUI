@@ -26,7 +26,7 @@ local function Tooltip()
 				order = 2,
 				type = "toggle",
 				name = L["Tooltip Icon"],
-				desc = L["Adds an Icon for Items/Spells/Achievement on the Tooltip and show the Achievement Progress."],
+				desc = L["Adds an Icon for Items/Spells/Achievement on the Tooltip."],
 			},
 			petIcon = {
 				order = 3,

@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="achievement.lua"/>
 	<Script file="options.lua"/>
 	<Script file="petInfo.lua"/>
 	<Script file="tooltipicon.lua"/>
