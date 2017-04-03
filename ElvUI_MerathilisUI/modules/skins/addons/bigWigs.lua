@@ -103,7 +103,6 @@ local function ApplyStyle(bar)
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
 	-- setup timer and bar name fonts and positions
-	bar.candyBarLabel:SetFont(E['media'].muiRoboto, 10, "OUTLINE")
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 2, -14)
 	bar.candyBarDuration:ClearAllPoints()
