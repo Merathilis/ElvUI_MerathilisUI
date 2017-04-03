@@ -29,9 +29,9 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
-	E.db["sle"]["Armory"]["Character"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
-	E.db["sle"]["Armory"]["Character"]["ItemLevel"]["size"] = 16
-	E.db["sle"]["Armory"]["Character"]["ItemLevel"]["outline"] = "OUTLINE"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["size"] = 16
+	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["outline"] = "OUTLINE"
 	E.db["sle"]["Armory"]["Inspect"]["Enable"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["ShowUpgradeLevel"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["Font"] = "Merathilis Roboto-Black"
