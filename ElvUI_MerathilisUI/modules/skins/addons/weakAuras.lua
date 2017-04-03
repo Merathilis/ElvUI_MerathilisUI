@@ -3,25 +3,23 @@ local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
-local _G = _G
-local pairs = pairs
+local pairs, select, unpack = pairs, select, unpack
 -- WoW API / Variables
-
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: WeakAuras
 
 -- WEAKAURAS SKIN
-local WeakAura_Skin = CreateFrame("Frame")
-WeakAura_Skin:RegisterEvent("PLAYER_LOGIN")
-WeakAura_Skin:SetScript("OnEvent", function(self, event)
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:SetScript("OnEvent", function(self, event)
+	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
+
 	local function Skin_WeakAuras(frame, ftype)
-		if not frame.Backdrop then
+		if not frame.backdrop then
 			MERS:CreateBackdrop(frame, "Transparent")
 			MERS:SkinTexture(frame.icon)
-
-			if frame.icon then
-				frame.icon:SetTexCoord(unpack(E.TexCoords))
-				frame.icon.SetTexCoord = function () end
-			end
+			frame.icon.SetTexCoord = function () end
 
 			if ftype == "icon" then
 				frame.Backdrop:HookScript("OnUpdate", function(self)
@@ -32,6 +30,15 @@ WeakAura_Skin:SetScript("OnEvent", function(self, event)
 
 		if ftype == "aurabar" then
 			frame.Backdrop:Hide()
+		end
+
+		if ftype == "icon" then
+			E:RegisterCooldown(frame.cooldown)
+		end
+
+		if frame.icon then
+			frame.icon:SetTexCoord(unpack(E.TexCoords))
+			frame.icon.SetTexCoord = function() end
 		end
 
 		if frame.border then
@@ -71,7 +78,7 @@ WeakAura_Skin:SetScript("OnEvent", function(self, event)
 
 	for weakAura, _ in pairs(WeakAuras.regions) do
 		if WeakAuras.regions[weakAura].regionType == "icon" or WeakAuras.regions[weakAura].regionType == "aurabar" then
-			Skin_WeakAuras(WeakAuras.regions[weakAura].region, WeakAuras.regions[weakAura].regionType)
+			Skin_WeakAuras(WeakAuras.regions[weakAura].region)
 		end
 	end
 end)
