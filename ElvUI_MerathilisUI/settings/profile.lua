@@ -15,6 +15,7 @@ P["mui"] = {
 		["CombatState"] = true, -- Enable the +/- Combat Message
 		["HideOrderhallBar"] = false, -- Hide the OrderHallCommandBar
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
+		["Movertransparancy"] = .75,
 	},
 
 	["misc"] = {

@@ -157,9 +157,6 @@ function MER:Initialize()
 
 	self:RegisterMerMedia()
 	self:LoadCommands()
-	self:LoadGameMenu()
-	self:LoadGMOTD()
-	self:LoadVignette()
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()

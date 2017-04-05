@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
+local M = E:GetModule("mUIMisc")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -43,7 +44,7 @@ local npc = {
 	103159, -- Baby Winston
 }
 
-function MER:GameMenu()
+function M:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -134,7 +135,7 @@ function MER:GameMenu()
 		playerModel:SetFacing(6.5)
 		playerModel:Show()
 	end
-	
+
 	if not npcHolder then
 		local npcHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		npcHolder:SetSize(150, 150)
@@ -161,7 +162,7 @@ function MER:GameMenu()
 	end
 end
 
-function MER:LoadGameMenu()
+function M:LoadGameMenu()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 	end

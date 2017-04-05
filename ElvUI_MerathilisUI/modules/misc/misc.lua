@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local M = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0");
 
 -- Cache global variables
 -- Lua functions
@@ -100,3 +101,12 @@ CombatState:SetScript("OnEvent", function(self, event)
 		UIErrorsFrame:AddMessage("- " .. COMBAT, 0, 255, 0)
 	end
 end)
+
+function M:Initialize()
+	self:LoadGameMenu()
+	self:LoadGMOTD()
+	self:LoadMoverTransparancy()
+	self:LoadVignette()
+end
+
+E:RegisterModule(M:GetName())

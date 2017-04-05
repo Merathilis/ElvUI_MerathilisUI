@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local S = E:GetModule("Skins");
 local LSM = LibStub("LibSharedMedia-3.0");
+local M = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -24,7 +25,7 @@ if IsAddOnLoaded("SayGMOTD") then return end;
 
 GMOTD = ""
 
-function MER:GMOTD()
+function M:GMOTD()
 	-- MainFrame
 	if not gmotd then
 		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
@@ -98,7 +99,7 @@ function MER:GMOTD()
 	end
 end
 
-function MER:LoadGMOTD()
+function M:LoadGMOTD()
 	if E.db.mui.misc.gmotd then
 		self:GMOTD()
 		tinsert(UISpecialFrames, "MER.GMOTD");
