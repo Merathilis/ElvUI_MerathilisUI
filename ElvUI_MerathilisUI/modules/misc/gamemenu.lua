@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
-local M = E:GetModule("mUIMisc")
+local MI = E:GetModule("mUIMisc")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -44,7 +44,7 @@ local npc = {
 	103159, -- Baby Winston
 }
 
-function M:GameMenu()
+function MI:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -162,7 +162,7 @@ function M:GameMenu()
 	end
 end
 
-function M:LoadGameMenu()
+function MI:LoadGameMenu()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 	end

@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
-local M = E:GetModule("mUIMisc")
+local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -28,7 +28,7 @@ local function OnVignetteAdded(self, _, id)
 	self.vignettes[id] = true
 end
 
-function M:LoadVignette()
+function MI:LoadVignette()
 	if E.db.mui.misc.vignette then
 		local eventHandler = CreateFrame("Frame")
 		eventHandler:RegisterEvent("VIGNETTE_ADDED")

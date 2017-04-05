@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
-local M = E:GetModule("mUIMisc")
+local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -11,7 +11,7 @@ local pairs = pairs
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: hooksecurefunc
 
-function M:UpdateMoverTransparancy()
+function MI:UpdateMoverTransparancy()
 	local mover
 	for name, _ in pairs(E.CreatedMovers) do
 		mover = _G[name]
@@ -21,7 +21,7 @@ function M:UpdateMoverTransparancy()
 	end
 end
 
-function M:LoadMoverTransparancy()
+function MI:LoadMoverTransparancy()
 	hooksecurefunc(E, 'CreateMover', function(self, parent)
 		parent.mover:SetAlpha(E.db.mui.general.Movertransparancy)
 	end)
