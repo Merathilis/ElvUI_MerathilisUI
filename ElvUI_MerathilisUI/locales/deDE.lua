@@ -65,6 +65,8 @@ L["Vignette"] = true
 L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = "Zeigt eine Raidwarnung wenn ein Rar/Schatz auf der Minimap entdeckt wird."
 L[" spotted!"] = " entdeckt!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
+L["Mover Transparency"] = "Ankerpunkte Transparenz"
+L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 
 -- TooltipIcon
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu."

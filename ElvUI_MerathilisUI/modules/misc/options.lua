@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
+local MI = E:GetModule("mUIMisc")
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
@@ -39,6 +40,16 @@ local function Misc()
 				type = "toggle",
 				name = L["Vignette"],
 				desc = L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."],
+			},
+			Movertransparancy = {
+				order = 6,
+				type = "range",
+				name = L["Mover Transparency"],
+				desc = L["Changes the transparency of all the movers."],
+				isPercent = true,
+				min = 0, max = 1, step = 0.01,
+				get = function(info) return E.db.mui.general.Movertransparancy end,
+				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
 		},
 	}

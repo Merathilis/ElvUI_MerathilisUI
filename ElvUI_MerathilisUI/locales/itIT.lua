@@ -65,6 +65,8 @@ L["Vignette"] = true
 L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = true
 L[" spotted!"] = true
 L["Alt-click, to buy an stack"] = true
+L["Mover Transparency"] = true
+L["Changes the transparency of all the movers."] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true
