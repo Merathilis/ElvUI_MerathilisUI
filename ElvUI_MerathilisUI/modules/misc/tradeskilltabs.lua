@@ -1,12 +1,27 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI")
+local MI = E:GetModule("mUIMisc")
+
+-- Cache global variables
+-- Lua functions
+local _G = _G
+local pairs, select, unpack = pairs, select, unpack
+local strmatch = string.match
+-- WoW API / Variables
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
+local GetSpellBookItemInfo = GetSpellBookItemInfo
+local GetSpellInfo = GetSpellInfo
+local InCombatLockdown = InCombatLockdown
+local IsCurrentSpell = IsCurrentSpell
+local IsPassiveSpell = IsPassiveSpell
+local IsUsableSpell = IsUsableSpell
+local UnitClass = UnitClass
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
+-- GLOBALS: CreateFrame, TradeSkillFrame, BOOKTYPE_PROFESSION, HybridScrollFrame_CreateButtons
 
 local itemDisplay = 30
 local numTabs = 0
-
-local f = CreateFrame("Frame", "TST")
-f:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
-f:RegisterEvent("PLAYER_LOGIN")
 
 local function isCurrentTab(self)
 	if self.tooltip and IsCurrentSpell(self.tooltip) then self:SetChecked(true) else self:SetChecked(false) end
@@ -114,15 +129,21 @@ C_TradeSkillUI.GetRecipeLink = function(link)
 end
 
 -- Initalizise
-f:SetScript("OnEvent", function(self, event)
+function MI:LoadTST()
 	if E.db.mui.misc.tradeTabs ~= true then return end
-	if (event == "TRADE_SKILL_LIST_UPDATE") then
-		if TradeSkillFrame and TradeSkillFrame.RecipeList then
-			if TradeSkillFrame.RecipeList.buttons and #TradeSkillFrame.RecipeList.buttons < (itemDisplay + 2) then 
-				HybridScrollFrame_CreateButtons(TradeSkillFrame.RecipeList, "TradeSkillRowButtonTemplate", 0, 0)
-				self:UnregisterEvent("TRADE_SKILL_LIST_UPDATE")
+
+	local f = CreateFrame("Frame", "TST")
+	f:RegisterEvent("TRADE_SKILL_LIST_UPDATE")
+	f:RegisterEvent("PLAYER_LOGIN")
+	f:SetScript("OnEvent", function(self, event)
+		if (event == "TRADE_SKILL_LIST_UPDATE") then
+			if TradeSkillFrame and TradeSkillFrame.RecipeList then
+				if TradeSkillFrame.RecipeList.buttons and #TradeSkillFrame.RecipeList.buttons < (itemDisplay + 2) then 
+					HybridScrollFrame_CreateButtons(TradeSkillFrame.RecipeList, "TradeSkillRowButtonTemplate", 0, 0)
+					self:UnregisterEvent("TRADE_SKILL_LIST_UPDATE")
+				end
+				if not InCombatLockdown() then updateTabs() end
 			end
-			if not InCombatLockdown() then updateTabs() end
 		end
-	end
-end)
+	end)
+end

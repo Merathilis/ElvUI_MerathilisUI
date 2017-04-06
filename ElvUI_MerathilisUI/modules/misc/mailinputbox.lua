@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
+local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -21,8 +22,6 @@ local moneyframe_pos = {
 }
 
 local function MailInputBox()
-	if IsAddOnLoaded("MailinputboxResizer") or E.db.mui.misc.MailInputbox ~= true then return; end
-	
 	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))
@@ -38,11 +37,15 @@ local function MailInputBox()
 	m:SetPoint("RIGHT", r, "RIGHT", -8, 0)
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(_, event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		MailInputBox()
-		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
-	end
-end)
+function MI:LoadMailInputBox()
+	if IsAddOnLoaded("MailinputboxResizer") or E.db.mui.misc.MailInputbox ~= true then return; end
+
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", function(_, event)
+		if event == "PLAYER_ENTERING_WORLD" then
+			MailInputBox()
+			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		end
+	end)
+end
