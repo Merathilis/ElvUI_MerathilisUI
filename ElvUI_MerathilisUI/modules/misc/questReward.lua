@@ -9,12 +9,12 @@ local MI = E:GetModule("mUIMisc")
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
-local dbg = 1;
+local dbg = 0;
 
 local function SelectQuestReward(index)
 	local rewardsFrame = QuestInfoFrame.rewardsFrame;
 
-	if dbg ==1 then
+	if dbg == 1 then
 		print("index: "..index);
 	end
 
