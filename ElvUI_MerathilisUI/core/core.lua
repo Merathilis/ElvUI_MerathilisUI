@@ -152,7 +152,7 @@ function MER:Initialize()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
-		return -- If ElvUI Version is outdated stop right here. So things don"t get broken.
+		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
 	self:RegisterMerMedia()
