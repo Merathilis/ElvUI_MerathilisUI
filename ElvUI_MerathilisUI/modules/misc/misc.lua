@@ -104,6 +104,15 @@ function MI:LoadMisc()
 			UIErrorsFrame:AddMessage("- " .. COMBAT, 0, 255, 0)
 		end
 	end)
+
+	-- Always show the Text on the PlayerPowerBarAlt
+	PlayerPowerBarAlt:HookScript("OnShow", function()
+		local statusFrame = PlayerPowerBarAlt.statusFrame
+		if statusFrame.enabled then
+			statusFrame:Show()
+			UnitPowerBarAltStatus_UpdateText(statusFrame)
+		end
+	end)
 end
 
 function MI:Initialize()
