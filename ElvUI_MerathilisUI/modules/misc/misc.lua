@@ -1,6 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0");
 
+E.mUIMisc = M;
+
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -111,6 +113,7 @@ function MI:Initialize()
 	self:LoadMailInputBox()
 	self:LoadMerchant()
 	self:LoadMoverTransparancy()
+	self:LoadQuestReward()
 	self:LoadTST()
 	self:LoadsumAuctions()
 	self:LoadVignette()

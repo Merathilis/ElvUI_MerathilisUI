@@ -51,6 +51,14 @@ local function Misc()
 				get = function(info) return E.db.mui.general.Movertransparancy end,
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
+			selectquestreward = {
+				order = 7,
+				type = "toggle",
+				name = L['Select Quest Reward'],
+				desc = L['Automatically select the quest reward with the highest vendor sell value.'],
+				get = function(info) return E.private.muiMisc.selectquestreward end,
+				set = function(info, value) E.private.muiMisc.selectquestreward = value; end,
+			},
 		},
 	}
 end
