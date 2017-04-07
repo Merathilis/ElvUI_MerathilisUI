@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0");
 
-E.mUIMisc = M;
+E.mUIMisc = MI;
 
 -- Cache global variables
 -- Lua functions
