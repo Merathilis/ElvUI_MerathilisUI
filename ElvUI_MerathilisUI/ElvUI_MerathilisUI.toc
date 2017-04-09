@@ -8,7 +8,7 @@
 ## eMail: neo0608@gmail.com
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
-## SavedVariables: MerathilisUIData
+## SavedVariables: MER_Data
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE, XIV_Databar
 ## X-ElvVersion: 10.45
 ## X-Tukui-ProjectID: 286

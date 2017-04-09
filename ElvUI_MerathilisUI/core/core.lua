@@ -19,7 +19,7 @@ local C_TimerAfter = C_Timer.After
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
 
 MER.Config = {}
-MerathilisUIData = {}
+MER_Data = {}
 
 function MER:cOption(name)
 	local color = "|cffff7d0a%s |r"
