@@ -1,3 +1,11 @@
+<b><u> v2.33, 10.04.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Create an UIButton Frame. Ported from Shadow&Light.
+<font color=#FF8C00>&#9830;</font> Remove the achievement tooltip function, its now blizzard default.
+<font color=#FF8C00>&#9830;</font> Install: Change the Player debuff size and position.
+<font color=#FF8C00>&#9830;</font> Add an option the set the mover transparent.
+<font color=#FF8C00>&#9830;</font> Cleanup Misc modules.
+<font color=#FF8C00>&#9830;</font> Cleanup Skin modules.
+
 <b><u> v2.32, 26.03.2017</b></u>
 <font color=#FF8C00>&#9830;</font> 7.2 ready
 <font color=#FF8C00>&#9830;</font> Add an itemlevel text on the merchant frame.

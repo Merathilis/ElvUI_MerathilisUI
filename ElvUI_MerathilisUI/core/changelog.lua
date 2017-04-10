@@ -18,18 +18,18 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.32|r, 26.03.2017
+local ChangeLogData = [=[|cffff7d0av2.33|r, 10.04.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Add an itemlevel text on the merchant frame.
- |cffff7d0a•|r ToolTip Icons: Add PVPReward Icon.
- |cffff7d0a•|r Update TradeSkill Tabs.
- |cffff7d0a•|r Adds an italian locale file.
- |cffff7d0a•|r Add Tooltip Icons for BattlePets, Faction, Role and move the config to its own section.
- |cffff7d0a•|r Change the main texture.
+ |cffff7d0a•|r Create an UIButton Frame. Ported from Shadow&Light.
+ |cffff7d0a•|r Remove the achievement tooltip function, its now blizzard default.
+ |cffff7d0a•|r Install: Change the Player debuff size and position.
+ |cffff7d0a•|r Add an option the set the mover transparent.
+ |cffff7d0a•|r Cleanup Misc modules.
+ |cffff7d0a•|r Cleanup Skin modules.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r Patch 7.2 ready.
+ |cffff7d0a•|r ^o^
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

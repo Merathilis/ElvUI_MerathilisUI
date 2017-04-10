@@ -1,3 +1,11 @@
+** v2.33, 10.04.2017**
+* Create an UIButton Frame. Ported from Shadow&Light.
+* Remove the achievement tooltip function, its now blizzard default.
+* Install: Change the Player debuff size and position.
+* Add an option the set the mover transparent.
+* Cleanup Misc modules.
+* Cleanup Skin modules.
+
 ** v2.32, 26.03.2017**
 * 7.2 ready
 * Add an itemlevel text on the merchant frame.
