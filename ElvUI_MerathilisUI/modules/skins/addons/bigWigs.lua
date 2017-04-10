@@ -141,13 +141,4 @@ local function StyleBigWigs(event, addon)
 	end
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(_, event, addon)
-	if event == "ADDON_LOADED" then
-		if addon == "BigWigs_Plugins" then
-			StyleBigWigs()
-			f:UnregisterEvent("ADDON_LOADED")
-		end
-	end
-end)
+S:AddCallbackForAddon("BigWigs_Plugins", "mUIBigWigs", StyleBigWigs)

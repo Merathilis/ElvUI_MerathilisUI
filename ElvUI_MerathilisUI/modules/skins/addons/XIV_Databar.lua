@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
+local S = E:GetModule("Skins");
 if not IsAddOnLoaded("XIV_Databar") then return end
 
 -- Cache global variables
@@ -17,11 +18,4 @@ local function styleXIV_Databar()
 	MER:StyleUnder(_G["XIV_Databar"])
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, _, addon)
-	if addon == "ElvUI_MerathilisUI" then
-		E:Delay(.5, styleXIV_Databar)
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
+S:AddCallbackForAddon("XIV_Databar", "mUIXIV_Databar", styleXIV_Databar)

@@ -42,11 +42,4 @@ local function styleActionBarProfile()
 	S:HandleCheckBox(_G["PaperDollActionBarProfilesSaveDialogOptionBindings"])
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, _, addon)
-	if addon == "ElvUI_MerathilisUI" then
-		E:Delay(.5, styleActionBarProfile)
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
+S:AddCallbackForAddon("ActionBarProfiles", "mUIActionBarProfiles", styleActionBarProfile)
