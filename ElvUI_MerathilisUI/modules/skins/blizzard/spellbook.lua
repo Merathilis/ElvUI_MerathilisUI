@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -41,11 +42,4 @@ local function styleSpellBook()
 	end)
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, _, addon)
-	if addon == "ElvUI_MerathilisUI" then
-		E:Delay(1, styleSpellBook)
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
+S:AddCallback("mUISpellbook", styleSpellBook)

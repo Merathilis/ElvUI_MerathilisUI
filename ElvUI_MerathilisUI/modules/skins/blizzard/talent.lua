@@ -5,6 +5,12 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+-- WoW API / Variables
+local GetNumSpecializations = GetNumSpecializations
+local GetSpecializationInfo = GetSpecializationInfo
+
+-- GLOBALS: hooksecurefunc, MAX_TALENT_TIERS, NUM_TALENT_COLUMNS, MAX_PVP_TALENT_TIERS, MAX_PVP_TALENT_COLUMNS
+-- GLOBALS: PlayerTalentFrameSpecialization
 
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
@@ -51,4 +57,4 @@ local function styleTalents()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_TalentUI", "TalentRecolor", styleTalents)
+S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", styleTalents)

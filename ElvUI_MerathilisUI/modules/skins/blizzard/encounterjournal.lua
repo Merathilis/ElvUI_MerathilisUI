@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
-local MERS = E:GetModule('muiSkins');
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -30,18 +30,8 @@ function styleEncounterJournal()
 		Tab:GetPushedTexture():SetTexture(nil)
 		Tab:GetDisabledTexture():SetTexture(nil)
 		Tab:GetHighlightTexture():SetTexture(nil)
-		MERS:SkinBackdropFrame(Tab, nil, true)
-		Tab.Backdrop:SetPoint('TOPLEFT', 11, -8)
-		Tab.Backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
 		MER:StyleOutside(Tab.backdrop)
 	end
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, _, addon)
-	if addon == "Blizzard_EncounterJournal" then
-		styleEncounterJournal()
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
+S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", styleEncounterJournal)

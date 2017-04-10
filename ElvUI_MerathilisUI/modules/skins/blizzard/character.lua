@@ -1,4 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -16,11 +17,4 @@ function styleCharacter()
 	CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("ADDON_LOADED")
-f:SetScript("OnEvent", function(self, _, addon)
-	if addon == "ElvUI_MerathilisUI" then
-		E:Delay(.5, styleCharacter)
-		self:UnregisterEvent("ADDON_LOADED")
-	end
-end)
+S:AddCallback("mUICharacter", styleCharacter)

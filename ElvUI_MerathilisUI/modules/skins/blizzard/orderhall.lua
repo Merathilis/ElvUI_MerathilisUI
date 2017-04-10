@@ -10,27 +10,6 @@ local ipairs = ipairs
 -- WoW API / Variables
 -- GLOBALS: OrderHallCommandBar
 
-local isInit = false
-
-local function repositionOrderHallCommandBar()
-	if not isInit then
-		local isLoaded = true
-
-		if not IsAddOnLoaded("Blizzard_OrderHallUI") then
-			isLoaded = LoadAddOn("Blizzard_OrderHallUI")
-		end
-
-		if isLoaded then
-			OrderHallCommandBar:ClearAllPoints()
-			OrderHallCommandBar:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -29)
-			OrderHallCommandBar:SetParent(E.UIParent)
-		end
-
-		isInit = true
-		return true
-	end
-end
-
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
@@ -77,9 +56,4 @@ local function styleOrderhall()
 	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	repositionOrderHallCommandBar()
-	styleOrderhall()
-end)
+S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", styleOrderhall)
