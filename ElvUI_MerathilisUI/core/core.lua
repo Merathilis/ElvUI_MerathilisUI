@@ -19,7 +19,6 @@ local C_TimerAfter = C_Timer.After
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
 
 MER.Config = {}
-MER_Data = {}
 
 function MER:cOption(name)
 	local color = "|cffff7d0a%s |r"
@@ -157,6 +156,10 @@ function MER:Initialize()
 
 	self:RegisterMerMedia()
 	self:LoadCommands()
+
+	-- Create empty saved vars if they doesn't exist
+	if MERData == nil then MERData = {} end
+	if MERDataPerChar == nil then MERDataPerChar = {} end
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()

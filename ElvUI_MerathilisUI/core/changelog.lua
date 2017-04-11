@@ -95,14 +95,14 @@ function MER:ToggleChangeLog()
 end
 
 function MER:OnCheckVersion()
-	if not MER_Data["Version"] or (MER_Data["Version"] and MER_Data["Version"] ~= MER.Version) then
-		MER_Data["Version"] = MER.Version
+	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
+		MERData["Version"] = MER.Version
 		MerathilisUIChangeLog:Show()
 	end
 end
 
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
 ChangeLog:SetScript("OnEvent", function()
-	if MER_Data == nil then MER_Data = {} end
+	if MERData == nil then MERData = {} end
 	MER:OnCheckVersion()
 end)
