@@ -74,3 +74,15 @@ function MER:Reset(group)
 	end
 	E:UpdateAll()
 end
+
+-- Personal usage stuff
+MER.IsDev = { Merathilis = true, Jazira = true }
+MER.IsDevRealm = { Shattrath = true, Garrosh = true }
+
+function MER:IsDeveloper()
+	return MER.IsDev[E.myname] or false
+end
+
+function MER:IsDeveloperRealm()
+	return MER.IsDevRealm[E.myrealm] or false
+end
