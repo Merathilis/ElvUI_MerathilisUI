@@ -47,7 +47,7 @@ local function AddOptions()
 				name = L["AddOn Presets"],
 				desc = L["Choose an AddOn Presets, where selected AddOns gets loaded."],
 				func = function() E:StaticPopup_Show("MERUI_SelectUI"); E:ToggleConfig() end,
-				hidden = function() return E.myname ~= "Merathilis" end,
+				hidden = function() return not MER:IsDeveloper() and MER:IsDeveloperRealm() end,
 			},
 			spacer1 = {
 				order = 5,

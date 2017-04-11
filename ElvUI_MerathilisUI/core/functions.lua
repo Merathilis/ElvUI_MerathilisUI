@@ -76,7 +76,7 @@ function MER:Reset(group)
 end
 
 -- Personal usage stuff
-MER.IsDev = { Merathilis = true, Jazira = true }
+MER.IsDev = { Merathilis = true, Jazira = true, Asragoth = true, Jahzzy = true }
 MER.IsDevRealm = { Shattrath = true, Garrosh = true }
 
 function MER:IsDeveloper()
