@@ -28,7 +28,7 @@ end
 
 function MUB:ConfigSetup(menu)
 	menu:CreateDropdownButton("Config", "Elv", "|cff1784d1ElvUI|r", L["ElvUI Config"], L["Click to toggle config window"],  function() if InCombatLockdown() then return end; E:ToggleConfig() end, nil, true)
-	menu:CreateDropdownButton("Config", "mui", "|cff9482c9S&L|r", L["Merathilis Config"], L["Click to toggle MerathilisUI config group"],  function() if InCombatLockdown() then return end; E:ToggleConfig(); MER.ACD:SelectGroup("ElvUI", "mui") end, nil, true)
+	menu:CreateDropdownButton("Config", "mui", "|cffff7d0aMerathilisUI|r", L["Merathilis Config"], L["Click to toggle MerathilisUI config group"],  function() if InCombatLockdown() then return end; E:ToggleConfig(); MER.ACD:SelectGroup("ElvUI", "mui") end, nil, true)
 	menu:CreateSeparator("Config", "First", 4, 2)
 	menu:CreateDropdownButton( "Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end, nil, true)
 	menu:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() if InCombatLockdown() then return end; E:ToggleConfigMode() end, nil, true)
