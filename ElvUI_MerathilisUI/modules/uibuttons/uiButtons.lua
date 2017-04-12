@@ -127,6 +127,7 @@ function MUB:Initialize()
 		E.db.mui.uiButtons.style = E.db.mui.uiButtonstyle
 		E.db.mui.uiButtonstyle = nil
 	end
+
 	MUB.Holder = lib:CreateFrame("MER_uiButtons", E.db.mui.uiButtons, P.mui.uiButtons, E.db.mui.uiButtons.style, "dropdown", E.db.mui.uiButtons.strata, E.db.mui.uiButtons.level, E.db.mui.uiButtons.transparent)
 	local menu = MUB.Holder
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);

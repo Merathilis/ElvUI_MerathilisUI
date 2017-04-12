@@ -119,11 +119,11 @@ P["mui"] = {
 
 	--UI Buttons
 	["uiButtons"] = {
+		["enabled"] = true,
 		["style"] = "classic",
 		["strata"] = "MEDIUM",
 		["level"] = 5,
 		["transparent"] = "Default",
-		["enable"] = true,
 		["size"] = 17,
 		["mouse"] = false,
 		["menuBackdrop"] = false,
