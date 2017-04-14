@@ -75,7 +75,7 @@ local function MerchantItemlevel()
 		if button and button:IsShown() then
 			if not button.text then
 				button.text = button:CreateFontString(nil, "OVERLAY", "SystemFont_Outline_Small")
-				button.text:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
+				-- button.text:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
 				button.text:SetPoint("TOPLEFT", 1, -1)
 				button.text:SetTextColor(r, g, b)
 			else
