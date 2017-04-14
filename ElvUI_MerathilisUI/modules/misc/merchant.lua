@@ -74,9 +74,10 @@ local function MerchantItemlevel()
 		local button = _G["MerchantItem"..i.."ItemButton"]
 		if button and button:IsShown() then
 			if not button.text then
-				button.text = button:CreateFontString(nil, "OVERLAY")
+				button.text = button:CreateFontString(nil, "OVERLAY", "SystemFont_Outline_Small")
 				button.text:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
 				button.text:SetPoint("TOPLEFT", 1, -1)
+				button.text:SetTextColor(r, g, b)
 			else
 				button.text:SetText("")
 			end
@@ -85,9 +86,8 @@ local function MerchantItemlevel()
 			if itemLink then
 				local _, _, quality, itemlevel, _, _, _, _, _, _, _, itemClassID = GetItemInfo(itemLink)
 				r, g, b = GetItemQualityColor(quality)
-				if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == 2 or itemClassID == 4) then
+				if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == LE_ITEM_CLASS_WEAPON or itemClassID == LE_ITEM_CLASS_ARMOR) then
 					button.text:SetText(itemlevel)
-					button.text:SetTextColor(r, g, b)
 				end
 			end
 		end
