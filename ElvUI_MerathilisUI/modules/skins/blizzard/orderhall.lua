@@ -8,39 +8,37 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local _G = _G
 local ipairs = ipairs
 -- WoW API / Variables
+local C_Timer_After = C_Timer.After
 -- GLOBALS: OrderHallCommandBar
 
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
+	local b = OrderHallCommandBar
 	if E.db.mui.general.HideOrderhallBar then
-		local b = OrderHallCommandBar
 		b:SetScript("OnShow", b.Hide)
 		b:Hide()
-
-		b:RequestCategoryInfo()
-		b:RegisterEvent("GARRISON_TALENT_COMPLETE")
-		b:RegisterEvent("GARRISON_TALENT_UPDATE")
-		b:RegisterUnitEvent("UNIT_PHASE", "player")
 	end
 
-	OrderHallCommandBar:SetWidth(OrderHallCommandBar.AreaName:GetStringWidth() + 500)
+	b:SetWidth(b.AreaName:GetStringWidth() + 500)
 
-	OrderHallCommandBar.Currency:Hide()
-	OrderHallCommandBar.CurrencyIcon:Hide()
-	OrderHallCommandBar.CurrencyHitTest:Hide()
+	b.Background:SetAtlas(nil)
+	b.Currency:Hide()
+	b.CurrencyIcon:Hide()
+	b.CurrencyHitTest:Hide()
 
-	OrderHallCommandBar.AreaName:ClearAllPoints()
-	OrderHallCommandBar.AreaName:SetPoint("LEFT", OrderHallCommandBar.Currency, "RIGHT", 0, 0)
+	b.AreaName:ClearAllPoints()
+	b.AreaName:SetPoint("LEFT", b.Currency, "RIGHT", 0, 0)
 
-	OrderHallCommandBar.WorldMapButton:Show()
-	OrderHallCommandBar.WorldMapButton:ClearAllPoints()
-	OrderHallCommandBar.WorldMapButton:SetPoint("RIGHT", 0, 0)
-	OrderHallCommandBar.WorldMapButton:StripTextures()
-	OrderHallCommandBar.WorldMapButton:SetTemplate("Transparent")
-	S:HandleButton(OrderHallCommandBar.WorldMapButton)
+	b.WorldMapButton:Show()
+	b.WorldMapButton:ClearAllPoints()
+	b.WorldMapButton:SetPoint("RIGHT", 0, 0)
+	b.WorldMapButton:StripTextures()
+	b.WorldMapButton:SetTemplate("Transparent")
+	b.WorldMapButton:UnregisterAllEvents()
+	S:HandleButton(b.WorldMapButton)
 
-	local mapButton = OrderHallCommandBar.WorldMapButton
+	local mapButton = b.WorldMapButton
 	mapButton:Size(20,20)
 	mapButton:SetNormalTexture("")
 	mapButton:SetPushedTexture("")
@@ -55,5 +53,46 @@ local function styleOrderhall()
 
 	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")
 end
+
+local OrderHallFollower = CreateFrame("Frame")
+OrderHallFollower:RegisterEvent("ADDON_LOADED")
+OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
+	if (event == "ADDON_LOADED" and addon == "Blizzard_OrderHallUI") then
+		OrderHallFollower:RegisterEvent("DISPLAY_SIZE_CHANGED")
+		OrderHallFollower:RegisterEvent("UI_SCALE_CHANGED")
+		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_CATEGORIES_UPDATED")
+		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_ADDED")
+		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_REMOVED")
+
+	elseif event ~= "ADDON_LOADED" then
+		local bar = OrderHallCommandBar
+
+		local index = 1
+		C_Timer_After(0.3, function() -- Give it a bit more time to collect.
+			local last
+			for i, child in ipairs({bar:GetChildren()}) do
+				if child.Icon and child.Count and child.TroopPortraitCover then
+					child:ClearAllPoints()
+					child:SetPoint("LEFT", bar.AreaName, "RIGHT", 50 + (index - 1) * 120, 0)
+					child:SetWidth(60)
+
+					child.TroopPortraitCover:Hide()
+					child.Icon:ClearAllPoints()
+					child.Icon:SetPoint("LEFT", child, "LEFT", 0, 0)
+					child.Icon:SetSize(32, 16)
+
+					child.Count:ClearAllPoints()
+					child.Count:SetPoint("LEFT", child.Icon, "RIGHT", 5, 0)
+					child.Count:SetTextColor(.9, .9, .9)
+					child.Count:SetShadowOffset(.75, -.75)
+
+					last = child.Count
+
+					index = index + 1
+				end
+			end
+		end)
+	end
+end)
 
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", styleOrderhall)
