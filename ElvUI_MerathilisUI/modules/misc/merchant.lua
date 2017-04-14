@@ -75,9 +75,8 @@ local function MerchantItemlevel()
 		if button and button:IsShown() then
 			if not button.text then
 				button.text = button:CreateFontString(nil, "OVERLAY", "SystemFont_Outline_Small")
-				-- button.text:FontTemplate(E.LSM:Fetch("font", E.db.bags.itemLevelFont), E.db.bags.itemLevelFontSize, E.db.bags.itemLevelFontOutline)
 				button.text:SetPoint("TOPLEFT", 1, -1)
-				button.text:SetTextColor(r, g, b)
+				button.text:SetTextColor(1, 1, 0)
 			else
 				button.text:SetText("")
 			end
@@ -85,7 +84,6 @@ local function MerchantItemlevel()
 			local itemLink = GetMerchantItemLink(index)
 			if itemLink then
 				local _, _, quality, itemlevel, _, _, _, _, _, _, _, itemClassID = GetItemInfo(itemLink)
-				r, g, b = GetItemQualityColor(quality)
 				if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == LE_ITEM_CLASS_WEAPON or itemClassID == LE_ITEM_CLASS_ARMOR) then
 					button.text:SetText(itemlevel)
 				end
@@ -93,11 +91,10 @@ local function MerchantItemlevel()
 		end
 	end
 end
-
+hooksecurefunc("MerchantFrame_UpdateMerchantInfo", MerchantItemlevel)
 
 function MI:LoadMerchant()
 	if E.db.mui.general.MerchantiLevel ~= true or E.private.bags.enable ~= true then return end
 
 	self:Merchant()
-	hooksecurefunc("MerchantFrame_UpdateMerchantInfo", MerchantItemlevel)
 end
