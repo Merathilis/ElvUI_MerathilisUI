@@ -106,6 +106,7 @@ P["mui"] = {
 	},
 
 	["tooltip"] = {
+		["achievement"] = true,
 		["tooltipIcon"] = true, -- Add Icon for Spells/Items/Achievement to the Tooltip
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip

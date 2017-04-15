@@ -29,7 +29,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\nNew Function are marked with:"]..MER.NewSign,
+				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 150, 150 end,
 				imageCoords = {0,0.99,0.01,0.99},
@@ -204,23 +204,8 @@ local function AddOptions()
 							},
 						},
 					},
-					addons = {
-						order = 5,
-						type = "group",
-						name = MER:cOption(L["My other Addon"]),
-						guiInline = true,
-						args = {
-							ttic = {
-								order = 1,
-								type = "execute",
-								name = L["ElvUI Tooltip Icon"],
-								desc = L["Adds an Icon for Spells, Items and Achievements (only GameTooltip) to the Tooltip."],
-								func = function() StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=269") end,
-							},
-						},
-					},
 					changelog = {
-						order = 6,
+						order = 5,
 						type = "group",
 						name = MER:cOption(L["Changelog"]),
 						guiInline = true,
@@ -234,7 +219,7 @@ local function AddOptions()
 						},
 					},
 					version = {
-						order = 7,
+						order = 6,
 						type = "group",
 						name = MER:cOption(L["Version"]),
 						guiInline = true,

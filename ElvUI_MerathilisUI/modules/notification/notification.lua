@@ -19,6 +19,7 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetObjectIconTextureCoords = GetObjectIconTextureCoords
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local CalendarGetDate = CalendarGetDate
@@ -26,6 +27,7 @@ local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
 local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
 local CalendarGetNumDayEvents = CalendarGetNumDayEvents
 local CalendarGetDayEvent = CalendarGetDayEvent
+local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
 local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
 local C_Vignettes = C_Vignettes
@@ -306,6 +308,7 @@ function NF:UPDATE_PENDING_MAIL()
 	if hasMail ~= newMail then
 		hasMail = newMail
 		if hasMail then
+			PlaySoundFile([[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\mail.mp3]])
 			self:DisplayToast(MAIL_LABEL, HAVE_MAIL, nil, "Interface\\Icons\\inv_letter_15", .08, .92, .08, .92)
 		end
 	end
@@ -450,7 +453,7 @@ local function LoginCheck()
 end
 
 function NF:PLAYER_ENTERING_WORLD()
-	if E.db.mui.general.Notification ~= true then return end
+	if E.db.mui.general.Notification ~= true or InCombatLockdown() then return end
 	C_Timer.After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end

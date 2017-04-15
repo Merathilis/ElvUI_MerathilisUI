@@ -12,7 +12,7 @@ local MER = E:GetModule("MerathilisUI");
 local function Tooltip()
 	E.Options.args.mui.args.tooltip = {
 		type = "group",
-		name = L["Tooltip"]..MER.NewSign,
+		name = L["Tooltip"],
 		order = 18,
 		get = function(info) return E.db.mui.tooltip[ info[#info] ] end,
 		set = function(info, value) E.db.mui.tooltip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -20,7 +20,7 @@ local function Tooltip()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Tooltip"]..MER.NewSign),
+				name = MER:cOption(L["Tooltip"]),
 			},
 			tooltipIcon = {
 				order = 2,
@@ -44,6 +44,12 @@ local function Tooltip()
 				order = 5,
 				type = "toggle",
 				name = L["Role Icon"],
+				desc = L["Adds an role icon on the tooltip."],
+			},
+			achievement = {
+				order = 6,
+				type = "toggle",
+				name = L["Achievements"],
 				desc = L["Adds an role icon on the tooltip."],
 			},
 		},
