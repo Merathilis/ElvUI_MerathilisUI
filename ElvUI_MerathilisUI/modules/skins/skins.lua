@@ -130,6 +130,31 @@ function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
 	Frame.Backdrop = Backdrop
 end
 
+function MERS:CreateBD(f, a)
+	assert(f, "doesn't exist!")
+	f:SetBackdrop({
+		bgFile = E["media"].blankTex,
+		edgeFile = E["media"].blankTex,
+		edgeSize = E.mult,
+	})
+	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
+	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+end
+
+function MERS:CreateBG(frame)
+	assert(frame, "doesn't exist!")
+	local f = frame
+	if frame:GetObjectType() == "Texture" then f = frame:GetParent() end
+
+	local bg = f:CreateTexture(nil, "BACKGROUND")
+	bg:Point("TOPLEFT", frame, -1, 1)
+	bg:Point("BOTTOMRIGHT", frame, 1, -1)
+	bg:SetTexture(E["media"].blankTex)
+	bg:SetVertexColor(0, 0, 0)
+
+	return bg
+end
+
 function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
 	if not override then MERS:StripTextures(frame, kill) end
 	MERS:CreateBackdrop(frame, template)

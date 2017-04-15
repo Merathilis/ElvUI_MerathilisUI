@@ -16,6 +16,7 @@ P["mui"] = {
 		["HideOrderhallBar"] = false, -- Hide the OrderHallCommandBar
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 		["Movertransparancy"] = .75,
+		["Notification"] = true,
 	},
 
 	["misc"] = {

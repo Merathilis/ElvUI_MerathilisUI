@@ -87,6 +87,19 @@ L["Adds an role icon on the tooltip."] = "Fügt ein Rollensymbol am Tooltip hinz
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
 L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "Verändert die Größe des Post Eingabefeldes und verschiebt die Versandkosten."
 
+-- Notification
+L["Notification"] = "Benachrichtigungen"
+L["Display a Toast Frame for different notifications."] = "Zeigt ein Fenster mit verschiedenen Benachrichtigungen."
+L["This is an example of a notification."] = "Beispiel Benachrichtigung."
+L["Notification Mover"] = true
+L["%s slot needs to repair, current durability is %d."] = "%s braucht Reperatur, aktuelle Haltbarkeit ist %d."
+L["You have %s pending calendar invite(s)."] = "Du hast %s ausstehende Kalender Einladungen"
+L["You have %s pending guild event(s)."] = "Du hast %s ausstehende Gildenereignisse"
+L["Event \"%s\" will end today."] = "Ereignis \"%s\" endet heute."
+L["Event \"%s\" started today."] = "Ereignis \"%s\" beginnt heute."
+L["Event \"%s\" is ongoing."] = "Ereignis \"%s\" ist im Gange."
+L["Event \"%s\" will end tomorrow."] = "Ereignis \"%s\" endet morgen."
+
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = "Berufsfenster Tabs"
 L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."

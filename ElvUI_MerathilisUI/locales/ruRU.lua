@@ -87,6 +87,19 @@ L["Adds an role icon on the tooltip."] = true
 L["Mail Inputbox Resize"] = true
 L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
+-- Notification
+L["Notification"] = true
+L["Display a Toast Frame for different notifications."] = true
+L["This is an example of a notification."] = true
+L["Notification Mover"] = true
+L["%s slot needs to repair, current durability is %d."] = true
+L["You have %s pending calendar invite(s)."] = true
+L["You have %s pending guild event(s)."] = true
+L["Event \"%s\" will end today."] = true
+L["Event \"%s\" started today."] = true
+L["Event \"%s\" is ongoing."] = true
+L["Event \"%s\" will end tomorrow."] = true
+
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = true
 L["Add tabs for professions on the TradeSkill Frame."] = true

@@ -119,8 +119,16 @@ local function AddOptions()
 					MerchantiLevel = {
 						order = 8,
 						type = "toggle",
-						name = L["Show Merchant ItemLevel"]..MER.NewSign,
+						name = L["Show Merchant ItemLevel"],
 						desc = L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					Notification = {
+						order = 9,
+						type = "toggle",
+						name = L["Notification"]..MER.NewSign,
+						desc = L["Display a Toast Frame for different notifications."],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
