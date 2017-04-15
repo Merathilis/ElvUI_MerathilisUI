@@ -63,6 +63,7 @@ function MER:RegisterMerMedia()
 	E["media"].muiBlank = LSM:Fetch("background", "Solid")
 
 	--Textures
+	E["media"].muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
 	E["media"].muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
 	E["media"].muiFlat = LSM:Fetch("statusbar", "MerathilisFlat")
 	E["media"].muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
@@ -158,8 +159,12 @@ function MER:Initialize()
 	self:LoadCommands()
 
 	-- Create empty saved vars if they doesn't exist
-	if MERData == nil then MERData = {} end
-	if MERDataPerChar == nil then MERDataPerChar = {} end
+	if not MERData then 
+		MERData = {};
+	end
+	if not MERDataPerChar then
+		MERDataPerChar = {};
+	end
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
