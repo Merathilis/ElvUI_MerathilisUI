@@ -54,8 +54,8 @@ local function Misc()
 			selectquestreward = {
 				order = 7,
 				type = "toggle",
-				name = L['Select Quest Reward'],
-				desc = L['Automatically select the quest reward with the highest vendor sell value.'],
+				name = L["Select Quest Reward"],
+				desc = L["Automatically select the quest reward with the highest vendor sell value."],
 				get = function(info) return E.private.muiMisc.selectquestreward end,
 				set = function(info, value) E.private.muiMisc.selectquestreward = value; end,
 			},
