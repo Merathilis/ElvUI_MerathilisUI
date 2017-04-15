@@ -138,6 +138,31 @@ local function StyleBigWigs(event, addon)
 				BigWigsInfoBox:SetTemplate("Transparent")
 			end)
 		end
+
+		local profile = BigWigs3DB["profileKeys"][E.myname.." - "..E.myrealm]
+		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][profile]
+		path.texture = "MerathilisLight"
+		path.barStyle = styleName
+		path.font = "Merathilis Roboto-Bold"
+		path.outline = "OUTLINE"
+
+		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profile]
+		path.font = "Merathilis Roboto-Bold"
+		path.outline = "OUTLINE"
+
+		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profile]
+		path.font = "Merathilis Roboto-Bold"
+		path.outline = "OUTLINE"
+
+	elseif event == "PLAYER_ENTERING_WORLD" then
+		LoadAddOn("BigWigs")
+		LoadAddOn("BigWigs_Core")
+		LoadAddOn("BigWigs_Plugins")
+		LoadAddOn("BigWigs_Options")
+		if not BigWigs then return end
+		BigWigs:Enable()
+		BigWigsOptions:SendMessage("BigWigs_StartConfigureMode", true)
+		BigWigsOptions:SendMessage("BigWigs_StopConfigureMode")
 	end
 end
 
