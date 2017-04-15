@@ -125,7 +125,6 @@ function MI:Initialize()
 	self:LoadQuestReward()
 	self:LoadTST()
 	self:LoadsumAuctions()
-	self:LoadVignette()
 end
 
 E:RegisterModule(MI:GetName())

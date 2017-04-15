@@ -61,8 +61,6 @@ L["Misc"] = "Verschiedenes"
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
-L["Vignette"] = true
-L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = "Zeigt eine Raidwarnung wenn ein Rar/Schatz auf der Minimap entdeckt wird."
 L[" spotted!"] = " entdeckt!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 L["Mover Transparency"] = "Ankerpunkte Transparenz"

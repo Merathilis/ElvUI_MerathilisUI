@@ -35,14 +35,8 @@ local function Misc()
 				name = GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			vignette = {
-				order = 5,
-				type = "toggle",
-				name = L["Vignette"],
-				desc = L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."],
-			},
 			Movertransparancy = {
-				order = 6,
+				order = 5,
 				type = "range",
 				name = L["Mover Transparency"],
 				desc = L["Changes the transparency of all the movers."],
@@ -52,7 +46,7 @@ local function Misc()
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
 			selectquestreward = {
-				order = 7,
+				order = 6,
 				type = "toggle",
 				name = L["Select Quest Reward"],
 				desc = L["Automatically select the quest reward with the highest vendor sell value."],

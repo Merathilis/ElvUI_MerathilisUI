@@ -455,10 +455,15 @@ function NF:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function NF:VIGNETTE_ADDED(event, vignetteInstanceID)
+function NF:VIGNETTE_ADDED(event, id)
 	if E.db.mui.general.Notification ~= true then return end
-	local ofsX, ofsY, name = C_Vignettes.GetVignetteInfoFromInstanceID(vignetteInstanceID)
-	self:DisplayToast("Rare", name)
+	if not id then return end
+
+	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
+	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
+	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
+	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+	self:DisplayToast(str..name, L[" spotted!"])
 end
 
 function NF:RESURRECT_REQUEST(name)

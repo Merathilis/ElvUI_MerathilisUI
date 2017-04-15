@@ -61,8 +61,6 @@ L["Misc"] = true
 
 -- Misc
 L["Artifact Power"] = true
-L["Vignette"] = true
-L["Display a RaidWarning if a Rar/Treasures are spotted on the minimap."] = true
 L[" spotted!"] = true
 L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
