@@ -50,7 +50,6 @@ local function Tooltip()
 				order = 6,
 				type = "toggle",
 				name = L["Achievements"],
-				desc = L["Adds an role icon on the tooltip."],
 			},
 		},
 	}

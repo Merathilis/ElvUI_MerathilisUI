@@ -13,7 +13,7 @@ local UnitGUID = UnitGUID
 -- GLOBALS: ACHIEVEMENT_EARNED_BY, ACHIEVEMENT_NOT_COMPLETED_BY, ACHIEVEMENT_COMPLETED_BY
 
 local function SetHyperlink(tooltip, refString)
-	if E.db.mui.tooltip.achievement  ~= true then return end
+	if E.db.mui.tooltip.achievement ~= true then return end
 	if select(3, find(refString, "(%a-):")) ~= "achievement" then return end
 
 	local _, _, achievementID = find(refString, ":(%d+):")
