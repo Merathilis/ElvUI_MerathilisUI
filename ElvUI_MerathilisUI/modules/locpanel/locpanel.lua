@@ -32,7 +32,7 @@ local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, 
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
-local IsToyUsable = C_ToyBox.IsToyUsable
+local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
@@ -405,14 +405,15 @@ function LP:ItemList(check)
 	for i = 1, #LP.PortItems do
 		local tmp = {}
 		local data = LP.PortItems[i]
-		if MER:BagSearch(data.secure.ID) or (PlayerHasToy(data.secure.ID) and IsToyUsable(data.secure.ID)) then
+		local ID, isToy = data.secure.ID, data.secure.isToy
+		if (not isToy and MER:BagSearch(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
 			if check then 
 				if E.db.mui.locPanel.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
 			else
 				if data.text then
-					local cd = DD:GetCooldown("Item", data.secure.ID)
+					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
 					if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[E.db.mui.locPanel.portals.cdFormat], cd)
