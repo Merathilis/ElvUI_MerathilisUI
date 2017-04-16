@@ -17,6 +17,7 @@ P["mui"] = {
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 		["Movertransparancy"] = .75,
 		["Notification"] = true,
+		["ItemLevelLink"] = true, -- Displays the itemlevel in the itemlink
 	},
 
 	["misc"] = {

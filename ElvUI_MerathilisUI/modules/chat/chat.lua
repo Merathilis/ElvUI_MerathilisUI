@@ -11,8 +11,8 @@ local GetRealmName = GetRealmName
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
-_G.ERR_FRIEND_ONLINE_SS = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
-_G.ERR_FRIEND_OFFLINE_S = "[%s] "..L["has gone |cffff0000offline|r."]
+_G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
+_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
 
 function MERC:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
