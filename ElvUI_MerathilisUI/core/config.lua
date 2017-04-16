@@ -132,6 +132,7 @@ local function AddOptions()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					--[[
 					ItemLevelLink = {
 						order = 10,
 						type = "toggle",
@@ -140,6 +141,7 @@ local function AddOptions()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					--]]
 				},
 			},
 			info = {
