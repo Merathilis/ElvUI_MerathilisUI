@@ -1,8 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
 local S = E:GetModule("Skins")
--- WorldFlightMap don't like this, so stop right here
-if IsAddOnLoaded("WorldFlightMap") then return; end
 
 -- Cache global variables
 -- Lua functions
@@ -190,6 +188,9 @@ function FlightPoints_CreateFlyPathTable()
 end
 
 function FlightPoints_OnEvent(self, event, ...)
+	-- WorldFlightMap don't like this, so stop right here
+	if IsAddOnLoaded("WorldFlightMap") then return; end
+
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
 		FlightPoints_CreateFlyPathTable()
