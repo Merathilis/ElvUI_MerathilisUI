@@ -65,8 +65,6 @@ L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Select Quest Reward"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
-L["ItemLevelLink"] = true
-L["Display the ItemLevel and other informations in the ItemLink."] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true

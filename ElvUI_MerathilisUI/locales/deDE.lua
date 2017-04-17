@@ -65,8 +65,6 @@ L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Select Quest Reward"] = "Questbelohnung auswählen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
-L["ItemLevelLink"] = true
-L["Display the ItemLevel and other informations in the ItemLink."] = "Zeigt das Item Level und andere Informationen im ItemLevelLink an."
 
 -- TooltipIcon
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu."
