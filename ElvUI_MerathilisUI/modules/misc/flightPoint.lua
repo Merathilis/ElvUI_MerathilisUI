@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -211,7 +212,7 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:SetTemplate("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
-		MER:StyleOutside(FlightPointsTaxiChoice)
+		MERS:StyleOutside(FlightPointsTaxiChoice)
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}
