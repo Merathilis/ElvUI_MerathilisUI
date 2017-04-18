@@ -219,6 +219,18 @@ L["Click to toggle the AddOn Manager frame."] = true
 L["Boss Mod"] = true
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
 
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = "Einstellungen"
+L["Fadein duration"] = "Einblendzeit"
+L["Fadeout duration"] = "Ausblendzeit"
+L["Duration time"] = "Dauer"
+L["Animation size"] = "Animationsgröße"
+L["Display spell name"] = "Zeige Zaubernamen"
+L["Watch on pet spell"] = "Überwache Begleiter Zauber"
+L["Transparency"] = "Transparenz"
+L["Test"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 

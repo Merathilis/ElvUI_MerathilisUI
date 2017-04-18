@@ -219,6 +219,18 @@ L["Click to toggle the AddOn Manager frame."] = true
 L["Boss Mod"] = true
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
 
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = true
+L["Fadein duration"] = true
+L["Fadeout duration"] = true
+L["Duration time"] = true
+L["Animation size"] = true
+L["Display spell name"] = true
+L["Watch on pet spell"] = true
+L["Transparency"] = true
+L["Test"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
