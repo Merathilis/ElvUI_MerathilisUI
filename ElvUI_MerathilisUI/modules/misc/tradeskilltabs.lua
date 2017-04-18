@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI")
+local MERS = E:GetModule("muiSkins")
 local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
@@ -42,7 +43,7 @@ local function addTab(id, index, isSub)
 	tab:CreateBackdrop("Default")
 	tab.backdrop:SetAllPoints()
 	tab:StyleButton(true)
-	MER:StyleOutside(tab)
+	MERS:StyleOutside(tab)
 
 	tab:SetScript("OnEvent", isCurrentTab)
 	tab:RegisterEvent("CURRENT_SPELL_CAST_CHANGED")

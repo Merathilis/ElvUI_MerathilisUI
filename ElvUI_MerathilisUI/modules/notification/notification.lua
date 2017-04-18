@@ -165,7 +165,7 @@ function NF:GetToast()
 		sep:SetColorTexture(0, 0, 0)
 
 		local title = toast:CreateFontString(nil, "OVERLAY")
-		title:SetFont(E["media"].normFont, 14)
+		title:SetFont(E["media"].normFont, 12, "OUTLINE")
 		title:SetShadowOffset(1, -1)
 		title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 9, -9)
 		title:SetPoint("RIGHT", toast, -9, 0)
@@ -173,7 +173,7 @@ function NF:GetToast()
 		toast.title = title
 
 		local text = toast:CreateFontString(nil, "OVERLAY")
-		text:SetFont(E["media"].normFont, 11)
+		text:SetFont(E["media"].normFont, 10)
 		text:SetShadowOffset(1, -1)
 		text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 9, 9)
 		text:SetPoint("RIGHT", toast, -9, 0)
@@ -298,7 +298,6 @@ function NF:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("VIGNETTE_ADDED")
-	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 end
 
@@ -467,11 +466,6 @@ function NF:VIGNETTE_ADDED(event, id)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 	self:DisplayToast(str..name, L[" spotted!"])
-end
-
-function NF:RESURRECT_REQUEST(name)
-	if E.db.mui.general.Notification ~= true then return end
-	PlaySound("ReadyCheck")
 end
 
 E:RegisterModule(NF:GetName())
