@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
+local MERS = E:GetModule("muiSkins");
 local S = E:GetModule('Skins');
 local LSM = LibStub('LibSharedMedia-3.0');
 
@@ -42,14 +43,14 @@ frame:RegisterForDrag("LeftButton")
 frame:SetScript("OnDragStart", frame.StartMoving)
 frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 frame:SetClampedToScreen(true)
-MER:CreateSoftShadow(frame)
+MERS:CreateSoftShadow(frame)
 frame:Hide()
 
 local title = CreateFrame("Frame", nil, frame)
 title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
 title:SetSize(450, 20)
 title:SetTemplate("Transparent")
-MER:CreateSoftShadow(title)
+MERS:CreateSoftShadow(title)
 
 title.text = title:CreateFontString(nil, "OVERLAY")
 title.text:SetPoint("CENTER", title, 0, 0)

@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
+local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins");
 local LSM = LibStub("LibSharedMedia-3.0");
 local MI = E:GetModule("mUIMisc")
@@ -41,10 +42,10 @@ function MI:GMOTD()
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
-		MER:CreateSoftShadow(gmotd)
+		MERS:CreateSoftShadow(gmotd)
 		gmotd:Hide()
 		if IsAddOnLoaded("ElvUI_BenikUI") then
-			MER:StyleOutside(gmotd)
+			MERS:StyleOutside(gmotd)
 		else
 			gmotd.style = CreateFrame("Frame", nil, gmotd)
 			gmotd.style:SetTemplate("Default", true)

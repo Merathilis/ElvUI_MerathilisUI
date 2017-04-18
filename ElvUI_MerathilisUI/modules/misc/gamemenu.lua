@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
 local MI = E:GetModule("mUIMisc")
+local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -52,7 +53,7 @@ function MI:GameMenu()
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
 		if IsAddOnLoaded("ElvUI_BenikUI") then
-			MER:StyleOutside(bottomPanel)
+			MERS:StyleOutside(bottomPanel)
 		end
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))

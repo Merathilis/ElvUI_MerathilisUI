@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule("Skins");
 local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0");
+local LSM = LibStub("LibSharedMedia-3.0");
 
 -- Cache global variables
 -- Lua functions
@@ -8,6 +9,8 @@ local _G = _G
 local select, type, unpack = select, type, unpack
 -- WoW API / Variables
 local InCombatLockdown = InCombatLockdown
+
+local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -28,6 +31,151 @@ local buttons = {
 	"UI-Panel-SmallerButton-Up",
 	"UI-Panel-BiggerButton-Up",
 }
+
+-- BenikUI Styles
+function MERS:StyleOutside(frame)
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
+		frame:Style("Outside")
+	end
+end
+
+function MERS:StyleInside(frame)
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
+		frame:Style("Inside")
+	end
+end
+function MERS:StyleSmall(frame)
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
+		frame:Style("Small")
+	end
+end
+
+function MERS:StyleUnder(frame)
+	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
+		frame:Style("Under")
+	end
+end
+
+-- Underlines
+function MERS:Underline(frame, shadow, height)
+	local line = CreateFrame("Frame", nil, frame)
+	if line then
+		line:SetPoint("BOTTOM", frame, -1, 1)
+		line:SetSize(frame:GetWidth(), height or 1)
+		line.Texture = line:CreateTexture(nil, "OVERLAY")
+		line.Texture:SetTexture(flat)
+		line.Texture:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		if shadow then
+			if shadow == "backdrop" then
+				line:CreateShadow()
+			else
+				line:CreateBackdrop()
+			end
+		end
+		line.Texture:SetAllPoints(line)
+	end
+	return line
+end
+
+function MERS:CreateWideShadow(f)
+	local borderr, borderg, borderb = 0, 0, 0
+	local backdropr, backdropg, backdropb = 0, 0, 0
+
+	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetOutside(f, 6, 6)
+	shadow:SetBackdrop( { 
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
+		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
+	})
+	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
+	f.shadow = shadow
+end
+
+function MERS:CreateSoftShadow(f)
+	local borderr, borderg, borderb = 0, 0, 0
+	local backdropr, backdropg, backdropb = 0, 0, 0
+
+	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
+	shadow:SetFrameLevel(1)
+	shadow:SetFrameStrata(f:GetFrameStrata())
+	shadow:SetOutside(f, 2, 2)
+	shadow:SetBackdrop( { 
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
+		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
+	})
+	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
+	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
+	f.shadow = shadow
+end
+
+-- Create shadow for textures
+function MERS:CreateSD(f, m, s, n)
+	if f.Shadow then return end
+	local frame = f
+	if f:GetObjectType() == "Texture" then
+		frame = f:GetParent()
+	end
+	local lvl = frame:GetFrameLevel()
+
+	f.Shadow = CreateFrame("Frame", nil, frame)
+	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
+	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
+	f.Shadow:SetBackdrop({
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = s })
+	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	f.Shadow:SetFrameLevel(n or lvl)
+	return f.Shadow
+end
+
+function MERS:CreateBG(frame)
+	assert(frame, "doesn't exist!")
+	local f = frame
+	if frame:GetObjectType() == "Texture" then f = frame:GetParent() end
+
+	local bg = f:CreateTexture(nil, "BACKGROUND")
+	bg:Point("TOPLEFT", frame, -1, 1)
+	bg:Point("BOTTOMRIGHT", frame, 1, -1)
+	bg:SetTexture(E["media"].blankTex)
+	bg:SetVertexColor(0, 0, 0)
+
+	return bg
+end
+
+-- frame text
+function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
+	local fs = f:CreateFontString(nil, "OVERLAY")
+	fs:FontTemplate(nil, nil, 'OUTLINE')
+	fs:SetText(text)
+	fs:SetWordWrap(false)
+	if classcolor then
+		fs:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	end
+	if (anchor and x and y) then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 1, 0)
+	end
+	return fs
+end
+
+function MERS:CreateSoftGlow(f)
+	if f.sglow then return end
+
+	local sglow = CreateFrame("Frame", nil, f)
+	sglow:SetFrameLevel(1)
+	sglow:SetFrameStrata(f:GetFrameStrata())
+	sglow:SetOutside(f, 2, 2)
+	sglow:SetBackdrop( { 
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(3),
+		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
+	})
+	sglow:SetBackdropColor(MER:unpackColor(E.db.general.valuecolor), 0)
+	sglow:SetBackdropBorderColor(MER:unpackColor(E.db.general.valuecolor), 0.4)
+	f.sglow = sglow
+end
 
 -- Taken from AddOnSkins 
 function MERS:SkinTexture(frame)
@@ -139,20 +287,6 @@ function MERS:CreateBD(f, a)
 	})
 	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-end
-
-function MERS:CreateBG(frame)
-	assert(frame, "doesn't exist!")
-	local f = frame
-	if frame:GetObjectType() == "Texture" then f = frame:GetParent() end
-
-	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:Point("TOPLEFT", frame, -1, 1)
-	bg:Point("BOTTOMRIGHT", frame, 1, -1)
-	bg:SetTexture(E["media"].blankTex)
-	bg:SetVertexColor(0, 0, 0)
-
-	return bg
 end
 
 function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
