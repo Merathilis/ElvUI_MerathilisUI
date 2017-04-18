@@ -150,13 +150,13 @@ function NF:GetToast()
 		toast:SetPoint("TOP", E.UIParent, "TOP")
 		toast:Hide()
 		MERS:CreateBD(toast)
-		MER:StyleOutside(toast)
+		MERS:StyleOutside(toast)
 
 		local icon = toast:CreateTexture(nil, "OVERLAY")
 		icon:SetSize(32, 32)
 		icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
 		MERS:CreateBG(icon)
-		MER:StyleOutside(toast)
+		MERS:StyleOutside(toast)
 		toast.icon = icon
 
 		local sep = toast:CreateTexture(nil, "BACKGROUND")
