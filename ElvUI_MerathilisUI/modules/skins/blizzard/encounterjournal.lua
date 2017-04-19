@@ -33,6 +33,64 @@ function styleEncounterJournal()
 		Tab:GetHighlightTexture():SetTexture(nil)
 		MERS:StyleOutside(Tab.backdrop)
 	end
+
+	-- From Aurora
+	local LootJournal = EncounterJournal.LootJournal
+	LootJournal:DisableDrawLayer("BACKGROUND")
+
+	local itemsLeftSide = LootJournal.LegendariesFrame.buttons
+	local itemsRightSide = LootJournal.LegendariesFrame.rightSideButtons
+	for _, items in ipairs({itemsLeftSide, itemsRightSide}) do
+		for i = 1, #items do
+			local item = items[i]
+
+			item.ItemType:SetTextColor(1, 1, 1)
+			item.Background:SetAlpha(0)
+
+			item.Icon:SetPoint("TOPLEFT", 1, -1)
+			item.Icon:SetTexCoord(unpack(E.TexCoords))
+			item.Icon:SetDrawLayer("OVERLAY")
+			MERS:CreateBG(item.Icon)
+
+			local bg = CreateFrame("Frame", nil, item)
+			bg:SetPoint("TOPLEFT")
+			bg:SetPoint("BOTTOMRIGHT", 0, 1)
+			bg:SetFrameLevel(item:GetFrameLevel() - 1)
+			MERS:CreateBD(bg, .25)
+		end
+	end
+
+	local ItemSetsFrame = LootJournal.ItemSetsFrame
+	hooksecurefunc(ItemSetsFrame, "UpdateList", function()
+		local itemSets = ItemSetsFrame.buttons
+		for i = 1, #itemSets do
+			local itemSet = itemSets[i]
+
+			itemSet.ItemLevel:SetTextColor(1, 1, 1)
+			itemSet.Background:Hide()
+
+			if not itemSet.bg then
+				local bg = CreateFrame("Frame", nil, itemSet)
+				bg:SetPoint("TOPLEFT")
+				bg:SetPoint("BOTTOMRIGHT", 0, 1)
+				bg:SetFrameLevel(itemSet:GetFrameLevel() - 1)
+				MERS:CreateBD(bg, .25)
+				itemSet.bg = bg
+			end
+
+			local items = itemSet.ItemButtons
+			for j = 1, #items do
+				local item = items[j]
+
+				item.Border:Hide()
+				item.Icon:SetPoint("TOPLEFT", 1, -1)
+
+				item.Icon:SetTexCoord(.08, .92, .08, .92)
+				item.Icon:SetDrawLayer("OVERLAY")
+				MERS:CreateBG(item.Icon)
+			end
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", styleEncounterJournal)
