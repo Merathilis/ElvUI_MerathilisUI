@@ -1,6 +1,7 @@
 ﻿local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local RMA = E:NewModule("RaidMarkers");
+RMA.modName = L["Raid Markers"]
 
 -- Cache global variables
 -- Lua functions

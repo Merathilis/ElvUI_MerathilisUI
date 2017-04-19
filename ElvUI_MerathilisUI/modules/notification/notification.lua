@@ -4,6 +4,7 @@ local MER = E:GetModule("MerathilisUI");
 local MERS = E:GetModule("muiSkins")
 local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
 local S = E:GetModule("Skins")
+NF.modName = L["Notification"]
 
 --Cache global variables
 --Lua functions

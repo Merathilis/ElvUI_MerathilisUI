@@ -9,14 +9,14 @@ local CUSTOM = CUSTOM
 local function RaidMarkers()
 	E.Options.args.mui.args.raidmarkers = {
 		type = "group",
-		name = L["Raid Markers"],
+		name = RMA.modName or RMA:GetName(),
 		order = 17,
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Raid Markers"]),
+				name = MER:cOption(RMA.modName or RMA:GetName()),
 			},
 			credits = {
 				order = 2,
@@ -35,7 +35,7 @@ local function RaidMarkers()
 			marksheader = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Raid Markers"]),
+				name = MER:cOption(RMA.modName or RMA:GetName()),
 				guiInline = true,
 				args = {
 					info = {

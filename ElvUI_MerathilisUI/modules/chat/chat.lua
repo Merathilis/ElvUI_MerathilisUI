@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MERC = E:NewModule('muiChat')
 local CH = E:GetModule('Chat')
+MERC.modName = L["Chat"]
 
 -- Cache global variables
 -- Lua functions

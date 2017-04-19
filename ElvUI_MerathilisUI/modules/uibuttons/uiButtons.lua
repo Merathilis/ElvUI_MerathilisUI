@@ -3,6 +3,7 @@ local MER = E:GetModule("MerathilisUI");
 local MUB = E:NewModule("muiButtons", "AceHook-3.0")
 local lib = LibStub("LibElv-UIButtons-1.0")
 local S = E:GetModule("Skins")
+MUB.modName = L["UI Buttons"]
 
 -- Cache global variables
 -- Lua functions

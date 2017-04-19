@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local B = E:NewModule("muiBlizzard", "AceHook-3.0", "AceEvent-3.0")
+B.modName = L["Blizzard"]
 
 -- Cache global variables
 -- Lua functions

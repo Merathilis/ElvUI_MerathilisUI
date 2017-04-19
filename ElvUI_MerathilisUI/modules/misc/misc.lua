@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0");
+MI.modName = L["Misc"]
 
 E.mUIMisc = MI;
 

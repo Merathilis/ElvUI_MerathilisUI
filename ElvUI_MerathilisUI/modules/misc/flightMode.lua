@@ -3,6 +3,7 @@ local MER = E:GetModule("MerathilisUI");
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 local BFM = E:GetModule("BUIFlightMode");
 local MFM = E:NewModule("MUIFlightMode");
+MFM.modName = L["FlightMode"]
 
 function MFM:Initialize()
 	if E.db.mui.general.FlightMode then

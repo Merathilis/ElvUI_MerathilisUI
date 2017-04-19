@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
+local MUF = E:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames");
 
 -- Cache global variables
@@ -13,14 +14,14 @@ local function UnitFramesTable()
 	E.Options.args.mui.args.unitframes = {
 		order = 15,
 		type = "group",
-		name = L["UnitFrames"],
+		name = MUF.modName or MUF:GetName(),
 		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["UnitFrames"]),
+				name = MER:cOption(MUF.modName or MUF:GetName()),
 			},
 			general = {
 				order = 2,

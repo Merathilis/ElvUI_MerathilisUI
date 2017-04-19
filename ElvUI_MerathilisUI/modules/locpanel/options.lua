@@ -6,14 +6,14 @@ local DEFAULT = DEFAULT
 local function LocPanelTable()
 	E.Options.args.mui.args.locPanel = {
 		type = "group",
-		name = L["Location Panel"],
+		name = LP.modName or LP:GetName(),
 		order = 16,
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Location Panel"]),
+				name = MER:cOption(LP.modName or LP:GetName()),
 			},
 			credits = {
 				order = 2,
@@ -32,7 +32,7 @@ local function LocPanelTable()
 			panel = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Location Panel"]),
+				name = MER:cOption(LP.modName or LP:GetName()),
 				guiInline = true,
 				args = {
 					enable = {

@@ -1,5 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
+local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
@@ -34,12 +35,12 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = L["Skins/AddOns"],
+		name = MERS.modName or MERS:GetName(),
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Skins"]),
+				name = MER:cOption(MERS.modName or MERS:GetName()),
 			},
 		},
 	}

@@ -1,6 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local MERTB = E:NewModule("ThreatBar", "AceEvent-3.0")
+MERTB.modName = L["ThreatBar"]
 
 -- Cache global variables
 -- Lua functions

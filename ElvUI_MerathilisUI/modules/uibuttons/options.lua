@@ -31,14 +31,14 @@ local function uiButtonsTable()
 	local Bar = MUB.Holder
 	E.Options.args.mui.args.uiButtons = {
 		type = "group",
-		name = L["uiButtons"],
+		name = MUB.modName or MUB:GetName(),
 		order = 19,
 		get = function(info) return E.db.mui.uiButtons[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["uiButtons"]),
+				name = MER:cOption(MUB.modName or MUB:GetName()),
 			},
 			credits = {
 				order = 2,

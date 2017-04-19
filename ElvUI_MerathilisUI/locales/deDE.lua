@@ -184,7 +184,7 @@ L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs 
 L["Visibility State"] = "Sichtbarkeit"
 
 -- UIButtons
-L["uiButtons"] = true
+L["UI Buttons"] = true
 L["Show/Hide UI buttons."] = "Aktiviere/Deaktivere die UI Tasten."
 L["UI Buttons Style"] = "UI Tasten Stil"
 L["Classic"] = "Klassisch"
