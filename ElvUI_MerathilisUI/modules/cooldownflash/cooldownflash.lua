@@ -260,7 +260,7 @@ function CF:DisableCooldownFlash()
 end
 
 function CF:TestMode()
-	tinsert(CF.animating, {"Interface\\Icons\\Spell_Nature_Earthbind", nil, "Spell Name"})
+	tinsert(CF.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
 end
 
