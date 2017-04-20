@@ -26,6 +26,7 @@ P["mui"] = {
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["vignette"] = true, -- Shows Rars/Treasures
+		["automation"] = true,
 	},
 
 	["datatexts"] = {

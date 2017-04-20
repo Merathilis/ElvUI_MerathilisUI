@@ -1,6 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local MI = E:GetModule("mUIMisc")
+local MB = E:GetModule("mUImoveBlizz")
+local MERQ = E:GetModule("mUIQuest")
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
@@ -20,7 +22,7 @@ local function Misc()
 			moveBlizz = {
 				order = 2,
 				type = "toggle",
-				name = L["moveBlizz"],
+				name = MB.modName or MB:GetName(),
 				desc = L["Make some Blizzard Frames movable."],
 			},
 			tradeTabs = {
@@ -45,13 +47,13 @@ local function Misc()
 				get = function(info) return E.db.mui.general.Movertransparancy end,
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
-			selectquestreward = {
+			automation = {
 				order = 6,
 				type = "toggle",
-				name = L["Select Quest Reward"],
+				name = MERQ.modName or MERQ:GetName(),
 				desc = L["Automatically select the quest reward with the highest vendor sell value."],
-				get = function(info) return E.private.muiMisc.selectquestreward end,
-				set = function(info, value) E.private.muiMisc.selectquestreward = value; end,
+				get = function(info) return E.db.mui.misc.automation end,
+				set = function(info, value) E.db.mui.misc.automation = value; end,
 			},
 		},
 	}
