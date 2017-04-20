@@ -123,7 +123,6 @@ function MI:Initialize()
 	self:LoadMailInputBox()
 	self:LoadMerchant()
 	self:LoadMoverTransparancy()
-	self:LoadQuestReward()
 	self:LoadTST()
 	self:LoadsumAuctions()
 end

@@ -2,6 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local AFK = E:GetModule("AFK")
 local muiAFK = E:NewModule("muiAFK");
+muiAFK.modName = L["AFK"]
 
 -- Cache global variables
 -- WoW API / Variables
