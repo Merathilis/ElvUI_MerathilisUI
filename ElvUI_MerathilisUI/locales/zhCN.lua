@@ -64,7 +64,7 @@ L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Select Quest Reward"] = true
-L["Automatically select the quest reward with the highest vendor sell value."] = true
+L["Automatically completes quests."] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true

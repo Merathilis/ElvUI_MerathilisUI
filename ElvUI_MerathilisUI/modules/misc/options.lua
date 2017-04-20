@@ -50,8 +50,8 @@ local function Misc()
 			automation = {
 				order = 6,
 				type = "toggle",
-				name = MERQ.modName or MERQ:GetName(),
-				desc = L["Automatically select the quest reward with the highest vendor sell value."],
+				name = (MERQ.modName or MERQ:GetName())..MER.NewSign,
+				desc = L["Automatically completes quests."],
 				get = function(info) return E.db.mui.misc.automation end,
 				set = function(info, value) E.db.mui.misc.automation = value; end,
 			},
