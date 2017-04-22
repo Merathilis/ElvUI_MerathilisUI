@@ -5,7 +5,7 @@ required-dependencies:
 
 manual-changelog: 
     filename: CHANGELOG_CURSE.txt
-    markup-type: bbcode
+    markup-type: plain
 
 license-output: LICENSE.txt
 
