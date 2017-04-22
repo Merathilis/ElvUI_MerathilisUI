@@ -1,0 +1,8 @@
+package-as: ElvUI_MerathilisUI
+
+required-dependencies:
+    - ElvUI
+
+manual-changelog: CHANGELOG_CURSE.txt
+
+license-output: LICENSE.txt
