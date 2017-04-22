@@ -15,7 +15,6 @@ local function UnitFramesTable()
 		order = 15,
 		type = "group",
 		name = MUF.modName or MUF:GetName(),
-		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
@@ -26,7 +25,8 @@ local function UnitFramesTable()
 			general = {
 				order = 2,
 				type = "group",
-				name = L["General"],
+				name = MER:cOption(L["General"]),
+				guiInline = true,
 				args = {
 					groupinfo = {
 						order = 2,
@@ -38,13 +38,14 @@ local function UnitFramesTable()
 					},
 				},
 			},
-			player = {
+			--[[player = {
 				order = 2,
 				type = "group",
 				name = L["Player Frame"],
+				guiInline = true,
 				args = {
 				},
-			},
+			},--]]
 		},
 	}
 end

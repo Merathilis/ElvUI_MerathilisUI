@@ -8,37 +8,41 @@ local function Misc()
 	E.Options.args.mui.args.misc = {
 		order = 9,
 		type = "group",
-		name = MER:cOption(MI.modName or MI:GetName()),
-		guiInline = true,
+		name = MI.modName or MI:GetName(),
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			MailInputbox = {
+			name = {
 				order = 1,
+				type = "header",
+				name = MER:cOption(MI.modName or MI:GetName()),
+			},
+			MailInputbox = {
+				order = 2,
 				type = "toggle",
 				name = L["Mail Inputbox Resize"],
 				desc = L["Resize the Mail Inputbox and move the shipping cost to the Bottom"],
 			},
 			moveBlizz = {
-				order = 2,
+				order = 3,
 				type = "toggle",
 				name = MB.modName or MB:GetName(),
 				desc = L["Make some Blizzard Frames movable."],
 			},
 			tradeTabs = {
-				order = 3,
+				order = 4,
 				type = "toggle",
 				name = L["TradeSkill Tabs"],
 				desc = L["Add tabs for professions on the TradeSkill Frame."],
 			},
 			gmotd = {
-				order = 4,
+				order = 5,
 				type = "toggle",
 				name = GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
 			Movertransparancy = {
-				order = 5,
+				order = 6,
 				type = "range",
 				name = L["Mover Transparency"],
 				desc = L["Changes the transparency of all the movers."],
@@ -48,7 +52,7 @@ local function Misc()
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
 			automation = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = (MERQ.modName or MERQ:GetName())..MER.NewSign,
 				desc = L["Automatically completes quests."],
