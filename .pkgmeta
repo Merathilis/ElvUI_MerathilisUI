@@ -3,6 +3,14 @@ package-as: ElvUI_MerathilisUI
 required-dependencies:
     - ElvUI
 
-manual-changelog: CHANGELOG_CURSE.txt
+manual-changelog: 
+    filename: CHANGELOG_CURSE.txt
+    markup-type: bbcode
 
 license-output: LICENSE.txt
+
+ignore:
+ - .pkgmeta
+ - .gitattributes
+ - .gitignore
+ 
