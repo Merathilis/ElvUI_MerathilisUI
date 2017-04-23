@@ -266,6 +266,7 @@ end
 
 function CF:Initialize()
 	CF.db = E.db.mui.cooldownFlash
+	if CF.db == nil then CF.db = {} end -- rare nil error
 	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 	DCP:CreateShadow("Background")
 	DCP.TextFrame:SetFont(E.db.general.fontSize, 18, "OUTLINE")
