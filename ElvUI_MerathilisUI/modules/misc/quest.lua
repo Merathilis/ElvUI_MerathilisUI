@@ -124,7 +124,7 @@ function QuickQuest:Register(event, method, override)
 	local newmethod
 	if(not override) then
 		newmethod = function(...)
-			if(not IsShiftKeyDown() and E.db.mui.misc.automation) then
+			if(not IsShiftKeyDown() and E.db.mui.misc.quest) then
 				method(...)
 			end
 		end
@@ -578,7 +578,7 @@ local errors = {
 }
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", function(self, event, message)
-	if E.db.mui.misc.automation then
+	if E.db.mui.misc.quest then
 		return errors[message]
 	end
 end)

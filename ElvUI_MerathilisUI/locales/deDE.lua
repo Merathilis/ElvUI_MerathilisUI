@@ -63,8 +63,9 @@ L[" spotted!"] = " entdeckt!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
-L["Select Quest Reward"] = "Questbelohnung auswählen"
-L["Automatically completes quests."] = "Schließt Quests automatisch ab."
+L["Disable auto get/complete quests when Shift down."] = "Deaktiviert bei gedrückter Shift Taste das automatische abschließen/annehmen von Quests."
+L["Announce"] = "Ankündigungen"
+L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 
 -- TooltipIcon
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu."

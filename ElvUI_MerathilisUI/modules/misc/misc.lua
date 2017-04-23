@@ -93,19 +93,6 @@ function MI:LoadMisc()
 		end
 	end)
 
-	-- Display combat state changes
-	local CombatState = CreateFrame("Frame")
-	CombatState:RegisterEvent("PLAYER_REGEN_ENABLED")
-	CombatState:RegisterEvent("PLAYER_REGEN_DISABLED")
-	CombatState:SetScript("OnEvent", function(self, event)
-		if not E.db.mui.general.CombatState then return end
-		if event == "PLAYER_REGEN_DISABLED" then
-			UIErrorsFrame:AddMessage("+ " .. COMBAT, 255, 0, 0)
-		elseif event == "PLAYER_REGEN_ENABLED" then
-			UIErrorsFrame:AddMessage("- " .. COMBAT, 0, 255, 0)
-		end
-	end)
-
 	-- Always show the Text on the PlayerPowerBarAlt
 	PlayerPowerBarAlt:HookScript("OnShow", function()
 		local statusFrame = PlayerPowerBarAlt.statusFrame

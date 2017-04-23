@@ -63,8 +63,9 @@ L[" spotted!"] = true
 L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
-L["Select Quest Reward"] = true
-L["Automatically completes quests."] = true
+L["Disable auto get/complete quests when Shift down."] = true
+L["Announce"] = true
+L["Combat Status, Skill gains"] = true
 
 -- Tooltip
 L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true

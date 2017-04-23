@@ -3,6 +3,7 @@ local MER = E:GetModule("MerathilisUI");
 local MI = E:GetModule("mUIMisc")
 local MB = E:GetModule("mUImoveBlizz")
 local MERQ = E:GetModule("mUIQuest")
+local MERA = E:GetModule("mUIAnnounce")
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
@@ -51,13 +52,17 @@ local function Misc()
 				get = function(info) return E.db.mui.general.Movertransparancy end,
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
-			automation = {
+			quest = {
 				order = 7,
 				type = "toggle",
 				name = (MERQ.modName or MERQ:GetName())..MER.NewSign,
-				desc = L["Automatically completes quests."],
-				get = function(info) return E.db.mui.misc.automation end,
-				set = function(info, value) E.db.mui.misc.automation = value; end,
+				desc = L["Disable auto get/complete quests when Shift down."],
+			},
+			announce = {
+				order = 8,
+				type = "toggle",
+				name = (MERA.modName or MERA:GetName())..MER.NewSign,
+				desc = L["Combat Status, Skill gains"],
 			},
 		},
 	}
