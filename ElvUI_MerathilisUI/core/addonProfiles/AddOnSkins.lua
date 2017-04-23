@@ -1,6 +1,13 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+--Cache global variables
+local unpack = unpack
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AddOnSkins, AddOnSkinsDB, LibStub
+
 function MER:LoadAddOnSkinsProfile()
 	--[[----------------------------------
 	--	AddOnSkins - Settings

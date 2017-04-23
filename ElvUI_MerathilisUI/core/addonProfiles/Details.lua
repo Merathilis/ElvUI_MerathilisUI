@@ -1,6 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+--Cache global variables
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: _detalhes_global, _detalhes
+
 function MER:LoadDetailsProfile()
 	--[[----------------------------------
 	--	Details - Settings

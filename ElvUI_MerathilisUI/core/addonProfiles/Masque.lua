@@ -1,6 +1,12 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule('MerathilisUI');
 
+--Cache global variables
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: MasqueDB, LibStub
+
 function MER:LoadMasqueProfile()
 	--[[----------------------------------
 	--	Masque - Settings | Note: You have to create a seperate profile for each class to use the class color.
