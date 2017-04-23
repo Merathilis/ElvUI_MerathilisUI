@@ -34,7 +34,7 @@ function MER:MismatchText()
 end
 
 function MER:Print(...)
-	print(MER.Title..":", ...)
+	print("|cffff7d0a".."mUI:|r", ...)
 end
 
 function MER:PrintURL(url)
