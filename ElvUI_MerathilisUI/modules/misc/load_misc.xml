@@ -12,7 +12,7 @@
 	<Script file="merchant.lua"/>
 	<Script file="moveblizz.lua"/>
 	<Script file="movers.lua"/>
-	<Script file="quest.lua"/>
+	<!-- Script file="quest.lua"/ -->
 	<Script file="sumAuctions.lua"/>
 	<Script file="threatBar.lua"/>
 	<Script file="tradeskilltabs.lua"/>

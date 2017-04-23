@@ -52,12 +52,14 @@ local function Misc()
 				get = function(info) return E.db.mui.general.Movertransparancy end,
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
+			--[[
 			quest = {
 				order = 7,
 				type = "toggle",
 				name = (MERQ.modName or MERQ:GetName())..MER.NewSign,
 				desc = L["Disable auto get/complete quests when Shift down."],
 			},
+			]]
 			announce = {
 				order = 8,
 				type = "toggle",
