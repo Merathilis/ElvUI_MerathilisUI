@@ -2,7 +2,7 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local MI = E:GetModule("mUIMisc")
 local MB = E:GetModule("mUImoveBlizz")
-local MERQ = E:GetModule("mUIQuest")
+-- local MERQ = E:GetModule("mUIQuest")
 local MERA = E:GetModule("mUIAnnounce")
 
 local function Misc()

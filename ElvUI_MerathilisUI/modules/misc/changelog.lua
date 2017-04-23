@@ -19,17 +19,10 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.34|r, 23.04.2017
+local ChangeLogData = [=[|cffff7d0av2.34.1|r, 23.04.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Fix an error in UIButtons. #54
- |cffff7d0a•|r Updates various Skins.
- |cffff7d0a•|r Update BigWigs profile.
- |cffff7d0a•|r Add a notification toast frame.
- |cffff7d0a•|r Add an own CoolDownFlash Frame. Based on DoomCooldownPulse
- |cffff7d0a•|r Locales updates.
- |cffff7d0a•|r Update CombatText and put it in an own module.
- |cffff7d0a•|r Many functions are updated.
+ |cffff7d0a•|r Disable quest module for now.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r Add a spellTolerance script (NEED TESTING). If you encounter issue with it, please let me know.
