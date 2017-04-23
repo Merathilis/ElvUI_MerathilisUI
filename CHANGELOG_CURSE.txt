@@ -1,3 +1,6 @@
+** v2.34.1, 23.04.2017**
+* Disable the quest module for now.
+
 ** v2.34, 23.04.2017**
 * Fix an error in UIButtons. #54
 * Updates various Skins.
