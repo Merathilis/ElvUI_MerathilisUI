@@ -1,3 +1,13 @@
+<b><u> v2.34, 23.04.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Fix an error in UIButtons. #54
+<font color=#FF8C00>&#9830;</font> Updates various Skins.
+<font color=#FF8C00>&#9830;</font> Update BigWigs profile.
+<font color=#FF8C00>&#9830;</font> Add a notification toast frame.
+<font color=#FF8C00>&#9830;</font> Add an own CoolDownFlash Frame. Based on DoomCooldownPulse
+<font color=#FF8C00>&#9830;</font> Locales updates.
+<font color=#FF8C00>&#9830;</font> Update CombatText and put it in an own module.
+<font color=#FF8C00>&#9830;</font> Many functions are updated.
+
 <b><u> v2.33, 10.04.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Create an UIButton Frame. Ported from Shadow&Light.
 <font color=#FF8C00>&#9830;</font> Remove the achievement tooltip function, its now blizzard default.
