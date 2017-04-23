@@ -25,14 +25,16 @@ MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
+MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
+MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text
 end
 
-function MER:Print(msg)
-	print(E["media"].hexvaluecolor..'mUI:|r', msg)
+function MER:Print(...)
+	print(MER.Title..":", ...)
 end
 
 function MER:PrintURL(url)
@@ -85,4 +87,10 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
+end
+
+-- Inform us of the patch info we play on.
+_G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
+SlashCmdList["WOWVERSION"] = function()
+	MER:Print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
