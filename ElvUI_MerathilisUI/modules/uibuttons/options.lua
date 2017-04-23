@@ -71,6 +71,7 @@ local function uiButtonsTable()
 					["dropdown"] = L["Dropdown"],
 				},
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.style end,
 				set = function(info, value) E.db.mui.uiButtons.style = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
@@ -78,6 +79,7 @@ local function uiButtonsTable()
 				order = 5,
 				type = 'description',
 				name = "",
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 			},
 			size = {
 				order = 6,
@@ -86,6 +88,7 @@ local function uiButtonsTable()
 				desc = L["Sets size of buttons"],
 				min = 12, max = 25, step = 1,
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.size end,
 				set = function(info, value) E.db.mui.uiButtons.size = value; Bar:FrameSize() end,
 			},
@@ -96,6 +99,7 @@ local function uiButtonsTable()
 				desc = L["The spacing between buttons."],
 				min = -4, max = 10, step = 1,
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.spacing end,
 				set = function(info, value) E.db.mui.uiButtons.spacing = value; Bar:FrameSize() end,
 			},
@@ -105,6 +109,7 @@ local function uiButtonsTable()
 				name = L["Mouse Over"],
 				desc = L["Show on mouse over."],
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.mouse end,
 				set = function(info, value) E.db.mui.uiButtons.mouse = value; Bar:UpdateMouseOverSetting() end
 			},
@@ -113,6 +118,7 @@ local function uiButtonsTable()
 				type = "toggle",
 				name = L["Backdrop"],
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.menuBackdrop end,
 				set = function(info, value) E.db.mui.uiButtons.menuBackdrop = value; Bar:UpdateBackdrop() end
 			},
@@ -121,6 +127,7 @@ local function uiButtonsTable()
 				type = "toggle",
 				name = L["Dropdown Backdrop"],
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.dropdownBackdrop end,
 				set = function(info, value) E.db.mui.uiButtons.dropdownBackdrop = value; Bar:FrameSize() end
 			},
@@ -134,6 +141,7 @@ local function uiButtonsTable()
 					["vertical"] = L["Vertical"],
 				},
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.orientation end,
 				set = function(info, value) E.db.mui.uiButtons.orientation = value; Bar:FrameSize() end,
 			},
@@ -143,6 +151,7 @@ local function uiButtonsTable()
 				name = L["Anchor Point"],
 				desc = L["What point of dropdown will be attached to the toggle button."],
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.point end,
 				set = function(info, value) E.db.mui.uiButtons.point = value; Bar:FrameSize() end,
 				values = positionValues,
@@ -153,6 +162,7 @@ local function uiButtonsTable()
 				name = L["Attach To"],
 				desc = L["What point to anchor dropdown on the toggle button."],
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.anchor end,
 				set = function(info, value) E.db.mui.uiButtons.anchor = value; Bar:FrameSize() end,
 				values = positionValues,
@@ -164,6 +174,7 @@ local function uiButtonsTable()
 				desc = L["Horizontal offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.xoffset end,
 				set = function(info, value) E.db.mui.uiButtons.xoffset = value; Bar:FrameSize() end,
 			},
@@ -174,6 +185,7 @@ local function uiButtonsTable()
 				desc = L["Vertical offset of dropdown from the toggle button."],
 				min = -10, max = 10, step = 1,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.yoffset end,
 				set = function(info, value) E.db.mui.uiButtons.yoffset = value; Bar:FrameSize() end,
 			},
@@ -183,6 +195,7 @@ local function uiButtonsTable()
 				name = L["Minimum Roll Value"],
 				desc = L["The lower limit for custom roll button."],
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.customroll.min end,
 				set = function(info, value) E.db.mui.uiButtons.customroll.min = value; end,
 			},
@@ -192,6 +205,7 @@ local function uiButtonsTable()
 				name = L["Maximum Roll Value"],
 				desc = L["The higher limit for custom roll button."],
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.customroll.max end,
 				set = function(info, value) E.db.mui.uiButtons.customroll.max = value; end,
 			},
@@ -201,6 +215,7 @@ local function uiButtonsTable()
 				width = 'full',
 				name = L["Visibility State"],
 				disabled = function() return not E.db.mui.uiButtons.enable end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				get = function(info) return E.db.mui.uiButtons.visibility end,
 				set = function(info, value) E.db.mui.uiButtons.visibility = value; Bar:ToggleShow() end,
 			},
@@ -210,6 +225,7 @@ local function uiButtonsTable()
 				type = "group",
 				guiInline = true,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				args = {
 					enabled = {
 						order = 1,
@@ -241,6 +257,7 @@ local function uiButtonsTable()
 				type = "group",
 				guiInline = true,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				args = {
 					enabled = {
 						order = 1,
@@ -269,6 +286,7 @@ local function uiButtonsTable()
 				type = "group",
 				guiInline = true,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				args = {
 					enabled = {
 						order = 1,
@@ -298,6 +316,7 @@ local function uiButtonsTable()
 				type = "group",
 				guiInline = true,
 				disabled = function() return not E.db.mui.uiButtons.enable or E.db.mui.uiButtons.style == "classic" end,
+				hidden = function() return not E.db.mui.uiButtons.enable end,
 				args = {
 					enabled = {
 						order = 1,

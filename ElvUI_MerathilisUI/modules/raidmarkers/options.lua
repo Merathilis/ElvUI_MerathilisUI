@@ -56,18 +56,21 @@ local function RaidMarkers()
 						name = L["Restore Defaults"],
 						desc = L["Reset these options to defaults"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						func = function() MER:Reset("marks") end,
 					},
 					space1 = {
 						order = 7,
 						type = 'description',
 						name = "",
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 					},
 					backdrop = {
 						type = 'toggle',
 						order = 8,
 						name = L["Backdrop"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.backdrop = value; RMA:Backdrop() end,
 					},
 					buttonSize = {
@@ -76,6 +79,7 @@ local function RaidMarkers()
 						name = L["Button Size"],
 						min = 16, max = 40, step = 1,
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.buttonSize = value; RMA:UpdateBar() end,
 					},
 					spacing = {
@@ -84,6 +88,7 @@ local function RaidMarkers()
 						name = L["Button Spacing"],
 						min = -4, max = 10, step = 1,
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.spacing = value; RMA:UpdateBar() end,
 					},
 					orientation = {
@@ -91,6 +96,7 @@ local function RaidMarkers()
 						type = 'select',
 						name = L["Orientation"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.orientation = value; RMA:UpdateBar() end,
 						values = {
 							["HORIZONTAL"] = L["Horizontal"],
@@ -102,6 +108,7 @@ local function RaidMarkers()
 						order = 12,
 						name = L["Reverse"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.reverse = value; RMA:UpdateBar() end,
 					},
 					modifier = {
@@ -110,6 +117,7 @@ local function RaidMarkers()
 						name = L["Modifier Key"],
 						desc = L["Set the modifier key for placing world markers."],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.modifier = value; RMA:UpdateWorldMarkersAndTooltips() end,
 						values = {
 							["shift-"] = SHIFT_KEY,
@@ -122,6 +130,7 @@ local function RaidMarkers()
 						order = 14,
 						name = L["Visibility"],
 						disabled = function() return not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.visibility = value; RMA:Visibility() end,
 						values = {
 							["DEFAULT"] = DEFAULT,
@@ -136,6 +145,7 @@ local function RaidMarkers()
 						width = 'full',
 						name = L["Visibility State"],
 						disabled = function() return E.db.mui.raidmarkers.visibility ~= "CUSTOM" or not E.db.mui.raidmarkers.enable end,
+						hidden = function() return not E.db.mui.raidmarkers.enable end,
 						set = function(info, value) E.db.mui.raidmarkers.customVisibility = value; RMA:Visibility() end,
 					},
 				},

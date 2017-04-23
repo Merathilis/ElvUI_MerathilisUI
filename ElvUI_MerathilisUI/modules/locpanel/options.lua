@@ -46,6 +46,8 @@ local function LocPanelTable()
 						name = L["Link Position"],
 						desc = L["Allow pasting of your coordinates in chat editbox via holding shift and clicking on the location name."],
 						order = 2,
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
 					template = {
@@ -53,6 +55,7 @@ local function LocPanelTable()
 						name = L["Template"],
 						type = "select",
 						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Template() end,
 						values = {
 							["Default"] = DEFAULT,
@@ -64,6 +67,8 @@ local function LocPanelTable()
 						name = L["Auto Width"],
 						desc = L["Change width based on the zone name length."],
 						order = 4,
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Resize() end,
 					},
 					width = {
@@ -71,7 +76,8 @@ local function LocPanelTable()
 						type = "range",
 						name = L["Width"],
 						min = 100, max = E.screenwidth/2, step = 1,
-						disabled = function() return not E.db.mui.locPanel.enable or  E.db.mui.locPanel.autowidth end,
+						disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.autowidth end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Resize() end,
 					},
 					height = {
@@ -80,6 +86,7 @@ local function LocPanelTable()
 						name = L["Height"],
 						min = 10, max = 50, step = 1,
 						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Resize() end,
 					},
 					throttle = {
@@ -89,19 +96,22 @@ local function LocPanelTable()
 						desc = L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."],
 						min = 0.1, max = 2, step = 0.1,
 						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
 					combathide = {
 						order = 8,
 						type = "toggle",
-						name = L["Hide in Combat"],
+						name = L["Hide In Combat"],
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 					},
-					
 					location = {
 						order = 20,
 						type = "group",
 						name = L["Location"],
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						args = {
 							zoneText = {
 								type = "toggle",
@@ -145,6 +155,7 @@ local function LocPanelTable()
 						order = 21,
 						type = "group",
 						name = L["Coordinates"],
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						args = {
 							format = {
 								order = 1,
@@ -194,6 +205,7 @@ local function LocPanelTable()
 						type = "group",
 						name = L["Relocation Menu"],
 						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						get = function(info) return E.db.mui.locPanel.portals[ info[#info] ] end,
 						set = function(info, value) E.db.mui.locPanel.portals[ info[#info] ] = value; end,
 						args = {
@@ -248,6 +260,7 @@ local function LocPanelTable()
 						type = "group",
 						name = L["Fonts"],
 						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 						get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Fonts() end,
 						args = {
