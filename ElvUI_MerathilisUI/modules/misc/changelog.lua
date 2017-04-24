@@ -19,13 +19,14 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.34.1|r, 23.04.2017
+local ChangeLogData = [=[|cffff7d0av2.35|r, 24.04.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Disable quest module for now.
+ |cffff7d0a•|r Delete the spell tolerance script.
+ |cffff7d0a•|r Update the quest module to select the quest reward with the highest price.
  
 |cffff7d0aNotes:|r
- |cffff7d0a•|r Add a spellTolerance script (NEED TESTING). If you encounter issue with it, please let me know.
+ |cffff7d0a•|r Have a nice day! ^o^
 ]=];
 
 local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)

@@ -1,3 +1,7 @@
+** v2.35, 24.04.2017**
+* Delete the spell tolerance script.
+* Update the quest module to select the quest reward with the highest price.
+
 ** v2.34.1, 23.04.2017**
 * Disable the quest module for now.
 

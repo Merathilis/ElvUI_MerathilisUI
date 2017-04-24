@@ -1,3 +1,10 @@
+<b><u> v2.35, 24.04.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Delete the spell tolerance script.
+<font color=#FF8C00>&#9830;</font> Update the quest module to select the quest reward with the highest price.
+
+<b><u> v2.34.1, 23.04.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Disable the quest module. 
+
 <b><u> v2.34, 23.04.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Fix an error in UIButtons. #54
 <font color=#FF8C00>&#9830;</font> Updates various Skins.
