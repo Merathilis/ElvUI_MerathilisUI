@@ -2,7 +2,6 @@ local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
 local MI = E:GetModule("mUIMisc")
 local MB = E:GetModule("mUImoveBlizz")
--- local MERQ = E:GetModule("mUIQuest")
 local MERA = E:GetModule("mUIAnnounce")
 
 local function Misc()
@@ -52,14 +51,12 @@ local function Misc()
 				get = function(info) return E.db.mui.general.Movertransparancy end,
 				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
 			},
-			--[[
 			quest = {
 				order = 7,
 				type = "toggle",
-				name = (MERQ.modName or MERQ:GetName())..MER.NewSign,
-				desc = L["Disable auto get/complete quests when Shift down."],
+				name = L["Quest"]..MER.NewSign,
+				desc = L["Automatically select the quest reward with the highest vendor sell value."],
 			},
-			]]
 			announce = {
 				order = 8,
 				type = "toggle",

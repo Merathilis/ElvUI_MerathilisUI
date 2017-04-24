@@ -26,8 +26,8 @@ P["mui"] = {
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["vignette"] = true, -- Shows Rars/Treasures
-		-- ["quest"] = false, -- Completes Quests
-		["announce"] = true, -- CombatText, Skill gains
+		["quest"] = false,
+		["announce"] = false, -- CombatText, Skill gains
 	},
 
 	["datatexts"] = {

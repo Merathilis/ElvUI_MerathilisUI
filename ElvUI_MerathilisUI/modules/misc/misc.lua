@@ -112,6 +112,7 @@ function MI:Initialize()
 	self:LoadMoverTransparancy()
 	self:LoadTST()
 	self:LoadsumAuctions()
+	self:LoadQuestReward()
 end
 
 E:RegisterModule(MI:GetName())
