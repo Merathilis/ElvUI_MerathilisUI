@@ -43,7 +43,7 @@ function MER:LoadBigWigsProfile()
 						["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
 						["font"] = "Merathilis Roboto-Bold",
 						["emphasizeScale"] = 1.1,
-						["texture"] = "MerathilisLight",
+						["texture"] = "MerathilisBlank",
 					},
 				},
 			},

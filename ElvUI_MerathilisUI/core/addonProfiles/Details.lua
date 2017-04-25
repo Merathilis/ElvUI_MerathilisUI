@@ -199,8 +199,8 @@ function MER:LoadDetailsProfile()
 		["got_first_run"] = true,
 		["details_auras"] = {
 		},
-		["always_use_profile"] = false,
-		["always_use_profile_name"] = "Merathilis-Shattrath",
+		["always_use_profile"] = true,
+		["always_use_profile_name"] = "MerathilisUI",
 		["savedStyles"] = {
 		},
 		["report_pos"] = {
@@ -1437,7 +1437,7 @@ function MER:LoadDetailsProfile()
 								["upper_enabled"] = false,
 							},
 							["texture_custom_file"] = "Interface\\",
-							["texture_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat.tga",
+							["texture_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 							["icon_file"] = "Interface\\AddOns\\Details\\images\\spec_icons_normal",
 							["use_spec_icons"] = true,
 							["font_size"] = 10,
@@ -1480,7 +1480,7 @@ function MER:LoadDetailsProfile()
 								0, -- [3]
 								1, -- [4]
 							},
-							["texture_background"] = "MerathilisFlat",
+							["texture_background"] = "MerathilisBlank",
 							["alpha"] = 1,
 							["no_icon"] = false,
 							["textR_show_data"] = {
@@ -1488,10 +1488,10 @@ function MER:LoadDetailsProfile()
 								true, -- [2]
 								true, -- [3]
 							},
-							["texture_background_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat.tga",
+							["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 							["font_face"] = "Merathilis Roboto-Bold",
 							["texture_class_colors"] = true,
-							["texture"] = "MerathilisFlat",
+							["texture"] = "MerathilisBlank",
 							["fast_ps_update"] = true,
 							["textR_separator"] = ",",
 							["height"] = 14,

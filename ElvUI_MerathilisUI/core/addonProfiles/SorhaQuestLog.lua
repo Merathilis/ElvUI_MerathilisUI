@@ -157,7 +157,7 @@ function MER:LoadSorhaQuestLogProfile()
 			},
 			["profiles"] = {
 				["MerathilisUI"] = {
-					["StatusBarTexture"] = "MerathilisFlat",
+					["StatusBarTexture"] = "MerathilisBlank",
 					["BackgroundTexture"] = "None",
 					["BorderTexture"] = "None",
 				},

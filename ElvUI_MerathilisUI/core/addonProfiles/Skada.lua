@@ -47,7 +47,7 @@ function MER:LoadSkadaProfile()
 				["mode"] = "Schaden",
 				["enabletitle"] = false,
 				["spark"] = false,
-				["bartexture"] = "Lyn1",
+				["bartexture"] = "MerathilisBlank",
 				["barwidth"] = 165.999954223633,
 				["barspacing"] = 2,
 				["barcolor"] = {
@@ -72,7 +72,7 @@ function MER:LoadSkadaProfile()
 					["borderthickness"] = 0,
 					["fontsize"] = 14,
 					["fontflags"] = "OUTLINE",
-					["texture"] = "MerathilisFlat",
+					["texture"] = "MerathilisBlank",
 				},
 				["x"] = 1739.00001525879,
 			}, -- [1]

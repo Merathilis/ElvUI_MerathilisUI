@@ -32,7 +32,7 @@ function MER:LoadXIVDatabarProfile()
 				["text"] = {
 					["flags"] = 2,
 					["fontSize"] = 10,
-					["font"] = "Merathilis Roboto-Medium",
+					["font"] = "Merathilis Roboto-Bold",
 				},
 				["general"] = {
 					["barPosition"] = "TOP",

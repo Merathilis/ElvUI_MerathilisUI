@@ -185,8 +185,8 @@ function MER:SetupLayout(noDataReset)
 		E.private["general"]["classColorMentionsSpeech"] = true
 		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
-		E.private["general"]["normTex"] = "MerathilisBorder"
-		E.private["general"]["glossTex"] = "MerathilisBorder"
+		E.private["general"]["normTex"] = "MerathilisBlank"
+		E.private["general"]["glossTex"] = "MerathilisBlank"
 		if IsAddOnLoaded("XLoot") then
 			E.private["general"]["loot"] = false
 			E.private["general"]["lootRoll"] = false
@@ -302,7 +302,7 @@ function MER:SetupLayout(noDataReset)
 		--[[----------------------------------
 		--	ProfileDB - NamePlate
 		--]]----------------------------------
-		E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+		E.db["nameplates"]["statusbar"] = "MerathilisBlank"
 		E.db["nameplates"]["font"] = "Merathilis Roboto-Black"
 		E.db["nameplates"]["fontSize"] = 10
 		E.db["nameplates"]["fontOutline"] = "OUTLINE"
@@ -502,7 +502,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["fontSize"] = 12
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
-		E.db["unitframe"]["statusbar"] = "MerathilisBorder"
+		E.db["unitframe"]["statusbar"] = "MerathilisBlank"
 		E.db["unitframe"]["colors"]["castColor"] = { 
 			["r"] = 0.1,
 			["g"] = 0.1,
@@ -606,7 +606,7 @@ function MER:SetupUnitframes(noDataReset)
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = 0
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["texture"] = "MerathilisFlat"
+			E.db["benikui"]["unitframes"]["castbar"]["text"]["texture"] = "MerathilisBlank"
 			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		end
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 120)

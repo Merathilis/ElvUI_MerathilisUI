@@ -22,7 +22,7 @@ function MER:LoadKuiNamePlatesCoreProfile()
 				["ignore_uiscale"] = true,
 				["bar_animation"] = 2,
 				["nameonly_neutral"] = true,
-				["bar_texture"] = "MerathilisFlat",
+				["bar_texture"] = "MerathilisBlank",
 			},
 		},
 	}
