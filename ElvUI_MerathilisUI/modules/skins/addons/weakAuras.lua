@@ -44,11 +44,6 @@ frame:SetScript("OnEvent", function(self, event)
 		if frame.border then
 			frame.border:Hide()
 		end
-
-		if frame.bar then
-			frame.bar.fg:SetTexture(E["media"].normTex)
-			frame.bar.bg:SetTexture(E["media"].blankTex)
-		end
 	end
 
 	local Create_Icon, Modify_Icon = WeakAuras.regionTypes.icon.create, WeakAuras.regionTypes.icon.modify

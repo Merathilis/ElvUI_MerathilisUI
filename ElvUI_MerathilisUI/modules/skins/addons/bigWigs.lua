@@ -87,7 +87,7 @@ local function ApplyStyle(bar)
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
 	bar.candyBarBar.SetPoint = MER.dummy
-	bar.candyBarBar:SetStatusBarTexture(E['media'].muiFlat)
+	bar.candyBarBar:SetStatusBarTexture(E['media'].muiBlank)
 	if not bar.data["bigwigs:emphasized"] == true then
 		bar.candyBarBar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 1)
 	end

@@ -60,9 +60,9 @@ function MER:RegisterMerMedia()
 	-- Background
 	E["media"].muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
 	E["media"].muiSmoke = LSM:Fetch("background", "Merathilis Smoke")
-	E["media"].muiBlank = LSM:Fetch("background", "Solid")
 
 	--Textures
+	E["media"].muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
 	E["media"].muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
 	E["media"].muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
 	E["media"].muiFlat = LSM:Fetch("statusbar", "MerathilisFlat")
