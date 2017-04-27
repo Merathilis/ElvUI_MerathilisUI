@@ -1,12 +1,11 @@
 local E, L, V, P, G = unpack(ElvUI);
 local MER = E:GetModule("MerathilisUI");
-local MERCO = E:GetModule("mUICooldowns");
 local CF = E:GetModule("CooldownFlash");
 
 local function CooldownFlash()
 	E.Options.args.mui.args.cooldownFlash = {
 		type = "group",
-		name = (MERCO.modName or MERCO:GetName())..MER.NewSign,
+		name = (L["Cooldowns"] or CF.modName or CF:GetName())..MER.NewSign,
 		order = 20,
 		get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 		set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -102,77 +101,6 @@ local function CooldownFlash()
 				type = "execute",
 				func = function() CF:TestMode() end,
 				hidden = function() return not E.db.mui.cooldownFlash.enable end,
-			},
-			header2 = {
-				type = "header",
-				name = MER:cOption(MERCO.modName or MERCO:GetName()),
-				order = 13,
-			},
-			cooldowns = {
-				order = 14,
-				type = "group",
-				name = MER:cOption(MERCO.modName or MERCO:GetName())..MER.NewSign,
-				guiInline = true,
-				get = function(info) return E.db.mui.misc.cooldowns[ info[#info] ] end,
-				set = function(info, value) E.db.mui.misc.cooldowns[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				args = {
-					enable = {
-						order = 1,
-						type = "toggle",
-						name = L["Enable"],
-					},
-					spacer = {
-						type = "description",
-						name = "",
-						desc = "",
-						order = 2,
-					},
-					showpets = {
-						order = 3,
-						type = "toggle",
-						name = L["Show pet cooldown"],
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-					showequip = {
-						order = 4,
-						type = "toggle",
-						name = L["Show equipment cooldown"],
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-					showbags = {
-						order = 5,
-						type = "toggle",
-						name = L["Show item cooldown"],
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-					size = {
-						order = 6,
-						type = "range",
-						name = L["Size"],
-						min = 24, max = 60, step = 1,
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-					growthx = {
-						order = 7,
-						type = "select",
-						name = L["Growth-x"],
-						values = {
-							["LEFT"] = L["Left"],
-							["RIGHT"] = L["Right"],
-						},
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-					growthy = {
-						order = 8,
-						type = "select",
-						name = L["Growth-y"],
-						values = {
-							["UP"] = L["Up"],
-							["DOWN"] = L["Down"],
-						},
-						hidden = function() return not E.db.mui.misc.cooldowns.enable end,
-					},
-				},
 			},
 		},
 	}
