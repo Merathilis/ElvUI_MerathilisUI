@@ -220,6 +220,14 @@ L["Click to toggle the AddOn Manager frame."] = true
 L["Boss Mod"] = true
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
 
+-- Cooldowns
+L["Cooldowns"] = true
+L["Show pet cooldown"] = true
+L["Show equipment cooldown"] = true
+L["Show item cooldown"] = true
+L["Growth-x"] = true
+L["Growth-y"] = true
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = true

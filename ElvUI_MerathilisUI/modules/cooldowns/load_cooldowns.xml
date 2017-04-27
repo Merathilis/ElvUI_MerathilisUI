@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="cooldowns.lua"/>
 	<Script file="cooldownflash.lua"/>
 	<Script file="options.lua"/>
 </Ui>

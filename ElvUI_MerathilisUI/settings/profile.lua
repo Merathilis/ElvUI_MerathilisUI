@@ -28,6 +28,15 @@ P["mui"] = {
 		["vignette"] = true, -- Shows Rars/Treasures
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
+		["cooldowns"] = {
+			["enable"] = false,
+			["size"] = 25,
+			["growthx"] = "LEFT",
+			["growthy"] = "UP",
+			["showbags"] = true,
+			["showequip"] = true,
+			["showpets"] = true,
+		},
 	},
 
 	["datatexts"] = {

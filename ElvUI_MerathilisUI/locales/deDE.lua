@@ -220,6 +220,14 @@ L["Click to toggle the AddOn Manager frame."] = true
 L["Boss Mod"] = true
 L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
 
+-- Cooldowns
+L["Cooldowns"] = "Abklingzeit"
+L["Show pet cooldown"] = "Zeige Begleiter Abklingzeiten"
+L["Show equipment cooldown"] = "Zeige Ausrüstung Abklingzeiten"
+L["Show item cooldown"] = "Zeige Gegenstand Abklingzeiten"
+L["Growth-x"] = "Wachstum-X"
+L["Growth-y"] = "Wachstum-Y"
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"
