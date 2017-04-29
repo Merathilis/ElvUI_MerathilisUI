@@ -16,7 +16,13 @@ P["mui"] = {
 		["HideOrderhallBar"] = false, -- Hide the OrderHallCommandBar
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 		["Movertransparancy"] = .75,
-		["Notification"] = true,
+		["Notification"] = {
+			["enable"] = true,
+			["mail"] = true,
+			["vignette"] = true,
+			["invites"] = true,
+			["guildEvents"] = true,
+		},
 		["ItemLevelLink"] = true, -- Displays the itemlevel in the itemlink
 	},
 
@@ -25,7 +31,6 @@ P["mui"] = {
 		["moveBlizz"] = true, -- Make Blizzards Frame movable
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
-		["vignette"] = true, -- Shows Rars/Treasures
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
 		["cooldowns"] = {

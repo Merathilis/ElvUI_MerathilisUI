@@ -96,6 +96,12 @@ L["Event \"%s\" will end today."] = "Ereignis \"%s\" endet heute."
 L["Event \"%s\" started today."] = "Ereignis \"%s\" beginnt heute."
 L["Event \"%s\" is ongoing."] = "Ereignis \"%s\" ist im Gange."
 L["Event \"%s\" will end tomorrow."] = "Ereignis \"%s\" endet morgen."
+L["Here you can enable/disable the different notification types."] = "Hier kannst du die verschiedenen Benachrichtigungstypen aktivieren/deaktivieren."
+L["Enable Mail"] = "Aktiviere Post"
+L["Enable Vignette"] = "Aktiviere Vignette"
+L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
+L["Enable Invites"] = "Aktiviere Einladungen"
+L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = "Berufsfenster Tabs"

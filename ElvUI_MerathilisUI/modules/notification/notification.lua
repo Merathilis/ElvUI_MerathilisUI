@@ -304,6 +304,7 @@ end
 
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
+	if E.db.mui.general.Notification.mail ~= true then return end
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
 		hasMail = newMail
@@ -382,6 +383,7 @@ local function toggleCalendar()
 end
 
 local function alertEvents()
+	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.invites ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = CalendarGetNumPendingInvites()
 	if num ~= numInvites then
@@ -395,6 +397,7 @@ local function alertEvents()
 end
 
 local function alertGuildEvents()
+	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.guildEvents ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 1 then
@@ -453,13 +456,13 @@ local function LoginCheck()
 end
 
 function NF:PLAYER_ENTERING_WORLD()
-	if E.db.mui.general.Notification ~= true or InCombatLockdown() then return end
+	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
 	C_Timer.After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function NF:VIGNETTE_ADDED(event, id)
-	if E.db.mui.general.Notification ~= true then return end
+	if not E.db.mui.general.Notification.enable or not E.db.mui.general.Notification.vignette then return end
 	if not id then return end
 
 	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)

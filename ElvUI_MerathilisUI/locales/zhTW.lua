@@ -87,7 +87,6 @@ L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
 -- Notification
 L["Notification"] = true
-L["Display a Toast Frame for different notifications."] = true
 L["This is an example of a notification."] = true
 L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = true
@@ -97,6 +96,12 @@ L["Event \"%s\" will end today."] = true
 L["Event \"%s\" started today."] = true
 L["Event \"%s\" is ongoing."] = true
 L["Event \"%s\" will end tomorrow."] = true
+L["Here you can enable/disable the different notification types."] = true
+L["Enable Mail"] = true
+L["Enable Vignette"] = true
+L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
+L["Enable Invites"] = true
+L["Enable Guild Events"] = true
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = true

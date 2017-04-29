@@ -96,6 +96,12 @@ L["Event \"%s\" will end today."] = true
 L["Event \"%s\" started today."] = true
 L["Event \"%s\" is ongoing."] = true
 L["Event \"%s\" will end tomorrow."] = true
+L["Here you can enable/disable the different notification types."] = true
+L["Enable Mail"] = true
+L["Enable Vignette"] = true
+L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
+L["Enable Invites"] = true
+L["Enable Guild Events"] = true
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = true
