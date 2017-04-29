@@ -304,7 +304,7 @@ end
 
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
-	if E.db.mui.general.Notification.mail ~= true then return end
+	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.mail ~= true then return end
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
 		hasMail = newMail
