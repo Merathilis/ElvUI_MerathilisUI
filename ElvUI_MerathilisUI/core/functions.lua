@@ -22,6 +22,8 @@ MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
+MER.BenikUIV = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "Version"))
+MER.BenikUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-BenikUIVersion"))
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
@@ -30,6 +32,11 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
+	return text
+end
+
+function MER:BenikMismatchText()
+	local text = format(L["MSG_MER_BENIK_OUTDATED"], MER.BenikUIV, MER.BenikUIX)
 	return text
 end
 

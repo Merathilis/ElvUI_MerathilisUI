@@ -155,6 +155,12 @@ function MER:Initialize()
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
+	-- BenikUI versions check
+	if MER.BenikUIV < MER.BenikUIX then
+		E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH")
+		return -- If BenikUI Version is outdated stop right here. So things don't get broken.
+	end
+
 	self:RegisterMerMedia()
 	self:LoadCommands()
 

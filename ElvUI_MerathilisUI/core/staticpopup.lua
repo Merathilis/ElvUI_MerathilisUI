@@ -50,6 +50,14 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	preferredIndex = 3,
 }
 
+E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
+	text = MER:BenikMismatchText(),
+	button1 = CLOSE,
+	timeout = 0,
+	whileDead = 1,
+	preferredIndex = 3,
+}
+
 -- BenikUI Tip
 E.PopupDialogs["BENIKUI"] = {
 	text = L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"],
