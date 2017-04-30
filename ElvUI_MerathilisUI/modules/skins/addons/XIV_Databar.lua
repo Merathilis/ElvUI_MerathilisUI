@@ -15,6 +15,7 @@ local function styleXIV_Databar()
 	_G["XIV_Databar"]:SetTemplate("Transparent")
 	_G["XIV_Databar"]:SetParent(E.UIParent)
 	_G["SpecPopup"]:SetTemplate("Transparent")
+	_G["LootPopup"]:SetTemplate("Transparent")
 	_G["portPopup"]:SetTemplate("Transparent")
 end
 
