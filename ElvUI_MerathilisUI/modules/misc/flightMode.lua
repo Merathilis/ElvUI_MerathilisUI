@@ -11,6 +11,9 @@ function MFM:Initialize()
 		-- Hide BenikUI Logo
 		BFM.FlightMode.bottom.logo:Hide()
 
+		-- Hide BenikUI Version
+		BFM.FlightMode.bottom.benikui:Hide()
+
 		-- Location Frame
 		BFM.FlightMode.top.location:SetTemplate("Transparent")
 		BFM.FlightMode.top.location:Point("TOP", BFM.FlightMode.top, "CENTER", 0, -25)
