@@ -1,6 +1,4 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule("MerathilisUI")
-local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins");
 if not IsAddOnLoaded("XIV_Databar") then return end
 
@@ -16,7 +14,8 @@ local function styleXIV_Databar()
 	_G["XIV_Databar"]:StripTextures()
 	_G["XIV_Databar"]:SetTemplate("Transparent")
 	_G["XIV_Databar"]:SetParent(E.UIParent)
-	MERS:StyleUnder(_G["XIV_Databar"])
+	_G["SpecPopup"]:SetTemplate("Transparent")
+	_G["portPopup"]:SetTemplate("Transparent")
 end
 
 S:AddCallbackForAddon("XIV_Databar", "mUIXIV_Databar", styleXIV_Databar)

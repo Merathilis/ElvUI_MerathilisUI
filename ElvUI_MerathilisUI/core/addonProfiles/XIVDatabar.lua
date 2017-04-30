@@ -22,6 +22,7 @@ function MER:LoadXIVDatabarProfile()
 						["barCC"] = true,
 					},
 					["currency"] = {
+						["xpBarCC"] = true,
 						["currencyTwo"] = "1220",
 						["currencyOne"] = "1273",
 					},
@@ -35,7 +36,15 @@ function MER:LoadXIVDatabarProfile()
 					["font"] = "Merathilis Roboto-Bold",
 				},
 				["general"] = {
-					["barPosition"] = "TOP",
+					["moduleSpacing"] = 25,
+				},
+				["color"] = {
+					["barColor"] = {
+						["a"] = 0,
+						["r"] = 0.952941176470588,
+						["g"] = 0.968627450980392,
+						["b"] = 1,
+					},
 				},
 			},
 		},
