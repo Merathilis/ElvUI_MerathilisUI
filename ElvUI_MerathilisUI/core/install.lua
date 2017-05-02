@@ -355,7 +355,7 @@ function MER:SetupLayout(noDataReset)
 		MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
 		MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 467, 44)
 		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -491, 44)
-		MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -125, -240)
+		MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -73, -219)
 		MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2, -26)
 		MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 455, 44)
@@ -1303,14 +1303,6 @@ local function SetupAddons()
 		if E.db.sle == nil then E.db.sle = {} end
 		MER:LoadShadowandLightProfile()
 		tinsert(addonNames, 'ElvUI_SLE')
-	end
-
-	--[[----------------------------------
-	--	SorhaQuestLog - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("SorhaQuestLog") then
-		MER:LoadSorhaQuestLogProfile()
-		tinsert(addonNames, 'SorhaQuestLog')
 	end
 
 	--[[----------------------------------
