@@ -5,7 +5,7 @@ local CF = E:GetModule("CooldownFlash");
 local function CooldownFlash()
 	E.Options.args.mui.args.cooldownFlash = {
 		type = "group",
-		name = (L["Cooldowns"] or CF.modName or CF:GetName())..MER.NewSign,
+		name = (L["Cooldowns"] or CF.modName or CF:GetName()),
 		order = 20,
 		get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 		set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
