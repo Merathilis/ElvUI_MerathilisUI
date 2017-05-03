@@ -1,3 +1,12 @@
+<b><u> v2.36, 03.05.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Changed the main texture to muiBlank
+<font color=#FF8C00>&#9830;</font> Update TradeSkillTabs.
+<font color=#FF8C00>&#9830;</font> Update XIV_Databar profile & skin.
+<font color=#FF8C00>&#9830;</font> Update AddOnSkins profile.
+<font color=#FF8C00>&#9830;</font> Overhaul the options a bit.
+<font color=#FF8C00>&#9830;</font> Add a BenikUI versions warning.
+<font color=#FF8C00>&#9830;</font> Delete SorhaQuestLog profile.
+
 <b><u> v2.35, 24.04.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Delete the spell tolerance script.
 <font color=#FF8C00>&#9830;</font> Update the quest module to select the quest reward with the highest price.

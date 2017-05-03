@@ -19,11 +19,16 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.35|r, 24.04.2017
+local ChangeLogData = [=[|cffff7d0av2.36|r, 03.05.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Delete the spell tolerance script.
- |cffff7d0a•|r Update the quest module to select the quest reward with the highest price.
+ |cffff7d0a•|r Changed the main texture to muiBlank
+ |cffff7d0a•|r Update TradeSkillTabs.
+ |cffff7d0a•|r Update XIV_Databar profile & skin.
+ |cffff7d0a•|r Update AddOnSkins profile.
+ |cffff7d0a•|r Overhaul the options a bit.
+ |cffff7d0a•|r Add a BenikUI versions warning.
+ |cffff7d0a•|r Delete SorhaQuestLog profile.
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r Have a nice day! ^o^

@@ -1,3 +1,12 @@
+** v2.36, 03.05.2017**
+* Changed the main texture to muiBlank
+* Update TradeSkillTabs.
+* Update XIV_Databar profile & skin.
+* Update AddOnSkins profile.
+* Overhaul the options a bit.
+* Add a BenikUI versions warning.
+* Delete SorhaQuestLog profile.
+
 ** v2.35, 24.04.2017**
 * Delete the spell tolerance script.
 * Update the quest module to select the quest reward with the highest price.
