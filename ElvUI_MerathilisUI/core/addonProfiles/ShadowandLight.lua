@@ -15,6 +15,8 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Merathilis Roboto-Black"
+	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["size"] = 12
+	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["outline"] = "OUTLINE"
 	E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
