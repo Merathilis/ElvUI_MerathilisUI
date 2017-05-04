@@ -9,10 +9,10 @@ local _G = _G
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
-local function styleXIV_PremadeGroupsFilter()
+local function stylePremadeGroupsFilter()
 	if E.private.muiSkins.addonSkins.pgf ~= true or not IsAddOnLoaded("PremadeGroupsFilter") then return; end
 
 	MERS:StyleOutside(_G["PremadeGroupsFilterDialog"])
 end
 
-S:AddCallbackForAddon("PremadeGroupsFilter", "mUIPremadeGroupsFilter", styleXIV_PremadeGroupsFilter)
+S:AddCallbackForAddon("PremadeGroupsFilter", "mUIPremadeGroupsFilter", stylePremadeGroupsFilter)
