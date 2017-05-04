@@ -14,6 +14,7 @@ local DecorAddons = {
 	{"BigWigs", L["BigWigs"], "bw"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
+	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pgf"},
 }
 
 local SupportedProfiles = {
