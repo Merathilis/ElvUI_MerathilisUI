@@ -15,13 +15,13 @@ local FreeBackgrounds = {}
 local buttonsize = 18
 
 local function CreateBG()
-	local BG = CreateFrame('Frame')
-	BG:SetTemplate('Transparent')
+	local BG = CreateFrame("Frame")
+	BG:SetTemplate("Transparent")
 	return BG
 end
 
 local function FreeStyle(bar)
-	local bg = bar:Get('bigwigs:MerathilisUI:bg')
+	local bg = bar:Get("bigwigs:MerathilisUI:bg")
 	if bg then
 		bg:ClearAllPoints()
 		bg:SetParent(UIParent)
@@ -29,7 +29,7 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = bg
 	end
 
-	local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
+	local ibg = bar:Get("bigwigs:MerathilisUI:ibg")
 	if ibg then
 		ibg:ClearAllPoints()
 		ibg:SetParent(UIParent)
@@ -60,9 +60,9 @@ local function ApplyStyle(bar)
 	bg:ClearAllPoints()
 	bg:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
 	bg:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 2, -2)
-	bg:SetTemplate('Transparent')
+	bg:SetTemplate("Transparent")
 	bg:Show()
-	bar:Set('bigwigs:MerathilisUI:bg', bg)
+	bar:Set("bigwigs:MerathilisUI:bg", bg)
 	if bar.candyBarIconFrame:GetTexture() then
 		local ibg = nil
 		if #FreeBackgrounds > 0 then
@@ -78,7 +78,7 @@ local function ApplyStyle(bar)
 		ibg:SetPoint("BOTTOMRIGHT", bar.candyBarIconFrame, "BOTTOMRIGHT", 2, -2)
 		ibg:SetBackdropColor(0, 0, 0, 0)
 		ibg:Show()
-		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
+		bar:Set("bigwigs:MerathilisUI:ibg", ibg)
 	end
 
 	-- setup bar positions and look
@@ -126,7 +126,6 @@ local function StyleBigWigs(event, addon)
 				BarStopped = FreeStyle,
 				GetStyleName = function() return styleName end,
 			})
-			BigWigsBars.defaultDB.barStyle = styleName
 		end
 		if BigWigsProx then
 			BigWigsLoader.RegisterMessage("Proximity", "BigWigs_FrameCreated", function()
@@ -138,31 +137,6 @@ local function StyleBigWigs(event, addon)
 				BigWigsInfoBox:SetTemplate("Transparent")
 			end)
 		end
-
-		local profile = BigWigs3DB["profileKeys"][E.myname.." - "..E.myrealm]
-		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][profile]
-		path.texture = "MerathilisLight"
-		path.barStyle = styleName
-		path.font = "Merathilis Roboto-Bold"
-		path.outline = "OUTLINE"
-
-		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Messages"]["profiles"][profile]
-		path.font = "Merathilis Roboto-Bold"
-		path.outline = "OUTLINE"
-
-		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profile]
-		path.font = "Merathilis Roboto-Bold"
-		path.outline = "OUTLINE"
-
-	elseif event == "PLAYER_ENTERING_WORLD" then
-		LoadAddOn("BigWigs")
-		LoadAddOn("BigWigs_Core")
-		LoadAddOn("BigWigs_Plugins")
-		LoadAddOn("BigWigs_Options")
-		if not BigWigs then return end
-		BigWigs:Enable()
-		BigWigsOptions:SendMessage("BigWigs_StartConfigureMode", true)
-		BigWigsOptions:SendMessage("BigWigs_StopConfigureMode")
 	end
 end
 
