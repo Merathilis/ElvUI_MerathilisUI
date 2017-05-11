@@ -36,11 +36,6 @@ local function FreeStyle(bar)
 		ibg:Hide()
 		FreeBackgrounds[#FreeBackgrounds + 1] = ibg
 	end
-
-	-- replace dummies with original method functions
-	bar.candyBarBar.SetPoint = bar.candyBarBar.OldSetPoint
-	bar.candyBarIconFrame.SetWidth = bar.candyBarIconFrame.OldSetWidth
-	bar.SetScale = bar.OldSetScale
 end
 
 local function ApplyStyle(bar)
@@ -50,21 +45,18 @@ local function ApplyStyle(bar)
 	else
 		bg = CreateBG()
 	end
-	bar:SetScale(1)
-	bar:SetHeight(buttonsize)
-	bar.OldSetScale = bar.SetScale
-	bar.SetScale = MER.dummy
+
 	bg:SetParent(bar)
 	bg:SetFrameStrata(bar:GetFrameStrata())
 	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bg:ClearAllPoints()
-	bg:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
-	bg:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 2, -2)
-	bg:SetTemplate("Transparent")
+	bg:SetOutside(bar)
+	bg:SetTemplate('Transparent')
 	bg:Show()
 	bar:Set("bigwigs:MerathilisUI:bg", bg)
+
 	if bar.candyBarIconFrame:GetTexture() then
-		local ibg = nil
+		local ibg
 		if #FreeBackgrounds > 0 then
 			ibg = tremove(FreeBackgrounds)
 		else
@@ -74,70 +66,67 @@ local function ApplyStyle(bar)
 		ibg:SetFrameStrata(bar:GetFrameStrata())
 		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
 		ibg:ClearAllPoints()
-		ibg:SetPoint("TOPLEFT", bar.candyBarIconFrame, "TOPLEFT", -2, 2)
-		ibg:SetPoint("BOTTOMRIGHT", bar.candyBarIconFrame, "BOTTOMRIGHT", 2, -2)
+		ibg:SetOutside(bar.candyBarIconFrame)
 		ibg:SetBackdropColor(0, 0, 0, 0)
 		ibg:Show()
 		bar:Set("bigwigs:MerathilisUI:ibg", ibg)
 	end
 
-	-- setup bar positions and look
-	bar:SetHeight(buttonsize)
+	bar:SetHeight(buttonsize / 2)
+
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.OldSetPoint = bar.candyBarBar.SetPoint
 	bar.candyBarBar.SetPoint = MER.dummy
-	bar.candyBarBar:SetStatusBarTexture(E['media'].muiBlank)
-	if not bar.data["bigwigs:emphasized"] == true then
-		bar.candyBarBar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 1)
-	end
+	bar.candyBarBar:SetStatusBarTexture(E["media"].muiBlank)
 
-	-- setup icon positions and other things
-	bar.candyBarBackground:SetAllPoints()
-	bar.candyBarBackground:SetTexture(unpack(E["media"].bordercolor))
+	bar.candyBarBackground:SetTexture(unpack(E["media"].backdropcolor))
+
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", -buttonsize - buttonsize/3 , 0)
+	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
-	bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
 	bar.candyBarIconFrame.SetWidth = MER.dummy
-	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
-	-- setup timer and bar name fonts and positions
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 2, -14)
+	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
+	bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("BOTTOMRIGHT", bar, "TOPRIGHT", -2, -14)
+	bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, 10)
+	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+
 	S:HandleIcon(bar.candyBarIconFrame)
 end
 
-local function StyleBigWigs(event, addon)
-	assert(BigWigs, "AddOn Not Loaded")
-	if (IsAddOnLoaded('BigWigs_Plugins') or event == "ADDON_LOADED" and addon == 'BigWigs_Plugins' and E.private.muiSkins.addonSkins.bw) then
-		local styleName = MER.Title
-		local BigWigsBars = BigWigs:GetPlugin('Bars', true)
-		local BigWigsProx = BigWigs:GetPlugin("Proximity", true)
-		local BigWigsInfo = BigWigs:GetPlugin("InfoBox", true)
-		if BigWigsBars then
-			BigWigsBars:RegisterBarStyle(styleName, {
-				apiVersion = 1,
-				version = 1,
-				GetSpacing = function() return 10 end,
-				ApplyStyle = ApplyStyle,
-				BarStopped = FreeStyle,
-				GetStyleName = function() return styleName end,
-			})
-		end
-		if BigWigsProx then
-			BigWigsLoader.RegisterMessage("Proximity", "BigWigs_FrameCreated", function()
-				BigWigsProximityAnchor:SetTemplate("Transparent")
-			end)
-		end
-		if BigWigsInfo then
-			BigWigsLoader.RegisterMessage("InfoBox", "BigWigs_FrameCreated", function()
-				BigWigsInfoBox:SetTemplate("Transparent")
-			end)
-		end
-	end
+local f = CreateFrame("Frame")
+local function StyleBigWigs()
+	if not BigWigs or E.private.muiSkins.addonSkins.bw ~= true then return end
+	local styleName = MER.Title
+	local bars = BigWigs:GetPlugin("Bars", true)
+	if not bars then return end
+	f:UnregisterEvent("ADDON_LOADED")
+	f:UnregisterEvent("PLAYER_LOGIN")
+	bars:RegisterBarStyle(styleName, {
+		apiVersion = 1,
+		version = 1,
+		GetSpacing = function() return 18 end,
+		ApplyStyle = ApplyStyle,
+		BarStopped = FreeStyle,
+		GetStyleName = function() return styleName end,
+	})
 end
+f:RegisterEvent("ADDON_LOADED")
+f:RegisterEvent("PLAYER_LOGIN")
 
-S:AddCallbackForAddon("BigWigs_Plugins", "mUIBigWigs", StyleBigWigs)
+local reason = nil
+f:SetScript("OnEvent", function(self, event, msg)
+	if event == "ADDON_LOADED" then
+		if not reason then reason = (select(6, GetAddOnInfo("BigWigs_Plugins"))) end
+		if (reason == "MISSING" and msg == "BigWigs") or msg == "BigWigs_Plugins" then
+			StyleBigWigs()
+		end
+	elseif event == "PLAYER_LOGIN" then
+		StyleBigWigs()
+	end
+end)
+
+S:AddCallbackForAddon("BigWigs_Plugins", "BigWigs", StyleBigWigs)
