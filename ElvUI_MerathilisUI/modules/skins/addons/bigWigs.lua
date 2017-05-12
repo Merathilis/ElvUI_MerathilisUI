@@ -78,6 +78,9 @@ local function ApplyStyle(bar)
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.SetPoint = MER.dummy
 	bar.candyBarBar:SetStatusBarTexture(E["media"].muiBlank)
+	if not bar.data["bigwigs:emphasized"] == true then
+		bar.candyBarBar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 1)
+	end
 
 	bar.candyBarBackground:SetTexture(unpack(E["media"].backdropcolor))
 
@@ -99,7 +102,9 @@ end
 
 local f = CreateFrame("Frame")
 local function StyleBigWigs()
-	if not BigWigs or E.private.muiSkins.addonSkins.bw ~= true then return end
+	if not BigWigs then return end
+	if E.private.muiSkins.addonSkins.bw ~= true then return end
+
 	local styleName = MER.Title
 	local bars = BigWigs:GetPlugin("Bars", true)
 	if not bars then return end
@@ -128,5 +133,3 @@ f:SetScript("OnEvent", function(self, event, msg)
 		StyleBigWigs()
 	end
 end)
-
-S:AddCallbackForAddon("BigWigs_Plugins", "BigWigs", StyleBigWigs)
