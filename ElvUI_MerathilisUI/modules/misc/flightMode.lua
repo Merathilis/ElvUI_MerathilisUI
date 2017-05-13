@@ -61,4 +61,8 @@ function MFM:Initialize()
 	end
 end
 
-E:RegisterModule(MFM:GetName());
+local function InitializeCallback()
+	MFM:Initialize()
+end
+
+E:RegisterModule(MFM:GetName(), InitializeCallback)

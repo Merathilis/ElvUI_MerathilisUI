@@ -29,4 +29,8 @@ function MUF:Initialize()
 	self:InitRaid40()
 end
 
-E:RegisterModule(MUF:GetName())
+local function InitializeCallback()
+	MUF:Initialize()
+end
+
+E:RegisterModule(MUF:GetName(), InitializeCallback)

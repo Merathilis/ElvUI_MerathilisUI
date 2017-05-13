@@ -206,4 +206,8 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-E:RegisterModule(MER:GetName())
+local function InitializeCallback()
+	MER:Initialize()
+end
+
+E:RegisterModule(MER:GetName(), InitializeCallback)

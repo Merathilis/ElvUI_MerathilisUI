@@ -472,4 +472,8 @@ function NF:VIGNETTE_ADDED(event, id)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
-E:RegisterModule(NF:GetName())
+local function InitializeCallback()
+	NF:PLAYER_ENTERING_WORLD()
+end
+
+E:RegisterModule(NF:GetName(), InitializeCallback)

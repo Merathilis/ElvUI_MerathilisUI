@@ -124,4 +124,8 @@ function MB:Initialize()
 	self:RegisterEvent("ADDON_LOADED", "Addons")
 end
 
-E:RegisterModule(MB:GetName())
+local function InitializeCallback()
+	MB:Initialize()
+end
+
+E:RegisterModule(MB:GetName(), InitializeCallback)

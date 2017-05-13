@@ -547,4 +547,8 @@ function LP:Initialize()
 	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-E:RegisterModule(LP:GetName())
+local function InitializeCallback()
+	LP:Initialize()
+end
+
+E:RegisterModule(LP:GetName(), InitializeCallback)

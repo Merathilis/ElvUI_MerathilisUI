@@ -278,4 +278,8 @@ function CF:Initialize()
 	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil)
 end
 
-E:RegisterModule(CF:GetName())
+local function InitializeCallback()
+	CF:Initialize()
+end
+
+E:RegisterModule(CF:GetName(), InitializeCallback)

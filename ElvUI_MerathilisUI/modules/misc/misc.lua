@@ -115,4 +115,8 @@ function MI:Initialize()
 	self:LoadQuestReward()
 end
 
-E:RegisterModule(MI:GetName())
+local function InitializeCallback()
+	MI:Initialize()
+end
+
+E:RegisterModule(MI:GetName(), InitializeCallback)

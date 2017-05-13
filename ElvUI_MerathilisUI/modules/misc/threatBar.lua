@@ -152,4 +152,8 @@ function MERTB:Initialize()
 	self:ToggleEnable()
 end
 
-E:RegisterModule(MERTB:GetName())
+local function InitializeCallback()
+	MERTB:Initialize()
+end
+
+E:RegisterModule(MERTB:GetName(), InitializeCallback)

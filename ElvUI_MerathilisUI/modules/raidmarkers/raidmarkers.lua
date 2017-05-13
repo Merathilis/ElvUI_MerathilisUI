@@ -203,4 +203,8 @@ function RMA:Initialize()
 	self:ForUpdateAll()
 end
 
-E:RegisterModule(RMA:GetName())
+local function InitializeCallback()
+	RMA:Initialize()
+end
+
+E:RegisterModule(RMA:GetName(), InitializeCallback)

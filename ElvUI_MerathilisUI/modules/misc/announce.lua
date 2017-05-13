@@ -196,4 +196,8 @@ function MERA:Initialize()
 	SetCVar("floatingCombatTextCombatState", "1")
 end
 
-E:RegisterModule(MERA:GetName())
+local function InitializeCallback()
+	MERA:Initialize()
+end
+
+E:RegisterModule(MERA:GetName(), InitializeCallback)

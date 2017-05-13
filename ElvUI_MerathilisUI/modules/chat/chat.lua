@@ -31,4 +31,8 @@ function MERC:LoadChat()
 end
 hooksecurefunc(CH, "Initialize", MERC.LoadChat)
 
-E:RegisterModule(MERC:GetName())
+local function InitializeCallback()
+	MERC:LoadChat()
+end
+
+E:RegisterModule(MERC:GetName(), InitializeCallback)

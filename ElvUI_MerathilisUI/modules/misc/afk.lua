@@ -49,4 +49,8 @@ function muiAFK:Initialize()
 	AFK.AFKMode.bottom.btext:SetTextColor(0.7, 0.7, 0.7)
 end
 
-E:RegisterModule(muiAFK:GetName());
+local function InitializeCallback()
+	muiAFK:Initialize()
+end
+
+E:RegisterModule(muiAFK:GetName(), InitializeCallback)

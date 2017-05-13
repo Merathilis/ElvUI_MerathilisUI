@@ -151,4 +151,8 @@ function MUB:Initialize()
 	MUB.Holder.mover:SetFrameLevel(305)
 end
 
-E:RegisterModule(MUB:GetName())
+local function InitializeCallback()
+	MUB:Initialize()
+end
+
+E:RegisterModule(MUB:GetName(), InitializeCallback)
