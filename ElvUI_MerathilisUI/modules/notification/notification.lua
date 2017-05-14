@@ -287,21 +287,6 @@ SlashCmdList.TESTNOTIFICATION = function(b)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
-function NF:Initialize()
-	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
-	anchorFrame:SetSize(bannerWidth, 50)
-	anchorFrame:SetPoint("TOP", 0, -80)
-	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], true, nil, "ALL,GENERAL,SOLO")
-
-	self:RegisterEvent("UPDATE_PENDING_MAIL")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
-	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("VIGNETTE_ADDED")
-	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-end
-
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
 	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.mail ~= true then return end
@@ -456,13 +441,12 @@ local function LoginCheck()
 end
 
 function NF:PLAYER_ENTERING_WORLD()
-	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
 	C_Timer.After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function NF:VIGNETTE_ADDED(event, id)
-	if not E.db.mui.general.Notification.enable or not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
+	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
 	if not id then return end
 
 	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
@@ -472,8 +456,25 @@ function NF:VIGNETTE_ADDED(event, id)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
+function NF:Initialize()
+	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
+
+	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
+	anchorFrame:SetSize(bannerWidth, 50)
+	anchorFrame:SetPoint("TOP", 0, -80)
+	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], true, nil, "ALL,GENERAL,SOLO")
+
+	self:RegisterEvent("UPDATE_PENDING_MAIL")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
+	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:RegisterEvent("VIGNETTE_ADDED")
+	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+end
+
 local function InitializeCallback()
-	NF:PLAYER_ENTERING_WORLD()
+	NF:Initialize()
 end
 
 E:RegisterModule(NF:GetName(), InitializeCallback)

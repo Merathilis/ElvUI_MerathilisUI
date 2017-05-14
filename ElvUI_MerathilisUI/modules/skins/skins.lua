@@ -390,4 +390,12 @@ function MERS:HandleScrollBar(frame, thumbTrim)
 end
 hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 
-E:RegisterModule(MERS:GetName())
+function MERS:Initialize()
+	self.db = E.private.muiSkins
+end
+
+local function InitializeCallback()
+	MERS:Initialize()
+end
+
+E:RegisterModule(MERS:GetName(), InitializeCallback)
