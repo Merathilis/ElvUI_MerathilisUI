@@ -1,0 +1,20 @@
+<Bindings>
+	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="RAIDFLARE" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare2:LeftButton" description="Green Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare3:LeftButton" description="Purple Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare4:LeftButton" description="Red Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare5:LeftButton" description="Yellow Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER">
+	</Binding>
+	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER">
+	</Binding>
+</Bindings>

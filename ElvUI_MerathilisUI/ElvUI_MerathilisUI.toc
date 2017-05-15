@@ -27,3 +27,4 @@ core\load_core.xml
 developer\load_developer.xml
 layout\layout.lua
 modules\load_modules.xml
+Bindings.xml
