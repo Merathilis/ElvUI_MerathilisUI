@@ -20,48 +20,6 @@ local GetMerchantItemMaxStack = GetMerchantItemMaxStack
 -- GLOBALS: MerchantFrame, GameTooltip, MERCHANT_ITEMS_PER_PAGE
 
 ----------------------------------------------------------------------------------------
---	Alt+Click to buy a stack
-----------------------------------------------------------------------------------------
-
-function MI:Merchant()
-	local NEW_ITEM_VENDOR_STACK_BUY = ITEM_VENDOR_STACK_BUY
-	ITEM_VENDOR_STACK_BUY = '|cffa9ff00'..NEW_ITEM_VENDOR_STACK_BUY..'|r'
-
-	local origMerchantItemButton_OnModifiedClick = _G["MerchantItemButton_OnModifiedClick"]
-	local function MerchantItemButton_OnModifiedClickHook(self, ...)
-		origMerchantItemButton_OnModifiedClick(self, ...)
-
-		if (IsAltKeyDown()) then
-			local maxStack = select(8, GetItemInfo(GetMerchantItemLink(self:GetID())))
-
-			local numAvailable = select(5, GetMerchantItemInfo(self:GetID()))
-
-			-- -1 means an item has unlimited supply.
-			if (numAvailable ~= -1) then
-				BuyMerchantItem(self:GetID(), numAvailable)
-			else
-				BuyMerchantItem(self:GetID(), GetMerchantItemMaxStack(self:GetID()))
-			end
-		end
-	end
-	MerchantItemButton_OnModifiedClick = MerchantItemButton_OnModifiedClickHook
-
-	local function IsMerchantButtonOver()
-		return GetMouseFocus():GetName() and GetMouseFocus():GetName():find('MerchantItem%d')
-	end
-
-	GameTooltip:HookScript('OnTooltipSetItem', function(self)
-		if (MerchantFrame:IsShown() and IsMerchantButtonOver()) then
-			for i = 2, GameTooltip:NumLines() do
-				if (_G['GameTooltipTextLeft'..i]:GetText():find('<')) then	-- '<' horrible solution 
-					GameTooltip:AddLine("|cff00ff00<"..L["Alt-click, to buy an stack"]..">|r")
-				end
-			end
-		end
-	end)
-end
-
-----------------------------------------------------------------------------------------
 --	Show item level for weapons and armor in merchant
 ----------------------------------------------------------------------------------------
 local function MerchantItemlevel()
@@ -92,9 +50,3 @@ local function MerchantItemlevel()
 	end
 end
 hooksecurefunc("MerchantFrame_UpdateMerchantInfo", MerchantItemlevel)
-
-function MI:LoadMerchant()
-	if E.db.mui.general.MerchantiLevel ~= true or E.private.bags.enable ~= true then return end
-
-	self:Merchant()
-end
