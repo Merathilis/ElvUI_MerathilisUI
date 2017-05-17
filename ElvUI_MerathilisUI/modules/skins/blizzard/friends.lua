@@ -1,4 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI)
+local S = E:GetModule("Skins")
+local MERS = E:GetModule("muiSkins")
 
 -- Based on EnhancedFriendList by Azilroka
 if IsAddOnLoaded("EnhancedFriendsList") then return end
@@ -172,3 +174,14 @@ end
 
 hooksecurefunc("FriendsList_Update", ColoringFriendsList)
 hooksecurefunc("HybridScrollFrame_Update", ColoringFriendsList)
+
+function styleFriends()
+	if E.private.skins.blizzard.enable ~= true then return end
+
+	--Bottom Tabs
+	for i = 1, 4 do
+		MERS:HandleTab(_G["FriendsFrameTab"..i])
+	end
+end
+
+S:AddCallback("mUIFriends", styleFriends)

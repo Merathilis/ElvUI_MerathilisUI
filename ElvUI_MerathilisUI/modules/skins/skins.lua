@@ -390,6 +390,22 @@ function MERS:HandleScrollBar(frame, thumbTrim)
 end
 hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 
+-- Overwrite ElvUI Tabs function to be transparent
+function MERS:HandleTab(tab)
+	if not tab then return end
+
+	if tab.GetHighlightTexture and tab:GetHighlightTexture() then
+		tab:GetHighlightTexture():SetTexture(nil)
+	else
+		tab:StripTextures()
+	end
+
+	if tab.backdrop then
+		tab.backdrop:SetTemplate("Transparent")
+	end
+end
+hooksecurefunc(S, "HandleTab", MERS.HandleTab)
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 end
