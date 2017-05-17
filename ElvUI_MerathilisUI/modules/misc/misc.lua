@@ -105,7 +105,6 @@ end
 
 function MI:Initialize()
 	self:LoadMisc()
-	self:LoadGameMenu()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
 	self:LoadMoverTransparancy()

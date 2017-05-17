@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
-local MI = E:GetModule("mUIMisc")
+local MERG = E:NewModule("mUIGameMenu")
 local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins")
 
@@ -45,7 +45,7 @@ local npc = {
 	103159, -- Baby Winston
 }
 
-function MI:GameMenu()
+function MERG:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -111,7 +111,7 @@ function MI:GameMenu()
 		topPanel.factionLogo:SetSize(256, 250)
 		topPanel.factionLogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..E.myclass)
 	end
-	
+
 	-- Use this frame to control the position of the model - taken from ElvUI
 	if not modelHolder then
 		local modelHolder = CreateFrame("Frame", nil, GameMenuFrame)
@@ -163,8 +163,14 @@ function MI:GameMenu()
 	end
 end
 
-function MI:LoadGameMenu()
+function MERG:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 	end
 end
+
+local function InitializeCallback()
+	MERG:Initialize()
+end
+
+E:RegisterModule(MERG:GetName(), InitializeCallback)
