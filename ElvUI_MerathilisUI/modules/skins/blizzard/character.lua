@@ -10,7 +10,7 @@ local unpack = unpack
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: styleCharacter, CharacterStatsPane
 
-function styleCharacter()
+local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))

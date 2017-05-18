@@ -139,6 +139,12 @@ local function SkinsTable()
 				name = L["Talent Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent end,
 			},
+			auctionhouse= {
+				order = 17,
+				type = "toggle",
+				name = L["Auction Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.auctionhouse end,
+			}, 
 		},
 	}
 
