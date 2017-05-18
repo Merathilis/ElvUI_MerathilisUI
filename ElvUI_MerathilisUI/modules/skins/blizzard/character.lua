@@ -16,11 +16,6 @@ function styleCharacter()
 	CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	CharacterStatsPane.AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-
-	-- Handle Tabs at bottom of character frame
-	for i = 1, 4 do
-		MERS:HandleTab(_G["CharacterFrameTab"..i])
-	end
 end
 
 S:AddCallback("mUICharacter", styleCharacter)

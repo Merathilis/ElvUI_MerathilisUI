@@ -172,16 +172,11 @@ local function ColoringFriendsList()
 	end
 end
 
-hooksecurefunc("FriendsList_Update", ColoringFriendsList)
-hooksecurefunc("HybridScrollFrame_Update", ColoringFriendsList)
+local function styleFriends()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true then return end
 
-function styleFriends()
-	if E.private.skins.blizzard.enable ~= true then return end
-
-	--Bottom Tabs
-	for i = 1, 4 do
-		MERS:HandleTab(_G["FriendsFrameTab"..i])
-	end
+	hooksecurefunc("FriendsList_Update", ColoringFriendsList)
+	hooksecurefunc("HybridScrollFrame_Update", ColoringFriendsList)
 end
 
 S:AddCallback("mUIFriends", styleFriends)

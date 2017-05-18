@@ -394,12 +394,6 @@ hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
 function MERS:HandleTab(tab)
 	if not tab then return end
 
-	if tab.GetHighlightTexture and tab:GetHighlightTexture() then
-		tab:GetHighlightTexture():SetTexture(nil)
-	else
-		tab:StripTextures()
-	end
-
 	if tab.backdrop then
 		tab.backdrop:SetTemplate("Transparent")
 	end
