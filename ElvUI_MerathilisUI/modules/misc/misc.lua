@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0");
+local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0", "AceConsole-3.0");
 MI.modName = L["Misc"]
 
 E.mUIMisc = MI;
@@ -99,6 +99,13 @@ function MI:LoadMisc()
 		if statusFrame.enabled then
 			statusFrame:Show()
 			UnitPowerBarAltStatus_UpdateText(statusFrame)
+		end
+	end)
+
+	-- Try to fix JoinBattleField taint
+	CreateFrame("Frame"):SetScript("OnUpdate", function(self, elapsed)
+		if LFRBrowseFrame.timeToClear then
+			LFRBrowseFrame.timeToClear = nil
 		end
 	end)
 end

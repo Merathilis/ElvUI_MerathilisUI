@@ -45,7 +45,7 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 -- See end of file for global exports
 -- Documentation can be found in commands.txt and developer.txt
 
-local version = 1.72
+local version = 1.73
 -- release
 
 --------------------------------------------------------------------------------
