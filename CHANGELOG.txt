@@ -1,3 +1,13 @@
+<b><u> v2.37, xx.xx.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Add a skin for Premade Group Filter
+<font color=#FF8C00>&#9830;</font> Add an auctionhouse skin, its now more transparent
+<font color=#FF8C00>&#9830;</font> Remove some code to position the AlwaysUpFrame
+<font color=#FF8C00>&#9830;</font> Update BigWigs skin (now half-bar)
+<font color=#FF8C00>&#9830;</font> Hide the Notifications if you are in combat
+<font color=#FF8C00>&#9830;</font> Use the new method from ElvUI to register modules
+<font color=#FF8C00>&#9830;</font> Add bindings for the RaidMarkBar
+<font color=#FF8C00>&#9830;</font> The tabs from ElvUI are now transparent
+
 <b><u> v2.36, 03.05.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Changed the main texture to muiBlank
 <font color=#FF8C00>&#9830;</font> Update TradeSkillTabs.

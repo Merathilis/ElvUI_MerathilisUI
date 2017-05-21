@@ -1,3 +1,13 @@
+** v2.37, xx.xx.2017**
+* Add a skin for Premade Group Filter
+* Add an auctionhouse skin, its now more transparent
+* Remove some code to position the AlwaysUpFrame
+* Update BigWigs skin (now half-bar)
+* Hide the Notifications if you are in combat
+* Use the new method from ElvUI to register modules
+* Add bindings for the RaidMarkBar
+* The tabs from ElvUI are now transparent
+
 ** v2.36, 03.05.2017**
 * Changed the main texture to muiBlank
 * Update TradeSkillTabs.

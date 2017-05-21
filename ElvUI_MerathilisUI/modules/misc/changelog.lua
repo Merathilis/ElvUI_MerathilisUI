@@ -19,16 +19,17 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.36|r, 03.05.2017
+local ChangeLogData = [=[|cffff7d0av2.37|r, xx.xx.2017
 
 |cffff7d0aChanges:|r
- |cffff7d0a•|r Changed the main texture to muiBlank
- |cffff7d0a•|r Update TradeSkillTabs.
- |cffff7d0a•|r Update XIV_Databar profile & skin.
- |cffff7d0a•|r Update AddOnSkins profile.
- |cffff7d0a•|r Overhaul the options a bit.
- |cffff7d0a•|r Add a BenikUI versions warning.
- |cffff7d0a•|r Delete SorhaQuestLog profile.
+ |cffff7d0a•|r Add a skin for Premade Group Filter
+ |cffff7d0a•|r Add an auctionhouse skin, its now more transparent
+ |cffff7d0a•|r Remove some code to position the AlwaysUpFrame
+ |cffff7d0a•|r Update BigWigs skin (now half-bar)
+ |cffff7d0a•|r Hide the Notifications if you are in combat
+ |cffff7d0a•|r Use the new method from ElvUI to register modules
+ |cffff7d0a•|r Add bindings for the RaidMarkBar
+ |cffff7d0a•|r The tabs from ElvUI are now transparent
  
 |cffff7d0aNotes:|r
  |cffff7d0a•|r Have a nice day! ^o^
