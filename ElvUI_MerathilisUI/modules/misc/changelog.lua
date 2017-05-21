@@ -1,111 +1,128 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
-local MERS = E:GetModule("muiSkins");
-local S = E:GetModule('Skins');
-local LSM = LibStub('LibSharedMedia-3.0');
+local MER = E:GetModule('MerathilisUI')
+local MERS = E:GetModule("muiSkins")
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
 local tinsert = table.insert
 -- WoW API / Variables
-local CreateFrame = CreateFrame
-local InCombatLockdown = InCombatLockdown
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UISpecialFrames, MerathilisUIChangeLog, PlaySound, MerathilisUIData
 
-local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: 
 
 -- Don't show the frame if my install isn't finished
 if E.db.mui.installed == nil then return; end
 
 local ChangeLog = CreateFrame("frame")
-local ChangeLogData = [=[|cffff7d0av2.37|r, xx.xx.2017
+local ChangeLogData = {
+	"Changes:",
+		"• Add a skin for Premade Group Filter",
+		"• Add an auctionhouse skin, its now more transparent",
+		"• Remove some code to position the AlwaysUpFrame",
+		"• Update BigWigs skin (now half-bar)",
+		"• Hide the Notifications if you are in combat",
+		"• Use the new method from ElvUI to register modules",
+		"• Add bindings for the RaidMarkBar",
+		"• The tabs from ElvUI are now transparent",
+		--"• ",
+	" ",
+	"Notes:",
+		"• Have a nice day! ^o^",
+}
 
-|cffff7d0aChanges:|r
- |cffff7d0a•|r Add a skin for Premade Group Filter
- |cffff7d0a•|r Add an auctionhouse skin, its now more transparent
- |cffff7d0a•|r Remove some code to position the AlwaysUpFrame
- |cffff7d0a•|r Update BigWigs skin (now half-bar)
- |cffff7d0a•|r Hide the Notifications if you are in combat
- |cffff7d0a•|r Use the new method from ElvUI to register modules
- |cffff7d0a•|r Add bindings for the RaidMarkBar
- |cffff7d0a•|r The tabs from ElvUI are now transparent
- 
-|cffff7d0aNotes:|r
- |cffff7d0a•|r Have a nice day! ^o^
-]=];
+local function ModifiedString(string)
+	local count = string.find(string, ":")
+	local newString = string
 
-local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-frame:SetPoint("CENTER", UIParent, "BOTTOM", 0, 350)
-frame:SetSize(450, 300)
-frame:SetTemplate("Transparent")
-frame:SetMovable(true)
-frame:EnableMouse(true)
-frame:RegisterForDrag("LeftButton")
-frame:SetScript("OnDragStart", frame.StartMoving)
-frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
-frame:SetClampedToScreen(true)
-MERS:CreateSoftShadow(frame)
-frame:Hide()
+	if count then
+		local prefix = string.sub(string, 0, count)
+		local suffix = string.sub(string, count + 1)
+		local subHeader = string.find(string, "•")
 
-local title = CreateFrame("Frame", nil, frame)
-title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
-title:SetSize(450, 20)
-title:SetTemplate("Transparent")
-MERS:CreateSoftShadow(title)
+		if subHeader then newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix) else newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix) end
+	end
 
-title.text = title:CreateFontString(nil, "OVERLAY")
-title.text:SetPoint("CENTER", title, 0, 0)
-title.text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
-title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
+	for pattern in gmatch(string, "('.*')") do newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r") end
+	return newString
+end
 
-title.style = CreateFrame("Frame", nil, title)
-title.style:SetTemplate("Default", true)
-title.style:SetFrameStrata("TOOLTIP")
-title.style:SetInside()
-title.style:Point("TOPLEFT", title, "BOTTOMLEFT", 0, 1)
-title.style:Point("BOTTOMRIGHT", title, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
+local function GetChangeLogInfo(i)
+	for line, info in pairs(ChangeLogData) do
+		if line == i then return info end
+	end
+end
 
-title.style.color = title.style:CreateTexture(nil, "OVERLAY")
-title.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-title.style.color:SetInside()
-title.style.color:SetTexture(flat)
+function ChangeLog:CreateChangelog()
+	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
+	frame:SetPoint("CENTER")
+	frame:SetSize(445, 245)
+	frame:SetTemplate("Transparent")
+	frame:SetMovable(true)
+	frame:EnableMouse(true)
+	frame:RegisterForDrag("LeftButton")
+	frame:SetScript("OnDragStart", frame.StartMoving)
+	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
+	frame:SetClampedToScreen(true)
 
-local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
-close:Point("TOPRIGHT", frame, "TOPRIGHT", 0, 26)
-close:SetSize(24, 24)
-close:SetScript("OnClick", function()
-	frame:Hide()
-end)
-S:HandleCloseButton(close)
+	local icon = CreateFrame("Frame", nil, frame)
+	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
+	icon:SetSize(20, 20)
+	icon:SetTemplate("Transparent")
+	icon.bg = icon:CreateTexture(nil, "ARTWORK")
+	icon.bg:Point("TOPLEFT", 2, -2)
+	icon.bg:Point("BOTTOMRIGHT", -2, 2)
+	icon.bg:SetTexture(MER.LogoSmall)
 
-local data = frame:CreateFontString(nil, "OVERLAY")
-data:SetPoint("TOP", frame, "TOP", 0, -5)
-data:SetWidth(frame:GetRight() - frame:GetLeft() - 10)
-data:FontTemplate(E['media'].muiFont, 11, "OUTLINE")
-data:SetText(ChangeLogData)
-data:SetJustifyH("LEFT")
-frame:SetHeight(data:GetHeight() + 30)
+	local title = CreateFrame("Frame", nil, frame)
+	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)
+	title:SetSize(422, 20)
+	title:SetTemplate("Transparent")
+	title.text = title:CreateFontString(nil, "OVERLAY")
+	title.text:SetPoint("CENTER", title, 0, -1)
+	title.text:SetFont(E["media"].normFont, 15)
+	title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
+
+	local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+	close:Point("TOPRIGHT", frame, "TOPRIGHT", 0, 26)
+	close:SetSize(24, 24)
+	close:SetScript("OnClick", function() frame:Hide() end)
+	S:HandleCloseButton(close)
+
+	local offset = 4
+	for i = 1, #ChangeLogData do
+		local button = CreateFrame("Frame", "Button"..i, frame)
+		button:SetSize(375, 16)
+		button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -offset)
+
+		if i <= #ChangeLogData then
+			local string = ModifiedString(GetChangeLogInfo(i))
+
+			button.Text = button:CreateFontString(nil, "OVERLAY")
+			button.Text:SetFont(E["media"].normFont, 11)
+			button.Text:SetText(string)
+			button.Text:SetPoint("LEFT", 0, 0)
+		end
+		offset = offset + 16
+	end
+end
 
 function MER:ToggleChangeLog()
-	if MerathilisUIChangeLog:IsShown() then
-		MerathilisUIChangeLog:Hide()
-	elseif not InCombatLockdown() then
-		MerathilisUIChangeLog:Show()
-		PlaySound("igMainMenuOptionCheckBoxOff")
-		tinsert(UISpecialFrames, "MerathilisUIChangeLog")
-	end
+	ChangeLog:CreateChangelog()
+	PlaySound("igMainMenuOptionCheckBoxOff")
+	tinsert(UISpecialFrames, "MerathilisUIChangeLog")
 end
 
-function MER:OnCheckVersion()
+function ChangeLog:OnCheckVersion(self)
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
-		MerathilisUIChangeLog:Show()
+		ChangeLog:CreateChangelog()
 	end
 end
 
+ChangeLog:RegisterEvent("ADDON_LOADED")
 ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
-ChangeLog:SetScript("OnEvent", function()
+ChangeLog:SetScript("OnEvent", function(self, event, ...)
 	if MERData == nil then MERData = {} end
-	MER:OnCheckVersion()
+	ChangeLog:OnCheckVersion()
 end)

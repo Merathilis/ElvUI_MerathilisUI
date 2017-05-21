@@ -19,6 +19,8 @@ local C_TimerAfter = C_Timer.After
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
 
 MER.Config = {}
+MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
+MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
 function MER:cOption(name)

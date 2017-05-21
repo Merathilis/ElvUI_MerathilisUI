@@ -1,7 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI);
-local S = E:GetModule("Skins");
-local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0");
-local LSM = LibStub("LibSharedMedia-3.0");
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule('MerathilisUI')
+local S = E:GetModule("Skins")
+local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
+local LSM = LibStub("LibSharedMedia-3.0")
 MERS.modName = L["Skins/AddOns"]
 
 -- Cache global variables
