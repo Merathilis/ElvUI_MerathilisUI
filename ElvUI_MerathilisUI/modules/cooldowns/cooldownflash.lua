@@ -30,6 +30,7 @@ local GetContainerItemID = GetContainerItemID
 -- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE
 
 CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
+local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, ignoredSpells
 local testtable
 
 local DCP = CreateFrame("frame", nil, E.UIParent)
