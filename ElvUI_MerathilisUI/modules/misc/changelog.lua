@@ -5,11 +5,14 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
+local gmatch, gsub, find, sub = string.gmatch, string.gsub, string.find, string.sub
 local tinsert = table.insert
+local pairs, tostring = pairs, tostring
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: 
+-- GLOBALS: MERData, PlaySound, UISpecialFrames
 
 -- Don't show the frame if my install isn't finished
 if E.db.mui.installed == nil then return; end
@@ -32,13 +35,13 @@ local ChangeLogData = {
 }
 
 local function ModifiedString(string)
-	local count = string.find(string, ":")
+	local count = find(string, ":")
 	local newString = string
 
 	if count then
-		local prefix = string.sub(string, 0, count)
-		local suffix = string.sub(string, count + 1)
-		local subHeader = string.find(string, "•")
+		local prefix = sub(string, 0, count)
+		local suffix = sub(string, count + 1)
+		local subHeader = find(string, "•")
 
 		if subHeader then newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix) else newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix) end
 	end
