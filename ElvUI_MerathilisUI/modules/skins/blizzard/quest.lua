@@ -14,17 +14,6 @@ local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetQuestLogRequiredMoney = GetQuestLogRequiredMoney
 -- GLOBALS: hooksecurefunc, MAX_NUM_QUESTS, SetMoneyFrameColor
 
-local function StyleScrollFrame(scrollFrame, widthOverride, heightOverride, inset)
-	scrollFrame:SetTemplate()
-	if inset then
-		scrollFrame.spellTex:Point("TOPLEFT", 2, -2)
-	else
-		scrollFrame.spellTex:Point("TOPLEFT")
-	end
-	scrollFrame.spellTex:Size(widthOverride or 506, heightOverride or 615)
-	scrollFrame.spellTex:SetTexCoord(0, 1, 0.02, 1)
-end
-
 local function styleQuest()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
@@ -47,12 +36,15 @@ local function styleQuest()
 		self.spellTex:SetTexture("")
 	end)
 	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
+		self.backdrop:Hide()
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
-		StyleScrollFrame(self, 509, 630, false)
 		self:Height(self:GetHeight() - 2)
 	end)
 	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript("OnUpdate", function(self)
+		_G["QuestLogPopupDetailFrameScrollFrame"].backdrop:Hide()
+		_G["QuestLogPopupDetailFrameInset"]:Hide()
+		_G["QuestLogPopupDetailFrameBg"]:Hide()
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
@@ -75,6 +67,7 @@ local function styleQuest()
 	local DetailsFrame = _G["QuestMapFrame"].DetailsFrame
 	local RewardsFrame = DetailsFrame.RewardsFrame
 
+	_G["WorldMapFrame"].BorderFrame.Inset:Hide()
 	DetailsFrame:GetRegions():Hide()
 	select(2, DetailsFrame:GetRegions()):Hide()
 	select(4, DetailsFrame:GetRegions()):Hide()
