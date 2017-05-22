@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local E, L, V, P, G = unpack(ElvUI)
 
 ----------------------------------------------------------------------------------------
 --	Core options
@@ -135,17 +135,17 @@ P["mui"] = {
 		["white"] = false,
 	},
 
-	["cooldownFlash"] = {
-		["enable"] = true,
-		["fadeInTime"] = 0.3,
-		["fadeOutTime"] = 0.6,
-		["maxAlpha"] = 0.8,
-		["animScale"] = 1.5,
-		["iconSize"] = 40,
-		["holdTime"] = 0.3,
-		["enablePet"] = false,
-		["showSpellName"] = false,
-	},
+	-- ["cooldownFlash"] = {
+		-- ["enable"] = true,
+		-- ["fadeInTime"] = 0.3,
+		-- ["fadeOutTime"] = 0.6,
+		-- ["maxAlpha"] = 0.8,
+		-- ["animScale"] = 1.5,
+		-- ["iconSize"] = 40,
+		-- ["holdTime"] = 0.3,
+		-- ["enablePet"] = false,
+		-- ["showSpellName"] = false,
+	-- },
 
 	--UI Buttons
 	["uiButtons"] = {

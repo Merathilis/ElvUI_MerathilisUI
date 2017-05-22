@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local CF = E:NewModule("CooldownFlash", "AceEvent-3.0", "AceHook-3.0")
+local CF = E:NewModule("CooldownFlash", "AceHook-3.0")
 CF.modName = L["CooldownFlash"]
 
 --Cache global variables
@@ -30,7 +30,7 @@ local GetContainerItemID = GetContainerItemID
 -- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE
 
 CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
-local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, ignoredSpells
+local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime
 local testtable
 
 local DCP = CreateFrame("frame", nil, E.UIParent)
@@ -46,6 +46,18 @@ CF.DCP = DCP
 local DCPT = DCP:CreateTexture(nil,"BACKGROUND")
 DCPT:SetTexCoord(unpack(E.TexCoords))
 DCPT:SetAllPoints(DCP)
+
+local defaultsettings = {
+	["enable"] = true,
+	["fadeInTime"] = 0.3,
+	["fadeOutTime"] = 0.6,
+	["maxAlpha"] = 0.8,
+	["animScale"] = 1.5,
+	["iconSize"] = 40,
+	["holdTime"] = 0.3,
+	["enablePet"] = false,
+	["showSpellName"] = false,
+}
 
 -----------------------
 -- Utility Functions --
@@ -131,11 +143,11 @@ local function OnUpdate(_,update)
 	if (#CF.animating > 0) then
 		runtimer = runtimer + update
 		if (runtimer > (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime)) then
-			tremove(CF.animating,1)
+			tremove(CF.animating, 1)
 			runtimer = 0
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
-			DCPT:SetVertexColor(1,1,1)
+			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
 			DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 		elseif CF.db.enable then
@@ -152,7 +164,7 @@ local function OnUpdate(_,update)
 				alpha = CF.db.maxAlpha - ( CF.db.maxAlpha * ((runtimer - CF.db.holdTime - CF.db.fadeInTime) / CF.db.fadeOutTime))
 			end
 			DCP:SetAlpha(alpha)
-			local scale = CF.db.iconSize+(CF.db.iconSize*((CF.db.animScale-1)*(runtimer/(CF.db.fadeInTime+CF.db.holdTime+CF.db.fadeOutTime))))
+			local scale = CF.db.iconSize + (CF.db.iconSize * ((CF.db.animScale - 1) * (runtimer / (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime))))
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -162,9 +174,21 @@ end
 --------------------
 -- Event Handlers --
 --------------------
+function DCP:ADDON_LOADED(addon)
+	if (not MERData) then
+		MERData = defaultsettings
+	else
+		for i, v in pairs(defaultsettings) do
+			if (not MERData[i]) then
+				MERData[i] = variables
+			end
+		end
+	end
+end
+
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,spell,rank)
 	if (unit == "player") then
-		CF.watching[spell] = {GetTime(),"spell",spell.."("..rank..")"}
+		CF.watching[spell] = {GetTime() , "spell", spell.."("..rank..")"}
 		self:SetScript("OnUpdate", OnUpdate)
 	end
 end
@@ -175,7 +199,7 @@ function DCP:COMBAT_LOG_EVENT_UNFILTERED(...)
 		if (bit.band(sourceFlags,COMBATLOG_OBJECT_TYPE_PET) == COMBATLOG_OBJECT_TYPE_PET and bit.band(sourceFlags,COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE) then
 			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
-			if (index and not select(7,GetPetActionInfo(index))) then
+			if (index and not select(7, GetPetActionInfo(index))) then
 				CF.watching[name] = {GetTime(),"pet",index}
 			elseif (not index and name) then
 				CF.watching[name] = {GetTime(),"spell",name}
@@ -196,6 +220,7 @@ function DCP:PLAYER_ENTERING_WORLD()
 	end
 end
 
+
 function CF:UseAction(slot)
 	local actionType,itemID = GetActionInfo(slot)
 	if (actionType == "item") then
@@ -209,16 +234,16 @@ function CF:UseInventoryItem(slot)
 	local itemID = GetInventoryItemID("player", slot);
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		CF.watching[itemID] = {GetTime(),"item",texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function CF:UseContainerItem(bag,slot)
+function CF:UseContainerItem(bag, slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		CF.watching[itemID] = {GetTime(),"item",texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
@@ -230,7 +255,7 @@ function CF:UseItemByName(itemName)
 	end
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		CF.watching[itemID] = {GetTime(),"item",texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
@@ -242,6 +267,7 @@ function CF:EnableCooldownFlash()
 	self:SecureHook("UseItemByName")
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	DCP:RegisterEvent("ADDON_LOADED")
 	if self.db.enablePet then
 		DCP:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	end
@@ -254,8 +280,9 @@ function CF:DisableCooldownFlash()
 	self:Unhook("UseItemByName")
 	DCP:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	DCP:UnregisterEvent("ADDON_LOADED")
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	--DCP:SetScript("OnUpdate", nil)
+	DCP:SetScript("OnUpdate", nil)
 	--wipe(CF.cooldowns)
 	--wipe(CF.watching)
 end
@@ -266,8 +293,9 @@ function CF:TestMode()
 end
 
 function CF:Initialize()
-	CF.db = E.db.mui.cooldownFlash
 	if CF.db == nil then CF.db = {} end -- rare nil error
+	CF.db = E.global.mui.cooldownFlash
+
 	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 	DCP:CreateShadow("Background")
 	DCP.TextFrame:SetFont(E.db.general.fontSize, 18, "OUTLINE")
