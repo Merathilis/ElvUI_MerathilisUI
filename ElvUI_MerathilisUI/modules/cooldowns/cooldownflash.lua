@@ -57,6 +57,8 @@ local defaultsettings = {
 	["holdTime"] = 0.3,
 	["enablePet"] = false,
 	["showSpellName"] = false,
+	["x"] = UIParent:GetWidth()/2,
+	["y"] = UIParent:GetHeight()/2,
 }
 
 -----------------------
@@ -175,15 +177,16 @@ end
 -- Event Handlers --
 --------------------
 function DCP:ADDON_LOADED(addon)
-	if (not MERData) then
-		MERData = defaultsettings
+	if (not MERData_DCP) then
+		MERData_DCP = defaultsettings
 	else
 		for i, v in pairs(defaultsettings) do
-			if (not MERData[i]) then
-				MERData[i] = variables
+			if (not MERData_DCP[i]) then
+				MERData_DCP[i] = v
 			end
 		end
 	end
+	self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
 end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,spell,rank)
@@ -219,7 +222,6 @@ function DCP:PLAYER_ENTERING_WORLD()
 		wipe(CF.watching)
 	end
 end
-
 
 function CF:UseAction(slot)
 	local actionType,itemID = GetActionInfo(slot)
@@ -282,7 +284,7 @@ function CF:DisableCooldownFlash()
 	DCP:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:UnregisterEvent("ADDON_LOADED")
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	DCP:SetScript("OnUpdate", nil)
+	-- DCP:SetScript("OnUpdate", nil)
 	--wipe(CF.cooldowns)
 	--wipe(CF.watching)
 end

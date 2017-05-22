@@ -16,5 +16,7 @@ G["mui"] = {
 		["holdTime"] = 0.3,
 		["enablePet"] = false,
 		["showSpellName"] = false,
+		["x"] = UIParent:GetWidth()/2,
+		["y"] = UIParent:GetHeight()/2,
 	},
 }
