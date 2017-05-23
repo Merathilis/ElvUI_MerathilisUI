@@ -28,6 +28,8 @@ local ChangeLogData = {
 		"• Use the new method from ElvUI to register modules",
 		"• Add bindings for the RaidMarkBar",
 		"• The tabs from ElvUI are now transparent",
+		"• Fix a rar nil error in CoolDownFlash with Dual Profiles enabled",
+		"• Update profile creation for the AddOns. It now uses char specific profiles",
 		--"• ",
 	" ",
 	"Notes:",
