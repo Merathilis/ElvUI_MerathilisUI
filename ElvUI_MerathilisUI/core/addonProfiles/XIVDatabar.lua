@@ -7,50 +7,51 @@ local MER = E:GetModule('MerathilisUI');
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: XIVBarDB, LibStub
 
+local playerName = UnitName("player")
+local profileName = playerName.."-mUI"
+
 function MER:LoadXIVDatabarProfile()
 	--[[----------------------------------
 	--	XIV_Databar - Settings
 	--]]----------------------------------
-	XIVBarDB = {
-		["profiles"] = {
-			["MerathilisUI"] = {
-				["modules"] = {
-					["tradeskill"] = {
-						["barCC"] = true,
-					},
-					["talent"] = {
-						["barCC"] = true,
-					},
-					["currency"] = {
-						["xpBarCC"] = true,
-						["currencyTwo"] = "1220",
-						["currencyOne"] = "1273",
-					},
-					["clock"] = {
-						["timeFormat"] = "twoFour",
-					},
+	if (not XIVBarDB.profiles[profileName]) then
+		XIVBarDB.profiles[profileName] = {
+			["modules"] = {
+				["tradeskill"] = {
+					["barCC"] = true,
 				},
-				["text"] = {
-					["flags"] = 2,
-					["fontSize"] = 10,
-					["font"] = "Merathilis Roboto-Bold",
+				["talent"] = {
+					["barCC"] = true,
 				},
-				["general"] = {
-					["moduleSpacing"] = 25,
+				["currency"] = {
+					["xpBarCC"] = true,
+					["currencyTwo"] = "1220",
+					["currencyOne"] = "1273",
 				},
-				["color"] = {
-					["barColor"] = {
-						["a"] = 0,
-						["r"] = 0.952941176470588,
-						["g"] = 0.968627450980392,
-						["b"] = 1,
-					},
+				["clock"] = {
+					["timeFormat"] = "twoFour",
 				},
 			},
-		},
-	}
+			["text"] = {
+				["flags"] = 2,
+				["fontSize"] = 10,
+				["font"] = "Merathilis Roboto-Bold",
+			},
+			["general"] = {
+				["moduleSpacing"] = 25,
+			},
+			["color"] = {
+				["barColor"] = {
+					["a"] = 0,
+					["r"] = 0.952941176470588,
+					["g"] = 0.968627450980392,
+					["b"] = 1,
+				},
+			},
+		}
 
-	-- Profile creation
-	local db = LibStub("AceDB-3.0"):New(XIVBarDB, nil, true)
-	db:SetProfile("MerathilisUI")
+		-- Profile creation
+		local db = LibStub("AceDB-3.0"):New(XIVBarDB, nil, true)
+		db:SetProfile(profileName)
+	end
 end
