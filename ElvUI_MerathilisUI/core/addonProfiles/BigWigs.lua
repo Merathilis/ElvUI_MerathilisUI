@@ -22,12 +22,12 @@ function MER:LoadBigWigsProfile()
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
 						[profileName] = {
-							["posx"] = 339.84443097218,
+							["posx"] = 335.58,
 							["fontSize"] = 11,
 							["fontOutline"] = "",
 							["font"] = "Merathilis Roboto-Bold",
 							["lock"] = true,
-							["posy"] = 61.8444405166224,
+							["posy"] = 74,
 						},
 					},
 				},
@@ -80,11 +80,11 @@ function MER:LoadBigWigsProfile()
 				["BigWigs_Plugins_Proximity"] = {
 					["profiles"] = {
 						[profileName] = {
-							["posx"] = 900.11113290675,
+							["posx"] = 886.58,
 							["font"] = "Merathilis Roboto-Bold",
 							["lock"] = true,
 							["height"] = 99.0000381469727,
-							["posy"] = 70.4000288314296,
+							["posy"] = 88.22,
 						},
 					},
 				},
