@@ -21,12 +21,14 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
 	E.db["sle"]["Armory"]["Character"]["Gradation"]["Display"] = true
+	E.db["sle"]["Armory"]["Character"]["Gradation"]["Color"] = {MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b}
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11
 	E.db["sle"]["Armory"]["Character"]["Level"]["ShowUpgradeLevel"] = true
 	E.db["sle"]["Armory"]["Character"]["Level"]["Font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Backdrop"]["SelectedBG"] = "HIDE"
+	E.db["sle"]["Armory"]["Character"]["Backdrop"]["Overlay"] = false
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["Display"] = "MouseoverOnly"
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["FontSize"] = 9
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["Font"] = "Merathilis Roboto-Black"
@@ -34,6 +36,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["size"] = 16
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["outline"] = "OUTLINE"
+	E.db["sle"]["Armory"]["Character"]["Artifact"]["Font"] = "Merathilis Roboto-Black"
 	E.db["sle"]["Armory"]["Inspect"]["Enable"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["ShowUpgradeLevel"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["Font"] = "Merathilis Roboto-Black"

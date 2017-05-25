@@ -83,7 +83,7 @@ P["mui"] = {
 	},
 
 	["locPanel"] = {
-		["enable"] = false,
+		["enable"] = true,
 		["autowidth"] = false,
 		["width"] = 245,
 		["height"] = 21,
@@ -135,21 +135,8 @@ P["mui"] = {
 		["white"] = false,
 	},
 
-	-- ["cooldownFlash"] = {
-		-- ["enable"] = true,
-		-- ["fadeInTime"] = 0.3,
-		-- ["fadeOutTime"] = 0.6,
-		-- ["maxAlpha"] = 0.8,
-		-- ["animScale"] = 1.5,
-		-- ["iconSize"] = 40,
-		-- ["holdTime"] = 0.3,
-		-- ["enablePet"] = false,
-		-- ["showSpellName"] = false,
-	-- },
-
-	--UI Buttons
 	["uiButtons"] = {
-		["enabled"] = true,
+		["enable"] = true,
 		["style"] = "classic",
 		["strata"] = "MEDIUM",
 		["level"] = 5,
