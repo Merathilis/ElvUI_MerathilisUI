@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI);
-local mod = E:NewModule("CooldownFlash", "AceHook-3.0")
-mod.modName = L["CooldownFlash"]
+local CF = E:NewModule("CooldownFlash", "AceHook-3.0")
+CF.modName = L["CooldownFlash"]
 
 --Cache global variables
 --Lua functions
@@ -29,7 +29,7 @@ local GetContainerItemID = GetContainerItemID
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE
 
-mod.cooldowns, mod.animating, mod.watching = { }, { }, { }
+CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime
 local testtable
 
@@ -41,7 +41,7 @@ DCP.TextFrame:SetPoint("TOP", DCP, "BOTTOM", 0, -5)
 DCP.TextFrame:SetWidth(185)
 DCP.TextFrame:SetJustifyH("CENTER")
 DCP.TextFrame:SetTextColor(1,1,1)
-mod.DCP = DCP
+CF.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil,"BACKGROUND")
 DCPT:SetTexCoord(unpack(E.TexCoords))
@@ -89,7 +89,7 @@ local runtimer = 0
 local function OnUpdate(_,update)
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
-		for i,v in pairs(mod.watching) do
+		for i,v in pairs(CF.watching) do
 			if (GetTime() >= v[1] + 0.5) then
 				local start, duration, enabled, texture, isPet, name
 				if (v[2] == "spell") then
@@ -107,15 +107,15 @@ local function OnUpdate(_,update)
 				end
 				if (enabled ~= 0) then
 					if (duration and duration > 2.0 and texture) then
-						mod.cooldowns[i] = { start, duration, texture, isPet, name, v[3], v[2] }
+						CF.cooldowns[i] = { start, duration, texture, isPet, name, v[3], v[2] }
 					end
 				end
 				if (not (enabled == 0 and v[2] == "spell")) then
-					mod.watching[i] = nil
+					CF.watching[i] = nil
 				end
 			end
 		end
-		for i,v in pairs(mod.cooldowns) do
+		for i,v in pairs(CF.cooldowns) do
 			local start, duration, remaining, enabled
 			if (v[7] == "spell") then
 				start, duration = GetSpellCooldown(v[6])
@@ -130,43 +130,43 @@ local function OnUpdate(_,update)
 				remaining = v[2]-(GetTime()-v[1])
 			end
 			if (remaining <= 0) then
-				tinsert(mod.animating, {v[3],v[4],v[5]})
-				mod.cooldowns[i] = nil
+				tinsert(CF.animating, {v[3],v[4],v[5]})
+				CF.cooldowns[i] = nil
 			end
 		end
 
 		elapsed = 0
-		if (#mod.animating == 0 and tcount(mod.watching) == 0 and tcount(mod.cooldowns) == 0) then
+		if (#CF.animating == 0 and tcount(CF.watching) == 0 and tcount(CF.cooldowns) == 0) then
 			DCP:SetScript("OnUpdate", nil)
 			return
 		end
 	end
 
-	if (#mod.animating > 0) then
+	if (#CF.animating > 0) then
 		runtimer = runtimer + update
-		if (runtimer > (mod.db.fadeInTime + mod.db.holdTime + mod.db.fadeOutTime)) then
-			tremove(mod.animating, 1)
+		if (runtimer > (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime)) then
+			tremove(CF.animating, 1)
 			runtimer = 0
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
 			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
-			DCP:SetSize(mod.db.iconSize, mod.db.iconSize)
-		elseif mod.db.enable then
+			DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
+		elseif CF.db.enable then
 			if (not DCPT:GetTexture()) then
-				if (mod.animating[1][3] ~= nil and mod.db.showSpellName) then
-					DCP.TextFrame:SetText(mod.animating[1][3])
+				if (CF.animating[1][3] ~= nil and CF.db.showSpellName) then
+					DCP.TextFrame:SetText(CF.animating[1][3])
 				end
-				DCPT:SetTexture(mod.animating[1][1])
+				DCPT:SetTexture(CF.animating[1][1])
 			end
-			local alpha = mod.db.maxAlpha
-			if (runtimer < mod.db.fadeInTime) then
-				alpha = mod.db.maxAlpha * (runtimer / mod.db.fadeInTime)
-			elseif (runtimer >= mod.db.fadeInTime + mod.db.holdTime) then
-				alpha = mod.db.maxAlpha - ( mod.db.maxAlpha * ((runtimer - mod.db.holdTime - mod.db.fadeInTime) / mod.db.fadeOutTime))
+			local alpha = CF.db.maxAlpha
+			if (runtimer < CF.db.fadeInTime) then
+				alpha = CF.db.maxAlpha * (runtimer / CF.db.fadeInTime)
+			elseif (runtimer >= CF.db.fadeInTime + CF.db.holdTime) then
+				alpha = CF.db.maxAlpha - ( CF.db.maxAlpha * ((runtimer - CF.db.holdTime - CF.db.fadeInTime) / CF.db.fadeOutTime))
 			end
 			DCP:SetAlpha(alpha)
-			local scale = mod.db.iconSize + (mod.db.iconSize * ((mod.db.animScale - 1) * (runtimer / (mod.db.fadeInTime + mod.db.holdTime + mod.db.fadeOutTime))))
+			local scale = CF.db.iconSize + (CF.db.iconSize * ((CF.db.animScale - 1) * (runtimer / (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime))))
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -191,7 +191,7 @@ end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,spell,rank)
 	if (unit == "player") then
-		mod.watching[spell] = {GetTime() , "spell", spell.."("..rank..")"}
+		CF.watching[spell] = {GetTime() , "spell", spell.."("..rank..")"}
 		self:SetScript("OnUpdate", OnUpdate)
 	end
 end
@@ -203,9 +203,9 @@ function DCP:COMBAT_LOG_EVENT_UNFILTERED(...)
 			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
 			if (index and not select(7, GetPetActionInfo(index))) then
-				mod.watching[name] = {GetTime(),"pet",index}
+				CF.watching[name] = {GetTime(),"pet",index}
 			elseif (not index and name) then
-				mod.watching[name] = {GetTime(),"spell",name}
+				CF.watching[name] = {GetTime(),"spell",name}
 			else
 				return
 			end
@@ -218,51 +218,51 @@ function DCP:PLAYER_ENTERING_WORLD()
 	local inInstance,instanceType = IsInInstance()
 	if (inInstance and instanceType == "arena") then
 		self:SetScript("OnUpdate", nil)
-		wipe(mod.cooldowns)
-		wipe(mod.watching)
+		wipe(CF.cooldowns)
+		wipe(CF.watching)
 	end
 end
 
-function mod:UseAction(slot)
+function CF:UseAction(slot)
 	local actionType,itemID = GetActionInfo(slot)
 	if (actionType == "item") then
 		local texture = GetActionTexture(slot)
-		mod.watching[itemID] = {GetTime(),"item",texture}
+		CF.watching[itemID] = {GetTime(),"item",texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function mod:UseInventoryItem(slot)
+function CF:UseInventoryItem(slot)
 	local itemID = GetInventoryItemID("player", slot);
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		mod.watching[itemID] = {GetTime(), "item", texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function mod:UseContainerItem(bag, slot)
+function CF:UseContainerItem(bag, slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		mod.watching[itemID] = {GetTime(), "item", texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function mod:UseItemByName(itemName)
+function CF:UseItemByName(itemName)
 	local itemID
 	if itemName then
 		itemID = string.match(select(2, GetItemInfo(itemName)), "item:(%d+)")
 	end
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		mod.watching[itemID] = {GetTime(), "item", texture}
+		CF.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function mod:EnableCooldownFlash()
+function CF:EnableCooldownFlash()
 	self:SecureHook("UseContainerItem")
 	self:SecureHook("UseInventoryItem")
 	self:SecureHook("UseAction")
@@ -275,7 +275,7 @@ function mod:EnableCooldownFlash()
 	end
 end
 
-function mod:DisableCooldownFlash()
+function CF:DisableCooldownFlash()
 	self:Unhook("UseContainerItem")
 	self:Unhook("UseInventoryItem")
 	self:Unhook("UseAction")
@@ -285,20 +285,20 @@ function mod:DisableCooldownFlash()
 	DCP:UnregisterEvent("ADDON_LOADED")
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	-- DCP:SetScript("OnUpdate", nil)
-	--wipe(mod.cooldowns)
-	--wipe(mod.watching)
+	--wipe(CF.cooldowns)
+	--wipe(CF.watching)
 end
 
-function mod:TestMode()
-	tinsert(mod.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
+function CF:TestMode()
+	tinsert(CF.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
 end
 
-function mod:Initialize()
-	if mod.db == nil then mod.db = {} end -- rare nil error
-	mod.db = E.global.mui.cooldownFlash
+function CF:Initialize()
+	if CF.db == nil then CF.db = {} end -- rare nil error
+	CF.db = E.global.mui.cooldownFlash
 
-	DCP:SetSize(mod.db.iconSize, mod.db.iconSize)
+	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 	DCP:CreateShadow("Background")
 	DCP.TextFrame:SetFont(E.db.general.fontSize, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)
@@ -310,7 +310,7 @@ function mod:Initialize()
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	CF:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(CF:GetName(), InitializeCallback)

@@ -1,9 +1,8 @@
 local E, L, V, P, G = unpack(ElvUI)
 local MER = E:GetModule("MerathilisUI")
-local MERS = E:GetModule("mUISkins")
+local MERG = E:NewModule("mUIGameMenu")
+local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins")
-local mod = E:NewModule("mUIGameMenu")
-mod.modName = L["GameMenu"]
 
 -- Cache global variables
 -- Lua functions
@@ -46,7 +45,7 @@ local npc = {
 	103159, -- Baby Winston
 }
 
-function mod:GameMenu()
+function MERG:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -164,14 +163,14 @@ function mod:GameMenu()
 	end
 end
 
-function mod:Initialize()
+function MERG:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 	end
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	MERG:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(MERG:GetName(), InitializeCallback)

@@ -1,7 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule("MerathilisUI")
-local mod = E:NewModule("ThreatBar", "AceEvent-3.0")
-mod.modName = L["ThreatBar"]
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI");
+local MERTB = E:NewModule("ThreatBar", "AceEvent-3.0")
+MERTB.modName = L["ThreatBar"]
 
 -- Cache global variables
 -- Lua functions
@@ -24,10 +24,10 @@ local UNKNOWN = UNKNOWN
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: ElvUF, UIParent, ChatTab_Datatext_Panel
 
-E.Threat = mod
-mod.list = {};
+E.Threat = MERTB
+MERTB.list = {};
 
-function mod:UpdatePosition()
+function MERTB:UpdatePosition()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
 		self.bar:SetParent(ChatTab_Datatext_Panel)
 		self.bar:SetInside(ChatTab_Datatext_Panel)
@@ -37,7 +37,7 @@ function mod:UpdatePosition()
 	self.bar:SetFrameStrata("HIGH")
 end
 
-function mod:GetLargestThreatOnList(percent)
+function MERTB:GetLargestThreatOnList(percent)
 	local largestValue, largestUnit = 0, nil
 	for unit, threatPercent in pairs(self.list) do
 		if threatPercent > largestValue then
@@ -49,7 +49,7 @@ function mod:GetLargestThreatOnList(percent)
 	return (percent - largestValue), largestUnit
 end
 
-function mod:GetColor(unit)
+function MERTB:GetColor(unit)
 	local unitReaction = UnitReaction(unit, "player")
 	local _, unitClass = UnitClass(unit)
 	if (UnitIsPlayer(unit)) then
@@ -64,7 +64,7 @@ function mod:GetColor(unit)
 	end
 end
 
-function mod:Update()
+function MERTB:Update()
 	local isInGroup, isInRaid, petExists = IsInGroup(), IsInRaid(), UnitExists("pet")
 	local _, status, percent = UnitDetailedThreatSituation("player", "target")
 	if percent and percent > 0 and (isInGroup or petExists) then
@@ -119,7 +119,7 @@ function mod:Update()
 	twipe(self.list)
 end
 
-function mod:ToggleEnable()
+function MERTB:ToggleEnable()
 	if self.db.enable then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", "Update")
 		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", "Update")
@@ -135,10 +135,10 @@ function mod:ToggleEnable()
 	end
 end
 
-function mod:Initialize()
+function MERTB:Initialize()
 	self.db = E.db.mui.datatexts.threatBar
 
-	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", E.UIParent)
+	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", UIParent)
 	self.bar:SetStatusBarTexture(E["media"].muiFlat)
 	E:RegisterStatusBar(self.bar)
 	self.bar:SetMinMaxValues(0, 100)
@@ -153,7 +153,7 @@ function mod:Initialize()
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	MERTB:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(MERTB:GetName(), InitializeCallback)

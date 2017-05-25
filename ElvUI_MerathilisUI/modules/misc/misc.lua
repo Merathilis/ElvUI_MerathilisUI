@@ -1,6 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI)
-local mod = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0", "AceConsole-3.0")
-mod.modName = L["Misc"]
+local E, L, V, P, G = unpack(ElvUI);
+local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0", "AceConsole-3.0");
+MI.modName = L["Misc"]
+
+E.mUIMisc = MI;
 
 -- Cache global variables
 -- Lua functions
@@ -19,7 +21,7 @@ local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit
 
-function mod:LoadMisc()
+function MI:LoadMisc()
 	-- Force readycheck warning
 	local ShowReadyCheckHook = function(_, initiator)
 		if initiator ~= "player" then
@@ -108,7 +110,7 @@ function mod:LoadMisc()
 	end)
 end
 
-function mod:Initialize()
+function MI:Initialize()
 	self:LoadMisc()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
@@ -119,7 +121,7 @@ function mod:Initialize()
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	MI:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(MI:GetName(), InitializeCallback)

@@ -1,6 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI)
-local mod = E:NewModule("mUImoveBlizz", "AceHook-3.0", "AceEvent-3.0")
-mod.modName = L["moveBlizz"]
+local E, L, V, P, G = unpack(ElvUI);
+local MB = E:NewModule("mUImoveBlizz", "AceHook-3.0", "AceEvent-3.0")
+MB.modName = L["moveBlizz"]
 
 -- Cache global variables
 -- Lua functions
@@ -12,7 +12,7 @@ local type = type
 -- GLOBALS: TradeSkillFrame
 
 -- Move some Blizzard frames
-mod.Frames = {
+MB.Frames = {
 	"AddonList",
 	"BankFrame",
 	"CharacterFrame",
@@ -56,7 +56,7 @@ mod.Frames = {
 	"WorldMapFrame"
 }
 
-mod.AddonsList = {
+MB.AddonsList = {
 	["Blizzard_AchievementUI"] = {"AchievementFrame", "AchievementFrameHeader"},
 	["Blizzard_ArchaeologyUI"] = {"ArchaeologyFrame"},
 	["Blizzard_AuctionUI"] = {"AuctionFrame"},
@@ -85,7 +85,7 @@ mod.AddonsList = {
 	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"}
 }
 
-function mod:MakeMovable(frame)
+function MB:MakeMovable(frame)
 	if frame then
 		frame:EnableMouse(true)
 		frame:SetMovable(true)
@@ -93,39 +93,39 @@ function mod:MakeMovable(frame)
 		frame:RegisterForDrag("LeftButton")
 		frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
 		frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
-		if frame.TitleMouseover then mod:MakeMovable(frame.TitleMouseover) end
+		if frame.TitleMouseover then MB:MakeMovable(frame.TitleMouseover) end
 	end
 end
 
-function mod:Addons(event, addon)
+function MB:Addons(event, addon)
 	local frame
-	addon = mod.AddonsList[addon]
+	addon = MB.AddonsList[addon]
 	if not addon then return end
 	if type(addon) == "table" then
 		for i = 1, #addon do
 			frame = _G[addon[i]]
-			mod:MakeMovable(frame)
+			MB:MakeMovable(frame)
 		end
 	else
 		frame = _G[addon]
-		mod:MakeMovable(frame)
+		MB:MakeMovable(frame)
 	end
-	mod.addonCount = mod.addonCount + 1
-	if mod.addonCount == #mod.AddonsList then mod:UnregisterEvent(event) end
+	MB.addonCount = MB.addonCount + 1
+	if MB.addonCount == #MB.AddonsList then MB:UnregisterEvent(event) end
 end
 
-function mod:Initialize()
+function MB:Initialize()
 	if E.db.mui.misc.moveBlizz ~= true then return; end
-	mod.addonCount = 0
-	for i = 1, #mod.Frames do
-		local frame = _G[mod.Frames[i]]
-		if frame then mod:MakeMovable(frame) end
+	MB.addonCount = 0
+	for i = 1, #MB.Frames do
+		local frame = _G[MB.Frames[i]]
+		if frame then MB:MakeMovable(frame) end
 	end
 	self:RegisterEvent("ADDON_LOADED", "Addons")
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	MB:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(MB:GetName(), InitializeCallback)

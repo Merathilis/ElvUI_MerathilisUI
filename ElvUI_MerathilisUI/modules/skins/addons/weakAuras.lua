@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MERS = E:GetModule("mUISkins")
+local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions

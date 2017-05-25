@@ -1,7 +1,7 @@
-local E, L, V, P, G = unpack(ElvUI)
+local E, L, V, P, G = unpack(ElvUI);
+local MERA = E:NewModule("mUIAnnounce", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0")
-local mod = E:NewModule("mUIAnnounce", "AceEvent-3.0")
-mod.modName = L["Announce"]
+MERA.modName = L["Announce"]
 
 --Cache global variables
 --Lua functions
@@ -19,17 +19,17 @@ local SetCVar = SetCVar
 
 local iconsize = 24
 
-function mod:PLAYER_REGEN_ENABLED()
+function MERA:PLAYER_REGEN_ENABLED()
 	if (UnitIsDead("player")) then return end
 	self:AlertRun(LEAVING_COMBAT.." !", 0.1, 1, 0.1)
 end
 
-function mod:PLAYER_REGEN_DISABLED()
+function MERA:PLAYER_REGEN_DISABLED()
 	if (UnitIsDead("player")) then return end
 	self:AlertRun(ENTERING_COMBAT.." !", 1, 0.1, 0.1)
 end
 
-function mod:CHAT_MSG_SKILL(event, message)
+function MERA:CHAT_MSG_SKILL(event, message)
 	UIErrorsFrame:AddMessage(message, ChatTypeInfo["SKILL"].r, ChatTypeInfo["SKILL"].g, ChatTypeInfo["SKILL"].b)
 end
 
@@ -99,7 +99,7 @@ local updatestring = function(self,t)
 			flowingtext:SetPoint("RIGHT")
 			flowingtext:SetJustifyH("RIGHT")
 			rightchar:ClearAllPoints()
-			rightchar:SetPoint("RIGHT", flowingtext, "LEFT")
+			rightchar:SetPoint("RIGHT",flowingtext,"LEFT")
 			rightchar:SetJustifyH("RIGHT")
 			self:Hide()
 			count = 1.456789
@@ -150,7 +150,7 @@ end
 
 backrun:SetScript("OnUpdate",rollback)
 
-function mod:AlertRun(f, r, g, b)
+function MERA:AlertRun(f, r, g, b)
 	flowingframe:Hide()
 	updaterun:Hide()
 	backrun:Hide()
@@ -178,7 +178,7 @@ function mod:AlertRun(f, r, g, b)
 	flowingtext:SetPoint("LEFT")
 	flowingtext:SetJustifyH("LEFT")
 	rightchar:ClearAllPoints()
-	rightchar:SetPoint("LEFT", flowingtext, "RIGHT")
+	rightchar:SetPoint("LEFT",flowingtext,"RIGHT")
 	rightchar:SetJustifyH("LEFT")
 
 	rightchar:SetText("")
@@ -186,7 +186,7 @@ function mod:AlertRun(f, r, g, b)
 	flowingframe:Show()
 end
 
-function mod:Initialize()
+function MERA:Initialize()
 	if E.db.mui.misc.announce ~= true then return end
 
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -197,7 +197,7 @@ function mod:Initialize()
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	MERA:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(MERA:GetName(), InitializeCallback)

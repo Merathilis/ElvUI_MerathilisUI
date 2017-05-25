@@ -1,9 +1,10 @@
-local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule("MerathilisUI")
-local MERS = E:GetModule("mUISkins")
+-- Notification from FreeUI
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI");
+local MERS = E:GetModule("muiSkins")
+local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
 local S = E:GetModule("Skins")
-local mod = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
-mod.modName = L["Notification"]
+NF.modName = L["Notification"]
 
 --Cache global variables
 --Lua functions
@@ -24,7 +25,7 @@ local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local CalendarGetDate = CalendarGetDate
 local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
-local CalendarGetGuildEventImodo = CalendarGetGuildEventImodo
+local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
 local CalendarGetNumDayEvents = CalendarGetNumDayEvents
 local CalendarGetDayEvent = CalendarGetDayEvent
 local InCombatLockdown = InCombatLockdown
@@ -51,7 +52,7 @@ local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
 
-function mod:SpawnToast(toast)
+function NF:SpawnToast(toast)
 	if not toast then return end
 
 	if #activeToasts >= max_active_toasts then
@@ -95,7 +96,7 @@ function mod:SpawnToast(toast)
 	PlaySoundKitID(18019)
 end
 
-function mod:RefreshToasts()
+function NF:RefreshToasts()
 	for i = 1, #activeToasts do
 		local activeToast = activeToasts[i]
 		local YOffset, _ = 0
@@ -126,7 +127,7 @@ function mod:RefreshToasts()
     end
 end
 
-function mod:HideToast(toast)
+function NF:HideToast(toast)
 	for i, activeToast in pairs(activeToasts) do
 		if toast == activeToast then
 			table.remove(activeToasts, i)
@@ -137,11 +138,11 @@ function mod:HideToast(toast)
 	C_Timer.After(0.1, function() self:RefreshToasts() end)
 end
 
-local function ToastButtonAnimOut_Omodinished(self)
-	mod:HideToast(self:GetParent())
+local function ToastButtonAnimOut_OnFinished(self)
+	NF:HideToast(self:GetParent())
 end
 
-function mod:GetToast()
+function NF:GetToast()
 	local toast = table.remove(toasts, 1)
 	if not toast then
 		toast = CreateFrame("Frame", nil, E.UIParent)
@@ -215,7 +216,7 @@ function mod:GetToast()
 		animOutMove:SetOffset(bannerWidth, 0)
 		toast.AnimOut.AnimMove = animOutMove
 
-		toast.AnimOut.AnimAlpha:SetScript("Omodinished", ToastButtonAnimOut_Omodinished)
+		toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
 
 		toast:SetScript("OnEnter", function(self)
 				self.AnimOut:Stop()
@@ -234,7 +235,7 @@ function mod:GetToast()
 	return toast
 end
 
-function mod:DisplayToast(name, message, clickFunc, texture, ...)
+function NF:DisplayToast(name, message, clickFunc, texture, ...)
 	local toast = self:GetToast()
 
 	if type(clickFunc) == "function" then
@@ -262,14 +263,14 @@ function mod:DisplayToast(name, message, clickFunc, texture, ...)
 	self:SpawnToast(toast)
 end
 
-function mod:PLAYER_FLAGS_CHANGED(event)
+function NF:PLAYER_FLAGS_CHANGED(event)
 	self:UnregisterEvent(event)
 	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
 
-function mod:PLAYER_REGEN_ENABLED()
+function NF:PLAYER_REGEN_ENABLED()
 	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
@@ -282,12 +283,12 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	mod:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	NF:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 local hasMail = false
-function mod:UPDATE_PENDING_MAIL()
+function NF:UPDATE_PENDING_MAIL()
 	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.mail ~= true then return end
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
@@ -319,7 +320,7 @@ local function ResetRepairNotification()
 	showRepair = true
 end
 
-function mod:UPDATE_INVENTORY_DURABILITY()
+function NF:UPDATE_INVENTORY_DURABILITY()
 	local current, max
 
 	for i = 1, 11 do
@@ -346,7 +347,7 @@ local function GetGuildInvites()
 	local _, currentMonth = CalendarGetDate()
 
 	for i = 1, CalendarGetNumGuildEvents() do
-		local month, day = CalendarGetGuildEventImodo(i)
+		local month, day = CalendarGetGuildEventInfo(i)
 		local monthOffset = month - currentMonth
 		local numDayEvents = CalendarGetNumDayEvents(monthOffset, day)
 
@@ -372,9 +373,9 @@ local function alertEvents()
 	local num = CalendarGetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 1 then
-			mod:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], num), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], num), toggleCalendar)
 		elseif num > 0 then
-			mod:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], 1), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], 1), toggleCalendar)
 		end
 		numInvites = num
 	end
@@ -385,18 +386,18 @@ local function alertGuildEvents()
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 1 then
-		mod:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], num), toggleCalendar)
+		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], num), toggleCalendar)
 	elseif num > 0 then
-		mod:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], 1), toggleCalendar)
+		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], 1), toggleCalendar)
 	end
 end
 
-function mod:CALENDAR_UPDATE_PENDING_INVITES()
+function NF:CALENDAR_UPDATE_PENDING_INVITES()
 	alertEvents()
 	alertGuildEvents()
 end
 
-function mod:CALENDAR_UPDATE_GUILD_EVENTS()
+function NF:CALENDAR_UPDATE_GUILD_EVENTS()
 	alertGuildEvents()
 end
 
@@ -412,13 +413,13 @@ local function LoginCheck()
 	for i = 1, numDayEvents do
 		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(0, day, i)
 		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) and hournow < hour then
-			mod:DisplayToast(CALENDAR, format(L["Event \"%s\" will end today."], title), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end today."], title), toggleCalendar)
 		end
 		if calendarType == "HOLIDAY" and sequenceType == "START" and hournow > hour then
-			mod:DisplayToast(CALENDAR, format(L["Event \"%s\" started today."], title), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" started today."], title), toggleCalendar)
 		end
 		if calendarType == "HOLIDAY" and sequenceType == "ONGOING" then
-			mod:DisplayToast(CALENDAR, format(L["Event \"%s\" is ongoing."], title), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" is ongoing."], title), toggleCalendar)
 		end
 	end
 
@@ -434,28 +435,28 @@ local function LoginCheck()
 	for i = 1, numDayEvents do
 		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(offset, day, i)
 		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) then
-			mod:DisplayToast(CALENDAR, format(L["Event \"%s\" will end tomorrow."], title), toggleCalendar)
+			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end tomorrow."], title), toggleCalendar)
 		end
 	end
 end
 
-function mod:PLAYER_ENTERING_WORLD()
+function NF:PLAYER_ENTERING_WORLD()
 	C_Timer.After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
-function mod:VIGNETTE_ADDED(event, id)
+function NF:VIGNETTE_ADDED(event, id)
 	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
 	if not id then return end
 
-	local _, _, name, icon = C_Vignettes.GetVignetteImodoFromInstanceID(id)
+	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
-function mod:Initialize()
+function NF:Initialize()
 	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
@@ -473,7 +474,7 @@ function mod:Initialize()
 end
 
 local function InitializeCallback()
-	mod:Initialize()
+	NF:Initialize()
 end
 
-E:RegisterModule(mod:GetName(), InitializeCallback)
+E:RegisterModule(NF:GetName(), InitializeCallback)
