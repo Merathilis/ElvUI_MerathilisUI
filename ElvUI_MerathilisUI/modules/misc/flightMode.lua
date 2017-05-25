@@ -1,11 +1,10 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
-if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
-local BFM = E:GetModule("BUIFlightMode");
-local MFM = E:NewModule("MUIFlightMode");
-MFM.modName = L["FlightMode"]
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
+local BFM = E:GetModule("BUIFlightMode")
+local mod = E:NewModule("MUIFlightMode")
+mod.modName = L["FlightMode"]
 
-function MFM:Initialize()
+function mod:Initialize()
 	if E.db.mui.general.FlightMode then
 
 		-- Hide BenikUI Logo
@@ -62,7 +61,9 @@ function MFM:Initialize()
 end
 
 local function InitializeCallback()
-	MFM:Initialize()
+	if not IsAddOnLoaded("ElvUI_BenikUI") then return end
+
+	mod:Initialize()
 end
 
-E:RegisterModule(MFM:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)

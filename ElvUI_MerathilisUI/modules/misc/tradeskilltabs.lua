@@ -1,5 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MERS = E:GetModule("muiSkins")
+local E, L, V, P, G = unpack(ElvUI)
+local MERS = E:GetModule("mUISkins")
 local MI = E:GetModule("mUIMisc")
 
 --Cache global variables

@@ -1,7 +1,7 @@
-﻿local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
-local RMA = E:NewModule("RaidMarkers");
-RMA.modName = L["Raid Markers"]
+﻿local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
+local mod = E:NewModule("RaidMarkers")
+mod.modName = L["Raid Markers"]
 
 -- Cache global variables
 -- Lua functions
@@ -15,7 +15,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 
 --GLOBALS: CreateFrame
 
-RMA.VisibilityStates = {
+mod.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
 	["INPARTY"] = "[group] show; [petbattle] hide; hide",
 	["ALWAYS"] = "[petbattle] hide; show",
@@ -33,7 +33,7 @@ local layouts = {
 	[9] = {RT = 0, WM = 0}, -- clear target/worldmarker
 }
 
-function RMA:Make(name, command, description)
+function mod:Make(name, command, description)
 	_G["BINDING_NAME_CLICK "..name..":LeftButton"] = description
 	local btn = CreateFrame("Button", name, nil, "SecureActionButtonTemplate")
 	btn:SetAttribute("type", "macro")
@@ -41,9 +41,9 @@ function RMA:Make(name, command, description)
 	btn:RegisterForClicks("AnyDown")
 end
 
-function RMA:CreateButtons()
+function mod:CreateButtons()
 	for k, layout in ipairs(layouts) do
-		local button = CreateFrame("Button", format("RaidMarkerBarButton%d", k), RMA.frame, "SecureActionButtonTemplate")
+		local button = CreateFrame("Button", format("RaidMarkerBarButton%d", k), mod.frame, "SecureActionButtonTemplate")
 		button:SetHeight(E.db.mui.raidmarkers.buttonSize)
 		button:SetWidth(E.db.mui.raidmarkers.buttonSize)
 		button:SetTemplate('Transparent')
@@ -64,7 +64,7 @@ function RMA:CreateButtons()
 	end
 end
 
-function RMA:UpdateWorldMarkersAndTooltips()
+function mod:UpdateWorldMarkersAndTooltips()
 	for i = 1, 9 do
 		local target, worldmarker = layouts[i].RT, layouts[i].WM
 		local button = self.frame.buttons[i]
@@ -100,7 +100,7 @@ function RMA:UpdateWorldMarkersAndTooltips()
 	end
 end
 
-function RMA:UpdateBar(update)
+function mod:UpdateBar(update)
 	local height, width
 
 	if E.db.mui.raidmarkers.orientation == "VERTICAL" then
@@ -144,10 +144,10 @@ function RMA:UpdateBar(update)
 	if E.db.mui.raidmarkers.enable then self.frame:Show() else self.frame:Hide() end
 end
 
-function RMA:Visibility()
+function mod:Visibility()
 	local db = E.db.mui.raidmarkers
 	if db.enable then
-		RegisterStateDriver(self.frame, "visibility", db.visibility == 'CUSTOM' and db.customVisibility or RMA.VisibilityStates[db.visibility])
+		RegisterStateDriver(self.frame, "visibility", db.visibility == 'CUSTOM' and db.customVisibility or mod.VisibilityStates[db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -156,7 +156,7 @@ function RMA:Visibility()
 	end
 end
 
-function RMA:Backdrop()
+function mod:Backdrop()
 	if E.db.mui.raidmarkers.backdrop then
 		self.frame.backdrop:Show()
 	else
@@ -164,18 +164,18 @@ function RMA:Backdrop()
 	end
 end
 
-function RMA:Initialize()
+function mod:Initialize()
 
-	RMA:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
-	RMA:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
-	RMA:Make("mUI_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
-	RMA:Make("mUI_RaidFlare4", "/clearworldmarker 4\n/worldmarker 4", "Red Flare")
-	RMA:Make("mUI_RaidFlare5", "/clearworldmarker 5\n/worldmarker 5", "Yellow Flare")
-	RMA:Make("mUI_RaidFlare6", "/clearworldmarker 6\n/worldmarker 6", "Orange Flare")
-	RMA:Make("mUI_RaidFlare7", "/clearworldmarker 7\n/worldmarker 7", "White Flare")
-	RMA:Make("mUI_RaidFlare8", "/clearworldmarker 8\n/worldmarker 8", "Skull Flare")
+	mod:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
+	mod:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
+	mod:Make("mUI_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
+	mod:Make("mUI_RaidFlare4", "/clearworldmarker 4\n/worldmarker 4", "Red Flare")
+	mod:Make("mUI_RaidFlare5", "/clearworldmarker 5\n/worldmarker 5", "Yellow Flare")
+	mod:Make("mUI_RaidFlare6", "/clearworldmarker 6\n/worldmarker 6", "Orange Flare")
+	mod:Make("mUI_RaidFlare7", "/clearworldmarker 7\n/worldmarker 7", "White Flare")
+	mod:Make("mUI_RaidFlare8", "/clearworldmarker 8\n/worldmarker 8", "Skull Flare")
 
-	RMA:Make("mUI_ClearRaidFlares", "/clearworldmarker 0", "Clear All Flares")
+	mod:Make("mUI_ClearRaidFlares", "/clearworldmarker 0", "Clear All Flares")
 
 	self.frame = CreateFrame("Frame", "mui_RaidMarkerBar", E.UIParent, "SecureHandlerStateTemplate")
 	self.frame:SetResizable(false)
@@ -192,8 +192,8 @@ function RMA:Initialize()
 
 	self:CreateButtons()
 
-	function RMA:ForUpdateAll()
-		RMA.db = E.db.mui.quests
+	function mod:ForUpdateAll()
+		mod.db = E.db.mui.quests
 		self:Visibility()
 		self:Backdrop()
 		self:UpdateBar()
@@ -204,7 +204,7 @@ function RMA:Initialize()
 end
 
 local function InitializeCallback()
-	RMA:Initialize()
+	mod:Initialize()
 end
 
-E:RegisterModule(RMA:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)

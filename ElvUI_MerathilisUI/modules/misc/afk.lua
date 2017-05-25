@@ -1,8 +1,8 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
 local AFK = E:GetModule("AFK")
-local muiAFK = E:NewModule("muiAFK");
-muiAFK.modName = L["AFK"]
+local mod = E:NewModule("mUIAFK")
+mod.modName = L["AFK"]
 
 -- Cache global variables
 -- WoW API / Variables
@@ -13,7 +13,7 @@ local PlaySound = PlaySound
 
 local npc = 15358 -- Lurky
 
-function muiAFK:Initialize()
+function mod:Initialize()
 	if E.db.general.afk ~= true or not IsAddOnLoaded("ElvUI_BenikUI") or E.db.mui.general.AFK ~= true then return; end
 
 	-- NPC Model
@@ -50,7 +50,7 @@ function muiAFK:Initialize()
 end
 
 local function InitializeCallback()
-	muiAFK:Initialize()
+	mod:Initialize()
 end
 
-E:RegisterModule(muiAFK:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)

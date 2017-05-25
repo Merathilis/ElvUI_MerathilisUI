@@ -1,6 +1,6 @@
 local E, L, V, P, G = unpack(ElvUI)
 local S = E:GetModule("Skins")
-local MERS = E:GetModule("muiSkins")
+local MERS = E:GetModule("mUISkins")
 
 -- Based on EnhancedFriendList by Azilroka
 if IsAddOnLoaded("EnhancedFriendsList") then return end

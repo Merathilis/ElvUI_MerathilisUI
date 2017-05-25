@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI)
-local MERC = E:NewModule("muiChat")
+local mod = E:NewModule("mUIChat")
 local CH = E:GetModule("Chat")
-MERC.modName = L["Chat"]
+mod.modName = L["Chat"]
 
 -- Cache global variables
 -- Lua functions
@@ -15,7 +15,7 @@ local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 _G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
 _G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
 
-function MERC:RemoveCurrentRealmName(msg, author, ...)
+function mod:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
 
 	if msg and msg:find("-" .. realmName) then
@@ -23,16 +23,16 @@ function MERC:RemoveCurrentRealmName(msg, author, ...)
 	end
 end
 
-function MERC:LoadChat()
+function mod:LoadChat()
 	if E.private.chat.enable ~= true then return; end
 
 	-- Remove the Realm Name from system messages
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", mod.RemoveCurrentRealmName)
 end
-hooksecurefunc(CH, "Initialize", MERC.LoadChat)
+hooksecurefunc(CH, "Initialize", mod.LoadChat)
 
 local function InitializeCallback()
-	MERC:LoadChat()
+	mod:LoadChat()
 end
 
-E:RegisterModule(MERC:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)

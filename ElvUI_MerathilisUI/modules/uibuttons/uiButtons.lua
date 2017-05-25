@@ -1,9 +1,9 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
-local MUB = E:NewModule("muiButtons", "AceHook-3.0")
+local E, L, V, P, G = unpack(ElvUI)
+local MER = E:GetModule("MerathilisUI")
+local mod = E:NewModule("muiButtons", "AceHook-3.0")
 local lib = LibStub("LibElv-UIButtons-1.0")
 local S = E:GetModule("Skins")
-MUB.modName = L["UI Buttons"]
+mod.modName = L["UI Buttons"]
 
 -- Cache global variables
 -- Lua functions
@@ -27,14 +27,14 @@ local function CustomRollCall()
 	end
 end
 
-function MUB:ConfigSetup(menu)
+function mod:ConfigSetup(menu)
 	menu:CreateDropdownButton("Config", "mui", "|cffff7d0aMerathilisUI|r", L["Merathilis Config"], L["Click to toggle MerathilisUI config group"],  function() if InCombatLockdown() then return end; E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui") end, nil, true)
 	menu:CreateSeparator("Config", "First", 4, 2)
 	menu:CreateDropdownButton( "Config", "Reload", "/reloadui", L["Reload UI"], L["Click to reload your interface"],  function() ReloadUI() end, nil, true)
 	menu:CreateDropdownButton("Config", "MoveUI", "/moveui", L["Move UI"], L["Click to unlock moving ElvUI elements"],  function() if InCombatLockdown() then return end; E:ToggleConfigMode() end, nil, true)
 end
 
-function MUB:AddonSetup(menu)
+function mod:AddonSetup(menu)
 	menu:CreateDropdownButton("Addon", "Manager", L["AddOns"], L["AddOns Manager"], L["Click to toggle the AddOn Manager frame."],  function() _G["GameMenuButtonAddons"]:Click() end, nil, true)
 
 	menu:CreateDropdownButton("Addon", "DBM", L["Boss Mod"], L["Boss Mod"], L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."], function() DBM:LoadGUI() end, "DBM-Core")
@@ -51,12 +51,12 @@ function MUB:AddonSetup(menu)
 	menu:CreateDropdownButton("Addon", "WowLua", "WowLua", nil, nil, function() SlashCmdList["WOWLUA"]("") end, "WowLua", false)
 end
 
-function MUB:StatusSetup(menu)
+function mod:StatusSetup(menu)
 	menu:CreateDropdownButton("Status", "AFK", L["AFK"], nil, nil, function() SendChatMessage("" ,"AFK" ) end)
 	menu:CreateDropdownButton("Status", "DND", L["DND"], nil, nil, function() SendChatMessage("" ,"DND" ) end)
 end
 
-function MUB:RollSetup(menu)
+function mod:RollSetup(menu)
 	menu:CreateDropdownButton("Roll", "Ten", "1-10", nil, nil,  function() RandomRoll(1, 10) end)
 	menu:CreateDropdownButton("Roll", "Twenty", "1-20", nil, nil,  function() RandomRoll(1, 20) end)
 	menu:CreateDropdownButton("Roll", "Thirty", "1-30", nil, nil,  function() RandomRoll(1, 30) end)
@@ -65,7 +65,7 @@ function MUB:RollSetup(menu)
 	menu:CreateDropdownButton("Roll", "Custom", CUSTOM, nil, nil,  function() CustomRollCall() end)
 end
 
-function MUB:SetupBar(menu)
+function mod:SetupBar(menu)
 	if E.db.mui.uiButtons.style == "classic" then
 		menu:CreateCoreButton("Config", "|cffff7d0aC|r", function() E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui") end)
 		menu:CreateCoreButton("Reload", "R", function() ReloadUI() end)
@@ -82,20 +82,20 @@ function MUB:SetupBar(menu)
 		menu:CreateCoreButton("Addon", "A", function(self) _G["GameMenuButtonAddons"]:Click() end)
 	else
 		menu:CreateCoreButton("Config", "C")
-		MUB:ConfigSetup(menu)
+		mod:ConfigSetup(menu)
 
 		menu:CreateCoreButton("Addon", "A")
-		MUB:AddonSetup(menu)
+		mod:AddonSetup(menu)
 
 		menu:CreateCoreButton("Status", "S")
-		MUB:StatusSetup(menu)
+		mod:StatusSetup(menu)
 
 		menu:CreateCoreButton("Roll", "R")
-		MUB:RollSetup(menu)
+		mod:RollSetup(menu)
 	end
 end
 
-function MUB:RightClicks(menu)
+function mod:RightClicks(menu)
 	if E.db.mui.uiButtons.style == "classic" then return end
 	for i = 1, #menu.ToggleTable do
 		menu.ToggleTable[i]:RegisterForClicks("LeftButtonDown", "RightButtonDown")
@@ -122,36 +122,36 @@ function MUB:RightClicks(menu)
 	end)
 end
 
-function MUB:Initialize()
+function mod:Initialize()
 	if E.db.mui.uiButtonstyle then
 		E.db.mui.uiButtons.style = E.db.mui.uiButtonstyle
 		E.db.mui.uiButtonstyle = nil
 	end
 
-	MUB.Holder = lib:CreateFrame("MER_uiButtons", E.db.mui.uiButtons, P.mui.uiButtons, E.db.mui.uiButtons.style, "dropdown", E.db.mui.uiButtons.strata, E.db.mui.uiButtons.level, E.db.mui.uiButtons.transparent)
-	local menu = MUB.Holder
+	mod.Holder = lib:CreateFrame("MER_uiButtons", E.db.mui.uiButtons, P.mui.uiButtons, E.db.mui.uiButtons.style, "dropdown", E.db.mui.uiButtons.strata, E.db.mui.uiButtons.level, E.db.mui.uiButtons.transparent)
+	local menu = mod.Holder
 	menu:Point("LEFT", E.UIParent, "LEFT", -2, 0);
 	menu:SetupMover(L["MER UI Buttons"], "ALL,MISC")
 
-	function MUB:ForUpdateAll()
-		MUB.Holder.db = E.db.mui.uiButtons
-		MUB.Holder:ToggleShow()
-		MUB.Holder:FrameSize()
+	function mod:ForUpdateAll()
+		mod.Holder.db = E.db.mui.uiButtons
+		mod.Holder:ToggleShow()
+		mod.Holder:FrameSize()
 	end
 
-	MUB:SetupBar(menu)
+	mod:SetupBar(menu)
 
 	menu:FrameSize()
 	menu:ToggleShow()
 
-	MUB.FrameSize = menu.FrameSize
+	mod.FrameSize = menu.FrameSize
 
-	MUB:RightClicks(menu)
-	MUB.Holder.mover:SetFrameLevel(305)
+	mod:RightClicks(menu)
+	mod.Holder.mover:SetFrameLevel(305)
 end
 
 local function InitializeCallback()
-	MUB:Initialize()
+	mod:Initialize()
 end
 
-E:RegisterModule(MUB:GetName(), InitializeCallback)
+E:RegisterModule(mod:GetName(), InitializeCallback)
