@@ -136,7 +136,7 @@ P["mui"] = {
 	},
 
 	["uiButtons"] = {
-		["enable"] = true,
+		["enabled"] = true,
 		["style"] = "classic",
 		["strata"] = "MEDIUM",
 		["level"] = 5,
