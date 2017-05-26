@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
 local MB = E:NewModule("mUImoveBlizz", "AceHook-3.0", "AceEvent-3.0")
 MB.modName = L["moveBlizz"]
 

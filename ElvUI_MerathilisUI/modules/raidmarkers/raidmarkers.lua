@@ -1,5 +1,6 @@
-﻿local MER, E, L, V, P, G = unpack(select(2, ...))
-local RMA = E:NewModule("RaidMarkers")
+﻿local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI");
+local RMA = E:NewModule("RaidMarkers");
 RMA.modName = L["Raid Markers"]
 
 -- Cache global variables

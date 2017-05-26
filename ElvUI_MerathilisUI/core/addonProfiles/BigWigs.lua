@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule('MerathilisUI');
 
 --Cache global variables
 --WoW API / Variables
@@ -94,7 +95,6 @@ function MER:LoadBigWigsProfile()
 	}
 
 	-- Profile creation
-	-- Create a global Profile
 	local db = LibStub("AceDB-3.0"):New(BigWigs3DB, nil, true)
 	db:SetProfile("MerathilisUI")
 end

@@ -22,8 +22,8 @@
 libs\load_libs.xml
 media\load_media.xml
 locales\load_locales.xml
-core\load_core.xml
 settings\load_settings.xml
+core\load_core.xml
 developer\load_developer.xml
 layout\layout.lua
 modules\load_modules.xml

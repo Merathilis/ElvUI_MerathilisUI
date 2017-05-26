@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI)
 local MERC = E:NewModule("muiChat")
 local CH = E:GetModule("Chat")
 MERC.modName = L["Chat"]

@@ -1,6 +1,7 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI");
 local MUF = E:GetModule("muiUnits")
-local UF = E:GetModule("UnitFrames")
+local UF = E:GetModule("UnitFrames");
 
 -- Cache global variables
 -- Lua functions

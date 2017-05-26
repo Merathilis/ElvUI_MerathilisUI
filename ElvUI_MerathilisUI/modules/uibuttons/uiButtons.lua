@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
+local MER = E:GetModule("MerathilisUI");
 local MUB = E:NewModule("muiButtons", "AceHook-3.0")
 local lib = LibStub("LibElv-UIButtons-1.0")
 local S = E:GetModule("Skins")

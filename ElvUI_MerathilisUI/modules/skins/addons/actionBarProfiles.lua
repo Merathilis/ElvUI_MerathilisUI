@@ -1,4 +1,4 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local E, L, V, P, G = unpack(ElvUI);
 local S = E:GetModule("Skins");
 if not IsAddOnLoaded("ActionBarProfiles") then return; end
 
