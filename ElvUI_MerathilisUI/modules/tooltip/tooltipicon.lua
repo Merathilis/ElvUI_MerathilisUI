@@ -1132,13 +1132,29 @@ local function InsertRoleFrame(self, role)
 	self.roleFrame.Shadow:SetAlpha(1)
 end
 
-GameTooltip:HookScript("OnTooltipCleared", function(self)
+local function InsertPetIcon(self, petType)
+	if not self.petIcon then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPRIGHT", -5, -5)
+		f:SetSize(35, 35)
+		f:SetBlendMode("ADD")
+		self.petIcon = f
+	end
+	self.petIcon:SetTexture("Interface\\PetBattles\\PetIcon-"..PET_TYPE_SUFFIX[petType])
+	self.petIcon:SetTexCoord(.188, .883, 0, .348)
+	self.petIcon:SetAlpha(1)
+end
+
+MER:SecureHookScript(GameTooltip, "OnTooltipCleared", function(self)
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)
 	end
 	if self.roleFrame and self.roleFrame:GetAlpha() ~= 0 then
 		self.roleFrame:SetAlpha(0)
 		self.roleFrame.Shadow:SetAlpha(0)
+	end
+	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
+		self.petIcon:SetAlpha(0)
 	end
 end)
 
@@ -1152,7 +1168,7 @@ local function getUnit(self)
 	return unit
 end
 
-GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 	local unit = getUnit(self)
 
 	if UnitExists(unit) then
@@ -1163,12 +1179,26 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
 					InsertFactionFrame(self, faction)
 				end
 			end
-        
+
 			if E.db.mui.tooltip.roleIcon then
 				local role = UnitGroupRolesAssigned(unit)
 				if role ~= "NONE" then
 					InsertRoleFrame(self, role)
 				end
+			end
+		end
+
+		if UnitIsBattlePet(unit) then
+			if E.db.mui.tooltip.petIcon then
+				local _, unit = self:GetUnit()
+				InsertPetIcon(self, UnitBattlePetType(unit))
+
+				-- Pet ID
+				local speciesID = UnitBattlePetSpeciesID(unit)
+				self:AddDoubleLine(PET..ID..":", ((MER.InfoColor..speciesID.."|r") or (MER.GreyColor..UNKNOWN.."|r")))
+
+				-- Pet Species icon
+				InsertPetIcon(self, UnitBattlePetType(unit))
 			end
 		end
 	end

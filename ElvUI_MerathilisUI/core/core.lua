@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:NewModule("MerathilisUI", "AceConsole-3.0");
+local MER = E:NewModule("MerathilisUI", "AceConsole-3.0", "AceHook-3.0");
 local LSM = LibStub("LibSharedMedia-3.0");
 local EP = LibStub("LibElvUIPlugin-1.0");
 local addon = ...
