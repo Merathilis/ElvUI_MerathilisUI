@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI")
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
@@ -1179,7 +1178,7 @@ MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 					InsertFactionFrame(self, faction)
 				end
 			end
-
+        
 			if E.db.mui.tooltip.roleIcon then
 				local role = UnitGroupRolesAssigned(unit)
 				if role ~= "NONE" then

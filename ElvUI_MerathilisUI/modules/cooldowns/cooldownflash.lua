@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local CF = E:NewModule("CooldownFlash", "AceHook-3.0")
 CF.modName = L["CooldownFlash"]
 

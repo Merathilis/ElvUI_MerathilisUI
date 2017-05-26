@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI)
-local MER = E:GetModule("MerathilisUI")
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERG = E:NewModule("mUIGameMenu")
 local MERS = E:GetModule("muiSkins");
 local S = E:GetModule("Skins")
@@ -83,13 +82,6 @@ function MERG:GameMenu()
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 
-		topPanel.style = CreateFrame("Frame", nil, GameMenuFrame)
-		topPanel.style:SetTemplate("Default", true)
-		topPanel.style:SetFrameStrata("HIGH")
-		topPanel.style:SetInside()
-		topPanel.style:Point("TOPLEFT", topPanel, "BOTTOMLEFT", 0, 1)
-		topPanel.style:Point("BOTTOMRIGHT", topPanel, "BOTTOMRIGHT", 0, (E.PixelMode and -4 or -7))
-
 		topPanel.anim = CreateAnimationGroup(topPanel)
 		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
 		topPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
@@ -101,11 +93,6 @@ function MERG:GameMenu()
 			self.anim.height:Play()
 		end)
 
-		topPanel.style.color = topPanel.style:CreateTexture(nil, "ARTWORK")
-		topPanel.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		topPanel.style.color:SetInside()
-		topPanel.style.color:SetTexture(E["media"].muiFlat)
-		
 		topPanel.factionLogo = topPanel:CreateTexture(nil, "ARTWORK")
 		topPanel.factionLogo:SetPoint("CENTER", topPanel, "CENTER", 0, 0)
 		topPanel.factionLogo:SetSize(256, 250)

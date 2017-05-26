@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERA = E:NewModule("mUIAnnounce", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0")
 MERA.modName = L["Announce"]
