@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
+local MER, E, L, V, P, G = unpack(select(2, ...))
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 local BFM = E:GetModule("BUIFlightMode");
 local MFM = E:NewModule("MUIFlightMode");

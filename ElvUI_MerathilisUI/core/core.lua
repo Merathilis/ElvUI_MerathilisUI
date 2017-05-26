@@ -1,8 +1,10 @@
 local E, L, V, P, G = unpack(ElvUI);
-local MER = E:NewModule("MerathilisUI", "AceConsole-3.0", "AceHook-3.0");
 local LSM = LibStub("LibSharedMedia-3.0");
 local EP = LibStub("LibElvUIPlugin-1.0");
-local addon = ...
+local addon, Engine = ...
+
+local MER = LibStub("AceAddon-3.0"):NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceHook-3.0")
+MER.callbacks = MER.callbacks or LibStub("CallbackHandler-1.0"):New(MER)
 
 -- Cache global variables
 -- Lua functions
@@ -17,6 +19,15 @@ local C_TimerAfter = C_Timer.After
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
+
+--Setting up table to unpack. Why? no idea
+Engine[1] = MER
+Engine[2] = E
+Engine[3] = L
+Engine[4] = V
+Engine[5] = P
+Engine[6] = G
+_G[addon] = Engine;
 
 MER.Config = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
@@ -151,6 +162,13 @@ local function dbCleaning()
 	E.db.mui.dbCleaned = true
 end
 
+
+local f = CreateFrame("Frame")
+f:RegisterEvent("PLAYER_LOGIN")
+f:SetScript("OnEvent", function()
+	MER:Initialize()
+end)
+
 function MER:Initialize()
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -174,6 +192,9 @@ function MER:Initialize()
 	if not MERDataPerChar then
 		MERDataPerChar = {};
 	end
+
+	-- Use AceDB-3.0 to create a profile
+	self.db = LibStub("AceDB-3.0"):New("MERData")
 
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
@@ -208,9 +229,3 @@ function MER:Initialize()
 
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
-
-local function InitializeCallback()
-	MER:Initialize()
-end
-
-E:RegisterModule(MER:GetName(), InitializeCallback)

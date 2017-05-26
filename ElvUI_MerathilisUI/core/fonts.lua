@@ -1,4 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local LSM = LibStub('LibSharedMedia-3.0')
 
 -- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline

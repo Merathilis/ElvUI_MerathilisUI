@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local LO = E:GetModule("Layout");
-local MER = E:GetModule("MerathilisUI");
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables

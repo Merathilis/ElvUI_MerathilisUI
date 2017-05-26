@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI")
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule("DataTexts")
 
 -- All Credits belong to Lockslap (ElvUI_SystemDT)

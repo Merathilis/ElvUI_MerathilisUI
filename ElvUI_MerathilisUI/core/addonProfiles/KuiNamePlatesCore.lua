@@ -1,5 +1,4 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule('MerathilisUI');
+local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --WoW API / Variables
@@ -21,9 +20,17 @@ function MER:LoadKuiNamePlatesCoreProfile()
 		["bar_animation"] = 2,
 		["nameonly_neutral"] = true,
 		["bar_texture"] = "MerathilisBlank",
+		["profiles"] = {
+			["MerathilisUI"] = {
+				["bossmod_clickthrough"] = true,
+				["auras_vanilla_filter"] = false,
+				["font_face"] = "Merathilis Roboto-Bold",
+				["auras_centre"] = false,
+				["bar_animation"] = 2,
+				["colour_player_class"] = true,
+				["nameonly_neutral"] = true,
+				["bar_texture"] = "MerathilisFlat",
+			},
+		},
 	}
-
-	-- Profile creation
-	local db = LibStub("AceDB-3.0"):New(KuiNameplatesCoreSaved, nil, true)
-	db:SetProfile("MerathilisUI")
 end

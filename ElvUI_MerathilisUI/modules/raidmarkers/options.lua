@@ -1,6 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI);
-local MER = E:GetModule("MerathilisUI");
-local RMA = E:GetModule("RaidMarkers");
+local MER, E, L, V, P, G = unpack(select(2, ...))
+local RMA = E:GetModule("RaidMarkers")
 
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
