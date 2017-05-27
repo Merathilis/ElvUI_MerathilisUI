@@ -62,7 +62,7 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
 end
 
-function MER:RegisterMerMedia()
+function MER:RegisterMedia()
 	--Fonts
 	E["media"].muiFont = LSM:Fetch("font", "Merathilis Prototype")
 	E["media"].muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
@@ -182,7 +182,7 @@ function MER:Initialize()
 		return -- If BenikUI Version is outdated stop right here. So things don't get broken.
 	end
 
-	self:RegisterMerMedia()
+	self:RegisterMedia()
 	self:LoadCommands()
 
 	-- Create empty saved vars if they doesn't exist

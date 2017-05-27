@@ -78,7 +78,7 @@ function MER:Reset(group)
 
 	if group == "marks" or group == "all" then
 		E:CopyTable(E.db.mui.raidmarkers, P.mui.raidmarkers)
-		E:ResetMovers(L['Raid Marker Bar'])
+		E:ResetMovers(L["Raid Marker Bar"])
 	end
 	E:UpdateAll()
 end

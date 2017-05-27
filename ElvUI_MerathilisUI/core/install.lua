@@ -482,7 +482,7 @@ function MER:SetupActionbars(noDataReset)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 197, 24)
 		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 90)
 		MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 483, 24)
-		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", 0, 225)
+		MER:SetMoverPosition("BossButton", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 587, 26)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	end
 
