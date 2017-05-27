@@ -4,14 +4,14 @@ local CF = E:GetModule("CooldownFlash");
 local function CooldownFlash()
 	E.Options.args.mui.args.cooldownFlash = {
 		type = "group",
-		name = (L["Cooldowns"] or CF.modName or CF:GetName()),
+		name = CF.modName,
 		order = 20,
 		get = function(info) return E.global.mui.cooldownFlash[ info[#info] ] end,
 		set = function(info, value) E.global.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(CF.modName or CF:GetName()),
+				name = MER:cOption(CF.modName),
 				order = 1
 			},
 			credits = {
@@ -31,8 +31,8 @@ local function CooldownFlash()
 			toggle = {
 				order = 3,
 				type = "toggle",
-				name = CF.toggleLabel or (L["Enable"]),
-				desc = CF.modName or CF:GetName(),
+				name = L["Enable"],
+				desc = CF.modName,
 				get = function() return E.global.mui.cooldownFlash.enable ~= false or false end,
 				set = function(info, v) CF.db.enable = v if v then CF:EnableCooldownFlash() else CF:DisableCooldownFlash() end end,
 			},

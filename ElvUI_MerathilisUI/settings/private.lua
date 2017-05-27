@@ -20,6 +20,8 @@ V["muiSkins"] = {
 		["orderhall"] = true,
 		["talent"] = true,
 		["auctionhouse"] = true,
+		["friends"] = true,
+		["garrison"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

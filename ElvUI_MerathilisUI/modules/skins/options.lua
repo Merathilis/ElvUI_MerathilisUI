@@ -17,16 +17,16 @@ local DecorAddons = {
 }
 
 local SupportedProfiles = {
-	{'AddOnSkins', 'AddOnSkins'},
-	{'BigWigs', 'BigWigs'},
-	{'Details', 'Details'},
-	{'ElvUI_BenikUI', 'BenikUI'},
-	{'ElvUI_SLE', 'Shadow&Light'},
-	{'Kui_Nameplates_Core', 'KuiNamePlates'},
-	{'Masque', 'Masque'},
-	{'Skada', 'Skada'},
-	{'SorhaQuestLog', 'SorhaQuestLog'},
-	{'XIV_Databar', 'XIV_Databar'},
+	{"AddOnSkins", "AddOnSkins"},
+	{"BigWigs", "BigWigs"},
+	{"Details", "Details"},
+	{"ElvUI_BenikUI", "BenikUI"},
+	{"ElvUI_SLE", "Shadow&Light"},
+	{"Kui_Nameplates_Core", "KuiNamePlates"},
+	{"Masque", "Masque"},
+	{"Skada", "Skada"},
+	{"SorhaQuestLog", "SorhaQuestLog"},
+	{"XIV_Databar", "XIV_Databar"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -35,12 +35,12 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = MERS.modName or MERS:GetName(),
+		name = MERS.modName..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MERS.modName or MERS:GetName()),
+				name = MER:cOption(MERS.modName),
 			},
 		},
 	}
@@ -129,27 +129,39 @@ local function SkinsTable()
 			orderhall = {
 				order = 15,
 				type = "toggle",
-				name = L["Orderhall"],
+				name = L["Orderhall"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
 			},
-			talent = {
+			garrison = {
 				order = 16,
+				type = "toggle",
+				name = GARRISON_LOCATION_TOOLTIP..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
+			},
+			talent = {
+				order = 17,
 				type = "toggle",
 				name = L["Talent Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent end,
 			},
-			auctionhouse= {
-				order = 17,
+			auctionhouse = {
+				order = 18,
 				type = "toggle",
-				name = L["Auction Frame"],
+				name = L["Auction Frame"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.auctionhouse end,
-			}, 
+			},
+			friends = {
+				order = 19,
+				type = "toggle",
+				name = L["Friends"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.friends end,
+			},
 		},
 	}
 
 	E.Options.args.mui.args.skins.args.profiles = {
 		order = 6,
-		type = 'group',
+		type = "group",
 		guiInline = true,
 		name = MER:cOption(L["Profiles"]),
 		args = {
@@ -161,9 +173,9 @@ local function SkinsTable()
 		local optionOrder = 1
 		E.Options.args.mui.args.skins.args.profiles.args[addon] = {
 			order = optionOrder + 1,
-			type = 'execute',
+			type = "execute",
 			name = addonName,
-			desc = L['This will create and apply profile for ']..addonName,
+			desc = L["This will create and apply profile for "]..addonName,
 			func = function()
 				if addon == 'BigWigs' then
 					MER:LoadBigWigsProfile()

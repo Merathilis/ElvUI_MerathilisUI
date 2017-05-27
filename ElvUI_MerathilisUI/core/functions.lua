@@ -100,3 +100,26 @@ _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
 	MER:Print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
+
+MER.colors = {
+	class = {},
+}
+
+MER["colors"].class = {
+	["DEATHKNIGHT"] = { 0.77,	0.12,		0.23 },
+	["DEMONHUNTER"] = { 0.64,	0.19,		0.79 },
+	["DRUID"]       = { 1,		0.49,		0.04 },
+	["HUNTER"]      = { 0.58,	0.86,		0.49 },
+	["MAGE"]        = { 0.2,	0.76,		1 },
+	["MONK"]        = { 0,		1,			0.59 },
+	["PALADIN"]     = { 0.96,	0.55,		0.73 },
+	["PRIEST"]      = { 0.99,	0.99,		0.99 },
+	["ROGUE"]       = { 1,		0.96,		0.41 },
+	["SHAMAN"]      = { 0,	    0.44,		0.87 },
+	["WARLOCK"]     = { 0.6,	0.47,		0.85 },
+	["WARRIOR"]     = { 0.9,	0.65,		0.45 },
+}
+
+for class, color in pairs(MER.colors.class) do
+	MER.colors.class[class] = { r = color[1], g = color[2], b = color[3] }
+end

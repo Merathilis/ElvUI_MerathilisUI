@@ -15,7 +15,7 @@ local function Misc()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MI.modName or MI:GetName()),
+				name = MER:cOption(MI.modName),
 			},
 			MailInputbox = {
 				order = 2,
@@ -26,7 +26,7 @@ local function Misc()
 			moveBlizz = {
 				order = 3,
 				type = "toggle",
-				name = MB.modName or MB:GetName(),
+				name = MB.modName,
 				desc = L["Make some Blizzard Frames movable."],
 			},
 			tradeTabs = {
@@ -54,13 +54,13 @@ local function Misc()
 			quest = {
 				order = 7,
 				type = "toggle",
-				name = L["Quest"]..MER.NewSign,
+				name = L["Quest"],
 				desc = L["Automatically select the quest reward with the highest vendor sell value."],
 			},
 			announce = {
 				order = 8,
 				type = "toggle",
-				name = (MERA.modName or MERA:GetName())..MER.NewSign,
+				name = MERA.modName,
 				desc = L["Combat Status, Skill gains"],
 			},
 		},

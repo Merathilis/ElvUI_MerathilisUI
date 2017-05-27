@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins");
 local LSM = LibStub("LibSharedMedia-3.0");
 
@@ -38,7 +39,7 @@ local function styleOrderhall()
 	S:HandleButton(b.WorldMapButton)
 
 	local mapButton = b.WorldMapButton
-	mapButton:Size(20,20)
+	mapButton:Size(20, 20)
 	mapButton:SetNormalTexture("")
 	mapButton:SetPushedTexture("")
 
@@ -51,6 +52,50 @@ local function styleOrderhall()
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
 	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")
+
+	local combatAlly = OrderHallMissionFrameMissions.CombatAllyUI
+	combatAlly:StripTextures()
+	MERS:CreateBD(combatAlly, .25)
+
+	-- Mission Frame
+	OrderHallMissionFrameMissions.MaterialFrame:StripTextures()
+	OrderHallMissionFrameMissionsListScrollFrame:StripTextures()
+
+	OrderHallMissionFrame.MissionTab.MissionPage:StripTextures()
+
+	OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage:StripTextures()
+	MERS:CreateBD(OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage, .25)
+
+	for i, v in ipairs(OrderHallMissionFrame.MissionTab.MissionList.listScroll.buttons) do
+		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
+		if Button and not Button.skinned then
+			Button:StripTextures()
+			MERS:CreateBD(Button, .25)
+			Button.LocBG:Kill() -- not cool
+			Button.backdropTexture:Kill() -- not cool
+
+			Button.isSkinned = true
+		end
+	end
+
+	for i = 1, 2 do
+		local tab = _G["OrderHallMissionFrameMissionsTab"..i]
+
+		tab:StripTextures()
+		tab:SetHeight(_G["GarrisonMissionFrameMissionsTab" .. i]:GetHeight() - 10)
+		S:HandleButton(tab)
+	end
+
+	-- Missions
+	local Mission = OrderHallMissionFrameMissions
+	Mission.CompleteDialog:StripTextures()
+	Mission.CompleteDialog:SetTemplate("Transparent")
+
+	local MissionPage = OrderHallMissionFrame.MissionTab.MissionPage
+	for i = 1, 10 do
+		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
+	end
+	MERS:CreateBD(MissionPage.RewardsFrame, .25)
 end
 
 local OrderHallFollower = CreateFrame("Frame")

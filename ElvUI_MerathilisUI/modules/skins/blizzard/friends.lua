@@ -1,182 +1,103 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
-local MERS = E:GetModule("muiSkins")
-
--- Based on EnhancedFriendList by Azilroka
-if IsAddOnLoaded("EnhancedFriendsList") then return end
 
 -- Cache global variables
--- Lua functions
 local _G = _G
-local pairs, tonumber = pairs, tonumber
-local format = string.format
--- WoW API / Variables
+-- Lua functions
+local format, gsub = string.format, string.gsub
+-- WoW API
 local BNGetFriendInfo = BNGetFriendInfo
 local BNGetGameAccountInfo = BNGetGameAccountInfo
-local BNGetNumFriends = BNGetNumFriends
-local CanCooperateWithGameAccount = CanCooperateWithGameAccount
 local GetFriendInfo = GetFriendInfo
-local GetLocale = GetLocale
-local GetNumFriends = GetNumFriends
 local GetQuestDifficultyColor = GetQuestDifficultyColor
-local GetRealmName = GetRealmName
-local LEVEL = LEVEL
-local UnitFactionGroup = UnitFactionGroup
--- GLOBALS: BNET_CLIENT_APP, BNET_CLIENT_D3, BNET_CLIENT_HEROES, BNET_CLIENT_WOW, BNET_CLIENT_WTCG, BNET_CLIENT_PRO, LOCALIZED_CLASS_NAMES_MALE
--- GLOBALS: LOCALIZED_CLASS_NAMES_FEMALE, BNET_CLIENT_OVERWATCH, BNET_CLIENT_SC2, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS, j
+local GetRealZoneText = GetRealZoneText
 
-local function ColoringFriendsList()
-	local friendOffset = _G["HybridScrollFrame_GetOffset"](_G["FriendsFrameFriendsScrollFrame"])
-	if not friendOffset then return end
-	if friendOffset < 0 then friendOffset = 0 end
-	local button = "FriendsFrameFriendsScrollFrameButton"
-	local _, numBNetOnline = BNGetNumFriends()
-	if numBNetOnline > 0 then
-		for i = 1, numBNetOnline, 1 do
-			local _, realName, _, _, toonName, toonID, client, _, _, _, _, _, _, _, _ = BNGetFriendInfo(i)
-			if client == BNET_CLIENT_APP then -- Battle.net App
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].app) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_D3 then -- Diablo 3
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].d3) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_HEROES then -- Heroes of the Storm
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].heroes) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_WTCG then -- Hearthstone
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].wtcg) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_OVERWATCH then -- Overwatch
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].pro) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_SC2 then -- StarCraft 2
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if icon then icon:SetTexture(E["media"].sc2) end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-				local nameString = _G[button .. (i - friendOffset) .. "Info"]
-				if nameString then
-					nameString:SetTextColor(125/255,133/255,138/255)
-				end
-			end
-			if client == BNET_CLIENT_WOW then -- World of Warcraft
-				local _, _, _, realmName, _, faction, _, class, _, zoneName, level, _ = BNGetGameAccountInfo(toonID)
-				for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-					if class == v then class = k end
-				end
-				if GetLocale() ~= "enUS" then
-					for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-						if class == v then class = k end
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
+
+local FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%%d", "%%s")
+FRIENDS_LEVEL_TEMPLATE = FRIENDS_LEVEL_TEMPLATE:gsub("%$d", "%$s")
+
+local BC = {}
+for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+	BC[v] = k
+end
+
+for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
+	BC[v] = k
+end
+
+local function getDiffColorString(level)
+	local color = GetQuestDifficultyColor(level)
+	return E:RGBToHex(color.r, color.g, color.b)
+end
+
+local function getClassColorString(class)
+	local color = MER.colors.class[BC[class] or class]
+	return E:RGBToHex(color.r, color.g, color.b)
+end
+
+local function updateFriendsColor()
+	local scrollFrame = FriendsFrameFriendsScrollFrame
+	local offset = HybridScrollFrame_GetOffset(scrollFrame)
+	local buttons = scrollFrame.buttons
+
+	local playerArea = GetRealZoneText()
+
+	for i = 1, #buttons do
+		local nameText, infoText, button, index
+		button = buttons[i]
+		index = offset + i
+		if(button:IsShown()) then
+			if ( button.buttonType == FRIENDS_BUTTON_TYPE_WOW ) then
+				local name, level, class, area, connected, status, note = GetFriendInfo(button.id)
+				if(connected) then
+					nameText = getClassColorString(class) .. name.."|r, "..format(FRIENDS_LEVEL_TEMPLATE, getDiffColorString(level) .. level .. '|r', class)
+					if(area == playerArea) then
+						infoText = format('|cff00ff00%s|r', area)
 					end
 				end
-				local classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
-				if not classc then return end
-				local nameString = _G[button .. (i - friendOffset) .. "Name"]
-				local icon = _G[button .. (i - friendOffset) .. "GameIcon"]
-				if nameString then
-					if (level == nil or tonumber(level) == nil) then level = 0 end
-					local r, g, b = GetQuestDifficultyColor(level).r, GetQuestDifficultyColor(level).g, GetQuestDifficultyColor(level).b
-					local Diff = format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
-					nameString:SetTextColor(classc.r, classc.g, classc.b)
-					nameString:SetText("|cFF82C4FC" .. realName .. "|r |cFFFFFFFF(|r" .. toonName .. "|cFFFFFFFF - " .. LEVEL .. "|r " .. Diff .. level .. "|r|cFFFFFFFF)|r")
-					icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\]] .. faction)
-				end
-				if CanCooperateWithGameAccount(toonID) ~= true then
-					local nameString = _G[button .. (i - friendOffset) .. "Info"]
-					if nameString then
-						nameString:SetTextColor(125/255,133/255,138/255)
-						if realmName == GetRealmName() and faction == UnitFactionGroup("unit") then
-							nameString:SetText("|cFFFFFFFF" .. zoneName .. " (|r|cFFFFF573" .. realmName .. "|r|cFFFFFFFF)|r")
-						elseif realmName == GetRealmName() then
-							nameString:SetText(zoneName .. " (|cFFFFF573" .. realmName .. "|r)")
-						else
-							nameString:SetText(zoneName .. " (" .. realmName .. ")")
+			elseif (button.buttonType == FRIENDS_BUTTON_TYPE_BNET) then
+				local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(button.id)
+				if(isOnline and client==BNET_CLIENT_WOW) then
+					local hasFocus, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText, broadcastText, broadcastTime = BNGetGameAccountInfo(toonID)
+					if(presenceName and toonName and class) then
+						nameText = presenceName .. ' ' .. FRIENDS_WOW_NAME_COLOR_CODE..'('..
+						getClassColorString(class) .. toonName .. FRIENDS_WOW_NAME_COLOR_CODE .. ')'
+						if(zoneName == playerArea) then
+							infoText = format('|cff00ff00%s|r', zoneName)
 						end
 					end
 				end
 			end
 		end
-	end
-	local onlineFriends = GetNumFriends()
-	if onlineFriends > 0 then
-		for i = 1, onlineFriends, 1 do
-			j = i + numBNetOnline
-			local name, level, class, _, connected = GetFriendInfo(i)
-			for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-				if class == v then class = k end
-			end
-			if GetLocale() ~= "enUS" then
-				for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-					if class == v then class = k end
-				end
-			end
-			local classc = (CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS)[class]
-			if not classc then return end
-			if connected then
-				local nameString = _G[button .. (j - friendOffset) .. "Name"]
-				local r, g, b = GetQuestDifficultyColor(level).r, GetQuestDifficultyColor(level).g, GetQuestDifficultyColor(level).b
-				local Diff = format("|cff%02x%02x%02x", r * 255, g * 255, b * 255)
-				if(nameString and name) then
-					nameString:SetText(name .. "|cFFFFFFFF - " .. LEVEL .. "|r " .. Diff .. level)
-					nameString:SetTextColor(classc.r, classc.g, classc.b)
-				end
-			end
+
+		if(nameText) then
+			button.name:SetText(nameText)
+		end
+		if(infoText) then
+			button.info:SetText(infoText)
 		end
 	end
 end
 
 local function styleFriends()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
-	hooksecurefunc("FriendsList_Update", ColoringFriendsList)
-	hooksecurefunc("HybridScrollFrame_Update", ColoringFriendsList)
+	for i = 1, FRIENDS_TO_DISPLAY do
+		local bu = _G["FriendsFrameFriendsScrollFrameButton"..i]
+		local ic = _G["FriendsFrameFriendsScrollFrameButton"..i.."GameIcon"]
+
+		ic:Size(22, 22)
+		ic:SetTexCoord(.15, .85, .15, .85)
+
+		ic:ClearAllPoints()
+		ic:Point("RIGHT", bu, "RIGHT", -24, 0)
+		ic.SetPoint = MER.dummy
+	end
+
+	hooksecurefunc(FriendsFrameFriendsScrollFrame, "update", updateFriendsColor)
+	hooksecurefunc("FriendsFrame_UpdateFriends", updateFriendsColor)
 end
 
 S:AddCallback("mUIFriends", styleFriends)

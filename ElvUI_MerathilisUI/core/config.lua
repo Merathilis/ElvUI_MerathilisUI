@@ -212,7 +212,7 @@ local function AddOptions()
 			Notification = {
 				order = 7,
 				type = "group",
-				name = L["Notification"]..MER.NewSign,
+				name = L["Notification"],
 				get = function(info) return E.db.mui.general.Notification[ info[#info] ] end,
 				set = function(info, value) E.db.mui.general.Notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {

@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
-local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
