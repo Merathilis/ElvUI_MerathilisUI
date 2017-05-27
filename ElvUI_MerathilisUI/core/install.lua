@@ -206,6 +206,7 @@ function MER:SetupLayout(noDataReset)
 		--	ProfileDB - General
 		--]]----------------------------------
 		E.db["general"]["valuecolor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+		E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 		E.db["general"]["totems"]["size"] = 36
 		E.db["general"]["font"] = "Merathilis Roboto-Black"
 		E.db["general"]["fontSize"] = 10
