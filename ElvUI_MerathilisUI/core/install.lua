@@ -888,6 +888,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
 		end
@@ -948,6 +949,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
 		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
 		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 185)
     
 		-- Party
@@ -1019,6 +1021,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
