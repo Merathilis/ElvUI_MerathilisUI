@@ -81,6 +81,7 @@ function MERG:GameMenu()
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		topPanel:CreateWideShadow()
 
 		topPanel.anim = CreateAnimationGroup(topPanel)
 		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
