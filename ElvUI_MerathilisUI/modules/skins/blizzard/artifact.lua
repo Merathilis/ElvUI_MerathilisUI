@@ -22,36 +22,46 @@ local function styleArtifact()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", ArtifactFrame)
 	ArtifactFrame.AppearancesTab.Background:Hide()
 
-	ArtifactFrame.AppearancesTab:HookScript("OnShow", function()
-		for i = 1, ArtifactFrame.AppearancesTab:GetNumChildren() do
-			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
-			if bu then
-				bu.Background:Hide()
-				if bu:GetWidth() > 50 then
-					MERS:CreateGradient(bu)
-					MERS:CreateBD(bu, 0)
-					bu.Name:SetTextColor(1, 1, 1)
-				else
-					bu.Border:SetAlpha(0)
-					bu.HighlightTexture:Hide()
-					bu.Selected:SetAlpha(1)
-					bu.Selected.SetAlpha = MER.dummy
+	ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
+		if self.skinned then return end
+		for i = 1, self:GetNumChildren() do
+			local child = select(i, self:GetChildren())
+			if child and child.appearanceID and not child.backdrop then
+				child:CreateBackdrop("Transparent")
+				MERS:CreateGradient(child.backdrop)
+				child.SwatchTexture:SetTexCoord(.20, .80, .20, .80)
+				child.SwatchTexture:SetInside(child)
+				child.Border:SetAlpha(0)
+				child.Background:SetAlpha(0)
+				child.HighlightTexture:SetAlpha(0)
+				child.HighlightTexture.SetAlpha = E.noop
+				if child.Selected:IsShown() then
+					child.backdrop:SetBackdropBorderColor(1, 1, 1)
 				end
+				child.Selected:SetAlpha(0)
+				child.Selected.SetAlpha = E.noop
+				hooksecurefunc(child.Selected, "SetShown", function(self, isActive)
+					if isActive then
+						child.backdrop:SetBackdropBorderColor(1, 1, 1)
+					else
+						child.backdrop:SetBackdropBorderColor(0, 0, 0)
+					end
+				end)
+			elseif child and child.DescriptionTooltipArea and not child.backdrop then
+				child:StripTextures()
+				child.Name:SetTextColor(1, 1, 1)
+				child:CreateBackdrop("Transparent")
+				child.backdrop:SetBackdropColor(0, 0, 0, 1/2)
+				local point, anchor, secondaryPoint, x, y = child:GetPoint()
+				child:SetPoint(point, anchor, secondaryPoint, x, y+2)
+				hooksecurefunc(child, "SetPoint", function(self, point, anchor, secondaryPoint, x, y)
+					if y == -80 or y == 0 then -- Blizz sets these two, maybe not best way for this but eh.
+						self:SetPoint(point, anchor, secondaryPoint, x, y+2)
+					end
+				end)
 			end
 		end
-	end)
-
-	hooksecurefunc(ArtifactFrame.AppearancesTab, "Refresh", function()
-		for i = 1, ArtifactFrame.AppearancesTab:GetNumChildren() do
-			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
-			if bu and bu.bg then
-				if bu.Selected:IsShown() then
-					bu.bg:SetBackdropBorderColor(1, 1, 0)
-				else
-					bu.bg:SetBackdropBorderColor(0, 0, 0)
-				end
-			end
-		end
+		self.skinned = true
 	end)
 end
 
