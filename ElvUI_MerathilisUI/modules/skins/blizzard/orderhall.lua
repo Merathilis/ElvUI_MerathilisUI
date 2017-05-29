@@ -69,7 +69,6 @@ local function styleOrderhall()
 	for i, v in ipairs(OrderHallMissionFrame.MissionTab.MissionList.listScroll.buttons) do
 		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
 		if Button and not Button.skinned then
-			Button:StripTextures()
 			MERS:CreateBD(Button, .25)
 			Button.LocBG:Kill() -- not cool
 			Button.backdropTexture:Kill() -- not cool
