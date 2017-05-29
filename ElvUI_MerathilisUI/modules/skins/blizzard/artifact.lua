@@ -23,7 +23,7 @@ local function styleArtifact()
 	ArtifactFrame.AppearancesTab.Background:Hide()
 
 	ArtifactFrame.AppearancesTab:HookScript("OnShow", function()
-		for i = 1, 30 do
+		for i = 1, ArtifactFrame.AppearancesTab:GetNumChildren() do
 			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
 			if bu then
 				bu.Background:Hide()
@@ -42,7 +42,7 @@ local function styleArtifact()
 	end)
 
 	hooksecurefunc(ArtifactFrame.AppearancesTab, "Refresh", function()
-		for i = 1, 30 do
+		for i = 1, ArtifactFrame.AppearancesTab:GetNumChildren() do
 			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
 			if bu and bu.bg then
 				if bu.Selected:IsShown() then

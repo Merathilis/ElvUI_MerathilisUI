@@ -28,6 +28,7 @@ V["muiSkins"] = {
 		["calendar"] = true,
 		["merchant"] = true,
 		["worldmap"] = true,
+		["pvp"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

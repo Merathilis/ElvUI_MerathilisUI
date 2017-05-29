@@ -11,10 +11,11 @@
 	<Script file="gossip.lua"/>
 	<Script file="lfg.lua"/>
 	<Script file="merchant.lua"/>
+	<Script file="misc.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
-	<Script file="misc.lua"/>
 	<Script file="orderhall.lua"/>
+	<Script file="pvp.lua"/>
 	<Script file="talent.lua"/>
 	<Script file="worldmap.lua"/>
 </Ui>

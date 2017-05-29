@@ -192,6 +192,12 @@ local function SkinsTable()
 				name = L["World Map"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.worldmap end,
 			},
+			pvp = {
+				order = 26,
+				type = "toggle",
+				name = L["PvP Frames"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp end,
+			},
 		},
 	}
 
@@ -247,6 +253,7 @@ local function SkinsTable()
 				print(profileString..addonName)
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
+			hidden = function() return not IsAddOnLoaded(addon) end,
 		}
 	end
 end

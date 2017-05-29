@@ -28,6 +28,19 @@ function MERC:LoadChat()
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
+
+	if not chat.styled then
+		E:GetModule("muiSkins"):CreateStripes(_G["LeftChatPanel"])
+		if _G["LeftChatPanel"].stripes then
+			_G["LeftChatPanel"].stripes:SetInside(_G["LeftChatPanel"])
+		end
+
+		E:GetModule("muiSkins"):CreateStripes(_G["RightChatPanel"])
+		if _G["RightChatPanel"].stripes then
+			_G["RightChatPanel"].stripes:SetInside(_G["RightChatPanel"])
+		end
+		chat.styled = true
+	end
 end
 hooksecurefunc(CH, "Initialize", MERC.LoadChat)
 
