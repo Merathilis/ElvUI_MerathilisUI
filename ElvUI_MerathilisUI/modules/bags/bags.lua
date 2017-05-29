@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERB = E:NewModule("mUIBags")
 local B = E:GetModule("Bags")
 
 local function EventHandler(self, event)
@@ -12,6 +13,17 @@ local function EventHandler(self, event)
 	end
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", EventHandler)
+function MERB:Initialize()
+	if E.private.bags.enable ~= true then return end
+
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", EventHandler)
+end
+
+
+local function InitializeCallback()
+	MERB:Initialize()
+end
+
+E:RegisterModule(MERB:GetName(), InitializeCallback)
