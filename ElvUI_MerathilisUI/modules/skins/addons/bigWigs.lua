@@ -102,6 +102,8 @@ end
 local f = CreateFrame("Frame")
 local function StyleBigWigs()
 	if not BigWigs then return end
+	if E.private.muiSkins == nil then E.private.muiSkins = {} end
+	if E.private.muiSkins.addonSkins == nil then E.private.muiSkins.addonSkins = {} end
 	if E.private.muiSkins.addonSkins.bw ~= true then return end
 
 	local styleName = MER.Title
