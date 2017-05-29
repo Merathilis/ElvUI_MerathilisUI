@@ -169,10 +169,16 @@ local function SkinsTable()
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
 			},
 			collections = {
-				order = 21,
+				order = 22,
 				type = "toggle",
 				name = COLLECTIONS..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
+			},
+			calendar = {
+				order = 23,
+				type = "toggle",
+				name = L["Calendar Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar end,
 			},
 		},
 	}

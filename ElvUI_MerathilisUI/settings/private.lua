@@ -25,6 +25,7 @@ V["muiSkins"] = {
 		["contribution"] = true,
 		["artifact"] = true,
 		["collections"] = true,
+		["calendar"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

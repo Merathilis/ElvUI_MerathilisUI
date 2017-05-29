@@ -56,6 +56,7 @@ function MERG:GameMenu()
 		end
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		MERS:CreateStripes(bottomPanel)
 
 		bottomPanel.anim = CreateAnimationGroup(bottomPanel)
 		bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
@@ -82,6 +83,7 @@ function MERG:GameMenu()
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		topPanel:CreateWideShadow()
+		MERS:CreateStripes(topPanel)
 
 		topPanel.anim = CreateAnimationGroup(topPanel)
 		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
