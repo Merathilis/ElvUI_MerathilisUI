@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="artifact.lua"/>
 	<Script file="auctionhouse.lua"/>
 	<Script file="character.lua"/>
 	<Script file="contribution.lua"/>
@@ -6,6 +7,7 @@
 	<Script file="friends.lua"/>
 	<Script file="garrison.lua"/>
 	<Script file="gossip.lua"/>
+	<Script file="lfg.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="misc.lua"/>

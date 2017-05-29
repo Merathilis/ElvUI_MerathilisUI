@@ -178,6 +178,27 @@ function MERS:CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
+function MERS:CreateGradient(f)
+	assert(f, "doesn't exist!")
+	local tex = f:CreateTexture(nil, "BORDER")
+	tex:SetPoint("TOPLEFT", 1, -1)
+	tex:SetPoint("BOTTOMRIGHT", -1, 1)
+	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga"]])
+	tex:SetVertexColor(.3, .3, .3, .15)
+
+	return tex
+end
+
+function MERS:CreateStripes(f)
+	assert(f, "doesn't exist!")
+	f.stripesthin = f:CreateTexture(nil, "BACKGROUND", nil, 1)
+	f.stripesthin:SetAllPoints()
+	f.stripesthin:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
+	f.stripesthin:SetHorizTile(true)
+	f.stripesthin:SetVertTile(true)
+	f.stripesthin:SetBlendMode("ADD")
+end
+
 -- Taken from AddOnSkins 
 function MERS:SkinTexture(frame)
 	frame:SetTexCoord(unpack(E.TexCoords))

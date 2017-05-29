@@ -162,6 +162,12 @@ local function SkinsTable()
 				name = L["Contribution"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Contribution end,
 			},
+			contribution = {
+				order = 21,
+				type = "toggle",
+				name = L["Artifact"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
+			},
 		},
 	}
 

@@ -29,10 +29,11 @@ local ChangeLogData = {
 		"• The tabs from ElvUI are now transparent",
 		"• Fix a rar nil error in CoolDownFlash with Dual Profiles enabled",
 		"• Update profile creation for the AddOns. It now uses char specific profiles",
-		--"• ",
+		"• Update and add a lots of skins",
+		-- "• ",
 	" ",
 	"Notes:",
-		"• Have a nice day! ^o^",
+		"• The skin for the Artifact Appearances works almost. :D",
 }
 
 local function ModifiedString(string)
