@@ -18,6 +18,10 @@ local function styleGarrison()
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
+	if not GarrisonLandingPage.stripes then
+		MERS:CreateStripes(GarrisonLandingPage)
+	end
+
 	-- Report
 	local Report = GarrisonLandingPage.Report
 	Report.List:GetRegions():Hide()
@@ -108,6 +112,10 @@ local function styleGarrison()
 	GarrisonBuildingFrame.GarrCorners:Hide()
 	GarrisonBuildingFrame.TitleText:Show()
 
+	if not GarrisonBuildingFrame.stripes then
+		MERS:CreateStripes(GarrisonBuildingFrame)
+	end
+
 	-- Tutorial button
 	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton
 	MainHelpButton.Ring:Hide()
@@ -188,14 +196,6 @@ local function styleGarrison()
 	FollowerPortrait:SetPoint("BOTTOMLEFT", 230, 10)
 	FollowerPortrait.RemoveFollowerButton:ClearAllPoints()
 	FollowerPortrait.RemoveFollowerButton:SetPoint("TOPRIGHT", 4, 4)
-
-	hooksecurefunc("GarrisonBuildingInfoBox_ShowFollowerPortrait", function(_, _, infoBox)
-		local portrait = infoBox.FollowerPortrait
-		
-		if portrait:IsShown() then
-			portrait.squareBG:SetBackdropBorderColor(portrait.PortraitRing:GetVertexColor())
-		end
-	end)
 
 	-- Follower list
 	local FollowerList = GarrisonBuildingFrame.FollowerList

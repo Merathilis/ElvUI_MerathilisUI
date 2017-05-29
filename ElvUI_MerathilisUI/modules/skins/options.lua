@@ -180,6 +180,18 @@ local function SkinsTable()
 				name = L["Calendar Frame"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.calendar end,
 			},
+			merchant = {
+				order = 24,
+				type = "toggle",
+				name = L["Merchant Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.merchant end,
+			},
+			worldmap = {
+				order = 25,
+				type = "toggle",
+				name = L["World Map"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.worldmap end,
+			},
 		},
 	}
 

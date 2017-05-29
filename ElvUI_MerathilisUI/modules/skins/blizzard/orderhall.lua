@@ -58,6 +58,10 @@ local function styleOrderhall()
 	MERS:CreateBD(combatAlly, .25)
 
 	-- Mission Frame
+	if not OrderHallMissionFrame.stripes then
+		MERS:CreateStripes(OrderHallMissionFrame)
+	end
+
 	OrderHallMissionFrameMissions.MaterialFrame:StripTextures()
 	OrderHallMissionFrameMissionsListScrollFrame:StripTextures()
 

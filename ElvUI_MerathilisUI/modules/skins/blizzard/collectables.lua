@@ -18,16 +18,30 @@ local function styleCollections()
 
 	MERS:CreateBD(MountJournal.MountCount, .25)
 	MERS:CreateBD(PetJournal.PetCount, .25)
-	MERS:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
+
+	-- Mounts
+	local MountDisplay = MountJournal.MountDisplay
+	MountDisplay:StripTextures()
 
 	-- Sets
 	local SetsCollectionFrame = WardrobeCollectionFrame.SetsCollectionFrame
+	SetsCollectionFrame:StripTextures()
 	SetsCollectionFrame.LeftInset:Hide()
 	SetsCollectionFrame.RightInset:Hide()
 
 	local DetailsFrame = SetsCollectionFrame.DetailsFrame
 	DetailsFrame.ModelFadeTexture:Hide()
 	DetailsFrame.IconRowBackground:Hide()
+
+	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
+	ItemsCollectionFrame:StripTextures()
+
+	local SetsTransmogFrame = WardrobeCollectionFrame.SetsTransmogFrame
+	SetsTransmogFrame:StripTextures()
+
+	if not WardrobeFrame.stripes then
+		MERS:CreateStripes(WardrobeFrame)
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", "mUICollections", styleCollections)
