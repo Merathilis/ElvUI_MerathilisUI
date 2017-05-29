@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule('Skins')
+local MERS = E:GetModule("muiSkins")
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
@@ -15,6 +16,10 @@ local function styleSpellBook()
  
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
+	end
+
+	if not SpellBookFrame.stripes then
+		MERS:CreateStripes(SpellBookFrame)
 	end
 
 	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))

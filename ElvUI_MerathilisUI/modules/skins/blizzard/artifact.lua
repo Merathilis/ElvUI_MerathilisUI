@@ -17,18 +17,17 @@ local function styleArtifact()
 	ArtifactFrame.PerksTab.Model:SetAlpha(.2)
 	ArtifactFrame.PerksTab.AltModel:SetAlpha(.2)
 	ArtifactFrame.BorderFrame:Hide()
-    ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
-    ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
+	ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
+	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", ArtifactFrame)
 	ArtifactFrame.AppearancesTab.Background:Hide()
 
-	-- Works almost -.-
 	ArtifactFrame.AppearancesTab:HookScript("OnShow", function()
-		for i = 1, 24 do
+		for i = 1, 30 do
 			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
 			if bu then
 				bu.Background:Hide()
-				if bu:GetWidth() > 400 then
+				if bu:GetWidth() > 50 then
 					MERS:CreateGradient(bu)
 					MERS:CreateBD(bu, 0)
 					bu.Name:SetTextColor(1, 1, 1)
@@ -43,7 +42,7 @@ local function styleArtifact()
 	end)
 
 	hooksecurefunc(ArtifactFrame.AppearancesTab, "Refresh", function()
-		for i = 1, 24 do
+		for i = 1, 30 do
 			local bu = select(i, ArtifactFrame.AppearancesTab:GetChildren())
 			if bu and bu.bg then
 				if bu.Selected:IsShown() then

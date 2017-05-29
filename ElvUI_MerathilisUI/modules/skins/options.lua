@@ -168,6 +168,12 @@ local function SkinsTable()
 				name = L["Artifact"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
 			},
+			collections = {
+				order = 21,
+				type = "toggle",
+				name = COLLECTIONS..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
+			},
 		},
 	}
 

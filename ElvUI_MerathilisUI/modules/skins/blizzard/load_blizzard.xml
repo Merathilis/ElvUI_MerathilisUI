@@ -2,6 +2,7 @@
 	<Script file="artifact.lua"/>
 	<Script file="auctionhouse.lua"/>
 	<Script file="character.lua"/>
+	<Script file="collectables.lua"/>
 	<Script file="contribution.lua"/>
 	<Script file="encounterjournal.lua"/>
 	<Script file="friends.lua"/>

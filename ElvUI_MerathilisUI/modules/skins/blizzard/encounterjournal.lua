@@ -18,6 +18,10 @@ function styleEncounterJournal()
 	EncounterInfo.instanceTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 	EncounterInfo.encounterTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 
+	if not EJ.stripes then
+		MERS:CreateStripes(EJ)
+	end
+
 	local Tabs = {
 		_G["EncounterJournalEncounterFrameInfoBossTab"],
 		_G["EncounterJournalEncounterFrameInfoLootTab"],

@@ -95,6 +95,12 @@ local function styleOrderhall()
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
 	MERS:CreateBD(MissionPage.RewardsFrame, .25)
+
+	-- Talent Frame
+	local Talent = OrderHallTalentFrame
+	if not Talent.stripes then
+		MERS:CreateStripes(Talent)
+	end
 end
 
 local OrderHallFollower = CreateFrame("Frame")
