@@ -5,6 +5,16 @@ local S = E:GetModule('Skins')
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
+
+	-- Category buttons
+	for i = 1, 4 do
+		local bu = _G["PVPQueueFrameCategoryButton"..i]
+
+		MERS:Reskin(bu, true)
+		bu:StyleButton()
+		bu:SetTemplate("Transparent")
+	end
+
 	-- Honor frame specific
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
