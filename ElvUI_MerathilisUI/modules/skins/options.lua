@@ -198,6 +198,12 @@ local function SkinsTable()
 				name = L["PvP Frames"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.pvp end,
 			},
+			achievement = {
+				order = 27,
+				type = "toggle",
+				name = L["Achievement Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
+			},
 		},
 	}
 

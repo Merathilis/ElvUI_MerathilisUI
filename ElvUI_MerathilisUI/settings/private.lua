@@ -29,6 +29,7 @@ V["muiSkins"] = {
 		["merchant"] = true,
 		["worldmap"] = true,
 		["pvp"] = true,
+		["achievement"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

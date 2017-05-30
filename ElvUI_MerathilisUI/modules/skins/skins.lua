@@ -419,6 +419,10 @@ function MERS:HandleTab(tab)
 	if tab.backdrop then
 		tab.backdrop:SetTemplate("Transparent")
 	end
+
+	if not tab.stripes then
+		MERS:CreateStripes(tab)
+	end
 end
 hooksecurefunc(S, "HandleTab", MERS.HandleTab)
 
