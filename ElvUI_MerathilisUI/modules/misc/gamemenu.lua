@@ -51,9 +51,6 @@ function MERG:GameMenu()
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetTemplate("Transparent")
-		-- if IsAddOnLoaded("ElvUI_BenikUI") then
-			-- MERS:StyleOutside(bottomPanel)
-		-- end
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		MERS:CreateStripes(bottomPanel)
@@ -83,7 +80,6 @@ function MERG:GameMenu()
 		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
-		topPanel:CreateWideShadow()
 		MERS:CreateStripes(topPanel)
 		MERS:CreateGradient(topPanel)
 
