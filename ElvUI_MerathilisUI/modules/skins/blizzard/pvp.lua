@@ -5,10 +5,19 @@ local S = E:GetModule('Skins')
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
-
 	-- Category buttons
 	for i = 1, 4 do
 		local bu = _G["PVPQueueFrameCategoryButton"..i]
+
+		MERS:Reskin(bu, true)
+		bu:StyleButton()
+		bu:SetTemplate("Transparent")
+	end
+
+	local BonusFrame = HonorFrame.BonusFrame
+
+	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "AshranButton", "BrawlButton"}) do
+		local bu = BonusFrame[bonusButton]
 
 		MERS:Reskin(bu, true)
 		bu:StyleButton()
@@ -55,6 +64,12 @@ local function stylePvP()
 	ConquestFrame.ArenaHeader:Hide()
 	ConquestFrame.RatedBGHeader:Hide()
 	ConquestFrame.ShadowOverlay:Hide()
+
+	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+		MERS:Reskin(bu, true)
+		bu:StyleButton()
+		bu:SetTemplate("Transparent")
+	end
 
 	-- War games
 	Inset = WarGamesFrame.RightInset
