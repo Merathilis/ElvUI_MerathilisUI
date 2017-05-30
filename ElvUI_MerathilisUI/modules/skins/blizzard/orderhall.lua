@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins");
-local LSM = LibStub("LibSharedMedia-3.0");
+local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Cache global variables
 -- Lua functions
@@ -169,15 +169,15 @@ local function styleOrderhall()
 		end
 
 		for i = 1, 8 do
-			local ticker = TalentFrame["Tick"..i]
-			if not ticker.bg then
-				local bg = CreateFrame("Frame", "OrderHallTalentFrameTick"..i.."Background", self)
-				bg:Point("LEFT", ticker, "CENTER", -20, 0)
-				MERS:CreateBD(bg, .25)
-				MERS:CreateGradient(bg)
-				bg:SetSize(320, 50)
-				ticker.bg = bg
+			local bg = CreateFrame("Frame", "OrderHallTalentFrame"..i.."PanelBackground", self)
+			if i == 1 then
+				bg:Point("TOPLEFT", self, "TOPLEFT", 6, -80)
+			else
+				bg:Point("TOPLEFT", "OrderHallTalentFrame"..(i-1).."PanelBackground", "BOTTOMLEFT", 0, -6)
 			end
+			MERS:CreateBD(bg, .25)
+			MERS:CreateGradient(bg)
+			bg:SetSize(322, 52)
 		end
 
 		self.choiceTexturePool:ReleaseAll()
