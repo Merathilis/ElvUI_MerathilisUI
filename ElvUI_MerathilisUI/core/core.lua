@@ -75,6 +75,9 @@ function MER:RegisterMedia()
 	E["media"].muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
 	E["media"].muiSmoke = LSM:Fetch("background", "Merathilis Smoke")
 
+	-- Border
+	E["media"].muiglowTex = LSM:Fetch("border", "MerathilisGlow")
+
 	--Textures
 	E["media"].muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
 	E["media"].muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
@@ -84,16 +87,6 @@ function MER:RegisterMedia()
 	E["media"].muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
 	E["media"].muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "Blizzard Character Skills Bar")
-
-	-- Icons
-	E["media"]["app"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\battlenet]])
-	E["media"]["alliance"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\alliance]])
-	E["media"]["d3"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\d3]])
-	E["media"]["heroes"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\heroes]])
-	E["media"]["horde"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\horde]])
-	E["media"]["pro"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\overwatch]])
-	E["media"]["sc2"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\sc2]])
-	E["media"]["wtcg"] = ([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gameIcons\hearthstone]])
 
 	E:UpdateMedia()
 end

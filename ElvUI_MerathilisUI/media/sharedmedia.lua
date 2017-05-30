@@ -21,6 +21,9 @@ LSM:Register("font","Merathilis GoodDogCool", [[Interface\AddOns\ElvUI_Merathili
 LSM:Register("background","Merathilis BrushedMetal", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\brushedmetal.tga]])
 LSM:Register("background","Merathilis Smoke", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\smoke.tga]])
 
+-- Border
+LSM:Register("border","MerathilisGlow", [[Interface\AddOns\ElvUI_MerathilisUI\media\border\glowTex.tga]])
+
 -- Statusbars
 LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
 LSM:Register("statusbar","MerathilisFlat", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])

@@ -12,6 +12,7 @@ local select, type, unpack = select, type, unpack
 local InCombatLockdown = InCombatLockdown
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+local bordercolorr, bordercolorg, bordercolorb
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -217,7 +218,7 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 		tile = false, tileSize = 0, edgeSize = 1,
 		insets = { left = 0, right = 0, top = 0, bottom = 0},
 	})
-    
+
 	if not Frame.isInsetDone then
 		Frame.InsetTop = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetTop:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
@@ -232,49 +233,49 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 		Frame.InsetBottom:Height(1)
 		Frame.InsetBottom:SetColorTexture(0, 0, 0)
 		Frame.InsetBottom:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetLeft = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetLeft:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
 		Frame.InsetLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, -1)
 		Frame.InsetLeft:Width(1)
 		Frame.InsetLeft:SetColorTexture(0, 0, 0)
 		Frame.InsetLeft:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetRight = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetRight:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, 1)
 		Frame.InsetRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, -1)
 		Frame.InsetRight:Width(1)
 		Frame.InsetRight:SetColorTexture(0, 0, 0)
 		Frame.InsetRight:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetInsideTop = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetInsideTop:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
 		Frame.InsetInsideTop:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, 1)
 		Frame.InsetInsideTop:Height(1)
 		Frame.InsetInsideTop:SetColorTexture(0, 0, 0)
 		Frame.InsetInsideTop:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetInsideBottom = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetInsideBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, 1)
 		Frame.InsetInsideBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, 1)
 		Frame.InsetInsideBottom:Height(1)
 		Frame.InsetInsideBottom:SetColorTexture(0, 0, 0)
 		Frame.InsetInsideBottom:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetInsideLeft = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetInsideLeft:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
 		Frame.InsetInsideLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, 1)
 		Frame.InsetInsideLeft:Width(1)
 		Frame.InsetInsideLeft:SetColorTexture(0, 0, 0)
 		Frame.InsetInsideLeft:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetInsideRight = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetInsideRight:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, -1)
 		Frame.InsetInsideRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, 1)
 		Frame.InsetInsideRight:Width(1)
 		Frame.InsetInsideRight:SetColorTexture(0, 0, 0)
 		Frame.InsetInsideRight:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.isInsetDone = true
 	end
 	local R, G, B = unpack(E["media"].backdropcolor)
@@ -421,8 +422,99 @@ function MERS:HandleTab(tab)
 end
 hooksecurefunc(S, "HandleTab", MERS.HandleTab)
 
+function MERS:CreateBackdropTexture(f)
+	assert(f, "doesn't exist!")
+	local tex = f:CreateTexture(nil, "BACKGROUND")
+	tex:SetDrawLayer("BACKGROUND", 1)
+	tex:SetInside(f, 1, 1)
+	tex:SetTexture(E["media"].normTex)
+	tex:SetVertexColor(backdropcolorr, backdropcolorg, backdropcolorb)
+	tex:SetAlpha(0.8)
+	f.backdropTexture = tex
+end
+
+function MERS:CreatePulse(frame, speed, alpha, mult)
+	assert(frame, "doesn't exist!")
+	frame.speed = .02
+	frame.mult = mult or 1
+	frame.alpha = alpha or 1
+	frame.tslu = 0
+	frame:SetScript("OnUpdate", function(self, elapsed)
+		elapsed = elapsed * ( speed or 5/4 )
+		self.tslu = self.tslu + elapsed
+		if self.tslu > self.speed then
+			self.tslu = 0
+			self:SetAlpha(self.alpha*(alpha or 3/5))
+		end
+		self.alpha = self.alpha - elapsed*self.mult
+		if self.alpha < 0 and self.mult > 0 then
+			self.mult = self.mult*-1
+			self.alpha = 0
+		elseif self.alpha > 1 and self.mult < 0 then
+			self.mult = self.mult*-1
+		end
+	end)
+end
+
+local function StartGlow(f)
+	if not f:IsEnabled() then return end
+	f:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .5)
+	f:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	if not E.PixelMode then
+		f.glow:SetAlpha(1)
+		MERS:CreatePulse(f.glow)
+	end
+end
+
+local function StopGlow(f)
+	f:SetBackdropColor(0, 0, 0, 0)
+	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	f.glow:SetScript("OnUpdate", nil)
+	f.glow:SetAlpha(0)
+end
+
+function MERS:Reskin(f, noGlow)
+	assert(f, "doesn't exist!")
+	f:SetNormalTexture("")
+	f:SetHighlightTexture("")
+	f:SetPushedTexture("")
+	f:SetDisabledTexture("")
+
+	if f.Left then f.Left:SetAlpha(0) end
+	if f.Middle then f.Middle:SetAlpha(0) end
+	if f.Right then f.Right:SetAlpha(0) end
+	if f.LeftSeparator then f.LeftSeparator:Hide() end
+	if f.RightSeparator then f.RightSeparator:Hide() end
+
+	f:SetTemplate("Transparent", true)
+	MERS:CreateBackdropTexture(f)
+	f.backdropTexture:SetAlpha(0.75)
+
+	if not noGlow then
+		f.glow = CreateFrame("Frame", nil, f)
+		f.glow:SetBackdrop({
+				edgeFile = E["media"].glow,
+				edgeSize = E:Scale(4),
+			})
+		f.glow:SetOutside(f, 4, 4)
+		f.glow:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		f.glow:SetAlpha(0)
+
+		f:HookScript("OnEnter", StartGlow)
+		f:HookScript("OnLeave", StopGlow)
+	end
+
+	if not f.tex then
+		f.tex = MERS:CreateGradient(f)
+	else
+		f.gradient = MERS:CreateGradient(f)
+	end
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
+
+	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
 end
 
 local function InitializeCallback()
