@@ -39,8 +39,8 @@ function MERC:LoadChat()
 		if _G["RightChatPanel"].stripes then
 			_G["RightChatPanel"].stripes:SetInside(_G["RightChatPanel"])
 		end
-		chat.styled = true
 	end
+	chat.styled = true
 end
 hooksecurefunc(CH, "Initialize", MERC.LoadChat)
 
