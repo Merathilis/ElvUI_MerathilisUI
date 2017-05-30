@@ -18,6 +18,7 @@ local function styleTalents()
 	if not PlayerTalentFrame.stripes then
 		MERS:CreateStripes(PlayerTalentFrame)
 	end
+
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
 		local bu = PlayerTalentFrameSpecialization["specButton"..i]
@@ -41,6 +42,25 @@ local function styleTalents()
 			end
 		end
 	end)
+
+	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
+
+	for _, name in pairs(buttons) do
+		for i = 1, 4 do
+			local bu = _G[name..i]
+
+			-- Hide the ElvUI backdrop (its default)
+			if bu.backdrop then
+				bu.backdrop:Hide()
+			end
+
+			-- Create own backdrop (transparent)
+			bu:CreateBackdrop("Transparent")
+			bu.backdrop:Point("TOPLEFT", 8, 2)
+			bu.backdrop:Point("BOTTOMRIGHT", 10, -2)
+			MERS:CreateGradient(bu.backdrop)
+		end
+	end
 
 	-- PvP Talents
 	hooksecurefunc("PVPTalentFrame_Update", function(self)
