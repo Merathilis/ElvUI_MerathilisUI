@@ -6,8 +6,16 @@ function MER:LoadBenikUIProfile()
 	--]]----------------------------------
 	E.db["benikui"]["general"]["loginMessage"] = false
 	E.db["benikui"]["general"]["splashScreen"] = false
+	E.db["benikui"]["general"]["hideStyle"] = true
 	E.db["benikui"]["colors"]["gameMenuColor"] = 1
 	E.db["benikui"]["misc"]["ilevel"]["enable"] = false
+	E.db["benikui"]["actionbars"]["transparent"] = true
+	E.db["benikui"]["actionbars"]["style"]["bar1"] = false
+	E.db["benikui"]["actionbars"]["style"]["bar2"] = false
+	E.db["benikui"]["actionbars"]["style"]["bar3"] = false
+	E.db["benikui"]["actionbars"]["style"]["bar4"] = false
+	E.db["benikui"]["actionbars"]["style"]["bar5"] = false
+	E.db["benikui"]["actionbars"]["style"]["bar6"] = false
 	E.db["benikui"]["datatexts"]["chat"]["enable"] = false
 	E.db["benikui"]["datatexts"]["chat"]["transparent"] = true
 	E.db["benikui"]["datatexts"]["chat"]["editBoxPosition"] = "BELOW_CHAT"
@@ -18,13 +26,18 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = true
 	E.db["benikui"]["datatexts"]["middle"]["width"] = 412
 	E.db["benikui"]["datatexts"]["middle"]["height"] = 19
-	E.db["benikui"]["datatexts"]["middle"]["styled"] = true
+	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
 	E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
 	E.db["benikui"]["datatexts"]["garrison"]["currency"] = true
 	E.db["benikui"]["datatexts"]["garrison"]["oil"] = true
 	E.db["benikuiDatabars"]["experience"]["notifiers"]["enable"] = false
+	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
 	E.db["benikuiDatabars"]["reputation"]["notifiers"]["enable"] = false
+	E.db["benikuiDatabars"]["reputation"]["buiStyle"] = false
 	E.db["benikuiDatabars"]["artifact"]["notifiers"]["enable"] = false
+	E.db["benikuiDatabars"]["artifact"]["buiStyle"] = false
+	E.db["benikuiDatabars"]["honor"]["notifiers"]["enable"] = false
+	E.db["benikuiDatabars"]["honor"]["buiStyle"] = false
 	E.db["benikui"]["unitframes"]["misc"]["svui"] = true
 	E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 	E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar

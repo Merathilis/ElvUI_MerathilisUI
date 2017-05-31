@@ -81,9 +81,7 @@ function MER:LoadShadowandLightProfile()
 	E.private["sle"]["pvp"]["KBbanner"]["sound"] = true
 	E.db["sle"]["tooltip"]["RaidProg"]["enable"] = true
 	E.db["sle"]["tooltip"]["RaidProg"]["DifStyle"] = "LONG"
-	E.db["sle"]["chat"]["tab"]["select"] = true
-	E.db["sle"]["chat"]["tab"]["style"] = "DEFAULT"
-	E.db["sle"]["chat"]["tab"]["color"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+	E.db["sle"]["chat"]["tab"]["select"] = false
 	E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
 	E.private["sle"]["chat"]["BubbleClass"] = true
 	E.db["sle"]["chat"]["textureAlpha"]["enable"] = true

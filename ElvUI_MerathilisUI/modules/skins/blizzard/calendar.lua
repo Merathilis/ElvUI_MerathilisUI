@@ -12,6 +12,14 @@ local function styleCalendar()
 	if not CalendarFrame.stripes then
 		MERS:CreateStripes(CalendarFrame)
 	end
+
+	if not CalendarCreateEventFrame.stripes then
+		MERS:CreateStripes(CalendarCreateEventFrame)
+	end
+
+	if not CalendarViewHolidayFrame.stripes then
+		MERS:CreateStripes(CalendarViewHolidayFrame)
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)

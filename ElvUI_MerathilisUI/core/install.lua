@@ -409,7 +409,7 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar1"]["buttons"] = 6
 		E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
-    
+
 		E.db["actionbar"]["bar2"]["enabled"] = true
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 1
 		E.db["actionbar"]["bar2"]["buttons"] = 8
@@ -421,7 +421,7 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar2"]["showGrid"] = false
 		E.db["actionbar"]["bar2"]["heightMult"] = 1
 		E.db["actionbar"]["bar2"]["buttonsPerRow"] = 4
-    
+
 		E.db["actionbar"]["bar3"]["enabled"] = true
 		E.db["actionbar"]["bar3"]["backdrop"] = true
 		E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
@@ -430,13 +430,13 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar3"]["buttons"] = 12
 		E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 		E.db["actionbar"]["bar3"]["backdropSpacing"] = 0
-    
+
 		E.db["actionbar"]["bar4"]["enabled"] = true
 		E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 		E.db["actionbar"]["bar4"]["mouseover"] = true
 		E.db["actionbar"]["bar4"]["buttonsize"] = 24
 		E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
-    
+
 		E.db["actionbar"]["bar5"]["enabled"] = true
 		E.db["actionbar"]["bar5"]["backdrop"] = true
 		E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
@@ -445,7 +445,7 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar5"]["buttons"] = 12
 		E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 		E.db["actionbar"]["bar5"]["backdropSpacing"] = 0
-    
+
 		E.db["actionbar"]["bar6"]["enabled"] = true
 		E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
 		E.db["actionbar"]["bar6"]["buttons"] = 8
@@ -457,14 +457,14 @@ function MER:SetupActionbars(noDataReset)
 		E.db["actionbar"]["bar6"]["backdrop"] = true
 		E.db["actionbar"]["bar6"]["buttonsPerRow"] = 4
 		E.db["actionbar"]["bar6"]["heightMult"] = 1
-    
+
 		E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 		E.db["actionbar"]["barPet"]["buttons"] = 8
 		E.db["actionbar"]["barPet"]["buttonspacing"] = 1
 		E.db["actionbar"]["barPet"]["buttonsPerRow"] = 1
 		E.db["actionbar"]["barPet"]["buttonsize"] = 19
 		E.db["actionbar"]["barPet"]["mouseover"] = true
-    
+
 		E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
 		E.db["actionbar"]["stanceBar"]["backdrop"] = true
 		E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
@@ -474,7 +474,7 @@ function MER:SetupActionbars(noDataReset)
 		else
 			E.db["actionbar"]["stanceBar"]["mouseover"] = false
 		end
-    
+
 		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 24)
 		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", -196, 24)
 		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 24)
@@ -516,7 +516,8 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["colors"]["powerclass"] = false
 		E.db["unitframe"]["colors"]["transparentHealth"] = false
 		E.db["unitframe"]["colors"]["healthclass"] = true
-    
+		E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
+
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 180
 		E.db["unitframe"]["units"]["player"]["height"] = 26
@@ -612,7 +613,7 @@ function MER:SetupUnitframes(noDataReset)
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -185, 143)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 158)
 		MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 592, 143)
-    
+
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 180
 		E.db["unitframe"]["units"]["target"]["height"] = 26
@@ -714,7 +715,7 @@ function MER:SetupUnitframes(noDataReset)
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 183, 143)
 		MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 186, 158)
 		MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -594, 143)
-    
+
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
@@ -757,7 +758,7 @@ function MER:SetupUnitframes(noDataReset)
 			["yOffset"] = 0,
 		}
 		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 150)
-    
+
 		-- Focus
 		E.db["unitframe"]["units"]["focus"]["width"] = 122
 		E.db["unitframe"]["units"]["focus"]["height"] = 20
@@ -783,7 +784,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["focus"]["infoPanel"]["transparent"] = true
 		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -452, 199)
 		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -452, 220)
-    
+
 		-- FocusTarget
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = true
 		E.db["unitframe"]["units"]["focustarget"]["debuffs"]["enable"] = true
@@ -796,7 +797,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["focustarget"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["focustarget"]["infoPanel"]["enable"] = false
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -452, 234)
-    
+
 		-- Raid
 		E.db["unitframe"]["units"]["raid"]["height"] = 35
 		E.db["unitframe"]["units"]["raid"]["width"] = 79
@@ -894,7 +895,7 @@ function MER:SetupUnitframes(noDataReset)
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
 		end
 		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 185)
-    
+
 		-- Raid40
 		E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 21
@@ -952,7 +953,7 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
 		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 185)
-    
+
 		-- Party
 		E.db["unitframe"]["units"]["party"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
@@ -1038,15 +1039,15 @@ function MER:SetupUnitframes(noDataReset)
 			["text_format"] = "[name:medium:status]",
 		}
 		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 185)
-    
+
 		-- Assist
 		E.db["unitframe"]["units"]["assist"]["enable"] = false
 		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
-    
+
 		-- Tank
 		E.db["unitframe"]["units"]["tank"]["enable"] = false
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
-    
+
 		-- Pet
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
 		E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
@@ -1083,11 +1084,11 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
 		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 452, 199)
-    
+
 		-- Arena
 		E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
 		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -52, 370)
-    
+
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
@@ -1143,10 +1144,10 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
 		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -187, -376)
-    
+
 		-- PetTarget
 		E.db["unitframe"]["units"]["pettarget"]["enable"] = false
-    
+
 		-- RaidPet
 		E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
@@ -1246,103 +1247,6 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
-local addonNames = {}
-local profilesFailed = format('|cff00c0fa%s |r', L["MerathilisUI didn't find any supported addons for profile creation"])
-
-local function SetupAddons()
-	--[[----------------------------------
-	--	Skada - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("Skada") then
-		MER:LoadSkadaProfile()
-		tinsert(addonNames, 'Skada')
-	end
-
-	--[[----------------------------------
-	--	Details - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("Details") then
-		MER:LoadDetailsProfile()
-		tinsert(addonNames, 'Details')
-	end
-
-	--[[----------------------------------
-	--	BigWigs - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("BigWigs") then
-		MER:LoadBigWigsProfile()
-		tinsert(addonNames, 'BigWigs')
-	end
-
-	--[[----------------------------------
-	--	XIV_Databar - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("XIV_Databar") then
-		MER:LoadXIVDatabarProfile()
-		tinsert(addonNames, 'XIV_Databar')
-	end
-
-	--[[----------------------------------
-	--	AddOnSkins - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("AddOnSkins") then
-		MER:LoadAddOnSkinsProfile()
-		tinsert(addonNames, 'AddOnSkins')
-	end
-
-	--[[----------------------------------
-	--	BenikUI - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		if E.db["benikui"] == nil then E.db["benikui"] = {} end
-		MER:LoadBenikUIProfile()
-		tinsert(addonNames, 'ElvUI_BenikUI')
-	end
-
-	--[[----------------------------------
-	--	S&L - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("ElvUI_SLE") then
-		if E.db.sle == nil then E.db.sle = {} end
-		MER:LoadShadowandLightProfile()
-		tinsert(addonNames, 'ElvUI_SLE')
-	end
-
-	--[[----------------------------------
-	--	KuiNamePlates - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("Kui_Nameplates_Core") then
-		MER:LoadKuiNamePlatesCoreProfile()
-		tinsert(addonNames, 'KuiNamePlates')
-	end
-
-	--[[----------------------------------
-	--	Masque - Settings
-	--]]----------------------------------
-	if IsAddOnLoaded("Masque") then
-		MER:LoadMasqueProfile()
-		tinsert(addonNames, 'Masque')
-	end
-
-	if checkTable(addonNames) ~= nil then
-		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
-
-		tsort(addonNames, function(a, b) return a < b end)
-
-		local names = tconcat(addonNames, ", ")
-		profileString = profileString..names
-
-		PluginInstallFrame.Desc4:SetText(profileString..'.')
-	else
-		PluginInstallFrame.Desc4:SetText(profilesFailed)
-	end
-
-	PluginInstallStepComplete.message = MER.Title..L["Addons Set"]
-	PluginInstallStepComplete:Show()
-	twipe(addonNames)
-	E:UpdateAll(true)
-end
-
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
@@ -1419,15 +1323,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["UnitFrames"])
 		end,
 		[8] = function()
-			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to the addons like Skada and ElvUI plugins"])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your addons."])
-			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupAddons(); end)
-			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
-		end,
-		[9] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1449,8 +1344,7 @@ MER.installTable = {
 		[5] = L["DataTexts"],
 		[6] = L["ActionBars"],
 		[7] = L["UnitFrames"],
-		[8] = ADDONS,
-		[9] = L["Installation Complete"],
+		[8] = L["Installation Complete"],
 	},
 	StepTitlesColorSelected = RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,

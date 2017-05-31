@@ -213,6 +213,11 @@ local function SkinsTable()
 		guiInline = true,
 		name = MER:cOption(L["Profiles"]),
 		args = {
+			info = {
+				order = 1,
+				type = "description",
+				name = L["MER_PROFILE_DESC"],
+			},
 		},
 	}
 

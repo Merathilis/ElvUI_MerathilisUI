@@ -426,6 +426,17 @@ function MERS:HandleTab(tab)
 end
 hooksecurefunc(S, "HandleTab", MERS.HandleTab)
 
+-- Overwrite ElvUI HandleButton function to be transparent
+function MERS:HandleButton(f, strip)
+	if not f then return end
+	f:SetTemplate("Transparent", true)
+
+	if not f.stripes then
+		MERS:CreateStripes(f)
+	end
+end
+hooksecurefunc(S, "HandleButton", MERS.HandleButton)
+
 function MERS:CreateBackdropTexture(f)
 	assert(f, "doesn't exist!")
 	local tex = f:CreateTexture(nil, "BACKGROUND")

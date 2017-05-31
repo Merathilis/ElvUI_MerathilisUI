@@ -19,6 +19,10 @@ local function styleMisc()
 	if not GameMenuFrame.stripes then
 		MERS:CreateStripes(GameMenuFrame)
 	end
+
+	if not BNToastFrame.stripes then
+		MERS:CreateStripes(BNToastFrame)
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)

@@ -186,9 +186,6 @@ function MER:Initialize()
 		MERDataPerChar = {};
 	end
 
-	-- Use AceDB-3.0 to create a profile
-	self.db = LibStub("AceDB-3.0"):New("MERData")
-
 	if E.db.mui.dbCleaned ~= true then
 		dbCleaning()
 	end

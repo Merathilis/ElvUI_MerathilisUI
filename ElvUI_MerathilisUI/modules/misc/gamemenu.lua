@@ -50,9 +50,9 @@ function MERG:GameMenu()
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
-		bottomPanel:SetTemplate("Transparent")
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
 		bottomPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		MERS:CreateBD(bottomPanel, .5)
 		MERS:CreateStripes(bottomPanel)
 		MERS:CreateGradient(bottomPanel)
 
@@ -77,9 +77,9 @@ function MERG:GameMenu()
 		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame)
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
-		topPanel:SetTemplate("Transparent")
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+		MERS:CreateBD(topPanel, .5)
 		MERS:CreateStripes(topPanel)
 		MERS:CreateGradient(topPanel)
 

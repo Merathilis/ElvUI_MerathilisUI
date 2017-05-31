@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -10,6 +11,10 @@ local function styleContribution()
 
 	--Main Frame
 	ContributionCollectionFrame:StripTextures()
+
+	if not ContributionCollectionFrame.stripes then
+		MERS:CreateStripes(ContributionCollectionFrame)
+	end
 
 	local function styleText(self)
 		self.Description:SetVertexColor(1, 1, 1)

@@ -92,9 +92,4 @@ function MER:LoadBigWigsProfile()
 			},
 		},
 	}
-
-	-- Profile creation
-	-- Create a global Profile
-	local db = LibStub("AceDB-3.0"):New(BigWigs3DB, nil, true)
-	db:SetProfile("MerathilisUI")
 end

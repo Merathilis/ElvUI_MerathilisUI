@@ -20,20 +20,19 @@ local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
 		"• Add a skin for Premade Group Filter",
-		"• Add an auctionhouse skin, its now more transparent",
-		"• Remove some code to position the AlwaysUpFrame",
 		"• Update BigWigs skin (now half-bar)",
 		"• Hide the Notifications if you are in combat",
 		"• Use the new method from ElvUI to register modules",
 		"• Add bindings for the RaidMarkBar",
-		"• The tabs from ElvUI are now transparent",
 		"• Fix a rar nil error in CoolDownFlash with Dual Profiles enabled",
-		"• Update profile creation for the AddOns. It now uses char specific profiles",
+		"• Update profile creation and remove it from the install to prevent some errors.",
+		"  See description in the Skin/AddOn section.",
 		"• Update and add a lots of skins",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• The skin for the Artifact Appearances works almost. :D",
+		"• Major Versions update. If you getting any error, please remove completly my UI",
+		"  from you Interface/AddOn Folder and download a fresh copy.",
 }
 
 local function ModifiedString(string)

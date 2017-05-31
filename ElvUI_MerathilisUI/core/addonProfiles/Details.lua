@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --WoW API / Variables
-
+local twipe = table.wipe
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: _detalhes_global, _detalhes
 
@@ -10,6 +10,7 @@ function MER:LoadDetailsProfile()
 	--[[----------------------------------
 	--	Details - Settings
 	--]]----------------------------------
+	if _detalhes_global then twipe(_detalhes_global) end
 	_detalhes_global = {
 		["tutorial"] = {
 			["bookmark_tutorial"] = false,
