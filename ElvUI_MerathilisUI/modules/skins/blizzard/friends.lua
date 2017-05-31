@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -94,6 +95,19 @@ local function styleFriends()
 		ic:ClearAllPoints()
 		ic:Point("RIGHT", bu, "RIGHT", -24, 0)
 		ic.SetPoint = MER.dummy
+	end
+
+	if not FriendsListFrame.stripes then
+		MERS:CreateStripes(FriendsListFrame)
+	end
+	if not WhoFrame.stripes then
+		MERS:CreateStripes(WhoFrame)
+	end
+	if not ChannelFrame.stripes then
+		MERS:CreateStripes(ChannelFrame)
+	end
+	if not RaidFrame.stripes then
+		MERS:CreateStripes(RaidFrame)
 	end
 
 	hooksecurefunc(FriendsFrameFriendsScrollFrame, "update", updateFriendsColor)
