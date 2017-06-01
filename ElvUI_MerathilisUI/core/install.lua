@@ -206,6 +206,7 @@ function MER:SetupLayout(noDataReset)
 		--	ProfileDB - General
 		--]]----------------------------------
 		E.db["general"]["valuecolor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+		E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 		E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 		E.db["general"]["totems"]["size"] = 36
 		E.db["general"]["font"] = "Merathilis Roboto-Black"
@@ -1247,6 +1248,56 @@ function MER:SetupDts()
 	PluginInstallStepComplete:Show()
 end
 
+local addonNames = {}
+local profilesFailed = format('|cff00c0fa%s |r', L["MerathilisUI didn't find any supported addons for profile creation"])
+
+local function SetupAddons()
+	--[[----------------------------------
+	--	BenikUI - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("ElvUI_BenikUI") then
+		if E.db["benikui"] == nil then E.db["benikui"] = {} end
+		MER:LoadBenikUIProfile()
+		tinsert(addonNames, "ElvUI_BenikUI")
+	end
+
+	--[[----------------------------------
+	--	S&L - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("ElvUI_SLE") then
+		if E.db.sle == nil then E.db.sle = {} end
+		MER:LoadShadowandLightProfile()
+		tinsert(addonNames, "ElvUI_SLE")
+	end
+
+	--[[----------------------------------
+	--	AddOnSkins - Settings
+	--]]----------------------------------
+	if IsAddOnLoaded("AddOnSkins") then
+		MER:LoadAddOnSkinsProfile()
+		tinsert(addonNames, "AddOnSkins")
+	end
+
+
+	if checkTable(addonNames) ~= nil then
+		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
+
+		tsort(addonNames, function(a, b) return a < b end)
+
+		local names = tconcat(addonNames, ", ")
+		profileString = profileString..names
+
+		PluginInstallFrame.Desc4:SetText(profileString..'.')
+	else
+		PluginInstallFrame.Desc4:SetText(profilesFailed)
+	end
+
+	PluginInstallStepComplete.message = MER.Title..L["Addons Set"]
+	PluginInstallStepComplete:Show()
+	twipe(addonNames)
+	E:UpdateAll(true)
+ end
+
 local function InstallComplete()
 	E.private.install_complete = E.version
 	E.db.mui.installed = true
@@ -1323,6 +1374,15 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["UnitFrames"])
 		end,
 		[8] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to ElvUI Plugins"])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupAddons(); end)
+			PluginInstallFrame.Option1:SetText(L["ElvUI AddOns"])
+		end,
+		[9] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -1344,7 +1404,8 @@ MER.installTable = {
 		[5] = L["DataTexts"],
 		[6] = L["ActionBars"],
 		[7] = L["UnitFrames"],
-		[8] = L["Installation Complete"],
+		[8] = ADDONS,
+		[9] = L["Installation Complete"],
 	},
 	StepTitlesColorSelected = RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,
