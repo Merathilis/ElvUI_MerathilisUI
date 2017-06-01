@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins");
+local MERS = E:GetModule("muiSkins")
+local S = E:GetModule("Skins")
 if not IsAddOnLoaded("XIV_Databar") then return end
 
 -- Cache global variables
@@ -12,7 +13,11 @@ local function styleXIV_Databar()
 	if E.private.muiSkins.addonSkins.xiv ~= true then return end
 
 	_G["XIV_Databar"]:StripTextures()
-	_G["XIV_Databar"]:SetTemplate("Transparent")
+	MERS:CreateBD(_G["XIV_Databar"], .5)
+	MERS:CreateGradient(_G["XIV_Databar"])
+	if not _G["XIV_Databar"].stripes then
+		MERS:CreateStripes(_G["XIV_Databar"])
+	end
 	_G["XIV_Databar"]:SetParent(E.UIParent)
 	_G["SpecPopup"]:SetTemplate("Transparent")
 	_G["LootPopup"]:SetTemplate("Transparent")
