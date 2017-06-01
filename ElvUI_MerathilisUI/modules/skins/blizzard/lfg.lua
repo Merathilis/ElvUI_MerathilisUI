@@ -8,7 +8,7 @@ local S = E:GetModule("Skins")
 --WoW API / Variables
 
 local function styleLFG()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	if not PVEFrame.stripes then
 		MERS:CreateStripes(PVEFrame)

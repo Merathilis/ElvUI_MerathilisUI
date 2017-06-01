@@ -18,5 +18,6 @@
 	<Script file="orderhall.lua"/>
 	<Script file="pvp.lua"/>
 	<Script file="talent.lua"/>
+	<Script file="tradeskill.lua"/>
 	<Script file="worldmap.lua"/>
 </Ui>

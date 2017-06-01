@@ -204,6 +204,18 @@ local function SkinsTable()
 				name = L["Achievement Frame"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
 			},
+			tradeskill = {
+				order = 28,
+				type = "toggle",
+				name = L["TradeSkill Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tradeskill end,
+			},
+			lfg = {
+				order = 29,
+				type = "toggle",
+				name = L["LFG Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
+			},
 		},
 	}
 
