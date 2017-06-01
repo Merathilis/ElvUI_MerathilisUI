@@ -1,8 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
+local MERS = E:GetModule("muiSkins")
 local BFM = E:GetModule("BUIFlightMode");
 local MFM = E:NewModule("MUIFlightMode");
 MFM.modName = L["FlightMode"]
+
+if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 function MFM:Initialize()
 	if E.db.mui.general.FlightMode then
@@ -26,6 +28,20 @@ function MFM:Initialize()
 		BFM.FlightMode.top.location.y:SetTemplate("Transparent")
 		BFM.FlightMode.top.location.y:Height(30)
 
+		-- Top Frame
+		MERS:CreateStripes(BFM.FlightMode.top)
+
+		-- Bottom Frame
+		MERS:CreateStripes(BFM.FlightMode.bottom)
+
+		-- Time flying
+		BFM.FlightMode.bottom.timeFlying:SetTemplate("Transparent")
+		MERS:CreateGradient(BFM.FlightMode.bottom.timeFlying)
+
+		-- FPS
+		BFM.FlightMode.bottom.fps:SetTemplate("Transparent")
+		MERS:CreateGradient(BFM.FlightMode.bottom.fps)
+
 		-- MerathilisUI Logo
 		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, "OVERLAY")
 		BFM.FlightMode.bottom.logo:Size(180, 90)
@@ -35,7 +51,8 @@ function MFM:Initialize()
 		-- MerathilisUI Version
 		BFM.FlightMode.bottom.merathilisui = CreateFrame("Frame", nil, BFM.FlightMode.bottom)
 		BFM.FlightMode.bottom.merathilisui:Point("CENTER", BFM.FlightMode.bottom, "CENTER", -10, 0)
-		BFM.FlightMode.bottom.merathilisui:SetTemplate("Default")
+		BFM.FlightMode.bottom.merathilisui:SetTemplate("Transparent")
+		MERS:CreateGradient(BFM.FlightMode.bottom.merathilisui)
 		BFM.FlightMode.bottom.merathilisui:SetSize(70,30)
 		BFM.FlightMode.bottom.merathilisui.txt = BFM.FlightMode.bottom.merathilisui:CreateFontString(nil, "OVERLAY")
 		BFM.FlightMode.bottom.merathilisui.txt:FontTemplate(nil, 14)
