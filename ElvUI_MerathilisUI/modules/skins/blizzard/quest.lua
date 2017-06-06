@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins");
+local MERS = E:GetModule("muiSkins")
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
@@ -16,6 +17,10 @@ local GetQuestLogRequiredMoney = GetQuestLogRequiredMoney
 local function styleQuest()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
+	MERS:CreateGradient(QuestFrame)
+	if not QuestFrame.stripes then
+		MERS:CreateStripes(QuestFrame)
+	end
 	_G["QuestScrollFrame"]:HookScript("OnUpdate", function(self)
 		if self.spellTex and self.spellTex2 then
 			self.spellTex:SetTexture("")

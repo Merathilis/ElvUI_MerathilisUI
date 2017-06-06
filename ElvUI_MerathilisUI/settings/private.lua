@@ -33,6 +33,7 @@ V["muiSkins"] = {
 		["tradeskill"] = true,
 		["lfg"] = true,
 		["talkinghead"] = true,
+		["guild"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

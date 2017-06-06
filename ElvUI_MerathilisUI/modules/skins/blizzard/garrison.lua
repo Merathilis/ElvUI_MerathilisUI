@@ -18,6 +18,7 @@ local function styleGarrison()
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
+	MERS:CreateGradient(GarrisonLandingPage)
 	if not GarrisonLandingPage.stripes then
 		MERS:CreateStripes(GarrisonLandingPage)
 	end

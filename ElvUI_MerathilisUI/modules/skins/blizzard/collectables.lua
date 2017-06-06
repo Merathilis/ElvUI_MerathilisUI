@@ -10,6 +10,7 @@ local S = E:GetModule("Skins")
 local function styleCollections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
 
+	MERS:CreateGradient(CollectionsJournal)
 	if not CollectionsJournal.stripes then
 		MERS:CreateStripes(CollectionsJournal)
 	end
@@ -39,6 +40,7 @@ local function styleCollections()
 	local SetsTransmogFrame = WardrobeCollectionFrame.SetsTransmogFrame
 	SetsTransmogFrame:StripTextures()
 
+	MERS:CreateGradient(WardrobeFrame)
 	if not WardrobeFrame.stripes then
 		MERS:CreateStripes(WardrobeFrame)
 	end

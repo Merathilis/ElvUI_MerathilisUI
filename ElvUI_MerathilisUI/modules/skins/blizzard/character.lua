@@ -17,6 +17,8 @@ local function styleCharacter()
 		MERS:CreateStripes(CharacterFrame)
 	end
 
+	MERS:CreateGradient(CharacterFrame)
+
 	CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	CharacterStatsPane.AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))

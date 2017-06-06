@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 local function styleArtifact()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
 
+	MERS:CreateGradient(ArtifactFrame)
 	if not ArtifactFrame.stripes then
 		MERS:CreateStripes(ArtifactFrame)
 	end

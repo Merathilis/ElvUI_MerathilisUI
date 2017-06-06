@@ -222,6 +222,12 @@ local function SkinsTable()
 				name = L["TalkingHead"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead end,
 			},
+			guild = {
+				order = 31,
+				type = "toggle",
+				name = L["Guild Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guild end,
+			},
 		},
 	}
 

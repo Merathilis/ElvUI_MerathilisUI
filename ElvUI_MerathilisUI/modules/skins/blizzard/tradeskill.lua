@@ -11,6 +11,7 @@ local function styleTradeSkill()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
+	MERS:CreateGradient(TradeSkillFrame)
 	if not TradeSkillFrame.stripes then
 		MERS:CreateStripes(TradeSkillFrame)
 	end

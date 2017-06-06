@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -11,6 +12,7 @@ local S = E:GetModule("Skins")
 local function styleAuctionhouse()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end
 
+	MERS:CreateGradient(AuctionFrame)
 	if AuctionFrameBrowse then
 		AuctionFrameBrowse.bg1:Hide()
 		AuctionFrameBrowse.bg2:Hide()

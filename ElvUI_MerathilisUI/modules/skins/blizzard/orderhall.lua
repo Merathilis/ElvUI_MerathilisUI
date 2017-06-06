@@ -20,6 +20,8 @@ local function styleOrderhall()
 		b:Hide()
 	end
 
+	MERS:CreateGradient(b)
+
 	b:SetWidth(b.AreaName:GetStringWidth() + 500)
 
 	b.Background:SetAtlas(nil)
@@ -58,6 +60,7 @@ local function styleOrderhall()
 	MERS:CreateBD(combatAlly, .25)
 
 	-- Mission Frame
+	MERS:CreateGradient(OrderHallMissionFrame)
 	if not OrderHallMissionFrame.stripes then
 		MERS:CreateStripes(OrderHallMissionFrame)
 	end
@@ -104,6 +107,7 @@ local function styleOrderhall()
 	local TalentFrame = OrderHallTalentFrame
 	local TalentInset = ClassHallTalentInset
 	local TalentClassBG = TalentFrame.ClassBackground
+	MERS:CreateGradient(TalentFrame)
 	TalentInset:CreateBackdrop("Transparent")
 	TalentInset.backdrop:SetFrameLevel(TalentInset.backdrop:GetFrameLevel()+1)
 	TalentInset.backdrop:Point("TOPLEFT", TalentClassBG, "TOPLEFT", E.Border-1, -E.Border+1)

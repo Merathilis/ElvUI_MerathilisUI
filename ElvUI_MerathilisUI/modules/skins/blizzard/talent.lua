@@ -15,6 +15,7 @@ local GetSpecializationInfo = GetSpecializationInfo
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
+	MERS:CreateGradient(PlayerTalentFrame)
 	if not PlayerTalentFrame.stripes then
 		MERS:CreateStripes(PlayerTalentFrame)
 	end

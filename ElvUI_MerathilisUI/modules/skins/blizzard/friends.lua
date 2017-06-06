@@ -97,15 +97,19 @@ local function styleFriends()
 		ic.SetPoint = MER.dummy
 	end
 
+	MERS:CreateGradient(FriendsListFrame)
 	if not FriendsListFrame.stripes then
 		MERS:CreateStripes(FriendsListFrame)
 	end
+	MERS:CreateGradient(WhoFrame)
 	if not WhoFrame.stripes then
 		MERS:CreateStripes(WhoFrame)
 	end
+	MERS:CreateGradient(ChannelFrame)
 	if not ChannelFrame.stripes then
 		MERS:CreateStripes(ChannelFrame)
 	end
+	MERS:CreateGradient(RaidFrame)
 	if not RaidFrame.stripes then
 		MERS:CreateStripes(RaidFrame)
 	end

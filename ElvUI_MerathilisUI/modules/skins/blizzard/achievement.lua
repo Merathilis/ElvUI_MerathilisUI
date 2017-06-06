@@ -8,7 +8,8 @@ local S = E:GetModule("Skins")
 local function styleAchievement()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true then return end
 
-	-- AchievementFrame:StripTextures()
+	MERS:CreateGradient(AchievementFrame)
+
 	if not AchievementFrame.stripes then
 		MERS:CreateStripes(AchievementFrame)
 	end

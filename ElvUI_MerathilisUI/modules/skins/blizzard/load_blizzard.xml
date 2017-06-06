@@ -10,6 +10,7 @@
 	<Script file="friends.lua"/>
 	<Script file="garrison.lua"/>
 	<Script file="gossip.lua"/>
+	<Script file="guild.lua"/>
 	<Script file="lfg.lua"/>
 	<Script file="merchant.lua"/>
 	<Script file="misc.lua"/>

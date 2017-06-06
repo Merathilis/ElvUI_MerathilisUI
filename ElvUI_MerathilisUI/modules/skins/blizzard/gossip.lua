@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
-local S = E:GetModule('Skins')
+local MERS = E:GetModule("muiSkins")
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
@@ -13,6 +14,10 @@ local find, gsub = string.find, string.gsub
 local function styleGossip()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
 
+	MERS:CreateGradient(GossipFrame)
+	if not GossipFrame.stripes then
+		MERS:CreateStripes(GossipFrame)
+	end
 	_G["GossipGreetingScrollFrame"]:StripTextures()
 	_G["GossipGreetingText"]:SetTextColor(1, 1, 1)
 

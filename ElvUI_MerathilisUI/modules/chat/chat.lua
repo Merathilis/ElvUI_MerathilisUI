@@ -29,10 +29,12 @@ function MERC:Initialize()
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
+	E:GetModule("muiSkins"):CreateGradient(_G["LeftChatPanel"].backdrop)
 	if not (_G["LeftChatPanel"]).backdrop.stripes then
 		E:GetModule("muiSkins"):CreateStripes(_G["LeftChatPanel"].backdrop)
 	end
 
+	E:GetModule("muiSkins"):CreateGradient(_G["RightChatPanel"].backdrop)
 	if not (_G["RightChatPanel"]).backdrop.stripes then
 		E:GetModule("muiSkins"):CreateStripes(_G["RightChatPanel"].backdrop)
 	end

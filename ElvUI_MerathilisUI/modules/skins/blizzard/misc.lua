@@ -16,10 +16,12 @@ local function styleMisc()
 		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
 	end)
 
+	MERS:CreateGradient(GameMenuFrame)
 	if not GameMenuFrame.stripes then
 		MERS:CreateStripes(GameMenuFrame)
 	end
 
+	MERS:CreateGradient(BNToastFrame)
 	if not BNToastFrame.stripes then
 		MERS:CreateStripes(BNToastFrame)
 	end

@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 local function styleMerchant()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.muiSkins.blizzard.merchant ~= true then return end
 
+	MERS:CreateGradient(MerchantFrame)
 	if not MerchantFrame.stripes then
 		MERS:CreateStripes(MerchantFrame)
 	end

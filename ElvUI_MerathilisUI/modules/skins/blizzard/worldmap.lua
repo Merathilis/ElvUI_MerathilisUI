@@ -9,6 +9,7 @@ local unpack = unpack
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
+	MERS:CreateGradient(WorldMapFrame)
 	if not WorldMapFrame.stripes then
 		MERS:CreateStripes(WorldMapFrame)
 	end
