@@ -23,29 +23,24 @@ function MERC:RemoveCurrentRealmName(msg, author, ...)
 	end
 end
 
-function MERC:LoadChat()
+function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
-	if not chat.styled then
-		E:GetModule("muiSkins"):CreateStripes(_G["LeftChatPanel"])
-		if _G["LeftChatPanel"].stripes then
-			_G["LeftChatPanel"].stripes:SetInside(_G["LeftChatPanel"])
-		end
-
-		E:GetModule("muiSkins"):CreateStripes(_G["RightChatPanel"])
-		if _G["RightChatPanel"].stripes then
-			_G["RightChatPanel"].stripes:SetInside(_G["RightChatPanel"])
-		end
+	if not (_G["LeftChatPanel"]).backdrop.stripes then
+		E:GetModule("muiSkins"):CreateStripes(_G["LeftChatPanel"].backdrop)
 	end
-	chat.styled = true
+
+	if not (_G["RightChatPanel"]).backdrop.stripes then
+		E:GetModule("muiSkins"):CreateStripes(_G["RightChatPanel"].backdrop)
+	end
 end
-hooksecurefunc(CH, "Initialize", MERC.LoadChat)
+hooksecurefunc(CH, "Initialize", MERC.Initialize)
 
 local function InitializeCallback()
-	MERC:LoadChat()
+	MERC:Initialize()
 end
 
 E:RegisterModule(MERC:GetName(), InitializeCallback)
