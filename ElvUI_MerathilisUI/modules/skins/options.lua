@@ -162,7 +162,7 @@ local function SkinsTable()
 				name = L["Contribution"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Contribution end,
 			},
-			contribution = {
+			artifact = {
 				order = 21,
 				type = "toggle",
 				name = L["Artifact"]..MER.NewSign,
@@ -215,6 +215,12 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["LFG Frame"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
+			},
+			talkinghead = {
+				order = 30,
+				type = "toggle",
+				name = L["TalkingHead"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talkinghead end,
 			},
 		},
 	}

@@ -32,6 +32,7 @@ V["muiSkins"] = {
 		["achievement"] = true,
 		["tradeskill"] = true,
 		["lfg"] = true,
+		["talkinghead"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
