@@ -200,12 +200,6 @@ hooksecurefunc("ChatEdit_InsertLink", function(link)
 	end
 end)
 
--- Fix Legion RecipeLink
-local getRecipe = C_TradeSkillUI.GetRecipeLink
-C_TradeSkillUI.GetRecipeLink = function(link)
-	if link and (link ~= "") then return getRecipe(link) end
-end
-
 function MI:LoadTST()
 	if E.db.mui.misc.tradeTabs ~= true then return end
 
