@@ -527,6 +527,31 @@ function MERS:Reskin(f, noGlow)
 	end
 end
 
+function MERS:HandleCheckBox(frame, noBackdrop, noReplaceTextures)
+	assert(frame, "does not exist.")
+	frame:StripTextures()
+
+	frame:SetNormalTexture("")
+	frame:SetPushedTexture("")
+	frame:SetHighlightTexture(E["media"].muiBlank)
+
+	MERS:CreateBackdropTexture(frame)
+	frame.backdropTexture:SetInside(frame, 5, 5)
+
+	local bd = CreateFrame("Frame", nil, frame)
+	bd:SetInside(frame, 4, 4)
+	bd:SetFrameLevel(frame:GetFrameLevel())
+	MERS:CreateBD(bd, 0)
+
+	local tex = MERS:CreateGradient(frame)
+	tex:SetInside(frame, 5, 5)
+
+	local ch = frame:GetCheckedTexture()
+	ch:SetDesaturated(true)
+	ch:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+end
+hooksecurefunc(S, "HandleCheckBox", MERS.HandleCheckBox)
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
