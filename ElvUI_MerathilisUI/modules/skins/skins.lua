@@ -429,6 +429,7 @@ hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 
 -- Overwrite ElvUI HandleButton function to be transparent
 function MERS:HandleButton(f, strip)
+	assert(f, "doesn't exist!")
 	if not f then return end
 	f:SetTemplate("Transparent", true)
 

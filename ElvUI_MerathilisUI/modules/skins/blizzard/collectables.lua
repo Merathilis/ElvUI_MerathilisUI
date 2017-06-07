@@ -44,6 +44,9 @@ local function styleCollections()
 	if not WardrobeFrame.stripes then
 		MERS:CreateStripes(WardrobeFrame)
 	end
+
+	WardrobeCollectionFrame.ItemsTab.backdrop:Hide()
+	WardrobeCollectionFrame.SetsTab.backdrop:Hide()
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", "mUICollections", styleCollections)
