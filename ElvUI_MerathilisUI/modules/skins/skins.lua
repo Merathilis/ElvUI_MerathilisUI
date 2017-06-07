@@ -391,7 +391,7 @@ function MERS:HandleCloseButton(f, point, text)
 end
 
 -- ClassColored ScrollBars
-function MERS:HandleScrollBar(frame, thumbTrim)
+function MERS:ReskinScrollBar(frame, thumbTrim)
 	if frame:GetName() then
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
@@ -410,10 +410,10 @@ function MERS:HandleScrollBar(frame, thumbTrim)
 		end
 	end
 end
-hooksecurefunc(S, "HandleScrollBar", MERS.HandleScrollBar)
+hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 
 -- Overwrite ElvUI Tabs function to be transparent
-function MERS:HandleTab(tab)
+function MERS:ReskinTab(tab)
 	if not tab then return end
 
 	if tab.backdrop then
@@ -425,7 +425,7 @@ function MERS:HandleTab(tab)
 	end
 	tab.backdrop.stripes:SetInside(tab.backdrop)
 end
-hooksecurefunc(S, "HandleTab", MERS.HandleTab)
+hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 
 -- Overwrite ElvUI HandleButton function to be transparent
 function MERS:HandleButton(f, strip)
@@ -527,9 +527,8 @@ function MERS:Reskin(f, noGlow)
 	end
 end
 
-function MERS:HandleCheckBox(frame, noBackdrop, noReplaceTextures)
+function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
-	frame:StripTextures()
 
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
@@ -550,7 +549,7 @@ function MERS:HandleCheckBox(frame, noBackdrop, noReplaceTextures)
 	ch:SetDesaturated(true)
 	ch:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 end
-hooksecurefunc(S, "HandleCheckBox", MERS.HandleCheckBox)
+hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 
 function MERS:Initialize()
 	self.db = E.private.muiSkins
