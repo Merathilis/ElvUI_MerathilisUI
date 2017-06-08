@@ -455,6 +455,10 @@ function NF:VIGNETTE_ADDED(event, id)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
+function NF:RESURRECT_REQUEST(name)
+	PlaySound("LEVELUPSOUND", "master")
+end
+
 function NF:Initialize()
 	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
 
@@ -469,6 +473,7 @@ function NF:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("VIGNETTE_ADDED")
+	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 end
 
