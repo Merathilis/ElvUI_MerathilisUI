@@ -590,10 +590,10 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["pvpIcon"]["anchorPoint"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.7
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
+		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			-- Detach portrait
 			E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
@@ -700,10 +700,10 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["enable"] = true
-		E.db["unitframe"]["units"]["target"]["pvpIcon"]["anchorPoint"] = "LEFT"
-		E.db["unitframe"]["units"]["target"]["pvpIcon"]["scale"] = 0.7
-		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["scale"] = 0.5
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
+		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
 			E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
