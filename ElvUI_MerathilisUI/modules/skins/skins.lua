@@ -312,6 +312,43 @@ function MERS:CreateBD(f, a)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
+function MERS:Reskin(f, noGlow)
+	assert(f, "doesn't exist!")
+	f:SetNormalTexture("")
+	f:SetHighlightTexture("")
+	f:SetPushedTexture("")
+	f:SetDisabledTexture("")
+
+	if f.Left then f.Left:SetAlpha(0) end
+	if f.Middle then f.Middle:SetAlpha(0) end
+	if f.Right then f.Right:SetAlpha(0) end
+	if f.LeftSeparator then f.LeftSeparator:Hide() end
+	if f.RightSeparator then f.RightSeparator:Hide() end
+
+	f:SetTemplate("Transparent", true)
+	f.backdropTexture:SetAlpha(0.75)
+
+	if not noGlow then
+		f.glow = CreateFrame("Frame", nil, f)
+		f.glow:SetBackdrop({
+				edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
+				edgeSize = E:Scale(4),
+			})
+		f.glow:SetOutside(f, 4, 4)
+		f.glow:SetBackdropBorderColor(r, g, b)
+		f.glow:SetAlpha(0)
+
+		f:HookScript("OnEnter", StartGlow)
+		f:HookScript("OnLeave", StopGlow)
+	end
+
+	if not f.tex then
+		f.tex = MERS:CreateGradient(f)
+	else
+		f.gradient = MERS:CreateGradient(f)
+	end
+end
+
 function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
 	if not override then MERS:StripTextures(frame, kill) end
 	MERS:CreateBackdrop(frame, template)
