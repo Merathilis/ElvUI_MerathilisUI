@@ -41,6 +41,7 @@ V["muiSkins"] = {
 		["wa"] = true,
 		["xiv"] = true,
 		["pgf"] = true,
+		["qjn"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,

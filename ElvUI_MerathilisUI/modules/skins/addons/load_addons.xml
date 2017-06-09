@@ -2,6 +2,7 @@
 	<Script file="actionBarProfiles.lua"/>
 	<Script file="bigWigs.lua"/>
 	<Script file="premadeGroupsFilter.lua"/>
+	<Script file="QuickJoinNotifications.lua"/>
 	<Script file="weakAuras.lua"/>
 	<Script file="XIV_Databar.lua"/>
 </Ui>

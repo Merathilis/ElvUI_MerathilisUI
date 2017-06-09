@@ -14,6 +14,7 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pgf"},
+	{"QuickJoinNotifications", L["QuickJoinNotifications"], "qjn"},
 }
 
 local SupportedProfiles = {
