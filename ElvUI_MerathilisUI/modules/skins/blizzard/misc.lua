@@ -25,6 +25,10 @@ local function styleMisc()
 	if not BNToastFrame.stripes then
 		MERS:CreateStripes(BNToastFrame)
 	end
+
+	-- Graveyard button (a bit ugly if you press it)
+	GhostFrame:StripTextures()
+	GhostFrameContentsFrame:StripTextures()
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
