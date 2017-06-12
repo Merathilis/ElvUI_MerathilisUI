@@ -210,6 +210,9 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 	elseif event ~= "ADDON_LOADED" then
 		local bar = OrderHallCommandBar
 
+		if not bar.stripes then
+			MERS:CreateStripes(bar)
+		end
 		local index = 1
 		C_Timer_After(0.3, function() -- Give it a bit more time to collect.
 			local last
