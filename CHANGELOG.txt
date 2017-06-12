@@ -1,6 +1,7 @@
-<b><u> v2.37, xx.xx.2017</b></u>
+<b><u> v3.00, 12.06.2017</b></u>
+<font color=#FF8C00>&#9830;</font> !! PLEASE DO A FRESH INSTALL !!
 <font color=#FF8C00>&#9830;</font> Add a skin for Premade Group Filter
-<font color=#FF8C00>&#9830;</font> Add an auctionhouse skin, its now more transparent
+<font color=#FF8C00>&#9830;</font> Updated and edit a lot of skins
 <font color=#FF8C00>&#9830;</font> Remove some code to position the AlwaysUpFrame
 <font color=#FF8C00>&#9830;</font> Update BigWigs skin (now half-bar)
 <font color=#FF8C00>&#9830;</font> Hide the Notifications if you are in combat

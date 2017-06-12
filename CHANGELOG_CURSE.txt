@@ -1,6 +1,7 @@
-** v2.37, xx.xx.2017**
+** v3.00, 12.06.2017**
+* !! PLEASE DO A FRESH INSTALL !!
 * Add a skin for Premade Group Filter
-* Add an auctionhouse skin, its now more transparent
+* Updated and edit a lot of skins
 * Remove some code to position the AlwaysUpFrame
 * Update BigWigs skin (now half-bar)
 * Hide the Notifications if you are in combat
