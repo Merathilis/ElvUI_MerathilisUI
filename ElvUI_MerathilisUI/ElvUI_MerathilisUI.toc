@@ -11,7 +11,7 @@
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, ElvUI_BenikUI, ElvUI_SLE, XIV_Databar
-## X-ElvVersion: 10.50
+## X-ElvVersion: 10.53
 ## X-BenikUIVersion: 3.25
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
