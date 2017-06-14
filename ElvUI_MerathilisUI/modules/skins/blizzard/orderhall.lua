@@ -109,7 +109,7 @@ local function styleOrderhall()
 	-- Talent Frame
 	local TalentFrame = OrderHallTalentFrame
 	local TalentInset = ClassHallTalentInset
-	local TalentClassBG = TalentFrame.ClassBackground
+	local TalentClassBG = TalentFrame.Background
 	MERS:CreateGradient(TalentFrame)
 	TalentInset:CreateBackdrop("Transparent")
 	TalentInset.backdrop:SetFrameLevel(TalentInset.backdrop:GetFrameLevel()+1)
@@ -172,18 +172,6 @@ local function styleOrderhall()
 					child.Border:SetAlpha(0) -- clear the yellow glow border again, after it finishes the animation
 				end)
 			end
-		end
-
-		for i = 1, 8 do
-			local bg = CreateFrame("Frame", "OrderHallTalentFrame"..i.."PanelBackground", self)
-			if i == 1 then
-				bg:Point("TOPLEFT", self, "TOPLEFT", 6, -80)
-			else
-				bg:Point("TOPLEFT", "OrderHallTalentFrame"..(i-1).."PanelBackground", "BOTTOMLEFT", 0, -6)
-			end
-			MERS:CreateBD(bg, .25)
-			MERS:CreateGradient(bg)
-			bg:SetSize(322, 52)
 		end
 
 		self.choiceTexturePool:ReleaseAll()
