@@ -10,7 +10,7 @@ LP.modName = L["Location Panel"]
 local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
-local select, tonumber, unpack = select, tonumber, unpack
+local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
