@@ -108,16 +108,45 @@ local function styleOrderhall()
 	-- Credits Simpy <3
 	-- Talent Frame
 	local TalentFrame = OrderHallTalentFrame
+	TalentFrame:StripTextures()
+	TalentFrame.LeftInset:StripTextures()
+	TalentFrame:SetTemplate("Transparent")
+	TalentFrame.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
+	S:HandleCloseButton(TalentFrame.CloseButton)
+	S:HandleButton(TalentFrame.BackButton)
+	TalentFrame.BackButton:SetFrameLevel(TalentFrame.BackButton:GetFrameLevel()+2)
+	TalentFrame.BackButton:Point('BOTTOMRIGHT', TalentFrame, 'BOTTOMRIGHT', -2, 2)
+
 	local TalentInset = ClassHallTalentInset
 	local TalentClassBG = TalentFrame.Background
-	MERS:CreateGradient(TalentFrame)
 	TalentInset:CreateBackdrop("Transparent")
 	TalentInset.backdrop:SetFrameLevel(TalentInset.backdrop:GetFrameLevel()+1)
-	TalentInset.backdrop:Point("TOPLEFT", TalentClassBG, "TOPLEFT", E.Border-1, -E.Border+1)
-	TalentInset.backdrop:Point("BOTTOMRIGHT", TalentClassBG, "BOTTOMRIGHT", -E.Border+1, E.Border-1)
+	TalentInset.backdrop:Point('TOPLEFT', TalentClassBG, 'TOPLEFT', E.Border-1, -E.Border+1)
+	TalentInset.backdrop:Point('BOTTOMRIGHT', TalentClassBG, 'BOTTOMRIGHT', -E.Border+1, E.Border-1)
 	TalentClassBG:SetAtlas("orderhalltalents-background-"..E.myclass)
 	TalentClassBG:SetDrawLayer("ARTWORK")
 	TalentClassBG:SetAlpha(0.8)
+
+	local function panelBackground(self)
+		local tab8 = _G["OrderHallTalentFrame8PanelBackground"];
+		if tab8 then
+			if TalentFrame.BackButton:IsShown() then tab8:Hide() else tab8:Show() end
+		else
+			for i = 1, 8 do
+				local bg = CreateFrame("Frame", "OrderHallTalentFrame"..i.."PanelBackground", self)
+				if i == 1 then
+					bg:Point("TOPLEFT", self, "TOPLEFT", E.PixelMode and 6 or 9, -80)
+				else
+					bg:Point("TOPLEFT", "OrderHallTalentFrame"..(i-1).."PanelBackground", "BOTTOMLEFT", 0, -6)
+				end
+				bg:SetTemplate("Transparent")
+				bg:SetBackdropColor(0, 0, 0, 0.5)
+				bg:SetSize(E.PixelMode and 322 or 316, 52)
+			end
+			tab8 = _G["OrderHallTalentFrame8PanelBackground"];
+			if TalentFrame.BackButton:IsShown() then tab8:Hide() else tab8:Show() end
+		end
+	end
 
 	local function colorBorder(child, backdrop, atlas)
 		if child.AlphaIconOverlay:IsShown() then --isBeingResearched or (talentAvailability and not selected)
@@ -127,15 +156,15 @@ local function styleOrderhall()
 				child.darkOverlay:SetColorTexture(0, 0, 0, 0.50)
 				child.darkOverlay:Show()
 			elseif alpha <= 0.7 then --isBeingResearched
-				backdrop:SetBackdropBorderColor(0, 1, 1) --[border = teal, shadow x1]
+				backdrop:SetBackdropBorderColor(0,1,1) --[border = teal, shadow x1]
 				child.darkOverlay:SetColorTexture(0, 0, 0, 0.25)
 				child.darkOverlay:Show()
 			end
 		elseif atlas == "orderhalltalents-spellborder-green" then
-			backdrop:SetBackdropBorderColor(0 ,1, 0) --[border = green, no shadow]
+			backdrop:SetBackdropBorderColor(0,1,0) --[border = green, no shadow]
 			child.darkOverlay:Hide()
 		elseif atlas == "orderhalltalents-spellborder-yellow" then
-			backdrop:SetBackdropBorderColor(1, 1, 0) --[border = yellow, no shadow]
+			backdrop:SetBackdropBorderColor(1,1,0) --[border = yellow, no shadow]
 			child.darkOverlay:Hide()
 		elseif atlas == "orderhalltalents-spellborder" then
 			backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
@@ -145,12 +174,12 @@ local function styleOrderhall()
 	end
 
 	TalentFrame:HookScript("OnShow", function(self)
+		panelBackground(self) -- Chromie is the original classAgnostic talent tree
 		if self.skinned then return end
-		for i = 1, self:GetNumChildren() do
+		for i=1, self:GetNumChildren() do
 			local child = select(i, self:GetChildren())
 			if child and child.Icon and not child.backdrop then
 				child:StyleButton()
-				MERS:CreateBD(child, .25)
 				child:CreateBackdrop()
 				child.Border:SetAlpha(0)
 				child.Highlight:SetAlpha(0)
@@ -163,7 +192,7 @@ local function styleOrderhall()
 
 				child.darkOverlay = child:CreateTexture()
 				child.darkOverlay:SetAllPoints(child.Icon)
-				child.darkOverlay:SetDrawLayer("OVERLAY")
+				child.darkOverlay:SetDrawLayer('OVERLAY')
 				child.darkOverlay:Hide()
 
 				colorBorder(child, child.backdrop, child.Border:GetAtlas())
@@ -173,11 +202,10 @@ local function styleOrderhall()
 				end)
 			end
 		end
-
 		self.choiceTexturePool:ReleaseAll()
 		hooksecurefunc(self, "RefreshAllData", function(frame)
 			frame.choiceTexturePool:ReleaseAll()
-			for i = 1, frame:GetNumChildren() do
+			for i=1, frame:GetNumChildren() do
 				local child = select(i, frame:GetChildren())
 				if child and child.Icon and child.backdrop then
 					colorBorder(child, child.backdrop, child.Border:GetAtlas())
