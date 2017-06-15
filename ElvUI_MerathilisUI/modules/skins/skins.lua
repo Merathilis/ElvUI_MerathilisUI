@@ -468,7 +468,6 @@ hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 function MERS:HandleButton(f, strip)
 	assert(f, "doesn't exist!")
 	if not f then return end
-	f:SetTemplate("Transparent", true)
 
 	if not f.stripes then
 		MERS:CreateStripes(f)
