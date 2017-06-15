@@ -34,6 +34,12 @@ local function styleTalents()
 		for i = 1, MAX_TALENT_TIERS do
 			for j = 1, NUM_TALENT_COLUMNS do
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
+
+				if button.bg.backdrop then
+					button.bg.backdrop:Hide()
+				end
+				MERS:CreateBD(button.bg, .25)
+
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
 					button.bg.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
@@ -68,6 +74,12 @@ local function styleTalents()
 		for i = 1, MAX_PVP_TALENT_TIERS do
 			for j = 1, MAX_PVP_TALENT_COLUMNS do
 				local button = self.Talents["Tier"..i]["Talent"..j]
+
+				if button.bg.backdrop then
+					button.bg.backdrop:Hide()
+				end
+				MERS:CreateBD(button.bg, .25)
+
 				if button.knownSelection then
 					if button.knownSelection:IsShown() then
 						button.bg.SelectedTexture:Show()
