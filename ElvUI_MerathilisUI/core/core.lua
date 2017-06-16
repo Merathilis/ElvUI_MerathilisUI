@@ -86,7 +86,7 @@ function MER:RegisterMedia()
 	E["media"].muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
 	E["media"].muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
 	E["media"].muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
-	E["media"].muiNormTex = LSM:Fetch("statusbar", "Blizzard Character Skills Bar")
+	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
 
 	E:UpdateMedia()
 end
