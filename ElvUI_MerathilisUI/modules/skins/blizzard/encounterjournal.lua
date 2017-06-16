@@ -150,21 +150,6 @@ function styleEncounterJournal()
 		end
 	end)
 
-	local Tabs = {
-		_G["EncounterJournalEncounterFrameInfoBossTab"],
-		_G["EncounterJournalEncounterFrameInfoLootTab"],
-		_G["EncounterJournalEncounterFrameInfoModelTab"],
-		_G["EncounterJournalEncounterFrameInfoOverviewTab"]
-	}
-
-	for _, Tab in pairs(Tabs) do
-		Tab:GetNormalTexture():SetTexture(nil)
-		Tab:GetPushedTexture():SetTexture(nil)
-		Tab:GetDisabledTexture():SetTexture(nil)
-		Tab:GetHighlightTexture():SetTexture(nil)
-		MERS:StyleOutside(Tab.backdrop)
-	end
-
 	for _, tabName in pairs({"EncounterJournalInstanceSelectSuggestTab", "EncounterJournalInstanceSelectDungeonTab", "EncounterJournalInstanceSelectRaidTab","EncounterJournalInstanceSelectLootJournalTab"}) do
 		local tab = _G[tabName]
 
