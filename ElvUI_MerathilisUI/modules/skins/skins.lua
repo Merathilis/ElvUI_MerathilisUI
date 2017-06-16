@@ -12,6 +12,9 @@ local select, type, unpack = select, type, unpack
 local InCombatLockdown = InCombatLockdown
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
+local alpha
+local backdropcolorr, backdropcolorg, backdropcolorb
+local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local bordercolorr, bordercolorg, bordercolorb
 
 -- Code taken from CodeNameBlaze
@@ -314,10 +317,10 @@ end
 
 function MERS:Reskin(f, noGlow)
 	assert(f, "doesn't exist!")
-	f:SetNormalTexture("")
-	f:SetHighlightTexture("")
-	f:SetPushedTexture("")
-	f:SetDisabledTexture("")
+	if f.SetNormalTexture then f:SetNormalTexture("") end
+	if f.SetHighlightTexture then f:SetHighlightTexture("") end
+	if f.SetPushedTexture then f:SetPushedTexture("") end
+	if f.SetDisabledTexture then f:SetDisabledTexture("") end
 
 	if f.Left then f.Left:SetAlpha(0) end
 	if f.Middle then f.Middle:SetAlpha(0) end
@@ -325,13 +328,14 @@ function MERS:Reskin(f, noGlow)
 	if f.LeftSeparator then f.LeftSeparator:Hide() end
 	if f.RightSeparator then f.RightSeparator:Hide() end
 
-	f:SetTemplate("Transparent", true)
+	f:StripTextures()
+	f:SetTemplate("Default", true)
 	f.backdropTexture:SetAlpha(0.75)
 
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-				edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
+				edgeFile = E["media"].muiglowTex,
 				edgeSize = E:Scale(4),
 			})
 		f.glow:SetOutside(f, 4, 4)
@@ -464,23 +468,12 @@ function MERS:ReskinTab(tab)
 end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 
--- Overwrite ElvUI HandleButton function to be transparent
-function MERS:HandleButton(f, strip)
-	assert(f, "doesn't exist!")
-	if not f then return end
-
-	if not f.stripes then
-		MERS:CreateStripes(f)
-	end
-end
-hooksecurefunc(S, "HandleButton", MERS.HandleButton)
-
 function MERS:CreateBackdropTexture(f)
 	assert(f, "doesn't exist!")
 	local tex = f:CreateTexture(nil, "BACKGROUND")
 	tex:SetDrawLayer("BACKGROUND", 1)
 	tex:SetInside(f, 1, 1)
-	tex:SetTexture(E["media"].normTex)
+	tex:SetTexture(E["media"].muiNormTex)
 	tex:SetVertexColor(backdropcolorr, backdropcolorg, backdropcolorb)
 	tex:SetAlpha(0.8)
 	f.backdropTexture = tex
@@ -528,27 +521,29 @@ end
 
 function MERS:Reskin(f, noGlow)
 	assert(f, "doesn't exist!")
-	f:SetNormalTexture("")
-	f:SetHighlightTexture("")
-	f:SetPushedTexture("")
-	f:SetDisabledTexture("")
 
+	if f.SetNormalTexture then f:SetNormalTexture("") end
+	if f.SetHighlightTexture then f:SetHighlightTexture("") end
+	if f.SetPushedTexture then f:SetPushedTexture("") end
+
+	if f.SetDisabledTexture then f:SetDisabledTexture("") end
 	if f.Left then f.Left:SetAlpha(0) end
 	if f.Middle then f.Middle:SetAlpha(0) end
 	if f.Right then f.Right:SetAlpha(0) end
 	if f.LeftSeparator then f.LeftSeparator:Hide() end
 	if f.RightSeparator then f.RightSeparator:Hide() end
 
-	f:SetTemplate("Transparent", true)
+	if f.backdrop then f.backdrop:Hide() end
+
 	MERS:CreateBackdropTexture(f)
 	f.backdropTexture:SetAlpha(0.75)
 
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-				edgeFile = E["media"].glow,
-				edgeSize = E:Scale(4),
-			})
+			edgeFile = E["media"].glow,
+			edgeSize = E:Scale(4),
+		})
 		f.glow:SetOutside(f, 4, 4)
 		f.glow:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		f.glow:SetAlpha(0)
@@ -563,6 +558,7 @@ function MERS:Reskin(f, noGlow)
 		f.gradient = MERS:CreateGradient(f)
 	end
 end
+hooksecurefunc(S, "HandleButton", MERS.Reskin)
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
@@ -591,6 +587,8 @@ hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
+	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
+	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
 	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
 end
 
