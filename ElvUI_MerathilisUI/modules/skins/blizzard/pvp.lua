@@ -5,23 +5,45 @@ local S = E:GetModule('Skins')
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
+	local function onEnter(self)
+		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
+	end
+
+	local function onLeave(self)
+		self:SetBackdropColor(0, 0, 0, .25)
+	end
+
 	-- Category buttons
 	for i = 1, 4 do
 		local bu = _G["PVPQueueFrameCategoryButton"..i]
+		bu:StripTextures()
 
+		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
-		bu:StyleButton()
-		bu:SetTemplate("Transparent")
+
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
+
+		bu.backdropTexture:Hide()
 	end
 
 	local BonusFrame = HonorFrame.BonusFrame
 
 	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "AshranButton", "BrawlButton"}) do
 		local bu = BonusFrame[bonusButton]
+		bu:StripTextures()
 
+		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
-		bu:StyleButton()
-		bu:SetTemplate("Transparent")
+
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
+
+		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
+		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+		bu.SelectedTexture:SetAllPoints()
+
+		bu.backdropTexture:Hide()
 	end
 
 	-- Honor frame specific
@@ -66,9 +88,19 @@ local function stylePvP()
 	ConquestFrame.ShadowOverlay:Hide()
 
 	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+		bu:StripTextures()
+
+		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
-		bu:StyleButton()
-		bu:SetTemplate("Transparent")
+
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
+
+		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
+		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+		bu.SelectedTexture:SetAllPoints()
+
+		bu.backdropTexture:Hide()
 	end
 
 	-- War games

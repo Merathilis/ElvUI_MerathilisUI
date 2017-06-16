@@ -15,12 +15,25 @@ local function styleLFG()
 		MERS:CreateStripes(PVEFrame)
 	end
 
+	local function onEnter(self)
+		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
+	end
+
+	local function onLeave(self)
+		self:SetBackdropColor(0, 0, 0, .25)
+	end
+
 	for i = 1, 4 do
 		local bu = GroupFinderFrame["groupButton"..i]
+		bu:StripTextures()
 
+		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
-		bu:StyleButton()
-		bu:SetTemplate("Transparent")
+
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
+
+		bu.backdropTexture:Hide()
 	end
 
 	-- Category selection

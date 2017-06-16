@@ -329,7 +329,7 @@ function MERS:Reskin(f, noGlow)
 	if f.RightSeparator then f.RightSeparator:Hide() end
 
 	f:StripTextures()
-	f:SetTemplate("Default", true)
+	f:SetTemplate("Transparent", true)
 	f.backdropTexture:SetAlpha(0.75)
 
 	if not noGlow then
