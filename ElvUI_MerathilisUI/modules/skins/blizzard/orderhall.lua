@@ -74,7 +74,7 @@ local function styleOrderhall()
 	OrderHallMissionFrame.MissionTab.MissionPage:StripTextures()
 
 	OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage:StripTextures()
-	MERS:CreateBD(OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage, .25)
+	MERS:CreateBD(OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage, .5)
 
 	for i, v in ipairs(OrderHallMissionFrame.MissionTab.MissionList.listScroll.buttons) do
 		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
@@ -94,7 +94,7 @@ local function styleOrderhall()
 
 		tab:StripTextures()
 		tab:SetHeight(_G["GarrisonMissionFrameMissionsTab" .. i]:GetHeight() - 10)
-		S:HandleButton(tab)
+		S:HandleTab(tab)
 	end
 
 	-- Missions
