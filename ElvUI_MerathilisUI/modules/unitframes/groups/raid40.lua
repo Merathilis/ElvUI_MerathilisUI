@@ -13,7 +13,7 @@ function MUF:Update_Raid40Frames(frame, db)
 
 	end
 
-	frame:UpdateAllElements("mUI_UpdateAllElements")
+	frame:UpdateAllElements("MerathilisUI_UpdateAllElements")
 end
 
 function MUF:InitRaid40()

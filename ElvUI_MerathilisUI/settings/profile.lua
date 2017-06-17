@@ -26,10 +26,6 @@ P["mui"] = {
 		["ItemLevelLink"] = true, -- Displays the itemlevel in the itemlink
 	},
 
-	["colors"] = {
-		["styleAlpha"] = 1,
-	},
-
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
 		["moveBlizz"] = true, -- Make Blizzards Frame movable
@@ -74,56 +70,15 @@ P["mui"] = {
 
 	["unitframes"] = {
 		["groupinfo"] = true,
-		["player"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitStyle"] = false,
-			["portraitStyleHeight"] = 6,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["target"] = {
-			["detachPortrait"] = false,
-			["getPlayerPortraitSize"] = true,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitStyle"] = false,
-			["portraitStyleHeight"] = 6,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["targettarget"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["focus"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["pet"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["infoPanel"] = {
-			["fixInfoPanel"] = true,
-		},
-		["misc"] = {
-			["portraitTransparency"] = 0.70,
+		["unit"] = {
+			["player"] = {
+				["rested"] = {
+					["xoffset"] = 0,
+					["yoffset"] = 0,
+					["size"] = 16,
+					["texture"] = "DEFAULT",
+				},
+			},
 		},
 	},
 
