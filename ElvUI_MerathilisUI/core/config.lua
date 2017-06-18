@@ -88,7 +88,7 @@ local function AddOptions()
 						type = "toggle",
 						name = L["FlightMode"],
 						desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
-						disabled = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
+						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
 					},
 					CombatState = {
 						order = 7,

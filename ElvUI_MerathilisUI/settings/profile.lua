@@ -72,6 +72,10 @@ P["mui"] = {
 		["announceFreed"] = true -- Enable the Garbage Message in Chat
 	},
 
+	["actionbars"] = {
+		["transparent"] = true,
+	},
+
 	["unitframes"] = {
 		["groupinfo"] = true,
 		["player"] = {
@@ -93,30 +97,6 @@ P["mui"] = {
 			["portraitTransparent"] = true,
 			["portraitStyle"] = false,
 			["portraitStyleHeight"] = 6,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["targettarget"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["focus"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["pet"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
 			["portraitFrameStrata"] = "MEDIUM",
 		},
 		["infoPanel"] = {

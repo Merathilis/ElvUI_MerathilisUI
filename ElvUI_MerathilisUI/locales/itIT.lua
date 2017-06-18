@@ -144,6 +144,10 @@ L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
 
+-- Actionbars
+L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
+L["Transparent Backdrops"] = true
+
 -- Unitframes
 L["Apply shadow under the portrait"] = true
 L["Apply transparency on the portrait backdrop."] = true
@@ -292,7 +296,6 @@ L["Finish"] = true
 L["Installed"] = true
 
 -- Staticpopup
-L["To get the whole MerathilisUI functionality and look it's recommended that you download |cff00c0faElvUI_BenikUI|r!"] = true
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["MSG_MER_BENIK_OUTDATED"] = "Your version of BenikUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your BenikUI to avoid errors."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true

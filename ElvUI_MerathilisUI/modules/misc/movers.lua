@@ -21,7 +21,7 @@ function MI:UpdateMoverTransparancy()
 end
 
 function MI:LoadMoverTransparancy()
-	hooksecurefunc(E, 'CreateMover', function(self, parent)
+	hooksecurefunc(E, "CreateMover", function(self, parent)
 		parent.mover:SetAlpha(E.db.mui.general.Movertransparancy)
 	end)
 
