@@ -145,13 +145,14 @@ L["World"] = true
 L["World Latency:"] = true
 
 -- Unitframes
-L[" alive"] = true
 L["Apply shadow under the portrait"] = true
 L["Apply transparency on the portrait backdrop."] = true
 L["Change the detached portrait height"] = true
 L["Change the detached portrait width"] = true
 L["Detach Portrait"] = true
 L["Shadow"] = true
+L["Player Portrait"] = true
+L["Target Portrait"] = true
 
 -- LocationPanel
 L["Location Panel"] = true

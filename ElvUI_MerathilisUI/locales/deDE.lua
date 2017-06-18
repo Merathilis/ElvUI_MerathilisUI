@@ -145,13 +145,14 @@ L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
 
 -- Unitframes
-L[" alive"] = " am Leben"
 L["Apply shadow under the portrait"] = "Aktiviere den Schatten unter dem Portrait"
 L["Apply transparency on the portrait backdrop."] = "Wende Transparenz auf den Portrait Hintergrund an."
 L["Change the detached portrait height"] = "Ändert die Höhe des abgetrennten Portrait"
 L["Change the detached portrait width"] = "Ändert die Breite des abgetrennten Portrait"
 L["Detach Portrait"] = "Abgetrenntes Portrait"
 L["Shadow"] = "Schatten"
+L["Player Portrait"] = "Spieler Portrait"
+L["Target Portrait"] = "Ziel Portrait"
 
 -- LocationPanel
 L["Location Panel"] = true
