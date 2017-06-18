@@ -145,10 +145,13 @@ L["World"] = true
 L["World Latency:"] = true
 
 -- Unitframes
-L["Red Icon"] = true
-L["Group Info"] = true
-L["Shows an extra frame with information about the party/raid."] = true
 L[" alive"] = true
+L["Apply shadow under the portrait"] = true
+L["Apply transparency on the portrait backdrop."] = true
+L["Change the detached portrait height"] = true
+L["Change the detached portrait width"] = true
+L["Detach Portrait"] = true
+L["Shadow"] = true
 
 -- LocationPanel
 L["Location Panel"] = true
