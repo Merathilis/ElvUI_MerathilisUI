@@ -28,7 +28,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the Look of your UI. It is high recommended that you download |cff00c0faElvUI BenikUI|r to get the whole Style.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
+				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 150, 150 end,
 				imageCoords = {0,0.99,0.01,0.99},

@@ -169,12 +169,6 @@ function MER:Initialize()
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
-	-- BenikUI versions check
-	if MER.BenikUIV < MER.BenikUIX then
-		E:StaticPopup_Show("BENIKUI_VERSION_MISMATCH")
-		return -- If BenikUI Version is outdated stop right here. So things don't get broken.
-	end
-
 	self:RegisterMedia()
 	self:LoadCommands()
 
@@ -208,10 +202,6 @@ function MER:Initialize()
 	if E.db.mui.general.LoginMsg then
 		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded."])
 	end
-
-	-- if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then
-		-- return
-	-- end
 
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then 
 		E:GetModule("PluginInstaller"):Queue(MER.installTable) 

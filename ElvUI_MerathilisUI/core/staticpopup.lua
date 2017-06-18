@@ -48,11 +48,3 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	whileDead = 1,
 	preferredIndex = 3,
 }
-
-E.PopupDialogs["BENIKUI_VERSION_MISMATCH"] = {
-	text = MER:BenikMismatchText(),
-	button1 = CLOSE,
-	timeout = 0,
-	whileDead = 1,
-	preferredIndex = 3,
-}
