@@ -209,9 +209,9 @@ function MER:Initialize()
 		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded."])
 	end
 
-	if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then
-		return
-	end
+	-- if IsAddOnLoaded("ElvUI_BenikUI") and E.db.benikui.installed == nil then
+		-- return
+	-- end
 
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then 
 		E:GetModule("PluginInstaller"):Queue(MER.installTable) 
