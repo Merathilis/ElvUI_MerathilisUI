@@ -169,10 +169,6 @@ local function SetupChat()
 end
 
 function MER:SetupLayout(noDataReset)
-	if not IsAddOnLoaded("ElvUI_BenikUI") then
-		E:StaticPopup_Show("BENIKUI")
-	end
-
 	if not noDataReset then
 		--[[----------------------------------
 		--	PrivateDB - General
@@ -594,26 +590,21 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
+
+		-- Detach portrait
+		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
+		E.db["mui"]["unitframes"]["player"]["detachPortrait"] = true
+		E.db["mui"]["unitframes"]["player"]["portraitWidth"] = 92
+		E.db["mui"]["unitframes"]["player"]["portraitHeight"] = 39
+		E.db["mui"]["unitframes"]["player"]["portraitShadow"] = false
+		E.db["mui"]["unitframes"]["player"]["portraitTransparent"] = true
+		E.db["mui"]["unitframes"]["player"]["portraitFrameStrata"] = "BACKGROUND"
 		if IsAddOnLoaded("ElvUI_BenikUI") then
-			-- Detach portrait
-			E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
-			E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = true
-			E.db["benikui"]["unitframes"]["player"]["portraitWidth"] = 92
-			E.db["benikui"]["unitframes"]["player"]["portraitHeight"] = 39
-			E.db["benikui"]["unitframes"]["player"]["portraitShadow"] = false
-			E.db["benikui"]["unitframes"]["player"]["portraitTransparent"] = true
-			E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
-			E.db["benikui"]["unitframes"]["player"]["portraitFrameStrata"] = "BACKGROUND"
-			-- Castbar
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["yOffset"] = 0
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["texture"] = "MerathilisBlank"
-			E.db["benikui"]["unitframes"]["castbar"]["text"]["textColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+			E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
 		end
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -185, 143)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 158)
-		MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 592, 143)
+		MER:SetMoverPosition("mUIPlayerPortraitMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 592, 143)
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 180
@@ -704,18 +695,20 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["scale"] = 0.5
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
+
+		-- Detach portrait
+		E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
+		E.db["mui"]["unitframes"]["target"]["detachPortrait"] = true
+		E.db["mui"]["unitframes"]["target"]["portraitWidth"] = 92
+		E.db["mui"]["unitframes"]["target"]["portraitHeight"] = 39
+		E.db["mui"]["unitframes"]["target"]["portraitShadow"] = false
+		E.db["mui"]["unitframes"]["target"]["portraitTransparent"] = true
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
-			E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
-			E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
-			E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 92
-			E.db["benikui"]["unitframes"]["target"]["portraitHeight"] = 39
-			E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
-			E.db["benikui"]["unitframes"]["target"]["portraitTransparent"] = true
-			E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
+			E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
 		end
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 183, 143)
 		MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 186, 158)
-		MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -594, 143)
+		MER:SetMoverPosition("muiTargetPortraitMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -594, 143)
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
