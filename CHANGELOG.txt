@@ -1,3 +1,11 @@
+<b><u> v3.01, 19.06.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Fix an error in the Orderhall skin. Update the Chromie Talent skin. Thx Simpy <3
+<font color=#FF8C00>&#9830;</font> Fix an error in the PvP skin that the tooltips won't show.
+<font color=#FF8C00>&#9830;</font> Update a lot of skins.
+<font color=#FF8C00>&#9830;</font> Create an option to disable the decorative Stripes.
+<font color=#FF8C00>&#9830;</font> Add own detached portraits for Player/Target. The options are disabled if BenikUI is loaded. -- Credits Benik
+<font color=#FF8C00>&#9830;</font> Add own options for transparent Actionbar Backdrop. The options are disabled if BenikUI is loaded. -- Credits Benik
+
 <b><u> v3.00, 12.06.2017</b></u>
 <font color=#FF8C00>&#9830;</font> !! PLEASE DO A FRESH INSTALL !!
 <font color=#FF8C00>&#9830;</font> Add a skin for Premade Group Filter

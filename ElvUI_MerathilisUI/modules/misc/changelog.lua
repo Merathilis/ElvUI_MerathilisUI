@@ -18,20 +18,21 @@ if E.db.mui.installed == nil then return; end
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"• Add a skin for Premade Group Filter",
-		"• Update BigWigs skin (now half-bar)",
-		"• Hide the Notifications if you are in combat",
-		"• Use the new method from ElvUI to register modules",
-		"• Add bindings for the RaidMarkBar",
-		"• Fix a rar nil error in CoolDownFlash with Dual Profiles enabled",
-		"• Update profile creation and remove it from the install to prevent some errors.",
-		"  See description in the Skin/AddOn section.",
-		"• Update and add a lots of skins",
+		"• Fix an error in the Orderhall skin. Update the Chromie Talent skin.",
+		"  Thx Simpy <3",
+		"• Fix an error in the PvP skin that the tooltips won't show.",
+		"• Update a lot of skins.",
+		"• Create an option to disable the decorative Stripes.",
+		"• Add own detached portraits for Player/Target. The options are disabled",
+		"  if BenikUI is loaded. -- Credits Benik",
+		"• Add own options for transparent Actionbar Backdrop. The options are", 
+		"  disabled if BenikUI is loaded. -- Credits Benik",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• Major Versions update. If you getting any error, please remove completly my UI",
-		"  from you Interface/AddOn Folder and download a fresh copy.",
+		"• With this version you don't need BenikUI anymore.",
+		"• But i would highly recommend it, if you still want to use the amazing",
+		"  flightMode or AFK Mode from BenikUI <3.",
 }
 
 local function ModifiedString(string)
