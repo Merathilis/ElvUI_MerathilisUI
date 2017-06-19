@@ -73,7 +73,7 @@ P["mui"] = {
 	},
 
 	["actionbars"] = {
-		["transparent"] = true,
+		["transparent"] = false,
 	},
 
 	["unitframes"] = {

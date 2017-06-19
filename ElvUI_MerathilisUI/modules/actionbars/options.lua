@@ -8,6 +8,7 @@ local function abTable()
 		order = 7,
 		type = "group",
 		name = L["ActionBars"],
+		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
 				order = 1,
