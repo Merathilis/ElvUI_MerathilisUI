@@ -7,7 +7,7 @@ local function abTable()
 	E.Options.args.mui.args.actionbars = {
 		order = 7,
 		type = "group",
-		name = L["ActionBars"],
+		name = MAB.modName..MER.NewSign,
 		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
@@ -24,7 +24,7 @@ local function abTable()
 					transparent = {
 						order = 2,
 						type = "toggle",
-						name = L["Transparent Backdrops"],
+						name = L["Transparent Backdrops"]..MER.NewSign,
 						desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
 						disabled = function() return not E.private.actionbar.enable end,
 						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,

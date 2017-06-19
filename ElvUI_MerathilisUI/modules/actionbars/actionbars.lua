@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:NewModule("mUIActionbars", "AceEvent-3.0")
+MAB.modName = L["ActionBars"]
 
 if E.private.actionbar.enable ~= true then return; end
 
