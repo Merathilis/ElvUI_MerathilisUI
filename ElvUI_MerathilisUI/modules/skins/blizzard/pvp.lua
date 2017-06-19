@@ -36,9 +36,6 @@ local function stylePvP()
 		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
 
-		bu:SetScript("OnEnter", onEnter)
-		bu:SetScript("OnLeave", onLeave)
-
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
 		bu.SelectedTexture:SetAllPoints()
@@ -92,9 +89,6 @@ local function stylePvP()
 
 		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
-
-		bu:SetScript("OnEnter", onEnter)
-		bu:SetScript("OnLeave", onLeave)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
