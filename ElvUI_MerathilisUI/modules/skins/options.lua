@@ -43,6 +43,22 @@ local function SkinsTable()
 				type = "header",
 				name = MER:cOption(MERS.modName),
 			},
+			general = {
+				order = 2,
+				type = "group",
+				name = MER:cOption(L["General"]),
+				guiInline = true,
+				get = function(info) return E.private.muiSkins.general[ info[#info] ] end,
+				set = function(info, value) E.private.muiSkins.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				args = {
+					stripes = {
+						order = 1,
+						type = "toggle",
+						name = L["Stripes"],
+						desc = L["Creates decorative stripes on some frames"],
+					},
+				},
+			},
 		},
 	}
 

@@ -14,14 +14,22 @@ local function abTable()
 				type = "header",
 				name = MER:cOption(L["ActionBars"]),
 			},
-			transparent = {
+			general = {
 				order = 2,
-				type = "toggle",
-				name = L["Transparent Backdrops"],
-				desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
-				disabled = function() return not E.private.actionbar.enable end,
-				get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; MAB:TransparentBackdrops() end,
+				type = "group",
+				name = MER:cOption(L["General"]),
+				guiInline = true,
+				args = {
+					transparent = {
+						order = 2,
+						type = "toggle",
+						name = L["Transparent Backdrops"],
+						desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
+						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; MAB:TransparentBackdrops() end,
+					},
+				},
 			},
 		},
 	}

@@ -29,18 +29,18 @@ local function UnitFramesTable()
 				args = {
 				},
 			},
-			--[[player = {
+			player = {
 				order = 2,
 				type = "group",
 				name = L["Player Frame"],
 				guiInline = true,
 				args = {
 				},
-			},--]]
+			},
 		},
 	}
 end
--- tinsert(MER.Config, UnitFramesTable)
+tinsert(MER.Config, UnitFramesTable)
 
 local strataValues = {
 	BACKGROUND = "BACKGROUND",

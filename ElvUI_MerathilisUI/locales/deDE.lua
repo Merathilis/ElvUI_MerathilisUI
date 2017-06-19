@@ -303,6 +303,8 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.
 
 Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige Skin in ElvUI |cff636363deaktiviert|r ist.]]
+L["Creates decorative stripes on some frames"] = "Fügt dekorative Stripes an einigen Fenstern hinzu"
+L["Stripes"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

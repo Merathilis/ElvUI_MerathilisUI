@@ -195,12 +195,16 @@ end
 
 function MERS:CreateStripes(f)
 	assert(f, "doesn't exist!")
+
 	f.stripes = f:CreateTexture(nil, "BACKGROUND", nil, 1)
-	f.stripes:SetAllPoints()
-	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
-	f.stripes:SetHorizTile(true)
-	f.stripes:SetVertTile(true)
-	f.stripes:SetBlendMode("ADD")
+
+	if E.private.muiSkins.general.stripes then -- really bad
+		f.stripes:SetAllPoints()
+		f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
+		f.stripes:SetHorizTile(true)
+		f.stripes:SetVertTile(true)
+		f.stripes:SetBlendMode("ADD")
+	end
 end
 
 -- Taken from AddOnSkins 
