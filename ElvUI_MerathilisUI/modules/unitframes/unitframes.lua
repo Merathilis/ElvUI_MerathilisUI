@@ -41,7 +41,7 @@ function MUF:ADDON_LOADED(event, addon)
 end
 
 function MUF:Initialize()
-	if E.private.unitframe.enable ~= true then return end
+	if E.private.unitframe.enable ~= true or IsAddOnLoaded("ElvUI_BenikUI") then return end
 
 	self:UnitDefaults()
 	self:InitPlayer()

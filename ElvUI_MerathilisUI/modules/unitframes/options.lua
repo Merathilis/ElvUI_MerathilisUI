@@ -59,6 +59,8 @@ local function ufPlayerTable()
 		guiInline = true,
 		get = function(info) return E.db.mui.unitframes.player[ info[#info] ] end,
 		set = function(info, value) E.db.mui.unitframes.player[ info[#info] ] = value; MUF:ArrangePlayer(); end,
+		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
+		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			detachPortrait = {
 				order = 1,
@@ -128,6 +130,8 @@ local function ufTargetTable()
 		guiInline = true,
 		get = function(info) return E.db.mui.unitframes.target[ info[#info] ] end,
 		set = function(info, value) E.db.mui.unitframes.target[ info[#info] ] = value; MUF:ArrangeTarget(); end,
+		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
+		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			detachPortrait = {
 				order = 1,
