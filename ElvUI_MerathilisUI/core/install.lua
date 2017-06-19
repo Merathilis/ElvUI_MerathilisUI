@@ -600,7 +600,15 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["mui"]["unitframes"]["player"]["portraitTransparent"] = true
 		E.db["mui"]["unitframes"]["player"]["portraitFrameStrata"] = "BACKGROUND"
 		if IsAddOnLoaded("ElvUI_BenikUI") then
-			E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = false
+			E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
+			E.db["benikui"]["unitframes"]["player"]["detachPortrait"] = true
+			E.db["benikui"]["unitframes"]["player"]["portraitWidth"] = 92
+			E.db["benikui"]["unitframes"]["player"]["portraitHeight"] = 39
+			E.db["benikui"]["unitframes"]["player"]["portraitShadow"] = false
+			E.db["benikui"]["unitframes"]["player"]["portraitTransparent"] = true
+			E.db["benikui"]["unitframes"]["player"]["portraitStyle"] = false
+			E.db["benikui"]["unitframes"]["player"]["portraitFrameStrata"] = "BACKGROUND"
+			MER:SetMoverPosition("PlayerPortraitMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 592, 143)
 		end
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -185, 143)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", -186, 158)
@@ -704,7 +712,14 @@ function MER:SetupUnitframes(noDataReset)
 		E.db["mui"]["unitframes"]["target"]["portraitShadow"] = false
 		E.db["mui"]["unitframes"]["target"]["portraitTransparent"] = true
 		if IsAddOnLoaded ("ElvUI_BenikUI") then
-			E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = false
+			E.db["unitframe"]["units"]["target"]["portrait"]["width"] = 0
+			E.db["benikui"]["unitframes"]["target"]["detachPortrait"] = true
+			E.db["benikui"]["unitframes"]["target"]["portraitWidth"] = 92
+			E.db["benikui"]["unitframes"]["target"]["portraitHeight"] = 39
+			E.db["benikui"]["unitframes"]["target"]["portraitShadow"] = false
+			E.db["benikui"]["unitframes"]["target"]["portraitTransparent"] = true
+			E.db["benikui"]["unitframes"]["target"]["portraitStyle"] = false
+			MER:SetMoverPosition("TargetPortraitMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -594, 143)
 		end
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 183, 143)
 		MER:SetMoverPosition("TargetPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 186, 158)

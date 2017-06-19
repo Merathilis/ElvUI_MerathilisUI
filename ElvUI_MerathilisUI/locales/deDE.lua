@@ -149,6 +149,7 @@ L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "A
 L["Transparent Backdrops"] = "Transparente Hintergründe"
 
 -- Unitframes
+L["UnitFrames"] = "Einheitenfenster"
 L["Apply shadow under the portrait"] = "Aktiviere den Schatten unter dem Portrait"
 L["Apply transparency on the portrait backdrop."] = "Wende Transparenz auf den Portrait Hintergrund an."
 L["Change the detached portrait height"] = "Ändert die Höhe des abgetrennten Portrait"

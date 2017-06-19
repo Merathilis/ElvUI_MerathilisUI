@@ -149,6 +149,7 @@ L["Applies transparency in all actionbar backdrops and actionbar buttons."] = tr
 L["Transparent Backdrops"] = true
 
 -- Unitframes
+L["UnitFrames"] = true
 L["Apply shadow under the portrait"] = true
 L["Apply transparency on the portrait backdrop."] = true
 L["Change the detached portrait height"] = true
