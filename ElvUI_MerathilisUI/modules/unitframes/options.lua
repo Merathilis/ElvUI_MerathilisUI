@@ -14,6 +14,7 @@ local function UnitFramesTable()
 		order = 15,
 		type = "group",
 		name = MUF.modName or MUF:GetName(),
+		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
@@ -30,11 +31,29 @@ local function UnitFramesTable()
 				},
 			},
 			player = {
-				order = 2,
+				order = 10,
 				type = "group",
 				name = L["Player Frame"],
-				guiInline = true,
 				args = {
+					portrait = {
+						order = 1,
+						type = "execute",
+						name = L["Player Portrait"],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "player", "portrait") end,
+					},
+				},
+			},
+			target = {
+				order = 11,
+				type = "group",
+				name = L["Target Frame"],
+				args = {
+					portrait = {
+						order = 1,
+						type = "execute",
+						name = L["Target Portrait"],
+						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "target", "portrait") end,
+					},
 				},
 			},
 		},
