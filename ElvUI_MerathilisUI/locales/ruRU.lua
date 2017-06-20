@@ -250,6 +250,28 @@ L["Test"] = true
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
+-- AFK
+L["Jan"] = true
+L["Feb"] = true
+L["Mar"] = true
+L["Apr"] = true
+L["May"] = true
+L["Jun"] = true
+L["Jul"] = true
+L["Aug"] = true
+L["Sep"] = true
+L["Oct"] = true
+L["Nov"] = true
+L["Dec"] = true
+
+L["Sun"] = true
+L["Mon"] = true
+L["Tue"] = true
+L["Wed"] = true
+L["Thu"] = true
+L["Fri"] = true
+L["Sat"] = true
+
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true
