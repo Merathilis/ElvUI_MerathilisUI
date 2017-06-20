@@ -11,6 +11,7 @@ local function styleContribution()
 
 	--Main Frame
 	ContributionCollectionFrame:StripTextures()
+	MERS:CreateBD(ContributionCollectionFrame, .25)
 
 	if not ContributionCollectionFrame.stripes then
 		MERS:CreateStripes(ContributionCollectionFrame)
