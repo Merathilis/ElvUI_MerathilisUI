@@ -194,17 +194,19 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self:SetAttribute("type", "item")
 
 	if(not self:GetPoint()) then
-		self:SetPoint("CENTER", ExtraActionButton1)
+		self:SetPoint("CENTER", BossButton)
 	end
 
-	self:SetSize(ExtraActionButton1:GetSize())
-	self:SetScale(ExtraActionButton1:GetScale())
-	self:SetHighlightTexture([[Interface\Buttons\ButtonHilight-Square]])
-	self:SetPushedTexture([[Interface\Buttons\CheckButtonHilight]])
-	self:GetPushedTexture():SetBlendMode("ADD")
+	self:SetSize(BossButton:GetSize())
+	self:SetScale(BossButton:GetScale()/1.65)
+	self:SetHighlightTexture("")
+	self:SetPushedTexture("")
+	-- self:GetPushedTexture():SetBlendMode("ADD")
 	self:SetScript("OnLeave", GameTooltip_Hide)
 	self:SetClampedToScreen(true)
 	self:SetToplevel(true)
+
+	self:CreateBackdrop("Default")
 
 	self.updateTimer = 0
 	self.rangeTimer = 0
@@ -230,16 +232,8 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	Cooldown:Hide()
 	self.Cooldown = Cooldown
 
-	local Artwork = self:CreateTexture("$parentArtwork", "BACKGROUND", nil, -8)
-	Artwork:SetPoint("CENTER", -2, 0)
-	Artwork:SetSize(256, 128)
-	Artwork:SetTexture([[Interface\ExtraButton\Default]])
-	self.Artwork = Artwork
-
 	self.Icon:SetTexCoord(.08, .92, .08, .92)
-	self:CreateShadow("Background")
-	-- self.border:SetFrameLevel(self:GetFrameLevel())
-	self:StyleButton(true)
+	self:StyleButton()
 
 	self:RegisterEvent("UPDATE_BINDINGS")
 	self:RegisterEvent("BAG_UPDATE_COOLDOWN")
@@ -324,7 +318,6 @@ end)
 ExtraQuestButton:SetScript("OnEnable", function(self)
 	RegisterStateDriver(self, "visible", visibilityState)
 	self:SetAttribute("_onattributechanged", onAttributeChanged)
-	self.Artwork:SetTexture([[Interface\ExtraButton\Default]])
 	self:Update()
 	self:SetItem()
 end)
@@ -337,7 +330,6 @@ ExtraQuestButton:SetScript("OnDisable", function(self)
 	RegisterStateDriver(self, "visible", "show")
 	self:SetAttribute("_onattributechanged", nil)
 	self.Icon:SetTexture([[Interface\Icons\INV_Misc_Wrench_01]])
-	self.Artwork:SetTexture([[Interface\ExtraButton\Ultraxion]])
 	self.HotKey:Hide()
 end)
 
