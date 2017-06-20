@@ -37,6 +37,7 @@ V["muiSkins"] = {
 		["lfg"] = true,
 		["talkinghead"] = true,
 		["guild"] = true,
+		["objectiveTracker"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

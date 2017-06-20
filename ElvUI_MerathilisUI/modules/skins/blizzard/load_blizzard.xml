@@ -14,6 +14,7 @@
 	<Script file="lfg.lua"/>
 	<Script file="merchant.lua"/>
 	<Script file="misc.lua"/>
+	<Script file="objectivetracker.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>
