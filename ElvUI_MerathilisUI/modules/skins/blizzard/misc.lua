@@ -29,6 +29,36 @@ local function styleMisc()
 	-- Graveyard button (a bit ugly if you press it)
 	GhostFrame:StripTextures()
 	GhostFrameContentsFrame:StripTextures()
+
+	-- tooltips
+	local tooltips = {
+		GameTooltip,
+		FriendsTooltip,
+		ItemRefTooltip,
+		ItemRefShoppingTooltip1,
+		ItemRefShoppingTooltip2,
+		ItemRefShoppingTooltip3,
+		AutoCompleteBox,
+		ShoppingTooltip1,
+		ShoppingTooltip2,
+		ShoppingTooltip3,
+		FloatingBattlePetTooltip,
+		FloatingPetBattleAbilityTooltip,
+		FloatingGarrisonFollowerAbilityTooltip,
+		WorldMapTooltip,
+		WorldMapCompareTooltip1,
+		WorldMapCompareTooltip2,
+		WorldMapCompareTooltip3,
+		DropDownList1MenuBackdrop,
+		DropDownList2MenuBackdrop,
+		DropDownList3MenuBackdrop,
+	}
+
+	for _, frame in pairs(tooltips) do
+		if frame and not frame.style then
+			MERS:CreateGradient(frame)
+		end
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
