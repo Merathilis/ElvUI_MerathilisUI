@@ -37,6 +37,7 @@ P["mui"] = {
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
+		["autoscreenshot"] = false,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,

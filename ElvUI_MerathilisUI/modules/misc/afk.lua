@@ -101,6 +101,14 @@ function AFK:UpdateLogOff()
 	local neg_seconds = -timePassed % 60
 
 	self.AFKMode.top.Status:SetValue(floor(timePassed))
+
+	-- This is needed, without this it will break the BenikUI Logout Timer
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+	else
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+	end
 end
 
 AFK.UpdateTimermUI = AFK.UpdateTimer

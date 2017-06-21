@@ -118,6 +118,7 @@ function MI:Initialize()
 	self:LoadTST()
 	self:LoadsumAuctions()
 	self:LoadQuestReward()
+	self:LoadAutoScreenShoot()
 end
 
 local function InitializeCallback()

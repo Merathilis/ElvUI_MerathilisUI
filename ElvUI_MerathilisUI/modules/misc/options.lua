@@ -63,6 +63,12 @@ local function Misc()
 				name = MERA.modName,
 				desc = L["Combat Status, Skill gains"],
 			},
+			autoscreenshot = {
+				order = 9,
+				type = "toggle",
+				name = L["Auto Screenshot"],
+				desc = L["Takes a screenshot on achievement earns and legendary loot."],
+			},
 		},
 	}
 end
