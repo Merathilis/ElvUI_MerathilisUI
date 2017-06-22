@@ -308,6 +308,27 @@ function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
 	Frame.Backdrop = Backdrop
 end
 
+function MERS:CreateBDFrame(f, a, left, right, top, bottom)
+	assert(f, "doesn't exist!")
+	local frame
+	if f:GetObjectType() == "Texture" then
+		frame = f:GetParent()
+	else
+		frame = f
+	end
+
+	local lvl = frame:GetFrameLevel()
+
+	local bg = CreateFrame("Frame", nil, frame)
+	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
+	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
+	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
+
+	MERS:CreateBD(bg, a or .5)
+
+	return bg
+end
+
 function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 	f:SetBackdrop({

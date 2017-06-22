@@ -29,6 +29,9 @@ MER.GreyColor = "|cffB5B5B5"
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
+MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
+MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text

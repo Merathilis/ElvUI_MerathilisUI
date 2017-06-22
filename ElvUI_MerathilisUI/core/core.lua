@@ -87,6 +87,7 @@ function MER:RegisterMedia()
 	E["media"].muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
 	E["media"].muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
+	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
 
 	E:UpdateMedia()
 end

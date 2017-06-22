@@ -36,6 +36,7 @@ LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_Merathili
 LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Light.tga]])
 LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint.tga]])
 LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Border.tga]])
+LSM:Register("statusbar","MerathilisGradient", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
 LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\lyn1.tga]])
 
 -- Sounds

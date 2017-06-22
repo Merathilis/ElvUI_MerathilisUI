@@ -15,7 +15,9 @@
 	<Script file="merchant.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="objectivetracker.lua"/>
-	<Script file="quest.lua"/>
+	<Script file="questframe.lua"/>
+	<Script file="questinfo.lua"/>
+	<Script file="questmapframe.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>
 	<Script file="pvp.lua"/>
