@@ -16,6 +16,16 @@ local function styleQuestChoice()
 
 	local QuestChoiceFrame = _G["QuestChoiceFrame"]
 
+	QuestChoiceFrame:StripTextures()
+
+	if QuestChoiceFrame.backdrop then
+		QuestChoiceFrame.backdrop:Hide()
+	end
+
+	MERS:CreateBD(QuestChoiceFrame, .5)
+	MERS:CreateGradient(QuestChoiceFrame)
+	MERS:CreateStripes(QuestChoiceFrame)
+
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()
 	end
@@ -57,8 +67,6 @@ local function styleQuestChoice()
 			rewards.Item.IconBorder:Hide()
 		end
 	end)
-
-	MERS:CreateBD(QuestChoiceFrame)
 end
 
 S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", styleQuestChoice)
