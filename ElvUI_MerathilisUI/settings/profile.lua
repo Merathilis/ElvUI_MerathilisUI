@@ -207,7 +207,6 @@ P["mui"] = {
 		["achievement"] = true,
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
-		["roleIcon"] = true,	-- Add a role icon on the tooltip?
 	},
 
 	["error"] = {

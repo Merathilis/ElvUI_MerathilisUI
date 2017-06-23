@@ -28,7 +28,6 @@ local C_ToyBox = C_ToyBox
 local UnitExists = UnitExists
 local UnitIsPlayer = UnitIsPlayer
 local UnitFactionGroup = UnitFactionGroup
-local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: TooltipItemIcon_HookFrame, TooltipItemIcon_DisplayIcon, TooltipItemIcon_Saved, DEFAULT_CHAT_FRAME
@@ -1111,26 +1110,6 @@ local function InsertFactionFrame(self, faction)
 	self.factionFrame:SetSize(35, 35)
 end
 
-local roleTex = {
-	["HEALER"] = {.066, .222, .133, .445},
-	["TANK"] = {.375, .532, .133, .445},
-	["DAMAGER"] = {.66, .813, .133, .445},
-}
-
-local function InsertRoleFrame(self, role)
-	if not self.roleFrame then
-		local f = self:CreateTexture(nil, "OVERLAY")
-		f:SetPoint("TOPRIGHT", self, "TOPLEFT", -1, -3)
-		f:SetSize(20, 20)
-		f:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
-		MERS:CreateSD(f, 3, 3)
-		self.roleFrame = f
-	end
-	self.roleFrame:SetTexCoord(unpack(roleTex[role]))
-	self.roleFrame:SetAlpha(1)
-	self.roleFrame.Shadow:SetAlpha(1)
-end
-
 local function InsertPetIcon(self, petType)
 	if not self.petIcon then
 		local f = self:CreateTexture(nil, "OVERLAY")
@@ -1147,10 +1126,6 @@ end
 MER:SecureHookScript(GameTooltip, "OnTooltipCleared", function(self)
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)
-	end
-	if self.roleFrame and self.roleFrame:GetAlpha() ~= 0 then
-		self.roleFrame:SetAlpha(0)
-		self.roleFrame.Shadow:SetAlpha(0)
 	end
 	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
 		self.petIcon:SetAlpha(0)
@@ -1176,13 +1151,6 @@ MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 				local faction = UnitFactionGroup(unit)
 				if faction and faction ~= "Neutral" then
 					InsertFactionFrame(self, faction)
-				end
-			end
-        
-			if E.db.mui.tooltip.roleIcon then
-				local role = UnitGroupRolesAssigned(unit)
-				if role ~= "NONE" then
-					InsertRoleFrame(self, role)
 				end
 			end
 		end

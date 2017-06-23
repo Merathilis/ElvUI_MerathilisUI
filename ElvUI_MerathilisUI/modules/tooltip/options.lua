@@ -24,25 +24,20 @@ local function Tooltip()
 			petIcon = {
 				order = 2,
 				type = "toggle",
-				name = L["Pet Icon"],
+				name = TOOLTIP_BATTLE_PET,
 				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
 			factionIcon = {
 				order = 3,
 				type = "toggle",
-				name = L["Faction Icon"],
+				name = FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
-			roleIcon = {
+			achievement = {
 				order = 4,
 				type = "toggle",
-				name = L["Role Icon"],
-				desc = L["Adds an role icon on the tooltip."],
-			},
-			achievement = {
-				order = 5,
-				type = "toggle",
-				name = L["Achievements"],
+				name = ACHIEVEMENT_BUTTON,
+				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
 		},
 	}

@@ -118,17 +118,12 @@ L["Auto Screenshot"] = true
 L["Takes a screenshot on achievement earns and legendary loot."] = "Macht einen Screenshot beim Erringen eines Erfolges und erbeuten eines Legendarys."
 
 -- TooltipIcon
-L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = "Fügt ein Symbol für Gegenstände/Zauber/Erfolge am Tooltip hinzu."
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
-L["Tooltip Icon"] = "Tooltip Symbol"
-L["Pet Icon"] = "Haustier Symbol"
 L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
-L["Faction Icon"] = "Fraktionssymbol"
 L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
-L["Role Icon"] = "Rollensymbol"
-L["Adds an role icon on the tooltip."] = "Fügt ein Rollensymbol am Tooltip hinzu."
+L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"

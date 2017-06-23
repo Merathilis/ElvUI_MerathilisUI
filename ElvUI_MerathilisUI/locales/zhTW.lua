@@ -106,18 +106,12 @@ L["Auto Screenshot"] = true
 L["Takes a screenshot on achievement earns and legendary loot."] = true
 
 -- Tooltip
-L["Adds an Icon for Items/Spells/Achievement on the Tooltip."] = true
-L["Tooltip"] = true
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
-L["Tooltip Icon"] = true
-L["Pet Icon"] = "Haustier Symbol"
 L["Adds an Icon for battle pets on the tooltip."] = true
-L["Faction Icon"] = "Fraktionssymbol"
 L["Adds an Icon for the faction on the tooltip."] = true
-L["Role Icon"] = true
-L["Adds an role icon on the tooltip."] = true
+L["Adds information to the tooltip, on which char you earned an achievement."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -125,6 +119,7 @@ L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
 
 -- Notification
 L["Notification"] = true
+L["Display a Toast Frame for different notifications."] = true
 L["This is an example of a notification."] = true
 L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = true

@@ -8,6 +8,7 @@ local function mediaTable()
 		order = 7,
 		childGroups = "tab",
 		get = function(info) return E.db.mui.media[ info[#info] ] end,
+		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
 		hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
 		args = {
 			name = {
