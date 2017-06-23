@@ -173,36 +173,15 @@ local function styleQuestInfo()
 	end
 	SkinQuestText(QuestInfoRewardsFrame.XPFrame.ReceiveText)
 
-	local function clearHighlight()
-		for _, button in next, QuestInfoRewardsFrame.RewardButtons do
-			button.bg:SetBackdropColor(0, 0, 0, .25)
-		end
-	end
-	local function setHighlight(self)
-		clearHighlight()
-
-		local _, point = self:GetPoint()
-		if point then
-			point.bg:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
-		end
-	end
-
 	local QuestInfoPlayerTitleFrame = _G["QuestInfoPlayerTitleFrame"]
 	QuestInfoPlayerTitleFrame.FrameLeft:Hide()
 	QuestInfoPlayerTitleFrame.FrameCenter:Hide()
 	QuestInfoPlayerTitleFrame.FrameRight:Hide()
 
-	local titleBG = _G.CreateFrame("Frame", nil, QuestInfoPlayerTitleFrame)
+	local titleBG = CreateFrame("Frame", nil, QuestInfoPlayerTitleFrame)
 	titleBG:SetPoint("TOPLEFT", QuestInfoPlayerTitleFrame.FrameLeft, -2, 0)
 	titleBG:SetPoint("BOTTOMRIGHT", QuestInfoPlayerTitleFrame.FrameRight, 0, -1)
 	MERS:CreateBD(titleBG, .25)
-
-	local ItemHighlight = QuestInfoRewardsFrame.ItemHighlight
-	ItemHighlight:GetRegions():Hide()
-
-	hooksecurefunc(ItemHighlight, "SetPoint", setHighlight)
-	ItemHighlight:HookScript("OnShow", setHighlight)
-	ItemHighlight:HookScript("OnHide", clearHighlight)
 
 	--[[ MapQuestInfoRewardsFrame ]]
 	for i, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
