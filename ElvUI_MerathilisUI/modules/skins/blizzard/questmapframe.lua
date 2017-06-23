@@ -21,14 +21,6 @@ local function styleQuestMapFrame()
 	local QuestScrollFrame = _G["QuestScrollFrame"]
 	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
 
-
-	_G["QuestScrollFrame"]:HookScript("OnUpdate", function(self)
-		if self.spellTex and self.spellTex2 then
-			self.spellTex:SetTexture("")
-			self.spellTex:SetTexture("")
-		end
-	end)
-
 	QuestMapFrame.VerticalSeparator:Hide()
 	QuestScrollFrame.Background:Hide()
 
@@ -77,9 +69,20 @@ local function styleQuestMapFrame()
 	RewardsFrame.Background:Hide()
 	select(2, RewardsFrame:GetRegions()):Hide()
 
+	-- Scroll frame
 	if _G["QuestProgressScrollFrame"].spellTex then
 		_G["QuestProgressScrollFrame"].spellTex:SetTexture("")
 	end
+
+	hooksecurefunc("QuestLogQuests_Update", function()
+		for i, questLogHeader in next, QuestMapFrame.QuestsFrame.Contents.Headers do
+			if not questLogHeader.styled then
+				-- F.ReskinExpandOrCollapse(questLogHeader)
+				questLogHeader.styled = true
+			end
+			questLogHeader:SetHighlightTexture("")
+		end
+	end)
 
 	-- Complete quest frame
 	CompleteQuestFrame:GetRegions():Hide()
