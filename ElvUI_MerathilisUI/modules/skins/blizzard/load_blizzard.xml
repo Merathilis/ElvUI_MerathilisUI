@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="achievement.lua"/>
+	<Script file="addonmanager.lua"/>
 	<Script file="artifact.lua"/>
 	<Script file="auctionhouse.lua"/>
 	<Script file="calendar.lua"/>
@@ -15,6 +16,7 @@
 	<Script file="merchant.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="objectivetracker.lua"/>
+	<Script file="questchoice.lua"/>
 	<Script file="questframe.lua"/>
 	<Script file="questinfo.lua"/>
 	<Script file="questmapframe.lua"/>

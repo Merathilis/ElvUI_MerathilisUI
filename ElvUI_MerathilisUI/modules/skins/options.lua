@@ -26,7 +26,6 @@ local SupportedProfiles = {
 	{"Kui_Nameplates_Core", "KuiNamePlates"},
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
-	{"SorhaQuestLog", "SorhaQuestLog"},
 	{"XIV_Databar", "XIV_Databar"},
 }
 
@@ -139,6 +138,11 @@ local function SkinsTable()
 				name = L["Quest Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.quest end,
 			},
+			questChoice = {
+				type = "toggle",
+				name = L["Quest Choice"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
+			},
 			orderhall = {
 				type = "toggle",
 				name = L["Orderhall"],
@@ -228,6 +232,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = OBJECTIVES_TRACKER_LABEL..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
+			},
+			addonManager = {
+				type = "toggle",
+				name = L["AddOn Manager"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.addonManager end,
 			},
 		},
 	}

@@ -19,6 +19,7 @@ V["muiSkins"] = {
 		["encounterjournal"] = true,
 		["gossip"] = true,
 		["quest"] = true,
+		["questChoice"] = true,
 		["spellbook"] = true,
 		["orderhall"] = true,
 		["talent"] = true,
@@ -38,6 +39,7 @@ V["muiSkins"] = {
 		["talkinghead"] = true,
 		["guild"] = true,
 		["objectiveTracker"] = true,
+		["addonManager"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
