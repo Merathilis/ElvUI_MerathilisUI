@@ -238,6 +238,11 @@ local function SkinsTable()
 				name = L["AddOn Manager"]..MER.NewSign,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.addonManager end,
 			},
+			mail = {
+				type = "toggle",
+				name =  L["Mail Frame"]..MER.NewSign,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.mail end,
+			},
 		},
 	}
 

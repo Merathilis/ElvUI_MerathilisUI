@@ -40,6 +40,7 @@ V["muiSkins"] = {
 		["guild"] = true,
 		["objectiveTracker"] = true,
 		["addonManager"] = true,
+		["mail"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
