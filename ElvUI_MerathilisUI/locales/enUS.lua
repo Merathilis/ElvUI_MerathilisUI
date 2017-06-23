@@ -57,6 +57,53 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 L["Misc"] = true
 
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
+L["Zone Text"] = true
+L["Test"] = true
+L["Subzone Text"] = true
+L["PvP Status Text"] = true
+L["Misc Texts"] = true
+L["Mail Text"] = true
+L["Chat Editbox Text"] = true
+L["Gossip and Quest Frames Text"] = true
+L["Objective Tracker Header Text"] = true
+L["Objective Tracker Text"] = true
+L["Banner Big Text"] = true
+
 -- Misc
 L["Artifact Power"] = true
 L[" spotted!"] = true

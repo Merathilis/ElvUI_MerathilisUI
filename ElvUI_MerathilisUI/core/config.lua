@@ -211,7 +211,7 @@ local function AddOptions()
 				},
 			},
 			Notification = {
-				order = 7,
+				order = 8,
 				type = "group",
 				name = L["Notification"],
 				get = function(info) return E.db.mui.general.Notification[ info[#info] ] end,

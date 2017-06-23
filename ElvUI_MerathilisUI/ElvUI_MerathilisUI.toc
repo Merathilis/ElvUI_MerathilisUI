@@ -3,8 +3,8 @@
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Elv & all AddOn Authors who inspired me
 ## Version: 3.01
 ## Title: |cff1784d1ElvUI|r |cffff7d0aMerathilisUI|r
-## Notes: A decorative edit for ElvUI + additional features. I highly recommend you to use it with BenikUI.
-## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen. Es wird empfohlen mein Edit mit BenikUI zu nutzen.
+## Notes: A decorative edit for ElvUI + additional features.
+## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## eMail: neo0608@gmail.com
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
@@ -19,9 +19,9 @@
 ## X-Curse-Project-ID: merathilis-ui
 
 libs\load_libs.xml
-media\load_media.xml
 locales\load_locales.xml
 core\load_core.xml
+media\load_media.xml
 settings\load_settings.xml
 developer\load_developer.xml
 layout\layout.lua

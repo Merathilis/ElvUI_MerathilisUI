@@ -30,6 +30,61 @@ P["mui"] = {
 		["styleAlpha"] = 1,
 	},
 
+	--Media
+	["media"] = {
+		["fonts"] = {
+			["zone"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 32,
+				["outline"] = "OUTLINE",
+				["width"] = 512,
+			},
+			["subzone"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 25,
+				["outline"] = "OUTLINE",
+				["offset"] = 0,
+				["width"] = 512,
+			},
+			["pvp"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 22,
+				["outline"] = "OUTLINE",
+				["width"] = 512,
+			},
+			["mail"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["editbox"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["gossip"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["objective"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["objectiveHeader"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 12,
+				["outline"] = "OUTLINE",
+			},
+			["questFontSuperHuge"] = {
+				["font"] = "Merathilis Roboto-Black",
+				["size"] = 24,
+				["outline"] = "NONE",
+			},
+		},
+	},
+
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
 		["moveBlizz"] = true, -- Make Blizzards Frame movable

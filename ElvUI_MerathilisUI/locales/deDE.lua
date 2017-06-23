@@ -57,6 +57,54 @@ L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
 L["Misc"] = "Verschiedenes"
 
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Salzgitter",
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
+L["Zone Text"] = "Zonen Schriftart"
+L["Test"] = true
+L["Subzone Text"] = "Subzonen Schriftart"
+L["PvP Status Text"] = "PvP Status Schriftart"
+L["Misc Texts"] = "Verschiedene Schriftarten"
+L["Mail Text"] = "Post Schriftart"
+L["Chat Editbox Text"] = "Chat-Eingabefeld Schriftart"
+L["Gossip and Quest Frames Text"] = "Begrüßungs- und Questfenster Schriftart"
+L["Objective Tracker Header Text"] = "Objective Tracker Kopf Schriftart"
+L["Objective Tracker Text"] = "Objective Tracker Schriftart"
+L["Banner Big Text"] = true
+
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
 L[" spotted!"] = " entdeckt!"
