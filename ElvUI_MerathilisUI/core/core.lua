@@ -89,6 +89,9 @@ function MER:RegisterMedia()
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
 	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
 
+	-- This change the text color for the QuestInfoQuestType (white)
+	_G["QuestFont"]:SetTextColor(1, 1, 1)
+
 	E:UpdateMedia()
 end
 
