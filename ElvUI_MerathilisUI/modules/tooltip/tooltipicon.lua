@@ -1110,6 +1110,7 @@ local function InsertFactionFrame(self, faction)
 	self.factionFrame:SetSize(35, 35)
 end
 
+-- Pet icon
 local function InsertPetIcon(self, petType)
 	if not self.petIcon then
 		local f = self:CreateTexture(nil, "OVERLAY")
