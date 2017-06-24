@@ -16,7 +16,10 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 local function styleMail()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
 
-	select(18, _G.MailFrame:GetRegions()):Hide()
+	local MailFrame = _G["MailFrame"]
+	select(18, MailFrame:GetRegions()):Hide()
+
+	MERS:CreateStripes(MailFrame)
 
 	-- InboxFrame
 	for i = 1, INBOXITEMS_TO_DISPLAY do
@@ -53,6 +56,7 @@ local function styleMail()
 		if not b.skinned then
 			b:StripTextures()
 			b:SetTemplate("Transparent", true)
+			MERS:CreateGradient(b)
 			b:StyleButton()
 			b.skinned = true
 			hooksecurefunc(b.IconBorder, "SetVertexColor", function(self, r, g, b)
@@ -72,6 +76,8 @@ local function styleMail()
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G["OpenMailFrame"]
+
+	MERS:CreateStripes(OpenMailFrame)
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G["InboxFrame"], "TOPRIGHT", 5, 0)
 	_G["OpenMailFrameIcon"]:Hide()
