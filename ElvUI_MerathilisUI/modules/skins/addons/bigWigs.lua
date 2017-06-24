@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins");
 
 -- Cache global variables
@@ -50,7 +51,7 @@ local function ApplyStyle(bar)
 	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bg:ClearAllPoints()
 	bg:SetOutside(bar)
-	bg:SetTemplate('Transparent')
+	bg:SetTemplate("Transparent")
 	bg:Show()
 	bar:Set("bigwigs:MerathilisUI:bg", bg)
 
@@ -77,6 +78,7 @@ local function ApplyStyle(bar)
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.SetPoint = MER.dummy
 	bar.candyBarBar:SetStatusBarTexture(E["media"].muiBlank)
+	MERS:CreateGradient(bar.candyBarBar)
 	if not bar.data["bigwigs:emphasized"] == true then
 		bar.candyBarBar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 1)
 	end
@@ -102,23 +104,22 @@ end
 local f = CreateFrame("Frame")
 local function StyleBigWigs()
 	if not BigWigs then return end
-	if E.private.muiSkins == nil then E.private.muiSkins = {} end
-	if E.private.muiSkins.addonSkins == nil then E.private.muiSkins.addonSkins = {} end
 	if E.private.muiSkins.addonSkins.bw ~= true then return end
 
 	local styleName = MER.Title
 	local bars = BigWigs:GetPlugin("Bars", true)
-	if not bars then return end
-	f:UnregisterEvent("ADDON_LOADED")
-	f:UnregisterEvent("PLAYER_LOGIN")
-	bars:RegisterBarStyle(styleName, {
-		apiVersion = 1,
-		version = 1,
-		GetSpacing = function() return 18 end,
-		ApplyStyle = ApplyStyle,
-		BarStopped = FreeStyle,
-		GetStyleName = function() return styleName end,
-	})
+	if bars then
+		f:UnregisterEvent("ADDON_LOADED")
+		f:UnregisterEvent("PLAYER_LOGIN")
+		bars:RegisterBarStyle(styleName, {
+			apiVersion = 1,
+			version = 1,
+			GetSpacing = function() return 18 end,
+			ApplyStyle = ApplyStyle,
+			BarStopped = FreeStyle,
+			GetStyleName = function() return styleName end,
+		})
+	end
 end
 f:RegisterEvent("ADDON_LOADED")
 f:RegisterEvent("PLAYER_LOGIN")
