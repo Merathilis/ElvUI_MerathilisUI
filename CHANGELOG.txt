@@ -1,3 +1,12 @@
+<b><u> v3.02, 24.06.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Pimp my AFK Screen. Should be compatible with BenikUI.
+<font color=#FF8C00>&#9830;</font> Add an autoscreenshot function on achievements and legendary item drops.
+<font color=#FF8C00>&#9830;</font> Update/Add a lot of skins.
+<font color=#FF8C00>&#9830;</font> Fix an error in the questinfo skin.
+<font color=#FF8C00>&#9830;</font> Add a media section to adjust some fonts. Will be disabled if S&L is loaded.
+<font color=#FF8C00>&#9830;</font> Remove the RoleIcons from the Tooltip.
+<font color=#FF8C00>&#9830;</font> Add an extern EncounterJournalInfo Frame.
+
 <b><u> v3.01, 19.06.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Fix an error in the Orderhall skin. Update the Chromie Talent skin. Thx Simpy <3
 <font color=#FF8C00>&#9830;</font> Fix an error in the PvP skin that the tooltips won't show.

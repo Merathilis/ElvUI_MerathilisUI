@@ -18,21 +18,17 @@ if E.db.mui.installed == nil then return; end
 local ChangeLog = CreateFrame("frame")
 local ChangeLogData = {
 	"Changes:",
-		"• Fix an error in the Orderhall skin. Update the Chromie Talent skin.",
-		"  Thx Simpy <3",
-		"• Fix an error in the PvP skin that the tooltips won't show.",
-		"• Update a lot of skins.",
-		"• Create an option to disable the decorative Stripes.",
-		"• Add own detached portraits for Player/Target. The options are disabled",
-		"  if BenikUI is loaded. -- Credits Benik",
-		"• Add own options for transparent Actionbar Backdrop. The options are", 
-		"  disabled if BenikUI is loaded. -- Credits Benik",
+		"• Pimp my AFK Screen. Should be compatible with BenikUI",
+		"• Add an autoscreenshot function on achievements and legendary item drops.",
+		"• Update/Add a lot of skins.",
+		"• Fix an error in the questinfo skin.",
+		"• Add a media section to adjust some fonts. Will be disabled if S&L is loaded.",
+		"• Remove the RoleIcons from the Tooltip.", 
+		"• Add an extern EncounterJournalInfo Frame.",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• With this version you don't need BenikUI anymore.",
-		"• But i would highly recommend it, if you still want to use the amazing",
-		"  flightMode or AFK Mode from BenikUI <3.",
+		-- "• ",
 }
 
 local function ModifiedString(string)

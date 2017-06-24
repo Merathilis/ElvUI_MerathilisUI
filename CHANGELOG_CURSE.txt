@@ -1,3 +1,12 @@
+** v3.02, 24.06.2017**
+* Pimp my AFK Screen. Should be compatible with BenikUI.
+* Add an autoscreenshot function on achievements and legendary item drops.
+* Update/Add a lot of skins.
+* Fix an error in the questinfo skin.
+* Add a media section to adjust some fonts. Will be disabled if S&L is loaded.
+* Remove the RoleIcons from the Tooltip.
+* Add an extern EncounterJournalInfo Frame.
+
 ** v3.01, 19.06.2017**
 * Fix an error in the Orderhall skin. Update the Chromie Talent skin. Thx Simpy <3
 * Fix an error in the PvP skin that the tooltips won't show.
