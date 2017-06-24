@@ -182,6 +182,20 @@ function MERS:CreateSoftGlow(f)
 	f.sglow = sglow
 end
 
+-- Gradient Frame
+function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
+	assert(f, "doesn't exist!")
+	f:SetSize(w, h)
+	f:SetFrameStrata("BACKGROUND")
+	local gf = f:CreateTexture(nil, "BACKGROUND")
+	gf:SetPoint("TOPLEFT", f, -1, 1)
+	gf:SetPoint("BOTTOMRIGHT", f, 1, -1)
+	gf:SetTexture(E["media"].muiNormTex)
+	gf:SetVertexColor(r, g, b)
+	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
+end
+
+-- Texture Gradient
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 	local tex = f:CreateTexture(nil, "BORDER")
