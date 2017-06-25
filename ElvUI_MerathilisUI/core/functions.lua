@@ -86,6 +86,24 @@ function MER:Reset(group)
 	E:UpdateAll()
 end
 
+function MER:GetGradientColor(r, g, b)
+	r = r or 0
+	g = g or 0
+	b = b or 0
+
+	return r, g, b, r/2, g/2, b/2
+end
+
+function MER:SetStatusBarGradient(bar, hook)
+	if not bar:GetStatusBarTexture() then return end
+	local r, g, b = bar:GetStatusBarColor()
+	bar:GetStatusBarTexture():SetGradient("VERTICAL", self:GetGradientColor(r, g, b))
+
+	if hook then
+		hooksecurefunc(bar, "SetStatusBarColor", function(self, r, g, b) bar:GetStatusBarTexture():SetGradient("VERTICAL", MER:GetGradientColor(r, g, b)) end)
+	end
+end
+
 -- Personal usage stuff
 MER.IsDev = { Merathilis = true, Jazira = true, Asragoth = true, Jahzzy = true }
 MER.IsDevRealm = { Shattrath = true, Garrosh = true }
@@ -108,7 +126,7 @@ MER.colors = {
 	class = {},
 }
 
-MER["colors"].class = {
+MER.colors.class = {
 	["DEATHKNIGHT"]	= { 0.77,	0.12,	0.23 },
 	["DEMONHUNTER"]	= { 0.64,	0.19,	0.79 },
 	["DRUID"]		= { 1,		0.49,	0.04 },
