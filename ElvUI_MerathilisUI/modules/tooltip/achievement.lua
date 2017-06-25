@@ -13,6 +13,7 @@ local UnitGUID = UnitGUID
 
 local function SetHyperlink(tooltip, refString)
 	if E.db.mui.tooltip.achievement ~= true then return end
+	if tooltip:IsForbidden() then return; end
 	if select(3, find(refString, "(%a-):")) ~= "achievement" then return end
 
 	local _, _, achievementID = find(refString, ":(%d+):")

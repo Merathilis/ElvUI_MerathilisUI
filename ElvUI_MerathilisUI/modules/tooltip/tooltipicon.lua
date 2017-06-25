@@ -1125,6 +1125,7 @@ local function InsertPetIcon(self, petType)
 end
 
 MER:SecureHookScript(GameTooltip, "OnTooltipCleared", function(self)
+	if GameTooltip:IsForbidden() then return; end
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)
 	end
@@ -1144,6 +1145,7 @@ local function getUnit(self)
 end
 
 MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
+	if GameTooltip:IsForbidden() then return; end
 	local unit = getUnit(self)
 
 	if UnitExists(unit) then
