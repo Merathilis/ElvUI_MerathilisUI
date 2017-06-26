@@ -1,10 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
 local pairs, select, unpack = pairs, select, unpack
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: WeakAuras
 
@@ -15,30 +15,50 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
 	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
-	local function Skin_WeakAuras(frame, ftype)
+	local function CreateBackdrop(frame)
+		if frame.backdrop then return end
+
+		local backdrop = CreateFrame("Frame", nil, frame)
+		backdrop:ClearAllPoints()
+		backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", -1, 1)
+		backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 1, -1)
+
+		backdrop:SetBackdrop({
+			edgeFile = E["media"].muiFlat,
+			edgeSize = E.mult,
+			insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult },
+		})
+
+		backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+		backdrop:SetBackdropColor(0, 0, 0, 1)
+
+		if frame:GetFrameLevel() - 1 >= 0 then
+			backdrop:SetFrameLevel(frame:GetFrameLevel() - 1)
+		else
+			backdrop:SetFrameLevel(0)
+		end
+
+		frame.backdrop = backdrop
+	end
+
+	local function SkinWeakAuras(frame, ftype)
 		if not frame.backdrop then
-			MERS:CreateBackdrop(frame, "Transparent")
-			MERS:SkinTexture(frame.icon)
-			frame.icon.SetTexCoord = function () end
+			CreateBackdrop(frame, "Transparent")
 
 			if ftype == "icon" then
-				frame.Backdrop:HookScript("OnUpdate", function(self)
+				frame.backdrop:HookScript("OnUpdate", function(self)
 					self:SetAlpha(self:GetParent().icon:GetAlpha())
 				end)
 			end
 		end
 
 		if ftype == "aurabar" then
-			frame.Backdrop:Hide()
+			frame.backdrop:Hide()
 		end
 
 		if ftype == "icon" then
-			E:RegisterCooldown(frame.cooldown)
-		end
-
-		if frame.icon then
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
-			frame.icon.SetTexCoord = function() end
+			E:RegisterCooldown(frame.cooldown)
 		end
 
 		if frame.border then
@@ -46,34 +66,38 @@ frame:SetScript("OnEvent", function(self, event)
 		end
 	end
 
-	local Create_Icon, Modify_Icon = WeakAuras.regionTypes.icon.create, WeakAuras.regionTypes.icon.modify
-	local Create_AuraBar, Modify_AuraBar = WeakAuras.regionTypes.aurabar.create, WeakAuras.regionTypes.aurabar.modify
 
+	local CreateIcon = WeakAuras.regionTypes.icon.create
 	WeakAuras.regionTypes.icon.create = function(parent, data)
-		local region = Create_Icon(parent, data)
-		Skin_WeakAuras(region, "icon")
+		local region = CreateIcon(parent, data)
+		SkinWeakAuras(region, "icon")
 		return region
 	end
 
-	WeakAuras.regionTypes.aurabar.create = function(parent)
-		local region = Create_AuraBar(parent)
-		Skin_WeakAuras(region, "aurabar")
-		return region
-	end
-
+	local ModifyIcon = WeakAuras.regionTypes.icon.modify
 	WeakAuras.regionTypes.icon.modify = function(parent, region, data)
-		Modify_Icon(parent, region, data)
-		Skin_WeakAuras(region, "icon")
+		ModifyIcon(parent, region, data)
+		SkinWeakAuras(region, "icon")
 	end
 
+	local CreateAuraBar = WeakAuras.regionTypes.aurabar.create
+	WeakAuras.regionTypes.aurabar.create = function(parent)
+		local region = CreateAuraBar(parent)
+		SkinWeakAuras(region, "aurabar")
+		return region
+	end
+
+	local ModifyAuraBar = WeakAuras.regionTypes.aurabar.modify
 	WeakAuras.regionTypes.aurabar.modify = function(parent, region, data)
-		Modify_AuraBar(parent, region, data)
-		Skin_WeakAuras(region, "aurabar")
+		ModifyAuraBar(parent, region, data)
+		SkinWeakAuras(region, "aurabar")
 	end
 
-	for weakAura, _ in pairs(WeakAuras.regions) do
-		if WeakAuras.regions[weakAura].regionType == "icon" or WeakAuras.regions[weakAura].regionType == "aurabar" then
-			Skin_WeakAuras(WeakAuras.regions[weakAura].region)
+	for aura, _ in pairs(WeakAuras.regions) do
+		local ftype = WeakAuras.regions[aura].regionType
+
+		if ftype == "icon" or ftype == "aurabar" then
+			SkinWeakAuras(WeakAuras.regions[aura].region, ftype)
 		end
 	end
 end)
