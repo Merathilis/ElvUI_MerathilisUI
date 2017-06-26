@@ -30,8 +30,8 @@ local function AddOptions()
 				type = "description",
 				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 150, 150 end,
-				imageCoords = {0,0.99,0.01,0.99},
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 100, 100 end,
+				imageCoords = { 0, 0.99, 0.01, 0.99 },
 			},
 			install = {
 				order = 3,
