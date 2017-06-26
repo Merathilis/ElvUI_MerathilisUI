@@ -82,10 +82,20 @@ function MAB:TransparentBackdrops()
 	end
 end
 
+-- Code taken from CleanBossButton
+local function RemoveTexture(self, texture, stopLoop)
+	if stopLoop then return end
+
+	self:SetTexture("", true) --2nd argument is to stop endless loop
+end
+
 function MAB:Initialize()
 	CheckExtraAB()
 	C_TimerAfter(1, MAB.TransparentBackdrops)
 	if IsAddOnLoaded("ElvUI_TB") then DisableAddOn("ElvUI_TB") end
+
+	hooksecurefunc(ZoneAbilityFrame.SpellButton.Style, "SetTexture", RemoveTexture)
+	hooksecurefunc(ExtraActionButton1.style, "SetTexture", RemoveTexture)
 end
 
 local function InitializeCallback()
