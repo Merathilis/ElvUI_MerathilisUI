@@ -52,6 +52,12 @@ local function styleQuestFrame()
 	_G["QuestFrameProgressPanel"]:DisableDrawLayer("BACKGROUND")
 	_G["QuestFrameProgressPanel"]:DisableDrawLayer("BORDER")
 
+	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
+		self:SetTemplate("Transparent")
+		self.spellTex:SetTexture("")
+		self:Height(self:GetHeight() - 2)
+	end)
+
 	_G["QuestProgressScrollFrameTop"]:Hide()
 	_G["QuestProgressScrollFrameBottom"]:Hide()
 	_G["QuestProgressScrollFrameMiddle"]:Hide()
