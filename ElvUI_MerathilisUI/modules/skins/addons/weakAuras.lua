@@ -60,10 +60,6 @@ frame:SetScript("OnEvent", function(self, event)
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			E:RegisterCooldown(frame.cooldown)
 		end
-
-		if frame.border then
-			frame.border:Hide()
-		end
 	end
 
 
