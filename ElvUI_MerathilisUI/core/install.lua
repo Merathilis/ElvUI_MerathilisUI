@@ -1317,8 +1317,8 @@ end
 MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
- 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
- 	["Pages"] = {
+	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
+	["Pages"] = {
 		[1] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."], MER.Version, E.version)
 			PluginInstallFrame.Desc1:SetText(L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"])
