@@ -47,6 +47,11 @@ local function styleCollections()
 
 	WardrobeCollectionFrame.ItemsTab.backdrop:Hide()
 	WardrobeCollectionFrame.SetsTab.backdrop:Hide()
+
+	-- Pet
+	local card = _G["PetJournalPetCard"]
+	_G["PetJournalPetCardBG"]:Hide()
+	card:SetTemplate("Transparent")
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", "mUICollections", styleCollections)
