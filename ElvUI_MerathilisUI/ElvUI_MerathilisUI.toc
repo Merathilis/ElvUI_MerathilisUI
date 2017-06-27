@@ -10,7 +10,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, XIV_Databar
+## OptionalDeps: SharedMedia, XIV_Databar, BigWigs
 ## X-ElvVersion: 10.58
 ## X-Tukui-ProjectID: 286
 ## X-Tukui-ProjectFolders: ElvUI_MerathilisUI
