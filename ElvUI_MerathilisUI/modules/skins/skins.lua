@@ -209,16 +209,16 @@ end
 
 function MERS:CreateStripes(f)
 	assert(f, "doesn't exist!")
+	if f.stripes or E.private.muiSkins.general.stripes ~= true then return end
 
 	f.stripes = f:CreateTexture(nil, "BACKGROUND", nil, 1)
+	f.stripes:SetAllPoints()
+	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
+	f.stripes:SetHorizTile(true)
+	f.stripes:SetVertTile(true)
+	f.stripes:SetBlendMode("ADD")
 
-	if E.private.muiSkins.general.stripes then -- really bad
-		f.stripes:SetAllPoints()
-		f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
-		f.stripes:SetHorizTile(true)
-		f.stripes:SetVertTile(true)
-		f.stripes:SetBlendMode("ADD")
-	end
+	f.stripes = stripes
 end
 
 -- Taken from AddOnSkins 
@@ -247,7 +247,7 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 		Frame.InsetTop:Height(1)
 		Frame.InsetTop:SetColorTexture(0, 0, 0)
 		Frame.InsetTop:SetDrawLayer("BORDER", -7)
-    
+
 		Frame.InsetBottom = Frame:CreateTexture(nil, "BORDER")
 		Frame.InsetBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, -1)
 		Frame.InsetBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, -1)
@@ -500,10 +500,7 @@ function MERS:ReskinTab(tab)
 		tab.backdrop:SetTemplate("Transparent")
 	end
 
-	if not tab.backdrop.stripes then
-		MERS:CreateStripes(tab.backdrop)
-	end
-	tab.backdrop.stripes:SetInside(tab.backdrop)
+	MERS:CreateStripes(tab.backdrop)
 end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 
