@@ -6,7 +6,7 @@ local pairs, select, unpack = pairs, select, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS: WeakAuras
+-- GLOBALS: WeakAuras, hooksecurefunc
 
 -- WEAKAURAS SKIN
 local frame = CreateFrame("Frame")
@@ -15,50 +15,30 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
 	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
-	local function CreateBackdrop(frame)
-		if frame.backdrop then return end
-
-		local backdrop = CreateFrame("Frame", nil, frame)
-		backdrop:ClearAllPoints()
-		backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", -1, 1)
-		backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 1, -1)
-
-		backdrop:SetBackdrop({
-			edgeFile = E["media"].muiFlat,
-			edgeSize = E.mult,
-			insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult },
-		})
-
-		backdrop:SetBackdropBorderColor(0, 0, 0, 1)
-		backdrop:SetBackdropColor(0, 0, 0, 1)
-
-		if frame:GetFrameLevel() - 1 >= 0 then
-			backdrop:SetFrameLevel(frame:GetFrameLevel() - 1)
-		else
-			backdrop:SetFrameLevel(0)
-		end
-
-		frame.backdrop = backdrop
-	end
-
 	local function SkinWeakAuras(frame, ftype)
-		if not frame.backdrop then
-			CreateBackdrop(frame, "Transparent")
-
-			if ftype == "icon" then
-				frame.backdrop:HookScript("OnUpdate", function(self)
-					self:SetAlpha(self:GetParent().icon:GetAlpha())
-				end)
+		if ftype == "icon" then
+			if not frame.shadow then
+				frame:CreateShadow("Background")
+				frame.icon:SetTexCoord(unpack(E.TexCoords))
+				frame.icon.SetTexCoord = MER.dummy
+				E:RegisterCooldown(frame.cooldown)
 			end
 		end
 
 		if ftype == "aurabar" then
-			frame.backdrop:Hide()
-		end
-
-		if ftype == "icon" then
-			frame.icon:SetTexCoord(unpack(E.TexCoords))
-			E:RegisterCooldown(frame.cooldown)
+			if not frame.bar.shadow then
+				frame.bar:CreateShadow("Background")
+				frame.iconFrame:CreateShadow("Background")
+				frame.iconFrame:SetAllPoints(frame.icon)
+				frame.icon:SetTexCoord(unpack(E.TexCoords))
+				frame.icon.SetTexCoord = MER.dummy
+				hooksecurefunc(frame.bar, "SetForegroundColor", function(self, r, g, b, a)
+					self.fg:SetGradient("VERTICAL", MER:GetGradientColor(r, g, b))
+				end)
+				hooksecurefunc(frame.bar, "SetBackgroundColor", function(self, r, g, b, a)
+					self.bg:SetGradient("VERTICAL", MER:GetGradientColor(r, g, b))
+				end)
+			end
 		end
 	end
 
