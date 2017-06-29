@@ -30,7 +30,6 @@ local function styleMail()
 			bg.backdrop:Hide()
 		end
 		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
 
 		local b = _G["MailItem"..i.."Button"]
 		b:StripTextures()
