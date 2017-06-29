@@ -124,6 +124,8 @@ L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
 L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
+L["Model"] = true
+L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"

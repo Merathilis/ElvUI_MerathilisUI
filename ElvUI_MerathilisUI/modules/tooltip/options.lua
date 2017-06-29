@@ -39,6 +39,12 @@ local function Tooltip()
 				name = ACHIEVEMENT_BUTTON,
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
+			modelIcon = {
+				order = 5,
+				type = "toggle",
+				name = L["Model"],
+				desc = L["Adds an Model icon on the tooltip."],
+			},
 		},
 	}
 end

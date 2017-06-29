@@ -1097,6 +1097,32 @@ function TooltipItemIcon_HookFrame(frame, location, compare)
 	end
 end
 
+-- Model Frame
+local function InsertModelFrame(self, unit)
+	if not self.modelFrame then
+		local f = CreateFrame("PlayerModel", nil)
+		f:SetPoint("BOTTOMRIGHT", self, "TOPRIGHT", 10, -10)
+		self.modelFrame = f
+	end
+	self.modelFrame:SetSize(90 , 90)
+	self.modelFrame:SetFacing(-0.25)
+	self.modelFrame:SetParent(_G["GameTooltip"])
+
+	if not UnitIsVisible(unit) then return end
+	if UnitIsPlayer(unit) then
+		self.modelFrame:SetUnit(unit)
+		self.modelFrame:Show()
+		self.modelFrame:SetScript("OnUpdate", function(self, elapsed)
+			if (IsControlKeyDown() or IsAltKeyDown()) then
+				self:SetFacing(self:GetFacing() + math.pi * elapsed)
+			end
+		end)
+	else
+		self.modelFrame:ClearModel()
+		self.modelFrame:Hide()
+	end
+end
+
 -- Add a faction badge
 local function InsertFactionFrame(self, faction)
 	if not self.factionFrame then
@@ -1126,6 +1152,10 @@ end
 
 MER:SecureHookScript(GameTooltip, "OnTooltipCleared", function(self)
 	if GameTooltip:IsForbidden() then return; end
+	if self.modelFrame and self.modelFrame:GetAlpha() ~= 0 then
+		self.modelFrame:Hide()
+		self.modelFrame:ClearModel()
+	end
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)
 	end
@@ -1149,6 +1179,13 @@ MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 	local unit = getUnit(self)
 
 	if UnitExists(unit) then
+
+		if UnitIsPlayer(unit) then
+			if E.db.mui.tooltip.modelIcon then
+				InsertModelFrame(self, unit)
+			end
+		end
+
 		if UnitIsPlayer(unit) then
 			if E.db.mui.tooltip.factionIcon then
 				local faction = UnitFactionGroup(unit)

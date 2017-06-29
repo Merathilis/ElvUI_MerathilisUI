@@ -236,6 +236,7 @@ function MER:SetupLayout(noDataReset)
 		E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 		E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 		E.db["databars"]["experience"]["hideInVehicle"] = true
+		E.db["databars"]["experience"]["hideInCombat"] = true
 		E.db["databars"]["reputation"]["enable"] = true
 		E.db["databars"]["reputation"]["mouseover"] = false
 		E.db["databars"]["reputation"]["height"] = 135
@@ -244,15 +245,18 @@ function MER:SetupLayout(noDataReset)
 		E.db["databars"]["reputation"]["textFormat"] = "NONE"
 		E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 		E.db["databars"]["reputation"]["hideInVehicle"] = true
+		E.db["databars"]["reputation"]["hideInCombat"] = true
 		E.db["databars"]["artifact"]["enable"] = true
 		E.db["databars"]["artifact"]["height"] = 135
 		E.db["databars"]["artifact"]["textSize"] = 11
 		E.db["databars"]["artifact"]["width"] = 10
 		E.db["databars"]["artifact"]["hideInVehicle"] = true
+		E.db["databars"]["artifact"]["hideInCombat"] = true
 		E.db["databars"]["honor"]["enable"] = true
 		E.db["databars"]["honor"]["height"] = 135
 		E.db["databars"]["honor"]["textSize"] = 11
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
+		E.db["databars"]["honor"]["hideInCombat"] = true
 
 		--[[----------------------------------
 		--	ProfileDB - Auras
