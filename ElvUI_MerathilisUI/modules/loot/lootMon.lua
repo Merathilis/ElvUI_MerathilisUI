@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local LM = E:NewModule("LootMon", "AceHook-3.0", "AceEvent-3.0")
+local MERS = E:GetModule("muiSkins")
 LM.modName = L["Loot Monitor"]
 
 -- Cache global variables
@@ -146,19 +147,13 @@ end
 function FindFreeID()
 	local i = 1
 	for i = 1, config.maxItems do
-		if not items[i].isshown then 
+		if not items[i].isshown then
 			return i
 		end
 	end
 	return false
 end
 
-function QColor(row, quality)
-	local r, g, b, hex = GetItemQualityColor(quality)
-	row.border:SetVertexColor(r, g, b, .3)
-	row.border:Show()
-	row:SetBackdropBorderColor(r, g, b, 1)
-end
 
 function CreateItem(type, ItemID, unit, icount, skip)
 	local count, iName, iLink, iRarity, r, g, b, hex, iTexture
@@ -168,14 +163,23 @@ function CreateItem(type, ItemID, unit, icount, skip)
 	item = items[id]
 
 	if type == "loot" then
-		iName, iLink, iRarity, _, _, _, _, _, _, iTexture, _ = GetItemInfo(ItemID) 
+		iName, iLink, iRarity, _, _, _, _, _, _, iTexture, _, _, _, _, _, _, _ = GetItemInfo(ItemID)
+		-- iLevel = GetDetailedItemLevelInfo(iLink)
 		r, g, b, hex = GetItemQualityColor(iRarity)
 
 		if unit == UnitName("player") then
 			count = GetItemCount(ItemID) or 0
 			local total
-			if skip then total = 0 else total = count + icount end
-			if total > 1 then item.extra:SetText(total) else item.extra:SetText("") end
+			if skip then
+				total = 0
+			else
+				total = count + icount
+			end
+			if total > 1 then
+				item.extra:SetText(total)
+			else
+				item.extra:SetText("")
+			end
 		else
 			item.extra:SetText("")
 		end
@@ -199,7 +203,9 @@ function CreateItem(type, ItemID, unit, icount, skip)
 
 	if unit then
 		item.player:SetText(unit)
-		if classTextColor then item.player:SetTextColor(classTextColor.r, classTextColor.g, classTextColor.b) end
+		if classTextColor then
+			item.player:SetTextColor(classTextColor.r, classTextColor.g, classTextColor.b)
+		end
 	else
 		item.player:SetText("Unknown")
 	end
@@ -218,7 +224,7 @@ function CreateItem(type, ItemID, unit, icount, skip)
 	reSize(item)
 	item:ClearAllPoints()
 	if id > 0 then
-		if items[id-1]  then
+		if items[id-1] then
 			item:SetPoint("LEFT", items[id-1], "LEFT", 0, -config.position.nextFrameOff)
 		else
 			if config.position.AnchorPoint == "LEFT" then
@@ -355,6 +361,8 @@ function Skin(frame)
 	frame:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 	frame:SetBackdropColor(unpack(E["media"].backdropfadecolor))
 
+	MERS:CreateGradient(frame)
+
 	if not frame.fade then 
 		frame.fade = frame:CreateTexture(nil, "BORDER")
 	end
@@ -376,11 +384,11 @@ function Skin(frame)
 	frame.fade:SetGradientAlpha(unpack(sdb.Gradient and gradientOn or gradientOff))
 end
 
-local LOOT_ITEM_SELF_REG = string.gsub(LOOT_ITEM_SELF, " %%s.", "")
-local LOOT_ITEM_REG = string.gsub(LOOT_ITEM, "%%s ", "")
-local LOOT_ITEM_REG = string.gsub(LOOT_ITEM_REG, " %%s.", "")
-local LOOT_ITEM_CREATED_REG = string.gsub(LOOT_ITEM_CREATED_SELF, " %%s.", "")
-local LOOT_ITEM_PUSHED_REG = string.gsub(LOOT_ITEM_PUSHED_SELF, " %%s.", "")
+local LOOT_ITEM_SELF_REG = gsub(LOOT_ITEM_SELF, " %%s.", "")
+local LOOT_ITEM_REG = gsub(LOOT_ITEM, "%%s ", "")
+local LOOT_ITEM_REG = gsub(LOOT_ITEM_REG, " %%s.", "")
+local LOOT_ITEM_CREATED_REG = gsub(LOOT_ITEM_CREATED_SELF, " %%s.", "")
+local LOOT_ITEM_PUSHED_REG = gsub(LOOT_ITEM_PUSHED_SELF, " %%s.", "")
 
 function LM:CHAT_MSG_LOOT(event, msg)
 	if E.db.mui.lootMon.enable ~= true then return end
@@ -392,18 +400,18 @@ function LM:CHAT_MSG_LOOT(event, msg)
 		sLink, iCount = deformat(msg, LOOT_ITEM_SELF_MULTIPLE)
 		sPlayer = UnitName("player")
 		if sLink then
-			itemId=select(3, find(sLink, "item:(%d+):"))
+			itemId = select(3, find(sLink, "item:(%d+):"))
 		else
 			sLink = deformat(msg, LOOT_ITEM_SELF) 
 			itemId = select(3, find(sLink, "item:(%d+):"))
 			iCount = 1
 		end
 	elseif find(msg, LOOT_ITEM_REG) then
-		sPlayer, sLink, iCount = deformat(msg, LOOT_ITEM_MULTIPLE) 
+		sPlayer, sLink, iCount = deformat(msg, LOOT_ITEM_MULTIPLE)
 		if sLink then
 			itemId = select(3, find(sLink, "item:(%d+):"))
 		else
-			sPlayer, sLink = deformat(msg, LOOT_ITEM) 
+			sPlayer, sLink = deformat(msg, LOOT_ITEM)
 			itemId = select(3, find(sLink, "item:(%d+):"))
 			iCount = 1
 		end
