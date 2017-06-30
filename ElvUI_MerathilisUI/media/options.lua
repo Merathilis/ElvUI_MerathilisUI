@@ -4,7 +4,7 @@ local M = E:GetModule("mUIMedia")
 local function mediaTable()
 	E.Options.args.mui.args.media = {
 		type = "group",
-		name = L["Media"]..MER.NewSign,
+		name = L["Media"],
 		order = 7,
 		childGroups = "tab",
 		get = function(info) return E.db.mui.media[ info[#info] ] end,

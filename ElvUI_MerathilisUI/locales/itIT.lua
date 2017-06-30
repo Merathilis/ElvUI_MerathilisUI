@@ -289,6 +289,13 @@ L["Min quality for your looted items that will be displayed"] = true
 L["Other Rarity"] = true
 L["Min quality for your party members looted items that will be displayed"] = true
 L["Position"] = true
+L["Timer"] = true
+L["Fade In Timer"] = true
+L["Time to show item"] = true
+L["Fade Out Timer"] = true
+L["Time to hide item"] = true
+L["Fade Timer"] = true
+L["How long item is shown"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true

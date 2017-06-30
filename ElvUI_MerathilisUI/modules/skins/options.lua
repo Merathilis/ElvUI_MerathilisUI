@@ -35,7 +35,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = MERS.modName..MER.NewSign,
+		name = MERS.modName,
 		args = {
 			name = {
 				order = 1,
@@ -53,7 +53,7 @@ local function SkinsTable()
 					stripes = {
 						order = 1,
 						type = "toggle",
-						name = L["Stripes"]..MER.NewSign,
+						name = L["Stripes"],
 						desc = L["Creates decorative stripes on some frames"],
 					},
 				},
@@ -140,7 +140,7 @@ local function SkinsTable()
 			},
 			questChoice = {
 				type = "toggle",
-				name = L["Quest Choice"]..MER.NewSign,
+				name = L["Quest Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
 			},
 			orderhall = {
@@ -230,17 +230,17 @@ local function SkinsTable()
 			},
 			objectiveTracker = {
 				type = "toggle",
-				name = OBJECTIVES_TRACKER_LABEL..MER.NewSign,
+				name = OBJECTIVES_TRACKER_LABEL,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 			},
 			addonManager = {
 				type = "toggle",
-				name = L["AddOn Manager"]..MER.NewSign,
+				name = L["AddOn Manager"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.addonManager end,
 			},
 			mail = {
 				type = "toggle",
-				name =  L["Mail Frame"]..MER.NewSign,
+				name =  L["Mail Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.mail end,
 			},
 		},

@@ -7,14 +7,14 @@ local screenheight = UIParent:GetHeight()
 local function LootMonTable()
 	E.Options.args.mui.args.lootMon = {
 		type = "group",
-		name = LM.modName,
+		name = LM.modName..MER.NewSign,
 		order = 16,
 		get = function(info) return E.db.mui.lootMon[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(LM.modName),
+				name = MER:cOption(LM.modName)..MER.NewSign,
 			},
 			credits = {
 				order = 2,
@@ -100,6 +100,38 @@ local function LootMonTable()
 								type = "range",
 								name = L["yOffset"],
 								min = 0, max = 500, step = 5,
+							},
+						},
+					},
+					timers = {
+						order = 5,
+						type = "group",
+						name = L["Timer"],
+						get = function(info) return E.db.mui.lootMon.timers[ info[#info] ] end,
+						set = function(info, value) E.db.mui.lootMon.timers[ info[#info] ] = value; end,
+						disabled = function() return not E.db.mui.lootMon.enable end,
+						hidden = function() return not E.db.mui.lootMon.enable end,
+						args = {
+							fadeIn = {
+								order = 1,
+								type = "range",
+								name = L["Fade In Timer"],
+								desc = L["Time to show item"],
+								min = 1, max = 10, step = 1,
+							},
+							fadeOut = {
+								order = 2,
+								type = "range",
+								name = L["Fade Out Timer"],
+								desc = L["Time to hide item"],
+								min = 1, max = 10, step = 1,
+							},
+							fade = {
+								order = 3,
+								type = "range",
+								name = L["Fade Timer"],
+								desc = L["How long item is shown"],
+								min = 3, max = 10, step = 1,
 							},
 						},
 					},

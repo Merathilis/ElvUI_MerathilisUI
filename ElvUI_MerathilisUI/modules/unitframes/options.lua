@@ -13,14 +13,14 @@ local function UnitFramesTable()
 	E.Options.args.mui.args.unitframes = {
 		order = 15,
 		type = "group",
-		name = MUF.modName..MER.NewSign,
+		name = MUF.modName,
 		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MUF.modName or MUF:GetName()),
+				name = MER:cOption(MUF.modName),
 			},
 			general = {
 				order = 2,
@@ -33,7 +33,7 @@ local function UnitFramesTable()
 			player = {
 				order = 10,
 				type = "group",
-				name = L["Player Frame"]..MER.NewSign,
+				name = L["Player Frame"],
 				args = {
 					portrait = {
 						order = 1,
@@ -46,7 +46,7 @@ local function UnitFramesTable()
 			target = {
 				order = 11,
 				type = "group",
-				name = L["Target Frame"]..MER.NewSign,
+				name = L["Target Frame"],
 				args = {
 					portrait = {
 						order = 1,
