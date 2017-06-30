@@ -33,7 +33,7 @@ CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime
 local testtable
 
-local DCP = CreateFrame("frame", nil, E.UIParent)
+local DCP = CreateFrame("Frame", nil, E.UIParent)
 DCP:SetAlpha(0)
 DCP:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
 DCP.TextFrame = DCP:CreateFontString(nil, "ARTWORK", "GameFontNormal")

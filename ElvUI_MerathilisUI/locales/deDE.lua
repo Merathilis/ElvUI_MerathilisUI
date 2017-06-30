@@ -294,6 +294,14 @@ L["Watch on pet spell"] = "Überwache Begleiter Zauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
 
+-- Loot Monitor
+L["Loot Monitor"] = "Beute Monitor"
+L["Self Rarity"] = "Eigene Seltenheit"
+L["Min quality for your looted items that will be displayed"] = "Mindeste Qualität die beim eigenem Looten angezeigt wird"
+L["Other Rarity"] = "Andere Seltenheit"
+L["Min quality for your party members looted items that will be displayed"] = "Mindeste Qualität die beim looten deiner Gruppen Mitgliedern angezeigt wird"
+L["Position"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 

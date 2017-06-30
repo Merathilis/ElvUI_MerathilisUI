@@ -293,6 +293,14 @@ L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = true
 
+-- Loot Monitor
+L["Loot Monitor"] = true
+L["Self Rarity"] = true
+L["Min quality for your looted items that will be displayed"] = true
+L["Other Rarity"] = true
+L["Min quality for your party members looted items that will be displayed"] = true
+L["Position"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 

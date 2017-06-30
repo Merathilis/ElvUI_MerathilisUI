@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="LibAnim\LibAnim.lua"/>
 	<Include file="LibElv-UIButtons-1.0\load_uibuttons.xml"/>
+	<Script file="LibDeformat-3.0.lua"/>
 </Ui>
