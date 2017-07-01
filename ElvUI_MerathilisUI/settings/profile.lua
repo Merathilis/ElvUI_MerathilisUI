@@ -254,26 +254,6 @@ P["mui"] = {
 		},
 	},
 
-	["lootMon"] = {
-		["enable"] = false,
-		["selfRarity"] = 1, --0 = Poor, 1 = Common, 2 = Uncommon, 3 = Rare, 4 = Epic, 5 = Legendary, 6 = Artifact, 7 = Heirloom
-		["Rarity"] = 3,
-		["position"] = {
-			["Xoff"] = 10,
-			["Yoff"] = 450,
-			["Anchor"] = "UIParent",
-			["AnchorPoint"] = "LEFT",
-			["nextFrameOff"] = 25,
-		},
-		["scale"] = 1.0,
-		["maxItems"] = 10,
-		["timers"] = {
-			["fadeIn"] = 1,
-			["fadeOut"] = 1,
-			["fade"] = 5,
-		},
-	},
-
 	-- db
 	["dbCleaned"] = false
 }

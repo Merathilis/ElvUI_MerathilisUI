@@ -6,7 +6,6 @@
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="extern\load_extern.xml"/>
 	<Include file="locpanel\load_locpanel.xml"/>
-	<Include file="loot\load_loot.xml"/>
 	<Include file="maps\load_maps.xml"/>
 	<Include file="misc\load_misc.xml"/>
 	<Include file="tooltip\load_tooltip.xml"/>

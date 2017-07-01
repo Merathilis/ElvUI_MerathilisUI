@@ -294,21 +294,6 @@ L["Watch on pet spell"] = "Überwache Begleiter Zauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
 
--- Loot Monitor
-L["Loot Monitor"] = "Beute Monitor"
-L["Self Rarity"] = "Eigene Seltenheit"
-L["Min quality for your looted items that will be displayed"] = "Mindeste Qualität die beim eigenem Looten angezeigt wird"
-L["Other Rarity"] = "Andere Seltenheit"
-L["Min quality for your party members looted items that will be displayed"] = "Mindeste Qualität die beim looten deiner Gruppen Mitgliedern angezeigt wird"
-L["Position"] = true
-L["Timer"] = true
-L["Fade In Timer"] = "Einblendzeit"
-L["Time to show item"] = "Zeit bis ein Gegenstand gezeigt wird"
-L["Fade Out Timer"] = "Ausblendzeit"
-L["Time to hide item"] = "Zeit bis ein Gegenstand ausgeblendet wird"
-L["Fade Timer"] = "Anzeigedauer"
-L["How long item is shown"] = "Wie lange ein Gegenstand gezeigt wird"
-
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 
