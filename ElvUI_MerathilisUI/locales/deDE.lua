@@ -158,6 +158,11 @@ L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfe
 L["ChatTab_Datatext_Panel"] = "Rechter ChatTab Infotextleisten"
 L["Enable/Disable the right chat tab datatext panel."] = "Aktivert/Deaktiviert die rechten ChatTab Infoleisten."
 
+-- DataBars
+L["DataBars"] = "Informationsleisten"
+L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
+L["Style DataBars"] = "Informationsleisten Stil"
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
 L["Announce Freed"] = "Freigegeben ankündigen "

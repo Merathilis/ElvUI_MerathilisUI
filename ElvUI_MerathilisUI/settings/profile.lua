@@ -127,6 +127,10 @@ P["mui"] = {
 		["announceFreed"] = true -- Enable the Garbage Message in Chat
 	},
 
+	["databars"] = {
+		["enable"] = true,
+	},
+
 	["actionbars"] = {
 		["transparent"] = false,
 	},

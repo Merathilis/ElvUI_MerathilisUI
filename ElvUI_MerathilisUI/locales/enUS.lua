@@ -157,6 +157,11 @@ L["Add tabs for professions on the TradeSkill Frame."] = true
 L["ChatTab_Datatext_Panel"] = "Right Chat Tab Datatext Panel"
 L["Enable/Disable the right chat tab datatext panel."] = true
 
+-- DataBars
+L["DataBars"] = true
+L["Add some stylish buttons at the bottom of the DataBars"] = true
+L["Style DataBars"] = true
+
 -- System Datatext
 L["(Hold Shift) Memory Usage"] = true
 L["Announce Freed"] = true
