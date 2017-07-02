@@ -210,11 +210,16 @@ function MER:SetupLayout(noDataReset)
 		E.db["general"]["interruptAnnounce"] = "RAID"
 		E.db["general"]["minimap"]["size"] = 153
 		E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
+		E.db["general"]["minimap"]["locationFontSize"] = 10
+		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
+		E.db["general"]["minimap"]["locationFont"] = "Merathilis Roboto-Black"
 		E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 		E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 		E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 		E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = -3
 		E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
+		E.db["general"]["minimap"]["resetZoom"]["enable"] = true
+		E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 		E.db["general"]["loginmessage"] = false
 		E.db["general"]["stickyFrames"] = false
 		E.db["general"]["backdropcolor"]["r"] = 0.101
