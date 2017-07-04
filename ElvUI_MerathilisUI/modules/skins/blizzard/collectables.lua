@@ -4,6 +4,7 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 
 --WoW API / Variables
 
@@ -52,6 +53,35 @@ local function styleCollections()
 	local card = _G["PetJournalPetCard"]
 	_G["PetJournalPetCardBG"]:Hide()
 	card:SetTemplate("Transparent")
+
+	-- Toys
+	local shouldChangeTextColor = true
+	local function changeTextColor(toyString)
+		if shouldChangeTextColor then
+			shouldChangeTextColor = false
+
+			local self = toyString:GetParent()
+
+			if PlayerHasToy(self.itemID) then
+				local _, _, quality = GetItemInfo(self.itemID)
+				if quality then
+					toyString:SetTextColor(GetItemQualityColor(quality))
+				else
+					toyString:SetTextColor(1, 1, 1)
+				end
+			else
+				toyString:SetTextColor(.5, .5, .5)
+			end
+
+			shouldChangeTextColor = true
+		end
+	end
+
+	local iconsFrame = ToyBox.iconsFrame
+	for i = 1, 18 do
+		local button = iconsFrame["spellButton"..i]
+		hooksecurefunc(button.name, "SetTextColor", changeTextColor)
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_Collections", "mUICollections", styleCollections)
