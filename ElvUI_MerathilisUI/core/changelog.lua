@@ -15,7 +15,6 @@ local CreateFrame = CreateFrame
 -- Don't show the frame if my install isn't finished
 if E.db.mui.installed == nil then return; end
 
-local ver = 1
 local ChangeLogData = {
 	"Changes:",
 		"• Pimp my AFK Screen. Should be compatible with BenikUI",
@@ -132,7 +131,6 @@ function MER:ToggleChangeLog()
 		self:CreateChangelog()
 	end
 	PlaySound("igMainMenuOptionCheckBoxOff")
-	tinsert(UISpecialFrames, "MerathilisUIChangeLog")
 
 	local fadeInfo = {}
 	fadeInfo.mode = "IN"
