@@ -15,7 +15,7 @@ local CreateFrame = CreateFrame
 -- Don't show the frame if my install isn't finished
 if E.db.mui.installed == nil then return; end
 
-local ChangeLog = CreateFrame("frame")
+local ver = 1
 local ChangeLogData = {
 	"Changes:",
 		"• Pimp my AFK Screen. Should be compatible with BenikUI",
@@ -53,7 +53,7 @@ local function GetChangeLogInfo(i)
 	end
 end
 
-function ChangeLog:CreateChangelog()
+function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
 	frame:SetSize(445, 245)
@@ -83,11 +83,20 @@ function ChangeLog:CreateChangelog()
 	title.text:SetFont(E["media"].normFont, 15)
 	title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
-	local close = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
-	close:Point("TOPRIGHT", frame, "TOPRIGHT", 0, 26)
-	close:SetSize(24, 24)
+	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
+	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
+	close:SetText(CLOSE)
+	close:SetSize(80, 20)
 	close:SetScript("OnClick", function() frame:Hide() end)
-	S:HandleCloseButton(close)
+	S:HandleButton(close)
+	close:Disable()
+	frame.close = close
+
+	local countdown = close:CreateFontString(nil, "OVERLAY")
+	countdown:SetPoint("LEFT", close.Text, "RIGHT", 3, 0)
+	countdown:SetFont(E["media"].normFont, 12)
+	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
+	frame.countdown = countdown
 
 	local offset = 4
 	for i = 1, #ChangeLogData do
@@ -107,22 +116,40 @@ function ChangeLog:CreateChangelog()
 	end
 end
 
-function MER:ToggleChangeLog()
-	ChangeLog:CreateChangelog()
-	PlaySound("igMainMenuOptionCheckBoxOff")
-	tinsert(UISpecialFrames, "MerathilisUIChangeLog")
-end
-
-function ChangeLog:OnCheckVersion(self)
-	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
-		MERData["Version"] = MER.Version
-		ChangeLog:CreateChangelog()
+function MER:CountDown()
+	self.time = self.time - 1
+	if self.time == 0 then
+		MerathilisUIChangeLog.countdown:SetText("")
+		MerathilisUIChangeLog.close:Enable()
+		self:CancelAllTimers()
+	else
+		MerathilisUIChangeLog.countdown:SetText(string.format("(%s)", self.time))
 	end
 end
 
-ChangeLog:RegisterEvent("ADDON_LOADED")
-ChangeLog:RegisterEvent("PLAYER_ENTERING_WORLD")
-ChangeLog:SetScript("OnEvent", function(self, event, ...)
-	if MERData == nil then MERData = {} end
-	ChangeLog:OnCheckVersion()
-end)
+function MER:ToggleChangeLog()
+	if not MerathilisUIChangeLog then
+		self:CreateChangelog()
+	end
+	PlaySound("igMainMenuOptionCheckBoxOff")
+	tinsert(UISpecialFrames, "MerathilisUIChangeLog")
+
+	local fadeInfo = {}
+	fadeInfo.mode = "IN"
+	fadeInfo.timeToFade = 0.5
+	fadeInfo.startAlpha = 0
+	fadeInfo.endAlpha = 1
+	E:UIFrameFade(MerathilisUIChangeLog, fadeInfo)
+
+	self.time = 6
+	self:CancelAllTimers()
+	MER:CountDown()
+	self:ScheduleRepeatingTimer("CountDown", 1)
+end
+
+function MER:CheckVersion(self)
+	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
+		MERData["Version"] = MER.Version
+		MER:ToggleChangeLog()
+	end
+end

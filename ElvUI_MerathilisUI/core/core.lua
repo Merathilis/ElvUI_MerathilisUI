@@ -138,6 +138,7 @@ end
 
 local function HideSplashScreen()
 	MUISplashScreen:Hide()
+	MER:CheckVersion()
 end
 
 local function FadeSplashScreen()
@@ -190,6 +191,8 @@ function MER:Initialize()
 
 	if E.db.mui.general.SplashScreen then
 		CreateSplashScreen()
+	else
+		C_TimerAfter(6, MER:CheckVersion())
 	end
 
 	-- Show only Splash Screen if the install is completed

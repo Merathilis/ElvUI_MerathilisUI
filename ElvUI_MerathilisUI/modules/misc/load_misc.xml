@@ -3,7 +3,6 @@
 	<Script file="afk.lua"/>
 	<Script file="announce.lua"/>
 	<Script file="autoscreenshot.lua"/>
-	<Script file="changelog.lua"/>
 	<Script file="flightMode.lua"/>
 	<Script file="flightPoint.lua"/>
 	<Include file="flightPoint.xml" />
