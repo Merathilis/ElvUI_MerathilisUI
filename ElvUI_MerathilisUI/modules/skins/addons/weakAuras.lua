@@ -42,7 +42,6 @@ frame:SetScript("OnEvent", function(self, event)
 		end
 	end
 
-
 	local CreateIcon = WeakAuras.regionTypes.icon.create
 	WeakAuras.regionTypes.icon.create = function(parent, data)
 		local region = CreateIcon(parent, data)
