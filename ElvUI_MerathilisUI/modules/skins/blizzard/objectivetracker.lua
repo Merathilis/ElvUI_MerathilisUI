@@ -172,7 +172,7 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
 
-
+	-- Quest Level QuestLog
 	local function QuestLogQuests_Update()
 		if ENABLE_COLORBLIND_MODE == "1" then return end
 		local numEntries, numQuests = GetNumQuestLogEntries()
