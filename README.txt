@@ -1,4 +1,4 @@
-What does this Plugin do?: 
+What does this Plugin do?:
  ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the Design in Class Color with a few additional Features.
 
 Installation:
