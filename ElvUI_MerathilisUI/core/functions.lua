@@ -144,3 +144,59 @@ MER.colors.class = {
 for class, color in pairs(MER.colors.class) do
 	MER.colors.class[class] = { r = color[1], g = color[2], b = color[3] }
 end
+
+local function Style(f, template, name, ignoreColor, ignoreVisibility) -- for stripes
+	if f.style or E.private.muiSkins.general.stripes ~= true then return end
+
+	local style = CreateFrame("Frame", name or nil, f)
+	if not template then
+		style:CreateBackdrop("Transparent", true)
+	else
+		style:SetTemplate("Transparent", true)
+	end
+
+	style.ignoreUpdates = true
+
+	if(ignoreColor) then
+		style.ignoreColor = ignoreColor
+	end
+
+	if(ignoreVisibility) then
+		style.ignoreVisibility = ignoreVisibility
+	end
+
+	style:SetFrameLevel(f:GetFrameLevel() + 2)
+
+	f.stripes = f:CreateTexture(nil, "BACKGROUND", nil, 1)
+	f.stripes:SetAllPoints()
+	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
+	f.stripes:SetHorizTile(true)
+	f.stripes:SetVertTile(true)
+	f.stripes:SetBlendMode("ADD")
+
+	f.style = style
+end
+
+local function addapi(object)
+	local mt = getmetatable(object).__index
+	if not object.CreateSoftShadow then mt.CreateSoftShadow = CreateSoftShadow end
+	if not object.CreateWideShadow then mt.CreateWideShadow = CreateWideShadow end
+	if not object.CreateSoftGlow then mt.CreateSoftGlow = CreateSoftGlow end
+	if not object.Style then mt.Style = Style end
+end
+
+local handled = {["Frame"] = true}
+local object = CreateFrame("Frame")
+addapi(object)
+addapi(object:CreateTexture())
+addapi(object:CreateFontString())
+
+object = EnumerateFrames()
+while object do
+	if not object:IsForbidden() and not handled[object:GetObjectType()] then
+		addapi(object)
+		handled[object:GetObjectType()] = true
+	end
+
+	object = EnumerateFrames(object)
+end

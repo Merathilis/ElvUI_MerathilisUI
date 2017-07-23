@@ -29,6 +29,7 @@ Engine[5] = P
 Engine[6] = G
 _G[addon] = Engine;
 
+MER["styles"] = {}
 MER.Config = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
@@ -94,6 +95,19 @@ function MER:RegisterMedia()
 
 	E:UpdateMedia()
 end
+
+function MER:UpdateStyleVisibility()
+	for frame, _ in pairs(self["styles"]) do
+		if frame and not frame.ignoreVisibility then
+			if E.db.benikui.general.hideStyle then
+				frame:Hide()
+			else
+				frame:Show()
+			end
+		end
+	end
+end
+
 
 -- Splash Screen
 local function CreateSplashScreen()
