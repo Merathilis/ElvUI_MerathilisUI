@@ -13,9 +13,9 @@ local unpack = unpack
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
-	-- if not CharacterFrame.stripes then
-		-- MERS:CreateStripes(CharacterFrame)
-	-- end
+	if not CharacterFrame.stripes then
+		MERS:CreateStripes(CharacterFrame)
+	end
 
 	MERS:CreateGradient(CharacterFrame)
 
