@@ -49,9 +49,6 @@ function MUF:ArrangePlayer()
 	-- Portrait
 	MUF:Configure_Portrait(frame, true)
 
-	-- AlternatePower
-	MUF:Configure_AltPowerBar(frame)
-
 	frame:UpdateAllElements("mUI_UpdateAllElements")
 end
 
