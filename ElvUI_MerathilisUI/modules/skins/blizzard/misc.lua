@@ -21,11 +21,6 @@ local function styleMisc()
 		MERS:CreateStripes(GameMenuFrame)
 	end
 
-	MERS:CreateGradient(BNToastFrame)
-	if not BNToastFrame.stripes then
-		MERS:CreateStripes(BNToastFrame)
-	end
-
 	-- Graveyard button (a bit ugly if you press it)
 	GhostFrame:StripTextures()
 	GhostFrameContentsFrame:StripTextures()

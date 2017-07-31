@@ -3,6 +3,7 @@
 	<Script file="addonmanager.lua"/>
 	<Script file="artifact.lua"/>
 	<Script file="auctionhouse.lua"/>
+	<Script file="BNet.lua"/>
 	<Script file="calendar.lua"/>
 	<Script file="character.lua"/>
 	<Script file="collectables.lua"/>
