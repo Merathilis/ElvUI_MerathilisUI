@@ -85,18 +85,6 @@ end
 local function styleFriends()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
-	for i = 1, FRIENDS_TO_DISPLAY do
-		local bu = _G["FriendsFrameFriendsScrollFrameButton"..i]
-		local ic = _G["FriendsFrameFriendsScrollFrameButton"..i.."GameIcon"]
-
-		ic:Size(22, 22)
-		ic:SetTexCoord(.15, .85, .15, .85)
-
-		ic:ClearAllPoints()
-		ic:Point("RIGHT", bu, "RIGHT", -24, 0)
-		ic.SetPoint = MER.dummy
-	end
-
 	MERS:CreateGradient(FriendsListFrame)
 	if not FriendsListFrame.stripes then
 		MERS:CreateStripes(FriendsListFrame)
