@@ -389,12 +389,3 @@ L["Changelog"] = true
 L["Info"] = {
 	["Errors"] = "没有错误.",
 }
-
--- Developer
-L["AddOn Presets"] = true
-L["Choose an AddOn Presets, where selected AddOns gets loaded."] = true
-L["Choose a Preset!"] = true
-L["Choose this Preset?"] = true
-L["Default"] = true
-L["ElvUI Only"] = true
-L["Instance"] = true

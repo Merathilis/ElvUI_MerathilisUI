@@ -401,12 +401,3 @@ L["Changelog"] = true
 L["Info"] = {
 	["Errors"] = "Keine Fehler bisher.",
 }
-
--- Developer
-L["AddOn Presets"] = "AddOn Voreinstellungen"
-L["Choose an AddOn Presets, where selected AddOns gets loaded."] = "Wähle eine Addon Voreinstellung wo ausgewählte AddOns geladen werden."
-L["Choose a preset!"] = "Wähle eine Voreinstellung!"
-L["Choose this preset?"] = "Diese Voreinstellung auswählen?"
-L["Default"] = "Standard"
-L["ElvUI only"] = "Nur ElvUI"
-L["Instance"] = "Instanz"
