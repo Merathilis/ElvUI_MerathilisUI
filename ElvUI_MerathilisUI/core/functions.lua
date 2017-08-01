@@ -104,18 +104,6 @@ function MER:SetStatusBarGradient(bar, hook)
 	end
 end
 
--- Personal usage stuff
-MER.IsDev = { Merathilis = true, Jazira = true, Asragoth = true, Jahzzy = true }
-MER.IsDevRealm = { Shattrath = true, Garrosh = true }
-
-function MER:IsDeveloper()
-	return MER.IsDev[E.myname] or false
-end
-
-function MER:IsDeveloperRealm()
-	return MER.IsDevRealm[E.myrealm] or false
-end
-
 -- Inform us of the patch info we play on.
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()

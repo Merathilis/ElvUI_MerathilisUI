@@ -40,14 +40,6 @@ local function AddOptions()
 				desc = L["Run the installation process."],
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleConfig() end,
 			},
-			addons = {
-				order = 4,
-				type = "execute",
-				name = L["AddOn Presets"],
-				desc = L["Choose an AddOn Presets, where selected AddOns gets loaded."],
-				func = function() E:StaticPopup_Show("MERUI_SelectUI"); E:ToggleConfig() end,
-				hidden = function() return not MER:IsDeveloper() and MER:IsDeveloperRealm() end,
-			},
 			general = {
 				order = 5,
 				type = "group",

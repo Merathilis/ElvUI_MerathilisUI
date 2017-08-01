@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="addons.lua"/>
 	<Script file="analyzer.lua"/>
 	<Script file="test.lua"/>
 </Ui>
