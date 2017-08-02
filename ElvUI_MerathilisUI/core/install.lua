@@ -50,11 +50,7 @@ local function SetupCVars()
 	SetCVar("taintLog", 0)
 	SetCVar("TargetNearestUseNew", 1)
 	SetCVar("screenshotQuality", 10)
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		SetCVar("scriptErrors", 1)
-	else
-		SetCVar("scriptErrors", 0)
-	end
+	SetCVar("scriptErrors", 1)
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
@@ -148,13 +144,10 @@ local function SetupChat()
 	E.db["chat"]["panelWidthRight"] = 280
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI, Andy"
-	else
-		E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
-	end
+	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
+
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if E.myname == "Merathilis" then
 		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\moonkin.tga"
 	else
 		E.db["chat"]["panelBackdropNameRight"] = ""

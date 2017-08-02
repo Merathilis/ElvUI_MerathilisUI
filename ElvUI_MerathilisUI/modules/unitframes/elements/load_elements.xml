@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="auraIconSpacing.lua"/>
+	<Script file="auraIconText.lua"/>
 	<Script file="portrait.lua"/>
 	<Script file="infopanel.lua"/>
 </Ui>
