@@ -34,7 +34,6 @@ local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
 local GetGameTime = GetGameTime
--- local PlaySoundKitID = PlaySoundKitID
 local CreateAnimationGroup = CreateAnimationGroup
 local CalendarGetAbsMonth = CalendarGetAbsMonth
 
