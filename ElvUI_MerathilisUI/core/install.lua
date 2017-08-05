@@ -130,13 +130,8 @@ local function SetupChat(layout)
 	ToggleChatColorNamesByClassGroup(true, "YELL")
 
 	E.db["chat"]["keywordSound"] = "Whisper Alert"
-	E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
-	E.db["chat"]["tabFontOutline"] = "OUTLINE"
-	E.db["chat"]["tabFontSize"] = 10
 	E.db["chat"]["panelTabTransparency"] = true
-	E.db["chat"]["fontOutline"] = "NONE"
 	E.db["chat"]["chatHistory"] = false
-	E.db["chat"]["font"] = "Merathilis Roboto-Medium"
 	E.db["chat"]["separateSizes"] = true
 	E.db["chat"]["panelWidth"] = 400
 	E.db["chat"]["panelHeight"] = 155
@@ -154,10 +149,21 @@ local function SetupChat(layout)
 	end
 
 	if layout == "small" then
+		E.db["chat"]["font"] = "Merathilis Roboto-Medium"
+		E.db["chat"]["fontOutline"] = "NONE"
+		E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
+		E.db["chat"]["tabFontOutline"] = "OUTLINE"
+		E.db["chat"]["tabFontSize"] = 10
 		MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -158, 24)
 		MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 24)
 
 	elseif layout == "big" then
+		E.db["chat"]["font"] = "Expressway"
+		E.db["chat"]["fontOutline"] = "NONE"
+		E.db["chat"]["tabFont"] = "Expressway"
+		E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
+		E.db["chat"]["tabFontOutline"] = "OUTLINE"
+		E.db["chat"]["tabFontSize"] = 11
 		MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -178, 21)
 		MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 21)
 	end
@@ -174,11 +180,8 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 	E.private["general"]["chatBubbleFontSize"] = 11
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["namefont"] = "Merathilis Roboto-Black"
-	E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
 	E.private["general"]["normTex"] = "MerathilisBlank"
 	E.private["general"]["glossTex"] = "MerathilisBlank"
 	if IsAddOnLoaded("XLoot") then
@@ -256,17 +259,7 @@ function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
-	E.db["bags"]["itemLevelFont"] = "Merathilis Roboto-Black"
-	E.db["bags"]["itemLevelFontSize"] = 9
-	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
-	E.db["bags"]["countFont"] = "Merathilis Roboto-Black"
-	E.db["bags"]["countFontSize"] = 10
-	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["bagSize"] = 23
 	E.db["bags"]["alignToChat"] = false
-	E.db["bags"]["bagWidth"] = 436
-	E.db["bags"]["bankSize"] = 23
-	E.db["bags"]["bankWidth"] = 400
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 815
 	E.db["bags"]["junkIcon"] = true
@@ -296,7 +289,6 @@ function MER:SetupLayout(layout)
 	--]]----------------------------------
 	E.db["tooltip"]["itemCount"] = "NONE"
 	E.db["tooltip"]["healthBar"]["height"] = 5
-	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
@@ -333,6 +325,20 @@ function MER:SetupLayout(layout)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	if layout == "small" then
+		E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
+		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
+		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
+		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
+		E.db["bags"]["itemLevelFont"] = "Merathilis Roboto-Black"
+		E.db["bags"]["itemLevelFontSize"] = 9
+		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+		E.db["bags"]["countFont"] = "Merathilis Roboto-Black"
+		E.db["bags"]["countFontSize"] = 10
+		E.db["bags"]["countFontOutline"] = "OUTLINE"
+		E.db["bags"]["bagSize"] = 23
+		E.db["bags"]["bagWidth"] = 436
+		E.db["bags"]["bankSize"] = 23
+		E.db["bags"]["bankWidth"] = 400
 		E.db["databars"]["experience"]["enable"] = true
 		E.db["databars"]["experience"]["mouseover"] = false
 		E.db["databars"]["experience"]["height"] = 135
@@ -370,7 +376,22 @@ function MER:SetupLayout(layout)
 		MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 467, 44)
 		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -491, 44)
 		MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 25)
+
 	elseif layout == "big" then
+		E.private["general"]["chatBubbleFont"] = "Expressway"
+		E.private["general"]["namefont"] = "Expressway"
+		E.private["general"]["dmgfont"] = "Expressway"
+		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
+		E.db["bags"]["itemLevelFont"] = "Expressway"
+		E.db["bags"]["itemLevelFontSize"] = 9
+		E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+		E.db["bags"]["countFont"] = "Expressway"
+		E.db["bags"]["countFontSize"] = 10
+		E.db["bags"]["countFontOutline"] = "OUTLINE"
+		E.db["bags"]["bagSize"] = 23
+		E.db["bags"]["bagWidth"] = 456
+		E.db["bags"]["bankSize"] = 23
+		E.db["bags"]["bankWidth"] = 400
 		E.db["databars"]["experience"]["enable"] = true
 		E.db["databars"]["experience"]["mouseover"] = false
 		E.db["databars"]["experience"]["height"] = 155
@@ -420,7 +441,6 @@ function MER:SetupActionbars(layout)
 	--[[----------------------------------
 	--	ActionBars - General
 	--]]----------------------------------
-	E.db["actionbar"]["font"] = "Merathilis Roboto-Black"
 	E.db["actionbar"]["fontOutline"] = "OUTLINE"
 	E.db["actionbar"]["fontSize"] = 10
 	E.db["actionbar"]["macrotext"] = true
@@ -447,6 +467,7 @@ function MER:SetupActionbars(layout)
 		--[[----------------------------------
 		--	ActionBars small layout
 		--]]----------------------------------
+		E.db["actionbar"]["font"] = "Merathilis Roboto-Black"
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 		E.db["actionbar"]["bar1"]["backdrop"] = true
 		E.db["actionbar"]["bar1"]["heightMult"] = 1
@@ -535,6 +556,7 @@ function MER:SetupActionbars(layout)
 		--[[----------------------------------
 		--	ActionBars big layout
 		--]]----------------------------------
+		E.db["actionbar"]["font"] = "Expressway"
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 		E.db["actionbar"]["bar1"]["backdrop"] = true
 		E.db["actionbar"]["bar1"]["heightMult"] = 2
