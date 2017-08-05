@@ -1413,6 +1413,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "InfoPanel"
+		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
+		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
@@ -1819,6 +1822,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["name"]["text_format"] = "[name:short]"
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["targetsGroup"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["height"] = 16
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
 		E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "CENTER"
@@ -1862,30 +1866,30 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
-		E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = "[healthcolor][health:current]"
+		E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["health"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["health"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["pet"]["power"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
-		E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = "[namecolor][power:current]"
+		E.db["unitframe"]["units"]["pet"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["pet"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "InfoPanel"
+		E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
-		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:medium]"
+		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[name:medium]"
 		E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["pet"]["width"] = 122
-		E.db["unitframe"]["units"]["pet"]["height"] = 20
+		E.db["unitframe"]["units"]["pet"]["width"] = 105
+		E.db["unitframe"]["units"]["pet"]["height"] = 29
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 4
 		E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
 		E.db["unitframe"]["units"]["pet"]["orientation"] = "MIDDLE"
-		E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["pet"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
-		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 452, 199)
+		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 245)
 
 		-- Arena
 		E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
