@@ -6,7 +6,6 @@ local AFK = E:GetModule("AFK")
 local CreateFrame = CreateFrame
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local IsAddOnLoaded = IsAddOnLoaded
-local PlaySound = PlaySound
 
 local npc = 15358 -- Lurky
 
