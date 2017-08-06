@@ -1,3 +1,5 @@
+local MER, E, L, V, P, G = unpack(select(2, ...))
+
 --Cache global variables
 --Lua functions
 local string, tonumber, next, type = string, tonumber, next, type
@@ -118,6 +120,7 @@ local itemAreas = {
 }
 
 local ExtraQuestButton = CreateFrame("Button", "ExtraQuestButton", UIParent, "SecureActionButtonTemplate, SecureHandlerStateTemplate, SecureHandlerAttributeTemplate")
+if E.private.actionbar.enable ~= true then return; end
 ExtraQuestButton:SetMovable(true)
 ExtraQuestButton:RegisterEvent("PLAYER_LOGIN")
 ExtraQuestButton:SetScript("OnEvent", function(self, event, ...)
@@ -225,7 +228,7 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self.Count = Count
 
 	local Cooldown = CreateFrame("Cooldown", "$parentCooldown", self, "CooldownFrameTemplate")
-    Cooldown:SetFrameLevel(self:GetFrameLevel() + 2)
+	Cooldown:SetFrameLevel(self:GetFrameLevel() + 2)
 	Cooldown:ClearAllPoints()
 	Cooldown:SetPoint("TOPRIGHT", -2, -3)
 	Cooldown:SetPoint("BOTTOMLEFT", 2, 1)
