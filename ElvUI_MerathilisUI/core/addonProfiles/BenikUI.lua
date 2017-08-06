@@ -45,6 +45,11 @@ function MER:LoadBenikUIProfile(layout)
 		E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
 		E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
 		E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["forceTargetText"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
 		E.db["dashboards"]["barColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		E.db["dashboards"]["system"]["enableSystem"] = false
 		E.db["dashboards"]["professions"]["enableProfessions"] = false
@@ -98,6 +103,11 @@ function MER:LoadBenikUIProfile(layout)
 		E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
 		E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
 		E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["forceTargetText"] = false
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
+		E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
 		E.db["dashboards"]["barColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		E.db["dashboards"]["system"]["enableSystem"] = false
 		E.db["dashboards"]["professions"]["enableProfessions"] = false
