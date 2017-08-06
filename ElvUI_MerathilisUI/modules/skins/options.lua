@@ -270,17 +270,13 @@ local function SkinsTable()
 			desc = L["This will create and apply profile for "]..addonName,
 			func = function()
 				if addon == 'BigWigs' then
-					MER:LoadBigWigsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
-					MER:LoadBenikUIProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 				elseif addon == 'ElvUI_SLE' then
-					MER:LoadShadowandLightProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					E:StaticPopup_Show("MUI_INSTALL_SLE_LAYOUT")
 				elseif addon == 'Kui_Nameplates_Core' then
-					MER:LoadKuiNamePlatesCoreProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					E:StaticPopup_Show("MUI_INSTALL_KUI_LAYOUT")
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
@@ -291,8 +287,7 @@ local function SkinsTable()
 					MER:LoadSkadaProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
-					MER:LoadDetailsProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
+					E:StaticPopup_Show("MUI_INSTALL_DETAILS_LAYOUT")
 				elseif addon == 'XIV_Databar' then
 					MER:LoadXIVDatabarProfile()
 					E:StaticPopup_Show('PRIVATE_RL')

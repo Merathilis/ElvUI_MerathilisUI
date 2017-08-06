@@ -158,6 +158,7 @@ local onAttributeChanged = [[
 ]]
 
 function ExtraQuestButton:BAG_UPDATE_COOLDOWN()
+	-- if E.private.actionbar.enable ~= true then return; end
 	if(self:IsShown() and self:IsEnabled()) then
 		local start, duration, enable = GetItemCooldown(self.itemID)
 		if(duration > 0) then
