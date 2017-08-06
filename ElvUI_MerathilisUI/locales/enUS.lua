@@ -396,6 +396,11 @@ L["Installed"] = true
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
+L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Here you can choose the layout for KuiNameplates.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.

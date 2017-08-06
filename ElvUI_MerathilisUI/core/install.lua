@@ -2105,7 +2105,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 
-		E.db["datatexts"]["panels"]["TopMiniPanel"] = "MUI Time"
+		E.db["datatexts"]["panels"]["TopMiniPanel"] = "Time"
 	end
 
 	E:UpdateAll(true)
