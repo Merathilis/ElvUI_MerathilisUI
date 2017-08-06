@@ -356,6 +356,7 @@ L["MerathilisUI Set"] = true
 L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Chat Set"] = true
+L["ActionBars"] = true
 L["ActionBars 1"] = true
 L["ActionBars 2"] = true
 L["ActionBars Set"] = true
