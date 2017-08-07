@@ -128,7 +128,7 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
-	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	PlaySound("igMainMenuOptionCheckBoxOff")
 
 	local fadeInfo = {}
 	fadeInfo.mode = "IN"

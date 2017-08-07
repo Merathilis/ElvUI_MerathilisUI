@@ -25,7 +25,7 @@ function MI:LoadMisc()
 	-- Force readycheck warning
 	local ShowReadyCheckHook = function(_, initiator)
 		if initiator ~= "player" then
-			PlaySound(SOUNDKIT.READY_CHECK)
+			PlaySound("ReadyCheck", "Master")
 		end
 	end
 	hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
@@ -41,15 +41,15 @@ function MI:LoadMisc()
 			for i = 1, GetMaxBattlefieldID() do
 				local status = GetBattlefieldStatus(i)
 				if status == "confirm" then
-					PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
+					PlaySound("PVPTHROUGHQUEUE", "Master")
 					break
 				end
 				i = i + 1
 			end
 		elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
-			PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
+			PlaySound("PVPTHROUGHQUEUE", "Master")
 		elseif event == "LFG_PROPOSAL_SHOW" then
-			PlaySound(SOUNDKIT.READY_CHECK)
+			PlaySound("ReadyCheck", "Master")
 		elseif event == "RESURRECT_REQUEST" then
 			PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
 		end
