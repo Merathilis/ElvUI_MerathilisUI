@@ -15,6 +15,7 @@ local DecorAddons = {
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pgf"},
 	{"QuickJoinNotifications", L["QuickJoinNotifications"], "qjn"},
+	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 }
 
 local SupportedProfiles = {
