@@ -1,3 +1,14 @@
+** v3.03, 07.08.2017**
+* Add some checks to tooltips. :IsForbidden()
+* Update a lot of skins.
+* Remove the ExtraActionButton Texture -- Credits Blazeflack (CleanBossButton)
+* Adds an Player Model to the tooltip. Disabled by default.
+* Update Changelog to show after the splashScreen.
+* Add UnitFrame option for "AuraSpacing" and "AuraIconText" -- Credits CustomTweaks by Blazeflack
+* Fix a lua error with Auctineer.
+* Fix a lua error if the ElvUI Actionbars are not enabled.
+* Add a new Layout v2 (Still some things to do).
+
 ** v3.02, 24.06.2017**
 * Pimp my AFK Screen. Should be compatible with BenikUI.
 * Add an autoscreenshot function on achievements and legendary item drops.

@@ -202,6 +202,8 @@ L["Transparent Backdrops"] = "Transparente Hintergründe"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
+L["UnitFrames v1"] = "Einheitenfenster v1"
+L["UnitFrames v2"] = "Einheitenfenster v2"
 L["Apply shadow under the portrait"] = "Aktiviere den Schatten unter dem Portrait"
 L["Apply transparency on the portrait backdrop."] = "Wende Transparenz auf den Portrait Hintergrund an."
 L["Change the detached portrait height"] = "Ändert die Höhe des abgetrennten Portrait"
@@ -356,6 +358,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = "Merat
 L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich ein Profil erstellt und angewandt für:"
 L["Chat Set"] = "Chat eingestellt"
 L["ActionBars"] = "Aktionsleisten"
+L["ActionBars v1"] = "Aktionsleisten v1"
+L["ActionBars v2"] = "Aktionsleisten v2"
 L["ActionBars Set"] = "Aktionsleisten gesetzt"
 L["DataTexts Set"] = "Infotexte gesetzt"
 L["ElvUI AddOns settings applied."] = "ElvUI AddOns eingestellt."
@@ -388,7 +392,10 @@ L["Please click the button below to setup your datatexts."] = "Bitte drücke die
 L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = "Bitte drücke |cff07D400doppelt|r die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Für andere AddOn Profile, gehe bitte in meine Einstellungen - Skins/AddOns"
 L["DataTexts"] = "Infotexte"
-L["Setup Datatexts"] = "Infotexte einstellen"
+L["Setup Chat v1"] = "Chat einstellen v1"
+L["Setup Chat v2"] = "Chat einstellen v2"
+L["Setup Datatexts v1"] = "Infotexte einstellen v1"
+L["Setup Datatexts v2"] = "Infotexte einstellen v2"
 L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true
 L["Finish"] = "Fertig"
@@ -397,6 +404,11 @@ L["Installed"] = "Installiert"
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter als die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). Bitte aktuallisiere dein ElvUI, um Fehler zu vermeiden!"
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = "Du hast LocationPlus und Shadow & Light zur gleichen Zeit aktiviert. Wähle ein AddOn aus, was du deaktivieren möchtest."
+L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Hier kannst das Layout für S&L wählen.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Hier kannst das Layout für BenikUI wählen.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Hier kannst das Layout für BigWigs wählen.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Hier kannst das Layout für Details wählen.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Hier kannst das Layout für KuiNameplates wählen.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.

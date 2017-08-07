@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="actionBarProfiles.lua"/>
+	<Script file="BenikUI.lua"/>
 	<Script file="bigWigs.lua"/>
 	<Script file="premadeGroupsFilter.lua"/>
 	<Script file="QuickJoinNotifications.lua"/>

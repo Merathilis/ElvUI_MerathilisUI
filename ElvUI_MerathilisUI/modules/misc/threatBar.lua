@@ -76,13 +76,13 @@ function MERTB:Update()
 			end
 
 			if isInRaid then
-				for i=1, 40 do
+				for i = 1, 40 do
 					if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") then
 						self.list["raid"..i] = select(3, UnitDetailedThreatSituation("raid"..i, "target"))
 					end
 				end
 			else
-				for i=1, 4 do
+				for i = 1, 4 do
 					if UnitExists("party"..i) then
 						self.list["party"..i] = select(3, UnitDetailedThreatSituation("party"..i, "target"))
 					end

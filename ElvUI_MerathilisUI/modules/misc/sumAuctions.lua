@@ -59,7 +59,7 @@ function MI:HighlightPrice()
 						local name, _, count, _, _, _, _, _, _, buyoutPrice, bidAmount =  GetAuctionItemInfo("list", offset + i)
 						local alpha = 0.5
 						local color = "yellow"
-						if name then
+						if name and not IsAddOnLoaded("Stubby") then
 							local itemName = _G["BrowseButton"..i.."Name"]
 							local moneyFrame = _G["BrowseButton"..i.."MoneyFrame"]
 							local buyoutMoney = _G["BrowseButton"..i.."BuyoutFrameMoney"]

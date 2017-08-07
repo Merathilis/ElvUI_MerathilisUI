@@ -190,6 +190,8 @@ L["Transparent Backdrops"] = true
 
 -- Unitframes
 L["UnitFrames"] = true
+L["UnitFrames v1"] = true
+L["UnitFrames v2"] = true
 L["Apply shadow under the portrait"] = true
 L["Apply transparency on the portrait backdrop."] = true
 L["Change the detached portrait height"] = true
@@ -344,6 +346,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Chat Set"] = true
 L["ActionBars"] = true
+L["ActionBars v1"] = true
+L["ActionBars v2"] = true
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["ElvUI AddOns settings applied."] = true
@@ -376,6 +380,10 @@ L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
+L["Setup Chat 1"] = true
+L["Setup Chat 2"] = true
+L["Setup Datatexts 1"] = true
+L["Setup Datatexts 2"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -385,6 +393,11 @@ L["Installed"] = true
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
+L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Here you can choose the layout for KuiNameplates.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
