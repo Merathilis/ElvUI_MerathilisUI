@@ -15,16 +15,18 @@ local CreateFrame = CreateFrame
 
 local ChangeLogData = {
 	"Changes:",
-		"• Pimp my AFK Screen. Should be compatible with BenikUI",
-		"• Add an autoscreenshot function on achievements and legendary item drops.",
-		"• Update/Add a lot of skins.",
-		"• Fix an error in the questinfo skin.",
-		"• Add a media section to adjust some fonts. Will be disabled if S&L is loaded.",
-		"• Remove the RoleIcons from the Tooltip.", 
-		"• Add an extern EncounterJournalInfo Frame.",
-		-- "• ",
+		"• Add some checks to tooltips.",
+		"• Update a lot of skins.",
+		"• Remove the ExtraActionButton Texture.",
+		"• Adds an Player Model to the tooltip. Disabled by default.",
+		"• Update Changelog to show after the splashScreen.",
+		"• Add UnitFrame option for AuraSpacing and AuraIconText.", 
+		"• Fix a lua error with Auctineer.",
+		"• Fix a lua error if the ElvUI Actionbars are not enabled.",
+		"• Add a new Layout v2 (Still some things to do).",
 	" ",
 	"Notes:",
+		"• If you use Layout v2, XIV_Databar is deprecated.",
 		-- "• ",
 }
 
@@ -53,7 +55,7 @@ end
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 245)
+	frame:SetSize(445, 280)
 	frame:SetTemplate("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
