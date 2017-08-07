@@ -2090,6 +2090,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["minimapBottom"] = false
 		E.db["datatexts"]["actionbar3"] = false
 		E.db["datatexts"]["actionbar5"] = false
+		E.db["datatexts"]["BottomMiniPanel"] = true
 
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
 
