@@ -12,8 +12,6 @@ local CreateFrame = CreateFrame
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: MERData, PlaySound, UISpecialFrames
 
--- Don't show the frame if my install isn't finished
-if E.db.mui.installed == nil then return; end
 
 local ChangeLogData = {
 	"Changes:",
@@ -146,6 +144,8 @@ function MER:ToggleChangeLog()
 end
 
 function MER:CheckVersion(self)
+	-- Don't show the frame if my install isn't finished
+	if E.db.mui.installed == nil then return; end
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()

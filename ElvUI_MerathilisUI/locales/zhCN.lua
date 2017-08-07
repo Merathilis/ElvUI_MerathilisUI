@@ -190,8 +190,8 @@ L["Transparent Backdrops"] = true
 
 -- Unitframes
 L["UnitFrames"] = true
-L["UnitFrames 1"] = true
-L["UnitFrames 2"] = true
+L["UnitFrames v1"] = true
+L["UnitFrames v2"] = true
 L["Apply shadow under the portrait"] = true
 L["Apply transparency on the portrait backdrop."] = true
 L["Change the detached portrait height"] = true
@@ -346,8 +346,8 @@ L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
 L["Chat Set"] = true
 L["ActionBars"] = true
-L["ActionBars 1"] = true
-L["ActionBars 2"] = true
+L["ActionBars v1"] = true
+L["ActionBars v2"] = true
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
 L["ElvUI AddOns settings applied."] = true

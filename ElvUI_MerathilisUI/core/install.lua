@@ -211,9 +211,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
-	E.db["general"]["minimap"]["locationFontSize"] = 10
-	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
-	E.db["general"]["minimap"]["locationFont"] = "Merathilis Roboto-Black"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
 	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
@@ -309,6 +306,16 @@ function MER:SetupLayout(layout)
 	end
 
 	--[[----------------------------------
+	--	ProfileDB - mUI
+	--]]----------------------------------
+	E.db["mui"]["uiButtons"]["enable"] = true
+	E.db["mui"]["locPanel"]["enable"] = true
+	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
+	E.db["mui"]["locPanel"]["font"] = "Expressway"
+	E.db["mui"]["raidmarkers"]["enable"] = false
+
+
+	--[[----------------------------------
 	--	Movers - Layout
 	--]]----------------------------------
 	MER:SetMoverPosition("AltPowerBarMover", "TOP", E.UIParent, "TOP" ,1, -272)
@@ -328,6 +335,9 @@ function MER:SetupLayout(layout)
 		E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
+		E.db["general"]["minimap"]["locationFontSize"] = 10
+		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
+		E.db["general"]["minimap"]["locationFont"] = "Merathilis Roboto-Black"
 		E.db["tooltip"]["healthBar"]["font"] = "Merathilis Roboto-Black"
 		E.db["bags"]["itemLevelFont"] = "Merathilis Roboto-Black"
 		E.db["bags"]["itemLevelFontSize"] = 9
@@ -377,10 +387,26 @@ function MER:SetupLayout(layout)
 		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -491, 44)
 		MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 25)
 
+		-- Apply BenikUI
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			MER:LoadBenikUIProfile("small")
+		end
+		-- Apply S&L
+		if IsAddOnLoaded("ElvUI_SLE") then
+			 MER:LoadShadowandLightProfile("small")
+		end
+		-- Masque
+		if IsAddOnLoaded("Masque") then
+			MER:LoadMasqueProfile()
+		end
+
 	elseif layout == "big" then
 		E.private["general"]["chatBubbleFont"] = "Expressway"
 		E.private["general"]["namefont"] = "Expressway"
 		E.private["general"]["dmgfont"] = "Expressway"
+		E.db["general"]["minimap"]["locationFontSize"] = 10
+		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
+		E.db["general"]["minimap"]["locationFont"] = "Expressway"
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["bags"]["itemLevelFont"] = "Expressway"
 		E.db["bags"]["itemLevelFontSize"] = 9
@@ -426,9 +452,23 @@ function MER:SetupLayout(layout)
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 463, 21)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
-		MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 467, 44)
+		MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 475, 21)
 		MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -519, 21)
 		MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 2)
+		MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
+
+		-- Apply BenikUI
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			MER:LoadBenikUIProfile("big")
+		end
+		-- Apply S&L
+		if IsAddOnLoaded("ElvUI_SLE") then
+			 MER:LoadShadowandLightProfile("big")
+		end
+		-- Masque
+		if IsAddOnLoaded("Masque") then
+			MER:LoadMasqueProfile()
+		end
 	end
 
 	E:UpdateAll(true)
@@ -748,7 +788,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
-	
+
 		-- Detach portrait
 		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
 		E.db["mui"]["unitframes"]["player"]["detachPortrait"] = true
@@ -1430,6 +1470,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
+		E.db["mui"]["unitframes"]["player"]["detachPortrait"] = false
+		E.db["mui"]["unitframes"]["target"]["detachPortrait"] = false
 
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 245)
 
@@ -1605,7 +1647,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 3
-		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 5
+		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 2
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
@@ -2070,7 +2112,7 @@ function MER:SetupDts(layout)
 			if IsAddOnLoaded("ElvUI_SLE") then
 				E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "S&L Item Level"
 			else
-				E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = ""
+				E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Haste"
 			end
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Talent/Loot Specialization"
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
@@ -2084,13 +2126,13 @@ function MER:SetupDts(layout)
 			end
 
 			if IsAddOnLoaded("ElvUI_SLE") then
-				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "S&L Friends"
+				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "S&L Guild"
 			else
 				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "Friends"
 			end
 			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "MUI System"
 			if IsAddOnLoaded("ElvUI_SLE") then
-				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "S&L Guild"
+				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "S&L Friends"
 			else
 				E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Guild"
 			end
@@ -2192,10 +2234,10 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupLayout("small") end)
-			PluginInstallFrame.Option1:SetText(L["Layout 1"])
+			PluginInstallFrame.Option1:SetText(L["Layout v1"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupLayout("big") end)
-			PluginInstallFrame.Option2:SetText(L["Layout 2"])
+			PluginInstallFrame.Option2:SetText(L["Layout v2"])
 		end,
 		[3] = function()
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
@@ -2213,10 +2255,10 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupChat("small") end)
-			PluginInstallFrame.Option1:SetText(L["Setup Chat 1"])
+			PluginInstallFrame.Option1:SetText(L["Setup Chat v1"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() SetupChat("big") end)
-			PluginInstallFrame.Option2:SetText(L["Setup Chat 2"])
+			PluginInstallFrame.Option2:SetText(L["Setup Chat v2"])
 		end,
 		[5] = function()
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
@@ -2225,10 +2267,10 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupDts("small") end)
-			PluginInstallFrame.Option1:SetText(L["Setup Datatexts 1"])
+			PluginInstallFrame.Option1:SetText(L["Setup Datatexts v1"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupDts("big") end)
-			PluginInstallFrame.Option2:SetText(L["Setup Datatexts 2"])
+			PluginInstallFrame.Option2:SetText(L["Setup Datatexts v2"])
 		end,
 		[6] = function()
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
@@ -2237,10 +2279,10 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupActionbars("small") end)
-			PluginInstallFrame.Option1:SetText(L["ActionBars 1"])
+			PluginInstallFrame.Option1:SetText(L["ActionBars v1"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupActionbars("big") end)
-			PluginInstallFrame.Option2:SetText(L["ActionBars 2"])
+			PluginInstallFrame.Option2:SetText(L["ActionBars v2"])
 		end,
 		[7] = function()
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
@@ -2249,10 +2291,10 @@ MER.installTable = {
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupUnitframes("small") end)
-			PluginInstallFrame.Option1:SetText(L["UnitFrames 1"])
+			PluginInstallFrame.Option1:SetText(L["UnitFrames v1"])
 			PluginInstallFrame.Option2:Show()
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupUnitframes("big") end)
-			PluginInstallFrame.Option2:SetText(L["UnitFrames 2"])
+			PluginInstallFrame.Option2:SetText(L["UnitFrames v2"])
 		end,
 		--[[
 		[8] = function()
