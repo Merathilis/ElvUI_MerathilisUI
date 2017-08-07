@@ -131,7 +131,7 @@ function E:UpdateBlizzardFonts()
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 		--SetFont(SystemFont_OutlineThick_Huge4,	NORMAL, 26);
 		--SetFont(QuestTitleFont,					NORMAL, 16);
-		--SetFont(GameFont_Gigantic,				NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);
+		SetFont(GameFont_Gigantic,				NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);		-- Used at the install steps
 		--SetFont(GameFontHighlightLarge2,			NORMAL, 14);
 		--SetFont(DestinyFontLarge,					NORMAL, 14);
 	end
