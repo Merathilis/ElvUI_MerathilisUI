@@ -1901,6 +1901,8 @@ function MER:SetupUnitframes(layout)
 		-- Pet
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
 		E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
+		E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 105
+		E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 18
 		E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
@@ -1934,6 +1936,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
 		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 245)
+		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 226)
 
 		-- Arena
 		E.db["unitframe"]["units"]["arena"]["power"]["width"] = "inset"
