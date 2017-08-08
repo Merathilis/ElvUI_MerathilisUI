@@ -292,13 +292,13 @@ function MER:LoadShadowandLightProfile(layout)
 		E.db["sle"]["dt"]["guild"]["totals"] = true
 		E.db["sle"]["dt"]["guild"]["hide_hintline"] = true
 		E.db["sle"]["dt"]["guild"]["hide_titleline"] = true
-		E.db["sle"]["dt"]["guild"]["textStyle"] = "Icon"
+		E.db["sle"]["dt"]["guild"]["textStyle"] = "Default"
 		E.db["sle"]["dt"]["friends"]["sortBN"] = "revREALID"
 		E.db["sle"]["dt"]["friends"]["expandBNBroadcast"] = true
 		E.db["sle"]["dt"]["friends"]["totals"] = true
 		E.db["sle"]["dt"]["friends"]["hide_hintline"] = true
 		E.db["sle"]["dt"]["friends"]["hide_titleline"] = true
-		E.db["sle"]["dt"]["friends"]["textStyle"] = "Icon"
+		E.db["sle"]["dt"]["friends"]["textStyle"] = "Default"
 		E.db["sle"]["dt"]["currency"]["Unused"] = false
 		E.db["sle"]["dt"]["currency"]["PvP"] = false
 		E.db["sle"]["dt"]["currency"]["Archaeology"] = false
