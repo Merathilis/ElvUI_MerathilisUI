@@ -160,7 +160,6 @@ local function dbCleaning()
 	E.db.mui.dbCleaned = true
 end
 
-
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
@@ -191,9 +190,9 @@ function MER:Initialize()
 
 	if E.db.mui.general.SplashScreen then
 		CreateSplashScreen()
-	else
-		C_TimerAfter(6, MER:CheckVersion())
 	end
+
+	E:Delay(6, function() MER:CheckVersion() end)
 
 	-- Show only Splash Screen if the install is completed
 	if (E.db.mui.installed == true and E.db.mui.general.SplashScreen) then
