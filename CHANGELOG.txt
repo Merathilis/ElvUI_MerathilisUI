@@ -1,3 +1,10 @@
+<b><u> v3.04, 09.08.2017</b></u>
+<font color=#FF8C00>&#9830;</font> Set the font in the install step messages.
+<font color=#FF8C00>&#9830;</font> Change the S&L Datatext (Friend, Guild) to use text instead of the icon.
+<font color=#FF8C00>&#9830;</font> Fix Pet castbar position.
+<font color=#FF8C00>&#9830;</font> Change the castbar to be default, not transparent.
+<font color=#FF8C00>&#9830;</font> Fix a error with version check if the SplashScreen is disabled.
+
 <b><u> v3.03, 07.08.2017</b></u>
 <font color=#FF8C00>&#9830;</font> Add some checks to tooltips. :IsForbidden()
 <font color=#FF8C00>&#9830;</font> Update a lot of skins.
