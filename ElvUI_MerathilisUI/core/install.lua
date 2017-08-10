@@ -207,8 +207,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["totems"]["size"] = 36
-	E.db["general"]["font"] = "Merathilis Roboto-Black"
-	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
@@ -288,7 +286,6 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
-	E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
 	E.db["tooltip"]["style"] = "inset"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 11
@@ -332,9 +329,12 @@ function MER:SetupLayout(layout)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	if layout == "small" then
+		E.db["general"]["font"] = "Merathilis Roboto-Black"
+		E.db["general"]["fontSize"] = 10
 		E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
+		E.db["general"]["minimap"]["size"] = 153
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Merathilis Roboto-Black"
@@ -379,7 +379,7 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["textSize"] = 11
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
-		E.db["general"]["minimap"]["size"] = 153
+		E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 455, 44)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -503, 44)
@@ -401,9 +401,12 @@ function MER:SetupLayout(layout)
 		end
 
 	elseif layout == "big" then
+		E.db["general"]["font"] = "Expressway"
+		E.db["general"]["fontSize"] = 11
 		E.private["general"]["chatBubbleFont"] = "Expressway"
 		E.private["general"]["namefont"] = "Expressway"
 		E.private["general"]["dmgfont"] = "Expressway"
+		E.db["general"]["minimap"]["size"] = 173
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Expressway"
@@ -448,7 +451,7 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["textSize"] = 11
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
-		E.db["general"]["minimap"]["size"] = 173
+		E.db["tooltip"]["font"] = "Expressway"
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 463, 21)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
