@@ -18,7 +18,7 @@ frame:SetScript("OnEvent", function(self, event)
 	local function SkinWeakAuras(frame, ftype)
 		if ftype == "icon" then
 			if not frame.shadow then
-				frame:CreateShadow("Background")
+				-- frame:CreateShadow("Background") -- it creates a permanent frame (not cool)
 				frame.icon:SetTexCoord(unpack(E.TexCoords))
 				frame.icon.SetTexCoord = MER.dummy
 				E:RegisterCooldown(frame.cooldown)
