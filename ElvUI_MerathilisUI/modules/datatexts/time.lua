@@ -16,7 +16,7 @@ local timerShortFormat = "%d:%02d"
 local lockoutInfoFormat = "%s%s |cffaaaaaa(%s, %s/%s)"
 local lockoutInfoFormatNoEnc = "%s%s |cffaaaaaa(%s)"
 local formatBattleGroundInfo = "%s: "
-local lockoutColorExtended, lockoutColorNormal = { r=0.3,g=1,b=0.3 }, { r=.8,g=.8,b=.8 }
+local lockoutColorExtended, lockoutColorNormal = { r = 0.3, g = 1, b = 0.3 }, { r = .8, g = .8, b = .8 }
 local lockoutFormatString = { "%dd %02dh %02dm", "%dd %dh %02dm", "%02dh %02dm", "%dh %02dm", "%dh %02dm", "%dm" }
 local curHr, curMin, curAmPm
 local enteredFrame = false;
@@ -27,15 +27,15 @@ local name, reset, locked, extended, isRaid, maxPlayers, difficulty, numEncounte
 local quests = {}
 local updateQuestTable = false
 
-local function ValueColorUpdate(hex, r, g, b)
-	europeDisplayFormat = join("", "%02d", ":|r%02d")
-	ukDisplayFormat = join("", "", "%d", ":|r%02d")
+local function ValueColorUpdate(hex)
+	europeDisplayFormat = join("", "%02d", hex, ":|r%02d")
+	ukDisplayFormat = join("", "", "%d", hex, ":|r%02d", hex, " %s|r")
 
 	if lastPanel ~= nil then
 		Update(lastPanel, 20000)
 	end
 end
-E['valueColorUpdateFuncs'][ValueColorUpdate] = true
+E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
 local function ConvertTime(h, m)
 	local AmPm
@@ -71,9 +71,9 @@ local function CalculateTimeLeft(time)
 end
 
 local function formatResetTime(sec)
-	local d,h,m,s = ChatFrame_TimeBreakDown(floor(sec))
-	if not type(d) == 'number' or not type(h)== 'number' or not type(m) == 'number' or not type(s) == 'number' then
-		return 'N/A'
+	local d, h, m, s = ChatFrame_TimeBreakDown(floor(sec))
+	if not type(d) == "number" or not type(h)== "number" or not type(m) == "number" or not type(s) == "number" then
+		return "N/A"
 	end
 
 	if d > 0 and lockoutFormatString[h>10 and 1 or 2] then 
@@ -183,6 +183,7 @@ end
 
 local int = 3
 function Update(self, t)
+	self.db = E.db.datatexts
 	int = int - t
 
 	if enteredFrame then
@@ -210,12 +211,14 @@ function Update(self, t)
 	curAmPm = AmPm
 
 	if AmPm == -1 then
+		self.text:FontTemplate(fontTemplate, self.db.fontSize*1.6, self.db.fontOutline)
 		self.text:SetFormattedText(europeDisplayFormat, Hr, Min)
 	else
+		self.text:FontTemplate(fontTemplate, self.db.fontSize*1.6, self.db.fontOutline)
 		self.text:SetFormattedText(ukDisplayFormat, Hr, Min, APM[AmPm])
 	end
 	lastPanel = self
 	int = 5
 end
 
-DT:RegisterDatatext('MUI Time', { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)
+DT:RegisterDatatext("MUI Time", { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)

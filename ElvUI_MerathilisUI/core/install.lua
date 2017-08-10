@@ -2093,7 +2093,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["minimapBottom"] = false
 		E.db["datatexts"]["actionbar3"] = false
 		E.db["datatexts"]["actionbar5"] = false
-		E.db["datatexts"]["BottomMiniPanel"] = true
+		E.db["datatexts"]["minimapBottom"] = true
 
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
 
@@ -2151,7 +2151,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 
-		E.db["datatexts"]["panels"]["TopMiniPanel"] = "Time"
+		E.db["datatexts"]["panels"]["BottomMiniPanel"] = "MUI Time"
 	end
 
 	E:UpdateAll(true)
