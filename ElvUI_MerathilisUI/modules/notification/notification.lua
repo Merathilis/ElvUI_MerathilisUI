@@ -34,6 +34,7 @@ local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
 local GetGameTime = GetGameTime
+local PlaySoundKitID = PlaySoundKitID
 local CreateAnimationGroup = CreateAnimationGroup
 local CalendarGetAbsMonth = CalendarGetAbsMonth
 
@@ -90,7 +91,7 @@ function NF:SpawnToast(toast)
 	toast.AnimOut.AnimMove:SetOffset(0, -YOffset)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
-	PlaySound(SOUNDKIT.UI_BNET_TOAST)
+	PlaySoundKitID(18019)
 end
 
 function NF:RefreshToasts()
@@ -455,7 +456,7 @@ function NF:VIGNETTE_ADDED(event, id)
 end
 
 function NF:RESURRECT_REQUEST(name)
-	PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_FOLLOWER_LEVEL_UP)
+	PlaySound("LEVELUPSOUND", "master")
 end
 
 function NF:Initialize()
