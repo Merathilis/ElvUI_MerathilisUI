@@ -6,6 +6,7 @@
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## eMail: neo0608@gmail.com
+## X-Website: https://www.tukui.org
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## SavedVariables: MERData
@@ -15,7 +16,6 @@
 ## X-Curse-Packaged-Version: 3.04
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
-## X-Website: https://www.tukui.org
 
 libs\load_libs.xml
 locales\load_locales.xml
