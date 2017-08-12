@@ -161,7 +161,7 @@ local function SetupChat(layout)
 		E.db["chat"]["font"] = "Expressway"
 		E.db["chat"]["fontOutline"] = "NONE"
 		E.db["chat"]["tabFont"] = "Expressway"
-		E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
+		E.db["chat"]["tabFont"] = "Expressway"
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["tabFontSize"] = 10
 		MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -178, 21)
