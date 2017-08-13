@@ -293,10 +293,6 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["style"] = "inset"
-	E.db["tooltip"]["fontOutline"] = "NONE"
-	E.db["tooltip"]["headerFontSize"] = 11
-	E.db["tooltip"]["textFontSize"] = 10
-	E.db["tooltip"]["smallTextFontSize"] = 10
 	MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT" ,-3, 220)
 
 	--[[----------------------------------
@@ -386,6 +382,10 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
 		E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
+		E.db["tooltip"]["fontOutline"] = "NONE"
+		E.db["tooltip"]["headerFontSize"] = 11
+		E.db["tooltip"]["textFontSize"] = 10
+		E.db["tooltip"]["smallTextFontSize"] = 10
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 455, 44)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -503, 44)
@@ -458,6 +458,10 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
 		E.db["tooltip"]["font"] = "Expressway"
+		E.db["tooltip"]["fontOutline"] = "NONE"
+		E.db["tooltip"]["headerFontSize"] = 12
+		E.db["tooltip"]["textFontSize"] = 11
+		E.db["tooltip"]["smallTextFontSize"] = 11
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 463, 21)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
