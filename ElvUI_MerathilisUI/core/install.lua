@@ -47,10 +47,8 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
-	SetCVar("taintLog", 0)
 	SetCVar("TargetNearestUseNew", 1)
 	SetCVar("screenshotQuality", 10)
-	SetCVar("scriptErrors", 1)
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
@@ -59,6 +57,14 @@ local function SetupCVars()
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
 	SetCVar("violenceLevel", 5)
+
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		SetCVar("scriptErrors", 1)
+		SetCVar("taintLog", 1)
+	else
+		SetCVar("scriptErrors", 0)
+		SetCVar("taintLog", 0)
+	end
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
