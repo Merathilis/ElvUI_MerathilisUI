@@ -142,7 +142,7 @@ local function SetupChat(layout)
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	if E.myname == "Merathilis" then
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\moonkin.tga"
 	else
 		E.db["chat"]["panelBackdropNameRight"] = ""

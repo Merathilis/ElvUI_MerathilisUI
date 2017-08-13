@@ -190,6 +190,43 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
 
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		local bg = _G["ObjectiveTrackerBlocksFrame"].QuestHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+
+		local bg = _G["ObjectiveTrackerBlocksFrame"].AchievementHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+
+		local bg = _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+
+		local bg = _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+
+		local bg = _G["WORLD_QUEST_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+	end
+
 	nQ:RegisterEvent('PLAYER_LOGIN')
 	nQ:RegisterEvent('PLAYER_REGEN_DISABLED')
 	nQ:RegisterEvent('PLAYER_REGEN_ENABLED')
