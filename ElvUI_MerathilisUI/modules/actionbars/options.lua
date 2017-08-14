@@ -62,7 +62,7 @@ local function ButtonStyleTable()
 				},
 			},
 			general = {
-				order = 1,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["General"]),
 				args = {
