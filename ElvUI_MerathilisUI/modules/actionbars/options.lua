@@ -57,12 +57,12 @@ local function ButtonStyleTable()
 						order = 1,
 						type = "description",
 						fontSize = "medium",
-						name = format("|cff9482c9ElvUI_NenaUI - by Infinitron|r"),
+						name = format("|cff9482c9Some code in this Addon was written by Infinitron and is used here under permission.|r"),
 					},
 				},
 			},
 			general = {
-				order = 2,
+				order = 1,
 				type = "group",
 				name = MER:cOption(L["General"]),
 				args = {
