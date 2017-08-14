@@ -501,9 +501,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["lockActionBars"] = true
 
 	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = true
-		E.private["actionbar"]["masque"]["petBar"] = true
-		E.private["actionbar"]["masque"]["actionbars"] = true
+		E.private["actionbar"]["masque"]["stanceBar"] = false
+		E.private["actionbar"]["masque"]["petBar"] = false
+		E.private["actionbar"]["masque"]["actionbars"] = false
 	end
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
