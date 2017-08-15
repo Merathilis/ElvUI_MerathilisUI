@@ -32,12 +32,41 @@ local function styleGossip()
 	GossipGreetingScrollFrame.spellTex:SetTexture('')
 
 	hooksecurefunc("GossipFrameUpdate", function()
-		for i = 1, NUMGOSSIPBUTTONS do
+		for i=1, NUMGOSSIPBUTTONS do
 			local text = _G["GossipTitleButton" .. i]:GetText()
 			if text then
-				text = gsub(text, "|cff......", "|cffffffff")
-				_G["GossipTitleButton"..i]:SetText(text)
+				text = string.gsub(text, "|cff......", "|cffffffff")
+				_G["GossipTitleButton" .. i]:SetText(text)
 			end
+		end
+	end)
+
+	hooksecurefunc("GossipFrameAvailableQuestsUpdate", function(...)
+		local numAvailQuestsData = select("#", ...)
+		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numAvailQuestsData / 7)
+		for i = 1, numAvailQuestsData, 7 do
+			local titleText, _, isTrivial = select(i, ...)
+			local titleButton = _G["GossipTitleButton" .. buttonIndex]
+			if isTrivial then
+				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
+			else
+				titleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, titleText)
+			end
+			buttonIndex = buttonIndex + 1
+		end
+	end)
+	hooksecurefunc("GossipFrameActiveQuestsUpdate", function(...)
+		local numActiveQuestsData = select("#", ...)
+		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numActiveQuestsData / 6)
+		for i = 1, numActiveQuestsData, 6 do
+			local titleText, _, isTrivial = select(i, ...)
+			local titleButton = _G["GossipTitleButton" .. buttonIndex]
+			if isTrivial then
+				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
+			else
+				titleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, titleText)
+			end
+			buttonIndex = buttonIndex + 1
 		end
 	end)
 

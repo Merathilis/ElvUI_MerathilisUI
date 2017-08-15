@@ -20,8 +20,6 @@
 	<Script file="objectivetracker.lua"/>
 	<Script file="questchoice.lua"/>
 	<Script file="questframe.lua"/>
-	<Script file="questinfo.lua"/>
-	<Script file="questmapframe.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>
 	<Script file="pvp.lua"/>
