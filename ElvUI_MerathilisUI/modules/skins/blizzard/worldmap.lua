@@ -19,7 +19,7 @@ local function styleWorldmap()
 
 	frame:RegisterEvent("QUEST_LOG_UPDATE")
 	frame:Size(240, 20)
-	frame:Point("TOP", 0, 30)
+	frame:Point("TOP", -12, 30)
 	MERS:CreateBD(frame, .25)
 
 	local text = frame:CreateFontString(nil, "OVERLAY")
