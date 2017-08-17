@@ -97,62 +97,6 @@ local function styleObjectiveTracker()
 		end
 	end)
 
-	-- Quest Level GossipFrame
-	local function GossipFrameUpdate_hook()
-		local buttonIndex = 1
-		-- name, level, isTrivial, isDaily, isRepeatable, isLegendary, isIgnored, ... = GetGossipAvailableQuests()
-		local availableQuests = {GetGossipAvailableQuests()}
-		local numAvailableQuests = tgetn(availableQuests)
-		for i = 1, numAvailableQuests, 7 do
-			local titleButton = _G["GossipTitleButton" .. buttonIndex]
-			local title = "["..availableQuests[i+1].."] "..availableQuests[i]
-			local isTrivial = availableQuests[i+2]
-			if isTrivial then
-				titleButton:SetFormattedText(TRIVIAL_QUEST_DISPLAY, title)
-			else
-				titleButton:SetFormattedText(NORMAL_QUEST_DISPLAY, title)
-			end
-			GossipResize(titleButton)
-			buttonIndex = buttonIndex + 1
-		end
-		if numAvailableQuests > 1 then
-			buttonIndex = buttonIndex + 1
-		end
-
-		-- name, level, isTrivial, isDaily, isLegendary, isIgnored, ... = GetGossipActiveQuests()
-		local activeQuests = {GetGossipActiveQuests()}
-		local numActiveQuests = tgetn(activeQuests)
-		for i = 1, numActiveQuests, 6 do
-			local titleButton = _G["GossipTitleButton" .. buttonIndex]
-			local title = "["..activeQuests[i+1].."] "..activeQuests[i]
-			local isTrivial = activeQuests[i+2]
-			if isTrivial then
-				titleButton:SetFormattedText(TRIVIAL_QUEST_DISPLAY, title)
-			else
-				titleButton:SetFormattedText(NORMAL_QUEST_DISPLAY, title)
-			end
-			GossipResize(titleButton)
-			buttonIndex = buttonIndex + 1
-		end
-	end
-	hooksecurefunc("GossipFrameUpdate", GossipFrameUpdate_hook)
-
-	-- Quest Level QuestInfoFrame
-	local function QuestInfo_hook(template, parentFrame, acceptButton, material, mapView)
-		local elementsTable = template.elements
-		for i = 1, #elementsTable, 3 do
-			if elementsTable[i] == QuestInfo_ShowTitle then
-				if _G["QuestInfoFrame"].questLog then
-					local questLogIndex = GetQuestLogSelection()
-					local level = select(2, GetQuestLogTitle(questLogIndex))
-					local newTitle = "["..level.."] ".._G["QuestInfoTitleHeader"]:GetText()
-					_G["QuestInfoTitleHeader"]:SetText(newTitle)
-				end
-			end
-		end
-	end
-	hooksecurefunc("QuestInfo_Display", QuestInfo_hook)
-
 	-- Quest Level ObjectiveTrackerFrame
 	local function SetBlockHeader_hook()
 		for i = 1, GetNumQuestWatches() do
@@ -190,40 +134,42 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
 
-	local bg = _G["ObjectiveTrackerBlocksFrame"].QuestHeader:CreateTexture(nil, "ARTWORK")
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	bg:SetPoint("BOTTOMLEFT", -30, -4)
-	bg:SetSize(210, 30)
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		local bg = _G["ObjectiveTrackerBlocksFrame"].QuestHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
 
-	local bg = _G["ObjectiveTrackerBlocksFrame"].AchievementHeader:CreateTexture(nil, "ARTWORK")
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	bg:SetPoint("BOTTOMLEFT", -30, -4)
-	bg:SetSize(210, 30)
+		local bg = _G["ObjectiveTrackerBlocksFrame"].AchievementHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
 
-	local bg = _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader:CreateTexture(nil, "ARTWORK")
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	bg:SetPoint("BOTTOMLEFT", -30, -4)
-	bg:SetSize(210, 30)
+		local bg = _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
 
-	local bg = _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	bg:SetPoint("BOTTOMLEFT", -30, -4)
-	bg:SetSize(210, 30)
+		local bg = _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
 
-	local bg = _G["WORLD_QUEST_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
-	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-	bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	bg:SetPoint("BOTTOMLEFT", -30, -4)
-	bg:SetSize(210, 30)
+		local bg = _G["WORLD_QUEST_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bg:SetPoint("BOTTOMLEFT", -30, -4)
+		bg:SetSize(210, 30)
+	end
 
 	nQ:RegisterEvent('PLAYER_LOGIN')
 	nQ:RegisterEvent('PLAYER_REGEN_DISABLED')

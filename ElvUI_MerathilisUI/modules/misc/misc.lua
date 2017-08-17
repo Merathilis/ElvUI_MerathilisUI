@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0", "AceConsole-3.0");
+local MI = E:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0", "AceConsole-3.0")
 MI.modName = L["Misc"]
 
 E.mUIMisc = MI;
@@ -108,6 +108,13 @@ function MI:LoadMisc()
 			LFRBrowseFrame.timeToClear = nil
 		end
 	end)
+
+	-- Pet Journal Fix
+	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_COLLECTED, true)
+	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
+	C_PetJournal.SetAllPetTypesChecked(true)
+	C_PetJournal.SetAllPetSourcesChecked(true)
+
 end
 
 function MI:Initialize()

@@ -132,3 +132,26 @@ MER.colors.class = {
 for class, color in pairs(MER.colors.class) do
 	MER.colors.class[class] = { r = color[1], g = color[2], b = color[3] }
 end
+
+-- Personal Dev use only
+-- We will add more of my names as we go.
+MER.IsDev = {
+	["Merathilis"] = true,
+	["Róhal"] = true,
+	["Jazira"] = true,
+	["Damará"] = true,
+}
+-- Don't forget to update realm name(s) if we ever transfer realms.
+-- If we forget it could be easly picked up by another player who matches these combinations.
+-- End result we piss off people and we do not want to do that. :(
+MER.IsDevRealm = {
+	["Shattrath"] = true,
+}
+
+function MER:IsDeveloper()
+	return MER.IsDev[E.myname] or false
+end
+
+function MER:IsDeveloperRealm()
+	return MER.IsDevRealm[E.myrealm] or false
+end

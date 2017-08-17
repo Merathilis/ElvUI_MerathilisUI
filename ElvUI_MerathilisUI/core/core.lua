@@ -45,6 +45,11 @@ function MER:AddOptions()
 	end
 end
 
+local color = { r = 1, g = 1, b = 1, a = 1 }
+function MER:unpackColor(color)
+	return color.r, color.g, color.b, color.a
+end
+
 function MER:DasOptions()
 	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
