@@ -44,7 +44,6 @@ function MER:LoadBenikUIProfile(layout)
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
 		E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
-		E.db["benikui"]["unitframes"]["infoPanel"]["color"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
 		E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
@@ -102,8 +101,7 @@ function MER:LoadBenikUIProfile(layout)
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
-		E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisOnePixel"
-		E.db["benikui"]["unitframes"]["infoPanel"]["color"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+		E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisEmpty"
 		E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
 		E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true

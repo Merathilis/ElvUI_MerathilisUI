@@ -47,8 +47,10 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
+	SetCVar("taintLog", 0)
 	SetCVar("TargetNearestUseNew", 1)
 	SetCVar("screenshotQuality", 10)
+	SetCVar("scriptErrors", 1)
 	SetCVar("showTimestamps", 0)
 	SetCVar("showTutorials", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
@@ -57,14 +59,6 @@ local function SetupCVars()
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
 	SetCVar("violenceLevel", 5)
-
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		SetCVar("scriptErrors", 1)
-		SetCVar("taintLog", 1)
-	else
-		SetCVar("scriptErrors", 0)
-		SetCVar("taintLog", 0)
-	end
 
 	PluginInstallStepComplete.message = MER.Title..L["CVars Set"]
 	PluginInstallStepComplete:Show()
@@ -148,7 +142,7 @@ local function SetupChat(layout)
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+	if E.myname == "Merathilis" then
 		E.db["chat"]["panelBackdropNameRight"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\moonkin.tga"
 	else
 		E.db["chat"]["panelBackdropNameRight"] = ""
@@ -167,7 +161,7 @@ local function SetupChat(layout)
 		E.db["chat"]["font"] = "Expressway"
 		E.db["chat"]["fontOutline"] = "NONE"
 		E.db["chat"]["tabFont"] = "Expressway"
-		E.db["chat"]["tabFont"] = "Expressway"
+		E.db["chat"]["tabFont"] = "Merathilis Roboto-Black"
 		E.db["chat"]["tabFontOutline"] = "OUTLINE"
 		E.db["chat"]["tabFontSize"] = 10
 		MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -178, 21)
@@ -213,6 +207,8 @@ function MER:SetupLayout(layout)
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["totems"]["size"] = 36
+	E.db["general"]["font"] = "Merathilis Roboto-Black"
+	E.db["general"]["fontSize"] = 10
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
@@ -292,7 +288,12 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
+	E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
 	E.db["tooltip"]["style"] = "inset"
+	E.db["tooltip"]["fontOutline"] = "NONE"
+	E.db["tooltip"]["headerFontSize"] = 11
+	E.db["tooltip"]["textFontSize"] = 10
+	E.db["tooltip"]["smallTextFontSize"] = 10
 	MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT" ,-3, 220)
 
 	--[[----------------------------------
@@ -331,12 +332,9 @@ function MER:SetupLayout(layout)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	if layout == "small" then
-		E.db["general"]["font"] = "Merathilis Roboto-Black"
-		E.db["general"]["fontSize"] = 10
 		E.private["general"]["chatBubbleFont"] = "Merathilis Roboto-Black"
 		E.private["general"]["namefont"] = "Merathilis Roboto-Black"
 		E.private["general"]["dmgfont"] = "Merathilis Roboto-Black"
-		E.db["general"]["minimap"]["size"] = 153
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Merathilis Roboto-Black"
@@ -381,11 +379,7 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["textSize"] = 11
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
-		E.db["tooltip"]["font"] = "Merathilis Roboto-Black"
-		E.db["tooltip"]["fontOutline"] = "NONE"
-		E.db["tooltip"]["headerFontSize"] = 11
-		E.db["tooltip"]["textFontSize"] = 10
-		E.db["tooltip"]["smallTextFontSize"] = 10
+		E.db["general"]["minimap"]["size"] = 153
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 455, 44)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -503, 44)
@@ -407,12 +401,9 @@ function MER:SetupLayout(layout)
 		end
 
 	elseif layout == "big" then
-		E.db["general"]["font"] = "Expressway"
-		E.db["general"]["fontSize"] = 11
 		E.private["general"]["chatBubbleFont"] = "Expressway"
 		E.private["general"]["namefont"] = "Expressway"
 		E.private["general"]["dmgfont"] = "Expressway"
-		E.db["general"]["minimap"]["size"] = 173
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Expressway"
@@ -457,11 +448,7 @@ function MER:SetupLayout(layout)
 		E.db["databars"]["honor"]["textSize"] = 11
 		E.db["databars"]["honor"]["hideOutsidePvP"] = true
 		E.db["databars"]["honor"]["hideInCombat"] = true
-		E.db["tooltip"]["font"] = "Expressway"
-		E.db["tooltip"]["fontOutline"] = "NONE"
-		E.db["tooltip"]["headerFontSize"] = 12
-		E.db["tooltip"]["textFontSize"] = 11
-		E.db["tooltip"]["smallTextFontSize"] = 11
+		E.db["general"]["minimap"]["size"] = 173
 		MER:SetMoverPosition("ArtifactBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 463, 21)
 		MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 		MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
@@ -501,9 +488,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["lockActionBars"] = true
 
 	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = false
-		E.private["actionbar"]["masque"]["petBar"] = false
-		E.private["actionbar"]["masque"]["actionbars"] = false
+		E.private["actionbar"]["masque"]["stanceBar"] = true
+		E.private["actionbar"]["masque"]["petBar"] = true
+		E.private["actionbar"]["masque"]["actionbars"] = true
 	end
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
@@ -2106,7 +2093,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["minimapBottom"] = false
 		E.db["datatexts"]["actionbar3"] = false
 		E.db["datatexts"]["actionbar5"] = false
-		E.db["datatexts"]["minimapBottom"] = true
+		E.db["datatexts"]["BottomMiniPanel"] = true
 
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
 
@@ -2164,7 +2151,7 @@ function MER:SetupDts(layout)
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 		E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 
-		E.db["datatexts"]["panels"]["BottomMiniPanel"] = "MUI Time"
+		E.db["datatexts"]["panels"]["TopMiniPanel"] = "Time"
 	end
 
 	E:UpdateAll(true)

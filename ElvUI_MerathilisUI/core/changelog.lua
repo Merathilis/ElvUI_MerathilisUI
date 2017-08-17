@@ -15,16 +15,15 @@ local CreateFrame = CreateFrame
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove the texture from the ObjectiveTracker Skin.",
-		"• Fix an error in WeakAura Skin.",
-		"• Some layout adjustments.",
-		"• Add a style for the ActionBars Buttons (Like Masque).",
-		"•   Credits Infinitron for the code permission.",
-		"• Add compatibily with or without ParchementRemover from AddOnSkins.",
-		"• Add a QuestCounter on the WorldMap.",
+		"• Set the font in the install step messages.",
+		"• Change the S&L Datatext (Friend, Guild) to use text instead of the icon.",
+		"• Fix Pet castbar position.",
+		"• Change the castbar to be default, not transparent.",
+		"• Fix a error with version check if the SplashScreen is disabled.",
 		-- "• ",
 	" ",
 	"Notes:",
+		"• If you use Layout v2, XIV_Databar is deprecated.",
 		-- "• ",
 }
 

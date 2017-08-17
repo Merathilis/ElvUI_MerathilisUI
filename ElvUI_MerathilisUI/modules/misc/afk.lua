@@ -71,7 +71,7 @@ local function getSpec()
 	local specIndex = GetSpecialization();
 	if not specIndex then return end
 
-	active = GetSpecialization()
+	active = GetActiveSpecGroup()
 
 	local talent = ''
 	local i = GetSpecialization(false, false, active)

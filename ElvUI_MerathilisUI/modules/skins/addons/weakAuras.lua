@@ -17,11 +17,8 @@ frame:SetScript("OnEvent", function(self, event)
 
 	local function SkinWeakAuras(frame, ftype)
 		if ftype == "icon" then
-			if not frame.backdrop then
-				frame:CreateBackdrop(frame, "Transparent")
-				frame.backdrop:HookScript("OnUpdate", function(self)
-					self:SetAlpha(self:GetParent().icon:GetAlpha())
-				end)
+			if not frame.shadow then
+				frame:CreateShadow("Background")
 				frame.icon:SetTexCoord(unpack(E.TexCoords))
 				frame.icon.SetTexCoord = MER.dummy
 				E:RegisterCooldown(frame.cooldown)

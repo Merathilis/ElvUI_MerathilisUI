@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LSM = LibStub("LibSharedMedia-3.0")
 
 ----------------------------------------------------------------------------------------
 --	Core options
@@ -134,16 +133,6 @@ P["mui"] = {
 
 	["actionbars"] = {
 		["transparent"] = true,
-		["buttonStyle"] = {
-			["enabled"] = true,
-			["texture"] = LSM:Fetch("statusbar","MerathilisGradient"),
-			["alpha"] = 0.25,
-			["invertedShadows"] = true,
-		},
-		["buttonBorder"] = {
-			["enabled"] = true,
-			["color"] = {r = .9, g = .7, b = 0, a = .7},
-		},
 	},
 
 	["unitframes"] = {

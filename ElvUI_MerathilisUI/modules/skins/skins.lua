@@ -620,38 +620,6 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 end
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 
-function MERS:ReskinIcon(icon)
-	icon:SetTexCoord(unpack(E.TexCoords))
-	return MERS:CreateBDFrame(icon)
-end
-
-function MERS:SmallItemButtonTemplate(button)
-	local icon = button.Icon
-	icon:SetSize(29, 29)
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
-
-	local nameFrame = button.NameFrame
-	nameFrame:SetAlpha(0)
-
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
-	MERS:CreateBD(bg, .2)
-end
-
-function MERS:LargeItemButtonTemplate(button)
-	local icon = button.Icon
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
-
-	local nameFrame = button.NameFrame
-	nameFrame:SetAlpha(0)
-
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", -3, 1)
-	MERS:CreateBD(bg, .2)
-end
-
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 

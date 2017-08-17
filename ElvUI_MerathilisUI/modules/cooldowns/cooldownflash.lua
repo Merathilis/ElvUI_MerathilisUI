@@ -186,8 +186,7 @@ function DCP:ADDON_LOADED(addon)
 			end
 		end
 	end
-	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
-	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil)
+	self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
 end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,spell,rank)
@@ -307,6 +306,7 @@ function CF:Initialize()
 		self:EnableCooldownFlash()
 	end
 	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
+	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil)
 end
 
 local function InitializeCallback()

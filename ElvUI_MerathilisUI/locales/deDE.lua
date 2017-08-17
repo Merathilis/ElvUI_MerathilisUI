@@ -199,10 +199,6 @@ L["World Latency:"] = "Weltlatenz"
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
 L["Transparent Backdrops"] = "Transparente Hintergründe"
-L["ButtonStyle"] = "Tastenstil"
-L["Enable the button style."] = "Aktiviere den Tastenstil."
-L["The texture to use."] = "Die zu verwendene Textur."
-L["ActionButton Border"] = "Aktionstasten Rand"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
