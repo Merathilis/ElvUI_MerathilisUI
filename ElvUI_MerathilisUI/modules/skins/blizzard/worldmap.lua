@@ -13,6 +13,35 @@ local function styleWorldmap()
 	if not WorldMapFrame.stripes then
 		MERS:CreateStripes(WorldMapFrame)
 	end
+
+	local frame = CreateFrame("Frame", nil, QuestMapFrame)
+	QuestMapFrame.QuestCountFrame = frame
+
+	frame:RegisterEvent("QUEST_LOG_UPDATE")
+	frame:Size(240, 20)
+	frame:Point("TOP", -12, 30)
+	MERS:CreateBD(frame, .25)
+
+	local text = frame:CreateFontString(nil, "OVERLAY")
+	text:FontTemplate(nil, 12, "OUTLINE")
+	text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	text:SetAllPoints()
+
+	frame.text = text
+	local str = "%d / 25 Quests"
+	frame.text:SetFormattedText(str, select(2, GetNumQuestLogEntries()))
+
+	frame:SetScript("OnEvent", function(self, event)
+		local _, quests = GetNumQuestLogEntries()
+		frame.text:SetFormattedText(str, quests)
+	end)
+
+	if frame then
+		QuestMapFrame.DetailsFrame.BackButton:ClearAllPoints()
+		QuestMapFrame.DetailsFrame.BackButton:Point("LEFT", 10, 275)
+	else
+		return;
+	end
 end
 
 S:AddCallback("mUISkinWorldMap", styleWorldmap)

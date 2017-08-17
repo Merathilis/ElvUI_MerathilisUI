@@ -20,7 +20,7 @@ local function databarsTable()
 				name = L["Style DataBars"],
 				desc = L["Add some stylish buttons at the bottom of the DataBars"],
 				get = function(info) return E.db.mui.databars.enable end,
-				set = function(info, value) E.db.mui.databars.enable = value E:StaticPopup_Show("PRIVATE_RL"); end,
+				set = function(info, value) E.db.mui.databars.enable = value, E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 		},
 	}
