@@ -270,20 +270,33 @@ function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
 	--]]----------------------------------
-	E.db["nameplates"]["statusbar"] = "MerathilisBlank"
-	E.db["nameplates"]["font"] = "Merathilis Roboto-Black"
+	E.db["nameplates"]["threat"]["goodScale"] = 1
+	E.db["nameplates"]["threat"]["useThreatColor"] = false
+	E.db["nameplates"]["threat"]["badScale"] = 1
+	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
 	E.db["nameplates"]["fontSize"] = 10
-	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 	E.db["nameplates"]["targetScale"] = 1.05
-	E.db["nameplates"]["displayStyle"] = "BLIZZARD"
-	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["customColor"] = false
+	E.db["nameplates"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
+	E.db["nameplates"]["units"]["PLAYER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,Whitelist,Boss,Personal,CCDebuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
+	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -1502,6 +1515,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 4
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,RaidDebuffs,blockNoDuration"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
