@@ -1390,7 +1390,7 @@ function MER:SetupUnitframes(layout)
 		--	UnitFrames - General - Big
 		--]]----------------------------------
 		E.db["unitframe"]["font"] = "Expressway"
-		E.db["unitframe"]["fontSize"] = 11
+		E.db["unitframe"]["fontSize"] = 10
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
 		E.db["unitframe"]["statusbar"] = "Skullflower"
