@@ -5,3 +5,51 @@
 [*]Add a style for the ActionBars Buttons (Like Masque) -- Credits Infinitron for the code permission.
 [*]Add compatibily with or without ParchementRemover from AddOnSkins.
 [*]Add a QuestCounter on the WorldMap.[/list]
+
+[b][color=orange]v3.04[/color], 09.08.2017[/b][list]
+[*]Set the font in the install step messages.
+[*]Change the S&L Datatext (Friend, Guild) to use text instead of the icon.
+[*]Fix Pet castbar position.
+[*]Change the castbar to be default, not transparent.
+[*]Fix a error with version check if the SplashScreen is disabled.[/list]
+
+[b][color=orange]v3.03[/color], 07.08.2017[/b][list]
+[*]Add some checks to tooltips. :IsForbidden()
+[*]Update a lot of skins.
+[*]Remove the ExtraActionButton Texture -- Credits Blazeflack (CleanBossButton)
+[*]Adds an Player Model to the tooltip. Disabled by default.
+[*]Update Changelog to show after the splashScreen.
+[*]Add UnitFrame option for "AuraSpacing" and "AuraIconText" -- Credits CustomTweaks by Blazeflack
+[*]Fix a lua error with Auctineer.
+[*]Fix a lua error if the ElvUI Actionbars are not enabled.
+[*]Add a new Layout v2 (Still some things to do).[/list]
+
+[b][color=orange]v3.02[/color], 24.06.2017[/b][list]
+[*]Pimp my AFK Screen. Should be compatible with BenikUI.
+[*]Add an autoscreenshot function on achievements and legendary item drops.
+[*]Update/Add a lot of skins.
+[*]Fix an error in the questinfo skin.
+[*]Add a media section to adjust some fonts. Will be disabled if S&L is loaded.
+[*]Remove the RoleIcons from the Tooltip.
+[*]Add an extern EncounterJournalInfo Frame.[/list]
+
+[b][color=orange]v3.01[/color], 19.06.2017[/b][list]
+[*]Fix an error in the Orderhall skin. Update the Chromie Talent skin. Thx Simpy <3
+[*]Fix an error in the PvP skin that the tooltips won't show.
+[*]Update a lot of skins.
+[*]Create an option to disable the decorative Stripes.
+[*]Add own detached portraits for Player/Target. The options are disabled if BenikUI is loaded. -- Credits Benik
+[*]Add own options for transparent Actionbar Backdrop. The options are disabled if BenikUI is loaded. -- Credits Benik.[/list]
+
+[b][color=orange]v3.00[/color], 12.06.2017[/b][list]
+[*]!! PLEASE DO A FRESH INSTALL !!
+[*]Add a skin for Premade Group Filter
+[*]Updated and edit a lot of skins
+[*]Remove some code to position the AlwaysUpFrame
+[*]Update BigWigs skin (now half-bar)
+[*]Hide the Notifications if you are in combat
+[*]Use the new method from ElvUI to register modules
+[*]Add bindings for the RaidMarkBar
+[*]The tabs from ElvUI are now transparent
+[*]Fix a rar nil error in CoolDownFlash with Dual Profiles enabled
+[*]Update profile creation for the AddOns. It now uses char specific profiles.[/list]

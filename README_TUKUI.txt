@@ -1,5 +1,5 @@
-[center][img]https://abload.de/img/mui_1bgskr.png[/img][/center]
-
+[center][img]https://abload.de/img/m12qss8.png[/img][/center]
+[hr][/hr]
 
 [b][color=orange][size=160]What does this Plugin do?[/b][/size][/color]
 ElvUI_MerathilisUI is an external ElvUI Mod. Mostly for the design in a transparent look with a few additional features.
@@ -20,7 +20,7 @@ My LUA Knowledgement is very limited, so i will take my time to fix and add new 
 
 [b][size=160][color=orange]BugTracker:[/color][/size][/b]
 Report any issue or suggestion on the [url=http://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues]Ticket Tracker[/url] by creating a Ticket. Please give me as much Information you can get. Try to reproduce the Issue with only ElvUI, ElvUI_Config and MerathilisUI enable.
-You can see the latest changes here: [url]https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development[/url]
+You can see the latest changes here: [url=https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development]MerathilisUI Dev branch[/url]
 
 If you have simple questions or suggestions please post in this forum thread: [url=https://www.tukui.org/forum/viewtopic.php?f=11&t=77][Plugin]MerathilisUI | Suggestions/Questions[/url]
 
@@ -48,3 +48,17 @@ Many Features can be disabled in the MerathilisUI Options.
 [b][size=160][color=orange]Credits[/color][/size][/b]:
 A big big thanks goes to Benik who make this possible. He helped me so much, give him some Love <3
 Elv, DarthPredator, Blazeflack, Azilroka and all AddOn Authors who inspired me and for their amazing work.
+
+A special thank to: [color=#00AA00][url=https://www.tukui.org/forum/memberlist.php?mode=viewprofile&u=1201]RZ_DIGITAL[/color][/url] for making the Logo.
+
+[b][size=160][color=orange]Additional Screenshots:[/color][/size][/b]
+[hr][/hr]
+[center][b][size=120][color=orange]Layout 1[/center][/color][/size][/b]
+[hr][/hr]
+[center][lightboxsize=600]https://www.tukui.org/screenshots/Merathilis/1503488005-WoWScrnShot_082317_133000.jpg[/lightboxsize][/center]
+
+
+[hr][/hr]
+[center][b][size=120][color=orange]Layout 2[/center][/color][/size][/b]
+[hr][/hr]
+[center][lightboxsize=600]https://www.tukui.org/screenshots/Merathilis/1503486904-WoWScrnShot_082317_124535.jpg[/lightboxsize][/center]
