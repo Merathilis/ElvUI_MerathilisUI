@@ -8,9 +8,10 @@ local tinsert = table.insert
 local pairs, tostring = pairs, tostring
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local SOUNDKIT = SOUNDKIT
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: MERData, PlaySound, UISpecialFrames
+-- GLOBALS: MERData, UISpecialFrames
 
 
 local ChangeLogData = {
@@ -128,7 +129,7 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
-	PlaySound("igMainMenuOptionCheckBoxOff")
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 
 	local fadeInfo = {}
 	fadeInfo.mode = "IN"
