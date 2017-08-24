@@ -129,7 +129,11 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
-	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	if E.wowbuild < 24896 then --7.2.5
+		PlaySound("igMainMenuOptionCheckBoxOff")
+	else --7.3
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	end
 
 	local fadeInfo = {}
 	fadeInfo.mode = "IN"

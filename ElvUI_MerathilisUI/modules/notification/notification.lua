@@ -456,7 +456,11 @@ function NF:VIGNETTE_ADDED(event, id)
 end
 
 function NF:RESURRECT_REQUEST(name)
-	PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_FOLLOWER_LEVEL_UP)
+	if E.wowbuild < 24896 then --7.2.5
+		PlaySound("LEVELUPSOUND", "master")
+	else -- 7.3
+		PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_FOLLOWER_LEVEL_UP)
+	end
 end
 
 function NF:Initialize()
