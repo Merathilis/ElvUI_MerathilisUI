@@ -39,7 +39,6 @@ function MI:LoadMisc()
 	ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 	ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 	ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
-	ForceWarning:RegisterEvent("RESURRECT_REQUEST")
 	ForceWarning:SetScript("OnEvent", function(_, event)
 		if event == "UPDATE_BATTLEFIELD_STATUS" then
 			for i = 1, GetMaxBattlefieldID() do
@@ -66,8 +65,6 @@ function MI:LoadMisc()
 			else -- 7.3
 				PlaySound(SOUNDKIT.READY_CHECK)
 			end
-		elseif event == "RESURRECT_REQUEST" then
-			PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
 		end
 	end)
 
