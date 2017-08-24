@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0")
-local AS = unpack(AddOnSkins)
 MERS.modName = L["Skins/AddOns"]
 
 -- Cache global variables
@@ -653,15 +652,18 @@ function MERS:LargeItemButtonTemplate(button)
 	MERS:CreateBD(bg, .2)
 end
 
--- Reskin AddOnSkins Tabs
+-- Reskin AddOnSkins
+if not IsAddOnLoaded("AddOnSkins") then return end
+local AS = unpack(AddOnSkins)
+
 local BlizzardRegions = {
-	'Left',
-	'Middle',
-	'Right',
-	'Mid',
-	'LeftDisabled',
-	'MiddleDisabled',
-	'RightDisabled',
+	"Left",
+	"Middle",
+	"Right",
+	"Mid",
+	"LeftDisabled",
+	"MiddleDisabled",
+	"RightDisabled",
 }
 
 function AS:SkinTab(Tab, Strip)
@@ -694,12 +696,12 @@ function AS:SkinTab(Tab, Strip)
 
 	AS:CreateBackdrop(Tab)
 
-	if AS:CheckAddOn('ElvUI') and AS:CheckOption('ElvUISkinModule') then
+	if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
 		-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
 		if Tab.backdrop then
 			Tab.Backdrop:Hide()
 		else
-			AS:SetTemplate(Tab.Backdrop, 'Transparent') -- Set it to transparent
+			AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
 		end
 	end
 
