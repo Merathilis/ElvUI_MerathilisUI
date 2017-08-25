@@ -1456,7 +1456,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
-			["yOffset"] = -1,
+			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
@@ -1569,7 +1569,7 @@ function MER:SetupUnitframes(layout)
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = -1,
+			["yOffset"] = 0,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
