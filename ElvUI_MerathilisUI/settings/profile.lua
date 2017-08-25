@@ -117,7 +117,7 @@ P["mui"] = {
 			["DurationFontSize"] = 14,
 			["DurationFontFlag"] = "OUTLINE",
 			["Mode"] = "HIDE",
-			["FadeMode"] = "None",
+			["FadeMode"] = "GreenToRed",
 			["SortByDuration"] = true,
 			["DurationText"] = true,
 		},
