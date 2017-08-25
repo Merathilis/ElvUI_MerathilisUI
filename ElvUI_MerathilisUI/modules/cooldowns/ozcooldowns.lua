@@ -29,8 +29,7 @@ local Blacklist = {
 	[83958] = true,		-- Mobile Banking
 	[125439] = true,	-- Pet Bandage
 
-	-- ChallengeMode Ports
-	[131204] = true,
+	[131204] = true,	-- ChallengeMode Ports
 	[131205] = true,
 	[131222] = true,
 	[131225] = true,
@@ -256,6 +255,7 @@ function OCD:Position()
 end
 
 function OCD:CreateCooldownFrame(SpellID)
+	-- local Name, _, Icon, _, _, _, SpellID = GetSpellInfo(SpellID)
 	local Name, _, Icon = GetSpellInfo(SpellID)
 	local Frame = CreateFrame("Button", 'OzCD_'..SpellID, self.frame)
 	Frame:RegisterForClicks('AnyUp')
