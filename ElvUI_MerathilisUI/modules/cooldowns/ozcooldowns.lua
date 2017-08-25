@@ -28,6 +28,24 @@ local CooldownFrames = {}
 local Blacklist = {
 	[83958] = true,		-- Mobile Banking
 	[125439] = true,	-- Pet Bandage
+
+	-- ChallengeMode Ports
+	[131204] = true,
+	[131205] = true,
+	[131222] = true,
+	[131225] = true,
+	[131231] = true,
+	[131229] = true,
+	[131232] = true,
+	[131228] = true,
+	[159895] = true,
+	[159896] = true,
+	[159897] = true,
+	[159898] = true,
+	[159899] = true,
+	[159900] = true,
+	[159901] = true,
+	[159902] = true,
 }
 
 local Whitelist = {
