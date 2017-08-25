@@ -110,22 +110,41 @@ tinsert(MER.Config, CooldownFlash)
 local function OzCooldowns()
 	E.Options.args.mui.args.ozcooldowns = {
 		type = "group",
-		name = OCD.modName,
+		name = OCD.modName..MER.NewSign,
 		order = 21,
 		get = function(info) return E.db.mui.misc.ozcooldowns[info[#info]] end,
 		set = function(info, value) E.db.mui.misc.ozcooldowns[info[#info]] = value; OCD:BuildCooldowns() end,
 		args = {
+			header1 = {
+				type = "header",
+				name = MER:cOption(OCD.modName)..MER.NewSign,
+				order = 1
+			},
+			credits = {
+				order = 2,
+				type = "group",
+				name = MER:cOption(L["Credits"]),
+				guiInline = true,
+				args = {
+					tukui = {
+						order = 1,
+						type = "description",
+						fontSize = "medium",
+						name = "OzCooldowns - by Nimaear; taken from Infinitron",
+					},
+				},
+			},
 			enable = {
-				order = 1,
+				order = 3,
 				name = L["Enable"],
 				type = "toggle",
 				get = function(info) return E.db.mui.misc.ozcooldowns[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.ozcooldowns[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 			spells = {
-				order = 2,
+				order = 4,
 				type = "group",
-				name = L["Spells"],
+				name = SPELLS,
 				guiInline = true,
 				hidden = function() return not E.db.mui.misc.ozcooldowns.enable end,
 				args = OCD:GenerateSpellOptions(),
@@ -136,7 +155,7 @@ local function OzCooldowns()
 				end,
 			},
 			duration = {
-				order = 3,
+				order = 5,
 				type = "group",
 				name = L["Duration"],
 				guiInline = true,
@@ -190,7 +209,7 @@ local function OzCooldowns()
 				},
 			},
 			icons = {
-				order = 4,
+				order = 6,
 				type = "group",
 				name = L["Icons"],
 				guiInline = true,
@@ -238,21 +257,21 @@ local function OzCooldowns()
 				},
 			},
 			statusbar = {
-				order = 5,
+				order = 7,
 				type = "group",
-				name = L["Status Bar"],
+				name = L["StatusBar"],
 				guiInline = true,
 				hidden = function() return not E.db.mui.misc.ozcooldowns.enable end,
 				args = {
 					StatusBar = {
 						order = 1,
 						type = "toggle",
-						name = L["Enabled"],
+						name = L["Enable"],
 					},
 					StatusBarTexture = {
 						type = "select", dialogControl = 'LSM30_Statusbar',
 						order = 2,
-						name = L["Texture"],
+						name = L["StatusBar Texture"],
 						values = AceGUIWidgetLSMlists.statusbar,
 						disabled = function() return not E.db.mui.misc.ozcooldowns["StatusBar"] end,
 					},
@@ -286,8 +305,8 @@ local function OzCooldowns()
 			},
 			about = {
 				type = "group",
-				name = L["Help"],
-				order = 6,
+				name = L["Reset"],
+				order = 8,
 				guiInline = true,
 				hidden = function() return not E.db.mui.misc.ozcooldowns.enable end,
 				args = {
