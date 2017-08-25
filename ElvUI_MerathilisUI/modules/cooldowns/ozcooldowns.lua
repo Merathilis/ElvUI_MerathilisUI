@@ -31,6 +31,7 @@ local Blacklist = {
 
 	[131204] = true,	-- ChallengeMode Ports
 	[131205] = true,
+	[131206] = true,
 	[131222] = true,
 	[131225] = true,
 	[131231] = true,
