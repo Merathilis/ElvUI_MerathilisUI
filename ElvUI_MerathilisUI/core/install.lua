@@ -57,6 +57,7 @@ local function SetupCVars()
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
 	SetCVar("violenceLevel", 5)
+	SetCVar("blockTrades", 0)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
