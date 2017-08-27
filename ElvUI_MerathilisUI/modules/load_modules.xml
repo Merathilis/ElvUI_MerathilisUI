@@ -16,4 +16,5 @@
 	<Include file="uibuttons\load_uibuttons.xml"/>
 	<Include file="notification\load_notification.xml"/>
 	<Include file="cooldowns\load_cooldowns.xml"/>
+	<Include file="nameplates\load_nameplateAuras.xml"/>
 </Ui>

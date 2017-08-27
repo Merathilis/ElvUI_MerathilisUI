@@ -1,0 +1,196 @@
+local MER, E, L, V, P, G = unpack(select(2, ...))
+local NA = E:NewModule("NameplateAuras")
+local NP = E:GetModule("NamePlates")
+NA.modName = L["NameplateAuras"]
+
+-- Cache global variables
+-- Lua functions
+local ipairs = ipairs
+local tinsert, tremove, tsort = table.insert, table.remove, table.sort
+
+-- WoW API / Variables
+local CreateFrame = CreateFrame
+-- Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
+
+function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
+	if aura and icon and name then
+		local spell = E.global['nameplate']['spellList'][name]
+		-- Icon
+		aura.icon:SetTexture(icon)
+
+		-- Size
+		local width = 32
+		local height = 14
+
+		if spell and spell['width'] then
+			width = spell['width']
+		elseif E.global['nameplate']['spellListDefault']['width'] then
+			width = E.global['nameplate']['spellListDefault']['width']
+		end
+
+		if spell and spell['height'] then
+			height = spell['height']
+		elseif E.global['nameplate']['spellListDefault']['height'] then
+			height = E.global['nameplate']['spellListDefault']['height']
+		end
+
+		if width > height then
+			local aspect = height / width
+			aura.icon:SetTexCoord(0.07, 0.93, (0.5 - (aspect/2))+0.07, (0.5 + (aspect/2))-0.07)
+		elseif height > width then
+			local aspect = width / height
+			aura.icon:SetTexCoord((0.5 - (aspect/2))+0.07, (0.5 + (aspect/2))-0.07, 0.07, 0.93)
+		else
+			aura.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		end
+
+		aura:SetWidth(width)
+		aura:SetHeight(height)
+
+		-- Stacks
+		local textSize = 12
+
+		if spell and spell['text'] then
+			textSize = spell['text']
+		elseif E.global['nameplate']['spellListDefault']['text'] then
+			textSize = E.global['nameplate']['spellListDefault']['text']
+		end
+
+		aura.count:FontTemplate(nil, textSize, 'OUTLINE')
+		if count > 1 then
+			aura.count:SetText(count)
+		else
+			aura.count:SetText("")
+		end
+
+		NA:SortAuras(aura:GetParent());
+	end
+end
+
+function NA:SortAuras(auras)
+	local function sortAuras(iconA, iconB)
+		local aWidth = iconA:GetWidth();
+		local aHeight = iconA:GetHeight();
+		
+		local bWidth = iconB:GetWidth();
+		local bHeight = iconB:GetHeight();
+
+		local aCalc = (aWidth + aHeight) * (aWidth / aHeight);
+		local bCalc = (bWidth + bHeight) * (bWidth / bHeight);
+
+		if (iconA:IsShown() ~= iconB:IsShown()) then
+			return iconA:IsShown();
+		end
+		
+		return aCalc > bCalc;
+	end
+	tsort(auras.icons, sortAuras);
+	NA:RepositionAuras(auras);
+end
+
+function NA:UpdateAuraIcons(auras)
+	local maxAuras = auras.db.numAuras
+	local numCurrentAuras = #auras.icons
+
+	if (not auras.auraCache) then
+		auras.auraCache = {};
+	end
+
+	local width = 32
+	local height = 14
+
+	if E.global['nameplate']['spellListDefault']['width'] then
+		width = E.global['nameplate']['spellListDefault']['width']
+	end
+
+	if E.global['nameplate']['spellListDefault']['height'] then
+		height = E.global['nameplate']['spellListDefault']['height']
+	end
+
+	if numCurrentAuras > maxAuras then
+		for i = auras.db.numAuras, #auras.icons do
+			tinsert(auras.auraCache, auras.icons[i])
+			auras.icons[i]:Hide()
+			auras.icons[i] = nil
+		end
+	end
+
+	if (maxAuras > numCurrentAuras) then
+		for i=1, maxAuras do
+			auras.icons[i] = tremove(auras.auraCache)
+			if (not auras.icons[i]) then
+				auras.icons[i] =  NP:CreateAuraIcon(auras)
+				auras.icons[i]:SetParent(auras)
+				auras.icons[i]:Hide()
+			end
+			auras.icons[i]:ClearAllPoints()
+			auras.icons[i]:SetHeight(height)
+			auras.icons[i]:SetWidth(width);
+		end
+	end
+
+	NA:RepositionAuras(auras);
+end
+
+function NA:ConstructElement_Auras(frame, maxAuras, size)
+	local auras = CreateFrame("FRAME", nil, frame)
+
+	auras:SetHeight(18) -- this really doesn't matter
+	auras.side = side
+	auras.icons = {}
+
+	return auras
+end
+
+function NA:RepositionAuras(auras)
+	for i = 1, #auras.icons do
+		if(auras.side == "LEFT") then
+			if(i == 1) then
+				auras.icons[i]:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")
+			else
+				auras.icons[i]:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", E.Border + E.Spacing*3, 0)
+			end
+		else
+			if(i == 1) then
+				auras.icons[i]:SetPoint("BOTTOMRIGHT", auras, "BOTTOMRIGHT")
+			else
+				auras.icons[i]:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -(E.Border + E.Spacing*3), 0)
+			end
+		end
+	end
+end
+
+
+function NA:UpdateAuraSet(auras)
+	self:UpdateHeight(auras);
+	self:SortAuras(auras);
+end
+
+function NA:UpdateHeight(auras)
+	local height = 14;
+	for i, icon in ipairs(auras.icons) do
+		height = math.max(height, icon:GetHeight());
+	end
+	auras:SetHeight(height);
+end
+
+function NA:UpdateElement_Auras(frame)
+	NA:UpdateAuraSet(frame.Debuffs);
+	NA:UpdateAuraSet(frame.Buffs);
+end
+
+function NA:Initialize()
+	hooksecurefunc(NP, "SetAura", NA.SetAura);
+	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras);
+	NP.UpdateAuraIcons = NA.UpdateAuraIcons;
+	NP.ConstructElement_Auras = NA.ConstructElement_Auras;
+end
+
+local function InitializeCallback()
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		NA:Initialize()
+	end
+end
+
+E:RegisterModule(NA:GetName(), InitializeCallback)

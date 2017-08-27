@@ -353,6 +353,33 @@ L["Thu"] = true
 L["Fri"] = true
 L["Sat"] = true
 
+-- Nameplates
+L["NameplateAuras"] = true
+L["Visibility"] = true
+L["Set when this aura is visble."] = true
+L["Clear Spell List"] = true
+L["Empties the list of specific spells and their configurations."] = true
+L["Restore Spell List"] = true
+L["Restores the default list of specific spells and their configurations."] = true
+L["Spell Name/ID"] = true
+L["Input a spell name or spell ID."] = true
+L["Spell List"] = true
+L["Remove Spell"] = true
+L["Other Auras"] = true
+L["These are the settings for all spells not explicitly specified."] = true
+L["Icon Width"] = true
+L["Set the width of this spells icon."] = true
+L["Icon Height"] = true
+L["Set the height of this spells icon."] = true
+L["Lock Aspect Ratio"] = true
+L["Set if height and width are locked to the same value."] = true
+L["Text Size"] = true
+L["Size of the stack text."] = true
+L["Specific Auras"] = true
+L["Always"] = true
+L["Never"] = true
+L["Only Mine"] = true
+
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

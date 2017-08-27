@@ -54,6 +54,13 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
+function MER:InvertTable(t)
+	local u = { }
+	for k, v in pairs(t) do u[v] = k end
+	return u
+end
+
+
 function MER:GetIconFromID(type, id)
 	local path
 	if type == "item" then
