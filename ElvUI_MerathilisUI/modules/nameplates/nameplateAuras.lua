@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local NA = E:NewModule("NameplateAuras")
+local NA = E:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
 NA.modName = L["NameplateAuras"]
 
@@ -14,14 +14,14 @@ local CreateFrame = CreateFrame
 -- GLOBALS: hooksecurefunc
 
 function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
-	if aura and icon and name then
-		local spell = E.global['nameplate']['spellList'][name]
+	if aura and icon and spellID then
+		local spell = E.global['nameplate']['spellList'][spellID]
 		-- Icon
 		aura.icon:SetTexture(icon)
 
 		-- Size
-		local width = 32
-		local height = 14
+		local width = 20
+		local height = 20
 
 		if spell and spell['width'] then
 			width = spell['width']
@@ -49,7 +49,7 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura:SetHeight(height)
 
 		-- Stacks
-		local textSize = 12
+		local textSize = 7
 
 		if spell and spell['text'] then
 			textSize = spell['text']
@@ -63,7 +63,6 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		else
 			aura.count:SetText("")
 		end
-
 		NA:SortAuras(aura:GetParent());
 	end
 end
@@ -85,11 +84,12 @@ function NA:SortAuras(auras)
 		
 		return aCalc > bCalc;
 	end
-	tsort(auras.icons, sortAuras);
+	table.sort(auras.icons, sortAuras);
 	NA:RepositionAuras(auras);
 end
 
 function NA:UpdateAuraIcons(auras)
+
 	local maxAuras = auras.db.numAuras
 	local numCurrentAuras = #auras.icons
 
@@ -97,8 +97,8 @@ function NA:UpdateAuraIcons(auras)
 		auras.auraCache = {};
 	end
 
-	local width = 32
-	local height = 14
+	local width = 20
+	local height = 20
 
 	if E.global['nameplate']['spellListDefault']['width'] then
 		width = E.global['nameplate']['spellListDefault']['width']
@@ -113,7 +113,7 @@ function NA:UpdateAuraIcons(auras)
 			tinsert(auras.auraCache, auras.icons[i])
 			auras.icons[i]:Hide()
 			auras.icons[i] = nil
-		end
+		end 
 	end
 
 	if (maxAuras > numCurrentAuras) then
@@ -161,14 +161,13 @@ function NA:RepositionAuras(auras)
 	end
 end
 
-
 function NA:UpdateAuraSet(auras)
 	self:UpdateHeight(auras);
 	self:SortAuras(auras);
 end
 
 function NA:UpdateHeight(auras)
-	local height = 14;
+	local height = 20;
 	for i, icon in ipairs(auras.icons) do
 		height = math.max(height, icon:GetHeight());
 	end
@@ -180,17 +179,36 @@ function NA:UpdateElement_Auras(frame)
 	NA:UpdateAuraSet(frame.Buffs);
 end
 
+function NA:UpdateSpellList()
+	local filters = E.global['nameplate']['spellList'];
+
+	for key, value in pairs(filters) do
+		if (not tonumber(key)) then
+			local spellID = select(7, GetSpellInfo(key));
+			if (spellID) then
+				filters[spellID] = value;
+			end
+			filters[key] = nil;
+		end
+	end
+end
+
+function NA:PLAYER_ENTERING_WORLD()
+	self:UpdateSpellList();
+	self:UnregisterEvent('PLAYER_ENTERING_WORLD');
+end
+
+
 function NA:Initialize()
 	hooksecurefunc(NP, "SetAura", NA.SetAura);
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras);
 	NP.UpdateAuraIcons = NA.UpdateAuraIcons;
 	NP.ConstructElement_Auras = NA.ConstructElement_Auras;
+	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 local function InitializeCallback()
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		NA:Initialize()
-	end
+	NA:Initialize()
 end
 
 E:RegisterModule(NA:GetName(), InitializeCallback)

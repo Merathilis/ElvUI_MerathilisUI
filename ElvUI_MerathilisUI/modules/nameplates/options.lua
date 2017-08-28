@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
 local NA = E:GetModule("NameplateAuras")
 
-local selectedSpellName
+local selectedSpellID
 local spellLists
 local spellIDs = {}
 
@@ -25,31 +25,30 @@ function deepcopy(object)
 end
 
 local function UpdateSpellGroup()
-	if not selectedSpellName or not E.global['nameplate']['spellList'][selectedSpellName] then
+	if not selectedSpellID or not E.global['nameplate']['spellList'][selectedSpellID]  then
 		E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = nil
 		return
 	end
 
 	E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = {
 		type = 'group',
-		name = selectedSpellName,
+		name = GetSpellInfo(selectedSpellID),
 		guiInline = true,
 		order = -10,
-		get = function(info) return E.global["nameplate"]['spellList'][selectedSpellName][ info[#info] ] end,
-		set = function(info, value) E.global["nameplate"]['spellList'][selectedSpellName][ info[#info] ] = value; NP:UpdateAllPlates(); UpdateSpellGroup() end,
-		hidden = function() return not MER:IsDeveloper() and MER:IsDeveloperRealm() end,
+		get = function(info) return E.global["nameplate"]['spellList'][selectedSpellID][ info[#info] ] end,
+		set = function(info, value) E.global["nameplate"]['spellList'][selectedSpellID][ info[#info] ] = value; NP:UpdateAllPlates(); UpdateSpellGroup() end,
 		args = {
 			visibility = {
 				type = 'select',
 				order = 1,
 				name = L['Visibility'],
 				desc = L['Set when this aura is visble.'],
-				values = {[1]="Always",[2]="Never",[3]="Only Mine"},
+				values = {[1]=L["Always"],[2]=L["Never"],[3]=L["Only Mine"]},
 				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellName]["visibility"]
+					return E.global['nameplate']['spellList'][selectedSpellID]["visibility"]
 				end,
 				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellName]["visibility"] = value
+					E.global['nameplate']['spellList'][selectedSpellID]["visibility"] = value
 				end,
 			},
 			width = {
@@ -61,12 +60,12 @@ local function UpdateSpellGroup()
 				max = 100,
 				step = 2,
 				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellName]["width"]
+					return E.global['nameplate']['spellList'][selectedSpellID]["width"]
 				end,
 				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellName]["width"] = value
-					if E.global['nameplate']['spellList'][selectedSpellName]["lockAspect"] then
-						E.global['nameplate']['spellList'][selectedSpellName]["height"] = value
+					E.global['nameplate']['spellList'][selectedSpellID]["width"] = value
+					if E.global['nameplate']['spellList'][selectedSpellID]["lockAspect"] then
+						E.global['nameplate']['spellList'][selectedSpellID]["height"] = value
 					end
 				end,
 			},
@@ -75,15 +74,15 @@ local function UpdateSpellGroup()
 				order = 3,
 				name = L['Icon Height'],
 				desc = L['Set the height of this spells icon.'],
-				disabled = function() return E.global['nameplate']['spellList'][selectedSpellName]["lockAspect"] end,
+				disabled = function() return E.global['nameplate']['spellList'][selectedSpellID]["lockAspect"] end,
 				min = 10,
 				max = 100,
 				step = 2,
 				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellName]["height"]
+					return E.global['nameplate']['spellList'][selectedSpellID]["height"]
 				end,
 				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellName]["height"] = value
+					E.global['nameplate']['spellList'][selectedSpellID]["height"] = value
 				end,
 			},
 			lockAspect = {
@@ -92,12 +91,12 @@ local function UpdateSpellGroup()
 				name = L['Lock Aspect Ratio'],
 				desc = L['Set if height and width are locked to the same value.'],
 				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellName]["lockAspect"]
+					return E.global['nameplate']['spellList'][selectedSpellID]["lockAspect"]
 				end,
 				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellName]["lockAspect"] = value
+					E.global['nameplate']['spellList'][selectedSpellID]["lockAspect"] = value
 					if value then
-						E.global['nameplate']['spellList'][selectedSpellName]["height"] = E.global['nameplate']['spellList'][selectedSpellName]["width"]
+						E.global['nameplate']['spellList'][selectedSpellID]["height"] = E.global['nameplate']['spellList'][selectedSpellID]["width"]
 					end
 				end,
 			},
@@ -110,10 +109,10 @@ local function UpdateSpellGroup()
 				max = 24,
 				step = 1,
 				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellName]["text"]
+					return E.global['nameplate']['spellList'][selectedSpellID]["text"]
 				end,
 				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellName]["text"] = value
+					E.global['nameplate']['spellList'][selectedSpellID]["text"] = value
 				end,
 			},
 		},
@@ -126,7 +125,6 @@ local function NameplateAurasTable()
 		name = NA.modName..MER.NewSign,
 		order = 16,
 		get = function(info) return E.db.mui.NameplateAuras[ info[#info] ] end,
-		hidden = function() return not MER:IsDeveloper() and MER:IsDeveloperRealm() end,
 		args = {
 			name = {
 				order = 1,
@@ -166,33 +164,14 @@ local function NameplateAurasTable()
 						desc = L["Input a spell name or spell ID."],
 						get = function(info) return "" end,
 						set = function(info, value) 
-							local spellName = ""
-
 							if not tonumber(value) then
 								value = tostring(value)
 							end
 
-							if not tonumber(value) and strlower(value) == "school lockout" then
-								spellName = "School Lockout"
-							elseif not GetSpellInfo(value) then
-								if #(spellIDs) == 0 then
-									for i = 100000, 1, -1 do --Ugly but works
-										local name = GetSpellInfo(i)
-										if name and not spellIDs[name] then
-											spellIDs[name] = i
-										end
-									end
-								end
-								if spellIDs[value] then
-									spellName = value
-								end
-							else
-								spellName = GetSpellInfo(value)
-							end
-
-							if spellName ~= "" then
-								if not E.global['nameplate']['spellList'][spellName] then
-									E.global['nameplate']['spellList'][spellName] = {
+							local spellID = select(7, GetSpellInfo(tonumber(value) or value));
+							if spellID then
+								if not E.global['nameplate']['spellList'][spellID] then
+									E.global['nameplate']['spellList'][spellID] = {
 										['visibility'] = E.global['nameplate']['spellListDefault']['visibility'],
 										['width'] = E.global['nameplate']['spellListDefault']['width'],
 										['height'] = E.global['nameplate']['spellListDefault']['height'],
@@ -201,7 +180,7 @@ local function NameplateAurasTable()
 										['flashTime'] = E.global['nameplate']['spellListDefault']['flashTime'],
 									}
 								end
-								selectedSpellName = spellName
+								selectedSpellID = spellID
 								UpdateSpellGroup()
 							else
 								E:Print(L["Not valid spell name or spell ID"])
@@ -212,11 +191,12 @@ local function NameplateAurasTable()
 						order = 2,
 						type = "select",
 						name = L["Spell List"],
-						get = function(info) return selectedSpellName end,
-						set = function(info, value) selectedSpellName = value; UpdateSpellGroup() end,
+						get = function(info) return selectedSpellID end,
+						set = function(info, value) selectedSpellID = value; UpdateSpellGroup() end,
 						values = function()
 							spellLists = {}
 							for spell in pairs(E.global['nameplate']['spellList']) do
+								local spellName = select(1, GetSpellInfo(spell));
 								local color = "|cffff0000"
 								local visibility = E.global['nameplate']['spellList'][spell]['visibility']
 								if visibility == 1 then
@@ -224,7 +204,7 @@ local function NameplateAurasTable()
 								elseif visibility == 3 then
 									color = "|cff00ffff"
 								end
-								spellLists[spell] = color..spell.."|r"
+								spellLists[spell] = color..spellName.."|r"
 							end
 							return spellLists
 						end,
@@ -234,9 +214,9 @@ local function NameplateAurasTable()
 						type = "execute",
 						name = L["Remove Spell"],
 						func = function()
-							if E.global['nameplate']['spellList'][selectedSpellName] then
-								E.global['nameplate']['spellList'][selectedSpellName] = nil
-								selectedSpellName = ""
+							if E.global['nameplate']['spellList'][selectedSpellID] then
+								E.global['nameplate']['spellList'][selectedSpellID] = nil
+								selectedSpellID = ""
 								UpdateSpellGroup()
 							end
 						end
