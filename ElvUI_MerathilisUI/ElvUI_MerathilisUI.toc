@@ -1,4 +1,4 @@
-## Interface: 70200
+## Interface: 70300
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Infinitron, fgprodigal, Elv & all AddOn Authors who inspired me
 ## Version: 3.05
