@@ -57,6 +57,7 @@ local function SetupCVars()
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
 	SetCVar("violenceLevel", 5)
+	SetCVar("blockTrades", 0)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
@@ -270,20 +271,33 @@ function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
 	--]]----------------------------------
-	E.db["nameplates"]["statusbar"] = "MerathilisBlank"
-	E.db["nameplates"]["font"] = "Merathilis Roboto-Black"
+	E.db["nameplates"]["threat"]["goodScale"] = 1
+	E.db["nameplates"]["threat"]["useThreatColor"] = false
+	E.db["nameplates"]["threat"]["badScale"] = 1
+	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
 	E.db["nameplates"]["fontSize"] = 10
-	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 	E.db["nameplates"]["targetScale"] = 1.05
-	E.db["nameplates"]["displayStyle"] = "BLIZZARD"
-	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["customColor"] = false
+	E.db["nameplates"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
+	E.db["nameplates"]["units"]["PLAYER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,Whitelist,Boss,Personal,CCDebuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["HEALER"]["healthbar"]["enable"] = false
+	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -689,7 +703,7 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 403, 1)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 22)
-		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 320)
+		MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 634, 0)
 		MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 475, 11)
 		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", -300, 26)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
@@ -1377,7 +1391,7 @@ function MER:SetupUnitframes(layout)
 		--	UnitFrames - General - Big
 		--]]----------------------------------
 		E.db["unitframe"]["font"] = "Expressway"
-		E.db["unitframe"]["fontSize"] = 11
+		E.db["unitframe"]["fontSize"] = 10
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
 		E.db["unitframe"]["statusbar"] = "Skullflower"
@@ -1443,7 +1457,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
-			["yOffset"] = -1,
+			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
@@ -1502,6 +1516,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 4
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,RaidDebuffs,blockNoDuration"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1542,7 +1557,7 @@ function MER:SetupUnitframes(layout)
 			["font"] = "Expressway",
 			["size"] = 18,
 			["fontOutline"] = "OUTLINE",
-			["justifyH"] = "RIGHT",
+			["justifyH"] = "LEFT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
@@ -1552,10 +1567,10 @@ function MER:SetupUnitframes(layout)
 			["font"] = "Expressway",
 			["size"] = 18,
 			["fontOutline"] = "OUTLINE",
-			["justifyH"] = "LEFT",
+			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = -1,
+			["yOffset"] = 0,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0

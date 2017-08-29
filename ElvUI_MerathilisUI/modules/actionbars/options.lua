@@ -8,7 +8,7 @@ local function abTable()
 	E.Options.args.mui.args.actionbars = {
 		order = 7,
 		type = "group",
-		name = MAB.modName..MER.NewSign,
+		name = MAB.modName,
 		-- hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
@@ -42,7 +42,7 @@ local function ButtonStyleTable()
 	E.Options.args.mui.args.actionbars.args.buttonstyle = {
 		order = 8,
 		type = "group",
-		name = BS.modName..MER.NewSign,
+		name = BS.modName,
 		guiInline = true,
 		get = function(info) return E.db.mui.actionbars.buttonStyle[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars.buttonStyle[ info[#info] ] = value; BS:UpdateButtons(); end,
@@ -97,7 +97,7 @@ local function ButtonBorderTable()
 	E.Options.args.mui.args.actionbars.args.buttonborder = {
 		order = 9,
 		type = "group",
-		name = L["ActionButton Border"]..MER.NewSign,
+		name = L["ActionButton Border"],
 		guiInline = true,
 		get = function(info) return E.db.mui.actionbars.buttonBorder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars.buttonBorder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

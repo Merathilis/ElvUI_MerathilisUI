@@ -4,6 +4,7 @@
 	<Script file="fonts.lua"/>
 	<Script file="changelog.lua"/>
 	<Script file="dropdown.lua"/>
+	<Script file="bars.lua"/>
 	<Script file="install.lua"/>
 	<Script file="staticpopup.lua"/>
 	<Script file="config.lua"/>

@@ -30,7 +30,7 @@ local function AddOptions()
 				type = "description",
 				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 100, 100 end,
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 125, 125 end,
 				imageCoords = { 0, 0.99, 0.01, 0.99 },
 			},
 			install = {
@@ -122,13 +122,13 @@ local function AddOptions()
 								order = 1,
 								type = "execute",
 								name = L["TukUI.org"],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://www.tukui.org/addons/index.php?act=view&id=286") end,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://www.tukui.org/addons.php?id=1") end,
 								},
 							git = {
 								order = 2,
 								type = "execute",
 								name = L["Git Ticket tracker"],
-								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "http://git.tukui.org/Merathilis/UI-Settings/issues") end,
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end,
 							},
 							curse = {
 								order = 3,

@@ -25,7 +25,11 @@ function MI:LoadMisc()
 	-- Force readycheck warning
 	local ShowReadyCheckHook = function(_, initiator)
 		if initiator ~= "player" then
-			PlaySound("ReadyCheck", "Master")
+			if E.wowbuild < 24896 then --7.2.5
+				PlaySound("ReadyCheck", "Master")
+			else -- 7.3
+				PlaySound(SOUNDKIT.READY_CHECK)
+			end
 		end
 	end
 	hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
@@ -35,23 +39,32 @@ function MI:LoadMisc()
 	ForceWarning:RegisterEvent("UPDATE_BATTLEFIELD_STATUS")
 	ForceWarning:RegisterEvent("PET_BATTLE_QUEUE_PROPOSE_MATCH")
 	ForceWarning:RegisterEvent("LFG_PROPOSAL_SHOW")
-	ForceWarning:RegisterEvent("RESURRECT_REQUEST")
 	ForceWarning:SetScript("OnEvent", function(_, event)
 		if event == "UPDATE_BATTLEFIELD_STATUS" then
 			for i = 1, GetMaxBattlefieldID() do
 				local status = GetBattlefieldStatus(i)
 				if status == "confirm" then
-					PlaySound("PVPTHROUGHQUEUE", "Master")
+					if E.wowbuild < 24896 then --7.2.5
+						PlaySound("PVPTHROUGHQUEUE", "Master")
+					else -- 7.3
+						PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
+					end
 					break
 				end
 				i = i + 1
 			end
 		elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
-			PlaySound("PVPTHROUGHQUEUE", "Master")
+			if E.wowbuild < 24896 then --7.2.5
+				PlaySound("PVPTHROUGHQUEUE", "Master")
+			else -- 7.3
+				PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
+			end
 		elseif event == "LFG_PROPOSAL_SHOW" then
-			PlaySound("ReadyCheck", "Master")
-		elseif event == "RESURRECT_REQUEST" then
-			PlaySoundFile("Sound\\Spells\\Resurrection.wav", "Master")
+			if E.wowbuild < 24896 then --7.2.5
+				PlaySound("ReadyCheck", "Master")
+			else -- 7.3
+				PlaySound(SOUNDKIT.READY_CHECK)
+			end
 		end
 	end)
 

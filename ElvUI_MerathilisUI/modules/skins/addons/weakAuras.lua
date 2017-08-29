@@ -35,12 +35,6 @@ frame:SetScript("OnEvent", function(self, event)
 				frame.iconFrame:SetAllPoints(frame.icon)
 				frame.icon:SetTexCoord(unpack(E.TexCoords))
 				frame.icon.SetTexCoord = MER.dummy
-				hooksecurefunc(frame.bar, "SetForegroundColor", function(self, r, g, b, a)
-					self.fg:SetGradient("VERTICAL", MER:GetGradientColor(r, g, b))
-				end)
-				hooksecurefunc(frame.bar, "SetBackgroundColor", function(self, r, g, b, a)
-					self.bg:SetGradient("VERTICAL", MER:GetGradientColor(r, g, b))
-				end)
 			end
 		end
 	end

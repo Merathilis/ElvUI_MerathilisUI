@@ -8,20 +8,20 @@ local tinsert = table.insert
 local pairs, tostring = pairs, tostring
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local SOUNDKIT = SOUNDKIT
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: MERData, PlaySound, UISpecialFrames
+-- GLOBALS: MERData, UISpecialFrames
 
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove the texture from the ObjectiveTracker Skin.",
-		"• Fix an error in WeakAura Skin.",
+		"• Implement OzCooldowns - Credits Infinitron.",
+		"• Add a new Logo. Thx RZ_Digital.",
 		"• Some layout adjustments.",
-		"• Add a style for the ActionBars Buttons (Like Masque).",
-		"•   Credits Infinitron for the code permission.",
-		"• Add compatibily with or without ParchementRemover from AddOnSkins.",
-		"• Add a QuestCounter on the WorldMap.",
+		"• Add Namplateaura Filter - Credits Infinitron.",
+		"• Fix a error in AFK screen.",
+		"• Works with Patch 7.2.5 & 7.3.",
 		-- "• ",
 	" ",
 	"Notes:",
@@ -128,7 +128,11 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
-	PlaySound("igMainMenuOptionCheckBoxOff")
+	if E.wowbuild < 24896 then --7.2.5
+		PlaySound("igMainMenuOptionCheckBoxOff")
+	else --7.3
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	end
 
 	local fadeInfo = {}
 	fadeInfo.mode = "IN"
