@@ -26,11 +26,11 @@ If you have simple questions or suggestions please post in this forum thread: [u
 
 [b][size=160][color=orange]Requirements:[/color][/size][/b]
 ElvUI 10.00+
-High Recommended: [url=https://mods.curse.com/addons/wow/benikui-v3]BenikUI[/url] to get the whole look and functionality from MerathilisUI.
+High Recommended: [url=https://www.tukui.org/addons.php?id=11]BenikUI[/url] to get the whole look and functionality from MerathilisUI.
 
 [b][size=160][color=orange]Recommended Addons:[/color][/size][/b]
 [list][*][url=https://www.tukui.org/addons.php?id=3]AddOnSkins[/url]
-[*][url=https://mods.curse.com/addons/wow/elvui-shadow-light]Shadow&Light[/url][/list]
+[*][url=https://www.tukui.org/addons.php?id=38]Shadow&Light[/url][/list]
 
 [b][size=160][color=orange]Features:[/color][/size][/b]
 [list][*]A lot of the Frames are now movable. E.g. CharacterFrame, LFG Frame, GameMenu etc. ...
@@ -46,7 +46,7 @@ High Recommended: [url=https://mods.curse.com/addons/wow/benikui-v3]BenikUI[/url
 Many Features can be disabled in the MerathilisUI Options.
 
 [b][size=160][color=orange]Credits[/color][/size][/b]:
-A big big thanks goes to Benik who make this possible. He helped me so much, give him some Love <3
+A big big thanks goes to [url=https://www.tukui.org/forum/memberlist.php?mode=viewprofile&u=51]Benik[/url] who make this possible. He helped me so much, give him some Love <3
 Elv, DarthPredator, Blazeflack, Azilroka and all AddOn Authors who inspired me and for their amazing work.
 
 A special thank to: [color=#00AA00][url=https://www.tukui.org/forum/memberlist.php?mode=viewprofile&u=1201]RZ_DIGITAL[/color][/url] for making the Logo.
@@ -54,6 +54,7 @@ A special thank to: [color=#00AA00][url=https://www.tukui.org/forum/memberlist.p
 [b][size=160][color=orange]Additional Screenshots:[/color][/size][/b]
 [hr][/hr]
 [center][b][size=120][color=orange]Layout 1[/center][/color][/size][/b]
+[center]with [url=https://mods.curse.com/addons/wow/xiv_databar]XIV_Databar[/url][/center]
 [hr][/hr]
 [center][lightboxsize=600]https://www.tukui.org/screenshots/Merathilis/1503488005-WoWScrnShot_082317_133000.jpg[/lightboxsize][/center]
 
@@ -61,4 +62,4 @@ A special thank to: [color=#00AA00][url=https://www.tukui.org/forum/memberlist.p
 [hr][/hr]
 [center][b][size=120][color=orange]Layout 2[/center][/color][/size][/b]
 [hr][/hr]
-[center][lightboxsize=600]https://www.tukui.org/screenshots/Merathilis/1503486904-WoWScrnShot_082317_124535.jpg[/lightboxsize][/center]
+[center][lightboxsize=600]https://www.tukui.org/screenshots/Merathilis/1503604833-WoWScrnShot_082417_205332.jpg[/lightboxsize][/center]

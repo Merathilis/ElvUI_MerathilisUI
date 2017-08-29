@@ -1,3 +1,11 @@
+[b][color=orange]v3.06[/color], 29.08.2017[/b][list]
+[*]Implement OzCooldowns - Credits Infinitron
+[*]Add a new Logo. Thx RZ_Digital
+[*]Some layout adjustments.
+[*]Add Namplateaura Filter - Credits Infinitron.
+[*]Fix a error in AFK screen.
+[*]Works with Patch 7.2.5 & 7.3.[/list]
+
 [b][color=orange]v3.05[/color], 17.08.2017[/b][list]
 [*]Remove the texture from the ObjectiveTracker Skin.
 [*]Fix an error in WeakAura Skin.
