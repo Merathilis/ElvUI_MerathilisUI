@@ -16,13 +16,12 @@ local SOUNDKIT = SOUNDKIT
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove the texture from the ObjectiveTracker Skin.",
-		"• Fix an error in WeakAura Skin.",
+		"• Implement OzCooldowns - Credits Infinitron.",
+		"• Add a new Logo. Thx RZ_Digital.",
 		"• Some layout adjustments.",
-		"• Add a style for the ActionBars Buttons (Like Masque).",
-		"•   Credits Infinitron for the code permission.",
-		"• Add compatibily with or without ParchementRemover from AddOnSkins.",
-		"• Add a QuestCounter on the WorldMap.",
+		"• Add Namplateaura Filter - Credits Infinitron.",
+		"• Fix a error in AFK screen.",
+		"• Works with Patch 7.2.5 & 7.3.",
 		-- "• ",
 	" ",
 	"Notes:",
