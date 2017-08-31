@@ -16,12 +16,10 @@ local SOUNDKIT = SOUNDKIT
 
 local ChangeLogData = {
 	"Changes:",
-		"• Implement OzCooldowns - Credits Infinitron.",
-		"• Add a new Logo. Thx RZ_Digital.",
-		"• Some layout adjustments.",
-		"• Add Namplateaura Filter - Credits Infinitron.",
-		"• Fix a error in AFK screen.",
-		"• Works with Patch 7.2.5 & 7.3.",
+		"• Update install with new filterPriority.",
+		"• Add the possibility to change the duration text on the Nameplate auras.",
+		"• Fix errors with PlaySound API.",
+		"• Increase the size of the Orderhall Commandbar.",
 		-- "• ",
 	" ",
 	"Notes:",
