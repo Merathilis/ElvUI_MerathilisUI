@@ -100,11 +100,26 @@ local function UpdateSpellGroup()
 					end
 				end,
 			},
+			stackSize = {
+				type = "range",
+				order = 7,
+				name = L["Stack Size"],
+				desc = L["Size of the stack text."],
+				min = 6,
+				max = 24,
+				step = 1,
+				get = function(info)
+					return E.global['nameplate']['spellListDefault']["stackSize"]
+				end,
+				set = function(info, value)
+					E.global['nameplate']['spellListDefault']["stackSize"] = value
+				end,
+			},
 			text = {
 				type = 'range',
 				order = 7,
 				name = L['Text Size'],
-				desc = L['Size of the stack text.'],
+				desc = L['Size of the cooldown text.'],
 				min = 6,
 				max = 24,
 				step = 1,
@@ -176,6 +191,7 @@ local function NameplateAurasTable()
 										['width'] = E.global['nameplate']['spellListDefault']['width'],
 										['height'] = E.global['nameplate']['spellListDefault']['height'],
 										['lockAspect'] = E.global['nameplate']['spellListDefault']['lockAspect'],
+										['stackSize'] = E.global['nameplate']['spellListDefault']['stackSize'],
 										['text'] = E.global['nameplate']['spellListDefault']['text'],
 										['flashTime'] = E.global['nameplate']['spellListDefault']['flashTime'],
 									}
@@ -192,9 +208,9 @@ local function NameplateAurasTable()
 						type = "select",
 						name = L["Spell List"],
 						get = function(info) return selectedSpellID end,
-						set = function(info, value) selectedSpellID = value; UpdateSpellGroup() end,
+						set = function(info, value) selectedSpellID = tonumber(value:match("%[(%d+)]$")); UpdateSpellGroup() end,
 						values = function()
-							spellLists = {}
+							local spellLists = {}
 							for spell in pairs(E.global['nameplate']['spellList']) do
 								local spellName = select(1, GetSpellInfo(spell));
 								local color = "|cffff0000"
@@ -204,7 +220,7 @@ local function NameplateAurasTable()
 								elseif visibility == 3 then
 									color = "|cff00ffff"
 								end
-								spellLists[spell] = color..spellName.."|r"
+								spellLists[format("%s [%i]", spellName, spell)] = color..spellName.."|r"
 							end
 							return spellLists
 						end,
@@ -296,11 +312,26 @@ local function NameplateAurasTable()
 							end
 						end,
 					},
-					text = {
+					stackSize = {
 						type = "range",
 						order = 7,
-						name = L["Text Size"],
+						name = L["Stack Size"],
 						desc = L["Size of the stack text."],
+						min = 6,
+						max = 24,
+						step = 1,
+						get = function(info)
+							return E.global['nameplate']['spellListDefault']["stackSize"]
+						end,
+						set = function(info, value)
+							E.global['nameplate']['spellListDefault']["stackSize"] = value
+						end,
+					},
+					text = {
+						type = "range",
+						order = 8,
+						name = L["Text Size"],
+						desc = L["Size of the cooldown text."],
 						min = 6,
 						max = 24,
 						step = 1,

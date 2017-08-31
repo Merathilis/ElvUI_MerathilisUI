@@ -1,4 +1,10 @@
-**v3.06[/color], 29.08.2017**
+** v3.07[/color], 31.08.2017**
+* Update install with new filterPriority.
+* Add the possibility to change the duration text on the Nameplate auras.
+* Fix errors with PlaySound API.
+* Increase the size of the Orderhall Commandbar.
+
+** v3.06, 29.08.2017**
 * Implement OzCooldowns - Credits Infinitron
 * Add a new Logo. Thx RZ_Digital
 * Some layout adjustments.

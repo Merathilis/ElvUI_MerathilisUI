@@ -25,11 +25,7 @@ function MI:LoadMisc()
 	-- Force readycheck warning
 	local ShowReadyCheckHook = function(_, initiator)
 		if initiator ~= "player" then
-			if E.wowbuild < 24896 then --7.2.5
-				PlaySound("ReadyCheck", "Master")
-			else -- 7.3
-				PlaySound(SOUNDKIT.READY_CHECK)
-			end
+			PlaySound(SOUNDKIT.READY_CHECK or 8960)
 		end
 	end
 	hooksecurefunc("ShowReadyCheck", ShowReadyCheckHook)
@@ -44,27 +40,15 @@ function MI:LoadMisc()
 			for i = 1, GetMaxBattlefieldID() do
 				local status = GetBattlefieldStatus(i)
 				if status == "confirm" then
-					if E.wowbuild < 24896 then --7.2.5
-						PlaySound("PVPTHROUGHQUEUE", "Master")
-					else -- 7.3
-						PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
-					end
+					PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE or 36609)
 					break
 				end
 				i = i + 1
 			end
 		elseif event == "PET_BATTLE_QUEUE_PROPOSE_MATCH" then
-			if E.wowbuild < 24896 then --7.2.5
-				PlaySound("PVPTHROUGHQUEUE", "Master")
-			else -- 7.3
-				PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE)
-			end
+			PlaySound(SOUNDKIT.UI_PET_BATTLES_PVP_THROUGH_QUEUE or 36609)
 		elseif event == "LFG_PROPOSAL_SHOW" then
-			if E.wowbuild < 24896 then --7.2.5
-				PlaySound("ReadyCheck", "Master")
-			else -- 7.3
-				PlaySound(SOUNDKIT.READY_CHECK)
-			end
+			PlaySound(SOUNDKIT.READY_CHECK or 8960)
 		end
 	end)
 
