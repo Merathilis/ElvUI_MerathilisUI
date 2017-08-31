@@ -455,11 +455,7 @@ function NF:VIGNETTE_ADDED(event, id)
 end
 
 function NF:RESURRECT_REQUEST(name)
-	if E.wowbuild < 24896 then --7.2.5
-		PlaySound("LEVELUPSOUND", "master")
-	else -- 7.3
-		PlaySound(46893, "master", true)
-	end
+	PlaySound(46893, "master", true)
 end
 
 function NF:Initialize()
