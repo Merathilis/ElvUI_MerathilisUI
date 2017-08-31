@@ -96,7 +96,7 @@ LP.PortItems = {
 	{129276}, --Beginner's Guide to Dimensional Rifting
 	{140493}, --Adept's Guide to Dimensional Rifting
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
-	-- {152964}, --Krokul Flute (Argus 7.3)
+	{152964}, --Krokul Flute (Argus 7.3)
 }
 
 LP.Spells = {
