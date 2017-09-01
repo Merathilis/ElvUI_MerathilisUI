@@ -50,6 +50,7 @@ local Blacklist = {
 
 local Whitelist = {
 	[115151] = true,
+	[18562] = true, -- Swiftmend
 }
 
 local function isPetSpell(SpellID)
@@ -256,8 +257,8 @@ function OCD:Position()
 end
 
 function OCD:CreateCooldownFrame(SpellID)
-	-- local Name, _, Icon, _, _, _, SpellID = GetSpellInfo(SpellID)
-	local Name, _, Icon = GetSpellInfo(SpellID)
+	local Name, _, Icon, _, _, _, SpellID = GetSpellInfo(SpellID)
+	-- local Name, _, Icon = GetSpellInfo(SpellID)
 	local Frame = CreateFrame("Button", 'OzCD_'..SpellID, self.frame)
 	Frame:RegisterForClicks('AnyUp')
 	Frame:SetSize(self.db["Size"], self.db["Size"])
@@ -350,7 +351,7 @@ function OCD:BuildSpellList()
 	for talentGroup = 1, GetNumSpecGroups() do
 		for tier = 1, MAX_TALENT_TIERS do
 			for column = 1, 3 do
-				local TalentID, Name = GetTalentInfo(tier, column, talentGroup)
+				local TalentID, Name, _, _, _, SpellID, _, _, _ = GetTalentInfo(tier, column, talentGroup)
 				if TalentID and Name then
 					local SpellID = select(7, GetSpellInfo(Name))
 					if SpellID then
