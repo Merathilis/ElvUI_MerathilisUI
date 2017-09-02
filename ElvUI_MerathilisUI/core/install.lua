@@ -1072,7 +1072,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 5
 		E.db["unitframe"]["units"]["raid"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["raid"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useWhitelist"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noDuration"] = false
@@ -1139,7 +1139,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["yOffset"] = -9
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
@@ -1177,7 +1177,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
@@ -1246,7 +1246,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["party"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
@@ -1684,7 +1684,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 2
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["enable"] = true
-		E.db["unitframe"]["units"]["raid"]["debuffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -8
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
@@ -1716,7 +1716,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 5
 		E.db["unitframe"]["units"]["raid"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["raid"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useWhitelist"] = true
 		E.db["unitframe"]["units"]["raid"]["buffs"]["noDuration"] = false
@@ -1785,7 +1785,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["yOffset"] = -9
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
@@ -1823,7 +1823,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
@@ -1845,11 +1845,10 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["debuffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["clickTrough"] = true
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
@@ -1894,7 +1893,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
-		E.db["unitframe"]["units"]["party"]["buffs"]["clickTrough"] = true
+		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
