@@ -1045,6 +1045,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -8
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1141,6 +1143,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
@@ -1198,6 +1202,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
@@ -1516,7 +1522,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 4
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
-		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1583,10 +1588,11 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
-		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 20
+		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
 		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
@@ -1683,6 +1689,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["yOffset"] = -8
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Prototype"
@@ -1782,6 +1789,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
@@ -1841,7 +1850,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["clickTrough"] = true
-		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,blockNoDuration,nonPersonal"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
