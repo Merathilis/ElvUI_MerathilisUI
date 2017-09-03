@@ -28,6 +28,7 @@ local CooldownFrames = {}
 local Blacklist = {
 	[83958] = true,		-- Mobile Banking
 	[125439] = true,	-- Pet Bandage
+	[6603] = true, 		-- Auto Attack
 
 	[131204] = true,	-- ChallengeMode Ports
 	[131205] = true,
@@ -50,6 +51,8 @@ local Blacklist = {
 
 local Whitelist = {
 	[115151] = true,
+	[18562] = true,
+	[194466] = true,
 }
 
 local function isPetSpell(SpellID)
@@ -337,7 +340,7 @@ function OCD:BuildSpellList()
 		local skilltype, id = GetSpellBookItemInfo(i, BOOKTYPE_SPELL)
 		if skilltype == "SPELL" and not IsPassiveSpell(i, BOOKTYPE_SPELL) and not Blacklist[id] then
 			local BaseCooldown = GetSpellBaseCooldown(id)
-			if BaseCooldown and BaseCooldown >= 0 or Whitelist[id] then
+			if BaseCooldown and BaseCooldown > 0 or Whitelist[id] then
 				PlayerCooldowns[id] = true
 				if (E.private.muiMisc.ozcooldowns.spellCDs[GetSpellInfo(id)] == nil) then
 					E.private.muiMisc.ozcooldowns.spellCDs[GetSpellInfo(id)] = true
