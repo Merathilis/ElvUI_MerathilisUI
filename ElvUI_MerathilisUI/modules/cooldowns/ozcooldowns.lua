@@ -50,7 +50,6 @@ local Blacklist = {
 
 local Whitelist = {
 	[115151] = true,
-	[18562] = true, -- Swiftmend
 }
 
 local function isPetSpell(SpellID)
@@ -257,8 +256,7 @@ function OCD:Position()
 end
 
 function OCD:CreateCooldownFrame(SpellID)
-	local Name, _, Icon, _, _, _, SpellID = GetSpellInfo(SpellID)
-	-- local Name, _, Icon = GetSpellInfo(SpellID)
+	local Name, _, Icon = GetSpellInfo(SpellID)
 	local Frame = CreateFrame("Button", 'OzCD_'..SpellID, self.frame)
 	Frame:RegisterForClicks('AnyUp')
 	Frame:SetSize(self.db["Size"], self.db["Size"])
@@ -339,7 +337,7 @@ function OCD:BuildSpellList()
 		local skilltype, id = GetSpellBookItemInfo(i, BOOKTYPE_SPELL)
 		if skilltype == "SPELL" and not IsPassiveSpell(i, BOOKTYPE_SPELL) and not Blacklist[id] then
 			local BaseCooldown = GetSpellBaseCooldown(id)
-			if BaseCooldown and BaseCooldown > 0 or Whitelist[id] then
+			if BaseCooldown and BaseCooldown >= 0 or Whitelist[id] then
 				PlayerCooldowns[id] = true
 				if (E.private.muiMisc.ozcooldowns.spellCDs[GetSpellInfo(id)] == nil) then
 					E.private.muiMisc.ozcooldowns.spellCDs[GetSpellInfo(id)] = true
