@@ -50,9 +50,9 @@ local Blacklist = {
 }
 
 local Whitelist = {
-	[115151] = true,
-	[18562] = true,
-	[194466] = true,
+	[115151] = true,	--Renewing Mist
+	[18562] = true,		--Swiftmend
+	[194466] = true,	--Phoenix's Flames
 }
 
 local function isPetSpell(SpellID)
