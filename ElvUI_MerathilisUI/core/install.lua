@@ -1400,7 +1400,11 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["fontSize"] = 10
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
-		E.db["unitframe"]["statusbar"] = "Skullflower"
+		E.db["unitframe"]["statusbar"] = "MerathilisUI1"
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
+			E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
+		end
 		E.db["unitframe"]["colors"]["castColor"] = { 
 			["r"] = 0.1,
 			["g"] = 0.1,
