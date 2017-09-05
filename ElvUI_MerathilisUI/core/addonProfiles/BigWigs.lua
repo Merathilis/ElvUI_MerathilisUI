@@ -41,16 +41,16 @@ function MER:LoadBigWigsProfile(layout)
 							["BigWigsAnchor_x"] = 1018.51096216262,
 							["outline"] = "OUTLINE",
 							["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
-							["font"] = "Merathilis Roboto-Bold",
+							["font"] = "Expressway",
 							["emphasizeScale"] = 1.1,
-							["texture"] = "MerathilisBlank",
+							["texture"] = "MerathilisUI1",
 						},
 					},
 				},
 				["BigWigs_Plugins_Super Emphasize"] = {
 					["profiles"] = {
 						["MerathilisUI"] = {
-							["font"] = "Merathilis Roboto-Bold",
+							["font"] = "Expressway",
 						},
 					},
 				},
@@ -127,7 +127,7 @@ function MER:LoadBigWigsProfile(layout)
 							["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
 							["font"] = "Expressway",
 							["emphasizeScale"] = 1.1,
-							["texture"] = "Skullflower",
+							["texture"] = "MerathilisUI1",
 						},
 					},
 				},

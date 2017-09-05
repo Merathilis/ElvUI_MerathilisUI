@@ -274,7 +274,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["threat"]["goodScale"] = 1
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["threat"]["badScale"] = 1
-	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplates"]["statusbar"] = "MerathilisUI1"
 	E.db["nameplates"]["fontSize"] = 10
 	E.db["nameplates"]["targetScale"] = 1.05
 	E.db["nameplates"]["customColor"] = false
