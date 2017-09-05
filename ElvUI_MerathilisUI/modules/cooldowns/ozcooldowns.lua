@@ -53,6 +53,7 @@ local Whitelist = {
 	[115151] = true,	--Renewing Mist
 	[18562] = true,		--Swiftmend
 	[194466] = true,	--Phoenix's Flames
+	[190784] = true, 	--Divine Steed
 }
 
 local function isPetSpell(SpellID)
@@ -471,7 +472,7 @@ function OCD:GenerateSpellOptions()
 end
 
 function OCD:UNIT_SPELLCAST_SUCCEEDED(...)
-	self:FindCooldown(select(5, ...));
+	self:FindCooldown(select(3, ...));
 end
 
 function OCD:Initialize()
