@@ -286,6 +286,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,blockNoDuration,CastByUnit,PlayerBuffs,TurtleBuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
