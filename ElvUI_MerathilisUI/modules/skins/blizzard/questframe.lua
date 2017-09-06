@@ -166,6 +166,10 @@ local function styleQuestFrame()
 	AvailableQuestsText.SetTextColor = MER.dummy
 
 	hooksecurefunc("QuestInfo_Display", function(template, parentFrame, acceptButton, material)
+		local rewardsFrame = QuestInfoFrame.rewardsFrame
+		local isQuestLog = QuestInfoFrame.questLog ~= nil
+		local isMapQuest = rewardsFrame == MapQuestInfoRewardsFrame
+
 		QuestInfoTitleHeader:SetTextColor(1, 1, 0)
 		QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
 		QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
@@ -201,6 +205,22 @@ local function styleQuestFrame()
 						objective:SetTextColor(0.6, 0.6, 0.6)
 					end
 				end
+			end
+		end
+
+		-- Spell Rewards
+		for spellReward in rewardsFrame.spellRewardPool:EnumerateActive() do
+			if not spellReward.isSkinned then
+				if isMapQuest then
+					MERS:SmallItemButtonTemplate(spellReward)
+				else
+					MERS:LargeItemButtonTemplate(spellReward)
+					select(3, spellReward:GetRegions()):Hide() --border
+					spellReward.Icon:SetPoint("TOPLEFT", 0, 0)
+					spellReward:SetHitRectInsets(0, 0, 0, 0)
+					spellReward:SetSize(147, 41)
+				end
+				spellReward.isSkinned = true
 			end
 		end
 	end)

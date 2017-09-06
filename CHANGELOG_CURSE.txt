@@ -1,8 +1,9 @@
-** v3.07[/color], 31.08.2017**
-* Update install with new filterPriority.
-* Add the possibility to change the duration text on the Nameplate auras.
-* Fix errors with PlaySound API.
-* Increase the size of the Orderhall Commandbar.
+** v3.08, 06.08.2017**
+* Add new filterPriority to install.
+* Add a new texture.
+* Add some spell to OzCooldowns.
+* Fix spellRewards frame in Quest skin.
+* Update SplashScreen Logo.
 
 ** v3.06, 29.08.2017**
 * Implement OzCooldowns - Credits Infinitron

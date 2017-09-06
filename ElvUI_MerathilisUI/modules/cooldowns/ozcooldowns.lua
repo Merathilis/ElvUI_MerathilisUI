@@ -28,6 +28,7 @@ local CooldownFrames = {}
 local Blacklist = {
 	[83958] = true,		-- Mobile Banking
 	[125439] = true,	-- Pet Bandage
+	[6603] = true, 		-- Auto Attack
 
 	[131204] = true,	-- ChallengeMode Ports
 	[131205] = true,
@@ -49,7 +50,10 @@ local Blacklist = {
 }
 
 local Whitelist = {
-	[115151] = true,
+	[115151] = true,	--Renewing Mist
+	[18562] = true,		--Swiftmend
+	[194466] = true,	--Phoenix's Flames
+	[190784] = true, 	--Divine Steed
 }
 
 local function isPetSpell(SpellID)
@@ -256,7 +260,6 @@ function OCD:Position()
 end
 
 function OCD:CreateCooldownFrame(SpellID)
-	-- local Name, _, Icon, _, _, _, SpellID = GetSpellInfo(SpellID)
 	local Name, _, Icon = GetSpellInfo(SpellID)
 	local Frame = CreateFrame("Button", 'OzCD_'..SpellID, self.frame)
 	Frame:RegisterForClicks('AnyUp')
@@ -350,7 +353,7 @@ function OCD:BuildSpellList()
 	for talentGroup = 1, GetNumSpecGroups() do
 		for tier = 1, MAX_TALENT_TIERS do
 			for column = 1, 3 do
-				local TalentID, Name = GetTalentInfo(tier, column, talentGroup)
+				local TalentID, Name, _, _, _, SpellID, _, _, _ = GetTalentInfo(tier, column, talentGroup)
 				if TalentID and Name then
 					local SpellID = select(7, GetSpellInfo(Name))
 					if SpellID then

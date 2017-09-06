@@ -1481,7 +1481,7 @@ function MER:LoadDetailsProfile(layout)
 									0, -- [3]
 									1, -- [4]
 								},
-								["texture_background"] = "MerathilisBlank",
+								["texture_background"] = "MerathilisUI1",
 								["alpha"] = 1,
 								["no_icon"] = false,
 								["textR_show_data"] = {
@@ -1492,7 +1492,7 @@ function MER:LoadDetailsProfile(layout)
 								["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 								["font_face"] = "Merathilis Roboto-Bold",
 								["texture_class_colors"] = true,
-								["texture"] = "MerathilisBlank",
+								["texture"] = "MerathilisUI1",
 								["fast_ps_update"] = true,
 								["textR_separator"] = ",",
 								["height"] = 14,
@@ -3228,9 +3228,9 @@ function MER:LoadDetailsProfile(layout)
 									true, -- [3]
 								},
 								["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
-								["font_face"] = "Merathilis Roboto-Bold",
+								["font_face"] = "Expressway",
 								["texture_class_colors"] = true,
-								["texture"] = "MerathilisBlank",
+								["texture"] = "MerathilisUI1",
 								["fast_ps_update"] = true,
 								["textR_separator"] = ",",
 								["height"] = 14,

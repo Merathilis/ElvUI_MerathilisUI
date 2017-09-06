@@ -16,10 +16,11 @@ local SOUNDKIT = SOUNDKIT
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update install with new filterPriority.",
-		"• Add the possibility to change the duration text on the Nameplate auras.",
-		"• Fix errors with PlaySound API.",
-		"• Increase the size of the Orderhall Commandbar.",
+		"• Add new filterPriority to install.",
+		"• Add a new texture.",
+		"• Add some spell to OzCooldowns.",
+		"• Fix spellRewards frame in Quest skin.",
+		"• Update SplashScreen Logo.",
 		-- "• ",
 	" ",
 	"Notes:",
