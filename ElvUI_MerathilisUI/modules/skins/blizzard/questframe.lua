@@ -293,6 +293,54 @@ local function styleQuestFrame()
 	StoryHeader:HookScript("OnLeave", function()
 		hl:Hide()
 	end)
+
+	--NPC Model Frame
+	local QuestNPCModel = _G["QuestNPCModel"]
+
+	local modelBackground = CreateFrame("Frame", nil, QuestNPCModel)
+	modelBackground:SetPoint("TOPLEFT", -1, 1)
+	modelBackground:SetPoint("BOTTOMRIGHT", 1, -2)
+	modelBackground:SetFrameLevel(0)
+
+	QuestNPCModelBg:Hide()
+	QuestNPCModelTopBg:Hide()
+	QuestNPCModelShadowOverlay:Hide()
+
+	QuestNPCModel.BorderBottomLeft:Hide()
+	QuestNPCModel.BorderBottomRight:Hide()
+	QuestNPCModel.BorderTop:Hide()
+	QuestNPCModel.BorderBottom:Hide()
+	QuestNPCModel.BorderLeft:Hide()
+	QuestNPCModel.BorderRight:Hide()
+
+	QuestNPCCornerTopLeft:Hide()
+	QuestNPCCornerTopRight:Hide()
+	QuestNPCCornerBottomLeft:Hide()
+	QuestNPCCornerBottomRight:Hide()
+
+	QuestNPCModelNameplate:SetAlpha(0)
+
+	QuestNPCModelNameText:SetPoint("TOPLEFT", modelBackground, "BOTTOMLEFT")
+	QuestNPCModelNameText:SetPoint("BOTTOMRIGHT", QuestNPCModelTextFrame, "TOPRIGHT")
+
+	QuestNPCModelNameTooltipFrame:SetPoint("TOPLEFT", QuestNPCModelNameText, 0, 1)
+	QuestNPCModelNameTooltipFrame:SetPoint("BOTTOMRIGHT", QuestNPCModelNameText, 0, -1)
+	QuestNPCModelNameTooltipFrame:SetFrameLevel(0)
+
+	local QuestNPCModelTextFrame = _G["QuestNPCModelTextFrame"]
+	if QuestNPCModelTextFrame.backdrop then
+		QuestNPCModelTextFrame.backdrop:Hide()
+		MERS:CreateBD(QuestNPCModelTextFrame, .25)
+	end
+	QuestNPCModelTextFrame:SetPoint("TOPLEFT", QuestNPCModelNameplate, "BOTTOMLEFT", -1, 12)
+	QuestNPCModelTextFrame:SetWidth(200)
+	QuestNPCModelTextFrameBg:Hide()
+
+	QuestNPCModelTextFrame.BorderBottomLeft:Hide()
+	QuestNPCModelTextFrame.BorderBottomRight:Hide()
+	QuestNPCModelTextFrame.BorderBottom:Hide()
+	QuestNPCModelTextFrame.BorderLeft:Hide()
+	QuestNPCModelTextFrame.BorderRight:Hide()
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
