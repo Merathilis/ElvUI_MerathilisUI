@@ -1339,6 +1339,15 @@ G["nameplate"]["spellListDefault"] = {
 			["visibility"] = 1,
 			["width"] = 40,
 		},
+		[182387] = { --Earthquake (Knocking down)
+			["lockAspect"] = true,
+			["flashTime"] = 3,
+			["height"] = 40,
+			["stackSize"] = 8,
+			["text"] = 12,
+			["visibility"] = 1,
+			["width"] = 40,
+		},
 		[118345] = { --Pulverize (Pet)
 			["lockAspect"] = true,
 			["flashTime"] = 3,
@@ -1559,6 +1568,16 @@ G["nameplate"]["spellListDefault"] = {
 			["width"] = 40,
 		},
 		[107079] = { --Quaking Palm
+			["lockAspect"] = true,
+			["flashTime"] = 3,
+			["height"] = 40,
+			["stackSize"] = 8,
+			["text"] = 12,
+			["visibility"] = 1,
+			["width"] = 40,
+		},
+	-- Boss specific
+		[234128] = { --Drivin Assault
 			["lockAspect"] = true,
 			["flashTime"] = 3,
 			["height"] = 40,
