@@ -86,7 +86,7 @@ function NA:SortAuras(auras)
 	local function sortAuras(iconA, iconB)
 		local aWidth = iconA:GetWidth();
 		local aHeight = iconA:GetHeight();
-		
+
 		local bWidth = iconB:GetWidth();
 		local bHeight = iconB:GetHeight();
 
