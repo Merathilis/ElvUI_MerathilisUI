@@ -97,6 +97,7 @@ LP.PortItems = {
 	{140493}, --Adept's Guide to Dimensional Rifting
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{152964}, --Krokul Flute (Argus 7.3)
+	[112059, nil, true], --Wormhole Generator: Argus
 }
 
 LP.Spells = {
