@@ -235,6 +235,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.db["general"]["threat"]["enable"] = false
+	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
