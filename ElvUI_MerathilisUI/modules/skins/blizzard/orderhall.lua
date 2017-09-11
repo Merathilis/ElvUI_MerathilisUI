@@ -25,7 +25,7 @@ local function styleOrderhall()
 		MERS:CreateStripes(b)
 	end
 
-	b:SetWidth(b.AreaName:GetStringWidth() + 650)
+	b:SetWidth(b.AreaName:GetStringWidth() + 710)
 
 	b.Background:SetAtlas(nil)
 	b.Currency:Hide()

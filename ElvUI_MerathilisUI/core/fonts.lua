@@ -58,7 +58,6 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFontNormalMed3,					NORMAL, 15)
 		SetFont(SystemFont_Shadow_Huge1,			NORMAL, 20, "OUTLINE") -- Raid Warning, Boss emote frame too
 		SetFont(SystemFont_Shadow_Huge2,			NORMAL, 22)
-		SetFont(SystemFont_Shadow_Huge3,			NORMAL, 24)
 		SetFont(SystemFont_Med1,					NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Med3,					NORMAL, self.db.general.fontSize*1.1)
 		SetFont(SystemFont_OutlineThick_Huge2,		NORMAL, 20, MONOCHROME.."THICKOUTLINE")
@@ -121,6 +120,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Game15Font_o1,						NORMAL, 15)									 -- CharacterStatsPane (ItemLevelFrame)
 		SetFont(Game13FontShadow,					NORMAL, 14)									 -- InspectPvpFrame
 		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
+		SetFont(SystemFont_Shadow_Huge3,			NORMAL, 22, nil, SHADOWCOLOR, BIGOFFSET);	 -- Flight Map, Zone Name
 		--SetFont(QuestTitleFontBlackShadow,		NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 			NORMAL, self.db.general.fontSize*1.1);
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);
