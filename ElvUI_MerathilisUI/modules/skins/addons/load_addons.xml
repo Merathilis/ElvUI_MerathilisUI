@@ -3,6 +3,7 @@
 	<Script file="Auctionator.lua"/>
 	<Script file="BenikUI.lua"/>
 	<Script file="bigWigs.lua"/>
+	<Script file="OrderHallCommander.lua"/>
 	<Script file="premadeGroupsFilter.lua"/>
 	<Script file="QuickJoinNotifications.lua"/>
 	<Script file="weakAuras.lua"/>
