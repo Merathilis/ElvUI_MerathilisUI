@@ -247,7 +247,7 @@ _G["ElvUF"].Tags.Methods["health:current-mUI"] = function(unit)
 end
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
-_G["ElvUF"].Tags.Events["power:current-mUI"] = "UNIT_POWER UNIT_POWER_FREQUENT"
+_G["ElvUF"].Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER UNIT_POWER_FREQUENT"
 _G["ElvUF"].Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	return shortenNumber(CurrentPower)
