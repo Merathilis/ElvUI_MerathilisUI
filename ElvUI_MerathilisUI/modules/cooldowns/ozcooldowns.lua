@@ -201,7 +201,9 @@ end
 
 function OCD:Position()
 	local Vertical, Spacing, Size = self.db["Vertical"], self.db["Spacing"], self.db["Size"]
-	local Font, StatusBarTexture, Color = LSM:Fetch("font", self.db["DurationFont"]), LSM:Fetch('statusbar', self.db["StatusBarTexture"]), self.db["StatusBarTextureColor"]
+	local Font = LSM:Fetch("font", self.db["DurationFont"])
+	local StatusBarTexture = LSM:Fetch('statusbar', self.db["StatusBarTexture"])
+	local Color = self.db["StatusBarTextureColor"]
 	local xSpacing = Vertical and 0 or Spacing
 	local ySpacing = Vertical and -(Spacing + (self.db["StatusBar"] and 8 or 0)) or 0
 	local AnchorPoint = Vertical and "BOTTOMLEFT" or "TOPRIGHT"
