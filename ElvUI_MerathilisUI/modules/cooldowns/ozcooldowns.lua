@@ -476,10 +476,10 @@ function OCD:UNIT_SPELLCAST_SUCCEEDED(...)
 end
 
 function OCD:Initialize()
-	self.db = E.db.mui.misc.ozcooldowns;
+	self.db = E.db.mui.misc.ozcooldowns or P.mui.misc.ozcooldowns;
+	if self.db.enable ~= true then return end
 	E.private.muiMisc.ozcooldowns = E.private.muiMisc.ozcooldowns or {};
 	E.private.muiMisc.ozcooldowns.spellCDs = E.private.muiMisc.ozcooldowns.spellCDs or {};
-	if self.db.enable ~= true then return end
 
 	self:RegisterEvent("SPELLS_CHANGED", 'BuildCooldowns');
 	self:RegisterEvent("LEARNED_SPELL_IN_TAB", 'BuildCooldowns');
