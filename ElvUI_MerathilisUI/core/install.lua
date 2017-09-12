@@ -1464,7 +1464,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 19,
+			["size"] = 15,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
@@ -1474,7 +1474,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 18,
+			["size"] = 15,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
@@ -1567,7 +1567,7 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
-			["size"] = 18,
+			["size"] = 15,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
@@ -1577,7 +1577,7 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
-			["size"] = 18,
+			["size"] = 15,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
