@@ -1476,7 +1476,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 18,
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current]",
+			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1490,7 +1490,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current]"
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current-mUI]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
@@ -1580,7 +1580,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 18,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current]",
+			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
 			["xOffset"] = 0,
