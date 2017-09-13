@@ -1697,7 +1697,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,Whitelist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1797,7 +1797,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
@@ -1857,7 +1857,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,Whitelist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
