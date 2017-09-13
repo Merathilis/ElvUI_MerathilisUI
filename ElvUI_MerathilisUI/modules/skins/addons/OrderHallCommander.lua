@@ -1,6 +1,6 @@
 local AS = unpack(AddOnSkins)
 
-if not AS:CheckAddOn('OrderHallCommander') then return end
+-- if not AS:CheckAddOn('OrderHallCommander') then return end
 
 function AS:OrderHallCommander(event)
 	if event == "ADDON_LOADED" then
@@ -36,13 +36,12 @@ function AS:OrderHallCommander(event)
 		AS:UnregisterSkinEvent("OrderHallCommander", event)
 	elseif OHCGUIContainer1 and event == "GARRISON_MISSION_COMPLETE_RESPONSE" then
 		if OHCGUIContainer1.IsSkinned then return end
-		AS:UnregisterSkinEvent("OrderHallCommander", event)
-
 		AS:Delay(0.5, function()
 			AS:SkinFrame(OHCGUIContainer1)
 			AS:StripTextures(OHCGUIContainer1.GarrCorners)
 			AS:SkinCloseButton(OHCGUIContainer1.CloseButton)
 		end)
+		AS:UnregisterSkinEvent("OrderHallCommander", event)
 	end
 end
 
