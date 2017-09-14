@@ -23,6 +23,11 @@ local function styleArtifact()
 	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", ArtifactFrame)
 	ArtifactFrame.AppearancesTab.Background:Hide()
 
+	--Hide the background from BeniUI for the Netherlight Crucible
+	if ArtifactRelicForgeFrame.benik then
+		ArtifactRelicForgeFrame.benik:Hide()
+	end
+
 	ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
 		if self.skinned then return end
 		for i = 1, self:GetNumChildren() do
