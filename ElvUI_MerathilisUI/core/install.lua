@@ -205,7 +205,7 @@ function MER:SetupLayout(layout)
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
-	E.global["general"]["commandBarSetting"] = "ENABLED"
+	E.global["general"]["commandBarSetting"] = "ENABLED_RESIZEPARENT"
 
 	--[[----------------------------------
 	--	ProfileDB - General

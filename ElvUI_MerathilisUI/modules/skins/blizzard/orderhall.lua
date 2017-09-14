@@ -15,25 +15,15 @@ local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
 	local b = OrderHallCommandBar
-	if E.db.mui.general.HideOrderhallBar then
-		b:SetScript("OnShow", b.Hide)
-		b:Hide()
-	end
 
 	MERS:CreateGradient(b)
 	if not b.stripes then
 		MERS:CreateStripes(b)
 	end
 
-	b:SetWidth(800)
-
 	b.Background:SetAtlas(nil)
-	b.Currency:Hide()
-	b.CurrencyIcon:Hide()
-	b.CurrencyHitTest:Hide()
 
-	b.AreaName:ClearAllPoints()
-	b.AreaName:SetPoint("LEFT", b.Currency, "RIGHT", 0, 0)
+	b.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
 
 	b.WorldMapButton:Show()
 	b.WorldMapButton:ClearAllPoints()
@@ -49,14 +39,12 @@ local function styleOrderhall()
 	mapButton:SetPushedTexture("")
 
 	mapButton.Text = mapButton:CreateFontString(nil, "OVERLAY")
-	mapButton.Text:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 13, nil)
+	mapButton.Text:SetFont(LSM:Fetch("font", "Expressway"), 13, nil)
 	mapButton.Text:SetText("M")
 	mapButton.Text:SetPoint("CENTER", -1, 0)
 
 	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b) end)
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
-
-	E:CreateMover(OrderHallCommandBar, "MER_OrderhallMover", L["Orderhall"], nil, nil, "ALL, SOLO")
 
 	local combatAlly = OrderHallMissionFrameMissions.CombatAllyUI
 	combatAlly:StripTextures()
@@ -237,13 +225,9 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 			local last
 			for i, child in ipairs({bar:GetChildren()}) do
 				if child.Icon and child.Count and child.TroopPortraitCover then
-					child:ClearAllPoints()
-					child:SetPoint("LEFT", bar.AreaName, "RIGHT", 50 + (index - 1) * 120, 0)
 					child:SetWidth(60)
 
 					child.TroopPortraitCover:Hide()
-					child.Icon:ClearAllPoints()
-					child.Icon:SetPoint("LEFT", child, "LEFT", 0, 0)
 					child.Icon:SetSize(32, 16)
 
 					child.Count:ClearAllPoints()
