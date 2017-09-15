@@ -269,6 +269,7 @@ local function SkinsTable()
 			type = "execute",
 			name = addonName,
 			desc = L["This will create and apply profile for "]..addonName,
+			buttonElvUI = true,
 			func = function()
 				if addon == 'BigWigs' then
 					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
@@ -298,7 +299,7 @@ local function SkinsTable()
 				end
 				print(profileString..addonName)
 			end,
-			hidden = function() return not IsAddOnLoaded(addon) end,
+			disabled = function() return not IsAddOnLoaded(addon) end,
 		}
 	end
 end
