@@ -57,9 +57,9 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			stackSize = E.global['nameplate']['spellListDefault']['stackSize']
 		end
 
-		aura.count:FontTemplate(nil, stackSize, 'OUTLINE')
 		if count > 1 then
 			aura.count:SetText(count)
+			aura.count:FontTemplate(nil, stackSize, 'OUTLINE')
 		else
 			aura.count:SetText("")
 		end
