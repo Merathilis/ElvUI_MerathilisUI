@@ -225,10 +225,10 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 			local last
 			for i, child in ipairs({bar:GetChildren()}) do
 				if child.Icon and child.Count and child.TroopPortraitCover then
-					child:SetWidth(60)
+					child:SetWidth(65)
 
 					child.TroopPortraitCover:Hide()
-					child.Icon:SetSize(32, 16)
+					child.Icon:SetSize(36, 22)
 
 					child.Count:ClearAllPoints()
 					child.Count:SetPoint("LEFT", child.Icon, "RIGHT", 5, 0)
