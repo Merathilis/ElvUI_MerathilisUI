@@ -42,6 +42,7 @@ local npc = {
 	51601, -- Moonkin Hatchling
 	85283, -- Brightpaw
 	103159, -- Baby Winston
+	123650, -- Shadow
 }
 
 function MERG:GameMenu()
