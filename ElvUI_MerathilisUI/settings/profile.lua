@@ -810,6 +810,15 @@ G["nameplate"]["spellListDefault"] = {
 			["visibility"] = 1,
 			["width"] = 40,
 		},
+		[194279] = { --Caltrops
+			["lockAspect"] = true,
+			["flashTime"] = 3,
+			["height"] = 40,
+			["stackSize"] = 8,
+			["text"] = 12,
+			["visibility"] = 1,
+			["width"] = 40,
+		},
 	--Mage
 		[61721] = { --Rabbit (Poly)
 			["lockAspect"] = true,
