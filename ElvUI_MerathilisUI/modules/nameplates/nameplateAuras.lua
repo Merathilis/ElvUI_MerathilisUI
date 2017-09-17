@@ -48,34 +48,10 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura:SetWidth(width)
 		aura:SetHeight(height)
 
-		-- Stacks
-		local stackSize = 7
-
-		if spell and spell['stackSize'] then
-			stackSize = spell['stackSize']
-		elseif E.global['nameplate']['spellListDefault']['stackSize'] then
-			stackSize = E.global['nameplate']['spellListDefault']['stackSize']
-		end
-
 		if count > 1 then
 			aura.count:SetText(count)
-			aura.count:FontTemplate(nil, stackSize, 'OUTLINE')
 		else
 			aura.count:SetText("")
-		end
-
-		-- Text
-		local textSize = 9
-
-		if spell and spell['text'] then
-			textSize = spell['textSize']
-		elseif E.global['nameplate']['spellListDefault']['text'] then
-			textSize = E.global['nameplate']['spellListDefault']['text']
-		end
-
-		if aura.cooldown.timer then
-			aura.cooldown.timer.text:FontTemplate(nil, textSize, 'OUTLINE')
-			aura.cooldown.timer.text:Point('TOPLEFT', 1, 1)
 		end
 
 		NA:SortAuras(aura:GetParent());
