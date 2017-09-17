@@ -189,8 +189,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 11
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MerathilisBlank"
-	E.private["general"]["glossTex"] = "MerathilisBlank"
+	E.private["general"]["normTex"] = "MerathilisUI1"
+	E.private["general"]["glossTex"] = "MerathilisUI1"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -276,10 +276,17 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["threat"]["badScale"] = 1
 	E.db["nameplates"]["statusbar"] = "MerathilisUI1"
+	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["durationFont"] = "Expressway"
+	E.db["nameplates"]["durationFontSize"] = 9
+	E.db["nameplates"]["durationFontOutline"] = "OUTLINE"
+	E.db["nameplates"]["stackFont"] = "Expressway"
+	E.db["nameplates"]["stackFontSize"] = 9
+	E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
 	E.db["nameplates"]["targetScale"] = 1.05
 	E.db["nameplates"]["customColor"] = false
-	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
@@ -299,7 +306,6 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
-	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
