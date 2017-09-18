@@ -54,6 +54,11 @@ local Whitelist = {
 	[18562] = true,		--Swiftmend
 	[194466] = true,	--Phoenix's Flames
 	[190784] = true, 	--Divine Steed
+
+-- Dispells
+	--Druid
+	[88423] = true, 	--Nature's Cure
+	[2782] = true, 		--Remove Corruption
 }
 
 local function isPetSpell(SpellID)
