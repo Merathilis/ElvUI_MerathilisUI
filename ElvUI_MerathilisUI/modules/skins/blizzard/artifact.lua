@@ -28,6 +28,10 @@ local function styleArtifact()
 		ArtifactRelicForgeFrame.benik:Hide()
 	end
 
+	for i = 1, 28 do
+		select(i, ArtifactRelicForgeFrame:GetRegions()):Hide()
+	end
+
 	ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
 		if self.skinned then return end
 		for i = 1, self:GetNumChildren() do
