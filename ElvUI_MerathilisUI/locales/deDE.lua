@@ -265,6 +265,7 @@ L["Hearthstone Location"] = "Ruhestein Position"
 L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
+L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

@@ -264,6 +264,7 @@ L["Hearthstone Location"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
+L["Hide In Class Hall"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
