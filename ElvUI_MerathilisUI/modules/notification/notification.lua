@@ -41,7 +41,7 @@ local CalendarGetAbsMonth = CalendarGetAbsMonth
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle
 
-local bannerWidth = 300
+local bannerWidth = 225
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
