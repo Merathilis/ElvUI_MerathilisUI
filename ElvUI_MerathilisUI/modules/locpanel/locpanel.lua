@@ -416,7 +416,9 @@ function LP:ItemList(check)
 		local ID, isToy = data.secure.ID, data.secure.isToy
 		if (not isToy and MER:BagSearch(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
 			if check then 
-				if E.db.mui.locPanel.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+				if E.db.mui.locPanel.portals.HSplace then
+					tinsert(LP.MainMenu, {text = TUTORIAL_TITLE31..": "..GetBindLocation(), title = true, nohighlight = true})
+				end
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
 			else
