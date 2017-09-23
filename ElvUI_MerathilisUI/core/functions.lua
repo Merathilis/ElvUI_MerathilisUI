@@ -148,6 +148,7 @@ MER.IsDev = {
 	["Jazira"] = true,
 	["Damará"] = true,
 	["Merathilîs"] = true,
+	["Melisendra"] = true
 }
 -- Don't forget to update realm name(s) if we ever transfer realms.
 -- If we forget it could be easly picked up by another player who matches these combinations.
