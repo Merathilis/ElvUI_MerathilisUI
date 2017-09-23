@@ -57,7 +57,7 @@ end
 local function RebuildAddonList()
 	local addonCount = GetNumAddOns()
 	if addonCount == #memoryTable then return end
-	
+
 	memoryTable = {}
 	cpuTable = {}
 	for i = 1, addonCount do
@@ -76,20 +76,20 @@ end
 
 local function UpdateMemory()
 	UpdateAddOnMemoryUsage()
-	
+
 	local addonMemory, totalMemory = 0, 0
 	for i = 1, #memoryTable do
 		addonMemory = GetAddOnMemoryUsage(memoryTable[i][1])
 		memoryTable[i][3] = addonMemory
 		totalMemory = totalMemory + addonMemory
 	end
-	
+
 	sort(memoryTable, function(a, b)
 		if a and b then
 			return a[3] > b[3]
 		end
 	end)
-	
+
 	return totalMemory
 end
 
@@ -102,25 +102,25 @@ local function UpdateCPU()
 		cpuTable[i][3] = addonCPU
 		totalCPU = totalCPU + addonCPU
 	end
-	
+
 	sort(cpuTable, function(a, b)
 		if a and b then
 			return a[3] > b[3]
 		end
 	end)
-	
+
 	return totalCPU
 end
 
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 	enteredFrame = true
-	
+
 	local cpuProfiling = GetCVar("scriptProfile") == "1"
 	local bandwidth = GetAvailableBandwidth()
 	local _, _, home_latency, world_latency = GetNetStats() 
 	local shown = 0
-	
+
 	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	DT.tooltip:AddDoubleLine(L["World Latency:"], format(homeLatencyString, world_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	if bandwidth ~= 0 then
@@ -128,10 +128,10 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		DT.tooltip:AddLine(" ")
 	end
-	
+
 	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	DT.tooltip:AddDoubleLine(L["Total Addons:"], GetNumAddOns(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	
+
 	local totalMemory = UpdateMemory()
 	local totalCPU = nil
 	DT.tooltip:AddDoubleLine(L["Total Memory:"], FormatMemory(totalMemory), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
@@ -139,7 +139,7 @@ local function OnEnter(self)
 		totalCPU = UpdateCPU()
 		DT.tooltip:AddDoubleLine(L["Total CPU:"], format(homeLatencyString, totalCPU), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
-	
+
 	if IsShiftKeyDown() or not cpuProfiling then
 		DT.tooltip:AddLine(" ")
 		for i = 1, #memoryTable do
@@ -152,7 +152,7 @@ local function OnEnter(self)
 			end
 		end
 	end
-	
+
 	if cpuProfiling and not IsShiftKeyDown() then
 		shown = 0
 		DT.tooltip:AddLine(" ")
@@ -168,11 +168,11 @@ local function OnEnter(self)
 		DT.tooltip:AddLine(" ")
 		DT.tooltip:AddLine(L["(Hold Shift) Memory Usage"])
 	end
-	
+
 	DT.tooltip:AddLine(" ")
 	DT.tooltip:AddDoubleLine(L["Left Click:"], L["Garbage Collect"], 0.7, 0.7, 1.0, 1, 1, 1)
 	DT.tooltip:AddDoubleLine(L["Right Click:"], L["Reload UI"], 0.7, 0.7, 1.0, 1, 1, 1)
-	
+
 	DT.tooltip:Show()
 end
 
@@ -184,17 +184,17 @@ end
 local function Update(self, t)
 	int = int - t
 	int2 = int2 - t
-	
+
 	if int <= 0 then
 		RebuildAddonList()
 		int = 10
 	end
-	
+
 	if int2 <= 0 then
 		local fps, fpsColor = floor(GetFramerate()), 4
 		local latency = select(E.db.mui.systemDT.latency == "world" and 4 or 3, GetNetStats())
 		local latencyColor = 4
-		
+
 		-- determine latency color based on ping
 		if latency < 150 then
 			latencyColor = 1
@@ -203,7 +203,7 @@ local function Update(self, t)
 		elseif latency >= 300 and latency < 500 then
 			latencyColor = 3
 		end
-		
+
 		-- determine fps color based on framerate
 		if fps >= 30 then
 			fpsColor = 1
@@ -212,14 +212,14 @@ local function Update(self, t)
 		elseif fps >= 10 and fps < 20 then
 			fpsColor = 3
 		end
-		
+
 		-- set the datatext
 		local fpsString = E.db.mui.systemDT.showFPS and ("%s: %s%d|r "):format(L["FPS"], statusColors[fpsColor], fps) or ""
 		local msString = E.db.mui.systemDT.showMS and ("%s: %s%d|r "):format(L["MS"], statusColors[latencyColor], latency) or ""
 		local memString = E.db.mui.systemDT.showMemory and ("|cffffff00%s|r"):format(FormatMemory(UpdateMemory())) or ""
 		self.text:SetText(join("", fpsString, msString, memString))
 		int2 = 1
-		
+
 		if enteredFrame then OnEnter(self) end
 	end
 end
@@ -237,5 +237,11 @@ local function Click(self, button)
 		E:StaticPopup_Show("CONFIG_RL")
 	end
 end
+
+local function ValueColorUpdate(hex, r, g, b)
+	freedString = join("", hex, "ElvUI|r", " ", L["Garbage Collection Freed"], " ", "|cff00ff00%s|r")
+end
+E["valueColorUpdateFuncs"][ValueColorUpdate] = true
+
 
 DT:RegisterDatatext("MUI System", nil, nil, Update, Click, OnEnter, OnLeave)
