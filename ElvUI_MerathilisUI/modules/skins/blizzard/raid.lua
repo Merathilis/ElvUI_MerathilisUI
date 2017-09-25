@@ -18,6 +18,8 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, GameTooltip, GameTooltip_Hide, RaidFrame, RaiseFrameLevel, GetTexCoordsForRoleSmallCircle
 
+--[[Taken from oRA3]]--
+
 local countIcons -- frame containing the totals by role
 local updateIcons
 local roleIcons = setmetatable({}, { __index = function(t,i)
