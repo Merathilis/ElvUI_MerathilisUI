@@ -41,6 +41,7 @@ V["muiSkins"] = {
 		["objectiveTracker"] = true,
 		["addonManager"] = true,
 		["mail"] = true,
+		["raid"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

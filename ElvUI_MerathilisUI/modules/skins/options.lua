@@ -244,6 +244,11 @@ local function SkinsTable()
 				name =  L["Mail Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.mail end,
 			},
+			raid = {
+				type = "toggle",
+				name = L["Raid Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid end,
+			},
 		},
 	}
 
