@@ -5,13 +5,16 @@ NA.modName = L["NameplateAuras"]
 
 -- Cache global variables
 -- Lua functions
-local ipairs = ipairs
+local ipairs, pairs, tonumber, select = ipairs, pairs, tonumber, select
 local tinsert, tremove, tsort = table.insert, table.remove, table.sort
+local max = math.max
 
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local GetSpellInfo = GetSpellInfo
+
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
+-- GLOBALS: hooksecurefunc, side
 
 function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
 	if aura and icon and spellID then
@@ -54,29 +57,29 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			aura.count:SetText("")
 		end
 
-		NA:SortAuras(aura:GetParent());
+		NA:SortAuras(aura:GetParent())
 	end
 end
 
 function NA:SortAuras(auras)
 	local function sortAuras(iconA, iconB)
-		local aWidth = iconA:GetWidth();
-		local aHeight = iconA:GetHeight();
+		local aWidth = iconA:GetWidth()
+		local aHeight = iconA:GetHeight()
 
-		local bWidth = iconB:GetWidth();
-		local bHeight = iconB:GetHeight();
+		local bWidth = iconB:GetWidth()
+		local bHeight = iconB:GetHeight()
 
-		local aCalc = (aWidth + aHeight) * (aWidth / aHeight);
-		local bCalc = (bWidth + bHeight) * (bWidth / bHeight);
+		local aCalc = (aWidth + aHeight) * (aWidth / aHeight)
+		local bCalc = (bWidth + bHeight) * (bWidth / bHeight)
 
 		if (iconA:IsShown() ~= iconB:IsShown()) then
-			return iconA:IsShown();
+			return iconA:IsShown()
 		end
 		
-		return aCalc > bCalc;
+		return aCalc > bCalc
 	end
-	table.sort(auras.icons, sortAuras);
-	NA:RepositionAuras(auras);
+	tsort(auras.icons, sortAuras)
+	NA:RepositionAuras(auras)
 end
 
 function NA:UpdateAuraIcons(auras)
@@ -85,7 +88,7 @@ function NA:UpdateAuraIcons(auras)
 	local numCurrentAuras = #auras.icons
 
 	if (not auras.auraCache) then
-		auras.auraCache = {};
+		auras.auraCache = {}
 	end
 
 	local width = 20
@@ -117,11 +120,11 @@ function NA:UpdateAuraIcons(auras)
 			end
 			auras.icons[i]:ClearAllPoints()
 			auras.icons[i]:SetHeight(height)
-			auras.icons[i]:SetWidth(width);
+			auras.icons[i]:SetWidth(width)
 		end
 	end
 
-	NA:RepositionAuras(auras);
+	NA:RepositionAuras(auras)
 end
 
 function NA:ConstructElement_Auras(frame, maxAuras, size)
@@ -153,48 +156,48 @@ function NA:RepositionAuras(auras)
 end
 
 function NA:UpdateAuraSet(auras)
-	self:UpdateHeight(auras);
-	self:SortAuras(auras);
+	self:UpdateHeight(auras)
+	self:SortAuras(auras)
 end
 
 function NA:UpdateHeight(auras)
-	local height = 20;
+	local height = 20
 	for i, icon in ipairs(auras.icons) do
-		height = math.max(height, icon:GetHeight());
+		height = max(height, icon:GetHeight())
 	end
-	auras:SetHeight(height);
+	auras:SetHeight(height)
 end
 
 function NA:UpdateElement_Auras(frame)
-	NA:UpdateAuraSet(frame.Debuffs);
-	NA:UpdateAuraSet(frame.Buffs);
+	NA:UpdateAuraSet(frame.Debuffs)
+	NA:UpdateAuraSet(frame.Buffs)
 end
 
 function NA:UpdateSpellList()
-	local filters = E.global['nameplate']['spellList'];
+	local filters = E.global['nameplate']['spellList']
 
 	for key, value in pairs(filters) do
 		if (not tonumber(key)) then
-			local spellID = select(7, GetSpellInfo(key));
+			local spellID = select(7, GetSpellInfo(key))
 			if (spellID) then
-				filters[spellID] = value;
+				filters[spellID] = value
 			end
-			filters[key] = nil;
+			filters[key] = nil
 		end
 	end
 end
 
 function NA:PLAYER_ENTERING_WORLD()
-	self:UpdateSpellList();
-	self:UnregisterEvent('PLAYER_ENTERING_WORLD');
+	self:UpdateSpellList()
+	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 
 function NA:Initialize()
-	hooksecurefunc(NP, "SetAura", NA.SetAura);
-	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras);
-	NP.UpdateAuraIcons = NA.UpdateAuraIcons;
-	NP.ConstructElement_Auras = NA.ConstructElement_Auras;
+	hooksecurefunc(NP, "SetAura", NA.SetAura)
+	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)
+	NP.UpdateAuraIcons = NA.UpdateAuraIcons
+	NP.ConstructElement_Auras = NA.ConstructElement_Auras
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 

@@ -12,10 +12,10 @@ local MI = E:GetModule("mUIMisc")
 local dbg = 0;
 
 local function SelectQuestReward(index)
-	local rewardsFrame = QuestInfoFrame.rewardsFrame;
+	local rewardsFrame = QuestInfoFrame.rewardsFrame
 
 	if dbg == 1 then
-		MER:Print("index: "..index);
+		MER:Print("index: "..index)
 	end
 
 	--local btn = _G[QuestInfo_GetRewardButton(rewardsFrame, index)]
@@ -25,7 +25,7 @@ local function SelectQuestReward(index)
 		QuestInfoItemHighlight:SetOutside(btn.Icon)
 
 		if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true then
-			QuestInfoItemHighlight:SetPoint("TOPLEFT", btn, "TOPLEFT", -8, 7);
+			QuestInfoItemHighlight:SetPoint("TOPLEFT", btn, "TOPLEFT", -8, 7)
 		else
 			btn.Name:SetTextColor(1, 1, 0)
 		end
@@ -41,8 +41,8 @@ function MI:QUEST_COMPLETE()
 	local choice, price = 1, 0
 	local num = GetNumQuestChoices()
 
-	if dbg == 1 then 
-		MER:Print("GetNumQuestChoices"..num);
+	if dbg == 1 then
+		MER:Print("GetNumQuestChoices"..num)
 	end
 
 	if num <= 0 then
@@ -50,7 +50,7 @@ function MI:QUEST_COMPLETE()
 	end
 
 	for index = 1, num do
-		local link = GetQuestItemLink("choice", index);
+		local link = GetQuestItemLink("choice", index)
 		if (link) then
 			local vsp = select(11, GetItemInfo(link))
 			if vsp and vsp > price then
@@ -59,8 +59,8 @@ function MI:QUEST_COMPLETE()
 			end
 		end
 	end
-	if dbg == 1 then 
-		MER:Print("Choice: "..choice);
+	if dbg == 1 then
+		MER:Print("Choice: "..choice)
 	end
 	SelectQuestReward(choice)
 end

@@ -94,8 +94,8 @@ function MI:GMOTD()
 				gmotd:Hide()
 			end
 		end)
-	gmotd:RegisterEvent("PLAYER_LOGIN")
-	gmotd:RegisterEvent("GUILD_MOTD")
+		gmotd:RegisterEvent("PLAYER_LOGIN")
+		gmotd:RegisterEvent("GUILD_MOTD")
 	end
 end
 

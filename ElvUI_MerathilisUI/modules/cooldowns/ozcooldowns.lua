@@ -176,8 +176,8 @@ function OCD:EnableCooldown(self)
 				self.DurationText:Hide()
 				self.Cooldown:Show()
 				-- CooldownFrame_SetTimer(self.Cooldown, Start, Duration, Enable, Charges, MaxCharges)
-				self.Cooldown:SetDrawEdge(false);
-				self.Cooldown:SetDrawSwipe(true);
+				self.Cooldown:SetDrawEdge(false)
+				self.Cooldown:SetDrawSwipe(true)
 			end
 		elseif not Charges then
 			OCD:DisableCooldown(self)
@@ -301,12 +301,12 @@ function OCD:CreateCooldownFrame(SpellID)
 	Frame.SpellID = SpellID
 	Frame.SpellName = Name
 
-	Frame:SetTemplate();
-	Frame:CreateShadow();
-	Frame.Icon:SetInside();
-	Frame.StatusBar:CreateBackdrop();
-	Frame.StatusBar.backdrop:CreateShadow();
-	Frame.StatusBar:SetPoint("TOP", Frame, "BOTTOM", 0, -1);
+	Frame:SetTemplate()
+	Frame:CreateShadow()
+	Frame.Icon:SetInside()
+	Frame.StatusBar:CreateBackdrop()
+	Frame.StatusBar.backdrop:CreateShadow()
+	Frame.StatusBar:SetPoint("TOP", Frame, "BOTTOM", 0, -1)
 
 	Frame:SetScript('OnEnter', function(self, ...)
 		if OCD.db["Tooltips"] then
@@ -320,7 +320,7 @@ function OCD:CreateCooldownFrame(SpellID)
 	Frame:SetScript('OnClick', function(self)
 		if OCD.db["Announce"] then
 			local Channel = IsInRaid() and "RAID" or IsPartyLFG() and "INSTANCE_CHAT" or IsInGroup() and "PARTY" or "SAY"
-			local Start, Duration, Enable, Charges, MaxCharges = GetSpellCooldown(self.SpellID);
+			local Start, Duration, Enable, Charges, MaxCharges = GetSpellCooldown(self.SpellID)
 			local CurrentDuration = (Start + Duration - GetTime())
 			local TimeRemaining
 			if CurrentDuration > 60 then
@@ -479,22 +479,22 @@ function OCD:GenerateSpellOptions()
 end
 
 function OCD:UNIT_SPELLCAST_SUCCEEDED(...)
-	self:FindCooldown(select(3, ...));
+	self:FindCooldown(select(3, ...))
 end
 
 function OCD:Initialize()
-	self.db = E.db.mui.misc.ozcooldowns or P.mui.misc.ozcooldowns;
+	self.db = E.db.mui.misc.ozcooldowns or P.mui.misc.ozcooldowns
 	if self.db.enable ~= true then return end
-	E.private.muiMisc.ozcooldowns = E.private.muiMisc.ozcooldowns or {};
-	E.private.muiMisc.ozcooldowns.spellCDs = E.private.muiMisc.ozcooldowns.spellCDs or {};
+	E.private.muiMisc.ozcooldowns = E.private.muiMisc.ozcooldowns or {}
+	E.private.muiMisc.ozcooldowns.spellCDs = E.private.muiMisc.ozcooldowns.spellCDs or {}
 
-	self:RegisterEvent("SPELLS_CHANGED", 'BuildCooldowns');
-	self:RegisterEvent("LEARNED_SPELL_IN_TAB", 'BuildCooldowns');
-	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", 'BuildCooldowns');
-	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
+	self:RegisterEvent("SPELLS_CHANGED", 'BuildCooldowns')
+	self:RegisterEvent("LEARNED_SPELL_IN_TAB", 'BuildCooldowns')
+	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", 'BuildCooldowns')
+	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 
-	local frame = CreateFrame("Frame", nil, E.UIParent);
-	frame:SetSize(40, 40);
+	local frame = CreateFrame("Frame", nil, E.UIParent)
+	frame:SetSize(40, 40)
 	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 320)
 	self.frame = frame;
 
