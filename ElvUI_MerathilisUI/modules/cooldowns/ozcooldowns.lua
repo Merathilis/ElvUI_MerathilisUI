@@ -85,9 +85,9 @@ function OCD:FindCooldown(SpellID)
 end
 
 function OCD:DelayedEnableCooldown(self)
-	local Start, Duration, Enable = GetSpellCooldown(self.SpellName);
+	local Start, Duration, Enable = GetSpellCooldown(self.SpellName)
 	if (not Start) then
-		return;
+		return
 	end
 	self:SetParent(OzCDHider)
 	self:Show()
@@ -95,10 +95,10 @@ function OCD:DelayedEnableCooldown(self)
 	self:EnableMouse(false)
 	self.Elapsed = 0
 	self:SetScript("OnUpdate", function(self, elapsed)
-		local Start, Duration, Enable = GetSpellCooldown(self.SpellName);
+		local Start, Duration, Enable = GetSpellCooldown(self.SpellName)
 		if (not Start) then
-			OCD:DisableCooldown(self);
-			return;
+			OCD:DisableCooldown(self)
+			return
 		end
 		local Charges, MaxCharges, ChargeStart, ChargeDuration = GetSpellCharges(self.SpellName)
 		local CurrentDuration = (Start + Duration - GetTime())
@@ -118,9 +118,9 @@ function OCD:DelayedEnableCooldown(self)
 end
 
 function OCD:EnableCooldown(self)
-	local Start, Duration, Enable = GetSpellCooldown(self.SpellName);
+	local Start, Duration, Enable = GetSpellCooldown(self.SpellName)
 	if (not Start) then
-		return;
+		return
 	end
 	self.Enabled = true
 	self:SetParent(OCD.frame)
@@ -130,10 +130,10 @@ function OCD:EnableCooldown(self)
 	self:EnableMouse(OCD.db["Tooltips"] or OCD.db["Announce"])
 	self.Icon:SetDesaturated(false)
 	self:SetScript("OnUpdate", function(self, elapsed)
-		local Start, Duration, Enable = GetSpellCooldown(self.SpellName);
+		local Start, Duration, Enable = GetSpellCooldown(self.SpellName)
 		if (not Start) then
-			OCD:DisableCooldown(self);
-			return;
+			OCD:DisableCooldown(self)
+			return
 		end
 		local Charges, MaxCharges, ChargeStart, ChargeDuration = GetSpellCharges(self.SpellName)
 		local CurrentDuration = (Start + Duration - GetTime())
@@ -496,7 +496,7 @@ function OCD:Initialize()
 	local frame = CreateFrame("Frame", nil, E.UIParent)
 	frame:SetSize(40, 40)
 	frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 320)
-	self.frame = frame;
+	self.frame = frame
 
 	E:CreateMover(self.frame, "OzCooldownsMover", "OzCooldowns Anchor", nil, nil, nil, "ALL,GENERAL")
 
