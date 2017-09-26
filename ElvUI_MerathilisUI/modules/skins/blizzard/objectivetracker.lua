@@ -20,7 +20,8 @@ local InCombatLockdown = InCombatLockdown
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, MAX_QUESTS, TRIVIAL_QUEST_DISPLAY, NORMAL_QUEST_DISPLAY, GossipResize
--- GLOBALS: TRACKER_HEADER_QUESTS, OBJECTIVES_TRACKER_LABEL
+-- GLOBALS: TRACKER_HEADER_QUESTS, OBJECTIVES_TRACKER_LABEL, QUEST_TRACKER_MODULE 
+-- GLOBALS: OBJECTIVE_TRACKER_COLOR, ENABLE_COLORBLIND_MODE
 
 -- Show Quest Count on the ObjectiveTrackerFrame
 local InCombat , a, f, _, id, cns, ncns, l, n, q, o, w = false, ...
@@ -110,7 +111,7 @@ local function styleObjectiveTracker()
 				local oldHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, title, nil, OBJECTIVE_TRACKER_COLOR["Header"])
 				local newTitle = "["..select(2, GetQuestLogTitle(questLogIndex)).."] "..title
 				local newHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, newTitle, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-				oldBlock:SetHeight(oldBlockHeight + newHeight - oldHeight);
+				oldBlock:SetHeight(oldBlockHeight + newHeight - oldHeight)
 			end
 		end
 	end
@@ -126,8 +127,10 @@ local function styleObjectiveTracker()
 			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isStory = GetQuestLogTitle(i)
 			local titleButton = QuestLogQuests_GetTitleButton(titleIndex)
 			if title and (not isHeader) and titleButton.questID == questID then
+				local height = titleButton.Text:GetHeight()
 				titleButton.Text:SetText("[" .. level .. "] " .. title)
-				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0);
+				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
+				titleButton:SetHeight(titleButton:GetHeight() - height + titleButton.Text:GetHeight())
 				titleIndex = titleIndex + 1
 			end
 		end
