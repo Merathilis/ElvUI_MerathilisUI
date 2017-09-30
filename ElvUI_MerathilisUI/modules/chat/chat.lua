@@ -33,7 +33,7 @@ function MERC:Initialize()
 	-- Adjust the Guild Message of the Day
 	local a, b = strsplit(":", GUILD_MOTD_TEMPLATE)
 	if a and b then
-			GUILD_MOTD_TEMPLATE = "|cff00c0fa" .. "GMOTD" .. "|r:" .. b
+		GUILD_MOTD_TEMPLATE = "|cff00c0fa" .. "GMOTD" .. "|r:" .. b
 	end
 
 	-- Remove the Realm Name from system messages
