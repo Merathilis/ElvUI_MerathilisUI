@@ -29,12 +29,7 @@ function MERC:Initialize()
 
 	_G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
-
-	-- Adjust the Guild Message of the Day
-	local a, b = strsplit(":", GUILD_MOTD_TEMPLATE)
-	if a and b then
-		GUILD_MOTD_TEMPLATE = "|cff00c0fa" .. "GMOTD" .. "|r:" .. b
-	end
+	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
