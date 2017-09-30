@@ -16,19 +16,6 @@ local strsplit = strsplit
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
--- Override Blizz stuff
-function ChatFrame_DisplayGMOTD(frame, gmotd)
-	if ( gmotd and (gmotd ~= "") ) then
-		local info = ChatTypeInfo["GUILD"]
-		local a, b = strsplit(":", GUILD_MOTD_TEMPLATE)
-		if a and b then
-			GUILD_MOTD_TEMPLATE = "|cff00c0fa" .. "GMOTD" .. "|r:" .. b
-		end
-		local message = format(GUILD_MOTD_TEMPLATE, gmotd)
-		frame:AddMessage(message, info.r, info.g, info.b, info.id)
-	end
-end
-
 function MERC:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
 
@@ -43,7 +30,14 @@ function MERC:Initialize()
 	_G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
 
+	-- Adjust the Guild Message of the Day
+	local a, b = strsplit(":", GUILD_MOTD_TEMPLATE)
+	if a and b then
+			GUILD_MOTD_TEMPLATE = "|cff00c0fa" .. "GMOTD" .. "|r:" .. b
+	end
+
 	-- Remove the Realm Name from system messages
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
 	E:GetModule("muiSkins"):CreateGradient(_G["LeftChatPanel"].backdrop)
 	if not (_G["LeftChatPanel"]).backdrop.stripes then
@@ -54,7 +48,6 @@ function MERC:Initialize()
 	if not (_G["RightChatPanel"]).backdrop.stripes then
 		E:GetModule("muiSkins"):CreateStripes(_G["RightChatPanel"].backdrop)
 	end
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", ChatFrame_DisplayGMOTD)
 end
 hooksecurefunc(CH, "Initialize", MERC.Initialize)
 
