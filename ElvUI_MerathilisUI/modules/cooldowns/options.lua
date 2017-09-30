@@ -328,4 +328,3 @@ local function OzCooldowns()
 	}
 end
 tinsert(MER.Config, OzCooldowns)
-
