@@ -18,6 +18,7 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
@@ -39,15 +40,17 @@ local CalendarGetAbsMonth = CalendarGetAbsMonth
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
--- GLOBALS: CALENDAR, Calendar_Toggle
+-- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
 
-local bannerWidth = 300
+local bannerWidth = 250
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
 local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
+local alertBagsFull
+local shouldAlertBags = false
 
 function NF:SpawnToast(toast)
 	if not toast then return end
@@ -121,7 +124,7 @@ function NF:RefreshToasts()
 
 	if queuedToast then
 		self:SpawnToast(queuedToast)
-    end
+	end
 end
 
 function NF:HideToast(toast)
@@ -454,6 +457,38 @@ function NF:VIGNETTE_ADDED(event, id)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
+local last = 0
+local function delayBagCheck(self, elapsed)
+	last = last + elapsed
+	if last > 1 then
+		self:SetScript("OnUpdate", nil)
+		last = 0
+		shouldAlertBags = true
+		BAG_UPDATE(self)
+	end
+end
+
+function NF:BAG_UPDATE(self)
+	local totalFree, freeSlots, bagFamily = 0
+	for i = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
+		freeSlots, bagFamily = GetContainerNumFreeSlots(i)
+		if bagFamily == 0 then
+			totalFree = totalFree + freeSlots
+		end
+	end
+
+	if totalFree == 0 then
+		if shouldAlertBags then
+			NF:DisplayToast("Bags", "Your bags are full.", ToggleBackpack, "Interface\\Icons\\inv_misc_bag_08")
+			shouldAlertBags = false
+		else
+			self:SetScript("OnUpdate", delayBagCheck)
+		end
+	else
+		shouldAlertBags = false
+	end
+end
+
 function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "master", true)
 end
@@ -474,6 +509,7 @@ function NF:Initialize()
 	self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+	self:RegisterEvent("BAG_UPDATE")
 end
 
 local function InitializeCallback()

@@ -11,6 +11,7 @@ local strmatch = string.match
 local strfind = string.find
 local strsub = string.sub
 local strsplit = strsplit
+local pi = math.pi
 local next = next
 
 -- WoW API / Variables
@@ -25,8 +26,14 @@ local GetItemIcon = GetItemIcon
 local GetSpellInfo = GetSpellInfo
 local GetAchievementInfo = GetAchievementInfo
 local C_ToyBox = C_ToyBox
+local IsAltKeyDown = IsAltKeyDown
+local IsControlKeyDown = IsControlKeyDown
 local UnitExists = UnitExists
 local UnitIsPlayer = UnitIsPlayer
+local UnitIsBattlePet = UnitIsBattlePet
+local UnitBattlePetType = UnitBattlePetType
+local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
+local UnitIsVisible = UnitIsVisible
 local UnitFactionGroup = UnitFactionGroup
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -1114,7 +1121,7 @@ local function InsertModelFrame(self, unit)
 		self.modelFrame:Show()
 		self.modelFrame:SetScript("OnUpdate", function(self, elapsed)
 			if (IsControlKeyDown() or IsAltKeyDown()) then
-				self:SetFacing(self:GetFacing() + math.pi * elapsed)
+				self:SetFacing(self:GetFacing() + pi * elapsed)
 			end
 		end)
 	else

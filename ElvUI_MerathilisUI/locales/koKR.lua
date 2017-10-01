@@ -1,6 +1,6 @@
--- Chinese localization file for zhCN.
+-- Korean localization file for koKR.
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "zhCN")
+local L = AceLocale:NewLocale("ElvUI", "koKR")
 if not L then return end
 
 -- Core
@@ -255,7 +255,7 @@ L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
 
--- Raid Marks
+--Raid Marks
 L["Raid Markers"] = true
 L["Click to clear the mark."] = true
 L["Click to mark the target."] = true
@@ -413,10 +413,10 @@ L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
-L["Setup Chat 1"] = true
-L["Setup Chat 2"] = true
-L["Setup Datatexts 1"] = true
-L["Setup Datatexts 2"] = true
+L["Setup Chat v1"] = true
+L["Setup Chat v2"] = true
+L["Setup Datatexts v1"] = true
+L["Setup Datatexts v2"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -457,5 +457,5 @@ L["Changelog"] = true
 
 -- Errors
 L["Info"] = {
-	["Errors"] = "没有错误.",
+	["Errors"] = "오류.",
 }

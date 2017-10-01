@@ -189,8 +189,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 11
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MerathilisBlank"
-	E.private["general"]["glossTex"] = "MerathilisBlank"
+	E.private["general"]["normTex"] = "MerathilisUI1"
+	E.private["general"]["glossTex"] = "MerathilisUI1"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -205,7 +205,7 @@ function MER:SetupLayout(layout)
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
-	E.global["general"]["commandBarSetting"] = "ENABLED"
+	E.global["general"]["commandBarSetting"] = "ENABLED_RESIZEPARENT"
 
 	--[[----------------------------------
 	--	ProfileDB - General
@@ -235,6 +235,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.db["general"]["threat"]["enable"] = false
+	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -275,10 +276,17 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["threat"]["badScale"] = 1
 	E.db["nameplates"]["statusbar"] = "MerathilisUI1"
+	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["durationFont"] = "Expressway"
+	E.db["nameplates"]["durationFontSize"] = 9
+	E.db["nameplates"]["durationFontOutline"] = "OUTLINE"
+	E.db["nameplates"]["stackFont"] = "Expressway"
+	E.db["nameplates"]["stackFontSize"] = 9
+	E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
 	E.db["nameplates"]["targetScale"] = 1.05
 	E.db["nameplates"]["customColor"] = false
-	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
@@ -298,7 +306,6 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
-	E.db["nameplates"]["fontOutline"] = "OUTLINE"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -1047,7 +1054,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1145,7 +1152,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
@@ -1204,7 +1211,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,blockCastByPlayers,nonPersonal,CastByUnit,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
@@ -1463,7 +1470,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 19,
+			["size"] = 15,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
@@ -1473,9 +1480,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 18,
+			["size"] = 15,
 			["justifyH"] = "LEFT",
-			["text_format"] = "[health:current]",
+			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -1489,7 +1496,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current]"
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current-mUI]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
@@ -1566,7 +1573,7 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
-			["size"] = 18,
+			["size"] = 15,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
@@ -1576,10 +1583,10 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
-			["size"] = 18,
+			["size"] = 15,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[health:current]",
+			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
 			["xOffset"] = 0,
@@ -1696,7 +1703,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,Whitelist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1796,7 +1803,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Boss,Whitelist,Blacklist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
@@ -1856,7 +1863,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,Whitelist,RaidDebuffs,nonPersonal,CastByUnit,Dispellable"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Merathilis Prototype"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20

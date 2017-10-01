@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERG = E:NewModule("mUIGameMenu")
-local MERS = E:GetModule("muiSkins");
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -42,6 +42,7 @@ local npc = {
 	51601, -- Moonkin Hatchling
 	85283, -- Brightpaw
 	103159, -- Baby Winston
+	123650, -- Shadow
 }
 
 function MERG:GameMenu()

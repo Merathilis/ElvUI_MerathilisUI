@@ -148,7 +148,7 @@ function MER:LoadBigWigsProfile(layout)
 							["BWMessageAnchor_x"] = 608,
 							["growUpwards"] = false,
 							["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-							["font"] = "Merathilis Roboto-Bold",
+							["font"] = "Expressway",
 							["BWEmphasizeMessageAnchor_y"] = 614,
 							["BWMessageAnchor_y"] = 676,
 							["BWEmphasizeMessageAnchor_x"] = 610,

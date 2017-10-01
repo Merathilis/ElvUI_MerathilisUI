@@ -96,7 +96,7 @@ LP.PortItems = {
 	{129276}, --Beginner's Guide to Dimensional Rifting
 	{140493}, --Adept's Guide to Dimensional Rifting
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
-	{152964}, --Krokul Flute (Argus 7.3)
+	{112059, nil, true}, --Wormhole Generator: Argus
 }
 
 LP.Spells = {
@@ -389,6 +389,7 @@ function LP:Toggle()
 		loc_panel:Hide()
 		E:DisableMover(loc_panel.mover:GetName())
 	end
+	LP:UNIT_AURA(nil, "player")
 end
 
 function LP:PopulateItems()
@@ -415,7 +416,9 @@ function LP:ItemList(check)
 		local ID, isToy = data.secure.ID, data.secure.isToy
 		if (not isToy and MER:BagSearch(ID)) or (isToy and PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)) then
 			if check then 
-				if E.db.mui.locPanel.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+				if E.db.mui.locPanel.portals.HSplace then
+					tinsert(LP.MainMenu, {text = TUTORIAL_TITLE31..": "..GetBindLocation(), title = true, nohighlight = true})
+				end
 				tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 				return true 
 			else
@@ -466,7 +469,7 @@ function LP:PopulateDropdown()
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 	if LP:ItemList(true) then
-		LP:ItemList() 
+		LP:ItemList()
 	end
 
 	if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" then
@@ -530,7 +533,17 @@ function LP:PLAYER_ENTERING_WORLD()
 	else 
 		LP.RestrictedArea = true 
 	end
+	LP:UNIT_AURA(nil, "player")
 end
+
+function LP:UNIT_AURA(event, unit)
+	if unit ~= "player" then return end
+	if E.db.mui.locPanel.enable and E.db.mui.locPanel.orderhallhide then
+		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
+		loc_panel:SetShown(not inOrderHall);
+	end
+end
+
 
 function LP:Initialize()
 	faction = UnitFactionGroup('player')
@@ -551,6 +564,7 @@ function LP:Initialize()
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
 	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	LP:RegisterEvent("UNIT_AURA")
 end
 
 local function InitializeCallback()

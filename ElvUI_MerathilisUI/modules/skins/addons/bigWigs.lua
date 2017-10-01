@@ -160,7 +160,6 @@ local function RegisterStyle()
 	bars.defaultDB.barStyle = styleName
 end
 f:RegisterEvent("ADDON_LOADED")
-f:RegisterEvent("PLAYER_LOGIN")
 
 local reason = nil
 f:SetScript("OnEvent", function(self, event, msg)
@@ -169,7 +168,5 @@ f:SetScript("OnEvent", function(self, event, msg)
 		if (reason == "MISSING" and msg == "BigWigs") or msg == "BigWigs_Plugins" then
 			RegisterStyle()
 		end
-	elseif event == "PLAYER_LOGIN" then
-		RegisterStyle()
 	end
 end)

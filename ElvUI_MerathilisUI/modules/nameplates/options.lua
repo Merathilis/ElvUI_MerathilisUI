@@ -100,36 +100,6 @@ local function UpdateSpellGroup()
 					end
 				end,
 			},
-			stackSize = {
-				type = "range",
-				order = 7,
-				name = L["Stack Size"],
-				desc = L["Size of the stack text."],
-				min = 6,
-				max = 24,
-				step = 1,
-				get = function(info)
-					return E.global['nameplate']['spellListDefault']["stackSize"]
-				end,
-				set = function(info, value)
-					E.global['nameplate']['spellListDefault']["stackSize"] = value
-				end,
-			},
-			text = {
-				type = 'range',
-				order = 7,
-				name = L['Text Size'],
-				desc = L['Size of the cooldown text.'],
-				min = 6,
-				max = 24,
-				step = 1,
-				get = function(info)
-					return E.global['nameplate']['spellList'][selectedSpellID]["text"]
-				end,
-				set = function(info, value)
-					E.global['nameplate']['spellList'][selectedSpellID]["text"] = value
-				end,
-			},
 		},
 	}
 end
@@ -310,36 +280,6 @@ local function NameplateAurasTable()
 							if value then
 								E.global['nameplate']['spellListDefault']["height"] = E.global['nameplate']['spellListDefault']["width"]
 							end
-						end,
-					},
-					stackSize = {
-						type = "range",
-						order = 7,
-						name = L["Stack Size"],
-						desc = L["Size of the stack text."],
-						min = 6,
-						max = 24,
-						step = 1,
-						get = function(info)
-							return E.global['nameplate']['spellListDefault']["stackSize"]
-						end,
-						set = function(info, value)
-							E.global['nameplate']['spellListDefault']["stackSize"] = value
-						end,
-					},
-					text = {
-						type = "range",
-						order = 8,
-						name = L["Text Size"],
-						desc = L["Size of the cooldown text."],
-						min = 6,
-						max = 24,
-						step = 1,
-						get = function(info)
-							return E.global['nameplate']['spellListDefault']["text"]
-						end,
-						set = function(info, value)
-							E.global['nameplate']['spellListDefault']["text"] = value
 						end,
 					},
 				},
