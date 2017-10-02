@@ -11,7 +11,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, XIV_Databar, BigWigs
+## OptionalDeps: SharedMedia, AddOnSkins, XIV_Databar, BigWigs
 ## X-ElvVersion: 10.64
 ## X-Curse-Packaged-Version: 3.09
 ## X-Curse-Project-Name: MerathilisUI

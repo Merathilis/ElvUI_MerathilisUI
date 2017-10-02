@@ -192,7 +192,6 @@ function NA:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 end
 
-
 function NA:Initialize()
 	hooksecurefunc(NP, "SetAura", NA.SetAura)
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)
