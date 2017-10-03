@@ -16,6 +16,10 @@ local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 local function styleMail()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
 
+	-- Change the Minimap Mail icon
+	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Mail")
+	MiniMapMailIcon:SetSize(16, 16)
+
 	local MailFrame = _G["MailFrame"]
 	select(18, MailFrame:GetRegions()):Hide()
 
