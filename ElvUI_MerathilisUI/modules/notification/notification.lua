@@ -23,6 +23,7 @@ local GetObjectIconTextureCoords = GetObjectIconTextureCoords
 local GetInstanceInfo = GetInstanceInfo
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
+local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetRealmName = GetRealmName
 local CalendarGetDate = CalendarGetDate
 local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
@@ -36,6 +37,11 @@ local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
+local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
+local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
+local C_SocialQueueGetGroupQueues = C_SocialQueue.GetGroupQueues
+local C_PvPGetBrawlInfo = C_PvP.GetBrawlInfo
 local GetGameTime = GetGameTime
 local CreateAnimationGroup = CreateAnimationGroup
 local CalendarGetAbsMonth = CalendarGetAbsMonth
@@ -98,7 +104,7 @@ function NF:SpawnToast(toast)
 	toast.AnimOut.AnimMove:SetOffset(0, -YOffset)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
-	PlaySound(18019, "master", true)
+	PlaySound(18019, "Master")
 end
 
 function NF:RefreshToasts()
@@ -498,11 +504,12 @@ function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "master", true)
 end
 
+-- Taken from Quick Join Notification
 local function checkIfLeader(leaderName, friendName)
 	if leaderName == friendName then
-		--this is the case for guild mates that are not your Battle.net friends
 		return true
 	end
+
 	local bnetFriendName = ""
 	for i = 1, BNGetNumFriends() do
 		local bnetIDAccount, accountName, battleTag, isBattleTag, characterName, bnetIDGameAccount, client, isOnline, lastOnline, isBnetAFK, isBnetDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(i)
@@ -525,14 +532,12 @@ local function AppendQueueName(textTable, name, nameFormatter)
 		if ( nameFormatter ) then
 			name = nameFormatter:format(name)
 		end
-
 		table.insert(textTable, name)
 	end
 end
 
---from Blizzard's SocialQueue.lua, but no formatting of the return value
 local function GetQueueName(queue, nameFormatter)
-	local nameText = {};
+	local nameText = {}
 
 	if ( queue.queueType == "lfg" ) then
 		for i, lfgID in ipairs(queue.lfgIDs) do
@@ -560,7 +565,7 @@ local function GetQueueName(queue, nameFormatter)
 		local isBrawl = queue.isBrawl
 		local name = queue.mapName
 		if (isBrawl) then
-			local brawlInfo = C_PvP.GetBrawlInfo()
+			local brawlInfo = C_PvPGetBrawlInfo()
 			if (brawlInfo and brawlInfo.active) then
 				name = brawlInfo.name
 			end
@@ -572,62 +577,59 @@ local function GetQueueName(queue, nameFormatter)
 			name = SOCIAL_QUEUE_FORMAT_ARENA_SKIRMISH
 		end
 
-		AppendQueueName(nameText, name, nameFormatter);
+		AppendQueueName(nameText, name, nameFormatter)
 	elseif ( queue.queueType == "lfglist" ) then
 		local name
 		if ( queue.lfgListID ) then
-			name = select(3, C_LFGList.GetSearchResultInfo(queue.lfgListID))
+			name = select(3, C_LFGListGetSearchResultInfo(queue.lfgListID))
 		else
 			if ( queue.activityID ) then
-				name = C_LFGList.GetActivityInfo(queue.activityID)
+				name = C_LFGListGetActivityInfo(queue.activityID)
 			end
 		end
 
-		AppendQueueName(nameText, name, nameFormatter);
+		AppendQueueName(nameText, name, nameFormatter)
 	end
 
 	return nameText
 end
 
+local function colorName(name)
+	local color = "|cff00c0fa%s |r"
+	return (color):format(name)
+end
+
+local IGNORE_EVENTS_TIME = 10 --seconds
+local timeOfEvent
 function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
 	if ( event == "SOCIAL_QUEUE_UPDATE" ) then
-
-		local guid, numAddedItems = ...;
-
-		if ( numAddedItems == 0 or C_SocialQueue.GetGroupMembers(guid) == nil) then
-			--this seems to indicate that no additional data is provided for this event, therefore we ignore it
+		if ( time() - timeOfEvent <= IGNORE_EVENTS_TIME ) then
 			return
 		end
 
-		function dump_table(t, prefix)
-			if prefix == nil then prefix = ""; end
-			if type(t) == "table" then
-				for k,v in pairs(t) do
-					dump_table(v, prefix..k.." => ")
-				end
-			else
-				print(prefix .. tostring(t))
-			end
+		local guid, numAddedItems = ...
+
+		if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
+			return
 		end
 
-		instanceType, _ = select(2, GetInstanceInfo())
 		local members, playerName, color
-		if C_SocialQueue.GetGroupMembers(guid) ~= nil then
-			members = SocialQueueUtil_SortGroupMembers(C_SocialQueue.GetGroupMembers(guid))
+		if C_SocialQueueGetGroupMembers(guid) ~= nil then
+			members = SocialQueueUtil_SortGroupMembers(C_SocialQueueGetGroupMembers(guid))
 			playerName, color = SocialQueueUtil_GetNameAndColor(members[1])
 		end
 		local coloredPlayerName = color..playerName.."|r"
 
-		local queues = C_SocialQueue.GetGroupQueues(guid)
+		local queues = C_SocialQueueGetGroupQueues(guid)
 		if queues ~= nil then
 			if ( queues[1].queueData.queueType == "lfglist" ) then
 				if ( queues[1].eligible ) then
 					--lfglist groups can't queue in the regular LFG tool, so we only need to check this queue
 					local queue = queues[1]
 
-					local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers = C_LFGList.GetSearchResultInfo(queue.queueData.lfgListID)
-					local activityName, shortName, categoryID, groupID, minItemLevel, filters, minLevel, maxPlayers, displayType, _, useHonorLevel = C_LFGList.GetActivityInfo(activityID)
+					local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers = C_LFGListGetSearchResultInfo(queue.queueData.lfgListID)
+					local activityName, shortName, categoryID, groupID, minItemLevel, filters, minLevel, maxPlayers, displayType, _, useHonorLevel = C_LFGListGetActivityInfo(activityID)
 
 					--ignore groups created by the addon World Quest Group Finder
 					if ( find(comment, "World Quest Group Finder") ) then
@@ -644,9 +646,9 @@ function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 					end
 
 					if ( comment == "" ) then
-						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. name, ToggleFriendsFrame)
+						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleFriendsFrame, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
 					else
-						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. name, ToggleFriendsFrame)
+						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleFriendsFrame, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
 					end
 				end
 			else
@@ -655,14 +657,14 @@ function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 				local anyEligibleQueue = false
 				for id, queue in pairs(queues) do
 					if ( queue.eligible ) then
-						anyEligibleQueue = true;
+						anyEligibleQueue = true
 						local queueNameTable = GetQueueName(queue.queueData)
 						local queueName = ""
 						for queueId, name in pairs(queueNameTable) do
 							if queueName == "" then
-								queueName = name;
+								queueName = name
 							else
-								queueName = queueName..", "..name;
+								queueName = queueName..", "..name
 							end
 						end
 						if ( queueSummaryName == "" ) then
@@ -673,7 +675,8 @@ function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 					end
 				end
 				if ( anyEligibleQueue ) then
-					NF:DisplayToast(coloredPlayerName, L["is queued for: "].. queueSummaryName.. "lfg".. guid)
+					NF:DisplayToast(coloredPlayerName, L["is queued for: "].. colorName(queueSummaryName), nil, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
+					PlaySound(SOUNDKIT.UI_71_SOCIAL_QUEUEING_TOAST)
 				end
 			end
 		end
@@ -687,6 +690,8 @@ function NF:Initialize()
 	anchorFrame:SetSize(bannerWidth, 50)
 	anchorFrame:SetPoint("TOP", 0, -80)
 	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], true, nil, "ALL,GENERAL,SOLO")
+
+	timeOfEvent = time()
 
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
