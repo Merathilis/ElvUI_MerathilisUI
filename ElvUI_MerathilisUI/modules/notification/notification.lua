@@ -643,7 +643,7 @@ function NF:SOCIAL_QUEUE_UPDATE(event, guid, numAddedItems)
 						flavorText = L["joined a group: "]
 					end
 
-					NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
+					NF:DisplayToast(coloredPlayerName, (flavorText.."["..activityName.."]: ".. colorName(name)), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
 				end
 			else
 				--maybe several queues, concat all of them for displaying
