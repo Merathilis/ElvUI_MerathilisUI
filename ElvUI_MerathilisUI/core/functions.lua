@@ -60,7 +60,6 @@ function MER:InvertTable(t)
 	return u
 end
 
-
 function MER:GetIconFromID(type, id)
 	local path
 	if type == "item" then
