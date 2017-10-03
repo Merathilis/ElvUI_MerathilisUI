@@ -601,20 +601,18 @@ end
 
 local IGNORE_EVENTS_TIME = 10 --seconds
 local timeOfEvent
-function NF:SOCIAL_QUEUE_UPDATE(event, ...)
+function NF:SOCIAL_QUEUE_UPDATE(event, guid, numAddedItems)
 	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
 	if ( event == "SOCIAL_QUEUE_UPDATE" ) then
 		if ( time() - timeOfEvent <= IGNORE_EVENTS_TIME ) then
 			return
 		end
 
-		local guid, numAddedItems = ...
-
 		if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
 			return
 		end
 
-		local members, playerName, color
+		local members, playerName, color = nil, '', ''
 		if C_SocialQueueGetGroupMembers(guid) ~= nil then
 			members = SocialQueueUtil_SortGroupMembers(C_SocialQueueGetGroupMembers(guid))
 			playerName, color = SocialQueueUtil_GetNameAndColor(members[1])
