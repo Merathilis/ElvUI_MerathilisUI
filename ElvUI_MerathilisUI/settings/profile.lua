@@ -21,6 +21,7 @@ P["mui"] = {
 			["vignette"] = true,
 			["invites"] = true,
 			["guildEvents"] = true,
+			["quickJoin"] = true,
 		},
 	},
 
