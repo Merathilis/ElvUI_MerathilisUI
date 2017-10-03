@@ -501,7 +501,7 @@ function NF:BAG_UPDATE(self)
 end
 
 function NF:RESURRECT_REQUEST(name)
-	PlaySound(46893, "master", true)
+	PlaySound(46893, "Master")
 end
 
 -- Taken from Quick Join Notification
