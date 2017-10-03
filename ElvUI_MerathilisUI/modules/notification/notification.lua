@@ -645,11 +645,7 @@ function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 						flavorText = L["joined a group: "]
 					end
 
-					if ( comment == "" ) then
-						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleFriendsFrame, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
-					else
-						NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleFriendsFrame, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
-					end
+					NF:DisplayToast(coloredPlayerName, flavorText.. activityName ..": ".. colorName(name), ToggleFriendsFrame, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
 				end
 			else
 				--maybe several queues, concat all of them for displaying
@@ -676,7 +672,6 @@ function NF:SOCIAL_QUEUE_UPDATE(event, ...)
 				end
 				if ( anyEligibleQueue ) then
 					NF:DisplayToast(coloredPlayerName, L["is queued for: "].. colorName(queueSummaryName), nil, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend")
-					PlaySound(SOUNDKIT.UI_71_SOCIAL_QUEUEING_TOAST)
 				end
 			end
 		end
