@@ -89,6 +89,14 @@ local function styleFriends()
 	if not FriendsListFrame.stripes then
 		MERS:CreateStripes(FriendsListFrame)
 	end
+	MERS:CreateGradient(QuickJoinFrame)
+	if not QuickJoinFrame.stripes then
+		MERS:CreateStripes(QuickJoinFrame)
+	end
+	MERS:CreateGradient(IgnoreListFrame)
+	if not IgnoreListFrame.stripes then
+		MERS:CreateStripes(IgnoreListFrame)
+	end
 	MERS:CreateGradient(WhoFrame)
 	if not WhoFrame.stripes then
 		MERS:CreateStripes(WhoFrame)
