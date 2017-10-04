@@ -48,6 +48,7 @@ local CalendarGetAbsMonth = CalendarGetAbsMonth
 local BNGetNumFriends = BNGetNumFriends
 local BNGetFriendInfo = BNGetFriendInfo
 local BNGetGameAccountInfo = BNGetGameAccountInfo
+local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some language have `:` on end
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
@@ -504,94 +505,26 @@ function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
 end
 
--- Taken from Quick Join Notification
-local function checkIfLeader(leaderName, friendName)
-	if leaderName == friendName then
+function NF:SocialQueueIsLeader(playerName, leaderName)
+	if leaderName == playerName then
 		return true
 	end
 
-	local bnetFriendName = ""
 	for i = 1, BNGetNumFriends() do
-		local bnetIDAccount, accountName, battleTag, isBattleTag, characterName, bnetIDGameAccount, client, isOnline, lastOnline, isBnetAFK, isBnetDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(i)
-		if isOnline then
-			local hasFocus, characterName, client, realmName, realmID, faction, race, class, _, zoneName, level, gameText = BNGetGameAccountInfo(bnetIDGameAccount)
-			local playerRealmName = GetRealmName()
-			if accountName == friendName then
-				bnetFriendName = characterName
-				if realmName ~= playerRealmName then
-					bnetFriendName = bnetFriendName.."-"..realmName
+		local _, AccountName, _, _, CharacterName, AccountID, _, IsOnline = BNGetFriendInfo(i)
+		if IsOnline then
+			local _, CharacterName, _, RealmName = BNGetGameAccountInfo(AccountID)
+			if AccountName == playerName then
+				playerName = CharacterName
+				if RealmName ~= E.myrealm then
+					playerName = format('%s-%s', playerName, gsub(RealmName,'[%s%-]',''))
 				end
+				break
 			end
 		end
 	end
-	return leaderName == bnetFriendName
-end
 
-local function AppendQueueName(textTable, name, nameFormatter)
-	if ( name ) then
-		if ( nameFormatter ) then
-			name = nameFormatter:format(name)
-		end
-		table.insert(textTable, name)
-	end
-end
-
-local function GetQueueName(queue, nameFormatter)
-	local nameText = {}
-
-	if ( queue.queueType == "lfg" ) then
-		for i, lfgID in ipairs(queue.lfgIDs) do
-			local name, typeID, subtypeID, minLevel, maxLevel, recLevel, minRecLevel, maxRecLevel, expansionLevel, groupID, textureFilename, difficulty, maxPlayers, description, isHoliday, _, _, isTimeWalker = GetLFGDungeonInfo(lfgID)
-			if ( typeID == TYPEID_RANDOM_DUNGEON or isTimeWalker or isHoliday ) then
-				-- Name remains unchanged
-			elseif ( subtypeID == LFG_SUBTYPEID_DUNGEON ) then
-				name = SOCIAL_QUEUE_FORMAT_DUNGEON:format(name)
-			elseif ( subtypeID == LFG_SUBTYPEID_HEROIC ) then
-				name = SOCIAL_QUEUE_FORMAT_HEROIC_DUNGEON:format(name)
-			elseif ( subtypeID == LFG_SUBTYPEID_RAID ) then
-				name = SOCIAL_QUEUE_FORMAT_RAID:format(name)
-			elseif ( subtypeID == LFG_SUBTYPEID_FLEXRAID ) then
-				name = SOCIAL_QUEUE_FORMAT_RAID:format(name)
-			elseif ( subtypeID == LFG_SUBTYPEID_WORLDPVP ) then
-				name = SOCIAL_QUEUE_FORMAT_WORLDPVP:format(name)
-			else
-				-- Name remains unchanged
-			end
-
-			AppendQueueName(nameText, name, nameFormatter)
-		end
-	elseif ( queue.queueType == "pvp" ) then
-		local battlefieldType = queue.battlefieldType
-		local isBrawl = queue.isBrawl
-		local name = queue.mapName
-		if (isBrawl) then
-			local brawlInfo = C_PvPGetBrawlInfo()
-			if (brawlInfo and brawlInfo.active) then
-				name = brawlInfo.name
-			end
-		elseif ( battlefieldType == "BATTLEGROUND" ) then
-			name = SOCIAL_QUEUE_FORMAT_BATTLEGROUND:format(name)
-		elseif ( battlefieldType == "ARENA" ) then
-			name = SOCIAL_QUEUE_FORMAT_ARENA:format(queue.teamSize)
-		elseif ( battlefieldType == "ARENASKIRMISH" ) then
-			name = SOCIAL_QUEUE_FORMAT_ARENA_SKIRMISH
-		end
-
-		AppendQueueName(nameText, name, nameFormatter)
-	elseif ( queue.queueType == "lfglist" ) then
-		local name
-		if ( queue.lfgListID ) then
-			name = select(3, C_LFGListGetSearchResultInfo(queue.lfgListID))
-		else
-			if ( queue.activityID ) then
-				name = C_LFGListGetActivityInfo(queue.activityID)
-			end
-		end
-
-		AppendQueueName(nameText, name, nameFormatter)
-	end
-
-	return nameText
+	return leaderName == playerName
 end
 
 local function colorName(name)
@@ -599,79 +532,85 @@ local function colorName(name)
 	return (color):format(name)
 end
 
-local IGNORE_EVENTS_TIME = 10 --seconds
-local timeOfEvent
-function NF:SOCIAL_QUEUE_UPDATE(event, guid, numAddedItems)
+
+function NF:SocialQueueEvent(event, guid, numAddedItems)
 	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
-	if ( event == "SOCIAL_QUEUE_UPDATE" ) then
-		if ( time() - timeOfEvent <= IGNORE_EVENTS_TIME ) then
-			return
+
+	if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
+		return
+	end
+
+	local coloredName, players = UNKNOWN, C_SocialQueueGetGroupMembers(guid)
+	local members = players and SocialQueueUtil_SortGroupMembers(players)
+	if members then
+		local firstMember, numMembers, extraCount = members[1], #members, ''
+		local playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
+		if numMembers > 1 then
+			extraCount = format(" +%s", numMembers - 1)
+		end
+		if playerName then
+			coloredName = format("%s%s|r%s", nameColor, playerName, extraCount)
+		else
+			coloredName = format("{%s%s}", UNKNOWN, extraCount)
+		end
+	end
+
+	local isLFGList, firstQueue
+	local queues = C_SocialQueueGetGroupQueues(guid)
+	firstQueue = queues and queues[1]
+	isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
+
+	local output, outputCount, queueName, queueCount
+	if isLFGList and firstQueue and firstQueue.eligible then
+		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept
+		local fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin
+		local isLeader
+
+		if firstQueue.queueData.lfgListID then
+			id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
+			isLeader = self:SocialQueueIsLeader(playerName, leaderName)
 		end
 
-		if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
-			return
+		-- ignore groups created by the addon World Quest Group Finder
+		if comment and find(comment, "World Quest Group Finder") then return end
+
+		if activityID or firstQueue.queueData.activityID then
+			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
 		end
 
-		local members, playerName, color = nil, '', ''
-		if C_SocialQueueGetGroupMembers(guid) ~= nil then
-			members = SocialQueueUtil_SortGroupMembers(C_SocialQueueGetGroupMembers(guid))
-			playerName, color = SocialQueueUtil_GetNameAndColor(members[1])
+		local friendIsLeader = self:SocialQueueIsLeader(playerName, leaderName)
+		local flavorText = ""
+		if friendIsLeader then
+			flavorText = L["is looking for members: "]
+		else
+			flavorText = L["joined a group: "]
 		end
-		local coloredPlayerName = color..playerName.."|r"
 
-		local queues = C_SocialQueueGetGroupQueues(guid)
-		if queues ~= nil then
-			if ( queues[1].queueData.queueType == "lfglist" ) then
-				if ( queues[1].eligible ) then
-					--lfglist groups can't queue in the regular LFG tool, so we only need to check this queue
-					local queue = queues[1]
-
-					local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers = C_LFGListGetSearchResultInfo(queue.queueData.lfgListID)
-					local activityName, shortName, categoryID, groupID, minItemLevel, filters, minLevel, maxPlayers, displayType, _, useHonorLevel = C_LFGListGetActivityInfo(activityID)
-
-					--ignore groups created by the addon World Quest Group Finder
-					if ( find(comment, "World Quest Group Finder") ) then
-						return
-					end
-
-					--create flavor text
-					local friendIsLeader = checkIfLeader(leaderName, playerName)
-					local flavorText = ""
-					if friendIsLeader then
-						flavorText = L["is looking for members: "]
-					else
-						flavorText = L["joined a group: "]
-					end
-
-					NF:DisplayToast(coloredPlayerName, (flavorText.."["..activityName.."]: ".. colorName(name)), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-				end
+		if name then
+			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).."\n"..colorName(name), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			print("1")
+		else
+			self:DisplayToast(coloredName, (flavorText.."\n" ..fullName or UNKNOWN), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			print("2")
+		end
+	elseif firstQueue then
+		output, outputCount, queueName, queueCount = "", "", "", 0
+		for id, queue in pairs(queues) do
+			if not queue.eligible then return end
+			queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
+			if output == '' then
+				output = queueName:gsub("\n.+","") -- grab only the first queue name
+				queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
 			else
-				--maybe several queues, concat all of them for displaying
-				local queueSummaryName = ""
-				local anyEligibleQueue = false
-				for id, queue in pairs(queues) do
-					if ( queue.eligible ) then
-						anyEligibleQueue = true
-						local queueNameTable = GetQueueName(queue.queueData)
-						local queueName = ""
-						for queueId, name in pairs(queueNameTable) do
-							if queueName == "" then
-								queueName = name
-							else
-								queueName = queueName..", "..name
-							end
-						end
-						if ( queueSummaryName == "" ) then
-							queueSummaryName = queueName
-						else
-							queueSummaryName = queueSummaryName..", "..queueName
-						end
-					end
-				end
-				if ( anyEligibleQueue ) then
-					NF:DisplayToast(coloredPlayerName, L["is queued for: "].. colorName(queueSummaryName), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-				end
+				queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
 			end
+		end
+		if output ~= "" then
+			if queueCount > 0 then
+				outputCount = format(LFG_LIST_AND_MORE, queueCount)
+			end
+			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. output.. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			print("3")
 		end
 	end
 end
@@ -684,8 +623,6 @@ function NF:Initialize()
 	anchorFrame:SetPoint("TOP", 0, -80)
 	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], true, nil, "ALL,GENERAL,SOLO")
 
-	timeOfEvent = time()
-
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
@@ -695,7 +632,7 @@ function NF:Initialize()
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("BAG_UPDATE")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE")
+	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
 end
 
 local function InitializeCallback()
