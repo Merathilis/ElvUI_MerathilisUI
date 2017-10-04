@@ -290,7 +290,6 @@ function NF:PLAYER_REGEN_ENABLED()
 end
 
 -- Test function
-
 local function testCallback()
 	MER:Print("Banner clicked!")
 end
@@ -527,12 +526,6 @@ function NF:SocialQueueIsLeader(playerName, leaderName)
 	return leaderName == playerName
 end
 
-local function colorName(name)
-	local color = "|cff00c0fa%s |r"
-	return (color):format(name)
-end
-
-
 function NF:SocialQueueEvent(event, guid, numAddedItems)
 	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
 
@@ -586,12 +579,12 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			flavorText = L["joined a group: "]
 		end
 
+		fullName = format("|cff00ff00%s|r", fullName)
+		name = format("|cff00c0fa%s |r", name)
 		if name then
-			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).."\n"..colorName(name), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-			print("1")
+			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).. ": "..name, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
 			self:DisplayToast(coloredName, (flavorText.."\n" ..fullName or UNKNOWN), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-			print("2")
 		end
 	elseif firstQueue then
 		output, outputCount, queueName, queueCount = "", "", "", 0
@@ -609,8 +602,9 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
-			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. output.. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": ".. output.. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 			print("3")
+			print(output, outputCount)
 		end
 	end
 end
