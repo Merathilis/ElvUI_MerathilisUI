@@ -458,7 +458,7 @@ function NF:PLAYER_ENTERING_WORLD()
 end
 
 function NF:VIGNETTE_ADDED(event, id)
-	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
+	if not E.db.mui.general.Notification.vignette then return end
 	if not id then return end
 
 	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
