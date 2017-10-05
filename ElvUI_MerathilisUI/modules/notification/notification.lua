@@ -580,7 +580,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		end
 
 		fullName = format("|cff00ff00%s|r", fullName)
-		name = format("|cff00c0fa%s |r", name)
+		name = format("|cff00c0fa%s|r", name)
 		if name then
 			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).. ": "..name, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
@@ -602,9 +602,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
-			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": ".. output.. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-			print("3")
-			print(output, outputCount)
+			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": ".. format("|cff00c0fa%s|r", output).. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
 	end
 end
