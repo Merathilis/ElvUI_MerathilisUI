@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
+local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
 
@@ -463,7 +464,7 @@ function NF:PLAYER_ENTERING_WORLD()
 end
 
 function NF:VIGNETTE_ADDED(event, id)
-	if not E.db.mui.general.Notification.vignette then return end
+	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
 	if not id then return end
 
 	local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
@@ -475,28 +476,6 @@ end
 
 function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
-end
-
-function NF:SocialQueueIsLeader(playerName, leaderName)
-	if leaderName == playerName then
-		return true
-	end
-
-	for i = 1, BNGetNumFriends() do
-		local _, AccountName, _, _, CharacterName, AccountID, _, IsOnline = BNGetFriendInfo(i)
-		if IsOnline then
-			local _, CharacterName, _, RealmName = BNGetGameAccountInfo(AccountID)
-			if AccountName == playerName then
-				playerName = CharacterName
-				if RealmName ~= E.myrealm then
-					playerName = format('%s-%s', playerName, gsub(RealmName,'[%s%-]',''))
-				end
-				break
-			end
-		end
-	end
-
-	return leaderName == playerName
 end
 
 function NF:SocialQueueEvent(event, guid, numAddedItems)
@@ -534,7 +513,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 
 		if firstQueue.queueData.lfgListID then
 			id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
-			isLeader = self:SocialQueueIsLeader(playerName, leaderName)
+			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
 		end
 
 		-- ignore groups created by the addon World Quest Group Finder
@@ -544,7 +523,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
 		end
 
-		local friendIsLeader = self:SocialQueueIsLeader(playerName, leaderName)
+		local friendIsLeader = CH:SocialQueueIsLeader(playerName, leaderName)
 		local flavorText = ""
 		if friendIsLeader then
 			flavorText = L["is looking for members: "]
@@ -577,7 +556,6 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
 			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": "..output..outputCount, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-			print("3:", output)
 		end
 	end
 end
