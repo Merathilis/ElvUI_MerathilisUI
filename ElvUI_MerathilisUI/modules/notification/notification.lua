@@ -9,7 +9,7 @@ NF.modName = L["Notification"]
 local _G = _G
 local select, unpack, type, pairs, ipairs, tostring = select, unpack, type, pairs, ipairs, tostring
 local table = table
-local tinsert = table.insert
+local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
 local format, find, gsub, sub = string.format, string.find, string.gsub, string.sub
 
@@ -73,13 +73,13 @@ function NF:SpawnToast(toast)
 	if not toast then return end
 
 	if #activeToasts >= max_active_toasts then
-		table.insert(queuedToasts, toast)
+		tinsert(queuedToasts, toast)
 
 		return false
 	end
 
 	if UnitIsAFK("player") then
-		table.insert(queuedToasts, toast)
+		tinsert(queuedToasts, toast)
 		self:RegisterEvent("PLAYER_FLAGS_CHANGED")
 
 		return false
@@ -103,7 +103,7 @@ function NF:SpawnToast(toast)
 		toast:SetPoint("TOP", anchorFrame, "TOP", 0, 1 - YOffset)
 	end
 
-	table.insert(activeToasts, toast)
+	tinsert(activeToasts, toast)
 
 	toast:Show()
 	toast.AnimIn.AnimMove:SetOffset(0, YOffset)
@@ -137,7 +137,7 @@ function NF:RefreshToasts()
 		end
 	end
 
-	local queuedToast = table.remove(queuedToasts, 1)
+	local queuedToast = tremove(queuedToasts, 1)
 
 	if queuedToast then
 		self:SpawnToast(queuedToast)
@@ -147,10 +147,10 @@ end
 function NF:HideToast(toast)
 	for i, activeToast in pairs(activeToasts) do
 		if toast == activeToast then
-			table.remove(activeToasts, i)
+			tremove(activeToasts, i)
 		end
 	end
-	table.insert(toasts, toast)
+	tinsert(toasts, toast)
 	toast:Hide()
 	C_Timer.After(0.1, function() self:RefreshToasts() end)
 end
@@ -159,8 +159,8 @@ local function ToastButtonAnimOut_OnFinished(self)
 	NF:HideToast(self:GetParent())
 end
 
-function NF:GetToast(frame)
-	local toast = table.remove(toasts, 1)
+function NF:GetToast()
+	local toast = tremove(toasts, 1)
 	if not toast then
 		toast = CreateFrame("Frame", nil, E.UIParent)
 		toast:SetFrameStrata("FULLSCREEN_DIALOG")
@@ -473,38 +473,6 @@ function NF:VIGNETTE_ADDED(event, id)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
-local last = 0
-local function delayBagCheck(self, elapsed)
-	last = last + elapsed
-	if last > 1 then
-		self:SetScript("OnUpdate", nil)
-		last = 0
-		shouldAlertBags = true
-		BAG_UPDATE(self)
-	end
-end
-
-function NF:BAG_UPDATE(self)
-	local totalFree, freeSlots, bagFamily = 0
-	for i = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
-		freeSlots, bagFamily = GetContainerNumFreeSlots(i)
-		if bagFamily == 0 then
-			totalFree = totalFree + freeSlots
-		end
-	end
-
-	if totalFree == 0 then
-		if shouldAlertBags then
-			NF:DisplayToast("Bags", "Your bags are full.", ToggleBackpack, "Interface\\Icons\\inv_misc_bag_08")
-			shouldAlertBags = false
-		else
-			self:SetScript("OnUpdate", delayBagCheck)
-		end
-	else
-		shouldAlertBags = false
-	end
-end
-
 function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
 end
@@ -596,14 +564,14 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		for id, queue in pairs(queues) do
 			if not queue.eligible then return end
 			queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
-			if output == '' then
+			if output == "" then
 				output = queueName:gsub("\n.+","") -- grab only the first queue name
 				queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
 			else
 				queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
 			end
 		end
-		output = format("|cff00c0fa%s|r", output)
+		output = format("|cff00c0fa%s |r", output)
 		if output ~= "" then
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
@@ -630,7 +598,6 @@ function NF:Initialize()
 	self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	self:RegisterEvent("BAG_UPDATE")
 	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
 end
 
