@@ -154,7 +154,7 @@ local function ToastButtonAnimOut_OnFinished(self)
 	NF:HideToast(self:GetParent())
 end
 
-function NF:GetToast()
+function NF:GetToast(frame)
 	local toast = table.remove(toasts, 1)
 	if not toast then
 		toast = CreateFrame("Frame", nil, E.UIParent)
