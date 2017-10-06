@@ -6,11 +6,12 @@ NF.modName = L["Notification"]
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local select, unpack, type, pairs, ipairs, tostring = select, unpack, type, pairs, ipairs, tostring
 local table = table
 local tinsert = table.insert
 local floor = math.floor
-local format, find = string.format, string.find
+local format, find, gsub, sub = string.format, string.find, string.gsub, string.sub
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -37,6 +38,7 @@ local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
+local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
 local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
 local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
@@ -53,8 +55,11 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
+-- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
+-- GLOBALS: SocialQueueUtil_GetNameAndColor
 
-local bannerWidth = 250
+local bannerWidth = 270
+local bannerHeight = 60
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
@@ -159,7 +164,7 @@ function NF:GetToast(frame)
 	if not toast then
 		toast = CreateFrame("Frame", nil, E.UIParent)
 		toast:SetFrameStrata("FULLSCREEN_DIALOG")
-		toast:SetSize(bannerWidth, 60)
+		toast:SetSize(bannerWidth, bannerHeight)
 		toast:SetPoint("TOP", E.UIParent, "TOP")
 		toast:Hide()
 		MERS:CreateBD(toast, .45)
@@ -174,7 +179,7 @@ function NF:GetToast(frame)
 		toast.icon = icon
 
 		local sep = toast:CreateTexture(nil, "BACKGROUND")
-		sep:SetSize(1, 60)
+		sep:SetSize(1, bannerHeight)
 		sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
 		sep:SetColorTexture(0, 0, 0)
 
@@ -461,7 +466,7 @@ function NF:VIGNETTE_ADDED(event, id)
 	if not E.db.mui.general.Notification.vignette then return end
 	if not id then return end
 
-	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
+	local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
@@ -582,9 +587,9 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		fullName = format("|cff00ff00%s|r", fullName)
 		name = format("|cff00c0fa%s|r", name)
 		if name then
-			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).. ": "..name, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).. ": "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
-			self:DisplayToast(coloredName, (flavorText.."\n" ..fullName or UNKNOWN), ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, (flavorText.."\n" ..fullName or UNKNOWN), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
 	elseif firstQueue then
 		output, outputCount, queueName, queueCount = "", "", "", 0
@@ -598,11 +603,13 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 				queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
 			end
 		end
+		output = format("|cff00c0fa%s|r", output)
 		if output ~= "" then
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
-			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": ".. format("|cff00c0fa%s|r", output).. outputCount, ToggleQuickJoinPanel, "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": "..output..outputCount, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			print("3:", output)
 		end
 	end
 end
