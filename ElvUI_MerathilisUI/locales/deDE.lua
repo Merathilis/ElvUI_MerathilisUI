@@ -149,9 +149,6 @@ L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
-L["is looking for members: "] = "sucht nach Mitgliedern: "
-L["joined a group: "] = "ist einer Gruppe beigetreten: "
-L["is queued for: "] = "ist gelisted für: "
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = "Berufsfenster Tabs"

@@ -148,9 +148,6 @@ L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["Enable Quick Join Notification"] = true
-L["is looking for members: "] = true
-L["joined a group: "] = true
-L["is queued for: "] = true
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = true
