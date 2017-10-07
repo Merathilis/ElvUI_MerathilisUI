@@ -487,9 +487,10 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 
 	local coloredName, players = UNKNOWN, C_SocialQueueGetGroupMembers(guid)
 	local members = players and SocialQueueUtil_SortGroupMembers(players)
+	local playerName, nameColor
 	if members then
 		local firstMember, numMembers, extraCount = members[1], #members, ''
-		local playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
+		playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
 		if numMembers > 1 then
 			extraCount = format(" +%s", numMembers - 1)
 		end
