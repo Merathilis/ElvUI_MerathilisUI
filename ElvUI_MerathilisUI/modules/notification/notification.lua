@@ -527,9 +527,9 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		fullName = format("|cff00ff00%s|r", fullName)
 		name = format("|cff00c0fa%s|r", name)
 		if name then
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n"..fullName or UNKNOWN).. ": "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n"..fullName or UNKNOWN), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
 	elseif firstQueue then
 		output, outputCount, queueName, queueCount = "", "", "", 0
