@@ -59,8 +59,8 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
 -- GLOBALS: SocialQueueUtil_GetNameAndColor
 
-local bannerWidth = 270
-local bannerHeight = 60
+local bannerWidth = 250
+local bannerHeight = 63
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
@@ -181,7 +181,7 @@ function NF:GetToast()
 
 		local sep = toast:CreateTexture(nil, "BACKGROUND")
 		sep:SetSize(1, bannerHeight)
-		sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
+		sep:SetPoint("LEFT", icon, "RIGHT", 7, 0)
 		sep:SetColorTexture(0, 0, 0)
 
 		local title = toast:CreateFontString(nil, "OVERLAY")
@@ -479,7 +479,7 @@ function NF:RESURRECT_REQUEST(name)
 end
 
 function NF:SocialQueueEvent(event, guid, numAddedItems)
-	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
+	if not E.db.mui.general.Notification.quickJoin --[[or InCombatLockdown()]] then return end
 
 	if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
 		return
@@ -523,20 +523,12 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
 		end
 
-		local friendIsLeader = CH:SocialQueueIsLeader(playerName, leaderName)
-		local flavorText = ""
-		if friendIsLeader then
-			flavorText = L["is looking for members: "]
-		else
-			flavorText = L["joined a group: "]
-		end
-
 		fullName = format("|cff00ff00%s|r", fullName)
 		name = format("|cff00c0fa%s|r", name)
 		if name then
-			self:DisplayToast(coloredName, (flavorText.."\n".. fullName or UNKNOWN).. ": "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n"..fullName or UNKNOWN).. ": "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
-			self:DisplayToast(coloredName, (flavorText.."\n" ..fullName or UNKNOWN), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n"..fullName or UNKNOWN), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
 	elseif firstQueue then
 		output, outputCount, queueName, queueCount = "", "", "", 0
@@ -550,8 +542,8 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 				queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
 			end
 		end
-		output = format("|cff00c0fa%s |r", output)
 		if output ~= "" then
+			output = format("|cff00c0fa%s |r", output)
 			if queueCount > 0 then
 				outputCount = format(LFG_LIST_AND_MORE, queueCount)
 			end
