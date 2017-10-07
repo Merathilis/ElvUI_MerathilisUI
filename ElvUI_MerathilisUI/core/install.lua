@@ -236,6 +236,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.db["general"]["threat"]["enable"] = false
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
+	E.db["general"]["talkingHeadFrameScale"] = 0.7
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -266,8 +267,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 815
 	E.db["bags"]["junkIcon"] = true
-	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 24)
-	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 25)
+	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 1)
+	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 1)
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
