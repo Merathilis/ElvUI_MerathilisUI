@@ -48,9 +48,8 @@ local UnitFactionGroup = UnitFactionGroup
 -- Additional coding and thanks: Resike
 
 -- See end of file for global exports
--- Documentation can be found in commands.txt and developer.txt
 
-local version = 1.73
+local version = 1.74
 -- release
 
 --------------------------------------------------------------------------------
