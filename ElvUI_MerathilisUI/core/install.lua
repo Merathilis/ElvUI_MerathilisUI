@@ -1433,6 +1433,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 50
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
+		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -1485,6 +1486,16 @@ function MER:SetupUnitframes(layout)
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
+			["font"] = "Expressway",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[mUI-resting]",
+			["attachTextTo"] = "InfoPanel",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}

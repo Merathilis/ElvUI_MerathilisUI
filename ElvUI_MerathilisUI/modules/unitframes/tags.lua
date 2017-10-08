@@ -252,3 +252,12 @@ _G["ElvUF"].Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	return shortenNumber(CurrentPower)
 end
+
+_G["ElvUF"].Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
+_G["ElvUF"].Tags.Methods["mUI-resting"] = function(unit)
+	if(unit == "player" and IsResting()) then
+		return "zZz"
+	else
+		return ""
+	end
+end
