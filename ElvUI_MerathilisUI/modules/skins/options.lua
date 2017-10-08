@@ -28,6 +28,7 @@ local SupportedProfiles = {
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"XIV_Databar", "XIV_Databar"},
+	{"OzCooldowns", "OzCooldowns"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -300,6 +301,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					MER:LoadAddOnSkinsProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'OzCooldowns' then
+					MER:LoadOCDProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				print(profileString..addonName)
