@@ -26,6 +26,8 @@ function MER:LoadOCDProfile()
 		}
 	end
 
+	E.db["movers"]["OzCooldownsMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,320"
+
 	-- Profile creation
 	local db = LibStub("AceDB-3.0"):New(OzCooldownsDB)
 	db:SetProfile(profileName)
