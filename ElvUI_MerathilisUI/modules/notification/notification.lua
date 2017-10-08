@@ -60,7 +60,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SocialQueueUtil_GetNameAndColor
 
 local bannerWidth = 250
-local bannerHeight = 63
+local bannerHeight = 65
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
@@ -187,7 +187,7 @@ function NF:GetToast()
 		local title = toast:CreateFontString(nil, "OVERLAY")
 		title:SetFont(E["media"].normFont, 12, "OUTLINE")
 		title:SetShadowOffset(1, -1)
-		title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 9, -5)
+		title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 9, -6)
 		title:SetPoint("TOP", toast, "TOP", 0, 0)
 		title:SetJustifyH("LEFT")
 		toast.title = title
