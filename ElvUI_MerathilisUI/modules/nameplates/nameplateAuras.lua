@@ -191,6 +191,7 @@ function NA:Initialize()
 	NP.UpdateAuraIcons = NA.UpdateAuraIcons
 	NP.ConstructElement_Auras = NA.ConstructElement_Auras
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
+	NP:ConfigureAll()
 end
 
 local function InitializeCallback()
