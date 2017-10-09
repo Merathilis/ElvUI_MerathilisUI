@@ -479,7 +479,7 @@ function NF:RESURRECT_REQUEST(name)
 end
 
 function NF:SocialQueueEvent(event, guid, numAddedItems)
-	if not E.db.mui.general.Notification.quickJoin --[[or InCombatLockdown()]] then return end
+	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
 
 	if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
 		return
