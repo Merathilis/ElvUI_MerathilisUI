@@ -45,6 +45,12 @@ local function Tooltip()
 				name = L["Model"],
 				desc = L["Adds an Model icon on the tooltip."],
 			},
+			keystone = {
+				order = 6,
+				type = "toggle",
+				name = L["Keystone"],
+				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
+			},
 		},
 	}
 end

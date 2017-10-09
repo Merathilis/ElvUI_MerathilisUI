@@ -125,6 +125,7 @@ L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die F
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
+L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"

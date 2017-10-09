@@ -280,6 +280,7 @@ P["mui"] = {
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
+		["keystone"] = true, -- Adds descriptions for mythic keystone properties
 	},
 
 	["error"] = {

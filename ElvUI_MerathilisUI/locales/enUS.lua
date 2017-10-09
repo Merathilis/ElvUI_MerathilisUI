@@ -124,6 +124,7 @@ L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = true
+L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
