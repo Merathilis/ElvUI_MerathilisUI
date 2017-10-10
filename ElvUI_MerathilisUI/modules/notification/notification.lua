@@ -59,7 +59,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
 -- GLOBALS: SocialQueueUtil_GetNameAndColor
 
-local bannerWidth = 250
+local bannerWidth = 255
 local bannerHeight = 65
 local max_active_toasts = 3
 local fadeout_delay = 5
@@ -198,7 +198,7 @@ function NF:CreateToast()
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
-	text:SetHeight(toast:GetTop() - toast:GetBottom() - 20)
+	text:SetHeight(toast:GetTop() - toast:GetBottom() - 25)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
