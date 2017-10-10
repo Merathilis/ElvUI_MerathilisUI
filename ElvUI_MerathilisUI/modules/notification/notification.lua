@@ -160,7 +160,7 @@ local function ToastButtonAnimOut_OnFinished(self)
 	NF:HideToast(self:GetParent())
 end
 
-function NF:GetToast()
+function NF:CreateToast(toast)
 	local toast = tremove(toasts, 1)
 	if not toast then
 		toast = CreateFrame("Frame", nil, E.UIParent)
@@ -238,24 +238,25 @@ function NF:GetToast()
 		toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
 
 		toast:SetScript("OnEnter", function(self)
-				self.AnimOut:Stop()
-			end)
+			self.AnimOut:Stop()
+		end)
 
 		toast:SetScript("OnLeave", function(self)
-				self.AnimOut:Play()
-			end)
+			self.AnimOut:Play()
+		end)
 
 		toast:SetScript("OnMouseUp", function(self, button)
-				if button == "LeftButton" and self.clickFunc then
-					self.clickFunc()
-				end
-			end)
+			if button == "LeftButton" and self.clickFunc then
+				self.clickFunc()
+			end
+		end)
 	end
+
 	return toast
 end
 
 function NF:DisplayToast(name, message, clickFunc, texture, ...)
-	local toast = self:GetToast()
+	local toast = self:CreateToast()
 
 	if type(clickFunc) == "function" then
 		toast.clickFunc = clickFunc
