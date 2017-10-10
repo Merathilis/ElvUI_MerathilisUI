@@ -160,97 +160,97 @@ local function ToastButtonAnimOut_OnFinished(self)
 	NF:HideToast(self:GetParent())
 end
 
-function NF:CreateToast(toast)
+function NF:CreateToast()
 	local toast = tremove(toasts, 1)
-	if not toast then
-		toast = CreateFrame("Frame", nil, E.UIParent)
-		toast:SetFrameStrata("FULLSCREEN_DIALOG")
-		toast:SetSize(bannerWidth, bannerHeight)
-		toast:SetPoint("TOP", E.UIParent, "TOP")
-		toast:Hide()
-		MERS:CreateBD(toast, .45)
-		MERS:StyleOutside(toast)
-		MERS:CreateStripes(toast)
 
-		local icon = toast:CreateTexture(nil, "OVERLAY")
-		icon:SetSize(32, 32)
-		icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
-		MERS:CreateBG(icon)
-		MERS:StyleOutside(toast)
-		toast.icon = icon
+	toast = CreateFrame("Frame", nil, E.UIParent)
+	toast:SetFrameStrata("FULLSCREEN_DIALOG")
+	toast:SetSize(bannerWidth, bannerHeight)
+	toast:SetPoint("TOP", E.UIParent, "TOP")
+	toast:Hide()
+	MERS:CreateBD(toast, .45)
+	MERS:StyleOutside(toast)
+	MERS:CreateStripes(toast)
 
-		local sep = toast:CreateTexture(nil, "BACKGROUND")
-		sep:SetSize(1, bannerHeight)
-		sep:SetPoint("LEFT", icon, "RIGHT", 7, 0)
-		sep:SetColorTexture(0, 0, 0)
+	local icon = toast:CreateTexture(nil, "OVERLAY")
+	icon:SetSize(32, 32)
+	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
+	MERS:CreateBG(icon)
+	MERS:StyleOutside(toast)
+	toast.icon = icon
 
-		local title = toast:CreateFontString(nil, "OVERLAY")
-		title:SetFont(E["media"].normFont, 12, "OUTLINE")
-		title:SetShadowOffset(1, -1)
-		title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 9, -6)
-		title:SetPoint("TOP", toast, "TOP", 0, 0)
-		title:SetJustifyH("LEFT")
-		toast.title = title
+	local sep = toast:CreateTexture(nil, "BACKGROUND")
+	sep:SetSize(1, bannerHeight)
+	sep:SetPoint("LEFT", icon, "RIGHT", 7, 0)
+	sep:SetColorTexture(0, 0, 0)
 
-		local text = toast:CreateFontString(nil, "OVERLAY")
-		text:SetFont(E["media"].normFont, 10)
-		text:SetShadowOffset(1, -1)
-		text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 9, 9)
-		text:SetPoint("RIGHT", toast, -9, 0)
-		text:SetJustifyH("LEFT")
-		toast.text = text
+	local title = toast:CreateFontString(nil, "OVERLAY")
+	title:SetFont(E["media"].normFont, 12, "OUTLINE")
+	title:SetShadowOffset(1, -1)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
+	title:SetPoint("TOP", toast, "TOP", 0, 0)
+	title:SetJustifyH("LEFT")
+	toast.title = title
 
-		toast.AnimIn = CreateAnimationGroup(toast)
+	local text = toast:CreateFontString(nil, "OVERLAY")
+	text:SetFont(E["media"].normFont, 10)
+	text:SetShadowOffset(1, -1)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
+	text:SetPoint("RIGHT", toast, -9, 0)
+	text:SetJustifyH("LEFT")
+	text:SetHeight(toast:GetTop() - toast:GetBottom() - 20)
+	toast.text = text
 
-		local animInAlpha = toast.AnimIn:CreateAnimation("Fade")
-		animInAlpha:SetOrder(1)
-		animInAlpha:SetChange(1)
-		animInAlpha:SetDuration(0.5)
-		toast.AnimIn.AnimAlpha = animInAlpha
+	toast.AnimIn = CreateAnimationGroup(toast)
 
-		local animInMove = toast.AnimIn:CreateAnimation("Move")
-		animInMove:SetOrder(1)
-		animInMove:SetDuration(0.5)
-		animInMove:SetSmoothing("Out")
-		animInMove:SetOffset(-bannerWidth, 0)
-		toast.AnimIn.AnimMove = animInMove
+	local animInAlpha = toast.AnimIn:CreateAnimation("Fade")
+	animInAlpha:SetOrder(1)
+	animInAlpha:SetChange(1)
+	animInAlpha:SetDuration(0.5)
+	toast.AnimIn.AnimAlpha = animInAlpha
 
-		toast.AnimOut = CreateAnimationGroup(toast)
+	local animInMove = toast.AnimIn:CreateAnimation("Move")
+	animInMove:SetOrder(1)
+	animInMove:SetDuration(0.5)
+	animInMove:SetSmoothing("Out")
+	animInMove:SetOffset(-bannerWidth, 0)
+	toast.AnimIn.AnimMove = animInMove
 
-		local animOutSleep = toast.AnimOut:CreateAnimation("Sleep")
-		animOutSleep:SetOrder(1)
-		animOutSleep:SetDuration(fadeout_delay)
-		toast.AnimOut.AnimSleep = animOutSleep
+	toast.AnimOut = CreateAnimationGroup(toast)
 
-		local animOutAlpha = toast.AnimOut:CreateAnimation("Fade")
-		animOutAlpha:SetOrder(2)
-		animOutAlpha:SetChange(0)
-		animOutAlpha:SetDuration(0.5)
-		toast.AnimOut.AnimAlpha = animOutAlpha
+	local animOutSleep = toast.AnimOut:CreateAnimation("Sleep")
+	animOutSleep:SetOrder(1)
+	animOutSleep:SetDuration(fadeout_delay)
+	toast.AnimOut.AnimSleep = animOutSleep
 
-		local animOutMove = toast.AnimOut:CreateAnimation("Move")
-		animOutMove:SetOrder(2)
-		animOutMove:SetDuration(0.5)
-		animOutMove:SetSmoothing("In")
-		animOutMove:SetOffset(bannerWidth, 0)
-		toast.AnimOut.AnimMove = animOutMove
+	local animOutAlpha = toast.AnimOut:CreateAnimation("Fade")
+	animOutAlpha:SetOrder(2)
+	animOutAlpha:SetChange(0)
+	animOutAlpha:SetDuration(0.5)
+	toast.AnimOut.AnimAlpha = animOutAlpha
 
-		toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
+	local animOutMove = toast.AnimOut:CreateAnimation("Move")
+	animOutMove:SetOrder(2)
+	animOutMove:SetDuration(0.5)
+	animOutMove:SetSmoothing("In")
+	animOutMove:SetOffset(bannerWidth, 0)
+	toast.AnimOut.AnimMove = animOutMove
 
-		toast:SetScript("OnEnter", function(self)
-			self.AnimOut:Stop()
-		end)
+	toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
 
-		toast:SetScript("OnLeave", function(self)
-			self.AnimOut:Play()
-		end)
+	toast:SetScript("OnEnter", function(self)
+		self.AnimOut:Stop()
+	end)
 
-		toast:SetScript("OnMouseUp", function(self, button)
-			if button == "LeftButton" and self.clickFunc then
-				self.clickFunc()
-			end
-		end)
-	end
+	toast:SetScript("OnLeave", function(self)
+		self.AnimOut:Play()
+	end)
+
+	toast:SetScript("OnMouseUp", function(self, button)
+		if button == "LeftButton" and self.clickFunc then
+			self.clickFunc()
+		end
+	end)
 
 	return toast
 end
@@ -270,11 +270,11 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 		if ... then
 			toast.icon:SetTexCoord(...)
 		else
-			toast.icon:SetTexCoord(.08, .92, .08, .92)
+			toast.icon:SetTexCoord(unpack(E.TexCoords))
 		end
 	else
 		toast.icon:SetTexture("Interface\\Icons\\achievement_general")
-		toast.icon:SetTexCoord(.08, .92, .08, .92)
+		toast.icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
 	toast.title:SetText(name)
@@ -471,7 +471,7 @@ function NF:VIGNETTE_ADDED(event, id)
 	local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
-	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:22:22:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
@@ -528,7 +528,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		fullName = format("|cff00ff00%s|r", fullName)
 		name = format("|cff00c0fa%s|r", name)
 		if name then
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
 			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
@@ -558,7 +558,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 end
 
 function NF:Initialize()
-	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
+	if E.db.mui.general.Notification.enable ~= true then return end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
