@@ -125,7 +125,7 @@ local function OnEnter(self)
 			else
 				startTime = SecondsToTime(startTime, false, nil, 3)
 			end
-			DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)	
+			DT.tooltip:AddDoubleLine(format(formatBattleGroundInfo, localizedName), startTime, 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 		end
 	end
 
@@ -177,6 +177,35 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME,
 			format(ukDisplayFormat_nocolor, Hr, Min, APM[AmPm]), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 	end
+
+	local monthAbr = {
+		[1] = L["Jan"],
+		[2] = L["Feb"],
+		[3] = L["Mar"],
+		[4] = L["Apr"],
+		[5] = L["May"],
+		[6] = L["Jun"],
+		[7] = L["Jul"],
+		[8] = L["Aug"],
+		[9] = L["Sep"],
+		[10] = L["Oct"],
+		[11] = L["Nov"],
+		[12] = L["Dec"],
+	}
+
+	local daysAbr = {
+		[1] = L["Sun"],
+		[2] = L["Mon"],
+		[3] = L["Tue"],
+		[4] = L["Wed"],
+		[5] = L["Thu"],
+		[6] = L["Fri"],
+		[7] = L["Sat"],
+	}
+
+	DT.tooltip:AddLine(" ")
+	local curDayName, curMonth, curDay, curYear = CalendarGetDate()
+	DT.tooltip:AddLine(format("%s, %s %d, %d", daysAbr[curDayName], monthAbr[curMonth], curDay, curYear))
 
 	DT.tooltip:Show()
 end
