@@ -11,7 +11,7 @@ local function EnhancedFriendsList()
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(EFL.modName),
+				name = MER:cOption(EFL.modName)..MER.NewSign,
 				order = 1
 			},
 			credits = {
@@ -31,7 +31,7 @@ local function EnhancedFriendsList()
 			general = {
 				order = 3,
 				type = "group",
-				name = L["General"],
+				name = MER:cOption(L["General"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.efl[info[#info]] end,
 				set = function(info, value) E.db.mui.efl[info[#info]] = value; FriendsFrame_UpdateFriends() end, -- causes an error if the FriendsFrame isnt open
