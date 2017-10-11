@@ -198,7 +198,6 @@ function NF:CreateToast()
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
-	text:SetHeight(toast:GetTop() - toast:GetBottom() - 25)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
@@ -471,7 +470,8 @@ function NF:VIGNETTE_ADDED(event, id)
 	local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
 	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
-	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:22:22:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+	name = format("|cff00c0fa%s|r", name)
 	self:DisplayToast(str..name, L[" spotted!"])
 end
 
