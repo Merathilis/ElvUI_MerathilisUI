@@ -328,6 +328,17 @@ P["mui"] = {
 		},
 	},
 
+	["efl"] = {
+		["NameFont"] = "Expressway",
+		["NameFontSize"] = 11,
+		["NameFontFlag"] = "OUTLINE",
+		["InfoFont"] = "Expressway",
+		["InfoFontSize"] = 10,
+		["InfoFontFlag"] = "NONE",
+		["GameIconPack"] = "Default",
+		["StatusIconPack"] = "Default",
+	},
+
 	["NameplateAuras"] = {
 		["spellInfo"] = {}
 	},
