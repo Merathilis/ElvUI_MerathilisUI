@@ -181,8 +181,8 @@ function NF:CreateToast()
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
 	sep:SetSize(1, bannerHeight)
-	sep:SetPoint("LEFT", icon, "RIGHT", 7, 0)
-	sep:SetColorTexture(0, 0, 0)
+	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
+	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
 	title:SetFont(E["media"].normFont, 12, "OUTLINE")
