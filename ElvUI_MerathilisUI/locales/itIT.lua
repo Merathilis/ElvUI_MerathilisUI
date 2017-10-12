@@ -103,6 +103,7 @@ L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L["Auto Screenshot"] = true
 L["Takes a screenshot on achievement earns and legendary loot."] = true
+L[" members"] = true
 
 -- Tooltip
 L["Your Status:"] = true

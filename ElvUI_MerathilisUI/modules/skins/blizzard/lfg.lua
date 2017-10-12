@@ -4,8 +4,10 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
+local select = select
 
 --WoW API / Variables
+local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 
 local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
@@ -63,6 +65,19 @@ local function styleLFG()
 	-- Invite frame
 	MERS:CreateGradient(LFGListInviteDialog)
 	MERS:CreateStripes(LFGListInviteDialog)
+
+	LFGListInviteDialog.GroupName:ClearAllPoints()
+	LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)
+
+	LFGListInviteDialog.ActivityName:ClearAllPoints()
+	LFGListInviteDialog.ActivityName:SetPoint("TOP", 0, -80)
+
+	local orginalFunction = LFGListInviteDialog_Show
+	LFGListInviteDialog_Show = function(self, resultID)
+		orginalFunction(self, resultID)
+		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(resultID)
+		self.GroupName:SetText(name .. "\n" .. leaderName .. "\n" .. numMembers .. L[" members"])
+	end
 end
 
 S:AddCallback("mUILFG", styleLFG)
