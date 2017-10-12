@@ -185,19 +185,21 @@ function NF:CreateToast()
 	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	title:SetFont(E["media"].normFont, 12, "OUTLINE")
+	title:FontTemplate(nil, 12, "OUTLINE")
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
+	title:SetWordWrap(enable)
 	toast.title = title
 
 	local text = toast:CreateFontString(nil, "OVERLAY")
-	text:SetFont(E["media"].normFont, 10)
+	text:FontTemplate(nil, 10, nil)
 	text:SetShadowOffset(1, -1)
 	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
 	text:SetPoint("RIGHT", toast, -9, 0)
 	text:SetJustifyH("LEFT")
+	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
 	toast.text = text
 
 	toast.AnimIn = CreateAnimationGroup(toast)
@@ -472,7 +474,7 @@ function NF:VIGNETTE_ADDED(event, id)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 	name = format("|cff00c0fa%s|r", name)
-	self:DisplayToast(str..name, L[" spotted!"])
+	self:DisplayToast(str..(name or "Unknown"), L[" spotted!"])
 end
 
 function NF:RESURRECT_REQUEST(name)
@@ -528,7 +530,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 		fullName = format("|cff00ff00%s|r", fullName)
 		name = format("|cff00c0fa%s|r", name)
 		if name then
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name:sub(1,100), _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		else
 			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
