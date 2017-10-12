@@ -59,6 +59,10 @@ local function styleLFG()
 			tex:SetPoint("BOTTOMRIGHT", -2, 3)
 		end
 	end)
+
+	-- Invite frame
+	MERS:CreateGradient(LFGListInviteDialog)
+	MERS:CreateStripes(LFGListInviteDialog)
 end
 
 S:AddCallback("mUILFG", styleLFG)
