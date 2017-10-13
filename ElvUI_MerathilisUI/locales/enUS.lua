@@ -105,7 +105,7 @@ L["Banner Big Text"] = true
 
 -- Misc
 L["Artifact Power"] = true
-L[" spotted!"] = true
+L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true

@@ -106,7 +106,7 @@ L["Banner Big Text"] = true
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
-L[" spotted!"] = " entdeckt!"
+L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."

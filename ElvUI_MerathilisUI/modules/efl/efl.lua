@@ -99,6 +99,7 @@ local ClientColor = {
 	WTCG = "4EFF00",
 	Hero = "00CCFF",
 	App = "82C5FF",
+	DST2 = "00C0FA",
 }
 
 local BC = {}

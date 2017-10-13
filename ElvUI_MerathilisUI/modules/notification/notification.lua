@@ -5,6 +5,8 @@ local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
 
+-- Credits RealUI
+
 --Cache global variables
 --Lua functions
 local _G = _G
@@ -20,6 +22,7 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
 local GetInstanceInfo = GetInstanceInfo
@@ -27,6 +30,7 @@ local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetRealmName = GetRealmName
+local GetTime = GetTime
 local CalendarGetDate = CalendarGetDate
 local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
 local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
@@ -69,6 +73,12 @@ local queuedToasts = {}
 local anchorFrame
 local alertBagsFull
 local shouldAlertBags = false
+
+local VignetteExclusionMapIDs = {
+	[971] = true, -- Lunarfall: Alliance garrison
+	[976] = true, -- Frostwall: Horde garrison
+	[1021] = true -- Scenario: The Broken Shore
+}
 
 function NF:SpawnToast(toast)
 	if not toast then return end
@@ -465,16 +475,27 @@ function NF:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_ADDED(event, id)
 	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
-	if not id then return end
+	if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
 
-	local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
-	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
-	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
-	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
-	name = format("|cff00c0fa%s|r", name)
-	self:DisplayToast(str..(name or UNKNOWN), L[" spotted!"])
+	if (id ~= self.lastMinimapRare.id) then
+		local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
+		local left, right, top, bottom = GetObjectIconTextureCoords(icon)
+		local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+
+		-- Notify
+		if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
+			PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+		end
+		name = format("|cff00c0fa%s|r", name)
+		self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
+	end
+
+	-- Set last Vignette data
+	self.lastMinimapRare.time = GetTime()
+	self.lastMinimapRare.id = id
 end
 
 function NF:RESURRECT_REQUEST(name)
@@ -520,8 +541,8 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
 		end
 
-		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant
-		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant")) then return end
+		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant to reduce spam
+		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant") or find(comment, "HandyNotes_Argus")) then return end
 
 		if activityID or firstQueue.queueData.activityID then
 			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
@@ -576,6 +597,8 @@ function NF:Initialize()
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
+
+	self.lastMinimapRare = {time = 0, id = nil}
 end
 
 local function InitializeCallback()
