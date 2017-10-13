@@ -96,7 +96,7 @@ local ClientColor = {
 	S2 = "C495DD",
 	D3 = "C41F3B",
 	Pro = "00C0FA",
-	WTCG = "FFB100",
+	WTCG = "4EFF00",
 	Hero = "00CCFF",
 	App = "82C5FF",
 }
