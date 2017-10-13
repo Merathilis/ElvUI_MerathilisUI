@@ -185,7 +185,7 @@ function NF:CreateToast()
 	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
 
 	local title = toast:CreateFontString(nil, "OVERLAY")
-	title:FontTemplate(nil, 12, "OUTLINE")
+	title:FontTemplate(nil, 11, "OUTLINE")
 	title:SetShadowOffset(1, -1)
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
@@ -474,7 +474,7 @@ function NF:VIGNETTE_ADDED(event, id)
 	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 	name = format("|cff00c0fa%s|r", name)
-	self:DisplayToast(str..(name or "Unknown"), L[" spotted!"])
+	self:DisplayToast(str..(name or UNKNOWN), L[" spotted!"])
 end
 
 function NF:RESURRECT_REQUEST(name)
@@ -520,8 +520,8 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
 		end
 
-		-- ignore groups created by the addon World Quest Group Finder
-		if comment and find(comment, "World Quest Group Finder") then return end
+		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant
+		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant")) then return end
 
 		if activityID or firstQueue.queueData.activityID then
 			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
