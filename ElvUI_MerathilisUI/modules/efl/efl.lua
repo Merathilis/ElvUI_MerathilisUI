@@ -102,25 +102,10 @@ local ClientColor = {
 	DST2 = "00C0FA",
 }
 
-local BC = {}
-for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-	BC[v] = k
-end
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-	BC[v] = k
-end
-
 local function getDiffColorString(level)
 	local color = GetQuestDifficultyColor(level)
 	return E:RGBToHex(color.r, color.g, color.b)
 end
-
-local function getClassColorString(class)
-	local color = MER.colors.class[BC[class] or class]
-	return E:RGBToHex(color.r, color.g, color.b)
-end
-
 
 function EFL:BasicUpdateFriends(button)
 	local nameText, nameColor, infoText, broadcastText, _
@@ -129,7 +114,7 @@ function EFL:BasicUpdateFriends(button)
 		broadcastText = nil
 		if connected then
 			button.status:SetTexture(EFL.StatusIcons[E.db.mui.efl["StatusIconPack"]][(status == CHAT_FLAG_DND and 'DND' or status == CHAT_FLAG_AFK and "AFK" or "Online")])
-			nameText = getClassColorString(class) .. name.."|r, "..format(FRIENDS_LEVEL_TEMPLATE, getDiffColorString(level) .. level .. "|r", class)
+			nameText = MER:GetClassColorString(class) .. name.."|r, "..format(FRIENDS_LEVEL_TEMPLATE, getDiffColorString(level) .. level .. "|r", class)
 			nameColor = FRIENDS_WOW_NAME_COLOR
 			Cooperate = true
 		else
@@ -158,7 +143,7 @@ function EFL:BasicUpdateFriends(button)
 			_, _, _, realmName, realmID, faction, race, class, _, zoneName, level, gameText = BNGetGameAccountInfo(toonID)
 			if client == BNET_CLIENT_WOW then
 				if (level == nil or tonumber(level) == nil) then level = 0 end
-				local classcolor = getClassColorString(class)
+				local classcolor = MER:GetClassColorString(class)
 				local diff = level ~= 0 and format("|cFF%02x%02x%02x", GetQuestDifficultyColor(level).r * 255, GetQuestDifficultyColor(level).g * 255, GetQuestDifficultyColor(level).b * 255) or "|cFFFFFFFF"
 				nameText = format("%s |cFFFFFFFF(|r%s%s|r - %s %s%s|r|cFFFFFFFF)|r", nameText, classcolor, characterName, LEVEL, diff, level)
 				Cooperate = CanCooperateWithGameAccount(toonID)

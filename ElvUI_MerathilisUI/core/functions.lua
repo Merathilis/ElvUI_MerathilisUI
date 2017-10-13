@@ -163,3 +163,17 @@ end
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
 end
+
+local BC = {}
+for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+	BC[v] = k
+end
+
+for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
+	BC[v] = k
+end
+
+function MER:GetClassColorString(class)
+	local color = MER.colors.class[BC[class] or class]
+	return E:RGBToHex(color.r, color.g, color.b)
+end
