@@ -95,7 +95,7 @@ local ClientColor = {
 	S1 = "C495DD",
 	S2 = "C495DD",
 	D3 = "C41F3B",
-	Pro = "FFFFFF",
+	Pro = "00C0FA",
 	WTCG = "FFB100",
 	Hero = "00CCFF",
 	App = "82C5FF",
@@ -162,7 +162,7 @@ function EFL:BasicUpdateFriends(button)
 				nameText = format("%s |cFFFFFFFF(|r%s%s|r - %s %s%s|r|cFFFFFFFF)|r", nameText, classcolor, characterName, LEVEL, diff, level)
 				Cooperate = CanCooperateWithGameAccount(toonID)
 			else
-				nameText = format("|cFF%s%s|r", ClientColor[client] or "FFFFFF", nameText)
+				nameText = format("|cFF%s%s|r", ClientColor[client] or "e59400", nameText)
 			end
 		end
 
