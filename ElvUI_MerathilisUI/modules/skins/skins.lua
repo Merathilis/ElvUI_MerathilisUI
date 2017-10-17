@@ -195,7 +195,7 @@ function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 
--- Texture Gradient
+-- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 	local tex = f:CreateTexture(nil, "BORDER")
@@ -209,17 +209,17 @@ end
 
 function MERS:CreateStripes(f)
 	assert(f, "doesn't exist!")
-	if E.private.muiSkins.general.stripes ~= true then return end
+	if f.stripes or E.private.muiSkins.general.stripes ~= true then return end
 
-	local stripes = f:CreateTexture(nil, "BORDER")
-	stripes:SetPoint("TOPLEFT", 1, -1)
-	stripes:SetPoint("BOTTOMRIGHT", -1, 1)
-	stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
-	stripes:SetHorizTile(true)
-	stripes:SetVertTile(true)
-	stripes:SetBlendMode("ADD")
+	f.stripes = f:CreateTexture(nil, "BORDER")
+	f.stripes:SetPoint("TOPLEFT", 1, -1)
+	f.stripes:SetPoint("BOTTOMRIGHT", -1, 1)
+	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
+	f.stripes:SetHorizTile(true)
+	f.stripes:SetVertTile(true)
+	f.stripes:SetBlendMode("ADD")
 
-	return stripes
+	f.stripes = stripes
 end
 
 -- Taken from AddOnSkins 
@@ -230,7 +230,7 @@ end
 function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 	local Texture = E["media"].muiBlank
 
-	if UseTexture then 
+	if UseTexture then
 		Texture = TextureFile or E["media"].muiNormTex
 	end
 
