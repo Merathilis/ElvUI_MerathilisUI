@@ -1614,7 +1614,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
-		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
+		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
