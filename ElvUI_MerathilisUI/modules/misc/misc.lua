@@ -16,10 +16,16 @@ local GetLFGDungeonRewards = GetLFGDungeonRewards
 local GetLFGRandomDungeonInfo = GetLFGRandomDungeonInfo
 local GetMaxBattlefieldID = GetMaxBattlefieldID
 local GetNumRandomDungeons = GetNumRandomDungeons
+local GetNumGroupMembers = GetNumGroupMembers
+local GetSpecialization = GetSpecialization
+local UnitLevel = UnitLevel
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local UnitSetRole = UnitSetRole
+local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit
+-- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
 
 function MI:LoadMisc()
 	-- Force readycheck warning
@@ -111,10 +117,28 @@ function MI:LoadMisc()
 	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
 	C_PetJournal.SetAllPetTypesChecked(true)
 	C_PetJournal.SetAllPetSourcesChecked(true)
+end
 
+function MI:SetRole()
+	local spec = GetSpecialization()
+	if UnitLevel("player") >= 10 and not InCombatLockdown() then
+		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
+			UnitSetRole("player", "NONE")
+		elseif spec ~= nil then
+			if GetNumGroupMembers() > 0 then
+				if UnitGroupRolesAssigned("player") ~= E:GetPlayerRole() then
+					UnitSetRole("player", E:GetPlayerRole())
+				end
+			end
+		end
+	end
 end
 
 function MI:Initialize()
+	E.RegisterCallback(MI, "RoleChanged", "SetRole")
+	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
+	RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(RolePollPopup) end)
+
 	self:LoadMisc()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
