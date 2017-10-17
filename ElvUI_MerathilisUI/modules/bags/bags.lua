@@ -31,10 +31,13 @@ end
 function MERB:OpenBankBags()
 	--this is really fucked up
 	if ElvUI_BankContainerFrame then
+		if ElvUI_BankContainerFrame.isSkinned then return end
 		MERS:CreateGradient(ElvUI_BankContainerFrame)
 		MERS:CreateStripes(ElvUI_BankContainerFrame)
 		MERS:CreateGradient(ElvUI_BankContainerFrameContainerHolder)
 		MERS:CreateStripes(ElvUI_BankContainerFrameContainerHolder)
+
+		ElvUI_BankContainerFrame.isSkinned = true
 	end
 end
 
