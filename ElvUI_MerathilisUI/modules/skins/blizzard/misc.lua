@@ -17,9 +17,7 @@ local function styleMisc()
 	end)
 
 	MERS:CreateGradient(GameMenuFrame)
-	if not GameMenuFrame.stripes then
-		MERS:CreateStripes(GameMenuFrame)
-	end
+	MERS:CreateStripes(GameMenuFrame)
 
 	-- Graveyard button (a bit ugly if you press it)
 	GhostFrame:StripTextures()
@@ -52,6 +50,7 @@ local function styleMisc()
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
 			MERS:CreateGradient(frame)
+			MERS:CreateStripes(frame)
 		end
 	end
 end
