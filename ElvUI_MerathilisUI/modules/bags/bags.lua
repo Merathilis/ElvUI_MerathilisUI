@@ -28,8 +28,7 @@ function MERB:StyleBags()
 	end
 end
 
-function MERB:OpenBankBags()
-	--this is really fucked up
+function MERB:StyleBank()
 	if ElvUI_BankContainerFrame then
 		if ElvUI_BankContainerFrame.isSkinned then return end
 		MERS:CreateGradient(ElvUI_BankContainerFrame)
@@ -41,9 +40,9 @@ function MERB:OpenBankBags()
 	end
 end
 
-function MERB:AllInOneBags()
+function MERB:init()
 	self:StyleBags()
-	self:RegisterEvent("BANKFRAME_OPENED", "OpenBankBags")
+	self:RegisterEvent("BANKFRAME_OPENED", "StyleBank")
 end
 
 function MERB:Initialize()
@@ -53,8 +52,8 @@ function MERB:Initialize()
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", EventHandler)
 
-	self:OpenBankBags()
-	self:AllInOneBags()
+	self:StyleBank()
+	self:init()
 end
 
 local function InitializeCallback()
