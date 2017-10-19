@@ -489,7 +489,7 @@ function NF:VIGNETTE_ADDED(event, id)
 		if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
 			PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
 		end
-		name = format("|cff00c0fa%s|r", name)
+		name = format("|cff00c0fa%s|r", name:sub(1, 28))
 		self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
 	end
 
