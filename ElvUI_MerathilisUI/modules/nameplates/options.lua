@@ -171,7 +171,7 @@ local function NameplateAurasTable()
 								selectedSpellID = spellID
 								UpdateSpellGroup()
 							else
-								E:Print(L["Not valid spell name or spell ID"])
+								MER:Print(L["Not valid spell name or spell ID"])
 							end
 						end,
 					},
