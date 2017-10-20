@@ -450,7 +450,6 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.
 L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Here you can choose the layout for KuiNameplates.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.

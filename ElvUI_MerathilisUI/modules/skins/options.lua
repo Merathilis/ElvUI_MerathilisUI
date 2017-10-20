@@ -14,8 +14,8 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
 	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pgf"},
-	{"QuickJoinNotifications", L["QuickJoinNotifications"], "qjn"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
+	{"BugSack", L["BugSack"], "bs"},
 }
 
 local SupportedProfiles = {
@@ -283,8 +283,6 @@ local function SkinsTable()
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 				elseif addon == 'ElvUI_SLE' then
 					E:StaticPopup_Show("MUI_INSTALL_SLE_LAYOUT")
-				elseif addon == 'Kui_Nameplates_Core' then
-					E:StaticPopup_Show("MUI_INSTALL_KUI_LAYOUT")
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')

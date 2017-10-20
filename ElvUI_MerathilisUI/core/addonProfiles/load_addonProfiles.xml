@@ -3,7 +3,6 @@
 	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="Details.lua"/>
-	<script file="KuiNamePlatesCore.lua"/>
 	<script file="Masque.lua"/>
 	<script file="OzCooldown.lua"/>
 	<script file="ShadowandLight.lua"/>
