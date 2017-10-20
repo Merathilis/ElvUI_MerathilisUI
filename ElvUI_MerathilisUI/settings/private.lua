@@ -48,7 +48,6 @@ V["muiSkins"] = {
 		["bw"] = true,
 		["wa"] = true,
 		["xiv"] = true,
-		["pgf"] = true,
 		["bui"] = true,
 		["bs"] = true,
 	},

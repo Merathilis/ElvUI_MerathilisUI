@@ -4,7 +4,6 @@
 	<Script file="BenikUI.lua"/>
 	<Script file="bigWigs.lua"/>
 	<Script file="BugSack.lua"/>
-	<Script file="premadeGroupsFilter.lua"/>
 	<Script file="weakAuras.lua"/>
 	<Script file="XIV_Databar.lua"/>
 </Ui>
