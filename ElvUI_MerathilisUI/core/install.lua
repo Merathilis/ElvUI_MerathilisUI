@@ -1579,7 +1579,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 10,
-			["text_format"] = "[namecolor][smartclass] [difficultycolor][level][shortclassification]",
+			["text_format"] = "[faction:icon][namecolor][smartclass] [difficultycolor][level][shortclassification]",
 			["yOffset"] = 0,
 			["attachTextTo"] = "InfoPanel",
 		}
