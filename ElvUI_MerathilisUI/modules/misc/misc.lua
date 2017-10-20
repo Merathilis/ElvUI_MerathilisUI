@@ -117,6 +117,15 @@ function MI:LoadMisc()
 	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
 	C_PetJournal.SetAllPetTypesChecked(true)
 	C_PetJournal.SetAllPetSourcesChecked(true)
+
+	-- GuildTab in FriendsFrame
+	local n = FriendsFrame.numTabs + 1
+	local gtframe = CreateFrame("Button", "FriendsFrameTab"..n, FriendsFrame, "FriendsFrameTabTemplate")
+	gtframe:SetText(GUILD)
+	gtframe:SetPoint("LEFT", _G["FriendsFrameTab"..n - 1], "RIGHT", -15, 0)
+	PanelTemplates_DeselectTab(gtframe)
+	gtframe:SetScript("OnClick", function() ToggleGuildFrame() end)
+	S:HandleTab(FriendsFrameTab5)
 end
 
 function MI:SetRole()
