@@ -158,13 +158,13 @@ P["mui"] = {
 	["actionbars"] = {
 		["transparent"] = true,
 		["buttonStyle"] = {
-			["enabled"] = true,
+			["enabled"] = false,
 			["texture"] = "MerathilisGradient",
 			["alpha"] = 0.25,
 			["invertedShadows"] = true,
 		},
 		["buttonBorder"] = {
-			["enabled"] = true,
+			["enabled"] = false,
 			["color"] = {r = .9, g = .7, b = 0, a = .7},
 		},
 	},
