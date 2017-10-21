@@ -292,9 +292,11 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
 	E.db["nameplates"]["units"]["PLAYER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,blockNoDuration,CastByUnit,PlayerBuffs,TurtleBuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
@@ -303,10 +305,12 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -524,9 +528,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["lockActionBars"] = true
 
 	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = false
-		E.private["actionbar"]["masque"]["petBar"] = false
-		E.private["actionbar"]["masque"]["actionbars"] = false
+		E.private["actionbar"]["masque"]["stanceBar"] = true
+		E.private["actionbar"]["masque"]["petBar"] = true
+		E.private["actionbar"]["masque"]["actionbars"] = true
 	end
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
