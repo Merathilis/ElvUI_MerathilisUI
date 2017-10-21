@@ -249,6 +249,11 @@ local function SkinsTable()
 				name = L["Raid Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid end,
 			},
+			dressingroom = {
+				type = "toggle",
+				name = DRESSUP_FRAME,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
+			},
 		},
 	}
 

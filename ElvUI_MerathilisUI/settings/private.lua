@@ -42,6 +42,7 @@ V["muiSkins"] = {
 		["addonManager"] = true,
 		["mail"] = true,
 		["raid"] = true,
+		["dressingroom"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
