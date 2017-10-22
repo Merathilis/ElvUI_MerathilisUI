@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LO = E:GetModule("Layout");
+local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
+local LO = E:GetModule("Layout")
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
@@ -36,10 +37,18 @@ function MER:ToggleDataPanels()
 	end
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self)
-	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+function MERL:Initialize()
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", function(self)
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
-	MER:ToggleDataPanels()
-end)
+		MER:ToggleDataPanels()
+	end)
+end
+
+local function InitializeCallback()
+	MERL:Initialize()
+end
+
+E:RegisterModule(MERL:GetName(), InitializeCallback)
