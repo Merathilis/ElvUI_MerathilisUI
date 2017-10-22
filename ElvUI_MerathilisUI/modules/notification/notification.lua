@@ -530,22 +530,19 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 	firstQueue = queues and queues[1]
 	isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
 
-	local output, outputCount, queueName, queueCount
 	if isLFGList and firstQueue and firstQueue.eligible then
-		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept
-		local fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin
-		local isLeader
+		local activityID, name, comment, leaderName, fullName, isLeader
 
 		if firstQueue.queueData.lfgListID then
-			id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
+			_, activityID, name, comment, _, _, _, _, _, _, _, _, leaderName = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
 			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
 		end
 
-		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant to reduce spam
+		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant/HandyNotes_Argus to reduce spam
 		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant") or find(comment, "HandyNotes_Argus")) then return end
 
 		if activityID or firstQueue.queueData.activityID then
-			fullName, shortName, categoryID, groupID, iLevel, filters, minLevel, maxPlayers, displayType, orderIndex, useHonorLevel, showQuickJoin = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
+			fullName = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
 		end
 
 		fullName = format("|cff00ff00%s|r", fullName)
@@ -556,8 +553,8 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
 		end
 	elseif firstQueue then
-		output, outputCount, queueName, queueCount = "", "", "", 0
-		for id, queue in pairs(queues) do
+		local output, outputCount, queueCount, queueName = '', '', 0
+		for _, queue in pairs(queues) do
 			if type(queue) == "table" and queue.eligible then
 				queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
 				if queueName ~= "" then
