@@ -43,6 +43,7 @@ V["muiSkins"] = {
 		["mail"] = true,
 		["raid"] = true,
 		["dressingroom"] = true,
+		["timemanager"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

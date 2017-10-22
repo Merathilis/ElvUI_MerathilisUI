@@ -254,6 +254,11 @@ local function SkinsTable()
 				name = DRESSUP_FRAME,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
 			},
+			timemanager = {
+				type = "toggle",
+				name = L["Time Manager"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager end,
+			},
 		},
 	}
 

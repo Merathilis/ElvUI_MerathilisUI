@@ -27,6 +27,7 @@
 	<Script file="pvp.lua"/>
 	<Script file="talent.lua"/>
 	<Script file="talkinghead.lua"/>
+	<Script file="timemanager.lua"/>
 	<Script file="tradeskill.lua"/>
 	<Script file="worldmap.lua"/>
 </Ui>
