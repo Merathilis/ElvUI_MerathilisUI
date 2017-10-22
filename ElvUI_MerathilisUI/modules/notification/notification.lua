@@ -64,7 +64,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SocialQueueUtil_GetNameAndColor, enable
 
 local bannerWidth = 255
-local bannerHeight = 65
+local bannerHeight = 68
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
