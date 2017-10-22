@@ -61,7 +61,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
 -- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
--- GLOBALS: SocialQueueUtil_GetNameAndColor
+-- GLOBALS: SocialQueueUtil_GetNameAndColor, enable
 
 local bannerWidth = 255
 local bannerHeight = 65
