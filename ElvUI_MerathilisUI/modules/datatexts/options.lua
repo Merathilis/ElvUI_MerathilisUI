@@ -147,6 +147,19 @@ local function Datatexts()
 						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule("ThreatBar"):UpdatePosition() end,
 						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 					},
+					textOutline = {
+						order = 3,
+						name = L["Font Outline"],
+						type = "select",
+						get = function(info) return E.db.mui.datatexts.threatBar.textOutline end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textOutline = value; E:GetModule("ThreatBar"):UpdatePosition() end,
+						values = {
+							["NONE"] = NONE,
+							["OUTLINE"] = "OUTLINE",
+							["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
+							["THICKOUTLINE"] = "THICKOUTLINE",
+						},
+					},
 				},
 			},
 			gotodatatexts = {

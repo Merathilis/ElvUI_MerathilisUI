@@ -93,6 +93,7 @@ function MERTB:Update()
 			if leadPercent > 0 and largestUnit ~= nil then
 				local r, g, b = self:GetColor(largestUnit)
 				self.bar.text:SetFormattedText(L["ABOVE_THREAT_FORMAT"], name, percent, leadPercent, r, g, b, UnitName(largestUnit) or UNKNOWN)
+				self.bar.text:FontTemplate()
 
 				if E.role == "Tank" then
 					self.bar:SetStatusBarColor(0, 0.839, 0)
@@ -144,7 +145,7 @@ function MERTB:Initialize()
 	self.bar:CreateBackdrop("Default")
 
 	self.bar.text = self.bar:CreateFontString(nil, "OVERLAY")
-	self.bar.text:FontTemplate(nil, self.db.textSize)
+	self.bar.text:FontTemplate(nil, self.db.textSize, self.db.textOutline)
 	self.bar.text:Point("CENTER", self.bar, "CENTER")
 
 	self:UpdatePosition()

@@ -134,6 +134,7 @@ P["mui"] = {
 		["threatBar"] = {
 			["enable"] = true,
 			["textSize"] = 10,
+			["textOutline"] = "OUTLINE",
 		},
 	},
 
