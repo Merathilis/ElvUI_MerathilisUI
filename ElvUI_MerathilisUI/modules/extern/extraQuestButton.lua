@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local string, tonumber, next, type = string, tonumber, next, type
 local GetTime = GetTime
 
@@ -198,11 +199,11 @@ function ExtraQuestButton:PLAYER_LOGIN()
 	self:SetAttribute("type", "item")
 
 	if(not self:GetPoint()) then
-		self:SetPoint("CENTER", BossButton)
+		self:SetPoint("CENTER", _G["BossButton"])
 	end
 
-	self:SetSize(BossButton:GetSize())
-	self:SetScale(BossButton:GetScale()/1.65)
+	self:SetSize(_G["BossButton"]:GetSize())
+	self:SetScale(_G["BossButton"]:GetScale()/1.65)
 	self:SetHighlightTexture("")
 	self:SetPushedTexture("")
 	-- self:GetPushedTexture():SetBlendMode("ADD")

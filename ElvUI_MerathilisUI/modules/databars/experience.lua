@@ -10,6 +10,8 @@ local _G = _G
 local CreateFrame = CreateFrame
 local GameTooltip = _G["GameTooltip"]
 local InCombatLockdown = InCombatLockdown
+local ShowUIPanel = ShowUIPanel
+local HideUIPanel = HideUIPanel
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, selectioncolor, SPELLBOOK_ABILITIES_BUTTON

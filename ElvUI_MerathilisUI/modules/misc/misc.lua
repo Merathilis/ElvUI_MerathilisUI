@@ -12,6 +12,9 @@ local select = select
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local C_PetJournalSetFilterChecked = C_PetJournal.SetFilterChecked
+local C_PetJournalSetAllPetTypesChecked = C_PetJournal.SetAllPetTypesChecked
+local C_PetJournalSetAllPetSourcesChecked = C_PetJournal.SetAllPetSourcesChecked
 local GetBattlefieldStatus = GetBattlefieldStatus
 local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel
 local GetCurrentMapAreaID = GetCurrentMapAreaID
@@ -29,10 +32,13 @@ local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitSetRole = UnitSetRole
 local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
+local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
--- GLOBALS: LFRBrowseFrame, RolePollPopup
+-- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
+-- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
+-- GLOBALS: StaticPopupSpecial_Hide
 
 function MI:LoadMisc()
 	-- Force readycheck warning
@@ -72,7 +78,7 @@ function MI:LoadMisc()
 	StaticPopupDialogs.CONFIRM_SUMMON.hideOnEscape = nil
 	StaticPopupDialogs.ADDON_ACTION_FORBIDDEN.button1 = nil
 	StaticPopupDialogs.TOO_MANY_LUA_ERRORS.button1 = nil
-	PetBattleQueueReadyFrame.hideOnEscape = nil
+	_G["PetBattleQueueReadyFrame"].hideOnEscape = nil
 	if (PVPReadyDialog) then
 		PVPReadyDialog.leaveButton:Hide()
 		PVPReadyDialog.enterButton:ClearAllPoints()
@@ -82,7 +88,7 @@ function MI:LoadMisc()
 
 	-- Auto select current event boss from LFD tool(EventBossAutoSelect by Nathanyel)
 	local firstLFD
-	LFDParentFrame:HookScript("OnShow", function()
+	_G["LFDParentFrame"]:HookScript("OnShow", function()
 		if not firstLFD then
 			firstLFD = 1
 			for i = 1, GetNumRandomDungeons() do
@@ -107,8 +113,8 @@ function MI:LoadMisc()
 	end)
 
 	-- Always show the Text on the PlayerPowerBarAlt
-	PlayerPowerBarAlt:HookScript("OnShow", function()
-		local statusFrame = PlayerPowerBarAlt.statusFrame
+	_G["PlayerPowerBarAlt"]:HookScript("OnShow", function()
+		local statusFrame = _G["PlayerPowerBarAlt"].statusFrame
 		if statusFrame.enabled then
 			statusFrame:Show()
 			UnitPowerBarAltStatus_UpdateText(statusFrame)
@@ -123,10 +129,10 @@ function MI:LoadMisc()
 	end)
 
 	-- Pet Journal Fix
-	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_COLLECTED, true)
-	C_PetJournal.SetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
-	C_PetJournal.SetAllPetTypesChecked(true)
-	C_PetJournal.SetAllPetSourcesChecked(true)
+	C_PetJournalSetFilterChecked(LE_PET_JOURNAL_FILTER_COLLECTED, true)
+	C_PetJournalSetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
+	C_PetJournalSetAllPetTypesChecked(true)
+	C_PetJournalSetAllPetSourcesChecked(true)
 
 	-- FixOrderHallMap(by Ketho)
 	local locations = {
@@ -214,7 +220,6 @@ function MI:Initialize()
 	self:LoadTST()
 	self:LoadsumAuctions()
 	self:LoadQuestReward()
-	self:LoadAutoScreenShoot()
 end
 
 local function InitializeCallback()

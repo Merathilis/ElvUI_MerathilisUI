@@ -7,10 +7,14 @@ MERS.modName = L["Skins/AddOns"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, type, unpack = select, type, unpack
+local assert, pairs, select, unpack = assert, pairs, select, unpack
 -- WoW API / Variables
-local InCombatLockdown = InCombatLockdown
+local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: stripes, StartGlow, StopGlow, ElvUI
 
+local AS
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
@@ -357,6 +361,7 @@ end
 
 function MERS:Reskin(f, noGlow)
 	assert(f, "doesn't exist!")
+	local r, g, b
 	if f.SetNormalTexture then f:SetNormalTexture("") end
 	if f.SetHighlightTexture then f:SetHighlightTexture("") end
 	if f.SetPushedTexture then f:SetPushedTexture("") end
@@ -422,7 +427,7 @@ function MERS:SkinStatusBar(frame, ClassColor)
 	if ClassColor then
 		frame:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
-	ElvUI[1]:RegisterStatusBar(Frame)
+	ElvUI[1]:RegisterStatusBar(_G["Frame"])
 end
 
 -- ClassColored ScrollBars

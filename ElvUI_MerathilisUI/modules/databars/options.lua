@@ -1,6 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MDB = E:GetModule("mUI_databars")
 
+--Cache global variables
+
+--WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: 
+
 local function databarsTable()
 	E.Options.args.mui.args.databars = {
 		order = 15,

@@ -1,9 +1,16 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local RMA = E:GetModule("RaidMarkers")
 
+--Cache global variables
+local _G = _G
+local format = string.format
+--WoW API / Variables
+local CreateFrame = CreateFrame
 local SHIFT_KEY, CTRL_KEY, ALT_KEY = SHIFT_KEY, CTRL_KEY, ALT_KEY
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
-local CUSTOM = CUSTOM
+local CUSTOM, DEFAULT = CUSTOM, DEFAULT
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
 
 local function RaidMarkers()
 	E.Options.args.mui.args.raidmarkers = {

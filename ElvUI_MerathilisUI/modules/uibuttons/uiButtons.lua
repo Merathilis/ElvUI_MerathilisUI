@@ -7,13 +7,17 @@ MUB.modName = L["UI Buttons"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local tonumber = tonumber
+local min, max = math.min, math.max
 -- WoW API / Variables
 local RandomRoll = RandomRoll
 local SendChatMessage = SendChatMessage
 local ReloadUI = ReloadUI
+local InCombatLockdown = InCombatLockdown
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: LibStub, DBM, VEM, Altoholic, AtlasLoot, SlashCmdList, xCT_Plus, Swatter
 
 local CUSTOM = CUSTOM
 

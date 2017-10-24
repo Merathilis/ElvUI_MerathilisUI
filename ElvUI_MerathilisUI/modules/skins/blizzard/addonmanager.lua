@@ -13,9 +13,7 @@ local _G = _G
 local function styleAddonManager()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.addonManager ~= true or E.private.muiSkins.blizzard.addonManager ~= true then return end
 
-	if not _G["AddonList"].stripes then
-		MERS:CreateStripes(_G["AddonList"])
-	end
+	MERS:CreateStripes(_G["AddonList"])
 	MERS:CreateGradient(_G["AddonList"])
 
 	_G["AddonCharacterDropDown"]:SetWidth(170)

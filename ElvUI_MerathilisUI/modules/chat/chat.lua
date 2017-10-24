@@ -6,13 +6,11 @@ MERC.modName = L["Chat"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local format, gsub = string.format, string.gsub
+local find, gsub = string.find, string.gsub
 -- WoW API / Variable
-local ChatTypeInfo = ChatTypeInfo
 local GetRealmName = GetRealmName
-local strsplit = strsplit
 
--- GLOBALS: ChatFrame_DisplayGMOTD, ChatFrame_DisplayGMOTD, GUILD_MOTD_TEMPLATE
+-- GLOBALS:
 
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 

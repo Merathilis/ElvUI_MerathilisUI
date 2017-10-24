@@ -6,10 +6,19 @@ EFL.modName = L["EnhancedFriendsList"]
 -- Cache global variables
 -- Lua functions
 local format = string.format
-
+local tonumber = tonumber
 -- WoW API / Variables
-
---GLOBALS: hooksecurefunc
+local BNGetFriendInfo = BNGetFriendInfo
+local BNConnected = BNConnected
+local BNGetGameAccountInfo = BNGetGameAccountInfo
+local CanCooperateWithGameAccount = CanCooperateWithGameAccount
+local GetQuestDifficultyColor = GetQuestDifficultyColor
+local GetFriendInfo = GetFriendInfo
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, FRIENDS_BUTTON_TYPE_WOW, CHAT_FLAG_DND, CHAT_FLAG_AFK, FRIENDS_LEVEL_TEMPLATE
+-- GLOBALS: FRIENDS_WOW_NAME_COLOR, Cooperate, FRIENDS_GRAY_COLOR, FRIENDS_BUTTON_TYPE_BNET, UNKNOWN
+-- GLOBALS: BNET_CLIENT_WOW, FRIENDS_BNET_NAME_COLOR, FRIENDS_LIST_OFFLINE, LEVEL, status
+-- GLOBALS: BNET_LAST_ONLINE_TIME, FriendsFrame_GetLastOnline
 
 local MediaPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\"
 
@@ -71,15 +80,15 @@ EFL.GameIcons = {
 		DST2 = "Interface\\ChatFrame\\UI-ChatIcon-Destiny2",
 	},
 	Launcher = {
-		Alliance = MediaPath.."GameIcons\\Launcher\\WoW",
-		Horde = MediaPath.."GameIcons\\Launcher\\WoW",
-		Neutral = MediaPath.."GameIcons\\Launcher\\WoW",
+		Alliance = MediaPath.."GameIcons\\Launcher\\Alliance",
+		Horde = MediaPath.."GameIcons\\Launcher\\Horde",
+		Neutral = MediaPath.."GameIcons\\Launcher\\Alliance",
 		D3 = MediaPath.."GameIcons\\Launcher\\D3",
 		WTCG = MediaPath.."GameIcons\\Launcher\\Hearthstone",
 		S1 = MediaPath.."GameIcons\\Launcher\\SC",
 		S2 = MediaPath.."GameIcons\\Launcher\\SC2",
-		App = MediaPath.."GameIcons\\Launcher\\BattleNet",
-		BSAp = "Interface\\FriendsFrame\\PlusManz-BattleNet",
+		App = "Interface\\FriendsFrame\\PlusManz-BattleNet",
+		BSAp = MediaPath.."GameIcons\\Launcher\\BattleNet",
 		Hero = MediaPath.."GameIcons\\Launcher\\Heroes",
 		Pro = MediaPath.."GameIcons\\Launcher\\Overwatch",
 		DST2 = MediaPath.."GameIcons\\Launcher\\Destiny2",
@@ -141,7 +150,7 @@ function EFL:BasicUpdateFriends(button)
 		infoText = area
 	elseif button.buttonType == FRIENDS_BUTTON_TYPE_BNET and BNConnected() then
 		local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(button.id)
-		local realmName, realmID, faction, race, class, zoneName, level, gameText
+		local realmName, realmID, faction, race, class, zoneName, level, gameText, givenName
 		broadcastText = messageText
 		local characterName = toonName
 		if presenceName then

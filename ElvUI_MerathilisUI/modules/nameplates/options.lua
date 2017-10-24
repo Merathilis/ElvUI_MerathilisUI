@@ -2,6 +2,16 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
 local NA = E:GetModule("NameplateAuras")
 
+--Cache global variables
+local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type
+local setmetatable = setmetatable
+local getmetatable = getmetatable
+local format = string.format
+--WoW API / Variables
+local GetSpellInfo = GetSpellInfo
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: deepcopy
+
 local selectedSpellID
 local spellLists
 local spellIDs = {}

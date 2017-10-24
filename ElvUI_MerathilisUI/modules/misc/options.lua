@@ -3,6 +3,13 @@ local MI = E:GetModule("mUIMisc")
 local MB = E:GetModule("mUImoveBlizz")
 local MERA = E:GetModule("mUIAnnounce")
 
+--Cache global variables
+
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: GUILD_MOTD_LABEL2
+
 local function Misc()
 	E.Options.args.mui.args.misc = {
 		order = 9,
@@ -62,12 +69,6 @@ local function Misc()
 				type = "toggle",
 				name = MERA.modName,
 				desc = L["Combat Status, Skill gains"],
-			},
-			autoscreenshot = {
-				order = 9,
-				type = "toggle",
-				name = L["Auto Screenshot"],
-				desc = L["Takes a screenshot on achievement earns and legendary loot."],
 			},
 		},
 	}

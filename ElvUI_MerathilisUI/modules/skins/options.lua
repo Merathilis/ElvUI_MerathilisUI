@@ -7,6 +7,8 @@ local _G = _G
 local ipairs, unpack = ipairs, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LibStub, GARRISON_LOCATION_TOOLTIP, COLLECTIONS, OBJECTIVES_TRACKER_LABEL, DRESSUP_FRAME
 
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
@@ -313,7 +315,7 @@ local function SkinsTable()
 					MER:LoadOCDProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
-				print(profileString..addonName)
+				MER:Print(profileString..addonName)
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}

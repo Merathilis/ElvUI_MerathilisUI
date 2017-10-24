@@ -113,8 +113,6 @@ L["Changes the transparency of all the movers."] = "Ändert die Transparenz von 
 L["Announce"] = "Ankündigungen"
 L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
-L["Auto Screenshot"] = true
-L["Takes a screenshot on achievement earns and legendary loot."] = "Macht einen Screenshot beim Erringen eines Erfolges und erbeuten eines Legendarys."
 L[" members"] = " Mitglieder"
 
 -- TooltipIcon

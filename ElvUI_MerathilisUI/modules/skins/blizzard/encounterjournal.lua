@@ -5,10 +5,11 @@ local S = E:GetModule('Skins')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, unpack = pairs, unpack
-
+local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+-- WoW API / Variables
+local CreateFrame = CreateFrame
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleEncounterJournal
+-- GLOBALS: styleEncounterJournal, hooksecurefunc
 
 function styleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
@@ -18,18 +19,18 @@ function styleEncounterJournal()
 	EncounterInfo.instanceTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 	EncounterInfo.encounterTitle:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	EncounterJournalEncounterFrameInfo:DisableDrawLayer("BACKGROUND")
-	EncounterJournal:DisableDrawLayer("BORDER")
-	EncounterJournalInset:DisableDrawLayer("BORDER")
-	EncounterJournalNavBar:DisableDrawLayer("BORDER")
-	EncounterJournalSearchResults:DisableDrawLayer("BORDER")
-	EncounterJournal:DisableDrawLayer("OVERLAY")
-	EncounterJournalInstanceSelectSuggestTab:DisableDrawLayer("OVERLAY")
-	EncounterJournalInstanceSelectDungeonTab:DisableDrawLayer("OVERLAY")
-	EncounterJournalInstanceSelectRaidTab:DisableDrawLayer("OVERLAY")
+	_G["EncounterJournalEncounterFrameInfo"]:DisableDrawLayer("BACKGROUND")
+	_G["EncounterJournal"]:DisableDrawLayer("BORDER")
+	_G["EncounterJournalInset"]:DisableDrawLayer("BORDER")
+	_G["EncounterJournalNavBar"]:DisableDrawLayer("BORDER")
+	_G["EncounterJournalSearchResults"]:DisableDrawLayer("BORDER")
+	_G["EncounterJournal"]:DisableDrawLayer("OVERLAY")
+	_G["EncounterJournalInstanceSelectSuggestTab"]:DisableDrawLayer("OVERLAY")
+	_G["EncounterJournalInstanceSelectDungeonTab"]:DisableDrawLayer("OVERLAY")
+	_G["EncounterJournalInstanceSelectRaidTab"]:DisableDrawLayer("OVERLAY")
 
-	EncounterJournalNavBar:GetRegions():Hide()
-	EncounterJournalNavBarOverlay:Hide()
+	_G["EncounterJournalNavBar"]:GetRegions():Hide()
+	_G["EncounterJournalNavBarOverlay"]:Hide()
 
 	if EJ.navBar.backdrop then
 		EJ.navBar.backdrop:Hide()
@@ -39,7 +40,7 @@ function styleEncounterJournal()
 		MERS:CreateStripes(EJ)
 	end
 
-	EncounterJournalEncounterFrameInfoCreatureButton1:SetPoint("TOPLEFT", EncounterJournalEncounterFrameInfoModelFrame, 0, -35)
+	_G["EncounterJournalEncounterFrameInfoCreatureButton1"]:SetPoint("TOPLEFT", _G["EncounterJournalEncounterFrameInfoModelFrame"], 0, -35)
 
 	do
 		local numBossButtons = 1
@@ -65,8 +66,8 @@ function styleEncounterJournal()
 			end
 
 			-- move last tab
-			local _, point = EncounterJournalEncounterFrameInfoModelTab:GetPoint()
-			EncounterJournalEncounterFrameInfoModelTab:SetPoint("TOP", point, "BOTTOM", 0, 1)
+			local _, point = _G["EncounterJournalEncounterFrameInfoModelTab"]:GetPoint()
+			_G["EncounterJournalEncounterFrameInfoModelTab"]:SetPoint("TOP", point, "BOTTOM", 0, 1)
 		end)
 	end
 
@@ -157,7 +158,7 @@ function styleEncounterJournal()
 	end
 
 	-- From Aurora
-	local LootJournal = EncounterJournal.LootJournal
+	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
 
 	local itemsLeftSide = LootJournal.LegendariesFrame.buttons
@@ -216,7 +217,7 @@ function styleEncounterJournal()
 
 	local function rewardOnEnter()
 		for i = 1, 2 do
-			local item = EncounterJournalTooltip["Item"..i]
+			local item = _G["EncounterJournalTooltip"]["Item"..i]
 			if item:IsShown() then
 				if item.IconBorder:IsShown() then
 					-- item.newBg:SetVertexColor(item.IconBorder:GetVertexColor())
@@ -228,7 +229,7 @@ function styleEncounterJournal()
 		end
 	end
 
-	local suggestFrame = EncounterJournal.suggestFrame
+	local suggestFrame = _G["EncounterJournal"].suggestFrame
 
 	--[[ Suggestion 1 ]]
 	local suggestion = suggestFrame.Suggestion1
@@ -284,7 +285,6 @@ function styleEncounterJournal()
 	end
 
 	-- Hook functions
-
 	hooksecurefunc("EJSuggestFrame_RefreshDisplay", function()
 		local self = suggestFrame
 

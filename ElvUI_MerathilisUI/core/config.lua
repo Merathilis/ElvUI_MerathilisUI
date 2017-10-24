@@ -6,6 +6,8 @@ if E.db.mui == nil then E.db.mui = {} end
 -- Lua functions
 local format = format
 local tinsert = table.insert
+-- WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: StaticPopup_Show

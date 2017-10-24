@@ -3,6 +3,13 @@ local MERB = E:NewModule("mUIBags", "AceHook-3.0", "AceEvent-3.0")
 local MERS = E:GetModule("muiSkins")
 local B = E:GetModule("Bags")
 
+--Cache global variables
+local _G = _G
+--WoW API / Variables
+local CreateFrame = CreateFrame
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
+
 local function EventHandler(self, event)
 	if ( event == "PLAYER_ENTERING_WORLD" ) then
 		self:RegisterEvent("AUCTION_HOUSE_SHOW")
@@ -15,28 +22,28 @@ local function EventHandler(self, event)
 end
 
 function MERB:StyleBags()
-	if ElvUI_ContainerFrame then
-		MERS:CreateGradient(ElvUI_ContainerFrame)
-		MERS:CreateStripes(ElvUI_ContainerFrame)
-		MERS:CreateGradient(ElvUI_ContainerFrameContainerHolder)
-		MERS:CreateStripes(ElvUI_ContainerFrameContainerHolder)
+	if _G["ElvUI_ContainerFrame"] then
+		MERS:CreateGradient(_G["ElvUI_ContainerFrame"])
+		MERS:CreateStripes(_G["ElvUI_ContainerFrame"])
+		MERS:CreateGradient(_G["ElvUI_ContainerFrameContainerHolder"])
+		MERS:CreateStripes(_G["ElvUI_ContainerFrameContainerHolder"])
 	end
 
-	if ElvUIBags then
-		MERS:CreateGradient(ElvUIBags)
-		MERS:CreateStripes(ElvUIBags)
+	if _G["ElvUIBags"] then
+		MERS:CreateGradient(_G["ElvUIBags"])
+		MERS:CreateStripes(_G["ElvUIBags"])
 	end
 end
 
 function MERB:StyleBank()
-	if ElvUI_BankContainerFrame then
-		if ElvUI_BankContainerFrame.isSkinned then return end
-		MERS:CreateGradient(ElvUI_BankContainerFrame)
-		MERS:CreateStripes(ElvUI_BankContainerFrame)
-		MERS:CreateGradient(ElvUI_BankContainerFrameContainerHolder)
-		MERS:CreateStripes(ElvUI_BankContainerFrameContainerHolder)
+	if _G["ElvUI_BankContainerFrame"] then
+		if _G["ElvUI_BankContainerFrame"].isSkinned then return end
+		MERS:CreateGradient(_G["ElvUI_BankContainerFrame"])
+		MERS:CreateStripes(_G["ElvUI_BankContainerFrame"])
+		MERS:CreateGradient(_G["ElvUI_BankContainerFrameContainerHolder"])
+		MERS:CreateStripes(_G["ElvUI_BankContainerFrameContainerHolder"])
 
-		ElvUI_BankContainerFrame.isSkinned = true
+		_G["ElvUI_BankContainerFrame"].isSkinned = true
 	end
 end
 

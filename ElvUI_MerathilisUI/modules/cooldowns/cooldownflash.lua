@@ -27,7 +27,7 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local GetContainerItemID = GetContainerItemID
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE
+-- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE, MERData_DCP
 
 CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime

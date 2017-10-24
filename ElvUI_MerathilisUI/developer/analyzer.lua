@@ -1,3 +1,14 @@
+--Cache global variables
+local _G = _G
+local ipairs = ipairs
+--WoW API / Variables
+local GetCVar = GetCVar
+local SetCVar = SetCVar
+local ReloadUI = ReloadUI
+local GetMouseFocus = GetMouseFocus
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: SLASH_ANALYZE1, SLASH_PROFILE1, ChatFrame1, FRAME
+
 SLASH_ANALYZE1 = "/analyze"
 
 SlashCmdList["ANALYZE"] = function(arg)

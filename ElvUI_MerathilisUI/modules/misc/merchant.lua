@@ -17,7 +17,7 @@ local GetMerchantItemLink = GetMerchantItemLink
 local GetMerchantItemMaxStack = GetMerchantItemMaxStack
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: MerchantFrame, GameTooltip, MERCHANT_ITEMS_PER_PAGE
+-- GLOBALS: MerchantFrame, GameTooltip, MERCHANT_ITEMS_PER_PAGE, LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR
 
 ----------------------------------------------------------------------------------------
 --	Show item level for weapons and armor in merchant

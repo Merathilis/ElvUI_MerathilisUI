@@ -1,11 +1,32 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
+--Cache global variables
+local _G = _G
+local type = type
 local format = string.format
 local join = string.join
 local floor = math.floor
-local wipe = table.wipe
+local twipe = table.wipe
+local date = date
+--WoW API / Variables
+local CalendarGetDate = CalendarGetDate
+local GetGameTime = GetGameTime
+local GetDifficultyInfo = GetDifficultyInfo
+local GetQuestsCompleted = GetQuestsCompleted
+local GetNumSavedInstances = GetNumSavedInstances
+local GetNumWorldPVPAreas = GetNumWorldPVPAreas
+local GetNumSavedWorldBosses = GetNumSavedWorldBosses
+local GetSavedInstanceInfo = GetSavedInstanceInfo
+local GetSavedWorldBossInfo = GetSavedWorldBossInfo
+local GetWorldPVPAreaInfo = GetWorldPVPAreaInfo
+local RequestRaidInfo = RequestRaidInfo
+local SecondsToTime = SecondsToTime
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: VOICE_CHAT_BATTLEGROUND, WINTERGRASP_IN_PROGRESS, QUEUE_TIME_UNAVAILABLE, difficultyId, instanceID
+-- GLOBALS: ChatFrame_TimeBreakDown, RAID_INFO_WORLD_BOSS, TIMEMANAGER_TOOLTIP_REALMTIME, TIMEMANAGER_TOOLTIP_LOCALTIME
 
+local _
 local APM = { TIMEMANAGER_PM, TIMEMANAGER_AM }
 local europeDisplayFormat = '';
 local ukDisplayFormat = '';
@@ -91,14 +112,14 @@ local function OnEvent(self, event)
 	if event == "QUEST_COMPLETE" then
 		updateQuestTable = true
 	elseif (event == "QUEST_LOG_UPDATE" and updateQuestTable) or event == "ELVUI_FORCE_RUN" then
-		wipe(quests)
+		twipe(quests)
 		quests = GetQuestsCompleted()
 		updateQuestTable = false
 	end
 end
 
 local function Click()
-	GameTimeFrame:Click();
+	_G["GameTimeFrame"]:Click();
 end
 
 local function OnLeave(self)
@@ -219,7 +240,7 @@ function Update(self, t)
 		OnEnter(self)
 	end
 
-	if GameTimeFrame.flashInvite then
+	if _G["GameTimeFrame"].flashInvite then
 		E:Flash(self, 0.53)
 	else
 		E:StopFlash(self)
@@ -240,10 +261,10 @@ function Update(self, t)
 	curAmPm = AmPm
 
 	if AmPm == -1 then
-		self.text:FontTemplate(fontTemplate, self.db.fontSize*1.6, self.db.fontOutline)
+		self.text:FontTemplate(nil, self.db.fontSize*1.6, self.db.fontOutline)
 		self.text:SetFormattedText(europeDisplayFormat, Hr, Min)
 	else
-		self.text:FontTemplate(fontTemplate, self.db.fontSize*1.6, self.db.fontOutline)
+		self.text:FontTemplate(nil, self.db.fontSize*1.6, self.db.fontOutline)
 		self.text:SetFormattedText(ukDisplayFormat, Hr, Min, APM[AmPm])
 	end
 	lastPanel = self

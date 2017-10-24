@@ -6,7 +6,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 --WoW API / Variables
 
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
--- GLOBALS:
+-- GLOBALS: TOOLTIP_BATTLE_PET, FACTION, ACHIEVEMENT_BUTTON
 
 local function Tooltip()
 	E.Options.args.mui.args.tooltip = {

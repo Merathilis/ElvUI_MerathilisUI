@@ -4,7 +4,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: 
+-- GLOBALS: OzCooldownsDB, LibStub
 
 local playerName = UnitName("player")
 local profileName = playerName.."-mUI"

@@ -4,11 +4,11 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-local unpack = unpack
+local _G = _G
 -- WoW API
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleCharacter, CharacterStatsPane
+-- GLOBALS:
 
 local function styleBNet()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
@@ -22,10 +22,8 @@ local function styleBNet()
 	_G["BNToastFrameCloseButton"]:SetNormalTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
 	_G["BNToastFrameCloseButton"]:GetNormalTexture():SetAlpha(0.5)
 
-	MERS:CreateGradient(BNToastFrame)
-	if not BNToastFrame.stripes then
-		MERS:CreateStripes(BNToastFrame)
-	end
+	MERS:CreateGradient(_G["BNToastFrame"])
+	MERS:CreateStripes(_G["BNToastFrame"])
 end
 
 S:AddCallback("mUIBNet", styleBNet)

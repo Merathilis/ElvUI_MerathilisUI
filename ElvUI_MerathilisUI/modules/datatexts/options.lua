@@ -5,12 +5,12 @@ local DT = E:GetModule("DataTexts")
 --Cache global variables
 --Lua functions
 local _G = _G
-local pairs, type = pairs, type
+local pairs, print, type = pairs, print, type
 --WoW API / Variables
 local NONE = NONE
 
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
--- GLOBALS: LeftMiniPanel, Minimap
+-- GLOBALS: LibStub
 
 function MER:LoadDataTexts()
 	local db = E.db.mui.datatexts

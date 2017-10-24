@@ -3,15 +3,17 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-local gmatch, gsub, find, sub = string.gmatch, string.gsub, string.find, string.sub
+local format, gmatch, gsub, find, sub = string.format, string.gmatch, string.gsub, string.find, string.sub
 local tinsert = table.insert
 local pairs, tostring = pairs, tostring
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local SOUNDKIT = SOUNDKIT
+local PlaySound = PlaySound
+local CLOSE = CLOSE
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: MERData, UISpecialFrames
+-- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 
 local ChangeLogData = {
@@ -124,7 +126,7 @@ function MER:CountDown()
 		MerathilisUIChangeLog.close:Enable()
 		self:CancelAllTimers()
 	else
-		MerathilisUIChangeLog.countdown:SetText(string.format("(%s)", self.time))
+		MerathilisUIChangeLog.countdown:SetText(format("(%s)", self.time))
 	end
 end
 

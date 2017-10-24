@@ -1,6 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local LP = E:GetModule("LocPanel")
-local DEFAULT = DEFAULT
+local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
+
+--Cache global variables
+local format = string.format
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
 	E.Options.args.mui.args.locPanel = {

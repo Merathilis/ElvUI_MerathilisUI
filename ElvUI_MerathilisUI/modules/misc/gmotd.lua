@@ -16,7 +16,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
+-- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 

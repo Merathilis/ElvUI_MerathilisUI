@@ -2,6 +2,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = E:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 
+--Cache global variables
+local _G = _G
+local pairs, select = pairs, select
+--WoW API / Variables
+local CreateFrame = CreateFrame
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
+
 local function UpdateAuraIconSettings(self, auras, noCycle)
 	local frame = auras:GetParent()
 	local type = auras.type

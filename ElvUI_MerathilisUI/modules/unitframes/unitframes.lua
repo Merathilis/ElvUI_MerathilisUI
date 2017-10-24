@@ -5,6 +5,10 @@ MUF.modName = L["UnitFrames"]
 --Cache global variables
 --Lua functions
 --WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: UF
 
 function MUF:UnitDefaults()
 	if E.db.mui.unitframes.player.portraitWidth == nil then

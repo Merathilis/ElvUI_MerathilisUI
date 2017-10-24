@@ -7,14 +7,17 @@ local S = E:GetModule("Skins")
 local _G = _G
 local next, pairs, table, getmetatable = next, pairs, table, getmetatable
 local match = string.match
+local strtrim = string.trim
 -- WoW API / Variables
-
+local IsAddOnLoaded = IsAddOnLoaded
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: FlightPointsTaxiChoiceContainer, FlightPointsTaxiChoiceContainerScrollBar
 -- GLOBALS: FlightPointsTaxiChoice, NumTaxiNodes, FlightPointsTaxiChoiceContainer_Update
 -- GLOBALS: TaxiFrame, TaxiNodeName, TaxiNodeGetType, TakeTaxiNode, HybridScrollFrame_CreateButtons
 -- GLOBALS: HybridScrollFrame_GetOffset, FlightPoints_CreateFlyPathTable, FlightPoints_GetFlight
 -- GLOBALS: HybridScrollFrame_Update, FlightPoints_GetFlight, FlightMapFrame
+-- GLOBALS: FlightPoints_Config, FlightPoints_OnLoad, FlightPoints_Show, FlightPointsTaxiChoiceButton_OnLoad
+-- GLOBALS: FlightPointsTaxiChoiceButton_OnClick, FlightPoints_TakeFlyPath, FlightPoints_OnEvent
 
 -- Credits liquidbase (DuffedUI)
 

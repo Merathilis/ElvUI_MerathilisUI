@@ -4,8 +4,10 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
+local pairs = pairs
 -- WoW API
-local WorldStateAlwaysUpFrame = WorldStateAlwaysUpFrame
+local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
 local function styleMisc()
@@ -16,35 +18,35 @@ local function styleMisc()
 		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
 	end)
 
-	MERS:CreateGradient(GameMenuFrame)
-	MERS:CreateStripes(GameMenuFrame)
+	MERS:CreateGradient(_G["GameMenuFrame"])
+	MERS:CreateStripes(_G["GameMenuFrame"])
 
 	-- Graveyard button (a bit ugly if you press it)
-	GhostFrame:StripTextures()
-	GhostFrameContentsFrame:StripTextures()
+	_G["GhostFrame"]:StripTextures()
+	_G["GhostFrameContentsFrame"]:StripTextures()
 
 	-- tooltips
 	local tooltips = {
-		GameTooltip,
-		FriendsTooltip,
-		ItemRefTooltip,
-		ItemRefShoppingTooltip1,
-		ItemRefShoppingTooltip2,
-		ItemRefShoppingTooltip3,
-		AutoCompleteBox,
-		ShoppingTooltip1,
-		ShoppingTooltip2,
-		ShoppingTooltip3,
-		FloatingBattlePetTooltip,
-		FloatingPetBattleAbilityTooltip,
-		FloatingGarrisonFollowerAbilityTooltip,
-		WorldMapTooltip,
-		WorldMapCompareTooltip1,
-		WorldMapCompareTooltip2,
-		WorldMapCompareTooltip3,
-		DropDownList1MenuBackdrop,
-		DropDownList2MenuBackdrop,
-		DropDownList3MenuBackdrop,
+		_G["GameTooltip"],
+		_G["FriendsTooltip"],
+		_G["ItemRefTooltip"],
+		_G["ItemRefShoppingTooltip1"],
+		_G["ItemRefShoppingTooltip2"],
+		_G["ItemRefShoppingTooltip3"],
+		_G["AutoCompleteBox"],
+		_G["ShoppingTooltip1"],
+		_G["ShoppingTooltip2"],
+		_G["ShoppingTooltip3"],
+		_G["FloatingBattlePetTooltip"],
+		_G["FloatingPetBattleAbilityTooltip"],
+		_G["FloatingGarrisonFollowerAbilityTooltip"],
+		_G["WorldMapTooltip"],
+		_G["WorldMapCompareTooltip1"],
+		_G["WorldMapCompareTooltip2"],
+		_G["WorldMapCompareTooltip3"],
+		_G["DropDownList1MenuBackdrop"],
+		_G["DropDownList2MenuBackdrop"],
+		_G["DropDownList3MenuBackdrop"],
 	}
 
 	for _, frame in pairs(tooltips) do

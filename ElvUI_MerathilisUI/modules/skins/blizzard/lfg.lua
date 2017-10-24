@@ -4,18 +4,20 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local select = select
 
 --WoW API / Variables
+local CreateFrame = CreateFrame
 local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
 
 local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
-	MERS:CreateGradient(PVEFrame)
-	if not PVEFrame.stripes then
-		MERS:CreateStripes(PVEFrame)
-	end
+	MERS:CreateGradient(_G["PVEFrame"])
+	MERS:CreateStripes(_G["PVEFrame"])
 
 	local function onEnter(self)
 		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
@@ -26,7 +28,7 @@ local function styleLFG()
 	end
 
 	for i = 1, 4 do
-		local bu = GroupFinderFrame["groupButton"..i]
+		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 		bu:StripTextures()
 
 		MERS:CreateBD(bu, .25)
@@ -39,7 +41,7 @@ local function styleLFG()
 	end
 
 	-- Category selection
-	local CategorySelection = LFGListFrame.CategorySelection
+	local CategorySelection = _G["LFGListFrame"].CategorySelection
 
 	CategorySelection.Inset.Bg:Hide()
 	select(10, CategorySelection.Inset:GetRegions()):Hide()
@@ -63,14 +65,14 @@ local function styleLFG()
 	end)
 
 	-- Invite frame
-	MERS:CreateGradient(LFGListInviteDialog)
-	MERS:CreateStripes(LFGListInviteDialog)
+	MERS:CreateGradient(_G["LFGListInviteDialog"])
+	MERS:CreateStripes(_G["LFGListInviteDialog"])
 
-	LFGListInviteDialog.GroupName:ClearAllPoints()
-	LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)
+	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
+	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)
 
-	LFGListInviteDialog.ActivityName:ClearAllPoints()
-	LFGListInviteDialog.ActivityName:SetPoint("TOP", 0, -80)
+	_G["LFGListInviteDialog"].ActivityName:ClearAllPoints()
+	_G["LFGListInviteDialog"].ActivityName:SetPoint("TOP", 0, -80)
 
 	local orginalFunction = LFGListInviteDialog_Show
 	LFGListInviteDialog_Show = function(self, resultID)

@@ -4,12 +4,16 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 --WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
 
 local function styleCalendar()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
-	CalendarFrame:DisableDrawLayer("BORDER")
+	_G["CalendarFrame"]:DisableDrawLayer("BORDER")
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i]:DisableDrawLayer("BACKGROUND")
@@ -19,17 +23,9 @@ local function styleCalendar()
 		_G["CalendarWeekday"..i.."Background"]:SetAlpha(0)
 	end
 
-	if not CalendarFrame.stripes then
-		MERS:CreateStripes(CalendarFrame)
-	end
-
-	if not CalendarCreateEventFrame.stripes then
-		MERS:CreateStripes(CalendarCreateEventFrame)
-	end
-
-	if not CalendarViewHolidayFrame.stripes then
-		MERS:CreateStripes(CalendarViewHolidayFrame)
-	end
+	MERS:CreateStripes(_G["CalendarFrame"])
+	MERS:CreateStripes(_G["CalendarCreateEventFrame"])
+	MERS:CreateStripes(_G["CalendarViewHolidayFrame"])
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)

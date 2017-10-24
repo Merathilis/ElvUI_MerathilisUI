@@ -17,8 +17,8 @@ local function styleMail()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
 
 	-- Change the Minimap Mail icon
-	MiniMapMailIcon:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Mail")
-	MiniMapMailIcon:SetSize(16, 16)
+	_G["MiniMapMailIcon"]:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Mail")
+	_G["MiniMapMailIcon"]:SetSize(16, 16)
 
 	local MailFrame = _G["MailFrame"]
 	select(18, MailFrame:GetRegions()):Hide()
@@ -97,16 +97,16 @@ local function styleMail()
 	OpenMailScrollFrame.ScrollBar:ClearAllPoints()
 	OpenMailScrollFrame.ScrollBar:SetPoint("TOPRIGHT", OpenMailScrollFrame, -1, -18)
 	OpenMailScrollFrame.ScrollBar:SetPoint("BOTTOMRIGHT", OpenMailScrollFrame, -1, 18)
-	OpenScrollBarBackgroundTop:Hide()
+	_G["OpenScrollBarBackgroundTop"]:Hide()
 	select(2, OpenMailScrollFrame:GetRegions()):Hide()
-	OpenStationeryBackgroundLeft:Hide()
-	OpenStationeryBackgroundRight:Hide()
+	_G["OpenStationeryBackgroundLeft"]:Hide()
+	_G["OpenStationeryBackgroundRight"]:Hide()
 
-	InvoiceTextFontNormal:SetTextColor(1, 1, 1)
-	InvoiceTextFontSmall:SetTextColor(1, 1, 1)
-	OpenMailArithmeticLine:SetColorTexture(0.8, 0.8, 0.8)
-	OpenMailArithmeticLine:SetSize(256, 1)
-	OpenMailInvoiceAmountReceived:SetPoint("TOPRIGHT", OpenMailArithmeticLine, "BOTTOMRIGHT", -14, -5)
+	_G["InvoiceTextFontNormal"]:SetTextColor(1, 1, 1)
+	_G["InvoiceTextFontSmall"]:SetTextColor(1, 1, 1)
+	_G["OpenMailArithmeticLine"]:SetColorTexture(0.8, 0.8, 0.8)
+	_G["OpenMailArithmeticLine"]:SetSize(256, 1)
+	_G["OpenMailInvoiceAmountReceived"]:SetPoint("TOPRIGHT", _G["OpenMailArithmeticLine"], "BOTTOMRIGHT", -14, -5)
 
 	hooksecurefunc("OpenMail_Update", function()
 		if ( not _G["InboxFrame"].openMailID ) then
@@ -118,11 +118,11 @@ local function styleMail()
 			local invoiceType, _, playerName = GetInboxInvoiceInfo(_G["InboxFrame"].openMailID)
 			if playerName then
 				if invoiceType == "buyer" then
-					OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
+					_G["OpenMailArithmeticLine"]:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
 				elseif invoiceType == "seller" then
-					OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoiceHouseCut", "BOTTOMRIGHT", -114, -22)
+					_G["OpenMailArithmeticLine"]:SetPoint("TOP", "OpenMailInvoiceHouseCut", "BOTTOMRIGHT", -114, -22)
 				elseif invoiceType == "seller_temp_invoice" then
-					OpenMailArithmeticLine:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
+					_G["OpenMailArithmeticLine"]:SetPoint("TOP", "OpenMailInvoicePurchaser", "BOTTOMLEFT", 125, -5)
 				end
 			end
 		end

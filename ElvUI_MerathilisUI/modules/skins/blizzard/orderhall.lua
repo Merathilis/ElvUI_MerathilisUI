@@ -6,20 +6,20 @@ local LSM = LibStub("LibSharedMedia-3.0")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local ipairs = ipairs
+local ipairs, select, unpack = ipairs, select, unpack
 -- WoW API / Variables
-local C_Timer_After = C_Timer.After
--- GLOBALS: OrderHallCommandBar
+local CreateFrame = CreateFrame
+local C_TimerAfter = C_Timer.After
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
 
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	local b = OrderHallCommandBar
+	local b = _G["OrderHallCommandBar"]
 
 	MERS:CreateGradient(b)
-	if not b.stripes then
-		MERS:CreateStripes(b)
-	end
+	MERS:CreateStripes(b)
 
 	b.Background:SetAtlas(nil)
 
@@ -46,25 +46,23 @@ local function styleOrderhall()
 	mapButton:HookScript("OnEnter", function() mapButton.Text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b) end)
 	mapButton:HookScript("OnLeave", function() mapButton.Text:SetTextColor(1, 1, 1) end)
 
-	local combatAlly = OrderHallMissionFrameMissions.CombatAllyUI
+	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
 	combatAlly:StripTextures()
 	MERS:CreateBD(combatAlly, .25)
 
 	-- Mission Frame
-	MERS:CreateGradient(OrderHallMissionFrame)
-	if not OrderHallMissionFrame.stripes then
-		MERS:CreateStripes(OrderHallMissionFrame)
-	end
+	MERS:CreateGradient(_G["OrderHallMissionFrame"])
+	MERS:CreateStripes(_G["OrderHallMissionFrame"])
 
-	OrderHallMissionFrameMissions.MaterialFrame:StripTextures()
-	OrderHallMissionFrameMissionsListScrollFrame:StripTextures()
+	_G["OrderHallMissionFrameMissions"].MaterialFrame:StripTextures()
+	_G["OrderHallMissionFrameMissionsListScrollFrame"]:StripTextures()
 
-	OrderHallMissionFrame.MissionTab.MissionPage:StripTextures()
+	_G["OrderHallMissionFrame"].MissionTab.MissionPage:StripTextures()
 
-	OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage:StripTextures()
-	MERS:CreateBD(OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage, .5)
+	_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage:StripTextures()
+	MERS:CreateBD(_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage, .5)
 
-	for i, v in ipairs(OrderHallMissionFrame.MissionTab.MissionList.listScroll.buttons) do
+	for i, v in ipairs(_G["OrderHallMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
 		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
 		if Button and not Button.skinned then
 			Button:StripTextures()
@@ -86,11 +84,11 @@ local function styleOrderhall()
 	end
 
 	-- Missions
-	local Mission = OrderHallMissionFrameMissions
+	local Mission = _G["OrderHallMissionFrameMissions"]
 	Mission.CompleteDialog:StripTextures()
 	Mission.CompleteDialog:SetTemplate("Transparent")
 
-	local MissionPage = OrderHallMissionFrame.MissionTab.MissionPage
+	local MissionPage = _G["OrderHallMissionFrame"].MissionTab.MissionPage
 	for i = 1, 10 do
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
@@ -98,7 +96,7 @@ local function styleOrderhall()
 
 	-- Credits Simpy <3
 	-- Talent Frame
-	local TalentFrame = OrderHallTalentFrame
+	local TalentFrame = _G["OrderHallTalentFrame"]
 	TalentFrame:StripTextures()
 	TalentFrame.LeftInset:StripTextures()
 	TalentFrame:SetTemplate("Transparent")
@@ -108,7 +106,7 @@ local function styleOrderhall()
 	TalentFrame.BackButton:SetFrameLevel(TalentFrame.BackButton:GetFrameLevel()+2)
 	TalentFrame.BackButton:Point('BOTTOMRIGHT', TalentFrame, 'BOTTOMRIGHT', -2, 2)
 
-	local TalentInset = ClassHallTalentInset
+	local TalentInset = _G["ClassHallTalentInset"]
 	local TalentClassBG = TalentFrame.Background
 	TalentInset:CreateBackdrop("Transparent")
 	TalentInset.backdrop:SetFrameLevel(TalentInset.backdrop:GetFrameLevel()+1)
@@ -218,10 +216,10 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 		OrderHallFollower:RegisterEvent("GARRISON_FOLLOWER_REMOVED")
 
 	elseif event ~= "ADDON_LOADED" then
-		local bar = OrderHallCommandBar
+		local bar = _G["OrderHallCommandBar"]
 
 		local index = 1
-		C_Timer_After(0.3, function() -- Give it a bit more time to collect.
+		C_TimerAfter(0.3, function() -- Give it a bit more time to collect.
 			local last
 			for i, child in ipairs({bar:GetChildren()}) do
 				if child.Icon and child.Count and child.TroopPortraitCover then

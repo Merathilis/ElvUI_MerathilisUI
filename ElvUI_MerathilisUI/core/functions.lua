@@ -3,7 +3,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local print, select = print, select
+local pairs, print, select = pairs, print, select
 local format = string.format
 -- WoW API / Variables
 local GetAchievementInfo = GetAchievementInfo
@@ -12,7 +12,8 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerNumSlots = GetContainerNumSlots
 
---GLOBALS: NUM_BAG_SLOTS
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 MER.dummy = function() return end
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"

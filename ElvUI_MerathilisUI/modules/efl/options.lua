@@ -1,6 +1,15 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local EFL = E:GetModule("EnhancedFriendsList")
 
+--Cache global variables
+
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AceGUIWidgetLSMlists, FONT_SIZE, FACTION_ALLIANCE, FACTION_HORDE, FACTION_STANDING_LABEL4
+-- GLOBALS: FRIENDS_LIST_ONLINE, FRIENDS_LIST_OFFLINE, DEFAULT_DND_MESSAGE, DEFAULT_AFK_MESSAGE
+-- GLOBALS: FriendsFrame_UpdateFriends
+
 local function EnhancedFriendsList()
 	E.Options.args.mui.args.efl = {
 		type = "group",

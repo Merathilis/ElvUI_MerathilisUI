@@ -2,12 +2,20 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule("DataTexts")
 
 -- All Credits belong to Lockslap (ElvUI_SystemDT)
--- Caching global variables
--- Lua functions
--- WoW API / Variables
 
+--Cache global variables
 local format = string.format
 local join = string.join
+local tsort = table.sort
+--WoW API / Variables
+local CastSpellByName = CastSpellByName
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
+local GetProfessionName = GetProfessionName
+local IsControlKeyDown = IsControlKeyDown
+local IsShiftKeyDown = IsShiftKeyDown
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: PROFESSIONS_FIRST_AID
 
 local lastPanel
 local profValues = {}
@@ -158,7 +166,7 @@ local function OnEnter(self)
 	end
 
 	if #professions == 0 then return end
-	sort(professions, function(a, b) return a["name"] < b["name"] end)
+	tsort(professions, function(a, b) return a["name"] < b["name"] end)
 
 	for i = 1, #professions do
 		DT.tooltip:AddDoubleLine(join("", professions[i].texture, "  ", professions[i].name), tooltipString:format(professions[i].rank, professions[i].maxRank), 1, 1, 1, 1, 1, 1)

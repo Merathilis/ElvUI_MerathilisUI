@@ -2,7 +2,7 @@
 --Lua functions
 local _G = _G
 local ipairs, pairs, type = ipairs, pairs, type
-local tinsert, tsort = table.insert, table.sort
+local tforeach, tinsert, tsort = table.foreach, table.insert, table.sort
 local format, match = string.format, string.match
 --WoW API / Variables
 local GetNumSavedInstances = GetNumSavedInstances
@@ -11,6 +11,7 @@ local GetSavedInstanceInfo = GetSavedInstanceInfo
 local RequestRaidInfo = RequestRaidInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, EncounterJournal, EJ_GetInstanceInfo, EJ_GetDifficulty, EJ_GetInstanceInfo
+-- GLOBALS: EncounterJournalPlus_InstanceInfo_OnLoad, EncounterJournalPlus_InstanceInfo_OnEvent
 
 local function GetTableSize(tb)
 	local size = 0
@@ -136,7 +137,7 @@ end
 
 local function HandleEncounterJournalScrollInstances(func)
 	if EncounterJournal then
-		table.foreach(EncounterJournal.instanceSelect.scroll.child, function(instanceButtonKey, instanceButton)
+		tforeach(EncounterJournal.instanceSelect.scroll.child, function(instanceButtonKey, instanceButton)
 			if match(instanceButtonKey, "instance%d+") and type(instanceButton) == "table" then
 				func(instanceButton)
 			end
@@ -198,7 +199,7 @@ local function RenderInstanceInfo(instanceButton, savedInstance)
 	local difficulty = ""
 	local encounterProgress = ""
 
-	table.foreach(savedInstance, function(index, instance)
+	tforeach(savedInstance, function(index, instance)
 		difficulty = difficulty .. "\n" .. instance.difficultyName
 		encounterProgress = encounterProgress .. "\n" .. format("%s/%s", instance.encounterProgress, instance.numEncounters)
 	end)
