@@ -174,7 +174,7 @@ function NF:CreateToast()
 	local toast = tremove(toasts, 1)
 
 	toast = CreateFrame("Frame", nil, E.UIParent)
-	toast:SetFrameStrata("FULLSCREEN_DIALOG")
+	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
