@@ -27,6 +27,11 @@ local function styleBenikUI()
 		MERS:CreateStripes(_G["BuiRightChatDTPanel"])
 		MERS:CreateGradient(_G["BuiRightChatDTPanel"])
 	end
+
+	if _G["BuiTaxiButton"] then
+		MERS:CreateStripes(_G["BuiTaxiButton"])
+		MERS:CreateGradient(_G["BuiTaxiButton"])
+	end
 end
 
 S:AddCallbackForAddon("ElvUI_BenikUI", "mUIBenikUI", styleBenikUI)
