@@ -13,8 +13,6 @@ local _G = _G
 local function styleCalendar()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
-	_G["CalendarFrame"]:DisableDrawLayer("BORDER")
-
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i]:DisableDrawLayer("BACKGROUND")
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)
@@ -24,8 +22,11 @@ local function styleCalendar()
 	end
 
 	MERS:CreateStripes(_G["CalendarFrame"])
+	MERS:CreateGradient(_G["CalendarFrame"])
 	MERS:CreateStripes(_G["CalendarCreateEventFrame"])
+	MERS:CreateGradient(_G["CalendarCreateEventFrame"])
 	MERS:CreateStripes(_G["CalendarViewHolidayFrame"])
+	MERS:CreateGradient(_G["CalendarViewHolidayFrame"])
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)
