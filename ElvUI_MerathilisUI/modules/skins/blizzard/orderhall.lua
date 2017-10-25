@@ -219,7 +219,7 @@ OrderHallFollower:SetScript("OnEvent", function(self, event, addon)
 		local bar = _G["OrderHallCommandBar"]
 
 		local index = 1
-		C_TimerAfter(0.3, function() -- Give it a bit more time to collect.
+		C_TimerAfter(0.5, function() -- Give it a bit more time to collect.
 			local last
 			for i, child in ipairs({bar:GetChildren()}) do
 				if child.Icon and child.Count and child.TroopPortraitCover then
