@@ -1,3 +1,7 @@
+[b][color=orange]v3.11[/color], 27.10.2017[/b][list]
+[*]Fix the UnitFrame tags for v1.
+[*]Updated my skinning function for stripes/gradient.[/list]
+
 [b][color=orange]v3.10[/color], 27.10.2017[/b][list]
 [*]Change the frame strata for the locPanel & Notifications.
 [*]Add QuickJoinNotifications to my Notifications.
