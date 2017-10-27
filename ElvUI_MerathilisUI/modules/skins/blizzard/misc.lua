@@ -55,6 +55,16 @@ local function styleMisc()
 			MERS:CreateStripes(frame)
 		end
 	end
+
+	-- Actionbars backdrop
+	for i = 1, 6 do
+		local bar = _G["ElvUI_Bar"..i]
+		local backdrop = bar.backdrop
+		if not backdrop.styled then
+			MERS:CreateGradient(backdrop)
+			MERS:CreateStripes(backdrop)
+		end
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
