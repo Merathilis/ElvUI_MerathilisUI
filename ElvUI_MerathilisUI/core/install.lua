@@ -799,14 +799,14 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 19,
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[classcolor:player][health:percent:hidefull:hidezero]",
+			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
 			["xOffset"] = 0,
 			["yOffset"] = -1,
 		}
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] [classcolor:player][power:current]"
+		E.db["unitframe"]["units"]["player"]["health"]["text_format"] = "[healthcolor][health:current] | [power:current]"
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""

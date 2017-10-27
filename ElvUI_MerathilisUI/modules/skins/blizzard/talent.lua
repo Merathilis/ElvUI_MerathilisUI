@@ -16,8 +16,7 @@ local GetSpecializationInfo = GetSpecializationInfo
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	MERS:CreateGradient(_G["PlayerTalentFrame"])
-	MERS:CreateStripes(_G["PlayerTalentFrame"])
+	_G["PlayerTalentFrame"]:Styling()
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
@@ -55,7 +54,7 @@ local function styleTalents()
 		for i = 1, 4 do
 			local bu = _G[name..i]
 
-			-- Hide the ElvUI backdrop (its default)
+			-- Hide the ElvUI backdrop
 			if bu.backdrop then
 				bu.backdrop:Hide()
 			end
@@ -64,7 +63,7 @@ local function styleTalents()
 			bu:CreateBackdrop("Transparent")
 			bu.backdrop:Point("TOPLEFT", 8, 2)
 			bu.backdrop:Point("BOTTOMRIGHT", 10, -2)
-			MERS:CreateGradient(bu.backdrop)
+			bu.backdrop:Styling()
 		end
 	end
 

@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -21,12 +20,9 @@ local function styleCalendar()
 		_G["CalendarWeekday"..i.."Background"]:SetAlpha(0)
 	end
 
-	MERS:CreateStripes(_G["CalendarFrame"])
-	MERS:CreateGradient(_G["CalendarFrame"])
-	MERS:CreateStripes(_G["CalendarCreateEventFrame"])
-	MERS:CreateGradient(_G["CalendarCreateEventFrame"])
-	MERS:CreateStripes(_G["CalendarViewHolidayFrame"])
-	MERS:CreateGradient(_G["CalendarViewHolidayFrame"])
+	_G["CalendarFrame"]:Styling()
+	_G["CalendarCreateEventFrame"]:Styling()
+	_G["CalendarViewHolidayFrame"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)

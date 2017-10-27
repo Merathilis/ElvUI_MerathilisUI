@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -14,8 +13,7 @@ local function styleTradeSkill()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
-	MERS:CreateGradient(_G["TradeSkillFrame"])
-	MERS:CreateStripes(_G["TradeSkillFrame"])
+	_G["TradeSkillFrame"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "mUITradeSkill", styleTradeSkill)

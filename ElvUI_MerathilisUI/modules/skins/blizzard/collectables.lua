@@ -16,8 +16,7 @@ local PlayerHasToy = PlayerHasToy
 local function styleCollections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
 
-	MERS:CreateGradient(_G["CollectionsJournal"])
-	MERS:CreateStripes(_G["CollectionsJournal"])
+	_G["CollectionsJournal"]:Styling()
 
 	_G["CollectionsJournalBg"]:Hide()
 
@@ -44,8 +43,7 @@ local function styleCollections()
 	local SetsTransmogFrame = _G["WardrobeCollectionFrame"].SetsTransmogFrame
 	SetsTransmogFrame:StripTextures()
 
-	MERS:CreateGradient(_G["WardrobeFrame"])
-	MERS:CreateStripes(_G["WardrobeFrame"])
+	_G["WardrobeFrame"]:Styling()
 
 	_G["WardrobeCollectionFrame"].ItemsTab.backdrop:Hide()
 	_G["WardrobeCollectionFrame"].SetsTab.backdrop:Hide()

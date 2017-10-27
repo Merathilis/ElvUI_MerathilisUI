@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -22,8 +21,7 @@ local function styleBNet()
 	_G["BNToastFrameCloseButton"]:SetNormalTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
 	_G["BNToastFrameCloseButton"]:GetNormalTexture():SetAlpha(0.5)
 
-	MERS:CreateGradient(_G["BNToastFrame"])
-	MERS:CreateStripes(_G["BNToastFrame"])
+	_G["BNToastFrame"]:Styling()
 end
 
 S:AddCallback("mUIBNet", styleBNet)

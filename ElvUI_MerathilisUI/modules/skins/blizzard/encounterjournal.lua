@@ -36,9 +36,7 @@ function styleEncounterJournal()
 		EJ.navBar.backdrop:Hide()
 	end
 
-	if not EJ.stripes then
-		MERS:CreateStripes(EJ)
-	end
+	EJ.backdrop:Styling()
 
 	_G["EncounterJournalEncounterFrameInfoCreatureButton1"]:SetPoint("TOPLEFT", _G["EncounterJournalEncounterFrameInfoModelFrame"], 0, -35)
 

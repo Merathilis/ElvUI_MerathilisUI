@@ -16,8 +16,7 @@ local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
-	MERS:CreateGradient(_G["PVEFrame"])
-	MERS:CreateStripes(_G["PVEFrame"])
+	_G["PVEFrame"]:Styling()
 
 	local function onEnter(self)
 		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
@@ -56,17 +55,12 @@ local function styleLFG()
 			bg:SetPoint("BOTTOMRIGHT", -1, 2)
 			MERS:CreateBD(bg, 1)
 			bg:SetFrameLevel(bu:GetFrameLevel()-1)
-
-			local tex = MERS:CreateGradient(bu)
-			tex:SetDrawLayer("BACKGROUND")
-			tex:SetPoint("TOPLEFT", 3, -1)
-			tex:SetPoint("BOTTOMRIGHT", -2, 3)
 		end
 	end)
 
 	-- Invite frame
-	MERS:CreateGradient(_G["LFGListInviteDialog"])
-	MERS:CreateStripes(_G["LFGListInviteDialog"])
+	_G["LFGListInviteDialog"]:Styling()
+	_G["LFGListInviteDialog"]:Styling()
 
 	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
 	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)

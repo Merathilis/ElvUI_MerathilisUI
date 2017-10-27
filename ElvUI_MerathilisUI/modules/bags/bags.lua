@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERB = E:NewModule("mUIBags", "AceHook-3.0", "AceEvent-3.0")
-local MERS = E:GetModule("muiSkins")
 local B = E:GetModule("Bags")
 
 --Cache global variables
@@ -22,26 +21,25 @@ local function EventHandler(self, event)
 end
 
 function MERB:StyleBags()
+	-- doesnt work
 	if _G["ElvUI_ContainerFrame"] then
-		MERS:CreateGradient(_G["ElvUI_ContainerFrame"])
-		MERS:CreateStripes(_G["ElvUI_ContainerFrame"])
-		MERS:CreateGradient(_G["ElvUI_ContainerFrameContainerHolder"])
-		MERS:CreateStripes(_G["ElvUI_ContainerFrameContainerHolder"])
+		_G["ElvUI_ContainerFrame"]:Styling()
+		_G["ElvUI_ContainerFrameContainerHolder"]:Styling()
 	end
 
 	if _G["ElvUIBags"] then
-		MERS:CreateGradient(_G["ElvUIBags"])
-		MERS:CreateStripes(_G["ElvUIBags"])
+		-- doesnt work
+		_G["ElvUIBags"]:Styling()
+		_G["ElvUIBags"]:Styling()
 	end
 end
 
 function MERB:StyleBank()
+	-- doesnt work
 	if _G["ElvUI_BankContainerFrame"] then
 		if _G["ElvUI_BankContainerFrame"].isSkinned then return end
-		MERS:CreateGradient(_G["ElvUI_BankContainerFrame"])
-		MERS:CreateStripes(_G["ElvUI_BankContainerFrame"])
-		MERS:CreateGradient(_G["ElvUI_BankContainerFrameContainerHolder"])
-		MERS:CreateStripes(_G["ElvUI_BankContainerFrameContainerHolder"])
+		_G["ElvUI_BankContainerFrame"]:Styling()
+		_G["ElvUI_BankContainerFrameContainerHolder"]:Styling()
 
 		_G["ElvUI_BankContainerFrame"].isSkinned = true
 	end

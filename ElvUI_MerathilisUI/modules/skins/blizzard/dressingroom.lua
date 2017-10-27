@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -11,12 +10,10 @@ local _G = _G
 local function styleDressingroom()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.muiSkins.blizzard.dressingroom ~= true then return end
 
-	MERS:CreateGradient(_G["DressUpFrame"])
-	MERS:CreateStripes(_G["DressUpFrame"])
+	_G["DressUpFrame"]:Styling()
 
 	-- Wardrobe edit frame
-	MERS:CreateGradient(_G["WardrobeOutfitFrame"])
-	MERS:CreateStripes(_G["WardrobeOutfitFrame"])
+	_G["WardrobeOutfitFrame"]:Styling()
 end
 
 S:AddCallback("mUIDressingRoom", styleDressingroom)

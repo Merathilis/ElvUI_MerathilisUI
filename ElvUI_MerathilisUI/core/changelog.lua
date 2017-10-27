@@ -17,15 +17,8 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Change the frame strate for the locPanel & Notifications.",
-		"• Add QuickJoinNotifications to my Notifications.",
-		"• Add SpeedyLoad.",
-		"• Massive Cleanup.",
-		"• Added some new skins & updated some skins.",
-		"• Add new tag: mUI-resting.",
-		"• Updated Expressway & Roboto-Black font.",
-		"• Small layout adjustments for v2.",
-		"• Use an own texture for the MailIcon.",
+		"• Fix the UnitFrame tags for v1.",
+		"• Updated my skinning function for stripes/gradient.",
 		-- "• ",
 	" ",
 	"Notes:",
@@ -65,11 +58,13 @@ function MER:CreateChangelog()
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
+	frame:Styling()
 
 	local icon = CreateFrame("Frame", nil, frame)
 	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	icon:SetSize(20, 20)
 	icon:SetTemplate("Transparent")
+	icon:Styling()
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
 	icon.bg:Point("TOPLEFT", 2, -2)
 	icon.bg:Point("BOTTOMRIGHT", -2, 2)
@@ -79,6 +74,7 @@ function MER:CreateChangelog()
 	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)
 	title:SetSize(422, 20)
 	title:SetTemplate("Transparent")
+	title:Styling()
 	title.text = title:CreateFontString(nil, "OVERLAY")
 	title.text:SetPoint("CENTER", title, 0, -1)
 	title.text:SetFont(E["media"].normFont, 15)

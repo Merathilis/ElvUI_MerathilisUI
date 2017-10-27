@@ -23,8 +23,7 @@ local function styleQuestChoice()
 	end
 
 	MERS:CreateBD(QuestChoiceFrame, .5)
-	MERS:CreateGradient(QuestChoiceFrame)
-	MERS:CreateStripes(QuestChoiceFrame)
+	QuestChoiceFrame:Styling()
 
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()

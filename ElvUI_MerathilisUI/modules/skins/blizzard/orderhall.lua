@@ -18,8 +18,7 @@ local function styleOrderhall()
 
 	local b = _G["OrderHallCommandBar"]
 
-	MERS:CreateGradient(b)
-	MERS:CreateStripes(b)
+	b:Styling()
 
 	b.Background:SetAtlas(nil)
 
@@ -51,8 +50,7 @@ local function styleOrderhall()
 	MERS:CreateBD(combatAlly, .25)
 
 	-- Mission Frame
-	MERS:CreateGradient(_G["OrderHallMissionFrame"])
-	MERS:CreateStripes(_G["OrderHallMissionFrame"])
+	_G["OrderHallMissionFrame"]:Styling()
 
 	_G["OrderHallMissionFrameMissions"].MaterialFrame:StripTextures()
 	_G["OrderHallMissionFrameMissionsListScrollFrame"]:StripTextures()

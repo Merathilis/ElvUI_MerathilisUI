@@ -50,14 +50,14 @@ local function SkinsTable()
 				type = "group",
 				name = MER:cOption(L["General"]),
 				guiInline = true,
-				get = function(info) return E.private.muiSkins.general[ info[#info] ] end,
-				set = function(info, value) E.private.muiSkins.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
-					stripes = {
+					style = {
 						order = 1,
 						type = "toggle",
-						name = L["Stripes"],
-						desc = L["Creates decorative stripes on some frames"],
+						name = L["MerathilisUI Style"],
+						desc = L["Creates decorative stripes and a gradient on some frames"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 				},
 			},

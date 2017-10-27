@@ -33,6 +33,40 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
+local function Styling(f)
+	assert(f, "doesn't exist!")
+	if f.styling or E.db.mui.general.style ~= true then return end
+
+	local style = CreateFrame("Frame", name or nil, f)
+
+	if not f.stripes then
+		local stripes = f:CreateTexture(nil, "BORDER")
+		stripes:SetPoint("TOPLEFT", 1, -1)
+		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
+		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
+		stripes:SetHorizTile(true)
+		stripes:SetVertTile(true)
+		stripes:SetBlendMode("ADD")
+
+		f.stripes = stripes
+	end
+
+	if not f.gradient then
+		local gradient = f:CreateTexture(nil, "BORDER")
+		gradient:SetPoint("TOPLEFT", 1, -1)
+		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
+		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetVertexColor(.3, .3, .3, .15)
+
+		f.gradient = gradient
+	end
+
+	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	f.styling = style
+
+	MER["styling"][style] = true
+end
+
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text
@@ -177,4 +211,24 @@ end
 function MER:GetClassColorString(class)
 	local color = MER.colors.class[BC[class] or class]
 	return E:RGBToHex(color.r, color.g, color.b)
+end
+
+local function addapi(object)
+	local mt = getmetatable(object).__index
+	if not object.Styling then mt.Styling = Styling end
+end
+
+local handled = {["Frame"] = true}
+local object = CreateFrame("Frame")
+addapi(object)
+addapi(object:CreateTexture())
+
+object = EnumerateFrames()
+while object do
+	if not object:IsForbidden() and not handled[object:GetObjectType()] then
+		addapi(object)
+		handled[object:GetObjectType()] = true
+	end
+
+	object = EnumerateFrames(object)
 end

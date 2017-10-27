@@ -23,6 +23,7 @@ P["mui"] = {
 			["guildEvents"] = true,
 			["quickJoin"] = true,
 		},
+		["style"] = true, -- Styling function (stripes/gradient)
 	},
 
 	["colors"] = {

@@ -32,6 +32,7 @@ Engine[6] = G
 _G[addon] = Engine;
 
 MER.Config = {}
+MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
@@ -163,6 +164,7 @@ end
  -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
 	-- Clear the old db
+	if E.private.muiSkins.general.stripes then E.private.muiSkins.general.stripes = nil end
 
 	E.db.mui.dbCleaned = true
 end

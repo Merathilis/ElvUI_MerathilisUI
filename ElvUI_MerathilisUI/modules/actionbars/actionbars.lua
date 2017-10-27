@@ -16,7 +16,6 @@ local C_TimerAfter = C_Timer.After
 -- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, hooksecurefunc
 
 local availableActionbars = availableActionbars or 6
-
 local styleOtherBacks = {ElvUI_BarPet, ElvUI_StanceBar}
 
 local function CheckExtraAB()
@@ -85,6 +84,25 @@ function MAB:TransparentBackdrops()
 	end
 end
 
+function MAB:StyleBackdrops()
+	-- Actionbar backdrops
+	for i = 1, availableActionbars do
+		local styleBacks = {_G['ElvUI_Bar'..i]}
+		for _, frame in pairs(styleBacks) do
+			if frame.backdrop then
+				frame.backdrop:Styling()
+			end
+		end
+	end
+
+	-- Other bar backdrops
+	for _, frame in pairs(styleOtherBacks) do
+		if frame.backdrop then
+			frame.backdrop:Styling()
+		end
+	end
+end
+
 -- Code taken from CleanBossButton
 local function RemoveTexture(self, texture, stopLoop)
 	if stopLoop then return end
@@ -94,6 +112,7 @@ end
 
 function MAB:Initialize()
 	CheckExtraAB()
+	C_TimerAfter(1, MAB.StyleBackdrops)
 	C_TimerAfter(1, MAB.TransparentBackdrops)
 	if IsAddOnLoaded("ElvUI_TB") then DisableAddOn("ElvUI_TB") end
 
