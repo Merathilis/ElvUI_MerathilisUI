@@ -14,7 +14,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: stripes, StartGlow, StopGlow, ElvUI
 
-local AS
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
@@ -361,7 +360,6 @@ end
 
 function MERS:Reskin(f, noGlow)
 	assert(f, "doesn't exist!")
-	local r, g, b
 	if f.SetNormalTexture then f:SetNormalTexture("") end
 	if f.SetHighlightTexture then f:SetHighlightTexture("") end
 	if f.SetPushedTexture then f:SetPushedTexture("") end

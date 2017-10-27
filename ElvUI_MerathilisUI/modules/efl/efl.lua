@@ -150,7 +150,7 @@ function EFL:BasicUpdateFriends(button)
 		infoText = area
 	elseif button.buttonType == FRIENDS_BUTTON_TYPE_BNET and BNConnected() then
 		local presenceID, presenceName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, messageTime, canSoR = BNGetFriendInfo(button.id)
-		local realmName, realmID, faction, race, class, zoneName, level, gameText, givenName
+		local realmName, realmID, faction, race, class, zoneName, level, gameText
 		broadcastText = messageText
 		local characterName = toonName
 		if presenceName then

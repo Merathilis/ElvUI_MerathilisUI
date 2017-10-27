@@ -17,7 +17,6 @@ local IsShiftKeyDown = IsShiftKeyDown
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: PROFESSIONS_FIRST_AID
 
-local lastPanel
 local profValues = {}
 local displayString = ""
 local tooltipString = ""
