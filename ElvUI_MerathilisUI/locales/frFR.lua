@@ -443,8 +443,8 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for 
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
 
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
-L["Creates decorative stripes on some frames"] = true
-L["Stripes"] = true
+L["Creates decorative stripes and a gradient on some frames"] = true
+L["MerathilisUI Style"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
