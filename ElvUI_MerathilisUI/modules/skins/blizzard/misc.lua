@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -18,8 +17,7 @@ local function styleMisc()
 		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
 	end)
 
-	MERS:CreateGradient(_G["GameMenuFrame"])
-	MERS:CreateStripes(_G["GameMenuFrame"])
+	_G["GameMenuFrame"]:Styling()
 
 	-- Graveyard button (a bit ugly if you press it)
 	_G["GhostFrame"]:StripTextures()
@@ -51,18 +49,7 @@ local function styleMisc()
 
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
-			MERS:CreateGradient(frame)
-			MERS:CreateStripes(frame)
-		end
-	end
-
-	-- Actionbars backdrop
-	for i = 1, 6 do
-		local bar = _G["ElvUI_Bar"..i]
-		local backdrop = bar.backdrop
-		if not backdrop.styled then
-			MERS:CreateGradient(backdrop)
-			MERS:CreateStripes(backdrop)
+			frame:Styling()
 		end
 	end
 end

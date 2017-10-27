@@ -169,9 +169,7 @@ local function stylePvP()
 		headerBg:SetPoint("LEFT", 4, 0)
 		headerBg:SetFrameLevel(header:GetFrameLevel()-1)
 		MERS:CreateBD(headerBg, 0)
-
-		local headerTex = MERS:CreateGradient(header)
-		headerTex:SetAllPoints(headerBg)
+		headerBg:Styling()
 
 		local minus = header:CreateTexture(nil, "OVERLAY")
 		minus:SetSize(7, 1)

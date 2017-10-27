@@ -32,8 +32,7 @@ local function styleBugSack(event, addon)
 				S:HandleCloseButton(child)
 			end
 		end
-		MERS:CreateGradient(_G["BugSackFrame"])
-		MERS:CreateStripes(_G["BugSackFrame"])
+		_G["BugSackFrame"]:Styling()
 
 		_G["BugSackFrame"].IsSkinned = true
 	end)

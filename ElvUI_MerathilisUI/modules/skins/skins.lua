@@ -210,21 +210,6 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
-function MERS:CreateStripes(f)
-	assert(f, "doesn't exist!")
-	if f.stripes or E.private.muiSkins.general.stripes ~= true then return end
-
-	f.stripes = f:CreateTexture(nil, "BORDER")
-	f.stripes:SetPoint("TOPLEFT", 1, -1)
-	f.stripes:SetPoint("BOTTOMRIGHT", -1, 1)
-	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
-	f.stripes:SetHorizTile(true)
-	f.stripes:SetVertTile(true)
-	f.stripes:SetBlendMode("ADD")
-
-	f.stripes = stripes
-end
-
 -- Taken from AddOnSkins 
 function MERS:SkinTexture(frame)
 	frame:SetTexCoord(unpack(E.TexCoords))
@@ -456,9 +441,8 @@ function MERS:ReskinTab(tab)
 
 	if tab.backdrop then
 		tab.backdrop:SetTemplate("Transparent")
+		tab.backdrop:Styling()
 	end
-
-	MERS:CreateStripes(tab.backdrop)
 end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 

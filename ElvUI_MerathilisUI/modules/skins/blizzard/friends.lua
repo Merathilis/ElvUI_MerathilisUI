@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -13,23 +12,12 @@ local CreateFrame = CreateFrame
 local function styleFriends()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
-	MERS:CreateGradient(_G["FriendsListFrame"])
-	MERS:CreateStripes(_G["FriendsListFrame"])
-
-	MERS:CreateGradient(_G["QuickJoinFrame"])
-	MERS:CreateStripes(_G["QuickJoinFrame"])
-
-	MERS:CreateGradient(_G["IgnoreListFrame"])
-	MERS:CreateStripes(_G["IgnoreListFrame"])
-
-	MERS:CreateGradient(_G["WhoFrame"])
-	MERS:CreateStripes(_G["WhoFrame"])
-
-	MERS:CreateGradient(_G["ChannelFrame"])
-	MERS:CreateStripes(_G["ChannelFrame"])
-
-	MERS:CreateGradient(_G["RaidFrame"])
-	MERS:CreateStripes(_G["RaidFrame"])
+	_G["FriendsListFrame"]:Styling()
+	_G["QuickJoinFrame"]:Styling()
+	_G["IgnoreListFrame"]:Styling()
+	_G["WhoFrame"]:Styling()
+	_G["ChannelFrame"]:Styling()
+	_G["RaidFrame"]:Styling()
 
 	-- GuildTab in FriendsFrame
 	local n = _G["FriendsFrame"].numTabs + 1

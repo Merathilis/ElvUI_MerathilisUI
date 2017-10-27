@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -14,13 +13,9 @@ local SpellBookPageText = _G["SpellBookPageText"]
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
-	MERS:CreateGradient(SpellBookFrame)
+	SpellBookFrame:Styling()
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
-	end
-
-	if not SpellBookFrame.stripes then
-		MERS:CreateStripes(SpellBookFrame)
 	end
 
 	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))

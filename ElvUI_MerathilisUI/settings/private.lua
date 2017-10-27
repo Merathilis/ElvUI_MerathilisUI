@@ -12,7 +12,7 @@ V["muiMisc"] = {
 ----------------------------------------------------------------------------------------
 V["muiSkins"] = {
 	["general"] = {
-		["stripes"] = true,
+		["stlye"] = true,
 	},
 	["blizzard"] = {
 		["character"] = true,

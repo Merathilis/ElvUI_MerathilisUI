@@ -22,8 +22,9 @@ local function styleGarrison()
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
-	MERS:CreateGradient(GarrisonLandingPage)
-	MERS:CreateStripes(GarrisonLandingPage)
+	GarrisonLandingPage:Styling()
+	GarrisonMissionFrame:Styling()
+	GarrisonShipyardFrame:Styling()
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -115,9 +116,7 @@ local function styleGarrison()
 	GarrisonBuildingFrame.GarrCorners:Hide()
 	GarrisonBuildingFrame.TitleText:Show()
 
-	if not GarrisonBuildingFrame.stripes then
-		MERS:CreateStripes(GarrisonBuildingFrame)
-	end
+	GarrisonBuildingFrame:Styling()
 
 	-- Tutorial button
 	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton
@@ -240,12 +239,12 @@ local function styleGarrison()
 	bg:SetPoint("BOTTOMRIGHT", -4, -1)
 	bg:SetFrameLevel(MissionPage.Stage:GetFrameLevel() - 1)
 	MERS:CreateBD(bg)
-    
+
 	local overlay = MissionPage.Stage:CreateTexture()
 	overlay:SetDrawLayer("ARTWORK", 3)
 	overlay:SetAllPoints(bg)
 	overlay:SetColorTexture(0, 0, 0, .5)
-    
+
 	local iconbg = select(16, MissionPage:GetRegions())
 	iconbg:ClearAllPoints()
 	iconbg:SetPoint("TOPLEFT", 3, -1)

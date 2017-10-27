@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -13,8 +12,7 @@ local _G = _G
 local function styleAddonManager()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.addonManager ~= true or E.private.muiSkins.blizzard.addonManager ~= true then return end
 
-	MERS:CreateStripes(_G["AddonList"])
-	MERS:CreateGradient(_G["AddonList"])
+	_G["AddonList"]:Styling()
 
 	_G["AddonCharacterDropDown"]:SetWidth(170)
 end

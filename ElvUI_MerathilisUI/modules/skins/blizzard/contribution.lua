@@ -17,7 +17,7 @@ local function styleContribution()
 	_G["ContributionCollectionFrame"]:StripTextures()
 	MERS:CreateBD(_G["ContributionCollectionFrame"], .25)
 
-	MERS:CreateStripes(_G["ContributionCollectionFrame"])
+	_G["ContributionCollectionFrame"]:Styling()
 
 	local function styleText(self)
 		self.Description:SetVertexColor(1, 1, 1)

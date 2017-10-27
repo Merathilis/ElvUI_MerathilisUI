@@ -224,8 +224,7 @@ function LP:CreateLocationPanel()
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript('OnMouseUp', LP.OnClick)
 	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
-	E:GetModule("muiSkins"):CreateStripes(loc_panel)
-	E:GetModule("muiSkins"):CreateGradient(loc_panel)
+	loc_panel:Styling()
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "LOW")
@@ -238,15 +237,13 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
-	E:GetModule("muiSkins"):CreateStripes(loc_panel.Xcoord)
-	E:GetModule("muiSkins"):CreateGradient(loc_panel.Xcoord)
+	loc_panel.Xcoord:Styling()
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
-	E:GetModule("muiSkins"):CreateStripes(loc_panel.Ycoord)
-	E:GetModule("muiSkins"):CreateGradient(loc_panel.Ycoord)
+	loc_panel.Ycoord:Styling()
 
 	LP:Resize()
 	-- Mover

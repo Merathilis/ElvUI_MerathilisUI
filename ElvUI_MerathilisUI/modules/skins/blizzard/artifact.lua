@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -13,8 +12,7 @@ local select = select
 local function styleArtifact()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
 
-	MERS:CreateGradient(_G["ArtifactFrame"])
-	MERS:CreateStripes(_G["ArtifactFrame"])
+	_G["ArtifactFrame"]:Styling()
 
 	_G["ArtifactFrame"].Background:Hide()
 	_G["ArtifactFrame"].PerksTab.HeaderBackground:Hide()
@@ -44,7 +42,7 @@ local function styleArtifact()
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID and not child.backdrop then
 				child:CreateBackdrop("Transparent")
-				MERS:CreateGradient(child.backdrop)
+				child.backdrop:Styling()
 				child.SwatchTexture:SetTexCoord(.20, .80, .20, .80)
 				child.SwatchTexture:SetInside(child)
 				child.Border:SetAlpha(0)

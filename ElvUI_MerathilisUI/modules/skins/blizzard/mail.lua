@@ -23,7 +23,7 @@ local function styleMail()
 	local MailFrame = _G["MailFrame"]
 	select(18, MailFrame:GetRegions()):Hide()
 
-	MERS:CreateStripes(MailFrame)
+	MailFrame:Styling()
 
 	-- InboxFrame
 	for i = 1, INBOXITEMS_TO_DISPLAY do
@@ -59,7 +59,7 @@ local function styleMail()
 		if not b.skinned then
 			b:StripTextures()
 			b:SetTemplate("Transparent", true)
-			MERS:CreateGradient(b)
+			b:Styling()
 			b:StyleButton()
 			b.skinned = true
 			hooksecurefunc(b.IconBorder, "SetVertexColor", function(self, r, g, b)
@@ -80,7 +80,7 @@ local function styleMail()
 	-- OpenMailFrame
 	local OpenMailFrame = _G["OpenMailFrame"]
 
-	MERS:CreateStripes(OpenMailFrame)
+	OpenMailFrame:Styling()
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G["InboxFrame"], "TOPRIGHT", 5, 0)
 	_G["OpenMailFrameIcon"]:Hide()
