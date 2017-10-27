@@ -164,6 +164,7 @@ end
  -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
 	-- Clear the old db
+	if E.private.muiSkins.general.stripes then E.private.muiSkins.general.stripes = nil end
 
 	E.db.mui.dbCleaned = true
 end
