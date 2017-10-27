@@ -1,5 +1,5 @@
 [b][color=orange]v3.10[/color], 27.10.2017[/b][list]
-[*]Change the frame strate for the locPanel & Notifications.
+[*]Change the frame strata for the locPanel & Notifications.
 [*]Add QuickJoinNotifications to my Notifications.
 [*]Add SpeedyLoad.
 [*]Massive Cleanup.

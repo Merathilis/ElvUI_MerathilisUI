@@ -29,7 +29,7 @@ local ChangeLogData = {
 		-- "• ",
 	" ",
 	"Notes:",
-		-- "• ",
+		"• ElvUI 10.68 required!",
 }
 
 local function ModifiedString(string)
