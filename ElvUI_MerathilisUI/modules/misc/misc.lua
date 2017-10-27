@@ -101,17 +101,6 @@ function MI:LoadMisc()
 		end
 	end)
 
-	-- Force quit
-	local CloseWoW = CreateFrame("Frame")
-	CloseWoW:RegisterEvent("CHAT_MSG_SYSTEM")
-	CloseWoW:SetScript("OnEvent", function(_, event, msg)
-		if event == "CHAT_MSG_SYSTEM" then
-			if msg and msg == IDLE_MESSAGE then
-				ForceQuit()
-			end
-		end
-	end)
-
 	-- Always show the Text on the PlayerPowerBarAlt
 	_G["PlayerPowerBarAlt"]:HookScript("OnShow", function()
 		local statusFrame = _G["PlayerPowerBarAlt"].statusFrame
