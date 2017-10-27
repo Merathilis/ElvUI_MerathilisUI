@@ -443,6 +443,9 @@ function MER:SetupLayout(layout)
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Expressway"
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db["general"]["minimap"]["benikuiStyle"] = false
+		end
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["bags"]["itemLevelFont"] = "Expressway"
 		E.db["bags"]["itemLevelFontSize"] = 9
