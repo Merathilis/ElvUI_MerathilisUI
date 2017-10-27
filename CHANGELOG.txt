@@ -1,3 +1,14 @@
+[b][color=orange]v3.10[/color], 27.10.2017[/b][list]
+[*]Change the frame strate for the locPanel & Notifications.
+[*]Add QuickJoinNotifications to my Notifications.
+[*]Add SpeedyLoad.
+[*]Massive Cleanup.
+[*]Added some new skins & updated some skins.
+[*]Add new tag: mUI-resting.
+[*]Updated Expressway & Roboto-Black font.
+[*]Small layout adjustments for v2.
+[*]Use an own texture for the MailIcon.[/list]
+
 [b][color=orange]v3.09[/color], 01.10.2017[/b][list]
 [*]Fix a lua error after reload in the BigWigs skin.
 [*]Add korean locale file.
