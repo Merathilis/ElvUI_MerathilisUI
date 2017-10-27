@@ -11,9 +11,6 @@ V["muiMisc"] = {
 -- Skins options
 ----------------------------------------------------------------------------------------
 V["muiSkins"] = {
-	["general"] = {
-		["stlye"] = true,
-	},
 	["blizzard"] = {
 		["character"] = true,
 		["encounterjournal"] = true,

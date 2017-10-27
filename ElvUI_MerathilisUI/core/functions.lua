@@ -35,7 +35,7 @@ MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 local function Styling(f)
 	assert(f, "doesn't exist!")
-	if f.styling or E.private.muiSkins.general.style ~= true then return end
+	if f.styling or E.db.mui.general.style ~= true then return end
 
 	local style = CreateFrame("Frame", name or nil, f)
 
