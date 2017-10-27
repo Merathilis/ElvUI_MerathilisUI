@@ -6,7 +6,7 @@ local UF = E:GetModule("UnitFrames")
 -- Lua functions
 local _G = _G
 -- WoW API / Variables
-
+local CreateFrame = CreateFrame
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: hooksecurefunc
 

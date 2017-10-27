@@ -4,6 +4,13 @@ local AB = E:GetModule("ActionBars")
 local LSM = LibStub("LibSharedMedia-3.0")
 BS.modName = L["ButtonStyle"]
 
+--Cache global variables
+local pairs, unpack = pairs, unpack
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
+
 function BS:StyleButton(button, noBackdrop, useMasque)
 	if (useMasque) then
 		return

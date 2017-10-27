@@ -2,6 +2,16 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
 local NA = E:GetModule("NameplateAuras")
 
+--Cache global variables
+local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type
+local setmetatable = setmetatable
+local getmetatable = getmetatable
+local format = string.format
+--WoW API / Variables
+local GetSpellInfo = GetSpellInfo
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: deepcopy
+
 local selectedSpellID
 local spellLists
 local spellIDs = {}
@@ -25,14 +35,16 @@ function deepcopy(object)
 end
 
 local function UpdateSpellGroup()
-	if not selectedSpellID or not E.global['nameplate']['spellList'][selectedSpellID]  then
+	if not selectedSpellID or not E.global['nameplate']['spellList'][selectedSpellID] then
 		E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = nil
 		return
 	end
 
+	local name, _, icon = GetSpellInfo(selectedSpellID)
+	local formatStr = [[%s |T%s:16:16:0:0:64:64:4:60:4:60|t]]
 	E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = {
 		type = 'group',
-		name = GetSpellInfo(selectedSpellID),
+		name = MER:cOption(formatStr:format(name, icon)),
 		guiInline = true,
 		order = -10,
 		get = function(info) return E.global["nameplate"]['spellList'][selectedSpellID][ info[#info] ] end,
@@ -169,7 +181,7 @@ local function NameplateAurasTable()
 								selectedSpellID = spellID
 								UpdateSpellGroup()
 							else
-								E:Print(L["Not valid spell name or spell ID"])
+								MER:Print(L["Not valid spell name or spell ID"])
 							end
 						end,
 					},

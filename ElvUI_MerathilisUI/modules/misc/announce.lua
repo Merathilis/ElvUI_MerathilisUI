@@ -7,7 +7,7 @@ MERA.modName = L["Announce"]
 --Lua functions
 local _G = _G
 local unpack, string = unpack, string
-
+local upper = string.upper
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local UnitIsDead = UnitIsDead
@@ -80,7 +80,7 @@ local nextstep = function()
 	a,step = GetNextChar (word,step)
 	flowingtext:SetText(stringE)
 	stringE = stringE..a
-	a = string.upper(a)
+	a = upper(a)
 	rightchar:SetText(a)
 end
 
@@ -130,7 +130,7 @@ local backstepf = function()
 		end
 	end
 	flowingtext:SetText(texttemp)
-	firstchar = string.upper(firstchar)
+	firstchar = upper(firstchar)
 	rightchar:SetText(firstchar)
 end
 

@@ -12,7 +12,11 @@ local LSM = LibStub('LibSharedMedia-3.0')
 -- GLOBALS: SystemFont_OutlineThick_WTF, SubZoneTextFont, QuestFont_Super_Huge, QuestFont_Huge, CoreAbilityFont
 -- GLOBALS: MailFont_Large, InvoiceFont_Med, InvoiceFont_Small, AchievementFont_Small, ReputationDetailFont
 -- GLOBALS: GameFontNormalMed2, BossEmoteNormalHuge, GameFontHighlightMedium, GameFontNormalLarge2, QuestFont_Enormous
--- GLOBALS: DestinyFontHuge, Game24Font, SystemFont_Huge1, SystemFont_Huge1_Outline
+-- GLOBALS: DestinyFontHuge, Game24Font, SystemFont_Huge1, SystemFont_Huge1_Outline, NumberFont_Normal_Med
+-- GLOBALS: SystemFont_Shadow_Huge2, SystemFont_Shadow_Large2, SystemFont_Shadow_Small2, SystemFont_Small2
+-- GLOBALS: Fancy22Font, Fancy24Font, Game30Font, SystemFont_Shadow_Med2, WhiteNormalNumberFont, Game18Font
+-- GLOBALS: GameFontHighlightSmall2, GameFontNormalSmall2, GameFontNormalHuge2, Game15Font_o1, Game13FontShadow
+-- GLOBALS: NumberFontNormalSmall, SystemFont_Shadow_Huge3, SubSpellFont, GameFont_Gigantic
 
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
@@ -121,6 +125,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(Game13FontShadow,					NORMAL, 14)									 -- InspectPvpFrame
 		SetFont(NumberFontNormalSmall,				NORMAL, 11, "OUTLINE")						 -- Calendar, EncounterJournal
 		SetFont(SystemFont_Shadow_Huge3,			NORMAL, 22, nil, SHADOWCOLOR, BIGOFFSET);	 -- Flight Map, Zone Name
+		SetFont(SubSpellFont, 						NORMAL, 10);
 		--SetFont(QuestTitleFontBlackShadow,		NORMAL, 16)
 		--SetFont(GameFontHighlightMed2, 			NORMAL, self.db.general.fontSize*1.1);
 		--SetFont(GameFontNormalSmall, 				NORMAL, 10);

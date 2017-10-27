@@ -236,6 +236,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
 	E.db["general"]["threat"]["enable"] = false
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
+	E.db["general"]["talkingHeadFrameScale"] = 0.7
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -266,8 +267,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 815
 	E.db["bags"]["junkIcon"] = true
-	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 24)
-	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 25)
+	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 1)
+	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 1)
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
@@ -291,9 +292,11 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
 	E.db["nameplates"]["units"]["PLAYER"]["showLevel"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,blockNoDuration,CastByUnit,PlayerBuffs,TurtleBuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
@@ -302,10 +305,12 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -523,9 +528,9 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["lockActionBars"] = true
 
 	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = false
-		E.private["actionbar"]["masque"]["petBar"] = false
-		E.private["actionbar"]["masque"]["actionbars"] = false
+		E.private["actionbar"]["masque"]["stanceBar"] = true
+		E.private["actionbar"]["masque"]["petBar"] = true
+		E.private["actionbar"]["masque"]["actionbars"] = true
 	end
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
@@ -1430,8 +1435,9 @@ function MER:SetupUnitframes(layout)
 
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200
-		E.db["unitframe"]["units"]["player"]["height"] = 40
+		E.db["unitframe"]["units"]["player"]["height"] = 50
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
+		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -1470,7 +1476,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 15,
+			["size"] = 16,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
 			["attachTextTo"] = "Health",
@@ -1480,10 +1486,20 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 15,
+			["size"] = 16,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
+			["font"] = "Expressway",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[mUI-resting]",
+			["attachTextTo"] = "InfoPanel",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}
@@ -1508,7 +1524,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["raidicon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["raidicon"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 21
+		E.db["unitframe"]["units"]["player"]["infoPanel"]["height"] = 24
 		E.db["unitframe"]["units"]["player"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["anchorPoint"] = "TOPRIGHT"
@@ -1522,7 +1538,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
-		E.db["unitframe"]["units"]["target"]["height"] = 40
+		E.db["unitframe"]["units"]["target"]["height"] = 50
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
@@ -1567,13 +1583,13 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 10,
-			["text_format"] = "[namecolor][smartclass] [difficultycolor][level][shortclassification]",
+			["text_format"] = "[faction:icon][namecolor][smartclass] [difficultycolor][level][shortclassification]",
 			["yOffset"] = 0,
 			["attachTextTo"] = "InfoPanel",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
-			["size"] = 15,
+			["size"] = 16,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:percent:hidefull:hidezero]",
@@ -1583,7 +1599,7 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
-			["size"] = 15,
+			["size"] = 16,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current-mUI] | [power:current-mUI]",
@@ -1602,7 +1618,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
 		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
-		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 9
+		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
@@ -1612,7 +1628,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["raidicon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["raidicon"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["enable"] = true
-		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 21
+		E.db["unitframe"]["units"]["target"]["infoPanel"]["height"] = 24
 		E.db["unitframe"]["units"]["target"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["anchorPoint"] = "TOPLEFT"

@@ -10,34 +10,35 @@ local pairs, select = pairs, select
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 
--- GLOBALS:
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: 
 
-function AS:Auctionator(event)
+function AS:Auctionator(event, addon)
 	if addon == 'Blizzard_TradeSkillUI' or IsAddOnLoaded('Blizzard_TradeSkillUI') then 
-		TradeSkillFrame:HookScript('OnShow', function() AS:SkinButton(Auctionator_Search, true) end)
+		_G["TradeSkillFrame"]:HookScript('OnShow', function() AS:SkinButton(_G["Auctionator_Search"], true) end)
 		AS:UnregisterSkinEvent('Auctionator', event)
 	end
 	if event == 'PLAYER_ENTERING_WORLD' then return end
 	if event == 'AUCTION_HOUSE_SHOW' then
 
 		local Frames = {
-			Atr_BasicOptionsFrame,
-			Atr_TooltipsOptionsFrame,
-			Atr_UCConfigFrame,
-			Atr_StackingOptionsFrame,
-			Atr_ScanningOptionsFrame,
-			AuctionatorResetsFrame,
-			Atr_ShpList_Options_Frame,
-			AuctionatorDescriptionFrame,
-			Atr_Stacking_List,
-			Atr_ShpList_Frame,
-			Atr_ListTabsTab1,
-			Atr_ListTabsTab2,
-			Atr_ListTabsTab3,
-			Atr_FullScanResults,
-			Atr_Adv_Search_Dialog,
-			Atr_FullScanFrame,
-			Atr_Error_Frame,
+			_G["Atr_BasicOptionsFrame"],
+			_G["Atr_TooltipsOptionsFrame"],
+			_G["Atr_UCConfigFrame"],
+			_G["Atr_StackingOptionsFrame"],
+			_G["Atr_ScanningOptionsFrame"],
+			_G["AuctionatorResetsFrame"],
+			_G["Atr_ShpList_Options_Frame"],
+			_G["AuctionatorDescriptionFrame"],
+			_G["Atr_Stacking_List"],
+			_G["Atr_ShpList_Frame"],
+			_G["Atr_ListTabsTab1"],
+			_G["Atr_ListTabsTab2"],
+			_G["Atr_ListTabsTab3"],
+			_G["Atr_FullScanResults"],
+			_G["Atr_Adv_Search_Dialog"],
+			_G["Atr_FullScanFrame"],
+			_G["Atr_Error_Frame"],
 		}
 
 		for _, Frame in pairs(Frames) do
@@ -64,62 +65,62 @@ function AS:Auctionator(event)
 		end
 
 		local DropDownBoxes = {
-			AuctionatorOption_Deftab,
-			Atr_tipsShiftDD,
-			Atr_deDetailsDD,
-			Atr_scanLevelDD,
-			Atr_Duration,
-			Atr_DropDownSL,
-			Atr_ASDD_Class,
-			Atr_ASDD_Subclass,
+			_G["AuctionatorOption_Deftab"],
+			_G["Atr_tipsShiftDD"],
+			_G["Atr_deDetailsDD"],
+			_G["Atr_scanLevelDD"],
+			_G["Atr_Duration"],
+			_G["Atr_DropDownSL"],
+			_G["Atr_ASDD_Class"],
+			_G["Atr_ASDD_Subclass"],
 		}
 
 		for _, DropDown in pairs(DropDownBoxes) do
 			AS:SkinDropDownBox(DropDown)
 		end
 
-		for i = 1, Atr_ShpList_Options_Frame:GetNumChildren() do
-			local object = select(i, Atr_ShpList_Options_Frame:GetChildren())
+		for i = 1, _G["Atr_ShpList_Options_Frame"]:GetNumChildren() do
+			local object = select(i, _G["Atr_ShpList_Options_Frame"]:GetChildren())
 			if object:IsObjectType('Button') then
 				AS:SkinButton(object)
 			end
 		end
 
-		for i = 1, AuctionatorResetsFrame:GetNumChildren() do
-			local object = select(i, AuctionatorResetsFrame:GetChildren())
+		for i = 1, _G["AuctionatorResetsFrame"]:GetNumChildren() do
+			local object = select(i, _G["AuctionatorResetsFrame"]:GetChildren())
 			if object:IsObjectType('Button') then
 				AS:SkinButton(object)
 			end
 		end
 
 		local Buttons = {
-			Atr_Search_Button,
-			Atr_Back_Button,
-			Atr_Buy1_Button,
-			Auctionator1Button,
-			Atr_CreateAuctionButton,
-			Atr_RemFromSListButton,
-			Atr_AddToSListButton,
-			Atr_SrchSListButton,
-			Atr_MngSListsButton,
-			Atr_NewSListButton,
-			Atr_CheckActiveButton,
-			AuctionatorCloseButton,
-			Atr_CancelSelectionButton,
-			Atr_FullScanStartButton,
-			Atr_FullScanDone,
-			Atr_CheckActives_Yes_Button,
-			Atr_CheckActives_No_Button,
-			Atr_Adv_Search_ResetBut,
-			Atr_Adv_Search_OKBut,
-			Atr_Adv_Search_CancelBut,
-			Atr_Buy_Confirm_OKBut,
-			Atr_Buy_Confirm_CancelBut,
-			Atr_SaveThisList_Button,
-			Atr_UCConfigFrame_Reset,
-			Atr_StackingOptionsFrame_Edit,
-			Atr_StackingOptionsFrame_New,
-			Atr_FullScanButton,
+			_G["Atr_Search_Button"],
+			_G["Atr_Back_Button"],
+			_G["Atr_Buy1_Button"],
+			_G["Auctionator1Button"],
+			_G["Atr_CreateAuctionButton"],
+			_G["Atr_RemFromSListButton"],
+			_G["Atr_AddToSListButton"],
+			_G["Atr_SrchSListButton"],
+			_G["Atr_MngSListsButton"],
+			_G["Atr_NewSListButton"],
+			_G["Atr_CheckActiveButton"],
+			_G["AuctionatorCloseButton"],
+			_G["Atr_CancelSelectionButton"],
+			_G["Atr_FullScanStartButton"],
+			_G["Atr_FullScanDone"],
+			_G["Atr_CheckActives_Yes_Button"],
+			_G["Atr_CheckActives_No_Button"],
+			_G["Atr_Adv_Search_ResetBut"],
+			_G["Atr_Adv_Search_OKBut"],
+			_G["Atr_Adv_Search_CancelBut"],
+			_G["Atr_Buy_Confirm_OKBut"],
+			_G["Atr_Buy_Confirm_CancelBut"],
+			_G["Atr_SaveThisList_Button"],
+			_G["Atr_UCConfigFrame_Reset"],
+			_G["Atr_StackingOptionsFrame_Edit"],
+			_G["Atr_StackingOptionsFrame_New"],
+			_G["Atr_FullScanButton"],
 		}
 
 		for _, Button in pairs(Buttons) do
@@ -127,68 +128,68 @@ function AS:Auctionator(event)
 		end
 
 		local EditBoxes = {
-			Atr_Batch_NumAuctions,
-			Atr_Batch_Stacksize,
-			Atr_Search_Box,
-			Atr_AS_Searchtext,
-			Atr_AS_Minlevel,
-			Atr_AS_Maxlevel,
-			Atr_AS_MinItemlevel,
-			Atr_AS_MaxItemlevel,
-			Atr_Starting_Discount,
-			Atr_ScanOpts_MaxHistAge,
+			_G["Atr_Batch_NumAuctions"],
+			_G["Atr_Batch_Stacksize"],
+			_G["Atr_Search_Box"],
+			_G["Atr_AS_Searchtext"],
+			_G["Atr_AS_Minlevel"],
+			_G["Atr_AS_Maxlevel"],
+			_G["Atr_AS_MinItemlevel"],
+			_G["Atr_AS_MaxItemlevel"],
+			_G["Atr_Starting_Discount"],
+			_G["Atr_ScanOpts_MaxHistAge"],
 		}
 
 		for _, EditBox in pairs(EditBoxes) do
  			AS:SkinEditBox(EditBox)
 		end
 
-		AS:SkinCheckBox(AuctionatorOption_Enable_Alt_CB)
-		AS:SkinCheckBox(AuctionatorOption_Show_StartingPrice_CB)
-		AS:SkinCheckBox(ATR_tipsVendorOpt_CB)
-		AS:SkinCheckBox(ATR_tipsAuctionOpt_CB)
-		AS:SkinCheckBox(ATR_tipsDisenchantOpt_CB)
-		AS:SkinCheckBox(Atr_Adv_Search_Button)
-		AS:SkinCheckBox(Atr_Exact_Search_Button)
+		AS:SkinCheckBox(_G["AuctionatorOption_Enable_Alt_CB"])
+		AS:SkinCheckBox(_G["AuctionatorOption_Show_StartingPrice_CB"])
+		AS:SkinCheckBox(_G["ATR_tipsVendorOpt_CB"])
+		AS:SkinCheckBox(_G["ATR_tipsAuctionOpt_CB"])
+		AS:SkinCheckBox(_G["ATR_tipsDisenchantOpt_CB"])
+		AS:SkinCheckBox(_G["Atr_Adv_Search_Button"])
+		AS:SkinCheckBox(_G["Atr_Exact_Search_Button"])
 
-		AS:SkinFrame(Atr_HeadingsBar, 'Transparent')
-		AS:SkinFrame(Atr_Hlist, 'Transparent')
-		AS:SkinFrame(Atr_Buy_Confirm_Frame, 'Transparent')
-		AS:SkinFrame(Atr_CheckActives_Frame, 'Transparent')
-		AS:SkinFrame(Atr_FullScanFrame)
+		AS:SkinFrame(_G["Atr_HeadingsBar"], 'Transparent')
+		AS:SkinFrame(_G["Atr_Hlist"], 'Transparent')
+		AS:SkinFrame(_G["Atr_Buy_Confirm_Frame"], 'Transparent')
+		AS:SkinFrame(_G["Atr_CheckActives_Frame"], 'Transparent')
+		AS:SkinFrame(_G["Atr_FullScanFrame"])
 
-		AS:SkinScrollBar(Atr_Hlist_ScrollFrameScrollBar)
+		AS:SkinScrollBar(_G["Atr_Hlist_ScrollFrameScrollBar"])
 
-		Atr_FullScanButton:ClearAllPoints()
-		Atr_FullScanButton:SetPoint('TOPRIGHT', Auctionator1Button, 'BOTTOMRIGHT', 0, -2)
-		Atr_deDetailsDDText:SetJustifyH('RIGHT')
+		_G["Atr_FullScanButton"]:ClearAllPoints()
+		_G["Atr_FullScanButton"]:SetPoint('TOPRIGHT', _G["Auctionator1Button"], 'BOTTOMRIGHT', 0, -2)
+		_G["Atr_deDetailsDDText"]:SetJustifyH('RIGHT')
 
-		Atr_HeadingsBar:SetHeight(19)
+		_G["Atr_HeadingsBar"]:SetHeight(19)
 
-		Atr_Hlist:SetWidth(196)
-		Atr_Hlist:ClearAllPoints()
-		Atr_Hlist:SetPoint('TOPLEFT', -195, -75)
+		_G["Atr_Hlist"]:SetWidth(196)
+		_G["Atr_Hlist"]:ClearAllPoints()
+		_G["Atr_Hlist"]:SetPoint('TOPLEFT', -195, -75)
 
-		Atr_SrchSListButton:SetWidth(196)
-		Atr_MngSListsButton:SetWidth(196)
-		Atr_NewSListButton:SetWidth(196)
-		Atr_CheckActiveButton:SetWidth(196)
+		_G["Atr_SrchSListButton"]:SetWidth(196)
+		_G["Atr_MngSListsButton"]:SetWidth(196)
+		_G["Atr_NewSListButton"]:SetWidth(196)
+		_G["Atr_CheckActiveButton"]:SetWidth(196)
 
-		Atr_ListTabs:SetPoint('BOTTOMRIGHT', Atr_HeadingsBar, 'TOPRIGHT', 8, 1)
-		Atr_Back_Button:SetPoint('TOPLEFT', Atr_HeadingsBar, 'TOPLEFT', 0, 19)
+		_G["Atr_ListTabs"]:SetPoint('BOTTOMRIGHT', _G["Atr_HeadingsBar"], 'TOPRIGHT', 8, 1)
+		_G["Atr_Back_Button"]:SetPoint('TOPLEFT', _G["Atr_HeadingsBar"], 'TOPLEFT', 0, 19)
 
-		AuctionatorCloseButton:ClearAllPoints()
-		AuctionatorCloseButton:SetPoint('BOTTOMRIGHT', Atr_Main_Panel, 'BOTTOMRIGHT', -10, 10)
-		Atr_Buy1_Button:SetPoint('RIGHT', AuctionatorCloseButton, 'LEFT', -5, 0)
-		Atr_CancelSelectionButton:SetPoint('RIGHT', Atr_Buy1_Button, 'LEFT', -5, 0)
+		_G["AuctionatorCloseButton"]:ClearAllPoints()
+		_G["AuctionatorCloseButton"]:SetPoint('BOTTOMRIGHT', _G["Atr_Main_Panel"], 'BOTTOMRIGHT', -10, 10)
+		_G["Atr_Buy1_Button"]:SetPoint('RIGHT', _G["AuctionatorCloseButton"], 'LEFT', -5, 0)
+		_G["Atr_CancelSelectionButton"]:SetPoint('RIGHT', _G["Atr_Buy1_Button"], 'LEFT', -5, 0)
 
-		AS:StripTextures(Atr_SellControls_Tex)
-		AS:StyleButton(Atr_SellControls_Tex)
-		Atr_SellControls_Tex:SetTemplate('Default', true)
+		AS:StripTextures(_G["Atr_SellControls_Tex"])
+		AS:StyleButton(_G["Atr_SellControls_Tex"])
+		_G["Atr_SellControls_Tex"]:SetTemplate('Default', true)
 
 		AS:UnregisterSkinEvent('Auctionator', 'AUCTION_HOUSE_SHOW')
 
-		for i = 1, AuctionFrame.numTabs do
+		for i = 1, _G["AuctionFrame"].numTabs do
 			AS:SkinTab(_G["AuctionFrameTab"..i])
 		end
 	end

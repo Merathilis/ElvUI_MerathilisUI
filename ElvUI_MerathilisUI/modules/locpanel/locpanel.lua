@@ -32,11 +32,13 @@ local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, 
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
+local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
---GLOBALS: HSplace
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
 local faction
@@ -531,7 +533,7 @@ function LP:PLAYER_ENTERING_WORLD()
 	if x then 
 		LP.RestrictedArea = false
 	else 
-		LP.RestrictedArea = true 
+		LP.RestrictedArea = true
 	end
 	LP:UNIT_AURA(nil, "player")
 end
@@ -539,11 +541,10 @@ end
 function LP:UNIT_AURA(event, unit)
 	if unit ~= "player" then return end
 	if E.db.mui.locPanel.enable and E.db.mui.locPanel.orderhallhide then
-		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
-		loc_panel:SetShown(not inOrderHall);
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		loc_panel:SetShown(not inOrderHall)
 	end
 end
-
 
 function LP:Initialize()
 	faction = UnitFactionGroup('player')

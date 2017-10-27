@@ -19,7 +19,8 @@ local C_TimerAfter = C_Timer.After
 local SetCVar = SetCVar
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc
+-- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
+-- GLOBALS: MERData, MERDataPerChar
 
 --Setting up table to unpack. Why? no idea
 Engine[1] = MER

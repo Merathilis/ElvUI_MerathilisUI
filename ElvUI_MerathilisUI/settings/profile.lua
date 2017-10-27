@@ -21,6 +21,7 @@ P["mui"] = {
 			["vignette"] = true,
 			["invites"] = true,
 			["guildEvents"] = true,
+			["quickJoin"] = true,
 		},
 	},
 
@@ -90,7 +91,6 @@ P["mui"] = {
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
-		["autoscreenshot"] = false,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,
@@ -133,6 +133,7 @@ P["mui"] = {
 		["threatBar"] = {
 			["enable"] = true,
 			["textSize"] = 10,
+			["textOutline"] = "OUTLINE",
 		},
 	},
 
@@ -157,13 +158,13 @@ P["mui"] = {
 	["actionbars"] = {
 		["transparent"] = true,
 		["buttonStyle"] = {
-			["enabled"] = true,
+			["enabled"] = false,
 			["texture"] = "MerathilisGradient",
 			["alpha"] = 0.25,
 			["invertedShadows"] = true,
 		},
 		["buttonBorder"] = {
-			["enabled"] = true,
+			["enabled"] = false,
 			["color"] = {r = .9, g = .7, b = 0, a = .7},
 		},
 	},
@@ -279,6 +280,7 @@ P["mui"] = {
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
+		["keystone"] = true, -- Adds descriptions for mythic keystone properties
 	},
 
 	["error"] = {
@@ -324,6 +326,17 @@ P["mui"] = {
 			["enabled"] = false,
 			["called"] = "Hundred",
 		},
+	},
+
+	["efl"] = {
+		["NameFont"] = "Expressway",
+		["NameFontSize"] = 11,
+		["NameFontFlag"] = "OUTLINE",
+		["InfoFont"] = "Expressway",
+		["InfoFontSize"] = 10,
+		["InfoFontFlag"] = "NONE",
+		["GameIconPack"] = "Default",
+		["StatusIconPack"] = "Default",
 	},
 
 	["NameplateAuras"] = {

@@ -5,12 +5,12 @@ local DT = E:GetModule("DataTexts")
 --Cache global variables
 --Lua functions
 local _G = _G
-local pairs, type = pairs, type
+local pairs, print, type = pairs, print, type
 --WoW API / Variables
 local NONE = NONE
 
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
--- GLOBALS: LeftMiniPanel, Minimap
+-- GLOBALS: LibStub
 
 function MER:LoadDataTexts()
 	local db = E.db.mui.datatexts
@@ -146,6 +146,19 @@ local function Datatexts()
 						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,
 						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule("ThreatBar"):UpdatePosition() end,
 						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
+					},
+					textOutline = {
+						order = 3,
+						name = L["Font Outline"],
+						type = "select",
+						get = function(info) return E.db.mui.datatexts.threatBar.textOutline end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textOutline = value; E:GetModule("ThreatBar"):UpdatePosition() end,
+						values = {
+							["NONE"] = NONE,
+							["OUTLINE"] = "OUTLINE",
+							["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
+							["THICKOUTLINE"] = "THICKOUTLINE",
+						},
 					},
 				},
 			},

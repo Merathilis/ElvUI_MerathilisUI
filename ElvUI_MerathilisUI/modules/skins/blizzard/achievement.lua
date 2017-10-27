@@ -4,23 +4,29 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
+local _G = _G
+local select = select
+--WoW API / Variables
+local CreateFrame = CreateFrame
+local GetAchievementInfo = GetAchievementInfo
+local GetAchievementNumCriteria = GetAchievementNumCriteria
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS
+
 
 local function styleAchievement()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true then return end
 
-	MERS:CreateGradient(AchievementFrame)
-
-	if not AchievementFrame.stripes then
-		MERS:CreateStripes(AchievementFrame)
-	end
+	MERS:CreateGradient(_G["AchievementFrame"])
+	MERS:CreateStripes(_G["AchievementFrame"])
 
 	-- Hide the ElvUI default backdrop
-	if AchievementFrameCategoriesContainer.backdrop then
-		AchievementFrameCategoriesContainer.backdrop:Hide()
+	if _G["AchievementFrameCategoriesContainer"].backdrop then
+		_G["AchievementFrameCategoriesContainer"].backdrop:Hide()
 	end
 
 	for i = 1, 17 do
-		select(i, AchievementFrame:GetRegions()):Hide()
+		select(i, _G["AchievementFrame"]:GetRegions()):Hide()
 	end
 
 	for i = 1, 7 do
@@ -126,7 +132,7 @@ local function styleAchievement()
 		end
 	end)
 
-	AchievementFrame:HookScript("OnShow", function()
+	_G["AchievementFrame"]:HookScript("OnShow", function()
 		for i = 1, 20 do
 			local frame = _G["AchievementFrameCategoriesContainerButton"..i]
 

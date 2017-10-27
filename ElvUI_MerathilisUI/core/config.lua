@@ -6,6 +6,8 @@ if E.db.mui == nil then E.db.mui = {} end
 -- Lua functions
 local format = format
 local tinsert = table.insert
+-- WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: StaticPopup_Show
@@ -225,7 +227,7 @@ local function AddOptions()
 								type = "header",
 								name = MER:cOption(L["Settings"]),
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 							desc = {
 								order = 3,
@@ -233,14 +235,14 @@ local function AddOptions()
 								fontSize = "small",
 								name = L["Here you can enable/disable the different notification types."],
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 							mail = {
 								order = 4,
 								type = "toggle",
 								name = L["Enable Mail"],
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 							vignette = {
 								order = 5,
@@ -248,21 +250,28 @@ local function AddOptions()
 								name = L["Enable Vignette"],
 								desc = L["If a Rar Mob or a treasure gets spotted on the minimap."],
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 							invites = {
 								order = 6,
 								type = "toggle",
 								name = L["Enable Invites"],
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 							guildEvents = {
 								order = 7,
 								type = "toggle",
 								name = L["Enable Guild Events"],
 								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end, 
+								hidden = function() return not E.db.mui.general.Notification.enable end,
+							},
+							quickJoin = {
+								order = 7,
+								type = "toggle",
+								name = L["Enable Quick Join Notification"],
+								disabled = function() return not E.db.mui.general.Notification.enable end,
+								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
 						},
 					},

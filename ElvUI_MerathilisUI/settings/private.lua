@@ -42,15 +42,16 @@ V["muiSkins"] = {
 		["addonManager"] = true,
 		["mail"] = true,
 		["raid"] = true,
+		["dressingroom"] = true,
+		["timemanager"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
 		["bw"] = true,
 		["wa"] = true,
 		["xiv"] = true,
-		["pgf"] = true,
-		["qjn"] = true,
 		["bui"] = true,
+		["bs"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,

@@ -3,16 +3,19 @@ local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local select = select
 -- WoW API / Variables
-
+local GetItemInfo = GetItemInfo
+local GetQuestItemLink = GetQuestItemLink
+local GetNumQuestChoices = GetNumQuestChoices
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS:
+-- GLOBALS: QuestInfo_GetRewardButton, QuestInfoItemHighlight
 
 local dbg = 0;
 
 local function SelectQuestReward(index)
-	local rewardsFrame = QuestInfoFrame.rewardsFrame
+	local rewardsFrame = _G["QuestInfoFrame"].rewardsFrame
 
 	if dbg == 1 then
 		MER:Print("index: "..index)
@@ -32,7 +35,7 @@ local function SelectQuestReward(index)
 		QuestInfoItemHighlight:Show()
 
 		-- set choice
-		QuestInfoFrame.itemChoice = btn:GetID()
+		_G["QuestInfoFrame"].itemChoice = btn:GetID()
 	end
 end
 

@@ -7,15 +7,16 @@ local _G = _G
 local ipairs, unpack = ipairs, unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LibStub, GARRISON_LOCATION_TOOLTIP, COLLECTIONS, OBJECTIVES_TRACKER_LABEL, DRESSUP_FRAME
 
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"BigWigs", L["BigWigs"], "bw"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"XIV_Databar", L["XIV_Databar"], "xiv"},
-	{"PremadeGroupsFilter", L["PremadeGroupsFilter"], "pgf"},
-	{"QuickJoinNotifications", L["QuickJoinNotifications"], "qjn"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
+	{"BugSack", L["BugSack"], "bs"},
 }
 
 local SupportedProfiles = {
@@ -28,6 +29,7 @@ local SupportedProfiles = {
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"XIV_Databar", "XIV_Databar"},
+	{"OzCooldowns", "OzCooldowns"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -249,6 +251,16 @@ local function SkinsTable()
 				name = L["Raid Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.raid end,
 			},
+			dressingroom = {
+				type = "toggle",
+				name = DRESSUP_FRAME,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
+			},
+			timemanager = {
+				type = "toggle",
+				name = L["Time Manager"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager end,
+			},
 		},
 	}
 
@@ -282,8 +294,6 @@ local function SkinsTable()
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 				elseif addon == 'ElvUI_SLE' then
 					E:StaticPopup_Show("MUI_INSTALL_SLE_LAYOUT")
-				elseif addon == 'Kui_Nameplates_Core' then
-					E:StaticPopup_Show("MUI_INSTALL_KUI_LAYOUT")
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
@@ -301,8 +311,11 @@ local function SkinsTable()
 				elseif addon == 'AddOnSkins' then
 					MER:LoadAddOnSkinsProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'OzCooldowns' then
+					MER:LoadOCDProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
 				end
-				print(profileString..addonName)
+				MER:Print(profileString..addonName)
 			end,
 			disabled = function() return not IsAddOnLoaded(addon) end,
 		}

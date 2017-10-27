@@ -51,12 +51,6 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura:SetWidth(width)
 		aura:SetHeight(height)
 
-		if count > 1 then
-			aura.count:SetText(count)
-		else
-			aura.count:SetText("")
-		end
-
 		NA:SortAuras(aura:GetParent())
 	end
 end
@@ -83,7 +77,6 @@ function NA:SortAuras(auras)
 end
 
 function NA:UpdateAuraIcons(auras)
-
 	local maxAuras = auras.db.numAuras
 	local numCurrentAuras = #auras.icons
 
@@ -191,7 +184,6 @@ function NA:PLAYER_ENTERING_WORLD()
 	self:UpdateSpellList()
 	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 end
-
 
 function NA:Initialize()
 	hooksecurefunc(NP, "SetAura", NA.SetAura)

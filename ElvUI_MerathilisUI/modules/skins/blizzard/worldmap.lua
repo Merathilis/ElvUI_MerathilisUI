@@ -4,18 +4,22 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
-local unpack = unpack
+local _G = _G
+local select = select
+--WoW API / Variables
+local CreateFrame = CreateFrame
+local GetNumQuestLogEntries = GetNumQuestLogEntries
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
 
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
-	MERS:CreateGradient(WorldMapFrame)
-	if not WorldMapFrame.stripes then
-		MERS:CreateStripes(WorldMapFrame)
-	end
+	MERS:CreateGradient(_G["WorldMapFrame"])
+	MERS:CreateStripes(_G["WorldMapFrame"])
 
-	local frame = CreateFrame("Frame", nil, QuestMapFrame)
-	QuestMapFrame.QuestCountFrame = frame
+	local frame = CreateFrame("Frame", nil, _G["QuestMapFrame"])
+	_G["QuestMapFrame"].QuestCountFrame = frame
 
 	frame:RegisterEvent("QUEST_LOG_UPDATE")
 	frame:Size(240, 20)
@@ -37,8 +41,8 @@ local function styleWorldmap()
 	end)
 
 	if frame then
-		QuestMapFrame.DetailsFrame.BackButton:ClearAllPoints()
-		QuestMapFrame.DetailsFrame.BackButton:Point("LEFT", 10, 275)
+		_G["QuestMapFrame"].DetailsFrame.BackButton:ClearAllPoints()
+		_G["QuestMapFrame"].DetailsFrame.BackButton:Point("LEFT", 10, 275)
 	else
 		return;
 	end

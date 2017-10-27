@@ -42,15 +42,15 @@ local UnitFactionGroup = UnitFactionGroup
 -- GLOBALS: ItemRefShoppingTooltip1, ItemRefShoppingTooltip2, ItemRefShoppingTooltip3, LinkWrangler
 -- GLOBALS: ComparisonTooltip1, ComparisonTooltip2, AtlasLootTooltip, SLASH_TOOLTIPITEMICON1, SLASH_TOOLTIPITEMICON2
 -- GLOBALS: SlashCmdList, hooksecurefunc, GameTooltipTextLeft1,  BONUS_OBJECTIVE_REWARD_WITH_COUNT_FORMAT
+-- GLOBALS: PET_TYPE_SUFFIX, PET, ID, UNKNOWN
 
 -- Author: brykrys
 -- Previous Authors: Alason, Freddy, Amavana
 -- Additional coding and thanks: Resike
 
 -- See end of file for global exports
--- Documentation can be found in commands.txt and developer.txt
 
-local version = 1.73
+local version = 1.74
 -- release
 
 --------------------------------------------------------------------------------

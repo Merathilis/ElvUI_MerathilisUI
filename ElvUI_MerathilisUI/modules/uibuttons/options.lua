@@ -1,7 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUB = E:GetModule("muiButtons")
 
+--Cache global variables
+local pairs, type = pairs, type
+local format = string.format
+--WoW API / Variables
 local CUSTOM, NONE, DEFAULT = CUSTOM, NONE, DEFAULT
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
 
 local positionValues = {
 	TOPLEFT = 'TOPLEFT',

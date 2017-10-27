@@ -3,7 +3,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local print, select = print, select
+local pairs, print, select = pairs, print, select
 local format = string.format
 -- WoW API / Variables
 local GetAchievementInfo = GetAchievementInfo
@@ -12,7 +12,8 @@ local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
 local GetContainerNumSlots = GetContainerNumSlots
 
---GLOBALS: NUM_BAG_SLOTS
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 MER.dummy = function() return end
 MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
@@ -59,7 +60,6 @@ function MER:InvertTable(t)
 	for k, v in pairs(t) do u[v] = k end
 	return u
 end
-
 
 function MER:GetIconFromID(type, id)
 	local path
@@ -163,4 +163,18 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
+end
+
+local BC = {}
+for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+	BC[v] = k
+end
+
+for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
+	BC[v] = k
+end
+
+function MER:GetClassColorString(class)
+	local color = MER.colors.class[BC[class] or class]
+	return E:RGBToHex(color.r, color.g, color.b)
 end

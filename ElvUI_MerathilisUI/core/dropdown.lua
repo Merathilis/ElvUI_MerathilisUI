@@ -77,7 +77,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 	if InCombatLockdown() then return end
 	if not frame.buttons then
 		frame.buttons = {}
-		frame:SetFrameStrata("DIALOG")
+		frame:SetFrameStrata("TOOLTIP")
 		frame:SetClampedToScreen(true)
 		tinsert(UISpecialFrames, frame:GetName())
 		frame:Hide()

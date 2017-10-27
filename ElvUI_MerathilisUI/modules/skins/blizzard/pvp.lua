@@ -2,6 +2,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 local S = E:GetModule('Skins')
 
+--Cache global variables
+local _G = _G
+local pairs, select = pairs, select
+--WoW API / Variables
+local CreateFrame = CreateFrame
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, Inset
+
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
@@ -27,7 +35,7 @@ local function stylePvP()
 		bu.backdropTexture:Hide()
 	end
 
-	local BonusFrame = HonorFrame.BonusFrame
+	local BonusFrame = _G["HonorFrame"].BonusFrame
 
 	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "AshranButton", "BrawlButton"}) do
 		local bu = BonusFrame[bonusButton]
@@ -44,7 +52,7 @@ local function stylePvP()
 	end
 
 	-- Honor frame specific
-	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
+	for _, bu in pairs(_G["HonorFrame"].SpecificFrame.buttons) do
 		bu.Bg:Hide()
 		bu.Border:Hide()
 
@@ -73,18 +81,18 @@ local function stylePvP()
 	end
 
 	-- Conquest Frame
-	Inset = ConquestFrame.Inset
+	Inset = _G["ConquestFrame"].Inset
 
 	for i = 1, 9 do
 		select(i, Inset:GetRegions()):Hide()
 	end
-	ConquestFrame.ArenaTexture:Hide()
-	ConquestFrame.RatedBGTexture:Hide()
-	ConquestFrame.ArenaHeader:Hide()
-	ConquestFrame.RatedBGHeader:Hide()
-	ConquestFrame.ShadowOverlay:Hide()
+	_G["ConquestFrame"].ArenaTexture:Hide()
+	_G["ConquestFrame"].RatedBGTexture:Hide()
+	_G["ConquestFrame"].ArenaHeader:Hide()
+	_G["ConquestFrame"].RatedBGHeader:Hide()
+	_G["ConquestFrame"].ShadowOverlay:Hide()
 
-	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+	for _, bu in pairs({_G["ConquestFrame"].Arena2v2, _G["ConquestFrame"].Arena3v3, _G["ConquestFrame"].RatedBG}) do
 		bu:StripTextures()
 
 		MERS:CreateBD(bu, .25)
@@ -98,18 +106,18 @@ local function stylePvP()
 	end
 
 	-- War games
-	Inset = WarGamesFrame.RightInset
+	Inset = _G["WarGamesFrame"].RightInset
 
 	for i = 1, 9 do
 		select(i, Inset:GetRegions()):Hide()
 	end
-	WarGamesFrame.InfoBG:Hide()
-	WarGamesFrame.HorizontalBar:Hide()
-	WarGamesFrameInfoScrollFrame.scrollBarBackground:Hide()
-	WarGamesFrameInfoScrollFrame.scrollBarArtTop:Hide()
-	WarGamesFrameInfoScrollFrame.scrollBarArtBottom:Hide()
+	_G["WarGamesFrame"].InfoBG:Hide()
+	_G["WarGamesFrame"].HorizontalBar:Hide()
+	_G["WarGamesFrameInfoScrollFrame"].scrollBarBackground:Hide()
+	_G["WarGamesFrameInfoScrollFrame"].scrollBarArtTop:Hide()
+	_G["WarGamesFrameInfoScrollFrame"].scrollBarArtBottom:Hide()
 
-	WarGamesFrameDescription:SetTextColor(.9, .9, .9)
+	_G["WarGamesFrameDescription"]:SetTextColor(.9, .9, .9)
 
 	local function onSetNormalTexture(self, texture)
 		if texture:find("Plus") then
@@ -119,7 +127,7 @@ local function stylePvP()
 		end
 	end
 
-	for _, button in pairs(WarGamesFrame.scrollFrame.buttons) do
+	for _, button in pairs(_G["WarGamesFrame"].scrollFrame.buttons) do
 		local bu = button.Entry
 		local SelectedTexture = bu.SelectedTexture
 

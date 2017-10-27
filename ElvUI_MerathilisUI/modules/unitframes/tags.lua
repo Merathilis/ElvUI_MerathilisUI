@@ -5,12 +5,19 @@ assert(ElvUF, "ElvUI was unable to locate oUF.")
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
-local format, gmatch, match, sub = string.format, string.gmatch, string.match, string.sub
-local assert = assert
+local abs = math.abs
+local format, match, sub, gsub, len = string.format, string.match, string.sub, string.gsub, string.len
+local assert, tonumber, type = assert, tonumber, type
 -- WoW API / Variables
+local UnitIsDead = UnitIsDead
 local UnitClass = UnitClass
+local UnitIsGhost = UnitIsGhost
+local UnitIsConnected = UnitIsConnected
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 local UnitName = UnitName
+local UnitFactionGroup = UnitFactionGroup
+local UnitPower = UnitPower
+local IsResting = IsResting
 
 -- GLOBALS: Hex, _COLORS
 
@@ -70,63 +77,6 @@ function MER:GetFormattedText(min, max, style, noDecimal)
 	end
 end
 
-ElvUF.Tags.Methods["classcolor:player"] = function()
-	local _, unitClass = UnitClass("player")
-	local String
-
-	if unitClass then
-		String = Hex(_COLORS.class[unitClass])
-	else
-		String = "|cFFC2C2C2"
-	end
-
-	return String
-end
-
-ElvUF.Tags.Methods["classcolor:hunter"] = function()
-	return Hex(_COLORS.class["HUNTER"])
-end
-
-ElvUF.Tags.Methods["classcolor:warrior"] = function()
-	return Hex(_COLORS.class["WARRIOR"])
-end
-
-ElvUF.Tags.Methods["classcolor:paladin"] = function()
-	return Hex(_COLORS.class["PALADIN"])
-end
-
-ElvUF.Tags.Methods["classcolor:mage"] = function()
-	return Hex(_COLORS.class["MAGE"])
-end
-
-ElvUF.Tags.Methods["classcolor:priest"] = function()
-	return Hex(_COLORS.class["PRIEST"])
-end
-
-ElvUF.Tags.Methods["classcolor:warlock"] = function()
-	return Hex(_COLORS.class["WARLOCK"])
-end
-
-ElvUF.Tags.Methods["classcolor:shaman"] = function()
-	return Hex(_COLORS.class["SHAMAN"])
-end
-
-ElvUF.Tags.Methods["classcolor:deathknight"] = function()
-	return Hex(_COLORS.class["DEATHKNIGHT"])
-end
-
-ElvUF.Tags.Methods["classcolor:druid"] = function()
-	return Hex(_COLORS.class["DRUID"])
-end
-
-ElvUF.Tags.Methods["classcolor:monk"] = function()
-	return Hex(_COLORS.class["MONK"])
-end
-
-ElvUF.Tags.Methods["classcolor:rogue"] = function()
-	return Hex(_COLORS.class["ROGUE"])
-end
-
 ElvUF.Tags.Events["health:percent:hidefull:hidezero"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION"
 ElvUF.Tags.Methods["health:percent:hidefull:hidezero"] = function(unit)
 	local min, max = UnitHealth(unit), UnitHealthMax(unit)
@@ -172,29 +122,15 @@ ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
 	return String
 end
 
--- Credits goes to Simpy 
-local function abbrev(text)
-	local endname = match(text, ".+%s(.+)$")
-	if endname then
-		local newname = ""
-		for k, v in gmatch(text, "%S-%s") do
-			newname = newname .. sub(k,1,1) .. ". "
-		end
-		text = newname .. endname
-	end
-	return text
-end
-
 ElvUF.Tags.Events["name:abbrev"] = "UNIT_NAME_UPDATE"
 ElvUF.Tags.Methods["name:abbrev"] = function(unit)
 	local name = UnitName(unit)
-	name = abbrev(name)
 
-	if name and name:find(" ") then
-		name = abbrev(name)
+	if name and len(name) > 15 then
+		name = name:gsub('(%S+) ', function(t) return t:sub(1,1)..'. ' end)
 	end
 
-	return name ~= nil and E:ShortenString(name, 20) or "" --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+	return name
 end
 
 local function shortenNumber(number)
@@ -214,7 +150,7 @@ local function shortenNumber(number)
 
 	local affix = 1
 	local dec = 0
-	local num1 = math.abs(number)
+	local num1 = abs(number)
 	while num1 >= 1000 and affix < #affixes do
 		num1 = num1 / 1000
 		affix = affix + 1
@@ -231,7 +167,7 @@ local function shortenNumber(number)
 		num1 = -num1
 	end
 
-	return string.format("%."..dec.."f"..affixes[affix], num1)
+	return format("%."..dec.."f"..affixes[affix], num1)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
@@ -251,4 +187,27 @@ _G["ElvUF"].Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER UNI
 _G["ElvUF"].Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	return shortenNumber(CurrentPower)
+end
+
+_G["ElvUF"].Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
+_G["ElvUF"].Tags.Methods["mUI-resting"] = function(unit)
+	if(unit == "player" and IsResting()) then
+		return "zZz"
+	else
+		return ""
+	end
+end
+
+ElvUF.Tags.Events["faction:icon"] = "UNIT_NAME_UPDATE"
+ElvUF.Tags.Methods["faction:icon"] = function(unit)
+	local faction = UnitFactionGroup(unit)
+	local str = ""
+
+	if faction == "Alliance" then
+		str = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\GameIcons\\Flat\\Alliance:16:16:0:-1|t"
+	elseif faction == "Horde" then
+		str = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\GameIcons\\Flat\\Horde:16:16:0:-1|t"
+	end
+
+	return str
 end

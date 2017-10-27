@@ -4,24 +4,26 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
+local select, pairs = select, pairs
 -- WoW API
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+local CreateFrame = CreateFrame
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, GARRISON_NUM_BUILDING_SIZES,  HybridScrollFrame_GetOffset, GarrisonMissionFrameFollowers
+-- GLOBALS: GarrisonShipyardFrameFollowers, GarrisonBuildingFrameFollowers, GarrisonRecruitSelectFrame, GarrisonLandingPageFollowerList
+-- GLOBALS: GarrisonLandingPageShipFollowerList
 
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
 
 	-- Landing page
-	local GarrisonLandingPage = GarrisonLandingPage
+	local GarrisonLandingPage = _G["GarrisonLandingPage"]
 	for i = 1, 10 do
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
 	MERS:CreateGradient(GarrisonLandingPage)
-	if not GarrisonLandingPage.stripes then
-		MERS:CreateStripes(GarrisonLandingPage)
-	end
+	MERS:CreateStripes(GarrisonLandingPage)
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -89,7 +91,7 @@ local function styleGarrison()
 	FollowerList:GetRegions():Hide()
 
 	-- Recruitment frame
-	local selectFrame = GarrisonRecruitSelectFrame
+	local selectFrame = _G["GarrisonRecruitSelectFrame"]
 	selectFrame.GarrCorners:Hide()
 
 	-- Ship Follower tab
@@ -106,7 +108,7 @@ local function styleGarrison()
 	end
 
 	-- Building frame
-	local GarrisonBuildingFrame = GarrisonBuildingFrame
+	local GarrisonBuildingFrame = _G["GarrisonBuildingFrame"]
 	for i = 1, 14 do
 		select(i, GarrisonBuildingFrame:GetRegions()):Hide()
 	end
@@ -204,10 +206,10 @@ local function styleGarrison()
 	FollowerList:DisableDrawLayer("BORDER")
 
 	-- [[ Shipyard UI ]]
-	local MissionTab = GarrisonShipyardFrame.MissionTab
+	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab
 
 	-- Ship Follower tab
-	local FollowerTab = GarrisonShipyardFrame.FollowerTab
+	local FollowerTab = _G["GarrisonShipyardFrame"].FollowerTab
 	for i = 1, 22 do
 		select(i, FollowerTab:GetRegions()):Hide()
 	end
@@ -288,12 +290,6 @@ local function styleGarrison()
 
 			if not button.restyled then
 				MERS:CreateBD(button, .25)
-
-				if portrait then
-					restyleFollowerPortrait(portrait)
-					portrait:ClearAllPoints()
-					portrait:SetPoint("TOPLEFT", 4, -1)
-				end
 
 				button.restyled = true
 			end

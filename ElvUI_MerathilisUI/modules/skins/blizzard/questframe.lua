@@ -5,30 +5,30 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local next, select = next, select
+local gsub = string.gsub
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetActiveTitle = GetActiveTitle
-local GetAvailableQuestInfo = GetAvailableQuestInfo
-local GetAvailableTitle = GetAvailableTitle
-local GetNumActiveQuests = GetNumActiveQuests
-local GetNumAvailableQuests = GetNumAvailableQuests
-local IsActiveQuestTrivial = IsActiveQuestTrivial
+local GetMoney = GetMoney
+local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
+local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
+local GetQuestLogRequiredMoney = GetQuestLogRequiredMoney
 
--- GLOBALS: hooksecurefunc, MAX_REQUIRED_ITEMS, MER_TRIVIAL_QUEST_DISPLAY, MER_NORMAL_QUEST_DISPLAY
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc, MAX_NUM_QUESTS
 
 local function styleQuestFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- ParchmentRemover
-	QuestScrollFrame:HookScript("OnUpdate", function(self)
+	_G["QuestScrollFrame"]:HookScript("OnUpdate", function(self)
 		if self.spellTex and self.spellTex2 then
 			self.spellTex:SetTexture("")
 			self.spellTex:SetTexture("")
 		end
 	end)
-	QuestDetailScrollFrame:StripTextures(true)
-	QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
+	_G["QuestDetailScrollFrame"]:StripTextures(true)
+	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
 		self.spellTex:SetTexture("")
 	end)
 
@@ -44,7 +44,7 @@ local function styleQuestFrame()
 	_G["QuestDetailScrollFrameBottom"]:Hide()
 	_G["QuestDetailScrollFrameMiddle"]:Hide()
 
-	local DetailsFrame = QuestMapFrame.DetailsFrame
+	local DetailsFrame = _G["QuestMapFrame"].DetailsFrame
 	local RewardsFrame = DetailsFrame.RewardsFrame
 	local CompleteQuestFrame = DetailsFrame.CompleteQuestFrame
 
@@ -65,7 +65,9 @@ local function styleQuestFrame()
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
 	end)
-	select(18, QuestLogPopupDetailFrame:GetRegions()):Hide()
+	select(18, _G["QuestLogPopupDetailFrame"]:GetRegions()):Hide()
+	MERS:CreateGradient(_G["QuestLogPopupDetailFrame"])
+	MERS:CreateStripes(_G["QuestLogPopupDetailFrame"])
 
 	_G["QuestGreetingScrollFrame"]:StripTextures(true)
 	_G["QuestFrameInset"]:StripTextures(true)
@@ -80,7 +82,7 @@ local function styleQuestFrame()
 		end
 	end)
 
-	QuestMapFrame.DetailsFrame:StripTextures()
+	_G["QuestMapFrame"].DetailsFrame:StripTextures()
 
 	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
@@ -95,17 +97,17 @@ local function styleQuestFrame()
 		self:Height(self:GetHeight() - 2)
 	end)
 
-	if QuestGreetingScrollFrame.spellTex then
-		QuestGreetingScrollFrame.spellTex:SetTexture("")
+	if _G["QuestGreetingScrollFrame"].spellTex then
+		_G["QuestGreetingScrollFrame"].spellTex:SetTexture("")
 	end
 
 	hooksecurefunc("QuestInfoItem_OnClick", function(self)
-		QuestInfoItemHighlight:SetOutside(self.Icon)
+		_G["QuestInfoItemHighlight"]:SetOutside(self.Icon)
 
 		self.Name:SetTextColor(1, 1, 0)
 		local parent = self:GetParent()
 		for i = 1, #parent.RewardButtons do
-			local questItem = QuestInfoRewardsFrame.RewardButtons[i]
+			local questItem = _G["QuestInfoRewardsFrame"].RewardButtons[i]
 			if(questItem ~= self) then
 				questItem.Name:SetTextColor(1, 1, 1)
 			end
@@ -113,28 +115,28 @@ local function styleQuestFrame()
 	end)
 
 	hooksecurefunc("QuestFrameProgressItems_Update", function()
-		QuestProgressTitleText:SetTextColor(1, 1, 0)
-		QuestProgressText:SetTextColor(1, 1, 1)
-		QuestProgressRequiredItemsText:SetTextColor(1, 1, 0)
-		QuestProgressRequiredMoneyText:SetTextColor(1, 1, 0)
+		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 0)
 	end)
 
-	QuestFrameGreetingPanel:StripTextures()
-	QuestGreetingScrollFrame:StripTextures()
-	QuestGreetingFrameHorizontalBreak:Kill()
-	GreetingText:SetTextColor(1, 1, 1)
-	GreetingText.SetTextColor = MER.dummy
-	CurrentQuestsText:SetTextColor(1, 1, 0)
-	CurrentQuestsText.SetTextColor = MER.dummy
-	AvailableQuestsText:SetTextColor(1, 1, 0)
-	AvailableQuestsText.SetTextColor = MER.dummy
+	_G["QuestFrameGreetingPanel"]:StripTextures()
+	_G["QuestGreetingScrollFrame"]:StripTextures()
+	_G["QuestGreetingFrameHorizontalBreak"]:Kill()
+	_G["GreetingText"]:SetTextColor(1, 1, 1)
+	_G["GreetingText"].SetTextColor = MER.dummy
+	_G["CurrentQuestsText"]:SetTextColor(1, 1, 0)
+	_G["CurrentQuestsText"].SetTextColor = MER.dummy
+	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
+	_G["AvailableQuestsText"].SetTextColor = MER.dummy
 	for i = 1, MAX_NUM_QUESTS do
 		local button = _G["QuestTitleButton"..i]
 		if button then
 			hooksecurefunc(button, "SetFormattedText", function()
 				if button:GetFontString() then
 					if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
-						button:GetFontString():SetText(string.gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
+						button:GetFontString():SetText(gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
 					end
 				end
 			end)
@@ -145,52 +147,54 @@ local function styleQuestFrame()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then
-				QuestInfoRequiredMoneyText:SetTextColor(0.6, 0.6, 0.6)
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(0.6, 0.6, 0.6)
 			else
-				QuestInfoRequiredMoneyText:SetTextColor(1, 1, 0)
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(1, 1, 0)
 			end
 		end
 	end)
 
 	-- Quest Skin
-	QuestInfoItemHighlight:StripTextures()
-	QuestFrame:SetHeight(500)
+	_G["QuestInfoItemHighlight"]:StripTextures()
+	_G["QuestFrame"]:SetHeight(500)
+	MERS:CreateGradient(_G["QuestFrame"])
+	MERS:CreateStripes(_G["QuestFrame"])
 
-	QuestInfoRewardsFrame.SkillPointFrame.Icon:SetSize(QuestInfoRewardsFrame.SkillPointFrame.Icon:GetSize() - 4, QuestInfoRewardsFrame.SkillPointFrame.Icon:GetSize() - 4)
+	_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:SetSize(_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4, _G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4)
 
-	GreetingText:SetTextColor(1, 1, 1)
-	GreetingText.SetTextColor = MER.dummy
-	CurrentQuestsText:SetTextColor(1, 1, 0)
-	CurrentQuestsText.SetTextColor = MER.dummy
-	AvailableQuestsText:SetTextColor(1, 1, 0)
-	AvailableQuestsText.SetTextColor = MER.dummy
+	_G["GreetingText"]:SetTextColor(1, 1, 1)
+	_G["GreetingText"].SetTextColor = MER.dummy
+	_G["CurrentQuestsText"]:SetTextColor(1, 1, 0)
+	_G["CurrentQuestsText"].SetTextColor = MER.dummy
+	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
+	_G["AvailableQuestsText"].SetTextColor = MER.dummy
 
 	hooksecurefunc("QuestInfo_Display", function(template, parentFrame, acceptButton, material)
-		local rewardsFrame = QuestInfoFrame.rewardsFrame
-		local isQuestLog = QuestInfoFrame.questLog ~= nil
-		local isMapQuest = rewardsFrame == MapQuestInfoRewardsFrame
+		local rewardsFrame = _G["QuestInfoFrame"].rewardsFrame
+		local isQuestLog = _G["QuestInfoFrame"].questLog ~= nil
+		local isMapQuest = rewardsFrame == _G["MapQuestInfoRewardsFrame"]
 
-		QuestInfoTitleHeader:SetTextColor(1, 1, 0)
-		QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
-		QuestInfoObjectivesHeader:SetTextColor(1, 1, 0)
-		QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 0)
-		QuestInfoDescriptionText:SetTextColor(1, 1, 1)
-		QuestInfoObjectivesText:SetTextColor(1, 1, 1)
-		QuestInfoGroupSize:SetTextColor(1, 1, 1)
-		QuestInfoRewardText:SetTextColor(1, 1, 1)
-		QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1);
-		QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1);
+		_G["QuestInfoTitleHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoDescriptionHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoObjectivesHeader"]:SetTextColor(1, 1, 0)
+		_G["QuestInfoRewardsFrame"].Header:SetTextColor(1, 1, 0)
+		_G["QuestInfoDescriptionText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoObjectivesText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoGroupSize"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoRewardText"]:SetTextColor(1, 1, 1)
+		_G["QuestInfoRewardsFrame"].ItemChooseText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].ItemReceiveText:SetTextColor(1, 1, 1);
 
-		QuestInfoQuestType:SetTextColor(1, 1, 1)
+		_G["QuestInfoQuestType"]:SetTextColor(1, 1, 1)
 
-		if QuestInfoRewardsFrame.SpellLearnText then
-			QuestInfoRewardsFrame.SpellLearnText:SetTextColor(1, 1, 1);
+		if _G["QuestInfoRewardsFrame"].SpellLearnText then
+			_G["QuestInfoRewardsFrame"].SpellLearnText:SetTextColor(1, 1, 1);
 		end
 
-		QuestInfoRewardsFrame.spellHeaderPool.textR, QuestInfoRewardsFrame.spellHeaderPool.textG, QuestInfoRewardsFrame.spellHeaderPool.textB = 1, 1, 1
+		_G["QuestInfoRewardsFrame"].spellHeaderPool.textR, _G["QuestInfoRewardsFrame"].spellHeaderPool.textG, _G["QuestInfoRewardsFrame"].spellHeaderPool.textB = 1, 1, 1
 
-		QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1);
-		QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].PlayerTitleText:SetTextColor(1, 1, 1);
+		_G["QuestInfoRewardsFrame"].XPFrame.ReceiveText:SetTextColor(1, 1, 1);
 		local numObjectives = GetNumQuestLeaderBoards()
 		local numVisibleObjectives = 0
 		for i = 1, numObjectives do
@@ -229,25 +233,25 @@ local function styleQuestFrame()
 		local requiredMoney = GetQuestLogRequiredMoney()
 		if requiredMoney > 0 then
 			if requiredMoney > GetMoney() then
-				QuestInfoRequiredMoneyText:SetTextColor(0.6, 0.6, 0.6)
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(0.6, 0.6, 0.6)
 			else
-				QuestInfoRequiredMoneyText:SetTextColor(1, 1, 0)
+				_G["QuestInfoRequiredMoneyText"]:SetTextColor(1, 1, 0)
 			end
 		end
 	end)
 
 	hooksecurefunc("QuestFrameProgressItems_Update", function()
-		QuestProgressTitleText:SetTextColor(1, 1, 0)
-		QuestProgressText:SetTextColor(1, 1, 1)
-		QuestProgressRequiredItemsText:SetTextColor(1, 1, 0)
-		QuestProgressRequiredMoneyText:SetTextColor(1, 1, 0)
+		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 0)
+		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 0)
 	end)
 
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local button = rewardsFrame.RewardButtons[index]
 
 		if not button.restyled then
-			if rewardsFrame == MapQuestInfoRewardsFrame then
+			if rewardsFrame == _G["MapQuestInfoRewardsFrame"] then
 				MERS:SmallItemButtonTemplate(button)
 			else
 				MERS:LargeItemButtonTemplate(button)
@@ -257,9 +261,9 @@ local function styleQuestFrame()
 	end)
 
 	for i, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
-		MERS:SmallItemButtonTemplate(MapQuestInfoRewardsFrame[name])
+		MERS:SmallItemButtonTemplate(_G["MapQuestInfoRewardsFrame"][name])
 	end
-	MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
+	_G["MapQuestInfoRewardsFrame"].XPFrame.Name:SetShadowOffset(0, 0)
 
 	local QuestMapFrame = _G["QuestMapFrame"]
 	local QuestScrollFrame = _G["QuestScrollFrame"]
@@ -302,39 +306,39 @@ local function styleQuestFrame()
 	modelBackground:SetPoint("BOTTOMRIGHT", 1, -2)
 	modelBackground:SetFrameLevel(0)
 
-	QuestNPCModelBg:Hide()
-	QuestNPCModelTopBg:Hide()
-	QuestNPCModelShadowOverlay:Hide()
+	_G["QuestNPCModelBg"]:Hide()
+	_G["QuestNPCModelTopBg"]:Hide()
+	_G["QuestNPCModelShadowOverlay"]:Hide()
 
-	QuestNPCModel.BorderBottomLeft:Hide()
-	QuestNPCModel.BorderBottomRight:Hide()
-	QuestNPCModel.BorderTop:Hide()
-	QuestNPCModel.BorderBottom:Hide()
-	QuestNPCModel.BorderLeft:Hide()
-	QuestNPCModel.BorderRight:Hide()
+	_G["QuestNPCModel"].BorderBottomLeft:Hide()
+	_G["QuestNPCModel"].BorderBottomRight:Hide()
+	_G["QuestNPCModel"].BorderTop:Hide()
+	_G["QuestNPCModel"].BorderBottom:Hide()
+	_G["QuestNPCModel"].BorderLeft:Hide()
+	_G["QuestNPCModel"].BorderRight:Hide()
 
-	QuestNPCCornerTopLeft:Hide()
-	QuestNPCCornerTopRight:Hide()
-	QuestNPCCornerBottomLeft:Hide()
-	QuestNPCCornerBottomRight:Hide()
+	_G["QuestNPCCornerTopLeft"]:Hide()
+	_G["QuestNPCCornerTopRight"]:Hide()
+	_G["QuestNPCCornerBottomLeft"]:Hide()
+	_G["QuestNPCCornerBottomRight"]:Hide()
 
-	QuestNPCModelNameplate:SetAlpha(0)
+	_G["QuestNPCModelNameplate"]:SetAlpha(0)
 
-	QuestNPCModelNameText:SetPoint("TOPLEFT", modelBackground, "BOTTOMLEFT")
-	QuestNPCModelNameText:SetPoint("BOTTOMRIGHT", QuestNPCModelTextFrame, "TOPRIGHT")
+	_G["QuestNPCModelNameText"]:SetPoint("TOPLEFT", modelBackground, "BOTTOMLEFT")
+	_G["QuestNPCModelNameText"]:SetPoint("BOTTOMRIGHT", _G["QuestNPCModelTextFrame"], "TOPRIGHT")
 
-	QuestNPCModelNameTooltipFrame:SetPoint("TOPLEFT", QuestNPCModelNameText, 0, 1)
-	QuestNPCModelNameTooltipFrame:SetPoint("BOTTOMRIGHT", QuestNPCModelNameText, 0, -1)
-	QuestNPCModelNameTooltipFrame:SetFrameLevel(0)
+	_G["QuestNPCModelNameTooltipFrame"]:SetPoint("TOPLEFT", _G["QuestNPCModelNameText"], 0, 1)
+	_G["QuestNPCModelNameTooltipFrame"]:SetPoint("BOTTOMRIGHT", _G["QuestNPCModelNameText"], 0, -1)
+	_G["QuestNPCModelNameTooltipFrame"]:SetFrameLevel(0)
 
 	local QuestNPCModelTextFrame = _G["QuestNPCModelTextFrame"]
 	if QuestNPCModelTextFrame.backdrop then
 		QuestNPCModelTextFrame.backdrop:Hide()
 		MERS:CreateBD(QuestNPCModelTextFrame, .25)
 	end
-	QuestNPCModelTextFrame:SetPoint("TOPLEFT", QuestNPCModelNameplate, "BOTTOMLEFT", -1, 12)
-	QuestNPCModelTextFrame:SetWidth(200)
-	QuestNPCModelTextFrameBg:Hide()
+	_G["QuestNPCModelTextFrame"]:SetPoint("TOPLEFT", _G["QuestNPCModelNameplate"], "BOTTOMLEFT", -1, 12)
+	_G["QuestNPCModelTextFrame"]:SetWidth(200)
+	_G["QuestNPCModelTextFrameBg"]:Hide()
 
 	QuestNPCModelTextFrame.BorderBottomLeft:Hide()
 	QuestNPCModelTextFrame.BorderBottomRight:Hide()

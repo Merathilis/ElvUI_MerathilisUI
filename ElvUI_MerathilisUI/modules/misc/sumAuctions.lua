@@ -3,14 +3,18 @@ local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
 local select = select
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local GetAuctionItemInfo = GetAuctionItemInfo
 local GetNumAuctionItems = GetNumAuctionItems
 local GetCoinTextureString = GetCoinTextureString
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: CreateFrame, AuctionFrameAuctions, AuctionFrameMoneyFrame, BIDS, BUYOUT
+local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AuctionFrameAuctions, AuctionFrameMoneyFrame, BIDS, BUYOUT, hooksecurefunc, AuctionFrameBrowse_Update
+-- GLOBALS: AuctionFrameBrowse_Updatem, FauxScrollFrame_GetOffset, BID, NUM_BROWSE_TO_DISPLAY, NUM_AUCTION_ITEMS_PER_PAGE
+-- GLOBALS: SetMoneyFrameColor, AuctionFrameBrowse
 
 function MI:sumAuctions()
 	local frame = CreateFrame("Frame")
@@ -52,7 +56,7 @@ function MI:HighlightPrice()
 		if AuctionFrameBrowse_Update then
 			hooksecurefunc("AuctionFrameBrowse_Update", function()
 				local numBatchAuctions = GetNumAuctionItems("list")
-				local offset = FauxScrollFrame_GetOffset(BrowseScrollFrame)
+				local offset = FauxScrollFrame_GetOffset(_G["BrowseScrollFrame"])
 				for i=1, NUM_BROWSE_TO_DISPLAY do
 					local index = offset + i + (NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse.page)
 					if index <= numBatchAuctions + (NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse.page) then

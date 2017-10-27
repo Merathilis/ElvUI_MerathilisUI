@@ -5,28 +5,31 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-
 --WoW API / Variables
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
+local PlayerHasToy = PlayerHasToy
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
 
 local function styleCollections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
 
-	MERS:CreateGradient(CollectionsJournal)
-	if not CollectionsJournal.stripes then
-		MERS:CreateStripes(CollectionsJournal)
-	end
+	MERS:CreateGradient(_G["CollectionsJournal"])
+	MERS:CreateStripes(_G["CollectionsJournal"])
 
-	CollectionsJournalBg:Hide()
+	_G["CollectionsJournalBg"]:Hide()
 
-	MERS:CreateBD(MountJournal.MountCount, .25)
-	MERS:CreateBD(PetJournal.PetCount, .25)
+	MERS:CreateBD(_G["MountJournal"].MountCount, .25)
+	MERS:CreateBD(_G["PetJournal"].PetCount, .25)
 
 	-- Mounts
-	local MountDisplay = MountJournal.MountDisplay
+	local MountDisplay = _G["MountJournal"].MountDisplay
 	MountDisplay:StripTextures()
 
 	-- Sets
-	local SetsCollectionFrame = WardrobeCollectionFrame.SetsCollectionFrame
+	local SetsCollectionFrame = _G["WardrobeCollectionFrame"].SetsCollectionFrame
 	SetsCollectionFrame:StripTextures()
 	SetsCollectionFrame.LeftInset:Hide()
 	SetsCollectionFrame.RightInset:Hide()
@@ -35,19 +38,17 @@ local function styleCollections()
 	DetailsFrame.ModelFadeTexture:Hide()
 	DetailsFrame.IconRowBackground:Hide()
 
-	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
+	local ItemsCollectionFrame = _G["WardrobeCollectionFrame"].ItemsCollectionFrame
 	ItemsCollectionFrame:StripTextures()
 
-	local SetsTransmogFrame = WardrobeCollectionFrame.SetsTransmogFrame
+	local SetsTransmogFrame = _G["WardrobeCollectionFrame"].SetsTransmogFrame
 	SetsTransmogFrame:StripTextures()
 
-	MERS:CreateGradient(WardrobeFrame)
-	if not WardrobeFrame.stripes then
-		MERS:CreateStripes(WardrobeFrame)
-	end
+	MERS:CreateGradient(_G["WardrobeFrame"])
+	MERS:CreateStripes(_G["WardrobeFrame"])
 
-	WardrobeCollectionFrame.ItemsTab.backdrop:Hide()
-	WardrobeCollectionFrame.SetsTab.backdrop:Hide()
+	_G["WardrobeCollectionFrame"].ItemsTab.backdrop:Hide()
+	_G["WardrobeCollectionFrame"].SetsTab.backdrop:Hide()
 
 	-- Pet
 	local card = _G["PetJournalPetCard"]
@@ -77,7 +78,7 @@ local function styleCollections()
 		end
 	end
 
-	local iconsFrame = ToyBox.iconsFrame
+	local iconsFrame = _G["ToyBox"].iconsFrame
 	for i = 1, 18 do
 		local button = iconsFrame["spellButton"..i]
 		hooksecurefunc(button.name, "SetTextColor", changeTextColor)

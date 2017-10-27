@@ -7,9 +7,12 @@ MERS.modName = L["Skins/AddOns"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, type, unpack = select, type, unpack
+local assert, pairs, select, unpack = assert, pairs, select, unpack
 -- WoW API / Variables
-local InCombatLockdown = InCombatLockdown
+local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: stripes, StartGlow, StopGlow, ElvUI
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
@@ -195,7 +198,7 @@ function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 
--- Texture Gradient
+-- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 	local tex = f:CreateTexture(nil, "BORDER")
@@ -211,9 +214,10 @@ function MERS:CreateStripes(f)
 	assert(f, "doesn't exist!")
 	if f.stripes or E.private.muiSkins.general.stripes ~= true then return end
 
-	f.stripes = f:CreateTexture(nil, "BACKGROUND", nil, 1)
-	f.stripes:SetAllPoints()
-	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\StripesThin]], true, true)
+	f.stripes = f:CreateTexture(nil, "BORDER")
+	f.stripes:SetPoint("TOPLEFT", 1, -1)
+	f.stripes:SetPoint("BOTTOMRIGHT", -1, 1)
+	f.stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
 	f.stripes:SetHorizTile(true)
 	f.stripes:SetVertTile(true)
 	f.stripes:SetBlendMode("ADD")
@@ -229,7 +233,7 @@ end
 function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 	local Texture = E["media"].muiBlank
 
-	if UseTexture then 
+	if UseTexture then
 		Texture = TextureFile or E["media"].muiNormTex
 	end
 
@@ -421,7 +425,7 @@ function MERS:SkinStatusBar(frame, ClassColor)
 	if ClassColor then
 		frame:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
-	ElvUI[1]:RegisterStatusBar(Frame)
+	ElvUI[1]:RegisterStatusBar(_G["Frame"])
 end
 
 -- ClassColored ScrollBars

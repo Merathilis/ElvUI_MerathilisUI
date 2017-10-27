@@ -105,15 +105,14 @@ L["Banner Big Text"] = true
 
 -- Misc
 L["Artifact Power"] = true
-L[" spotted!"] = true
+L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
-L["Auto Screenshot"] = true
-L["Takes a screenshot on achievement earns and legendary loot."] = true
+L[" members"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -124,6 +123,7 @@ L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = true
+L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -147,6 +147,7 @@ L["Enable Vignette"] = true
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
+L["Enable Quick Join Notification"] = true
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = true
@@ -382,6 +383,13 @@ L["Always"] = true
 L["Never"] = true
 L["Only Mine"] = true
 
+-- EnhancedFriendsList
+L["Info Font"] = true
+L["Game Icon Pack"] = true
+L["Status Icon Pack"] = true
+L["Game Icon Preview"] = true
+L["Status Icon Preview"] = true
+
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true
@@ -440,7 +448,6 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.
 L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Here you can choose the layout for KuiNameplates.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.

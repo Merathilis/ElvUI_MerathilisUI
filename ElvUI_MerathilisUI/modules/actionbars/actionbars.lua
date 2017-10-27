@@ -4,13 +4,16 @@ MAB.modName = L["ActionBars"]
 
 if E.private.actionbar.enable ~= true then return; end
 
+--Cache global variables
 local _G = _G
 local pairs = pairs
+--WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
--- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar
+-- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, hooksecurefunc
 
 local availableActionbars = availableActionbars or 6
 
@@ -94,8 +97,8 @@ function MAB:Initialize()
 	C_TimerAfter(1, MAB.TransparentBackdrops)
 	if IsAddOnLoaded("ElvUI_TB") then DisableAddOn("ElvUI_TB") end
 
-	hooksecurefunc(ZoneAbilityFrame.SpellButton.Style, "SetTexture", RemoveTexture)
-	hooksecurefunc(ExtraActionButton1.style, "SetTexture", RemoveTexture)
+	hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
+	hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
 end
 
 local function InitializeCallback()

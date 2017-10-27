@@ -16,7 +16,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2
+-- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 
@@ -41,7 +41,8 @@ function MI:GMOTD()
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
-		MERS:CreateSoftShadow(gmotd)
+		MERS:CreateGradient(gmotd)
+		MERS:CreateStripes(gmotd)
 		gmotd:Hide()
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			MERS:StyleOutside(gmotd)
@@ -68,16 +69,17 @@ function MI:GMOTD()
 		gmotd.header = gmotd:CreateFontString(nil, "OVERLAY")
 		gmotd.header:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 0, -10)
 		gmotd.header:SetWidth(gmotd:GetRight() - gmotd:GetLeft())
-		gmotd.header:SetFont(LSM:Fetch("font", "Merathilis Roboto-Black"), 14, "OUTLINE")
+		gmotd.header:FontTemplate(nil, 14, "OUTLINE")
 		gmotd.header:SetTextColor(1, 1, 0)
 		gmotd.header:SetText(GUILD_MOTD_LABEL2)
+		gmotd.header:SetJustifyH("CENTER")
 
 		gmotd.text = gmotd:CreateFontString(nil, "OVERLAY")
 		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 22, -40)
 		gmotd.text:SetWidth(gmotd:GetRight() - gmotd:GetLeft() - 40)
 		gmotd.text:FontTemplate()
 		gmotd.text:SetTextColor(1, 1, 1)
-		gmotd.text:SetJustifyH("LEFT")
+		gmotd.text:SetJustifyH("CENTER")
 
 		gmotd:SetScript("OnEvent", function(_, event, arg1)
 			if (event == "GUILD_MOTD") then

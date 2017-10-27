@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
-local S = E:GetModule("Skins");
+local S = E:GetModule("Skins")
 if not IsAddOnLoaded("ElvUI_BenikUI") then return; end
 
 -- Cache global variables
@@ -26,6 +26,11 @@ local function styleBenikUI()
 	if _G["BuiRightChatDTPanel"] then
 		MERS:CreateStripes(_G["BuiRightChatDTPanel"])
 		MERS:CreateGradient(_G["BuiRightChatDTPanel"])
+	end
+
+	if _G["BuiTaxiButton"] then
+		MERS:CreateStripes(_G["BuiTaxiButton"])
+		MERS:CreateGradient(_G["BuiTaxiButton"])
 	end
 end
 

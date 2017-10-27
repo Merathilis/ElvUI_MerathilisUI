@@ -2,6 +2,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = E:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 
+--Cache global variables
+local _G = _G
+local pairs, select = pairs, select
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
+
 --Set spacing between individual aura icons and update PostUpdateIcon
 local function SetAuraSpacingAndUpdate(unitframe, unitName, auraSpacing)
 	if not unitframe.Buffs and not unitframe.Debuffs then return; end

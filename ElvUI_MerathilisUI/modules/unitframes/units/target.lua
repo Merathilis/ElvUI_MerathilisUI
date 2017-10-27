@@ -4,11 +4,17 @@ local UF = E:GetModule("UnitFrames")
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local select = select
 -- WoW API / Variables
-
+local CreateFrame = CreateFrame
+local UnitClass = UnitClass
+local UnitPowerMax = UnitPowerMax
+local UnitIsPlayer = UnitIsPlayer
+local UnitPowerType = UnitPowerType
+local UnitReaction = UnitReaction
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: hooksecurefunc, ElvUF, CUSTOM_CLASS_COLORS, CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
 
 function MUF:Construct_TargetFrame()
 	local frame = _G["ElvUF_Target"]

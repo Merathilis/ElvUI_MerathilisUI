@@ -43,6 +43,13 @@ local npc = {
 	85283, -- Brightpaw
 	103159, -- Baby Winston
 	123650, -- Shadow
+	126579, -- Ghost Shark
+	85463, -- Gorefu
+	119408, -- "Captain" Klutz
+	127956, -- Amalgam of Destruction
+	85682, -- Blingtron 4999b
+	72285, -- Chi-Chi, Hatchling of Chi-Ji
+	67332, -- Darkmoon Eye
 }
 
 function MERG:GameMenu()

@@ -2,7 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
 local BS = E:GetModule("mUIButtonStyle")
 
+--Cache global variables
+local format = string.format
 local tinsert = table.insert
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: AceGUIWidgetLSMlists, COLOR_PICKER
 
 local function abTable()
 	E.Options.args.mui.args.actionbars = {

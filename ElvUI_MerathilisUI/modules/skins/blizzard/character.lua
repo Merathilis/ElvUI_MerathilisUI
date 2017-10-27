@@ -4,24 +4,22 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
 local unpack = unpack
 -- WoW API
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleCharacter, CharacterStatsPane
+-- GLOBALS:
 
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
-	if not CharacterFrame.stripes then
-		MERS:CreateStripes(CharacterFrame)
-	end
+	MERS:CreateStripes(_G["CharacterFrame"])
+	MERS:CreateGradient(_G["CharacterFrame"])
 
-	MERS:CreateGradient(CharacterFrame)
-
-	CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-	CharacterStatsPane.AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-	CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+	_G["CharacterStatsPane"].ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+	_G["CharacterStatsPane"].AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+	_G["CharacterStatsPane"].EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 end
 
 S:AddCallback("mUICharacter", styleCharacter)

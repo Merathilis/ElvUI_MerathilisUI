@@ -2,37 +2,43 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
+--Cache global variables
+local _G = _G
+local select = select
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: hooksecurefunc
+
 local function styleArtifact()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
 
-	MERS:CreateGradient(ArtifactFrame)
-	if not ArtifactFrame.stripes then
-		MERS:CreateStripes(ArtifactFrame)
-	end
+	MERS:CreateGradient(_G["ArtifactFrame"])
+	MERS:CreateStripes(_G["ArtifactFrame"])
 
-	ArtifactFrame.Background:Hide()
-	ArtifactFrame.PerksTab.HeaderBackground:Hide()
-	ArtifactFrame.PerksTab.BackgroundBack:Hide()
-	ArtifactFrame.PerksTab.TitleContainer.Background:SetAlpha(0)
-	ArtifactFrame.PerksTab.Model.BackgroundFront:Hide()
-	ArtifactFrame.PerksTab.Model:SetAlpha(.2)
-	ArtifactFrame.PerksTab.AltModel:SetAlpha(.2)
-	ArtifactFrame.BorderFrame:Hide()
-	ArtifactFrame.ForgeBadgeFrame.ItemIcon:Hide()
-	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
-	ArtifactFrame.ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", ArtifactFrame)
-	ArtifactFrame.AppearancesTab.Background:Hide()
+	_G["ArtifactFrame"].Background:Hide()
+	_G["ArtifactFrame"].PerksTab.HeaderBackground:Hide()
+	_G["ArtifactFrame"].PerksTab.BackgroundBack:Hide()
+	_G["ArtifactFrame"].PerksTab.TitleContainer.Background:SetAlpha(0)
+	_G["ArtifactFrame"].PerksTab.Model.BackgroundFront:Hide()
+	_G["ArtifactFrame"].PerksTab.Model:SetAlpha(.2)
+	_G["ArtifactFrame"].PerksTab.AltModel:SetAlpha(.2)
+	_G["ArtifactFrame"].BorderFrame:Hide()
+	_G["ArtifactFrame"].ForgeBadgeFrame.ItemIcon:Hide()
+	_G["ArtifactFrame"].ForgeBadgeFrame.ForgeLevelBackground:ClearAllPoints()
+	_G["ArtifactFrame"].ForgeBadgeFrame.ForgeLevelBackground:SetPoint("TOPLEFT", _G["ArtifactFrame"])
+	_G["ArtifactFrame"].AppearancesTab.Background:Hide()
 
 	--Hide the background from BeniUI for the Netherlight Crucible
-	if ArtifactRelicForgeFrame.benik then
-		ArtifactRelicForgeFrame.benik:Hide()
+	if _G["ArtifactRelicForgeFrame"].benik then
+		_G["ArtifactRelicForgeFrame"].benik:Hide()
 	end
 
 	for i = 1, 28 do
-		select(i, ArtifactRelicForgeFrame:GetRegions()):Hide()
+		select(i, _G["ArtifactRelicForgeFrame"]:GetRegions()):Hide()
 	end
 
-	ArtifactFrame.AppearancesTab:HookScript("OnShow", function(self)
+	_G["ArtifactFrame"].AppearancesTab:HookScript("OnShow", function(self)
 		if self.skinned then return end
 		for i = 1, self:GetNumChildren() do
 			local child = select(i, self:GetChildren())

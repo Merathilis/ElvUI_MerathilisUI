@@ -1,16 +1,20 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
 local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
+local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
 
+-- Credits RealUI
+
 --Cache global variables
 --Lua functions
-local select, unpack, type, pairs = select, unpack, type, pairs
+local _G = _G
+local select, unpack, type, pairs, ipairs, tostring = select, unpack, type, pairs, ipairs, tostring
 local table = table
-local tinsert = table.insert
+local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
-local format = string.format
+local format, find, gsub, sub = string.format, string.find, string.gsub, string.sub
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -18,10 +22,15 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
+local GetInstanceInfo = GetInstanceInfo
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
+local GetLFGDungeonInfo = GetLFGDungeonInfo
+local GetRealmName = GetRealmName
+local GetTime = GetTime
 local CalendarGetDate = CalendarGetDate
 local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
 local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
@@ -34,15 +43,28 @@ local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
+local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
+local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
+local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
+local C_SocialQueueGetGroupQueues = C_SocialQueue.GetGroupQueues
+local C_PvPGetBrawlInfo = C_PvP.GetBrawlInfo
 local GetGameTime = GetGameTime
 local CreateAnimationGroup = CreateAnimationGroup
 local CalendarGetAbsMonth = CalendarGetAbsMonth
+local BNGetNumFriends = BNGetNumFriends
+local BNGetFriendInfo = BNGetFriendInfo
+local BNGetGameAccountInfo = BNGetGameAccountInfo
+local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some language have `:` on end
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
+-- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
+-- GLOBALS: SocialQueueUtil_GetNameAndColor, enable
 
-local bannerWidth = 250
+local bannerWidth = 255
+local bannerHeight = 68
 local max_active_toasts = 3
 local fadeout_delay = 5
 local toasts = {}
@@ -52,17 +74,23 @@ local anchorFrame
 local alertBagsFull
 local shouldAlertBags = false
 
+local VignetteExclusionMapIDs = {
+	[971] = true, -- Lunarfall: Alliance garrison
+	[976] = true, -- Frostwall: Horde garrison
+	[1021] = true -- Scenario: The Broken Shore
+}
+
 function NF:SpawnToast(toast)
 	if not toast then return end
 
 	if #activeToasts >= max_active_toasts then
-		table.insert(queuedToasts, toast)
+		tinsert(queuedToasts, toast)
 
 		return false
 	end
 
 	if UnitIsAFK("player") then
-		table.insert(queuedToasts, toast)
+		tinsert(queuedToasts, toast)
 		self:RegisterEvent("PLAYER_FLAGS_CHANGED")
 
 		return false
@@ -86,14 +114,14 @@ function NF:SpawnToast(toast)
 		toast:SetPoint("TOP", anchorFrame, "TOP", 0, 1 - YOffset)
 	end
 
-	table.insert(activeToasts, toast)
+	tinsert(activeToasts, toast)
 
 	toast:Show()
 	toast.AnimIn.AnimMove:SetOffset(0, YOffset)
 	toast.AnimOut.AnimMove:SetOffset(0, -YOffset)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
-	PlaySound(18019, "master", true)
+	PlaySound(18019, "Master")
 end
 
 function NF:RefreshToasts()
@@ -120,7 +148,7 @@ function NF:RefreshToasts()
 		end
 	end
 
-	local queuedToast = table.remove(queuedToasts, 1)
+	local queuedToast = tremove(queuedToasts, 1)
 
 	if queuedToast then
 		self:SpawnToast(queuedToast)
@@ -130,10 +158,10 @@ end
 function NF:HideToast(toast)
 	for i, activeToast in pairs(activeToasts) do
 		if toast == activeToast then
-			table.remove(activeToasts, i)
+			tremove(activeToasts, i)
 		end
 	end
-	table.insert(toasts, toast)
+	tinsert(toasts, toast)
 	toast:Hide()
 	C_Timer.After(0.1, function() self:RefreshToasts() end)
 end
@@ -142,102 +170,104 @@ local function ToastButtonAnimOut_OnFinished(self)
 	NF:HideToast(self:GetParent())
 end
 
-function NF:GetToast()
-	local toast = table.remove(toasts, 1)
-	if not toast then
-		toast = CreateFrame("Frame", nil, E.UIParent)
-		toast:SetFrameStrata("FULLSCREEN_DIALOG")
-		toast:SetSize(bannerWidth, 50)
-		toast:SetPoint("TOP", E.UIParent, "TOP")
-		toast:Hide()
-		MERS:CreateBD(toast, .45)
-		MERS:StyleOutside(toast)
-		MERS:CreateStripes(toast)
+function NF:CreateToast()
+	local toast = tremove(toasts, 1)
 
-		local icon = toast:CreateTexture(nil, "OVERLAY")
-		icon:SetSize(32, 32)
-		icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
-		MERS:CreateBG(icon)
-		MERS:StyleOutside(toast)
-		toast.icon = icon
+	toast = CreateFrame("Frame", nil, E.UIParent)
+	toast:SetFrameStrata("HIGH")
+	toast:SetSize(bannerWidth, bannerHeight)
+	toast:SetPoint("TOP", E.UIParent, "TOP")
+	toast:Hide()
+	MERS:CreateBD(toast, .45)
+	MERS:StyleOutside(toast)
+	MERS:CreateStripes(toast)
 
-		local sep = toast:CreateTexture(nil, "BACKGROUND")
-		sep:SetSize(1, 50)
-		sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
-		sep:SetColorTexture(0, 0, 0)
+	local icon = toast:CreateTexture(nil, "OVERLAY")
+	icon:SetSize(32, 32)
+	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
+	MERS:CreateBG(icon)
+	MERS:StyleOutside(toast)
+	toast.icon = icon
 
-		local title = toast:CreateFontString(nil, "OVERLAY")
-		title:SetFont(E["media"].normFont, 12, "OUTLINE")
-		title:SetShadowOffset(1, -1)
-		title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 9, -9)
-		title:SetPoint("RIGHT", toast, -9, 0)
-		title:SetJustifyH("LEFT")
-		toast.title = title
+	local sep = toast:CreateTexture(nil, "BACKGROUND")
+	sep:SetSize(1, bannerHeight)
+	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
+	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
 
-		local text = toast:CreateFontString(nil, "OVERLAY")
-		text:SetFont(E["media"].normFont, 10)
-		text:SetShadowOffset(1, -1)
-		text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 9, 9)
-		text:SetPoint("RIGHT", toast, -9, 0)
-		text:SetJustifyH("LEFT")
-		toast.text = text
+	local title = toast:CreateFontString(nil, "OVERLAY")
+	title:FontTemplate(nil, 11, "OUTLINE")
+	title:SetShadowOffset(1, -1)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
+	title:SetPoint("TOP", toast, "TOP", 0, 0)
+	title:SetJustifyH("LEFT")
+	title:SetWordWrap(enable)
+	toast.title = title
 
-		toast.AnimIn = CreateAnimationGroup(toast)
+	local text = toast:CreateFontString(nil, "OVERLAY")
+	text:FontTemplate(nil, 10, nil)
+	text:SetShadowOffset(1, -1)
+	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
+	text:SetPoint("RIGHT", toast, -9, 0)
+	text:SetJustifyH("LEFT")
+	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
+	toast.text = text
 
-		local animInAlpha = toast.AnimIn:CreateAnimation("Fade")
-		animInAlpha:SetOrder(1)
-		animInAlpha:SetChange(1)
-		animInAlpha:SetDuration(0.5)
-		toast.AnimIn.AnimAlpha = animInAlpha
+	toast.AnimIn = CreateAnimationGroup(toast)
 
-		local animInMove = toast.AnimIn:CreateAnimation("Move")
-		animInMove:SetOrder(1)
-		animInMove:SetDuration(0.5)
-		animInMove:SetSmoothing("Out")
-		animInMove:SetOffset(-bannerWidth, 0)
-		toast.AnimIn.AnimMove = animInMove
+	local animInAlpha = toast.AnimIn:CreateAnimation("Fade")
+	animInAlpha:SetOrder(1)
+	animInAlpha:SetChange(1)
+	animInAlpha:SetDuration(0.5)
+	toast.AnimIn.AnimAlpha = animInAlpha
 
-		toast.AnimOut = CreateAnimationGroup(toast)
+	local animInMove = toast.AnimIn:CreateAnimation("Move")
+	animInMove:SetOrder(1)
+	animInMove:SetDuration(0.5)
+	animInMove:SetSmoothing("Out")
+	animInMove:SetOffset(-bannerWidth, 0)
+	toast.AnimIn.AnimMove = animInMove
 
-		local animOutSleep = toast.AnimOut:CreateAnimation("Sleep")
-		animOutSleep:SetOrder(1)
-		animOutSleep:SetDuration(fadeout_delay)
-		toast.AnimOut.AnimSleep = animOutSleep
+	toast.AnimOut = CreateAnimationGroup(toast)
 
-		local animOutAlpha = toast.AnimOut:CreateAnimation("Fade")
-		animOutAlpha:SetOrder(2)
-		animOutAlpha:SetChange(0)
-		animOutAlpha:SetDuration(0.5)
-		toast.AnimOut.AnimAlpha = animOutAlpha
+	local animOutSleep = toast.AnimOut:CreateAnimation("Sleep")
+	animOutSleep:SetOrder(1)
+	animOutSleep:SetDuration(fadeout_delay)
+	toast.AnimOut.AnimSleep = animOutSleep
 
-		local animOutMove = toast.AnimOut:CreateAnimation("Move")
-		animOutMove:SetOrder(2)
-		animOutMove:SetDuration(0.5)
-		animOutMove:SetSmoothing("In")
-		animOutMove:SetOffset(bannerWidth, 0)
-		toast.AnimOut.AnimMove = animOutMove
+	local animOutAlpha = toast.AnimOut:CreateAnimation("Fade")
+	animOutAlpha:SetOrder(2)
+	animOutAlpha:SetChange(0)
+	animOutAlpha:SetDuration(0.5)
+	toast.AnimOut.AnimAlpha = animOutAlpha
 
-		toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
+	local animOutMove = toast.AnimOut:CreateAnimation("Move")
+	animOutMove:SetOrder(2)
+	animOutMove:SetDuration(0.5)
+	animOutMove:SetSmoothing("In")
+	animOutMove:SetOffset(bannerWidth, 0)
+	toast.AnimOut.AnimMove = animOutMove
 
-		toast:SetScript("OnEnter", function(self)
-				self.AnimOut:Stop()
-			end)
+	toast.AnimOut.AnimAlpha:SetScript("OnFinished", ToastButtonAnimOut_OnFinished)
 
-		toast:SetScript("OnLeave", function(self)
-				self.AnimOut:Play()
-			end)
+	toast:SetScript("OnEnter", function(self)
+		self.AnimOut:Stop()
+	end)
 
-		toast:SetScript("OnMouseUp", function(self, button)
-				if button == "LeftButton" and self.clickFunc then
-					self.clickFunc()
-				end
-			end)
-	end
+	toast:SetScript("OnLeave", function(self)
+		self.AnimOut:Play()
+	end)
+
+	toast:SetScript("OnMouseUp", function(self, button)
+		if button == "LeftButton" and self.clickFunc then
+			self.clickFunc()
+		end
+	end)
+
 	return toast
 end
 
 function NF:DisplayToast(name, message, clickFunc, texture, ...)
-	local toast = self:GetToast()
+	local toast = self:CreateToast()
 
 	if type(clickFunc) == "function" then
 		toast.clickFunc = clickFunc
@@ -251,11 +281,11 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 		if ... then
 			toast.icon:SetTexCoord(...)
 		else
-			toast.icon:SetTexCoord(.08, .92, .08, .92)
+			toast.icon:SetTexCoord(unpack(E.TexCoords))
 		end
 	else
 		toast.icon:SetTexture("Interface\\Icons\\achievement_general")
-		toast.icon:SetTexCoord(.08, .92, .08, .92)
+		toast.icon:SetTexCoord(unpack(E.TexCoords))
 	end
 
 	toast.title:SetText(name)
@@ -278,7 +308,6 @@ function NF:PLAYER_REGEN_ENABLED()
 end
 
 -- Test function
-
 local function testCallback()
 	MER:Print("Banner clicked!")
 end
@@ -446,55 +475,110 @@ function NF:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_ADDED(event, id)
 	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
-	if not id then return end
+	if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
 
-	local _, _, name, icon = C_Vignettes.GetVignetteInfoFromInstanceID(id)
-	local left, right, top, bottom = GetObjectIconTextureCoords(icon)
-	PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
-	local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:0:0:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
-	self:DisplayToast(str..name, L[" spotted!"])
-end
+	if (id ~= self.lastMinimapRare.id) then
+		local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
+		local left, right, top, bottom = GetObjectIconTextureCoords(icon)
+		local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
 
-local last = 0
-local function delayBagCheck(self, elapsed)
-	last = last + elapsed
-	if last > 1 then
-		self:SetScript("OnUpdate", nil)
-		last = 0
-		shouldAlertBags = true
-		BAG_UPDATE(self)
-	end
-end
-
-function NF:BAG_UPDATE(self)
-	local totalFree, freeSlots, bagFamily = 0
-	for i = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
-		freeSlots, bagFamily = GetContainerNumFreeSlots(i)
-		if bagFamily == 0 then
-			totalFree = totalFree + freeSlots
+		-- Notify
+		if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
+			PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
 		end
+		name = format("|cff00c0fa%s|r", name:sub(1, 28))
+		self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
 	end
 
-	if totalFree == 0 then
-		if shouldAlertBags then
-			NF:DisplayToast("Bags", "Your bags are full.", ToggleBackpack, "Interface\\Icons\\inv_misc_bag_08")
-			shouldAlertBags = false
-		else
-			self:SetScript("OnUpdate", delayBagCheck)
-		end
-	else
-		shouldAlertBags = false
-	end
+	-- Set last Vignette data
+	self.lastMinimapRare.time = GetTime()
+	self.lastMinimapRare.id = id
 end
 
 function NF:RESURRECT_REQUEST(name)
-	PlaySound(46893, "master", true)
+	PlaySound(46893, "Master")
+end
+
+function NF:SocialQueueEvent(event, guid, numAddedItems)
+	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
+
+	if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
+		return
+	end
+
+	local coloredName, players = UNKNOWN, C_SocialQueueGetGroupMembers(guid)
+	local members = players and SocialQueueUtil_SortGroupMembers(players)
+	local playerName, nameColor
+	if members then
+		local firstMember, numMembers, extraCount = members[1], #members, ''
+		playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
+		if numMembers > 1 then
+			extraCount = format(" +%s", numMembers - 1)
+		end
+		if playerName then
+			coloredName = format("%s%s|r%s", nameColor, playerName, extraCount)
+		else
+			coloredName = format("{%s%s}", UNKNOWN, extraCount)
+		end
+	end
+
+	local isLFGList, firstQueue
+	local queues = C_SocialQueueGetGroupQueues(guid)
+	firstQueue = queues and queues[1]
+	isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
+
+	if isLFGList and firstQueue and firstQueue.eligible then
+		local activityID, name, comment, leaderName, fullName, isLeader, _
+
+		if firstQueue.queueData.lfgListID then
+			_, activityID, name, comment, _, _, _, _, _, _, _, _, leaderName = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
+			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
+		end
+
+		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant/HandyNotes_Argus to reduce spam
+		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant") or find(comment, "HandyNotes_Argus")) then return end
+
+		if activityID or firstQueue.queueData.activityID then
+			fullName = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
+		end
+
+		fullName = format("|cff00ff00%s|r", fullName)
+		name = format("|cff00c0fa%s|r", name:sub(1,100))
+		if name then
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+		else
+			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+		end
+	elseif firstQueue then
+		local output, outputCount, queueCount, queueName = '', '', 0
+		for _, queue in pairs(queues) do
+			if type(queue) == "table" and queue.eligible then
+				queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
+				if queueName ~= "" then
+					if output == "" then
+						output = queueName:gsub("\n.+","") -- grab only the first queue name
+						queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
+					else
+						queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
+					end
+				end
+			end
+		end
+		if output ~= "" then
+			output = format("|cff00c0fa%s |r", output)
+			if queueCount > 0 then
+				outputCount = format(LFG_LIST_AND_MORE, queueCount)
+			end
+			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": "..output..outputCount, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
+		end
+	end
 end
 
 function NF:Initialize()
-	if E.db.mui.general.Notification.enable ~= true or InCombatLockdown() then return end
+	if E.db.mui.general.Notification.enable ~= true then return end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
@@ -509,7 +593,9 @@ function NF:Initialize()
 	self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	self:RegisterEvent("BAG_UPDATE")
+	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
+
+	self.lastMinimapRare = {time = 0, id = nil}
 end
 
 local function InitializeCallback()

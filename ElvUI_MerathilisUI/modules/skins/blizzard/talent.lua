@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+local pairs = pairs
 -- WoW API / Variables
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
@@ -15,10 +16,8 @@ local GetSpecializationInfo = GetSpecializationInfo
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	MERS:CreateGradient(PlayerTalentFrame)
-	if not PlayerTalentFrame.stripes then
-		MERS:CreateStripes(PlayerTalentFrame)
-	end
+	MERS:CreateGradient(_G["PlayerTalentFrame"])
+	MERS:CreateStripes(_G["PlayerTalentFrame"])
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do

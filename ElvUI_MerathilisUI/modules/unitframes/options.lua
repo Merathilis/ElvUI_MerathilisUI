@@ -5,10 +5,11 @@ local isEnabled = E.private["unitframe"].enable and true or false
 
 -- Cache global variables
 -- Lua functions
-local _G = _G
-local tinsert = table.insert
 -- WoW API / Variables
-local DEFAULT = DEFAULT
+local IsAddOnLoaded = IsAddOnLoaded
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS: LibStub
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.unitframes = {

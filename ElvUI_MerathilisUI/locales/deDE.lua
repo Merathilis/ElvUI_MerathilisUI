@@ -106,15 +106,14 @@ L["Banner Big Text"] = true
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
-L[" spotted!"] = " entdeckt!"
+L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
 L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
-L["Auto Screenshot"] = true
-L["Takes a screenshot on achievement earns and legendary loot."] = "Macht einen Screenshot beim Erringen eines Erfolges und erbeuten eines Legendarys."
+L[" members"] = " Mitglieder"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -125,6 +124,7 @@ L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die F
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
+L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -148,6 +148,7 @@ L["Enable Vignette"] = "Aktiviere Vignette"
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
+L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
 
 -- Tradeskill Tabs
 L["TradeSkill Tabs"] = "Berufsfenster Tabs"
@@ -383,6 +384,13 @@ L["Always"] = "Immer"
 L["Never"] = "Niemals"
 L["Only Mine"] = "Nur eigene"
 
+-- EnhancedFriendsList
+L["Info Font"] = "Info Schriftart"
+L["Game Icon Pack"] = true
+L["Status Icon Pack"] = true
+L["Game Icon Preview"] = "Game Icon Vorschau:"
+L["Status Icon Preview"] = "Status Icon Vorschau:"
+
 -- Install
 L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true
@@ -441,7 +449,6 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Hier kannst das Layout für S&L wählen
 L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Hier kannst das Layout für BenikUI wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Hier kannst das Layout für BigWigs wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Hier kannst das Layout für Details wählen.]]
-L["MUI_INSTALL_SETTINGS_LAYOUT_KUI"] = [[Hier kannst das Layout für KuiNameplates wählen.]]
 
 -- Skins
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.

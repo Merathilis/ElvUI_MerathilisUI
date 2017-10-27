@@ -2,6 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- All errors on http://wowwiki.wikia.com/wiki/WoW_Constants/Errors
 
+--Cache global variables
+
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for the mikk's Find Globals script
+-- GLOBALS:
+
 -- White list errors, that will not be hidden
 MER.ErrorWhiteList = {
 	[ERR_INV_FULL] = true,
