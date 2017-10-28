@@ -261,6 +261,11 @@ local function SkinsTable()
 				name = L["Time Manager"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager end,
 			},
+			blackmarket = {
+				type = "toggle",
+				name = L["Black Market AH"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
+			},
 		},
 	}
 

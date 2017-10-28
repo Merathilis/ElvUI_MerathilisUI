@@ -41,6 +41,7 @@ V["muiSkins"] = {
 		["raid"] = true,
 		["dressingroom"] = true,
 		["timemanager"] = true,
+		["blackmarket"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
