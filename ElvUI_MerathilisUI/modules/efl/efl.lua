@@ -133,9 +133,9 @@ local function getDiffColorString(level)
 end
 
 function EFL:BasicUpdateFriends(button)
-	local nameText, nameColor, infoText, broadcastText, _
+	local nameText, nameColor, infoText, broadcastText, _, Cooperate
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
-		local name, level, class, area, connected, status, note = GetFriendInfo(button.id)
+		local name, level, class, area, connected, status = GetFriendInfo(button.id)
 		broadcastText = nil
 		if connected then
 			button.status:SetTexture(EFL.StatusIcons[E.db.mui.efl["StatusIconPack"]][(status == CHAT_FLAG_DND and 'DND' or status == CHAT_FLAG_AFK and "AFK" or "Online")])
@@ -158,8 +158,6 @@ function EFL:BasicUpdateFriends(button)
 			if isOnline and not characterName and battleTag then
 				characterName = battleTag
 			end
-		elseif givenName then
-			nameText = givenName
 		else
 			nameText = UNKNOWN
 		end
