@@ -17,6 +17,7 @@ local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	_G["PVEFrame"]:Styling()
+	_G["LFGListApplicationDialog"]:Styling()
 
 	local function onEnter(self)
 		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
