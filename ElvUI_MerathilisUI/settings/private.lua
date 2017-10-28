@@ -42,6 +42,9 @@ V["muiSkins"] = {
 		["dressingroom"] = true,
 		["timemanager"] = true,
 		["blackmarket"] = true,
+		["guildcontrol"] = true,
+		["macro"] = true,
+		["binding"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

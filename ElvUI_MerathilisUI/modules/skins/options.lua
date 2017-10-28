@@ -266,6 +266,21 @@ local function SkinsTable()
 				name = L["Black Market AH"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
 			},
+			guildcontrol = {
+				type = "toggle",
+				name = L["Guild Control Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guildcontrol end,
+			},
+			macro = {
+				type = "toggle",
+				name = L["Macro Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.macro end,
+			},
+			binding = {
+				type = "toggle",
+				name = L["KeyBinding Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.binding end,
+			},
 		},
 	}
 

@@ -12,6 +12,7 @@ local function styleGuild()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.muiSkins.blizzard.guild ~= true then return end
 
 	_G["GuildFrame"]:Styling()
+	
 end
 
 S:AddCallbackForAddon("Blizzard_GuildUI", "mUIGuild", styleGuild)

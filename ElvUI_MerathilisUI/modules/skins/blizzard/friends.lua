@@ -18,6 +18,9 @@ local function styleFriends()
 	_G["WhoFrame"]:Styling()
 	_G["ChannelFrame"]:Styling()
 	_G["RaidFrame"]:Styling()
+	_G["RaidInfoFrame"]:Styling()
+
+	_G["RecruitAFriendFrame"]:Styling()
 
 	-- GuildTab in FriendsFrame
 	local n = _G["FriendsFrame"].numTabs + 1

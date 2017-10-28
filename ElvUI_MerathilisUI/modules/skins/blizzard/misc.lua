@@ -4,6 +4,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local getn = getn
 local pairs = pairs
 -- WoW API
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
@@ -51,6 +52,31 @@ local function styleMisc()
 		if frame and not frame.style then
 			frame:Styling()
 		end
+	end
+
+	local skins = {
+		"StaticPopup1",
+		"StaticPopup2",
+		"StaticPopup3",
+		"StaticPopup4",
+		"InterfaceOptionsFrame",
+		"VideoOptionsFrame",
+		"AudioOptionsFrame",
+		"AutoCompleteBox",
+		"ReadyCheckFrame",
+		"StackSplitFrame",
+		"QueueStatusFrame",
+		"LFDReadyCheckPopup",
+		"DropDownList1Backdrop",
+		"DropDownList1MenuBackdrop",
+
+		--DropDownMenu library support
+		"L_DropDownList1Backdrop",
+		"L_DropDownList1MenuBackdrop"
+	}
+
+	for i = 1, getn(skins) do
+		_G[skins[i]]:Styling()
 	end
 end
 
