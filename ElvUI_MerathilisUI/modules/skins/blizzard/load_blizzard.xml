@@ -14,6 +14,7 @@
 	<Script file="encounterjournal.lua"/>
 	<Script file="friends.lua"/>
 	<Script file="garrison.lua"/>
+	<Script file="gbank.lua"/>
 	<Script file="gossip.lua"/>
 	<Script file="guild.lua"/>
 	<Script file="guildcontrol.lua"/>

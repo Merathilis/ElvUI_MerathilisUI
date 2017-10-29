@@ -45,6 +45,7 @@ V["muiSkins"] = {
 		["guildcontrol"] = true,
 		["macro"] = true,
 		["binding"] = true,
+		["gbank"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

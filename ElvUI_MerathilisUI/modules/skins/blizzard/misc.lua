@@ -59,6 +59,7 @@ local function styleMisc()
 		"StaticPopup2",
 		"StaticPopup3",
 		"StaticPopup4",
+		"CopyChatFrame",
 		"InterfaceOptionsFrame",
 		"VideoOptionsFrame",
 		"AudioOptionsFrame",

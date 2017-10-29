@@ -61,7 +61,7 @@ local function styleLFG()
 
 	-- Invite frame
 	_G["LFGListInviteDialog"]:Styling()
-	_G["LFGListInviteDialog"]:Styling()
+	_G["LFGDungeonReadyDialog"]:Styling()
 
 	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
 	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)
@@ -75,6 +75,8 @@ local function styleLFG()
 		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(resultID)
 		self.GroupName:SetText(name .. "\n" .. (leaderName or "") .. "\n" .. numMembers .. L[" members"])
 	end
+
+	_G["LFDQueueFrame"]:Styling()
 end
 
 S:AddCallback("mUILFG", styleLFG)

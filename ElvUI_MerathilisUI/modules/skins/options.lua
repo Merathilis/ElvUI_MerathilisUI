@@ -281,6 +281,11 @@ local function SkinsTable()
 				name = L["KeyBinding Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.binding end,
 			},
+			gbank = {
+				type = "toggle",
+				name = L["KeyBinding Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank end,
+			},
 		},
 	}
 
