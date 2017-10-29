@@ -283,7 +283,7 @@ local function SkinsTable()
 			},
 			gbank = {
 				type = "toggle",
-				name = L["KeyBinding Frame"],
+				name = GUILD_BANK,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank end,
 			},
 		},
