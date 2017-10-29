@@ -12,6 +12,7 @@
 	<Script file="contribution.lua"/>
 	<Script file="dressingroom.lua"/>
 	<Script file="encounterjournal.lua"/>
+	<Script file="flightmap.lua"/>
 	<Script file="friends.lua"/>
 	<Script file="garrison.lua"/>
 	<Script file="gbank.lua"/>
@@ -32,6 +33,7 @@
 	<Script file="pvp.lua"/>
 	<Script file="talent.lua"/>
 	<Script file="talkinghead.lua"/>
+	<Script file="taxi.lua"/>
 	<Script file="timemanager.lua"/>
 	<Script file="tradeskill.lua"/>
 	<Script file="worldmap.lua"/>

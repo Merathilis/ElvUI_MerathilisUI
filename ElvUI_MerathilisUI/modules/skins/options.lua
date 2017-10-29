@@ -286,6 +286,11 @@ local function SkinsTable()
 				name = GUILD_BANK,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank end,
 			},
+			taxi = {
+				type = "toggle",
+				name = L["Taxi Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.taxi end,
+			},
 		},
 	}
 
