@@ -186,11 +186,11 @@ function MER:Initialize()
 	self:LoadCommands()
 
 	-- Create empty saved vars if they doesn't exist
-	if not MERData then 
-		MERData = {};
+	if not MERData then
+		MERData = {}
 	end
 	if not MERDataPerChar then
-		MERDataPerChar = {};
+		MERDataPerChar = {}
 	end
 
 	if E.db.mui.dbCleaned ~= true then
