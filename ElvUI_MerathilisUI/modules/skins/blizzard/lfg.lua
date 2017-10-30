@@ -75,8 +75,6 @@ local function styleLFG()
 		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(resultID)
 		self.GroupName:SetText(name .. "\n" .. (leaderName or "") .. "\n" .. numMembers .. L[" members"])
 	end
-
-	_G["LFDQueueFrame"]:Styling(true, true)
 end
 
 S:AddCallback("mUILFG", styleLFG)
