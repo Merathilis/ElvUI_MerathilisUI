@@ -441,7 +441,7 @@ function MERS:ReskinTab(tab)
 
 	if tab.backdrop then
 		tab.backdrop:SetTemplate("Transparent")
-		tab.backdrop:Styling()
+		tab.backdrop:Styling(true, true)
 	end
 end
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
@@ -644,7 +644,7 @@ function AS:SkinTab(Tab, Strip)
 			Tab.Backdrop:Hide()
 		else
 			AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
-			Tab.Backdrop:Styling()
+			Tab.Backdrop:Styling(true, true)
 		end
 	end
 

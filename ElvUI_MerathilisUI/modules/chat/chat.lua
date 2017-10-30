@@ -33,8 +33,8 @@ function MERC:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
 	-- Style the chat
-	_G["LeftChatPanel"].backdrop:Styling()
-	_G["RightChatPanel"].backdrop:Styling()
+	_G["LeftChatPanel"].backdrop:Styling(true, true)
+	_G["RightChatPanel"].backdrop:Styling(true, true)
 end
 hooksecurefunc(CH, "Initialize", MERC.Initialize)
 

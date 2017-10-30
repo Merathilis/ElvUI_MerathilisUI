@@ -14,19 +14,19 @@ local function styleBenikUI()
 	if E.private.muiSkins.addonSkins.bui ~= true then return; end
 
 	if _G["BuiLeftChatDTPanel"] then
-		_G["BuiLeftChatDTPanel"]:Styling()
+		_G["BuiLeftChatDTPanel"]:Styling(true, true)
 	end
 
 	if _G["BuiMiddleDTPanel"] then
-		_G["BuiMiddleDTPanel"]:Styling()
+		_G["BuiMiddleDTPanel"]:Styling(true, true)
 	end
 
 	if _G["BuiRightChatDTPanel"] then
-		_G["BuiRightChatDTPanel"]:Styling()
+		_G["BuiRightChatDTPanel"]:Styling(true, true)
 	end
 
 	if _G["BuiTaxiButton"] then
-		_G["BuiTaxiButton"]:Styling()
+		_G["BuiTaxiButton"]:Styling(true, true)
 	end
 
 	-- Style the datapanel buttons
@@ -36,7 +36,7 @@ local function styleBenikUI()
 		if event then
 			for i = 1, 4 do
 				local button = _G["BuiButton_"..i]
-				button:Styling()
+				button:Styling(true, true)
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end

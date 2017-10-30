@@ -224,7 +224,7 @@ function LP:CreateLocationPanel()
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript('OnMouseUp', LP.OnClick)
 	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
-	loc_panel:Styling()
+	loc_panel:Styling(true, true)
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "LOW")
@@ -237,13 +237,13 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
-	loc_panel.Xcoord:Styling()
+	loc_panel.Xcoord:Styling(true, true)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
-	loc_panel.Ycoord:Styling()
+	loc_panel.Ycoord:Styling(true, true)
 
 	LP:Resize()
 	-- Mover

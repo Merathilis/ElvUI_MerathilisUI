@@ -12,7 +12,7 @@ local _G = _G
 local function styleFlightMap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.taxi ~= true or E.private.muiSkins.blizzard.taxi ~= true then return end
 
-	_G["FlightMapFrame"]:Styling()
+	_G["FlightMapFrame"]:Styling(true, true)
 end
 
 S:AddCallbackForAddon("Blizzard_FlightMap", "mUIFlightMap", styleFlightMap)

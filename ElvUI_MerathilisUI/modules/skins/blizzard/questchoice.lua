@@ -23,7 +23,7 @@ local function styleQuestChoice()
 	end
 
 	MERS:CreateBD(QuestChoiceFrame, .5)
-	QuestChoiceFrame:Styling()
+	QuestChoiceFrame:Styling(true, true)
 
 	for i = 1, 15 do
 		select(i, QuestChoiceFrame:GetRegions()):Hide()

@@ -18,7 +18,7 @@ local function styleOrderhall()
 
 	local b = _G["OrderHallCommandBar"]
 
-	b:Styling()
+	b:Styling(true, true)
 
 	b.Background:SetAtlas(nil)
 
@@ -50,7 +50,7 @@ local function styleOrderhall()
 	MERS:CreateBD(combatAlly, .25)
 
 	-- Mission Frame
-	_G["OrderHallMissionFrame"]:Styling()
+	_G["OrderHallMissionFrame"]:Styling(true, true)
 
 	_G["OrderHallMissionFrameMissions"].MaterialFrame:StripTextures()
 	_G["OrderHallMissionFrameMissionsListScrollFrame"]:StripTextures()

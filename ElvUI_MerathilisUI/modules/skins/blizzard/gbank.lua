@@ -12,10 +12,10 @@ local _G = _G
 local function styleGBank()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gbank ~= true or E.private.muiSkins.blizzard.gbank ~= true then return end
 
-	_G["GuildBankFrame"]:Styling()
+	_G["GuildBankFrame"]:Styling(true, true)
 
 	--Popup
-	_G["GuildBankPopupFrame"]:Styling()
+	_G["GuildBankPopupFrame"]:Styling(true, true)
 end
 
 S:AddCallbackForAddon("Blizzard_GuildBankUI", "mUIGuildBank", styleGBank)

@@ -179,7 +179,7 @@ function NF:CreateToast()
 	toast:SetPoint("TOP", E.UIParent, "TOP")
 	toast:Hide()
 	MERS:CreateBD(toast, .45)
-	toast:Styling()
+	toast:Styling(true, true)
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)

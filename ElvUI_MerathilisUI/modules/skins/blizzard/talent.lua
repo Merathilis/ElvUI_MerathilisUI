@@ -16,7 +16,7 @@ local GetSpecializationInfo = GetSpecializationInfo
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	_G["PlayerTalentFrame"]:Styling()
+	_G["PlayerTalentFrame"]:Styling(true, true)
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
@@ -63,7 +63,7 @@ local function styleTalents()
 			bu:CreateBackdrop("Transparent")
 			bu.backdrop:Point("TOPLEFT", 8, 2)
 			bu.backdrop:Point("BOTTOMRIGHT", 10, -2)
-			bu.backdrop:Styling()
+			bu.backdrop:Styling(true, true)
 		end
 	end
 

@@ -32,7 +32,7 @@ local function styleBugSack(event, addon)
 				S:HandleCloseButton(child)
 			end
 		end
-		_G["BugSackFrame"]:Styling()
+		_G["BugSackFrame"]:Styling(true, true)
 
 		_G["BugSackFrame"].IsSkinned = true
 	end)

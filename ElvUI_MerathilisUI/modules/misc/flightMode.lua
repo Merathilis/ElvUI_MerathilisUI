@@ -34,18 +34,18 @@ function MFM:Initialize()
 		BFM.FlightMode.top.location.y:Height(30)
 
 		-- Top Frame
-		BFM.FlightMode.top:Styling()
+		BFM.FlightMode.top:Styling(true, true)
 
 		-- Bottom Frame
-		BFM.FlightMode.bottom:Styling()
+		BFM.FlightMode.bottom:Styling(true, true)
 
 		-- Time flying
 		BFM.FlightMode.bottom.timeFlying:SetTemplate("Transparent")
-		BFM.FlightMode.bottom.timeFlying:Styling()
+		BFM.FlightMode.bottom.timeFlying:Styling(true, true)
 
 		-- FPS
 		BFM.FlightMode.bottom.fps:SetTemplate("Transparent")
-		BFM.FlightMode.bottom.fps:Styling()
+		BFM.FlightMode.bottom.fps:Styling(true, true)
 
 		-- MerathilisUI Logo
 		BFM.FlightMode.bottom.logo = BFM.FlightMode:CreateTexture(nil, "OVERLAY")
@@ -57,7 +57,7 @@ function MFM:Initialize()
 		BFM.FlightMode.bottom.merathilisui = CreateFrame("Frame", nil, BFM.FlightMode.bottom)
 		BFM.FlightMode.bottom.merathilisui:Point("CENTER", BFM.FlightMode.bottom, "CENTER", -10, 0)
 		BFM.FlightMode.bottom.merathilisui:SetTemplate("Transparent")
-		BFM.FlightMode.bottom.merathilisui:Styling()
+		BFM.FlightMode.bottom.merathilisui:Styling(true, true)
 		BFM.FlightMode.bottom.merathilisui:SetSize(70,30)
 		BFM.FlightMode.bottom.merathilisui.txt = BFM.FlightMode.bottom.merathilisui:CreateFontString(nil, "OVERLAY")
 		BFM.FlightMode.bottom.merathilisui.txt:FontTemplate(nil, 14)

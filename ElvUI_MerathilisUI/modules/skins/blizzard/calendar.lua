@@ -20,9 +20,9 @@ local function styleCalendar()
 		_G["CalendarWeekday"..i.."Background"]:SetAlpha(0)
 	end
 
-	_G["CalendarFrame"]:Styling()
-	_G["CalendarCreateEventFrame"]:Styling()
-	_G["CalendarViewHolidayFrame"]:Styling()
+	_G["CalendarFrame"]:Styling(true, true)
+	_G["CalendarCreateEventFrame"]:Styling(true, true)
+	_G["CalendarViewHolidayFrame"]:Styling(true, true)
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)

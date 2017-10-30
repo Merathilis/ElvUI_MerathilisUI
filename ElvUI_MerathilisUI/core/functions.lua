@@ -33,13 +33,13 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
-local function Styling(f)
+local function Styling(f, useStripes, useGradient)
 	assert(f, "doesn't exist!")
 	if f.styling or E.db.mui.general.style ~= true then return end
 
 	local style = CreateFrame("Frame", name or nil, f)
 
-	if not f.stripes then
+	if(useStripes) then
 		local stripes = f:CreateTexture(nil, "BORDER")
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -51,7 +51,7 @@ local function Styling(f)
 		f.stripes = stripes
 	end
 
-	if not f.gradient then
+	if(useGradient) then
 		local gradient = f:CreateTexture(nil, "BORDER")
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)

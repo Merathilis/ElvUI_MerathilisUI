@@ -22,9 +22,9 @@ local function styleGarrison()
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
-	GarrisonLandingPage:Styling()
-	GarrisonMissionFrame:Styling()
-	GarrisonShipyardFrame:Styling()
+	GarrisonLandingPage:Styling(true, true)
+	GarrisonMissionFrame:Styling(true, true)
+	GarrisonShipyardFrame:Styling(true)
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -116,7 +116,7 @@ local function styleGarrison()
 	GarrisonBuildingFrame.GarrCorners:Hide()
 	GarrisonBuildingFrame.TitleText:Show()
 
-	GarrisonBuildingFrame:Styling()
+	GarrisonBuildingFrame:Styling(true, true)
 
 	-- Tutorial button
 	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton

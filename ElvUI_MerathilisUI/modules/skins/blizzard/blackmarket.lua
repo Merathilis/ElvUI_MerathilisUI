@@ -23,7 +23,7 @@ local function styleBMAH()
 	BlackMarketFrame.HotDeal.Right:Hide()
 	select(4, BlackMarketFrame.HotDeal:GetRegions()):Hide()
 
-	BlackMarketFrame:Styling()
+	BlackMarketFrame:Styling(true, true)
 
 	MERS:CreateBG(BlackMarketFrame.HotDeal.Item)
 	BlackMarketFrame.HotDeal.Item.IconTexture:SetTexCoord(unpack(E.TexCoords))

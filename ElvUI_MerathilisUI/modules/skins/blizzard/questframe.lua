@@ -66,7 +66,7 @@ local function styleQuestFrame()
 		self.spellTex:SetTexture("")
 	end)
 	select(18, _G["QuestLogPopupDetailFrame"]:GetRegions()):Hide()
-	_G["QuestLogPopupDetailFrame"]:Styling()
+	_G["QuestLogPopupDetailFrame"]:Styling(true, true)
 
 	_G["QuestGreetingScrollFrame"]:StripTextures(true)
 	_G["QuestFrameInset"]:StripTextures(true)
@@ -156,7 +156,7 @@ local function styleQuestFrame()
 	-- Quest Skin
 	_G["QuestInfoItemHighlight"]:StripTextures()
 	_G["QuestFrame"]:SetHeight(500)
-	_G["QuestFrame"]:Styling()
+	_G["QuestFrame"]:Styling(true, true)
 
 	_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:SetSize(_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4, _G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4)
 

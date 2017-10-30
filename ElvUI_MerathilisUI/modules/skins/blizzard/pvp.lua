@@ -169,7 +169,7 @@ local function stylePvP()
 		headerBg:SetPoint("LEFT", 4, 0)
 		headerBg:SetFrameLevel(header:GetFrameLevel()-1)
 		MERS:CreateBD(headerBg, 0)
-		headerBg:Styling()
+		headerBg:Styling(true, true)
 
 		local minus = header:CreateTexture(nil, "OVERLAY")
 		minus:SetSize(7, 1)
@@ -187,7 +187,7 @@ local function stylePvP()
 		hooksecurefunc(header, "SetNormalTexture", onSetNormalTexture)
 	end
 
-	_G["PVPReadyDialog"]:Styling()
+	_G["PVPReadyDialog"]:Styling(true, true)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)

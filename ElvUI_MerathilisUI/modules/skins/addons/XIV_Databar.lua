@@ -14,7 +14,7 @@ local function styleXIV_Databar()
 
 	_G["XIV_Databar"]:StripTextures()
 	MERS:CreateBD(_G["XIV_Databar"], .5)
-	_G["XIV_Databar"]:Styling()
+	_G["XIV_Databar"]:Styling(true, true)
 	_G["XIV_Databar"]:SetParent(E.UIParent)
 	_G["SpecPopup"]:SetTemplate("Transparent")
 	_G["LootPopup"]:SetTemplate("Transparent")

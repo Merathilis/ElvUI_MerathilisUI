@@ -17,7 +17,7 @@ local function styleTalkingHead()
 		frame.BackgroundFrame:StripTextures()
 		MERS:CreateBD(frame.BackgroundFrame, .25)
 		MERS:CreateBD(frame.MainFrame.Model, .25)
-		frame.BackgroundFrame:Styling()
+		frame.BackgroundFrame:Styling(true, true)
 
 		local button = frame.MainFrame.CloseButton
 		button:ClearAllPoints()

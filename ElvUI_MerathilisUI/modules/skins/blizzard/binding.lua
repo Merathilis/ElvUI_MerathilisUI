@@ -12,7 +12,7 @@ local _G = _G
 local function styleBinding()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
-	_G["KeyBindingFrame"]:Styling()
+	_G["KeyBindingFrame"]:Styling(true, true)
 end
 
 S:AddCallbackForAddon("Blizzard_BindingUI", "mUIBinding", styleBinding)
