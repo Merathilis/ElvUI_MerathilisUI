@@ -17,7 +17,7 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 local function styleAchievement()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true then return end
 
-	_G["AchievementFrame"]:Styling(true, true)
+	_G["AchievementFrame"].backdrop:Styling(true, true)
 
 	-- Hide the ElvUI default backdrop
 	if _G["AchievementFrameCategoriesContainer"].backdrop then
