@@ -15,8 +15,11 @@ local function styleTalkingHead()
 	local frame = _G["TalkingHeadFrame"]
 	if frame then
 		frame.BackgroundFrame:StripTextures()
-		MERS:CreateBD(frame.BackgroundFrame, .25)
-		MERS:CreateBD(frame.MainFrame.Model, .25)
+		-- Hide BenikUI changes
+		if frame.BackgroundFrame.backdrop then
+			frame.BackgroundFrame.backdrop:Hide()
+		end
+		MERS:CreateBD(frame.BackgroundFrame, .5)
 		frame.BackgroundFrame:Styling(true, true)
 
 		local button = frame.MainFrame.CloseButton
