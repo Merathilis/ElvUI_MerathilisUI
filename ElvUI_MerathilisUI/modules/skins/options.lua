@@ -291,6 +291,11 @@ local function SkinsTable()
 				name = L["Taxi Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.taxi end,
 			},
+			help = {
+				type = "toggle",
+				name = L["Help Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.help end,
+			},
 		},
 	}
 

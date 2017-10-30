@@ -19,6 +19,7 @@
 	<Script file="gossip.lua"/>
 	<Script file="guild.lua"/>
 	<Script file="guildcontrol.lua"/>
+	<Script file="help.lua"/>
 	<Script file="lfg.lua"/>
 	<Script file="macro.lua"/>
 	<Script file="mail.lua"/>
