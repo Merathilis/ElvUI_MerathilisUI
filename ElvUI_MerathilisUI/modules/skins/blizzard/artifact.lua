@@ -12,7 +12,7 @@ local select = select
 local function styleArtifact()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
 
-	_G["ArtifactFrame"]:Styling(true, true)
+	_G["ArtifactFrame"]:Styling()
 
 	_G["ArtifactFrame"].Background:Hide()
 	_G["ArtifactFrame"].PerksTab.HeaderBackground:Hide()
@@ -42,7 +42,7 @@ local function styleArtifact()
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID and not child.backdrop then
 				child:CreateBackdrop("Transparent")
-				child.backdrop:Styling(true, true)
+				child.backdrop:Styling()
 				child.SwatchTexture:SetTexCoord(.20, .80, .20, .80)
 				child.SwatchTexture:SetInside(child)
 				child.Border:SetAlpha(0)

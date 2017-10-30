@@ -18,7 +18,7 @@ local function styleMisc()
 		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
 	end)
 
-	_G["GameMenuFrame"]:Styling(true)
+	_G["GameMenuFrame"]:Styling()
 
 	-- Graveyard button (a bit ugly if you press it)
 	_G["GhostFrame"]:StripTextures()
@@ -50,7 +50,7 @@ local function styleMisc()
 
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
-			frame:Styling(true, true)
+			frame:Styling()
 		end
 	end
 
@@ -77,7 +77,7 @@ local function styleMisc()
 	}
 
 	for i = 1, getn(skins) do
-		_G[skins[i]]:Styling(true, true)
+		_G[skins[i]]:Styling()
 	end
 end
 

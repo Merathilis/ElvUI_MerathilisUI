@@ -15,7 +15,7 @@ local GetNumQuestLogEntries = GetNumQuestLogEntries
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
-	_G["WorldMapFrame"]:Styling(true, true)
+	_G["WorldMapFrame"]:Styling()
 
 	local frame = CreateFrame("Frame", nil, _G["QuestMapFrame"])
 	_G["QuestMapFrame"].QuestCountFrame = frame

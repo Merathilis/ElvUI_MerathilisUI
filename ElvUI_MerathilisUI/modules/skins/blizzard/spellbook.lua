@@ -13,7 +13,7 @@ local SpellBookPageText = _G["SpellBookPageText"]
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
-	SpellBookFrame:Styling(true, true)
+	SpellBookFrame:Styling()
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end

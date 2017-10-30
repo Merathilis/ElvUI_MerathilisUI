@@ -90,7 +90,7 @@ function MAB:StyleBackdrops()
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
-				frame.backdrop:Styling(true, true)
+				frame.backdrop:Styling()
 			end
 		end
 	end
@@ -98,7 +98,7 @@ function MAB:StyleBackdrops()
 	-- Other bar backdrops
 	for _, frame in pairs(styleOtherBacks) do
 		if frame.backdrop then
-			frame.backdrop:Styling(true, true)
+			frame.backdrop:Styling()
 		end
 	end
 end

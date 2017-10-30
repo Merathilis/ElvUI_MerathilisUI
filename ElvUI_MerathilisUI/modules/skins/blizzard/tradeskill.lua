@@ -13,7 +13,7 @@ local function styleTradeSkill()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
-	_G["TradeSkillFrame"]:Styling(true, true)
+	_G["TradeSkillFrame"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "mUITradeSkill", styleTradeSkill)

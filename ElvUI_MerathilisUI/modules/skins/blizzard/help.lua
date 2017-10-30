@@ -21,7 +21,7 @@ local function styleHelp()
 
 	-- skin main frames
 	for i = 1, #frames do
-		_G[frames[i]]:Styling(true, true)
+		_G[frames[i]]:Styling()
 	end
 end
 

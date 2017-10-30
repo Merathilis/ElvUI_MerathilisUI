@@ -23,14 +23,13 @@ end
 function MERB:StyleBags()
 	-- doesnt work
 	if _G["ElvUI_ContainerFrame"] then
-		_G["ElvUI_ContainerFrame"]:Styling(true, true)
-		_G["ElvUI_ContainerFrameContainerHolder"]:Styling(true, true)
+		_G["ElvUI_ContainerFrame"]:Styling()
+		_G["ElvUI_ContainerFrameContainerHolder"]:Styling()
 	end
 
 	if _G["ElvUIBags"] then
-		-- doesnt work
-		_G["ElvUIBags"]:Styling(true, true)
-		_G["ElvUIBags"]:Styling(true, true)
+		_G["ElvUIBags"]:Styling()
+		_G["ElvUIBags"]:Styling()
 	end
 end
 
@@ -38,8 +37,8 @@ function MERB:StyleBank()
 	-- doesnt work
 	if _G["ElvUI_BankContainerFrame"] then
 		if _G["ElvUI_BankContainerFrame"].isSkinned then return end
-		_G["ElvUI_BankContainerFrame"]:Styling(true, true)
-		_G["ElvUI_BankContainerFrameContainerHolder"]:Styling(true, true)
+		_G["ElvUI_BankContainerFrame"]:Styling()
+		_G["ElvUI_BankContainerFrameContainerHolder"]:Styling()
 
 		_G["ElvUI_BankContainerFrame"].isSkinned = true
 	end

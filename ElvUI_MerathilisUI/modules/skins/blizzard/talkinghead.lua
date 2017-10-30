@@ -20,7 +20,7 @@ local function styleTalkingHead()
 			frame.BackgroundFrame.backdrop:Hide()
 		end
 		MERS:CreateBD(frame.BackgroundFrame, .5)
-		frame.BackgroundFrame:Styling(true, true)
+		frame.BackgroundFrame:Styling()
 
 		local button = frame.MainFrame.CloseButton
 		button:ClearAllPoints()

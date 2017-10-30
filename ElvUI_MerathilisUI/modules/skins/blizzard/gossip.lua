@@ -13,7 +13,7 @@ local find, gsub = string.find, string.gsub
 local function styleGossip()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
 
-	_G["GossipFrame"]:Styling(true, true)
+	_G["GossipFrame"]:Styling()
 
 	_G["GossipGreetingScrollFrame"]:StripTextures()
 	_G["GossipGreetingText"]:SetTextColor(1, 1, 1)

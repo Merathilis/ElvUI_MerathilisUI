@@ -11,8 +11,8 @@ local _G = _G
 local function styleMacro()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true or E.private.muiSkins.blizzard.macro ~= true then return end
 
-	_G["MacroFrame"]:Styling(true, true)
-	_G["MacroPopupFrame"]:Styling(true, true)
+	_G["MacroFrame"]:Styling()
+	_G["MacroPopupFrame"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_MacroUI", "mUIMacro", styleMacro)

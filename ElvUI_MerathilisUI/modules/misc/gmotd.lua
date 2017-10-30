@@ -41,7 +41,7 @@ function MI:GMOTD()
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
-		gmotd:Styling(true, true)
+		gmotd:Styling()
 		gmotd:Hide()
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			MERS:StyleOutside(gmotd)

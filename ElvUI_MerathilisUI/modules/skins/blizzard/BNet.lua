@@ -21,7 +21,7 @@ local function styleBNet()
 	_G["BNToastFrameCloseButton"]:SetNormalTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
 	_G["BNToastFrameCloseButton"]:GetNormalTexture():SetAlpha(0.5)
 
-	_G["BNToastFrame"]:Styling(true, true)
+	_G["BNToastFrame"]:Styling()
 end
 
 S:AddCallback("mUIBNet", styleBNet)

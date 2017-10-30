@@ -22,9 +22,9 @@ local function styleGarrison()
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
 	end
 
-	GarrisonLandingPage:Styling(true, true)
-	GarrisonMissionFrame:Styling(true, true)
-	GarrisonShipyardFrame:Styling(true)
+	GarrisonLandingPage:Styling()
+	_G["GarrisonMissionFrame"]:Styling()
+	_G["GarrisonShipyardFrame"]:Styling()
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -116,7 +116,7 @@ local function styleGarrison()
 	GarrisonBuildingFrame.GarrCorners:Hide()
 	GarrisonBuildingFrame.TitleText:Show()
 
-	GarrisonBuildingFrame:Styling(true, true)
+	GarrisonBuildingFrame:Styling()
 
 	-- Tutorial button
 	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton
@@ -203,6 +203,9 @@ local function styleGarrison()
 	local FollowerList = GarrisonBuildingFrame.FollowerList
 	FollowerList:DisableDrawLayer("BACKGROUND")
 	FollowerList:DisableDrawLayer("BORDER")
+
+	-- Follower Recruitment Frame
+	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Styling()
 
 	-- [[ Shipyard UI ]]
 	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab

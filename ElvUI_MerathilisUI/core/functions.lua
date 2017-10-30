@@ -185,7 +185,7 @@ local function Styling(f, useStripes, useGradient)
 
 	local style = CreateFrame("Frame", name or nil, f)
 
-	if(useStripes) then
+	if not(useStripes) then
 		local stripes = f:CreateTexture(nil, "BORDER")
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -197,7 +197,7 @@ local function Styling(f, useStripes, useGradient)
 		f.stripes = stripes
 	end
 
-	if(useGradient) then
+	if not(useGradient) then
 		local gradient = f:CreateTexture(nil, "BORDER")
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)

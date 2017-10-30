@@ -16,8 +16,8 @@ local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
-	_G["PVEFrame"]:Styling(true, true)
-	_G["LFGListApplicationDialog"]:Styling(true, true)
+	_G["PVEFrame"]:Styling()
+	_G["LFGListApplicationDialog"]:Styling()
 
 	local function onEnter(self)
 		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
@@ -60,8 +60,8 @@ local function styleLFG()
 	end)
 
 	-- Invite frame
-	_G["LFGListInviteDialog"]:Styling(true, true)
-	_G["LFGDungeonReadyDialog"]:Styling(true, true)
+	_G["LFGListInviteDialog"]:Styling()
+	_G["LFGDungeonReadyDialog"]:Styling()
 
 	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
 	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)

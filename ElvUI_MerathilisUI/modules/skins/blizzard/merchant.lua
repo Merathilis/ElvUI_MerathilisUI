@@ -11,7 +11,7 @@ local _G = _G
 local function styleMerchant()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.muiSkins.blizzard.merchant ~= true then return end
 
-	_G["MerchantFrame"]:Styling(true, true)
+	_G["MerchantFrame"]:Styling()
 end
 
 S:AddCallback("mUIMerchant", styleMerchant)

@@ -36,7 +36,7 @@ function styleEncounterJournal()
 		EJ.navBar.backdrop:Hide()
 	end
 
-	EJ.backdrop:Styling(true, true)
+	EJ.backdrop:Styling()
 
 	_G["EncounterJournalEncounterFrameInfoCreatureButton1"]:SetPoint("TOPLEFT", _G["EncounterJournalEncounterFrameInfoModelFrame"], 0, -35)
 
