@@ -290,7 +290,7 @@ function MER:LoadDetailsProfile(layout)
 						["commands"] = {
 						},
 						["tooltip_max_abilities"] = 5,
-						["fontface"] = "Merathilis Roboto-Bold",
+						["fontface"] = "Expressway",
 						["border_color"] = {
 							1, -- [1]
 							1, -- [2]
@@ -349,7 +349,7 @@ function MER:LoadDetailsProfile(layout)
 					["disable_window_groups"] = false,
 					["instances_suppress_trash"] = 0,
 					["font_faces"] = {
-						["menus"] = "Merathilis Roboto-Bold",
+						["menus"] = "Expressway",
 					},
 					["segments_amount"] = 12,
 					["report_lines"] = 5,
@@ -1216,7 +1216,7 @@ function MER:LoadDetailsProfile(layout)
 										["isHidden"] = false,
 										["timeType"] = 1,
 										["textYMod"] = 3,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["textXMod"] = 6,
 										["textStyle"] = 2,
 										["textAlign"] = 0,
@@ -1232,7 +1232,7 @@ function MER:LoadDetailsProfile(layout)
 										["textStyle"] = 2,
 										["textYMod"] = 1,
 										["textXMod"] = 0,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["timeType"] = 1,
 										["textAlign"] = 0,
 										["textSize"] = 14,
@@ -1249,7 +1249,7 @@ function MER:LoadDetailsProfile(layout)
 										["segmentType"] = 2,
 										["textXMod"] = 5,
 										["timeType"] = 1,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["textAlign"] = 1,
 										["textSize"] = 14,
 										["textColor"] = {
@@ -1280,7 +1280,7 @@ function MER:LoadDetailsProfile(layout)
 									0.7, -- [4]
 								},
 								["custom_text"] = "{name}",
-								["text_face"] = "Merathilis Roboto-Bold",
+								["text_face"] = "Expressway",
 								["anchor"] = {
 									-18, -- [1]
 									5, -- [2]
@@ -1428,7 +1428,7 @@ function MER:LoadDetailsProfile(layout)
 									0, -- [3]
 									1, -- [4]
 								},
-								["font_face_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\fonts\\Roboto-Bold.ttf",
+								["font_face_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\fonts\\Expressway.ttf",
 								["textL_custom_text"] = "{data1}. {data3}{data2}",
 								["models"] = {
 									["upper_model"] = "Spells\\AcidBreath_SuperGreen.M2",
@@ -1491,7 +1491,7 @@ function MER:LoadDetailsProfile(layout)
 									true, -- [3]
 								},
 								["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
-								["font_face"] = "Merathilis Roboto-Bold",
+								["font_face"] = "Expressway",
 								["texture_class_colors"] = true,
 								["texture"] = "MerathilisUI1",
 								["fast_ps_update"] = true,
@@ -2087,7 +2087,7 @@ function MER:LoadDetailsProfile(layout)
 					["disable_window_groups"] = false,
 					["instances_suppress_trash"] = 0,
 					["font_faces"] = {
-						["menus"] = "Merathilis Roboto-Bold",
+						["menus"] = "Expressway",
 					},
 					["segments_amount"] = 12,
 					["report_lines"] = 5,
@@ -2954,7 +2954,7 @@ function MER:LoadDetailsProfile(layout)
 										["isHidden"] = false,
 										["timeType"] = 1,
 										["textYMod"] = 3,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["textXMod"] = 6,
 										["textStyle"] = 2,
 										["textAlign"] = 0,
@@ -2970,7 +2970,7 @@ function MER:LoadDetailsProfile(layout)
 										["textStyle"] = 2,
 										["textYMod"] = 1,
 										["textXMod"] = 0,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["timeType"] = 1,
 										["textAlign"] = 0,
 										["textSize"] = 14,
@@ -2987,7 +2987,7 @@ function MER:LoadDetailsProfile(layout)
 										["segmentType"] = 2,
 										["textXMod"] = 5,
 										["timeType"] = 1,
-										["textFace"] = "Merathilis Roboto-Bold",
+										["textFace"] = "Expressway",
 										["textAlign"] = 1,
 										["textSize"] = 14,
 										["textColor"] = {
@@ -3018,7 +3018,7 @@ function MER:LoadDetailsProfile(layout)
 									0.7, -- [4]
 								},
 								["custom_text"] = "{name}",
-								["text_face"] = "Merathilis Roboto-Bold",
+								["text_face"] = "Expressway",
 								["anchor"] = {
 									-18, -- [1]
 									5, -- [2]
@@ -3166,7 +3166,7 @@ function MER:LoadDetailsProfile(layout)
 									0, -- [3]
 									1, -- [4]
 								},
-								["font_face_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\fonts\\Roboto-Bold.ttf",
+								["font_face_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\fonts\\Expressway.ttf",
 								["textL_custom_text"] = "{data1}. {data3}{data2}",
 								["models"] = {
 									["upper_model"] = "Spells\\AcidBreath_SuperGreen.M2",
