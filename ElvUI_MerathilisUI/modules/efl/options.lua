@@ -122,6 +122,8 @@ local function EnhancedFriendsList()
 				type = "group",
 				name = L["Game Icon Preview"],
 				guiInline = true,
+				get = function(info) return E.db.mui.efl[info[#info]] end,
+				set = function(info, value) E.db.mui.efl[info[#info]] = value; FriendsFrame_UpdateFriends() end,
 				args = {
 					Alliance = {
 						order = 1,
@@ -214,6 +216,8 @@ local function EnhancedFriendsList()
 				type = "group",
 				name = L["Status Icon Preview"],
 				guiInline = true,
+				get = function(info) return E.db.mui.efl[info[#info]] end,
+				set = function(info, value) E.db.mui.efl[info[#info]] = value; FriendsFrame_UpdateFriends() end,
 				args = {
 					Online = {
 						order = 1,
