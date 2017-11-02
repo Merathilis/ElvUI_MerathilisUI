@@ -1515,7 +1515,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current-mUI]"
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[perpp]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
@@ -1932,7 +1932,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["party"]["buffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["party"]["height"] = 35
+		E.db["unitframe"]["units"]["party"]["height"] = 45
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 0
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
