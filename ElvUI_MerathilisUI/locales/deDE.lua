@@ -391,6 +391,24 @@ L["Status Icon Pack"] = true
 L["Game Icon Preview"] = "Game Icon Vorschau:"
 L["Status Icon Preview"] = "Status Icon Vorschau:"
 
+-- ObjectiveTrackerHider
+L["Hide during PvP"] = "Verstecke während PvP"
+L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = "Versteckt den Objective Tracker während PvP (z.B. Schlachtfelder)"
+L["Hide in arena"] = "Verstecke in Arena"
+L["Hide the objective tracker when in the arena"] = "Verstecke den Objective Tracker in Arenen"
+L["Hide in dungeon"] = "Verstecke in Dungeon"
+L["Hide the objective tracker when in a dungeon"] = "Verstecke den Objective Tracker in Dungeons"
+L["Hide in raid"] = "Verstecke in Raid"
+L["Hide the objective tracker when in a raid"] = "Verstecke den Objective Tracker in Raids"
+L["Collapse during PvP"] = "Zeige während PvP"
+L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = "Zeigt den Objective Tracker währden PvP (z.B. Schlachtfelder)"
+L["Collapse in arena"] = "Zeige in Arena"
+L["Collapse the objective tracker when in the arena"] = "Zeigt den Objective Tracker in Arenen"
+L["Collapse in dungeon"] = "Zeige in Dungeon"
+L["Collapse the objective tracker when in a dungeon"] = "Zeigt den Objective Tracker in Dungeons"
+L["Collapse in raid"] = "Zeige in Raid"
+L["Collapse the objective tracker during a raid"] = "Zeigt den Objective Tracker in Raids"
+
 -- Install
 L["Welcome"] = "Willkommen"
 L["|cffff7d0aMerathilisUI|r Installation"] = true

@@ -13,14 +13,14 @@ local EFL = E:GetModule("EnhancedFriendsList")
 local function EnhancedFriendsList()
 	E.Options.args.mui.args.efl = {
 		type = "group",
-		name = EFL.modName..MER.NewSign,
+		name = EFL.modName,
 		order = 22,
 		get = function(info) return E.db.mui.efl[ info[#info] ] end,
 		set = function(info, value) E.db.mui.efl[ info[#info] ] = value; end,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(EFL.modName)..MER.NewSign,
+				name = MER:cOption(EFL.modName),
 				order = 1
 			},
 			credits = {

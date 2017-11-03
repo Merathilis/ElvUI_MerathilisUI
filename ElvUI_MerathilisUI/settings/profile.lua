@@ -344,6 +344,18 @@ P["mui"] = {
 		["spellInfo"] = {}
 	},
 
+	["objectivetrackerhider"] = {
+		["enabled"] = true,
+		["hidePvP"] = false,
+		["hideArena"] = false,
+		["hideParty"] = false,
+		["hideRaid"] = false,
+		["collapsePvP"] = true,
+		["collapseArena"] = true,
+		["collapseParty"] = true,
+		["collapseRaid"] = true,
+	},
+
 	-- db
 	["dbCleaned"] = false
 }

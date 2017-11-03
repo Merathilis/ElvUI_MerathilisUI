@@ -379,6 +379,24 @@ L["Status Icon Pack"] = true
 L["Game Icon Preview"] = true
 L["Status Icon Preview"] = true
 
+-- ObjectiveTrackerHider
+L["Hide during PvP"] = true
+L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = true
+L["Hide in arena"] = true
+L["Hide the objective tracker when in the arena"] = true
+L["Hide in dungeon"] = true
+L["Hide the objective tracker when in a dungeon"] = true
+L["Hide in raid"] = true
+L["Hide the objective tracker when in a raid"] = true
+L["Collapse during PvP"] = true
+L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = true
+L["Collapse in arena"] = true
+L["Collapse the objective tracker when in the arena"] = true
+L["Collapse in dungeon"] = true
+L["Collapse the objective tracker when in a dungeon"] = true
+L["Collapse in raid"] = true
+L["Collapse the objective tracker during a raid"] = true
+
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true
