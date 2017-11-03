@@ -5,11 +5,13 @@ OTH.modName = L["ObjectiveTrackerHider"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local type = type
+
 -- WoW API / Variables
+local IsInInstance = IsInInstance
+local UnitAffectingCombat = UnitAffectingCombat
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: TradeSkillFrame
+-- GLOBALS: ObjectiveTracker_Collapse, ObjectiveTracker_Expand
 
 -- Hide Quest Tracker based on zone
 function OTH:UpdateHideState()
@@ -55,7 +57,7 @@ function OTH:UpdateCollapseState()
 		WF.userCollapsed = true
 		ObjectiveTracker_Collapse(WF)
 	else
-		WF.userCollapsed = false;
+		WF.userCollapsed = false
 		ObjectiveTracker_Expand(WF)
 	end
 end

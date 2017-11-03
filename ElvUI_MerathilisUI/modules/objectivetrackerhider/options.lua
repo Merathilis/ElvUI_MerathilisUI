@@ -2,13 +2,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local OTH = E:GetModule("ObjectiveTrackerHider")
 
 --Cache global variables
-
+local format = string.format
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AceGUIWidgetLSMlists, FONT_SIZE, FACTION_ALLIANCE, FACTION_HORDE, FACTION_STANDING_LABEL4
--- GLOBALS: FRIENDS_LIST_ONLINE, FRIENDS_LIST_OFFLINE, DEFAULT_DND_MESSAGE, DEFAULT_AFK_MESSAGE
--- GLOBALS: FriendsFrame_UpdateFriends
+-- GLOBALS:
 
 local function ObjectiveTrackerHider()
 	E.Options.args.mui.args.objectivetrackerhider = {
