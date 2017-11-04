@@ -90,7 +90,7 @@ local function AddOptions()
 						type = "toggle",
 						name = L["Flight Point"],
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
-						hidden = function() return not IsAddOnLoaded("WorldFlightMap") end, 
+						hidden = function() return IsAddOnLoaded("WorldFlightMap") end, 
 					},
 					CombatState = {
 						order = 8,
