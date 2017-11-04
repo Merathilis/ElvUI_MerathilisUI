@@ -155,8 +155,8 @@ function EFL:BasicUpdateFriends(button)
 		local characterName = toonName
 		if presenceName then
 			nameText = presenceName
-			if isOnline and not characterName and battleTag then
-				characterName = battleTag
+			if isOnline then
+				characterName = BNet_GetValidatedCharacterName(characterName, battleTag, client)
 			end
 		else
 			nameText = UNKNOWN
