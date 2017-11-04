@@ -5,10 +5,10 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
-
+local _G = _G
 --WoW API / Variables
 local CreateFrame = CreateFrame
-
+local InCombatLockdown = InCombatLockdown
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -37,6 +37,41 @@ function MER:ToggleDataPanels()
 	end
 end
 
+function MERL:CreateChatButton()
+	local panelBackdrop = E.db.chat.panelBackdrop
+	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
+	ChatButton:ClearAllPoints()
+	ChatButton:Point("TOPLEFT", 3, -5)
+	ChatButton:Size(14, 14)
+	ChatButton:SetAlpha(0.35)
+	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
+
+	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
+	ChatButton.tex:SetInside()
+	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
+
+	ChatButton:SetScript("OnEnter", function(self) self:SetAlpha(0.65) end)
+	ChatButton:SetScript("OnLeave", function(self) self:SetAlpha(0.35) end)
+
+	ChatButton:SetScript("OnMouseUp", function (self, btn)
+		if btn == "LeftButton" then
+			if InCombatLockdown() then return end
+
+			if E.db.chat.panelHeight == 368 then
+					if panelBackdrop == 'LEFT' then
+						E.db.chat.panelHeight = 155
+					else
+						E.db.chat.panelHeight = 155
+					end
+				E:GetModule("Chat"):PositionChat(true)
+			else
+				E.db.chat.panelHeight = 368
+				E:GetModule("Chat"):PositionChat(true)
+			end
+		end
+	end)
+end
+
 function MERL:Initialize()
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -45,6 +80,7 @@ function MERL:Initialize()
 
 		MER:ToggleDataPanels()
 	end)
+	self:CreateChatButton()
 end
 
 local function InitializeCallback()
