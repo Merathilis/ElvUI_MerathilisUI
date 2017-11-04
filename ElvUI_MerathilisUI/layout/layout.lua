@@ -54,10 +54,9 @@ function MERL:CreateChatButton()
 	ChatButton:SetScript("OnLeave", function(self) self:SetAlpha(0.35) end)
 
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
+		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
-			if InCombatLockdown() then return end
-
-			if E.db.chat.panelHeight == 368 then
+			if E.db.chat.panelHeight == 370 then
 					if panelBackdrop == 'LEFT' then
 						E.db.chat.panelHeight = 155
 					else
@@ -65,7 +64,7 @@ function MERL:CreateChatButton()
 					end
 				E:GetModule("Chat"):PositionChat(true)
 			else
-				E.db.chat.panelHeight = 368
+				E.db.chat.panelHeight = 370
 				E:GetModule("Chat"):PositionChat(true)
 			end
 		end
