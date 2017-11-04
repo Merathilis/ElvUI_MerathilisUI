@@ -47,6 +47,10 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 L["FlightMode"] = true
 L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
 
+-- FlightPoint
+L["Flight Point"] = true
+L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+
 -- moveBlizz
 L["moveBlizz"] = true
 L["Make some Blizzard Frames movable."] = true

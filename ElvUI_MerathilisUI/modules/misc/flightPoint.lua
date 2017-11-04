@@ -192,7 +192,7 @@ end
 
 function FlightPoints_OnEvent(self, event, ...)
 	-- WorldFlightMap don't like this, so stop right here
-	if IsAddOnLoaded("WorldFlightMap") then return; end
+	if E.db.mui.general.FlightPoint ~= true or IsAddOnLoaded("WorldFlightMap") then return; end
 
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
