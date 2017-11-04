@@ -26,7 +26,9 @@ local function UpdateAuraIconSettings(self, auras, noCycle)
 		if(not noCycle) then
 			while(auras[index]) do
 				local button = auras[index]
+				button.text:ClearAllPoints()
 				button.text:Point(config.durationTextPos, config.durationTextOffsetX, config.durationTextOffsetY)
+				button.count:ClearAllPoints()
 				button.count:Point(config.stackTextPos, config.stackTextOffsetX, config.stackTextOffsetY)
 
 				if not button.helper then
@@ -41,7 +43,9 @@ local function UpdateAuraIconSettings(self, auras, noCycle)
 				index = index + 1
 			end
 		else
+			auras.text:ClearAllPoints()
 			auras.text:Point(config.durationTextPos, config.durationTextOffsetX, config.durationTextOffsetY)
+			auras.count:ClearAllPoints()
 			auras.count:Point(config.stackTextPos, config.stackTextOffsetX, config.stackTextOffsetY)
 
 			if not auras.helper then

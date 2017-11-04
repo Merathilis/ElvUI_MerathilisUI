@@ -201,7 +201,7 @@ P["mui"] = {
 		},
 		["AuraIconText"] = {
 			["durationTextPos"] = "CENTER",
-			["durationTextOffsetX"] = 0,
+			["durationTextOffsetX"] = 1,
 			["durationTextOffsetY"] = 0,
 			["stackTextPos"] = "BOTTOMRIGHT",
 			["stackTextOffsetX"] = 1,
