@@ -106,6 +106,8 @@ L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
+L["Expand the chat"] = true
+L["Back to normal"] = true
 
 -- Tooltip
 L["Your Status:"] = true
