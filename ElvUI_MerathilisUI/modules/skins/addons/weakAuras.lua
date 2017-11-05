@@ -16,15 +16,15 @@ frame:SetScript("OnEvent", function(self, event)
 	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
 	local function SkinWeakAuras(frame, ftype)
-		if ftype == "icon" then
-			if not frame.backdrop then
-				frame:CreateBackdrop(frame, "Transparent")
+		if not frame.backdrop then
+			frame:CreateBackdrop(frame, "Transparent")
+			frame.icon.SetTexCoord = MER.dummy
+			if ftype == "icon" then
 				frame.backdrop:HookScript("OnUpdate", function(self)
 					self:SetAlpha(self:GetParent().icon:GetAlpha())
+					self:SetBackdropColor(0, 0, 0, 0)
+					E:RegisterCooldown(frame.cooldown)
 				end)
-				frame.icon:SetTexCoord(unpack(E.TexCoords))
-				frame.icon.SetTexCoord = MER.dummy
-				E:RegisterCooldown(frame.cooldown)
 			end
 		end
 
