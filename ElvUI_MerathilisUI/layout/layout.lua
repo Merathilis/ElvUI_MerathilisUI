@@ -77,7 +77,7 @@ function MERL:CreateChatButton()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if isExpanded then
-			GameTooltip:AddLine(MER:cOption(L["Back"]))
+			GameTooltip:AddLine(MER:cOption(BACK))
 		else
 			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
 		end
