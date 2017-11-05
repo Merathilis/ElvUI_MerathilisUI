@@ -160,7 +160,6 @@ local function shortenNumber(number)
 		local num2 = num1
 		while num2 >= 10 do
 			num2 = num2 / 10
-			dec = dec - 1
 		end
 	end
 	if number < 0 then
