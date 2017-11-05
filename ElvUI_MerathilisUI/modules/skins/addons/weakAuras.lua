@@ -20,10 +20,10 @@ frame:SetScript("OnEvent", function(self, event)
 			frame:CreateBackdrop(frame, "Transparent")
 			frame.icon.SetTexCoord = MER.dummy
 			if ftype == "icon" then
+				self:SetBackdropColor(0, 0, 0, 0)
+				E:RegisterCooldown(frame.cooldown)
 				frame.backdrop:HookScript("OnUpdate", function(self)
 					self:SetAlpha(self:GetParent().icon:GetAlpha())
-					self:SetBackdropColor(0, 0, 0, 0)
-					E:RegisterCooldown(frame.cooldown)
 				end)
 			end
 		end
