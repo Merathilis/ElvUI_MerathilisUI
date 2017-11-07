@@ -186,7 +186,8 @@ local function Styling(f, useStripes, useGradient)
 	local style = CreateFrame("Frame", name or nil, f)
 
 	if not(useStripes) then
-		local stripes = f:CreateTexture(nil, "BORDER")
+		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		stripes:ClearAllPoints()
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
 		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
@@ -198,7 +199,8 @@ local function Styling(f, useStripes, useGradient)
 	end
 
 	if not(useGradient) then
-		local gradient = f:CreateTexture(nil, "BORDER")
+		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		gradient:ClearAllPoints()
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
 		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
@@ -222,6 +224,7 @@ local handled = {["Frame"] = true}
 local object = CreateFrame("Frame")
 addapi(object)
 addapi(object:CreateTexture())
+addapi(object:CreateFontString())
 
 object = EnumerateFrames()
 while object do
