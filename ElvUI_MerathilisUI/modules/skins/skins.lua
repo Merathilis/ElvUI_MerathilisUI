@@ -50,10 +50,10 @@ function S:HandleCloseButton(f, point, text)
 			local region = select(i, f:GetRegions())
 			if region:GetObjectType() == "Texture" then
 				region:SetDesaturated(1)
+				region:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 				for n = 1, #buttons do
 					local texture = buttons[n]
 					if region:GetTexture() == "Interface\\Buttons\\"..texture then
-						region:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 						f.noBackdrop = true
 					end
 				end
