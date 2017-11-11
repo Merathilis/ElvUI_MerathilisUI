@@ -1482,7 +1482,7 @@ function MER:LoadDetailsProfile(layout)
 									0, -- [3]
 									1, -- [4]
 								},
-								["texture_background"] = "MerathilisUI1",
+								["texture_background"] = "MerathilisUI2",
 								["alpha"] = 1,
 								["no_icon"] = false,
 								["textR_show_data"] = {
@@ -1493,7 +1493,7 @@ function MER:LoadDetailsProfile(layout)
 								["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 								["font_face"] = "Expressway",
 								["texture_class_colors"] = true,
-								["texture"] = "MerathilisUI1",
+								["texture"] = "MerathilisUI2",
 								["fast_ps_update"] = true,
 								["textR_separator"] = ",",
 								["height"] = 14,
@@ -3231,7 +3231,7 @@ function MER:LoadDetailsProfile(layout)
 								["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 								["font_face"] = "Expressway",
 								["texture_class_colors"] = true,
-								["texture"] = "MerathilisUI1",
+								["texture"] = "MerathilisUI2",
 								["fast_ps_update"] = true,
 								["textR_separator"] = ",",
 								["height"] = 14,

@@ -26,7 +26,8 @@ LSM:Register("border","MerathilisGlow", [[Interface\AddOns\ElvUI_MerathilisUI\me
 
 -- Statusbars
 LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
-LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MaUI4.tga]])
+LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI2.tga]])
+LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI3.tga]])
 LSM:Register("statusbar","MerathilisFlat", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])
 LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\OnePixel.tga]])
 LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Melli.tga]])
