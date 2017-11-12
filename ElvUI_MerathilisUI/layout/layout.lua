@@ -5,10 +5,11 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
-
+local _G = _G
 --WoW API / Variables
 local CreateFrame = CreateFrame
-
+local InCombatLockdown = InCombatLockdown
+local GameTooltip = _G["GameTooltip"]
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -37,6 +38,59 @@ function MER:ToggleDataPanels()
 	end
 end
 
+function MERL:CreateChatButton()
+	local panelBackdrop = E.db.chat.panelBackdrop
+	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
+	ChatButton:ClearAllPoints()
+	ChatButton:Point("TOPLEFT", 3, -5)
+	ChatButton:Size(14, 14)
+	ChatButton:SetAlpha(0.35)
+	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
+
+	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
+	ChatButton.tex:SetInside()
+	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
+
+	local isExpanded
+	ChatButton:SetScript("OnMouseUp", function (self, btn)
+		if InCombatLockdown() then return end
+		if btn == "LeftButton" then
+			if E.db.chat.panelHeight == 370 then
+					if panelBackdrop == 'LEFT' then
+						E.db.chat.panelHeight = 155
+						isExpanded = false
+					else
+						E.db.chat.panelHeight = 155
+						isExpanded = false
+					end
+				E:GetModule("Chat"):PositionChat(true)
+			else
+				E.db.chat.panelHeight = 370
+				E:GetModule("Chat"):PositionChat(true)
+				isExpanded = true
+			end
+		end
+	end)
+
+	ChatButton:SetScript("OnEnter", function(self)
+		self:SetAlpha(0.65)
+		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
+		GameTooltip:ClearLines()
+		if isExpanded then
+			GameTooltip:AddLine(MER:cOption(BACK))
+		else
+			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
+		end
+		GameTooltip:Show()
+		if InCombatLockdown() then GameTooltip:Hide() end
+	end)
+
+	ChatButton:SetScript("OnLeave", function(self)
+		self:SetAlpha(0.35)
+		GameTooltip:Hide()
+	end)
+end
+
 function MERL:Initialize()
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -45,6 +99,7 @@ function MERL:Initialize()
 
 		MER:ToggleDataPanels()
 	end)
+	self:CreateChatButton()
 end
 
 local function InitializeCallback()

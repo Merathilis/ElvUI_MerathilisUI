@@ -41,7 +41,7 @@ function MUF:UpdateAuraSettings()
 		local spacing = E.db.mui.unitframes.AuraIconSpacing.units[unitName] and auraSpacing or E.Spacing
 		local frameNameUnit = E:StringTitle(unitName)
 		frameNameUnit = frameNameUnit:gsub("t(arget)", "T%1")
-		
+
 		local unitframe = _G["ElvUF_"..frameNameUnit]
 		if unitframe then
 			SetAuraSpacingAndUpdate(unitframe, unitName, spacing)
@@ -89,9 +89,9 @@ local function SetAuraWidth(self, frame, auraType)
 
 	local auras = frame[auraType]
 	auraType = auraType:lower()
-	
+
 	if db[auraType].sizeOverride and db[auraType].sizeOverride > 0 then
 		auras:SetWidth(db[auraType].perrow * db[auraType].sizeOverride + ((db[auraType].perrow - 1) * auras.spacing))
 	end
 end
-hooksecurefunc(UF, 'Configure_Auras', SetAuraWidth)
+hooksecurefunc(UF, "Configure_Auras", SetAuraWidth)

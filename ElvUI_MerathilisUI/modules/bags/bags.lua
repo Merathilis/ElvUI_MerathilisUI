@@ -28,7 +28,6 @@ function MERB:StyleBags()
 	end
 
 	if _G["ElvUIBags"] then
-		-- doesnt work
 		_G["ElvUIBags"]:Styling()
 		_G["ElvUIBags"]:Styling()
 	end

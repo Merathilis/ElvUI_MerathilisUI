@@ -315,7 +315,6 @@ HideIconTable.title = function(data)
 	data.titleoldtext = nil
 end
 
-
 DisplayIconTable.frame = function(data, iconpath)
 	local iconframe = data.frame
 	-- check/create icon frame

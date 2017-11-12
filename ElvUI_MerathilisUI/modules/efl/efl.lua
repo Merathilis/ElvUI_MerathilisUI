@@ -82,12 +82,12 @@ EFL.GameIcons = {
 	Launcher = {
 		Alliance = MediaPath.."GameIcons\\Launcher\\Alliance",
 		Horde = MediaPath.."GameIcons\\Launcher\\Horde",
-		Neutral = MediaPath.."GameIcons\\Launcher\\Alliance",
+		Neutral = MediaPath.."GameIcons\\Launcher\\Neutral",
 		D3 = MediaPath.."GameIcons\\Launcher\\D3",
 		WTCG = MediaPath.."GameIcons\\Launcher\\Hearthstone",
 		S1 = MediaPath.."GameIcons\\Launcher\\SC",
 		S2 = MediaPath.."GameIcons\\Launcher\\SC2",
-		App = "Interface\\FriendsFrame\\PlusManz-BattleNet",
+		App = MediaPath.."GameIcons\\Launcher\\BattleNet1",
 		BSAp = MediaPath.."GameIcons\\Launcher\\BattleNet",
 		Hero = MediaPath.."GameIcons\\Launcher\\Heroes",
 		Pro = MediaPath.."GameIcons\\Launcher\\Overwatch",
@@ -133,9 +133,9 @@ local function getDiffColorString(level)
 end
 
 function EFL:BasicUpdateFriends(button)
-	local nameText, nameColor, infoText, broadcastText, _
+	local nameText, nameColor, infoText, broadcastText, _, Cooperate
 	if button.buttonType == FRIENDS_BUTTON_TYPE_WOW then
-		local name, level, class, area, connected, status, note = GetFriendInfo(button.id)
+		local name, level, class, area, connected, status = GetFriendInfo(button.id)
 		broadcastText = nil
 		if connected then
 			button.status:SetTexture(EFL.StatusIcons[E.db.mui.efl["StatusIconPack"]][(status == CHAT_FLAG_DND and 'DND' or status == CHAT_FLAG_AFK and "AFK" or "Online")])
@@ -155,11 +155,9 @@ function EFL:BasicUpdateFriends(button)
 		local characterName = toonName
 		if presenceName then
 			nameText = presenceName
-			if isOnline and not characterName and battleTag then
-				characterName = battleTag
+			if isOnline then
+				characterName = BNet_GetValidatedCharacterName(characterName, battleTag, client)
 			end
-		elseif givenName then
-			nameText = givenName
 		else
 			nameText = UNKNOWN
 		end

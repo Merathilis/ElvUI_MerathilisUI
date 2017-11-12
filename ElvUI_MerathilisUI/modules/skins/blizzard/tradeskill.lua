@@ -14,6 +14,8 @@ local function styleTradeSkill()
 
 	-- MainFrame
 	_G["TradeSkillFrame"]:Styling()
+	_G["TradeSkillFrame"].bg1:Hide()
+	_G["TradeSkillFrame"].bg2:Hide()
 end
 
 S:AddCallbackForAddon("Blizzard_TradeSkillUI", "mUITradeSkill", styleTradeSkill)

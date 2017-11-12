@@ -23,8 +23,8 @@ local function styleGarrison()
 	end
 
 	GarrisonLandingPage:Styling()
-	GarrisonMissionFrame:Styling()
-	GarrisonShipyardFrame:Styling()
+	_G["GarrisonMissionFrame"]:Styling()
+	_G["GarrisonShipyardFrame"]:Styling()
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -203,6 +203,9 @@ local function styleGarrison()
 	local FollowerList = GarrisonBuildingFrame.FollowerList
 	FollowerList:DisableDrawLayer("BACKGROUND")
 	FollowerList:DisableDrawLayer("BORDER")
+
+	-- Follower Recruitment Frame
+	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Styling()
 
 	-- [[ Shipyard UI ]]
 	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab

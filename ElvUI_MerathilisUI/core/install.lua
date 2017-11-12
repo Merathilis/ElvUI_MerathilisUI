@@ -189,8 +189,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
 	E.private["general"]["chatBubbleFontSize"] = 11
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MerathilisUI1"
-	E.private["general"]["glossTex"] = "MerathilisUI1"
+	E.private["general"]["normTex"] = "MerathilisUI2"
+	E.private["general"]["glossTex"] = "MerathilisUI2"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -276,7 +276,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["threat"]["goodScale"] = 1
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["threat"]["badScale"] = 1
-	E.db["nameplates"]["statusbar"] = "MerathilisUI1"
+	E.db["nameplates"]["statusbar"] = "MerathilisUI2"
 	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 10
 	E.db["nameplates"]["fontOutline"] = "OUTLINE"
@@ -443,6 +443,9 @@ function MER:SetupLayout(layout)
 		E.db["general"]["minimap"]["locationFontSize"] = 10
 		E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 		E.db["general"]["minimap"]["locationFont"] = "Expressway"
+		if IsAddOnLoaded("ElvUI_BenikUI") then
+			E.db["general"]["minimap"]["benikuiStyle"] = false
+		end
 		E.db["tooltip"]["healthBar"]["font"] = "Expressway"
 		E.db["bags"]["itemLevelFont"] = "Expressway"
 		E.db["bags"]["itemLevelFontSize"] = 9
@@ -1413,7 +1416,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["fontSize"] = 10
 		E.db["unitframe"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["smoothbars"] = true
-		E.db["unitframe"]["statusbar"] = "MerathilisUI1"
+		E.db["unitframe"]["statusbar"] = "MerathilisUI2"
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 			E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
@@ -1512,7 +1515,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = false
-		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[power:current-mUI]"
+		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = "[perpp]"
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "InfoPanel"
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
@@ -1621,6 +1624,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
+		E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
@@ -1929,7 +1934,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["party"]["buffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["party"]["height"] = 35
+		E.db["unitframe"]["units"]["party"]["height"] = 45
 		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 0
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16

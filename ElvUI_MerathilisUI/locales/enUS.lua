@@ -47,6 +47,10 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 L["FlightMode"] = true
 L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
 
+-- FlightPoint
+L["Flight Point"] = true
+L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+
 -- moveBlizz
 L["moveBlizz"] = true
 L["Make some Blizzard Frames movable."] = true
@@ -113,6 +117,7 @@ L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
+L["Expand the chat"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -389,6 +394,24 @@ L["Game Icon Pack"] = true
 L["Status Icon Pack"] = true
 L["Game Icon Preview"] = true
 L["Status Icon Preview"] = true
+
+-- ObjectiveTrackerHider
+L["Hide during PvP"] = true
+L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = true
+L["Hide in arena"] = true
+L["Hide the objective tracker when in the arena"] = true
+L["Hide in dungeon"] = true
+L["Hide the objective tracker when in a dungeon"] = true
+L["Hide in raid"] = true
+L["Hide the objective tracker when in a raid"] = true
+L["Collapse during PvP"] = true
+L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = true
+L["Collapse in arena"] = true
+L["Collapse the objective tracker when in the arena"] = true
+L["Collapse in dungeon"] = true
+L["Collapse the objective tracker when in a dungeon"] = true
+L["Collapse in raid"] = true
+L["Collapse the objective tracker during a raid"] = true
 
 -- Install
 L["Welcome"] = true

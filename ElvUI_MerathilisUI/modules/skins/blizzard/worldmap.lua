@@ -43,8 +43,22 @@ local function styleWorldmap()
 		_G["QuestMapFrame"].DetailsFrame.BackButton:ClearAllPoints()
 		_G["QuestMapFrame"].DetailsFrame.BackButton:Point("LEFT", 10, 275)
 	else
-		return;
+		return
 	end
+
+	WorldMapFrame.UIElementsFrame.BountyBoard.BountyName:FontTemplate(nil, 14, "OUTLINE")
+	WorldMapFrame.UIElementsFrame.OpenQuestPanelButton:Size(22 ,22)
+	WorldMapFrame.UIElementsFrame.CloseQuestPanelButton:Size(22, 22)
+
+	WorldMapFrameAreaLabel:FontTemplate(nil, 30, "OUTLINE")
+	WorldMapFrameAreaLabel:SetShadowOffset(1, -1)
+	WorldMapFrameAreaLabel:SetTextColor(0.9, 0.8, 0.6)
+	WorldMapFrameAreaDescription:FontTemplate(nil, 20, "OUTLINE")
+	WorldMapFrameAreaDescription:SetShadowOffset(1, -1)
+	WorldMapFrameAreaPetLevels:FontTemplate(nil, 20, "OUTLINE")
+	WorldMapFrameAreaPetLevels:SetShadowOffset(1, -1)
+	WorldMapZoneInfo:FontTemplate(nil, 25, "OUTLINE")
+	WorldMapZoneInfo:SetShadowOffset(1, -1)
 end
 
 S:AddCallback("mUISkinWorldMap", styleWorldmap)

@@ -138,7 +138,9 @@ function FlightPointsTaxiChoiceButton_OnClick(self, button, down)
 	end
 end
 
-function FlightPoints_TakeFlyPath(self) TakeTaxiNode(self.value) end
+function FlightPoints_TakeFlyPath(self)
+	TakeTaxiNode(self.value)
+end
 
 local function pairsByKeys(t, f)
 	local a = {}
@@ -192,7 +194,8 @@ end
 
 function FlightPoints_OnEvent(self, event, ...)
 	-- WorldFlightMap don't like this, so stop right here
-	if IsAddOnLoaded("WorldFlightMap") then return; end
+	if E.db.mui.general == nil then E.db.mui.general = {} end --Prevent a rar nil error >.>
+	if E.db.mui.general.FlightPoint ~= true or IsAddOnLoaded("WorldFlightMap") then return; end
 
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
@@ -215,6 +218,7 @@ function FlightPoints_OnEvent(self, event, ...)
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
 		MERS:StyleOutside(FlightPointsTaxiChoice)
+		FlightPointsTaxiChoice:Styling()
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}

@@ -186,6 +186,8 @@ local function stylePvP()
 
 		hooksecurefunc(header, "SetNormalTexture", onSetNormalTexture)
 	end
+
+	_G["PVPReadyDialog"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)

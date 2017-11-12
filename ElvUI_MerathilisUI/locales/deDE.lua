@@ -47,6 +47,10 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktivi
 L["FlightMode"] = "Flugmodus"
 L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Aktiviert/Deaktiviert den MerathilisUI Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
 
+-- FlightPoint
+L["Flight Point"] = "Flugpunkt"
+L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
+
 -- moveBlizz
 L["moveBlizz"] = true
 L["Make some Blizzard Frames movable."] = "Erlaubt das Verschieben einiger Blizzardfenster."
@@ -114,6 +118,7 @@ L["Announce"] = "Ankündigungen"
 L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
+L["Expand the chat"] = "Chat erweitern"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -390,6 +395,24 @@ L["Game Icon Pack"] = true
 L["Status Icon Pack"] = true
 L["Game Icon Preview"] = "Game Icon Vorschau:"
 L["Status Icon Preview"] = "Status Icon Vorschau:"
+
+-- ObjectiveTrackerHider
+L["Hide during PvP"] = "Verstecke während PvP"
+L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = "Versteckt den Objective Tracker während PvP (z.B. Schlachtfelder)"
+L["Hide in arena"] = "Verstecke in Arena"
+L["Hide the objective tracker when in the arena"] = "Verstecke den Objective Tracker in Arenen"
+L["Hide in dungeon"] = "Verstecke in Dungeon"
+L["Hide the objective tracker when in a dungeon"] = "Verstecke den Objective Tracker in Dungeons"
+L["Hide in raid"] = "Verstecke in Raid"
+L["Hide the objective tracker when in a raid"] = "Verstecke den Objective Tracker in Raids"
+L["Collapse during PvP"] = "Zeige während PvP"
+L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = "Zeigt den Objective Tracker währden PvP (z.B. Schlachtfelder)"
+L["Collapse in arena"] = "Zeige in Arena"
+L["Collapse the objective tracker when in the arena"] = "Zeigt den Objective Tracker in Arenen"
+L["Collapse in dungeon"] = "Zeige in Dungeon"
+L["Collapse the objective tracker when in a dungeon"] = "Zeigt den Objective Tracker in Dungeons"
+L["Collapse in raid"] = "Zeige in Raid"
+L["Collapse the objective tracker during a raid"] = "Zeigt den Objective Tracker in Raids"
 
 -- Install
 L["Welcome"] = "Willkommen"

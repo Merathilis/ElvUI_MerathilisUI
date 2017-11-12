@@ -41,6 +41,13 @@ V["muiSkins"] = {
 		["raid"] = true,
 		["dressingroom"] = true,
 		["timemanager"] = true,
+		["blackmarket"] = true,
+		["guildcontrol"] = true,
+		["macro"] = true,
+		["binding"] = true,
+		["gbank"] = true,
+		["taxi"] = true,
+		["help"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
@@ -53,4 +60,5 @@ V["muiSkins"] = {
 	["elvuiAddons"] = {
 		-- ["sle"] = true,
 	},
+	["closeButton"] = true,
 }

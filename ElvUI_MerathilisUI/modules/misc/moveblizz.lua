@@ -28,19 +28,13 @@ MB.Frames = {
 	"InterfaceOptionsFrame",
 	"ItemTextFrame",
 	"LootFrame",
-	"MacOptionsFrame",
 	"MailFrame",
 	"MerchantFrame",
-	"MissingLootFrame",
 	"OpenMailFrame",
 	"PVEFrame",
-	"PVPBannerFrame",
-	"PVPFrame",
 	"PetStableFrame",
 	"PetitionFrame",
 	"QuestFrame",
-	"QuestLogDetailFrame",
-	"QuestLogFrame",
 	"RaidBrowserFrame",
 	"ScrollOfResurrectionSelectionFrame",
 	"SpellBookFrame",
@@ -119,7 +113,7 @@ function MB:Initialize()
 	MB.addonCount = 0
 	for i = 1, #MB.Frames do
 		local frame = _G[MB.Frames[i]]
-		if frame then MB:MakeMovable(frame) end
+		if frame then MB:MakeMovable(frame) else MER:Print("Frame doesn't exist: "..MB.Frames[i]) end
 	end
 	self:RegisterEvent("ADDON_LOADED", "Addons")
 end

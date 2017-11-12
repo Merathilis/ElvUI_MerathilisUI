@@ -17,12 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix the UnitFrame tags for v1.",
-		"• Updated my skinning function for stripes/gradient.",
+		"• Update/Added a lot of skins.",
+		"• Updated the EFL icons.",
+		"• Updated my Layout v2 + new texture.",
+		"• Add an ObjectiveTracker Hider.",
+		"• Added a chat button to increase the chat size.",
+		"• Add an own style for the close buttons.",
+		"• Prevent a rar nil error in FlightPoint.",
 		-- "• ",
 	" ",
 	"Notes:",
-		-- "• ",
+		"• You should do the install step for UnitFrames v2 again.",
 }
 
 local function ModifiedString(string)

@@ -164,7 +164,6 @@ end
  -- Clean ElvUI.lua in WTF folder from outdated settings
 local function dbCleaning()
 	-- Clear the old db
-	if E.private.muiSkins.general.stripes then E.private.muiSkins.general.stripes = nil end
 
 	E.db.mui.dbCleaned = true
 end
@@ -187,11 +186,11 @@ function MER:Initialize()
 	self:LoadCommands()
 
 	-- Create empty saved vars if they doesn't exist
-	if not MERData then 
-		MERData = {};
+	if not MERData then
+		MERData = {}
 	end
 	if not MERDataPerChar then
-		MERDataPerChar = {};
+		MERDataPerChar = {}
 	end
 
 	if E.db.mui.dbCleaned ~= true then

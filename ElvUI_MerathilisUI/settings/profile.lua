@@ -12,6 +12,7 @@ P["mui"] = {
 		["SplashScreen"] = true, -- Enable the SplashScreen on LogIn
 		["AFK"] = true, -- Enable the pimped AFK Screen
 		["FlightMode"] = true, -- Enable the FlightMode
+		["FlightPoint"] = true, -- Enable the FlightPoints
 		["CombatState"] = true, -- Enable the +/- Combat Message
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 		["Movertransparancy"] = .75,
@@ -201,7 +202,7 @@ P["mui"] = {
 		},
 		["AuraIconText"] = {
 			["durationTextPos"] = "CENTER",
-			["durationTextOffsetX"] = 0,
+			["durationTextOffsetX"] = 1,
 			["durationTextOffsetY"] = 0,
 			["stackTextPos"] = "BOTTOMRIGHT",
 			["stackTextOffsetX"] = 1,
@@ -277,7 +278,7 @@ P["mui"] = {
 	},
 
 	["tooltip"] = {
-		["achievement"] = true,
+		["achievement"] = true, -- Adds information to the tooltip, on which char you earned an achievement
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
@@ -342,6 +343,18 @@ P["mui"] = {
 
 	["NameplateAuras"] = {
 		["spellInfo"] = {}
+	},
+
+	["objectivetrackerhider"] = {
+		["enabled"] = true,
+		["hidePvP"] = false,
+		["hideArena"] = false,
+		["hideParty"] = false,
+		["hideRaid"] = false,
+		["collapsePvP"] = true,
+		["collapseArena"] = true,
+		["collapseParty"] = true,
+		["collapseRaid"] = true,
 	},
 
 	-- db

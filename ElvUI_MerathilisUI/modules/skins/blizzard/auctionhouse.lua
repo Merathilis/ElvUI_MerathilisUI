@@ -14,7 +14,7 @@ local CreateFrame = CreateFrame
 local function styleAuctionhouse()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end
 
-	_G["AuctionFrame"]:Styling(true, true)
+	_G["AuctionFrame"]:Styling()
 
 	if _G["AuctionFrameBrowse"] then
 		_G["AuctionFrameBrowse"].bg1:Hide()
