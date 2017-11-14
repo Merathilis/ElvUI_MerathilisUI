@@ -58,6 +58,7 @@ function MERL:CreateChatButton()
 	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
 
 	-- Monitor this, if PositionChat is ever changed with a new arg
+	-- This is Simpy Magic <3
 	hooksecurefunc(CH, "PositionChat", function(_, _, changedHeight)
 		if not changedHeight then
 			panelHeight = E.db.chat.panelHeight
