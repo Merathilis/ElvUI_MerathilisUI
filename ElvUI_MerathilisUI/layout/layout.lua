@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
+local CH = E:GetModule("Chat")
 local LO = E:GetModule("Layout")
-local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
@@ -40,6 +40,7 @@ end
 
 function MERL:CreateChatButton()
 	if E.db.mui.general.chatButton ~= true then return end
+	local panelHeight
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
@@ -56,22 +57,29 @@ function MERL:CreateChatButton()
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
 
+	-- Monitor this, if PositionChat is ever changed with a new arg
+	hooksecurefunc(CH, "PositionChat", function(_, _, changedHeight)
+		if not changedHeight then
+			panelHeight = E.db.chat.panelHeight
+		end
+	end)
+
 	local isExpanded
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.chat.panelHeight == 370 then
 					if panelBackdrop == 'LEFT' then
-						E.db.chat.panelHeight = 155
+						E.db.chat.panelHeight = panelHeight
 						isExpanded = false
 					else
-						E.db.chat.panelHeight = 155
+						E.db.chat.panelHeight = panelHeight
 						isExpanded = false
 					end
-				E:GetModule("Chat"):PositionChat(true)
+				CH:PositionChat(true, true)
 			else
 				E.db.chat.panelHeight = 370
-				E:GetModule("Chat"):PositionChat(true)
+				CH:PositionChat(true, true)
 				isExpanded = true
 			end
 		end
