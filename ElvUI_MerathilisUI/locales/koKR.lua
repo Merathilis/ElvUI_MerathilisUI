@@ -107,6 +107,8 @@ L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
 L["Expand the chat"] = true
+L["Chat Button"] = true
+L["Create a chat button to increase the chat size."] = true
 
 -- Tooltip
 L["Your Status:"] = true

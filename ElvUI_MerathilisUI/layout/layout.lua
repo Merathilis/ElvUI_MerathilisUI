@@ -39,6 +39,7 @@ function MER:ToggleDataPanels()
 end
 
 function MERL:CreateChatButton()
+	if E.db.mui.general.chatButton ~= true then return end
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()

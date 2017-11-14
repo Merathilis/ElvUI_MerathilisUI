@@ -25,6 +25,7 @@ P["mui"] = {
 			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
+		["chatButton"] = true,
 	},
 
 	["colors"] = {

@@ -119,6 +119,8 @@ L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
 L["Expand the chat"] = "Chat erweitern"
+L["Chat Button"] = true
+L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
