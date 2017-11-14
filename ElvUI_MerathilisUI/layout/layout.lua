@@ -44,7 +44,11 @@ function MERL:CreateChatButton()
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", 3, -5)
 	ChatButton:Size(14, 14)
-	ChatButton:SetAlpha(0.35)
+	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+		ChatButton:SetAlpha(0)
+	else
+		ChatButton:SetAlpha(0.35)
+	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
@@ -86,7 +90,11 @@ function MERL:CreateChatButton()
 	end)
 
 	ChatButton:SetScript("OnLeave", function(self)
-		self:SetAlpha(0.35)
+		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+			self:SetAlpha(0)
+		else
+			self:SetAlpha(0.35)
+		end
 		GameTooltip:Hide()
 	end)
 end
