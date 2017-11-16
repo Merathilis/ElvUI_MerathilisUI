@@ -13,6 +13,11 @@ local unpack = unpack
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
+	if _G["CharacterModelFrame"].backdrop then
+		_G["CharacterModelFrame"].backdrop:Hide()
+		
+	end
+
 	_G["CharacterFrame"]:Styling()
 
 	_G["CharacterStatsPane"].ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
