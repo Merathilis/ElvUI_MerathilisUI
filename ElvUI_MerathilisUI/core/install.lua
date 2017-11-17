@@ -831,6 +831,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
 
 		-- Detach portrait
 		E.db["unitframe"]["units"]["player"]["portrait"]["width"] = 0
@@ -1534,6 +1536,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
 		E.db["mui"]["unitframes"]["player"]["detachPortrait"] = false
 		E.db["mui"]["unitframes"]["target"]["detachPortrait"] = false
 
