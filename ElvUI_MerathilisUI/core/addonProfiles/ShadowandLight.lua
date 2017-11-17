@@ -100,12 +100,6 @@ function MER:LoadShadowandLightProfile(layout)
 		E.db["sle"]["blizzard"]["errorframe"]["width"] = 512
 		E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
 		E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = false
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["texture"] = "SVUI"
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["size"] = 16
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["xoffset"] = -90
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["yoffset"] = 0
 		E.db["sle"]["minimap"]["instance"]["font"] = "Merathilis Roboto-Black"
 		E.db["sle"]["minimap"]["coords"]["display"] = "MOUSEOVER"
 		E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
@@ -270,12 +264,6 @@ function MER:LoadShadowandLightProfile(layout)
 		E.db["sle"]["blizzard"]["errorframe"]["width"] = 512
 		E.db["sle"]["unitframes"]["roleicons"] = "SupervillainUI"
 		E.db["sle"]["unitframes"]["unit"]["raid"]["offline"]["enable"] = false
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["texture"] = "SVUI"
-		E.db["sle"]["unitframes"]["unit"]["player"]["combatico"]["red"] = false
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["texture"] = "SVUI"
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["size"] = 16
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["xoffset"] = 0
-		E.db["sle"]["unitframes"]["unit"]["player"]["rested"]["yoffset"] = 0
 		E.db["sle"]["minimap"]["instance"]["font"] = "Expressway"
 		E.db["sle"]["minimap"]["coords"]["display"] = "MOUSEOVER"
 		E.db["sle"]["minimap"]["coords"]["coordsenable"] = false
