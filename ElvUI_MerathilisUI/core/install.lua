@@ -58,6 +58,7 @@ local function SetupCVars()
 	SetCVar("chatStyle", "classic")
 	SetCVar("violenceLevel", 5)
 	SetCVar("blockTrades", 0)
+	SetCVar("countdownForCooldowns", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
