@@ -10,7 +10,7 @@ NF.modName = L["Notification"]
 --Cache global variables
 --Lua functions
 local _G = _G
-local select, unpack, type, pairs, ipairs, tostring = select, unpack, type, pairs, ipairs, tostring
+local select, unpack, type, pairs, ipairs, tostring, next = select, unpack, type, pairs, ipairs, tostring, next
 local table = table
 local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
@@ -500,6 +500,22 @@ function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
 end
 
+local socialQueueCache = {}
+local function RecentSocialQueue(TIME, MSG)
+	local previousMessage = false
+	if next(socialQueueCache) then
+		for guid, tbl in pairs(socialQueueCache) do
+			-- !dont break this loop! its used to keep the cache updated
+			if TIME and (difftime(TIME, tbl[1]) >= 300) then
+				socialQueueCache[guid] = nil --remove any older than 5m
+			elseif MSG and (MSG == tbl[2]) then
+				previousMessage = true --dont show any of the same message within 5m
+			end
+		end
+	end
+	return previousMessage
+end
+
 function NF:SocialQueueEvent(event, guid, numAddedItems)
 	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
 
@@ -538,6 +554,10 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 
 		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant/HandyNotes_Argus to reduce spam
 		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant") or find(comment, "HandyNotes_Argus")) then return end
+		-- prevent duplicate messages within 5 minutes
+		local TIME = time()
+		if RecentSocialQueue(TIME, name) then return end
+		socialQueueCache[guid] = {TIME, name}
 
 		if activityID or firstQueue.queueData.activityID then
 			fullName = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
