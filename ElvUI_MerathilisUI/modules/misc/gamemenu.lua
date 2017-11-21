@@ -77,13 +77,13 @@ MER.NPCS = {
 ]]--
 local Sequences = {26, 52, 69, 111, 225}
 
-local function Player_Animations(self)
+local function Player_Model(self)
 	local key = random(1,5)
 	local emote = Sequences[key]
 
 	self:ClearModel()
 	self:SetUnit("player")
-	self:SetRotation(1)
+	self:SetFacing(6.5)
 	self:SetPortraitZoom(0.05)
 	self:SetCamDistanceScale(4.8)
 	self:SetAlpha(1)
@@ -91,7 +91,7 @@ local function Player_Animations(self)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
-local function NPC_Animations(self)
+local function NPC_Model(self)
 	local npc = MER.NPCS
 	local mod = random(1, #npc)
 	local id = npc[mod]
@@ -100,8 +100,10 @@ local function NPC_Animations(self)
 
 	self:ClearModel()
 	self:SetCreature(id)
-	self:SetAnimation(emote)
+	self:SetCamDistanceScale(1)
+	self:SetFacing(6)
 	self:SetAlpha(1)
+	self:SetAnimation(emote)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
@@ -167,7 +169,7 @@ function MERG:GameMenu()
 
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetPoint("CENTER", modelHolder, "CENTER")
-		playerModel:SetScript("OnShow", Player_Animations)
+		playerModel:SetScript("OnShow", Player_Model)
 		playerModel.isIdle = nil
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
 		playerModel:Show()
@@ -180,11 +182,9 @@ function MERG:GameMenu()
 
 		npcModel = CreateFrame("PlayerModel", nil, npcHolder)
 		npcModel:SetPoint("CENTER", npcHolder, "CENTER")
-		npcModel:SetScript("OnShow", NPC_Animations)
+		npcModel:SetScript("OnShow", NPC_Model)
 		npcModel.isIdle = nil
 		npcModel:SetSize(256, 256)
-		npcModel:SetCamDistanceScale(1)
-		npcModel:SetFacing(6)
 		npcModel:Show()
 	end
 end
