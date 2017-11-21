@@ -3,9 +3,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, print, select = pairs, print, select
+local assert, pairs, print, select = assert, pairs, print, select
+local getmetatable = getmetatable
 local format = string.format
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
