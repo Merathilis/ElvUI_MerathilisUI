@@ -279,8 +279,11 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["threat"]["badScale"] = 1
 	E.db["nameplates"]["statusbar"] = "MerathilisUI2"
 	E.db["nameplates"]["font"] = "Expressway"
-	E.db["nameplates"]["fontSize"] = 10
+	E.db["nameplates"]["fontSize"] = 11
 	E.db["nameplates"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["healthFont"] = "Expressway"
+	E.db["nameplates"]["healthFontSize"] = 10
+	E.db["nameplates"]["healthFontOutline"] = "OUTLINE"
 	E.db["nameplates"]["durationFont"] = "Expressway"
 	E.db["nameplates"]["durationFontSize"] = 9
 	E.db["nameplates"]["durationFontOutline"] = "OUTLINE"
