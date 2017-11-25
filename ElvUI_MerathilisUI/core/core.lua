@@ -207,8 +207,6 @@ function MER:Initialize()
 	-- Show only Splash Screen if the install is completed
 	if (E.db.mui.installed == true and E.db.mui.general.SplashScreen) then
 		C_TimerAfter(6, ShowSplashScreen)
-	else
-		return
 	end
 
 	-- run the setup again when a profile gets deleted.
