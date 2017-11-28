@@ -2,5 +2,6 @@
 	<Script file="options.lua"/>
 	<Script file="achievement.lua"/>
 	<Script file="keystoneInfo.lua"/>
+	<Script file="tooltip.lua"/>
 	<Script file="tooltipicon.lua"/>
 </Ui>
