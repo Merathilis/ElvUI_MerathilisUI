@@ -1,5 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERTT = E:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule("Tooltip")
+MERTT.modName = L["mUI Tooltip"]
 
 --Cache global variables
 --Lua functions
@@ -33,8 +35,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"
 local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["DND"].."|r|cffFFFFFF>|r"
 
-function MER:GameTooltip_OnTooltipSetUnit(tt)
-	if E.private.tooltip.enable ~= true then return end
+function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 	if tt:IsForbidden() then return end
 	local unit = select(2, tt:GetUnit())
 	if((tt:GetOwner() ~= UIParent) and (self.db.visibility and self.db.visibility.unitFrames ~= 'NONE')) then
@@ -91,6 +92,32 @@ function MER:GameTooltip_OnTooltipSetUnit(tt)
 		end
 
 		GameTooltipTextLeft1:SetFormattedText("|c%s%s|r", color.colorStr, name)
+
+		local lineOffset = 2
+		if(guildName) then
+			if(guildRealm and isShiftKeyDown) then
+				guildName = guildName.."-"..guildRealm
+			end
+
+			if(self.db.guildRanks) then
+				GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
+			else
+				GameTooltipTextLeft2:SetText(("[|cff00ff10%s|r]"):format(guildName))
+			end
+			lineOffset = 3
+		end
 	end
 end
-hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", MER.GameTooltip_OnTooltipSetUnit)
+
+function MERTT:Initialize()
+	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.tooltip ~= true then return end
+	self.db = E.db.tooltip
+
+	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", MERTT.GameTooltip_OnTooltipSetUnit)
+end
+
+local function InitializeCallback()
+	MERTT:Initialize()
+end
+
+E:RegisterModule(MERTT:GetName(), InitializeCallback)

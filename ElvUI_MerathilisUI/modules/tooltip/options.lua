@@ -21,32 +21,38 @@ local function Tooltip()
 				type = "header",
 				name = MER:cOption(L["Tooltip"]),
 			},
-			petIcon = {
+			tooltip = {
 				order = 2,
+				type = "toggle",
+				name = L["Tooltip"],
+				desc = L["Change the visual appearance of the Tooltip."],
+			},
+			petIcon = {
+				order = 3,
 				type = "toggle",
 				name = TOOLTIP_BATTLE_PET,
 				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
 			factionIcon = {
-				order = 3,
+				order = 4,
 				type = "toggle",
 				name = FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
 			achievement = {
-				order = 4,
+				order = 5,
 				type = "toggle",
 				name = ACHIEVEMENT_BUTTON,
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
 			modelIcon = {
-				order = 5,
+				order = 6,
 				type = "toggle",
 				name = L["Model"],
 				desc = L["Adds an Model icon on the tooltip."],
 			},
 			keystone = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
