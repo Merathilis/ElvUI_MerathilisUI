@@ -45,6 +45,7 @@ local function SetupCVars()
 	SetCVar("nameplateShowFriends", 0)
 	SetCVar("nameplateLargerScale", 1)
 	SetCVar("nameplateMaxAlpha", 1)
+	SetCVar("nameplateTargetRadialPosition", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
@@ -148,6 +149,7 @@ local function SetupChat()
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
+	E.db["chat"]["copyChatLines"] = true
 
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
@@ -281,6 +283,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
 	E.db["nameplates"]["targetScale"] = 1.05
 	E.db["nameplates"]["customColor"] = false
+	E.db["nameplates"]["clampToScreen"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
