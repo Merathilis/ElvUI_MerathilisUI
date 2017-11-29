@@ -1288,7 +1288,11 @@ function MER:SetupDts()
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Haste"
 		end
 		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Talent/Loot Specialization"
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
+		if IsAddOnLoaded("REKeys") then
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "REKeys"
+		else
+			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
+		end
 
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Currencies"
 		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
