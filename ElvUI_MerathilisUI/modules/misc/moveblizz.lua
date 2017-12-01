@@ -9,7 +9,7 @@ local type = type
 -- WoW API / Variables
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: TradeSkillFrame
+-- GLOBALS:
 
 -- Move some Blizzard frames
 MB.Frames = {
@@ -37,6 +37,11 @@ MB.Frames = {
 	"QuestFrame",
 	"QuestLogPopupDetailFrame",
 	"RaidBrowserFrame",
+	"RaidInfoFrame",
+	"RaidParentFrame",
+	"ReadyCheckFrame",
+	"ReportCheatingDialog",
+	"RolePollPopup",
 	"ScrollOfResurrectionSelectionFrame",
 	"SpellBookFrame",
 	"StackSplitFrame",
@@ -48,7 +53,9 @@ MB.Frames = {
 	"TradeFrame",
 	"TutorialFrame",
 	"VideoOptionsFrame",
-	"WorldMapFrame"
+	"WorldMapFrame",
+	"WorldStateAlwaysUpFrame",
+	"WorldStateScoreFrame",
 }
 
 MB.AddonsList = {
