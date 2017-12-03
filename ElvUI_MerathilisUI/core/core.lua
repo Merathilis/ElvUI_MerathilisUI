@@ -1,6 +1,6 @@
-local E, L, V, P, G = unpack(ElvUI);
-local LSM = LibStub("LibSharedMedia-3.0");
-local EP = LibStub("LibElvUIPlugin-1.0");
+local E, L, V, P, G = unpack(ElvUI)
+local LSM = LibStub("LibSharedMedia-3.0")
+local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...
 
 local MER = LibStub("AceAddon-3.0"):NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceHook-3.0")
@@ -22,7 +22,7 @@ local SetCVar = SetCVar
 -- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
 -- GLOBALS: MERData, MERDataPerChar
 
---Setting up table to unpack. Why? no idea
+--Setting up table to unpack.
 Engine[1] = MER
 Engine[2] = E
 Engine[3] = L
@@ -189,6 +189,7 @@ function MER:Initialize()
 	if not MERData then
 		MERData = {}
 	end
+
 	if not MERDataPerChar then
 		MERDataPerChar = {}
 	end

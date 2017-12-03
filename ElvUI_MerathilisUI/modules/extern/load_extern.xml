@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Include file="EncounterJournalPlusInstanceInfo\EncounterJournalPlusInstanceInfo.xml"/>
 	<Script file="extraQuestButton.lua"/>
 	<Script file="speedy.lua"/>
 </Ui>

@@ -17,17 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update/Added a lot of skins.",
-		"• Updated the EFL icons.",
-		"• Updated my Layout v2 + new texture.",
-		"• Add an ObjectiveTracker Hider.",
-		"• Added a chat button to increase the chat size.",
-		"• Add an own style for the close buttons.",
-		"• Prevent a rar nil error in FlightPoint.",
+		"• Add a 'EasyChat' function, which allows you to press tab and select a channel.",
+		"• Account for changes with ElvUI (settings for combat indicator)",
+		"• Update the GameMenu. ;)",
+		"• Remove EncounterJournalInfo. Causes too much errors.",
+		"• Added more frames to be movable.",
+		"• Small code adjustments.",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• You should do the install step for UnitFrames v2 again.",
+		"• IMPORTANT: 'Remove v1 of my Layout.'",
 }
 
 local function ModifiedString(string)

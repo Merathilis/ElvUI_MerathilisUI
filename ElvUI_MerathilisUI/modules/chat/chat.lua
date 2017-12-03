@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = E:NewModule("muiChat")
+local MERC = E:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local CH = E:GetModule("Chat")
 MERC.modName = L["Chat"]
 
@@ -29,14 +29,15 @@ function MERC:Initialize()
 	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
 	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
-	-- Remove the Realm Name from system messages
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
-
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
 	_G["RightChatPanel"].backdrop:Styling()
+
+	-- Remove the Realm Name from system messages
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
+
+	self:EasyChannel()
 end
-hooksecurefunc(CH, "Initialize", MERC.Initialize)
 
 local function InitializeCallback()
 	MERC:Initialize()

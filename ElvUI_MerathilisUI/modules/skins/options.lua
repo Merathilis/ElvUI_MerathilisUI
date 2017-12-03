@@ -14,7 +14,6 @@ local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"BigWigs", L["BigWigs"], "bw"},
 	{"WeakAuras", L["WeakAuras"], "wa"},
-	{"XIV_Databar", L["XIV_Databar"], "xiv"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
 }
@@ -25,10 +24,8 @@ local SupportedProfiles = {
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_SLE", "Shadow&Light"},
-	{"Kui_Nameplates_Core", "KuiNamePlates"},
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
-	{"XIV_Databar", "XIV_Databar"},
 	{"OzCooldowns", "OzCooldowns"},
 }
 
@@ -339,17 +336,11 @@ local function SkinsTable()
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
-				elseif addon == 'SorhaQuestLog' then
-					MER:LoadSorhaQuestLogProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Skada' then
 					MER:LoadSkadaProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Details' then
 					E:StaticPopup_Show("MUI_INSTALL_DETAILS_LAYOUT")
-				elseif addon == 'XIV_Databar' then
-					MER:LoadXIVDatabarProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'AddOnSkins' then
 					MER:LoadAddOnSkinsProfile()
 					E:StaticPopup_Show('PRIVATE_RL')

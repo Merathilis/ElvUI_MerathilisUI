@@ -1,3 +1,12 @@
+** v3.13, 03.12.2017**
+* Add a "EasyChat" function, which allows you to press tab and select a channel.
+* Account for changes with ElvUI (settings for combat indicator)
+* IMPORTANT: Remove v1 of my Layout.
+* Update the GameMenu. ;)
+* Remove EncounterJournalInfo. Causes too much errors.
+* Added more frames to be movable.
+* Small code adjustments.
+
 ** v3.12, 12.11.2017**
 * Update/Added a lot of skins.
 * Updated the EFL icons.

@@ -8,5 +8,4 @@
 	<script file="ShadowandLight.lua"/>
 	<script file="Skada.lua"/>
 	<script file="template.lua"/>
-	<script file="XIVDatabar.lua"/>
 </Ui>

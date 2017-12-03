@@ -15,16 +15,22 @@ function MER:LoadOCDProfile()
 	--]]----------------------------------
 
 	-- defaults
-	if(not OzCooldownsDB.profiles[profileName]) then
-		OzCooldownsDB.profiles[profileName] = {
-			["StatusBarTexture"] = "MerathilisGradient",
-			["DurationFont"] = "Expressway",
-			["Tooltips"] = false,
-			["Size"] = 30,
-			["FadeMode"] = "GreenToRed",
-			["Announce"] = false,
-		}
-	end
+	OzCooldownsDB.profiles[profileName] = {
+		["Masque"] = true,
+		["StatusBarTexture"] = "MerathilisGradient",
+		["StackFont"] = "Expressway",
+		["StackFontFlag"] = "OUTLINE",
+		["StackFontSize"] = 12,
+		["Tooltips"] = false,
+		["Size"] = 30,
+		["FadeMode"] = "GreenToRed",
+		["Announce"] = false,
+		["CooldownText"] = {
+			["Font"] = "Expressway",
+			["FontFlag"] = "OUTLINE",
+			["FontSize"] = 14,
+		},
+	}
 
 	E.db["movers"]["OzCooldownsMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,320"
 

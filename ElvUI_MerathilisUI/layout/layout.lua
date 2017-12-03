@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
+local CH = E:GetModule("Chat")
 local LO = E:GetModule("Layout")
-local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
@@ -39,17 +39,31 @@ function MER:ToggleDataPanels()
 end
 
 function MERL:CreateChatButton()
+	if E.db.mui.general.chatButton ~= true then return end
+	local panelHeight
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", 3, -5)
 	ChatButton:Size(14, 14)
-	ChatButton:SetAlpha(0.35)
+	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+		ChatButton:SetAlpha(0)
+	else
+		ChatButton:SetAlpha(0.35)
+	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
+
+	-- Monitor this, if PositionChat is ever changed with a new arg
+	-- This is Simpy Magic <3
+	hooksecurefunc(CH, "PositionChat", function(_, _, changedHeight)
+		if not changedHeight then
+			panelHeight = E.db.chat.panelHeight
+		end
+	end)
 
 	local isExpanded
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
@@ -57,16 +71,16 @@ function MERL:CreateChatButton()
 		if btn == "LeftButton" then
 			if E.db.chat.panelHeight == 370 then
 					if panelBackdrop == 'LEFT' then
-						E.db.chat.panelHeight = 155
+						E.db.chat.panelHeight = panelHeight
 						isExpanded = false
 					else
-						E.db.chat.panelHeight = 155
+						E.db.chat.panelHeight = panelHeight
 						isExpanded = false
 					end
-				E:GetModule("Chat"):PositionChat(true)
+				CH:PositionChat(true, true)
 			else
 				E.db.chat.panelHeight = 370
-				E:GetModule("Chat"):PositionChat(true)
+				CH:PositionChat(true, true)
 				isExpanded = true
 			end
 		end
@@ -86,7 +100,11 @@ function MERL:CreateChatButton()
 	end)
 
 	ChatButton:SetScript("OnLeave", function(self)
-		self:SetAlpha(0.35)
+		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+			self:SetAlpha(0)
+		else
+			self:SetAlpha(0.35)
+		end
 		GameTooltip:Hide()
 	end)
 end

@@ -9,7 +9,7 @@ local type = type
 -- WoW API / Variables
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: TradeSkillFrame
+-- GLOBALS:
 
 -- Move some Blizzard frames
 MB.Frames = {
@@ -35,7 +35,13 @@ MB.Frames = {
 	"PetStableFrame",
 	"PetitionFrame",
 	"QuestFrame",
+	"QuestLogPopupDetailFrame",
 	"RaidBrowserFrame",
+	"RaidInfoFrame",
+	"RaidParentFrame",
+	"ReadyCheckFrame",
+	"ReportCheatingDialog",
+	"RolePollPopup",
 	"ScrollOfResurrectionSelectionFrame",
 	"SpellBookFrame",
 	"StackSplitFrame",
@@ -47,7 +53,9 @@ MB.Frames = {
 	"TradeFrame",
 	"TutorialFrame",
 	"VideoOptionsFrame",
-	"WorldMapFrame"
+	"WorldMapFrame",
+	"WorldStateAlwaysUpFrame",
+	"WorldStateScoreFrame",
 }
 
 MB.AddonsList = {
@@ -58,7 +66,7 @@ MB.AddonsList = {
 	["Blizzard_BindingUI"] = {"KeyBindingFrame"},
 	["Blizzard_Calendar"] = {"CalendarCreateEventFrame", "CalendarFrame", "CalendarViewEventFrame", "CalendarViewHolidayFrame"},
 	["Blizzard_ChallengesUI"] = {"ChallengesLeaderboardFrame"},
-	["Blizzard_Collections"] = {"CollectionsJournal"},
+	["Blizzard_Collections"] = {"CollectionsJournal", "WardrobeFrame"},
 	["Blizzard_EncounterJournal"] = {"EncounterJournal"},
 	["Blizzard_GarrisonUI"] = {"GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame", "GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame", "GarrisonShipyardFrame"},
 	["Blizzard_GMChatUI"] = {"GMChatStatusFrame"},
