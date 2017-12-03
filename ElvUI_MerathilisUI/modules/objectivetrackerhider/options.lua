@@ -29,7 +29,7 @@ local function ObjectiveTrackerHider()
 						order = 1,
 						type = "description",
 						fontSize = "medium",
-						name = format("|cff9482c9ObjectiveTrackerHider - by Infinitron|r"),
+						name = format("|cff9482c9ObjectiveTrackerHider - by ChaosVoid|r"),
 					},
 				},
 			},
