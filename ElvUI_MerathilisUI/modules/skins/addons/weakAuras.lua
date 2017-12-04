@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -20,7 +19,7 @@ frame:SetScript("OnEvent", function(self, event)
 	local function SkinWeakAuras(frame, ftype)
 		if not frame.backdrop then
 			frame:CreateBackdrop(frame, "Transparent")
-			MERS:SkinTexture(frame.icon)
+			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame.icon.SetTexCoord = MER.dummy
 			if ftype == "icon" then
 				frame.backdrop:SetBackdropColor(0, 0, 0, 0)
