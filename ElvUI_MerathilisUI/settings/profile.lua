@@ -173,34 +173,6 @@ P["mui"] = {
 	},
 
 	["unitframes"] = {
-		["groupinfo"] = true,
-		["player"] = {
-			["detachPortrait"] = false,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitStyle"] = false,
-			["portraitStyleHeight"] = 6,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["target"] = {
-			["detachPortrait"] = false,
-			["getPlayerPortraitSize"] = true,
-			["portraitWidth"] = 110,
-			["portraitHeight"] = 85,
-			["portraitShadow"] = false,
-			["portraitTransparent"] = true,
-			["portraitStyle"] = false,
-			["portraitStyleHeight"] = 6,
-			["portraitFrameStrata"] = "MEDIUM",
-		},
-		["infoPanel"] = {
-			["fixInfoPanel"] = true,
-		},
-		["misc"] = {
-			["portraitTransparency"] = 0.70,
-		},
 		["AuraIconText"] = {
 			["durationTextPos"] = "CENTER",
 			["durationTextOffsetX"] = 1,

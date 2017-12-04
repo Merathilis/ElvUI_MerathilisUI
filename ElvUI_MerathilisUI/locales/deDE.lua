@@ -213,21 +213,13 @@ L["ActionButton Border"] = "Aktionstasten Rand"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
-L["UnitFrames v1"] = "Einheitenfenster v1"
-L["UnitFrames v2"] = "Einheitenfenster v2"
-L["Apply shadow under the portrait"] = "Aktiviere den Schatten unter dem Portrait"
-L["Apply transparency on the portrait backdrop."] = "Wende Transparenz auf den Portrait Hintergrund an."
-L["Change the detached portrait height"] = "Ändert die Höhe des abgetrennten Portrait"
-L["Change the detached portrait width"] = "Ändert die Breite des abgetrennten Portrait"
-L["Detach Portrait"] = "Abgetrenntes Portrait"
-L["Shadow"] = "Schatten"
 L["Player Portrait"] = "Spieler Portrait"
 L["Target Portrait"] = "Ziel Portrait"
 L["Aura Spacing"] = "Auren Abstand"
 L["Sets space between individual aura icons."] = "Setzt den Abstand zwischen den individuellen Aurensymbolen."
 L["Set Aura Spacing On Following Units"] = "Setzt den Auren Abstand für folgende Einheiten"
 L["Assist"] = "Assistent"
-L["Boss"] = true;
+L["Boss"] = true
 L["Focus"] = "Fokus"
 L["FocusTarget"] = "Fokus-Ziel"
 L["Party"] = "Gruppe"
