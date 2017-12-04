@@ -323,7 +323,7 @@ function NF:UPDATE_PENDING_MAIL()
 		hasMail = newMail
 		if hasMail then
 			PlaySoundFile([[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\mail.mp3]])
-			self:DisplayToast(MAIL_LABEL, HAVE_MAIL, nil, "Interface\\Icons\\inv_letter_15", .08, .92, .08, .92)
+			self:DisplayToast(format("|cfff9ba22%s|r", MAIL_LABEL), HAVE_MAIL, nil, "Interface\\Icons\\inv_letter_15", .08, .92, .08, .92)
 		end
 	end
 end

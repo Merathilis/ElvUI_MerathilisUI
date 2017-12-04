@@ -1,3 +1,8 @@
+[b][color=orange]v3.14[/color], 04.12.2017[/b][list]
+[*]Remove detached portrait feature. Let it be Benik's baby <3
+[*]Color the mail label in the notifications.
+[*]Fix WeakAura skin.[/list]
+
 [b][color=orange]v3.13[/color], 03.12.2017[/b][list]
 [*]Add a "EasyChat" function, which allows you to press tab and select a channel.
 [*]Account for changes with ElvUI (settings for combat indicator)

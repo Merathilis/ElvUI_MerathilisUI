@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
@@ -18,10 +19,10 @@ frame:SetScript("OnEvent", function(self, event)
 	local function SkinWeakAuras(frame, ftype)
 		if not frame.backdrop then
 			frame:CreateBackdrop(frame, "Transparent")
+			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame.icon.SetTexCoord = MER.dummy
 			if ftype == "icon" then
-				self:SetBackdropColor(0, 0, 0, 0)
-				E:RegisterCooldown(frame.cooldown)
+				frame.backdrop:SetBackdropColor(0, 0, 0, 0)
 				frame.backdrop:HookScript("OnUpdate", function(self)
 					self:SetAlpha(self:GetParent().icon:GetAlpha())
 				end)
@@ -38,6 +39,9 @@ frame:SetScript("OnEvent", function(self, event)
 			end
 		end
 	end
+
+	local Create_Icon, Modify_Icon = WeakAuras.regionTypes.icon.create, WeakAuras.regionTypes.icon.modify
+	local Create_AuraBar, Modify_AuraBar = WeakAuras.regionTypes.aurabar.create, WeakAuras.regionTypes.aurabar.modify
 
 	local CreateIcon = WeakAuras.regionTypes.icon.create
 	WeakAuras.regionTypes.icon.create = function(parent, data)
@@ -65,11 +69,9 @@ frame:SetScript("OnEvent", function(self, event)
 		SkinWeakAuras(region, "aurabar")
 	end
 
-	for aura, _ in pairs(WeakAuras.regions) do
-		local ftype = WeakAuras.regions[aura].regionType
-
-		if ftype == "icon" or ftype == "aurabar" then
-			SkinWeakAuras(WeakAuras.regions[aura].region, ftype)
+	for weakAura, _ in pairs(WeakAuras.regions) do
+		if WeakAuras.regions[weakAura].regionType == 'icon' or WeakAuras.regions[weakAura].regionType == 'aurabar' then
+			SkinWeakAuras(WeakAuras.regions[weakAura].region, WeakAuras.regions[weakAura].regionType)
 		end
 	end
 end)

@@ -17,16 +17,13 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add a 'EasyChat' function, which allows you to press tab and select a channel.",
-		"• Account for changes with ElvUI (settings for combat indicator)",
-		"• Update the GameMenu. ;)",
-		"• Remove EncounterJournalInfo. Causes too much errors.",
-		"• Added more frames to be movable.",
-		"• Small code adjustments.",
+		"• Remove detached portrait feature. Let it be Benik's baby <3",
+		"• Color the mail label in the notifications.",
+		"• Fix WeakAura skin.",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• IMPORTANT: 'Remove v1 of my Layout.'",
+		"• IMPORTANT: 'Removed v1 of my Layout.'",
 }
 
 local function ModifiedString(string)

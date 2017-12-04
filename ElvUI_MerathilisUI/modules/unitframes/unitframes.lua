@@ -10,20 +10,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UF
 
-function MUF:UnitDefaults()
-	if E.db.mui.unitframes.player.portraitWidth == nil then
-		E.db.mui.unitframes.player.portraitWidth = 110
-	end
-	if E.db.mui.unitframes.player.portraitHeight == nil then
-		E.db.mui.unitframes.player.portraitHeight = 85
-	end
-	if E.db.mui.unitframes.target.portraitWidth == nil then
-		E.db.mui.unitframes.target.portraitWidth = 110
-	end
-	if E.db.mui.unitframes.target.portraitHeight == nil then
-		E.db.mui.unitframes.target.portraitHeight = 85
-	end
-end
 
 function MUF:UpdateUF()
 	if E.db.unitframe.units.player.enable then
@@ -41,13 +27,13 @@ end
 
 function MUF:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
+
 	MUF:UnregisterEvent(event)
 end
 
 function MUF:Initialize()
-	if E.private.unitframe.enable ~= true or IsAddOnLoaded("ElvUI_BenikUI") then return end
+	if E.private.unitframe.enable ~= true then return end
 
-	self:UnitDefaults()
 	self:InitPlayer()
 	self:InitTarget()
 
