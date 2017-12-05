@@ -686,8 +686,6 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
 	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
 	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
-	E.db["mui"]["unitframes"]["player"]["detachPortrait"] = false
-	E.db["mui"]["unitframes"]["target"]["detachPortrait"] = false
 
 	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 245)
 

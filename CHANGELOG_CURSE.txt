@@ -1,3 +1,6 @@
+** v3.15, 05.12.2017**
+* Fix an error in UnitFrame install.
+
 ** v3.14, 04.12.2017**
 * Remove detached portrait feature. Let it be Benik's baby <3
 * Color the mail label in the notifications.
