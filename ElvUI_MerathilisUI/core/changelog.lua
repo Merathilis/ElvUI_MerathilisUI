@@ -20,6 +20,7 @@ local ChangeLogData = {
 		"• Remove detached portrait feature. Let it be Benik's baby <3",
 		"• Color the mail label in the notifications.",
 		"• Fix WeakAura skin.",
+		"• v3.15: Fix an error in UnitFrame install.",
 		-- "• ",
 	" ",
 	"Notes:",
