@@ -120,6 +120,8 @@ L[" members"] = true
 L["Expand the chat"] = true
 L["Chat Button"] = true
 L["Create a chat button to increase the chat size."] = true
+L["Name Hover"] = true
+L["Shows the Unit Name on the mouse."] = true
 
 -- Tooltip
 L["Your Status:"] = true

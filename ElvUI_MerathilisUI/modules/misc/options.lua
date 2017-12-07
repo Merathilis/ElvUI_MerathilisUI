@@ -70,6 +70,12 @@ local function Misc()
 				name = MERA.modName,
 				desc = L["Combat Status, Skill gains"],
 			},
+			nameHover = {
+				order = 10,
+				type = "toggle",
+				name = L["Name Hover"],
+				desc = L["Shows the Unit Name on the mouse."],
+			},
 		},
 	}
 end

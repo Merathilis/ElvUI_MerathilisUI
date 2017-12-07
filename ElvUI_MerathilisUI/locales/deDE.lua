@@ -121,6 +121,8 @@ L[" members"] = " Mitglieder"
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Button"] = true
 L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
+L["Name Hover"] = true
+L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"

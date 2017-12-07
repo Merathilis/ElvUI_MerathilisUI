@@ -11,6 +11,7 @@
 	<Script file="merchant.lua"/>
 	<Script file="moveblizz.lua"/>
 	<Script file="movers.lua"/>
+	<Script file="nameHover.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>
 	<Script file="sumAuctions.lua"/>

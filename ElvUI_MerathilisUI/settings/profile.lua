@@ -94,6 +94,7 @@ P["mui"] = {
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
+		["nameHover"] = true,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,

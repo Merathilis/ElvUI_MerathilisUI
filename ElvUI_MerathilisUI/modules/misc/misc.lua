@@ -209,6 +209,7 @@ function MI:Initialize()
 	self:LoadTST()
 	self:LoadsumAuctions()
 	self:LoadQuestReward()
+	self:LoadnameHover()
 end
 
 local function InitializeCallback()
