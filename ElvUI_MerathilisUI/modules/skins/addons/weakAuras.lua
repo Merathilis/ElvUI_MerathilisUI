@@ -29,18 +29,22 @@ frame:SetScript("OnEvent", function(self, event)
 		if frame.icon then
 			frame.icon:SetTexCoord(unpack(E.TexCoords))
 			frame.icon.SetTexCoord = MER.dummy
-			if frame.border and not frame.bar then
-				frame.border:Hide()
-			end
 		end
 
 		if frame.bar then
-			if not frame.bar.shadow then
-				frame.bar:CreateShadow("Background")
-				frame.iconFrame:CreateShadow("Background")
-				frame.iconFrame:SetAllPoints(frame.icon)
-				frame.icon:SetTexCoord(unpack(E.TexCoords))
-				frame.icon.SetTexCoord = MER.dummy
+			frame.icon:SetTexCoord(unpack(E.TexCoords))
+			frame.icon.SetTexCoord = MER.dummy
+
+			if (frame.bar.fg:GetTexture()) then
+				frame.bar.fg:SetTexture(flat)
+
+				frame.bar.fg.SetColor = frame.bar.fg.SetVertexColor
+				frame.bar.fg.SetNewColor = function(self, r, g, b)
+					frame.bar.fg:SetColor(r/2, g/2, b/2)
+				end
+
+				local r, g, b = frame.bar.fg:GetVertexColor()
+				frame.bar.fg:SetNewColor(r, g, b)
 			end
 		end
 
@@ -64,8 +68,9 @@ frame:SetScript("OnEvent", function(self, event)
 
 		if frame.cooldown then
 			local fontHeight = select(3, frame.cooldown:GetRegions():GetFont())
-			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 22 end
+			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 16 end
 			frame.cooldown:GetRegions():SetFont(font, fontHeight, "OUTLINE")
+			frame.cooldown:GetRegions():Point("CENTER", 1, 1)
 		end
 	end
 
