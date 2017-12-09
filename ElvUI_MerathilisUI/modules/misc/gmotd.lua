@@ -1,37 +1,30 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
 local MI = E:GetModule("mUIMisc")
 local S = E:GetModule("Skins")
-local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Cache global variables
 -- Lua functions
+local select = select
+local format = string.format
 local tinsert = table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
+local GetGuildInfo = GetGuildInfo
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
-local IsAddOnLoaded = IsAddOnLoaded
-local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: GMOTD, gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
+-- GLOBALS: gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
-
--- Code taken from bitbyte - SayGMOTD
-if IsAddOnLoaded("SayGMOTD") then return end;
-
-GMOTD = ""
 
 function MI:GMOTD()
 	-- MainFrame
 	if not gmotd then
 		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight()/5)
-		gmotd:SetWidth(300)
-		gmotd:SetHeight(65)
+		gmotd:SetSize(350, 150)
 		gmotd:SetToplevel(true)
 		gmotd:SetMovable(true)
 		gmotd:EnableMouse(true)
@@ -43,53 +36,49 @@ function MI:GMOTD()
 		gmotd.backdrop:SetAllPoints()
 		gmotd:Styling()
 		gmotd:Hide()
-		if IsAddOnLoaded("ElvUI_BenikUI") then
-			MERS:StyleOutside(gmotd)
-		else
-			gmotd.style = CreateFrame("Frame", nil, gmotd)
-			gmotd.style:SetTemplate("Default", true)
-			gmotd.style:SetWidth(300)
-			gmotd.style:SetHeight(5)
-			gmotd.style:Point("TOP", gmotd, 0, 1)
 
-			gmotd.style.color = gmotd.style:CreateTexture(nil, "OVERLAY")
-			gmotd.style.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-			gmotd.style.color:SetInside()
-			gmotd.style.color:SetTexture(flat)
-		end
-
-		gmotd.button = CreateFrame("Button", nil, gmotd, "UIPanelCloseButton")
-		gmotd.button:SetPoint("TOPRIGHT", 0, 0)
-		S:HandleCloseButton(gmotd.button)
-		gmotd.button:SetScript("OnClick", function()
+		gmotd.button = CreateFrame("Button", nil, gmotd, "UIPanelButtonTemplate")
+		gmotd.button:SetText(L["Ok"])
+		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -3)
+		S:HandleButton(gmotd.button)
+		gmotd.button:SetScript("OnClick", function(self)
 			gmotd:Hide()
 		end)
 
 		gmotd.header = gmotd:CreateFontString(nil, "OVERLAY")
-		gmotd.header:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 0, -10)
-		gmotd.header:SetWidth(gmotd:GetRight() - gmotd:GetLeft())
+		gmotd.header:SetPoint("BOTTOM", gmotd, "TOP", 0, 4)
 		gmotd.header:FontTemplate(nil, 14, "OUTLINE")
 		gmotd.header:SetTextColor(1, 1, 0)
-		gmotd.header:SetText(GUILD_MOTD_LABEL2)
-		gmotd.header:SetJustifyH("CENTER")
 
 		gmotd.text = gmotd:CreateFontString(nil, "OVERLAY")
-		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 22, -40)
-		gmotd.text:SetWidth(gmotd:GetRight() - gmotd:GetLeft() - 40)
-		gmotd.text:FontTemplate()
+		gmotd.text:SetHeight(130)
+		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 10, -10)
+		gmotd.text:SetPoint("TOPRIGHT", gmotd, "TOPRIGHT", -10, -10)
+		gmotd.text:SetJustifyV("TOP")
+		gmotd.text:FontTemplate(nil, 12, "OUTLINE")
 		gmotd.text:SetTextColor(1, 1, 1)
-		gmotd.text:SetJustifyH("CENTER")
+		gmotd.text:CanWordWrap(true)
+		gmotd.text:SetWordWrap(true)
 
-		gmotd:SetScript("OnEvent", function(_, event, arg1)
+		gmotd:SetScript("OnEvent", function(_, event, message)
+			local guild
+			local msg
+			local icon = "|TInterface\\CHATFRAME\\UI-ChatIcon-Share:18:18|t"
+
 			if (event == "GUILD_MOTD") then
-				GMOTD = arg1
+				msg = message
+				guild = select(1, GetGuildInfo("player"))
 			else
-				GMOTD = IsInGuild() and GetGuildRosterMOTD() or ""
+				msg = GetGuildRosterMOTD()
+				guild = select(1, GetGuildInfo("player"))
 			end
-			if (GMOTD ~= "") and not InCombatLockdown() then
+			if (msg ~= "") and not InCombatLockdown() then
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
-				gmotd.text:SetText(GMOTD)
-				gmotd:SetHeight(gmotd.text:GetHeight() + 65)
+				gmotd.msg = msg
+				gmotd.text:SetText(msg)
+				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
+				local numLines = gmotd.text:GetNumLines()
+				gmotd:SetHeight(20+(12.2*numLines))
 				gmotd:Show()
 			else
 				gmotd:Hide()
@@ -103,6 +92,6 @@ end
 function MI:LoadGMOTD()
 	if E.db.mui.misc.gmotd then
 		self:GMOTD()
-		tinsert(UISpecialFrames, "MER.GMOTD");
+		tinsert(UISpecialFrames, "MER.GMOTD")
 	end
 end
