@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -16,14 +17,12 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
 	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
-	local flat = "Interface\\Buttons\\WHITE8x8"
-	local font = E.media.normFont
-
 	local function SkinWeakAuras(frame)
 		if frame.SetBackdropColor then
-			frame:SetBackdrop({bgFile = flat, edgeFile = flat, edgeSize = 1})
+			frame:SetBackdrop({bgFile = E.media.normTex, edgeFile = E.media.normTex, edgeSize = 1})
 			frame:SetBackdropColor(0, 0, 0, 0.1)
 			frame:SetBackdropBorderColor(0, 0, 0, 1)
+			MERS:CreateSoftShadow(frame)
 		end
 
 		if frame.icon then
@@ -36,40 +35,11 @@ frame:SetScript("OnEvent", function(self, event)
 			frame.icon.SetTexCoord = MER.dummy
 
 			if (frame.bar.fg:GetTexture()) then
-				frame.bar.fg:SetTexture(flat)
-
-				frame.bar.fg.SetColor = frame.bar.fg.SetVertexColor
-				frame.bar.fg.SetNewColor = function(self, r, g, b)
-					frame.bar.fg:SetColor(r/2, g/2, b/2)
-				end
-
-				local r, g, b = frame.bar.fg:GetVertexColor()
-				frame.bar.fg:SetNewColor(r, g, b)
+				frame.bar.fg:SetTexture(E.media.normTex)
 			end
 		end
 
-		if frame.stacks then
-			local fontHeight = select(3, frame.stacks:GetFont())
-			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 14 end
-			frame.stacks:SetFont(font, fontHeight, "OUTLINE")
-		end
-
-		if frame.timer then
-			local fontHeight = select(3, frame.timer:GetFont())
-			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 14 end
-			frame.timer:SetFont(font, fontHeight, "OUTLINE")
-		end
-
-		if frame.text then
-			local fontHeight = select(3, frame.text:GetFont())
-			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 18 end
-			frame.text:SetFont(font, fontHeight, "OUTLINE")
-		end
-
 		if frame.cooldown then
-			local fontHeight = select(3, frame.cooldown:GetRegions():GetFont())
-			if (not tonumber(fontHeight) or not fontHeight >0) then fontHeight = 16 end
-			frame.cooldown:GetRegions():SetFont(font, fontHeight, "OUTLINE")
 			frame.cooldown:GetRegions():Point("CENTER", 1, 1)
 		end
 	end
