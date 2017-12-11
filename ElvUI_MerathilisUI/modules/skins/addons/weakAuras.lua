@@ -22,7 +22,6 @@ frame:SetScript("OnEvent", function(self, event)
 			frame:SetBackdrop({bgFile = E.media.normTex, edgeFile = E.media.normTex, edgeSize = 1})
 			frame:SetBackdropColor(0, 0, 0, 0.1)
 			frame:SetBackdropBorderColor(0, 0, 0, 1)
-			MERS:CreateSoftShadow(frame)
 		end
 
 		if frame.icon then
