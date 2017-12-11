@@ -114,6 +114,8 @@ function MERL:Initialize()
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		--dirty fix for chat size
+		E.db.chat.panelHeight = 155
 
 		MER:ToggleDataPanels()
 	end)
