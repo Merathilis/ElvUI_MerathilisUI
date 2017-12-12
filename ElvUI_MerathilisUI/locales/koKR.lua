@@ -111,6 +111,8 @@ L["Chat Button"] = true
 L["Create a chat button to increase the chat size."] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
+L["Alt PowerBar"] = true
+L["Replace the default Alt Power Bar."] = true
 
 -- Tooltip
 L["Your Status:"] = true

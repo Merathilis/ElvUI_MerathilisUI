@@ -210,6 +210,7 @@ function MI:Initialize()
 	self:LoadsumAuctions()
 	self:LoadQuestReward()
 	self:LoadnameHover()
+	self:AltPowerBar()
 end
 
 local function InitializeCallback()

@@ -76,6 +76,12 @@ local function Misc()
 				name = L["Name Hover"],
 				desc = L["Shows the Unit Name on the mouse."],
 			},
+			powerBar = {
+				order = 11,
+				type = "toggle",
+				name = L["Alt PowerBar"],
+				desc = L["Replace the default Alt Power Bar."],
+			},
 		},
 	}
 end
