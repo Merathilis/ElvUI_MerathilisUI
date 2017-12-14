@@ -29,15 +29,6 @@ frame:SetScript("OnEvent", function(self, event)
 			frame.icon.SetTexCoord = MER.dummy
 		end
 
-		if frame.bar then
-			frame.icon:SetTexCoord(unpack(E.TexCoords))
-			frame.icon.SetTexCoord = MER.dummy
-
-			if (frame.bar.fg:GetTexture()) then
-				frame.bar.fg:SetTexture(E.media.normTex)
-			end
-		end
-
 		if frame.cooldown then
 			frame.cooldown:GetRegions():Point("CENTER", 1, 1)
 		end
@@ -59,21 +50,8 @@ frame:SetScript("OnEvent", function(self, event)
 		SkinWeakAuras(region, "icon")
 	end
 
-	local CreateAuraBar = WeakAuras.regionTypes.aurabar.create
-	WeakAuras.regionTypes.aurabar.create = function(parent)
-		local region = CreateAuraBar(parent)
-		SkinWeakAuras(region, "aurabar")
-		return region
-	end
-
-	local ModifyAuraBar = WeakAuras.regionTypes.aurabar.modify
-	WeakAuras.regionTypes.aurabar.modify = function(parent, region, data)
-		ModifyAuraBar(parent, region, data)
-		SkinWeakAuras(region, "aurabar")
-	end
-
 	for weakAura, _ in pairs(WeakAuras.regions) do
-		if WeakAuras.regions[weakAura].regionType == 'icon' or WeakAuras.regions[weakAura].regionType == 'aurabar' then
+		if WeakAuras.regions[weakAura].regionType == 'icon' then
 			SkinWeakAuras(WeakAuras.regions[weakAura].region, WeakAuras.regions[weakAura].regionType)
 		end
 	end
