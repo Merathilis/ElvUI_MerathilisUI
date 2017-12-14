@@ -48,6 +48,7 @@ V["muiSkins"] = {
 		["gbank"] = true,
 		["taxi"] = true,
 		["help"] = true,
+		["loot"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

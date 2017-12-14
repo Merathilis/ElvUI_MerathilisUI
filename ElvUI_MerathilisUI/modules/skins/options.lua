@@ -300,6 +300,11 @@ local function SkinsTable()
 				name = L["Help Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.help end,
 			},
+			loot = {
+				type = "toggle",
+				name = L["Loot Frames"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
+			},
 		},
 	}
 
