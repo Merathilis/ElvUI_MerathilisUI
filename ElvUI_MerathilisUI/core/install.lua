@@ -1172,8 +1172,8 @@ function MER:SetupUnitframes()
 
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 24
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = -4
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 26
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 14
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 5
@@ -1181,42 +1181,73 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
 	E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
-	E.db["unitframe"]["units"]["boss"]["castbar"]["icon"] = true
-	E.db["unitframe"]["units"]["boss"]["castbar"]["iconAttached"] = true
-	E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
-	E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
+	E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 	if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
-		["attachTextTo"] = "Health",
-		["font"] = "Merathilis Tukui",
+		["attachTextTo"] = "InfoPanel",
+		["font"] = "Expressway",
 		["justifyH"] = "LEFT",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
-		["size"] = 16,
-		["text_format"] = "[level][shortclassification] | [namecolor][name:short]",
-		["yOffset"] = 15,
+		["size"] = 11,
+		["text_format"] = "[name:medium]",
+		["yOffset"] = 1,
 	}
-	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 4
-	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = ""
-	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "LEFT"
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = {
+		["attachTextTo"] = "InfoPanel",
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["text_format"] = "[namecolor][smartclass][difficultycolor][level][shortclassification]",
+		["yOffset"] = 1,
+	}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "Expressway",
+		["justifyH"] = "LEFT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 14,
+		["text_format"] = "[health:current-mUI]",
+		["yOffset"] = 0,
+	}
+	E.db["unitframe"]["units"]["boss"]["customTexts"]["Percent"] = {
+		["attachTextTo"] = "Health",
+		["font"] = "Expressway",
+		["justifyH"] = "RIGHT",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["size"] = 14,
+		["text_format"] = "[health:percent:hidefull:hidezero]",
+		["yOffset"] = 0,
+	}
+	E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
+	E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
+	E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
+	E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[powercolor][power:percent]"
 	E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 13
-	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = false
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
+	E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 	E.db["unitframe"]["units"]["boss"]["width"] = 156
 	E.db["unitframe"]["units"]["boss"]["health"]["xOffset"] = 0
 	E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
-	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = "[health:current] - [health:percent]"
+	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
-	E.db["unitframe"]["units"]["boss"]["spacing"] = 40
-	E.db["unitframe"]["units"]["boss"]["height"] = 16
+	E.db["unitframe"]["units"]["boss"]["spacing"] = 22
+	E.db["unitframe"]["units"]["boss"]["height"] = 35
 	E.db["unitframe"]["units"]["boss"]["buffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
-	E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = -5
-	E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 26
+	E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 10
+	E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
 	E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "InfoPanel"
@@ -1224,7 +1255,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
-	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -187, -376)
+	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -240, -215)
 
 	-- PetTarget
 	E.db["unitframe"]["units"]["pettarget"]["enable"] = false
