@@ -7,7 +7,7 @@ if not IsAddOnLoaded("ActionBarProfiles") then return end
 local _G = _G
 local pairs = pairs
 -- WoW API / Variables
--- GLOBALS: 
+-- GLOBALS:
 
 local function styleActionBarProfile()
 	if E.private.muiSkins.addonSkins.abp ~= true then return; end
