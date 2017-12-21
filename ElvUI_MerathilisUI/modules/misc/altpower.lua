@@ -14,7 +14,7 @@ function MI:AltPowerBar()
 	powerbar:SetStatusBarTexture(E.media.normTex)
 	powerbar:SetMinMaxValues(0, 200)
 	powerbar:SetSize(200, 20)
-	powerbar:SetStatusBarColor(.2, .4, 0.8, 1)
+	powerbar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	powerbar:SetPoint("CENTER", E.UIParent, "TOP", 0, -80)
 	powerbar:Hide()
 
