@@ -64,7 +64,7 @@ local function Errors()
 	}
 
 	local listIndex = 1
-	for errorName, state in pairs(E.db.mui.errorFilters) do
+	for errorName in pairs(E.db.mui.errorFilters) do
 		E.Options.args.mui.args.errors.args.filterGroup.args[errorName] = {
 			order = listIndex,
 			type = "toggle",
