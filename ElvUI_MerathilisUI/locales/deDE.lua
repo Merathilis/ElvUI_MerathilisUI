@@ -19,6 +19,7 @@ L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
 L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
+L["Desciption"] = "Beschreibung"
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -490,6 +491,8 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 L["Changelog"] = true
 
 -- Errors
-L["Info"] = {
-	["Errors"] = "Keine Fehler bisher.",
-}
+L["Error Handling"] = "Fehlerbehandlung"
+L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "In der unten aufgeführten Liste kannst du einige nervende Fehlermeldungen, wie zum Beispiel: |cffff7d0a'Nicht genug Wut'|r oder |cffff7d0a'Nicht genug Energie'|r, deaktivieren."
+L["Filter Errors"] = "Fehler filtern"
+L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
+L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."

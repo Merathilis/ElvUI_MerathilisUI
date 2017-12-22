@@ -19,6 +19,7 @@ L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
+L["Desciption"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -479,6 +480,8 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = true
 
 -- Errors
-L["Info"] = {
-	["Errors"] = "没有错误.",
-}
+L["Error Handling"] = true
+L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
+L["Filter Errors"] = true
+L["Choose specific errors from the list below to hide/ignore."] = true
+L["Hides all errors regardless of filtering while in combat."] = true

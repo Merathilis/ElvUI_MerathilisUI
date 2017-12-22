@@ -76,9 +76,8 @@ local function SkinsTable()
 		name = MER:cOption(L["AddOnSkins"]),
 		get = function(info) return E.private.muiSkins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		args = {
-			},
-		}
+		args = {},
+	}
 
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
