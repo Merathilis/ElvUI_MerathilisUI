@@ -84,7 +84,8 @@ MB.AddonsList = {
 	["Blizzard_TalentUI"] = {"PlayerTalentFrame"},
 	["Blizzard_TradeSkillUI"] = {"TradeSkillFrame"},
 	["Blizzard_TrainerUI"] = {"ClassTrainerFrame"},
-	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"}
+	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"},
+	["Blizzard_OrderHallUI"] = {"OrderHallTalentFrame"},
 }
 
 function MB:MakeMovable(frame)
