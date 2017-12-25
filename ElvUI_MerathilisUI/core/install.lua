@@ -467,6 +467,8 @@ function MER:SetupActionbars()
 	--	ActionBars layout
 	--]]----------------------------------
 	E.db["actionbar"]["font"] = "Expressway"
+	E.db["actionbar"]["desaturateOnCooldown"] = true
+
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
