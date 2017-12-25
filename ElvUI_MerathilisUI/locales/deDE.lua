@@ -392,8 +392,8 @@ L["Only Mine"] = "Nur eigene"
 L["Info Font"] = "Info Schriftart"
 L["Game Icon Pack"] = true
 L["Status Icon Pack"] = true
-L["Game Icon Preview"] = "Game Icon Vorschau:"
-L["Status Icon Preview"] = "Status Icon Vorschau:"
+L["Game Icon Preview"] = "Spiel Symbol Vorschau:"
+L["Status Icon Preview"] = "Status Symbol Vorschau:"
 
 -- ObjectiveTrackerHider
 L["Hide during PvP"] = "Verstecke während PvP"
