@@ -180,6 +180,15 @@ function MI:LoadMisc()
 		-- but for the average end-user this is a completely pointless thing to track.
 		UpdateAddOnMemoryUsage = MER.dummy
 	end
+
+	-- FasterLoot
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("LOOT_READY")
+	f:SetScript("OnEvent", function()
+		for i = GetNumLootItems(), 1, -1 do
+			LootSlot(i)
+		end
+	end)
 end
 
 function MI:SetRole()
@@ -211,6 +220,7 @@ function MI:Initialize()
 	self:LoadQuestReward()
 	self:LoadnameHover()
 	self:AltPowerBar()
+	self:SpecBars()
 end
 
 local function InitializeCallback()
