@@ -15,7 +15,6 @@ local function abTable()
 		order = 7,
 		type = "group",
 		name = MAB.modName,
-		-- hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
 				order = 1,
@@ -29,13 +28,21 @@ local function abTable()
 				guiInline = true,
 				args = {
 					transparent = {
-						order = 2,
+						order = 1,
 						type = "toggle",
-						name = L["Transparent Backdrops"]..MER.NewSign,
+						name = L["Transparent Backdrops"],
 						desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
 						disabled = function() return not E.private.actionbar.enable end,
 						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; MAB:TransparentBackdrops() end,
+					},
+					specBar = {
+						order = 2,
+						type = "toggle",
+						name = L["Specialisation Bar"],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
+						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
 				},
 			},

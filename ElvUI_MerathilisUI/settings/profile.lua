@@ -164,6 +164,7 @@ P["mui"] = {
 
 	["actionbars"] = {
 		["transparent"] = true,
+		["specBar"] = true,
 		["buttonStyle"] = {
 			["enabled"] = false,
 			["texture"] = "MerathilisGradient",

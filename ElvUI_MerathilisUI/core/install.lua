@@ -542,12 +542,12 @@ function MER:SetupActionbars()
 		E.db["actionbar"]["stanceBar"]["mouseover"] = false
 	end
 
-	MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 245)
-	MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 283)
+	MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 210)
+	MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 249)
 	MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -459, 1)
 	MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 	MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 403, 1)
-	MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 22)
+	MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 2)
 	MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 634, 0)
 	MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 475, 11)
 	MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", -300, 26)
@@ -688,7 +688,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
 	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
 
-	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 245)
+	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 210)
 
 	-- Target
 	E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -792,7 +792,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
 	E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
 
-	MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 240, 245)
+	MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 240, 210)
 
 	-- TargetTarget
 	E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -815,7 +815,7 @@ function MER:SetupUnitframes()
 	-- Delete old customTexts/ Create empty table
 	E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
 
-	MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOM", E.UIParent, "BOTTOM", 290, 211)
+	MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 210)
 
 	-- Focus
 	E.db["unitframe"]["units"]["focus"]["width"] = 105
@@ -844,11 +844,11 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 	E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
 
-	MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 243)
-	MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 225)
+	MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 251)
+	MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 285)
 
 	-- FocusTarget
-	E.db["unitframe"]["units"]["focustarget"]["enable"] = true
+	E.db["unitframe"]["units"]["focustarget"]["enable"] = false
 	E.db["unitframe"]["units"]["focustarget"]["debuffs"]["enable"] = true
 	E.db["unitframe"]["units"]["focustarget"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["focustarget"]["threatStyle"] = "GLOW"
@@ -961,7 +961,7 @@ function MER:SetupUnitframes()
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
-	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 761, 60)
+	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 761, 40)
 
 	-- Raid40
 	E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
@@ -1118,7 +1118,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[name:medium:status]",
 	}
-	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 75)
+	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 40)
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
@@ -1317,31 +1317,21 @@ function MER:SetupDts()
 		else
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Haste"
 		end
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "Talent/Loot Specialization"
+		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "MUI System"
 		if IsAddOnLoaded("REKeys") then
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "REKeys"
 		else
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
 		end
 
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Currencies"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Bags"
 		if IsAddOnLoaded("ElvUI_SLE") then
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Friends"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "S&L Guild"
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "S&L Currency"
 		else
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Friends"
+			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Guild"
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "Gold"
-		end
-
-		if IsAddOnLoaded("ElvUI_SLE") then
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "S&L Guild"
-		else
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "Friends"
-		end
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "MUI System"
-		if IsAddOnLoaded("ElvUI_SLE") then
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "S&L Friends"
-		else
-			E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Guild"
 		end
 	end
 
@@ -1361,56 +1351,6 @@ function MER:SetupDts()
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
 end
-
-local addonNames = {}
-local profilesFailed = format('|cff00c0fa%s |r', L["MerathilisUI didn't find any supported addons for profile creation"])
-
---[[local function SetupAddons()
-	-----------------------------------
-		BenikUI - Settings
-	-------------------------------------
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		if E.db["benikui"] == nil then E.db["benikui"] = {} end
-		MER:LoadBenikUIProfile()
-		tinsert(addonNames, "ElvUI_BenikUI")
-	end
-
-	----------------------------------
-		S&L - Settings
-	------------------------------------
-	if IsAddOnLoaded("ElvUI_SLE") then
-		if E.db.sle == nil then E.db.sle = {} end
-		MER:LoadShadowandLightProfile()
-		tinsert(addonNames, "ElvUI_SLE")
-	end
-
-	------------------------------------
-		AddOnSkins - Settings
-	------------------------------------
-	if IsAddOnLoaded("AddOnSkins") then
-		MER:LoadAddOnSkinsProfile()
-		tinsert(addonNames, "AddOnSkins")
-	end
-
-
-	if checkTable(addonNames) ~= nil then
-		local profileString = format('|cffff7d0a%s |r', L['MerathilisUI successfully created and applied profile(s) for:']..'\n')
-
-		tsort(addonNames, function(a, b) return a < b end)
-
-		local names = tconcat(addonNames, ", ")
-		profileString = profileString..names
-
-		PluginInstallFrame.Desc4:SetText(profileString..'.')
-	else
-		PluginInstallFrame.Desc4:SetText(profilesFailed)
-	end
-
-	PluginInstallStepComplete.message = MER.Title..L["Addons Set"]
-	PluginInstallStepComplete:Show()
-	twipe(addonNames)
-	E:UpdateAll(true)
-end]]
 
 local function InstallComplete()
 	E.private.install_complete = E.version

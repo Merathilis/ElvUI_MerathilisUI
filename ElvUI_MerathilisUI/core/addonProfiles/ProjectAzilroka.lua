@@ -18,12 +18,7 @@ function MER:LoadPAProfile()
 		["ButtonHeight"] = 20,
 		["ButtonWidth"] = 20,
 		["Font"] = "Expressway",
-		["CheckColor"] = {
-			1, -- [1]
-			0.490196078431373, -- [2]
-			0.0392156862745098, -- [3]
-			1, -- [4]
-		},
+		['ClassColor'] = true,
 		["CheckTexture"] = "MerathilisGradient",
 	}
 
