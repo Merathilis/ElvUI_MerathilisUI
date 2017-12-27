@@ -203,6 +203,7 @@ L["ButtonStyle"] = true
 L["Enable the button style."] = true
 L["The texture to use."] = true
 L["ActionButton Border"] = true
+L["Specialisation Bar"] = true
 
 -- Unitframes
 L["UnitFrames"] = true

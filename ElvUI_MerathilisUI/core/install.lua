@@ -1118,7 +1118,7 @@ function MER:SetupUnitframes()
 		["attachTextTo"] = "Health",
 		["text_format"] = "[name:medium:status]",
 	}
-	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 40)
+	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 55)
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
