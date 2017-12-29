@@ -89,7 +89,7 @@ function MAB:SpecBar()
 		PetSpecBar:SetSize(40, 40)
 		PetSpecBar:SetTemplate("Transparent")
 		PetSpecBar:Styling()
-		PetSpecBar:SetPoint("LEFT", SpecBar, "RIGHT", 187, 0)
+		PetSpecBar:SetPoint("RIGHT", SpecBar, "LEFT", -.5, 0)
 
 		for _, Event in pairs(Events) do
 			PetSpecBar:RegisterEvent(Event)
@@ -148,26 +148,5 @@ function MAB:SpecBar()
 		local BarHeight = (Spacing + (Size * Mult) + (Spacing * Mult))
 
 		PetSpecBar:SetSize(BarWidth, BarHeight)
-
-		PetSpecBar:CreateShadow()
 	end
-
-	--[[
-	local ChatSpam = {
-		'^' .. ERR_LEARN_ABILITY_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_LEARN_SPELL_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_SPELL_UNLEARNED_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_LEARN_PASSIVE_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_PET_LEARN_ABILITY_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_PET_LEARN_SPELL_S:gsub('%%s', '.-') .. '$',
-		'^' .. ERR_PET_SPELL_UNLEARNED_S:gsub('%%s', '.-') .. '$',
-	}
-
-	local function ChatFilter(self, event, msg, ...)
-		for _, spam in ipairs(ChatSpam) do
-			if strmatch(msg, spam) then return true end
-		end
-	end
-
-	ChatFrame_AddMessageEventFilter('CHAT_MSG_SYSTEM', ChatFilter)]]
 end
