@@ -107,9 +107,7 @@ function MERL:CreateChatButton()
 		end
 		GameTooltip:Hide()
 	end)
-end
 
-function MERL:Initialize()
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", function(self)
@@ -119,6 +117,9 @@ function MERL:Initialize()
 
 		MER:ToggleDataPanels()
 	end)
+end
+
+function MERL:Initialize()
 	self:CreateChatButton()
 end
 
