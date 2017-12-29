@@ -11,8 +11,8 @@ function MER:LoadPAProfile()
 	--	ProjectAzilroka - Settings
 	--]]----------------------------------
 
-	--stAddonManagerDB
-	if stAddonManagerDB["profiles"]["MerathilisUI"] == nil then stAddonManagerDB["profiles"]["MerathilisUI"] = {} end
+	--stAddonManagerProfilesDB
+	if stAddonManagerDB.profiles["MerathilisUI"] == nil then stAddonManagerDB.profiles["MerathilisUI"] = {} end
 
 	stAddonManagerDB.profiles["MerathilisUI"] = {
 		["ButtonHeight"] = 20,
