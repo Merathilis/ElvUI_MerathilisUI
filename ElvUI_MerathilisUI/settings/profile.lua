@@ -26,6 +26,8 @@ P["mui"] = {
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["chatButton"] = true,
+		["filterErrors"] = true,
+		["hideErrorFrame"] = true,
 	},
 
 	["colors"] = {
@@ -94,6 +96,8 @@ P["mui"] = {
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
+		["nameHover"] = true,
+		["powerBar"] = true,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,
@@ -160,6 +164,7 @@ P["mui"] = {
 
 	["actionbars"] = {
 		["transparent"] = true,
+		["specBar"] = true,
 		["buttonStyle"] = {
 			["enabled"] = false,
 			["texture"] = "MerathilisGradient",
@@ -259,10 +264,54 @@ P["mui"] = {
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
 	},
 
-	["error"] = {
-		["black"] = true,
-		["combat"] = false,
-		["white"] = false,
+	["errorFilters"] = {
+		[INTERRUPTED] = false,
+		[ERR_ABILITY_COOLDOWN] = true,
+		[ERR_ATTACK_CHANNEL] = false,
+		[ERR_ATTACK_CHARMED] = false,
+		[ERR_ATTACK_CONFUSED] = false,
+		[ERR_ATTACK_DEAD] = false,
+		[ERR_ATTACK_FLEEING] = false,
+		[ERR_ATTACK_MOUNTED] = true,
+		[ERR_ATTACK_PACIFIED] = false,
+		[ERR_ATTACK_STUNNED] = false,
+		[ERR_ATTACK_NO_ACTIONS] = false,
+		[ERR_AUTOFOLLOW_TOO_FAR] = false,
+		[ERR_BADATTACKFACING] = false,
+		[ERR_BADATTACKPOS] = false,
+		[ERR_CLIENT_LOCKED_OUT] = false,
+		[ERR_GENERIC_NO_TARGET] = true,
+		[ERR_GENERIC_NO_VALID_TARGETS] = true,
+		[ERR_GENERIC_STUNNED] = false,
+		[ERR_INVALID_ATTACK_TARGET] = true,
+		[ERR_ITEM_COOLDOWN] = true,
+		[ERR_NOEMOTEWHILERUNNING] = false,
+		[ERR_NOT_IN_COMBAT] = false,
+		[ERR_NOT_WHILE_DISARMED] = false,
+		[ERR_NOT_WHILE_FALLING] = false,
+		[ERR_NOT_WHILE_MOUNTED] = false,
+		[ERR_NO_ATTACK_TARGET] = true,
+		[ERR_OUT_OF_ENERGY] = true,
+		[ERR_OUT_OF_FOCUS] = true,
+		[ERR_OUT_OF_MANA] = true,
+		[ERR_OUT_OF_RAGE] = true,
+		[ERR_OUT_OF_RANGE] = true,
+		[ERR_OUT_OF_RUNES] = true,
+		[ERR_OUT_OF_RUNIC_POWER] = true,
+		[ERR_SPELL_COOLDOWN] = true,
+		[ERR_SPELL_OUT_OF_RANGE] = false,
+		[ERR_TOO_FAR_TO_INTERACT] = false,
+		[ERR_USE_BAD_ANGLE] = false,
+		[ERR_USE_CANT_IMMUNE] = false,
+		[ERR_USE_TOO_FAR] = false,
+		[SPELL_FAILED_BAD_IMPLICIT_TARGETS] = true,
+		[SPELL_FAILED_BAD_TARGETS] = true,
+		[SPELL_FAILED_CASTER_AURASTATE] = true,
+		[SPELL_FAILED_NO_COMBO_POINTS] = true,
+		[SPELL_FAILED_SPELL_IN_PROGRESS] = true,
+		[SPELL_FAILED_TARGET_AURASTATE] = true,
+		[SPELL_FAILED_TOO_CLOSE] = false,
+		[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
 	},
 
 	["uiButtons"] = {

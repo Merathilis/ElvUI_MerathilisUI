@@ -19,6 +19,7 @@ L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
+L["Desciption"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -109,6 +110,10 @@ L[" members"] = true
 L["Expand the chat"] = true
 L["Chat Button"] = true
 L["Create a chat button to increase the chat size."] = true
+L["Name Hover"] = true
+L["Shows the Unit Name on the mouse."] = true
+L["Alt PowerBar"] = true
+L["Replace the default Alt Power Bar."] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -198,6 +203,7 @@ L["ButtonStyle"] = true
 L["Enable the button style."] = true
 L["The texture to use."] = true
 L["ActionButton Border"] = true
+L["Specialisation Bar"] = true
 
 -- Unitframes
 L["UnitFrames"] = true
@@ -378,24 +384,6 @@ L["Status Icon Pack"] = true
 L["Game Icon Preview"] = true
 L["Status Icon Preview"] = true
 
--- ObjectiveTrackerHider
-L["Hide during PvP"] = true
-L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = true
-L["Hide in arena"] = true
-L["Hide the objective tracker when in the arena"] = true
-L["Hide in dungeon"] = true
-L["Hide the objective tracker when in a dungeon"] = true
-L["Hide in raid"] = true
-L["Hide the objective tracker when in a raid"] = true
-L["Collapse during PvP"] = true
-L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = true
-L["Collapse in arena"] = true
-L["Collapse the objective tracker when in the arena"] = true
-L["Collapse in dungeon"] = true
-L["Collapse the objective tracker when in a dungeon"] = true
-L["Collapse in raid"] = true
-L["Collapse the objective tracker during a raid"] = true
-
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true
@@ -475,6 +463,8 @@ L["This will create and apply profile for "] = true
 L["Changelog"] = true
 
 -- Errors
-L["Info"] = {
-	["Errors"] = "오류.",
-}
+L["Error Handling"] = true
+L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
+L["Filter Errors"] = true
+L["Choose specific errors from the list below to hide/ignore."] = true
+L["Hides all errors regardless of filtering while in combat."] = true

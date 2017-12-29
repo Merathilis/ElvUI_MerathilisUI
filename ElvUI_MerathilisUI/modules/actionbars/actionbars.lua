@@ -118,6 +118,8 @@ function MAB:Initialize()
 
 	hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
 	hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
+
+	self:SpecBar()
 end
 
 local function InitializeCallback()

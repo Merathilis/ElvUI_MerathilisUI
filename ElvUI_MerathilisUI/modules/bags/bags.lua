@@ -21,7 +21,6 @@ local function EventHandler(self, event)
 end
 
 function MERB:StyleBags()
-	-- doesnt work
 	if _G["ElvUI_ContainerFrame"] then
 		_G["ElvUI_ContainerFrame"]:Styling()
 		_G["ElvUI_ContainerFrameContainerHolder"]:Styling()
@@ -34,7 +33,6 @@ function MERB:StyleBags()
 end
 
 function MERB:StyleBank()
-	-- doesnt work
 	if _G["ElvUI_BankContainerFrame"] then
 		if _G["ElvUI_BankContainerFrame"].isSkinned then return end
 		_G["ElvUI_BankContainerFrame"]:Styling()

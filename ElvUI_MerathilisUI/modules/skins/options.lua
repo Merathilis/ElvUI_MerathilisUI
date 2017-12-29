@@ -16,6 +16,7 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
+	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 }
 
 local SupportedProfiles = {
@@ -27,6 +28,7 @@ local SupportedProfiles = {
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
+	{"ProjectAzilroka", "ProjectAzilroka"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -75,9 +77,8 @@ local function SkinsTable()
 		name = MER:cOption(L["AddOnSkins"]),
 		get = function(info) return E.private.muiSkins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		args = {
-			},
-		}
+		args = {},
+	}
 
 	local addorder = 0
 	for i, v in ipairs(DecorAddons) do
@@ -300,6 +301,11 @@ local function SkinsTable()
 				name = L["Help Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.help end,
 			},
+			loot = {
+				type = "toggle",
+				name = L["Loot Frames"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
+			},
 		},
 	}
 
@@ -346,6 +352,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'OzCooldowns' then
 					MER:LoadOCDProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ProjectAzilroka' then
+					MER:LoadPAProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)

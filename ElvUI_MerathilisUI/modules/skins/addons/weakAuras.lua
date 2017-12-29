@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -16,27 +17,20 @@ frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 frame:SetScript("OnEvent", function(self, event)
 	if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
-	local function SkinWeakAuras(frame, ftype)
-		if not frame.backdrop then
-			frame:CreateBackdrop(frame, "Transparent")
-			frame.icon:SetTexCoord(unpack(E.TexCoords))
-			frame.icon.SetTexCoord = MER.dummy
-			if ftype == "icon" then
-				frame.backdrop:SetBackdropColor(0, 0, 0, 0)
-				frame.backdrop:HookScript("OnUpdate", function(self)
-					self:SetAlpha(self:GetParent().icon:GetAlpha())
-				end)
-			end
+	local function SkinWeakAuras(frame)
+		if frame.SetBackdropColor then
+			frame:SetBackdrop({bgFile = E.media.normTex, edgeFile = E.media.normTex, edgeSize = 1})
+			frame:SetBackdropColor(0, 0, 0, 0.1)
+			frame:SetBackdropBorderColor(0, 0, 0, 1)
 		end
 
-		if ftype == "aurabar" then
-			if not frame.bar.shadow then
-				frame.bar:CreateShadow("Background")
-				frame.iconFrame:CreateShadow("Background")
-				frame.iconFrame:SetAllPoints(frame.icon)
-				frame.icon:SetTexCoord(unpack(E.TexCoords))
-				frame.icon.SetTexCoord = MER.dummy
-			end
+		if frame.icon then
+			frame.icon:SetTexCoord(unpack(E.TexCoords))
+			frame.icon.SetTexCoord = MER.dummy
+		end
+
+		if frame.cooldown then
+			frame.cooldown:GetRegions():Point("CENTER", 1, 1)
 		end
 	end
 
@@ -56,21 +50,8 @@ frame:SetScript("OnEvent", function(self, event)
 		SkinWeakAuras(region, "icon")
 	end
 
-	local CreateAuraBar = WeakAuras.regionTypes.aurabar.create
-	WeakAuras.regionTypes.aurabar.create = function(parent)
-		local region = CreateAuraBar(parent)
-		SkinWeakAuras(region, "aurabar")
-		return region
-	end
-
-	local ModifyAuraBar = WeakAuras.regionTypes.aurabar.modify
-	WeakAuras.regionTypes.aurabar.modify = function(parent, region, data)
-		ModifyAuraBar(parent, region, data)
-		SkinWeakAuras(region, "aurabar")
-	end
-
 	for weakAura, _ in pairs(WeakAuras.regions) do
-		if WeakAuras.regions[weakAura].regionType == 'icon' or WeakAuras.regions[weakAura].regionType == 'aurabar' then
+		if WeakAuras.regions[weakAura].regionType == 'icon' then
 			SkinWeakAuras(WeakAuras.regions[weakAura].region, WeakAuras.regions[weakAura].regionType)
 		end
 	end

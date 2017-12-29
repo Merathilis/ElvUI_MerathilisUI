@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="misc.lua"/>
 	<Script file="afk.lua"/>
+	<Script file="altpower.lua"/>
 	<Script file="announce.lua"/>
 	<Script file="flightMode.lua"/>
 	<Script file="flightPoint.lua"/>
@@ -11,6 +12,7 @@
 	<Script file="merchant.lua"/>
 	<Script file="moveblizz.lua"/>
 	<Script file="movers.lua"/>
+	<Script file="nameHover.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>
 	<Script file="sumAuctions.lua"/>

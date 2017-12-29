@@ -79,6 +79,10 @@ local function styleMisc()
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
 	end
+
+	if TalentMicroButtonAlert then
+		TalentMicroButtonAlert:Styling()
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)

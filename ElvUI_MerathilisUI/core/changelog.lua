@@ -17,14 +17,20 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove detached portrait feature. Let it be Benik's baby <3",
-		"• Color the mail label in the notifications.",
-		"• Fix WeakAura skin.",
-		"• v3.15: Fix an error in UnitFrame install.",
+		"• Add a mouseover name feature. To display the unit name on the mouse.",
+		"• Update gmotd.",
+		"• Fix for chat size after reload (hardcoded!!).",
+		"• Create an own AltPowerBar.",
+		"• Add skinning support/ profile for ProjectAzilroka.",
+		"• Rewrote the Blizzard Error handling.",
+		"• Add a SpecBar.",
+		"• Remove ObjectiveTracker hider.",
+		"• Update some skins.",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• IMPORTANT: 'Removed v1 of my Layout.'",
+		"• 'If you want my latest layout, you have to do the install again.'",
+		"• 'If you do so, all your changes will be reseted.'",
 }
 
 local function ModifiedString(string)

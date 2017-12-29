@@ -19,6 +19,7 @@ L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
 L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
+L["Desciption"] = "Beschreibung"
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -121,6 +122,10 @@ L[" members"] = " Mitglieder"
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Button"] = true
 L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
+L["Name Hover"] = true
+L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
+L["Alt PowerBar"] = true
+L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -210,6 +215,7 @@ L["ButtonStyle"] = "Tastenstil"
 L["Enable the button style."] = "Aktiviere den Tastenstil."
 L["The texture to use."] = "Die zu verwendene Textur."
 L["ActionButton Border"] = "Aktionstasten Rand"
+L["Specialisation Bar"] = "Spezialisierungs Leiste"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
@@ -387,26 +393,8 @@ L["Only Mine"] = "Nur eigene"
 L["Info Font"] = "Info Schriftart"
 L["Game Icon Pack"] = true
 L["Status Icon Pack"] = true
-L["Game Icon Preview"] = "Game Icon Vorschau:"
-L["Status Icon Preview"] = "Status Icon Vorschau:"
-
--- ObjectiveTrackerHider
-L["Hide during PvP"] = "Verstecke während PvP"
-L["Hide the objective tracker during PvP (i.e. Battlegrounds)"] = "Versteckt den Objective Tracker während PvP (z.B. Schlachtfelder)"
-L["Hide in arena"] = "Verstecke in Arena"
-L["Hide the objective tracker when in the arena"] = "Verstecke den Objective Tracker in Arenen"
-L["Hide in dungeon"] = "Verstecke in Dungeon"
-L["Hide the objective tracker when in a dungeon"] = "Verstecke den Objective Tracker in Dungeons"
-L["Hide in raid"] = "Verstecke in Raid"
-L["Hide the objective tracker when in a raid"] = "Verstecke den Objective Tracker in Raids"
-L["Collapse during PvP"] = "Zeige während PvP"
-L["Collapse the objective tracker during PvP (i.e. Battlegrounds)"] = "Zeigt den Objective Tracker währden PvP (z.B. Schlachtfelder)"
-L["Collapse in arena"] = "Zeige in Arena"
-L["Collapse the objective tracker when in the arena"] = "Zeigt den Objective Tracker in Arenen"
-L["Collapse in dungeon"] = "Zeige in Dungeon"
-L["Collapse the objective tracker when in a dungeon"] = "Zeigt den Objective Tracker in Dungeons"
-L["Collapse in raid"] = "Zeige in Raid"
-L["Collapse the objective tracker during a raid"] = "Zeigt den Objective Tracker in Raids"
+L["Game Icon Preview"] = "Spiel Symbol Vorschau:"
+L["Status Icon Preview"] = "Status Symbol Vorschau:"
 
 -- Install
 L["Welcome"] = "Willkommen"
@@ -486,6 +474,8 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 L["Changelog"] = true
 
 -- Errors
-L["Info"] = {
-	["Errors"] = "Keine Fehler bisher.",
-}
+L["Error Handling"] = "Fehlerbehandlung"
+L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "In der unten aufgeführten Liste kannst du einige nervende Fehlermeldungen, wie zum Beispiel: |cffff7d0a'Nicht genug Wut'|r oder |cffff7d0a'Nicht genug Energie'|r, deaktivieren."
+L["Filter Errors"] = "Fehler filtern"
+L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
+L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."

@@ -65,7 +65,7 @@ MB.AddonsList = {
 	["Blizzard_BarberShopUI"] = {"BarberShopFrame"},
 	["Blizzard_BindingUI"] = {"KeyBindingFrame"},
 	["Blizzard_Calendar"] = {"CalendarCreateEventFrame", "CalendarFrame", "CalendarViewEventFrame", "CalendarViewHolidayFrame"},
-	["Blizzard_ChallengesUI"] = {"ChallengesLeaderboardFrame"},
+	["Blizzard_ChallengesUI"] = {"ChallengesKeystoneFrame"},
 	["Blizzard_Collections"] = {"CollectionsJournal", "WardrobeFrame"},
 	["Blizzard_EncounterJournal"] = {"EncounterJournal"},
 	["Blizzard_GarrisonUI"] = {"GarrisonLandingPage", "GarrisonMissionFrame", "GarrisonCapacitiveDisplayFrame", "GarrisonBuildingFrame", "GarrisonRecruiterFrame", "GarrisonRecruitSelectFrame", "GarrisonShipyardFrame"},
@@ -84,10 +84,16 @@ MB.AddonsList = {
 	["Blizzard_TalentUI"] = {"PlayerTalentFrame"},
 	["Blizzard_TradeSkillUI"] = {"TradeSkillFrame"},
 	["Blizzard_TrainerUI"] = {"ClassTrainerFrame"},
-	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"}
+	["Blizzard_VoidStorageUI"] = {"VoidStorageFrame"},
+	["Blizzard_OrderHallUI"] = {"OrderHallTalentFrame"},
 }
 
 function MB:MakeMovable(frame)
+	if not frame then
+		MER:Print("Frame doesn't exist: "..MB.Frames[i])
+		return
+	end
+
 	if frame then
 		frame:EnableMouse(true)
 		frame:SetMovable(true)
@@ -95,7 +101,9 @@ function MB:MakeMovable(frame)
 		frame:RegisterForDrag("LeftButton")
 		frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
 		frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
-		if frame.TitleMouseover then MB:MakeMovable(frame.TitleMouseover) end
+		if frame.TitleMouseover then
+			MB:MakeMovable(frame.TitleMouseover)
+		end
 	end
 end
 
@@ -113,7 +121,9 @@ function MB:Addons(event, addon)
 		MB:MakeMovable(frame)
 	end
 	MB.addonCount = MB.addonCount + 1
-	if MB.addonCount == #MB.AddonsList then MB:UnregisterEvent(event) end
+	if MB.addonCount == #MB.AddonsList then
+		MB:UnregisterEvent(event)
+	end
 end
 
 function MB:Initialize()
@@ -121,7 +131,9 @@ function MB:Initialize()
 	MB.addonCount = 0
 	for i = 1, #MB.Frames do
 		local frame = _G[MB.Frames[i]]
-		if frame then MB:MakeMovable(frame) else MER:Print("Frame doesn't exist: "..MB.Frames[i]) end
+		if frame then
+			MB:MakeMovable(frame)
+		end
 	end
 	self:RegisterEvent("ADDON_LOADED", "Addons")
 end

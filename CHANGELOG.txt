@@ -1,3 +1,14 @@
+[b][color=orange]v3.16[/color], 29.12.2017[/b][list]
+[*]Add a mouseover name feature. To display the unit name on the mouse.
+[*]Update gmotd.
+[*]Fix for chat size after reload (hardcoded!!).
+[*]Create an own AltPowerBar.
+[*]Add skinning support/ profile for ProjectAzilroka.
+[*]Rewrote the Blizzard Error handling.
+[*]Add a SpecBar.
+[*]Remove ObjectiveTracker hider.
+[*]Update some skins.[/list]
+
 [b][color=orange]v3.15[/color], 05.12.2017[/b][list]
 [*]Fix an error in UnitFrame install.[/list]
 

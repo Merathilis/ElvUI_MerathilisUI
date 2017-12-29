@@ -48,6 +48,7 @@ V["muiSkins"] = {
 		["gbank"] = true,
 		["taxi"] = true,
 		["help"] = true,
+		["loot"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
@@ -56,6 +57,7 @@ V["muiSkins"] = {
 		["xiv"] = true,
 		["bui"] = true,
 		["bs"] = true,
+		["pa"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,
