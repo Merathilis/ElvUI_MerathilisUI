@@ -13,13 +13,13 @@ local GameTooltip = _G["GameTooltip"]
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
-function MER:LoadLayout()
+function MERL:LoadLayout()
 	--Create extra panels
-	MER:CreateExtraDataBarPanels()
+	MERL:CreateExtraDataBarPanels()
 end
-hooksecurefunc(LO, "Initialize", MER.LoadLayout)
+hooksecurefunc(LO, "Initialize", MERL.LoadLayout)
 
-function MER:CreateExtraDataBarPanels()
+function MERL:CreateExtraDataBarPanels()
 	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", RightChatPanel)
 	chattab:SetScript("OnShow", function(self)
 		chattab:SetPoint("TOPRIGHT", RightChatTab, "TOPRIGHT", 0, 0)
@@ -30,7 +30,7 @@ function MER:CreateExtraDataBarPanels()
 	E:GetModule("DataTexts"):RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
 end
 
-function MER:ToggleDataPanels()
+function MERL:ToggleDataPanels()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
 		ChatTab_Datatext_Panel:Show()
 	else
@@ -114,12 +114,11 @@ function MERL:CreateChatButton()
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		--dirty fix for chat size
 		E.db.chat.panelHeight = 155
-
-		MER:ToggleDataPanels()
 	end)
 end
 
 function MERL:Initialize()
+	self:ToggleDataPanels()
 	self:CreateChatButton()
 end
 
