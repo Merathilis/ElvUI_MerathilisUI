@@ -60,7 +60,7 @@ function MAB:SpecBar()
 			Button:SetScript('OnClick', function(self, button)
 				if button == 'LeftButton' then
 					if self:GetID() ~= GetSpecialization(nil, Name == 'Pet' and true) then
-						SetSpecialization(SpecID)
+						SetSpecialization(self:GetID())
 					end
 				end
 			end)
