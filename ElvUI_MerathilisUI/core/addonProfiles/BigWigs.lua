@@ -17,12 +17,12 @@ function MER:LoadBigWigsProfile()
 			["BigWigs_Plugins_Alt Power"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["posx"] = 335.58,
+						["posx"] = 90,
 						["fontSize"] = 11,
 						["fontOutline"] = "",
 						["font"] = "Expressway",
 						["lock"] = true,
-						["posy"] = 74,
+						["posy"] = 245
 					},
 				},
 			},
@@ -33,11 +33,11 @@ function MER:LoadBigWigsProfile()
 						["BigWigsEmphasizeAnchor_y"] = 274.777784431353,
 						["fontSize"] = 11,
 						["BigWigsAnchor_width"] = 239.999954223633,
-						["BigWigsAnchor_y"] = 265.177697393337,
+						["BigWigsAnchor_y"] = 16,
 						["BigWigsEmphasizeAnchor_x"] = 251.977762177876,
 						["barStyle"] = "MerathilisUI",
 						["emphasizeGrowup"] = true,
-						["BigWigsAnchor_x"] = 1018.51096216262,
+						["BigWigsAnchor_x"] = 360,
 						["outline"] = "OUTLINE",
 						["BigWigsEmphasizeAnchor_width"] = 244.999984741211,
 						["font"] = "Expressway",
