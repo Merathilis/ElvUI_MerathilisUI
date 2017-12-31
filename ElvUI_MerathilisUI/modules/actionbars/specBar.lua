@@ -22,69 +22,63 @@ function MAB:SpecBar()
 
 	local Spacing, Mult = 4, 1
 	local Size = 24
-	local Frames = { 'Player' }
- 
-	if E.myclass == "HUNTER" then
-		tinsert(Frames, 'Pet')
-	end
- 
-	for _, Name in pairs(Frames) do
-		local Bar = CreateFrame('Frame', Name..'SpecializationBar', E.UIParent)
-		Bar:SetFrameStrata('BACKGROUND')
-		Bar:SetFrameLevel(0)
-		Bar:SetSize(40, 40)
-		Bar:SetTemplate('Transparent')
-		Bar:Styling()
-		Bar.Button = {}
- 
-		local Specs = GetNumSpecializations(false, Name == 'Pet' and true)
- 
-		for i = 1, Specs do
-			local SpecID, SpecName, Description, Icon = GetSpecializationInfo(i, false, Name == 'Pet' and true)
-			local Button = CreateFrame('Button', nil, Bar)
-			Button:SetSize(Size, Size)
-			Button:SetID(i)
-			Button:SetTemplate()
-			Button:SetNormalTexture(Icon)
-			Button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-			Button:GetNormalTexture():SetInside()
-			Button:RegisterForClicks('AnyDown')
-			Button:SetScript('OnEnter', function(self)
-				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-				GameTooltip:AddLine(SpecName)
-				GameTooltip:AddLine(' ')
-				GameTooltip:AddLine(Description, true)
-				GameTooltip:Show()
-			end)
-			Button:SetScript('OnLeave', GameTooltip_Hide)
-			Button:SetScript('OnClick', function(self, button)
-				if button == 'LeftButton' then
-					if self:GetID() ~= GetSpecialization(nil, Name == 'Pet' and true) then
-						SetSpecialization(self:GetID())
-					end
+
+	local specBar = CreateFrame('Frame', 'SpecializationBar', E.UIParent)
+	specBar:SetFrameStrata('BACKGROUND')
+	specBar:SetFrameLevel(0)
+	specBar:SetSize(40, 40)
+	specBar:SetTemplate('Transparent')
+	specBar:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 177)
+	specBar:Styling()
+
+	specBar.Button = {}
+
+	local Specs = GetNumSpecializations()
+
+	for i = 1, Specs do
+		local SpecID, SpecName, Description, Icon = GetSpecializationInfo(i)
+		local Button = CreateFrame('Button', nil, specBar)
+		Button:SetSize(Size, Size)
+		Button:SetID(i)
+		Button:SetTemplate()
+		Button:SetNormalTexture(Icon)
+		Button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+		Button:GetNormalTexture():SetInside()
+		Button:RegisterForClicks('AnyDown')
+		Button:SetScript('OnEnter', function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:AddLine(SpecName)
+			GameTooltip:AddLine(' ')
+			GameTooltip:AddLine(Description, true)
+			GameTooltip:Show()
+		end)
+		Button:SetScript('OnLeave', GameTooltip_Hide)
+		Button:SetScript('OnClick', function(self, button)
+			if button == 'LeftButton' then
+				if self:GetID() ~= GetSpecialization() then
+					SetSpecialization(self:GetID())
 				end
-			end)
-			Button:SetScript('OnEvent', function(self)
-				local Spec = GetSpecialization(nil, Name == 'Pet' and true)
-				if Spec == self:GetID() then
-					self:SetBackdropBorderColor(0, 0.44, .87)
-				else
-					self:SetTemplate()
-				end
-			end)
-			Button:SetPoint('LEFT', i == 1 and Bar or Bar.Button[i - 1], i == 1 and 'LEFT' or 'RIGHT', Spacing, 0)
- 
-			Bar.Button[i] = Button
-		end
- 
-		local BarWidth = (Spacing + ((Size * (Specs * Mult)) + ((Spacing * (Specs - 1)) * Mult) + (Spacing * Mult)))
-		local BarHeight = (Spacing + (Size * Mult) + (Spacing * Mult))
- 
-		Bar:SetSize(BarWidth, BarHeight)
+			end
+		end)
+		Button:SetScript('OnEvent', function(self)
+			local Spec = GetSpecialization()
+			if Spec == self:GetID() then
+				self:SetBackdropBorderColor(0, 0.44, .87)
+			else
+				self:SetTemplate()
+			end
+		end)
+		Button:SetPoint('LEFT', i == 1 and specBar or specBar.Button[i - 1], i == 1 and 'LEFT' or 'RIGHT', Spacing, 0)
+
+		specBar.Button[i] = Button
 	end
- 
-	PlayerSpecializationBar:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 177)
-	for _, Button in pairs(PlayerSpecializationBar.Button) do
+
+	local BarWidth = (Spacing + ((Size * (Specs * Mult)) + ((Spacing * (Specs - 1)) * Mult) + (Spacing * Mult)))
+	local BarHeight = (Spacing + (Size * Mult) + (Spacing * Mult))
+
+	specBar:SetSize(BarWidth, BarHeight)
+
+	for _, Button in pairs(specBar.Button) do
 		Button:HookScript('OnClick', function(self, button)
 			if button == "RightButton" then
 				local SpecID = GetSpecializationInfo(self:GetID())
@@ -102,18 +96,5 @@ function MAB:SpecBar()
 				self:SetBackdropBorderColor(1, 0.44, .4)
 			end
 		end)
-	end
- 
-	if E.myclass == "HUNTER" then
-		local Events = { 'PET_BAR_UPDATE', 'PET_BAR_HIDE', 'PET_UI_UPDATE', 'PLAYER_ENTERING_WORLD', 'UPDATE_VEHICLE_ACTIONBAR' }
-		PetSpecializationBar:SetPoint('RIGHT', PlayerSpecializationBar, 'LEFT', -.5, 0)
-		RegisterStateDriver(PetSpecializationBar, 'visibility', '[pet] show; hide')
-		for _, Button in pairs(PetSpecializationBar.Button) do
-			for _, Event in pairs(Events) do
-				Button:RegisterEvent(Event)
-			end
-			Button:RegisterUnitEvent('UNIT_PET', 'player')
-			Button:RegisterUnitEvent('UNIT_FLAGS', 'pet')
-		end
 	end
 end
