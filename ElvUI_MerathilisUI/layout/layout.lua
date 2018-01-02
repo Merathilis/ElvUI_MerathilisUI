@@ -70,13 +70,13 @@ function MERL:CreateChatButton()
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.chat.panelHeight == 370 then
-					if panelBackdrop == 'LEFT' then
-						E.db.chat.panelHeight = panelHeight
-						isExpanded = false
-					else
-						E.db.chat.panelHeight = panelHeight
-						isExpanded = false
-					end
+				if panelBackdrop == 'LEFT' then
+					E.db.chat.panelHeight = panelHeight
+					isExpanded = false
+				else
+					E.db.chat.panelHeight = panelHeight
+					isExpanded = false
+				end
 				CH:PositionChat(true, true)
 			else
 				E.db.chat.panelHeight = 370
