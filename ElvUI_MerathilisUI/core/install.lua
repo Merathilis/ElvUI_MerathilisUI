@@ -228,6 +228,7 @@ function MER:SetupLayout()
 	E.db["general"]["threat"]["enable"] = false
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
+	E.db["general"]["decimalLenght"] = 0
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
