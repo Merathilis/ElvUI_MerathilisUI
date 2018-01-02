@@ -74,6 +74,7 @@ function S:HandleCloseButton(f, point, text)
 		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
 		f:HookScript("OnEnter", SetModifiedBackdrop)
 		f:HookScript("OnLeave", SetOriginalBackdrop)
+		f:SetHitRectInsets(6, 6, 7, 7)
 	end
 
 	--ElvUI code expects the element to be there. It won't show up for original close buttons.
