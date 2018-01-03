@@ -217,7 +217,7 @@ function MER:SetupLayout()
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
-	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.5
+	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 1
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = -3
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
@@ -258,8 +258,13 @@ function MER:SetupLayout()
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 42
-	MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -3)
-	MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -120)
+	if E.db.mui.general.panel then
+		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -16, -19)
+		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -16, -155)
+	else
+		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -3)
+		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -120)
+	end
 
 	--[[----------------------------------
 	--	ProfileDB - Bags
@@ -350,16 +355,20 @@ function MER:SetupLayout()
 	--	Movers - Layout
 	--]]----------------------------------
 	MER:SetMoverPosition("AltPowerBarMover", "TOP", E.UIParent, "TOP" ,1, -272)
-	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 132, -26)
-	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -30)
+	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 148, -26)
+	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -32)
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
 	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -90, -219)
-	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2, -26)
+	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 14, -26)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
-	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -2)
+	if E.db.mui.general.panel then
+		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -12)
+	else
+		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -2)
+	end
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	E.db["general"]["font"] = "Expressway"
@@ -1334,13 +1343,11 @@ function MER:SetupDts()
 			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
 		end
 
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Friends"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Guild"
 		if IsAddOnLoaded("ElvUI_SLE") then
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "S&L Friends"
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "S&L Guild"
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "S&L Currency"
 		else
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Friends"
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Guild"
 			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "Gold"
 		end
 	end

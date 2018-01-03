@@ -25,6 +25,6 @@ core\load_core.xml
 media\load_media.xml
 settings\load_settings.xml
 developer\load_developer.xml
-layout\layout.lua
 modules\load_modules.xml
+layout\layout.lua
 Bindings.xml

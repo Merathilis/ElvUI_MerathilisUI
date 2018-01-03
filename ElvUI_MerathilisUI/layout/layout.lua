@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
+local MERS = E:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
 local LO = E:GetModule("Layout")
 
@@ -117,9 +118,46 @@ function MERL:CreateChatButton()
 	end)
 end
 
+-- TopPanel
+local function SkinPanel(panel)
+	panel.tex = panel:CreateTexture(nil, "ARTWORK")
+	panel.tex:SetAllPoints()
+	panel.tex:SetTexture(E.media.blankTex)
+	panel.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
+end
+
+function MERL:CreatePanels()
+	if E.db.mui.general.panel then
+		local topPanel = CreateFrame("Frame", MER.Title.."TopPanel", E.UIParent)
+		topPanel:SetFrameStrata("BACKGROUND")
+		topPanel:SetPoint("TOP", 0, 3)
+		topPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
+		topPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
+		topPanel:SetHeight(15)
+		topPanel:SetTemplate("Transparent")
+		topPanel:Styling()
+
+		local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
+		topLeftStyle:SetFrameStrata("BACKGROUND")
+		topLeftStyle:SetFrameLevel(2)
+		topLeftStyle:SetSize(E.screenwidth*2/9, 5)
+		topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 15, -10)
+		SkinPanel(topLeftStyle)
+
+		local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
+		topRightStyle:SetFrameStrata("BACKGROUND")
+		topRightStyle:SetFrameLevel(2)
+		topRightStyle:SetSize(E.screenwidth*2/9, 5)
+		topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -15, -10)
+		SkinPanel(topRightStyle)
+	end
+end
+
 function MERL:Initialize()
 	self:ToggleDataPanels()
 	self:CreateChatButton()
+	self:CreatePanels()
 end
 
 local function InitializeCallback()

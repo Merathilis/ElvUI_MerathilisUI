@@ -25,6 +25,7 @@ P["mui"] = {
 			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
+		["panel"] = true,
 		["chatButton"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
