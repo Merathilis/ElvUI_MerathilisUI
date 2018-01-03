@@ -194,7 +194,7 @@ OrderHall_eframe:SetScript("OnEvent", function(self, event, arg1)
 				end
 
 				OrderHallCommandBar.ClassIcon:ClearAllPoints()
-				OrderHallCommandBar.ClassIcon:SetPoint("TOPLEFT", 5, -5)
+				OrderHallCommandBar.ClassIcon:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 15, -20)
 				OrderHallCommandBar.ClassIcon:SetSize(40, 20)
 				OrderHallCommandBar.ClassIcon:SetAlpha(1)
 				local bg = MERS:CreateBDFrame(OrderHallCommandBar.ClassIcon, 0)
@@ -213,6 +213,9 @@ OrderHall_eframe:SetScript("OnEvent", function(self, event, arg1)
 				OrderHallCommandBar.Currency:SetFont(E.media.normFont, 14, "OUTLINE")
 				OrderHallCommandBar.Currency:SetTextColor(1, 1, 1)
 				OrderHallCommandBar.Currency:SetShadowOffset(0, 0)
+
+				OrderHallCommandBar.CurrencyHitTest:ClearAllPoints()
+				OrderHallCommandBar.CurrencyHitTest:SetAllPoints(OrderHallCommandBar.CurrencyIcon)
 
 				OrderHallCommandBar.WorldMapButton:Hide()
 
