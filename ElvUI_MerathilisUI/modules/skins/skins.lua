@@ -176,22 +176,21 @@ function MERS:CreateSoftShadow(f)
 end
 
 -- Create shadow for textures
-function MERS:CreateSD(f, m, s, n)
-	if f.Shadow then return end
-	local frame = f
-	if f:GetObjectType() == "Texture" then
-		frame = f:GetParent()
-	end
-	local lvl = frame:GetFrameLevel()
+function MERS:CreateSD(parent, size, r, g, b, alpha, offset)
+	local sd = CreateFrame("Frame", nil, parent)
+	sd.size = size or 5
+	sd.offset = offset or 0
+	sd:SetBackdrop({
+		bgFile =  LSM:Fetch("background", "ElvUI Blank"),
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"),
+		edgeSize = sd.size,
+	})
+	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
+	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
+	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
+	sd:SetBackdropColor(r or 0, g or 0, b or 0, alpha or 0)
 
-	f.Shadow = CreateFrame("Frame", nil, frame)
-	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
-	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
-	f.Shadow:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = s })
-	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
-	f.Shadow:SetFrameLevel(n or lvl)
-	return f.Shadow
+	return sd
 end
 
 function MERS:CreateBG(frame)
