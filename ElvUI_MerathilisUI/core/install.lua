@@ -59,6 +59,15 @@ local function SetupCVars()
 	SetCVar("violenceLevel", 5)
 	SetCVar("blockTrades", 0)
 	SetCVar("countdownForCooldowns", 1)
+	if IsAddOnLoaded("NameplateSCT") then
+		SetCVar("floatingCombatTextCombatDamage", 0)
+		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
+		SetCVar("floatingCombatTextCombatHealing", 1)
+	else
+		SetCVar("floatingCombatTextCombatDamage", 1)
+		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 1)
+		SetCVar("floatingCombatTextCombatHealing", 1)
+	end
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
@@ -196,7 +205,7 @@ function MER:SetupLayout()
 	E.global["general"]["autoScale"] = true
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
-	E.global["general"]["commandBarSetting"] = "ENABLED_RESIZEPARENT"
+	E.global["general"]["commandBarSetting"] = "ENABLED"
 
 	--[[----------------------------------
 	--	ProfileDB - General
