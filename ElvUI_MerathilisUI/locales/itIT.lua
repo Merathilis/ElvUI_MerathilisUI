@@ -1,10 +1,10 @@
 -- Italian localization file for enUS
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("ElvUI", "itIT");
-if not L then return; end
+if not L then return end
 
 -- Core
-L[" is loaded."] = true
+L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
@@ -20,6 +20,7 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
+L["Chat button"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true

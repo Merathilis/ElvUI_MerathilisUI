@@ -1,10 +1,10 @@
 -- German localization file for deDE
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("ElvUI", "deDE");
-if not L then return; end
+if not L then return end
 
 -- Core
-L[" is loaded."] = " ist geladen."
+L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
@@ -20,6 +20,7 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 L["Desciption"] = "Beschreibung"
+L["Chat button"] = "Chat Taste"
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
