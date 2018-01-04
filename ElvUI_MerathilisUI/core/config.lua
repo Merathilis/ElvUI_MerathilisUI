@@ -104,12 +104,6 @@ local function AddOptions()
 						name = L["Show Merchant ItemLevel"],
 						desc = L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"],
 					},
-					chatButton = {
-						order = 10,
-						type = "toggle",
-						name = L["Chat button"],
-						desc = L["Create a chat button to increase the chat size."],
-					},
 				},
 			},
 			info = {

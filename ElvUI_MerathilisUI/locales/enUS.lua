@@ -20,7 +20,6 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
-L["Chat button"] = true
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -119,9 +118,6 @@ L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
-L["Expand the chat"] = true
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true

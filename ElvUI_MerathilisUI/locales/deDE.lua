@@ -20,7 +20,6 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 L["Desciption"] = "Beschreibung"
-L["Chat button"] = "Chat Taste"
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -120,10 +119,7 @@ L["Announce"] = "Ankündigungen"
 L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
-L["Expand the chat"] = "Chat erweitern"
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
-L["Name Hover"] = true
+L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."

@@ -39,85 +39,6 @@ function MERL:ToggleDataPanels()
 	end
 end
 
-function MERL:CreateChatButton()
-	if E.db.mui.general.chatButton ~= true then return end
-	local panelHeight
-	local panelBackdrop = E.db.chat.panelBackdrop
-	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
-	ChatButton:ClearAllPoints()
-	ChatButton:Point("TOPLEFT", 3, -5)
-	ChatButton:Size(14, 14)
-	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
-		ChatButton:SetAlpha(0)
-	else
-		ChatButton:SetAlpha(0.35)
-	end
-	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
-
-	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
-	ChatButton.tex:SetInside()
-	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
-
-	-- Monitor this, if PositionChat is ever changed with a new arg
-	-- This is Simpy Magic <3
-	hooksecurefunc(CH, "PositionChat", function(_, _, changedHeight)
-		if not changedHeight then
-			panelHeight = E.db.chat.panelHeight
-		end
-	end)
-
-	local isExpanded
-	ChatButton:SetScript("OnMouseUp", function (self, btn)
-		if InCombatLockdown() then return end
-		if btn == "LeftButton" then
-			if E.db.chat.panelHeight == 370 then
-				if panelBackdrop == 'LEFT' then
-					E.db.chat.panelHeight = panelHeight
-					isExpanded = false
-				else
-					E.db.chat.panelHeight = panelHeight
-					isExpanded = false
-				end
-				CH:PositionChat(true, true)
-			else
-				E.db.chat.panelHeight = 370
-				CH:PositionChat(true, true)
-				isExpanded = true
-			end
-		end
-	end)
-
-	ChatButton:SetScript("OnEnter", function(self)
-		self:SetAlpha(0.65)
-		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
-		GameTooltip:ClearLines()
-		if isExpanded then
-			GameTooltip:AddLine(MER:cOption(BACK))
-		else
-			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
-		end
-		GameTooltip:Show()
-		if InCombatLockdown() then GameTooltip:Hide() end
-	end)
-
-	ChatButton:SetScript("OnLeave", function(self)
-		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
-			self:SetAlpha(0)
-		else
-			self:SetAlpha(0.35)
-		end
-		GameTooltip:Hide()
-	end)
-
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("PLAYER_ENTERING_WORLD")
-	f:SetScript("OnEvent", function(self)
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		--dirty fix for chat size
-		E.db.chat.panelHeight = 155
-	end)
-end
-
 -- TopPanel
 local function SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
@@ -156,7 +77,6 @@ end
 
 function MERL:Initialize()
 	self:ToggleDataPanels()
-	self:CreateChatButton()
 	self:CreatePanels()
 end
 
