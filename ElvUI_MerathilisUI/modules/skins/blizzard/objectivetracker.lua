@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
+local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
@@ -25,7 +26,7 @@ local InCombatLockdown = InCombatLockdown
 
 -- Show Quest Count on the ObjectiveTrackerFrame
 local InCombat , a, f, _, id, cns, ncns, l, n, q, o, w = false, ...
-local nQ = CreateFrame("Frame",a)
+local nQ = CreateFrame("Frame", a)
 function f.PLAYER_LOGIN()
 	_G["WorldMapTitleButton"]:HookScript('OnClick', function(_, b, d)
 		if b == "LeftButton" and not d then
@@ -137,42 +138,35 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
 
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		local bg = _G["ObjectiveTrackerBlocksFrame"].QuestHeader:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
+	--Panels
+	hooksecurefunc("ObjectiveTracker_Update", function(self)
+		local frame = ObjectiveTrackerFrame.MODULES
+	
+		if (frame) then
+			for i = 1, #frame do
+				local Modules = frame[i]
+				if (Modules) then
+					local Header = Modules.Header
+					Header:SetFrameStrata("HIGH")
+					Header:SetFrameLevel(10)
 
-		local bg = _G["ObjectiveTrackerBlocksFrame"].AchievementHeader:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
+					local Background = Modules.Header.Background
+					Background:SetAtlas(nil)
 
-		local bg = _G["ObjectiveTrackerBlocksFrame"].ScenarioHeader:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
+					if not (Modules.IsSkinned) then
+						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
+						HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
+						HeaderPanel:SetFrameStrata("BACKGROUND")
+						HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
+						HeaderPanel:SetSize(210, 4)
+						E:GetModule("mUILayout"):SkinPanel(HeaderPanel)
 
-		local bg = _G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
-
-		local bg = _G["WORLD_QUEST_TRACKER_MODULE"].Header:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
-	end
+						Modules.IsSkinned = true
+					end
+				end
+			end
+		end
+	end)
 
 	nQ:RegisterEvent('PLAYER_LOGIN')
 	nQ:RegisterEvent('PLAYER_REGEN_DISABLED')
