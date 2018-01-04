@@ -150,9 +150,6 @@ local function styleObjectiveTracker()
 					Header:SetFrameStrata("HIGH")
 					Header:SetFrameLevel(10)
 
-					local Background = Modules.Header.Background
-					Background:SetAtlas(nil)
-
 					if not (Modules.IsSkinned) then
 						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
 						HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
