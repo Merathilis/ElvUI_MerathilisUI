@@ -155,7 +155,7 @@ local function styleObjectiveTracker()
 						HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
 						HeaderPanel:SetFrameStrata("BACKGROUND")
 						HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
-						HeaderPanel:SetSize(210, 4)
+						HeaderPanel:SetSize(210, 2)
 						E:GetModule("mUILayout"):SkinPanel(HeaderPanel)
 
 						Modules.IsSkinned = true
