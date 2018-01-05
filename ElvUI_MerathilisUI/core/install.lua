@@ -146,7 +146,7 @@ local function SetupChat()
 	E.db["chat"]["panelTabTransparency"] = true
 	E.db["chat"]["chatHistory"] = false
 	E.db["chat"]["separateSizes"] = true
-	E.db["chat"]["panelWidth"] = 367
+	E.db["chat"]["panelWidth"] = 428
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 263
@@ -519,6 +519,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["buttons"] = 10
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar3"]["mouseover"] = true
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -534,6 +535,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar5"]["buttons"] = 10
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar5"]["mouseover"] = true
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
@@ -564,7 +566,7 @@ function MER:SetupActionbars()
 	MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 269)
 	MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 50)
 	MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
-	MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 378, 50)
+	MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 439, 50)
 	MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 20)
 	MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 18)
 	MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 177, 18)
@@ -791,7 +793,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
 	E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
 	E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
-	E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 12
+	E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 10
 	E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 	E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 	E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
