@@ -28,10 +28,11 @@ function MAB:SpecBar()
 	specBar:SetFrameLevel(0)
 	specBar:SetSize(40, 40)
 	specBar:SetTemplate('Transparent')
-	specBar:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 177)
+	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
 
 	specBar.Button = {}
+	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], true, nil)
 
 	local Specs = GetNumSpecializations()
 
