@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -156,7 +157,7 @@ local function styleObjectiveTracker()
 						HeaderPanel:SetFrameStrata("BACKGROUND")
 						HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
 						HeaderPanel:SetSize(210, 2)
-						E:GetModule("mUILayout"):SkinPanel(HeaderPanel)
+						MERS:SkinPanel(HeaderPanel)
 
 						Modules.IsSkinned = true
 					end

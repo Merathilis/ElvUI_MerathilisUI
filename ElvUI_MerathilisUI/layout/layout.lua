@@ -41,14 +41,6 @@ function MER:ToggleDataPanels()
 end
 
 -- Panels
-function MERL:SkinPanel(panel)
-	panel.tex = panel:CreateTexture(nil, "ARTWORK")
-	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisFlat"))
-	panel.tex:SetGradient("VERTICAL", MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, MER.ClassColor.r/3, MER.ClassColor.g/3, MER.ClassColor.b/3)
-	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
-end
-
 function MERL:CreatePanels()
 	if E.db.mui.general.panel then
 		local topPanel = CreateFrame("Frame", MER.Title.."TopPanel", E.UIParent)
@@ -74,28 +66,28 @@ function MERL:CreatePanels()
 		topLeftStyle:SetFrameLevel(2)
 		topLeftStyle:SetSize(E.screenwidth*2/9, 4)
 		topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -10)
-		MERL:SkinPanel(topLeftStyle)
+		MERS:SkinPanel(topLeftStyle)
 
 		local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 		topRightStyle:SetFrameStrata("BACKGROUND")
 		topRightStyle:SetFrameLevel(2)
 		topRightStyle:SetSize(E.screenwidth*2/9, 4)
 		topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -10)
-		MERL:SkinPanel(topRightStyle)
+		MERS:SkinPanel(topRightStyle)
 
 		local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 		bottomLeftSytle:SetFrameStrata("BACKGROUND")
 		bottomLeftSytle:SetFrameLevel(2)
 		bottomLeftSytle:SetSize(E.screenwidth*2/9, 4)
 		bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 10)
-		MERL:SkinPanel(bottomLeftSytle)
+		MERS:SkinPanel(bottomLeftSytle)
 
 		local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 		bottomRightStyle:SetFrameStrata("BACKGROUND")
 		bottomRightStyle:SetFrameLevel(2)
 		bottomRightStyle:SetSize(E.screenwidth*2/9, 4)
 		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
-		MERL:SkinPanel(bottomRightStyle)
+		MERS:SkinPanel(bottomRightStyle)
 	end
 end
 

@@ -611,6 +611,14 @@ function MERS:LargeItemButtonTemplate(button)
 	MERS:CreateBD(bg, .2)
 end
 
+function MERS:SkinPanel(panel)
+	panel.tex = panel:CreateTexture(nil, "ARTWORK")
+	panel.tex:SetAllPoints()
+	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisFlat"))
+	panel.tex:SetGradient("VERTICAL", MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, MER.ClassColor.r/3, MER.ClassColor.g/3, MER.ClassColor.b/3)
+	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
+end
+
 -- Reskin AddOnSkins
 if not IsAddOnLoaded("AddOnSkins") then return end
 local AS = unpack(AddOnSkins)
