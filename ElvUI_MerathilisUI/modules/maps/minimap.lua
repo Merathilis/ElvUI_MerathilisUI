@@ -13,6 +13,7 @@ local _G = _G
 function MM:ChangeLandingButton()
 	if _G["GarrisonLandingPageMinimapButton"] then
 		_G["GarrisonLandingPageMinimapButton"]:SetSize(30, 30) -- needs to be set.
+		_G["GarrisonLandingPageMinimapButton"].LoopingGlow:Size(_G["GarrisonLandingPageMinimapButton"]:GetSize()*0.75)
 		_G["GarrisonLandingPageMinimapButton"]:HookScript("OnEvent", function(self)
 			self:GetNormalTexture():SetAtlas(nil)
 			self:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
