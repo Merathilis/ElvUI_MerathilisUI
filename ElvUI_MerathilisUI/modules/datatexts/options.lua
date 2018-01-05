@@ -110,10 +110,17 @@ local function Datatexts()
 					rightChatTabDatatextPanel = {
 						order = 1,
 						type = "toggle",
-						name = L["ChatTab_Datatext_Panel"],
+						name = L["ChatTab Datatext Panel"],
 						desc = L["Enable/Disable the right chat tab datatext panel."],
 						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel end,
 						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel = value; MER:ToggleDataPanels() end,
+					},
+					middle = {
+						order = 2,
+						type = "toggle",
+						name = L["Middle Datatext Panel"],
+						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:ToggleMiddleDataPanel() end,
 					},
 				},
 			},

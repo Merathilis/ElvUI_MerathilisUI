@@ -32,7 +32,7 @@ function MERL:CreateExtraDataBarPanels()
 	E:GetModule("DataTexts"):RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
 end
 
-function MERL:ToggleDataPanels()
+function MER:ToggleDataPanels()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
 		ChatTab_Datatext_Panel:Show()
 	else
@@ -40,12 +40,12 @@ function MERL:ToggleDataPanels()
 	end
 end
 
--- TopPanel
+-- Panels
 function MERL:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisBorder"))
-	panel.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisFlat"))
+	panel.tex:SetGradient("VERTICAL", MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, MER.ClassColor.r/3, MER.ClassColor.g/3, MER.ClassColor.b/3)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
@@ -60,24 +60,47 @@ function MERL:CreatePanels()
 		topPanel:SetTemplate("Transparent")
 		topPanel:Styling()
 
+		local bottomPanel = CreateFrame("Frame", MER.Title.."BottomPanel", E.UIParent)
+		bottomPanel:SetFrameStrata("BACKGROUND")
+		bottomPanel:SetPoint("BOTTOM", 0, -3)
+		bottomPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
+		bottomPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
+		bottomPanel:SetHeight(15)
+		bottomPanel:SetTemplate("Transparent")
+		bottomPanel:Styling()
+
 		local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
 		topLeftStyle:SetFrameStrata("BACKGROUND")
 		topLeftStyle:SetFrameLevel(2)
-		topLeftStyle:SetSize(E.screenwidth*2/9, 3)
-		topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 15, -10)
+		topLeftStyle:SetSize(E.screenwidth*2/9, 4)
+		topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -10)
 		MERL:SkinPanel(topLeftStyle)
 
 		local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 		topRightStyle:SetFrameStrata("BACKGROUND")
 		topRightStyle:SetFrameLevel(2)
-		topRightStyle:SetSize(E.screenwidth*2/9, 3)
-		topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -15, -10)
+		topRightStyle:SetSize(E.screenwidth*2/9, 4)
+		topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -10)
 		MERL:SkinPanel(topRightStyle)
+
+		local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
+		bottomLeftSytle:SetFrameStrata("BACKGROUND")
+		bottomLeftSytle:SetFrameLevel(2)
+		bottomLeftSytle:SetSize(E.screenwidth*2/9, 4)
+		bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 10)
+		MERL:SkinPanel(bottomLeftSytle)
+
+		local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
+		bottomRightStyle:SetFrameStrata("BACKGROUND")
+		bottomRightStyle:SetFrameLevel(2)
+		bottomRightStyle:SetSize(E.screenwidth*2/9, 4)
+		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
+		MERL:SkinPanel(bottomRightStyle)
 	end
 end
 
 function MERL:Initialize()
-	self:ToggleDataPanels()
+	MER:ToggleDataPanels()
 	self:CreatePanels()
 end
 

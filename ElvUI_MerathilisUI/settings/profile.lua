@@ -158,10 +158,6 @@ P["mui"] = {
 		["hint"] = true,
 	},
 
-	["databars"] = {
-		["enable"] = true,
-	},
-
 	["actionbars"] = {
 		["transparent"] = true,
 		["specBar"] = true,
