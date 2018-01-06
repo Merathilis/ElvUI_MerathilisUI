@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
 local MERS = E:GetModule("muiSkins")
-
+local LP = E:GetModule("LocPanel")
 --Cache global variables
 --Lua functions
 local _G = _G
@@ -34,7 +34,16 @@ local function OnLeave(button)
 	end
 end
 
-function MAB:CreateMicroBar()
+function MAB:OnClick(btn)
+	if btn == "LeftButton" then
+		E:ToggleConfig()
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	elseif btn == "RightButton" and not InCombatLockdown() then
+		LP:PopulateDropdown()
+	end
+end
+
+function MAB:CreateMicroBar(btn)
 	if E.db.mui.actionbars.microBar ~= true then return end
 
 	local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
@@ -188,7 +197,7 @@ function MAB:CreateMicroBar()
 
 	optionButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	optionButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	optionButton:SetScript("OnClick", function(self) E:ToggleConfig() PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF) end)
+	optionButton:SetScript("OnMouseUp", MAB.OnClick)
 
 	--Pet/Mounts
 	local petButton = CreateFrame("Button", nil, microBar)
