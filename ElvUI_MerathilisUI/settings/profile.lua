@@ -30,6 +30,11 @@ P["mui"] = {
 		["hideErrorFrame"] = true,
 	},
 
+	["chat"] = {
+		["chatButton"] = true,
+		["panelHeight"] = {},
+	},
+
 	["colors"] = {
 		["styleAlpha"] = 1,
 	},
@@ -161,6 +166,7 @@ P["mui"] = {
 	["actionbars"] = {
 		["transparent"] = true,
 		["specBar"] = true,
+		["microBar"] = true,
 		["buttonStyle"] = {
 			["enabled"] = false,
 			["texture"] = "MerathilisGradient",

@@ -113,6 +113,13 @@ function MER:SetStatusBarGradient(bar, hook)
 	end
 end
 
+function MER:CreateText(f, layer, fontsize, flag, justifyh)
+	local text = f:CreateFontString(nil, layer)
+	text:SetFont(E.media.normFont, fontsize, flag)
+	text:SetJustifyH(justifyh)
+	return text
+end
+
 -- Inform us of the patch info we play on.
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()

@@ -40,6 +40,76 @@ function MER:ToggleDataPanels()
 	end
 end
 
+function MERL:CreateChatButton()
+	if E.db.mui.chat.chatButton ~= true then return end
+	local panelBackdrop = E.db.chat.panelBackdrop
+	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
+	ChatButton:ClearAllPoints()
+	ChatButton:Point("TOPLEFT", 3, -5)
+	ChatButton:Size(14, 14)
+	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+		ChatButton:SetAlpha(0)
+	else
+		ChatButton:SetAlpha(0.35)
+	end
+	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
+ 
+	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
+	ChatButton.tex:SetInside()
+	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
+ 
+	ChatButton:SetScript("OnMouseUp", function (self, btn)
+		if InCombatLockdown() then return end
+		if btn == "LeftButton" then
+			if E.db.mui.chat.isExpanded then
+				E.db.chat.panelHeight = E.db.mui.chat.panelHeight
+				E.db.mui.chat.isExpanded = false
+				CH:PositionChat(true, true)
+			else
+				E.db.chat.panelHeight = 400
+				CH:PositionChat(true, true)
+				E.db.mui.chat.isExpanded = true
+			end
+		end
+	end)
+ 
+	ChatButton:SetScript("OnEnter", function(self)
+		self:SetAlpha(0.65)
+		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
+		GameTooltip:ClearLines()
+		if E.db.mui.chat.isExpanded then
+			GameTooltip:AddLine(MER:cOption(BACK))
+		else
+			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
+		end
+		GameTooltip:Show()
+		if InCombatLockdown() then GameTooltip:Hide() end
+	end)
+ 
+	ChatButton:SetScript("OnLeave", function(self)
+		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
+			self:SetAlpha(0)
+		else
+			self:SetAlpha(0.35)
+		end
+		GameTooltip:Hide()
+	end)
+ 
+	ChatButton:RegisterEvent("PLAYER_LEAVING_WORLD")
+	ChatButton:RegisterEvent("ADDON_LOADED")
+	ChatButton:SetScript("OnEvent", function(self, event, addon)
+		if event == "ADDON_LOADED" and addon == "ElvUI_Config" then
+			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; E:GetModule("Chat"):PositionChat(true); end
+			self:UnregisterEvent(event)
+		end
+		if event == "PLAYER_LEAVING_WORLD" then
+			E.db.chat.panelHeight = E.db.mui.chat.panelHeight
+			E.db.mui.chat.isExpanded = false
+			CH:PositionChat(true)
+		end
+	end)
+end
+
 -- Panels
 function MERL:CreatePanels()
 	if E.db.mui.general.panel then
@@ -93,6 +163,7 @@ end
 
 function MERL:Initialize()
 	MER:ToggleDataPanels()
+	self:CreateChatButton()
 	self:CreatePanels()
 end
 

@@ -120,6 +120,7 @@ function MAB:Initialize()
 	hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
 
 	self:SpecBar()
+	self:CreateMicroBar()
 end
 
 local function InitializeCallback()

@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERC = E:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+local MERS = E:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
 MERC.modName = L["Chat"]
 

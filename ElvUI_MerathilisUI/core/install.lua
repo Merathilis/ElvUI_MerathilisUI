@@ -364,13 +364,13 @@ function MER:SetupLayout()
 	--	Movers - Layout
 	--]]----------------------------------
 	MER:SetMoverPosition("AltPowerBarMover", "TOP", E.UIParent, "TOP" ,1, -272)
-	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 148, -26)
+	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 229, -20)
 	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -32)
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
 	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -80, -300)
-	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 14, -26)
+	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 90, -50)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
 	if E.db.mui.general.panel then
