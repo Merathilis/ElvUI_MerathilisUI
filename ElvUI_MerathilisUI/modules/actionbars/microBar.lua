@@ -50,7 +50,7 @@ function MAB:CreateMicroBar(btn)
 	local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 	microBar:SetFrameLevel(6)
 	microBar:SetSize(400, 26)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -13)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -15)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
 
@@ -183,7 +183,7 @@ function MAB:CreateMicroBar(btn)
 	optionButton.text:FontTemplate(nil, 11, "OUTLINE")
 	optionButton.text:SetText(MER.Title)
 	optionButton.text:SetPoint("CENTER", 1, 0)
-	optionButton.text:SetJustifyH('CENTER')
+	optionButton.text:SetJustifyH("CENTER")
 
 	optionButton.tex = optionButton:CreateTexture(nil, "OVERLAY") --dummy texture
 	optionButton.tex:SetPoint("BOTTOMLEFT")

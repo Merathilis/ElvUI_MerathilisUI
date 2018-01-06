@@ -378,7 +378,7 @@ function MER:SetupLayout()
 	else
 		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -2)
 	end
-	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -13)
+	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -15)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	E.db["general"]["font"] = "Expressway"
