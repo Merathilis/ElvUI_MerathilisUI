@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
 local MERS = E:GetModule("muiSkins")
 local LP = E:GetModule("LocPanel")
+
 --Cache global variables
 --Lua functions
 local _G = _G
