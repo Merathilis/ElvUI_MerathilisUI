@@ -353,7 +353,7 @@ function MER:SetupLayout()
 	--	ProfileDB - mUI
 	--]]----------------------------------
 	E.db["mui"]["uiButtons"]["enable"] = true
-	E.db["mui"]["locPanel"]["enable"] = true
+	E.db["mui"]["locPanel"]["enable"] = false
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
 	E.db["mui"]["raidmarkers"]["enable"] = false
@@ -378,6 +378,7 @@ function MER:SetupLayout()
 	else
 		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -2)
 	end
+	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -13)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 
 	E.db["general"]["font"] = "Expressway"
@@ -1331,25 +1332,9 @@ function MER:SetupDts()
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		-- define BenikUI Datetexts
-		if IsAddOnLoaded("ElvUI_SLE") then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "S&L Item Level"
-		else
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["left"] = "Haste"
-		end
-		E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["middle"] = "MUI System"
-		if IsAddOnLoaded("REKeys") then
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "REKeys"
-		else
-			E.db["datatexts"]["panels"]["BuiLeftChatDTPanel"]["right"] = "Mastery"
-		end
-
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["middle"] = "Friends"
-		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Guild"
-		if IsAddOnLoaded("ElvUI_SLE") then
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "S&L Currency"
-		else
-			E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["right"] = "Gold"
-		end
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "MUI System"
+		E.db["datatexts"]["panels"]["BuiRightChatDTPanel"]["left"] = "Friends"
+		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Guild"
 	end
 
 	-- define the default ElvUI datatexts

@@ -32,7 +32,7 @@ P["mui"] = {
 
 	["chat"] = {
 		["chatButton"] = true,
-		["panelHeight"] = {},
+		["panelHeight"] = 146,
 	},
 
 	["colors"] = {

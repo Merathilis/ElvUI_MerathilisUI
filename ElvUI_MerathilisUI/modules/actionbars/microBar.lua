@@ -7,12 +7,13 @@ local MERS = E:GetModule("muiSkins")
 local _G = _G
 
 --WoW API / Variables
+local CreateFrame = CreateFrame
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function OnHover(button)
-	buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
+	local buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
 
 	if button.tex then
 		button.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
@@ -39,11 +40,11 @@ function MAB:CreateMicroBar()
 	local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 	microBar:SetFrameLevel(6)
 	microBar:SetSize(400, 26)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -5)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -13)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
 
-	E:CreateMover(microBar, "MicroBarMover", L["MicroBarMover"], true, nil)
+	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], true, nil)
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
@@ -170,7 +171,6 @@ function MAB:CreateMicroBar()
 
 	optionButton.text = optionButton:CreateFontString(nil, 'OVERLAY')
 	optionButton.text:FontTemplate(nil, 11, "OUTLINE")
-	optionButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	optionButton.text:SetText(MER.Title)
 	optionButton.text:SetPoint("CENTER", 1, 0)
 	optionButton.text:SetJustifyH('CENTER')
