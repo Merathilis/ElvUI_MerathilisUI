@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -17,6 +18,7 @@ local buttonsize = 18
 local function CreateBG()
 	local BG = CreateFrame("Frame")
 	BG:SetTemplate("Transparent")
+	BG:Styling()
 	return BG
 end
 
@@ -128,7 +130,7 @@ local function ApplyStyle(bar)
 	bar.candyBarIconFrame.OldHeight = bar.candyBarIconFrame:GetHeight()
 	bar.candyBarIconFrame.OldSetWidth = bar.candyBarIconFrame.SetWidth
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
+	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -3, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
 	bar.candyBarIconFrame.SetWidth = MER.dummy
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
