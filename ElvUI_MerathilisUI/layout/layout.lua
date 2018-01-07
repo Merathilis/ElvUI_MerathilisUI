@@ -12,6 +12,7 @@ local _G = _G
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
+local BACK = BACK
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -103,7 +104,7 @@ function MERL:CreateChatButton()
 			self:UnregisterEvent(event)
 		end
 		if event == "PLAYER_LEAVING_WORLD" then
-			E.db.chat.panelHeight = E.db.mui.chat.panelHeight
+			E.db.chat.panelHeight = E.db.mui.chat.panelHeight or 146
 			E.db.mui.chat.isExpanded = false
 			CH:PositionChat(true)
 		end

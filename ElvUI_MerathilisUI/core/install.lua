@@ -365,7 +365,7 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	MER:SetMoverPosition("AltPowerBarMover", "TOP", E.UIParent, "TOP" ,1, -272)
 	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 229, -20)
-	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -32)
+	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -45)
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
