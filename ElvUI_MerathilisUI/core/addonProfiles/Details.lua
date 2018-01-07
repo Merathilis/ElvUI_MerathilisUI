@@ -73,128 +73,6 @@ function MER:LoadDetailsProfile()
 				}, -- [10]
 			},
 		},
-		["savedCustomSpells"] = {
-			{
-				1, -- [1]
-				"Nahkampf", -- [2]
-				"Interface\\ICONS\\INV_Sword_04", -- [3]
-			}, -- [1]
-			{
-				2, -- [1]
-				"Automatische Angriffe", -- [2]
-				"Interface\\ICONS\\INV_Weapon_Bow_07", -- [3]
-			}, -- [2]
-			{
-				4, -- [1]
-				"Umgebung: (Ertrinken)", -- [2]
-				"Interface\\ICONS\\Ability_Suffocate", -- [3]
-			}, -- [3]
-			{
-				8, -- [1]
-				"Umgebung: (Schleim)", -- [2]
-				"Interface\\ICONS\\Ability_Creature_Poison_02", -- [3]
-			}, -- [4]
-			{
-				88082, -- [1]
-				"Feuerball (Bilder spiegeln)", -- [2]
-				135812, -- [3]
-			}, -- [5]
-			{
-				94472, -- [1]
-				"Abbitte (kritisch)", -- [2]
-				135887, -- [3]
-			}, -- [6]
-			{
-				59638, -- [1]
-				"Frostblitz (Bilder spiegeln)", -- [2]
-				135846, -- [3]
-			}, -- [7]
-			{
-				5, -- [1]
-				"Umgebung: (Erschöpfung)", -- [2]
-				"Interface\\ICONS\\Spell_Arcane_MindMastery", -- [3]
-			}, -- [8]
-			{
-				158336, -- [1]
-				"Pulverisieren (Welle #1)", -- [2]
-				135242, -- [3]
-			}, -- [9]
-			{
-				3, -- [1]
-				"Umgebung: (Fallen)", -- [2]
-				"Interface\\ICONS\\Spell_Magic_FeatherFall", -- [3]
-			}, -- [10]
-			{
-				6, -- [1]
-				"Umgebung: (Feuer)", -- [2]
-				"Interface\\ICONS\\INV_SummerFest_FireSpirit", -- [3]
-			}, -- [11]
-			{
-				224078, -- [1]
-				"Schockhalsband für Teufelssaurier (trinket)", -- [2]
-				136048, -- [3]
-			}, -- [12]
-			{
-				214350, -- [1]
-				"Alptraumessenz (trinket)", -- [2]
-				1357816, -- [3]
-			}, -- [13]
-			{
-				44461, -- [1]
-				"Lebende Bombe (Explosion)", -- [2]
-				236220, -- [3]
-			}, -- [14]
-			{
-				213786, -- [1]
-				"Einbruch der Nacht (trinket)", -- [2]
-				236168, -- [3]
-			}, -- [15]
-			{
-				120761, -- [1]
-				"Glevenwurf (Glaive #2)", -- [2]
-				132330, -- [3]
-			}, -- [16]
-			{
-				121414, -- [1]
-				"Glevenwurf (Glaive #1)", -- [2]
-				132330, -- [3]
-			}, -- [17]
-			{
-				33778, -- [1]
-				"Blühendes Leben (bloom)", -- [2]
-				136041, -- [3]
-			}, -- [18]
-			{
-				7, -- [1]
-				"Umgebung: (Lava)", -- [2]
-				"Interface\\ICONS\\Ability_Rhyolith_Volcano", -- [3]
-			}, -- [19]
-			{
-				158420, -- [1]
-				"Pulverisieren (Welle #3)", -- [2]
-				135242, -- [3]
-			}, -- [20]
-			{
-				158417, -- [1]
-				"Pulverisieren (Welle #2)", -- [2]
-				135242, -- [3]
-			}, -- [21]
-			{
-				161612, -- [1]
-				"Überströmende Energie (gefangen)", -- [2]
-				841219, -- [3]
-			}, -- [22]
-			{
-				98021, -- [1]
-				"Lebenspunkte-Austausch", -- [2]
-				237586, -- [3]
-			}, -- [23]
-			{
-				161576, -- [1]
-				"Überströmende Energie (Explosion)", -- [2]
-				841219, -- [3]
-			}, -- [24]
-		},
 		["always_use_profile_exception"] = {
 		},
 		["got_first_run"] = true,
@@ -271,7 +149,7 @@ function MER:LoadDetailsProfile()
 						0, -- [3]
 						1, -- [4]
 					},
-					["fontsize"] = 10,
+					["fontsize"] = 11,
 					["background"] = {
 						0.196, -- [1]
 						0.196, -- [2]
@@ -289,7 +167,7 @@ function MER:LoadDetailsProfile()
 					["commands"] = {
 					},
 					["tooltip_max_abilities"] = 5,
-					["fontface"] = "Merathilis Roboto-Bold",
+					["fontface"] = "Expressway",
 					["border_color"] = {
 						1, -- [1]
 						1, -- [2]
@@ -740,7 +618,7 @@ function MER:LoadDetailsProfile()
 					["text_type"] = 1,
 					["minimapPos"] = 220,
 					["text_format"] = 3,
-					["hide"] = false,
+					["hide"] = true,
 				},
 				["instances_amount"] = 1,
 				["max_window_size"] = {
@@ -1440,7 +1318,7 @@ function MER:LoadDetailsProfile()
 							["texture_custom_file"] = "Interface\\",
 							["texture_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 							["icon_file"] = "Interface\\AddOns\\Details\\images\\spec_icons_normal",
-							["use_spec_icons"] = true,
+							["use_spec_icons"] = false,
 							["font_size"] = 10,
 							["textR_bracket"] = "(",
 							["textR_enable_custom_text"] = false,
@@ -1495,7 +1373,7 @@ function MER:LoadDetailsProfile()
 							["texture"] = "MerathilisUI2",
 							["fast_ps_update"] = true,
 							["textR_separator"] = ",",
-							["height"] = 14,
+							["height"] = 19,
 						},
 						["bars_inverted"] = false,
 					}, -- [1]
