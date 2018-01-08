@@ -546,6 +546,18 @@ function MERS:Reskin(f, strip, noHighlight)
 	if f.backdrop then f.backdrop:Hide() end
 	if strip then f:StripTextures() end
 
+	if f.template then
+		f:SetBackdrop(nil)
+		if f.oborder then f.oborder:SetBackdrop(nil) end
+		if f.iborder then f.iborder:SetBackdrop(nil) end
+		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
+		if f.isUnitFrameElement and E["unitFrameElements"][f] then
+			E["unitFrameElements"][f] = nil
+		elseif E["frames"][f] then
+			E["frames"][f] = nil
+		end
+	end
+
 	MERS:CreateBD(f, .0)
 
 	f.bgTex = MERS:CreateGradient(f)
