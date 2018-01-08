@@ -181,7 +181,8 @@ function MAB:CreateMicroBar(btn)
 
 	optionButton.text = optionButton:CreateFontString(nil, 'OVERLAY')
 	optionButton.text:FontTemplate(nil, 11, "OUTLINE")
-	optionButton.text:SetText(MER.Title)
+	optionButton.text:SetText("MerathilisUI")
+	optionButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	optionButton.text:SetPoint("CENTER", 1, 0)
 	optionButton.text:SetJustifyH("CENTER")
 
