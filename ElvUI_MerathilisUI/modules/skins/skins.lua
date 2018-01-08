@@ -436,7 +436,7 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 			end
 		end
@@ -444,7 +444,7 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 		if frame.ScrollUpButton and frame.ScrollDownButton then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 			end
 		end
