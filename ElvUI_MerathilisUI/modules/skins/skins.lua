@@ -748,7 +748,8 @@ hooksecurefunc(E, "UpdateBorderColors", updateBorderColors)
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
-	updateMedia() -- this is needed early for some SetTemplate frames such as TopPanel and BottomPanel
+	updateMedia() -- this is needed early for some CreateBD frames which were never added to `MERS.UpdateBorderColorFrames` or `MERS.UpdateBorderColorUnitframes`
+	-- any of these frames should be registered because when the color config changes so should the colors of the frames to avoid having to reload.
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
