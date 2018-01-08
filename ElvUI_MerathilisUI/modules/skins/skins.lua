@@ -20,8 +20,8 @@ local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
+local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
-local buttonR, buttonG, buttonB, buttonA
 
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
@@ -33,13 +33,13 @@ MERS.UpdateBorderColorUnitframes = {}
 -- Copied from ElvUI
 local function SetModifiedBackdrop(self)
 	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 -- Copied from ElvUI
 local function SetOriginalBackdrop(self)
 	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
 local buttons = {
@@ -158,7 +158,7 @@ function MERS:CreateWideShadow(f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 6, 6)
-	shadow:SetBackdrop( { 
+	shadow:SetBackdrop({
 		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
 		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
 	})
@@ -175,7 +175,7 @@ function MERS:CreateSoftShadow(f)
 	shadow:SetFrameLevel(1)
 	shadow:SetFrameStrata(f:GetFrameStrata())
 	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop( { 
+	shadow:SetBackdrop({
 		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
@@ -240,7 +240,7 @@ function MERS:CreateSoftGlow(f)
 	sglow:SetFrameLevel(1)
 	sglow:SetFrameStrata(f:GetFrameStrata())
 	sglow:SetOutside(f, 2, 2)
-	sglow:SetBackdrop( { 
+	sglow:SetBackdrop({
 		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(3),
 		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
 	})
@@ -274,7 +274,7 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
--- Taken from AddOnSkins 
+-- Taken from AddOnSkins
 function MERS:SkinTexture(frame)
 	frame:SetTexCoord(unpack(E.TexCoords))
 end
@@ -352,11 +352,9 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 
 		Frame.isInsetDone = true
 	end
-	local R, G, B = unpack(E["media"].backdropcolor)
-	local Alpha = (Template == "Transparent" and .8 or 1)
 
-	Frame:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-	Frame:SetBackdropColor(R, G, B, Alpha)
+	Frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	Frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, (Template == "Transparent" and .8 or 1))
 end
 
 function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
@@ -715,6 +713,7 @@ hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 
 -- keep the colors updated
 local function updateMedia()
+	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E["media"].rgbvaluecolor)
 	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E["media"].unitframeBorderColor)
 	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
 	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
