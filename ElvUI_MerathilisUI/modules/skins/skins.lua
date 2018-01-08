@@ -11,17 +11,23 @@ local assert, pairs, select, unpack = assert, pairs, select, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: stripes
+-- GLOBALS: AddOnSkins, stripes
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
+local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local bordercolorr, bordercolorg, bordercolorb
 local buttonR, buttonG, buttonB, buttonA
 
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
+
+-- used in our hook for S.HandleButton
+local UpdateBorderColorFrames = {}
+local UpdateBorderColorUnitframes = {}
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -392,11 +398,13 @@ end
 
 function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
+
 	f:SetBackdrop({
 		bgFile = E["media"].blankTex,
 		edgeFile = E["media"].blankTex,
 		edgeSize = E.mult,
 	})
+
 	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
@@ -444,7 +452,6 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 		end
 	end
 end
-hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
@@ -455,7 +462,6 @@ function MERS:ReskinTab(tab)
 		tab.backdrop:Styling()
 	end
 end
-hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 
 function MERS:CreateBackdropTexture(f)
 	assert(f, "doesn't exist!")
@@ -502,7 +508,12 @@ local function clearButton(f)
 	if not f then return end
 
 	f:SetBackdropColor(0, 0, 0, 0)
-	f:SetBackdropBorderColor(0, 0, 0)
+
+	if f.isUnitFrameElement then
+		f:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
+	else
+		f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	end
 end
 
 local blizzardRegions = {
@@ -551,14 +562,20 @@ function MERS:Reskin(f, strip, noHighlight)
 		if f.oborder then f.oborder:SetBackdrop(nil) end
 		if f.iborder then f.iborder:SetBackdrop(nil) end
 		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
+
+		-- now we unregister it from elvui's element update for styling
+		-- and we hook our own here: updateBorderColors
+		-- which does the same but only for the elements border
 		if f.isUnitFrameElement and E["unitFrameElements"][f] then
 			E["unitFrameElements"][f] = nil
+			UpdateBorderColorUnitframes[f] = true
 		elseif E["frames"][f] then
 			E["frames"][f] = nil
+			UpdateBorderColorFrames[f] = true
 		end
 	end
 
-	MERS:CreateBD(f, .0)
+	MERS:CreateBD(f, 0)
 
 	f.bgTex = MERS:CreateGradient(f)
 
@@ -567,7 +584,6 @@ function MERS:Reskin(f, strip, noHighlight)
 		f:HookScript("OnLeave", clearButton)
 	end
 end
-hooksecurefunc(S, "HandleButton", MERS.Reskin)
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
@@ -591,7 +607,6 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	ch:SetDesaturated(true)
 	ch:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 end
-hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 
 function MERS:ReskinIcon(icon)
 	icon:SetTexCoord(unpack(E.TexCoords))
@@ -633,72 +648,114 @@ function MERS:SkinPanel(panel)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
--- Reskin AddOnSkins
-if not IsAddOnLoaded("AddOnSkins") then return end
-local AS = unpack(AddOnSkins)
+function MERS:ReskinAS(AS)
+	-- Reskin AddOnSkins
+	local BlizzardRegions = {
+		"Left",
+		"Middle",
+		"Right",
+		"Mid",
+		"LeftDisabled",
+		"MiddleDisabled",
+		"RightDisabled",
+	}
 
-local BlizzardRegions = {
-	"Left",
-	"Middle",
-	"Right",
-	"Mid",
-	"LeftDisabled",
-	"MiddleDisabled",
-	"RightDisabled",
-}
+	function AS:SkinTab(Tab, Strip)
+		if Tab.isSkinned then return end
+		local TabName = Tab:GetName()
 
-function AS:SkinTab(Tab, Strip)
-	if Tab.isSkinned then return end
-	local TabName = Tab:GetName()
-
-	if TabName then
-		for _, Region in pairs(BlizzardRegions) do
-			if _G[TabName..Region] then
-				_G[TabName..Region]:SetTexture(nil)
+		if TabName then
+			for _, Region in pairs(BlizzardRegions) do
+				if _G[TabName..Region] then
+					_G[TabName..Region]:SetTexture(nil)
+				end
 			end
 		end
-	end
 
-	for _, Region in pairs(BlizzardRegions) do
-		if Tab[Region] then
-			Tab[Region]:SetAlpha(0)
+		for _, Region in pairs(BlizzardRegions) do
+			if Tab[Region] then
+				Tab[Region]:SetAlpha(0)
+			end
 		end
-	end
 
-	if Tab.GetHighlightTexture and Tab:GetHighlightTexture() then
-		Tab:GetHighlightTexture():SetTexture(nil)
-	else
-		Strip = true
-	end
-
-	if Strip then
-		AS:StripTextures(Tab)
-	end
-
-	AS:CreateBackdrop(Tab)
-
-	if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
-		-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
-		if Tab.backdrop then
-			Tab.Backdrop:Hide()
+		if Tab.GetHighlightTexture and Tab:GetHighlightTexture() then
+			Tab:GetHighlightTexture():SetTexture(nil)
 		else
-			AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
-			Tab.Backdrop:Styling()
+			Strip = true
+		end
+
+		if Strip then
+			AS:StripTextures(Tab)
+		end
+
+		AS:CreateBackdrop(Tab)
+
+		if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
+			-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
+			if Tab.backdrop then
+				Tab.Backdrop:Hide()
+			else
+				AS:SetTemplate(Tab.Backdrop, "Transparent") -- Set it to transparent
+				Tab.Backdrop:Styling()
+			end
+		end
+
+		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
+		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
+
+		Tab.isSkinned = true
+	end
+end
+
+-- hook the skin functions
+hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
+hooksecurefunc(S, "HandleButton", MERS.Reskin)
+hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
+hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
+
+-- keep the colors updated
+local function updateMedia()
+	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E["media"].unitframeBorderColor)
+	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
+	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
+	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
+end
+hooksecurefunc(E, "UpdateMedia", updateMedia)
+
+-- hook to keep our handlebutton buttons border the correct color
+local function updateBorderColors()
+	for frame, _ in pairs(UpdateBorderColorFrames) do
+		if frame and not frame.ignoreUpdates then
+			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
+				frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+			end
+		else
+			UpdateBorderColorFrames[frame] = nil;
 		end
 	end
 
-	Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-	Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
-
-	Tab.isSkinned = true
+	for frame, _ in pairs(UpdateBorderColorUnitframes) do
+		if frame and not frame.ignoreUpdates then
+			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
+				frame:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
+			end
+		else
+			UpdateBorderColorUnitframes[frame] = nil;
+		end
+	end
 end
+hooksecurefunc(E, "UpdateBorderColors", updateBorderColors)
 
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
-	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
-	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
-	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
+	updateMedia()
+
+	if IsAddOnLoaded("AddOnSkins") then
+		if AddOnSkins then
+			MERS:ReskinAS(unpack(AddOnSkins))
+		end
+	end
 end
 
 local function InitializeCallback()
