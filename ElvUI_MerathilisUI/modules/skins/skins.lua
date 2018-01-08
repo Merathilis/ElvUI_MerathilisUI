@@ -26,8 +26,8 @@ local buttonR, buttonG, buttonB, buttonA
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 -- used in our hook for S.HandleButton
-local UpdateBorderColorFrames = {}
-local UpdateBorderColorUnitframes = {}
+MERS.UpdateBorderColorFrames = {}
+MERS.UpdateBorderColorUnitframes = {}
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -568,10 +568,10 @@ function MERS:Reskin(f, strip, noHighlight)
 		-- which does the same but only for the elements border
 		if f.isUnitFrameElement and E["unitFrameElements"][f] then
 			E["unitFrameElements"][f] = nil
-			UpdateBorderColorUnitframes[f] = true
+			MERS.UpdateBorderColorUnitframes[f] = true
 		elseif E["frames"][f] then
 			E["frames"][f] = nil
-			UpdateBorderColorFrames[f] = true
+			MERS.UpdateBorderColorFrames[f] = true
 		end
 	end
 
@@ -724,23 +724,23 @@ hooksecurefunc(E, "UpdateMedia", updateMedia)
 
 -- hook to keep our handlebutton buttons border the correct color
 local function updateBorderColors()
-	for frame, _ in pairs(UpdateBorderColorFrames) do
+	for frame, _ in pairs(MERS.UpdateBorderColorFrames) do
 		if frame and not frame.ignoreUpdates then
 			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
 				frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 			end
 		else
-			UpdateBorderColorFrames[frame] = nil;
+			MERS.UpdateBorderColorFrames[frame] = nil;
 		end
 	end
 
-	for frame, _ in pairs(UpdateBorderColorUnitframes) do
+	for frame, _ in pairs(MERS.UpdateBorderColorUnitframes) do
 		if frame and not frame.ignoreUpdates then
 			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
 				frame:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 			end
 		else
-			UpdateBorderColorUnitframes[frame] = nil;
+			MERS.UpdateBorderColorUnitframes[frame] = nil;
 		end
 	end
 end
