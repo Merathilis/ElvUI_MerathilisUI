@@ -748,7 +748,7 @@ hooksecurefunc(E, "UpdateBorderColors", updateBorderColors)
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
-	updateMedia()
+	updateMedia() -- this is needed early for some SetTemplate frames such as TopPanel and BottomPanel
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
