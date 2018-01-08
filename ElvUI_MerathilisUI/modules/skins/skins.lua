@@ -12,13 +12,16 @@ local assert, pairs, select, unpack = assert, pairs, select, unpack
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: stripes, StartGlow, StopGlow, ElvUI
+-- GLOBALS: stripes
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local bordercolorr, bordercolorg, bordercolorb
+local buttonR, buttonG, buttonB, buttonA
+
+local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
@@ -421,15 +424,6 @@ function MERS:StripTextures(Object, Kill, Alpha)
 	end
 end
 
-function MERS:SkinStatusBar(frame, ClassColor)
-	MERS:SkinBackdropFrame(frame)
-	frame:SetStatusBarTexture(AS.NormTex)
-	if ClassColor then
-		frame:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	end
-	ElvUI[1]:RegisterStatusBar(_G["Frame"])
-end
-
 -- ClassColored ScrollBars
 function MERS:ReskinScrollBar(frame, thumbTrim)
 	if frame:GetName() then
@@ -497,60 +491,68 @@ function MERS:CreatePulse(frame, speed, alpha, mult)
 	end)
 end
 
-local function StartGlow(f)
-	if not f:IsEnabled() then return end
-	f:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .5)
-	f:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	if not E.PixelMode then
-		f.glow:SetAlpha(1)
-		MERS:CreatePulse(f.glow)
-	end
+local function colorButton(f)
+	if not f then return end
+
+	f:SetBackdropColor(r, g, b, .3)
+	f:SetBackdropBorderColor(r, g, b)
 end
 
-local function StopGlow(f)
+local function clearButton(f)
+	if not f then return end
+
 	f:SetBackdropColor(0, 0, 0, 0)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	f.glow:SetScript("OnUpdate", nil)
-	f.glow:SetAlpha(0)
+	f:SetBackdropBorderColor(0, 0, 0)
 end
 
-function MERS:Reskin(f, noGlow)
+local blizzardRegions = {
+	"Left",
+	"Middle",
+	"Right",
+	"Mid",
+	"LeftDisabled",
+	"MiddleDisabled",
+	"RightDisabled",
+	"LeftSeparator",
+	"RightSeparator",
+}
+
+function MERS:SkinFrame(frame, template, override, kill)
+	if not template then template = "Transparent" end
+	if not override then MERS:StripTextures(frame, kill) end
+	MERS:SetTemplate(frame, template)
+end
+
+-- Buttons
+function MERS:Reskin(f, strip, noHighlight)
 	assert(f, "doesn't exist!")
 
-	if f.SetNormalTexture then f:SetNormalTexture("") end
-	if f.SetHighlightTexture then f:SetHighlightTexture("") end
-	if f.SetPushedTexture then f:SetPushedTexture("") end
+	f:SetNormalTexture("")
+	f:SetHighlightTexture("")
+	f:SetPushedTexture("")
+	f:SetDisabledTexture("")
 
-	if f.SetDisabledTexture then f:SetDisabledTexture("") end
-	if f.Left then f.Left:SetAlpha(0) end
-	if f.Middle then f.Middle:SetAlpha(0) end
-	if f.Right then f.Right:SetAlpha(0) end
-	if f.LeftSeparator then f.LeftSeparator:Hide() end
-	if f.RightSeparator then f.RightSeparator:Hide() end
+	local buttonName = f:GetName()
 
-	if f.backdrop then f.backdrop:Hide() end
-
-	MERS:CreateBackdropTexture(f)
-	f.backdropTexture:SetAlpha(0.75)
-
-	if not noGlow then
-		f.glow = CreateFrame("Frame", nil, f)
-		f.glow:SetBackdrop({
-			edgeFile = E["media"].glow,
-			edgeSize = E:Scale(4),
-		})
-		f.glow:SetOutside(f, 4, 4)
-		f.glow:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		f.glow:SetAlpha(0)
-
-		f:HookScript("OnEnter", StartGlow)
-		f:HookScript("OnLeave", StopGlow)
+	for _, region in pairs(blizzardRegions) do
+		if buttonName and _G[buttonName..region] then
+			_G[buttonName..region]:SetAlpha(0)
+		end
+		if f[region] then
+			f[region]:SetAlpha(0)
+		end
 	end
 
-	if not f.tex then
-		f.tex = MERS:CreateGradient(f)
-	else
-		f.gradient = MERS:CreateGradient(f)
+	if f.backdrop then f.backdrop:Hide() end
+	if strip then f:StripTextures() end
+
+	MERS:CreateBD(f, .0)
+
+	f.bgTex = MERS:CreateGradient(f)
+
+	if not noHighlight then
+		f:HookScript("OnEnter", colorButton)
+		f:HookScript("OnLeave", clearButton)
 	end
 end
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
