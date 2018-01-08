@@ -16,6 +16,7 @@ local DecorAddons = {
 	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
+	{"Postal", L["Postal"], "po"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 }
 
