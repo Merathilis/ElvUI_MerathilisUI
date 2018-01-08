@@ -203,7 +203,7 @@ function MAB:CreateMicroBar(btn)
 
 	--Pet/Mounts
 	local petButton = CreateFrame("Button", nil, microBar)
-	petButton:SetPoint("LEFT", optionButton, "RIGHT", 10, 0)
+	petButton:SetPoint("LEFT", optionButton, "RIGHT", 12, 0)
 	petButton:SetSize(32, 32)
 	petButton:SetFrameLevel(6)
 
