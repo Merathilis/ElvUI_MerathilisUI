@@ -23,6 +23,13 @@ local function styleHelp()
 	for i = 1, #frames do
 		_G[frames[i]]:Styling()
 	end
+
+	if _G["HelpFrameHeader"].backdrop then
+		_G["HelpFrameHeader"].backdrop:Hide()
+	end
+
+	MERS:CreateBD(_G["HelpFrameHeader"], .65)
+	_G["HelpFrameHeader"]:Styling()
 end
 
 S:AddCallback("mUIHelp", styleHelp)
