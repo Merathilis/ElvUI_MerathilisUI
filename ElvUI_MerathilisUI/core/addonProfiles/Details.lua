@@ -1370,7 +1370,7 @@ function MER:LoadDetailsProfile()
 							["texture_background_file"] = "Interface\BUTTONS\WHITE8X8.blp",
 							["font_face"] = "Expressway",
 							["texture_class_colors"] = true,
-							["texture"] = "MerathilisUI2",
+							["texture"] = "MerathilisFlat",
 							["fast_ps_update"] = true,
 							["textR_separator"] = ",",
 							["height"] = 19,
