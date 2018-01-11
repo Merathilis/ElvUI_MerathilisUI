@@ -37,12 +37,16 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
 	E.db["benikui"]["datatexts"]["garrison"]["currency"] = true
 	E.db["benikui"]["datatexts"]["garrison"]["oil"] = true
+	E.db["benikuiDatabars"]["experience"]["enable"] = false
 	E.db["benikuiDatabars"]["experience"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
+	E.db["benikuiDatabars"]["reputation"]["enable"] = false
 	E.db["benikuiDatabars"]["reputation"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["reputation"]["buiStyle"] = false
+	E.db["benikuiDatabars"]["artifact"]["enable"] = false
 	E.db["benikuiDatabars"]["artifact"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["artifact"]["buiStyle"] = false
+	E.db["benikuiDatabars"]["honor"]["enable"] = false
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["honor"]["buiStyle"] = false
 	E.db["benikui"]["unitframes"]["misc"]["svui"] = true
