@@ -194,7 +194,7 @@ OrderHall_eframe:SetScript("OnEvent", function(self, event, arg1)
 				end
 
 				OrderHallCommandBar.ClassIcon:ClearAllPoints()
-				OrderHallCommandBar.ClassIcon:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 15, -20)
+				OrderHallCommandBar.ClassIcon:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -20)
 				OrderHallCommandBar.ClassIcon:SetSize(40, 20)
 				OrderHallCommandBar.ClassIcon:SetAlpha(1)
 				local bg = MERS:CreateBDFrame(OrderHallCommandBar.ClassIcon, 0)
