@@ -18,7 +18,7 @@ local BACK = BACK
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
-local cp = "|cff319f1b" -- +
+local cp = "|cFF00c0fa" -- +
 local cm = "|cff9a1212" -- -
 
 function MERL:LoadLayout()
@@ -122,7 +122,7 @@ local function ShowOrHideBar5(bar, button)
 	elseif E.db.actionbar.bar5.enabled == false then
 		E.db.actionbar.bar5.enabled = true
 	end
-	AB:UpdateButtonSettings('bar5');
+	AB:UpdateButtonSettings("bar5")
 end
 
 local function ShowOrHideBar3(bar, button)
@@ -131,7 +131,7 @@ local function ShowOrHideBar3(bar, button)
 	elseif E.db.actionbar.bar3.enabled == false then
 		E.db.actionbar.bar3.enabled = true
 	end
-	AB:UpdateButtonSettings('bar3');
+	AB:UpdateButtonSettings("bar3")
 end
 
 local function MoveButtonBar(button, bar)
@@ -217,7 +217,7 @@ function MERL:CreatePanels()
 		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
 		MERS:SkinPanel(bottomRightStyle)
 
-		local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
+		local MerathilisUIButton1 = CreateFrame("Button", MER.Title.."Button1", E.UIParent)
 		MerathilisUIButton1:SetTemplate("Default", true)
 		MerathilisUIButton1:RegisterForClicks("AnyUp")
 		MerathilisUIButton1:Size(12, 12)
@@ -233,18 +233,13 @@ function MERL:CreatePanels()
 			MerathilisUIButton1.text:SetText(cp.."+|r")
 		end
 
-		MerathilisUIButton1.tex = MerathilisUIButton1:CreateTexture(nil, 'OVERLAY')
-		MerathilisUIButton1.tex:SetInside()
-		MerathilisUIButton1.tex:SetTexture(E['media'].muiFlat)
-		MerathilisUIButton1.tex:SetVertexColor(unpack(E['media'].rgbvaluecolor))
-
 		MerathilisUIButton1:SetScript("OnClick", function(self, btn)
 			if btn == "LeftButton" then
 				UpdateBar5(self, _G["ElvUI_Bar5"])
 			end
 		end)
 
-		local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
+		local MerathilisUIButton2 = CreateFrame("Button", MER.Title.."Button2", E.UIParent)
 		MerathilisUIButton2:SetTemplate("Default", true)
 		MerathilisUIButton2:RegisterForClicks("AnyUp")
 		MerathilisUIButton2:Size(12, 12)
@@ -259,11 +254,6 @@ function MERL:CreatePanels()
 		else
 			MerathilisUIButton2.text:SetText(cp.."+|r")
 		end
-
-		MerathilisUIButton2.tex = MerathilisUIButton2:CreateTexture(nil, 'OVERLAY')
-		MerathilisUIButton2.tex:SetInside()
-		MerathilisUIButton2.tex:SetTexture(E['media'].muiFlat)
-		MerathilisUIButton2.tex:SetVertexColor(unpack(E['media'].rgbvaluecolor))
 
 		MerathilisUIButton2:SetScript("OnClick", function(self, btn)
 			if btn == "LeftButton" then
