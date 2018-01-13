@@ -2,12 +2,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
 local MERS = E:GetModule("muiSkins")
 local LSM = LibStub("LibSharedMedia-3.0")
+local AB = E:GetModule('ActionBars')
 local CH = E:GetModule("Chat")
 local LO = E:GetModule("Layout")
 
 --Cache global variables
 --Lua functions
 local _G = _G
+local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
@@ -15,6 +17,9 @@ local GameTooltip = _G["GameTooltip"]
 local BACK = BACK
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
+
+local cp = "|cff319f1b" -- +
+local cm = "|cff9a1212" -- -
 
 function MERL:LoadLayout()
 	--Create extra panels
@@ -111,6 +116,58 @@ function MERL:CreateChatButton()
 	end)
 end
 
+local function ShowOrHideBar5(bar, button)
+	if E.db.actionbar.bar5.enabled == true then
+		E.db.actionbar.bar5.enabled = false
+	elseif E.db.actionbar.bar5.enabled == false then
+		E.db.actionbar.bar5.enabled = true
+	end
+	AB:UpdateButtonSettings('bar5');
+end
+
+local function ShowOrHideBar3(bar, button)
+	if E.db.actionbar.bar3.enabled == true then
+		E.db.actionbar.bar3.enabled = false
+	elseif E.db.actionbar.bar3.enabled == false then
+		E.db.actionbar.bar3.enabled = true
+	end
+	AB:UpdateButtonSettings('bar3');
+end
+
+local function MoveButtonBar(button, bar)
+	if button == MerathilisUIButton1 then
+		if E.db.actionbar.bar5.enabled == true then
+			button.text:SetText(cm.."-|r")
+		else
+			button.text:SetText(cp.."+|r")
+		end
+	end
+
+	if button == MerathilisUIButton2 then
+		if E.db.actionbar.bar3.enabled == true then
+			button.text:SetText(cm.."-|r")
+		else
+			button.text:SetText(cp.."+|r")
+		end
+	end
+end
+
+local function UpdateBar5(self, bar)
+	if InCombatLockdown() then MER:Print(ERR_NOT_IN_COMBAT) return end
+	local button = self
+
+	ShowOrHideBar5(bar, button)
+	MoveButtonBar(button, bar)
+end
+
+local function UpdateBar3(self, bar)
+	if InCombatLockdown() then MER:Print(ERR_NOT_IN_COMBAT) return end
+	local button = self
+
+	ShowOrHideBar3(bar, button)
+	MoveButtonBar(button, bar)
+end
+
 -- Panels
 function MERL:CreatePanels()
 	if E.db.mui.general.panel then
@@ -159,6 +216,60 @@ function MERL:CreatePanels()
 		bottomRightStyle:SetSize(E.screenwidth*2/9, 4)
 		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
 		MERS:SkinPanel(bottomRightStyle)
+
+		local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
+		MerathilisUIButton1:SetTemplate("Default", true)
+		MerathilisUIButton1:RegisterForClicks("AnyUp")
+		MerathilisUIButton1:Size(12, 12)
+		MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
+		MerathilisUIButton1:StyleButton()
+
+		MerathilisUIButton1.text = MerathilisUIButton1:CreateFontString(nil, "OVERLAY")
+		MerathilisUIButton1.text:SetFont(E["media"].normFont, 11)
+		MerathilisUIButton1.text:Point("CENTER", 1, 0)
+		if E.db.actionbar.bar5.enabled == true then -- double check for login
+			MerathilisUIButton1.text:SetText(cm.."-|r")
+		else
+			MerathilisUIButton1.text:SetText(cp.."+|r")
+		end
+
+		MerathilisUIButton1.tex = MerathilisUIButton1:CreateTexture(nil, 'OVERLAY')
+		MerathilisUIButton1.tex:SetInside()
+		MerathilisUIButton1.tex:SetTexture(E['media'].muiFlat)
+		MerathilisUIButton1.tex:SetVertexColor(unpack(E['media'].rgbvaluecolor))
+
+		MerathilisUIButton1:SetScript("OnClick", function(self, btn)
+			if btn == "LeftButton" then
+				UpdateBar5(self, _G["ElvUI_Bar5"])
+			end
+		end)
+
+		local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
+		MerathilisUIButton2:SetTemplate("Default", true)
+		MerathilisUIButton2:RegisterForClicks("AnyUp")
+		MerathilisUIButton2:Size(12, 12)
+		MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
+		MerathilisUIButton2:StyleButton()
+
+		MerathilisUIButton2.text = MerathilisUIButton2:CreateFontString(nil, "OVERLAY")
+		MerathilisUIButton2.text:SetFont(E["media"].normFont, 11)
+		MerathilisUIButton2.text:Point("CENTER", 0, 0)
+		if E.db.actionbar.bar3.enabled == true then -- double check for login
+			MerathilisUIButton2.text:SetText(cm.."-|r")
+		else
+			MerathilisUIButton2.text:SetText(cp.."+|r")
+		end
+
+		MerathilisUIButton2.tex = MerathilisUIButton2:CreateTexture(nil, 'OVERLAY')
+		MerathilisUIButton2.tex:SetInside()
+		MerathilisUIButton2.tex:SetTexture(E['media'].muiFlat)
+		MerathilisUIButton2.tex:SetVertexColor(unpack(E['media'].rgbvaluecolor))
+
+		MerathilisUIButton2:SetScript("OnClick", function(self, btn)
+			if btn == "LeftButton" then
+				UpdateBar3(self, _G["ElvUI_Bar3"])
+			end
+		end)
 	end
 end
 
