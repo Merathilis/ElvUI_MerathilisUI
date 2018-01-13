@@ -25,7 +25,7 @@ P["mui"] = {
 			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
-		["panel"] = true,
+		["panels"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
 	},

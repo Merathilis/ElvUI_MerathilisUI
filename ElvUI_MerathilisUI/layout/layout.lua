@@ -170,7 +170,7 @@ end
 
 -- Panels
 function MERL:CreatePanels()
-	if E.db.mui.general.panel then
+	if E.db.mui.general.panels then
 		local topPanel = CreateFrame("Frame", MER.Title.."TopPanel", E.UIParent)
 		topPanel:SetFrameStrata("BACKGROUND")
 		topPanel:SetPoint("TOP", 0, 3)

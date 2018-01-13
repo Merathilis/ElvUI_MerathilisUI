@@ -62,14 +62,14 @@ local function SkinsTable()
 					closeButton = {
 						order = 2,
 						type = "toggle",
-						name = L["MerathilisUI CloseButton"],
+						name = L["MerathilisUI "]..CLOSE,
 						get = function(info) return E.private.muiSkins[ info[#info] ] end,
 						set = function(info, value) E.private.muiSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					panel = {
+					panels = {
 						order = 3,
 						type = "toggle",
-						name = L["Top Panel"],
+						name = L["MerathilisUI Panels"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
