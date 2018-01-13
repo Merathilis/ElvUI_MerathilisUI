@@ -2,8 +2,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
 local MERS = E:GetModule("muiSkins")
 local LSM = LibStub("LibSharedMedia-3.0")
-local AB = E:GetModule('ActionBars')
+local AB = E:GetModule("ActionBars")
 local CH = E:GetModule("Chat")
+local DT = E:GetModule("DataTexts")
 local LO = E:GetModule("Layout")
 
 --Cache global variables
@@ -21,6 +22,8 @@ local BACK = BACK
 local cp = "|cFF00c0fa" -- +
 local cm = "|cff9a1212" -- -
 
+local PANEL_HEIGHT = 19;
+
 function MERL:LoadLayout()
 	--Create extra panels
 	MERL:CreateExtraDataBarPanels()
@@ -29,21 +32,58 @@ hooksecurefunc(LO, "Initialize", MERL.LoadLayout)
 
 function MERL:CreateExtraDataBarPanels()
 	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", RightChatPanel)
-	chattab:SetScript("OnShow", function(self)
-		chattab:SetPoint("TOPRIGHT", RightChatTab, "TOPRIGHT", 0, 0)
-		chattab:SetPoint("BOTTOMLEFT", RightChatTab, "BOTTOMLEFT", 0, 0)
-	end)
-	chattab:Hide()
+	chattab:SetPoint("TOPRIGHT", RightChatTab, "TOPRIGHT", 0, 0)
+	chattab:SetPoint("BOTTOMLEFT", RightChatTab, "BOTTOMLEFT", 0, 0)
 	E.FrameLocks["ChatTab_Datatext_Panel"] = true
-	E:GetModule("DataTexts"):RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
+	DT:RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
+
+	local mUIMiddleDTPanel = CreateFrame("Frame", "mUIMiddleDTPanel", E.UIParent)
+	E.FrameLocks["mUIMiddleDTPanel"] = true
+	DT:RegisterPanel(mUIMiddleDTPanel, 3, "ANCHOR_BOTTOM", 0, 0)
 end
 
-function MER:ToggleDataPanels()
+function MERL:MiddleDatatextLayout()
+	local db = E.db.mui.datatexts.middle
+
+	if db.enable then
+		mUIMiddleDTPanel:Show()
+	else
+		mUIMiddleDTPanel:Hide()
+	end
+
+	if not db.backdrop then
+		mUIMiddleDTPanel:SetTemplate("NoBackdrop")
+	else
+		if db.transparent then
+			mUIMiddleDTPanel:SetTemplate("Transparent")
+		else
+			mUIMiddleDTPanel:SetTemplate("Default", true)
+		end
+	end
+end
+
+function MERL:ToggleChatPanel()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
 		ChatTab_Datatext_Panel:Show()
 	else
 		ChatTab_Datatext_Panel:Hide()
 	end
+end
+
+function MERL:MiddleDatatextDimensions()
+	local db = E.db.mui.datatexts.middle
+	mUIMiddleDTPanel:Width(db.width)
+	mUIMiddleDTPanel:Height(db.height)
+	DT:UpdateAllDimensions()
+end
+
+function MERL:ChangeLayout()
+	-- Middle DT Panel
+	mUIMiddleDTPanel:SetFrameStrata("BACKGROUND")
+	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
+	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
+	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
+	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
 end
 
 function MERL:CreateChatButton()
@@ -263,10 +303,16 @@ function MERL:CreatePanels()
 	end
 end
 
+function MERL:regEvents()
+	self:MiddleDatatextLayout()
+	self:MiddleDatatextDimensions()
+end
+
 function MERL:Initialize()
-	MER:ToggleDataPanels()
-	self:CreateChatButton()
 	self:CreatePanels()
+	self:ChangeLayout()
+	self:regEvents()
+	self:CreateChatButton()
 end
 
 local function InitializeCallback()

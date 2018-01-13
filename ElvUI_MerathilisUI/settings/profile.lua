@@ -137,11 +137,24 @@ P["mui"] = {
 		["rightChatTabDatatextPanel"] = true,
 		["panels"] = {
 			["ChatTab_Datatext_Panel"] = {
-				["left"] = "Call to Arms",
-				["middle"] = "Coords",
-				["right"] = "Bags",
+				["left"] = "Durability",
+				["middle"] = "Bags",
+				["right"] = "Coords",
+			},
+			["mUIMiddleDTPanel"] = {
+				["left"] = "Guild",
+				["middle"] = "MUI System",
+				["right"] = "Friends",
 			},
 		},
+		["middle"] = {
+			["enable"] = true,
+			["transparent"] = true,
+			["backdrop"] = false,
+			["width"] = 495,
+			["height"] = 18,
+		},
+
 		["threatBar"] = {
 			["enable"] = true,
 			["textSize"] = 10,

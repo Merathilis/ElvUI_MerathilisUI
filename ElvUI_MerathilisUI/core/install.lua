@@ -1315,7 +1315,6 @@ function MER:SetupDts()
 	E.db["datatexts"]["minimapBottom"] = true
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
-
 	if IsAddOnLoaded("Skada") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
 	elseif IsAddOnLoaded("REKeys") then
@@ -1332,12 +1331,9 @@ function MER:SetupDts()
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Bags"
 	end
 
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		-- define BenikUI Datetexts
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["middle"] = "MUI System"
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["left"] = "Guild"
-		E.db["datatexts"]["panels"]["BuiMiddleDTPanel"]["right"] = "Friends"
-	end
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "MUI System"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Friends"
 
 	-- define the default ElvUI datatexts
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""

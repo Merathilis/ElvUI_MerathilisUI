@@ -167,8 +167,8 @@ L["TradeSkill Tabs"] = "Berufsfenster Tabs"
 L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
 
 -- DataTexts
-L["ChatTab_Datatext_Panel"] = "Rechter ChatTab Infotextleisten"
-L["Enable/Disable the right chat tab datatext panel."] = "Aktivert/Deaktiviert die rechten ChatTab Infoleisten."
+L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
+L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
