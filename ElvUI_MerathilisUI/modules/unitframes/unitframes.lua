@@ -36,6 +36,7 @@ function MUF:Initialize()
 
 	self:InitPlayer()
 	self:InitTarget()
+	self:InitPet()
 
 	-- self:InitParty()
 	-- self:InitRaid()
