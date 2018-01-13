@@ -25,10 +25,6 @@ local bordercolorr, bordercolorg, bordercolorb
 
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
--- used in our hook for S.HandleButton
-MERS.UpdateBorderColorFrames = {}
-MERS.UpdateBorderColorUnitframes = {}
-
 -- Code taken from CodeNameBlaze
 -- Copied from ElvUI
 local function SetModifiedBackdrop(self)
@@ -561,16 +557,8 @@ function MERS:Reskin(f, strip, noHighlight)
 		if f.iborder then f.iborder:SetBackdrop(nil) end
 		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
 
-		-- now we unregister it from elvui's element update for styling
-		-- and we hook our own here: updateBorderColors
-		-- which does the same but only for the elements border
-		if f.isUnitFrameElement and E["unitFrameElements"][f] then
-			E["unitFrameElements"][f] = nil
-			MERS.UpdateBorderColorUnitframes[f] = true
-		elseif E["frames"][f] then
-			E["frames"][f] = nil
-			MERS.UpdateBorderColorFrames[f] = true
-		end
+		f.ignoreFrameTemplates = true
+		f.ignoreBackdropColors = true
 	end
 
 	MERS:CreateBD(f, 0)
@@ -721,35 +709,10 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
--- hook to keep our handlebutton buttons border the correct color
-local function updateBorderColors()
-	for frame, _ in pairs(MERS.UpdateBorderColorFrames) do
-		if frame and not frame.ignoreUpdates then
-			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
-				frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-			end
-		else
-			MERS.UpdateBorderColorFrames[frame] = nil;
-		end
-	end
-
-	for frame, _ in pairs(MERS.UpdateBorderColorUnitframes) do
-		if frame and not frame.ignoreUpdates then
-			if frame.template == 'Default' or frame.template == 'Transparent' or frame.template == nil then
-				frame:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
-			end
-		else
-			MERS.UpdateBorderColorUnitframes[frame] = nil;
-		end
-	end
-end
-hooksecurefunc(E, "UpdateBorderColors", updateBorderColors)
-
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
-	updateMedia() -- this is needed early for some CreateBD frames which were never added to `MERS.UpdateBorderColorFrames` or `MERS.UpdateBorderColorUnitframes`
-	-- any of these frames should be registered because when the color config changes so should the colors of the frames to avoid having to reload.
+	updateMedia()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
