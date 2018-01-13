@@ -520,7 +520,6 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["buttons"] = 10
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
-	E.db["actionbar"]["bar3"]["mouseover"] = true
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -536,7 +535,6 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar5"]["buttons"] = 10
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
-	E.db["actionbar"]["bar5"]["mouseover"] = true
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
