@@ -214,9 +214,9 @@ function MER:SetupLayout()
 	E.db["general"]["interruptAnnounce"] = "RAID"
 	E.db["general"]["minimap"]["locationText"] = "MOUSEOVER"
 	E.db["general"]["minimap"]["icons"]["classHall"]["position"] = "TOPRIGHT"
-	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 1.5
-	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 5
-	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 5
+	E.db["general"]["minimap"]["icons"]["classHall"]["scale"] = 0.6
+	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
+	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = -3
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"

@@ -12,20 +12,20 @@ local _G = _G
 
 function MM:ChangeLandingButton()
 	if _G["GarrisonLandingPageMinimapButton"] then
-		_G["GarrisonLandingPageMinimapButton"]:SetSize(30, 30) -- needs to be set.
+		local scale = E.db.general.minimap.icons.classHall.scale or 1
+
+		_G["GarrisonLandingPageMinimapButton"]:SetScale(scale) -- needs to be set.
 		_G["GarrisonLandingPageMinimapButton"].LoopingGlow:Size(_G["GarrisonLandingPageMinimapButton"]:GetSize()*0.75)
 		_G["GarrisonLandingPageMinimapButton"]:HookScript("OnEvent", function(self)
 			self:GetNormalTexture():SetAtlas(nil)
 			self:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
 			self:GetNormalTexture():SetBlendMode("ADD")
-			self:GetNormalTexture():SetSize(20, 20)
 			self:GetNormalTexture():ClearAllPoints()
 			self:GetNormalTexture():SetPoint("CENTER", 0, 1)
 
 			self:GetPushedTexture():SetAtlas(nil)
 			self:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
 			self:GetPushedTexture():SetBlendMode("ADD")
-			self:GetPushedTexture():SetSize(20, 20)
 			self:GetPushedTexture():ClearAllPoints()
 			self:GetPushedTexture():SetPoint("CENTER", 1, 0)
 			self:GetPushedTexture():SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
