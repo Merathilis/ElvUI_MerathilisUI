@@ -52,6 +52,8 @@ G.unitframe.aurafilters['MER_RaidCDs'] = {
 	--Paladin
 		[642] = Defaults(), --Divine Shield
 		[498] = Defaults(), --Divine Protection
+		[205191] = Defaults(), -- Eye for an Eye
+		[184662] = Defaults(), -- Shield of Vengeance
 		[1022] = Defaults(), --Blessing of Protection
 		[6940] = Defaults(), --Blessing of Sacrifice
 		[204018] = Defaults(), --Blessing of Spellwarding
