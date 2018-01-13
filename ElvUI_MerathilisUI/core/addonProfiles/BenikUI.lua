@@ -28,7 +28,7 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["datatexts"]["chat"]["editBoxPosition"] = "BELOW_CHAT"
 	E.db["benikui"]["datatexts"]["chat"]["styled"] = false
 	E.db["benikui"]["datatexts"]["chat"]["backdrop"] = true
-	E.db["benikui"]["datatexts"]["middle"]["enable"] = true
+	E.db["benikui"]["datatexts"]["middle"]["enable"] = false
 	E.db["benikui"]["datatexts"]["middle"]["transparent"] = true
 	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = false
 	E.db["benikui"]["datatexts"]["middle"]["width"] = 495
