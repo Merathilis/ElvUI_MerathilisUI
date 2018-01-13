@@ -265,7 +265,7 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 42
 
-	if E.db.mui.general.panel then
+	if E.db.mui.general.panels then
 		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -17)
 		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -155)
 	else
@@ -520,6 +520,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar3"]["buttons"] = 10
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar3"]["mouseover"] = false
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -535,6 +536,7 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["bar5"]["buttons"] = 10
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
+	E.db["actionbar"]["bar5"]["mouseover"] = false
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 1
