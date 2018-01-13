@@ -217,7 +217,7 @@ function MERL:CreatePanels()
 		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
 		MERS:SkinPanel(bottomRightStyle)
 
-		local MerathilisUIButton1 = CreateFrame("Button", MER.Title.."Button1", E.UIParent)
+		local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
 		MerathilisUIButton1:SetTemplate("Default", true)
 		MerathilisUIButton1:RegisterForClicks("AnyUp")
 		MerathilisUIButton1:Size(12, 12)
@@ -239,7 +239,7 @@ function MERL:CreatePanels()
 			end
 		end)
 
-		local MerathilisUIButton2 = CreateFrame("Button", MER.Title.."Button2", E.UIParent)
+		local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
 		MerathilisUIButton2:SetTemplate("Default", true)
 		MerathilisUIButton2:RegisterForClicks("AnyUp")
 		MerathilisUIButton2:Size(12, 12)
