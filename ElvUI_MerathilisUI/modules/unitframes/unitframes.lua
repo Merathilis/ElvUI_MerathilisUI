@@ -40,6 +40,8 @@ function MUF:Initialize()
 	-- self:InitParty()
 	-- self:InitRaid()
 	-- self:InitRaid40()
+
+	self:InfoPanelColor()
 end
 
 local function InitializeCallback()
