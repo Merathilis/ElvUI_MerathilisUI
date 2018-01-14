@@ -222,6 +222,8 @@ L["UnitFrames"] = "Einheitenfenster"
 L["Player Portrait"] = "Spieler Portrait"
 L["Target Portrait"] = "Ziel Portrait"
 L["Aura Spacing"] = "Auren Abstand"
+L["Castbar Text"] = "Zauberleisten Text"
+L["Force show any text placed on the InfoPanel, while casting."] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L["Sets space between individual aura icons."] = "Setzt den Abstand zwischen den individuellen Aurensymbolen."
 L["Set Aura Spacing On Following Units"] = "Setzt den Auren Abstand für folgende Einheiten"
 L["Assist"] = "Assistent"
@@ -245,6 +247,11 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+-- Castbar
+L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
+L["Show Castbar text"] = "Zeige Zauberleisten Text"
+L["Show InfoPanel text"] = "Zeige InfoPanel Text"
+L["Show on Target"] = "Zeige auf dem Ziel"
 
 -- LocationPanel
 L["Location Panel"] = true

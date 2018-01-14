@@ -227,6 +227,27 @@ P["mui"] = {
 				["assist"] = true,
 			},
 		},
+		["infoPanel"] = {
+			["fixInfoPanel"] = true,
+		},
+		["castbar"] = {
+			["text"] = {
+				["ShowInfoText"] = false,
+				["castText"] = true,
+				["forceTargetText"] = false,
+				["player"] = {
+					["yOffset"] = 0,
+					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+				},
+				["target"] = {
+					["yOffset"] = 0,
+					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+				},
+			},
+		},
+		["textures"] = {
+			["castbar"] = "MuiFlat",
+		},
 	},
 
 	["locPanel"] = {

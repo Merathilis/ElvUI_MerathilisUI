@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = E:GetModule("muiUnits")
+local MCA = E:GetModule("mUICastbar")
 local UF = E:GetModule("UnitFrames")
 local isEnabled = E.private["unitframe"].enable and true or false
 
@@ -187,6 +188,100 @@ local function UnitFramesTable()
 							['raidpet'] = L["RaidPet"],
 							["tank"] = L["Tank"],
 							["assist"] = L["Assist"],
+						},
+					},
+				},
+			},
+			castbar = {
+				type = "group",
+				order = 5,
+				name = L["Castbar Text"].." ("..PLAYER.."/"..TARGET..")",
+				get = function(info) return E.db.mui.unitframes.castbar.text[ info[#info] ] end,
+				set = function(info, value) E.db.mui.unitframes.castbar.text[ info[#info] ] = value; MCA:UpdateAllCastbars(); end,
+				args = {
+					ShowInfoText = {
+						type = "toggle",
+						order = 1,
+						name = L["Show InfoPanel text"],
+						desc = L["Force show any text placed on the InfoPanel, while casting."],
+					},
+					castText = {
+						type = "toggle",
+						order = 2,
+						name = L["Show Castbar text"],
+					},
+					forceTargetText = {
+						type = "toggle",
+						order = 3,
+						name = L["Show on Target"],
+						disabled = function() return E.db.mui.unitframes.castbar.text.castText end,
+					},
+					player = {
+						order = 4,
+						type = "group",
+						name = PLAYER,
+						guiInline = true,
+						args = {
+							yOffset = {
+								order = 1,
+								type = "range",
+								name = L["Y-Offset"],
+								desc = L["Adjust castbar text Y Offset"],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.mui.unitframes.castbar.text.player[ info[#info] ] end,
+								set = function(info, value) E.db.mui.unitframes.castbar.text.player[ info[#info] ] = value; MCA:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.mui.unitframes.castbar.text.player[ info[#info] ]
+									local d = P.mui.unitframes.castbar.text.player[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.mui.unitframes.castbar.text.player[ info[#info] ] = {}
+									local t = E.db.mui.unitframes.castbar.text.player[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									MCA:CastBarHooks();
+								end,
+							},
+						},
+					},
+					target = {
+						order = 5,
+						type = "group",
+						name = TARGET,
+						guiInline = true,
+						args = {
+							yOffset = {
+								order = 1,
+								type = "range",
+								name = L["Y-Offset"],
+								desc = L["Adjust castbar text Y Offset"],
+								min = -40, max = 40, step = 1,
+								get = function(info) return E.db.mui.unitframes.castbar.text.target[ info[#info] ] end,
+								set = function(info, value) E.db.mui.unitframes.castbar.text.target[ info[#info] ] = value; MCA:UpdateAllCastbars(); end,
+							},
+							textColor = {
+								order = 2,
+								type = "color",
+								name = L["Text Color"],
+								hasAlpha = true,
+								get = function(info)
+									local t = E.db.mui.unitframes.castbar.text.target[ info[#info] ]
+									local d = P.mui.unitframes.castbar.text.target[info[#info]]
+									return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+									end,
+								set = function(info, r, g, b, a)
+									E.db.mui.unitframes.castbar.text.target[ info[#info] ] = {}
+									local t = E.db.mui.unitframes.castbar.text.target[ info[#info] ]
+									t.r, t.g, t.b, t.a = r, g, b, a
+									MCA:CastBarHooks();
+								end,
+							},
 						},
 					},
 				},

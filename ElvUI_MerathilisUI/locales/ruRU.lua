@@ -233,6 +233,11 @@ L["Threshold"] = true
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = true
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
+-- Castbar
+L["Adjust castbar text Y Offset"] = true
+L["Show Castbar text"] = true
+L["Show InfoPanel text"] = true
+L["Show on Target"] = true
 
 -- LocationPanel
 L["Location Panel"] = true
