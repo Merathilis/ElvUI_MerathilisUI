@@ -28,6 +28,7 @@ local ChangeLogData = {
 		-- "• ",
 	" ",
 	"Notes:",
+		"• 'BenikUI is not more required to get the full function from my UI.'",
 		"• 'If you want my latest layout, you have to do the install again.'",
 		"• 'If you do so, all your changes will be reseted.'",
 }
