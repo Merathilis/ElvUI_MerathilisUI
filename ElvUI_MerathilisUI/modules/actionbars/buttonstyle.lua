@@ -70,7 +70,6 @@ function BS:BorderColor()
 	end
 end
 
-
 function BS:UpdateButtons()
 	for button, _ in pairs(BS.styledButtons) do
 		BS:StyleButton(button)
