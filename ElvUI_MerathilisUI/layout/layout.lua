@@ -16,6 +16,7 @@ local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
 local BACK = BACK
+local PlaySound = PlaySound
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -276,6 +277,7 @@ function MERL:CreatePanels()
 		MerathilisUIButton1:SetScript("OnClick", function(self, btn)
 			if btn == "LeftButton" then
 				UpdateBar5(self, _G["ElvUI_Bar5"])
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 			end
 		end)
 
@@ -298,6 +300,7 @@ function MERL:CreatePanels()
 		MerathilisUIButton2:SetScript("OnClick", function(self, btn)
 			if btn == "LeftButton" then
 				UpdateBar3(self, _G["ElvUI_Bar3"])
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 			end
 		end)
 	end

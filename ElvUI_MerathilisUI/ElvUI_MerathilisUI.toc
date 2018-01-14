@@ -2,7 +2,7 @@
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Simpy, ChaosVoid, fgprodigal, Elv & all AddOn Authors who inspired me.
 ## Version: 3.16
-## Title: |cff1784d1ElvUI|r |cffff7d0aMerathilisUI|r
+## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
 ## eMail: neo0608@gmail.com
