@@ -235,6 +235,8 @@ L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
 -- Castbar
 L["Adjust castbar text Y Offset"] = true
+L["Force show any text placed on the InfoPanel, while casting."] = true
+L["Castbar Text"] = true
 L["Show Castbar text"] = true
 L["Show InfoPanel text"] = true
 L["Show on Target"] = true
