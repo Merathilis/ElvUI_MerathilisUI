@@ -24,11 +24,11 @@ function MAB:CreateSpecBar()
 	local Spacing, Mult = 4, 1
 	local Size = 24
 
-	local specBar = CreateFrame("Frame", 'SpecializationBar', E.UIParent)
+	local specBar = CreateFrame("Frame", "SpecializationBar", E.UIParent)
 	specBar:SetFrameStrata("BACKGROUND")
 	specBar:SetFrameLevel(0)
 	specBar:SetSize(40, 40)
-	specBar:SetTemplate('Transparent')
+	specBar:SetTemplate("Transparent")
 	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
 
@@ -39,7 +39,7 @@ function MAB:CreateSpecBar()
 
 	for i = 1, Specs do
 		local SpecID, SpecName, Description, Icon = GetSpecializationInfo(i)
-		local Button = CreateFrame('Button', nil, specBar)
+		local Button = CreateFrame("Button", nil, specBar)
 		Button:SetSize(Size, Size)
 		Button:SetID(i)
 		Button:SetTemplate()
