@@ -122,10 +122,6 @@ function MCA:CastBarHooks()
 	for i = 1, 5 do
 		local castbar = _G["ElvUF_Arena"..i].Castbar
 		if castbar then
-			if E.db.benikui.general.shadows then
-				castbar:CreateShadow('Default')
-				castbar.ButtonIcon.bg:CreateShadow('Default')
-			end
 			hooksecurefunc(castbar, "PostCastStart", MCA.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", MCA.PostCast)
 			hooksecurefunc(castbar, "PostChannelStart", MCA.PostCast)

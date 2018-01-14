@@ -286,6 +286,27 @@ local function UnitFramesTable()
 					},
 				},
 			},
+			textures = {
+				order = 6,
+				type = "group",
+				name = L['Textures'],
+				args = {
+					spacer2 = {
+						order = 1,
+						type = "header",
+						name = "",
+					},
+					castbar = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 2,
+						name = L['Castbar'],
+						desc = L['This applies on all available castbars.'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.mui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.mui.unitframes.textures[ info[#info] ] = value; MCA:CastBarHooks(); end,
+					},
+				},
+			},
 			player = {
 				order = 3,
 				type = "group",
