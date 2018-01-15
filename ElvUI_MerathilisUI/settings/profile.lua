@@ -246,7 +246,7 @@ P["mui"] = {
 			},
 		},
 		["textures"] = {
-			["castbar"] = "MuiFlat",
+			["castbar"] = "MerathilisFlat",
 		},
 	},
 
