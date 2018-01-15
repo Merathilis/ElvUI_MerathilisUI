@@ -1312,7 +1312,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["minimapBottom"] = false
 	E.db["datatexts"]["actionbar3"] = false
 	E.db["datatexts"]["actionbar5"] = false
-	E.db["datatexts"]["minimapBottom"] = true
+	E.db["datatexts"]["minimapBottom"] = false
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
 	if IsAddOnLoaded("Skada") then
@@ -1344,7 +1344,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 
-	E.db["datatexts"]["panels"]["BottomMiniPanel"] = "MUI Time"
+	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
 
 	E:UpdateAll(true)
 

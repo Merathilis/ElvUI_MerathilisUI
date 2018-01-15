@@ -5,10 +5,15 @@ local LP = E:GetModule("LocPanel")
 
 --Cache global variables
 --Lua functions
+local date = date
 local _G = _G
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
+local LoadAddOn = LoadAddOn
+local PlaySound = PlaySound
+local BOOKTYPE_SPELL = BOOKTYPE_SPELL
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
@@ -37,7 +42,8 @@ end
 
 function MAB:OnClick(btn)
 	if btn == "LeftButton" then
-		E:ToggleConfig()
+		if(not CalendarFrame) then LoadAddOn("Blizzard_Calendar") end
+		Calendar_Toggle()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 	elseif btn == "RightButton" and not InCombatLockdown() then
 		LP:PopulateDropdown()
@@ -79,7 +85,7 @@ function MAB:CreateMicroBar(btn)
 
 	charButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	charButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	charButton:SetScript("OnClick", function(self) ToggleCharacter("PaperDollFrame") end)
+	charButton:SetScript("OnClick", function(self) _G["ToggleCharacter"]("PaperDollFrame") end)
 
 	--Friends
 	local friendsButton = CreateFrame("Button", nil, microBar)
@@ -102,7 +108,7 @@ function MAB:CreateMicroBar(btn)
 
 	friendsButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	friendsButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	friendsButton:SetScript("OnClick", function(self) ToggleFriendsFrame() end)
+	friendsButton:SetScript("OnClick", function(self) _G["ToggleFriendsFrame"]() end)
 
 	--Guild
 	local guildButton = CreateFrame("Button", nil, microBar)
@@ -125,7 +131,7 @@ function MAB:CreateMicroBar(btn)
 
 	guildButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	guildButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	guildButton:SetScript("OnClick", function(self) ToggleGuildFrame() end)
+	guildButton:SetScript("OnClick", function(self) _G["ToggleGuildFrame"]() end)
 
 	--Achievements
 	local achieveButton = CreateFrame("Button", nil, microBar)
@@ -148,7 +154,7 @@ function MAB:CreateMicroBar(btn)
 
 	achieveButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	achieveButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	achieveButton:SetScript("OnClick", function(self) ToggleAchievementFrame() end)
+	achieveButton:SetScript("OnClick", function(self) _G["ToggleAchievementFrame"]() end)
 
 	--EncounterJournal
 	local encounterButton = CreateFrame("Button", nil, microBar)
@@ -171,39 +177,51 @@ function MAB:CreateMicroBar(btn)
 
 	encounterButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	encounterButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	encounterButton:SetScript("OnClick", function(self) ToggleEncounterJournal() end)
+	encounterButton:SetScript("OnClick", function(self) _G["ToggleEncounterJournal"]() end)
 
-	--Option
-	local optionButton = CreateFrame("Button", nil, microBar)
-	optionButton:SetPoint("LEFT", encounterButton, "RIGHT", 18, 0)
-	optionButton:SetSize(32, 32)
-	optionButton:SetFrameLevel(6)
+	-- Time
+	local timeButton = CreateFrame("Button", nil, microBar)
+	timeButton:SetPoint("LEFT", encounterButton, "RIGHT", 18, 0)
+	timeButton:SetSize(32, 32)
+	timeButton:SetFrameLevel(6)
 
-	optionButton.text = optionButton:CreateFontString(nil, 'OVERLAY')
-	optionButton.text:FontTemplate(nil, 11, "OUTLINE")
-	optionButton.text:SetText("MerathilisUI")
-	optionButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	optionButton.text:SetPoint("CENTER", 1, 0)
-	optionButton.text:SetJustifyH("CENTER")
+	timeButton.text = timeButton:CreateFontString(nil, 'OVERLAY')
+	timeButton.text:FontTemplate(nil, 14, "OUTLINE")
+	timeButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	timeButton.text:SetPoint("CENTER", 0, 0)
+	timeButton.text:SetJustifyH("CENTER")
 
-	optionButton.tex = optionButton:CreateTexture(nil, "OVERLAY") --dummy texture
-	optionButton.tex:SetPoint("BOTTOMLEFT")
-	optionButton.tex:SetPoint("BOTTOMRIGHT")
-	optionButton.tex:SetSize(32, 32)
-	optionButton.tex:SetBlendMode("ADD")
+	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
+	timeButton.tex:SetPoint("BOTTOMLEFT")
+	timeButton.tex:SetPoint("BOTTOMRIGHT")
+	timeButton.tex:SetSize(32, 32)
+	timeButton.tex:SetBlendMode("ADD")
 
-	optionButton.version = MER:CreateText(optionButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	optionButton.version:SetPoint("BOTTOM", optionButton, 2, -15)
-	optionButton.version:SetText(MER.Version)
-	optionButton.version:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	local timer = timeButton:CreateAnimationGroup()
 
-	optionButton:SetScript("OnEnter", function(self) OnHover(self) end)
-	optionButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	optionButton:SetScript("OnMouseUp", MAB.OnClick)
+	local timerAnim = timer:CreateAnimation()
+	timerAnim:SetDuration(1)
+
+	timer:SetScript("OnFinished", function(self, requested)
+		local euTime = date("%H|cFF00c0fa:|r%M")
+		local ukTime = date("%I|cFF00c0fa:|r%M")
+
+		if E.db.datatexts.time24 == true then
+			timeButton.text:SetText(euTime)
+		else
+			timeButton.text:SetText(ukTime)
+		end
+		self:Play()
+	end)
+	timer:Play()
+
+	timeButton:SetScript("OnEnter", function(self) OnHover(self) end)
+	timeButton:SetScript("OnLeave", function(self) OnLeave(self) end)
+	timeButton:SetScript("OnMouseUp", MAB.OnClick)
 
 	--Pet/Mounts
 	local petButton = CreateFrame("Button", nil, microBar)
-	petButton:SetPoint("LEFT", optionButton, "RIGHT", 12, 0)
+	petButton:SetPoint("LEFT", timeButton, "RIGHT", 12, 0)
 	petButton:SetSize(32, 32)
 	petButton:SetFrameLevel(6)
 
@@ -222,7 +240,7 @@ function MAB:CreateMicroBar(btn)
 
 	petButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	petButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	petButton:SetScript("OnClick", function(self) ToggleCollectionsJournal(1) end)
+	petButton:SetScript("OnClick", function(self) _G["ToggleCollectionsJournal"](1) end)
 
 	--LFR
 	local lfrButton = CreateFrame("Button", nil, microBar)
@@ -245,7 +263,7 @@ function MAB:CreateMicroBar(btn)
 
 	lfrButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	lfrButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	lfrButton:SetScript("OnClick", function(self) PVEFrame_ToggleFrame() end)
+	lfrButton:SetScript("OnClick", function(self) _G["PVEFrame_ToggleFrame"]() end)
 
 	--Spellbook
 	local spellBookButton = CreateFrame("Button", nil, microBar)
@@ -268,7 +286,7 @@ function MAB:CreateMicroBar(btn)
 
 	spellBookButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	spellBookButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	spellBookButton:SetScript("OnClick", function(self) ToggleSpellBook(BOOKTYPE_SPELL) end)
+	spellBookButton:SetScript("OnClick", function(self) _G["ToggleSpellBook"](BOOKTYPE_SPELL) end)
 
 	--Shop
 	local shopButton = CreateFrame("Button", nil, microBar)
@@ -314,5 +332,5 @@ function MAB:CreateMicroBar(btn)
 
 	questButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	questButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	questButton:SetScript("OnClick", function(self) ToggleQuestLog() end)
+	questButton:SetScript("OnClick", function(self) _G["ToggleQuestLog"]() end)
 end
