@@ -245,7 +245,6 @@ local function Datatexts()
 					values = datatexts,
 					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
 					set = function(info, value) E.db.mui.datatexts.panels[pointLoc][ info[#info] ] = value; DT:LoadDataTexts() end,
-					disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				}
 			end
 		elseif type(tab) == "string" then
@@ -255,7 +254,6 @@ local function Datatexts()
 				values = datatexts,
 				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,
 				set = function(info, value) E.db.mui.datatexts.panels[pointLoc] = value; DT:LoadDataTexts() end,
-				disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				print(pointLoc)
 			}
 		end
