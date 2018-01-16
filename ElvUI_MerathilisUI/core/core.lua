@@ -52,7 +52,6 @@ function MER:AddOptions()
 	end
 end
 
-
 function MER:DasOptions()
 	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
