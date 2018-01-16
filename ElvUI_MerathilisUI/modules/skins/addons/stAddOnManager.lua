@@ -12,14 +12,14 @@ local CreateFrame = CreateFrame
 local function styleProjectAzilroka()
 	if E.private.muiSkins.addonSkins.pa ~= true then return end
 
-	--stAddOnManager
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", function(self, event)
 		if event then
-			if _G["stAMFrame"] then
-				_G["stAMFrame"]:Styling()
-				_G["stAMFrame"].AddOns:SetTemplate("Transparent")
+			local stFrame = _G["stAMFrame"]
+			if stFrame then
+				stFrame:Styling()
+				stFrame.AddOns:SetTemplate("Transparent")
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end
