@@ -87,9 +87,6 @@ function styleEncounterJournal()
 				header.button.title.SetTextColor = MER.dummy
 				header.button.expandedIcon:SetTextColor(1, 1, 1)
 				header.button.expandedIcon.SetTextColor = MER.dummy
-
-				MERS:Reskin(header.button, true)
-
 				header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
 				header.button.bg = MERS:CreateBG(header.button.abilityIcon)
 
