@@ -134,7 +134,6 @@ P["mui"] = {
 	},
 
 	["datatexts"] = {
-		["rightChatTabDatatextPanel"] = true,
 		["panels"] = {
 			["ChatTab_Datatext_Panel"] = {
 				["left"] = "Durability",
@@ -153,6 +152,9 @@ P["mui"] = {
 			["backdrop"] = false,
 			["width"] = 495,
 			["height"] = 18,
+		},
+		["rightChatTabDatatextPanel"] = {
+			["enable"] = true,
 		},
 
 		["threatBar"] = {

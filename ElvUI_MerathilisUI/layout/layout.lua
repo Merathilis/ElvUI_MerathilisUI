@@ -64,7 +64,9 @@ function MERL:MiddleDatatextLayout()
 end
 
 function MERL:ToggleChatPanel()
-	if E.db.mui.datatexts.rightChatTabDatatextPanel then
+	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
+
+	if db.enable then
 		ChatTab_Datatext_Panel:Show()
 	else
 		ChatTab_Datatext_Panel:Hide()
@@ -308,6 +310,7 @@ end
 
 function MERL:regEvents()
 	self:MiddleDatatextLayout()
+	self:ToggleChatPanel()
 	self:MiddleDatatextDimensions()
 end
 

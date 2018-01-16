@@ -111,8 +111,8 @@ local function Datatexts()
 						order = 1,
 						type = "toggle",
 						name = L["ChatTab Datatext Panel"],
-						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel end,
-						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel = value; E:GetModule("mUILayout"):ToggleChatPanel() end,
+						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel.enable end,
+						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel.enable = value; E:GetModule("mUILayout"):ToggleChatPanel() end,
 					},
 					middleDTEnable = {
 						order = 2,
