@@ -314,6 +314,11 @@ local function SkinsTable()
 				name = L["Loot Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
 			},
+			warboard = {
+				type = "toggle",
+				name = L["Warboard"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Warboard end,
+			},
 		},
 	}
 

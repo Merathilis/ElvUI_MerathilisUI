@@ -49,6 +49,7 @@ V["muiSkins"] = {
 		["taxi"] = true,
 		["help"] = true,
 		["loot"] = true,
+		["warboard"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
