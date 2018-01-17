@@ -43,6 +43,16 @@ function MERL:CreateExtraDataBarPanels()
 	DT:RegisterPanel(mUIMiddleDTPanel, 3, "ANCHOR_BOTTOM", 0, 0)
 end
 
+function MERL:ToggleChatPanel()
+	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
+
+	if db.enable then
+		ChatTab_Datatext_Panel:Show()
+	else
+		ChatTab_Datatext_Panel:Hide()
+	end
+end
+
 function MERL:MiddleDatatextLayout()
 	local db = E.db.mui.datatexts.middle
 
@@ -60,16 +70,6 @@ function MERL:MiddleDatatextLayout()
 		else
 			mUIMiddleDTPanel:SetTemplate("Default", true)
 		end
-	end
-end
-
-function MERL:ToggleChatPanel()
-	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
-
-	if db.enable then
-		ChatTab_Datatext_Panel:Show()
-	else
-		ChatTab_Datatext_Panel:Hide()
 	end
 end
 
@@ -309,8 +309,8 @@ function MERL:CreatePanels()
 end
 
 function MERL:regEvents()
-	self:MiddleDatatextLayout()
 	self:ToggleChatPanel()
+	self:MiddleDatatextLayout()
 	self:MiddleDatatextDimensions()
 end
 
