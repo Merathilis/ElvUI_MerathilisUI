@@ -1181,7 +1181,7 @@ function MER:LoadDetailsProfile()
 							},
 						},
 						["bg_b"] = 0.517647058823529,
-						["strata"] = "MEDIUM",
+						["strata"] = "LOW",
 						["grab_on_top"] = false,
 						["__snap"] = {
 						},
