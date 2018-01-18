@@ -680,7 +680,7 @@ function MERS:ReskinAS(AS)
 	end
 end
 
--- Replace the Recap button
+-- Replace the Recap button script re-set function
 function S:UpdateRecapButton()
 	if self and self.button4 and self.button4:IsEnabled() then
 		self.button4:SetScript("OnEnter", MERS.ColorButton)
@@ -708,7 +708,6 @@ function MERS:Initialize()
 	self.db = E.private.muiSkins
 
 	updateMedia()
-	S:UpdateRecapButton()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
