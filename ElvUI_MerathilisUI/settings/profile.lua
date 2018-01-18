@@ -181,7 +181,10 @@ P["mui"] = {
 	["actionbars"] = {
 		["transparent"] = true,
 		["specBar"] = true,
-		["microBar"] = true,
+		["microBar"] = {
+			["enable"] = true,
+			["hideInCombat"] = false,
+		},
 		["buttonStyle"] = {
 			["enabled"] = false,
 			["texture"] = "MerathilisGradient",

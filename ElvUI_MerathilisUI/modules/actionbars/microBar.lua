@@ -18,6 +18,8 @@ local BOOKTYPE_SPELL = BOOKTYPE_SPELL
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local microBar = CreateFrame("Frame", "mUIMicroBar", E.UIParent)
+
 local function OnHover(button)
 	local buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
 
@@ -50,17 +52,12 @@ function MAB:OnClick(btn)
 	end
 end
 
-function MAB:CreateMicroBar(btn)
-	if E.db.mui.actionbars.microBar ~= true then return end
-
-	local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
+function MAB:CreateMicroBar()
 	microBar:SetFrameLevel(6)
 	microBar:SetSize(400, 26)
 	microBar:Point("TOP", E.UIParent, "TOP", 0, -15)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
-
-	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], true, nil)
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
@@ -333,4 +330,41 @@ function MAB:CreateMicroBar(btn)
 	questButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	questButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	questButton:SetScript("OnClick", function(self) _G["ToggleQuestLog"]() end)
+
+	if E.db.mui.actionbars.microBar.hideInCombat then
+		microBar:SetScript("OnEvent",function(self, event)
+			if event == "PLAYER_REGEN_DISABLED" then
+				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				self.fadeInfo.finishedFunc = dholderOnFade
+			elseif event == "PLAYER_REGEN_ENABLED" then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				self:Show()
+			end
+		end)
+	end
+
+	E.FrameLocks["microBar"] = true
+	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], true, nil)
+
+	self:CombatToggle()
+end
+
+function MAB:CombatToggle()
+	if E.db.mui.actionbars.microBar.hideInCombat then
+		microBar:RegisterEvent("PLAYER_REGEN_DISABLED")
+		microBar:RegisterEvent("PLAYER_REGEN_ENABLED")
+		print("Combat")
+	else
+		microBar:UnregisterEvent("PLAYER_REGEN_DISABLED")
+		microBar:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		print("NotInCombat")
+	end
+end
+
+
+function MAB:InitializeMicroBar()
+	if E.db.mui.actionbars.microBar.enable ~= true then return end
+
+	self:CreateMicroBar()
+	self:CombatToggle()
 end
