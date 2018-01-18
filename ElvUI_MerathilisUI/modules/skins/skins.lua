@@ -25,19 +25,6 @@ local bordercolorr, bordercolorg, bordercolorb
 
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
--- Code taken from CodeNameBlaze
--- Copied from ElvUI
-local function SetModifiedBackdrop(self)
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-end
-
--- Copied from ElvUI
-local function SetOriginalBackdrop(self)
-	if self.backdrop then self = self.backdrop end
-	self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-end
-
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
 	"UI-Panel-MinimizeButton-Up",
@@ -77,8 +64,8 @@ function S:HandleCloseButton(f, point, text)
 		f:CreateBackdrop("Transparent", true)
 		f.backdrop:Point("TOPLEFT", 7, -8)
 		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
-		f:HookScript("OnEnter", SetModifiedBackdrop)
-		f:HookScript("OnLeave", SetOriginalBackdrop)
+		f:HookScript("OnEnter", MERS.ColorButton)
+		f:HookScript("OnLeave", MERS.ClearButton)
 		f:SetHitRectInsets(6, 6, 7, 7)
 	end
 
@@ -491,22 +478,22 @@ function MERS:CreatePulse(frame, speed, alpha, mult)
 	end)
 end
 
-local function colorButton(f)
-	if not f then return end
+function MERS:ColorButton()
+	if self.backdrop then self = self.backdrop end
 
-	f:SetBackdropColor(r, g, b, .3)
-	f:SetBackdropBorderColor(r, g, b)
+	self:SetBackdropColor(r, g, b, .3)
+	self:SetBackdropBorderColor(r, g, b)
 end
 
-local function clearButton(f)
-	if not f then return end
+function MERS:ClearButton()
+	if self.backdrop then self = self.backdrop end
 
-	f:SetBackdropColor(0, 0, 0, 0)
+	self:SetBackdropColor(0, 0, 0, 0)
 
-	if f.isUnitFrameElement then
-		f:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
+	if self.isUnitFrameElement then
+		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
-		f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
 end
 
@@ -566,8 +553,8 @@ function MERS:Reskin(f, strip, noHighlight)
 	f.bgTex = MERS:CreateGradient(f)
 
 	if not noHighlight then
-		f:HookScript("OnEnter", colorButton)
-		f:HookScript("OnLeave", clearButton)
+		f:HookScript("OnEnter", MERS.ColorButton)
+		f:HookScript("OnLeave", MERS.ClearButton)
 	end
 end
 
@@ -693,6 +680,14 @@ function MERS:ReskinAS(AS)
 	end
 end
 
+-- Replace the Recap button
+function S:UpdateRecapButton()
+	if self and self.button4 and self.button4:IsEnabled() then
+		self.button4:SetScript("OnEnter", MERS.ColorButton)
+		self.button4:SetScript("OnLeave", MERS.ClearButton)
+	end
+end
+
 -- hook the skin functions
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
@@ -713,6 +708,7 @@ function MERS:Initialize()
 	self.db = E.private.muiSkins
 
 	updateMedia()
+	S:UpdateRecapButton()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
