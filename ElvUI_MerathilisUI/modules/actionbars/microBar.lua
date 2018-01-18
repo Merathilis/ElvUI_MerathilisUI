@@ -18,7 +18,7 @@ local BOOKTYPE_SPELL = BOOKTYPE_SPELL
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local microBar = CreateFrame("Frame", "mUIMicroBar", E.UIParent)
+local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 
 local function OnHover(button)
 	local buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
@@ -335,10 +335,8 @@ function MAB:CreateMicroBar()
 		microBar:SetScript("OnEvent",function(self, event)
 			if event == "PLAYER_REGEN_DISABLED" then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-				self.fadeInfo.finishedFunc = dholderOnFade
 			elseif event == "PLAYER_REGEN_ENABLED" then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-				self:Show()
 			end
 		end)
 	end
@@ -353,11 +351,9 @@ function MAB:CombatToggle()
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:RegisterEvent("PLAYER_REGEN_DISABLED")
 		microBar:RegisterEvent("PLAYER_REGEN_ENABLED")
-		print("Combat")
 	else
 		microBar:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		microBar:UnregisterEvent("PLAYER_REGEN_ENABLED")
-		print("NotInCombat")
 	end
 end
 
