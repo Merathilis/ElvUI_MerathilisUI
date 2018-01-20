@@ -139,5 +139,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(GameFont_Gigantic,				NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);		-- Used at the install steps
 		--SetFont(GameFontHighlightLarge2,			NORMAL, 14);
 		--SetFont(DestinyFontLarge,					NORMAL, 14);
+		SetFont(Game12Font, 						NORMAL, 12);								-- WarboardUI
+		SetFont(Game20Font, 						NORMAL, 20);								-- WarboardUI
 	end
 end
