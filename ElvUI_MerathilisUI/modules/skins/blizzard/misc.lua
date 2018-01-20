@@ -47,6 +47,10 @@ local function styleMisc()
 		_G["DropDownList1MenuBackdrop"],
 		_G["DropDownList2MenuBackdrop"],
 		_G["DropDownList3MenuBackdrop"],
+		_G["PetBattlePrimaryUnitTooltip"],
+		_G["PetBattlePrimaryAbilityTooltip"],
+		_G["EventTraceTooltip"],
+		_G["FrameStackTooltip"],
 	}
 
 	for _, frame in pairs(tooltips) do
