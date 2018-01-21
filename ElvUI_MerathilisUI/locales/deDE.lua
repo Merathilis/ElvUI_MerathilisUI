@@ -12,6 +12,7 @@ L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
 L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich den Look zu mehr transparenz.\n\n|cff00c0faNeue Funktionen sind gekennzeichnet mit:|r"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
+L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"

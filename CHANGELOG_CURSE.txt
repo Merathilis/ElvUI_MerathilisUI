@@ -6,6 +6,7 @@
 * Create a mover for the SpecBar.
 * Add an own MicroBar with right click functionality from the LocPanel.
 * Update the skinning function for buttons to be transparent. Thx Simpy <3
+* Readd the custom MiniMap textures.
 * Layout Update.
 
 ** v3.16, 29.12.2017**
