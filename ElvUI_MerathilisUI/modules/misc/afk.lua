@@ -3,12 +3,17 @@ local MERS = E:GetModule("muiSkins")
 local AFK = E:GetModule("AFK")
 
 -- Cache global variables
+-- Lua Variables
+local tonumber = tonumber
+local format = string.format
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local GetGameTime = GetGameTime
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
+local GetGuildInfo = GetGuildInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
-local guildName
+local date = date
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -44,6 +49,21 @@ local function createTime()
 		end
 	end
 end
+
+AFK.mUISetAFK = AFK.SetAFK
+function AFK:SetAFK(status)
+	self:mUISetAFK(status)
+
+	if(status) then
+		if(IsInGuild()) then
+			local guildName = GetGuildInfo("player")
+			self.AFKMode.bottomPanel.guild:SetText("|cFF00c0fa<".. guildName ..">|r")
+		else
+			self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
+		end
+	end
+end
+
 
 AFK.UpdateTimermUI = AFK.UpdateTimer
 function AFK:UpdateTimer()
@@ -112,12 +132,7 @@ function AFK:Initialize()
 	self.AFKMode.bottomPanel.guild = self.AFKMode.bottomPanel:CreateFontString(nil, "OVERLAY")
 	self.AFKMode.bottomPanel.guild:FontTemplate(nil, 16)
 	self.AFKMode.bottomPanel.guild:Point("TOPLEFT", self.AFKMode.bottomPanel.name, "BOTTOMLEFT", -5, -6)
-	if(IsInGuild()) then
-		local guildName, _ = GetGuildInfo("player")
-		self.AFKMode.bottomPanel.guild:SetText("|cFF00c0fa<".. guildName ..">|r")
-	else
-		self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
-	end
+	self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 
 	-- Top Panel
 	self.AFKMode.topPanel = CreateFrame("Frame", nil, self.AFKMode)
