@@ -6,6 +6,7 @@ local AFK = E:GetModule("AFK")
 -- Lua Variables
 local tonumber = tonumber
 local format = string.format
+local date = date
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGameTime = GetGameTime
@@ -13,7 +14,7 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local GetGuildInfo = GetGuildInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInGuild = IsInGuild
-local date = date
+local TIMEMANAGER_TOOLTIP_LOCALTIME = TIMEMANAGER_TOOLTIP_LOCALTIME
 
 local function Player_Model(self)
 	self:ClearModel()
@@ -22,7 +23,6 @@ local function Player_Model(self)
 	self:SetCamDistanceScale(8)
 	self:SetAlpha(1)
 	self:SetAnimation(71)
-	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
 -- Create Time
