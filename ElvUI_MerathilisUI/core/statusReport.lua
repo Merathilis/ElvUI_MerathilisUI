@@ -15,6 +15,7 @@ local function CreateStatusFrame()
 	-- Style
 	StatusFrame.backdrop:Hide()
 	StatusFrame:Styling()
+	StatusFrame:Point("CENTER", E.UIParent, "CENTER")
 	E:GetModule("muiSkins"):CreateBD(StatusFrame, .5)
 end
 hooksecurefunc(E, "CreateStatusFrame", CreateStatusFrame)
