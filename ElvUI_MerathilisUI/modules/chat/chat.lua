@@ -44,7 +44,6 @@ function MERC:StyleChat(frame)
 	local name = frame:GetName()
 	local editbox = _G[name.."EditBox"]
 
-	editbox:SetTemplate("Default", true)
 	editbox:Styling()
 
 	frame.styled = true
