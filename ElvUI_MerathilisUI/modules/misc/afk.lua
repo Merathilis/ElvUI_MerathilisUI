@@ -50,6 +50,19 @@ local function createTime()
 	end
 end
 
+function AFK:UpdateLogOff()
+	local timePassed = GetTime() - self.startTime
+	local minutes = floor(timePassed/60)
+	local neg_seconds = -timePassed % 60
+
+	if minutes - 29 == 0 and floor(neg_seconds) == 0 then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff0000:00|r", L["Logout Timer"])
+	else
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00%02d:%02d|r", L["Logout Timer"], minutes -29, neg_seconds)
+	end
+end
+
 AFK.mUISetAFK = AFK.SetAFK
 function AFK:SetAFK(status)
 	self:mUISetAFK(status)
@@ -61,9 +74,16 @@ function AFK:SetAFK(status)
 		else
 			self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 		end
+		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+
+		self.isAFK = true
+	elseif(self.isAFK) then
+		self:CancelTimer(self.logoffTimer)
+		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+
+		self.isAFK = false
 	end
 end
-
 
 AFK.UpdateTimermUI = AFK.UpdateTimer
 function AFK:UpdateTimer()
@@ -194,11 +214,46 @@ function AFK:Initialize()
 	self.AFKMode.topPanel.time:SetJustifyH("CENTER")
 	self.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
+	-- Logout Count
+	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
+	self.AFKMode.countd:Size(418, 36)
+	self.AFKMode.countd:Point("CENTER", self.AFKMode.bottomPanel, "CENTER", 0, 20)
+
+	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	self.AFKMode.countd.bg:SetPoint("BOTTOM")
+	self.AFKMode.countd.bg:Size(326, 56)
+	self.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
+	self.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
+
+	self.AFKMode.countd.lineTop = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	self.AFKMode.countd.lineTop:SetDrawLayer("BACKGROUND", 2)
+	self.AFKMode.countd.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	self.AFKMode.countd.lineTop:SetPoint("TOP")
+	self.AFKMode.countd.lineTop:Size(418, 7)
+	self.AFKMode.countd.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+
+	self.AFKMode.countd.lineBottom = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	self.AFKMode.countd.lineBottom:SetDrawLayer("BACKGROUND", 2)
+	self.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	self.AFKMode.countd.lineBottom:SetPoint("BOTTOM")
+	self.AFKMode.countd.lineBottom:Size(418, 7)
+	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+
+	-- 30 mins countdown text
+	self.AFKMode.countd.text = self.AFKMode.countd:CreateFontString(nil, 'OVERLAY')
+	self.AFKMode.countd.text:FontTemplate(nil, 12)
+	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER", 0, -2)
+	self.AFKMode.countd.text:SetJustifyH("CENTER")
+	self.AFKMode.countd.text:SetJustifyV("CENTER")
+	self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
+
 	-- Player Model
 	if not modelHolder then
 		local modelHolder = CreateFrame("Frame", nil, self.AFKMode.bottomPanel)
 		modelHolder:SetSize(150, 150)
-		modelHolder:SetPoint("BOTTOMRIGHT", self.AFKMode.bottomPanel, "BOTTOMRIGHT", -150, 180)
+		modelHolder:SetPoint("BOTTOMRIGHT", self.AFKMode.bottomPanel, "BOTTOMRIGHT", -200, 180)
 
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.

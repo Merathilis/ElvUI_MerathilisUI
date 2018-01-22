@@ -13,6 +13,7 @@ L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more 
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen"] = true
 L["Are you still there? ... Hello?"] = true
+L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
