@@ -699,6 +699,12 @@ function MERS:Initialize()
 
 	updateMedia()
 
+	local PluginInstallFrame = _G["PluginInstallFrame"]
+	if PluginInstallFrame then
+		PluginInstallFrame:Styling()
+		PluginInstallTitleFrame:Styling()
+	end
+
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
 			MERS:ReskinAS(unpack(AddOnSkins))
