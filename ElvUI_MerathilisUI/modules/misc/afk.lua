@@ -147,6 +147,7 @@ function AFK:Initialize()
 	self.AFKMode.bottomPanel.name:SetFormattedText("%s", E.myname)
 	self.AFKMode.bottomPanel.name:SetPoint("LEFT", self.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
 	self.AFKMode.bottomPanel.name:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	self.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
 
 	-- Bottom Guild Name
 	self.AFKMode.bottomPanel.guild = self.AFKMode.bottomPanel:CreateFontString(nil, "OVERLAY")
