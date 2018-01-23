@@ -1,4 +1,4 @@
-[b][color=orange]v3.17[/color], xx.xx.2018[/b][list]
+[b][color=orange]v3.17[/color], 23.01.2018[/b][list]
 [*]Add an ObjectiveTracker collapse function on Raid Bosses.
 [*]Fix Chat Button, it will now get the actual size from the chat height.
 [*]Update many skins.
@@ -7,6 +7,7 @@
 [*]Add an own MicroBar with right click functionality from the LocPanel.
 [*]Update the skinning function for buttons to be transparent. Thx Simpy <3
 [*]Readd the custom MiniMap textures.
+[*]Update the AFK Frame. =)
 [*]Layout Update.[/list]
 
 [b][color=orange]v3.16[/color], 29.12.2017[/b][list]

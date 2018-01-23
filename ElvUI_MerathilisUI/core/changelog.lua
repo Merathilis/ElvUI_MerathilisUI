@@ -25,6 +25,7 @@ local ChangeLogData = {
 		"• Add an own MicroBar with right click functionality from the LocPanel.",
 		"• Update the skinning function for buttons to be transparent. Thx Simpy <3",
 		"• Readd the custom MiniMap textures.",
+		"• Update the AFK Frame. =)",
 		"• Layout Update.",
 		-- "• ",
 	" ",
@@ -59,7 +60,7 @@ end
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 280)
+	frame:SetSize(445, 300)
 	frame:SetTemplate("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
