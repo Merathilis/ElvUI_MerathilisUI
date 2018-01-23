@@ -217,7 +217,7 @@ function AFK:Initialize()
 	-- Logout Count
 	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.countd:Size(418, 36)
-	self.AFKMode.countd:Point("CENTER", self.AFKMode.bottomPanel, "CENTER", 0, 20)
+	self.AFKMode.countd:Point("BOTTOM", self.AFKMode.topPanel.time, "BOTTOM", 0, -40)
 
 	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
 	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
