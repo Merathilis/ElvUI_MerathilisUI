@@ -118,6 +118,10 @@ function MERG:GameMenu()
 		MERS:CreateBD(bottomPanel, .5)
 		bottomPanel:Styling()
 
+		bottomPanel.ignoreFrameTemplates = true
+		bottomPanel.ignoreBackdropColors = true
+		E["frames"][bottomPanel] = true
+
 		bottomPanel.anim = CreateAnimationGroup(bottomPanel)
 		bottomPanel.anim.height = bottomPanel.anim:CreateAnimation("Height")
 		bottomPanel.anim.height:SetChange(GetScreenHeight() * (1 / 4))
@@ -143,6 +147,10 @@ function MERG:GameMenu()
 		topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
 		MERS:CreateBD(topPanel, .5)
 		topPanel:Styling()
+
+		topPanel.ignoreFrameTemplates = true
+		topPanel.ignoreBackdropColors = true
+		E["frames"][topPanel] = true
 
 		topPanel.anim = CreateAnimationGroup(topPanel)
 		topPanel.anim.height = topPanel.anim:CreateAnimation("Height")
@@ -192,6 +200,7 @@ end
 function MERG:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
+		E:UpdateBorderColors()
 	end
 end
 

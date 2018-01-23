@@ -4,10 +4,8 @@ local S = E:GetModule("Skins")
 --Cache global variables
 local _G = _G
 local select = select
+local hooksecurefunc = hooksecurefunc
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
 
 local function styleArtifact()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.artifact ~= true or E.private.muiSkins.blizzard.artifact ~= true then return end
@@ -37,7 +35,6 @@ local function styleArtifact()
 	end
 
 	_G["ArtifactFrame"].AppearancesTab:HookScript("OnShow", function(self)
-		if self.skinned then return end
 		for i = 1, self:GetNumChildren() do
 			local child = select(i, self:GetChildren())
 			if child and child.appearanceID and not child.backdrop then
@@ -79,7 +76,6 @@ local function styleArtifact()
 				end)
 			end
 		end
-		self.skinned = true
 	end)
 end
 

@@ -19,9 +19,9 @@ function BS:StyleButton(button, noBackdrop, useMasque)
 	if E.db.mui.actionbars.buttonStyle.enabled then
 		if not button.overlayGloss then
 			local overlay = button:CreateTexture()
-			overlay:SetBlendMode("BLEND")
+			overlay:SetBlendMode("ADD")
+			overlay:SetDrawLayer("ARTWORK")
 			overlay:SetInside()
-			overlay:SetDrawLayer("OVERLAY")
 			button.overlayGloss = overlay
 		end
 
@@ -69,7 +69,6 @@ function BS:BorderColor()
 		button.border:SetVertexColor(MER:unpackColor(E.db.mui.actionbars.buttonBorder.color))
 	end
 end
-
 
 function BS:UpdateButtons()
 	for button, _ in pairs(BS.styledButtons) do

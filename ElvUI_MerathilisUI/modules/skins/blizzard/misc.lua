@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -46,6 +47,10 @@ local function styleMisc()
 		_G["DropDownList1MenuBackdrop"],
 		_G["DropDownList2MenuBackdrop"],
 		_G["DropDownList3MenuBackdrop"],
+		_G["PetBattlePrimaryUnitTooltip"],
+		_G["PetBattlePrimaryAbilityTooltip"],
+		_G["EventTraceTooltip"],
+		_G["FrameStackTooltip"],
 	}
 
 	for _, frame in pairs(tooltips) do

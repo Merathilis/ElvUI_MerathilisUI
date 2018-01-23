@@ -6,6 +6,7 @@
 	<Script file="dropdown.lua"/>
 	<Script file="install.lua"/>
 	<Script file="staticpopup.lua"/>
+	<Script file="statusReport.lua"/>
 	<Script file="config.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 	<Include file="filter\load_filter.xml"/>

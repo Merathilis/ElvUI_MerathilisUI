@@ -10,7 +10,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UF
 
-
 function MUF:UpdateUF()
 	if E.db.unitframe.units.player.enable then
 		MUF:ArrangePlayer()
@@ -36,10 +35,15 @@ function MUF:Initialize()
 
 	self:InitPlayer()
 	self:InitTarget()
+	self:InitPet()
 
 	-- self:InitParty()
 	-- self:InitRaid()
 	-- self:InitRaid40()
+
+	self:InfoPanelColor()
+
+	self:RegisterEvent("ADDON_LOADED")
 end
 
 local function InitializeCallback()

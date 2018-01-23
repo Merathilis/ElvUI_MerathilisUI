@@ -61,6 +61,7 @@ MB.Frames = {
 MB.AddonsList = {
 	["Blizzard_AchievementUI"] = {"AchievementFrame", "AchievementFrameHeader"},
 	["Blizzard_ArchaeologyUI"] = {"ArchaeologyFrame"},
+	["Blizzard_ArtifactUI"] = {"ArtifactRelicForgeFrame"},
 	["Blizzard_AuctionUI"] = {"AuctionFrame"},
 	["Blizzard_BarberShopUI"] = {"BarberShopFrame"},
 	["Blizzard_BindingUI"] = {"KeyBindingFrame"},

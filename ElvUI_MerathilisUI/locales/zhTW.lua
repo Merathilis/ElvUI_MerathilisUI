@@ -4,7 +4,7 @@ local L = AceLocale:NewLocale("ElvUI", "zhTW")
 if not L then return end
 
 -- Core
-L[" is loaded."] = true
+L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
@@ -12,6 +12,8 @@ L["by Merathilis (EU-Shattrath)"] = true
 L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = true
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen"] = true
+L["Are you still there? ... Hello?"] = true
+L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
@@ -155,8 +157,8 @@ L["TradeSkill Tabs"] = true
 L["Add tabs for professions on the TradeSkill Frame."] = true
 
 -- DataTexts
-L["ChatTab_Datatext_Panel"] = "Right Chat Tab Datatext Panel"
-L["Enable/Disable the right chat tab datatext panel."] = true
+L["ChatTab Datatext Panel"] = true
+L["Middle Datatext Panel"] = true
 
 -- DataBars
 L["DataBars"] = true
@@ -233,6 +235,13 @@ L["Threshold"] = true
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = true
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
+-- Castbar
+L["Adjust castbar text Y Offset"] = true
+L["Force show any text placed on the InfoPanel, while casting."] = true
+L["Castbar Text"] = true
+L["Show Castbar text"] = true
+L["Show InfoPanel text"] = true
+L["Show on Target"] = true
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -445,6 +454,7 @@ L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in El
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
+L["MerathilisUI Panels"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

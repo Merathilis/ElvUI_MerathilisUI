@@ -38,5 +38,6 @@
 	<Script file="taxi.lua"/>
 	<Script file="timemanager.lua"/>
 	<Script file="tradeskill.lua"/>
+	<Script file="warboard.lua"/>
 	<Script file="worldmap.lua"/>
 </Ui>

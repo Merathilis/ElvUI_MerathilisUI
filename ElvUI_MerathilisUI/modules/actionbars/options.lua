@@ -46,6 +46,30 @@ local function abTable()
 					},
 				},
 			},
+			microBar = {
+				order = 3,
+				type = "group",
+				name = MER:cOption(L["Micro Bar"]),
+				guiInline = true,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars.microBar.enable end,
+						set = function(info, value) E.db.mui.actionbars.microBar.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					hideInCombat = {
+						order = 2,
+						type = "toggle",
+						name = L["Hide In Combat"],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars.microBar.hideInCombat end,
+						set = function(info, value) E.db.mui.actionbars.microBar.hideInCombat = value; MAB:CombatToggle(); end,
+					},
+				},
+			},
 		},
 	}
 end

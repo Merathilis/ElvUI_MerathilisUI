@@ -17,18 +17,20 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add a mouseover name feature. To display the unit name on the mouse.",
-		"• Update gmotd.",
-		"• Fix for chat size after reload (hardcoded!!).",
-		"• Create an own AltPowerBar.",
-		"• Add skinning support/ profile for ProjectAzilroka.",
-		"• Rewrote the Blizzard Error handling.",
-		"• Add a SpecBar.",
-		"• Remove ObjectiveTracker hider.",
-		"• Update some skins.",
+		"• Add an ObjectiveTracker collapse function on Raid Bosses.",
+		"• Fix Chat Button, it will now get the actual size from the chat height.",
+		"• Update many skins.",
+		"• Update BigWigs and Details profiles.",
+		"• Create a mover for the SpecBar.",
+		"• Add an own MicroBar with right click functionality from the LocPanel.",
+		"• Update the skinning function for buttons to be transparent. Thx Simpy <3",
+		"• Readd the custom MiniMap textures.",
+		"• Update the AFK Frame. =)",
+		"• Layout Update.",
 		-- "• ",
 	" ",
 	"Notes:",
+		"• 'BenikUI is not more required to get the full function from my UI.'",
 		"• 'If you want my latest layout, you have to do the install again.'",
 		"• 'If you do so, all your changes will be reseted.'",
 }
@@ -58,7 +60,7 @@ end
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 280)
+	frame:SetSize(445, 300)
 	frame:SetTemplate("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
@@ -77,6 +79,7 @@ function MER:CreateChangelog()
 	icon.bg:Point("TOPLEFT", 2, -2)
 	icon.bg:Point("BOTTOMRIGHT", -2, 2)
 	icon.bg:SetTexture(MER.LogoSmall)
+	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame)
 	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)

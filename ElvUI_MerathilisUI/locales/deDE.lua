@@ -1,10 +1,10 @@
 -- German localization file for deDE
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("ElvUI", "deDE");
-if not L then return; end
+if not L then return end
 
 -- Core
-L[" is loaded."] = " ist geladen."
+L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
@@ -12,6 +12,8 @@ L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
 L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich den Look zu mehr transparenz.\n\n|cff00c0faNeue Funktionen sind gekennzeichnet mit:|r"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
+L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
+L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
@@ -119,10 +121,10 @@ L["Announce"] = "Ankündigungen"
 L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
+L["Name Hover"] = "Namen MouseOver"
 L["Expand the chat"] = "Chat erweitern"
-L["Chat Button"] = true
+L["Chat Button"] = "Chat Taste"
 L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
-L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
@@ -167,8 +169,8 @@ L["TradeSkill Tabs"] = "Berufsfenster Tabs"
 L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
 
 -- DataTexts
-L["ChatTab_Datatext_Panel"] = "Rechter ChatTab Infotextleisten"
-L["Enable/Disable the right chat tab datatext panel."] = "Aktivert/Deaktiviert die rechten ChatTab Infoleisten."
+L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
+L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
@@ -245,6 +247,13 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+-- Castbar
+L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
+L["Castbar Text"] = "Zauberleisten Text"
+L["Force show any text placed on the InfoPanel, while casting."] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
+L["Show Castbar text"] = "Zeige Zauberleisten Text"
+L["Show InfoPanel text"] = "Zeige InfoPanel Text"
+L["Show on Target"] = "Zeige auf dem Ziel"
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -456,6 +465,7 @@ L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI
 Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige Skin in ElvUI |cff636363deaktiviert|r ist.]]
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
+L["MerathilisUI Panels"] = "MerathilisUI Leisten"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

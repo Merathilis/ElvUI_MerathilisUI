@@ -17,7 +17,7 @@ local function styleBenikUI()
 		_G["BuiLeftChatDTPanel"]:Styling()
 	end
 
-	if _G["BuiMiddleDTPanel"] then
+	if _G["BuiMiddleDTPanel"] and E.db.benikui.datatexts.middle.backdrop == true then --requires now a reload, otherwise my style is still showing
 		_G["BuiMiddleDTPanel"]:Styling()
 	end
 

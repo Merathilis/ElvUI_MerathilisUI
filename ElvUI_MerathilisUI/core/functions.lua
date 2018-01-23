@@ -53,6 +53,7 @@ function MER:PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
+local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
@@ -111,6 +112,13 @@ function MER:SetStatusBarGradient(bar, hook)
 	if hook then
 		hooksecurefunc(bar, "SetStatusBarColor", function(self, r, g, b) bar:GetStatusBarTexture():SetGradient("VERTICAL", MER:GetGradientColor(r, g, b)) end)
 	end
+end
+
+function MER:CreateText(f, layer, fontsize, flag, justifyh)
+	local text = f:CreateFontString(nil, layer)
+	text:SetFont(E.media.normFont, fontsize, flag)
+	text:SetJustifyH(justifyh)
+	return text
 end
 
 -- Inform us of the patch info we play on.

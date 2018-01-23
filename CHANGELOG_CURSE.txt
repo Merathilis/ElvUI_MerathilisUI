@@ -1,3 +1,15 @@
+** v3.17, 23.01.2018**
+* Add an ObjectiveTracker collapse function on Raid Bosses.
+* Fix Chat Button, it will now get the actual size from the chat height.
+* Update many skins.
+* Update BigWigs and Details profiles.
+* Create a mover for the SpecBar.
+* Add an own MicroBar with right click functionality from the LocPanel.
+* Update the skinning function for buttons to be transparent. Thx Simpy <3
+* Readd the custom MiniMap textures.
+* Update the AFK Frame. =)
+* Layout Update.
+
 ** v3.16, 29.12.2017**
 * Add a mouseover name feature. To display the unit name on the mouse.
 * Update gmotd.

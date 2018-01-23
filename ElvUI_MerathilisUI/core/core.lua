@@ -37,6 +37,10 @@ MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
+function MER:PrintURL(url) -- Credit: Azilroka
+	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
+end
+
 function MER:cOption(name)
 	local color = "|cffff7d0a%s |r"
 	return (color):format(name)
@@ -46,11 +50,6 @@ function MER:AddOptions()
 	for _, func in pairs(MER.Config) do
 		func()
 	end
-end
-
-local color = { r = 1, g = 1, b = 1, a = 1 }
-function MER:unpackColor(color)
-	return color.r, color.g, color.b, color.a
 end
 
 function MER:DasOptions()
@@ -216,7 +215,7 @@ function MER:Initialize()
 	end
 
 	if E.db.mui.general.LoginMsg then
-		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded."])
+		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 
 	-- run install when ElvUI install finishes

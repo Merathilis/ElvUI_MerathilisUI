@@ -276,11 +276,11 @@ local function styleGarrison()
 		local followers = followerFrame.FollowerList.followers
 		local followersList = followerFrame.FollowerList.followersList
 		local scrollFrame = followerFrame.FollowerList.listScroll
-		--
+
 		if GarrisonLandingPage.ShipFollowerTab:IsVisible() then
 			scrollFrame = followerFrame.ShipFollowerList.listScroll
 		end
-		--
+
 		local buttons = scrollFrame.buttons
 		local numFollowers = #followersList
 		local offset = HybridScrollFrame_GetOffset(scrollFrame)

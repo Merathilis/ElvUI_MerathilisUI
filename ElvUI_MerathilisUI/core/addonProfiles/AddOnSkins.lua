@@ -68,6 +68,10 @@ function MER:LoadAddOnSkinsProfile()
 		AddOnSkinsDB.profiles[profileName]["EmbedLeft"] = ""
 		AddOnSkinsDB.profiles[profileName]["EmbedRight"] = ""
 	end
+
+	if IsAddOnLoaded("Postal") then
+		AddOnSkinsDB.profiles[profileName]["Postal"] = false
+	end
  
 	-- Profile creation
 	local db = LibStub("AceDB-3.0"):New(AddOnSkinsDB)

@@ -32,4 +32,4 @@ local function databarsTable()
 		},
 	}
 end
-tinsert(MER.Config, databarsTable)
+-- tinsert(MER.Config, databarsTable)

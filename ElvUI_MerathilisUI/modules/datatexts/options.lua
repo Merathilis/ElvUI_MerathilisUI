@@ -110,22 +110,70 @@ local function Datatexts()
 					rightChatTabDatatextPanel = {
 						order = 1,
 						type = "toggle",
-						name = L["ChatTab_Datatext_Panel"],
-						desc = L["Enable/Disable the right chat tab datatext panel."],
-						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel end,
-						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel = value; MER:ToggleDataPanels() end,
+						name = L["ChatTab Datatext Panel"],
+						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel.enable end,
+						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel.enable = value; E:GetModule("mUILayout"):ToggleChatPanel() end,
+					},
+					middleDTEnable = {
+						order = 2,
+						type = "toggle",
+						name = L["Middle Datatext Panel"],
+						get = function(info) return E.db.mui.datatexts.middle.enable end,
+						set = function(info, value) E.db.mui.datatexts.middle.enable = value; E:GetModule("mUILayout"):MiddleDatatextLayout(); end,
+					}
+				},
+			},
+			middle = {
+				order = 3,
+				type = "group",
+				name = MER:cOption(L["Middle Datatext Panel"]),
+				guiInline = true,
+				args = {
+					transparent = {
+						order = 1,
+						type = "toggle",
+						name = L["Panel Transparency"],
+						disabled = function() return not E.db.mui.datatexts.middle.enable end,
+						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextLayout(); end,
+					},
+					backdrop = {
+						order = 2,
+						type = "toggle",
+						name = L["Backdrop"],
+						disabled = function() return not E.db.mui.datatexts.middle.enable end,
+						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextLayout(); end,
+					},
+					width = {
+						order = 3,
+						type = "range",
+						name = L["Width"],
+						min = 200, max = 1400, step = 1,
+						disabled = function() return not E.db.mui.datatexts.middle.enable end,
+						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextDimensions(); end,
+					},
+					height = {
+						order = 4,
+						type = "range",
+						name = L["Height"],
+						min = 10, max = 32, step = 1,
+						disabled = function() return not E.db.mui.datatexts.middle.enable end,
+						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextDimensions(); end,
 					},
 				},
 			},
 			panels = {
-				order = 3,
+				order = 4,
 				type = "group",
-				name = MER:cOption(L["Panels"]),
+				name = MER:cOption(L["DataTexts"]),
 				guiInline = true,
 				args = {},
 			},
 			threatBar = {
-				order = 4,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Threat"]),
 				guiInline = true,
@@ -140,7 +188,7 @@ local function Datatexts()
 					},
 					textSize = {
 						order = 2,
-						name = L["Font Size"],
+						name = FONT_SIZE,
 						type = "range",
 						min = 6, max = 22, step = 1,
 						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,
@@ -197,7 +245,6 @@ local function Datatexts()
 					values = datatexts,
 					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
 					set = function(info, value) E.db.mui.datatexts.panels[pointLoc][ info[#info] ] = value; DT:LoadDataTexts() end,
-					disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				}
 			end
 		elseif type(tab) == "string" then
@@ -207,7 +254,6 @@ local function Datatexts()
 				values = datatexts,
 				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,
 				set = function(info, value) E.db.mui.datatexts.panels[pointLoc] = value; DT:LoadDataTexts() end,
-				disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 				print(pointLoc)
 			}
 		end

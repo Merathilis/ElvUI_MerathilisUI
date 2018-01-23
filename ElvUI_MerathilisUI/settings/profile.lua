@@ -25,9 +25,14 @@ P["mui"] = {
 			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
-		["chatButton"] = true,
+		["panels"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
+	},
+
+	["chat"] = {
+		["chatButton"] = true,
+		["panelHeight"] = 146,
 	},
 
 	["colors"] = {
@@ -129,14 +134,29 @@ P["mui"] = {
 	},
 
 	["datatexts"] = {
-		["rightChatTabDatatextPanel"] = true,
 		["panels"] = {
 			["ChatTab_Datatext_Panel"] = {
-				["left"] = "Call to Arms",
-				["middle"] = "Coords",
-				["right"] = "Bags",
+				["left"] = "Durability",
+				["middle"] = "Bags",
+				["right"] = "Coords",
+			},
+			["mUIMiddleDTPanel"] = {
+				["left"] = "Guild",
+				["middle"] = "MUI System",
+				["right"] = "Friends",
 			},
 		},
+		["middle"] = {
+			["enable"] = true,
+			["transparent"] = true,
+			["backdrop"] = false,
+			["width"] = 495,
+			["height"] = 18,
+		},
+		["rightChatTabDatatextPanel"] = {
+			["enable"] = true,
+		},
+
 		["threatBar"] = {
 			["enable"] = true,
 			["textSize"] = 10,
@@ -158,13 +178,13 @@ P["mui"] = {
 		["hint"] = true,
 	},
 
-	["databars"] = {
-		["enable"] = true,
-	},
-
 	["actionbars"] = {
 		["transparent"] = true,
 		["specBar"] = true,
+		["microBar"] = {
+			["enable"] = true,
+			["hideInCombat"] = false,
+		},
 		["buttonStyle"] = {
 			["enabled"] = false,
 			["texture"] = "MerathilisGradient",
@@ -211,6 +231,27 @@ P["mui"] = {
 				["tank"] = true,
 				["assist"] = true,
 			},
+		},
+		["infoPanel"] = {
+			["fixInfoPanel"] = true,
+		},
+		["castbar"] = {
+			["text"] = {
+				["ShowInfoText"] = false,
+				["castText"] = true,
+				["forceTargetText"] = false,
+				["player"] = {
+					["yOffset"] = 0,
+					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+				},
+				["target"] = {
+					["yOffset"] = 0,
+					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+				},
+			},
+		},
+		["textures"] = {
+			["castbar"] = "MerathilisFlat",
 		},
 	},
 

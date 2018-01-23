@@ -17,6 +17,7 @@ local DecorAddons = {
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
+	{"Postal", L["Postal"], "po"},
 }
 
 local SupportedProfiles = {
@@ -61,9 +62,16 @@ local function SkinsTable()
 					closeButton = {
 						order = 2,
 						type = "toggle",
-						name = L["MerathilisUI CloseButton"],
+						name = L["MerathilisUI "]..CLOSE,
 						get = function(info) return E.private.muiSkins[ info[#info] ] end,
 						set = function(info, value) E.private.muiSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					panels = {
+						order = 3,
+						type = "toggle",
+						name = L["MerathilisUI Panels"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 				},
 			},
@@ -305,6 +313,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Loot Frames"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.loot end,
+			},
+			warboard = {
+				type = "toggle",
+				name = L["Warboard"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Warboard end,
 			},
 		},
 	}

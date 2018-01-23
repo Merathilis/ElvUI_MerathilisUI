@@ -1,11 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERC = E:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+local MERS = E:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
 MERC.modName = L["Chat"]
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local pairs = pairs
 local find, gsub = string.find, string.gsub
 -- WoW API / Variable
 local GetRealmName = GetRealmName
@@ -21,6 +23,32 @@ function MERC:RemoveCurrentRealmName(msg, author, ...)
 		return false, gsub(msg, "%-"..realmName, ""), author, ...
 	end
 end
+
+CH.mUIUpdateAnchors = CH.UpdateAnchors
+function CH:UpdateAnchors()
+	self:mUIUpdateAnchors()
+
+	for _, frameName in pairs(CHAT_FRAMES) do
+		local frame = _G[frameName.."EditBox"]
+		if not frame then break; end
+
+		frame:SetScript("OnShow", function(self)
+			E:UIFrameFadeIn(self, .5, 0, 1)
+		end)
+	end
+
+	CH:PositionChat(true)
+end
+
+function MERC:StyleChat(frame)
+	local name = frame:GetName()
+	local editbox = _G[name.."EditBox"]
+
+	editbox:Styling()
+
+	frame.styled = true
+end
+hooksecurefunc(CH, "StyleChat", MERC.StyleChat)
 
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
