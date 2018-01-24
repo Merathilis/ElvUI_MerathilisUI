@@ -40,7 +40,7 @@ function S:HandleCloseButton(f, point, text)
 	if E.private.muiSkins.closeButton then
 		f:StripTextures()
 
-		--Create backdrop for the few close buttons that do not use original close button
+		-- Create backdrop for the few close buttons that do not use original close button
 		if not f.backdrop and not f.noBackdrop then
 			f:CreateBackdrop("Transparent", true)
 			f.backdrop:Point("TOPLEFT", 7, -8)
@@ -50,7 +50,7 @@ function S:HandleCloseButton(f, point, text)
 			f:SetHitRectInsets(6, 6, 7, 7)
 		end
 
-		--ElvUI code expects the element to be there. It won't show up for original close buttons.
+		-- ElvUI code expects the element to be there. It won't show up for original close buttons.
 		if not f.text then
 			f.text = f:CreateFontString(nil, "OVERLAY")
 			f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
@@ -59,7 +59,7 @@ function S:HandleCloseButton(f, point, text)
 			f.text:Point("CENTER", f, "CENTER")
 		end
 
-		--Use a own texture for the close button.
+		-- Use a own texture for the close button.
 		if not f.tex then
 			f.tex = f:CreateTexture(nil, "OVERLAY")
 			f.tex:Size(12)
@@ -67,7 +67,7 @@ function S:HandleCloseButton(f, point, text)
 			f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
 		end
 
-		--Hide text if button is using original skin
+		-- Hide text if button is using original skin
 		if f.text and f.noBackdrop then
 			f.text:SetAlpha(0)
 		end
@@ -694,16 +694,19 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
-function MERS:Initialize()
-	self.db = E.private.muiSkins
-
-	updateMedia()
-
+local function pluginInstaller()
 	local PluginInstallFrame = _G["PluginInstallFrame"]
 	if PluginInstallFrame then
 		PluginInstallFrame:Styling()
 		PluginInstallTitleFrame:Styling()
 	end
+end
+
+function MERS:Initialize()
+	self.db = E.private.muiSkins
+
+	updateMedia()
+	pluginInstaller()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

@@ -10,6 +10,8 @@ end
 
 -- Units
 function MUF:UnitInfoPanelColor()
+	if E.db.mui.unitframes.infoPanel.style ~= true then return end
+
 	local bar = LSM:Fetch("statusbar", "MerathilisOnePixel")
 	for _, unitName in pairs(UF.units) do
 		local frameNameUnit = E:StringTitle(unitName)

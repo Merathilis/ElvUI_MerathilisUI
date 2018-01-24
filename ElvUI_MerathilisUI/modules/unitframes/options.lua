@@ -192,9 +192,23 @@ local function UnitFramesTable()
 					},
 				},
 			},
-			castbar = {
+			infoPanel = {
 				type = "group",
 				order = 5,
+				name = L["InfoPanel"],
+				get = function(info) return E.db.mui.unitframes.infoPanel[ info[#info] ] end,
+				set = function(info, value) E.db.mui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+				args = {
+					style = {
+						order = 1,
+						type = "toggle",
+						name = L["InfoPanel Style"],
+					},
+				},
+			},
+			castbar = {
+				type = "group",
+				order = 6,
 				name = L["Castbar Text"].." ("..PLAYER.."/"..TARGET..")",
 				get = function(info) return E.db.mui.unitframes.castbar.text[ info[#info] ] end,
 				set = function(info, value) E.db.mui.unitframes.castbar.text[ info[#info] ] = value; MCA:UpdateAllCastbars(); end,
@@ -287,18 +301,13 @@ local function UnitFramesTable()
 				},
 			},
 			textures = {
-				order = 6,
+				order = 7,
 				type = "group",
 				name = L['Textures'],
 				args = {
-					spacer2 = {
-						order = 1,
-						type = "header",
-						name = "",
-					},
 					castbar = {
 						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 2,
+						order = 1,
 						name = L['Castbar'],
 						desc = L['This applies on all available castbars.'],
 						values = AceGUIWidgetLSMlists.statusbar,
