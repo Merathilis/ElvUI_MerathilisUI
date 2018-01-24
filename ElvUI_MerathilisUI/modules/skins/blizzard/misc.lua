@@ -88,6 +88,9 @@ local function styleMisc()
 	if TalentMicroButtonAlert then
 		TalentMicroButtonAlert:Styling()
 	end
+
+	-- What's New
+	SplashFrame:Styling()
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
