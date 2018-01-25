@@ -70,7 +70,6 @@ local function AddOptions()
 						type = "toggle",
 						name = L["AFK"],
 						desc = L["Enable/Disable the MUI AFK Screen"],
-						hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					GameMenu = {
 						order = 5,
