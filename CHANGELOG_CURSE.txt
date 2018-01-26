@@ -1,3 +1,9 @@
+** v3.18, 26.01.2018**
+* Changed the middle Datatext framestrata.
+* Add an option to disable the Infotexts style.
+* Show the option to disable my AFK Screen.
+* Correctly disable the Orderhall Commandbar, if the skin is disabled.
+
 ** v3.17, 23.01.2018**
 * Add an ObjectiveTracker collapse function on Raid Bosses.
 * Fix Chat Button, it will now get the actual size from the chat height.
