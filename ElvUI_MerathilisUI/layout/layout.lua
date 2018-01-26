@@ -94,8 +94,8 @@ function MERL:CreateChatButton()
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
-	ChatButton:Point("TOPLEFT", 3, -5)
-	ChatButton:Size(14, 14)
+	ChatButton:Point("TOPLEFT", 4, -5)
+	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
