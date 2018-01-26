@@ -55,7 +55,7 @@ end
 function MAB:CreateMicroBar()
 	microBar:SetFrameLevel(6)
 	microBar:SetSize(400, 26)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -15)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -13)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
 
