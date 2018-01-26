@@ -233,7 +233,7 @@ P["mui"] = {
 			},
 		},
 		["infoPanel"] = {
-			["fixInfoPanel"] = true,
+			["style"] = true,
 		},
 		["castbar"] = {
 			["text"] = {

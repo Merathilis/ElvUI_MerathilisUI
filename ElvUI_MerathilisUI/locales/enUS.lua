@@ -252,6 +252,7 @@ L["Force show any text placed on the InfoPanel, while casting."] = true
 L["Castbar Text"] = true
 L["Show Castbar text"] = true
 L["Show InfoPanel text"] = true
+L["InfoPanel Style"] = true
 L["Show on Target"] = true
 
 -- LocationPanel

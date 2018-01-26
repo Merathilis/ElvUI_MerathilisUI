@@ -82,7 +82,7 @@ end
 
 function MERL:ChangeLayout()
 	-- Middle DT Panel
-	mUIMiddleDTPanel:SetFrameStrata("BACKGROUND")
+	mUIMiddleDTPanel:SetFrameStrata("HIGH")
 	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
 	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
 	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)

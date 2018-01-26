@@ -253,6 +253,7 @@ L["Castbar Text"] = "Zauberleisten Text"
 L["Force show any text placed on the InfoPanel, while casting."] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
 L["Show Castbar text"] = "Zeige Zauberleisten Text"
 L["Show InfoPanel text"] = "Zeige InfoPanel Text"
+L["InfoPanel Style"] = "InfoPanel Stil"
 L["Show on Target"] = "Zeige auf dem Ziel"
 
 -- LocationPanel

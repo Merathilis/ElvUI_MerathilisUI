@@ -178,6 +178,9 @@ local OrderHall_eframe = CreateFrame("Frame")
 OrderHall_eframe:RegisterEvent("ADDON_LOADED")
 
 OrderHall_eframe:SetScript("OnEvent", function(self, event, arg1)
+	if E.private.muiSkins == nil then E.private.muiSkins = {} end
+	if E.private.muiSkins.blizzard == nil then E.private.muiSkins.blizzard = {} end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 	if event == "ADDON_LOADED" and arg1 == "Blizzard_OrderHallUI" then
 		OrderHall_eframe:RegisterEvent("DISPLAY_SIZE_CHANGED")
 		OrderHall_eframe:RegisterEvent("UI_SCALE_CHANGED")

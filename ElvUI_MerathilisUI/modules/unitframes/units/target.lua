@@ -19,7 +19,7 @@ end
 
 function MUF:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
-
+	if E.db.mui.unitframes.infoPanel.style ~= true then return end
 	if not frame.USE_INFO_PANEL then return end
 
 	local targetClass = select(2, UnitClass("target"));

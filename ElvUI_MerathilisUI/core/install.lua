@@ -1325,10 +1325,10 @@ function MER:SetupDts()
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Coords"
 	end
 
-	if IsAddOnLoaded("WIM") then
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "WIM"
+	if IsAddOnLoaded("ElvUI_SLE") then
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "S&L Currency"
 	else
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Bags"
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 	end
 
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
