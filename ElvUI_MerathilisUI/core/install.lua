@@ -1184,7 +1184,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
 
-	MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 518, 230)
+	MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 519, 250)
 	MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 226)
 
 	-- Arena
