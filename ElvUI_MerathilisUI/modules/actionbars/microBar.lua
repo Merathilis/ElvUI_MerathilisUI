@@ -334,9 +334,9 @@ function MAB:CreateMicroBar()
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:SetScript("OnEvent",function(self, event)
 			if event == "PLAYER_REGEN_DISABLED" then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+				E.UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			elseif event == "PLAYER_REGEN_ENABLED" then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				E.UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 			end
 		end)
 	end
