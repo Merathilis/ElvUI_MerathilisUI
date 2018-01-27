@@ -276,6 +276,16 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
+	E.db["bags"]["itemLevelFont"] = "Expressway"
+	E.db["bags"]["itemLevelFontSize"] = 9
+	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["bags"]["countFont"] = "Expressway"
+	E.db["bags"]["countFontSize"] = 10
+	E.db["bags"]["countFontOutline"] = "OUTLINE"
+	E.db["bags"]["bagSize"] = 30
+	E.db["bags"]["bagWidth"] = 470
+	E.db["bags"]["bankSize"] = 30
+	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 815
@@ -388,16 +398,6 @@ function MER:SetupLayout()
 	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
-	E.db["bags"]["itemLevelFont"] = "Expressway"
-	E.db["bags"]["itemLevelFontSize"] = 9
-	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
-	E.db["bags"]["countFont"] = "Expressway"
-	E.db["bags"]["countFontSize"] = 10
-	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["bagSize"] = 23
-	E.db["bags"]["bagWidth"] = 470
-	E.db["bags"]["bankSize"] = 23
-	E.db["bags"]["bankWidth"] = 426
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 146
