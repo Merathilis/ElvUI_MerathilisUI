@@ -975,7 +975,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
 
-	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 761, 57)
+	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 57)
 
 	-- Raid40
 	E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
@@ -1134,7 +1134,7 @@ function MER:SetupUnitframes()
 		["text_format"] = "[name:medium:status]",
 	}
 
-	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 73)
+	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 73)
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
