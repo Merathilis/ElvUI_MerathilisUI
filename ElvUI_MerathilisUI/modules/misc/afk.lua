@@ -211,7 +211,7 @@ function AFK:Initialize()
 	self.AFKMode.topPanel.time = self.AFKMode.topPanel:CreateFontString(nil, "OVERLAY")
 	self.AFKMode.topPanel.time:FontTemplate(nil, 16)
 	self.AFKMode.topPanel.time:SetText("")
-	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 0)
+	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 15)
 	self.AFKMode.topPanel.time:SetJustifyH("CENTER")
 	self.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
