@@ -15,34 +15,8 @@ local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
 
 local function styleGuild()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.muiSkins.blizzard.guild ~= true then return end
-	local emblem = select(10, GetGuildLogoInfo())
 
 	_G["GuildFrame"]:Styling()
-
-	local guildBanner = CreateFrame("Frame", nil, GuildFrame)
-	guildBanner:SetInside()
-	guildBanner:SetFrameLevel(10)
-
-	guildBanner.bg = guildBanner:CreateTexture(nil, "BACKGROUND")
-	guildBanner.bg:Size(36, 46)
-	guildBanner.bg:SetTexCoord(.00781250, .32812500, .01562500, .84375000)
-	guildBanner.bg:SetTexture("Interface\\GuildFrame\\GuildDifficulty")
-	guildBanner.bg:Point("TOPLEFT", GuildFrame, "TOPLEFT", 5, -5)
-
-	guildBanner.border = guildBanner:CreateTexture(nil, "ARTWORK")
-	guildBanner.border:Size(36, 46)
-	guildBanner.border:SetTexCoord(.34375000, .66406250, .01562500, .84375000)
-	guildBanner.border:SetTexture("Interface\\GuildFrame\\GuildDifficulty")
-	guildBanner.border:Point("CENTER", guildBanner.bg)
-
-	guildBanner.emblem = guildBanner:CreateTexture(nil, "OVERLAY")
-	guildBanner.emblem:Size(18)
-	guildBanner.emblem:SetTexture("Interface\\GuildFrame\\GuildEmblems_01")
-	guildBanner.emblem:Point("CENTER", guildBanner.bg, 0, 2)
-
-	if(emblem) then
-		SetSmallGuildTabardTextures("player", guildBanner.emblem, guildBanner.bg, guildBanner.border)
-	end
 
 	-- Hide the blizzard layers
 	hooksecurefunc("GuildRoster_UpdateTradeSkills", function()
