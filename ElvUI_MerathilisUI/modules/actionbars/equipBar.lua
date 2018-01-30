@@ -3,7 +3,7 @@ local MAB = E:GetModule("mUIActionbars")
 local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
---Lua functions+
+--Lua functions
 local _G = _G
 local select = select
 --WoW API / Variables
