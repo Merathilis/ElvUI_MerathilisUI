@@ -22,6 +22,8 @@ local GetMerchantItemMaxStack = GetMerchantItemMaxStack
 --	Show item level for weapons and armor in merchant
 ----------------------------------------------------------------------------------------
 local function MerchantItemlevel()
+	if E.db.mui.general.MerchantiLevel ~= true then return end
+
 	local numItems = GetMerchantNumItems()
 
 	for i = 1, MERCHANT_ITEMS_PER_PAGE do
