@@ -3,26 +3,29 @@ local MAB = E:GetModule("mUIActionbars")
 local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
---Lua functions
+--Lua functions+
 local _G = _G
-local pairs, unpack = pairs, unpack
+local select = select
 --WoW API / Variables
 local CreateFrame = CreateFrame
-
+local C_EquipmentSet = C_EquipmentSet
+local InCombatLockdown = InCombatLockdown
+local ShowUIPanel = ShowUIPanel
+local UIErrorsFrame = UIErrorsFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GameTooltip, GameTooltip_Hide
+-- GLOBALS: GameTooltip, GameTooltip_Hide, PAPERDOLL_EQUIPMENTMANAGER, ERR_NOT_IN_COMBAT, PaperDollFrame_SetSidebar
+-- GLOBALS: SAVE_CHANGES
 
 function MAB:CreateEquipBar()
 	if E.db.mui.actionbars.equipBar ~= true then return end
 
-	local C_EquipmentSet = C_EquipmentSet
 	local GearTexture = "Interface\\WorldMap\\GEAR_64GREY"
 	local EquipmentSets = CreateFrame("Frame", "EquipmentSets", E.UIParent)
 	EquipmentSets:SetFrameStrata("BACKGROUND")
 	EquipmentSets:SetFrameLevel(0)
 	EquipmentSets:SetSize(32, 32)
 	EquipmentSets:SetTemplate("Transparent")
-	EquipmentSets:SetPoint("RIGHT", SpecializationBar, "LEFT", -1, 0)
+	EquipmentSets:SetPoint("RIGHT", _G["SpecializationBar"], "LEFT", -1, 0)
 	EquipmentSets:Styling()
 
 	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], true, nil)
@@ -103,8 +106,8 @@ function MAB:CreateEquipBar()
 			return UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1.0, 0.1, 0.1, 1.0);
 		end
 		if not self:GetID() then
-			ShowUIPanel(CharacterFrame)
-			PaperDollFrame_SetSidebar(CharacterFrame, 3)
+			ShowUIPanel(_G["CharacterFrame"])
+			PaperDollFrame_SetSidebar(_G["CharacterFrame"], 3)
 			return
 		end
 
