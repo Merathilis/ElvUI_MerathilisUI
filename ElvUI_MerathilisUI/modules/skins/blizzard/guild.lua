@@ -3,7 +3,12 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 local _G = _G
+local select = select
 --WoW API / Variables
+local CreateFrame = CreateFrame
+local GetGuildLogoInfo = GetGuildLogoInfo
+local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
+local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:

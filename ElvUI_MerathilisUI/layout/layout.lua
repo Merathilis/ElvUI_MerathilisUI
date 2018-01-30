@@ -94,8 +94,8 @@ function MERL:CreateChatButton()
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
-	ChatButton:Point("TOPLEFT", 3, -5)
-	ChatButton:Size(14, 14)
+	ChatButton:Point("TOPLEFT", 4, -5)
+	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
@@ -213,99 +213,99 @@ end
 
 -- Panels
 function MERL:CreatePanels()
-	if E.db.mui.general.panels then
-		local topPanel = CreateFrame("Frame", MER.Title.."TopPanel", E.UIParent)
-		topPanel:SetFrameStrata("BACKGROUND")
-		topPanel:SetPoint("TOP", 0, 3)
-		topPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
-		topPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
-		topPanel:SetHeight(15)
-		topPanel:SetTemplate("Transparent")
-		topPanel:Styling()
+	if E.db.mui.general.panels ~= true then return end
 
-		local bottomPanel = CreateFrame("Frame", MER.Title.."BottomPanel", E.UIParent)
-		bottomPanel:SetFrameStrata("BACKGROUND")
-		bottomPanel:SetPoint("BOTTOM", 0, -3)
-		bottomPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
-		bottomPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
-		bottomPanel:SetHeight(15)
-		bottomPanel:SetTemplate("Transparent")
-		bottomPanel:Styling()
+	local topPanel = CreateFrame("Frame", MER.Title.."TopPanel", E.UIParent)
+	topPanel:SetFrameStrata("BACKGROUND")
+	topPanel:SetPoint("TOP", 0, 3)
+	topPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
+	topPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
+	topPanel:SetHeight(15)
+	topPanel:SetTemplate("Transparent")
+	topPanel:Styling()
 
-		local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
-		topLeftStyle:SetFrameStrata("BACKGROUND")
-		topLeftStyle:SetFrameLevel(2)
-		topLeftStyle:SetSize(E.screenwidth*2/9, 4)
-		topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -10)
-		MERS:SkinPanel(topLeftStyle)
+	local bottomPanel = CreateFrame("Frame", MER.Title.."BottomPanel", E.UIParent)
+	bottomPanel:SetFrameStrata("BACKGROUND")
+	bottomPanel:SetPoint("BOTTOM", 0, -3)
+	bottomPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
+	bottomPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
+	bottomPanel:SetHeight(15)
+	bottomPanel:SetTemplate("Transparent")
+	bottomPanel:Styling()
 
-		local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
-		topRightStyle:SetFrameStrata("BACKGROUND")
-		topRightStyle:SetFrameLevel(2)
-		topRightStyle:SetSize(E.screenwidth*2/9, 4)
-		topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -10)
-		MERS:SkinPanel(topRightStyle)
+	local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
+	topLeftStyle:SetFrameStrata("BACKGROUND")
+	topLeftStyle:SetFrameLevel(2)
+	topLeftStyle:SetSize(E.screenwidth*2/9, 4)
+	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -10)
+	MERS:SkinPanel(topLeftStyle)
 
-		local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
-		bottomLeftSytle:SetFrameStrata("BACKGROUND")
-		bottomLeftSytle:SetFrameLevel(2)
-		bottomLeftSytle:SetSize(E.screenwidth*2/9, 4)
-		bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 10)
-		MERS:SkinPanel(bottomLeftSytle)
+	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
+	topRightStyle:SetFrameStrata("BACKGROUND")
+	topRightStyle:SetFrameLevel(2)
+	topRightStyle:SetSize(E.screenwidth*2/9, 4)
+	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -10)
+	MERS:SkinPanel(topRightStyle)
+    
+	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
+	bottomLeftSytle:SetFrameStrata("BACKGROUND")
+	bottomLeftSytle:SetFrameLevel(2)
+	bottomLeftSytle:SetSize(E.screenwidth*2/9, 4)
+	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 10)
+	MERS:SkinPanel(bottomLeftSytle)
 
-		local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
-		bottomRightStyle:SetFrameStrata("BACKGROUND")
-		bottomRightStyle:SetFrameLevel(2)
-		bottomRightStyle:SetSize(E.screenwidth*2/9, 4)
-		bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
-		MERS:SkinPanel(bottomRightStyle)
+	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
+	bottomRightStyle:SetFrameStrata("BACKGROUND")
+	bottomRightStyle:SetFrameLevel(2)
+	bottomRightStyle:SetSize(E.screenwidth*2/9, 4)
+	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
+	MERS:SkinPanel(bottomRightStyle)
 
-		local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
-		MerathilisUIButton1:SetTemplate("Default", true)
-		MerathilisUIButton1:RegisterForClicks("AnyUp")
-		MerathilisUIButton1:Size(12, 12)
-		MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
-		MerathilisUIButton1:StyleButton()
+	local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
+	MerathilisUIButton1:SetTemplate("Default", true)
+	MerathilisUIButton1:RegisterForClicks("AnyUp")
+	MerathilisUIButton1:Size(12, 12)
+	MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
+	MerathilisUIButton1:StyleButton()
 
-		MerathilisUIButton1.text = MerathilisUIButton1:CreateFontString(nil, "OVERLAY")
-		MerathilisUIButton1.text:SetFont(E["media"].normFont, 11)
-		MerathilisUIButton1.text:Point("CENTER", 1, 0)
-		if E.db.actionbar.bar5.enabled == true then -- double check for login
-			MerathilisUIButton1.text:SetText(cm.."-|r")
-		else
-			MerathilisUIButton1.text:SetText(cp.."+|r")
-		end
-
-		MerathilisUIButton1:SetScript("OnClick", function(self, btn)
-			if btn == "LeftButton" then
-				UpdateBar5(self, _G["ElvUI_Bar5"])
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			end
-		end)
-
-		local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
-		MerathilisUIButton2:SetTemplate("Default", true)
-		MerathilisUIButton2:RegisterForClicks("AnyUp")
-		MerathilisUIButton2:Size(12, 12)
-		MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
-		MerathilisUIButton2:StyleButton()
-
-		MerathilisUIButton2.text = MerathilisUIButton2:CreateFontString(nil, "OVERLAY")
-		MerathilisUIButton2.text:SetFont(E["media"].normFont, 11)
-		MerathilisUIButton2.text:Point("CENTER", 0, 0)
-		if E.db.actionbar.bar3.enabled == true then -- double check for login
-			MerathilisUIButton2.text:SetText(cm.."-|r")
-		else
-			MerathilisUIButton2.text:SetText(cp.."+|r")
-		end
-
-		MerathilisUIButton2:SetScript("OnClick", function(self, btn)
-			if btn == "LeftButton" then
-				UpdateBar3(self, _G["ElvUI_Bar3"])
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			end
-		end)
+	MerathilisUIButton1.text = MerathilisUIButton1:CreateFontString(nil, "OVERLAY")
+	MerathilisUIButton1.text:SetFont(E["media"].normFont, 11)
+	MerathilisUIButton1.text:Point("CENTER", 1, 0)
+	if E.db.actionbar.bar5.enabled == true then -- double check for login
+		MerathilisUIButton1.text:SetText(cm.."-|r")
+	else
+		MerathilisUIButton1.text:SetText(cp.."+|r")
 	end
+
+	MerathilisUIButton1:SetScript("OnClick", function(self, btn)
+		if btn == "LeftButton" then
+			UpdateBar5(self, _G["ElvUI_Bar5"])
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		end
+	end)
+
+	local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
+	MerathilisUIButton2:SetTemplate("Default", true)
+	MerathilisUIButton2:RegisterForClicks("AnyUp")
+	MerathilisUIButton2:Size(12, 12)
+	MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
+	MerathilisUIButton2:StyleButton()
+
+	MerathilisUIButton2.text = MerathilisUIButton2:CreateFontString(nil, "OVERLAY")
+	MerathilisUIButton2.text:SetFont(E["media"].normFont, 11)
+	MerathilisUIButton2.text:Point("CENTER", 0, 0)
+	if E.db.actionbar.bar3.enabled == true then -- double check for login
+		MerathilisUIButton2.text:SetText(cm.."-|r")
+	else
+		MerathilisUIButton2.text:SetText(cp.."+|r")
+	end
+
+	MerathilisUIButton2:SetScript("OnClick", function(self, btn)
+		if btn == "LeftButton" then
+			UpdateBar3(self, _G["ElvUI_Bar3"])
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		end
+	end)
 end
 
 function MERL:regEvents()

@@ -276,6 +276,16 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
+	E.db["bags"]["itemLevelFont"] = "Expressway"
+	E.db["bags"]["itemLevelFontSize"] = 9
+	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
+	E.db["bags"]["countFont"] = "Expressway"
+	E.db["bags"]["countFontSize"] = 10
+	E.db["bags"]["countFontOutline"] = "OUTLINE"
+	E.db["bags"]["bagSize"] = 30
+	E.db["bags"]["bagWidth"] = 470
+	E.db["bags"]["bankSize"] = 30
+	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 815
@@ -388,16 +398,6 @@ function MER:SetupLayout()
 	E.private["general"]["dmgfont"] = "Expressway"
 
 	E.db["tooltip"]["healthBar"]["font"] = "Expressway"
-	E.db["bags"]["itemLevelFont"] = "Expressway"
-	E.db["bags"]["itemLevelFontSize"] = 9
-	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
-	E.db["bags"]["countFont"] = "Expressway"
-	E.db["bags"]["countFontSize"] = 10
-	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["bagSize"] = 23
-	E.db["bags"]["bagWidth"] = 470
-	E.db["bags"]["bankSize"] = 23
-	E.db["bags"]["bankWidth"] = 426
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 146
@@ -975,7 +975,7 @@ function MER:SetupUnitframes()
 		E.db["unitframe"]["units"]["raid"]["classHover"] = true
 	end
 
-	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 761, 57)
+	MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 57)
 
 	-- Raid40
 	E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
@@ -1134,7 +1134,7 @@ function MER:SetupUnitframes()
 		["text_format"] = "[name:medium:status]",
 	}
 
-	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 760, 73)
+	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 73)
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false
@@ -1184,7 +1184,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["height"] = 14
 	E.db["unitframe"]["units"]["pet"]["infoPanel"]["transparent"] = true
 
-	MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 518, 230)
+	MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 519, 250)
 	MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 511, 226)
 
 	-- Arena

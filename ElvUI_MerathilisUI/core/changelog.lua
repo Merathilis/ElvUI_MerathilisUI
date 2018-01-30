@@ -17,10 +17,13 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Changed the middle Datatext framestrata.",
-		"• Add an option to disable the Infotexts style.",
-		"• Show the option to disable my AFK Screen.",
-		"• Correctly disable the Orderhall Commandbar, if the skin is disabled.",
+		"• Add an EquipSet Bar. Thx Azilroka for this <3",
+		"• Fix Party/Raid position for high resolutions.",
+		"• Update BigWigs Skin. No Half-Bar anymore.",
+		"• Replace the Quest button with a Talent button in the MicroBar.",
+		"• Don't hide the AFK options if BenikUI is loaded.",
+		"• Add new font settings for S&L (its not live yet), will error out.",
+		"• Fixed the option for the MerchantItemLevel. Thx varyak",
 		-- "• ",
 	" ",
 	"Notes:",

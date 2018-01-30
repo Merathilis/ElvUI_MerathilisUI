@@ -217,7 +217,8 @@ L["ButtonStyle"] = "Tastenstil"
 L["Enable the button style."] = "Aktiviere den Tastenstil."
 L["The texture to use."] = "Die zu verwendene Textur."
 L["ActionButton Border"] = "Aktionstasten Rand"
-L["Specialisation Bar"] = "Spezialisierungs Leiste"
+L["Specialisation Bar"] = "Spezialisierungsleiste"
+L["EquipSet Bar"] = "Ausrüstungsleiste"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"

@@ -55,7 +55,7 @@ end
 function MAB:CreateMicroBar()
 	microBar:SetFrameLevel(6)
 	microBar:SetSize(400, 26)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -15)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -13)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
 
@@ -285,9 +285,32 @@ function MAB:CreateMicroBar()
 	spellBookButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	spellBookButton:SetScript("OnClick", function(self) _G["ToggleSpellBook"](BOOKTYPE_SPELL) end)
 
+	--Specc Button
+	local speccButton = CreateFrame("Button", nil, microBar)
+	speccButton:SetPoint("LEFT", spellBookButton, "RIGHT", 2, 0)
+	speccButton:SetSize(32, 32)
+	speccButton:SetFrameLevel(6)
+
+	speccButton.tex = speccButton:CreateTexture(nil, "OVERLAY")
+	speccButton.tex:SetPoint("BOTTOMLEFT")
+	speccButton.tex:SetPoint("BOTTOMRIGHT")
+	speccButton.tex:SetSize(32, 32)
+	speccButton.tex:SetTexture(IconPath.."Specc")
+	speccButton.tex:SetVertexColor(.6, .6, .6)
+	speccButton.tex:SetBlendMode("ADD")
+
+	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
+	speccButton.text:SetText(TALENTS_BUTTON)
+	speccButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+
+	speccButton:SetScript("OnEnter", function(self) OnHover(self) end)
+	speccButton:SetScript("OnLeave", function(self) OnLeave(self) end)
+	speccButton:SetScript("OnClick", function(self) _G["ToggleTalentFrame"]() end)
+
 	--Shop
 	local shopButton = CreateFrame("Button", nil, microBar)
-	shopButton:SetPoint("LEFT", spellBookButton, "RIGHT", 2, 0)
+	shopButton:SetPoint("LEFT", speccButton, "RIGHT", 2, 0)
 	shopButton:SetSize(32, 32)
 	shopButton:SetFrameLevel(6)
 
@@ -307,29 +330,6 @@ function MAB:CreateMicroBar()
 	shopButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	shopButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	shopButton:SetScript("OnClick", function(self) StoreMicroButton:Click() end)
-
-	--Quest
-	local questButton = CreateFrame("Button", nil, microBar)
-	questButton:SetPoint("LEFT", shopButton, "RIGHT", 2, 0)
-	questButton:SetSize(32, 32)
-	questButton:SetFrameLevel(6)
-
-	questButton.tex = questButton:CreateTexture(nil, "OVERLAY")
-	questButton.tex:SetPoint("BOTTOMLEFT")
-	questButton.tex:SetPoint("BOTTOMRIGHT")
-	questButton.tex:SetSize(32, 32)
-	questButton.tex:SetTexture(IconPath.."Quest")
-	questButton.tex:SetVertexColor(.6, .6, .6)
-	questButton.tex:SetBlendMode("ADD")
-
-	questButton.text = MER:CreateText(questButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	questButton.text:SetPoint("BOTTOM", questButton, 2, -15)
-	questButton.text:SetText(QUESTLOG_BUTTON)
-	questButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-
-	questButton:SetScript("OnEnter", function(self) OnHover(self) end)
-	questButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	questButton:SetScript("OnClick", function(self) _G["ToggleQuestLog"]() end)
 
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:SetScript("OnEvent",function(self, event)
@@ -356,7 +356,6 @@ function MAB:CombatToggle()
 		microBar:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	end
 end
-
 
 function MAB:InitializeMicroBar()
 	if E.db.mui.actionbars.microBar.enable ~= true then return end

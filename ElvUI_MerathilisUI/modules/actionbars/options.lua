@@ -44,6 +44,14 @@ local function abTable()
 						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					equipBar = {
+						order = 3,
+						type = "toggle",
+						name = L["EquipSet Bar"],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
+						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
 				},
 			},
 			microBar = {

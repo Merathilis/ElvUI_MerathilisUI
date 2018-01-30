@@ -181,6 +181,7 @@ P["mui"] = {
 	["actionbars"] = {
 		["transparent"] = true,
 		["specBar"] = true,
+		["equipBar"] = true,
 		["microBar"] = {
 			["enable"] = true,
 			["hideInCombat"] = false,
