@@ -1,4 +1,4 @@
-** v3.19[/color], 30.01.2018**
+** v3.19, 30.01.2018**
 * Add an EquipSet Bar. Thx Azilroka for this <3
 * Fix Party/Raid position for high resolutions.
 * Update BigWigs Skin. No Half-Bar anymore.
