@@ -54,10 +54,6 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
--- moveBlizz
-L["moveBlizz"] = true
-L["Make some Blizzard Frames movable."] = "Erlaubt das Verschieben einiger Blizzardfenster."
-
 -- MasterPlan
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."

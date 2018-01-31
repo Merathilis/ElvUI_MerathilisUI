@@ -30,12 +30,6 @@ local function Misc()
 				name = L["Mail Inputbox Resize"],
 				desc = L["Resize the Mail Inputbox and move the shipping cost to the Bottom"],
 			},
-			moveBlizz = {
-				order = 3,
-				type = "toggle",
-				name = MB.modName,
-				desc = L["Make some Blizzard Frames movable."],
-			},
 			tradeTabs = {
 				order = 4,
 				type = "toggle",

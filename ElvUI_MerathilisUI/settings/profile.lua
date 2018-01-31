@@ -96,7 +96,6 @@ P["mui"] = {
 
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
-		["moveBlizz"] = true, -- Make Blizzards Frame movable
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
