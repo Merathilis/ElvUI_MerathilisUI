@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = E:GetModule("mUIMisc")
-local MB = E:GetModule("mUImoveBlizz")
 local MERA = E:GetModule("mUIAnnounce")
 
 --Cache global variables
