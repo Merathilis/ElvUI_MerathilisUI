@@ -142,7 +142,6 @@ local function styleObjectiveTracker()
 	--Panels
 	hooksecurefunc("ObjectiveTracker_Update", function(self)
 		local frame = ObjectiveTrackerFrame.MODULES
-	
 		if (frame) then
 			for i = 1, #frame do
 				local Modules = frame[i]
@@ -166,11 +165,19 @@ local function styleObjectiveTracker()
 		end
 	end)
 
-	nQ:RegisterEvent('PLAYER_LOGIN')
-	nQ:RegisterEvent('PLAYER_REGEN_DISABLED')
-	nQ:RegisterEvent('PLAYER_REGEN_ENABLED')
-	nQ:RegisterEvent('QUEST_LOG_UPDATE')
-	nQ:SetScript('OnEvent', function(_,event,...)
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetStringText", function(_, fontString, _, useFullHeight)
+		local _, fontHeight = SystemFont_Shadow_Med1:GetFont()
+		local stringHeight = fontString:GetHeight()
+		if stringHeight > OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT * 2 - (fontHeight * 2) and not useFullHeight then
+			fontString:SetHeight(fontHeight * 2)
+		end
+	end)
+
+	nQ:RegisterEvent("PLAYER_LOGIN")
+	nQ:RegisterEvent("PLAYER_REGEN_DISABLED")
+	nQ:RegisterEvent("PLAYER_REGEN_ENABLED")
+	nQ:RegisterEvent("QUEST_LOG_UPDATE")
+	nQ:SetScript("OnEvent", function(_,event,...)
 		f[event](...)
 	end)
 end
