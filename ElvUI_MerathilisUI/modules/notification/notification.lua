@@ -180,6 +180,7 @@ function NF:CreateToast()
 	toast:Hide()
 	MERS:CreateBD(toast, .45)
 	toast:Styling()
+	toast:CreateCloseButton()
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)
