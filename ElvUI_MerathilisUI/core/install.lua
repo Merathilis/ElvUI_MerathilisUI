@@ -706,8 +706,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
-	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
-	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
+	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "COMBAT"
 
 	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 250)
 
