@@ -270,6 +270,7 @@ function MERL:CreatePanels()
 	else
 		MerathilisUIButton1.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
 	end
+	MerathilisUIButton1:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
 
 	MerathilisUIButton1:SetScript("OnClick", function(self, btn)
 		if btn == "LeftButton" then
@@ -290,6 +291,7 @@ function MERL:CreatePanels()
 	else
 		MerathilisUIButton2.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
 	end
+	MerathilisUIButton2:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
 
 	MerathilisUIButton2:SetScript("OnClick", function(self, btn)
 		if btn == "LeftButton" then
