@@ -255,6 +255,14 @@ P["mui"] = {
 		},
 	},
 
+	["maps"] = {
+		["minimap"] = {
+			["coords"] = {
+				["enable"] = true,
+				["position"] = "BOTTOM",
+			},
+		},
+	},
 	["locPanel"] = {
 		["enable"] = true,
 		["autowidth"] = false,
