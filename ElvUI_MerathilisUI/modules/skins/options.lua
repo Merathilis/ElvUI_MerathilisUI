@@ -319,6 +319,11 @@ local function SkinsTable()
 				name = L["Warboard"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Warboard end,
 			},
+			deathRecap = {
+				type = "toggle",
+				name = DEATH_RECAP_TITLE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
+			},
 		},
 	}
 

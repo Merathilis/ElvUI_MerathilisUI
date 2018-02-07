@@ -10,6 +10,7 @@
 	<Script file="character.lua"/>
 	<Script file="collectables.lua"/>
 	<Script file="contribution.lua"/>
+	<Script file="deathRecap.lua"/>
 	<Script file="dressingroom.lua"/>
 	<Script file="encounterjournal.lua"/>
 	<Script file="flightmap.lua"/>

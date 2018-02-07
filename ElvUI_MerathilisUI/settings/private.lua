@@ -50,6 +50,7 @@ V["muiSkins"] = {
 		["help"] = true,
 		["loot"] = true,
 		["warboard"] = true,
+		["deathRecap"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
