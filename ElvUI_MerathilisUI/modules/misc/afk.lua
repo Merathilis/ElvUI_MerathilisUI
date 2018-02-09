@@ -97,6 +97,7 @@ end
 
 AFK.InitializemUIAFK = AFK.Initialize
 function AFK:Initialize()
+	if IsAddOnLoaded("ElvUI_BenikUI") then return end
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 	self:InitializemUIAFK()
 
@@ -211,14 +212,14 @@ function AFK:Initialize()
 	self.AFKMode.topPanel.time = self.AFKMode.topPanel:CreateFontString(nil, "OVERLAY")
 	self.AFKMode.topPanel.time:FontTemplate(nil, 16)
 	self.AFKMode.topPanel.time:SetText("")
-	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 15)
+	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 0)
 	self.AFKMode.topPanel.time:SetJustifyH("CENTER")
 	self.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	-- Logout Count
 	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.countd:Size(418, 36)
-	self.AFKMode.countd:Point("BOTTOM", self.AFKMode.topPanel.time, "BOTTOM", 0, -40)
+	self.AFKMode.countd:Point("CENTER", self.AFKMode, "CENTER", 0, 100)
 
 	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
 	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])

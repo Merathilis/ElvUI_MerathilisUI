@@ -14,7 +14,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function AddOptions()
 	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
-	
+
 	-- Main options
 	E.Options.args.mui = {
 		order = 9001,
@@ -71,7 +71,8 @@ local function AddOptions()
 						order = 4,
 						type = "toggle",
 						name = L["AFK"],
-						desc = L["Enable/Disable the MUI AFK Screen"],
+						desc = L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"],
+						disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					GameMenu = {
 						order = 5,
@@ -84,7 +85,7 @@ local function AddOptions()
 						type = "toggle",
 						name = L["FlightMode"],
 						desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
-						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
+						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					FlightPoint = {
 						order = 7,
