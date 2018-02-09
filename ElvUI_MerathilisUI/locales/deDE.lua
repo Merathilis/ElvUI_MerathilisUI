@@ -124,6 +124,7 @@ L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
+L["Undress"] = "Ausziehen"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"

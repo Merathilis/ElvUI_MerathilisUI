@@ -112,6 +112,7 @@ L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = true
+L["Undress"] = true
 
 -- Tooltip
 L["Your Status:"] = true
