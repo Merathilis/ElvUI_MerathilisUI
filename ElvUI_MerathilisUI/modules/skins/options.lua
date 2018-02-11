@@ -18,6 +18,7 @@ local DecorAddons = {
 	{"BugSack", L["BugSack"], "bs"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
+	{"ls_Toasts", L["ls_Toasts"], "ls"},
 }
 
 local SupportedProfiles = {
