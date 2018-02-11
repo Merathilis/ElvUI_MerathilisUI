@@ -46,7 +46,7 @@ f:SetScript("OnEvent", function()
 				toast.IconBorder:SetVertexColor(0, 0, 0, 1)
 				toast.IconBorder:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\icon-border.tga]])
 			end
-			toast.IconBorder:SetTexture([[Interface\AddOns\ls_Toasts_MerathilisUI\media\icon-border.tga]])
+			toast.IconBorder:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\icon-border.tga]])
 			toast.IconBorder:SetTexCoord(0, 1, 0, 1)
 		end)
 		LST:SetSkin("MerathilisUI")
