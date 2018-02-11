@@ -22,6 +22,7 @@ local function AddOptions()
 		name = MER.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
 		icon = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\m2",
+		iconCoords = {.08, .92, .08, .92},
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
