@@ -11,7 +11,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, AddOnSkins, BigWigs
+## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
 ## X-ElvVersion: 10.71
 ## X-Curse-Packaged-Version: 3.19
 ## X-Curse-Project-Name: MerathilisUI
