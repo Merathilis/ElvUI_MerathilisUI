@@ -35,58 +35,61 @@ LST:RegisterSkin("MerathilisUI", {
 	bonus = {
 		hidden = false,
 	},
+	skull = {
+		hidden = false,
+	},
 	bg = {
 		alliance = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		archaeology = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		collection = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		default = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		dungeon = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		horde = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		legendary = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		legion = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		recipe = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		store = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		transmog = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		upgrade = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 		worldquest = {
-			color = {0, 0, 0, .5},
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			color = {0, 0, 0, 1},
+			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\stripes",
 		},
 	},
 })
