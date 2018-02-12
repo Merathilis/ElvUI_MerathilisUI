@@ -26,10 +26,10 @@ LST:RegisterSkin("MerathilisUI", {
 		offset = 1,
 		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icon-border",
 	},
-	dragon = {
+	icon_highlight = {
 		hidden = true,
 	},
-	icon_highlight = {
+	dragon = {
 		hidden = true,
 	},
 	bonus = {
