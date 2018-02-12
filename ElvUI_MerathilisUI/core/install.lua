@@ -282,9 +282,9 @@ function MER:SetupLayout()
 	E.db["bags"]["countFont"] = "Expressway"
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["bagSize"] = 30
+	E.db["bags"]["bagSize"] = 34
 	E.db["bags"]["bagWidth"] = 470
-	E.db["bags"]["bankSize"] = 30
+	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
