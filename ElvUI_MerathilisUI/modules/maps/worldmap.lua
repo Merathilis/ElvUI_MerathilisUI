@@ -12,5 +12,5 @@ local _G = _G
 local WorldMapFrame = _G["WorldMapFrame"]
 hooksecurefunc("WorldMap_ToggleSizeDown", function()
 	WorldMapFrame:ClearAllPoints()
-	WorldMapFrame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 320)
+	WorldMapFrame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 350)
 end)
