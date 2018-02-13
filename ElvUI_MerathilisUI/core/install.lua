@@ -707,6 +707,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
 	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "COMBAT"
+	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = ""
 
 	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 250)
 
