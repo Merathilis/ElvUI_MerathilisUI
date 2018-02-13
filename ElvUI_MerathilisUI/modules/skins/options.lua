@@ -31,6 +31,7 @@ local SupportedProfiles = {
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
+	{"ls_Toasts", "ls_Toasts"}
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -374,6 +375,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ProjectAzilroka' then
 					MER:LoadPAProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ls_Toasts' then
+					MER:LoadLSProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)
