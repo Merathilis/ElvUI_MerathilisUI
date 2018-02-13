@@ -4,12 +4,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Lua functions
 local unpack = unpack
 -- WoW API / Variables
-
 -- GLOBALS:
+
 if not IsAddOnLoaded("ls_Toasts") then return end
 local LST = unpack(ls_Toasts)
 
--- if E.private.muiSkins.addonSkins.ls ~= true then return end
 LST:RegisterSkin("MerathilisUI", {
 	name = "|cffff7d0aMerathilisUI|r",
 	template = "elv-no-art",
