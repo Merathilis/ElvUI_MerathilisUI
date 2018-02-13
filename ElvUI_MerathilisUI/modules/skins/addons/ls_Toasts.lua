@@ -14,7 +14,7 @@ LST:RegisterSkin("MerathilisUI", {
 	name = "|cffff7d0aMerathilisUI|r",
 	template = "elv-no-art",
 	border = {
-		color = {0, 0, 0, .1},
+		color = {0, 0, 0, 1},
 		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\toast-border",
 	},
 	icon = {
