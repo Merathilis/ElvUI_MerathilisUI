@@ -13,7 +13,9 @@ LST:RegisterSkin("MerathilisUI", {
 	name = "|cffff7d0aMerathilisUI|r",
 	template = "elv-no-art",
 	border = {
-		color = {0, 0, 0, 1},
+		color = {0, 0, 0, .75},
+		offset = 0,
+		size = 1,
 		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\toast-border",
 	},
 	icon = {
@@ -27,6 +29,16 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	icon_highlight = {
 		hidden = true,
+	},
+	icon_text_1 = {
+		color = {1, 1, 1},
+		flags = "OUTLINE",
+		shadow = false,
+	},
+	icon_text_2 = {
+		color = {1, 1, 1},
+		flags = "OUTLINE",
+		shadow = false,
 	},
 	dragon = {
 		hidden = true,
@@ -43,44 +55,51 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	bg = {
 		alliance = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		archaeology = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		collection = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		default = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		dungeon = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		horde = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		legendary = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		legion = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		recipe = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		store = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		transmog = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		upgrade = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 		worldquest = {
-			texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\gradient",
+			texture = {0.15, 0.15, 0.15, .75},
 		},
 	},
 })
 LST:SetSkin("MerathilisUI")
+
+hooksecurefunc(LST, "ApplySkin", function(_, toast)
+	if not toast.skinned then
+		toast:Styling()
+		toast.skinned = true
+	end
+end)
