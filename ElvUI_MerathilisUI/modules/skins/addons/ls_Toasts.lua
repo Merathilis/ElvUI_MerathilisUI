@@ -40,43 +40,43 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	bg = {
 		alliance = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		archaeology = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		collection = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		default = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		dungeon = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		horde = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		legendary = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		legion = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		recipe = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		store = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		transmog = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		upgrade = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 		worldquest = {
-			texture = {0.15, 0.15, 0.15, .75},
+			texture = {0.14, 0.14, 0.14, .45},
 		},
 	},
 })
