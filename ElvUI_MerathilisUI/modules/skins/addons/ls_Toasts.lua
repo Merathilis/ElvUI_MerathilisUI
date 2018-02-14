@@ -20,7 +20,7 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	icon_border = {
 		offset = 1,
-		texture = {0, 0, 0, 0.75},
+		texture = {1, 1, 1, 1},
 	},
 	icon_highlight = {
 		hidden = true,
