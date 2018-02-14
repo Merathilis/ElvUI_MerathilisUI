@@ -13,14 +13,14 @@ LST:RegisterSkin("MerathilisUI", {
 	name = "|cffff7d0aMerathilisUI|r",
 	template = "elv-no-art",
 	border = {
-		texture = {1, 1, 1, 0.75},
+		texture = {0, 0, 0, 0.75},
 	},
 	icon = {
 		tex_coords = {.08, .92, .08, .92},
 	},
 	icon_border = {
 		offset = 1,
-		texture = {1, 1, 1, 0.75},
+		texture = {0, 0, 0, 0.75},
 	},
 	icon_highlight = {
 		hidden = true,
