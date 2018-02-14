@@ -13,41 +13,26 @@ LST:RegisterSkin("MerathilisUI", {
 	name = "|cffff7d0aMerathilisUI|r",
 	template = "elv-no-art",
 	border = {
-		color = {0, 0, 0, .75},
-		offset = 0,
-		size = 1,
-		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\toast-border",
+		texture = {1, 1, 1, 0.75},
 	},
 	icon = {
 		tex_coords = {.08, .92, .08, .92},
 	},
 	icon_border = {
-		color = {0, 0, 0, 1},
-		size = 1,
 		offset = 1,
-		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icon-border",
+		texture = {1, 1, 1, 0.75},
 	},
 	icon_highlight = {
 		hidden = true,
 	},
 	icon_text_1 = {
-		color = {1, 1, 1},
 		flags = "OUTLINE",
-		shadow = false,
 	},
 	icon_text_2 = {
-		color = {1, 1, 1},
 		flags = "OUTLINE",
-		shadow = false,
 	},
 	dragon = {
 		hidden = true,
-	},
-	bonus = {
-		hidden = false,
-	},
-	skull = {
-		hidden = false,
 	},
 	slot = {
 		tex_coords = {.08, .92, .08, .92},
