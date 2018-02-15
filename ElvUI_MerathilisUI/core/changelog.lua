@@ -83,9 +83,8 @@ function MER:CreateChangelog()
 	title:SetSize(422, 20)
 	title:SetTemplate("Transparent")
 	title:Styling()
-	title.text = title:CreateFontString(nil, "OVERLAY")
+	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
 	title.text:SetPoint("CENTER", title, 0, -1)
-	title.text:SetFont(E["media"].normFont, 15)
 	title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
@@ -97,9 +96,8 @@ function MER:CreateChangelog()
 	close:Disable()
 	frame.close = close
 
-	local countdown = close:CreateFontString(nil, "OVERLAY")
+	local countdown = MER:CreateText(close, "OVERLAY", 12, nil, "CENTER")
 	countdown:SetPoint("LEFT", close.Text, "RIGHT", 3, 0)
-	countdown:SetFont(E["media"].normFont, 12)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
 
@@ -112,8 +110,7 @@ function MER:CreateChangelog()
 		if i <= #ChangeLogData then
 			local string = ModifiedString(GetChangeLogInfo(i))
 
-			button.Text = button:CreateFontString(nil, "OVERLAY")
-			button.Text:SetFont(E["media"].normFont, 11)
+			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
 			button.Text:SetText(string)
 			button.Text:SetPoint("LEFT", 0, 0)
 		end

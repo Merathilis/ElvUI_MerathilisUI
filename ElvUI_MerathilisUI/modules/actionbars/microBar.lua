@@ -182,11 +182,9 @@ function MAB:CreateMicroBar()
 	timeButton:SetSize(32, 32)
 	timeButton:SetFrameLevel(6)
 
-	timeButton.text = timeButton:CreateFontString(nil, 'OVERLAY')
-	timeButton.text:FontTemplate(nil, 16, "OUTLINE")
+	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16, "OUTLINE", "CENTER")
 	timeButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	timeButton.text:SetPoint("CENTER", 0, 0)
-	timeButton.text:SetJustifyH("CENTER")
 
 	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
 	timeButton.tex:SetPoint("BOTTOMLEFT")

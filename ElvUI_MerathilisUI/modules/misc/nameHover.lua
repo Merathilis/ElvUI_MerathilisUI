@@ -55,8 +55,7 @@ function MI:LoadnameHover()
 
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
-	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
-	tooltip.text:SetFont(LSM:Fetch("font", "Expressway"), 7, "OUTLINE")
+	tooltip.text = MER:CreateText(tooltip, "OVERLAY", 7, "OUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(self)

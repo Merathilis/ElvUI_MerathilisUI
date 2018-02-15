@@ -35,8 +35,7 @@ local function styleCharacter()
 	undress:SetSize(80, 20)
 	undress:SetPoint("TOPLEFT", _G["CharacterWristSlot"], "BOTTOMLEFT", 0, -5)
 
-	undress.text = undress:CreateFontString("OVERLAY")
-	undress.text:FontTemplate()
+	undress.text = MER:CreateText(undress, "OVERLAY", 12, nil)
 	undress.text:SetPoint("CENTER")
 	undress.text:SetText(L["Undress"])
 

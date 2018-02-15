@@ -135,7 +135,7 @@ local function CreateSplashScreen()
 	f.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
 	f.logo:Point("CENTER", f, "CENTER")
 
-	f.version = f:CreateFontString(nil, "OVERLAY")
+	f.version = MER:CreateText(f, "OVERLAY", 14, nil, "CENTER")
 	f.version:FontTemplate(nil, 14, nil)
 	f.version:Point("TOP", f.logo, "BOTTOM", 0, 10)
 	f.version:SetFormattedText("v%s", MER.Version)

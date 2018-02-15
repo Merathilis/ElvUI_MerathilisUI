@@ -117,7 +117,7 @@ end
 function MER:CreateText(f, layer, fontsize, flag, justifyh)
 	local text = f:CreateFontString(nil, layer)
 	text:SetFont(E.media.normFont, fontsize, flag)
-	text:SetJustifyH(justifyh)
+	text:SetJustifyH(justifyh or "CENTER")
 	return text
 end
 

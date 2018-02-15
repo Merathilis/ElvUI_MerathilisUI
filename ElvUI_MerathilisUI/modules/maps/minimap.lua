@@ -46,8 +46,7 @@ function MM:MiniMapCoords()
 	if E.db.mui.maps.minimap.coords.enable ~= true then return end
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
-	local Coords = Minimap:CreateFontString(nil, "OVERLAY")
-	Coords:FontTemplate(nil, 12, "OUTLINE")
+	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 	Coords:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	Coords:SetPoint(pos, 0, 0)
 	Coords:Hide()
