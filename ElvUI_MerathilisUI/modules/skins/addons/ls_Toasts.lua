@@ -36,7 +36,6 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	slot = {
 		tex_coords = {.08, .92, .08, .92},
-		texture = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icon-border",
 	},
 	bg = {
 		alliance = {
