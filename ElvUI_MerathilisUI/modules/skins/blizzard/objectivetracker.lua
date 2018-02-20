@@ -173,6 +173,39 @@ local function styleObjectiveTracker()
 		end
 	end)
 
+	local function SetQuestDifficultyColor()
+		for i = 1, GetNumQuestWatches() do
+			local questID, _, questIndex = GetQuestWatchInfo(i)
+			if not questID then
+				break
+			end
+			local _, level = GetQuestLogTitle(questIndex)
+			local col = GetQuestDifficultyColor(level)
+			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
+			if block then
+				block.HeaderText:SetTextColor(col.r, col.g, col.b)
+				block.HeaderText.col = col
+			end
+		end
+	end
+	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetQuestDifficultyColor)
+
+	local function SetAchievementColor(block)
+		if block.module == ACHIEVEMENT_TRACKER_MODULE then
+			block.HeaderText:SetTextColor(0.75, 0.61, 0)
+			block.HeaderText.col = nil
+		end
+	end
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", SetAchievementColor)
+
+	local function ObjectiveTrackerOnLeave(self)
+		local block = self:GetParent()
+		if block.HeaderText.col then
+			block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
+		end
+	end
+	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", ObjectiveTrackerOnLeave)
+
 	nQ:RegisterEvent("PLAYER_LOGIN")
 	nQ:RegisterEvent("PLAYER_REGEN_DISABLED")
 	nQ:RegisterEvent("PLAYER_REGEN_ENABLED")
