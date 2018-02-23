@@ -13,8 +13,8 @@ function MER:LoadLSProfile()
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles["MerathilisUI"] = {
 		["point"] = {
-			["y"] = -110,
-			["x"] = 265,
+			["y"] = -95,
+			["x"] = 200,
 		},
 		["font"] = {
 			["name"] = "Expressway",
