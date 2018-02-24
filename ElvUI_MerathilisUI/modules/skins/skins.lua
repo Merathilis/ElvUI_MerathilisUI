@@ -611,6 +611,32 @@ function MERS:SkinPanel(panel)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
+-- Garrison/Orderhall Portraits
+function MERS:ReskinGarrisonPortrait(portrait, isTroop)
+	local size = portrait.Portrait:GetSize() + 2
+	portrait:SetSize(size, size)
+	MERS:CreateBD(portrait, 1)
+
+	portrait.Portrait:ClearAllPoints()
+	portrait.Portrait:SetPoint("TOPLEFT", 1, -1)
+
+	portrait.PortraitRing:Hide()
+	portrait.PortraitRingQuality:SetTexture("")
+	portrait.PortraitRingCover:SetTexture("")
+	portrait.LevelBorder:SetAlpha(0)
+
+	if not isTroop then
+		local lvlBG = portrait:CreateTexture(nil, "BORDER")
+		lvlBG:SetColorTexture(0, 0, 0, 0.5)
+		lvlBG:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 1, 12)
+		lvlBG:SetPoint("BOTTOMRIGHT", portrait, -1, 1)
+
+		local level = portrait.Level
+		level:ClearAllPoints()
+		level:SetPoint("CENTER", lvlBG)
+	end
+end
+
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	local BlizzardRegions = {

@@ -63,6 +63,60 @@ local function styleOrderhall()
 	end
 	MERS:CreateBD(MissionPage.RewardsFrame, .25)
 
+
+	--Follower MissionList
+	local function onUpdateData(self)
+		local followerFrame = self:GetParent()
+		local followerScrollFrame = followerFrame.FollowerList.listScroll
+		local buttons = followerScrollFrame.buttons
+
+		for i = 1, #buttons do
+			local button = buttons[i].Follower
+			local portrait = button.PortraitFrame
+			local name = button.Name
+
+			if not button.restyled then
+				name:SetWordWrap(false)
+				button.BG:Hide()
+				button.Selection:SetTexture("")
+				button.AbilitiesBG:SetTexture("")
+
+				MERS:CreateBD(button, .25)
+
+				button.BusyFrame:SetAllPoints()
+
+				local hl = button:GetHighlightTexture()
+				hl:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .1)
+				hl:ClearAllPoints()
+				hl:SetPoint("TOPLEFT", 1, -1)
+				hl:SetPoint("BOTTOMRIGHT", -1, 1)
+
+				if portrait then
+					MERS:ReskinGarrisonPortrait(portrait)
+					portrait:ClearAllPoints()
+					portrait:SetPoint("TOPLEFT")
+				end
+
+				button.restyled = true
+			end
+
+			if button.Selection:IsShown() then
+				button:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+			else
+				button:SetBackdropColor(0, 0, 0, .25)
+			end
+
+			if portrait then
+				if portrait.PortraitRingQuality:IsShown() then
+					portrait:SetBackdropBorderColor(portrait.PortraitRingQuality:GetVertexColor())
+				else
+					portrait:SetBackdropBorderColor(0, 0, 0)
+				end
+			end
+		end
+	end
+	hooksecurefunc(OrderHallMissionFrameFollowers, "UpdateData", onUpdateData)
+
 	-- Credits Simpy <3
 	-- Talent Frame
 	local TalentFrame = _G["OrderHallTalentFrame"]
