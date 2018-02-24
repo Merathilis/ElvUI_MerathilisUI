@@ -16,9 +16,25 @@ local C_TimerAfter = C_Timer.After
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
+	-- CombatAlly MissionFrame
 	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
+	local portraitFrame = combatAlly.InProgress.PortraitFrame
+	local portrait = combatAlly.InProgress.PortraitFrame.Portrait
+	local portraitRing = combatAlly.InProgress.PortraitFrame.PortraitRing
+	local LevelBorder = combatAlly.InProgress.PortraitFrame.LevelBorder
 	combatAlly:StripTextures()
 	MERS:CreateBD(combatAlly, .25)
+
+	if portrait then
+		portraitFrame:CreateBackdrop("Default")
+		portraitFrame.backdrop:SetPoint("TOPLEFT", portrait, "TOPLEFT", -1, 1)
+		portraitFrame.backdrop:SetPoint("BOTTOMRIGHT", portrait, "BOTTOMRIGHT", 1, -1)
+		portrait:ClearAllPoints()
+		portrait:SetPoint("TOPLEFT", 1, -1)
+		portrait:SetTexCoord(unpack(E.TexCoords))
+		portraitRing:Hide()
+		LevelBorder:SetAlpha(0)
+	end
 
 	-- Mission Frame
 	_G["OrderHallMissionFrame"]:Styling()
