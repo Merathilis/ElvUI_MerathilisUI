@@ -627,7 +627,7 @@ function MERS:ReskinGarrisonPortrait(portrait, isTroop)
 
 	if not isTroop then
 		local lvlBG = portrait:CreateTexture(nil, "BORDER")
-		lvlBG:SetColorTexture(0, 0, 0, 0.5)
+		lvlBG:SetColorTexture(0, 0, 0, 0.25)
 		lvlBG:SetPoint("TOPLEFT", portrait, "BOTTOMLEFT", 1, 12)
 		lvlBG:SetPoint("BOTTOMRIGHT", portrait, -1, 1)
 

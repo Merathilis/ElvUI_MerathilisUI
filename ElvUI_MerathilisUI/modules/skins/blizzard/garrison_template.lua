@@ -14,18 +14,19 @@ local function styleGarrisonTemplate()
 
 	hooksecurefunc(GarrisonFollowerTabMixin, "ShowFollower", function(self, followerID, followerList)
 		local followerInfo = C_Garrison.GetFollowerInfo(followerID)
-		if not followerInfo then return end -- not sure if this is needed
+		if not followerInfo then return end
 
 		if not self.PortraitFrame.styled then
 			MERS:ReskinGarrisonPortrait(self.PortraitFrame)
+
 			self.PortraitFrame.styled = true
 		end
 
+		local color = FOLLOWER_QUALITY_COLORS[followerInfo.quality]
+		self.PortraitFrame:SetBackdropBorderColor(color.r, color.g, color.b)
+
 		self.XPBar:ClearAllPoints()
 		self.XPBar:SetPoint("BOTTOMLEFT", self.PortraitFrame, "BOTTOMRIGHT", 7, -15)
-
-		local color = ITEM_QUALITY_COLORS[followerInfo.quality]
-		self.PortraitFrame:SetBackdropBorderColor(color.r, color.g, color.b)
 	end)
 end
 
