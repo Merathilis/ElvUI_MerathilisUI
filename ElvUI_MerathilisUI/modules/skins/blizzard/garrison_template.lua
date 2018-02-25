@@ -6,14 +6,16 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 -- WoW API
+local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
+local C_Garrison_GetFollowerInfo = C_Garrison.GetFollowerInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
 local function styleGarrisonTemplate()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
 
-	hooksecurefunc(GarrisonFollowerTabMixin, "ShowFollower", function(self, followerID, followerList)
-		local followerInfo = C_Garrison.GetFollowerInfo(followerID)
+	hooksecurefunc(_G["GarrisonFollowerTabMixin"], "ShowFollower", function(self, followerID, followerList)
+		local followerInfo = C_Garrison_GetFollowerInfo(followerID)
 		if not followerInfo then return end
 
 		if not self.PortraitFrame.styled then
