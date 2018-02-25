@@ -253,17 +253,20 @@ function MER:SetupLayout()
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Roboto-Black"
+	E.db["auras"]["font"] = "Expressway"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["fontSize"] = 12
 	E.db["auras"]["timeYOffset"] = 0
 	E.db["auras"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
 	E.db["auras"]["buffs"]["size"] = 32
+	E.db["auras"]["buffs"]["countFontsize"] = 12
+	E.db["auras"]["buffs"]["durationFontSize"] = 12
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 42
+	E.db["auras"]["debuffs"]["countFontsize"] = 16
+	E.db["auras"]["debuffs"]["durationFontSize"] = 16
 
 	if E.db.mui.general.panels then
 		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -17)
@@ -407,7 +410,7 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 	E.db["databars"]["experience"]["hideInVehicle"] = true
-	E.db["databars"]["experience"]["hideInCombat"] = true
+	E.db["databars"]["experience"]["hideInCombat"] = false
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
 	E.db["databars"]["reputation"]["height"] = 146
@@ -416,18 +419,18 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["textFormat"] = "NONE"
 	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
-	E.db["databars"]["reputation"]["hideInCombat"] = true
+	E.db["databars"]["reputation"]["hideInCombat"] = false
 	E.db["databars"]["artifact"]["enable"] = true
 	E.db["databars"]["artifact"]["height"] = 146
 	E.db["databars"]["artifact"]["textSize"] = 11
 	E.db["databars"]["artifact"]["width"] = 8
 	E.db["databars"]["artifact"]["hideInVehicle"] = true
-	E.db["databars"]["artifact"]["hideInCombat"] = true
+	E.db["databars"]["artifact"]["hideInCombat"] = false
 	E.db["databars"]["honor"]["enable"] = false
 	E.db["databars"]["honor"]["height"] = 155
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
-	E.db["databars"]["honor"]["hideInCombat"] = true
+	E.db["databars"]["honor"]["hideInCombat"] = false
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
