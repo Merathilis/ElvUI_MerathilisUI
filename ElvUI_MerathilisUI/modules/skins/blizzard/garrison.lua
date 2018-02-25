@@ -273,59 +273,64 @@ local function styleGarrison()
 		MERS:CreateBD(reward, .15)
 	end
 
-	-- Shared templates
+	-- Garrison Portraits
 	local function onUpdateData(self)
 		local followerFrame = self:GetParent()
+		local followers = self.followers
+		local followersList = self.followersList
 		local followerScrollFrame = followerFrame.FollowerList.listScroll
-		local buttons = followerScrollFrame.buttons
+		local numFollowers = #followersList
+		local scrollFrame = self.listScroll
+		local offset = HybridScrollFrame_GetOffset(scrollFrame)
+		local buttons = scrollFrame.buttons
+		local numButtons = #buttons
 
-		for i = 1, #buttons do
-			local button = buttons[i].Follower
-			local portrait = button.PortraitFrame
-			local name = button.Name
+		for i = 1, numButtons do
+			local button = buttons[i]
+			local index = offset + i -- adjust index
 
-			if not button.restyled then
-				name:SetWordWrap(false)
-				button.BG:Hide()
-				button.Selection:SetTexture("")
-				button.AbilitiesBG:SetTexture("")
+			if ( index <= numFollowers ) then
+				local follower = followers[followersList[index]]
+				if not button.restyled then
+					button.Follower.Name:SetWordWrap(false)
+					button.Follower.BG:Hide()
+					button.Follower.Selection:SetTexture("")
+					button.Follower.AbilitiesBG:SetTexture("")
 
-				MERS:CreateBD(button, .25)
+					MERS:CreateBD(button, .25)
 
-				button.BusyFrame:SetAllPoints()
+					button.Follower.BusyFrame:SetAllPoints()
 
-				local hl = button:GetHighlightTexture()
-				hl:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .1)
-				hl:ClearAllPoints()
-				hl:SetPoint("TOPLEFT", 1, -1)
-				hl:SetPoint("BOTTOMRIGHT", -1, 1)
+					local hl = button.Follower:GetHighlightTexture()
+					hl:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .1)
+					hl:ClearAllPoints()
+					hl:SetPoint("TOPLEFT", 1, -1)
+					hl:SetPoint("BOTTOMRIGHT", -1, 1)
 
-				if portrait then
-					MERS:ReskinGarrisonPortrait(portrait)
-					portrait:ClearAllPoints()
-					portrait:SetPoint("TOPLEFT")
+					if button.Follower.PortraitFrame then
+						MERS:ReskinGarrisonPortrait(button.Follower.PortraitFrame)
+						button.Follower.PortraitFrame:ClearAllPoints()
+						button.Follower.PortraitFrame:SetPoint("TOPLEFT", 1, -1)
+					end
+
+					button.restyled = true
 				end
-
-				button.restyled = true
 			end
 
-			if button.Selection:IsShown() then
-				button:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+			if button.Follower.Selection:IsShown() then
+				button.Follower:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
 			else
-				button:SetBackdropColor(0, 0, 0, .25)
+				button.Follower:SetBackdropColor(0, 0, 0, .25)
 			end
 
-			if portrait then
-				if portrait.PortraitRingQuality:IsShown() then
-					portrait:SetBackdropBorderColor(portrait.PortraitRingQuality:GetVertexColor())
-				else
-					portrait:SetBackdropBorderColor(0, 0, 0)
-				end
+			if button.Follower.PortraitFrame.quality then
+				local color = ITEM_QUALITY_COLORS[button.Follower.PortraitFrame.quality]
+				button.Follower.PortraitFrame:SetBackdropBorderColor(color.r, color.g, color.b)
 			end
 		end
 	end
-	hooksecurefunc(_G.GarrisonMissionFrameFollowers, "UpdateData", onUpdateData)
-	hooksecurefunc(_G.GarrisonLandingPageFollowerList, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonMissionFrameFollowers, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateData", onUpdateData)
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)

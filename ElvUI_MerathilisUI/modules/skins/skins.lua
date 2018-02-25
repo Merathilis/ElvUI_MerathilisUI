@@ -617,6 +617,7 @@ function MERS:ReskinGarrisonPortrait(portrait, isTroop)
 	portrait:SetSize(size, size)
 	MERS:CreateBD(portrait, 1)
 
+	portrait.Portrait:SetTexCoord(unpack(E.TexCoords))
 	portrait.Portrait:ClearAllPoints()
 	portrait.Portrait:SetPoint("TOPLEFT", 1, -1)
 

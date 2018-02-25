@@ -22,7 +22,7 @@ local function styleGarrisonTemplate()
 			self.PortraitFrame.styled = true
 		end
 
-		local color = FOLLOWER_QUALITY_COLORS[followerInfo.quality]
+		local color = ITEM_QUALITY_COLORS[followerInfo.quality]
 		self.PortraitFrame:SetBackdropBorderColor(color.r, color.g, color.b)
 
 		self.XPBar:ClearAllPoints()
