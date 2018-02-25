@@ -24,6 +24,7 @@ local function styleGarrisonTemplate()
 
 		local color = ITEM_QUALITY_COLORS[followerInfo.quality]
 		self.PortraitFrame:SetBackdropBorderColor(color.r, color.g, color.b)
+		self.Name:SetVertexColor(color.r, color.g, color.b)
 
 		self.XPBar:ClearAllPoints()
 		self.XPBar:SetPoint("BOTTOMLEFT", self.PortraitFrame, "BOTTOMRIGHT", 7, -15)
