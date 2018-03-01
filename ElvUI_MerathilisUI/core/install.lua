@@ -184,7 +184,9 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFontSize"] = 11
+	E.private["general"]["chatBubbleFontSize"] = 9
+	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
+	-- E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
