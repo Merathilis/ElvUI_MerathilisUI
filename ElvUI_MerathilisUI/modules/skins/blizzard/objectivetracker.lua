@@ -50,10 +50,10 @@ function f.PLAYER_LOGIN()
 end
 
 function f.PLAYER_REGEN_DISABLED() 
-	InCombat = true 
+	InCombat = true
 end
 function f.PLAYER_REGEN_ENABLED()
-	InCombat = false 
+	InCombat = false
 end
 function f.QUEST_LOG_UPDATE()
 	if not InCombat and not InCombatLockdown() then
@@ -70,10 +70,15 @@ end
 local function styleObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
-	local ot = _G["ObjectiveTrackerFrame"]
-	local BlocksFrame = ot.BlocksFrame
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block)
+		if block.module == QUEST_TRACKER_MODULE or block.module == ACHIEVEMENT_TRACKER_MODULE then
+			local line = block.currentLine
 
-	-- Fix height
+			local p1, a, p2, x, y = line:GetPoint()
+			line:SetPoint(p1, a, p2, x, y - 4)
+		end
+	end)
+
 	local function fixBlockHeight(block)
 		if block.shouldFix then
 			local height = block:GetHeight()
@@ -93,10 +98,41 @@ local function styleObjectiveTracker()
 	end
 
 	hooksecurefunc("ObjectiveTracker_AddBlock", function(block)
+		if block.lines then
+			for _, line in pairs(block.lines) do
+				if not line.styled then
+					line.Text:FontTemplate()
+					line.Text:SetSpacing(2)
+
+					if line.Dash then
+						line.Dash:FontTemplate()
+					end
+
+					line:SetHeight(line.Text:GetHeight())
+
+					line.styled = true
+				end
+			end
+		end
+
 		if not block.styled then
 			block.shouldFix = true
 			hooksecurefunc(block, "SetHeight", fixBlockHeight)
 			block.styled = true
+		end
+	end)
+
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		if not block.headerStyled then
+			block.HeaderText:FontTemplate()
+			block.headerStyled = true
+		end
+	end)
+
+	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		if not block.headerStyled then
+			block.HeaderText:FontTemplate()
+			block.headerStyled = true
 		end
 	end)
 
@@ -139,6 +175,39 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
 
+	local function SetQuestDifficultyColor()
+		for i = 1, GetNumQuestWatches() do
+			local questID, _, questIndex = GetQuestWatchInfo(i)
+			if not questID then
+				break
+			end
+			local _, level = GetQuestLogTitle(questIndex)
+			local col = GetQuestDifficultyColor(level)
+			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
+			if block then
+				block.HeaderText:SetTextColor(col.r, col.g, col.b)
+				block.HeaderText.col = col
+			end
+		end
+	end
+	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetQuestDifficultyColor)
+
+	local function SetAchievementColor(block)
+		if block.module == ACHIEVEMENT_TRACKER_MODULE then
+			block.HeaderText:SetTextColor(0.75, 0.61, 0)
+			block.HeaderText.col = nil
+		end
+	end
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", SetAchievementColor)
+
+	local function ObjectiveTrackerOnLeave(self)
+		local block = self:GetParent()
+		if block.HeaderText.col then
+			block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
+		end
+	end
+	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", ObjectiveTrackerOnLeave)
+
 	--Panels
 	hooksecurefunc("ObjectiveTracker_Update", function(self)
 		local frame = ObjectiveTrackerFrame.MODULES
@@ -162,14 +231,6 @@ local function styleObjectiveTracker()
 					end
 				end
 			end
-		end
-	end)
-
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetStringText", function(_, fontString, _, useFullHeight)
-		local _, fontHeight = SystemFont_Shadow_Med1:GetFont()
-		local stringHeight = fontString:GetHeight()
-		if stringHeight > OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT * 2 - (fontHeight * 2) and not useFullHeight then
-			fontString:SetHeight(fontHeight * 2)
 		end
 	end)
 
