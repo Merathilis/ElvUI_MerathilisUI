@@ -51,6 +51,7 @@ V["muiSkins"] = {
 		["loot"] = true,
 		["warboard"] = true,
 		["deathRecap"] = true,
+		["questPOI"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

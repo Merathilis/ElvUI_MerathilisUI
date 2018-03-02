@@ -206,6 +206,57 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", ObjectiveTrackerOnLeave)
 
+	local function AutoQuestPopUpBlockTemplate(scrollframe)
+		scrollframe:SetSize(232, 68)
+
+		local ScrollChild = scrollframe.ScrollChild
+		ScrollChild:SetSize(227, 68)
+		ScrollChild.Bg:SetPoint("TOPLEFT", 36, -4)
+		ScrollChild.Bg:SetPoint("BOTTOMRIGHT", 0, 4)
+
+		ScrollChild.BorderTopLeft:SetSize(16, 16)
+		ScrollChild.BorderTopLeft:SetPoint("TOPLEFT", 32, 0)
+		ScrollChild.BorderTopRight:SetSize(16, 16)
+		ScrollChild.BorderTopRight:SetPoint("TOPRIGHT", 4, 0)
+		ScrollChild.BorderBotLeft:SetSize(16, 16)
+		ScrollChild.BorderBotLeft:SetPoint("BOTTOMLEFT", 32, 0)
+		ScrollChild.BorderBotRight:SetSize(16, 16)
+		ScrollChild.BorderBotRight:SetPoint("BOTTOMRIGHT", 4, 0)
+
+		ScrollChild.BorderLeft:SetWidth(8)
+		ScrollChild.BorderRight:SetWidth(8)
+		ScrollChild.BorderTop:SetHeight(8)
+		ScrollChild.BorderBottom:SetHeight(8)
+
+		ScrollChild.QuestIconBg:SetSize(60, 60)
+		ScrollChild.QuestIconBg:SetPoint("CENTER", ScrollChild, "LEFT", 36, 0)
+		ScrollChild.QuestIconBadgeBorder:SetSize(44, 45)
+		ScrollChild.QuestIconBadgeBorder:SetPoint("TOPLEFT", ScrollChild.QuestIconBg, 8, -8)
+
+		ScrollChild.QuestName:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.QuestName:SetPoint("RIGHT", -8, 0)
+		ScrollChild.TopText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.TopText:SetPoint("RIGHT", -8, 0)
+		ScrollChild.BottomText:SetPoint("BOTTOM", 0, 8)
+		ScrollChild.BottomText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.BottomText:SetPoint("RIGHT", -8, 0)
+
+		ScrollChild.Shine:SetPoint("TOPLEFT", 35, -3)
+		ScrollChild.Shine:SetPoint("BOTTOMRIGHT", 1, 3)
+		ScrollChild.IconShine:SetSize(42, 42)
+	end
+
+	-- AutoQuestPopUpTracker
+	local function AUTO_QUEST_POPUP_TRACKER_MODULE_Update(self)
+		for _, block in next, self.usedBlocks do
+			if not block.IsSkinned then
+				AutoQuestPopUpBlockTemplate(block)
+				block.IsSkinned = true
+			end
+		end
+	end
+	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", AUTO_QUEST_POPUP_TRACKER_MODULE_Update)
+
 	nQ:RegisterEvent("PLAYER_LOGIN")
 	nQ:RegisterEvent("PLAYER_REGEN_DISABLED")
 	nQ:RegisterEvent("PLAYER_REGEN_ENABLED")

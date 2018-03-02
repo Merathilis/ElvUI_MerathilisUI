@@ -326,6 +326,11 @@ local function SkinsTable()
 				name = DEATH_RECAP_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
 			},
+			questPOI = {
+				type = "toggle",
+				name = "QuestPOI",
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
+			},
 		},
 	}
 
