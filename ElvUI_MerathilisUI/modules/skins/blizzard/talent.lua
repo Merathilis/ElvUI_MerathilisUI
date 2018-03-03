@@ -5,13 +5,16 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 -- WoW API / Variables
+local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
+local GetSpecializationSpells = GetSpecializationSpells
+local GetSpellTexture = GetSpellTexture
 
 -- GLOBALS: hooksecurefunc, MAX_TALENT_TIERS, NUM_TALENT_COLUMNS, MAX_PVP_TALENT_TIERS, MAX_PVP_TALENT_COLUMNS
--- GLOBALS: PlayerTalentFrameSpecialization
+-- GLOBALS: PlayerTalentFrameSpecialization, SPEC_SPELLS_DISPLAY
 
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
@@ -47,6 +50,100 @@ local function styleTalents()
 			end
 		end
 	end)
+
+	for _, frame in pairs({PlayerTalentFrameSpecialization, PlayerTalentFramePetSpecialization}) do
+		local scrollChild = frame.spellsScroll.child
+
+		scrollChild.ring:Hide()
+		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
+		MERS:CreateBG(scrollChild.specIcon)
+
+		local roleIcon = scrollChild.roleIcon
+
+		roleIcon:SetTexture(E["media"].roleIcons)
+
+		local left = scrollChild:CreateTexture(nil, "OVERLAY")
+		left:SetWidth(1)
+		left:SetTexture(E["media"].normTex)
+		left:SetVertexColor(0, 0, 0)
+		left:SetPoint("TOPLEFT", roleIcon, 3, -3)
+		left:SetPoint("BOTTOMLEFT", roleIcon, 3, 4)
+
+		local right = scrollChild:CreateTexture(nil, "OVERLAY")
+		right:SetWidth(1)
+		right:SetTexture(E["media"].normTex)
+		right:SetVertexColor(0, 0, 0)
+		right:SetPoint("TOPRIGHT", roleIcon, -3, -3)
+		right:SetPoint("BOTTOMRIGHT", roleIcon, -3, 4)
+
+		local top = scrollChild:CreateTexture(nil, "OVERLAY")
+		top:SetHeight(1)
+		top:SetTexture(E["media"].normTex)
+		top:SetVertexColor(0, 0, 0)
+		top:SetPoint("TOPLEFT", roleIcon, 3, -3)
+		top:SetPoint("TOPRIGHT", roleIcon, -3, -3)
+
+		local bottom = scrollChild:CreateTexture(nil, "OVERLAY")
+		bottom:SetHeight(1)
+		bottom:SetTexture(E["media"].normTex)
+		bottom:SetVertexColor(0, 0, 0)
+		bottom:SetPoint("BOTTOMLEFT", roleIcon, 3, 4)
+		bottom:SetPoint("BOTTOMRIGHT", roleIcon, -3, 4)
+	end
+
+	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
+		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
+		local shownSpec = spec or playerTalentSpec or 1
+
+		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet)
+		local scrollChild = self.spellsScroll.child
+
+		scrollChild.specIcon:SetTexture(icon)
+
+		local index = 1
+		local bonuses
+		if self.isPet then
+			bonuses = {GetSpecializationSpells(shownSpec, nil, self.isPet, true)}
+		else
+			bonuses = SPEC_SPELLS_DISPLAY[id]
+		end
+
+		if bonuses then
+			for i = 1, #bonuses, 2 do
+				local frame = scrollChild["abilityButton"..index]
+				local _, spellIcon = GetSpellTexture(bonuses[i])
+
+				frame.icon:SetTexture(spellIcon)
+				frame.subText:SetTextColor(.75, .75, .75)
+
+				if not frame.styled then
+					frame:Size(60, 60)
+					frame.ring:Hide()
+					frame.icon:SetTexCoord(unpack(E.TexCoords))
+					MERS:CreateBG(frame.icon)
+
+					frame.styled = true
+				end
+
+				index = index + 1
+			end
+		end
+
+		for i = 1, GetNumSpecializations(nil, self.isPet) do
+			local bu = self["specButton"..i]
+
+			if bu.disabled then
+				bu.roleName:SetTextColor(.5, .5, .5)
+			else
+				bu.roleName:SetTextColor(1, 1, 1)
+			end
+		end
+	end)
+
+	for i = 1, GetNumSpecializations(false, nil) do
+		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
+		PlayerTalentFrameSpecialization["specButton"..i].specIcon:SetTexture(icon)
+	end
 
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
 
