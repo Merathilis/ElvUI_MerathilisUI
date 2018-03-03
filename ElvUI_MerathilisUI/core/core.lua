@@ -95,6 +95,9 @@ function MER:RegisterMedia()
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
 	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
 
+	-- Custom Textures
+	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
+
 	-- This change the text color for the QuestInfoQuestType (white)
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
 
