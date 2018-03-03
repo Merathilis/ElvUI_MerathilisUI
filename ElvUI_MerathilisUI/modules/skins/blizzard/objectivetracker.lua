@@ -70,15 +70,6 @@ end
 local function styleObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", function(self, block)
-		if block.module == QUEST_TRACKER_MODULE or block.module == ACHIEVEMENT_TRACKER_MODULE then
-			local line = block.currentLine
-
-			local p1, a, p2, x, y = line:GetPoint()
-			line:SetPoint(p1, a, p2, x, y - 4)
-		end
-	end)
-
 	local function fixBlockHeight(block)
 		if block.shouldFix then
 			local height = block:GetHeight()
