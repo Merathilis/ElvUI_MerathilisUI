@@ -89,8 +89,8 @@ local function styleMisc()
 	-- QueueStatusFrame
 	local function SkinEntry(entry)
 		for _, roleButton in next, {entry.HealersFound, entry.TanksFound, entry.DamagersFound} do
-			roleButton.Texture:SetTexture(E.media.roleIcons)
-			roleButton.Cover:SetTexture(E.media.roleIcons)
+			roleButton.Texture:SetTexture(E["media"].roleIcons)
+			roleButton.Cover:SetTexture(E["media"].roleIcons)
 
 			local left = roleButton:CreateTexture(nil, "OVERLAY")
 			left:SetWidth(1)
