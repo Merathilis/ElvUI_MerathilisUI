@@ -258,8 +258,7 @@ local function styleQuestFrame()
 						MERS:LargeItemButtonTemplate(spellReward)
 						select(3, spellReward:GetRegions()):Hide() --border
 						spellReward.Icon:SetPoint("TOPLEFT", 0, 0)
-						spellReward.Icon:SetSize(120, 120)
-						spellReward:SetHitRectInsets(0,0,0,0)
+						spellReward:SetHitRectInsets(0, 0, 0, 0)
 						spellReward:SetSize(147, 41)
 					end
 					spellReward.isSkinned = true
