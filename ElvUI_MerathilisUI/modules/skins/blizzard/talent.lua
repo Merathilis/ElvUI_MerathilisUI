@@ -63,7 +63,7 @@ local function styleTalents()
 
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
-		scrollChild.specIcon:Size(60, 60)
+		scrollChild.specIcon:Size(70, 70)
 
 		if not scrollChild.backdrop then
 			scrollChild:CreateBackdrop("Default")
