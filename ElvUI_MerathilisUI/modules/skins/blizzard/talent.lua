@@ -26,6 +26,13 @@ local function styleTalents()
 		local bu = PlayerTalentFrameSpecialization["specButton"..i]
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
+		bu.ring:Hide()
+
+		bu.specIcon:SetTexture(icon)
+		bu.specIcon:SetTexCoord(unpack(E.TexCoords))
+		bu.specIcon:SetSize(50, 50)
+		bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
+
 		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
@@ -57,6 +64,13 @@ local function styleTalents()
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
 		scrollChild.specIcon:Size(60, 60)
+
+		if not scrollChild.backdrop then
+			scrollChild:CreateBackdrop("Default")
+			scrollChild.backdrop:SetPoint("TOPLEFT", scrollChild.specIcon, "TOPLEFT", -2, 2)
+			scrollChild.backdrop:SetPoint("BOTTOMRIGHT", scrollChild.specIcon, "BOTTOMRIGHT", 2, -2)
+			scrollChild.specIcon:SetParent(scrollChild.backdrop)
+		end
 		MERS:CreateBG(scrollChild.specIcon)
 
 		local roleIcon = scrollChild.roleIcon
@@ -117,15 +131,22 @@ local function styleTalents()
 				frame.icon:SetTexture(spellIcon)
 				frame.subText:SetTextColor(.75, .75, .75)
 
-				if not frame.styled then
-					frame:Size(45, 45)
+				if not frame.styled and not frame.backdrop then
+					frame:Size(50, 50)
 					frame.ring:Hide()
+					frame:CreateBackdrop("Default")
+					frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", -2, 2)
+					frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 2, -2)
+					frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
+					frame.icon:SetParent(frame.backdrop)
+					frame.icon:ClearAllPoints()
+					frame.icon:SetPoint("TOPLEFT", 2, -2)
+					frame.icon:SetPoint("BOTTOMRIGHT", -2, 2)
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					MERS:CreateBG(frame.icon)
 
 					frame.styled = true
 				end
-
 				index = index + 1
 			end
 		end
