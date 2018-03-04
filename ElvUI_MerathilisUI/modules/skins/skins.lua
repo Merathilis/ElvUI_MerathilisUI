@@ -637,26 +637,21 @@ local function SetRelic(button, isRelic, color)
 end
 
 local function SetItemButtonQuality(button, quality, itemIDOrLink)
-	if not button.IsSkinned then
-		if button._mUIIconBorder then
-			local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
+	if button._mUIIconBorder then
+		local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
 
-			if quality then
-				local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
-				if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
-					SetRelic(button, isRelic, color)
-					button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
-					button.IconBorder:Hide()
-				else
-					SetRelic(button, false)
-					button._muIIconBorder:SetBackdropBorderColor(0, 0, 0)
-				end
+		if quality then
+			local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
+			if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
+				SetRelic(button, isRelic, color)
+				button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
+				button.IconBorder:Hide()
 			else
 				SetRelic(button, false)
-				button._mUIIconBorder:SetBackdropBorderColor(0, 0, 0)
 			end
+		else
+			SetRelic(button, false)
 		end
-		button.IsSkinned = true
 	end
 end
 hooksecurefunc("SetItemButtonQuality", SetItemButtonQuality)
