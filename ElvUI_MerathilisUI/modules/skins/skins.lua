@@ -573,13 +573,17 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 end
 
 function MERS:ReskinIcon(icon)
+	assert(icon, "doesn't exist!")
+
 	icon:SetTexCoord(unpack(E.TexCoords))
 	return MERS:CreateBDFrame(icon)
 end
 
 function MERS:ReskinItemFrame(frame)
+	assert(frame, "doesn't exist!")
+
 	local icon = frame.Icon
-	frame._IconBorder = MERS:ReskinIcon(icon)
+	frame._mUIIconBorder = MERS:ReskinIcon(icon)
 
 	local nameFrame = frame.NameFrame
 	nameFrame:SetAlpha(0)
@@ -590,7 +594,7 @@ function MERS:ReskinItemFrame(frame)
 	bg:SetPoint("LEFT", icon, "RIGHT", 2, 0)
 	bg:SetPoint("RIGHT", nameFrame, -4, 0)
 	MERS:CreateBD(bg, .2)
-	frame._NameBG = bg
+	frame._mUINameBG = bg
 end
 
 local size = 6
@@ -602,6 +606,8 @@ local vertexOffsets = {
 }
 
 local function SetRelic(button, isRelic, color)
+	assert(button, "doesn't exist!")
+
 	if isRelic then
 		if not button._mUIRelicTex then
 			local relic = CreateFrame("Frame", nil, button)
@@ -631,28 +637,33 @@ local function SetRelic(button, isRelic, color)
 end
 
 local function SetItemButtonQuality(button, quality, itemIDOrLink)
-	if button._mUIIconBorder then
-		local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
+	if not button.IsSkinned then
+		if button._mUIIconBorder then
+			local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
 
-		if quality then
-			local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
-			if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
-				SetRelic(button, isRelic, color)
-				button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
-				button.IconBorder:Hide()
+			if quality then
+				local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
+				if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
+					SetRelic(button, isRelic, color)
+					button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
+					button.IconBorder:Hide()
+				else
+					SetRelic(button, false)
+					button._muIIconBorder:SetBackdropBorderColor(0, 0, 0)
+				end
 			else
 				SetRelic(button, false)
-				button._muIIconBorder:SetBackdropBorderColor(0, 0, 0)
+				button._mUIIconBorder:SetBackdropBorderColor(0, 0, 0)
 			end
-		else
-			SetRelic(button, false)
-			button._mUIIconBorder:SetBackdropBorderColor(0, 0, 0)
 		end
+		button.IsSkinned = true
 	end
 end
 hooksecurefunc("SetItemButtonQuality", SetItemButtonQuality)
 
 function MERS:ItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
 	button:SetNormalTexture("")
 	button:SetHighlightTexture("")
 	button:SetPushedTexture("")
@@ -668,6 +679,8 @@ function MERS:PopupButtonTemplate(checkbutton)
 end
 
 function MERS:LargeItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
 	local icon = button.Icon
 	button._mUIIconBorder = MERS:ReskinIcon(icon)
 
@@ -687,6 +700,8 @@ function MERS:LargeItemButtonTemplate(button)
 end
 
 function MERS:SmallItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
 	local icon = button.Icon
 	icon:SetSize(29, 29)
 	button._mUIIconBorder = MERS:ReskinIcon(icon)

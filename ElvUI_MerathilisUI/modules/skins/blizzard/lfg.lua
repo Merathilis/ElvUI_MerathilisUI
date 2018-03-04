@@ -39,7 +39,7 @@ local function styleLFG()
 
 	local function styleRewardButton(button)
 		MERS:ReskinItemFrame(button)
-		button._NameBG:SetPoint("RIGHT", -4, 0)
+		button._mUINameBG:SetPoint("RIGHT", -4, 0)
 
 		if button.shortageBorder then
 			button.shortageBorder:SetAlpha(0)
@@ -51,17 +51,11 @@ local function styleLFG()
 	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
 	--Reward frame functions
-	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, dungeonID, index, id, name, texture, numItems, rewardType, rewardID, shortageIndex, showTankIcon, showHealerIcon, showDamageIcon)
+	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()
 		local button = _G[parentName.."Item"..index]
-		if button and not button._NameBG then
+		if button and not button._mUINameBG then
 			styleRewardButton(button)
-		end
-		button.IconBorder:Hide()
-		if shortageIndex then
-			button._IconBorder:SetBackdropBorderColor(1, .9, .06)
-		elseif rewardType ~= "item" then
-			button._IconBorder:SetBackdropBorderColor(0, 0, 0)
 		end
 	end)
 
