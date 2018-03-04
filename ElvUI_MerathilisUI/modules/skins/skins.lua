@@ -576,6 +576,22 @@ function MERS:ReskinIcon(icon)
 	return MERS:CreateBDFrame(icon)
 end
 
+function MERS:ReskinItemFrame(frame)
+	local icon = frame.Icon
+	frame._IconBorder = MERS:ReskinIcon(icon)
+
+	local nameFrame = frame.NameFrame
+	nameFrame:SetAlpha(0)
+
+	local bg = CreateFrame("Frame", nil, frame)
+	bg:SetPoint("TOP", icon, 0, 1)
+	bg:SetPoint("BOTTOM", icon, 0, -1)
+	bg:SetPoint("LEFT", icon, "RIGHT", 2, 0)
+	bg:SetPoint("RIGHT", nameFrame, -4, 0)
+	MERS:CreateBD(bg, .2)
+	frame._NameBG = bg
+end
+
 function MERS:SmallItemButtonTemplate(button)
 	local icon = button.Icon
 	icon:SetSize(29, 29)
