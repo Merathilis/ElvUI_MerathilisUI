@@ -592,18 +592,38 @@ function MERS:ReskinItemFrame(frame)
 	frame._NameBG = bg
 end
 
-function MERS:SmallItemButtonTemplate(button)
-	local icon = button.Icon
-	icon:SetSize(29, 29)
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
+local function SetItemButtonQuality(button, quality, itemIDOrLink)
+	if button._mUIIconBorder then
+		local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
 
-	local nameFrame = button.NameFrame
-	nameFrame:SetAlpha(0)
+		if quality then
+			local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
+			if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
+				button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
+				button.IconBorder:Hide()
+			else
+				button._muIIconBorder:SetBackdropBorderColor(0, 0, 0)
+			end
+		else
+			button._mUIIconBorder:SetBackdropBorderColor(0, 0, 0)
+		end
+	end
+end
+hooksecurefunc("SetItemButtonQuality", SetItemButtonQuality)
 
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
-	MERS:CreateBD(bg, .2)
+function MERS:ItemButtonTemplate(button)
+	button:SetNormalTexture("")
+	button:SetHighlightTexture("")
+	button:SetPushedTexture("")
+	button._mUIIconBorder = MERS:ReskinIcon(button.icon)
+end
+
+function MERS:SimplePopupButtonTemplate(checkbutton)
+	select(2, checkbutton:GetRegions()):Hide()
+end
+
+function MERS:PopupButtonTemplate(checkbutton)
+	MERS:SimplePopupButtonTemplate(checkbutton)
 end
 
 function MERS:LargeItemButtonTemplate(button)
@@ -613,9 +633,31 @@ function MERS:LargeItemButtonTemplate(button)
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
 
+	local IconBorder = CreateFrame("Frame", nil, button)
+	IconBorder:SetPoint("TOPLEFT", icon, "TOPRIGHT", -1, 1)
+	IconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+
 	local bg = CreateFrame("Frame", nil, button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
 	bg:SetPoint("BOTTOMRIGHT", -3, 1)
+	MERS:CreateBD(bg, .2)
+end
+
+function MERS:SmallItemButtonTemplate(button)
+	local icon = button.Icon
+	icon:SetSize(29, 29)
+	button._mUIIconBorder = MERS:ReskinIcon(icon)
+
+	local nameFrame = button.NameFrame
+	nameFrame:SetAlpha(0)
+
+	local IconBorder = CreateFrame("Frame", nil, button)
+	IconBorder:SetPoint("TOPLEFT", icon, "TOPRIGHT", -1, 1)
+	IconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
+
+	local bg = CreateFrame("Frame", nil, button)
+	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
+	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
 	MERS:CreateBD(bg, .2)
 end
 
