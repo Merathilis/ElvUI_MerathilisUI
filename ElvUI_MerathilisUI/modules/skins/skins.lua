@@ -7,13 +7,14 @@ MERS.modName = L["Skins/AddOns"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, select, unpack = assert, pairs, select, unpack
+local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
+local IsArtifactRelicItem = IsArtifactRelicItem
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AddOnSkins, stripes
+-- GLOBALS: AddOnSkins, stripes, BAG_ITEM_QUALITY_COLORS, LE_ITEM_QUALITY_COMMON
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
@@ -592,6 +593,43 @@ function MERS:ReskinItemFrame(frame)
 	frame._NameBG = bg
 end
 
+local size = 6
+local vertexOffsets = {
+	{"TOPLEFT", 4, -size},
+	{"BOTTOMLEFT", 3, -size},
+	{"TOPRIGHT", 2, size},
+	{"BOTTOMRIGHT", 1, size},
+}
+
+local function SetRelic(button, isRelic, color)
+	if isRelic then
+		if not button._mUIRelicTex then
+			local relic = CreateFrame("Frame", nil, button)
+			relic:SetAllPoints(button._mUIIconBorder)
+
+			for i = 1, 4 do
+				local tex = relic:CreateTexture(nil, "OVERLAY")
+				tex:SetSize(size, size)
+
+				local vertexInfo = vertexOffsets[i]
+				tex:SetPoint(vertexInfo[1])
+				tex:SetVertexOffset(vertexInfo[2], vertexInfo[3], 0)
+				relic[i] = tex
+			end
+
+			button._mUIRelicTex = relic
+		end
+
+		for i = 1, #button._mUIRelicTex do
+			local tex = button._mUIRelicTex[i]
+			tex:SetColorTexture(color.r, color.g, color.b)
+		end
+		button._mUIRelicTex:Show()
+	elseif button._mUIRelicTex then
+		button._mUIRelicTex:Hide()
+	end
+end
+
 local function SetItemButtonQuality(button, quality, itemIDOrLink)
 	if button._mUIIconBorder then
 		local isRelic = (itemIDOrLink and IsArtifactRelicItem(itemIDOrLink))
@@ -599,12 +637,15 @@ local function SetItemButtonQuality(button, quality, itemIDOrLink)
 		if quality then
 			local color = type(quality) == "table" and quality or BAG_ITEM_QUALITY_COLORS[quality]
 			if color and color == quality or quality >= LE_ITEM_QUALITY_COMMON then
+				SetRelic(button, isRelic, color)
 				button._mUIIconBorder:SetBackdropBorderColor(color.r, color.g, color.b)
 				button.IconBorder:Hide()
 			else
+				SetRelic(button, false)
 				button._muIIconBorder:SetBackdropBorderColor(0, 0, 0)
 			end
 		else
+			SetRelic(button, false)
 			button._mUIIconBorder:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
@@ -641,6 +682,8 @@ function MERS:LargeItemButtonTemplate(button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
 	bg:SetPoint("BOTTOMRIGHT", -3, 1)
 	MERS:CreateBD(bg, .2)
+
+	button._mUINameBG = bg
 end
 
 function MERS:SmallItemButtonTemplate(button)
@@ -659,6 +702,8 @@ function MERS:SmallItemButtonTemplate(button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
 	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
 	MERS:CreateBD(bg, .2)
+
+	button._mUINameBG = bg
 end
 
 function MERS:SkinPanel(panel)
