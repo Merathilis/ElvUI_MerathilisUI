@@ -56,6 +56,7 @@ local function styleTalents()
 
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
+		scrollChild.specIcon:Size(60, 60)
 		MERS:CreateBG(scrollChild.specIcon)
 
 		local roleIcon = scrollChild.roleIcon
@@ -117,7 +118,7 @@ local function styleTalents()
 				frame.subText:SetTextColor(.75, .75, .75)
 
 				if not frame.styled then
-					frame:Size(60, 60)
+					frame:Size(45, 45)
 					frame.ring:Hide()
 					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					MERS:CreateBG(frame.icon)
