@@ -30,6 +30,7 @@
 	<Script file="objectivetracker.lua"/>
 	<Script file="questchoice.lua"/>
 	<Script file="questframe.lua"/>
+	<Script file="questPOI.lua"/>
 	<Script file="raid.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>
