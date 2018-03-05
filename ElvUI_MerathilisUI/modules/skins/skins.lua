@@ -617,7 +617,6 @@ function MERS:LargeItemButtonTemplate(button)
 	assert(button, "doesn't exist!")
 
 	local icon = button.Icon
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
 
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
@@ -634,8 +633,7 @@ function MERS:SmallItemButtonTemplate(button)
 	assert(button, "doesn't exist!")
 
 	local icon = button.Icon
-	icon:SetSize(29, 29)
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
+	icon:SetSize(28, 28)
 
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
