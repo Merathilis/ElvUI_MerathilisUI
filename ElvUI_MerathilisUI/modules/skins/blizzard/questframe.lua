@@ -284,8 +284,22 @@ local function styleQuestFrame()
 		if not button.restyled then
 			if rewardsFrame == _G["MapQuestInfoRewardsFrame"] then
 				MERS:SmallItemButtonTemplate(button)
+				hooksecurefunc(button.IconBorder, "SetVertexColor", function(self, r, g, b)
+					self:GetParent()._mUIIconBorder:SetBackdropBorderColor(r, g, b)
+					self:SetTexture("")
+				end)
+				hooksecurefunc(button.IconBorder, "Hide", function(self)
+					self:GetParent()._mUIIconBorder:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				end)
 			else
 				MERS:LargeItemButtonTemplate(button)
+				hooksecurefunc(button.IconBorder, "SetVertexColor", function(self, r, g, b)
+					self:GetParent()._mUIIconBorder:SetBackdropBorderColor(r, g, b)
+					self:SetTexture("")
+				end)
+				hooksecurefunc(button.IconBorder, "Hide", function(self)
+					self:GetParent()._mUIIconBorder:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				end)
 			end
 			button.restyled = true
 		end

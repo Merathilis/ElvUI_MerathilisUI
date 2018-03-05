@@ -622,10 +622,6 @@ function MERS:LargeItemButtonTemplate(button)
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
 
-	local IconBorder = CreateFrame("Frame", nil, button)
-	IconBorder:SetPoint("TOPLEFT", icon, "TOPRIGHT", -1, 1)
-	IconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
-
 	local bg = CreateFrame("Frame", nil, button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
 	bg:SetPoint("BOTTOMRIGHT", -3, 1)
@@ -643,10 +639,6 @@ function MERS:SmallItemButtonTemplate(button)
 
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
-
-	local IconBorder = CreateFrame("Frame", nil, button)
-	IconBorder:SetPoint("TOPLEFT", icon, "TOPRIGHT", -1, 1)
-	IconBorder:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 1, -1)
 
 	local bg = CreateFrame("Frame", nil, button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
