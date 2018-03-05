@@ -452,11 +452,11 @@ function MER:SetupLayout()
 
 	-- Apply BenikUI
 	if IsAddOnLoaded("ElvUI_BenikUI") then
-		MER:LoadBenikUIProfile("big")
+		MER:LoadBenikUIProfile()
 	end
 	-- Apply S&L
 	if IsAddOnLoaded("ElvUI_SLE") then
-		 MER:LoadShadowandLightProfile("big")
+		MER:LoadShadowandLightProfile()
 	end
 	-- Masque
 	if IsAddOnLoaded("Masque") then
