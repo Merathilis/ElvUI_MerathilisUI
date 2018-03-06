@@ -64,6 +64,9 @@ local function styleSpellBook()
 	end)
 
 	-- Profession Tab
+	PrimaryProfession1:SetPoint("TOPLEFT", 60, -40)
+	PrimaryProfession2:SetPoint("TOPLEFT", PrimaryProfession1, "BOTTOMLEFT", 0, -8)
+
 	local professions = {
 		PrimaryProfession1 = true,
 		PrimaryProfession2 = true,
