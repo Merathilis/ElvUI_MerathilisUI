@@ -19,7 +19,8 @@ local function blipIcons()
 	_G["Minimap"]:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\blipIcons.tga")
 end
 
-function MM:ChangeLandingButton()
+function MM:ChangeMiniMapButtons()
+	--Garrison Icon
 	if _G["GarrisonLandingPageMinimapButton"] then
 		local scale = E.db.general.minimap.icons.classHall.scale or 1
 
@@ -74,7 +75,7 @@ function MM:MiniMapCoords()
 end
 
 function MM:Initialize()
-	self:ChangeLandingButton()
+	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
 
 	local f = CreateFrame("Frame")
