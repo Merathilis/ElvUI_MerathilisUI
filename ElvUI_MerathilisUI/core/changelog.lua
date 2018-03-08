@@ -17,19 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add an EquipSet Bar. Thx Azilroka for this <3",
-		"• Fix Party/Raid position for high resolutions.",
-		"• Update BigWigs Skin. No Half-Bar anymore.",
-		"• Replace the Quest button with a Talent button in the MicroBar.",
-		"• Don't hide the AFK options if BenikUI is loaded.",
-		"• Add new font settings for S&L (its not live yet), will error out.",
-		"• Fixed the option for the MerchantItemLevel. Thx varyak",
+		"• Add an itemlevel link feature. Shows the slot/item level on linked items in chat.",
+		"• Update a lot of skins.",
+		"• Change the default position for the WorldMap.",
+		"• Add the ls_Toast skin to my Plugin.",
+		"• Add my logo on the ElvUI config.",
+		"• Remove the custom Minimap blip textures.",
+		"• Remove my Expressway font.",
+		"• Remove the move Blizz function..",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• 'BenikUI is not more required to get the full function from my UI.'",
-		"• 'If you want my latest layout, you have to do the install again.'",
-		"• 'If you do so, all your changes will be reseted.'",
+		-- "• ''",
 }
 
 local function ModifiedString(string)
