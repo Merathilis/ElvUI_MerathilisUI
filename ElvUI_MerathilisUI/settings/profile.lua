@@ -35,6 +35,7 @@ P["mui"] = {
 	["chat"] = {
 		["chatButton"] = true,
 		["panelHeight"] = 146,
+		["iLevelLink"] = true,
 	},
 
 	["colors"] = {

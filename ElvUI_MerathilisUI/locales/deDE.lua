@@ -32,6 +32,11 @@ L["CHAT_DND"] = "[DND]"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
 L["Unknown"] = "Unbekannt"
+L["Chat Item Level"] = true
+L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
+L["Expand the chat"] = "Chat erweitern"
+L["Chat Button"] = "Chat Taste"
+L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 
 -- Information
 L["Information"] = true
@@ -118,9 +123,6 @@ L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
-L["Expand the chat"] = "Chat erweitern"
-L["Chat Button"] = "Chat Taste"
-L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."

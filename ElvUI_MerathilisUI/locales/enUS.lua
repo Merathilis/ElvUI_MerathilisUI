@@ -32,6 +32,11 @@ L["CHAT_DND"] = "[DND]"
 L["has come |cff298F00online|r."] = true
 L["has gone |cffff0000offline|r."] = true
 L["Unknown"] = true
+L["Chat Item Level"] = true
+L["Shows the slot and item level in the chat"] = true
+L["Expand the chat"] = true
+L["Chat Button"] = true
+L["Create a chat button to increase the chat size."] = true
 
 -- Information
 L["Information"] = true
@@ -116,9 +121,6 @@ L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
-L["Expand the chat"] = true
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true

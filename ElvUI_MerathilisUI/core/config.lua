@@ -116,6 +116,14 @@ local function AddOptions()
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					iLevelLink = {
+						order = 11,
+						type = "toggle",
+						name = L["Chat Item Level"]..MER.NewSign,
+						desc = L["Shows the slot and item level in the chat"],
+						get = function(info) return E.db.mui.chat[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
 				},
 			},
 			info = {

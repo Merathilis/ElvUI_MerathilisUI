@@ -65,6 +65,7 @@ function MERC:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
 	self:EasyChannel()
+	self:ItemLevelLink()
 end
 
 local function InitializeCallback()
