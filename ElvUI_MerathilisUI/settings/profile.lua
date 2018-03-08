@@ -285,6 +285,7 @@ P["mui"] = {
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
 		["combathide"] = false,
 		["orderhallhide"] = false,
+		["showEngineer"] = true,
 		["portals"] = {
 			["enable"] = true,
 			["HSplace"] = true,
