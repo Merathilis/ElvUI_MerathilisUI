@@ -451,6 +451,7 @@ function LP:ItemList(check)
 					else
 						tinsert(LP.MainMenu, data)
 					end
+					break
 				end
 			end
 		end
