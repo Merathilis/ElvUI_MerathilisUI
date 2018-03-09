@@ -29,8 +29,10 @@ L["Enable/Disable the Login Message in Chat"] = true
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L[" has come |cff298F00online|r."] = true
-L[" has gone |cffff0000offline|r."] = true
+L["has come |cff298F00online|r."] = true -- Guild Message
+L["has gone |cffff0000offline|r."] = true -- Guild Message
+L[" has come |cff298F00online|r."] = true -- Battle.Net Message
+L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
 L["Unknown"] = true
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true

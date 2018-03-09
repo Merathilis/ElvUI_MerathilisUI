@@ -29,8 +29,10 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r."
-L[" has gone |cffff0000offline|r."] = " ist jetzt |cffff0000offline|r."
+L["has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r." -- Guild Message
+L["has gone |cffff0000offline|r."] = " ist jetzt |cffff0000offline|r." -- Guild Message
+L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r." -- Battle.Net Message
+L[" has gone |cffff0000offline|r."] = " ist jetzt |cffff0000offline|r." -- Battle.Net Message
 L["Unknown"] = "Unbekannt"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
