@@ -76,6 +76,11 @@ function MER:GetIconFromID(type, id)
 	return path or nil
 end
 
+function MER:GetSpell(id)
+	local name = GetSpellInfo(id)
+	return name
+end
+
 function MER:BagSearch(itemId)
 	for container = 0, NUM_BAG_SLOTS do
 		for slot = 1, GetContainerNumSlots(container) do

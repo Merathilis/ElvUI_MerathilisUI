@@ -29,8 +29,8 @@ L["Enable/Disable the Login Message in Chat"] = true
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = true
-L["has gone |cffff0000offline|r."] = true
+L[" has come |cff298F00online|r."] = true
+L[" has gone |cffff0000offline|r."] = true
 L["Unknown"] = true
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
@@ -282,6 +282,18 @@ L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
 L["Hearthstone Location"] = true
+L["Show hearthstones"] = true
+L["Show hearthstone type items in the list."] = true
+L["Show Toys"] = true
+L["Show toys in the list. This option will affect all other display options as well."] = true
+L["Show spells"] = true
+L["Show relocation spells in the list."] = true
+L["Show engineer gadgets"] = true
+L["Show items used only by engineers when the profession is learned."] = true
+L["Ignore missing info"] = true
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
+By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
 
 -- Raid Marks
 L["Raid Markers"] = true

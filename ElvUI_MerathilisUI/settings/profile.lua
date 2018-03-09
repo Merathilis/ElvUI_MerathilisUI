@@ -285,7 +285,6 @@ P["mui"] = {
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
 		["combathide"] = false,
 		["orderhallhide"] = false,
-		["showEngineer"] = true,
 		["portals"] = {
 			["enable"] = true,
 			["HSplace"] = true,
@@ -293,6 +292,11 @@ P["mui"] = {
 			["customWidthValue"] = 200,
 			["justify"] = "LEFT",
 			["cdFormat"] = "DEFAULT",
+			["ignoreMissingInfo"] = false,
+			["showHearthstones"] = true,
+			["showToys"] = true,
+			["showSpells"] = true,
+			["showEngineer"] = true,
 		},
 	},
 

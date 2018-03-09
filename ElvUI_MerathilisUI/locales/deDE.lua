@@ -29,8 +29,8 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
-L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
+L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r."
+L[" has gone |cffff0000offline|r."] = " ist jetzt |cffff0000offline|r."
 L["Unknown"] = "Unbekannt"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
@@ -283,6 +283,19 @@ L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
 L["Hearthstone Location"] = "Ruhestein Position"
+L["Show hearthstones"] = "Zeige Ruhestein"
+L["Show hearthstone type items in the list."] = "Zeigt Ruhestein Items in der Liste"
+L["Show Toys"] = "Zeige Spielzeuge"
+L["Show toys in the list. This option will affect all other display options as well."] = "Zeigt Spielzeuge in der Liste. Diese Option wirkt sich auf allen anderen Anzeigeoptionen auswirken."
+L["Show spells"] = "Zeige Zauber"
+L["Show relocation spells in the list."] = "Zeigt Teleport Zauber in der Liste."
+L["Show engineer gadgets"] = "Zeige Ingenieur Spielerein."
+L["Show items used only by engineers when the profession is learned."] = "Zeigt Gegenstände die von Ingenieuren genutzt werden können und wenn der Beruf gelernt ist."
+L["Ignore missing info"] = "Ignoriere fehlende Informationen"
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
+By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
+
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
