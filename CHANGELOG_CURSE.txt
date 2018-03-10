@@ -7,6 +7,7 @@
 * Remove the custom Minimap blip textures.
 * Remove my Expressway font.
 * Remove the move Blizz function.
+* The Teleport menu will now only show one of general "Hearthstone" items.
 
 ** v3.19, 30.01.2018**
 * Add an EquipSet Bar. Thx Azilroka for this <3
