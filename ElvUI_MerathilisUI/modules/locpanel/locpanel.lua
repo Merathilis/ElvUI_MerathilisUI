@@ -83,11 +83,11 @@ LP.Hearthstones = {
 	{54452, nil, true}, --Etherial Portal
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{64488, nil, true}, --The Innkeeper's Daughter
-	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
-	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 }
 
 LP.PortItems = {
+	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
+	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
 	{37863}, --Grim Guzzler
 	{52251}, --Jaina's Locket
