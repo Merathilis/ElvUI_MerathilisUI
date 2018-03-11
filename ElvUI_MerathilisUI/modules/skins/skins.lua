@@ -747,23 +747,16 @@ local function pluginInstaller()
 	end
 end
 
---Try additional addon loading method (BigWigs only for know.)
+--Try additional addon loading method
 function MERS:RegisterForPreload(skinName, skinFunc, addonName)
 	MERS.preload[addonName] = { func = skinFunc, addon = skinName }
 end
 
-function MERS:RunPreload(addonName)
-	if MERS.preload[addonName] then
-		pcall(MERS.preload[addonName].func, self, "ADDON_LOADED", addonName)
-	end
-end
-
-function MERS:Initialize(addon)
+function MERS:Initialize()
 	self.db = E.private.muiSkins
 
 	updateMedia()
 	pluginInstaller()
-	self:RunPreload(addon)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
