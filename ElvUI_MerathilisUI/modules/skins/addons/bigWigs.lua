@@ -143,5 +143,4 @@ local function RegisterStyle()
 	bars.defaultDB.barStyle = styleName
 end
 
-MERS:RegisterForPreload("BigWigs", RegisterStyle, "BigWigs_Plugins")
 S:AddCallbackForAddon("BigWigs_Plugins", "PLAYER_ENTERING_WORLD", RegisterStyle)
