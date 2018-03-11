@@ -13,7 +13,9 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AddOnSkins, stripes
+-- GLOBALS: AddOnSkins
+
+MERS.preload = {}
 
 local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
@@ -743,6 +745,11 @@ local function pluginInstaller()
 		PluginInstallFrame:Styling()
 		PluginInstallTitleFrame:Styling()
 	end
+end
+
+--Try additional addon loading method
+function MERS:RegisterForPreload(skinName, skinFunc, addonName)
+	MERS.preload[addonName] = { func = skinFunc, addon = skinName }
 end
 
 function MERS:Initialize()
