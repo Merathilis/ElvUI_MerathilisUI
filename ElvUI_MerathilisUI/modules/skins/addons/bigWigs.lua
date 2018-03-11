@@ -127,7 +127,6 @@ local function ApplyStyle(bar)
 	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 end
 
-local f = CreateFrame("Frame")
 local function RegisterStyle()
 	if not BigWigs then return end
 	local styleName = MER.Title or "MerathilisUI"
@@ -143,14 +142,5 @@ local function RegisterStyle()
 	})
 	bars.defaultDB.barStyle = styleName
 end
-f:RegisterEvent("ADDON_LOADED")
 
-local reason = nil
-f:SetScript("OnEvent", function(self, event, msg)
-	if event == "ADDON_LOADED" then
-		if not reason then reason = (select(6, GetAddOnInfo("BigWigs_Plugins"))) end
-		if (reason == "MISSING" and msg == "BigWigs") or msg == "BigWigs_Plugins" then
-			RegisterStyle()
-		end
-	end
-end)
+S:AddCallbackForAddon("BigWigs_Plugins", "PLAYER_ENTERING_WORLD", RegisterStyle)
