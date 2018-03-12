@@ -452,7 +452,7 @@ function MERS:CreatePulse(frame, speed, alpha, mult)
 	frame.alpha = alpha or 1
 	frame.tslu = 0
 	frame:SetScript("OnUpdate", function(self, elapsed)
-		elapsed = elapsed * ( speed or 5/4 )
+		elapsed = elapsed * (speed or 5/4)
 		self.tslu = self.tslu + elapsed
 		if self.tslu > self.speed then
 			self.tslu = 0
