@@ -26,6 +26,9 @@ L["Desciption"] = true
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
 
+-- Bags
+L["Usable Items"] = true
+
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"

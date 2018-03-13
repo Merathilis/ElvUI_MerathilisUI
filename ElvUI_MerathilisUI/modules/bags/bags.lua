@@ -6,7 +6,6 @@ MERB.modName = L["Bags"]
 _Bags = MERB
 
 local cargBags = _cargBags
-local consumable = AUCTION_CATEGORY_CONSUMABLES
 
 --Cache global variables
 --Lua Variables
@@ -19,6 +18,8 @@ local PlaySound = PlaySound
 local IsReagentBankUnlocked = IsReagentBankUnlocked
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
+
+MER.ItemClass = {}
 
 function MERB:Tooltip_Show()
 	GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
@@ -50,7 +51,14 @@ local function CheckEquipmentSet(item)
 end
 
 function MERB:IsConsumableItem(item)
-	return item.type == AUCTION_CATEGORY_CONSUMABLES and item.rarity ~= LE_ITEM_QUALITY_POOR
+	if item.rarity and item.rarity == 0 then return end
+
+	if item.type then
+		if item.type == GetItemClassInfo(0) then
+			MER.ItemClass[item.id] = "Consumables"
+			return true
+		end
+	end
 end
 
 function MERB:Info()
@@ -238,6 +246,7 @@ function MERB:Initialize()
 		self:EnableMouse(true)
 
 		self:CreateBackdrop("Transparent")
+		self.backdrop:SetAllPoints()
 		self:Styling()
 		self:SetBackdropColor(0, 0, 0, 0.9)
 		self:SetBackdropBorderColor(0, 0, 0, 0.8)
@@ -358,7 +367,7 @@ function MERB:Initialize()
 			local setname = self:CreateFontString(nil,"OVERLAY")
 			setname:SetPoint("TOPLEFT", self, "TOPLEFT",5,-5)
 			setname:SetFont(E["media"].normFont, 12, "THINOUTLINE")
-			setname:SetText(consumable)
+			setname:SetText(L["Usable Items"])
 		elseif name == "Reagent" then
 			local reagentname = self:CreateFontString(nil,"OVERLAY")
 			reagentname:SetPoint("TOPLEFT", self, "TOPLEFT",5,-5)

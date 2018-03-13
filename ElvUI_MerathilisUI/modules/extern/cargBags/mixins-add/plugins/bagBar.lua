@@ -43,8 +43,8 @@ end
 local BagButton = cargBags:NewClass("BagButton", nil, "CheckButton")
 
 -- Default attributes
-BagButton.bgTex = [[Interface\Paperdoll\UI-PaperDoll-Slot-Bag]]
-BagButton.itemFadeAlpha = 0.1
+BagButton.bgTex = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\BagSlot]]
+BagButton.itemFadeAlpha = 0.2
 
 local buttonNum = 0
 function BagButton:Create(bagID)
@@ -70,6 +70,7 @@ function BagButton:Create(bagID)
 	button.Border =		_G[name.."NormalTexture"]
 
 	button.Icon:SetTexCoord(.08, .92, .08, .92)
+	button.Icon:SetVertexColor(0.8, 0.8, 0.8)
 	button.Icon:SetInside(button, 1, 1)
 	button:StripTextures()
 	button:StyleButton(1)
@@ -79,8 +80,8 @@ function BagButton:Create(bagID)
 		border:SetAllPoints()
 		border:SetFrameLevel(button:GetFrameLevel()+1)
 		button.border = border
-		-- button.border:CreateBorder()
-		-- R.Skins:CreateBackdropTexture(button, 0.6)
+		button.border:CreateBorder()
+		E:GetModule("muiSkins"):CreateBackdropTexture(button, 0.6)
 	end
 
 	cargBags.SetScriptHandlers(button, "OnClick", "OnReceiveDrag", "OnEnter", "OnLeave", "OnDragStart")
@@ -97,11 +98,11 @@ function BagButton:Update()
 
 	if(self.bagID > NUM_BAG_SLOTS) then
 		if(self.bagID-NUM_BAG_SLOTS <= GetNumBankSlots()) then
-			-- self.Icon:SetVertexColor(1, 1, 1)
+			self.Icon:SetVertexColor(1, 1, 1)
 			self.notBought = nil
 		else
 			self.notBought = true
-			-- self.Icon:SetVertexColor(1, 0, 0)
+			self.Icon:SetVertexColor(1, 0, 0)
 		end
 	end
 
