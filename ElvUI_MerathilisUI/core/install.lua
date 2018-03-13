@@ -237,6 +237,8 @@ function MER:SetupLayout()
 	end
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
+	E.db["general"]["vendorGrays"] = true
+	E.db["general"]["vendorGraysDetails"] = true
 	E.db["general"]["backdropcolor"]["r"] = 0.101
 	E.db["general"]["backdropcolor"]["g"] = 0.101
 	E.db["general"]["backdropcolor"]["b"] = 0.101
