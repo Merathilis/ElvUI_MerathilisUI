@@ -78,6 +78,42 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
+-- External CloseButtons
+function MERS:ReskinClose(f, a1, p, a2, x, y)
+	assert(f, "doesn't exist!")
+	f:Size(17, 17)
+
+	if not a1 then
+		f:Point("TOPRIGHT", -4, -4)
+	else
+		f:ClearAllPoints()
+		f:Point(a1, p, a2, x, y)
+	end
+
+	f:SetNormalTexture("")
+	f:SetHighlightTexture("")
+	f:SetPushedTexture("")
+	f:SetDisabledTexture("")
+
+	MERS:CreateBD(f, 0)
+	MERS:CreateBackdropTexture(f)
+	f:Styling()
+
+	f:SetDisabledTexture(E["media"].normTex)
+	local dis = f:GetDisabledTexture()
+	dis:SetVertexColor(0, 0, 0, .4)
+	dis:SetDrawLayer("OVERLAY")
+	dis:SetAllPoints()
+
+	local icon = f:CreateFontString(nil, "OVERLAY")
+	icon:Point("CENTER", 2, 0)
+	icon:FontTemplate(nil, 12, "OUTLINE")
+	icon:SetText("X")
+
+	f:HookScript("OnEnter", function() icon:SetTextColor(r, g, b) end)
+	f:HookScript("OnLeave", function() icon:SetTextColor(1, 1, 1) end)
+end
+
 -- BenikUI Styles
 function MERS:StyleOutside(frame)
 	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then

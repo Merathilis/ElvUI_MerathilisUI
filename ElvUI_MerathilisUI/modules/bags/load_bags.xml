@@ -1,3 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="bags.lua"/>
+	<Script file="sort.lua"/>
+	<Script file="options.lua"/>
 </Ui>
