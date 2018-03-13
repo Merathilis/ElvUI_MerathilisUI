@@ -9,9 +9,14 @@ local cargBags = _cargBags
 local consumable = AUCTION_CATEGORY_CONSUMABLES
 
 --Cache global variables
-
+--Lua Variables
+local select = select
+local format = string.format
 --WoW API / Variables
-
+local CreateFrame = CreateFrame
+local GetContainerNumFreeSlots = GetContainerNumFreeSlots
+local PlaySound = PlaySound
+local IsReagentBankUnlocked = IsReagentBankUnlocked
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -348,7 +353,7 @@ function MERB:Initialize()
 			local setname = self:CreateFontString(nil,"OVERLAY")
 			setname:SetPoint("TOPLEFT", self, "TOPLEFT",5,-5)
 			setname:SetFont(E["media"].normFont, 12, "THINOUTLINE")
-			setname:SetText(string.format(EQUIPMENT_SETS,' '))
+			setname:SetText(format(EQUIPMENT_SETS,' '))
 		elseif name == "Consumables" or name == "BankConsumables" then
 			local setname = self:CreateFontString(nil,"OVERLAY")
 			setname:SetPoint("TOPLEFT", self, "TOPLEFT",5,-5)

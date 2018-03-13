@@ -33,7 +33,7 @@ P["mui"] = {
 	},
 
 	["bags"] = {
-		["enable"] = true,
+		["enable"] = false,
 		["bagSize"] = 37,
 		["bankSize"] = 37,
 		["sortInverted"] = true,
