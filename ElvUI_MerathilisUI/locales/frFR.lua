@@ -285,6 +285,10 @@ L["Ignore missing info"] = true
 L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
 When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
 By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
+L["Info for some items is not available yet. Please try again later"] = true
+L["Update canceled."] = true
+L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
+L["Update complete. Opening menu."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
