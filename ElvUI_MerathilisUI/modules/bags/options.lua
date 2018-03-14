@@ -79,4 +79,4 @@ local function BagTable()
 		},
 	}
 end
-tinsert(MER.Config, BagTable)
+-- tinsert(MER.Config, BagTable)
