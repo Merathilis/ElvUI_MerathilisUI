@@ -17,7 +17,7 @@ do	--Replacement for UIDropDownMenu
 	local f = cbNivCatDropDown or CreateFrame("Frame", "cbNivCatDropDown", UIParent)
 	f.ActiveButtons = 0
 	f.Buttons = {}
-	
+
 	f:SetFrameStrata("FULLSCREEN_DIALOG")
 	f:SetSize(defaultWidth+frameInset,32)
 	f:SetClampedToScreen(true)
@@ -32,18 +32,16 @@ do	--Replacement for UIDropDownMenu
 	f:SetBackdropBorderColor(0, 0, 0)
 
 	function f:CreateButton()
-		
 		local button = CreateFrame("Button", nil, self)
 		button:SetWidth(defaultWidth)
 		button:SetHeight(frameHeight)
-		
+
 		local fstr = button:CreateFontString()
 		fstr:SetJustifyH("LEFT")
 		fstr:SetJustifyV("MIDDLE")
-		if FreeUI then
-			local F, C, L = unpack(FreeUI)
+		if ElvUI then
 			local menuFont = {
-				C.font.normal,
+				ElvUI[1].media.normFont,
 				12,
 				"OUTLINE"
 			}
@@ -53,87 +51,75 @@ do	--Replacement for UIDropDownMenu
 		end
 		fstr:SetPoint("LEFT", button, "LEFT", 0, 0)
 		button.Text = fstr
-		
+
 		function button:SetText(str)
 			button.Text:SetText(str)
 		end
-		
+
 		button:SetText("test")
-		
+
 		local ntex = button:CreateTexture()
 		ntex:SetColorTexture(1,1,1,0)
 		ntex:SetAllPoints()	
 		button:SetNormalTexture(ntex)
-		
+
 		local htex = button:CreateTexture()
 		htex:SetColorTexture(1,1,1,0.2)
 		htex:SetAllPoints()
 		button:SetHighlightTexture(htex)
-		
+
 		local ptex = button:CreateTexture()
 		ptex:SetColorTexture(1,1,1,0.4)
 		ptex:SetAllPoints()
 		button:SetPushedTexture(ptex)
-		
+
 		return button
-		
 	end
 
 	function f:AddButton(text, value, func)
-		
 		local bID = self.ActiveButtons+1
-		
+
 		local btn = self.Buttons[bID] or self:CreateButton()
-		
 		btn:SetText(text or "")
 		btn.value = value
 		btn.func = func or function() end
-		
+
 		btn:SetScript("OnClick", function(self, ...) self:func(...) self:GetParent():Hide() end)
-		
+
 		btn:ClearAllPoints()
 		if bID == 1 then
 			btn:SetPoint("TOP", self, "TOP", 0, -(frameInset/2))
 		else
 			btn:SetPoint("TOP", self.Buttons[bID-1], "BOTTOM", 0, 0)
 		end
-		
+
 		self.Buttons[bID] = btn
 		self.ActiveButtons = bID
-		
 		self:UpdateSize()
-
 	end
 
 	function f:UpdatePosition(frame, point, relativepoint, ofsX, ofsY)
-		
 		point, relativepoint, ofsX, ofsY = point or "TOPLEFT", relativepoint or "BOTTOMLEFT", ofsX or 0, ofsY or 0
-		
+
 		self:ClearAllPoints()
 		self:SetPoint(point, frame, relativepoint, ofsX, ofsY)
-		
 	end
 
 	function f:UpdateSize()
-
 		local maxButtons = self.ActiveButtons
 		local maxwidth = defaultWidth
-		
+
 		for i=1,maxButtons do
-		
 			local width = self.Buttons[i].Text:GetWidth()
 			if width > maxwidth then maxwidth = width end
-		
 		end
-		
+
 		for i=1,maxButtons do
 			self.Buttons[i]:SetWidth(maxwidth)
 		end
-		
+
 		local height = maxButtons * frameHeight
-		
 		self:SetSize(maxwidth+frameInset, height+frameInset)
-		
 	end
 
 	function f:Toggle(frame, point, relativepoint, ofsX, ofsY)
@@ -141,7 +127,6 @@ do	--Replacement for UIDropDownMenu
 		self:UpdatePosition(frame, point, relativepoint, ofsX, ofsY)
 		self:Show()
 	end
-	
 	tinsert(UISpecialFrames,f:GetName())
 
 end
@@ -155,26 +140,26 @@ cB_CustomBags = {}
 
 -- Those are default values only, change them ingame via "/cbniv":
 local optDefaults = {
-					NewItems = true,
-					Restack = true,
-					TradeGoods = true,
-					Armor = true,
-					Gem = true,
-					CoolStuff = false,
-					Junk = true,
-					ItemSets = true,
-					Consumables = true,
-					Quest = true,
-					BankBlack = true,
-					scale = 1,
-					FilterBank = true,
-					CompressEmpty = true,
-					Unlocked = true,
-					SortBags = true,
-					SortBank = true,
-					BankCustomBags = true,
-					SellJunk = true,
-					}
+	NewItems = true,
+	Restack = true,
+	TradeGoods = true,
+	Armor = true,
+	Gem = true,
+	CoolStuff = false,
+	Junk = true,
+	ItemSets = true,
+	Consumables = true,
+	Quest = true,
+	BankBlack = true,
+	scale = 1,
+	FilterBank = true,
+	CompressEmpty = true,
+	Unlocked = true,
+	SortBags = true,
+	SortBank = true,
+	BankCustomBags = true,
+	SellJunk = true,
+}
 
 -- Those are internal settings, don't touch them at all:
 local defaults = {}
@@ -191,6 +176,7 @@ function cbNivaya:ShowBags(...)
 		end
 	end
 end
+
 function cbNivaya:HideBags(...)
 	local bags = {...}
 	for i = 1, #bags do
@@ -211,13 +197,12 @@ local LoadDefaults = function()
 end
 
 function cargBags_Nivaya:ADDON_LOADED(event, addon)
-
 	if (addon ~= 'cargBags_Nivaya') then return end
 	self:UnregisterEvent(event)
-	
+
 	LoadDefaults()
 	--UIDropDownMenu_Initialize(cbNivCatDropDown, cbNivaya.CatDropDownInit, "MENU")
-	
+
 	cB_filterEnabled["Armor"] = cBnivCfg.Armor
 	cB_filterEnabled["Gem"] = cBnivCfg.Gem
 	cB_filterEnabled["TradeGoods"] = cBnivCfg.TradeGoods
@@ -235,14 +220,14 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 
 	-- bank bags
 	cB_Bags.bankSets		= C:New("cBniv_BankSets")
-	
+
 	if cBniv.BankCustomBags then
 		for _,v in ipairs(cB_CustomBags) do 
 			cB_Bags['Bank'..v.name] = C:New('Bank'..v.name) 
 			cB_existsBankBag[v.name] = true
 		end
 	end
-	
+
 	cB_Bags.bankArmor		= C:New("cBniv_BankArmor")
 	cB_Bags.bankGem			= C:New("cBniv_BankGem")
 	cB_Bags.bankConsumables	= C:New("cBniv_BankCons")
@@ -271,15 +256,15 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.key			= C:New("cBniv_Keyring")
 	cB_Bags.bagItemSets	= C:New("cBniv_ItemSets")
 	cB_Bags.bagStuff	= C:New("cBniv_Stuff")
-	
+
 	for _,v in ipairs(cB_CustomBags) do 
 		if (v.prio > 0) then 
 			cB_Bags[v.name] = C:New(v.name, { isCustomBag = true } )
 			v.active = true
 			cB_filterEnabled[v.name] = true
-		end 
+		end
 	end
-	
+
 	cB_Bags.bagJunk		= C:New("cBniv_Junk")
 	cB_Bags.bagNew		= C:New("cBniv_NewItems")
 
@@ -290,6 +275,7 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 			cB_filterEnabled[v.name] = true
 		end
 	end
+
 	cB_Bags.armor		= C:New("cBniv_Armor")
 	cB_Bags.gem			= C:New("cBniv_Gem")
 	cB_Bags.quest		= C:New("cBniv_Quest")
@@ -314,9 +300,15 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.main		:SetMultipleFilters(true, cB_Filters.fBags, cB_Filters.fHideEmpty)
 	for _,v in pairs(cB_CustomBags) do cB_Bags[v.name]:SetExtendedFilter(cB_Filters.fItemClass, v.name) end
 
-	cB_Bags.main:SetPoint("BOTTOMRIGHT", -99, 26)
-	cB_Bags.bank:SetPoint("TOPLEFT", 20, -20)
-	
+	if ElvUI then
+		local E, L, V, P, G = unpack(ElvUI)
+		cB_Bags.main:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
+		cB_Bags.bank:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
+	else
+		cB_Bags.main:SetPoint("BOTTOMRIGHT", -99, 26)
+		cB_Bags.bank:SetPoint("TOPLEFT", 20, -20)
+	end
+
 	cbNivaya:CreateAnchors()
 	cbNivaya:Init()
 	cbNivaya:ToggleBagPosButtons()
@@ -335,7 +327,7 @@ function cbNivaya:CreateAnchors()
 			src.AnchorTargets[tar] = true
 		end
 	end
-	
+
 	-- neccessary if this function is used to update the anchors:
 	for k,_ in pairs(cB_Bags) do
 		if not ((k == 'main') or (k == 'bank')) then cB_Bags[k]:ClearAllPoints() end
@@ -353,13 +345,13 @@ function cbNivaya:CreateAnchors()
 	CreateAnchorInfo(cB_Bags.bankArmor, cB_Bags.bankSets, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankSets, cB_Bags.bankGem, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankGem, cB_Bags.bankTrade, "Bottom")
-	
+
 	CreateAnchorInfo(cB_Bags.bank, cB_Bags.bankReagent, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankReagent, cB_Bags.bankConsumables, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankConsumables, cB_Bags.bankQuest, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankQuest, cB_Bags.bankArtifactPower, "Bottom")
 	CreateAnchorInfo(cB_Bags.bankArtifactPower, cB_Bags.bankBattlePet, "Bottom")
-	
+
 	-- Bank Custom Container Anchors:
 	if cBniv.BankCustomBags then
 		local ref = { [0] = 0, [1] = 0 }
@@ -372,7 +364,7 @@ function cbNivaya:CreateAnchors()
 			end
 		end
 	end
-	
+
 	-- Bag Anchors:
 	CreateAnchorInfo(cB_Bags.main, 			cB_Bags.key, 			"Bottom")
 
@@ -388,7 +380,7 @@ function cbNivaya:CreateAnchors()
 	CreateAnchorInfo(cB_Bags.consumables, 	cB_Bags.quest, 			"Top")
 	CreateAnchorInfo(cB_Bags.quest, 		cB_Bags.bagJunk, 		"Top")
 	CreateAnchorInfo(cB_Bags.bagJunk, 		cB_Bags.bagNew, 		"Top")
-	
+
 	-- Custom Container Anchors:
 	local ref = { [0] = 0, [1] = 0 }
 	for _,v in ipairs(cB_CustomBags) do
@@ -453,7 +445,7 @@ function cbNivaya:ToggleBagPosButtons()
 	for _,v in ipairs(cB_CustomBags) do 
 		if v.active then 
 			local b = cB_Bags[v.name]
-			
+
 			if cBniv.BagPos then
 				b.rightBtn:Hide()
 				b.leftBtn:Hide()
@@ -491,7 +483,7 @@ function cbNivaya:CatDropDownInit()
 	if DropDownInitialized then return end
 	DropDownInitialized = true
 	local info = {}--UIDropDownMenu_CreateInfo()
-  
+
 	local function AddInfoItem(type)
 		local caption = "cBniv_"..type
 		local t = L.bagCaptions[caption] or L[type]
@@ -563,12 +555,12 @@ end
 local function HandleSlash(str)
 	local str, str2 = strsplit(" ", str, 2)
 	local updateBags
-	
+
 	if ((str == 'addbag') or (str == 'delbag') or (str == 'movebag') or (str == 'bagprio') or (str == 'orderup') or (str == 'orderdn')) and (not str2) then
 		StatusMsg('You have to specify a name, e.g. /cbniv '..str..' TestBag.', '', nil, true, false)
 		return false
 	end
-	
+
 	local numBags, idx = 0, -1
 	for i,v in ipairs(cB_CustomBags) do
 		numBags = numBags + 1
@@ -579,7 +571,7 @@ local function HandleSlash(str)
 		StatusMsg('There is no custom container named |cFF00FF00'..str2, '|r.', nil, true, false)
 		return false
 	end
-	
+
 	if str == 'new' then
 		cBnivCfg.NewItems = not cBnivCfg.NewItems
 		StatusMsg('The "New Items" filter is now ', '.', cBnivCfg.NewItems, true, false)
@@ -679,7 +671,7 @@ local function HandleSlash(str)
 			end
 		end
 		StatusMsg('The specified custom container has been removed. Reload your UI for this change to take effect!', '', nil, true, false)
-		
+
 	elseif str == 'listbags' then
 		if numBags == 0 then
 			StatusMsgVal('There are ', ' custom containers.', 0, true, false)

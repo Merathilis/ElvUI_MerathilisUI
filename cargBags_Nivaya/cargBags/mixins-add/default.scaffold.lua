@@ -77,9 +77,8 @@ local function CreateInfoString(button, position)
 		str:SetJustifyH("RIGHT")
 		str:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1.5, 1.5)
 	end
-	if FreeUI then
-		local F = FreeUI[1]
-		F.SetFS(str)
+	if ElvUI then
+		str:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
 	else
 		str:SetFont(unpack(ns.options.fonts.itemCount))
 	end
@@ -91,9 +90,9 @@ local function GetScreenModes()
 	local curResIndex = GetCurrentResolution()
 	local curRes = curResIndex > 0 and select(curResIndex, GetScreenResolutions()) or nil
 	local windowedMode = Display_DisplayModeDropDown:windowedmode()
-	
+
 	local resolution = curRes or (windowedMode and GetCVar("gxWindowedResolution")) or GetCVar("gxFullscreenResolution")
-	
+
 	return resolution
 end
 
@@ -120,6 +119,10 @@ local function ItemButton_Scaffold(self)
 
 	self.TopString = CreateInfoString(self, "TOP")
 	self.BottomString = CreateInfoString(self, "BOTTOM")
+
+	if self.Cooldown then
+		ElvUI[1]:RegisterCooldown(self.Cooldown)
+	end
 end
 
 --[[!
@@ -183,6 +186,25 @@ local function ItemButton_Update(self, item)
 		self.BottomString:SetText("")
 	end
 
+	-- Junk Icon
+	if (self.JunkIcon) then
+		if (item.rarity) and (item.rarity == LE_ITEM_QUALITY_POOR and not item.noValue) then
+			self.JunkIcon:Show()
+		else
+			self.JunkIcon:Hide()
+		end
+	end
+
+	-- Upgrade Icon
+	if (self.UpgradeIcon) then
+		local itemIsUpgrade = IsContainerItemAnUpgrade(item.bagID, item.slotID)
+		if itemIsUpgrade == nil then
+			self.UpgradeIcon:SetShown(false)
+		else
+			self.UpgradeIcon:SetShown(itemIsUpgrade)
+		end
+	end
+
 	self:UpdateCooldown(item)
 	self:UpdateLock(item)
 	self:UpdateQuest(item)
@@ -231,6 +253,7 @@ local function ItemButton_UpdateQuest(self, item)
 	else
 		self.Border:SetBackdropBorderColor(0, 0, 0, 1)
 	end
+
 	if(self.OnUpdateQuest) then self:OnUpdateQuest(item) end
 end
 

@@ -1,7 +1,7 @@
 local addon, ns = ...
 ns.options = {
 
-itemSlotSize = 34,	-- Size of item slots
+itemSlotSize = 39,	-- Size of item slots
 
 sizes = {
 	bags = {
@@ -13,43 +13,43 @@ sizes = {
 		columnsSmall = 12,
 		columnsLarge = 12,
 		largeItemCount = 96,	-- Switch to columnsLarge when >= this number of items in the bank
-	},	
+	},
 },
 
 
 fonts = {
 	-- Font to use for bag captions and other strings
+	-- Default Fonts
 	standard = {
-		[[Interface\AddOns\cargBags_Nivaya\media\pixel.ttf]], 	-- Font path
-		8, 						-- Font Size
-		"OUTLINEMONOCHROME",	-- Flags
+		[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
+		9, 						-- Font Size
+		"OUTLINE",	-- Flags
 	},
-	
+
 	--Font to use for the dropdown menu
 	dropdown = {
-		[[Interface\AddOns\cargBags_Nivaya\media\pixel.ttf]], 	-- Font path
-		8, 						-- Font Size
-		"OUTLINEMONOCHROME",	-- Flags
+		[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
+		10, 						-- Font Size
+		"OUTLINE",	-- Flags
 	},
 
 	-- Font to use for durability and item level
 	itemInfo = {
-		[[Interface\AddOns\cargBags_Nivaya\media\pixel.ttf]], 	-- Font path
-		8, 						-- Font Size
-		"OUTLINEMONOCHROME",	-- Flags
+		[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
+		10, 						-- Font Size
+		"OUTLINE",	-- Flags
 	},
 
 	-- Font to use for number of items in a stack
 	itemCount = {
-		[[Interface\AddOns\cargBags_Nivaya\media\pixel.ttf]], 	-- Font path
-		8, 						-- Font Size
-		"OUTLINEMONOCHROME",	-- Flags
+		[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
+		11, 						-- Font Size
+		"OUTLINE",	-- Flags
 	},
-
 },
 
 colors = {
-	background = {0.05, 0.05, 0.05, 0.8},	-- r, g, b, opacity
+	background = {0.05, 0.05, 0.05, 1},	-- r, g, b, opacity
 },
 
 }

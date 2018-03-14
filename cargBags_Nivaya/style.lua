@@ -78,7 +78,6 @@ do
 end
 
 function MyContainer:OnContentsChanged()
-
 	local col, row = 0, 0
 	local yPosOffs = self.Caption and 20 or 0
 	local isEmpty = true
@@ -131,12 +130,12 @@ function MyContainer:OnContentsChanged()
 				col = col + 1
 			end
 		end
-		
+
 		cB_Bags.main.EmptySlotCounter:SetText(GetNumFreeSlots("bag"))
 		cB_Bags.bank.EmptySlotCounter:SetText(GetNumFreeSlots("bank"))
 		cB_Bags.bankReagent.EmptySlotCounter:SetText(GetNumFreeSlots("bankReagent"))
 	end
-	
+
 	-- This variable stores the size of the item button container
 	self.ContainerHeight = (row + (col > 0 and 1 or 0)) * (itemSlotSize + 2)
 
@@ -171,7 +170,7 @@ local JS = CreateFrame("Frame")
 JS:RegisterEvent("MERCHANT_SHOW")
 local function SellJunk()
 	if not(cBnivCfg.SellJunk) or (UnitLevel("player") < 5) then return end
-	
+
 	local Profit, SoldCount = 0, 0
 	local item
 
@@ -187,7 +186,7 @@ local function SellJunk()
 			end
 		end
 	end
-	
+
 	if Profit > 0 then
 		local g, s, c = math.floor(Profit / 10000) or 0, math.floor((Profit % 10000) / 100) or 0, Profit % 100
 		print("Vendor trash sold: |cff00a956+|r |cffffffff"..g.."\124TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0\124t "..s.."\124TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0\124t "..c.."\124TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0\124t".."|r")
@@ -271,12 +270,12 @@ end
 local classColor
 local function IconButton_OnEnter(self)
 	self.mouseover = true
-	
+
 	if not classColor then
 		classColor = GetClassColor(select(2, UnitClass("player")))
 	end
 	self.icon:SetVertexColor(classColor[1], classColor[2], classColor[3])
-	
+
 	if self.tooltip then
 		self.tooltip:Show()
 		self.tooltipIcon:Show()
@@ -304,14 +303,14 @@ local createMoverButton = function (parent, texture, tag)
 	local button = CreateFrame("Button", nil, parent)
 	button:SetWidth(17)
 	button:SetHeight(17)
-	
+
 	button.icon = button:CreateTexture(nil, "ARTWORK")
 	button.icon:SetPoint("TOPRIGHT", button, "TOPRIGHT", -1, -1)
 	button.icon:SetWidth(16)
 	button.icon:SetHeight(16)
 	button.icon:SetTexture(texture)
 	button.icon:SetVertexColor(0.8, 0.8, 0.8)
-	
+
 	button.tag = tag
 	button:SetScript("OnEnter", function() IconButton_OnEnter(button) end)
 	button:SetScript("OnLeave", function() IconButton_OnLeave(button) end)
@@ -324,7 +323,7 @@ local createIconButton = function (name, parent, texture, point, hint, isBag)
 	local button = CreateFrame("Button", nil, parent)
 	button:SetWidth(17)
 	button:SetHeight(17)
-	
+
 	button.icon = button:CreateTexture(nil, "ARTWORK")
 	button.icon:SetPoint(point, button, point, point == "BOTTOMLEFT" and 2 or -2, 2)
 	button.icon:SetWidth(16)
@@ -339,12 +338,11 @@ local createIconButton = function (name, parent, texture, point, hint, isBag)
 	else
 		button.icon:SetVertexColor(0.8, 0.8, 0.8)
 	end
-	
+
 	button.tooltip = button:CreateFontString()
 	-- button.tooltip:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", isBag and -76 or -59, 4.5)
-	if FreeUI then
-		local F, C, L = unpack(FreeUI)
-		F.SetFS(button.tooltip)
+	if ElvUI then
+		button.tooltip:SetFont(ElvUI[1].media.normFont, 12, "OUTLINE")
 	else
 		button.tooltip:SetFont(unpack(ns.options.fonts.standard))
 	end
@@ -352,7 +350,7 @@ local createIconButton = function (name, parent, texture, point, hint, isBag)
 	button.tooltip:SetText(hint)
 	button.tooltip:SetTextColor(0.8, 0.8, 0.8)
 	button.tooltip:Hide()
-	
+
 	button.tooltipIcon = button:CreateTexture(nil, "ARTWORK")
 	-- button.tooltipIcon:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", isBag and -71 or -54, 1)
 	button.tooltipIcon:SetWidth(16)
@@ -360,15 +358,14 @@ local createIconButton = function (name, parent, texture, point, hint, isBag)
 	button.tooltipIcon:SetTexture(Textures.TooltipIcon)
 	button.tooltipIcon:SetVertexColor(0.9, 0.2, 0.2)
 	button.tooltipIcon:Hide()
-	
+
 	button.tag = name
 	button:SetScript("OnEnter", function() IconButton_OnEnter(button) end)
 	button:SetScript("OnLeave", function() IconButton_OnLeave(button) end)
 	button.mouseover = false
-	
+
 	return button
 end
-
 
 local GetFirstFreeSlot = function(bagtype)
 	if bagtype == "bag" then
@@ -403,7 +400,7 @@ local GetFirstFreeSlot = function(bagtype)
 					if not tLink then return i,j end
 				end
 			end
-		end	
+		end
 	end
 	return false
 end
@@ -426,9 +423,9 @@ function MyContainer:OnCreate(name, settings)
 	local usedSlotsReagent = numSlotsReagent[2] - numSlotsReagent[1]
 
 	self:EnableMouse(true)
-	
+
 	self.UpdateDimensions = UpdateDimensions
-	
+
 	self:SetFrameStrata("HIGH")
 	tinsert(UISpecialFrames, self:GetName()) -- Close on "Esc"
 
@@ -456,43 +453,33 @@ function MyContainer:OnCreate(name, settings)
 
 	-- The frame background
 	local background = CreateFrame("Frame", nil, self)
-	background:SetBackdrop{
-		bgFile = Textures.Background,
-		edgeFile = Textures.Background,
-		tile = true, tileSize = 16, edgeSize = 1,
-		insets = {left = 1, right = 1, top = 1, bottom = 1},
-	}
+	if ElvUI then
+		background:CreateBackdrop("Transparent")
+	else
+		background:SetBackdrop{
+			bgFile = Textures.Background,
+			edgeFile = Textures.Background,
+			tile = false, tileSize = 0, edgeSize = 1,
+			insets = {left = 0, right = 0, top = 0, bottom = 0},
+		}
+	end
 	background:SetFrameStrata("HIGH")
 	background:SetFrameLevel(1)
-	background:SetBackdropColor(color_rb,color_gb,color_bb,alpha_fb)
+	background:SetBackdropColor(color_rb, color_gb, color_bb, alpha_fb)
 	background:SetBackdropBorderColor(0, 0, 0, 1)
 
-	background:SetPoint("TOPLEFT", -4, 4)
-	background:SetPoint("BOTTOMRIGHT", 4, -4)
-
-	-- Background, border
-	if FreeUI then
-		local F = FreeUI[1]
-		F.CreateBD(background)
-		F.CreateSD(background)
-	end
+	background:SetPoint("TOPLEFT", -1, 1)
+	background:SetPoint("BOTTOMRIGHT", 1, -1)
 
 	-- Caption, close button
 	local caption = background:CreateFontString(background, "OVERLAY", nil)
-	if FreeUI then
-		local F, C, L = unpack(FreeUI)
-		local locale = GetLocale()
+	if ElvUI then
 		local captionFont = {
-				C.font.normal,
-				12,
-				"OUTLINE"
-			}
-
-		if locale == "zhCN" or locale == "zhTW" then
-			caption:SetFont(unpack(captionFont))
-		else
-			F.SetFS(caption)
-		end
+			ElvUI[1].media.normFont,
+			11,
+			"OUTLINE"
+		}
+		caption:SetFont(unpack(captionFont))
 	else
 		caption:SetFont(unpack(ns.options.fonts.standard))
 	end
@@ -503,12 +490,12 @@ function MyContainer:OnCreate(name, settings)
 		caption:SetText(t)
 		caption:SetPoint("TOPLEFT", 7.5, -7.5)
 		self.Caption = caption
-		
+
 		if (tBag or tBank) then
 			local close = CreateFrame("Button", nil, self, "UIPanelCloseButton")
-			if FreeUI then
-				local F = FreeUI[1]
-				F.ReskinClose(close, "TOPRIGHT", self, "TOPRIGHT", 1, 1)
+			if ElvUI then
+				ElvUI[1]:GetModule("Skins"):HandleCloseButton(close)
+				close:SetPoint("TOPRIGHT", 8, 8)
 			else
 				close:SetPoint("TOPRIGHT", 8, 8)
 				close:SetDisabledTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Disabled")
@@ -519,7 +506,7 @@ function MyContainer:OnCreate(name, settings)
 			close:SetScript("OnClick", function(self) if cbNivaya:AtBank() then CloseBankFrame() else CloseAllBags() end end)
 		end
 	end
-	
+
 	-- mover buttons
 	if (settings.isCustomBag) then
 		local moveLR = function(dir)
@@ -550,8 +537,8 @@ function MyContainer:OnCreate(name, settings)
 				cB_CustomBags[pos] = ele
 				cbNivaya:CreateAnchors()
 			end
-		end		
-		
+		end
+
 		local rightBtn = createMoverButton(self, Textures.Right, "Right")
 		rightBtn:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
 		rightBtn:SetScript("OnClick", function() moveLR("right") end)
@@ -573,26 +560,26 @@ function MyContainer:OnCreate(name, settings)
 		self.downBtn = downBtn
 		self.upBtn = upBtn
 	end
-		
+
 	local tBtnOffs = 0
-  	if (tBag or tBank) then
+	if (tBag or tBank) then
 		-- Bag bar for changing bags
 		local bagType = tBag and "bags" or "bank"
 		
 		local tS = tBag and "backpack+bags" or "bank"
 		local tI = tBag and 4 or 7
-				
+
 		local bagButtons = self:SpawnPlugin("BagBar", tS)
 		bagButtons:SetSize(bagButtons:LayoutButtons("grid", tI))
 		bagButtons.highlightFunction = function(button, match) button:SetAlpha(match and 1 or 0.1) end
 		bagButtons.isGlobal = true
-		
+
 		bagButtons:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -2, 25)
 		bagButtons:Hide()
 
 		-- main window gets a fake bag button for toggling key ring
 		self.BagBar = bagButtons
-		
+
 		-- We don't need the bag bar every time, so let's create a toggle button for them to show
 		self.bagToggle = createIconButton("Bags", self, Textures.BagToggle, "BOTTOMRIGHT", "Toggle Bags", tBag)
 		self.bagToggle:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
@@ -615,7 +602,7 @@ function MyContainer:OnCreate(name, settings)
 			self.resetBtn:SetPoint("BOTTOMRIGHT", self.bagToggle, "BOTTOMLEFT", 0, 0)
 			self.resetBtn:SetScript("OnClick", function() resetNewItems(self) end)
 		end
-		
+
 		-- Button to restack items:
 		if cBnivCfg.Restack then
 			self.restackBtn = createIconButton("Restack", self, Textures.Restack, "BOTTOMRIGHT", "Restack", tBag)
@@ -626,7 +613,7 @@ function MyContainer:OnCreate(name, settings)
 			end
 			self.restackBtn:SetScript("OnClick", function() restackItems(self) end)
 		end
-		
+
 		-- Button to show /cbniv options:
 		self.optionsBtn = createIconButton("Options", self, Textures.Config, "BOTTOMRIGHT", "Options", tBag)
 		if self.restackBtn then
@@ -640,7 +627,7 @@ function MyContainer:OnCreate(name, settings)
 			SlashCmdList.CBNIV("")
 			print("Usage: /cbniv |cffffff00command|r")
 		end)
-		
+
 		-- Button to toggle Sell Junk:
 		if tBag then
 			local sjHint = cBnivCfg.SellJunk and "Sell Junk |cffd0d0d0(on)|r" or "Sell Junk |cffd0d0d0(off)|r"
@@ -663,7 +650,7 @@ function MyContainer:OnCreate(name, settings)
 				end
 			end)
 		end
-		
+
 		-- Button to send reagents to Reagent Bank:
 		if tBank then
 			local rbHint = REAGENTBANK_DEPOSIT
@@ -708,7 +695,7 @@ function MyContainer:OnCreate(name, settings)
 		self.DropTarget = CreateFrame("Button", self.name.."DropTarget", self, "ItemButtonTemplate")
 		local dtNT = _G[self.DropTarget:GetName().."NormalTexture"]
 		if dtNT then dtNT:SetTexture(nil) end
-		
+
 		self.DropTarget.bg = CreateFrame("Frame", nil, self)
 		self.DropTarget.bg:SetAllPoints(self.DropTarget)
 		self.DropTarget.bg:SetBackdrop({
@@ -720,7 +707,7 @@ function MyContainer:OnCreate(name, settings)
 		self.DropTarget.bg:SetBackdropBorderColor(0, 0, 0, 1)
 		self.DropTarget:SetWidth(itemSlotSize - 1)
 		self.DropTarget:SetHeight(itemSlotSize - 1)
-		
+
 		local DropTargetProcessItem = function()
 			-- if CursorHasItem() then	-- Commented out to fix Guild Bank -> Bags item dragging
 				local bID, sID = GetFirstFreeSlot((tBag and "bag") or (tBank and "bank") or "bankReagent")
@@ -729,18 +716,17 @@ function MyContainer:OnCreate(name, settings)
 		end
 		self.DropTarget:SetScript("OnMouseUp", DropTargetProcessItem)
 		self.DropTarget:SetScript("OnReceiveDrag", DropTargetProcessItem)
-		
+
 		local fs = self:CreateFontString(nil, "OVERLAY")
-		if FreeUI then
-			local F = FreeUI[1]
-			F.SetFS(fs)
+		if ElvUI then
+			fs:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
 		else
 			fs:SetFont(unpack(ns.options.fonts.standard))
 		end
 		fs:SetJustifyH("LEFT")
 		fs:SetPoint("BOTTOMRIGHT", self.DropTarget, "BOTTOMRIGHT", 1.5, 1.5)
 		self.EmptySlotCounter = fs
-		
+
 		if cBnivCfg.CompressEmpty then 
 			self.DropTarget:Show()
 			self.EmptySlotCounter:Show()
@@ -749,7 +735,7 @@ function MyContainer:OnCreate(name, settings)
 			self.EmptySlotCounter:Hide()
 		end
 	end
-	
+
 	if tBag then
 		local infoFrame = CreateFrame("Button", nil, self)
 		infoFrame:SetPoint("BOTTOMLEFT", 5, -6)
@@ -760,40 +746,26 @@ function MyContainer:OnCreate(name, settings)
 		local search = self:SpawnPlugin("SearchBar", infoFrame)
 		search.isGlobal = true
 		search.highlightFunction = function(button, match) button:SetAlpha(match and 1 or 0.1) end
-		
+
 		local searchIcon = background:CreateTexture(nil, "ARTWORK")
 		searchIcon:SetTexture(Textures.Search)
 		searchIcon:SetVertexColor(0.8, 0.8, 0.8)
 		searchIcon:SetPoint("BOTTOMLEFT", infoFrame, "BOTTOMLEFT", -3, 8)
 		searchIcon:SetWidth(16)
 		searchIcon:SetHeight(16)
-		
-		-- Hint
-		-- self.hint = background:CreateFontString(nil, "OVERLAY", nil)
-		-- self.hint:SetPoint("BOTTOMLEFT", infoFrame, -0.5, 31.5)
-		-- if FreeUI then
-		-- 	local F, C, L = unpack(FreeUI)
-		-- 	F.SetFS(self.hint)
-		-- else
-		-- 	self.hint:SetFont(unpack(ns.options.fonts.standard))
-		-- end
-		-- self.hint:SetTextColor(1, 1, 1, 0.4)
-		-- self.hint:SetText("Ctrl + Alt + Right Click an item to assign category")
-		-- self.hintShown = true
-		
+
 		-- The money display
 		local money = self:SpawnPlugin("TagDisplay", "[money]", self)
 		money:SetPoint("TOPRIGHT", self, -25.5, -2.5)
-		if FreeUI then
-			local F = FreeUI[1]
-			F.SetFS(money)
+		if ElvUI then
+			money:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
 		else
 			money:SetFont(unpack(ns.options.fonts.standard))
 		end
 		money:SetJustifyH("RIGHT")
 		money:SetShadowColor(0, 0, 0, 0)
 	end
-	
+
 	self:SetScale(cBnivCfg.scale)
 	return self
 end
