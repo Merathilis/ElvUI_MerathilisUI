@@ -19,7 +19,7 @@ local IsReagentBankUnlocked = IsReagentBankUnlocked
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-MER.ItemClass = {}
+MERB.ItemClass = {}
 
 function MERB:Tooltip_Show()
 	GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 4)
@@ -55,7 +55,7 @@ function MERB:IsConsumableItem(item)
 
 	if item.type then
 		if item.type == GetItemClassInfo(0) then
-			MER.ItemClass[item.id] = "Consumables"
+			MERB.ItemClass[item.id] = "Consumables"
 			return true
 		end
 	end
@@ -91,17 +91,17 @@ function MERB:Initialize()
 		local onlyBagConsumables = function(item) return MERB:IsConsumableItem(item) and not (item.bagID == BANK_CONTAINER or item.bagID >= NUM_BAG_SLOTS+1 and item.bagID <= NUM_BAG_SLOTS + NUM_BANKBAGSLOTS) end
 		local onlyBankSets = function(item) return CheckEquipmentSet(item) and not (item.bagID >= BACKPACK_CONTAINER and item.bagID <= NUM_BAG_SLOTS) end
 		local onlyBankConsumables = function(item) return MERB:IsConsumableItem(item) and not (item.bagID >= BACKPACK_CONTAINER and item.bagID <= NUM_BAG_SLOTS) end
-		local onlyRareEpics = function(item) return item.rarity and item.rarity > 3 end
-		local onlyEpics = function(item) return item.rarity and item.rarity > 3 end
-		local hideJunk = function(item) return not item.rarity or item.rarity > 0 end
-		local hideEmpty = function(item) return item.texture ~= nil end
+		-- local onlyRareEpics = function(item) return item.rarity and item.rarity > 3 end
+		-- local onlyEpics = function(item) return item.rarity and item.rarity > 3 end
+		-- local hideJunk = function(item) return not item.rarity or item.rarity > 0 end
+		-- local hideEmpty = function(item) return item.texture ~= nil end
 
 		local MyContainer = mUI_ContainerFrame:GetContainerClass()
 		-- Bagpack
 		f.main = MyContainer:New("Main", {
 			Columns = E.db.mui.bags.bagWidth,
 			Bags = "backpack+bags",
-			Movable = true,
+			Movable = false,
 		})
 		f.main:SetFilter(onlyBags, true)
 		f.main:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50) -- bagpack position
@@ -512,10 +512,10 @@ function MERB:Initialize()
 		end
 		if name == "Main" or name == "ItemSets" or name == "Consumables" then
 			self:HookScript("OnShow", function()
-				-- E.Tooltip:GameTooltip_SetDefaultAnchor(GameTooltip)
+				E:GetModule('Tooltip'):GameTooltip_SetDefaultAnchor(GameTooltip)
 			end)
 			self:HookScript("OnHide", function()
-				-- E.Tooltip:GameTooltip_SetDefaultAnchor(GameTooltip)
+				E:GetModule('Tooltip'):GameTooltip_SetDefaultAnchor(GameTooltip)
 			end)
 		end
 	end
