@@ -347,9 +347,9 @@ function Implementation:GetItemInfo(bagID, slotID)
 		local linkType, itemString = link:match("H(%w+):([%-?%d:]+)")
 
 		-- get the item spell to determine if the item is an Artifact Power boosting item
-		if IsArtifactPowerItem(id) then
-			item.type = ARTIFACT_POWER
-		end
+		-- if IsArtifactPowerItem(id) then
+			-- item.type = ARTIFACT_POWER
+		-- end
 
 		if linkType == "battlepet" then
 			if not(L) then
