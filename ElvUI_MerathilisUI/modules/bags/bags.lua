@@ -310,10 +310,16 @@ function MERB:Initialize()
 			infoFrame:Point("TOPRIGHT", self, "TOPRIGHT", -5, -21)
 			infoFrame:SetHeight(20)
 
-			-- money!
+			-- Plugin: TagDisplay: "Money"
 			local tagDisplay = self:SpawnPlugin("TagDisplay", "[money]", infoFrame)
 			tagDisplay:SetFont(E["media"].normFont, 12)
 			tagDisplay:SetPoint("RIGHT", infoFrame, "RIGHT", 0, 0)
+
+			-- Plugin: TagDisplay: "Bag Space"
+			local space = self:SpawnPlugin("TagDisplay", "[space:free/max]", infoFrame)
+			space:SetPoint("CENTER", infoFrame)
+			space:SetFont(E["media"].normFont, 12)
+			space.bags = cargBags:ParseBags("backpack+bags")
 
 			-- Plugin: SearchBar
 			local searchText = infoFrame:CreateFontString(nil, "OVERLAY")

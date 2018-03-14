@@ -31,6 +31,10 @@ local function ItemButton_Scaffold(self)
 		self.border:CreateBorder()
 		E:GetModule("muiSkins"):CreateBackdropTexture(self, 0.6)
 	end
+
+	if self.Cooldown then
+		E:RegisterCooldown(self.Cooldown)
+	end
 end
 
 local function IsItemEligibleForItemLevelDisplay(classID, subClassID, equipLoc, rarity)
@@ -164,6 +168,10 @@ local function ItemButton_OnEnter(self)
 end
 
 cargBags:RegisterScaffold("ElvUI_MerathilisUI", function(self)
+	self.glowTex = "Interface\\Buttons\\UI-ActionButton-Border" --! @property glowTex <string> The textures used for the glow
+	self.glowAlpha = 0.8 --! @property glowAlpha <number> The alpha of the glow texture
+	self.glowBlend = "ADD" --! @property glowBlend <string> The blendMode of the glow texture
+	self.glowCoords = { 14/64, 50/64, 14/64, 50/64 } --! @property glowCoords <table> Indexed table of texCoords for the glow texture
 	self.bgTex = nil --! @property bgTex <string> Texture used as a background if no item is in the slot
 
 	self.CreateFrame = ItemButton_CreateFrame
