@@ -51,6 +51,26 @@ local function stylecargBags()
 	if NivayacBniv_Gem then
 		NivayacBniv_Gem:Styling()
 	end
+
+	--Artifact Power
+	if NivayacBniv_ArtifactPower then
+		NivayacBniv_ArtifactPower:Styling()
+	end
+
+	-- Stuff
+	if NivayacBniv_Stuff then
+		NivayacBniv_Stuff:Styling()
+	end
+
+	-- Junk
+	if NivayacBniv_Junk then
+		NivayacBniv_Junk:Styling()
+	end
+
+	-- BattlePets
+	if NivayacBniv_BattlePet then
+		NivayacBniv_BattlePet:Styling()
+	end
 end
 
 S:AddCallbackForAddon("cargBags_Nivaya", "cargBags_Nivaya", stylecargBags)
