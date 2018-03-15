@@ -250,6 +250,8 @@ local function ItemButton_UpdateQuest(self, item)
 	elseif item.rarity and item.rarity > 1 then
 		local r, g, b = GetItemQualityColor(item.rarity)
 		self.Border:SetBackdropBorderColor(r, g, b, 1)
+	else
+		self.Border:SetBackdropBorderColor(0, 0, 0, 1)
 	end
 
 	if(self.OnUpdateQuest) then self:OnUpdateQuest(item) end
