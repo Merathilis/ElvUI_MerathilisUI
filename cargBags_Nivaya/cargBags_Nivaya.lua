@@ -99,7 +99,7 @@ do	--Replacement for UIDropDownMenu
 	end
 
 	function f:UpdatePosition(frame, point, relativepoint, ofsX, ofsY)
-		point, relativepoint, ofsX, ofsY = point or "TOPLEFT", relativepoint or "BOTTOMLEFT", ofsX or 0, ofsY or 0
+		point, relativepoint, ofsX, ofsY = point or "BOTTOMRIGHT", relativepoint or "BOTTOMLEFT", ofsX or -25, ofsY or 138
 
 		self:ClearAllPoints()
 		self:SetPoint(point, frame, relativepoint, ofsX, ofsY)
@@ -301,14 +301,8 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.main		:SetMultipleFilters(true, cB_Filters.fBags, cB_Filters.fHideEmpty)
 	for _,v in pairs(cB_CustomBags) do cB_Bags[v.name]:SetExtendedFilter(cB_Filters.fItemClass, v.name) end
 
-	if ElvUI then
-		local E, L, V, P, G = unpack(ElvUI)
-		cB_Bags.main:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
-		cB_Bags.bank:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
-	else
-		cB_Bags.main:SetPoint("BOTTOMRIGHT", -99, 26)
-		cB_Bags.bank:SetPoint("TOPLEFT", 20, -20)
-	end
+	cB_Bags.main:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -28, 50)
+	cB_Bags.bank:SetPoint("TOPLEFT", 20, -20)
 
 	cbNivaya:CreateAnchors()
 	cbNivaya:Init()

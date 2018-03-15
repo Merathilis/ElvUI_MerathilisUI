@@ -49,57 +49,52 @@ BagButton.itemFadeAlpha = 0.2
 
 local buttonNum = 0
 function BagButton:Create(bagID)
-    buttonNum = buttonNum+1
-    local name = addon.."BagButton"..buttonNum
+	buttonNum = buttonNum+1
+	local name = addon.."BagButton"..buttonNum
 
-    local button = setmetatable(CreateFrame("CheckButton", name, nil, "ItemButtonTemplate"), self.__index)
+	local button = setmetatable(CreateFrame("CheckButton", name, nil, "ItemButtonTemplate"), self.__index)
 
-    local invID = ContainerIDToInventoryID(bagID)
-    button.invID = invID
-    button.bagID = bagID
-    button.isBag = 1
-    if button.bagID <= 4 then
-        -- Inventory
-        button:SetID(invID)
-        button.UpdateTooltip = BagSlotButton_OnEnter
-    elseif button.bagID >= 5 then
-        -- Bank
-        button:SetID(invID - 67) -- bank IDs don't use the actual invID
-        button.GetInventorySlot = ButtonInventorySlot
-        button.UpdateTooltip = BankFrameItemButton_OnEnter
-    end
+	local invID = ContainerIDToInventoryID(bagID)
+	button.invID = invID
+	button.bagID = bagID
+	button.isBag = 1
+	if button.bagID <= 4 then
+		-- Inventory
+		button:SetID(invID)
+		button.UpdateTooltip = BagSlotButton_OnEnter
+	elseif button.bagID >= 5 then
+		-- Bank
+		button:SetID(invID - 67) -- bank IDs don't use the actual invID
+		button.GetInventorySlot = ButtonInventorySlot
+		button.UpdateTooltip = BankFrameItemButton_OnEnter
+	end
 
-    button:RegisterForDrag("LeftButton", "RightButton")
-    button:RegisterForClicks("anyUp")
-    button:SetCheckedTexture(self.checkedTex, "ADD")
+	button:RegisterForDrag("LeftButton", "RightButton")
+	button:RegisterForClicks("anyUp")
+	button:SetCheckedTexture(self.checkedTex, "ADD")
 
-    button:SetSize(32, 32)
+	button:SetSize(32, 32)
+	button:SetHighlightTexture("")
+	button:SetPushedTexture("")
+	button:SetNormalTexture("")
+	button:SetTemplate("Transparent")
+	button:StyleButton()
 
-    button.Icon =       _G[name.."IconTexture"]
-    button.Count =      _G[name.."Count"]
-    button.Cooldown =   _G[name.."Cooldown"]
-    button.Quest =      _G[name.."IconQuestTexture"]
-    button.Border =     _G[name.."NormalTexture"]
-    
-    button.bg = CreateFrame("Frame", nil, button)
-    button.bg:SetAllPoints(button)
-    button.bg:SetBackdrop({
-        bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-        edgeFile = "Interface\\Buttons\\WHITE8x8",
-        tile = false, tileSize = 16, edgeSize = 1,
-    })
-    button.bg:SetBackdropColor(1, 1, 1, 0)
-    button.bg:SetBackdropBorderColor(0, 0, 0, 1)
-    
-    button.Icon:SetTexCoord(.08, .92, .08, .92)
-    button.Icon:SetVertexColor(0.8, 0.8, 0.8)
-    button.Border:SetAlpha(0)
+	button.Icon =       _G[name.."IconTexture"]
+	button.Count =      _G[name.."Count"]
+	button.Cooldown =   _G[name.."Cooldown"]
+	button.Quest =      _G[name.."IconQuestTexture"]
+	button.Border =     _G[name.."NormalTexture"]
 
-    cargBags.SetScriptHandlers(button, "OnClick", "OnReceiveDrag", "OnEnter", "OnLeave", "OnDragStart")
+	button.Icon:SetTexCoord(.08, .92, .08, .92)
+	button.Icon:SetPoint("TOPLEFT", 2, -2)
+	button.Icon:SetPoint("BOTTOMRIGHT", -2, 2)
 
-    if(button.OnCreate) then button:OnCreate(bagID) end
+	cargBags.SetScriptHandlers(button, "OnClick", "OnReceiveDrag", "OnEnter", "OnLeave", "OnDragStart")
 
-    return button
+	if(button.OnCreate) then button:OnCreate(bagID) end
+
+	return button
 end
 
 function BagButton:Update()

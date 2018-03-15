@@ -38,39 +38,47 @@ if gl == "deDE" then
 	cBnivL.MarkAsKnown = "Als bekannt markieren"
 	cBnivL.bagCaptions.cBniv_Stuff = "Cooles Zeugs"
 	cBnivL.bagCaptions.cBniv_NewItems = "Neue Items"
+	cBnivL.hint = "Strg + Alt + Rechts Klick auf ein Gegenstand um eine Kategory auszuwählen"
 elseif gl == "ruRU" then
 	cBnivL.MarkAsNew = "Перенести в Новые предметы"
 	cBnivL.MarkAsKnown = "Перенести в Известные предметы"
 	cBnivL.bagCaptions.cBniv_Stuff = "Разное"
 	cBnivL.bagCaptions.cBniv_NewItems = "Новые предметы"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 elseif gl == "zhTW" then
 	cBnivL.MarkAsNew = "Mark as New"
 	cBnivL.MarkAsKnown = "Mark as Known"
 	cBnivL.bagCaptions.cBniv_Stuff = "施法材料"
 	cBnivL.bagCaptions.cBniv_NewItems = "新增"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 elseif gl == "zhCN" then
 	cBnivL.MarkAsNew = "Mark as New"
 	cBnivL.MarkAsKnown = "Mark as Known"
 	cBnivL.bagCaptions.cBniv_Stuff = "施法材料"
 	cBnivL.bagCaptions.cBniv_NewItems = "新增"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 elseif gl == "koKR" then
 	cBnivL.MarkAsNew = "Mark as New"
 	cBnivL.MarkAsKnown = "Mark as Known"
 	cBnivL.bagCaptions.cBniv_Stuff = "지정"
 	cBnivL.bagCaptions.cBniv_NewItems = "신규"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 elseif gl == "frFR" then
 	cBnivL.MarkAsNew = "Marquer comme Neuf"
 	cBnivL.MarkAsKnown = "Marquer comme Connu"
 	cBnivL.bagCaptions.cBniv_Stuff = "Divers"
 	cBnivL.bagCaptions.cBniv_NewItems = "Nouveaux Objets"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 elseif gl == "itIT" then
     cBnivL.MarkAsNew = "Segna come Nuovo"
     cBnivL.MarkAsKnown = "Segna come Conosciuto"
 	cBnivL.bagCaptions.cBniv_Stuff = "Cose Interessanti"
 	cBnivL.bagCaptions.cBniv_NewItems = "Oggetti Nuovi"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 else
 	cBnivL.MarkAsNew = "Mark as New"
 	cBnivL.MarkAsKnown = "Mark as Known"
 	cBnivL.bagCaptions.cBniv_Stuff = "Cool Stuff"
 	cBnivL.bagCaptions.cBniv_NewItems = "New Items"
+	cBnivL.hint = "Ctrl + Alt + Right Click an item to assign category"
 end

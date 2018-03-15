@@ -22,6 +22,7 @@ local Textures = {
 }
 
 local itemSlotSize = ns.options.itemSlotSize
+local itemSlotPadding = ns.options.itemSlotPadding
 ------------------------------------------
 -- MyContainer specific
 ------------------------------------------
@@ -101,9 +102,9 @@ function MyContainer:OnContentsChanged()
 	for _,v in ipairs(buttonIDs) do
 		local button = v[3]
 		button:ClearAllPoints()
-	  
-		local xPos = col * (itemSlotSize + 2) + 2
-		local yPos = (-1 * row * (itemSlotSize + 2)) - yPosOffs
+
+		local xPos = col * (itemSlotSize + itemSlotPadding) + 2
+		local yPos = (-1 * row * (itemSlotSize + itemSlotPadding)) - yPosOffs
 
 		button:SetPoint("TOPLEFT", self, "TOPLEFT", xPos, yPos)
 		if(col >= self.Columns-1) then
@@ -116,8 +117,8 @@ function MyContainer:OnContentsChanged()
 	end
 
 	if cBnivCfg.CompressEmpty then
-		local xPos = col * (itemSlotSize + 2) + 2
-		local yPos = (-1 * row * (itemSlotSize + 2)) - yPosOffs
+		local xPos = col * (itemSlotSize + itemSlotPadding) + 2
+		local yPos = (-1 * row * (itemSlotSize + itemSlotPadding)) - yPosOffs
 
 		local tDrop = self.DropTarget
 		if tDrop then
@@ -137,7 +138,7 @@ function MyContainer:OnContentsChanged()
 	end
 
 	-- This variable stores the size of the item button container
-	self.ContainerHeight = (row + (col > 0 and 1 or 0)) * (itemSlotSize + 2)
+	self.ContainerHeight = (row + (col > 0 and 1 or 0)) * (itemSlotSize + itemSlotPadding)
 
 	if (self.UpdateDimensions) then self:UpdateDimensions() end -- Update the bag's height
 	local t = (tName == "cBniv_Bag") or (tName == "cBniv_Bank") or (tName == "cBniv_BankReagent")
@@ -231,9 +232,9 @@ function cbNivResetNew()
 end
 
 local UpdateDimensions = function(self)
-	local height = 0			-- Normal margin space
+	local height = 5			-- Normal margin space
 	if self.BagBar and self.BagBar:IsShown() then
-		height = height + 40	-- Bag button space
+		height = height + 35	-- Bag button space
 	end
 	if self.Space then
 		height = height + 16	-- additional info display space
@@ -442,7 +443,7 @@ function MyContainer:OnCreate(name, settings)
 	end
 	self.ContainerHeight = 0
 	self:UpdateDimensions()
-	self:SetWidth((itemSlotSize + 2) * self.Columns + 2)
+	self:SetWidth((itemSlotSize + itemSlotPadding) * self.Columns + 2)
 
 	-- The frame background
 	local tBankCustom = (tBankBags and not cBnivCfg.BankBlack)
@@ -454,8 +455,7 @@ function MyContainer:OnCreate(name, settings)
 	-- The frame background
 	local background = CreateFrame("Frame", nil, self)
 	if ElvUI then
-		background:CreateBackdrop("Transparent")
-		background.backdrop:SetAllPoints()
+		background:SetTemplate("Transparent")
 	else
 		background:SetBackdrop{
 			bgFile = Textures.Background,
@@ -495,13 +495,13 @@ function MyContainer:OnCreate(name, settings)
 			local close = CreateFrame("Button", nil, self, "UIPanelCloseButton")
 			if ElvUI then
 				ElvUI[1]:GetModule("Skins"):HandleCloseButton(close)
-				close:SetPoint("TOPRIGHT", 7, 7)
+				close:SetPoint("TOPRIGHT", 0, 0)
+				close:SetWidth(22)
+ 				close:SetHeight(22)
 			else
-				close:SetPoint("TOPRIGHT", 8, 8)
-				close:SetDisabledTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Disabled")
-				close:SetNormalTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Up")
-				close:SetPushedTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Down")
-				close:SetHighlightTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Highlight", "ADD")
+				close:SetPoint("TOPRIGHT", 5, 5)
+				close:SetWidth(25)
+				close:SetHeight(25)
 			end
 			close:SetScript("OnClick", function(self) if cbNivaya:AtBank() then CloseBankFrame() else CloseAllBags() end end)
 		end
@@ -574,7 +574,7 @@ function MyContainer:OnCreate(name, settings)
 		bagButtons.highlightFunction = function(button, match) button:SetAlpha(match and 1 or 0.1) end
 		bagButtons.isGlobal = true
 
-		bagButtons:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -2, 25)
+		bagButtons:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -2, 30)
 		bagButtons:Hide()
 
 		-- main window gets a fake bag button for toggling key ring
@@ -586,12 +586,12 @@ function MyContainer:OnCreate(name, settings)
 		self.bagToggle:SetScript("OnClick", function()
 			if(self.BagBar:IsShown()) then 
 				self.BagBar:Hide()
-			--	if self.hint then self.hint:Show() end
-			--	self.hintShown = true
+				if self.hint then self.hint:Show() end
+				self.hintShown = true
 			else
 				self.BagBar:Show()
-			--	if self.hint then self.hint:Hide() end
-			--	self.hintShown = false
+				if self.hint then self.hint:Hide() end
+				self.hintShown = false
 			end
 			self:UpdateDimensions()
 		end)
@@ -696,6 +696,7 @@ function MyContainer:OnCreate(name, settings)
 		local dtNT = _G[self.DropTarget:GetName().."NormalTexture"]
 		if dtNT then dtNT:SetTexture(nil) end
 
+		--[[
 		self.DropTarget.bg = CreateFrame("Frame", nil, self)
 		self.DropTarget.bg:SetAllPoints(self.DropTarget)
 		self.DropTarget.bg:SetBackdrop({
@@ -705,6 +706,15 @@ function MyContainer:OnCreate(name, settings)
 		})
 		self.DropTarget.bg:SetBackdropColor(1, 1, 1, 0.1)
 		self.DropTarget.bg:SetBackdropBorderColor(0, 0, 0, 1)
+		self.DropTarget:SetWidth(itemSlotSize - 1)
+		self.DropTarget:SetHeight(itemSlotSize - 1)
+		]]
+
+		self.DropTarget:SetHighlightTexture("")
+		self.DropTarget:SetPushedTexture("")
+		self.DropTarget:SetNormalTexture("")
+		self.DropTarget:SetTemplate("Transparent")
+		self.DropTarget:StyleButton()
 		self.DropTarget:SetWidth(itemSlotSize - 1)
 		self.DropTarget:SetHeight(itemSlotSize - 1)
 
@@ -754,16 +764,29 @@ function MyContainer:OnCreate(name, settings)
 		searchIcon:SetWidth(16)
 		searchIcon:SetHeight(16)
 
-		-- The money display
-		local money = self:SpawnPlugin("TagDisplay", "[money]", self)
-		money:SetPoint("TOPRIGHT", self, -30, -2.5)
+		-- Hint
+		self.hint = background:CreateFontString(nil, "OVERLAY", nil)
+		self.hint:SetPoint("BOTTOMLEFT", infoFrame, -0.5, 31.5)
 		if ElvUI then
-			money:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
+			self.hint:SetFont(ElvUI[1].media.normFont, 10, "OUTLINE")
 		else
-			money:SetFont(unpack(ns.options.fonts.standard))
+			self.hint:SetFont(unpack(ns.options.fonts.standard))
 		end
-		money:SetJustifyH("RIGHT")
-		money:SetShadowColor(0, 0, 0, 0)
+		self.hint:SetTextColor(1, 1, 1, 0.4)
+		self.hint:SetText(L.hint)
+		self.hint:SetWidth(self:GetWidth())
+		self.hintShown = true
+
+		-- The money display
+		-- local money = self:SpawnPlugin("TagDisplay", "[money]", self)
+		-- money:SetPoint("TOPRIGHT", self, -30, -2.5)
+		-- if ElvUI then
+			-- money:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
+		-- else
+			-- money:SetFont(unpack(ns.options.fonts.standard))
+		-- end
+		-- money:SetJustifyH("RIGHT")
+		-- money:SetShadowColor(0, 0, 0, 0)
 	end
 
 	self:SetScale(cBnivCfg.scale)
