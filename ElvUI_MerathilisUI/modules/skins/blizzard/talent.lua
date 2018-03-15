@@ -134,15 +134,9 @@ local function styleTalents()
 				if not frame.styled and not frame.backdrop then
 					frame:Size(50, 50)
 					frame.ring:Hide()
-					frame:CreateBackdrop("Default")
-					frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", -2, 2)
-					frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 2, -2)
-					frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
-					frame.icon:SetParent(frame.backdrop)
-					frame.icon:ClearAllPoints()
-					frame.icon:SetPoint("TOPLEFT", 2, -2)
-					frame.icon:SetPoint("BOTTOMRIGHT", -2, 2)
-					frame.icon:SetTexCoord(unpack(E.TexCoords))
+					frame:SetTemplate("Default")
+					frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+					frame.icon:SetInside()
 					MERS:CreateBG(frame.icon)
 
 					frame.styled = true
