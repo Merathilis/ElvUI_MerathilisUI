@@ -154,7 +154,7 @@ local optDefaults = {
 	scale = 1,
 	FilterBank = true,
 	CompressEmpty = true,
-	Unlocked = true,
+	Unlocked = false,
 	SortBags = true,
 	SortBank = true,
 	BankCustomBags = true,
@@ -248,6 +248,7 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.bankTrade		:SetExtendedFilter(cB_Filters.fItemClass, "BankTradeGoods")
 	cB_Bags.bankReagent		:SetMultipleFilters(true, cB_Filters.fBankReagent, cB_Filters.fHideEmpty)
 	cB_Bags.bank			:SetMultipleFilters(true, cB_Filters.fBank, cB_Filters.fHideEmpty)
+
 	if cBniv.BankCustomBags then
 		for _,v in ipairs(cB_CustomBags) do cB_Bags['Bank'..v.name]:SetExtendedFilter(cB_Filters.fItemClass, 'Bank'..v.name) end
 	end

@@ -187,10 +187,10 @@ local function SellJunk()
 		end
 	end
 
-	if Profit > 0 then
-		local g, s, c = math.floor(Profit / 10000) or 0, math.floor((Profit % 10000) / 100) or 0, Profit % 100
-		print("Vendor trash sold: |cff00a956+|r |cffffffff"..g.."\124TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0\124t "..s.."\124TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0\124t "..c.."\124TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0\124t".."|r")
-	end
+	-- if Profit > 0 then
+		-- local g, s, c = math.floor(Profit / 10000) or 0, math.floor((Profit % 10000) / 100) or 0, Profit % 100
+		-- print("Vendor trash sold: |cff00a956+|r |cffffffff"..g.."\124TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0\124t "..s.."\124TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0\124t "..c.."\124TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0\124t".."|r")
+	-- end
 end
 JS:SetScript("OnEvent", function() SellJunk() end)
 
@@ -417,7 +417,7 @@ function MyContainer:OnCreate(name, settings)
 	local numSlotsBag = {GetNumFreeSlots("bag")}
 	local numSlotsBank = {GetNumFreeSlots("bank")}
 	local numSlotsReagent = {GetNumFreeSlots("bankReagent")}
-	
+
 	local usedSlotsBag = numSlotsBag[2] - numSlotsBag[1]
 	local usedSlotsBank = numSlotsBank[2] - numSlotsBank[1]
 	local usedSlotsReagent = numSlotsReagent[2] - numSlotsReagent[1]
@@ -429,7 +429,7 @@ function MyContainer:OnCreate(name, settings)
 	self:SetFrameStrata("HIGH")
 	tinsert(UISpecialFrames, self:GetName()) -- Close on "Esc"
 
-	if (tBag or tBank) then 
+	if (tBag or tBank) then
 		SetFrameMovable(self, cBnivCfg.Unlocked) 
 	end
 
@@ -455,6 +455,7 @@ function MyContainer:OnCreate(name, settings)
 	local background = CreateFrame("Frame", nil, self)
 	if ElvUI then
 		background:CreateBackdrop("Transparent")
+		background.backdrop:SetAllPoints()
 	else
 		background:SetBackdrop{
 			bgFile = Textures.Background,
@@ -467,7 +468,6 @@ function MyContainer:OnCreate(name, settings)
 	background:SetFrameLevel(1)
 	background:SetBackdropColor(color_rb, color_gb, color_bb, alpha_fb)
 	background:SetBackdropBorderColor(0, 0, 0, 1)
-
 	background:SetPoint("TOPLEFT", -1, 1)
 	background:SetPoint("BOTTOMRIGHT", 1, -1)
 
@@ -495,7 +495,7 @@ function MyContainer:OnCreate(name, settings)
 			local close = CreateFrame("Button", nil, self, "UIPanelCloseButton")
 			if ElvUI then
 				ElvUI[1]:GetModule("Skins"):HandleCloseButton(close)
-				close:SetPoint("TOPRIGHT", 8, 8)
+				close:SetPoint("TOPRIGHT", 7, 7)
 			else
 				close:SetPoint("TOPRIGHT", 8, 8)
 				close:SetDisabledTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\CloseButton\\UI-Panel-MinimizeButton-Disabled")
@@ -756,7 +756,7 @@ function MyContainer:OnCreate(name, settings)
 
 		-- The money display
 		local money = self:SpawnPlugin("TagDisplay", "[money]", self)
-		money:SetPoint("TOPRIGHT", self, -25.5, -2.5)
+		money:SetPoint("TOPRIGHT", self, -30, -2.5)
 		if ElvUI then
 			money:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
 		else
