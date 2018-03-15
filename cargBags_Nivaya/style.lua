@@ -316,7 +316,7 @@ local createMoverButton = function (parent, texture, tag)
 	button:SetScript("OnEnter", function() IconButton_OnEnter(button) end)
 	button:SetScript("OnLeave", function() IconButton_OnLeave(button) end)
 	button.mouseover = false
-	
+
 	return button
 end
 
