@@ -494,10 +494,8 @@ function MyContainer:OnCreate(name, settings)
 		if (tBag or tBank) then
 			local close = CreateFrame("Button", nil, self, "UIPanelCloseButton")
 			if ElvUI then
-				ElvUI[1]:GetModule("Skins"):HandleCloseButton(close)
-				close:SetPoint("TOPRIGHT", 0, 0)
-				close:SetWidth(22)
- 				close:SetHeight(22)
+				ElvUI[1]:GetModule("muiSkins"):ReskinClose(close)
+				close:SetPoint("TOPRIGHT", -2, -1)
 			else
 				close:SetPoint("TOPRIGHT", 5, 5)
 				close:SetWidth(25)
