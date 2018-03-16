@@ -73,9 +73,12 @@ local function CreateInfoString(button, position)
 	if position == "TOP" then
 		str:SetJustifyH("LEFT")
 		str:SetPoint("TOPLEFT", button, "TOPLEFT", 1.5, -1.5)
-	else
+	elseif position == "BOTTOM" then
 		str:SetJustifyH("RIGHT")
 		str:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1.5, 1.5)
+	else
+		str:SetJustifyH("CENTER")
+		str:SetPoint("CENTER", button, "CENTER", 0, 0)
 	end
 	if ElvUI then
 		str:SetFont(ElvUI[1].media.normFont, 11, "OUTLINE")
@@ -119,6 +122,7 @@ local function ItemButton_Scaffold(self)
 
 	self.TopString = CreateInfoString(self, "TOP")
 	self.BottomString = CreateInfoString(self, "BOTTOM")
+	self.CenterString = CreateInfoString(self, "CENTER")
 
 	if self.Cooldown then
 		ElvUI[1]:RegisterCooldown(self.Cooldown)
@@ -176,7 +180,6 @@ local function ItemButton_Update(self, item)
 
 	-- Item Level
 	if item.link then
-
 		if IsArtifactRelicItem(item.link) then
 			self.BottomString:SetFormattedText("+%d", C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(item.link) or 0)
 		elseif (item.type and (ilvlTypes[item.type] or item.subType and ilvlSubTypes[item.subType])) and item.level > 0 then
