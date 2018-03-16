@@ -468,7 +468,7 @@ function MyContainer:OnCreate(name, settings)
 	background:SetFrameLevel(1)
 	background:SetBackdropColor(color_rb, color_gb, color_bb, alpha_fb)
 	background:SetBackdropBorderColor(0, 0, 0, 1)
-	background:SetPoint("TOPLEFT", -1, 1)
+	background:SetPoint("TOPLEFT", -6, 1)
 	background:SetPoint("BOTTOMRIGHT", 1, -1)
 
 	-- Caption, close button
