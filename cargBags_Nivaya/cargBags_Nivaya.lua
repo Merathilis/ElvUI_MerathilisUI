@@ -301,7 +301,7 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.main		:SetMultipleFilters(true, cB_Filters.fBags, cB_Filters.fHideEmpty)
 	for _,v in pairs(cB_CustomBags) do cB_Bags[v.name]:SetExtendedFilter(cB_Filters.fItemClass, v.name) end
 
-	cB_Bags.main:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -28, 50)
+	cB_Bags.main:SetPoint("BOTTOMRIGHT", 10, 26)
 	cB_Bags.bank:SetPoint("TOPLEFT", 10, -20)
 
 	cbNivaya:CreateAnchors()
@@ -409,30 +409,54 @@ function cbNivaya:UpdateAnchors(self)
 end
 
 function cbNivaya:OnOpen()
+	if not cB_Bags.main:GetPoint() then
+		cB_Bags.main:SetPoint("BOTTOMRIGHT", 10, 26)
+	end
+
 	cB_Bags.main:Show()
 	cbNivaya:ShowBags(cB_Bags.armor, cB_Bags.bagNew, cB_Bags.bagItemSets, cB_Bags.gem, cB_Bags.quest, cB_Bags.consumables, cB_Bags.artifactpower, cB_Bags.battlepet, 
 					  cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk)
-	for _,v in ipairs(cB_CustomBags) do if v.active then cbNivaya:ShowBags(cB_Bags[v.name]) end end
+	for _,v in ipairs(cB_CustomBags) do
+		if v.active then
+			cbNivaya:ShowBags(cB_Bags[v.name]) 
+		end
+	end
 end
 
 function cbNivaya:OnClose()
 	cbNivaya:HideBags(cB_Bags.main, cB_Bags.armor, cB_Bags.bagNew, cB_Bags.bagItemSets, cB_Bags.gem, cB_Bags.quest, cB_Bags.consumables, cB_Bags.artifactpower, cB_Bags.battlepet, 
 					  cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk, cB_Bags.key)
-	for _,v in ipairs(cB_CustomBags) do if v.active then cbNivaya:HideBags(cB_Bags[v.name]) end end
+	for _,v in ipairs(cB_CustomBags) do
+		if v.active then
+			cbNivaya:HideBags(cB_Bags[v.name])
+		end
+	end
 end
 
-function cbNivaya:OnBankOpened() 
-	cB_Bags.bank:Show(); 
+function cbNivaya:OnBankOpened()
+	if not cB_Bags.bank:GetPoint() then
+		cB_Bags.bank:SetPoint("TOPLEFT", 10, -20)
+	end
+
+	cB_Bags.bank:Show()
 	cbNivaya:ShowBags(cB_Bags.bankSets, cB_Bags.bankReagent, cB_Bags.bankArmor, cB_Bags.bankGem, cB_Bags.bankQuest, cB_Bags.bankTrade, cB_Bags.bankConsumables, cB_Bags.bankArtifactPower, cB_Bags.bankBattlePet) 
 	if cBniv.BankCustomBags then
-		for _,v in ipairs(cB_CustomBags) do if v.active then cbNivaya:ShowBags(cB_Bags['Bank'..v.name]) end end
+		for _,v in ipairs(cB_CustomBags) do
+			if v.active then
+				cbNivaya:ShowBags(cB_Bags['Bank'..v.name])
+			end
+		end
 	end
 end
 
 function cbNivaya:OnBankClosed()
 	cbNivaya:HideBags(cB_Bags.bank, cB_Bags.bankSets, cB_Bags.bankReagent, cB_Bags.bankArmor, cB_Bags.bankGem, cB_Bags.bankQuest, cB_Bags.bankTrade, cB_Bags.bankConsumables, cB_Bags.bankArtifactPower, cB_Bags.bankBattlePet)
 	if cBniv.BankCustomBags then
-		for _,v in ipairs(cB_CustomBags) do if v.active then cbNivaya:HideBags(cB_Bags['Bank'..v.name]) end end
+		for _,v in ipairs(cB_CustomBags) do
+			if v.active then
+				cbNivaya:HideBags(cB_Bags['Bank'..v.name])
+			end
+		end
 	end
 end
 
