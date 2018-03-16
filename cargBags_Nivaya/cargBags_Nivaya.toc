@@ -1,7 +1,7 @@
 ## Interface: 70300
-## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r |cffFF6666Bags|r
+## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r |cFF00c0faBags|r
 ## Notes: Minimalistic inventory addon featuring item filters and alot more.
-## Author: Luzzifus, Nibelheim, humfras (Modified/updated by Solor)
+## Author: Luzzifus, Nibelheim, humfras (Modified/updated by Merathilis)
 ## Version: 70300
 ## RequiredDeps: ElvUI_MerathilisUI
 ## OptionalDeps: ItemRack, Outfitter
