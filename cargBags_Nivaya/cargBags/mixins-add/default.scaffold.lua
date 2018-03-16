@@ -176,7 +176,10 @@ local function ItemButton_Update(self, item)
 
 	-- Item Level
 	if item.link then
-		if (item.type and (ilvlTypes[item.type] or item.subType and ilvlSubTypes[item.subType])) and item.level > 0 then
+
+		if IsArtifactRelicItem(item.link) then
+			self.BottomString:SetFormattedText("+%d", C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(item.link) or 0)
+		elseif (item.type and (ilvlTypes[item.type] or item.subType and ilvlSubTypes[item.subType])) and item.level > 0 then
 			self.BottomString:SetText(item.level)
 			self.BottomString:SetTextColor(GetItemQualityColor(item.rarity))
 		else

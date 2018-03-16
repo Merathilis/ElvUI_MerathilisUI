@@ -55,7 +55,7 @@ function cbNivaya:ClassifyItem(item)
 
 	-- type based filters
 	if item.type then
-		if		(item.type == L.Armor) or (item.type == L.Weapon)	then cB_ItemClass[item.id] = "Armor"; return true
+		if		(item.type == L.Armor) or (item.type == L.Weapon) or IsArtifactRelicItem(item.link or item.id) then cB_ItemClass[item.id] = "Armor"; return true
 		elseif	(item.type == L.Gem)								then cB_ItemClass[item.id] = "Gem"; return true
 		elseif	(item.type == L.Quest)								then cB_ItemClass[item.id] = "Quest"; return true
 		elseif	(item.type == L.Trades)								then cB_ItemClass[item.id] = "TradeGoods"; return true
