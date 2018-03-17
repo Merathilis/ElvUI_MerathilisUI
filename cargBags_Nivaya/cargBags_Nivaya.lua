@@ -461,7 +461,7 @@ function cbNivaya:OnBankClosed()
 end
 
 function cbNivaya:ToggleBagPosButtons()
-	for _,v in ipairs(cB_CustomBags) do 
+	for _,v in ipairs(cB_CustomBags) do
 		if v.active then 
 			local b = cB_Bags[v.name]
 
