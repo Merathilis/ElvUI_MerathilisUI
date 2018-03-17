@@ -84,14 +84,13 @@ function ItemButton:Create(tpl, parent)
 	if btnNT then btnNT:SetTexture("") end
 	if btnNIT then btnNIT:SetTexture("") end
 	if btnBIT then btnBIT:SetTexture("") end
-	
+
 	button:SetSize(ns.options.itemSlotSize, ns.options.itemSlotSize)
 	bFS = _G[button:GetName().."Count"]
 	bFS:ClearAllPoints()
-	bFS:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1.5, 1.5);
-	if FreeUI then
-		local F = FreeUI[1]
-		F.SetFS(bFS)
+	bFS:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 1, 1.5);
+	if ElvUI then
+		bFS:SetFont(ElvUI[1].media.normFont, 10, "OUTLINE")
 	else
 		bFS:SetFont(unpack(ns.options.fonts.itemCount))
 	end

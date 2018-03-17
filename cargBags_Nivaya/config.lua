@@ -25,21 +25,21 @@ ns.options = {
 			9, 						-- Font Size
 			"OUTLINE",	-- Flags
 		},
-	
+
 		--Font to use for the dropdown menu
 		dropdown = {
 			[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
 			10, 						-- Font Size
 			"OUTLINE",	-- Flags
 		},
-	
+
 		-- Font to use for durability and item level
 		itemInfo = {
 			[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
 			10, 						-- Font Size
 			"OUTLINE",	-- Flags
 		},
-	
+
 		-- Font to use for number of items in a stack
 		itemCount = {
 			[[Interface\AddOns\ElvUI\media\fonts\Expressway.ttf]], 	-- Font path
