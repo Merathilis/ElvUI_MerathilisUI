@@ -285,6 +285,7 @@ end
 
 local function IconButton_OnLeave(self)
 	self.mouseover = false
+
 	if self.tag == "SellJunk" then
 		if cBnivCfg.SellJunk then
 			self.icon:SetVertexColor(0.8, 0.8, 0.8)
