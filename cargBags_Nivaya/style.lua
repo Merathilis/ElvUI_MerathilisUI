@@ -89,7 +89,7 @@ function MyContainer:OnContentsChanged()
 	local tReagent = (tName == "cBniv_BankReagent")
 
 	local buttonIDs = {}
-  	for i, button in pairs(self.buttons) do
+	for i, button in pairs(self.buttons) do
 		local item = cbNivaya:GetItemInfo(button.bagID, button.slotID)
 		if item.link then
 			buttonIDs[i] = { item.id, item.rarity, button, item.count }

@@ -142,6 +142,7 @@ local ilvlTypes = {
 local ilvlSubTypes = {
 	[GetItemSubClassInfo(3,11)] = true	--Artifact Relic
 }
+
 local function ItemButton_Update(self, item)
 	if item.texture then
 		local tex = item.texture or (cBnivCfg.CompressEmpty and self.bgTex)
