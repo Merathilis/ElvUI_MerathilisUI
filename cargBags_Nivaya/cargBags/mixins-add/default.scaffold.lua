@@ -212,6 +212,21 @@ local function ItemButton_Update(self, item)
 		end
 	end
 
+	-- New Item Glow
+	if(C_NewItems.IsNewItem(item.bagID, item.slotID)) then
+		local _, _, _, quality = GetContainerItemInfo(item.bagID, item.slotID)
+		if quality and NEW_ITEM_ATLAS_BY_QUALITY[quality] then
+			self.NewItemTexture:SetAtlas(NEW_ITEM_ATLAS_BY_QUALITY[quality])
+		else
+			self.NewItemTexture:SetAtlas("bags-glow-white")
+		end
+		self.NewItemTexture:Show()
+		if not self.flashAnim:IsPlaying() and not self.newitemglowAnim:IsPlaying() then
+			self.flashAnim:Play()
+			self.newitemglowAnim:Play()
+		end
+	end
+
 	self:UpdateCooldown(item)
 	self:UpdateLock(item)
 	self:UpdateQuest(item)
