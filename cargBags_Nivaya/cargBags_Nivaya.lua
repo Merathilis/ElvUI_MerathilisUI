@@ -151,7 +151,7 @@ local optDefaults = {
 	Consumables = true,
 	Quest = true,
 	BankBlack = true,
-	scale = 1,
+	scale = 1.1,
 	FilterBank = true,
 	CompressEmpty = true,
 	Unlocked = false,
@@ -301,8 +301,8 @@ function cargBags_Nivaya:ADDON_LOADED(event, addon)
 	cB_Bags.main		:SetMultipleFilters(true, cB_Filters.fBags, cB_Filters.fHideEmpty)
 	for _,v in pairs(cB_CustomBags) do cB_Bags[v.name]:SetExtendedFilter(cB_Filters.fItemClass, v.name) end
 
-	cB_Bags.main:SetPoint("BOTTOMRIGHT", 10, 26)
-	cB_Bags.bank:SetPoint("TOPLEFT", 10, -20)
+	cB_Bags.main:SetPoint("BOTTOMRIGHT", -10, 181)
+	cB_Bags.bank:SetPoint("TOPLEFT", 13, -17)
 
 	cbNivaya:CreateAnchors()
 	cbNivaya:Init()
@@ -410,12 +410,12 @@ end
 
 function cbNivaya:OnOpen()
 	if not cB_Bags.main:GetPoint() then
-		cB_Bags.main:SetPoint("BOTTOMRIGHT", 10, 26)
+		cB_Bags.main:SetPoint("BOTTOMRIGHT", -10, 181)
 	end
 
 	cB_Bags.main:Show()
 	cbNivaya:ShowBags(cB_Bags.armor, cB_Bags.bagNew, cB_Bags.bagItemSets, cB_Bags.gem, cB_Bags.quest, cB_Bags.consumables, cB_Bags.artifactpower, cB_Bags.battlepet, 
-					  cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk)
+		cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk)
 	for _,v in ipairs(cB_CustomBags) do
 		if v.active then
 			cbNivaya:ShowBags(cB_Bags[v.name]) 
@@ -425,7 +425,7 @@ end
 
 function cbNivaya:OnClose()
 	cbNivaya:HideBags(cB_Bags.main, cB_Bags.armor, cB_Bags.bagNew, cB_Bags.bagItemSets, cB_Bags.gem, cB_Bags.quest, cB_Bags.consumables, cB_Bags.artifactpower, cB_Bags.battlepet, 
-					  cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk, cB_Bags.key)
+		cB_Bags.tradegoods, cB_Bags.bagStuff, cB_Bags.bagJunk, cB_Bags.key)
 	for _,v in ipairs(cB_CustomBags) do
 		if v.active then
 			cbNivaya:HideBags(cB_Bags[v.name])
@@ -435,7 +435,7 @@ end
 
 function cbNivaya:OnBankOpened()
 	if not cB_Bags.bank:GetPoint() then
-		cB_Bags.bank:SetPoint("TOPLEFT", 10, -20)
+		cB_Bags.bank:SetPoint("TOPLEFT", 13, -17)
 	end
 
 	cB_Bags.bank:Show()
@@ -793,9 +793,8 @@ Event:SetScript('OnEvent', function(self, event, ...)
 				NivayacBniv_Bank.reagentBtn:Show()
 				buyReagent:Hide()
 			end)
-			if Aurora then
-				local F = Aurora[1]
-				F.Reskin(buyReagent)
+			if ElvUI then
+				ElvUI[1]:GetModule("muiSkins"):Reskin(buyReagent)
 			end
 			buyReagent:RegisterEvent("REAGENTBANK_PURCHASED")
 		end

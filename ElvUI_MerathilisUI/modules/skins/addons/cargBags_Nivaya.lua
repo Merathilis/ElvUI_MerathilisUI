@@ -17,6 +17,7 @@ local function stylecargBags()
 		-- Will not work for custom created Bags
 	]]--
 
+	-- BAGS
 	-- Main Bag
 	if NivayacBniv_Bag then
 		NivayacBniv_Bag:Styling()
@@ -70,6 +71,42 @@ local function stylecargBags()
 	-- BattlePets
 	if NivayacBniv_BattlePet then
 		NivayacBniv_BattlePet:Styling()
+	end
+
+	-- BANK
+	-- Main Bank
+	if NivayacBniv_Bank then
+		NivayacBniv_Bank:Styling()
+	end
+
+	-- Reagent
+	if NivayacBniv_BankReagent then
+		NivayacBniv_BankReagent:Styling()
+	end
+
+	-- Bank Consumables
+	if NivayacBniv_BankCons then
+		NivayacBniv_BankCons:Styling()
+	end
+
+	-- Bank Quest
+	if NivayacBniv_BankQuest then
+		NivayacBniv_BankQuest:Styling()
+	end
+
+	-- Bank Armor
+	if NivayacBniv_BankArmor then
+		NivayacBniv_BankArmor:Styling()
+	end
+
+	-- Bank Gems
+	if NivayacBniv_BankGem then
+		NivayacBniv_BankGem:Styling()
+	end
+
+	-- Bank Trade
+	if NivayacBniv_BankTrade then
+		NivayacBniv_BankTrade:Styling()
 	end
 end
 
