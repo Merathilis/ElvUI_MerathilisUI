@@ -100,7 +100,7 @@ local function GetScreenModes()
 end
 
 local function ItemButton_Scaffold(self)
-	self:SetSize(37, 37)
+	self:SetSize(36, 36)
 --[[
 	local monitorIndex = (tonumber(GetCVar('gxMonitor')) or 0) + 1
 	local resolution = select(GetCurrentResolution(monitorIndex), GetScreenResolutions(monitorIndex))
@@ -108,17 +108,30 @@ local function ItemButton_Scaffold(self)
 ]]
 	local bordersize = 768/string.match(GetScreenModes(), "%d+x(%d+)")/(GetCVar("uiScale")*cBnivCfg.scale)
 	local name = self:GetName()
+
 	self.Icon = _G[name.."IconTexture"]
 	self.Count = _G[name.."Count"]
 	self.Cooldown = _G[name.."Cooldown"]
 	self.Quest = _G[name.."IconQuestTexture"]
+
 	self.Border = CreateFrame("Frame", nil, self)
-	self.Border:SetPoint("TOPLEFT", self.Icon, 0, 0)
-	self.Border:SetPoint("BOTTOMRIGHT", self.Icon, 0, 0)
-	self.Border:SetBackdrop({
-		edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = bordersize,
-	})
-	self.Border:SetBackdropBorderColor(0, 0, 0, 0)
+	if ElvUI then
+		self.Border:SetPoint("TOPLEFT", self.Icon, 0, 0)
+		self.Border:SetPoint("BOTTOMRIGHT", self.Icon, 0, 0)
+		self.Border:SetBackdrop({
+			edgeFile = "Interface\\Buttons\\WHITE8x8",
+			edgeSize = bordersize,
+		})
+		self.Border:SetBackdropBorderColor(unpack(ElvUI[1].media.bordercolor))
+	else
+		self.Border:SetPoint("TOPLEFT", self.Icon, 0, 0)
+		self.Border:SetPoint("BOTTOMRIGHT", self.Icon, 0, 0)
+		self.Border:SetBackdrop({
+			edgeFile = "Interface\\Buttons\\WHITE8x8",
+			edgeSize = bordersize,
+		})
+		self.Border:SetBackdropBorderColor(0, 0, 0, 0)
+	end
 
 	self.TopString = CreateInfoString(self, "TOP")
 	self.BottomString = CreateInfoString(self, "BOTTOM")
@@ -150,22 +163,31 @@ local function ItemButton_Update(self, item)
 			self.Icon:SetTexture(tex)
 			self.Icon:SetTexCoord(.08, .92, .08, .92)
 		else
-			self.Icon:SetColorTexture(1,1,1,0.1)
+			self.Icon:SetColorTexture(1, 1, 1, 0.1)
 		end
 	else
 		if cBnivCfg.CompressEmpty then
 			self.Icon:SetTexture(self.bgTex)
 			self.Icon:SetTexCoord(.08, .92, .08, .92)
 		else
-			self.Icon:SetColorTexture(1,1,1,0.1)
+			self.Icon:SetColorTexture(1, 1, 1, 0.1)
 		end
 	end
+	-- Maybe a double check for the border?!
+	if item.rarity and item.rarity > 1 then
+		local r, g, b = GetItemQualityColor(item.rarity)
+		self.Border:SetBackdropBorderColor(r, g, b, 1)
+	else
+		self.Border:SetBackdropBorderColor(0, 0, 0, 1)
+	end
+
 	if(item.count and item.count > 1) then
 		self.Count:SetText(item.count >= 1e3 and "*" or item.count)
 		self.Count:Show()
 	else
 		self.Count:Hide()
 	end
+
 	self.count = item.count -- Thank you Blizz for not using local variables >.> (BankFrame.lua @ 234 )
 
 	-- Durability
