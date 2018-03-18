@@ -472,6 +472,31 @@ function MyContainer:OnCreate(name, settings)
 	background:SetPoint("TOPLEFT", -5, 1)
 	background:SetPoint("BOTTOMRIGHT", 1, -1)
 
+	-- MerathilisUI Styling function
+	if not background.stripes then
+		local stripes = background:CreateTexture(nil, "BORDER")
+		stripes:ClearAllPoints()
+		stripes:SetPoint("TOPLEFT", 1, -1)
+		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
+		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
+		stripes:SetHorizTile(true)
+		stripes:SetVertTile(true)
+		stripes:SetBlendMode("ADD")
+
+		background.stipes = stripes
+	end
+
+	if not background.gradient then
+		local gradient = background:CreateTexture(nil, "BORDER")
+		gradient:ClearAllPoints()
+		gradient:SetPoint("TOPLEFT", 1, -1)
+		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
+		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetVertexColor(.3, .3, .3, .15)
+
+		background.gradient = gradient
+	end
+
 	-- Caption, close button
 	local caption = background:CreateFontString(background, "OVERLAY", nil)
 	if ElvUI then
