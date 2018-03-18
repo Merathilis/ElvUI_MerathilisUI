@@ -207,8 +207,8 @@ local function styleObjectiveTracker()
 				local Modules = frame[i]
 				if (Modules) then
 					local Header = Modules.Header
-					Header:SetFrameStrata("HIGH")
-					Header:SetFrameLevel(10)
+					Header:SetFrameStrata("MEDIUM")
+					Header:SetFrameLevel(1)
 
 					if not (Modules.IsSkinned) then
 						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
