@@ -133,6 +133,13 @@ local function ItemButton_Scaffold(self)
 		self.Border:SetBackdropBorderColor(0, 0, 0, 0)
 	end
 
+	local questIcon = self:CreateTexture(nil, "OVERLAY")
+	questIcon:SetTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\bagQuestIcon.tga")
+	questIcon:SetTexCoord(0, 1, 0, 1)
+	questIcon:SetInside()
+	questIcon:Hide()
+	self.questIcon = questIcon
+
 	self.TopString = CreateInfoString(self, "TOP")
 	self.BottomString = CreateInfoString(self, "BOTTOM")
 	self.CenterString = CreateInfoString(self, "CENTER")
@@ -230,6 +237,11 @@ local function ItemButton_Update(self, item)
 		if itemIsUpgrade == nil then
 			self.UpgradeIcon:SetShown(false)
 		else
+			self.UpgradeIcon:ClearAllPoints()
+			self.UpgradeIcon:SetPoint("TOPLEFT", 1, 0)
+			self.UpgradeIcon:SetTexture("Interface\\AddOns\\cargBags_Nivaya\\media\\bagUpgradeIcon.tga")
+			self.UpgradeIcon:SetTexCoord(0, 1, 0, 1)
+			self.UpgradeIcon:SetSize(24, 24)
 			self.UpgradeIcon:SetShown(itemIsUpgrade)
 		end
 	end
@@ -296,6 +308,14 @@ local function ItemButton_UpdateQuest(self, item)
 		self.Border:SetBackdropBorderColor(r, g, b, 1)
 	else
 		self.Border:SetBackdropBorderColor(0, 0, 0, 1)
+	end
+
+	-- Quest Icons
+	local isQuestItem, questId, isActiveQuest = GetContainerItemQuestInfo(item.bagID, item.slotID)
+	if questId and not isActiveQuest then
+		self.questIcon:Show()
+	else
+		self.questIcon:Hide()
 	end
 
 	if(self.OnUpdateQuest) then self:OnUpdateQuest(item) end

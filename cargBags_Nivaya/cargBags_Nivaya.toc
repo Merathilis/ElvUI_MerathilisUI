@@ -3,7 +3,7 @@
 ## Notes: Minimalistic inventory addon featuring item filters and alot more.
 ## Author: Luzzifus, Nibelheim, humfras (Modified/updated by Merathilis)
 ## Version: 70300
-## RequiredDeps: ElvUI_MerathilisUI
+## RequiredDeps: ElvUI, ElvUI_MerathilisUI
 ## OptionalDeps: ItemRack, Outfitter
 ## SavedVariables: cBnivCfg, cB_CustomBags, cBniv_CatInfo
 ## SavedVariablesPerCharacter: cB_KnownItems, cBniv
