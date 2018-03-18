@@ -56,9 +56,9 @@ function ItemButton:New(bagID, slotID)
 	button.bagID = bagID
 	button.slotID = slotID
 	button:SetID(slotID)
-	
+
 	button:Show()
-	
+
 	return button
 end
 
