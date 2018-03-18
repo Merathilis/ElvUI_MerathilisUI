@@ -143,10 +143,6 @@ local function ItemButton_Scaffold(self)
 	self.TopString = CreateInfoString(self, "TOP")
 	self.BottomString = CreateInfoString(self, "BOTTOM")
 	self.CenterString = CreateInfoString(self, "CENTER")
-
-	if self.Cooldown then
-		ElvUI[1]:RegisterCooldown(self.Cooldown)
-	end
 end
 
 --[[!
@@ -196,6 +192,11 @@ local function ItemButton_Update(self, item)
 	end
 
 	self.count = item.count -- Thank you Blizz for not using local variables >.> (BankFrame.lua @ 234 )
+
+	-- Item Cooldown
+	if self.Cooldown then
+		ElvUI[1]:RegisterCooldown(self.Cooldown)
+	end
 
 	-- Durability
 	local dCur, dMax = GetContainerItemDurability(item.bagID, item.slotID)
