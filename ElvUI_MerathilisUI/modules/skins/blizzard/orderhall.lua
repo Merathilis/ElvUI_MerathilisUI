@@ -21,6 +21,7 @@ local function styleOrderhall()
 	local portraitFrame = combatAlly.InProgress.PortraitFrame
 	local portrait = combatAlly.InProgress.PortraitFrame.Portrait
 	local portraitRing = combatAlly.InProgress.PortraitFrame.PortraitRing
+	local portraitRingQuality = combatAlly.InProgress.PortraitFrame.PortraitRingQuality
 	local levelBorder = combatAlly.InProgress.PortraitFrame.LevelBorder
 	combatAlly:StripTextures()
 	MERS:CreateBD(combatAlly, .25)
@@ -33,6 +34,7 @@ local function styleOrderhall()
 		portrait:SetPoint("TOPLEFT", 1, -1)
 		portrait:SetTexCoord(unpack(E.TexCoords))
 		portraitRing:Hide()
+		portraitRingQuality:Hide()
 		levelBorder:SetAlpha(0)
 
 		portrait.IsSkinned = true
