@@ -841,7 +841,7 @@ local function ItemButton_Update(self, item)
 	end
 
 	-- Junk Icon
-	if (self.JunkIcon) then
+	if self.JunkIcon then
 		if (item.rarity) and (item.rarity == LE_ITEM_QUALITY_POOR and not item.noValue) then
 			self.JunkIcon:Show()
 		else
@@ -850,7 +850,7 @@ local function ItemButton_Update(self, item)
 	end
 
 	-- Upgrade Icon
-	if (self.UpgradeIcon) then
+	if self.UpgradeIcon then
 		local itemIsUpgrade = IsContainerItemAnUpgrade(item.bagID, item.slotID)
 		if itemIsUpgrade == nil then
 			self.UpgradeIcon:SetShown(false)
@@ -865,7 +865,7 @@ local function ItemButton_Update(self, item)
 	end
 
 	-- New Item Glow
-	if(C_NewItems.IsNewItem(item.bagID, item.slotID)) then
+	if C_NewItems.IsNewItem(item.bagID, item.slotID) then
 		local _, _, _, quality = GetContainerItemInfo(item.bagID, item.slotID)
 		if quality and NEW_ITEM_ATLAS_BY_QUALITY[quality] then
 			self.NewItemTexture:SetAtlas(NEW_ITEM_ATLAS_BY_QUALITY[quality])
@@ -949,7 +949,7 @@ local function ItemButton_Update(self, item)
 
 				local itemAP = holder:CreateFontString()
 				itemAP:SetDrawLayer("ARTWORK")
-				itemAP:SetPoint("CENTER", 1, 1)
+				itemAP:SetPoint("CENTER", 1, 0)
 				itemAP:SetFont(ElvUI[1].media.normFont, 9, "OUTLINE")
 				itemAP:SetShadowOffset(1, -1)
 				itemAP:SetShadowColor(0, 0, 0, .75)
