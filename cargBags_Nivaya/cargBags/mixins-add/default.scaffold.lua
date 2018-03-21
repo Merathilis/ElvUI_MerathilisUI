@@ -870,11 +870,11 @@ local function ItemButton_Update(self, item)
 		if quality and NEW_ITEM_ATLAS_BY_QUALITY[quality] then
 			self.NewItemTexture:SetAtlas(NEW_ITEM_ATLAS_BY_QUALITY[quality])
 			self.NewItemTexture:SetTexCoord(.08, .92, .08, .92)
-			self.NewItemTexture:SetInside()
+			self.NewItemTexture:SetOutside()
 		else
 			self.NewItemTexture:SetAtlas("bags-glow-white")
 			self.NewItemTexture:SetTexCoord(.08, .92, .08, .92)
-			self.NewItemTexture:SetInside()
+			self.NewItemTexture:SetOutside()
 		end
 		self.NewItemTexture:Show()
 		if not self.flashAnim:IsPlaying() and not self.newitemglowAnim:IsPlaying() then
