@@ -43,69 +43,6 @@ local cache = {} -- cache of artifact power values
 local rarityCache = {} -- cache of item rarities
 local ignored = {} -- items with no artifact power we'll ignore (todo: add item types to this on startup, to reduce scanning delay)
 
-local ancientMana = {
-	-- Epic Quality
-	[140242] = 200,		-- Astromancer's Compass
-	[140239] = 300,		-- Excavated Highborne Artifact
-	[141655] = 150,		-- Shimmering Ancient Mana Cluster
-	[140245] = 300,		-- The Tidemistress' Enchanted Pearl
-
-	-- Rare Quality
-	[140236] = true, 	-- A Mrglrmrl Mlrglr
-	[139786] = 50, 		-- Ancient Mana Crystal
-	[143734] = 100, 	-- Ancient Mana Crystal Cluster
-	[139890] = 100, 	-- Ancient Mana Gem
-	[143733] = 50, 		-- Ancient Mana Shards
-	[140246] = 100, 	-- Arc of Snow
-	[140401] = 75, 		-- Blue Or'ligai Egg
-	[140240] = 150, 	-- Enchanted Moonwell Waters
-	[140402] = 75, 		-- Green Or'ligai Egg
-	[140405] = 75, 		-- Illusion Matrix Crystal
-	[140404] = 75, 		-- Intact Guardian Core
-	[140403] = 75, 		-- Lylandre's Fel Crystal
-	[140248] = 100, 	-- Master Jeweler's Gem
-	--[147729] = 100, 	-- Netherchunk -- grants Nethershards, not Ancient Mana
-	--[147726] = 500, 	-- Nethercluster -- grants Nethershards, not Ancient Mana
-	[140406] = 75,		-- Primed Arcane Charge
-	[140399] = 75, 		-- Yellow Or'ligai Egg
-	--[139617] = 350, 	-- Ancient Warden Manacles -- grants Artifact Power, not Ancient Mana
-
-	-- Uncommon Quality
-	[143735] = 25, 		-- Ancient Mana Shards
-	[129098] = 70, 		-- Ancient Mana Stone
-	[140243] = 50, 		-- Azurefall Essence
-	[137010] = 50, 		-- Half-Full Bottle of Arcwine
-	[143748] = 25, 		-- Leyscale Koi
-	[140949] = 75, 		-- Onyx Or'ligai Egg
-	[140390] = 75, 		-- Red Or'ligai Egg
-	[140235] = 50, 		-- Small Jar of Arcwine
-
-	-- Common Quality
-	[129036] = 10, 		-- Ancient Mana Fragment
-	[139884] = 10, 		-- Ancient Mana Fragments
-	[129097] = 30, 		-- Ancient Mana Gem
-	[140234] = 50 		-- Selentia's Mana-Infused Brooch
-}
-
-local championArmor = {
-	-- Up to Item Level 850
-	[136412] = 5, 		-- Heavy Armor Set (+5)
-	[137207] = 10, 		-- Fortified Armor Set (+10)
-	[137208] = 10, 		-- Idestructible Armor Set (+15)
-
-	-- Up to Item Level 900
-	[147348] = 5, 		-- Bulky Armor Set (+5)
-	[147349] = 10, 		-- Spiked Armor Set (+10)
-	[147350] = 15, 		-- Invincible Armor Set (+15)
-
-	-- Added in patch 7.3
-	[153005] = 800, 	-- Relinquished Armor Set (Set to 880)
-	[151842] = 900, 	-- Krokul Armor Set (Set to 900)
-	[151843] = 925, 	-- Mac'Aree Armor Set (Set to 925)
-	[151844] = 950  	-- Xenadaa Armor Set (Set to 950)
-
-}
-
 local artifactPowerData = {
 	multiplier = {
 		[1] = 1,
@@ -890,57 +827,46 @@ local function ItemButton_Update(self, item)
 
 		if (not itemHasLegionPower) then
 			if itemID and (not ignored[itemID]) then
-				local itemPoints = championArmor[itemID] or ancientMana[itemID]
-				if itemPoints then
-					cache[item.link] = itemPoints
-					itemHasLegionPower = itemPoints
-
-					if championArmor[itemID] then
-						local _, _, itemRarity = GetItemInfo(item.link)
-						rarityCache[item.link] = itemRarity
-					end
-				else
-					if (IsArtifactPowerItem(itemID)) then
-						local artifactPower = GetArtifactPowerFromItem(item.link)
-						if (artifactPower) and (artifactPower > 0) then
-							-- Cache the item.link, since there can be multiple
-							-- instances of the same itemID in your bags.
-							cache[item.link] = artifactPower
-							itemHasLegionPower = artifactPower
-						else
-							scanner.owner = self
-							scanner:SetOwner(self, "ANCHOR_NONE")
-							scanner:SetBagItem(self:GetBag(), self:GetID())
-
-							local line = _G[scannerName.."TextLeft2"]
-							if line then
-								local msg = line:GetText()
-								if msg and string.find(msg, ARTIFACT_POWER) then
-									line = _G[scannerName.."TextLeft4"]
-									if line then
-										msg = line:GetText()
-										if msg then
-											msg = string.gsub(msg, ",", "")
-
-											local artifactPower = string.match(msg, "(%d+)")
-											if artifactPower then
-												-- Cache the item.link, since there can be multiple 
-												-- instances of the same itemID in your bags. 
-												cache[item.link] = artifactPower
-												itemHasLegionPower = artifactPower
-											end
+				if (IsArtifactPowerItem(itemID)) then
+					local artifactPower = GetArtifactPowerFromItem(item.link)
+					if (artifactPower) and (artifactPower > 0) then
+						-- Cache the item.link, since there can be multiple
+						-- instances of the same itemID in your bags.
+						cache[item.link] = artifactPower
+						itemHasLegionPower = artifactPower
+					else
+						scanner.owner = self
+						scanner:SetOwner(self, "ANCHOR_NONE")
+						scanner:SetBagItem(self:GetBag(), self:GetID())
+                
+						local line = _G[scannerName.."TextLeft2"]
+						if line then
+							local msg = line:GetText()
+							if msg and string.find(msg, ARTIFACT_POWER) then
+								line = _G[scannerName.."TextLeft4"]
+								if line then
+									msg = line:GetText()
+									if msg then
+										msg = string.gsub(msg, ",", "")
+                
+										local artifactPower = string.match(msg, "(%d+)")
+										if artifactPower then
+											-- Cache the item.link, since there can be multiple 
+											-- instances of the same itemID in your bags. 
+											cache[item.link] = artifactPower
+											itemHasLegionPower = artifactPower
 										end
 									end
-								else
-									-- Don't scan this itemID again this session, it has no AP!
-									ignored[itemID] = true
 								end
+							else
+								-- Don't scan this itemID again this session, it has no AP!
+								ignored[itemID] = true
 							end
 						end
-					else
-						-- Don't scan this itemID again this session, it has no AP!
-						ignored[itemID] = true
 					end
+				else
+					-- Don't scan this itemID again this session, it has no AP!
+					ignored[itemID] = true
 				end
 			end
 		end
