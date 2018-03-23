@@ -33,8 +33,8 @@ local function styleOrderhall()
 		portrait:ClearAllPoints()
 		portrait:SetPoint("TOPLEFT", 1, -1)
 		portrait:SetTexCoord(unpack(E.TexCoords))
-		portraitRing:Hide()
-		portraitRingQuality:Hide()
+		portraitRing:SetAlpha(0)
+		portraitRingQuality:SetAlpha(0)
 		levelBorder:SetAlpha(0)
 
 		portrait.IsSkinned = true
@@ -65,7 +65,7 @@ local function styleOrderhall()
 		portrait:SetPoint("TOPLEFT", 1, -1)
 		portrait:SetTexCoord(unpack(E.TexCoords))
 		portraitRing:Hide()
-		portraitRingQuality:Hide()
+		portraitRingQuality:SetAlpha(0)
 		levelBorder:SetAlpha(0)
 
 		portrait.IsSkinned = true
