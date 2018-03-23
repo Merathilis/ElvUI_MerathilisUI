@@ -29,7 +29,7 @@ local ChangeLogData = {
 		-- "• ",
 	" ",
 	"Notes:",
-		-- "• ''",
+		"• 'Included an edited version of cargBags_Nivaya'",
 }
 
 local function ModifiedString(string)
