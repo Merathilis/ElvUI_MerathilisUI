@@ -1,4 +1,4 @@
-[b][color=orange]v3.20[/color], xx.xx.2018[/b][list]
+[b][color=orange]v3.20[/color], 23.03.2018[/b][list]
 [*]Add an itemlevel link feature. Shows the slot/item level on linked items in chat.
 [*]Update a lot of skins.
 [*]Change the default position for the WorldMap.

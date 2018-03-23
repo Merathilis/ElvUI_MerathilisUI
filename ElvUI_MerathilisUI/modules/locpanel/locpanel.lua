@@ -223,8 +223,8 @@ LP.Spells = {
 
 local function CreateCoords()
 	local x, y = GetPlayerMapPosition("player")
-	if x then x = format(LP.db.format, x * 100) else x = "0" end
-	if y then y = format(LP.db.format, y * 100) else y = "0" end
+	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
+	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
 	return x, y
 end
