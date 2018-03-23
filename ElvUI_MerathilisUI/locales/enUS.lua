@@ -11,7 +11,7 @@ L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
 L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = true
 L["AFK"] = true
-L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
+L["Enable/Disable the MUI AFK Screen"] = true
 L["Are you still there? ... Hello?"] = true
 L["Logout Timer"] = true
 L["SplashScreen"] = true
@@ -26,22 +26,12 @@ L["Desciption"] = true
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
 
--- Bags
-L["Usable Items"] = true
-
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
+L["has come |cff298F00online|r."] = true
+L["has gone |cffff0000offline|r."] = true
 L["Unknown"] = true
-L["Chat Item Level"] = true
-L["Shows the slot and item level in the chat"] = true
-L["Expand the chat"] = true
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = true
 
 -- Information
 L["Information"] = true
@@ -63,6 +53,10 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 -- FlightPoint
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+
+-- moveBlizz
+L["moveBlizz"] = true
+L["Make some Blizzard Frames movable."] = true
 
 -- MasterPlan
 L["MasterPlan"] = true
@@ -126,11 +120,13 @@ L["Announce"] = true
 L["Combat Status, Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
+L["Expand the chat"] = true
+L["Chat Button"] = true
+L["Create a chat button to increase the chat size."] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = true
-L["Undress"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -286,23 +282,6 @@ L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
-L["Hearthstone Location"] = true
-L["Show hearthstones"] = true
-L["Show hearthstone type items in the list."] = true
-L["Show Toys"] = true
-L["Show toys in the list. This option will affect all other display options as well."] = true
-L["Show spells"] = true
-L["Show relocation spells in the list."] = true
-L["Show engineer gadgets"] = true
-L["Show items used only by engineers when the profession is learned."] = true
-L["Ignore missing info"] = true
-L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
-When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
-By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
-L["Info for some items is not available yet. Please try again later"] = true
-L["Update canceled."] = true
-L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
-L["Update complete. Opening menu."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

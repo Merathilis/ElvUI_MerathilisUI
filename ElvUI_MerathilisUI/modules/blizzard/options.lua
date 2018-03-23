@@ -12,12 +12,12 @@ local pairs = pairs
 local function Errors()
 	E.Options.args.mui.args.errors = {
 		type = "group",
-		name = ER.modName,
+		name = ER.modName..MER.NewSign,
 		order = 24,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(ER.modName),
+				name = MER:cOption(ER.modName)..MER.NewSign,
 				order = 1
 			},
 			description = {

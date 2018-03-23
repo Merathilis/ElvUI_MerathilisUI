@@ -33,8 +33,24 @@ local function styleMail()
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
 			MiniMapMailFrame.highlight.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
-			MERS:CreatePulse(MiniMapMailFrame, 1, 1)
+			MiniMapMailFrame.highlight:SetScript("OnUpdate", function()
+				if not MiniMapMailFrame.count then MiniMapMailFrame.count = 0 end
+				if not MiniMapMailFrame.modifier then MiniMapMailFrame.modifier = 1 end
+				-- if MiniMapMailFrame.count >= 10 then MiniMapMailFrame:Hide() end
+
+				MiniMapMailFrame:SetAlpha(MiniMapMailFrame:GetAlpha() + MiniMapMailFrame.modifier)
+
+				if MiniMapMailFrame:GetAlpha() <= 0.1 then
+					MiniMapMailFrame.modifier = 0.05
+					MiniMapMailFrame.count = MiniMapMailFrame.count + 1
+				elseif MiniMapMailFrame:GetAlpha() >= 0.9 then
+					MiniMapMailFrame.modifier = -0.05
+				end
+			end)
 		end
+
+		MiniMapMailFrame.highlight.count = 0
+		MiniMapMailFrame.highlight:Show()
 	end)
 
 	local MailFrame = _G["MailFrame"]

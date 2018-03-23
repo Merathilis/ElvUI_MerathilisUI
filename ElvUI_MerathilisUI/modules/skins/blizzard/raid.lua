@@ -111,7 +111,7 @@ function createCountIcons()
 		texture:SetAllPoints()
 		frame.texture = texture
 
-		local count = MER:CreateText(frame, "OVERLAY", 10, nil)
+		local count = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
 		count:SetPoint("BOTTOMRIGHT", -2, 2)
 		count:SetText(0)
 		frame.count = count

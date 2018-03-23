@@ -20,6 +20,9 @@ local PlaySound = PlaySound
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
+local cp = "|cFF00c0fa" -- +
+local cm = "|cff9a1212" -- -
+
 local PANEL_HEIGHT = 19;
 
 function MERL:LoadLayout()
@@ -177,17 +180,17 @@ end
 local function MoveButtonBar(button, bar)
 	if button == MerathilisUIButton1 then
 		if E.db.actionbar.bar5.enabled == true then
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+			button.text:SetText(cm.."-|r")
 		else
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+			button.text:SetText(cp.."+|r")
 		end
 	end
 
 	if button == MerathilisUIButton2 then
 		if E.db.actionbar.bar3.enabled == true then
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+			button.text:SetText(cm.."-|r")
 		else
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+			button.text:SetText(cp.."+|r")
 		end
 	end
 end
@@ -259,18 +262,20 @@ function MERL:CreatePanels()
 	MERS:SkinPanel(bottomRightStyle)
 
 	local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
+	MerathilisUIButton1:SetTemplate("Default", true)
 	MerathilisUIButton1:RegisterForClicks("AnyUp")
-	MerathilisUIButton1:Size(14, 14)
+	MerathilisUIButton1:Size(12, 12)
 	MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
+	MerathilisUIButton1:StyleButton()
 
-	MerathilisUIButton1.tex = MerathilisUIButton1:CreateTexture(nil, "OVERLAY")
-	MerathilisUIButton1.tex:SetInside()
+	MerathilisUIButton1.text = MerathilisUIButton1:CreateFontString(nil, "OVERLAY")
+	MerathilisUIButton1.text:SetFont(E["media"].normFont, 11)
+	MerathilisUIButton1.text:Point("CENTER", 1, 0)
 	if E.db.actionbar.bar5.enabled == true then -- double check for login
-		MerathilisUIButton1.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		MerathilisUIButton1.text:SetText(cm.."-|r")
 	else
-		MerathilisUIButton1.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+		MerathilisUIButton1.text:SetText(cp.."+|r")
 	end
-	MerathilisUIButton1:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
 
 	MerathilisUIButton1:SetScript("OnClick", function(self, btn)
 		if btn == "LeftButton" then
@@ -280,18 +285,20 @@ function MERL:CreatePanels()
 	end)
 
 	local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
+	MerathilisUIButton2:SetTemplate("Default", true)
 	MerathilisUIButton2:RegisterForClicks("AnyUp")
-	MerathilisUIButton2:Size(14, 14)
+	MerathilisUIButton2:Size(12, 12)
 	MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
+	MerathilisUIButton2:StyleButton()
 
-	MerathilisUIButton2.tex = MerathilisUIButton2:CreateTexture(nil, "OVERLAY")
-	MerathilisUIButton2.tex:SetInside()
+	MerathilisUIButton2.text = MerathilisUIButton2:CreateFontString(nil, "OVERLAY")
+	MerathilisUIButton2.text:SetFont(E["media"].normFont, 11)
+	MerathilisUIButton2.text:Point("CENTER", 0, 0)
 	if E.db.actionbar.bar3.enabled == true then -- double check for login
-		MerathilisUIButton2.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		MerathilisUIButton2.text:SetText(cm.."-|r")
 	else
-		MerathilisUIButton2.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+		MerathilisUIButton2.text:SetText(cp.."+|r")
 	end
-	MerathilisUIButton2:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
 
 	MerathilisUIButton2:SetScript("OnClick", function(self, btn)
 		if btn == "LeftButton" then

@@ -33,6 +33,7 @@ local cycles = {
 	{
 		chatType = "GUILD",
 		use = function(self, editbox) return IsInGuild() end,
+		use = function(self, editbox) return IsInGuild() end,
 	},
 }
 

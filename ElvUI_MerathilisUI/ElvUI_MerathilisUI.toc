@@ -1,7 +1,7 @@
 ## Interface: 70300
 ## Author: Merathilis
 ## Credits: Benik, Darth Predator, Blazeflack, Azilroka, Simpy, ChaosVoid, fgprodigal, Elv & all AddOn Authors who inspired me.
-## Version: 3.20
+## Version: 3.19
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -11,9 +11,9 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
-## X-ElvVersion: 10.73
-## X-Curse-Packaged-Version: 3.20
+## OptionalDeps: SharedMedia, AddOnSkins, BigWigs
+## X-ElvVersion: 10.71
+## X-Curse-Packaged-Version: 3.19
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
 ## X-Tukui-ProjectID: 1

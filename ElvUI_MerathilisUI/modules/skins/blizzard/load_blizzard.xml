@@ -10,7 +10,6 @@
 	<Script file="character.lua"/>
 	<Script file="collectables.lua"/>
 	<Script file="contribution.lua"/>
-	<Script file="deathRecap.lua"/>
 	<Script file="dressingroom.lua"/>
 	<Script file="encounterjournal.lua"/>
 	<Script file="flightmap.lua"/>
@@ -30,7 +29,6 @@
 	<Script file="objectivetracker.lua"/>
 	<Script file="questchoice.lua"/>
 	<Script file="questframe.lua"/>
-	<Script file="questPOI.lua"/>
 	<Script file="raid.lua"/>
 	<Script file="spellbook.lua"/>
 	<Script file="orderhall.lua"/>

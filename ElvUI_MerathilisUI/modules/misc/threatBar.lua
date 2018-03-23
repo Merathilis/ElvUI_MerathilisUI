@@ -144,7 +144,8 @@ function MERTB:Initialize()
 	self.bar:SetMinMaxValues(0, 100)
 	self.bar:CreateBackdrop("Default")
 
-	self.bar.text = MER:CreateText(self.bar, "OVERLAY", self.db.textSize, self.db.textOutline)
+	self.bar.text = self.bar:CreateFontString(nil, "OVERLAY")
+	self.bar.text:FontTemplate(nil, self.db.textSize, self.db.textOutline)
 	self.bar.text:Point("CENTER", self.bar, "CENTER")
 
 	self:UpdatePosition()

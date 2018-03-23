@@ -265,36 +265,6 @@ local function LocPanelTable()
 								name = L["Hearthstone Location"],
 								desc = L["Show the name on location your Heathstone is bound to."],
 							},
-							showHearthstones = {
-								type = "toggle",
-								order = 7,
-								name = L["Show hearthstones"],
-								desc = L["Show hearthstone type items in the list."],
-							},
-							showToys = {
-								type = "toggle",
-								order = 8,
-								name = L["Show Toys"],
-								desc = L["Show toys in the list. This option will affect all other display options as well."],
-							},
-							showSpells = {
-								type = "toggle",
-								order = 9,
-								name = L["Show spells"],
-								desc = L["Show relocation spells in the list."],
-							},
-							showEngineer = {
-								type = "toggle",
-								order = 10,
-								name = L["Show engineer gadgets"],
-								desc = L["Show items used only by engineers when the profession is learned."],
-							},
-							ignoreMissingInfo = {
-								type = "toggle",
-								order = 11,
-								name = L["Ignore missing info"],
-								desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
-							},
 						},
 					},
 					fontGroup = {

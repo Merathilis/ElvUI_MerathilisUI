@@ -26,7 +26,7 @@ local function styleBMAH()
 	BlackMarketFrame:Styling()
 
 	MERS:CreateBG(BlackMarketFrame.HotDeal.Item)
-	BlackMarketFrame.HotDeal.Item._mUIIconBorder = MERS:ReskinIcon(BlackMarketFrame.HotDeal.Item.IconTexture)
+	BlackMarketFrame.HotDeal.Item.IconTexture:SetTexCoord(unpack(E.TexCoords))
 
 	local headers = {"ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid"}
 	for _, headerName in pairs(headers) do
@@ -49,6 +49,7 @@ local function styleBMAH()
 		for i = 1, #buttons do
 			local bu = buttons[i]
 
+			bu.Item.IconTexture:SetTexCoord(unpack(E.TexCoords))
 			if not bu.reskinned then
 				bu.Left:Hide()
 				bu.Right:Hide()
@@ -56,7 +57,6 @@ local function styleBMAH()
 
 				bu.Item:SetNormalTexture("")
 				bu.Item:SetPushedTexture("")
-				bu.Item._mUIIconBorder = MERS:ReskinIcon(bu.Item.IconTexture)
 
 				local bg = CreateFrame("Frame", nil, bu)
 				bg:SetPoint("TOPLEFT")
@@ -68,20 +68,6 @@ local function styleBMAH()
 				tex:SetPoint("TOPLEFT")
 				tex:SetPoint("BOTTOMRIGHT", 0, 5)
 				tex:SetColorTexture(0, 0, 0, .25)
-
-				bu:SetHighlightTexture(E["media"].normTex)
-				local hl = bu:GetHighlightTexture()
-				hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
-				hl.SetAlpha = MER.dummy
-				hl:ClearAllPoints()
-				hl:SetPoint("TOPLEFT", 0, -1)
-				hl:SetPoint("BOTTOMRIGHT", -1, 6)
-
-				bu.Selection:ClearAllPoints()
-				bu.Selection:SetPoint("TOPLEFT", 0, -1)
-				bu.Selection:SetPoint("BOTTOMRIGHT", -1, 6)
-				bu.Selection:SetTexture(E["media"].normTex)
-				bu.Selection:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .1)
 
 				bu.reskinned = true
 			end

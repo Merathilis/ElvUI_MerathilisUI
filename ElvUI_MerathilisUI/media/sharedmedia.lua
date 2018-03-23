@@ -9,6 +9,7 @@ LSM:Register("font","Merathilis Visitor1", [[Interface\AddOns\ElvUI_MerathilisUI
 LSM:Register("font","Merathilis Visitor2", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\visitor2.ttf]])
 LSM:Register("font","Merathilis Tukui", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\uf_font.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font","Merathilis ArialN", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\ARIALN.ttf]])
+LSM:Register("font","Merathilis Expressway", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Expressway.ttf]], LSM.LOCALE_BIT_ruRU + LSM.LOCALE_BIT_western)
 LSM:Register("font","Merathilis Default", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\default.ttf]])
 LSM:Register("font","Merathilis Roboto-Black", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Black.ttf]])
 LSM:Register("font","Merathilis Roboto-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Bold.ttf]])

@@ -13,6 +13,14 @@ local CreateFrame = CreateFrame
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
+	local function onEnter(self)
+		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
+	end
+
+	local function onLeave(self)
+		self:SetBackdropColor(0, 0, 0, .25)
+	end
+
 	-- Category buttons
 	for i = 1, 4 do
 		local bu = _G["PVPQueueFrameCategoryButton"..i]
@@ -20,6 +28,9 @@ local function stylePvP()
 
 		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
+
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
 
 		bu.backdropTexture:Hide()
 	end
