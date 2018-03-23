@@ -79,7 +79,6 @@ LST:RegisterSkin("MerathilisUI", {
 		},
 	},
 })
-LST:SetSkin("MerathilisUI")
 
 hooksecurefunc(LST, "ApplySkin", function(_, toast)
 	if not toast.skinned then
