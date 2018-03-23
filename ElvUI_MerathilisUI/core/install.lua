@@ -32,6 +32,7 @@ local function SetupCVars()
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
+	SetCVar("nameplateShowAll", 1)
 	SetCVar("nameplateShowSelf", 0)
 	SetCVar("nameplateShowEnemies", 1)
 	SetCVar("nameplateShowEnemyPets", 1)
@@ -42,16 +43,19 @@ local function SetupCVars()
 	SetCVar("nameplateLargerScale", 1)
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
+	SetCVar("nameplateMotion", 1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
 	SetCVar("screenshotQuality", 10)
 	SetCVar("showTutorials", 0)
+	SetCVar("cameraSmoothStyle", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	SetCVar("UberTooltips", 1)
 	SetCVar("lockActionBars", 1)
 	SetCVar("chatMouseScroll", 1)
 	SetCVar("chatStyle", "classic")
+	SetCVar("whisperMode", "inline")
 	SetCVar("violenceLevel", 5)
 	SetCVar("blockTrades", 0)
 	SetCVar("countdownForCooldowns", 1)
@@ -184,7 +188,9 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	E.private["general"]["pixelPerfect"] = true
 	E.private["general"]["chatBubbles"] = "backdrop_noborder"
-	E.private["general"]["chatBubbleFontSize"] = 11
+	E.private["general"]["chatBubbleFontSize"] = 9
+	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
+	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "MerathilisFlat"
 	E.private["general"]["glossTex"] = "MerathilisFlat"
@@ -231,6 +237,8 @@ function MER:SetupLayout()
 	end
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
+	E.db["general"]["vendorGrays"] = true
+	E.db["general"]["vendorGraysDetails"] = true
 	E.db["general"]["backdropcolor"]["r"] = 0.101
 	E.db["general"]["backdropcolor"]["g"] = 0.101
 	E.db["general"]["backdropcolor"]["b"] = 0.101
@@ -253,17 +261,20 @@ function MER:SetupLayout()
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Roboto-Black"
+	E.db["auras"]["font"] = "Expressway"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["fontSize"] = 12
 	E.db["auras"]["timeYOffset"] = 0
 	E.db["auras"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
 	E.db["auras"]["buffs"]["size"] = 32
+	E.db["auras"]["buffs"]["countFontsize"] = 12
+	E.db["auras"]["buffs"]["durationFontSize"] = 12
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 42
+	E.db["auras"]["debuffs"]["countFontsize"] = 16
+	E.db["auras"]["debuffs"]["durationFontSize"] = 16
 
 	if E.db.mui.general.panels then
 		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -17)
@@ -282,9 +293,9 @@ function MER:SetupLayout()
 	E.db["bags"]["countFont"] = "Expressway"
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
-	E.db["bags"]["bagSize"] = 30
+	E.db["bags"]["bagSize"] = 34
 	E.db["bags"]["bagWidth"] = 470
-	E.db["bags"]["bankSize"] = 30
+	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
@@ -407,7 +418,7 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
 	E.db["databars"]["experience"]["hideInVehicle"] = true
-	E.db["databars"]["experience"]["hideInCombat"] = true
+	E.db["databars"]["experience"]["hideInCombat"] = false
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
 	E.db["databars"]["reputation"]["height"] = 146
@@ -416,38 +427,38 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["textFormat"] = "NONE"
 	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
-	E.db["databars"]["reputation"]["hideInCombat"] = true
+	E.db["databars"]["reputation"]["hideInCombat"] = false
 	E.db["databars"]["artifact"]["enable"] = true
 	E.db["databars"]["artifact"]["height"] = 146
 	E.db["databars"]["artifact"]["textSize"] = 11
 	E.db["databars"]["artifact"]["width"] = 8
 	E.db["databars"]["artifact"]["hideInVehicle"] = true
-	E.db["databars"]["artifact"]["hideInCombat"] = true
+	E.db["databars"]["artifact"]["hideInCombat"] = false
 	E.db["databars"]["honor"]["enable"] = false
 	E.db["databars"]["honor"]["height"] = 155
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
-	E.db["databars"]["honor"]["hideInCombat"] = true
+	E.db["databars"]["honor"]["hideInCombat"] = false
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
-	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -19, 50)
+	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
 	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
-	MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
+	MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -19, 50)
 	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 51)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
 	-- Apply BenikUI
 	if IsAddOnLoaded("ElvUI_BenikUI") then
-		MER:LoadBenikUIProfile("big")
+		MER:LoadBenikUIProfile()
 	end
 	-- Apply S&L
 	if IsAddOnLoaded("ElvUI_SLE") then
-		 MER:LoadShadowandLightProfile("big")
+		MER:LoadShadowandLightProfile()
 	end
 	-- Masque
 	if IsAddOnLoaded("Masque") then
@@ -706,8 +717,8 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 	E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
-	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "CUSTOM"
-	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\fist.blp"
+	E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "COMBAT"
+	E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = ""
 
 	MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 250)
 

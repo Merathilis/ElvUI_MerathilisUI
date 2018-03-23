@@ -83,8 +83,11 @@ local function styleGarrison()
 
 	-- Follower list
 	local FollowerList = GarrisonLandingPage.FollowerList
-	select(2, FollowerList:GetRegions()):Hide()
 	FollowerList:GetRegions():Hide()
+	select(2, FollowerList:GetRegions()):Hide()
+
+	-- LandingPage Follower Tab
+	local FollowerTab = GarrisonLandingPage.FollowerTab
 
 	-- Ship Follower list
 	local FollowerList = GarrisonLandingPage.ShipFollowerList
@@ -269,49 +272,6 @@ local function styleGarrison()
 
 		MERS:CreateBD(reward, .15)
 	end
-
-	-- Shared templates
-	local function onUpdateData(self)
-		local followerFrame = self:GetParent()
-		local followers = followerFrame.FollowerList.followers
-		local followersList = followerFrame.FollowerList.followersList
-		local scrollFrame = followerFrame.FollowerList.listScroll
-
-		if GarrisonLandingPage.ShipFollowerTab:IsVisible() then
-			scrollFrame = followerFrame.ShipFollowerList.listScroll
-		end
-
-		local buttons = scrollFrame.buttons
-		local numFollowers = #followersList
-		local offset = HybridScrollFrame_GetOffset(scrollFrame)
-		local numButtons = #buttons
-
-		for i = 1, #buttons do
-			local button = buttons[i]
-			local portrait = button.PortraitFrame
-
-			if not button.restyled then
-				MERS:CreateBD(button, .25)
-
-				button.restyled = true
-			end
-
-			if portrait then
-				if portrait.PortraitRingQuality:IsShown() then
-					portrait.squareBG:SetBackdropBorderColor(portrait.PortraitRingQuality:GetVertexColor())
-				else
-					portrait.squareBG:SetBackdropBorderColor(0, 0, 0)
-				end
-			end
-			select(9, button:GetRegions()):Hide()
-		end
-	end
-	hooksecurefunc(GarrisonMissionFrameFollowers, "UpdateData", onUpdateData)
-	hooksecurefunc(GarrisonShipyardFrameFollowers, "UpdateData", onUpdateData)
-	hooksecurefunc(GarrisonBuildingFrameFollowers, "UpdateData", onUpdateData)
-	hooksecurefunc(GarrisonRecruitSelectFrame.FollowerList, "UpdateData", onUpdateData)
-	hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateData", onUpdateData)
-	hooksecurefunc(GarrisonLandingPageShipFollowerList, "UpdateData", onUpdateData)
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)

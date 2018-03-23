@@ -75,7 +75,6 @@ function MER:RegisterMedia()
 	E["media"].muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
 	E["media"].muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
 	E["media"].muiTuk = LSM:Fetch("font", "Merathilis Tukui")
-	E["media"].muiExpressway = LSM:Fetch("font", "Merathilis Expressway")
 	E["media"].muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
 
 	-- Background
@@ -95,6 +94,9 @@ function MER:RegisterMedia()
 	E["media"].muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
 	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
+
+	-- Custom Textures
+	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
 
 	-- This change the text color for the QuestInfoQuestType (white)
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
@@ -136,7 +138,7 @@ local function CreateSplashScreen()
 	f.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
 	f.logo:Point("CENTER", f, "CENTER")
 
-	f.version = f:CreateFontString(nil, "OVERLAY")
+	f.version = MER:CreateText(f, "OVERLAY", 14, nil, "CENTER")
 	f.version:FontTemplate(nil, 14, nil)
 	f.version:Point("TOP", f.logo, "BOTTOM", 0, 10)
 	f.version:SetFormattedText("v%s", MER.Version)

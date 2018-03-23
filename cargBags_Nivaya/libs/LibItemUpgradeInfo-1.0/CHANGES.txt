@@ -1,0 +1,18 @@
+tag 4d1729f862c059a0cc03c8e1f21e6013422bb75f Release-70300-30
+Author:	Alar of Runetotem <alar@aspide.it>
+Date:	Wed Dec 20 10:39:35 2017 +0100
+
+Now uses GetDetailedItemLevelInfo
+
+commit 4396dbea787f34d7fddc3031b75c06447e6a3c89
+Author: Alar of Runetotem <alar@aspide.it>
+Date:   Wed Dec 20 10:37:34 2017 +0100
+
+    Uses GetDetailedItemLevelInfo when appropriate
+
+commit 9f23d3fc322f059ff538c797d2302030a80fbf06
+Author: Alar of Runetotem <alar@aspide.it>
+Date:   Tue Sep 19 18:55:53 2017 +0200
+
+    Updated getiteminfo doc
+

@@ -7,7 +7,7 @@ MERS.modName = L["Skins/AddOns"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, select, unpack = assert, pairs, select, unpack
+local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -76,6 +76,42 @@ function S:HandleCloseButton(f, point, text)
 			f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
 		end
 	end
+end
+
+-- External CloseButtons
+function MERS:ReskinClose(f, a1, p, a2, x, y)
+	assert(f, "doesn't exist!")
+	f:Size(17, 17)
+
+	if not a1 then
+		f:Point("TOPRIGHT", -4, -4)
+	else
+		f:ClearAllPoints()
+		f:Point(a1, p, a2, x, y)
+	end
+
+	f:SetNormalTexture("")
+	f:SetHighlightTexture("")
+	f:SetPushedTexture("")
+	f:SetDisabledTexture("")
+
+	MERS:CreateBD(f, 0)
+	MERS:CreateBackdropTexture(f)
+	f:Styling()
+
+	f:SetDisabledTexture(E["media"].normTex)
+	local dis = f:GetDisabledTexture()
+	dis:SetVertexColor(0, 0, 0, .4)
+	dis:SetDrawLayer("OVERLAY")
+	dis:SetAllPoints()
+
+	local icon = f:CreateFontString(nil, "OVERLAY")
+	icon:Point("CENTER", 2, 0)
+	icon:FontTemplate(nil, 12, "OUTLINE")
+	icon:SetText("X")
+
+	f:HookScript("OnEnter", function() icon:SetTextColor(r, g, b) end)
+	f:HookScript("OnLeave", function() icon:SetTextColor(1, 1, 1) end)
 end
 
 -- BenikUI Styles
@@ -452,7 +488,7 @@ function MERS:CreatePulse(frame, speed, alpha, mult)
 	frame.alpha = alpha or 1
 	frame.tslu = 0
 	frame:SetScript("OnUpdate", function(self, elapsed)
-		elapsed = elapsed * ( speed or 5/4 )
+		elapsed = elapsed * (speed or 5/4)
 		self.tslu = self.tslu + elapsed
 		if self.tslu > self.speed then
 			self.tslu = 0
@@ -509,10 +545,10 @@ end
 function MERS:Reskin(f, strip, noHighlight)
 	assert(f, "doesn't exist!")
 
-	f:SetNormalTexture("")
-	f:SetHighlightTexture("")
-	f:SetPushedTexture("")
-	f:SetDisabledTexture("")
+	if f.SetNormalTexture then f:SetNormalTexture("") end
+	if f.SetHighlightTexture then f:SetHighlightTexture("") end
+	if f.SetPushedTexture then f:SetPushedTexture("") end
+	if f.SetDisabledTexture then f:SetDisabledTexture("") end
 
 	local buttonName = f:GetName()
 
@@ -572,27 +608,51 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 end
 
 function MERS:ReskinIcon(icon)
+	assert(icon, "doesn't exist!")
+
 	icon:SetTexCoord(unpack(E.TexCoords))
 	return MERS:CreateBDFrame(icon)
 end
 
-function MERS:SmallItemButtonTemplate(button)
-	local icon = button.Icon
-	icon:SetSize(29, 29)
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
+function MERS:ReskinItemFrame(frame)
+	assert(frame, "doesn't exist!")
 
-	local nameFrame = button.NameFrame
+	local icon = frame.Icon
+	frame._mUIIconBorder = MERS:ReskinIcon(icon)
+
+	local nameFrame = frame.NameFrame
 	nameFrame:SetAlpha(0)
 
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
+	local bg = CreateFrame("Frame", nil, frame)
+	bg:SetPoint("TOP", icon, 0, 1)
+	bg:SetPoint("BOTTOM", icon, 0, -1)
+	bg:SetPoint("LEFT", icon, "RIGHT", 2, 0)
+	bg:SetPoint("RIGHT", nameFrame, -4, 0)
 	MERS:CreateBD(bg, .2)
+	frame._mUINameBG = bg
+end
+
+function MERS:ItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
+	button:SetNormalTexture("")
+	button:SetHighlightTexture("")
+	button:SetPushedTexture("")
+	button._mUIIconBorder = MERS:ReskinIcon(button.icon)
+end
+
+function MERS:SimplePopupButtonTemplate(checkbutton)
+	select(2, checkbutton:GetRegions()):Hide()
+end
+
+function MERS:PopupButtonTemplate(checkbutton)
+	MERS:SimplePopupButtonTemplate(checkbutton)
 end
 
 function MERS:LargeItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
 	local icon = button.Icon
-	button._mUIIconBorder = MERS:ReskinIcon(icon)
 
 	local nameFrame = button.NameFrame
 	nameFrame:SetAlpha(0)
@@ -601,6 +661,25 @@ function MERS:LargeItemButtonTemplate(button)
 	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
 	bg:SetPoint("BOTTOMRIGHT", -3, 1)
 	MERS:CreateBD(bg, .2)
+
+	button._mUINameBG = bg
+end
+
+function MERS:SmallItemButtonTemplate(button)
+	assert(button, "doesn't exist!")
+
+	local icon = button.Icon
+	icon:SetSize(28, 28)
+
+	local nameFrame = button.NameFrame
+	nameFrame:SetAlpha(0)
+
+	local bg = CreateFrame("Frame", nil, button)
+	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
+	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
+	MERS:CreateBD(bg, .2)
+
+	button._mUINameBG = bg
 end
 
 function MERS:SkinPanel(panel)

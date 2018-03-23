@@ -97,6 +97,7 @@ end
 
 AFK.InitializemUIAFK = AFK.Initialize
 function AFK:Initialize()
+	if IsAddOnLoaded("ElvUI_BenikUI") then return end
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 	self:InitializemUIAFK()
 
@@ -130,8 +131,7 @@ function AFK:Initialize()
 	MERS:SkinPanel(self.AFKMode.bottomPanel.topRightStyle)
 
 	-- Bottom AFK Title
-	self.AFKMode.bottomPanel.AFKtitle = self.AFKMode.bottomPanel:CreateFontString(nil, "OVERLAY")
-	self.AFKMode.bottomPanel.AFKtitle:FontTemplate(nil, 20)
+	self.AFKMode.bottomPanel.AFKtitle = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 20, nil, "CENTER")
 	self.AFKMode.bottomPanel.AFKtitle:SetText("|cFF00c0fa"..L["Are you still there? ... Hello?"].."|r")
 	self.AFKMode.bottomPanel.AFKtitle:SetPoint("BOTTOM", self.AFKMode.bottomPanel, "BOTTOM", 0, 10)
 
@@ -142,7 +142,7 @@ function AFK:Initialize()
 	self.AFKMode.bottomPanel.faction:SetSize(80, 80)
 
 	-- Bottom Player Name
-	self.AFKMode.bottomPanel.name = self.AFKMode.bottomPanel:CreateFontString(nil, "OVERLAY")
+	self.AFKMode.bottomPanel.name = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 22, nil)
 	self.AFKMode.bottomPanel.name:FontTemplate(nil, 22)
 	self.AFKMode.bottomPanel.name:SetFormattedText("%s", E.myname)
 	self.AFKMode.bottomPanel.name:SetPoint("LEFT", self.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
@@ -150,8 +150,7 @@ function AFK:Initialize()
 	self.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
 
 	-- Bottom Guild Name
-	self.AFKMode.bottomPanel.guild = self.AFKMode.bottomPanel:CreateFontString(nil, "OVERLAY")
-	self.AFKMode.bottomPanel.guild:FontTemplate(nil, 16)
+	self.AFKMode.bottomPanel.guild = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 16, nil)
 	self.AFKMode.bottomPanel.guild:Point("TOPLEFT", self.AFKMode.bottomPanel.name, "BOTTOMLEFT", -5, -6)
 	self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 
@@ -188,8 +187,7 @@ function AFK:Initialize()
 	self.AFKMode.bottom.logo:SetSize(120, 55)
 
 	-- ElvUI Version
-	self.AFKMode.topPanel.eversion = self.AFKMode.topPanel:CreateFontString(nil, "OVERLAY")
-	self.AFKMode.topPanel.eversion:FontTemplate(nil, 10)
+	self.AFKMode.topPanel.eversion = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 10, nil)
 	self.AFKMode.topPanel.eversion:SetText("|cFF00c0fa"..E.version.."|r")
 	self.AFKMode.topPanel.eversion:SetPoint("TOP", self.AFKMode.bottom.logo, "BOTTOM")
 	self.AFKMode.topPanel.eversion:SetTextColor(0.7, 0.7, 0.7)
@@ -201,24 +199,22 @@ function AFK:Initialize()
 	self.AFKMode.topPanel.mUILogo:Size(75, 80)
 
 	-- MerathilisUI Version
-	self.AFKMode.topPanel.mversion = self.AFKMode.topPanel:CreateFontString(nil, "OVERLAY")
-	self.AFKMode.topPanel.mversion:FontTemplate(nil, 10)
+	self.AFKMode.topPanel.mversion = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 10, nil)
 	self.AFKMode.topPanel.mversion:SetText("|cFF00c0fa"..MER.Version.."|r")
 	self.AFKMode.topPanel.mversion:SetPoint("TOP", self.AFKMode.topPanel.mUILogo, "BOTTOM")
 	self.AFKMode.topPanel.mversion:SetTextColor(0.7, 0.7, 0.7)
 
 	-- Time
-	self.AFKMode.topPanel.time = self.AFKMode.topPanel:CreateFontString(nil, "OVERLAY")
-	self.AFKMode.topPanel.time:FontTemplate(nil, 16)
+	self.AFKMode.topPanel.time = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 16, nil)
 	self.AFKMode.topPanel.time:SetText("")
-	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 15)
+	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 0)
 	self.AFKMode.topPanel.time:SetJustifyH("CENTER")
 	self.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	-- Logout Count
 	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.countd:Size(418, 36)
-	self.AFKMode.countd:Point("BOTTOM", self.AFKMode.topPanel.time, "BOTTOM", 0, -40)
+	self.AFKMode.countd:Point("CENTER", self.AFKMode, "CENTER", 0, 100)
 
 	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
 	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
@@ -242,8 +238,7 @@ function AFK:Initialize()
 	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	-- 30 mins countdown text
-	self.AFKMode.countd.text = self.AFKMode.countd:CreateFontString(nil, 'OVERLAY')
-	self.AFKMode.countd.text:FontTemplate(nil, 12)
+	self.AFKMode.countd.text = MER:CreateText(self.AFKMode.countd, "OVERLAY", 12, nil)
 	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER", 0, -2)
 	self.AFKMode.countd.text:SetJustifyH("CENTER")
 	self.AFKMode.countd.text:SetJustifyV("CENTER")

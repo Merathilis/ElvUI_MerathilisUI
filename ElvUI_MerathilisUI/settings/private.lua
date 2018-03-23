@@ -3,6 +3,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 -- Misc options
 ----------------------------------------------------------------------------------------
+if V["muiMisc"] == nil then V["muiMisc"] = {} end
+
 V["muiMisc"] = {
 	
 }
@@ -10,6 +12,8 @@ V["muiMisc"] = {
 ----------------------------------------------------------------------------------------
 -- Skins options
 ----------------------------------------------------------------------------------------
+if V["muiSkins"] == nil then V["muiSkins"] = {} end
+
 V["muiSkins"] = {
 	["blizzard"] = {
 		["character"] = true,
@@ -50,6 +54,8 @@ V["muiSkins"] = {
 		["help"] = true,
 		["loot"] = true,
 		["warboard"] = true,
+		["deathRecap"] = true,
+		["questPOI"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
@@ -60,6 +66,7 @@ V["muiSkins"] = {
 		["bs"] = true,
 		["pa"] = true,
 		["po"] = true,
+		["ls"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,

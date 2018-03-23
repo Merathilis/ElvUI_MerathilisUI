@@ -18,6 +18,7 @@ local DecorAddons = {
 	{"BugSack", L["BugSack"], "bs"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
+	{"ls_Toasts", L["ls_Toasts"], "ls"},
 }
 
 local SupportedProfiles = {
@@ -30,6 +31,7 @@ local SupportedProfiles = {
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
+	{"ls_Toasts", "ls_Toasts"}
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -319,6 +321,16 @@ local function SkinsTable()
 				name = L["Warboard"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Warboard end,
 			},
+			deathRecap = {
+				type = "toggle",
+				name = DEATH_RECAP_TITLE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
+			},
+			questPOI = {
+				type = "toggle",
+				name = "QuestPOI",
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
+			},
 		},
 	}
 
@@ -368,6 +380,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ProjectAzilroka' then
 					MER:LoadPAProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ls_Toasts' then
+					MER:LoadLSProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)
