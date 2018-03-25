@@ -6,7 +6,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 if V["muiMisc"] == nil then V["muiMisc"] = {} end
 
 V["muiMisc"] = {
-	
+	["session"] = {
+		["day"] = 1,
+	}
 }
 
 ----------------------------------------------------------------------------------------

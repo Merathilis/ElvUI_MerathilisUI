@@ -63,7 +63,7 @@ local function AddOptions()
 						name = L["Login Message"],
 						desc = L["Enable/Disable the Login Message in Chat"],
 					},
-					SplashScreen = {
+					splashScreen = {
 						order = 3,
 						type = "toggle",
 						name = L["SplashScreen"],

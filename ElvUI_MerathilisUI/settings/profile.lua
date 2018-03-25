@@ -11,7 +11,8 @@ P["mui"] = {
 	["general"] = {
 		["LoginMsg"] = true, -- Enable welcome message in chat
 		["GameMenu"] = true, -- Enable the Styles GameMenu
-		["SplashScreen"] = true, -- Enable the SplashScreen on LogIn
+		["splashScreen"] = true, -- Enable the SplashScreen on LogIn
+
 		["AFK"] = true, -- Enable the pimped AFK Screen
 		["FlightMode"] = true, -- Enable the FlightMode
 		["FlightPoint"] = true, -- Enable the FlightPoints
