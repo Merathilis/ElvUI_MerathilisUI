@@ -209,6 +209,8 @@ local function styleGarrison()
 
 	-- Follower Recruitment Frame
 	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Styling()
+	local recruiterPortrait = _G["GarrisonCapacitiveDisplayFrame"].CapacitiveDisplay.ShipmentIconFrame.Follower
+	S:HandleGarrisonPortrait(recruiterPortrait)
 
 	-- [[ Shipyard UI ]]
 	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab
