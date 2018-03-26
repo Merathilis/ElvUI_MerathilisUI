@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, pairs = select, pairs
+local select, pairs, unpack = select, pairs, unpack
 -- WoW API
 local CreateFrame = CreateFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -208,9 +208,51 @@ local function styleGarrison()
 	FollowerList:DisableDrawLayer("BORDER")
 
 	-- Follower Recruitment Frame
-	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Styling()
-	local recruiterPortrait = _G["GarrisonCapacitiveDisplayFrame"].CapacitiveDisplay.ShipmentIconFrame.Follower
-	S:HandleGarrisonPortrait(recruiterPortrait)
+	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
+	GarrisonCapacitiveDisplayFrame.backdrop:Styling()
+	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
+
+	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
+
+	CapacitiveDisplay.IconBG:SetAlpha(0)
+
+	do
+		local icon = CapacitiveDisplay.ShipmentIconFrame.Icon
+		S:HandleGarrisonPortrait(CapacitiveDisplay.ShipmentIconFrame.Follower)
+
+		icon:SetTexCoord(unpack(E.TexCoords))
+		MERS:CreateBG(icon)
+	end
+
+	do
+		local reagentIndex = 1
+		hooksecurefunc("GarrisonCapacitiveDisplayFrame_Update", function(self)
+			local reagents = CapacitiveDisplay.Reagents
+
+			local reagent = reagents[reagentIndex]
+			while reagent do
+				reagent.NameFrame:SetAlpha(0)
+
+				reagent.Icon:SetTexCoord(.08, .92, .08, .92)
+				reagent.Icon:SetDrawLayer("BORDER")
+				MERS:CreateBG(reagent.Icon)
+
+				-- Hide ElvUI's backdrop
+				if reagent.backdrop then
+					reagent.backdrop:Hide()
+				end
+
+				local bg = CreateFrame("Frame", nil, reagent)
+				bg:SetPoint("TOPLEFT")
+				bg:SetPoint("BOTTOMRIGHT", 0, 2)
+				bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
+				MERS:CreateBD(bg, .25)
+
+				reagentIndex = reagentIndex + 1
+				reagent = reagents[reagentIndex]
+			end
+		end)
+	end
 
 	-- [[ Shipyard UI ]]
 	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab
