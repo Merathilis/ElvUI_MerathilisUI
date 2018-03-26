@@ -13,7 +13,8 @@ local GetMoney = GetMoney
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetQuestLogRequiredMoney = GetQuestLogRequiredMoney
-
+local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
+local GetNumRewardSpells = GetNumRewardSpells
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, MAX_NUM_QUESTS
 

@@ -233,7 +233,7 @@ local function styleGarrison()
 			while reagent do
 				reagent.NameFrame:SetAlpha(0)
 
-				reagent.Icon:SetTexCoord(.08, .92, .08, .92)
+				reagent.Icon:SetTexCoord(unpack(E.TexCoords))
 				reagent.Icon:SetDrawLayer("BORDER")
 				MERS:CreateBG(reagent.Icon)
 
