@@ -128,60 +128,56 @@ local function styleObjectiveTracker()
 	end)
 
 	-- Quest Level ObjectiveTrackerFrame
-	local function SetBlockHeader_hook()
+	local function ShowObjectiveTrackerLevel()
+		if ENABLE_COLORBLIND_MODE == "1" then return end
 		for i = 1, GetNumQuestWatches() do
 			local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
 			if ( not questID ) then
 				break
 			end
-			local oldBlock = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
-			if oldBlock then
-				local oldBlockHeight = oldBlock.height
-				local oldHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, title, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-				local newTitle = "["..select(2, GetQuestLogTitle(questLogIndex)).."] "..title
-				local newHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, newTitle, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-				oldBlock:SetHeight(oldBlockHeight + newHeight - oldHeight)
+			local block = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
+			if block then
+				local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(questLogIndex)
+				local height = block.HeaderText:GetHeight()
+				local text = "["..level.."] "..title
+				if isComplete then
+					text = "|cff22ff00"..text
+				elseif frequency == LE_QUEST_FREQUENCY_DAILY then
+					text = "|cff3399ff"..text
+				end
+				block.HeaderText:SetText(text)
 			end
 		end
 	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
+	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", ShowObjectiveTrackerLevel)
 
 	-- Quest Level QuestLog
-	local function QuestLogQuests_Update()
+	local function ShowQuestLogLevel()
 		if ENABLE_COLORBLIND_MODE == "1" then return end
 		local numEntries, numQuests = GetNumQuestLogEntries()
 		local titleIndex = 1
 
 		for i = 1, numEntries do
-			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isStory = GetQuestLogTitle(i)
+			local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(i)
 			local titleButton = QuestLogQuests_GetTitleButton(titleIndex)
 			if title and (not isHeader) and titleButton.questID == questID then
 				local height = titleButton.Text:GetHeight()
-				titleButton.Text:SetText("[" .. level .. "] " .. title)
-				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
+				local text = "["..level.."] "..title
+				if isComplete then
+					text = "|cff22ff00"..text
+				elseif frequency == LE_QUEST_FREQUENCY_DAILY then
+					text = "|cff3399ff"..text
+				end
+				titleButton.Text:SetText(text)
+				titleButton.Text:SetPoint("TOPLEFT", 24, -5)
 				titleButton:SetHeight(titleButton:GetHeight() - height + titleButton.Text:GetHeight())
+				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
+
 				titleIndex = titleIndex + 1
 			end
 		end
 	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
-
-	local function SetQuestDifficultyColor()
-		for i = 1, GetNumQuestWatches() do
-			local questID, _, questIndex = GetQuestWatchInfo(i)
-			if not questID then
-				break
-			end
-			local _, level = GetQuestLogTitle(questIndex)
-			local col = GetQuestDifficultyColor(level)
-			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
-			if block then
-				block.HeaderText:SetTextColor(col.r, col.g, col.b)
-				block.HeaderText.col = col
-			end
-		end
-	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetQuestDifficultyColor)
+	hooksecurefunc("QuestLogQuests_Update", ShowQuestLogLevel)
 
 	local function SetAchievementColor(block)
 		if block.module == ACHIEVEMENT_TRACKER_MODULE then
@@ -190,14 +186,6 @@ local function styleObjectiveTracker()
 		end
 	end
 	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", SetAchievementColor)
-
-	local function ObjectiveTrackerOnLeave(self)
-		local block = self:GetParent()
-		if block.HeaderText.col then
-			block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
-		end
-	end
-	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", ObjectiveTrackerOnLeave)
 
 	--Panels
 	hooksecurefunc("ObjectiveTracker_Update", function(self)
@@ -224,39 +212,6 @@ local function styleObjectiveTracker()
 			end
 		end
 	end)
-
-	local function SetQuestDifficultyColor()
-		for i = 1, GetNumQuestWatches() do
-			local questID, _, questIndex = GetQuestWatchInfo(i)
-			if not questID then
-				break
-			end
-			local _, level = GetQuestLogTitle(questIndex)
-			local col = GetQuestDifficultyColor(level)
-			local block = QUEST_TRACKER_MODULE:GetExistingBlock(questID)
-			if block then
-				block.HeaderText:SetTextColor(col.r, col.g, col.b)
-				block.HeaderText.col = col
-			end
-		end
-	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetQuestDifficultyColor)
-
-	local function SetAchievementColor(block)
-		if block.module == ACHIEVEMENT_TRACKER_MODULE then
-			block.HeaderText:SetTextColor(0.75, 0.61, 0)
-			block.HeaderText.col = nil
-		end
-	end
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", SetAchievementColor)
-
-	local function ObjectiveTrackerOnLeave(self)
-		local block = self:GetParent()
-		if block.HeaderText.col then
-			block.HeaderText:SetTextColor(block.HeaderText.col.r, block.HeaderText.col.g, block.HeaderText.col.b)
-		end
-	end
-	hooksecurefunc("ObjectiveTrackerBlockHeader_OnLeave", ObjectiveTrackerOnLeave)
 
 	local function AutoQuestPopUpBlockTemplate(scrollframe)
 		scrollframe:SetSize(232, 68)
