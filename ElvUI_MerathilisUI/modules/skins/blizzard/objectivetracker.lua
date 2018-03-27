@@ -138,7 +138,6 @@ local function styleObjectiveTracker()
 			local block = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
 			if block then
 				local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(questLogIndex)
-				local height = block.HeaderText:GetHeight()
 				local text = "["..level.."] "..title
 				if isComplete then
 					text = "|cff22ff00"..text
