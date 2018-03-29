@@ -104,6 +104,9 @@ function AFK:Initialize()
 	-- Hide ElvUI Elements
 	self.AFKMode.bottom:Hide() -- Bottom panel
 
+	-- move the chat lower
+	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top, "BOTTOMLEFT", 4, -10)
+
 	-- Bottom Panel
 	self.AFKMode.bottomPanel = CreateFrame("Frame", nil, self.AFKMode)
 	self.AFKMode.bottomPanel:SetFrameLevel(0)
