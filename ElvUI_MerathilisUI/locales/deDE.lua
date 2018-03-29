@@ -11,7 +11,7 @@ L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI
 L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
 L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich den Look zu mehr transparenz.\n\n|cff00c0faNeue Funktionen sind gekennzeichnet mit:|r"
 L["AFK"] = true
-L["Enable/Disable the MUI AFK Screen"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm"
+L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Deaktiviert wenn BenikUI geladen ist."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
 L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
@@ -26,12 +26,22 @@ L["Desciption"] = "Beschreibung"
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
+-- Bags
+L["Usable Items"] = "Benutzbare Gegenstände"
+
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r."
-L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r."
+L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r." -- Guild Message
+L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r." -- Guild Message
+L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r." -- Battle.Net Message
+L[" has gone |cffff0000offline|r."] = " ist jetzt |cffff0000offline|r." -- Battle.Net Message
 L["Unknown"] = "Unbekannt"
+L["Chat Item Level"] = true
+L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
+L["Expand the chat"] = "Chat erweitern"
+L["Chat Button"] = "Chat Taste"
+L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 
 -- Information
 L["Information"] = true
@@ -53,10 +63,6 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
-
--- moveBlizz
-L["moveBlizz"] = true
-L["Make some Blizzard Frames movable."] = "Erlaubt das Verschieben einiger Blizzardfenster."
 
 -- MasterPlan
 L["MasterPlan"] = true
@@ -122,12 +128,10 @@ L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
-L["Expand the chat"] = "Chat erweitern"
-L["Chat Button"] = "Chat Taste"
-L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
+L["Undress"] = "Ausziehen"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -283,6 +287,23 @@ L["Show the name on location your Heathstone is bound to."] = "Zeige die Positio
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
+L["Hearthstone Location"] = "Ruhestein Position"
+L["Show hearthstones"] = "Zeige Ruhestein"
+L["Show hearthstone type items in the list."] = "Zeigt Ruhestein Items in der Liste"
+L["Show Toys"] = "Zeige Spielzeuge"
+L["Show toys in the list. This option will affect all other display options as well."] = "Zeigt Spielzeuge in der Liste. Diese Option wirkt sich auf allen anderen Anzeigeoptionen auswirken."
+L["Show spells"] = "Zeige Zauber"
+L["Show relocation spells in the list."] = "Zeigt Teleport Zauber in der Liste."
+L["Show engineer gadgets"] = "Zeige Ingenieur Spielerein."
+L["Show items used only by engineers when the profession is learned."] = "Zeigt Gegenstände die von Ingenieuren genutzt werden können und wenn der Beruf gelernt ist."
+L["Ignore missing info"] = "Ignoriere fehlende Informationen"
+L["MER_LOCPANEL_IGNOREMISSINGINFO"] = [[Due to how client functions some item info may become unavailable for a period of time. This mostly happens to toys info.
+When called the menu will wait for all information being available before showing up. This may resul in menu opening after some concidarable amount of time, depends on how fast the server will answer info requests.
+By enabling this option you'll make the menu ignore items with missing info, resulting in them not showing up in the list.]]
+L["Info for some items is not available yet. Please try again later"] = "Informationen für einige Gegenstände sind zur Zeit nicht verfügbar. Bitte später nocheinmal versuchen"
+L["Update canceled."] = "Update abgebrochen."
+L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menu wird automatisch geöffnet, wenn alle Informationen gesammelt sind. Nochmaliges aufrufen des Menus während des Updates, wird den Vorgang abbrechen."
+L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

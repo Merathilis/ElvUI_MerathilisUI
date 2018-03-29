@@ -1,20 +1,22 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = E:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-MM.modName = L["Minimap"]
+MM.modName = L["MiniMap"]
 
 --Cache global variables
 --Lua functions
 local _G = _G
+local select = select
+local format = string.format
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local GetInstanceInfo = GetInstanceInfo
+local GetPlayerMapPosition = GetPlayerMapPosition
+local SetMapToCurrentZone = SetMapToCurrentZone
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
-local function blipIcons()
-	_G["Minimap"]:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\blipIcons.tga")
-end
-
-function MM:ChangeLandingButton()
+function MM:ChangeMiniMapButtons()
+	--Garrison Icon
 	if _G["GarrisonLandingPageMinimapButton"] then
 		local scale = E.db.general.minimap.icons.classHall.scale or 1
 
@@ -37,17 +39,40 @@ function MM:ChangeLandingButton()
 	end
 end
 
-function MM:Initialize()
-	self:ChangeLandingButton()
+function MM:MiniMapCoords()
+	if E.db.mui.maps.minimap.coords.enable ~= true then return end
 
-	local f = CreateFrame("Frame")
-	f:RegisterEvent("PLAYER_ENTERING_WORLD")
-	f:SetScript("OnEvent", function(self, event)
-		if event == "PLAYER_ENTERING_WORLD" then
-			blipIcons()
-			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
+	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
+	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
+	Coords:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	Coords:SetPoint(pos, 0, 0)
+	Coords:Hide()
+
+	Minimap:HookScript("OnUpdate",function()
+		if select(2, GetInstanceInfo()) == "none" then
+			local x,y = GetPlayerMapPosition("player")
+			if x>0 or y>0 then
+				Coords:SetText(format("%d,%d",x*100,y*100))
+			else
+				Coords:SetText("")
+			end
 		end
 	end)
+
+	Minimap:HookScript("OnEvent",function(self,event,...)
+		if event == "ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
+			SetMapToCurrentZone()
+		end
+	end)
+
+	WorldMapFrame:HookScript("OnHide", SetMapToCurrentZone)
+	Minimap:HookScript("OnEnter", function() Coords:Show() end)
+	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
+end
+
+function MM:Initialize()
+	self:ChangeMiniMapButtons()
+	self:MiniMapCoords()
 end
 
 local function InitializeCallback()

@@ -33,7 +33,7 @@ local function MerchantItemlevel()
 		local button = _G["MerchantItem"..i.."ItemButton"]
 		if button and button:IsShown() then
 			if not button.text then
-				button.text = button:CreateFontString(nil, "OVERLAY", "SystemFont_Outline_Small")
+				button.text = MER:CreateText(button, "OVERLAY", 12, "OUTLINE")
 				button.text:SetPoint("TOPLEFT", 1, -1)
 				button.text:SetTextColor(1, 1, 0)
 			else

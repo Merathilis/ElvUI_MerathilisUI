@@ -15,11 +15,10 @@ local print, pairs, tonumber = print, pairs, tonumber
 local CreateFrame = CreateFrame
 local GetAddOnMetadata = GetAddOnMetadata
 local IsAddOnLoaded = IsAddOnLoaded
-local C_TimerAfter = C_Timer.After
 local SetCVar = SetCVar
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: LibStub, ElvDB, MUISplashScreen, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
+-- GLOBALS: LibStub, ElvDB, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
 -- GLOBALS: MERData, MERDataPerChar
 
 --Setting up table to unpack.
@@ -37,7 +36,7 @@ MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
-function MER:PrintURL(url) -- Credit: Azilroka
+local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
 
@@ -75,7 +74,6 @@ function MER:RegisterMedia()
 	E["media"].muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
 	E["media"].muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
 	E["media"].muiTuk = LSM:Fetch("font", "Merathilis Tukui")
-	E["media"].muiExpressway = LSM:Fetch("font", "Merathilis Expressway")
 	E["media"].muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
 
 	-- Background
@@ -96,68 +94,13 @@ function MER:RegisterMedia()
 	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
 	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
 
+	-- Custom Textures
+	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
+
 	-- This change the text color for the QuestInfoQuestType (white)
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
 
 	E:UpdateMedia()
-end
-
--- Splash Screen
-local function CreateSplashScreen()
-	local f = CreateFrame("Frame", "MUISplashScreen", E.UIParent)
-	f:Size(300, 150)
-	f:SetPoint("CENTER", 0, 100)
-	f:SetFrameStrata("TOOLTIP")
-	f:SetAlpha(0)
-
-	f.bg = f:CreateTexture(nil, "BACKGROUND")
-	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	f.bg:SetPoint("BOTTOM")
-	f.bg:Size(400, 240)
-	f.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
-	f.bg:SetVertexColor(1, 1, 1, 0.7)
-
-	f.lineTop = f:CreateTexture(nil, "BACKGROUND")
-	f.lineTop:SetDrawLayer("BACKGROUND", 2)
-	f.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	f.lineTop:SetPoint("TOP")
-	f.lineTop:Size(418, 7)
-	f.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-
-	f.lineBottom = f:CreateTexture(nil, "BACKGROUND")
-	f.lineBottom:SetDrawLayer("BACKGROUND", 2)
-	f.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	f.lineBottom:SetPoint("BOTTOM")
-	f.lineBottom:Size(418, 7)
-	f.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
-
-	f.logo = f:CreateTexture(nil, "OVERLAY")
-	f.logo:Size(125, 125)
-	f.logo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
-	f.logo:Point("CENTER", f, "CENTER")
-
-	f.version = f:CreateFontString(nil, "OVERLAY")
-	f.version:FontTemplate(nil, 14, nil)
-	f.version:Point("TOP", f.logo, "BOTTOM", 0, 10)
-	f.version:SetFormattedText("v%s", MER.Version)
-	f.version:SetTextColor(1, 0.5, 0.25, 1)
-end
-
-local function HideSplashScreen()
-	MUISplashScreen:Hide()
-	MER:CheckVersion()
-end
-
-local function FadeSplashScreen()
-	E:Delay(2, function()
-		E:UIFrameFadeOut(MUISplashScreen, 2, 1, 0)
-		MUISplashScreen.fadeInfo.finishedFunc = HideSplashScreen
-	end)
-end
-
-local function ShowSplashScreen()
-	E:UIFrameFadeIn(MUISplashScreen, 4, 0, 1)
-	MUISplashScreen.fadeInfo.finishedFunc = FadeSplashScreen
 end
 
  -- Clean ElvUI.lua in WTF folder from outdated settings
@@ -183,6 +126,7 @@ function MER:Initialize()
 
 	self:RegisterMedia()
 	self:LoadCommands()
+	self:SplashScreen()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then
@@ -197,16 +141,7 @@ function MER:Initialize()
 		dbCleaning()
 	end
 
-	if E.db.mui.general.SplashScreen then
-		CreateSplashScreen()
-	end
-
 	E:Delay(6, function() MER:CheckVersion() end)
-
-	-- Show only Splash Screen if the install is completed
-	if (E.db.mui.installed == true and E.db.mui.general.SplashScreen) then
-		C_TimerAfter(6, ShowSplashScreen)
-	end
 
 	-- run the setup again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]

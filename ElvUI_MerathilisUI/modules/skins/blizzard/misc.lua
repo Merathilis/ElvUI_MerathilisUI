@@ -6,7 +6,8 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local getn = getn
-local pairs = pairs
+local next, pairs, select = next, pairs, select
+local tinsert = table.insert
 -- WoW API
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
@@ -84,6 +85,103 @@ local function styleMisc()
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
 	end
+
+	-- QueueStatusFrame
+	local function SkinEntry(entry)
+		for _, roleButton in next, {entry.HealersFound, entry.TanksFound, entry.DamagersFound} do
+			roleButton.Texture:SetTexture(E["media"].roleIcons)
+			roleButton.Cover:SetTexture(E["media"].roleIcons)
+
+			local left = roleButton:CreateTexture(nil, "OVERLAY")
+			left:SetWidth(1)
+			left:SetTexture(E["media"].normTex)
+			left:SetVertexColor(0, 0, 0)
+			left:SetPoint("TOPLEFT", 5, -3)
+			left:SetPoint("BOTTOMLEFT", 5, 6)
+
+			local right = roleButton:CreateTexture(nil, "OVERLAY")
+			right:SetWidth(1)
+			right:SetTexture(E["media"].normTex)
+			right:SetVertexColor(0, 0, 0)
+			right:SetPoint("TOPRIGHT", -4, -3)
+			right:SetPoint("BOTTOMRIGHT", -4, 6)
+
+			local top = roleButton:CreateTexture(nil, "OVERLAY")
+			top:SetHeight(1)
+			top:SetTexture(E["media"].normTex)
+			top:SetVertexColor(0, 0, 0)
+			top:SetPoint("TOPLEFT", 5, -3)
+			top:SetPoint("TOPRIGHT", -4, -3)
+
+			local bottom = roleButton:CreateTexture(nil, "OVERLAY")
+			bottom:SetHeight(1)
+			bottom:SetTexture(E["media"].normTex)
+			bottom:SetVertexColor(0, 0, 0)
+			bottom:SetPoint("BOTTOMLEFT", 5, 6)
+			bottom:SetPoint("BOTTOMRIGHT", -4, 6)
+		end
+
+		for i = 1, LFD_NUM_ROLES do
+			local roleIcon = entry["RoleIcon"..i]
+
+			roleIcon:SetTexture(E["media"].roleIcons)
+
+			entry["RoleIconBorders"..i] = {}
+			local borders = entry["RoleIconBorders"..i]
+
+			local left = entry:CreateTexture(nil, "OVERLAY")
+			left:SetWidth(1)
+			left:SetTexture(E["media"].normTex)
+			left:SetVertexColor(0, 0, 0)
+			left:SetPoint("TOPLEFT", roleIcon, 2, -2)
+			left:SetPoint("BOTTOMLEFT", roleIcon, 2, 3)
+			tinsert(borders, left)
+
+			local right = entry:CreateTexture(nil, "OVERLAY")
+			right:SetWidth(1)
+			right:SetTexture(E["media"].normTex)
+			right:SetVertexColor(0, 0, 0)
+			right:SetPoint("TOPRIGHT", roleIcon, -2, -2)
+			right:SetPoint("BOTTOMRIGHT", roleIcon, -2, 3)
+			tinsert(borders, right)
+
+			local top = entry:CreateTexture(nil, "OVERLAY")
+			top:SetHeight(1)
+			top:SetTexture(E["media"].normTex)
+			top:SetVertexColor(0, 0, 0)
+			top:SetPoint("TOPLEFT", roleIcon, 2, -2)
+			top:SetPoint("TOPRIGHT", roleIcon, -2, -2)
+			tinsert(borders, top)
+
+			local bottom = entry:CreateTexture(nil, "OVERLAY")
+			bottom:SetHeight(1)
+			bottom:SetTexture(E["media"].normTex)
+			bottom:SetVertexColor(0, 0, 0)
+			bottom:SetPoint("BOTTOMLEFT", roleIcon, 2, 3)
+			bottom:SetPoint("BOTTOMRIGHT", roleIcon, -2, 3)
+			tinsert(borders, bottom)
+		end
+
+		entry.IsSkinned = true
+	end
+
+	for i = 1, 9 do
+		select(i, _G["QueueStatusFrame"]:GetRegions()):Hide()
+	end
+
+	hooksecurefunc("QueueStatusEntry_SetFullDisplay", function(entry)
+		if not entry.IsSkinned then
+			SkinEntry(entry)
+		end
+
+		for i = 1, LFD_NUM_ROLES do
+			local shown = entry["RoleIcon"..i]:IsShown()
+
+			for _, border in next, entry["RoleIconBorders"..i] do
+				border:SetShown(shown)
+			end
+		end
+	end)
 
 	if TalentMicroButtonAlert then
 		TalentMicroButtonAlert:Styling()

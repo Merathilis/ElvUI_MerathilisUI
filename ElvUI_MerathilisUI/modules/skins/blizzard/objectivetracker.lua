@@ -50,10 +50,10 @@ function f.PLAYER_LOGIN()
 end
 
 function f.PLAYER_REGEN_DISABLED() 
-	InCombat = true 
+	InCombat = true
 end
 function f.PLAYER_REGEN_ENABLED()
-	InCombat = false 
+	InCombat = false
 end
 function f.QUEST_LOG_UPDATE()
 	if not InCombat and not InCombatLockdown() then
@@ -70,10 +70,6 @@ end
 local function styleObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
-	local ot = _G["ObjectiveTrackerFrame"]
-	local BlocksFrame = ot.BlocksFrame
-
-	-- Fix height
 	local function fixBlockHeight(block)
 		if block.shouldFix then
 			local height = block:GetHeight()
@@ -93,6 +89,23 @@ local function styleObjectiveTracker()
 	end
 
 	hooksecurefunc("ObjectiveTracker_AddBlock", function(block)
+		if block.lines then
+			for _, line in pairs(block.lines) do
+				if not line.styled then
+					line.Text:FontTemplate()
+					line.Text:SetSpacing(2)
+
+					if line.Dash then
+						line.Dash:FontTemplate()
+					end
+
+					line:SetHeight(line.Text:GetHeight())
+
+					line.styled = true
+				end
+			end
+		end
+
 		if not block.styled then
 			block.shouldFix = true
 			hooksecurefunc(block, "SetHeight", fixBlockHeight)
@@ -100,56 +113,89 @@ local function styleObjectiveTracker()
 		end
 	end)
 
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		if not block.headerStyled then
+			block.HeaderText:FontTemplate()
+			block.headerStyled = true
+		end
+	end)
+
+	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
+		if not block.headerStyled then
+			block.HeaderText:FontTemplate()
+			block.headerStyled = true
+		end
+	end)
+
 	-- Quest Level ObjectiveTrackerFrame
-	local function SetBlockHeader_hook()
+	local function ShowObjectiveTrackerLevel()
+		if ENABLE_COLORBLIND_MODE == "1" then return end
 		for i = 1, GetNumQuestWatches() do
 			local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
 			if ( not questID ) then
 				break
 			end
-			local oldBlock = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
-			if oldBlock then
-				local oldBlockHeight = oldBlock.height
-				local oldHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, title, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-				local newTitle = "["..select(2, GetQuestLogTitle(questLogIndex)).."] "..title
-				local newHeight = _G["QUEST_TRACKER_MODULE"]:SetStringText(oldBlock.HeaderText, newTitle, nil, OBJECTIVE_TRACKER_COLOR["Header"])
-				oldBlock:SetHeight(oldBlockHeight + newHeight - oldHeight)
+			local block = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
+			if block then
+				local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(questLogIndex)
+				local text = "["..level.."] "..title
+				if isComplete then
+					text = "|cff22ff00"..text
+				elseif frequency == LE_QUEST_FREQUENCY_DAILY then
+					text = "|cff3399ff"..text
+				end
+				block.HeaderText:SetText(text)
 			end
 		end
 	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", SetBlockHeader_hook)
+	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", ShowObjectiveTrackerLevel)
 
 	-- Quest Level QuestLog
-	local function QuestLogQuests_Update()
+	local function ShowQuestLogLevel()
 		if ENABLE_COLORBLIND_MODE == "1" then return end
 		local numEntries, numQuests = GetNumQuestLogEntries()
 		local titleIndex = 1
 
 		for i = 1, numEntries do
-			local title, level, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, startEvent, displayQuestID, isOnMap, hasLocalPOI, isTask, isStory = GetQuestLogTitle(i)
+			local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(i)
 			local titleButton = QuestLogQuests_GetTitleButton(titleIndex)
 			if title and (not isHeader) and titleButton.questID == questID then
 				local height = titleButton.Text:GetHeight()
-				titleButton.Text:SetText("[" .. level .. "] " .. title)
-				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
+				local text = "["..level.."] "..title
+				if isComplete then
+					text = "|cff22ff00"..text
+				elseif frequency == LE_QUEST_FREQUENCY_DAILY then
+					text = "|cff3399ff"..text
+				end
+				titleButton.Text:SetText(text)
+				titleButton.Text:SetPoint("TOPLEFT", 24, -5)
 				titleButton:SetHeight(titleButton:GetHeight() - height + titleButton.Text:GetHeight())
+				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
+
 				titleIndex = titleIndex + 1
 			end
 		end
 	end
-	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", QuestLogQuests_Update)
+	hooksecurefunc("QuestLogQuests_Update", ShowQuestLogLevel)
+
+	local function SetAchievementColor(block)
+		if block.module == ACHIEVEMENT_TRACKER_MODULE then
+			block.HeaderText:SetTextColor(0.75, 0.61, 0)
+			block.HeaderText.col = nil
+		end
+	end
+	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", SetAchievementColor)
 
 	--Panels
 	hooksecurefunc("ObjectiveTracker_Update", function(self)
 		local frame = ObjectiveTrackerFrame.MODULES
-	
 		if (frame) then
 			for i = 1, #frame do
 				local Modules = frame[i]
 				if (Modules) then
 					local Header = Modules.Header
-					Header:SetFrameStrata("HIGH")
-					Header:SetFrameLevel(10)
+					Header:SetFrameStrata("MEDIUM")
+					Header:SetFrameLevel(1)
 
 					if not (Modules.IsSkinned) then
 						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
@@ -166,11 +212,62 @@ local function styleObjectiveTracker()
 		end
 	end)
 
-	nQ:RegisterEvent('PLAYER_LOGIN')
-	nQ:RegisterEvent('PLAYER_REGEN_DISABLED')
-	nQ:RegisterEvent('PLAYER_REGEN_ENABLED')
-	nQ:RegisterEvent('QUEST_LOG_UPDATE')
-	nQ:SetScript('OnEvent', function(_,event,...)
+	local function AutoQuestPopUpBlockTemplate(scrollframe)
+		scrollframe:SetSize(232, 68)
+
+		local ScrollChild = scrollframe.ScrollChild
+		ScrollChild:SetSize(227, 68)
+		ScrollChild.Bg:SetPoint("TOPLEFT", 36, -4)
+		ScrollChild.Bg:SetPoint("BOTTOMRIGHT", 0, 4)
+
+		ScrollChild.BorderTopLeft:SetSize(16, 16)
+		ScrollChild.BorderTopLeft:SetPoint("TOPLEFT", 32, 0)
+		ScrollChild.BorderTopRight:SetSize(16, 16)
+		ScrollChild.BorderTopRight:SetPoint("TOPRIGHT", 4, 0)
+		ScrollChild.BorderBotLeft:SetSize(16, 16)
+		ScrollChild.BorderBotLeft:SetPoint("BOTTOMLEFT", 32, 0)
+		ScrollChild.BorderBotRight:SetSize(16, 16)
+		ScrollChild.BorderBotRight:SetPoint("BOTTOMRIGHT", 4, 0)
+
+		ScrollChild.BorderLeft:SetWidth(8)
+		ScrollChild.BorderRight:SetWidth(8)
+		ScrollChild.BorderTop:SetHeight(8)
+		ScrollChild.BorderBottom:SetHeight(8)
+
+		ScrollChild.QuestIconBg:SetSize(60, 60)
+		ScrollChild.QuestIconBg:SetPoint("CENTER", ScrollChild, "LEFT", 36, 0)
+		ScrollChild.QuestIconBadgeBorder:SetSize(44, 45)
+		ScrollChild.QuestIconBadgeBorder:SetPoint("TOPLEFT", ScrollChild.QuestIconBg, 8, -8)
+
+		ScrollChild.QuestName:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.QuestName:SetPoint("RIGHT", -8, 0)
+		ScrollChild.TopText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.TopText:SetPoint("RIGHT", -8, 0)
+		ScrollChild.BottomText:SetPoint("BOTTOM", 0, 8)
+		ScrollChild.BottomText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
+		ScrollChild.BottomText:SetPoint("RIGHT", -8, 0)
+
+		ScrollChild.Shine:SetPoint("TOPLEFT", 35, -3)
+		ScrollChild.Shine:SetPoint("BOTTOMRIGHT", 1, 3)
+		ScrollChild.IconShine:SetSize(42, 42)
+	end
+
+	-- AutoQuestPopUpTracker
+	local function AUTO_QUEST_POPUP_TRACKER_MODULE_Update(self)
+		for _, block in next, self.usedBlocks do
+			if not block.IsSkinned then
+				AutoQuestPopUpBlockTemplate(block)
+				block.IsSkinned = true
+			end
+		end
+	end
+	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", AUTO_QUEST_POPUP_TRACKER_MODULE_Update)
+
+	nQ:RegisterEvent("PLAYER_LOGIN")
+	nQ:RegisterEvent("PLAYER_REGEN_DISABLED")
+	nQ:RegisterEvent("PLAYER_REGEN_ENABLED")
+	nQ:RegisterEvent("QUEST_LOG_UPDATE")
+	nQ:SetScript("OnEvent", function(_,event,...)
 		f[event](...)
 	end)
 end

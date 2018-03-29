@@ -3,13 +3,16 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
+if P["mui"] == nil then P["mui"] = {} end
+
 P["mui"] = {
 	["installed"] = nil,
 
 	["general"] = {
 		["LoginMsg"] = true, -- Enable welcome message in chat
 		["GameMenu"] = true, -- Enable the Styles GameMenu
-		["SplashScreen"] = true, -- Enable the SplashScreen on LogIn
+		["splashScreen"] = true, -- Enable the SplashScreen on LogIn
+
 		["AFK"] = true, -- Enable the pimped AFK Screen
 		["FlightMode"] = true, -- Enable the FlightMode
 		["FlightPoint"] = true, -- Enable the FlightPoints
@@ -33,6 +36,7 @@ P["mui"] = {
 	["chat"] = {
 		["chatButton"] = true,
 		["panelHeight"] = 146,
+		["iLevelLink"] = true,
 	},
 
 	["colors"] = {
@@ -96,7 +100,6 @@ P["mui"] = {
 
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
-		["moveBlizz"] = true, -- Make Blizzards Frame movable
 		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
@@ -256,6 +259,14 @@ P["mui"] = {
 		},
 	},
 
+	["maps"] = {
+		["minimap"] = {
+			["coords"] = {
+				["enable"] = true,
+				["position"] = "BOTTOM",
+			},
+		},
+	},
 	["locPanel"] = {
 		["enable"] = true,
 		["autowidth"] = false,
@@ -282,6 +293,11 @@ P["mui"] = {
 			["customWidthValue"] = 200,
 			["justify"] = "LEFT",
 			["cdFormat"] = "DEFAULT",
+			["ignoreMissingInfo"] = false,
+			["showHearthstones"] = true,
+			["showToys"] = true,
+			["showSpells"] = true,
+			["showEngineer"] = true,
 		},
 	},
 

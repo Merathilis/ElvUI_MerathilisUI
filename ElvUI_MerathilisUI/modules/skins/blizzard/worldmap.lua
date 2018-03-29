@@ -25,8 +25,7 @@ local function styleWorldmap()
 	frame:Point("TOP", -12, 30)
 	MERS:CreateBD(frame, .25)
 
-	local text = frame:CreateFontString(nil, "OVERLAY")
-	text:FontTemplate(nil, 12, "OUTLINE")
+	local text = MER:CreateText(frame, "OVERLAY", 12, "OUTLINE")
 	text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	text:SetAllPoints()
 
