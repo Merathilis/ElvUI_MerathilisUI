@@ -1,3 +1,11 @@
+** v3.21, 29.03.2018**
+* Dont set the ls_Skin automatic.
+* Removed cargBags_Nivaya from the package.
+* The SplashScreen now shows only once a day per char.
+* Update the Garrison Capacitive Skin.
+* Update the Party Layout. You have to do the install step for UnitFrames again.
+* Prevent some lua errors if you click the MicroBar Buttons in combat.
+
 ** v3.20, 23.03.2018**
 * Add an itemlevel link feature. Shows the slot/item level on linked items in chat.
 * Update a lot of skins.

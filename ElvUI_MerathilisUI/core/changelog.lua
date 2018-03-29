@@ -17,19 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add an itemlevel link feature. Shows the slot/item level on linked items in chat.",
-		"• Update a lot of skins.",
-		"• Change the default position for the WorldMap.",
-		"• Add the ls_Toast skin to my Plugin.",
-		"• Add my logo on the ElvUI config.",
-		"• Remove the custom Minimap blip textures.",
-		"• Remove my Expressway font.",
-		"• Remove the move Blizz function.",
-		"• The Teleport menu will now only show one of general Hearthstone items.",
+		"• Dont set the ls_Skin automatic.",
+		"• Removed cargBags_Nivaya from the package.",
+		"• The SplashScreen now shows only once a day per char.",
+		"• Update the Garrison Capacitive Skin.",
+		"• Update the Party Layout. You have to do the install step for UnitFrames again.",
+		"• Prevent some lua errors if you click the MicroBar Buttons in combat.",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• 'Included an edited version of cargBags_Nivaya'",
+		"• 'You find the link for cargBags_Nivaya on my AddOn Page on tukui.org'",
 }
 
 local function ModifiedString(string)
