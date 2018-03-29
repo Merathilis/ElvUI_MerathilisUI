@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, pairs, unpack = select, pairs, unpack
+local select, pairs = select, pairs
 -- WoW API
 local CreateFrame = CreateFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -83,11 +83,8 @@ local function styleGarrison()
 
 	-- Follower list
 	local FollowerList = GarrisonLandingPage.FollowerList
-	FollowerList:GetRegions():Hide()
 	select(2, FollowerList:GetRegions()):Hide()
-
-	-- LandingPage Follower Tab
-	local FollowerTab = GarrisonLandingPage.FollowerTab
+	FollowerList:GetRegions():Hide()
 
 	-- Ship Follower list
 	local FollowerList = GarrisonLandingPage.ShipFollowerList
@@ -208,51 +205,7 @@ local function styleGarrison()
 	FollowerList:DisableDrawLayer("BORDER")
 
 	-- Follower Recruitment Frame
-	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
-	GarrisonCapacitiveDisplayFrame.backdrop:Styling()
-	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
-
-	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
-
-	CapacitiveDisplay.IconBG:SetAlpha(0)
-
-	do
-		local icon = CapacitiveDisplay.ShipmentIconFrame.Icon
-		S:HandleGarrisonPortrait(CapacitiveDisplay.ShipmentIconFrame.Follower)
-
-		icon:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBG(icon)
-	end
-
-	do
-		local reagentIndex = 1
-		hooksecurefunc("GarrisonCapacitiveDisplayFrame_Update", function(self)
-			local reagents = CapacitiveDisplay.Reagents
-
-			local reagent = reagents[reagentIndex]
-			while reagent do
-				reagent.NameFrame:SetAlpha(0)
-
-				reagent.Icon:SetTexCoord(unpack(E.TexCoords))
-				reagent.Icon:SetDrawLayer("BORDER")
-				MERS:CreateBG(reagent.Icon)
-
-				-- Hide ElvUI's backdrop
-				if reagent.backdrop then
-					reagent.backdrop:Hide()
-				end
-
-				local bg = CreateFrame("Frame", nil, reagent)
-				bg:SetPoint("TOPLEFT")
-				bg:SetPoint("BOTTOMRIGHT", 0, 2)
-				bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
-				MERS:CreateBD(bg, .25)
-
-				reagentIndex = reagentIndex + 1
-				reagent = reagents[reagentIndex]
-			end
-		end)
-	end
+	_G["GarrisonCapacitiveDisplayFrame"].backdrop:Styling()
 
 	-- [[ Shipyard UI ]]
 	local MissionTab = _G["GarrisonShipyardFrame"].MissionTab
@@ -316,6 +269,49 @@ local function styleGarrison()
 
 		MERS:CreateBD(reward, .15)
 	end
+
+	-- Shared templates
+	local function onUpdateData(self)
+		local followerFrame = self:GetParent()
+		local followers = followerFrame.FollowerList.followers
+		local followersList = followerFrame.FollowerList.followersList
+		local scrollFrame = followerFrame.FollowerList.listScroll
+
+		if GarrisonLandingPage.ShipFollowerTab:IsVisible() then
+			scrollFrame = followerFrame.ShipFollowerList.listScroll
+		end
+
+		local buttons = scrollFrame.buttons
+		local numFollowers = #followersList
+		local offset = HybridScrollFrame_GetOffset(scrollFrame)
+		local numButtons = #buttons
+
+		for i = 1, #buttons do
+			local button = buttons[i]
+			local portrait = button.PortraitFrame
+
+			if not button.restyled then
+				MERS:CreateBD(button, .25)
+
+				button.restyled = true
+			end
+
+			if portrait then
+				if portrait.PortraitRingQuality:IsShown() then
+					portrait.squareBG:SetBackdropBorderColor(portrait.PortraitRingQuality:GetVertexColor())
+				else
+					portrait.squareBG:SetBackdropBorderColor(0, 0, 0)
+				end
+			end
+			select(9, button:GetRegions()):Hide()
+		end
+	end
+	hooksecurefunc(GarrisonMissionFrameFollowers, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonShipyardFrameFollowers, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonBuildingFrameFollowers, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonRecruitSelectFrame.FollowerList, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonLandingPageFollowerList, "UpdateData", onUpdateData)
+	hooksecurefunc(GarrisonLandingPageShipFollowerList, "UpdateData", onUpdateData)
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)

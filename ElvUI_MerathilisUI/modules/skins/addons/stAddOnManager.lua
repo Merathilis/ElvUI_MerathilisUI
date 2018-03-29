@@ -26,4 +26,4 @@ local function styleProjectAzilroka()
 	end)
 end
 
-S:AddCallbackForAddon("ProjectAzilroka", "ADDON_LOADED", styleProjectAzilroka)
+S:AddCallbackForAddon("ProjectAzilroka", "mUIProjectAzilroka", styleProjectAzilroka)

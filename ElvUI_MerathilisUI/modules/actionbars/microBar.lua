@@ -43,12 +43,11 @@ local function OnLeave(button)
 end
 
 function MAB:OnClick(btn)
-	if InCombatLockdown() then return end
 	if btn == "LeftButton" then
 		if(not CalendarFrame) then LoadAddOn("Blizzard_Calendar") end
 		Calendar_Toggle()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-	elseif btn == "RightButton" then
+	elseif btn == "RightButton" and not InCombatLockdown() then
 		LP:PopulateDropdown()
 	end
 end
@@ -83,7 +82,7 @@ function MAB:CreateMicroBar()
 
 	charButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	charButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	charButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleCharacter"]("PaperDollFrame") end)
+	charButton:SetScript("OnClick", function(self) _G["ToggleCharacter"]("PaperDollFrame") end)
 
 	--Friends
 	local friendsButton = CreateFrame("Button", nil, microBar)
@@ -106,7 +105,7 @@ function MAB:CreateMicroBar()
 
 	friendsButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	friendsButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	friendsButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleFriendsFrame"]() end)
+	friendsButton:SetScript("OnClick", function(self) _G["ToggleFriendsFrame"]() end)
 
 	--Guild
 	local guildButton = CreateFrame("Button", nil, microBar)
@@ -129,7 +128,7 @@ function MAB:CreateMicroBar()
 
 	guildButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	guildButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	guildButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleGuildFrame"]() end)
+	guildButton:SetScript("OnClick", function(self) _G["ToggleGuildFrame"]() end)
 
 	--Achievements
 	local achieveButton = CreateFrame("Button", nil, microBar)
@@ -152,7 +151,7 @@ function MAB:CreateMicroBar()
 
 	achieveButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	achieveButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	achieveButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleAchievementFrame"]() end)
+	achieveButton:SetScript("OnClick", function(self) _G["ToggleAchievementFrame"]() end)
 
 	--EncounterJournal
 	local encounterButton = CreateFrame("Button", nil, microBar)
@@ -175,7 +174,7 @@ function MAB:CreateMicroBar()
 
 	encounterButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	encounterButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	encounterButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleEncounterJournal"]() end)
+	encounterButton:SetScript("OnClick", function(self) _G["ToggleEncounterJournal"]() end)
 
 	-- Time
 	local timeButton = CreateFrame("Button", nil, microBar)
@@ -183,9 +182,11 @@ function MAB:CreateMicroBar()
 	timeButton:SetSize(32, 32)
 	timeButton:SetFrameLevel(6)
 
-	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16, "OUTLINE", "CENTER")
+	timeButton.text = timeButton:CreateFontString(nil, 'OVERLAY')
+	timeButton.text:FontTemplate(nil, 16, "OUTLINE")
 	timeButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	timeButton.text:SetPoint("CENTER", 0, 0)
+	timeButton.text:SetJustifyH("CENTER")
 
 	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
 	timeButton.tex:SetPoint("BOTTOMLEFT")
@@ -236,7 +237,7 @@ function MAB:CreateMicroBar()
 
 	petButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	petButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	petButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleCollectionsJournal"](1)	end)
+	petButton:SetScript("OnClick", function(self) _G["ToggleCollectionsJournal"](1) end)
 
 	--LFR
 	local lfrButton = CreateFrame("Button", nil, microBar)
@@ -259,7 +260,7 @@ function MAB:CreateMicroBar()
 
 	lfrButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	lfrButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	lfrButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["PVEFrame_ToggleFrame"]() end)
+	lfrButton:SetScript("OnClick", function(self) _G["PVEFrame_ToggleFrame"]() end)
 
 	--Spellbook
 	local spellBookButton = CreateFrame("Button", nil, microBar)
@@ -282,7 +283,7 @@ function MAB:CreateMicroBar()
 
 	spellBookButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	spellBookButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	spellBookButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleSpellBook"](BOOKTYPE_SPELL) end)
+	spellBookButton:SetScript("OnClick", function(self) _G["ToggleSpellBook"](BOOKTYPE_SPELL) end)
 
 	--Specc Button
 	local speccButton = CreateFrame("Button", nil, microBar)
@@ -305,7 +306,7 @@ function MAB:CreateMicroBar()
 
 	speccButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	speccButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	speccButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleTalentFrame"]() end)
+	speccButton:SetScript("OnClick", function(self) _G["ToggleTalentFrame"]() end)
 
 	--Shop
 	local shopButton = CreateFrame("Button", nil, microBar)
@@ -328,7 +329,7 @@ function MAB:CreateMicroBar()
 
 	shopButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	shopButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	shopButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end StoreMicroButton:Click() end)
+	shopButton:SetScript("OnClick", function(self) StoreMicroButton:Click() end)
 
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:SetScript("OnEvent",function(self, event)

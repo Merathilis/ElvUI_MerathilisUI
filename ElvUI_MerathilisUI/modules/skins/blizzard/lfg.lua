@@ -19,6 +19,14 @@ local function styleLFG()
 	_G["PVEFrame"]:Styling()
 	_G["LFGListApplicationDialog"]:Styling()
 
+	local function onEnter(self)
+		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .4)
+	end
+
+	local function onLeave(self)
+		self:SetBackdropColor(0, 0, 0, .25)
+	end
+
 	for i = 1, 4 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 		bu:StripTextures()
@@ -26,77 +34,11 @@ local function styleLFG()
 		MERS:CreateBD(bu, .25)
 		MERS:Reskin(bu, true)
 
-		bu.icon:Size(54)
-		bu.icon:ClearAllPoints()
-		bu.icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
-		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.icon:SetDrawLayer("OVERLAY")
-		bu.icon.bg = MERS:CreateBG(bu.icon)
-		bu.icon.bg:SetDrawLayer("ARTWORK")
+		bu:SetScript("OnEnter", onEnter)
+		bu:SetScript("OnLeave", onLeave)
 
 		bu.backdropTexture:Hide()
 	end
-
-	local function styleRewardButton(button)
-		MERS:ReskinItemFrame(button)
-		button._mUINameBG:SetPoint("RIGHT", -4, 0)
-
-		if button.shortageBorder then
-			button.shortageBorder:SetAlpha(0)
-		end
-	end
-
-	styleRewardButton(LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
-
-	--Reward frame functions
-	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
-		local parentName = parentFrame:GetName()
-		local button = _G[parentName.."Item"..index]
-		if button and not button._mUINameBG then
-			styleRewardButton(button)
-		end
-	end)
-
-	hooksecurefunc("LFGDungeonReadyDialogReward_SetMisc", function(button)
-		if not button.styled then
-			local border = _G[button:GetName().."Border"]
-			button.texture:SetTexCoord(unpack(E.TexCoords))
-
-			border:SetColorTexture(0, 0, 0)
-			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
-
-			button.styled = true
-		end
-		button.texture:SetTexture("Interface\\Icons\\inv_misc_coin_02")
-	end)
-
-	hooksecurefunc("LFGDungeonReadyDialogReward_SetReward", function(button, dungeonID, rewardIndex, rewardType, rewardArg)
-		if not button.styled then
-			local border = _G[button:GetName().."Border"]
-			button.texture:SetTexCoord(unpack(E.TexCoords))
-
-			border:SetColorTexture(0, 0, 0)
-			border:SetDrawLayer("BACKGROUND")
-			border:SetPoint("TOPLEFT", button.texture, -1, 1)
-			border:SetPoint("BOTTOMRIGHT", button.texture, 1, -1)
-
-			button.styled = true
-		end
-
-		local texturePath, _
-		if rewardType == "reward" then
-			_, texturePath, _ = GetLFGDungeonRewardInfo(dungeonID, rewardIndex)
-		elseif rewardType == "shortage" then
-			_, texturePath, _ = GetLFGDungeonShortageRewardInfo(dungeonID, rewardArg, rewardIndex)
-		end
-		if texturePath then
-			button.texture:SetTexture(texturePath)
-		end
-	end)
 
 	-- Category selection
 	local CategorySelection = _G["LFGListFrame"].CategorySelection

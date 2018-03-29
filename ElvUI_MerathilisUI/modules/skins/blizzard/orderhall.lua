@@ -16,29 +16,9 @@ local C_TimerAfter = C_Timer.After
 local function styleOrderhall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	-- CombatAlly MissionFrame
 	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
-	local portraitFrame = combatAlly.InProgress.PortraitFrame
-	local portrait = combatAlly.InProgress.PortraitFrame.Portrait
-	local portraitRing = combatAlly.InProgress.PortraitFrame.PortraitRing
-	local portraitRingQuality = combatAlly.InProgress.PortraitFrame.PortraitRingQuality
-	local levelBorder = combatAlly.InProgress.PortraitFrame.LevelBorder
 	combatAlly:StripTextures()
 	MERS:CreateBD(combatAlly, .25)
-
-	if portrait and not portrait.IsSkinned then
-		portraitFrame:CreateBackdrop("Default")
-		portraitFrame.backdrop:SetPoint("TOPLEFT", portrait, "TOPLEFT", -1, 1)
-		portraitFrame.backdrop:SetPoint("BOTTOMRIGHT", portrait, "BOTTOMRIGHT", 1, -1)
-		portrait:ClearAllPoints()
-		portrait:SetPoint("TOPLEFT", 1, -1)
-		portrait:SetTexCoord(unpack(E.TexCoords))
-		portraitRing:SetAlpha(0)
-		portraitRingQuality:SetAlpha(0)
-		levelBorder:SetAlpha(0)
-
-		portrait.IsSkinned = true
-	end
 
 	-- Mission Frame
 	_G["OrderHallMissionFrame"]:Styling()
@@ -48,28 +28,8 @@ local function styleOrderhall()
 
 	_G["OrderHallMissionFrame"].MissionTab.MissionPage:StripTextures()
 
-	-- CombatAlly ZoneSupport Frame
 	_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage:StripTextures()
 	MERS:CreateBD(_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage, .5)
-	local combatAlly = _G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage.Follower1
-	local portraitFrame = combatAlly.PortraitFrame
-	local portrait = portraitFrame.Portrait
-	local portraitRing = portraitFrame.PortraitRing
-	local portraitRingQuality = portraitFrame.PortraitRingQuality
-	local levelBorder = portraitFrame.LevelBorder
-
-	combatAlly:StripTextures()
-
-	if portrait and not portrait.IsSkinned then
-		portrait:ClearAllPoints()
-		portrait:SetPoint("TOPLEFT", 1, -1)
-		portrait:SetTexCoord(unpack(E.TexCoords))
-		portraitRing:Hide()
-		portraitRingQuality:SetAlpha(0)
-		levelBorder:SetAlpha(0)
-
-		portrait.IsSkinned = true
-	end
 
 	for i, v in ipairs(_G["OrderHallMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
 		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]

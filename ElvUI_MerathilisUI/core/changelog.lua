@@ -17,16 +17,19 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Dont set the ls_Skin automatic.",
-		"• Removed cargBags_Nivaya from the package.",
-		"• The SplashScreen now shows only once a day per char.",
-		"• Update the Garrison Capacitive Skin.",
-		"• Update the Party Layout. You have to do the install step for UnitFrames again.",
-		"• Prevent some lua errors if you click the MicroBar Buttons in combat.",
+		"• Add an EquipSet Bar. Thx Azilroka for this <3",
+		"• Fix Party/Raid position for high resolutions.",
+		"• Update BigWigs Skin. No Half-Bar anymore.",
+		"• Replace the Quest button with a Talent button in the MicroBar.",
+		"• Don't hide the AFK options if BenikUI is loaded.",
+		"• Add new font settings for S&L (its not live yet), will error out.",
+		"• Fixed the option for the MerchantItemLevel. Thx varyak",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• 'You find the link for cargBags_Nivaya on my AddOn Page on tukui.org'",
+		"• 'BenikUI is not more required to get the full function from my UI.'",
+		"• 'If you want my latest layout, you have to do the install again.'",
+		"• 'If you do so, all your changes will be reseted.'",
 }
 
 local function ModifiedString(string)
@@ -80,8 +83,9 @@ function MER:CreateChangelog()
 	title:SetSize(422, 20)
 	title:SetTemplate("Transparent")
 	title:Styling()
-	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
+	title.text = title:CreateFontString(nil, "OVERLAY")
 	title.text:SetPoint("CENTER", title, 0, -1)
+	title.text:SetFont(E["media"].normFont, 15)
 	title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
@@ -93,8 +97,9 @@ function MER:CreateChangelog()
 	close:Disable()
 	frame.close = close
 
-	local countdown = MER:CreateText(close, "OVERLAY", 12, nil, "CENTER")
+	local countdown = close:CreateFontString(nil, "OVERLAY")
 	countdown:SetPoint("LEFT", close.Text, "RIGHT", 3, 0)
+	countdown:SetFont(E["media"].normFont, 12)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
 
@@ -107,7 +112,8 @@ function MER:CreateChangelog()
 		if i <= #ChangeLogData then
 			local string = ModifiedString(GetChangeLogInfo(i))
 
-			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
+			button.Text = button:CreateFontString(nil, "OVERLAY")
+			button.Text:SetFont(E["media"].normFont, 11)
 			button.Text:SetText(string)
 			button.Text:SetPoint("LEFT", 0, 0)
 		end

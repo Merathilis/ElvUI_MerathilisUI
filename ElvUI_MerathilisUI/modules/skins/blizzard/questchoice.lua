@@ -59,13 +59,13 @@ local function styleQuestChoice()
 		end
 	end
 
-	-- hooksecurefunc("QuestChoiceFrame_ShowRewards", function(numOptions)
-		-- for i = 1, numOptions do
-			-- local rewards = QuestChoiceFrame["Option"..i].Rewards
-			-- rewards.Item.bg:SetVertexColor(rewards.Item.IconBorder:GetVertexColor())
-			-- rewards.Item.IconBorder:Hide()
-		-- end
-	-- end)
+	hooksecurefunc("QuestChoiceFrame_ShowRewards", function(numOptions)
+		for i = 1, numOptions do
+			local rewards = QuestChoiceFrame["Option"..i].Rewards
+			rewards.Item.bg:SetVertexColor(rewards.Item.IconBorder:GetVertexColor())
+			rewards.Item.IconBorder:Hide()
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", styleQuestChoice)

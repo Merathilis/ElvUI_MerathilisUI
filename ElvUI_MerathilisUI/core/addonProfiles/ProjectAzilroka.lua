@@ -19,9 +19,10 @@ function MER:LoadPAProfile()
 		["ButtonWidth"] = 20,
 		["Font"] = "Expressway",
 		['ClassColor'] = true,
-		["CheckTexture"] = "MerathilisFlat",
+		["CheckTexture"] = "MerathilisGradient",
 	}
 
 	-- Profile creation
-	_G.stAddonManager.data:SetProfile("MerathilisUI")
+	local db = LibStub("AceDB-3.0"):New(stAddonManagerDB)
+	db:SetProfile("MerathilisUI")
 end

@@ -56,8 +56,6 @@ function MERC:Initialize()
 	_G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
 	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
-	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "\124TInterface\\FriendsFrame\\UI-Toast-ToastIcons.tga:16:16:0:0:128:64:2:29:34:61\124t%s"..L[" has come |cff298F00online|r."]
-	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "\124TInterface\\FriendsFrame\\UI-Toast-ToastIcons.tga:16:16:0:0:128:64:2:29:34:61\124t%s"..L[" has gone |cffff0000offline|r."]
 
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
@@ -67,7 +65,6 @@ function MERC:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
 	self:EasyChannel()
-	self:ItemLevelLink()
 end
 
 local function InitializeCallback()
