@@ -525,10 +525,10 @@ function MER:SetupActionbars()
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
-	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar3"]["buttonsPerRow"] = 1
 	E.db["actionbar"]["bar3"]["buttonsize"] = 26
 	E.db["actionbar"]["bar3"]["buttonspacing"] = 3
-	E.db["actionbar"]["bar3"]["buttons"] = 10
+	E.db["actionbar"]["bar3"]["buttons"] = 5
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar3"]["mouseover"] = false
@@ -541,10 +541,10 @@ function MER:SetupActionbars()
 
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
-	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 2
+	E.db["actionbar"]["bar5"]["buttonsPerRow"] = 1
 	E.db["actionbar"]["bar5"]["buttonsize"] = 26
 	E.db["actionbar"]["bar5"]["buttonspacing"] = 3
-	E.db["actionbar"]["bar5"]["buttons"] = 10
+	E.db["actionbar"]["bar5"]["buttons"] = 5
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar5"]["mouseover"] = false
