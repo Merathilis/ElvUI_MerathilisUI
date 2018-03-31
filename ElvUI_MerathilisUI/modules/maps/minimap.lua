@@ -29,7 +29,6 @@ function MM:ChangeMiniMapButtons()
 			self:GetNormalTexture():ClearAllPoints()
 			self:GetNormalTexture():SetPoint("CENTER", 0, 1)
 
-			self:GetPushedTexture():SetAtlas(nil)
 			self:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
 			self:GetPushedTexture():SetBlendMode("ADD")
 			self:GetPushedTexture():ClearAllPoints()
