@@ -18,7 +18,7 @@ local function Minimap()
 			coords = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["Coordinates"])..MER.NewSign,
+				name = MER:cOption(L["Coordinates"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.coords[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.coords[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -39,6 +39,21 @@ local function Minimap()
 							["RIGHT"] = L["Right"],
 							["CENTER"] = L["Center"],
 						},
+					},
+				},
+			},
+			buttonCollector = {
+				order = 3,
+				type = "group",
+				name = MER:cOption(L["MiniMap Buttons"])..MER.NewSign,
+				guiInline = true,
+				get = function(info) return E.db.mui.maps.minimap.buttonCollector[ info[#info] ] end,
+				set = function(info, value) E.db.mui.maps.minimap.buttonCollector[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
 					},
 				},
 			},

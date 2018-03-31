@@ -305,6 +305,8 @@ L["Update canceled."] = "Update abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menu wird automatisch geöffnet, wenn alle Informationen gesammelt sind. Nochmaliges aufrufen des Menus während des Updates, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
 
+-- Maps
+L["MiniMap Buttons"] = "Minikartensymbole"
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
 L["Click to clear the mark."] = "Klicken um die Marker zu löschen."

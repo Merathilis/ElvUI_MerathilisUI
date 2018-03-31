@@ -70,8 +70,11 @@ function MM:MiniMapCoords()
 end
 
 function MM:Initialize()
+	if E.private.general.minimap.enable ~= true then return end
+
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
+	self:ButtonCollectorInit()
 end
 
 local function InitializeCallback()

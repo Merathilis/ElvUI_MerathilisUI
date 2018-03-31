@@ -265,6 +265,9 @@ P["mui"] = {
 				["enable"] = true,
 				["position"] = "BOTTOM",
 			},
+			["buttonCollector"] = {
+				["enable"] = true,
+			},
 		},
 	},
 	["locPanel"] = {
