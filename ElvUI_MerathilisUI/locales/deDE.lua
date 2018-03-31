@@ -307,6 +307,7 @@ L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
+
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
 L["Click to clear the mark."] = "Klicken um die Marker zu löschen."

@@ -104,8 +104,6 @@ function MM:CollectMinimapButtons(parent)
 			end
 		end
 	end
-
-	parent.IsSkinned = true
 end
 
 function MM:ButtonCollectorInit()
