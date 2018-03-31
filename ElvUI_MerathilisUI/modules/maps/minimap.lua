@@ -72,6 +72,8 @@ end
 function MM:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
+	_G["Minimap"]:Styling(true, true, false, 180, 180, .75)
+
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
 	self:ButtonCollectorInit()

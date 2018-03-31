@@ -1355,7 +1355,7 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.db.mui.installed = true
+	E.private.mui.installed = true
 
 	ReloadUI()
 end

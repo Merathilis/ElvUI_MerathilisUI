@@ -6,8 +6,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 if P["mui"] == nil then P["mui"] = {} end
 
 P["mui"] = {
-	["installed"] = nil,
-
 	["general"] = {
 		["LoginMsg"] = true, -- Enable welcome message in chat
 		["GameMenu"] = true, -- Enable the Styles GameMenu

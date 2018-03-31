@@ -287,7 +287,7 @@ function MER:GetClassColorString(class)
 	return E:RGBToHex(color.r, color.g, color.b)
 end
 
-local function Styling(f, useStripes, useGradient)
+local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	if f.styling or E.db.mui.general.style ~= true then return end
 
@@ -315,6 +315,17 @@ local function Styling(f, useStripes, useGradient)
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
 		f.gradient = gradient
+	end
+
+	if not(useShadow) then
+		local shadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		shadow:SetInside(f, 0, 0)
+		shadow:Width(shadowOverlayWidth or 33)
+		shadow:Height(shadowOverlayHeight or 33)
+		shadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
+		shadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.40)
+
+		f.shadow = shadow
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 2)

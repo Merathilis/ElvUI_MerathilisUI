@@ -3,7 +3,12 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 -- Misc options
 ----------------------------------------------------------------------------------------
+if V["mui"] == nil then V["mui"] = {} end
 if V["muiMisc"] == nil then V["muiMisc"] = {} end
+
+V["mui"] = {
+	["installed"] = nil,
+}
 
 V["muiMisc"] = {
 	["session"] = {

@@ -107,6 +107,9 @@ end
 local function dbCleaning()
 	-- Clear the old db
 
+	-- Clear old install entry
+	if E.db.mui.installed then E.db.mui.installed = nil end
+
 	E.db.mui.dbCleaned = true
 end
 
@@ -154,7 +157,7 @@ function MER:Initialize()
 	end
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.mui.installed == nil then
+	if E.private.install_complete == E.version and E.private.mui.installed == nil then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable) 
 	end
 
