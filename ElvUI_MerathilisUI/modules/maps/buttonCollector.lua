@@ -73,6 +73,8 @@ function MM:CollectMinimapButtons(parent)
 						if texture then
 							if (find(texture, "Interface\\CharacterFrame") or find(texture, "Interface\\Minimap")) then
 								region:SetTexture(nil)
+							elseif (find(texture, "Interface\\AddOns\\BagSync\\media\\minimap")) then
+								region:SetTexture("Interface\\AddOns\\BagSync\\media\\icon")
 							elseif texture == 136430 or texture == 136467 then
 								region:SetTexture(nil)
 							end
