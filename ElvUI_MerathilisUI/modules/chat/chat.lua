@@ -40,16 +40,6 @@ function CH:UpdateAnchors()
 	CH:PositionChat(true)
 end
 
-function MERC:StyleChat(frame)
-	local name = frame:GetName()
-	local editbox = _G[name.."EditBox"]
-
-	editbox:Styling()
-
-	frame.styled = true
-end
-hooksecurefunc(CH, "StyleChat", MERC.StyleChat)
-
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
 

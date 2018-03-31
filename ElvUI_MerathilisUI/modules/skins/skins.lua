@@ -97,7 +97,6 @@ function MERS:ReskinClose(f, a1, p, a2, x, y)
 
 	MERS:CreateBD(f, 0)
 	MERS:CreateBackdropTexture(f)
-	f:Styling()
 
 	f:SetDisabledTexture(E["media"].normTex)
 	local dis = f:GetDisabledTexture()
