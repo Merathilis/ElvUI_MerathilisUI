@@ -15,9 +15,29 @@ local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
-	hooksecurefunc("WorldStateAlwaysUpFrame_AddFrame", function()
+	hooksecurefunc("WorldStateAlwaysUpFrame_Update", function()
 		WorldStateAlwaysUpFrame:ClearAllPoints()
-		WorldStateAlwaysUpFrame:SetPoint("TOP", E.UIParent, "TOP", 0, -40)
+		WorldStateAlwaysUpFrame:SetPoint("TOP", -42, -24)
+	end)
+
+	hooksecurefunc("UIParent_ManageFramePositions", function()
+		local Frame = NUM_EXTENDED_UI_FRAMES
+
+		if (Frame) then
+			for i = 1, Frame do
+				local Bar = _G["WorldStateCaptureBar"..i]
+
+				if (Bar and Bar:IsVisible()) then
+					if (i == 1) then
+						Bar:ClearAllPoints()
+						Bar:Point("TOP", UIParent, "TOP", 0, -120)
+					else
+						Bar:ClearAllPoints()
+						Bar:Point("TOPLEFT", _G["WorldStateCaptureBar"..i-1], "TOPLEFT", 0, -25)
+					end
+				end
+			end
+		end
 	end)
 
 	_G["GameMenuFrame"]:Styling()
