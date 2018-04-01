@@ -19,12 +19,12 @@ function MERC:StringReplacement()
 	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
 	_G["ITEM_LEVEL"] = L["|cFF00c0failvl|r: %d"]
-	_G["ITEM_BIND_ON_EQUIP"] = "BoE"
-	_G["ITEM_BIND_ON_PICKUP"] = "BoP"
+	_G["ITEM_BIND_ON_EQUIP"] = "|cFF00c0faBoE|r"
+	_G["ITEM_BIND_ON_PICKUP"] = "|cFF00c0faBoP|r"
 	_G["ITEM_CREATED_BY"] = "" -- No creator name
 	_G["ITEM_LEVEL_AND_MIN"] = "Level: %d (min: %d)"
-	_G["ITEM_LEVEL_RANGE"] = "Requires level: %d - %d"
-	_G["ITEM_LEVEL_RANGE_CURRENT"] = "Requires level: %d - %d (%d)"
+	_G["ITEM_LEVEL_RANGE"] = L["Requires level: %d - %d"]
+	_G["ITEM_LEVEL_RANGE_CURRENT"] = L["Requires level: %d - %d (%d)"]
 
 	_G["CURRENCY_GAINED"] = "+ |CFFFFFFFF%s|r"
 	_G["CURRENCY_GAINED_MULTIPLE"] = "+ |CFFFFFFFF%s|r x|CFFFFFFFF%d|r"
@@ -49,7 +49,7 @@ function MERC:StringReplacement()
 	_G["FACTION_STANDING_INCREASED_BONUS"] = "%s + %d (+%.1f RAF)"
 	_G["FACTION_STANDING_INCREASED_DOUBLE_BONUS"] = "%s +%d (+%.1f RAF) (+%.1f)"
 	_G["FACTION_STANDING_INCREASED_REFER_PART"] = "(+%.1f RAF)"
-	_G["FACTION_STANDING_INCREASED_REST_PART"] = "(+%.1f Rested)"
+	_G["FACTION_STANDING_INCREASED_REST_PART"] = L["(+%.1f Rested)"]
 
 	_G["ERR_AUCTION_SOLD_S"] = L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"]
 end
