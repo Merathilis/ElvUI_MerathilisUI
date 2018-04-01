@@ -1,9 +1,12 @@
+[b][color=orange]v3.23[/color], 01.04.2018[/b][list]
+[*]Removed a global string which broke other AddOns.[/list]
+
 [b][color=orange]v3.22[/color], 01.04.2018[/b][list]
 [*]Change the right and left ActionBar layout.
 [*]Prevent a nil error with the recent S&L changes for the Minimap buttons.
 [*]Create an own Minimap Button bar.
 [*]Update the BigWigs Profile.
-[*]Add an shadowoverlay to my UI. Which makes the UI darker. I love it!!
+[*]Add an shadowoverlay to my UI. Which makes the UI darker. I love it!![/list]
 
 [b][color=orange]v3.21[/color], 29.03.2018[/b][list]
 [*]Dont set the ls_Skin automatic.
@@ -11,7 +14,7 @@
 [*]The SplashScreen now shows only once a day per char.
 [*]Update the Garrison Capacitive Skin.
 [*]Update the Party Layout. You have to do the install step for UnitFrames again.
-[*]Prevent some lua errors if you click the MicroBar Buttons in combat.
+[*]Prevent some lua errors if you click the MicroBar Buttons in combat.[/list]
 
 [b][color=orange]v3.20[/color], 23.03.2018[/b][list]
 [*]Add an itemlevel link feature. Shows the slot/item level on linked items in chat.
