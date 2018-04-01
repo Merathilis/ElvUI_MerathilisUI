@@ -323,7 +323,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		shadow:Width(shadowOverlayWidth or 33)
 		shadow:Height(shadowOverlayHeight or 33)
 		shadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
-		shadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or .75)
+		shadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 
 		f.shadow = shadow
 	end
