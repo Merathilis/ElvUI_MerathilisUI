@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = E:GetModule("mUIMisc")
-local MB = E:GetModule("mUImoveBlizz")
 local MERA = E:GetModule("mUIAnnounce")
 
 --Cache global variables
@@ -29,12 +28,6 @@ local function Misc()
 				type = "toggle",
 				name = L["Mail Inputbox Resize"],
 				desc = L["Resize the Mail Inputbox and move the shipping cost to the Bottom"],
-			},
-			moveBlizz = {
-				order = 3,
-				type = "toggle",
-				name = MB.modName,
-				desc = L["Make some Blizzard Frames movable."],
 			},
 			tradeTabs = {
 				order = 4,

@@ -3,6 +3,8 @@ local MI = E:GetModule("mUIMisc")
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
+--Lua functions
+--WoW API / Variables
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetMouseFocus = GetMouseFocus
@@ -17,19 +19,16 @@ local UnitIsDead = UnitIsDead
 local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 local UIParent = UIParent
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UNKNOWN = UNKNOWN
---WoW API / Variables
-
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
 
 local function getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
 
 	if UnitIsPlayer("mouseover") then
 		local _, class = UnitClass("mouseover")
-		local color = RAID_CLASS_COLORS[class]
+		local color = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class]) or (RAID_CLASS_COLORS and RAID_CLASS_COLORS[class])
 		return color.r, color.g, color.b
 	elseif UnitCanAttack("player", "mouseover") then
 		if UnitIsDead("mouseover") then
@@ -55,8 +54,7 @@ function MI:LoadnameHover()
 
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
-	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
-	tooltip.text:SetFont(LSM:Fetch("font", "Merathilis Expressway"), 7, "OUTLINE")
+	tooltip.text = MER:CreateText(tooltip, "OVERLAY", 7, "OUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(self)

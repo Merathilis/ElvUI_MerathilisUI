@@ -20,8 +20,7 @@ function MI:AltPowerBar()
 
 	E:CreateMover(powerbar, "mUI_AltPowerMover", L["mUI Alt PowerBar"], nil, nil, nil, "ALL,PARTY,RAID")
 
-	powerbar.text = powerbar:CreateFontString(nil, "OVERLAY")
-	powerbar.text:FontTemplate(nil, 13, "OUTLINE")
+	powerbar.text = MER:CreateText(powerbar, "OVERLAY", 13, "OUTLINE")
 	powerbar.text:SetPoint("CENTER", powerbar, "CENTER")
 	powerbar.text:SetJustifyH("CENTER")
 

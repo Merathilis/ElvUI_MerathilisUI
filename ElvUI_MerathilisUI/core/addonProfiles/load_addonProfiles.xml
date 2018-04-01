@@ -3,6 +3,7 @@
 	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
 	<script file="Details.lua"/>
+	<script file="ls_Toasts.lua"/>
 	<script file="Masque.lua"/>
 	<script file="OzCooldown.lua"/>
 	<script file="ProjectAzilroka.lua"/>

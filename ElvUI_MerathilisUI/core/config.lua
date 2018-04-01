@@ -13,12 +13,16 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
 local function AddOptions()
+	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
+
 	-- Main options
 	E.Options.args.mui = {
 		order = 9001,
 		type = 'group',
 		name = MER.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
+		icon = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\m2",
+		iconCoords = {.08, .92, .08, .92},
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -59,7 +63,7 @@ local function AddOptions()
 						name = L["Login Message"],
 						desc = L["Enable/Disable the Login Message in Chat"],
 					},
-					SplashScreen = {
+					splashScreen = {
 						order = 3,
 						type = "toggle",
 						name = L["SplashScreen"],
@@ -69,7 +73,8 @@ local function AddOptions()
 						order = 4,
 						type = "toggle",
 						name = L["AFK"],
-						desc = L["Enable/Disable the MUI AFK Screen"],
+						desc = L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"],
+						disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					GameMenu = {
 						order = 5,
@@ -82,7 +87,7 @@ local function AddOptions()
 						type = "toggle",
 						name = L["FlightMode"],
 						desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
-						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end, 
+						hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end,
 					},
 					FlightPoint = {
 						order = 7,
@@ -108,6 +113,14 @@ local function AddOptions()
 						type = "toggle",
 						name = L["Chat Button"],
 						desc = L["Create a chat button to increase the chat size."],
+						get = function(info) return E.db.mui.chat[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					iLevelLink = {
+						order = 11,
+						type = "toggle",
+						name = L["Chat Item Level"]..MER.NewSign,
+						desc = L["Shows the slot and item level in the chat"],
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},

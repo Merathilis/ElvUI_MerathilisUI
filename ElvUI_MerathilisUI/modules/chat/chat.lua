@@ -40,22 +40,10 @@ function CH:UpdateAnchors()
 	CH:PositionChat(true)
 end
 
-function MERC:StyleChat(frame)
-	local name = frame:GetName()
-	local editbox = _G[name.."EditBox"]
-
-	editbox:Styling()
-
-	frame.styled = true
-end
-hooksecurefunc(CH, "StyleChat", MERC.StyleChat)
-
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
-	_G["ERR_FRIEND_ONLINE_SS"] = "|Hplayer:%s|h[%s]|h "..L["has come |cff298F00online|r."]
-	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
-	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
+	self:StringReplacement()
 
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
@@ -65,6 +53,7 @@ function MERC:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
 	self:EasyChannel()
+	self:ItemLevelLink()
 end
 
 local function InitializeCallback()

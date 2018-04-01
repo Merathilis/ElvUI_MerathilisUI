@@ -4,16 +4,17 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-local assert, select, unpack = assert, select, unpack
+local select, unpack = select, unpack
 local tremove = table.remove
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAddOnInfo = GetAddOnInfo
-local IsAddOnLoaded = IsAddOnLoaded
--- GLOBALS: UIParent, BigWigs, BigWigsLoader, BigWigsProximityAnchor, BigWigsInfoBox
+-- GLOBALS: UIParent, BigWigs
 
-local FreeBackgrounds = {}
 local buttonsize = 18
+
+-- Init a table to store the backgrounds
+local FreeBackgrounds = {}
 
 local function CreateBG()
 	local BG = CreateFrame("Frame")
@@ -55,15 +56,6 @@ local function FreeStyle(bar)
 
 	--BG
 	bar.candyBarBackground:SetAllPoints()
-
-	-- Duration
-	-- bar.candyBarDuration:ClearAllPoints()
-	-- bar.candyBarDuration:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
-
-	-- Name
-	-- bar.candyBarLabel:ClearAllPoints()
-	-- bar.candyBarLabel:SetPoint("LEFT", bar.candyBarBar, "LEFT", 2, 0)
-	-- bar.candyBarLabel:SetPoint("RIGHT", bar.candyBarBar, "RIGHT", -2, 0)
 end
 
 local function ApplyStyle(bar)
