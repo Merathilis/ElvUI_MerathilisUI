@@ -17,16 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Dont set the ls_Skin automatic.",
-		"• Removed cargBags_Nivaya from the package.",
-		"• The SplashScreen now shows only once a day per char.",
-		"• Update the Garrison Capacitive Skin.",
-		"• Update the Party Layout. You have to do the install step for UnitFrames again.",
-		"• Prevent some lua errors if you click the MicroBar Buttons in combat.",
+		"• Change the right and left ActionBar layout.",
+		"• Prevent a nil error with the recent S&L changes for the Minimap buttons.",
+		"• Create an own Minimap Button bar.",
+		"• Update the BigWigs Profile.",
+		"• Add an shadowoverlay to my UI. Which makes the UI darker. I love it!!",
 		-- "• ",
 	" ",
 	"Notes:",
-		"• 'You find the link for cargBags_Nivaya on my AddOn Page on tukui.org'",
+		"• You find the link for cargBags_Nivaya on my AddOn Page on tukui.org",
+		"• 'NOTE:' I changed a check for my install. You can skip the installer.",
+		-- "• ''",
 }
 
 local function ModifiedString(string)

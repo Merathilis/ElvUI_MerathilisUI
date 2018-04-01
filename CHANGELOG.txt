@@ -1,3 +1,10 @@
+[b][color=orange]v3.22[/color], 01.04.2018[/b][list]
+[*]Change the right and left ActionBar layout.
+[*]Prevent a nil error with the recent S&L changes for the Minimap buttons.
+[*]Create an own Minimap Button bar.
+[*]Update the BigWigs Profile.
+[*]Add an shadowoverlay to my UI. Which makes the UI darker. I love it!!
+
 [b][color=orange]v3.21[/color], 29.03.2018[/b][list]
 [*]Dont set the ls_Skin automatic.
 [*]Removed cargBags_Nivaya from the package.
