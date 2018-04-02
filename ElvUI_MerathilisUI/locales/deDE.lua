@@ -27,6 +27,7 @@ L["Desciption"] = "Beschreibung"
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
+L["Removed: "] = "Entfernt: "
 L["Usable Items"] = "Benutzbare Gegenstände"
 
 -- Chat

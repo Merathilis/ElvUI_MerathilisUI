@@ -27,6 +27,7 @@ L["Desciption"] = true
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
+L["Removed: "] = true
 L["Usable Items"] = true
 
 -- Chat
