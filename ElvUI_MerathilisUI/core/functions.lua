@@ -242,6 +242,14 @@ function MER:CleanupHeirlooms()
 end
 MER:RegisterChatCommand("cleanboa", MER.CleanupHeirlooms)
 
+-- Fixes the issue when the dialog to release spirit does not come up.
+function MER:FixRelease()
+	RetrieveCorpse()
+	RepopMe()
+end
+MER:RegisterChatCommand("release", MER.FixRelease)
+MER:RegisterChatCommand("repop", MER.FixRelease)
+
 MER.colors = {
 	class = {},
 }
