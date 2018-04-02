@@ -106,7 +106,7 @@ local function ApplyStyle(bar)
 
 	local height = bar:GetHeight()
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", E and (E.PixelMode and -3 or -5) or -3, 0)
+	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", (E.PixelMode and -3 or -5) or -3, 0)
 	bar.candyBarIconFrame:SetSize(height, height)
 	bar.candyBarIconFrame.SetWidth = MER.dummy
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
@@ -123,7 +123,7 @@ end
 local function onEmph(bar)
 	local icon = bar.candyBarIconFrame
 	icon:ClearAllPoints()
-	icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", E and (E.PixelMode and -3 or -5) or -3, 0)
+	icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", (E.PixelMode and -3 or -5) or -3, 0)
 	icon:SetSize(bar:GetHeight(), bar:GetHeight())
 end
 
