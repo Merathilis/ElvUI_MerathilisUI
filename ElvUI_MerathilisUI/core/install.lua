@@ -1138,7 +1138,7 @@ function MER:SetupUnitframes()
 		["text_format"] = "[name:medium:status]",
 	}
 
-	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 240, 320)
+	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 225, 320)
 
 	-- Assist
 	E.db["unitframe"]["units"]["assist"]["enable"] = false

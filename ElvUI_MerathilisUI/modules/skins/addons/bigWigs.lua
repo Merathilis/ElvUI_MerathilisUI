@@ -104,9 +104,10 @@ local function ApplyStyle(bar)
 
 	bar.candyBarBackground:SetTexture(unpack(E["media"].backdropcolor))
 
+	local height = bar:GetHeight()
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -3, 0)
-	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
+	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", E and (E.PixelMode and -3 or -5) or -3, 0)
+	bar.candyBarIconFrame:SetSize(height, height)
 	bar.candyBarIconFrame.SetWidth = MER.dummy
 	bar.candyBarIconFrame:SetTexCoord(unpack(E.TexCoords))
 
@@ -119,6 +120,13 @@ local function ApplyStyle(bar)
 	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 end
 
+local function onEmph(bar)
+	local icon = bar.candyBarIconFrame
+	icon:ClearAllPoints()
+	icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", E and (E.PixelMode and -3 or -5) or -3, 0)
+	icon:SetSize(bar:GetHeight(), bar:GetHeight())
+end
+
 local f = CreateFrame("Frame")
 local function RegisterStyle()
 	if not BigWigs then return end
@@ -127,11 +135,12 @@ local function RegisterStyle()
 	if not bars then return end
 	bars:RegisterBarStyle(styleName, {
 		apiVersion = 1,
-		version = 1,
-		GetSpacing = function() return 4 end,
+		version = 10,
+		GetSpacing = function() return (E.PixelMode and 4 or 8) or 4 end,
 		ApplyStyle = ApplyStyle,
 		BarStopped = FreeStyle,
 		GetStyleName = function() return styleName end,
+		OnEmphasize = onEmph,
 	})
 	bars.defaultDB.barStyle = styleName
 end
