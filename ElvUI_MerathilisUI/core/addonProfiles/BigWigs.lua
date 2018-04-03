@@ -27,6 +27,21 @@ function MER:LoadBigWigsProfile()
 				},
 			},
 			["BigWigs_Plugins_BossBlock"] = {},
+			["BigWigs_Plugins_Colors"] = {
+				["profiles"] = {
+					["MerathilisUI"] = {
+						["barColor"] = {
+							["BigWigs_Plugins_Colors"] = {
+								["default"] = {
+									0, -- [1]
+									0.474509803921569, -- [2]
+									0.980392156862745, -- [3]
+								},
+							},
+						},
+					},
+				},
+			},
 			["BigWigs_Plugins_Bars"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
