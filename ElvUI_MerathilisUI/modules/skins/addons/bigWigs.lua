@@ -98,9 +98,6 @@ local function ApplyStyle(bar)
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar:SetAllPoints(bar)
 	bar.candyBarBar.SetPoint = MER.dummy
-	if not bar.data["bigwigs:emphasized"] == true then
-		bar.candyBarBar:SetStatusBarColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 1)
-	end
 
 	bar.candyBarBackground:SetTexture(unpack(E["media"].backdropcolor))
 
@@ -120,13 +117,6 @@ local function ApplyStyle(bar)
 	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 0)
 end
 
-local function onEmph(bar)
-	local icon = bar.candyBarIconFrame
-	icon:ClearAllPoints()
-	icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", (E.PixelMode and -3 or -5) or -3, 0)
-	icon:SetSize(bar:GetHeight(), bar:GetHeight())
-end
-
 local f = CreateFrame("Frame")
 local function RegisterStyle()
 	if not BigWigs then return end
@@ -140,7 +130,6 @@ local function RegisterStyle()
 		ApplyStyle = ApplyStyle,
 		BarStopped = FreeStyle,
 		GetStyleName = function() return styleName end,
-		OnEmphasize = onEmph,
 	})
 	bars.defaultDB.barStyle = styleName
 end
