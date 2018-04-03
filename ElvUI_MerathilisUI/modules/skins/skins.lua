@@ -42,9 +42,10 @@ function S:HandleCloseButton(f, point, text)
 
 		-- Create backdrop for the few close buttons that do not use original close button
 		if not f.backdrop then
-			f:CreateBackdrop("Default")
+			f:CreateBackdrop("Default", true)
 			f.backdrop:Point("TOPLEFT", 7, -8)
 			f.backdrop:Point("BOTTOMRIGHT", -8, 8)
+			f.backdrop:SetFrameLevel(f:GetFrameLevel())
 			f:HookScript("OnEnter", MERS.ColorButton)
 			f:HookScript("OnLeave", MERS.ClearButton)
 			f:SetHitRectInsets(6, 6, 7, 7)
