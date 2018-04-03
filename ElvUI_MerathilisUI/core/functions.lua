@@ -353,7 +353,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		f.shadow = shadow
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	style:SetFrameLevel(f:GetFrameLevel() + 1)
 	f.styling = style
 
 	MER["styling"][style] = true
