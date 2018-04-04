@@ -36,7 +36,7 @@ function MM:CheckMail()
 	local inv = CalendarGetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 	if inv > 0 and mail then -- New invites and mail
-		Minimap.backdrop:SetBackdropBorderColor(1, .5, 0)
+		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)
 		MERS:CreatePulse(Minimap.backdrop, 1, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
 		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
