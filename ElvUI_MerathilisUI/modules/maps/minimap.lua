@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = E:GetModule("muiSkins")
+local LSM = LibStub('LibSharedMedia-3.0')
 local MM = E:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MM.modName = L["MiniMap"]
 
@@ -22,12 +23,8 @@ function MM:ReskinMinimap()
 	if not Minimap.IsSkinned then
 		Minimap:CreateBackdrop("Default", true)
 		Minimap.backdrop:SetBackdrop({
-			edgeFile = E["media"].glossTex,
-			bgFile = E["media"].blankTex,
-			edgeSize = E:Scale(4),
-			tile = false,
-			tileSize = 0,
-			insets = {left = E:Scale(4), right = E:Scale(4), top = E:Scale(4), bottom = E:Scale(4)},
+			edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
+			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
 		})
 		_G["Minimap"]:Styling(true, true, false, 180, 180, .75)
 
