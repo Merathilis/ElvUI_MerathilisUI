@@ -481,29 +481,6 @@ function MERS:CreateBackdropTexture(f)
 	f.backdropTexture = tex
 end
 
-function MERS:CreatePulse(frame, speed, alpha, mult)
-	assert(frame, "doesn't exist!")
-	frame.speed = .02
-	frame.mult = mult or 1
-	frame.alpha = alpha or 1
-	frame.tslu = 0
-	frame:SetScript("OnUpdate", function(self, elapsed)
-		elapsed = elapsed * (speed or 5/4)
-		self.tslu = self.tslu + elapsed
-		if self.tslu > self.speed then
-			self.tslu = 0
-			self:SetAlpha(self.alpha*(alpha or 3/5))
-		end
-		self.alpha = self.alpha - elapsed*self.mult
-		if self.alpha < 0 and self.mult > 0 then
-			self.mult = self.mult*-1
-			self.alpha = 0
-		elseif self.alpha > 1 and self.mult < 0 then
-			self.mult = self.mult*-1
-		end
-	end)
-end
-
 function MERS:ColorButton()
 	if self.backdrop then self = self.backdrop end
 

@@ -37,13 +37,13 @@ function MM:CheckMail()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 	if inv > 0 and mail then -- New invites and mail
 		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)
-		MERS:CreatePulse(Minimap.backdrop, 1, 1)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
 		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
-		MERS:CreatePulse(Minimap.backdrop, 1, 1)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
 		Minimap.backdrop:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		MERS:CreatePulse(Minimap.backdrop, 1, 1)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	else -- None of the above
 		Minimap.backdrop:SetScript("OnUpdate", nil)
 		if not E.PixelMode then
