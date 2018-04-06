@@ -518,8 +518,20 @@ function MERS:SkinFrame(frame, template, override, kill)
 	MERS:SetTemplate(frame, template)
 end
 
+local function StartGlow(f)
+	if not f:IsEnabled() then return end
+	f:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	f.glow:SetAlpha(1)
+	MER:CreatePulse(f.glow)
+end
+
+local function StopGlow(f)
+	f.glow:SetScript("OnUpdate", nil)
+	f.glow:SetAlpha(0)
+end
+
 -- Buttons
-function MERS:Reskin(f, strip, noHighlight)
+function MERS:Reskin(f, strip, noHighlight, noGlow)
 	assert(f, "doesn't exist!")
 
 	if f.SetNormalTexture then f:SetNormalTexture("") end
@@ -558,6 +570,21 @@ function MERS:Reskin(f, strip, noHighlight)
 	if not noHighlight then
 		f:HookScript("OnEnter", MERS.ColorButton)
 		f:HookScript("OnLeave", MERS.ClearButton)
+	end
+
+	if not noGlow then
+		f.glow = CreateFrame("Frame", nil, f)
+		f.glow:SetBackdrop({
+			edgeFile = LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
+			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+		})
+		f.glow:SetPoint("TOPLEFT", -2, 2)
+		f.glow:SetPoint("BOTTOMRIGHT", 2, -2)
+		f.glow:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		f.glow:SetAlpha(0)
+
+		f:HookScript("OnEnter", StartGlow)
+		f:HookScript("OnLeave", StopGlow)
 	end
 end
 
