@@ -45,4 +45,4 @@ LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\me
 LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\SkullflowerLight.tga]])
 
 -- Sounds
-LSM:Register("sounds","warning", [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])
+LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])

@@ -105,6 +105,7 @@ function MER:Simple_height(self, t)
 end
 
 function MER:Slide(frame, direction, length, speed)
+	assert(frame, "doesn't exist!")
 	local p1, rel, p2, x, y = frame:GetPoint()
 	frame.mod = ( direction == "LEFT" or direction == "DOWN" ) and -1 or 1
 	frame.hor = ( direction == "LEFT" or direction == "RIGHT" ) and true or false
