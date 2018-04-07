@@ -119,7 +119,7 @@ function MAB:CreateMicroBar()
 	end
 
 	friendsButton.online = friendsButton:CreateFontString(nil, "OVERLAY")
-	friendsButton.online:FontTemplate(nil, 9, "OUTLINE")
+	friendsButton.online:FontTemplate(nil, 10, "OUTLINE")
 	friendsButton.online:SetPoint("BOTTOMRIGHT", friendsButton, 0, 5)
 	friendsButton.online:SetText("")
 	friendsButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
@@ -177,7 +177,7 @@ function MAB:CreateMicroBar()
 	end
 
 	guildButton.online = guildButton:CreateFontString(nil, "OVERLAY")
-	guildButton.online:FontTemplate(nil, 9, "OUTLINE")
+	guildButton.online:FontTemplate(nil, 10, "OUTLINE")
 	guildButton.online:SetPoint("BOTTOMRIGHT", guildButton, 0, 5)
 	guildButton.online:SetText("")
 	guildButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
