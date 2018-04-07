@@ -18,7 +18,6 @@ function MERC:StringReplacement()
 
 	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
-	_G["ITEM_LEVEL"] = L["|cFF00c0failvl|r: %d"]
 	_G["ITEM_CREATED_BY"] = "" -- No creator name
 	_G["ITEM_LEVEL_AND_MIN"] = "Level: %d (min: %d)"
 	_G["ITEM_LEVEL_RANGE"] = L["Requires level: %d - %d"]
