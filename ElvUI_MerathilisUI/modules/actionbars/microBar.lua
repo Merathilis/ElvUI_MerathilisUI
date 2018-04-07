@@ -10,7 +10,12 @@ local _G = _G
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local BNGetNumFriends = BNGetNumFriends
+local GetGuildRosterInfo = GetGuildRosterInfo
+local GetNumFriends = GetNumFriends
+local GetNumGuildMembers = GetNumGuildMembers
 local InCombatLockdown = InCombatLockdown
+local IsInGuild = IsInGuild
 local LoadAddOn = LoadAddOn
 local PlaySound = PlaySound
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
