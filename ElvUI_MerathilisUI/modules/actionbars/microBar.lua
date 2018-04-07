@@ -104,9 +104,40 @@ function MAB:CreateMicroBar()
 	friendsButton.text:SetText(SOCIAL_BUTTON)
 	friendsButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
+	local function UpdateFriends()
+		local friendsTotal, friendsOnline = GetNumFriends()
+		local bnTotal, bnOnline = BNGetNumFriends()
+		local totalOnline = friendsOnline + bnOnline
+
+		if (bnOnline > 0) or (friendsOnline > 0) then
+			if bnOnline > 0 then
+				friendsButton.online:SetText(totalOnline)
+			else
+				friendsButton.online:SetText("0")
+			end
+		end
+	end
+
+	friendsButton.online = friendsButton:CreateFontString(nil, "OVERLAY")
+	friendsButton.online:FontTemplate(nil, 9, "OUTLINE")
+	friendsButton.online:SetPoint("BOTTOMRIGHT", friendsButton, 0, 5)
+	friendsButton.online:SetText("")
+	friendsButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+
 	friendsButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	friendsButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	friendsButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleFriendsFrame"]() end)
+
+	local DELAY = 15
+	local elapsed = DELAY - 5
+	friendsButton:SetScript("OnUpdate", function (self, elapse)
+		elapsed = elapsed + elapse
+
+		if elapsed >= DELAY then
+			elapsed = 0
+			UpdateFriends()
+		end
+	end)
 
 	--Guild
 	local guildButton = CreateFrame("Button", nil, microBar)
@@ -127,9 +158,45 @@ function MAB:CreateMicroBar()
 	guildButton.text:SetText(GUILD)
 	guildButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
+	local function UpdateGuild()
+		if IsInGuild() then
+			local guildTotal, online = GetNumGuildMembers()
+			for i = 1, guildTotal do
+				local _, _, _, _, _, _, _, _, connected, _, _, _, _, isMobile = GetGuildRosterInfo(i)
+				if isMobile then
+					online = online + 1
+				end
+			end
+
+			if online > 0 then
+				guildButton.online:SetText(online)
+			else
+				guildButton.online:SetText("0")
+			end
+		end
+	end
+
+	guildButton.online = guildButton:CreateFontString(nil, "OVERLAY")
+	guildButton.online:FontTemplate(nil, 9, "OUTLINE")
+	guildButton.online:SetPoint("BOTTOMRIGHT", guildButton, 0, 5)
+	guildButton.online:SetText("")
+	guildButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+
 	guildButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	guildButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	guildButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleGuildFrame"]() end)
+
+	local DELAY = 15  --  Update every 15 seconds
+	local elapsed = DELAY - 5
+
+	guildButton:SetScript("OnUpdate", function (self, elapse)
+		elapsed = elapsed + elapse
+
+		if elapsed >= DELAY then
+			elapsed = 0
+			UpdateGuild()
+		end
+	end)
 
 	--Achievements
 	local achieveButton = CreateFrame("Button", nil, microBar)
