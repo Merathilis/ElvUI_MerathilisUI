@@ -268,6 +268,7 @@ P["mui"] = {
 			},
 		},
 	},
+
 	["locPanel"] = {
 		["enable"] = true,
 		["autowidth"] = false,
@@ -425,18 +426,6 @@ P["mui"] = {
 
 	["NameplateAuras"] = {
 		["spellInfo"] = {}
-	},
-
-	["objectivetrackerhider"] = {
-		["enabled"] = true,
-		["hidePvP"] = false,
-		["hideArena"] = false,
-		["hideParty"] = false,
-		["hideRaid"] = false,
-		["collapsePvP"] = true,
-		["collapseArena"] = true,
-		["collapseParty"] = true,
-		["collapseRaid"] = true,
 	},
 
 	-- db

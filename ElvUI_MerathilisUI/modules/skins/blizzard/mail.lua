@@ -33,7 +33,7 @@ local function styleMail()
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
 			MiniMapMailFrame.highlight.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
-			MERS:CreatePulse(MiniMapMailFrame, 1, 1)
+			MER:CreatePulse(MiniMapMailFrame, 1, 1)
 		end
 	end)
 

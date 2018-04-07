@@ -27,14 +27,29 @@ function MER:LoadBigWigsProfile()
 				},
 			},
 			["BigWigs_Plugins_BossBlock"] = {},
+			["BigWigs_Plugins_Colors"] = {
+				["profiles"] = {
+					["MerathilisUI"] = {
+						["barColor"] = {
+							["BigWigs_Plugins_Colors"] = {
+								["default"] = {
+									0, -- [1]
+									0.474509803921569, -- [2]
+									0.980392156862745, -- [3]
+								},
+							},
+						},
+					},
+				},
+			},
 			["BigWigs_Plugins_Bars"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["BigWigsEmphasizeAnchor_y"] = 193,
+						["BigWigsEmphasizeAnchor_y"] = 196,
+						["BigWigsEmphasizeAnchor_x"] = 296,
 						["fontSize"] = 11,
 						["BigWigsAnchor_width"] = 208,
 						["BigWigsAnchor_y"] = 29,
-						["BigWigsEmphasizeAnchor_x"] = 306,
 						["barStyle"] = "MerathilisUI",
 						["emphasizeGrowup"] = true,
 						["BigWigsAnchor_x"] = 388,
@@ -43,6 +58,9 @@ function MER:LoadBigWigsProfile()
 						["font"] = "Expressway",
 						["emphasizeScale"] = 1.1,
 						["texture"] = "MerathilisFlat",
+						["BigWigsEmphasizeAnchor_height"] = 25,
+						["BigWigsEmphasizeAnchor_width"] = 200,
+						["fontSizeEmph"] = 12,
 					},
 				},
 			},

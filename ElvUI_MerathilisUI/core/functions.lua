@@ -5,15 +5,17 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local _G = _G
 local assert, pairs, print, select = assert, pairs, print, select
 local getmetatable = getmetatable
-local format = string.format
+local find, format = string.find, string.format
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
+local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
-
+local PickupContainerItem = PickupContainerItem
+local DeleteCursorItem = DeleteCursorItem
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
@@ -225,6 +227,29 @@ SlashCmdList["WOWVERSION"] = function()
 	MER:Print("Patch:", MER.WoWPatch..", ".. "Build:", MER.WoWBuild..", ".. "Released", MER.WoWPatchReleaseDate..", ".. "Interface:", MER.TocVersion)
 end
 
+-- Chat command to remove Heirlooms from the bags
+function MER:CleanupHeirlooms()
+	for bag = 0, 4 do
+		for slot = 1, GetContainerNumSlots(bag) do
+			local name = GetContainerItemLink(bag, slot)
+			if name and find(name, "00ccff") then
+				MER:Print(L["Removed: "]..name)
+				PickupContainerItem(bag, slot)
+				DeleteCursorItem()
+			end
+		end
+	end
+end
+MER:RegisterChatCommand("cleanboa", MER.CleanupHeirlooms)
+
+-- Fixes the issue when the dialog to release spirit does not come up.
+function MER:FixRelease()
+	RetrieveCorpse()
+	RepopMe()
+end
+MER:RegisterChatCommand("release", MER.FixRelease)
+MER:RegisterChatCommand("repop", MER.FixRelease)
+
 MER.colors = {
 	class = {},
 }
@@ -328,7 +353,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		f.shadow = shadow
 	end
 
-	style:SetFrameLevel(f:GetFrameLevel() + 2)
+	style:SetFrameLevel(f:GetFrameLevel() + 1)
 	f.styling = style
 
 	MER["styling"][style] = true

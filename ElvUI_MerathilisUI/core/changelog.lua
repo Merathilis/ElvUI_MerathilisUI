@@ -17,16 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Change the right and left ActionBar layout.",
-		"• Prevent a nil error with the recent S&L changes for the Minimap buttons.",
-		"• Create an own Minimap Button bar.",
-		"• Update the BigWigs Profile.",
-		"• Add an shadowoverlay to my UI. Which makes the UI darker. I love it!!",
+		"• Follow the recent BigWigs API changes and BigWigs Skin update.",
+		"• Add chat commands /cleanboa = Remove Heirlooms from your bag.",
+		"• /repop, /release = Release spirit if the dialog doesn't show up.",
+		"• Adjust the pet Frame position.",
+		"• Let the minimap border blink, if you have new mail/invites.",
+		"• Create a button glow animation.",
+		"• Adjust the Style Panel size for bigger resolutions.",
 		-- "• ",
 	" ",
 	"Notes:",
 		"• You find the link for cargBags_Nivaya on my AddOn Page on tukui.org",
-		"• 'NOTE:' I changed a check for my install. You can skip the installer.",
 		-- "• ''",
 }
 

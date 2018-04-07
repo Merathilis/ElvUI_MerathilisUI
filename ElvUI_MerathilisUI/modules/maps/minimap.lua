@@ -1,19 +1,59 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
+local LSM = LibStub('LibSharedMedia-3.0')
 local MM = E:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MM.modName = L["MiniMap"]
 
 --Cache global variables
 --Lua functions
 local _G = _G
-local select = select
+local select, unpack = select, unpack
 local format = string.format
 --WoW API / Variables
+local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local GetPlayerMapPosition = GetPlayerMapPosition
+local Minimap = _G["Minimap"]
 local SetMapToCurrentZone = SetMapToCurrentZone
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
+
+function MM:ReskinMinimap()
+	if not Minimap.IsSkinned then
+		Minimap:CreateBackdrop("Default", true)
+		Minimap.backdrop:SetBackdrop({
+			edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
+			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+		})
+		_G["Minimap"]:Styling(true, true, false, 180, 180, .75)
+
+		Minimap.IsSkinned = true
+	end
+end
+
+function MM:CheckMail()
+	local inv = CalendarGetNumPendingInvites()
+	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
+	if inv > 0 and mail then -- New invites and mail
+		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
+	elseif inv > 0 and not mail then -- New invites and no mail
+		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
+	elseif inv == 0 and mail then -- No invites and new mail
+		Minimap.backdrop:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		MER:CreatePulse(Minimap.backdrop, 1, 1)
+	else -- None of the above
+		Minimap.backdrop:SetScript("OnUpdate", nil)
+		if not E.PixelMode then
+			Minimap.backdrop:SetAlpha(1)
+		else
+			Minimap.backdrop:SetAlpha(0)
+		end
+		Minimap.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	end
+end
 
 function MM:ChangeMiniMapButtons()
 	--Garrison Icon
@@ -59,12 +99,12 @@ function MM:MiniMapCoords()
 	end)
 
 	Minimap:HookScript("OnEvent",function(self,event,...)
-		if event == "ZONE_CHANGED_NEW_AREA" and not WorldMapFrame:IsShown() then
+		if event == "ZONE_CHANGED_NEW_AREA" and not _G["WorldMapFrame"]:IsShown() then
 			SetMapToCurrentZone()
 		end
 	end)
 
-	WorldMapFrame:HookScript("OnHide", SetMapToCurrentZone)
+	_G["WorldMapFrame"]:HookScript("OnHide", SetMapToCurrentZone)
 	Minimap:HookScript("OnEnter", function() Coords:Show() end)
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
@@ -72,11 +112,16 @@ end
 function MM:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
-	_G["Minimap"]:Styling(true, true, false, 180, 180, .75)
-
+	self:ReskinMinimap()
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
 	self:ButtonCollectorInit()
+
+	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
+	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckMail")
+	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckMail")
+	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckMail")
 end
 
 local function InitializeCallback()
