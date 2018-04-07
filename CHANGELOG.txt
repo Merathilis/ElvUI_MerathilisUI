@@ -5,7 +5,7 @@
 [*]Adjust the pet Frame position.
 [*]Let the minimap border blink, if you have new mail/invites. :>
 [*]Create a button glow animation.
-[*]Adjust the Style Panel size for bigger resolutions.
+[*]Adjust the Style Panel size for bigger resolutions.[/list]
 
 [b][color=orange]v3.23[/color], 01.04.2018[/b][list]
 [*]Removed a global string which broke other AddOns.[/list]
