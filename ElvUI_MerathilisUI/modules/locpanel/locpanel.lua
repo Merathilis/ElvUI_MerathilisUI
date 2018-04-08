@@ -231,11 +231,11 @@ end
 
 function LP:CreateLocationPanel()
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -4)
+	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -42)
 	loc_panel:SetFrameStrata('LOW')
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)
-	loc_panel:SetScript('OnMouseUp', LP.OnClick)
+	loc_panel:SetScript("OnMouseUp", LP.OnClick)
 	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
 
 	-- Location Text
@@ -552,39 +552,39 @@ function LP:PopulateDropdown(click)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
 				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
 				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
 		end
 	end
 	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
-	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 
 	collectgarbage('collect');
 end
