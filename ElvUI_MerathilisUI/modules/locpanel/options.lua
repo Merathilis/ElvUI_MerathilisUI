@@ -66,6 +66,7 @@ local function LocPanelTable()
 						values = {
 							["Default"] = DEFAULT,
 							["Transparent"] = L["Transparent"],
+							["NoBackdrop"] = L["NoBackdrop"],
 						},
 					},
 					autowidth = {
