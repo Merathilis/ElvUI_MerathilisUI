@@ -26,56 +26,6 @@ local function BagTable()
 				name = MERB:Info() .. "\n\n",
 				order = 2
 			},
-			enable = {
-				type = "toggle",
-				name = L["Enable"],
-				width = "double",
-				order = 3,
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-			},
-			settingsHeader = {
-				type = "header",
-				name = MER:cOption(L["Settings"]),
-				order = 4,
-			},
-			bagSize = {
-				order = 5,
-				type = "range",
-				name = L["Size of slot in bags"],
-				min = 15, max = 45, step = 1,
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				disabled = function() return not E.db.mui.bags.enable end,
-			},
-			sortInverted = {
-				order = 8,
-				type = "toggle",
-				name = L["Order by desc"],
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; end,
-				disabled = function() return not E.db.mui.bags.enable end,
-			},
-			bagWidth = {
-				order = 6,
-				type = "range",
-				name = L["BagsFrame width"],
-				min = 8, max = 20, step = 1,
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				disabled = function() return not E.db.mui.bags.enable end,
-			},
-			bankWidth = {
-				order = 7,
-				type = "range",
-				name = L["BankFrame width"],
-				min = 8, max = 20, step = 1,
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				disabled = function() return not E.db.mui.bags.enable end,
-			},
-			itemLevel = {
-				order = 9,
-				type = "toggle",
-				name = L["Show item level"],
-				set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				hidden = function() return not E.db.mui.bags.enable end,
-			}
 		},
 	}
 end
