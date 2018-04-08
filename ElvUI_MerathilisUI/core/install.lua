@@ -377,9 +377,11 @@ function MER:SetupLayout()
 	--	ProfileDB - mUI
 	--]]----------------------------------
 	E.db["mui"]["uiButtons"]["enable"] = true
-	E.db["mui"]["locPanel"]["enable"] = false
+	E.db["mui"]["locPanel"]["enable"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
+	E.db["mui"]["locPanel"]["width"] = 336
+	E.db["mui"]["locPanel"]["height"] = 21
 	E.db["mui"]["raidmarkers"]["enable"] = false
 
 	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
@@ -397,13 +399,10 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 90, -50)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
-	if E.db.mui.general.panel then
-		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -12)
-	else
-		MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -2)
-	end
+	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, -1)
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -15)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
+	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -24)
 
 	E.db["general"]["font"] = "Expressway"
 	E.db["general"]["fontSize"] = 11
