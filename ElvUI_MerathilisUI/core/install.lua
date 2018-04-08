@@ -380,16 +380,18 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["enable"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
-	E.db["mui"]["locPanel"]["width"] = 336
-	E.db["mui"]["locPanel"]["height"] = 21
+	E.db["mui"]["locPanel"]["width"] = 330
+	E.db["mui"]["locPanel"]["height"] = 20
 	E.db["mui"]["locPanel"]["template"] = "NoBackdrop"
+	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
+	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
 
 	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
 	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -15)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
-	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -23)
+	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -20)
 
 	--[[----------------------------------
 	--	Movers - Layout
