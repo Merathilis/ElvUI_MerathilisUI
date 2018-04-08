@@ -53,8 +53,6 @@ function MAB:OnClick(btn)
 		if(not CalendarFrame) then LoadAddOn("Blizzard_Calendar") end
 		Calendar_Toggle()
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-	elseif btn == "RightButton" then
-		LP:PopulateDropdown()
 	end
 end
 
