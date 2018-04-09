@@ -119,6 +119,8 @@ local function LocPanelTable()
 						type = "toggle",
 						name = L["Hide In Class Hall"],
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Toggle() end,
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 					},
 					location = {
 						order = 20,

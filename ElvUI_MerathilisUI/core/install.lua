@@ -378,6 +378,7 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	E.db["mui"]["uiButtons"]["enable"] = true
 	E.db["mui"]["locPanel"]["enable"] = true
+	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
 	E.db["mui"]["locPanel"]["font"] = "Expressway"
 	E.db["mui"]["locPanel"]["width"] = 330
