@@ -280,6 +280,7 @@ end
 function LP:OnClick(btn)
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
+		if LP.db.coordshide then return end
 		if IsShiftKeyDown() and LP.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
