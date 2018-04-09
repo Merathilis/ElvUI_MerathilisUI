@@ -402,15 +402,15 @@ function MAB:CreateMicroBar()
 
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:SetScript("OnEvent",function(self, event)
-			if event == "PLAYER_REGEN_DISABLED" then
+			if event == "PLAYER_REGEN_DISABLED" or event == "PET_BATTLE_OPENING_START" then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			elseif event == "PLAYER_REGEN_ENABLED" then
+			elseif event == "PLAYER_REGEN_ENABLED" or event == "PET_BATTLE_OVER" then
 				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 			end
 		end)
 	end
 
-	E.FrameLocks["microBar"] = true
+	-- E.FrameLocks["microBar"] = true
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], true, nil)
 
 	self:CombatToggle()
@@ -420,9 +420,13 @@ function MAB:CombatToggle()
 	if E.db.mui.actionbars.microBar.hideInCombat then
 		microBar:RegisterEvent("PLAYER_REGEN_DISABLED")
 		microBar:RegisterEvent("PLAYER_REGEN_ENABLED")
+		microBar:RegisterEvent("PET_BATTLE_OPENING_START")
+		microBar:RegisterEvent("PET_BATTLE_OVER")
 	else
 		microBar:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		microBar:UnregisterEvent("PLAYER_REGEN_ENABLED")
+		microBar:UnregisterEvent("PET_BATTLE_OPENING_START")
+		microBar:UnregisterEvent("PET_BATTLE_OVER")
 	end
 end
 
