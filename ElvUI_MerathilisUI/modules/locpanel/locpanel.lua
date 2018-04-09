@@ -15,6 +15,8 @@ local collectgarbage = collectgarbage
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
 local GetPlayerMapPosition = GetPlayerMapPosition
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
 local GetMinimapZoneText = GetMinimapZoneText
 local GetScreenHeight = GetScreenHeight
@@ -27,11 +29,13 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local IsSpellKnown = IsSpellKnown
+local IsUsableItem = IsUsableItem
 local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
+local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
@@ -232,9 +236,10 @@ local function CreateCoords()
 end
 
 function LP:CreateLocationPanel()
+	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
-	loc_panel:SetFrameStrata('LOW')
+	loc_panel:SetFrameStrata("LOW")
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript("OnMouseUp", LP.OnClick)
@@ -251,7 +256,7 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
-	
+
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
@@ -628,7 +633,7 @@ end
 function LP:UNIT_AURA(event, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
-		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
 		loc_panel:SetShown(not inOrderHall);
 	end
 end
