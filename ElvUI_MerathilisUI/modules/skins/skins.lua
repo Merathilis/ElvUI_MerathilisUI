@@ -527,6 +527,7 @@ end
 
 local function StopGlow(f)
 	f.glow:SetScript("OnUpdate", nil)
+	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	f.glow:SetAlpha(0)
 end
 
