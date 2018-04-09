@@ -222,6 +222,8 @@ LP.Spells = {
 }
 
 local function CreateCoords()
+	if LP.db.coordshide == true then return end
+
 	local x, y = GetPlayerMapPosition("player")
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
@@ -249,13 +251,14 @@ function LP:CreateLocationPanel()
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
-
+	
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	LP:Resize()
+
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO")
 
@@ -296,6 +299,7 @@ end
 function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
+
 	--Coords
 	if not LP.RestrictedArea then
 		local x, y = CreateCoords()
@@ -307,6 +311,7 @@ function LP:UpdateCoords(elapsed)
 		loc_panel.Xcoord.Text:SetText("-")
 		loc_panel.Ycoord.Text:SetText("-")
 	end
+
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
 	if LP.db.colorType_Coords == "REACTION" then

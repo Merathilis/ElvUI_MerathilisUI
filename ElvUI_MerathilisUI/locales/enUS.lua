@@ -309,6 +309,7 @@ L["Info for some items is not available yet. Please try again later"] = true
 L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
+L["Hide Coordinates"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
