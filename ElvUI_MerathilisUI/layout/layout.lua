@@ -181,23 +181,23 @@ function MERL:CreateChatButton()
 	end)
 
 	--mUI Config Button
-	MER:CreateBtn("CM_menu", E.UIParent, 19, 19, L["Config"], "|cffff7d0aC|r")
+	MER:CreateBtn("CM_menu", E.UIParent, 18, 18, L["Config"], "|cffff7d0aC|r")
 	CM_menu:Point("TOPLEFT", ChatMenu, "BOTTOMLEFT", 0, -2)
 	CM_menu:SetAttribute("macrotext", "/mui")
 	CM_menu:Hide()
 
 	--Reload
-	MER:CreateBtn("CM_reload", CM_menu, 19, 19, L["Reload"], "R")
+	MER:CreateBtn("CM_reload", CM_menu, 18, 18, L["Reload"], "R")
 	CM_reload:Point("RIGHT", CM_menu, "LEFT", -2, 0)
 	CM_reload:SetAttribute("macrotext", "/rl")
 
 	--Move UI
-	MER:CreateBtn("CM_move", CM_menu, 19, 19, L["MoveUI"], "M")
+	MER:CreateBtn("CM_move", CM_menu, 18, 18, L["MoveUI"], "M")
 	CM_move:Point("RIGHT", CM_reload, "LEFT", -2, 0)
 	CM_move:SetAttribute("macrotext", "/moveui")
 
 	--AddOns
-	MER:CreateBtn("CM_addons", CM_menu, 19, 19, L["AddOns"], "A")
+	MER:CreateBtn("CM_addons", CM_menu, 18, 18, L["AddOns"], "A")
 	CM_addons:Point("RIGHT", CM_move, "LEFT", -2, 0)
 	CM_addons:SetAttribute("macrotext", "/run GameMenuButtonAddons:Click()")
 end
