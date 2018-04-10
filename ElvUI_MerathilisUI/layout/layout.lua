@@ -86,7 +86,7 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
 end
 
-function MERL:CreateChatButton()
+function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
@@ -156,7 +156,7 @@ function MERL:CreateChatButton()
 		end
 	end)
 
-	local ChatMenu = CreateFrame("Button", nil, _G["LeftChatPanel"])
+	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"])
 	ChatMenu:SetTemplate("Default")
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
@@ -359,7 +359,7 @@ function MERL:Initialize()
 	self:CreatePanels()
 	self:ChangeLayout()
 	self:regEvents()
-	self:CreateChatButton()
+	self:CreateChatButtons()
 end
 
 local function InitializeCallback()
