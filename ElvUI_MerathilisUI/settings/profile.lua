@@ -186,6 +186,7 @@ P["mui"] = {
 		["microBar"] = {
 			["enable"] = true,
 			["hideInCombat"] = false,
+			["hideInOrderHall"] = false,
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,

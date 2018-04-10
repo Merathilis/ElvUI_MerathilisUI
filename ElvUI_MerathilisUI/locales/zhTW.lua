@@ -111,6 +111,10 @@ L["MER_MEDIA_PVPARENA"] = {
 	"Self destruction is in process",
 }
 
+-- MicroBar
+L["Hide In Orderhall"] = true
+L["Hides the MicroBar in Combat and Pet Battles."] = true
+
 -- Misc
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true

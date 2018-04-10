@@ -123,6 +123,10 @@ L["Objective Tracker Header Text"] = "Objective Tracker Kopf Schriftart"
 L["Objective Tracker Text"] = "Objective Tracker Schriftart"
 L["Banner Big Text"] = true
 
+-- MicroBar
+L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
+L["Hides the MicroBar in Combat and Pet Battles."] = "Versteckt die MicroBar im Kampf und Haustierkämpfen."
+
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"

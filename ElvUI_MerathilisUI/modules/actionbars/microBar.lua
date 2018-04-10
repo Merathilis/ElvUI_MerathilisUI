@@ -19,6 +19,7 @@ local IsInGuild = IsInGuild
 local LoadAddOn = LoadAddOn
 local PlaySound = PlaySound
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
@@ -400,39 +401,41 @@ function MAB:CreateMicroBar()
 	shopButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	shopButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end StoreMicroButton:Click() end)
 
-	if E.db.mui.actionbars.microBar.hideInCombat then
-		microBar:SetScript("OnEvent",function(self, event)
-			if event == "PLAYER_REGEN_DISABLED" or event == "PET_BATTLE_OPENING_START" then
-				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
-			elseif event == "PLAYER_REGEN_ENABLED" or event == "PET_BATTLE_OVER" then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
-			end
-		end)
-	end
-
-	-- E.FrameLocks["microBar"] = true
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], true, nil)
-
-	self:CombatToggle()
 end
 
-function MAB:CombatToggle()
-	if E.db.mui.actionbars.microBar.hideInCombat then
-		microBar:RegisterEvent("PLAYER_REGEN_DISABLED")
-		microBar:RegisterEvent("PLAYER_REGEN_ENABLED")
-		microBar:RegisterEvent("PET_BATTLE_OPENING_START")
-		microBar:RegisterEvent("PET_BATTLE_OVER")
-	else
-		microBar:UnregisterEvent("PLAYER_REGEN_DISABLED")
-		microBar:UnregisterEvent("PLAYER_REGEN_ENABLED")
-		microBar:UnregisterEvent("PET_BATTLE_OPENING_START")
-		microBar:UnregisterEvent("PET_BATTLE_OVER")
+function MAB:PLAYER_REGEN_DISABLED()
+	if MAB.db.hideInCombat then microBar:Hide() end
+end
+
+function MAB:PLAYER_REGEN_ENABLED()
+	if MAB.db.enable then microBar:Show() end
+end
+
+function MAB:PET_BATTLE_OPENING_START()
+	if MAB.db.hideInCombat then microBar:Hide() end
+end
+
+function MAB:PET_BATTLE_OVER()
+	if MAB.db.enable then microBar:Show() end
+end
+
+function MAB:UNIT_AURA(event, unit)
+	if unit ~= "player" then return end
+	if MAB.db.enable and MAB.db.hideInOrderHall then
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		microBar:SetShown(not inOrderHall);
 	end
 end
 
 function MAB:InitializeMicroBar()
-	if E.db.mui.actionbars.microBar.enable ~= true then return end
+	MAB.db = E.db.mui.actionbars.microBar
+	if MAB.db.enable ~= true then return end
 
 	self:CreateMicroBar()
-	self:CombatToggle()
+	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("UNIT_AURA")
+	self:RegisterEvent("PET_BATTLE_OPENING_START")
+	self:RegisterEvent("PET_BATTLE_OVER")
 end

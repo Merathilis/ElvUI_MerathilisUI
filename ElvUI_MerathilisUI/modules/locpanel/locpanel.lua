@@ -36,7 +36,6 @@ local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
-local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
