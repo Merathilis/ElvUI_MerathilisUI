@@ -19,7 +19,7 @@ local GetSpellTexture = GetSpellTexture
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	_G["PlayerTalentFrame"]:Styling()
+	_G["PlayerTalentFrame"].backdrop:Styling()
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do

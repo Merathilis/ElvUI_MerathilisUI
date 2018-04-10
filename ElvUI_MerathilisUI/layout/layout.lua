@@ -86,8 +86,9 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
 end
 
-function MERL:CreateChatButton()
+function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
+
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
@@ -154,6 +155,56 @@ function MERL:CreateChatButton()
 			CH:PositionChat(true)
 		end
 	end)
+
+	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"])
+	ChatMenu:SetTemplate("Default")
+	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
+	ChatMenu:Size(18, 18)
+	ChatMenu:EnableMouse(true)
+	ChatMenu:RegisterForClicks("AnyUp")
+
+	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
+	ChatMenu.tex:SetInside()
+	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+	E:GetModule("Skins"):HandleButton(ChatMenu)
+
+	ChatMenu:SetScript("OnMouseDown", function(self)
+		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
+
+		if CM_menu:IsShown() then
+			CM_menu:Hide()
+			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+		else
+			CM_menu:Show()
+			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		end
+	end)
+
+	--mUI Config Button
+	MER:CreateBtn("CM_menu", E.UIParent, 18, 18, L["Config"], "|cffff7d0aC|r")
+	CM_menu:Point("TOPLEFT", ChatMenu, "BOTTOMLEFT", 0, -2)
+	CM_menu:SetAttribute("macrotext", "/mui")
+	CM_menu:Hide()
+
+	--Reload
+	MER:CreateBtn("CM_reload", CM_menu, 18, 18, L["Reload"], "R")
+	CM_reload:Point("RIGHT", CM_menu, "LEFT", -2, 0)
+	CM_reload:SetAttribute("macrotext", "/rl")
+
+	--Move UI
+	MER:CreateBtn("CM_move", CM_menu, 18, 18, L["MoveUI"], "M")
+	CM_move:Point("RIGHT", CM_reload, "LEFT", -2, 0)
+	CM_move:SetAttribute("macrotext", "/moveui")
+
+	--AddOns
+	MER:CreateBtn("CM_addons", CM_menu, 18, 18, L["AddOns"], "A")
+	CM_addons:Point("RIGHT", CM_move, "LEFT", -2, 0)
+	CM_addons:SetScript("OnClick", function(self) _G["GameMenuButtonAddons"]:Click() end)
+
+	--BugReport
+	MER:CreateBtn("CM_bugreport", CM_menu, 63, 18, L["Bugreport"], "Bugreport")
+	CM_bugreport:Point("RIGHT", CM_addons, "LEFT", -2, 0)
+	CM_bugreport:SetScript("OnClick", function(self) E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end)
 end
 
 local function ShowOrHideBar5(bar, button)
@@ -262,6 +313,7 @@ function MERL:CreatePanels()
 	MerathilisUIButton1:RegisterForClicks("AnyUp")
 	MerathilisUIButton1:Size(14, 14)
 	MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
+	E:GetModule("Skins"):HandleButton(MerathilisUIButton1)
 
 	MerathilisUIButton1.tex = MerathilisUIButton1:CreateTexture(nil, "OVERLAY")
 	MerathilisUIButton1.tex:SetInside()
@@ -283,6 +335,7 @@ function MERL:CreatePanels()
 	MerathilisUIButton2:RegisterForClicks("AnyUp")
 	MerathilisUIButton2:Size(14, 14)
 	MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
+	E:GetModule("Skins"):HandleButton(MerathilisUIButton2)
 
 	MerathilisUIButton2.tex = MerathilisUIButton2:CreateTexture(nil, "OVERLAY")
 	MerathilisUIButton2.tex:SetInside()
@@ -311,7 +364,7 @@ function MERL:Initialize()
 	self:CreatePanels()
 	self:ChangeLayout()
 	self:regEvents()
-	self:CreateChatButton()
+	self:CreateChatButtons()
 end
 
 local function InitializeCallback()

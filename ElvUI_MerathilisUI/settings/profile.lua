@@ -186,6 +186,7 @@ P["mui"] = {
 		["microBar"] = {
 			["enable"] = true,
 			["hideInCombat"] = false,
+			["hideInOrderHall"] = false,
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,
@@ -272,11 +273,11 @@ P["mui"] = {
 	["locPanel"] = {
 		["enable"] = true,
 		["autowidth"] = false,
-		["width"] = 245,
+		["width"] = 336,
 		["height"] = 21,
 		["linkcoords"] = true,
 		["template"] = "Transparent",
-		["font"] = "Merathilis Roboto-Black",
+		["font"] = "Expressway",
 		["fontSize"] = 11,
 		["fontOutline"] = "OUTLINE",
 		["throttle"] = 0.2,
@@ -288,6 +289,7 @@ P["mui"] = {
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
 		["combathide"] = false,
 		["orderhallhide"] = false,
+		["coordshide"] = false,
 		["portals"] = {
 			["enable"] = true,
 			["HSplace"] = true,
@@ -372,45 +374,6 @@ P["mui"] = {
 		[SPELL_FAILED_TARGET_AURASTATE] = true,
 		[SPELL_FAILED_TOO_CLOSE] = false,
 		[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
-	},
-
-	["uiButtons"] = {
-		["enabled"] = true,
-		["style"] = "classic",
-		["strata"] = "MEDIUM",
-		["level"] = 5,
-		["transparent"] = "Default",
-		["size"] = 17,
-		["mouse"] = false,
-		["menuBackdrop"] = false,
-		["dropdownBackdrop"] = false,
-		["orientation"] = "vertical",
-		["spacing"] = 3,
-		["point"] = "TOPLEFT",
-		["anchor"] = "TOPRIGHT",
-		["xoffset"] = 0,
-		["yoffset"] = 0,
-		["visibility"] = "show",
-		["customroll"] = {
-			["min"] = "1",
-			["max"] = "50",
-		},
-		["Config"] = {
-			["enabled"] = false,
-			["called"] = "Reload",
-		},
-		["Addon"] = {
-			["enabled"] = false,
-			["called"] = "Manager",
-		},
-		["Status"] = {
-			["enabled"] = false,
-			["called"] = "AFK",
-		},
-		["Roll"] = {
-			["enabled"] = false,
-			["called"] = "Hundred",
-		},
 	},
 
 	["efl"] = {

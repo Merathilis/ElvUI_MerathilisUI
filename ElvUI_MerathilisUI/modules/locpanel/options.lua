@@ -66,6 +66,7 @@ local function LocPanelTable()
 						values = {
 							["Default"] = DEFAULT,
 							["Transparent"] = L["Transparent"],
+							["NoBackdrop"] = L["NoBackdrop"],
 						},
 					},
 					autowidth = {
@@ -118,6 +119,8 @@ local function LocPanelTable()
 						type = "toggle",
 						name = L["Hide In Class Hall"],
 						set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:Toggle() end,
+						disabled = function() return not E.db.mui.locPanel.enable end,
+						hidden = function() return not E.db.mui.locPanel.enable end,
 					},
 					location = {
 						order = 20,
@@ -173,7 +176,7 @@ local function LocPanelTable()
 								order = 1,
 								name = L["Format"],
 								type = "select",
-								disabled = function() return not E.db.mui.locPanel.enable end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.coordshide end,
 								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 								values = {
 									["%.0f"] = DEFAULT,
@@ -185,7 +188,7 @@ local function LocPanelTable()
 								order = 2,
 								name = L["Color Type"],
 								type = "select",
-								disabled = function() return not E.db.mui.locPanel.enable end,
+								disabled = function() return not E.db.mui.locPanel.enable or E.db.mui.locPanel.coordshide end,
 								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
 								values = {
 									["REACTION"] = L["Reaction"],
@@ -198,7 +201,7 @@ local function LocPanelTable()
 								type = "color",
 								order = 3,
 								name = L["Custom Color"],
-								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType_Coords == "CUSTOM" end,
+								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.colorType_Coords == "CUSTOM" or E.db.mui.locPanel.coordshide end,
 								get = function(info)
 									local t = E.db.mui.locPanel[ info[#info] ]
 									local d = P.mui.locPanel[info[#info]]
@@ -209,6 +212,14 @@ local function LocPanelTable()
 									local t = E.db.mui.locPanel[ info[#info] ]
 									t.r, t.g, t.b = r, g, b
 								end,
+							},
+							coordshide = {
+								type = "toggle",
+								order = 4,
+								name = L["Hide Coordinates"],
+								get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
+								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
+								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.template == "NoBackdrop" end,
 							},
 						},
 					},

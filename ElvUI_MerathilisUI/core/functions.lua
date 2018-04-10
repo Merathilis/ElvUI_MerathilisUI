@@ -312,11 +312,34 @@ function MER:GetClassColorString(class)
 	return E:RGBToHex(color.r, color.g, color.b)
 end
 
+function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
+	local f, fs, ff = E["media"].normFont, 11, "OUTLINE"
+	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+	b:Width(w)
+	b:Height(h)
+	b:SetTemplate("Default")
+	b:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
+		GameTooltip:Show()
+	end)
+
+	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
+
+	b.text = b:CreateFontString(nil, "OVERLAY")
+	b.text:SetFont(f, fs, ff)
+	b.text:SetText(txt)
+	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
+	b.text:SetJustifyH("CENTER")
+	b:SetAttribute("type1", "macro")
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
+	local frameName = f.GetName and f:GetName()
 	if f.styling or E.db.mui.general.style ~= true then return end
 
-	local style = CreateFrame("Frame", name or nil, f)
+	local style = CreateFrame("Frame", frameName or nil, f)
 
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)

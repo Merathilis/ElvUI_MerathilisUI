@@ -1,3 +1,11 @@
+** v3.25, 10.04.2018**
+* Remove the UIButton module.
+* Create own UIButtons attached on the Left Chat Panel.
+* The MicroBar hides now also in Pet Battle, if Combat hide is selected.
+* Remove the right click function from the MicroBar.
+* Add a "NoBackdrop" option to the Location Panel.
+* Small Layout adjustments.
+
 ** v3.24, 07.04.2018**
 * Follow the recent BigWigs API changes and BigWigs Skin update.
 * Add chat commands: /cleanboa = Remove Heirlooms from your bag.

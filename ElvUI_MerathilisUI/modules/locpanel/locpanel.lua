@@ -15,6 +15,8 @@ local collectgarbage = collectgarbage
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
 local GetPlayerMapPosition = GetPlayerMapPosition
+local GetProfessions = GetProfessions
+local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
 local GetMinimapZoneText = GetMinimapZoneText
 local GetScreenHeight = GetScreenHeight
@@ -27,6 +29,7 @@ local InCombatLockdown = InCombatLockdown
 local IsInInstance = IsInInstance
 local IsShiftKeyDown = IsShiftKeyDown
 local IsSpellKnown = IsSpellKnown
+local IsUsableItem = IsUsableItem
 local ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat = ChatEdit_ChooseBoxForSend, ChatEdit_ActivateChat
 local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
@@ -222,6 +225,8 @@ LP.Spells = {
 }
 
 local function CreateCoords()
+	if LP.db.coordshide == true then return end
+
 	local x, y = GetPlayerMapPosition("player")
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
@@ -230,12 +235,13 @@ local function CreateCoords()
 end
 
 function LP:CreateLocationPanel()
+	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -4)
-	loc_panel:SetFrameStrata('LOW')
+	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
+	loc_panel:SetFrameStrata("LOW")
 	loc_panel:SetFrameLevel(2)
 	loc_panel:EnableMouse(true)
-	loc_panel:SetScript('OnMouseUp', LP.OnClick)
+	loc_panel:SetScript("OnMouseUp", LP.OnClick)
 	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
 
 	-- Location Text
@@ -256,6 +262,7 @@ function LP:CreateLocationPanel()
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	LP:Resize()
+
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO")
 
@@ -272,6 +279,7 @@ end
 function LP:OnClick(btn)
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
+		if LP.db.coordshide then return end
 		if IsShiftKeyDown() and LP.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
@@ -296,6 +304,7 @@ end
 function LP:UpdateCoords(elapsed)
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
+
 	--Coords
 	if not LP.RestrictedArea then
 		local x, y = CreateCoords()
@@ -307,6 +316,7 @@ function LP:UpdateCoords(elapsed)
 		loc_panel.Xcoord.Text:SetText("-")
 		loc_panel.Ycoord.Text:SetText("-")
 	end
+
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
 	if LP.db.colorType_Coords == "REACTION" then
@@ -552,39 +562,39 @@ function LP:PopulateDropdown(click)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
 				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
 				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function() 
 					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
+					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
 					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
 			end
 		end
 	end
 	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
-	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["SLE_LocationPanel"]:GetWidth()
-	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["SLE_LocationPanel"], MENU_WIDTH, LP.db.portals.justify)
+	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 
 	collectgarbage('collect');
 end
@@ -623,7 +633,7 @@ end
 function LP:UNIT_AURA(event, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
-		local inOrderHall = C_Garrison.IsPlayerInGarrison(LE_GARRISON_TYPE_7_0);
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
 		loc_panel:SetShown(not inOrderHall);
 	end
 end

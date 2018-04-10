@@ -123,6 +123,10 @@ L["Objective Tracker Header Text"] = "Objective Tracker Kopf Schriftart"
 L["Objective Tracker Text"] = "Objective Tracker Schriftart"
 L["Banner Big Text"] = true
 
+-- MicroBar
+L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
+L["Hides the MicroBar in Combat and Pet Battles."] = "Versteckt die MicroBar im Kampf und Haustierkämpfen."
+
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
@@ -310,6 +314,7 @@ L["Info for some items is not available yet. Please try again later"] = "Informa
 L["Update canceled."] = "Update abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menu wird automatisch geöffnet, wenn alle Informationen gesammelt sind. Nochmaliges aufrufen des Menus während des Updates, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
+L["Hide Coordinates"] = "Verstecke Koordinaten"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
@@ -327,42 +332,6 @@ L["Reverse"] = "Umkehren"
 L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
-
--- UIButtons
-L["UI Buttons"] = true
-L["Show/Hide UI buttons."] = "Aktiviere/Deaktivere die UI Tasten."
-L["UI Buttons Style"] = "UI Tasten Stil"
-L["Classic"] = "Klassisch"
-L["Dropdown"] = true
-L["Size"] = true
-L["Sets size of buttons"] = "Setzt die größe der Tasten"
-L["Button Spacing"] = "Tasten Abstand"
-L["The spacing between buttons."] = "Der Abstand zwischen den Tasten."
-L["Mouse Over"] = "Mouseover"
-L["Show on mouse over."] = "Zeige beim mouseover."
-L["Backdrop"] = "Hintergrund"
-L["Dropdown Backdrop"] = "Dropdown Hintergrund"
-L["Buttons position"] = "Tasten Position"
-L["Layout for UI buttons."] = "Layout für die UI Tasten"
-L["Anchor Point"] = "Ankerpunkt"
-L["What point of dropdown will be attached to the toggle button."] = "Wo der Hintergrund angezeigt wird um die Tasten umzuschalten."
-L["Attach To"] = "Anfügen an"
-L["What point to anchor dropdown on the toggle button."] = "Wo der Ankerpunkt vom Dropdown angefügt wird."
-L["Minimum Roll Value"] = "Minimaler Rollwert"
-L["Maximum Roll Value"] = "Maximaler Rollwert"
-L["Function"] = "Funktion"
-L["Custom roll limits are set incorrectly! Minimum should be smaller then or equial to maximum."] = true
-L["Click to toggle config window"] = true
-L["Click to toggle MerathilisUI config group"] = true
-L["Reload UI"] = true
-L["Click to reload your interface"] = true
-L["Move UI"] = true
-L["Click to unlock moving ElvUI elements"] = true
-L["AddOns"] = true
-L["AddOns Manager"] = true
-L["Click to toggle the AddOn Manager frame."] = true
-L["Boss Mod"] = true
-L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
 
 -- CooldownFlash
 L["CooldownFlash"] = true
