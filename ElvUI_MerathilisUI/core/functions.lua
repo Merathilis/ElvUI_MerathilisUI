@@ -337,6 +337,7 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	local frameName = f.GetName and f:GetName()
+	if E.db.mui.general == nil then E.db.mui.general = {} end
 	if f.styling or E.db.mui.general.style ~= true then return end
 
 	local style = CreateFrame("Frame", frameName or nil, f)
