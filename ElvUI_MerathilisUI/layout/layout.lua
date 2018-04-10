@@ -202,7 +202,7 @@ function MERL:CreateChatButtons()
 	CM_addons:SetScript("OnClick", function(self) _G["GameMenuButtonAddons"]:Click() end)
 
 	--BugReport
-	MER:CreateBtn("CM_bugreport", CM_menu, 63, 19, L["Bugreport"], "Bugreport")
+	MER:CreateBtn("CM_bugreport", CM_menu, 63, 18, L["Bugreport"], "Bugreport")
 	CM_bugreport:Point("RIGHT", CM_addons, "LEFT", -2, 0)
 	CM_bugreport:SetScript("OnClick", function(self) E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end)
 end
