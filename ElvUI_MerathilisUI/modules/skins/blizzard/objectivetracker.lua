@@ -252,6 +252,8 @@ local function styleObjectiveTracker()
 		ScrollChild.IconShine:SetSize(42, 42)
 	end
 
+	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
+
 	-- AutoQuestPopUpTracker
 	local function AUTO_QUEST_POPUP_TRACKER_MODULE_Update(self)
 		for _, block in next, self.usedBlocks do
