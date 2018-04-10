@@ -199,7 +199,12 @@ function MERL:CreateChatButtons()
 	--AddOns
 	MER:CreateBtn("CM_addons", CM_menu, 18, 18, L["AddOns"], "A")
 	CM_addons:Point("RIGHT", CM_move, "LEFT", -2, 0)
-	CM_addons:SetAttribute("macrotext", "/run GameMenuButtonAddons:Click()")
+	CM_addons:SetScript("OnClick", function(self) _G["GameMenuButtonAddons"]:Click() end)
+
+	--BugReport
+	MER:CreateBtn("CM_bugreport", CM_menu, 63, 19, L["Bugreport"], "Bugreport")
+	CM_bugreport:Point("RIGHT", CM_addons, "LEFT", -2, 0)
+	CM_bugreport:SetScript("OnClick", function(self) E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end)
 end
 
 local function ShowOrHideBar5(bar, button)
