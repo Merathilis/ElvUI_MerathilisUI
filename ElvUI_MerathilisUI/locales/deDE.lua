@@ -329,42 +329,6 @@ L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
 
--- UIButtons
-L["UI Buttons"] = true
-L["Show/Hide UI buttons."] = "Aktiviere/Deaktivere die UI Tasten."
-L["UI Buttons Style"] = "UI Tasten Stil"
-L["Classic"] = "Klassisch"
-L["Dropdown"] = true
-L["Size"] = true
-L["Sets size of buttons"] = "Setzt die größe der Tasten"
-L["Button Spacing"] = "Tasten Abstand"
-L["The spacing between buttons."] = "Der Abstand zwischen den Tasten."
-L["Mouse Over"] = "Mouseover"
-L["Show on mouse over."] = "Zeige beim mouseover."
-L["Backdrop"] = "Hintergrund"
-L["Dropdown Backdrop"] = "Dropdown Hintergrund"
-L["Buttons position"] = "Tasten Position"
-L["Layout for UI buttons."] = "Layout für die UI Tasten"
-L["Anchor Point"] = "Ankerpunkt"
-L["What point of dropdown will be attached to the toggle button."] = "Wo der Hintergrund angezeigt wird um die Tasten umzuschalten."
-L["Attach To"] = "Anfügen an"
-L["What point to anchor dropdown on the toggle button."] = "Wo der Ankerpunkt vom Dropdown angefügt wird."
-L["Minimum Roll Value"] = "Minimaler Rollwert"
-L["Maximum Roll Value"] = "Maximaler Rollwert"
-L["Function"] = "Funktion"
-L["Custom roll limits are set incorrectly! Minimum should be smaller then or equial to maximum."] = true
-L["Click to toggle config window"] = true
-L["Click to toggle MerathilisUI config group"] = true
-L["Reload UI"] = true
-L["Click to reload your interface"] = true
-L["Move UI"] = true
-L["Click to unlock moving ElvUI elements"] = true
-L["AddOns"] = true
-L["AddOns Manager"] = true
-L["Click to toggle the AddOn Manager frame."] = true
-L["Boss Mod"] = true
-L["Click to toggle the Configuration/Option Window from the Bossmod you have enabled."] = true
-
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"

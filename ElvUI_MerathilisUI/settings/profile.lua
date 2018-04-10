@@ -375,45 +375,6 @@ P["mui"] = {
 		[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
 	},
 
-	["uiButtons"] = {
-		["enabled"] = true,
-		["style"] = "classic",
-		["strata"] = "MEDIUM",
-		["level"] = 5,
-		["transparent"] = "Default",
-		["size"] = 17,
-		["mouse"] = false,
-		["menuBackdrop"] = false,
-		["dropdownBackdrop"] = false,
-		["orientation"] = "vertical",
-		["spacing"] = 3,
-		["point"] = "TOPLEFT",
-		["anchor"] = "TOPRIGHT",
-		["xoffset"] = 0,
-		["yoffset"] = 0,
-		["visibility"] = "show",
-		["customroll"] = {
-			["min"] = "1",
-			["max"] = "50",
-		},
-		["Config"] = {
-			["enabled"] = false,
-			["called"] = "Reload",
-		},
-		["Addon"] = {
-			["enabled"] = false,
-			["called"] = "Manager",
-		},
-		["Status"] = {
-			["enabled"] = false,
-			["called"] = "AFK",
-		},
-		["Roll"] = {
-			["enabled"] = false,
-			["called"] = "Hundred",
-		},
-	},
-
 	["efl"] = {
 		["NameFont"] = "Expressway",
 		["NameFontSize"] = 11,

@@ -88,6 +88,7 @@ end
 
 function MERL:CreateChatButton()
 	if E.db.mui.chat.chatButton ~= true then return end
+
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
 	ChatButton:ClearAllPoints()
@@ -154,6 +155,55 @@ function MERL:CreateChatButton()
 			CH:PositionChat(true)
 		end
 	end)
+
+	local ChatMenu = CreateFrame("Button", nil, _G["LeftChatPanel"])
+	ChatMenu:SetTemplate("Default")
+	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
+	ChatMenu:Size(18, 18)
+	ChatMenu:EnableMouse(true)
+	ChatMenu:RegisterForClicks("AnyUp")
+
+	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
+	ChatMenu.tex:SetInside()
+	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+	E:GetModule("Skins"):HandleButton(ChatMenu)
+
+	ChatMenu:SetScript("OnMouseDown", function(self)
+		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
+
+		if CM_menu:IsShown() then
+			CM_menu:Hide()
+			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+		else
+			CM_menu:Show()
+			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		end
+	end)
+
+	--mUI Config Button
+	MER:CreateBtn("CM_menu", E.UIParent, 19, 19, L["Config"], "|cffff7d0aC|r")
+	CM_menu:Point("TOPLEFT", ChatMenu, "BOTTOMLEFT", 0, -2)
+	CM_menu:SetAttribute("macrotext", "/mui")
+	CM_menu:Hide()
+	E:GetModule("Skins"):HandleButton(CM_menu)
+
+	--Reload
+	MER:CreateBtn("CM_reload", CM_menu, 19, 19, L["Reload"], "R")
+	CM_reload:Point("RIGHT", CM_menu, "LEFT", -2, 0)
+	CM_reload:SetAttribute("macrotext", "/rl")
+	E:GetModule("Skins"):HandleButton(CM_reload)
+
+	--Move UI
+	MER:CreateBtn("CM_move", CM_menu, 19, 19, L["MoveUI"], "M")
+	CM_move:Point("RIGHT", CM_reload, "LEFT", -2, 0)
+	CM_move:SetAttribute("macrotext", "/moveui")
+	E:GetModule("Skins"):HandleButton(CM_move)
+
+	--AddOns
+	MER:CreateBtn("CM_addons", CM_menu, 19, 19, L["AddOns"], "A")
+	CM_addons:Point("RIGHT", CM_move, "LEFT", -2, 0)
+	CM_addons:SetAttribute("macrotext", "/run GameMenuButtonAddons:Click()")
+	E:GetModule("Skins"):HandleButton(CM_addons)
 end
 
 local function ShowOrHideBar5(bar, button)
