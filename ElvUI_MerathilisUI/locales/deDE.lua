@@ -333,6 +333,10 @@ L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
 
+-- Raid Buffs
+L["Raid Buffs"] = true
+L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"

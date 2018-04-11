@@ -332,6 +332,10 @@ L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
+-- Raid Buffs
+L["Raid Buffs"] = true
+L["Shows a frame with flask/food/rune."] = true
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = true

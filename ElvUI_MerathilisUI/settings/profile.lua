@@ -104,6 +104,7 @@ P["mui"] = {
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["powerBar"] = true,
+		["raidBuffs"] = false,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,

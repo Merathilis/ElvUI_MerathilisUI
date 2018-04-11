@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
--- local MI = E:GetModule("mUIMisc")
+local MI = E:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -40,11 +40,11 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(flaskbuffs))
 			if UnitAura("player", spellname) then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(1)
+				FlaskFrame:SetAlpha(0.3)
 				flask = true
 				break
 			else
-				FlaskFrame:SetAlpha(0.3)
+				FlaskFrame:SetAlpha(1)
 				food = false
 			end
 		end
@@ -55,12 +55,12 @@ local function OnAuraChange(self, event, arg1, unit)
 		for i, foodbuffs in pairs(foodbuffs) do
 			local spellname = select(1, GetSpellInfo(foodbuffs))
 			if UnitAura("player", spellname) then
-				FoodFrame:SetAlpha(1)
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
+				FoodFrame:SetAlpha(0.3)
 				food = true
 				break
 			else
-				FoodFrame:SetAlpha(0.3)
+				FoodFrame:SetAlpha(1)
 				food = false
 			end
 		end
@@ -72,11 +72,11 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if UnitAura("player", spellname) then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				DARuneFrame:SetAlpha(1)
+				DARuneFrame:SetAlpha(0.3)
 				darune = true
 				break
 			else
-				DARuneFrame:SetAlpha(0.3)
+				DARuneFrame:SetAlpha(1)
 				food = false
 			end
 		end
@@ -84,7 +84,8 @@ local function OnAuraChange(self, event, arg1, unit)
 end
 
 local raidbuff_reminder = CreateFrame("Frame", MER.Title.."RaidBuffReminder", E.UIParent)
-raidbuff_reminder:SetTemplate("Transparent")
+raidbuff_reminder:CreateBackdrop("Transparent")
+raidbuff_reminder.backdrop:SetAllPoints()
 raidbuff_reminder:SetFrameStrata("BACKGROUND")
 raidbuff_reminder:SetFrameLevel(0)
 raidbuff_reminder:Size(bsize*3+14, bsize + 8)
@@ -101,25 +102,32 @@ local function CreateIconBuff(name, relativeTo, firstbutton)
 		button:Point("RIGHT", relativeTo, "LEFT", -3, 0)
 	end
 
-	button:SetFrameLevel(raidbuff_reminder:GetFrameLevel() + 2)
+	button:SetFrameLevel(raidbuff_reminder.backdrop:GetFrameLevel() + 2)
 	button.t = button:CreateTexture(name..".t", "OVERLAY")
-	button.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	button.t:SetTexCoord(unpack(E.TexCoords))
 	button.t:SetAllPoints(button)
 end
 
-CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
-CreateIconBuff("FoodFrame", FlaskFrame, false)
-CreateIconBuff("DARuneFrame", FoodFrame, false)
+function MI:LoadRaidBuffs()
+	if E.db.mui.misc.raidBuffs ~= true then
+		raidbuff_reminder.backdrop:Hide()
+		return
+	end
 
-raidbuff_reminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-raidbuff_reminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
-raidbuff_reminder:RegisterEvent("UNIT_AURA")
-raidbuff_reminder:RegisterEvent("PLAYER_REGEN_ENABLED")
-raidbuff_reminder:RegisterEvent("PLAYER_REGEN_DISABLED")
-raidbuff_reminder:RegisterEvent("PLAYER_ENTERING_WORLD")
-raidbuff_reminder:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
-raidbuff_reminder:RegisterEvent("CHARACTER_POINTS_CHANGED")
-raidbuff_reminder:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-raidbuff_reminder:SetScript("OnEvent", OnAuraChange)
+	CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
+	CreateIconBuff("FoodFrame", FlaskFrame, false)
+	CreateIconBuff("DARuneFrame", FoodFrame, false)
 
-E:CreateMover(raidbuff_reminder, "RBMover", L["Raid Buffs Reminder"])
+	raidbuff_reminder:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+	raidbuff_reminder:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	raidbuff_reminder:RegisterEvent("UNIT_AURA")
+	raidbuff_reminder:RegisterEvent("PLAYER_REGEN_ENABLED")
+	raidbuff_reminder:RegisterEvent("PLAYER_REGEN_DISABLED")
+	raidbuff_reminder:RegisterEvent("PLAYER_ENTERING_WORLD")
+	raidbuff_reminder:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+	raidbuff_reminder:RegisterEvent("CHARACTER_POINTS_CHANGED")
+	raidbuff_reminder:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	raidbuff_reminder:SetScript("OnEvent", OnAuraChange)
+
+	E:CreateMover(raidbuff_reminder, "RBMover", L["Raid Buffs Reminder"])
+end
