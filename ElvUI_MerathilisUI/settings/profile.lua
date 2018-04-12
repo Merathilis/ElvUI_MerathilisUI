@@ -104,7 +104,6 @@ P["mui"] = {
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["powerBar"] = true,
-		["raidBuffs"] = false,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,
@@ -316,6 +315,12 @@ P["mui"] = {
 		["orientation"] = "HORIZONTAL",
 		["modifier"] = "shift-",
 		["reverse"] = false,
+	},
+
+	["raidBuffs"] = {
+		["enable"] = false,
+		["visibility"] = "INPARTY",
+		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
 
 	["tooltip"] = {

@@ -13,7 +13,6 @@
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
 	<Script file="quest.lua"/>
-	<Script file="rbreminder.lua"/>
 	<Script file="spellAlerts.lua"/>
 	<Script file="sumAuctions.lua"/>
 	<Script file="threatBar.lua"/>

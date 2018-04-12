@@ -46,8 +46,8 @@ L["Unknown"] = true
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = true
+L["Chat Menu"] = true
+L["Create a chat button to increase the chat size and chat menu button."] = true
 
 -- Information
 L["Information"] = true
@@ -333,7 +333,7 @@ L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
 -- Raid Buffs
-L["Raid Buffs"] = true
+L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
 
 -- CooldownFlash

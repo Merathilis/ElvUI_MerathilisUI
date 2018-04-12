@@ -75,12 +75,6 @@ local function Misc()
 				name = L["Alt PowerBar"],
 				desc = L["Replace the default Alt Power Bar."],
 			},
-			raidBuffs ={
-				order = 12,
-				type = "toggle",
-				name = L["Raid Buffs"],
-				desc = L["Shows a frame with flask/food/rune."],
-			},
 		},
 	}
 end

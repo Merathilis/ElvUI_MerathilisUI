@@ -238,7 +238,6 @@ function MI:Initialize()
 	self:LoadQuestReward()
 	self:LoadnameHover()
 	self:AltPowerBar()
-	self:LoadRaidBuffs()
 end
 
 local function InitializeCallback()

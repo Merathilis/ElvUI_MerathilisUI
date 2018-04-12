@@ -111,8 +111,8 @@ local function AddOptions()
 					chatButton = {
 						order = 10,
 						type = "toggle",
-						name = L["Chat Button"],
-						desc = L["Create a chat button to increase the chat size."],
+						name = L["Chat Menu"]..MER.NewSign,
+						desc = L["Create a chat button to increase the chat size and chat menu button."],
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},

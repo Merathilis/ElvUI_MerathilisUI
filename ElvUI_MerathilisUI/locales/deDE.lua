@@ -46,8 +46,8 @@ L["Unknown"] = "Unbekannt"
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
 L["Expand the chat"] = "Chat erweitern"
-L["Chat Button"] = "Chat Taste"
-L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
+L["Chat Menu"] = "Chat Menu"
+L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 
 -- Information
 L["Information"] = true
@@ -334,7 +334,7 @@ L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs 
 L["Visibility State"] = "Sichtbarkeit"
 
 -- Raid Buffs
-L["Raid Buffs"] = true
+L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
 L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
 
 -- CooldownFlash
