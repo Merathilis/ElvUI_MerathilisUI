@@ -5,16 +5,23 @@ RB.modName = L["Raid Buff Reminder"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local IsInRaid = IsInRaid
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
+local GetSpellInfo = GetSpellInfo
+local UnitAura = UnitAura
+
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: hooksecurefunc
+-- GLOBALS: FlaskFrame, FoodFrame, DARuneFrame, mUIRaidBuffReminder
 
 local bsize = 22
 
 RB.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
-	["INPARTY"] = "[group] show; [combat] hide; [petbattle] hide; hide",
+	["INPARTY"] = "[combat] hide; [group] show; [petbattle] hide; hide",
 	["ALWAYS"] = "[petbattle] hide; show",
 }
 
@@ -128,7 +135,7 @@ function RB:Initialize()
 	self.frame:Point("TOP", E.UIParent, "TOP", 0, -50)
 	self.frame:Styling()
 
-	self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
+	self:CreateIconBuff("FlaskFrame", mUIRaidBuffReminder, true)
 	self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 	self:CreateIconBuff("DARuneFrame", FoodFrame, false)
 
