@@ -119,8 +119,6 @@ function RB:Visibility()
 end
 
 function RB:Initialize()
-	RB.db = E.db.mui.raidBuffs
-
 	self.frame = CreateFrame("Frame", "mUIRaidBuffReminder", E.UIParent)
 	self.frame:CreateBackdrop("Transparent")
 	self.frame.backdrop:SetAllPoints()
@@ -137,6 +135,8 @@ function RB:Initialize()
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	self.frame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 	self.frame:RegisterEvent("UNIT_AURA")
+	self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self.frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self.frame:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
 	self.frame:RegisterEvent("CHARACTER_POINTS_CHANGED")
@@ -147,6 +147,7 @@ function RB:Initialize()
 	E:CreateMover(self.frame, "RBMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,PARTY,RAID")
 
 	function RB:ForUpdateAll()
+		RB.db = E.db.mui.raidBuffs
 		self:Visibility()
 	end
 
