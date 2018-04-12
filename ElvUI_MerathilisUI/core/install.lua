@@ -376,7 +376,6 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - mUI
 	--]]----------------------------------
-	E.db["mui"]["uiButtons"]["enable"] = true
 	E.db["mui"]["locPanel"]["enable"] = true
 	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
