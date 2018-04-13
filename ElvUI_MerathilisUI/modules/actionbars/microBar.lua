@@ -24,6 +24,9 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local DELAY = 15
+local elapsed = DELAY - 5
+
 local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 
 local function OnHover(button)
@@ -131,9 +134,6 @@ function MAB:CreateMicroBar()
 	friendsButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	friendsButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	friendsButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleFriendsFrame"]() end)
-
-	local DELAY = 15
-	local elapsed = DELAY - 5
 	friendsButton:SetScript("OnUpdate", function (self, elapse)
 		elapsed = elapsed + elapse
 
@@ -189,10 +189,6 @@ function MAB:CreateMicroBar()
 	guildButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	guildButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	guildButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end _G["ToggleGuildFrame"]() end)
-
-	local DELAY = 15  --  Update every 15 seconds
-	local elapsed = DELAY - 5
-
 	guildButton:SetScript("OnUpdate", function (self, elapse)
 		elapsed = elapsed + elapse
 
