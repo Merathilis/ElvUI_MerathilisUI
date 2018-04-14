@@ -10,7 +10,7 @@ local _G = _G
 -- GLOBALS:
 
 local function styleBinding()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
 
 	_G["KeyBindingFrame"]:Styling()
 end
