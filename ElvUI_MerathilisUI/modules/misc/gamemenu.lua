@@ -54,6 +54,14 @@ MER.NPCS = {
 	66499, -- Bishibosh
 }
 
+MER.PEPE = {
+	[1] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR_HALLOWEEN.m2", -- Pepe (Halloween)
+	[2] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR1.m2",
+	[3] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR2.m2",
+	[4] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR3.m2",
+	[5] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR4.m2",
+}
+
 --[[
 4    - walk
 5    - run
@@ -104,6 +112,20 @@ local function NPC_Model(self)
 	self:SetFacing(6)
 	self:SetAlpha(1)
 	self:SetAnimation(emote)
+	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
+end
+
+local function Pepe_Model(self)
+	local npc = MER.PEPE
+	local mod = random(1, #npc)
+	local id = npc[mod]
+
+	self:ClearModel()
+	self:SetModel(id)
+	self:SetSize(150, 150)
+	self:SetCamDistanceScale(1)
+	self:SetFacing(6)
+	self:SetAlpha(1)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
@@ -194,6 +216,18 @@ function MERG:GameMenu()
 		npcModel.isIdle = nil
 		npcModel:SetSize(256, 256)
 		npcModel:Show()
+	end
+
+	if not pepeHolder then
+		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		pepeHolder:SetSize(150, 150)
+		pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
+
+		pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
+		pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
+		pepeModel:SetScript("OnShow", Pepe_Model)
+		pepeModel.isIdle = nil
+		pepeModel:Show()
 	end
 end
 
