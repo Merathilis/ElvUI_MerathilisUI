@@ -21,6 +21,8 @@ local function styleFriends()
 	_G["RaidInfoFrame"]:Styling()
 
 	_G["RecruitAFriendFrame"]:Styling()
+	_G["RecruitAFriendSentFrame"]:Styling()
+	_G["RecruitAFriendSentFrame"].MoreDetails.Text:FontTemplate()
 
 	-- GuildTab in FriendsFrame
 	local n = _G["FriendsFrame"].numTabs + 1
