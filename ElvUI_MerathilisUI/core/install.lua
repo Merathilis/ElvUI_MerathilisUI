@@ -402,7 +402,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
-	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -80, -300)
+	MER:SetMoverPosition("ObjectiveFrameMover", "TOPLEFT", E.UIParent, "TOPLEFT", 80, -180)
 	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 90, -50)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
@@ -1283,7 +1283,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
 
-	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -240, -215)
+	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -300, -330)
 
 	-- PetTarget
 	E.db["unitframe"]["units"]["pettarget"]["enable"] = false
