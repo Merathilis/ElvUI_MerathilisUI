@@ -1,15 +1,20 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 
-
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local unpack = unpack
+local getn = getn
+local gsub = string.gsub
+local tinsert = table.insert
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
-
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: DBM, DBT, DBMInfoFrame, UISpecialFrames, RaidNotice_AddMessage, DBM_GUI_OptionsFrame
+-- GLOBALS: DBMRangeCheck, DBMRangeCheckRadar
 
 local backdrop = {
 	bgFile = E["media"].normTex,
@@ -148,7 +153,7 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 			end)
 		end
 
-		local replace = string.gsub
+		local replace = gsub
 		local old = RaidNotice_AddMessage
 		RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo)
 			if textString:find(" |T") then
