@@ -46,8 +46,8 @@ L["Unknown"] = true
 L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
-L["Chat Button"] = true
-L["Create a chat button to increase the chat size."] = true
+L["Chat Menu"] = true
+L["Create a chat button to increase the chat size and chat menu button."] = true
 
 -- Information
 L["Information"] = true
@@ -321,6 +321,10 @@ L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
+-- Raid Buffs
+L["Raid Buff Reminder"] = true
+L["Shows a frame with flask/food/rune."] = true
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = true
@@ -447,6 +451,7 @@ L["You have got Location Plus and Shadow & Light both enabled at the same time. 
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
+L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
 
 -- Skins

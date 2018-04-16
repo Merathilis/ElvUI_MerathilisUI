@@ -19,6 +19,7 @@ local DecorAddons = {
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
+	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 }
 
 local SupportedProfiles = {
@@ -31,7 +32,8 @@ local SupportedProfiles = {
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
-	{"ls_Toasts", "ls_Toasts"}
+	{"ls_Toasts", "ls_Toasts"},
+	{"DBM-Core", "Deadly Boss Mods"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -360,6 +362,8 @@ local function SkinsTable()
 			func = function()
 				if addon == 'BigWigs' then
 					E:StaticPopup_Show("MUI_INSTALL_BW_LAYOUT")
+				elseif addon == 'DBM-Core' then
+					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
 				elseif addon == 'ElvUI_SLE' then

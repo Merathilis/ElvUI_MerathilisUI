@@ -376,7 +376,6 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - mUI
 	--]]----------------------------------
-	E.db["mui"]["uiButtons"]["enable"] = true
 	E.db["mui"]["locPanel"]["enable"] = true
 	E.db["mui"]["locPanel"]["combathide"] = true
 	E.db["mui"]["locPanel"]["colorType"] = "CLASS"
@@ -403,7 +402,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
-	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -80, -300)
+	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -75, -300)
 	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 90, -50)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
@@ -1200,11 +1199,11 @@ function MER:SetupUnitframes()
 
 	-- Boss
 	E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 26
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 14
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "RIGHT"
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 2
-	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 5
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 22
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 1
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
+	E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 12
 	E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
@@ -1270,7 +1269,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
 	E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
-	E.db["unitframe"]["units"]["boss"]["spacing"] = 22
+	E.db["unitframe"]["units"]["boss"]["spacing"] = 24
 	E.db["unitframe"]["units"]["boss"]["height"] = 35
 	E.db["unitframe"]["units"]["boss"]["buffs"]["attachTo"] = "FRAME"
 	E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
@@ -1284,7 +1283,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
 	E.db["unitframe"]["units"]["boss"]["name"]["yOffset"] = 16
 
-	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -240, -215)
+	MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
 
 	-- PetTarget
 	E.db["unitframe"]["units"]["pettarget"]["enable"] = false
