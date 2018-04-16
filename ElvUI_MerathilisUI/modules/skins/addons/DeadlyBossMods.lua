@@ -192,7 +192,6 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 		for i = 1, getn(dbmbuttons) do
 			local buttons = _G[dbmbuttons[i]]
 			if buttons and not buttons.overlay then
-			
 				S:HandleButton(buttons)
 			end
 		end
