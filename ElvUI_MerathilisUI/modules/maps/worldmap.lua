@@ -7,10 +7,3 @@ local _G = _G
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
-
--- Change the default position
-local WorldMapFrame = _G["WorldMapFrame"]
-hooksecurefunc("WorldMap_ToggleSizeDown", function()
-	WorldMapFrame:ClearAllPoints()
-	WorldMapFrame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 350)
-end)
