@@ -2,6 +2,7 @@
 	<script file="AddOnSkins.lua"/>
 	<script file="BenikUI.lua"/>
 	<script file="BigWigs.lua"/>
+	<script file="DeadlyBossMods.lua"/>
 	<script file="Details.lua"/>
 	<script file="ls_Toasts.lua"/>
 	<script file="Masque.lua"/>
