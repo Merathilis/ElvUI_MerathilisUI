@@ -1,3 +1,13 @@
+** v3.26, 16.04.2018**
+* Prevent a rare nil error in my Styling function.
+* Add a frame to display missing Flask, Food, Runes. Thx Exeil for the idea. <3
+* Styled the ElvUI Databars.
+* Fix an install error. *derp*
+* Move the WorldStateAlwaysUpFrame a bit down, so it donts overlaps elements.
+* ADD PEPE TO MY GAMEMENU!!
+* Adjust the position for the Boss Frames and ObjectiveTracker.
+* Add a DeadlyBossMods Profile and Skin.
+
 ** v3.25, 10.04.2018**
 * Remove the UIButton module.
 * Create own UIButtons attached on the Left Chat Panel.
