@@ -75,6 +75,7 @@ function MER:RegisterMedia()
 	E["media"].muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
 	E["media"].muiTuk = LSM:Fetch("font", "Merathilis Tukui")
 	E["media"].muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
+	E["media"].muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
 
 	-- Background
 	E["media"].muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
