@@ -954,14 +954,14 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-		["font"] = "Merathilis Tukui",
+		["font"] = "Expressway",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
-		["yOffset"] = -10,
-		["size"] = 12,
+		["yOffset"] = -12,
+		["size"] = 9,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][statustimer]",
+		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
 		["font"] = "Expressway",
@@ -971,7 +971,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:medium:status]",
+		["text_format"] = "[name:medium]",
 	}
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 13
@@ -1137,7 +1137,17 @@ function MER:SetupUnitframes()
 		["yOffset"] = 17,
 		["xOffset"] = 12,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[name:medium:status]",
+		["text_format"] = "[name:medium]",
+	}
+	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -10,
+		["size"] = 12,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[statustimer]",
 	}
 
 	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 225, 320)
