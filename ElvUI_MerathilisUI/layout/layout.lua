@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
 local MERS = E:GetModule("muiSkins")
-local LSM = LibStub("LibSharedMedia-3.0")
 local AB = E:GetModule("ActionBars")
 local CH = E:GetModule("Chat")
 local DT = E:GetModule("DataTexts")
@@ -10,13 +9,14 @@ local LO = E:GetModule("Layout")
 --Cache global variables
 --Lua functions
 local _G = _G
-local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
 local BACK = BACK
 local PlaySound = PlaySound
+local hooksecurefunc = hooksecurefunc
+
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -100,11 +100,11 @@ function MERL:CreateChatButtons()
 		ChatButton:SetAlpha(0.35)
 	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
- 
+
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
- 
+
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
@@ -119,7 +119,7 @@ function MERL:CreateChatButtons()
 			end
 		end
 	end)
- 
+
 	ChatButton:SetScript("OnEnter", function(self)
 		self:SetAlpha(0.65)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
@@ -132,7 +132,7 @@ function MERL:CreateChatButtons()
 		GameTooltip:Show()
 		if InCombatLockdown() then GameTooltip:Hide() end
 	end)
- 
+
 	ChatButton:SetScript("OnLeave", function(self)
 		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 			self:SetAlpha(0)
@@ -141,7 +141,7 @@ function MERL:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
- 
+
 	ChatButton:RegisterEvent("PLAYER_LEAVING_WORLD")
 	ChatButton:RegisterEvent("ADDON_LOADED")
 	ChatButton:SetScript("OnEvent", function(self, event, addon)
