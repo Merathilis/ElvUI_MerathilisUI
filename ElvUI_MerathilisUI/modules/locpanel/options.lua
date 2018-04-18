@@ -4,6 +4,7 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 --Cache global variables
 local format = string.format
+local tinsert = table.insert
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script

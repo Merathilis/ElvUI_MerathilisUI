@@ -10,11 +10,9 @@ MER.callbacks = MER.callbacks or LibStub("CallbackHandler-1.0"):New(MER)
 -- Lua functions
 local _G = _G
 local format = string.format
-local print, pairs, tonumber = print, pairs, tonumber
+local print, pairs = print, pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetAddOnMetadata = GetAddOnMetadata
-local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script

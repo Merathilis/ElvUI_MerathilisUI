@@ -10,7 +10,7 @@ LP.modName = L["Location Panel"]
 local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
-local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local GetBindLocation = GetBindLocation
@@ -69,7 +69,7 @@ LP.ListBuilding = false
 LP.InfoUpdatingTimer = nil
 
 local function GetDirection()
-	local x, y = _G["MER_LocPanel"]:GetCenter()
+	local _, y = _G["MER_LocPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
 	local anchor, point = "TOP", "BOTTOM"
 	if y and y < (screenHeight / 2) then
@@ -516,8 +516,8 @@ function LP:SpellList(list, dropdown, check)
 		local tmp = {}
 		local data = list[i]
 		if IsSpellKnown(data.secure.ID) then
-			if check then 
-				return true 
+			if check then
+				return true
 			else
 				if data.text then
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
@@ -607,11 +607,11 @@ end
 function LP:CHAT_MSG_SKILL()
 	local prof1, prof2 = GetProfessions()
 	if prof1 then
-		local name, _, rank = GetProfessionInfo(prof1)
+		local name, _, _ = GetProfessionInfo(prof1)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 	if prof2 then
-		local name, _, rank = GetProfessionInfo(prof2)
+		local name, _, _ = GetProfessionInfo(prof2)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 end
@@ -630,7 +630,7 @@ function LP:PLAYER_ENTERING_WORLD()
 	LP:UNIT_AURA(nil, "player")
 end
 
-function LP:UNIT_AURA(event, unit)
+function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
@@ -649,6 +649,7 @@ function LP:Initialize()
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()
+
 	function LP:ForUpdateAll()
 		LP.db = E.db.mui.locPanel
 		LP:Resize()
@@ -658,8 +659,8 @@ function LP:Initialize()
 	end
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
- 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
- 	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
+	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end
