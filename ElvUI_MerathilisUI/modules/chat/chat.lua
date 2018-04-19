@@ -62,8 +62,8 @@ function CH:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHis
 		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
 	end
 
-    msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
-    msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
+	msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
+	msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
 
 	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
 end
