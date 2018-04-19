@@ -22,7 +22,7 @@ local InCombatLockdown = InCombatLockdown
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, MAX_QUESTS, TRIVIAL_QUEST_DISPLAY, NORMAL_QUEST_DISPLAY, GossipResize
--- GLOBALS: TRACKER_HEADER_QUESTS, OBJECTIVES_TRACKER_LABEL, QUEST_TRACKER_MODULE 
+-- GLOBALS: TRACKER_HEADER_QUESTS, OBJECTIVES_TRACKER_LABEL, QUEST_TRACKER_MODULE
 -- GLOBALS: OBJECTIVE_TRACKER_COLOR, ENABLE_COLORBLIND_MODE, QuestLogQuests_GetTitleButton
 
 -- Show Quest Count on the ObjectiveTrackerFrame
@@ -36,11 +36,11 @@ function f.PLAYER_LOGIN()
 				_, _, _, _, _, _, _, id, _, _, _, _, _, cns, _, ncns = GetQuestLogTitle(i)
 				l = GetQuestLink(id)
 				if l then
-					if ncns then 
+					if ncns then
 						tinsert(other,l)
-					elseif cns then 
+					elseif cns then
 						tinsert(tasks,l)
-					else 
+					else
 						tinsert(mainlist,l)
 					end
 				end
@@ -49,7 +49,7 @@ function f.PLAYER_LOGIN()
 	end)
 end
 
-function f.PLAYER_REGEN_DISABLED() 
+function f.PLAYER_REGEN_DISABLED()
 	InCombat = true
 end
 function f.PLAYER_REGEN_ENABLED()
