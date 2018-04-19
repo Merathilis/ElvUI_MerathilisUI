@@ -9,5 +9,6 @@
 	<Script file="Postal.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="WeakAuras.lua"/>
+	<Script file="WeakAuraOptions.lua"/>
 	<Script file="XIV_Databar.lua"/>
 </Ui>
