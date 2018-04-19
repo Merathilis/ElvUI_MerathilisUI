@@ -44,6 +44,8 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
 	SetCVar("nameplateMotion", 1)
+	SetCVar("nameplateOverlapH",  0.3) --default is 0.8
+	SetCVar("nameplateOverlapV",  0.7) --default is 1.1
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
