@@ -56,7 +56,7 @@ function MER:GetFormattedText(min, max, style, noDecimal)
 	if style == "DEFICIT" then
 		local deficit = max - min
 		if deficit <= 0 then
-			return ""
+			return nil
 		else
 			return format(chosenFormat, E:ShortValue(deficit))
 		end
@@ -84,7 +84,7 @@ ElvUF.Tags.Methods["health:percent:hidefull:hidezero"] = function(unit)
 	local String
 
 	if (deficit <= 0) or (min == 0) then
-		String = ""
+		String = nil
 	else
 		String = MER:GetFormattedText(min, max, "PERCENT", true)
 	end
@@ -99,7 +99,7 @@ ElvUF.Tags.Methods["health:current:hidefull:hidezero"] = function(unit)
 	local String
 
 	if (deficit <= 0) or (min == 0) then
-		String = ""
+		String = nil
 	else
 		String = MER:GetFormattedText(min, max, "CURRENT", true)
 	end
@@ -114,7 +114,7 @@ ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
 	local String
 
 	if (deficit <= 0) or (min == 0) then
-		String = ""
+		String = nil
 	else
 		String = MER:GetFormattedText(min, max, "CURRENT_PERCENT", true)
 	end
@@ -194,7 +194,7 @@ _G["ElvUF"].Tags.Methods["mUI-resting"] = function(unit)
 	if(unit == "player" and IsResting()) then
 		return "zZz"
 	else
-		return ""
+		return nil
 	end
 end
 
