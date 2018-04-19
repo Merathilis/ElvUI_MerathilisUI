@@ -40,6 +40,34 @@ function CH:UpdateAnchors()
 	CH:PositionChat(true)
 end
 
+function CH:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
+	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
+	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
+
+	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
+		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or time());
+		timeStamp = timeStamp:gsub(' ', '')
+		timeStamp = timeStamp:gsub('AM', ' AM')
+		timeStamp = timeStamp:gsub('PM', ' PM')
+		if CH.db.useCustomTimeColor then
+			local color = CH.db.customTimeColor
+			local hexColor = E:RGBToHex(color.r, color.g, color.b)
+			msg = format("%s[%s]|r %s", hexColor, timeStamp, msg)
+		else
+			msg = format("[%s] %s", timeStamp, msg)
+		end
+	end
+
+	if CH.db.copyChatLines then
+		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
+	end
+
+    msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
+    msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
+
+	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
+end
+
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
