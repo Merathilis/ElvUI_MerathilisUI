@@ -58,6 +58,8 @@ local function styleWorldmap()
 	WorldMapFrameAreaPetLevels:SetShadowOffset(1, -1)
 	WorldMapZoneInfo:FontTemplate(nil, 25, "OUTLINE")
 	WorldMapZoneInfo:SetShadowOffset(1, -1)
+
+	BlackoutWorld:SetTexture(nil) -- Fog of War
 end
 
 S:AddCallback("mUISkinWorldMap", styleWorldmap)
