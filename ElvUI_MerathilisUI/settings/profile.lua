@@ -35,6 +35,7 @@ P["mui"] = {
 		["chatButton"] = true,
 		["panelHeight"] = 146,
 		["iLevelLink"] = true,
+		["hidePlayerBrackets"] = true,
 	},
 
 	["colors"] = {

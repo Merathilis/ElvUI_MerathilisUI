@@ -48,6 +48,8 @@ L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
+L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
+L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 
 -- Information
 L["Information"] = true

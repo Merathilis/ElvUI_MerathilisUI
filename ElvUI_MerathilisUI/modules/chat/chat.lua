@@ -40,13 +40,13 @@ function CH:UpdateAnchors()
 	CH:PositionChat(true)
 end
 
-function CH:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
+function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
 
 	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
 		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or time());
-		timeStamp = timeStamp:gsub(' ', '')
+		timeStamp = gsub(timeStamp, ' $', '') --Remove space at the end of the string
 		timeStamp = timeStamp:gsub('AM', ' AM')
 		timeStamp = timeStamp:gsub('PM', ' PM')
 		if CH.db.useCustomTimeColor then
@@ -62,11 +62,18 @@ function CH:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHis
 		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
 	end
 
-	msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
-	msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
+	if E.db["mui"] and E.db["mui"]["chat"] and E.db["mui"]["chat"].hidePlayerBrackets then
+		msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
+		msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
+	end
 
 	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
 end
+
+function CH:AddMessage(msg, ...)
+	return MERC.AddMessage(self, msg, ...)
+end
+
 
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end

@@ -48,6 +48,8 @@ L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
+L["Hide Player Brackets"] = true
+L["Removes brackets around the person who posts a chat message."] = true
 
 -- Information
 L["Information"] = true

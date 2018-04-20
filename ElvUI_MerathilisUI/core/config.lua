@@ -124,6 +124,15 @@ local function AddOptions()
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					hidePlayerBrackets = {
+						order = 12,
+						type = "toggle",
+						name = L["Hide Player Brackets"]..MER.NewSign,
+						desc = L["Removes brackets around the person who posts a chat message."],
+						get = function(info) return E.db.mui.chat[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+
 				},
 			},
 			info = {
