@@ -13,7 +13,7 @@ local format = string.format
 local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
-local GetPlayerMapPosition = GetPlayerMapPosition
+--local GetPlayerMapPosition = GetPlayerMapPosition
 local Minimap = _G["Minimap"]
 local SetMapToCurrentZone = SetMapToCurrentZone
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
@@ -87,17 +87,17 @@ function MM:MiniMapCoords()
 	Coords:SetPoint(pos, 0, 0)
 	Coords:Hide()
 
-	Minimap:HookScript("OnUpdate",function()
-		if select(2, GetInstanceInfo()) == "none" then
-			local x,y = GetPlayerMapPosition("player")
-			if x>0 or y>0 then
-				Coords:SetText(format("%d,%d",x*100,y*100))
-			else
-				Coords:SetText("")
-			end
-		end
-	end)
-
+	--Minimap:HookScript("OnUpdate",function()
+		--if select(2, GetInstanceInfo()) == "none" then
+			--local x,y = GetPlayerMapPosition("player")
+			--if x>0 or y>0 then
+				--Coords:SetText(format("%d,%d",x*100,y*100))
+			--else
+				--Coords:SetText("")
+			--end
+		--end
+	--end)
+--
 	Minimap:HookScript("OnEvent",function(self,event,...)
 		if event == "ZONE_CHANGED_NEW_AREA" and not _G["WorldMapFrame"]:IsShown() then
 			SetMapToCurrentZone()
