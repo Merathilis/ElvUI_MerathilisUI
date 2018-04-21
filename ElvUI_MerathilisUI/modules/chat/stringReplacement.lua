@@ -10,11 +10,11 @@ local _G = _G
 -- GLOBALS: SetItemRef
 
 function MERC:StringReplacement()
-	_G["ERR_FRIEND_ONLINE_SS"] = "[%s] "..L["has come |cff298F00online|r."]
-	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
+	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
+	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
 
-	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "[%s]"..L[" has come |cff298F00online|r."]
-	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "[%s]"..L[" has gone |cffff0000offline|r."]
+	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
+	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "%s"..L[" has gone |cffff0000offline|r."]
 
 	_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
