@@ -52,15 +52,15 @@ local function OnAuraChange(self, event, arg1, unit)
 		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))
 		for i, flaskbuffs in pairs(flaskbuffs) do
 			local spellname = select(1, GetSpellInfo(flaskbuffs))
-			if UnitAura("player", spellname) then
-				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(0.3)
-				flask = true
-				break
-			else
-				FlaskFrame:SetAlpha(1)
-				food = false
-			end
+			--if UnitAura("player", spellname) then
+				--FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
+				--FlaskFrame:SetAlpha(0.3)
+				--flask = true
+				--break
+			--else
+				--FlaskFrame:SetAlpha(1)
+				--food = false
+			--end
 		end
 	end
 
@@ -68,15 +68,15 @@ local function OnAuraChange(self, event, arg1, unit)
 		FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs[1])))
 		for i, foodbuffs in pairs(foodbuffs) do
 			local spellname = select(1, GetSpellInfo(foodbuffs))
-			if UnitAura("player", spellname) then
-				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				FoodFrame:SetAlpha(0.3)
-				food = true
-				break
-			else
-				FoodFrame:SetAlpha(1)
-				food = false
-			end
+			--if UnitAura("player", spellname) then
+				--FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
+				--FoodFrame:SetAlpha(0.3)
+				--food = true
+				--break
+			--else
+				--FoodFrame:SetAlpha(1)
+				--food = false
+			--end
 		end
 	end
 
@@ -84,15 +84,15 @@ local function OnAuraChange(self, event, arg1, unit)
 	DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
 			local spellname = select(1, GetSpellInfo(darunebuffs))
-			if UnitAura("player", spellname) then
-				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				DARuneFrame:SetAlpha(0.3)
-				darune = true
-				break
-			else
-				DARuneFrame:SetAlpha(1)
-				food = false
-			end
+			--if UnitAura("player", spellname) then
+				--DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
+				--DARuneFrame:SetAlpha(0.3)
+				--darune = true
+				--break
+			--else
+				--DARuneFrame:SetAlpha(1)
+				--food = false
+			--end
 		end
 	end
 end
