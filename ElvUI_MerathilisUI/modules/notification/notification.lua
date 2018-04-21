@@ -43,7 +43,7 @@ local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
-local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
+--local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
 local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
 local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
@@ -472,28 +472,29 @@ function NF:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+
 local SOUND_TIMEOUT = 20
-function NF:VIGNETTE_ADDED(event, id)
-	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
-	if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
-
-	if (id ~= self.lastMinimapRare.id) then
-		local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
-		local left, right, top, bottom = GetObjectIconTextureCoords(icon)
-		local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
-
-		-- Notify
-		if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
-			PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
-		end
-		name = format("|cff00c0fa%s|r", name:sub(1, 28))
-		self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
-	end
-
-	-- Set last Vignette data
-	self.lastMinimapRare.time = GetTime()
-	self.lastMinimapRare.id = id
-end
+--function NF:VIGNETTE_ADDED(event, id)
+	--if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
+	--if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
+--
+	--if (id ~= self.lastMinimapRare.id) then
+		--local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
+		--local left, right, top, bottom = GetObjectIconTextureCoords(icon)
+		--local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+--
+		 --Notify
+		--if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
+			--PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+		--end
+		--name = format("|cff00c0fa%s|r", name:sub(1, 28))
+		--self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
+	--end
+--
+	 --Set last Vignette data
+	--self.lastMinimapRare.time = GetTime()
+	--self.lastMinimapRare.id = id
+--end
 
 function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
@@ -608,7 +609,7 @@ function NF:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("VIGNETTE_ADDED")
+	--self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
