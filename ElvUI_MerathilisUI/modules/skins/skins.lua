@@ -663,9 +663,9 @@ function MERS:LargeItemButtonTemplate(button)
 	MERS:CropIcon(button.Icon)
 
 	local iconBG = CreateFrame("Frame", nil, button)
-    iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
-    iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
-    iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
+	iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
+	iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
+	iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
 	button._mUIIconBorder = iconBG
 
 	button.NameFrame:SetAlpha(0)
