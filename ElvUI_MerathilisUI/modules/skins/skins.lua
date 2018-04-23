@@ -637,6 +637,18 @@ function MERS:ReskinItemFrame(frame)
 	frame._mUINameBG = bg
 end
 
+function MERS:CropIcon(texture, parent)
+	texture:SetTexCoord(unpack(E.TexCoords))
+	if parent then
+	    local layer, subLevel = texture:GetDrawLayer()
+	    local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
+	    iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
+	    iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
+	    iconBorder:SetColorTexture(0, 0, 0)
+	    return iconBorder
+	end
+end
+
 function MERS:ItemButtonTemplate(button)
 	assert(button, "doesn't exist!")
 
@@ -646,45 +658,44 @@ function MERS:ItemButtonTemplate(button)
 	button._mUIIconBorder = MERS:ReskinIcon(button.icon)
 end
 
-function MERS:SimplePopupButtonTemplate(checkbutton)
-	select(2, checkbutton:GetRegions()):Hide()
-end
-
-function MERS:PopupButtonTemplate(checkbutton)
-	MERS:SimplePopupButtonTemplate(checkbutton)
-end
-
 function MERS:LargeItemButtonTemplate(button)
 	assert(button, "doesn't exist!")
+	MERS:CropIcon(button.Icon)
 
-	local icon = button.Icon
+	local iconBG = CreateFrame("Frame", nil, button)
+    iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
+    iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
+    iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
+	button._mUIIconBorder = iconBG
 
-	local nameFrame = button.NameFrame
-	nameFrame:SetAlpha(0)
+	button.NameFrame:SetAlpha(0)
 
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", -3, 1)
-	MERS:CreateBD(bg, .2)
-
-	button._mUINameBG = bg
+	local nameBG = CreateFrame("Frame", nil, button)
+	nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
+	nameBG:SetPoint("BOTTOMRIGHT", -3, 1)
+	MERS:CreateBD(nameBG, .2)
+	button._mUINameBG = nameBG
 end
 
 function MERS:SmallItemButtonTemplate(button)
 	assert(button, "doesn't exist!")
 
-	local icon = button.Icon
-	icon:SetSize(28, 28)
+	button.Icon:SetSize(29, 29)
+	MERS:CropIcon(button.Icon)
 
-	local nameFrame = button.NameFrame
-	nameFrame:SetAlpha(0)
+	local iconBG = CreateFrame("Frame", nil, button)
+	iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
+	iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
+	iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
+	button._mUIIconBorder = iconBG
 
-	local bg = CreateFrame("Frame", nil, button)
-	bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 2, 1)
-	bg:SetPoint("BOTTOMRIGHT", nameFrame, 0, 0)
-	MERS:CreateBD(bg, .2)
+	button.NameFrame:SetAlpha(0)
 
-	button._mUINameBG = bg
+	local nameBG = CreateFrame("Frame", nil, button)
+	nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
+	nameBG:SetPoint("BOTTOMRIGHT", button.NameFrame, 0, -1)
+	MERS:CreateBD(nameBG, .2)
+	button._mUIINameBG = nameBG
 end
 
 function MERS:SkinPanel(panel)
