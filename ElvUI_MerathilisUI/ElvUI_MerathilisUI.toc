@@ -27,4 +27,4 @@ settings\load_settings.xml
 developer\load_developer.xml
 modules\load_modules.xml
 layout\layout.lua
-Bindings.xml
+Bindings.xml 
