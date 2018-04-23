@@ -16,6 +16,5 @@
 	<Script file="spellAlerts.lua"/>
 	<Script file="sumAuctions.lua"/>
 	<Script file="threatBar.lua"/>
-	<Script file="tradeskilltabs.lua"/>
 	<Script file="options.lua"/>
 </Ui>

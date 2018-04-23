@@ -180,10 +180,6 @@ L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = "Berufsfenster Tabs"
-L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"

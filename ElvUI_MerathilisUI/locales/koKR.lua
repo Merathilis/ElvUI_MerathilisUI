@@ -168,10 +168,6 @@ L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["Enable Quick Join Notification"] = true
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = true
-L["Add tabs for professions on the TradeSkill Frame."] = true
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true

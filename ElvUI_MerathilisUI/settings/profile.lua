@@ -44,7 +44,6 @@ P["mui"] = {
 
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
-		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
