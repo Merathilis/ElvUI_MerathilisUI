@@ -26,7 +26,7 @@ local function stylePvP()
 
 	local BonusFrame = _G["HonorFrame"].BonusFrame
 
-	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "AshranButton", "BrawlButton"}) do
+	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "LargeBattlegroundButton", "BrawlButton"}) do
 		local bu = BonusFrame[bonusButton]
 		bu:StripTextures()
 

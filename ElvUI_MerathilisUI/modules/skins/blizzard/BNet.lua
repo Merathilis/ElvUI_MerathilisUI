@@ -13,14 +13,14 @@ local function styleBNet()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
 	-- BNet ToastFrame
-	_G["BNToastFrameGlowFrame"].glow:SetColorTexture(1, 1, 1, 0.5)
-	_G["BNToastFrameGlowFrame"].glow:SetAllPoints()
+	--_G["BNToastFrameGlowFrame"].glow:SetColorTexture(1, 1, 1, 0.5)
+	--_G["BNToastFrameGlowFrame"].glow:SetAllPoints()
 
-	_G["BNToastFrameCloseButton"]:SetPushedTexture("")
-	_G["BNToastFrameCloseButton"]:SetHighlightTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
-	_G["BNToastFrameCloseButton"]:SetNormalTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
-	_G["BNToastFrameCloseButton"]:GetNormalTexture():SetAlpha(0.5)
-
+	--_G["BNToastFrameCloseButton"]:SetPushedTexture("")
+	--_G["BNToastFrameCloseButton"]:SetHighlightTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
+	--_G["BNToastFrameCloseButton"]:SetNormalTexture([[Interface\FriendsFrame\ClearBroadcastIcon]])
+	--_G["BNToastFrameCloseButton"]:GetNormalTexture():SetAlpha(0.5)
+--
 	_G["BNToastFrame"]:Styling()
 end
 

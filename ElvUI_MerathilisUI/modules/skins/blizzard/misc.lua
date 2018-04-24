@@ -15,10 +15,10 @@ local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
-	hooksecurefunc("WorldStateAlwaysUpFrame_Update", function()
-		WorldStateAlwaysUpFrame:ClearAllPoints()
-		WorldStateAlwaysUpFrame:SetPoint("TOP", 0, -45)
-	end)
+	--hooksecurefunc("WorldStateAlwaysUpFrame_Update", function()
+		--WorldStateAlwaysUpFrame:ClearAllPoints()
+		--WorldStateAlwaysUpFrame:SetPoint("TOP", 0, -45)
+	--end)
 
 	_G["GameMenuFrame"]:Styling()
 

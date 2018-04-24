@@ -130,18 +130,19 @@ local function styleQuestFrame()
 	_G["CurrentQuestsText"].SetTextColor = MER.dummy
 	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
 	_G["AvailableQuestsText"].SetTextColor = MER.dummy
-	for i = 1, MAX_NUM_QUESTS do
-		local button = _G["QuestTitleButton"..i]
-		if button then
-			hooksecurefunc(button, "SetFormattedText", function()
-				if button:GetFontString() then
-					if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
-						button:GetFontString():SetText(gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
-					end
-				end
-			end)
-		end
-	end
+
+	--for i = 1, MAX_NUM_QUESTS do
+		--local button = _G["QuestTitleButton"..i]
+		--if button then
+			--hooksecurefunc(button, "SetFormattedText", function()
+				--if button:GetFontString() then
+					--if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
+						--button:GetFontString():SetText(gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
+					--end
+				--end
+			--end)
+		--end
+	--end
 
 	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", function(self, red, green, blue)
 		if red == 0 then
