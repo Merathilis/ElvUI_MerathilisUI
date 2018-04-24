@@ -29,7 +29,6 @@ local function styleSpellBook()
 		"SecondaryProfession1",
 		"SecondaryProfession2",
 		"SecondaryProfession3",
-		"SecondaryProfession4"
 	}
 
 	for _, header in pairs(professionheaders) do
@@ -74,7 +73,6 @@ local function styleSpellBook()
 		SecondaryProfession1 = false,
 		SecondaryProfession2 = false,
 		SecondaryProfession3 = false,
-		SecondaryProfession4 = false
 	}
 
 	for name, isPrimary in next, professions do
@@ -130,6 +128,7 @@ local function styleSpellBook()
 			prof.statusBar:SetPoint("TOPLEFT", prof.rank, "BOTTOMLEFT", 0, -3)
 		end
 	end
+
 	hooksecurefunc("FormatProfession", function(frame, index)
 		if index then
 			local _, texture = GetProfessionInfo(index)
