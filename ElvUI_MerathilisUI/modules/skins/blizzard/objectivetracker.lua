@@ -176,7 +176,7 @@ local function styleObjectiveTracker()
 			end
 		end
 	end
-	hooksecurefunc("QuestLogQuests_Update", ShowQuestLogLevel)
+	--hooksecurefunc("QuestLogQuests_Update", ShowQuestLogLevel)
 
 	local function SetAchievementColor(block)
 		if block.module == ACHIEVEMENT_TRACKER_MODULE then
