@@ -86,6 +86,19 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
 end
 
+local function ChatMenu_OnEnter(self)
+	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
+	GameTooltip:ClearLines()
+	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
+	GameTooltip:AddLine('')
+	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Voice Buttons"], 1, 1, 1)
+	GameTooltip:Show()
+end
+
+local function ChatMenu_OnLeave(self)
+	GameTooltip:Hide()
+end
+
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
 
@@ -161,22 +174,30 @@ function MERL:CreateChatButtons()
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
 	ChatMenu:EnableMouse(true)
-	ChatMenu:RegisterForClicks("AnyUp")
+	ChatMenu:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
 	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
 	ChatMenu.tex:SetInside()
 	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
 	E:GetModule("Skins"):HandleButton(ChatMenu)
 
-	ChatMenu:SetScript("OnMouseDown", function(self)
+	ChatMenu:SetScript("OnEnter", ChatMenu_OnEnter)
+	ChatMenu:SetScript("OnLeave", ChatMenu_OnLeave)
+
+	ChatMenu:SetScript("OnClick", function(self, btn)
+		GameTooltip:Hide()
 		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
 
-		if CM_menu:IsShown() then
-			CM_menu:Hide()
-			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-		else
-			CM_menu:Show()
-			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		if btn == "LeftButton" then
+			if CM_menu:IsShown() then
+				CM_menu:Hide()
+				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+			else
+				CM_menu:Show()
+				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+			end
+		elseif btn == "RightButton" then
+			LO:ChatButtonPanel_OnClick()
 		end
 	end)
 
