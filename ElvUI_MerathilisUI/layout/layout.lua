@@ -98,6 +98,8 @@ local function ChatMenu_OnEnter(self)
 end
 
 local function ChatMenu_OnLeave(self)
+	if GameTooltip:IsForbidden() then return end
+
 	GameTooltip:Hide()
 end
 
@@ -137,6 +139,8 @@ function MERL:CreateChatButtons()
 
 	ChatButton:SetScript("OnEnter", function(self)
 		self:SetAlpha(0.65)
+		if GameTooltip:IsForbidden() then return end
+
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
