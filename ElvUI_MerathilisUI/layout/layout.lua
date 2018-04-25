@@ -87,6 +87,8 @@ function MERL:ChangeLayout()
 end
 
 local function ChatMenu_OnEnter(self)
+	if GameTooltip:IsForbidden() then return end
+
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
@@ -179,7 +181,6 @@ function MERL:CreateChatButtons()
 	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
 	ChatMenu.tex:SetInside()
 	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-	E:GetModule("Skins"):HandleButton(ChatMenu)
 
 	ChatMenu:SetScript("OnEnter", ChatMenu_OnEnter)
 	ChatMenu:SetScript("OnLeave", ChatMenu_OnLeave)
@@ -200,6 +201,8 @@ function MERL:CreateChatButtons()
 			LO:ChatButtonPanel_OnClick()
 		end
 	end)
+
+	E:GetModule("Skins"):HandleButton(ChatMenu)
 
 	--mUI Config Button
 	MER:CreateBtn("CM_menu", E.UIParent, 18, 18, L["Config"], "|cffff7d0aC|r")
