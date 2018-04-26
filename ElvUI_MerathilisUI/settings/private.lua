@@ -44,6 +44,7 @@ V["muiSkins"] = {
 		["achievement"] = true,
 		["tradeskill"] = true,
 		["lfg"] = true,
+		["lfguild"] = true,
 		["talkinghead"] = true,
 		["guild"] = true,
 		["objectiveTracker"] = true,

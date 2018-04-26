@@ -238,6 +238,11 @@ local function SkinsTable()
 				name = LFG_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
 			},
+			lfguild = {
+				type = "toggle",
+				name = L["LF Guild Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild end,
+			},
 			talkinghead = {
 				type = "toggle",
 				name = L["TalkingHead"],

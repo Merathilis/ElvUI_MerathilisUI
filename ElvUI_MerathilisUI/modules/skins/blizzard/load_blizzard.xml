@@ -22,6 +22,7 @@
 	<Script file="guildcontrol.lua"/>
 	<Script file="help.lua"/>
 	<Script file="lfg.lua"/>
+	<Script file="lfguild.lua"/>
 	<Script file="loot.lua"/>
 	<Script file="macro.lua"/>
 	<Script file="mail.lua"/>
