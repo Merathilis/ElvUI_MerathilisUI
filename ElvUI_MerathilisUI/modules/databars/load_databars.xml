@@ -1,8 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<script file="databars.lua"/>
-	<script file="experience.lua"/>
-	<script file="reputation.lua"/>
-	<script file="honor.lua"/>
-	<script file="artifact.lua"/>
 	<script file="options.lua"/>
 </Ui>
