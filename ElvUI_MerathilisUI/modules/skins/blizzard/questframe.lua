@@ -121,6 +121,7 @@ local function styleQuestFrame()
 		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 0)
 	end)
 
+	-- Greetings Panel
 	_G["QuestFrameGreetingPanel"]:StripTextures()
 	_G["QuestGreetingScrollFrame"]:StripTextures()
 	_G["QuestGreetingFrameHorizontalBreak"]:Kill()
@@ -131,18 +132,43 @@ local function styleQuestFrame()
 	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
 	_G["AvailableQuestsText"].SetTextColor = MER.dummy
 
-	--for i = 1, MAX_NUM_QUESTS do
-		--local button = _G["QuestTitleButton"..i]
-		--if button then
-			--hooksecurefunc(button, "SetFormattedText", function()
-				--if button:GetFontString() then
-					--if button:GetFontString():GetText() and button:GetFontString():GetText():find("|cff000000") then
-						--button:GetFontString():SetText(gsub(button:GetFontString():GetText(), "|cff000000", "|cffFFFF00"))
-					--end
-				--end
-			--end)
-		--end
-	--end
+	local hRule = QuestFrameGreetingPanel:CreateTexture()
+	hRule:SetColorTexture(1, 1, 1, .2)
+	hRule:SetSize(256, 1)
+	hRule:SetPoint("CENTER", QuestGreetingFrameHorizontalBreak)
+
+	QuestGreetingFrameHorizontalBreak:SetTexture("")
+
+	local function UpdateGreetingPanel()
+	    hRule:SetShown(QuestGreetingFrameHorizontalBreak:IsShown())
+	    local numActiveQuests = GetNumActiveQuests()
+	    if numActiveQuests > 0 then
+	        for i = 1, numActiveQuests do
+	            local questTitleButton = _G["QuestTitleButton"..i]
+	            local title = GetActiveTitle(i)
+	            if ( IsActiveQuestTrivial(i) ) then
+	                questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
+	            else
+	                questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
+	            end
+	        end
+	    end
+
+	    local numAvailableQuests = GetNumAvailableQuests()
+	    if numAvailableQuests > 0 then
+	        for i = numActiveQuests + 1, numActiveQuests + numAvailableQuests do
+	            local questTitleButton = _G["QuestTitleButton"..i]
+	            local title = GetAvailableTitle(i - numActiveQuests)
+	            if GetAvailableQuestInfo(i - numActiveQuests) then
+	                questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
+	            else
+	                questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
+	            end
+	        end
+	    end
+	end
+	QuestFrameGreetingPanel:HookScript("OnShow", UpdateGreetingPanel)
+	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingPanel)
 
 	hooksecurefunc(QuestInfoRequiredMoneyText, "SetTextColor", function(self, red, green, blue)
 		if red == 0 then

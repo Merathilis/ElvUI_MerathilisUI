@@ -25,6 +25,9 @@ local bordercolorr, bordercolorg, bordercolorb
 
 local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
+MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
+MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
 	"UI-Panel-MinimizeButton-Up",
