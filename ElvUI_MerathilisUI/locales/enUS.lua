@@ -200,6 +200,7 @@ L["Garbage Collect"] = true
 L["Garbage Collection Freed"] = true
 L["Home"] = true
 L["Home Latency:"] = true
+L["Home Protocol:"] = true
 L["Latency Type"] = true
 L["Left Click:"] = true
 L["Loaded Addons:"] = true
@@ -220,6 +221,7 @@ L["Total CPU:"] = true
 L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
+L["World Protocol:"] = true
 
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
