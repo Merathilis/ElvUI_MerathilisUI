@@ -36,7 +36,9 @@ local function styleBenikUI()
 		if event then
 			for i = 1, 4 do
 				local button = _G["BuiButton_"..i]
-				button:Styling()
+				if button then
+					button:Styling()
+				end
 			end
 			f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		end
