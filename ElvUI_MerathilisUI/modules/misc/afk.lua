@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+if IsAddOnLoaded("ElvUI_BenikUI") then return end
 local MERS = E:GetModule("muiSkins")
 local AFK = E:GetModule("AFK")
 
