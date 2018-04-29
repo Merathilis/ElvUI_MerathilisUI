@@ -64,195 +64,192 @@ function AFK:UpdateLogOff()
 	end
 end
 
-AFK.mUISetAFK = AFK.SetAFK
-function AFK:SetAFK(status)
-	self:mUISetAFK(status)
+local function SetAFK(status)
+	if E.db.mui.general.AFK ~= true then return end
 
 	if(status) then
 		if(IsInGuild()) then
 			local guildName = GetGuildInfo("player")
-			self.AFKMode.bottomPanel.guild:SetText("|cFF00c0fa<".. guildName ..">|r")
+			AFK.AFKMode.bottomPanel.guild:SetText("|cFF00c0fa<".. guildName ..">|r")
 		else
-			self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
+			AFK.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 		end
-		self.logoffTimer = self:ScheduleRepeatingTimer("UpdateLogOff", 1)
+		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
-		self.isAFK = true
-	elseif(self.isAFK) then
-		self:CancelTimer(self.logoffTimer)
-		self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+		AFK.isAFK = true
+	elseif(AFK.isAFK) then
+		AFK:CancelTimer(AFK.logoffTimer)
+		AFK.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
 
-		self.isAFK = false
+		AFK.isAFK = false
 	end
 end
+hooksecurefunc(AFK, "SetAFK", SetAFK)
 
-AFK.UpdateTimermUI = AFK.UpdateTimer
-function AFK:UpdateTimer()
-	self:UpdateTimermUI()
-
+local function UpdateTimer()
+	if E.db.mui.general.AFK ~= true then return end
 	local createdTime = createTime()
 
 	-- Set time
-	self.AFKMode.topPanel.time:SetFormattedText(createdTime)
+	AFK.AFKMode.topPanel.time:SetFormattedText(createdTime)
 end
+hooksecurefunc(AFK, "UpdateTimer", UpdateTimer)
 
-AFK.InitializemUIAFK = AFK.Initialize
-function AFK:Initialize()
+local function Initialize()
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
-	self:InitializemUIAFK()
 
 	-- Hide ElvUI Elements
-	self.AFKMode.bottom:Hide() -- Bottom panel
+	AFK.AFKMode.bottom:Hide() -- Bottom panel
 
 	-- move the chat lower
-	self.AFKMode.chat:SetPoint("TOPLEFT", self.AFKMode.top, "BOTTOMLEFT", 4, -10)
+	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	-- Bottom Panel
-	self.AFKMode.bottomPanel = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.bottomPanel:SetFrameLevel(0)
-	self.AFKMode.bottomPanel:Point("BOTTOM", self.AFKMode, "BOTTOM", 0, -E.Border)
-	self.AFKMode.bottomPanel:Width(GetScreenWidth() + (E.Border*2))
-	self.AFKMode.bottomPanel:Height(GetScreenHeight() * (1 / 10))
-	MERS:CreateBD(self.AFKMode.bottomPanel, .5)
-	self.AFKMode.bottomPanel:Styling()
+	AFK.AFKMode.bottomPanel = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.bottomPanel:SetFrameLevel(0)
+	AFK.AFKMode.bottomPanel:Point("BOTTOM", AFK.AFKMode, "BOTTOM", 0, -E.Border)
+	AFK.AFKMode.bottomPanel:Width(GetScreenWidth() + (E.Border*2))
+	AFK.AFKMode.bottomPanel:Height(GetScreenHeight() * (1 / 10))
+	MERS:CreateBD(AFK.AFKMode.bottomPanel, .5)
+	AFK.AFKMode.bottomPanel:Styling()
 
-	self.AFKMode.bottomPanel.ignoreFrameTemplates = true
-	self.AFKMode.bottomPanel.ignoreBackdropColors = true
-	E["frames"][self.AFKMode.bottomPanel] = true
+	AFK.AFKMode.bottomPanel.ignoreFrameTemplates = true
+	AFK.AFKMode.bottomPanel.ignoreBackdropColors = true
+	E["frames"][AFK.AFKMode.bottomPanel] = true
 
 	-- Bottom Panel Style
-	self.AFKMode.bottomPanel.topLeftStyle = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.bottomPanel.topLeftStyle:SetFrameLevel(2)
-	self.AFKMode.bottomPanel.topLeftStyle:Point("TOPLEFT", self.AFKMode.bottomPanel, "TOPLEFT", 10, 2)
-	self.AFKMode.bottomPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(self.AFKMode.bottomPanel.topLeftStyle)
+	AFK.AFKMode.bottomPanel.topLeftStyle = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.bottomPanel.topLeftStyle:SetFrameLevel(2)
+	AFK.AFKMode.bottomPanel.topLeftStyle:Point("TOPLEFT", AFK.AFKMode.bottomPanel, "TOPLEFT", 10, 2)
+	AFK.AFKMode.bottomPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
+	MERS:SkinPanel(AFK.AFKMode.bottomPanel.topLeftStyle)
 
-	self.AFKMode.bottomPanel.topRightStyle = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.bottomPanel.topRightStyle:SetFrameLevel(2)
-	self.AFKMode.bottomPanel.topRightStyle:Point("TOPRIGHT", self.AFKMode.bottomPanel, "TOPRIGHT", -10, 2)
-	self.AFKMode.bottomPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(self.AFKMode.bottomPanel.topRightStyle)
+	AFK.AFKMode.bottomPanel.topRightStyle = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.bottomPanel.topRightStyle:SetFrameLevel(2)
+	AFK.AFKMode.bottomPanel.topRightStyle:Point("TOPRIGHT", AFK.AFKMode.bottomPanel, "TOPRIGHT", -10, 2)
+	AFK.AFKMode.bottomPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
+	MERS:SkinPanel(AFK.AFKMode.bottomPanel.topRightStyle)
 
 	-- Bottom AFK Title
-	self.AFKMode.bottomPanel.AFKtitle = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 20, nil, "CENTER")
-	self.AFKMode.bottomPanel.AFKtitle:SetText("|cFF00c0fa"..L["Are you still there? ... Hello?"].."|r")
-	self.AFKMode.bottomPanel.AFKtitle:SetPoint("BOTTOM", self.AFKMode.bottomPanel, "BOTTOM", 0, 10)
+	AFK.AFKMode.bottomPanel.AFKtitle = MER:CreateText(AFK.AFKMode.bottomPanel, "OVERLAY", 20, nil, "CENTER")
+	AFK.AFKMode.bottomPanel.AFKtitle:SetText("|cFF00c0fa"..L["Are you still there? ... Hello?"].."|r")
+	AFK.AFKMode.bottomPanel.AFKtitle:SetPoint("BOTTOM", AFK.AFKMode.bottomPanel, "BOTTOM", 0, 10)
 
 	local className = E.myclass
-	self.AFKMode.bottomPanel.faction = self.AFKMode.bottomPanel:CreateTexture(nil, "OVERLAY")
-	self.AFKMode.bottomPanel.faction:SetPoint("RIGHT", self.AFKMode.bottomPanel, "LEFT", 90, 10)
-	self.AFKMode.bottomPanel.faction:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..className)
-	self.AFKMode.bottomPanel.faction:SetSize(80, 80)
+	AFK.AFKMode.bottomPanel.faction = AFK.AFKMode.bottomPanel:CreateTexture(nil, "OVERLAY")
+	AFK.AFKMode.bottomPanel.faction:SetPoint("RIGHT", AFK.AFKMode.bottomPanel, "LEFT", 90, 10)
+	AFK.AFKMode.bottomPanel.faction:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..className)
+	AFK.AFKMode.bottomPanel.faction:SetSize(80, 80)
 
 	-- Bottom Player Name
-	self.AFKMode.bottomPanel.name = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 22, nil)
-	self.AFKMode.bottomPanel.name:FontTemplate(nil, 22)
-	self.AFKMode.bottomPanel.name:SetFormattedText("%s", E.myname)
-	self.AFKMode.bottomPanel.name:SetPoint("LEFT", self.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
-	self.AFKMode.bottomPanel.name:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	self.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
+	AFK.AFKMode.bottomPanel.name = MER:CreateText(AFK.AFKMode.bottomPanel, "OVERLAY", 22, nil)
+	AFK.AFKMode.bottomPanel.name:FontTemplate(nil, 22)
+	AFK.AFKMode.bottomPanel.name:SetFormattedText("%s", E.myname)
+	AFK.AFKMode.bottomPanel.name:SetPoint("LEFT", AFK.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
+	AFK.AFKMode.bottomPanel.name:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	AFK.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
 
 	-- Bottom Guild Name
-	self.AFKMode.bottomPanel.guild = MER:CreateText(self.AFKMode.bottomPanel, "OVERLAY", 16, nil)
-	self.AFKMode.bottomPanel.guild:Point("TOPLEFT", self.AFKMode.bottomPanel.name, "BOTTOMLEFT", -5, -6)
-	self.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
+	AFK.AFKMode.bottomPanel.guild = MER:CreateText(AFK.AFKMode.bottomPanel, "OVERLAY", 16, nil)
+	AFK.AFKMode.bottomPanel.guild:Point("TOPLEFT", AFK.AFKMode.bottomPanel.name, "BOTTOMLEFT", -5, -6)
+	AFK.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 
 	-- Top Panel
-	self.AFKMode.topPanel = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.topPanel:SetFrameLevel(0)
-	self.AFKMode.topPanel:Point("TOP", self.AFKMode, "TOP", 0, E.Border)
-	self.AFKMode.topPanel:Width(GetScreenWidth() + (E.Border*2))
-	self.AFKMode.topPanel:Height(GetScreenHeight() * (1 / 10))
-	MERS:CreateBD(self.AFKMode.topPanel, .5)
-	self.AFKMode.topPanel:Styling()
+	AFK.AFKMode.topPanel = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.topPanel:SetFrameLevel(0)
+	AFK.AFKMode.topPanel:Point("TOP", AFK.AFKMode, "TOP", 0, E.Border)
+	AFK.AFKMode.topPanel:Width(GetScreenWidth() + (E.Border*2))
+	AFK.AFKMode.topPanel:Height(GetScreenHeight() * (1 / 10))
+	MERS:CreateBD(AFK.AFKMode.topPanel, .5)
+	AFK.AFKMode.topPanel:Styling()
 
-	self.AFKMode.topPanel.ignoreFrameTemplates = true
-	self.AFKMode.topPanel.ignoreBackdropColors = true
-	E["frames"][self.AFKMode.topPanel] = true
+	AFK.AFKMode.topPanel.ignoreFrameTemplates = true
+	AFK.AFKMode.topPanel.ignoreBackdropColors = true
+	E["frames"][AFK.AFKMode.topPanel] = true
 
 	-- Top Panel Style
-	self.AFKMode.topPanel.topLeftStyle = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.topPanel.topLeftStyle:SetFrameLevel(2)
-	self.AFKMode.topPanel.topLeftStyle:Point("BOTTOMLEFT", self.AFKMode.topPanel, "BOTTOMLEFT", 10, -2)
-	self.AFKMode.topPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(self.AFKMode.topPanel.topLeftStyle)
+	AFK.AFKMode.topPanel.topLeftStyle = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.topPanel.topLeftStyle:SetFrameLevel(2)
+	AFK.AFKMode.topPanel.topLeftStyle:Point("BOTTOMLEFT", AFK.AFKMode.topPanel, "BOTTOMLEFT", 10, -2)
+	AFK.AFKMode.topPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
+	MERS:SkinPanel(AFK.AFKMode.topPanel.topLeftStyle)
 
-	self.AFKMode.topPanel.topRightStyle = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.topPanel.topRightStyle:SetFrameLevel(2)
-	self.AFKMode.topPanel.topRightStyle:Point("BOTTOMRIGHT", self.AFKMode.topPanel, "BOTTOMRIGHT", -10, -2)
-	self.AFKMode.topPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(self.AFKMode.topPanel.topRightStyle)
+	AFK.AFKMode.topPanel.topRightStyle = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.topPanel.topRightStyle:SetFrameLevel(2)
+	AFK.AFKMode.topPanel.topRightStyle:Point("BOTTOMRIGHT", AFK.AFKMode.topPanel, "BOTTOMRIGHT", -10, -2)
+	AFK.AFKMode.topPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
+	MERS:SkinPanel(AFK.AFKMode.topPanel.topRightStyle)
 
 	-- ElvUI Logo
-	self.AFKMode.bottom.logo:ClearAllPoints()
-	self.AFKMode.bottom.logo:SetParent(self.AFKMode.topPanel)
-	self.AFKMode.bottom.logo:Point("LEFT", self.AFKMode.topPanel, "LEFT", 25, 8)
-	self.AFKMode.bottom.logo:SetSize(120, 55)
+	AFK.AFKMode.bottom.logo:ClearAllPoints()
+	AFK.AFKMode.bottom.logo:SetParent(AFK.AFKMode.topPanel)
+	AFK.AFKMode.bottom.logo:Point("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
+	AFK.AFKMode.bottom.logo:SetSize(120, 55)
 
 	-- ElvUI Version
-	self.AFKMode.topPanel.eversion = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 10, nil)
-	self.AFKMode.topPanel.eversion:SetText("|cFF00c0fa"..E.version.."|r")
-	self.AFKMode.topPanel.eversion:SetPoint("TOP", self.AFKMode.bottom.logo, "BOTTOM")
-	self.AFKMode.topPanel.eversion:SetTextColor(0.7, 0.7, 0.7)
+	AFK.AFKMode.topPanel.eversion = MER:CreateText(AFK.AFKMode.topPanel, "OVERLAY", 10, nil)
+	AFK.AFKMode.topPanel.eversion:SetText("|cFF00c0fa"..E.version.."|r")
+	AFK.AFKMode.topPanel.eversion:SetPoint("TOP", AFK.AFKMode.bottom.logo, "BOTTOM")
+	AFK.AFKMode.topPanel.eversion:SetTextColor(0.7, 0.7, 0.7)
 
 	-- MerathilisUI Logo
-	self.AFKMode.topPanel.mUILogo = self.AFKMode.topPanel:CreateTexture(nil, "OVERLAY")
-	self.AFKMode.topPanel.mUILogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
-	self.AFKMode.topPanel.mUILogo:SetPoint("RIGHT", self.AFKMode.topPanel, "RIGHT", -25, 8)
-	self.AFKMode.topPanel.mUILogo:Size(75, 80)
+	AFK.AFKMode.topPanel.mUILogo = AFK.AFKMode.topPanel:CreateTexture(nil, "OVERLAY")
+	AFK.AFKMode.topPanel.mUILogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
+	AFK.AFKMode.topPanel.mUILogo:SetPoint("RIGHT", AFK.AFKMode.topPanel, "RIGHT", -25, 8)
+	AFK.AFKMode.topPanel.mUILogo:Size(75, 80)
 
 	-- MerathilisUI Version
-	self.AFKMode.topPanel.mversion = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 10, nil)
-	self.AFKMode.topPanel.mversion:SetText("|cFF00c0fa"..MER.Version.."|r")
-	self.AFKMode.topPanel.mversion:SetPoint("TOP", self.AFKMode.topPanel.mUILogo, "BOTTOM")
-	self.AFKMode.topPanel.mversion:SetTextColor(0.7, 0.7, 0.7)
+	AFK.AFKMode.topPanel.mversion = MER:CreateText(AFK.AFKMode.topPanel, "OVERLAY", 10, nil)
+	AFK.AFKMode.topPanel.mversion:SetText("|cFF00c0fa"..MER.Version.."|r")
+	AFK.AFKMode.topPanel.mversion:SetPoint("TOP", AFK.AFKMode.topPanel.mUILogo, "BOTTOM")
+	AFK.AFKMode.topPanel.mversion:SetTextColor(0.7, 0.7, 0.7)
 
 	-- Time
-	self.AFKMode.topPanel.time = MER:CreateText(self.AFKMode.topPanel, "OVERLAY", 16, nil)
-	self.AFKMode.topPanel.time:SetText("")
-	self.AFKMode.topPanel.time:SetPoint("CENTER", self.AFKMode.topPanel, "CENTER", 0, 0)
-	self.AFKMode.topPanel.time:SetJustifyH("CENTER")
-	self.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	AFK.AFKMode.topPanel.time = MER:CreateText(AFK.AFKMode.topPanel, "OVERLAY", 16, nil)
+	AFK.AFKMode.topPanel.time:SetText("")
+	AFK.AFKMode.topPanel.time:SetPoint("CENTER", AFK.AFKMode.topPanel, "CENTER", 0, 0)
+	AFK.AFKMode.topPanel.time:SetJustifyH("CENTER")
+	AFK.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	-- Logout Count
-	self.AFKMode.countd = CreateFrame("Frame", nil, self.AFKMode)
-	self.AFKMode.countd:Size(418, 36)
-	self.AFKMode.countd:Point("CENTER", self.AFKMode, "CENTER", 0, 100)
+	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)
+	AFK.AFKMode.countd:Size(418, 36)
+	AFK.AFKMode.countd:Point("CENTER", AFK.AFKMode, "CENTER", 0, 100)
 
-	self.AFKMode.countd.bg = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
-	self.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	self.AFKMode.countd.bg:SetPoint("BOTTOM")
-	self.AFKMode.countd.bg:Size(326, 56)
-	self.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
-	self.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
+	AFK.AFKMode.countd.bg = AFK.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	AFK.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	AFK.AFKMode.countd.bg:SetPoint("BOTTOM")
+	AFK.AFKMode.countd.bg:Size(326, 56)
+	AFK.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
+	AFK.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
 
-	self.AFKMode.countd.lineTop = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
-	self.AFKMode.countd.lineTop:SetDrawLayer("BACKGROUND", 2)
-	self.AFKMode.countd.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	self.AFKMode.countd.lineTop:SetPoint("TOP")
-	self.AFKMode.countd.lineTop:Size(418, 7)
-	self.AFKMode.countd.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+	AFK.AFKMode.countd.lineTop = AFK.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	AFK.AFKMode.countd.lineTop:SetDrawLayer("BACKGROUND", 2)
+	AFK.AFKMode.countd.lineTop:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	AFK.AFKMode.countd.lineTop:SetPoint("TOP")
+	AFK.AFKMode.countd.lineTop:Size(418, 7)
+	AFK.AFKMode.countd.lineTop:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
-	self.AFKMode.countd.lineBottom = self.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
-	self.AFKMode.countd.lineBottom:SetDrawLayer("BACKGROUND", 2)
-	self.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
-	self.AFKMode.countd.lineBottom:SetPoint("BOTTOM")
-	self.AFKMode.countd.lineBottom:Size(418, 7)
-	self.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
+	AFK.AFKMode.countd.lineBottom = AFK.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
+	AFK.AFKMode.countd.lineBottom:SetDrawLayer("BACKGROUND", 2)
+	AFK.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
+	AFK.AFKMode.countd.lineBottom:SetPoint("BOTTOM")
+	AFK.AFKMode.countd.lineBottom:Size(418, 7)
+	AFK.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	-- 30 mins countdown text
-	self.AFKMode.countd.text = MER:CreateText(self.AFKMode.countd, "OVERLAY", 12, nil)
-	self.AFKMode.countd.text:SetPoint("CENTER", self.AFKMode.countd, "CENTER", 0, -2)
-	self.AFKMode.countd.text:SetJustifyH("CENTER")
-	self.AFKMode.countd.text:SetJustifyV("CENTER")
-	self.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
-	self.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
+	AFK.AFKMode.countd.text = MER:CreateText(AFK.AFKMode.countd, "OVERLAY", 12, nil)
+	AFK.AFKMode.countd.text:SetPoint("CENTER", AFK.AFKMode.countd, "CENTER", 0, -2)
+	AFK.AFKMode.countd.text:SetJustifyH("CENTER")
+	AFK.AFKMode.countd.text:SetJustifyV("CENTER")
+	AFK.AFKMode.countd.text:SetFormattedText("%s: |cfff0ff00-30:00|r", L["Logout Timer"])
+	AFK.AFKMode.countd.text:SetTextColor(0.7, 0.7, 0.7)
 
 	-- Player Model
 	if not modelHolder then
-		local modelHolder = CreateFrame("Frame", nil, self.AFKMode.bottomPanel)
+		local modelHolder = CreateFrame("Frame", nil, AFK.AFKMode.bottomPanel)
 		modelHolder:SetSize(150, 150)
-		modelHolder:SetPoint("BOTTOMRIGHT", self.AFKMode.bottomPanel, "BOTTOMRIGHT", -200, 180)
+		modelHolder:SetPoint("BOTTOMRIGHT", AFK.AFKMode.bottomPanel, "BOTTOMRIGHT", -200, 180)
 
 		playerModel = CreateFrame("PlayerModel", nil, modelHolder)
 		playerModel:SetSize(GetScreenWidth() * 2, GetScreenHeight() * 2) --YES, double screen size. This prevents clipping of models.
@@ -278,3 +275,5 @@ function AFK:Initialize()
 
 	E:UpdateBorderColors()
 end
+
+hooksecurefunc(AFK, "Initialize", Initialize)
