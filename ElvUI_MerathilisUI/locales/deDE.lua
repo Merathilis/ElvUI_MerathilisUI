@@ -127,7 +127,7 @@ L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
-L["Hides the MicroBar in Combat and Pet Battles."] = "Versteckt die MicroBar im Kampf und Haustierkämpfen."
+L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
@@ -180,10 +180,6 @@ L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = "Berufsfenster Tabs"
-L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
@@ -205,6 +201,7 @@ L["Garbage Collect"] = "Müll aufräumen"
 L["Garbage Collection Freed"] = "Müll gesäubert"
 L["Home"] = "Heim"
 L["Home Latency:"] = "Heimlatenz:"
+L["Home Protocol:"] = "Heim Protokol:"
 L["Latency Type"] = "Latenztyp"
 L["Left Click:"] = "Links Klick:"
 L["Loaded Addons:"] = "Geladene Addons:"
@@ -225,6 +222,7 @@ L["Total CPU:"] = "Gesamte CPU:"
 L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
+L["World Protocol:"] = "Welt Protokol"
 
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."

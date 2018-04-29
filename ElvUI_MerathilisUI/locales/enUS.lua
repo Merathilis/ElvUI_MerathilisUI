@@ -126,7 +126,7 @@ L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
-L["Hides the MicroBar in Combat and Pet Battles."] = true
+L["Hide In Pet Battle"] = true
 
 -- Misc
 L["Artifact Power"] = true
@@ -179,10 +179,6 @@ L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["Enable Quick Join Notification"] = true
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = true
-L["Add tabs for professions on the TradeSkill Frame."] = true
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
@@ -204,6 +200,7 @@ L["Garbage Collect"] = true
 L["Garbage Collection Freed"] = true
 L["Home"] = true
 L["Home Latency:"] = true
+L["Home Protocol:"] = true
 L["Latency Type"] = true
 L["Left Click:"] = true
 L["Loaded Addons:"] = true
@@ -224,6 +221,7 @@ L["Total CPU:"] = true
 L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
+L["World Protocol:"] = true
 
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true

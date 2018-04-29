@@ -13,6 +13,7 @@ local join = string.join
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local IsShiftKeyDown = IsShiftKeyDown
+local GetCVarBool = GetCVarBool
 local GetDownloadedPercentage = GetDownloadedPercentage
 local GetNumAddOns = GetNumAddOns
 local GetAddOnInfo = GetAddOnInfo
@@ -21,6 +22,7 @@ local GetAddOnCPUUsage = GetAddOnCPUUsage
 local GetAvailableBandwidth = GetAvailableBandwidth
 local GetCVar = GetCVar
 local GetNetStats = GetNetStats
+local GetNetIpTypes = GetNetIpTypes
 local GetFramerate = GetFramerate
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 local UpdateAddOnCPUUsage = UpdateAddOnCPUUsage
@@ -119,7 +121,7 @@ local function OnEnter(self)
 
 	local cpuProfiling = GetCVar("scriptProfile") == "1"
 	local bandwidth = GetAvailableBandwidth()
-	local _, _, home_latency, world_latency = GetNetStats() 
+	local _, _, home_latency, world_latency = GetNetStats()
 	local shown = 0
 
 	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
@@ -128,6 +130,13 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(L["Bandwidth"] , format(bandwidthString, bandwidth), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 		DT.tooltip:AddLine(" ")
+	end
+
+	if ( GetCVarBool("useIPv6") ) then
+		local ipTypes = { "IPv4", "IPv6" }
+		local ipTypeHome, ipTypeWorld = GetNetIpTypes();
+		DT.tooltip:AddDoubleLine(L["Home Protocol:"], ipTypes[ipTypeHome or 0] or UNKNOWN, MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		DT.tooltip:AddDoubleLine(L["World Protocol:"], ipTypes[ipTypeWorld or 0] or UNKNOWN, MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 	end
 
 	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
