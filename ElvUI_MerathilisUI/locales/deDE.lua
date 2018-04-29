@@ -126,6 +126,7 @@ L["Objective Tracker Text"] = "Objective Tracker Schriftart"
 L["Banner Big Text"] = true
 
 -- MicroBar
+L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
 
 -- Misc

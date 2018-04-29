@@ -114,6 +114,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- MicroBar
+L["Hide In Orderhall"] = true
 L["Hide In Pet Battle"] = true
 
 -- Misc
