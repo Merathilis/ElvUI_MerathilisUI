@@ -114,8 +114,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Hides the MicroBar in Combat and Pet Battles."] = true
+L["Hide In Pet Battle"] = true
 
 -- Misc
 L["Artifact Power"] = true

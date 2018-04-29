@@ -125,8 +125,7 @@ L["Objective Tracker Text"] = true
 L["Banner Big Text"] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Hides the MicroBar in Combat and Pet Battles."] = true
+L["Hide In Pet Battle"] = true
 
 -- Misc
 L["Artifact Power"] = true

@@ -132,6 +132,7 @@ P["mui"] = {
 			["enable"] = true,
 			["hideInCombat"] = false,
 			["hideInOrderHall"] = false,
+			["hideInPetBattle"] = false,
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,
