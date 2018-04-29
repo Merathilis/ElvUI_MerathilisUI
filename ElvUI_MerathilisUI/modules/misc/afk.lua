@@ -97,7 +97,6 @@ end
 
 AFK.InitializemUIAFK = AFK.Initialize
 function AFK:Initialize()
-	if IsAddOnLoaded("ElvUI_BenikUI") then return end
 	if E.db.general.afk ~= true or E.db.mui.general.AFK ~= true then return end
 	self:InitializemUIAFK()
 
