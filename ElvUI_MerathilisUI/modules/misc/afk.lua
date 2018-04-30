@@ -74,6 +74,7 @@ local function SetAFK(status)
 		else
 			AFK.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
 		end
+		AFK.startTime = GetTime()
 		AFK.logoffTimer = AFK:ScheduleRepeatingTimer("UpdateLogOff", 1)
 
 		AFK.isAFK = true
