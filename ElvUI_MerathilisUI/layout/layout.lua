@@ -371,7 +371,7 @@ function MERL:ShadowOverlay()
 	f:SetFrameStrata("BACKGROUND")
 
 	f.tex = f:CreateTexture()
-	f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\shadow.tga]])
+	f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
 	f.tex:SetAllPoints(f)
 
 	f:SetAlpha(0.7)
