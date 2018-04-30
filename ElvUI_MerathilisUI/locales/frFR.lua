@@ -132,6 +132,7 @@ L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = true
 L["Undress"] = true
+L["Flashing Cursor"] = "Blinkender Mauszeiger"
 
 -- Tooltip
 L["Your Status:"] = true
@@ -460,6 +461,7 @@ Please note that some of these options will not be available if corresponding sk
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Shadows"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

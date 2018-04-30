@@ -42,7 +42,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = MERS.modName,
+		name = MERS.modName..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
@@ -74,6 +74,13 @@ local function SkinsTable()
 						order = 3,
 						type = "toggle",
 						name = L["MerathilisUI Panels"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					shadowOverlay = {
+						order = 4,
+						type = "toggle",
+						name = L["MerathilisUI Shadows"]..MER.NewSign,
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
