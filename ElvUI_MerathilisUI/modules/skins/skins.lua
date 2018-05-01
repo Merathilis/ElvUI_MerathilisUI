@@ -162,40 +162,6 @@ function MERS:Underline(frame, shadow, height)
 	return line
 end
 
-function MERS:CreateWideShadow(f)
-	local borderr, borderg, borderb = 0, 0, 0
-	local backdropr, backdropg, backdropb = 0, 0, 0
-
-	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
-	shadow:SetFrameLevel(1)
-	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 6, 6)
-	shadow:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(6),
-		insets = {left = E:Scale(8), right = E:Scale(8), top = E:Scale(8), bottom = E:Scale(8)},
-	})
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.5)
-	f.shadow = shadow
-end
-
-function MERS:CreateSoftShadow(f)
-	local borderr, borderg, borderb = 0, 0, 0
-	local backdropr, backdropg, backdropb = 0, 0, 0
-
-	local shadow = f.shadow or CreateFrame("Frame", nil, f) -- This way you can replace current shadows.
-	shadow:SetFrameLevel(1)
-	shadow:SetFrameStrata(f:GetFrameStrata())
-	shadow:SetOutside(f, 2, 2)
-	shadow:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
-		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
-	})
-	shadow:SetBackdropColor(backdropr, backdropg, backdropb, 0)
-	shadow:SetBackdropBorderColor(borderr, borderg, borderb, 0.4)
-	f.shadow = shadow
-end
-
 -- Create shadow for textures
 function MERS:CreateSD(parent, size, r, g, b, alpha, offset)
 	local sd = CreateFrame("Frame", nil, parent)

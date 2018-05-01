@@ -69,6 +69,11 @@ local function Misc()
 				name = L["Alt PowerBar"],
 				desc = L["Replace the default Alt Power Bar."],
 			},
+			cursor = {
+				order = 9,
+				type = "toggle",
+				name = L["Flashing Cursor"]..MER.NewSign,
+			},
 		},
 	}
 end

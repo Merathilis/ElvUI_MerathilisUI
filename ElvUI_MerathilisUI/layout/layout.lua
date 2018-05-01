@@ -394,11 +394,31 @@ function MERL:regEvents()
 	self:MiddleDatatextDimensions()
 end
 
+function MERL:ShadowOverlay()
+	-- Based on ncShadow
+	if E.db.mui.general.shadowOverlay ~= true then return end
+
+	local f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	f:SetPoint("TOPLEFT")
+	f:SetPoint("BOTTOMRIGHT")
+	f:SetFrameLevel(0)
+	f:SetFrameStrata("BACKGROUND")
+
+	f.tex = f:CreateTexture()
+	f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
+	f.tex:SetAllPoints(f)
+
+	f:SetAlpha(0.7)
+
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
+
 function MERL:Initialize()
 	self:CreatePanels()
 	self:ChangeLayout()
 	self:regEvents()
 	self:CreateChatButtons()
+	self:ShadowOverlay()
 end
 
 local function InitializeCallback()

@@ -144,6 +144,7 @@ L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
 L["Undress"] = "Ausziehen"
+L["Flashing Cursor"] = "Blinkender Mauszeiger"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -472,6 +473,7 @@ Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

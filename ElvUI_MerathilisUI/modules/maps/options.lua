@@ -4,7 +4,7 @@ local MM = E:GetModule("mUIMinimap")
 local function Minimap()
 	E.Options.args.mui.args.minimap = {
 		type = "group",
-		name = MINIMAP_LABEL..MER.NewSign,
+		name = MINIMAP_LABEL,
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; end,

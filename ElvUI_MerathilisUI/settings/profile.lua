@@ -27,6 +27,7 @@ P["mui"] = {
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,
+		["shadowOverlay"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
 	},
@@ -49,6 +50,7 @@ P["mui"] = {
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["powerBar"] = true,
+		["cursor"] = true,
 		["cooldowns"] = {
 			["enable"] = false,
 			["size"] = 25,
