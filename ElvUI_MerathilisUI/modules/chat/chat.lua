@@ -62,9 +62,8 @@ function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isH
 		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
 	end
 
-	if E.db["mui"] and E.db["mui"]["chat"] and E.db["mui"]["chat"].hidePlayerBrackets then
-		msg = gsub(msg, "(|HBNplayer.-|h)%[(.-)%]|h", "%1%2|h")
-		msg = gsub(msg, "(|Hplayer.-|h)%[(.-)%]|h", "%1%2|h")
+	if E.db.mui.chat.hidePlayerBrackets then
+		msg = gsub(msg, "(|HB?N?player.-|h)%[(.-)%]|h", "%1%2|h")
 	end
 
 	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
