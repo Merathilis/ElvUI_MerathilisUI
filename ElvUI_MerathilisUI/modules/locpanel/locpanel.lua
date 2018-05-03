@@ -13,8 +13,9 @@ local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 -- WoW API / Variables
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+local C_Map_GetCurrentMapID = C_Map.GetCurrentMapID
 local GetBindLocation = GetBindLocation
-local GetPlayerMapPosition = GetPlayerMapPosition
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
@@ -227,7 +228,7 @@ LP.Spells = {
 local function CreateCoords()
 	if LP.db.coordshide == true then return end
 
-	local x, y = GetPlayerMapPosition("player")
+	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetCurrentMapID(), "player"):GetXY()
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
@@ -625,8 +626,8 @@ function LP:PLAYER_REGEN_ENABLED()
 end
 
 function LP:PLAYER_ENTERING_WORLD()
-	local x, y = GetPlayerMapPosition("player")
-	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
+	local position = C_Map_GetPlayerMapPosition(C_Map_GetCurrentMapID(), "player")
+	if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
 	LP:UNIT_AURA(nil, "player")
 end
 
