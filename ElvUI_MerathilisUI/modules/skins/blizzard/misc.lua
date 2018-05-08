@@ -76,14 +76,22 @@ local function styleMisc()
 		"LFDReadyCheckPopup",
 		"DropDownList1Backdrop",
 		"DropDownList1MenuBackdrop",
-
-		--DropDownMenu library support
-		"L_DropDownList1Backdrop",
-		"L_DropDownList1MenuBackdrop"
 	}
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
+	end
+
+	--DropDownMenu library support
+	if LibStub("LibUIDropDownMenu", true) then
+		L_DropDownList1Backdrop:Styling()
+		L_DropDownList1MenuBackdrop:Styling()
+		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
+			if not _G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
+				_G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				_G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+			end
+		end)
 	end
 
 	-- QueueStatusFrame
