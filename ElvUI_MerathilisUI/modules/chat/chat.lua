@@ -73,11 +73,8 @@ function CH:AddMessage(msg, ...)
 	return MERC.AddMessage(self, msg, ...)
 end
 
-
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
-
-	self:StringReplacement()
 
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
