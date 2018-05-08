@@ -92,15 +92,8 @@ local function styleObjectiveTracker()
 		if block.lines then
 			for _, line in pairs(block.lines) do
 				if not line.styled then
-					line.Text:FontTemplate()
-					line.Text:SetSpacing(2)
-
-					if line.Dash then
-						line.Dash:FontTemplate()
-					end
-
 					line:SetHeight(line.Text:GetHeight())
-
+					line.Text:SetSpacing(2)
 					line.styled = true
 				end
 			end
@@ -110,20 +103,6 @@ local function styleObjectiveTracker()
 			block.shouldFix = true
 			hooksecurefunc(block, "SetHeight", fixBlockHeight)
 			block.styled = true
-		end
-	end)
-
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", function(_, block)
-		if not block.headerStyled then
-			block.HeaderText:FontTemplate()
-			block.headerStyled = true
-		end
-	end)
-
-	hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", function(_, block)
-		if not block.headerStyled then
-			block.HeaderText:FontTemplate()
-			block.headerStyled = true
 		end
 	end)
 
