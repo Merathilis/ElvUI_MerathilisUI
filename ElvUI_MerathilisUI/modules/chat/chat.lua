@@ -73,6 +73,39 @@ function CH:AddMessage(msg, ...)
 	return MERC.AddMessage(self, msg, ...)
 end
 
+--[[
+	THIS NEEDS SIMPY MAGIC
+]]
+
+function MERC:ChatFrame_SystemEventHandler(event, message, ...)
+	if event == "GUILD_MOTD" then
+		if message and message ~= "" then
+			local info = ChatTypeInfo["GUILD"];
+			self:AddMessage(format('|cff66c6ff%s|r: %s', GUILD_MOTD, message), info.r, info.g, info.b, info.id)
+			CH.GUILD_MOTD = message
+		end
+		return true
+	else
+		return ChatFrame_SystemEventHandler(self, event, message, ...)
+	end
+end
+
+function CH:ChatFrame_OnEvent(event, ...)
+	if ( ChatFrame_ConfigEventHandler(self, event, ...) ) then
+		return;
+	end
+	if ( ChatFrame_SystemEventHandler(self, event, ...) ) then
+		return
+	end
+	if ( CH.ChatFrame_MessageEventHandler(self, event, ...) ) then
+		return
+	end
+end
+
+--[[
+	SIMPY LOVE END!
+]]
+
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
 
