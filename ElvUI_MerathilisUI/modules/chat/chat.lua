@@ -8,14 +8,18 @@ MERC.modName = L["Chat"]
 -- Lua functions
 local _G = _G
 local pairs = pairs
-local find, gsub = string.find, string.gsub
+local format = format
+local time = time
+local BetterDate = BetterDate
+local gsub = string.gsub
 -- WoW API / Variable
 local GetRealmName = GetRealmName
+local GUILD_MOTD = GUILD_MOTD
 
--- GLOBALS:
+-- GLOBALS: CHAT_FRAMES, ChatTypeInfo
 
+local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
-_G["GUILD_MOTD_TEMPLATE"] = "|cff00c0faGMOTD|r: %s"
 
 function MERC:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
@@ -72,6 +76,18 @@ end
 
 function CH:AddMessage(msg, ...)
 	return MERC.AddMessage(self, msg, ...)
+end
+
+function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
+	if event == "GUILD_MOTD" then
+		if message and message ~= "" then
+			local info = ChatTypeInfo["GUILD"];
+			chat:AddMessage(format('|cff66c6ff%s|r: %s', GUILD_MOTD, message), info.r, info.g, info.b, info.id)
+		end
+		return true
+	else
+		return ChatFrame_SystemEventHandler(chat, event, message, ...)
+	end
 end
 
 function MERC:Initialize()
