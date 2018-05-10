@@ -14,7 +14,7 @@ local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local C_Map_GetCurrentMapID = C_Map.GetCurrentMapID
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local GetBindLocation = GetBindLocation
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
@@ -228,7 +228,7 @@ LP.Spells = {
 local function CreateCoords()
 	if LP.db.coordshide == true then return end
 
-	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetCurrentMapID(), "player"):GetXY()
+	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
@@ -292,7 +292,7 @@ function LP:OnClick(btn)
 					message = format("%s (%s)", zoneText, coords)
 				end
 			ChatEdit_ActivateChat(edit_box)
-			edit_box:Insert(message) 
+			edit_box:Insert(message)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
@@ -546,7 +546,7 @@ function LP:PopulateDropdown(click)
 	if LP.Menu1:IsShown() then ToggleFrame(LP.Menu1) return end
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
 	local full_list = LP:ItemList()
-	if not full_list then 
+	if not full_list then
 		if not LP.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
 		twipe(LP.MainMenu)
@@ -626,7 +626,7 @@ function LP:PLAYER_REGEN_ENABLED()
 end
 
 function LP:PLAYER_ENTERING_WORLD()
-	local position = C_Map_GetPlayerMapPosition(C_Map_GetCurrentMapID(), "player")
+	local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
 	if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
 	LP:UNIT_AURA(nil, "player")
 end
