@@ -52,6 +52,8 @@ local function styleMisc()
 		_G["PetBattlePrimaryAbilityTooltip"],
 		_G["EventTraceTooltip"],
 		_G["FrameStackTooltip"],
+		_G["QuestScrollFrame"].WarCampaignTooltip,
+		_G["QuestScrollFrame"].StoryTooltip,
 	}
 
 	for _, frame in pairs(tooltips) do

@@ -349,8 +349,6 @@ local function styleQuestFrame()
 	QuestMapFrame.VerticalSeparator:Hide()
 	QuestScrollFrame.Background:Hide()
 
-	MERS:CreateBD(QuestScrollFrame.StoryTooltip)
-
 	StoryHeader.Background:Hide()
 
 	local bg = MERS:CreateBDFrame(StoryHeader, .25)
