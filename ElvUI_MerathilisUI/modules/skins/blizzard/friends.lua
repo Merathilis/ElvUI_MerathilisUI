@@ -16,7 +16,6 @@ local function styleFriends()
 	_G["QuickJoinFrame"]:Styling()
 	_G["IgnoreListFrame"]:Styling()
 	_G["WhoFrame"]:Styling()
-	_G["ChannelFrame"]:Styling()
 	_G["RaidFrame"]:Styling()
 	_G["RaidInfoFrame"]:Styling()
 

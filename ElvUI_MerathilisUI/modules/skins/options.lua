@@ -345,6 +345,16 @@ local function SkinsTable()
 				name = "QuestPOI",
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
 			},
+			channels  = {
+				type = "toggle",
+				name = CHANNELS,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Channels end,
+			},
+			communities  = {
+				type = "toggle",
+				name = COMMUNITIES,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Communities end,
+			},
 		},
 	}
 

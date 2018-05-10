@@ -64,6 +64,8 @@ V["muiSkins"] = {
 		["warboard"] = true,
 		["deathRecap"] = true,
 		["questPOI"] = true,
+		["communities"] = true,
+		["channels"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

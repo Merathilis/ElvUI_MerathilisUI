@@ -7,8 +7,10 @@
 	<Script file="blackmarket.lua"/>
 	<Script file="BNet.lua"/>
 	<Script file="calendar.lua"/>
+	<Script file="channels.lua"/>
 	<Script file="character.lua"/>
 	<Script file="collectables.lua"/>
+	<Script file="communities.lua"/>
 	<Script file="contribution.lua"/>
 	<Script file="deathRecap.lua"/>
 	<Script file="dressingroom.lua"/>
