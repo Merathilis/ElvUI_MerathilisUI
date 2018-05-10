@@ -84,6 +84,18 @@ local function styleMisc()
 		_G[skins[i]]:Styling()
 	end
 
+	--DropDownMenu library support
+	if LibStub("LibUIDropDownMenu", true) then
+		L_DropDownList1Backdrop:Styling()
+		L_DropDownList1MenuBackdrop:Styling()
+		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
+			if not _G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
+				_G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
+				_G["L_DropDownList"..L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
+			end
+		end)
+	end
+
 	-- QueueStatusFrame
 	local function SkinEntry(entry)
 		for _, roleButton in next, {entry.HealersFound, entry.TanksFound, entry.DamagersFound} do

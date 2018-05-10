@@ -2,5 +2,4 @@
 	<Script file="chat.lua"/>
 	<Script file="easyChannel.lua"/>
 	<Script file="itemlevelLink.lua"/>
-	<Script file="stringReplacement.lua"/>
 </Ui>

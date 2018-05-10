@@ -38,7 +38,7 @@ end
 -- Entering combat and alertrun function (can be used in anther ways)
 ------------------------------------------------------------------------------------
 local speed = .057799924 -- how fast the text appears
-local font = LSM:Fetch("font", "Merathilis Roboto-Black") -- HOOG0555.ttf
+local font = LSM:Fetch("font", "Expressway")
 local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
 local fontsize = 24 -- font size
 

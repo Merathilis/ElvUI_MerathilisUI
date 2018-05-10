@@ -88,6 +88,10 @@ end
 function MCA:UpdateAllCastbars()
 	MCA:UpdateSettings("player")
 	MCA:UpdateSettings("target")
+	MCA:UpdateSettings("focus")
+	MCA:UpdateSettings("pet")
+	MCA:UpdateSettings("arena")
+	MCA:UpdateSettings("boss")
 end
 
 --Castbar texture
