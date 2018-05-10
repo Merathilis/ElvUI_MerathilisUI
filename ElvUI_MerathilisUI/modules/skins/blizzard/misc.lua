@@ -76,10 +76,6 @@ local function styleMisc()
 		"LFDReadyCheckPopup",
 		"DropDownList1Backdrop",
 		"DropDownList1MenuBackdrop",
-
-		--DropDownMenu library support
-		"L_DropDownList1Backdrop",
-		"L_DropDownList1MenuBackdrop"
 	}
 
 	for i = 1, getn(skins) do
