@@ -7,6 +7,7 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs, unpack = pairs, unpack
 -- WoW API / Variables
+local C_SpecializationInfo_GetSpellsDisplay = C_SpecializationInfo.GetSpellsDisplay
 local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
@@ -111,6 +112,7 @@ local function styleTalents()
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
+		local numSpecs = GetNumSpecializations(nil, self.isPet);
 
 		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet)
 		local scrollChild = self.spellsScroll.child
@@ -119,14 +121,16 @@ local function styleTalents()
 
 		local index = 1
 		local bonuses
+		local bonusesIncrement = 1;
 		if self.isPet then
 			bonuses = {GetSpecializationSpells(shownSpec, nil, self.isPet, true)}
+			bonusesIncrement = 2;
 		else
-			bonuses = SPEC_SPELLS_DISPLAY[id]
+			bonuses = C_SpecializationInfo_GetSpellsDisplay(id)
 		end
 
 		if bonuses then
-			for i = 1, #bonuses, 2 do
+			for i = 1, #bonuses, bonusesIncrement do
 				local frame = scrollChild["abilityButton"..index]
 				local _, spellIcon = GetSpellTexture(bonuses[i])
 
@@ -147,7 +151,7 @@ local function styleTalents()
 			end
 		end
 
-		for i = 1, GetNumSpecializations(nil, self.isPet) do
+		for i = 1, numSpecs do
 			local bu = self["specButton"..i]
 
 			if bu.disabled then
