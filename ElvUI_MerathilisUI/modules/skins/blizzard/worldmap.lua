@@ -17,12 +17,12 @@ local function styleWorldmap()
 
 	_G["WorldMapFrame"]:Styling()
 
-	local frame = CreateFrame("Frame", nil, _G["QuestMapFrame"])
-	_G["QuestMapFrame"].QuestCountFrame = frame
+	local frame = CreateFrame("Frame", nil, _G["QuestScrollFrame"])
+	_G["QuestScrollFrame"].QuestCountFrame = frame
 
 	frame:RegisterEvent("QUEST_LOG_UPDATE")
 	frame:Size(240, 20)
-	frame:Point("TOP", -12, 30)
+	frame:Point("TOP", 0, 22)
 	MERS:CreateBD(frame, .25)
 
 	local text = MER:CreateText(frame, "OVERLAY", 12, "OUTLINE")
@@ -38,28 +38,9 @@ local function styleWorldmap()
 		frame.text:SetFormattedText(str, quests)
 	end)
 
-	if frame then
-		_G["QuestMapFrame"].DetailsFrame.BackButton:ClearAllPoints()
-		_G["QuestMapFrame"].DetailsFrame.BackButton:Point("LEFT", 10, 275)
-	else
-		return
+	if _G["QuestScrollFrame"].DetailFrame.backdrop then
+		_G["QuestScrollFrame"].DetailFrame.backdrop:Hide()
 	end
-
-	WorldMapFrame.UIElementsFrame.BountyBoard.BountyName:FontTemplate(nil, 14, "OUTLINE")
-	WorldMapFrame.UIElementsFrame.OpenQuestPanelButton:Size(22 ,22)
-	WorldMapFrame.UIElementsFrame.CloseQuestPanelButton:Size(22, 22)
-
-	WorldMapFrameAreaLabel:FontTemplate(nil, 30, "OUTLINE")
-	WorldMapFrameAreaLabel:SetShadowOffset(1, -1)
-	WorldMapFrameAreaLabel:SetTextColor(0.9, 0.8, 0.6)
-	WorldMapFrameAreaDescription:FontTemplate(nil, 20, "OUTLINE")
-	WorldMapFrameAreaDescription:SetShadowOffset(1, -1)
-	WorldMapFrameAreaPetLevels:FontTemplate(nil, 20, "OUTLINE")
-	WorldMapFrameAreaPetLevels:SetShadowOffset(1, -1)
-	WorldMapZoneInfo:FontTemplate(nil, 25, "OUTLINE")
-	WorldMapZoneInfo:SetShadowOffset(1, -1)
-
-	BlackoutWorld:SetTexture(nil) -- Fog of War
 end
 
 S:AddCallback("mUISkinWorldMap", styleWorldmap)

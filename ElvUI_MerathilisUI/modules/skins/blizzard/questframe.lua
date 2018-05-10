@@ -49,7 +49,6 @@ local function styleQuestFrame()
 	local RewardsFrame = DetailsFrame.RewardsFrame
 	local CompleteQuestFrame = DetailsFrame.CompleteQuestFrame
 
-	_G["WorldMapFrame"].BorderFrame.Inset:Hide()
 	DetailsFrame:GetRegions():Hide()
 	select(2, DetailsFrame:GetRegions()):Hide()
 	select(4, DetailsFrame:GetRegions()):Hide()
@@ -353,7 +352,6 @@ local function styleQuestFrame()
 	MERS:CreateBD(QuestScrollFrame.StoryTooltip)
 
 	StoryHeader.Background:Hide()
-	StoryHeader.Shadow:Hide()
 
 	local bg = MERS:CreateBDFrame(StoryHeader, .25)
 	bg:SetPoint("TOPLEFT", 0, -1)
