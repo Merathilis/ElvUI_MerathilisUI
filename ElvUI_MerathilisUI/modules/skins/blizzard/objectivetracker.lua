@@ -63,7 +63,6 @@ function f.QUEST_LOG_UPDATE()
 		-- w = MAP_AND_QUEST_LOG.." ("..n.."/"..MAX_QUESTS..")"
 		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
 		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
-		_G["WorldMapFrame"].BorderFrame.TitleText:SetText(w)
 	end
 end
 

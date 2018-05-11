@@ -22,7 +22,7 @@ local function styleWorldmap()
 
 	frame:RegisterEvent("QUEST_LOG_UPDATE")
 	frame:Size(240, 20)
-	frame:Point("TOP", 0, 22)
+	frame:Point("TOP", -1, 22)
 	MERS:CreateBD(frame, .25)
 
 	local text = MER:CreateText(frame, "OVERLAY", 12, "OUTLINE")

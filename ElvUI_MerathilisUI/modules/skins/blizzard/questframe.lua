@@ -345,32 +345,34 @@ local function styleQuestFrame()
 	local QuestMapFrame = _G["QuestMapFrame"]
 	local QuestScrollFrame = _G["QuestScrollFrame"]
 	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
+	local WarCampaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
 
 	QuestMapFrame.VerticalSeparator:Hide()
 	QuestScrollFrame.Background:Hide()
 
 	StoryHeader.Background:Hide()
+	WarCampaignHeader.Background:Hide()
 
-	local bg = MERS:CreateBDFrame(StoryHeader, .25)
-	bg:SetPoint("TOPLEFT", 0, -1)
-	bg:SetPoint("BOTTOMRIGHT", -4, 0)
+	StoryHeader.HighlightTexture:ClearAllPoints()
+	StoryHeader.HighlightTexture:SetInside(StoryHeader)
 
-	local hl = StoryHeader.HighlightTexture
+	WarCampaignHeader.HighlightTexture:ClearAllPoints()
+	WarCampaignHeader.HighlightTexture:SetInside(WarCampaignHeader)
 
-	hl:SetTexture(E["media"].muiGradient)
-	hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
-	hl:SetPoint("TOPLEFT", 1, -2)
-	hl:SetPoint("BOTTOMRIGHT", -5, 1)
-	hl:SetDrawLayer("BACKGROUND")
-	hl:Hide()
+	local bg1 = MERS:CreateBDFrame(StoryHeader, .25)
+	bg1:SetPoint("TOPLEFT", 0, -1)
+	bg1:SetPoint("BOTTOMRIGHT", -3, 0)
 
-	StoryHeader:HookScript("OnEnter", function()
-		hl:Show()
-	end)
+	local bg2 = MERS:CreateBDFrame(WarCampaignHeader, .25)
+	bg2:SetPoint("TOPLEFT", 0, -1)
+	bg2:SetPoint("BOTTOMRIGHT", -3, 0)
 
-	StoryHeader:HookScript("OnLeave", function()
-		hl:Hide()
-	end)
+	local factionGroup = UnitFactionGroup("player")
+	WarCampaignHeader.tex = WarCampaignHeader:CreateTexture(nil, "Background")
+	WarCampaignHeader.tex:SetPoint("RIGHT", WarCampaignHeader, "RIGHT", 0, 2)
+	WarCampaignHeader.tex:SetSize(60, 60)
+	WarCampaignHeader.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\"..factionGroup.."-Logo")
+	WarCampaignHeader.tex:SetAlpha(.75)
 
 	--NPC Model Frame
 	local QuestNPCModel = _G["QuestNPCModel"]
