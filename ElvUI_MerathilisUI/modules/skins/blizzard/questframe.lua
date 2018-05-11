@@ -139,32 +139,32 @@ local function styleQuestFrame()
 	QuestGreetingFrameHorizontalBreak:SetTexture("")
 
 	local function UpdateGreetingPanel()
-	    hRule:SetShown(QuestGreetingFrameHorizontalBreak:IsShown())
-	    local numActiveQuests = GetNumActiveQuests()
-	    if numActiveQuests > 0 then
-	        for i = 1, numActiveQuests do
-	            local questTitleButton = _G["QuestTitleButton"..i]
-	            local title = GetActiveTitle(i)
-	            if ( IsActiveQuestTrivial(i) ) then
-	                questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
-	            else
-	                questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
-	            end
-	        end
-	    end
+		hRule:SetShown(QuestGreetingFrameHorizontalBreak:IsShown())
+		local numActiveQuests = GetNumActiveQuests()
+		if numActiveQuests > 0 then
+			for i = 1, numActiveQuests do
+				local questTitleButton = _G["QuestTitleButton"..i]
+				local title = GetActiveTitle(i)
+				if ( IsActiveQuestTrivial(i) ) then
+					questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
+				else
+					questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
+				end
+			end
+		end
 
-	    local numAvailableQuests = GetNumAvailableQuests()
-	    if numAvailableQuests > 0 then
-	        for i = numActiveQuests + 1, numActiveQuests + numAvailableQuests do
-	            local questTitleButton = _G["QuestTitleButton"..i]
-	            local title = GetAvailableTitle(i - numActiveQuests)
-	            if GetAvailableQuestInfo(i - numActiveQuests) then
-	                questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
-	            else
-	                questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
-	            end
-	        end
-	    end
+		local numAvailableQuests = GetNumAvailableQuests()
+		if numAvailableQuests > 0 then
+			for i = numActiveQuests + 1, numActiveQuests + numAvailableQuests do
+				local questTitleButton = _G["QuestTitleButton"..i]
+				local title = GetAvailableTitle(i - numActiveQuests)
+				if GetAvailableQuestInfo(i - numActiveQuests) then
+					questTitleButton:SetFormattedText(MERS.TRIVIAL_QUEST_DISPLAY, title)
+				else
+					questTitleButton:SetFormattedText(MERS.NORMAL_QUEST_DISPLAY, title)
+				end
+			end
+		end
 	end
 	QuestFrameGreetingPanel:HookScript("OnShow", UpdateGreetingPanel)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingPanel)
@@ -423,6 +423,17 @@ local function styleQuestFrame()
 	QuestNPCModelTextFrame.BorderRight:Hide()
 
 	-- QuestInfoSealFrame
+	local mask = QuestInfoSealFrame:CreateMaskTexture(nil, "BACKGROUND")
+	mask:SetTexture([[Interface/QuestionFrame/answer-ChromieScenario-Chromie]], "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	mask:SetTexCoord(0, 0.5, 0, 0.5)
+	mask:SetPoint("TOPLEFT", QuestInfoSealFrame.Text, -28, 6)
+	mask:SetPoint("BOTTOMRIGHT", QuestInfoSealFrame.Text, 24, -5)
+
+	local bg = QuestInfoSealFrame:CreateTexture(nil, "BACKGROUND")
+	bg:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 0.25)
+	bg:SetAllPoints(mask)
+	bg:AddMaskTexture(mask)
+
 	QuestInfoSealFrame.Text:SetShadowColor(0.2, 0.2, 0.2)
 	QuestInfoSealFrame.Text:SetShadowOffset(0.6, -0.6)
 end
