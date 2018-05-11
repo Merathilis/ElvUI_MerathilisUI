@@ -371,7 +371,7 @@ local function styleQuestFrame()
 	WarCampaignHeader.tex = WarCampaignHeader:CreateTexture(nil, "Background")
 	WarCampaignHeader.tex:SetPoint("RIGHT", WarCampaignHeader, "RIGHT", 0, 2)
 	WarCampaignHeader.tex:SetSize(60, 60)
-	WarCampaignHeader.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\"..factionGroup.."-Logo")
+	WarCampaignHeader.tex:SetTexture("Interface\\Timer\\"..factionGroup.."-Logo")
 	WarCampaignHeader.tex:SetAlpha(.75)
 
 	--NPC Model Frame
