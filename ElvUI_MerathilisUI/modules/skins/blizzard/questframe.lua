@@ -367,12 +367,17 @@ local function styleQuestFrame()
 	bg2:SetPoint("TOPLEFT", 0, -1)
 	bg2:SetPoint("BOTTOMRIGHT", -3, 0)
 
-	local factionGroup = UnitFactionGroup("player")
+	if E.myfaction == "Alliance" then
+		bg2:SetBackdropColor(20/255, 69/255, 135/255, 0.75)
+	else
+		bg2:SetBackdropColor(255/255, 0/255, 0/255, 0.25)
+	end
+
 	WarCampaignHeader.tex = WarCampaignHeader:CreateTexture(nil, "Background")
-	WarCampaignHeader.tex:SetPoint("RIGHT", WarCampaignHeader, "RIGHT", 0, 2)
-	WarCampaignHeader.tex:SetSize(60, 60)
-	WarCampaignHeader.tex:SetTexture("Interface\\Timer\\"..factionGroup.."-Logo")
-	WarCampaignHeader.tex:SetAlpha(.75)
+	WarCampaignHeader.tex:SetPoint("RIGHT", WarCampaignHeader, "RIGHT", 0, 0)
+	WarCampaignHeader.tex:SetSize(65, 65)
+	WarCampaignHeader.tex:SetTexture("Interface\\Timer\\"..E.myfaction.."-Logo")
+	WarCampaignHeader.tex:SetDesaturated(true)
 
 	--NPC Model Frame
 	local QuestNPCModel = _G["QuestNPCModel"]
