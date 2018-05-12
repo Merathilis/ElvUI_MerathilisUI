@@ -10,7 +10,7 @@ local _G = _G
 -- GLOBALS:
 
 local function styleChannels()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Channels ~= true or E.private.muiSkins.blizzard.Channels ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Channels ~= true or E.private.muiSkins.blizzard.channels ~= true then return end
 
 	_G["ChannelFrame"]:Styling()
 end
