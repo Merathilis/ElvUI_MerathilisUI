@@ -198,14 +198,18 @@ local function styleQuestFrame()
 		local numVisibleObjectives = 0
 
 		for i = 1, GetNumQuestLeaderBoards() do
-			local _, objectiveType, isCompleted = GetQuestLogLeaderBoard(i)
+			local text, objectiveType, isCompleted = GetQuestLogLeaderBoard(i)
 
 			if (objectiveType ~= "spell" and objectiveType ~= "log" and numVisibleObjectives < MAX_OBJECTIVES) then
 				numVisibleObjectives = numVisibleObjectives + 1
 				local objective = objectivesTable[numVisibleObjectives]
 
+				if ( not text or strlen(text) == 0 ) then
+					text = objectiveType
+				end
+
 				if isCompleted then
-					objective:SetTextColor(.9, .9, .9)
+					objective:SetTextColor(34/255, 255/255, 0/255)
 				else
 					objective:SetTextColor(1, 1, 1)
 				end
