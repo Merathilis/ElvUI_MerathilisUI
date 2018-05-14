@@ -22,6 +22,7 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetAtlasInfo = GetAtlasInfo
 local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
@@ -75,9 +76,9 @@ local alertBagsFull
 local shouldAlertBags = false
 
 local VignetteExclusionMapIDs = {
-	[971] = true, -- Lunarfall: Alliance garrison
-	[976] = true, -- Frostwall: Horde garrison
-	[1021] = true -- Scenario: The Broken Shore
+	[579] = true, -- Lunarfall: Alliance garrison
+	[585] = true, -- Frostwall: Horde garrison
+	[646] = true, -- Scenario: The Broken Shore
 }
 
 function NF:SpawnToast(toast)
@@ -272,13 +273,17 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 		toast.clickFunc = nil
 	end
 
-	if type(texture) == "string" then
-		toast.icon:SetTexture(texture)
-
-		if ... then
-			toast.icon:SetTexCoord(...)
+	if texture then
+		if GetAtlasInfo(texture) then
+			toast.icon:SetAtlas(texture)
 		else
-			toast.icon:SetTexCoord(unpack(E.TexCoords))
+			toast.icon:SetTexture(texture)
+
+			if ... then
+				toast.icon:SetTexCoord(...)
+			else
+				toast.icon:SetTexCoord(unpack(E.TexCoords))
+			end
 		end
 	else
 		toast.icon:SetTexture("Interface\\Icons\\achievement_general")
@@ -474,27 +479,25 @@ end
 
 
 local SOUND_TIMEOUT = 20
---function NF:VIGNETTE_ADDED(event, id)
-	--if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
-	--if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
---
-	--if (id ~= self.lastMinimapRare.id) then
-		--local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
-		--local left, right, top, bottom = GetObjectIconTextureCoords(icon)
-		--local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
---
-		 --Notify
-		--if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
-			--PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
-		--end
-		--name = format("|cff00c0fa%s|r", name:sub(1, 28))
-		--self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
-	--end
---
-	 --Set last Vignette data
-	--self.lastMinimapRare.time = GetTime()
-	--self.lastMinimapRare.id = id
---end
+function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
+	if not E.db.mui.general.Notification.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map.GetBestMapForUnit("player")] then return end
+
+	if onMinimap then
+		if vignetteGUID ~= self.lastMinimapRare.id then
+			local vignetteInfo = C_VignetteInfo.GetVignetteInfo(vignetteGUID)
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
+
+			if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
+				PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+			end
+		end
+	end
+
+	--Set last Vignette data
+	self.lastMinimapRare.time = GetTime()
+	self.lastMinimapRare.id = vignetteGUID
+end
 
 function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
@@ -609,7 +612,7 @@ function NF:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	--self:RegisterEvent("VIGNETTE_ADDED")
+	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
