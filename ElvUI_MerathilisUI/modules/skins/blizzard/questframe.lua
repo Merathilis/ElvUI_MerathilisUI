@@ -6,7 +6,7 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local next, select = next, select
-local gsub = string.gsub
+local gsub, strlen = string.gsub, string.len
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetMoney = GetMoney
@@ -178,6 +178,7 @@ local function styleQuestFrame()
 	end)
 
 	-- Quest Skin
+	local QuestInfoFrame = _G["QuestInfoFrame"]
 	_G["QuestInfoItemHighlight"]:StripTextures()
 	_G["QuestFrame"]:SetHeight(500)
 	_G["QuestFrame"]:Styling()
