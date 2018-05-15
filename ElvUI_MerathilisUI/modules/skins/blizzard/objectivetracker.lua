@@ -128,33 +128,6 @@ local function styleObjectiveTracker()
 	end
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", ShowObjectiveTrackerLevel)
 
-	-- Quest Level QuestLog
-	local function ShowQuestLogLevel()
-		if ENABLE_COLORBLIND_MODE == "1" then return end
-		local numEntries, numQuests = GetNumQuestLogEntries()
-		local titleIndex = 1
-
-		for i = 1, numEntries do
-			local title, level, _, isHeader, _, isComplete, frequency, questID = GetQuestLogTitle(i)
-			local titleButton = QuestLogQuests_GetTitleButton(titleIndex)
-			if title and (not isHeader) and titleButton.questID == questID then
-				local height = titleButton.Text:GetHeight()
-				local text = "["..level.."] "..title
-				if isComplete then
-					text = "|cff22ff00"..text
-				elseif frequency == LE_QUEST_FREQUENCY_DAILY then
-					text = "|cff3399ff"..text
-				end
-				titleButton.Text:SetText(text)
-				titleButton.Text:SetPoint("TOPLEFT", 24, -5)
-				titleButton:SetHeight(titleButton:GetHeight() - height + titleButton.Text:GetHeight())
-				titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
-
-				titleIndex = titleIndex + 1
-			end
-		end
-	end
-	--hooksecurefunc("QuestLogQuests_Update", ShowQuestLogLevel)
 
 	local function SetAchievementColor(block)
 		if block.module == ACHIEVEMENT_TRACKER_MODULE then

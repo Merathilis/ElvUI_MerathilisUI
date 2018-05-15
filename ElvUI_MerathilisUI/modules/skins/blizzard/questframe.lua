@@ -298,6 +298,30 @@ local function styleQuestFrame()
 			end
 		end
 	end)
+
+	-- WIP
+	hooksecurefunc("QuestLogQuests_Update", function(poiTable)
+		for i = 6, _G.QuestMapFrame.QuestsFrame.Contents:GetNumChildren() do
+			local child = select(i, _G.QuestMapFrame.QuestsFrame.Contents:GetChildren())
+			if not child.IsSkinned then
+				if child.TaskIcon then
+					MERS.QuestLogTitleTemplate(child)
+				else
+					MERS.QuestLogObjectiveTemplate(child)
+				end
+				child.IsSkinned = true
+			end
+		end
+	end)
+
+	function MERS.QuestLogTitleTemplate(Button)
+
+	end
+
+	function MERS.QuestLogObjectiveTemplate(Button)
+
+	end
+
 	if _G["QuestInfoSkillPointFrame"].backdrop then
 		_G["QuestInfoSkillPointFrame"].backdrop:Hide()
 	end
