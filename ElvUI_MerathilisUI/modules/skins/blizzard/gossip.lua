@@ -23,11 +23,10 @@ local function styleGossip()
 	end
 	select(19, _G["GossipFrame"]:GetRegions()):Hide()
 
-	_G["GreetingText"]:SetTextColor(1, 1, 1)
-	_G["GreetingText"].SetTextColor = MER.dummy
-
 	_G["GossipGreetingScrollFrame"].spellTex:SetTexture('')
 
+	-- Monitor this, probably got changed via my changes in the Core file RegisterMedia function
+	--[[
 	hooksecurefunc("GossipFrameUpdate", function()
 		for i=1, NUMGOSSIPBUTTONS do
 			local text = _G["GossipTitleButton" .. i]:GetText()
@@ -37,6 +36,10 @@ local function styleGossip()
 			end
 		end
 	end)
+
+	_G["GreetingText"]:SetTextColor(1, 1, 1)
+	_G["GreetingText"].SetTextColor = MER.dummy
+	]]
 
 	hooksecurefunc("GossipFrameAvailableQuestsUpdate", function(...)
 		local numAvailQuestsData = select("#", ...)
@@ -52,6 +55,7 @@ local function styleGossip()
 			buttonIndex = buttonIndex + 1
 		end
 	end)
+
 	hooksecurefunc("GossipFrameActiveQuestsUpdate", function(...)
 		local numActiveQuestsData = select("#", ...)
 		local buttonIndex = (_G["GossipFrame"].buttonIndex - 1) - (numActiveQuestsData / 6)
