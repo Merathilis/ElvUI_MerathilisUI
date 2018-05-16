@@ -132,6 +132,7 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 				end
 			end
 		end
+
 		if DBM then
 			hooksecurefunc(DBT, "CreateBar", SkinBars)
 
@@ -162,6 +163,7 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 			return old(noticeFrame, textString, colorInfo)
 		end
 	end
+
 	if IsAddOnLoaded("DBM-GUI") then
 		tinsert(UISpecialFrames, "DBM_GUI_OptionsFrame")
 		_G["DBM_GUI_OptionsFrame"]:SetTemplate("Transparent")

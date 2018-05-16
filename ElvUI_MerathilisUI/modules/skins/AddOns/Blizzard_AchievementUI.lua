@@ -15,7 +15,7 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 
 
 local function styleAchievement()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
 
 	_G["AchievementFrame"].backdrop:Styling()
 
