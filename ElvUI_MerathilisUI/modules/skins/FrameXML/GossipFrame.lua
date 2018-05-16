@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local select = select
 -- WoW API / Variables
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
@@ -17,10 +17,10 @@ local function styleGossip()
 
 	local availDataPerQuest, activeDataPerQuest = 7, 6
 	function MERS.GossipFrameAvailableQuestsUpdate(...)
-		local numAvailQuestsData = _G.select("#", ...)
-		local buttonIndex = (_G.GossipFrame.buttonIndex - 1) - (numAvailQuestsData / availDataPerQuest)
+		local numAvailQuestsData = select("#", ...)
+		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numAvailQuestsData / availDataPerQuest)
 		for i = 1, numAvailQuestsData, availDataPerQuest do
-			local titleText, _, isTrivial = _G.select(i, ...)
+			local titleText, _, isTrivial = select(i, ...)
 			local titleButton = _G["GossipTitleButton" .. buttonIndex]
 			if isTrivial then
 				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
@@ -32,10 +32,10 @@ local function styleGossip()
 	end
 
 	function MERS.GossipFrameActiveQuestsUpdate(...)
-		local numActiveQuestsData = _G.select("#", ...)
-		local buttonIndex = (_G.GossipFrame.buttonIndex - 1) - (numActiveQuestsData / activeDataPerQuest)
+		local numActiveQuestsData = select("#", ...)
+		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numActiveQuestsData / activeDataPerQuest)
 		for i = 1, numActiveQuestsData, activeDataPerQuest do
-			local titleText, _, isTrivial = _G.select(i, ...)
+			local titleText, _, isTrivial = select(i, ...)
 			local titleButton = _G["GossipTitleButton" .. buttonIndex]
 			if isTrivial then
 				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
@@ -67,7 +67,7 @@ local function styleGossip()
 	end
 	_G["GossipGreetingScrollFrame"]:StripTextures()
 	_G["GossipGreetingScrollFrame"].spellTex:SetTexture('') -- Remove Parchement
-	select(19, _G.GossipFrame:GetRegions()):Hide() -- GossipFrameBg
+	select(19, _G["GossipFrame"]:GetRegions()):Hide() -- GossipFrameBg
 
 	_G["GossipFrameNpcNameText"]:SetAllPoints(_G["GossipFrame"].TitleText)
 
