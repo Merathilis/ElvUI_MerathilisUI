@@ -10,7 +10,7 @@ local _G = _G
 local select, unpack = select, unpack
 local format = string.format
 --WoW API / Variables
-local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
+local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
@@ -34,7 +34,7 @@ function MM:ReskinMinimap()
 end
 
 function MM:CheckMail()
-	local inv = CalendarGetNumPendingInvites()
+	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 	if inv > 0 and mail then -- New invites and mail
 		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)

@@ -5,7 +5,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- WoW API / Variables
 local C_TimerAfter = C_Timer.After
-local CalendarGetDate = CalendarGetDate
+local C_Calendar_GetDate = C_Calendar.GetDate
 local CreateFrame = CreateFrame
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: MUISplashScreen
@@ -74,7 +74,7 @@ function MER:SplashScreen()
 
 	-- Only show the SplashScreen once a day
 	local db = E.private.muiMisc.session
-	local _, _, day = CalendarGetDate()
+	local _, _, day = C_Calendar_GetDate()
 	if day == db.day then return end
 
 	-- Show only Splash Screen if the install is completed

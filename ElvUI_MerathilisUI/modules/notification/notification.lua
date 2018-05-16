@@ -32,14 +32,14 @@ local GetInventoryItemDurability = GetInventoryItemDurability
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetRealmName = GetRealmName
 local GetTime = GetTime
-local CalendarGetDate = CalendarGetDate
-local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
-local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
-local CalendarGetNumDayEvents = CalendarGetNumDayEvents
+local C_Calendar_GetDate = C_Calendar.GetDate
+local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
+local C_Calendar_GetGuildEventInfo = C_Calendar.GetGuildEventInfo
+local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
 local CalendarGetDayEvent = C_Calendar.GetDayEvent
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
-local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
+local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
@@ -376,15 +376,15 @@ end
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
-	local _, currentMonth = CalendarGetDate()
+	local _, currentMonth = C_Calendar_GetDate()
 
-	for i = 1, CalendarGetNumGuildEvents() do
-		local month, day = CalendarGetGuildEventInfo(i)
+	for i = 1, C_Calendar_GetNumGuildEvents() do
+		local month, day = C_Calendar_GetGuildEventInfo(i)
 		local monthOffset = month - currentMonth
-		local numDayEvents = CalendarGetNumDayEvents(monthOffset, day)
+		local numDayEvents = C_Calendar_GetNumDayEvents(monthOffset, day)
 
 		for i = 1, numDayEvents do
-			local _, _, _, _, _, _, _, _, inviteStatus = CalendarGetDayEvent(monthOffset, day, i)
+			local _, _, _, _, _, _, _, _, inviteStatus = C_Calendar_GetDayEvent(monthOffset, day, i)
 			if inviteStatus == 8 then
 				numGuildInvites = numGuildInvites + 1
 			end
@@ -402,7 +402,7 @@ end
 local function alertEvents()
 	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.invites ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
-	local num = CalendarGetNumPendingInvites()
+	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 1 then
 			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], num), toggleCalendar)
@@ -436,40 +436,41 @@ end
 local function LoginCheck()
 	alertEvents()
 	alertGuildEvents()
-	local month, day, year = select(2, CalendarGetDate())
-	local numDayEvents = CalendarGetNumDayEvents(0, day)
-	local numDays = select(3, CalendarGetAbsMonth(month, year))
-	local hournow, minutenow = GetGameTime()
+	-- FIX ME!!!
+	--local month, day, year = select(2, C_Calendar_GetDate())
+	--local numDayEvents = C_Calendar_GetNumDayEvents(0, day)
+	--local numDays = select(3, C_Calendar_GetAbsMonth(month, year))
+	--local hournow, minutenow = GetGameTime()
 
 	-- Today
-	for i = 1, numDayEvents do
-		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(0, day, i)
-		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) and hournow < hour then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end today."], title), toggleCalendar)
-		end
-		if calendarType == "HOLIDAY" and sequenceType == "START" and hournow > hour then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" started today."], title), toggleCalendar)
-		end
-		if calendarType == "HOLIDAY" and sequenceType == "ONGOING" then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" is ongoing."], title), toggleCalendar)
-		end
-	end
+	--for i = 1, numDayEvents do
+		--local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = C_Calendar_GetDayEvent(0, day, i)
+		--if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) and hournow < hour then
+			--NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end today."], title), toggleCalendar)
+		--end
+		--if calendarType == "HOLIDAY" and sequenceType == "START" and hournow > hour then
+			--NF:DisplayToast(CALENDAR, format(L["Event \"%s\" started today."], title), toggleCalendar)
+		--end
+		--if calendarType == "HOLIDAY" and sequenceType == "ONGOING" then
+			--NF:DisplayToast(CALENDAR, format(L["Event \"%s\" is ongoing."], title), toggleCalendar)
+		--end
+	--end
 
 	--Tomorrow
-	local offset = 0
-	if numDays == day then
-		offset = 1
-		day = 1
-	else
-		day = day + 1
-	end
-	numDayEvents = CalendarGetNumDayEvents(offset, day)
-	for i = 1, numDayEvents do
-		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(offset, day, i)
-		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end tomorrow."], title), toggleCalendar)
-		end
-	end
+	--local offset = 0
+	--if numDays == day then
+		--offset = 1
+		--day = 1
+	--else
+		--day = day + 1
+	--end
+	--numDayEvents = C_Calendar_GetNumDayEvents(offset, day)
+	--for i = 1, numDayEvents do
+		--local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = C_Calendar_GetDayEvent(offset, day, i)
+		--if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) then
+			--NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end tomorrow."], title), toggleCalendar)
+		--end
+	--end
 end
 
 function NF:PLAYER_ENTERING_WORLD()
