@@ -124,12 +124,7 @@ local function styleQuestFrame()
 	_G["QuestFrameGreetingPanel"]:StripTextures()
 	_G["QuestGreetingScrollFrame"]:StripTextures()
 	_G["QuestGreetingFrameHorizontalBreak"]:Kill()
-	_G["GreetingText"]:SetTextColor(1, 1, 1)
-	_G["GreetingText"].SetTextColor = MER.dummy
-	_G["CurrentQuestsText"]:SetTextColor(1, 1, 0)
-	_G["CurrentQuestsText"].SetTextColor = MER.dummy
-	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
-	_G["AvailableQuestsText"].SetTextColor = MER.dummy
+
 	for i = 1, MAX_NUM_QUESTS do
 		local button = _G["QuestTitleButton"..i]
 		if button then
@@ -158,13 +153,6 @@ local function styleQuestFrame()
 	_G["QuestFrame"]:Styling()
 
 	_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:SetSize(_G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4, _G["QuestInfoRewardsFrame"].SkillPointFrame.Icon:GetSize() - 4)
-
-	_G["GreetingText"]:SetTextColor(1, 1, 1)
-	_G["GreetingText"].SetTextColor = MER.dummy
-	_G["CurrentQuestsText"]:SetTextColor(1, 1, 0)
-	_G["CurrentQuestsText"].SetTextColor = MER.dummy
-	_G["AvailableQuestsText"]:SetTextColor(1, 1, 0)
-	_G["AvailableQuestsText"].SetTextColor = MER.dummy
 
 	local function colorObjectivesText()
 		if not QuestInfoFrame.questLog then return end
