@@ -18,14 +18,16 @@ local PickupContainerItem = PickupContainerItem
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
+	-- Hide ElvUI Backdrop
 	if _G["CharacterModelFrame"].backdrop then
 		_G["CharacterModelFrame"].backdrop:Hide()
-		
 	end
 
 	_G["CharacterFrame"]:Styling()
 
 	_G["CharacterStatsPane"].ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+	_G["CharacterStatsPane"].ItemLevelFrame.Value:SetShadowOffset(1, -1)
+	_G["CharacterStatsPane"].ItemLevelFrame.Background:Hide()
 	_G["CharacterStatsPane"].AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	_G["CharacterStatsPane"].EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 
