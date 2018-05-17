@@ -10,6 +10,8 @@
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
 	<Script file="QuestFrame.lua"/>
+	<Script file="QuestInfo.lua"/>
+	<Script file="QuestMapFrame.lua"/>
 	<Script file="QuestPOI.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="TaxiFrame.lua"/>
