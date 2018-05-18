@@ -163,6 +163,37 @@ local function styleQuestFrame()
 	QuestProgressTitleText:SetPoint("TOPLEFT", 5, -10)
 	QuestProgressText:SetSize(300, 0)
 	QuestProgressText:SetPoint("TOPLEFT", QuestProgressTitleText, "BOTTOMLEFT", 0, -5)
+
+	------------------------
+	--- QuestDetailFrame ---
+	------------------------
+	_G["QuestFrameDetailPanel"]:Styling()
+
+	_G["QuestDetailScrollFrame"]:StripTextures(true)
+	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
+		self.spellTex:SetTexture("")
+	end)
+
+	if _G["QuestDetailScrollFrame"].spellTex then
+		_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
+	end
+
+	_G["QuestDetailScrollFrame"]:SetWidth(302) -- else these buttons get cut off
+	_G["QuestDetailScrollFrameTop"]:Hide()
+	_G["QuestDetailScrollFrameBottom"]:Hide()
+	_G["QuestDetailScrollFrameMiddle"]:Hide()
+
+	------------------------
+	--- QuestRraneReward ---
+	------------------------
+	_G["QuestFrameRewardPanel"]:Styling()
+
+	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
+		self.backdrop:Hide()
+		self:SetTemplate("Transparent")
+		self.spellTex:SetTexture("")
+		self:Height(self:GetHeight() - 2)
+	end)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
