@@ -144,6 +144,13 @@ local function styleQuestFrame()
 	----------------
 	QuestFrameNpcNameText:SetAllPoints(QuestFrame.TitleText)
 
+	-- Hide ElvUI Backdrop
+	if QuestNPCModelTextFrame.backdrop then
+		QuestNPCModelTextFrame.backdrop:Hide()
+	end
+	MERS:CreateBD(QuestNPCModelTextFrame, .5)
+	QuestNPCModelTextFrame:Styling()
+
 	MERS:QuestFramePanelTemplate(QuestFrameRewardPanel)
 	MERS:QuestScrollFrameTemplate(QuestRewardScrollFrame)
 
