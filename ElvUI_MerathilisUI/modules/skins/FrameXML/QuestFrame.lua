@@ -184,7 +184,7 @@ local function styleQuestFrame()
 	_G["QuestDetailScrollFrameMiddle"]:Hide()
 
 	------------------------
-	--- QuestRraneReward ---
+	--- QuestFrameReward ---
 	------------------------
 	_G["QuestFrameRewardPanel"]:Styling()
 
@@ -194,6 +194,25 @@ local function styleQuestFrame()
 		self.spellTex:SetTexture("")
 		self:Height(self:GetHeight() - 2)
 	end)
+
+	--------------------------
+	--- QuestFrameProgress ---
+	--------------------------
+	_G["QuestFrameProgressPanel"]:Styling()
+
+	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
+		self:SetTemplate("Transparent")
+		self.spellTex:SetTexture("")
+		self:Height(self:GetHeight() - 2)
+	end)
+
+	hooksecurefunc("QuestFrameProgressItems_Update", function()
+		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 1)
+		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 1)
+	end)
+
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
