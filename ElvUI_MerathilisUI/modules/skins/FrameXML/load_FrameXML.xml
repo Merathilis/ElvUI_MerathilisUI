@@ -9,6 +9,7 @@
 	<Script file="LootFrame.lua"/>
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
+	<Script file="PaperDollFrame.lua"/>
 	<Script file="QuestFrame.lua"/>
 	<Script file="QuestInfo.lua"/>
 	<Script file="QuestMapFrame.lua"/>
