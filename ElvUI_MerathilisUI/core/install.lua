@@ -618,7 +618,7 @@ function MER:SetupUnitframes()
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
 	end
-	E.db["unitframe"]["colors"]["castColor"] = { 
+	E.db["unitframe"]["colors"]["castColor"] = {
 		["r"] = 0.1,
 		["g"] = 0.1,
 		["b"] = 0.1,
@@ -632,6 +632,17 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["transparentHealth"] = false
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
+
+	-- Frame Glow
+	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisGradient"
 
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 200
