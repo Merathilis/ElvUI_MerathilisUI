@@ -46,9 +46,16 @@ local function styleGossip()
 		end
 	end
 
+	function MERS.GossipResize(titleButton)
+		titleButton:SetHeight(titleButton:GetTextHeight() + 4)
+	end
+
 	--[[ FrameXML\GossipFrame.xml ]]
 
 	function MERS:GossipTitleButtonTemplate(Button)
+		local highlight = Button:GetHighlightTexture()
+		highlight:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 0.2)
+
 		Button:SetSize(300, 16)
 		_G[Button:GetName().."GossipIcon"]:SetSize(16, 16)
 		_G[Button:GetName().."GossipIcon"]:SetPoint("TOPLEFT", 3, 1)
@@ -60,6 +67,7 @@ local function styleGossip()
 
 	hooksecurefunc("GossipFrameAvailableQuestsUpdate", MERS.GossipFrameAvailableQuestsUpdate)
 	hooksecurefunc("GossipFrameActiveQuestsUpdate", MERS.GossipFrameActiveQuestsUpdate)
+	hooksecurefunc("GossipResize", MERS.GossipResize)
 
 	_G["GossipFrame"]:Styling()
 	for i = 1, 7 do
