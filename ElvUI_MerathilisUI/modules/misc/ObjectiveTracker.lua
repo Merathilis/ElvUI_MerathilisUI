@@ -6,7 +6,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local select = select
 -- WoW API / Variables
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
 local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
@@ -89,43 +89,6 @@ function MEROT:SkinObjectiveTracker()
 			end
 		end
 	end
-
-	-- Fix Block height
-	local function fixBlockHeight(block)
-		if block.shouldFix then
-			local height = block:GetHeight()
-
-			if block.lines then
-				for _, line in pairs(block.lines) do
-					if line:IsShown() then
-						height = height + 4
-					end
-				end
-			end
-
-			block.shouldFix = false
-			block:SetHeight(height + 5)
-			block.shouldFix = true
-		end
-	end
-
-	hooksecurefunc("ObjectiveTracker_AddBlock", function(block)
-		if block.lines then
-			for _, line in pairs(block.lines) do
-				if not line.styled then
-					line:SetHeight(line.Text:GetHeight())
-					line.Text:SetSpacing(2)
-					line.styled = true
-				end
-			end
-		end
-
-		if not block.styled then
-			block.shouldFix = true
-			hooksecurefunc(block, "SetHeight", fixBlockHeight)
-			block.styled = true
-		end
-	end)
 end
 
 function MEROT:SkinScenario()
@@ -287,6 +250,43 @@ function MEROT:AddHooks()
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.ShowObjectiveTrackerLevel)
 	hooksecurefunc("QuestLogQuests_Update", self.ShowQuestLogLevel)
+
+	-- Fix height
+	local function fixBlockHeight(block)
+		if block.shouldFix then
+			local height = block:GetHeight()
+
+			if block.lines then
+				for _, line in pairs(block.lines) do
+					if line:IsShown() then
+						height = height + 4
+					end
+				end
+			end
+
+			block.shouldFix = false
+			block:SetHeight(height + 5)
+			block.shouldFix = true
+		end
+	end
+
+	hooksecurefunc("ObjectiveTracker_AddBlock", function(block)
+		if block.lines then
+			for _, line in pairs(block.lines) do
+				if not line.styled then
+					line:SetHeight(line.Text:GetHeight())
+					line.Text:SetSpacing(2)
+					line.styled = true
+				end
+			end
+		end
+
+		if not block.styled then
+			block.shouldFix = true
+			hooksecurefunc(block, "SetHeight", fixBlockHeight)
+			block.styled = true
+		end
+	end)
 end
 
 function MEROT:Initialize()
