@@ -56,6 +56,8 @@ function MM:CheckMail()
 end
 
 function MM:ChangeMiniMapButtons()
+	if E.db.mui.maps.minimap.styleButton ~= true then return end
+
 	--Garrison Icon
 	if _G["GarrisonLandingPageMinimapButton"] then
 		local scale = E.db.general.minimap.icons.classHall.scale or 1

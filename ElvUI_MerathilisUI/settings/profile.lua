@@ -215,6 +215,7 @@ P["mui"] = {
 			["buttonCollector"] = {
 				["enable"] = true,
 			},
+			["styleButton"] = true,
 		},
 	},
 

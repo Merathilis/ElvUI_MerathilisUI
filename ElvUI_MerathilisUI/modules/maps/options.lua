@@ -7,7 +7,7 @@ local function Minimap()
 		name = MINIMAP_LABEL,
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
-		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; end,
+		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
 			header1 = {
@@ -15,8 +15,13 @@ local function Minimap()
 				name = MER:cOption(MINIMAP_LABEL),
 				order = 1,
 			},
-			coords = {
+			styleButton = {
 				order = 2,
+				type = "toggle",
+				name = MER:cOption(L["MiniMap Buttons Style"])..MER.NewSign,
+			},
+			coords = {
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Coordinates"]),
 				guiInline = true,
@@ -43,9 +48,9 @@ local function Minimap()
 				},
 			},
 			buttonCollector = {
-				order = 3,
+				order = 4,
 				type = "group",
-				name = MER:cOption(L["MiniMap Buttons"])..MER.NewSign,
+				name = MER:cOption(L["MiniMap Buttons"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.buttonCollector[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.buttonCollector[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
