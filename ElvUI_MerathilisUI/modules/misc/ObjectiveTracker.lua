@@ -208,14 +208,20 @@ end
 
 function MEROT:ShowObjectiveTrackerLevel()
 	for i = 1, GetNumQuestWatches() do
-		local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
+		local questID, title, questLogIndex = GetQuestWatchInfo(i)
+
 		if ( not questID ) then
 			break
 		end
+
 		local block = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
+
 		if block then
-			local title, level, _, _, _, _, _, _ = GetQuestLogTitle(questLogIndex)
-			local text = "["..level.."] "..title
+			local title, level = GetQuestLogTitle(questLogIndex)
+			local color = GetQuestDifficultyColor(level)
+			local hex = E:RGBToHex(color.r, color.g, color.b) or OBJECTIVE_TRACKER_COLOR["Header"]
+			local text = hex.."["..level.."]|r "..title
+
 			block.HeaderText:SetText(text)
 		end
 	end
