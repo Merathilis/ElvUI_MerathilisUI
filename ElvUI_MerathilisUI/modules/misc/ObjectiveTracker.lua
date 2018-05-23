@@ -151,7 +151,7 @@ function MEROT:UpdatePopup()
 	end
 end
 
-function MEROT:SkinPOI(questID, style, index)
+function MEROT:SkinPOI(parent, questID, style, index)
 	local Incomplete = self.poiTable["numeric"]
 	local Complete = self.poiTable["completed"]
 
@@ -163,7 +163,7 @@ function MEROT:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop()
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -178,7 +178,7 @@ function MEROT:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop()
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -208,14 +208,20 @@ end
 
 function MEROT:ShowObjectiveTrackerLevel()
 	for i = 1, GetNumQuestWatches() do
-		local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
+		local questID, title, questLogIndex = GetQuestWatchInfo(i)
+
 		if ( not questID ) then
 			break
 		end
+
 		local block = _G["QUEST_TRACKER_MODULE"]:GetExistingBlock(questID)
+
 		if block then
-			local title, level, _, _, _, _, _, _ = GetQuestLogTitle(questLogIndex)
-			local text = "["..level.."] "..title
+			local title, level = GetQuestLogTitle(questLogIndex)
+			local color = GetQuestDifficultyColor(level)
+			local hex = E:RGBToHex(color.r, color.g, color.b) or OBJECTIVE_TRACKER_COLOR["Header"]
+			local text = hex.."["..level.."]|r "..title
+
 			block.HeaderText:SetText(text)
 		end
 	end
@@ -228,6 +234,7 @@ function MEROT:AddHooks()
 	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
+	hooksecurefunc("QuestPOI_SelectButtonByQuestID", self.SelectPOI)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.ShowObjectiveTrackerLevel)
 
 	-- Fix height
@@ -272,8 +279,6 @@ function MEROT:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
 	OBJECTIVE_TRACKER_COLOR["Complete"] = { r = 0, g = 1, b = 0 } -- green
-
-	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
 
 	self:AddHooks()
 
