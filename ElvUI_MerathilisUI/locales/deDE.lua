@@ -319,6 +319,8 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
+L["Garrison/OrderHall Buttons Style"] = "Garnision/Ordenshallen Tasten Style"
+L["Change the look of the Orderhall/Garrison Button"] = "Ändert das Aussehen der Garnision/Ordenshallen Taste"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

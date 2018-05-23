@@ -307,6 +307,8 @@ L["Hide Coordinates"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
+L["Garrison/OrderHall Buttons Style"] = true
+L["Change the look of the Orderhall/Garrison Button"] = true
 
 --Raid Marks
 L["Raid Markers"] = true
