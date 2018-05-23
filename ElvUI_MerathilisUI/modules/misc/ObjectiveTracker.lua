@@ -163,7 +163,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop()
+			Button:CreateBackdrop("Transparent")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -178,7 +178,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop()
+			Button:CreateBackdrop("Transparent")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -279,6 +279,8 @@ function MEROT:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
 	OBJECTIVE_TRACKER_COLOR["Complete"] = { r = 0, g = 1, b = 0 } -- green
+
+	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
 
 	self:AddHooks()
 
