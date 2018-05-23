@@ -221,26 +221,6 @@ function MEROT:ShowObjectiveTrackerLevel()
 	end
 end
 
-function MEROT:ShowQuestLogLevel()
-	local numEntries, numQuests = GetNumQuestLogEntries()
-	local titleIndex = 1
-
-	for i = 1, numEntries do
-		local title, level, _, isHeader, _, _, _, questID = GetQuestLogTitle(i)
-		local titleButton = QuestLogQuests_GetTitleButton(titleIndex)
-		if title and (not isHeader) and titleButton.questID == questID then
-			local height = titleButton.Text:GetHeight()
-			local text = "["..level.."] "..title
-			titleButton.Text:SetText(text)
-			titleButton.Text:SetPoint("TOPLEFT", 24, -5)
-			titleButton:SetHeight(titleButton:GetHeight() - height + titleButton.Text:GetHeight())
-			titleButton.Check:SetPoint("LEFT", titleButton.Text, titleButton.Text:GetWrappedWidth() + 2, 0)
-
-			titleIndex = titleIndex + 1
-		end
-	end
-end
-
 function MEROT:AddHooks()
 	hooksecurefunc("ObjectiveTracker_Update", self.SkinObjectiveTracker)
 	hooksecurefunc("ScenarioBlocksFrame_OnLoad", self.SkinScenario)
@@ -249,7 +229,6 @@ function MEROT:AddHooks()
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.ShowObjectiveTrackerLevel)
-	hooksecurefunc("QuestLogQuests_Update", self.ShowQuestLogLevel)
 
 	-- Fix height
 	local function fixBlockHeight(block)
