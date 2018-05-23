@@ -151,7 +151,7 @@ function MEROT:UpdatePopup()
 	end
 end
 
-function MEROT:SkinPOI(questID, style, index)
+function MEROT:SkinPOI(parent, questID, style, index)
 	local Incomplete = self.poiTable["numeric"]
 	local Complete = self.poiTable["completed"]
 
@@ -163,7 +163,7 @@ function MEROT:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop()
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -178,7 +178,7 @@ function MEROT:SkinPOI(questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop()
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -248,6 +248,7 @@ function MEROT:AddHooks()
 	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", self.UpdatePopup)
 	hooksecurefunc("QuestPOI_GetButton", self.SkinPOI)
 	hooksecurefunc("QuestPOI_SelectButton", self.SelectPOI)
+	hooksecurefunc("QuestPOI_SelectButtonByQuestID", self.SelectPOI)
 	hooksecurefunc(QUEST_TRACKER_MODULE, "Update", self.ShowObjectiveTrackerLevel)
 	hooksecurefunc("QuestLogQuests_Update", self.ShowQuestLogLevel)
 
@@ -293,8 +294,6 @@ function MEROT:Initialize()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
 	OBJECTIVE_TRACKER_COLOR["Complete"] = { r = 0, g = 1, b = 0 } -- green
-
-	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
 
 	self:AddHooks()
 
