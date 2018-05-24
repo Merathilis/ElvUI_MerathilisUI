@@ -118,6 +118,7 @@ function MEROT:UpdatePopup()
 					Frame.backdrop:SetPoint("TOPLEFT", Frame, 36, -4)
 					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
 					Frame.backdrop:SetFrameLevel(0)
+					Frame.backdrop:Styling()
 
 					Frame.FlashFrame.IconFlash:Hide()
 				end
@@ -162,7 +163,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop("Default")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -177,7 +178,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop("Default")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
