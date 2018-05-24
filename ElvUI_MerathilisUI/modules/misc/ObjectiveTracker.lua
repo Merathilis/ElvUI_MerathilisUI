@@ -113,7 +113,7 @@ function MEROT:UpdatePopup()
 				local Frame = Block.ScrollChild
 				Frame:SetSize(227, 68)
 
-				if not Frame.Backdrop then
+				if not Frame.backdrop then
 					Frame:CreateBackdrop("Transparent")
 					Frame.backdrop:SetPoint("TOPLEFT", Frame, 36, -4)
 					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
