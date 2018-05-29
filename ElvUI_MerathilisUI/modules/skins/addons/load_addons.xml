@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Blizzard_AchievementUI.lua"/>
+	<Script file="Blizzard_AdventureMap.lua"/>
 	<Script file="Blizzard_ArtifactUI.lua"/>
 	<Script file="Blizzard_AuctionUI.lua"/>
 	<Script file="Blizzard_BindingUI.lua"/>
@@ -12,12 +13,14 @@
 	<Script file="Blizzard_DeathRecap.lua"/>
 	<Script file="Blizzard_EncounterJournal.lua"/>
 	<Script file="Blizzard_FlightMap.lua"/>
+	<Script file="Blizzard_GarrisonTemplates.lua"/>
 	<Script file="Blizzard_GarrisonUI.lua"/>
 	<Script file="Blizzard_GuildBankUI.lua"/>
 	<Script file="Blizzard_GuildUI.lua"/>
 	<Script file="Blizzard_GuildControlUI.lua"/>
 	<Script file="Blizzard_LookingForGuildUI.lua"/>
 	<Script file="Blizzard_MacroUI.lua"/>
+	<Script file="Blizzard_MapCanvas.lua"/>
 	<Script file="misc.lua"/>
 	<Script file="Blizzard_OrderHallUI.lua"/>
 	<Script file="Blizzard_PVPUI.lua"/>
