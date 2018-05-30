@@ -4,44 +4,109 @@ local S = E:GetModule('Skins')
 
 --Cache global variables
 local _G = _G
-local pairs, select = pairs, select
+
 --WoW API / Variables
-local CreateFrame = CreateFrame
+local pairs, select, unpack = pairs, select, unpack
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, Inset
 
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
-	-- Category buttons
-	for i = 1, 4 do
-		local bu = _G["PVPQueueFrameCategoryButton"..i]
-		bu:StripTextures()
+	_G["PVPQueueFrame"]:Styling()
+	_G["PVPReadyDialog"]:Styling()
 
-		MERS:CreateBD(bu, .25)
+	local PVPQueueFrame = _G["PVPQueueFrame"]
+	local HonorFrame = _G["HonorFrame"]
+	local ConquestFrame = _G["ConquestFrame"]
+	local WarGamesFrame = _G["WarGamesFrame"]
+
+	for i = 1, 3 do
+		local bu = PVPQueueFrame["CategoryButton"..i]
+		local cu = bu.CurrencyDisplay
+
+		bu.Ring:Hide()
+
 		MERS:Reskin(bu, true)
 
-		bu.backdropTexture:Hide()
+		bu.Background:SetAllPoints()
+		bu.Background:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		bu.Background:Hide()
+
+		bu.Icon:Size(54)
+		bu.Icon:SetTexCoord(unpack(E.TexCoords))
+		bu.Icon:ClearAllPoints()
+		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
+		bu.Icon:SetDrawLayer("OVERLAY")
+
+		bu.Icon.bg = MERS:CreateBG(bu.Icon)
+		bu.Icon.bg:SetDrawLayer("ARTWORK")
+
+		if cu then
+			local ic = cu.Icon
+
+			ic:SetSize(16, 16)
+			ic:SetPoint("TOPLEFT", bu.Name, "BOTTOMLEFT", 0, -8)
+			cu.Amount:SetPoint("LEFT", ic, "RIGHT", 4, 0)
+
+			ic:SetTexCoord(unpack(E.TexCoords))
+			ic.bg = MERS:CreateBG(ic)
+			ic.bg:SetDrawLayer("BACKGROUND", 1)
+		end
 	end
 
-	local BonusFrame = _G["HonorFrame"].BonusFrame
+	hooksecurefunc("PVPQueueFrame_SelectButton", function(index)
+		local self = PVPQueueFrame
+		for i = 1, 3 do
+			local bu = self["CategoryButton"..i]
+			if i == index then
+				bu.Background:Show()
+			else
+				bu.Background:Hide()
+			end
+		end
+	end)
+
+	PVPQueueFrame.CategoryButton1.Background:Show()
+
+	-- Casual - HonorFrame
+
+	local Inset = HonorFrame.Inset
+	local BonusFrame = HonorFrame.BonusFrame
+
+	for i = 1, 9 do
+		select(i, Inset:GetRegions()):Hide()
+	end
+
+	BonusFrame.WorldBattlesTexture:Hide()
+	BonusFrame.ShadowOverlay:Hide()
 
 	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "LargeBattlegroundButton", "BrawlButton"}) do
 		local bu = BonusFrame[bonusButton]
-		bu:StripTextures()
+		local reward = bu.Reward
 
-		MERS:CreateBD(bu, .25)
-		MERS:Reskin(bu, true)
+		MERS:Reskin(bu)
+
+		-- Hide ElvUI backdrop
+		if bu.backdrop then
+			bu.backdrop:Hide()
+		end
+
+		bu.NormalTexture:Hide()
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
-		bu.backdropTexture:Hide()
+		if reward then
+			reward.Border:Hide()
+			MERS:ReskinIcon(reward.Icon)
+		end
 	end
 
 	-- Honor frame specific
-	for _, bu in pairs(_G["HonorFrame"].SpecificFrame.buttons) do
+
+	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
 		bu.Border:Hide()
 
@@ -69,114 +134,25 @@ local function stylePvP()
 		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
 
-	-- Conquest Frame
-	Inset = _G["ConquestFrame"].Inset
+	-- Rated - ConquestFrame
+	local ConquestFrame = _G["ConquestFrame"]
+	local Inset = ConquestFrame.Inset
 
-	for i = 1, 9 do
-		select(i, Inset:GetRegions()):Hide()
-	end
-	_G["ConquestFrame"].ArenaTexture:Hide()
-	_G["ConquestFrame"].RatedBGTexture:Hide()
-	_G["ConquestFrame"].ArenaHeader:Hide()
-	_G["ConquestFrame"].RatedBGHeader:Hide()
-	_G["ConquestFrame"].ShadowOverlay:Hide()
-
-	for _, bu in pairs({_G["ConquestFrame"].Arena2v2, _G["ConquestFrame"].Arena3v3, _G["ConquestFrame"].RatedBG}) do
-		bu:StripTextures()
-
-		MERS:CreateBD(bu, .25)
-		MERS:Reskin(bu, true)
+	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+		MERS:Reskin(bu)
+		local reward = bu.Reward
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
-		bu.backdropTexture:Hide()
-	end
-
-	-- War games
-	Inset = _G["WarGamesFrame"].RightInset
-
-	for i = 1, 9 do
-		select(i, Inset:GetRegions()):Hide()
-	end
-	_G["WarGamesFrame"].InfoBG:Hide()
-	_G["WarGamesFrame"].HorizontalBar:Hide()
-	_G["WarGamesFrameInfoScrollFrame"].scrollBarBackground:Hide()
-	_G["WarGamesFrameInfoScrollFrame"].scrollBarArtTop:Hide()
-	_G["WarGamesFrameInfoScrollFrame"].scrollBarArtBottom:Hide()
-
-	_G["WarGamesFrameDescription"]:SetTextColor(.9, .9, .9)
-
-	local function onSetNormalTexture(self, texture)
-		if texture:find("Plus") then
-			self.plus:Show()
-		else
-			self.plus:Hide()
+		if reward then
+			reward.Border:Hide()
+			MERS:ReskinIcon(reward.Icon)
 		end
 	end
 
-	for _, button in pairs(_G["WarGamesFrame"].scrollFrame.buttons) do
-		local bu = button.Entry
-		local SelectedTexture = bu.SelectedTexture
-
-		bu.Bg:Hide()
-		bu.Border:Hide()
-
-		bu:SetNormalTexture("")
-		bu:SetHighlightTexture("")
-
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 2, 0)
-		bg:SetPoint("BOTTOMRIGHT", -1, 2)
-		MERS:CreateBD(bg, 0)
-		bg:SetFrameLevel(bu:GetFrameLevel()-1)
-
-		local tex = MERS:CreateGradient(bu)
-		tex:SetDrawLayer("BACKGROUND")
-		tex:SetPoint("TOPLEFT", 3, -1)
-		tex:SetPoint("BOTTOMRIGHT", -2, 3)
-
-		SelectedTexture:SetDrawLayer("BACKGROUND")
-		SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
-		SelectedTexture:SetPoint("TOPLEFT", 2, 0)
-		SelectedTexture:SetPoint("BOTTOMRIGHT", -1, 2)
-
-		bu.Icon:SetTexCoord(.08, .92, .08, .92)
-		bu.Icon.bg = MERS:CreateBG(bu.Icon)
-		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
-		bu.Icon:SetPoint("TOPLEFT", 5, -3)
-
-		local header = button.Header
-
-		header:GetNormalTexture():SetAlpha(0)
-		header:SetHighlightTexture("")
-		header:SetPushedTexture("")
-
-		local headerBg = CreateFrame("Frame", nil, header)
-		headerBg:SetSize(13, 13)
-		headerBg:SetPoint("LEFT", 4, 0)
-		headerBg:SetFrameLevel(header:GetFrameLevel()-1)
-		MERS:CreateBD(headerBg, 0)
-		headerBg:Styling()
-
-		local minus = header:CreateTexture(nil, "OVERLAY")
-		minus:SetSize(7, 1)
-		minus:SetPoint("CENTER", headerBg)
-		minus:SetTexture(E["media"].blankTex)
-		minus:SetVertexColor(1, 1, 1)
-
-		local plus = header:CreateTexture(nil, "OVERLAY")
-		plus:SetSize(1, 7)
-		plus:SetPoint("CENTER", headerBg)
-		plus:SetTexture(E["media"].blankTex)
-		plus:SetVertexColor(1, 1, 1)
-		header.plus = plus
-
-		hooksecurefunc(header, "SetNormalTexture", onSetNormalTexture)
-	end
-
-	_G["PVPReadyDialog"]:Styling()
+	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)
