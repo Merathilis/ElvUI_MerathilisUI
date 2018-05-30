@@ -14,9 +14,9 @@ function MERS:ObjectPoolMixin_Acquire(self)
 	local template = self.frameTemplate or self.textureTemplate or self.fontStringTemplate or self.actorTemplate
 	if template and MERS[template] then
 		for obj in self:EnumerateActive() do
-			if not obj._auroraSkinned then
+			if not obj.isSkinned then
 				MERS[template](obj)
-				obj.Skinned = true
+				obj.isSkinned = true
 			end
 		end
 	end
