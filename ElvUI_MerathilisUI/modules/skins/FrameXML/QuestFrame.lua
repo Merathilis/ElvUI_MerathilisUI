@@ -44,7 +44,6 @@ local function styleQuestFrame()
 					questTitleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, title)
 				end
 			end
-
 		end
 
 		local numAvailableQuests = GetNumAvailableQuests()
@@ -114,8 +113,10 @@ local function styleQuestFrame()
 	function MERS:QuestItemTemplate(Button)
 		MERS:LargeItemButtonTemplate(Button)
 	end
+
 	function MERS:QuestSpellTemplate(Button)
 	end
+
 	function MERS:QuestTitleButtonTemplate(Button)
 	end
 
@@ -213,6 +214,16 @@ local function styleQuestFrame()
 		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 1)
 	end)
 
+	--------------------------
+	--- QuestGreetingFrame ---
+	--------------------------
+	_G["QuestFrameGreetingPanel"]:Styling()
+
+	_G["QuestGreetingScrollFrame"]:HookScript("OnShow", function(self)
+		self:SetTemplate("Transparent")
+		self.spellTex:SetTexture("")
+		self:Height(self:GetHeight() - 2)
+	end)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
