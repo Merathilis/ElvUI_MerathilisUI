@@ -30,7 +30,7 @@ local function styleFriends()
 	gtframe:SetPoint("LEFT", _G["FriendsFrameTab"..n - 1], "RIGHT", -15, 0)
 	PanelTemplates_DeselectTab(gtframe)
 	gtframe:SetScript("OnClick", function() _G["ToggleGuildFrame"]() end)
-	S:HandleTab(_G["FriendsFrameTab5"])
+	S:HandleTab(_G["FriendsFrameTab4"])
 end
 
 S:AddCallback("mUIFriends", styleFriends)
