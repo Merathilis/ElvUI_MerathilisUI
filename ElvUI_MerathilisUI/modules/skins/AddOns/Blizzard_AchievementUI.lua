@@ -57,7 +57,7 @@ local function styleAchievement()
 		bg:Point("BOTTOMRIGHT", -2, 2)
 		MERS:CreateBD(bg, 0)
 
-		bu.icon.texture:SetTexCoord(.08, .92, .08, .92)
+		S:CropIcon(bu.icon.texture, bu.icon)
 		MERS:CreateBG(bu.icon.texture)
 	end
 
@@ -123,7 +123,7 @@ local function styleAchievement()
 				MERS:CreateBD(bg, 0)
 
 				local ic = _G["AchievementFrameSummaryAchievement"..i.."IconTexture"]
-				ic:SetTexCoord(.08, .92, .08, .92)
+				ic:SetTexCoord(unpack(E.TexCoords))
 				MERS:CreateBG(ic)
 
 				bu.reskinned = true
