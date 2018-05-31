@@ -107,23 +107,23 @@ function MEROT:UpdatePopup()
 
 		if Title and Title ~= "" then
 			local Block = AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
+			Block:SetSize(232, 68)
 
 			if Block then
 				local Frame = Block.ScrollChild
+				Frame:SetSize(227, 68)
 
-				if not Frame.Backdrop then
+				if not Frame.backdrop then
 					Frame:CreateBackdrop("Transparent")
-
-					Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					Frame.backdrop:SetPoint("TOPLEFT", Frame, 36, -4)
 					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
 					Frame.backdrop:SetFrameLevel(0)
-					Frame.backdrop:SetTemplate("Transparent")
-					Frame.backdrop:CreateShadow()
+					Frame.backdrop:Styling()
 
 					Frame.FlashFrame.IconFlash:Hide()
 				end
 
-				if  type == "COMPLETE" then
+				if type == "COMPLETE" then
 					Frame.QuestIconBg:SetAlpha(0)
 					Frame.QuestIconBadgeBorder:SetAlpha(0)
 					Frame.QuestionMark:ClearAllPoints()
@@ -163,7 +163,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.HighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop("Default")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
@@ -178,7 +178,7 @@ function MEROT:SkinPOI(parent, questID, style, index)
 			Button.PushedTexture:SetTexture("")
 			Button.FullHighlightTexture:SetTexture("")
 			Button.Glow:SetAlpha(0)
-			Button:CreateBackdrop("Transparent")
+			Button:CreateBackdrop("Default")
 			S:HandleButton(Button)
 
 			Button.IsSkinned = true
