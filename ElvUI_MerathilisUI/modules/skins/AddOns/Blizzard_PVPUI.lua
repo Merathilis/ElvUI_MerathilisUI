@@ -7,6 +7,7 @@ local _G = _G
 
 --WoW API / Variables
 local pairs, select, unpack = pairs, select, unpack
+local CreateFrame = CreateFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, Inset
 
@@ -70,7 +71,6 @@ local function stylePvP()
 	PVPQueueFrame.CategoryButton1.Background:Show()
 
 	-- Casual - HonorFrame
-
 	local Inset = HonorFrame.Inset
 	local BonusFrame = HonorFrame.BonusFrame
 
@@ -105,10 +105,16 @@ local function stylePvP()
 	end
 
 	-- Honor frame specific
-
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
 		bu.Border:Hide()
+
+		MERS:Reskin(bu)
+
+		-- Hide ElvUI backdrop
+		if bu.backdrop then
+			bu.backdrop:Hide()
+		end
 
 		bu:SetNormalTexture("")
 		bu:SetHighlightTexture("")

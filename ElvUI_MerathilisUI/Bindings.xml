@@ -1,5 +1,5 @@
 <Bindings>
-	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="RAIDFLARE" category="BINDING_HEADER_MER">
+	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="MERATHILISUI_RAIDFLARE" category="BINDING_HEADER_MER">
 	</Binding>
 	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER">
 	</Binding>
