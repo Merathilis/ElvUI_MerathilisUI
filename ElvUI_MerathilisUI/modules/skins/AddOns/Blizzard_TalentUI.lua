@@ -187,6 +187,18 @@ local function styleTalents()
 	end
 
 	-- PvP Talents
+	for i = 1, 10 do
+		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]
+		local icon = bu.Icon
+		if bu then
+			-- Hide ElvUI backdrop
+			if bu.backdrop then
+				bu.backdrop:Hide()
+			end
+
+			MERS:Reskin(bu)
+		end
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", styleTalents)
