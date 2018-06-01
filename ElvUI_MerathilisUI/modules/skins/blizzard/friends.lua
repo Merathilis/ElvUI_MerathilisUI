@@ -12,11 +12,10 @@ local CreateFrame = CreateFrame
 local function styleFriends()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
-	_G["FriendsListFrame"]:Styling()
+	_G["FriendsFrame"]:Styling()
 	_G["QuickJoinFrame"]:Styling()
 	_G["IgnoreListFrame"]:Styling()
 	_G["WhoFrame"]:Styling()
-	_G["ChannelFrame"]:Styling()
 	_G["RaidFrame"]:Styling()
 	_G["RaidInfoFrame"]:Styling()
 
