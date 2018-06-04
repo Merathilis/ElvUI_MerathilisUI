@@ -18,6 +18,8 @@ local PickupContainerItem = PickupContainerItem
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
+	local CharacterStatsPane = _G["CharacterStatsPane"]
+
 	-- Hide ElvUI Backdrop
 	if _G["CharacterModelFrame"].backdrop then
 		_G["CharacterModelFrame"].backdrop:Hide()
@@ -30,6 +32,29 @@ local function styleCharacter()
 	_G["CharacterStatsPane"].ItemLevelFrame.Background:Hide()
 	_G["CharacterStatsPane"].AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	_G["CharacterStatsPane"].EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+
+	local function StatsPane(type)
+		CharacterStatsPane[type]:StripTextures()
+		CharacterStatsPane[type].backdrop:Hide()
+	end
+
+	local function CharacterStatFrameCategoryTemplate(Button)
+		local bg = Button.Background
+		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
+		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
+		bg:ClearAllPoints()
+		bg:SetPoint("CENTER", 0, -5)
+		bg:SetSize(210, 30)
+
+		bg:SetVertexColor(MER.ClassColor.r * 0.7, MER.ClassColor.g * 0.7, MER.ClassColor.b * 0.7)
+	end
+
+	StatsPane("EnhancementsCategory")
+	StatsPane("ItemLevelCategory")
+	StatsPane("AttributesCategory")
+	CharacterStatFrameCategoryTemplate(CharacterStatsPane.ItemLevelCategory)
+	CharacterStatFrameCategoryTemplate(CharacterStatsPane.AttributesCategory)
+	CharacterStatFrameCategoryTemplate(CharacterStatsPane.EnhancementsCategory)
 
 	-- Undress Button
 	local E, Z, N, n
