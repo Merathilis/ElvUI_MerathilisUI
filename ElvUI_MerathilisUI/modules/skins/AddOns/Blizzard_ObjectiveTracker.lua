@@ -189,7 +189,8 @@ local function styleObjectiveTracker()
 				PreviousPOI.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 			end
 
-			poiButton:SetBackdropColor(Color.r, Color.g, Color.b)
+			poiButton.backdrop:SetBackdropBorderColor(Color.r, Color.g, Color.b)
+			poiButton:SetBackdropColor(0/255, 152/255, 34/255, 1)
 
 			PreviousPOI = poiButton
 		end
@@ -313,45 +314,64 @@ local function styleObjectiveTracker()
 	----====####$$$$%%%%$$$$####====----
 	-- Blizzard_AutoQuestPopUpTracker --
 	----====####$$$$%%%%$$$$####====----
-	function MERS:AutoQuestPopUpBlockTemplate(ScrollFrame)
-		--[[ Scale ]]--
-		ScrollFrame:SetSize(232, 68)
+	function MERS:AutoQuestPopUpBlockTemplate()
+		for i = 1, GetNumAutoQuestPopUps() do
+			local ID, type = GetAutoQuestPopUp(i)
+			local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
 
-		local ScrollChild = ScrollFrame.ScrollChild
-		ScrollChild:SetSize(227, 68)
-		ScrollChild.Bg:SetPoint("TOPLEFT", 36, -4)
-		ScrollChild.Bg:SetPoint("BOTTOMRIGHT", 0, 4)
+			if Title and Title ~= "" then
+				local Block = AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
 
-		ScrollChild.BorderTopLeft:SetSize(16, 16)
-		ScrollChild.BorderTopLeft:SetPoint("TOPLEFT", 32, 0)
-		ScrollChild.BorderTopRight:SetSize(16, 16)
-		ScrollChild.BorderTopRight:SetPoint("TOPRIGHT", 4, 0)
-		ScrollChild.BorderBotLeft:SetSize(16, 16)
-		ScrollChild.BorderBotLeft:SetPoint("BOTTOMLEFT", 32, 0)
-		ScrollChild.BorderBotRight:SetSize(16, 16)
-		ScrollChild.BorderBotRight:SetPoint("BOTTOMRIGHT", 4, 0)
+				if Block then
+					local Frame = Block.ScrollChild
 
-		ScrollChild.BorderLeft:SetWidth(8)
-		ScrollChild.BorderRight:SetWidth(8)
-		ScrollChild.BorderTop:SetHeight(8)
-		ScrollChild.BorderBottom:SetHeight(8)
+					if not Frame.IsSkinned then
+						Frame:SetSize(227, 68)
+						Frame:CreateBackdrop("Transparent")
+						Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+						Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+						Frame.backdrop:SetFrameLevel(0)
+						Frame.backdrop:SetTemplate("Transparent")
 
-		ScrollChild.QuestIconBg:SetSize(60, 60)
-		ScrollChild.QuestIconBg:SetPoint("CENTER", ScrollChild, "LEFT", 36, 0)
-		ScrollChild.QuestIconBadgeBorder:SetSize(44, 45)
-		ScrollChild.QuestIconBadgeBorder:SetPoint("TOPLEFT", ScrollChild.QuestIconBg, 8, -8)
+						Frame.FlashFrame.IconFlash:Hide()
 
-		ScrollChild.QuestName:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
-		ScrollChild.QuestName:SetPoint("RIGHT", -8, 0)
-		ScrollChild.TopText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
-		ScrollChild.TopText:SetPoint("RIGHT", -8, 0)
-		ScrollChild.BottomText:SetPoint("BOTTOM", 0, 8)
-		ScrollChild.BottomText:SetPoint("LEFT", ScrollChild.QuestIconBg, "RIGHT", -6, 0)
-		ScrollChild.BottomText:SetPoint("RIGHT", -8, 0)
+						Frame.QuestName:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+						Frame.QuestName:SetPoint("RIGHT", -8, 0)
+						Frame.TopText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+						Frame.TopText:SetPoint("RIGHT", -8, 0)
+						Frame.BottomText:SetPoint("BOTTOM", 0, 8)
+						Frame.BottomText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+						Frame.BottomText:SetPoint("RIGHT", -8, 0)
 
-		ScrollChild.Shine:SetPoint("TOPLEFT", 35, -3)
-		ScrollChild.Shine:SetPoint("BOTTOMRIGHT", 1, 3)
-		ScrollChild.IconShine:SetSize(42, 42)
+						Frame.IsSkinned = true
+					end
+
+					if type == "COMPLETE" then
+						Frame.QuestIconBg:SetAlpha(0)
+						Frame.QuestIconBadgeBorder:SetAlpha(0)
+						Frame.QuestionMark:ClearAllPoints()
+						Frame.QuestionMark:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+						Frame.QuestionMark:SetParent(Frame.backdrop)
+						Frame.QuestionMark:SetDrawLayer("OVERLAY", 7)
+						Frame.IconShine:Hide()
+					elseif type == "OFFER" then
+						Frame.QuestIconBg:SetAlpha(0)
+						Frame.QuestIconBadgeBorder:SetAlpha(0)
+						Frame.Exclamation:ClearAllPoints()
+						Frame.Exclamation:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+						Frame.Exclamation:SetParent(Frame.backdrop)
+						Frame.Exclamation:SetDrawLayer("OVERLAY", 7)
+					end
+
+					Frame.FlashFrame:Hide()
+					Frame.Bg:Hide()
+
+					for _, v in pairs({Frame.BorderTopLeft, Frame.BorderTopRight, Frame.BorderBotLeft, Frame.BorderBotRight, Frame.BorderLeft, Frame.BorderRight, Frame.BorderTop, Frame.BorderBottom}) do
+						v:Hide()
+					end
+				end
+			end
+		end
 	end
 
 	----====####$$$$%%%%$$$$####====----
