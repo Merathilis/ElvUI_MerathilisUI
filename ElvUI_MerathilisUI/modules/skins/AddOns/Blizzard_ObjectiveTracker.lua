@@ -370,11 +370,6 @@ local function styleObjectiveTracker()
 		Frame.Glow:SetPoint("LEFT", Frame.Dash, -2, 0)
 	end
 
-	function MERS:BonusObjectiveTrackerBlockTemplate(ScrollFrame)
-		ScrollFrame:SetSize(240, 10)
-		ScrollFrame.TrackedQuest.Underlay:SetSize(34, 34)
-	end
-
 	function MERS:BonusObjectiveTrackerHeaderTemplate(Frame)
 		MERS:ObjectiveTrackerHeaderTemplate(Frame)
 	end
