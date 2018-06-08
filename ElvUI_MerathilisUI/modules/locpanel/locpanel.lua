@@ -625,11 +625,11 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
-function LP:PLAYER_ENTERING_WORLD()
-	local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
-	if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	LP:UNIT_AURA(nil, "player")
-end
+--function LP:PLAYER_ENTERING_WORLD()
+	--local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
+	--if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
+	--LP:UNIT_AURA(nil, "player")
+--end
 
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
@@ -661,7 +661,7 @@ function LP:Initialize()
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
-	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	--LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end
