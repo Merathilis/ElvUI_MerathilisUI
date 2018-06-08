@@ -288,4 +288,5 @@ OrderHall_eframe:SetScript("OnEvent", function(self, event, arg1)
 	end
 end)
 
-S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", styleOrderhall)
+S:AddCallbackForAddon('Blizzard_GarrisonUI', "mUIOrderHall", styleOrderhall)
+--S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", styleOrderhall)
