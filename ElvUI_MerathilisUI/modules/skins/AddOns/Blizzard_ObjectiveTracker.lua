@@ -100,18 +100,6 @@ local function styleObjectiveTracker()
 		block._mUIHeight = SetStringText(block.HeaderText, text, nil, OBJECTIVE_TRACKER_COLOR["Header"], block.isHighlighted)
 	end
 
-	function MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_GetBlock(self, id)
-		local block = self.usedBlocks[id]
-		if not block.IsSkinned then
-			if MERS[self.blockTemplate] then
-							print("isSkinned")
-				MERS[self.blockTemplate](block)
-				block.IsSkinned = true
-			end
-		end
-		block._mUIHeight = 0
-	end
-
 	function MERS.ObjectiveTracker_Update()
 		local Frame = ObjectiveTrackerFrame.MODULES
 
@@ -203,7 +191,6 @@ local function styleObjectiveTracker()
 		hooksecurefunc("QuestPOI_SelectButtonByQuestID", MERS.QuestPOI_SelectButton)
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_AddObjective)
 		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_SetBlockHeader)
-		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "GetBlock", MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_GetBlock)
 
 		hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", MERS.QUEST_TRACKER_MODULE_SetBlockHeader)
 		hooksecurefunc(SCENARIO_TRACKER_MODULE, "GetBlock", MERS.SCENARIO_TRACKER_MODULE_GetBlock)
