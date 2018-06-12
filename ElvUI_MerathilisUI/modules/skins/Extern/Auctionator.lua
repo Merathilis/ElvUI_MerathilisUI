@@ -11,16 +11,11 @@ local pairs, select = pairs, select
 local IsAddOnLoaded = IsAddOnLoaded
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: 
+-- GLOBALS:
 
 function AS:Auctionator(event, addon)
-	if addon == 'Blizzard_TradeSkillUI' or IsAddOnLoaded('Blizzard_TradeSkillUI') then 
-		_G["TradeSkillFrame"]:HookScript('OnShow', function() AS:SkinButton(_G["Auctionator_Search"], true) end)
-		AS:UnregisterSkinEvent('Auctionator', event)
-	end
 	if event == 'PLAYER_ENTERING_WORLD' then return end
 	if event == 'AUCTION_HOUSE_SHOW' then
-
 		local Frames = {
 			_G["Atr_BasicOptionsFrame"],
 			_G["Atr_TooltipsOptionsFrame"],
