@@ -198,7 +198,7 @@ function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,spell,rank)
 end
 
 function DCP:COMBAT_LOG_EVENT_UNFILTERED(...)
-	local _,event,_,_,_,sourceFlags,_,_,_,_,_,spellID = ...
+	local _,event,_,_,_,sourceFlags,_,_,_,_,_,spellID = CombatLogGetCurrentEventInfo()
 	if (event == "SPELL_CAST_SUCCESS") then
 		if (bit.band(sourceFlags,COMBATLOG_OBJECT_TYPE_PET) == COMBATLOG_OBJECT_TYPE_PET and bit.band(sourceFlags,COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE) then
 			local name = GetSpellInfo(spellID)
