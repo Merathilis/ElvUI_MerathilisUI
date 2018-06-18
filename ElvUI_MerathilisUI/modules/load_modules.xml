@@ -16,5 +16,6 @@
 	<Include file="raidmarkers\load_raidmarkers.xml"/>
 	<Include file="rbreminder\load_rbreminder.xml"/>
 	<Include file="notification\load_notification.xml"/>
+	<Include file="cooldowns\load_cooldowns.xml"/>
 	<Include file="nameplates\load_nameplateAuras.xml"/>
 </Ui>

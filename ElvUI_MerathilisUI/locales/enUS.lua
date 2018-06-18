@@ -339,6 +339,18 @@ L["Visibility State"] = true
 L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
 
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = true
+L["Fadein duration"] = true
+L["Fadeout duration"] = true
+L["Duration time"] = true
+L["Animation size"] = true
+L["Display spell name"] = true
+L["Watch on pet spell"] = true
+L["Transparency"] = true
+L["Test"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
