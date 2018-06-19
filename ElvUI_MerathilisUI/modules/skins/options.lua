@@ -343,7 +343,7 @@ local function SkinsTable()
 			questPOI = {
 				type = "toggle",
 				name = "QuestPOI",
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
 			},
 			channels = {
 				type = "toggle",
@@ -358,7 +358,7 @@ local function SkinsTable()
 			challenges = {
 				type = "toggle",
 				name = CHALLENGES,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.challenges end,
+				disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
 			},
 			AzeriteUI = {
 				type = "toggle",
