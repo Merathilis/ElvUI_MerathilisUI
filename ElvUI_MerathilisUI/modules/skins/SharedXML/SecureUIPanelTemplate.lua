@@ -51,3 +51,7 @@ function MERS:UIPanelScrollBarTemplate(Slider)
 
 	Slider:SetWidth(Slider:GetWidth())
 end
+
+function MERS:NumericInputSpinnerTemplate(EditBox)
+	EditBox:DisableDrawLayer("BACKGROUND")
+end
