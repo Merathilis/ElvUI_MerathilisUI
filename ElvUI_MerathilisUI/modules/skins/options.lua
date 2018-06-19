@@ -365,6 +365,11 @@ local function SkinsTable()
 				name = L["AzeriteUI"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteUI end,
 			},
+			AzeriteRespec = {
+				type = "toggle",
+				name = AZERITE_RESPEC_TITLE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
+			},
 		},
 	}
 

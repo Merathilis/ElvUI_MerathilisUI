@@ -68,6 +68,7 @@ V["muiSkins"] = {
 		["channels"] = true,
 		["challenges"] = true,
 		["AzeriteUI"] = true,
+		["AzeriteRespec"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
