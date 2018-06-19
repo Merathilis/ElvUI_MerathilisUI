@@ -66,6 +66,8 @@ V["muiSkins"] = {
 		["questPOI"] = true,
 		["communities"] = true,
 		["channels"] = true,
+		["challenges"] = true,
+		["AzeriteUI"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

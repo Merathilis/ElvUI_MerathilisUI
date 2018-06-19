@@ -345,15 +345,25 @@ local function SkinsTable()
 				name = "QuestPOI",
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
 			},
-			channels  = {
+			channels = {
 				type = "toggle",
 				name = CHANNELS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Channels end,
 			},
-			communities  = {
+			communities = {
 				type = "toggle",
 				name = COMMUNITIES,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Communities end,
+			},
+			challenges = {
+				type = "toggle",
+				name = CHALLENGES,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.challenges end,
+			},
+			AzeriteUI = {
+				type = "toggle",
+				name = L["AzeriteUI"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteUI end,
 			},
 		},
 	}
