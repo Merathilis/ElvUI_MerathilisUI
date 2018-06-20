@@ -429,6 +429,16 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 	end
 end
 
+function MERS:ReskinScrollSlider(Slider, thumbTrim)
+	local parent = Slider:GetParent()
+
+	if Slider.thumbbg then
+		Slider.thumbbg.backdropTexture.SetVertexColor = nil
+		Slider.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+		Slider.thumbbg.backdropTexture.SetVertexColor = E.noop
+	end
+end
+
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
 	if not tab then return end
@@ -747,6 +757,7 @@ hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
+hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 
 -- keep the colors updated
 local function updateMedia()
