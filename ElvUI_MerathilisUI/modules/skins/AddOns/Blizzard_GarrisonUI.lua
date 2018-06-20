@@ -71,6 +71,7 @@ local function styleGarrison()
 	function MERS:BaseLandingPageFollowerListTemplate(Frame)
 		Frame:GetRegions():Hide()
 		Frame.FollowerHeaderBar:Hide()
+		Frame.FollowerScrollFrame:Hide()
 	end
 
 	--[[ Blizzard_GarrisonCapacitiveDisplay.xml ]]
