@@ -28,7 +28,7 @@ local function styleChallenges()
 		self.InstructionBackground:Hide()
 	end
 
-	function Hook.ChallengesKeystoneFrameMixin_OnKeystoneSlotted(self, affixInfo)
+	function MERS.ChallengesKeystoneFrameMixin_OnKeystoneSlotted(self, affixInfo)
 		for i, affix in ipairs(self.Affixes) do
 			if i > (self._skinnedAffixes or 0) then
 				MERS:ChallengesKeystoneFrameAffixTemplate(affix)

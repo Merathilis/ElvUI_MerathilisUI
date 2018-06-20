@@ -27,7 +27,6 @@ local function styleAdventureMap()
 	end
 
 	local AdventureMapQuestChoiceDialog = _G["AdventureMapQuestChoiceDialog"]
-	AdventureMapQuestChoiceDialog.PortraitBg:Hide()
 	AdventureMapQuestChoiceDialog.Rewards:SetAlpha(0)
 	AdventureMapQuestChoiceDialog.Background:Hide()
 
