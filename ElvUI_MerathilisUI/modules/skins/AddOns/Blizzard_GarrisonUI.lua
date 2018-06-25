@@ -382,6 +382,7 @@ local function styleGarrison()
 	MERS:GarrisonFollowerPortraitTemplate(LandingFollowerTab.PortraitFrame)
 	MERS:GarrisonFollowerXPBarTemplate(LandingFollowerTab.XPBar)
 	MERS:GarrisonMissionFollowerDurabilityFrameTemplate(LandingFollowerTab.DurabilityFrame)
+	MERS:VerticalLayoutFrame(LandingFollowerTab.AbilitiesFrame)
 
 	MERS:BaseLandingPageFollowerListTemplate(GarrisonLandingPage.ShipFollowerList)
 
@@ -494,6 +495,8 @@ local function styleGarrison()
 	local BFAMissionFrame = _G["BFAMissionFrame"]
 	MERS:GarrisonMissionFrameTemplate(BFAMissionFrame)
 	MERS:GarrisonUITemplate(BFAMissionFrame)
+	BFAMissionFrame.CloseButtonBorder:Hide()
+	BFAMissionFrame.TitleScroll:Hide()
 
 	------------------
 	-- FollowerList --
@@ -524,6 +527,7 @@ local function styleGarrison()
 	-----------------
 	local BFAFollowerTab = BFAMissionFrame.FollowerTab
 	MERS:GarrisonFollowerTabTemplate(BFAFollowerTab)
+	--MERS:VerticalLayoutFrame(BFAFollowerTab.AbilitiesFrame)
 
 	---------------------
 	-- MissionComplete --

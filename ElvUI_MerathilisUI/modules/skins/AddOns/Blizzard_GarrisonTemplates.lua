@@ -379,6 +379,7 @@ local function styleGarrisonTemplates()
 	end
 
 	function MERS:GarrisonMissionPageStageTemplate(Frame)
+		MERS:VerticalLayoutFrame(Frame.MissionInfo)
 		MERS:GarrisonMissionStageTemplate(Frame)
 	end
 
