@@ -375,6 +375,11 @@ local function SkinsTable()
 				name = ISLANDS_HEADER,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Islands end,
 			},
+			BFAMissions = {
+				type = "toggle",
+				name = L["BFAMission"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
+			},
 		},
 	}
 

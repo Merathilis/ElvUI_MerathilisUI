@@ -324,38 +324,6 @@ local function styleGarrison()
 		MERS:GarrisonMissionPageEnemyTemplate(Button)
 	end
 
-	function MERS:OrderHallMissionPageTemplate(Frame)
-		MERS:GarrisonMissionPageBaseTemplate(Frame)
-		MERS:GarrisonMissionPageCloseButtonTemplate(Frame.CloseButton)
-		MERS:GarrisonMissionPageStageTemplate(Frame.Stage)
-		MERS:GarrisonMissionPageCostFrameTemplate(Frame.CostFrame)
-
-		Frame.ButtonFrame:SetAtlas("GarrMission_PartyBuffsBG", true)
-		Frame.ButtonFrame:SetWidth(400)
-		Frame.ButtonFrame:SetPoint("BOTTOM", 0, -20)
-
-		local left, right, bottom = select(13, Frame:GetRegions())
-		left:Hide()
-		right:Hide()
-		bottom:Hide()
-
-		local top, tl, tr = select(18, Frame:GetRegions())
-		top:Hide()
-		tl:Hide()
-		tr:Hide()
-
-		MERS:GarrisonFollowerMissionRewardsFrameTemplate(Frame.RewardsFrame)
-		MERS:GarrisonMissionPageRewardTemplate(Frame.RewardsFrame)
-
-		MERS:OrderHallMissionPageEnemyTemplate(Frame.Enemy1)
-		MERS:OrderHallMissionPageEnemyTemplate(Frame.Enemy2)
-		MERS:OrderHallMissionPageEnemyTemplate(Frame.Enemy3)
-
-		MERS:GarrisonMissionPageFollowerTemplate(Frame.Follower1)
-		MERS:GarrisonMissionPageFollowerTemplate(Frame.Follower2)
-		MERS:GarrisonMissionPageFollowerTemplate(Frame.Follower3)
-	end
-
 	----====####$$$$%%%%$$$$####====----
 	--  Blizzard_GarrisonLandingPage  --
 	----====####$$$$%%%%$$$$####====----
@@ -520,14 +488,13 @@ local function styleGarrison()
 	----------------
 	local BFAMissionTab = BFAMissionFrame.MissionTab
 	MERS:GarrisonMissionListTemplate(BFAMissionTab.MissionList)
-	MERS:OrderHallMissionPageTemplate(BFAMissionTab.MissionPage)
 
 	-----------------
 	-- FollowerTab --
 	-----------------
 	local BFAFollowerTab = BFAMissionFrame.FollowerTab
 	MERS:GarrisonFollowerTabTemplate(BFAFollowerTab)
-	--MERS:VerticalLayoutFrame(BFAFollowerTab.AbilitiesFrame)
+	MERS:VerticalLayoutFrame(BFAFollowerTab.AbilitiesFrame)
 
 	---------------------
 	-- MissionComplete --
