@@ -370,6 +370,11 @@ local function SkinsTable()
 				name = AZERITE_RESPEC_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
 			},
+			Islands = {
+				type = "toggle",
+				name = ISLANDS_HEADER,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Islands end,
+			},
 		},
 	}
 

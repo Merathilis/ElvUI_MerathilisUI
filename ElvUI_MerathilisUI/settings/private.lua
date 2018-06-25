@@ -69,6 +69,7 @@ V["muiSkins"] = {
 		["challenges"] = true,
 		["AzeriteUI"] = true,
 		["AzeriteRespec"] = true,
+		["Islands"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
