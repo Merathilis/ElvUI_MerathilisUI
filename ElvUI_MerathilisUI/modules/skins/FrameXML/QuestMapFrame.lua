@@ -109,6 +109,10 @@ local function styleQuestMapFrame()
 	local QuestsFrame = QuestMapFrame.QuestsFrame
 	QuestsFrame.Background:Hide()
 
+	QuestsFrame.Contents.Separator.Divider:Show()
+	QuestsFrame.Contents.Separator.Divider:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	QuestsFrame.Contents.Separator:SetSize(260, 10)
+
 	QuestsFrame.Contents.Separator:SetSize(260, 10)
 
 	MERS:QuestMapHeader(QuestsFrame.Contents.WarCampaignHeader)
