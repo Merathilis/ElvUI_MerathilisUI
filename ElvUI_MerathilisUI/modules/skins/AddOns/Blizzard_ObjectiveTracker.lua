@@ -410,9 +410,15 @@ local function styleObjectiveTracker()
 	----====####$$$$%%%%%%%$$$$####====----
 	ScenarioObjectiveBlock._mUIHeight = 0
 
-	ScenarioStageBlock:SetSize(201, 83)
+	local ScenarioChallengeModeBlock = _G["ScenarioChallengeModeBlock"]
+	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())
+	bg:Hide()
+	ScenarioChallengeModeBlock:CreateBackdrop("Transparent")
 
-	OBJECTIVE_TRACKER_COLOR["Complete"] = { r = 0, g = 1, b = 0 } -- green
+	ScenarioChallengeModeBlock.TimerBGBack:Hide()
+	ScenarioChallengeModeBlock.TimerBG:Hide()
+
+	ScenarioStageBlock:SetSize(201, 83)
 
 	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
 
