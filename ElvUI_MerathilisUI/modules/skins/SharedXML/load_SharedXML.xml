@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="AddonList.lua"/>
 	<Script file="HybridScrollFrame.lua"/>
-	<Script file="LayoutFrame.lua"/>
 	<Script file="SecureUIPanelTemplate.lua"/>
 	<Script file="SharedUIPanelTemplate.lua"/>
 </Ui>
