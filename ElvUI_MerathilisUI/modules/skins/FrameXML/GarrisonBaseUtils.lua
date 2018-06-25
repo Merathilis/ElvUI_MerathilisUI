@@ -9,13 +9,6 @@ local _G = _G
 -- GLOBALS:
 
 do --[[ FrameXML\GarrisonBaseUtils.lua ]]
-	function MERS.GarrisonFollowerPortraitMixin_SetQuality(self, quality)
-		if not self._auroraPortraitBG then return end
-		local color = ITEM_QUALITY_COLORS[quality]
-		self._mUIPortraitBG:SetBackdropBorderColor(color.r, color.g, color.b)
-		self._mUILvlBG:SetBackdropBorderColor(color.r, color.g, color.b)
-	end
-
 	function MERS.GarrisonFollowerPortraitMixin_SetNoLevel(self)
 		if not self._auroraLvlBG then return end
 		self._mUILvlBG:Hide()
@@ -63,7 +56,6 @@ do --[[ FrameXML\GarrisonBaseUtils.xml ]]
 	end
 end
 
-hooksecurefunc(GarrisonFollowerPortraitMixin, "SetQuality", MERS.GarrisonFollowerPortraitMixin_SetQuality)
 hooksecurefunc(GarrisonFollowerPortraitMixin, "SetNoLevel", MERS.GarrisonFollowerPortraitMixin_SetNoLevel)
 hooksecurefunc(GarrisonFollowerPortraitMixin, "SetLevel", MERS.GarrisonFollowerPortraitMixin_SetLevel)
 hooksecurefunc(GarrisonFollowerPortraitMixin, "SetILevel", MERS.GarrisonFollowerPortraitMixin_SetILevel)

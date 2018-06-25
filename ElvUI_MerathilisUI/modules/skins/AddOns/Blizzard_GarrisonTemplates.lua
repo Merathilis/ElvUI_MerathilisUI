@@ -258,10 +258,6 @@ local function styleGarrisonTemplates()
 	-- Blizzard_GarrisonMissionTemplates --
 	----====####$$$$%%%%%%%$$$$####====----
 
-	function MERS.GarrisonMission_RemoveFollowerFromMission(self, frame, updateValues)
-		MERS.GarrisonFollowerPortraitMixin_SetQuality(frame.PortraitFrame, 1)
-	end
-
 	function MERS.GarrisonMissionFrame_SetItemRewardDetails(frame)
 		local _, _, quality = _G.GetItemInfo(frame.itemID)
 		MERS.SetItemButtonQuality(frame, quality, frame.itemID)
@@ -414,7 +410,6 @@ local function styleGarrisonTemplates()
 	hooksecurefunc("GarrisonFollowerButton_AddAbility", MERS.GarrisonFollowerButton_AddAbility)
 	--hooksecurefunc(GarrisonFollowerList, "CollapseButton", MERS.GarrisonFollowerList_CollapseButton)
 	hooksecurefunc(GarrisonFollowerTabMixin, "OnLoad", MERS.GarrisonFollowerTabMixin_OnLoad)
-	hooksecurefunc(GarrisonMission, "RemoveFollowerFromMission", MERS.GarrisonMission_RemoveFollowerFromMission)
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonTemplates", "mUIGarrisonTemplates", styleGarrisonTemplates)
