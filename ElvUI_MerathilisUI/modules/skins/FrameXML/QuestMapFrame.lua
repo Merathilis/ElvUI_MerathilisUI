@@ -77,7 +77,7 @@ local function styleQuestMapFrame()
 			Frame._mUIOverlay = overlay
 		end
 
-		Frame.Background:SetColorTexture(0, 0, 0, 0.25)
+		Frame.Background:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, 0.15)
 		Frame.Background:SetAllPoints(clipFrame)
 		Frame.HighlightTexture:SetAllPoints(clipFrame)
 		Frame.HighlightTexture:SetColorTexture(1, 1, 1, 0.2)
