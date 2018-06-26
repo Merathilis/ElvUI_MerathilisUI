@@ -345,6 +345,24 @@ local function styleGarrison()
 	GarrisonLandingPage.Report.Available:GetNormalTexture():SetAlpha(0)
 	GarrisonLandingPage.Report.Available:SetHighlightTexture("")
 
+	local Report = GarrisonLandingPage.Report
+	Report.List:GetRegions():Hide()
+
+	local scrollFrame = Report.List.listScroll
+	local buttons = scrollFrame.buttons
+	for i = 1, #buttons do
+		local button = buttons[i]
+
+		button.BG:Hide()
+
+		local bg = CreateFrame("Frame", nil, button)
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT", 0, 1)
+		bg:SetFrameLevel(button:GetFrameLevel() - 1)
+
+		MERS:CreateBD(bg, .25)
+	end
+
 	MERS:BaseLandingPageFollowerListTemplate(GarrisonLandingPage.FollowerList)
 	local LandingFollowerTab = GarrisonLandingPage.FollowerTab
 	MERS:GarrisonFollowerPortraitTemplate(LandingFollowerTab.PortraitFrame)
