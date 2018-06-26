@@ -62,7 +62,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
 -- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
--- GLOBALS: SocialQueueUtil_GetNameAndColor, enable
+-- GLOBALS: enable
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -511,20 +511,18 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 	local coloredName, players = UNKNOWN, C_SocialQueueGetGroupMembers(guid)
 	local members = players and SocialQueueUtil_SortGroupMembers(players)
 	local playerName, nameColor
-	--[[NEED REWORK
-	--if members then
-		--local firstMember, numMembers, extraCount = members[1], #members, ''
-		--playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
-		--if numMembers > 1 then
-			--extraCount = format(" +%s", numMembers - 1)
-		--end
-		--if playerName then
-			--coloredName = format("%s%s|r%s", nameColor, playerName, extraCount)
-		--else
-			--coloredName = format("{%s%s}", UNKNOWN, extraCount)
-		--end
-	--end
-	]]
+	if members then
+		local firstMember, numMembers, extraCount = members[1], #members, ''
+		playerName, nameColor = SocialQueueUtil_GetRelationshipInfo(firstMember.guid, nil, firstMember.clubId)
+		if numMembers > 1 then
+			extraCount = format(" +%s", numMembers - 1)
+		end
+		if playerName then
+			coloredName = format("%s%s|r%s", nameColor, playerName, extraCount)
+		else
+			coloredName = format("{%s%s}", UNKNOWN, extraCount)
+		end
+	end
 
 	local isLFGList, firstQueue
 	local queues = C_SocialQueueGetGroupQueues(guid)
