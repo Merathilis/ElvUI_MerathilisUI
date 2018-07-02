@@ -126,6 +126,7 @@ local function styleOrderhall()
 		TalentClassBG:SetDrawLayer("ARTWORK")
 		TalentClassBG:SetAlpha(0.8)
 
+		--[[
 		local function panelBackground(self)
 			local tab8 = _G["OrderHallTalentFrame8PanelBackground"];
 			if tab8 then
@@ -146,6 +147,7 @@ local function styleOrderhall()
 				if TalentFrame.BackButton:IsShown() then tab8:Hide() else tab8:Show() end
 			end
 		end
+		]]
 
 		local function colorBorder(child, backdrop, atlas)
 			if child.AlphaIconOverlay:IsShown() then --isBeingResearched or (talentAvailability and not selected)
@@ -173,7 +175,7 @@ local function styleOrderhall()
 		end
 
 		TalentFrame:HookScript("OnShow", function(self)
-			panelBackground(self) -- Chromie is the original classAgnostic talent tree
+			--panelBackground(self) -- Chromie is the original classAgnostic talent tree
 			if self.skinned then return end
 			for i=1, self:GetNumChildren() do
 				local child = select(i, self:GetChildren())
