@@ -13,8 +13,8 @@ local format = string.format
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
-local C_Map_GetCurrentMapID = C_Map.GetCurrentMapID
 local Minimap = _G["Minimap"]
 local SetMapToCurrentZone = SetMapToCurrentZone
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
@@ -92,7 +92,7 @@ function MM:MiniMapCoords()
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
-			local x, y = C_Map_GetPlayerMapPosition(C_Map_GetCurrentMapID(), "player"):GetXY()
+			local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
 			if x > 0 or y > 0 then
 				Coords:SetText(format("%d,%d", x*100, y*100))
 			else
@@ -107,7 +107,6 @@ function MM:MiniMapCoords()
 		end
 	end)
 
-	_G["WorldMapFrame"]:HookScript("OnHide", SetMapToCurrentZone)
 	Minimap:HookScript("OnEnter", function() Coords:Show() end)
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
@@ -117,7 +116,7 @@ function MM:Initialize()
 
 	self:ReskinMinimap()
 	self:ChangeMiniMapButtons()
-	--self:MiniMapCoords() -- It fixes itself after you open the WorldMap?!
+	self:MiniMapCoords() -- It fixes itself after you open the WorldMap?!
 	self:ButtonCollectorInit()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
