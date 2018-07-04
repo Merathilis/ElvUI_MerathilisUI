@@ -646,7 +646,7 @@ function MER:SetupUnitframes()
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
-	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
 	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
