@@ -307,6 +307,12 @@ function MER:SetupLayout()
 	E.db["bags"]["itemLevelThreshold"] = 100
 	E.db["bags"]["junkIcon"] = true
 
+	-- Cooldown Settings
+	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
+	E.db["bags"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["bags"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["bags"]["cooldown"]["fonts"]["fontSize"] = 14
+
 	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
 	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
@@ -355,6 +361,12 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
+
+	-- Cooldown Settings
+	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
+	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["nameplates"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["cooldown"]["fonts"]["fontSize"] = 9
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -494,6 +506,12 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
+
+	-- Cooldown options
+	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
+	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 18
 
 	if IsAddOnLoaded("Masque") then
 		E.private["actionbar"]["masque"]["stanceBar"] = true
@@ -635,7 +653,7 @@ function MER:SetupUnitframes()
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
-	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
 	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
