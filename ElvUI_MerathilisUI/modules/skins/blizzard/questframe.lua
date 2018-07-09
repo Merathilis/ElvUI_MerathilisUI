@@ -21,6 +21,8 @@ local GetNumRewardSpells = GetNumRewardSpells
 local function styleQuestFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
+	_G["QuestFont"]:SetTextColor(1, 1, 1)
+
 	-- ParchmentRemover
 	_G["QuestScrollFrame"]:HookScript("OnUpdate", function(self)
 		if self.spellTex and self.spellTex2 then
