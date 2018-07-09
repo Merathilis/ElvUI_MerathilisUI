@@ -16,7 +16,6 @@ local GetInstanceInfo = GetInstanceInfo
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local Minimap = _G["Minimap"]
-local SetMapToCurrentZone = SetMapToCurrentZone
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
@@ -98,12 +97,6 @@ function MM:MiniMapCoords()
 			else
 				Coords:SetText("")
 			end
-		end
-	end)
-
-	Minimap:HookScript("OnEvent", function(self, event)
-		if event == "ZONE_CHANGED_NEW_AREA" and not _G["WorldMapFrame"]:IsShown() then
-			SetMapToCurrentZone()
 		end
 	end)
 
