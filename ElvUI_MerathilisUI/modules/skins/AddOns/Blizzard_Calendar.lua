@@ -15,6 +15,7 @@ local function styleCalendar()
 	_G["CalendarFrame"]:Styling()
 	_G["CalendarCreateEventFrame"]:Styling()
 	_G["CalendarViewHolidayFrame"]:Styling()
+	_G["CalendarViewEventFrame"]:Styling()
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)
