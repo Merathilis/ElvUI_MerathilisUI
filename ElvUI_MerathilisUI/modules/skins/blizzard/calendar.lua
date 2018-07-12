@@ -23,6 +23,7 @@ local function styleCalendar()
 	_G["CalendarFrame"]:Styling()
 	_G["CalendarCreateEventFrame"]:Styling()
 	_G["CalendarViewHolidayFrame"]:Styling()
+	_G["CalendarViewEventFrame"]:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)
