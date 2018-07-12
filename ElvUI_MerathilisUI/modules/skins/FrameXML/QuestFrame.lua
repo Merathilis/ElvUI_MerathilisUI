@@ -143,6 +143,7 @@ local function styleQuestFrame()
 	----------------
 	-- QuestFrame --
 	----------------
+	_G["QuestFont"]:SetTextColor(1, 1, 1)
 	QuestFrameNpcNameText:SetAllPoints(QuestFrame.TitleText)
 
 	-- Hide ElvUI Backdrop
