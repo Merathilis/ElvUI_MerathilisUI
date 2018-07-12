@@ -96,9 +96,6 @@ function MER:RegisterMedia()
 	-- Custom Textures
 	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
 
-	-- This change the text color for the QuestInfoQuestType (white)
-	_G["QuestFont"]:SetTextColor(1, 1, 1)
-
 	E:UpdateMedia()
 end
 
