@@ -381,28 +381,6 @@ function styleEncounterJournal()
 	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
 
-	local itemsLeftSide = LootJournal.LegendariesFrame.buttons
-	local itemsRightSide = LootJournal.LegendariesFrame.rightSideButtons
-	for _, items in ipairs({itemsLeftSide, itemsRightSide}) do
-		for i = 1, #items do
-			local item = items[i]
-
-			item.ItemType:SetTextColor(1, 1, 1)
-			item.Background:SetAlpha(0)
-
-			item.Icon:SetPoint("TOPLEFT", 1, -1)
-			item.Icon:SetTexCoord(unpack(E.TexCoords))
-			item.Icon:SetDrawLayer("OVERLAY")
-			MERS:CreateBG(item.Icon)
-
-			local bg = CreateFrame("Frame", nil, item)
-			bg:SetPoint("TOPLEFT")
-			bg:SetPoint("BOTTOMRIGHT", 0, 1)
-			bg:SetFrameLevel(item:GetFrameLevel() - 1)
-			MERS:CreateBD(bg, .25)
-		end
-	end
-
 	local ItemSetsFrame = LootJournal.ItemSetsFrame
 	hooksecurefunc(ItemSetsFrame, "UpdateList", function()
 		local itemSets = ItemSetsFrame.buttons
