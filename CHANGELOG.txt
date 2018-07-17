@@ -1,3 +1,7 @@
+[b][color=orange]v3.27[/color], 17.07.2018[/b][list]
+[*]8.0 Compatibily Version.
+[*]For a full changelog have a look at: https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development[/list]
+
 [b][color=orange]v3.26[/color], 16.04.2018[/b][list]
 [*]Prevent a rare nil error in my Styling function.
 [*]Add a frame to display missing Flask, Food, Runes. Thx Exeil for the idea. <3
