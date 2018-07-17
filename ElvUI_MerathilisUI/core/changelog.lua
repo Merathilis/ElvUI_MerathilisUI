@@ -17,18 +17,13 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Prevent a rare nil error in my Styling function.",
-		"• Add a frame to display missing Flask, Food, Runes. Thx Exeil for the idea. <3",
-		"• Styled the ElvUI Databars.",
-		"• Fix an install error. *derp*",
-		"• Move the WorldStateAlwaysUpFrame a bit down, so it donts overlaps elements.",
-		"• ADD PEPE TO MY GAMEMENU!!",
-		"• Adjust the position for the Boss Frames and ObjectiveTracker.",
-		"• Add a DeadlyBossMods Profile and Skin.",
+		"• 8.0 Compatibily Version.",
+		"• For a full changelog have a look at:",
+		"https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development",
+
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• You find the link for cargBags_Nivaya on my AddOn Page on tukui.org",
 		-- "• ''",
 }
 

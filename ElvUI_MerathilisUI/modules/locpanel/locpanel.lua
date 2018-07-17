@@ -13,8 +13,9 @@ local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 -- WoW API / Variables
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local GetBindLocation = GetBindLocation
-local GetPlayerMapPosition = GetPlayerMapPosition
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
@@ -227,7 +228,7 @@ LP.Spells = {
 local function CreateCoords()
 	if LP.db.coordshide == true then return end
 
-	local x, y = GetPlayerMapPosition("player")
+	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
@@ -624,11 +625,11 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
-function LP:PLAYER_ENTERING_WORLD()
-	local x, y = GetPlayerMapPosition("player")
-	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	LP:UNIT_AURA(nil, "player")
-end
+--function LP:PLAYER_ENTERING_WORLD()
+	--local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
+	--if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
+	--LP:UNIT_AURA(nil, "player")
+--end
 
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
@@ -660,7 +661,7 @@ function LP:Initialize()
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
-	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	--LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end

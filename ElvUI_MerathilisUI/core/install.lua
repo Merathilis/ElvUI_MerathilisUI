@@ -304,7 +304,7 @@ function MER:SetupLayout()
 	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
-	E.db["bags"]["itemLevelThreshold"] = 815
+	E.db["bags"]["itemLevelThreshold"] = 100
 	E.db["bags"]["junkIcon"] = true
 
 	-- Cooldown Settings
@@ -458,12 +458,19 @@ function MER:SetupLayout()
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = false
+	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["height"] = 146
+	E.db["databars"]["azerite"]["textSize"] = 11
+	E.db["databars"]["azerite"]["width"] = 8
+	E.db["databars"]["azerite"]["hideInVehicle"] = true
+	E.db["databars"]["azerite"]["hideInCombat"] = false
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
+	MER:SetMoverPosition("AzeriteBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
 	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)

@@ -501,7 +501,7 @@ local function HookSpell(frame)
 	if data.disable or data.shown then
 		return
 	end
-	local name, rank, spellID = frame:GetSpell()
+	local name, spellID = frame:GetSpell()
 	if name then
 		local _, _, text = GetSpellInfo(spellID)
 		if text then

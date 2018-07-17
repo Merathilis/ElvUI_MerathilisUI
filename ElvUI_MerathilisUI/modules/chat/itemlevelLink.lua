@@ -12,7 +12,7 @@ local GetItemInfo = GetItemInfo
 local GetAchievementInfo = GetAchievementInfo
 local GetSpellInfo = GetSpellInfo
 local GetCursorPosition = GetCursorPosition
-local C_ChallengeMode_GetMapInfo = C_ChallengeMode.GetMapInfo
+local C_ChallengeMode_GetMapUIInfo = C_ChallengeMode.GetMapUIInfo
 local strsplit = strsplit
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 
@@ -61,7 +61,7 @@ end
 local function SetChatLinkKeystoneLevel(Hyperlink)
 	local map, level, name = match(Hyperlink, "|Hkeystone:(%d+):(%d+):.-|h(.-)|h")
 	if (map and level and not find(name, level)) then
-		local name = C_ChallengeMode_GetMapInfo(map)
+		local name = C_ChallengeMode_GetMapUIInfo(map)
 		Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h["..level..":"..name.."]|h")
 	end
 	return Hyperlink

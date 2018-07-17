@@ -22,6 +22,7 @@ local UnitIsAFK = UnitIsAFK
 local GetScreenWidth = GetScreenWidth
 local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
+local GetAtlasInfo = GetAtlasInfo
 local GetCurrentMapAreaID = GetCurrentMapAreaID
 local GetContainerNumFreeSlots = GetContainerNumFreeSlots
 local GetObjectIconTextureCoords = GetObjectIconTextureCoords
@@ -31,19 +32,19 @@ local GetInventoryItemDurability = GetInventoryItemDurability
 local GetLFGDungeonInfo = GetLFGDungeonInfo
 local GetRealmName = GetRealmName
 local GetTime = GetTime
-local CalendarGetDate = CalendarGetDate
-local CalendarGetNumGuildEvents = CalendarGetNumGuildEvents
-local CalendarGetGuildEventInfo = CalendarGetGuildEventInfo
-local CalendarGetNumDayEvents = CalendarGetNumDayEvents
-local CalendarGetDayEvent = C_Calendar.GetDayEvent
+local C_Calendar_GetDate = C_Calendar.GetDate
+local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
+local C_Calendar_GetGuildEventInfo = C_Calendar.GetGuildEventInfo
+local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
+local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
-local CalendarGetNumPendingInvites = CalendarGetNumPendingInvites
+local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
-local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
+--local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
 local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
 local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
@@ -61,7 +62,7 @@ local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some 
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
 -- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
--- GLOBALS: SocialQueueUtil_GetNameAndColor, enable
+-- GLOBALS: enable
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -75,9 +76,9 @@ local alertBagsFull
 local shouldAlertBags = false
 
 local VignetteExclusionMapIDs = {
-	[971] = true, -- Lunarfall: Alliance garrison
-	[976] = true, -- Frostwall: Horde garrison
-	[1021] = true -- Scenario: The Broken Shore
+	[579] = true, -- Lunarfall: Alliance garrison
+	[585] = true, -- Frostwall: Horde garrison
+	[646] = true, -- Scenario: The Broken Shore
 }
 
 function NF:SpawnToast(toast)
@@ -272,13 +273,17 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 		toast.clickFunc = nil
 	end
 
-	if type(texture) == "string" then
-		toast.icon:SetTexture(texture)
-
-		if ... then
-			toast.icon:SetTexCoord(...)
+	if texture then
+		if GetAtlasInfo(texture) then
+			toast.icon:SetAtlas(texture)
 		else
-			toast.icon:SetTexCoord(unpack(E.TexCoords))
+			toast.icon:SetTexture(texture)
+
+			if ... then
+				toast.icon:SetTexCoord(...)
+			else
+				toast.icon:SetTexCoord(unpack(E.TexCoords))
+			end
 		end
 	else
 		toast.icon:SetTexture("Interface\\Icons\\achievement_general")
@@ -371,15 +376,15 @@ end
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
-	local _, currentMonth = CalendarGetDate()
+	local _, currentMonth = C_Calendar_GetDate()
 
-	for i = 1, CalendarGetNumGuildEvents() do
-		local month, day = CalendarGetGuildEventInfo(i)
+	for i = 1, C_Calendar_GetNumGuildEvents() do
+		local month, day = C_Calendar_GetGuildEventInfo(i)
 		local monthOffset = month - currentMonth
-		local numDayEvents = CalendarGetNumDayEvents(monthOffset, day)
+		local numDayEvents = C_Calendar_GetNumDayEvents(monthOffset, day)
 
 		for i = 1, numDayEvents do
-			local _, _, _, _, _, _, _, _, inviteStatus = CalendarGetDayEvent(monthOffset, day, i)
+			local _, _, _, _, _, _, _, _, inviteStatus = C_Calendar_GetDayEvent(monthOffset, day, i)
 			if inviteStatus == 8 then
 				numGuildInvites = numGuildInvites + 1
 			end
@@ -397,7 +402,15 @@ end
 local function alertEvents()
 	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.invites ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
-	local num = CalendarGetNumPendingInvites()
+	local num = C_Calendar_GetNumPendingInvites()
+	if num ~= numInvites then
+		if num > 0 then
+			NF:DisplayToast(CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
+		end
+		numInvites = num
+	end
+
+	--[[
 	if num ~= numInvites then
 		if num > 1 then
 			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], num), toggleCalendar)
@@ -406,17 +419,24 @@ local function alertEvents()
 		end
 		numInvites = num
 	end
+	]]
 end
 
 local function alertGuildEvents()
 	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.guildEvents ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
+	if num > 0 then
+		NF:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
+	end
+
+	--[[
 	if num > 1 then
 		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], num), toggleCalendar)
 	elseif num > 0 then
 		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], 1), toggleCalendar)
 	end
+	]]
 end
 
 function NF:CALENDAR_UPDATE_PENDING_INVITES()
@@ -431,40 +451,6 @@ end
 local function LoginCheck()
 	alertEvents()
 	alertGuildEvents()
-	local month, day, year = select(2, CalendarGetDate())
-	local numDayEvents = CalendarGetNumDayEvents(0, day)
-	local numDays = select(3, CalendarGetAbsMonth(month, year))
-	local hournow, minutenow = GetGameTime()
-
-	-- Today
-	for i = 1, numDayEvents do
-		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(0, day, i)
-		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) and hournow < hour then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end today."], title), toggleCalendar)
-		end
-		if calendarType == "HOLIDAY" and sequenceType == "START" and hournow > hour then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" started today."], title), toggleCalendar)
-		end
-		if calendarType == "HOLIDAY" and sequenceType == "ONGOING" then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" is ongoing."], title), toggleCalendar)
-		end
-	end
-
-	--Tomorrow
-	local offset = 0
-	if numDays == day then
-		offset = 1
-		day = 1
-	else
-		day = day + 1
-	end
-	numDayEvents = CalendarGetNumDayEvents(offset, day)
-	for i = 1, numDayEvents do
-		local title, hour, minute, calendarType, sequenceType, eventType, texture, modStatus, inviteStatus, invitedBy, difficulty, inviteType = CalendarGetDayEvent(offset, day, i)
-		if calendarType == "HOLIDAY" and ( sequenceType == "END" or sequenceType == "" ) then
-			NF:DisplayToast(CALENDAR, format(L["Event \"%s\" will end tomorrow."], title), toggleCalendar)
-		end
-	end
 end
 
 function NF:PLAYER_ENTERING_WORLD()
@@ -472,27 +458,26 @@ function NF:PLAYER_ENTERING_WORLD()
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+
 local SOUND_TIMEOUT = 20
-function NF:VIGNETTE_ADDED(event, id)
-	if not E.db.mui.general.Notification.vignette or InCombatLockdown() then return end
-	if not id or VignetteExclusionMapIDs[GetCurrentMapAreaID()] then return end
+function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
+	if not E.db.mui.general.Notification.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map.GetBestMapForUnit("player")] then return end
 
-	if (id ~= self.lastMinimapRare.id) then
-		local _, _, name, icon = C_VignettesGetVignetteInfoFromInstanceID(id)
-		local left, right, top, bottom = GetObjectIconTextureCoords(icon)
-		local str = "|TInterface\\MINIMAP\\ObjectIconsAtlas:20:20:0:0:256:256:"..(left*256)..":"..(right*256)..":"..(top*256)..":"..(bottom*256).."|t"
+	if onMinimap then
+		if vignetteGUID ~= self.lastMinimapRare.id then
+			local vignetteInfo = C_VignetteInfo.GetVignetteInfo(vignetteGUID)
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 
-		-- Notify
-		if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
-			PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+			if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
+				PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+			end
 		end
-		name = format("|cff00c0fa%s|r", name:sub(1, 28))
-		self:DisplayToast(str..(name or UNKNOWN), L["has appeared on the MiniMap!"])
 	end
 
-	-- Set last Vignette data
+	--Set last Vignette data
 	self.lastMinimapRare.time = GetTime()
-	self.lastMinimapRare.id = id
+	self.lastMinimapRare.id = vignetteGUID
 end
 
 function NF:RESURRECT_REQUEST(name)
@@ -528,7 +513,7 @@ function NF:SocialQueueEvent(event, guid, numAddedItems)
 	local playerName, nameColor
 	if members then
 		local firstMember, numMembers, extraCount = members[1], #members, ''
-		playerName, nameColor = SocialQueueUtil_GetNameAndColor(firstMember)
+		playerName, nameColor = SocialQueueUtil_GetRelationshipInfo(firstMember.guid, nil, firstMember.clubId)
 		if numMembers > 1 then
 			extraCount = format(" +%s", numMembers - 1)
 		end
@@ -608,7 +593,7 @@ function NF:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("VIGNETTE_ADDED")
+	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
