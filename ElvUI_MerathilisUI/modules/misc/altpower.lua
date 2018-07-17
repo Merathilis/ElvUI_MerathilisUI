@@ -25,7 +25,7 @@ function MI:AltPowerBar()
 	powerbar.text:SetJustifyH("CENTER")
 
 	--Event handling
-	powerbar:RegisterEvent("UNIT_POWER")
+	powerbar:RegisterEvent("UNIT_POWER_UPDATE")
 	powerbar:RegisterEvent("UNIT_POWER_BAR_SHOW")
 	powerbar:RegisterEvent("UNIT_POWER_BAR_HIDE")
 	powerbar:RegisterEvent("PLAYER_ENTERING_WORLD")

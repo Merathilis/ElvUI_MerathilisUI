@@ -1,4 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="extraQuestButton.lua"/>
-	<Script file="speedy.lua"/>
+	
 </Ui>

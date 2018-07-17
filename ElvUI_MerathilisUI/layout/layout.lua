@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
 local MERS = E:GetModule("muiSkins")
-local LSM = LibStub("LibSharedMedia-3.0")
 local AB = E:GetModule("ActionBars")
 local CH = E:GetModule("Chat")
 local DT = E:GetModule("DataTexts")
@@ -10,13 +9,14 @@ local LO = E:GetModule("Layout")
 --Cache global variables
 --Lua functions
 local _G = _G
-local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
 local BACK = BACK
 local PlaySound = PlaySound
+local hooksecurefunc = hooksecurefunc
+
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
@@ -86,6 +86,23 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
 end
 
+local function ChatMenu_OnEnter(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
+	GameTooltip:ClearLines()
+	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
+	GameTooltip:AddLine('')
+	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Voice Buttons"], 1, 1, 1)
+	GameTooltip:Show()
+end
+
+local function ChatMenu_OnLeave(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:Hide()
+end
+
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
 
@@ -100,11 +117,11 @@ function MERL:CreateChatButtons()
 		ChatButton:SetAlpha(0.35)
 	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
- 
+
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
 	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
- 
+
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
@@ -119,9 +136,11 @@ function MERL:CreateChatButtons()
 			end
 		end
 	end)
- 
+
 	ChatButton:SetScript("OnEnter", function(self)
 		self:SetAlpha(0.65)
+		if GameTooltip:IsForbidden() then return end
+
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
@@ -132,7 +151,7 @@ function MERL:CreateChatButtons()
 		GameTooltip:Show()
 		if InCombatLockdown() then GameTooltip:Hide() end
 	end)
- 
+
 	ChatButton:SetScript("OnLeave", function(self)
 		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 			self:SetAlpha(0)
@@ -141,7 +160,7 @@ function MERL:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
- 
+
 	ChatButton:RegisterEvent("PLAYER_LEAVING_WORLD")
 	ChatButton:RegisterEvent("ADDON_LOADED")
 	ChatButton:SetScript("OnEvent", function(self, event, addon)
@@ -161,24 +180,33 @@ function MERL:CreateChatButtons()
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
 	ChatMenu:EnableMouse(true)
-	ChatMenu:RegisterForClicks("AnyUp")
+	ChatMenu:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
 	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
 	ChatMenu.tex:SetInside()
 	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-	E:GetModule("Skins"):HandleButton(ChatMenu)
 
-	ChatMenu:SetScript("OnMouseDown", function(self)
+	ChatMenu:SetScript("OnEnter", ChatMenu_OnEnter)
+	ChatMenu:SetScript("OnLeave", ChatMenu_OnLeave)
+
+	ChatMenu:SetScript("OnClick", function(self, btn)
+		GameTooltip:Hide()
 		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
 
-		if CM_menu:IsShown() then
-			CM_menu:Hide()
-			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-		else
-			CM_menu:Show()
-			ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+		if btn == "LeftButton" then
+			if CM_menu:IsShown() then
+				CM_menu:Hide()
+				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
+			else
+				CM_menu:Show()
+				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
+			end
+		elseif btn == "RightButton" then
+			LO:ChatButtonPanel_OnClick()
 		end
 	end)
+
+	E:GetModule("Skins"):HandleButton(ChatMenu)
 
 	--mUI Config Button
 	MER:CreateBtn("CM_menu", E.UIParent, 18, 18, L["Config"], "|cffff7d0aC|r")
@@ -360,11 +388,31 @@ function MERL:regEvents()
 	self:MiddleDatatextDimensions()
 end
 
+function MERL:ShadowOverlay()
+	-- Based on ncShadow
+	if E.db.mui.general.shadowOverlay ~= true then return end
+
+	local f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	f:SetPoint("TOPLEFT")
+	f:SetPoint("BOTTOMRIGHT")
+	f:SetFrameLevel(0)
+	f:SetFrameStrata("BACKGROUND")
+
+	f.tex = f:CreateTexture()
+	f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
+	f.tex:SetAllPoints(f)
+
+	f:SetAlpha(0.7)
+
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
+
 function MERL:Initialize()
 	self:CreatePanels()
 	self:ChangeLayout()
 	self:regEvents()
 	self:CreateChatButtons()
+	self:ShadowOverlay()
 end
 
 local function InitializeCallback()

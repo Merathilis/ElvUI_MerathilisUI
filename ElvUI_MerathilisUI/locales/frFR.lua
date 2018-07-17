@@ -48,6 +48,8 @@ L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
+L["Hide Player Brackets"] = true
+L["Removes brackets around the person who posts a chat message."] = true
 
 -- Information
 L["Information"] = true
@@ -113,7 +115,7 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- MicroBar
 L["Hide In Orderhall"] = true
-L["Hides the MicroBar in Combat and Pet Battles."] = true
+L["Hide In Pet Battle"] = true
 
 -- Misc
 L["Artifact Power"] = true
@@ -130,6 +132,7 @@ L["Shows the Unit Name on the mouse."] = true
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = true
 L["Undress"] = true
+L["Flashing Cursor"] = "Blinkender Mauszeiger"
 
 -- Tooltip
 L["Your Status:"] = true
@@ -166,10 +169,6 @@ L["Enable Invites"] = true
 L["Enable Guild Events"] = true
 L["Enable Quick Join Notification"] = true
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = true
-L["Add tabs for professions on the TradeSkill Frame."] = true
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
@@ -191,6 +190,7 @@ L["Garbage Collect"] = true
 L["Garbage Collection Freed"] = true
 L["Home"] = true
 L["Home Latency:"] = true
+L["Home Protocol:"] = true
 L["Latency Type"] = true
 L["Left Click:"] = true
 L["Loaded Addons:"] = true
@@ -211,6 +211,7 @@ L["Total CPU:"] = true
 L["Total Memory:"] = true
 L["World"] = true
 L["World Latency:"] = true
+L["World Protocol:"] = true
 
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
@@ -306,6 +307,8 @@ L["Hide Coordinates"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
+L["Garrison/OrderHall Buttons Style"] = true
+L["Change the look of the Orderhall/Garrison Button"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
@@ -324,18 +327,6 @@ L["Visibility State"] = true
 -- Raid Buffs
 L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
-
--- CooldownFlash
-L["CooldownFlash"] = true
-L["Settings"] = true
-L["Fadein duration"] = true
-L["Fadeout duration"] = true
-L["Duration time"] = true
-L["Animation size"] = true
-L["Display spell name"] = true
-L["Watch on pet spell"] = true
-L["Transparency"] = true
-L["Test"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -460,6 +451,7 @@ Please note that some of these options will not be available if corresponding sk
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Shadows"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

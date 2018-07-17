@@ -44,6 +44,8 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
 	SetCVar("nameplateMotion", 1)
+	SetCVar("nameplateOverlapH",  0.3) --default is 0.8
+	SetCVar("nameplateOverlapV",  0.7) --default is 1.1
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
@@ -224,7 +226,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["classHall"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["scale"] = 1.1
-	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = -3
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["mail"]["position"] = "BOTTOMLEFT"
 	E.db["general"]["minimap"]["icons"]["mail"]["scale"] = 1
 	E.db["general"]["minimap"]["icons"]["mail"]["xOffset"] = 0
@@ -302,8 +304,14 @@ function MER:SetupLayout()
 	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
-	E.db["bags"]["itemLevelThreshold"] = 815
+	E.db["bags"]["itemLevelThreshold"] = 100
 	E.db["bags"]["junkIcon"] = true
+
+	-- Cooldown Settings
+	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
+	E.db["bags"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["bags"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["bags"]["cooldown"]["fonts"]["fontSize"] = 14
 
 	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
 	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
@@ -353,6 +361,12 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
+
+	-- Cooldown Settings
+	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
+	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["nameplates"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["cooldown"]["fonts"]["fontSize"] = 9
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -444,12 +458,19 @@ function MER:SetupLayout()
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = false
+	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["height"] = 146
+	E.db["databars"]["azerite"]["textSize"] = 11
+	E.db["databars"]["azerite"]["width"] = 8
+	E.db["databars"]["azerite"]["hideInVehicle"] = true
+	E.db["databars"]["azerite"]["hideInCombat"] = false
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
+	MER:SetMoverPosition("AzeriteBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
 	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
@@ -485,6 +506,12 @@ function MER:SetupActionbars()
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
+
+	-- Cooldown options
+	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
+	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 18
 
 	if IsAddOnLoaded("Masque") then
 		E.private["actionbar"]["masque"]["stanceBar"] = true
@@ -609,7 +636,7 @@ function MER:SetupUnitframes()
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
 	end
-	E.db["unitframe"]["colors"]["castColor"] = { 
+	E.db["unitframe"]["colors"]["castColor"] = {
 		["r"] = 0.1,
 		["g"] = 0.1,
 		["b"] = 0.1,
@@ -623,6 +650,17 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["colors"]["transparentHealth"] = false
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
+
+	-- Frame Glow
+	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
+	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["a"] = 0.5
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["b"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisGradient"
 
 	-- Player
 	E.db["unitframe"]["units"]["player"]["width"] = 200
@@ -954,14 +992,14 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 	-- Create own customTexts
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-		["font"] = "Merathilis Tukui",
+		["font"] = "Expressway",
 		["justifyH"] = "CENTER",
 		["fontOutline"] = "OUTLINE",
 		["xOffset"] = 0,
-		["yOffset"] = -10,
-		["size"] = 12,
+		["yOffset"] = -12,
+		["size"] = 9,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[namecolor][statustimer]",
+		["text_format"] = "[statustimer]",
 	}
 	E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
 		["font"] = "Expressway",
@@ -971,7 +1009,7 @@ function MER:SetupUnitframes()
 		["yOffset"] = 0,
 		["xOffset"] = 0,
 		["attachTextTo"] = "Health",
-		["text_format"] = "[name:medium:status]",
+		["text_format"] = "[name:medium]",
 	}
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = false
 	E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 13
@@ -1137,7 +1175,17 @@ function MER:SetupUnitframes()
 		["yOffset"] = 17,
 		["xOffset"] = 12,
 		["attachTextTo"] = "Frame",
-		["text_format"] = "[name:medium:status]",
+		["text_format"] = "[name:medium]",
+	}
+	E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
+		["font"] = "Expressway",
+		["justifyH"] = "CENTER",
+		["fontOutline"] = "OUTLINE",
+		["xOffset"] = 0,
+		["yOffset"] = -10,
+		["size"] = 12,
+		["attachTextTo"] = "Health",
+		["text_format"] = "[statustimer]",
 	}
 
 	MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 225, 320)

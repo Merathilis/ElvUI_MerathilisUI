@@ -42,7 +42,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = MERS.modName,
+		name = MERS.modName..MER.NewSign,
 		args = {
 			name = {
 				order = 1,
@@ -74,6 +74,13 @@ local function SkinsTable()
 						order = 3,
 						type = "toggle",
 						name = L["MerathilisUI Panels"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					shadowOverlay = {
+						order = 4,
+						type = "toggle",
+						name = L["MerathilisUI Shadows"]..MER.NewSign,
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
@@ -238,6 +245,11 @@ local function SkinsTable()
 				name = LFG_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
 			},
+			lfguild = {
+				type = "toggle",
+				name = L["LF Guild Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfguild end,
+			},
 			talkinghead = {
 				type = "toggle",
 				name = L["TalkingHead"],
@@ -331,7 +343,42 @@ local function SkinsTable()
 			questPOI = {
 				type = "toggle",
 				name = "QuestPOI",
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questPOI end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
+			},
+			channels = {
+				type = "toggle",
+				name = CHANNELS,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Channels end,
+			},
+			communities = {
+				type = "toggle",
+				name = COMMUNITIES,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Communities end,
+			},
+			challenges = {
+				type = "toggle",
+				name = CHALLENGES,
+				disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
+			},
+			AzeriteUI = {
+				type = "toggle",
+				name = L["AzeriteUI"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteUI end,
+			},
+			AzeriteRespec = {
+				type = "toggle",
+				name = AZERITE_RESPEC_TITLE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
+			},
+			Islands = {
+				type = "toggle",
+				name = ISLANDS_HEADER,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Islands end,
+			},
+			BFAMissions = {
+				type = "toggle",
+				name = L["BFAMission"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
 			},
 		},
 	}

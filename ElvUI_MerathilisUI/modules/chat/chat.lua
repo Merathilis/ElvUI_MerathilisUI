@@ -8,12 +8,17 @@ MERC.modName = L["Chat"]
 -- Lua functions
 local _G = _G
 local pairs = pairs
-local find, gsub = string.find, string.gsub
+local format = format
+local time = time
+local BetterDate = BetterDate
+local gsub = string.gsub
 -- WoW API / Variable
 local GetRealmName = GetRealmName
+local GUILD_MOTD = GUILD_MOTD
 
--- GLOBALS:
+-- GLOBALS: CHAT_FRAMES, ChatTypeInfo
 
+local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 function MERC:RemoveCurrentRealmName(msg, author, ...)
@@ -40,10 +45,54 @@ function CH:UpdateAnchors()
 	CH:PositionChat(true)
 end
 
+function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
+	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
+	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
+
+	if (CH.db.timeStampFormat and CH.db.timeStampFormat ~= 'NONE' ) then
+		local timeStamp = BetterDate(CH.db.timeStampFormat, historyTimestamp or time());
+		timeStamp = gsub(timeStamp, ' $', '') --Remove space at the end of the string
+		timeStamp = timeStamp:gsub('AM', ' AM')
+		timeStamp = timeStamp:gsub('PM', ' PM')
+		if CH.db.useCustomTimeColor then
+			local color = CH.db.customTimeColor
+			local hexColor = E:RGBToHex(color.r, color.g, color.b)
+			msg = format("%s[%s]|r %s", hexColor, timeStamp, msg)
+		else
+			msg = format("[%s] %s", timeStamp, msg)
+		end
+	end
+
+	if CH.db.copyChatLines then
+		msg = format('|Hcpl:%s|h%s|h %s', self:GetID(), [[|TInterface\AddOns\ElvUI\media\textures\ArrowRight:14|t]], msg)
+	end
+
+	if E.db.mui.chat.hidePlayerBrackets then
+		msg = gsub(msg, "(|HB?N?player.-|h)%[(.-)%]|h", "%1%2|h")
+	end
+
+	self.OldAddMessage(self, msg, infoR, infoG, infoB, infoID, accessID, typeID)
+end
+
+function CH:AddMessage(msg, ...)
+	return MERC.AddMessage(self, msg, ...)
+end
+
+function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
+	if event == "GUILD_MOTD" then
+		if message and message ~= "" then
+			local info = ChatTypeInfo["GUILD"];
+			local GUILD_MOTD = "GMOTD"
+			chat:AddMessage(format('|cff00c0fa%s|r: %s', GUILD_MOTD, message), info.r, info.g, info.b, info.id)
+		end
+		return true
+	else
+		return ChatFrame_SystemEventHandler(chat, event, message, ...)
+	end
+end
+
 function MERC:Initialize()
 	if E.private.chat.enable ~= true then return; end
-
-	self:StringReplacement()
 
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()

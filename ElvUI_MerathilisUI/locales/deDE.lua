@@ -48,6 +48,8 @@ L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
+L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
+L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 
 -- Information
 L["Information"] = true
@@ -125,7 +127,7 @@ L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
-L["Hides the MicroBar in Combat and Pet Battles."] = "Versteckt die MicroBar im Kampf und Haustierkämpfen."
+L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
@@ -142,6 +144,7 @@ L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Alt PowerBar"] = true
 L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
 L["Undress"] = "Ausziehen"
+L["Flashing Cursor"] = "Blinkender Mauszeiger"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
@@ -178,10 +181,6 @@ L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
 
--- Tradeskill Tabs
-L["TradeSkill Tabs"] = "Berufsfenster Tabs"
-L["Add tabs for professions on the TradeSkill Frame."] = "Fügt Tabs am Berufsfenster hinzu."
-
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
@@ -203,6 +202,7 @@ L["Garbage Collect"] = "Müll aufräumen"
 L["Garbage Collection Freed"] = "Müll gesäubert"
 L["Home"] = "Heim"
 L["Home Latency:"] = "Heimlatenz:"
+L["Home Protocol:"] = "Heim Protokol:"
 L["Latency Type"] = "Latenztyp"
 L["Left Click:"] = "Links Klick:"
 L["Loaded Addons:"] = "Geladene Addons:"
@@ -223,6 +223,7 @@ L["Total CPU:"] = "Gesamte CPU:"
 L["Total Memory:"] = "Gesamter Speicher:"
 L["World"] = "Welt"
 L["World Latency:"] = "Weltlatenz"
+L["World Protocol:"] = "Welt Protokol"
 
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
@@ -318,6 +319,8 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
+L["Garrison/OrderHall Buttons Style"] = "Garnision/Ordenshallen Tasten Style"
+L["Change the look of the Orderhall/Garrison Button"] = "Ändert das Aussehen der Garnision/Ordenshallen Taste"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -336,18 +339,6 @@ L["Visibility State"] = "Sichtbarkeit"
 -- Raid Buffs
 L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
 L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
-
--- CooldownFlash
-L["CooldownFlash"] = true
-L["Settings"] = "Einstellungen"
-L["Fadein duration"] = "Einblendzeit"
-L["Fadeout duration"] = "Ausblendzeit"
-L["Duration time"] = "Dauer"
-L["Animation size"] = "Animationsgröße"
-L["Display spell name"] = "Zeige Zaubernamen"
-L["Watch on pet spell"] = "Überwache Begleiter Zauber"
-L["Transparency"] = "Transparenz"
-L["Test"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
@@ -472,6 +463,7 @@ Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

@@ -3,6 +3,7 @@
 	<Script file="afk.lua"/>
 	<Script file="altpower.lua"/>
 	<Script file="announce.lua"/>
+	<Script file="cursor.lua"/>
 	<Script file="flightMode.lua"/>
 	<Script file="flightPoint.lua"/>
 	<Include file="flightPoint.xml" />
@@ -16,6 +17,5 @@
 	<Script file="spellAlerts.lua"/>
 	<Script file="sumAuctions.lua"/>
 	<Script file="threatBar.lua"/>
-	<Script file="tradeskilltabs.lua"/>
 	<Script file="options.lua"/>
 </Ui>

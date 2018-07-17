@@ -27,6 +27,7 @@ P["mui"] = {
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,
+		["shadowOverlay"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
 	},
@@ -35,103 +36,21 @@ P["mui"] = {
 		["chatButton"] = true,
 		["panelHeight"] = 146,
 		["iLevelLink"] = true,
+		["hidePlayerBrackets"] = true,
 	},
 
 	["colors"] = {
 		["styleAlpha"] = 1,
 	},
 
-	--Media
-	["media"] = {
-		["fonts"] = {
-			["zone"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 32,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
-			},
-			["subzone"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 25,
-				["outline"] = "OUTLINE",
-				["offset"] = 0,
-				["width"] = 512,
-			},
-			["pvp"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 22,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
-			},
-			["mail"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["editbox"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["gossip"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["objective"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["objectiveHeader"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 12,
-				["outline"] = "OUTLINE",
-			},
-			["questFontSuperHuge"] = {
-				["font"] = "Merathilis Roboto-Black",
-				["size"] = 24,
-				["outline"] = "NONE",
-			},
-		},
-	},
-
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
-		["tradeTabs"] = true, -- Add tabs for Professions on the Tradeskillframe
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["powerBar"] = true,
-		["cooldowns"] = {
-			["enable"] = false,
-			["size"] = 25,
-			["growthx"] = "LEFT",
-			["growthy"] = "UP",
-			["showbags"] = true,
-			["showequip"] = true,
-			["showpets"] = true,
-		},
-		["ozcooldowns"] = {
-			["enable"] = true,
-			["Spacing"] = 4,
-			["Size"] = 30,
-			["Vertical"] = false,
-			["Tooltips"] = false,
-			["Announce"] = false,
-			["MinimumDuration"] = 600,
-			["StatusBar"] = true,
-			["StatusBarTexture"] = "MerathilisBlank",
-			["StatusBarTextureColor"] = { ["r"] = .24, ["g"] = .54, ["b"] = .78 },
-			["DurationFont"] = "Expressway",
-			["DurationFontSize"] = 14,
-			["DurationFontFlag"] = "OUTLINE",
-			["Mode"] = "HIDE",
-			["FadeMode"] = "GreenToRed",
-			["SortByDuration"] = true,
-			["DurationText"] = true,
-		},
+		["cursor"] = true,
 	},
 
 	["datatexts"] = {
@@ -187,6 +106,7 @@ P["mui"] = {
 			["enable"] = true,
 			["hideInCombat"] = false,
 			["hideInOrderHall"] = false,
+			["hideInPetBattle"] = false,
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,
@@ -267,6 +187,7 @@ P["mui"] = {
 			["buttonCollector"] = {
 				["enable"] = true,
 			},
+			["styleButton"] = true,
 		},
 	},
 

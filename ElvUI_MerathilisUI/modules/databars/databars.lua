@@ -16,6 +16,12 @@ function MDB:StyleBackdrops()
 		artifact:Styling()
 	end
 
+	--Azerite
+	local azerite = _G["ElvUI_AzeriteBar"]
+	if azerite then
+		azerite:Styling()
+	end
+
 	-- Experience
 	local experience = _G["ElvUI_ExperienceBar"]
 	if experience then

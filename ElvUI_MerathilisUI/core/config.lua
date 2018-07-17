@@ -94,7 +94,7 @@ local function AddOptions()
 						type = "toggle",
 						name = L["Flight Point"],
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
-						hidden = function() return IsAddOnLoaded("WorldFlightMap") end, 
+						hidden = function() return IsAddOnLoaded("WorldFlightMap") end,
 					},
 					CombatState = {
 						order = 8,
@@ -111,7 +111,7 @@ local function AddOptions()
 					chatButton = {
 						order = 10,
 						type = "toggle",
-						name = L["Chat Menu"]..MER.NewSign,
+						name = L["Chat Menu"],
 						desc = L["Create a chat button to increase the chat size and chat menu button."],
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -124,6 +124,15 @@ local function AddOptions()
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					hidePlayerBrackets = {
+						order = 12,
+						type = "toggle",
+						name = L["Hide Player Brackets"]..MER.NewSign,
+						desc = L["Removes brackets around the person who posts a chat message."],
+						get = function(info) return E.db.mui.chat[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+
 				},
 			},
 			info = {

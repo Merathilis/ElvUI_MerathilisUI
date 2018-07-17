@@ -10,11 +10,12 @@ LP.modName = L["Location Panel"]
 local _G = _G
 local format = string.format
 local tinsert, twipe = table.insert, table.wipe
-local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
 -- WoW API / Variables
+local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
 local GetBindLocation = GetBindLocation
-local GetPlayerMapPosition = GetPlayerMapPosition
 local GetProfessions = GetProfessions
 local GetProfessionInfo = GetProfessionInfo
 local GetItemInfo = GetItemInfo
@@ -69,7 +70,7 @@ LP.ListBuilding = false
 LP.InfoUpdatingTimer = nil
 
 local function GetDirection()
-	local x, y = _G["MER_LocPanel"]:GetCenter()
+	local _, y = _G["MER_LocPanel"]:GetCenter()
 	local screenHeight = GetScreenHeight()
 	local anchor, point = "TOP", "BOTTOM"
 	if y and y < (screenHeight / 2) then
@@ -227,7 +228,7 @@ LP.Spells = {
 local function CreateCoords()
 	if LP.db.coordshide == true then return end
 
-	local x, y = GetPlayerMapPosition("player")
+	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
@@ -238,8 +239,8 @@ function LP:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
-	loc_panel:SetFrameStrata("LOW")
-	loc_panel:SetFrameLevel(2)
+	loc_panel:SetFrameStrata("HIGH")
+	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript("OnMouseUp", LP.OnClick)
 	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
@@ -291,7 +292,7 @@ function LP:OnClick(btn)
 					message = format("%s (%s)", zoneText, coords)
 				end
 			ChatEdit_ActivateChat(edit_box)
-			edit_box:Insert(message) 
+			edit_box:Insert(message)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
@@ -516,8 +517,8 @@ function LP:SpellList(list, dropdown, check)
 		local tmp = {}
 		local data = list[i]
 		if IsSpellKnown(data.secure.ID) then
-			if check then 
-				return true 
+			if check then
+				return true
 			else
 				if data.text then
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
@@ -545,7 +546,7 @@ function LP:PopulateDropdown(click)
 	if LP.Menu1:IsShown() then ToggleFrame(LP.Menu1) return end
 	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
 	local full_list = LP:ItemList()
-	if not full_list then 
+	if not full_list then
 		if not LP.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
 		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
 		twipe(LP.MainMenu)
@@ -560,10 +561,10 @@ function LP:PopulateDropdown(click)
 			tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
-				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function() 
+				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function()
 					twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
@@ -571,19 +572,19 @@ function LP:PopulateDropdown(click)
 				end})
 			end
 			if E.myclass == "MAGE" then
-				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function() 
+				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function()
 					twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
-				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function() 
+				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function()
 					twipe(LP.SecondaryMenu)
 					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); LP:PopulateDropdown() end})
+					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
 					tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
 					LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
@@ -607,11 +608,11 @@ end
 function LP:CHAT_MSG_SKILL()
 	local prof1, prof2 = GetProfessions()
 	if prof1 then
-		local name, _, rank = GetProfessionInfo(prof1)
+		local name, _, _ = GetProfessionInfo(prof1)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 	if prof2 then
-		local name, _, rank = GetProfessionInfo(prof2)
+		local name, _, _ = GetProfessionInfo(prof2)
 		if name == LP.EngineerName then LP.isEngineer = true return end
 	end
 end
@@ -624,13 +625,13 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
-function LP:PLAYER_ENTERING_WORLD()
-	local x, y = GetPlayerMapPosition("player")
-	if x then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	LP:UNIT_AURA(nil, "player")
-end
+--function LP:PLAYER_ENTERING_WORLD()
+	--local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
+	--if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
+	--LP:UNIT_AURA(nil, "player")
+--end
 
-function LP:UNIT_AURA(event, unit)
+function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
@@ -649,6 +650,7 @@ function LP:Initialize()
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()
+
 	function LP:ForUpdateAll()
 		LP.db = E.db.mui.locPanel
 		LP:Resize()
@@ -658,8 +660,8 @@ function LP:Initialize()
 	end
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
- 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
- 	LP:RegisterEvent("PLAYER_ENTERING_WORLD")
+	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
+	--LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end

@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="skins.lua"/>
+	<Script file="api.lua"/>
 	<Script file="options.lua"/>
-	<Include file="blizzard\load_blizzard.xml"/>
-	<Include file="addons\load_addons.xml"/>
+	<Include file="AddOns\load_AddOns.xml"/>
+	<Include file="Extern\load_Extern.xml"/>
+	<Include file="FrameXML\load_FrameXML.xml"/>
+	<Include file="SharedXML\load_SharedXML.xml"/>
 </Ui>

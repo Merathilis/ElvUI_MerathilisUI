@@ -133,26 +133,6 @@ function MI:LoadMisc()
 		[1088] = function() return GetCurrentMapDungeonLevel() == 3 and 1033 end, -- Nighthold -> Suramar
 	}
 
-	-- WorldMapFrame Zoom Bug
-	local WorldMapFrame = _G.WorldMapFrame
-	local WorldMapFrame_OnHide = _G.WorldMapFrame_OnHide
-	local WorldMapLevelButton_OnClick = _G.WorldMapLevelButton_OnClick
-
-	local frame = CreateFrame("Frame", nil, UIParent)
-	frame:RegisterEvent("PLAYER_REGEN_ENABLED") 
-	frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-	frame:SetScript("OnEvent", function(self)
-		if event == "PLAYER_REGEN_DISABLED" then
-			WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
-			WorldMapFrame:SetScript("OnHide", nil)
-			WorldMapLevelButton:SetScript("OnClick", nil)
-		elseif event == "PLAYER_REGEN_ENABLED" then
-			WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
-			WorldMapFrame:SetScript("OnHide", WorldMapFrame_OnHide)
-			WorldMapLevelButton:SetScript("OnClick", WorldMapLevelButton_OnClick)
-		end
-	end)
-
 	-- Garbage collection is being overused and misused,
 	-- and it's causing lag and performance drops.
 	do
@@ -233,7 +213,6 @@ function MI:Initialize()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
 	self:LoadMoverTransparancy()
-	self:LoadTST()
 	self:LoadsumAuctions()
 	self:LoadQuestReward()
 	self:LoadnameHover()

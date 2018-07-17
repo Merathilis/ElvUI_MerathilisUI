@@ -10,11 +10,9 @@ MER.callbacks = MER.callbacks or LibStub("CallbackHandler-1.0"):New(MER)
 -- Lua functions
 local _G = _G
 local format = string.format
-local print, pairs, tonumber = print, pairs, tonumber
+local print, pairs = print, pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetAddOnMetadata = GetAddOnMetadata
-local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
@@ -75,6 +73,7 @@ function MER:RegisterMedia()
 	E["media"].muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
 	E["media"].muiTuk = LSM:Fetch("font", "Merathilis Tukui")
 	E["media"].muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
+	E["media"].muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
 
 	-- Background
 	E["media"].muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
@@ -96,9 +95,6 @@ function MER:RegisterMedia()
 
 	-- Custom Textures
 	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
-
-	-- This change the text color for the QuestInfoQuestType (white)
-	_G["QuestFont"]:SetTextColor(1, 1, 1)
 
 	E:UpdateMedia()
 end

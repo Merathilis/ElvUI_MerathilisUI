@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
 local MERS = E:GetModule("muiSkins")
-local LP = E:GetModule("LocPanel")
 
 --Cache global variables
 --Lua functions
@@ -409,7 +408,7 @@ function MAB:PLAYER_REGEN_ENABLED()
 end
 
 function MAB:PET_BATTLE_OPENING_START()
-	if MAB.db.hideInCombat then microBar:Hide() end
+	if MAB.db.hideInPetBattle then microBar:Hide() end
 end
 
 function MAB:PET_BATTLE_OVER()

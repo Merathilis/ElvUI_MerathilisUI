@@ -16,6 +16,7 @@ LSM:Register("font","Merathilis Roboto-Medium", [[Interface\AddOns\ElvUI_Merathi
 LSM:Register("font","Merathilis Roboto-Regular", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\Roboto-Regular.ttf]])
 LSM:Register("font","Merathilis GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\gdcool.ttf]])
 LSM:Register("font","Merathilis BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\BADABB__.ttf]])
+LSM:Register("font","Merathilis Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\CenturyGothicBold.ttf]])
 
 -- Backgrounds
 LSM:Register("background","Merathilis BrushedMetal", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\brushedmetal.tga]])
