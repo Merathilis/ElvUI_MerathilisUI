@@ -74,12 +74,14 @@ function MER:SplashScreen()
 
 	-- Only show the SplashScreen once a day
 	local db = E.private.muiMisc.session
-	local _, _, day = C_Calendar_GetDate()
-	if day == db.day then return end
+	local date = C_Calendar_GetDate()
+	local presentWeekday = date.weekday
+	if presentWeekday == db.day then return end
+
 
 	-- Show only Splash Screen if the install is completed
 	if (E.db.mui.installed == true and E.db.mui.general.splashScreen) then
 		C_TimerAfter(6, ShowSplashScreen)
 	end
-	db.day = day
+	db.day = presentWeekday
 end
