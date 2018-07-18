@@ -19,6 +19,7 @@ local ChangeLogData = {
 	"Changes:",
 		"• 8.0 Compatibily Version.",
 		"• Prevent some rare nil errors with coords.",
+		"• Fix a nil error with linking Mythic Keystones.",
 
 		-- "• ''",
 	" ",
