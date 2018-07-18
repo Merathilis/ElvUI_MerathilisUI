@@ -1,3 +1,6 @@
+** v3.29, 18.07.2018**
+* Fix a nil error with linking Mythic Keystones.
+
 ** v3.28, 18.07.2018**
 * Prevent some rare nil errors with coords.
 

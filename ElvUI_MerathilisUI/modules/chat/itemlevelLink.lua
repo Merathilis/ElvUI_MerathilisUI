@@ -58,18 +58,8 @@ local function SetChatLinkLevel(Hyperlink)
 	return Hyperlink
 end
 
-local function SetChatLinkKeystoneLevel(Hyperlink)
-	local map, level, name = match(Hyperlink, "|Hkeystone:(%d+):(%d+):.-|h(.-)|h")
-	if (map and level and not find(name, level)) then
-		local name = C_ChallengeMode_GetMapUIInfo(map)
-		Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h["..level..":"..name.."]|h")
-	end
-	return Hyperlink
-end
-
 local function filter(self, event, msg, ...)
 	msg = msg:gsub("(|Hitem:%d+:.-|h.-|h)", SetChatLinkLevel)
-	msg = msg:gsub("(|Hkeystone:%d+:.-|h.-|h)", SetChatLinkKeystoneLevel)
 	return false, msg, ...
 end
 
