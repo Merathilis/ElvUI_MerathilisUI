@@ -1,3 +1,6 @@
+** v3.28, 18.07.2018**
+* Prevent some rare nil errors with coords.
+
 ** v3.27, 17.07.2018**
 * 8.0 Compatibily Version.
 * For a full changelog have a look at: https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development
