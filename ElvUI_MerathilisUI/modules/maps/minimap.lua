@@ -91,8 +91,12 @@ function MM:MiniMapCoords()
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
-			local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
-			if x > 0 or y > 0 then
+			local playerPosition = C_Map_GetPlayerMapPosition(0, "player")
+			local x, y
+			if playerPosition then
+				x, y = playerPosition:GetXY()
+			end
+			if x and y and x > 0 and y > 0 then
 				Coords:SetText(format("%d,%d", x*100, y*100))
 			else
 				Coords:SetText("")

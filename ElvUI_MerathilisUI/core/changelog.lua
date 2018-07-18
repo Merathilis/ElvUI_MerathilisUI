@@ -18,8 +18,7 @@ local CLOSE = CLOSE
 local ChangeLogData = {
 	"Changes:",
 		"• 8.0 Compatibily Version.",
-		"• For a full changelog have a look at:",
-		"https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/commits/development",
+		"• Prevent some rare nil errors with coords.",
 
 		-- "• ''",
 	" ",

@@ -228,7 +228,11 @@ LP.Spells = {
 local function CreateCoords()
 	if LP.db.coordshide == true then return end
 
-	local x, y = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
+	local playerPosition = C_Map_GetPlayerMapPosition(0, "player")
+	local x, y
+	if playerPosition then
+		x, y = playerPosition:GetXY()
+	end
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
 	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
 
