@@ -57,7 +57,7 @@ function f.QUEST_LOG_UPDATE()
 		n = tostring(select(2, GetNumQuestLogEntries()))
 		q = n.."/"..MAX_QUESTS.." "..TRACKER_HEADER_QUESTS
 		o = n.."/"..MAX_QUESTS.." "..OBJECTIVES_TRACKER_LABEL
-		-- w = MAP_AND_QUEST_LOG.." ("..n.."/"..MAX_QUESTS..")"
+		w = MAP_AND_QUEST_LOG.." ("..n.."/"..MAX_QUESTS..")"
 		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
 		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
 		_G["WorldMapFrame"].BorderFrame.TitleText:SetText(w)
