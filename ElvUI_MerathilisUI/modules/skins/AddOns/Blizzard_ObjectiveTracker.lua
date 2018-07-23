@@ -267,20 +267,6 @@ local function styleObjectiveTracker()
 		--Frame.HeaderText:SetSize(192, 0)
 	--end
 
-	function MERS:ObjectiveTrackerHeaderTemplate(Frame)
-		Frame.Background:Hide()
-
-		local bg = Frame:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
-
-		Frame:SetSize(235, 25)
-		Frame.Text:SetPoint("LEFT", 4, -1)
-	end
-
 	--function MERS:ObjectiveTrackerLineTemplate(Frame)
 		--Frame:SetSize(232, 16)
 		--Frame.Dash:SetPoint("TOPLEFT", 0, 1)
@@ -383,10 +369,6 @@ local function styleObjectiveTracker()
 		Frame.Glow:SetPoint("LEFT", Frame.Dash, -2, 0)
 	end
 
-	function MERS:BonusObjectiveTrackerHeaderTemplate(Frame)
-		MERS:ObjectiveTrackerHeaderTemplate(Frame)
-	end
-
 	----====####$$$$$$$####====----
 	-- Blizzard_ObjectiveTracker --
 	----====####$$$$$$$####====----
@@ -407,9 +389,6 @@ local function styleObjectiveTracker()
 	----====####$$$$%%%%$$$$####====----
 	-- Blizzard_BonusObjectiveTracker --
 	----====####$$$$%%%%$$$$####====----
-	local _, _, _, bonusObj, worldQuests = ObjectiveTrackerFrame.BlocksFrame:GetChildren()
-	MERS:BonusObjectiveTrackerHeaderTemplate(bonusObj)
-	MERS:BonusObjectiveTrackerHeaderTemplate(worldQuests)
 
 	----====####$$$$%%%%%%%$$$$####====----
 	-- Blizzard_ScenarioObjectiveTracker --
