@@ -414,7 +414,7 @@ function MERL:ChatButtonHolder()
 		ChatButtonHolder:SetSize(27, LeftChatPanel:GetHeight()-2)
 
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
-		ChatButtonHolder.bg:Styling()
+		ChatButtonHolder.bg:Styling(true, true, false, 8, 8, 1)
 	end
 
 	QuickJoinToastButton:Kill()
