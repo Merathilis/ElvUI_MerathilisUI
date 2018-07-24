@@ -145,8 +145,16 @@ local function stylePvP()
 	local Inset = ConquestFrame.Inset
 
 	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
-		MERS:Reskin(bu)
 		local reward = bu.Reward
+
+		MERS:Reskin(bu)
+
+		-- Hide ElvUI backdrop
+		if bu.backdrop then
+			bu.backdrop:Hide()
+		end
+
+		bu.NormalTexture:Hide()
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
 		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
