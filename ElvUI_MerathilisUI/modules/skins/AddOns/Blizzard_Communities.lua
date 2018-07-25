@@ -21,6 +21,7 @@ local function styleCommunities()
 
 	MERS:CreateBD(CommunitiesFrame)
 
+	-- Hide ElvUI backdrop
 	if CommunitiesFrame.backdrop then
 		CommunitiesFrame.backdrop:Hide()
 	end
@@ -34,14 +35,13 @@ local function styleCommunities()
 			end
 
 			if not button.IsSkinned then
-				button.Selection:Kill()
+				button:GetRegions():Hide()
 				button:SetHighlightTexture("")
 
 				button.bd = MERS:CreateBDFrame(button, 0)
 				button.bd:SetPoint("TOPLEFT", 4, -3)
 				button.bd:SetPoint("BOTTOMRIGHT", -1, 3)
-				--MERS:CreateBD(button, .25)
-				MERS:Reskin(button.bd)
+				MERS:CreateGradient(button.bd)
 
 				button.IsSkinned = true
 			end
@@ -103,6 +103,8 @@ local function styleCommunities()
 	local bg3 = MERS:CreateBDFrame(_G["CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame"], .25)
 	bg3:SetPoint("TOPLEFT", 0, 3)
 	bg3:SetPoint("BOTTOMRIGHT", 0, -4)
+
+	MERS:CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", styleCommunities)
