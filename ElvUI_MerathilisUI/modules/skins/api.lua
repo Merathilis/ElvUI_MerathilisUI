@@ -41,46 +41,61 @@ function S:HandleCloseButton(f, point, text)
 	end
 
 	if E.private.muiSkins.closeButton then
+		for i = 1, f:GetNumRegions() do
+			local region = select(i, f:GetRegions())
+			if region:GetObjectType() == "Texture" then
+				region:SetDesaturated(1)
+				for n = 1, #buttons do
+					local texture = buttons[n]
+					if region:GetTexture() == "Interface\\Buttons\\"..texture then
+						f.noBackdrop = true
+					end
+				end
+				if region:GetTexture() == "Interface\\DialogFrame\\UI-DialogBox-Corner" then
+					region:Kill()
+				end
+			end
+		end
+	else
 		f:StripTextures()
-
-		-- Create backdrop for the few close buttons that do not use original close button
-		if not f.backdrop then
-			f:CreateBackdrop("Default", true)
-			f.backdrop:Point("TOPLEFT", 7, -8)
-			f.backdrop:Point("BOTTOMRIGHT", -8, 8)
-			f.backdrop:SetFrameLevel(f:GetFrameLevel())
-			f:HookScript("OnEnter", MERS.ColorButton)
-			f:HookScript("OnLeave", MERS.ClearButton)
-			f:SetHitRectInsets(6, 6, 7, 7)
-		end
-
-		-- ElvUI code expects the element to be there. It won't show up for original close buttons.
-		if not f.text then
-			f.text = f:CreateFontString(nil, "OVERLAY")
-			f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
-			f.text:SetText(text)
-			f.text:SetJustifyH("CENTER")
-			f.text:Point("CENTER", f, "CENTER")
-		end
-
 		if not text then text = 'x' end
+	end
 
-		-- Use a own texture for the close button.
-		if not f.tex then
-			f.tex = f:CreateTexture(nil, "OVERLAY")
-			f.tex:Size(12)
-			f.tex:Point("CENTER", -1, 0)
-			f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
-		end
+	-- Create backdrop for the few close buttons that do not use original close button
+	if not f.backdrop then
+		f:CreateBackdrop("Default", true)
+		f.backdrop:Point("TOPLEFT", 5, -6)
+		f.backdrop:Point("BOTTOMRIGHT", -6, 6)
+		f.backdrop:SetFrameLevel(f:GetFrameLevel())
+		f:HookScript("OnEnter", MERS.ColorButton)
+		f:HookScript("OnLeave", MERS.ClearButton)
+	end
 
-		-- Hide text if button is using original skin
-		if f.text and f.noBackdrop then
-			f.text:SetAlpha(0)
-		end
+	-- ElvUI code expects the element to be there. It won't show up for original close buttons.
+	if not f.text then
+		f.text = f:CreateFontString(nil, "OVERLAY")
+		f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
+		f.text:SetText(text)
+		f.text:SetJustifyH("CENTER")
+		f.text:Point("CENTER", f, "CENTER")
+	end
 
-		if point then
-			f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
-		end
+	-- Use a own texture for the close button.
+	if not f.tex then
+		f.tex = f:CreateTexture(nil, "OVERLAY")
+		f.tex:Size(12)
+		f.tex:Point("CENTER", -1, 0)
+		f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
+		f.tex:SetDrawLayer("OVERLAY")
+	end
+
+	-- Hide text if button is using original skin
+	if f.text and f.noBackdrop then
+		f.text:SetAlpha(0)
+	end
+
+	if point then
+		f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
 	end
 end
 
