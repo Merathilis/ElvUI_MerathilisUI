@@ -61,6 +61,7 @@ local function SetupCVars()
 	SetCVar("violenceLevel", 5)
 	SetCVar("blockTrades", 0)
 	SetCVar("countdownForCooldowns", 1)
+	SetCVar("showQuestTrackingTooltips", 1)
 	if IsAddOnLoaded("NameplateSCT") then
 		SetCVar("floatingCombatTextCombatDamage", 0)
 		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
