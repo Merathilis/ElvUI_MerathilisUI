@@ -63,6 +63,8 @@ function S:HandleCloseButton(f, point, text)
 			f.text:Point("CENTER", f, "CENTER")
 		end
 
+		if not text then text = 'x' end
+
 		-- Use a own texture for the close button.
 		if not f.tex then
 			f.tex = f:CreateTexture(nil, "OVERLAY")
@@ -79,6 +81,38 @@ function S:HandleCloseButton(f, point, text)
 		if point then
 			f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
 		end
+	end
+end
+
+function MERS:ReskinEditBox(frame)
+	if frame.backdrop then
+		frame.backdrop:Hide()
+	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:SetAllPoints()
+	MERS:CreateGradient(bg)
+
+	if frame.TopLeftTex then frame.TopLeftTex:Kill() end
+	if frame.TopRightTex then frame.TopRightTex:Kill() end
+	if frame.TopTex then frame.TopTex:Kill() end
+	if frame.BottomLeftTex then frame.BottomLeftTex:Kill() end
+	if frame.BottomRightTex then frame.BottomRightTex:Kill() end
+	if frame.BottomTex then frame.BottomTex:Kill() end
+	if frame.LeftTex then frame.LeftTex:Kill() end
+	if frame.RightTex then frame.RightTex:Kill() end
+	if frame.MiddleTex then frame.MiddleTex:Kill() end
+	if frame.Left then frame.Left:Kill() end
+	if frame.Right then frame.Right:Kill() end
+	if frame.Middle then frame.Middle:Kill() end
+	if frame.Mid then frame.Mid:Kill() end
+
+	local frameName = frame.GetName and frame:GetName()
+	if frameName then
+		if _G[frameName.."Left"] then _G[frameName.."Left"]:Kill() end
+		if _G[frameName.."Middle"] then _G[frameName.."Middle"]:Kill() end
+		if _G[frameName.."Right"] then _G[frameName.."Right"]:Kill() end
+		if _G[frameName.."Mid"] then _G[frameName.."Mid"]:Kill() end
 	end
 end
 
@@ -385,6 +419,20 @@ function MERS:CreateBD(f, a)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
+function MERS:SetBD(x, y, x2, y2)
+	local bg = CreateFrame("Frame", nil, self)
+	if not x then
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT")
+	else
+		bg:SetPoint("TOPLEFT", x, y)
+		bg:SetPoint("BOTTOMRIGHT", x2, y2)
+	end
+	bg:SetFrameLevel(self:GetFrameLevel() - 1)
+	MERS:CreateBD(bg)
+	MERS:CreateSD(bg)
+end
+
 function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
 	if not override then MERS:StripTextures(frame, kill) end
 	MERS:CreateBackdrop(frame, template)
@@ -655,12 +703,13 @@ end
 function MERS:CropIcon(texture, parent)
 	texture:SetTexCoord(unpack(E.TexCoords))
 	if parent then
-	    local layer, subLevel = texture:GetDrawLayer()
-	    local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
-	    iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
-	    iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
-	    iconBorder:SetColorTexture(0, 0, 0)
-	    return iconBorder
+		local layer, subLevel = texture:GetDrawLayer()
+		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
+		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
+		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
+		iconBorder:SetColorTexture(0, 0, 0)
+
+		return iconBorder
 	end
 end
 
@@ -789,6 +838,7 @@ function S:UpdateRecapButton()
 end
 
 -- hook the skin functions
+hooksecurefunc(S, "HandleEditBox", MERS.ReskinEditBox)
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
