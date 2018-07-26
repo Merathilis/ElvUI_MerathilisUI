@@ -107,28 +107,93 @@ function MERS:ReskinEditBox(frame)
 	local bg = MERS:CreateBDFrame(frame, 0)
 	bg:SetAllPoints()
 	MERS:CreateGradient(bg)
+end
 
-	if frame.TopLeftTex then frame.TopLeftTex:Kill() end
-	if frame.TopRightTex then frame.TopRightTex:Kill() end
-	if frame.TopTex then frame.TopTex:Kill() end
-	if frame.BottomLeftTex then frame.BottomLeftTex:Kill() end
-	if frame.BottomRightTex then frame.BottomRightTex:Kill() end
-	if frame.BottomTex then frame.BottomTex:Kill() end
-	if frame.LeftTex then frame.LeftTex:Kill() end
-	if frame.RightTex then frame.RightTex:Kill() end
-	if frame.MiddleTex then frame.MiddleTex:Kill() end
-	if frame.Left then frame.Left:Kill() end
-	if frame.Right then frame.Right:Kill() end
-	if frame.Middle then frame.Middle:Kill() end
-	if frame.Mid then frame.Mid:Kill() end
+function MERS:ReskinDropDownBox(frame, width)
+	local button = _G[frame:GetName().."Button"]
+	if not button then return end
 
-	local frameName = frame.GetName and frame:GetName()
-	if frameName then
-		if _G[frameName.."Left"] then _G[frameName.."Left"]:Kill() end
-		if _G[frameName.."Middle"] then _G[frameName.."Middle"]:Kill() end
-		if _G[frameName.."Right"] then _G[frameName.."Right"]:Kill() end
-		if _G[frameName.."Mid"] then _G[frameName.."Mid"]:Kill() end
+	if not width then width = 155 end
+
+	-- Hide ElvUI's backdrop
+	if frame.backdrop then
+		frame.backdrop:Hide()
 	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:Point("TOPLEFT", 20, -2)
+	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+	bg:Width(width)
+	MERS:CreateGradient(bg)
+end
+
+function S:HandleDropDownFrame(frame, width)
+	if not width then width = 155 end
+
+	local left = frame.Left
+	local middle = frame.Middle
+	local right = frame.Right
+	if left then
+		left:SetAlpha(0)
+		left:SetSize(25, 64)
+		left:SetPoint("TOPLEFT", 0, 17)
+	end
+	if middle then
+		middle:SetAlpha(0)
+		middle:SetHeight(64)
+	end
+	if right then
+		right:SetAlpha(0)
+		right:SetSize(25, 64)
+	end
+
+	local button = frame.Button
+	if button then
+		button:SetSize(24, 24)
+		button:ClearAllPoints()
+		button:Point("RIGHT", right, "RIGHT", -20, 0)
+
+		button.NormalTexture:SetTexture("")
+		button.PushedTexture:SetTexture("")
+		button.HighlightTexture:SetTexture("")
+
+		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
+			if not noReset then
+				btn:ClearAllPoints()
+				btn:SetPoint("RIGHT", frame, "RIGHT", E:Scale(-20), E:Scale(0), true)
+			end
+		end)
+
+		self:HandleNextPrevButton(button, true)
+	end
+
+	local disabled = button and button.DisabledTexture
+	if disabled then
+		disabled:SetAllPoints(button)
+		disabled:SetColorTexture(0, 0, 0, .3)
+		disabled:SetDrawLayer("OVERLAY")
+	end
+
+	if middle and (not frame.noResize) then
+		frame:SetWidth(40)
+		middle:SetWidth(width)
+	end
+
+	if right and frame.Text then
+		frame.Text:SetSize(0, 10)
+		frame.Text:SetPoint("RIGHT", right, -43, 2)
+	end
+
+	-- Hide ElvUI's backdrop
+	if frame.backdrop then
+		frame.backdrop:Hide()
+	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:Point("TOPLEFT", 20, -2)
+	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+	bg:Width(width)
+	MERS:CreateGradient(bg)
 end
 
 -- External CloseButtons
@@ -854,6 +919,7 @@ end
 
 -- hook the skin functions
 hooksecurefunc(S, "HandleEditBox", MERS.ReskinEditBox)
+hooksecurefunc(S, "HandleDropDownBox", MERS.ReskinDropDownBox)
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
