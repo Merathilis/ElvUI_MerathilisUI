@@ -102,7 +102,7 @@ local function styleCommunities()
 	-- Guild Info
 	local bg3 = MERS:CreateBDFrame(_G["CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame"], .25)
 	bg3:SetPoint("TOPLEFT", 0, 3)
-	bg3:SetPoint("BOTTOMRIGHT", 0, -4)
+	bg3:SetPoint("BOTTOMRIGHT", -5, -4)
 
 	MERS:CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
 end
