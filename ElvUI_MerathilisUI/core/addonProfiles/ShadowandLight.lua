@@ -40,6 +40,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["Armory"]["Character"]["Enchant"]["WarningIconOnly"] = true
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["size"] = 16
+	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["outline"] = "OUTLINE"
 	E.db["sle"]["Armory"]["Inspect"]["Enable"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["ShowUpgradeLevel"] = true
 	E.db["sle"]["Armory"]["Inspect"]["Level"]["Font"] = "Expressway"
