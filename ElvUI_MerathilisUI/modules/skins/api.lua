@@ -151,7 +151,7 @@ function S:HandleDropDownFrame(frame, width)
 	if button then
 		button:SetSize(24, 24)
 		button:ClearAllPoints()
-		button:Point("RIGHT", right, "RIGHT", -20, 0)
+		button:Point("RIGHT", right, "RIGHT", -20, 1)
 
 		button.NormalTexture:SetTexture("")
 		button.PushedTexture:SetTexture("")
@@ -160,7 +160,7 @@ function S:HandleDropDownFrame(frame, width)
 		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
 			if not noReset then
 				btn:ClearAllPoints()
-				btn:SetPoint("RIGHT", frame, "RIGHT", E:Scale(-20), E:Scale(0), true)
+				btn:SetPoint("RIGHT", frame, "RIGHT", E:Scale(-20), E:Scale(1), true)
 			end
 		end)
 
@@ -190,8 +190,9 @@ function S:HandleDropDownFrame(frame, width)
 	end
 
 	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:Point("TOPLEFT", 20, -2)
-	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+	bg:SetPoint("TOPLEFT", left, 20, -21)
+	bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
+	bg:SetFrameLevel(frame:GetFrameLevel())
 	bg:Width(width)
 	MERS:CreateGradient(bg)
 end
