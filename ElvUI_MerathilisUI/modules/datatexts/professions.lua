@@ -27,7 +27,7 @@ local function GetProfessionName(index)
 end
 
 local function OnEvent(self, event, ...)
-	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 
 	if E.db.mui.profdt.prof == "prof1" then
 		if prof1 ~= nil then
@@ -68,23 +68,13 @@ local function OnEvent(self, event, ...)
 		else
 			self.text:SetText(L["No Profession"])
 		end
-
-	elseif E.db.mui.profdt.prof == "firstaid" then
-		if firstAid ~= nil then
-			local name, _, rank, maxRank, _, _, _, _ = GetProfessionInfo(firstAid)
-			self.text:SetFormattedText(displayString, name, rank, maxRank)
-		else
-			self.text:SetText(L["No Profession"])
-		end
 	end
 end
 
 local function Click(self, button)
-	local prof1, prof2, archy, _, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, _, cooking = GetProfessions()
 	if button == "LeftButton" then
-		if IsControlKeyDown() and firstAid ~= nil then
-			CastSpellByName(PROFESSIONS_FIRST_AID)
-		elseif not IsControlKeyDown() then
+		if not IsControlKeyDown() then
 			if IsShiftKeyDown() and archy == nil then return
 			elseif not IsShiftKeyDown() and prof1 == nil then return end
 			local name, _, _, _, _, _, _, _ = GetProfessionInfo(IsShiftKeyDown() and archy or prof1)
@@ -101,7 +91,7 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	local prof1, prof2, archy, fishing, cooking = GetProfessions()
 	local professions = {}
 
 	if prof1 ~= nil then
@@ -154,16 +144,6 @@ local function OnEnter(self)
 		}
 	end
 
-	if firstAid ~= nil then
-		local name, texture, rank, maxRank, _, _, _, _ = GetProfessionInfo(firstAid)
-		professions[#professions + 1] = {
-			name	= name,
-			texture	= ("|T%s:12:12:1:0|t"):format(texture),
-			rank	= rank,
-			maxRank	= maxRank
-		}
-	end
-
 	if #professions == 0 then return end
 	tsort(professions, function(a, b) return a["name"] < b["name"] end)
 
@@ -177,7 +157,6 @@ local function OnEnter(self)
 		DT.tooltip:AddDoubleLine(L["Right Click:"], L["Open "] .. GetProfessionName(prof2), 1, 1, 1, 1, 1, 0)
 		DT.tooltip:AddDoubleLine(L["Shift + Left Click:"], L["Open Archaeology"], 1, 1, 1, 1, 1, 0)
 		DT.tooltip:AddDoubleLine(L["Shift + Right Click:"], L["Open Cooking"], 1, 1, 1, 1, 1, 0)
-		DT.tooltip:AddDoubleLine(L["Ctrl + Click:"], L["Open First Aid"], 1, 1, 1, 1, 1, 0)
 	end
 
 	DT.tooltip:Show()
@@ -190,4 +169,4 @@ local function ValueColorUpdate(hex, r, g, b)
 end
 E["valueColorUpdateFuncs"][ValueColorUpdate] = true
 
-DT:RegisterDatatext("MUI Professions", {"PLAYER_ENTERING_WORLD", "CHAT_MSG_SKILL", "TRADE_SKILL_UPDATE"}, OnEvent, nil, Click, OnEnter)
+DT:RegisterDatatext("MUI Professions", {"PLAYER_ENTERING_WORLD", "CHAT_MSG_SKILL"}, OnEvent, nil, Click, OnEnter)
