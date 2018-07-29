@@ -41,45 +41,160 @@ function S:HandleCloseButton(f, point, text)
 	end
 
 	if E.private.muiSkins.closeButton then
+		for i = 1, f:GetNumRegions() do
+			local region = select(i, f:GetRegions())
+			if region:GetObjectType() == "Texture" then
+				region:SetDesaturated(1)
+				for n = 1, #buttons do
+					local texture = buttons[n]
+					if region:GetTexture() == "Interface\\Buttons\\"..texture then
+						f.noBackdrop = true
+					end
+				end
+				if region:GetTexture() == "Interface\\DialogFrame\\UI-DialogBox-Corner" then
+					region:Kill()
+				end
+			end
+		end
+	else
 		f:StripTextures()
-
-		-- Create backdrop for the few close buttons that do not use original close button
-		if not f.backdrop then
-			f:CreateBackdrop("Default", true)
-			f.backdrop:Point("TOPLEFT", 7, -8)
-			f.backdrop:Point("BOTTOMRIGHT", -8, 8)
-			f.backdrop:SetFrameLevel(f:GetFrameLevel())
-			f:HookScript("OnEnter", MERS.ColorButton)
-			f:HookScript("OnLeave", MERS.ClearButton)
-			f:SetHitRectInsets(6, 6, 7, 7)
-		end
-
-		-- ElvUI code expects the element to be there. It won't show up for original close buttons.
-		if not f.text then
-			f.text = f:CreateFontString(nil, "OVERLAY")
-			f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
-			f.text:SetText(text)
-			f.text:SetJustifyH("CENTER")
-			f.text:Point("CENTER", f, "CENTER")
-		end
-
-		-- Use a own texture for the close button.
-		if not f.tex then
-			f.tex = f:CreateTexture(nil, "OVERLAY")
-			f.tex:Size(12)
-			f.tex:Point("CENTER", -1, 0)
-			f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
-		end
-
-		-- Hide text if button is using original skin
-		if f.text and f.noBackdrop then
-			f.text:SetAlpha(0)
-		end
-
-		if point then
-			f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
-		end
+		if not text then text = 'x' end
 	end
+
+	-- Create backdrop for the few close buttons that do not use original close button
+	if not f.backdrop then
+		f:CreateBackdrop("Default", true)
+		f.backdrop:Point("TOPLEFT", 5, -6)
+		f.backdrop:Point("BOTTOMRIGHT", -6, 6)
+		f.backdrop:SetFrameLevel(f:GetFrameLevel())
+		f:HookScript("OnEnter", MERS.ColorButton)
+		f:HookScript("OnLeave", MERS.ClearButton)
+	end
+
+	-- ElvUI code expects the element to be there. It won't show up for original close buttons.
+	if not f.text then
+		f.text = f:CreateFontString(nil, "OVERLAY")
+		f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
+		f.text:SetText(text)
+		f.text:SetJustifyH("CENTER")
+		f.text:Point("CENTER", f, "CENTER")
+	end
+
+	-- Use a own texture for the close button.
+	if not f.tex then
+		f.tex = f:CreateTexture(nil, "OVERLAY")
+		f.tex:Size(12)
+		f.tex:Point("CENTER", -1, 0)
+		f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
+		f.tex:SetDrawLayer("OVERLAY")
+	end
+
+	-- Hide text if button is using original skin
+	if f.text and f.noBackdrop then
+		f.text:SetAlpha(0)
+	end
+
+	if point then
+		f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
+	end
+end
+
+function MERS:ReskinEditBox(frame)
+	if frame.backdrop then
+		frame.backdrop:Hide()
+	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:SetAllPoints()
+	MERS:CreateGradient(bg)
+end
+
+function MERS:ReskinDropDownBox(frame, width)
+	local button = _G[frame:GetName().."Button"]
+	if not button then return end
+
+	if not width then width = 155 end
+
+	-- Hide ElvUI's backdrop
+	if frame.backdrop then
+		frame.backdrop:Hide()
+	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:Point("TOPLEFT", 20, -2)
+	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+	bg:Width(width)
+	MERS:CreateGradient(bg)
+end
+
+function S:HandleDropDownFrame(frame, width)
+	if not width then width = 155 end
+
+	local left = frame.Left
+	local middle = frame.Middle
+	local right = frame.Right
+	if left then
+		left:SetAlpha(0)
+		left:SetSize(25, 64)
+		left:SetPoint("TOPLEFT", 0, 17)
+	end
+	if middle then
+		middle:SetAlpha(0)
+		middle:SetHeight(64)
+	end
+	if right then
+		right:SetAlpha(0)
+		right:SetSize(25, 64)
+	end
+
+	local button = frame.Button
+	if button then
+		button:SetSize(24, 24)
+		button:ClearAllPoints()
+		button:Point("RIGHT", right, "RIGHT", -20, 1)
+
+		button.NormalTexture:SetTexture("")
+		button.PushedTexture:SetTexture("")
+		button.HighlightTexture:SetTexture("")
+
+		hooksecurefunc(button, "SetPoint", function(btn, _, _, _, _, _, noReset)
+			if not noReset then
+				btn:ClearAllPoints()
+				btn:SetPoint("RIGHT", frame, "RIGHT", E:Scale(-20), E:Scale(1), true)
+			end
+		end)
+
+		self:HandleNextPrevButton(button, true)
+	end
+
+	local disabled = button and button.DisabledTexture
+	if disabled then
+		disabled:SetAllPoints(button)
+		disabled:SetColorTexture(0, 0, 0, .3)
+		disabled:SetDrawLayer("OVERLAY")
+	end
+
+	if middle and (not frame.noResize) then
+		frame:SetWidth(40)
+		middle:SetWidth(width)
+	end
+
+	if right and frame.Text then
+		frame.Text:SetSize(0, 10)
+		frame.Text:SetPoint("RIGHT", right, -43, 2)
+	end
+
+	-- Hide ElvUI's backdrop
+	if frame.backdrop then
+		frame.backdrop:Hide()
+	end
+
+	local bg = MERS:CreateBDFrame(frame, 0)
+	bg:SetPoint("TOPLEFT", left, 20, -21)
+	bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
+	bg:SetFrameLevel(frame:GetFrameLevel())
+	bg:Width(width)
+	MERS:CreateGradient(bg)
 end
 
 -- External CloseButtons
@@ -385,6 +500,20 @@ function MERS:CreateBD(f, a)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
+function MERS:SetBD(x, y, x2, y2)
+	local bg = CreateFrame("Frame", nil, self)
+	if not x then
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT")
+	else
+		bg:SetPoint("TOPLEFT", x, y)
+		bg:SetPoint("BOTTOMRIGHT", x2, y2)
+	end
+	bg:SetFrameLevel(self:GetFrameLevel() - 1)
+	MERS:CreateBD(bg)
+	MERS:CreateSD(bg)
+end
+
 function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
 	if not override then MERS:StripTextures(frame, kill) end
 	MERS:CreateBackdrop(frame, template)
@@ -655,12 +784,13 @@ end
 function MERS:CropIcon(texture, parent)
 	texture:SetTexCoord(unpack(E.TexCoords))
 	if parent then
-	    local layer, subLevel = texture:GetDrawLayer()
-	    local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
-	    iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
-	    iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
-	    iconBorder:SetColorTexture(0, 0, 0)
-	    return iconBorder
+		local layer, subLevel = texture:GetDrawLayer()
+		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
+		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
+		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
+		iconBorder:SetColorTexture(0, 0, 0)
+
+		return iconBorder
 	end
 end
 
@@ -789,6 +919,8 @@ function S:UpdateRecapButton()
 end
 
 -- hook the skin functions
+hooksecurefunc(S, "HandleEditBox", MERS.ReskinEditBox)
+hooksecurefunc(S, "HandleDropDownBox", MERS.ReskinDropDownBox)
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)

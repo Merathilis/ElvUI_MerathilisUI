@@ -1,3 +1,10 @@
+** v3.30, 29.07.2018**
+* Added a panel to the chat to place the Voice Buttons.
+* -> You have to do the setup for Chat & ActionBars again.
+* Fixed some skin related issues/errors.
+* Use the new ElvUI MapInfo Table to get coords. Thx Simpy <3.
+* Remove the Raid Buff Reminder.
+
 ** v3.29, 18.07.2018**
 * Fix a nil error with linking Mythic Keystones.
 

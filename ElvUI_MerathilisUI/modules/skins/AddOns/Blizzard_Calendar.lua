@@ -12,7 +12,7 @@ local _G = _G
 local function styleCalendar()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
-	_G["CalendarFrame"]:Styling()
+	_G["CalendarFrame"].backdrop:Styling()
 	_G["CalendarCreateEventFrame"]:Styling()
 	_G["CalendarViewHolidayFrame"]:Styling()
 	_G["CalendarViewEventFrame"]:Styling()
@@ -35,20 +35,6 @@ local function styleCalendar()
 
 	_G["CalendarWeekdaySelectedTexture"]:SetDesaturated(true)
 	_G["CalendarWeekdaySelectedTexture"]:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-
-	hooksecurefunc("CalendarFrame_SetToday", function()
-		_G["CalendarTodayFrame"]:SetAllPoints()
-	end)
-
-	_G["CalendarTodayFrame"]:SetScript("OnUpdate", nil)
-	_G["CalendarTodayTextureGlow"]:Hide()
-	_G["CalendarTodayTexture"]:Hide()
-
-	_G["CalendarTodayFrame"]:SetBackdrop({
-		edgeFile = E["media"].normTex,
-		edgeSize = 1,
-	})
-	_G["CalendarTodayFrame"]:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	_G["CalendarViewEventAcceptButton"].flashTexture:SetTexture("")
 	_G["CalendarViewEventTentativeButton"].flashTexture:SetTexture("")

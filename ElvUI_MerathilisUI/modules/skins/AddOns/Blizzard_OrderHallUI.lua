@@ -110,7 +110,7 @@ local function styleOrderhall()
 		TalentFrame:StripTextures()
 		TalentFrame.LeftInset:StripTextures()
 		TalentFrame:SetTemplate("Transparent")
-		TalentFrame.CurrencyIcon:SetAtlas("legionmission-icon-currency", false)
+		TalentFrame.Currency.Icon:SetAtlas("legionmission-icon-currency", false)
 		S:HandleCloseButton(TalentFrame.CloseButton)
 		S:HandleButton(TalentFrame.BackButton)
 		TalentFrame.BackButton:SetFrameLevel(TalentFrame.BackButton:GetFrameLevel()+2)
@@ -125,29 +125,6 @@ local function styleOrderhall()
 		TalentClassBG:SetAtlas("orderhalltalents-background-"..E.myclass)
 		TalentClassBG:SetDrawLayer("ARTWORK")
 		TalentClassBG:SetAlpha(0.8)
-
-		--[[
-		local function panelBackground(self)
-			local tab8 = _G["OrderHallTalentFrame8PanelBackground"];
-			if tab8 then
-				if TalentFrame.BackButton:IsShown() then tab8:Hide() else tab8:Show() end
-			else
-				for i = 1, 8 do
-					local bg = CreateFrame("Frame", "OrderHallTalentFrame"..i.."PanelBackground", self)
-					if i == 1 then
-						bg:Point("TOPLEFT", self, "TOPLEFT", E.PixelMode and 6 or 9, -80)
-					else
-						bg:Point("TOPLEFT", "OrderHallTalentFrame"..(i-1).."PanelBackground", "BOTTOMLEFT", 0, -6)
-					end
-					bg:SetTemplate("Transparent")
-					bg:SetBackdropColor(0, 0, 0, 0.5)
-					bg:SetSize(E.PixelMode and 322 or 316, 52)
-				end
-				tab8 = _G["OrderHallTalentFrame8PanelBackground"];
-				if TalentFrame.BackButton:IsShown() then tab8:Hide() else tab8:Show() end
-			end
-		end
-		]]
 
 		local function colorBorder(child, backdrop, atlas)
 			if child.AlphaIconOverlay:IsShown() then --isBeingResearched or (talentAvailability and not selected)

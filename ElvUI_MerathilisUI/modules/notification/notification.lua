@@ -376,16 +376,15 @@ end
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
-	local _, currentMonth = C_Calendar_GetDate()
-
-	for i = 1, C_Calendar_GetNumGuildEvents() do
-		local month, day = C_Calendar_GetGuildEventInfo(i)
-		local monthOffset = month - currentMonth
-		local numDayEvents = C_Calendar_GetNumDayEvents(monthOffset, day)
+	local date = C_Calendar.GetDate()
+	for index = 1, C_Calendar.GetNumGuildEvents() do
+		local info = C_Calendar.GetGuildEventInfo(index)
+		local monthOffset = info.month - date.month
+		local numDayEvents = C_Calendar.GetNumDayEvents(monthOffset, info.monthDay)
 
 		for i = 1, numDayEvents do
-			local _, _, _, _, _, _, _, _, inviteStatus = C_Calendar_GetDayEvent(monthOffset, day, i)
-			if inviteStatus == 8 then
+			local event = C_Calendar.GetDayEvent(monthOffset, info.monthDay, i)
+			if event.inviteStatus == CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
 				numGuildInvites = numGuildInvites + 1
 			end
 		end

@@ -13,8 +13,6 @@ local format = string.format
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
-local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
-local C_Map_GetPlayerMapPosition = C_Map.GetPlayerMapPosition
 local Minimap = _G["Minimap"]
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
@@ -91,11 +89,7 @@ function MM:MiniMapCoords()
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
-			local playerPosition = C_Map_GetPlayerMapPosition(0, "player")
-			local x, y
-			if playerPosition then
-				x, y = playerPosition:GetXY()
-			end
+			local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
 			if x and y and x > 0 and y > 0 then
 				Coords:SetText(format("%d,%d", x*100, y*100))
 			else

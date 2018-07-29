@@ -92,8 +92,6 @@ local function ChatMenu_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
-	GameTooltip:AddLine('')
-	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Voice Buttons"], 1, 1, 1)
 	GameTooltip:Show()
 end
 
@@ -180,7 +178,7 @@ function MERL:CreateChatButtons()
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
 	ChatMenu:EnableMouse(true)
-	ChatMenu:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	ChatMenu:RegisterForClicks("LeftButtonUp")
 
 	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
 	ChatMenu.tex:SetInside()
@@ -201,8 +199,6 @@ function MERL:CreateChatButtons()
 				CM_menu:Show()
 				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
 			end
-		elseif btn == "RightButton" then
-			LO:ChatButtonPanel_OnClick()
 		end
 	end)
 
@@ -312,28 +308,28 @@ function MERL:CreatePanels()
 	local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
-	topLeftStyle:SetSize(LeftChatPanel:GetWidth(), 4)
+	topLeftStyle:SetSize(LeftChatPanel:GetWidth()+22, 4)
 	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -10)
 	MERS:SkinPanel(topLeftStyle)
 
 	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 	topRightStyle:SetFrameStrata("BACKGROUND")
 	topRightStyle:SetFrameLevel(2)
-	topRightStyle:SetSize(LeftChatPanel:GetWidth()-1.4, 4)
+	topRightStyle:SetSize(LeftChatPanel:GetWidth()+20, 4)
 	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -10)
 	MERS:SkinPanel(topRightStyle)
 
 	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
-	bottomLeftSytle:SetSize(LeftChatPanel:GetWidth(), 4)
+	bottomLeftSytle:SetSize(LeftChatPanel:GetWidth()+22, 4)
 	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 10)
 	MERS:SkinPanel(bottomLeftSytle)
 
 	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
 	bottomRightStyle:SetFrameLevel(2)
-	bottomRightStyle:SetSize(LeftChatPanel:GetWidth()-1.4, 4)
+	bottomRightStyle:SetSize(LeftChatPanel:GetWidth()+20, 4)
 	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 10)
 	MERS:SkinPanel(bottomRightStyle)
 
@@ -406,6 +402,24 @@ function MERL:ShadowOverlay()
 
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
+
+function MERL:ChatButtonHolder()
+	if E.private.chat.enable ~= true then return end
+
+	if ChatButtonHolder then
+		ChatButtonHolder:Show() -- Force Show it
+
+		ChatButtonHolder:ClearAllPoints()
+		ChatButtonHolder:SetPoint("RIGHT", LeftChatPanel, "LEFT", -2, 0)
+		ChatButtonHolder:SetSize(27, LeftChatPanel:GetHeight()-2)
+
+		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
+		ChatButtonHolder.bg:Styling(true, true, false, 8, 8, 1)
+	end
+
+	QuickJoinToastButton:Kill()
+end
+hooksecurefunc(LO, "CreateChatButtonPanel", MERL.ChatButtonHolder)
 
 function MERL:Initialize()
 	self:CreatePanels()

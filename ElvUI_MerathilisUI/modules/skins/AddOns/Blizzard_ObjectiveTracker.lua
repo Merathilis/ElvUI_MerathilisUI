@@ -6,6 +6,7 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local select = select
+local tinsert = table.insert
 -- WoW API / Variables
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
 local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
@@ -14,6 +15,11 @@ local WORLD_QUEST_TRACKER_MODULE = _G["WORLD_QUEST_TRACKER_MODULE"]
 local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
 local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
 local SCENARIO_TRACKER_MODULE = _G["SCENARIO_TRACKER_MODULE"]
+local OBJECTIVE_TRACKER_COLOR = OBJECTIVE_TRACKER_COLOR
+local InCombatLockdown = InCombatLockdown
+local GetQuestLink = GetQuestLink
+local GetQuestLogTitle = GetQuestLogTitle
+local GetNumQuestLogEntries = GetNumQuestLogEntries
 
 local OBJECTIVE_TRACKER_LINE_WIDTH
 local OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
@@ -57,7 +63,7 @@ function f.QUEST_LOG_UPDATE()
 		n = tostring(select(2, GetNumQuestLogEntries()))
 		q = n.."/"..MAX_QUESTS.." "..TRACKER_HEADER_QUESTS
 		o = n.."/"..MAX_QUESTS.." "..OBJECTIVES_TRACKER_LABEL
-		-- w = MAP_AND_QUEST_LOG.." ("..n.."/"..MAX_QUESTS..")"
+		--w = MAP_AND_QUEST_LOG.." ("..n.."/"..MAX_QUESTS..")"
 		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
 		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
 		_G["WorldMapFrame"].BorderFrame.TitleText:SetText(w)
@@ -261,20 +267,6 @@ local function styleObjectiveTracker()
 		--Frame.HeaderText:SetSize(192, 0)
 	--end
 
-	function MERS:ObjectiveTrackerHeaderTemplate(Frame)
-		Frame.Background:Hide()
-
-		local bg = Frame:CreateTexture(nil, "ARTWORK")
-		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
-		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
-		bg:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		bg:SetPoint("BOTTOMLEFT", -30, -4)
-		bg:SetSize(210, 30)
-
-		Frame:SetSize(235, 25)
-		Frame.Text:SetPoint("LEFT", 4, -1)
-	end
-
 	--function MERS:ObjectiveTrackerLineTemplate(Frame)
 		--Frame:SetSize(232, 16)
 		--Frame.Dash:SetPoint("TOPLEFT", 0, 1)
@@ -377,10 +369,6 @@ local function styleObjectiveTracker()
 		Frame.Glow:SetPoint("LEFT", Frame.Dash, -2, 0)
 	end
 
-	function MERS:BonusObjectiveTrackerHeaderTemplate(Frame)
-		MERS:ObjectiveTrackerHeaderTemplate(Frame)
-	end
-
 	----====####$$$$$$$####====----
 	-- Blizzard_ObjectiveTracker --
 	----====####$$$$$$$####====----
@@ -401,9 +389,6 @@ local function styleObjectiveTracker()
 	----====####$$$$%%%%$$$$####====----
 	-- Blizzard_BonusObjectiveTracker --
 	----====####$$$$%%%%$$$$####====----
-	local _, _, _, bonusObj, worldQuests = ObjectiveTrackerFrame.BlocksFrame:GetChildren()
-	MERS:BonusObjectiveTrackerHeaderTemplate(bonusObj)
-	MERS:BonusObjectiveTrackerHeaderTemplate(worldQuests)
 
 	----====####$$$$%%%%%%%$$$$####====----
 	-- Blizzard_ScenarioObjectiveTracker --
