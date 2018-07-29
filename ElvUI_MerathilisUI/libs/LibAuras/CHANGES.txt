@@ -1,0 +1,11 @@
+lightweight tag edfcee0c16818f60bf85ff910c62ae58fc9c26d2 1.0-BETAr1
+Author:	John Camp <jjcamp@gmail.com>
+Date:	Sun Jul 15 11:29:05 2018 -0500
+
+commit edfcee0c16818f60bf85ff910c62ae58fc9c26d2
+Author: John Camp <jjcamp@gmail.com>
+Date:   Sun Jul 15 11:29:05 2018 -0500
+
+    Fixes a bug where :UnitAura only returned a name if it found a matching
+    buff
+
