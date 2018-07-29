@@ -2,10 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local RB = E:NewModule("mUIRaidBuffs")
 RB.modName = L["Raid Buff Reminder"]
 
-local LibAuras = LibStub:GetLibrary("LibAuras")
-local name, _, count = LibAuras:UnitAura("player", "buff name", "HELPFUL")
-
-
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -42,15 +38,11 @@ RB.ReminderBuffs = {
 	Food = {
 		104280,	-- Well Fed
 	},
-	Intellect = {
-		1459, -- Intellect
-	},
 }
 
 local flaskbuffs = RB.ReminderBuffs["Flask"]
 local foodbuffs = RB.ReminderBuffs["Food"]
 local darunebuffs = RB.ReminderBuffs["DefiledAugmentRune"]
-local intellect = RB.ReminderBuffs["Intellect"]
 local flask, food, darune
 
 local function OnAuraChange(self, event, arg1, unit)
@@ -59,8 +51,8 @@ local function OnAuraChange(self, event, arg1, unit)
 	if flaskbuffs and flaskbuffs[1] then
 		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))
 		for i, flaskbuffs in pairs(flaskbuffs) do
-			local spellname = select(1, GetSpellInfo(flaskbuffs))
-			if LibAuras:UnitAura("player", spellname) then
+			local spellID = select(7, GetSpellInfo(flaskbuffs))
+			if UnitAura("player", spellID) then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
 				FlaskFrame:SetAlpha(0.3)
 				flask = true
@@ -75,8 +67,8 @@ local function OnAuraChange(self, event, arg1, unit)
 	if foodbuffs and foodbuffs[1] then
 		FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs[1])))
 		for i, foodbuffs in pairs(foodbuffs) do
-			local spellname = select(1, GetSpellInfo(foodbuffs))
-			if LibAuras:UnitAura("player", spellname) then
+			local spellID = select(7, GetSpellInfo(foodbuffs))
+			if UnitAura("player", spellID) then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
 				FoodFrame:SetAlpha(0.3)
 				food = true
@@ -91,27 +83,11 @@ local function OnAuraChange(self, event, arg1, unit)
 	if darunebuffs and darunebuffs[1] then
 	DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
-			local spellname = select(1, GetSpellInfo(darunebuffs))
-			if LibAuras:UnitAura("player", spellname) then
+			local spellID = select(7, GetSpellInfo(darunebuffs))
+			if UnitAura("player", spellID) then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
 				DARuneFrame:SetAlpha(0.3)
 				darune = true
-				break
-			else
-				DARuneFrame:SetAlpha(1)
-				food = false
-			end
-		end
-	end
-
-	if intellect and intellect[1] then
-	IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellect[1])))
-		for i, intellect in pairs(intellect) do
-			local spellname = select(1, GetSpellInfo(intellect))
-			if LibAuras:UnitAura("player", spellname) then
-				IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellect)))
-				IntellectFrame:SetAlpha(0.3)
-				intellect = true
 				break
 			else
 				DARuneFrame:SetAlpha(1)
@@ -162,7 +138,6 @@ function RB:Initialize()
 	self:CreateIconBuff("FlaskFrame", mUIRaidBuffReminder, true)
 	self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 	self:CreateIconBuff("DARuneFrame", FoodFrame, false)
-	self:CreateIconBuff("IntellectFrame", IntellectFrame, false)
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 	self.frame:RegisterEvent("UNIT_INVENTORY_CHANGED")
