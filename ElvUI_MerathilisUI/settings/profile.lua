@@ -238,6 +238,12 @@ P["mui"] = {
 		["reverse"] = false,
 	},
 
+	["raidBuffs"] = {
+		["enable"] = false,
+		["visibility"] = "INPARTY",
+		["customVisibility"] = "[noexists, nogroup] hide; show",
+	},
+
 	["tooltip"] = {
 		["tooltip"] = true,
 		["achievement"] = true, -- Adds information to the tooltip, on which char you earned an achievement

@@ -336,6 +336,10 @@ L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
 
+-- Raid Buffs
+L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
+L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 

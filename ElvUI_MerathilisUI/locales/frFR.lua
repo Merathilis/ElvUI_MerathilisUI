@@ -324,6 +324,10 @@ L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
+-- Raid Buffs
+L["Raid Buff Reminder"] = true
+L["Shows a frame with flask/food/rune."] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
