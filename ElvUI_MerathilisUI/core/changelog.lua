@@ -17,13 +17,15 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• 8.0 Compatibily Version.",
-		"• Prevent some rare nil errors with coords.",
-		"• Fix a nil error with linking Mythic Keystones.",
+		"• Added a panel to the chat to place the Voice Buttons.",
+		"• Fixed some skin related issues/errors.",
+		"• Use the new ElvUI MapInfo Table to get coords. Thx Simpy <3",
+		"• Remove the Raid Buff Reminder",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• -> You have to do the setup for Chat & ActionBars again.",
 		-- "• ''",
 }
 
