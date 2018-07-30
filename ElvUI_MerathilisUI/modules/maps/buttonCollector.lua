@@ -113,10 +113,16 @@ function MM:ButtonCollectorInit()
 
 	local MBCF = CreateFrame("Frame", "MinimapButtonCollectFrame", Minimap)
 	MBCF:SetFrameStrata("HIGH")
-	MBCF:SetPoint("BOTTOMLEFT", Minimap, "TOPLEFT", -1, 2)
-	MBCF:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -1, 2)
+
+	if E.db.mui.maps.minimap.buttonCollector.position == "TOP" then
+		MBCF:SetPoint("BOTTOMLEFT", Minimap, "TOPLEFT", -1, 2)
+		MBCF:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", -1, 2)
+	else
+		MBCF:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", -1, -2)
+		MBCF:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -1, -2)
+	end
 	MBCF:SetHeight(20)
-	
+
 	MBCF.bg = MBCF:CreateTexture(nil, "BACKGROUND")
 	MBCF.bg:SetTexture(E["media"].blankTex)
 	MBCF.bg:SetAllPoints(MBCF)
