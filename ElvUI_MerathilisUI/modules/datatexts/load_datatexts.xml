@@ -2,4 +2,5 @@
 	<Script file="options.lua"/>
 	<Script file="professions.lua"/>
 	<Script file="system.lua"/>
+	<Script file="time.lua"/>
 </Ui>
