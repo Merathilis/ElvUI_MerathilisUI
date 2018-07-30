@@ -69,6 +69,15 @@ local function Minimap()
 						type = "toggle",
 						name = L["Enable"],
 					},
+					position = {
+						order = 2,
+						type = "select",
+						name = L["Position"],
+						values = {
+							["TOP"] = L["Top"],
+							["BOTTOM"] = L["Bottom"],
+						},
+					},
 				},
 			},
 		},

@@ -257,42 +257,7 @@ local function styleLFGList()
 
 	-- [[ Invite dialog ]]
 	local LFGListInviteDialog = _G["LFGListInviteDialog"]
-
 	MERS:CreateBD(LFGListInviteDialog)
-
-	do
-		local RoleIcon = LFGListInviteDialog.RoleIcon
-
-		RoleIcon:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\UI-LFG-ICON-ROLES")
-
-		local left = LFGListInviteDialog:CreateTexture(nil, "OVERLAY")
-		left:SetWidth(1)
-		left:SetTexture(E["media"].normTex)
-		left:SetVertexColor(0, 0, 0)
-		left:SetPoint("TOPLEFT", RoleIcon, 8, -6)
-		left:SetPoint("BOTTOMLEFT", RoleIcon, 8, 10)
-
-		local right = LFGListInviteDialog:CreateTexture(nil, "OVERLAY")
-		right:SetWidth(1)
-		right:SetTexture(E["media"].normTex)
-		right:SetVertexColor(0, 0, 0)
-		right:SetPoint("TOPRIGHT", RoleIcon, -8, -6)
-		right:SetPoint("BOTTOMRIGHT", RoleIcon, -8, 10)
-
-		local top = LFGListInviteDialog:CreateTexture(nil, "OVERLAY")
-		top:SetHeight(1)
-		top:SetTexture(E["media"].normTex)
-		top:SetVertexColor(0, 0, 0)
-		top:SetPoint("TOPLEFT", RoleIcon, 8, -6)
-		top:SetPoint("TOPRIGHT", RoleIcon, -8, -6)
-
-		local bottom = LFGListInviteDialog:CreateTexture(nil, "OVERLAY")
-		bottom:SetHeight(1)
-		bottom:SetTexture(E["media"].normTex)
-		bottom:SetVertexColor(0, 0, 0)
-		bottom:SetPoint("BOTTOMLEFT", RoleIcon, 8, 10)
-		bottom:SetPoint("BOTTOMRIGHT", RoleIcon, -8, 10)
-	end
 end
 
 S:AddCallback("mUILFGList", styleLFGList)
