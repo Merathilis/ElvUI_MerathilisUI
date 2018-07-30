@@ -138,11 +138,8 @@ local function styleTalents()
 				frame.subText:SetTextColor(.75, .75, .75)
 
 				if not frame.styled and not frame.backdrop then
-					frame:Size(50, 50)
 					frame.ring:Hide()
-					frame:SetTemplate("Default")
 					frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-					frame.icon:SetInside()
 					MERS:CreateBG(frame.icon)
 
 					frame.styled = true
