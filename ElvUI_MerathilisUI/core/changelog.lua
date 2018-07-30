@@ -17,15 +17,14 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a panel to the chat to place the Voice Buttons.",
-		"• Fixed some skin related issues/errors.",
-		"• Use the new ElvUI MapInfo Table to get coords. Thx Simpy <3",
-		"• Remove the Raid Buff Reminder",
+		"• Fix the WorldMap Title Frame.",
+		"• Updated the Talent skin.",
+		"• Added back my time datatext.",
+		"• Fix the LFGListInviteDialog Role Icons.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• -> You have to do the setup for Chat & ActionBars again.",
 		-- "• ''",
 }
 
