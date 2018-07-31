@@ -102,13 +102,43 @@ function MM:MiniMapCoords()
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
 
+function MM:WhoPings()
+	-- Add options!!!
+
+	local f = CreateFrame("Frame", nil, Minimap)
+	f:SetAllPoints()
+	f.text = MERS:CreateFS(f, 8, "", false, "BOTTOM", 0, 0)
+
+	local anim = f:CreateAnimationGroup()
+	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
+	anim:SetScript("OnFinished", function() f:SetAlpha(0) end)
+	anim.fader = anim:CreateAnimation("Alpha")
+	anim.fader:SetFromAlpha(1)
+	anim.fader:SetToAlpha(0)
+	anim.fader:SetDuration(3)
+	anim.fader:SetSmoothing("OUT")
+	anim.fader:SetStartDelay(3)
+
+	f:RegisterEvent("MINIMAP_PING", function(_, unit)
+		local class = select(2, UnitClass(unit))
+		local r, g, b = MER:GetClassColorString(class)
+		local name = GetUnitName(unit)
+
+		anim:Stop()
+		f.text:SetText(name)
+		f.text:SetTextColor(r, g, b)
+		anim:Play()
+	end)
+end
+
 function MM:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
 	self:ReskinMinimap()
 	self:ChangeMiniMapButtons()
-	self:MiniMapCoords() -- It fixes itself after you open the WorldMap?!
+	self:MiniMapCoords()
 	self:ButtonCollectorInit()
+	self:WhoPings()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")
