@@ -48,6 +48,52 @@ local function styleCommunities()
 		end
 	end)
 
+	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
+		local tab = CommunitiesFrame[name]
+		tab:GetRegions():Hide()
+		MERS:ReskinIcon(tab.Icon)
+		tab:GetHighlightTexture():SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+	end
+
+	-- Chat Tab
+	local bg1 = MERS:CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
+	bg1:SetPoint("BOTTOMRIGHT", -1, 22)
+
+	local dialog = CommunitiesFrame.NotificationSettingsDialog
+	dialog:StripTextures()
+	dialog.BG:Hide()
+
+	MERS:Reskin(dialog.OkayButton)
+	MERS:Reskin(dialog.CancelButton)
+	MERS:ReskinCheckBox(dialog.ScrollFrame.Child.QuickJoinButton)
+	dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
+	MERS:Reskin(dialog.ScrollFrame.Child.AllButton)
+	MERS:Reskin(dialog.ScrollFrame.Child.NoneButton)
+
+	hooksecurefunc(dialog, "Refresh", function(self)
+		local frame = self.ScrollFrame.Child
+		for i = 1, frame:GetNumChildren() do
+			local child = select(i, frame:GetChildren())
+			if child.StreamName and not child.styled then
+				MERS:Reskin(child.ShowNotificationsButton)
+				MERS:Reskin(child.HideNotificationsButton)
+
+				child.styled = true
+			end
+		end
+	end)
+
+	local dialog = CommunitiesFrame.EditStreamDialog
+	MERS:CreateBDFrame(dialog.Description, .25)
+
+	-- Roster
+	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
+	CommunitiesFrame.MemberList.ShowOfflineButton:SetSize(25, 25)
+
+	local detailFrame = CommunitiesFrame.GuildMemberDetailFrame
+	detailFrame:ClearAllPoints()
+	detailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
+
 	-- Guild Perks
 	hooksecurefunc("CommunitiesGuildPerks_Update", function(self)
 		local buttons = self.Container.buttons
