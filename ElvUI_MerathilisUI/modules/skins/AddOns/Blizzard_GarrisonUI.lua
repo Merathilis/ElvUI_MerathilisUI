@@ -340,13 +340,43 @@ local function styleGarrison()
 	GarrisonLandingPage.Report.Background:SetDesaturated(true)
 	GarrisonLandingPage.Report.Background:SetAlpha(0.5)
 	GarrisonLandingPage.Report.List:GetRegions():SetDesaturated(true)
-	GarrisonLandingPage.Report.InProgress:GetNormalTexture():SetAlpha(0)
-	GarrisonLandingPage.Report.InProgress:SetHighlightTexture("")
-	GarrisonLandingPage.Report.Available:GetNormalTexture():SetAlpha(0)
-	GarrisonLandingPage.Report.Available:SetHighlightTexture("")
 
 	local Report = GarrisonLandingPage.Report
 	Report.List:GetRegions():Hide()
+
+	for _, tab in pairs({Report.InProgress, Report.Available}) do
+		tab:SetHighlightTexture("")
+		tab.Text:ClearAllPoints()
+		tab.Text:SetPoint("CENTER")
+
+		local bg = CreateFrame("Frame", nil, tab)
+		bg:SetFrameLevel(tab:GetFrameLevel() - 1)
+		MERS:CreateBD(bg, .25)
+		MERS:CreateGradient(bg)
+
+		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
+		selectedTex:SetAllPoints()
+		selectedTex:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		selectedTex:Hide()
+		tab.selectedTex = selectedTex
+
+		if tab == Report.InProgress then
+			bg:SetPoint("TOPLEFT", 5, 0)
+			bg:SetPoint("BOTTOMRIGHT")
+		else
+			bg:SetPoint("TOPLEFT")
+			bg:SetPoint("BOTTOMRIGHT", -7, 0)
+		end
+	end
+
+	hooksecurefunc("GarrisonLandingPageReport_SetTab", function(self)
+		local unselectedTab = Report.unselectedTab
+		unselectedTab:SetHeight(36)
+		unselectedTab:SetNormalTexture("")
+		unselectedTab.selectedTex:Hide()
+		self:SetNormalTexture("")
+		self.selectedTex:Show()
+	end)
 
 	local scrollFrame = Report.List.listScroll
 	local buttons = scrollFrame.buttons
