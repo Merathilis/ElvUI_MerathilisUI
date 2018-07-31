@@ -95,6 +95,7 @@ function MER:RegisterMedia()
 
 	-- Custom Textures
 	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
+	E["media"].checked = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\checked]]
 
 	E:UpdateMedia()
 end
