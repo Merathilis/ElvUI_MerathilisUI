@@ -171,6 +171,8 @@ local function styleAchievement()
 		_G["AchievementFrameStatsContainerButton"..i.."HeaderMiddle"]:SetAlpha(0)
 		_G["AchievementFrameStatsContainerButton"..i.."HeaderRight"]:SetAlpha(0)
 	end
+
+	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -5)
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", "mUIAchievement", styleAchievement)
