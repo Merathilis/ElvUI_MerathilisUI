@@ -383,6 +383,7 @@ local function styleGarrison()
 	-- Blizzard_GarrisonCapacitiveDisplay --
 	----====####$$$$%%%%%%%%$$$$####====----
 	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
+	GarrisonCapacitiveDisplayFrame:Styling()
 	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
