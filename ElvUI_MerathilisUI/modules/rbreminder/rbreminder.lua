@@ -76,7 +76,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
-	if foodbuffs and foodbuffs[1] then
+	if (foodbuffs and foodbuffs[1]) then
 		FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs[1])))
 		for i, foodbuffs in pairs(foodbuffs) do
 			local spellname = select(1, GetSpellInfo(foodbuffs))
@@ -91,7 +91,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
-	if darunebuffs and darunebuffs[1] then
+	if (darunebuffs and darunebuffs[1]) then
 	DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs[1])))
 		for i, darunebuffs in pairs(darunebuffs) do
 			local spellname = select(1, GetSpellInfo(darunebuffs))
@@ -105,8 +105,9 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 		end
 	end
+
 	if E.db.mui.raidBuffs.class == true then
-		if intellectbuffs and intellectbuffs[1] then
+		if (intellectbuffs and intellectbuffs[1]) then
 		IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
 				local spellname = select(1, GetSpellInfo(intellectbuffs))
@@ -121,7 +122,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 		end
 
-		if staminabuffs and staminabuffs[1] then
+		if (staminabuffs and staminabuffs[1]) then
 		StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs[1])))
 			for i, staminabuffs in pairs(staminabuffs) do
 				local spellname = select(1, GetSpellInfo(staminabuffs))
@@ -136,7 +137,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 		end
 
-		if attackpowerbuffs and attackpowerbuffs[1] then
+		if (attackpowerbuffs and attackpowerbuffs[1]) then
 		AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs[1])))
 			for i, attackpowerbuffs in pairs(attackpowerbuffs) do
 				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
