@@ -74,28 +74,6 @@ local function styleGarrison()
 		Frame.FollowerScrollFrame:Hide()
 	end
 
-	--[[ Blizzard_GarrisonCapacitiveDisplay.xml ]]
-	function MERS:GarrisonCapacitiveItemButtonTemplate(Frame)
-		S:CropIcon(Frame.Icon)
-
-		local iconBG = CreateFrame("Frame", nil, Frame)
-		iconBG:SetFrameLevel(Frame:GetFrameLevel() - 1)
-		iconBG:SetPoint("TOPLEFT", Frame.Icon, -1, 1)
-		iconBG:SetPoint("BOTTOMRIGHT", Frame.Icon, 1, -1)
-		Frame._mUIIconBorder = iconBG
-
-		Frame.NameFrame:SetAlpha(0)
-
-		local nameBG = CreateFrame("Frame", nil, Frame)
-		nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
-		nameBG:SetPoint("BOTTOMRIGHT", -3, 1)
-		Frame._mUINameBG = nameBG
-	end
-
-	function MERSGarrisonCapacitiveWorkOrderTemplate(Frame)
-		MERS:GarrisonBonusEffectFrameTemplate(Frame.BonusEffectFrame)
-	end
-
 	-- Not templates
 	function MERS:GarrisonCapacitiveInputSpinner(Frame)
 		Frame.DecrementButton = GarrisonCapacitiveDisplayFrame.DecrementButton
@@ -405,12 +383,47 @@ local function styleGarrison()
 	-- Blizzard_GarrisonCapacitiveDisplay --
 	----====####$$$$%%%%%%%%$$$$####====----
 	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
-	MERS:ButtonFrameTemplate(GarrisonCapacitiveDisplayFrame)
+	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
+	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
+	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
 
 	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
 	CapacitiveDisplay.IconBG:Hide()
-	MERS:GarrisonFollowerPortraitTemplate(CapacitiveDisplay.ShipmentIconFrame.Follower)
-	MERS:GarrisonCapacitiveItemButtonTemplate(CapacitiveDisplay.Reagents[1])
+
+	do
+		local icon = CapacitiveDisplay.ShipmentIconFrame.Icon
+		icon:SetTexCoord(unpack(E.TexCoords))
+		MERS:CreateBG(icon)
+		S:HandleGarrisonPortrait(CapacitiveDisplay.ShipmentIconFrame.Follower)
+	end
+
+	local reagentIndex = 1
+	hooksecurefunc("GarrisonCapacitiveDisplayFrame_Update", function()
+		local reagents = CapacitiveDisplay.Reagents
+
+		local reagent = reagents[reagentIndex]
+		while reagent do
+			reagent.NameFrame:SetAlpha(0)
+
+			-- Hide ElvUI's backdrop
+			if reagent.backdrop then
+				reagent.backdrop:Hide()
+			end
+
+			reagent.Icon:SetTexCoord(unpack(E.TexCoords))
+			reagent.Icon:SetDrawLayer("BORDER")
+			MERS:CreateBG(reagent.Icon)
+
+			local bg = CreateFrame("Frame", nil, reagent)
+			bg:SetPoint("TOPLEFT")
+			bg:SetPoint("BOTTOMRIGHT", 0, 2)
+			bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
+			MERS:CreateBD(bg, .25)
+
+			reagentIndex = reagentIndex + 1
+			reagent = reagents[reagentIndex]
+		end
+	end)
 
 	-- /run GarrisonCapacitiveDisplayFrame.FinishedGlow.FinishedAnim:Play()
 	GarrisonCapacitiveDisplayFrame.FinishedGlow:SetClipsChildren(true)
