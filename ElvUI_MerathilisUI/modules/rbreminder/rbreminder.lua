@@ -12,11 +12,10 @@ local IsInRaid = IsInRaid
 local RegisterStateDriver = RegisterStateDriver
 local UnregisterStateDriver = UnregisterStateDriver
 local GetSpellInfo = GetSpellInfo
-local UnitAura = UnitAura
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: FlaskFrame, FoodFrame, DARuneFrame, mUIRaidBuffReminder
+-- GLOBALS: mUIRaidBuffReminder, FlaskFrame, FoodFrame, DARuneFrame, IntellectFrame, StaminaFrame, AttackPowerFrame
 
 local bsize = 25
 
@@ -28,21 +27,21 @@ RB.VisibilityStates = {
 
 RB.ReminderBuffs = {
 	Flask = {
-						-- LEGION
+		-- LEGION
 		188034,			-- Flask of the Countless Armies (59 str)
 		188035,			-- Flask of the Thousand Scars (88 sta)
 		188033,			-- Flask of the Seventh Demon (59 agi)
 		188031,			-- Flask of the Whispered Pact (59 int)
 		242551,			-- Fel Focus Str, Agi and Int +23, stam + 34
 
-						-- BFA
+		-- BFA
 		251837,			-- Flask of Endless Fathoms (238 int)
 		251838,			-- Flask of the Vast Horizon (357 sta)
 		251839,			-- Flask of the Undertow (238 str)
 		251863,			-- Flask of the Currents (238 agi)
 	},
 	DefiledAugmentRune = {
-		224001,			-- Defiled Augumentation (325 primary stat)
+		224001,			-- Defiled Augumentation (15 primary stat)
 	},
 	Food = {
 		104280,	-- Well Fed
@@ -229,7 +228,7 @@ function RB:Initialize()
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
-	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,PARTY,SOLO,RAID")
+	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID")
 
 	function RB:ForUpdateAll()
 		RB.db = E.db.mui.raidBuffs
