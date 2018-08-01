@@ -184,6 +184,8 @@ local function styleTalents()
 	end
 
 	-- PvP Talents
+	_G["PlayerTalentFrameTalentsPvpTalentFrameTalentList"].backdrop:Styling()
+	
 	for i = 1, 10 do
 		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]
 		local icon = bu.Icon
@@ -194,6 +196,31 @@ local function styleTalents()
 			end
 
 			MERS:Reskin(bu)
+
+			if bu.Selected then
+				bu.Selected:SetTexture(nil)
+
+				bu.selectedTexture = bu:CreateTexture(nil, 'ARTWORK')
+				bu.selectedTexture:SetInside(bu)
+				bu.selectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+				bu.selectedTexture:SetShown(bu.Selected:IsShown())
+
+				hooksecurefunc(bu, "Update", function(selectedHere)
+					if not bu.selectedTexture then return end
+					if bu.Selected:IsShown() then
+						bu.selectedTexture:SetShown(selectedHere)
+					else
+						bu.selectedTexture:Hide()
+					end
+				end)
+			end
+
+			bu.backdrop:SetAllPoints()
+
+			if bu.Icon then
+				bu.Icon:SetTexCoord(unpack(E.TexCoords))
+				bu.Icon:SetDrawLayer('ARTWORK', 1)
+			end
 		end
 	end
 end
