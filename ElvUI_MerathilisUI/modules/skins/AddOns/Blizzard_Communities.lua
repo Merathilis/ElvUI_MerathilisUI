@@ -59,18 +59,19 @@ local function styleCommunities()
 	local bg1 = MERS:CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
 	bg1:SetPoint("BOTTOMRIGHT", -1, 22)
 
-	local dialog = CommunitiesFrame.NotificationSettingsDialog
-	dialog:StripTextures()
-	dialog.BG:Hide()
+	local Dialog = CommunitiesFrame.NotificationSettingsDialog
+	Dialog:StripTextures()
+	Dialog.BG:Hide()
+	Dialog.backdrop:Styling()
 
-	MERS:Reskin(dialog.OkayButton)
-	MERS:Reskin(dialog.CancelButton)
-	MERS:ReskinCheckBox(dialog.ScrollFrame.Child.QuickJoinButton)
-	dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
-	MERS:Reskin(dialog.ScrollFrame.Child.AllButton)
-	MERS:Reskin(dialog.ScrollFrame.Child.NoneButton)
+	MERS:Reskin(Dialog.OkayButton)
+	MERS:Reskin(Dialog.CancelButton)
+	MERS:ReskinCheckBox(Dialog.ScrollFrame.Child.QuickJoinButton)
+	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
+	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
+	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
 
-	hooksecurefunc(dialog, "Refresh", function(self)
+	hooksecurefunc(Dialog, "Refresh", function(self)
 		local frame = self.ScrollFrame.Child
 		for i = 1, frame:GetNumChildren() do
 			local child = select(i, frame:GetChildren())
@@ -83,8 +84,9 @@ local function styleCommunities()
 		end
 	end)
 
-	local dialog = CommunitiesFrame.EditStreamDialog
-	MERS:CreateBDFrame(dialog.Description, .25)
+	local Dialog = CommunitiesFrame.EditStreamDialog
+	MERS:CreateBDFrame(Dialog.Description, .25)
+	Dialog.backdrop:Styling()
 
 	-- Roster
 	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
@@ -154,7 +156,7 @@ local function styleCommunities()
 
 	-- Guild Recruitment
 	local GuildRecruitmentFrame = _G["CommunitiesGuildRecruitmentFrame"]
-	GuildRecruitmentFrame:Styling()
+	GuildRecruitmentFrame.backdrop:Styling()
 
 	-- Guild Log
 	local GuildLog = _G["CommunitiesGuildLogFrame"]

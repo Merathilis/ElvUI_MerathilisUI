@@ -198,7 +198,10 @@ local function styleMisc()
 	end
 
 	-- What's New
-	SplashFrame:Styling()
+	_G["SplashFrame"]:Styling()
+
+	-- Chat Config
+	_G["ChatConfigFrame"]:Styling()
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
