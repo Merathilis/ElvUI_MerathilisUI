@@ -15,10 +15,11 @@ function MER:LoadPAProfile()
 	if stAddonManagerDB.profiles["MerathilisUI"] == nil then stAddonManagerDB.profiles["MerathilisUI"] = {} end
 
 	stAddonManagerDB.profiles["MerathilisUI"] = {
+		["NumAddOns"] = 15,
 		["ButtonHeight"] = 20,
 		["ButtonWidth"] = 20,
 		["Font"] = "Expressway",
-		['ClassColor'] = true,
+		["ClassColor"] = true,
 		["CheckTexture"] = "MerathilisFlat",
 	}
 
