@@ -88,11 +88,11 @@ local function styleCommunities()
 
 	-- Roster
 	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
-	CommunitiesFrame.MemberList.ShowOfflineButton:SetSize(25, 25)
 
-	local detailFrame = CommunitiesFrame.GuildMemberDetailFrame
-	detailFrame:ClearAllPoints()
-	detailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
+	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
+	DetailFrame:ClearAllPoints()
+	DetailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
+	DetailFrame:Styling()
 
 	-- Guild Perks
 	hooksecurefunc("CommunitiesGuildPerks_Update", function(self)
@@ -151,6 +151,14 @@ local function styleCommunities()
 	bg3:SetPoint("BOTTOMRIGHT", -5, -4)
 
 	MERS:CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
+
+	-- Guild Recruitment
+	local GuildRecruitmentFrame = _G["CommunitiesGuildRecruitmentFrame"]
+	GuildRecruitmentFrame:Styling()
+
+	-- Guild Log
+	local GuildLog = _G["CommunitiesGuildLogFrame"]
+	GuildLog:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", styleCommunities)
