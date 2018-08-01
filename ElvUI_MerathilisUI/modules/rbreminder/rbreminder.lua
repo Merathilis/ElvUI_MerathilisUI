@@ -193,7 +193,7 @@ function RB:Initialize()
 	self.frame.backdrop:SetPoint("BOTTOMRIGHT", E:Scale(1), E:Scale(-1))
 	self.frame.backdrop:SetFrameLevel(self.frame:GetFrameLevel() - 1)
 	self.frame:Point("TOP", E.UIParent, "TOP", 0, -65)
-	self.frame:Styling()
+	self.frame.backdrop:Styling()
 
 	if E.db.mui.raidBuffs.class == true then
 		self.frame:Size(bsize*3+103, bsize + 8) -- Background size (needs some adjustments)
