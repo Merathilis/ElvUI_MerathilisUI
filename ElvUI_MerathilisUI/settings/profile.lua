@@ -309,6 +309,13 @@ P["mui"] = {
 		["StatusIconPack"] = "Default",
 	},
 
+	["raidBuffs"] = {
+		["enable"] = false,
+		["visibility"] = "INPARTY",
+		["class"] = false,
+		["customVisibility"] = "[noexists, nogroup] hide; show",
+	},
+
 	["NameplateAuras"] = {
 		["spellInfo"] = {}
 	},
