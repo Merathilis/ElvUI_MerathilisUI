@@ -28,11 +28,18 @@ RB.VisibilityStates = {
 
 RB.ReminderBuffs = {
 	Flask = {
-		188034,			-- Flask of the Countless Armies (1300 str)
-		188035,			-- Flask of the Thousand Scars (1950 Sta)
-		188033,			-- Flask of the Seventh Demon (1300 agi)
-		188031,			-- Flask of the Whispered Pact (1300 int)
-		242551,			-- Fel Focus Str, Agi and Int +500, stam + 750
+						-- LEGION
+		188034,			-- Flask of the Countless Armies (59 str)
+		188035,			-- Flask of the Thousand Scars (88 sta)
+		188033,			-- Flask of the Seventh Demon (59 agi)
+		188031,			-- Flask of the Whispered Pact (59 int)
+		242551,			-- Fel Focus Str, Agi and Int +23, stam + 34
+
+						-- BFA
+		251837,			-- Flask of Endless Fathoms (238 int)
+		251838,			-- Flask of the Vast Horizon (357 sta)
+		251839,			-- Flask of the Undertow (238 str)
+		251863,			-- Flask of the Currents (238 agi)
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (325 primary stat)
