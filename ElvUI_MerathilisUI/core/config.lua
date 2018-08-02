@@ -34,7 +34,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"]..MER.NewSign,
+				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"],
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 125, 125 end,
 				imageCoords = { 0, 0.99, 0.01, 0.99 },
@@ -127,7 +127,7 @@ local function AddOptions()
 					hidePlayerBrackets = {
 						order = 12,
 						type = "toggle",
-						name = L["Hide Player Brackets"]..MER.NewSign,
+						name = L["Hide Player Brackets"],
 						desc = L["Removes brackets around the person who posts a chat message."],
 						get = function(info) return E.db.mui.chat[ info[#info] ] end,
 						set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

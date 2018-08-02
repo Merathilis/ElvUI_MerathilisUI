@@ -54,6 +54,7 @@ local function styleMisc()
 		_G["FrameStackTooltip"],
 		_G["QuestScrollFrame"].WarCampaignTooltip,
 		_G["QuestScrollFrame"].StoryTooltip,
+		_G["DatatextTooltip"],
 	}
 
 	for _, frame in pairs(tooltips) do
