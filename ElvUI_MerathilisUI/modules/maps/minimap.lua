@@ -21,12 +21,6 @@ function MM:CheckMail()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
-	Minimap:CreateBackdrop("Default", true)
-	Minimap.backdrop:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
-		insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
-	})
-
 	if inv > 0 and mail then -- New invites and mail
 		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)
 		MER:CreatePulse(Minimap.backdrop, 1, 1)
@@ -127,6 +121,12 @@ end
 
 function MM:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
+
+	Minimap:CreateBackdrop("Default", true)
+	Minimap.backdrop:SetBackdrop({
+		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
+		insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+	})
 
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
