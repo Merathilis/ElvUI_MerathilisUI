@@ -380,6 +380,11 @@ local function SkinsTable()
 				name = L["BFAMission"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
 			},
+			minimap = {
+				type = "toggle",
+				name = L["Minimap"],
+				disabled = function() return not E.private.skins.blizzard.enable end,
+			},
 		},
 	}
 
