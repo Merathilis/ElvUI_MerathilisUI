@@ -4,6 +4,7 @@
 	<!-- <Include file="bags\load_bags.xml"/> -->
 	<Include file="blizzard\load_blizzard.xml"/>
 	<Include file="chat\load_chat.xml"/>
+	<Include file="cooldowns\load_cooldowns.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="databars\load_databars.xml"/>
 	<Include file="efl\load_efl.xml"/>

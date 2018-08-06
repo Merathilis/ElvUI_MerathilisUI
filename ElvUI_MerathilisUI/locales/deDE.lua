@@ -342,6 +342,18 @@ L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Run
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = "Einstellungen"
+L["Fadein duration"] = "Einblendzeit"
+L["Fadeout duration"] = "Ausblendzeit"
+L["Duration time"] = "Dauer"
+L["Animation size"] = "Animationsgröße"
+L["Display spell name"] = "Zeige Zaubernamen"
+L["Watch on pet spell"] = "Überwache Begleiter Zauber"
+L["Transparency"] = "Transparenz"
+L["Test"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
 
