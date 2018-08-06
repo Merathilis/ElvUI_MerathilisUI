@@ -27,6 +27,11 @@ local function Minimap()
 						name = L["Garrison/OrderHall Buttons Style"],
 						desc = L["Change the look of the Orderhall/Garrison Button"],
 					},
+					ping = {
+						order = 2,
+						type = "toggle",
+						name = L["Ping"],
+					},
 				},
 			},
 			coords = {

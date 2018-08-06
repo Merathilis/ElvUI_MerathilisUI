@@ -91,15 +91,16 @@ function MM:MiniMapCoords()
 end
 
 function MM:WhoPings()
-	-- Add options!!!
+	if E.db.mui.maps.minimap.ping ~= true then return end
 
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MERS:CreateFS(f, 8, "", false, "BOTTOM", 0, 0)
+	f.text = MERS:CreateFS(f, 8, "", false, "CENTER", 0, 0)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
 	anim:SetScript("OnFinished", function() f:SetAlpha(0) end)
+
 	anim.fader = anim:CreateAnimation("Alpha")
 	anim.fader:SetFromAlpha(1)
 	anim.fader:SetToAlpha(0)
@@ -107,14 +108,14 @@ function MM:WhoPings()
 	anim.fader:SetSmoothing("OUT")
 	anim.fader:SetStartDelay(3)
 
-	f:RegisterEvent("MINIMAP_PING", function(_, unit)
-		local class = select(2, UnitClass(unit))
-		local r, g, b = MER:GetClassColorString(class)
+	MER:RegisterEvent("MINIMAP_PING", function(_, unit)
+		local _, unitClass = UnitClass(unit)
+		local class = ElvUF.colors.class[unitClass]
 		local name = GetUnitName(unit)
 
 		anim:Stop()
 		f.text:SetText(name)
-		f.text:SetTextColor(r, g, b)
+		f.text:SetTextColor(class[1], class[2], class[3])
 		anim:Play()
 	end)
 end

@@ -189,6 +189,7 @@ P["mui"] = {
 				["position"] = "TOP",
 			},
 			["styleButton"] = true,
+			["ping"] = true,
 		},
 	},
 
