@@ -305,6 +305,7 @@ P["mui"] = {
 	},
 
 	["efl"] = {
+		["enable"] = true,
 		["NameFont"] = "Expressway",
 		["NameFontSize"] = 11,
 		["NameFontFlag"] = "OUTLINE",
