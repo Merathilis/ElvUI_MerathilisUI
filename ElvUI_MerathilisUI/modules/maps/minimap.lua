@@ -77,7 +77,7 @@ function MM:MiniMapCoords()
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
-			local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
+			local x, y = E.MapInfo.x or "0", E.MapInfo.y or "0"
 			if x and y and x > 0 and y > 0 then
 				Coords:SetText(format("%d,%d", x*100, y*100))
 			else
@@ -91,11 +91,14 @@ function MM:MiniMapCoords()
 end
 
 function MM:MiniMapPing()
-	if E.db.mui.maps.minimap.ping ~= true then return end
+	if E.db.mui.maps.minimap.ping.enable ~= true then return end
 
+	local pos = E.db.mui.maps.minimap.ping.position or "TOP"
+	local xOffset = E.db.mui.maps.minimap.ping.xOffset or 0
+	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MERS:CreateFS(f, 8, "", false, "TOP", 0, -10)
+	f.text = MERS:CreateFS(f, 8, "", false, pos, xOffset, yOffset)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)

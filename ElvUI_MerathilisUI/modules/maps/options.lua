@@ -27,16 +27,49 @@ local function Minimap()
 						name = L["Garrison/OrderHall Buttons Style"],
 						desc = L["Change the look of the Orderhall/Garrison Button"],
 					},
-					ping = {
-						order = 2,
+				},
+			},
+			ping = {
+				order = 3,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Minimap Ping"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
+				set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
 						type = "toggle",
-						name = E.NewSign..L["Minimap Ping"],
-						desc = L["Shows the name of the player who pinged on the Minimap."],
+						name = L["Enable"],
+					},
+					position = {
+						order = 2,
+						type = "select",
+						name = L["Position"],
+						values = {
+							["TOP"] = L["Top"],
+							["BOTTOM"] = L["Bottom"],
+							["LEFT"] = L["Left"],
+							["RIGHT"] = L["Right"],
+							["CENTER"] = L["Center"],
+						},
+					},
+					xOffset = {
+						order = 6,
+						type = "range",
+						name = L["X-Offset"],
+						min = -50, max = 50, step = 1,
+					},
+					yOffset = {
+						order = 7,
+						type = "range",
+						name = L["Y-Offset"],
+						min = -50, max = 50, step = 1,
 					},
 				},
 			},
 			coords = {
-				order = 3,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Coordinates"]),
 				guiInline = true,
@@ -63,7 +96,7 @@ local function Minimap()
 				},
 			},
 			buttonCollector = {
-				order = 4,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["MiniMap Buttons"]),
 				guiInline = true,
