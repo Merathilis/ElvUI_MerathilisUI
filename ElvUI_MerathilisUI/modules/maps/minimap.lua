@@ -77,7 +77,7 @@ function MM:MiniMapCoords()
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
-			local x, y = E.MapInfo.x or "0", E.MapInfo.y or "0"
+			local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
 			if x and y and x > 0 and y > 0 then
 				Coords:SetText(format("%d,%d", x*100, y*100))
 			else
