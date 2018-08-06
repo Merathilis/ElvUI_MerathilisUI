@@ -90,12 +90,12 @@ function MM:MiniMapCoords()
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
 
-function MM:WhoPings()
+function MM:MiniMapPing()
 	if E.db.mui.maps.minimap.ping ~= true then return end
 
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MERS:CreateFS(f, 8, "", false, "CENTER", 0, 0)
+	f.text = MERS:CreateFS(f, 8, "", false, "TOP", 0, -10)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
@@ -132,7 +132,7 @@ function MM:Initialize()
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
 	self:ButtonCollectorInit()
-	self:WhoPings()
+	self:MiniMapPing()
 
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
 	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")

@@ -4,7 +4,7 @@ local MM = E:GetModule("mUIMinimap")
 local function Minimap()
 	E.Options.args.mui.args.minimap = {
 		type = "group",
-		name = MINIMAP_LABEL,
+		name = E.NewSign..MINIMAP_LABEL,
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -30,7 +30,8 @@ local function Minimap()
 					ping = {
 						order = 2,
 						type = "toggle",
-						name = L["Ping"],
+						name = E.NewSign..L["Minimap Ping"],
+						desc = L["Shows the name of the player who pinged on the Minimap."],
 					},
 				},
 			},

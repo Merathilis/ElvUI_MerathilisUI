@@ -309,6 +309,8 @@ L["Hide Coordinates"] = true
 L["MiniMap Buttons"] = true
 L["Garrison/OrderHall Buttons Style"] = true
 L["Change the look of the Orderhall/Garrison Button"] = true
+L["Minimap Ping"] = true
+L["Shows the name of the player who pinged on the Minimap."] = true
 
 --Raid Marks
 L["Raid Markers"] = true
