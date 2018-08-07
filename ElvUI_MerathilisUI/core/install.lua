@@ -418,7 +418,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
 	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -75, -300)
-	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 90, -50)
+	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 6, -202)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
 
