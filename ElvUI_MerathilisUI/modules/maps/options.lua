@@ -4,7 +4,7 @@ local MM = E:GetModule("mUIMinimap")
 local function Minimap()
 	E.Options.args.mui.args.minimap = {
 		type = "group",
-		name = E.NewSign..MINIMAP_LABEL,
+		name = MINIMAP_LABEL,
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -32,7 +32,7 @@ local function Minimap()
 			ping = {
 				order = 3,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Minimap Ping"]),
+				name = MER:cOption(L["Minimap Ping"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.ping[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.ping[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

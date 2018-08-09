@@ -26,7 +26,7 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local DELAY = 15
 local elapsed = DELAY - 5
 
-local microBar = CreateFrame("Frame", "MicroBar", E.UIParent)
+local microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 
 local function OnHover(button)
 	local buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
