@@ -403,6 +403,10 @@ function MERL:ShadowOverlay()
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 end
 
+local function SkinQuickJoinToastBackground(frame)
+	frame.Background:SetTexture("")
+end
+
 function MERL:ChatButtonHolder()
 	if E.private.chat.enable ~= true then return end
 
@@ -425,6 +429,9 @@ function MERL:ChatButtonHolder()
 	end
 
 	MERS:Reskin(QuickJoinToastButton)
+
+	SkinQuickJoinToastBackground(QuickJoinToastButton.Toast)
+	SkinQuickJoinToastBackground(QuickJoinToastButton.Toast2)
 end
 hooksecurefunc(LO, "CreateChatButtonPanel", MERL.ChatButtonHolder)
 
