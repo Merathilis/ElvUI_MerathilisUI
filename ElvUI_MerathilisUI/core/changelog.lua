@@ -23,8 +23,8 @@ local ChangeLogData = {
 		"• Removed the QuickJoinNotifications. We use the blizz default now.",
 		"• Fixed an issue in the DBM skin which not allow to resize the bars.",
 		"• Added an text overlay to the Minimap which will show who pinged.",
-		"• Added back CooldownFlash!!"
-		"• A lot of skin updates."
+		"• Added back CooldownFlash!!",
+		"• A lot of skin updates.",
 
 		-- "• ''",
 	" ",
