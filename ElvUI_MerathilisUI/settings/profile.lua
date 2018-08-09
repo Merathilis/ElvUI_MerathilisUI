@@ -23,7 +23,6 @@ P["mui"] = {
 			["vignette"] = true,
 			["invites"] = true,
 			["guildEvents"] = true,
-			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,

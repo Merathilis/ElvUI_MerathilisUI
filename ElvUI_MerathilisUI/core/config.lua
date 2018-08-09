@@ -302,13 +302,6 @@ local function AddOptions()
 								disabled = function() return not E.db.mui.general.Notification.enable end,
 								hidden = function() return not E.db.mui.general.Notification.enable end,
 							},
-							quickJoin = {
-								order = 7,
-								type = "toggle",
-								name = L["Enable Quick Join Notification"],
-								disabled = function() return not E.db.mui.general.Notification.enable end,
-								hidden = function() return not E.db.mui.general.Notification.enable end,
-							},
 						},
 					},
 				},
