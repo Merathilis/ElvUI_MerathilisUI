@@ -17,10 +17,14 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix the WorldMap Title Frame.",
-		"• Updated the Talent skin.",
-		"• Added back my time datatext.",
-		"• Fix the LFGListInviteDialog Role Icons.",
+		"• Added a scale option for the MicroBar.",
+		"• Added a show/hide option for the friends/guild text on the MicroBar.",
+		"• Add back the default QuickJoinToastButton and skinned it.",
+		"• Removed the QuickJoinNotifications. We use the blizz default now.",
+		"• Fixed an issue in the DBM skin which not allow to resize the bars.",
+		"• Added an text overlay to the Minimap which will show who pinged.",
+		"• Added back CooldownFlash!!"
+		"• A lot of skin updates."
 
 		-- "• ''",
 	" ",
