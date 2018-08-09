@@ -1091,7 +1091,7 @@ function MER:SetupUnitframes()
 	E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
 	E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
 
-	MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 200)
+	MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
 
 	-- Party
 	E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
