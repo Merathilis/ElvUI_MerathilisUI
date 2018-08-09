@@ -104,9 +104,14 @@ P["mui"] = {
 		["equipBar"] = true,
 		["microBar"] = {
 			["enable"] = true,
+			["scale"] = 1,
 			["hideInCombat"] = false,
 			["hideInOrderHall"] = false,
 			["hideInPetBattle"] = false,
+			["text"] = {
+				["friends"] = true,
+				["guild"] = true,
+			},
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,

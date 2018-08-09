@@ -128,6 +128,8 @@ L["Banner Big Text"] = true
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
+L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
+L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
