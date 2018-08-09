@@ -731,6 +731,8 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		f:HookScript("OnEnter", StartGlow)
 		f:HookScript("OnLeave", StopGlow)
 	end
+
+	f:Styling()
 end
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
