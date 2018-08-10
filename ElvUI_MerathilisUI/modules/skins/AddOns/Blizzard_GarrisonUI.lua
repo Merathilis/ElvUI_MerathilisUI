@@ -7,6 +7,7 @@ local S = E:GetModule("Skins")
 local _G = _G
 local unpack = unpack
 -- WoW API
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
