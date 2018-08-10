@@ -3,7 +3,6 @@
 	<Script file="CharacterFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
 	<Script file="FriendsFrame.lua"/>
-	<Script file="GarrisonBaseUtils.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="HelpFrame.lua"/>
 	<Script file="ItemButtonTemplate.lua"/>
