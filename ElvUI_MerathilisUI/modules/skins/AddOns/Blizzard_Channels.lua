@@ -38,13 +38,16 @@ local function styleChannels()
 
 	hooksecurefunc(QuickJoinToastButton, "ToastToFriendFinished", function(self)
 		self.FriendsButton:SetShown(not self.displayedToast)
+		self.FriendCount:SetShown(not self.displayedToast)
 	end)
 
 	hooksecurefunc(QuickJoinToastButton, "UpdateQueueIcon", function(self)
 		if not self.displayedToast then return end
+		self.FriendsButton:SetTexture(friendTex)
 		self.QueueButton:SetTexture(queueTex)
 		self.FlashingLayer:SetTexture(queueTex)
 		self.FriendsButton:SetShown(false)
+		self.FriendCount:SetShown(false)
 	end)
 
 	QuickJoinToastButton:HookScript("OnMouseDown", function(self)
