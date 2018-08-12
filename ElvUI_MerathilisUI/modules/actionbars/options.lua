@@ -118,6 +118,17 @@ local function abTable()
 								get = function(info) return E.db.mui.actionbars.microBar.text.guild end,
 								set = function(info, value) E.db.mui.actionbars.microBar.text.guild = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 							},
+							position = {
+								order = 3,
+								type = "select",
+								name = L["Position"],
+								values = {
+									["TOP"] = L["Top"],
+									["BOTTOM"] = L["Bottom"],
+								},
+								get = function(info) return E.db.mui.actionbars.microBar.text.position end,
+								set = function(info, value) E.db.mui.actionbars.microBar.text.position = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+							},
 						},
 					},
 				},

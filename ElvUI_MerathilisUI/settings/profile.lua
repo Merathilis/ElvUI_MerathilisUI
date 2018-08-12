@@ -108,6 +108,7 @@ P["mui"] = {
 			["hideInOrderHall"] = false,
 			["hideInPetBattle"] = false,
 			["text"] = {
+				["position"] = "BOTTOM",
 				["friends"] = true,
 				["guild"] = true,
 			},

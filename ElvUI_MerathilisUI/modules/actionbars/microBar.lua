@@ -84,7 +84,11 @@ function MAB:CreateMicroBar()
 	charButton.tex:SetBlendMode("ADD")
 
 	charButton.text = MER:CreateText(charButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	charButton.text:SetPoint("BOTTOM", charButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		charButton.text:SetPoint("BOTTOM", charButton, 2, -15)
+	else
+		charButton.text:SetPoint("TOP", charButton, 2, 15)
+	end
 	charButton.text:SetText(CHARACTER_BUTTON)
 	charButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -107,7 +111,11 @@ function MAB:CreateMicroBar()
 	friendsButton.tex:SetBlendMode("ADD")
 
 	friendsButton.text = MER:CreateText(friendsButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	friendsButton.text:SetPoint("BOTTOM", friendsButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		friendsButton.text:SetPoint("BOTTOM", friendsButton, 2, -15)
+	else
+		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
+	end
 	friendsButton.text:SetText(SOCIAL_BUTTON)
 	friendsButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -160,7 +168,11 @@ function MAB:CreateMicroBar()
 	guildButton.tex:SetBlendMode("ADD")
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	guildButton.text:SetPoint("BOTTOM", guildButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		guildButton.text:SetPoint("BOTTOM", guildButton, 2, -15)
+	else
+		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
+	end
 	guildButton.text:SetText(GUILD)
 	guildButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -217,7 +229,11 @@ function MAB:CreateMicroBar()
 	achieveButton.tex:SetBlendMode("ADD")
 
 	achieveButton.text = MER:CreateText(achieveButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	achieveButton.text:SetPoint("BOTTOM", achieveButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		achieveButton.text:SetPoint("BOTTOM", achieveButton, 2, -15)
+	else
+		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
+	end
 	achieveButton.text:SetText(ACHIEVEMENT_BUTTON)
 	achieveButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -240,7 +256,11 @@ function MAB:CreateMicroBar()
 	encounterButton.tex:SetBlendMode("ADD")
 
 	encounterButton.text = MER:CreateText(encounterButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	encounterButton.text:SetPoint("BOTTOM", encounterButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		encounterButton.text:SetPoint("BOTTOM", encounterButton, 2, -15)
+	else
+		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
+	end
 	encounterButton.text:SetText(ENCOUNTER_JOURNAL)
 	encounterButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -301,7 +321,11 @@ function MAB:CreateMicroBar()
 	petButton.tex:SetBlendMode("ADD")
 
 	petButton.text = MER:CreateText(petButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	petButton.text:SetPoint("BOTTOM", petButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		petButton.text:SetPoint("BOTTOM", petButton, 2, -15)
+	else
+		petButton.text:SetPoint("TOP", petButton, 2, 15)
+	end
 	petButton.text:SetText(MOUNTS_AND_PETS)
 	petButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -324,7 +348,11 @@ function MAB:CreateMicroBar()
 	lfrButton.tex:SetBlendMode("ADD")
 
 	lfrButton.text = MER:CreateText(lfrButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	lfrButton.text:SetPoint("BOTTOM", lfrButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		lfrButton.text:SetPoint("BOTTOM", lfrButton, 2, -15)
+	else
+		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
+	end
 	lfrButton.text:SetText(LFG_TITLE)
 	lfrButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -347,7 +375,11 @@ function MAB:CreateMicroBar()
 	spellBookButton.tex:SetBlendMode("ADD")
 
 	spellBookButton.text = MER:CreateText(spellBookButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	spellBookButton.text:SetPoint("BOTTOM", spellBookButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		spellBookButton.text:SetPoint("BOTTOM", spellBookButton, 2, -15)
+	else
+		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
+	end
 	spellBookButton.text:SetText(SPELLBOOK_ABILITIES_BUTTON)
 	spellBookButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -370,7 +402,11 @@ function MAB:CreateMicroBar()
 	speccButton.tex:SetBlendMode("ADD")
 
 	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
+	else
+		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
+	end
 	speccButton.text:SetText(TALENTS_BUTTON)
 	speccButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
@@ -393,7 +429,11 @@ function MAB:CreateMicroBar()
 	shopButton.tex:SetBlendMode("ADD")
 
 	shopButton.text = MER:CreateText(shopButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
-	shopButton.text:SetPoint("BOTTOM", shopButton, 2, -15)
+	if MAB.db.text.position == "BOTTOM" then
+		shopButton.text:SetPoint("BOTTOM", shopButton, 2, -15)
+	else
+		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
+	end
 	shopButton.text:SetText(BLIZZARD_STORE)
 	shopButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
