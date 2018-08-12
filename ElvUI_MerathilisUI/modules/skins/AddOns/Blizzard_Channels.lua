@@ -29,11 +29,12 @@ local function styleChannels()
 		QuickJoinToastButton.backdrop:Hide()
 	end
 
+	MERS:CreateBD(QuickJoinToastButton, .25)
+	QuickJoinToastButton:Styling()
+
 	QuickJoinToastButton.FriendsButton:SetTexture(friendTex)
 	QuickJoinToastButton.QueueButton:SetTexture(queueTex)
 	QuickJoinToastButton:SetHighlightTexture("")
-
-	MERS:Reskin(QuickJoinToastButton)
 
 	hooksecurefunc(QuickJoinToastButton, "ToastToFriendFinished", function(self)
 		self.FriendsButton:SetShown(not self.displayedToast)

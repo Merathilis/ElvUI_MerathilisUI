@@ -21,11 +21,6 @@ local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetNumQuestLogEntries = GetNumQuestLogEntries
 
-local OBJECTIVE_TRACKER_LINE_WIDTH
-local OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
-local OBJECTIVE_TRACKER_DASH_WIDTH
-local OBJECTIVE_TRACKER_TEXT_WIDTH
-
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
@@ -70,15 +65,6 @@ end
 
 local function styleObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
-
-	-- Height
-	hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetStringText", function(_, fontString, _, useFullHeight)
-		local _, fontHeight = SystemFont_Shadow_Med1:GetFont()
-		local stringHeight = fontString:GetHeight()
-		if stringHeight > OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT * 2 - (fontHeight * 2) and not useFullHeight then
-			fontString:SetHeight(fontHeight * 2)
-		end
-	end)
 
 	-- Add Panels
 	hooksecurefunc("ObjectiveTracker_Update", function()
@@ -233,12 +219,6 @@ local function styleObjectiveTracker()
 			end
 		end
 	end)
-
-	OBJECTIVE_TRACKER_LINE_WIDTH = 248
-
-	OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT = _G["OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT"]
-	OBJECTIVE_TRACKER_DASH_WIDTH = _G["OBJECTIVE_TRACKER_DASH_WIDTH"]
-	OBJECTIVE_TRACKER_TEXT_WIDTH = OBJECTIVE_TRACKER_LINE_WIDTH - OBJECTIVE_TRACKER_DASH_WIDTH - 12
 
 	ObjectiveTrackerFrame:SetSize(235, 140)
 	ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
