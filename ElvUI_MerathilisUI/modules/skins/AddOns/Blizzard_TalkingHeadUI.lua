@@ -12,20 +12,12 @@ local _G = _G
 local function styleTalkingHead()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
 
-	local frame = _G["TalkingHeadFrame"]
-	if frame then
-		frame.BackgroundFrame:StripTextures()
-		-- Hide BenikUI changes
-		if frame.BackgroundFrame.backdrop then
-			frame.BackgroundFrame.backdrop:Hide()
-		end
-		MERS:CreateBD(frame.BackgroundFrame, .5)
-		frame.BackgroundFrame:Styling()
+	local TalkingHeadFrame = _G["TalkingHeadFrame"]
+	MERS:CreateBD(TalkingHeadFrame.BackgroundFrame, .5)
+	TalkingHeadFrame.BackgroundFrame:Styling()
 
-		local button = frame.MainFrame.CloseButton
-		button:ClearAllPoints()
-		button:Point("TOPRIGHT", frame.BackgroundFrame, "TOPRIGHT", 0, -2)
-	end
+	TalkingHeadFrame.MainFrame.CloseButton:ClearAllPoints()
+	TalkingHeadFrame.MainFrame.CloseButton:Point("TOPRIGHT", TalkingHeadFrame.BackgroundFrame, "TOPRIGHT", 0, -2)
 end
 
 S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "mUITalkingHead", styleTalkingHead)
