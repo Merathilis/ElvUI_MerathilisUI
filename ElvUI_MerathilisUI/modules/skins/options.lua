@@ -42,7 +42,7 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 15,
 		type = "group",
-		name = MERS.modName..MER.NewSign,
+		name = MERS.modName,
 		args = {
 			name = {
 				order = 1,
@@ -80,7 +80,7 @@ local function SkinsTable()
 					shadowOverlay = {
 						order = 4,
 						type = "toggle",
-						name = L["MerathilisUI Shadows"]..MER.NewSign,
+						name = L["MerathilisUI Shadows"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
@@ -379,6 +379,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["BFAMission"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
+			},
+			minimap = {
+				type = "toggle",
+				name = L["Minimap"],
+				disabled = function() return not E.private.skins.blizzard.enable end,
 			},
 		},
 	}

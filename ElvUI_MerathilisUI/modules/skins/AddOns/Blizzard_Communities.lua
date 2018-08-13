@@ -48,6 +48,54 @@ local function styleCommunities()
 		end
 	end)
 
+	for _, name in next, {"ChatTab", "RosterTab", "GuildBenefitsTab", "GuildInfoTab"} do
+		local tab = CommunitiesFrame[name]
+		tab:GetRegions():Hide()
+		MERS:ReskinIcon(tab.Icon)
+		tab:GetHighlightTexture():SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .25)
+	end
+
+	-- Chat Tab
+	local bg1 = MERS:CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
+	bg1:SetPoint("BOTTOMRIGHT", -1, 22)
+
+	local Dialog = CommunitiesFrame.NotificationSettingsDialog
+	Dialog:StripTextures()
+	Dialog.BG:Hide()
+	Dialog.backdrop:Styling()
+
+	MERS:Reskin(Dialog.OkayButton)
+	MERS:Reskin(Dialog.CancelButton)
+	MERS:ReskinCheckBox(Dialog.ScrollFrame.Child.QuickJoinButton)
+	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
+	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
+	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
+
+	hooksecurefunc(Dialog, "Refresh", function(self)
+		local frame = self.ScrollFrame.Child
+		for i = 1, frame:GetNumChildren() do
+			local child = select(i, frame:GetChildren())
+			if child.StreamName and not child.styled then
+				MERS:Reskin(child.ShowNotificationsButton)
+				MERS:Reskin(child.HideNotificationsButton)
+
+				child.styled = true
+			end
+		end
+	end)
+
+	local Dialog = CommunitiesFrame.EditStreamDialog
+	MERS:CreateBDFrame(Dialog.Description, .25)
+	Dialog.backdrop:Styling()
+
+	-- Roster
+	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
+
+	local DetailFrame = CommunitiesFrame.GuildMemberDetailFrame
+	DetailFrame:ClearAllPoints()
+	DetailFrame:SetPoint("TOPLEFT", CommunitiesFrame, "TOPRIGHT", 34, 0)
+	DetailFrame:Styling()
+
 	-- Guild Perks
 	hooksecurefunc("CommunitiesGuildPerks_Update", function(self)
 		local buttons = self.Container.buttons
@@ -99,12 +147,21 @@ local function styleCommunities()
 		end
 	end)
 
-	-- Guild Info
-	local bg3 = MERS:CreateBDFrame(_G["CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame"], .25)
-	bg3:SetPoint("TOPLEFT", 0, 3)
-	bg3:SetPoint("BOTTOMRIGHT", -5, -4)
+	-- Guild Recruitment
+	local GuildRecruitmentFrame = _G["CommunitiesGuildRecruitmentFrame"]
+	GuildRecruitmentFrame.backdrop:Styling()
 
-	MERS:CreateBDFrame(CommunitiesFrameGuildDetailsFrameInfo.DetailsFrame, .25)
+	-- Guild Log
+	local GuildLog = _G["CommunitiesGuildLogFrame"]
+	GuildLog:Styling()
+
+	--Guild MOTD Edit
+	local GuildText = _G["CommunitiesGuildTextEditFrame"]
+	GuildText:Styling()
+
+	-- Guild News Filter
+	local GuildNewsFilter = _G["CommunitiesGuildNewsFiltersFrame"]
+	GuildNewsFilter.backdrop:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", styleCommunities)

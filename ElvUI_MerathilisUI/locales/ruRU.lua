@@ -116,6 +116,8 @@ L["MER_MEDIA_PVPARENA"] = {
 -- MicroBar
 L["Hide In Orderhall"] = true
 L["Hide In Pet Battle"] = true
+L["Show/Hide the friend text on MicroBar."] = true
+L["Show/Hide the guild text on MicroBar."] = true
 
 -- Misc
 L["Artifact Power"] = true
@@ -167,7 +169,6 @@ L["Enable Vignette"] = true
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
-L["Enable Quick Join Notification"] = true
 
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
@@ -309,6 +310,8 @@ L["Hide Coordinates"] = true
 L["MiniMap Buttons"] = true
 L["Garrison/OrderHall Buttons Style"] = true
 L["Change the look of the Orderhall/Garrison Button"] = true
+L["Minimap Ping"] = true
+L["Shows the name of the player who pinged on the Minimap."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
@@ -323,6 +326,24 @@ L["Reverse"] = true
 L["Modifier Key"] = true
 L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
+
+-- Raid Buffs
+L["Raid Buff Reminder"] = true
+L["Shows a frame with flask/food/rune."] = true
+L["Class Specific Buffs"] = true
+L["Shows all the class specific raid buffs."] = true
+
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = true
+L["Fadein duration"] = true
+L["Fadeout duration"] = true
+L["Duration time"] = true
+L["Animation size"] = true
+L["Display spell name"] = true
+L["Watch on pet spell"] = true
+L["Transparency"] = true
+L["Test"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true

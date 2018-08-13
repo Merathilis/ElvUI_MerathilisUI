@@ -11,14 +11,14 @@ local MERB = E:GetModule("mUIBags")
 local function BagTable()
 	E.Options.args.mui.args.bags = {
 		type = "group",
-		name = MERB.modName..MER.NewSign,
+		name = MERB.modName,
 		order = 18,
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		hidden = function() return E.private.bags.enable end, -- hide it, if the ElvUI Bags are enabled.
 		args = {
 			header = {
 				type = "header",
-				name = MER:cOption(MERB.modName)..MER.NewSign,
+				name = MER:cOption(MERB.modName),
 				order = 1
 			},
 			description = {

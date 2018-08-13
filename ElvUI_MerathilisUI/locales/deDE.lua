@@ -128,6 +128,8 @@ L["Banner Big Text"] = true
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
+L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
+L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
@@ -179,7 +181,6 @@ L["Enable Vignette"] = "Aktiviere Vignette"
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
-L["Enable Quick Join Notification"] = "Aktiviere Quick Join Notification"
 
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
@@ -321,6 +322,8 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 L["MiniMap Buttons"] = "Minikartensymbole"
 L["Garrison/OrderHall Buttons Style"] = "Garnision/Ordenshallen Tasten Style"
 L["Change the look of the Orderhall/Garrison Button"] = "Ändert das Aussehen der Garnision/Ordenshallen Taste"
+L["Minimap Ping"] = true
+L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -335,6 +338,24 @@ L["Reverse"] = "Umkehren"
 L["Modifier Key"] = "Modifier Taste"
 L["Set the modifier key for placing world markers."] = "Setzt eine modifierungs Taste um eine Weltmarkierung zu setzen."
 L["Visibility State"] = "Sichtbarkeit"
+
+-- Raid Buffs
+L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
+L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
+L["Class Specific Buffs"] = "Klassenspezifische Buffs"
+L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
+
+-- CooldownFlash
+L["CooldownFlash"] = true
+L["Settings"] = "Einstellungen"
+L["Fadein duration"] = "Einblendzeit"
+L["Fadeout duration"] = "Ausblendzeit"
+L["Duration time"] = "Dauer"
+L["Animation size"] = "Animationsgröße"
+L["Display spell name"] = "Zeige Zaubernamen"
+L["Watch on pet spell"] = "Überwache Begleiter Zauber"
+L["Transparency"] = "Transparenz"
+L["Test"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."

@@ -54,6 +54,7 @@ local function styleMisc()
 		_G["FrameStackTooltip"],
 		_G["QuestScrollFrame"].WarCampaignTooltip,
 		_G["QuestScrollFrame"].StoryTooltip,
+		_G["DatatextTooltip"],
 	}
 
 	for _, frame in pairs(tooltips) do
@@ -198,7 +199,10 @@ local function styleMisc()
 	end
 
 	-- What's New
-	SplashFrame:Styling()
+	_G["SplashFrame"]:Styling()
+
+	-- Chat Config
+	_G["ChatConfigFrame"]:Styling()
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)

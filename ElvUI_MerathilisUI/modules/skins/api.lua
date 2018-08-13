@@ -81,7 +81,7 @@ function S:HandleCloseButton(f, point, text)
 	end
 
 	-- Use a own texture for the close button.
-	if not f.tex then
+	if E.private.muiSkins.closeButton and not f.tex then
 		f.tex = f:CreateTexture(nil, "OVERLAY")
 		f.tex:Size(12)
 		f.tex:Point("CENTER", -1, 0)
@@ -731,6 +731,8 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		f:HookScript("OnEnter", StartGlow)
 		f:HookScript("OnLeave", StopGlow)
 	end
+
+	f:Styling()
 end
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)

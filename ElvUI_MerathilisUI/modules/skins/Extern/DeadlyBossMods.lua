@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = E:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -67,6 +68,9 @@ DBMSkin:SetScript("OnEvent", function(self, event, addon)
 							tbar:SetBackdrop(backdrop)
 							tbar:SetBackdropColor(0, 0, 0, 0.15)
 						end
+
+						if bar.enlarged then frame:SetWidth(bar.owner.options.HugeWidth) else frame:SetWidth(bar.owner.options.Width) end
+						if bar.enlarged then tbar:SetWidth(bar.owner.options.HugeWidth) else tbar:SetWidth(bar.owner.options.Width) end
 
 						if not frame.styled then
 							frame:SetScale(1)

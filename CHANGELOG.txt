@@ -1,3 +1,14 @@
+[b][color=orange]v3.32[/color], 13.08.2018[/b][list]
+[*]Added a scale option for the MicroBar.
+[*]Added a show/hide option for the friends/guild text on the MicroBar.
+[*]Add back the default QuickJoinToastButton and skinned it.
+[*]Removed the QuickJoinNotifications. We use the blizz default now.
+[*]Fixed an issue in the DBM skin which not allow to resize the bars.
+[*]Added a text overlay to the Minimap which will show who pinged.
+[*]Added back CooldownFlash!!
+[*]Added a text option for the MicroBar.
+[*]A lot of skin updates.
+
 [b][color=orange]v3.31[/color], 30.07.2018[/b][list]
 [*]Fix the WorldMap Title Frame.
 [*]Updated the Talent skin.

@@ -119,7 +119,7 @@ end
 local function NameplateAurasTable()
 	E.Options.args.mui.args.NameplateAuras = {
 		type = "group",
-		name = NA.modName..MER.NewSign,
+		name = NA.modName,
 		order = 16,
 		get = function(info) return E.db.mui.NameplateAuras[ info[#info] ] end,
 		args = {

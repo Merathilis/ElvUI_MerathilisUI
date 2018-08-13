@@ -45,21 +45,30 @@ local function EnhancedFriendsList()
 				get = function(info) return E.db.mui.efl[info[#info]] end,
 				set = function(info, value) E.db.mui.efl[info[#info]] = value; FriendsFrame_UpdateFriends() end, -- causes an error if the FriendsFrame isnt open
 				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						get = function(info) return E.db.mui.efl.enable end,
+						set = function(info, value) E.db.mui.efl.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
 					NameFont = {
 						type = "select", dialogControl = 'LSM30_Font',
-						order = 1,
+						order = 2,
 						name = L["Name Font"],
 						values = AceGUIWidgetLSMlists.font,
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					NameFontSize = {
-						order = 2,
+						order = 3,
 						name = FONT_SIZE,
 						type = "range",
 						min = 6, max = 22, step = 1,
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					NameFontFlag = {
 						name = L["Font Outline"],
-						order = 3,
+						order = 4,
 						type = "select",
 						values = {
 							['NONE'] = 'None',
@@ -68,21 +77,24 @@ local function EnhancedFriendsList()
 							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					InfoFont = {
 						type = "select", dialogControl = 'LSM30_Font',
-						order = 4,
+						order = 5,
 						name = L["Info Font"],
 						values = AceGUIWidgetLSMlists.font,
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					InfoFontSize = {
-						order = 5,
+						order = 6,
 						name = FONT_SIZE,
 						type = "range",
 						min = 6, max = 22, step = 1,
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					InfoFontFlag = {
-						order = 6,
+						order = 7,
 						name = L["Font Outline"],
 						type = "select",
 						values = {
@@ -92,10 +104,11 @@ local function EnhancedFriendsList()
 							['MONOCHROMEOUTLINE'] = 'MONOCROMEOUTLINE',
 							['THICKOUTLINE'] = 'THICKOUTLINE',
 						},
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					GameIconPack = {
 						name = L["Game Icon Pack"],
-						order = 7,
+						order = 8,
 						type = "select",
 						values = {
 							['Default'] = 'Default',
@@ -104,16 +117,18 @@ local function EnhancedFriendsList()
 							['Gloss'] = 'Glossy',
 							['Launcher'] = 'Launcher'
 						},
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 					StatusIconPack = {
 						name = L["Status Icon Pack"],
-						order = 8,
+						order = 9,
 						type = "select",
 						values = {
 							['Default'] = 'Default',
 							['Square'] = 'Square',
 							['D3'] = 'Diablo 3',
 						},
+						hidden = function() return not E.db.mui.efl.enable end,
 					},
 				},
 			},

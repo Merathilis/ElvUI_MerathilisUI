@@ -20,7 +20,6 @@ local DeleteCursorItem = DeleteCursorItem
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 MER.dummy = function() return end
-MER.NewSign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
 MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")

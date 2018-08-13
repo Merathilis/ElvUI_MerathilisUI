@@ -53,16 +53,10 @@ local C_PvPGetBrawlInfo = C_PvP.GetBrawlInfo
 local GetGameTime = GetGameTime
 local CreateAnimationGroup = CreateAnimationGroup
 local CalendarGetAbsMonth = CalendarGetAbsMonth
-local BNGetNumFriends = BNGetNumFriends
-local BNGetFriendInfo = BNGetFriendInfo
-local BNGetGameAccountInfo = BNGetGameAccountInfo
-local SOCIAL_QUEUE_QUEUED_FOR = SOCIAL_QUEUE_QUEUED_FOR:gsub(':%s?$','') --some language have `:` on end
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
 -- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
--- GLOBALS: SocialQueueUtil_GetQueueName, LFG_LIST_AND_MORE, UNKNOWN, SocialQueueUtil_SortGroupMembers
--- GLOBALS: enable
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -72,8 +66,6 @@ local toasts = {}
 local activeToasts = {}
 local queuedToasts = {}
 local anchorFrame
-local alertBagsFull
-local shouldAlertBags = false
 
 local VignetteExclusionMapIDs = {
 	[579] = true, -- Lunarfall: Alliance garrison
@@ -408,17 +400,6 @@ local function alertEvents()
 		end
 		numInvites = num
 	end
-
-	--[[
-	if num ~= numInvites then
-		if num > 1 then
-			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], num), toggleCalendar)
-		elseif num > 0 then
-			NF:DisplayToast(CALENDAR, format(L["You have %s pending calendar invite(s)."], 1), toggleCalendar)
-		end
-		numInvites = num
-	end
-	]]
 end
 
 local function alertGuildEvents()
@@ -428,14 +409,6 @@ local function alertGuildEvents()
 	if num > 0 then
 		NF:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
 	end
-
-	--[[
-	if num > 1 then
-		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], num), toggleCalendar)
-	elseif num > 0 then
-		NF:DisplayToast(CALENDAR, format(L["You have %s pending guild event(s)."], 1), toggleCalendar)
-	end
-	]]
 end
 
 function NF:CALENDAR_UPDATE_PENDING_INVITES()
@@ -483,102 +456,6 @@ function NF:RESURRECT_REQUEST(name)
 	PlaySound(46893, "Master")
 end
 
-local socialQueueCache = {}
-local function RecentSocialQueue(TIME, MSG)
-	local previousMessage = false
-	if next(socialQueueCache) then
-		for guid, tbl in pairs(socialQueueCache) do
-			-- !dont break this loop! its used to keep the cache updated
-			if TIME and (difftime(TIME, tbl[1]) >= 300) then
-				socialQueueCache[guid] = nil --remove any older than 5m
-			elseif MSG and (MSG == tbl[2]) then
-				previousMessage = true --dont show any of the same message within 5m
-			end
-		end
-	end
-	return previousMessage
-end
-
-function NF:SocialQueueEvent(event, guid, numAddedItems)
-	if not E.db.mui.general.Notification.quickJoin or InCombatLockdown() then return end
-	if not (guid) then return end
-
-	if ( numAddedItems == 0 or C_SocialQueueGetGroupMembers(guid) == nil) then
-		return
-	end
-
-	local coloredName, players = UNKNOWN, C_SocialQueueGetGroupMembers(guid)
-	local members = players and SocialQueueUtil_SortGroupMembers(players)
-	local playerName, nameColor
-	if members then
-		local firstMember, numMembers, extraCount = members[1], #members, ''
-		playerName, nameColor = SocialQueueUtil_GetRelationshipInfo(firstMember.guid, nil, firstMember.clubId)
-		if numMembers > 1 then
-			extraCount = format(" +%s", numMembers - 1)
-		end
-		if playerName then
-			coloredName = format("%s%s|r%s", nameColor, playerName, extraCount)
-		else
-			coloredName = format("{%s%s}", UNKNOWN, extraCount)
-		end
-	end
-
-	local isLFGList, firstQueue
-	local queues = C_SocialQueueGetGroupQueues(guid)
-	firstQueue = queues and queues[1]
-	isLFGList = firstQueue and firstQueue.queueData and firstQueue.queueData.queueType == "lfglist"
-
-	if isLFGList and firstQueue and firstQueue.eligible then
-		local activityID, name, comment, leaderName, fullName, isLeader, _
-
-		if firstQueue.queueData.lfgListID then
-			_, activityID, name, comment, _, _, _, _, _, _, _, _, leaderName = C_LFGListGetSearchResultInfo(firstQueue.queueData.lfgListID)
-			isLeader = CH:SocialQueueIsLeader(playerName, leaderName)
-		end
-
-		-- ignore groups created by the addon World Quest Group Finder/World Quest Tracker/World Quest Assistant/HandyNotes_Argus to reduce spam
-		if comment and (find(comment, "World Quest Group Finder") or find(comment, "World Quest Tracker") or find(comment, "World Quest Assistant") or find(comment, "HandyNotes_Argus")) then return end
-		-- prevent duplicate messages within 5 minutes
-		local TIME = time()
-		if RecentSocialQueue(TIME, name) then return end
-		socialQueueCache[guid] = {TIME, name}
-
-		if activityID or firstQueue.queueData.activityID then
-			fullName = C_LFGListGetActivityInfo(activityID or firstQueue.queueData.activityID)
-		end
-
-		fullName = format("|cff00ff00%s|r", fullName)
-		name = format("|cff00c0fa%s|r", name:sub(1,100))
-		if name then
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: "..name, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-		else
-			self:DisplayToast(coloredName, ((isLeader and L["is looking for members"] or L["joined a group"]).."\n".."["..fullName or UNKNOWN).."]: ", _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-		end
-	elseif firstQueue then
-		local output, outputCount, queueCount, queueName = '', '', 0
-		for _, queue in pairs(queues) do
-			if type(queue) == "table" and queue.eligible then
-				queueName = (queue.queueData and SocialQueueUtil_GetQueueName(queue.queueData)) or ""
-				if queueName ~= "" then
-					if output == "" then
-						output = queueName:gsub("\n.+","") -- grab only the first queue name
-						queueCount = queueCount + select(2, queueName:gsub("\n","")) -- collect additional on single queue
-					else
-						queueCount = queueCount + 1 + select(2, queueName:gsub("\n","")) -- collect additional on additional queues
-					end
-				end
-			end
-		end
-		if output ~= "" then
-			output = format("|cff00c0fa%s |r", output)
-			if queueCount > 0 then
-				outputCount = format(LFG_LIST_AND_MORE, queueCount)
-			end
-			self:DisplayToast(coloredName, SOCIAL_QUEUE_QUEUED_FOR.. ": "..output..outputCount, _G["ToggleQuickJoinPanel"], "Interface\\Icons\\Achievement_GuildPerk_EverybodysFriend", .08, .92, .08, .92)
-		end
-	end
-end
-
 function NF:Initialize()
 	if E.db.mui.general.Notification.enable ~= true then return end
 
@@ -595,7 +472,6 @@ function NF:Initialize()
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
-	self:RegisterEvent("SOCIAL_QUEUE_UPDATE", "SocialQueueEvent")
 
 	self.lastMinimapRare = {time = 0, id = nil}
 end

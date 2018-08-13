@@ -222,6 +222,8 @@ function EFL:BasicUpdateFriends(button)
 end
 
 function EFL:Initialize()
+	if E.db.mui.efl.enable ~= true then return end
+
 	hooksecurefunc("FriendsFrame_UpdateFriendButton", function(button) EFL:BasicUpdateFriends(button) end)
 end
 

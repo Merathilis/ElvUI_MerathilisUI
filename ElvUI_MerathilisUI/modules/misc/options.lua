@@ -72,7 +72,7 @@ local function Misc()
 			cursor = {
 				order = 9,
 				type = "toggle",
-				name = L["Flashing Cursor"]..MER.NewSign,
+				name = L["Flashing Cursor"],
 			},
 		},
 	}

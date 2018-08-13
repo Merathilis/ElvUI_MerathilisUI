@@ -12,7 +12,7 @@ local function databarsTable()
 	E.Options.args.mui.args.databars = {
 		order = 15,
 		type = "group",
-		name = MDB.modName..MER.NewSign,
+		name = MDB.modName,
 		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {

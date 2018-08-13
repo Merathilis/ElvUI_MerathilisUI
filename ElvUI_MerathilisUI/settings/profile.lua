@@ -23,7 +23,6 @@ P["mui"] = {
 			["vignette"] = true,
 			["invites"] = true,
 			["guildEvents"] = true,
-			["quickJoin"] = true,
 		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,
@@ -50,7 +49,7 @@ P["mui"] = {
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["powerBar"] = true,
-		["cursor"] = true,
+		["cursor"] = false,
 	},
 
 	["datatexts"] = {
@@ -104,9 +103,15 @@ P["mui"] = {
 		["equipBar"] = true,
 		["microBar"] = {
 			["enable"] = true,
+			["scale"] = 1,
 			["hideInCombat"] = false,
 			["hideInOrderHall"] = false,
 			["hideInPetBattle"] = false,
+			["text"] = {
+				["position"] = "BOTTOM",
+				["friends"] = true,
+				["guild"] = true,
+			},
 		},
 		["buttonStyle"] = {
 			["enabled"] = false,
@@ -189,6 +194,12 @@ P["mui"] = {
 				["position"] = "TOP",
 			},
 			["styleButton"] = true,
+			["ping"] = {
+				["enable"] = true,
+				["position"] = "TOP",
+				["xOffset"] = 0,
+				["yOffset"] = -20,
+			},
 		},
 	},
 
@@ -299,6 +310,7 @@ P["mui"] = {
 	},
 
 	["efl"] = {
+		["enable"] = true,
 		["NameFont"] = "Expressway",
 		["NameFontSize"] = 11,
 		["NameFontFlag"] = "OUTLINE",
@@ -309,8 +321,29 @@ P["mui"] = {
 		["StatusIconPack"] = "Default",
 	},
 
+	["raidBuffs"] = {
+		["enable"] = false,
+		["visibility"] = "INPARTY",
+		["class"] = false,
+		["customVisibility"] = "[noexists, nogroup] hide; show",
+	},
+
 	["NameplateAuras"] = {
 		["spellInfo"] = {}
+	},
+
+	["cooldownFlash"] = {
+		["enable"] = false,
+		["fadeInTime"] = 0.3,
+		["fadeOutTime"] = 0.6,
+		["maxAlpha"] = 0.8,
+		["animScale"] = 1.5,
+		["iconSize"] = 40,
+		["holdTime"] = 0.3,
+		["enablePet"] = false,
+		["showSpellName"] = false,
+		["x"] = UIParent:GetWidth()/2,
+		["y"] = UIParent:GetHeight()/2,
 	},
 
 	-- db

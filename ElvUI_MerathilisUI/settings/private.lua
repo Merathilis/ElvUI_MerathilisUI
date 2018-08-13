@@ -71,6 +71,7 @@ V["muiSkins"] = {
 		["AzeriteRespec"] = true,
 		["Islands"] = true,
 		["BFAMissions"] = true,
+		["minimap"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

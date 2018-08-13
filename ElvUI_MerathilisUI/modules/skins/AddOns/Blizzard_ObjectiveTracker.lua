@@ -21,11 +21,6 @@ local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetNumQuestLogEntries = GetNumQuestLogEntries
 
-local OBJECTIVE_TRACKER_LINE_WIDTH
-local OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
-local OBJECTIVE_TRACKER_DASH_WIDTH
-local OBJECTIVE_TRACKER_TEXT_WIDTH
-
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
@@ -71,43 +66,10 @@ end
 local function styleObjectiveTracker()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
-	--[[ AddOns\Blizzard_ObjectiveTracker.lua ]]
-
-	----====####$$$$$$$####====----
-	-- Blizzard_ObjectiveTracker --
-	----====####$$$$$$$####====----
-
-	local function SetStringText(fontString, text, useFullHeight, colorStyle, useHighlight)
-		fontString:SetHeight(0)
-		fontString:SetText(text)
-		local stringHeight = fontString:GetStringHeight()
-		if ( stringHeight > OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT and not useFullHeight ) then
-			stringHeight = OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT
-		end
-		return stringHeight
-	end
-
-	function MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_AddObjective(self, block, objectiveKey, text, lineType, useFullHeight, dashStyle, colorStyle, adjustForNoText)
-		local line = block.lines[objectiveKey]
-
-		-- set the text
-		local height = SetStringText(line.Text, text, useFullHeight, colorStyle, block.isHighlighted)
-		line:SetHeight(height)
-
-		if height == 0 then
-			-- Not sure why this happens, but it messes up the position of progress bar lines
-			return
-		end
-	end
-
-	function MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_SetBlockHeader(self, block, text)
-		block._mUIHeight = SetStringText(block.HeaderText, text, nil, OBJECTIVE_TRACKER_COLOR["Header"], block.isHighlighted)
-	end
-
-	function MERS.ObjectiveTracker_Update()
+	-- Add Panels
+	hooksecurefunc("ObjectiveTracker_Update", function()
 		local Frame = ObjectiveTrackerFrame.MODULES
 
-		-- Add Panels
 		if (Frame) then
 			for i = 1, #Frame do
 
@@ -130,9 +92,10 @@ local function styleObjectiveTracker()
 				end
 			end
 		end
-	end
+	end)
 
-	function MERS.QuestPOI_GetButton(parent, questID, style, index)
+	-- Skin POI Buttons
+	hooksecurefunc("QuestPOI_GetButton", function(parent, questID, style, index)
 		local Incomplete = ObjectiveTrackerBlocksFrame.poiTable["numeric"]
 		local Complete = ObjectiveTrackerBlocksFrame.poiTable["completed"]
 
@@ -165,9 +128,9 @@ local function styleObjectiveTracker()
 				Button.IsSkinned = true
 			end
 		end
-	end
+	end)
 
-	function MERS.QuestPOI_SelectButton(poiButton)
+	hooksecurefunc("QuestPOI_SelectButton", function(poiButton)
 		local Backdrop = poiButton.backdrop
 
 		if Backdrop then
@@ -186,112 +149,9 @@ local function styleObjectiveTracker()
 
 			PreviousPOI = poiButton
 		end
-	end
+	end)
 
-	function MERS.ObjectiveTracker_Initialize(self)
-		hooksecurefunc("ObjectiveTracker_Update", MERS.ObjectiveTracker_Update)
-		hooksecurefunc("QuestPOI_GetButton", MERS.QuestPOI_GetButton)
-		hooksecurefunc("QuestPOI_SelectButton", MERS.QuestPOI_SelectButton)
-		hooksecurefunc("QuestPOI_SelectButtonByQuestID", MERS.QuestPOI_SelectButton)
-		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "AddObjective", MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_AddObjective)
-		hooksecurefunc(DEFAULT_OBJECTIVE_TRACKER_MODULE, "SetBlockHeader", MERS.DEFAULT_OBJECTIVE_TRACKER_MODULE_SetBlockHeader)
-
-		hooksecurefunc(QUEST_TRACKER_MODULE, "SetBlockHeader", MERS.QUEST_TRACKER_MODULE_SetBlockHeader)
-		hooksecurefunc(SCENARIO_TRACKER_MODULE, "GetBlock", MERS.SCENARIO_TRACKER_MODULE_GetBlock)
-
-		hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", MERS.AUTO_QUEST_POPUP_TRACKER_MODULE_Update)
-		hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", MERS.SCENARIO_CONTENT_TRACKER_MODULE_Update)
-	end
-
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_QuestObjectiveTracker --
-	----====####$$$$%%%%$$$$####====----
-	local QUEST_ICONS_FILE = "Interface\\QuestFrame\\QuestTypeIcons"
-	local QUEST_ICONS_FILE_WIDTH = 128
-	local QUEST_ICONS_FILE_HEIGHT = 64
-
-	local coords = QUEST_TAG_TCOORDS[UnitFactionGroup("player"):upper()]
-	local factionIcon  = CreateTextureMarkup(QUEST_ICONS_FILE, QUEST_ICONS_FILE_WIDTH, QUEST_ICONS_FILE_HEIGHT, 16, 16
-		, coords[1]
-		, coords[2] - 0.02 -- Offset to stop bleeding from next image
-		, coords[3]
-		, coords[4], 0, 2)
-	function MERS.QUEST_TRACKER_MODULE_SetBlockHeader(self, block, text, questLogIndex, isQuestComplete, questID)
-		if C_CampaignInfo.IsCampaignQuest(questID) then
-			text = text..factionIcon
-		end
-
-		block._mUIHeight = SetStringText(block.HeaderText, text, nil, OBJECTIVE_TRACKER_COLOR["Header"], block.isHighlighted)
-	end
-
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_AutoQuestPopUpTracker --
-	----====####$$$$%%%%$$$$####====----
-	function MERS.AUTO_QUEST_POPUP_TRACKER_MODULE_Update(self)
-		for _, block in next, self.usedBlocks do
-			if not block.IsSkinned then
-				MERS:AutoQuestPopUpBlockTemplate(block)
-				block.IsSkinned = true
-			end
-		end
-	end
-
-	----====####$$$$%%%%%%%$$$$####====----
-	-- Blizzard_ScenarioObjectiveTracker --
-	----====####$$$$%%%%%%%$$$$####====----
-	function MERS.SCENARIO_TRACKER_MODULE_GetBlock(self)
-		ScenarioObjectiveBlock._mUIHeight = 0
-	end
-
-	function MERS.SCENARIO_CONTENT_TRACKER_MODULE_Update(self)
-		local _, _, _, _, _, _, _, _, _, scenarioType = _G.C_Scenario.GetInfo()
-		local stageBlock
-		if scenarioType == _G.LE_SCENARIO_TYPE_CHALLENGE_MODE and _G.ScenarioChallengeModeBlock.timerID then
-			stageBlock = _G.ScenarioChallengeModeBlock
-		elseif _G.ScenarioProvingGroundsBlock.timerID then
-			stageBlock = _G.ScenarioProvingGroundsBlock
-		else
-			stageBlock = _G.ScenarioStageBlock
-		end
-	end
-
-	--[[ AddOns\Blizzard_ObjectiveTracker.xml ]]
-
-	----====####$$$$$$$####====----
-	-- Blizzard_ObjectiveTracker --
-	----====####$$$$$$$####====----
-	--function MERS:ObjectiveTrackerBlockTemplate(Frame)
-		--Frame:SetSize(232, 10)
-		--Frame.HeaderText:SetSize(192, 0)
-	--end
-
-	--function MERS:ObjectiveTrackerLineTemplate(Frame)
-		--Frame:SetSize(232, 16)
-		--Frame.Dash:SetPoint("TOPLEFT", 0, 1)
-	--end
-
-	function MERS:ObjectiveTrackerCheckLineTemplate(Frame)
-		Frame:SetSize(232, 16)
-		Frame.Text:SetPoint("TOPLEFT", 20, 0)
-		Frame.IconAnchor:SetSize(16, 16)
-		Frame.IconAnchor:SetPoint("TOPLEFT", 1, 2)
-	end
-
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_QuestObjectiveTracker --
-	----====####$$$$%%%%$$$$####====----
-	function MERS:QuestObjectiveAnimLineTemplate(Frame)
-		--MERS:ObjectiveTrackerLineTemplate(Frame)
-		Frame.Check:SetAtlas("worldquest-tracker-checkmark")
-		Frame.Check:SetSize(18, 16)
-
-		Frame.Check:SetPoint("TOPLEFT", -10, 2)
-	end
-
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_AutoQuestPopUpTracker --
-	----====####$$$$%%%%$$$$####====----
-	function MERS:AutoQuestPopUpBlockTemplate()
+	local function SkinAutoQuestPopUpBlock()
 		for i = 1, GetNumAutoQuestPopUps() do
 			local ID, type = GetAutoQuestPopUp(i)
 			local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
@@ -351,47 +211,17 @@ local function styleObjectiveTracker()
 		end
 	end
 
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_BonusObjectiveTracker --
-	----====####$$$$%%%%$$$$####====----
-	function MERS:BonusObjectiveTrackerLineTemplate(Frame)
-		MERS:ObjectiveTrackerCheckLineTemplate(Frame)
-
-		--[[ Scale ]]--
-		Frame.Dash:SetPoint("TOPLEFT", 20, 1)
-
-		Frame.Text:ClearAllPoints()
-		Frame.Text:SetPoint("TOP")
-		Frame.Text:SetPoint("LEFT", Frame.Dash, "RIGHT")
-
-		Frame.Glow:SetPoint("LEFT", Frame.Dash, -2, 0)
-	end
-
-	----====####$$$$$$$####====----
-	-- Blizzard_ObjectiveTracker --
-	----====####$$$$$$$####====----
-	hooksecurefunc("ObjectiveTracker_Initialize", MERS.ObjectiveTracker_Initialize)
-
-	--OBJECTIVE_TRACKER_ITEM_WIDTH = 33
-	--OBJECTIVE_TRACKER_HEADER_HEIGHT = 25
-	OBJECTIVE_TRACKER_LINE_WIDTH = 248
-	--OBJECTIVE_TRACKER_HEADER_OFFSET_X = -10
-
-	OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT = _G["OBJECTIVE_TRACKER_DOUBLE_LINE_HEIGHT"]
-	OBJECTIVE_TRACKER_DASH_WIDTH = _G["OBJECTIVE_TRACKER_DASH_WIDTH"]
-	OBJECTIVE_TRACKER_TEXT_WIDTH = OBJECTIVE_TRACKER_LINE_WIDTH - OBJECTIVE_TRACKER_DASH_WIDTH - 12
+	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
+		for _, block in next, self.usedBlocks do
+			if not block.IsSkinned then
+				SkinAutoQuestPopUpBlock(block)
+				block.IsSkinned = true
+			end
+		end
+	end)
 
 	ObjectiveTrackerFrame:SetSize(235, 140)
 	ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
-
-	----====####$$$$%%%%$$$$####====----
-	-- Blizzard_BonusObjectiveTracker --
-	----====####$$$$%%%%$$$$####====----
-
-	----====####$$$$%%%%%%%$$$$####====----
-	-- Blizzard_ScenarioObjectiveTracker --
-	----====####$$$$%%%%%%%$$$$####====----
-	ScenarioObjectiveBlock._mUIHeight = 0
 
 	local ScenarioChallengeModeBlock = _G["ScenarioChallengeModeBlock"]
 	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())

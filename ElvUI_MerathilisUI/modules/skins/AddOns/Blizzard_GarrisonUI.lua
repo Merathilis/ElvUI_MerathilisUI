@@ -5,354 +5,233 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local unpack = unpack
 -- WoW API
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
 
-	--[[ AddOns\Blizzard_GarrisonUI.lua ]]
+	-- [[ Shared codes ]]
+	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
-	--[[ AddOns\Blizzard_GarrisonUI.xml ]]
-	--[[ Blizzard_GarrisonShipyardUI.xml ]]
-	function MERS:GarrisonBonusEffectFrameTemplate(Frame)
-		S:CropIcon(Frame.Icon, Frame)
+	-- [[ Garrison system ]]
+
+	-- Building frame
+	local GarrisonBuildingFrame = _G["GarrisonBuildingFrame"]
+	GarrisonBuildingFrame:StripTextures()
+	MERS:CreateBD(GarrisonBuildingFrame)
+	GarrisonBuildingFrame.GarrCorners:Hide()
+	if GarrisonBuildingFrame.backdrop then GarrisonBuildingFrame.backdrop:Hide() end
+	GarrisonBuildingFrame:Styling()
+
+	-- Tutorial button
+	local MainHelpButton = GarrisonBuildingFrame.MainHelpButton
+	MainHelpButton.Ring:Hide()
+	MainHelpButton:SetPoint("TOPLEFT", GarrisonBuildingFrame, "TOPLEFT", -12, 12)
+
+	-- Building list
+	local BuildingList = GarrisonBuildingFrame.BuildingList
+
+	BuildingList:DisableDrawLayer("BORDER")
+	BuildingList.MaterialFrame.Icon:SetTexCoord(unpack(E.TexCoords))
+	BuildingList.MaterialFrame:GetRegions():Hide()
+
+	local bg = MERS:CreateBDFrame(BuildingList.MaterialFrame, .25)
+	bg:SetPoint("TOPLEFT", 5, -5)
+	bg:SetPoint("BOTTOMRIGHT", -5, 6)
+
+	for i = 1, GARRISON_NUM_BUILDING_SIZES do
+		local tab = BuildingList["Tab"..i]
+
+		tab:GetNormalTexture():SetAlpha(0)
+
+		local bg = CreateFrame("Frame", nil, tab)
+		bg:SetPoint("TOPLEFT", 6, -7)
+		bg:SetPoint("BOTTOMRIGHT", -6, 7)
+		bg:SetFrameLevel(tab:GetFrameLevel()-1)
+		MERS:CreateBD(bg, .25)
+		tab.bg = bg
+
+		local hl = tab:GetHighlightTexture()
+		hl:SetColorTexture(r, g, b, .1)
+		hl:ClearAllPoints()
+		hl:SetPoint("TOPLEFT", bg, 1, -1)
+		hl:SetPoint("BOTTOMRIGHT", bg, -1, 1)
 	end
 
-	function MERS:GarrisonBonusAreaTooltipFrameTemplate(Frame)
-		MERS:GarrisonBonusEffectFrameTemplate(Frame.BonusEffectFrame)
+	hooksecurefunc("GarrisonBuildingList_SelectTab", function(tab)
+		local list = GarrisonBuildingFrame.BuildingList
+
+		for i = 1, GARRISON_NUM_BUILDING_SIZES do
+			local otherTab = list["Tab"..i]
+			if i ~= tab:GetID() then
+				otherTab.bg:SetBackdropColor(0, 0, 0, .25)
+			end
+		end
+		tab.bg:SetBackdropColor(r, g, b, .2)
+
+		for _, button in pairs(list.Buttons) do
+			if not button.styled then
+				button.BG:Hide()
+
+				MERS:ReskinIcon(button.Icon)
+
+				local bg = CreateFrame("Frame", nil, button)
+				bg:SetPoint("TOPLEFT", 44, -5)
+				bg:SetPoint("BOTTOMRIGHT", 0, 6)
+				bg:SetFrameLevel(button:GetFrameLevel()-1)
+				MERS:CreateBD(bg, .25)
+
+				button.SelectedBG:SetColorTexture(r, g, b, .2)
+				button.SelectedBG:ClearAllPoints()
+				button.SelectedBG:SetPoint("TOPLEFT", bg, 1, -1)
+				button.SelectedBG:SetPoint("BOTTOMRIGHT", bg, -1, 1)
+
+				local hl = button:GetHighlightTexture()
+				hl:SetColorTexture(r, g, b, .1)
+				hl:ClearAllPoints()
+				hl:SetPoint("TOPLEFT", bg, 1, -1)
+				hl:SetPoint("BOTTOMRIGHT", bg, -1, 1)
+
+				button.styled = true
+			end
+		end
+	end)
+
+	-- Building level tooltip
+	local BuildingLevelTooltip = GarrisonBuildingFrame.BuildingLevelTooltip
+
+	for i = 1, 9 do
+		select(i, BuildingLevelTooltip:GetRegions()):Hide()
+	end
+	BuildingLevelTooltip:Styling()
+
+	-- Follower list
+	local FollowerList = GarrisonBuildingFrame.FollowerList
+
+	FollowerList:DisableDrawLayer("BACKGROUND")
+	FollowerList:DisableDrawLayer("BORDER")
+
+	FollowerList:ClearAllPoints()
+	FollowerList:SetPoint("BOTTOMLEFT", 24, 34)
+
+	-- Info box
+	local InfoBox = GarrisonBuildingFrame.InfoBox
+	local TownHallBox = GarrisonBuildingFrame.TownHallBox
+
+	for i = 1, 25 do
+		select(i, InfoBox:GetRegions()):Hide()
+		select(i, TownHallBox:GetRegions()):Hide()
 	end
 
-	--[[ Blizzard_GarrisonLandingPage.xml ]]
-	function MERS:GarrisonLandingPageReportMissionRewardTemplate(Frame)
-		S:CropIcon(Frame.Icon)
+	MERS:CreateBD(InfoBox, .25)
+	MERS:CreateBD(TownHallBox, .25)
+	MERS:Reskin(InfoBox.UpgradeButton)
+	MERS:Reskin(TownHallBox.UpgradeButton)
+	GarrisonBuildingFrame.MapFrame.TownHall.TownHallName:SetTextColor(1, .8, 0)
 
-		local bg = CreateFrame("Frame", nil, Frame)
-		bg:SetPoint("TOPLEFT", Frame.Icon, -1, 1)
-		bg:SetPoint("BOTTOMRIGHT", Frame.Icon, 1, -1)
-		Frame._mUIIconBorder = bg
+	do
+		local FollowerPortrait = InfoBox.FollowerPortrait
 
-		Frame.IconBorder:Hide()
-
-		--[[ Scale ]]--
-		Frame:SetSize(Frame:GetSize())
+		FollowerPortrait:SetPoint("BOTTOMLEFT", 230, 10)
+		FollowerPortrait.RemoveFollowerButton:ClearAllPoints()
+		FollowerPortrait.RemoveFollowerButton:SetPoint("TOPRIGHT", 4, 4)
 	end
 
-	function MERS:GarrisonLandingPageReportMissionTemplate(Button)
-		Button.BG:Hide()
+	-- Confirmation popup
+	local Confirmation = GarrisonBuildingFrame.Confirmation
 
-		MERS:GarrisonLandingPageReportMissionRewardTemplate(Button.Reward1)
-		MERS:GarrisonLandingPageReportMissionRewardTemplate(Button.Reward2)
-		MERS:GarrisonLandingPageReportMissionRewardTemplate(Button.Reward3)
+	Confirmation:GetRegions():Hide()
+	MERS:CreateBD(Confirmation)
+	MERS:Reskin(Confirmation.CancelButton)
+	MERS:Reskin(Confirmation.BuildButton)
+	MERS:Reskin(Confirmation.UpgradeButton)
+	MERS:Reskin(Confirmation.UpgradeGarrisonButton)
+	MERS:Reskin(Confirmation.ReplaceButton)
+	MERS:Reskin(Confirmation.SwitchButton)
+
+	-- [[ Capacitive display frame ]]
+	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
+
+	GarrisonCapacitiveDisplayFrameLeft:Hide()
+	GarrisonCapacitiveDisplayFrameMiddle:Hide()
+	GarrisonCapacitiveDisplayFrameRight:Hide()
+	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
+	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
+	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
+
+	MERS:Reskin(GarrisonCapacitiveDisplayFrame.StartWorkOrderButton, true)
+	MERS:Reskin(GarrisonCapacitiveDisplayFrame.CreateAllWorkOrdersButton, true)
+	GarrisonCapacitiveDisplayFrame:Styling()
+
+	-- Capacitive display
+	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
+
+	CapacitiveDisplay.IconBG:SetAlpha(0)
+
+	do
+		local icon = CapacitiveDisplay.ShipmentIconFrame.Icon
+		icon:SetTexCoord(unpack(E.TexCoords))
+		MERS:CreateBG(icon)
 	end
 
-	function MERS:GarrisonLandingPageTabTemplate(Button)
-		Button:SetHeight(28)
+	local reagentIndex = 1
+	hooksecurefunc("GarrisonCapacitiveDisplayFrame_Update", function()
+		local reagents = CapacitiveDisplay.Reagents
 
-		Button.LeftDisabled:SetAlpha(0)
-		Button.MiddleDisabled:SetAlpha(0)
-		Button.RightDisabled:SetAlpha(0)
-		Button.Left:SetAlpha(0)
-		Button.Middle:SetAlpha(0)
-		Button.Right:SetAlpha(0)
-		Button.LeftHighlight:SetAlpha(0)
-		Button.RightHighlight:SetAlpha(0)
-		Button.MiddleHighlight:SetAlpha(0)
+		local reagent = reagents[reagentIndex]
+		while reagent do
+			reagent.NameFrame:SetAlpha(0)
+			if reagent.backdrop then reagent.backdrop:Hide() end
 
-		Button.Text:ClearAllPoints()
-		Button.Text:SetPoint("CENTER")
+			reagent.Icon:SetTexCoord(unpack(E.TexCoords))
+			reagent.Icon:SetDrawLayer("BORDER")
+			MERS:CreateBG(reagent.Icon)
 
-		Button._mUITabResize = true
-	end
+			local bg = CreateFrame("Frame", nil, reagent)
+			bg:SetPoint("TOPLEFT")
+			bg:SetPoint("BOTTOMRIGHT", 0, 2)
+			bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
+			MERS:CreateBD(bg, .25)
 
-	function MERS:BaseLandingPageFollowerListTemplate(Frame)
-		Frame:GetRegions():Hide()
-		Frame.FollowerHeaderBar:Hide()
-		Frame.FollowerScrollFrame:Hide()
-	end
+			reagentIndex = reagentIndex + 1
+			reagent = reagents[reagentIndex]
+		end
+	end)
 
-	--[[ Blizzard_GarrisonCapacitiveDisplay.xml ]]
-	function MERS:GarrisonCapacitiveItemButtonTemplate(Frame)
-		S:CropIcon(Frame.Icon)
-
-		local iconBG = CreateFrame("Frame", nil, Frame)
-		iconBG:SetFrameLevel(Frame:GetFrameLevel() - 1)
-		iconBG:SetPoint("TOPLEFT", Frame.Icon, -1, 1)
-		iconBG:SetPoint("BOTTOMRIGHT", Frame.Icon, 1, -1)
-		Frame._mUIIconBorder = iconBG
-
-		Frame.NameFrame:SetAlpha(0)
-
-		local nameBG = CreateFrame("Frame", nil, Frame)
-		nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
-		nameBG:SetPoint("BOTTOMRIGHT", -3, 1)
-		Frame._mUINameBG = nameBG
-	end
-
-	function MERSGarrisonCapacitiveWorkOrderTemplate(Frame)
-		MERS:GarrisonBonusEffectFrameTemplate(Frame.BonusEffectFrame)
-	end
-
-	-- Not templates
-	function MERS:GarrisonCapacitiveInputSpinner(Frame)
-		Frame.DecrementButton = GarrisonCapacitiveDisplayFrame.DecrementButton
-		Frame.DecrementButton:ClearAllPoints()
-
-		Frame.IncrementButton = GarrisonCapacitiveDisplayFrame.IncrementButton
-		Frame.IncrementButton:ClearAllPoints()
-
-		MERS:NumericInputSpinnerTemplate(Frame)
-	end
-
-	--[[ Blizzard_GarrisonMissionUI.xml ]]
-	function MERS:GarrisonFollowerMissionPortraitTemplate(Frame)
-		MERS:GarrisonFollowerPortraitTemplate(Frame)
-		MERS.GarrisonFollowerPortraitMixin_SetQuality(Frame, 1)
-		Frame.Level:Hide()
-
-		Frame.Empty:SetAtlas("Garr_FollowerPortrait_Bg")
-		Frame.Empty:SetAllPoints(Frame.Portrait)
-		Frame.Empty:SetTexCoord(0.08620689655172, 0.86206896551724, 0.06896551724138, 0.8448275862069)
-
-		Frame.Highlight:SetTexture([[Interface\Buttons\CheckButtonHilight]])
-		Frame.Highlight:SetTexCoord(0.0625, 0.9375, 0.0625, 0.9375)
-		Frame.Highlight:SetPoint("TOPLEFT", Frame._auroraPortraitBG)
-		Frame.Highlight:SetPoint("BOTTOMRIGHT", Frame._auroraLvlBG, "TOPRIGHT")
-	end
-
-	function MERS:GarrisonMissionListTabTemplate(Button)
-		Button.Left:SetAlpha(0)
-		Button.Right:SetAlpha(0)
-		Button.Middle:SetAlpha(0)
-		Button.SelectedLeft:SetAlpha(0)
-		Button.SelectedRight:SetAlpha(0)
-		Button.SelectedMid:SetAlpha(0)
-	end
-
-	function MERS:GarrisonMissionAbilityLargeCounterTemplate(Frame)
-		MERS:GarrisonAbilityLargeCounterTemplate(Frame)
-	end
-
-	function MERS:GarrisonFollowerPageAbilityIconButtonTemplate(Button)
-		S:CropIcon(Button.Icon)
-	end
-
-	function MERS:GarrisonFollowerPageAbilityTemplate(Button)
-		MERS:GarrisonFollowerPageAbilityIconButtonTemplate(Button.IconButton, Button)
-	end
-
-	function MERS:GarrisonMissionListButtonRewardTemplate(Frame)
-		S:CropIcon(Frame.Icon)
-
-		local bg = _G.CreateFrame("Frame", nil, Frame)
-		bg:SetPoint("TOPLEFT", Frame.Icon, -1, 1)
-		bg:SetPoint("BOTTOMRIGHT", Frame.Icon, 1, -1)
-		Frame._mUIIconBorder = bg
-
-		Frame.IconBorder:Hide()
-
-		Frame:SetSize(Frame:GetSize())
-	end
-
-	function MERS:GarrisonMissionListButtonNewHighlightTemplate(Frame)
-	end
-
-	function MERS:GarrisonMissionListButtonTemplate(Button)
-		local bg, l, r, t, b, _, t2, b2, tl, tr, bl, br = Button:GetRegions()
-		Button:CreateBackdrop({
-			bg = bg,
-
-			l = l,
-			r = r,
-			t = t,
-			b = b,
-
-			tl = tl,
-			tr = tr,
-			bl = bl,
-			br = br,
-
-			borderLayer = "BACKGROUND",
-			borderSublevel = -7,
-		})
-		t2:Hide()
-		b2:Hide()
-
-		Button.HighlightT:SetTexture("")
-		Button.HighlightB:SetTexture("")
-		Button.HighlightTL:SetTexture("")
-		Button.HighlightTR:SetTexture("")
-		Button.HighlightBL:SetTexture("")
-		Button.HighlightBR:SetTexture("")
-		Button.Highlight:SetTexture("")
-
-		Button:DisableDrawLayer("HIGHLIGHT")
-		MERS:GarrisonMissionListButtonRewardTemplate(Button.Rewards[1])
-	end
-
-	function MERS:GarrisonFollowerMissionRewardsFrameTemplate(Frame)
-		local bg, l, r, t, b, tl, tr, bl, br = Frame:GetRegions()
-		Frame:CreateBackdrop({
-			bg = bg,
-
-			l = l,
-			r = r,
-			t = t,
-			b = b,
-
-			tl = tl,
-			tr = tr,
-			bl = bl,
-			br = br,
-
-			borderLayer = "BACKGROUND",
-			borderSublevel = -7,
-		})
-	end
-
-	function MERS:GarrisonMissionPageFollowerTemplate(Frame)
-		Frame:GetRegions():Hide()
-		local portraitBG = CreateFrame("Frame", nil, Frame)
-		portraitBG:SetFrameLevel(Frame:GetFrameLevel())
-		portraitBG:SetPoint("TOPLEFT", Frame, -1, 1)
-		portraitBG:SetPoint("BOTTOMRIGHT", Frame, 1, -1)
-
-		MERS:GarrisonFollowerMissionPortraitTemplate(Frame.PortraitFrame)
-		MERS:GarrisonMissionAbilityLargeCounterTemplate(Frame.Counters[1])
-		MERS:GarrisonMissionFollowerDurabilityFrameTemplate(Frame.Durability[1])
-	end
-
-	function MERS:GarrisonEnemyPortraitTemplate(Frame)
-	end
-
-	function MERS:GarrisonMissionPageEnemyTemplate(Frame)
-		MERS:GarrisonEnemyPortraitTemplate(Frame.PortraitFrame)
-		MERS:GarrisonMissionEnemyLargeMechanicTemplate(Frame.Mechanics[1])
-	end
-
-	function MERS:GarrisonLargeFollowerXPFrameTemplate(Frame)
-		MERS:GarrisonFollowerPortraitTemplate(Frame.PortraitFrame)
-		MERS:GarrisonFollowerXPBarTemplate(Frame.XP)
-		MERS:GarrisonFollowerXPGainTemplate(Frame.XPGain)
-		MERS:GarrisonFollowerLevelUpTemplate(Frame.LevelUpFrame)
-		MERS:GarrisonMissionFollowerDurabilityFrameTemplate(Frame.DurabilityFrame)
-	end
-
-	function MERS:GarrisonMissionPageBaseTemplate(Frame)
-		local bg, l, r, t, b, tl, tr, bl, br, tex1 = Frame:GetRegions()
-		Frame:CreateBackdrop({
-			bg = bg,
-
-			l = l,
-			r = r,
-			t = t,
-			b = b,
-
-			tl = tl,
-			tr = tr,
-			bl = bl,
-			br = br,
-
-			borderLayer = "BACKGROUND",
-			borderSublevel = -7,
-		})
-		tex1:Hide()
-	end
-
-	function MERS:GarrisonMissionTopBorderTemplate(Frame)
-		local tex1, tex2, tex3 = select(11, Frame:GetRegions())
-		tex1:Hide()
-		tex2:Hide()
-		tex3:Hide()
-	end
-
-	function MERS:GarrisonMissionListTemplate(Frame)
-		MERS:GarrisonListTemplate(Frame)
-		MERS:GarrisonMissionListTabTemplate(Frame.Tab1)
-		MERS:GarrisonMissionListTabTemplate(Frame.Tab2)
-		MERS:MaterialFrameTemplate(Frame.MaterialFrame)
-		Frame.MaterialFrame:SetPoint("BOTTOMRIGHT", Frame, "TOPRIGHT", -9, 9)
-		Frame.MaterialFrame:SetPoint("TOPLEFT", Frame, "TOPRIGHT", -307, 34)
-
-		Frame.CompleteDialog:SetPoint("TOPLEFT", Frame:GetParent())
-		Frame.CompleteDialog:SetPoint("BOTTOMRIGHT", Frame:GetParent())
-		MERS:GarrisonMissionPageBaseTemplate(Frame.CompleteDialog.BorderFrame)
-		MERS:GarrisonMissionCompleteDialogTemplate(Frame.CompleteDialog.BorderFrame)
-		MERS:GarrisonMissionTopBorderTemplate(Frame.CompleteDialog.BorderFrame)
-	end
-
-	function MERS:GarrisonFollowerTabTemplate(Frame)
-		MERS:GarrisonMissionBaseFrameTemplate(Frame)
-
-		Frame.HeaderBG:Hide()
-
-		MERS:GarrisonFollowerPortraitTemplate(Frame.PortraitFrame)
-		MERS:GarrisonFollowerXPBarTemplate(Frame.XPBar)
-
-		MERS:GarrisonFollowerCombatAllySpellTemplate(Frame.AbilitiesFrame.CombatAllySpell[1])
-		MERS:GarrisonFollowerCombatAllySpellTemplate(Frame.AbilitiesFrame.CombatAllySpell[2])
-	end
-
-	function MERS:GarrisonFollowerMissionCompleteStageTemplate(Frame)
-		MERS:GarrisonMissionStageTemplate(Frame)
-		MERS:GarrisonMissionCompleteStageTemplate(Frame)
-
-		MERS:GarrisonLargeFollowerXPFrameTemplate(Frame.FollowersFrame.Follower1)
-		MERS:GarrisonLargeFollowerXPFrameTemplate(Frame.FollowersFrame.Follower2)
-		MERS:GarrisonLargeFollowerXPFrameTemplate(Frame.FollowersFrame.Follower3)
-
-		local left, right, bottom = Frame.MissionInfo:GetRegions()
-		left:Hide()
-		right:Hide()
-		bottom:Hide()
-
-		local top, tl, tr = select(11, Frame.MissionInfo:GetRegions())
-		top:Hide()
-		tl:Hide()
-		tr:Hide()
-	end
-
-	--[[ Blizzard_OrderHallMissionUI.xml ]]
-	function MERS:OrderHallMissionListButtonTemplate(Button)
-		MERS:GarrisonMissionListButtonTemplate(Button)
-	end
-
-	function MERS:OrderHallMissionPageEnemyTemplate(Button)
-		MERS:GarrisonMissionPageEnemyTemplate(Button)
-	end
-
-	----====####$$$$%%%%$$$$####====----
-	--  Blizzard_GarrisonLandingPage  --
-	----====####$$$$%%%%$$$$####====----
+	-- [[ Landing page ]]
 	local GarrisonLandingPage = _G["GarrisonLandingPage"]
-	GarrisonLandingPage:StripTextures()
+
+	for i = 1, 10 do
+		select(i, GarrisonLandingPage:GetRegions()):Hide()
+	end
+
+	if GarrisonLandingPage.backdrop then GarrisonLandingPage.backdrop:Hide() end
+
+	MERS:CreateBD(GarrisonLandingPage)
 	GarrisonLandingPage:Styling()
+	MERS:ReskinTab(GarrisonLandingPageTab1)
+	MERS:ReskinTab(GarrisonLandingPageTab2)
+	MERS:ReskinTab(GarrisonLandingPageTab3)
 
-	GarrisonLandingPage.HeaderBar:Hide()
+	GarrisonLandingPageTab1:ClearAllPoints()
+	GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
 
-	MERS:GarrisonLandingPageTabTemplate(GarrisonLandingPage.ReportTab)
-	MERS:GarrisonLandingPageTabTemplate(GarrisonLandingPage.FollowerTabButton)
-	MERS:GarrisonLandingPageTabTemplate(GarrisonLandingPage.FleetTab)
-
-	GarrisonLandingPage.Report.Background:SetDesaturated(true)
-	GarrisonLandingPage.Report.Background:SetAlpha(0.5)
-	GarrisonLandingPage.Report.List:GetRegions():SetDesaturated(true)
-	GarrisonLandingPage.Report.InProgress:GetNormalTexture():SetAlpha(0)
-	GarrisonLandingPage.Report.InProgress:SetHighlightTexture("")
-	GarrisonLandingPage.Report.Available:GetNormalTexture():SetAlpha(0)
-	GarrisonLandingPage.Report.Available:SetHighlightTexture("")
-
+	-- Report
 	local Report = GarrisonLandingPage.Report
+
+	select(2, Report:GetRegions()):Hide()
 	Report.List:GetRegions():Hide()
 
 	local scrollFrame = Report.List.listScroll
+
 	local buttons = scrollFrame.buttons
 	for i = 1, #buttons do
 		local button = buttons[i]
-
 		button.BG:Hide()
 
 		local bg = CreateFrame("Frame", nil, button)
@@ -360,167 +239,345 @@ local function styleGarrison()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
 
+		for _, reward in pairs(button.Rewards) do
+			reward:GetRegions():Hide()
+			reward.Icon:SetTexCoord(unpack(E.TexCoords))
+			reward.IconBorder:SetAlpha(0)
+			MERS:CreateBG(reward.Icon)
+			reward:ClearAllPoints()
+			reward:SetPoint("TOPRIGHT", -4, -4)
+		end
+
 		MERS:CreateBD(bg, .25)
 	end
 
-	MERS:BaseLandingPageFollowerListTemplate(GarrisonLandingPage.FollowerList)
-	local LandingFollowerTab = GarrisonLandingPage.FollowerTab
-	MERS:GarrisonFollowerPortraitTemplate(LandingFollowerTab.PortraitFrame)
-	MERS:GarrisonFollowerXPBarTemplate(LandingFollowerTab.XPBar)
-	MERS:GarrisonMissionFollowerDurabilityFrameTemplate(LandingFollowerTab.DurabilityFrame)
+	for _, tab in pairs({Report.InProgress, Report.Available}) do
+		tab:SetHighlightTexture("")
+		tab.Text:ClearAllPoints()
+		tab.Text:SetPoint("CENTER")
 
-	MERS:BaseLandingPageFollowerListTemplate(GarrisonLandingPage.ShipFollowerList)
+		local bg = CreateFrame("Frame", nil, tab)
+		bg:SetFrameLevel(tab:GetFrameLevel() - 1)
+		MERS:CreateBD(bg, .25)
+		MERS:CreateGradient(bg)
 
-	----====####$$$$%%%%%%%%$$$$####====----
-	-- Blizzard_GarrisonCapacitiveDisplay --
-	----====####$$$$%%%%%%%%$$$$####====----
-	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
-	MERS:ButtonFrameTemplate(GarrisonCapacitiveDisplayFrame)
+		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
+		selectedTex:SetAllPoints()
+		selectedTex:SetColorTexture(r, g, b, .2)
+		selectedTex:Hide()
+		tab.selectedTex = selectedTex
 
-	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
-	CapacitiveDisplay.IconBG:Hide()
-	MERS:GarrisonFollowerPortraitTemplate(CapacitiveDisplay.ShipmentIconFrame.Follower)
-	MERS:GarrisonCapacitiveItemButtonTemplate(CapacitiveDisplay.Reagents[1])
+		if tab == Report.InProgress then
+			bg:SetPoint("TOPLEFT", 5, 0)
+			bg:SetPoint("BOTTOMRIGHT")
+		else
+			bg:SetPoint("TOPLEFT")
+			bg:SetPoint("BOTTOMRIGHT", -7, 0)
+		end
+	end
 
-	-- /run GarrisonCapacitiveDisplayFrame.FinishedGlow.FinishedAnim:Play()
-	GarrisonCapacitiveDisplayFrame.FinishedGlow:SetClipsChildren(true)
-	GarrisonCapacitiveDisplayFrame.FinishedGlow.FinishedFlare:SetPoint("TOPLEFT", 0, 25)
+	hooksecurefunc("GarrisonLandingPageReport_SetTab", function(self)
+		local unselectedTab = Report.unselectedTab
+		unselectedTab:SetHeight(36)
+		unselectedTab:SetNormalTexture("")
+		unselectedTab.selectedTex:Hide()
+		self:SetNormalTexture("")
+		self.selectedTex:Show()
+	end)
 
-	-- BlizzWTF: This should use NumericInputSpinnerTemplate
-	GarrisonCapacitiveDisplayFrame.Count:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.Count:SetPoint("BOTTOM", -15, 4)
-	MERS:GarrisonCapacitiveInputSpinner(GarrisonCapacitiveDisplayFrame.Count)
+	local FollowerList = GarrisonLandingPage.FollowerList
 
-	----====####$$$%%%%%%%%$$$####====--
-	--   Blizzard_GarrisonMissionUI   --
-	----====####$$$$%%%%$$$$####====----
+	FollowerList:GetRegions():Hide()
+	select(2, FollowerList:GetRegions()):Hide()
 
-	MERS:GarrisonFollowerPortraitTemplate(GarrisonFollowerPlacer)
+	-- Ship follower list
+	local FollowerList = GarrisonLandingPage.ShipFollowerList
 
-	----====####$$$$%%%%%%%%$$$$####====-
-	--   Blizzard_OrderHallMissionUI   --
-	----====####$$$$%%%%%$$$$####====----
+	FollowerList:GetRegions():Hide()
+	select(2, FollowerList:GetRegions()):Hide()
+
+	-- [[ Mission UI ]]
+	local GarrisonMissionFrame = _G["GarrisonMissionFrame"]
+	if GarrisonMissionFrame.backdrop then GarrisonMissionFrame.backdrop:Hide() end
+	MERS:CreateBD(GarrisonMissionFrame, .25)
+	GarrisonMissionFrame:Styling()
+
+	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
+		if isSelected then
+			tab:SetBackdropColor(r, g, b, .2)
+		else
+			tab:SetBackdropColor(0, 0, 0, .25)
+		end
+	end)
+
+	hooksecurefunc("GarrisonFollowerButton_AddAbility", function(self, index)
+		local ability = self.Abilities[index]
+
+		if not ability.styled then
+			local icon = ability.Icon
+			icon:SetSize(19, 19)
+			MERS:ReskinIcon(icon)
+
+			ability.styled = true
+		end
+	end)
+
+	hooksecurefunc("GarrisonMissionPage_SetReward", function(frame)
+		if not frame.bg then
+			frame.Icon:SetTexCoord(unpack(E.TexCoords))
+			MERS:CreateBDFrame(frame.Icon)
+			frame.BG:SetAlpha(0)
+			frame.bg = MERS:CreateBDFrame(frame.BG, .25)
+			frame.IconBorder:SetScale(.0001)
+		end
+	end)
+
+	hooksecurefunc(GarrisonMission, "UpdateMissionParty", function(_, followers)
+		for followerIndex = 1, #followers do
+			local followerFrame = followers[followerIndex]
+			if followerFrame.info then
+				for i = 1, #followerFrame.Counters do
+					local counter = followerFrame.Counters[i]
+					if not counter.styled then
+						MERS:ReskinIcon(counter.Icon)
+						counter.styled = true
+					end
+				end
+			end
+		end
+	end)
+
+	hooksecurefunc(GarrisonMission, "SetEnemies", function(_, missionPage, enemies)
+		for i = 1, #enemies do
+			local frame = missionPage.Enemies[i]
+			if frame:IsShown() and not frame.styled then
+				for j = 1, #frame.Mechanics do
+					local mechanic = frame.Mechanics[j]
+					MERS:ReskinIcon(mechanic.Icon)
+				end
+				frame.styled = true
+			end
+		end
+	end)
+
+	hooksecurefunc(GarrisonMission, "UpdateMissionData", function(_, missionPage)
+		local buffsFrame = missionPage.BuffsFrame
+		if buffsFrame:IsShown() then
+			for i = 1, #buffsFrame.Buffs do
+				local buff = buffsFrame.Buffs[i]
+				if not buff.styled then
+					MERS:ReskinIcon(buff.Icon)
+					buff.styled = true
+				end
+			end
+		end
+	end)
+
+	hooksecurefunc(GarrisonMission, "MissionCompleteInitialize", function(self, missionList, index)
+		local mission = missionList[index]
+		if not mission then return end
+
+		for i = 1, #mission.followers do
+			local frame = self.MissionComplete.Stage.FollowersFrame.Followers[i]
+			if frame.PortraitFrame then
+				if not frame.bg then
+					frame.PortraitFrame:ClearAllPoints()
+					frame.PortraitFrame:SetPoint("TOPLEFT", 0, -10)
+
+					local oldBg = frame:GetRegions()
+					oldBg:Hide()
+					frame.bg = MERS:CreateBDFrame(oldBg)
+					frame.bg:SetPoint("TOPLEFT", frame.PortraitFrame, -1, 1)
+					frame.bg:SetPoint("BOTTOMRIGHT", -10, 8)
+				end
+			end
+		end
+	end)
+
+	-- [[ Recruiter frame ]]
+	local GarrisonRecruiterFrame = _G["GarrisonRecruiterFrame"]
+
+	for i = 18, 22 do
+		select(i, GarrisonRecruiterFrame:GetRegions()):Hide()
+	end
+
+	-- Unavailable frame
+	local UnavailableFrame = GarrisonRecruiterFrame.UnavailableFrame
+
+	MERS:Reskin(UnavailableFrame:GetChildren())
+
+	-- [[ Recruiter select frame ]]
+	local GarrisonRecruitSelectFrame = GarrisonRecruitSelectFrame
+
+	for i = 1, 14 do
+		select(i, GarrisonRecruitSelectFrame:GetRegions()):Hide()
+	end
+	GarrisonRecruitSelectFrame.TitleText:Show()
+	GarrisonRecruitSelectFrame.GarrCorners:Hide()
+	MERS:CreateBD(GarrisonRecruitSelectFrame)
+
+	-- Follower list
+	local FollowerList = GarrisonRecruitSelectFrame.FollowerList
+
+	FollowerList:DisableDrawLayer("BORDER")
+
+	-- Follower selection
+	local FollowerSelection = GarrisonRecruitSelectFrame.FollowerSelection
+
+	FollowerSelection:DisableDrawLayer("BORDER")
+	for i = 1, 3 do
+		local recruit = FollowerSelection["Recruit"..i]
+		MERS:Reskin(recruit.HireRecruits)
+	end
+
+	-- [[ Monuments ]]
+	local GarrisonMonumentFrame = _G["GarrisonMonumentFrame"]
+
+	GarrisonMonumentFrame.Background:Hide()
+	MERS:CreateBD(GarrisonMonumentFrame)
+	GarrisonMonumentFrame:Styling()
+
+	-- [[ Shipyard ]]
+	local GarrisonShipyardFrame = _G["GarrisonShipyardFrame"]
+
+	for i = 1, 14 do
+		select(i, GarrisonShipyardFrame.BorderFrame:GetRegions()):Hide()
+	end
+
+	GarrisonShipyardFrame.BorderFrame.TitleText:Show()
+	GarrisonShipyardFrame.BorderFrame.GarrCorners:Hide()
+	GarrisonShipyardFrame.BackgroundTile:Hide()
+	if GarrisonShipyardFrame.backdrop then GarrisonShipyardFrame.backdrop:Hide() end
+	MERS:CreateBD(GarrisonShipyardFrame, .25)
+	GarrisonShipyardFrame:Styling()
+
+	GarrisonShipyardFrameFollowers:GetRegions():Hide()
+	select(2, GarrisonShipyardFrameFollowers:GetRegions()):Hide()
+	GarrisonShipyardFrameFollowers:DisableDrawLayer("BORDER")
+
+	local shipyardTab = GarrisonShipyardFrame.FollowerTab
+	shipyardTab:DisableDrawLayer("BORDER")
+
+	MERS:ReskinTab(GarrisonShipyardFrameTab1)
+	MERS:ReskinTab(GarrisonShipyardFrameTab2)
+
+	local shipyardMission = GarrisonShipyardFrame.MissionTab.MissionPage
+	shipyardMission:StripTextures()
+	MERS:Reskin(shipyardMission.StartMissionButton)
+
+	local smbg = MERS:CreateBDFrame(shipyardMission.Stage)
+	smbg:SetPoint("TOPLEFT", 4, 1)
+	smbg:SetPoint("BOTTOMRIGHT", -4, -1)
+
+	for i = 1, 10 do
+		select(i, shipyardMission.RewardsFrame:GetRegions()):Hide()
+	end
+	MERS:CreateBD(shipyardMission.RewardsFrame, .25)
+
+	GarrisonShipyardFrame.MissionCompleteBackground:GetRegions():Hide()
+	GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog:GetRegions():Hide()
+	MERS:Reskin(GarrisonShipyardFrame.MissionTab.MissionList.CompleteDialog.BorderFrame.ViewButton)
+	select(11, GarrisonShipyardFrame.MissionComplete.BonusRewards:GetRegions()):SetTextColor(1, .8, 0)
+	MERS:Reskin(GarrisonShipyardFrame.MissionComplete.NextMissionButton)
+
+	-- [[ Orderhall UI]]
 	local OrderHallMissionFrame = _G["OrderHallMissionFrame"]
-	MERS:GarrisonMissionFrameTemplate(OrderHallMissionFrame)
-	MERS:GarrisonUITemplate(OrderHallMissionFrame)
+	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
+	MERS:CreateBD(OrderHallMissionFrame, .25)
+	OrderHallMissionFrame:Styling()
 
-	OrderHallMissionFrame.ClassHallIcon:SetClipsChildren(true)
-	OrderHallMissionFrame.ClassHallIcon:SetFrameLevel(OrderHallMissionFrame:GetFrameLevel() + 1)
-	OrderHallMissionFrame.ClassHallIcon:SetFrameStrata(OrderHallMissionFrame:GetFrameStrata())
-	OrderHallMissionFrame.ClassHallIcon:SetPoint("TOPLEFT")
-	OrderHallMissionFrame.ClassHallIcon:SetSize(200, 200)
-	local _, className = UnitClass("player")
-	OrderHallMissionFrame.ClassHallIcon.Icon:ClearAllPoints()
-	OrderHallMissionFrame.ClassHallIcon.Icon:SetPoint("CENTER", OrderHallMissionFrame.ClassHallIcon, "TOPLEFT", 50, -50)
-	OrderHallMissionFrame.ClassHallIcon.Icon:SetAtlas("legionmission-landingpage-background-"..className, true)
-	OrderHallMissionFrame.ClassHallIcon.Icon:SetDesaturated(true)
-	OrderHallMissionFrame.ClassHallIcon.Icon:SetAlpha(0.8)
+	_G["OrderHallMissionFrameMissions"].MaterialFrame:StripTextures()
+	_G["OrderHallMissionFrameMissionsListScrollFrame"]:StripTextures()
 
-	OrderHallMissionFrame.Tab1:SetPoint("TOPLEFT", OrderHallMissionFrame, "BOTTOMLEFT", 20, -1)
-	OrderHallMissionFrame.Tab2:SetPoint("TOPLEFT", OrderHallMissionFrame.Tab1, "TOPRIGHT", 1, 0)
-	OrderHallMissionFrame.Tab3:SetPoint("TOPLEFT", OrderHallMissionFrame.Tab2, "TOPRIGHT", 1, 0)
+	OrderHallMissionFrame.MissionTab.MissionPage:StripTextures()
 
-	------------------
-	-- FollowerList --
-	------------------
-	local OrderHallFollowerList = OrderHallMissionFrame.FollowerList
-	MERS:GarrisonListTemplateHeader(OrderHallFollowerList)
-	MERS:MaterialFrameTemplate(OrderHallFollowerList.MaterialFrame)
-	OrderHallFollowerList.MaterialFrame:SetPoint("TOPLEFT", OrderHallFollowerList, "BOTTOMLEFT", 0, -2)
-	OrderHallFollowerList.MaterialFrame:SetPoint("BOTTOMRIGHT", 0, -30)
+	-- CombatAlly MissionFrame
+	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
+	local portraitFrame = combatAlly.InProgress.PortraitFrame
+	local portrait = combatAlly.InProgress.PortraitFrame.Portrait
+	local portraitRing = combatAlly.InProgress.PortraitFrame.PortraitRing
+	local portraitRingQuality = combatAlly.InProgress.PortraitFrame.PortraitRingQuality
+	local levelBorder = combatAlly.InProgress.PortraitFrame.LevelBorder
+	combatAlly:StripTextures()
+	MERS:CreateBD(combatAlly, .25)
 
-	------------
-	-- MapTab --
-	------------
-	local OrderHallMapTab = OrderHallMissionFrame.MapTab
-	OrderHallMapTab.ScrollContainer:ClearAllPoints()
-	OrderHallMapTab.ScrollContainer:SetPoint("TOPLEFT")
-	OrderHallMapTab.ScrollContainer:SetPoint("BOTTOMRIGHT")
+	if portrait and not portrait.IsSkinned then
+		portraitFrame:CreateBackdrop("Default")
+		portraitFrame.backdrop:SetPoint("TOPLEFT", portrait, "TOPLEFT", -1, 1)
+		portraitFrame.backdrop:SetPoint("BOTTOMRIGHT", portrait, "BOTTOMRIGHT", 1, -1)
+		portrait:ClearAllPoints()
+		portrait:SetPoint("TOPLEFT", 1, -1)
+		portrait:SetTexCoord(unpack(E.TexCoords))
+		portraitRing:SetAlpha(0)
+		portraitRingQuality:SetAlpha(0)
+		levelBorder:SetAlpha(0)
 
-	----------------
-	-- MissionTab --
-	----------------
-	local OrderHallMissionTab = OrderHallMissionFrame.MissionTab
-	MERS:GarrisonMissionListTemplate(OrderHallMissionTab.MissionList)
+		portrait.IsSkinned = true
+	end
 
-	local CombatAllyUI = OrderHallMissionTab.MissionList.CombatAllyUI
-	CombatAllyUI.Background:Hide()
+	-- CombatAlly ZoneSupport Frame
+	_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage:StripTextures()
+	MERS:CreateBD(_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage, .5)
+	local combatAlly = _G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage.Follower1
+	local portraitFrame = combatAlly.PortraitFrame
+	local portrait = portraitFrame.Portrait
+	local portraitRing = portraitFrame.PortraitRing
+	local portraitRingQuality = portraitFrame.PortraitRingQuality
+	local levelBorder = portraitFrame.LevelBorder
 
-	local AddFollowerButton = CombatAllyUI.Available.AddFollowerButton
-	AddFollowerButton.EmptyPortrait:Hide()
-	AddFollowerButton.Plus:SetSize(42, 42)
-	AddFollowerButton.Plus:SetPoint("CENTER", 0, 5)
-	local portraitBG = CreateFrame("Frame", nil, AddFollowerButton)
-	portraitBG:SetFrameLevel(AddFollowerButton:GetFrameLevel())
-	portraitBG:SetPoint("TOPLEFT", AddFollowerButton.Plus, -1, 1)
-	portraitBG:SetPoint("BOTTOMRIGHT", AddFollowerButton.Plus, 1, -1)
-	AddFollowerButton.PortraitHighlight:SetTexture([[Interface\Buttons\CheckButtonHilight-Blue]])
-	AddFollowerButton.PortraitHighlight:SetTexCoord(0.234375, 0.765625, 0.234375, 0.765625)
-	AddFollowerButton.PortraitHighlight:SetAllPoints(portraitBG)
+	combatAlly:StripTextures()
 
-	MERS:GarrisonFollowerPortraitTemplate(CombatAllyUI.InProgress.PortraitFrame)
-	MERS:GarrisonFollowerCombatAllySpellTemplate(CombatAllyUI.InProgress.CombatAllySpell)
+	if portrait and not portrait.IsSkinned then
+		portrait:ClearAllPoints()
+		portrait:SetPoint("TOPLEFT", 1, -1)
+		portrait:SetTexCoord(unpack(E.TexCoords))
+		portraitRing:Hide()
+		portraitRingQuality:SetAlpha(0)
+		levelBorder:SetAlpha(0)
 
-	MERS:GarrisonFollowerPortraitTemplate(CombatAllyUI.InProgress.PortraitFrame)
-	MERS:GarrisonFollowerCombatAllySpellTemplate(CombatAllyUI.InProgress.CombatAllySpell)
+		portrait.IsSkinned = true
+	end
 
-	---------------------
-	-- MissionComplete --
-	---------------------
-	OrderHallMissionFrame.MissionCompleteBackground:SetAllPoints(OrderHallMissionFrame)
-	local OrderHallMissionComplete = OrderHallMissionFrame.MissionComplete
-	MERS:GarrisonMissionPageBaseTemplate(OrderHallMissionComplete)
-	MERS:GarrisonMissionCompleteTemplate(OrderHallMissionComplete)
-	MERS:GarrisonFollowerMissionCompleteStageTemplate(OrderHallMissionComplete.Stage)
-	MERS:GarrisonFollowerMissionRewardsFrameTemplate(OrderHallMissionComplete.BonusRewards)
+	for i, v in ipairs(_G["OrderHallMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
+		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
+		if Button and not Button.skinned then
+			Button:StripTextures()
+			MERS:CreateBD(Button, .25)
+			MERS:Reskin(Button, true)
+			Button.LocBG:SetAlpha(0)
+			Button.backdropTexture:Hide()
 
-	----====####$$$$%%%%%$$$$####====----
-	--      Blizzard_BFAMissionUI      --
-	----====####$$$$%%%%%$$$$####====----
+			Button.isSkinned = true
+		end
+	end
+
+	for i = 1, 2 do
+		local tab = _G["OrderHallMissionFrameMissionsTab"..i]
+
+		tab:StripTextures()
+		tab:SetHeight(_G["GarrisonMissionFrameMissionsTab" .. i]:GetHeight() - 10)
+		S:HandleTab(tab)
+	end
+
+	 --Missions
+	local Mission = _G["OrderHallMissionFrameMissions"]
+	Mission.CompleteDialog:StripTextures()
+	Mission.CompleteDialog:SetTemplate("Transparent")
+
+	local MissionPage = _G["OrderHallMissionFrame"].MissionTab.MissionPage
+	for i = 1, 10 do
+		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
+	end
+	MERS:CreateBD(MissionPage.RewardsFrame, .25)
+
+	-- [[ BFA Mission UI]]
 	local BFAMissionFrame = _G["BFAMissionFrame"]
-	MERS:GarrisonMissionFrameTemplate(BFAMissionFrame)
-	MERS:GarrisonUITemplate(BFAMissionFrame)
-	BFAMissionFrame.CloseButtonBorder:Hide()
-	BFAMissionFrame.TitleScroll:Hide()
+	if BFAMissionFrame.backdrop then BFAMissionFrame.backdrop:Hide() end
+	MERS:CreateBD(BFAMissionFrame, .25)
+	BFAMissionFrame:Styling()
 
-	------------------
-	-- FollowerList --
-	------------------
-	local BFAFollowerList = BFAMissionFrame.FollowerList
-	MERS:GarrisonListTemplateHeader(BFAFollowerList)
-	MERS:MaterialFrameTemplate(BFAFollowerList.MaterialFrame)
-	BFAFollowerList.MaterialFrame:SetPoint("TOPLEFT", BFAFollowerList, "BOTTOMLEFT", 0, -2)
-	BFAFollowerList.MaterialFrame:SetPoint("BOTTOMRIGHT", 0, -30)
+	-- [[ Addon supports ]]
 
-	------------
-	-- MapTab --
-	------------
-	local BFAMapTab = BFAMissionFrame.MapTab
-	BFAMapTab.ScrollContainer:ClearAllPoints()
-	BFAMapTab.ScrollContainer:SetPoint("TOPLEFT")
-	BFAMapTab.ScrollContainer:SetPoint("BOTTOMRIGHT")
-
-	----------------
-	-- MissionTab --
-	----------------
-	local BFAMissionTab = BFAMissionFrame.MissionTab
-	MERS:GarrisonMissionListTemplate(BFAMissionTab.MissionList)
-
-	-----------------
-	-- FollowerTab --
-	-----------------
-	local BFAFollowerTab = BFAMissionFrame.FollowerTab
-	MERS:GarrisonFollowerTabTemplate(BFAFollowerTab)
-
-	---------------------
-	-- MissionComplete --
-	---------------------
-	BFAMissionFrame.MissionCompleteBackground:SetAllPoints(BFAMissionFrame)
-	local BFAMissionComplete = BFAMissionFrame.MissionComplete
-	MERS:GarrisonMissionPageBaseTemplate(BFAMissionComplete)
-	MERS:GarrisonMissionCompleteTemplate(BFAMissionComplete)
-	MERS:GarrisonFollowerMissionCompleteStageTemplate(BFAMissionComplete.Stage)
-	MERS:GarrisonFollowerMissionRewardsFrameTemplate(BFAMissionComplete.BonusRewards)
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)

@@ -406,6 +406,8 @@ end
 function MERL:ChatButtonHolder()
 	if E.private.chat.enable ~= true then return end
 
+	local ChatButtonHolder = _G["ChatButtonHolder"]
+
 	if ChatButtonHolder then
 		ChatButtonHolder:Show() -- Force Show it
 
@@ -415,9 +417,9 @@ function MERL:ChatButtonHolder()
 
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
 		ChatButtonHolder.bg:Styling(true, true, false, 8, 8, 1)
-	end
 
-	QuickJoinToastButton:Kill()
+		E:DisableMover("SocialMenuMover")
+	end
 end
 hooksecurefunc(LO, "CreateChatButtonPanel", MERL.ChatButtonHolder)
 
