@@ -24,6 +24,7 @@ local function styleChannels()
 	local queueTex = "Interface\\HELPFRAME\\HelpIcon-ItemRestoration"
 
 	local QuickJoinToastButton = _G["QuickJoinToastButton"]
+	QuickJoinToastButton:SetSize(24, 32)
 
 	if QuickJoinToastButton.backdrop then
 		QuickJoinToastButton.backdrop:Hide()
