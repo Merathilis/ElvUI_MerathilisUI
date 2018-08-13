@@ -22,8 +22,9 @@ local ChangeLogData = {
 		"• Add back the default QuickJoinToastButton and skinned it.",
 		"• Removed the QuickJoinNotifications. We use the blizz default now.",
 		"• Fixed an issue in the DBM skin which not allow to resize the bars.",
-		"• Added an text overlay to the Minimap which will show who pinged.",
+		"• Added a text overlay to the Minimap which will show who pinged.",
 		"• Added back CooldownFlash!!",
+		"• Added a text option for the MicroBar.",
 		"• A lot of skin updates.",
 
 		-- "• ''",
