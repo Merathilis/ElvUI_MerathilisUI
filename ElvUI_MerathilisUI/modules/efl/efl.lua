@@ -36,6 +36,7 @@ EFL.GameIcons = {
 		Hero = BNet_GetClientTexture(BNET_CLIENT_HEROES),
 		Pro = BNet_GetClientTexture(BNET_CLIENT_OVERWATCH),
 		DST2 = BNet_GetClientTexture(BNET_CLIENT_DESTINY2),
+		VIPR = BNet_GetClientTexture(BNET_CLIENT_COD),
 	},
 	BlizzardChat = {
 		Alliance = "Interface\\ChatFrame\\UI-ChatIcon-WoW",
@@ -50,6 +51,7 @@ EFL.GameIcons = {
 		Hero = "Interface\\ChatFrame\\UI-ChatIcon-HotS",
 		Pro = "Interface\\ChatFrame\\UI-ChatIcon-Overwatch",
 		DST2 = "Interface\\ChatFrame\\UI-ChatIcon-Destiny2",
+		VIPR = "Interface\\ChatFrame\\UI-ChatIcon-CallOfDutyBlackOps4"
 	},
 	Flat = {
 		Alliance = MediaPath.."GameIcons\\Flat\\Alliance",
@@ -64,6 +66,7 @@ EFL.GameIcons = {
 		Hero = MediaPath.."GameIcons\\Flat\\Heroes",
 		Pro = MediaPath.."GameIcons\\Flat\\Overwatch",
 		DST2 = "Interface\\ChatFrame\\UI-ChatIcon-Destiny2",
+		VIPR = MediaPath.."GameIcons\\Flat\\COD4",
 	},
 	Gloss = {
 		Alliance = MediaPath.."GameIcons\\Gloss\\Alliance",
@@ -78,6 +81,7 @@ EFL.GameIcons = {
 		Hero = MediaPath.."GameIcons\\Gloss\\Heroes",
 		Pro = MediaPath.."GameIcons\\Gloss\\Overwatch",
 		DST2 = "Interface\\ChatFrame\\UI-ChatIcon-Destiny2",
+		VIPR = MediaPath.."GameIcons\\Gloss\\COD4",
 	},
 	Launcher = {
 		Alliance = MediaPath.."GameIcons\\Launcher\\Alliance",
@@ -92,6 +96,7 @@ EFL.GameIcons = {
 		Hero = MediaPath.."GameIcons\\Launcher\\Heroes",
 		Pro = MediaPath.."GameIcons\\Launcher\\Overwatch",
 		DST2 = MediaPath.."GameIcons\\Launcher\\Destiny2",
+		VIPR = MediaPath.."GameIcons\\Launcher\\COD4",
 	},
 }
 
@@ -124,7 +129,9 @@ local ClientColor = {
 	WTCG = "4EFF00",
 	Hero = "00CCFF",
 	App = "82C5FF",
+	BSAp = '82C5FF',
 	DST2 = "00C0FA",
+	VIPR = 'FFFFFF',
 }
 
 local function getDiffColorString(level)
@@ -204,6 +211,15 @@ function EFL:BasicUpdateFriends(button)
 		button.gameIcon:SetPoint("TOPRIGHT", -50, -2)
 	else
 		button.gameIcon:SetPoint("TOPRIGHT", -21, -2)
+	end
+
+	if not button.isUpdateHooked then
+		button:HookScript("OnUpdate", function(self, elapsed)
+			if button.gameIcon:GetTexture() == MediaPath..'GameIcons\\Bnet' then
+				AnimateTexCoords(self.gameIcon, 512, 256, 64, 64, 25, elapsed, 0.02)
+			end
+		end)
+		button.isUpdateHooked = true
 	end
 
 	if nameText then
