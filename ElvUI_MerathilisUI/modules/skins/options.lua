@@ -385,6 +385,11 @@ local function SkinsTable()
 				name = L["Minimap"],
 				disabled = function() return not E.private.skins.blizzard.enable end,
 			},
+			Scrapping = {
+				type = "toggle",
+				name = SCRAP_BUTTON,
+				disabled = function() return not E.private.skins.blizzard.enable or E.private.skins.blizzard.Scrapping end,
+			},
 		},
 	}
 

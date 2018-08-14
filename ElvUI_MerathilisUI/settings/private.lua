@@ -72,6 +72,7 @@ V["muiSkins"] = {
 		["Islands"] = true,
 		["BFAMissions"] = true,
 		["minimap"] = true,
+		["Scrapping"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
