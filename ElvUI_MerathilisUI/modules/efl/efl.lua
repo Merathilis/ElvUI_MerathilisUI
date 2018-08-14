@@ -91,7 +91,7 @@ EFL.GameIcons = {
 		WTCG = MediaPath.."GameIcons\\Launcher\\Hearthstone",
 		S1 = MediaPath.."GameIcons\\Launcher\\SC",
 		S2 = MediaPath.."GameIcons\\Launcher\\SC2",
-		App = MediaPath.."GameIcons\\Launcher\\BattleNet1",
+		App = MediaPath.."GameIcons\\Bnet",
 		BSAp = MediaPath.."GameIcons\\Launcher\\BattleNet",
 		Hero = MediaPath.."GameIcons\\Launcher\\Heroes",
 		Pro = MediaPath.."GameIcons\\Launcher\\Overwatch",
@@ -178,7 +178,10 @@ function EFL:BasicUpdateFriends(button)
 				nameText = format("%s |cFFFFFFFF(|r%s%s|r - %s %s%s|r|cFFFFFFFF)|r", nameText, classcolor, characterName, LEVEL, diff, level)
 				Cooperate = CanCooperateWithGameAccount(toonID)
 			else
-				nameText = format("|cFF%s%s|r", ClientColor[client] or "e59400", nameText)
+				if not ClientColor[client] then
+					client = 'App'
+				end
+				nameText = format("|cFF%s%s|r", ClientColor[client] or 'FFFFFF', nameText)
 			end
 		end
 
@@ -200,6 +203,7 @@ function EFL:BasicUpdateFriends(button)
 				button.gameIcon:SetTexture(EFL.GameIcons[E.db.mui.efl["GameIconPack"]][client])
 			end
 			nameColor = FRIENDS_BNET_NAME_COLOR
+			button.gameIcon:SetTexCoord(0, 1, 0, 1)
 		else
 			button.status:SetTexture(EFL.StatusIcons[E.db.mui.efl["StatusIconPack"]].Offline)
 			nameColor = FRIENDS_GRAY_COLOR
