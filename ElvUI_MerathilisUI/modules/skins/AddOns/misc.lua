@@ -203,6 +203,11 @@ local function styleMisc()
 
 	-- Chat Config
 	_G["ChatConfigFrame"]:Styling()
+
+	-- Mirror Timers
+	_G["MirrorTimer1StatusBar"].backdrop:Styling()
+	_G["MirrorTimer2StatusBar"].backdrop:Styling()
+	_G["MirrorTimer3StatusBar"].backdrop:Styling()
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
