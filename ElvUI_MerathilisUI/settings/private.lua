@@ -29,7 +29,6 @@ V["muiSkins"] = {
 		["quest"] = true,
 		["questChoice"] = true,
 		["spellbook"] = true,
-		["orderhall"] = true,
 		["talent"] = true,
 		["auctionhouse"] = true,
 		["friends"] = true,

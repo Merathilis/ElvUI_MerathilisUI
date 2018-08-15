@@ -170,11 +170,6 @@ local function SkinsTable()
 				name = L["Quest Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
 			},
-			orderhall = {
-				type = "toggle",
-				name = L["Orderhall"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
-			},
 			garrison = {
 				type = "toggle",
 				name = GARRISON_LOCATION_TOOLTIP,
