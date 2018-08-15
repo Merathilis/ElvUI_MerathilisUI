@@ -421,6 +421,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 6, -202)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
+	MER:SetMoverPosition("TopCenterContainerMover", "TOP", E.UIParent, "TOP", 0, -105)
 
 	E.db["general"]["font"] = "Expressway"
 	E.db["general"]["fontSize"] = 11
