@@ -20,6 +20,7 @@ local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetNumQuestLogEntries = GetNumQuestLogEntries
+local CreateFrame = CreateFrame
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
@@ -76,13 +77,12 @@ local function styleObjectiveTracker()
 				local Modules = Frame[i]
 				if (Modules) then
 					local Header = Modules.Header
-					Header:SetFrameStrata("HIGH")
-					Header:SetFrameLevel(10)
+					Header:SetFrameStrata("LOW")
 
 					if not (Modules.IsSkinned) then
 						local HeaderPanel = CreateFrame("Frame", nil, Modules.Header)
 						HeaderPanel:SetFrameLevel(Modules.Header:GetFrameLevel() - 1)
-						HeaderPanel:SetFrameStrata("HIGH")
+						HeaderPanel:SetFrameStrata("LOW")
 						HeaderPanel:SetPoint("BOTTOMLEFT", 0, 3)
 						HeaderPanel:SetSize(210, 2)
 						MERS:SkinPanel(HeaderPanel)
