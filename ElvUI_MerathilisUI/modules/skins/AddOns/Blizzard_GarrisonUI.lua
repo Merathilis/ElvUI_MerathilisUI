@@ -378,6 +378,7 @@ local function styleGarrison()
 	local GarrisonMissionFrame = _G["GarrisonMissionFrame"]
 	if GarrisonMissionFrame.backdrop then GarrisonMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(GarrisonMissionFrame, .25)
+	MERS:ReskinMissionFrame(GarrisonMissionFrame)
 	GarrisonMissionFrame:Styling()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
@@ -562,12 +563,8 @@ local function styleGarrison()
 	local OrderHallMissionFrame = _G["OrderHallMissionFrame"]
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(OrderHallMissionFrame, .25)
+	MERS:ReskinMissionFrame(OrderHallMissionFrame)
 	OrderHallMissionFrame:Styling()
-
-	_G["OrderHallMissionFrameMissions"].MaterialFrame:StripTextures()
-	_G["OrderHallMissionFrameMissionsListScrollFrame"]:StripTextures()
-
-	OrderHallMissionFrame.MissionTab.MissionPage:StripTextures()
 
 	-- CombatAlly MissionFrame
 	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
@@ -614,27 +611,6 @@ local function styleGarrison()
 		levelBorder:SetAlpha(0)
 
 		portrait.IsSkinned = true
-	end
-
-	for i, v in ipairs(_G["OrderHallMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
-		local Button = _G["OrderHallMissionFrameMissionsListScrollFrameButton" .. i]
-		if Button and not Button.skinned then
-			Button:StripTextures()
-			MERS:CreateBD(Button, .25)
-			MERS:Reskin(Button, true)
-			Button.LocBG:SetAlpha(0)
-			Button.backdropTexture:Hide()
-
-			Button.isSkinned = true
-		end
-	end
-
-	for i = 1, 2 do
-		local tab = _G["OrderHallMissionFrameMissionsTab"..i]
-
-		tab:StripTextures()
-		tab:SetHeight(_G["GarrisonMissionFrameMissionsTab" .. i]:GetHeight() - 10)
-		S:HandleTab(tab)
 	end
 
 	 --Missions
