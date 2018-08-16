@@ -15,11 +15,7 @@ local function styleIslandsPartyPose()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandsPartyPose ~= true or E.private.muiSkins.blizzard.IslandsPartyPose ~= true then return end
 
 	local IslandsPartyPoseFrame = _G["IslandsPartyPoseFrame"]
-	IslandsPartyPoseFrame:StripTextures()
-	IslandPartyPoseFrame:CreateBackdrop("Transparent")
 	IslandsPartyPoseFrame:Styling()
-
-	MERS:Reskin(IslandsPartyPoseFrame.LeaveButton)
 
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
 	MERS:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)
