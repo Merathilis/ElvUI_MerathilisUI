@@ -194,7 +194,8 @@ function EFL:BasicUpdateFriends(button)
 					if realmName == E.myRealm then
 						infoText = zoneName
 					else
-						infoText = format("%s - %s", zoneName, realmName)
+						local a, b = strsplit("-", gameText)
+						infoText = format('%s - %s', zoneName, b or '')
 					end
 				end
 				button.gameIcon:SetTexture(EFL.GameIcons[E.db.mui.efl["GameIconPack"]][faction])

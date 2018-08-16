@@ -368,7 +368,12 @@ local function SkinsTable()
 			Islands = {
 				type = "toggle",
 				name = ISLANDS_HEADER,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Islands end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandQueue end,
+			},
+			IslandsPartyPose = {
+				type = "toggle",
+				name = L["Island Party Pose"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandsPartyPose end,
 			},
 			BFAMissions = {
 				type = "toggle",
