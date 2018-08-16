@@ -388,7 +388,7 @@ local function SkinsTable()
 			Scrapping = {
 				type = "toggle",
 				name = SCRAP_BUTTON,
-				disabled = function() return not E.private.skins.blizzard.enable or E.private.skins.blizzard.Scrapping end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Scrapping end,
 			},
 		},
 	}
