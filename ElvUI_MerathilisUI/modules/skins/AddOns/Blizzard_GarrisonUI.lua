@@ -19,6 +19,50 @@ local function styleGarrison()
 	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	-- [[ Garrison system ]]
+	function MERS:ReskinMissionPage(self)
+		self:StripTextures()
+		self.StartMissionButton.Flash:SetTexture("")
+		MERS:Reskin(self.StartMissionButton)
+
+		self.CloseButton:ClearAllPoints()
+		self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
+		select(4, self.Stage:GetRegions()):Hide()
+		select(5, self.Stage:GetRegions()):Hide()
+
+		local bg = MERS:CreateBDFrame(self.Stage)
+		bg:SetPoint("TOPLEFT", 4, 1)
+		bg:SetPoint("BOTTOMRIGHT", -4, -1)
+		local overlay = self.Stage:CreateTexture()
+		overlay:SetDrawLayer("ARTWORK", 3)
+		overlay:SetAllPoints(bg)
+		overlay:SetColorTexture(0, 0, 0, .5)
+		local iconbg = select(16, self:GetRegions())
+		iconbg:ClearAllPoints()
+		iconbg:SetPoint("TOPLEFT", 3, -1)
+
+		for i = 1, 3 do
+			local follower = self.Followers[i]
+			follower:GetRegions():Hide()
+			MERS:CreateBD(follower, .25)
+			MERS:ReskinGarrisonPortrait(follower.PortraitFrame)
+			follower.PortraitFrame:ClearAllPoints()
+			follower.PortraitFrame:SetPoint("TOPLEFT", 0, -3)
+		end
+
+		for i = 1, 10 do
+			select(i, self.RewardsFrame:GetRegions()):Hide()
+		end
+		MERS:CreateBD(self.RewardsFrame, .25)
+
+		local env = self.Stage.MissionEnvIcon
+		env.Texture:SetDrawLayer("BORDER", 1)
+		MERS:ReskinIcon(env.Texture)
+
+		local item = self.RewardsFrame.OvermaxItem
+		item.Icon:SetDrawLayer("BORDER", 1)
+		MERS:ReskinIcon(item.Icon)
+	end
+
 	function MERS:ReskinMissionList()
 		local buttons = self.listScroll.buttons
 		for i = 1, #buttons do
@@ -87,6 +131,7 @@ local function styleGarrison()
 		if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
 
 		MERS:ReskinMissionComplete(self)
+		MERS:ReskinMissionPage(self.MissionTab.MissionPage)
 
 		local missionList = self.MissionTab.MissionList
 		missionList:StripTextures()
