@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local unpack = unpack
 -- WoW API
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -20,8 +20,15 @@ local function styleIslandsPartyPose()
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
 	MERS:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)
 
-	IslandsPartyPoseFrame.RewardAnimations.RewardFrame.NameFrame:SetAlpha(0)
-	MERS:CreateBDFrame(IslandsPartyPoseFrame.RewardAnimations.RewardFrame.NameFrame, .25)
+	local rewardFrame = IslandsPartyPoseFrame.RewardAnimations.RewardFrame
+	local bg = MERS:CreateBDFrame(rewardFrame)
+	bg:SetPoint("TOPLEFT", -5, 5)
+	bg:SetPoint("BOTTOMRIGHT", rewardFrame.NameFrame, 0, -5)
+	MERS:CreateSD(bg)
+	rewardFrame.NameFrame:SetAlpha(0)
+	rewardFrame.IconBorder:SetAlpha(0)
+	rewardFrame.Icon:SetTexCoord(unpack(E.TexCoords))
+	MERS:CreateBDFrame(rewardFrame.Icon)
 end
 
 S:AddCallbackForAddon("Blizzard_IslandsPartyPoseUI", "mUIIslandsPartyPose", styleIslandsPartyPose)
