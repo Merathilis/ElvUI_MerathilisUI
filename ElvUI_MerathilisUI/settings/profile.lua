@@ -113,16 +113,6 @@ P["mui"] = {
 				["guild"] = true,
 			},
 		},
-		["buttonStyle"] = {
-			["enabled"] = false,
-			["texture"] = "MerathilisGradient",
-			["alpha"] = 0.25,
-			["invertedShadows"] = true,
-		},
-		["buttonBorder"] = {
-			["enabled"] = false,
-			["color"] = {r = .9, g = .7, b = 0, a = .7},
-		},
 	},
 
 	["unitframes"] = {

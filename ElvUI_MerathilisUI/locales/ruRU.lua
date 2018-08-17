@@ -217,10 +217,6 @@ L["World Protocol:"] = true
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
 L["Transparent Backdrops"] = true
-L["ButtonStyle"] = true
-L["Enable the button style."] = true
-L["The texture to use."] = true
-L["ActionButton Border"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 

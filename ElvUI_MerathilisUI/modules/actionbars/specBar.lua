@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
-local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
 --Lua functions
@@ -100,8 +99,6 @@ function MAB:CreateSpecBar()
 				self:SetBackdropBorderColor(1, 0.44, .4)
 			end
 		end)
-		BS:StyleButton(Button)
-		BS:StyleBorder(Button)
 	end
 end
 

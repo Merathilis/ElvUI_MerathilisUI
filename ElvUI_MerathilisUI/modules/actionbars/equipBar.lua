@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
-local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
 --Lua functions
