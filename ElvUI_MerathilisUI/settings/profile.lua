@@ -98,6 +98,7 @@ P["mui"] = {
 	},
 
 	["actionbars"] = {
+		["cleanButton"] = true,
 		["transparent"] = true,
 		["specBar"] = true,
 		["equipBar"] = true,

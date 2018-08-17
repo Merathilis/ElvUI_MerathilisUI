@@ -230,6 +230,7 @@ L["Applies transparency in all actionbar backdrops and actionbar buttons."] = tr
 L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
+L["Clean Boss Button"] = true
 
 -- Unitframes
 L["UnitFrames"] = true

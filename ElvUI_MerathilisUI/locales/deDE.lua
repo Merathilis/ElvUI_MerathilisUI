@@ -231,6 +231,7 @@ L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "A
 L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
+L["Clean Boss Button"] = "Geskinnte Boss Taste"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"

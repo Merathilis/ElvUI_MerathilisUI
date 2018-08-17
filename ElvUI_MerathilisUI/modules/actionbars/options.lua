@@ -26,8 +26,16 @@ local function abTable()
 				name = MER:cOption(L["General"]),
 				guiInline = true,
 				args = {
-					transparent = {
+					cleanButton = {
 						order = 1,
+						type = "toggle",
+						name = L["Clean Boss Button"],
+						disabled = function() return not E.private.actionbar.enable end,
+						get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
+						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					transparent = {
+						order = 2,
 						type = "toggle",
 						name = L["Transparent Backdrops"],
 						desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
@@ -36,7 +44,7 @@ local function abTable()
 						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; MAB:TransparentBackdrops() end,
 					},
 					specBar = {
-						order = 2,
+						order = 3,
 						type = "toggle",
 						name = L["Specialisation Bar"],
 						disabled = function() return not E.private.actionbar.enable end,
@@ -44,7 +52,7 @@ local function abTable()
 						set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
 					equipBar = {
-						order = 3,
+						order = 4,
 						type = "toggle",
 						name = L["EquipSet Bar"],
 						disabled = function() return not E.private.actionbar.enable end,
