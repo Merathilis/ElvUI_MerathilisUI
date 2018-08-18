@@ -304,12 +304,14 @@ function LP:OnClick(btn)
 end
 
 function LP:UpdateCoords(elapsed)
+	LP.db = E.db.mui.locPanel
+
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 
 	--Coords
 	if E.MapInfo then
-		local x, y = E.MapInfo.x, E.MapInfo.y
+		local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
 		if x then x = format(LP.db.format, x * 100) else x = "0" end
 		if y then y = format(LP.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
