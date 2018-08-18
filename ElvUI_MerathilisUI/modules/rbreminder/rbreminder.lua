@@ -112,7 +112,7 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
-	if E.db.mui.raidBuffs.class == true then
+	if RB.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
 		IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
@@ -181,9 +181,8 @@ function RB:CreateIconBuff(name, relativeTo, firstbutton)
 end
 
 function RB:Visibility()
-	local db = E.db.mui.raidBuffs
-	if db.enable then
-		RegisterStateDriver(self.frame, "visibility", db.visibility == "CUSTOM" and db.customVisibility or RB.VisibilityStates[db.visibility])
+	if RB.db.enable then
+		RegisterStateDriver(self.frame, "visibility", RB.db.visibility == "CUSTOM" and RB.db.customVisibility or RB.VisibilityStates[RB.db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -193,6 +192,8 @@ function RB:Visibility()
 end
 
 function RB:Initialize()
+	RB.db = E.db.mui.raidBuffs
+
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreateBackdrop("Transparent")
 	self.frame.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))
@@ -201,7 +202,7 @@ function RB:Initialize()
 	self.frame:Point("TOP", E.UIParent, "TOP", 0, -65)
 	self.frame.backdrop:Styling()
 
-	if E.db.mui.raidBuffs.class == true then
+	if RB.db.class then
 		self.frame:Size(bsize*3+103, bsize + 8) -- Background size (needs some adjustments)
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("StaminaFrame", IntellectFrame, false)

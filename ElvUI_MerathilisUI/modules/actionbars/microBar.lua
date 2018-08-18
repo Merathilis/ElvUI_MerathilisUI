@@ -120,6 +120,7 @@ function MAB:CreateMicroBar()
 	friendsButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	local function UpdateFriends()
+		MAB.db = E.db.mui.actionbars.microBar
 		local friendsTotal, friendsOnline = GetNumFriends()
 		local bnTotal, bnOnline = BNGetNumFriends()
 		local totalOnline = friendsOnline + bnOnline
@@ -177,6 +178,7 @@ function MAB:CreateMicroBar()
 	guildButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
 
 	local function UpdateGuild()
+		MAB.db = E.db.mui.actionbars.microBar
 		if IsInGuild() then
 			local guildTotal, online = GetNumGuildMembers()
 			for i = 1, guildTotal do
