@@ -61,7 +61,6 @@ LP.ReactionColors = {
 
 LP.MainMenu = {}
 LP.SecondaryMenu = {}
-LP.RestrictedArea = false
 
 LP.ListUpdating = false
 LP.ListBuilding = false
@@ -228,7 +227,7 @@ LP.Spells = {
 }
 
 local function CreateCoords()
-	if LP.db.coordshide == true then return end
+	if LP.db.format == nil then return end
 
 	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
@@ -309,8 +308,10 @@ function LP:UpdateCoords(elapsed)
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 
 	--Coords
-	if not LP.RestrictedArea then
-		local x, y = CreateCoords()
+	if E.MapInfo then
+		local x, y = E.MapInfo.x, E.MapInfo.y
+		if x then x = format(LP.db.format, x * 100) else x = "0" end
+		if y then y = format(LP.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
@@ -627,12 +628,6 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
---function LP:PLAYER_ENTERING_WORLD()
-	--local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
-	--if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	--LP:UNIT_AURA(nil, "player")
---end
-
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
@@ -663,7 +658,6 @@ function LP:Initialize()
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
-	--LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end
