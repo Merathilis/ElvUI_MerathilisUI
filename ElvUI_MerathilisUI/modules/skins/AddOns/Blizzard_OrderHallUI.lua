@@ -6,10 +6,10 @@ local LSM = LibStub("LibSharedMedia-3.0")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local ipairs, select, unpack = ipairs, select, unpack
+local ipairs = ipairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local C_TimerAfter = C_Timer.After
+
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
