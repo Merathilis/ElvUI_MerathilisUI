@@ -375,11 +375,6 @@ local function SkinsTable()
 				name = L["Island Party Pose"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandsPartyPose end,
 			},
-			BFAMissions = {
-				type = "toggle",
-				name = L["BFAMission"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
-			},
 			minimap = {
 				type = "toggle",
 				name = L["Minimap"],
@@ -389,6 +384,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = SCRAP_BUTTON,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Scrapping end,
+			},
+			trainer = {
+				type = "toggle",
+				name = L["Trainer Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
 			},
 		},
 	}

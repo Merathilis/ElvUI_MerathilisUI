@@ -73,6 +73,7 @@ V["muiSkins"] = {
 		["BFAMissions"] = true,
 		["minimap"] = true,
 		["Scrapping"] = true,
+		["trainer"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
