@@ -175,6 +175,11 @@ local function SkinsTable()
 				name = GARRISON_LOCATION_TOOLTIP,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
 			},
+			orderhall = {
+				type = "toggle",
+				name = L["Orderhall"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
+			},
 			talent = {
 				type = "toggle",
 				name = TALENTS,

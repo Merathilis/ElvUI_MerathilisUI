@@ -33,6 +33,7 @@ V["muiSkins"] = {
 		["auctionhouse"] = true,
 		["friends"] = true,
 		["garrison"] = true,
+		["orderhall"] = true,
 		["contribution"] = true,
 		["artifact"] = true,
 		["collections"] = true,
