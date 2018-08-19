@@ -21,6 +21,16 @@ local GUILD_MOTD = GUILD_MOTD
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
+-- Example to add custom emojis
+--do
+	--local EmojiPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\"
+	--local EmojiPack = {
+		--["kappa"] = EmojiPath.."kappa.tga",
+	--}
+--
+	--CH:AddSmiley(':kappa:', 'kappa', EmojiPack['kappa'])
+--end
+
 function MERC:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
 
