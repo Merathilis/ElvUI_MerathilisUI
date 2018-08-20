@@ -21,16 +21,6 @@ local GUILD_MOTD = GUILD_MOTD
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
--- Example to add custom emojis
---do
-	--local EmojiPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\"
-	--local EmojiPack = {
-		--["kappa"] = EmojiPath.."kappa.tga",
-	--}
---
-	--CH:AddSmiley(':kappa:', 'kappa', EmojiPack['kappa'])
---end
-
 function MERC:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
 
@@ -113,6 +103,17 @@ function MERC:Initialize()
 
 	self:EasyChannel()
 	self:ItemLevelLink()
+
+	--Custom Emojis
+	local EmojiPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\"
+	local EmojiPack = {
+		["monkaomega"] = EmojiPath.."monkaomega.tga",
+		["salt"] = EmojiPath.."salt.tga",
+	}
+
+	-- Twitch Emojis
+	CH:AddSmiley(':monkaomega:', EmojiPack['monkaomega'])
+	CH:AddSmiley(':salt:', EmojiPack['salt'])
 end
 
 local function InitializeCallback()
