@@ -74,7 +74,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(flaskbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(0.3)
+				FlaskFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				FlaskFrame:SetAlpha(1)
@@ -88,7 +88,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(foodbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				FoodFrame:SetAlpha(0.3)
+				FoodFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				FoodFrame:SetAlpha(1)
@@ -103,7 +103,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				DARuneFrame:SetAlpha(0.3)
+				DARuneFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				DARuneFrame:SetAlpha(1)
@@ -119,7 +119,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(intellectbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
-					IntellectFrame:SetAlpha(0.3)
+					IntellectFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					IntellectFrame:SetAlpha(1)
@@ -134,7 +134,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(staminabuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
-					StaminaFrame:SetAlpha(0.3)
+					StaminaFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					StaminaFrame:SetAlpha(1)
@@ -149,7 +149,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
-					AttackPowerFrame:SetAlpha(0.3)
+					AttackPowerFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					AttackPowerFrame:SetAlpha(1)

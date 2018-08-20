@@ -1378,7 +1378,7 @@ function MER:SetupDts()
 	elseif IsAddOnLoaded("Details") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Details"
 	else
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Coords"
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "BfA Missions"
 	end
 
 	if IsAddOnLoaded("ElvUI_SLE") then

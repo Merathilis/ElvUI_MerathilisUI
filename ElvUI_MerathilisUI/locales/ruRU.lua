@@ -329,6 +329,7 @@ L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
+L["Change the alpha level of the icons."] = true
 
 -- CooldownFlash
 L["CooldownFlash"] = true

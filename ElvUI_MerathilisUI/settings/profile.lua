@@ -316,6 +316,7 @@ P["mui"] = {
 		["enable"] = false,
 		["visibility"] = "INPARTY",
 		["class"] = false,
+		["alpha"] = 0.3,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
 

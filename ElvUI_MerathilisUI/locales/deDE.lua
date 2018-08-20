@@ -341,6 +341,7 @@ L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
 L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
+L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
 
 -- CooldownFlash
 L["CooldownFlash"] = true

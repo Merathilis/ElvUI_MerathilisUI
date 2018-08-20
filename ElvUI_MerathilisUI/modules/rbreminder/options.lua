@@ -63,6 +63,16 @@ local function RaidBuffs()
 						hidden = function() return not E.db.mui.raidBuffs.enable end,
 						set = function(info, value) E.db.mui.raidBuffs.class = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
+					alpha = {
+						order = 4,
+						type = "range",
+						name = L["Alpha"],
+						desc = L["Change the alpha level of the icons."],
+						min = 0, max = 1, step = 0.1,
+						disabled = function() return not E.db.mui.raidBuffs.enable end,
+						hidden = function() return not E.db.mui.raidBuffs.enable end,
+						set = function(info, value) E.db.mui.raidBuffs.alpha = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
 					customVisibility = {
 						order = 15,
 						type = 'input',
