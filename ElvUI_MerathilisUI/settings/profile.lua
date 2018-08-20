@@ -50,7 +50,6 @@ P["mui"] = {
 		["nameHover"] = true,
 		["powerBar"] = true,
 		["cursor"] = false,
-		["altPowerBar"] = true,
 	},
 
 	["datatexts"] = {

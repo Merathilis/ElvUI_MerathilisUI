@@ -258,6 +258,13 @@ function MER:SetupLayout()
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["decimalLenght"] = 0
+	E.db["general"]["altPowerBar"]["enable"] = true
+	E.db["general"]["altPowerBar"]["font"] = "Expressway"
+	E.db["general"]["altPowerBar"]["fontSize"] = 11
+	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
+	E.db["general"]["altPowerBar"]["statusBar"] = "MerathilisFlat"
+	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
+	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras

@@ -105,15 +105,11 @@ function MERC:Initialize()
 	self:ItemLevelLink()
 
 	--Custom Emojis
-	local EmojiPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\"
-	local EmojiPack = {
-		["monkaomega"] = EmojiPath.."monkaomega.tga",
-		["salt"] = EmojiPath.."salt.tga",
-	}
+	local t = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s.tga"
 
 	-- Twitch Emojis
-	CH:AddSmiley(':monkaomega:', EmojiPack['monkaomega'])
-	CH:AddSmiley(':salt:', EmojiPack['salt'])
+	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
+	CH:AddSmiley(':salt:', format(t, 'salt'))
 end
 
 local function InitializeCallback()
