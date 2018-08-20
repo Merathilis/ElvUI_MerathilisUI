@@ -74,6 +74,11 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
+			altPowerBar = {
+				order = 10,
+				type = "toggle",
+				name = L["Alternative Power"],
+			},
 		},
 	}
 end

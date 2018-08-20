@@ -9,6 +9,8 @@ local MI = E:GetModule("mUIMisc")
 -- GLOBALS:
 
 function MI:AltPowerBar()
+	if E.db.mui.misc.altPowerBar ~= true then return end
+
 	local powerbar = CreateFrame("StatusBar", "mUI Alt Power", E.UIParent)
 	powerbar:SetTemplate("Transparent")
 	powerbar:SetStatusBarTexture(E.media.normTex)
