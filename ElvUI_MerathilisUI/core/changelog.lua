@@ -17,19 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a scale option for the MicroBar.",
-		"• Added a show/hide option for the friends/guild text on the MicroBar.",
-		"• Add back the default QuickJoinToastButton and skinned it.",
-		"• Removed the QuickJoinNotifications. We use the blizz default now.",
-		"• Fixed an issue in the DBM skin which not allow to resize the bars.",
-		"• Added a text overlay to the Minimap which will show who pinged.",
-		"• Added back CooldownFlash!!",
-		"• Added a text option for the MicroBar.",
-		"• A lot of skin updates.",
+		"• Update EFL.",
+		"• Reskinned the ScrappingMachine.",
+		"• Reskinned GarrisonUI.",
+		"• Updated Azerite Skin.",
+		"• Change the FrameStrata for the ObjectiveTracker.",
+		"• Added an option to enable/disable the skin for the BossButton.",
+		"• Added custom emojis :salt: :monkaomega:",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• Disabled the DBM skin for now, since it caused some lua errors.",
 		-- "• ''",
 }
 
