@@ -126,7 +126,6 @@ L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
-L["Hide In Pet Battle"] = true
 L["Show/Hide the friend text on MicroBar."] = true
 L["Show/Hide the guild text on MicroBar."] = true
 

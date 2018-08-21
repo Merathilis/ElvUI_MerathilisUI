@@ -96,14 +96,8 @@ local function abTable()
 						name = L["Hide In Orderhall"],
 						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
 					},
-					hideInPetBattle = {
-						order = 5,
-						type = "toggle",
-						name = L["Hide In Pet Battle"],
-						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
-					},
 					text = {
-						order = 6,
+						order = 5,
 						type = "group",
 						name = MER:cOption(L["Text"]),
 						guiInline = true,

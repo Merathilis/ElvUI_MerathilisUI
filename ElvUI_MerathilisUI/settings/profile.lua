@@ -107,7 +107,6 @@ P["mui"] = {
 			["scale"] = 1,
 			["hideInCombat"] = false,
 			["hideInOrderHall"] = false,
-			["hideInPetBattle"] = false,
 			["text"] = {
 				["position"] = "BOTTOM",
 				["friends"] = true,

@@ -123,7 +123,6 @@ function MAB:Initialize()
 
 	self:SpecBarInit()
 	self:EquipBarInit()
-	self:InitializeMicroBar()
 end
 
 local function InitializeCallback()
