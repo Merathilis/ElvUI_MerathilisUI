@@ -100,16 +100,6 @@ function MER:RegisterMedia()
 	E:UpdateMedia()
 end
 
- -- Clean ElvUI.lua in WTF folder from outdated settings
-local function dbCleaning()
-	-- Clear the old db
-
-	-- Clear old install entry
-	if E.db.mui.installed then E.db.mui.installed = nil end
-
-	E.db.mui.dbCleaned = true
-end
-
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
@@ -137,10 +127,6 @@ function MER:Initialize()
 		MERDataPerChar = {}
 	end
 
-	if E.db.mui.dbCleaned ~= true then
-		dbCleaning()
-	end
-
 	E:Delay(6, function() MER:CheckVersion() end)
 
 	-- run the setup again when a profile gets deleted.
@@ -154,8 +140,8 @@ function MER:Initialize()
 	end
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.private.mui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable) 
+	if E.private.install_complete == E.version and E.db.mui.installed == nil then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	EP:RegisterPlugin(addon, self.AddOptions)

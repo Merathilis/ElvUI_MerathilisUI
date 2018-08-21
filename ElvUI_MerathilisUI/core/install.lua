@@ -1417,7 +1417,8 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.private.mui.installed = true
+	E.db.mui.installed = true
+	MERDataPerChar = MER.Version
 
 	ReloadUI()
 end

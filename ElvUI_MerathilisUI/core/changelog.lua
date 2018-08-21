@@ -149,8 +149,6 @@ function MER:ToggleChangeLog()
 end
 
 function MER:CheckVersion(self)
-	-- Don't show the frame if my install isn't finished
-	if E.db.mui.installed == nil then return; end
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()

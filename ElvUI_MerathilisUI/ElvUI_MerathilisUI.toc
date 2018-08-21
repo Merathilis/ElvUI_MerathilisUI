@@ -5,8 +5,6 @@
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
-## eMail: neo0608@gmail.com
-## X-Website: https://www.tukui.org
 ## RequiredDeps: ElvUI
 ## DefaultState: Enabled
 ## SavedVariables: MERData

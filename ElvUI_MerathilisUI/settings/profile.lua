@@ -3,9 +3,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
-if P["mui"] == nil then P["mui"] = {} end
-
 P["mui"] = {
+	["installed"] = nil,
+
 	["general"] = {
 		["LoginMsg"] = true, -- Enable welcome message in chat
 		["GameMenu"] = true, -- Enable the Styles GameMenu
@@ -337,9 +337,6 @@ P["mui"] = {
 		["x"] = UIParent:GetWidth()/2,
 		["y"] = UIParent:GetHeight()/2,
 	},
-
-	-- db
-	["dbCleaned"] = false
 }
 
 G["nameplate"]["spellListDefault"] = {
