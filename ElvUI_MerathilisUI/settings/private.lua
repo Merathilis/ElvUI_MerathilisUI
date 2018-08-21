@@ -4,7 +4,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Misc options
 ----------------------------------------------------------------------------------------
 V["mui"] = {
-	["install_complete"] = nil,
+
 }
 
 V["muiMisc"] = {
