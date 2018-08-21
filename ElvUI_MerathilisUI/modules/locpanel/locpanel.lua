@@ -310,7 +310,7 @@ function LP:UpdateCoords(elapsed)
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 
 	--Coords
-	if E.MapInfo then
+	if E.MapInfo and LP.db.coordshide ~= true then
 		local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
 		if x then x = format(LP.db.format, x * 100) else x = "0" end
 		if y then y = format(LP.db.format, y * 100) else y = "0" end
@@ -319,8 +319,8 @@ function LP:UpdateCoords(elapsed)
 		loc_panel.Xcoord.Text:SetText(x)
 		loc_panel.Ycoord.Text:SetText(y)
 	else
-		loc_panel.Xcoord.Text:SetText("-")
-		loc_panel.Ycoord.Text:SetText("-")
+		loc_panel.Xcoord.Text:SetText(" ")
+		loc_panel.Ycoord.Text:SetText(" ")
 	end
 
 	--Coords coloring
