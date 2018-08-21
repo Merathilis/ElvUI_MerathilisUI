@@ -26,6 +26,7 @@ function MAB:CreateEquipBar()
 	EquipmentSets:SetTemplate("Transparent")
 	EquipmentSets:SetPoint("RIGHT", _G["SpecializationBar"], "LEFT", -1, 0)
 	EquipmentSets:Styling()
+	E.FrameLocks[EquipmentSets] = true
 
 	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], true, nil)
 

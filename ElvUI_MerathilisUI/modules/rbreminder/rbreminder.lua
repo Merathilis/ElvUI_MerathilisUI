@@ -201,6 +201,7 @@ function RB:Initialize()
 	self.frame.backdrop:SetFrameLevel(self.frame:GetFrameLevel() - 1)
 	self.frame:Point("TOP", E.UIParent, "TOP", 0, -65)
 	self.frame.backdrop:Styling()
+	E.FrameLocks[self.frame] = true
 
 	if RB.db.class then
 		self.frame:Size(bsize*3+103, bsize + 8) -- Background size (needs some adjustments)

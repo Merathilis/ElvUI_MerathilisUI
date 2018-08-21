@@ -30,6 +30,7 @@ function MAB:CreateSpecBar()
 	specBar:SetTemplate("Transparent")
 	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
+	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
 	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], true, nil)
