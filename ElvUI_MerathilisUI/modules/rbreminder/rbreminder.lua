@@ -74,7 +74,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(flaskbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(0.3)
+				FlaskFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				FlaskFrame:SetAlpha(1)
@@ -88,7 +88,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(foodbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				FoodFrame:SetAlpha(0.3)
+				FoodFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				FoodFrame:SetAlpha(1)
@@ -103,7 +103,7 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				DARuneFrame:SetAlpha(0.3)
+				DARuneFrame:SetAlpha(RB.db.alpha)
 				break
 			else
 				DARuneFrame:SetAlpha(1)
@@ -112,14 +112,14 @@ local function OnAuraChange(self, event, arg1, unit)
 		end
 	end
 
-	if E.db.mui.raidBuffs.class == true then
+	if RB.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
 		IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
 				local spellname = select(1, GetSpellInfo(intellectbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
-					IntellectFrame:SetAlpha(0.3)
+					IntellectFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					IntellectFrame:SetAlpha(1)
@@ -134,7 +134,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(staminabuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
-					StaminaFrame:SetAlpha(0.3)
+					StaminaFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					StaminaFrame:SetAlpha(1)
@@ -149,7 +149,7 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
-					AttackPowerFrame:SetAlpha(0.3)
+					AttackPowerFrame:SetAlpha(RB.db.alpha)
 					break
 				else
 					AttackPowerFrame:SetAlpha(1)
@@ -181,9 +181,8 @@ function RB:CreateIconBuff(name, relativeTo, firstbutton)
 end
 
 function RB:Visibility()
-	local db = E.db.mui.raidBuffs
-	if db.enable then
-		RegisterStateDriver(self.frame, "visibility", db.visibility == "CUSTOM" and db.customVisibility or RB.VisibilityStates[db.visibility])
+	if RB.db.enable then
+		RegisterStateDriver(self.frame, "visibility", RB.db.visibility == "CUSTOM" and RB.db.customVisibility or RB.VisibilityStates[RB.db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -193,6 +192,8 @@ function RB:Visibility()
 end
 
 function RB:Initialize()
+	RB.db = E.db.mui.raidBuffs
+
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreateBackdrop("Transparent")
 	self.frame.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))
@@ -200,8 +201,9 @@ function RB:Initialize()
 	self.frame.backdrop:SetFrameLevel(self.frame:GetFrameLevel() - 1)
 	self.frame:Point("TOP", E.UIParent, "TOP", 0, -65)
 	self.frame.backdrop:Styling()
+	E.FrameLocks[self.frame] = true
 
-	if E.db.mui.raidBuffs.class == true then
+	if RB.db.class then
 		self.frame:Size(bsize*3+103, bsize + 8) -- Background size (needs some adjustments)
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("StaminaFrame", IntellectFrame, false)
@@ -228,7 +230,7 @@ function RB:Initialize()
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
-	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID")
+	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI")
 
 	function RB:ForUpdateAll()
 		RB.db = E.db.mui.raidBuffs

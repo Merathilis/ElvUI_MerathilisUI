@@ -17,19 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a scale option for the MicroBar.",
-		"• Added a show/hide option for the friends/guild text on the MicroBar.",
-		"• Add back the default QuickJoinToastButton and skinned it.",
-		"• Removed the QuickJoinNotifications. We use the blizz default now.",
-		"• Fixed an issue in the DBM skin which not allow to resize the bars.",
-		"• Added a text overlay to the Minimap which will show who pinged.",
-		"• Added back CooldownFlash!!",
-		"• Added a text option for the MicroBar.",
-		"• A lot of skin updates.",
+		"• Fixed an issue that the Changelog wasn't showing on version bumb.",
+		"• Added the option back to hide the Coords on the LocPanel.",
+		"• Ajust some DataTexts in my install.",
+		"• Add some frames to the E.FrameLocks. This will hide correctly some frames in ",
+		"   Pet Battles.",
+		"• Some skin adjustments.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• Disabled the DBM skin for now, since it caused some lua errors.",
 		-- "• ''",
 }
 
@@ -150,8 +148,6 @@ function MER:ToggleChangeLog()
 end
 
 function MER:CheckVersion(self)
-	-- Don't show the frame if my install isn't finished
-	if E.db.mui.installed == nil then return; end
 	if not MERData["Version"] or (MERData["Version"] and MERData["Version"] ~= MER.Version) then
 		MERData["Version"] = MER.Version
 		MER:ToggleChangeLog()

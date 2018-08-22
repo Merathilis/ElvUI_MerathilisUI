@@ -853,6 +853,33 @@ function MERS:SkinPanel(panel)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
+function MERS:ReskinGarrisonPortrait(self)
+	self.Portrait:ClearAllPoints()
+	self.Portrait:SetPoint("TOPLEFT", 4, -4)
+	self.PortraitRing:Hide()
+	self.PortraitRingQuality:SetTexture("")
+	if self.Highlight then self.Highlight:Hide() end
+
+	self.LevelBorder:SetScale(.0001)
+	self.Level:ClearAllPoints()
+	self.Level:SetPoint("BOTTOM", self, 0, 12)
+
+	self.squareBG = MERS:CreateBDFrame(self, 1)
+	self.squareBG:SetFrameLevel(self:GetFrameLevel())
+	self.squareBG:SetPoint("TOPLEFT", 3, -3)
+	self.squareBG:SetPoint("BOTTOMRIGHT", -3, 11)
+
+	if self.PortraitRingCover then
+		self.PortraitRingCover:SetColorTexture(0, 0, 0)
+		self.PortraitRingCover:SetAllPoints(self.squareBG)
+	end
+
+	if self.Empty then
+		self.Empty:SetColorTexture(0, 0, 0)
+		self.Empty:SetAllPoints(self.Portrait)
+	end
+end
+
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	local BlizzardRegions = {

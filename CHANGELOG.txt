@@ -1,3 +1,19 @@
+[b][color=orange]v3.34[/color], 22.08.2018[/b][list]
+[*]Fixed an issue that the Changelog wasn't showing on version bumb.
+[*]Added the option back to hide the Coords on the LocPanel.
+[*]Ajust some DataTexts in my install.
+[*]Add some frames to the E.FrameLocks. This will hide correctly some frames in Pet Battles.
+[*]Some skin adjustments.
+
+[b][color=orange]v3.33[/color], 20.08.2018[/b][list]
+[*]Update EFL.
+[*]Reskinned the ScrappingMachine.
+[*]Reskinned GarrisonUI.
+[*]Updated Azerite Skin.
+[*]Change the FrameStrata for the ObjectiveTracker.
+[*]Added an option to enable/disable the skin for the BossButton.
+[*]Added custom emojis :salt: :monkaomega:[/list]
+
 [b][color=orange]v3.32[/color], 13.08.2018[/b][list]
 [*]Added a scale option for the MicroBar.
 [*]Added a show/hide option for the friends/guild text on the MicroBar.
@@ -7,7 +23,7 @@
 [*]Added a text overlay to the Minimap which will show who pinged.
 [*]Added back CooldownFlash!!
 [*]Added a text option for the MicroBar.
-[*]A lot of skin updates.
+[*]A lot of skin updates.[/list]
 
 [b][color=orange]v3.31[/color], 30.07.2018[/b][list]
 [*]Fix the WorldMap Title Frame.

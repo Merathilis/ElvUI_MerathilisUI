@@ -12,10 +12,10 @@ local _G = _G
 -- GLOBALS:
 
 local function styleIslands()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Islands ~= true or E.private.muiSkins.blizzard.Islands ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandQueue ~= true or E.private.muiSkins.blizzard.IslandQueue ~= true then return end
 
-	local IslandsFrame = _G["IslandsQueueFrame"]
-	IslandsFrame:Styling()
+	local IslandsQueueFrame = _G["IslandsQueueFrame"]
+	IslandsQueueFrame:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", styleIslands)

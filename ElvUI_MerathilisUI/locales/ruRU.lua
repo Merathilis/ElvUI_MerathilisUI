@@ -50,6 +50,8 @@ L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
+L["Hide Chat Side Panel"] = true
+L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 
 -- Information
 L["Information"] = true
@@ -115,7 +117,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- MicroBar
 L["Hide In Orderhall"] = true
-L["Hide In Pet Battle"] = true
 L["Show/Hide the friend text on MicroBar."] = true
 L["Show/Hide the guild text on MicroBar."] = true
 
@@ -217,12 +218,9 @@ L["World Protocol:"] = true
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
 L["Transparent Backdrops"] = true
-L["ButtonStyle"] = true
-L["Enable the button style."] = true
-L["The texture to use."] = true
-L["ActionButton Border"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
+L["Clean Boss Button"] = true
 
 -- Unitframes
 L["UnitFrames"] = true
@@ -332,6 +330,7 @@ L["Raid Buff Reminder"] = true
 L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
+L["Change the alpha level of the icons."] = true
 
 -- CooldownFlash
 L["CooldownFlash"] = true

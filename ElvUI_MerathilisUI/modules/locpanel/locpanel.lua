@@ -61,7 +61,6 @@ LP.ReactionColors = {
 
 LP.MainMenu = {}
 LP.SecondaryMenu = {}
-LP.RestrictedArea = false
 
 LP.ListUpdating = false
 LP.ListBuilding = false
@@ -156,6 +155,7 @@ LP.Spells = {
 			[10] = {text = GetSpellInfo(120145),icon = MER:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
 			[11] = {text = GetSpellInfo(176242),icon = MER:GetIconFromID("spell", 176242),secure = {buttonType = "spell",ID = 176242}, UseTooltip = true},-- TP:Warspear
 			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281404),icon = MER:GetIconFromID("spell", 281404),secure = {buttonType = "spell",ID = 281404}, UseTooltip = true},-- TP:Dazar'alor
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(3561),icon = MER:GetIconFromID("spell", 3561),secure = {buttonType = "spell",ID = 3561}, UseTooltip = true},-- TP:Stormwind
@@ -170,6 +170,7 @@ LP.Spells = {
 			[10] = {text = GetSpellInfo(120145),icon = MER:GetIconFromID("spell", 120145),secure = {buttonType = "spell",ID = 120145}, UseTooltip = true},-- TP:Ancient Dalaran
 			[11] = {text = GetSpellInfo(176248),icon = MER:GetIconFromID("spell", 176248),secure = {buttonType = "spell",ID = 176248}, UseTooltip = true},-- TP:StormShield
 			[12] = {text = GetSpellInfo(224869),icon = MER:GetIconFromID("spell", 224869),secure = {buttonType = "spell",ID = 224869}, UseTooltip = true},-- TP:Dalaran - BI
+			[13] = {text = GetSpellInfo(281403),icon = MER:GetIconFromID("spell", 281403),secure = {buttonType = "spell",ID = 281403}, UseTooltip = true},-- TP:Boralus
 		},
 	},
 	["portals"] = {
@@ -186,6 +187,7 @@ LP.Spells = {
 			[10] = {text = GetSpellInfo(132626),icon = MER:GetIconFromID("spell", 132626),secure = {buttonType = "spell",ID = 132626}, UseTooltip = true},-- P:Vale of Eternal Blossoms
 			[11] = {text = GetSpellInfo(176244),icon = MER:GetIconFromID("spell", 176244),secure = {buttonType = "spell",ID = 176244}, UseTooltip = true},-- P:Warspear
 			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281402),icon = MER:GetIconFromID("spell", 281402),secure = {buttonType = "spell",ID = 281402}, UseTooltip = true},-- P:Dazar'alor
 		},
 		["Alliance"] = {
 			[1] = {text = GetSpellInfo(10059),icon = MER:GetIconFromID("spell", 10059),secure = {buttonType = "spell",ID = 10059}, UseTooltip = true},-- P:Stormwind
@@ -200,6 +202,7 @@ LP.Spells = {
 			[10] = {text = GetSpellInfo(132620),icon = MER:GetIconFromID("spell", 132620),secure = {buttonType = "spell",ID = 132620}, UseTooltip = true},-- P:Vale of Eternal Blossoms
 			[11] = {text = GetSpellInfo(176246),icon = MER:GetIconFromID("spell", 176246),secure = {buttonType = "spell",ID = 176246}, UseTooltip = true},-- P:StormShield
 			[12] = {text = GetSpellInfo(224871),icon = MER:GetIconFromID("spell", 224871),secure = {buttonType = "spell",ID = 224871}, UseTooltip = true},-- P:Dalaran - BI
+			[13] = {text = GetSpellInfo(281400),icon = MER:GetIconFromID("spell", 281400),secure = {buttonType = "spell",ID = 281400}, UseTooltip = true},-- P:Boralus
 		},
 	},
 	["challenge"] = {
@@ -224,7 +227,7 @@ LP.Spells = {
 }
 
 local function CreateCoords()
-	if LP.db.coordshide == true then return end
+	if LP.db.format == nil then return end
 
 	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
 	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
@@ -263,7 +266,7 @@ function LP:CreateLocationPanel()
 	LP:Resize()
 
 	-- Mover
-	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO")
+	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI")
 
 	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
 	LP.Menu1:SetTemplate("Transparent", true)
@@ -301,19 +304,23 @@ function LP:OnClick(btn)
 end
 
 function LP:UpdateCoords(elapsed)
+	LP.db = E.db.mui.locPanel
+
 	LP.elapsed = LP.elapsed + elapsed
 	if LP.elapsed < (LP.db.throttle or 0.2) then return end
 
 	--Coords
-	if not LP.RestrictedArea then
-		local x, y = CreateCoords()
+	if E.MapInfo and LP.db.coordshide ~= true then
+		local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
+		if x then x = format(LP.db.format, x * 100) else x = "0" end
+		if y then y = format(LP.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
 		loc_panel.Ycoord.Text:SetText(y)
 	else
-		loc_panel.Xcoord.Text:SetText("-")
-		loc_panel.Ycoord.Text:SetText("-")
+		loc_panel.Xcoord.Text:SetText(" ")
+		loc_panel.Ycoord.Text:SetText(" ")
 	end
 
 	--Coords coloring
@@ -623,12 +630,6 @@ function LP:PLAYER_REGEN_ENABLED()
 	if LP.db.enable then loc_panel:Show() end
 end
 
---function LP:PLAYER_ENTERING_WORLD()
-	--local position = C_Map_GetPlayerMapPosition(C_Map_GetBestMapForUnit("player"), "player"):GetXY()
-	--if position then LP.RestrictedArea = false else LP.RestrictedArea = true end
-	--LP:UNIT_AURA(nil, "player")
---end
-
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
@@ -659,7 +660,6 @@ function LP:Initialize()
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
-	--LP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	LP:RegisterEvent("UNIT_AURA")
 	LP:RegisterEvent("CHAT_MSG_SKILL")
 end

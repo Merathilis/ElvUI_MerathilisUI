@@ -18,6 +18,15 @@ local function styleTalkingHead()
 
 	TalkingHeadFrame.MainFrame.CloseButton:ClearAllPoints()
 	TalkingHeadFrame.MainFrame.CloseButton:Point("TOPRIGHT", TalkingHeadFrame.BackgroundFrame, "TOPRIGHT", 0, -2)
+
+	TalkingHeadFrame.NameFrame.Name:SetTextColor(1, 0.82, 0.02)
+	TalkingHeadFrame.NameFrame.Name.SetTextColor = MER.dummy
+	TalkingHeadFrame.NameFrame.Name:SetShadowColor(0.0, 0.0, 0.0, 1.0)
+
+	TalkingHeadFrame.TextFrame.Text:SetTextColor(1, 1, 1)
+	TalkingHeadFrame.TextFrame.Text.SetTextColor = MER.dummy
+	TalkingHeadFrame.TextFrame.Text:SetShadowColor(0.0, 0.0, 0.0, 1.0)
+
 end
 
 S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "mUITalkingHead", styleTalkingHead)

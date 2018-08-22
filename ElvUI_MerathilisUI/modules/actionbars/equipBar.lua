@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
-local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
 --Lua functions
@@ -27,8 +26,9 @@ function MAB:CreateEquipBar()
 	EquipmentSets:SetTemplate("Transparent")
 	EquipmentSets:SetPoint("RIGHT", _G["SpecializationBar"], "LEFT", -1, 0)
 	EquipmentSets:Styling()
+	E.FrameLocks[EquipmentSets] = true
 
-	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], true, nil)
+	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
 
 	EquipmentSets.Button = CreateFrame("Button", nil, EquipmentSets)
 	EquipmentSets.Button:SetFrameStrata("BACKGROUND")

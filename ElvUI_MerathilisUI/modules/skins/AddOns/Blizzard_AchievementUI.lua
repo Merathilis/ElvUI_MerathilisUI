@@ -173,6 +173,22 @@ local function styleAchievement()
 	end
 
 	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -5)
+
+	-- Font width fix
+	hooksecurefunc("AchievementObjectives_DisplayProgressiveAchievement", function()
+		local index = 1
+		local mini = _G["AchievementFrameMiniAchievement"..index]
+		while mini do
+			if not mini.fontStyled then
+				mini.points:SetWidth(22)
+				mini.points:ClearAllPoints()
+				mini.points:SetPoint("BOTTOMRIGHT", 2, 2)
+				mini.fontStyled = true
+			end
+			index = index + 1
+			mini = _G["AchievementFrameMiniAchievement"..index]
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_AchievementUI", "mUIAchievement", styleAchievement)

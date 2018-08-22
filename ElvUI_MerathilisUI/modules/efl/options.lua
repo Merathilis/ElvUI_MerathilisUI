@@ -224,6 +224,13 @@ local function EnhancedFriendsList()
 						func = function() return end,
 						image = function(info) return EFL.GameIcons[E.db.mui.efl["GameIconPack"]][info[#info]], 32, 32 end,
 					},
+					VIPR = {
+						order = 11,
+						type = "execute",
+						name = L["Call of Duty 4"],
+						func = function() return end,
+						image = function(info) return EFL.GameIcons[E.db.mui.efl["GameIconPack"]][info[#info]], 32, 32 end,
+					},
 				},
 			},
 			StatusIcons = {

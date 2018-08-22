@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = E:GetModule("mUIActionbars")
-local BS = E:GetModule("mUIButtonStyle")
 
 --Cache global variables
 --Lua functions
@@ -31,9 +30,10 @@ function MAB:CreateSpecBar()
 	specBar:SetTemplate("Transparent")
 	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
+	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
-	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], true, nil)
+	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
 
 	local Specs = GetNumSpecializations()
 
@@ -47,6 +47,8 @@ function MAB:CreateSpecBar()
 		Button:SetNormalTexture(Icon)
 		Button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 		Button:GetNormalTexture():SetInside()
+		Button:SetPushedTexture(Icon)
+		Button:GetPushedTexture():SetInside()
 		Button:RegisterForClicks('AnyDown')
 		Button:SetScript("OnEnter", function(self)
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -100,8 +102,6 @@ function MAB:CreateSpecBar()
 				self:SetBackdropBorderColor(1, 0.44, .4)
 			end
 		end)
-		BS:StyleButton(Button)
-		BS:StyleBorder(Button)
 	end
 end
 

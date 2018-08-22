@@ -4,7 +4,7 @@
 	<Script file="BenikUI.lua"/>
 	<Script file="BigWigs.lua"/>
 	<Script file="BugSack.lua"/>
-	<Script file="DeadlyBossMods.lua"/>
+	<!-- <Script file="DeadlyBossMods.lua"/> -->
 	<Script file="ls_Toasts.lua"/>
 	<Script file="Postal.lua"/>
 	<Script file="stAddOnManager.lua"/>

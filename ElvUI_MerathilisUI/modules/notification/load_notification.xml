@@ -1,3 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="notification.lua"/>
+	<Script file="options.lua"/>
 </Ui>

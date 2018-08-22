@@ -94,7 +94,7 @@ function RMA:UpdateWorldMarkersAndTooltips()
 
 		button:SetScript("OnLeave", function(self)
 			self:SetBackdropBorderColor(0, 0, 0)
-			GameTooltip:Hide() 
+			GameTooltip:Hide()
 		end)
 	end
 end
@@ -120,7 +120,7 @@ function RMA:UpdateBar(update)
 
 		button:SetWidth(E.db.mui.raidmarkers.buttonSize)
 		button:SetHeight(E.db.mui.raidmarkers.buttonSize)
-		
+
 		if E.db.mui.raidmarkers.orientation == "VERTICAL" then
 			head = E.db.mui.raidmarkers.reverse and "BOTTOM" or "TOP"
 			tail = E.db.mui.raidmarkers.reverse and "TOP" or "BOTTOM"
@@ -186,7 +186,7 @@ function RMA:Initialize()
 
 	self.frame.backdrop:SetAllPoints()
 
-	E:CreateMover(self.frame, "mUI_RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,PARTY,RAID")
+	E:CreateMover(self.frame, "mUI_RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI")
 
 	self:CreateButtons()
 

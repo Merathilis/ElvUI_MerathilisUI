@@ -170,15 +170,15 @@ local function SkinsTable()
 				name = L["Quest Choice"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
 			},
-			orderhall = {
-				type = "toggle",
-				name = L["Orderhall"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
-			},
 			garrison = {
 				type = "toggle",
 				name = GARRISON_LOCATION_TOOLTIP,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
+			},
+			orderhall = {
+				type = "toggle",
+				name = L["Orderhall"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.orderhall end,
 			},
 			talent = {
 				type = "toggle",
@@ -370,20 +370,30 @@ local function SkinsTable()
 				name = AZERITE_RESPEC_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
 			},
-			Islands = {
+			IslandQueue = {
 				type = "toggle",
 				name = ISLANDS_HEADER,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Islands end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandQueue end,
 			},
-			BFAMissions = {
+			IslandsPartyPose = {
 				type = "toggle",
-				name = L["BFAMission"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.BFAMissions end,
+				name = L["Island Party Pose"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandsPartyPose end,
 			},
 			minimap = {
 				type = "toggle",
 				name = L["Minimap"],
 				disabled = function() return not E.private.skins.blizzard.enable end,
+			},
+			Scrapping = {
+				type = "toggle",
+				name = SCRAP_BUTTON,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Scrapping end,
+			},
+			trainer = {
+				type = "toggle",
+				name = L["Trainer Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
 			},
 		},
 	}

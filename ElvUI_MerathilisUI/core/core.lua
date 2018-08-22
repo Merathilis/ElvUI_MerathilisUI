@@ -100,14 +100,10 @@ function MER:RegisterMedia()
 	E:UpdateMedia()
 end
 
- -- Clean ElvUI.lua in WTF folder from outdated settings
-local function dbCleaning()
-	-- Clear the old db
+function MER:AddMoverCategories()
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
+	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
 
-	-- Clear old install entry
-	if E.db.mui.installed then E.db.mui.installed = nil end
-
-	E.db.mui.dbCleaned = true
 end
 
 local f = CreateFrame("Frame")
@@ -127,6 +123,7 @@ function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
+	self:AddMoverCategories()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then
@@ -135,10 +132,6 @@ function MER:Initialize()
 
 	if not MERDataPerChar then
 		MERDataPerChar = {}
-	end
-
-	if E.db.mui.dbCleaned ~= true then
-		dbCleaning()
 	end
 
 	E:Delay(6, function() MER:CheckVersion() end)
@@ -154,8 +147,8 @@ function MER:Initialize()
 	end
 
 	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.private.mui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable) 
+	if E.private.install_complete == E.version and E.db.mui.installed == nil then
+		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	EP:RegisterPlugin(addon, self.AddOptions)

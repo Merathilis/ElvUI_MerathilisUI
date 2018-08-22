@@ -83,7 +83,7 @@ function MERL:ChangeLayout()
 	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
 	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
 	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
-	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"])
+	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI')
 end
 
 local function ChatMenu_OnEnter(self)
@@ -404,7 +404,7 @@ function MERL:ShadowOverlay()
 end
 
 function MERL:ChatButtonHolder()
-	if E.private.chat.enable ~= true then return end
+	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel ~= true then return end
 
 	local ChatButtonHolder = _G["ChatButtonHolder"]
 

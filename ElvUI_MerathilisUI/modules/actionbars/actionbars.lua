@@ -116,12 +116,13 @@ function MAB:Initialize()
 	C_TimerAfter(1, MAB.TransparentBackdrops)
 	if IsAddOnLoaded("ElvUI_TB") then DisableAddOn("ElvUI_TB") end
 
-	hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
-	hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
+	if E.db.mui.actionbars.cleanButton then
+		hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
+		hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
+	end
 
 	self:SpecBarInit()
 	self:EquipBarInit()
-	self:InitializeMicroBar()
 end
 
 local function InitializeCallback()

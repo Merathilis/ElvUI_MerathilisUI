@@ -3,11 +3,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 -- Misc options
 ----------------------------------------------------------------------------------------
-if V["mui"] == nil then V["mui"] = {} end
-if V["muiMisc"] == nil then V["muiMisc"] = {} end
-
 V["mui"] = {
-	["installed"] = nil,
+
 }
 
 V["muiMisc"] = {
@@ -19,8 +16,6 @@ V["muiMisc"] = {
 ----------------------------------------------------------------------------------------
 -- Skins options
 ----------------------------------------------------------------------------------------
-if V["muiSkins"] == nil then V["muiSkins"] = {} end
-
 V["muiSkins"] = {
 	["blizzard"] = {
 		["character"] = true,
@@ -29,11 +24,11 @@ V["muiSkins"] = {
 		["quest"] = true,
 		["questChoice"] = true,
 		["spellbook"] = true,
-		["orderhall"] = true,
 		["talent"] = true,
 		["auctionhouse"] = true,
 		["friends"] = true,
 		["garrison"] = true,
+		["orderhall"] = true,
 		["contribution"] = true,
 		["artifact"] = true,
 		["collections"] = true,
@@ -69,9 +64,12 @@ V["muiSkins"] = {
 		["challenges"] = true,
 		["AzeriteUI"] = true,
 		["AzeriteRespec"] = true,
-		["Islands"] = true,
+		["IslandQueue"] = true,
+		["IslandsPartyPose"] = true,
 		["BFAMissions"] = true,
 		["minimap"] = true,
+		["Scrapping"] = true,
+		["trainer"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

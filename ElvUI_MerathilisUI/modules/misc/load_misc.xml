@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="misc.lua"/>
 	<Script file="afk.lua"/>
-	<Script file="altpower.lua"/>
 	<Script file="announce.lua"/>
 	<Script file="cursor.lua"/>
 	<Script file="flightMode.lua"/>

@@ -50,6 +50,8 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
+L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
+L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
 
 -- Information
 L["Information"] = true
@@ -127,7 +129,6 @@ L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
-L["Hide In Pet Battle"] = "Verstecke in Haustierkämpfen"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
 L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
 
@@ -229,12 +230,9 @@ L["World Protocol:"] = "Welt Protokol"
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
 L["Transparent Backdrops"] = "Transparente Hintergründe"
-L["ButtonStyle"] = "Tastenstil"
-L["Enable the button style."] = "Aktiviere den Tastenstil."
-L["The texture to use."] = "Die zu verwendene Textur."
-L["ActionButton Border"] = "Aktionstasten Rand"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
+L["Clean Boss Button"] = "Geskinnte Boss Taste"
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
@@ -344,6 +342,7 @@ L["Raid Buff Reminder"] = "Schlachtzug Buff Erinnerung"
 L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Rune."
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
+L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
 
 -- CooldownFlash
 L["CooldownFlash"] = true

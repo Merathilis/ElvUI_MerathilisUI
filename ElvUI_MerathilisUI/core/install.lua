@@ -258,6 +258,13 @@ function MER:SetupLayout()
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["decimalLenght"] = 0
+	E.db["general"]["altPowerBar"]["enable"] = true
+	E.db["general"]["altPowerBar"]["font"] = "Expressway"
+	E.db["general"]["altPowerBar"]["fontSize"] = 11
+	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
+	E.db["general"]["altPowerBar"]["statusBar"] = "MerathilisFlat"
+	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
+	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -417,10 +424,11 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
-	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -75, -300)
+	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -85, -300)
 	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 6, -202)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
+	MER:SetMoverPosition("TopCenterContainerMover", "TOP", E.UIParent, "TOP", 0, -105)
 
 	E.db["general"]["font"] = "Expressway"
 	E.db["general"]["fontSize"] = 11
@@ -1369,7 +1377,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["actionbar5"] = false
 	E.db["datatexts"]["minimapBottom"] = false
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Durability"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
 	if IsAddOnLoaded("Skada") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
 	elseif IsAddOnLoaded("REKeys") then
@@ -1377,7 +1385,7 @@ function MER:SetupDts()
 	elseif IsAddOnLoaded("Details") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Details"
 	else
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Coords"
+		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Quick Join"
 	end
 
 	if IsAddOnLoaded("ElvUI_SLE") then
@@ -1386,9 +1394,9 @@ function MER:SetupDts()
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 	end
 
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "MUI Professions"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "MUI System"
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Friends"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Durability"
 
 	-- define the default ElvUI datatexts
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
@@ -1409,7 +1417,8 @@ end
 
 local function InstallComplete()
 	E.private.install_complete = E.version
-	E.private.mui.installed = true
+	E.db.mui.installed = true
+	MERDataPerChar = MER.Version
 
 	ReloadUI()
 end

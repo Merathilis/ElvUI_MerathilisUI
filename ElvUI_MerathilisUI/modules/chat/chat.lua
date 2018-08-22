@@ -103,6 +103,13 @@ function MERC:Initialize()
 
 	self:EasyChannel()
 	self:ItemLevelLink()
+
+	--Custom Emojis
+	local t = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s.tga"
+
+	-- Twitch Emojis
+	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
+	CH:AddSmiley(':salt:', format(t, 'salt'))
 end
 
 local function InitializeCallback()
