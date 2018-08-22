@@ -1377,7 +1377,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["actionbar5"] = false
 	E.db["datatexts"]["minimapBottom"] = false
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "Bfa Missions"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
 	if IsAddOnLoaded("Skada") then
 		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Skada"
 	elseif IsAddOnLoaded("REKeys") then
@@ -1396,7 +1396,7 @@ function MER:SetupDts()
 
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "MUI Professions"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "MUI System"
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Durabillity"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Durability"
 
 	-- define the default ElvUI datatexts
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
