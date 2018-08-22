@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="BNet.lua"/>
 	<Script file="CharacterFrame.lua"/>
+	<Script file="ChatFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
 	<Script file="FriendsFrame.lua"/>
 	<Script file="GossipFrame.lua"/>
