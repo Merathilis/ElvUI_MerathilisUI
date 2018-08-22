@@ -230,7 +230,7 @@ function RB:Initialize()
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
-	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID")
+	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI")
 
 	function RB:ForUpdateAll()
 		RB.db = E.db.mui.raidBuffs

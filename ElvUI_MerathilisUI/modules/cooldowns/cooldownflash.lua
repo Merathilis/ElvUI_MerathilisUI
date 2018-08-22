@@ -191,7 +191,7 @@ function DCP:ADDON_LOADED(addon)
 		end
 	end
 	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
-	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil,'ALL,SOLO')
+	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil,'ALL,SOLO,MERATHILISUI')
 end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)

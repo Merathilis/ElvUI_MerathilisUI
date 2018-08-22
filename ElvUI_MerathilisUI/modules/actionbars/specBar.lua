@@ -33,7 +33,7 @@ function MAB:CreateSpecBar()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
-	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], true, nil)
+	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
 
 	local Specs = GetNumSpecializations()
 

@@ -100,6 +100,12 @@ function MER:RegisterMedia()
 	E:UpdateMedia()
 end
 
+function MER:AddMoverCategories()
+	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
+	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
+
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
@@ -117,6 +123,7 @@ function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
+	self:AddMoverCategories()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then

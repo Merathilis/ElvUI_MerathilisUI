@@ -28,7 +28,7 @@ function MAB:CreateEquipBar()
 	EquipmentSets:Styling()
 	E.FrameLocks[EquipmentSets] = true
 
-	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], true, nil)
+	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
 
 	EquipmentSets.Button = CreateFrame("Button", nil, EquipmentSets)
 	EquipmentSets.Button:SetFrameStrata("BACKGROUND")
