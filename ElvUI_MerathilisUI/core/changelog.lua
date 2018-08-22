@@ -17,13 +17,12 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update EFL.",
-		"• Reskinned the ScrappingMachine.",
-		"• Reskinned GarrisonUI.",
-		"• Updated Azerite Skin.",
-		"• Change the FrameStrata for the ObjectiveTracker.",
-		"• Added an option to enable/disable the skin for the BossButton.",
-		"• Added custom emojis :salt: :monkaomega:",
+		"• Fixed an issue that the Changelog wasn't showing on version bumb.",
+		"• Added the option back to hide the Coords on the LocPanel.",
+		"• Ajust some DataTexts in my install.",
+		"• Add some frames to the E.FrameLocks. This will hide correctly some frames in ",
+		"   Pet Battles.",
+		"• Some skin adjustments.",
 
 		-- "• ''",
 	" ",
