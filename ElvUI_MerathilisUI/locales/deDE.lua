@@ -50,6 +50,8 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
+L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
+L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
 
 -- Information
 L["Information"] = true

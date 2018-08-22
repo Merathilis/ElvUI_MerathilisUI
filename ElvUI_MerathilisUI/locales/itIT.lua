@@ -50,6 +50,8 @@ L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
+L["Hide Chat Side Panel"] = true
+L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 
 -- Information
 L["Information"] = true

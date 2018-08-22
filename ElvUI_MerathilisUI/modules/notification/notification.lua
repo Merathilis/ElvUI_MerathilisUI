@@ -14,23 +14,15 @@ local select, unpack, type, pairs, ipairs, tostring, next = select, unpack, type
 local table = table
 local tinsert, tremove = table.insert, table.remove
 local floor = math.floor
-local format, find, gsub, sub = string.format, string.find, string.gsub, string.sub
+local format, find, sub = string.format, string.find, string.sub
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
-local GetScreenWidth = GetScreenWidth
-local IsShiftKeyDown = IsShiftKeyDown
 local HasNewMail = HasNewMail
 local GetAtlasInfo = GetAtlasInfo
-local GetCurrentMapAreaID = GetCurrentMapAreaID
-local GetContainerNumFreeSlots = GetContainerNumFreeSlots
-local GetObjectIconTextureCoords = GetObjectIconTextureCoords
-local GetInstanceInfo = GetInstanceInfo
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
-local GetLFGDungeonInfo = GetLFGDungeonInfo
-local GetRealmName = GetRealmName
 local GetTime = GetTime
 local C_Calendar_GetDate = C_Calendar.GetDate
 local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
@@ -40,19 +32,10 @@ local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
-local C_Vignettes = C_Vignettes
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
---local C_VignettesGetVignetteInfoFromInstanceID = C_Vignettes.GetVignetteInfoFromInstanceID
-local C_LFGListGetActivityInfo = C_LFGList.GetActivityInfo
-local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
-local C_SocialQueueGetGroupMembers = C_SocialQueue.GetGroupMembers
-local C_SocialQueueGetGroupQueues = C_SocialQueue.GetGroupQueues
-local C_PvPGetBrawlInfo = C_PvP.GetBrawlInfo
-local GetGameTime = GetGameTime
 local CreateAnimationGroup = CreateAnimationGroup
-local CalendarGetAbsMonth = CalendarGetAbsMonth
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame

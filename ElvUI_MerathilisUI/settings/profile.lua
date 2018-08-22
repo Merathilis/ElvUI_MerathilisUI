@@ -36,6 +36,7 @@ P["mui"] = {
 		["panelHeight"] = 146,
 		["iLevelLink"] = true,
 		["hidePlayerBrackets"] = true,
+		["sidePanel"] = true,
 	},
 
 	["colors"] = {
