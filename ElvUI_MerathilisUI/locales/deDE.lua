@@ -322,6 +322,8 @@ L["Garrison/OrderHall Buttons Style"] = "Garnision/Ordenshallen Tasten Style"
 L["Change the look of the Orderhall/Garrison Button"] = "Ändert das Aussehen der Garnision/Ordenshallen Taste"
 L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
+L["Blinking Minimap"] = "Blinkende Minikarte"
+L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

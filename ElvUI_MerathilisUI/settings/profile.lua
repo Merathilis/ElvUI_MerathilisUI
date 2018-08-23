@@ -176,6 +176,7 @@ P["mui"] = {
 
 	["maps"] = {
 		["minimap"] = {
+			["flash"] = true,
 			["coords"] = {
 				["enable"] = true,
 				["position"] = "BOTTOM",
