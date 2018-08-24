@@ -66,14 +66,14 @@ local function abTable()
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
+				get = function(info) return E.db.mui.actionbars.microBar[ info[#info] ] end,
+				set = function(info, value) E.db.mui.actionbars.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL");end,
 				args = {
 					enable = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						disabled = function() return not E.private.actionbar.enable end,
-						get = function(info) return E.db.mui.actionbars.microBar.enable end,
-						set = function(info, value) E.db.mui.actionbars.microBar.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 						width = "full",
 					},
 					scale = {
