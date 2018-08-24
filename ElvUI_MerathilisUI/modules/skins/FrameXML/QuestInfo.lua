@@ -16,28 +16,6 @@ local function styleQuestInfo()
 
 	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
-	-- [[ Item reward highlight ]]
-	QuestInfoItemHighlight:GetRegions():Hide()
-
-	local function clearHighlight()
-		for _, button in pairs(QuestInfoRewardsFrame.RewardButtons) do
-			button.bg:SetBackdropColor(0, 0, 0, .25)
-		end
-	end
-
-	local function setHighlight(self)
-		clearHighlight()
-
-		local _, point = self:GetPoint()
-		if point then
-			point.bg:SetBackdropColor(r, g, b, .2)
-		end
-	end
-
-	hooksecurefunc(QuestInfoItemHighlight, "SetPoint", setHighlight)
-	QuestInfoItemHighlight:HookScript("OnShow", setHighlight)
-	QuestInfoItemHighlight:HookScript("OnHide", clearHighlight)
-
 	-- [[ Shared ]]
 	local function restyleSpellButton(bu)
 		local name = bu:GetName()
