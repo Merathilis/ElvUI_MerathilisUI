@@ -16,6 +16,16 @@ local function styleScrappingMachine()
 
 	local MachineFrame = _G["ScrappingMachineFrame"]
 	MachineFrame:Styling()
+
+	-- Automatic open the Bags if the MachineFrame shows
+	MachineFrame:HookScript("OnShow", function()
+		if MachineFrame:IsShown() then
+			ToggleAllBags()
+		end
+	end)
+	MachineFrame:HookScript("OnHide", function()
+		ToggleAllBags()
+	end)
 end
 
 S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', "mUIScrappingMachine", styleScrappingMachine)
