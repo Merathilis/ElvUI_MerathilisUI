@@ -634,7 +634,11 @@ function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
-		loc_panel:SetShown(not inOrderHall);
+		if inOrderHall then
+			loc_panel:SetAlpha(0)
+		else
+			loc_panel:SetAlpha(1)
+		end
 	end
 end
 

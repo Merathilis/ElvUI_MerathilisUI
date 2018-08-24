@@ -472,7 +472,11 @@ function MB:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if MB.db.enable and MB.db.hideInOrderHall then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
-		microBar:SetShown(not inOrderHall)
+		if inOrderHall then
+			microBar:SetAlpha(0)
+		else
+			microBar:SetAlpha(1)
+		end
 	end
 end
 
