@@ -1,6 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="ActionBarProfiles.lua"/>
-	<Script file="Auctionator.lua"/>
 	<Script file="BenikUI.lua"/>
 	<Script file="BigWigs.lua"/>
 	<Script file="BugSack.lua"/>
