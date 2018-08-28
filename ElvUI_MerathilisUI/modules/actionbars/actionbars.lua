@@ -101,6 +101,16 @@ function MAB:StyleBackdrops()
 			frame.backdrop:Styling()
 		end
 	end
+
+	-- Pet Buttons
+	for i = 1, NUM_PET_ACTION_SLOTS do
+		local petButtons = {_G['PetActionButton'..i]}
+		for _, button in pairs(petButtons) do
+			if button.backdrop then
+				button.backdrop:Styling()
+			end
+		end
+	end
 end
 
 -- Code taken from CleanBossButton
