@@ -9,7 +9,7 @@ local select, unpack = select, unpack
 -- WoW API
 local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
+-- GLOBALS:
 
 local function styleAuctionhouse()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end

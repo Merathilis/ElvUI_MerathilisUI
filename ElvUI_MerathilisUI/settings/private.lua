@@ -70,6 +70,7 @@ V["muiSkins"] = {
 		["minimap"] = true,
 		["Scrapping"] = true,
 		["trainer"] = true,
+		["debug"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
