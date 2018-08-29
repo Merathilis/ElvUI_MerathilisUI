@@ -17,17 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an issue that the Changelog wasn't showing on version bumb.",
-		"• Added the option back to hide the Coords on the LocPanel.",
-		"• Ajust some DataTexts in my install.",
-		"• Add some frames to the E.FrameLocks. This will hide correctly some frames in ",
-		"   Pet Battles.",
-		"• Some skin adjustments.",
+		"• Skin extra CharacterStatsPane from S&L Armory Mode.",
+		"• Updated LocPanel & MicroBar combat hide options.",
+		"• Show/hide the bags if the ScrappingMachine Frame is shown. Thx Whiro",
+		"• Fix a possible error if the panels table doesn't exist. Thx Whiro",
+		"• Added BfA Augementation Rune to the RaidBuffs.",
+		"• A lot of skin updates.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• Disabled the DBM skin for now, since it caused some lua errors.",
 		-- "• ''",
 }
 

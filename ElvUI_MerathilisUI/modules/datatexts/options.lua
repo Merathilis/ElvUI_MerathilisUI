@@ -15,6 +15,8 @@ local NONE = NONE
 function MER:LoadDataTexts()
 	local db = E.db.mui.datatexts
 
+	if not db.panels then return end
+	
 	for panelName, panel in pairs(DT.RegisteredPanels) do
 		for i=1, panel.numPoints do
 			local pointIndex = DT.PointLocation[i]

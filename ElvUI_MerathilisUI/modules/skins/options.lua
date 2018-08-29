@@ -19,7 +19,6 @@ local DecorAddons = {
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
-	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 }
 
 local SupportedProfiles = {
@@ -395,6 +394,11 @@ local function SkinsTable()
 				name = L["Trainer Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trainer end,
 			},
+			debug = {
+				type = "toggle",
+				name = L["Debug Tools"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
+			}
 		},
 	}
 

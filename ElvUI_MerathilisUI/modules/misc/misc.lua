@@ -101,15 +101,6 @@ function MI:LoadMisc()
 		end
 	end)
 
-	-- Always show the Text on the PlayerPowerBarAlt
-	_G["PlayerPowerBarAlt"]:HookScript("OnShow", function()
-		local statusFrame = _G["PlayerPowerBarAlt"].statusFrame
-		if statusFrame.enabled then
-			statusFrame:Show()
-			UnitPowerBarAltStatus_UpdateText(statusFrame)
-		end
-	end)
-
 	-- Try to fix JoinBattleField taint
 	CreateFrame("Frame"):SetScript("OnUpdate", function(self, elapsed)
 		if LFRBrowseFrame.timeToClear then

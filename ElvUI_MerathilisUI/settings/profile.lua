@@ -36,7 +36,7 @@ P["mui"] = {
 		["panelHeight"] = 146,
 		["iLevelLink"] = true,
 		["hidePlayerBrackets"] = true,
-		["sidePanel"] = true,
+		["sidePanel"] = false,
 	},
 
 	["colors"] = {
@@ -176,6 +176,7 @@ P["mui"] = {
 
 	["maps"] = {
 		["minimap"] = {
+			["flash"] = true,
 			["coords"] = {
 				["enable"] = true,
 				["position"] = "BOTTOM",

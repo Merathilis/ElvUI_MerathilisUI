@@ -27,6 +27,12 @@ local function Minimap()
 						name = L["Garrison/OrderHall Buttons Style"],
 						desc = L["Change the look of the Orderhall/Garrison Button"],
 					},
+					flash = {
+						order = 2,
+						type = "toggle",
+						name = L["Blinking Minimap"],
+						desc = L["Enable the blinking animation for new mail or pending invites."],
+					},
 				},
 			},
 			ping = {

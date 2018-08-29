@@ -8,6 +8,8 @@ local _G = _G
 local pairs, select, unpack = pairs, select, unpack
 -- WoW API
 local CreateFrame = CreateFrame
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
@@ -26,7 +28,6 @@ local function styleBMAH()
 	BlackMarketFrame:Styling()
 
 	MERS:CreateBG(BlackMarketFrame.HotDeal.Item)
-	BlackMarketFrame.HotDeal.Item._mUIIconBorder = MERS:ReskinIcon(BlackMarketFrame.HotDeal.Item.IconTexture)
 
 	local headers = {"ColumnName", "ColumnLevel", "ColumnType", "ColumnDuration", "ColumnHighBidder", "ColumnCurrentBid"}
 	for _, headerName in pairs(headers) do
@@ -49,6 +50,7 @@ local function styleBMAH()
 		for i = 1, #buttons do
 			local bu = buttons[i]
 
+			bu.Item.IconTexture:SetTexCoord(unpack(E.TexCoords))
 			if not bu.reskinned then
 				bu.Left:Hide()
 				bu.Right:Hide()
@@ -56,7 +58,8 @@ local function styleBMAH()
 
 				bu.Item:SetNormalTexture("")
 				bu.Item:SetPushedTexture("")
-				bu.Item._mUIIconBorder = MERS:ReskinIcon(bu.Item.IconTexture)
+				bu.Item:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+				bu.Item.IconBorder:SetAlpha(0)
 
 				local bg = CreateFrame("Frame", nil, bu)
 				bg:SetPoint("TOPLEFT")
@@ -85,7 +88,21 @@ local function styleBMAH()
 
 				bu.reskinned = true
 			end
+
+			if bu:IsShown() and bu.itemLink then
+				local _, _, quality = GetItemInfo(bu.itemLink)
+				bu.Name:SetTextColor(GetItemQualityColor(quality))
+			end
 		end
+	end)
+
+	hooksecurefunc("BlackMarketFrame_UpdateHotItem", function(self)
+		local hotDeal = self.HotDeal
+		if hotDeal:IsShown() and hotDeal.itemLink then
+			local _, _, quality = GetItemInfo(hotDeal.itemLink)
+			hotDeal.Name:SetTextColor(GetItemQualityColor(quality))
+		end
+		hotDeal.Item.IconBorder:Hide()
 	end)
 end
 

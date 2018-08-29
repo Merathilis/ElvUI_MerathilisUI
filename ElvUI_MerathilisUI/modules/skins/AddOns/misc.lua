@@ -204,6 +204,13 @@ local function styleMisc()
 	-- Chat Config
 	_G["ChatConfigFrame"]:Styling()
 
+	-- ElvUI Stuff
+	_G["LeftMiniPanel"]:Styling()
+	_G["RightMiniPanel"]:Styling()
+	_G["ElvUI_TopPanel"]:Styling()
+	_G["ElvUI_BottomPanel"]:Styling()
+	_G["RaidUtilityPanel"]:Styling()
+
 	-- Mirror Timers
 	_G["MirrorTimer1StatusBar"].backdrop:Styling()
 	_G["MirrorTimer2StatusBar"].backdrop:Styling()

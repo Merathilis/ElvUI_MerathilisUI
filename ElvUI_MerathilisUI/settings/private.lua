@@ -70,6 +70,7 @@ V["muiSkins"] = {
 		["minimap"] = true,
 		["Scrapping"] = true,
 		["trainer"] = true,
+		["debug"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
@@ -81,7 +82,6 @@ V["muiSkins"] = {
 		["pa"] = true,
 		["po"] = true,
 		["ls"] = true,
-		["dbm"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,

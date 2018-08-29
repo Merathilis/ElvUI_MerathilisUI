@@ -65,26 +65,95 @@ MER.PEPE = {
 }
 
 --[[
-4    - walk
-5    - run
-26   - attack stance
-40   - falling loop
-52   - casting loop
-55   - roar pose (paused)
-60   - chat normal
-64   - chat exclaimation
-65   - chat shrug
-69   - dance
-74   - roar
-111  - attack ready
-119  - stealth walk
-120  - stealth standing loop
-125  - spell2
-138  - craft loop
-141  - kneel loop
-203  - cannibalize
-225  - cower loop
+    0 = idle
+    1 = death
+    3 = stop
+    4 = fast walk
+    5 = run
+    8 = take a light hit
+    9 = take a medium hit
+    10 = take a heavy hit
+    11-12 = turning
+    13 = backing up
+    14 = stunned
+    26 = attack stance
+    43 = swimming
+    55 - roar (non-loop)
+    56 - idle
+    57 - special attack 1H
+    58 - special attack 2H
+    60 = chat
+    61 = eat
+    62 = mine ore
+    63 = combine tradeskill
+    64 - talk_exclamation
+    65 - shrug
+    66 = bow
+    67 = wave
+    68 = cheer
+    69 = dance
+    70 = laugh
+    71 - sleep, lie
+    72 - idle
+    73 = rude
+    74 = roar
+    75 = kneel
+    76 = kiss
+    77 = cry
+    78 = chicken
+    79 - beg, grovel
+    80 = applaud
+    81 = shout
+    82 = flex
+    83 = flirt
+    84 = point
+    87 - shield bash
+    89 - sheathe/unsheathe from back
+    90 - sheath/unsheathe from waist
+    91 - sitting on a mount
+    92 - idle
+    93 - idle
+    94 - idle
+    95 - kick (non-loop)
+    96 - sit
+    97 = sit
+    98 - stop
+    99 - sleep, lie
+    100 - sleep, lie
+    101 = get up
+    103 - sitting on mount
+    104 - sitting on chair
+    105 - nocking bow with arrow
+    107 - fishing cast
+    109 - attack idle with bow
+    110 - attack idle with gun or crossbow
+    113 = salute
+    114 - kneel
+    115 - kneel
+    116 - stand from kneeling
+    117 - shield bash
+    118 - special attack 1H
+    119 = crouching run
+    120 = crouch
+    121 - knockdown
+    122 - idle
+    123 - crafting (loop)
+    124 = channel spell
+    125 = channel spell
+    126 = spin
+    127 - idle
+    128 - crafting (non-loop)
+    129 - stop
+    130 - idle
+    131 - drown
+    132 - drowned
+    133 - fishing
+    134 - fishing loop
+    135 - swimming loop
+    136 - mining, blacksmith crafting
+    137 = stunned
 ]]--
+
 local Sequences = {26, 52, 69, 111, 225}
 
 local function Player_Model(self)

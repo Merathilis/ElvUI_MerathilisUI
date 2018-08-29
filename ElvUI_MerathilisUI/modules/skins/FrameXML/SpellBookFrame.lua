@@ -16,37 +16,48 @@ local UnitLevel = UnitLevel
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
+	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
+
+	local SpellBookFrame = _G["SpellBookFrame"]
+
 	SpellBookFrame:Styling()
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end
 
-	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
+	for i = 1, SPELLS_PER_PAGE do
+		local bu = _G["SpellButton"..i]
+		local ic = _G["SpellButton"..i.."IconTexture"]
 
-	local professionheaders = {
-		"PrimaryProfession1",
-		"PrimaryProfession2",
-		"SecondaryProfession1",
-		"SecondaryProfession2",
-		"SecondaryProfession3",
-	}
+		_G["SpellButton"..i.."SlotFrame"]:SetAlpha(0)
+		bu.EmptySlot:SetAlpha(0)
+		bu.TextBackground:Hide()
+		bu.TextBackground2:Hide()
+		bu.UnlearnedFrame:SetAlpha(0)
+		bu:SetCheckedTexture("")
+		bu:SetPushedTexture("")
 
-	for _, header in pairs(professionheaders) do
-		_G[header.."Missing"]:SetTextColor(1, 0.8, 0)
-		_G[header.."Missing"]:SetShadowColor(0, 0, 0)
-		_G[header.."Missing"]:SetShadowOffset(1, -1)
-		_G[header].missingText:SetTextColor(0.6, 0.6, 0.6)
+		ic:SetTexCoord(unpack(E.TexCoords))
+		ic.bg = MERS:CreateBG(bu)
 	end
+
+	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	hooksecurefunc("SpellButton_UpdateButton", function(self)
 		if SpellBookFrame.bookType == BOOKTYPE_PROFESSION then return end
 
-		local slot, slotType = SpellBook_GetSpellBookSlot(self);
-		local name = self:GetName();
+		local slot, slotType = SpellBook_GetSpellBookSlot(self)
+		local isPassive = IsPassiveSpell(slot, SpellBookFrame.bookType)
+		local name = self:GetName()
+		local highlightTexture = _G[name.."Highlight"]
+		if isPassive then
+			highlightTexture:SetColorTexture(1, 1, 1, 0)
+		else
+			highlightTexture:SetColorTexture(1, 1, 1, .25)
+		end
+
 		local subSpellString = _G[name.."SubSpellName"]
-
 		local isOffSpec = self.offSpecID ~= 0 and SpellBookFrame.bookType == BOOKTYPE_SPELL
-
 		subSpellString:SetTextColor(1, 1, 1)
 
 		if slotType == "FUTURESPELL" then
@@ -60,82 +71,92 @@ local function styleSpellBook()
 				subSpellString:SetTextColor(.7, .7, .7)
 			end
 		end
+		self.RequiredLevelString:SetTextColor(.7, .7, .7)
+
+		local ic = _G[name.."IconTexture"]
+		if ic.bg then
+			ic.bg:SetShown(ic:IsShown())
+		end
 	end)
 
-	-- Profession Tab
-	PrimaryProfession1:SetPoint("TOPLEFT", 60, -40)
-	PrimaryProfession2:SetPoint("TOPLEFT", PrimaryProfession1, "BOTTOMLEFT", 0, -8)
+	-- Professions
+	local professions = {"PrimaryProfession1", "PrimaryProfession2", "SecondaryProfession1", "SecondaryProfession2", "SecondaryProfession3"}
 
-	local professions = {
-		PrimaryProfession1 = true,
-		PrimaryProfession2 = true,
+	for _, button in pairs(professions) do
+		local bu = _G[button]
+		bu.professionName:SetTextColor(1, 1, 1)
+		bu.missingHeader:SetTextColor(1, 1, 1)
+		bu.missingText:SetTextColor(1, 1, 1)
 
-		SecondaryProfession1 = false,
-		SecondaryProfession2 = false,
-		SecondaryProfession3 = false,
-	}
+		bu.statusBar:SetHeight(10)
+		bu.statusBar.rankText:SetPoint("CENTER")
 
-	for name, isPrimary in next, professions do
-		local prof = _G[name]
-		MERS:CreateBD(prof, .25)
+		local _, p = bu.statusBar:GetPoint()
+		bu.statusBar:SetPoint("TOPLEFT", p, "BOTTOMLEFT", 1, -3)
+		MERS:CreateBDFrame(bu.statusBar, .25)
+	end
 
-		prof.professionName:SetTextColor(1, 1, 1)
-		prof.missingHeader:SetTextColor(1, 1, 1)
-		prof.missingText:SetTextColor(1, 1, 1)
+	local professionbuttons = {"PrimaryProfession1SpellButtonTop", "PrimaryProfession1SpellButtonBottom", "PrimaryProfession2SpellButtonTop", "PrimaryProfession2SpellButtonBottom", "SecondaryProfession1SpellButtonLeft", "SecondaryProfession1SpellButtonRight", "SecondaryProfession2SpellButtonLeft", "SecondaryProfession2SpellButtonRight", "SecondaryProfession3SpellButtonLeft", "SecondaryProfession3SpellButtonRight"}
 
-		for i = 1, 2 do
-			local button = prof["button"..i]
-			button:SetSize(41, 41)
-			button.Icon = button.iconTexture
-			button.NameFrame = _G[button:GetName().."NameFrame"]
-			MERS:ReskinItemFrame(button)
+	for _, button in pairs(professionbuttons) do
+		local icon = _G[button.."IconTexture"]
+		local bu = _G[button]
+		_G[button.."NameFrame"]:SetAlpha(0)
+		bu:SetPushedTexture("")
+
+		if icon then
+			icon:SetTexCoord(unpack(E.TexCoords))
+			icon:ClearAllPoints()
+			icon:SetPoint("TOPLEFT", 2, -2)
+			icon:SetPoint("BOTTOMRIGHT", -2, 2)
+			MERS:CreateBG(icon)
+			bu.highlightTexture:SetAllPoints(icon)
 		end
+	end
 
-		prof.statusBar:SetSize(115, 12)
-		prof.statusBar:ClearAllPoints()
-		prof.statusBar:SetStatusBarTexture(E["media"].normTex)
-		prof.statusBar:GetStatusBarTexture():SetGradient("VERTICAL", 0, .6, 0, 0, .8, 0)
-		prof.statusBar.rankText:SetPoint("CENTER")
+	for i = 1, 2 do
+		local bu = _G["PrimaryProfession"..i]
 
-		_G[name.."StatusBarLeft"]:Hide()
-		prof.statusBar.capRight:SetAlpha(0)
-		_G[name.."StatusBarBGLeft"]:Hide()
-		_G[name.."StatusBarBGMiddle"]:Hide()
-		_G[name.."StatusBarBGRight"]:Hide()
-		MERS:CreateBDFrame(prof.statusBar, .25)
+		_G["PrimaryProfession"..i.."IconBorder"]:Hide()
 
-		if isPrimary then
-			prof:SetSize(441, 93)
-			prof.professionName:SetPoint("TOPLEFT", prof.icon, "TOPRIGHT", 4, 0)
-			prof.rank:SetPoint("BOTTOMLEFT", prof.statusBar, "TOPLEFT", 0, 3)
-			_G[name.."IconBorder"]:Hide()
+		bu.professionName:ClearAllPoints()
+		bu.professionName:SetPoint("TOPLEFT", 100, -4)
 
-			prof.icon:ClearAllPoints()
-			prof.icon:SetPoint("TOPLEFT", 6, -6)
-			prof.icon:SetSize(81, 81)
-			MERS:ReskinIcon(prof.icon)
+		bu.icon:SetAlpha(1)
+		bu.icon:SetTexCoord(unpack(E.TexCoords))
+		bu.icon:SetDesaturated(false)
+		MERS:CreateBG(bu.icon)
 
-			prof.button2:SetPoint("TOPRIGHT", -108, -4)
-			prof.button1:SetPoint("TOPLEFT", prof.button2, "BOTTOMLEFT", 0, -3)
-			prof.statusBar:SetPoint("BOTTOMLEFT", prof.icon, "BOTTOMRIGHT", 4, 0)
-			prof.unlearn:ClearAllPoints()
-			prof.unlearn:SetPoint("BOTTOMRIGHT", prof.icon)
-		else
-			prof:SetSize(441, 49)
-			prof.professionName:SetPoint("TOPLEFT", 4, -3)
-			prof.button1:SetPoint("TOPRIGHT", -108, -4)
-			prof.button2:SetPoint("TOPRIGHT", prof.button1, "TOPLEFT", -107, 0)
-			prof.statusBar:SetPoint("TOPLEFT", prof.rank, "BOTTOMLEFT", 0, -3)
-		end
+		local bg = MERS:CreateBDFrame(bu, .25)
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT", 0, -5)
 	end
 
 	hooksecurefunc("FormatProfession", function(frame, index)
 		if index then
 			local _, texture = GetProfessionInfo(index)
+
 			if frame.icon and texture then
 				frame.icon:SetTexture(texture)
 			end
 		end
+	end)
+
+	MERS:CreateBD(SecondaryProfession1, .25)
+	MERS:CreateBD(SecondaryProfession2, .25)
+	MERS:CreateBD(SecondaryProfession3, .25)
+	SpellBookPageText:SetTextColor(.8, .8, .8)
+
+	hooksecurefunc("UpdateProfessionButton", function(self)
+		local spellIndex = self:GetID() + self:GetParent().spellOffset
+		local isPassive = IsPassiveSpell(spellIndex, SpellBookFrame.bookType)
+		if isPassive then
+			self.highlightTexture:SetColorTexture(1, 1, 1, 0)
+		else
+			self.highlightTexture:SetColorTexture(1, 1, 1, .25)
+		end
+		self.spellString:SetTextColor(1, 1, 1);
+		self.subSpellString:SetTextColor(1, 1, 1)
 	end)
 end
 

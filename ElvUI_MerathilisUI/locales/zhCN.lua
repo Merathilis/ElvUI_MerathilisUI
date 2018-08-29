@@ -310,6 +310,8 @@ L["Garrison/OrderHall Buttons Style"] = true
 L["Change the look of the Orderhall/Garrison Button"] = true
 L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
+L["Blinking Minimap"] = true
+L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

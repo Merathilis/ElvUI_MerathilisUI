@@ -23,6 +23,8 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local microBar
+
 local DELAY = 15
 local elapsed = DELAY - 5
 
@@ -459,18 +461,22 @@ function MB:Toggle()
 end
 
 function MB:PLAYER_REGEN_DISABLED()
-	if MB.db.hideInCombat then microBar:Hide() end
+	if MB.db.hideInCombat == true then microBar:SetAlpha(0) end
 end
 
 function MB:PLAYER_REGEN_ENABLED()
-	if MB.db.enable then microBar:Show() end
+	if MB.db.enable then microBar:SetAlpha(1) end
 end
 
-function MB:UNIT_AURA(event, unit)
+function MB:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if MB.db.enable and MB.db.hideInOrderHall then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
-		microBar:SetShown(not inOrderHall)
+		if inOrderHall then
+			microBar:SetAlpha(0)
+		else
+			microBar:SetAlpha(1)
+		end
 	end
 end
 
@@ -480,12 +486,6 @@ function MB:Initialize()
 
 	MB:CreateMicroBar()
 	MB:Toggle()
-
-	function MB:ForUpdateAll()
-		MB.db = E.db.mui.actionbars.microBar
-		MB:CreateMicroBar()
-		MB:Toggle()
-	end
 
 	MB:RegisterEvent("PLAYER_REGEN_DISABLED")
 	MB:RegisterEvent("PLAYER_REGEN_ENABLED")

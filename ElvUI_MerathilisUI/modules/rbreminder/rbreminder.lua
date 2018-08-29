@@ -42,6 +42,7 @@ RB.ReminderBuffs = {
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)
+		270058,			-- Battle Scarred Augmentation (60 primary stat)
 	},
 	Food = {
 		104280,	-- Well Fed

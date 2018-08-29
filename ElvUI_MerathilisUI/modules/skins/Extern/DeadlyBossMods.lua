@@ -26,8 +26,6 @@ local DBMSkin = CreateFrame("Frame")
 DBMSkin:RegisterEvent("PLAYER_LOGIN")
 DBMSkin:RegisterEvent("ADDON_LOADED")
 DBMSkin:SetScript("OnEvent", function(self, event, addon)
-	if E.private.muiSkins.addonSkins == nil then E.private.muiSkins.addonSkins = {} end
-	if E.private.muiSkins.addonSkins.dbm ~= true then return end
 	if IsAddOnLoaded("DBM-Core") then
 		local function SkinBars(self)
 			for bar in self:GetBarIterator() do

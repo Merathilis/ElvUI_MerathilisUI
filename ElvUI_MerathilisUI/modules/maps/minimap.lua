@@ -137,11 +137,13 @@ function MM:Initialize()
 	self:ButtonCollectorInit()
 	self:MiniMapPing()
 
-	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
-	self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckMail")
-	self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckMail")
-	self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckMail")
+	if E.db.mui.maps.minimap.flash then
+		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
+		self:RegisterEvent("UPDATE_PENDING_MAIL", "CheckMail")
+		self:RegisterEvent("PLAYER_ENTERING_WORLD", "CheckMail")
+		self:HookScript(_G["MiniMapMailFrame"], "OnHide", "CheckMail")
+		self:HookScript(_G["MiniMapMailFrame"], "OnShow", "CheckMail")
+	end
 end
 
 local function InitializeCallback()

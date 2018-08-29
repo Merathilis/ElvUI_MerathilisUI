@@ -20,6 +20,8 @@ local GetSpellTexture = GetSpellTexture
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
+	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
+
 	if _G["PlayerTalentFrame"].backdrop then
 		_G["PlayerTalentFrame"].backdrop:Styling()
 	end
@@ -37,7 +39,7 @@ local function styleTalents()
 		bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
 
 		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		bu.SelectedTexture:SetColorTexture(r, g, b)
 	end
 
 	-- Talents
@@ -53,7 +55,7 @@ local function styleTalents()
 
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
-					button.bg.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+					button.bg.SelectedTexture:SetColorTexture(r, g, b)
 				else
 					button.bg.SelectedTexture:Hide()
 				end
@@ -184,7 +186,8 @@ local function styleTalents()
 	end
 
 	-- PvP Talents
-	_G["PlayerTalentFrameTalentsPvpTalentFrameTalentList"].backdrop:Styling()
+	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentList"]
+	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
 
 	for i = 1, 10 do
 		local bu = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentListScrollFrameButton"..i]

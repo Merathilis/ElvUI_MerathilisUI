@@ -623,18 +623,22 @@ function LP:CHAT_MSG_SKILL()
 end
 
 function LP:PLAYER_REGEN_DISABLED()
-	if LP.db.combathide then loc_panel:Hide() end
+	if LP.db.combathide then loc_panel:SetAlpha(0) end
 end
 
 function LP:PLAYER_REGEN_ENABLED()
-	if LP.db.enable then loc_panel:Show() end
+	if LP.db.enable then loc_panel:SetAlpha(1) end
 end
 
 function LP:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if LP.db.enable and LP.db.orderhallhide then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
-		loc_panel:SetShown(not inOrderHall);
+		if inOrderHall then
+			loc_panel:SetAlpha(0)
+		else
+			loc_panel:SetAlpha(1)
+		end
 	end
 end
 
@@ -649,14 +653,6 @@ function LP:Initialize()
 	LP:Template()
 	LP:Fonts()
 	LP:Toggle()
-
-	function LP:ForUpdateAll()
-		LP.db = E.db.mui.locPanel
-		LP:Resize()
-		LP:Template()
-		LP:Fonts()
-		LP:Toggle()
-	end
 
 	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LP:RegisterEvent("PLAYER_REGEN_ENABLED")

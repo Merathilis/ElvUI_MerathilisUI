@@ -404,7 +404,7 @@ function MERL:ShadowOverlay()
 end
 
 function MERL:ChatButtonHolder()
-	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel ~= true then return end
+	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel then return end
 
 	local ChatButtonHolder = _G["ChatButtonHolder"]
 

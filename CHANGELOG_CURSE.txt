@@ -1,3 +1,11 @@
+** v3.35, 29.08.2018**
+* Skin extra CharacterStatsPane from S&L Armory Mode.
+* Updated LocPanel & MicroBar combat hide options.
+* Show/hide the bags if the ScrappingMachine Frame is shown. Thx Whiro
+* Fix a possible error if the panels table doesn't exist. Thx Whiro
+* Added BfA Augementation Rune to the RaidBuffs.
+* A lot of skin updates.
+
 ** v3.34, 22.08.2018**
 * Fixed an issue that the Changelog wasn't showing on version bumb.
 * Added the option back to hide the Coords on the LocPanel.

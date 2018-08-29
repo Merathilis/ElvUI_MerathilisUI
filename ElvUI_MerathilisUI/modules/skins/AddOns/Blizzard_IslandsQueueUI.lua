@@ -16,6 +16,8 @@ local function styleIslands()
 
 	local IslandsQueueFrame = _G["IslandsQueueFrame"]
 	IslandsQueueFrame:Styling()
+
+	IslandsQueueFrame.HelpButton:Hide()
 end
 
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", styleIslands)
