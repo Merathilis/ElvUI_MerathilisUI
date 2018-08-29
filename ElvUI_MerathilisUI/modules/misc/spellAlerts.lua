@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local SA = E:NewModule("SpellAlerts", "AceEvent-3.0")
+local SA = MER:NewModule("SpellAlerts", "AceEvent-3.0")
 SA.modName = L["SpellAlerts"]
 
 -- Cache global variables
@@ -35,4 +35,4 @@ local function InitializeCallback()
 	SA:Initialize()
 end
 
-E:RegisterModule(SA:GetName(), InitializeCallback)
+MER:RegisterModule(SA:GetName(), InitializeCallback)

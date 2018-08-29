@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MCA = E:NewModule("mUICastbar", "AceTimer-3.0", "AceEvent-3.0")
+local MCA = MER:NewModule("mUICastbar", "AceTimer-3.0", "AceEvent-3.0")
 local UF = E:GetModule("UnitFrames")
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -165,4 +165,4 @@ local function InitializeCallback()
 	MCA:Initialize()
 end
 
-E:RegisterModule(MCA:GetName(), InitializeCallback)
+MER:RegisterModule(MCA:GetName(), InitializeCallback)

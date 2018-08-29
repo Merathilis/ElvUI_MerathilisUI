@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERB = E:NewModule("mUIBags", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-local MERS = E:GetModule("muiSkins")
+local MERB = MER:NewModule("mUIBags", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local MERS = MER:GetModule("muiSkins")
 MERB.modName = L["Bags"]
 
 --Cache global variables
@@ -61,4 +61,4 @@ local function InitializeCallback()
 	MERB:Initialize()
 end
 
-E:RegisterModule(MERB:GetName(), InitializeCallback)
+MER:RegisterModule(MERB:GetName(), InitializeCallback)

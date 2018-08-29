@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local CF = E:GetModule("CooldownFlash")
+local CF = MER:GetModule("CooldownFlash")
 
 local function CooldownFlash()
 	E.Options.args.mui.args.cooldownFlash = {

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = E:GetModule("mUIMisc")
+local MI = MER:GetModule("mUIMisc")
 local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables

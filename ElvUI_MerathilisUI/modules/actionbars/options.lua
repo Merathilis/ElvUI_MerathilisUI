@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MAB = E:GetModule("mUIActionbars")
+local MAB = MER:GetModule("mUIActionbars")
 
 --Cache global variables
 local format = string.format

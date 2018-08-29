@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
-local MERS = E:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
+local MERS = MER:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0")
 MERS.modName = L["Skins/AddOns"]
 
@@ -992,4 +992,4 @@ local function InitializeCallback()
 	MERS:Initialize()
 end
 
-E:RegisterModule(MERS:GetName(), InitializeCallback)
+MER:RegisterModule(MERS:GetName(), InitializeCallback)

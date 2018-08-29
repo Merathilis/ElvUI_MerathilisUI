@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = E:GetModule("muiUnits")
-local MCA = E:GetModule("mUICastbar")
+local MUF = MER:GetModule("muiUnits")
+local MCA = MER:GetModule("mUICastbar")
 local UF = E:GetModule("UnitFrames")
 local isEnabled = E.private["unitframe"].enable and true or false
 

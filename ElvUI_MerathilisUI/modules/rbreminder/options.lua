@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RB = E:GetModule("RaidBuffs")
+local RB = MER:GetModule("RaidBuffs")
 
 --Cache global variables
 

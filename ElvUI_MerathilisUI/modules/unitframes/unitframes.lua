@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = E:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local MUF = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MUF.modName = L["UnitFrames"]
 
 --Cache global variables
@@ -50,4 +50,4 @@ local function InitializeCallback()
 	MUF:Initialize()
 end
 
-E:RegisterModule(MUF:GetName(), InitializeCallback)
+MER:RegisterModule(MUF:GetName(), InitializeCallback)

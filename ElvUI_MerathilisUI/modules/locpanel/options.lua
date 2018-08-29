@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LP = E:GetModule("LocPanel")
+local LP = MER:GetModule("LocPanel")
 local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 --Cache global variables

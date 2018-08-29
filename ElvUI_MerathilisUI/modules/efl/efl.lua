@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local EFL = E:NewModule("EnhancedFriendsList")
+local EFL = MER:NewModule("EnhancedFriendsList")
 local LSM = LibStub("LibSharedMedia-3.0")
 EFL.modName = L["EnhancedFriendsList"]
 
@@ -252,4 +252,4 @@ local function InitializeCallback()
 	EFL:Initialize()
 end
 
-E:RegisterModule(EFL:GetName(), InitializeCallback)
+MER:RegisterModule(EFL:GetName(), InitializeCallback)

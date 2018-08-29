@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
-local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
+local MERS = MER:GetModule("muiSkins")
+local NF = MER:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
@@ -463,4 +463,4 @@ local function InitializeCallback()
 	NF:Initialize()
 end
 
-E:RegisterModule(NF:GetName(), InitializeCallback)
+MER:RegisterModule(NF:GetName(), InitializeCallback)

@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local LSM = LibStub('LibSharedMedia-3.0')
-local MM = E:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local MM = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MM.modName = L["MiniMap"]
 
 --Cache global variables
@@ -150,4 +150,4 @@ local function InitializeCallback()
 	MM:Initialize()
 end
 
-E:RegisterModule(MM:GetName(), InitializeCallback)
+MER:RegisterModule(MM:GetName(), InitializeCallback)

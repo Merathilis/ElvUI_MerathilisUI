@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MB = E:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
-local MERS = E:GetModule("muiSkins")
+local MB = MER:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
+local MERS = MER:GetModule("muiSkins")
 
 --Cache global variables
 --Lua functions
@@ -496,4 +496,4 @@ local function InitializeCallback()
 	MB:Initialize()
 end
 
-E:RegisterModule(MB:GetName(), InitializeCallback)
+MER:RegisterModule(MB:GetName(), InitializeCallback)

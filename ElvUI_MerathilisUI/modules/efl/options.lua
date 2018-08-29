@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local EFL = E:GetModule("EnhancedFriendsList")
+local EFL = MER:GetModule("EnhancedFriendsList")
 
 --Cache global variables
 

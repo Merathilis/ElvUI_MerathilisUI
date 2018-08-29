@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MM = E:GetModule("mUIMinimap")
+local MM = MER:GetModule("mUIMinimap")
 
 --Cache global variables
 --Lua functions

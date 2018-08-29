@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MDB = E:GetModule("mUI_databars")
+local MDB = MER:GetModule("mUI_databars")
 
 --Cache global variables
 

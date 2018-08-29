@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
-local NA = E:GetModule("NameplateAuras")
+local NA = MER:GetModule("NameplateAuras")
 
 --Cache global variables
 local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type

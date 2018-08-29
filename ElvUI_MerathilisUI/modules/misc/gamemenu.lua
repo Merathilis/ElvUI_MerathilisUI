@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERG = E:NewModule("mUIGameMenu")
-local MERS = E:GetModule("muiSkins")
+local MERG = MER:NewModule("mUIGameMenu")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -313,4 +313,4 @@ local function InitializeCallback()
 	MERG:Initialize()
 end
 
-E:RegisterModule(MERG:GetName(), InitializeCallback)
+MER:RegisterModule(MERG:GetName(), InitializeCallback)

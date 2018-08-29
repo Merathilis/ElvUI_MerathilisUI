@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RMA = E:GetModule("RaidMarkers")
+local RMA = MER:GetModule("RaidMarkers")
 
 --Cache global variables
 local _G = _G

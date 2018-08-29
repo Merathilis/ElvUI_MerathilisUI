@@ -1,7 +1,7 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
-local LP = E:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
+local LP = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0");
 LP.modName = L["Location Panel"]
 
@@ -664,4 +664,4 @@ local function InitializeCallback()
 	LP:Initialize()
 end
 
-E:RegisterModule(LP:GetName(), InitializeCallback)
+MER:RegisterModule(LP:GetName(), InitializeCallback)
