@@ -15,6 +15,8 @@ local PickupContainerItem = PickupContainerItem
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
@@ -46,7 +48,7 @@ local function styleCharacter()
 		bg:SetPoint("CENTER", 0, -5)
 		bg:SetSize(210, 30)
 
-		bg:SetVertexColor(MER.ClassColor.r * 0.7, MER.ClassColor.g * 0.7, MER.ClassColor.b * 0.7)
+		bg:SetVertexColor(r * 0.7, g * 0.7, b * 0.7)
 	end
 
 	StatsPane("EnhancementsCategory")

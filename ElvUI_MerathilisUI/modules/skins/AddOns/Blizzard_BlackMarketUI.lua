@@ -13,6 +13,8 @@ local GetItemQualityColor = GetItemQualityColor
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleBMAH()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.muiSkins.blizzard.blackmarket ~= true then return end
 
@@ -74,7 +76,7 @@ local function styleBMAH()
 
 				bu:SetHighlightTexture(E["media"].normTex)
 				local hl = bu:GetHighlightTexture()
-				hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+				hl:SetVertexColor(r, g, b, .2)
 				hl.SetAlpha = MER.dummy
 				hl:ClearAllPoints()
 				hl:SetPoint("TOPLEFT", 0, -1)
@@ -84,7 +86,7 @@ local function styleBMAH()
 				bu.Selection:SetPoint("TOPLEFT", 0, -1)
 				bu.Selection:SetPoint("BOTTOMRIGHT", -1, 6)
 				bu.Selection:SetTexture(E["media"].normTex)
-				bu.Selection:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .1)
+				bu.Selection:SetVertexColor(r, g, b, .1)
 
 				bu.reskinned = true
 			end

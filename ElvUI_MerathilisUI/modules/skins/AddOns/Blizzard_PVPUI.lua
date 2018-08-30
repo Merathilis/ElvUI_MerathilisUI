@@ -11,6 +11,8 @@ local CreateFrame = CreateFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, Inset
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
@@ -31,7 +33,7 @@ local function stylePvP()
 		MERS:Reskin(bu, true)
 
 		bu.Background:SetAllPoints()
-		bu.Background:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		bu.Background:SetColorTexture(r, g, b, .2)
 		bu.Background:Hide()
 
 		bu.Icon:Size(54)
@@ -95,7 +97,7 @@ local function stylePvP()
 		bu.NormalTexture:Hide()
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
 		if reward then
@@ -131,7 +133,7 @@ local function stylePvP()
 		bu.tex:SetPoint("BOTTOMRIGHT", bg, -1, 1)
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints(bu.tex)
 
 		bu.Icon:SetTexCoord(.08, .92, .08, .92)
@@ -157,7 +159,7 @@ local function stylePvP()
 		bu.NormalTexture:Hide()
 
 		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
 		if reward then

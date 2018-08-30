@@ -11,6 +11,8 @@ local select = select
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleBinding()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
 
@@ -26,7 +28,7 @@ local function styleBinding()
 		selected:SetTexture(E["media"].normTex)
 		selected:SetPoint("TOPLEFT", 1, -1)
 		selected:SetPoint("BOTTOMRIGHT", -1, 1)
-		selected:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		selected:SetColorTexture(r, g, b,.2)
 
 		MERS:Reskin(bu)
 	end

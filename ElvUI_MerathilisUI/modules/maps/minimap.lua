@@ -28,7 +28,7 @@ function MM:CheckMail()
 		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
 		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		Minimap.backdrop:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		Minimap.backdrop:SetBackdropBorderColor(unpack(E.db['general'].valuecolor))
 		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	else -- None of the above
 		Minimap.backdrop:SetScript("OnUpdate", nil)
@@ -61,7 +61,7 @@ function MM:ChangeMiniMapButtons()
 			self:GetPushedTexture():SetBlendMode("ADD")
 			self:GetPushedTexture():ClearAllPoints()
 			self:GetPushedTexture():SetPoint("CENTER", 1, 0)
-			self:GetPushedTexture():SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+			self:GetPushedTexture():SetVertexColor(unpack(E.db['general'].valuecolor))
 		end)
 	end
 end
@@ -71,7 +71,7 @@ function MM:MiniMapCoords()
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
-	Coords:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	Coords:SetPoint(pos, 0, 0)
 	Coords:Hide()
 

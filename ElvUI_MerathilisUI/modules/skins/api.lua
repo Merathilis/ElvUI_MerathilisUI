@@ -23,7 +23,7 @@ local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
 
-local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
@@ -264,7 +264,7 @@ function MERS:Underline(frame, shadow, height)
 		line:SetSize(frame:GetWidth(), height or 1)
 		line.Texture = line:CreateTexture(nil, "OVERLAY")
 		line.Texture:SetTexture(flat)
-		line.Texture:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		line.Texture:SetVertexColor(r, g, b)
 		if shadow then
 			if shadow == "backdrop" then
 				line:CreateShadow()
@@ -316,7 +316,7 @@ function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
 	fs:SetText(text)
 	fs:SetWordWrap(false)
 	if classcolor then
-		fs:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		fs:SetTextColor(r, g, b)
 	end
 	if (anchor and x and y) then
 		fs:SetPoint(anchor, x, y)
@@ -664,7 +664,7 @@ end
 
 local function StartGlow(f)
 	if not f:IsEnabled() then return end
-	f:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	f:SetBackdropBorderColor(r, g, b)
 	f.glow:SetAlpha(1)
 	MER:CreatePulse(f.glow)
 end
@@ -725,7 +725,7 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		})
 		f.glow:SetPoint("TOPLEFT", -2, 2)
 		f.glow:SetPoint("BOTTOMRIGHT", 2, -2)
-		f.glow:SetBackdropBorderColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		f.glow:SetBackdropBorderColor(r, g, b)
 		f.glow:SetAlpha(0)
 
 		f:HookScript("OnEnter", StartGlow)
@@ -755,7 +755,7 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	local ch = frame:GetCheckedTexture()
 	ch:SetDesaturated(true)
-	ch:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	ch:SetVertexColor(r, g, b)
 end
 
 function MERS:ReskinIcon(icon)
@@ -849,7 +849,7 @@ function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisFlat"))
-	panel.tex:SetGradient("VERTICAL", MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, MER.ClassColor.r/3, MER.ClassColor.g/3, MER.ClassColor.b/3)
+	panel.tex:SetGradient("VERTICAL", unpack(E["media"].rgbvaluecolor))
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 

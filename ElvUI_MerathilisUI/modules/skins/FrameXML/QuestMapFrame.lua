@@ -12,10 +12,10 @@ local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleQuestMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	local QuestMapFrame = _G["QuestMapFrame"]
 

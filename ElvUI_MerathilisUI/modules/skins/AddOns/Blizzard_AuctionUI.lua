@@ -11,10 +11,10 @@ local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleAuctionhouse()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	local AuctionFrame = _G["AuctionFrame"]
 	AuctionFrame:Styling()

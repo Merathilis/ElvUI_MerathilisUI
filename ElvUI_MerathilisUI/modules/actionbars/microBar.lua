@@ -32,12 +32,12 @@ local function OnHover(button)
 	local buttonHighlight = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\highlight2"
 
 	if button.tex then
-		button.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		button.tex:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 
 		button.highlight = button:CreateTexture(nil, "HIGHLIGHT")
 		button.highlight:SetPoint("TOPLEFT", button.tex, "TOPLEFT", -4, 1)
 		button.highlight:SetPoint("BOTTOMRIGHT", button.tex, "BOTTOMRIGHT", 4, -1)
-		button.highlight:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
+		button.highlight:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 		button.highlight:SetTexture(buttonHighlight)
 		button.highlight:SetBlendMode("ADD")
 	end
@@ -93,7 +93,7 @@ function MB:CreateMicroBar()
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
 	charButton.text:SetText(CHARACTER_BUTTON)
-	charButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	charButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	charButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	charButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -120,7 +120,7 @@ function MB:CreateMicroBar()
 		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
 	end
 	friendsButton.text:SetText(SOCIAL_BUTTON)
-	friendsButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	friendsButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateFriends()
 		MB.db = E.db.mui.actionbars.microBar
@@ -143,7 +143,7 @@ function MB:CreateMicroBar()
 	friendsButton.online:FontTemplate(nil, 10, "OUTLINE")
 	friendsButton.online:SetPoint("BOTTOMRIGHT", friendsButton, 0, 5)
 	friendsButton.online:SetText("")
-	friendsButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	friendsButton.online:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	friendsButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	friendsButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -178,7 +178,7 @@ function MB:CreateMicroBar()
 		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
 	end
 	guildButton.text:SetText(GUILD)
-	guildButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	guildButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateGuild()
 		MB.db = E.db.mui.actionbars.microBar
@@ -205,7 +205,7 @@ function MB:CreateMicroBar()
 	guildButton.online:FontTemplate(nil, 10, "OUTLINE")
 	guildButton.online:SetPoint("BOTTOMRIGHT", guildButton, 0, 5)
 	guildButton.online:SetText("")
-	guildButton.online:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	guildButton.online:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	guildButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	guildButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -240,7 +240,7 @@ function MB:CreateMicroBar()
 		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
 	end
 	achieveButton.text:SetText(ACHIEVEMENT_BUTTON)
-	achieveButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	achieveButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	achieveButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	achieveButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -267,7 +267,7 @@ function MB:CreateMicroBar()
 		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
 	end
 	encounterButton.text:SetText(ENCOUNTER_JOURNAL)
-	encounterButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	encounterButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	encounterButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	encounterButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -280,7 +280,7 @@ function MB:CreateMicroBar()
 	timeButton:SetFrameLevel(6)
 
 	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16, "OUTLINE", "CENTER")
-	timeButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	timeButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	timeButton.text:SetPoint("CENTER", 0, 0)
 
 	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
@@ -332,7 +332,7 @@ function MB:CreateMicroBar()
 		petButton.text:SetPoint("TOP", petButton, 2, 15)
 	end
 	petButton.text:SetText(MOUNTS_AND_PETS)
-	petButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	petButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	petButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	petButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -359,7 +359,7 @@ function MB:CreateMicroBar()
 		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
 	end
 	lfrButton.text:SetText(LFG_TITLE)
-	lfrButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	lfrButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	lfrButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	lfrButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -386,7 +386,7 @@ function MB:CreateMicroBar()
 		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
 	end
 	spellBookButton.text:SetText(SPELLBOOK_ABILITIES_BUTTON)
-	spellBookButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	spellBookButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	spellBookButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	spellBookButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -413,7 +413,7 @@ function MB:CreateMicroBar()
 		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
 	end
 	speccButton.text:SetText(TALENTS_BUTTON)
-	speccButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	speccButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	speccButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	speccButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -440,7 +440,7 @@ function MB:CreateMicroBar()
 		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
 	end
 	shopButton.text:SetText(BLIZZARD_STORE)
-	shopButton.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	shopButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	shopButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	shopButton:SetScript("OnLeave", function(self) OnLeave(self) end)

@@ -100,7 +100,7 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.categoryMiddle:Show()
 				hidebuttons = false
 				button.highlight:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Flat.tga")
-				button.highlight:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+				button.highlight:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -2)
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -3, 2)
 				button.name:SetText(name)

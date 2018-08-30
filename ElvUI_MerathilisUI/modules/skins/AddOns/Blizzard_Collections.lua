@@ -13,10 +13,10 @@ local PlayerHasToy = PlayerHasToy
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleCollections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	local CollectionsJournal = _G["CollectionsJournal"]
 	CollectionsJournal:Styling()

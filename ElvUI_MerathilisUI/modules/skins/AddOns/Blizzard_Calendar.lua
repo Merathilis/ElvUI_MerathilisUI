@@ -9,6 +9,8 @@ local _G = _G
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleCalendar()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
@@ -23,7 +25,7 @@ local function styleCalendar()
 		bu:DisableDrawLayer("BACKGROUND")
 		bu:SetHighlightTexture(E["media"].normTex)
 		local hl = bu:GetHighlightTexture()
-		hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		hl:SetVertexColor(r, g, b, .2)
 		hl.SetAlpha = MER.dummy
 		hl:SetPoint("TOPLEFT", -1, 1)
 		hl:SetPoint("BOTTOMRIGHT")
@@ -34,7 +36,7 @@ local function styleCalendar()
 	end
 
 	_G["CalendarWeekdaySelectedTexture"]:SetDesaturated(true)
-	_G["CalendarWeekdaySelectedTexture"]:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	_G["CalendarWeekdaySelectedTexture"]:SetVertexColor(r, g, b)
 
 	_G["CalendarViewEventAcceptButton"].flashTexture:SetTexture("")
 	_G["CalendarViewEventTentativeButton"].flashTexture:SetTexture("")

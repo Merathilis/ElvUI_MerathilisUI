@@ -13,10 +13,10 @@ local GetSpellAvailableLevel = GetSpellAvailableLevel
 local UnitLevel = UnitLevel
 -- GLOBALS: hooksecurefunc
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	local SpellBookFrame = _G["SpellBookFrame"]
 

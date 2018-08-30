@@ -116,6 +116,8 @@ local function UpdateCPU()
 end
 
 local function OnEnter(self)
+	local r, g, b = E["media"].rgbvaluecolor.r, E["media"].rgbvaluecolor.g, E["media"].rgbvaluecolor.b
+
 	DT:SetupTooltip(self)
 	enteredFrame = true
 
@@ -124,30 +126,30 @@ local function OnEnter(self)
 	local _, _, home_latency, world_latency = GetNetStats()
 	local shown = 0
 
-	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	DT.tooltip:AddDoubleLine(L["World Latency:"], format(homeLatencyString, world_latency), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	DT.tooltip:AddDoubleLine(L["Home Latency:"], format(homeLatencyString, home_latency), r, g, b)
+	DT.tooltip:AddDoubleLine(L["World Latency:"], format(homeLatencyString, world_latency), r, g, b)
 	if bandwidth ~= 0 then
-		DT.tooltip:AddDoubleLine(L["Bandwidth"] , format(bandwidthString, bandwidth), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		DT.tooltip:AddDoubleLine(L["Bandwidth"] , format(bandwidthString, bandwidth), r, g, b)
+		DT.tooltip:AddDoubleLine(L["Download"] , format(percentageString, GetDownloadedPercentage() *100), r, g, b)
 		DT.tooltip:AddLine(" ")
 	end
 
 	if ( GetCVarBool("useIPv6") ) then
 		local ipTypes = { "IPv4", "IPv6" }
 		local ipTypeHome, ipTypeWorld = GetNetIpTypes();
-		DT.tooltip:AddDoubleLine(L["Home Protocol:"], ipTypes[ipTypeHome or 0] or UNKNOWN, MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-		DT.tooltip:AddDoubleLine(L["World Protocol:"], ipTypes[ipTypeWorld or 0] or UNKNOWN, MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		DT.tooltip:AddDoubleLine(L["Home Protocol:"], ipTypes[ipTypeHome or 0] or UNKNOWN, r, g, b)
+		DT.tooltip:AddDoubleLine(L["World Protocol:"], ipTypes[ipTypeWorld or 0] or UNKNOWN, r, g, b)
 	end
 
-	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
-	DT.tooltip:AddDoubleLine(L["Total Addons:"], GetNumAddOns(), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	DT.tooltip:AddDoubleLine(L["Loaded Addons:"], GetNumLoadedAddons(), r, g, b)
+	DT.tooltip:AddDoubleLine(L["Total Addons:"], GetNumAddOns(), r, g, b)
 
 	local totalMemory = UpdateMemory()
 	local totalCPU = nil
-	DT.tooltip:AddDoubleLine(L["Total Memory:"], FormatMemory(totalMemory), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	DT.tooltip:AddDoubleLine(L["Total Memory:"], FormatMemory(totalMemory), r, g, b)
 	if cpuProfiling then
 		totalCPU = UpdateCPU()
-		DT.tooltip:AddDoubleLine(L["Total CPU:"], format(homeLatencyString, totalCPU), MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		DT.tooltip:AddDoubleLine(L["Total CPU:"], format(homeLatencyString, totalCPU), r, g, b)
 	end
 
 	if IsShiftKeyDown() or not cpuProfiling then

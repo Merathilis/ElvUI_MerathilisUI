@@ -147,7 +147,7 @@ local function Initialize()
 	AFK.AFKMode.bottomPanel.name:FontTemplate(nil, 22)
 	AFK.AFKMode.bottomPanel.name:SetFormattedText("%s", E.myname)
 	AFK.AFKMode.bottomPanel.name:SetPoint("LEFT", AFK.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
-	AFK.AFKMode.bottomPanel.name:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	AFK.AFKMode.bottomPanel.name:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	AFK.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
 
 	-- Bottom Guild Name
@@ -210,7 +210,7 @@ local function Initialize()
 	AFK.AFKMode.topPanel.time:SetText("")
 	AFK.AFKMode.topPanel.time:SetPoint("CENTER", AFK.AFKMode.topPanel, "CENTER", 0, 0)
 	AFK.AFKMode.topPanel.time:SetJustifyH("CENTER")
-	AFK.AFKMode.topPanel.time:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	AFK.AFKMode.topPanel.time:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	-- Logout Count
 	AFK.AFKMode.countd = CreateFrame("Frame", nil, AFK.AFKMode)
@@ -270,7 +270,7 @@ local function Initialize()
 		playerModel.tex.text:SetPoint("CENTER", playerModel.tex, "CENTER", 0, 10)
 		playerModel.tex.text:SetJustifyH("CENTER")
 		playerModel.tex.text:SetJustifyV("CENTER")
-		playerModel.tex.text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+		playerModel.tex.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 		playerModel.tex.text:SetShadowOffset(2, -2)
 	end
 

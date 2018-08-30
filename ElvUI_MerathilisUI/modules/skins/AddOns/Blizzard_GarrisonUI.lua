@@ -12,11 +12,10 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
-
-	-- [[ Shared codes ]]
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	-- [[ Garrison system ]]
 	function MERS:ReskinMissionPage(self)

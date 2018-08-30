@@ -165,9 +165,9 @@ function NF:CreateToast()
 	toast.icon = icon
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
-	sep:SetSize(1, bannerHeight)
+	sep:SetSize(2, bannerHeight)
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
-	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
+	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = MER:CreateText(toast, "OVERLAY", 11, "OUTLINE")
 	title:SetShadowOffset(1, -1)
