@@ -104,7 +104,6 @@ end
 function MER:AddMoverCategories()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
-
 end
 
 local f = CreateFrame("Frame")
@@ -125,10 +124,6 @@ function MER:RegisterModule(name)
 	else
 		self["RegisteredModules"][#self["RegisteredModules"] + 1] = name
 	end
-end
-
-function MER:GetRegisteredModules()
-	return self["RegisteredModules"]
 end
 
 function MER:InitializeModules()
