@@ -408,6 +408,7 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
+	E.db["mui"]["maps"]["minimap"]["buttonCollector"]["position"] = "TOP"
 
 	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
 	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)

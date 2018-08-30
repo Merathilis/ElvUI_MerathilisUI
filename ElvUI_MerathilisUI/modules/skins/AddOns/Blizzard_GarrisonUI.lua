@@ -605,6 +605,7 @@ local function styleGarrison()
 	MERS:Reskin(GarrisonShipyardFrame.MissionComplete.NextMissionButton)
 
 	-- [[ Orderhall UI]]
+
 	local OrderHallMissionFrame = _G["OrderHallMissionFrame"]
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(OrderHallMissionFrame, .25)
@@ -676,7 +677,20 @@ local function styleGarrison()
 	BFAMissionFrame:Styling()
 	MERS:ReskinMissionFrame(BFAMissionFrame)
 
-	-- [[ Addon supports ]]
+	-- [[ BFA Missions ]]
+	local MissionFrame = _G["BFAMissionFrame"]
+
+	for i, v in ipairs(_G["BFAMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
+		local Button = _G["BFAMissionFrameMissionsListScrollFrameButton" .. i]
+		if Button and not Button.skinned then
+			Button:StripTextures()
+			MERS:CreateBD(Button, .25)
+			MERS:Reskin(Button, true)
+			Button.LocBG:SetAlpha(0)
+
+			Button.isSkinned = true
+		end
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)
