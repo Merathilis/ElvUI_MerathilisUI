@@ -440,6 +440,7 @@ L["UnitFrames Set"] = "Einheitenfenster eingestellt"
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] = "Willkommen zu MerathilisUI |cff00c0faVersion|r %s für ElvUI %s."
 L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = "Durch drücken der Weiter-Taste werden die MerathilisUI Änderungen in der vorhandenen ElvUI Installation angewandt.\r|cffff8000 TIP: Es wäre gut, wenn Du die Änderungen in einem neuen Profil erstellst. Nur für den Fall dass Du mit den Änderungen nicht zufrieden bist.|r"
 L["Buttons must be clicked twice"] = "Bitte zweimal anklicken"
+L["Importance: |cffff0000Very High|r"] = "Bedeutung: |cffff0000Sehr Hoch|r"
 L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = "Das AddOn 'AddOnSkins' ist nicht aktiviert. Keine Einstellungen wurden verändert."
 L["The Addon 'Big Wigs' is not enabled. Profile not created."] = "Das AddOn 'BigWigs' ist nicht aktiviert. Profil wurde nicht erstellt."
 L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] = "Das AddOn 'ElvUI_BenikUI' ist nicht aktiviert. Keine Einstellungen wurden verändert."
@@ -447,6 +448,7 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = "Das
 L["The Addon 'Skada' is not enabled. Profile not created."] = "Das AddOn 'Skada' ist nicht aktiviert. Profile wurde nicht erstellt."
 L["This part of the installation process sets up your chat fonts and colors."] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe."
 L["This part of the installation changes the default ElvUI look."] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
+L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = "Dieser Teil der Installation lässt dich ein neues Profil erstellen oder wendet die |cffff8000MerathilisUI|r Einstellungen auf dein aktuelles Profil an."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil der Installation positioniert die Einheitenfenster."
@@ -464,6 +466,7 @@ L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true
 L["Finish"] = "Fertig"
 L["Installed"] = "Installiert"
+L["|cffff8000Your currently active ElvUI profile is:|r %s."] = "|cffff8000Dein aktives ElvUI Profil ist:|r %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter als die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). Bitte aktuallisiere dein ElvUI, um Fehler zu vermeiden!"
@@ -473,6 +476,8 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Hier kannst das Layout für BenikUI wä
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Hier kannst das Layout für BigWigs wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Hier kannst das Layout für Deadly Boss Mods wählen.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Hier kannst das Layout für Details wählen.]]
+L["Name for the new profile"] = "Name für das neue Profil"
+L["Are you sure you want to override the current profile?"] = "Bist du sicher dass du dein aktuelles Profil überschreiben  möchtest?"
 
 -- Skins
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.

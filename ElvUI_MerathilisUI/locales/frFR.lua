@@ -428,6 +428,7 @@ L["UnitFrames Set"] = true
 L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."] = true
 L["By pressing the Continue button, MerathilisUI will be applied in your current ElvUI installation.\r|cffff8000 TIP: It would be nice if you apply the changes in a new profile, just in case you don't like the result.|r"] = true
 L["Buttons must be clicked twice"] = true
+L["Importance: |cffff0000Very High|r"] = true
 L["The AddOn 'AddOnSkins' is not enabled. No settings have been changed."] = true
 L["The Addon 'Big Wigs' is not enabled. Profile not created."] = true
 L["The AddOn 'ElvUI_BenikUI' is not enabled. No settings have been changed."] = true
@@ -435,6 +436,7 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = true
 L["The Addon 'Skada' is not enabled. Profile not created."] = true
 L["This part of the installation process sets up your chat fonts and colors."] = true
 L["This part of the installation changes the default ElvUI look."] = true
+L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = true
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
 L["This part of the installation process will reposition your Unitframes."] = true
@@ -452,6 +454,7 @@ L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
 L["Finish"] = true
 L["Installed"] = true
+L["|cffff8000Your currently active ElvUI profile is:|r %s."] = true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
@@ -461,6 +464,8 @@ L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for Beni
 L["MUI_INSTALL_SETTINGS_LAYOUT_BW"] = [[Here you can choose the layout for BigWigs.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DBM"] = [[Here you can choose the layout for Deadly Boss Mods.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_DETAILS"] = [[Here you can choose the layout for Details.]]
+L["Name for the new profile"] = true
+L["Are you sure you want to override the current profile?"] = true
 
 -- Skins
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
