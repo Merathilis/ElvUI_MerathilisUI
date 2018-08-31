@@ -73,8 +73,14 @@ local function AddOptions()
 			informationButton = CreateButton(5, L["Information"], "info"),
 			modulesButton = CreateButton(6, L["Modules"], "modules"),
 			skinsButton = CreateButton(7, L["Skins & AddOns"], "skins"),
-			general = {
+			discordButton = {
 				order = 8,
+				type = "execute",
+				name = L["|cffff7d0aMerathilisUI|r Discord"],
+				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
+			},
+			general = {
+				order = 9,
 				type = "group",
 				name = "",
 				guiInline = true,
