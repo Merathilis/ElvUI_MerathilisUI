@@ -17,16 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Skin extra CharacterStatsPane from S&L Armory Mode.",
-		"• Updated LocPanel & MicroBar combat hide options.",
-		"• Show/hide the bags if the ScrappingMachine Frame is shown. Thx Whiro",
-		"• Fix a possible error if the panels table doesn't exist. Thx Whiro",
-		"• Added BfA Augementation Rune to the RaidBuffs.",
-		"• A lot of skin updates.",
+		"• Register my modules to an own function.",
+		"• You are now able, to change the most of my stuff to use the Value Color from ElvUI.",
+		"  No more forced to use ClassColor (if you don't want to).",
+		"• Overhaul my complete Options.",
+		"• Add a new install step to choose a profile where you want to apply my settings.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• You have to reload after you change the value, to take effect on my stuff.",
 		-- "• ''",
 }
 

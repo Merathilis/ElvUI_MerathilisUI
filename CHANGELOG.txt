@@ -1,3 +1,10 @@
+[b][color=orange]v3.36[/color], 31.08.2018[/b][list]
+[*]Register my modules to an own function.
+[*]You are now able, to change the most of my stuff to use the Value Color from ElvUI.
+   No more forced to use ClassColor (if you don't want to).
+[*]Overhaul my complete Options.
+[*]Add a new install step to choose a profile where you want to apply my settings.[/list]
+
 [b][color=orange]v3.35[/color], 29.08.2018[/b][list]
 [*]Skin extra CharacterStatsPane from S&L Armory Mode.
 [*]Updated LocPanel & MicroBar combat hide options.
