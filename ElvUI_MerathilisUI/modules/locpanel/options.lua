@@ -11,7 +11,7 @@ local tinsert = table.insert
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
-	E.Options.args.mui.args.locPanel = {
+	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = LP.modName,
 		order = 16,

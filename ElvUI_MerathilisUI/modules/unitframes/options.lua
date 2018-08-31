@@ -13,7 +13,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: LibStub
 
 local function UnitFramesTable()
-	E.Options.args.mui.args.unitframes = {
+	E.Options.args.mui.args.modules.args.unitframes = {
 		order = 15,
 		type = "group",
 		name = MUF.modName,

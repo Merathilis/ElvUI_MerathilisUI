@@ -3,7 +3,7 @@ local MERC = MER:GetModule("muiChat")
 
 
 local function ChatTable()
-	E.Options.args.mui.args.chat = {
+	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
 		name = MERC.modName,
 		order = 9,

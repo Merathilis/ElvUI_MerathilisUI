@@ -15,6 +15,8 @@ local NONE = NONE
 function MER:LoadDataTexts()
 	local db = E.db.mui.datatexts
 
+	if db == nil then db = {} end
+
 	if not db.panels then return end
 
 	for panelName, panel in pairs(DT.RegisteredPanels) do
@@ -41,7 +43,7 @@ end
 hooksecurefunc(DT, "LoadDataTexts", MER.LoadDataTexts)
 
 local function Datatexts()
-	E.Options.args.mui.args.datatexts = {
+	E.Options.args.mui.args.modules.args.datatexts = {
 		order = 14,
 		type = "group",
 		name = L["DataTexts"],
@@ -227,7 +229,7 @@ local function Datatexts()
 	end
 	datatexts[""] = NONE
 
-	local table = E.Options.args.mui.args.datatexts.args.panels.args
+	local table = E.Options.args.mui.args.modules.args.datatexts.args.panels.args
 	local i = 0
 	for pointLoc, tab in pairs(P.mui.datatexts.panels) do
 		i = i + 1

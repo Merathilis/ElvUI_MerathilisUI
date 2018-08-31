@@ -9,7 +9,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: 
 
 local function databarsTable()
-	E.Options.args.mui.args.databars = {
+	E.Options.args.mui.args.modules.args.databars = {
 		order = 15,
 		type = "group",
 		name = MDB.modName,

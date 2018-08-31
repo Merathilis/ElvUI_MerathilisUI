@@ -9,7 +9,6 @@ L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. F
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
 L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
-L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = "MerathilisUI ist ein externer ElvUI Mod. Es ändert hauptsächlich den Look zu mehr transparenz.\n\n|cff00c0faNeue Funktionen sind gekennzeichnet mit:|r"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Deaktiviert wenn BenikUI geladen ist."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
@@ -22,6 +21,15 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 L["Desciption"] = "Beschreibung"
+L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
+
+- viele neue Funktionen 
+- einen transparenten Look 
+- alle ElvUI Skins wurden überarbeitet 
+- mein persönliches Layout 
+
+|cFF00c0faNote:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
+Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -78,54 +86,6 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
 L["Misc"] = "Verschiedenes"
-
--- Media
-L["MER_MEDIA_ZONES"] = {
-	"Salzgitter",
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
-L["Zone Text"] = "Zonen Schriftart"
-L["Test"] = true
-L["Subzone Text"] = "Subzonen Schriftart"
-L["PvP Status Text"] = "PvP Status Schriftart"
-L["Misc Texts"] = "Verschiedene Schriftarten"
-L["Mail Text"] = "Post Schriftart"
-L["Chat Editbox Text"] = "Chat-Eingabefeld Schriftart"
-L["Gossip and Quest Frames Text"] = "Begrüßungs- und Questfenster Schriftart"
-L["Objective Tracker Header Text"] = "Objective Tracker Kopf Schriftart"
-L["Objective Tracker Text"] = "Objective Tracker Schriftart"
-L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
@@ -429,6 +389,7 @@ L["Chat Set"] = "Chat eingestellt"
 L["ActionBars"] = "Aktionsleisten"
 L["ActionBars Set"] = "Aktionsleisten gesetzt"
 L["DataTexts Set"] = "Infotexte gesetzt"
+L["Profile Set"] = "Proil gesetzt"
 L["ElvUI AddOns settings applied."] = "ElvUI AddOns eingestellt."
 L["AddOnSkins is not enabled, aborting."] = "AddOnSkins ist nicht aktiviert, abgebrochen."
 L["AddOnSkins settings applied."] = "AddOnSkins Einstellungen angewandt."

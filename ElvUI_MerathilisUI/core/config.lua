@@ -4,7 +4,7 @@ if E.db.mui == nil then E.db.mui = {} end
 
 -- Cache global variables
 -- Lua functions
-local format = format
+local format, select, unpack = format, select, unpack
 local tinsert = table.insert
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
@@ -14,6 +14,24 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function AddOptions()
 	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
+
+	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
+
+	local function CreateButton(number, text, ...)
+		local path = {}
+		local num = select("#", ...)
+		for i = 1, num do
+			local name = select(i, ...)
+			tinsert(path, #(path)+1, name)
+		end
+		local config = {
+			order = number,
+			type = 'execute',
+			name = text,
+			func = function() ACD:SelectGroup("ElvUI", "mui", unpack(path)) end,
+		}
+		return config
+	end
 
 	-- Main options
 	E.Options.args.mui = {
@@ -34,10 +52,9 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"],
+				name = L["MER_DESC"],
 				fontSize = "medium",
-				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 125, 125 end,
-				imageCoords = { 0, 0.99, 0.01, 0.99 },
+				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 160, 160 end,
 			},
 			install = {
 				order = 3,
@@ -46,8 +63,17 @@ local function AddOptions()
 				desc = L["Run the installation process."],
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleConfig() end,
 			},
+			changelog = {
+				order = 4,
+				type = "execute",
+				name = L["Changelog"],
+				desc = L['Open the changelog window.'],
+				func = function() MER:ToggleChangeLog(); E:ToggleConfig() end,
+			},
+			modulesButton = CreateButton(5, L["Modules"], "modules"),
+			skinsButton = CreateButton(6, L["Skins & AddOns"], "skins"),
 			general = {
-				order = 5,
+				order = 7,
 				type = "group",
 				name = "",
 				guiInline = true,
@@ -111,7 +137,7 @@ local function AddOptions()
 				},
 			},
 			info = {
-				order = 6,
+				order = 19,
 				type = "group",
 				name = L["Information"],
 				args = {
@@ -150,6 +176,13 @@ local function AddOptions()
 								name = L["TukUI.org Discord Server"],
 								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/xFWcfgE") end,
 							},
+							development = {
+								order = 5,
+								type = 'execute',
+								name = L["Development Version"],
+								desc = L["Here you can download the latest development version."],
+								func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/-/archive/development/ElvUI_MerathilisUI-development.zip") end,
+							},
 						},
 					},
 					coding = {
@@ -180,22 +213,8 @@ local function AddOptions()
 							},
 						},
 					},
-					changelog = {
-						order = 5,
-						type = "group",
-						name = MER:cOption(L["Changelog"]),
-						guiInline = true,
-						args = {
-							changelog = {
-								order = 1,
-								type = "execute",
-								name = L["Changelog"],
-								func = function() MER:ToggleChangeLog(); E:ToggleConfig() end,
-							},
-						},
-					},
 					version = {
-						order = 6,
+						order = 5,
 						type = "group",
 						name = MER:cOption(L["Version"]),
 						guiInline = true,
@@ -207,6 +226,19 @@ local function AddOptions()
 								name = MER.Title..MER.Version,
 							},
 						},
+					},
+				},
+			},
+			modules = {
+				order = 20,
+				type = "group",
+				childGroups = "select",
+				name = L["Modules"],
+				args = {
+					info = {
+						type = "description",
+						order = 1,
+						name = L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."],
 					},
 				},
 			},

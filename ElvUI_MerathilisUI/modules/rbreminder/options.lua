@@ -10,7 +10,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 -- GLOBALS:
 
 local function RaidBuffs()
-	E.Options.args.mui.args.raidBuffs = {
+	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
 		name = RB.modName,
 		order = 31,

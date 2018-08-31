@@ -11,7 +11,7 @@ local EFL = MER:GetModule("EnhancedFriendsList")
 -- GLOBALS: FriendsFrame_UpdateFriends
 
 local function EnhancedFriendsList()
-	E.Options.args.mui.args.efl = {
+	E.Options.args.mui.args.modules.args.efl = {
 		type = "group",
 		name = EFL.modName,
 		order = 22,

@@ -9,7 +9,6 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
-L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = true
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
@@ -22,6 +21,15 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
+L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+
+- a lot of new features 
+- a transparent overall look 
+- rewrote all existing ElvUI Skins 
+- my personal Layout 
+
+|cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
+But if you install another Layout over mine, you must adjust it manually.]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -417,6 +425,7 @@ L["Chat Set"] = true
 L["ActionBars"] = true
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
+L["Profile Set"] = true
 L["ElvUI AddOns settings applied."] = true
 L["AddOnSkins is not enabled, aborting."] = true
 L["AddOnSkins settings applied."] = true

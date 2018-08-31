@@ -89,7 +89,7 @@ function MER:NewProfile(new)
 			button1 = YES,
 			button2 = NO,
 			OnAccept = function()
-				PluginInstallStepComplete.message = MER.Title.."Profile Selected"
+				PluginInstallStepComplete.message = MER.Title..L["Profile Set"]
 				PluginInstallStepComplete:Show()
 			end,
 			timeout = 0,

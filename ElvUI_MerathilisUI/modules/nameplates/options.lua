@@ -36,13 +36,13 @@ end
 
 local function UpdateSpellGroup()
 	if not selectedSpellID or not E.global['nameplate']['spellList'][selectedSpellID] then
-		E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = nil
+		E.Options.args.mui.args.modules.args.NameplateAuras.args.specificSpells.args.spellGroup = nil
 		return
 	end
 
 	local name, _, icon = GetSpellInfo(selectedSpellID)
 	local formatStr = [[%s |T%s:16:16:0:0:64:64:4:60:4:60|t]]
-	E.Options.args.mui.args.NameplateAuras.args.specificSpells.args.spellGroup = {
+	E.Options.args.mui.args.modules.args.NameplateAuras.args.specificSpells.args.spellGroup = {
 		type = 'group',
 		name = MER:cOption(formatStr:format(name, icon)),
 		guiInline = true,
@@ -117,7 +117,7 @@ local function UpdateSpellGroup()
 end
 
 local function NameplateAurasTable()
-	E.Options.args.mui.args.NameplateAuras = {
+	E.Options.args.mui.args.modules.args.NameplateAuras = {
 		type = "group",
 		name = NA.modName,
 		order = 16,

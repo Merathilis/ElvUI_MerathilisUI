@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local CF = MER:GetModule("CooldownFlash")
 
 local function CooldownFlash()
-	E.Options.args.mui.args.cooldownFlash = {
+	E.Options.args.mui.args.modules.args.cooldownFlash = {
 		type = "group",
 		name = CF.modName,
 		order = 26,

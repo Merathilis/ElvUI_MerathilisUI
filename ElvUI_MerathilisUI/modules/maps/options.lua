@@ -2,7 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule("mUIMinimap")
 
 local function Minimap()
-	E.Options.args.mui.args.minimap = {
+	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
 		name = MINIMAP_LABEL,
 		order = 16,

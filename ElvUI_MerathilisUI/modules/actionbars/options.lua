@@ -10,7 +10,7 @@ local tinsert = table.insert
 -- GLOBALS: AceGUIWidgetLSMlists, COLOR_PICKER
 
 local function abTable()
-	E.Options.args.mui.args.actionbars = {
+	E.Options.args.mui.args.modules.args.actionbars = {
 		order = 7,
 		type = "group",
 		name = MAB.modName,

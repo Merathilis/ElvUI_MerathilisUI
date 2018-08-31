@@ -9,7 +9,6 @@ L[" is loaded. For any issues or suggestions, please visit "] = true
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
-L["MerathilisUI is an external ElvUI mod. Mostly it changes the look to be more transparency.\n\n|cff00c0faNew Function are marked with:|r"] = true
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
@@ -22,6 +21,15 @@ L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = 
 L["Show Merchant ItemLevel"] = true
 L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
+L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+
+- a lot of new features 
+- a transparent overall look 
+- rewrote all existing ElvUI Skins 
+- my personal Layout 
+
+|cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
+But if you install another Layout over mine, you must adjust it manually.]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -78,53 +86,6 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 L["Misc"] = true
-
--- Media
-L["MER_MEDIA_ZONES"] = {
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
-L["Zone Text"] = true
-L["Test"] = true
-L["Subzone Text"] = true
-L["PvP Status Text"] = true
-L["Misc Texts"] = true
-L["Mail Text"] = true
-L["Chat Editbox Text"] = true
-L["Gossip and Quest Frames Text"] = true
-L["Objective Tracker Header Text"] = true
-L["Objective Tracker Text"] = true
-L["Banner Big Text"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
@@ -428,6 +389,7 @@ L["Chat Set"] = true
 L["ActionBars"] = true
 L["ActionBars Set"] = true
 L["DataTexts Set"] = true
+L["Profile Set"] = true
 L["ElvUI AddOns settings applied."] = true
 L["AddOnSkins is not enabled, aborting."] = true
 L["AddOnSkins settings applied."] = true
