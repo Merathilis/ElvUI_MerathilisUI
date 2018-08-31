@@ -70,6 +70,9 @@ L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 
+-- Modules
+L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+
 -- GameMenu
 L["GameMenu"] = true
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
@@ -86,42 +89,6 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 L["Misc"] = true
-
--- Media
-L["MER_MEDIA_ZONES"] = {
-	"Washington",
-	"Moscow",
-	"Moon Base",
-	"Goblin Spa Resort",
-	"Illuminaty Headquaters",
-	"Elv's Closet",
-	"BlizzCon",
-}
-L["MER_MEDIA_PVP"] = {
-	"(Horde Territory)",
-	"(Alliance Territory)",
-	"(Contested Territory)",
-	"(Russian Territory)",
-	"(Aliens Territory)",
-	"(Cats Territory)",
-	"(Japanese Territory)",
-	"(EA Territory)",
-}
-L["MER_MEDIA_SUBZONES"] = {
-	"Administration",
-	"Hellhole",
-	"Alley of Bullshit",
-	"Dr. Pepper Storage",
-	"Vodka Storage",
-	"Last National Bank",
-}
-L["MER_MEDIA_PVPARENA"] = {
-	"(PvP)",
-	"No Smoking!",
-	"Only 5% Taxes",
-	"Free For All",
-	"Self destruction is in process",
-}
 
 -- MicroBar
 L["Hide In Orderhall"] = true
