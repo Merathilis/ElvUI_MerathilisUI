@@ -1,5 +1,5 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
-local RMA = E:NewModule("RaidMarkers")
+local RMA = MER:NewModule("RaidMarkers")
 RMA.modName = L["Raid Markers"]
 
 -- Cache global variables
@@ -205,4 +205,4 @@ local function InitializeCallback()
 	RMA:Initialize()
 end
 
-E:RegisterModule(RMA:GetName(), InitializeCallback)
+MER:RegisterModule(RMA:GetName(), InitializeCallback)

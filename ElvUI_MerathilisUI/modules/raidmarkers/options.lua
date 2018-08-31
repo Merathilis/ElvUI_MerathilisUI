@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RMA = E:GetModule("RaidMarkers")
+local RMA = MER:GetModule("RaidMarkers")
 
 --Cache global variables
 local _G = _G
@@ -13,7 +13,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 -- GLOBALS:
 
 local function RaidMarkers()
-	E.Options.args.mui.args.raidmarkers = {
+	E.Options.args.mui.args.modules.args.raidmarkers = {
 		type = "group",
 		name = RMA.modName or RMA:GetName(),
 		order = 17,

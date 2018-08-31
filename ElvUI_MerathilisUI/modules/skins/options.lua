@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
@@ -39,7 +39,7 @@ local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully cre
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
-		order = 15,
+		order = 200,
 		type = "group",
 		name = MERS.modName,
 		args = {

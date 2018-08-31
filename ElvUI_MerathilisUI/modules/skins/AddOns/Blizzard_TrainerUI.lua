@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule('Skins')
 
 --Cache global variables
@@ -11,10 +11,10 @@ local _G = _G
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleTrainer()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trainer ~= true or E.private.muiSkins.blizzard.trainer ~= true then return end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	local ClassTrainerFrame = _G["ClassTrainerFrame"]
 	ClassTrainerFrame:Styling()

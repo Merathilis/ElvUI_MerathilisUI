@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
-local CF = E:NewModule("CooldownFlash", "AceHook-3.0")
+local MERS = MER:GetModule("muiSkins")
+local CF = MER:NewModule("CooldownFlash", "AceHook-3.0")
 CF.modName = L["Cooldown Flash"]
 
 --Cache global variables
@@ -317,4 +317,4 @@ local function InitializeCallback()
 	CF:Initialize()
 end
 
-E:RegisterModule(CF:GetName(), InitializeCallback)
+MER:RegisterModule(CF:GetName(), InitializeCallback)

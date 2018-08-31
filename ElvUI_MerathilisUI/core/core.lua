@@ -11,6 +11,7 @@ MER.callbacks = MER.callbacks or LibStub("CallbackHandler-1.0"):New(MER)
 local _G = _G
 local format = string.format
 local print, pairs = print, pairs
+local pcall = pcall
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local SetCVar = SetCVar
@@ -103,7 +104,6 @@ end
 function MER:AddMoverCategories()
 	tinsert(E.ConfigModeLayouts, #(E.ConfigModeLayouts) + 1, "MERATHILISUI")
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
-
 end
 
 local f = CreateFrame("Frame")
@@ -113,7 +113,31 @@ f:SetScript("OnEvent", function()
 	MER:Initialize()
 end)
 
+-- Register own Modules
+MER["RegisteredModules"] = {}
+function MER:RegisterModule(name)
+	if self.initialized then
+		local module = self:GetModule(name)
+		if (module and module.Initialize) then
+			module:Initialize()
+		end
+	else
+		self["RegisteredModules"][#self["RegisteredModules"] + 1] = name
+	end
+end
+
+function MER:InitializeModules()
+	for _, moduleName in pairs(MER["RegisteredModules"]) do
+		local module = self:GetModule(moduleName)
+		if module.Initialize then
+			module:Initialize()
+		end
+	end
+end
+
 function MER:Initialize()
+	self.initialized = true
+
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
@@ -124,6 +148,7 @@ function MER:Initialize()
 	self:LoadCommands()
 	self:SplashScreen()
 	self:AddMoverCategories()
+	self:InitializeModules()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then

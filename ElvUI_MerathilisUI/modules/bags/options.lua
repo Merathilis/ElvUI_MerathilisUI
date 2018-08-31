@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERB = E:GetModule("mUIBags")
+local MERB = MER:GetModule("mUIBags")
 
 --Cache global variables
 
@@ -9,7 +9,7 @@ local MERB = E:GetModule("mUIBags")
 -- GLOBALS:
 
 local function BagTable()
-	E.Options.args.mui.args.bags = {
+	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
 		name = MERB.modName,
 		order = 18,

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MDB = E:GetModule("mUI_databars")
+local MDB = MER:GetModule("mUI_databars")
 
 --Cache global variables
 
@@ -9,7 +9,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: 
 
 local function databarsTable()
-	E.Options.args.mui.args.databars = {
+	E.Options.args.mui.args.modules.args.databars = {
 		order = 15,
 		type = "group",
 		name = MDB.modName,

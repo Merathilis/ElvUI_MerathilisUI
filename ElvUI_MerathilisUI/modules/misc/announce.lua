@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERA = E:NewModule("mUIAnnounce", "AceEvent-3.0")
+local MERA = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
 local LSM = LibStub("LibSharedMedia-3.0")
 MERA.modName = L["Announce"]
 
@@ -200,4 +200,4 @@ local function InitializeCallback()
 	MERA:Initialize()
 end
 
-E:RegisterModule(MERA:GetName(), InitializeCallback)
+MER:RegisterModule(MERA:GetName(), InitializeCallback)

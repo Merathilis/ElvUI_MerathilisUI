@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule('Skins')
 
 -- Cache global variables
@@ -10,6 +10,8 @@ local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 local CreateFrame = CreateFrame
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: styleEncounterJournal, hooksecurefunc
+
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 function styleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
@@ -151,7 +153,7 @@ function styleEncounterJournal()
 	end
 
 	local function onDisable(self)
-		self:SetBackdropColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		self:SetBackdropColor(r, g, b, .2)
 	end
 
 	local function onClick(self)
@@ -288,7 +290,7 @@ function styleEncounterJournal()
 				bossButton.text.SetTextColor = MER.dummy
 
 				local hl = bossButton:GetHighlightTexture()
-				hl:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+				hl:SetColorTexture(r, g, b, .2)
 				hl:SetPoint("TOPLEFT", 2, -1)
 				hl:SetPoint("BOTTOMRIGHT", 0, 1)
 

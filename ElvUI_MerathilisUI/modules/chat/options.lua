@@ -1,9 +1,9 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = E:GetModule("muiChat")
+local MERC = MER:GetModule("muiChat")
 
 
 local function ChatTable()
-	E.Options.args.mui.args.chat = {
+	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
 		name = MERC.modName,
 		order = 9,

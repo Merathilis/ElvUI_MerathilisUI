@@ -20,13 +20,10 @@ local DeleteCursorItem = DeleteCursorItem
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 MER.dummy = function() return end
-MER.TexCoords = {.08, 0.92, -.04, 0.92}
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.BenikUIV = tonumber(GetAddOnMetadata("ElvUI_BenikUI", "Version"))
-MER.BenikUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-BenikUIVersion"))
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"

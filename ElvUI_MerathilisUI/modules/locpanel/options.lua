@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LP = E:GetModule("LocPanel")
+local LP = MER:GetModule("LocPanel")
 local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 --Cache global variables
@@ -11,7 +11,7 @@ local tinsert = table.insert
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
-	E.Options.args.mui.args.locPanel = {
+	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = LP.modName,
 		order = 16,

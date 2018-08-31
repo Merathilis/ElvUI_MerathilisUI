@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MDB = E:NewModule("mUI_databars")
+local MDB = MER:NewModule("mUI_databars")
 MDB.modName = L["DataBars"]
 
 --Cache global variables
@@ -49,4 +49,4 @@ local function InitializeCallback()
 	MDB:Initialize()
 end
 
-E:RegisterModule(MDB:GetName(), InitializeCallback)
+MER:RegisterModule(MDB:GetName(), InitializeCallback)

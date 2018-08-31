@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local ER = E:NewModule("mUIErrors")
+local ER = MER:NewModule("mUIErrors")
 ER.modName = L["Error Handling"]
 
 -- Cache global variables
@@ -72,4 +72,4 @@ local function InitializeCallback()
 	ER:Initialize()
 end
 
-E:RegisterModule(ER:GetName(), InitializeCallback)
+MER:RegisterModule(ER:GetName(), InitializeCallback)

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -12,6 +12,8 @@ local CreateFrame = CreateFrame
 local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
+
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleLFGList()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
@@ -102,7 +104,7 @@ local function styleLFGList()
 			local hl = result:CreateTexture(nil, "BACKGROUND")
 			hl:SetAllPoints()
 			hl:SetTexture(E["media"].normTex)
-			hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+			hl:SetVertexColor(r, g, b, .2)
 			hl:Hide()
 			result.hl = hl
 
@@ -142,7 +144,7 @@ local function styleLFGList()
 		local hl = header:CreateTexture(nil, "BACKGROUND")
 		hl:SetAllPoints()
 		hl:SetTexture(E["media"].normTex)
-		hl:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .2)
+		hl:SetVertexColor(r, g, b, .2)
 		hl:Hide()
 		header.hl = hl
 

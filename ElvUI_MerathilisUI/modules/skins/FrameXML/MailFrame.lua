@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -12,6 +12,8 @@ local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
 
 --GLOBALS: hooksecurefunc, INBOXITEMS_TO_DISPLAY, ATTACHMENTS_MAX_SEND
+
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleMail()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
@@ -31,7 +33,7 @@ local function styleMail()
 			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Mail")
 			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", MiniMapMailIcon, "TOPLEFT", -2, 2)
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)
-			MiniMapMailFrame.highlight.tex:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+			MiniMapMailFrame.highlight.tex:SetVertexColor(r, g, b)
 
 			MER:CreatePulse(MiniMapMailFrame, 1, 1)
 		end

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RB = E:GetModule("RaidBuffs")
+local RB = MER:GetModule("RaidBuffs")
 
 --Cache global variables
 
@@ -10,7 +10,7 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 -- GLOBALS:
 
 local function RaidBuffs()
-	E.Options.args.mui.args.raidBuffs = {
+	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
 		name = RB.modName,
 		order = 31,

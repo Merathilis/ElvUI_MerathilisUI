@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
-local NF = E:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
+local MERS = MER:GetModule("muiSkins")
+local NF = MER:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
@@ -165,9 +165,9 @@ function NF:CreateToast()
 	toast.icon = icon
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
-	sep:SetSize(1, bannerHeight)
+	sep:SetSize(2, bannerHeight)
 	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
-	sep:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b, .8)
+	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = MER:CreateText(toast, "OVERLAY", 11, "OUTLINE")
 	title:SetShadowOffset(1, -1)
@@ -463,4 +463,4 @@ local function InitializeCallback()
 	NF:Initialize()
 end
 
-E:RegisterModule(NF:GetName(), InitializeCallback)
+MER:RegisterModule(NF:GetName(), InitializeCallback)

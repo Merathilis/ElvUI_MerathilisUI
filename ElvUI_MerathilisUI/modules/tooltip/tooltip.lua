@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERTT = E:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
+local MERTT = MER:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule("Tooltip")
 MERTT.modName = L["mUI Tooltip"]
 
@@ -120,4 +120,4 @@ local function InitializeCallback()
 	MERTT:Initialize()
 end
 
-E:RegisterModule(MERTT:GetName(), InitializeCallback)
+MER:RegisterModule(MERTT:GetName(), InitializeCallback)

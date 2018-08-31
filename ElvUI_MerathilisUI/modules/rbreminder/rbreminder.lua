@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RB = E:NewModule("RaidBuffs")
+local RB = MER:NewModule("RaidBuffs")
 RB.modName = L["Raid Buff Reminder"]
 
 -- Cache global variables
@@ -245,4 +245,4 @@ local function InitializeCallback()
 	RB:Initialize()
 end
 
-E:RegisterModule(RB:GetName(), InitializeCallback)
+MER:RegisterModule(RB:GetName(), InitializeCallback)

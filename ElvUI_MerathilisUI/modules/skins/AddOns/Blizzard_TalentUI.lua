@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -17,10 +17,10 @@ local GetSpellTexture = GetSpellTexture
 -- GLOBALS: hooksecurefunc, MAX_TALENT_TIERS, NUM_TALENT_COLUMNS, MAX_PVP_TALENT_TIERS, MAX_PVP_TALENT_COLUMNS
 -- GLOBALS: PlayerTalentFrameSpecialization, SPEC_SPELLS_DISPLAY
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
-
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	if _G["PlayerTalentFrame"].backdrop then
 		_G["PlayerTalentFrame"].backdrop:Styling()
@@ -205,7 +205,7 @@ local function styleTalents()
 
 				bu.selectedTexture = bu:CreateTexture(nil, "ARTWORK")
 				bu.selectedTexture:SetInside(bu)
-				bu.selectedTexture:SetColorTexture(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+				bu.selectedTexture:SetColorTexture(r, g, b)
 				bu.selectedTexture:SetShown(bu.Selected:IsShown())
 
 				hooksecurefunc(bu, "Update", function(selectedHere)

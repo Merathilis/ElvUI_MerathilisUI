@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = E:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
-local MERS = E:GetModule("muiSkins")
+local MERC = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+local MERS = MER:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
 MERC.modName = L["Chat"]
 
@@ -98,6 +98,13 @@ function MERC:Initialize()
 	_G["LeftChatPanel"].backdrop:Styling()
 	_G["RightChatPanel"].backdrop:Styling()
 
+	_G["ERR_FRIEND_ONLINE_SS"] = "[%s] "..L["has come |cff298F00online|r."]
+	_G["ERR_FRIEND_OFFLINE_S"] = "[%s] "..L["has gone |cffff0000offline|r."]
+
+	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "[%s]"..L[" has come |cff298F00online|r."]
+	_G["BN_INLINE_TOAST_FRIEND_OFFLINE"] = "[%s]"..L[" has gone |cffff0000offline|r."]
+
+
 	-- Remove the Realm Name from system messages
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
 
@@ -116,4 +123,4 @@ local function InitializeCallback()
 	MERC:Initialize()
 end
 
-E:RegisterModule(MERC:GetName(), InitializeCallback)
+MER:RegisterModule(MERC:GetName(), InitializeCallback)

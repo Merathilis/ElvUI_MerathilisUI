@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
@@ -11,6 +11,8 @@ local CreateFrame = CreateFrame
 local GetNumQuestLogEntries = GetNumQuestLogEntries
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
+
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
@@ -26,7 +28,7 @@ local function styleWorldmap()
 	MERS:CreateBD(frame, .25)
 
 	local text = MER:CreateText(frame, "OVERLAY", 12, "OUTLINE")
-	text:SetTextColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+	text:SetTextColor(r, g, b)
 	text:SetAllPoints()
 
 	frame.text = text

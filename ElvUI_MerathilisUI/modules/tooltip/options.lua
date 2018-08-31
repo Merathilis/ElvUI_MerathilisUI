@@ -9,7 +9,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- GLOBALS: TOOLTIP_BATTLE_PET, FACTION, ACHIEVEMENT_BUTTON
 
 local function Tooltip()
-	E.Options.args.mui.args.tooltip = {
+	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
 		name = L["Tooltip"],
 		order = 18,

@@ -1,8 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = E:GetModule("muiUnits")
+local MUF = MER:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 local LSM = LibStub("LibSharedMedia-3.0")
 UF.LSM = LSM
+
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 function MUF:Configure_Infopanel(frame)
 	--
@@ -24,7 +26,7 @@ function MUF:UnitInfoPanelColor()
 				unitframe.InfoPanel.color:SetAllPoints()
 			end
 			unitframe.InfoPanel.color:SetTexture(bar)
-			unitframe.InfoPanel.color:SetVertexColor(MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b)
+			unitframe.InfoPanel.color:SetVertexColor(r, g, b)
 		end
 	end
 end

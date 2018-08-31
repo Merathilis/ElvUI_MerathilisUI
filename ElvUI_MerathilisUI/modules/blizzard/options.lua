@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local ER = E:GetModule("mUIErrors")
+local ER = MER:GetModule("mUIErrors")
 
 -- Cache global variables
 -- Lua functions
@@ -10,7 +10,7 @@ local pairs = pairs
 -- GLOBALS:
 
 local function Errors()
-	E.Options.args.mui.args.errors = {
+	E.Options.args.mui.args.modules.args.errors = {
 		type = "group",
 		name = ER.modName,
 		order = 24,
@@ -54,7 +54,7 @@ local function Errors()
 		},
 	}
 
-	E.Options.args.mui.args.errors.args.filterGroup = {
+	E.Options.args.mui.args.modules.args.errors.args.filterGroup = {
 		order = 5,
 		type = "group",
 		guiInline = true,
@@ -65,7 +65,7 @@ local function Errors()
 
 	local listIndex = 1
 	for errorName in pairs(E.db.mui.errorFilters) do
-		E.Options.args.mui.args.errors.args.filterGroup.args[errorName] = {
+		E.Options.args.mui.args.modules.args.errors.args.filterGroup.args[errorName] = {
 			order = listIndex,
 			type = "toggle",
 			name = errorName,

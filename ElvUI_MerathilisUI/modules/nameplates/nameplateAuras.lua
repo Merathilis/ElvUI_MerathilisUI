@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local NA = E:NewModule("NameplateAuras", "AceEvent-3.0")
+local NA = MER:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
 NA.modName = L["NameplateAuras"]
 
@@ -197,4 +197,4 @@ local function InitializeCallback()
 	NA:Initialize()
 end
 
-E:RegisterModule(NA:GetName(), InitializeCallback)
+MER:RegisterModule(NA:GetName(), InitializeCallback)

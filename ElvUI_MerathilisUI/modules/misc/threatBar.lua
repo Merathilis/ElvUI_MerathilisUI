@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERTB = E:NewModule("ThreatBar", "AceEvent-3.0")
+local MERTB = MER:NewModule("ThreatBar", "AceEvent-3.0")
 MERTB.modName = L["ThreatBar"]
 
 -- Cache global variables
@@ -155,4 +155,4 @@ local function InitializeCallback()
 	MERTB:Initialize()
 end
 
-E:RegisterModule(MERTB:GetName(), InitializeCallback)
+MER:RegisterModule(MERTB:GetName(), InitializeCallback)

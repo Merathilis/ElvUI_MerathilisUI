@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = E:GetModule("muiUnits")
-local MCA = E:GetModule("mUICastbar")
+local MUF = MER:GetModule("muiUnits")
+local MCA = MER:GetModule("mUICastbar")
 local UF = E:GetModule("UnitFrames")
 local isEnabled = E.private["unitframe"].enable and true or false
 
@@ -13,7 +13,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: LibStub
 
 local function UnitFramesTable()
-	E.Options.args.mui.args.unitframes = {
+	E.Options.args.mui.args.modules.args.unitframes = {
 		order = 15,
 		type = "group",
 		name = MUF.modName,

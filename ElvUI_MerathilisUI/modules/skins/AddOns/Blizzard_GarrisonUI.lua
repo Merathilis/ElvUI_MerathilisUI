@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -12,11 +12,10 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleGarrison()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
-
-	-- [[ Shared codes ]]
-	local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 
 	-- [[ Garrison system ]]
 	function MERS:ReskinMissionPage(self)
@@ -605,6 +604,7 @@ local function styleGarrison()
 	MERS:Reskin(GarrisonShipyardFrame.MissionComplete.NextMissionButton)
 
 	-- [[ Orderhall UI]]
+
 	local OrderHallMissionFrame = _G["OrderHallMissionFrame"]
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(OrderHallMissionFrame, .25)
@@ -676,7 +676,20 @@ local function styleGarrison()
 	BFAMissionFrame:Styling()
 	MERS:ReskinMissionFrame(BFAMissionFrame)
 
-	-- [[ Addon supports ]]
+	-- [[ BFA Missions ]]
+	local MissionFrame = _G["BFAMissionFrame"]
+
+	for i, v in ipairs(_G["BFAMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
+		local Button = _G["BFAMissionFrameMissionsListScrollFrameButton" .. i]
+		if Button and not Button.skinned then
+			Button:StripTextures()
+			MERS:CreateBD(Button, .25)
+			MERS:Reskin(Button, true)
+			Button.LocBG:SetAlpha(0)
+
+			Button.isSkinned = true
+		end
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)

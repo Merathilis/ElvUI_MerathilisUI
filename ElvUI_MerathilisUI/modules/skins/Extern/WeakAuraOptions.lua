@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = E:GetModule("muiSkins")
+local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -12,6 +12,8 @@ local hooksecurefunc = hooksecurefunc
 local GetAddOnInfo = GetAddOnInfo
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function InitStyleWAO()
 	local function Skin_WeakAurasOptions(...)
 		--print("Options opened", ...)
@@ -20,7 +22,6 @@ local function InitStyleWAO()
 		local frame = WeakAuras.OptionsFrame()
 		if frame.skinned then return end
 
-		local r, g, b = MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b
 		local children = {frame:GetChildren()}
 
 		-- Close button

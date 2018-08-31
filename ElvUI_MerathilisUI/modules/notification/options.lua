@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local NF = E:GetModule("Notification")
+local NF = MER:GetModule("Notification")
 
 local function Noticications()
-	E.Options.args.mui.args.Notification = {
+	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
 		name = NF.modName,
 		order = 9,

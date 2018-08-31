@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERL = E:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
-local MERS = E:GetModule("muiSkins")
+local MERL = MER:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
+local MERS = MER:GetModule("muiSkins")
 local AB = E:GetModule("ActionBars")
 local CH = E:GetModule("Chat")
 local DT = E:GetModule("DataTexts")
@@ -435,4 +435,4 @@ local function InitializeCallback()
 	MERL:Initialize()
 end
 
-E:RegisterModule(MERL:GetName(), InitializeCallback)
+MER:RegisterModule(MERL:GetName(), InitializeCallback)
