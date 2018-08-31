@@ -52,7 +52,7 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 -- Profile Creation
 function MER:NewProfile(new)
 	if (new) then
-		StaticPopupDialogs["MERATHILISUI_CREATE_PROFILE_NEW"] = {
+		E.PopupDialogs["MERATHILISUI_CREATE_PROFILE_NEW"] = {
 			text = MER:cOption(L["Name for the new profile"]),
 			button1 = OKAY,
 			button2 = CANCEL,
@@ -82,9 +82,9 @@ function MER:NewProfile(new)
 				PluginInstallStepComplete:Show()
 			end
 			}
-		StaticPopup_Show("MERATHILISUI_CREATE_PROFILE_NEW")
+		E:StaticPopup_Show("MERATHILISUI_CREATE_PROFILE_NEW")
 	else
-		StaticPopupDialogs["MERATHILISUI_PROFILE_OVERRIDE"] = {
+		E.PopupDialogs["MERATHILISUI_PROFILE_OVERRIDE"] = {
 			text = MER:cOption(L["Are you sure you want to override the current profile?"]),
 			button1 = YES,
 			button2 = NO,
@@ -96,6 +96,6 @@ function MER:NewProfile(new)
 			whileDead = true,
 			hideOnEscape = true,
 		}
-		StaticPopup_Show("MERATHILISUI_PROFILE_OVERRIDE")
+		E:StaticPopup_Show("MERATHILISUI_PROFILE_OVERRIDE")
 	end
 end
