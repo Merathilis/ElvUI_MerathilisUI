@@ -37,6 +37,13 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 -- Bags
 L["Removed: "] = "Entfernt: "
 L["Usable Items"] = "Benutzbare Gegenstände"
+L["Split Bags"] = "Taschen abspalten"
+L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = "Mit den unteren Einstellungen ist es dir möglich die ElvUI All In One Tasche abzuspalten. Du kannst jede Tasche auswählen, die abgespaltet werden soll."
+L["Split Bag 1"] = "Tasche 1 abspalten"
+L["Split Bag 2"] = "Tasche 2 abspalten"
+L["Split Bag 3"] = "Tasche 3 abspalten"
+L["Split Bag 4"] = "Tasche 4 abspalten"
+L["Bag spacing"] = "Taschen Abstand"
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"

@@ -31,6 +31,16 @@ P["mui"] = {
 		["hideErrorFrame"] = true,
 	},
 
+	["bags"] = {
+		["splitBags"] = {
+			["bag1"] = true,
+			["bag2"] = true,
+			["bag3"] = true,
+			["bag4"] = true,
+			["bagSpacing"] = 5
+		},
+	},
+
 	["chat"] = {
 		["chatButton"] = true,
 		["panelHeight"] = 146,
