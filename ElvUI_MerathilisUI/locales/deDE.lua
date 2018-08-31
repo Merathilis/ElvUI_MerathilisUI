@@ -28,7 +28,7 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es 
 - alle ElvUI Skins wurden überarbeitet 
 - mein persönliches Layout 
 
-|cFF00c0faNote:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
+|cFF00c0faHinweis:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
 Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
 
 -- LoginMessage
@@ -69,6 +69,8 @@ L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = "Tester & Inspiration"
+L["Development Version"] = true
+L["Here you can download the latest development version."] = "Hier findest du den download zu meiner Development Version."
 
 -- Modules
 L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "Hier findest du alle Optionen zu den verschiedenen |cffff8000MerathilisUI|r Module.\nBenutze bitte das Dropdown Menu um durch die verschiedenen Module zu navigieren."

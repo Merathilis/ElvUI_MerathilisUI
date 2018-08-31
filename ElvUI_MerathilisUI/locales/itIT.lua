@@ -69,6 +69,8 @@ L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
+L["Development Version"] = true
+L["Here you can download the latest development version."] = true
 
 -- Modules
 L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
