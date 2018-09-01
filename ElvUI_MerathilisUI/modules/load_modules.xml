@@ -18,5 +18,4 @@
 	<Include file="notification\load_notification.xml"/>
 	<Include file="nameplates\load_nameplateAuras.xml"/>
 	<Include file="rbreminder\load_rbreminder.xml"/>
-	<Include file="armory\load_armory.xml"/>
 </Ui>
