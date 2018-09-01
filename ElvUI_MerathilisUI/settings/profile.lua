@@ -354,9 +354,9 @@ P["mui"] = {
 		["enable"] = true,
 		["durability"] = {
 			["enable"] = true,
-			["onlydamaged"] = true,
+			["onlydamaged"] = false,
 			["font"] = "Expressway",
-			["textSize"] = 10,
+			["textSize"] = 11,
 			["fontOutline"] = "OUTLINE",
 		},
 		["ilvl"] = {
