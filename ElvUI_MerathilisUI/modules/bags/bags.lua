@@ -52,10 +52,12 @@ end
 
 -- Credits SMRTL (ElvUI_SplitBag)
 function MERB:Layout(self, isBank)
-	if isBank then return end
-	local f = B:GetContainerFrame(isBank)
+	if isBank or not E.db.mui.bags.splitBags.enable then return end
+	if E.private.bags.enable ~= true then return end
 
+	local f = B:GetContainerFrame(isBank)
 	if not f then return end
+
 	local buttonSize = isBank and B.db.bankSize or B.db.bagSize
 	local buttonSpacing = E.Border*2
 	local containerWidth = ((isBank and B.db.bankWidth) or B.db.bagWidth)

@@ -30,13 +30,20 @@ local function BagTable()
 				get = function(info) return E.db.mui.bags.splitBags[ info[#info] ] end,
 				set = function(info, value) E.db.mui.bags.splitBags[ info[#info] ] = value; MERB:Layout(false) end,
 				args = {
-					credits = {
+					enable = {
 						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						width = "full",
+						set = function(info, value) E.db.mui.bags.splitBags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
+					},
+					credits = {
+						order = 2,
 						type = "group",
 						name = MER:cOption(L["Credits"]),
 						guiInline = true,
 						args = {
-							tukui = {
+							original = {
 								order = 1,
 								type = "description",
 								fontSize = "medium",
@@ -45,45 +52,50 @@ local function BagTable()
 						},
 					},
 					spacer1 = {
-						order = 2,
+						order = 3,
 						type = "description",
 						name = "",
 					},
 					description = {
-						order = 3,
+						order = 4,
 						type = "description",
 						name = L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."],
 					},
 					spacer2 = {
-						order = 4,
+						order = 5,
 						type = "description",
 						name = "",
 					},
 					bag1 = {
-						order = 5,
-						type = "toggle",
-						name = L["Split Bag 1"],
-					},
-					bag2 = {
 						order = 6,
 						type = "toggle",
-						name = L["Split Bag 2"],
+						name = L["Split Bag 1"],
+						disabled = function() return not E.db.mui.bags.splitBags.enable end,
 					},
-					bag3 = {
+					bag2 = {
 						order = 7,
 						type = "toggle",
-						name = L["Split Bag 3"],
+						name = L["Split Bag 2"],
+						disabled = function() return not E.db.mui.bags.splitBags.enable end,
 					},
-					bag4 = {
+					bag3 = {
 						order = 8,
 						type = "toggle",
+						name = L["Split Bag 3"],
+						disabled = function() return not E.db.mui.bags.splitBags.enable end,
+					},
+					bag4 = {
+						order = 9,
+						type = "toggle",
 						name = L["Split Bag 4"],
+						disabled = function() return not E.db.mui.bags.splitBags.enable end,
 					},
 					bagSpacing = {
-						order = 9,
+						order = 10,
 						type = "range",
 						name = L["Bag spacing"],
 						min = 0, max = 20, step = 1,
+						disabled = function() return not E.db.mui.bags.splitBags.enable end,
 					},
 				},
 			},

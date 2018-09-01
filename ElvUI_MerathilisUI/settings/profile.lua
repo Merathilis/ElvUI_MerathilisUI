@@ -33,6 +33,7 @@ P["mui"] = {
 
 	["bags"] = {
 		["splitBags"] = {
+			["enable"] = true,
 			["bag1"] = true,
 			["bag2"] = true,
 			["bag3"] = true,
