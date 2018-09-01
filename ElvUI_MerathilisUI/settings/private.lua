@@ -71,6 +71,7 @@ V["muiSkins"] = {
 		["Scrapping"] = true,
 		["trainer"] = true,
 		["debug"] = true,
+		["inspect"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

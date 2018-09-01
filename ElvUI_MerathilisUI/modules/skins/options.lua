@@ -398,7 +398,12 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Debug Tools"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
-			}
+			},
+			inspect = {
+				type = "toggle",
+				name = INSPECT,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
+			},
 		},
 	}
 
