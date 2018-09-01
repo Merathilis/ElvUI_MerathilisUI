@@ -12,7 +12,7 @@ local max = math.max
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetSpellInfo = GetSpellInfo
-
+local GetAddOnEnableState = GetAddOnEnableState
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, side
 
@@ -186,6 +186,8 @@ function NA:PLAYER_ENTERING_WORLD()
 end
 
 function NA:Initialize()
+	if GetAddOnEnableState(E.myname, "ElvUI_ChaoticUI") == 1 then return; end
+
 	hooksecurefunc(NP, "SetAura", NA.SetAura)
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)
 	NP.UpdateAuraIcons = NA.UpdateAuraIcons
