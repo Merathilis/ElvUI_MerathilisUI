@@ -349,6 +349,25 @@ P["mui"] = {
 		["x"] = UIParent:GetWidth()/2,
 		["y"] = UIParent:GetHeight()/2,
 	},
+
+	["armory"] = {
+		["enable"] = true,
+		["durability"] = {
+			["enable"] = true,
+			["onlydamaged"] = false,
+			["font"] = "Expressway",
+			["textSize"] = 11,
+			["fontOutline"] = "OUTLINE",
+		},
+		["ilvl"] = {
+			["enable"] = true,
+			["font"] = "Expressway",
+			["textSize"] = 11,
+			["fontOutline"] = "OUTLINE",
+			["colorStyle"] = "RARITY",
+			["color"] = {r = 1, g = 1, b = 0},
+		},
+	},
 }
 
 G["nameplate"]["spellListDefault"] = {
