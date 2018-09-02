@@ -404,6 +404,16 @@ local function SkinsTable()
 				name = INSPECT,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 			},
+			socket = {
+				type = "toggle",
+				name = L["Socket Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket end,
+			},
+			itemUpgrade = {
+				type = "toggle",
+				name = L["Item Upgrade"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
+			},
 		},
 	}
 
