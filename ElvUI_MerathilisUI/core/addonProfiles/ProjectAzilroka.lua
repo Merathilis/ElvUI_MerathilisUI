@@ -11,6 +11,14 @@ function MER:LoadPAProfile()
 	--	ProjectAzilroka - Settings
 	--]]----------------------------------
 
+	-- ProjectAzilrokaDB
+	_G.ProjectAzilroka.db.BB = false
+	_G.ProjectAzilroka.db.SMB = false
+	_G.ProjectAzilroka.db.DO = false
+	_G.ProjectAzilroka.db.MF = false
+	_G.ProjectAzilroka.db.QS = false
+	_G.ProjectAzilroka.db.EFL = false
+
 	--stAddonManagerProfilesDB
 	if stAddonManagerDB.profiles["MerathilisUI"] == nil then stAddonManagerDB.profiles["MerathilisUI"] = {} end
 
@@ -21,7 +29,7 @@ function MER:LoadPAProfile()
 		["Font"] = "Expressway",
 		["ClassColor"] = true,
 		["CheckTexture"] = "MerathilisFlat",
-	}
+	},
 
 	-- Profile creation
 	_G.stAddonManager.data:SetProfile("MerathilisUI")
