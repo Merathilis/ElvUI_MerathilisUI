@@ -98,7 +98,7 @@ function MERC:Initialize()
 	_G["LeftChatPanel"].backdrop:Styling()
 	_G["RightChatPanel"].backdrop:Styling()
 
-	_G["ERR_FRIEND_ONLINE_SS"] = "%s] "..L["has come |cff298F00online|r."]
+	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
 
 	_G["BN_INLINE_TOAST_FRIEND_ONLINE"] = "%s"..L[" has come |cff298F00online|r."]
