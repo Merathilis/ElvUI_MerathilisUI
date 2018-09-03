@@ -457,6 +457,9 @@ L["Are you sure you want to override the current profile?"] = true
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
 
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
+L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external addons appearance.
+
+Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
