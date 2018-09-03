@@ -90,6 +90,11 @@ function MER:DisableModules()
 			MER:Print(L["LocPanel is disabled because ElvUI_LocLite is loaded."])
 		end
 	end
+
+	-- ChaoticUI
+	if IsAddOnLoaded("ElvUI_ChaoticUI") then
+		Disable(E.db.mui['NameplateAuras'])
+	end
 end
 
 function MER:RegisterMedia()

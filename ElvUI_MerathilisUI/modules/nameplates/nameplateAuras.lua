@@ -186,7 +186,7 @@ function NA:PLAYER_ENTERING_WORLD()
 end
 
 function NA:Initialize()
-	if GetAddOnEnableState(E.myname, "ElvUI_ChaoticUI") == 2 then return; end
+	if E.db.mui.NameplateAuras.enable ~= true then return; end
 
 	hooksecurefunc(NP, "SetAura", NA.SetAura)
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)

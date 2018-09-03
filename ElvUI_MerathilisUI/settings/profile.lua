@@ -333,6 +333,7 @@ P["mui"] = {
 	},
 
 	["NameplateAuras"] = {
+		["enable"] = true,
 		["spellInfo"] = {}
 	},
 
