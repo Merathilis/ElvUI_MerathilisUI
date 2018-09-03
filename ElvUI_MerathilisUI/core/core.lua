@@ -67,6 +67,33 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
 end
 
+function MER:IncompatibleAddOn(addon, module, optiontable, value)
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button1 = addon
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button2 = 'MER: '..module
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].addon = addon
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].module = module
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].optiontable = optiontable
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value = value
+	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].showAlert = true
+	E:StaticPopup_Show('MER_INCOMPATIBLE_ADDON', addon, module)
+end
+
+function MER:CheckIncompatible()
+	--LocPlus
+	if (IsAddOnLoaded("ElvUI_LocPlus") and E.db.mui.locPanel.enable) then
+		E:StaticPopup_Show("LOCPLUS_MER_INCOMPATIBLE")
+		return true
+	end
+
+	-- LocLite
+	if (IsAddOnLoaded("ElvUI_LocLite") and E.db.mui.locPanel.enable) then
+		E:StaticPopup_Show("LOCLITE_MER_INCOMPATIBLE")
+		return true
+	end
+
+	return false
+end
+
 function MER:RegisterMedia()
 	--Fonts
 	E["media"].muiFont = LSM:Fetch("font", "Merathilis Prototype")
@@ -143,6 +170,8 @@ function MER:Initialize()
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
+
+	if MER:CheckIncompatible() then return; end
 
 	self:RegisterMedia()
 	self:LoadCommands()

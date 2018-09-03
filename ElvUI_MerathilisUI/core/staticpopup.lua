@@ -99,3 +99,35 @@ function MER:NewProfile(new)
 		E:StaticPopup_Show("MERATHILISUI_PROFILE_OVERRIDE")
 	end
 end
+
+--Incompatibility messages
+E.PopupDialogs["MER_INCOMPATIBLE_ADDON"] = {
+	text = gsub(L["INCOMPATIBLE_ADDON"], "ElvUI", "ElvUI_MerathilisUI"),
+	OnAccept = function(self) DisableAddOn(E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].addon); ReloadUI(); end,
+	OnCancel = function(self) E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].optiontable[E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value] = false; ReloadUI(); end,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
+E.PopupDialogs["LOCPLUS_MER_INCOMPATIBLE"] = {
+	text = L["You have got ElvUI Location Plus and |cffff7d0aMerathilisUI|r both enabled at the same time. Select an addon to disable."],
+	OnAccept = function() DisableAddOn("ElvUI_LocPlus"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_MerathilisUI"); ReloadUI() end,
+	button1 = "Location Plus",
+	button2 = "MerathilisUI",
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
+E.PopupDialogs["LOCLITE_MER_INCOMPATIBLE"] = {
+	text = L["You have got ElvUI Location Lite and |cffff7d0aMerathilisUI|r both enabled at the same time. Select an addon to disable."],
+	OnAccept = function() DisableAddOn("ElvUI_LocLite"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_MerathilisUI"); ReloadUI() end,
+	button1 = "Location Lite",
+	button2 = "MerathilisUI",
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
