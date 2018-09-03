@@ -1504,6 +1504,10 @@ MER.installTable = {
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)
 			PluginInstallFrame.Option1:SetText(L["Finished"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end)
+			PluginInstallFrame.Option2:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
+
 			if InstallStepComplete then
 				InstallStepComplete.message = MER.Title..L["Installed"]
 				InstallStepComplete:Show()
