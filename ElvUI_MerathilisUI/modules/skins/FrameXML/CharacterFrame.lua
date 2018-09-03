@@ -30,10 +30,19 @@ local function styleCharacter()
 	_G["CharacterFrame"]:Styling()
 
 	_G["CharacterStatsPane"].ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-	_G["CharacterStatsPane"].ItemLevelFrame.Value:SetShadowOffset(1, -1)
-	_G["CharacterStatsPane"].ItemLevelFrame.Background:Hide()
 	_G["CharacterStatsPane"].AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 	_G["CharacterStatsPane"].EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+
+	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
+		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
+		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
+		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
+		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
+		if _G["CharacterModelFrame"].backdrop then
+			_G["CharacterModelFrame"].backdrop:Hide()
+		end
+	end
 
 	local function StatsPane(type)
 		CharacterStatsPane[type]:StripTextures()

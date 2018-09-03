@@ -17,16 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Register my modules to an own function.",
-		"• You are now able, to change the most of my stuff to use the Value Color from ElvUI.",
-		"  No more forced to use ClassColor (if you don't want to).",
-		"• Overhaul my complete Options.",
-		"• Add a new install step to choose a profile where you want to apply my settings.",
+		"• Added a split bag feature. Which allows you to split the Bag. Credits SMRTL",
+		"• Updated ProjectAzilroka profile.",
+		"• Fixed an error in my DataText options. No one have discovered it yet.",
+		"• Added an compatibily feature. My modules will gets disabled if a specific",
+		"  AddOn is Loaded. Many thanks to Whiro.",
+		"• Added a second layout to my install => Heal Layout. Needs feedback!!",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• You have to reload after you change the value, to take effect on my stuff.",
+		"• The Heal Layout needs probably some love. Give me feedback ;)",
 		-- "• ''",
 }
 

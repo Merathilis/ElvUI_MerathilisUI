@@ -16,6 +16,13 @@ local function styleTalkingHead()
 	MERS:CreateBD(TalkingHeadFrame.BackgroundFrame, .5)
 	TalkingHeadFrame.BackgroundFrame:Styling()
 
+	TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
+	TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)
+	TalkingHeadFrame.MainFrame.Model.PortraitBg:SetAtlas(nil)
+	TalkingHeadFrame.BackgroundFrame.TextBackground.SetAtlas = MER.dummy
+	TalkingHeadFrame.PortraitFrame.Portrait.SetAtlas = MER.dummy
+	TalkingHeadFrame.MainFrame.Model.PortraitBg.SetAtlas = MER.dummy
+
 	TalkingHeadFrame.MainFrame.Model.ModelShadow = TalkingHeadFrame.MainFrame.Model:CreateTexture(nil, "OVERLAY", nil, 2)
 	TalkingHeadFrame.MainFrame.Model.ModelShadow:SetAtlas("Artifacts-BG-Shadow")
 	TalkingHeadFrame.MainFrame.Model.ModelShadow:SetOutside()
@@ -26,12 +33,12 @@ local function styleTalkingHead()
 
 	TalkingHeadFrame.NameFrame.Name:SetTextColor(1, 0.82, 0.02)
 	TalkingHeadFrame.NameFrame.Name.SetTextColor = MER.dummy
-	TalkingHeadFrame.NameFrame.Name:SetShadowColor(0.0, 0.0, 0.0, 1.0)
+	TalkingHeadFrame.NameFrame.Name:SetShadowColor(0, 0, 0, 1)
 	TalkingHeadFrame.NameFrame.Name:SetShadowOffset(2, -2)
 
 	TalkingHeadFrame.TextFrame.Text:SetTextColor(1, 1, 1)
 	TalkingHeadFrame.TextFrame.Text.SetTextColor = MER.dummy
-	TalkingHeadFrame.TextFrame.Text:SetShadowColor(0.0, 0.0, 0.0, 1.0)
+	TalkingHeadFrame.TextFrame.Text:SetShadowColor(0, 0, 0, 1)
 	TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 end
 

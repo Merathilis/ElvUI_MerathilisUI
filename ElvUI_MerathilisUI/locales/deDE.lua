@@ -37,6 +37,13 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 -- Bags
 L["Removed: "] = "Entfernt: "
 L["Usable Items"] = "Benutzbare Gegenstände"
+L["Split Bags"] = "Taschen abspalten"
+L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = "Mit den unteren Einstellungen ist es dir möglich die ElvUI All In One Tasche abzuspalten. Du kannst jede Tasche auswählen, die abgespaltet werden soll."
+L["Split Bag 1"] = "Tasche 1 abspalten"
+L["Split Bag 2"] = "Tasche 2 abspalten"
+L["Split Bag 3"] = "Tasche 3 abspalten"
+L["Split Bag 4"] = "Tasche 4 abspalten"
+L["Bag spacing"] = "Taschen Abstand"
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -390,6 +397,8 @@ L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = "MerathilisUI gesetzt"
 L["MerathilisUI didn't find any supported addons for profile creation"] = "MerathilisUI konnte keine unterstütze Profile für Addons finden"
 L["MerathilisUI successfully created and applied profile(s) for:"] = "MerathilisUI hat erfolgreich ein Profil erstellt und angewandt für:"
+L["Tank/ DPS Layout"] = true -- No need to translate
+L["Heal Layout"] = "Heiler Layout"
 L["Chat Set"] = "Chat eingestellt"
 L["ActionBars"] = "Aktionsleisten"
 L["ActionBars Set"] = "Aktionsleisten gesetzt"
@@ -449,6 +458,9 @@ L["Are you sure you want to override the current profile?"] = "Bist du sicher da
 L["MER_SKINS_DESC"] = [[Dieser Abschnitt ist dazu gedacht, die vorhandenen ElvUI Skins zu verbessern.
 
 Bitte beachte dass einige Optionen nicht verfügbar sind, wenn der dazugehörige Skin in ElvUI |cff636363deaktiviert|r ist.]]
+L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen von externen AddOns zu modifizieren.
+
+Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen ist.]]
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"

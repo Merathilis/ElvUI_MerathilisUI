@@ -209,7 +209,7 @@ local function styleMisc()
 	_G["RightMiniPanel"]:Styling()
 	_G["ElvUI_TopPanel"]:Styling()
 	_G["ElvUI_BottomPanel"]:Styling()
-	_G["RaidUtilityPanel"]:Styling()
+	--_G["RaidUtilityPanel"]:Styling()
 
 	-- Mirror Timers
 	_G["MirrorTimer1StatusBar"].backdrop:Styling()

@@ -80,6 +80,7 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 		frame:SetFrameStrata("TOOLTIP")
 		frame:SetClampedToScreen(true)
 		tinsert(UISpecialFrames, frame:GetName())
+		frame:Styling()
 		frame:Hide()
 	end
 	for i=1, #frame.buttons do

@@ -116,14 +116,14 @@ local function Datatexts()
 						type = "toggle",
 						name = L["ChatTab Datatext Panel"],
 						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel.enable end,
-						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel.enable = value; E:GetModule("mUILayout"):ToggleChatPanel() end,
+						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel.enable = value; MER:GetModule("mUILayout"):ToggleChatPanel() end,
 					},
 					middleDTEnable = {
 						order = 2,
 						type = "toggle",
 						name = L["Middle Datatext Panel"],
 						get = function(info) return E.db.mui.datatexts.middle.enable end,
-						set = function(info, value) E.db.mui.datatexts.middle.enable = value; E:GetModule("mUILayout"):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.mui.datatexts.middle.enable = value; MER:GetModule("mUILayout"):MiddleDatatextLayout() end,
 					}
 				},
 			},
@@ -139,7 +139,7 @@ local function Datatexts()
 						name = L["Panel Transparency"],
 						disabled = function() return not E.db.mui.datatexts.middle.enable end,
 						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextLayout() end,
 					},
 					backdrop = {
 						order = 2,
@@ -147,7 +147,7 @@ local function Datatexts()
 						name = L["Backdrop"],
 						disabled = function() return not E.db.mui.datatexts.middle.enable end,
 						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextLayout(); end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextLayout() end,
 					},
 					width = {
 						order = 3,
@@ -156,7 +156,7 @@ local function Datatexts()
 						min = 200, max = 1400, step = 1,
 						disabled = function() return not E.db.mui.datatexts.middle.enable end,
 						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextDimensions(); end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextDimensions() end,
 					},
 					height = {
 						order = 4,
@@ -165,7 +165,7 @@ local function Datatexts()
 						min = 10, max = 32, step = 1,
 						disabled = function() return not E.db.mui.datatexts.middle.enable end,
 						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; E:GetModule('mUILayout'):MiddleDatatextDimensions(); end,
+						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextDimensions() end,
 					},
 				},
 			},
@@ -187,7 +187,7 @@ local function Datatexts()
 						type = "toggle",
 						name = L["Enable"],
 						get = function(info) return E.db.mui.datatexts.threatBar.enable end,
-						set = function(info, value) E.db.mui.datatexts.threatBar.enable = value; E:GetModule("ThreatBar"):ToggleEnable()end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.enable = value; MER:GetModule("ThreatBar"):ToggleEnable()end,
 						disabled = function() return not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 					},
 					textSize = {
@@ -196,7 +196,7 @@ local function Datatexts()
 						type = "range",
 						min = 6, max = 22, step = 1,
 						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,
-						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; E:GetModule("ThreatBar"):UpdatePosition() end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textSize = value; MER:GetModule("ThreatBar"):UpdatePosition() end,
 						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 					},
 					textOutline = {
@@ -204,7 +204,8 @@ local function Datatexts()
 						name = L["Font Outline"],
 						type = "select",
 						get = function(info) return E.db.mui.datatexts.threatBar.textOutline end,
-						set = function(info, value) E.db.mui.datatexts.threatBar.textOutline = value; E:GetModule("ThreatBar"):UpdatePosition() end,
+						set = function(info, value) E.db.mui.datatexts.threatBar.textOutline = value; MER:GetModule("ThreatBar"):UpdatePosition() end,
+						disabled = function() return not E.db.mui.datatexts.threatBar.enable or not E.db.mui.datatexts.rightChatTabDatatextPanel end,
 						values = {
 							["NONE"] = NONE,
 							["OUTLINE"] = "OUTLINE",

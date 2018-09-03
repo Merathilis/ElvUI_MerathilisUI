@@ -12,8 +12,10 @@ local _G = _G
 local format = string.format
 local print, pairs = print, pairs
 local pcall = pcall
+local tinsert = table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
@@ -65,6 +67,49 @@ end
 
 function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
+end
+
+-- Whiro magic <3
+local function Disable(tbl)
+	tbl['enable'] = false
+end
+
+--Incompatibility print
+function MER:cPrint(addon, module)
+	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
+		return
+	end
+	print(MER.Title.." has |cffff2020disabled|r "..module.." due to incompatiblities with: "..addon) -- Don't add locales for it, since it would sounds weird in german as an example.
+	E.private.mui.comp = E.private.mui.comp or {}
+	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
+	E.private.mui.comp[addon][module] = true
+end
+
+-- Disable my stuff, if a specific AddOn is loaded. So things don't gets a mess!
+function MER:DisableModules()
+	--LocPlus
+	if IsAddOnLoaded("ElvUI_LocPlus") then
+		Disable(E.db.mui['locPanel'])
+		MER:cPrint("ElvUI_LocPlus", "Location Panel")
+	end
+
+	-- LocLite
+	if IsAddOnLoaded("ElvUI_LocLite") then
+		Disable(E.db.mui['locPanel'])
+		MER:cPrint("ElvUI_LocLite", "Location Panel")
+	end
+
+	-- ChaoticUI
+	if GetAddOnEnableState(E.myname, "ElvUI_ChaoticUI") == 2 then
+		Disable(E.db.mui['NameplateAuras'])
+		MER:cPrint("ElvUI_ChaoticUI", "NameplateAuras")
+	end
+
+	-- ProjectAzilroka
+	if (IsAddOnLoaded("ProjectAzilroka") and _G.ProjectAzilroka.db.EFL == true) then
+		Disable(E.db.mui['efl'])
+		MER:cPrint("ProjectAzilroka", "EnhancedFriendsList")
+	end
 end
 
 function MER:RegisterMedia()
@@ -143,6 +188,8 @@ function MER:Initialize()
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
+
+	if self:DisableModules() then return; end
 
 	self:RegisterMedia()
 	self:LoadCommands()

@@ -37,6 +37,13 @@ L["Enable/Disable the Login Message in Chat"] = true
 -- Bags
 L["Removed: "] = true
 L["Usable Items"] = true
+L["Split Bags"] = true
+L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = true
+L["Split Bag 1"] = true
+L["Split Bag 2"] = true
+L["Split Bag 3"] = true
+L["Split Bag 4"] = true
+L["Bag spacing"] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -390,6 +397,8 @@ L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = true
 L["MerathilisUI didn't find any supported addons for profile creation"] = true
 L["MerathilisUI successfully created and applied profile(s) for:"] = true
+L["Tank/ DPS Layout"] = true
+L["Heal Layout"] = true
 L["Chat Set"] = true
 L["ActionBars"] = true
 L["ActionBars Set"] = true
@@ -449,6 +458,9 @@ L["Are you sure you want to override the current profile?"] = true
 L["MER_SKINS_DESC"] = [[This section is designed to enhance skins existing in ElvUI.
 
 Please note that some of these options will not be available if corresponding skin is |cff636363disabled|r in main ElvUI skins section.]]
+L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external addons appearance.
+
+Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true

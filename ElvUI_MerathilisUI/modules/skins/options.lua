@@ -42,6 +42,7 @@ local function SkinsTable()
 		order = 200,
 		type = "group",
 		name = MERS.modName,
+		childGroups = "tab",
 		args = {
 			name = {
 				order = 1,
@@ -51,8 +52,7 @@ local function SkinsTable()
 			general = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(L["General"]),
-				guiInline = true,
+				name = L["General"],
 				args = {
 					style = {
 						order = 1,
@@ -89,16 +89,26 @@ local function SkinsTable()
 	}
 
 	E.Options.args.mui.args.skins.args.addonskins = {
-		order = 4,
+		order = 6,
 		type = "group",
-		guiInline = true,
-		name = MER:cOption(L["AddOnSkins"]),
+		name =L["AddOnSkins"],
 		get = function(info) return E.private.muiSkins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-		args = {},
+		args = {
+			info = {
+				order = 1,
+				type = "description",
+				name = L["MER_ADDONSKINS_DESC"],
+			},
+			space1 = {
+				order = 2,
+				type = "description",
+				name = "",
+			},
+		},
 	}
 
-	local addorder = 0
+	local addorder = 3
 	for i, v in ipairs(DecorAddons) do
 		local addonName, addonString, addonOption = unpack( v )
 		E.Options.args.mui.args.skins.args.addonskins.args[addonOption] = {
@@ -109,12 +119,11 @@ local function SkinsTable()
 		}
 	end
 
-	local blizzOrder = 5
+	local blizzOrder = 4
 	E.Options.args.mui.args.skins.args.blizzard = {
 		order = blizzOrder + 1,
 		type = "group",
-		guiInline = true,
-		name = MER:cOption(L["Blizzard"]),
+		name = L["Blizzard"],
 		get = function(info) return E.private.muiSkins.blizzard[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
@@ -398,15 +407,29 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Debug Tools"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.debug end,
-			}
+			},
+			inspect = {
+				type = "toggle",
+				name = INSPECT,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
+			},
+			socket = {
+				type = "toggle",
+				name = L["Socket Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.socket end,
+			},
+			itemUpgrade = {
+				type = "toggle",
+				name = L["Item Upgrade"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
+			},
 		},
 	}
 
 	E.Options.args.mui.args.skins.args.profiles = {
 		order = 6,
 		type = "group",
-		guiInline = true,
-		name = MER:cOption(L["Profiles"]),
+		name = L["Profiles"],
 		args = {
 			info = {
 				order = 1,

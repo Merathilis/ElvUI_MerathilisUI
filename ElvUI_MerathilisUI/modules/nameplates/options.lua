@@ -62,6 +62,7 @@ local function UpdateSpellGroup()
 				set = function(info, value)
 					E.global['nameplate']['spellList'][selectedSpellID]["visibility"] = value
 				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 			},
 			width = {
 				type = 'range',
@@ -80,6 +81,7 @@ local function UpdateSpellGroup()
 						E.global['nameplate']['spellList'][selectedSpellID]["height"] = value
 					end
 				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 			},
 			height = {
 				type = 'range',
@@ -96,6 +98,7 @@ local function UpdateSpellGroup()
 				set = function(info, value)
 					E.global['nameplate']['spellList'][selectedSpellID]["height"] = value
 				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 			},
 			lockAspect = {
 				type = 'toggle',
@@ -111,6 +114,7 @@ local function UpdateSpellGroup()
 						E.global['nameplate']['spellList'][selectedSpellID]["height"] = E.global['nameplate']['spellList'][selectedSpellID]["width"]
 					end
 				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 			},
 		},
 	}
@@ -136,7 +140,8 @@ local function NameplateAurasTable()
 				func = function()
 					E.global["nameplate"]["spellList"] = { }
 					UpdateSpellGroup()
-				end
+				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 			},
 			resetSpellList = {
 				order = 3,
@@ -146,13 +151,26 @@ local function NameplateAurasTable()
 				func = function()
 					E.global["nameplate"]["spellList"] = deepcopy(E.global["nameplate"]["spellListDefault"]["defaultSpellList"])
 					UpdateSpellGroup()
-				end
+				end,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
+			},
+			spacer = {
+				order = 4,
+				type = "description",
+				name = "",
+			},
+			enable = {
+				order = 5,
+				type = "toggle",
+				name = L["Enable"],
+				set = function(info, value)  E.db.mui.NameplateAuras[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 			},
 			specificSpells = {
-				order = 4,
+				order = 6,
 				type = "group",
 				name = MER:cOption(L["Specific Auras"]),
 				guiInline = true,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 				args = {
 					addSpell = {
 						type = "input",
@@ -206,6 +224,7 @@ local function NameplateAurasTable()
 							end
 							return spellLists
 						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 					removeSpell = {
 						order = 3,
@@ -217,15 +236,17 @@ local function NameplateAurasTable()
 								selectedSpellID = ""
 								UpdateSpellGroup()
 							end
-						end
+						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 				},
 			},
 			otherSpells = {
-				order = 5,
+				order = 7,
 				type = "group",
 				name = MER:cOption(L["Other Auras"]),
 				guiInline = true,
+				disabled = function() return not E.db.mui.NameplateAuras.enable end,
 				args = {
 					intro = {
 						order = 1,
@@ -244,6 +265,7 @@ local function NameplateAurasTable()
 						set = function(info, value)
 							E.global['nameplate']['spellListDefault']["visibility"] = value
 						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 					width = {
 						type = "range",
@@ -262,6 +284,7 @@ local function NameplateAurasTable()
 								E.global['nameplate']['spellListDefault']["height"] = value
 							end
 						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 					height = {
 						type = "range",
@@ -278,6 +301,7 @@ local function NameplateAurasTable()
 						set = function(info, value)
 							E.global['nameplate']['spellListDefault']["height"] = value
 						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 					lockAspect = {
 						type = "toggle",
@@ -293,6 +317,7 @@ local function NameplateAurasTable()
 								E.global['nameplate']['spellListDefault']["height"] = E.global['nameplate']['spellListDefault']["width"]
 							end
 						end,
+						disabled = function() return not E.db.mui.NameplateAuras.enable end,
 					},
 				},
 			},
