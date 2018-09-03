@@ -67,31 +67,29 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
 end
 
-function MER:IncompatibleAddOn(addon, module, optiontable, value)
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button1 = addon
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].button2 = 'MER: '..module
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].addon = addon
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].module = module
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].optiontable = optiontable
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].value = value
-	E.PopupDialogs["MER_INCOMPATIBLE_ADDON"].showAlert = true
-	E:StaticPopup_Show('MER_INCOMPATIBLE_ADDON', addon, module)
+-- Whiro magic <3
+local function Disable(tbl)
+	tbl['enable'] = false
 end
 
-function MER:CheckIncompatible()
+function MER:DisableModules()
 	--LocPlus
-	if (IsAddOnLoaded("ElvUI_LocPlus") and E.db.mui.locPanel.enable) then
-		E:StaticPopup_Show("LOCPLUS_MER_INCOMPATIBLE")
-		return true
+	if IsAddOnLoaded("ElvUI_LocPlus") then
+		Disable(E.db.mui['locPanel'])
+
+		if E.db.mui['locPanel'].enable ~= true then
+			MER:Print(L["LocPanel is disabled because ElvUI_LocPlus is loaded."])
+		end
 	end
 
 	-- LocLite
-	if (IsAddOnLoaded("ElvUI_LocLite") and E.db.mui.locPanel.enable) then
-		E:StaticPopup_Show("LOCLITE_MER_INCOMPATIBLE")
-		return true
-	end
+	if IsAddOnLoaded("ElvUI_LocLite") then
+		Disable(E.db.mui['locPanel'])
 
-	return false
+		if E.db.mui['locPanel'].enable ~= true then
+			MER:Print(L["LocPanel is disabled because ElvUI_LocLite is loaded."])
+		end
+	end
 end
 
 function MER:RegisterMedia()
@@ -171,7 +169,7 @@ function MER:Initialize()
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
-	if MER:CheckIncompatible() then return; end
+	if self:DisableModules() then return; end
 
 	self:RegisterMedia()
 	self:LoadCommands()
