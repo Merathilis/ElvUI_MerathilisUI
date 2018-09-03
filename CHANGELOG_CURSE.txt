@@ -1,3 +1,11 @@
+** v3.37, 03.09.2018**
+* Added a split bag feature. Which allows you to split the All In One Bag. Credits: SMRTL
+* Updated ProjectAzilroka profile.
+* Fixed an error in my DataText options. No one have discovered it yet. :>
+* Added an compatibily feature. My modules will gets disabled if a specific
+  AddOn is Loaded. Many thanks to Whiro.
+* Added a second layout to my install => Heal Layout. Needs feedback!!
+
 ** v3.36, 31.08.2018**
 * Register my modules to an own function.
 * You are now able, to change the most of my stuff to use the Value Color from ElvUI.
