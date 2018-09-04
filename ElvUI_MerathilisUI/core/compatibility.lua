@@ -21,6 +21,8 @@ COMP.PA = COMP:IsAddOnEnabled('ProjectAzilroka')
 COMP.LP = COMP:IsAddOnEnabled('ElvUI_LocPlus')
 COMP.LL = COMP:IsAddOnEnabled('ElvUI_LocLite')
 COMP.AS = COMP:IsAddOnEnabled('AddOnSkins')
+COMP.BUI = COMP:IsAddOnEnabled("ElvUI_BenikUI")
+COMP.CUI = COMP:IsAddOnEnabled("ElvUI_ChaoticUI")
 
 local function Disable(tbl)
 	tbl['enable'] = false
@@ -76,12 +78,12 @@ function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
 	COMP.CompatibilityFunctions[addonName] = compatFunc
 end
 
-COMP:RegisterCompatibilityFunction("ElvUI_BenikUI", "BenikUICompatibility")
-COMP:RegisterCompatibilityFunction("ProjectAzilroka", "ProjectAzilrokaCompatibility")
+COMP:RegisterCompatibilityFunction("BUI", "BenikUICompatibility")
+COMP:RegisterCompatibilityFunction("PA", "ProjectAzilrokaCompatibility")
 
 function COMP:RunCompatibilityFunctions()
-	for addonName, compatFunc in pairs(COMP.CompatibilityFunctions) do
-		if (IsAddOnLoaded(addonName)) then
+	for key, compatFunc in pairs(COMP.CompatibilityFunctions) do
+		if (COMP[key]) then
 			self[compatFunc](self)
 		end
 	end
@@ -90,10 +92,8 @@ end
 function COMP:Initialize()
 end
 
-local ECheckIncompatible = E.CheckIncompatible
-E.CheckIncompatible = function(self)
+hooksecurefunc(E, "CheckIncompatible", function(self)
 	COMP:RunCompatibilityFunctions()
-	ECheckIncompatible(E)
-end
+end)
 
 MER:RegisterModule(COMP:GetName())
