@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
-local LSM = LibStub('LibSharedMedia-3.0')
 local MM = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MM.modName = L["MiniMap"]
 
@@ -28,7 +27,7 @@ function MM:CheckMail()
 		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
 		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		Minimap.backdrop:SetBackdropBorderColor(unpack(E.db['general'].valuecolor))
+		Minimap.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 		MER:CreatePulse(Minimap.backdrop, 1, 1)
 	else -- None of the above
 		Minimap.backdrop:SetScript("OnUpdate", nil)
@@ -126,11 +125,14 @@ end
 function MM:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
-	Minimap:CreateBackdrop("Default", true)
-	Minimap.backdrop:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(2),
-		insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
-	})
+	-- Add a check if the backdrop is there
+	if not Minimap.backdrop then
+		Minimap:CreateBackdrop("Default", true)
+		Minimap.backdrop:SetBackdrop({
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisGradient"), edgeSize = E:Scale(2),
+			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+		})
+	end
 
 	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
