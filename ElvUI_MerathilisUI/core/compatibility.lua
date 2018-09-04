@@ -33,10 +33,25 @@ function COMP:Print(addon, feature)
 	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
 		return
 	end
-	print(MER.Title.."has |cffff2020disabled|r "..feature.." from "..addon.." due to incompatiblities.")
+
+	print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
+
 	E.private.mui.comp = E.private.mui.comp or {}
 	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
 	E.private.mui.comp[addon][feature] = true
+end
+
+-- Print for disable my modules
+function COMP:ModulePrint(addon, module)
+	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
+		return
+	end
+
+	print(MER.Title..L["has |cffff2020disabled|r "]..module..L[" due to incompatiblities with: "]..addon)
+
+	E.private.mui.comp = E.private.mui.comp or {}
+	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
+	E.private.mui.comp[addon][module] = true
 end
 
 function COMP:BenikUICompatibility()
@@ -72,6 +87,15 @@ function COMP:ProjectAzilrokaCompatibility()
 	end
 end
 
+function COMP:LocationPlusCompatibility()
+	local LP = E:GetModule("LocationPlus")
+
+	if COMP.LP and LP then
+		Disable(E.db.mui['locPanel'])
+		self:ModulePrint("ElvUI_LocPlus", "Location Panel")
+	end
+end
+
 COMP.CompatibilityFunctions = {};
 
 function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
@@ -80,6 +104,7 @@ end
 
 COMP:RegisterCompatibilityFunction("BUI", "BenikUICompatibility")
 COMP:RegisterCompatibilityFunction("PA", "ProjectAzilrokaCompatibility")
+COMP:RegisterCompatibilityFunction("LP", "LocationPlusCompatibility")
 
 function COMP:RunCompatibilityFunctions()
 	for key, compatFunc in pairs(COMP.CompatibilityFunctions) do

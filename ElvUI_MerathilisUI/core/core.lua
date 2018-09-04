@@ -69,34 +69,6 @@ function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
 end
 
---[[
-function MER:DisableModules()
-	--LocPlus
-	if IsAddOnLoaded("ElvUI_LocPlus") then
-		Disable(E.db.mui['locPanel'])
-		MER:cPrint("ElvUI_LocPlus", "Location Panel")
-	end
-
-	-- LocLite
-	if IsAddOnLoaded("ElvUI_LocLite") then
-		Disable(E.db.mui['locPanel'])
-		MER:cPrint("ElvUI_LocLite", "Location Panel")
-	end
-
-	-- ChaoticUI
-	if GetAddOnEnableState(E.myname, "ElvUI_ChaoticUI") == 2 then
-		Disable(E.db.mui['NameplateAuras'])
-		MER:cPrint("ElvUI_ChaoticUI", "NameplateAuras")
-	end
-
-	-- ProjectAzilroka
-	if (IsAddOnLoaded("ProjectAzilroka") and _G.ProjectAzilroka.db.EFL == true) then
-		Disable(E.db.mui['efl'])
-		MER:cPrint("ProjectAzilroka", "EnhancedFriendsList")
-	end
-end
-]]
-
 function MER:RegisterMedia()
 	--Fonts
 	E["media"].muiFont = LSM:Fetch("font", "Merathilis Prototype")
