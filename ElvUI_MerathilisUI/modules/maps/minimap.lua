@@ -40,31 +40,6 @@ function MM:CheckMail()
 	end
 end
 
-function MM:ChangeMiniMapButtons()
-	if E.db.mui.maps.minimap.styleButton ~= true then return end
-
-	--Garrison Icon
-	if _G["GarrisonLandingPageMinimapButton"] then
-		local scale = E.db.general.minimap.icons.classHall.scale or 1
-
-		_G["GarrisonLandingPageMinimapButton"]:SetScale(scale) -- needs to be set.
-		_G["GarrisonLandingPageMinimapButton"].LoopingGlow:Size(_G["GarrisonLandingPageMinimapButton"]:GetSize()*0.75)
-		_G["GarrisonLandingPageMinimapButton"]:HookScript("OnEvent", function(self)
-			self:GetNormalTexture():SetAtlas(nil)
-			self:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
-			self:GetNormalTexture():SetBlendMode("ADD")
-			self:GetNormalTexture():ClearAllPoints()
-			self:GetNormalTexture():SetPoint("CENTER", 0, 1)
-
-			self:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Home")
-			self:GetPushedTexture():SetBlendMode("ADD")
-			self:GetPushedTexture():ClearAllPoints()
-			self:GetPushedTexture():SetPoint("CENTER", 1, 0)
-			self:GetPushedTexture():SetVertexColor(unpack(E.db['general'].valuecolor))
-		end)
-	end
-end
-
 function MM:MiniMapCoords()
 	if E.db.mui.maps.minimap.coords.enable ~= true then return end
 
@@ -134,7 +109,6 @@ function MM:Initialize()
 		})
 	end
 
-	self:ChangeMiniMapButtons()
 	self:MiniMapCoords()
 	self:ButtonCollectorInit()
 	self:MiniMapPing()

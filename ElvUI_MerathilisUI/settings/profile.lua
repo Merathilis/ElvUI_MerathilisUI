@@ -196,7 +196,6 @@ P["mui"] = {
 				["enable"] = true,
 				["position"] = "TOP",
 			},
-			["styleButton"] = true,
 			["ping"] = {
 				["enable"] = true,
 				["position"] = "TOP",
