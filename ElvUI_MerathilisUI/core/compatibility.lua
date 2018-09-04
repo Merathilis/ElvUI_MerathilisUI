@@ -96,6 +96,27 @@ function COMP:LocationPlusCompatibility()
 	end
 end
 
+function COMP:LocationLiteCompatibility()
+	local LLB = E:GetModule("LocationLite")
+
+	if COMP.LL and LLB then
+		Disable(E.db.mui['locPanel'])
+		self:ModulePrint("ElvUI_LocLite", "Location Panel")
+	end
+end
+
+function COMP:SLECompatibility()
+	local SLE = ElvUI_SLE and ElvUI_SLE[1]
+
+	--Location Panel
+	Disable(E.db.sle["minimap"]["locPanel"])
+	self:Print(SLE.Title, "Location Panel")
+
+	-- Raid Markers
+	Disable(E.db.sle["raidmarkers"])
+	self:Print(SLE.Title, "Raid Markers")
+end
+
 COMP.CompatibilityFunctions = {};
 
 function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
@@ -105,6 +126,8 @@ end
 COMP:RegisterCompatibilityFunction("BUI", "BenikUICompatibility")
 COMP:RegisterCompatibilityFunction("PA", "ProjectAzilrokaCompatibility")
 COMP:RegisterCompatibilityFunction("LP", "LocationPlusCompatibility")
+COMP:RegisterCompatibilityFunction("LL", "LocationLiteCompatibility")
+COMP:RegisterCompatibilityFunction("SLE", "SLECompatibility")
 
 function COMP:RunCompatibilityFunctions()
 	for key, compatFunc in pairs(COMP.CompatibilityFunctions) do
