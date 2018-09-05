@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MFM = MER:NewModule("MUIFlightMode")
+local COMP = MER:GetModule("mUICompatibility");
 MFM.modName = L["FlightMode"]
 
 --Cache global variables
@@ -81,7 +82,7 @@ function MFM:Initialize()
 end
 
 local function InitializeCallback()
-	if not IsAddOnLoaded("ElvUI_BenikUI") then return end
+	if not COMP.BUI then return end	
 	MFM:Initialize()
 end
 
