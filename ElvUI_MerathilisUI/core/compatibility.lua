@@ -99,14 +99,12 @@ end
 function COMP:LocationLiteCompatibility()
 	local LLB = E:GetModule("LocationLite")
 
-	if COMP.LL and LLB then
-		Disable(E.db.mui['locPanel'])
-		self:ModulePrint("ElvUI_LocLite", "Location Panel")
-	end
+	Disable(E.db.mui['locPanel'])
+	self:ModulePrint("ElvUI_LocLite", "Location Panel")
 end
 
 function COMP:SLECompatibility()
-	local SLE = ElvUI_SLE and ElvUI_SLE[1]
+	local SLE = ElvUI_SLE[1]
 
 	--Location Panel
 	Disable(E.db.sle["minimap"]["locPanel"])
