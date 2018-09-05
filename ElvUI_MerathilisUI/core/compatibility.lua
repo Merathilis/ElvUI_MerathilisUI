@@ -35,11 +35,11 @@ end
 
 --Incompatibility print
 function COMP:Print(addon, feature)
-	--if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
-		--return
-	--end
---
-	--print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
+	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
+		return
+	end
+
+	print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
 
 	E.private.mui.comp = E.private.mui.comp or {}
 	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
@@ -48,9 +48,9 @@ end
 
 -- Print for disable my modules
 function COMP:ModulePrint(addon, module)
-	--if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
-		--return
-	--end
+	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
+		return
+	end
 
 	print(MER.Title..L["has |cffff2020disabled|r "]..module..L[" due to incompatiblities with: "]..addon)
 
