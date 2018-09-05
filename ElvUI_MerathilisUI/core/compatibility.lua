@@ -113,6 +113,10 @@ function COMP:SLECompatibility()
 	-- Raid Markers
 	Disable(E.db.sle["raidmarkers"])
 	self:Print(SLE.Title, "Raid Markers")
+
+	-- Objective Tracker
+	Disable(E.private.sle["skins"]["objectiveTracker"])
+	self:Print(SLE.Title, "ObjectiveTracker skin")
 end
 
 COMP.CompatibilityFunctions = {};
