@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MFM = MER:NewModule("MUIFlightMode")
 local COMP = MER:GetModule("mUICompatibility");
+if not COMP.BUI then return end
 MFM.modName = L["FlightMode"]
 
 --Cache global variables
@@ -82,7 +83,6 @@ function MFM:Initialize()
 end
 
 local function InitializeCallback()
-	if not COMP.BUI then return end	
 	MFM:Initialize()
 end
 
