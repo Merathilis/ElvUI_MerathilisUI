@@ -24,17 +24,22 @@ COMP.AS = COMP:IsAddOnEnabled('AddOnSkins')
 COMP.BUI = COMP:IsAddOnEnabled("ElvUI_BenikUI")
 COMP.CUI = COMP:IsAddOnEnabled("ElvUI_ChaoticUI")
 
-local function Disable(tbl)
-	tbl['enable'] = false
+local function Disable(tbl, key)
+	key = key or 'enable'
+	if (tbl[key]) then
+		tbl[key] = false
+		return true
+	end
+	return false
 end
 
 --Incompatibility print
 function COMP:Print(addon, feature)
-	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
-		return
-	end
-
-	print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
+	--if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
+		--return
+	--end
+--
+	--print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
 
 	E.private.mui.comp = E.private.mui.comp or {}
 	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
@@ -43,9 +48,9 @@ end
 
 -- Print for disable my modules
 function COMP:ModulePrint(addon, module)
-	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
-		return
-	end
+	--if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
+		--return
+	--end
 
 	print(MER.Title..L["has |cffff2020disabled|r "]..module..L[" due to incompatiblities with: "]..addon)
 
@@ -57,32 +62,31 @@ end
 function COMP:BenikUICompatibility()
 	local BUI = E:GetModule("BenikUI")
 
-	E.db.benikui['general']['benikuiStyle'] = false
-	self:Print(BUI.Title, "BenikUI Style")
-
-	Disable(E.db.benikuiDatabars['experience'])
-	Disable(E.db.benikuiDatabars['reputation'])
-	Disable(E.db.benikuiDatabars['azerite'])
-	Disable(E.db.benikuiDatabars['honor'])
-
-	self:Print(BUI.Title, "Databars")
-
-	Disable(E.db.benikui['datatexts']['chat'])
-	Disable(E.db.benikui['datatexts']['middle'])
-	self:Print(BUI.Title, "Chat and Middle DataTexts")
-
-	for i = 1, 10 do
-		E.db.benikui['actionbars']['style']['bar'..i] = false
+	if (Disable(E.db.benikui['general'], 'benikuiStyle')) then
+		self:Print(BUI.Title, "BenikUI Style")
 	end
 
-	E.db.benikui['actionbars']['style']['petbar'] = false
-	E.db.benikui['actionbars']['style']['stancebar'] = false
-	self:Print(BUI.Title, "Actionbar Styles")
+	if (Disable(E.db.benikuiDatabars['experience']) or Disable(E.db.benikuiDatabars['reputation']) or Disable(E.db.benikuiDatabars['azerite']) or Disable(E.db.benikuiDatabars['honor'])) then
+		self:Print(BUI.Title, "Databars")
+	end
+
+	if (Disable(E.db.benikui['datatexts']['chat']) or Disable(E.db.benikui['datatexts']['middle'])) then
+		self:Print(BUI.Title, "Chat and Middle DataTexts");
+	end
+
+	local res = {};
+	for i = 1, 10 do
+		res[i] = Disable(E.db.benikui['actionbars']['style'], 'bar'..i);
+	end
+	res[11] = Disable(E.db.benikui['actionbars']['style'], 'petbar');
+	res[12] = Disable(E.db.benikui['actionbars']['style'], 'stancebar');
+	if (tContains(res, true)) then
+		self:Print(BUI.Title, "Actionbar Styles");
+	end
 end
 
 function COMP:ProjectAzilrokaCompatibility()
-	if (COMP.PA and _G.ProjectAzilroka.db.EFL == true) then
-		_G.ProjectAzilroka.db.EFL = false
+	if Disable(_G.ProjectAzilrokaDB, "EFL") then
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
 	end
 end
@@ -90,35 +94,34 @@ end
 function COMP:LocationPlusCompatibility()
 	local LP = E:GetModule("LocationPlus")
 
-	Disable(E.db.mui['locPanel'])
-	self:ModulePrint("ElvUI_LocPlus", "Location Panel")
+	if Disable(E.db.mui['locPanel']) then
+		self:ModulePrint("ElvUI_LocPlus", "Location Panel")
+	end
 end
 
 function COMP:LocationLiteCompatibility()
 	local LLB = E:GetModule("LocationLite")
 
-	Disable(E.db.mui['locPanel'])
-	self:ModulePrint("ElvUI_LocLite", "Location Panel")
+	if Disable(E.db.mui['locPanel']) then
+		self:ModulePrint("ElvUI_LocLite", "Location Panel")
+	end
 end
 
 function COMP:SLECompatibility()
 	local SLE = ElvUI_SLE[1]
 
 	--Location Panel
-	if (E.db.sle["minimap"]["locPanel"].enable and E.db.mui.locPanel.enable) then
-		Disable(E.db.sle["minimap"]["locPanel"])
+	if Disable(E.db.sle["minimap"]["locPanel"]) then
 		self:Print(SLE.Title, "Location Panel")
 	end
 
 	-- Raid Markers
-	if (E.db.sle["raidmarkers"].enable and E.db.mui["raidmarkers"].enable) then
-		Disable(E.db.sle["raidmarkers"])
+	if Disable(E.db.sle["raidmarkers"]) then
 		self:Print(SLE.Title, "Raid Markers")
 	end
 
 	-- Objective Tracker
-	if (E.private.sle["skins"]["objectiveTracker"].enable and E.private["muiSkins"]["blizzard"].objectiveTracker) then
-		Disable(E.private.sle["skins"]["objectiveTracker"])
+	if Disable(E.private.sle["skins"]["objectiveTracker"]) then
 		self:Print(SLE.Title, "ObjectiveTracker skin")
 	end
 end
