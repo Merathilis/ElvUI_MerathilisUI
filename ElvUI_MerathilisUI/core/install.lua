@@ -374,6 +374,9 @@ function MER:SetupLayout()
 	E.db["nameplates"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
 	E.db["nameplates"]["cooldown"]["fonts"]["fontSize"] = 9
 
+	-- CutawayHealth
+	E.db["nameplates"]["cutawayHealth"] = true
+
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
 	--]]----------------------------------
