@@ -90,10 +90,8 @@ end
 function COMP:LocationPlusCompatibility()
 	local LP = E:GetModule("LocationPlus")
 
-	if COMP.LP and LP then
-		Disable(E.db.mui['locPanel'])
-		self:ModulePrint("ElvUI_LocPlus", "Location Panel")
-	end
+	Disable(E.db.mui['locPanel'])
+	self:ModulePrint("ElvUI_LocPlus", "Location Panel")
 end
 
 function COMP:LocationLiteCompatibility()
@@ -107,16 +105,22 @@ function COMP:SLECompatibility()
 	local SLE = ElvUI_SLE[1]
 
 	--Location Panel
-	Disable(E.db.sle["minimap"]["locPanel"])
-	self:Print(SLE.Title, "Location Panel")
+	if (E.db.sle["minimap"]["locPanel"].enable and E.db.mui.locPanel.enable) then
+		Disable(E.db.sle["minimap"]["locPanel"])
+		self:Print(SLE.Title, "Location Panel")
+	end
 
 	-- Raid Markers
-	Disable(E.db.sle["raidmarkers"])
-	self:Print(SLE.Title, "Raid Markers")
+	if (E.db.sle["raidmarkers"].enable and E.db.mui["raidmarkers"].enable) then
+		Disable(E.db.sle["raidmarkers"])
+		self:Print(SLE.Title, "Raid Markers")
+	end
 
 	-- Objective Tracker
-	Disable(E.private.sle["skins"]["objectiveTracker"])
-	self:Print(SLE.Title, "ObjectiveTracker skin")
+	if (E.private.sle["skins"]["objectiveTracker"].enable and E.private["muiSkins"]["blizzard"].objectiveTracker) then
+		Disable(E.private.sle["skins"]["objectiveTracker"])
+		self:Print(SLE.Title, "ObjectiveTracker skin")
+	end
 end
 
 COMP.CompatibilityFunctions = {};
