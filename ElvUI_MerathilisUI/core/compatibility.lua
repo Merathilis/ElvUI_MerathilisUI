@@ -70,8 +70,12 @@ function COMP:BenikUICompatibility()
 		self:Print(BUI.Title, "Databars")
 	end
 
-	if (Disable(E.db.benikui['datatexts']['chat']) or Disable(E.db.benikui['datatexts']['middle'])) then
+	if (Disable(E.db.benikui['datatexts']['chat'])) then
 		self:Print(BUI.Title, "Chat and Middle DataTexts");
+	end
+
+	if (Disable(E.db.mui["datatexts"]["rightChatTabDatatextPanel"]) or Disable(E.db.mui["datatexts"]["middle"])) then -- Disable my Datatexts
+		self:ModulePrint(BUI.Title, "MerathilisUI Datatexts")
 	end
 
 	local res = {};
