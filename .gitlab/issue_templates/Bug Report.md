@@ -24,9 +24,9 @@
 <!--- Tell us what happens instead -->
 
 
-**Only ElvUI & ElvUI_BenikUI & ElvUI_Merathilis Enabled**
+**Only ElvUI & ElvUI_Merathilis Enabled**
 <!--- Please provide information about whether or not you can reproduce it -->
-<!--- when ElvUI & ElvUI_BenikUI & ElvUI_Merathilis are the only addon enabled -->
+<!--- when ElvUI & ElvUI_Merathilis are the only addon enabled -->
 
 
 **Additional Information**
