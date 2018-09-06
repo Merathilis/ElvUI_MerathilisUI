@@ -5,7 +5,7 @@ local function Noticications()
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
 		name = NF.modName,
-		order = 9,
+		order = 17,
 		get = function(info) return E.db.mui.general.Notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general.Notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

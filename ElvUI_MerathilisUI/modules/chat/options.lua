@@ -6,7 +6,7 @@ local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
 		name = MERC.modName,
-		order = 9,
+		order = 11,
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

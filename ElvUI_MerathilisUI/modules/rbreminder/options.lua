@@ -13,7 +13,7 @@ local function RaidBuffs()
 	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
 		name = RB.modName,
-		order = 31,
+		order = 18,
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
 			name = {

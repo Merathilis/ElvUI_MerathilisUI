@@ -11,7 +11,7 @@ local tinsert = table.insert
 
 local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
-		order = 7,
+		order = 10,
 		type = "group",
 		name = MAB.modName,
 		args = {

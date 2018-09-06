@@ -5,7 +5,7 @@ local function CooldownFlash()
 	E.Options.args.mui.args.modules.args.cooldownFlash = {
 		type = "group",
 		name = CF.modName,
-		order = 26,
+		order = 12,
 		get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 		set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
