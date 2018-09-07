@@ -1,3 +1,12 @@
+** v3.38, 07.09.2018**
+* Some major code improvements by Whiro. Thanks for this:
+  -> Compatibily with other Plugins/AddOns
+     Some modules from me or other Plugins/AddOns gets disabled if there is any incompatibility.
+     If this happens the first time, there will be a print in the chat.
+  -> Add db conversations if updating/switching/delete profiles. So my modules take account to this.
+* Updated BigWigs profile and add a BigWigs Heal Profile.
+* Some skin updates.
+
 ** v3.37, 03.09.2018**
 * Added a split bag feature. Which allows you to split the All In One Bag. Credits: SMRTL
 * Updated ProjectAzilroka profile.
