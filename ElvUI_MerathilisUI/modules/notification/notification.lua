@@ -296,7 +296,7 @@ SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
-	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.mail ~= true then return end
+	if NF.db.enable ~= true or NF.db.mail ~= true then return end
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
 		hasMail = newMail
@@ -374,7 +374,7 @@ local function toggleCalendar()
 end
 
 local function alertEvents()
-	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.invites ~= true then return end
+	if NF.db.enable ~= true or NF.db.invites ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
@@ -386,7 +386,7 @@ local function alertEvents()
 end
 
 local function alertGuildEvents()
-	if E.db.mui.general.Notification.enable ~= true or E.db.mui.general.Notification.guildEvents ~= true then return end
+	if NF.db.enable ~= true or NF.db.guildEvents ~= true then return end
 	if CalendarFrame and CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 0 then
@@ -416,7 +416,7 @@ end
 
 local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not E.db.mui.general.Notification.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map.GetBestMapForUnit("player")] then return end
+	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map.GetBestMapForUnit("player")] then return end
 
 	if onMinimap then
 		if vignetteGUID ~= self.lastMinimapRare.id then
@@ -440,7 +440,10 @@ function NF:RESURRECT_REQUEST(name)
 end
 
 function NF:Initialize()
-	if E.db.mui.general.Notification.enable ~= true then return end
+	NF.db = E.db.mui.notification
+	if NF.db.enable ~= true then return end
+
+	MER:RegisterDB(self, "notification")
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)

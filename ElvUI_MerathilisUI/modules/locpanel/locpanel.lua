@@ -644,7 +644,11 @@ end
 
 function LP:Initialize()
 	LP.db = E.db.mui.locPanel
+
+	MER:RegisterDB(self, "locPanel")
+
 	faction = UnitFactionGroup('player')
+
 	self:PopulateItems()
 	self:GetProf()
 

@@ -164,6 +164,10 @@ function RMA:Backdrop()
 end
 
 function RMA:Initialize()
+	RMA.db = E.db.mui.raidmarkers
+
+	MER:RegisterDB(self, "raidmarkers")
+
 	RMA:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RMA:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
 	RMA:Make("mUI_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")

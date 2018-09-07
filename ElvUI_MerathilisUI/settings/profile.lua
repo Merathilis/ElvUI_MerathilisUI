@@ -17,13 +17,6 @@ P["mui"] = {
 		["CombatState"] = true, -- Enable the +/- Combat Message
 		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
 		["Movertransparancy"] = .75,
-		["Notification"] = {
-			["enable"] = true,
-			["mail"] = true,
-			["vignette"] = true,
-			["invites"] = true,
-			["guildEvents"] = true,
-		},
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,
 		["shadowOverlay"] = true,
@@ -62,6 +55,14 @@ P["mui"] = {
 		["nameHover"] = true,
 		["powerBar"] = true,
 		["cursor"] = false,
+	},
+
+	["notification"] = {
+		["enable"] = true,
+		["mail"] = true,
+		["vignette"] = true,
+		["invites"] = true,
+		["guildEvents"] = true,
 	},
 
 	["datatexts"] = {
@@ -114,16 +115,17 @@ P["mui"] = {
 		["transparent"] = true,
 		["specBar"] = true,
 		["equipBar"] = true,
-		["microBar"] = {
-			["enable"] = true,
-			["scale"] = 1,
-			["hideInCombat"] = false,
-			["hideInOrderHall"] = false,
-			["text"] = {
-				["position"] = "BOTTOM",
-				["friends"] = true,
-				["guild"] = true,
-			},
+	},
+
+	["microBar"] = {
+		["enable"] = true,
+		["scale"] = 1,
+		["hideInCombat"] = false,
+		["hideInOrderHall"] = false,
+		["text"] = {
+			["position"] = "BOTTOM",
+			["friends"] = true,
+			["guild"] = true,
 		},
 	},
 

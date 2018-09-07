@@ -195,6 +195,8 @@ end
 function RB:Initialize()
 	RB.db = E.db.mui.raidBuffs
 
+	MER:RegisterDB(self, "raidBuffs")
+
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreateBackdrop("Transparent")
 	self.frame.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))

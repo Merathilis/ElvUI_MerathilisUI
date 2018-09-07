@@ -151,8 +151,11 @@ function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()
+
 	self:AddMoverCategories()
+
 	self:InitializeModules()
+	self:SetupProfileCallbacks()
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then
