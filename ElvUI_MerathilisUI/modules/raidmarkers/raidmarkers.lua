@@ -190,16 +190,6 @@ function RMA:Initialize()
 	E:CreateMover(self.frame, "mUI_RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI")
 
 	self:CreateButtons()
-
-	function RMA:ForUpdateAll()
-		RMA.db = E.db.mui.raidmarkers
-		self:Visibility()
-		self:Backdrop()
-		self:UpdateBar()
-		self:UpdateWorldMarkersAndTooltips()
-	end
-
-	self:ForUpdateAll()
 end
 
 local function InitializeCallback()

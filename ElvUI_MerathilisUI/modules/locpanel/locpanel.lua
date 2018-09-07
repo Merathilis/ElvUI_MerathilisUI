@@ -654,16 +654,6 @@ function LP:Initialize()
 	self:Fonts()
 	self:Toggle()
 
-	function LP:ForUpdateAll()
-		LP.db = E.db.mui.locPanel
-		self:Resize()
-		self:Template()
-		self:Fonts()
-		self:Toggle()
-	end
-
-	self:ForUpdateAll()
-
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("UNIT_AURA")

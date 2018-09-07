@@ -487,14 +487,6 @@ function MB:Initialize()
 	self:CreateMicroBar()
 	self:Toggle()
 
-	function MB:ForUpdateAll()
-		MB.db = E.db.mui.actionbars.microBar
-
-		self:Toggle()
-	end
-
-	self:ForUpdateAll()
-
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("UNIT_AURA")
