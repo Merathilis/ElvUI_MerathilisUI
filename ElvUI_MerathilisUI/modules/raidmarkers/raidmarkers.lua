@@ -43,8 +43,8 @@ end
 function RMA:CreateButtons()
 	for k, layout in ipairs(layouts) do
 		local button = CreateFrame("Button", format("RaidMarkerBarButton%d", k), RMA.frame, "SecureActionButtonTemplate")
-		button:SetHeight(E.db.mui.raidmarkers.buttonSize)
-		button:SetWidth(E.db.mui.raidmarkers.buttonSize)
+		button:SetHeight(RMA.db.buttonSize)
+		button:SetWidth(RMA.db.buttonSize)
 		button:SetTemplate('Transparent')
 
 		local image = button:CreateTexture(nil, "ARTWORK")
@@ -77,7 +77,7 @@ function RMA:UpdateWorldMarkersAndTooltips()
 				GameTooltip:Show()
 			end)
 		else
-			local modifier = E.db.mui.raidmarkers.modifier or "shift-"
+			local modifier = RMA.db.modifier or "shift-"
 			button:SetAttribute(format("%stype1", modifier), "macro")
 			button.modifier = modifier
 			button:SetAttribute(format("%smacrotext1", modifier), worldmarker == 0 and "/cwm all" or format("/cwm %d\n/wm %d", worldmarker, worldmarker))
@@ -102,12 +102,12 @@ end
 function RMA:UpdateBar(update)
 	local height, width
 
-	if E.db.mui.raidmarkers.orientation == "VERTICAL" then
-		width = E.db.mui.raidmarkers.buttonSize + 4
-		height = (E.db.mui.raidmarkers.buttonSize * 9) + (E.db.mui.raidmarkers.spacing * 8) + 4
+	if RMA.db.orientation == "VERTICAL" then
+		width = RMA.db.buttonSize + 4
+		height = (RMA.db.buttonSize * 9) + (RMA.db.spacing * 8) + 4
 	else
-		width = (E.db.mui.raidmarkers.buttonSize * 9) + (E.db.mui.raidmarkers.spacing * 8) + 4
-		height = E.db.mui.raidmarkers.buttonSize + 4
+		width = (RMA.db.buttonSize * 9) + (RMA.db.spacing * 8) + 4
+		height = RMA.db.buttonSize + 4
 	end
 
 	self.frame:SetWidth(width)
@@ -118,35 +118,34 @@ function RMA:UpdateBar(update)
 		local prev = self.frame.buttons[i + 1]
 		button:ClearAllPoints()
 
-		button:SetWidth(E.db.mui.raidmarkers.buttonSize)
-		button:SetHeight(E.db.mui.raidmarkers.buttonSize)
+		button:SetWidth(RMA.db.buttonSize)
+		button:SetHeight(RMA.db.buttonSize)
 
-		if E.db.mui.raidmarkers.orientation == "VERTICAL" then
-			head = E.db.mui.raidmarkers.reverse and "BOTTOM" or "TOP"
-			tail = E.db.mui.raidmarkers.reverse and "TOP" or "BOTTOM"
+		if RMA.db.orientation == "VERTICAL" then
+			head = RMA.db.reverse and "BOTTOM" or "TOP"
+			tail = RMA.db.reverse and "TOP" or "BOTTOM"
 			if i == 9 then
-				button:SetPoint(head, 0, (E.db.mui.raidmarkers.reverse and 2 or -2))
+				button:SetPoint(head, 0, (RMA.db.reverse and 2 or -2))
 			else
-				button:SetPoint(head, prev, tail, 0, E.db.mui.raidmarkers.spacing*(E.db.mui.raidmarkers.reverse and 1 or -1))
+				button:SetPoint(head, prev, tail, 0, RMA.db.spacing*(RMA.db.reverse and 1 or -1))
 			end
 		else
-			head = E.db.mui.raidmarkers.reverse and "RIGHT" or "LEFT"
-			tail = E.db.mui.raidmarkers.reverse and "LEFT" or "RIGHT"
+			head = RMA.db.reverse and "RIGHT" or "LEFT"
+			tail = RMA.db.reverse and "LEFT" or "RIGHT"
 			if i == 9 then
-				button:SetPoint(head, (E.db.mui.raidmarkers.reverse and -2 or 2), 0)
+				button:SetPoint(head, (RMA.db.reverse and -2 or 2), 0)
 			else
-				button:SetPoint(head, prev, tail, E.db.mui.raidmarkers.spacing*(E.db.mui.raidmarkers.reverse and -1 or 1), 0)
+				button:SetPoint(head, prev, tail, RMA.db.spacing*(RMA.db.reverse and -1 or 1), 0)
 			end
 		end
 	end
 
-	if E.db.mui.raidmarkers.enable then self.frame:Show() else self.frame:Hide() end
+	if RMA.db then self.frame:Show() else self.frame:Hide() end
 end
 
 function RMA:Visibility()
-	local db = E.db.mui.raidmarkers
-	if db.enable then
-		RegisterStateDriver(self.frame, "visibility", db.visibility == "CUSTOM" and db.customVisibility or RMA.VisibilityStates[db.visibility])
+	if RMA.db then
+		RegisterStateDriver(self.frame, "visibility", RMA.db.visibility == "CUSTOM" and RMA.db.customVisibility or RMA.VisibilityStates[RMA.db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -156,7 +155,7 @@ function RMA:Visibility()
 end
 
 function RMA:Backdrop()
-	if E.db.mui.raidmarkers.backdrop then
+	if RMA.db.backdrop then
 		self.frame.backdrop:Show()
 	else
 		self.frame.backdrop:Hide()
@@ -164,6 +163,8 @@ function RMA:Backdrop()
 end
 
 function RMA:Initialize()
+	RMA.db = E.db.mui.raidmarkers
+
 	RMA:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RMA:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
 	RMA:Make("mUI_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
@@ -181,7 +182,7 @@ function RMA:Initialize()
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
 	self.frame:ClearAllPoints()
-	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 164)
+	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 225)
 	self.frame.buttons = {}
 
 	self.frame.backdrop:SetAllPoints()
@@ -191,7 +192,7 @@ function RMA:Initialize()
 	self:CreateButtons()
 
 	function RMA:ForUpdateAll()
-		RMA.db = E.db.mui.quests
+		RMA.db = E.db.mui.raidmarkers
 		self:Visibility()
 		self:Backdrop()
 		self:UpdateBar()

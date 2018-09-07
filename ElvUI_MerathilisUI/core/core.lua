@@ -133,8 +133,35 @@ function MER:InitializeModules()
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			module:Initialize()
+		else
+			MER:Print("Module <"..moduleName.."> does not loaded.")
 		end
 	end
+end
+
+--[[
+Updating alongside with ElvUI. MER:UpdateAll() is hooked to E:UpdateAll()
+Modules are supposed to provide a function(s) to call when profile change happens (or global update is called).
+Provided functions should be named Module:ForUpdateAll() or otherwise stored in MER.UpdateFunctions table (when there is no need of reassigning settings table.
+Each modules insert their functions in respective files.
+]]
+local collectgarbage = collectgarbage
+MER["UpdateFunctions"] = {}
+function MER:UpdateAll()
+	--if not self.initialized then return end
+
+	for _, moduleName in pairs(MER["RegisteredModules"]) do
+		local module = self:GetModule(moduleName)
+		if module.ForUpdateAll then
+			module:ForUpdateAll()
+		else
+			if MER["UpdateFunctions"][moduleName] then
+				MER["UpdateFunctions"][moduleName]()
+			end
+		end
+	end
+
+	collectgarbage('collect');
 end
 
 function MER:Initialize()
@@ -151,6 +178,9 @@ function MER:Initialize()
 	self:SplashScreen()
 	self:AddMoverCategories()
 	self:InitializeModules()
+
+	-- Hook to E:UpdateAll()
+	hooksecurefunc(E, "UpdateAll", MER.UpdateAll)
 
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then

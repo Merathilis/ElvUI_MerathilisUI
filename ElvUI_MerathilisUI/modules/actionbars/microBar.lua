@@ -484,12 +484,20 @@ function MB:Initialize()
 	MB.db = E.db.mui.actionbars.microBar
 	if MB.db.enable ~= true then return end
 
-	MB:CreateMicroBar()
-	MB:Toggle()
+	self:CreateMicroBar()
+	self:Toggle()
 
-	MB:RegisterEvent("PLAYER_REGEN_DISABLED")
-	MB:RegisterEvent("PLAYER_REGEN_ENABLED")
-	MB:RegisterEvent("UNIT_AURA")
+	function MB:ForUpdateAll()
+		MB.db = E.db.mui.actionbars.microBar
+
+		self:Toggle()
+	end
+
+	self:ForUpdateAll()
+
+	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("UNIT_AURA")
 end
 
 local function InitializeCallback()
