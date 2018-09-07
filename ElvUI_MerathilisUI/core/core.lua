@@ -148,7 +148,7 @@ Each modules insert their functions in respective files.
 local collectgarbage = collectgarbage
 MER["UpdateFunctions"] = {}
 function MER:UpdateAll()
-	--if not self.initialized then return end
+	if not self.initialized then return end
 
 	for _, moduleName in pairs(MER["RegisteredModules"]) do
 		local module = self:GetModule(moduleName)
