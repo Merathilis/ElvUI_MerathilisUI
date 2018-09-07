@@ -164,6 +164,10 @@ function RMA:Backdrop()
 end
 
 function RMA:Initialize()
+	RMA.db = E.db.mui.raidmarkers
+
+	MER:RegisterDB(self, "raidmarkers")
+
 	RMA:Make("mUI_RaidFlare1", "/clearworldmarker 1\n/worldmarker 1", "Blue Flare")
 	RMA:Make("mUI_RaidFlare2", "/clearworldmarker 2\n/worldmarker 2", "Green Flare")
 	RMA:Make("mUI_RaidFlare3", "/clearworldmarker 3\n/worldmarker 3", "Purple Flare")
@@ -181,7 +185,7 @@ function RMA:Initialize()
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
 	self.frame:ClearAllPoints()
-	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 164)
+	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 225)
 	self.frame.buttons = {}
 
 	self.frame.backdrop:SetAllPoints()
@@ -191,7 +195,7 @@ function RMA:Initialize()
 	self:CreateButtons()
 
 	function RMA:ForUpdateAll()
-		RMA.db = E.db.mui.quests
+		RMA.db = E.db.mui.raidmarkers
 		self:Visibility()
 		self:Backdrop()
 		self:UpdateBar()

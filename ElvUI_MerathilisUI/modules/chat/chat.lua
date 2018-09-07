@@ -91,12 +91,15 @@ function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
 	end
 end
 
-function MERC:Initialize()
-	if E.private.chat.enable ~= true then return; end
-
+function MERC:StyleChat()
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
 	_G["RightChatPanel"].backdrop:Styling()
+
+end
+
+function MERC:Initialize()
+	if E.private.chat.enable ~= true then return; end
 
 	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
@@ -110,6 +113,7 @@ function MERC:Initialize()
 
 	self:EasyChannel()
 	self:ItemLevelLink()
+	self:StyleChat()
 
 	--Custom Emojis
 	local t = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s.tga"

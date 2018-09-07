@@ -14,7 +14,7 @@ local function EnhancedFriendsList()
 	E.Options.args.mui.args.modules.args.efl = {
 		type = "group",
 		name = EFL.modName,
-		order = 22,
+		order = 14,
 		get = function(info) return E.db.mui.efl[ info[#info] ] end,
 		set = function(info, value) E.db.mui.efl[ info[#info] ] = value; end,
 		args = {

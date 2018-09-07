@@ -644,20 +644,34 @@ end
 
 function LP:Initialize()
 	LP.db = E.db.mui.locPanel
+
+	MER:RegisterDB(self, "locPanel")
+
 	faction = UnitFactionGroup('player')
-	LP:PopulateItems()
-	LP:GetProf()
+
+	self:PopulateItems()
+	self:GetProf()
 
 	LP.elapsed = 0
-	LP:CreateLocationPanel()
-	LP:Template()
-	LP:Fonts()
-	LP:Toggle()
+	self:CreateLocationPanel()
+	self:Template()
+	self:Fonts()
+	self:Toggle()
 
-	LP:RegisterEvent("PLAYER_REGEN_DISABLED")
-	LP:RegisterEvent("PLAYER_REGEN_ENABLED")
-	LP:RegisterEvent("UNIT_AURA")
-	LP:RegisterEvent("CHAT_MSG_SKILL")
+	function LP:ForUpdateAll()
+		LP.db = E.db.mui.locPanel
+		LP:Resize()
+		LP:Template()
+		LP:Fonts()
+		LP:Toggle()
+	end
+
+	self:ForUpdateAll()
+
+	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("UNIT_AURA")
+	self:RegisterEvent("CHAT_MSG_SKILL")
 end
 
 local function InitializeCallback()

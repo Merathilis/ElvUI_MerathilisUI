@@ -303,6 +303,8 @@ function CF:Initialize()
 	if CF.db == nil then CF.db = {} end -- rare nil error
 	CF.db = E.db.mui.cooldownFlash
 
+	MER:RegisterDB(self, "cooldownFlash")
+
 	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 
 	DCP.TextFrame:SetFont(E.db.general.fontSize, 18, "OUTLINE")

@@ -123,7 +123,7 @@ function MB:CreateMicroBar()
 	friendsButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateFriends()
-		MB.db = E.db.mui.actionbars.microBar
+		MB.db = E.db.mui.microBar
 		local friendsTotal, friendsOnline = GetNumFriends()
 		local bnTotal, bnOnline = BNGetNumFriends()
 		local totalOnline = friendsOnline + bnOnline
@@ -181,7 +181,7 @@ function MB:CreateMicroBar()
 	guildButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateGuild()
-		MB.db = E.db.mui.actionbars.microBar
+		MB.db = E.db.mui.microBar
 		if IsInGuild() then
 			local guildTotal, online = GetNumGuildMembers()
 			for i = 1, guildTotal do
@@ -481,15 +481,25 @@ function MB:UNIT_AURA(_, unit)
 end
 
 function MB:Initialize()
-	MB.db = E.db.mui.actionbars.microBar
+	MB.db = E.db.mui.microBar
 	if MB.db.enable ~= true then return end
 
-	MB:CreateMicroBar()
-	MB:Toggle()
+	MER:RegisterDB(self, "microBar")
 
-	MB:RegisterEvent("PLAYER_REGEN_DISABLED")
-	MB:RegisterEvent("PLAYER_REGEN_ENABLED")
-	MB:RegisterEvent("UNIT_AURA")
+	self:CreateMicroBar()
+	self:Toggle()
+
+	function MB:ForUpdateAll()
+		MB.db = E.db.mui.microBar
+
+		self:Toggle()
+	end
+
+	self:ForUpdateAll()
+
+	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self:RegisterEvent("UNIT_AURA")
 end
 
 local function InitializeCallback()

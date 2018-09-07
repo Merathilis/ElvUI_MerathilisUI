@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
 local NA = MER:GetModule("NameplateAuras")
+local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
 local pairs, select, tonumber, tostring, type = pairs, select, tonumber, tostring, type
@@ -164,6 +165,7 @@ local function NameplateAurasTable()
 				type = "toggle",
 				name = L["Enable"],
 				set = function(info, value)  E.db.mui.NameplateAuras[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				disabled = COMP.CUI,
 			},
 			specificSpells = {
 				order = 6,

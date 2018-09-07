@@ -17,18 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a split bag feature. Which allows you to split the Bag. Credits SMRTL",
-		"• Updated ProjectAzilroka profile.",
-		"• Fixed an error in my DataText options. No one have discovered it yet.",
-		"• Added an compatibily feature. My modules will gets disabled if a specific",
-		"  AddOn is Loaded. Many thanks to Whiro.",
-		"• Added a second layout to my install => Heal Layout. Needs feedback!!",
+		"• Some major code improvements by Whiro. Thanks for this.",
+		"• Updated BigWigs profile and add a BigWigs Heal Profile.",
+		"• Some skin updates.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• The Heal Layout needs probably some love. Give me feedback ;)",
-		-- "• ''",
+		"• Please have a look at the changelog on Tukui.org for the code improvements.",
+		"• If you apply the BigWigs profile, the old gets deleted. Must still find out why?!",
 }
 
 local function ModifiedString(string)

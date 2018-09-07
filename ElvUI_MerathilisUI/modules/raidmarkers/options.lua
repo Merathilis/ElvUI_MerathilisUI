@@ -16,7 +16,7 @@ local function RaidMarkers()
 	E.Options.args.mui.args.modules.args.raidmarkers = {
 		type = "group",
 		name = RMA.modName or RMA:GetName(),
-		order = 17,
+		order = 19,
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		args = {
 			name = {

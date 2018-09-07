@@ -947,6 +947,14 @@ function S:UpdateRecapButton()
 	end
 end
 
+--[[ HOOK TO THE UIWIDGET TYPES ]]
+function MERS:ReskinSkinTextWithStateWidget(widgetFrame)
+	local text = widgetFrame.Text;
+	if text then
+		text:SetTextColor(1, 1, 1)
+	end
+end
+
 -- hook the skin functions
 hooksecurefunc(S, "HandleEditBox", MERS.ReskinEditBox)
 hooksecurefunc(S, "HandleDropDownBox", MERS.ReskinDropDownBox)
@@ -956,6 +964,8 @@ hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
+-- New Widget Types
+hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
 -- keep the colors updated
 local function updateMedia()

@@ -14,7 +14,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
-		order = 15,
+		order = 20,
 		type = "group",
 		name = MUF.modName,
 		childGroups = "tab",

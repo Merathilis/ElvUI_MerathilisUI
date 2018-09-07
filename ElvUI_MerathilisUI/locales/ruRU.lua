@@ -290,8 +290,6 @@ L["Hide Coordinates"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
-L["Garrison/OrderHall Buttons Style"] = true
-L["Change the look of the Orderhall/Garrison Button"] = true
 L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
@@ -489,3 +487,9 @@ L["In the List below, you can disable some annoying error texts, like |cffff7d0a
 L["Filter Errors"] = true
 L["Choose specific errors from the list below to hide/ignore."] = true
 L["Hides all errors regardless of filtering while in combat."] = true
+
+-- Compatibility
+L["has |cffff2020disabled|r "] = true
+L[" from "] = true
+L[" due to incompatiblities."] = true
+L[" due to incompatiblities with: "] = true

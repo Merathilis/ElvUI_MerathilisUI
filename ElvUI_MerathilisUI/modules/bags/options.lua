@@ -12,7 +12,7 @@ local function BagTable()
 	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
 		name = MERB.modName,
-		order = 18,
+		order = 19,
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; end,
 		disabled = function() return not E.private.bags.enable end,

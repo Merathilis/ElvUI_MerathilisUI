@@ -290,8 +290,6 @@ L["Hide Coordinates"] = "Verstecke Koordinaten"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
-L["Garrison/OrderHall Buttons Style"] = "Garnision/Ordenshallen Tasten Style"
-L["Change the look of the Orderhall/Garrison Button"] = "Ändert das Aussehen der Garnision/Ordenshallen Taste"
 L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
@@ -488,3 +486,9 @@ L["In the List below, you can disable some annoying error texts, like |cffff7d0a
 L["Filter Errors"] = "Fehler filtern"
 L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
 L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."
+
+-- Compatibility
+L["has |cffff2020disabled|r "] = "deaktiviert "
+L[" from "] = " von "
+L[" due to incompatiblities."] = " wegen inkompatibilität."
+L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "

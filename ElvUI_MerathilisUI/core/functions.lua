@@ -33,6 +33,12 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
+function MER:SetupProfileCallbacks()
+	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateRegisteredDBs")
+	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateRegisteredDBs")
+	E.data.RegisterCallback(self, "OnProfileReset", "UpdateRegisteredDBs")
+end
+
 function MER:MismatchText()
 	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text
@@ -89,8 +95,37 @@ function MER:BagSearch(itemId)
 	end
 end
 
-local Unusable
+-- Whiro's code magic
+function MER:UpdateRegisteredDBs()
+	if (not MER["RegisteredDBs"]) then
+		return
+	end
 
+	local dbs = MER["RegisteredDBs"]
+
+	for tbl, path in pairs(dbs) do
+		self:UpdateRegisteredDB(tbl, path)
+	end
+end
+
+function MER:UpdateRegisteredDB(tbl, path)
+	local path_parts = {strsplit(".", path)}
+	local _db = E.db.mui
+	for _, path_part in ipairs(path_parts) do
+		_db = _db[path_part]
+	end
+	tbl.db = _db
+end
+
+function MER:RegisterDB(tbl, path)
+	if (not MER["RegisteredDBs"]) then
+		MER["RegisteredDBs"] = {}
+	end
+	self:UpdateRegisteredDB(tbl, path)
+	MER["RegisteredDBs"][tbl] = path
+end
+
+local Unusable
 if E.myclass == "DEATHKNIGHT" then
 	Unusable = { -- weapon, armor, dual-wield
 		{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF,LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_DAGGER, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},

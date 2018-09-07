@@ -13,7 +13,7 @@ local function Errors()
 	E.Options.args.mui.args.modules.args.errors = {
 		type = "group",
 		name = ER.modName,
-		order = 24,
+		order = 15,
 		args = {
 			header1 = {
 				type = "header",

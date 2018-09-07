@@ -21,14 +21,8 @@ local function Minimap()
 				name = MER:cOption(L["General"]),
 				guiInline = true,
 				args = {
-					styleButton = {
-						order = 1,
-						type = "toggle",
-						name = L["Garrison/OrderHall Buttons Style"],
-						desc = L["Change the look of the Orderhall/Garrison Button"],
-					},
 					flash = {
-						order = 2,
+						order = 1,
 						type = "toggle",
 						name = L["Blinking Minimap"],
 						desc = L["Enable the blinking animation for new mail or pending invites."],

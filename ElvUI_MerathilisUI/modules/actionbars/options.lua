@@ -11,7 +11,7 @@ local tinsert = table.insert
 
 local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
-		order = 7,
+		order = 10,
 		type = "group",
 		name = MAB.modName,
 		args = {
@@ -66,8 +66,8 @@ local function abTable()
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
-				get = function(info) return E.db.mui.actionbars.microBar[ info[#info] ] end,
-				set = function(info, value) E.db.mui.actionbars.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL");end,
+				get = function(info) return E.db.mui.microBar[ info[#info] ] end,
+				set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL");end,
 				args = {
 					enable = {
 						order = 1,
@@ -82,42 +82,42 @@ local function abTable()
 						name = L["Scale"],
 						isPercent = true,
 						min = 0.5, max = 1.0, step = 0.01,
-						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
+						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					hideInCombat = {
 						order = 3,
 						type = "toggle",
 						name = L["Hide In Combat"],
-						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
+						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					hideInOrderHall = {
 						order = 4,
 						type = "toggle",
 						name = L["Hide In Orderhall"],
-						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
+						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					text = {
 						order = 5,
 						type = "group",
 						name = MER:cOption(L["Text"]),
 						guiInline = true,
-						disabled = function() return not E.db.mui.actionbars.microBar.enable end,
+						disabled = function() return not E.db.mui.microBar.enable end,
 						args = {
 							friends = {
 								order = 1,
 								type = "toggle",
 								name = FRIENDS,
 								desc = L["Show/Hide the friend text on MicroBar."],
-								get = function(info) return E.db.mui.actionbars.microBar.text.friends end,
-								set = function(info, value) E.db.mui.actionbars.microBar.text.friends = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+								get = function(info) return E.db.mui.microBar.text.friends end,
+								set = function(info, value) E.db.mui.microBar.text.friends = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 							},
 							guild = {
 								order = 2,
 								type = "toggle",
 								name = GUILD,
 								desc = L["Show/Hide the guild text on MicroBar."],
-								get = function(info) return E.db.mui.actionbars.microBar.text.guild end,
-								set = function(info, value) E.db.mui.actionbars.microBar.text.guild = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+								get = function(info) return E.db.mui.microBar.text.guild end,
+								set = function(info, value) E.db.mui.microBar.text.guild = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 							},
 							position = {
 								order = 3,
@@ -127,8 +127,8 @@ local function abTable()
 									["TOP"] = L["Top"],
 									["BOTTOM"] = L["Bottom"],
 								},
-								get = function(info) return E.db.mui.actionbars.microBar.text.position end,
-								set = function(info, value) E.db.mui.actionbars.microBar.text.position = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+								get = function(info) return E.db.mui.microBar.text.position end,
+								set = function(info, value) E.db.mui.microBar.text.position = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 							},
 						},
 					},

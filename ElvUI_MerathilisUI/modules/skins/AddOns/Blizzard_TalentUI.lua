@@ -39,7 +39,7 @@ local function styleTalents()
 		bu.specIcon:SetPoint("LEFT", bu, "LEFT", 15, 0)
 
 		bu.SelectedTexture = bu:CreateTexture(nil, "BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b)
+		bu.SelectedTexture:SetColorTexture(r, g, b, .5)
 	end
 
 	-- Talents
@@ -48,14 +48,13 @@ local function styleTalents()
 			for j = 1, NUM_TALENT_COLUMNS do
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 
-				if button.bg.backdrop then
-					button.bg.backdrop:Hide()
-				end
-				MERS:CreateBD(button.bg, .25)
+				if button.bg.backdrop then button.bg.backdrop:Hide() end
+
+				MERS:CreateGradient(button.bg)
 
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
-					button.bg.SelectedTexture:SetColorTexture(r, g, b)
+					button.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 				else
 					button.bg.SelectedTexture:Hide()
 				end
@@ -205,7 +204,7 @@ local function styleTalents()
 
 				bu.selectedTexture = bu:CreateTexture(nil, "ARTWORK")
 				bu.selectedTexture:SetInside(bu)
-				bu.selectedTexture:SetColorTexture(r, g, b)
+				bu.selectedTexture:SetColorTexture(r, g, b, .5)
 				bu.selectedTexture:SetShown(bu.Selected:IsShown())
 
 				hooksecurefunc(bu, "Update", function(selectedHere)

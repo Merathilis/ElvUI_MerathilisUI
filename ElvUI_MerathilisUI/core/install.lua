@@ -234,13 +234,10 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = -5
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 144
+	E.db["general"]["minimap"]["size"] = 146
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Expressway"
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		E.db["general"]["minimap"]["benikuiStyle"] = false
-	end
 	E.db["general"]["loginmessage"] = false
 	E.db["general"]["stickyFrames"] = false
 	E.db["general"]["vendorGrays"] = true
@@ -377,6 +374,9 @@ function MER:SetupLayout()
 	E.db["nameplates"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
 	E.db["nameplates"]["cooldown"]["fonts"]["fontSize"] = 9
 
+	-- CutawayHealth
+	E.db["nameplates"]["cutawayHealth"] = true
+
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
 	--]]----------------------------------
@@ -486,7 +486,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
 	MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -19, 50)
-	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 51)
+	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -27, 50)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
 	-- Apply BenikUI
