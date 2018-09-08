@@ -425,7 +425,7 @@ function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 
 			if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
-				PlaySoundFile([[Sound\Interface\RaidWarning.wav]])
+				PlaySoundFile([[Sound\Interface\RaidWarning.ogg]])
 			end
 		end
 	end
