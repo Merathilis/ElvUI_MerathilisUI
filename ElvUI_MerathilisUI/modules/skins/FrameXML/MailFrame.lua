@@ -69,6 +69,9 @@ local function styleMail()
 		select(i, SendMailFrame:GetRegions()):Hide()
 	end
 
+	MERS:SkinRadioButton(SendMailSendMoneyButton)
+	MERS:SkinRadioButton(SendMailCODButton)
+
 	select(4, SendMailScrollFrame:GetRegions()):Hide()
 	_G["SendMailBodyEditBox"]:SetPoint("TOPLEFT", 2, -2)
 	_G["SendMailBodyEditBox"]:SetWidth(278)
