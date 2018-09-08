@@ -62,30 +62,12 @@ end
 function COMP:BenikUICompatibility()
 	local BUI = E:GetModule("BenikUI")
 
-	if (Disable(E.db.benikui['general'], 'benikuiStyle')) then
-		self:Print(BUI.Title, "BenikUI Style")
-	end
-
 	if (Disable(E.db.benikuiDatabars['experience']) or Disable(E.db.benikuiDatabars['reputation']) or Disable(E.db.benikuiDatabars['azerite']) or Disable(E.db.benikuiDatabars['honor'])) then
 		self:Print(BUI.Title, "Databars")
 	end
 
 	if (Disable(E.db.benikui['datatexts']['chat'])) then
 		self:Print(BUI.Title, "Chat and Middle DataTexts");
-	end
-
-	if (Disable(E.db.mui["datatexts"]["rightChatTabDatatextPanel"]) or Disable(E.db.mui["datatexts"]["middle"])) then -- Disable my Datatexts
-		self:ModulePrint(BUI.Title, "MerathilisUI Datatexts")
-	end
-
-	local res = {};
-	for i = 1, 10 do
-		res[i] = Disable(E.db.benikui['actionbars']['style'], 'bar'..i);
-	end
-	res[11] = Disable(E.db.benikui['actionbars']['style'], 'petbar');
-	res[12] = Disable(E.db.benikui['actionbars']['style'], 'stancebar');
-	if (tContains(res, true)) then
-		self:Print(BUI.Title, "Actionbar Styles");
 	end
 end
 
