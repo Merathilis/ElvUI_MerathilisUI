@@ -1,7 +1,7 @@
 ## Interface: 80000
 ## Author: Merathilis
 ## Credits: Benik, Blazeflack, Azilroka, Simpy, Whiro, Darth Predator, fgprodigal, Elv & all AddOn Authors who inspired me.
-## Version: 3.38
+## Version: 3.39
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
