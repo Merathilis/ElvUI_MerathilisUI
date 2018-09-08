@@ -59,18 +59,6 @@ function COMP:ModulePrint(addon, module)
 	E.private.mui.comp[addon][module] = true
 end
 
-function COMP:BenikUICompatibility()
-	local BUI = E:GetModule("BenikUI")
-
-	if (Disable(E.db.benikuiDatabars['experience']) or Disable(E.db.benikuiDatabars['reputation']) or Disable(E.db.benikuiDatabars['azerite']) or Disable(E.db.benikuiDatabars['honor'])) then
-		self:Print(BUI.Title, "Databars")
-	end
-
-	if (Disable(E.db.benikui['datatexts']['chat'])) then
-		self:Print(BUI.Title, "Chat and Middle DataTexts");
-	end
-end
-
 function COMP:ProjectAzilrokaCompatibility()
 	if Disable(_G.ProjectAzilrokaDB, "EFL") then
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
@@ -118,7 +106,6 @@ function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
 	COMP.CompatibilityFunctions[addonName] = compatFunc
 end
 
-COMP:RegisterCompatibilityFunction("BUI", "BenikUICompatibility")
 COMP:RegisterCompatibilityFunction("PA", "ProjectAzilrokaCompatibility")
 COMP:RegisterCompatibilityFunction("LP", "LocationPlusCompatibility")
 COMP:RegisterCompatibilityFunction("LL", "LocationLiteCompatibility")
