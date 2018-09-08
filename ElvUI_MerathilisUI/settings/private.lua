@@ -85,6 +85,7 @@ V["muiSkins"] = {
 		["pa"] = true,
 		["po"] = true,
 		["ls"] = true,
+		["dbm"] = true,
 	},
 	["elvuiAddons"] = {
 		-- ["sle"] = true,

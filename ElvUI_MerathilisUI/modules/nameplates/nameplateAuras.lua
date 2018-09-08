@@ -100,7 +100,7 @@ function NA:UpdateAuraIcons(auras)
 			tinsert(auras.auraCache, auras.icons[i])
 			auras.icons[i]:Hide()
 			auras.icons[i] = nil
-		end 
+		end
 	end
 
 	if (maxAuras > numCurrentAuras) then
@@ -132,6 +132,8 @@ end
 
 function NA:RepositionAuras(auras)
 	for i = 1, #auras.icons do
+		auras.icons[i]:ClearAllPoints() -- this probably fix a :SetPoint error if the PLAYER Plate is enabled
+
 		if(auras.side == "LEFT") then
 			if(i == 1) then
 				auras.icons[i]:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")

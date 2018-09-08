@@ -17,16 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Some major code improvements by Whiro. Thanks for this.",
-		"• Updated BigWigs profile and add a BigWigs Heal Profile.",
-		"• Some skin updates.",
+		"• Remove the BenikUI incompatibility checks. Sorry for this.",
+		"• Fixed an error in Enhanced Namplateaura if the Player NamePlate was enabled. #27",
+		"• Comment out the DBM skin for now (again). Will work on it more.",
+		"• Some new skinning function for the MailFrame Checkboxes.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• The Heal Layout needs probably some love. Give me feedback ;)",
-		"• Please have a look at the changelog on Tukui.org for the code improvements.",
-		"• If you apply the BigWigs profile, the old gets deleted. Must still find out why?!",
+		"• Since the BenikUI incompatibility was removed, you should now be able to enable",
+		"  the options again. Big sorry for this.",
+
+		-- "• ''",
 }
 
 local function ModifiedString(string)
@@ -82,7 +84,7 @@ function MER:CreateChangelog()
 	title:Styling()
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
 	title.text:SetPoint("CENTER", title, 0, -1)
-	title.text:SetText("|cffff7d0aMerathilisUI|r - ChangeLog " .. MER.Version)
+	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
