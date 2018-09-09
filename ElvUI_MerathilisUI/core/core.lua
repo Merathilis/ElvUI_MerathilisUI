@@ -108,6 +108,10 @@ function MER:AddMoverCategories()
 	E.ConfigModeLocalizedStrings["MERATHILISUI"] = format("|cffff7d0a%s |r", "MerathilisUI")
 end
 
+function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
+	return GetAddOnEnableState(E.myname, addon) == 2
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
