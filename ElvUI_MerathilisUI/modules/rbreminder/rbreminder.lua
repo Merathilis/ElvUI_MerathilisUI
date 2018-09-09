@@ -49,13 +49,16 @@ RB.ReminderBuffs = {
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
+		264760, -- War-Scroll of Intellect
 	},
 	Stamina = {
-		21562, -- Power Word: Fortitude
 		6307, -- Blood Pact
+		21562, -- Power Word: Fortitude
+		264764, -- War-Scroll of Fortitude
 	},
 	AttackPower = {
 		6673, -- Battle Shout
+		264761, -- War-Scroll of Battle
 	},
 }
 
