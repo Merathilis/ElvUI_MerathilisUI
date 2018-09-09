@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule("mUIMinimap")
+local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
 --Lua functions
@@ -109,7 +110,7 @@ function MM:CollectMinimapButtons(parent)
 end
 
 function MM:ButtonCollectorInit()
-	if E.db.mui.maps.minimap.buttonCollector.enable ~= true then return end
+	if E.db.mui.maps.minimap.buttonCollector.enable ~= true or (COMP.PA and _G.ProjectAzilroka.db.SMB == true) then return end
 
 	local MBCF = CreateFrame("Frame", "MinimapButtonCollectFrame", Minimap)
 	MBCF:SetFrameStrata("HIGH")

@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule("mUIMinimap")
+local COMP = MER:GetModule("mUICompatibility")
 
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
@@ -107,6 +108,7 @@ local function Minimap()
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.buttonCollector[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.buttonCollector[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SMB == true) end,
 				args = {
 					enable = {
 						order = 1,

@@ -59,6 +59,11 @@ function COMP:ProjectAzilrokaCompatibility()
 	if Disable(_G.ProjectAzilrokaDB, "EFL") then
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
 	end
+
+	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true) then
+		Disable(E.db.mui["maps"]["minimap"]["buttonCollector"])
+		self:ModulePrint("ProjectAzilroka", "Button Collector")
+	end
 end
 
 function COMP:LocationPlusCompatibility()
