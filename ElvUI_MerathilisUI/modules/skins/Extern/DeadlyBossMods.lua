@@ -12,10 +12,10 @@ if not COMP.AS then return end
 local AS = unpack(AddOnSkins)
 
 local function DbmDecor(event)
-	--if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.dbm then return end
+	if E.private.muiSkins.addonSkins.dbm ~= true then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
-		--if DBM.Options.DontShowRangeFrame and not forceshow then return end
+		if DBM.Options.DontShowRangeFrame and not forceshow then return end
 
 		if not DBMRangeCheckRadar.IsStyled then
 			DBMRangeCheckRadar:Styling()
@@ -26,6 +26,7 @@ local function DbmDecor(event)
 		if not DBMRangeCheck.IsStyled then
 			DBMRangeCheck:SetTemplate('Transparent')
 			DBMRangeCheck:Styling()
+
 			DBMRangeCheck.IsStyled = true
 		end
 	end
