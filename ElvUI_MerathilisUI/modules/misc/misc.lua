@@ -204,7 +204,6 @@ function MI:Initialize()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
 	self:LoadMoverTransparancy()
-	self:LoadsumAuctions()
 	self:LoadQuestReward()
 	self:LoadnameHover()
 end
