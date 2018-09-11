@@ -2259,7 +2259,7 @@ MER.installTable = {
 		[9] = ADDONS,
 		[10] = L["Installation Complete"],
 	},
-	StepTitlesColorSelected = RAID_CLASS_COLORS[E.myclass],
+	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,
 	StepTitleButtonWidth = 200,
 	StepTitleTextJustification = "CENTER",
