@@ -13,6 +13,7 @@ local GetAchievementNumCriteria = GetAchievementNumCriteria
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleAchievement()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
@@ -165,11 +166,10 @@ local function styleAchievement()
 	end
 
 	for i = 1, 20 do
-		_G["AchievementFrameStatsContainerButton"..i.."BG"]:Hide()
-		_G["AchievementFrameStatsContainerButton"..i.."BG"].Show = MER.dummy
-		_G["AchievementFrameStatsContainerButton"..i.."HeaderLeft"]:SetAlpha(0)
-		_G["AchievementFrameStatsContainerButton"..i.."HeaderMiddle"]:SetAlpha(0)
-		_G["AchievementFrameStatsContainerButton"..i.."HeaderRight"]:SetAlpha(0)
+		local bu = _G["AchievementFrameStatsContainerButton"..i]
+		bu:StripTextures()
+		bu:GetHighlightTexture():SetColorTexture(r, g, b, .2)
+		bu:GetHighlightTexture():SetBlendMode("BLEND")
 	end
 
 	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -5)
