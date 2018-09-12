@@ -5,8 +5,11 @@ local S = E:GetModule('Skins')
 --Cache global variables
 --Lua functions
 local _G = _G
-
+local select = select
 --WoW API / Variables
+local NUM_RAID_GROUPS = NUM_RAID_GROUPS
+local MAX_RAID_MEMBERS = MAX_RAID_MEMBERS
+local MEMBERS_PER_RAID_GROUP = MEMBERS_PER_RAID_GROUP
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
