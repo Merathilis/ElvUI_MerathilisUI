@@ -104,7 +104,7 @@ function NA:UpdateAuraIcons(auras)
 	end
 
 	if (maxAuras > numCurrentAuras) then
-		for i=1, maxAuras do
+		for i = 1, maxAuras do
 			auras.icons[i] = tremove(auras.auraCache)
 			if (not auras.icons[i]) then
 				auras.icons[i] =  NP:CreateAuraIcon(auras)
@@ -131,6 +131,7 @@ function NA:ConstructElement_Auras(frame, maxAuras, size)
 end
 
 function NA:RepositionAuras(auras)
+	local spacing = auras.db.spacing or 1
 	for i, icon in ipairs(auras.icons) do
 		icon:ClearAllPoints() -- this probably fix a :SetPoint error if the PLAYER Plate is enabled
 
@@ -138,13 +139,13 @@ function NA:RepositionAuras(auras)
 			if(i == 1) then
 				icon:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")
 			else
-				icon:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", E.Border + E.Spacing*3, 0)
+				icon:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", spacing, 0)
 			end
 		else
 			if(i == 1) then
 				icon:SetPoint("BOTTOMRIGHT", auras, "BOTTOMRIGHT")
 			else
-				icon:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -(E.Border + E.Spacing*3), 0)
+				icon:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -spacing, 0)
 			end
 		end
 	end
