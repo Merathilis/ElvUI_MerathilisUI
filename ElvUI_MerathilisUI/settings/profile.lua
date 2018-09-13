@@ -59,6 +59,7 @@ P["mui"] = {
 
 	["notification"] = {
 		["enable"] = true,
+		["noSound"] = false,
 		["mail"] = true,
 		["vignette"] = true,
 		["invites"] = true,

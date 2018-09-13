@@ -154,6 +154,7 @@ L["Enable Vignette"] = true
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = true
 L["Enable Invites"] = true
 L["Enable Guild Events"] = true
+L["No Sounds"] = true
 
 -- DataTexts
 L["ChatTab Datatext Panel"] = true

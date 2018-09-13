@@ -9,52 +9,53 @@ local function Noticications()
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(NF.modName),
-				order = 1
-			},
 			enable = {
 				order = 1,
 				type = "toggle",
 				name = L["Enable"],
 			},
+			noSound = {
+				order = 2,
+				type = "toggle",
+				name = L["No Sounds"],
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
+			header1 = {
+				order = 5,
+				name = MER:cOption(NF.modName),
+				type = "header",
+			},
 			desc = {
-				order = 3,
+				order = 6,
 				type = "description",
 				fontSize = "small",
 				name = L["Here you can enable/disable the different notification types."],
 				disabled = function() return not E.db.mui.notification.enable end,
-				hidden = function() return not E.db.mui.notification.enable end,
 			},
 			mail = {
-				order = 4,
+				order = 7,
 				type = "toggle",
 				name = L["Enable Mail"],
 				disabled = function() return not E.db.mui.notification.enable end,
-				hidden = function() return not E.db.mui.notification.enable end,
 			},
 			vignette = {
-				order = 5,
+				order = 8,
 				type = "toggle",
 				name = L["Enable Vignette"],
 				desc = L["If a Rar Mob or a treasure gets spotted on the minimap."],
 				disabled = function() return not E.db.mui.notification.enable end,
-				hidden = function() return not E.db.mui.notification.enable end,
 			},
 			invites = {
-				order = 6,
+				order = 9,
 				type = "toggle",
 				name = L["Enable Invites"],
 				disabled = function() return not E.db.mui.notification.enable end,
-				hidden = function() return not E.db.mui.notification.enable end,
 			},
 			guildEvents = {
-				order = 7,
+				order = 10,
 				type = "toggle",
 				name = L["Enable Guild Events"],
 				disabled = function() return not E.db.mui.notification.enable end,
-				hidden = function() return not E.db.mui.notification.enable end,
 			},
 		},
 	}
