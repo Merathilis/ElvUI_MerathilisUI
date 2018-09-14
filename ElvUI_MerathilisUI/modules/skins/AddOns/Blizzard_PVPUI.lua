@@ -135,11 +135,38 @@ local function stylePvP()
 		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints(bu.tex)
 
-		bu.Icon:SetTexCoord(.08, .92, .08, .92)
+		bu.Icon:SetTexCoord(unpack(E.TexCoords))
 		bu.Icon.bg = MERS:CreateBG(bu.Icon)
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
 		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
+
+	local rewardIcon = HonorFrame.ConquestBar.Reward.Icon
+	if not rewardIcon.bg then
+		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
+		rewardIcon.bg:SetOutside(rewardIcon)
+	end
+
+	-- Credits Azilroka
+	hooksecurefunc(HonorFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
+		local Quality
+		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+				break;
+			end
+			if HaveQuestRewardData(questID) then
+				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
+				Quality = select(3, GetItemInfo(itemID))
+			else
+				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+			end
+		end
+		if Quality then
+			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+		else
+			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		end
+	end)
 
 	-- Rated - ConquestFrame
 	local ConquestFrame = _G["ConquestFrame"]
@@ -167,7 +194,32 @@ local function stylePvP()
 		end
 	end
 
-	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
+	local rewardIcon = ConquestFrame.ConquestBar.Reward.Icon
+	if not rewardIcon.bg then
+		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
+		rewardIcon.bg:SetOutside(rewardIcon)
+	end
+
+	-- Credits Azilroka
+	hooksecurefunc(ConquestFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
+		local Quality
+		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+				break;
+			end
+			if HaveQuestRewardData(questID) then
+				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
+				Quality = select(3, GetItemInfo(itemID))
+			else
+				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+			end
+		end
+		if Quality then
+			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+		else
+			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)
