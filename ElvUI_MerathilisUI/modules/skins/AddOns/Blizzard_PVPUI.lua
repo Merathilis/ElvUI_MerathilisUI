@@ -99,10 +99,8 @@ local function stylePvP()
 		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
-		if reward then
-			reward.Border:Hide()
-			MERS:ReskinIcon(reward.Icon)
-		end
+		reward.Border:Hide()
+		MERS:CropIcon(reward.Icon, reward)
 	end
 
 	-- Honor frame specific
@@ -188,10 +186,8 @@ local function stylePvP()
 		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints()
 
-		if reward then
-			reward.Border:Hide()
-			MERS:ReskinIcon(reward.Icon)
-		end
+		reward.Border:Hide()
+		MERS:CropIcon(reward.Icon, reward)
 	end
 
 	local rewardIcon = ConquestFrame.ConquestBar.Reward.Icon
