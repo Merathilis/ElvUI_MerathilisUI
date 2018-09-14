@@ -20,11 +20,14 @@ local function styleIslandsPartyPose()
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
 	MERS:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)
 
+	IslandsPartyPoseFrame.Topper:Hide()
+	IslandsPartyPoseFrame.Background:Hide()
+
 	local rewardFrame = IslandsPartyPoseFrame.RewardAnimations.RewardFrame
 	local bg = MERS:CreateBDFrame(rewardFrame)
 	bg:SetPoint("TOPLEFT", -5, 5)
 	bg:SetPoint("BOTTOMRIGHT", rewardFrame.NameFrame, 0, -5)
-	MERS:CreateSD(bg)
+
 	rewardFrame.NameFrame:SetAlpha(0)
 	rewardFrame.IconBorder:SetAlpha(0)
 	rewardFrame.Icon:SetTexCoord(unpack(E.TexCoords))
