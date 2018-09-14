@@ -42,4 +42,5 @@
 	<Script file="Blizzard_TradeSkillUI.lua"/>
 	<Script file="Blizzard_TrainerUI.lua"/>
 	<Script file="Blizzard_WarboardUI.lua"/>
+	<Script file="Blizzard_WarfrontPartyPose.lua"/>
 </Ui>

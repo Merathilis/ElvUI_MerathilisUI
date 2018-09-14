@@ -59,6 +59,7 @@ P["mui"] = {
 
 	["notification"] = {
 		["enable"] = true,
+		["noSound"] = false,
 		["mail"] = true,
 		["vignette"] = true,
 		["invites"] = true,
@@ -326,9 +327,9 @@ P["mui"] = {
 	},
 
 	["raidBuffs"] = {
-		["enable"] = false,
+		["enable"] = true,
 		["visibility"] = "INPARTY",
-		["class"] = false,
+		["class"] = true,
 		["alpha"] = 0.3,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},

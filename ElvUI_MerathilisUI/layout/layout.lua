@@ -388,19 +388,17 @@ function MERL:ShadowOverlay()
 	-- Based on ncShadow
 	if E.db.mui.general.shadowOverlay ~= true then return end
 
-	local f = CreateFrame("Frame", MER.Title.."ShadowBackground")
-	f:SetPoint("TOPLEFT")
-	f:SetPoint("BOTTOMRIGHT")
-	f:SetFrameLevel(0)
-	f:SetFrameStrata("BACKGROUND")
+	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
+	self.f:SetPoint("TOPLEFT")
+	self.f:SetPoint("BOTTOMRIGHT")
+	self.f:SetFrameLevel(0)
+	self.f:SetFrameStrata("BACKGROUND")
 
-	f.tex = f:CreateTexture()
-	f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
-	f.tex:SetAllPoints(f)
+	self.f.tex = self.f:CreateTexture()
+	self.f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
+	self.f.tex:SetAllPoints(self.f)
 
-	f:SetAlpha(0.7)
-
-	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self.f:SetAlpha(0.7)
 end
 
 function MERL:ChatButtonHolder()
@@ -416,7 +414,7 @@ function MERL:ChatButtonHolder()
 		ChatButtonHolder:SetSize(27, LeftChatPanel:GetHeight()-2)
 
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
-		ChatButtonHolder.bg:Styling(true, true, false, 8, 8, 1)
+		ChatButtonHolder.bg:Styling(false, false, false, 8, 8, 1)
 
 		E:DisableMover("SocialMenuMover")
 	end

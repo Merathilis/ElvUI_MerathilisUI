@@ -154,6 +154,7 @@ L["Enable Vignette"] = "Aktiviere Vignette"
 L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
+L["No Sounds"] = "Keine Sounds"
 
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"

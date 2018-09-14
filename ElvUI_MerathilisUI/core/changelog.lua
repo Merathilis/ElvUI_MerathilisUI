@@ -17,17 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove the BenikUI incompatibility checks. Sorry for this.",
-		"• Fixed an error in Enhanced Namplateaura if the Player NamePlate was enabled. #27",
-		"• Comment out the DBM skin for now (again). Will work on it more.",
-		"• Some new skinning function for the MailFrame Checkboxes.",
+		"• Code updates to NamePlate Auras.",
+		"• Added WarScrolls to the RaidBuffs.",
+		"• Update ProjectAzilroka compatibily.",
+		"• Added back DBM skin. I only touch the Range/Info Frame.",
+		"• Fixed an error in the RaidUI skin.",
+		"• Added back the install steps for the AddOns.",
+		"• A lot of skin updates.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• Since the BenikUI incompatibility was removed, you should now be able to enable",
-		"  the options again. Big sorry for this.",
-
 		-- "• ''",
 }
 

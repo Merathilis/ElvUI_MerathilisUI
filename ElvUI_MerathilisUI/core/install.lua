@@ -287,8 +287,8 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["durationFontSize"] = 16
 
 	if E.db.mui.general.panels then
-		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -17)
-		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -9, -155)
+		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -17)
+		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -155)
 	else
 		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -3)
 		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -120)
@@ -416,6 +416,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -15)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -20)
+	MER:SetMoverPosition("MER_RaidBuffReminderMover", "TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -489,14 +490,6 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -27, 50)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
-	-- Apply BenikUI
-	if IsAddOnLoaded("ElvUI_BenikUI") then
-		MER:LoadBenikUIProfile()
-	end
-	-- Apply S&L
-	if IsAddOnLoaded("ElvUI_SLE") then
-		MER:LoadShadowandLightProfile()
-	end
 	-- Masque
 	if IsAddOnLoaded("Masque") then
 		MER:LoadMasqueProfile()
@@ -1351,7 +1344,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
 		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 220)
 		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 209)
-		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -52, 370)
+		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT",-50,-330)
 		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
 	elseif layout == "healer" then
@@ -2019,7 +2012,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
 		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 95)
 		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 84)
-		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -52, 370)
+		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT",-50,-330)
 		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
 	end
@@ -2080,6 +2073,57 @@ function MER:SetupDts()
 
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
+end
+
+local addonNames = {}
+local profilesFailed = format("|cff00c0fa%s |r", L["MerathilisUI didn't find any supported addons for profile creation"])
+
+MER.isInstallerRunning = false
+
+function MER:SetupAddOns()
+	MER.isInstallerRunning = true -- don't print when applying profile that doesn't exist
+
+	--AddOnSkins
+	if MER:IsAddOnEnabled("AddOnSkins") then
+		MER:LoadAddOnSkinsProfile()
+		tinsert(addonNames, "AddOnSkins")
+	end
+
+	-- Shadow&Light
+	if MER:IsAddOnEnabled("ElvUI_SLE") then
+		MER:LoadShadowandLightProfile()
+		tinsert(addonNames, "ElvUI_SLE")
+	end
+
+	-- ProjectAzilroka
+	if MER:IsAddOnEnabled("ProjectAzilroka") then
+		MER:LoadPAProfile()
+		tinsert(addonNames, "ProjectAzilroka")
+	end
+
+	-- BenikUI
+	if MER:IsAddOnEnabled("ElvUI_BenikUI") then
+		MER:LoadBenikUIProfile()
+		tinsert(addonNames, "ElvUI_BenikUI")
+	end
+
+	if checkTable(addonNames) ~= nil then
+		local profileString = format("|cfffff400%s |r", L["MerathilisUI successfully created and applied profile(s) for:"].."\n")
+
+		tsort(addonNames, function(a, b) return a < b end)
+		local names = tconcat(addonNames, ", ")
+		profileString = profileString..names
+
+		PluginInstallFrame.Desc4:SetText(profileString..'.')
+	else
+		PluginInstallFrame.Desc4:SetText(profilesFailed)
+	end
+
+	PluginInstallStepComplete.message = MER.Title..L['Addons Set']
+	PluginInstallStepComplete:Show()
+	twipe(addonNames)
+	E:UpdateAll(true)
+
 end
 
 local function InstallComplete()
@@ -2177,15 +2221,24 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
 		[9] = function()
+			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
+			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to ElvUI Plugins"])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
+			PluginInstallFrame.Desc3:SetText(L["Importance: |cffD3CF00Medium|r"])
+			PluginInstallFrame.Option1:Show()
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
+			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
+		end,
+		[10] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() InstallComplete() end)
-			PluginInstallFrame.Option1:SetText(L["Finished"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end)
+			PluginInstallFrame.Option1:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
 			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end)
-			PluginInstallFrame.Option2:SetText(L["|cffff7d0aMerathilisUI|r Discord"])
+			PluginInstallFrame.Option2:SetScript("OnClick", function() InstallComplete() end)
+			PluginInstallFrame.Option2:SetText(L["Finished"])
 
 			if InstallStepComplete then
 				InstallStepComplete.message = MER.Title..L["Installed"]
@@ -2203,9 +2256,10 @@ MER.installTable = {
 		[6] = L["DataTexts"],
 		[7] = L["ActionBars"],
 		[8] = L["UnitFrames"],
-		[9] = L["Installation Complete"],
+		[9] = ADDONS,
+		[10] = L["Installation Complete"],
 	},
-	StepTitlesColorSelected = RAID_CLASS_COLORS[E.myclass],
+	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,
 	StepTitleButtonWidth = 200,
 	StepTitleTextJustification = "CENTER",

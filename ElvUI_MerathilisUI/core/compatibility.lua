@@ -11,18 +11,14 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function COMP:IsAddOnEnabled(addon) -- Credit: Azilroka
-	return GetAddOnEnableState(E.myname, addon) == 2
-end
-
 -- Check other addons
-COMP.SLE = COMP:IsAddOnEnabled('ElvUI_SLE')
-COMP.PA = COMP:IsAddOnEnabled('ProjectAzilroka')
-COMP.LP = COMP:IsAddOnEnabled('ElvUI_LocPlus')
-COMP.LL = COMP:IsAddOnEnabled('ElvUI_LocLite')
-COMP.AS = COMP:IsAddOnEnabled('AddOnSkins')
-COMP.BUI = COMP:IsAddOnEnabled("ElvUI_BenikUI")
-COMP.CUI = COMP:IsAddOnEnabled("ElvUI_ChaoticUI")
+COMP.SLE = MER:IsAddOnEnabled('ElvUI_SLE')
+COMP.PA = MER:IsAddOnEnabled("ProjectAzilroka")
+COMP.LP = MER:IsAddOnEnabled("ElvUI_LocPlus")
+COMP.LL = MER:IsAddOnEnabled("ElvUI_LocLite")
+COMP.AS = MER:IsAddOnEnabled("AddOnSkins")
+COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
+COMP.CUI = MER:IsAddOnEnabled("ElvUI_ChaoticUI")
 
 local function Disable(tbl, key)
 	key = key or 'enable'
@@ -62,6 +58,11 @@ end
 function COMP:ProjectAzilrokaCompatibility()
 	if Disable(_G.ProjectAzilrokaDB, "EFL") then
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
+	end
+
+	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true) then
+		Disable(E.db.mui["maps"]["minimap"]["buttonCollector"])
+		self:ModulePrint("ProjectAzilroka", "Button Collector")
 	end
 end
 

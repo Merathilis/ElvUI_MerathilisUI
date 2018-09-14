@@ -23,8 +23,8 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura.icon:SetTexture(icon)
 
 		-- Size
-		local width = 20
-		local height = 20
+		local width = aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride or 18
+		local height = aura:GetParent().db.baseHeight or 18
 
 		if spell and spell['width'] then
 			width = spell['width']
@@ -48,6 +48,7 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			aura.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		end
 
+		aura.spellID = spellID
 		aura:SetWidth(width)
 		aura:SetHeight(height)
 
@@ -84,8 +85,8 @@ function NA:UpdateAuraIcons(auras)
 		auras.auraCache = {}
 	end
 
-	local width = 20
-	local height = 20
+	local width = auras.db.widthOverride > 0 and auras.db.widthOverride or 18
+	local height = auras.db.baseHeight or 18
 
 	if E.global['nameplate']['spellListDefault']['width'] then
 		width = E.global['nameplate']['spellListDefault']['width']
@@ -111,9 +112,10 @@ function NA:UpdateAuraIcons(auras)
 				auras.icons[i]:SetParent(auras)
 				auras.icons[i]:Hide()
 			end
+			local spell = E.global['nameplate']['spellList'][auras.icons[i].spellID]
 			auras.icons[i]:ClearAllPoints()
-			auras.icons[i]:SetHeight(height)
-			auras.icons[i]:SetWidth(width)
+			auras.icons[i]:SetHeight((spell and spell['height']) or height)
+			auras.icons[i]:SetWidth((spell and spell['width']) or width)
 		end
 	end
 
@@ -131,20 +133,20 @@ function NA:ConstructElement_Auras(frame, maxAuras, size)
 end
 
 function NA:RepositionAuras(auras)
-	for i = 1, #auras.icons do
-		auras.icons[i]:ClearAllPoints() -- this probably fix a :SetPoint error if the PLAYER Plate is enabled
+	for i, icon in ipairs(auras.icons) do
+		icon:ClearAllPoints() -- this probably fix a :SetPoint error if the PLAYER Plate is enabled
 
 		if(auras.side == "LEFT") then
 			if(i == 1) then
-				auras.icons[i]:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")
+				icon:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")
 			else
-				auras.icons[i]:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", E.Border + E.Spacing*3, 0)
+				icon:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", E.Border + E.Spacing*3, 0)
 			end
 		else
 			if(i == 1) then
-				auras.icons[i]:SetPoint("BOTTOMRIGHT", auras, "BOTTOMRIGHT")
+				icon:SetPoint("BOTTOMRIGHT", auras, "BOTTOMRIGHT")
 			else
-				auras.icons[i]:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -(E.Border + E.Spacing*3), 0)
+				icon:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -(E.Border + E.Spacing*3), 0)
 			end
 		end
 	end
@@ -156,7 +158,7 @@ function NA:UpdateAuraSet(auras)
 end
 
 function NA:UpdateHeight(auras)
-	local height = 20
+	local height = auras.db.baseHeight or 18
 	for i, icon in ipairs(auras.icons) do
 		height = max(height, icon:GetHeight())
 	end

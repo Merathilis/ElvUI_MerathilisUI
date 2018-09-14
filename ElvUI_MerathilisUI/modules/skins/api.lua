@@ -889,7 +889,7 @@ function MERS:SkinRadioButton(button)
 
 	button:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\RadioCircleChecked")
 	button:GetHighlightTexture():SetTexCoord(0, 1, 0, 1)
-	button:GetHighlightTexture():SetVertexColor(0, 0.44, .87, 1)
+	button:GetHighlightTexture():SetVertexColor(0, 192, 250, 1)
 
 	button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
 	button:GetNormalTexture():SetOutside()
@@ -901,7 +901,7 @@ function MERS:SkinRadioButton(button)
 
 		if self:GetChecked() then
 			self:SetDisabledTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
-			self:GetDisabledTexture():SetVertexColor(0, 0.44, .87, 1)
+			self:GetDisabledTexture():SetVertexColor(0, 192, 250, 1)
 		else
 			self:SetDisabledTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
 			self:GetDisabledTexture():SetVertexColor(unpack(E["media"].bordercolor))

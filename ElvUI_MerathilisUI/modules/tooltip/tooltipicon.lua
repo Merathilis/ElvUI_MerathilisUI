@@ -377,7 +377,7 @@ DisplayIconTable.inside = function(data, iconpath)
 	data.insideoldtext = oldtext
 
 	-- show the icon
-	icon:SetFormattedText("%s |T%s:%d|t", oldtext, iconpath, texticonsize)
+	icon:SetFormattedText("%s |T%s:%d:%d:0:0:64:64:4:60:4:60|t", oldtext, iconpath, texticonsize, texticonsize)
 	icon:Show()
 
 	-- adjust height of title if icon size is large - this controls height of whole top line

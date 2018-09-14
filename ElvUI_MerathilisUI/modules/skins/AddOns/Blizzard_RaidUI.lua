@@ -5,48 +5,36 @@ local S = E:GetModule('Skins')
 --Cache global variables
 --Lua functions
 local _G = _G
-
+local select = select
 --WoW API / Variables
+local NUM_RAID_GROUPS = NUM_RAID_GROUPS
+local MAX_RAID_MEMBERS = MAX_RAID_MEMBERS
+local MEMBERS_PER_RAID_GROUP = MEMBERS_PER_RAID_GROUP
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 local function styleRaid()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.raid ~= true or E.private.muiSkins.blizzard.raid ~= true then return end
 
-	local function onEnter(self)
-		if self.class then
-			self:SetBackdropBorderColor(CUSTOM_CLASS_COLORS[self.class].r, CUSTOM_CLASS_COLORS[self.class].g, CUSTOM_CLASS_COLORS[self.class].b)
-		else
-			self:SetBackdropBorderColor(0.5, 0.5, 0.5)
+	for i = 1, NUM_RAID_GROUPS do
+		local group = _G["RaidGroup"..i]
+		group:GetRegions():SetAlpha(0)
+		for j = 1, MEMBERS_PER_RAID_GROUP do
+			local slot = _G["RaidGroup"..i.."Slot"..j]
+			select(1, slot:GetRegions()):SetAlpha(0)
+			select(2, slot:GetRegions()):SetColorTexture(r, g, b, .25)
+			MERS:CreateBDFrame(slot, .2)
 		end
 	end
 
-	local function onLeave(self)
-		self:SetBackdropBorderColor(0, 0, 0)
-	end
-
-	for grpNum = 1, 8 do
-		local name = "RaidGroup"..grpNum
-		local group = _G[name]
-		group:GetRegions():Hide()
-		for slotNum = 1, 5 do
-			local slot = _G[name.."Slot"..slotNum]
-			slot:SetHighlightTexture("")
-			MERS:CreateBD(slot, 0.5)
-
-			slot:HookScript("OnEnter", onEnter)
-			slot:HookScript("OnLeave", onLeave)
-		end
-	end
-
-	for btnNum = 1, 40 do
-		local name = "RaidGroupButton"..btnNum
-		local btn = _G[name]
-		MERS:Reskin(btn, true)
-
-		btn:HookScript("OnEnter", onEnter)
-		btn:HookScript("OnLeave", onLeave)
+	for i = 1, MAX_RAID_MEMBERS do
+		local bu = _G["RaidGroupButton"..i]
+		select(4, bu:GetRegions()):SetAlpha(0)
+		select(5, bu:GetRegions()):SetColorTexture(r, g, b, .2)
+		MERS:CreateBDFrame(bu)
 	end
 end
 

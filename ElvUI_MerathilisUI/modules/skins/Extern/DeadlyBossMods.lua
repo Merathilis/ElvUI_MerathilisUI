@@ -8,40 +8,41 @@ local S = E:GetModule("Skins")
 
 -- WoW API / Variables
 
---if not COMP.AS then return end
+if not COMP.AS then return end
+local AS = unpack(AddOnSkins)
 
 local function DbmDecor(event)
-	--if not E.db.benikui.general.benikuiStyle or not E.db.benikuiSkins.addonSkins.dbm then return end
+	if E.private.muiSkins.addonSkins.dbm ~= true then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
 
-		if DBMRangeCheckRadar then
-			if not DBMRangeCheckRadar.style then
-				DBMRangeCheckRadar:Styling()
-			end
+		if not DBMRangeCheckRadar.IsStyled then
+			DBMRangeCheckRadar:Styling()
+
+			DBMRangeCheckRadar.IsStyled = true
 		end
 
-		if DBMRangeCheck then
+		if not DBMRangeCheck.IsStyled then
 			DBMRangeCheck:SetTemplate('Transparent')
-			if not DBMRangeCheck.style then
-				DBMRangeCheck:Styling()
-			end
+			DBMRangeCheck:Styling()
+
+			DBMRangeCheck.IsStyled = true
 		end
 	end
 
 	local function StyleInfoFrame(self, maxLines, event, ...)
 		if DBM.Options.DontShowInfoFrame and (event or 0) ~= "test" then return end
 
-		if DBMInfoFrame and not DBMInfoFrame.style then
+		if not DBMInfoFrame.IsStyled then
 			DBMInfoFrame:Styling()
+
+			DBMInfoFrame.IsStyled = true
 		end
 	end
 
 	hooksecurefunc(DBM.RangeCheck, 'Show', StyleRangeFrame)
 	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
 end
-if IsAddOnLoaded("AddOnSkins") then
-	local AS = unpack(AddOnSkins)
-	if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 2) end
-end
+
+if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end

@@ -34,9 +34,9 @@ MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 function MER:SetupProfileCallbacks()
-	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateRegisteredDBs")
-	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateRegisteredDBs")
-	E.data.RegisterCallback(self, "OnProfileReset", "UpdateRegisteredDBs")
+	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
+	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
+	E.data.RegisterCallback(self, "OnProfileReset", "UpdateAll")
 end
 
 function MER:MismatchText()
@@ -123,6 +123,15 @@ function MER:RegisterDB(tbl, path)
 	end
 	self:UpdateRegisteredDB(tbl, path)
 	MER["RegisteredDBs"][tbl] = path
+end
+
+function MER:UpdateAll()
+	self:UpdateRegisteredDBs();
+	for _, mod in pairs(self["RegisteredModules"]) do
+		if mod and mod.ForUpdateAll then
+			mod:ForUpdateAll();
+		end	
+	end
 end
 
 local Unusable

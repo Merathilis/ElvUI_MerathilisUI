@@ -35,10 +35,11 @@ RB.ReminderBuffs = {
 		242551,			-- Fel Focus Str, Agi and Int +23, stam + 34
 
 		-- BFA
+		251836,			-- Flask of the Currents (238 agi)
 		251837,			-- Flask of Endless Fathoms (238 int)
 		251838,			-- Flask of the Vast Horizon (357 sta)
 		251839,			-- Flask of the Undertow (238 str)
-		251863,			-- Flask of the Currents (238 agi)
+
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)
@@ -49,13 +50,16 @@ RB.ReminderBuffs = {
 	},
 	Intellect = {
 		1459, -- Arcane Intellect
+		264760, -- War-Scroll of Intellect
 	},
 	Stamina = {
-		21562, -- Power Word: Fortitude
 		6307, -- Blood Pact
+		21562, -- Power Word: Fortitude
+		264764, -- War-Scroll of Fortitude
 	},
 	AttackPower = {
 		6673, -- Battle Shout
+		264761, -- War-Scroll of Battle
 	},
 }
 
@@ -202,7 +206,7 @@ function RB:Initialize()
 	self.frame.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))
 	self.frame.backdrop:SetPoint("BOTTOMRIGHT", E:Scale(1), E:Scale(-1))
 	self.frame.backdrop:SetFrameLevel(self.frame:GetFrameLevel() - 1)
-	self.frame:Point("TOP", E.UIParent, "TOP", 0, -65)
+	self.frame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
 	self.frame.backdrop:Styling()
 	E.FrameLocks[self.frame] = true
 
@@ -233,7 +237,7 @@ function RB:Initialize()
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:SetScript("OnEvent", OnAuraChange)
 
-	E:CreateMover(self.frame, "RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI")
+	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI")
 
 	function RB:ForUpdateAll()
 		RB.db = E.db.mui.raidBuffs

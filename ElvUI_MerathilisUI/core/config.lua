@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local COMP = MER:GetModule("mUICompatibility")
 
 if E.db.mui == nil then E.db.mui = {} end
 
@@ -13,7 +14,13 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
 local function AddOptions()
-	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
+	local name = MER.Title..(": |cFF00c0fa%s|r"):format(MER.Version).." ("..(E.title or "|cfffe7b2cElvUI|r")..format(": |cff99ff33%s|r",E.version)
+	if (COMP.SLE) then
+		local SLE = ElvUI_SLE[1]
+		name = name .. ", "..(SLE.Title or "|cff9482c9Shadow & Light|r")..format(": |cff99ff33%s|r",ElvUI_SLE[1].version)
+	end
+	name = name .. ")"
+	E.Options.args.ElvUI_Header.name = name
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
