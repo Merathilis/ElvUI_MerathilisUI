@@ -16,7 +16,6 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
-	_G["PVPQueueFrame"]:Styling()
 	_G["PVPReadyDialog"]:Styling()
 
 	local PVPQueueFrame = _G["PVPQueueFrame"]
