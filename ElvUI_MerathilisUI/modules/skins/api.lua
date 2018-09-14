@@ -450,15 +450,17 @@ function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 	Frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, (Template == "Transparent" and .8 or 1))
 end
 
-function MERS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
+function MERS:CreateBackdrop(Frame, UseTexture, TextureFile)
 	if Frame.Backdrop then return end
 
-	local Backdrop = CreateFrame("Frame", nil, Frame)
-	Backdrop:SetOutside()
-	MERS:SetTemplate(Backdrop, Template, UseTexture, TextureFile)
+	local Parent = Frame:IsObjectType('Texture') and Frame:GetParent() or Frame
 
-	if Frame:GetFrameLevel() - 1 >= 0 then
-		Backdrop:SetFrameLevel(Frame:GetFrameLevel() - 1)
+	local Backdrop = CreateFrame("Frame", nil, Parent)
+	Backdrop:SetOutside(Frame)
+	MERS:SetTemplate(Backdrop, UseTexture, TextureFile)
+
+	if (Parent:GetFrameLevel() - 1) >= 0 then
+		Backdrop:SetFrameLevel(Parent:GetFrameLevel() - 1)
 	else
 		Backdrop:SetFrameLevel(0)
 	end
