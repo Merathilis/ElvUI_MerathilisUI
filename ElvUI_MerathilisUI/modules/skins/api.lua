@@ -368,110 +368,47 @@ function MERS:CreateGradient(f)
 end
 
 -- Taken from AddOnSkins
-function MERS:SkinTexture(frame)
-	frame:SetTexCoord(unpack(E.TexCoords))
-end
+function MERS:SetTemplate(frame, texture)
+	texture = E["media"].normTex
 
-function MERS:SetTemplate(Frame, Template, UseTexture, TextureFile)
-	local Texture = E["media"].muiBlank
-
-	if UseTexture then
-		Texture = TextureFile or E["media"].muiNormTex
+	if texture then
+		texture = texture or E["media"].normTex
 	end
 
-	Frame:SetBackdrop({
-		bgFile = Texture,
+	frame:SetBackdrop({
+		bgFile = texture,
 		edgeFile = E["media"].muiBlank,
-		tile = false, tileSize = 0, edgeSize = 1,
+		tile = false, tileSize = 0, edgeSize = E.mult,
 		insets = { left = 0, right = 0, top = 0, bottom = 0},
 	})
 
-	if not Frame.isInsetDone then
-		Frame.InsetTop = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetTop:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
-		Frame.InsetTop:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, -1)
-		Frame.InsetTop:Height(1)
-		Frame.InsetTop:SetColorTexture(0, 0, 0)
-		Frame.InsetTop:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetBottom = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, -1)
-		Frame.InsetBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, -1)
-		Frame.InsetBottom:Height(1)
-		Frame.InsetBottom:SetColorTexture(0, 0, 0)
-		Frame.InsetBottom:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetLeft = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetLeft:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
-		Frame.InsetLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, -1)
-		Frame.InsetLeft:Width(1)
-		Frame.InsetLeft:SetColorTexture(0, 0, 0)
-		Frame.InsetLeft:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetRight = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetRight:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, 1)
-		Frame.InsetRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, -1)
-		Frame.InsetRight:Width(1)
-		Frame.InsetRight:SetColorTexture(0, 0, 0)
-		Frame.InsetRight:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetInsideTop = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetInsideTop:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
-		Frame.InsetInsideTop:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, 1)
-		Frame.InsetInsideTop:Height(1)
-		Frame.InsetInsideTop:SetColorTexture(0, 0, 0)
-		Frame.InsetInsideTop:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetInsideBottom = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetInsideBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, 1)
-		Frame.InsetInsideBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, 1)
-		Frame.InsetInsideBottom:Height(1)
-		Frame.InsetInsideBottom:SetColorTexture(0, 0, 0)
-		Frame.InsetInsideBottom:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetInsideLeft = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetInsideLeft:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
-		Frame.InsetInsideLeft:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, 1)
-		Frame.InsetInsideLeft:Width(1)
-		Frame.InsetInsideLeft:SetColorTexture(0, 0, 0)
-		Frame.InsetInsideLeft:SetDrawLayer("BORDER", -7)
-
-		Frame.InsetInsideRight = Frame:CreateTexture(nil, "BORDER")
-		Frame.InsetInsideRight:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, -1)
-		Frame.InsetInsideRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, 1)
-		Frame.InsetInsideRight:Width(1)
-		Frame.InsetInsideRight:SetColorTexture(0, 0, 0)
-		Frame.InsetInsideRight:SetDrawLayer("BORDER", -7)
-
-		Frame.isInsetDone = true
-	end
-
-	Frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	Frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, (Template == "Transparent" and .8 or 1))
+	frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, .8 or 1)
 end
 
-function MERS:CreateBackdrop(Frame, UseTexture, TextureFile)
-	if Frame.Backdrop then return end
+function MERS:CreateBackdrop(frame, texture)
+	if frame.backdrop then return end
 
-	local Parent = Frame:IsObjectType('Texture') and Frame:GetParent() or Frame
+	local parent = frame:IsObjectType("Texture") and frame:GetParent() or frame
 
-	local Backdrop = CreateFrame("Frame", nil, Parent)
-	Backdrop:SetOutside(Frame)
-	MERS:SetTemplate(Backdrop, UseTexture, TextureFile)
+	local backdrop = CreateFrame("Frame", nil, parent)
+	backdrop:SetOutside(frame)
+	MERS:SetTemplate(backdrop, texture)
 
-	if (Parent:GetFrameLevel() - 1) >= 0 then
-		Backdrop:SetFrameLevel(Parent:GetFrameLevel() - 1)
+	if (parent:GetFrameLevel() - 1) >= 0 then
+		backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
 	else
-		Backdrop:SetFrameLevel(0)
+		backdrop:SetFrameLevel(0)
 	end
 
-	Frame.Backdrop = Backdrop
+	frame.backdrop = backdrop
 end
 
 function MERS:CreateBDFrame(f, a, left, right, top, bottom)
 	assert(f, "doesn't exist!")
+
 	local frame
-	if f:GetObjectType() == "Texture" then
+	if f:IsObjectType('Texture') then
 		frame = f:GetParent()
 	else
 		frame = f
