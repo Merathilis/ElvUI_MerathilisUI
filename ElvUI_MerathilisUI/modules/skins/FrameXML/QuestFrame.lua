@@ -18,8 +18,6 @@ local function styleQuestFrame()
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
-	_G["QuestFrameDetailPanel"]:Styling()
-
 	_G["QuestDetailScrollFrame"]:StripTextures(true)
 	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
 		self.spellTex:SetTexture("")
@@ -32,8 +30,6 @@ local function styleQuestFrame()
 	------------------------
 	--- QuestFrameReward ---
 	------------------------
-	_G["QuestFrameRewardPanel"]:Styling()
-
 	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
 		self.backdrop:Hide()
 		self:SetTemplate("Transparent")
