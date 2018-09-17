@@ -308,7 +308,7 @@ function MERL:CreatePanels()
 	local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
-	topLeftStyle:SetSize(LeftChatPanel:GetWidth()+22, 4)
+	topLeftStyle:SetSize(LeftChatPanel:GetWidth()+30, 4)
 	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -10)
 	MERS:SkinPanel(topLeftStyle)
 
