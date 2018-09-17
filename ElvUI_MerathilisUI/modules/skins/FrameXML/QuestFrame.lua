@@ -153,6 +153,23 @@ local function styleQuestFrame()
 
 		QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
 	end)
+
+	-- Text Color
+	QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
+	QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText:SetTextColor(1, 1, 1)
+	QuestProgressTitleText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText.SetTextColor = MER.dummy
+	QuestProgressText:SetTextColor(1, 1, 1)
+	QuestProgressText.SetTextColor = MER.dummy
+	GreetingText:SetTextColor(1, 1, 1)
+	GreetingText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetTextColor(1, 1, 1)
+	AvailableQuestsText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetShadowColor(0, 0, 0)
+	CurrentQuestsText:SetTextColor(1, 1, 1)
+	CurrentQuestsText.SetTextColor = MER.dummy
+	CurrentQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
