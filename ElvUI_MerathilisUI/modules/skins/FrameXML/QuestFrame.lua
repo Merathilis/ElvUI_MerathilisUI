@@ -114,6 +114,45 @@ local function styleQuestFrame()
 			self:SetTextColor(1, 1, 1)
 		end
 	end)
+
+	-- Quest NPC model
+	QuestNPCModelShadowOverlay:Hide()
+	QuestNPCModelBg:Hide()
+	QuestNPCModel:DisableDrawLayer("OVERLAY")
+	QuestNPCModelNameText:SetDrawLayer("ARTWORK")
+	QuestNPCModelTextFrameBg:Hide()
+	QuestNPCModelTextFrame:DisableDrawLayer("OVERLAY")
+
+	-- Hide ElvUI's backdrop
+	if QuestNPCModel.backdrop then QuestNPCModel.backdrop:Hide() end
+	if QuestNPCModelTextFrame.backdrop then QuestNPCModelTextFrame.backdrop:Hide() end
+
+	local npcbd = CreateFrame("Frame", nil, QuestNPCModel)
+	npcbd:SetPoint("TOPLEFT", -1, 1)
+	npcbd:SetPoint("RIGHT", 2, 0)
+	npcbd:SetPoint("BOTTOM", QuestNPCModelTextScrollFrame)
+	npcbd:SetFrameLevel(0)
+	MERS:CreateBD(npcbd)
+	npcbd:Styling()
+
+	local npcLine = CreateFrame("Frame", nil, QuestNPCModel)
+	npcLine:SetPoint("BOTTOMLEFT", 0, -1)
+	npcLine:SetPoint("BOTTOMRIGHT", 1, -1)
+	npcLine:SetHeight(1)
+	npcLine:SetFrameLevel(0)
+	MERS:CreateBD(npcLine, 0)
+
+	-- Text Color
+	QuestNPCModelNameText:SetTextColor(1, 1, 1)
+	QuestNPCModelText:SetTextColor(1, 1, 1)
+
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, x, y)
+		if parentFrame == QuestLogPopupDetailFrame or parentFrame == QuestFrame then
+			x = x + 3
+		end
+
+		QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
+	end)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
