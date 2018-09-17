@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 local MERS = MER:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
-local LSM = LibStub("LibSharedMedia-3.0")
 MERS.modName = L["Skins/AddOns"]
 
 -- Cache global variables
@@ -197,94 +196,14 @@ function S:HandleDropDownFrame(frame, width)
 	MERS:CreateGradient(bg)
 end
 
--- External CloseButtons
-function MERS:ReskinClose(f, a1, p, a2, x, y)
-	assert(f, "doesn't exist!")
-	f:Size(17, 17)
-
-	if not a1 then
-		f:Point("TOPRIGHT", -4, -4)
-	else
-		f:ClearAllPoints()
-		f:Point(a1, p, a2, x, y)
-	end
-
-	f:SetNormalTexture("")
-	f:SetHighlightTexture("")
-	f:SetPushedTexture("")
-	f:SetDisabledTexture("")
-
-	MERS:CreateBD(f, 0)
-	MERS:CreateBackdropTexture(f)
-
-	f:SetDisabledTexture(E["media"].normTex)
-	local dis = f:GetDisabledTexture()
-	dis:SetVertexColor(0, 0, 0, .4)
-	dis:SetDrawLayer("OVERLAY")
-	dis:SetAllPoints()
-
-	local icon = f:CreateFontString(nil, "OVERLAY")
-	icon:Point("CENTER", 2, 0)
-	icon:FontTemplate(nil, 12, "OUTLINE")
-	icon:SetText("X")
-
-	f:HookScript("OnEnter", function() icon:SetTextColor(r, g, b) end)
-	f:HookScript("OnLeave", function() icon:SetTextColor(1, 1, 1) end)
-end
-
--- BenikUI Styles
-function MERS:StyleOutside(frame)
-	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
-		frame:Style("Outside")
-	end
-end
-
-function MERS:StyleInside(frame)
-	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
-		frame:Style("Inside")
-	end
-end
-function MERS:StyleSmall(frame)
-	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
-		frame:Style("Small")
-	end
-end
-
-function MERS:StyleUnder(frame)
-	if frame and not frame.style and IsAddOnLoaded("ElvUI_BenikUI") then
-		frame:Style("Under")
-	end
-end
-
--- Underlines
-function MERS:Underline(frame, shadow, height)
-	local line = CreateFrame("Frame", nil, frame)
-	if line then
-		line:SetPoint("BOTTOM", frame, -1, 1)
-		line:SetSize(frame:GetWidth(), height or 1)
-		line.Texture = line:CreateTexture(nil, "OVERLAY")
-		line.Texture:SetTexture(flat)
-		line.Texture:SetVertexColor(r, g, b)
-		if shadow then
-			if shadow == "backdrop" then
-				line:CreateShadow()
-			else
-				line:CreateBackdrop()
-			end
-		end
-		line.Texture:SetAllPoints(line)
-	end
-	return line
-end
-
 -- Create shadow for textures
 function MERS:CreateSD(parent, size, r, g, b, alpha, offset)
 	local sd = CreateFrame("Frame", nil, parent)
 	sd.size = size or 5
 	sd.offset = offset or 0
 	sd:SetBackdrop({
-		bgFile =  LSM:Fetch("background", "ElvUI Blank"),
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"),
+		bgFile =  E.LSM:Fetch("background", "ElvUI Blank"),
+		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
 		edgeSize = sd.size,
 	})
 	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
@@ -324,22 +243,6 @@ function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
 		fs:SetPoint("CENTER", 1, 0)
 	end
 	return fs
-end
-
-function MERS:CreateSoftGlow(f)
-	if f.sglow then return end
-
-	local sglow = CreateFrame("Frame", nil, f)
-	sglow:SetFrameLevel(1)
-	sglow:SetFrameStrata(f:GetFrameStrata())
-	sglow:SetOutside(f, 2, 2)
-	sglow:SetBackdrop({
-		edgeFile = LSM:Fetch("border", "ElvUI GlowBorder"), edgeSize = E:Scale(3),
-		insets = {left = E:Scale(5), right = E:Scale(5), top = E:Scale(5), bottom = E:Scale(5)},
-	})
-	sglow:SetBackdropColor(MER:unpackColor(E.db.general.valuecolor), 0)
-	sglow:SetBackdropBorderColor(MER:unpackColor(E.db.general.valuecolor), 0.4)
-	f.sglow = sglow
 end
 
 -- Gradient Frame
@@ -430,35 +333,13 @@ function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
 	f:SetBackdrop({
-		bgFile = E["media"].blankTex,
-		edgeFile = E["media"].blankTex,
+		bgFile = E["media"].normTex,
+		edgeFile = E["media"].normTex,
 		edgeSize = E.mult,
 	})
 
 	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-end
-
-function MERS:SetBD(x, y, x2, y2)
-	local bg = CreateFrame("Frame", nil, self)
-	if not x then
-		bg:SetPoint("TOPLEFT")
-		bg:SetPoint("BOTTOMRIGHT")
-	else
-		bg:SetPoint("TOPLEFT", x, y)
-		bg:SetPoint("BOTTOMRIGHT", x2, y2)
-	end
-	bg:SetFrameLevel(self:GetFrameLevel() - 1)
-	MERS:CreateBD(bg)
-	MERS:CreateSD(bg)
-end
-
-function MERS:SkinBackdropFrame(frame, template, override, kill, setpoints)
-	if not override then MERS:StripTextures(frame, kill) end
-	MERS:CreateBackdrop(frame, template)
-	if setpoints then
-		frame.Backdrop:SetAllPoints()
-	end
 end
 
 function MERS:StripTextures(Object, Kill, Alpha)
@@ -558,7 +439,7 @@ function MERS:CreateBackdropTexture(f)
 	local tex = f:CreateTexture(nil, "BACKGROUND")
 	tex:SetDrawLayer("BACKGROUND", 1)
 	tex:SetInside(f, 1, 1)
-	tex:SetTexture(E["media"].muiNormTex)
+	tex:SetTexture(E["media"].normTex)
 	tex:SetVertexColor(backdropcolorr, backdropcolorg, backdropcolorb)
 	tex:SetAlpha(0.8)
 	f.backdropTexture = tex
@@ -594,12 +475,6 @@ local blizzardRegions = {
 	"LeftSeparator",
 	"RightSeparator",
 }
-
-function MERS:SkinFrame(frame, template, override, kill)
-	if not template then template = "Transparent" end
-	if not override then MERS:StripTextures(frame, kill) end
-	MERS:SetTemplate(frame, template)
-end
 
 local function StartGlow(f)
 	if not f:IsEnabled() then return end
@@ -659,7 +534,7 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-			edgeFile = LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
 			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
 		})
 		f.glow:SetPoint("TOPLEFT", -2, 2)
@@ -704,24 +579,6 @@ function MERS:ReskinIcon(icon)
 	return MERS:CreateBDFrame(icon)
 end
 
-function MERS:ReskinItemFrame(frame)
-	assert(frame, "doesn't exist!")
-
-	local icon = frame.Icon
-	frame._mUIIconBorder = MERS:ReskinIcon(icon)
-
-	local nameFrame = frame.NameFrame
-	nameFrame:SetAlpha(0)
-
-	local bg = CreateFrame("Frame", nil, frame)
-	bg:SetPoint("TOP", icon, 0, 1)
-	bg:SetPoint("BOTTOM", icon, 0, -1)
-	bg:SetPoint("LEFT", icon, "RIGHT", 2, 0)
-	bg:SetPoint("RIGHT", nameFrame, -4, 0)
-	MERS:CreateBD(bg, .2)
-	frame._mUINameBG = bg
-end
-
 function MERS:CropIcon(texture, parent)
 	texture:SetTexCoord(unpack(E.TexCoords))
 	if parent then
@@ -735,59 +592,10 @@ function MERS:CropIcon(texture, parent)
 	end
 end
 
-function MERS:ItemButtonTemplate(button)
-	assert(button, "doesn't exist!")
-
-	button:SetNormalTexture("")
-	button:SetHighlightTexture("")
-	button:SetPushedTexture("")
-	button._mUIIconBorder = MERS:ReskinIcon(button.icon)
-end
-
-function MERS:LargeItemButtonTemplate(button)
-	assert(button, "doesn't exist!")
-	MERS:CropIcon(button.Icon)
-
-	local iconBG = CreateFrame("Frame", nil, button)
-	iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
-	iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
-	iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
-	button._mUIIconBorder = iconBG
-
-	button.NameFrame:SetAlpha(0)
-
-	local nameBG = CreateFrame("Frame", nil, button)
-	nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
-	nameBG:SetPoint("BOTTOMRIGHT", -3, 1)
-	MERS:CreateBD(nameBG, .2)
-	button._mUINameBG = nameBG
-end
-
-function MERS:SmallItemButtonTemplate(button)
-	assert(button, "doesn't exist!")
-
-	button.Icon:SetSize(29, 29)
-	MERS:CropIcon(button.Icon)
-
-	local iconBG = CreateFrame("Frame", nil, button)
-	iconBG:SetFrameLevel(button:GetFrameLevel() - 1)
-	iconBG:SetPoint("TOPLEFT", button.Icon, -1, 1)
-	iconBG:SetPoint("BOTTOMRIGHT", button.Icon, 1, -1)
-	button._mUIIconBorder = iconBG
-
-	button.NameFrame:SetAlpha(0)
-
-	local nameBG = CreateFrame("Frame", nil, button)
-	nameBG:SetPoint("TOPLEFT", iconBG, "TOPRIGHT", 1, 0)
-	nameBG:SetPoint("BOTTOMRIGHT", button.NameFrame, 0, -1)
-	MERS:CreateBD(nameBG, .2)
-	button._mUIINameBG = nameBG
-end
-
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(LSM:Fetch("statusbar", "MerathilisFlat"))
+	panel.tex:SetTexture(E.LSM:Fetch("statusbar", "MerathilisFlat"))
 	panel.tex:SetGradient("VERTICAL", unpack(E["media"].rgbvaluecolor))
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
