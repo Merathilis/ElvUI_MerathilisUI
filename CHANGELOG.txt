@@ -1,3 +1,10 @@
+[b][color=orange]v3.41[/color], 18.09.2018[/b][list]
+[*]Added a check for the ScrappingMachine if the ElvUI bags are disabled.
+[*]Adjust a bit the ArenaFrame position.
+[*]Maybe a fix for a nil error on vignetteInfo.
+[*]More NPCs on my GameMenu. ;)
+[*]A lot skin updates.
+
 [b][color=orange]v3.40[/color], 14.09.2018[/b][list]
 [*]Code updates to NamePlate Auras.
 [*]Added WarScrolls to the RaidBuffs.

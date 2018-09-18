@@ -17,13 +17,11 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Code updates to NamePlate Auras.",
-		"• Added WarScrolls to the RaidBuffs.",
-		"• Update ProjectAzilroka compatibily.",
-		"• Added back DBM skin. I only touch the Range/Info Frame.",
-		"• Fixed an error in the RaidUI skin.",
-		"• Added back the install steps for the AddOns.",
-		"• A lot of skin updates.",
+		"• Added a check for the ScrappingMachine if the ElvUI bags are disabled.",
+		"• Adjust a bit the ArenaFrame position.",
+		"• Maybe a fix for a nil error on vignetteInfo.",
+		"• More NPCs on my GameMenu. ;)",
+		"• A lot skin updates.",
 
 		-- "• ''",
 	" ",
@@ -40,16 +38,25 @@ local function ModifiedString(string)
 		local suffix = sub(string, count + 1)
 		local subHeader = find(string, "•")
 
-		if subHeader then newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix) else newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix) end
+		if subHeader then
+			newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix)
+		else
+			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
+		end
 	end
 
-	for pattern in gmatch(string, "('.*')") do newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r") end
+	for pattern in gmatch(string, "('.*')") do
+		newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r")
+	end
+
 	return newString
 end
 
 local function GetChangeLogInfo(i)
 	for line, info in pairs(ChangeLogData) do
-		if line == i then return info end
+		if line == i then
+			return info
+		end
 	end
 end
 
