@@ -67,35 +67,44 @@ local function styleQuestInfo()
 	hooksecurefunc("QuestInfo_Display", colorObjectivesText)
 
 	-- [[ Quest rewards ]]
-
 	local function restyleRewardButton(bu, isMapQuestInfo)
-		bu.NameFrame:Hide()
-
 		bu.Icon:SetTexCoord(unpack(E.TexCoords))
-		bu.Icon:SetDrawLayer("BACKGROUND", 1)
-
-		if bu.IconBorder then
-			bu.IconBorder:SetAlpha(0)
-		end
+		bu.Icon:SetDrawLayer("OVERLAY")
+		bu.NameFrame:SetAlpha(0)
+		bu.Count:ClearAllPoints()
+		bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
+		bu.Count:SetDrawLayer("OVERLAY")
 
 		local bg = MERS:CreateBDFrame(bu, .25)
-		bg:SetPoint("TOPLEFT", bu, 1, 1)
+		bg:SetFrameStrata("BACKGROUND")
 
 		if isMapQuestInfo then
-			bg:SetPoint("BOTTOMRIGHT", bu, -3, 0)
+			bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
+			bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
 			bu.Icon:SetSize(29, 29)
 		else
+			bg:SetPoint("TOPLEFT", bu, 1, 1)
 			bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
 		end
 
-		bu.bg = bg
+		if bu.CircleBackground then
+			bu.CircleBackground:SetAlpha(0)
+			bu.CircleBackgroundGlow:SetAlpha(0)
+		end
+
+		--bu.bg = bg
 	end
 
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local bu = rewardsFrame.RewardButtons[index]
 
-		if not bu.restyled then
+		if (bu and not bu.restyled) then
 			restyleRewardButton(bu, rewardsFrame == MapQuestInfoRewardsFrame)
+
+			bu.Icon:SetTexCoord(unpack(E.TexCoords))
+			bu.IconBorder:SetAlpha(0)
+			bu.Icon:SetDrawLayer("OVERLAY")
+			bu.Count:SetDrawLayer("OVERLAY")
 
 			bu.restyled = true
 		end
@@ -111,7 +120,6 @@ local function styleQuestInfo()
 	end
 
 	-- Spell Rewards
-
 	local spellRewards = {QuestInfoRewardsFrame, MapQuestInfoRewardsFrame}
 	for _, rewardFrame in pairs(spellRewards) do
 		local spellRewardFrame = rewardFrame.spellRewardPool:Acquire()
