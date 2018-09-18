@@ -1,3 +1,6 @@
+** v3.42, xx.xx.2018**
+* 
+
 ** v3.41, 18.09.2018**
 * Added a check for the ScrappingMachine if the ElvUI bags are disabled.
 * Adjust a bit the ArenaFrame position.
