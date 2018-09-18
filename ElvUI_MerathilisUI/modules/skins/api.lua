@@ -552,6 +552,10 @@ end
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
+	if frame.backdrop then frame.backdrop:Hide() end
+
+	MERS:Reskin(frame)
+
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
 	frame:SetHighlightTexture(E["media"].normTex)
