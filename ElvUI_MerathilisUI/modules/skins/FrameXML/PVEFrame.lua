@@ -21,6 +21,7 @@ local function stylePVE()
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
 		bu.icon:Size(54)
+		bu.icon:SetDrawLayer("OVERLAY")
 		bu.icon:ClearAllPoints()
 		bu.icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
 	end

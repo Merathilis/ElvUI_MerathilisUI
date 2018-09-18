@@ -28,6 +28,7 @@ local function stylePvP()
 		local cu = bu.CurrencyDisplay
 
 		bu.Icon:Size(54)
+		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
 		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
 
