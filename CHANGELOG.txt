@@ -1,6 +1,9 @@
 [b][color=orange]v3.42[/color], xx.xx.2018[/b][list]
 [*]
 
+[b][color=orange]v3.41.1[/color], 18.09.2018[/b][list]
+[*]Fix a nil error on the NamePlate Auras.[/list]
+
 [b][color=orange]v3.41[/color], 18.09.2018[/b][list]
 [*]Added a check for the ScrappingMachine if the ElvUI bags are disabled.
 [*]Adjust a bit the ArenaFrame position.
