@@ -71,9 +71,7 @@ local function stylePvP()
 
 		if not button.Reward.bg then
 			button.Reward.bg = MERS:CreateBDFrame(button.Reward)
-			--button.Reward.bg:SetPoint("TOPLEFT", 4, -3)
-			--button.Reward.bg:SetPoint("BOTTOMRIGHT", -3, -1)
-			button.Reward.bg:SetOutside(button.Re)
+			button.Reward.bg:SetOutside(button.Reward)
 		end
 	end
 
@@ -98,12 +96,9 @@ local function stylePvP()
 
 		if rewardTexture then
 			rewardFrame.Icon:SetTexture(rewardTexture)
-			--if rewardFrame.Icon.backdrop then
-				rewardFrame.bg:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
-			--end
+			rewardFrame.bg:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
 		end
 	end)
-
 
 	-- Honor frame specific
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do

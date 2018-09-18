@@ -73,7 +73,7 @@ local function styleQuestInfo()
 
 		bu.Icon:SetTexCoord(unpack(E.TexCoords))
 		bu.Icon:SetDrawLayer("BACKGROUND", 1)
-		MERS:CreateBG(bu.Icon, 1)
+
 		if bu.IconBorder then
 			bu.IconBorder:SetAlpha(0)
 		end
