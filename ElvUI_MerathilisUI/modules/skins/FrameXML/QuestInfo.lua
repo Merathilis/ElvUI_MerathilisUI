@@ -81,7 +81,6 @@ local function styleQuestInfo()
 		if isMapQuestInfo then
 			bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
 			bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
-			bu.Icon:SetSize(29, 29)
 		else
 			bg:SetPoint("TOPLEFT", bu, 1, 1)
 			bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
@@ -92,7 +91,7 @@ local function styleQuestInfo()
 			bu.CircleBackgroundGlow:SetAlpha(0)
 		end
 
-		--bu.bg = bg
+		bu.bg = bg
 	end
 
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
