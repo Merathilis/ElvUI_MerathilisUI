@@ -153,16 +153,7 @@ function NA:RepositionAuras(auras)
 end
 
 function NA:UpdateAuraSet(auras)
-	self:UpdateHeight(auras)
 	self:SortAuras(auras)
-end
-
-function NA:UpdateHeight(auras)
-	local height = auras.db.baseHeight or 18
-	for i, icon in ipairs(auras.icons) do
-		height = max(height, icon:GetHeight())
-	end
-	auras:SetHeight(height)
 end
 
 function NA:UpdateElement_Auras(frame)
