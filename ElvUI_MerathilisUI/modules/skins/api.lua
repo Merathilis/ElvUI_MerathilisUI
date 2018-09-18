@@ -554,18 +554,7 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
-	frame:SetHighlightTexture(E["media"].muiBlank)
-
-	MERS:CreateBackdropTexture(frame)
-	frame.backdropTexture:SetInside(frame, 5, 5)
-
-	local bd = CreateFrame("Frame", nil, frame)
-	bd:SetInside(frame, 4, 4)
-	bd:SetFrameLevel(frame:GetFrameLevel())
-	MERS:CreateBD(bd, 0)
-
-	local tex = MERS:CreateGradient(frame)
-	tex:SetInside(frame, 5, 5)
+	frame:SetHighlightTexture(E["media"].normTex)
 
 	local ch = frame:GetCheckedTexture()
 	ch:SetDesaturated(true)
