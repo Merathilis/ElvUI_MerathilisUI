@@ -217,7 +217,6 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:SetTemplate("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
-		MERS:StyleOutside(FlightPointsTaxiChoice)
 		FlightPointsTaxiChoice:Styling()
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()

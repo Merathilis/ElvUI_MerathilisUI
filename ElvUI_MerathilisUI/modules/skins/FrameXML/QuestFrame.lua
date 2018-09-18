@@ -14,163 +14,10 @@ local _G = _G
 local function styleQuestFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	--[[ FrameXML\QuestFrame.lua ]]
-	function MERS.QuestFrameProgressItems_Update()
-		local numRequiredItems = GetNumQuestItems()
-		local numRequiredCurrencies = GetNumQuestCurrencies()
-		local moneyToGet = GetQuestMoneyToGet()
-		if numRequiredItems > 0 or moneyToGet > 0 or numRequiredCurrencies > 0 then
-			-- If there's money required then anchor and display it
-			if moneyToGet > 0 then
-				if moneyToGet > GetMoney() then
-					-- Not enough money
-					QuestProgressRequiredMoneyText:SetTextColor(182/255, 182/255, 182/255)
-				else
-					QuestProgressRequiredMoneyText:SetTextColor(1, 1, 1)
-				end
-			end
-		end
-	end
-
-	function MERS.QuestFrameGreetingPanel_OnShow()
-		local numActiveQuests = GetNumActiveQuests()
-		if numActiveQuests > 0 then
-			for i = 1, numActiveQuests do
-				local questTitleButton = _G["QuestTitleButton"..i]
-				local title = GetActiveTitle(i)
-				if IsActiveQuestTrivial(i) then
-					questTitleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, title)
-				else
-					questTitleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, title)
-				end
-			end
-		end
-
-		local numAvailableQuests = GetNumAvailableQuests()
-		if numAvailableQuests > 0 then
-			if numActiveQuests > 0 then
-				QuestGreetingFrameHorizontalBreak:SetPoint("TOPLEFT", "QuestTitleButton"..numActiveQuests, "BOTTOMLEFT",22,-10)
-				AvailableQuestsText:SetPoint("TOPLEFT", "QuestGreetingFrameHorizontalBreak", "BOTTOMLEFT", -12, -10)
-			end
-
-			for i = numActiveQuests + 1, numActiveQuests + numAvailableQuests do
-				local questTitleButton = _G["QuestTitleButton"..i]
-				local title = GetAvailableTitle(i - numActiveQuests)
-				if GetAvailableQuestInfo(i - numActiveQuests) then
-					questTitleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, title)
-				else
-					questTitleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, title)
-				end
-			end
-		end
-	end
-
-	function MERS.QuestFrame_UpdatePortraitText(text)
-		if text and text ~= "" then
-			QuestNPCModelText:SetWidth(191)
-			local textHeight = QuestNPCModelText:GetHeight()
-			local scrollHeight = QuestNPCModelTextScrollFrame:GetHeight()
-			if textHeight > scrollHeight then
-				QuestNPCModelTextScrollChildFrame:SetHeight(textHeight + 10)
-				QuestNPCModelText:SetWidth(176)
-			else
-				QuestNPCModelTextScrollChildFrame:SetHeight(textHeight)
-			end
-		end
-	end
-
-	function MERS.QuestFrame_ShowQuestPortrait(parentFrame, portraitDisplayID, mountPortraitDisplayID, text, name, x, y)
-		if parentFrame == _G.WorldMapFrame then
-			x = x + 2
-		else
-			x = x + 5
-		end
-
-		QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
-	end
-
-	-- TEXT COLOR
-	function MERS.QuestFrame_SetTitleTextColor(fontString, material)
-		fontString:SetTextColor(1, 1, 1)
-	end
-
-	function MERS.QuestFrame_SetTextColor(fontString, material)
-		fontString:SetTextColor(1, 1, 1)
-	end
-
-	--[[ FrameXML\QuestFrameTemplates.xml ]]
-	function MERS:QuestFramePanelTemplate(Frame)
-		Frame:SetAllPoints()
-		local name = Frame:GetName()
-		_G[name.."Bg"]:Hide()
-
-		_G[name.."MaterialTopLeft"]:SetAlpha(0)
-		_G[name.."MaterialTopRight"]:SetAlpha(0)
-		_G[name.."MaterialBotLeft"]:SetAlpha(0)
-		_G[name.."MaterialBotRight"]:SetAlpha(0)
-	end
-
-	function MERS:QuestItemTemplate(Button)
-		MERS:LargeItemButtonTemplate(Button)
-	end
-
-	function MERS:QuestSpellTemplate(Button)
-	end
-
-	function MERS:QuestTitleButtonTemplate(Button)
-	end
-
-	function MERS:QuestScrollFrameTemplate(ScrollFrame)
-		--Skin.UIPanelScrollFrameTemplate(ScrollFrame)
-		ScrollFrame:SetPoint("TOPLEFT", 5, -(23 + 2))
-		ScrollFrame:SetPoint("BOTTOMRIGHT", -23, 32)
-
-		local name = ScrollFrame:GetName()
-		_G[name.."Top"]:Hide()
-		_G[name.."Bottom"]:Hide()
-		_G[name.."Middle"]:Hide()
-	end
-
-	-- HOOKS
-	hooksecurefunc("QuestFrameProgressItems_Update", MERS.QuestFrameProgressItems_Update)
-	hooksecurefunc("QuestFrameGreetingPanel_OnShow", MERS.QuestFrameGreetingPanel_OnShow)
-	QuestFrameGreetingPanel:HookScript("OnShow", MERS.QuestFrameGreetingPanel_OnShow)
-	hooksecurefunc("QuestFrame_UpdatePortraitText", MERS.QuestFrame_UpdatePortraitText)
-	hooksecurefunc("QuestFrame_ShowQuestPortrait", MERS.QuestFrame_ShowQuestPortrait)
-	hooksecurefunc("QuestFrame_SetTitleTextColor", MERS.QuestFrame_SetTitleTextColor)
-	hooksecurefunc("QuestFrame_SetTextColor", MERS.QuestFrame_SetTextColor)
-
-	----------------
-	-- QuestFrame --
-	----------------
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
-	QuestFrameNpcNameText:SetAllPoints(QuestFrame.TitleText)
-
-	-- Hide ElvUI Backdrop
-	if QuestNPCModelTextFrame.backdrop then
-		QuestNPCModelTextFrame.backdrop:Hide()
-	end
-	MERS:CreateBD(QuestNPCModelTextFrame, .5)
-	QuestNPCModelTextFrame:Styling()
-
-	MERS:QuestFramePanelTemplate(QuestFrameRewardPanel)
-	MERS:QuestScrollFrameTemplate(QuestRewardScrollFrame)
-
-	MERS:QuestFramePanelTemplate(QuestFrameProgressPanel)
-	MERS:QuestFramePanelTemplate(QuestFrameDetailPanel)
-	MERS:QuestFramePanelTemplate(QuestFrameGreetingPanel)
-
-	QuestProgressScrollChildFrame:SetSize(300, 403)
-	QuestProgressTitleText:SetSize(300, 0)
-	QuestProgressTitleText:SetPoint("TOPLEFT", 5, -10)
-	QuestProgressText:SetSize(300, 0)
-	QuestProgressText:SetPoint("TOPLEFT", QuestProgressTitleText, "BOTTOMLEFT", 0, -5)
-
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
-	_G["QuestFrameDetailPanel"]:Styling()
-
 	_G["QuestDetailScrollFrame"]:StripTextures(true)
 	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
 		self.spellTex:SetTexture("")
@@ -180,16 +27,9 @@ local function styleQuestFrame()
 		_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
 	end
 
-	_G["QuestDetailScrollFrame"]:SetWidth(302) -- else these buttons get cut off
-	_G["QuestDetailScrollFrameTop"]:Hide()
-	_G["QuestDetailScrollFrameBottom"]:Hide()
-	_G["QuestDetailScrollFrameMiddle"]:Hide()
-
 	------------------------
 	--- QuestFrameReward ---
 	------------------------
-	_G["QuestFrameRewardPanel"]:Styling()
-
 	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
 		self.backdrop:Hide()
 		self:SetTemplate("Transparent")
@@ -200,7 +40,7 @@ local function styleQuestFrame()
 	--------------------------
 	--- QuestFrameProgress ---
 	--------------------------
-	_G["QuestFrameProgressPanel"]:Styling()
+	_G["QuestFrame"]:Styling()
 
 	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
@@ -225,6 +65,111 @@ local function styleQuestFrame()
 		self.spellTex:SetTexture("")
 		self:Height(self:GetHeight() - 2)
 	end)
+
+	hooksecurefunc("QuestFrame_SetMaterial", function(frame)
+		_G[frame:GetName().."MaterialTopLeft"]:Hide()
+		_G[frame:GetName().."MaterialTopRight"]:Hide()
+		_G[frame:GetName().."MaterialBotLeft"]:Hide()
+		_G[frame:GetName().."MaterialBotRight"]:Hide()
+	end)
+
+	local line = QuestFrameGreetingPanel:CreateTexture()
+	line:SetColorTexture(1, 1, 1, .2)
+	line:SetSize(256, 1)
+	line:SetPoint("CENTER", QuestGreetingFrameHorizontalBreak)
+
+	QuestGreetingFrameHorizontalBreak:SetTexture("")
+
+	QuestFrameGreetingPanel:HookScript("OnShow", function()
+		line:SetShown(QuestGreetingFrameHorizontalBreak:IsShown())
+	end)
+
+	for i = 1, MAX_REQUIRED_ITEMS do
+		local bu = _G["QuestProgressItem"..i]
+		local ic = _G["QuestProgressItem"..i.."IconTexture"]
+		local na = _G["QuestProgressItem"..i.."NameFrame"]
+		local co = _G["QuestProgressItem"..i.."Count"]
+
+		ic:SetSize(40, 40)
+		ic:SetTexCoord(unpack(E.TexCoords))
+		ic:SetDrawLayer("OVERLAY")
+
+		MERS:CreateBD(bu, .25)
+
+		na:Hide()
+		co:SetDrawLayer("OVERLAY")
+
+		local line = CreateFrame("Frame", nil, bu)
+		line:SetSize(1, 40)
+		line:SetPoint("RIGHT", ic, 1, 0)
+		MERS:CreateBD(line)
+	end
+
+	QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
+
+	hooksecurefunc(QuestProgressRequiredMoneyText, "SetTextColor", function(self, r)
+		if r == 0 then
+			self:SetTextColor(.8, .8, .8)
+		elseif r == .2 then
+			self:SetTextColor(1, 1, 1)
+		end
+	end)
+
+	-- Quest NPC model
+	QuestNPCModelShadowOverlay:Hide()
+	QuestNPCModelBg:Hide()
+	QuestNPCModel:DisableDrawLayer("OVERLAY")
+	QuestNPCModelNameText:SetDrawLayer("ARTWORK")
+	QuestNPCModelTextFrameBg:Hide()
+	QuestNPCModelTextFrame:DisableDrawLayer("OVERLAY")
+
+	-- Hide ElvUI's backdrop
+	if QuestNPCModel.backdrop then QuestNPCModel.backdrop:Hide() end
+	if QuestNPCModelTextFrame.backdrop then QuestNPCModelTextFrame.backdrop:Hide() end
+
+	local npcbd = CreateFrame("Frame", nil, QuestNPCModel)
+	npcbd:SetPoint("TOPLEFT", -1, 1)
+	npcbd:SetPoint("RIGHT", 2, 0)
+	npcbd:SetPoint("BOTTOM", QuestNPCModelTextScrollFrame)
+	npcbd:SetFrameLevel(0)
+	MERS:CreateBD(npcbd)
+	npcbd:Styling()
+
+	local npcLine = CreateFrame("Frame", nil, QuestNPCModel)
+	npcLine:SetPoint("BOTTOMLEFT", 0, -1)
+	npcLine:SetPoint("BOTTOMRIGHT", 1, -1)
+	npcLine:SetHeight(1)
+	npcLine:SetFrameLevel(0)
+	MERS:CreateBD(npcLine, 0)
+
+	-- Text Color
+	QuestNPCModelNameText:SetTextColor(1, 1, 1)
+	QuestNPCModelText:SetTextColor(1, 1, 1)
+
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, _, x, y)
+		if parentFrame == QuestLogPopupDetailFrame or parentFrame == QuestFrame then
+			x = x + 3
+		end
+
+		QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
+	end)
+
+	-- Text Color
+	QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
+	QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText:SetTextColor(1, 1, 1)
+	QuestProgressTitleText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText.SetTextColor = MER.dummy
+	QuestProgressText:SetTextColor(1, 1, 1)
+	QuestProgressText.SetTextColor = MER.dummy
+	GreetingText:SetTextColor(1, 1, 1)
+	GreetingText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetTextColor(1, 1, 1)
+	AvailableQuestsText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetShadowColor(0, 0, 0)
+	CurrentQuestsText:SetTextColor(1, 1, 1)
+	CurrentQuestsText.SetTextColor = MER.dummy
+	CurrentQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)

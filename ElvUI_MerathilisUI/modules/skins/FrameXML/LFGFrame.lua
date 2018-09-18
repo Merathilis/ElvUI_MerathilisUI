@@ -16,30 +16,66 @@ local function styleLFG()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	local function styleRewardButton(button)
-		MERS:ReskinItemFrame(button)
-		button._mUINameBG:SetPoint("RIGHT", -4, 0)
+		local buttonName = button:GetName()
 
-		if button.shortageBorder then
-			button.shortageBorder:SetAlpha(0)
+		local icon = _G[buttonName.."IconTexture"]
+		local cta = _G[buttonName.."ShortageBorder"]
+		local count = _G[buttonName.."Count"]
+		local na = _G[buttonName.."NameFrame"]
+
+		MERS:CreateBG(icon)
+		icon:SetTexCoord(unpack(E.TexCoords))
+		icon:SetDrawLayer("OVERLAY")
+		count:SetDrawLayer("OVERLAY")
+		na:SetColorTexture(0, 0, 0, .25)
+		na:SetSize(118, 39)
+		if button.IconBorder then
+			button.IconBorder:SetAlpha(0)
 		end
+
+		if cta then
+			cta:SetAlpha(0)
+		end
+
+		button.bg2 = CreateFrame("Frame", nil, button)
+		button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
+		button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
+		button.bg2:SetFrameStrata("BACKGROUND")
+		MERS:CreateBD(button.bg2, 0)
 	end
+
+	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
+		local parentName = parentFrame:GetName()
+		local button = _G[parentName.."Item"..index]
+		if button and not button.styled then
+			styleRewardButton(button)
+			button.styled = true
+		end
+	end)
 
 	styleRewardButton(LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
 	styleRewardButton(ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
 	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
-	--Reward frame functions
-	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
-		local parentName = parentFrame:GetName()
-		local button = _G[parentName.."Item"..index]
-		if button and not button._mUINameBG then
-			styleRewardButton(button)
-		end
+	local leaderBg = MERS:CreateBG(LFGDungeonReadyDialogRoleIconLeaderIcon)
+	leaderBg:SetDrawLayer("ARTWORK", 2)
+	leaderBg:SetPoint("TOPLEFT", LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
+	leaderBg:SetPoint("BOTTOMRIGHT", LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
+
+	hooksecurefunc("LFGDungeonReadyPopup_Update", function()
+		leaderBg:SetShown(LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
 	end)
+
+	do
+		local bg = MERS:CreateBDFrame(LFGDungeonReadyDialogRoleIcon, 1)
+		bg:SetPoint("TOPLEFT", 9, -7)
+		bg:SetPoint("BOTTOMRIGHT", -8, 10)
+	end
 
 	hooksecurefunc("LFGDungeonReadyDialogReward_SetMisc", function(button)
 		if not button.styled then
 			local border = _G[button:GetName().."Border"]
+
 			button.texture:SetTexCoord(unpack(E.TexCoords))
 
 			border:SetColorTexture(0, 0, 0)
@@ -49,12 +85,14 @@ local function styleLFG()
 
 			button.styled = true
 		end
+
 		button.texture:SetTexture("Interface\\Icons\\inv_misc_coin_02")
 	end)
 
 	hooksecurefunc("LFGDungeonReadyDialogReward_SetReward", function(button, dungeonID, rewardIndex, rewardType, rewardArg)
 		if not button.styled then
 			local border = _G[button:GetName().."Border"]
+
 			button.texture:SetTexCoord(unpack(E.TexCoords))
 
 			border:SetColorTexture(0, 0, 0)
@@ -65,11 +103,11 @@ local function styleLFG()
 			button.styled = true
 		end
 
-		local texturePath, _
+		local _, texturePath
 		if rewardType == "reward" then
-			_, texturePath, _ = GetLFGDungeonRewardInfo(dungeonID, rewardIndex)
+			_, texturePath = GetLFGDungeonRewardInfo(dungeonID, rewardIndex);
 		elseif rewardType == "shortage" then
-			_, texturePath, _ = GetLFGDungeonShortageRewardInfo(dungeonID, rewardArg, rewardIndex)
+			_, texturePath = GetLFGDungeonShortageRewardInfo(dungeonID, rewardArg, rewardIndex);
 		end
 		if texturePath then
 			button.texture:SetTexture(texturePath)

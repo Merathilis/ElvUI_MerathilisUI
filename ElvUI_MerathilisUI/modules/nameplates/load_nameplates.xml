@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file='nameplateAuras.lua'/>
+	<Script file='nameplates.lua'/>
+	<Include file="elements\load_elements.xml"/>
 	<Script file='options.lua'/>
 </Ui>

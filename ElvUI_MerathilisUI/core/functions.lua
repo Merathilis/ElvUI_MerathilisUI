@@ -44,11 +44,6 @@ function MER:MismatchText()
 	return text
 end
 
-function MER:BenikMismatchText()
-	local text = format(L["MSG_MER_BENIK_OUTDATED"], MER.BenikUIV, MER.BenikUIX)
-	return text
-end
-
 function MER:Print(...)
 	print("|cffff7d0a".."mUI:|r", ...)
 end
@@ -60,12 +55,6 @@ end
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
-end
-
-function MER:InvertTable(t)
-	local u = { }
-	for k, v in pairs(t) do u[v] = k end
-	return u
 end
 
 function MER:GetIconFromID(type, id)
@@ -134,98 +123,6 @@ function MER:UpdateAll()
 	end
 end
 
-local Unusable
-if E.myclass == "DEATHKNIGHT" then
-	Unusable = { -- weapon, armor, dual-wield
-		{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF,LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_DAGGER, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_SHIELD}
-	}
-elseif E.myclass == "DEMONHUNTER" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE1H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_STAFF, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}
-	}
-elseif E.myclass == "DRUID" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE1H, LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_SWORD1H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD},
-		true
-	}
-elseif E.myclass == "HUNTER" then
-	Unusable = {
-		{LE_ITEM_WEAPON_MACE1H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}
-	}
-elseif E.myclass == "MAGE" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE1H, LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE1H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW},
-		{LE_ITEM_ARMOR_LEATHER, LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD},
-		true
-	}
-elseif E.myclass == "MONK" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_DAGGER, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}
-	}
-elseif E.myclass == "PALADIN" then
-	Unusable = {
-		{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF, LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_DAGGER, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{},
-		true
-	}
-elseif E.myclass == "PRIEST" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE1H, LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD1H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW},
-		{LE_ITEM_ARMOR_LEATHER, LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD},
-		true
-	}
-elseif E.myclass == "ROGUE" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_STAFF, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD}
-	}
-elseif E.myclass == "SHAMAN" then
-	Unusable = {
-		{LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD1H, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW, LE_ITEM_WEAPON_WAND},
-		{LE_ITEM_ARMOR_PLATEM}
-	}
-elseif E.myclass == "WARLOCK" then
-	Unusable = {
-		{LE_ITEM_WEAPON_AXE1H, LE_ITEM_WEAPON_AXE2H, LE_ITEM_WEAPON_BOWS, LE_ITEM_WEAPON_GUNS, LE_ITEM_WEAPON_MACE1H, LE_ITEM_WEAPON_MACE2H, LE_ITEM_WEAPON_POLEARM, LE_ITEM_WEAPON_SWORD2H, LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_UNARMED, LE_ITEM_WEAPON_THROWN, LE_ITEM_WEAPON_CROSSBOW},
-		{LE_ITEM_ARMOR_LEATHER, LE_ITEM_ARMOR_MAIL, LE_ITEM_ARMOR_PLATE, LE_ITEM_ARMOR_SHIELD},
-		true
-	}
-elseif E.myclass == "WARRIOR" then
-	Unusable = {{LE_ITEM_WEAPON_WARGLAIVE, LE_ITEM_WEAPON_WAND}, {}}
-else
-	Unusable = {{}, {}}
-end
-
-MER.unusable = {}
-MER.cannotDual = Unusable[3]
-
-for i, class in ipairs({LE_ITEM_CLASS_WEAPON, LE_ITEM_CLASS_ARMOR}) do
-	local list = {}
-	for _, subclass in ipairs(Unusable[i]) do
-		list[subclass] = true
-	end
-
-	MER.unusable[class] = list
-end
-
-function MER:IsItemUnusable(...)
-	if ... then
-		local slot, _,_, class, subclass = select(9, GetItemInfo(...))
-		return MER:IsClassUnusable(class, subclass, slot)
-	end
-end
-
-function MER:IsClassUnusable(class, subclass, slot)
-	if class and subclass and MER.unusable[class] then
-		return slot ~= '' and MER.unusable[class][subclass] or slot == "INVTYPE_WEAPONOFFHAND" and MER.cannotDual
-	end
-end
-
 function MER:Reset(group)
 	if not group then print("U wot m8?") end
 
@@ -234,24 +131,6 @@ function MER:Reset(group)
 		E:ResetMovers(L["Raid Marker Bar"])
 	end
 	E:UpdateAll()
-end
-
-function MER:GetGradientColor(r, g, b)
-	r = r or 0
-	g = g or 0
-	b = b or 0
-
-	return r, g, b, r/2, g/2, b/2
-end
-
-function MER:SetStatusBarGradient(bar, hook)
-	if not bar:GetStatusBarTexture() then return end
-	local r, g, b = bar:GetStatusBarColor()
-	bar:GetStatusBarTexture():SetGradient("VERTICAL", self:GetGradientColor(r, g, b))
-
-	if hook then
-		hooksecurefunc(bar, "SetStatusBarColor", function(self, r, g, b) bar:GetStatusBarTexture():SetGradient("VERTICAL", MER:GetGradientColor(r, g, b)) end)
-	end
 end
 
 function MER:CreateText(f, layer, fontsize, flag, justifyh)
@@ -377,7 +256,6 @@ end
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	local frameName = f.GetName and f:GetName()
-	if E.db.mui.general == nil then E.db.mui.general = {} end
 	if f.styling or E.db.mui.general.style ~= true then return end
 
 	local style = CreateFrame("Frame", frameName or nil, f)
@@ -423,19 +301,9 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	MER["styling"][style] = true
 end
 
-local function CreateBorder(f, r, g, b, a)
-	f:SetBackdrop({
-		edgeFile = E["media"].blankTex,
-		edgeSize = E.mult,
-		insets = { left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult }
-	})
-	f:SetBackdropBorderColor(r or E["media"]["bordercolor"][1], g or E["media"]["bordercolor"][2], b or E["media"]["bordercolor"][3], a or E["media"]["bordercolor"][4])
-end
-
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end
-	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
 end
 
 local handled = {["Frame"] = true}

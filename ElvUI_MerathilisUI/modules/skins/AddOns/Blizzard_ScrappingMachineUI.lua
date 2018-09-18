@@ -22,6 +22,8 @@ local function styleScrappingMachine()
 
 	-- Automatic open the Bags if the MachineFrame shows
 	MachineFrame:HookScript("OnShow", function()
+		if E.private.bags.enable ~= true then return end
+
 		if MachineFrame:IsShown() and not B.BagFrame:IsShown() then
 			ToggleAllBags()
 			weShown = true;

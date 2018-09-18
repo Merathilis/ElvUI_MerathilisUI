@@ -16,7 +16,6 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
-	_G["PVPQueueFrame"]:Styling()
 	_G["PVPReadyDialog"]:Styling()
 
 	local PVPQueueFrame = _G["PVPQueueFrame"]
@@ -28,22 +27,10 @@ local function stylePvP()
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
-		bu.Ring:Hide()
-
-		MERS:Reskin(bu, true)
-
-		bu.Background:SetAllPoints()
-		bu.Background:SetColorTexture(r, g, b, .2)
-		bu.Background:Hide()
-
 		bu.Icon:Size(54)
-		bu.Icon:SetTexCoord(unpack(E.TexCoords))
+		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
 		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
-		bu.Icon:SetDrawLayer("OVERLAY")
-
-		bu.Icon.bg = MERS:CreateBG(bu.Icon)
-		bu.Icon.bg:SetDrawLayer("ARTWORK")
 
 		if cu then
 			local ic = cu.Icon
@@ -58,20 +45,6 @@ local function stylePvP()
 		end
 	end
 
-	hooksecurefunc("PVPQueueFrame_SelectButton", function(index)
-		local self = PVPQueueFrame
-		for i = 1, 3 do
-			local bu = self["CategoryButton"..i]
-			if i == index then
-				bu.Background:Show()
-			else
-				bu.Background:Hide()
-			end
-		end
-	end)
-
-	PVPQueueFrame.CategoryButton1.Background:Show()
-
 	-- Casual - HonorFrame
 	local Inset = HonorFrame.Inset
 	local BonusFrame = HonorFrame.BonusFrame
@@ -83,28 +56,50 @@ local function stylePvP()
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	for _, bonusButton in pairs({"RandomBGButton", "Arena1Button", "RandomEpicBGButton", "BrawlButton"}) do
-		local bu = BonusFrame[bonusButton]
-		local reward = bu.Reward
+	local buttons = { ['RandomBGButton'] = HonorFrame.BonusFrame, ['RandomEpicBGButton'] = HonorFrame.BonusFrame, ['Arena1Button'] = HonorFrame.BonusFrame, ['BrawlButton'] = HonorFrame.BonusFrame, ['RatedBG'] = ConquestFrame, ['Arena2v2'] = ConquestFrame, ['Arena3v3'] = ConquestFrame }
 
-		MERS:Reskin(bu)
+	for section, parent in pairs(buttons) do
+		local button = parent[section]
+		MERS:Reskin(button)
 
-		-- Hide ElvUI backdrop
-		if bu.backdrop then
-			bu.backdrop:Hide()
-		end
+		if button.backdrop then button.backdrop:Hide() end
 
-		bu.NormalTexture:Hide()
+		button.SelectedTexture:SetDrawLayer("BACKGROUND")
+		button.SelectedTexture:SetColorTexture(r, g, b, .2)
+		button.SelectedTexture:SetAllPoints()
 
-		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
-		bu.SelectedTexture:SetAllPoints()
+		button.Reward.Icon:SetInside(button.Reward)
 
-		if reward then
-			reward.Border:Hide()
-			MERS:ReskinIcon(reward.Icon)
+		if not button.Reward.bg then
+			button.Reward.bg = MERS:CreateBDFrame(button.Reward)
+			button.Reward.bg:SetOutside(button.Reward)
 		end
 	end
+
+	hooksecurefunc('PVPUIFrame_ConfigureRewardFrame', function(rewardFrame, honor, experience, itemRewards, currencyRewards)
+		local rewardTexture, rewardQuaility = nil, 1
+
+		if currencyRewards then
+			for _, reward in ipairs(currencyRewards) do
+				local name, _, texture, _, _, _, _, quality = GetCurrencyInfo(reward.id);
+				if quality == LE_ITEM_QUALITY_ARTIFACT then
+					_, rewardTexture, _, rewardQuaility = CurrencyContainerUtil.GetCurrencyContainerInfo(reward.id, reward.quantity, name, texture, quality);
+				end
+			end
+		end
+
+		if not rewardTexture and itemRewards then
+			local reward = itemRewards[1];
+			if reward then
+				_, _, rewardQuaility, _, _, _, _, _, _, rewardTexture = GetItemInfo(reward.id)
+			end
+		end
+
+		if rewardTexture then
+			rewardFrame.Icon:SetTexture(rewardTexture)
+			rewardFrame.bg:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
+		end
+	end)
 
 	-- Honor frame specific
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
@@ -136,39 +131,66 @@ local function stylePvP()
 		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
 		bu.SelectedTexture:SetAllPoints(bu.tex)
 
-		bu.Icon:SetTexCoord(.08, .92, .08, .92)
+		bu.Icon:SetTexCoord(unpack(E.TexCoords))
 		bu.Icon.bg = MERS:CreateBG(bu.Icon)
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
 		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
 
-	-- Rated - ConquestFrame
-	local ConquestFrame = _G["ConquestFrame"]
-	local Inset = ConquestFrame.Inset
-
-	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
-		local reward = bu.Reward
-
-		MERS:Reskin(bu)
-
-		-- Hide ElvUI backdrop
-		if bu.backdrop then
-			bu.backdrop:Hide()
-		end
-
-		bu.NormalTexture:Hide()
-
-		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
-		bu.SelectedTexture:SetColorTexture(r, g, b, .2)
-		bu.SelectedTexture:SetAllPoints()
-
-		if reward then
-			reward.Border:Hide()
-			MERS:ReskinIcon(reward.Icon)
-		end
+	local rewardIcon = HonorFrame.ConquestBar.Reward.Icon
+	if not rewardIcon.bg then
+		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
+		rewardIcon.bg:SetOutside(rewardIcon)
 	end
 
-	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
+	-- Credits Azilroka
+	hooksecurefunc(HonorFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
+		local Quality
+		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+				break;
+			end
+			if HaveQuestRewardData(questID) then
+				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
+				Quality = select(3, GetItemInfo(itemID))
+			else
+				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+			end
+		end
+		if Quality then
+			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+		else
+			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		end
+	end)
+
+	-- Rated - ConquestFrame
+	local rewardIcon = ConquestFrame.ConquestBar.Reward.Icon
+	if not rewardIcon.bg then
+		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
+		rewardIcon.bg:SetOutside(rewardIcon)
+	end
+
+	-- Credits Azilroka
+	hooksecurefunc(ConquestFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
+		local Quality
+		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+				break;
+			end
+			if HaveQuestRewardData(questID) then
+				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
+				Quality = select(3, GetItemInfo(itemID))
+			else
+				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+			end
+		end
+		if Quality then
+			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+		else
+			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		end
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)
