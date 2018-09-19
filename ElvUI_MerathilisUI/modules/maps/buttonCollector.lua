@@ -72,9 +72,11 @@ function MM:CollectMinimapButtons(parent)
 					if region:GetObjectType() == "Texture" then
 						local texture = region:GetTexture()
 						if texture then
-							if (find(texture, "Interface\\CharacterFrame") or find(texture, "Interface\\Minimap")) then
+							if texture and (find(texture, 'Border') or find(texture, 'Background') or find(texture, 'AlphaMask') or find(texture, 'Highlight')) then
 								region:SetTexture(nil)
-							elseif (find(texture, "Interface\\AddOns\\BagSync\\media\\minimap")) then
+							elseif texture and (find(texture, "Interface\\CharacterFrame") or find(texture, "Interface\\Minimap")) then
+								region:SetTexture(nil)
+							elseif texture and (find(texture, "Interface\\AddOns\\BagSync\\media\\minimap")) then
 								region:SetTexture("Interface\\AddOns\\BagSync\\media\\icon")
 							elseif texture == 136430 or texture == 136467 then
 								region:SetTexture(nil)
@@ -82,8 +84,12 @@ function MM:CollectMinimapButtons(parent)
 						end
 					end
 					region:SetDrawLayer("ARTWORK")
-					region:Size(22)
-					region.SetPoint = function() return end
+					region:SetSize(24, 24)
+					region:SetScale(1)
+					region.SetPoint = MER.dummy
+					region.SetSize = MER.dummy
+					region.SetWidth = MER.dummy
+					region.SetHeight = MER.dummy
 				end
 
 				child:HookScript("OnShow", function()
