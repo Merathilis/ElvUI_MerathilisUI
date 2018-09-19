@@ -554,11 +554,21 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	if frame.backdrop then frame.backdrop:Hide() end
 
-	MERS:Reskin(frame)
-
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
 	frame:SetHighlightTexture(E["media"].normTex)
+
+	local hl = frame:GetHighlightTexture()
+	hl:SetPoint("TOPLEFT", 5, -5)
+	hl:SetPoint("BOTTOMRIGHT", -5, 5)
+	hl:SetVertexColor(r, g, b, .2)
+
+	local bd = CreateFrame("Frame", nil, frame)
+	bd:SetPoint("TOPLEFT", 4, -4)
+	bd:SetPoint("BOTTOMRIGHT", -4, 4)
+	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
+	MERS:CreateBD(bd, 0)
+	MERS:CreateGradient(bd)
 
 	local ch = frame:GetCheckedTexture()
 	ch:SetDesaturated(true)
