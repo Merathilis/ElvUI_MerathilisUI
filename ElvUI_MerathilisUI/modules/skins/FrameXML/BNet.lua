@@ -17,9 +17,10 @@ end
 local function styleBNet()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
-	--MERS.SocialToastTemplate(_G["BNToastFrame"])
-
-	_G["BNToastFrame"]:Styling()
+	local BNToastFrame = _G["BNToastFrame"]
+	BNToastFrame:Styling()
+	BNToastFrame:SetClampedToScreen(true)
+	BNToastFrame:SetClampRectInsets(-15, 15, 15, -15)
 end
 
 S:AddCallback("mUIBNet", styleBNet)

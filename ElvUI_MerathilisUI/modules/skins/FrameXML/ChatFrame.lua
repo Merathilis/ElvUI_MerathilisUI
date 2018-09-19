@@ -64,6 +64,8 @@ local function styleChatFrame()
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
 	MERS:CreateBD(VoiceChatPromptActivateChannel)
 	VoiceChatPromptActivateChannel:Styling()
+	VoiceChatPromptActivateChannel:SetClampedToScreen(true)
+	VoiceChatPromptActivateChannel:SetClampRectInsets(-15, 15, 15, -15)
 	MERS:CreateBD(VoiceChatChannelActivatedNotification)
 	VoiceChatChannelActivatedNotification:Styling()
 end
