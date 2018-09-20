@@ -60,7 +60,7 @@ function COMP:ProjectAzilrokaCompatibility()
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
 	end
 
-	if Disable(_G.ProjectAzilrokaDB, "SMB") then
+	if Disable(_G.ProjectAzilroka.db, "SMB") then
 		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
 end

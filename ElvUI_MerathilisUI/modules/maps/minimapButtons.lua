@@ -332,7 +332,7 @@ function SMB:Update()
 	self.Bar:SetSize(BarWidth, BarHeight)
 
 	if self.db.backdrop then
-		self.Bar:SetTemplate('Transparent')
+		self.Bar:SetTemplate('Transparent', true)
 	else
 		self.Bar:SetBackdrop(nil)
 	end
@@ -348,16 +348,17 @@ end
 
 function SMB:Initialize()
 	if E.private.general.minimap.enable ~= true or E.db.mui["smb"].enable ~= true then return end
-
 	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true or COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
 
 	SMB.db = E.db.mui["smb"]
+
+	MER:RegisterDB(self, "smb")
 
 	SMB.Hider = CreateFrame("Frame", nil, UIParent)
 
 	SMB.Bar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
 	SMB.Bar:Hide()
-	SMB.Bar:SetPoint('RIGHT', UIParent, 'RIGHT', -45, 0)
+	SMB.Bar:SetPoint('BOTTOMRIGHT', UIParent, 'BOTTOMRIGHT', -28, 197)
 	SMB.Bar:SetFrameStrata('LOW')
 	SMB.Bar:SetClampedToScreen(true)
 	SMB.Bar:SetMovable(true)
@@ -373,7 +374,13 @@ function SMB:Initialize()
 
 	SMB.Bar:Styling()
 
-	E:CreateMover(SMB.Bar, MER.Title.."SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI')
+	function SMB:ForUpdateAll()
+		SMB.db = E.db.mui["smb"]
+		SMB:Update()
+	end
+	SMB:ForUpdateAll()
+
+	E:CreateMover(SMB.Bar, "MER_SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI')
 
 	SMB.TexCoords = {unpack(E.TexCoords)}
 

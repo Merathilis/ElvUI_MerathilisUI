@@ -409,7 +409,11 @@ function MER:SetupLayout()
 	E.db["mui"]["locPanel"]["colorType"] = "DEFAULT"
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
-	E.db["mui"]["maps"]["minimap"]["buttonCollector"]["position"] = "TOP"
+	E.db["mui"]["smb"]["enable"] = true
+	E.db["mui"]["smb"]["backdrop"] = true
+	E.db["mui"]["smb"]["iconSize"] = 22
+	E.db["mui"]["smb"]["buttonsPerRow"] = 6
+	E.db["mui"]["smb"]["buttonSpacing"] = 2
 
 	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
 	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)
@@ -417,6 +421,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -20)
 	MER:SetMoverPosition("MER_RaidBuffReminderMover", "TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
+	MER:SetMoverPosition("MER_SquareMinimapButtonBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 197)
 
 	--[[----------------------------------
 	--	Movers - Layout
