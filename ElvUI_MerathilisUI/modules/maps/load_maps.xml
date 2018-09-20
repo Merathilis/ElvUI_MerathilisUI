@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="minimap.lua"/>
-	<Script file="buttonCollector.lua"/>
+	<Script file="minimapButtons.lua"/>
 	<!-- <Script file="worldmap.lua"/> -->
 	<Script file="options.lua"/>
 </Ui>

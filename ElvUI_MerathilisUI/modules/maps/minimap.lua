@@ -110,7 +110,6 @@ function MM:Initialize()
 	end
 
 	self:MiniMapCoords()
-	self:ButtonCollectorInit()
 	self:MiniMapPing()
 
 	if E.db.mui.maps.minimap.flash then

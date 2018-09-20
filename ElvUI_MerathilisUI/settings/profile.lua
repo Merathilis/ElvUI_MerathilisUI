@@ -195,10 +195,6 @@ P["mui"] = {
 				["enable"] = true,
 				["position"] = "BOTTOM",
 			},
-			["buttonCollector"] = {
-				["enable"] = true,
-				["position"] = "TOP",
-			},
 			["ping"] = {
 				["enable"] = true,
 				["position"] = "TOP",
@@ -206,6 +202,19 @@ P["mui"] = {
 				["yOffset"] = -20,
 			},
 		},
+	},
+
+	["smb"] = {
+		["enable"] = true,
+		["barMouseOver"] = false,
+		["backdrop"] = true,
+		["iconSize"] = 22,
+		["buttonsPerRow"] = 6,
+		["buttonSpacing"] = 2,
+		["hideGarrison"] = false,
+		["moveGarrison"] = false,
+		["moveTracker"] = false,
+		["moveQueue"] = false,
 	},
 
 	["locPanel"] = {
