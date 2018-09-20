@@ -1,5 +1,6 @@
 [b][color=orange]v3.42[/color], xx.xx.2018[/b][list]
-[*]
+[*]Updated BigWigs Profile & Skin.
+[*]Some skin updates.[/list]
 
 [b][color=orange]v3.41.1[/color], 18.09.2018[/b][list]
 [*]Fix a nil error on the NamePlate Auras.[/list]
