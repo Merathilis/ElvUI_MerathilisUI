@@ -18,7 +18,7 @@ local FreeBackgrounds = {}
 
 local function CreateBG()
 	local BG = CreateFrame("Frame")
-	BG:SetTemplate("Transparent")
+	MERS:CreateBD(BG, .45)
 	BG:Styling()
 	return BG
 end
@@ -72,7 +72,6 @@ local function ApplyStyle(bar)
 	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
 	bg:ClearAllPoints()
 	bg:SetOutside(bar)
-	bg:SetTemplate("Transparent")
 	bg:Show()
 	bar:Set("bigwigs:MerathilisUI:bg", bg)
 
@@ -90,7 +89,6 @@ local function ApplyStyle(bar)
 		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
 		ibg:ClearAllPoints()
 		ibg:SetOutside(bar.candyBarIconFrame)
-		ibg:SetBackdropColor(0, 0, 0, 0)
 		ibg:Show()
 		bar:Set("bigwigs:MerathilisUI:ibg", ibg)
 	end
