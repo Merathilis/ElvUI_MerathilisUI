@@ -114,8 +114,14 @@ P["mui"] = {
 	["actionbars"] = {
 		["cleanButton"] = true,
 		["transparent"] = true,
-		["specBar"] = true,
-		["equipBar"] = true,
+		["specBar"] = {
+			["enable"] = true,
+			["mouseover"] = true,
+		},
+		["equipBar"] = {
+			["enable"] = true,
+			["mouseover"] = false,
+		},
 	},
 
 	["microBar"] = {

@@ -18,7 +18,7 @@ local SetLootSpecialization = SetLootSpecialization
 -- GLOBALS: GameTooltip, GameTooltip_Hide
 
 function MAB:CreateSpecBar()
-	if E.db.mui.actionbars.specBar ~= true then return end
+	if E.db.mui.actionbars.specBar.enable ~= true then return end
 
 	local Spacing, Mult = 4, 1
 	local Size = 24
@@ -30,10 +30,18 @@ function MAB:CreateSpecBar()
 	specBar:SetTemplate("Transparent")
 	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
+	specBar:Hide()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
 	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+
+	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	specBar:SetScript('OnLeave', function(self)
+		if E.db.mui.actionbars.specBar.mouseover then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	end)
 
 	local Specs = GetNumSpecializations()
 
@@ -73,6 +81,16 @@ function MAB:CreateSpecBar()
 				self:SetTemplate()
 			end
 		end)
+		Button:HookScript('OnEnter', function(self)
+			if specBar:IsShown() then
+				UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
+			end
+		end)
+		Button:HookScript('OnLeave', function(self)
+			if specBar:IsShown() and E.db.mui.actionbars.specBar.mouseover then
+				UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
+			end
+		end)
 
 		Button:SetPoint("LEFT", i == 1 and specBar or specBar.Button[i - 1], i == 1 and "LEFT" or "RIGHT", Spacing, 0)
 
@@ -102,6 +120,12 @@ function MAB:CreateSpecBar()
 				self:SetBackdropBorderColor(1, 0.44, .4)
 			end
 		end)
+	end
+
+	if E.db.mui.actionbars.specBar.mouseover then
+		UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
 	end
 end
 
