@@ -37,6 +37,13 @@ LST:RegisterSkin("MerathilisUI", {
 	slot = {
 		tex_coords = {.08, .92, .08, .92},
 	},
+	shine = {
+		tex_coords = {403 / 512, 465 / 512, 15 / 256, 61 / 256},
+		size = {67, 50},
+		point = {
+			y = -1,
+		},
+	},
 	bg = {
 		default = {
 			texture = {0, 0, 0, 0.75},
