@@ -46,7 +46,10 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 	bg = {
 		default = {
+			color = {1, 1, 1},
 			texture = {0, 0, 0, 0.75},
+			tex_coords = {1 / 512, 449 / 512, 1 / 128, 97 / 128},
+			tile = true,
 		},
 	},
 })
