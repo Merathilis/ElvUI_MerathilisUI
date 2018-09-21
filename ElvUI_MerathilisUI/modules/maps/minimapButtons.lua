@@ -6,9 +6,14 @@ SMB.modName = L["Minimap Buttons"]
 --Cache global variables
 --Lua functions
 local _G = _G
-
+local strfind, strlen, strlower, strsub = string.find, string.len, string.lower, string.sub
+local pairs, select, unpack = pairs, select, unpack
+local ceil = math.ceil
+local tContains,tinsert = tContains, table.insert
 --WoW API / Variables
-
+local CreateFrame = CreateFrame
+local C_PetBattles_IsInBattle = C_PetBattles.IsInBattle
+local InCombatLockdown = InCombatLockdown
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
@@ -212,35 +217,32 @@ function SMB:SkinMinimapButton(Button)
 
 	for i = 1, Button:GetNumRegions() do
 		local Region = select(i, Button:GetRegions())
-		if Region:GetObjectType() == 'Texture' then
-			local Texture = Region:GetTexture()
+		if Region.IsObjectType and Region:IsObjectType('Texture') then
+			local Texture = strlower(Region:GetTexture())
 
-			if Texture then
-				if (strfind(Texture, "Interface\\CharacterFrame") or strfind(Texture, "Interface\\Minimap")) then
-					Region:SetTexture(nil)
-				elseif (strfind(Texture, 'Border') or strfind(Texture, 'Background') or strfind(Texture, 'AlphaMask') or strfind(Texture, 'Highlight')) then
-					Region:SetAlpha(0)
-				else
-					if Name == 'BagSync_MinimapButton' then
-						Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon')
-					elseif Name == 'DBMMinimapButton' then
-						Region:SetTexture('Interface\\Icons\\INV_Helmet_87')
-					elseif Name == 'OutfitterMinimapButton' then
-						if Region:GetTexture() == 'Interface\\Addons\\Outfitter\\Textures\\MinimapButton' then
-							Region:SetTexture(nil)
-						end
-					elseif Name == 'SmartBuff_MiniMapButton' then
-						Region:SetTexture('Interface\\Icons\\Spell_Nature_Purge')
-					elseif Name == 'VendomaticButtonFrame' then
-						Region:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
+			if (strfind(Texture, "interface\\characterframe") or strfind(Texture, "interface\\minimap") or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
+				Region:SetTexture(nil)
+				Region:SetAlpha(0)
+			else
+				if Name == 'BagSync_MinimapButton' then
+					Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon')
+				elseif Name == 'DBMMinimapButton' then
+					Region:SetTexture('Interface\\Icons\\INV_Helmet_87')
+				elseif Name == 'OutfitterMinimapButton' then
+					if Texture == 'interface\\addons\\outfitter\\textures\\minimapbutton' then
+						Region:SetTexture(nil)
 					end
-					Region:ClearAllPoints()
-					Region:SetInside()
-					Region:SetTexCoord(unpack(self.TexCoords))
-					Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(self.TexCoords)) end)
-					Region:SetDrawLayer('ARTWORK')
-					Region.SetPoint = function() return end
+				elseif Name == 'SmartBuff_MiniMapButton' then
+					Region:SetTexture('Interface\\Icons\\Spell_Nature_Purge')
+				elseif Name == 'VendomaticButtonFrame' then
+					Region:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
 				end
+				Region:ClearAllPoints()
+				Region:SetInside()
+				Region:SetTexCoord(unpack(self.TexCoords))
+				Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(self.TexCoords)) end)
+				Region:SetDrawLayer('ARTWORK')
+				Region.SetPoint = function() return end
 			end
 		end
 	end
@@ -266,10 +268,12 @@ function SMB:SkinMinimapButton(Button)
 end
 
 function SMB:GrabMinimapButtons()
-	if (InCombatLockdown() or C_PetBattles.IsInBattle()) then return end
+	if (InCombatLockdown() or C_PetBattles_IsInBattle()) then return end
 
 	for _, Frame in pairs({ Minimap, MinimapBackdrop }) do
-		for i = 1, Frame:GetNumChildren() do
+		local NumChildren = Frame:GetNumChildren()
+		if NumChildren < (Frame.SMBNumChildren or 0) then return end
+		for i = 1, NumChildren do
 			local object = select(i, Frame:GetChildren())
 			if object then
 				local name = object:GetName()
@@ -279,6 +283,7 @@ function SMB:GrabMinimapButtons()
 				end
 			end
 		end
+		Frame.SMBNumChildren = NumChildren
 	end
 
 	self:Update()
@@ -337,7 +342,11 @@ function SMB:Update()
 		self.Bar:SetBackdrop(nil)
 	end
 
-	self.Bar:Show()
+	if ActualButtons == 0 then
+		self.Bar:Hide()
+	else
+		self.Bar:Show()
+	end
 
 	if self.db['barMouseOver'] then
 		UIFrameFadeOut(self.Bar, 0.2, self.Bar:GetAlpha(), 0)
@@ -371,8 +380,6 @@ function SMB:Initialize()
 			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 		end
 	end)
-
-	SMB.Bar:Styling()
 
 	function SMB:ForUpdateAll()
 		SMB.db = E.db.mui["smb"]
