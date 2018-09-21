@@ -212,13 +212,11 @@ P["mui"] = {
 
 	["smb"] = {
 		["enable"] = true,
-		["barMouseOver"] = false,
+		["barMouseOver"] = true,
 		["backdrop"] = true,
 		["iconSize"] = 22,
 		["buttonsPerRow"] = 6,
 		["buttonSpacing"] = 2,
-		["hideGarrison"] = false,
-		["moveGarrison"] = false,
 		["moveTracker"] = false,
 		["moveQueue"] = false,
 	},

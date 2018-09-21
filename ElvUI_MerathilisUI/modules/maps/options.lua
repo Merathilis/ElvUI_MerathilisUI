@@ -115,7 +115,7 @@ local function Minimap()
 					credits = {
 						order = 1,
 						type = "group",
-						name = MER:cOption(L["Credits"]),
+						name = L["Credits"],
 						guiInline = true,
 						args = {
 							tukui = {
@@ -136,7 +136,7 @@ local function Minimap()
 					barMouseOver = {
 						order = 3,
 						type = "toggle",
-						name = L["MouseOver"],
+						name = L["Mouseover"],
 					},
 					backdrop = {
 						order = 4,
@@ -164,31 +164,19 @@ local function Minimap()
 					blizzard = {
 						order = 8,
 						type = "group",
-						name = L['Blizzard'],
+						name = L["Blizzard"],
 						guiInline = true,
 						set = function(info, value) E.db.mui.smb[ info[#info] ] = value SMB:Update() SMB:HandleBlizzardButtons() end,
 						args = {
-							hideGarrison  = {
+							moveTracker  = {
 								order = 1,
 								type = "toggle",
-								name = L["Hide Garrison"],
-								disabled = function() return E.db.mui.smb.moveGarrison end,
-							},
-							moveGarrison  = {
-								order = 2,
-								type = 'toggle',
-								name = L['Move Garrison Icon'],
-								disabled = function() return E.db.mui.smb.hideGarrison end,
-							},
-							moveTracker  = {
-								order = 3,
-								type = 'toggle',
-								name = L['Move Tracker Icon'],
+								name = L["Move Tracker Icon"],
 							},
 							moveQueue  = {
-								order = 4,
-								type = 'toggle',
-								name = L['Move Queue Status Icon'],
+								order = 2,
+								type = "toggle",
+								name = L["Move Queue Status Icon"],
 							},
 						},
 					},

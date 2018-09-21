@@ -77,35 +77,6 @@ end
 function SMB:HandleBlizzardButtons()
 	if not self.db['enable'] then return end
 
-	if self.db['hideGarrison'] then
-		GarrisonLandingPageMinimapButton:UnregisterAllEvents()
-		GarrisonLandingPageMinimapButton:SetParent(self.Hider)
-		GarrisonLandingPageMinimapButton:Hide()
-	elseif self.db["moveGarrison"] and not GarrisonLandingPageMinimapButton.SMB then
-		GarrisonLandingPageMinimapButton:SetParent(Minimap)
-		GarrisonLandingPageMinimapButton:Show()
-		GarrisonLandingPageMinimapButton:SetScale(1)
-		GarrisonLandingPageMinimapButton:SetHitRectInsets(0, 0, 0, 0)
-		GarrisonLandingPageMinimapButton:SetScript('OnEnter', nil)
-		GarrisonLandingPageMinimapButton:SetScript('OnLeave', nil)
-
-		GarrisonLandingPageMinimapButton:HookScript('OnEnter', function(self)
-			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-			if SMB.Bar:IsShown() then
-				UIFrameFadeIn(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 1)
-			end
-		end)
-		GarrisonLandingPageMinimapButton:HookScript('OnLeave', function(self)
-			self:SetTemplate()
-			if SMB.Bar:IsShown() and SMB.db['barMouseOver'] then
-				UIFrameFadeOut(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 0)
-			end
-		end)
-
-		GarrisonLandingPageMinimapButton.SMB = true
-		tinsert(self.Buttons, GarrisonLandingPageMinimapButton)
-	end
-
 	if self.db["moveTracker"] and not MiniMapTrackingButton.SMB then
 		MiniMapTracking.Show = nil
 

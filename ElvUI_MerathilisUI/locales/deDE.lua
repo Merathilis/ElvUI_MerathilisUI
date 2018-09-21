@@ -235,6 +235,7 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -295,6 +296,11 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
+
+-- SMB
+L["Bar Backdrop"] = "Leisten Hintergrund"
+L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
+L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
