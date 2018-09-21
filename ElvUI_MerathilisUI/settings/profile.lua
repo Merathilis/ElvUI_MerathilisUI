@@ -116,7 +116,7 @@ P["mui"] = {
 		["transparent"] = true,
 		["specBar"] = {
 			["enable"] = true,
-			["mouseover"] = true,
+			["mouseover"] = false,
 		},
 		["equipBar"] = {
 			["enable"] = true,
