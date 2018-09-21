@@ -1,5 +1,7 @@
 ** v3.42, xx.xx.2018**
 * Updated BigWigs Profile & Skin.
+* Updated my buttonColector to be like SMB.
+* Added mouseover options for EquipBar & SpecBar.
 * Some skin updates.
 
 ** v3.41.1, 18.09.2018**
