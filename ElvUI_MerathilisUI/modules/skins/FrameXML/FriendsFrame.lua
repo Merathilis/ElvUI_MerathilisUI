@@ -17,6 +17,26 @@ local function styleFriends()
 	_G["RecruitAFriendSentFrame"]:Styling()
 	_G["RecruitAFriendSentFrame"].MoreDetails.Text:FontTemplate()
 
+	-- Animated Icon
+	FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
+	FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]])
+	FriendsFrameIcon:SetSize(36, 36)
+
+	hooksecurefunc(FriendsFrameIcon, "SetTexture", function(self, texture)
+		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]] then
+			self:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]])
+		end
+	end)
+	FriendsListFrame:HookScript("OnShow", function()
+		FriendsFrameIcon:SetAlpha(1)
+	end)
+	FriendsListFrame:HookScript("OnHide", function()
+		FriendsFrameIcon:SetAlpha(0)
+	end)
+	FriendsFrame:HookScript("OnUpdate", function(self, elapsed)
+		AnimateTexCoords(FriendsFrameIcon, 512, 256, 64, 64, 25, elapsed, 0.01)
+	end)
+
 	-- GuildTab in FriendsFrame
 	local n = _G["FriendsFrame"].numTabs + 1
 	local gtframe = CreateFrame("Button", "FriendsFrameTab"..n, _G["FriendsFrame"], "FriendsFrameTabTemplate")
