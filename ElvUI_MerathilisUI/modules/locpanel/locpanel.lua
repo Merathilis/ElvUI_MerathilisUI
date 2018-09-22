@@ -141,6 +141,9 @@ LP.Spells = {
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
+	["RACIAL"] = {
+		[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+	},
 	["teleports"] = {
 		["Horde"] = {
 			[1] = {text = GetSpellInfo(3563),icon = MER:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
