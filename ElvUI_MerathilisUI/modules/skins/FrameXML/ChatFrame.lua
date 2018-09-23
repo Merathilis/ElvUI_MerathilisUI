@@ -64,13 +64,8 @@ local function styleChatFrame()
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
 	MERS:CreateBD(VoiceChatPromptActivateChannel)
 	VoiceChatPromptActivateChannel:Styling()
-	VoiceChatPromptActivateChannel:SetClampedToScreen(true)
-	VoiceChatPromptActivateChannel:SetClampRectInsets(-50, 50, 50, -50)
 	MERS:CreateBD(VoiceChatChannelActivatedNotification)
 	VoiceChatChannelActivatedNotification:Styling()
-	VoiceChatChannelActivatedNotification:SetClampedToScreen(true)
-	VoiceChatChannelActivatedNotification:SetClampRectInsets(-50, 50, 50, -50)
-	ChatAlertFrame:SetClampedToScreen(true)
 end
 
 S:AddCallback("mUIChat", styleChatFrame)
