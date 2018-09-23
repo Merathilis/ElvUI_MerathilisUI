@@ -352,6 +352,9 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar5(self, _G["ElvUI_Bar5"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			HideLeftChat()
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
 
@@ -374,8 +377,14 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar3(self, _G["ElvUI_Bar3"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			HideRightChat()
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
+
+	LeftChatToggleButton:Kill()
+	RightChatToggleButton:Kill()
 end
 
 function MERL:regEvents()
