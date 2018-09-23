@@ -396,8 +396,10 @@ function MERS:ReskinSliderFrame(frame)
 	local SIZE = 12
 
 	frame:StripTextures()
-	frame:CreateBackdrop('Default')
-	frame.backdrop:SetAllPoints()
+	if frame.backdrop then frame.backdrop:Hide() end
+
+	MERS:CreateBDFrame(frame)
+	MERS:CreateGradient(frame)
 
 	hooksecurefunc(frame, "SetBackdrop", function(slider, backdrop)
 		if backdrop ~= nil then slider:SetBackdrop(nil) end
