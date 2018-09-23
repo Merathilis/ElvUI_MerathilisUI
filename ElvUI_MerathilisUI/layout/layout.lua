@@ -105,7 +105,7 @@ function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
-	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
+	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", 4, -5)
 	ChatButton:Size(13, 13)
@@ -173,7 +173,7 @@ function MERL:CreateChatButtons()
 		end
 	end)
 
-	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"])
+	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"].backdrop)
 	ChatMenu:SetTemplate("Default")
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
