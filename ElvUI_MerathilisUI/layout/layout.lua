@@ -283,6 +283,23 @@ local function UpdateBar3(self, bar)
 	MoveButtonBar(button, bar)
 end
 
+local function ChatPanels_OnEnter(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
+	GameTooltip:ClearLines()
+	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
+	GameTooltip:AddLine('')
+	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Chat"], 1, 1, 1)
+	GameTooltip:Show()
+end
+
+local function ChatPanels_OnLeave(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:Hide()
+end
+
 -- Panels
 function MERL:CreatePanels()
 	if E.db.mui.general.panels ~= true then return end
@@ -358,6 +375,9 @@ function MERL:CreatePanels()
 		end
 	end)
 
+	MerathilisUIButton1:SetScript("OnEnter", ChatPanels_OnEnter)
+	MerathilisUIButton1:SetScript("OnLeave", ChatPanels_OnLeave)
+
 	local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
 	MerathilisUIButton2:RegisterForClicks("AnyUp")
 	MerathilisUIButton2:Size(14, 14)
@@ -382,6 +402,9 @@ function MERL:CreatePanels()
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
+
+	MerathilisUIButton2:SetScript("OnEnter", ChatPanels_OnEnter)
+	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
 
 	LeftChatToggleButton:Kill()
 	RightChatToggleButton:Kill()

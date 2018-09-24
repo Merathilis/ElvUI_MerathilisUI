@@ -414,7 +414,7 @@ function MERS:ReskinSliderFrame(frame)
 	else
 		frame:Height(SIZE)
 
-		for i=1, frame:GetNumRegions() do
+		for i = 1, frame:GetNumRegions() do
 			local region = select(i, frame:GetRegions())
 			if region and region:GetObjectType() == 'FontString' then
 				local point, anchor, anchorPoint, x, y = region:GetPoint()
