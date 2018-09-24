@@ -673,6 +673,8 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 
+	E.db["unitframe"]["smartRaidFilter"] = true
+
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
 	E.db["unitframe"]["colors"]["frameGlow"]["mainGlow"]["enable"] = false
@@ -946,6 +948,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 3
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 2
+		E.db["unitframe"]["units"]["raid"]["visibility"] = "[@raid6,noexists][@raid21,exists] hide;show"
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["clickThrough"] = true
@@ -1042,63 +1045,88 @@ function MER:SetupUnitframes(layout)
 		end
 
 		-- Raid40
-		E.db["unitframe"]["units"]["raid40"]["horizontalSpacing"] = 1
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 21
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["enable"] = true
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["yOffset"] = -9
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["yOffset"] = -8
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useFilter"] = "Whitlist (Strict)"
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["xOffset"] = -4
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 2
-		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 5
+		E.db["unitframe"]["units"]["raid40"]["portrait"]["camDistanceScale"] = 2
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Expressway"
-		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 26
+		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 20
+		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid40"]["groupBy"] = "ROLE"
 		E.db["unitframe"]["units"]["raid40"]["classHover"] = true
-		E.db["unitframe"]["units"]["raid40"]["orientation"] = "MIDDLE"
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["position"] = "RIGHT"
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["attachTo"] = "InfoPanel"
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["damager"] = true
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["tank"] = true
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["heal"] = true
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["size"] = 9
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid40"]["health"]["frequentUpdates"] = true
-		E.db["unitframe"]["units"]["raid40"]["width"] = 69
-		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["health"]["text_format"] = ""
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["heal"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["position"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 1
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["size"] = 10
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
+		E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
+		E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
+		E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 4
+		if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
+		-- Delete old customTexts/ Create empty table
+		E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
+		-- Create own customTexts
+		E.db["unitframe"]["units"]["raid40"]["customTexts"]["Status"] = {
+			["enable"] = true,
+			["attachTextTo"] = "Health",
+			["text_format"] = "[statustimer]",
+			["yOffset"] = -12,
+			["font"] = "Expressway",
+			["justifyH"] = "CENTER",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["size"] = 10,
+		}
+		E.db["unitframe"]["units"]["raid40"]["customTexts"]["name1"] = {
+			["enable"] = true,
+			["attachTextTo"] = "Health",
+			["text_format"] = "[name:medium]",
+			["yOffset"] = 0,
+			["font"] = "Expressway",
+			["justifyH"] = "CENTER",
+			["fontOutline"] = "OUTLINE",
+			["xOffset"] = 0,
+			["size"] = 10,
+		}
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
+		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
+		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
+		E.db["unitframe"]["units"]["raid40"]["width"] = 78
+		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
-		E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 1
-		E.db["unitframe"]["units"]["raid40"]["name"]["attachTextTo"] = "InfoPanel"
-		E.db["unitframe"]["units"]["raid40"]["positionOverride"] = "BOTTOMRIGHT"
-		E.db["unitframe"]["units"]["raid40"]["height"] = 35
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["noConsolidated"] = false
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["sizeOverride"] = 17
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["playerOnly"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["perrow"] = 1
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["anchorPoint"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "TurtleBuffs"
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = false
-		E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
-		E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 3
-		E.db["unitframe"]["units"]["raid40"]["power"]["enable"] = true
-		E.db["unitframe"]["units"]["raid40"]["power"]["position"] = "CENTER"
-		E.db["unitframe"]["units"]["raid40"]["raidicon"]["attachTo"] = "LEFT"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["noConsolidated"] = false
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["priority"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["useFilter"] = "MER_RaidCDs"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["name"]["text_format"] = ""
+		E.db["unitframe"]["units"]["raid40"]["positionOverride"] = "BOTTOMRIGHT"
+		E.db["unitframe"]["units"]["raid40"]["height"] = 35
+		E.db["unitframe"]["units"]["raid40"]["verticalSpacing"] = 2
+		E.db["unitframe"]["units"]["raid40"]["visibility"] = "[@raid21,noexists] hide;show"
+		E.db["unitframe"]["units"]["raid40"]["raidicon"]["attachTo"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["raid40"]["raidicon"]["xOffset"] = 9
-		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 13
-		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
-		E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
+		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
