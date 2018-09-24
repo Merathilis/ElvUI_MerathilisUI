@@ -195,8 +195,8 @@ function MER:SetupLayout()
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "MerathilisFlat"
-	E.private["general"]["glossTex"] = "MerathilisFlat"
+	E.private["general"]["normTex"] = "Duffed"
+	E.private["general"]["glossTex"] = "Duffed"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -259,7 +259,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["font"] = "Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "MerathilisFlat"
+	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 
@@ -327,7 +327,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["threat"]["goodScale"] = 1
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
 	E.db["nameplates"]["threat"]["badScale"] = 1
-	E.db["nameplates"]["statusbar"] = "MerathilisFlat"
+	E.db["nameplates"]["statusbar"] = "Duffed"
 	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["fontSize"] = 11
 	E.db["nameplates"]["fontOutline"] = "OUTLINE"
@@ -653,7 +653,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "MerathilisFlat"
+	E.db["unitframe"]["statusbar"] = "Duffed"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
