@@ -1106,6 +1106,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
 		E.db["unitframe"]["units"]["raid40"]["width"] = 78
+		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 12
