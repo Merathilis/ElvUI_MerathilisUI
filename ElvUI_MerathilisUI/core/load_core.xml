@@ -10,6 +10,7 @@
 	<Script file="staticpopup.lua"/>
 	<Script file="statusReport.lua"/>
 	<Script file="compatibility.lua"/>
+	<Script file="modulecopy.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 	<Include file="filter\load_filter.xml"/>
 	<Script file="config.lua"/>
