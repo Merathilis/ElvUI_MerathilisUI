@@ -525,8 +525,11 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	end
 
 	MERS:CreateBD(f, 0)
+	f:Styling()
 
-	f.bgTex = MERS:CreateGradient(f)
+	if f.bgTex then
+		f.bgTex = MERS:CreateGradient(f)
+	end
 
 	if not noHighlight then
 		f:HookScript("OnEnter", MERS.ColorButton)
@@ -547,8 +550,6 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		f:HookScript("OnEnter", StartGlow)
 		f:HookScript("OnLeave", StopGlow)
 	end
-
-	f:Styling()
 end
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
