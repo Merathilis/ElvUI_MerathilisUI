@@ -674,7 +674,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 
-	E.db["unitframe"]["smartRaidFilter"] = true
+	E.db["unitframe"]["smartRaidFilter"] = false
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
