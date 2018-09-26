@@ -284,7 +284,7 @@ function styleEncounterJournal()
 		hooksecurefunc("EncounterJournal_DisplayInstance", function()
 			bossButton = _G["EncounterJournalBossButton"..numBossButtons]
 			while bossButton do
-				MERS:Reskin(bossButton, true)
+				MERS:Reskin(bossButton)
 
 				bossButton.text:SetTextColor(1, 1, 1)
 				bossButton.text.SetTextColor = MER.dummy
