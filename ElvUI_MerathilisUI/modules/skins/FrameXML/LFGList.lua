@@ -42,6 +42,7 @@ local function styleLFGList()
 	-- Invite frame
 	_G["LFGListInviteDialog"]:Styling()
 	_G["LFGDungeonReadyDialog"]:Styling()
+	_G["LFGDungeonReadyStatus"]:Styling()
 
 	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
 	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)
