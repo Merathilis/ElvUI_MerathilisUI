@@ -36,6 +36,7 @@ local function styleSocketing()
 		select(2, bu:GetRegions()):Hide()
 
 		bu:SetPushedTexture("")
+		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
 
 		shine:ClearAllPoints()
@@ -59,6 +60,7 @@ local function styleSocketing()
 		else
 			ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", 0, 39)
 		end
+		ItemSocketingDescription:SetBackdrop(nil)
 	end)
 end
 
