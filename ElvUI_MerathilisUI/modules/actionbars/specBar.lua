@@ -69,7 +69,7 @@ function MAB:CreateSpecBar()
 		Button:SetScript("OnLeave", GameTooltip_Hide)
 		Button:SetScript("OnClick", function(self, button)
 			if button == "LeftButton" then
-				if self:GetID() ~= GetSpecialization() then
+				if self:GetID() ~= self.Spec then
 					SetSpecialization(self:GetID())
 				end
 			elseif button == "RightButton" then
