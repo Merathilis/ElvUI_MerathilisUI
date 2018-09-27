@@ -853,7 +853,7 @@ function MER:SetupUnitframes(layout)
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
-			["size"] = 20,
+			["size"] = 18,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[perhp]%",
