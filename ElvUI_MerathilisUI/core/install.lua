@@ -710,7 +710,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 15
 		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
-		E.db["unitframe"]["units"]["player"]["classbar"]["additionalPowerText"] = false
+		E.db["unitframe"]["units"]["player"]["classbar"]["additionalPowerText"] = true
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
