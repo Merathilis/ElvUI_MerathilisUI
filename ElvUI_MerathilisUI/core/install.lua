@@ -1297,7 +1297,7 @@ function MER:SetupUnitframes(layout)
 		-- Boss
 		E.db["unitframe"]["units"]["boss"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["sizeOverride"] = 22
-		E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 1
+		E.db["unitframe"]["units"]["boss"]["debuffs"]["yOffset"] = 5
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
@@ -1305,32 +1305,25 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
 		E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
-		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 		if not E.db["unitframe"]["units"]["boss"]["customTexts"] then E.db["unitframe"]["units"]["boss"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["boss"]["customTexts"] = {}
+		if E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = nil end
+
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["BigName"] = {
-			["attachTextTo"] = "InfoPanel",
+			["attachTextTo"] = "Frame",
 			["font"] = "Expressway",
 			["justifyH"] = "LEFT",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 11,
 			["text_format"] = "[name:medium]",
-			["yOffset"] = 1,
-		}
-		E.db["unitframe"]["units"]["boss"]["customTexts"]["Class"] = {
-			["attachTextTo"] = "InfoPanel",
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 0,
-			["text_format"] = "[namecolor][smartclass][difficultycolor][level][shortclassification]",
-			["yOffset"] = 1,
+			["yOffset"] = 18,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
 			["attachTextTo"] = "Health",
@@ -1349,16 +1342,16 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:percent:hidefull:hidezero]",
-			["yOffset"] = 0,
+			["text_format"] = "[perhp]%",
+			["yOffset"] = 12,
 		}
 		E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["boss"]["power"]["height"] = 9
 		E.db["unitframe"]["units"]["boss"]["power"]["position"] = "CENTER"
-		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[powercolor][power:percent]"
+		E.db["unitframe"]["units"]["boss"]["power"]["text_format"] = "[power:current-mUI]"
 		E.db["unitframe"]["units"]["boss"]["growthDirection"] = "UP"
-		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
+		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
 		E.db["unitframe"]["units"]["boss"]["width"] = 156
@@ -1366,15 +1359,15 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["health"]["yOffset"] = 13
 		E.db["unitframe"]["units"]["boss"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["boss"]["health"]["position"] = "RIGHT"
-		E.db["unitframe"]["units"]["boss"]["spacing"] = 24
+		E.db["unitframe"]["units"]["boss"]["spacing"] = 45
 		E.db["unitframe"]["units"]["boss"]["height"] = 35
 		E.db["unitframe"]["units"]["boss"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["boss"]["buffs"]["xOffset"] = -2
-		E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 10
+		E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
 		E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "InfoPanel"
+		E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
 		E.db["unitframe"]["units"]["boss"]["name"]["text_format"] = ""
