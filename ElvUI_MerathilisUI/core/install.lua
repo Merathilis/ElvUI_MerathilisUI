@@ -414,7 +414,7 @@ function MER:SetupLayout()
 	E.db["mui"]["smb"]["iconSize"] = 22
 	E.db["mui"]["smb"]["buttonsPerRow"] = 6
 	E.db["mui"]["smb"]["buttonSpacing"] = 2
-	E.db["mui"]["datatexts"]["middle"]["width"] = 336
+	E.db["mui"]["datatexts"]["middle"]["width"] = 330
 
 	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
 	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)
