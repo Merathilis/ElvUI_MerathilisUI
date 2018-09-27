@@ -21,5 +21,6 @@
 	<Script file="QuestPOI.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="TaxiFrame.lua"/>
+	<Script file="TradeFrame.lua"/>
 	<Script file="WorldMapFrame.lua"/>
 </Ui>

@@ -12,7 +12,7 @@ local _G = _G
 -- GLOBALS:
 
 local function styleQuestFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
 
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
 	------------------------
