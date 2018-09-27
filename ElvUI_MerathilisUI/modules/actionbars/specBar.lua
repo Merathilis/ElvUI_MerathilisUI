@@ -50,10 +50,11 @@ function MAB:CreateSpecBar()
 		local Button = CreateFrame("Button", nil, specBar)
 		Button:SetSize(Size, Size)
 		Button:SetID(i)
+		Button.SpecID = SpecID
 		Button:SetTemplate()
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
-		Button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
 		Button:GetNormalTexture():SetInside()
 		Button:SetPushedTexture(Icon)
 		Button:GetPushedTexture():SetInside()
@@ -71,12 +72,24 @@ function MAB:CreateSpecBar()
 				if self:GetID() ~= GetSpecialization() then
 					SetSpecialization(self:GetID())
 				end
+			elseif button == "RightButton" then
+				if (self.LootID == self.SpecID) then
+					self.SpecID = 0
+				end
+				SetLootSpecialization(self.SpecID)
 			end
 		end)
+		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+		Button:RegisterEvent("PLAYER_ENTERING_WORLD")
+		Button:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
 		Button:SetScript("OnEvent", function(self)
-			local Spec = GetSpecialization()
-			if Spec == self:GetID() then
+			self.Spec = GetSpecialization()
+			self.LootID = GetLootSpecialization()
+
+			if self.Spec == self:GetID() then
 				self:SetBackdropBorderColor(0, 0.44, .87)
+			elseif (self.LootID == self.SpecID) then
+				self:SetBackdropBorderColor(1, 0.44, .4)
 			else
 				self:SetTemplate()
 			end
@@ -101,26 +114,6 @@ function MAB:CreateSpecBar()
 	local BarHeight = (Spacing + (Size * Mult) + (Spacing * Mult))
 
 	specBar:SetSize(BarWidth, BarHeight)
-
-	for _, Button in pairs(specBar.Button) do
-		Button:HookScript("OnClick", function(self, button)
-			if button == "RightButton" then
-				local SpecID = GetSpecializationInfo(self:GetID())
-				if (GetLootSpecialization() == SpecID) then
-					SpecID = 0
-				end
-				SetLootSpecialization(SpecID)
-			end
-		end)
-		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-		Button:RegisterEvent("PLAYER_ENTERING_WORLD")
-		Button:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
-		Button:HookScript("OnEvent", function(self)
-			if (GetLootSpecialization() == GetSpecializationInfo(self:GetID())) then
-				self:SetBackdropBorderColor(1, 0.44, .4)
-			end
-		end)
-	end
 
 	if E.db.mui.actionbars.specBar.mouseover then
 		UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
