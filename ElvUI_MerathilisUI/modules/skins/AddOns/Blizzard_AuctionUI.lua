@@ -19,6 +19,13 @@ local function styleAuctionhouse()
 	local AuctionFrame = _G["AuctionFrame"]
 	AuctionFrame:Styling()
 
+	--Change ElvUI's backdrop to be Transparent
+	if AuctionFrameBrowse.bg1 then AuctionFrameBrowse.bg1:SetTemplate("Transparent") end
+	if AuctionFrameBrowse.bg2 then AuctionFrameBrowse.bg2:SetTemplate("Transparent") end
+	if AuctionFrameBid.bg then AuctionFrameBid.bg:SetTemplate("Transparent") end
+	if AuctionFrameAuctions.bg1 then AuctionFrameAuctions.bg1:SetTemplate("Transparent") end
+	if AuctionFrameAuctions.bg2 then AuctionFrameAuctions.bg2:SetTemplate("Transparent") end
+
 	AuctionProgressBar.Text:ClearAllPoints()
 	AuctionProgressBar.Text:SetPoint("CENTER", 0, 1)
 
