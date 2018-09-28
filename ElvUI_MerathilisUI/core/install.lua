@@ -722,24 +722,33 @@ function MER:SetupUnitframes(layout)
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
-		if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
 
 		-- Create own customText
+		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
+			["font"] = "Expressway",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "LEFT",
+			["text_format"] = "[name:medium]",
+			["attachTextTo"] = "Frame",
+			["xOffset"] = 0,
+			["yOffset"] = 22,
+		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 18,
+			["size"] = 16,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[perhp]%",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
-			["yOffset"] = 15,
+			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 16,
-			["justifyH"] = "Right",
+			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
@@ -834,7 +843,7 @@ function MER:SetupUnitframes(layout)
 		-- Create own customText
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
 			["font"] = "Expressway",
-			["justifyH"] = "LEFT",
+			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["yOffset"] = 22,
@@ -842,25 +851,15 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[name:abbrev]",
 			["attachTextTo"] = "Frame",
 		}
-		E.db["unitframe"]["units"]["target"]["customTexts"]["FactionIcon"] = {
-			["font"] = "Expressway",
-			["justifyH"] = "RIGHT",
-			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 0,
-			["size"] = 12,
-			["text_format"] = "[faction:icon]",
-			["yOffset"] = 0,
-			["attachTextTo"] = "Health",
-		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
 			["font"] = "Expressway",
-			["size"] = 18,
+			["size"] = 16,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[perhp]%",
 			["attachTextTo"] = "Health",
-			["yOffset"] = 15,
-			["xOffset"] = 3,
+			["yOffset"] = 0,
+			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
 			["font"] = "Expressway",
@@ -879,7 +878,7 @@ function MER:SetupUnitframes(layout)
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = -15,
+			["yOffset"] = -24,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
