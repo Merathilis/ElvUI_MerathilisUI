@@ -839,6 +839,7 @@ function MER:SetupUnitframes(layout)
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["target"]["customTexts"] = {}
 		if E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = nil end
+		if E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] = nil end
 
 		-- Create own customText
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
@@ -1347,7 +1348,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["size"] = 14,
 			["text_format"] = "[perhp]%",
-			["yOffset"] = 12,
+			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["power"]["attachTextTo"] = "Power"
