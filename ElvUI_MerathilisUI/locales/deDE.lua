@@ -116,8 +116,6 @@ L["Automatically select the quest reward with the highest vendor sell value."] =
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
-L["Alt PowerBar"] = true
-L["Replace the default Alt Power Bar."] = "Ersetzt die Standard Alt Power Bar."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
 

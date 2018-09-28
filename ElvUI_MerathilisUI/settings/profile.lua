@@ -53,7 +53,6 @@ P["mui"] = {
 		["quest"] = false,
 		["announce"] = false, -- CombatText, Skill gains
 		["nameHover"] = true,
-		["powerBar"] = true,
 		["cursor"] = false,
 	},
 
