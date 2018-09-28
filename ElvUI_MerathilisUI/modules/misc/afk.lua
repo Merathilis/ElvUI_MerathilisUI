@@ -67,9 +67,9 @@ end
 local function SetAFK(status)
 	if E.db.mui.general.AFK ~= true then return end
 
+	local guildName = GetGuildInfo("player") or ""
 	if(status) then
 		if(IsInGuild()) then
-			local guildName = GetGuildInfo("player") or ""
 			AFK.AFKMode.bottomPanel.guild:SetText("|cFF00c0fa<".. guildName ..">|r")
 		else
 			AFK.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
