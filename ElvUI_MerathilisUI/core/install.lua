@@ -1184,7 +1184,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
 		E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
-		E.db["unitframe"]["units"]["party"]["power"]["height"] = 6
+		E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
