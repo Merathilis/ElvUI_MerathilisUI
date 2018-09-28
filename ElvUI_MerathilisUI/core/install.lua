@@ -272,7 +272,7 @@ function MER:SetupLayout()
 		E.private["auras"]["masque"]["debuffs"] = true
 	end
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Expressway"
+	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["timeYOffset"] = 0
 	E.db["auras"]["timeXOffset"] = 0
@@ -1153,17 +1153,17 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 
 		-- Party
-		E.db["unitframe"]["units"]["party"]["growthDirection"] = "RIGHT_UP"
-		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 3
+		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
+		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 15
-		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = -8
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 34
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
-		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
-		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
@@ -1172,11 +1172,11 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["party"]["buffIndicator"]["fontSize"] = 11
 		E.db["unitframe"]["units"]["party"]["orientation"] = "MIDDLE"
-		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 2
+		E.db["unitframe"]["units"]["party"]["verticalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["roleIcon"]["xOffset"] = 1
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 10
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "TOPLEFT"
-		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = -1
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["size"] = 11
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["position"] = "LEFT"
+		E.db["unitframe"]["units"]["party"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["enable"] = false
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["anchorPoint"] = "BOTTOM"
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["name"]["text_format"] = "[name:short]"
@@ -1184,13 +1184,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
 		E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
+		E.db["unitframe"]["units"]["party"]["power"]["enable"] = false
 		E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
-		E.db["unitframe"]["units"]["party"]["width"] = 77
+		E.db["unitframe"]["units"]["party"]["width"] = 160
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["party"]["health"]["xOffset"] = 0
@@ -1200,36 +1201,39 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["name"]["position"] = "BOTTOMLEFT"
 		E.db["unitframe"]["units"]["party"]["groupBy"] = "ROLE"
-		E.db["unitframe"]["units"]["party"]["height"] = 35
+		E.db["unitframe"]["units"]["party"]["height"] = 36
 		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 26
+		E.db["unitframe"]["units"]["party"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["party"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["useWhitelist"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["playerOnly"] = false
-		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 1
-		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "CENTER"
+		E.db["unitframe"]["units"]["party"]["buffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["party"]["buffs"]["clickThrough"] = true
 		E.db["unitframe"]["units"]["party"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["priority"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["party"]["buffs"]["noConsolidated"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
+		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
+		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["width"] = 60
-		E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "BOTTOMLEFT"
-		E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 6
-		E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = 1
-		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 19
+		E.db["unitframe"]["units"]["party"]["raidicon"]["attachToObject"] = "Frame"
+		E.db["unitframe"]["units"]["party"]["raidicon"]["attachTo"] = "RIGHT"
+		E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
+		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
 			["font"] = "Expressway",
-			["size"] = 10,
+			["size"] = 12,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
 			["yOffset"] = 0,
@@ -1392,7 +1396,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
 		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
 		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
-		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
+		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 454, 359)
 		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
 		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 518, 280)
