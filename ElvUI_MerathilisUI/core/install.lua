@@ -161,6 +161,7 @@ local function SetupChat()
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
 	E.db["chat"]["copyChatLines"] = true
+	E.db["chat"]["panelColor"] = {r = .06,g = .06,b = .06, a = .45}
 
 	E.db["chat"]["timeStampFormat"] = "%H:%M "
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
