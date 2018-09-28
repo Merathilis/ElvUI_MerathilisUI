@@ -1156,12 +1156,12 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 3
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 20
-		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = -20
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 15
+		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = -8
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["clickThrough"] = true
-		E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "HEALTH"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 3
