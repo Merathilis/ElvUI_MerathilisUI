@@ -731,7 +731,7 @@ function MER:SetupUnitframes(layout)
 			["justifyH"] = "LEFT",
 			["text_format"] = "[name:medium]",
 			["attachTextTo"] = "Frame",
-			["xOffset"] = 0,
+			["xOffset"] = -1,
 			["yOffset"] = 22,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
@@ -846,7 +846,7 @@ function MER:SetupUnitframes(layout)
 			["font"] = "Expressway",
 			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 0,
+			["xOffset"] = 3,
 			["yOffset"] = 22,
 			["size"] = 12,
 			["text_format"] = "[name:abbrev]",
@@ -880,7 +880,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = -24,
-			["xOffset"] = 0,
+			["xOffset"] = 3,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["health"]["yOffset"] = 0
