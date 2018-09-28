@@ -50,8 +50,8 @@ P["mui"] = {
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
 		["gmotd"] = true, -- Show a GMOTD frame
-		["quest"] = false,
-		["announce"] = false, -- CombatText, Skill gains
+		["quest"] = true,
+		["announce"] = true, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["cursor"] = false,
 	},
@@ -334,8 +334,8 @@ P["mui"] = {
 		["InfoFont"] = "Expressway",
 		["InfoFontSize"] = 10,
 		["InfoFontFlag"] = "NONE",
-		["GameIconPack"] = "Default",
-		["StatusIconPack"] = "Default",
+		["GameIconPack"] = "Launcher",
+		["StatusIconPack"] = "Square",
 	},
 
 	["raidBuffs"] = {
@@ -352,7 +352,7 @@ P["mui"] = {
 	},
 
 	["cooldownFlash"] = {
-		["enable"] = false,
+		["enable"] = true,
 		["fadeInTime"] = 0.3,
 		["fadeOutTime"] = 0.6,
 		["maxAlpha"] = 0.8,
