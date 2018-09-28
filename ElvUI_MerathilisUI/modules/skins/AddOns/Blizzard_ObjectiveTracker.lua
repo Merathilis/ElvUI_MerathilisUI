@@ -55,12 +55,23 @@ function f.PLAYER_REGEN_ENABLED()
 	InCombat = false
 end
 function f.QUEST_LOG_UPDATE()
+	local questNum, q, o
+	local block = _G["ObjectiveTrackerBlocksFrame"]
+	local frame = _G["ObjectiveTrackerFrame"]
+
 	if not InCombat and not InCombatLockdown() then
-		n = tostring(select(2, GetNumQuestLogEntries()))
-		q = n.."/"..MAX_QUESTS.." "..TRACKER_HEADER_QUESTS
-		o = n.."/"..MAX_QUESTS.." "..OBJECTIVES_TRACKER_LABEL
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
-		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
+		questNum = select(2, GetNumQuestLogEntries())
+
+		if questNum >= (MAX_QUESTS - 5) then -- go red
+			q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+		else
+			q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+		end
+
+		block.QuestHeader.Text:SetText(q)
+		frame.HeaderMenu.Title:SetText(o)
 	end
 end
 
