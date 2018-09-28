@@ -26,7 +26,6 @@ local function styleTradeFrame()
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
 		bu.IconBorder:SetAlpha(0)
 		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		MERS:CreateBDFrame(bu, .25)
 	end
 
 	for i = 1, MAX_TRADE_ITEMS do
@@ -36,7 +35,9 @@ local function styleTradeFrame()
 		_G["TradeRecipientItem"..i.."NameFrame"]:Hide()
 
 		if _G["TradePlayerItem"..i.."ItemButton"].bg then _G["TradePlayerItem"..i.."ItemButton"].bg:SetTemplate("Transparent") end
+		if _G["TradePlayerItem"..i.."ItemButton"].bg then MERS:CreateGradient(_G["TradePlayerItem"..i.."ItemButton"].bg) end
 		if _G["TradeRecipientItem"..i.."ItemButton"].bg then _G["TradeRecipientItem"..i.."ItemButton"].bg:SetTemplate("Transparent") end
+		if _G["TradeRecipientItem"..i.."ItemButton"].bg then MERS:CreateGradient(G["TradeRecipientItem"..i.."ItemButton"].bg) end
 
 		reskinButton(_G["TradePlayerItem"..i.."ItemButton"])
 		reskinButton(_G["TradeRecipientItem"..i.."ItemButton"])
