@@ -695,6 +695,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["height"] = 32
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]['threatStyle'] = "ICONTOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -716,8 +717,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
-		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 200
-		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
+		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
+		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
@@ -789,7 +790,16 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["player"]["power"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["power"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = false
+		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 12
+		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
+		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 24
+		E.db["unitframe"]["units"]["player"]["buffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
+		E.db["unitframe"]["units"]["player"]["buffs"]["numrows"] = 1
+		E.db["unitframe"]["units"]["player"]["buffs"]["anchorPoint"] = "TOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -810,6 +820,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["width"] = 200
 		E.db["unitframe"]["units"]["target"]["height"] = 32
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
+		E.db["unitframe"]["units"]["target"]['threatStyle'] = "ICONTOPLEFT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = false
@@ -1386,7 +1397,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 280)
-		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 261)
+		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 281)
 		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 297)
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 280)
