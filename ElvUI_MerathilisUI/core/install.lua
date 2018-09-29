@@ -695,7 +695,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["height"] = 32
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
-		E.db["unitframe"]["units"]["player"]['threatStyle'] = "ICONTOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -714,7 +714,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["classbar"]["fill"] = "filled"
 		E.db["unitframe"]["units"]["player"]["classbar"]["additionalPowerText"] = true
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
-		E.db["unitframe"]["units"]["player"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
@@ -820,7 +819,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["width"] = 200
 		E.db["unitframe"]["units"]["target"]["height"] = 32
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
-		E.db["unitframe"]["units"]["target"]['threatStyle'] = "ICONTOPLEFT"
+		E.db["unitframe"]["units"]["target"]["threatStyle"] = "ICONTOPLEFT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = false
@@ -841,7 +840,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = -32
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
-		E.db["unitframe"]["units"]["target"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
