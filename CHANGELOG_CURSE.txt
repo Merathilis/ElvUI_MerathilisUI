@@ -1,4 +1,5 @@
-** v3.42, xx.xx.2018**
+** v4.00, xx.xx.2018**
+* New Layout for DPS/Tank Profile.
 * Updated BigWigs Profile & Skin.
 * Updated my buttonColector to be like SMB.
 * Added mouseover options for EquipBar & SpecBar.
