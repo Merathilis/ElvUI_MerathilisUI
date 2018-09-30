@@ -174,10 +174,10 @@ end
 _G["ElvUF"].Tags.Events["health:current-mUI"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
 _G["ElvUF"].Tags.Methods["health:current-mUI"] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
-		if (status) then
-			return status
-		else
-	local currentHealth = UnitHealth(unit)
+	if (status) then
+		return status
+	else
+		local currentHealth = UnitHealth(unit)
 		return shortenNumber(currentHealth)
 	end
 end
