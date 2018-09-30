@@ -73,10 +73,7 @@ function MAB:CreateSpecBar()
 					SetSpecialization(self:GetID())
 				end
 			elseif button == "RightButton" then
-				if (self.LootID == self.SpecID) then
-					self.SpecID = 0
-				end
-				SetLootSpecialization(self.SpecID)
+				SetLootSpecialization(self.LootID == self.SpecID and 0 or self.SpecID)
 			end
 		end)
 		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
