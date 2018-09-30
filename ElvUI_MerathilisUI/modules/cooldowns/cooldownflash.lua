@@ -111,7 +111,7 @@ local function OnUpdate(_,update)
 				end
 				if (enabled ~= 0) then
 					if (duration and duration > 2.0 and texture) then
-						CF.cooldowns[i] = { start, duration, texture, isPet, name, v[3], v[2] }
+						CF.cooldowns[i] = { start, duration, texture, isPet, name }
 					end
 				end
 				if (not (enabled == 0 and v[2] == "spell")) then
@@ -119,20 +119,9 @@ local function OnUpdate(_,update)
 				end
 			end
 		end
+
 		for i,v in pairs(CF.cooldowns) do
-			local start, duration, remaining, enabled
-			if (v[7] == "spell") then
-				start, duration = GetSpellCooldown(v[6])
-			elseif (v[7] == "item") then
-				start, duration, enabled = GetItemCooldown(i)
-			elseif (v[7] == "pet") then
-				start, duration, enabled = GetPetActionCooldown(v[6])
-			end
-			if start == 0 and duration == 0 then
-				remaining = 0
-			else
-				remaining = v[2]-(GetTime()-v[1])
-			end
+			local remaining = v[2]-(GetTime()-v[1])
 			if (remaining <= 0) then
 				tinsert(CF.animating, {v[3],v[4],v[5]})
 				CF.cooldowns[i] = nil
@@ -197,7 +186,9 @@ end
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
 	if (unit == "player") then
 		CF.watching[spellID] = {GetTime(),"spell",spellID}
-		self:SetScript("OnUpdate", OnUpdate)
+		if (not self:IsMouseEnabled()) then
+			self:SetScript("OnUpdate", OnUpdate)
+		end
 	end
 end
 
@@ -214,7 +205,9 @@ function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 			else
 				return
 			end
-			self:SetScript("OnUpdate", OnUpdate)
+			if (not self:IsMouseEnabled()) then
+				self:SetScript("OnUpdate", OnUpdate)
+			end
 		end
 	end
 end
@@ -289,9 +282,6 @@ function CF:DisableCooldownFlash()
 	DCP:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:UnregisterEvent("ADDON_LOADED")
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-	-- DCP:SetScript("OnUpdate", nil)
-	--wipe(CF.cooldowns)
-	--wipe(CF.watching)
 end
 
 function CF:TestMode()
