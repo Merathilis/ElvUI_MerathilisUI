@@ -78,7 +78,7 @@ local function styleQuestFrame()
 				if self:GetFontString() then
 					local Text = self:GetFontString():GetText()
 					if Text and strfind(Text, '|cff000000') then
-						button:GetFontString():SetText(string.gsub(Text, '|cff000000', '|cffFFFF00'))
+						button:GetFontString():SetText(string.gsub(Text, '|cff000000', '|cffffe519'))
 					end
 				end
 			end)
