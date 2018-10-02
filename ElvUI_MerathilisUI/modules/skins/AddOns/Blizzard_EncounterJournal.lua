@@ -66,7 +66,7 @@ function styleEncounterJournal()
 		if result.icon then
 			result:GetRegions():Hide() -- icon frame
 
-			result.icon:SetTexCoord(.08, .92, .08, .92)
+			result.icon:SetTexCoord(unpack(E.TexCoords))
 
 			local bg = MERS:CreateBG(result.icon)
 			bg:SetDrawLayer("BACKGROUND", 1)
@@ -119,7 +119,7 @@ function styleEncounterJournal()
 				end
 
 				if result.icon:GetTexCoord() == 0 then
-					result.icon:SetTexCoord(.08, .92, .08, .92)
+					result.icon:SetTexCoord(unpack(E.TexCoords))
 				end
 			end
 		end
@@ -130,7 +130,7 @@ function styleEncounterJournal()
 			local result = self.buttons[i]
 
 			if result.icon:GetTexCoord() == 0 then
-				result.icon:SetTexCoord(.08, .92, .08, .92)
+				result.icon:SetTexCoord(unpack(E.TexCoords))
 			end
 		end
 	end)
@@ -256,7 +256,7 @@ function styleEncounterJournal()
 		item.bossTexture:SetAlpha(0)
 		item.bosslessTexture:SetAlpha(0)
 
-		item.icon:SetTexCoord(.08, .92, .08, .92)
+		item.icon:SetTexCoord(unpack(E.TexCoords))
 		item.icon:SetDrawLayer("OVERLAY")
 		MERS:CreateBG(item.icon)
 
@@ -327,7 +327,7 @@ function styleEncounterJournal()
 
 				MERS:Reskin(header.button)
 
-				header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
+				header.button.abilityIcon:SetTexCoord(unpack(E.TexCoords))
 				header.button.bg = MERS:CreateBG(header.button.abilityIcon)
 
 				header.styled = true
@@ -391,7 +391,8 @@ function styleEncounterJournal()
 			if not button.styled then
 				button.ItemLevel:SetTextColor(1, 1, 1)
 				button.Background:Hide()
-				MERS:CreateBDFrame(button, .25)
+				MERS:CreateBD(button, .25)
+				MERS:CreateGradient(button)
 
 				button.styled = true
 			end
@@ -419,6 +420,7 @@ function styleEncounterJournal()
 		suggestion.bg:Hide()
 
 		MERS:CreateBD(suggestion, .25)
+		MERS:CreateGradient(suggestion)
 
 		suggestion.icon:SetPoint("TOPLEFT", 135, -15)
 		MERS:CreateBG(suggestion.icon)
@@ -444,6 +446,7 @@ function styleEncounterJournal()
 			suggestion.bg:Hide()
 
 			MERS:CreateBD(suggestion, .25)
+			MERS:CreateGradient(suggestion)
 
 			suggestion.icon:SetPoint("TOPLEFT", 10, -10)
 			MERS:CreateBG(suggestion.icon)
@@ -477,7 +480,7 @@ function styleEncounterJournal()
 			if data.iconPath then
 				suggestion.icon:SetMask("")
 				suggestion.icon:SetTexture(data.iconPath)
-				suggestion.icon:SetTexCoord(.08, .92, .08, .92)
+				suggestion.icon:SetTexCoord(unpack(E.TexCoords))
 			end
 		end
 
@@ -493,7 +496,7 @@ function styleEncounterJournal()
 				if data.iconPath then
 					suggestion.icon:SetMask("")
 					suggestion.icon:SetTexture(data.iconPath)
-					suggestion.icon:SetTexCoord(.08, .92, .08, .92)
+					suggestion.icon:SetTexCoord(unpack(E.TexCoords))
 				end
 			end
 		end
@@ -505,7 +508,7 @@ function styleEncounterJournal()
 			local texture = rewardData.itemIcon or rewardData.currencyIcon or [[Interface\Icons\achievement_guildperk_mobilebanking]]
 			suggestion.reward.icon:SetMask("")
 			suggestion.reward.icon:SetTexture(texture)
-			suggestion.reward.icon:SetTexCoord(.08, .92, .08, .92)
+			suggestion.reward.icon:SetTexCoord(unpack(E.TexCoords))
 		end
 	end)
 end
