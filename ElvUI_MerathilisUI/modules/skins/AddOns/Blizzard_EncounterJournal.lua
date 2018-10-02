@@ -383,36 +383,31 @@ function styleEncounterJournal()
 	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
 
-	local ItemSetsFrame = LootJournal.ItemSetsFrame
-	hooksecurefunc(ItemSetsFrame, "UpdateList", function()
-		local itemSets = ItemSetsFrame.buttons
-		for i = 1, #itemSets do
-			local itemSet = itemSets[i]
+	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "UpdateList", function(self)
+		local buttons = self.buttons
+		for i = 1, #buttons do
+			local button = buttons[i]
 
-			itemSet.ItemLevel:SetTextColor(1, 1, 1)
-			itemSet.Background:Hide()
+			if not button.styled then
+				button.ItemLevel:SetTextColor(1, 1, 1)
+				button.Background:Hide()
+				MERS:CreateBDFrame(button, .25)
 
-			if not itemSet.bg then
-				local bg = CreateFrame("Frame", nil, itemSet)
-				bg:SetPoint("TOPLEFT")
-				bg:SetPoint("BOTTOMRIGHT", 0, 1)
-				bg:SetFrameLevel(itemSet:GetFrameLevel() - 1)
-				MERS:CreateBD(bg, .25)
-				itemSet.bg = bg
-			end
-
-			local items = itemSet.ItemButtons
-			for j = 1, #items do
-				local item = items[j]
-
-				item.Border:Hide()
-				item.Icon:SetPoint("TOPLEFT", 1, -1)
-
-				item.Icon:SetTexCoord(.08, .92, .08, .92)
-				item.Icon:SetDrawLayer("OVERLAY")
-				MERS:CreateBG(item.Icon)
+				button.styled = true
 			end
 		end
+	end)
+
+	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "ConfigureItemButton", function(_, button)
+		if not button.bg then
+			button.Border:SetAlpha(0)
+			button.Icon:SetTexCoord(unpack(E.TexCoords))
+			button.bg = MERS:CreateBDFrame(button.Icon)
+		end
+
+		local quality = select(3, GetItemInfo(button.itemID))
+		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end)
 
 	-- [[ SuggestFrame ]]
