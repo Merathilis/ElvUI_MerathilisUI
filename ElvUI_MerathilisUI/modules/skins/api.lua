@@ -14,7 +14,6 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: AddOnSkins, stripes
 
-local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
@@ -26,6 +25,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-Icon-QuestBang]]
 
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
