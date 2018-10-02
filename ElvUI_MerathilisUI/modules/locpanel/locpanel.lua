@@ -565,7 +565,7 @@ function LP:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if LP.db.portals.showSpells then
-		if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or LP:SpellList(LP.Spells.racials, nil, true) then
+		if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or LP:SpellList(LP.Spells.racials, nil, true) or E.myclass == "MAGE" then
 			tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
 			if LP:SpellList(LP.Spells.challenge, nil, true) then
@@ -598,9 +598,6 @@ function LP:PopulateDropdown(click)
 					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
 					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
 				end})
-			end
-			if LP:SpellList(LP.Spells.racials, nil, true) then
-				tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			end
 		end
 	end
