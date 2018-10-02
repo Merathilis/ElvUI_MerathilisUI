@@ -772,11 +772,11 @@ function MER:SetupUnitframes(layout)
 			["font"] = "Expressway",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
-			["justifyH"] = "CENTER",
+			["justifyH"] = "LEFT",
 			["text_format"] = "[group]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
-			["yOffset"] = 8,
+			["yOffset"] = -24,
 		}
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
@@ -816,11 +816,11 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 14
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 16
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "COMBAT"
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = ""
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = -6
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 0
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
