@@ -105,63 +105,6 @@ local function styleObjectiveTracker()
 		end
 	end)
 
-	-- Skin POI Buttons
-	hooksecurefunc("QuestPOI_GetButton", function(parent, questID, style, index)
-		local Incomplete = ObjectiveTrackerBlocksFrame.poiTable["numeric"]
-		local Complete = ObjectiveTrackerBlocksFrame.poiTable["completed"]
-
-		for i = 1, #Incomplete do
-			local Button = ObjectiveTrackerBlocksFrame.poiTable["numeric"][i]
-
-			if Button and not Button.IsSkinned then
-				Button.NormalTexture:SetTexture("")
-				Button.PushedTexture:SetTexture("")
-				Button.HighlightTexture:SetTexture("")
-				Button.Glow:SetAlpha(0)
-				Button:CreateBackdrop("Default")
-				S:HandleButton(Button)
-
-				Button.IsSkinned = true
-			end
-		end
-
-		for i = 1, #Complete do
-			local Button = ObjectiveTrackerBlocksFrame.poiTable["completed"][i]
-
-			if Button and not Button.IsSkinned then
-				Button.NormalTexture:SetTexture("")
-				Button.PushedTexture:SetTexture("")
-				Button.FullHighlightTexture:SetTexture("")
-				Button.Glow:SetAlpha(0)
-				Button:CreateBackdrop("Default")
-				S:HandleButton(Button)
-
-				Button.IsSkinned = true
-			end
-		end
-	end)
-
-	hooksecurefunc("QuestPOI_SelectButton", function(poiButton)
-		local Backdrop = poiButton.backdrop
-
-		if Backdrop then
-			local ID = GetQuestLogIndexByID(poiButton.questID)
-			local Level = select(2, GetQuestLogTitle(ID))
-			local Color = GetQuestDifficultyColor(Level) or {r = 1, g = 1, b = 0, a = 1}
-			local Number = poiButton.Number
-
-			if PreviousPOI then
-				PreviousPOI:SetBackdropColor(unpack(E["media"].backdropcolor))
-				PreviousPOI.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-			end
-
-			poiButton.backdrop:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-			poiButton:SetBackdropColor(0/255, 152/255, 34/255, 1)
-
-			PreviousPOI = poiButton
-		end
-	end)
-
 	local function SkinAutoQuestPopUpBlock()
 		for i = 1, GetNumAutoQuestPopUps() do
 			local ID, type = GetAutoQuestPopUp(i)
