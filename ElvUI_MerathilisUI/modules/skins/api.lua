@@ -514,6 +514,8 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if f.backdrop then f.backdrop:Hide() end
 	if strip then f:StripTextures() end
 
+	MERS:CreateGradient(f)
+
 	if f.template then
 		f:SetBackdrop(nil)
 		if f.oborder then f.oborder:SetBackdrop(nil) end
@@ -527,7 +529,6 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if not f.bd then
 		local bd = MERS:CreateBDFrame(f)
 		bd:SetAllPoints()
-		bd:Styling()
 
 		f.bd = bd
 	end
