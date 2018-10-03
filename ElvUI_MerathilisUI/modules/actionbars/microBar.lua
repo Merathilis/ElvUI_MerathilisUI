@@ -25,7 +25,7 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 
 local microBar
 
-local DELAY = 15
+local DELAY = 5
 local elapsed = DELAY - 5
 
 local function OnHover(button)
