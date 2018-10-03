@@ -103,9 +103,13 @@ function MERS:ReskinEditBox(frame)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:SetAllPoints()
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:SetAllPoints()
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 function MERS:ReskinDropDownBox(frame, width)
@@ -119,11 +123,16 @@ function MERS:ReskinDropDownBox(frame, width)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:Point("TOPLEFT", 20, -2)
-	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
-	bg:Width(width)
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:Point("TOPLEFT", 20, -2)
+		bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+		bg:Width(width)
+		bg:SetFrameLevel(frame:GetFrameLevel())
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 function S:HandleDropDownFrame(frame, width)
@@ -188,12 +197,16 @@ function S:HandleDropDownFrame(frame, width)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:SetPoint("TOPLEFT", left, 20, -21)
-	bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
-	bg:SetFrameLevel(frame:GetFrameLevel())
-	bg:Width(width)
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:SetPoint("TOPLEFT", left, 20, -21)
+		bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
+		bg:SetFrameLevel(frame:GetFrameLevel())
+		bg:Width(width)
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 -- Create shadow for textures
