@@ -262,7 +262,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	local style = CreateFrame("Frame", frameName or nil, f)
 
 	if not(useStripes) then
-		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BACKGROUND", f)
 		stripes:ClearAllPoints()
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -275,7 +275,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	end
 
 	if not(useGradient) then
-		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BACKGROUND", f)
 		gradient:ClearAllPoints()
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
@@ -286,7 +286,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	end
 
 	if not(useShadow) then
-		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
+		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BACKGROUND", f)
 		mshadow:SetInside(f, 0, 0)
 		mshadow:Width(shadowOverlayWidth or 33)
 		mshadow:Height(shadowOverlayHeight or 33)

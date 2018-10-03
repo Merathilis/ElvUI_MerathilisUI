@@ -27,6 +27,8 @@ local function stylePvP()
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
+		MERS:Reskin(bu)
+
 		bu.Icon:Size(54)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()

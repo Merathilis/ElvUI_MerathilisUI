@@ -524,8 +524,13 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		f.ignoreBackdropColors = true
 	end
 
-	MERS:CreateBD(f, 0)
-	f:Styling()
+	if not f.bd then
+		local bd = MERS:CreateBDFrame(f)
+		bd:SetAllPoints()
+		bd:Styling()
+
+		f.bd = bd
+	end
 
 	if f.bgTex then
 		f.bgTex = MERS:CreateGradient(f)
@@ -539,8 +544,8 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
-			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(1),
+			insets = {left = E:Scale(1), right = E:Scale(1), top = E:Scale(1), bottom = E:Scale(1)},
 		})
 		f.glow:SetPoint("TOPLEFT", -2, 2)
 		f.glow:SetPoint("BOTTOMRIGHT", 2, -2)

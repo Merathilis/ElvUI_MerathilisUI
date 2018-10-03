@@ -20,6 +20,8 @@ local function stylePVE()
 	for i = 1, 4 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
+		MERS:Reskin(bu)
+
 		bu.icon:Size(54)
 		bu.icon:SetDrawLayer("OVERLAY")
 		bu.icon:ClearAllPoints()
