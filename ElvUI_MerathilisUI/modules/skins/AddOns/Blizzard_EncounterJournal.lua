@@ -97,7 +97,7 @@ function styleEncounterJournal()
 		local offset = _G.HybridScrollFrame_GetOffset(scrollFrame)
 		local results = scrollFrame.buttons
 		local result, index
-	
+
 		local numResults = _G.EJ_GetNumSearchResults()
 
 		for i = 1, #results do
@@ -146,46 +146,6 @@ function styleEncounterJournal()
 	--[[ InstanceSelect ]]
 	local instanceSelect = EncounterJournal.instanceSelect
 	instanceSelect.bg:Hide()
-
-	local function onEnable(self)
-		self:SetHeight(self.storedHeight) -- prevent it from resizing
-		self:SetBackdropColor(0, 0, 0, 0)
-	end
-
-	local function onDisable(self)
-		self:SetBackdropColor(r, g, b, .2)
-	end
-
-	local function onClick(self)
-		self:GetFontString():SetTextColor(1, 1, 1)
-	end
-
-	for i = 1, #instanceSelect.Tabs do
-		local tab = instanceSelect.Tabs[i]
-		local text = tab:GetFontString()
-
-		tab:DisableDrawLayer("OVERLAY")
-
-		tab.mid:Hide()
-		tab.left:Hide()
-		tab.right:Hide()
-
-		tab.midHighlight:SetAlpha(0)
-		tab.leftHighlight:SetAlpha(0)
-		tab.rightHighlight:SetAlpha(0)
-
-		tab:SetHeight(tab.storedHeight)
-		tab.grayBox:GetRegions():SetAllPoints(tab)
-
-		text:SetPoint("CENTER")
-		text:SetTextColor(1, 1, 1)
-
-		tab:HookScript("OnEnable", onEnable)
-		tab:HookScript("OnDisable", onDisable)
-		tab:HookScript("OnClick", onClick)
-
-		MERS:Reskin(tab)
-	end
 
 	local function listInstances()
 		local index = 1
