@@ -423,7 +423,6 @@ function styleEncounterJournal()
 		MERS:CreateGradient(suggestion)
 
 		suggestion.icon:SetPoint("TOPLEFT", 135, -15)
-		MERS:CreateBG(suggestion.icon)
 
 		local centerDisplay = suggestion.centerDisplay
 
@@ -437,7 +436,6 @@ function styleEncounterJournal()
 		reward.text:SetTextColor(.9, .9, .9)
 		reward.iconRing:Hide()
 		reward.iconRingHighlight:SetTexture("")
-		MERS:CreateBG(reward.icon)
 
 		-- Suggestion 2 and 3
 		for i = 2, 3 do
@@ -449,7 +447,6 @@ function styleEncounterJournal()
 			MERS:CreateGradient(suggestion)
 
 			suggestion.icon:SetPoint("TOPLEFT", 10, -10)
-			MERS:CreateBG(suggestion.icon)
 
 			centerDisplay = suggestion.centerDisplay
 
@@ -458,13 +455,10 @@ function styleEncounterJournal()
 			centerDisplay.title.text:SetTextColor(1, 1, 1)
 			centerDisplay.description.text:SetTextColor(.9, .9, .9)
 
-			MERS:Reskin(centerDisplay.button)
-
 			reward = suggestion.reward
 
 			reward.iconRing:Hide()
 			reward.iconRingHighlight:SetTexture("")
-			MERS:CreateBG(reward.icon)
 		end
 	end
 
@@ -477,7 +471,7 @@ function styleEncounterJournal()
 
 			suggestion.iconRing:Hide()
 
-			if data.iconPath then
+			if suggestion and data then
 				suggestion.icon:SetMask("")
 				suggestion.icon:SetTexture(data.iconPath)
 				suggestion.icon:SetTexCoord(unpack(E.TexCoords))
@@ -508,7 +502,18 @@ function styleEncounterJournal()
 			local texture = rewardData.itemIcon or rewardData.currencyIcon or [[Interface\Icons\achievement_guildperk_mobilebanking]]
 			suggestion.reward.icon:SetMask("")
 			suggestion.reward.icon:SetTexture(texture)
-			suggestion.reward.icon:SetTexCoord(unpack(E.TexCoords))
+
+			local bg = MERS:CreateBDFrame(suggestion.reward.icon)
+			bg:SetOutside(suggestion.reward.icon)
+
+			local r, g, b = unpack(E["media"].bordercolor)
+			if rewardData.itemID then
+				local quality = select(3, GetItemInfo(rewardData.itemID))
+				if quality and quality > 1 then
+					r, g, b = GetItemQualityColor(quality)
+				end
+			end
+			bg:SetBackdropBorderColor(r, g, b)
 		end
 	end)
 end
