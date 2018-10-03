@@ -545,11 +545,11 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(1),
-			insets = {left = E:Scale(1), right = E:Scale(1), top = E:Scale(1), bottom = E:Scale(1)},
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
+			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
 		})
-		f.glow:SetPoint("TOPLEFT", -2, 2)
-		f.glow:SetPoint("BOTTOMRIGHT", 2, -2)
+		f.glow:SetPoint("TOPLEFT", -1, 1)
+		f.glow:SetPoint("BOTTOMRIGHT", 1, -1)
 		f.glow:SetBackdropBorderColor(r, g, b)
 		f.glow:SetAlpha(0)
 
