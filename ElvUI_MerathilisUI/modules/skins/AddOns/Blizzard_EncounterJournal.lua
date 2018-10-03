@@ -503,8 +503,10 @@ function styleEncounterJournal()
 			suggestion.reward.icon:SetMask("")
 			suggestion.reward.icon:SetTexture(texture)
 
-			local bg = MERS:CreateBDFrame(suggestion.reward.icon)
-			bg:SetOutside(suggestion.reward.icon)
+			if not suggestion.reward.icon.backdrop then
+				MERS:CreateBackdrop(suggestion.reward.icon)
+				suggestion.reward.icon.backdrop:SetOutside(suggestion.reward.icon)
+			end
 
 			local r, g, b = unpack(E["media"].bordercolor)
 			if rewardData.itemID then
@@ -513,7 +515,7 @@ function styleEncounterJournal()
 					r, g, b = GetItemQualityColor(quality)
 				end
 			end
-			bg:SetBackdropBorderColor(r, g, b)
+			suggestion.reward.icon.backdrop:SetBackdropBorderColor(r, g, b)
 		end
 	end)
 end
