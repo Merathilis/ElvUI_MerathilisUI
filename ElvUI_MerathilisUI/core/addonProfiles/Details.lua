@@ -901,7 +901,7 @@ function MER:LoadDetailsProfile()
 							1, -- [3]
 						},
 						["space"] = {
-							["right"] = -2,
+							["right"] = 0,
 							["left"] = 1,
 							["between"] = 1,
 						},
@@ -1254,7 +1254,7 @@ function MER:LoadDetailsProfile()
 								["right_noborder"] = -3,
 								["left"] = 1,
 								["left_noborder"] = 1,
-								["between"] = -2,
+								["between"] = 0,
 								["right"] = -3,
 							},
 							["texture_background_class_color"] = false,
