@@ -141,6 +141,9 @@ LP.Spells = {
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
+	["DarkIronDwarf"] = {
+		[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+	},
 	["teleports"] = {
 		["Horde"] = {
 			[1] = {text = GetSpellInfo(3563),icon = MER:GetIconFromID("spell", 3563),secure = {buttonType = "spell",ID = 3563}, UseTooltip = true},-- TP:Undercity
@@ -223,9 +226,6 @@ LP.Spells = {
 		[15] = {text = GetSpellInfo(159898),icon = MER:GetIconFromID("spell", 159898),secure = {buttonType = "spell",ID = 159898}, UseTooltip = true},-- Skies
 		[16] = {text = GetSpellInfo(159901),icon = MER:GetIconFromID("spell", 159901),secure = {buttonType = "spell",ID = 159901}, UseTooltip = true},-- Verdant
 		[17] = {text = GetSpellInfo(159897),icon = MER:GetIconFromID("spell", 159897),secure = {buttonType = "spell",ID = 159897}, UseTooltip = true},-- Vigilant
-	},
-	["racials"] = {
-		[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
 	},
 }
 
@@ -600,7 +600,7 @@ function LP:PopulateDropdown(click)
 				end})
 			end
 			if E.myrace == "DarkIronDwarf" then
-				LP:SpellList(LP.Spells.racials[E.myrace], LP.MainMenu)
+				LP:SpellList(LP.Spells[E.myrace], LP.MainMenu)
 			end
 		end
 	end
