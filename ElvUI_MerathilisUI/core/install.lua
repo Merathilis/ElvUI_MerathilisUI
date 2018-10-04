@@ -164,6 +164,7 @@ local function SetupChat()
 	E.db["chat"]["panelColor"] = {r = .06, g = .06, b = .06, a = .45}
 	E.db["chat"]["useCustomTimeColor"] = true
 	E.db["chat"]["customTimeColor"] = {r = 0, g = 0.75, b = 0.98}
+	E.db["chat"]["panelBackdropNameRight"] = ""
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
