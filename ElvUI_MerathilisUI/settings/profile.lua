@@ -54,6 +54,7 @@ P["mui"] = {
 		["announce"] = true, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["cursor"] = false,
+		["whistleSound"] = true, -- You will hate me for this :>
 	},
 
 	["notification"] = {

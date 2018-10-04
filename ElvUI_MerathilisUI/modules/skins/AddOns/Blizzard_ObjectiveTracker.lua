@@ -187,6 +187,23 @@ local function styleObjectiveTracker()
 
 	ScenarioStageBlock:SetSize(201, 83)
 
+	hooksecurefunc(SCENARIO_CONTENT_TRACKER_MODULE, "Update", function()
+		local widgetContainer = ScenarioStageBlock.WidgetContainer
+		if not widgetContainer then return end
+		local widgetFrame = widgetContainer:GetChildren()
+		if widgetFrame and widgetFrame.Frame then
+			widgetFrame.Frame:SetAlpha(0)
+			for _, bu in next, {widgetFrame.CurrencyContainer:GetChildren()} do
+				if bu and not bu.styled then
+					bu.Icon:SetTexCoord(unpack(E.TexCoords))
+					local bg = MERS:CreateBG(bu.Icon)
+					MERS:CreateBD(bg)
+					bu.styled = true
+				end
+			end
+		end
+	end)
+
 	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
 
 	nQ:RegisterEvent("PLAYER_LOGIN")
