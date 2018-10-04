@@ -195,24 +195,6 @@ function MI:SetRole()
 	end
 end
 
-function MI:FlightMasterWhistle()
-	if E.db.mui.misc.whistleSound ~= true then return end
-
-	-- plays a soundbite from Whistle - Flo Rida after Flight Master's Whistle
-	local flightMastersWhistle_SpellID1 = 227334
-	local flightMastersWhistle_SpellID2 = 253937
-
-	local f = CreateFrame("frame")
-	f:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
-
-	function f:UNIT_SPELLCAST_SUCCEEDED(unit, lineID, spellID)
-		if (unit == "player" and (spellID == flightMastersWhistle_SpellID1 or spellID == flightMastersWhistle_SpellID2)) then
-			PlaySoundFile([[Interface\Addons\ElvUI_MerathilisUI\media\sounds\blowmywhistle.ogg]])
-		end
-	end
-	f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-end
-
 function MI:Initialize()
 	E.RegisterCallback(MI, "RoleChanged", "SetRole")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
@@ -224,7 +206,6 @@ function MI:Initialize()
 	self:LoadMoverTransparancy()
 	self:LoadQuestReward()
 	self:LoadnameHover()
-	self:FlightMasterWhistle()
 end
 
 local function InitializeCallback()

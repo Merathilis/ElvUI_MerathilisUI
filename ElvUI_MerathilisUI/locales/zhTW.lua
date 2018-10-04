@@ -118,7 +118,6 @@ L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
 L["Flashing Cursor"] = true
-L["Flight Master's Whistle Sound"] = true
 
 -- Tooltip
 L["Your Status:"] = true

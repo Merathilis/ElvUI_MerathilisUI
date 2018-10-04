@@ -118,7 +118,6 @@ L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
-L["Flight Master's Whistle Sound"] = "Pfeife des Flugmeisters Sound"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"

@@ -68,11 +68,6 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
-			whistleSound = {
-				order = 9,
-				type = "toggle",
-				name = L["Flight Master's Whistle Sound"]
-			},
 		},
 	}
 end
