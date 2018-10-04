@@ -166,12 +166,14 @@ local function OnAuraChange(self, event, arg1, unit)
 end
 
 function RB:CreateIconBuff(name, relativeTo, firstbutton)
-	local button = CreateFrame("Frame", name, RB.frame)
+	local button = CreateFrame("Button", name, RB.frame)
+
 	if firstbutton == true then
 		button:Point("RIGHT", relativeTo, "RIGHT", E:Scale(-4), 0)
 	else
 		button:Point("RIGHT", relativeTo, "LEFT", E:Scale(-4), 0)
 	end
+
 	button:Size(bsize, bsize)
 	button:SetFrameLevel(self.frame.backdrop:GetFrameLevel() + 2)
 
