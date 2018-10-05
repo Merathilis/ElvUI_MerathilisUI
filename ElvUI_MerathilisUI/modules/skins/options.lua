@@ -424,6 +424,11 @@ local function SkinsTable()
 				name = L["Item Upgrade"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemUpgrade end,
 			},
+			trade = {
+				type = "toggle",
+				name = TRADESKILLS,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
+			},
 		},
 	}
 

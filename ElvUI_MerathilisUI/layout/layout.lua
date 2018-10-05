@@ -105,7 +105,7 @@ function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
-	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"])
+	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
 	ChatButton:Point("TOPLEFT", 4, -5)
 	ChatButton:Size(13, 13)
@@ -173,7 +173,7 @@ function MERL:CreateChatButtons()
 		end
 	end)
 
-	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"])
+	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"].backdrop)
 	ChatMenu:SetTemplate("Default")
 	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
 	ChatMenu:Size(18, 18)
@@ -283,6 +283,23 @@ local function UpdateBar3(self, bar)
 	MoveButtonBar(button, bar)
 end
 
+local function ChatPanels_OnEnter(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
+	GameTooltip:ClearLines()
+	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
+	GameTooltip:AddLine('')
+	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Chat"], 1, 1, 1)
+	GameTooltip:Show()
+end
+
+local function ChatPanels_OnLeave(self)
+	if GameTooltip:IsForbidden() then return end
+
+	GameTooltip:Hide()
+end
+
 -- Panels
 function MERL:CreatePanels()
 	if E.db.mui.general.panels ~= true then return end
@@ -352,8 +369,14 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar5(self, _G["ElvUI_Bar5"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			HideLeftChat()
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
+
+	MerathilisUIButton1:SetScript("OnEnter", ChatPanels_OnEnter)
+	MerathilisUIButton1:SetScript("OnLeave", ChatPanels_OnLeave)
 
 	local MerathilisUIButton2 = CreateFrame("Button", "MerathilisUIButton2", E.UIParent)
 	MerathilisUIButton2:RegisterForClicks("AnyUp")
@@ -374,8 +397,17 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar3(self, _G["ElvUI_Bar3"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			HideRightChat()
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
+
+	MerathilisUIButton2:SetScript("OnEnter", ChatPanels_OnEnter)
+	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
+
+	LeftChatToggleButton:Kill()
+	RightChatToggleButton:Kill()
 end
 
 function MERL:regEvents()

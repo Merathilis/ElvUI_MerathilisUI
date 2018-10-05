@@ -59,7 +59,8 @@ local function styleGossip()
 
 	local function GossipTitleButtonTemplate(Button)
 		local highlight = Button:GetHighlightTexture()
-		highlight:SetColorTexture(r, g, b, 0.2)
+		highlight:SetColorTexture(r, g, b, 0.3)
+		highlight:SetInside(Button)
 
 		Button:SetSize(300, 16)
 		_G[Button:GetName().."GossipIcon"]:SetSize(16, 16)
@@ -71,8 +72,16 @@ local function styleGossip()
 		text:SetTextColor(1, 1, 1)
 	end
 
+	local prevTitle
 	for i = 1, NUMGOSSIPBUTTONS do
 		GossipTitleButtonTemplate(_G["GossipTitleButton"..i])
+
+		if not prevTitle then
+			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", GossipGreetingText, "BOTTOMLEFT", -10, -20)
+		else
+			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", prevTitle, "BOTTOMLEFT", 0, -3)
+		end
+		prevTitle = _G["GossipTitleButton"..i]
 	end
 
 	local availDataPerQuest, activeDataPerQuest = 7, 6
@@ -109,16 +118,6 @@ local function styleGossip()
 	hooksecurefunc("GossipResize", function(titleButton)
 		titleButton:SetHeight(titleButton:GetTextHeight() + 4)
 	end)
-
-	local prevTitle
-	for i = 1, NUMGOSSIPBUTTONS do
-		if not prevTitle then
-			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", GossipGreetingText, "BOTTOMLEFT", -10, -20)
-		else
-			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", prevTitle, "BOTTOMLEFT", 0, -3)
-		end
-		prevTitle = _G["GossipTitleButton"..i]
-	end
 end
 
 S:AddCallback("mUIGossip", styleGossip)

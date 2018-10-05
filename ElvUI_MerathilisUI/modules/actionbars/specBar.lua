@@ -18,7 +18,7 @@ local SetLootSpecialization = SetLootSpecialization
 -- GLOBALS: GameTooltip, GameTooltip_Hide
 
 function MAB:CreateSpecBar()
-	if E.db.mui.actionbars.specBar ~= true then return end
+	if E.db.mui.actionbars.specBar.enable ~= true then return end
 
 	local Spacing, Mult = 4, 1
 	local Size = 24
@@ -30,10 +30,18 @@ function MAB:CreateSpecBar()
 	specBar:SetTemplate("Transparent")
 	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
 	specBar:Styling()
+	specBar:Hide()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
 	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+
+	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	specBar:SetScript('OnLeave', function(self)
+		if E.db.mui.actionbars.specBar.mouseover then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	end)
 
 	local Specs = GetNumSpecializations()
 
@@ -42,10 +50,11 @@ function MAB:CreateSpecBar()
 		local Button = CreateFrame("Button", nil, specBar)
 		Button:SetSize(Size, Size)
 		Button:SetID(i)
+		Button.SpecID = SpecID
 		Button:SetTemplate()
 		Button:StyleButton()
 		Button:SetNormalTexture(Icon)
-		Button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
 		Button:GetNormalTexture():SetInside()
 		Button:SetPushedTexture(Icon)
 		Button:GetPushedTexture():SetInside()
@@ -60,17 +69,36 @@ function MAB:CreateSpecBar()
 		Button:SetScript("OnLeave", GameTooltip_Hide)
 		Button:SetScript("OnClick", function(self, button)
 			if button == "LeftButton" then
-				if self:GetID() ~= GetSpecialization() then
+				if self:GetID() ~= self.Spec then
 					SetSpecialization(self:GetID())
 				end
+			elseif button == "RightButton" then
+				SetLootSpecialization(self.LootID == self.SpecID and 0 or self.SpecID)
 			end
 		end)
+		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+		Button:RegisterEvent("PLAYER_ENTERING_WORLD")
+		Button:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
 		Button:SetScript("OnEvent", function(self)
-			local Spec = GetSpecialization()
-			if Spec == self:GetID() then
+			self.Spec = GetSpecialization()
+			self.LootID = GetLootSpecialization()
+
+			if self.Spec == self:GetID() then
 				self:SetBackdropBorderColor(0, 0.44, .87)
+			elseif (self.LootID == self.SpecID) then
+				self:SetBackdropBorderColor(1, 0.44, .4)
 			else
 				self:SetTemplate()
+			end
+		end)
+		Button:HookScript('OnEnter', function(self)
+			if specBar:IsShown() then
+				UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
+			end
+		end)
+		Button:HookScript('OnLeave', function(self)
+			if specBar:IsShown() and E.db.mui.actionbars.specBar.mouseover then
+				UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
 			end
 		end)
 
@@ -84,24 +112,10 @@ function MAB:CreateSpecBar()
 
 	specBar:SetSize(BarWidth, BarHeight)
 
-	for _, Button in pairs(specBar.Button) do
-		Button:HookScript("OnClick", function(self, button)
-			if button == "RightButton" then
-				local SpecID = GetSpecializationInfo(self:GetID())
-				if (GetLootSpecialization() == SpecID) then
-					SpecID = 0
-				end
-				SetLootSpecialization(SpecID)
-			end
-		end)
-		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
-		Button:RegisterEvent("PLAYER_ENTERING_WORLD")
-		Button:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
-		Button:HookScript("OnEvent", function(self)
-			if (GetLootSpecialization() == GetSpecializationInfo(self:GetID())) then
-				self:SetBackdropBorderColor(1, 0.44, .4)
-			end
-		end)
+	if E.db.mui.actionbars.specBar.mouseover then
+		UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
 	end
 end
 

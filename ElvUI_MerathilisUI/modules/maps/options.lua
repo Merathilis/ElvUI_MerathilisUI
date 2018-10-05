@@ -1,5 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule("mUIMinimap")
+local SMB = MER:GetModule("mUIMinimapButtons")
+
 local COMP = MER:GetModule("mUICompatibility")
 
 local function Minimap()
@@ -101,27 +103,81 @@ local function Minimap()
 					},
 				},
 			},
-			buttonCollector = {
+			smb = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(L["MiniMap Buttons"]),
+				name = MER:cOption(SMB.modName),
 				guiInline = true,
-				get = function(info) return E.db.mui.maps.minimap.buttonCollector[ info[#info] ] end,
-				set = function(info, value) E.db.mui.maps.minimap.buttonCollector[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SMB == true) end,
+				get = function(info) return E.db.mui.smb[ info[#info] ] end,
+				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update(); end,
+				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SMB == true or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
 				args = {
-					enable = {
+					credits = {
 						order = 1,
+						type = "group",
+						name = L["Credits"],
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = "description",
+								fontSize = "medium",
+								name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
+							},
+						},
+					},
+					enable = {
+						order = 2,
 						type = "toggle",
 						name = L["Enable"],
+						get = function(info) return E.db.mui.smb.enable end,
+						set = function(info, value) E.db.mui.smb.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
-					position = {
-						order = 2,
-						type = "select",
-						name = L["Position"],
-						values = {
-							["TOP"] = L["Top"],
-							["BOTTOM"] = L["Bottom"],
+					barMouseOver = {
+						order = 3,
+						type = "toggle",
+						name = L["Mouseover"],
+					},
+					backdrop = {
+						order = 4,
+						type = "toggle",
+						name = L["Bar Backdrop"],
+					},
+					iconSize = {
+						order = 5,
+						type = "range",
+						name = L["Icon Size"],
+						min = 12, max = 48, step = 1,
+					},
+					buttonSpacing = {
+						order = 6,
+						type = "range",
+						name = L["Button Spacing"],
+						min = 0, max = 10, step = 1,
+					},
+					buttonsPerRow = {
+						order = 7,
+						type = "range",
+						name = L["Buttons Per Row"],
+						min = 1, max = 12, step = 1,
+					},
+					blizzard = {
+						order = 8,
+						type = "group",
+						name = L["Blizzard"],
+						guiInline = true,
+						set = function(info, value) E.db.mui.smb[ info[#info] ] = value SMB:Update() SMB:HandleBlizzardButtons() end,
+						args = {
+							moveTracker  = {
+								order = 1,
+								type = "toggle",
+								name = L["Move Tracker Icon"],
+							},
+							moveQueue  = {
+								order = 2,
+								type = "toggle",
+								name = L["Move Queue Status Icon"],
+							},
 						},
 					},
 				},

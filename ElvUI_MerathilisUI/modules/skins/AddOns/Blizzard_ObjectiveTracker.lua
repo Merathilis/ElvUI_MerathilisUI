@@ -55,12 +55,23 @@ function f.PLAYER_REGEN_ENABLED()
 	InCombat = false
 end
 function f.QUEST_LOG_UPDATE()
+	local questNum, q, o
+	local block = _G["ObjectiveTrackerBlocksFrame"]
+	local frame = _G["ObjectiveTrackerFrame"]
+
 	if not InCombat and not InCombatLockdown() then
-		n = tostring(select(2, GetNumQuestLogEntries()))
-		q = n.."/"..MAX_QUESTS.." "..TRACKER_HEADER_QUESTS
-		o = n.."/"..MAX_QUESTS.." "..OBJECTIVES_TRACKER_LABEL
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetText(q)
-		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetText(o)
+		questNum = select(2, GetNumQuestLogEntries())
+
+		if questNum >= (MAX_QUESTS - 5) then -- go red
+			q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+		else
+			q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
+			o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+		end
+
+		block.QuestHeader.Text:SetText(q)
+		frame.HeaderMenu.Title:SetText(o)
 	end
 end
 
@@ -91,63 +102,6 @@ local function styleObjectiveTracker()
 					end
 				end
 			end
-		end
-	end)
-
-	-- Skin POI Buttons
-	hooksecurefunc("QuestPOI_GetButton", function(parent, questID, style, index)
-		local Incomplete = ObjectiveTrackerBlocksFrame.poiTable["numeric"]
-		local Complete = ObjectiveTrackerBlocksFrame.poiTable["completed"]
-
-		for i = 1, #Incomplete do
-			local Button = ObjectiveTrackerBlocksFrame.poiTable["numeric"][i]
-
-			if Button and not Button.IsSkinned then
-				Button.NormalTexture:SetTexture("")
-				Button.PushedTexture:SetTexture("")
-				Button.HighlightTexture:SetTexture("")
-				Button.Glow:SetAlpha(0)
-				Button:CreateBackdrop("Default")
-				S:HandleButton(Button)
-
-				Button.IsSkinned = true
-			end
-		end
-
-		for i = 1, #Complete do
-			local Button = ObjectiveTrackerBlocksFrame.poiTable["completed"][i]
-
-			if Button and not Button.IsSkinned then
-				Button.NormalTexture:SetTexture("")
-				Button.PushedTexture:SetTexture("")
-				Button.FullHighlightTexture:SetTexture("")
-				Button.Glow:SetAlpha(0)
-				Button:CreateBackdrop("Default")
-				S:HandleButton(Button)
-
-				Button.IsSkinned = true
-			end
-		end
-	end)
-
-	hooksecurefunc("QuestPOI_SelectButton", function(poiButton)
-		local Backdrop = poiButton.backdrop
-
-		if Backdrop then
-			local ID = GetQuestLogIndexByID(poiButton.questID)
-			local Level = select(2, GetQuestLogTitle(ID))
-			local Color = GetQuestDifficultyColor(Level) or {r = 1, g = 1, b = 0, a = 1}
-			local Number = poiButton.Number
-
-			if PreviousPOI then
-				PreviousPOI:SetBackdropColor(unpack(E["media"].backdropcolor))
-				PreviousPOI.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-			end
-
-			poiButton.backdrop:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-			poiButton:SetBackdropColor(0/255, 152/255, 34/255, 1)
-
-			PreviousPOI = poiButton
 		end
 	end)
 

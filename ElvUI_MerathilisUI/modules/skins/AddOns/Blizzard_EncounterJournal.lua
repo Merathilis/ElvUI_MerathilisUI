@@ -66,7 +66,7 @@ function styleEncounterJournal()
 		if result.icon then
 			result:GetRegions():Hide() -- icon frame
 
-			result.icon:SetTexCoord(.08, .92, .08, .92)
+			result.icon:SetTexCoord(unpack(E.TexCoords))
 
 			local bg = MERS:CreateBG(result.icon)
 			bg:SetDrawLayer("BACKGROUND", 1)
@@ -97,7 +97,7 @@ function styleEncounterJournal()
 		local offset = _G.HybridScrollFrame_GetOffset(scrollFrame)
 		local results = scrollFrame.buttons
 		local result, index
-	
+
 		local numResults = _G.EJ_GetNumSearchResults()
 
 		for i = 1, #results do
@@ -119,7 +119,7 @@ function styleEncounterJournal()
 				end
 
 				if result.icon:GetTexCoord() == 0 then
-					result.icon:SetTexCoord(.08, .92, .08, .92)
+					result.icon:SetTexCoord(unpack(E.TexCoords))
 				end
 			end
 		end
@@ -130,7 +130,7 @@ function styleEncounterJournal()
 			local result = self.buttons[i]
 
 			if result.icon:GetTexCoord() == 0 then
-				result.icon:SetTexCoord(.08, .92, .08, .92)
+				result.icon:SetTexCoord(unpack(E.TexCoords))
 			end
 		end
 	end)
@@ -146,46 +146,6 @@ function styleEncounterJournal()
 	--[[ InstanceSelect ]]
 	local instanceSelect = EncounterJournal.instanceSelect
 	instanceSelect.bg:Hide()
-
-	local function onEnable(self)
-		self:SetHeight(self.storedHeight) -- prevent it from resizing
-		self:SetBackdropColor(0, 0, 0, 0)
-	end
-
-	local function onDisable(self)
-		self:SetBackdropColor(r, g, b, .2)
-	end
-
-	local function onClick(self)
-		self:GetFontString():SetTextColor(1, 1, 1)
-	end
-
-	for i = 1, #instanceSelect.Tabs do
-		local tab = instanceSelect.Tabs[i]
-		local text = tab:GetFontString()
-
-		tab:DisableDrawLayer("OVERLAY")
-
-		tab.mid:Hide()
-		tab.left:Hide()
-		tab.right:Hide()
-
-		tab.midHighlight:SetAlpha(0)
-		tab.leftHighlight:SetAlpha(0)
-		tab.rightHighlight:SetAlpha(0)
-
-		tab:SetHeight(tab.storedHeight)
-		tab.grayBox:GetRegions():SetAllPoints(tab)
-
-		text:SetPoint("CENTER")
-		text:SetTextColor(1, 1, 1)
-
-		tab:HookScript("OnEnable", onEnable)
-		tab:HookScript("OnDisable", onDisable)
-		tab:HookScript("OnClick", onClick)
-
-		MERS:Reskin(tab)
-	end
 
 	local function listInstances()
 		local index = 1
@@ -256,7 +216,7 @@ function styleEncounterJournal()
 		item.bossTexture:SetAlpha(0)
 		item.bosslessTexture:SetAlpha(0)
 
-		item.icon:SetTexCoord(.08, .92, .08, .92)
+		item.icon:SetTexCoord(unpack(E.TexCoords))
 		item.icon:SetDrawLayer("OVERLAY")
 		MERS:CreateBG(item.icon)
 
@@ -284,7 +244,7 @@ function styleEncounterJournal()
 		hooksecurefunc("EncounterJournal_DisplayInstance", function()
 			bossButton = _G["EncounterJournalBossButton"..numBossButtons]
 			while bossButton do
-				MERS:Reskin(bossButton, true)
+				MERS:Reskin(bossButton)
 
 				bossButton.text:SetTextColor(1, 1, 1)
 				bossButton.text.SetTextColor = MER.dummy
@@ -327,7 +287,7 @@ function styleEncounterJournal()
 
 				MERS:Reskin(header.button)
 
-				header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
+				header.button.abilityIcon:SetTexCoord(unpack(E.TexCoords))
 				header.button.bg = MERS:CreateBG(header.button.abilityIcon)
 
 				header.styled = true
@@ -383,36 +343,32 @@ function styleEncounterJournal()
 	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
 
-	local ItemSetsFrame = LootJournal.ItemSetsFrame
-	hooksecurefunc(ItemSetsFrame, "UpdateList", function()
-		local itemSets = ItemSetsFrame.buttons
-		for i = 1, #itemSets do
-			local itemSet = itemSets[i]
+	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "UpdateList", function(self)
+		local buttons = self.buttons
+		for i = 1, #buttons do
+			local button = buttons[i]
 
-			itemSet.ItemLevel:SetTextColor(1, 1, 1)
-			itemSet.Background:Hide()
+			if not button.styled then
+				button.ItemLevel:SetTextColor(1, 1, 1)
+				button.Background:Hide()
+				MERS:CreateBD(button, .25)
+				MERS:CreateGradient(button)
 
-			if not itemSet.bg then
-				local bg = CreateFrame("Frame", nil, itemSet)
-				bg:SetPoint("TOPLEFT")
-				bg:SetPoint("BOTTOMRIGHT", 0, 1)
-				bg:SetFrameLevel(itemSet:GetFrameLevel() - 1)
-				MERS:CreateBD(bg, .25)
-				itemSet.bg = bg
-			end
-
-			local items = itemSet.ItemButtons
-			for j = 1, #items do
-				local item = items[j]
-
-				item.Border:Hide()
-				item.Icon:SetPoint("TOPLEFT", 1, -1)
-
-				item.Icon:SetTexCoord(.08, .92, .08, .92)
-				item.Icon:SetDrawLayer("OVERLAY")
-				MERS:CreateBG(item.Icon)
+				button.styled = true
 			end
 		end
+	end)
+
+	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "ConfigureItemButton", function(_, button)
+		if not button.bg then
+			button.Border:SetAlpha(0)
+			button.Icon:SetTexCoord(unpack(E.TexCoords))
+			button.bg = MERS:CreateBDFrame(button.Icon)
+		end
+
+		local quality = select(3, GetItemInfo(button.itemID))
+		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end)
 
 	-- [[ SuggestFrame ]]
@@ -424,9 +380,9 @@ function styleEncounterJournal()
 		suggestion.bg:Hide()
 
 		MERS:CreateBD(suggestion, .25)
+		MERS:CreateGradient(suggestion)
 
 		suggestion.icon:SetPoint("TOPLEFT", 135, -15)
-		MERS:CreateBG(suggestion.icon)
 
 		local centerDisplay = suggestion.centerDisplay
 
@@ -440,7 +396,6 @@ function styleEncounterJournal()
 		reward.text:SetTextColor(.9, .9, .9)
 		reward.iconRing:Hide()
 		reward.iconRingHighlight:SetTexture("")
-		MERS:CreateBG(reward.icon)
 
 		-- Suggestion 2 and 3
 		for i = 2, 3 do
@@ -449,9 +404,9 @@ function styleEncounterJournal()
 			suggestion.bg:Hide()
 
 			MERS:CreateBD(suggestion, .25)
+			MERS:CreateGradient(suggestion)
 
 			suggestion.icon:SetPoint("TOPLEFT", 10, -10)
-			MERS:CreateBG(suggestion.icon)
 
 			centerDisplay = suggestion.centerDisplay
 
@@ -460,13 +415,10 @@ function styleEncounterJournal()
 			centerDisplay.title.text:SetTextColor(1, 1, 1)
 			centerDisplay.description.text:SetTextColor(.9, .9, .9)
 
-			MERS:Reskin(centerDisplay.button)
-
 			reward = suggestion.reward
 
 			reward.iconRing:Hide()
 			reward.iconRingHighlight:SetTexture("")
-			MERS:CreateBG(reward.icon)
 		end
 	end
 
@@ -479,10 +431,10 @@ function styleEncounterJournal()
 
 			suggestion.iconRing:Hide()
 
-			if data.iconPath then
+			if suggestion and data then
 				suggestion.icon:SetMask("")
 				suggestion.icon:SetTexture(data.iconPath)
-				suggestion.icon:SetTexCoord(.08, .92, .08, .92)
+				suggestion.icon:SetTexCoord(unpack(E.TexCoords))
 			end
 		end
 
@@ -498,7 +450,7 @@ function styleEncounterJournal()
 				if data.iconPath then
 					suggestion.icon:SetMask("")
 					suggestion.icon:SetTexture(data.iconPath)
-					suggestion.icon:SetTexCoord(.08, .92, .08, .92)
+					suggestion.icon:SetTexCoord(unpack(E.TexCoords))
 				end
 			end
 		end
@@ -510,7 +462,20 @@ function styleEncounterJournal()
 			local texture = rewardData.itemIcon or rewardData.currencyIcon or [[Interface\Icons\achievement_guildperk_mobilebanking]]
 			suggestion.reward.icon:SetMask("")
 			suggestion.reward.icon:SetTexture(texture)
-			suggestion.reward.icon:SetTexCoord(.08, .92, .08, .92)
+
+			if not suggestion.reward.icon.backdrop then
+				MERS:CreateBackdrop(suggestion.reward.icon)
+				suggestion.reward.icon.backdrop:SetOutside(suggestion.reward.icon)
+			end
+
+			local r, g, b = unpack(E["media"].bordercolor)
+			if rewardData.itemID then
+				local quality = select(3, GetItemInfo(rewardData.itemID))
+				if quality and quality > 1 then
+					r, g, b = GetItemQualityColor(quality)
+				end
+			end
+			suggestion.reward.icon.backdrop:SetBackdropBorderColor(r, g, b)
 		end
 	end)
 end

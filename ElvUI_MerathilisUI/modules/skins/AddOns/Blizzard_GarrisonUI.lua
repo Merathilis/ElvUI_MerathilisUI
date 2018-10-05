@@ -371,6 +371,7 @@ local function styleGarrison()
 		end
 
 		MERS:CreateBD(bg, .25)
+		MERS:CreateGradient(bg)
 	end
 
 	for _, tab in pairs({Report.InProgress, Report.Available}) do
@@ -684,6 +685,7 @@ local function styleGarrison()
 		if Button and not Button.skinned then
 			Button:StripTextures()
 			MERS:CreateBD(Button, .25)
+			MERS:CreateGradient(Button)
 			MERS:Reskin(Button, true)
 			Button.LocBG:SetAlpha(0)
 

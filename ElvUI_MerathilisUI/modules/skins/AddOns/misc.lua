@@ -22,6 +22,14 @@ local function styleMisc()
 
 	_G["GameMenuFrame"]:Styling()
 
+	-- GameMenu Header Color
+	for i = 1, GameMenuFrame:GetNumRegions() do
+		local Region = select(i, GameMenuFrame:GetRegions())
+		if Region.IsObjectType and Region:IsObjectType('FontString') then
+			Region:SetTextColor(1, 1, 1)
+		end
+	end
+
 	-- Graveyard button (a bit ugly if you press it)
 	_G["GhostFrame"]:StripTextures()
 	_G["GhostFrameContentsFrame"]:StripTextures()

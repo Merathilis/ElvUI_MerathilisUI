@@ -116,8 +116,6 @@ L["Automatically select the quest reward with the highest vendor sell value."] =
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
-L["Alt PowerBar"] = true
-L["Replace the default Alt Power Bar."] = true
 L["Undress"] = true
 L["Flashing Cursor"] = true
 
@@ -295,6 +293,11 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+
+-- SMB
+L["Bar Backdrop"] = true
+L["Move Tracker Icon"] = true
+L["Move Queue Status Icon"] = true
 
 --Raid Marks
 L["Raid Markers"] = true

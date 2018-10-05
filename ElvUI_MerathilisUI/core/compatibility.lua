@@ -60,9 +60,8 @@ function COMP:ProjectAzilrokaCompatibility()
 		self:Print("ProjectAzilroka", "EnhancedFriendsList")
 	end
 
-	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true) then
-		Disable(E.db.mui["maps"]["minimap"]["buttonCollector"])
-		self:ModulePrint("ProjectAzilroka", "Button Collector")
+	if Disable(_G.ProjectAzilroka.db, "SMB" and E.db.mui["smb"]) then
+		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
 end
 
@@ -98,6 +97,11 @@ function COMP:SLECompatibility()
 	-- Objective Tracker
 	if Disable(E.private.sle["skins"]["objectiveTracker"]) then
 		self:Print(SLE.Title, "ObjectiveTracker skin")
+	end
+
+	-- MinimapButtons
+	if Disable(E.private.sle["minimap"]["mapicons"]) then
+		self:Print(SLE.Title, "Minimap Buttons")
 	end
 end
 

@@ -55,7 +55,7 @@ MER.NPCS = {
 
 	-- BfA
 	139073, -- Poda
-	139770, -- Eikceps
+	139770, -- Taptaf
 	140125, -- Miimii
 	141941, -- Baa'l
 	143160, -- Brutus

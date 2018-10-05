@@ -40,7 +40,7 @@ local function styleCommunities()
 				button:GetRegions():Hide()
 				button:SetHighlightTexture("")
 
-				button.bd = MERS:CreateBDFrame(button, 0)
+				button.bd = MERS:CreateBDFrame(button)
 				button.bd:SetPoint("TOPLEFT", 4, -3)
 				button.bd:SetPoint("BOTTOMRIGHT", -1, 3)
 				MERS:CreateGradient(button.bd)

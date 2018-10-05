@@ -12,7 +12,7 @@ local _G = _G
 -- GLOBALS:
 
 local function styleQuestFrame()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
 
 	_G["QuestFont"]:SetTextColor(1, 1, 1)
 	------------------------
@@ -58,8 +58,6 @@ local function styleQuestFrame()
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
-	_G["QuestFrameGreetingPanel"]:Styling()
-
 	_G["QuestGreetingScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
 		self.spellTex:SetTexture("")
@@ -72,6 +70,20 @@ local function styleQuestFrame()
 		_G[frame:GetName().."MaterialBotLeft"]:Hide()
 		_G[frame:GetName().."MaterialBotRight"]:Hide()
 	end)
+
+	for i = 1, 16 do
+		local button = _G['QuestTitleButton'..i]
+		if button then
+			hooksecurefunc(button, 'SetFormattedText', function(self)
+				if self:GetFontString() then
+					local Text = self:GetFontString():GetText()
+					if Text and strfind(Text, '|cff000000') then
+						button:GetFontString():SetText(string.gsub(Text, '|cff000000', '|cffffe519'))
+					end
+				end
+			end)
+		end
+	end
 
 	local line = QuestFrameGreetingPanel:CreateTexture()
 	line:SetColorTexture(1, 1, 1, .2)

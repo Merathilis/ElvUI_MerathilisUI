@@ -14,7 +14,6 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: AddOnSkins, stripes
 
-local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 local alpha
 local backdropcolorr, backdropcolorg, backdropcolorb
 local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
@@ -26,6 +25,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-Icon-QuestBang]]
 
 local buttons = {
 	"UI-Panel-MinimizeButton-Disabled",
@@ -103,9 +103,13 @@ function MERS:ReskinEditBox(frame)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:SetAllPoints()
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:SetAllPoints()
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 function MERS:ReskinDropDownBox(frame, width)
@@ -119,11 +123,16 @@ function MERS:ReskinDropDownBox(frame, width)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:Point("TOPLEFT", 20, -2)
-	bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
-	bg:Width(width)
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:Point("TOPLEFT", 20, -2)
+		bg:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
+		bg:Width(width)
+		bg:SetFrameLevel(frame:GetFrameLevel())
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 function S:HandleDropDownFrame(frame, width)
@@ -188,12 +197,16 @@ function S:HandleDropDownFrame(frame, width)
 		frame.backdrop:Hide()
 	end
 
-	local bg = MERS:CreateBDFrame(frame, 0)
-	bg:SetPoint("TOPLEFT", left, 20, -21)
-	bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
-	bg:SetFrameLevel(frame:GetFrameLevel())
-	bg:Width(width)
-	MERS:CreateGradient(bg)
+	if not frame.bg then
+		local bg = MERS:CreateBDFrame(frame)
+		bg:SetPoint("TOPLEFT", left, 20, -21)
+		bg:SetPoint("BOTTOMRIGHT", right, -19, 23)
+		bg:SetFrameLevel(frame:GetFrameLevel())
+		bg:Width(width)
+		MERS:CreateGradient(bg)
+
+		frame.bg = bg
+	end
 end
 
 -- Create shadow for textures
@@ -396,8 +409,10 @@ function MERS:ReskinSliderFrame(frame)
 	local SIZE = 12
 
 	frame:StripTextures()
-	frame:CreateBackdrop('Default')
-	frame.backdrop:SetAllPoints()
+	if frame.backdrop then frame.backdrop:Hide() end
+
+	MERS:CreateBDFrame(frame)
+	MERS:CreateGradient(frame)
 
 	hooksecurefunc(frame, "SetBackdrop", function(slider, backdrop)
 		if backdrop ~= nil then slider:SetBackdrop(nil) end
@@ -412,7 +427,7 @@ function MERS:ReskinSliderFrame(frame)
 	else
 		frame:Height(SIZE)
 
-		for i=1, frame:GetNumRegions() do
+		for i = 1, frame:GetNumRegions() do
 			local region = select(i, frame:GetRegions())
 			if region and region:GetObjectType() == 'FontString' then
 				local point, anchor, anchorPoint, x, y = region:GetPoint()
@@ -512,6 +527,8 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	if f.backdrop then f.backdrop:Hide() end
 	if strip then f:StripTextures() end
 
+	MERS:CreateGradient(f)
+
 	if f.template then
 		f:SetBackdrop(nil)
 		if f.oborder then f.oborder:SetBackdrop(nil) end
@@ -522,9 +539,16 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		f.ignoreBackdropColors = true
 	end
 
-	MERS:CreateBD(f, 0)
+	if not f.bd then
+		local bd = MERS:CreateBDFrame(f)
+		bd:SetAllPoints()
 
-	f.bgTex = MERS:CreateGradient(f)
+		f.bd = bd
+	end
+
+	if f.bgTex then
+		f.bgTex = MERS:CreateGradient(f)
+	end
 
 	if not noHighlight then
 		f:HookScript("OnEnter", MERS.ColorButton)
@@ -537,16 +561,14 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
 			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
 		})
-		f.glow:SetPoint("TOPLEFT", -2, 2)
-		f.glow:SetPoint("BOTTOMRIGHT", 2, -2)
+		f.glow:SetPoint("TOPLEFT", -1, 1)
+		f.glow:SetPoint("BOTTOMRIGHT", 1, -1)
 		f.glow:SetBackdropBorderColor(r, g, b)
 		f.glow:SetAlpha(0)
 
 		f:HookScript("OnEnter", StartGlow)
 		f:HookScript("OnLeave", StopGlow)
 	end
-
-	f:Styling()
 end
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
@@ -554,11 +576,21 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	if frame.backdrop then frame.backdrop:Hide() end
 
-	MERS:Reskin(frame)
-
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
 	frame:SetHighlightTexture(E["media"].normTex)
+
+	local hl = frame:GetHighlightTexture()
+	hl:SetPoint("TOPLEFT", 5, -5)
+	hl:SetPoint("BOTTOMRIGHT", -5, 5)
+	hl:SetVertexColor(r, g, b, .2)
+
+	local bd = CreateFrame("Frame", nil, frame)
+	bd:SetPoint("TOPLEFT", 4, -4)
+	bd:SetPoint("BOTTOMRIGHT", -4, 4)
+	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
+	MERS:CreateBD(bd, 0)
+	MERS:CreateGradient(bd)
 
 	local ch = frame:GetCheckedTexture()
 	ch:SetDesaturated(true)

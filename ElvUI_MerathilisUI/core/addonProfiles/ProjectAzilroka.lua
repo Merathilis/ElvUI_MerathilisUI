@@ -28,7 +28,7 @@ function MER:LoadPAProfile()
 		["ButtonWidth"] = 20,
 		["Font"] = "Expressway",
 		["ClassColor"] = true,
-		["CheckTexture"] = "MerathilisFlat",
+		["CheckTexture"] = "Duffed",
 	},
 
 	-- Profile creation

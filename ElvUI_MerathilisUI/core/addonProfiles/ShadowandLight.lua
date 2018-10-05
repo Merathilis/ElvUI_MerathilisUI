@@ -20,7 +20,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["font"] = "Expressway"
-	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["size"] = 12
+	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["size"] = 14
 	E.db["sle"]["media"]["fonts"]["objectiveHeader"]["outline"] = "OUTLINE"
 	E.db["sle"]["media"]["fonts"]["pvp"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
@@ -107,7 +107,7 @@ function MER:LoadShadowandLightProfile()
 	E.private["sle"]["chat"]["BubbleThrottle"] = 0.1
 	E.private["sle"]["chat"]["BubbleClass"] = true
 	E.db["sle"]["chat"]["textureAlpha"]["enable"] = true
-	E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.45
+	E.db["sle"]["chat"]["textureAlpha"]["alpha"] = 0.15
 	E.db["sle"]["chat"]["dpsSpam"] = true
 	E.db["sle"]["blizzard"]["rumouseover"] = true
 	E.db["sle"]["misc"]["threat"]["enable"] = true

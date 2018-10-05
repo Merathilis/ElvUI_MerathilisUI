@@ -25,7 +25,7 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 
 local microBar
 
-local DELAY = 15
+local DELAY = 5
 local elapsed = DELAY - 5
 
 local function OnHover(button)
@@ -65,7 +65,7 @@ function MB:CreateMicroBar()
 	microBar:EnableMouse(true)
 	microBar:SetSize(400, 26)
 	microBar:SetScale(MB.db.scale or 1)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -24)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
 	E.FrameLocks[microBar] = true

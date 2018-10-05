@@ -17,7 +17,7 @@ function MER:LoadOCDProfile()
 	-- defaults
 	OzCooldownsDB.profiles[profileName] = {
 		["Masque"] = true,
-		["StatusBarTexture"] = "MerathilisFlat",
+		["StatusBarTexture"] = "Duffed",
 		["StackFont"] = "Expressway",
 		["StackFontFlag"] = "OUTLINE",
 		["StackFontSize"] = 12,

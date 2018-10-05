@@ -17,12 +17,12 @@ function MER:LoadBigWigsProfileDPS()
 			["BigWigs_Plugins_Alt Power"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["posx"] = 90,
+						["posx"] = 600,
 						["fontSize"] = 11,
 						["fontOutline"] = "",
 						["fontName"] = "Expressway",
 						["lock"] = true,
-						["posy"] = 245,
+						["posy"] = 132,
 					},
 				},
 			},
@@ -45,14 +45,14 @@ function MER:LoadBigWigsProfileDPS()
 			["BigWigs_Plugins_Bars"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["BigWigsEmphasizeAnchor_y"] = 196,
-						["BigWigsEmphasizeAnchor_x"] = 296,
-						["BigWigsAnchor_y"] = 29,
-						["BigWigsAnchor_x"] = 388,
+						["BigWigsEmphasizeAnchor_y"] = 271.82,
+						["BigWigsEmphasizeAnchor_x"] = 458.58,
+						["BigWigsAnchor_y"] = 156.84,
+						["BigWigsAnchor_x"] = 1051,
 						["BigWigsAnchor_width"] = 200,
-						["BigWigsAnchor_height"] = 15,
-						["BigWigsEmphasizeAnchor_height"] = 25,
-						["BigWigsEmphasizeAnchor_width"] = 200,
+						["BigWigsAnchor_height"] = 18,
+						["BigWigsEmphasizeAnchor_height"] = 28,
+						["BigWigsEmphasizeAnchor_width"] = 170,
 						["fontName"] = "Expressway",
 						["fontSizeEmph"] = 12,
 						["fontSize"] = 11,
@@ -60,7 +60,7 @@ function MER:LoadBigWigsProfileDPS()
 						["emphasizeScale"] = 1.1,
 						["barStyle"] = "MerathilisUI",
 						["emphasizeGrowup"] = true,
-						["texture"] = "MerathilisFlat",
+						["texture"] = "Duffed",
 					},
 				},
 			},

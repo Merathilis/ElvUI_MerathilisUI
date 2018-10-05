@@ -18,83 +18,83 @@ function MER:LoadMasqueProfile()
 			["ElvUI"] = {
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 			},
 			["ElvUI_Buffs"] = {
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]olor.r, -- [1]
+						0, -- [2]olor.g, -- [2]
+						0, -- [3]olor.b, -- [3]
 						1, -- [4]
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 			},
 			["ElvUI_Debuffs"] = {
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 			},
 			["ElvUI_Pet Bar"] = {
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},
 			},
 			["ElvUI_Consolidated Buffs"] = {
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},
 			},
 			["Masque"] = {
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},
 			},
 			["ElvUI_ActionBars"] = {
-				["Gloss"] = 0.6,
+				["Gloss"] = 0,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
-						MER.ClassColor.r, -- [1]
-						MER.ClassColor.g, -- [2]
-						MER.ClassColor.b, -- [3]
+						0, -- [1]
+						0, -- [2]
+						0, -- [3]
 						1, -- [4]
 					},
 				},

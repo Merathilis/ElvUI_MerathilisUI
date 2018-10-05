@@ -6,7 +6,7 @@
 	<Script file="FriendsFrame.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="HelpFrame.lua"/>
-	<Script file="ItemButtonTemplate.lua"/>
+	<Script file="ItemTextFrame.lua"/>
 	<Script file="LFGFrame.lua"/>
 	<Script file="LFGList.lua"/>
 	<Script file="LootFrame.lua"/>
@@ -21,5 +21,6 @@
 	<Script file="QuestPOI.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="TaxiFrame.lua"/>
+	<Script file="TradeFrame.lua"/>
 	<Script file="WorldMapFrame.lua"/>
 </Ui>

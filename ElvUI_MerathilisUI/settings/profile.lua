@@ -50,10 +50,9 @@ P["mui"] = {
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
 		["gmotd"] = true, -- Show a GMOTD frame
-		["quest"] = false,
-		["announce"] = false, -- CombatText, Skill gains
+		["quest"] = true,
+		["announce"] = true, -- CombatText, Skill gains
 		["nameHover"] = true,
-		["powerBar"] = true,
 		["cursor"] = false,
 	},
 
@@ -114,8 +113,14 @@ P["mui"] = {
 	["actionbars"] = {
 		["cleanButton"] = true,
 		["transparent"] = true,
-		["specBar"] = true,
-		["equipBar"] = true,
+		["specBar"] = {
+			["enable"] = true,
+			["mouseover"] = false,
+		},
+		["equipBar"] = {
+			["enable"] = true,
+			["mouseover"] = false,
+		},
 	},
 
 	["microBar"] = {
@@ -195,10 +200,6 @@ P["mui"] = {
 				["enable"] = true,
 				["position"] = "BOTTOM",
 			},
-			["buttonCollector"] = {
-				["enable"] = true,
-				["position"] = "TOP",
-			},
 			["ping"] = {
 				["enable"] = true,
 				["position"] = "TOP",
@@ -206,6 +207,17 @@ P["mui"] = {
 				["yOffset"] = -20,
 			},
 		},
+	},
+
+	["smb"] = {
+		["enable"] = true,
+		["barMouseOver"] = true,
+		["backdrop"] = true,
+		["iconSize"] = 22,
+		["buttonsPerRow"] = 6,
+		["buttonSpacing"] = 2,
+		["moveTracker"] = false,
+		["moveQueue"] = false,
 	},
 
 	["locPanel"] = {
@@ -322,8 +334,8 @@ P["mui"] = {
 		["InfoFont"] = "Expressway",
 		["InfoFontSize"] = 10,
 		["InfoFontFlag"] = "NONE",
-		["GameIconPack"] = "Default",
-		["StatusIconPack"] = "Default",
+		["GameIconPack"] = "Launcher",
+		["StatusIconPack"] = "Square",
 	},
 
 	["raidBuffs"] = {
@@ -340,7 +352,7 @@ P["mui"] = {
 	},
 
 	["cooldownFlash"] = {
-		["enable"] = false,
+		["enable"] = true,
 		["fadeInTime"] = 0.3,
 		["fadeOutTime"] = 0.6,
 		["maxAlpha"] = 0.8,

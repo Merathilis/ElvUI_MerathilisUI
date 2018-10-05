@@ -16,7 +16,7 @@ local UIErrorsFrame = UIErrorsFrame
 -- GLOBALS: SAVE_CHANGES
 
 function MAB:CreateEquipBar()
-	if E.db.mui.actionbars.equipBar ~= true then return end
+	if E.db.mui.actionbars.equipBar.enable ~= true then return end
 
 	local GearTexture = "Interface\\WorldMap\\GEAR_64GREY"
 	local EquipmentSets = CreateFrame("Frame", "EquipmentSets", E.UIParent)
@@ -26,9 +26,17 @@ function MAB:CreateEquipBar()
 	EquipmentSets:SetTemplate("Transparent")
 	EquipmentSets:SetPoint("RIGHT", _G["SpecializationBar"], "LEFT", -1, 0)
 	EquipmentSets:Styling()
+	EquipmentSets:Hide()
 	E.FrameLocks[EquipmentSets] = true
 
 	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+
+	EquipmentSets:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	EquipmentSets:SetScript('OnLeave', function(self)
+		if E.db.mui.actionbars.equipBar.mouseover then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	end)
 
 	EquipmentSets.Button = CreateFrame("Button", nil, EquipmentSets)
 	EquipmentSets.Button:SetFrameStrata("BACKGROUND")
@@ -41,8 +49,6 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button:GetNormalTexture():SetInside()
 	EquipmentSets.Button:SetPushedTexture("")
 	EquipmentSets.Button:SetHighlightTexture("")
-	EquipmentSets.Button:HookScript("OnEnter", function(self) self:SetBackdropBorderColor(0, 0.44, .87) end)
-	EquipmentSets.Button:HookScript("OnLeave", function(self) self:SetTemplate() end)
 
 	EquipmentSets.Button.Icon = EquipmentSets.Button:CreateTexture(nil, "OVERLAY")
 	EquipmentSets.Button.Icon:SetTexCoord(.1, .9, .1, .9)
@@ -61,6 +67,7 @@ function MAB:CreateEquipBar()
 		GameTooltip:AddLine(PAPERDOLL_EQUIPMENTMANAGER)
 		GameTooltip:Show()
 	end)
+
 	EquipmentSets.Flyout:SetScript("OnLeave", GameTooltip_Hide)
 	EquipmentSets.Flyout:SetScript("OnClick", function()
 		for i = 1, 10 do
@@ -71,6 +78,16 @@ function MAB:CreateEquipBar()
 					EquipmentSets.Button[i]:Show()
 				end
 			end
+		end
+	end)
+	EquipmentSets.Flyout:HookScript("OnEnter", function(self)
+		if EquipmentSets:IsShown() then
+			UIFrameFadeIn(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 1)
+		end
+	end)
+	EquipmentSets.Flyout:HookScript("OnLeave", function(self)
+		if EquipmentSets:IsShown() and E.db.mui.actionbars.equipBar.mouseover then
+			UIFrameFadeOut(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 0)
 		end
 	end)
 
@@ -97,6 +114,16 @@ function MAB:CreateEquipBar()
 			EquipmentSets.Flyout:Click()
 		end)
 		Button:SetScript("OnLeave", GameTooltip_Hide)
+		Button:HookScript("OnEnter", function(self)
+			if EquipmentSets:IsShown() then
+				UIFrameFadeIn(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 1)
+			end
+		end)
+		Button:HookScript("OnLeave", function(self)
+			if EquipmentSets:IsShown() and E.db.mui.actionbars.equipBar.mouseover then
+				UIFrameFadeOut(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 0)
+			end
+		end)
 
 		EquipmentSets.Button[i] = Button
 	end
@@ -155,32 +182,18 @@ function MAB:CreateEquipBar()
 		end
 	end)
 
-	--[[ EquipmentSets.Button.EditButton = CreateFrame("Button", nil, EquipmentSets.Button)
-	EquipmentSets.Button.EditButton:SetFrameLevel(2)
-	EquipmentSets.Button.EditButton:SetSize(14, 14)
-	EquipmentSets.Button.EditButton:SetPoint("BOTTOMRIGHT", EquipmentSets.Button, "BOTTOMRIGHT", 0, 0)
-	EquipmentSets.Button.EditButton.Icon = EquipmentSets.Button.EditButton:CreateTexture(nil, "ARTWORK")
-	EquipmentSets.Button.EditButton.Icon:SetTexture(GearTexture)
-	EquipmentSets.Button.EditButton.Icon:SetAllPoints()
-	EquipmentSets.Button.EditButton.Icon:SetAlpha(.5)
-	EquipmentSets.Button.EditButton:SetScript("OnEnter", function(self)
-		self.Icon:SetAlpha(1)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetText(EQUIPMENT_SET_EDIT)
+	EquipmentSets.Button:HookScript("OnEnter", function(self)
+		self:SetBackdropBorderColor(0, 0.44, .87)
+		if EquipmentSets:IsShown() then
+			UIFrameFadeIn(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 1)
+		end
 	end)
-	EquipmentSets.Button.EditButton:SetScript("OnLeave", function(self)
-		self.Icon:SetAlpha(.5)
-		GameTooltip_Hide()
+	EquipmentSets.Button:HookScript("OnLeave", function(self)
+		self:SetTemplate()
+		if EquipmentSets:IsShown() and E.db.mui.actionbars.equipBar.mouseover then
+			UIFrameFadeOut(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 0)
+		end
 	end)
-	EquipmentSets.Button.EditButton:SetScript("OnClick", function(self)
-		local Name, Icon = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
-		ShowUIPanel(CharacterFrame)
-		PaperDollEquipmentManagerPane.selectedSetName = Name
-		GearManagerDialogPopup:Show()
-		GearManagerDialogPopup.isEdit = true
-		GearManagerDialogPopup.origName = Name;
-		RecalculateGearManagerDialogPopup(Name, Icon)
-	end) --]]
 
 	EquipmentSets.Button.SaveButton = CreateFrame("Button", nil, EquipmentSets.Button)
 	EquipmentSets.Button.SaveButton:SetFrameLevel(2)
@@ -196,6 +209,12 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button.SaveButton:SetScript("OnClick", function(self, button)
 		C_EquipmentSet.SaveEquipmentSet(EquipmentSets.Button:GetID())
 	end)
+
+	if E.db.mui.actionbars.equipBar.mouseover then
+		UIFrameFadeOut(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 1)
+	end
 end
 
 function MAB:EquipBarInit()

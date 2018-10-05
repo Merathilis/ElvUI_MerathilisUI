@@ -17,6 +17,7 @@ LSM:Register("font","Merathilis Roboto-Regular", [[Interface\AddOns\ElvUI_Merath
 LSM:Register("font","Merathilis GoodDogCool", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\gdcool.ttf]])
 LSM:Register("font","Merathilis BadaBoom", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\BADABB__.ttf]])
 LSM:Register("font","Merathilis Gothic-Bold", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\CenturyGothicBold.ttf]])
+LSM:Register("font","Merathilis Gothom Narrow", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\GothamNarrowUltra.ttf]])
 
 -- Backgrounds
 LSM:Register("background","Merathilis BrushedMetal", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\brushedmetal.tga]])
@@ -44,6 +45,7 @@ LSM:Register("statusbar","MerathilisGloss", [[Interface\AddOns\ElvUI_MerathilisU
 LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\lyn1.tga]])
 LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Skullflower.tga]])
 LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\SkullflowerLight.tga]])
+LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Duffed.tga]])
 
 -- Sounds
 LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])

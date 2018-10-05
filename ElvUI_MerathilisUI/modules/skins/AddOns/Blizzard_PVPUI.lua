@@ -27,6 +27,8 @@ local function stylePvP()
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
+		MERS:Reskin(bu)
+
 		bu.Icon:Size(54)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
@@ -60,7 +62,6 @@ local function stylePvP()
 
 	for section, parent in pairs(buttons) do
 		local button = parent[section]
-		MERS:Reskin(button)
 
 		if button.backdrop then button.backdrop:Hide() end
 
@@ -70,10 +71,8 @@ local function stylePvP()
 
 		button.Reward.Icon:SetInside(button.Reward)
 
-		if not button.Reward.bg then
-			button.Reward.bg = MERS:CreateBDFrame(button.Reward)
-			button.Reward.bg:SetOutside(button.Reward)
-		end
+		MERS:CreateBackdrop(button.Reward)
+		button.Reward.backdrop:SetOutside(button.Reward)
 	end
 
 	hooksecurefunc('PVPUIFrame_ConfigureRewardFrame', function(rewardFrame, honor, experience, itemRewards, currencyRewards)
@@ -97,7 +96,7 @@ local function stylePvP()
 
 		if rewardTexture then
 			rewardFrame.Icon:SetTexture(rewardTexture)
-			rewardFrame.bg:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
+			rewardFrame.backdrop:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
 		end
 	end)
 
@@ -138,9 +137,9 @@ local function stylePvP()
 	end
 
 	local rewardIcon = HonorFrame.ConquestBar.Reward.Icon
-	if not rewardIcon.bg then
-		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
-		rewardIcon.bg:SetOutside(rewardIcon)
+	if not rewardIcon.backdrop then
+		MERS:CreateBackdrop(rewardIcon)
+		rewardIcon.backdrop:SetOutside(rewardIcon)
 	end
 
 	-- Credits Azilroka
@@ -158,17 +157,17 @@ local function stylePvP()
 			end
 		end
 		if Quality then
-			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+			self.backdrop:SetBackdropBorderColor(GetItemQualityColor(Quality))
 		else
-			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+			self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 		end
 	end)
 
 	-- Rated - ConquestFrame
 	local rewardIcon = ConquestFrame.ConquestBar.Reward.Icon
-	if not rewardIcon.bg then
-		rewardIcon.bg = MERS:CreateBDFrame(rewardIcon)
-		rewardIcon.bg:SetOutside(rewardIcon)
+	if not rewardIcon.backdrop then
+		MERS:CreateBackdrop(rewardIcon)
+		rewardIcon.backdrop:SetOutside(rewardIcon)
 	end
 
 	-- Credits Azilroka
@@ -186,9 +185,9 @@ local function stylePvP()
 			end
 		end
 		if Quality then
-			self.bg:SetBackdropBorderColor(GetItemQualityColor(Quality))
+			self.backdrop:SetBackdropBorderColor(GetItemQualityColor(Quality))
 		else
-			self.bg:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+			self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
 		end
 	end)
 end
