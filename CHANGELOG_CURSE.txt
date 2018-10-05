@@ -1,9 +1,9 @@
-** v4.00, xx.xx.2018**
+** v4.00, 05.10.2018**
 * New Layout for DPS/Tank Profile.
-* Updated BigWigs Profile & Skin.
+* Updated BigWigs/Details/Masque Profile.
 * Updated my buttonColector to be like SMB.
 * Added mouseover options for EquipBar & SpecBar.
-* Some skin updates.
+* A lot skin updates.
 
 ** v3.41.1, 18.09.2018**
 * Fix a nil error on the NamePlate Auras.
