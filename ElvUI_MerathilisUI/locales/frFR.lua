@@ -37,13 +37,6 @@ L["Enable/Disable the Login Message in Chat"] = true
 -- Bags
 L["Removed: "] = true
 L["Usable Items"] = true
-L["Split Bags"] = true
-L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = true
-L["Split Bag 1"] = true
-L["Split Bag 2"] = true
-L["Split Bag 3"] = true
-L["Split Bag 4"] = true
-L["Bag spacing"] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
