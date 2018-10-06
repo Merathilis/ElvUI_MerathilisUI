@@ -21,7 +21,9 @@ function MI:UpdateMoverTransparancy()
 end
 
 function MI:LoadMoverTransparancy()
-	hooksecurefunc(E, "CreateMover", function(self, parent)
+	hooksecurefunc(E, "CreateMover", function(self, parent, name, text, overlay, snapOffset, postdrag, shouldDisable)
+		if not parent then return end --If for some reason the parent isnt loaded yet
+		if E.CreatedMovers[name].Created then return end
 		parent.mover:SetAlpha(E.db.mui.general.Movertransparancy)
 	end)
 
