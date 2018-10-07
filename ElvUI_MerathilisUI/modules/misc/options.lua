@@ -55,7 +55,7 @@ local function Misc()
 				order = 6,
 				type = "toggle",
 				name = MERA.modName,
-				desc = L["Combat Status, Skill gains"],
+				desc = L["Skill gains"],
 			},
 			nameHover = {
 				order = 7,

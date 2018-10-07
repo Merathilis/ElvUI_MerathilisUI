@@ -187,11 +187,14 @@ function MERA:AlertRun(f, r, g, b)
 end
 
 function MERA:Initialize()
-	if E.db.mui.misc.announce ~= true then return end
+	if E.db.mui.general.CombatState then
+		self:RegisterEvent("PLAYER_REGEN_ENABLED")
+		self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	end
 
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("CHAT_MSG_SKILL")
+	if E.db.mui.misc.announce then
+		self:RegisterEvent("CHAT_MSG_SKILL")
+	end
 
 	SetCVar("floatingCombatTextCombatState", "1")
 end
