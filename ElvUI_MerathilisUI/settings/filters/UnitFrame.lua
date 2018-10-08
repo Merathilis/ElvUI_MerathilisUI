@@ -19,6 +19,7 @@ G.unitframe.aurafilters['MER_RaidCDs'] = {
 		[48707] = Defaults(), --Anti-Magic Shell
 		[55233] = Defaults(), --Vampiric Blood
 		[48792] = Defaults(), --Icebound Fortitude
+		[81256]  = Defaults(), -- Dancing Rune Weapon
 		[145629] = Defaults(), --Anti-Magic Zone
 	--Demon Hunter
 		[187827] = Defaults(), --Metamorphosis
