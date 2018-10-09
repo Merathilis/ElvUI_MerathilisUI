@@ -18,6 +18,11 @@ local function styleIslands()
 	IslandsQueueFrame:Styling()
 
 	IslandsQueueFrame.HelpButton:Hide()
+
+	IslandsQueueFrame.DifficultySelectorFrame:StripTextures()
+	local bg = MERS:CreateBDFrame(IslandsQueueFrame.DifficultySelectorFrame, .65)
+	bg:SetPoint("TOPLEFT", 50, -20)
+	bg:SetPoint("BOTTOMRIGHT", -50, 5)
 end
 
 S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", styleIslands)

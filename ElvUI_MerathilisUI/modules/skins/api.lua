@@ -540,7 +540,7 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 	end
 
 	if not f.bd then
-		local bd = MERS:CreateBDFrame(f)
+		local bd = MERS:CreateBDFrame(f, .75)
 		bd:SetAllPoints()
 
 		f.bd = bd
