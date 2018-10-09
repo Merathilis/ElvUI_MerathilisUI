@@ -40,8 +40,6 @@ local function styleMail()
 	end)
 
 	local MailFrame = _G["MailFrame"]
-	select(18, MailFrame:GetRegions()):Hide()
-
 	MailFrame:Styling()
 
 	-- InboxFrame

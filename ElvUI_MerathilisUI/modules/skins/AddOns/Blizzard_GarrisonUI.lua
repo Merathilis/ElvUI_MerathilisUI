@@ -521,10 +521,6 @@ local function styleGarrison()
 	-- [[ Recruiter frame ]]
 	local GarrisonRecruiterFrame = _G["GarrisonRecruiterFrame"]
 
-	for i = 18, 22 do
-		select(i, GarrisonRecruiterFrame:GetRegions()):Hide()
-	end
-
 	-- Unavailable frame
 	local UnavailableFrame = GarrisonRecruiterFrame.UnavailableFrame
 

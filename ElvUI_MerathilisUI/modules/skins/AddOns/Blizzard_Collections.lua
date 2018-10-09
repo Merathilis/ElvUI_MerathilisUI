@@ -363,22 +363,13 @@ local function styleCollections()
 			button.level:ClearAllPoints()
 			button.level:SetPoint("BOTTOM", 0, 1)
 
-			local newLevelBg = button:CreateTexture(nil, "OVERLAY")
-			newLevelBg:SetColorTexture(0, 0, 0, .5)
-			newLevelBg:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 5)
-			newLevelBg:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 5)
-			newLevelBg:SetHeight(11)
-			button.newLevelBg = newLevelBg
-
 			button.styled = true
 		end
 
 		if button.iconTexture:IsShown() then
 			button.name:SetTextColor(1, 1, 1)
-			button.newLevelBg:Show()
 		else
 			button.name:SetTextColor(.5, .5, .5)
-			button.newLevelBg:Hide()
 		end
 	end)
 
@@ -398,10 +389,8 @@ local function styleCollections()
 
 			if button.iconTexture:IsShown() then
 				button.name:SetTextColor(1, 1, 1)
-				button.newLevelBg:Show()
 			else
 				button.name:SetTextColor(.5, .5, .5)
-				button.newLevelBg:Hide()
 			end
 		end
 	end)

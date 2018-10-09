@@ -11,9 +11,11 @@ local _G = _G
 local function styleTimeManager()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.timemanager ~= true or E.private.muiSkins.blizzard.timemanager ~= true then return end
 
-	_G["TimeManagerFrame"]:Styling()
-	_G["TimeManagerStopwatchFrame"]:Styling()
-	_G["StopwatchFrame"]:Styling()
+	local TimeManagerFrame = _G["TimeManagerFrame"]
+	TimeManagerFrame:Styling()
+
+	local StopwatchFrame = _G["StopwatchFrame"]
+	StopwatchFrame:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_TimeManager", "mUITimeManager", styleTimeManager)

@@ -353,6 +353,7 @@ function NF:UPDATE_INVENTORY_DURABILITY()
 	end
 end
 
+--[[
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
@@ -372,7 +373,7 @@ local function GetGuildInvites()
 
 	return numGuildInvites
 end
-
+]]
 local function toggleCalendar()
 	if not CalendarFrame then LoadAddOn("Blizzard_Calendar") end
 	Calendar_Toggle()
@@ -401,7 +402,7 @@ end
 
 function NF:CALENDAR_UPDATE_PENDING_INVITES()
 	alertEvents()
-	alertGuildEvents()
+	--alertGuildEvents()
 end
 
 function NF:CALENDAR_UPDATE_GUILD_EVENTS()
@@ -410,7 +411,7 @@ end
 
 local function LoginCheck()
 	alertEvents()
-	alertGuildEvents()
+	--alertGuildEvents()
 end
 
 function NF:PLAYER_ENTERING_WORLD()
@@ -464,7 +465,7 @@ function NF:Initialize()
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
-	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
+	--self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")

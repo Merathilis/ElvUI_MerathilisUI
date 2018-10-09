@@ -24,7 +24,6 @@ local function styleLFGList()
 	local CategorySelection = _G["LFGListFrame"].CategorySelection
 
 	CategorySelection.Inset.Bg:Hide()
-	select(10, CategorySelection.Inset:GetRegions()):Hide()
 	CategorySelection.Inset:DisableDrawLayer("BORDER")
 
 	hooksecurefunc("LFGListCategorySelection_AddButton", function(self, btnIndex)
@@ -162,7 +161,6 @@ local function styleLFGList()
 	local EntryCreation = LFGListFrame.EntryCreation
 
 	EntryCreation.Inset.Bg:Hide()
-	select(10, EntryCreation.Inset:GetRegions()):Hide()
 	EntryCreation.Inset:DisableDrawLayer("BORDER")
 
 	for i = 1, 9 do
