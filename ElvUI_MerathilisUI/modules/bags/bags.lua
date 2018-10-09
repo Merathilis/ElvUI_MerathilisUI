@@ -31,6 +31,14 @@ function MERB:SkinBank()
 	end
 end
 
+function MERB:ReskinSellFrame()
+	if B.SellFrame then
+		B.SellFrame:Styling()
+		B.SellFrame.statusbar:SetStatusBarColor(unpack(E["media"].rgbvaluecolor))
+	end
+end
+hooksecurefunc(B, "CreateSellFrame", MERB.ReskinSellFrame)
+
 function MERB:AllInOneBags()
 	self:SkinBags()
 	self:RegisterEvent('BANKFRAME_OPENED', 'SkinBank')
