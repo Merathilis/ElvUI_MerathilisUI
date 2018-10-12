@@ -24,7 +24,7 @@ local GetAtlasInfo = GetAtlasInfo
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetTime = GetTime
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
 local C_Calendar_GetGuildEventInfo = C_Calendar.GetGuildEventInfo
 local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
@@ -353,11 +353,11 @@ function NF:UPDATE_INVENTORY_DURABILITY()
 	end
 end
 
---[[
+
 local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
-	local date = C_Calendar.GetDate()
+	local date = C_DateAndTime_GetCurrentCalendarTime()
 	for index = 1, C_Calendar.GetNumGuildEvents() do
 		local info = C_Calendar.GetGuildEventInfo(index)
 		local monthOffset = info.month - date.month
@@ -373,7 +373,7 @@ local function GetGuildInvites()
 
 	return numGuildInvites
 end
-]]
+
 local function toggleCalendar()
 	if not CalendarFrame then LoadAddOn("Blizzard_Calendar") end
 	Calendar_Toggle()
@@ -402,7 +402,7 @@ end
 
 function NF:CALENDAR_UPDATE_PENDING_INVITES()
 	alertEvents()
-	--alertGuildEvents()
+	alertGuildEvents()
 end
 
 function NF:CALENDAR_UPDATE_GUILD_EVENTS()
@@ -411,7 +411,7 @@ end
 
 local function LoginCheck()
 	alertEvents()
-	--alertGuildEvents()
+	alertGuildEvents()
 end
 
 function NF:PLAYER_ENTERING_WORLD()
@@ -465,7 +465,7 @@ function NF:Initialize()
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
-	--self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
+	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")
