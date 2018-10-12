@@ -112,6 +112,7 @@ local function styleAuctionhouse()
 			local bg = MERS:CreateBDFrame(bu, .25)
 			bg:SetPoint("TOPLEFT")
 			bg:SetPoint("BOTTOMRIGHT", 0, 5)
+			MERS:CreateGradient(bg)
 
 			bu:SetHighlightTexture(E["media"].normTex)
 			local hl = bu:GetHighlightTexture()
@@ -146,7 +147,6 @@ local function styleAuctionhouse()
 		AuctionsItemButton.IconBorder:SetTexture("")
 	end)
 
-	MERS:CreateBD(AuctionsItemButton, .25)
 	local _, AuctionsItemButtonNameFrame = AuctionsItemButton:GetRegions()
 	AuctionsItemButtonNameFrame:Hide()
 
