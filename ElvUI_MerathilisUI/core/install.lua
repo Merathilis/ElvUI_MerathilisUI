@@ -1092,7 +1092,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = true
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1183,7 +1183,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = true
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
@@ -1261,7 +1261,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = true
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
