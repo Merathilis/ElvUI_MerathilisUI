@@ -267,6 +267,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
+	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
