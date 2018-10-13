@@ -406,8 +406,8 @@ function MERL:CreatePanels()
 	MerathilisUIButton2:SetScript("OnEnter", ChatPanels_OnEnter)
 	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
 
-	LeftChatToggleButton:Kill()
-	RightChatToggleButton:Kill()
+	LeftChatToggleButton:SetAlpha(0)
+	RightChatToggleButton:SetAlpha(0)
 end
 
 function MERL:regEvents()
