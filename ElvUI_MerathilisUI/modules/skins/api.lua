@@ -35,43 +35,21 @@ local buttons = {
 }
 
 function S:HandleCloseButton(f, point, text)
-	if not E.db.mui or not E.private.muiSkins then
-		return
-	end
+	assert(f, "does not exist.")
 
-	if E.private.muiSkins.closeButton then
-		for i = 1, f:GetNumRegions() do
-			local region = select(i, f:GetRegions())
-			if region:GetObjectType() == "Texture" then
-				region:SetDesaturated(true)
-				for n = 1, #buttons do
-					local texture = buttons[n]
-					if region:GetTexture() == "Interface\\Buttons\\"..texture then
-						f.noBackdrop = true
-					end
-				end
-				if region:GetTexture() == "Interface\\DialogFrame\\UI-DialogBox-Corner" then
-					region:Kill()
-				end
-			end
-		end
-	else
-		f:StripTextures()
-		if not text then text = 'x' end
-	end
+	f:StripTextures()
 
 	-- Create backdrop for the few close buttons that do not use original close button
 	if not f.backdrop then
 		f:CreateBackdrop()
 		f.backdrop:Point("TOPLEFT", 7, -8)
 		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
-		f.backdrop:SetFrameLevel(f:GetFrameLevel())
 		f.backdrop:SetTemplate("NoBackdrop")
 		f:SetHitRectInsets(6, 6, 7, 7)
 	end
 
 	-- Create an own close button texture on the backdrop
-	if E.private.muiSkins.closeButton and not f.backdrop.img then
+	if not f.backdrop.img then
 		f.backdrop.img = f.backdrop:CreateTexture(nil, "OVERLAY")
 		f.backdrop.img:SetSize(12, 12)
 		f.backdrop.img:Point("CENTER")

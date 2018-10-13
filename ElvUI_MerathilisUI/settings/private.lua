@@ -91,5 +91,4 @@ V["muiSkins"] = {
 	["elvuiAddons"] = {
 		-- ["sle"] = true,
 	},
-	["closeButton"] = true,
 }
