@@ -43,7 +43,7 @@ function S:HandleCloseButton(f, point, text)
 		for i = 1, f:GetNumRegions() do
 			local region = select(i, f:GetRegions())
 			if region:GetObjectType() == "Texture" then
-				region:SetDesaturated(1)
+				region:SetDesaturated(true)
 				for n = 1, #buttons do
 					local texture = buttons[n]
 					if region:GetTexture() == "Interface\\Buttons\\"..texture then
@@ -62,12 +62,21 @@ function S:HandleCloseButton(f, point, text)
 
 	-- Create backdrop for the few close buttons that do not use original close button
 	if not f.backdrop then
-		f:CreateBackdrop("Default", true)
-		f.backdrop:Point("TOPLEFT", 5, -6)
-		f.backdrop:Point("BOTTOMRIGHT", -6, 6)
+		f:CreateBackdrop()
+		f.backdrop:Point("TOPLEFT", 7, -8)
+		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
 		f.backdrop:SetFrameLevel(f:GetFrameLevel())
-		f:HookScript("OnEnter", MERS.ColorButton)
-		f:HookScript("OnLeave", MERS.ClearButton)
+		f.backdrop:SetTemplate("NoBackdrop")
+		f:SetHitRectInsets(6, 6, 7, 7)
+	end
+
+	-- Create an own close button texture on the backdrop
+	if E.private.muiSkins.closeButton and not f.backdrop.img then
+		f.backdrop.img = f.backdrop:CreateTexture(nil, "OVERLAY")
+		f.backdrop.img:SetSize(12, 12)
+		f.backdrop.img:Point("CENTER")
+		f.backdrop.img:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
+		f.backdrop.img:SetVertexColor(1, 1, 1)
 	end
 
 	-- ElvUI code expects the element to be there. It won't show up for original close buttons.
@@ -79,14 +88,18 @@ function S:HandleCloseButton(f, point, text)
 		f.text:Point("CENTER", f, "CENTER")
 	end
 
-	-- Use a own texture for the close button.
-	if E.private.muiSkins.closeButton and not f.tex then
-		f.tex = f:CreateTexture(nil, "OVERLAY")
-		f.tex:Size(12)
-		f.tex:Point("CENTER", -1, 0)
-		f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
-		f.tex:SetDrawLayer("OVERLAY")
-	end
+	-- Otherwise we have an additional white texture
+	f:SetPushedTexture("")
+
+	f:HookScript("OnEnter", function(self)
+		self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+		self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+	end)
+
+	f:HookScript("OnLeave", function(self)
+		self.backdrop.img:SetVertexColor(1, 1, 1)
+		self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	end)
 
 	-- Hide text if button is using original skin
 	if f.text and f.noBackdrop then
