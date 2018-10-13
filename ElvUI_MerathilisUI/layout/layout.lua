@@ -289,8 +289,6 @@ local function ChatPanels_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
-	GameTooltip:AddLine('')
-	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Chat"], 1, 1, 1)
 	GameTooltip:Show()
 end
 
