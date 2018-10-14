@@ -814,6 +814,15 @@ hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
+local function ReskinVehicleExit()
+	local f = _G["LeaveVehicleButton"]
+	if f then
+		f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	end
+end
+
 -- keep the colors updated
 local function updateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E["media"].rgbvaluecolor)
@@ -835,6 +844,7 @@ end
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
+	ReskinVehicleExit()
 	updateMedia()
 	pluginInstaller()
 
