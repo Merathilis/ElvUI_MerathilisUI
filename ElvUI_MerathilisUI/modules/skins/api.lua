@@ -89,6 +89,56 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
+function S:HandleMaxMinFrame(frame)
+	assert(frame, "does not exist.")
+
+	frame:StripTextures()
+
+	for _, name in next, {"MaximizeButton", "MinimizeButton"} do
+		local button = frame[name]
+		if button then
+			button:SetSize(20, 20)
+			button:ClearAllPoints()
+			button:SetPoint("CENTER")
+
+			button:SetNormalTexture(nil)
+			button:SetPushedTexture(nil)
+			button:SetHighlightTexture(nil)
+
+			if not button.backdrop then
+				button:CreateBackdrop()
+				button.backdrop:Point("TOPLEFT", button, 1, -1)
+				button.backdrop:Point("BOTTOMRIGHT", button, -1, 1)
+				button.backdrop:SetTemplate('NoBackdrop')
+				button:SetHitRectInsets(1, 1, 1, 1)
+			end
+
+			if not button.backdrop.img then
+				button.backdrop.img = button.backdrop:CreateTexture(nil, 'OVERLAY')
+				button.backdrop.img:SetSize(16, 16)
+				button.backdrop.img:Point("CENTER")
+				button.backdrop.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+				button.backdrop.img:SetVertexColor(1, 1, 1)
+			end
+
+			button:HookScript('OnEnter', function(self)
+				self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+				self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+			end)
+
+			button:HookScript('OnLeave', function(self)
+				self.backdrop.img:SetVertexColor(1, 1, 1)
+				self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+			end)
+
+			if name == "MaximizeButton" then
+				button.backdrop.img:SetTexCoord(1, 1, 1, -1.2246467991474e-016, 1.1102230246252e-016, 1, 0, -1.144237745222e-017)
+			end
+		end
+	end
+end
+
+
 function MERS:ReskinEditBox(frame)
 	if frame.backdrop then
 		frame.backdrop:Hide()
