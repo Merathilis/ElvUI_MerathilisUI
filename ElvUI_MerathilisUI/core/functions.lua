@@ -302,7 +302,6 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	MER["styling"][style] = true
 end
 
-
 local BlizzardFrameRegions = {
 	'Inset',
 	'inset',
@@ -315,7 +314,6 @@ local BlizzardFrameRegions = {
 	'bgLeft',
 	'bgRight',
 }
-
 
 local function StripTextures(Frame, Kill, Alpha)
 	local FrameName = Frame:GetName()
