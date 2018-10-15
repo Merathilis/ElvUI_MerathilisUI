@@ -302,9 +302,50 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	MER["styling"][style] = true
 end
 
+
+local BlizzardFrameRegions = {
+	'Inset',
+	'inset',
+	'LeftInset',
+	'RightInset',
+	'NineSlice',
+	'BorderFrame',
+	'bottomInset',
+	'BottomInset',
+	'bgLeft',
+	'bgRight',
+}
+
+
+local function StripTextures(Frame, Kill, Alpha)
+	local FrameName = Frame:GetName()
+	for _, Blizzard in pairs(BlizzardFrameRegions) do
+		local BlizzFrame = Frame[Blizzard] or FrameName and _G[FrameName..Blizzard]
+		if BlizzFrame then
+			StripTextures(BlizzFrame, Kill, Alpha)
+		end
+	end
+	if Frame.GetNumRegions then
+		for i = 1, Frame:GetNumRegions() do
+			local Region = select(i, Frame:GetRegions())
+			if Region and Region:IsObjectType('Texture') then
+				if Kill then
+					Region:Hide()
+					Region.Show = MER.dummy
+				elseif Alpha then
+					Region:SetAlpha(0)
+				else
+					Region:SetTexture(nil)
+				end
+			end
+		end
+	end
+end
+
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end
+	if not object.StripTextures then mt.StripTextures = StripTextures end
 end
 
 local handled = {["Frame"] = true}
