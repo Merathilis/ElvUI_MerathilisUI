@@ -293,7 +293,7 @@ P["mui"] = {
 		[ERR_NOT_IN_COMBAT] = false,
 		[ERR_NOT_WHILE_DISARMED] = false,
 		[ERR_NOT_WHILE_FALLING] = false,
-		[ERR_NOT_WHILE_MOUNTED] = false,
+		[ERR_NOT_WHILE_MOUNTED] = true,
 		[ERR_NO_ATTACK_TARGET] = true,
 		[ERR_OUT_OF_ENERGY] = true,
 		[ERR_OUT_OF_FOCUS] = true,
@@ -316,6 +316,8 @@ P["mui"] = {
 		[SPELL_FAILED_TARGET_AURASTATE] = true,
 		[SPELL_FAILED_TOO_CLOSE] = false,
 		[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
+		[SPELL_FAILED_NOT_ON_MOUNTED] = true,
+		[SPELL_FAILED_NOT_MOUNTED] = true,
 	},
 
 	["efl"] = {
