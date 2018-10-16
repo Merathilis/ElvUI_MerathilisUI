@@ -98,12 +98,3 @@ G.unitframe.aurafilters['MER_RaidCDs'] = {
 		[65116] = Defaults(), --Stoneform
 	},
 }
-
-G.unitframe.aurafilters['MER_Blacklist'] = {
-	['type'] = 'Blacklist',
-	['spells'] = {
-	--Druid
-		[240606] = Defaults(), --Circadian Invocation
-		[240607] = Defaults(), --Circadian Invocation
-	},
-}
