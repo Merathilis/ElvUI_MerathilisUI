@@ -71,8 +71,9 @@ local function styleCollections()
 			local bg = CreateFrame("Frame", nil, bu)
 			bg:SetPoint("TOPLEFT", 0, -1)
 			bg:SetPoint("BOTTOMRIGHT", 0, 1)
-			bg:SetFrameLevel(bu:GetFrameLevel()-1)
+			bg:SetFrameLevel(bu:GetFrameLevel())
 			MERS:CreateBD(bg, .25)
+			MERS:CreateGradient(bg)
 			bu.bg = bg
 
 			ic:SetTexCoord(unpack(E.TexCoords))
@@ -109,6 +110,13 @@ local function styleCollections()
 						bu.bg:SetBackdropColor(r, g, b, .25)
 					else
 						bu.bg:SetBackdropColor(0, 0, 0, .25)
+					end
+
+					if bu.unusable then
+						hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1) end)
+						hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) end)
+					else
+						bu.unusable:SetAlpha(0)
 					end
 				else
 					bu.bg:Hide()
