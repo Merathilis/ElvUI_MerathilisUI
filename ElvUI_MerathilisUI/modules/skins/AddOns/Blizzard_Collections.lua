@@ -57,99 +57,95 @@ local function styleCollections()
 	MERS:CreateBD(PetJournal.PetCount, .25)
 	MERS:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
 
-	local scrollFrames = {MountJournal.ListScrollFrame.buttons, PetJournal.listScroll.buttons}
-	for _, scrollFrame in pairs(scrollFrames) do
-		for i = 1, #scrollFrame do
-			local bu = scrollFrame[i]
-			local ic = bu.icon
+	-- Mount list
+	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
+		bu:SetHighlightTexture(nil)
+		bu.unusable:SetAlpha(0)
+		bu.iconBorder:SetTexture('')
+		bu.background:SetTexture('')
+		bu.factionIcon:SetDrawLayer('OVERLAY')
+		bu.icon:SetPoint("LEFT", bu, -37, 0)
 
-			bu:GetRegions():Hide()
-			bu:SetHighlightTexture("")
-			bu.iconBorder:SetTexture("")
-			bu.selectedTexture:SetTexture("")
+		local bg = CreateFrame("Frame", nil, bu)
+		bg:SetPoint("TOPLEFT", 0, -1)
+		bg:SetPoint("BOTTOMRIGHT", 0, 1)
+		bg:SetFrameLevel(bu:GetFrameLevel())
+		MERS:CreateBD(bg, .25)
+		MERS:CreateGradient(bg)
+		bu.bg = bg
 
-			local bg = CreateFrame("Frame", nil, bu)
-			bg:SetPoint("TOPLEFT", 0, -1)
-			bg:SetPoint("BOTTOMRIGHT", 0, 1)
-			bg:SetFrameLevel(bu:GetFrameLevel())
-			MERS:CreateBD(bg, .25)
-			MERS:CreateGradient(bg)
-			bu.bg = bg
+		bu.icon:SetTexCoord(unpack(E.TexCoords))
+		bu.icon.bg = MERS:CreateBG(bu.icon)
+		bu.name:SetParent(bg)
 
-			ic:SetTexCoord(unpack(E.TexCoords))
-			ic.bg = MERS:CreateBG(ic)
+		hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1, .75) bu.bg:SetBackdropColor(.4, .1, .1, .75) end)
+		hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) bu.bg:SetBackdropColor(0, 0, 0, .25) end)
 
-			bu.name:SetParent(bg)
+		hooksecurefunc(bu.selectedTexture, 'Show', function()
+			bu.selectedTexture:SetColorTexture(r, g, b, .25)
+			bu.name:SetTextColor(1, .9, .1)
+		end)
 
-			if bu.DragButton then
-				bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.DragButton:GetHighlightTexture():SetAllPoints(ic)
-			else
-				bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.dragButton.levelBG:SetAlpha(0)
-				bu.dragButton.level:SetFontObject(GameFontNormal)
-				bu.dragButton.level:SetTextColor(1, 1, 1)
-				bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.dragButton:GetHighlightTexture():SetAllPoints(ic)
-			end
+		hooksecurefunc(bu.selectedTexture, 'Hide', function()
+			bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
+			bu.name:SetTextColor(1, 1, 1)
+		end)
+
+		if bu.DragButton then
+			bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
+			bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+			bu.DragButton:GetHighlightTexture():SetAllPoints(bu.icon)
+		else
+			bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
+			bu.dragButton.levelBG:SetAlpha(0)
+			bu.dragButton.level:SetFontObject(GameFontNormal)
+			bu.dragButton.level:SetTextColor(1, 1, 1)
+			bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+			bu.dragButton:GetHighlightTexture():SetAllPoints(bu.icon)
 		end
 	end
 
-	local function updateMountScroll()
-		local buttons = MountJournal.ListScrollFrame.buttons
-		for i = 1, #buttons do
-			local bu = buttons[i]
-			if bu.bg then
-				if bu.index ~= nil then
-					bu.bg:Show()
-					bu.icon:Show()
-					bu.icon.bg:Show()
+	-- Pet list
+	for _, bu in pairs(PetJournal.listScroll.buttons) do
+		bu:SetHighlightTexture(nil)
+		bu.iconBorder:SetTexture('')
+		bu.icon:SetPoint("LEFT", bu, -37, 0)
 
-					if bu.unusable then
-						hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1, .75) bu.bg:SetBackdropColor(.4, .1, .1, .75) end)
-						hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) bu.bg:SetBackdropColor(0, 0, 0, .25) end)
-					else
-						bu.unusable:SetAlpha(0)
-					end
+		local bg = CreateFrame("Frame", nil, bu)
+		bg:SetPoint("TOPLEFT", 0, -1)
+		bg:SetPoint("BOTTOMRIGHT", 0, 1)
+		bg:SetFrameLevel(bu:GetFrameLevel())
+		MERS:CreateBD(bg, .25)
+		MERS:CreateGradient(bg)
+		bu.bg = bg
 
-					if bu.selectedTexture:IsShown() then
-						bu.selectedTexture:SetColorTexture(r, g, b, .25)
-					else
-						bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
-					end
-				else
-					bu.bg:Hide()
-					bu.icon:Hide()
-					bu.icon.bg:Hide()
-				end
-			end
+		bu.icon:SetTexCoord(unpack(E.TexCoords))
+		bu.icon.bg = MERS:CreateBG(bu.icon)
+		bu.name:SetParent(bg)
+
+		hooksecurefunc(bu.selectedTexture, 'Show', function()
+			bu.selectedTexture:SetColorTexture(r, g, b, .25)
+			bu.name:SetTextColor(1, .9, .1)
+		end)
+
+		hooksecurefunc(bu.selectedTexture, 'Hide', function()
+			bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
+			bu.name:SetTextColor(1, 1, 1)
+		end)
+
+		if bu.DragButton then
+			bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
+			bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+			bu.DragButton:GetHighlightTexture():SetAllPoints(bu.icon)
+		else
+			bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
+			bu.dragButton.levelBG:SetAlpha(0)
+			bu.dragButton.level:SetFontObject(GameFontNormal)
+			bu.dragButton.level:SetTextColor(1, 1, 1)
+			bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+			bu.dragButton:GetHighlightTexture():SetAllPoints(bu.icon)
 		end
 	end
-
-	hooksecurefunc("MountJournal_UpdateMountList", updateMountScroll)
-	hooksecurefunc(MountJournalListScrollFrame, "update", updateMountScroll)
-
-	local function updatePetScroll()
-		local petButtons = PetJournal.listScroll.buttons
-		if petButtons then
-			for i = 1, #petButtons do
-				local bu = petButtons[i]
-
-				local index = bu.index
-				if index then
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-				end
-			end
-		end
-	end
-
-	hooksecurefunc("PetJournal_UpdatePetList", updatePetScroll)
-	hooksecurefunc(PetJournalListScrollFrame, "update", updatePetScroll)
 
 	PetJournalHealPetButtonBorder:Hide()
 	PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
