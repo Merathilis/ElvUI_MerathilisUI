@@ -106,17 +106,17 @@ local function styleCollections()
 					bu.icon:Show()
 					bu.icon.bg:Show()
 
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-
 					if bu.unusable then
-						hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1) end)
-						hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) end)
+						hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1, .75) bu.bg:SetBackdropColor(.4, .1, .1, .75) end)
+						hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) bu.bg:SetBackdropColor(0, 0, 0, .25) end)
 					else
 						bu.unusable:SetAlpha(0)
+					end
+
+					if bu.selectedTexture:IsShown() then
+						bu.selectedTexture:SetColorTexture(r, g, b, .25)
+					else
+						bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
 					end
 				else
 					bu.bg:Hide()
