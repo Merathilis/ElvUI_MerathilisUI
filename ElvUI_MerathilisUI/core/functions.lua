@@ -119,7 +119,7 @@ function MER:UpdateAll()
 	for _, mod in pairs(self["RegisteredModules"]) do
 		if mod and mod.ForUpdateAll then
 			mod:ForUpdateAll();
-		end	
+		end
 	end
 end
 
@@ -315,12 +315,12 @@ local BlizzardFrameRegions = {
 	'bgRight',
 }
 
-local function StripTextures(Frame, Kill, Alpha)
+local function StripFrame(Frame, Kill, Alpha)
 	local FrameName = Frame:GetName()
 	for _, Blizzard in pairs(BlizzardFrameRegions) do
 		local BlizzFrame = Frame[Blizzard] or FrameName and _G[FrameName..Blizzard]
 		if BlizzFrame then
-			StripTextures(BlizzFrame, Kill, Alpha)
+			StripFrame(BlizzFrame, Kill, Alpha)
 		end
 	end
 	if Frame.GetNumRegions then
@@ -343,7 +343,7 @@ end
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end
-	if not object.StripTextures then mt.StripTextures = StripTextures end
+	if not object.StripFrame then mt.StripFrame = StripFrame end
 end
 
 local handled = {["Frame"] = true}

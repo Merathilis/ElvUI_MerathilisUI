@@ -80,7 +80,7 @@ local function InitStyleWAO()
 		S:HandleEditBox(WeakAurasFilterInput)
 
 		-- Remove Title BG
-		frame:StripTextures()
+		frame:StripFrame()
 
 		-- StripTextures will actually remove the backdrop too, so we need to put that back
 		MERS:CreateBD(frame)
