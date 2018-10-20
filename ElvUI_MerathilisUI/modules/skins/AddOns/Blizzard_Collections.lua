@@ -92,11 +92,10 @@ local function styleCollections()
 		end)
 
 		if bu.DragButton then
-			bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
+			bu.DragButton.ActiveTexture:SetAlpha(0)
 			bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 			bu.DragButton:GetHighlightTexture():SetAllPoints(bu.icon)
 		else
-			bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
 			bu.dragButton.levelBG:SetAlpha(0)
 			bu.dragButton.level:SetFontObject(GameFontNormal)
 			bu.dragButton.level:SetTextColor(1, 1, 1)
