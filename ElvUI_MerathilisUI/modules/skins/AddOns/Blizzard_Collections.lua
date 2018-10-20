@@ -64,7 +64,6 @@ local function styleCollections()
 		bu.iconBorder:SetTexture('')
 		bu.background:SetTexture('')
 		bu.factionIcon:SetDrawLayer('OVERLAY')
-		bu.icon:ClearAllPoints()
 		bu.icon:SetPoint("LEFT", bu, -40, 0)
 
 		local bg = CreateFrame("Frame", nil, bu)
