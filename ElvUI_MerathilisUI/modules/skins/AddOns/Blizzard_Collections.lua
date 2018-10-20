@@ -64,7 +64,8 @@ local function styleCollections()
 		bu.iconBorder:SetTexture('')
 		bu.background:SetTexture('')
 		bu.factionIcon:SetDrawLayer('OVERLAY')
-		bu.icon:SetPoint("LEFT", bu, -37, 0)
+		bu.icon:ClearAllPoints()
+		bu.icon:SetPoint("LEFT", bu, -40, 0)
 
 		local bg = CreateFrame("Frame", nil, bu)
 		bg:SetPoint("TOPLEFT", 0, -1)
@@ -109,7 +110,7 @@ local function styleCollections()
 	for _, bu in pairs(PetJournal.listScroll.buttons) do
 		bu:SetHighlightTexture(nil)
 		bu.iconBorder:SetTexture('')
-		bu.icon:SetPoint("LEFT", bu, -37, 0)
+		bu.icon:SetPoint("LEFT", bu, -40, 0)
 
 		local bg = CreateFrame("Frame", nil, bu)
 		bg:SetPoint("TOPLEFT", 0, -1)
