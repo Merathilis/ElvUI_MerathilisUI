@@ -7,6 +7,7 @@ MERS.modName = L["Skins/AddOns"]
 -- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
+local find = string.find
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -32,6 +33,13 @@ local buttons = {
 	"UI-Panel-MinimizeButton-Up",
 	"UI-Panel-SmallerButton-Up",
 	"UI-Panel-BiggerButton-Up",
+}
+
+MERS.ArrowRotation = {
+	['UP'] = 3.14,
+	['DOWN'] = 0,
+	['LEFT'] = -1.57,
+	['RIGHT'] = 1.57,
 }
 
 function S:HandleCloseButton(f, point, text)
@@ -396,22 +404,169 @@ function MERS:CreateBD(f, a)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
+function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
+	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
+
+	btn:StripTextures()
+	btn:SetNormalTexture(nil)
+	btn:SetPushedTexture(nil)
+	btn:SetHighlightTexture(nil)
+	btn:SetDisabledTexture(nil)
+	if not btn.icon then
+		btn.icon = btn:CreateTexture(nil, 'ARTWORK')
+		btn.icon:Size(13)
+		btn.icon:Point('CENTER')
+		btn.icon:SetTexture(nil)
+	end
+
+	if not btn.img then
+		btn.img = btn:CreateTexture(nil, 'ARTWORK')
+		btn.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+		btn.img:SetSize(12, 12)
+		btn.img:Point('CENTER')
+		btn.img:SetVertexColor(1, 1, 1)
+
+		btn:HookScript('OnMouseDown', function(button)
+			if button:IsEnabled() then
+				button.img:Point("CENTER", -1, -1);
+			end
+		end)
+
+		btn:HookScript('OnMouseUp', function(button)
+			button.img:Point("CENTER", 0, 0);
+		end)
+
+		btn:HookScript('OnDisable', function(button)
+			SetDesaturation(button.img, true);
+			button.img:SetAlpha(0.5);
+		end)
+
+		btn:HookScript('OnEnable', function(button)
+			SetDesaturation(button.img, false);
+			button.img:SetAlpha(1.0);
+		end)
+
+		if not btn:IsEnabled() then
+			btn:GetScript('OnDisable')(btn)
+		end
+	end
+
+	if useVertical then
+		if inverseDirection then
+			btn.img:SetRotation(MERS.ArrowRotation['UP'])
+		else
+			btn.img:SetRotation(MERS.ArrowRotation['DOWN'])
+		end
+	else
+		if inverseDirection then
+			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
+		else
+			btn.img:SetRotation(MERS.ArrowRotation['RIGHT'])
+		end
+	end
+
+	S:HandleButton(btn)
+	btn:Size(btn:GetWidth() - 7, btn:GetHeight() - 7)
+end
+
 -- ClassColored ScrollBars
-function MERS:ReskinScrollBar(frame, thumbTrim)
+function S:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
 	if frame:GetName() then
+		if frame.Background then frame.Background:SetTexture(nil) end
+		if frame.trackBG then frame.trackBG:SetTexture(nil) end
+		if frame.Middle then frame.Middle:SetTexture(nil) end
+		if frame.Top then frame.Top:SetTexture(nil) end
+		if frame.Bottom then frame.Bottom:SetTexture(nil) end
+		if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
+		if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
+		if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
+
+		if _G[frame:GetName().."BG"] then _G[frame:GetName().."BG"]:SetTexture(nil) end
+		if _G[frame:GetName().."Track"] then _G[frame:GetName().."Track"]:SetTexture(nil) end
+		if _G[frame:GetName().."Top"] then _G[frame:GetName().."Top"]:SetTexture(nil) end
+		if _G[frame:GetName().."Bottom"] then _G[frame:GetName().."Bottom"]:SetTexture(nil) end
+		if _G[frame:GetName().."Middle"] then _G[frame:GetName().."Middle"]:SetTexture(nil) end
+
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
-			if frame.thumbbg and frame.thumbbg.backdropTexture then
-				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			_G[frame:GetName().."ScrollUpButton"]:StripTextures()
+			if not _G[frame:GetName().."ScrollUpButton"].img then
+				S:HandleNextPrevButton(_G[frame:GetName().."ScrollUpButton"])
+				_G[frame:GetName().."ScrollUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
+				_G[frame:GetName().."ScrollUpButton"]:Size(_G[frame:GetName().."ScrollUpButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollUpButton"]:GetHeight() + 7)
+			end
+
+			_G[frame:GetName().."ScrollDownButton"]:StripTextures()
+			if not _G[frame:GetName().."ScrollDownButton"].img then
+				S:HandleNextPrevButton(_G[frame:GetName().."ScrollDownButton"])
+				_G[frame:GetName().."ScrollDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
+				_G[frame:GetName().."ScrollDownButton"]:Size(_G[frame:GetName().."ScrollDownButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollDownButton"]:GetHeight() + 7)
+			end
+
+			if not frame.trackbg then
+				frame.trackbg = CreateFrame("Frame", nil, frame)
+				frame.trackbg:Point("TOPLEFT", _G[frame:GetName().."ScrollUpButton"], "BOTTOMLEFT", 0, -1)
+				frame.trackbg:Point("BOTTOMRIGHT", _G[frame:GetName().."ScrollDownButton"], "TOPRIGHT", 0, 1)
+				frame.trackbg:SetTemplate("Transparent")
+			end
+
+			if frame:GetThumbTexture() then
+				frame:GetThumbTexture():SetTexture(nil)
+				if not frame.thumbbg then
+					if not thumbTrimY then thumbTrimY = 3 end
+					if not thumbTrimX then thumbTrimX = 2 end
+					frame.thumbbg = CreateFrame("Frame", nil, frame)
+					frame.thumbbg:Point("TOPLEFT", frame:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
+					frame.thumbbg:Point("BOTTOMRIGHT", frame:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
+					frame.thumbbg:SetTemplate("Default", true, true)
+					frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+					if frame.trackbg then
+						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
+					end
+				end
 			end
 		end
 	else
+		if frame.Background then frame.Background:SetTexture(nil) end
+		if frame.trackBG then frame.trackBG:SetTexture(nil) end
+		if frame.Middle then frame.Middle:SetTexture(nil) end
+		if frame.Top then frame.Top:SetTexture(nil) end
+		if frame.Bottom then frame.Bottom:SetTexture(nil) end
+		if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
+		if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
+		if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
+
 		if frame.ScrollUpButton and frame.ScrollDownButton then
-			if frame.thumbbg and frame.thumbbg.backdropTexture then
-				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
+			if not frame.ScrollUpButton.img then
+				S:HandleNextPrevButton(frame.ScrollUpButton, true, true)
+				frame.ScrollUpButton:Size(frame.ScrollUpButton:GetWidth() + 7, frame.ScrollUpButton:GetHeight() + 7)
+			end
+
+			if not frame.ScrollDownButton.img then
+				S:HandleNextPrevButton(frame.ScrollDownButton, true)
+				frame.ScrollDownButton:Size(frame.ScrollDownButton:GetWidth() + 7, frame.ScrollDownButton:GetHeight() + 7)
+			end
+
+			if not frame.trackbg then
+				frame.trackbg = CreateFrame("Frame", nil, frame)
+				frame.trackbg:Point("TOPLEFT", frame.ScrollUpButton, "BOTTOMLEFT", 0, -1)
+				frame.trackbg:Point("BOTTOMRIGHT", frame.ScrollDownButton, "TOPRIGHT", 0, 1)
+				frame.trackbg:SetTemplate("Transparent")
+			end
+
+			if frame.thumbTexture then
+				frame.thumbTexture:SetTexture(nil)
+				if not frame.thumbbg then
+					if not thumbTrimY then thumbTrimY = 3 end
+					if not thumbTrimX then thumbTrimX = 2 end
+					frame.thumbbg = CreateFrame("Frame", nil, frame)
+					frame.thumbbg:Point("TOPLEFT", frame.thumbTexture, "TOPLEFT", 2, -thumbTrimY)
+					frame.thumbbg:Point("BOTTOMRIGHT", frame.thumbTexture, "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
+					frame.thumbbg:SetTemplate("Default", true, true)
+					frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
+					if frame.trackbg then
+						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
+					end
+				end
 			end
 		end
 	end
@@ -793,7 +948,6 @@ hooksecurefunc(S, "HandleDropDownBox", MERS.ReskinDropDownBox)
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
-hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 -- New Widget Types

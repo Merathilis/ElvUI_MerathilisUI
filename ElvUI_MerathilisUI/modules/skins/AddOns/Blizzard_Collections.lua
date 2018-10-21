@@ -259,6 +259,9 @@ local function styleCollections()
 		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
 	end
 
+	_G["ToyBox"].PagingFrame.PrevPageButton.img:SetRotation(MERS.ArrowRotation['LEFT'])
+
+
 	-- [[ Heirlooms ]]
 	local HeirloomsJournal = _G["HeirloomsJournal"]
 	local icons = HeirloomsJournal.iconsFrame
@@ -336,6 +339,8 @@ local function styleCollections()
 			end
 		end
 	end)
+
+	_G["HeirloomsJournal"].PagingFrame.PrevPageButton.img:SetRotation(MERS.ArrowRotation['LEFT'])
 
 	-- [[ WardrobeCollectionFrame ]]
 	local WardrobeCollectionFrame = _G["WardrobeCollectionFrame"]

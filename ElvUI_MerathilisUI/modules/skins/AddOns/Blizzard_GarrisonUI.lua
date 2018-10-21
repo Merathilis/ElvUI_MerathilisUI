@@ -285,9 +285,13 @@ local function styleGarrison()
 	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
+	GarrisonCapacitiveDisplayFrame.DecrementButton.img:SetRotation(MERS.ArrowRotation['LEFT'])
+	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 
 	MERS:Reskin(GarrisonCapacitiveDisplayFrame.StartWorkOrderButton, true)
 	MERS:Reskin(GarrisonCapacitiveDisplayFrame.CreateAllWorkOrdersButton, true)
+
 	GarrisonCapacitiveDisplayFrame:Styling()
 
 	-- Capacitive display
