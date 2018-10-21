@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
@@ -59,91 +60,18 @@ local function styleCollections()
 
 	-- Mount list
 	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
-		bu:SetHighlightTexture(nil)
-		bu.unusable:SetAlpha(0)
-		bu.iconBorder:SetTexture('')
-		bu.background:SetTexture('')
-		bu.factionIcon:SetDrawLayer('OVERLAY')
 		bu.icon:SetPoint("LEFT", bu, -40, 0)
 
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 0, -1)
-		bg:SetPoint("BOTTOMRIGHT", 0, 1)
-		bg:SetFrameLevel(bu:GetFrameLevel())
-		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
-		bu.bg = bg
+		MERS:CreateGradient(bu.backdrop)
 
-		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.icon.bg = MERS:CreateBG(bu.icon)
-		bu.name:SetParent(bg)
-
-		hooksecurefunc(bu.unusable, 'Show', function() bu.icon:SetVertexColor(.4, .1, .1, .75) bu.bg:SetBackdropColor(.4, .1, .1, .75) end)
-		hooksecurefunc(bu.unusable, 'Hide', function() bu.icon:SetVertexColor(1, 1, 1) bu.bg:SetBackdropColor(0, 0, 0, .25) end)
-
-		hooksecurefunc(bu.selectedTexture, 'Show', function()
-			bu.selectedTexture:SetColorTexture(r, g, b, .25)
-			bu.name:SetTextColor(1, .9, .1)
-		end)
-
-		hooksecurefunc(bu.selectedTexture, 'Hide', function()
-			bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
-			bu.name:SetTextColor(1, 1, 1)
-		end)
-
-		if bu.DragButton then
-			bu.DragButton.ActiveTexture:SetAlpha(0)
-			bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			bu.DragButton:GetHighlightTexture():SetAllPoints(bu.icon)
-		else
-			bu.dragButton.levelBG:SetAlpha(0)
-			bu.dragButton.level:SetFontObject(GameFontNormal)
-			bu.dragButton.level:SetTextColor(1, 1, 1)
-			bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			bu.dragButton:GetHighlightTexture():SetAllPoints(bu.icon)
-		end
+		bu.DragButton.ActiveTexture:SetAlpha(0)
 	end
 
 	-- Pet list
 	for _, bu in pairs(PetJournal.listScroll.buttons) do
-		bu:SetHighlightTexture(nil)
-		bu.iconBorder:SetTexture('')
 		bu.icon:SetPoint("LEFT", bu, -40, 0)
 
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 0, -1)
-		bg:SetPoint("BOTTOMRIGHT", 0, 1)
-		bg:SetFrameLevel(bu:GetFrameLevel())
-		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
-		bu.bg = bg
-
-		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.icon.bg = MERS:CreateBG(bu.icon)
-		bu.name:SetParent(bg)
-
-		hooksecurefunc(bu.selectedTexture, 'Show', function()
-			bu.selectedTexture:SetColorTexture(r, g, b, .25)
-			bu.name:SetTextColor(1, .9, .1)
-		end)
-
-		hooksecurefunc(bu.selectedTexture, 'Hide', function()
-			bu.selectedTexture:SetColorTexture(0, 0, 0, .25)
-			bu.name:SetTextColor(1, 1, 1)
-		end)
-
-		if bu.DragButton then
-			bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
-			bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			bu.DragButton:GetHighlightTexture():SetAllPoints(bu.icon)
-		else
-			bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
-			bu.dragButton.levelBG:SetAlpha(0)
-			bu.dragButton.level:SetFontObject(GameFontNormal)
-			bu.dragButton.level:SetTextColor(1, 1, 1)
-			bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			bu.dragButton:GetHighlightTexture():SetAllPoints(bu.icon)
-		end
+		MERS:CreateGradient(bu.backdrop)
 	end
 
 	PetJournalHealPetButtonBorder:Hide()
