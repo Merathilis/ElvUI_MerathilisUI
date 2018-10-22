@@ -470,103 +470,21 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 end
 
 -- ClassColored ScrollBars
-function S:HandleScrollBar(frame, thumbTrimY, thumbTrimX)
+function MERS:ReskinScrollBar(frame, thumbTrim)
 	if frame:GetName() then
-		if frame.Background then frame.Background:SetTexture(nil) end
-		if frame.trackBG then frame.trackBG:SetTexture(nil) end
-		if frame.Middle then frame.Middle:SetTexture(nil) end
-		if frame.Top then frame.Top:SetTexture(nil) end
-		if frame.Bottom then frame.Bottom:SetTexture(nil) end
-		if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
-		if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
-		if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
-
-		if _G[frame:GetName().."BG"] then _G[frame:GetName().."BG"]:SetTexture(nil) end
-		if _G[frame:GetName().."Track"] then _G[frame:GetName().."Track"]:SetTexture(nil) end
-		if _G[frame:GetName().."Top"] then _G[frame:GetName().."Top"]:SetTexture(nil) end
-		if _G[frame:GetName().."Bottom"] then _G[frame:GetName().."Bottom"]:SetTexture(nil) end
-		if _G[frame:GetName().."Middle"] then _G[frame:GetName().."Middle"]:SetTexture(nil) end
-
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
-			_G[frame:GetName().."ScrollUpButton"]:StripTextures()
-			if not _G[frame:GetName().."ScrollUpButton"].img then
-				S:HandleNextPrevButton(_G[frame:GetName().."ScrollUpButton"])
-				_G[frame:GetName().."ScrollUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
-				_G[frame:GetName().."ScrollUpButton"]:Size(_G[frame:GetName().."ScrollUpButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollUpButton"]:GetHeight() + 7)
-			end
-
-			_G[frame:GetName().."ScrollDownButton"]:StripTextures()
-			if not _G[frame:GetName().."ScrollDownButton"].img then
-				S:HandleNextPrevButton(_G[frame:GetName().."ScrollDownButton"])
-				_G[frame:GetName().."ScrollDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
-				_G[frame:GetName().."ScrollDownButton"]:Size(_G[frame:GetName().."ScrollDownButton"]:GetWidth() + 7, _G[frame:GetName().."ScrollDownButton"]:GetHeight() + 7)
-			end
-
-			if not frame.trackbg then
-				frame.trackbg = CreateFrame("Frame", nil, frame)
-				frame.trackbg:Point("TOPLEFT", _G[frame:GetName().."ScrollUpButton"], "BOTTOMLEFT", 0, -1)
-				frame.trackbg:Point("BOTTOMRIGHT", _G[frame:GetName().."ScrollDownButton"], "TOPRIGHT", 0, 1)
-				frame.trackbg:SetTemplate("Transparent")
-			end
-
-			if frame:GetThumbTexture() then
-				frame:GetThumbTexture():SetTexture(nil)
-				if not frame.thumbbg then
-					if not thumbTrimY then thumbTrimY = 3 end
-					if not thumbTrimX then thumbTrimX = 2 end
-					frame.thumbbg = CreateFrame("Frame", nil, frame)
-					frame.thumbbg:Point("TOPLEFT", frame:GetThumbTexture(), "TOPLEFT", 2, -thumbTrimY)
-					frame.thumbbg:Point("BOTTOMRIGHT", frame:GetThumbTexture(), "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
-					frame.thumbbg:SetTemplate("Default", true, true)
-					frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
-					if frame.trackbg then
-						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
-					end
-				end
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 			end
 		end
 	else
-		if frame.Background then frame.Background:SetTexture(nil) end
-		if frame.trackBG then frame.trackBG:SetTexture(nil) end
-		if frame.Middle then frame.Middle:SetTexture(nil) end
-		if frame.Top then frame.Top:SetTexture(nil) end
-		if frame.Bottom then frame.Bottom:SetTexture(nil) end
-		if frame.ScrollBarTop then frame.ScrollBarTop:SetTexture(nil) end
-		if frame.ScrollBarBottom then frame.ScrollBarBottom:SetTexture(nil) end
-		if frame.ScrollBarMiddle then frame.ScrollBarMiddle:SetTexture(nil) end
-
 		if frame.ScrollUpButton and frame.ScrollDownButton then
-			if not frame.ScrollUpButton.img then
-				S:HandleNextPrevButton(frame.ScrollUpButton, true, true)
-				frame.ScrollUpButton:Size(frame.ScrollUpButton:GetWidth() + 7, frame.ScrollUpButton:GetHeight() + 7)
-			end
-
-			if not frame.ScrollDownButton.img then
-				S:HandleNextPrevButton(frame.ScrollDownButton, true)
-				frame.ScrollDownButton:Size(frame.ScrollDownButton:GetWidth() + 7, frame.ScrollDownButton:GetHeight() + 7)
-			end
-
-			if not frame.trackbg then
-				frame.trackbg = CreateFrame("Frame", nil, frame)
-				frame.trackbg:Point("TOPLEFT", frame.ScrollUpButton, "BOTTOMLEFT", 0, -1)
-				frame.trackbg:Point("BOTTOMRIGHT", frame.ScrollDownButton, "TOPRIGHT", 0, 1)
-				frame.trackbg:SetTemplate("Transparent")
-			end
-
-			if frame.thumbTexture then
-				frame.thumbTexture:SetTexture(nil)
-				if not frame.thumbbg then
-					if not thumbTrimY then thumbTrimY = 3 end
-					if not thumbTrimX then thumbTrimX = 2 end
-					frame.thumbbg = CreateFrame("Frame", nil, frame)
-					frame.thumbbg:Point("TOPLEFT", frame.thumbTexture, "TOPLEFT", 2, -thumbTrimY)
-					frame.thumbbg:Point("BOTTOMRIGHT", frame.thumbTexture, "BOTTOMRIGHT", -thumbTrimX, thumbTrimY)
-					frame.thumbbg:SetTemplate("Default", true, true)
-					frame.thumbbg.backdropTexture:SetVertexColor(r, g, b)
-					if frame.trackbg then
-						frame.thumbbg:SetFrameLevel(frame.trackbg:GetFrameLevel()+1)
-					end
-				end
+			if frame.thumbbg and frame.thumbbg.backdropTexture then
+				frame.thumbbg.backdropTexture.SetVertexColor = nil
+				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
 			end
 		end
 	end
@@ -948,6 +866,7 @@ hooksecurefunc(S, "HandleDropDownBox", MERS.ReskinDropDownBox)
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
+hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 -- New Widget Types
