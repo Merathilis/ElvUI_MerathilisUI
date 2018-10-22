@@ -623,42 +623,23 @@ function MERS:Reskin(f, strip, noHighlight, noGlow)
 		end
 	end
 
-	if f.backdrop then f.backdrop:Hide() end
 	if strip then f:StripTextures() end
 
-	MERS:CreateGradient(f)
-
 	if f.template then
-		f:SetBackdrop(nil)
-		if f.oborder then f.oborder:SetBackdrop(nil) end
-		if f.iborder then f.iborder:SetBackdrop(nil) end
-		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
-
-		f.ignoreFrameTemplates = true
-		f.ignoreBackdropColors = true
+		f:SetTemplate("Transparent", true)
 	end
 
-	if not f.bd then
-		local bd = MERS:CreateBDFrame(f, .75)
-		bd:SetAllPoints()
-
-		f.bd = bd
-	end
+	MERS:CreateGradient(f)
 
 	if f.bgTex then
 		f.bgTex = MERS:CreateGradient(f)
 	end
 
-	if not noHighlight then
-		f:HookScript("OnEnter", MERS.ColorButton)
-		f:HookScript("OnLeave", MERS.ClearButton)
-	end
-
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
 		f.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
-			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
+			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
 		})
 		f.glow:SetPoint("TOPLEFT", -1, 1)
 		f.glow:SetPoint("BOTTOMRIGHT", 1, -1)
