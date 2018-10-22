@@ -785,6 +785,54 @@ function MERS:SkinRadioButton(button)
 	button.isSkinned = true
 end
 
+local buttons = {
+	"ElvUIMoverNudgeWindowUpButton",
+	"ElvUIMoverNudgeWindowDownButton",
+	"ElvUIMoverNudgeWindowLeftButton",
+	"ElvUIMoverNudgeWindowRightButton",
+}
+
+local function replaceConfigArrows(button)
+	-- remove the default icons
+	local tex = _G[button:GetName().."Icon"]
+	if tex then
+		tex:SetTexture(nil)
+	end
+
+	-- add the new icon
+	if not button.img then
+		button.img = button:CreateTexture(nil, 'ARTWORK')
+		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+		button.img:SetSize(12, 12)
+		button.img:Point('CENTER')
+		button.img:SetVertexColor(1, 1, 1)
+
+		button:HookScript('OnMouseDown', function(btn)
+			if btn:IsEnabled() then
+				btn.img:Point("CENTER", -1, -1);
+			end
+		end)
+
+		button:HookScript('OnMouseUp', function(btn)
+			btn.img:Point("CENTER", 0, 0);
+		end)
+	end
+end
+
+function MERS:ApplyConfigArrows()
+	for _, btn in pairs(buttons) do
+		replaceConfigArrows(_G[btn])
+	end
+
+	-- Apply the rotation
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
+
+end
+hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
+
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
 	local BlizzardRegions = {
