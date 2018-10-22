@@ -604,7 +604,7 @@ local function StopGlow(f)
 end
 
 -- Buttons
-function MERS:Reskin(f, strip, noHighlight, noGlow)
+function MERS:Reskin(f, strip, noGlow)
 	assert(f, "doesn't exist!")
 
 	if f.SetNormalTexture then f:SetNormalTexture("") end
