@@ -48,6 +48,7 @@ local function styleMisc()
 		_G["ShoppingTooltip3"],
 		_G["FloatingBattlePetTooltip"],
 		_G["FloatingPetBattleAbilityTooltip"],
+		_G["FloatingGarrisonFollowerTooltip"],
 		_G["FloatingGarrisonFollowerAbilityTooltip"],
 		_G["WorldMapTooltip"],
 		_G["WorldMapCompareTooltip1"],
