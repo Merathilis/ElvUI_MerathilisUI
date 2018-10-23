@@ -116,7 +116,7 @@ function MERC:Initialize()
 	self:StyleChat()
 
 	--Custom Emojis
-	local t = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s.tga"
+	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
 
 	-- Twitch Emojis
 	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
