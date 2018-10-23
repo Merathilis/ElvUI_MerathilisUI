@@ -42,6 +42,34 @@ MERS.ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
+
+local blizzardRegions = {
+	'Left',
+	'Middle',
+	'Right',
+	'Mid',
+	'LeftDisabled',
+	'MiddleDisabled',
+	'RightDisabled',
+	'TopLeft',
+	'TopRight',
+	'BottomLeft',
+	'BottomRight',
+	'TopMiddle',
+	'MiddleLeft',
+	'MiddleRight',
+	'BottomMiddle',
+	'MiddleMiddle',
+	'TabSpacer',
+	'TabSpacer1',
+	'TabSpacer2',
+	'_RightSeparator',
+	'_LeftSeparator',
+	'Cover',
+	'Border',
+	'Background',
+}
+
 function S:HandleCloseButton(f, point, text)
 	assert(f, "does not exist.")
 
@@ -323,7 +351,7 @@ end
 -- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
-	local tex = f:CreateTexture(nil, "BORDER")
+	local tex = f:CreateTexture(nil, "BACKGROUND")
 	tex:SetPoint("TOPLEFT", 1, -1)
 	tex:SetPoint("BOTTOMRIGHT", -1, 1)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
@@ -332,33 +360,14 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
--- Taken from AddOnSkins
-function MERS:SetTemplate(frame, texture)
-	texture = E["media"].normTex
-
-	if texture then
-		texture = texture or E["media"].normTex
-	end
-
-	frame:SetBackdrop({
-		bgFile = texture,
-		edgeFile = E["media"].normTex,
-		tile = false, tileSize = 0, edgeSize = E.mult,
-		insets = { left = 0, right = 0, top = 0, bottom = 0},
-	})
-
-	frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, .8 or 1)
-end
-
 function MERS:CreateBackdrop(frame, texture)
 	if frame.backdrop then return end
 
-	local parent = frame:IsObjectType("Texture") and frame:GetParent() or frame
+	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
 
 	local backdrop = CreateFrame("Frame", nil, parent)
 	backdrop:SetOutside(frame)
-	MERS:SetTemplate(backdrop, texture)
+	backdrop:SetTemplate("Transparent")
 
 	if (parent:GetFrameLevel() - 1) >= 0 then
 		backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
@@ -578,18 +587,6 @@ function MERS:ClearButton()
 	end
 end
 
-local blizzardRegions = {
-	"Left",
-	"Middle",
-	"Right",
-	"Mid",
-	"LeftDisabled",
-	"MiddleDisabled",
-	"RightDisabled",
-	"LeftSeparator",
-	"RightSeparator",
-}
-
 local function StartGlow(f)
 	if not f:IsEnabled() then return end
 	f:SetBackdropBorderColor(r, g, b)
@@ -615,11 +612,9 @@ function MERS:Reskin(f, strip, noGlow)
 	local buttonName = f:GetName()
 
 	for _, region in pairs(blizzardRegions) do
-		if buttonName and _G[buttonName..region] then
-			_G[buttonName..region]:SetAlpha(0)
-		end
-		if f[region] then
-			f[region]:SetAlpha(0)
+		region = buttonName and _G[buttonName..region] or f[region]
+		if region then
+			region:SetAlpha(0)
 		end
 	end
 
@@ -630,10 +625,6 @@ function MERS:Reskin(f, strip, noGlow)
 	end
 
 	MERS:CreateGradient(f)
-
-	if f.bgTex then
-		f.bgTex = MERS:CreateGradient(f)
-	end
 
 	if not noGlow then
 		f.glow = CreateFrame("Frame", nil, f)
