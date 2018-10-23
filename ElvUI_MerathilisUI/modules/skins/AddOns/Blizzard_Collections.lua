@@ -63,6 +63,42 @@ local function styleCollections()
 		MERS:CreateGradient(bu.backdrop)
 
 		bu.DragButton.ActiveTexture:SetAlpha(0)
+
+		bu.pulseName = bu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+		bu.pulseName:SetJustifyH('LEFT')
+		bu.pulseName:SetSize(147, 25)
+		bu.pulseName:SetAllPoints(bu.name)
+		bu.pulseName:Hide()
+
+		bu.pulseName.anim = bu.pulseName:CreateAnimationGroup()
+		bu.pulseName.anim:SetToFinalAlpha(true)
+
+		bu.pulseName.anim.alphaout = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphaout:SetOrder(1)
+		bu.pulseName.anim.alphaout:SetFromAlpha(1)
+		bu.pulseName.anim.alphaout:SetToAlpha(0)
+		bu.pulseName.anim.alphaout:SetDuration(1)
+
+		bu.pulseName.anim.alphain = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphain:SetOrder(2)
+		bu.pulseName.anim.alphain:SetFromAlpha(0)
+		bu.pulseName.anim.alphain:SetToAlpha(1)
+		bu.pulseName.anim.alphain:SetDuration(1)
+
+		hooksecurefunc(bu.name, 'SetText', function(self, text)
+			bu.pulseName:SetText(text)
+			bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
+		end)
+
+		bu:HookScript("OnUpdate", function(self)
+			if self.active then
+				bu.pulseName:Show()
+				bu.pulseName.anim:Play()
+			elseif bu.pulseName.anim:IsPlaying() then
+				bu.pulseName:Hide()
+				bu.pulseName.anim:Stop()
+			end
+		end)
 	end
 
 	-- Pet list
