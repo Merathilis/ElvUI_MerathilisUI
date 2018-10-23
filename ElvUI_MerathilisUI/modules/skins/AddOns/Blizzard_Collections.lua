@@ -60,8 +60,6 @@ local function styleCollections()
 
 	-- Mount list
 	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
-		bu.icon:SetPoint("LEFT", bu, -40, 0)
-
 		MERS:CreateGradient(bu.backdrop)
 
 		bu.DragButton.ActiveTexture:SetAlpha(0)
@@ -69,8 +67,6 @@ local function styleCollections()
 
 	-- Pet list
 	for _, bu in pairs(PetJournal.listScroll.buttons) do
-		bu.icon:SetPoint("LEFT", bu, -40, 0)
-
 		MERS:CreateGradient(bu.backdrop)
 	end
 
