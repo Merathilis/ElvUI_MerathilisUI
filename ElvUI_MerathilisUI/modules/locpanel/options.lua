@@ -11,6 +11,42 @@ local tinsert = table.insert
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
+	local function CreateHSPrio()
+		local config = {
+			type = "group",
+			order = 12,
+			guiInline = true,
+			name = L["HS Toys Order"],
+			hidden = function() return not E.db.mui.locPanel.portals.showHearthstones end,
+			args = {},
+		}
+		for key,_ in pairs(E.db.mui.locPanel.portals.hsPrio) do
+			config.args[key] = {
+				type = "select",
+				name = GetItemInfo(key),
+				order = tonumber(key),
+				width = "full",
+				get = function(info) return (E.db.mui.locPanel.portals.hsPrio[key] or 1) end,
+				set = function(info, value) E.db.mui.locPanel.portals.hsPrio[key] = value end,
+				values = {
+					[1] = "1",
+					[2] = "2",
+					[3] = "3",
+					[4] = "4",
+					[5] = "5",
+					[6] = "6",
+					[7] = "7",
+					[8] = "8",
+					[9] = "9",
+					[10] = "10",
+					[11] = "11",
+					[12] = "12",
+				},
+			}
+		end
+		return config
+	end
+
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = LP.modName,
@@ -283,27 +319,28 @@ local function LocPanelTable()
 								name = L["Show hearthstones"],
 								desc = L["Show hearthstone type items in the list."],
 							},
+							hsProprity = CreateHSPrio(),
 							showToys = {
 								type = "toggle",
-								order = 8,
+								order = 20,
 								name = L["Show Toys"],
 								desc = L["Show toys in the list. This option will affect all other display options as well."],
 							},
 							showSpells = {
 								type = "toggle",
-								order = 9,
+								order = 30,
 								name = L["Show spells"],
 								desc = L["Show relocation spells in the list."],
 							},
 							showEngineer = {
 								type = "toggle",
-								order = 10,
+								order = 40,
 								name = L["Show engineer gadgets"],
 								desc = L["Show items used only by engineers when the profession is learned."],
 							},
 							ignoreMissingInfo = {
 								type = "toggle",
-								order = 11,
+								order = 50,
 								name = L["Ignore missing info"],
 								desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
 							},

@@ -23,10 +23,10 @@ L["Display the item level on the MerchantFrame, to change the font you have to s
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
-- viele neue Funktionen 
-- einen transparenten Look 
-- alle ElvUI Skins wurden überarbeitet 
-- mein persönliches Layout 
+- viele neue Funktionen
+- einen transparenten Look
+- alle ElvUI Skins wurden überarbeitet
+- mein persönliches Layout
 
 |cFF00c0faHinweis:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
 Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
@@ -280,6 +280,7 @@ L["Update canceled."] = "Update abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menu wird automatisch geöffnet, wenn alle Informationen gesammelt sind. Nochmaliges aufrufen des Menus während des Updates, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
 L["Hide Coordinates"] = "Verstecke Koordinaten"
+L["HS Toys Order"] = "Ruhestein Spielzeug Reihenfolge"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"

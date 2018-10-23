@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
@@ -57,91 +58,53 @@ local function styleCollections()
 	MERS:CreateBD(PetJournal.PetCount, .25)
 	MERS:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
 
-	local scrollFrames = {MountJournal.ListScrollFrame.buttons, PetJournal.listScroll.buttons}
-	for _, scrollFrame in pairs(scrollFrames) do
-		for i = 1, #scrollFrame do
-			local bu = scrollFrame[i]
-			local ic = bu.icon
+	-- Mount list
+	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
+		MERS:CreateGradient(bu.backdrop)
 
-			bu:GetRegions():Hide()
-			bu:SetHighlightTexture("")
-			bu.iconBorder:SetTexture("")
-			bu.selectedTexture:SetTexture("")
+		bu.DragButton.ActiveTexture:SetAlpha(0)
 
-			local bg = CreateFrame("Frame", nil, bu)
-			bg:SetPoint("TOPLEFT", 0, -1)
-			bg:SetPoint("BOTTOMRIGHT", 0, 1)
-			bg:SetFrameLevel(bu:GetFrameLevel()-1)
-			MERS:CreateBD(bg, .25)
-			bu.bg = bg
+		bu.pulseName = bu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+		bu.pulseName:SetJustifyH('LEFT')
+		bu.pulseName:SetSize(147, 25)
+		bu.pulseName:SetAllPoints(bu.name)
+		bu.pulseName:Hide()
 
-			ic:SetTexCoord(unpack(E.TexCoords))
-			ic.bg = MERS:CreateBG(ic)
+		bu.pulseName.anim = bu.pulseName:CreateAnimationGroup()
+		bu.pulseName.anim:SetToFinalAlpha(true)
 
-			bu.name:SetParent(bg)
+		bu.pulseName.anim.alphaout = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphaout:SetOrder(1)
+		bu.pulseName.anim.alphaout:SetFromAlpha(1)
+		bu.pulseName.anim.alphaout:SetToAlpha(0)
+		bu.pulseName.anim.alphaout:SetDuration(1)
 
-			if bu.DragButton then
-				bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.DragButton:GetHighlightTexture():SetAllPoints(ic)
-			else
-				bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.dragButton.levelBG:SetAlpha(0)
-				bu.dragButton.level:SetFontObject(GameFontNormal)
-				bu.dragButton.level:SetTextColor(1, 1, 1)
-				bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.dragButton:GetHighlightTexture():SetAllPoints(ic)
+		bu.pulseName.anim.alphain = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphain:SetOrder(2)
+		bu.pulseName.anim.alphain:SetFromAlpha(0)
+		bu.pulseName.anim.alphain:SetToAlpha(1)
+		bu.pulseName.anim.alphain:SetDuration(1)
+
+		hooksecurefunc(bu.name, 'SetText', function(self, text)
+			bu.pulseName:SetText(text)
+			bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
+		end)
+
+		bu:HookScript("OnUpdate", function(self)
+			if self.active then
+				bu.pulseName:Show()
+				bu.pulseName.anim:Play()
+			elseif bu.pulseName.anim:IsPlaying() then
+				bu.pulseName:Hide()
+				bu.pulseName.anim:Stop()
 			end
-		end
+		end)
 	end
 
-	local function updateMountScroll()
-		local buttons = MountJournal.ListScrollFrame.buttons
-		for i = 1, #buttons do
-			local bu = buttons[i]
-			if bu.bg then
-				if bu.index ~= nil then
-					bu.bg:Show()
-					bu.icon:Show()
-					bu.icon.bg:Show()
-
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-				else
-					bu.bg:Hide()
-					bu.icon:Hide()
-					bu.icon.bg:Hide()
-				end
-			end
-		end
+	-- Pet list
+	for _, bu in pairs(PetJournal.listScroll.buttons) do
+		MERS:CreateGradient(bu.backdrop)
 	end
-
-	hooksecurefunc("MountJournal_UpdateMountList", updateMountScroll)
-	hooksecurefunc(MountJournalListScrollFrame, "update", updateMountScroll)
-
-	local function updatePetScroll()
-		local petButtons = PetJournal.listScroll.buttons
-		if petButtons then
-			for i = 1, #petButtons do
-				local bu = petButtons[i]
-
-				local index = bu.index
-				if index then
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-				end
-			end
-		end
-	end
-
-	hooksecurefunc("PetJournal_UpdatePetList", updatePetScroll)
-	hooksecurefunc(PetJournalListScrollFrame, "update", updatePetScroll)
 
 	PetJournalHealPetButtonBorder:Hide()
 	PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))

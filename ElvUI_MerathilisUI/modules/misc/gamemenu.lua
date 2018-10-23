@@ -73,6 +73,8 @@ MER.PEPE = {
 	[5] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR4.m2", -- Viking Pepe
 	[6] = "World/Expansion05/Doodads/Human/Doodads/6HU_Garrison_OrangeBird_VAR5.M2", -- Illidan Pepe
 	[7] = "World/Expansion06/Doodads/Dalaran/7DL_DALARAN_ORANGEBIRD.m2", -- Traveller Pepe
+	[8] = "world/expansion07/doodads/human/8hu_kultiras_orangebird01.m2", -- Underwater Pepe
+	[9] = "world/expansion07/doodads/zandalaritroll/8tr_zandalari_orangebird01.m2", -- Troll Pepe
 }
 
 --[[

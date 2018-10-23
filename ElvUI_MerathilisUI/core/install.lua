@@ -267,6 +267,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
+	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -358,20 +359,23 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = "LEFT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,blockNoDuration,CastByUnit,PlayerBuffs,TurtleBuffs"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,CastByUnit,PlayerBuffs,TurtleBuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,MER_Blacklist,Personal,CCDebuffs"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,Personal,CCDebuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = "LEFT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 1.2
 	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] ={} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
@@ -790,7 +794,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
-		E.db["unitframe"]["units"]["player"]["power"]["height"] = 15
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 278
@@ -1092,7 +1096,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = true
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1183,7 +1187,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = true
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
@@ -1261,7 +1265,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = true
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
@@ -1423,7 +1427,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 281)
 		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 281)
-		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 297)
+		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 298)
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 281)
 		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 261)
 		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -543, 281)
