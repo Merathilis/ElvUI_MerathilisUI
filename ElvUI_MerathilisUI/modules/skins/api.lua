@@ -35,13 +35,12 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
-MERS.ArrowRotation = {
+local arrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
 	['LEFT'] = -1.57,
 	['RIGHT'] = 1.57,
 }
-
 
 local blizzardRegions = {
 	'Left',
@@ -462,15 +461,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(MERS.ArrowRotation['UP'])
+			btn.img:SetRotation(arrowRotation['UP'])
 		else
-			btn.img:SetRotation(MERS.ArrowRotation['DOWN'])
+			btn.img:SetRotation(arrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
+			btn.img:SetRotation(arrowRotation['LEFT'])
 		else
-			btn.img:SetRotation(MERS.ArrowRotation['RIGHT'])
+			btn.img:SetRotation(arrowRotation['RIGHT'])
 		end
 	end
 
@@ -797,39 +796,29 @@ function MERS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(arrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(arrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(arrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(arrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
 
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
-	local BlizzardRegions = {
-		"Left",
-		"Middle",
-		"Right",
-		"Mid",
-		"LeftDisabled",
-		"MiddleDisabled",
-		"RightDisabled",
-	}
-
 	function AS:SkinTab(Tab, Strip)
 		if Tab.isSkinned then return end
 		local TabName = Tab:GetName()
 
 		if TabName then
-			for _, Region in pairs(BlizzardRegions) do
+			for _, Region in pairs(blizzardRegions) do
 				if _G[TabName..Region] then
 					_G[TabName..Region]:SetTexture(nil)
 				end
 			end
 		end
 
-		for _, Region in pairs(BlizzardRegions) do
+		for _, Region in pairs(blizzardRegions) do
 			if Tab[Region] then
 				Tab[Region]:SetAlpha(0)
 			end
