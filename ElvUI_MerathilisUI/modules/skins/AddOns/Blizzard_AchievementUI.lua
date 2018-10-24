@@ -31,15 +31,19 @@ local function styleAchievement()
 
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
-		if bu.backdrop then
-			bu.backdrop:Hide()
-		end
+		-- Hide ElvUI's backdrop
+		if bu.backdrop then bu.backdrop:Hide() end
+
 		bu:DisableDrawLayer("BORDER")
+		bu:CreateBackdrop("Transparent")
+		bu.backdrop:SetInside(bu, 2, 2)
+		bu.backdrop:SetBackdropBorderColor(r, g, b)
+		MERS:CreateGradient(bu)
 
 		bu.background:SetTexture(E["media"].normTex)
 		bu.background:SetVertexColor(0, 0, 0, .25)
 
-		bu.description:SetTextColor(.9, .9, .9)
+		bu.description:SetTextColor(.6, .6, .6)
 		bu.description.SetTextColor = MER.dummy
 		bu.description:SetShadowOffset(1, -1)
 		bu.description.SetShadowOffset = MER.dummy
@@ -53,13 +57,7 @@ local function styleAchievement()
 		_G["AchievementFrameAchievementsContainerButton"..i.."GuildCornerL"]:SetAlpha(0)
 		_G["AchievementFrameAchievementsContainerButton"..i.."GuildCornerR"]:SetAlpha(0)
 
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:Point("TOPLEFT", 2, -2)
-		bg:Point("BOTTOMRIGHT", -2, 2)
-		MERS:CreateBD(bg, 0)
-
 		S:CropIcon(bu.icon.texture, bu.icon)
-		MERS:CreateBG(bu.icon.texture)
 	end
 
 	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
@@ -97,9 +95,12 @@ local function styleAchievement()
 		for i = 1, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
-				if bu.backdrop then
-					bu.backdrop:Hide()
-				end
+				-- Hide ElvUI's backdrop
+				if bu.backdrop then bu.backdrop:Hide() end
+
+				bu:CreateBackdrop("Transparent")
+				bu.backdrop:SetInside(bu, 2, 2)
+				MERS:CreateGradient(bu)
 				bu:DisableDrawLayer("BORDER")
 
 				local bd = _G["AchievementFrameSummaryAchievement"..i.."Background"]
@@ -113,15 +114,10 @@ local function styleAchievement()
 				_G["AchievementFrameSummaryAchievement"..i.."IconOverlay"]:Hide()
 
 				local text = _G["AchievementFrameSummaryAchievement"..i.."Description"]
-				text:SetTextColor(.9, .9, .9)
+				text:SetTextColor(.6, .6, .6)
 				text.SetTextColor = MER.dummy
 				text:SetShadowOffset(1, -1)
 				text.SetShadowOffset = MER.dummy
-
-				local bg = CreateFrame("Frame", nil, bu)
-				bg:Point("TOPLEFT", 2, -2)
-				bg:Point("BOTTOMRIGHT", -2, 2)
-				MERS:CreateBD(bg, 0)
 
 				local ic = _G["AchievementFrameSummaryAchievement"..i.."IconTexture"]
 				ic:SetTexCoord(unpack(E.TexCoords))
@@ -136,7 +132,7 @@ local function styleAchievement()
 		for i = 1, 20 do
 			local frame = _G["AchievementFrameCategoriesContainerButton"..i]
 
-			frame:StyleButton()
+			--frame:StyleButton()
 			frame:GetHighlightTexture():Point("TOPLEFT", 0, -4)
 			frame:GetHighlightTexture():Point("BOTTOMRiGHT", 0, -3)
 			frame:GetPushedTexture():Point("TOPLEFT", 0, -4)
@@ -172,7 +168,8 @@ local function styleAchievement()
 		bu:GetHighlightTexture():SetBlendMode("BLEND")
 	end
 
-	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -5)
+	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
+	_G["AchievementFrame"].searchBox:SetSize(100, 20)
 
 	-- Font width fix
 	hooksecurefunc("AchievementObjectives_DisplayProgressiveAchievement", function()
