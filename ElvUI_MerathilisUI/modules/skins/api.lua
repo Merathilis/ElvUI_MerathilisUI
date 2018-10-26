@@ -7,7 +7,7 @@ MERS.modName = L["Skins/AddOns"]
 -- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
-local find = string.find
+local find, lower = string.find, string.lower
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -860,6 +860,42 @@ function MERS:ReskinAS(AS)
 
 		Tab.isSkinned = true
 	end
+
+	function AS:SkinArrowButton(Button, Arrow)
+		if Arrow then Arrow = lower(Arrow) end
+		if (not Arrow) then
+			Arrow = 'up'
+			local ButtonName = Button:GetName() and Button:GetName():lower()
+			if ButtonName then
+				if (find(ButtonName, 'left') or find(ButtonName, 'prev') or find(ButtonName, 'decrement') or find(ButtonName, 'back')) then
+					Arrow = 'right'
+				elseif (find(ButtonName, 'right') or find(ButtonName, 'next') or find(ButtonName, 'increment') or find(ButtonName, 'forward')) then
+					Arrow = 'left'
+				elseif (find(ButtonName, 'upbutton') or find(ButtonName, 'top') or find(ButtonName, 'asc') or find(ButtonName, 'home') or find(ButtonName, 'maximize')) then
+					Arrow = 'down'
+				end
+			end
+		end
+
+		if not Button.Mask then
+			AS:SkinFrame(Button)
+			Button:SetSize(18, 18)
+			local Mask = Button:CreateTexture(nil, 'ARTWORK')
+			Mask:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+			Mask:SetRotation(AS.ArrowRotation[Arrow])
+			Mask:SetSize(12, 12)
+			Mask:SetPoint('CENTER')
+			Mask:SetVertexColor(1, 1, 1)
+
+			Button.Mask = Mask
+
+			Button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(AS.Color)) end)
+			Button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(AS.BorderColor)) end)
+		end
+
+		Button.Mask:SetRotation(AS.ArrowRotation[Arrow])
+	end
+
 end
 
 -- Replace the Recap button script re-set function
