@@ -175,17 +175,14 @@ end
 
 
 function MERS:ReskinEditBox(frame)
+	-- Hide ElvUI's backdrop
 	if frame.backdrop then
 		frame.backdrop:Hide()
 	end
 
-	if not frame.bg then
-		local bg = MERS:CreateBDFrame(frame)
-		bg:SetAllPoints()
-		MERS:CreateGradient(bg)
-
-		frame.bg = bg
-	end
+	-- Reaply transparent backdrop
+	frame:CreateBackdrop("Transparent")
+	MERS:CreateGradient(frame.backdrop)
 end
 
 function MERS:ReskinDropDownBox(frame, width)

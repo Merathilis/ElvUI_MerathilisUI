@@ -58,9 +58,6 @@ local function styleCommunities()
 	end
 
 	-- Chat Tab
-	local bg1 = MERS:CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
-	bg1:SetPoint("BOTTOMRIGHT", -1, 22)
-
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog
 	Dialog:StripTextures()
 	Dialog.BG:Hide()
