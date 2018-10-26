@@ -477,6 +477,10 @@ end
 -- ClassColored ScrollBars
 function MERS:ReskinScrollBar(frame, thumbTrim)
 	if frame:GetName() then
+		if frame.trackbg and frame.trackbg.SetTemplate then
+			frame.trackbg:SetTemplate("Transparent", true, true)
+		end
+
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
@@ -485,6 +489,10 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 			end
 		end
 	else
+		if frame.trackbg and frame.trackbg.SetTemplate then
+			frame.trackbg:SetTemplate("Transparent", true, true)
+		end
+
 		if frame.ScrollUpButton and frame.ScrollDownButton then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
@@ -497,6 +505,10 @@ end
 
 function MERS:ReskinScrollSlider(Slider, thumbTrim)
 	local parent = Slider:GetParent()
+
+	if Slider.trackbg and Slider.trackbg.SetTemplate then
+		Slider.trackbg:SetTemplate("Transparent", true, true)
+	end
 
 	if Slider.thumbbg then
 		Slider.thumbbg.backdropTexture.SetVertexColor = nil
