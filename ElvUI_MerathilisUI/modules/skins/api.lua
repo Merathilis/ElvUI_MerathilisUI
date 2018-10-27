@@ -676,11 +676,13 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	ch:SetVertexColor(r, g, b)
 end
 
-function MERS:ReskinIcon(icon)
+function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
-	return MERS:CreateBDFrame(icon)
+	if backdrop then
+		MERS:CreateBackdrop(icon)
+	end
 end
 
 function MERS:CropIcon(texture, parent)
