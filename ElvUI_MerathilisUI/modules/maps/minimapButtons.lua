@@ -358,7 +358,7 @@ function SMB:Initialize()
 	end
 	SMB:ForUpdateAll()
 
-	E:CreateMover(SMB.Bar, "MER_SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI')
+	E:CreateMover(SMB.Bar, "MER_SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	SMB.TexCoords = {unpack(E.TexCoords)}
 

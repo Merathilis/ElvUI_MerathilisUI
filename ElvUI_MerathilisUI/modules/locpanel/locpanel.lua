@@ -271,7 +271,7 @@ function LP:CreateLocationPanel()
 	LP:Resize()
 
 	-- Mover
-	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI")
+	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
 	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
 	LP.Menu1:SetTemplate("Transparent", true)
