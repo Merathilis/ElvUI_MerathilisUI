@@ -135,6 +135,11 @@ local function styleCommunities()
 				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
 				MERS:CreateGradient(button.backdrop)
 
+				if button.hover then
+					button.hover:SetInside(button.backdrop)
+					button.hover:SetColorTexture(r, g, b, 0.3)
+				end
+
 				button.DisabledBG:Hide()
 			end
 		end
