@@ -136,6 +136,16 @@ local function styleCommunities()
 				MERS:CreateGradient(button.backdrop)
 
 				MERS:ReskinIcon(button.Icon, true)
+				button.Icon.backdrop:SetOutside(button.Icon, 1, 1)
+				button.Icon.backdrop:SetFrameLevel(button.backdrop:GetFrameLevel()+1)
+
+				-- TO DO: ICON QUALITY BORDER
+				--hooksecurefunc(button.Icon, "SetVertexColor", function(r, g, b)
+					--button.Icon.backdrop:SetBackdropBorderColor(r, g, b)
+				--end)
+				--hooksecurefunc(button.Icon, "Hide", function()
+					--button.Icon.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				--end)
 
 				if button.hover then
 					button.hover:SetInside(button.backdrop)
