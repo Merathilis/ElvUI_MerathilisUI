@@ -95,46 +95,24 @@ function S:HandleMaxMinFrame(frame)
 
 	frame:StripTextures()
 
-	for _, name in next, {"MaximizeButton", "MinimizeButton"} do
+	for name, direction in pairs ({ ["MaximizeButton"] = 'up', ["MinimizeButton"] = 'down'}) do
 		local button = frame[name]
+
 		if button then
-			button:SetSize(20, 20)
+			button:SetSize(18, 18)
 			button:ClearAllPoints()
 			button:SetPoint("CENTER")
+			button:SetHitRectInsets(1, 1, 1, 1)
 
-			button:SetNormalTexture(nil)
-			button:SetPushedTexture(nil)
-			button:SetHighlightTexture(nil)
+			S:HandleButton(button)
 
-			if not button.backdrop then
-				button:CreateBackdrop()
-				button.backdrop:Point("TOPLEFT", button, 1, -1)
-				button.backdrop:Point("BOTTOMRIGHT", button, -1, 1)
-				button.backdrop:SetTemplate('NoBackdrop')
-				button:SetHitRectInsets(1, 1, 1, 1)
-			end
+			button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+			button:GetNormalTexture():SetRotation(S.ArrowRotation[direction])
+			button:GetNormalTexture():SetInside(button, 2, 2)
 
-			if not button.backdrop.img then
-				button.backdrop.img = button.backdrop:CreateTexture(nil, 'OVERLAY')
-				button.backdrop.img:SetSize(16, 16)
-				button.backdrop.img:Point("CENTER")
-				button.backdrop.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-				button.backdrop.img:SetVertexColor(1, 1, 1)
-			end
-
-			button:HookScript('OnEnter', function(self)
-				self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-				self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-			end)
-
-			button:HookScript('OnLeave', function(self)
-				self.backdrop.img:SetVertexColor(1, 1, 1)
-				self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-			end)
-
-			if name == "MaximizeButton" then
-				button.backdrop.img:SetTexCoord(1, 1, 1, -1.2246467991474e-016, 1.1102230246252e-016, 1, 0, -1.144237745222e-017)
-			end
+			button:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+			button:GetPushedTexture():SetRotation(S.ArrowRotation[direction])
+			button:GetPushedTexture():SetInside()
 		end
 	end
 end
