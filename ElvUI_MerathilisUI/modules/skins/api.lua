@@ -35,6 +35,14 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
+-- Handle it different from ElvUI
+MERS.ArrowRotation = {
+	['UP'] = 3.14,
+	['DOWN'] = 0,
+	['LEFT'] = -1.57,
+	['RIGHT'] = 1.57,
+}
+
 function S:HandleCloseButton(f, point, text)
 	assert(f, "does not exist.")
 
@@ -95,7 +103,7 @@ function MERS:ReskinMaxMinFrame(frame)
 
 	frame:StripTextures()
 
-	for name, direction in pairs ({ ["MaximizeButton"] = 'up', ["MinimizeButton"] = 'down'}) do
+	for name, direction in pairs ({ ["MaximizeButton"] = 'UP', ["MinimizeButton"] = 'DOWN'}) do
 		local button = frame[name]
 
 		if button then
@@ -107,11 +115,11 @@ function MERS:ReskinMaxMinFrame(frame)
 			button:SetHitRectInsets(1, 1, 1, 1)
 
 			button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-			button:GetNormalTexture():SetRotation(S.ArrowRotation[direction])
+			button:GetNormalTexture():SetRotation(MERS.ArrowRotation[direction])
 			button:GetNormalTexture():SetInside(button, 2, 2)
 
 			button:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-			button:GetPushedTexture():SetRotation(S.ArrowRotation[direction])
+			button:GetPushedTexture():SetRotation(MERS.ArrowRotation[direction])
 			button:GetPushedTexture():SetInside(button)
 
 			button:SetTemplate("NoBackdrop")
@@ -408,15 +416,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(S.ArrowRotation['down'])
+			btn.img:SetRotation(MERS.ArrowRotation['UP'])
 		else
-			btn.img:SetRotation(S.ArrowRotation['up'])
+			btn.img:SetRotation(MERS.ArrowRotation['DOWN'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(S.ArrowRotation['right'])
+			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
 		else
-			btn.img:SetRotation(S.ArrowRotation['left'])
+			btn.img:SetRotation(MERS.ArrowRotation['RIGHT'])
 		end
 	end
 
@@ -743,10 +751,10 @@ function MERS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(arrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(arrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(arrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(arrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(ArrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
