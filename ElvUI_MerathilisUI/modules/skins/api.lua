@@ -35,40 +35,6 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
-local arrowRotation = {
-	['UP'] = 3.14,
-	['DOWN'] = 0,
-	['LEFT'] = -1.57,
-	['RIGHT'] = 1.57,
-}
-
-local blizzardRegions = {
-	'Left',
-	'Middle',
-	'Right',
-	'Mid',
-	'LeftDisabled',
-	'MiddleDisabled',
-	'RightDisabled',
-	'TopLeft',
-	'TopRight',
-	'BottomLeft',
-	'BottomRight',
-	'TopMiddle',
-	'MiddleLeft',
-	'MiddleRight',
-	'BottomMiddle',
-	'MiddleMiddle',
-	'TabSpacer',
-	'TabSpacer1',
-	'TabSpacer2',
-	'_RightSeparator',
-	'_LeftSeparator',
-	'Cover',
-	'Border',
-	'Background',
-}
-
 function S:HandleCloseButton(f, point, text)
 	assert(f, "does not exist.")
 
@@ -417,6 +383,7 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 	btn:SetPushedTexture(nil)
 	btn:SetHighlightTexture(nil)
 	btn:SetDisabledTexture(nil)
+
 	if not btn.icon then
 		btn.icon = btn:CreateTexture(nil, 'ARTWORK')
 		btn.icon:Size(13)
@@ -458,15 +425,15 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if useVertical then
 		if inverseDirection then
-			btn.img:SetRotation(arrowRotation['UP'])
+			btn.img:SetRotation(S.ArrowRotation['down'])
 		else
-			btn.img:SetRotation(arrowRotation['DOWN'])
+			btn.img:SetRotation(S.ArrowRotation['up'])
 		end
 	else
 		if inverseDirection then
-			btn.img:SetRotation(arrowRotation['LEFT'])
+			btn.img:SetRotation(S.ArrowRotation['right'])
 		else
-			btn.img:SetRotation(arrowRotation['RIGHT'])
+			btn.img:SetRotation(S.ArrowRotation['left'])
 		end
 	end
 
@@ -609,44 +576,30 @@ local function StopGlow(f)
 end
 
 -- Buttons
-function MERS:Reskin(f, strip, noGlow)
-	assert(f, "doesn't exist!")
+function MERS:Reskin(button, strip, noGlow)
+	assert(button, "doesn't exist!")
 
-	if f.SetNormalTexture then f:SetNormalTexture("") end
-	if f.SetHighlightTexture then f:SetHighlightTexture("") end
-	if f.SetPushedTexture then f:SetPushedTexture("") end
-	if f.SetDisabledTexture then f:SetDisabledTexture("") end
+	if strip then button:StripTextures() end
 
-	local buttonName = f:GetName()
-
-	for _, region in pairs(blizzardRegions) do
-		region = buttonName and _G[buttonName..region] or f[region]
-		if region then
-			region:SetAlpha(0)
-		end
+	if button.template then
+		button:SetTemplate("Transparent", true)
 	end
 
-	if strip then f:StripTextures() end
-
-	if f.template then
-		f:SetTemplate("Transparent", true)
-	end
-
-	MERS:CreateGradient(f)
+	MERS:CreateGradient(button)
 
 	if not noGlow then
-		f.glow = CreateFrame("Frame", nil, f)
-		f.glow:SetBackdrop({
+		button.glow = CreateFrame("Frame", nil, button)
+		button.glow:SetBackdrop({
 			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
 			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
 		})
-		f.glow:SetPoint("TOPLEFT", -1, 1)
-		f.glow:SetPoint("BOTTOMRIGHT", 1, -1)
-		f.glow:SetBackdropBorderColor(r, g, b)
-		f.glow:SetAlpha(0)
+		button.glow:SetPoint("TOPLEFT", -1, 1)
+		button.glow:SetPoint("BOTTOMRIGHT", 1, -1)
+		button.glow:SetBackdropBorderColor(r, g, b)
+		button.glow:SetAlpha(0)
 
-		f:HookScript("OnEnter", StartGlow)
-		f:HookScript("OnLeave", StopGlow)
+		button:HookScript("OnEnter", StartGlow)
+		button:HookScript("OnLeave", StopGlow)
 	end
 end
 
@@ -862,42 +815,6 @@ function MERS:ReskinAS(AS)
 
 		Tab.isSkinned = true
 	end
-
-	function AS:SkinArrowButton(Button, Arrow)
-		if Arrow then Arrow = lower(Arrow) end
-		if (not Arrow) then
-			Arrow = 'up'
-			local ButtonName = Button:GetName() and Button:GetName():lower()
-			if ButtonName then
-				if (find(ButtonName, 'left') or find(ButtonName, 'prev') or find(ButtonName, 'decrement') or find(ButtonName, 'back')) then
-					Arrow = 'right'
-				elseif (find(ButtonName, 'right') or find(ButtonName, 'next') or find(ButtonName, 'increment') or find(ButtonName, 'forward')) then
-					Arrow = 'left'
-				elseif (find(ButtonName, 'upbutton') or find(ButtonName, 'top') or find(ButtonName, 'asc') or find(ButtonName, 'home') or find(ButtonName, 'maximize')) then
-					Arrow = 'down'
-				end
-			end
-		end
-
-		if not Button.Mask then
-			AS:SkinFrame(Button)
-			Button:SetSize(18, 18)
-			local Mask = Button:CreateTexture(nil, 'ARTWORK')
-			Mask:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
-			Mask:SetRotation(AS.ArrowRotation[Arrow])
-			Mask:SetSize(12, 12)
-			Mask:SetPoint('CENTER')
-			Mask:SetVertexColor(1, 1, 1)
-
-			Button.Mask = Mask
-
-			Button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(AS.Color)) end)
-			Button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(AS.BorderColor)) end)
-		end
-
-		Button.Mask:SetRotation(AS.ArrowRotation[Arrow])
-	end
-
 end
 
 -- Replace the Recap button script re-set function
