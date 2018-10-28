@@ -90,7 +90,7 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
-function S:HandleMaxMinFrame(frame)
+function MERS:ReskinMaxMinFrame(frame)
 	assert(frame, "does not exist.")
 
 	frame:StripTextures()
@@ -99,12 +99,12 @@ function S:HandleMaxMinFrame(frame)
 		local button = frame[name]
 
 		if button then
+			local normal = button:GetNormalTexture()
+
 			button:SetSize(18, 18)
 			button:ClearAllPoints()
 			button:SetPoint("CENTER")
 			button:SetHitRectInsets(1, 1, 1, 1)
-
-			S:HandleButton(button)
 
 			button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
 			button:GetNormalTexture():SetRotation(S.ArrowRotation[direction])
@@ -112,7 +112,12 @@ function S:HandleMaxMinFrame(frame)
 
 			button:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
 			button:GetPushedTexture():SetRotation(S.ArrowRotation[direction])
-			button:GetPushedTexture():SetInside()
+			button:GetPushedTexture():SetInside(button)
+
+			button:SetTemplate("NoBackdrop")
+
+			button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor)) normal:SetVertexColor(unpack(E["media"].rgbvaluecolor)) end)
+			button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(E["media"].bordercolor)) normal:SetVertexColor(1, 1, 1) end)
 		end
 	end
 end
@@ -820,6 +825,7 @@ hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
+hooksecurefunc(S, "HandleMaxMinFrame", MERS.ReskinMaxMinFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
