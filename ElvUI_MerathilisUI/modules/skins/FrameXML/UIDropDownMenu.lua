@@ -34,6 +34,75 @@ local function styleUIDropDownMenu()
 			expandArrow:GetNormalTexture():SetRotation(MERS.ArrowRotation['RIGHT'])
 		end
 	end)
+
+	local function toggleBackdrop(bu, show)
+		if show then
+			bu.backdrop:Show()
+		else
+			bu.backdrop:Hide()
+		end
+	end
+
+	local function isCheckTexture(check)
+		if check and check:GetTexture() == "Interface\\Common\\UI-DropDownRadioChecks" then
+			return true
+		end
+	end
+
+	hooksecurefunc("ToggleDropDownMenu", function(level, _, dropDownFrame, anchorName)
+		if ( not level ) then
+			level = 1
+		end
+
+		local listFrame = _G["DropDownList"..level]
+
+		for i = 1, UIDROPDOWNMENU_MAXBUTTONS do
+			local bu = _G["DropDownList"..level.."Button"..i]
+			local _, _, _, x = bu:GetPoint()
+			if (bu and bu:IsShown()) and x then
+				local hl = _G["DropDownList"..level.."Button"..i.."Highlight"]
+				local check = _G["DropDownList"..level.."Button"..i.."Check"]
+				hl:SetPoint("TOPLEFT", -x + 1, 0)
+				hl:SetPoint("BOTTOMRIGHT", listFrame:GetWidth() - bu:GetWidth() - x - 1, 0)
+
+				if not bu.backdrop then
+					bu:CreateBackdrop("Default")
+					bu.backdrop:ClearAllPoints()
+					bu.backdrop:SetPoint("CENTER", check)
+					bu.backdrop:SetSize(12, 12)
+					hl:SetColorTexture(r, g, b, .2)
+				end
+
+				local uncheck = _G["DropDownList"..level.."Button"..i.."UnCheck"]
+				if isCheckTexture(uncheck) then uncheck:SetTexture("") end
+
+				if isCheckTexture(check) then
+					if not bu.notCheckable then
+						toggleBackdrop(bu, true)
+
+						-- only reliable way to see if button is radio or check.
+						local _, co = check:GetTexCoord()
+						if co == 0 then
+							check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+							check:SetVertexColor(r, g, b, 1)
+							check:SetSize(20, 20)
+							check:SetDesaturated(true)
+						else
+							check:SetTexture(E["media"].normTex)
+							check:SetVertexColor(r, g, b, .6)
+							check:SetSize(10, 10)
+							check:SetDesaturated(false)
+						end
+						check:SetTexCoord(0, 1, 0, 1)
+					else
+						toggleBackdrop(bu, false)
+					end
+				else
+					check:SetSize(16, 16)
+				end
+			end
+		end
+	end)
 end
 
 S:AddCallback("mUIUIDropDownMenu", styleUIDropDownMenu)
