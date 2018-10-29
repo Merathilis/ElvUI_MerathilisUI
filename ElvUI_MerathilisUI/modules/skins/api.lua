@@ -629,6 +629,42 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	ch:SetVertexColor(r, g, b)
 end
 
+function MERS:StyleButton(button)
+	if button.isStyled then return end
+
+	if button.SetHighlightTexture then
+		button:SetHighlightTexture(E["media"].blankTex)
+		button:GetHighlightTexture():SetVertexColor(1, 1, 1, .2)
+		button:GetHighlightTexture():SetInside()
+		button.SetHighlightTexture = E.noop
+	end
+
+	if button.SetPushedTexture then
+		button:SetPushedTexture(E["media"].blankTex)
+		button:GetPushedTexture():SetVertexColor(.9, .8, .1, .5)
+		button:GetPushedTexture():SetInside()
+		button.SetPushedTexture = E.noop
+	end
+
+	if button.GetCheckedTexture then
+		button:SetPushedTexture(E["media"].blankTex)
+		button:GetCheckedTexture():SetVertexColor(0, 1, 0, .5)
+		button:GetCheckedTexture():SetInside()
+		button.GetCheckedTexture = E.noop
+	end
+
+	local Cooldown = button:GetName() and _G[button:GetName()..'Cooldown'] or button.Cooldown or button.cooldown or nil
+
+	if Cooldown then
+		Cooldown:SetInside()
+		if Cooldown.SetSwipeColor then
+			Cooldown:SetSwipeColor(0, 0, 0, 1)
+		end
+	end
+
+	button.isStyled = true
+end
+
 function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 

@@ -241,54 +241,23 @@ local function styleCollections()
 	-- [[ Toy box ]]
 	local ToyBox = _G["ToyBox"]
 
-	local icons = ToyBox.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
 	-- Progress bar
 	local progressBar = ToyBox.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
 	-- Toys
-	local shouldChangeTextColor = true
-
-	local changeTextColor = function(toyString)
-		if shouldChangeTextColor then
-			shouldChangeTextColor = false
-
-			local self = toyString:GetParent()
-
-			if PlayerHasToy(self.itemID) then
-				local _, _, quality = GetItemInfo(self.itemID)
-				if quality then
-					toyString:SetTextColor(GetItemQualityColor(quality))
-				else
-					toyString:SetTextColor(1, 1, 1)
-				end
-			else
-				toyString:SetTextColor(.5, .5, .5)
-			end
-
-			shouldChangeTextColor = true
-		end
-	end
-
-	local buttons = ToyBox.iconsFrame
 	for i = 1, 18 do
-		local bu = buttons["spellButton"..i]
-		local ic = bu.iconTexture
+		local button = ToyBox.iconsFrame['spellButton'..i]
+		MERS:StyleButton(button)
+		MERS:ReskinIcon(button.iconTexture)
+		MERS:ReskinIcon(button.iconTextureUncollected)
 
-		bu:SetPushedTexture("")
-		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		bu:GetHighlightTexture():SetAllPoints(ic)
-		bu.cooldown:SetAllPoints(ic)
-		bu.slotFrameCollected:SetTexture("")
-		bu.slotFrameUncollected:SetTexture("")
+		button.name:SetPoint('LEFT', button, 'RIGHT', 9, 0)
 
-		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
+		local bg = MERS:CreateBDFrame(button)
+		bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+		bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
 	end
 
 	-- [[ Heirlooms ]]
