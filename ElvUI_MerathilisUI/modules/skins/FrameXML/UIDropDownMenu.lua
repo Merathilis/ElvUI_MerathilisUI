@@ -21,17 +21,19 @@ local function styleUIDropDownMenu()
 		end
 	end)
 
-	hooksecurefunc("UIDropDownMenu_CreateFrames", function(level, index)
-		local listFrame = _G["DropDownList1"]
-		local listFrameName = listFrame:GetName()
-		local index = listFrame and (listFrame.numButtons + 1) or 1
-		local expandArrow = _G[listFrameName.."Button"..index.."ExpandArrow"]
+	hooksecurefunc("UIDropDownMenu_CreateFrames", function(_, index)
+		for i = 1, UIDROPDOWNMENU_MAXLEVELS do
+			local listFrame = _G["DropDownList"..i]
+			local listFrameName = listFrame:GetName()
+			local index = listFrame and (listFrame.numButtons + 1) or 1
+			local expandArrow = _G[listFrameName.."Button"..index.."ExpandArrow"]
 
-		if expandArrow then
-			expandArrow:SetNormalTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
-			expandArrow:SetSize(12, 12)
-			expandArrow:GetNormalTexture():SetVertexColor(1, 1, 1)
-			expandArrow:GetNormalTexture():SetRotation(MERS.ArrowRotation['RIGHT'])
+			if expandArrow then
+				expandArrow:SetNormalTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+				expandArrow:SetSize(12, 12)
+				expandArrow:GetNormalTexture():SetVertexColor(1, 1, 1)
+				expandArrow:GetNormalTexture():SetRotation(MERS.ArrowRotation['RIGHT'])
+			end
 		end
 	end)
 
@@ -49,7 +51,7 @@ local function styleUIDropDownMenu()
 		end
 	end
 
-	hooksecurefunc("ToggleDropDownMenu", function(level, _, dropDownFrame, anchorName)
+	hooksecurefunc("ToggleDropDownMenu", function(level, _, _, _)
 		if ( not level ) then
 			level = 1
 		end
