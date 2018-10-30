@@ -260,80 +260,48 @@ local function styleCollections()
 		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
 	end
 
+	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
+		self.name.SetTextColor = nil
+		if (PlayerHasToy(self.itemID)) then
+			local quality = select(3, GetItemInfo(self.itemID))
+			local r, g, b = 1, 1, 1
+			if quality then
+				r, g, b = GetItemQualityColor(quality)
+			end
+			self.name:SetTextColor(r, g, b)
+		else
+			self.name:SetTextColor(.6, .6, .6)
+		end
+		self.name.SetTextColor = E.noop
+	end)
+
+
 	-- [[ Heirlooms ]]
 	local HeirloomsJournal = _G["HeirloomsJournal"]
-	local icons = HeirloomsJournal.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
-	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		button.level:SetFontObject("GameFontWhiteSmall")
-		button.special:SetTextColor(1, .8, 0)
-	end)
 
 	-- Progress bar
 	local progressBar = HeirloomsJournal.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
-	-- Buttons
-	hooksecurefunc("HeirloomsJournal_UpdateButton", function(button)
-		if not button.styled then
-			local ic = button.iconTexture
 
-			button.slotFrameCollected:SetTexture("")
-			button.slotFrameUncollected:SetTexture("")
-			button.levelBackground:SetAlpha(0)
-			button:SetPushedTexture("")
-			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			button:GetHighlightTexture():SetAllPoints(ic)
-
-			button.iconTextureUncollected:SetTexCoord(unpack(E.TexCoords))
-
-			button.level:ClearAllPoints()
-			button.level:SetPoint("BOTTOM", 0, 1)
-
-			local newLevelBg = button:CreateTexture(nil, "OVERLAY")
-			newLevelBg:SetColorTexture(0, 0, 0, .5)
-			newLevelBg:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 5)
-			newLevelBg:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 5)
-			newLevelBg:SetHeight(11)
-			button.newLevelBg = newLevelBg
-
-			button.styled = true
-		end
-
-		if button.iconTexture:IsShown() then
-			button.name:SetTextColor(1, 1, 1)
-			button.newLevelBg:Show()
-		else
-			button.name:SetTextColor(.5, .5, .5)
-			button.newLevelBg:Hide()
+	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
+		if not button.IsStyled then
+			local bg = MERS:CreateBDFrame(button, .3)
+			bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+			bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+			bg:SetPoint('RIGHT', button.name, 'RIGHT', 2, 0)
 		end
 	end)
 
+	-- Header
 	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
 		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.styled then
+			if not header.IsStyled then
 				header.text:SetTextColor(1, 1, 1)
 				header.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 
-				header.styled = true
-			end
-		end
-
-		for i = 1, #HeirloomsJournal.heirloomEntryFrames do
-			local button = HeirloomsJournal.heirloomEntryFrames[i]
-
-			if button.iconTexture:IsShown() then
-				button.name:SetTextColor(1, 1, 1)
-				button.newLevelBg:Show()
-			else
-				button.name:SetTextColor(.5, .5, .5)
-				button.newLevelBg:Hide()
+				header.IsStyled = true
 			end
 		end
 	end)
