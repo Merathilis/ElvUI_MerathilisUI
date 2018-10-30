@@ -126,6 +126,8 @@ function MERS:ReskinMaxMinFrame(frame)
 
 			button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor)) normal:SetVertexColor(unpack(E["media"].rgbvaluecolor)) end)
 			button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(E["media"].bordercolor)) normal:SetVertexColor(1, 1, 1) end)
+
+			MERS:Reskin(button, false, false)
 		end
 	end
 end
@@ -373,34 +375,34 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 
 	if not btn.img then
 		btn.img = btn:CreateTexture(nil, 'ARTWORK')
-		btn.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+		btn.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
 		btn.img:SetSize(12, 12)
-		btn.img:Point('CENTER')
+		btn.img:Point("CENTER")
 		btn.img:SetVertexColor(1, 1, 1)
 
 		btn:SetNormalTexture(E["media"].normTex)
 		btn:SetPushedTexture(E["media"].normTex)
 		btn:SetDisabledTexture(E["media"].normTex)
 
-		btn:HookScript('OnMouseDown', function(button)
-			if button:IsEnabled() then
+		btn:HookScript('OnMouseDown', function(btn)
+			if btn:IsEnabled() then
 				btn.img:Point("CENTER", -1, -1)
 				btn.img:SetVertexColor(r, g, b)
 			end
 		end)
 
-		btn:HookScript('OnMouseUp', function(button)
+		btn:HookScript('OnMouseUp', function(btn)
 			btn.img:Point("CENTER", 0, 0)
 			btn.img:SetVertexColor(1, 1, 1)
 		end)
 
-		btn:HookScript('OnDisable', function(button)
-			SetDesaturation(button.img, true)
-			btn.img:SetAlpha(0.5)
+		btn:HookScript('OnDisable', function(btn)
+			SetDesaturation(btn.img, true)
+			btn.img:SetAlpha(0.3)
 		end)
 
-		btn:HookScript('OnEnable', function(button)
-			SetDesaturation(button.img, false)
+		btn:HookScript('OnEnable', function(btn)
+			SetDesaturation(btn.img, false)
 			btn.img:SetAlpha(1.0)
 		end)
 
