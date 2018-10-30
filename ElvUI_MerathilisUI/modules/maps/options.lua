@@ -159,7 +159,7 @@ local function Minimap()
 						order = 7,
 						type = "range",
 						name = L["Buttons Per Row"],
-						min = 1, max = 12, step = 1,
+						min = 1, max = 100, step = 1,
 					},
 					blizzard = {
 						order = 8,

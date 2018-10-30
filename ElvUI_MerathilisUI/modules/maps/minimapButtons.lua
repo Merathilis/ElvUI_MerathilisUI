@@ -189,7 +189,7 @@ function SMB:SkinMinimapButton(Button)
 	for i = 1, Button:GetNumRegions() do
 		local Region = select(i, Button:GetRegions())
 		if Region.IsObjectType and Region:IsObjectType('Texture') then
-			local Texture = strlower(Region:GetTexture())
+			local Texture = strlower(tostring(Region:GetTexture()))
 
 			if (strfind(Texture, "interface\\characterframe") or strfind(Texture, "interface\\minimap") or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
 				Region:SetTexture(nil)
