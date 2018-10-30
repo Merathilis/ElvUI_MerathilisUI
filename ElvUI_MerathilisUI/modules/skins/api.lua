@@ -35,7 +35,7 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
--- Handle it different from ElvUI
+-- Depends on the arrow texture to be down by default.
 MERS.ArrowRotation = {
 	['UP'] = 3.14,
 	['DOWN'] = 0,
