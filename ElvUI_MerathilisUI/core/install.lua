@@ -833,7 +833,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = true
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -943,7 +943,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = true
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -1096,7 +1096,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = true
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1187,7 +1187,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = true
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
@@ -1265,7 +1265,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = true
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
