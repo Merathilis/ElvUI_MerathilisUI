@@ -370,17 +370,6 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
 
 	btn:StripTextures()
-	btn:SetNormalTexture(nil)
-	btn:SetPushedTexture(nil)
-	btn:SetHighlightTexture(nil)
-	btn:SetDisabledTexture(nil)
-
-	if not btn.icon then
-		btn.icon = btn:CreateTexture(nil, 'ARTWORK')
-		btn.icon:Size(13)
-		btn.icon:Point('CENTER')
-		btn.icon:SetTexture(nil)
-	end
 
 	if not btn.img then
 		btn.img = btn:CreateTexture(nil, 'ARTWORK')
@@ -389,24 +378,30 @@ function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
 		btn.img:Point('CENTER')
 		btn.img:SetVertexColor(1, 1, 1)
 
+		btn:SetNormalTexture(E["media"].normTex)
+		btn:SetPushedTexture(E["media"].normTex)
+		btn:SetDisabledTexture(E["media"].normTex)
+
 		btn:HookScript('OnMouseDown', function(button)
 			if button:IsEnabled() then
-				button.img:Point("CENTER", -1, -1);
+				btn.img:Point("CENTER", -1, -1)
+				btn.img:SetVertexColor(r, g, b)
 			end
 		end)
 
 		btn:HookScript('OnMouseUp', function(button)
-			button.img:Point("CENTER", 0, 0);
+			btn.img:Point("CENTER", 0, 0)
+			btn.img:SetVertexColor(1, 1, 1)
 		end)
 
 		btn:HookScript('OnDisable', function(button)
-			SetDesaturation(button.img, true);
-			button.img:SetAlpha(0.5);
+			SetDesaturation(button.img, true)
+			btn.img:SetAlpha(0.5)
 		end)
 
 		btn:HookScript('OnEnable', function(button)
-			SetDesaturation(button.img, false);
-			button.img:SetAlpha(1.0);
+			SetDesaturation(button.img, false)
+			btn.img:SetAlpha(1.0)
 		end)
 
 		if not btn:IsEnabled() then
