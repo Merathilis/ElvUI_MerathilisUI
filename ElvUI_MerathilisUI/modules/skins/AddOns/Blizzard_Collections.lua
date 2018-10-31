@@ -330,7 +330,7 @@ local function styleCollections()
 		for index = 1, 2 do
 			local tab = _G["WardrobeCollectionFrameTab"..index]
 			if tabID == index then
-				tab.bg:SetBackdropColor(r, g, b, .2)
+				tab.bg:SetBackdropColor(r, g, b, .45)
 			else
 				tab.bg:SetBackdropColor(0, 0, 0, .2)
 			end

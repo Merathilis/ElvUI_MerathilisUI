@@ -61,15 +61,17 @@ local function styleUIDropDownMenu()
 					check:SetVertexColor(r, g, b, 1)
 					check:SetSize(20, 20)
 					check:SetDesaturated(true)
+					check.backdrop:SetInside(check, 4, 4)
 				else
 					check:SetTexture(E["media"].normTex)
 					check:SetVertexColor(r, g, b, .6)
 					check:SetSize(10, 10)
 					check:SetDesaturated(false)
+					check.backdrop:SetOutside(check)
 				end
 
-				check:SetTexCoord(0, 1, 0, 1)
 				check.backdrop:Show()
+				check:SetTexCoord(0, 1, 0, 1)
 			else
 				check:SetSize(16, 16)
 			end
