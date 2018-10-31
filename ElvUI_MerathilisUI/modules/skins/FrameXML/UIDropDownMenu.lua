@@ -46,7 +46,7 @@ local function styleUIDropDownMenu()
 			local uncheck = _G["DropDownList"..level.."Button"..i.."UnCheck"]
 			local highlight = _G["DropDownList"..level.."Button"..i.."Highlight"]
 
-			highlight:SetColorTexture(r, g, b, .2)
+			highlight:SetColorTexture(r, g, b, .35)
 
 			MERS:CreateBackdrop(check)
 			if check.backdrop then
