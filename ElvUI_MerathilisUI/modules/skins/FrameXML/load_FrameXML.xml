@@ -20,7 +20,9 @@
 	<Script file="QuestMapFrame.lua"/>
 	<Script file="QuestPOI.lua"/>
 	<Script file="SpellBookFrame.lua"/>
+	<Script file="StackSplitFrame.lua"/>
 	<Script file="TaxiFrame.lua"/>
 	<Script file="TradeFrame.lua"/>
+	<Script file="UIDropDownMenu.lua"/>
 	<Script file="WorldMapFrame.lua"/>
 </Ui>

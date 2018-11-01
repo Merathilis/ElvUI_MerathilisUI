@@ -245,7 +245,7 @@ local function LocPanelTable()
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
-									E.db.sle.minimap.locPanel[ info[#info] ] = {}
+									E.db.mui.minimap.locPanel[ info[#info] ] = {}
 									local t = E.db.mui.locPanel[ info[#info] ]
 									t.r, t.g, t.b = r, g, b
 								end,

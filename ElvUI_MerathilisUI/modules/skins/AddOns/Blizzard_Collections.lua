@@ -241,119 +241,67 @@ local function styleCollections()
 	-- [[ Toy box ]]
 	local ToyBox = _G["ToyBox"]
 
-	local icons = ToyBox.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
 	-- Progress bar
 	local progressBar = ToyBox.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
 	-- Toys
-	local shouldChangeTextColor = true
-
-	local changeTextColor = function(toyString)
-		if shouldChangeTextColor then
-			shouldChangeTextColor = false
-
-			local self = toyString:GetParent()
-
-			if PlayerHasToy(self.itemID) then
-				local _, _, quality = GetItemInfo(self.itemID)
-				if quality then
-					toyString:SetTextColor(GetItemQualityColor(quality))
-				else
-					toyString:SetTextColor(1, 1, 1)
-				end
-			else
-				toyString:SetTextColor(.5, .5, .5)
-			end
-
-			shouldChangeTextColor = true
-		end
-	end
-
-	local buttons = ToyBox.iconsFrame
 	for i = 1, 18 do
-		local bu = buttons["spellButton"..i]
-		local ic = bu.iconTexture
+		local button = ToyBox.iconsFrame['spellButton'..i]
+		MERS:StyleButton(button)
+		MERS:ReskinIcon(button.iconTexture)
+		MERS:ReskinIcon(button.iconTextureUncollected)
 
-		bu:SetPushedTexture("")
-		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		bu:GetHighlightTexture():SetAllPoints(ic)
-		bu.cooldown:SetAllPoints(ic)
-		bu.slotFrameCollected:SetTexture("")
-		bu.slotFrameUncollected:SetTexture("")
+		button.name:SetPoint('LEFT', button, 'RIGHT', 9, 0)
 
-		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
+		local bg = MERS:CreateBDFrame(button)
+		bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+		bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
 	end
+
+	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
+		self.name.SetTextColor = nil
+		if (PlayerHasToy(self.itemID)) then
+			local quality = select(3, GetItemInfo(self.itemID))
+			local r, g, b = 1, 1, 1
+			if quality then
+				r, g, b = GetItemQualityColor(quality)
+			end
+			self.name:SetTextColor(r, g, b)
+		else
+			self.name:SetTextColor(.6, .6, .6)
+		end
+		self.name.SetTextColor = E.noop
+	end)
+
 
 	-- [[ Heirlooms ]]
 	local HeirloomsJournal = _G["HeirloomsJournal"]
-	local icons = HeirloomsJournal.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
-	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		button.level:SetFontObject("GameFontWhiteSmall")
-		button.special:SetTextColor(1, .8, 0)
-	end)
 
 	-- Progress bar
 	local progressBar = HeirloomsJournal.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
-	-- Buttons
-	hooksecurefunc("HeirloomsJournal_UpdateButton", function(button)
-		if not button.styled then
-			local ic = button.iconTexture
 
-			button.slotFrameCollected:SetTexture("")
-			button.slotFrameUncollected:SetTexture("")
-			button.levelBackground:SetAlpha(0)
-			button:SetPushedTexture("")
-			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			button:GetHighlightTexture():SetAllPoints(ic)
-
-			button.iconTextureUncollected:SetTexCoord(unpack(E.TexCoords))
-
-			button.level:ClearAllPoints()
-			button.level:SetPoint("BOTTOM", 0, 1)
-
-			button.styled = true
-		end
-
-		if button.iconTexture:IsShown() then
-			button.name:SetTextColor(1, 1, 1)
-		else
-			button.name:SetTextColor(.5, .5, .5)
+	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
+		if not button.IsStyled then
+			local bg = MERS:CreateBDFrame(button, .3)
+			bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+			bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+			bg:SetPoint('RIGHT', button.name, 'RIGHT', 2, 0)
 		end
 	end)
 
+	-- Header
 	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
 		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.styled then
+			if not header.IsStyled then
 				header.text:SetTextColor(1, 1, 1)
 				header.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 
-				header.styled = true
-			end
-		end
-
-		for i = 1, #HeirloomsJournal.heirloomEntryFrames do
-			local button = HeirloomsJournal.heirloomEntryFrames[i]
-
-			if button.iconTexture:IsShown() then
-				button.name:SetTextColor(1, 1, 1)
-			else
-				button.name:SetTextColor(.5, .5, .5)
+				header.IsStyled = true
 			end
 		end
 	end)
@@ -382,7 +330,7 @@ local function styleCollections()
 		for index = 1, 2 do
 			local tab = _G["WardrobeCollectionFrameTab"..index]
 			if tabID == index then
-				tab.bg:SetBackdropColor(r, g, b, .2)
+				tab.bg:SetBackdropColor(r, g, b, .45)
 			else
 				tab.bg:SetBackdropColor(0, 0, 0, .2)
 			end

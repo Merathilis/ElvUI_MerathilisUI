@@ -34,7 +34,7 @@ function MAB:CreateSpecBar()
 	E.FrameLocks[specBar] = true
 
 	specBar.Button = {}
-	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+	E:CreateMover(specBar, "SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 
 	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
 	specBar:SetScript('OnLeave', function(self)

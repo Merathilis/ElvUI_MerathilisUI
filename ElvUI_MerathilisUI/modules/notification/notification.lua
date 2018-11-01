@@ -460,7 +460,7 @@ function NF:Initialize()
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
 	anchorFrame:SetPoint("TOP", 0, -80)
-	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], nil, nil, nil, "ALL,SOLO,MERATHILISUI")
+	E:CreateMover(anchorFrame, "Notification Mover", L["Notification Mover"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,Notification')
 
 	self:RegisterEvent("UPDATE_PENDING_MAIL")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
