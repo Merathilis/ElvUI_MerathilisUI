@@ -20,6 +20,7 @@ local DecorAddons = {
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
+	{"Clique", L["Clique"], "cl"},
 }
 
 local SupportedProfiles = {

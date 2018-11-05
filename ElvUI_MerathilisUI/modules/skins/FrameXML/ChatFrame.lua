@@ -53,11 +53,13 @@ local function styleChatFrame()
 	end)
 
 	QuickJoinToastButton.Toast.Background:SetTexture("")
+
 	local bg = MERS:CreateBDFrame(QuickJoinToastButton.Toast)
 	bg:SetPoint("TOPLEFT", 10, -1)
 	bg:SetPoint("BOTTOMRIGHT", 0, 3)
 	bg:Styling()
 	bg:Hide()
+
 	hooksecurefunc(QuickJoinToastButton, "ShowToast", function() bg:Show() end)
 	hooksecurefunc(QuickJoinToastButton, "HideToast", function() bg:Hide() end)
 
