@@ -12,13 +12,10 @@ local tinsert = table.insert
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
+local MAX_STATIC_POPUPS = 4
+
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
-
-	--hooksecurefunc("WorldStateAlwaysUpFrame_Update", function()
-		--WorldStateAlwaysUpFrame:ClearAllPoints()
-		--WorldStateAlwaysUpFrame:SetPoint("TOP", 0, -45)
-	--end)
 
 	_G["GameMenuFrame"]:Styling()
 
@@ -92,6 +89,11 @@ local function styleMisc()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
+	end
+
+	for i = 1, MAX_STATIC_POPUPS do
+		local frame = _G["ElvUI_StaticPopup"..i]
+		frame:Styling()
 	end
 
 	--DropDownMenu library support

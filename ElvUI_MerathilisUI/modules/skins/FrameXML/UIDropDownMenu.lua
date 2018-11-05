@@ -63,7 +63,7 @@ local function styleUIDropDownMenu()
 					check:SetDesaturated(true)
 					check.backdrop:SetInside(check, 4, 4)
 				else
-					check:SetTexture(E["media"].normTex)
+					check:SetTexture(E["media"].blankTex)
 					check:SetVertexColor(r, g, b, .6)
 					check:SetSize(10, 10)
 					check:SetDesaturated(false)

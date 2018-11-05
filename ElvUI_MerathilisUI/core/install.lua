@@ -350,6 +350,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["customColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
 	E.db["nameplates"]["showNPCTitles"] = false
+	E.db["nameplates"]["questIconSize"] = 15
 	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
