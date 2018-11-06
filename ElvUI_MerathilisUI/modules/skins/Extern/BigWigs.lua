@@ -43,7 +43,6 @@ local function FreeStyle(bar)
 	--Reset Positions
 	--Icon
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame.SetWidth = nil
 	bar.candyBarIconFrame:SetPoint("TOPLEFT")
 	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT")
 	bar.candyBarIconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
@@ -102,7 +101,6 @@ local function ApplyStyle(bar)
 	bar.candyBarIconFrame:ClearAllPoints()
 	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
-	bar.candyBarIconFrame.SetWidth = MER.dummy
 
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
