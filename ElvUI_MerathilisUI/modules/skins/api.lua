@@ -608,10 +608,23 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	hl:SetPoint("BOTTOMRIGHT", -5, 5)
 	hl:SetVertexColor(r, g, b, .2)
 
-	local ch = frame:GetCheckedTexture()
-	ch:SetTexture(E["media"].blankTex)
-	ch:SetVertexColor(r, g, b, 1)
-	ch:SetDesaturated(false)
+	if frame.SetCheckedTexture then
+		local ch = frame:GetCheckedTexture()
+		ch:SetTexture(E["media"].blankTex)
+		ch:SetVertexColor(r, g, b, 1)
+		ch:SetDesaturated(false)
+	end
+
+	frame:HookScript('OnDisable', function(checkbox)
+		if not checkbox.SetDisabledTexture then return; end
+		if checkbox:GetChecked() then
+			checkbox:SetDisabledTexture(E["media"].blankTex)
+			checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.3)
+		else
+			checkbox:SetDisabledTexture("")
+		end
+	end)
 
 	if frame.backdrop then
 		frame:GetCheckedTexture():SetInside(frame.backdrop)
