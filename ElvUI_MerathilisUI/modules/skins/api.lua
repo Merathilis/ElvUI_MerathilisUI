@@ -599,27 +599,25 @@ end
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	if frame.backdrop then frame.backdrop:Hide() end
-
 	frame:SetNormalTexture("")
 	frame:SetPushedTexture("")
-	frame:SetHighlightTexture(E["media"].normTex)
+	frame:SetHighlightTexture("")
 
 	local hl = frame:GetHighlightTexture()
 	hl:SetPoint("TOPLEFT", 5, -5)
 	hl:SetPoint("BOTTOMRIGHT", -5, 5)
 	hl:SetVertexColor(r, g, b, .2)
 
-	local bd = CreateFrame("Frame", nil, frame)
-	bd:SetPoint("TOPLEFT", 4, -4)
-	bd:SetPoint("BOTTOMRIGHT", -4, 4)
-	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
-	MERS:CreateBD(bd, 0)
-	MERS:CreateGradient(bd)
-
 	local ch = frame:GetCheckedTexture()
-	ch:SetDesaturated(true)
-	ch:SetVertexColor(r, g, b)
+	ch:SetTexture(E["media"].blankTex)
+	ch:SetVertexColor(r, g, b, 1)
+	ch:SetDesaturated(false)
+
+	if frame.backdrop then
+		frame:GetCheckedTexture():SetInside(frame.backdrop)
+	else
+		frame:GetCheckedTexture():SetInside(frame)
+	end
 end
 
 function MERS:StyleButton(button)
