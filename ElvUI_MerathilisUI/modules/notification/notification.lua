@@ -29,9 +29,12 @@ local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
 local C_Calendar_GetGuildEventInfo = C_Calendar.GetGuildEventInfo
 local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
 local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
+local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
+local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_Scenario_GetInfo = C_Scenario.GetInfo
+local C_VignetteInfo_GetVignetteInfo = C_VignetteInfo.GetVignetteInfo
 local InCombatLockdown = InCombatLockdown
 local LoadAddOn = LoadAddOn
-local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
@@ -421,11 +424,21 @@ end
 
 local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map.GetBestMapForUnit("player")] then return end
+	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
+
+	local scenarioName, currentStage, numStages, flags, _, _, _, xp, money, scenarioType, _, textureKitID = C_Scenario_GetInfo()
+	local inChallengeMode = (scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE)
+	local inProvingGrounds = (scenarioType == LE_SCENARIO_TYPE_PROVING_GROUNDS)
+	local dungeonDisplay = (scenarioType == LE_SCENARIO_TYPE_USE_DUNGEON_DISPLAY)
+	local inWarfront = (scenarioType == LE_SCENARIO_TYPE_WARFRONT)
+
+	if inChallengeMode or inProvingGrounds or dungeonDisplay or inWarfront then
+		return;
+	end
 
 	if onMinimap then
 		if vignetteGUID ~= self.lastMinimapRare.id then
-			local vignetteInfo = C_VignetteInfo.GetVignetteInfo(vignetteGUID)
+			local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
 			if vignetteInfo then
 				vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
 				self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
