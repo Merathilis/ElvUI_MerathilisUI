@@ -619,7 +619,11 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 		if not checkbox.SetDisabledTexture then return; end
 		if checkbox:GetChecked() then
 			checkbox:SetDisabledTexture(E["media"].blankTex)
-			checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			if frame.backdrop then
+				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			else
+				checkbox:GetDisabledTexture():SetInside(frame)
+			end
 			checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.3)
 		else
 			checkbox:SetDisabledTexture("")
