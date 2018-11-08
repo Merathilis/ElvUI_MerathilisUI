@@ -599,41 +599,63 @@ end
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	frame:SetNormalTexture("")
-	frame:SetPushedTexture("")
-	frame:SetHighlightTexture("")
+	frame:StripTextures()
 
-	local hl = frame:GetHighlightTexture()
-	hl:SetPoint("TOPLEFT", 5, -5)
-	hl:SetPoint("BOTTOMRIGHT", -5, 5)
-	hl:SetVertexColor(r, g, b, .2)
-
-	if frame.SetCheckedTexture then
-		local ch = frame:GetCheckedTexture()
-		ch:SetTexture(E["media"].blankTex)
-		ch:SetVertexColor(r, g, b, 1)
-		ch:SetDesaturated(false)
+	if noBackdrop then
+		frame:SetTemplate("Default")
+		frame:Size(16)
+	else
+		frame:CreateBackdrop('Default')
+		frame.backdrop:SetInside(nil, 4, 4)
 	end
 
-	frame:HookScript('OnDisable', function(checkbox)
-		if not checkbox.SetDisabledTexture then return; end
-		if checkbox:GetChecked() then
-			checkbox:SetDisabledTexture(E["media"].blankTex)
-			if frame.backdrop then
-				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
-			else
-				checkbox:GetDisabledTexture():SetInside(frame)
+	if not noReplaceTextures then
+		if frame.SetCheckedTexture then
+			frame:SetCheckedTexture(E["media"].blankTex)
+			frame:GetCheckedTexture():SetVertexColor(r, g, b)
+			if noBackdrop then
+				frame:GetCheckedTexture():SetInside(nil, -4, -4)
 			end
-			checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.3)
-		else
-			checkbox:SetDisabledTexture("")
 		end
-	end)
 
-	if frame.backdrop then
-		frame:GetCheckedTexture():SetInside(frame.backdrop)
-	else
-		frame:GetCheckedTexture():SetInside(frame)
+		if frame.SetDisabledTexture then
+			frame:SetDisabledTexture(E["media"].blankTex)
+			frame:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+			if noBackdrop then
+				frame:GetDisabledTexture():SetInside(nil, -4, -4)
+			end
+		end
+
+		if frame.backdrop then
+			frame:GetCheckedTexture():SetInside(frame.backdrop)
+		else
+			frame:GetCheckedTexture():SetInside(frame)
+		end
+
+		frame:HookScript('OnDisable', function(checkbox)
+			if not checkbox.SetDisabledTexture then return; end
+			if checkbox:GetChecked() then
+				checkbox:SetDisabledTexture(E["media"].blankTex)
+				checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+				if frame.backdrop then
+					checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+				else
+					checkbox:GetDisabledTexture():SetInside(frame)
+				end
+			else
+				checkbox:SetDisabledTexture("")
+			end
+		end)
+
+		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetNormalTexture("") end
+		end)
+		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetPushedTexture("") end
+		end)
+		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetHighlightTexture("") end
+		end)
 	end
 end
 
