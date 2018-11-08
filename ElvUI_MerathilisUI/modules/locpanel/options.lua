@@ -5,48 +5,48 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 --Cache global variables
 local format = string.format
 local tinsert = table.insert
+local strsplit = strsplit
+local match = string.match
+local tconcat = table.concat
+local tremove = table.remove
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: AceGUIWidgetLSMlists
 
-local function LocPanelTable()
-	local function CreateHSPrio()
-		local config = {
-			type = "group",
-			order = 12,
-			guiInline = true,
-			name = L["HS Toys Order"],
-			hidden = function() return not E.db.mui.locPanel.portals.showHearthstones end,
-			args = {},
-		}
-		for key,_ in pairs(E.db.mui.locPanel.portals.hsPrio) do
-			config.args[key] = {
-				type = "select",
-				name = GetItemInfo(key),
-				order = tonumber(key),
-				width = "full",
-				get = function(info) return (E.db.mui.locPanel.portals.hsPrio[key] or 1) end,
-				set = function(info, value) E.db.mui.locPanel.portals.hsPrio[key] = value end,
-				values = {
-					[1] = "1",
-					[2] = "2",
-					[3] = "3",
-					[4] = "4",
-					[5] = "5",
-					[6] = "6",
-					[7] = "7",
-					[8] = "8",
-					[9] = "9",
-					[10] = "10",
-					[11] = "11",
-					[12] = "12",
-				},
-			}
-		end
-		return config
-	end
+local carryFrom, carryTo
+local function hsValue(value)
+	return gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
+end
 
+local function hsMatch(s,v)
+	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
+end
+
+local function hsButtonSettings(db, key, value, remove, movehere)
+	local str = db[key]
+	if not db or not str or not value then return end
+	local found = hsMatch(str, hsValue(value))
+	if found and movehere then
+		local tbl, sv, sm = {split(",", str)}
+		for i in ipairs(tbl) do
+			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
+			if sv and sm then break end
+		end
+		tremove(tbl, sm);
+		tinsert(tbl, sv, movehere);
+
+		db[key] = tconcat(tbl,',')
+
+	elseif found and remove then
+		db[key] = gsub(str, found, "")
+	elseif not found and not remove then
+		db[key] = (str == '' and value) or (str..","..value)
+	end
+end
+
+local function LocPanelTable()
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = LP.modName,
@@ -319,7 +319,6 @@ local function LocPanelTable()
 								name = L["Show hearthstones"],
 								desc = L["Show hearthstone type items in the list."],
 							},
-							hsProprity = CreateHSPrio(),
 							showToys = {
 								type = "toggle",
 								order = 20,
