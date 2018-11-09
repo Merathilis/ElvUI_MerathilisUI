@@ -315,7 +315,7 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
-function MERS:CreateBackdrop(frame, texture)
+function MERS:CreateBackdrop(frame)
 	if frame.backdrop then return end
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
@@ -605,7 +605,7 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 		frame:SetTemplate("Default")
 		frame:Size(16)
 	else
-		frame:CreateBackdrop('Default')
+		MERS:CreateBackdrop(frame)
 		frame.backdrop:SetInside(nil, 4, 4)
 	end
 
