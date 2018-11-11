@@ -472,40 +472,6 @@ function MERS:ReskinScrollSlider(Slider, thumbTrim)
 	end
 end
 
--- ClassColored Sliders
-function MERS:ReskinSliderFrame(frame)
-	assert(frame, "doesn't exist!")
-
-	local orientation = frame:GetOrientation()
-	local SIZE = 12
-
-	frame:StripTextures()
-
-	hooksecurefunc(frame, "SetBackdrop", function(slider, backdrop)
-		if backdrop ~= nil then slider:SetBackdrop(nil) end
-	end)
-
-	frame:SetThumbTexture(E["media"].normTex)
-	frame:GetThumbTexture():SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-	frame:GetThumbTexture():Size(SIZE-2,SIZE-2)
-
-	if orientation == 'VERTICAL' then
-		frame:Width(SIZE)
-	else
-		frame:Height(SIZE)
-
-		for i = 1, frame:GetNumRegions() do
-			local region = select(i, frame:GetRegions())
-			if region and region:GetObjectType() == 'FontString' then
-				local point, anchor, anchorPoint, x, y = region:GetPoint()
-				if anchorPoint:find('BOTTOM') then
-					region:Point(point, anchor, anchorPoint, x, y - 4)
-				end
-			end
-		end
-	end
-end
-
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
 	if not tab then return end
@@ -893,7 +859,6 @@ hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
-hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 hooksecurefunc(S, "HandleMaxMinFrame", MERS.ReskinMaxMinFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
