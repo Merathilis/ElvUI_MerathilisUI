@@ -352,8 +352,6 @@ function SMB:Initialize()
 		end
 	end)
 
-	E.FrameLocks[SMB.Bar] = true
-
 	function SMB:ForUpdateAll()
 		SMB.db = E.db.mui["smb"]
 		SMB:Update()
