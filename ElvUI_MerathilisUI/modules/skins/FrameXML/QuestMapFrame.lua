@@ -122,7 +122,9 @@ local function styleQuestMapFrame()
 		_G["QuestLogPopupDetailFrameInset"]:Hide()
 		_G["QuestLogPopupDetailFrameBg"]:Hide()
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+		end
 	end)
 	select(18, QuestLogPopupDetailFrame:GetRegions()):Hide()
 	QuestLogPopupDetailFrame:Styling()
