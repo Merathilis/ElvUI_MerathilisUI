@@ -778,10 +778,10 @@ function MERS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
