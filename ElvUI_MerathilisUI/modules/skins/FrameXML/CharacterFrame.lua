@@ -56,9 +56,9 @@ local function styleCharacter()
 	end
 
 	local bu = CreateFrame("Button", nil, _G["PaperDollFrame"], "UIPanelButtonTemplate")
-	bu:SetSize(34, 38)
+	bu:SetSize(34, 37)
 	bu:SetFrameStrata("HIGH")
-	bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, -1)
+	bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, 0)
 
 	bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
 	bu:GetNormalTexture():SetInside()
@@ -69,9 +69,9 @@ local function styleCharacter()
 
 	bu:SetScript('OnEnter', Button_OnEnter)
 	bu:SetScript('OnLeave', Button_OnLeave)
-	bu:SetScript("OnClick", function()
+	bu:SetScript('OnClick', function()
 		for i = 1, 17 do
-			local texture = GetInventoryItemTexture("player", i)
+			local texture = GetInventoryItemTexture('player', i)
 			if texture then
 				UnequipItemInSlot(i)
 			end
