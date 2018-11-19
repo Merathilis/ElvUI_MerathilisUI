@@ -60,6 +60,8 @@ L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
+L["ChatBar"] = "Chatleiste"
+L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 
 -- Information
 L["Information"] = true

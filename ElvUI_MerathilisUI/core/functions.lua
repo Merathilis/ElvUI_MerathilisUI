@@ -140,6 +140,29 @@ function MER:CreateText(f, layer, fontsize, flag, justifyh)
 	return text
 end
 
+-- GameTooltip
+function MER:AddTooltip(self, anchor, text, color)
+	if not anchor then return end
+
+	self:SetScript("OnEnter", function()
+		GameTooltip:SetOwner(self, anchor)
+		GameTooltip:ClearLines()
+		if tonumber(text) then
+			GameTooltip:SetSpellByID(text)
+		else
+			local r, g, b = 1, 1, 1
+			if color == "class" then
+				r, g, b = unpack(E["media"].rgbvaluecolor)
+			elseif color == "system" then
+				r, g, b = 1, .8, 0
+			end
+			GameTooltip:AddLine(text, r, g, b)
+		end
+		GameTooltip:Show()
+	end)
+	self:SetScript("OnLeave", GameTooltip_Hide)
+end
+
 -- Inform us of the patch info we play on.
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()

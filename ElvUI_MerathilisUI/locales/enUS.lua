@@ -60,6 +60,8 @@ L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
+L["ChatBar"] = true
+L["Shows a ChatBar with different quick buttons."] = true
 
 -- Information
 L["Information"] = true

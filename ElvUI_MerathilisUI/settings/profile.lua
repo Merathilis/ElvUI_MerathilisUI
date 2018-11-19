@@ -33,6 +33,7 @@ P["mui"] = {
 		["iLevelLink"] = true,
 		["hidePlayerBrackets"] = true,
 		["sidePanel"] = false,
+		["chatBar"] = true,
 	},
 
 	["colors"] = {
