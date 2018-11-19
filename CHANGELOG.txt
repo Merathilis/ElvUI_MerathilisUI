@@ -1,7 +1,9 @@
 [b][color=orange]v4.01[/color], xx.xx.2018[/b][list]
 [*]Small DPS/Tank Layout adjustments.
 [*]Take account to the new ElvUI functions. (aborb etc.)
-[*]Added new Hearthstone spells to my LocPanel.
+[*]Added new Hearthstone spells to the LocPanel.
+[*]Updated the Undress Button on the CharacterFrame.
+[*]Added a ChatBar with quick buttons.
 [*]A lot of skin updates.[/list]
 
 [b][color=orange]v4.00[/color], 05.10.2018[/b][list]
