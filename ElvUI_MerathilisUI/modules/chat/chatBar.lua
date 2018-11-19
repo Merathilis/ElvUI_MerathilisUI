@@ -5,6 +5,7 @@ local MERS = MER:GetModule("muiSkins")
 --Cache global variables
 --Lua Variables
 local _G = _G
+local pairs, unpack = pairs, unpack
 local tinsert = table.insert
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -19,8 +20,8 @@ function MERC:ChatBar()
 	local width, height, padding, buttonList = 40, 6, 5, {}
 
 	local ChatbarHolder = CreateFrame("Frame", nil, E.UIParent)
-	ChatbarHolder:SetSize(LeftChatPanel:GetWidth(), height)
-	ChatbarHolder:SetPoint("BOTTOM", LeftChatPanel, "BOTTOM", 35, -2)
+	ChatbarHolder:SetSize(_G["LeftChatPanel"]:GetWidth(), height)
+	ChatbarHolder:SetPoint("BOTTOM", _G["LeftChatPanel"], 40, -2)
 
 	--E:CreateMover(ChatbarHolder, "mui_ChatBar", L["ChatBar"])
 

@@ -38,17 +38,6 @@ local function styleCharacter()
 	end
 
 	-- Undress Button
-	local function Button_OnEnter(self)
-		GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(L["Undress"], 1, 1, 1)
-		GameTooltip:Show()
-	end
-
-	local function Button_OnLeave(self)
-		GameTooltip:Hide()
-	end
-
 	local function UnequipItemInSlot(i)
 		if InCombatLockdown() then return end
 		local action = EquipmentManager_UnequipItemInSlot(i)
@@ -67,8 +56,7 @@ local function styleCharacter()
 	bu:SetPushedTexture("")
 	bu:SetDisabledTexture("")
 
-	bu:SetScript('OnEnter', Button_OnEnter)
-	bu:SetScript('OnLeave', Button_OnLeave)
+	MER:AddTooltip(bu, "ANCHOR_RIGHT", E:RGBToHex(r, g, b)..L["Undress"])
 	bu:SetScript('OnClick', function()
 		for i = 1, 17 do
 			local texture = GetInventoryItemTexture('player', i)
