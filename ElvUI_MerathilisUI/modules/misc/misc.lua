@@ -206,6 +206,7 @@ function MI:Initialize()
 	self:LoadMoverTransparancy()
 	self:LoadQuestReward()
 	self:LoadnameHover()
+	self:GuildBest()
 end
 
 local function InitializeCallback()

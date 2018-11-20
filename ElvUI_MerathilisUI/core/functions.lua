@@ -24,14 +24,28 @@ MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
 MER.Version = GetAddOnMetadata("ElvUI_MerathilisUI", "Version")
 MER.ElvUIV = tonumber(E.version)
 MER.ElvUIX = tonumber(GetAddOnMetadata("ElvUI_MerathilisUI", "X-ElvVersion"))
-MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-MER.InfoColor = "|cff70C0F5"
-MER.GreyColor = "|cffB5B5B5"
 MER.WoWPatch, MER.WoWBuild, MER.WoWPatchReleaseDate, MER.TocVersion = GetBuildInfo()
 MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
+
+MER.InfoColor = "|cff70C0F5"
+MER.GreyColor = "|cffB5B5B5"
+
+-- Class Color stuff
+MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
+
+MER.ClassColors = {}
+local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
+for class in pairs(colors) do
+	MER.ClassColors[class] = {}
+	MER.ClassColors[class].r = colors[class].r
+	MER.ClassColors[class].g = colors[class].g
+	MER.ClassColors[class].b = colors[class].b
+	MER.ClassColors[class].colorStr = colors[class].colorStr
+end
+MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
 function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
@@ -152,7 +166,7 @@ function MER:AddTooltip(self, anchor, text, color)
 		else
 			local r, g, b = 1, 1, 1
 			if color == "class" then
-				r, g, b = unpack(E["media"].rgbvaluecolor)
+				r, g, b = MER.r, MER.g, MER.b
 			elseif color == "system" then
 				r, g, b = 1, .8, 0
 			end
@@ -161,6 +175,26 @@ function MER:AddTooltip(self, anchor, text, color)
 		GameTooltip:Show()
 	end)
 	self:SetScript("OnLeave", GameTooltip_Hide)
+end
+
+
+-- frame text
+function MER:CreateFS(f, size, text, classcolor, anchor, x, y)
+	local fs = f:CreateFontString(nil, "OVERLAY")
+	fs:FontTemplate(nil, nil, 'OUTLINE')
+	fs:SetText(text)
+	fs:SetWordWrap(false)
+	if classcolor and type(classcolor) == "boolean" then
+		fs:SetTextColor(MER.r, MER.g, MER.b)
+	elseif classcolor == "system" then
+		fs:SetTextColor(1, .8, 0)
+	end
+	if (anchor and x and y) then
+		fs:SetPoint(anchor, x, y)
+	else
+		fs:SetPoint("CENTER", 1, 0)
+	end
+	return fs
 end
 
 -- Inform us of the patch info we play on.
@@ -191,29 +225,6 @@ function MER:FixRelease()
 end
 MER:RegisterChatCommand("release", MER.FixRelease)
 MER:RegisterChatCommand("repop", MER.FixRelease)
-
-MER.colors = {
-	class = {},
-}
-
-MER.colors.class = {
-	["DEATHKNIGHT"]	= { 0.77,	0.12,	0.23 },
-	["DEMONHUNTER"]	= { 0.64,	0.19,	0.79 },
-	["DRUID"]		= { 1,		0.49,	0.04 },
-	["HUNTER"]		= { 0.58,	0.86,	0.49 },
-	["MAGE"]		= { 0.2,	0.76,	1 },
-	["MONK"]		= { 0,		1,		0.59 },
-	["PALADIN"]		= { 0.96,	0.55,	0.73 },
-	["PRIEST"]		= { 0.99,	0.99,	0.99 },
-	["ROGUE"]		= { 1,		0.96,	0.41 },
-	["SHAMAN"]		= { 0,		0.44,	0.87 },
-	["WARLOCK"]		= { 0.6,	0.47,	0.85 },
-	["WARRIOR"]		= { 0.9,	0.65,	0.45 },
-}
-
-for class, color in pairs(MER.colors.class) do
-	MER.colors.class[class] = { r = color[1], g = color[2], b = color[3] }
-end
 
 -- Personal Dev use only
 -- We will add more of my names as we go.

@@ -273,23 +273,6 @@ function MERS:CreateBG(frame)
 	return bg
 end
 
--- frame text
-function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
-	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, nil, 'OUTLINE')
-	fs:SetText(text)
-	fs:SetWordWrap(false)
-	if classcolor then
-		fs:SetTextColor(r, g, b)
-	end
-	if (anchor and x and y) then
-		fs:SetPoint(anchor, x, y)
-	else
-		fs:SetPoint("CENTER", 1, 0)
-	end
-	return fs
-end
-
 -- Gradient Frame
 function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	assert(f, "doesn't exist!")
