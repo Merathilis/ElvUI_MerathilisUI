@@ -15,9 +15,9 @@ local function styleCalendar()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
 	_G["CalendarFrame"].backdrop:Styling()
-	_G["CalendarCreateEventFrame"]:Styling()
-	_G["CalendarViewHolidayFrame"]:Styling()
-	_G["CalendarViewEventFrame"]:Styling()
+	_G["CalendarCreateEventFrame"].backdrop:Styling()
+	_G["CalendarViewHolidayFrame"].backdrop:Styling()
+	_G["CalendarViewEventFrame"].backdrop:Styling()
 
 	for i = 1, 42 do
 		_G["CalendarDayButton"..i.."DarkFrame"]:SetAlpha(.5)

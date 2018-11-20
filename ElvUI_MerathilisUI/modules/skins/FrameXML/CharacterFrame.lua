@@ -8,12 +8,11 @@ local _G = _G
 local unpack = unpack
 -- WoW API
 local CreateFrame = CreateFrame
-local GetContainerNumSlots = GetContainerNumSlots
-local GetContainerItemLink = GetContainerItemLink
-local PickupInventoryItem = PickupInventoryItem
-local PickupContainerItem = PickupContainerItem
+local GetInventoryItemTexture = GetInventoryItemTexture
+local InCombatLockdown = InCombatLockdown
+
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: GameTooltip
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
@@ -39,32 +38,33 @@ local function styleCharacter()
 	end
 
 	-- Undress Button
-	local E, Z, N, n
-	local undress = CreateFrame("Button", MER.Title.."UndressButton", _G["PaperDollFrame"], "UIPanelButtonTemplate")
-	undress:SetFrameStrata("HIGH")
-	undress:SetSize(80, 20)
-	undress:SetPoint("TOPLEFT", _G["CharacterWristSlot"], "BOTTOMLEFT", 0, -5)
+	local function UnequipItemInSlot(i)
+		if InCombatLockdown() then return end
+		local action = EquipmentManager_UnequipItemInSlot(i)
+		EquipmentManager_RunAction(action)
+	end
 
-	undress.text = MER:CreateText(undress, "OVERLAY", 12, nil)
-	undress.text:SetPoint("CENTER")
-	undress.text:SetText(L["Undress"])
+	local bu = CreateFrame("Button", nil, _G["PaperDollFrame"], "UIPanelButtonTemplate")
+	bu:SetSize(34, 37)
+	bu:SetFrameStrata("HIGH")
+	bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, 0)
 
-	undress:SetScript("OnClick", function()
-		E = { 16, 17, 1, 3, 5, 6, 7, 8, 9, 10 }
-		Z = {}
-		n = Z[1] and #Z+1 or 1
-		for i = 0, 4 do
-			for j = 1, GetContainerNumSlots(i) do
-				if not GetContainerItemLink(i,j) and E[n] then
-					Z[n]= {i,j}
-					PickupInventoryItem(E[n])
-					PickupContainerItem(i, j)
-					n = n + 1
-				end
+	bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
+	bu:GetNormalTexture():SetInside()
+	bu:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+
+	bu:SetPushedTexture("")
+	bu:SetDisabledTexture("")
+
+	MER:AddTooltip(bu, "ANCHOR_RIGHT", E:RGBToHex(r, g, b)..L["Undress"])
+	bu:SetScript('OnClick', function()
+		for i = 1, 17 do
+			local texture = GetInventoryItemTexture('player', i)
+			if texture then
+				UnequipItemInSlot(i)
 			end
 		end
 	end)
-	S:HandleButton(undress)
 end
 
 S:AddCallback("mUICharacter", styleCharacter)

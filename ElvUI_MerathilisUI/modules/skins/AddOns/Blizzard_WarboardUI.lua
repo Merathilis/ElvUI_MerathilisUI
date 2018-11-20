@@ -16,7 +16,7 @@ local function styleWarboard()
 	local WarboardQuestChoiceFrame = _G["WarboardQuestChoiceFrame"]
 	WarboardQuestChoiceFrame:Styling()
 
-	for i = 1, 3 do
+	for i = 1, 4 do
 		local option = WarboardQuestChoiceFrame["Option"..i]
 		local optionBackdrop = MERS:CreateBDFrame(option)
 		optionBackdrop:SetPoint("TOPLEFT", -2, 8)

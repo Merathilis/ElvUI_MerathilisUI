@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
@@ -57,91 +58,53 @@ local function styleCollections()
 	MERS:CreateBD(PetJournal.PetCount, .25)
 	MERS:CreateBD(MountJournal.MountDisplay.ModelScene, .25)
 
-	local scrollFrames = {MountJournal.ListScrollFrame.buttons, PetJournal.listScroll.buttons}
-	for _, scrollFrame in pairs(scrollFrames) do
-		for i = 1, #scrollFrame do
-			local bu = scrollFrame[i]
-			local ic = bu.icon
+	-- Mount list
+	for _, bu in pairs(MountJournal.ListScrollFrame.buttons) do
+		MERS:CreateGradient(bu.backdrop)
 
-			bu:GetRegions():Hide()
-			bu:SetHighlightTexture("")
-			bu.iconBorder:SetTexture("")
-			bu.selectedTexture:SetTexture("")
+		bu.DragButton.ActiveTexture:SetAlpha(0)
 
-			local bg = CreateFrame("Frame", nil, bu)
-			bg:SetPoint("TOPLEFT", 0, -1)
-			bg:SetPoint("BOTTOMRIGHT", 0, 1)
-			bg:SetFrameLevel(bu:GetFrameLevel()-1)
-			MERS:CreateBD(bg, .25)
-			bu.bg = bg
+		bu.pulseName = bu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
+		bu.pulseName:SetJustifyH('LEFT')
+		bu.pulseName:SetSize(147, 25)
+		bu.pulseName:SetAllPoints(bu.name)
+		bu.pulseName:Hide()
 
-			ic:SetTexCoord(unpack(E.TexCoords))
-			ic.bg = MERS:CreateBG(ic)
+		bu.pulseName.anim = bu.pulseName:CreateAnimationGroup()
+		bu.pulseName.anim:SetToFinalAlpha(true)
 
-			bu.name:SetParent(bg)
+		bu.pulseName.anim.alphaout = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphaout:SetOrder(1)
+		bu.pulseName.anim.alphaout:SetFromAlpha(1)
+		bu.pulseName.anim.alphaout:SetToAlpha(0)
+		bu.pulseName.anim.alphaout:SetDuration(1)
 
-			if bu.DragButton then
-				bu.DragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.DragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.DragButton:GetHighlightTexture():SetAllPoints(ic)
-			else
-				bu.dragButton.ActiveTexture:SetTexture(E["media"].normTex)
-				bu.dragButton.levelBG:SetAlpha(0)
-				bu.dragButton.level:SetFontObject(GameFontNormal)
-				bu.dragButton.level:SetTextColor(1, 1, 1)
-				bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				bu.dragButton:GetHighlightTexture():SetAllPoints(ic)
+		bu.pulseName.anim.alphain = bu.pulseName.anim:CreateAnimation("Alpha")
+		bu.pulseName.anim.alphain:SetOrder(2)
+		bu.pulseName.anim.alphain:SetFromAlpha(0)
+		bu.pulseName.anim.alphain:SetToAlpha(1)
+		bu.pulseName.anim.alphain:SetDuration(1)
+
+		hooksecurefunc(bu.name, 'SetText', function(self, text)
+			bu.pulseName:SetText(text)
+			bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
+		end)
+
+		bu:HookScript("OnUpdate", function(self)
+			if self.active then
+				bu.pulseName:Show()
+				bu.pulseName.anim:Play()
+			elseif bu.pulseName.anim:IsPlaying() then
+				bu.pulseName:Hide()
+				bu.pulseName.anim:Stop()
 			end
-		end
+		end)
 	end
 
-	local function updateMountScroll()
-		local buttons = MountJournal.ListScrollFrame.buttons
-		for i = 1, #buttons do
-			local bu = buttons[i]
-			if bu.bg then
-				if bu.index ~= nil then
-					bu.bg:Show()
-					bu.icon:Show()
-					bu.icon.bg:Show()
-
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-				else
-					bu.bg:Hide()
-					bu.icon:Hide()
-					bu.icon.bg:Hide()
-				end
-			end
-		end
+	-- Pet list
+	for _, bu in pairs(PetJournal.listScroll.buttons) do
+		MERS:CreateGradient(bu.backdrop)
 	end
-
-	hooksecurefunc("MountJournal_UpdateMountList", updateMountScroll)
-	hooksecurefunc(MountJournalListScrollFrame, "update", updateMountScroll)
-
-	local function updatePetScroll()
-		local petButtons = PetJournal.listScroll.buttons
-		if petButtons then
-			for i = 1, #petButtons do
-				local bu = petButtons[i]
-
-				local index = bu.index
-				if index then
-					if bu.selectedTexture:IsShown() then
-						bu.bg:SetBackdropColor(r, g, b, .25)
-					else
-						bu.bg:SetBackdropColor(0, 0, 0, .25)
-					end
-				end
-			end
-		end
-	end
-
-	hooksecurefunc("PetJournal_UpdatePetList", updatePetScroll)
-	hooksecurefunc(PetJournalListScrollFrame, "update", updatePetScroll)
 
 	PetJournalHealPetButtonBorder:Hide()
 	PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
@@ -278,130 +241,67 @@ local function styleCollections()
 	-- [[ Toy box ]]
 	local ToyBox = _G["ToyBox"]
 
-	local icons = ToyBox.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
 	-- Progress bar
 	local progressBar = ToyBox.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
 	-- Toys
-	local shouldChangeTextColor = true
-
-	local changeTextColor = function(toyString)
-		if shouldChangeTextColor then
-			shouldChangeTextColor = false
-
-			local self = toyString:GetParent()
-
-			if PlayerHasToy(self.itemID) then
-				local _, _, quality = GetItemInfo(self.itemID)
-				if quality then
-					toyString:SetTextColor(GetItemQualityColor(quality))
-				else
-					toyString:SetTextColor(1, 1, 1)
-				end
-			else
-				toyString:SetTextColor(.5, .5, .5)
-			end
-
-			shouldChangeTextColor = true
-		end
-	end
-
-	local buttons = ToyBox.iconsFrame
 	for i = 1, 18 do
-		local bu = buttons["spellButton"..i]
-		local ic = bu.iconTexture
+		local button = ToyBox.iconsFrame['spellButton'..i]
+		MERS:StyleButton(button)
+		MERS:ReskinIcon(button.iconTexture)
+		MERS:ReskinIcon(button.iconTextureUncollected)
 
-		bu:SetPushedTexture("")
-		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-		bu:GetHighlightTexture():SetAllPoints(ic)
-		bu.cooldown:SetAllPoints(ic)
-		bu.slotFrameCollected:SetTexture("")
-		bu.slotFrameUncollected:SetTexture("")
+		button.name:SetPoint('LEFT', button, 'RIGHT', 9, 0)
 
-		hooksecurefunc(bu.name, "SetTextColor", changeTextColor)
+		local bg = MERS:CreateBDFrame(button)
+		bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+		bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
 	end
+
+	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
+		self.name.SetTextColor = nil
+		if (PlayerHasToy(self.itemID)) then
+			local quality = select(3, GetItemInfo(self.itemID))
+			local r, g, b = 1, 1, 1
+			if quality then
+				r, g, b = GetItemQualityColor(quality)
+			end
+			self.name:SetTextColor(r, g, b)
+		else
+			self.name:SetTextColor(.6, .6, .6)
+		end
+		self.name.SetTextColor = E.noop
+	end)
+
 
 	-- [[ Heirlooms ]]
 	local HeirloomsJournal = _G["HeirloomsJournal"]
-	local icons = HeirloomsJournal.iconsFrame
-	icons.Bg:Hide()
-	icons.BackgroundTile:Hide()
-	icons:DisableDrawLayer("BORDER")
-	icons:DisableDrawLayer("ARTWORK")
-	icons:DisableDrawLayer("OVERLAY")
-
-	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		button.level:SetFontObject("GameFontWhiteSmall")
-		button.special:SetTextColor(1, .8, 0)
-	end)
 
 	-- Progress bar
 	local progressBar = HeirloomsJournal.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
-	-- Buttons
-	hooksecurefunc("HeirloomsJournal_UpdateButton", function(button)
-		if not button.styled then
-			local ic = button.iconTexture
 
-			button.slotFrameCollected:SetTexture("")
-			button.slotFrameUncollected:SetTexture("")
-			button.levelBackground:SetAlpha(0)
-			button:SetPushedTexture("")
-			button:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			button:GetHighlightTexture():SetAllPoints(ic)
-
-			button.iconTextureUncollected:SetTexCoord(unpack(E.TexCoords))
-
-			button.level:ClearAllPoints()
-			button.level:SetPoint("BOTTOM", 0, 1)
-
-			local newLevelBg = button:CreateTexture(nil, "OVERLAY")
-			newLevelBg:SetColorTexture(0, 0, 0, .5)
-			newLevelBg:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 4, 5)
-			newLevelBg:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 5)
-			newLevelBg:SetHeight(11)
-			button.newLevelBg = newLevelBg
-
-			button.styled = true
-		end
-
-		if button.iconTexture:IsShown() then
-			button.name:SetTextColor(1, 1, 1)
-			button.newLevelBg:Show()
-		else
-			button.name:SetTextColor(.5, .5, .5)
-			button.newLevelBg:Hide()
+	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
+		if not button.IsStyled then
+			local bg = MERS:CreateBDFrame(button, .3)
+			bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
+			bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
+			bg:SetPoint('RIGHT', button.name, 'RIGHT', 2, 0)
 		end
 	end)
 
+	-- Header
 	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
 		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.styled then
+			if not header.IsStyled then
 				header.text:SetTextColor(1, 1, 1)
 				header.text:SetFont(E["media"].normFont, 16, "OUTLINE")
 
-				header.styled = true
-			end
-		end
-
-		for i = 1, #HeirloomsJournal.heirloomEntryFrames do
-			local button = HeirloomsJournal.heirloomEntryFrames[i]
-
-			if button.iconTexture:IsShown() then
-				button.name:SetTextColor(1, 1, 1)
-				button.newLevelBg:Show()
-			else
-				button.name:SetTextColor(.5, .5, .5)
-				button.newLevelBg:Hide()
+				header.IsStyled = true
 			end
 		end
 	end)
@@ -430,7 +330,7 @@ local function styleCollections()
 		for index = 1, 2 do
 			local tab = _G["WardrobeCollectionFrameTab"..index]
 			if tabID == index then
-				tab.bg:SetBackdropColor(r, g, b, .2)
+				tab.bg:SetBackdropColor(r, g, b, .45)
 			else
 				tab.bg:SetBackdropColor(0, 0, 0, .2)
 			end

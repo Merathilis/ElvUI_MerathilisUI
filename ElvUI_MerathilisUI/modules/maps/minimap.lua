@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
 local MM = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 MM.modName = L["MiniMap"]
 
@@ -72,7 +71,7 @@ function MM:MiniMapPing()
 	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MERS:CreateFS(f, 8, "", false, pos, xOffset, yOffset)
+	f.text = MER:CreateFS(f, 8, "", false, pos, xOffset, yOffset)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)

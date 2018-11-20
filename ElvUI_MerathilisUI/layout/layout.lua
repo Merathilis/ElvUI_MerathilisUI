@@ -83,7 +83,7 @@ function MERL:ChangeLayout()
 	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
 	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
 	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
-	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI')
+	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
 end
 
 local function ChatMenu_OnEnter(self)
@@ -289,8 +289,6 @@ local function ChatPanels_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
-	GameTooltip:AddLine('')
-	GameTooltip:AddDoubleLine(L["Right Click:"], L["Toggle Chat"], 1, 1, 1)
 	GameTooltip:Show()
 end
 
@@ -369,9 +367,6 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar5(self, _G["ElvUI_Bar5"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-		elseif btn == "RightButton" then
-			HideLeftChat()
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
 
@@ -397,17 +392,11 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar3(self, _G["ElvUI_Bar3"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-		elseif btn == "RightButton" then
-			HideRightChat()
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 		end
 	end)
 
 	MerathilisUIButton2:SetScript("OnEnter", ChatPanels_OnEnter)
 	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
-
-	LeftChatToggleButton:Kill()
-	RightChatToggleButton:Kill()
 end
 
 function MERL:regEvents()

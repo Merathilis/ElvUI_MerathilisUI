@@ -190,7 +190,7 @@ function RMA:Initialize()
 
 	self.frame.backdrop:SetAllPoints()
 
-	E:CreateMover(self.frame, "mUI_RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI")
+	E:CreateMover(self.frame, "mUI_RaidMarkerBarAnchor", L["Raid Marker Bar"], nil, nil, nil, "ALL,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidmarkers')
 
 	self:CreateButtons()
 

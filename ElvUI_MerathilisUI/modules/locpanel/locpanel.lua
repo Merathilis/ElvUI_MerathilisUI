@@ -84,6 +84,8 @@ LP.Hearthstones = {
 	{54452, nil, true}, --Etherial Portal
 	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
 	{64488, nil, true}, --The Innkeeper's Daughter
+	{163045, nil, true}, --Hallow HS
+	{162973, nil, true}, --Winter HS
 }
 
 LP.PortItems = {
@@ -269,7 +271,7 @@ function LP:CreateLocationPanel()
 	LP:Resize()
 
 	-- Mover
-	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI")
+	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
 	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
 	LP.Menu1:SetTemplate("Transparent", true)
@@ -454,8 +456,8 @@ function LP:ItemList(check)
 	tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 
 	if LP.db.portals.showHearthstones then
+		local tmp = {}
 		for i = 1, #LP.Hearthstones do
-			local tmp = {}
 			local data = LP.Hearthstones[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
 			isToy = (LP.db.portals.showToys and isToy)

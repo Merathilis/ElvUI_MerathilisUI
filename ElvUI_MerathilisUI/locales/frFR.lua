@@ -23,10 +23,10 @@ L["Display the item level on the MerchantFrame, to change the font you have to s
 L["Desciption"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 
-- a lot of new features 
-- a transparent overall look 
-- rewrote all existing ElvUI Skins 
-- my personal Layout 
+- a lot of new features
+- a transparent overall look
+- rewrote all existing ElvUI Skins
+- my personal Layout
 
 |cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
 But if you install another Layout over mine, you must adjust it manually.]=]
@@ -37,13 +37,6 @@ L["Enable/Disable the Login Message in Chat"] = true
 -- Bags
 L["Removed: "] = true
 L["Usable Items"] = true
-L["Split Bags"] = true
-L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = true
-L["Split Bag 1"] = true
-L["Split Bag 2"] = true
-L["Split Bag 3"] = true
-L["Split Bag 4"] = true
-L["Bag spacing"] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -67,6 +60,8 @@ L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
+L["ChatBar"] = true
+L["Shows a ChatBar with different quick buttons."] = true
 
 -- Information
 L["Information"] = true
@@ -111,13 +106,14 @@ L["Alt-click, to buy an stack"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
-L["Combat Status, Skill gains"] = true
+L["Skill gains"] = true
 L["Automatically select the quest reward with the highest vendor sell value."] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
-L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Flashing Cursor"] = true
+L["Accept Quest"] = true
 
 -- Tooltip
 L["Your Status:"] = true

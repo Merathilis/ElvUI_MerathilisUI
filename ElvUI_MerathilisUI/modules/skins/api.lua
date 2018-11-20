@@ -7,6 +7,7 @@ MERS.modName = L["Skins/AddOns"]
 -- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
+local find, lower = string.find, string.lower
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -34,40 +35,35 @@ local buttons = {
 	"UI-Panel-BiggerButton-Up",
 }
 
-function S:HandleCloseButton(f, point, text)
-	if not E.db.mui or not E.private.muiSkins then
-		return
-	end
+-- Depends on the arrow texture to be down by default.
+MERS.ArrowRotation = {
+	['UP'] = 3.14,
+	['DOWN'] = 0,
+	['LEFT'] = -1.57,
+	['RIGHT'] = 1.57,
+}
 
-	if E.private.muiSkins.closeButton then
-		for i = 1, f:GetNumRegions() do
-			local region = select(i, f:GetRegions())
-			if region:GetObjectType() == "Texture" then
-				region:SetDesaturated(1)
-				for n = 1, #buttons do
-					local texture = buttons[n]
-					if region:GetTexture() == "Interface\\Buttons\\"..texture then
-						f.noBackdrop = true
-					end
-				end
-				if region:GetTexture() == "Interface\\DialogFrame\\UI-DialogBox-Corner" then
-					region:Kill()
-				end
-			end
-		end
-	else
-		f:StripTextures()
-		if not text then text = 'x' end
-	end
+function S:HandleCloseButton(f, point, text)
+	assert(f, "does not exist.")
+
+	f:StripTextures()
 
 	-- Create backdrop for the few close buttons that do not use original close button
 	if not f.backdrop then
-		f:CreateBackdrop("Default", true)
-		f.backdrop:Point("TOPLEFT", 5, -6)
-		f.backdrop:Point("BOTTOMRIGHT", -6, 6)
-		f.backdrop:SetFrameLevel(f:GetFrameLevel())
-		f:HookScript("OnEnter", MERS.ColorButton)
-		f:HookScript("OnLeave", MERS.ClearButton)
+		f:CreateBackdrop()
+		f.backdrop:Point("TOPLEFT", 7, -8)
+		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
+		f.backdrop:SetTemplate("NoBackdrop")
+		f:SetHitRectInsets(6, 6, 7, 7)
+	end
+
+	-- Create an own close button texture on the backdrop
+	if not f.backdrop.img then
+		f.backdrop.img = f.backdrop:CreateTexture(nil, "OVERLAY")
+		f.backdrop.img:SetSize(12, 12)
+		f.backdrop.img:Point("CENTER")
+		f.backdrop.img:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
+		f.backdrop.img:SetVertexColor(1, 1, 1)
 	end
 
 	-- ElvUI code expects the element to be there. It won't show up for original close buttons.
@@ -79,14 +75,18 @@ function S:HandleCloseButton(f, point, text)
 		f.text:Point("CENTER", f, "CENTER")
 	end
 
-	-- Use a own texture for the close button.
-	if E.private.muiSkins.closeButton and not f.tex then
-		f.tex = f:CreateTexture(nil, "OVERLAY")
-		f.tex:Size(12)
-		f.tex:Point("CENTER", -1, 0)
-		f.tex:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
-		f.tex:SetDrawLayer("OVERLAY")
-	end
+	-- Otherwise we have an additional white texture
+	f:SetPushedTexture("")
+
+	f:HookScript("OnEnter", function(self)
+		self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
+		self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
+	end)
+
+	f:HookScript("OnLeave", function(self)
+		self.backdrop.img:SetVertexColor(1, 1, 1)
+		self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+	end)
 
 	-- Hide text if button is using original skin
 	if f.text and f.noBackdrop then
@@ -98,18 +98,50 @@ function S:HandleCloseButton(f, point, text)
 	end
 end
 
+function MERS:ReskinMaxMinFrame(frame)
+	assert(frame, "does not exist.")
+
+	frame:StripTextures()
+
+	for name, direction in pairs ({ ["MaximizeButton"] = 'UP', ["MinimizeButton"] = 'DOWN'}) do
+		local button = frame[name]
+
+		if button then
+			local normal = button:GetNormalTexture()
+
+			button:SetSize(18, 18)
+			button:ClearAllPoints()
+			button:SetPoint("CENTER")
+			button:SetHitRectInsets(1, 1, 1, 1)
+
+			button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+			button:GetNormalTexture():SetRotation(MERS.ArrowRotation[direction])
+			button:GetNormalTexture():SetInside(button, 2, 2)
+
+			button:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+			button:GetPushedTexture():SetRotation(MERS.ArrowRotation[direction])
+			button:GetPushedTexture():SetInside(button)
+
+			button:SetTemplate("NoBackdrop")
+
+			button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor)) normal:SetVertexColor(unpack(E["media"].rgbvaluecolor)) end)
+			button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(E["media"].bordercolor)) normal:SetVertexColor(1, 1, 1) end)
+
+			MERS:Reskin(button, false, false)
+		end
+	end
+end
+
+
 function MERS:ReskinEditBox(frame)
+	-- Hide ElvUI's backdrop
 	if frame.backdrop then
 		frame.backdrop:Hide()
 	end
 
-	if not frame.bg then
-		local bg = MERS:CreateBDFrame(frame)
-		bg:SetAllPoints()
-		MERS:CreateGradient(bg)
-
-		frame.bg = bg
-	end
+	-- Reaply transparent backdrop
+	frame:CreateBackdrop("Transparent")
+	MERS:CreateGradient(frame.backdrop)
 end
 
 function MERS:ReskinDropDownBox(frame, width)
@@ -241,23 +273,6 @@ function MERS:CreateBG(frame)
 	return bg
 end
 
--- frame text
-function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
-	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, nil, 'OUTLINE')
-	fs:SetText(text)
-	fs:SetWordWrap(false)
-	if classcolor then
-		fs:SetTextColor(r, g, b)
-	end
-	if (anchor and x and y) then
-		fs:SetPoint(anchor, x, y)
-	else
-		fs:SetPoint("CENTER", 1, 0)
-	end
-	return fs
-end
-
 -- Gradient Frame
 function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	assert(f, "doesn't exist!")
@@ -274,7 +289,7 @@ end
 -- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
-	local tex = f:CreateTexture(nil, "BORDER")
+	local tex = f:CreateTexture(nil, "BACKGROUND")
 	tex:SetPoint("TOPLEFT", 1, -1)
 	tex:SetPoint("BOTTOMRIGHT", -1, 1)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
@@ -283,33 +298,14 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
--- Taken from AddOnSkins
-function MERS:SetTemplate(frame, texture)
-	texture = E["media"].normTex
-
-	if texture then
-		texture = texture or E["media"].normTex
-	end
-
-	frame:SetBackdrop({
-		bgFile = texture,
-		edgeFile = E["media"].muiBlank,
-		tile = false, tileSize = 0, edgeSize = E.mult,
-		insets = { left = 0, right = 0, top = 0, bottom = 0},
-	})
-
-	frame:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	frame:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb, .8 or 1)
-end
-
-function MERS:CreateBackdrop(frame, texture)
+function MERS:CreateBackdrop(frame)
 	if frame.backdrop then return end
 
-	local parent = frame:IsObjectType("Texture") and frame:GetParent() or frame
+	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
 
 	local backdrop = CreateFrame("Frame", nil, parent)
 	backdrop:SetOutside(frame)
-	MERS:SetTemplate(backdrop, texture)
+	backdrop:SetTemplate("Transparent")
 
 	if (parent:GetFrameLevel() - 1) >= 0 then
 		backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
@@ -355,24 +351,74 @@ function MERS:CreateBD(f, a)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
-function MERS:StripTextures(Object, Kill, Alpha)
-	for i = 1, Object:GetNumRegions() do
-		local Region = select(i, Object:GetRegions())
-		if Region and Region:GetObjectType() == "Texture" then
-			if Kill then
-				Region:Kill()
-			elseif Alpha then
-				Region:SetAlpha(0)
-			else
-				Region:SetTexture(nil)
+function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
+	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
+
+	btn:StripTextures()
+
+	if not btn.img then
+		btn.img = btn:CreateTexture(nil, 'ARTWORK')
+		btn.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+		btn.img:SetSize(12, 12)
+		btn.img:Point("CENTER")
+		btn.img:SetVertexColor(1, 1, 1)
+
+		btn:SetNormalTexture(E["media"].normTex)
+		btn:SetPushedTexture(E["media"].normTex)
+		btn:SetDisabledTexture(E["media"].normTex)
+
+		btn:HookScript('OnMouseDown', function(btn)
+			if btn:IsEnabled() then
+				btn.img:Point("CENTER", -1, -1)
+				btn.img:SetVertexColor(r, g, b)
 			end
+		end)
+
+		btn:HookScript('OnMouseUp', function(btn)
+			btn.img:Point("CENTER", 0, 0)
+			btn.img:SetVertexColor(1, 1, 1)
+		end)
+
+		btn:HookScript('OnDisable', function(btn)
+			SetDesaturation(btn.img, true)
+			btn.img:SetAlpha(0.3)
+		end)
+
+		btn:HookScript('OnEnable', function(btn)
+			SetDesaturation(btn.img, false)
+			btn.img:SetAlpha(1.0)
+		end)
+
+		if not btn:IsEnabled() then
+			btn:GetScript('OnDisable')(btn)
 		end
 	end
+
+	if useVertical then
+		if inverseDirection then
+			btn.img:SetRotation(MERS.ArrowRotation['UP'])
+		else
+			btn.img:SetRotation(MERS.ArrowRotation['DOWN'])
+		end
+	else
+		if inverseDirection then
+			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
+		else
+			btn.img:SetRotation(MERS.ArrowRotation['RIGHT'])
+		end
+	end
+
+	S:HandleButton(btn)
+	btn:Size(btn:GetWidth() - 7, btn:GetHeight() - 7)
 end
 
 -- ClassColored ScrollBars
 function MERS:ReskinScrollBar(frame, thumbTrim)
 	if frame:GetName() then
+		if frame.trackbg and frame.trackbg.SetTemplate then
+			frame.trackbg:SetTemplate("Transparent", true, true)
+		end
+
 		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
@@ -381,6 +427,10 @@ function MERS:ReskinScrollBar(frame, thumbTrim)
 			end
 		end
 	else
+		if frame.trackbg and frame.trackbg.SetTemplate then
+			frame.trackbg:SetTemplate("Transparent", true, true)
+		end
+
 		if frame.ScrollUpButton and frame.ScrollDownButton then
 			if frame.thumbbg and frame.thumbbg.backdropTexture then
 				frame.thumbbg.backdropTexture.SetVertexColor = nil
@@ -394,48 +444,14 @@ end
 function MERS:ReskinScrollSlider(Slider, thumbTrim)
 	local parent = Slider:GetParent()
 
+	if Slider.trackbg and Slider.trackbg.SetTemplate then
+		Slider.trackbg:SetTemplate("Transparent", true, true)
+	end
+
 	if Slider.thumbbg then
 		Slider.thumbbg.backdropTexture.SetVertexColor = nil
 		Slider.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 		Slider.thumbbg.backdropTexture.SetVertexColor = E.noop
-	end
-end
-
--- ClassColored Sliders
-function MERS:ReskinSliderFrame(frame)
-	assert(frame)
-
-	local orientation = frame:GetOrientation()
-	local SIZE = 12
-
-	frame:StripTextures()
-	if frame.backdrop then frame.backdrop:Hide() end
-
-	MERS:CreateBDFrame(frame)
-	MERS:CreateGradient(frame)
-
-	hooksecurefunc(frame, "SetBackdrop", function(slider, backdrop)
-		if backdrop ~= nil then slider:SetBackdrop(nil) end
-	end)
-
-	frame:SetThumbTexture(E["media"].normTex)
-	frame:GetThumbTexture():SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-	frame:GetThumbTexture():Size(SIZE-2,SIZE-2)
-
-	if orientation == 'VERTICAL' then
-		frame:Width(SIZE)
-	else
-		frame:Height(SIZE)
-
-		for i = 1, frame:GetNumRegions() do
-			local region = select(i, frame:GetRegions())
-			if region and region:GetObjectType() == 'FontString' then
-				local point, anchor, anchorPoint, x, y = region:GetPoint()
-				if anchorPoint:find('BOTTOM') then
-					region:Point(point, anchor, anchorPoint, x, y - 4)
-				end
-			end
-		end
 	end
 end
 
@@ -479,18 +495,6 @@ function MERS:ClearButton()
 	end
 end
 
-local blizzardRegions = {
-	"Left",
-	"Middle",
-	"Right",
-	"Mid",
-	"LeftDisabled",
-	"MiddleDisabled",
-	"RightDisabled",
-	"LeftSeparator",
-	"RightSeparator",
-}
-
 local function StartGlow(f)
 	if not f:IsEnabled() then return end
 	f:SetBackdropBorderColor(r, g, b)
@@ -505,103 +509,134 @@ local function StopGlow(f)
 end
 
 -- Buttons
-function MERS:Reskin(f, strip, noHighlight, noGlow)
-	assert(f, "doesn't exist!")
+function MERS:Reskin(button, strip, noGlow)
+	assert(button, "doesn't exist!")
 
-	if f.SetNormalTexture then f:SetNormalTexture("") end
-	if f.SetHighlightTexture then f:SetHighlightTexture("") end
-	if f.SetPushedTexture then f:SetPushedTexture("") end
-	if f.SetDisabledTexture then f:SetDisabledTexture("") end
+	if strip then button:StripTextures() end
 
-	local buttonName = f:GetName()
+	if button.template then
+		button:SetTemplate("Transparent", true)
+	end
 
-	for _, region in pairs(blizzardRegions) do
-		if buttonName and _G[buttonName..region] then
-			_G[buttonName..region]:SetAlpha(0)
+	MERS:CreateGradient(button)
+
+	if button.Icon then
+		local Texture = button.Icon:GetTexture()
+		if Texture and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]]) then
+			button.Icon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Arrow]])
+			button.Icon:SetVertexColor(1, 1, 1)
+			button.Icon:SetRotation(MERS.ArrowRotation['RIGHT'])
 		end
-		if f[region] then
-			f[region]:SetAlpha(0)
-		end
-	end
-
-	if f.backdrop then f.backdrop:Hide() end
-	if strip then f:StripTextures() end
-
-	MERS:CreateGradient(f)
-
-	if f.template then
-		f:SetBackdrop(nil)
-		if f.oborder then f.oborder:SetBackdrop(nil) end
-		if f.iborder then f.iborder:SetBackdrop(nil) end
-		if f.backdropTexture then f.backdropTexture:SetTexture(nil) end
-
-		f.ignoreFrameTemplates = true
-		f.ignoreBackdropColors = true
-	end
-
-	if not f.bd then
-		local bd = MERS:CreateBDFrame(f)
-		bd:SetAllPoints()
-
-		f.bd = bd
-	end
-
-	if f.bgTex then
-		f.bgTex = MERS:CreateGradient(f)
-	end
-
-	if not noHighlight then
-		f:HookScript("OnEnter", MERS.ColorButton)
-		f:HookScript("OnLeave", MERS.ClearButton)
 	end
 
 	if not noGlow then
-		f.glow = CreateFrame("Frame", nil, f)
-		f.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(2),
-			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
+		button.glow = CreateFrame("Frame", nil, button)
+		button.glow:SetBackdrop({
+			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
+			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
 		})
-		f.glow:SetPoint("TOPLEFT", -1, 1)
-		f.glow:SetPoint("BOTTOMRIGHT", 1, -1)
-		f.glow:SetBackdropBorderColor(r, g, b)
-		f.glow:SetAlpha(0)
+		button.glow:SetPoint("TOPLEFT", -1, 1)
+		button.glow:SetPoint("BOTTOMRIGHT", 1, -1)
+		button.glow:SetBackdropBorderColor(r, g, b)
+		button.glow:SetAlpha(0)
 
-		f:HookScript("OnEnter", StartGlow)
-		f:HookScript("OnLeave", StopGlow)
+		button:HookScript("OnEnter", StartGlow)
+		button:HookScript("OnLeave", StopGlow)
 	end
 end
 
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	if frame.backdrop then frame.backdrop:Hide() end
+	frame:StripTextures()
 
-	frame:SetNormalTexture("")
-	frame:SetPushedTexture("")
-	frame:SetHighlightTexture(E["media"].normTex)
+	if noBackdrop then
+		frame:SetTemplate("Default")
+		frame:Size(16)
+	else
+		MERS:CreateBackdrop(frame)
+		frame.backdrop:SetInside(nil, 4, 4)
+	end
 
-	local hl = frame:GetHighlightTexture()
-	hl:SetPoint("TOPLEFT", 5, -5)
-	hl:SetPoint("BOTTOMRIGHT", -5, 5)
-	hl:SetVertexColor(r, g, b, .2)
+	if not noReplaceTextures then
+		if frame.SetCheckedTexture then
+			frame:SetCheckedTexture(E["media"].blankTex)
+			frame:GetCheckedTexture():SetVertexColor(r, g, b)
+			frame:GetCheckedTexture():SetInside(frame.backdrop)
+		end
 
-	local bd = CreateFrame("Frame", nil, frame)
-	bd:SetPoint("TOPLEFT", 4, -4)
-	bd:SetPoint("BOTTOMRIGHT", -4, 4)
-	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
-	MERS:CreateBD(bd, 0)
-	MERS:CreateGradient(bd)
+		if frame.SetDisabledTexture then
+			frame:SetDisabledTexture(E["media"].blankTex)
+			frame:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+			frame:GetDisabledTexture():SetInside(frame.backdrop)
+		end
 
-	local ch = frame:GetCheckedTexture()
-	ch:SetDesaturated(true)
-	ch:SetVertexColor(r, g, b)
+		frame:HookScript('OnDisable', function(checkbox)
+			if not checkbox.SetDisabledTexture then return; end
+			if checkbox:GetChecked() then
+				checkbox:SetDisabledTexture(E["media"].blankTex)
+				checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			else
+				checkbox:SetDisabledTexture("")
+			end
+		end)
+
+		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetNormalTexture("") end
+		end)
+		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetPushedTexture("") end
+		end)
+		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetHighlightTexture("") end
+		end)
+	end
 end
 
-function MERS:ReskinIcon(icon)
+function MERS:StyleButton(button)
+	if button.isStyled then return end
+
+	if button.SetHighlightTexture then
+		button:SetHighlightTexture(E["media"].blankTex)
+		button:GetHighlightTexture():SetVertexColor(1, 1, 1, .2)
+		button:GetHighlightTexture():SetInside()
+		button.SetHighlightTexture = E.noop
+	end
+
+	if button.SetPushedTexture then
+		button:SetPushedTexture(E["media"].blankTex)
+		button:GetPushedTexture():SetVertexColor(.9, .8, .1, .5)
+		button:GetPushedTexture():SetInside()
+		button.SetPushedTexture = E.noop
+	end
+
+	if button.GetCheckedTexture then
+		button:SetPushedTexture(E["media"].blankTex)
+		button:GetCheckedTexture():SetVertexColor(0, 1, 0, .5)
+		button:GetCheckedTexture():SetInside()
+		button.GetCheckedTexture = E.noop
+	end
+
+	local Cooldown = button:GetName() and _G[button:GetName()..'Cooldown'] or button.Cooldown or button.cooldown or nil
+
+	if Cooldown then
+		Cooldown:SetInside()
+		if Cooldown.SetSwipeColor then
+			Cooldown:SetSwipeColor(0, 0, 0, 1)
+		end
+	end
+
+	button.isStyled = true
+end
+
+function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
-	return MERS:CreateBDFrame(icon)
+	if backdrop then
+		MERS:CreateBackdrop(icon)
+	end
 end
 
 function MERS:CropIcon(texture, parent)
@@ -686,31 +721,69 @@ function MERS:SkinRadioButton(button)
 	button.isSkinned = true
 end
 
+local buttons = {
+	"ElvUIMoverNudgeWindowUpButton",
+	"ElvUIMoverNudgeWindowDownButton",
+	"ElvUIMoverNudgeWindowLeftButton",
+	"ElvUIMoverNudgeWindowRightButton",
+}
+
+local function replaceConfigArrows(button)
+	-- remove the default icons
+	local tex = _G[button:GetName().."Icon"]
+	if tex then
+		tex:SetTexture(nil)
+	end
+
+	-- add the new icon
+	if not button.img then
+		button.img = button:CreateTexture(nil, 'ARTWORK')
+		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
+		button.img:SetSize(12, 12)
+		button.img:Point('CENTER')
+		button.img:SetVertexColor(1, 1, 1)
+
+		button:HookScript('OnMouseDown', function(btn)
+			if btn:IsEnabled() then
+				btn.img:Point("CENTER", -1, -1);
+			end
+		end)
+
+		button:HookScript('OnMouseUp', function(btn)
+			btn.img:Point("CENTER", 0, 0);
+		end)
+	end
+end
+
+function MERS:ApplyConfigArrows()
+	for _, btn in pairs(buttons) do
+		replaceConfigArrows(_G[btn])
+	end
+
+	-- Apply the rotation
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
+
+end
+hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
+
 function MERS:ReskinAS(AS)
 	-- Reskin AddOnSkins
-	local BlizzardRegions = {
-		"Left",
-		"Middle",
-		"Right",
-		"Mid",
-		"LeftDisabled",
-		"MiddleDisabled",
-		"RightDisabled",
-	}
-
 	function AS:SkinTab(Tab, Strip)
 		if Tab.isSkinned then return end
 		local TabName = Tab:GetName()
 
 		if TabName then
-			for _, Region in pairs(BlizzardRegions) do
+			for _, Region in pairs(S.Blizzard.Regions) do
 				if _G[TabName..Region] then
 					_G[TabName..Region]:SetTexture(nil)
 				end
 			end
 		end
 
-		for _, Region in pairs(BlizzardRegions) do
+		for _, Region in pairs(S.Blizzard.Regions) do
 			if Tab[Region] then
 				Tab[Region]:SetAlpha(0)
 			end
@@ -769,9 +842,18 @@ hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
-hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
+hooksecurefunc(S, "HandleMaxMinFrame", MERS.ReskinMaxMinFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
+
+local function ReskinVehicleExit()
+	local f = _G["LeaveVehicleButton"]
+	if f then
+		f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	end
+end
 
 -- keep the colors updated
 local function updateMedia()
@@ -794,6 +876,7 @@ end
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
+	ReskinVehicleExit()
 	updateMedia()
 	pluginInstaller()
 

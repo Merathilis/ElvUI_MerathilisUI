@@ -13,6 +13,7 @@ local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
+local UnitSex = UnitSex
 
 -- GLOBALS: hooksecurefunc, MAX_TALENT_TIERS, NUM_TALENT_COLUMNS, MAX_PVP_TALENT_TIERS, MAX_PVP_TALENT_COLUMNS
 -- GLOBALS: PlayerTalentFrameSpecialization, SPEC_SPELLS_DISPLAY
@@ -115,7 +116,8 @@ local function styleTalents()
 		local shownSpec = spec or playerTalentSpec or 1
 		local numSpecs = GetNumSpecializations(nil, self.isPet);
 
-		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet)
+		local sex = self.isPet and UnitSex("pet") or UnitSex("player")
+		local id, _, _, icon = GetSpecializationInfo(shownSpec, nil, self.isPet, nil, sex)
 		local scrollChild = self.spellsScroll.child
 
 		scrollChild.specIcon:SetTexture(icon)

@@ -18,15 +18,7 @@ local function styleCommunities()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G["CommunitiesFrame"]
-	CommunitiesFrame:StripTextures()
-	CommunitiesFrame:Styling()
-
-	MERS:CreateBD(CommunitiesFrame)
-
-	-- Hide ElvUI backdrop
-	if CommunitiesFrame.backdrop then
-		CommunitiesFrame.backdrop:Hide()
-	end
+	CommunitiesFrame.backdrop:Styling()
 
 	hooksecurefunc(CommunitiesFrameCommunitiesList, "Update", function(self)
 		local buttons = self.ListScrollFrame.buttons
@@ -40,12 +32,21 @@ local function styleCommunities()
 				button:GetRegions():Hide()
 				button:SetHighlightTexture("")
 
-				button.bd = MERS:CreateBDFrame(button)
-				button.bd:SetPoint("TOPLEFT", 4, -3)
-				button.bd:SetPoint("BOTTOMRIGHT", -1, 3)
-				MERS:CreateGradient(button.bd)
+				button:CreateBackdrop("Transparent")
+				button.backdrop:SetPoint("TOPLEFT", 4, -3)
+				button.backdrop:SetPoint("BOTTOMRIGHT", -1, 3)
+				MERS:CreateGradient(button.backdrop)
 
 				button.IsSkinned = true
+			end
+
+			if button.highlight then
+				button.highlight:SetInside(button.backdrop)
+			end
+
+			if button.Selection then
+				button.Selection:SetInside(button.backdrop)
+				button.Selection:SetColorTexture(r, g, b, .3)
 			end
 		end
 	end)
@@ -58,9 +59,6 @@ local function styleCommunities()
 	end
 
 	-- Chat Tab
-	local bg1 = MERS:CreateBDFrame(CommunitiesFrame.Chat.InsetFrame, .25)
-	bg1:SetPoint("BOTTOMRIGHT", -1, 22)
-
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog
 	Dialog:StripTextures()
 	Dialog.BG:Hide()
@@ -103,19 +101,19 @@ local function styleCommunities()
 		local buttons = self.Container.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
-			if button and button:IsShown() and not button.bg then
+			if button then
 				-- Hide the ElvUI backdrop
 				if button.backdrop then
 					button.backdrop:Hide()
 				end
-				MERS:ReskinIcon(button.Icon)
-				for i = 1, 4 do
-					select(i, button:GetRegions()):SetAlpha(0)
-				end
-				button.bg = MERS:CreateBDFrame(button, .25)
-				button.bg:SetPoint("TOPLEFT", button.Icon)
-				button.bg:SetPoint("BOTTOMRIGHT", button.Right)
-				MERS:Reskin(button.bg)
+
+				-- Reaply Transparent backdrop
+				button:CreateBackdrop("Transparent")
+				button.backdrop:SetPoint("TOPLEFT", button.Icon, -1, 1)
+				button.backdrop:SetPoint("BOTTOMRIGHT", button.Right, 1, -1)
+				MERS:CreateGradient(button.backdrop)
+
+				MERS:ReskinIcon(button.Icon, true)
 			end
 		end
 	end)
@@ -130,20 +128,18 @@ local function styleCommunities()
 				if button.backdrop then
 					button.backdrop:Hide()
 				end
-				-- Hide the hover from ElvUI
-				if button.hover then
-					button.hover:Hide()
-				end
-				if not button.bg then
-					MERS:ReskinIcon(button.Icon)
-					select(6, button:GetRegions()):SetAlpha(0)
-					select(7, button:GetRegions()):SetAlpha(0)
 
-					button.bg = MERS:CreateBDFrame(button, .25)
-					button.bg:SetPoint("TOPLEFT", button.Icon, 0, 1)
-					button.bg:SetPoint("BOTTOMRIGHT", 0, 3)
-					MERS:Reskin(button.bg)
+				-- Reaply Transparent backdrop
+				button:CreateBackdrop("Transparent")
+				button.backdrop:SetPoint("TOPLEFT", button.Icon, 0, 1)
+				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
+				MERS:CreateGradient(button.backdrop)
+
+				if button.hover then
+					button.hover:SetInside(button.backdrop)
+					button.hover:SetColorTexture(r, g, b, 0.3)
 				end
+
 				button.DisabledBG:Hide()
 			end
 		end

@@ -20,6 +20,7 @@ local DecorAddons = {
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
+	{"Clique", L["Clique"], "cl"},
 }
 
 local SupportedProfiles = {
@@ -63,22 +64,15 @@ local function SkinsTable()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					closeButton = {
-						order = 2,
-						type = "toggle",
-						name = L["MerathilisUI "]..CLOSE,
-						get = function(info) return E.private.muiSkins[ info[#info] ] end,
-						set = function(info, value) E.private.muiSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
 					panels = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["MerathilisUI Panels"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 					shadowOverlay = {
-						order = 4,
+						order = 3,
 						type = "toggle",
 						name = L["MerathilisUI Shadows"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,

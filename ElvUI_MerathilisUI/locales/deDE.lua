@@ -23,10 +23,10 @@ L["Display the item level on the MerchantFrame, to change the font you have to s
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
-- viele neue Funktionen 
-- einen transparenten Look 
-- alle ElvUI Skins wurden überarbeitet 
-- mein persönliches Layout 
+- viele neue Funktionen
+- einen transparenten Look
+- alle ElvUI Skins wurden überarbeitet
+- mein persönliches Layout
 
 |cFF00c0faHinweis:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
 Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
@@ -37,13 +37,6 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 -- Bags
 L["Removed: "] = "Entfernt: "
 L["Usable Items"] = "Benutzbare Gegenstände"
-L["Split Bags"] = "Taschen abspalten"
-L["With the options below, you are able to split the ElvUI All In One Bag. You can select each bag to be splitted."] = "Mit den unteren Einstellungen ist es dir möglich die ElvUI All In One Tasche abzuspalten. Du kannst jede Tasche auswählen, die abgespaltet werden soll."
-L["Split Bag 1"] = "Tasche 1 abspalten"
-L["Split Bag 2"] = "Tasche 2 abspalten"
-L["Split Bag 3"] = "Tasche 3 abspalten"
-L["Split Bag 4"] = "Tasche 4 abspalten"
-L["Bag spacing"] = "Taschen Abstand"
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -67,6 +60,8 @@ L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
+L["ChatBar"] = "Chatleiste"
+L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 
 -- Information
 L["Information"] = true
@@ -111,13 +106,14 @@ L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
 L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
-L["Combat Status, Skill gains"] = "Kampftext, Skill Steigerungen"
+L["Skill gains"] = "Skill Steigerungen"
 L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Accept Quest"] = "Quest aktzeptiert"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"

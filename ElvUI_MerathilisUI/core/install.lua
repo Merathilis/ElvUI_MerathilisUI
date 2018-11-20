@@ -44,8 +44,8 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
 	SetCVar("nameplateMotion", 1)
-	SetCVar("nameplateOverlapH",  0.3) --default is 0.8
-	SetCVar("nameplateOverlapV",  0.7) --default is 1.1
+	SetCVar("nameplateOverlapH", 0.3) --default is 0.8
+	SetCVar("nameplateOverlapV", 0.7) --default is 1.1
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
@@ -267,6 +267,7 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
+	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -349,6 +350,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["customColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
 	E.db["nameplates"]["showNPCTitles"] = false
+	E.db["nameplates"]["questIconSize"] = 15
 	E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
@@ -358,17 +360,23 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = "LEFT"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,blockNoDuration,CastByUnit,PlayerBuffs,TurtleBuffs"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,CastByUnit,PlayerBuffs,TurtleBuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,MER_Blacklist,Personal,CCDebuffs"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,Personal,CCDebuffs"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = "LEFT"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 1.2
 	E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "blockNoDuration,Personal,Boss,CCDebuffs,Blacklist"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] ={} -- We must reset the filter priority before we apply ours.
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "Personal,Boss,CCDebuffs,Blacklist"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
@@ -421,7 +429,7 @@ function MER:SetupLayout()
 	E.db["mui"]["smb"]["buttonSpacing"] = 2
 	E.db["mui"]["datatexts"]["middle"]["width"] = 330
 
-	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 17)
+	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 17)
 	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)
 	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -19)
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
@@ -787,7 +795,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
-		E.db["unitframe"]["units"]["player"]["power"]["height"] = 15
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 278
@@ -824,6 +832,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = ""
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -931,6 +942,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["scale"] = 0.5
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["showOverAbsorbs"] = true
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
@@ -1016,7 +1030,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 4
-		E.db["unitframe"]["units"]["raid"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid"]["groupBy"] = "ROLE"
 		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["raid"]["health"]["position"] = "BOTTOM"
@@ -1082,6 +1095,10 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
 		end
@@ -1143,10 +1160,9 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["size"] = 10,
 		}
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
-		E.db["unitframe"]["units"]["raid40"]["width"] = 79
+		E.db["unitframe"]["units"]["raid40"]["width"] = 77
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
@@ -1170,6 +1186,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["attachTo"] = "CENTER"
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
@@ -1208,7 +1227,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["party"]["width"] = 160
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
@@ -1246,6 +1264,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
@@ -1404,12 +1425,13 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 		-- Movers
-		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 280)
+		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 281)
 		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 281)
-		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 297)
-		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 280)
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -543, 280)
+		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 298)
+		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 281)
+		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 261)
+		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -543, 281)
 		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 365)
 		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 346)
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
@@ -1418,8 +1440,8 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 454, 359)
 		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
-		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 280)
-		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 268)
+		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 281)
+		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 269)
 		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
@@ -1710,7 +1732,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 4
-		E.db["unitframe"]["units"]["raid"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid"]["groupBy"] = "ROLE"
 		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["raid"]["health"]["position"] = "BOTTOM"
@@ -1809,7 +1830,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["raid40"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["raid40"]["width"] = 69
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = true
@@ -1875,7 +1895,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["healPrediction"] = true
 		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["party"]["width"] = 135
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true

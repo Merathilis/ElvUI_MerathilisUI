@@ -76,7 +76,7 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 		end
 
 		if(realm and realm ~= "") then
-			if(isShiftKeyDown) then
+			if(isShiftKeyDown) or self.db.alwaysShowRealm then
 				name = name..format("|cff00c0fa%s|r", " - "..realm)
 			elseif(relationship == LE_REALM_RELATION_COALESCED) then
 				name = name..format("|cff00c0fa%s|r", FOREIGN_SERVER_LABEL)

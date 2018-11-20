@@ -16,7 +16,7 @@ local function styleBugSack(event, addon)
 	hooksecurefunc(BugSack, "OpenSack", function()
 		if _G["BugSackFrame"].IsSkinned then return end
 
-		MERS:StripTextures(_G["BugSackFrame"])
+		_G["BugSackFrame"]:StripFrame()
 		MERS:CreateBD(_G["BugSackFrame"], .5)
 		_G["BugSackTabAll"]:ClearAllPoints()
 		_G["BugSackTabAll"]:SetPoint("TOPLEFT", _G["BugSackFrame"], "BOTTOMLEFT", 0, 0)

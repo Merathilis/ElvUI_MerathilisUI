@@ -5,10 +5,46 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 --Cache global variables
 local format = string.format
 local tinsert = table.insert
+local strsplit = strsplit
+local match = string.match
+local tconcat = table.concat
+local tremove = table.remove
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: AceGUIWidgetLSMlists
+
+local carryFrom, carryTo
+local function hsValue(value)
+	return gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
+end
+
+local function hsMatch(s,v)
+	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
+end
+
+local function hsButtonSettings(db, key, value, remove, movehere)
+	local str = db[key]
+	if not db or not str or not value then return end
+	local found = hsMatch(str, hsValue(value))
+	if found and movehere then
+		local tbl, sv, sm = {split(",", str)}
+		for i in ipairs(tbl) do
+			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
+			if sv and sm then break end
+		end
+		tremove(tbl, sm);
+		tinsert(tbl, sv, movehere);
+
+		db[key] = tconcat(tbl,',')
+
+	elseif found and remove then
+		db[key] = gsub(str, found, "")
+	elseif not found and not remove then
+		db[key] = (str == '' and value) or (str..","..value)
+	end
+end
 
 local function LocPanelTable()
 	E.Options.args.mui.args.modules.args.locPanel = {
@@ -209,7 +245,7 @@ local function LocPanelTable()
 									return t.r, t.g, t.b, d.r, d.g, d.b
 								end,
 								set = function(info, r, g, b)
-									E.db.sle.minimap.locPanel[ info[#info] ] = {}
+									E.db.mui.minimap.locPanel[ info[#info] ] = {}
 									local t = E.db.mui.locPanel[ info[#info] ]
 									t.r, t.g, t.b = r, g, b
 								end,
@@ -285,25 +321,25 @@ local function LocPanelTable()
 							},
 							showToys = {
 								type = "toggle",
-								order = 8,
+								order = 20,
 								name = L["Show Toys"],
 								desc = L["Show toys in the list. This option will affect all other display options as well."],
 							},
 							showSpells = {
 								type = "toggle",
-								order = 9,
+								order = 30,
 								name = L["Show spells"],
 								desc = L["Show relocation spells in the list."],
 							},
 							showEngineer = {
 								type = "toggle",
-								order = 10,
+								order = 40,
 								name = L["Show engineer gadgets"],
 								desc = L["Show items used only by engineers when the profession is learned."],
 							},
 							ignoreMissingInfo = {
 								type = "toggle",
-								order = 11,
+								order = 50,
 								name = L["Ignore missing info"],
 								desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
 							},

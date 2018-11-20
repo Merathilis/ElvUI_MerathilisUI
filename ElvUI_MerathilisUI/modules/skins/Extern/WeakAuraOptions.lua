@@ -51,7 +51,7 @@ local function InitStyleWAO()
 		for i = 1, 3 do
 			local tex = sizer:CreateTexture(nil, "OVERLAY")
 			tex:SetSize(2, 2)
-			tex:SetTexture(E["media"].normTex)
+			tex:SetTexture(E["media"].blankTex)
 			tex:SetVertexColor(r, g, b, .8)
 			tex:Show()
 			sizer[i] = tex
@@ -60,32 +60,20 @@ local function InitStyleWAO()
 		sizer[2]:SetPoint("BOTTOMLEFT", sizer[1], "TOPLEFT", 0, 4)
 		sizer[3]:SetPoint("BOTTOMLEFT", sizer[1], "BOTTOMRIGHT", 4, 0)
 
-		-- Tutorial
-		--children[6]
-		local _, _, _, enabled, loadable = GetAddOnInfo("WeakAurasTutorials")
-		local tutOfs = (enabled and loadable) and 1 or 0
-
-		--[[ Ace groups
-			children[6+tutOfs] container
-			children[7+tutOfs] texturePick
-			children[8+tutOfs] iconPick
-			children[9+tutOfs] modelPick
-			children[10+tutOfs] importexport
-			children[11+tutOfs] texteditor
-			children[12+tutOfs] codereview
-			children[13+tutOfs] buttonsContainer
-		]]
+		-- Minimize Button
+		local minimize = children[6]:GetChildren()
+		minimize:SetParent(frame)
+		-- TODO: SKIN ME
 
 		-- Search
 		S:HandleEditBox(WeakAurasFilterInput)
 
 		-- Remove Title BG
-		MERS:StripTextures(frame)
+		frame:StripFrame()
 
 		-- StripTextures will actually remove the backdrop too, so we need to put that back
-		MERS:CreateBD(frame)
-		MERS:CreateSD(frame)
-		frame:Styling()
+		frame:CreateBackdrop("Transparent")
+		frame.backdrop:Styling()
 
 		frame.skinned = true
 	end

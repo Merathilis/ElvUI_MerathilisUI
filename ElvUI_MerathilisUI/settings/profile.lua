@@ -25,14 +25,6 @@ P["mui"] = {
 	},
 
 	["bags"] = {
-		["splitBags"] = {
-			["enable"] = true,
-			["bag1"] = true,
-			["bag2"] = true,
-			["bag3"] = true,
-			["bag4"] = true,
-			["bagSpacing"] = 5
-		},
 	},
 
 	["chat"] = {
@@ -41,6 +33,7 @@ P["mui"] = {
 		["iLevelLink"] = true,
 		["hidePlayerBrackets"] = true,
 		["sidePanel"] = false,
+		["chatBar"] = true,
 	},
 
 	["colors"] = {
@@ -126,7 +119,7 @@ P["mui"] = {
 	["microBar"] = {
 		["enable"] = true,
 		["scale"] = 1,
-		["hideInCombat"] = false,
+		["hideInCombat"] = true,
 		["hideInOrderHall"] = false,
 		["text"] = {
 			["position"] = "BOTTOM",
@@ -237,7 +230,7 @@ P["mui"] = {
 		["colorType_Coords"] = "DEFAULT",
 		["customColor"] = {r = 1, g = 1, b = 1 },
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
-		["combathide"] = false,
+		["combathide"] = true,
 		["orderhallhide"] = false,
 		["coordshide"] = false,
 		["portals"] = {
@@ -301,7 +294,7 @@ P["mui"] = {
 		[ERR_NOT_IN_COMBAT] = false,
 		[ERR_NOT_WHILE_DISARMED] = false,
 		[ERR_NOT_WHILE_FALLING] = false,
-		[ERR_NOT_WHILE_MOUNTED] = false,
+		[ERR_NOT_WHILE_MOUNTED] = true,
 		[ERR_NO_ATTACK_TARGET] = true,
 		[ERR_OUT_OF_ENERGY] = true,
 		[ERR_OUT_OF_FOCUS] = true,
@@ -324,6 +317,8 @@ P["mui"] = {
 		[SPELL_FAILED_TARGET_AURASTATE] = true,
 		[SPELL_FAILED_TOO_CLOSE] = false,
 		[SPELL_FAILED_UNIT_NOT_INFRONT] = false,
+		[SPELL_FAILED_NOT_ON_MOUNTED] = true,
+		[SPELL_FAILED_NOT_MOUNTED] = true,
 	},
 
 	["efl"] = {

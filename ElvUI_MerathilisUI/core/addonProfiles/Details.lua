@@ -409,7 +409,7 @@ function MER:LoadDetailsProfile()
 						["start_after_icon"] = true,
 						["font_face_file"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf",
 						["textL_custom_text"] = "{data1}. {data3}",
-						["font_size"] = 11,
+						["font_size"] = 12,
 						["texture_custom_file"] = "Interface\\",
 						["texture_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\lyn1.tga",
 						["use_spec_icons"] = true,

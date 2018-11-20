@@ -4,7 +4,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 --WoW API / Variables
 local ReloadUI = ReloadUI
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: 
+-- GLOBALS:
 
 function MER:LoadShadowandLightProfile()
 	--[[----------------------------------
@@ -126,8 +126,6 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["minimap"]["mapicons"]["iconsize"] = 20
 	E.db["sle"]["minimap"]["mapicons"]["iconmouseover"] = true
 	E.db["sle"]["minimap"]["mapicons"]["iconmousover"] = true
-	E.db["sle"]["minimap"]["buttons"]["anchor"] = "HORIZONTAL"
-	E.db["sle"]["minimap"]["buttons"]["mouseover"] = true
 	E.db["sle"]["minimap"]["locPanel"]["enable"] = false
 	E.db["sle"]["dt"]["durability"]["threshold"] = 49
 	E.db["sle"]["dt"]["durability"]["gradient"] = true

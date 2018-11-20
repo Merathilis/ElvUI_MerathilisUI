@@ -446,7 +446,7 @@ function MB:CreateMicroBar()
 	shopButton:SetScript("OnLeave", function(self) OnLeave(self) end)
 	shopButton:SetScript("OnClick", function(self) if InCombatLockdown() then return end StoreMicroButton:Click() end)
 
-	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 end
 
 function MB:Toggle()

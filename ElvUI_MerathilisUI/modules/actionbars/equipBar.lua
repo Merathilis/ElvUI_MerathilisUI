@@ -29,7 +29,7 @@ function MAB:CreateEquipBar()
 	EquipmentSets:Hide()
 	E.FrameLocks[EquipmentSets] = true
 
-	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI')
+	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 
 	EquipmentSets:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
 	EquipmentSets:SetScript('OnLeave', function(self)

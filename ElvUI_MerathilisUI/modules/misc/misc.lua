@@ -204,8 +204,9 @@ function MI:Initialize()
 	self:LoadGMOTD()
 	self:LoadMailInputBox()
 	self:LoadMoverTransparancy()
-	self:LoadQuestReward()
+	self:LoadQuest()
 	self:LoadnameHover()
+	self:GuildBest()
 end
 
 local function InitializeCallback()

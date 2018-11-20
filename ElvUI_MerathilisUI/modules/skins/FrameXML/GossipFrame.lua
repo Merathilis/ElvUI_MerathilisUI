@@ -26,7 +26,10 @@ local function styleGossip()
 		select(i, _G["GossipFrame"]:GetRegions()):Hide()
 	end
 	_G["GossipGreetingScrollFrame"]:StripTextures()
-	_G["GossipGreetingScrollFrame"].spellTex:SetTexture('') -- Remove Parchement
+
+	if not E.private.skins.parchmentRemover.enable then
+		_G["GossipGreetingScrollFrame"].spellTex:SetTexture('') -- Remove Parchement
+	end
 
 	GossipGreetingText:SetTextColor(1, 1, 1)
 	NPCFriendshipStatusBar:GetRegions():Hide()
