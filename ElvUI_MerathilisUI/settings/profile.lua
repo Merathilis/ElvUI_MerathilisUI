@@ -119,7 +119,7 @@ P["mui"] = {
 	["microBar"] = {
 		["enable"] = true,
 		["scale"] = 1,
-		["hideInCombat"] = false,
+		["hideInCombat"] = true,
 		["hideInOrderHall"] = false,
 		["text"] = {
 			["position"] = "BOTTOM",
@@ -230,7 +230,7 @@ P["mui"] = {
 		["colorType_Coords"] = "DEFAULT",
 		["customColor"] = {r = 1, g = 1, b = 1 },
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
-		["combathide"] = false,
+		["combathide"] = true,
 		["orderhallhide"] = false,
 		["coordshide"] = false,
 		["portals"] = {
