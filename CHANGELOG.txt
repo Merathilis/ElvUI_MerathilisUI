@@ -4,6 +4,7 @@
 [*]Added new Hearthstone spells to the LocPanel.
 [*]Updated the Undress Button on the CharacterFrame.
 [*]Added a ChatBar with quick buttons.
+[*]Added a Quest Notifier.
 [*]A lot of skin updates.[/list]
 
 [b][color=orange]v4.00[/color], 05.10.2018[/b][list]
