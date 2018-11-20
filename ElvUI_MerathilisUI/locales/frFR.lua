@@ -112,7 +112,8 @@ L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
-L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Flashing Cursor"] = true
+L["Accept Quest"] = true
 
 -- Tooltip
 L["Your Status:"] = true
