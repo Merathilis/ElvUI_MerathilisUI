@@ -17,18 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• New Layout for DPS/Tank Profile.",
-		"• Updated BigWigs/Details/Masque Profile.",
-		"• Updated my buttonColector to be like SMB.",
-		"• Added mouseover options for EquipBar & SpecBar.",
-		"• A lot skin updates.",
+		"• Small DPS/Tank Layout adjustments.",
+		"• Take account to the new ElvUI functions. (aborb etc.)",
+		"• Added new Hearthstone spells to the LocPanel.",
+		"• Updated the Undress Button on the CharacterFrame.",
+		"• Added a ChatBar with quick buttons.",
+		"• Added a Quest Notifier.",
+		"• A lot of skin updates.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• If you want my 'NEW' DPS/Tank Layout you have to run through the install again.",
-		"• Changes you have made will get overwritten.",
-		"• Added a WeakAura channel on my Discord, go check it out.",
+		-- "• ''",
 }
 
 local function ModifiedString(string)
