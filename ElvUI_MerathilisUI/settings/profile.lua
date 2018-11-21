@@ -321,18 +321,6 @@ P["mui"] = {
 		[SPELL_FAILED_NOT_MOUNTED] = true,
 	},
 
-	["efl"] = {
-		["enable"] = true,
-		["NameFont"] = "Expressway",
-		["NameFontSize"] = 11,
-		["NameFontFlag"] = "OUTLINE",
-		["InfoFont"] = "Expressway",
-		["InfoFontSize"] = 10,
-		["InfoFontFlag"] = "NONE",
-		["GameIconPack"] = "Launcher",
-		["StatusIconPack"] = "Square",
-	},
-
 	["raidBuffs"] = {
 		["enable"] = true,
 		["visibility"] = "INPARTY",

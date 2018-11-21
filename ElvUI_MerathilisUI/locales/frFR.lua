@@ -382,13 +382,6 @@ L["Always"] = true
 L["Never"] = true
 L["Only Mine"] = true
 
--- EnhancedFriendsList
-L["Info Font"] = true
-L["Game Icon Pack"] = true
-L["Status Icon Pack"] = true
-L["Game Icon Preview"] = true
-L["Status Icon Preview"] = true
-
 -- Install
 L["Welcome"] = true
 L["|cffff7d0aMerathilisUI|r Installation"] = true

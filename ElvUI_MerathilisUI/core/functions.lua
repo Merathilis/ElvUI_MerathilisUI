@@ -56,11 +56,6 @@ for class in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
-function MER:GetClassColorString(class)
-	local color = MER.ClassColors[BC[class] or class]
-	return E:RGBToHex(color.r, color.g, color.b)
-end
-
 function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
 	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")

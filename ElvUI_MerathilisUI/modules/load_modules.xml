@@ -7,7 +7,6 @@
 	<Include file="cooldowns\load_cooldowns.xml"/>
 	<Include file="datatexts\load_datatexts.xml"/>
 	<Include file="databars\load_databars.xml"/>
-	<Include file="efl\load_efl.xml"/>
 	<Include file="locpanel\load_locpanel.xml"/>
 	<Include file="maps\load_maps.xml"/>
 	<Include file="misc\load_misc.xml"/>
