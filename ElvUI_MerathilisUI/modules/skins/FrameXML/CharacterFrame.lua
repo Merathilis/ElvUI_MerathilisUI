@@ -56,7 +56,7 @@ local function styleCharacter()
 	bu:SetPushedTexture("")
 	bu:SetDisabledTexture("")
 
-	MER:AddTooltip(bu, "ANCHOR_RIGHT", E:RGBToHex(r, g, b)..L["Undress"])
+	MER:AddTooltip(bu, "ANCHOR_RIGHT", L["Undress"], 1, 1, 1)
 	bu:SetScript('OnClick', function()
 		for i = 1, 17 do
 			local texture = GetInventoryItemTexture('player', i)
