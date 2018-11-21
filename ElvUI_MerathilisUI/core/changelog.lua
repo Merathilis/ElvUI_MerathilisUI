@@ -17,13 +17,8 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Small DPS/Tank Layout adjustments.",
-		"• Take account to the new ElvUI functions. (aborb etc.)",
-		"• Added new Hearthstone spells to the LocPanel.",
-		"• Updated the Undress Button on the CharacterFrame.",
-		"• Added a ChatBar with quick buttons.",
-		"• Added a Quest Notifier.",
-		"• A lot of skin updates.",
+		"• Fixed an error in one of my ClassColor function. #38",
+		"• Fixed an error with DeJaCharacterStats. #39",
 
 		-- "• ''",
 	" ",
