@@ -56,10 +56,6 @@ function COMP:ModulePrint(addon, module)
 end
 
 function COMP:ProjectAzilrokaCompatibility()
-	if Disable(_G.ProjectAzilrokaDB, "EFL") then
-		self:Print("ProjectAzilroka", "EnhancedFriendsList")
-	end
-
 	if Disable(_G.ProjectAzilroka.db, "SMB" and E.db.mui["smb"]) then
 		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
