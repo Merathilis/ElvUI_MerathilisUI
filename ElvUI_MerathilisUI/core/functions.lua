@@ -35,8 +35,17 @@ MER.GreyColor = "|cffB5B5B5"
 
 -- Class Color stuff
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
-
 MER.ClassColors = {}
+local BC = {}
+
+for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
+	BC[v] = k
+end
+
+for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
+	BC[v] = k
+end
+
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class in pairs(colors) do
 	MER.ClassColors[class] = {}
@@ -46,6 +55,11 @@ for class in pairs(colors) do
 	MER.ClassColors[class].colorStr = colors[class].colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+
+function MER:GetClassColorString(class)
+	local color = MER.ClassColors[BC[class] or class]
+	return E:RGBToHex(color.r, color.g, color.b)
+end
 
 function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
@@ -250,20 +264,6 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
-end
-
-local BC = {}
-for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-	BC[v] = k
-end
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-	BC[v] = k
-end
-
-function MER:GetClassColorString(class)
-	local color = MER.colors.class[BC[class] or class]
-	return E:RGBToHex(color.r, color.g, color.b)
 end
 
 function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
