@@ -22,6 +22,7 @@ P["mui"] = {
 		["shadowOverlay"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
+		["undressButton"] = true,
 	},
 
 	["bags"] = {
