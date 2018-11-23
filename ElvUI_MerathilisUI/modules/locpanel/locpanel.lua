@@ -245,7 +245,7 @@ function LP:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
-	loc_panel:SetFrameStrata("HIGH")
+	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript("OnMouseUp", LP.OnClick)

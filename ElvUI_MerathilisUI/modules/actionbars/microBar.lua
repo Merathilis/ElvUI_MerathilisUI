@@ -61,7 +61,7 @@ end
 
 function MB:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
-	microBar:SetFrameStrata("HIGH")
+	microBar:SetFrameStrata("MEDIUM")
 	microBar:EnableMouse(true)
 	microBar:SetSize(400, 26)
 	microBar:SetScale(MB.db.scale or 1)

@@ -1,13 +1,14 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule("mUIMisc")
 
-
 -- Cache global variables
 -- Lua functions
 local _G = _G
 local pairs, select = pairs, select
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
+local GetContainerItemLink = GetContainerItemLink
+local GetInventoryItemLink = GetInventoryItemLink
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
@@ -48,6 +49,7 @@ function MI:ItemLevel()
 			button.iLvl = MER:CreateFS(button, 10, "")
 			button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
 		end
+
 		local link, level
 		if bag then
 			link = GetContainerItemLink(bag, slot)
@@ -56,6 +58,7 @@ function MI:ItemLevel()
 			link = GetInventoryItemLink("player", slot)
 			level = MER:GetItemLevel(link, "player", slot)
 		end
+
 		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
 		button.iLvl:SetText(level)
 		button.iLvl:SetTextColor(color.r, color.g, color.b)
@@ -64,6 +67,7 @@ function MI:ItemLevel()
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		local location = button.location
 		if not location or location < 0 then return end
+
 		if location == EQUIPMENTFLYOUT_PLACEINBAGS_LOCATION then
 			if button.iLvl then button.iLvl:SetText("") end
 			return
@@ -71,6 +75,7 @@ function MI:ItemLevel()
 
 		local _, _, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(location)
 		if voidStorage then return end
+
 		local quality = select(13, EquipmentManager_GetItemInfoByLocation(location))
 		if bags then
 			SetupFlyoutLevel(button, bag, slot, quality)
