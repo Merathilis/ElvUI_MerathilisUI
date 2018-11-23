@@ -207,6 +207,7 @@ function MI:Initialize()
 	self:LoadQuest()
 	self:LoadnameHover()
 	self:GuildBest()
+	self:ItemLevel()
 end
 
 local function InitializeCallback()

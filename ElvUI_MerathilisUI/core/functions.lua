@@ -3,7 +3,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, print, select = assert, pairs, print, select
+local assert, pairs, print, select, tonumber, type = assert, pairs, print, select, tonumber, type
 local getmetatable = getmetatable
 local find, format = string.find, string.format
 -- WoW API / Variables
@@ -95,6 +95,35 @@ end
 function MER:GetSpell(id)
 	local name = GetSpellInfo(id)
 	return name
+end
+
+-- Tooltip scanning stuff
+local iLvlDB = {}
+local itemLevelString = _G["ITEM_LEVEL"]:gsub("%%d", "")
+local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+
+function MER:GetItemLevel(link, arg1, arg2)
+	if iLvlDB[link] then return iLvlDB[link] end
+
+	tip:SetOwner(UIParent, "ANCHOR_NONE")
+	if arg1 and type(arg1) == "string" then
+		tip:SetInventoryItem(arg1, arg2)
+	elseif arg1 and type(arg1) == "number" then
+		tip:SetBagItem(arg1, arg2)
+	else
+		tip:SetHyperlink(link)
+	end
+
+	for i = 2, 5 do
+		local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
+		local found = text:find(itemLevelString)
+		if found then
+			local level = text:match("(%d+)%)?$")
+			iLvlDB[link] = tonumber(level)
+			break
+		end
+	end
+	return iLvlDB[link]
 end
 
 function MER:BagSearch(itemId)
@@ -190,7 +219,7 @@ end
 -- frame text
 function MER:CreateFS(f, size, text, classcolor, anchor, x, y)
 	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, nil, 'OUTLINE')
+	fs:FontTemplate(nil, size or 10, 'OUTLINE')
 	fs:SetText(text)
 	fs:SetWordWrap(false)
 	if classcolor and type(classcolor) == "boolean" then
