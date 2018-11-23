@@ -60,8 +60,10 @@ local function styleQuestFrame()
 	--------------------------
 	_G["QuestGreetingScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
+		end
 	end)
 
 	hooksecurefunc("QuestFrame_SetMaterial", function(frame)
