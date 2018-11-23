@@ -33,7 +33,7 @@ local function MerchantItemlevel()
 		local button = _G["MerchantItem"..i.."ItemButton"]
 		if button and button:IsShown() then
 			if not button.text then
-				button.text = MER:CreateFS(button, 10)
+				button.text = MER:CreateText(button, "OVERLAY", 10)
 				button.text:SetPoint("BOTTOMRIGHT", 0, 2)
 			else
 				button.text:SetText("")

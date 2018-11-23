@@ -185,13 +185,6 @@ function MER:Reset(group)
 	E:UpdateAll()
 end
 
-function MER:CreateText(f, layer, fontsize, flag, justifyh)
-	local text = f:CreateFontString(nil, layer)
-	text:SetFont(E.media.normFont, fontsize, flag)
-	text:SetJustifyH(justifyh or "CENTER")
-	return text
-end
-
 -- GameTooltip
 function MER:AddTooltip(self, anchor, text, color)
 	if not anchor then return end
@@ -215,24 +208,31 @@ function MER:AddTooltip(self, anchor, text, color)
 	self:SetScript("OnLeave", GameTooltip_Hide)
 end
 
-
 -- frame text
-function MER:CreateFS(f, size, text, classcolor, anchor, x, y)
-	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, size or 10, 'OUTLINE')
-	fs:SetText(text)
-	fs:SetWordWrap(false)
-	if classcolor and type(classcolor) == "boolean" then
-		fs:SetTextColor(MER.r, MER.g, MER.b)
-	elseif classcolor == "system" then
-		fs:SetTextColor(1, .8, 0)
-	end
-	if (anchor and x and y) then
-		fs:SetPoint(anchor, x, y)
+function MER:CreateText(f, layer, size, text, classcolor, anchor, x, y)
+	local text = f:CreateFontString(nil, layer)
+	text:FontTemplate(nil, size or 10, 'OUTLINE')
+	text:SetWordWrap(false)
+
+	if text then
+		text:SetText(text)
 	else
-		fs:SetPoint("CENTER", 1, 0)
+		text:SetText("")
 	end
-	return fs
+
+	if classcolor and type(classcolor) == "boolean" then
+		text:SetTextColor(MER.r, MER.g, MER.b)
+	elseif classcolor == "system" then
+		text:SetTextColor(1, .8, 0)
+	end
+
+	if (anchor and x and y) then
+		text:SetPoint(anchor, x, y)
+	else
+		text:SetPoint("CENTER", 1, 0)
+	end
+
+	return text
 end
 
 -- Inform us of the patch info we play on.

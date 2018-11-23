@@ -71,7 +71,7 @@ function MM:MiniMapPing()
 	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MER:CreateFS(f, 8, "", false, pos, xOffset, yOffset)
+	f.text = MER:CreateText(f, "OVERLAY", 10, "", nil, pos, xOffset, yOffset)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)
