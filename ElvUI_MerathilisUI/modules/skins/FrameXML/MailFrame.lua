@@ -81,9 +81,9 @@ local function styleMail()
 		if not b.skinned then
 			b:StripTextures()
 			b:SetTemplate("Transparent", true)
-			b:Styling()
 			b:StyleButton()
 			b.skinned = true
+
 			hooksecurefunc(b.IconBorder, "SetVertexColor", function(self, r, g, b)
 				self:GetParent():SetBackdropBorderColor(r, g, b)
 				self:SetTexture("")
@@ -101,8 +101,6 @@ local function styleMail()
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G["OpenMailFrame"]
-
-	OpenMailFrame:Styling()
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G["InboxFrame"], "TOPRIGHT", 5, 0)
 	_G["OpenMailFrameIcon"]:Hide()
