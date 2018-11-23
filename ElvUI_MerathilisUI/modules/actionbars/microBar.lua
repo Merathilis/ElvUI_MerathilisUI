@@ -93,6 +93,7 @@ function MB:CreateMicroBar()
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
 	charButton.text:SetText(CHARACTER_BUTTON)
+	charButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	charButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	charButton:SetScript("OnLeave", function(self) OnLeave(self) end)
