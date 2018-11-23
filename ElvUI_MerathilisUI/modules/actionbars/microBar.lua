@@ -86,14 +86,13 @@ function MB:CreateMicroBar()
 	charButton.tex:SetVertexColor(.6, .6, .6)
 	charButton.tex:SetBlendMode("ADD")
 
-	charButton.text = MER:CreateText(charButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	charButton.text = MER:CreateText(charButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		charButton.text:SetPoint("BOTTOM", charButton, 2, -15)
 	else
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
 	charButton.text:SetText(CHARACTER_BUTTON)
-	charButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	charButton:SetScript("OnEnter", function(self) OnHover(self) end)
 	charButton:SetScript("OnLeave", function(self) OnLeave(self) end)
@@ -113,7 +112,7 @@ function MB:CreateMicroBar()
 	friendsButton.tex:SetVertexColor(.6, .6, .6)
 	friendsButton.tex:SetBlendMode("ADD")
 
-	friendsButton.text = MER:CreateText(friendsButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	friendsButton.text = MER:CreateText(friendsButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		friendsButton.text:SetPoint("BOTTOM", friendsButton, 2, -15)
 	else
@@ -171,7 +170,7 @@ function MB:CreateMicroBar()
 	guildButton.tex:SetVertexColor(.6, .6, .6)
 	guildButton.tex:SetBlendMode("ADD")
 
-	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		guildButton.text:SetPoint("BOTTOM", guildButton, 2, -15)
 	else
@@ -233,7 +232,7 @@ function MB:CreateMicroBar()
 	achieveButton.tex:SetVertexColor(.6, .6, .6)
 	achieveButton.tex:SetBlendMode("ADD")
 
-	achieveButton.text = MER:CreateText(achieveButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	achieveButton.text = MER:CreateText(achieveButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		achieveButton.text:SetPoint("BOTTOM", achieveButton, 2, -15)
 	else
@@ -260,7 +259,7 @@ function MB:CreateMicroBar()
 	encounterButton.tex:SetVertexColor(.6, .6, .6)
 	encounterButton.tex:SetBlendMode("ADD")
 
-	encounterButton.text = MER:CreateText(encounterButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	encounterButton.text = MER:CreateText(encounterButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		encounterButton.text:SetPoint("BOTTOM", encounterButton, 2, -15)
 	else
@@ -279,7 +278,7 @@ function MB:CreateMicroBar()
 	timeButton:SetSize(32, 32)
 	timeButton:SetFrameLevel(6)
 
-	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16, "OUTLINE", "CENTER")
+	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16)
 	timeButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	timeButton.text:SetPoint("CENTER", 0, 0)
 
@@ -325,7 +324,7 @@ function MB:CreateMicroBar()
 	petButton.tex:SetVertexColor(.6, .6, .6)
 	petButton.tex:SetBlendMode("ADD")
 
-	petButton.text = MER:CreateText(petButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	petButton.text = MER:CreateText(petButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		petButton.text:SetPoint("BOTTOM", petButton, 2, -15)
 	else
@@ -352,7 +351,7 @@ function MB:CreateMicroBar()
 	lfrButton.tex:SetVertexColor(.6, .6, .6)
 	lfrButton.tex:SetBlendMode("ADD")
 
-	lfrButton.text = MER:CreateText(lfrButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	lfrButton.text = MER:CreateText(lfrButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		lfrButton.text:SetPoint("BOTTOM", lfrButton, 2, -15)
 	else
@@ -379,7 +378,7 @@ function MB:CreateMicroBar()
 	spellBookButton.tex:SetVertexColor(.6, .6, .6)
 	spellBookButton.tex:SetBlendMode("ADD")
 
-	spellBookButton.text = MER:CreateText(spellBookButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	spellBookButton.text = MER:CreateText(spellBookButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		spellBookButton.text:SetPoint("BOTTOM", spellBookButton, 2, -15)
 	else
@@ -406,7 +405,7 @@ function MB:CreateMicroBar()
 	speccButton.tex:SetVertexColor(.6, .6, .6)
 	speccButton.tex:SetBlendMode("ADD")
 
-	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
 	else
@@ -433,7 +432,7 @@ function MB:CreateMicroBar()
 	shopButton.tex:SetVertexColor(.6, .6, .6)
 	shopButton.tex:SetBlendMode("ADD")
 
-	shopButton.text = MER:CreateText(shopButton, "HIGHLIGHT", 11, "OUTLINE", "CENTER")
+	shopButton.text = MER:CreateText(shopButton, "HIGHLIGHT", 11)
 	if MB.db.text.position == "BOTTOM" then
 		shopButton.text:SetPoint("BOTTOM", shopButton, 2, -15)
 	else

@@ -224,6 +224,8 @@ function MER:CreateText(f, layer, size, text, classcolor, anchor, x, y)
 		text:SetTextColor(MER.r, MER.g, MER.b)
 	elseif classcolor == "system" then
 		text:SetTextColor(1, .8, 0)
+	elseif classcolor == "white" then
+		text:SetTextColor(1, 1, 1)
 	end
 
 	if (anchor and x and y) then
