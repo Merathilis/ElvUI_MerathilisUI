@@ -5,7 +5,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local _G = _G
 local assert, pairs, print, select, tonumber, type = assert, pairs, print, select, tonumber, type
 local getmetatable = getmetatable
-local find, format = string.find, string.format
+local find, format, match, split = string.find, string.format, string.match, string.split
+local tconcat = table.concat
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -184,6 +185,90 @@ function MER:Reset(group)
 	end
 	E:UpdateAll()
 end
+
+-- Movable Config Buttons
+local function MovableButton_Value(value)
+	return gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
+end
+
+local function MovableButton_Match(s,v)
+	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
+end
+
+function MER:MovableButtonSettings(db, key, value, remove, movehere)
+	local str = db[key]
+	if not db or not str or not value then return end
+
+	local found = MovableButton_Match(str, MovableButton_Value(value))
+	if found and movehere then
+		local tbl, sv, sm = {split(",", str)}
+		for i in ipairs(tbl) do
+			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
+			if sv and sm then break end
+		end
+		tremove(tbl, sm)
+		tinsert(tbl, sv, movehere)
+
+		db[key] = tconcat(tbl,',')
+
+	elseif found and remove then
+		db[key] = gsub(str, found, "")
+	elseif not found and not remove then
+		db[key] = (str == '' and value) or (str..","..value)
+	end
+end
+
+function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
+	local moveItemFrom, moveItemTo
+
+	local config = {
+		order = Order,
+		dragdrop = true,
+		type = "multiselect",
+		name = Name,
+		dragOnLeave = function() end, --keep this here
+		dragOnEnter = function(info)
+			moveItemTo = info.obj.value
+		end,
+		dragOnMouseDown = function(info)
+			moveItemFrom, moveItemTo = info.obj.value, nil
+		end,
+		dragOnMouseUp = function(info)
+			MER:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			moveItemFrom, moveItemTo = nil, nil
+		end,
+		stateSwitchGetText = function(info, TEXT)
+			local text = GetItemInfo(tonumber(TEXT))
+			info.userdata.text = text
+			return text
+		end,
+		stateSwitchOnClick = function(info)
+			MER:MovableButtonSettings(db, key, moveItemFrom)
+		end,
+		values = function()
+			local str = db[key]
+			if str == "" then return nil end
+			return {split(",",str)}
+		end,
+		get = function(info, value)
+			local str = db[key]
+			if str == "" then return nil end
+			local tbl = {split(",",str)}
+			return tbl[value]
+		end,
+		set = function(info, value) end,
+	}
+
+	if CanRemove then --This allows to remove
+		config.dragOnClick = function(info)
+			MER:MovableButtonSettings(db, key, moveItemFrom, true)
+		end
+	end
+
+	return config
+end
+
 
 -- GameTooltip
 function MER:AddTooltip(self, anchor, text, color)

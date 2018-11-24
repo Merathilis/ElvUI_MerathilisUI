@@ -260,6 +260,7 @@ L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
+L["Hearthstone Toys Order"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true

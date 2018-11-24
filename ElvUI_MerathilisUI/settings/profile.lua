@@ -243,6 +243,7 @@ P["mui"] = {
 			["cdFormat"] = "DEFAULT",
 			["ignoreMissingInfo"] = false,
 			["showHearthstones"] = true,
+			["hsPrio"] = "54452,64488,93672,142542,162973,163045",
 			["showToys"] = true,
 			["showSpells"] = true,
 			["showEngineer"] = true,

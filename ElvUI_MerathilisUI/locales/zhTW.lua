@@ -265,6 +265,7 @@ L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
 L["Hearthstone Location"] = true
+L["Hearthstone Toys Order"] = true
 L["Show hearthstones"] = true
 L["Show hearthstone type items in the list."] = true
 L["Show Toys"] = true
