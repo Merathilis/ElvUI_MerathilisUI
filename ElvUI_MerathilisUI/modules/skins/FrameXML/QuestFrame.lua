@@ -48,11 +48,18 @@ local function styleQuestFrame()
 		self:Height(self:GetHeight() - 2)
 	end)
 
-	hooksecurefunc("QuestFrameProgressItems_Update", function()
-		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 1)
+	hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
+		if fontString == 'QuestProgressTitleText' then
+			fontString:SetTextColor(1, .8, .1)
+		end
+	end)
+
+	hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
+		if (fontString == 'GreetingText' or fontString == 'QuestProgressText') then
+			fontString:SetTextColor(1, 1, 1)
+		else
+			fontString:SetTextColor(1, .8, .1)
+		end
 	end)
 
 	--------------------------
@@ -171,16 +178,6 @@ local function styleQuestFrame()
 	-- Text Color
 	QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
 	QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
-	QuestProgressTitleText:SetTextColor(1, 1, 1)
-	QuestProgressTitleText:SetShadowColor(0, 0, 0)
-	QuestProgressTitleText.SetTextColor = MER.dummy
-	QuestProgressText:SetTextColor(1, 1, 1)
-	QuestProgressText.SetTextColor = MER.dummy
-	GreetingText:SetTextColor(1, 1, 1)
-	GreetingText.SetTextColor = MER.dummy
-	AvailableQuestsText:SetTextColor(1, 1, 1)
-	AvailableQuestsText.SetTextColor = MER.dummy
-	AvailableQuestsText:SetShadowColor(0, 0, 0)
 	CurrentQuestsText:SetTextColor(1, 1, 1)
 	CurrentQuestsText.SetTextColor = MER.dummy
 	CurrentQuestsText:SetShadowColor(0, 0, 0)
