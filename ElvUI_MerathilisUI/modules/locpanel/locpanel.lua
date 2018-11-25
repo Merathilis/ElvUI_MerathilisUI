@@ -8,7 +8,7 @@ LP.modName = L["Location Panel"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local format = string.format
+local format, split = string.format, string.split
 local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
@@ -459,6 +459,11 @@ function LP:ItemList(check)
 		local priority = 100
 		local ShownHearthstone
 		local tmp = {}
+		local hsPrio = {split(",", E.db.mui.locPanel.portals.hsPrio)}
+		local hsRealPrio = {}
+		for key = 1, #hsPrio do
+			hsRealPrio[hsPrio[key]] = key
+		end
 
 		for i = 1, #LP.Hearthstones do
 			local data = LP.Hearthstones[i]
@@ -471,7 +476,7 @@ function LP:ItemList(check)
 						ShownHearthstone = data
 						break
 					else
-						local curPriorirty = E.db.mui.locPanel.portals.hsPrio[tostring(ID)]
+						local curPriorirty = hsRealPrio[tostring(ID)]
 						if curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
