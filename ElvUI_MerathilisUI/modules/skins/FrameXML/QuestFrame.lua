@@ -44,21 +44,9 @@ local function styleQuestFrame()
 
 	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
-	end)
-
-	hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
-		if fontString == 'QuestProgressTitleText' then
-			fontString:SetTextColor(1, .8, .1)
-		end
-	end)
-
-	hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
-		if (fontString == 'GreetingText' or fontString == 'QuestProgressText') then
-			fontString:SetTextColor(1, 1, 1)
-		else
-			fontString:SetTextColor(1, .8, .1)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -181,6 +169,16 @@ local function styleQuestFrame()
 	CurrentQuestsText:SetTextColor(1, 1, 1)
 	CurrentQuestsText.SetTextColor = MER.dummy
 	CurrentQuestsText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText:SetTextColor(1, 1, 1)
+	QuestProgressTitleText:SetShadowColor(0, 0, 0)
+	QuestProgressTitleText.SetTextColor = MER.dummy
+	QuestProgressText:SetTextColor(1, 1, 1)
+	QuestProgressText.SetTextColor = MER.dummy
+	GreetingText:SetTextColor(1, 1, 1)
+	GreetingText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetTextColor(1, 1, 1)
+	AvailableQuestsText.SetTextColor = MER.dummy
+	AvailableQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
