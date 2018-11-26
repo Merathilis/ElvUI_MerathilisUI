@@ -26,6 +26,7 @@ function MI:ItemLevel()
 		if self.itemLocation and not self.item:IsItemEmpty() and self.item:GetItemName() then
 			quality = self.item:GetItemQuality()
 		end
+
 		local level = MER:GetItemLevel(self.itemLink)
 		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
 		self.iLvl:SetText(level)
