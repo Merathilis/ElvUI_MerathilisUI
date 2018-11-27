@@ -20,11 +20,15 @@ local function styleQuestFrame()
 	------------------------
 	_G["QuestDetailScrollFrame"]:StripTextures(true)
 	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
-		self.spellTex:SetTexture("")
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+		end
 	end)
 
 	if _G["QuestDetailScrollFrame"].spellTex then
-		_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
+		if not E.private.skins.parchmentRemover.enable then
+			_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
+		end
 	end
 
 	------------------------
@@ -33,8 +37,10 @@ local function styleQuestFrame()
 	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
 		self.backdrop:Hide()
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
+		end
 	end)
 
 	--------------------------
