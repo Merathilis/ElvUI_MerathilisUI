@@ -186,6 +186,33 @@ function MERA:AlertRun(f, r, g, b)
 	flowingframe:Show()
 end
 
+local function msgChannel()
+	return IsPartyLFG() and "INSTANCE_CHAT" or IsInRaid() and "RAID" or "PARTY"
+end
+
+function MERA:PlacedItemAlert()
+	local itemList = {
+		[226241] = true,	-- Codex of the Tranquil Mind
+		[256230] = true,	-- Codex of the Quiet Mind
+		[185709] = true,	-- Sugar-Crusted Fish Feast
+		[259409] = true,	-- Galley Banquet
+		[259410] = true,	-- Bountiful Captain's Feast
+	}
+
+	local function checkSpell(_, unit, _, spellID)
+		if UnitInRaid(unit) or UnitInParty(unit) then
+			if spellID and itemList[spellID] then
+				local who = UnitName(unit)
+				local link = GetSpellLink(spellID)
+				local name = GetSpellInfo(spellID)
+
+				SendChatMessage(format(L["Placed Item"], who, link or name), msgChannel())
+			end
+		end
+	end
+	MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", checkSpell)
+end
+
 function MERA:Initialize()
 	if E.db.mui.general.CombatState then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -194,6 +221,7 @@ function MERA:Initialize()
 
 	if E.db.mui.misc.announce then
 		self:RegisterEvent("CHAT_MSG_SKILL")
+		self:PlacedItemAlert()
 	end
 
 	SetCVar("floatingCombatTextCombatState", "1")

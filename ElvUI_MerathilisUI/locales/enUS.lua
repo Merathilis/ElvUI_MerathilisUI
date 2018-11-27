@@ -114,6 +114,7 @@ L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
 L["Flashing Cursor"] = true
 L["Accept Quest"] = true
+L["Placed Item"] = true
 
 -- Tooltip
 L["Your Status:"] = true

@@ -114,6 +114,7 @@ L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
+L["Placed Item"] = "Platzierte Gegenstand"
 
 -- TooltipIcon
 L["Your Status:"] = "Dein Status:"
