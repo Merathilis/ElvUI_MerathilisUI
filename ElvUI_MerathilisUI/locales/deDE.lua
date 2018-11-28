@@ -116,7 +116,7 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 
--- TooltipIcon
+-- Tooltip
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
@@ -126,6 +126,30 @@ L["Adds information to the tooltip, on which char you earned an achievement."] =
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
+L["Realm Info"] = true
+L["Shows realm info in various tooltips."] = "Zeigt Realminformationen im Tooltip"
+L["Tooltips"] = true
+L["Show the realm info in the group finder tooltip."] = "Zeigt Realminformationen im Tooltip in der Gruppensuche an"
+L["Player Tooltips"] = "Spieler Tooltips"
+L["Show the realm info in the player tooltip."] = "Zeigt Realminformationen im Tooltip von Spielern an"
+L["Friend List"] = "Freundesliste"
+L["Show the realm info in the friend list tooltip."] = "Zeigt Realminformationen im Tooltip in der Freundesliste an"
+L["Tooltip Lines"] = "Tooltip Linien"
+L["Realm Timezone"] = "Realm Zeitzone"
+L["Add realm timezone to the tooltip."] = "Zeigt die Zeitzone des Realms im Tooltip an"
+L["Realm Type"] = "Realmtyp"
+L["Add realm type to the tooltip."] = "Zeigt den Realmtyp im Tooltip an"
+L["Realm Language"] = "Realmsprache"
+L["Add realm language to the tooltip."] = "Zeigt die Sprache des Realm im Tooltip an"
+L["Connected Realms"] = "Verbundene Realms"
+L["Add the connected realms to the tooltip."] = "Zeigt verbundene Realms im Tooltip an"
+L["Country Flag"] = "Landesflagge"
+L["Display the country flag without text on the left side in tooltip."] = "Zeigt die Landesflagge ohne Text auf der linken Seite des Tooltips an"
+L["Behind language in 'Realm language' line"] = "Nach der Realmsprache"
+L["Behind the character name"] = "Nach dem Charakternamen"
+L["In own tooltip line on the left site"] = "In einer eigenen Zeile auf der linken Seite"
+L["Prepend country flag on character name in group finder."] = "Vor dem Characternamen in der Gruppensuche"
+L["Prepend country flag on character name in community member lists."] = "Vor dem Characternamen in der Gemeinschafts-Mitgliederliste"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
