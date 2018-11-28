@@ -13,6 +13,7 @@ local GetGuildRosterMOTD = GetGuildRosterMOTD
 local GetGuildInfo = GetGuildInfo
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
+local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
@@ -22,6 +23,8 @@ local flat = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat]]
 function MI:GMOTD()
 	-- MainFrame
 	if not gmotd then
+		if not IsInGuild() then return; end
+
 		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight()/5)
 		gmotd:SetSize(350, 150)
@@ -70,13 +73,14 @@ function MI:GMOTD()
 				msg = GetGuildRosterMOTD()
 				guild = select(1, GetGuildInfo("player"))
 			end
-			if (msg ~= "") and not InCombatLockdown() then
+
+			if (msg and msg ~= "") and not InCombatLockdown() then
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
 				local numLines = gmotd.text:GetNumLines()
-				gmotd:SetHeight(20+(12.2*numLines))
+				gmotd:SetHeight(20 + (12.2  *numLines))
 				gmotd:Show()
 			else
 				gmotd:Hide()
