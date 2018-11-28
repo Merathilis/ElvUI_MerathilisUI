@@ -9,6 +9,7 @@ local gsub, ipairs, pairs, tostring, type = gsub, ipairs, pairs, tostring, type
 local strsplit = string.split
 local tconcat, tinsert, tsort = table.concat, table.insert, table.sort
 --WoW API / Variables
+local C_LFGList_GetApplicantMemberInfo = C_LFGList.GetApplicantMemberInfo
 local CreateFrame = CreateFrame
 local GetCurrentRegion = GetCurrentRegion
 local GetMouseFocus = GetMouseFocus
@@ -20,7 +21,7 @@ local UnitIsPlayer = UnitIsPlayer
 
 -- [[ CREDITS: hizuro - TooltipRealmInfo]]
 
-local C = WrapTextInColorCode;
+local ColorCode = WrapTextInColorCode;
 
 local frame, media, myRealm = CreateFrame("frame"), "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\flags\\", GetRealmName()
 local _FRIENDS_LIST_REALM, _LFG_LIST_TOOLTIP_LEADER = FRIENDS_LIST_REALM.."|r(.+)", gsub(LFG_LIST_TOOLTIP_LEADER,"%%s","(.+)")
@@ -85,7 +86,7 @@ local replaceRealmNames	 = { -- <api> = <LibRealmInfo compatible>
 };
 
 local function GetRealmInfo(realm)
-	if tostring(realm or ""):len()==0 then
+	if tostring(realm or ""):len() == 0 then
 		realm = myRealm;
 	end
 
@@ -97,7 +98,7 @@ local function GetRealmInfo(realm)
 		regionFix = ({"US", "KR", "EU", "TW", "CN"})[GetCurrentRegion()]; -- i'm not sure but sometimes LibRealmInfo aren't able to detect region
 	end
 
-	local res = {LRI:GetRealmInfo(realm,regionFix)};
+	local res = {LRI:GetRealmInfo(realm, regionFix)};
 
 	if #res == 0 then
 		return;
@@ -123,10 +124,10 @@ local function GetRealmInfo(realm)
 	local rules_l = res[rules]:lower();
 	if rules_l == "rp" or rules_l == "rppvp" then
 		res[rules] = "RP PvE";
-	elseif rules_l =="pvp" then
+	elseif rules_l == "pvp" then
 		res[rules] = "PvE";
 	else
-		res[rules] = gsub(res[rules],"V","v");
+		res[rules] = gsub(res[rules], "V", "v");
 	end
 
 	-- modify timezones
@@ -144,10 +145,14 @@ local function GetRealmInfo(realm)
 		else
 			res[timezone] = 9;
 		end
+	else
+		res[timezone] = Code2UTC[res[timezone]] + DST;
 	end
 
 	if not res[timezone] then
 		res[timezone] = "Unknown";
+	else
+		res[timezone] = "UTC" .. ( (res[timezone] == 0 and " ") or (res[timezone] < 0 and "-") or "+" ) .. res[timezone];
 	end
 
 	return res;
@@ -158,6 +163,7 @@ local function AddLines(tt, object, _title)
 		_title = "%s: ";
 	end
 
+	local charName, realmName
 	local objType, realm, _ = type(object);
 	if objType == "table" then
 		realm = object;
@@ -183,7 +189,7 @@ local function AddLines(tt, object, _title)
 
 	for i, v in ipairs(tooltipLines) do
 		if E.db.mui.tooltip.realmInfo[v[1]] then
-			local title,text = _title:format(L[v[3]]), "";
+			local title, text = _title:format(L[v[3]]), "";
 			if v[1] == "language" then
 				local lCode = realm[v[2]]:upper();
 				if _G["LFG_LIST_LANGUAGE_"..lCode] ~= nil or _G[lCode] ~= nil then
@@ -213,7 +219,7 @@ local function AddLines(tt, object, _title)
 						flat = {};
 					end
 					for i,v in pairs(names) do
-						v = C(v, "ff"..color);
+						v = ColorCode(v, "ff"..color);
 						if flat then
 							if title then
 								tt:AddLine(title);
@@ -238,7 +244,7 @@ local function AddLines(tt, object, _title)
 					tt = tt.."|n"..title..text;
 				else
 					locked=true;
-					tt:AddDoubleLine(title, C(text, "ffffffff"));
+					tt:AddDoubleLine(title, ColorCode(text, "ffffffff"));
 					locked = false;
 				end
 			end
@@ -268,32 +274,36 @@ GameTooltip:HookScript("OnTooltipSetUnit",function(self, ...)
 			AddLines(self,guid);
 		end
 	end
-end);
+end)
 
 hooksecurefunc(GameTooltip,"SetText",function(self,name)
 	if locked or not E.db.mui.tooltip.realmInfo.enable or not E.db.mui.tooltip.realmInfo.ttGrpFinder then return end
 	local owner, owner_name = self:GetOwner();
+
 	if owner then
 		owner_name = owner:GetName();
 		if not owner_name then
 			owner_name = owner:GetDebugName();
 		end
 	end
+
 	-- GroupFinder > ApplicantViewer > Tooltip
 	if owner_name and owner_name:find("^LFGListApplicationViewerScrollFrameButton") then
 		AddLines(self, owner_name);
 	end
-end);
+end)
 
 hooksecurefunc(GameTooltip,"AddLine",function(self,text)
 	if locked or not E.db.mui.tooltip.realmInfo.enable or not E.db.mui.tooltip.realmInfo.ttGrpFinder then return end
 	local owner, owner_name = self:GetOwner();
+
 	if owner then
 		owner_name = owner:GetName();
 		if not owner_name then
 			owner_name = owner:GetDebugName();
 		end
 	end
+
 	if owner_name then
 		if owner_name:find("^LFGListSearchPanelScrollFrameButton") then -- GroupFinder > SearchResult > Tooltip
 			local leaderName = text:match(_LFG_LIST_TOOLTIP_LEADER);
@@ -301,7 +311,7 @@ hooksecurefunc(GameTooltip,"AddLine",function(self,text)
 				AddLines(self, leaderName);
 			end
 		elseif owner_name:find("^CommunitiesFrameScrollChild") and owner.memberInfo and owner.memberInfo.guid then -- Community member list tooltips
-			if text==owner.memberInfo.name then
+			if text == owner.memberInfo.name then
 				GameTooltip:ClearAllPoints();
 				GameTooltip:SetPoint("RIGHT", owner, "LEFT", 0, 0);
 				if not AddLines(self, owner.memberInfo.guid) then
@@ -310,13 +320,14 @@ hooksecurefunc(GameTooltip,"AddLine",function(self,text)
 			end
 		end
 	end
-end);
+end)
 
 -- Friend list tooltip
 hooksecurefunc("FriendsFrameTooltip_SetLine",function(line, anchor, text, yOffset)
 	if locked or not E.db.mui.tooltip.realmInfo.enable or not E.db.mui.tooltip.realmInfo.ttFriends then return end
 	if yOffset == -4 and text:find(_FRIENDS_LIST_REALM) then
 		local realmName = text:match(_FRIENDS_LIST_REALM);
+
 		if realmName then
 			local realm = GetRealmInfo(realmName);
 			if realm and #realm > 0 then
@@ -327,20 +338,21 @@ hooksecurefunc("FriendsFrameTooltip_SetLine",function(line, anchor, text, yOffse
 			end
 		end
 	end
-end);
+end)
 
 -- Groupfinder applicants (only country flags in scroll frame)
 hooksecurefunc("LFGListApplicationViewer_UpdateApplicantMember", function(member, id, index)
 	if not E.db.mui.tooltip.realmInfo.enable or not E.db.mui.tooltip.realmInfo.finder_counryflag then return end
-	local name,_,_,_,_,_,_,_,_,_,relationship = C_LFGList.GetApplicantMemberInfo(id, index);
+	local name,_,_,_,_,_,_,_,_,_,relationship = C_LFGList_GetApplicantMemberInfo(id, index);
 	local charName, realmName = strsplit("-",name,2);
+
 	if realmName then
 		local realm = GetRealmInfo(realmName);
 		if realm and #realm > 0 then
 			member.Name:SetText(realm[iconstr]..member.Name:GetText());
 		end
 	end
-end);
+end)
 
 -- Communities members - add country flags
 local function CommunitiesMemberList_RefreshListDisplay_Hook(self)
@@ -348,6 +360,7 @@ local function CommunitiesMemberList_RefreshListDisplay_Hook(self)
 	local scrollFrame = self.ListScrollFrame;
 	local offset = HybridScrollFrame_GetOffset(scrollFrame);
 	local buttons = scrollFrame.buttons;
+
 	for i = 1, #buttons do
 		if buttons[i].memberInfo and buttons[i].memberInfo.name and buttons[i].memberInfo.clubType == 1 then
 			local charName, realmName = strsplit("-", buttons[i].memberInfo.name, 2);
