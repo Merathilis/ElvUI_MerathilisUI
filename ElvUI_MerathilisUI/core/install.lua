@@ -317,6 +317,7 @@ function MER:SetupLayout()
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 100
 	E.db["bags"]["junkIcon"] = true
+	E.db["bags"]["strata"] = 'HIGH'
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
