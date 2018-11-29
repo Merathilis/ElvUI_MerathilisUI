@@ -197,6 +197,7 @@ function MERA:PlacedItemAlert()
 		[185709] = true,	-- Sugar-Crusted Fish Feast
 		[259409] = true,	-- Galley Banquet
 		[259410] = true,	-- Bountiful Captain's Feast
+		[276972] = true,	-- Mystical Cauldron
 	}
 
 	local function checkSpell(_, unit, _, spellID)
