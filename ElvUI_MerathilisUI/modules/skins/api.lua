@@ -560,22 +560,22 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	if not noReplaceTextures then
 		if frame.SetCheckedTexture then
-			frame:SetCheckedTexture(E["media"].blankTex)
-			frame:GetCheckedTexture():SetVertexColor(r, g, b)
+			frame:SetCheckedTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetCheckedTexture():SetVertexColor(1, .82, 0, 0.8)
 			frame:GetCheckedTexture():SetInside(frame.backdrop)
 		end
 
 		if frame.SetDisabledTexture then
-			frame:SetDisabledTexture(E["media"].blankTex)
-			frame:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+			frame:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
 			frame:GetDisabledTexture():SetInside(frame.backdrop)
 		end
 
 		frame:HookScript('OnDisable', function(checkbox)
 			if not checkbox.SetDisabledTexture then return; end
 			if checkbox:GetChecked() then
-				checkbox:SetDisabledTexture(E["media"].blankTex)
-				checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+				checkbox:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				checkbox:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
 				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
 			else
 				checkbox:SetDisabledTexture("")
