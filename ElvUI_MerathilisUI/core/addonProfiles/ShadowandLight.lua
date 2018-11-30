@@ -26,7 +26,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
 	E.db["sle"]["Armory"]["Character"]["Gradation"]["Display"] = true
-	E.db["sle"]["Armory"]["Character"]["Gradation"]["Color"] = {MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b}
+	E.db["sle"]["Armory"]["Character"]["Gradation"]["Color"] = {MER.r, MER.g, MER.b}
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11

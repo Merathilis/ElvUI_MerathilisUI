@@ -42,5 +42,6 @@ function MER:LoadPAProfile()
 
 	-- Profile creation
 	_G.stAddonManager.data:SetProfile("MerathilisUI")
+	if _G.EnhancedFriendsList.data == nil then _G.EnhancedFriendsList.data = {} end
 	_G.EnhancedFriendsList.data:SetProfile("MerathilisUI")
 end

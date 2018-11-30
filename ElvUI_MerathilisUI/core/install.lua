@@ -220,7 +220,7 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - General
 	--]]----------------------------------
-	E.db["general"]["valuecolor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
+	E.db["general"]["valuecolor"] = {r = MER.r, g = MER.g, b = MER.b}
 	E.db["general"]["bordercolor"] = { r = 0, g = 0, b = 0 }
 	E.db["general"]["backdropfadecolor"] = { a = 0.45, r = 0, g = 0, b = 0 }
 	E.db["general"]["totems"]["size"] = 36
