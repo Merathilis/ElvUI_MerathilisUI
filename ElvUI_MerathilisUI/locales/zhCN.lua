@@ -115,6 +115,7 @@ L["Undress"] = true
 L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
+L["Stranger"] = true
 
 -- Tooltip
 L["Your Status:"] = true

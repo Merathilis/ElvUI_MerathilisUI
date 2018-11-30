@@ -115,6 +115,7 @@ L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
+L["Stranger"] = "Fremder"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
