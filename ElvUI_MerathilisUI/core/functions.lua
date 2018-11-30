@@ -17,8 +17,12 @@ local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
+local UnitClass = UnitClass
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapDenied = UnitIsTapDenied
+local UnitReaction = UnitReaction
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
 MER.dummy = function() return end
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -56,6 +60,31 @@ for class in pairs(colors) do
 	MER.ClassColors[class].colorStr = colors[class].colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+
+function MER:ClassColor(class)
+	local color = MER.ClassColors[class]
+	if not color then return 1, 1, 1 end
+	return color.r, color.g, color.b
+end
+
+function MER:UnitColor(unit)
+	local r, g, b = 1, 1, 1
+	if UnitIsPlayer(unit) then
+		local _, class = UnitClass(unit)
+		if class then
+			r, g, b = MER:ClassColor(class)
+		end
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = .6, .6, .6
+	else
+		local reaction = UnitReaction(unit, "player")
+		if reaction then
+			local color = FACTION_BAR_COLORS[reaction]
+			r, g, b = color.r, color.g, color.b
+		end
+	end
+	return r, g, b
+end
 
 function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
@@ -268,7 +297,6 @@ function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
 
 	return config
 end
-
 
 -- GameTooltip
 function MER:AddTooltip(self, anchor, text, color)
