@@ -4,6 +4,7 @@ MERTB.modName = L["ThreatBar"]
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
 local pairs, select = pairs, select
 local twipe = table.wipe
 -- WoW API / Variables
@@ -28,8 +29,8 @@ MERTB.list = {};
 
 function MERTB:UpdatePosition()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
-		self.bar:SetParent(ChatTab_Datatext_Panel)
-		self.bar:SetInside(ChatTab_Datatext_Panel)
+		self.bar:SetParent(_G["ChatTab_Datatext_Panel"])
+		self.bar:SetInside(_G["ChatTab_Datatext_Panel"])
 	end
 
 	self.bar.text:FontTemplate(nil, self.db.textSize)
@@ -93,7 +94,6 @@ function MERTB:Update()
 			if leadPercent > 0 and largestUnit ~= nil then
 				local r, g, b = self:GetColor(largestUnit)
 				self.bar.text:SetFormattedText(L["ABOVE_THREAT_FORMAT"], name, percent, leadPercent, r, g, b, UnitName(largestUnit) or UNKNOWN)
-				self.bar.text:FontTemplate()
 
 				if E.role == "Tank" then
 					self.bar:SetStatusBarColor(0, 0.839, 0)
@@ -138,13 +138,14 @@ end
 function MERTB:Initialize()
 	self.db = E.db.mui.datatexts.threatBar
 
-	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", UIParent)
-	self.bar:SetStatusBarTexture(E["media"].muiFlat)
-	E:RegisterStatusBar(self.bar)
+	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", E.UIParent)
+	self.bar:SetStatusBarTexture(E["media"].normTex)
 	self.bar:SetMinMaxValues(0, 100)
 	self.bar:CreateBackdrop("Default")
+	E:RegisterStatusBar(self.bar)
 
 	self.bar.text = MER:CreateText(self.bar, "OVERLAY", self.db.textSize, self.db.textOutline)
+	self.bar.text:SetWordWrap(true)
 	self.bar.text:Point("CENTER", self.bar, "CENTER")
 
 	self:UpdatePosition()
