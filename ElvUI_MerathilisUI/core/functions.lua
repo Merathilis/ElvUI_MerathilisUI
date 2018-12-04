@@ -549,7 +549,7 @@ local function CreateBorder(f, i, o)
 			edgeFile = E["media"].blankTex, edgeSize = E.mult,
 			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
 		})
-		border:SetBackdropBorderColor(unpack(E.media.backdropcolor))
+		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.iborder = border
 	end
 
@@ -563,7 +563,7 @@ local function CreateBorder(f, i, o)
 			edgeFile = E["media"].blankTex, edgeSize = E.mult,
 			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
 		})
-		border:SetBackdropBorderColor(unpack(E.media.backdropcolor))
+		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.oborder = border
 	end
 end
