@@ -3,7 +3,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, print, select, tonumber, type = assert, pairs, print, select, tonumber, type
+local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
 local find, format, match, split = string.find, string.format, string.match, string.split
 local tconcat = table.concat
@@ -17,12 +17,16 @@ local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
+local UnitBuff = UnitBuff
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
+
+local backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropcolor)
+local borderr, borderg, borderb, bordera = unpack(E["media"].bordercolor)
 
 MER.dummy = function() return end
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -154,6 +158,17 @@ function MER:GetItemLevel(link, arg1, arg2)
 		end
 	end
 	return iLvlDB[link]
+end
+
+function MER:CheckPlayerBuff(spell)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
+		if not name then break end
+		if name == spell then
+			return i, unitCaster
+		end
+	end
+	return nil
 end
 
 function MER:BagSearch(itemId)
@@ -513,10 +528,81 @@ local function StripFrame(Frame, Kill, Alpha)
 	end
 end
 
+local function CreateOverlay(f)
+	if f.overlay then return end
+
+	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
+	overlay:SetPoint("TOPLEFT", 2, -2)
+	overlay:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(E["media"].blankTex)
+	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+	f.overlay = overlay
+end
+
+local function CreateBorder(f, i, o)
+	if i then
+		if f.iborder then return end
+		local border = CreateFrame("Frame", "$parentInnerBorder", f)
+		border:SetPoint("TOPLEFT", E.mult, -E.mult)
+		border:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+		border:SetBackdrop({
+			edgeFile = E["media"].blankTex, edgeSize = E.mult,
+			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
+		})
+		border:SetBackdropBorderColor(unpack(E.db.mui.media.backdropColor))
+		f.iborder = border
+	end
+
+	if o then
+		if f.oborder then return end
+		local border = CreateFrame("Frame", "$parentOuterBorder", f)
+		border:SetPoint("TOPLEFT", -E.mult, E.mult)
+		border:SetPoint("BOTTOMRIGHT", E.mult, -E.mult)
+		border:SetFrameLevel(f:GetFrameLevel() + 1)
+		border:SetBackdrop({
+			edgeFile = E["media"].blankTex, edgeSize = E.mult,
+			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
+		})
+		border:SetBackdropBorderColor(unpack(E.db.mui.media.backdropColor))
+		f.oborder = border
+	end
+end
+
+local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
+	f:SetWidth(w)
+	f:SetHeight(h)
+	f:SetFrameLevel(3)
+	f:SetFrameStrata("BACKGROUND")
+	f:SetPoint(a1, p, a2, x, y)
+	f:SetBackdrop({
+		bgFile = E["media"].blankTex, edgeFile = E["media"].blankTex, edgeSize = E.mult,
+		insets = {left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
+	})
+
+	if t == "Transparent" then
+		backdropa = E.db.mui.media.overlayColor[4]
+		f:CreateBorder(true, true)
+	elseif t == "Overlay" then
+		backdropa = 1
+		f:CreateOverlay()
+	elseif t == "Invisible" then
+		backdropa = 0
+		bordera = 0
+	else
+		backdropa = E.db.mui.media.backdropColor[4]
+	end
+
+	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
+end
+
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end
 	if not object.StripFrame then mt.StripFrame = StripFrame end
+	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
+	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
+	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 end
 
 local handled = {["Frame"] = true}

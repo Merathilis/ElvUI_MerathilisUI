@@ -25,6 +25,13 @@ P["mui"] = {
 		["undressButton"] = true,
 	},
 
+	-- Create own media colors
+	["media"] = {
+		["borderColor"] = {0.37, 0.3, 0.3, 1},
+		["backdropColor"] = {0, 0, 0, 0.45},
+		["overlayColor"] = {0, 0, 0, 0.7},
+	},
+
 	["bags"] = {
 	},
 
@@ -340,6 +347,7 @@ P["mui"] = {
 		["enable"] = true,
 		["visibility"] = "INPARTY",
 		["class"] = true,
+		["size"] = 24,
 		["alpha"] = 0.3,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
