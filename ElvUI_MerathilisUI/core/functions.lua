@@ -580,7 +580,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	})
 
 	if t == "Transparent" then
-		backdropa = E.db.mui.media.overlayColor[4]
+		backdropa = 0.45
 		f:CreateBorder(true, true)
 	elseif t == "Overlay" then
 		backdropa = 1
@@ -589,7 +589,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 		backdropa = 0
 		bordera = 0
 	else
-		backdropa = E.db.mui.media.backdropColor[4]
+		backdropa = 1
 	end
 
 	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
