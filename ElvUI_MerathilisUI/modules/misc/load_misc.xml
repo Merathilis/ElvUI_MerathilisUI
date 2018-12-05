@@ -15,6 +15,7 @@
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
 	<Script file="quest.lua"/>
+	<Script file="raidInfo.lua"/>
 	<Script file="spellAlerts.lua"/>
 	<Script file="threatBar.lua"/>
 	<Script file="options.lua"/>
