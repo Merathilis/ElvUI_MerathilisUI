@@ -19,6 +19,7 @@ function MER:LoadPAProfile()
 		},
 
 		["EnhancedFriendsList"] = {
+			['Enable'] = true,
 			["InfoFontSize"] = 10,
 			["App"] = "Animated",
 			["StatusIconPack"] = "Square",
@@ -56,6 +57,7 @@ function MER:LoadPAProfile()
 		},
 
 		["stAddonManager"] = {
+			['Enable'] = true,
 			["NumAddOns"] = 15,
 			["ButtonHeight"] = 20,
 			["ButtonWidth"] = 20,
