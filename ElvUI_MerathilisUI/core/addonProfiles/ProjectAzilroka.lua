@@ -11,37 +11,68 @@ function MER:LoadPAProfile()
 	--	ProjectAzilroka - Settings
 	--]]----------------------------------
 
-	-- ProjectAzilrokaDB
-	_G.ProjectAzilroka.db.BB = false
-	_G.ProjectAzilroka.db.SMB = false
-	_G.ProjectAzilroka.db.DO = false
-	_G.ProjectAzilroka.db.MF = false
-	_G.ProjectAzilroka.db.QS = false
-	_G.ProjectAzilroka.db.EFL = true
+	if ProjectAzilrokaDB.profiles["MerathilisUI"] == nil then ProjectAzilrokaDB.profiles["MerathilisUI"] = {} end
+	ProjectAzilrokaDB.profiles["MerathilisUI"] = {
+		-- Has to be before EFL
+		['FriendGroups'] = {
+			['Enable'] = false
+		},
 
-	--stAddonManagerProfilesDB
-	if stAddonManagerDB.profiles["MerathilisUI"] == nil then stAddonManagerDB.profiles["MerathilisUI"] = {} end
-	stAddonManagerDB.profiles["MerathilisUI"] = {
-		["NumAddOns"] = 15,
-		["ButtonHeight"] = 20,
-		["ButtonWidth"] = 20,
-		["Font"] = "Expressway",
-		["ClassColor"] = true,
-		["CheckTexture"] = "Duffed",
+		["EnhancedFriendsList"] = {
+			["InfoFontSize"] = 10,
+			["App"] = "Animated",
+			["StatusIconPack"] = "Square",
+			["NameFontSize"] = 11,
+			["NameFont"] = "Expressway",
+			["InfoFont"] = "Expressway",
+		},
+
+		['BigButtons'] = {
+			['Enable'] = false
+		},
+
+		['BrokerLDB'] = {
+			['Enable'] = false
+		},
+
+		['DragonOverlay'] = {
+			['Enable'] = false
+		},
+
+		['EnhancedShadows'] = {
+			['Enable'] = false
+		},
+
+		['FasterLoot'] = {
+			['Enable'] = false
+		},
+
+		['MovableFrames'] = {
+			['Enable'] = false
+		},
+
+		['SquareMinimapButtons'] = {
+			['Enable'] = false
+		},
+
+		["stAddonManager"] = {
+			["NumAddOns"] = 15,
+			["ButtonHeight"] = 20,
+			["ButtonWidth"] = 20,
+			["Font"] = "Expressway",
+			["ClassColor"] = true,
+			["CheckTexture"] = "Duffed",
+		},
+
+		['QuestSounds'] = {
+			['Enable'] = false
+		},
+
+		['ReputationReward'] = {
+			['Enable'] = true
+		},
 	}
 
-	if EnhancedFriendsListDB.profiles["MerathilisUI"] == nil then EnhancedFriendsListDB.profiles["MerathilisUI"] = {} end
-	EnhancedFriendsListDB.profiles["MerathilisUI"] = {
-		["InfoFontSize"] = 10,
-		["App"] = "Animated",
-		["StatusIconPack"] = "Square",
-		["NameFontSize"] = 11,
-		["NameFont"] = "Expressway",
-		["InfoFont"] = "Expressway",
-	}
-
-	-- Profile creation
-	_G.stAddonManager.data:SetProfile("MerathilisUI")
-	if _G.EnhancedFriendsList.data == nil then _G.EnhancedFriendsList.data = {} end
-	_G.EnhancedFriendsList.data:SetProfile("MerathilisUI")
+	--Profile creation
+	--ProjectAzilrokaDB.profiles:SetProfile("MerathilisUI")
 end

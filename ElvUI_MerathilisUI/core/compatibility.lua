@@ -21,7 +21,7 @@ COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
 COMP.CUI = MER:IsAddOnEnabled("ElvUI_ChaoticUI")
 
 local function Disable(tbl, key)
-	key = key or 'enable'
+	key = key or 'enable' or 'Enable'
 	if (tbl[key]) then
 		tbl[key] = false
 		return true
