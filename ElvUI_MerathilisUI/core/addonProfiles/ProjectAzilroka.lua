@@ -10,71 +10,26 @@ function MER:LoadPAProfile()
 	--[[----------------------------------
 	--	ProjectAzilroka - Settings
 	--]]----------------------------------
+	local PA = _G.ProjectAzilroka
+	PA.data:SetProfile('MerathilisUI')
 
-	if ProjectAzilrokaDB.profiles["MerathilisUI"] == nil then ProjectAzilrokaDB.profiles["MerathilisUI"] = {} end
-	ProjectAzilrokaDB.profiles["MerathilisUI"] = {
-		-- Has to be before EFL
-		['FriendGroups'] = {
-			['Enable'] = false
-		},
+	PA.db["EnhancedFriendsList"]["InfoFontSize"] = 10
+	PA.db["EnhancedFriendsList"]["App"] = "Animated"
+	PA.db["EnhancedFriendsList"]["StatusIconPack"] = "Square"
+	PA.db["EnhancedFriendsList"]["NameFontSize"] = 11
+	PA.db["EnhancedFriendsList"]["NameFont"] = "Expressway"
+	PA.db["EnhancedFriendsList"]["InfoFont"] = "Expressway"
 
-		["EnhancedFriendsList"] = {
-			['Enable'] = true,
-			["InfoFontSize"] = 10,
-			["App"] = "Animated",
-			["StatusIconPack"] = "Square",
-			["NameFontSize"] = 11,
-			["NameFont"] = "Expressway",
-			["InfoFont"] = "Expressway",
-		},
+	PA.db['DragonOverlay']['Enable'] = false
 
-		['BigButtons'] = {
-			['Enable'] = false
-		},
+	PA.db['MovableFrames']['Enable'] = false
 
-		['BrokerLDB'] = {
-			['Enable'] = false
-		},
+	PA.db['SquareMinimapButtons']['Enable'] = false
 
-		['DragonOverlay'] = {
-			['Enable'] = false
-		},
-
-		['EnhancedShadows'] = {
-			['Enable'] = false
-		},
-
-		['FasterLoot'] = {
-			['Enable'] = false
-		},
-
-		['MovableFrames'] = {
-			['Enable'] = false
-		},
-
-		['SquareMinimapButtons'] = {
-			['Enable'] = false
-		},
-
-		["stAddonManager"] = {
-			['Enable'] = true,
-			["NumAddOns"] = 15,
-			["ButtonHeight"] = 20,
-			["ButtonWidth"] = 20,
-			["Font"] = "Expressway",
-			["ClassColor"] = true,
-			["CheckTexture"] = "Duffed",
-		},
-
-		['QuestSounds'] = {
-			['Enable'] = false
-		},
-
-		['ReputationReward'] = {
-			['Enable'] = true
-		},
-	}
-
-	--Profile creation
-	--ProjectAzilrokaDB.profiles:SetProfile("MerathilisUI")
+	PA.db["stAddonManager"]["NumAddOns"] = 15
+	PA.db["stAddonManager"]["ButtonHeight"] = 20
+	PA.db["stAddonManager"]["ButtonWidth"] = 20
+	PA.db["stAddonManager"]["Font"] = "Expressway"
+	PA.db["stAddonManager"]["ClassColor"] = true
+	PA.db["stAddonManager"]["CheckTexture"] = "Duffed"
 end
