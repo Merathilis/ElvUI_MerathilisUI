@@ -639,19 +639,6 @@ function MERS:ReskinIcon(icon, backdrop)
 	end
 end
 
-function MERS:CropIcon(texture, parent)
-	texture:SetTexCoord(unpack(E.TexCoords))
-	if parent then
-		local layer, subLevel = texture:GetDrawLayer()
-		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
-		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
-		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
-		iconBorder:SetColorTexture(0, 0, 0)
-
-		return iconBorder
-	end
-end
-
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
