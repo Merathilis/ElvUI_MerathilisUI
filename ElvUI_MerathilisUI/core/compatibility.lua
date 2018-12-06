@@ -56,7 +56,7 @@ function COMP:ModulePrint(addon, module)
 end
 
 function COMP:ProjectAzilrokaCompatibility()
-	if Disable(_G.ProjectAzilroka.db, "SMB" and E.db.mui["smb"]) then
+	if Disable(ProjectAzilrokaDB, "SquareMinimapButtons" and E.db.mui["smb"]) then
 		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
 end
