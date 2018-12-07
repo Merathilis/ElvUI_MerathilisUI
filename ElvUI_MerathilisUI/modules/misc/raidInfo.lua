@@ -22,7 +22,13 @@ local GetTime = GetTime
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 
+local members = {}
+local lastUpdate = 0
+
+
 function MI:RaidInfo()
+	if E.db.mui.misc.raidInfo ~= true then return; end
+
 	local header = CreateFrame("Button", nil, E.UIParent)
 	header:SetFrameLevel(2)
 	header:SetSize(120, 28)
@@ -154,19 +160,78 @@ function MI:RaidInfo()
 	-- Ready check indicator
 	local rcFrame = CreateFrame("Frame", nil, header)
 	rcFrame:SetPoint("TOP", header, "BOTTOM", 0, -2)
-	rcFrame:SetSize(120, 50)
+	rcFrame:SetSize(120, 100)
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
 	rcFrame:Hide()
 
+	-- Header Text
 	rcFrame.text = rcFrame:CreateFontString(nil, "OVERLAY")
 	rcFrame.text:SetPoint("TOP", rcFrame, 0, -8)
 	rcFrame.text:FontTemplate(nil, 14, "OUTLINE")
 	rcFrame.text:SetText(READY_CHECK)
 	rcFrame.text:SetTextColor(NORMAL_FONT_COLOR:GetRGB())
 
+	-- Count
 	local rc = MER:CreateText(rcFrame, "OVERLAY", 12, "", nil, "TOP", 0, -28)
+
+	local function AddName(frame)
+		-- Member Names
+		local rcn = rcFrame:CreateFontString(nil, "OVERLAY")
+		rcn:SetJustifyH("LEFT")
+		rcn:FontTemplate(nil, 10, "OUTLINE")
+		rcn:SetHeight(14)
+		rcn:SetWidth(110)
+		rcn:SetPoint("LEFT", frame)
+		rcFrame.NameText = rcn
+	end
+
+	local function CreateMemberFrame()
+		local num = #members + 1
+		local f = CreateFrame("Frame", "MER_MemberFrame"..num, rcFrame)
+		members[num] = f
+		local xoff = num % 2 == 0 and 160 or 15
+		local yoff = 0 - ((floor(num / 2) + (num % 2)) * 14) - 17
+		f:SetWidth(150)
+		f:SetHeight(14)
+		f:SetPoint("TOPLEFT", rcFrame, "TOPLEFT", xoff, yoff)
+		AddName(f)
+
+		return f
+	end
+
+	local function SetMemberStatus(name, class)
+		if not name or not class then return end
+		local f
+
+		f = members[num] or CreateMemberFrame()
+
+		for i = 1, GetNumGroupMembers() do
+			local name, _, subgroup, _, _, class = GetRaidRosterInfo(i)
+			local color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+			local cleanName = name:gsub("%-.+", "*")
+			rcFrame.NameText:SetText(cleanName)
+
+			if UnitIsConnected(name) and not UnitIsDeadOrGhost(name) and UnitIsVisible(name) then
+				rcFrame.NameText:SetTextColor(color.r, color.g, color.b)
+			else
+				rcFrame.NameText:SetTextColor(255, 0, 0)
+			end
+		end
+	end
+
+	-- Fix me
+	local function UpdateWindow(force)
+		for _, v in next, members do v:Hide() end
+
+		local update = nil
+		local t = GetTime()
+		if t-lastUpdate > 1 or force then
+			lastUpdate = t
+			update = true
+		end
+	end
 
 	local count, total
 	rcFrame:RegisterEvent("READY_CHECK")
@@ -184,18 +249,24 @@ function MI:RaidInfo()
 				rc:SetText("")
 				count, total = 0, 0
 			end)
+			UpdateWindow(true)
 		else
 			count, total = 0, 0
 			self:Show()
 			local maxgroup = GetRaidMaxGroup()
+			local height = 0
+			local bottom, top = 0, 0
+
 			for i = 1, GetNumGroupMembers() do
-				local name, _, subgroup, _, _, _, _, online = GetRaidRosterInfo(i)
+				local name, _, subgroup, _, class, _, _, online = GetRaidRosterInfo(i)
 				if name and online and subgroup <= maxgroup then
 					total = total + 1
 					local status = GetReadyCheckStatus(name)
 					if status and status == "ready" then
 						count = count + 1
 					end
+
+					SetMemberStatus(name, class)
 				end
 			end
 			rc:SetText(count.." / "..total)

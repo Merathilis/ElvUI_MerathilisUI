@@ -48,6 +48,7 @@ P["mui"] = {
 		["announce"] = true, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["cursor"] = false,
+		["raidInfo"] = true,
 	},
 
 	["notification"] = {
