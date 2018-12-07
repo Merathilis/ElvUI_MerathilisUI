@@ -254,9 +254,6 @@ function MI:RaidInfo()
 			count, total = 0, 0
 			self:Show()
 			local maxgroup = GetRaidMaxGroup()
-			local height = 0
-			local bottom, top = 0, 0
-
 			for i = 1, GetNumGroupMembers() do
 				local name, _, subgroup, _, class, _, _, online = GetRaidRosterInfo(i)
 				if name and online and subgroup <= maxgroup then
