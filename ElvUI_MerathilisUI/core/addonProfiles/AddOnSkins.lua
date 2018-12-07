@@ -30,7 +30,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['DetailsBackdrop'] = false
 	AS.db['MiscFixes'] = true
 	AS.db['DBMSkinHalf'] = false
-	AS.db['DBMFont'] = 'Arial Narrow'
+	AS.db['DBMFont'] = 'Expressway'
 	AS.db['DBMFontSize'] = 12
 	AS.db['DBMFontFlag'] = 'OUTLINE'
 	AS.db['DBMRadarTrans'] = false
@@ -45,6 +45,8 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['EmbedSystemMessage'] = false
 	AS.db['ElvUISkinModule'] = true
 	AS.db['ThinBorder'] = false
+	AS.db['BackgroundTexture'] = 'Duffed'
+	AS.db['StatusBarTexture'] = 'Duffed'
 
 	-- embeded settings
 	if IsAddOnLoaded("Details") then
