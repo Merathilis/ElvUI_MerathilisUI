@@ -19,10 +19,8 @@ function MERC:ChatBar()
 	local width, height, padding, buttonList = 52, 6, 5, {}
 
 	local ChatbarHolder = CreateFrame("Frame", nil, E.UIParent)
-	ChatbarHolder:SetSize(_G["LeftChatPanel"]:GetWidth(), height)
-	ChatbarHolder:SetPoint("BOTTOM", _G["LeftChatPanel"], 2, -2)
-
-	--E:CreateMover(ChatbarHolder, "mui_ChatBar", L["ChatBar"])
+	ChatbarHolder:CreatePanel("Invisible", _G["LeftChatPanel"]:GetWidth(), height, "BOTTOM", _G["LeftChatPanel"], 2, -2)
+	ChatbarHolder:SetFrameStrata("MEDIUM")
 
 	local function AddButton(r, g, b, text, func)
 		local bu = CreateFrame("Button", nil, ChatbarHolder, "SecureActionButtonTemplate")
