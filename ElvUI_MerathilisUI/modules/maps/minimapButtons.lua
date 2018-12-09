@@ -362,8 +362,6 @@ function SMB:Initialize()
 
 	SMB.TexCoords = {unpack(E.TexCoords)}
 
-	Minimap:SetMaskTexture('Interface\\ChatFrame\\ChatFrameBackground')
-
 	SMB:ScheduleRepeatingTimer('GrabMinimapButtons', 6)
 	SMB:ScheduleTimer('HandleBlizzardButtons', 7)
 end
