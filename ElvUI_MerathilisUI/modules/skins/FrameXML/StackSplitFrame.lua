@@ -26,8 +26,8 @@ local function styleStyleStackSplitFrame()
 			btn:Point('RIGHT', StackSplitFrame.bg1, 'RIGHT', -4, 0)
 		end
 	end
-	StackSplitText:ClearAllPoints()
-	StackSplitText:Point('RIGHT', StackSplitRightButton, 'LEFT', -6, 0)
+	--StackSplitText:ClearAllPoints()
+	--StackSplitText:Point('RIGHT', StackSplitRightButton, 'LEFT', -6, 0)
 end
 
 S:AddCallback("mUIStackSplitFrame", styleStyleStackSplitFrame)

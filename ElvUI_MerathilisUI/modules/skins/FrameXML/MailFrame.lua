@@ -105,7 +105,6 @@ local function styleMail()
 	_G["OpenMailTitleText"]:ClearAllPoints()
 	_G["OpenMailTitleText"]:SetPoint("TOP", 0, -4)
 	_G["OpenMailHorizontalBarLeft"]:Hide()
-	select(25, OpenMailFrame:GetRegions()):Hide()
 
 	local OpenMailScrollFrame = _G["OpenMailScrollFrame"]
 	OpenMailScrollFrame:SetTemplate("Transparent")
