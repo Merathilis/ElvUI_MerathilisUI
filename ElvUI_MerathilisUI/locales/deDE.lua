@@ -344,6 +344,10 @@ L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
 
+-- Reminder
+L["Reminder"] = "Erinnerung"
+L["Reminds you on self Buffs."] = "Erinnert dich an eigene Buffs."
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"

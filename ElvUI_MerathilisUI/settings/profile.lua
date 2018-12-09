@@ -346,6 +346,11 @@ P["mui"] = {
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
 
+	["reminder"] = {
+		["enable"] = true,
+		["size"] = 30,
+	},
+
 	["NameplateAuras"] = {
 		["enable"] = true,
 		["spellInfo"] = {}

@@ -17,4 +17,5 @@
 	<Include file="notification\load_notification.xml"/>
 	<Include file="nameplates\load_nameplates.xml"/>
 	<Include file="rbreminder\load_rbreminder.xml"/>
+	<Include file="reminder\load_reminder.xml"/>
 </Ui>

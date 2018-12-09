@@ -343,6 +343,10 @@ L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
 
+-- Reminder
+L["Reminder"] = true
+L["Reminds you on self Buffs."] = true
+
 -- CooldownFlash
 L["CooldownFlash"] = true
 L["Settings"] = true
