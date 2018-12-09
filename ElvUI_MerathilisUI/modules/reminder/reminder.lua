@@ -6,14 +6,24 @@ RM.modName = L["Reminder"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, select = pairs, select
+local pairs, select, type = pairs, select, type
 -- WoW API / Variables
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
+local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
+local CreateFrame = CreateFrame
+local GetSpecialization = GetSpecialization
 local GetSpellCooldown = GetSpellCooldown
 local GetSpellInfo = GetSpellInfo
+local GetWeaponEnchantInfo = GetWeaponEnchantInfo
+local InCombatLockdown = InCombatLockdown
+local IsInInstance = IsInInstance
+local IsUsableSpell = IsUsableSpell
+local UnitInVehicle = UnitInVehicle
+local UnitIsDeadOrGhost = UnitIsDeadOrGhost
+local UnitLevel = UnitLevel
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS:
+-- GLOBALS: GetInventoryItemTexture
 
 _Reminder = RM
 _CreatedReminders = {}
@@ -205,7 +215,7 @@ function RM:ReminderIcon_OnEvent(event, unit)
 	--Negate Spells Check
 	if db.negateGroup and RM:PlayerHasFilteredBuff(self, db.negateGroup) and not self.ForceShow then return end
 
-	local hasOffhandWeapon = C_PaperDollInfo.OffhandHasWeapon()
+	local hasOffhandWeapon = C_PaperDollInfo_OffhandHasWeapon()
 	local hasMainHandEnchant, _, _, hasOffHandEnchant, _, _ = GetWeaponEnchantInfo()
 	local hasBuff, hasDebuff
 	if db.spellGroup and not db.CDSpell then
@@ -341,27 +351,6 @@ function RM:ReminderIcon_OnEvent(event, unit)
 	else
 		ActionButton_HideOverlayGlow(self.overlay)
 	end
-end
-
-function RM:ThrottleSound()
-	self.SoundThrottled = nil
-	self:CancelAllTimers()
-end
-
-function RM:GetReminderIcon(name)
-	return _CreatedReminders[name]
-end
-
-function RM:ToggleIcon(name)
-	local frame = self:GetReminderIcon(name)
-	if not frame then return; end
-	if not frame.ForceShow then
-		frame.ForceShow = true
-	else
-		frame.ForceShow = nil
-	end
-
-	RM.ReminderIcon_OnEvent(frame)
 end
 
 function RM:CreateReminder(name, index)
