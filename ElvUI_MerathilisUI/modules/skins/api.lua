@@ -581,16 +581,6 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 				checkbox:SetDisabledTexture("")
 			end
 		end)
-
-		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetNormalTexture("") end
-		end)
-		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetPushedTexture("") end
-		end)
-		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetHighlightTexture("") end
-		end)
 	end
 end
 
