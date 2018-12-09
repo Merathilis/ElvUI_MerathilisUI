@@ -10,27 +10,26 @@ function MER:LoadPAProfile()
 	--[[----------------------------------
 	--	ProjectAzilroka - Settings
 	--]]----------------------------------
+	local PA = _G.ProjectAzilroka
+	PA.data:SetProfile('MerathilisUI')
 
-	-- ProjectAzilrokaDB
-	_G.ProjectAzilroka.db.BB = false
-	_G.ProjectAzilroka.db.SMB = false
-	_G.ProjectAzilroka.db.DO = false
-	_G.ProjectAzilroka.db.MF = false
-	_G.ProjectAzilroka.db.QS = false
-	_G.ProjectAzilroka.db.EFL = false
+	PA.db["EnhancedFriendsList"]["InfoFontSize"] = 10
+	PA.db["EnhancedFriendsList"]["App"] = "Animated"
+	PA.db["EnhancedFriendsList"]["StatusIconPack"] = "Square"
+	PA.db["EnhancedFriendsList"]["NameFontSize"] = 11
+	PA.db["EnhancedFriendsList"]["NameFont"] = "Expressway"
+	PA.db["EnhancedFriendsList"]["InfoFont"] = "Expressway"
 
-	--stAddonManagerProfilesDB
-	if stAddonManagerDB.profiles["MerathilisUI"] == nil then stAddonManagerDB.profiles["MerathilisUI"] = {} end
+	PA.db['DragonOverlay']['Enable'] = false
 
-	stAddonManagerDB.profiles["MerathilisUI"] = {
-		["NumAddOns"] = 15,
-		["ButtonHeight"] = 20,
-		["ButtonWidth"] = 20,
-		["Font"] = "Expressway",
-		["ClassColor"] = true,
-		["CheckTexture"] = "Duffed",
-	},
+	PA.db['MovableFrames']['Enable'] = false
 
-	-- Profile creation
-	_G.stAddonManager.data:SetProfile("MerathilisUI")
+	PA.db['SquareMinimapButtons']['Enable'] = false
+
+	PA.db["stAddonManager"]["NumAddOns"] = 15
+	PA.db["stAddonManager"]["ButtonHeight"] = 20
+	PA.db["stAddonManager"]["ButtonWidth"] = 20
+	PA.db["stAddonManager"]["Font"] = "Expressway"
+	PA.db["stAddonManager"]["ClassColor"] = true
+	PA.db["stAddonManager"]["CheckTexture"] = "Duffed"
 end

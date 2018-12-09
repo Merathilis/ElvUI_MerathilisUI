@@ -8,7 +8,7 @@ LP.modName = L["Location Panel"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local format = string.format
+local format, split = string.format, string.split
 local tinsert, twipe = table.insert, table.wipe
 local pairs, select, tonumber = pairs, select, tonumber
 local collectgarbage = collectgarbage
@@ -245,7 +245,7 @@ function LP:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
-	loc_panel:SetFrameStrata("HIGH")
+	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
 	loc_panel:SetScript("OnMouseUp", LP.OnClick)
@@ -459,6 +459,12 @@ function LP:ItemList(check)
 		local priority = 100
 		local ShownHearthstone
 		local tmp = {}
+		local hsPrio = {split(",", E.db.mui.locPanel.portals.hsPrio)}
+		local hsRealPrio = {}
+		for key = 1, #hsPrio do
+			hsRealPrio[hsPrio[key]] = key
+		end
+
 		for i = 1, #LP.Hearthstones do
 			local data = LP.Hearthstones[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
@@ -470,22 +476,22 @@ function LP:ItemList(check)
 						ShownHearthstone = data
 						break
 					else
-						local curPriorirty = E.db.mui.locPanel.portals.hsPrio[tostring(ID)]
+						local curPriorirty = hsRealPrio[tostring(ID)]
 						if curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
 						end
-						if priority == 1 then
-							break
-						end
+						if priority == 1 then break end
 					end
 				end
 			end
 		end
+
 		local data = ShownHearthstone
 		local ID, isToy = data.secure.ID, data.secure.isToy
 		local cd = DD:GetCooldown("Item", ID)
 		E:CopyTable(tmp, data)
+
 		if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 			tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
 			tinsert(LP.MainMenu, tmp)

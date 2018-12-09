@@ -273,23 +273,6 @@ function MERS:CreateBG(frame)
 	return bg
 end
 
--- frame text
-function MERS:CreateFS(f, size, text, classcolor, anchor, x, y)
-	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, nil, 'OUTLINE')
-	fs:SetText(text)
-	fs:SetWordWrap(false)
-	if classcolor then
-		fs:SetTextColor(r, g, b)
-	end
-	if (anchor and x and y) then
-		fs:SetPoint(anchor, x, y)
-	else
-		fs:SetPoint("CENTER", 1, 0)
-	end
-	return fs
-end
-
 -- Gradient Frame
 function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	assert(f, "doesn't exist!")
@@ -315,7 +298,7 @@ function MERS:CreateGradient(f)
 	return tex
 end
 
-function MERS:CreateBackdrop(frame, texture)
+function MERS:CreateBackdrop(frame)
 	if frame.backdrop then return end
 
 	local parent = frame.IsObjectType and frame:IsObjectType("Texture") and frame:GetParent() or frame
@@ -472,40 +455,6 @@ function MERS:ReskinScrollSlider(Slider, thumbTrim)
 	end
 end
 
--- ClassColored Sliders
-function MERS:ReskinSliderFrame(frame)
-	assert(frame, "doesn't exist!")
-
-	local orientation = frame:GetOrientation()
-	local SIZE = 12
-
-	frame:StripTextures()
-
-	hooksecurefunc(frame, "SetBackdrop", function(slider, backdrop)
-		if backdrop ~= nil then slider:SetBackdrop(nil) end
-	end)
-
-	frame:SetThumbTexture(E["media"].normTex)
-	frame:GetThumbTexture():SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-	frame:GetThumbTexture():Size(SIZE-2,SIZE-2)
-
-	if orientation == 'VERTICAL' then
-		frame:Width(SIZE)
-	else
-		frame:Height(SIZE)
-
-		for i = 1, frame:GetNumRegions() do
-			local region = select(i, frame:GetRegions())
-			if region and region:GetObjectType() == 'FontString' then
-				local point, anchor, anchorPoint, x, y = region:GetPoint()
-				if anchorPoint:find('BOTTOM') then
-					region:Point(point, anchor, anchorPoint, x, y - 4)
-				end
-			end
-		end
-	end
-end
-
 -- Overwrite ElvUI Tabs function to be transparent
 function MERS:ReskinTab(tab)
 	if not tab then return end
@@ -599,27 +548,50 @@ end
 function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 	assert(frame, "does not exist.")
 
-	if frame.backdrop then frame.backdrop:Hide() end
+	frame:StripTextures()
 
-	frame:SetNormalTexture("")
-	frame:SetPushedTexture("")
-	frame:SetHighlightTexture(E["media"].normTex)
+	if noBackdrop then
+		frame:SetTemplate("Default")
+		frame:Size(16)
+	else
+		MERS:CreateBackdrop(frame)
+		frame.backdrop:SetInside(nil, 4, 4)
+	end
 
-	local hl = frame:GetHighlightTexture()
-	hl:SetPoint("TOPLEFT", 5, -5)
-	hl:SetPoint("BOTTOMRIGHT", -5, 5)
-	hl:SetVertexColor(r, g, b, .2)
+	if not noReplaceTextures then
+		if frame.SetCheckedTexture then
+			frame:SetCheckedTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetCheckedTexture():SetVertexColor(1, .82, 0, 0.8)
+			frame:GetCheckedTexture():SetInside(frame.backdrop)
+		end
 
-	local bd = CreateFrame("Frame", nil, frame)
-	bd:SetPoint("TOPLEFT", 4, -4)
-	bd:SetPoint("BOTTOMRIGHT", -4, 4)
-	bd:SetFrameLevel(frame:GetFrameLevel() - 1)
-	MERS:CreateBD(bd, 0)
-	MERS:CreateGradient(bd)
+		if frame.SetDisabledTexture then
+			frame:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
+			frame:GetDisabledTexture():SetInside(frame.backdrop)
+		end
 
-	local ch = frame:GetCheckedTexture()
-	ch:SetDesaturated(true)
-	ch:SetVertexColor(r, g, b)
+		frame:HookScript('OnDisable', function(checkbox)
+			if not checkbox.SetDisabledTexture then return; end
+			if checkbox:GetChecked() then
+				checkbox:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				checkbox:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
+				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
+			else
+				checkbox:SetDisabledTexture("")
+			end
+		end)
+
+		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetNormalTexture("") end
+		end)
+		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetPushedTexture("") end
+		end)
+		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
+			if texPath ~= "" then checkbox:SetHighlightTexture("") end
+		end)
+	end
 end
 
 function MERS:StyleButton(button)
@@ -664,19 +636,6 @@ function MERS:ReskinIcon(icon, backdrop)
 	icon:SetTexCoord(unpack(E.TexCoords))
 	if backdrop then
 		MERS:CreateBackdrop(icon)
-	end
-end
-
-function MERS:CropIcon(texture, parent)
-	texture:SetTexCoord(unpack(E.TexCoords))
-	if parent then
-		local layer, subLevel = texture:GetDrawLayer()
-		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
-		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
-		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
-		iconBorder:SetColorTexture(0, 0, 0)
-
-		return iconBorder
 	end
 end
 
@@ -789,10 +748,10 @@ function MERS:ApplyConfigArrows()
 	end
 
 	-- Apply the rotation
-	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(ArrowRotation['UP'])
-	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(ArrowRotation['DOWN'])
-	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(ArrowRotation['LEFT'])
-	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(ArrowRotation['RIGHT'])
+	_G["ElvUIMoverNudgeWindowUpButton"].img:SetRotation(MERS.ArrowRotation['UP'])
+	_G["ElvUIMoverNudgeWindowDownButton"].img:SetRotation(MERS.ArrowRotation['DOWN'])
+	_G["ElvUIMoverNudgeWindowLeftButton"].img:SetRotation(MERS.ArrowRotation['LEFT'])
+	_G["ElvUIMoverNudgeWindowRightButton"].img:SetRotation(MERS.ArrowRotation['RIGHT'])
 
 end
 hooksecurefunc(E, "CreateMoverPopup", MERS.ApplyConfigArrows)
@@ -870,7 +829,6 @@ hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
-hooksecurefunc(S, "HandleSliderFrame", MERS.ReskinSliderFrame)
 hooksecurefunc(S, "HandleMaxMinFrame", MERS.ReskinMaxMinFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)

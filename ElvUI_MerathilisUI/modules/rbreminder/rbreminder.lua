@@ -15,7 +15,7 @@ local GetSpellInfo = GetSpellInfo
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: mUIRaidBuffReminder, FlaskFrame, FoodFrame, DARuneFrame, IntellectFrame, StaminaFrame, AttackPowerFrame
+-- GLOBALS: mUIRaidBuffReminder, FlaskFrame, FoodFrame, DARuneFrame, IntellectFrame, StaminaFrame, AttackPowerFrame, CustomFrame
 
 local bsize = 25
 
@@ -61,6 +61,9 @@ RB.ReminderBuffs = {
 		6673, -- Battle Shout
 		264761, -- War-Scroll of Battle
 	},
+	Custom = {
+		-- spellID,	-- Spell name
+	},
 }
 
 local flaskbuffs = RB.ReminderBuffs["Flask"]
@@ -69,6 +72,7 @@ local darunebuffs = RB.ReminderBuffs["DefiledAugmentRune"]
 local intellectbuffs = RB.ReminderBuffs["Intellect"]
 local staminabuffs = RB.ReminderBuffs["Stamina"]
 local attackpowerbuffs = RB.ReminderBuffs["AttackPower"]
+local custombuffs = RB.ReminderBuffs["Custom"]
 
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then return end
@@ -163,28 +167,43 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 		end
 	end
+
+	if custombuffs and custombuffs[1] then
+		for i, custombuffs in pairs(custombuffs) do
+			local name, _, icon = GetSpellInfo(custombuffs)
+			if i == 1 then
+				CustomFrame.t:SetTexture(icon)
+			end
+
+			if MER:CheckPlayerBuff(name) then
+				CustomFrame:SetAlpha(RB.db.alpha)
+				custom = true
+				break
+			else
+				CustomFrame:SetAlpha(1)
+				custom = false
+			end
+		end
+	else
+		CustomFrame:Hide()
+		custom = true
+	end
 end
 
 function RB:CreateIconBuff(name, relativeTo, firstbutton)
 	local button = CreateFrame("Button", name, RB.frame)
 
 	if firstbutton == true then
-		button:Point("RIGHT", relativeTo, "RIGHT", E:Scale(-4), 0)
+		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "BOTTOMLEFT", relativeTo, "BOTTOMLEFT", 0, 0)
 	else
-		button:Point("RIGHT", relativeTo, "LEFT", E:Scale(-4), 0)
+		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "LEFT", relativeTo, "RIGHT", 3, 0)
 	end
-
-	button:Size(bsize, bsize)
-	button:SetFrameLevel(self.frame.backdrop:GetFrameLevel() + 2)
-
-	button:CreateBackdrop("Default")
-	button.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))
-	button.backdrop:SetPoint("BOTTOMRIGHT", E:Scale(1), E:Scale(-1))
-	button.backdrop:SetFrameLevel(button:GetFrameLevel() - 1)
+	button:SetFrameLevel(RaidBuffReminder:GetFrameLevel() + 2)
 
 	button.t = button:CreateTexture(name..".t", "OVERLAY")
 	button.t:SetTexCoord(unpack(E.TexCoords))
-	button.t:SetAllPoints(button)
+	button.t:SetPoint("TOPLEFT", 2, -2)
+	button.t:SetPoint("BOTTOMRIGHT", -2, 2)
 end
 
 function RB:Visibility()
@@ -203,28 +222,28 @@ function RB:Initialize()
 
 	MER:RegisterDB(self, "raidBuffs")
 
+	-- Anchor
+	self.Anchor = CreateFrame("Frame", "RaidBuffAnchor", E.UIParent)
+	self.Anchor:SetWidth((E.db.mui.raidBuffs.size * 6) + 15)
+	self.Anchor:SetHeight(E.db.mui.raidBuffs.size)
+	self.Anchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -15)
+
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
-	self.frame:CreateBackdrop("Transparent")
-	self.frame.backdrop:SetPoint("TOPLEFT", E:Scale(-1), E:Scale(1))
-	self.frame.backdrop:SetPoint("BOTTOMRIGHT", E:Scale(1), E:Scale(-1))
-	self.frame.backdrop:SetFrameLevel(self.frame:GetFrameLevel() - 1)
-	self.frame:Point("TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
-	self.frame.backdrop:Styling()
-	E.FrameLocks[self.frame] = true
+	self.frame:CreatePanel("Invisible", (E.db.mui.raidBuffs.size * 6) + 15, E.db.mui.raidBuffs.size + 4, "TOPLEFT", RaidBuffAnchor, "TOPLEFT", 0, 4)
 
 	if RB.db.class then
-		self.frame:Size(bsize*3+103, bsize + 8) -- Background size (needs some adjustments)
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("StaminaFrame", IntellectFrame, false)
 		self:CreateIconBuff("AttackPowerFrame", StaminaFrame, false)
 		self:CreateIconBuff("FlaskFrame", AttackPowerFrame, false)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
 	else
-		self.frame:Size(bsize*3+14, bsize + 8) -- Background size (needs some adjustments)
 		self:CreateIconBuff("FlaskFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("FoodFrame", FlaskFrame, false)
 		self:CreateIconBuff("DARuneFrame", FoodFrame, false)
+		self:CreateIconBuff("CustomFrame", DARuneFrame, false)
 	end
 
 	self.frame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")

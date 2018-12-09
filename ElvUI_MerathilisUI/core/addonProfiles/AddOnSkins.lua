@@ -12,65 +12,62 @@ function MER:LoadAddOnSkinsProfile()
 	--[[----------------------------------
 	--	AddOnSkins - Settings
 	--]]----------------------------------
+	local AS = unpack(AddOnSkins)
 
-	-- defaults
-	AddOnSkinsDB.profiles["MerathilisUI"] = {
-		['EmbedOoC'] = false,
-		['EmbedOoCDelay'] = 10,
-		['EmbedCoolLine'] = false,
-		['EmbedSexyCooldown'] = false,
-		['TransparentEmbed'] = false,
-		['EmbedIsHidden'] = false,
-		['EmbedFrameStrata'] = '2-LOW',
-		['EmbedFrameLevel'] = 10,
-	-- Misc
-		['RecountBackdrop'] = false,
-		['SkadaBackdrop'] = false,
-		['OmenBackdrop'] = false,
-		['DetailsBackdrop'] = false,
-		['MiscFixes'] = true,
-		['DBMSkinHalf'] = false,
-		['DBMFont'] = 'Arial Narrow',
-		['DBMFontSize'] = 12,
-		['DBMFontFlag'] = 'OUTLINE',
-		['DBMRadarTrans'] = false,
-		['WeakAuraAuraBar'] = false,
-		['WeakAuraIconCooldown'] = false,
-		['SkinTemplate'] = 'Transparent',
-		['HideChatFrame'] = 'NONE',
-		['Parchment'] = false,
-		['ParchmentRemover'] = false,
-		['SkinDebug'] = false,
-		['LoginMsg'] = false,
-		['EmbedSystemMessage'] = false,
-		['ElvUISkinModule'] = true,
-		['ThinBorder'] = false,
-	}
+	AS.data:SetProfile("MerathilisUI")
+
+	AS.db['EmbedOoC'] = false
+	AS.db['EmbedOoCDelay'] = 10
+	AS.db['EmbedCoolLine'] = false
+	AS.db['EmbedSexyCooldown'] = false
+	AS.db['TransparentEmbed'] = false
+	AS.db['EmbedIsHidden'] = false
+	AS.db['EmbedFrameStrata'] = '2-LOW'
+	AS.db['EmbedFrameLevel'] = 10
+	AS.db['RecountBackdrop'] = false
+	AS.db['SkadaBackdrop'] = false
+	AS.db['OmenBackdrop'] = false
+	AS.db['DetailsBackdrop'] = false
+	AS.db['MiscFixes'] = true
+	AS.db['DBMSkinHalf'] = false
+	AS.db['DBMFont'] = 'Expressway'
+	AS.db['DBMFontSize'] = 12
+	AS.db['DBMFontFlag'] = 'OUTLINE'
+	AS.db['DBMRadarTrans'] = false
+	AS.db['WeakAuraAuraBar'] = false
+	AS.db['WeakAuraIconCooldown'] = false
+	AS.db['SkinTemplate'] = 'Transparent'
+	AS.db['HideChatFrame'] = 'NONE'
+	AS.db['Parchment'] = false
+	AS.db['ParchmentRemover'] = false
+	AS.db['SkinDebug'] = false
+	AS.db['LoginMsg'] = false
+	AS.db['EmbedSystemMessage'] = false
+	AS.db['ElvUISkinModule'] = true
+	AS.db['ThinBorder'] = false
+	AS.db['BackgroundTexture'] = 'Duffed'
+	AS.db['StatusBarTexture'] = 'Duffed'
 
 	-- embeded settings
 	if IsAddOnLoaded("Details") then
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedSystem"] = true
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedSystemDual"] = false
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedBelowTop"] = true
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedMain"] = "Details"
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedLeft"] = ""
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedRight"] = ""
+		AS.db["EmbedSystem"] = true
+		AS.db["EmbedSystemDual"] = false
+		AS.db["EmbedBelowTop"] = true
+		AS.db["EmbedMain"] = "Details"
+		AS.db["EmbedLeft"] = ""
+		AS.db["EmbedRight"] = ""
 	end
- 
+
 	if IsAddOnLoaded("Skada") then
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedSystem"] = true
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedSystemDual"] = false
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedBelowTop"] = true
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedMain"] = "Skada"
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedLeft"] = ""
-		AddOnSkinsDB.profiles["MerathilisUI"]["EmbedRight"] = ""
+		AS.db["EmbedSystem"] = true
+		AS.db["EmbedSystemDual"] = false
+		AS.db["EmbedBelowTop"] = true
+		AS.db["EmbedMain"] = "Skada"
+		AS.db["EmbedLeft"] = ""
+		AS.db["EmbedRight"] = ""
 	end
 
 	if IsAddOnLoaded("Postal") then
-		AddOnSkinsDB.profiles["MerathilisUI"]["Postal"] = false
+		AS.db["Postal"] = false
 	end
- 
-	-- Profile creation
-	local AS = unpack(AddOnSkins)
-	AS.data:SetProfile("MerathilisUI")
 end

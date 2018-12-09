@@ -60,6 +60,8 @@ L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
+L["ChatBar"] = true
+L["Shows a ChatBar with different quick buttons."] = true
 
 -- Information
 L["Information"] = true
@@ -105,12 +107,15 @@ L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
 L["Skill gains"] = true
-L["Automatically select the quest reward with the highest vendor sell value."] = true
+L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
 L["Undress"] = true
-L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Flashing Cursor"] = true
+L["Accept Quest"] = true
+L["Placed Item"] = true
+L["Stranger"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -122,6 +127,30 @@ L["Adds information to the tooltip, on which char you earned an achievement."] =
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
+L["Realm Info"] = true
+L["Shows realm info in various tooltips."] = true
+L["Tooltips"] = true
+L["Show the realm info in the group finder tooltip."] = true
+L["Player Tooltips"] = true
+L["Show the realm info in the player tooltip."] = true
+L["Friend List"] = true
+L["Show the realm info in the friend list tooltip."] = true
+L["Tooltip Lines"] = true
+L["Realm Timezone"] = true
+L["Add realm timezone to the tooltip."] = true
+L["Realm Type"] = true
+L["Add realm type to the tooltip."] = true
+L["Realm Language"] = true
+L["Add realm language to the tooltip."] = true
+L["Connected Realms"] = true
+L["Add the connected realms to the tooltip."] = true
+L["Country Flag"] = true
+L["Display the country flag without text on the left side in tooltip."] = true
+L["Behind language in 'Realm language' line"] = true
+L["Behind the character name"] = true
+L["In own tooltip line on the left site"] = true
+L["Prepend country flag on character name in group finder."] = true
+L["Prepend country flag on character name in community member lists."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -257,6 +286,7 @@ L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
+L["Hearthstone Toys Order"] = true
 L["Show the name on location your Heathstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
@@ -279,7 +309,6 @@ L["Update canceled."] = true
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = true
 L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
-L["HS Toys Order"] = true
 
 -- Maps
 L["MiniMap Buttons"] = true
@@ -313,6 +342,10 @@ L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
+
+-- Reminder
+L["Reminder"] = true
+L["Reminds you on self Buffs."] = true
 
 -- CooldownFlash
 L["CooldownFlash"] = true
@@ -379,13 +412,6 @@ L["Specific Auras"] = true
 L["Always"] = true
 L["Never"] = true
 L["Only Mine"] = true
-
--- EnhancedFriendsList
-L["Info Font"] = true
-L["Game Icon Pack"] = true
-L["Status Icon Pack"] = true
-L["Game Icon Preview"] = true
-L["Status Icon Preview"] = true
 
 -- Install
 L["Welcome"] = true
@@ -461,6 +487,7 @@ L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
 L["MerathilisUI Shadows"] = true
+L["Undress Button"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

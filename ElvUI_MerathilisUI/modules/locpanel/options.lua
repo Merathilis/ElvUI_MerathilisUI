@@ -5,48 +5,16 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 --Cache global variables
 local format = string.format
 local tinsert = table.insert
+local strsplit = strsplit
+local match = string.match
+local tconcat = table.concat
+local tremove = table.remove
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
-	local function CreateHSPrio()
-		local config = {
-			type = "group",
-			order = 12,
-			guiInline = true,
-			name = L["HS Toys Order"],
-			hidden = function() return not E.db.mui.locPanel.portals.showHearthstones end,
-			args = {},
-		}
-		for key,_ in pairs(E.db.mui.locPanel.portals.hsPrio) do
-			config.args[key] = {
-				type = "select",
-				name = GetItemInfo(key),
-				order = tonumber(key),
-				width = "full",
-				get = function(info) return (E.db.mui.locPanel.portals.hsPrio[key] or 1) end,
-				set = function(info, value) E.db.mui.locPanel.portals.hsPrio[key] = value end,
-				values = {
-					[1] = "1",
-					[2] = "2",
-					[3] = "3",
-					[4] = "4",
-					[5] = "5",
-					[6] = "6",
-					[7] = "7",
-					[8] = "8",
-					[9] = "9",
-					[10] = "10",
-					[11] = "11",
-					[12] = "12",
-				},
-			}
-		end
-		return config
-	end
-
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = LP.modName,
@@ -319,7 +287,7 @@ local function LocPanelTable()
 								name = L["Show hearthstones"],
 								desc = L["Show hearthstone type items in the list."],
 							},
-							hsProprity = CreateHSPrio(),
+							hsProprity = MER:CreateMovableButtons(22, L["Hearthstone Toys Order"], false, E.db.mui.locPanel.portals, "hsPrio"),
 							showToys = {
 								type = "toggle",
 								order = 20,

@@ -33,9 +33,8 @@ local function MerchantItemlevel()
 		local button = _G["MerchantItem"..i.."ItemButton"]
 		if button and button:IsShown() then
 			if not button.text then
-				button.text = MER:CreateText(button, "OVERLAY", 12, "OUTLINE")
-				button.text:SetPoint("TOPLEFT", 1, -1)
-				button.text:SetTextColor(1, 1, 0)
+				button.text = MER:CreateText(button, "OVERLAY", 10)
+				button.text:SetPoint("BOTTOMRIGHT", 0, 2)
 			else
 				button.text:SetText("")
 			end
@@ -43,8 +42,10 @@ local function MerchantItemlevel()
 			local itemLink = GetMerchantItemLink(index)
 			if itemLink then
 				local _, _, quality, itemlevel, _, _, _, _, _, _, _, itemClassID = GetItemInfo(itemLink)
+				local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
 				if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == LE_ITEM_CLASS_WEAPON or itemClassID == LE_ITEM_CLASS_ARMOR) then
 					button.text:SetText(itemlevel)
+					button.text:SetTextColor(color.r, color.g, color.b)
 				end
 			end
 		end

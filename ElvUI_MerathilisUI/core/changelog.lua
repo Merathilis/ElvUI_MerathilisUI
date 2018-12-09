@@ -17,18 +17,13 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• New Layout for DPS/Tank Profile.",
-		"• Updated BigWigs/Details/Masque Profile.",
-		"• Updated my buttonColector to be like SMB.",
-		"• Added mouseover options for EquipBar & SpecBar.",
-		"• A lot skin updates.",
+		"• Fixed an error in one of my ClassColor function. #38",
+		"• Fixed an error with DeJaCharacterStats. #39",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• If you want my 'NEW' DPS/Tank Layout you have to run through the install again.",
-		"• Changes you have made will get overwritten.",
-		"• Added a WeakAura channel on my Discord, go check it out.",
+		-- "• ''",
 }
 
 local function ModifiedString(string)

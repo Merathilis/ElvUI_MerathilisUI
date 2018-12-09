@@ -118,16 +118,18 @@ local function styleQuestInfo()
 		restyleRewardButton(QuestInfoRewardsFrame[name])
 	end
 
-	-- Spell Rewards
+	--Spell Rewards
 	local spellRewards = {QuestInfoRewardsFrame, MapQuestInfoRewardsFrame}
 	for _, rewardFrame in pairs(spellRewards) do
 		local spellRewardFrame = rewardFrame.spellRewardPool:Acquire()
 		local icon = spellRewardFrame.Icon
 		local nameFrame = spellRewardFrame.NameFrame
 
+		spellRewardFrame:StripTextures()
 		icon:SetTexCoord(unpack(E.TexCoords))
 		MERS:CreateBDFrame(icon)
 		nameFrame:Hide()
+
 		local bg = MERS:CreateBDFrame(nameFrame, .25)
 		bg:SetPoint("TOPLEFT", icon, "TOPRIGHT", 0, 2)
 		bg:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 101, -1)

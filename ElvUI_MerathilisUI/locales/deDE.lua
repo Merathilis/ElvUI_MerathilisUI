@@ -60,6 +60,8 @@ L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
+L["ChatBar"] = "Chatleiste"
+L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 
 -- Information
 L["Information"] = true
@@ -105,14 +107,17 @@ L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
 L["Skill gains"] = "Skill Steigerungen"
-L["Automatically select the quest reward with the highest vendor sell value."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus."
+L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus. Ausserdem kündigt es den Quest Fortschritt an."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
 L["Undress"] = "Ausziehen"
 L["Flashing Cursor"] = "Blinkender Mauszeiger"
+L["Accept Quest"] = "Quest aktzeptiert"
+L["Placed Item"] = "Platzierte Gegenstand"
+L["Stranger"] = "Fremder"
 
--- TooltipIcon
+-- Tooltip
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
@@ -122,6 +127,30 @@ L["Adds information to the tooltip, on which char you earned an achievement."] =
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
+L["Realm Info"] = true
+L["Shows realm info in various tooltips."] = "Zeigt Realminformationen im Tooltip"
+L["Tooltips"] = true
+L["Show the realm info in the group finder tooltip."] = "Zeigt Realminformationen im Tooltip in der Gruppensuche an"
+L["Player Tooltips"] = "Spieler Tooltips"
+L["Show the realm info in the player tooltip."] = "Zeigt Realminformationen im Tooltip von Spielern an"
+L["Friend List"] = "Freundesliste"
+L["Show the realm info in the friend list tooltip."] = "Zeigt Realminformationen im Tooltip in der Freundesliste an"
+L["Tooltip Lines"] = "Tooltip Linien"
+L["Realm Timezone"] = "Realm Zeitzone"
+L["Add realm timezone to the tooltip."] = "Zeigt die Zeitzone des Realms im Tooltip an"
+L["Realm Type"] = "Realmtyp"
+L["Add realm type to the tooltip."] = "Zeigt den Realmtyp im Tooltip an"
+L["Realm Language"] = "Realmsprache"
+L["Add realm language to the tooltip."] = "Zeigt die Sprache des Realm im Tooltip an"
+L["Connected Realms"] = "Verbundene Realms"
+L["Add the connected realms to the tooltip."] = "Zeigt verbundene Realms im Tooltip an"
+L["Country Flag"] = "Landesflagge"
+L["Display the country flag without text on the left side in tooltip."] = "Zeigt die Landesflagge ohne Text auf der linken Seite des Tooltips an"
+L["Behind language in 'Realm language' line"] = "Nach der Realmsprache"
+L["Behind the character name"] = "Nach dem Charakternamen"
+L["In own tooltip line on the left site"] = "In einer eigenen Zeile auf der linken Seite"
+L["Prepend country flag on character name in group finder."] = "Vor dem Characternamen in der Gruppensuche"
+L["Prepend country flag on character name in community member lists."] = "Vor dem Characternamen in der Gemeinschafts-Mitgliederliste"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -263,6 +292,7 @@ L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
 L["Hearthstone Location"] = "Ruhestein Position"
+L["Hearthstone Toys Order"] = "Ruhestein Spielzeug Reihenfolge"
 L["Show hearthstones"] = "Zeige Ruhestein"
 L["Show hearthstone type items in the list."] = "Zeigt Ruhestein Items in der Liste"
 L["Show Toys"] = "Zeige Spielzeuge"
@@ -280,7 +310,6 @@ L["Update canceled."] = "Update abgebrochen."
 L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."] = "Gegenstandsinformation ist nicht verfügbar. Dieses kann ein bisschen dauern um die Informationen zu sammeln. Das Menu wird automatisch geöffnet, wenn alle Informationen gesammelt sind. Nochmaliges aufrufen des Menus während des Updates, wird den Vorgang abbrechen."
 L["Update complete. Opening menu."] = "Update komplett. Menu wird geöffnet."
 L["Hide Coordinates"] = "Verstecke Koordinaten"
-L["HS Toys Order"] = "Ruhestein Spielzeug Reihenfolge"
 
 -- Maps
 L["MiniMap Buttons"] = "Minikartensymbole"
@@ -314,6 +343,10 @@ L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Run
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
+
+-- Reminder
+L["Reminder"] = "Erinnerung"
+L["Reminds you on self Buffs."] = "Erinnert dich an eigene Buffs."
 
 -- CooldownFlash
 L["CooldownFlash"] = true
@@ -380,13 +413,6 @@ L["Specific Auras"] = "Spezifische Auren"
 L["Always"] = "Immer"
 L["Never"] = "Niemals"
 L["Only Mine"] = "Nur eigene"
-
--- EnhancedFriendsList
-L["Info Font"] = "Info Schriftart"
-L["Game Icon Pack"] = true
-L["Status Icon Pack"] = true
-L["Game Icon Preview"] = "Spiel Symbol Vorschau:"
-L["Status Icon Preview"] = "Status Symbol Vorschau:"
 
 -- Install
 L["Welcome"] = "Willkommen"
@@ -462,6 +488,7 @@ L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorativ
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
+L["Undress Button"] = "Ausziehen Taste"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

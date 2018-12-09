@@ -22,6 +22,7 @@ P["mui"] = {
 		["shadowOverlay"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
+		["undressButton"] = true,
 	},
 
 	["bags"] = {
@@ -33,6 +34,7 @@ P["mui"] = {
 		["iLevelLink"] = true,
 		["hidePlayerBrackets"] = true,
 		["sidePanel"] = false,
+		["chatBar"] = true,
 	},
 
 	["colors"] = {
@@ -42,10 +44,11 @@ P["mui"] = {
 	["misc"] = {
 		["MailInputbox"] = true, -- Resize the MailInputbox
 		["gmotd"] = true, -- Show a GMOTD frame
-		["quest"] = true,
+		["quest"] = false,
 		["announce"] = true, -- CombatText, Skill gains
 		["nameHover"] = true,
 		["cursor"] = false,
+		["raidInfo"] = true,
 	},
 
 	["notification"] = {
@@ -118,7 +121,7 @@ P["mui"] = {
 	["microBar"] = {
 		["enable"] = true,
 		["scale"] = 1,
-		["hideInCombat"] = false,
+		["hideInCombat"] = true,
 		["hideInOrderHall"] = false,
 		["text"] = {
 			["position"] = "BOTTOM",
@@ -229,7 +232,7 @@ P["mui"] = {
 		["colorType_Coords"] = "DEFAULT",
 		["customColor"] = {r = 1, g = 1, b = 1 },
 		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
-		["combathide"] = false,
+		["combathide"] = true,
 		["orderhallhide"] = false,
 		["coordshide"] = false,
 		["portals"] = {
@@ -241,14 +244,7 @@ P["mui"] = {
 			["cdFormat"] = "DEFAULT",
 			["ignoreMissingInfo"] = false,
 			["showHearthstones"] = true,
-			["hsPrio"] = {
-				["54452"] = 1,
-				["64488"] = 2,
-				["93672"] = 3,
-				["142542"] = 4,
-				["162973"] = 5,
-				["163045"] = 6,
-			},
+			["hsPrio"] = "54452,64488,93672,142542,162973,163045",
 			["showToys"] = true,
 			["showSpells"] = true,
 			["showEngineer"] = true,
@@ -274,6 +270,19 @@ P["mui"] = {
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
+		["realmInfo"] = {
+			["enable"] = true,
+			["timezone"] = false,
+			["type"] = true,
+			["language"] = true,
+			["connectedrealms"] = true,
+			["countryflag"] = "languageline",
+			["finder_counryflag"] = true,
+			["communities_countryflag"] = true,
+			["ttGrpFinder"] = true,
+			["ttPlayer"] = true,
+			["ttFriends"] = true,
+		},
 	},
 
 	["errorFilters"] = {
@@ -328,24 +337,18 @@ P["mui"] = {
 		[SPELL_FAILED_NOT_MOUNTED] = true,
 	},
 
-	["efl"] = {
-		["enable"] = true,
-		["NameFont"] = "Expressway",
-		["NameFontSize"] = 11,
-		["NameFontFlag"] = "OUTLINE",
-		["InfoFont"] = "Expressway",
-		["InfoFontSize"] = 10,
-		["InfoFontFlag"] = "NONE",
-		["GameIconPack"] = "Launcher",
-		["StatusIconPack"] = "Square",
-	},
-
 	["raidBuffs"] = {
 		["enable"] = true,
 		["visibility"] = "INPARTY",
 		["class"] = true,
+		["size"] = 24,
 		["alpha"] = 0.3,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
+	},
+
+	["reminder"] = {
+		["enable"] = true,
+		["size"] = 30,
 	},
 
 	["NameplateAuras"] = {

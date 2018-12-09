@@ -13,8 +13,6 @@ local function CreateStatusFrame()
 	local StatusFrame = _G["ElvUIStatusReport"]
 
 	-- Style
-	StatusFrame.backdrop:Hide()
-	StatusFrame:Styling()
-	E:GetModule("muiSkins"):CreateBD(StatusFrame, .5)
+	StatusFrame.backdrop:Styling()
 end
 hooksecurefunc(E, "CreateStatusFrame", CreateStatusFrame)

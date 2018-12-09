@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERC = MER:GetModule("muiChat")
 
-
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
@@ -38,6 +37,12 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Hide Chat Side Panel"],
 				desc = L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"],
+			},
+			chatBar = {
+				order = 6,
+				type = "toggle",
+				name = E.NewSign..L["ChatBar"],
+				desc = L["Shows a ChatBar with different quick buttons."],
 			},
 		},
 	}

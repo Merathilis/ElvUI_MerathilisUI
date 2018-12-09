@@ -49,7 +49,7 @@ local function Misc()
 				order = 5,
 				type = "toggle",
 				name = L["Quest"],
-				desc = L["Automatically select the quest reward with the highest vendor sell value."],
+				desc = L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."],
 			},
 			announce = {
 				order = 6,

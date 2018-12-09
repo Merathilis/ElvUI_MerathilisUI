@@ -38,6 +38,14 @@ local function styleLFGList()
 		end
 	end)
 
+	hooksecurefunc("LFGListSearchEntry_Update", function(self)
+		local cancelButton = self.CancelButton
+		if not cancelButton.styled then
+			MERS:Reskin(cancelButton)
+			cancelButton.styled = true
+		end
+	end)
+
 	-- Invite frame
 	_G["LFGListInviteDialog"]:Styling()
 	_G["LFGDungeonReadyDialog"]:Styling()
