@@ -52,7 +52,7 @@ local function styleCharacter()
 
 		bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
 		bu:GetNormalTexture():SetInside()
-		bu:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+		bu:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 
 		bu:SetPushedTexture("")
 		bu:SetDisabledTexture("")
