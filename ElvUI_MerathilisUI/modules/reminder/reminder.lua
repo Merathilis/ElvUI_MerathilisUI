@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local RM = MER:NewModule("Reminder", "AceEvent-3.0", "AceTimer-3.0")
+local LCG = LibStub('LibCustomGlow-1.0')
 local S = E:GetModule("Skins")
 RM.modName = L["Reminder"]
 
@@ -347,9 +348,9 @@ function RM:ReminderIcon_OnEvent(event, unit)
 	end
 
 	if self:GetAlpha() == 1 then
-		ActionButton_ShowOverlayGlow(self.overlay)
+		LCG.PixelGlow_Start(self.overlay)
 	else
-		ActionButton_HideOverlayGlow(self.overlay)
+		LCG.PixelGlow_Stop(self.overlay)
 	end
 end
 
