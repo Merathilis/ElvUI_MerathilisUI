@@ -44,27 +44,29 @@ local function styleCharacter()
 		EquipmentManager_RunAction(action)
 	end
 
-	local bu = CreateFrame("Button", nil, _G["PaperDollFrame"], "UIPanelButtonTemplate")
-	bu:SetSize(34, 37)
-	bu:SetFrameStrata("HIGH")
-	bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, 0)
+	if E.db.mui.general.undressButton then
+		local bu = CreateFrame("Button", nil, _G["PaperDollFrame"], "UIPanelButtonTemplate")
+		bu:SetSize(34, 37)
+		bu:SetFrameStrata("HIGH")
+		bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, 0)
 
-	bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
-	bu:GetNormalTexture():SetInside()
-	bu:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+		bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
+		bu:GetNormalTexture():SetInside()
+		bu:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 
-	bu:SetPushedTexture("")
-	bu:SetDisabledTexture("")
+		bu:SetPushedTexture("")
+		bu:SetDisabledTexture("")
 
-	MER:AddTooltip(bu, "ANCHOR_RIGHT", E:RGBToHex(r, g, b)..L["Undress"])
-	bu:SetScript('OnClick', function()
-		for i = 1, 17 do
-			local texture = GetInventoryItemTexture('player', i)
-			if texture then
-				UnequipItemInSlot(i)
+		MER:AddTooltip(bu, "ANCHOR_RIGHT", L["Undress"], 1, 1, 1)
+		bu:SetScript('OnClick', function()
+			for i = 1, 17 do
+				local texture = GetInventoryItemTexture('player', i)
+				if texture then
+					UnequipItemInSlot(i)
+				end
 			end
-		end
-	end)
+		end)
+	end
 end
 
 S:AddCallback("mUICharacter", styleCharacter)

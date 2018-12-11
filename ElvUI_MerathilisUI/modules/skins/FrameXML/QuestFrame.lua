@@ -20,11 +20,15 @@ local function styleQuestFrame()
 	------------------------
 	_G["QuestDetailScrollFrame"]:StripTextures(true)
 	_G["QuestDetailScrollFrame"]:HookScript("OnUpdate", function(self)
-		self.spellTex:SetTexture("")
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+		end
 	end)
 
 	if _G["QuestDetailScrollFrame"].spellTex then
-		_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
+		if not E.private.skins.parchmentRemover.enable then
+			_G["QuestDetailScrollFrame"].spellTex:SetTexture("")
+		end
 	end
 
 	------------------------
@@ -33,8 +37,10 @@ local function styleQuestFrame()
 	_G["QuestRewardScrollFrame"]:HookScript("OnShow", function(self)
 		self.backdrop:Hide()
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
+		end
 	end)
 
 	--------------------------
@@ -44,15 +50,10 @@ local function styleQuestFrame()
 
 	_G["QuestProgressScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
-	end)
-
-	hooksecurefunc("QuestFrameProgressItems_Update", function()
-		_G["QuestProgressTitleText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressRequiredItemsText"]:SetTextColor(1, 1, 1)
-		_G["QuestProgressRequiredMoneyText"]:SetTextColor(1, 1, 1)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
+		end
 	end)
 
 	--------------------------
@@ -60,8 +61,10 @@ local function styleQuestFrame()
 	--------------------------
 	_G["QuestGreetingScrollFrame"]:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
-		self.spellTex:SetTexture("")
-		self:Height(self:GetHeight() - 2)
+		if not E.private.skins.parchmentRemover.enable then
+			self.spellTex:SetTexture("")
+			self:Height(self:GetHeight() - 2)
+		end
 	end)
 
 	hooksecurefunc("QuestFrame_SetMaterial", function(frame)
@@ -169,6 +172,9 @@ local function styleQuestFrame()
 	-- Text Color
 	QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
 	QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
+	CurrentQuestsText:SetTextColor(1, 1, 1)
+	CurrentQuestsText.SetTextColor = MER.dummy
+	CurrentQuestsText:SetShadowColor(0, 0, 0)
 	QuestProgressTitleText:SetTextColor(1, 1, 1)
 	QuestProgressTitleText:SetShadowColor(0, 0, 0)
 	QuestProgressTitleText.SetTextColor = MER.dummy
@@ -179,9 +185,6 @@ local function styleQuestFrame()
 	AvailableQuestsText:SetTextColor(1, 1, 1)
 	AvailableQuestsText.SetTextColor = MER.dummy
 	AvailableQuestsText:SetShadowColor(0, 0, 0)
-	CurrentQuestsText:SetTextColor(1, 1, 1)
-	CurrentQuestsText.SetTextColor = MER.dummy
-	CurrentQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)

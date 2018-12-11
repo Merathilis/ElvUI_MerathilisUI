@@ -51,10 +51,6 @@ local function stylePvP()
 	local Inset = HonorFrame.Inset
 	local BonusFrame = HonorFrame.BonusFrame
 
-	for i = 1, 9 do
-		select(i, Inset:GetRegions()):Hide()
-	end
-
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 

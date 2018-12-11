@@ -7,12 +7,18 @@ MERA.modName = L["Announce"]
 --Lua functions
 local _G = _G
 local unpack, string = unpack, string
-local upper = string.upper
+local format, upper = string.format, string.upper
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local UnitIsDead = UnitIsDead
 local SetCVar = SetCVar
-
+local GetSpellInfo = GetSpellInfo
+local GetSpellLink = GetSpellLink
+local IsInRaid = IsInRaid
+local IsPartyLFG = IsPartyLFG
+local UnitInRaid = UnitInRaid
+local UnitInParty = UnitInParty
+local UnitName = UnitName
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LE_PARTY_CATEGORY_HOME, LE_PARTY_CATEGORY_INSTANCE, LEAVING_COMBAT, ENTERING_COMBAT
 -- GLOBALS: UIErrorsFrame, ChatTypeInfo, CombatText

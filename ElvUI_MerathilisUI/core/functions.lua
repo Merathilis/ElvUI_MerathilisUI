@@ -3,9 +3,10 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, print, select = assert, pairs, print, select
+local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
-local find, format = string.find, string.format
+local find, format, match, split = string.find, string.format, string.match, string.split
+local tconcat = table.concat
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -16,8 +17,16 @@ local GetContainerItemLink = GetContainerItemLink
 local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
+local UnitBuff = UnitBuff
+local UnitClass = UnitClass
+local UnitIsPlayer = UnitIsPlayer
+local UnitIsTapDenied = UnitIsTapDenied
+local UnitReaction = UnitReaction
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
+
+local backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropcolor)
+local borderr, borderg, borderb, bordera = unpack(E["media"].bordercolor)
 
 MER.dummy = function() return end
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -56,9 +65,29 @@ for class in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
-function MER:GetClassColorString(class)
-	local color = MER.ClassColors[BC[class] or class]
-	return E:RGBToHex(color.r, color.g, color.b)
+function MER:ClassColor(class)
+	local color = MER.ClassColors[class]
+	if not color then return 1, 1, 1 end
+	return color.r, color.g, color.b
+end
+
+function MER:UnitColor(unit)
+	local r, g, b = 1, 1, 1
+	if UnitIsPlayer(unit) then
+		local _, class = UnitClass(unit)
+		if class then
+			r, g, b = MER:ClassColor(class)
+		end
+	elseif UnitIsTapDenied(unit) then
+		r, g, b = .6, .6, .6
+	else
+		local reaction = UnitReaction(unit, "player")
+		if reaction then
+			local color = FACTION_BAR_COLORS[reaction]
+			r, g, b = color.r, color.g, color.b
+		end
+	end
+	return r, g, b
 end
 
 function MER:SetupProfileCallbacks()
@@ -100,6 +129,46 @@ end
 function MER:GetSpell(id)
 	local name = GetSpellInfo(id)
 	return name
+end
+
+-- Tooltip scanning stuff
+local iLvlDB = {}
+local itemLevelString = _G["ITEM_LEVEL"]:gsub("%%d", "")
+local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
+
+function MER:GetItemLevel(link, arg1, arg2)
+	if iLvlDB[link] then return iLvlDB[link] end
+
+	tip:SetOwner(UIParent, "ANCHOR_NONE")
+	if arg1 and type(arg1) == "string" then
+		tip:SetInventoryItem(arg1, arg2)
+	elseif arg1 and type(arg1) == "number" then
+		tip:SetBagItem(arg1, arg2)
+	else
+		tip:SetHyperlink(link)
+	end
+
+	for i = 2, 5 do
+		local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
+		local found = text:find(itemLevelString)
+		if found then
+			local level = text:match("(%d+)%)?$")
+			iLvlDB[link] = tonumber(level)
+			break
+		end
+	end
+	return iLvlDB[link]
+end
+
+function MER:CheckPlayerBuff(spell)
+	for i = 1, 40 do
+		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
+		if not name then break end
+		if name == spell then
+			return i, unitCaster
+		end
+	end
+	return nil
 end
 
 function MER:BagSearch(itemId)
@@ -161,11 +230,87 @@ function MER:Reset(group)
 	E:UpdateAll()
 end
 
-function MER:CreateText(f, layer, fontsize, flag, justifyh)
-	local text = f:CreateFontString(nil, layer)
-	text:SetFont(E.media.normFont, fontsize, flag)
-	text:SetJustifyH(justifyh or "CENTER")
-	return text
+-- Movable Config Buttons
+local function MovableButton_Value(value)
+	return gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
+end
+
+local function MovableButton_Match(s,v)
+	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
+	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
+end
+
+function MER:MovableButtonSettings(db, key, value, remove, movehere)
+	local str = db[key]
+	if not db or not str or not value then return end
+
+	local found = MovableButton_Match(str, MovableButton_Value(value))
+	if found and movehere then
+		local tbl, sv, sm = {split(",", str)}
+		for i in ipairs(tbl) do
+			if tbl[i] == value then sv = i elseif tbl[i] == movehere then sm = i end
+			if sv and sm then break end
+		end
+		tremove(tbl, sm)
+		tinsert(tbl, sv, movehere)
+
+		db[key] = tconcat(tbl,',')
+
+	elseif found and remove then
+		db[key] = gsub(str, found, "")
+	elseif not found and not remove then
+		db[key] = (str == '' and value) or (str..","..value)
+	end
+end
+
+function MER:CreateMovableButtons(Order, Name, CanRemove, db, key)
+	local moveItemFrom, moveItemTo
+
+	local config = {
+		order = Order,
+		dragdrop = true,
+		type = "multiselect",
+		name = Name,
+		dragOnLeave = function() end, --keep this here
+		dragOnEnter = function(info)
+			moveItemTo = info.obj.value
+		end,
+		dragOnMouseDown = function(info)
+			moveItemFrom, moveItemTo = info.obj.value, nil
+		end,
+		dragOnMouseUp = function(info)
+			MER:MovableButtonSettings(db, key, moveItemTo, nil, moveItemFrom) --add it in the new spot
+			moveItemFrom, moveItemTo = nil, nil
+		end,
+		stateSwitchGetText = function(info, TEXT)
+			local text = GetItemInfo(tonumber(TEXT))
+			info.userdata.text = text
+			return text
+		end,
+		stateSwitchOnClick = function(info)
+			MER:MovableButtonSettings(db, key, moveItemFrom)
+		end,
+		values = function()
+			local str = db[key]
+			if str == "" then return nil end
+			return {split(",",str)}
+		end,
+		get = function(info, value)
+			local str = db[key]
+			if str == "" then return nil end
+			local tbl = {split(",",str)}
+			return tbl[value]
+		end,
+		set = function(info, value) end,
+	}
+
+	if CanRemove then --This allows to remove
+		config.dragOnClick = function(info)
+			MER:MovableButtonSettings(db, key, moveItemFrom, true)
+		end
+	end
+
+	return config
 end
 
 -- GameTooltip
@@ -191,24 +336,33 @@ function MER:AddTooltip(self, anchor, text, color)
 	self:SetScript("OnLeave", GameTooltip_Hide)
 end
 
-
 -- frame text
-function MER:CreateFS(f, size, text, classcolor, anchor, x, y)
-	local fs = f:CreateFontString(nil, "OVERLAY")
-	fs:FontTemplate(nil, nil, 'OUTLINE')
-	fs:SetText(text)
-	fs:SetWordWrap(false)
-	if classcolor and type(classcolor) == "boolean" then
-		fs:SetTextColor(MER.r, MER.g, MER.b)
-	elseif classcolor == "system" then
-		fs:SetTextColor(1, .8, 0)
-	end
-	if (anchor and x and y) then
-		fs:SetPoint(anchor, x, y)
+function MER:CreateText(f, layer, size, text, classcolor, anchor, x, y)
+	local text = f:CreateFontString(nil, layer)
+	text:FontTemplate(nil, size or 10, 'OUTLINE')
+	text:SetWordWrap(false)
+
+	if text then
+		text:SetText(text)
 	else
-		fs:SetPoint("CENTER", 1, 0)
+		text:SetText("")
 	end
-	return fs
+
+	if classcolor and type(classcolor) == "boolean" then
+		text:SetTextColor(MER.r, MER.g, MER.b)
+	elseif classcolor == "system" then
+		text:SetTextColor(1, .8, 0)
+	elseif classcolor == "white" then
+		text:SetTextColor(1, 1, 1)
+	end
+
+	if (anchor and x and y) then
+		text:SetPoint(anchor, x, y)
+	else
+		text:SetPoint("CENTER", 1, 0)
+	end
+
+	return text
 end
 
 -- Inform us of the patch info we play on.
@@ -374,10 +528,81 @@ local function StripFrame(Frame, Kill, Alpha)
 	end
 end
 
+local function CreateOverlay(f)
+	if f.overlay then return end
+
+	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
+	overlay:SetPoint("TOPLEFT", 2, -2)
+	overlay:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(E["media"].blankTex)
+	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
+	f.overlay = overlay
+end
+
+local function CreateBorder(f, i, o)
+	if i then
+		if f.iborder then return end
+		local border = CreateFrame("Frame", "$parentInnerBorder", f)
+		border:SetPoint("TOPLEFT", E.mult, -E.mult)
+		border:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+		border:SetBackdrop({
+			edgeFile = E["media"].blankTex, edgeSize = E.mult,
+			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
+		})
+		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		f.iborder = border
+	end
+
+	if o then
+		if f.oborder then return end
+		local border = CreateFrame("Frame", "$parentOuterBorder", f)
+		border:SetPoint("TOPLEFT", -E.mult, E.mult)
+		border:SetPoint("BOTTOMRIGHT", E.mult, -E.mult)
+		border:SetFrameLevel(f:GetFrameLevel() + 1)
+		border:SetBackdrop({
+			edgeFile = E["media"].blankTex, edgeSize = E.mult,
+			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
+		})
+		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		f.oborder = border
+	end
+end
+
+local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
+	f:SetWidth(w)
+	f:SetHeight(h)
+	f:SetFrameLevel(3)
+	f:SetFrameStrata("BACKGROUND")
+	f:SetPoint(a1, p, a2, x, y)
+	f:SetBackdrop({
+		bgFile = E["media"].blankTex, edgeFile = E["media"].blankTex, edgeSize = E.mult,
+		insets = {left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
+	})
+
+	if t == "Transparent" then
+		backdropa = 0.45
+		f:CreateBorder(true, true)
+	elseif t == "Overlay" then
+		backdropa = 1
+		f:CreateOverlay()
+	elseif t == "Invisible" then
+		backdropa = 0
+		bordera = 0
+	else
+		backdropa = 1
+	end
+
+	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
+end
+
 local function addapi(object)
 	local mt = getmetatable(object).__index
 	if not object.Styling then mt.Styling = Styling end
 	if not object.StripFrame then mt.StripFrame = StripFrame end
+	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
+	if not object.CreateBorder then mt.CreateBorder = CreateBorder end
+	if not object.CreatePanel then mt.CreatePanel = CreatePanel end
 end
 
 local handled = {["Frame"] = true}

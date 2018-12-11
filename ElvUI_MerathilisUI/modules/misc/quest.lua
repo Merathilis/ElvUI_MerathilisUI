@@ -100,9 +100,7 @@ local function completeText(link)
 end
 
 local function sendQuestMsg(msg)
-	if MER.IsDev and MER.IsDevRealm then
-		print(msg)
-	elseif IsPartyLFG() then
+	if IsPartyLFG() then
 		SendChatMessage(msg, "INSTANCE_CHAT")
 	elseif IsInRaid() then
 		SendChatMessage(msg, "RAID")

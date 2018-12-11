@@ -26,7 +26,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["questFontSuperHuge"]["font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Gem"]["SocketSize"] = 15
 	E.db["sle"]["Armory"]["Character"]["Gradation"]["Display"] = true
-	E.db["sle"]["Armory"]["Character"]["Gradation"]["Color"] = {MER.ClassColor.r, MER.ClassColor.g, MER.ClassColor.b}
+	E.db["sle"]["Armory"]["Character"]["Gradation"]["Color"] = {MER.r, MER.g, MER.b}
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Display"] = "DamagedOnly"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["Font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Durability"]["FontSize"] = 11
@@ -41,6 +41,12 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["font"] = "Expressway"
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["size"] = 16
 	E.db["sle"]["Armory"]["Character"]["Stats"]["ItemLevel"]["outline"] = "OUTLINE"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["catFonts"]["font"] = "Expressway"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["catFonts"]["size"] = 12
+	E.db["sle"]["Armory"]["Character"]["Stats"]["catFonts"]["outline"] = "OUTLINE"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["statFonts"]["font"] = "Expressway"
+	E.db["sle"]["Armory"]["Character"]["Stats"]["statFonts"]["size"] = 11
+	E.db["sle"]["Armory"]["Character"]["Stats"]["statFonts"]["outline"] = "NONE"
 	E.db["sle"]["Armory"]["Character"]["AzeritePosition"]["xOffset"] = 0
 	E.db["sle"]["Armory"]["Character"]["AzeritePosition"]["yOffset"] = 20
 	E.db["sle"]["Armory"]["Inspect"]["Enable"] = true

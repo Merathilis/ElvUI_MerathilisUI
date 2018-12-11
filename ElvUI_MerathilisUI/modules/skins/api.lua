@@ -560,36 +560,26 @@ function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	if not noReplaceTextures then
 		if frame.SetCheckedTexture then
-			frame:SetCheckedTexture(E["media"].blankTex)
-			frame:GetCheckedTexture():SetVertexColor(r, g, b)
+			frame:SetCheckedTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetCheckedTexture():SetVertexColor(1, .82, 0, 0.8)
 			frame:GetCheckedTexture():SetInside(frame.backdrop)
 		end
 
 		if frame.SetDisabledTexture then
-			frame:SetDisabledTexture(E["media"].blankTex)
-			frame:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+			frame:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+			frame:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
 			frame:GetDisabledTexture():SetInside(frame.backdrop)
 		end
 
 		frame:HookScript('OnDisable', function(checkbox)
 			if not checkbox.SetDisabledTexture then return; end
 			if checkbox:GetChecked() then
-				checkbox:SetDisabledTexture(E["media"].blankTex)
-				checkbox:GetDisabledTexture():SetVertexColor(r, g, b, 0.5)
+				checkbox:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				checkbox:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
 				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
 			else
 				checkbox:SetDisabledTexture("")
 			end
-		end)
-
-		hooksecurefunc(frame, "SetNormalTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetNormalTexture("") end
-		end)
-		hooksecurefunc(frame, "SetPushedTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetPushedTexture("") end
-		end)
-		hooksecurefunc(frame, "SetHighlightTexture", function(checkbox, texPath)
-			if texPath ~= "" then checkbox:SetHighlightTexture("") end
 		end)
 	end
 end
@@ -636,19 +626,6 @@ function MERS:ReskinIcon(icon, backdrop)
 	icon:SetTexCoord(unpack(E.TexCoords))
 	if backdrop then
 		MERS:CreateBackdrop(icon)
-	end
-end
-
-function MERS:CropIcon(texture, parent)
-	texture:SetTexCoord(unpack(E.TexCoords))
-	if parent then
-		local layer, subLevel = texture:GetDrawLayer()
-		local iconBorder = parent:CreateTexture(nil, layer, nil, subLevel - 1)
-		iconBorder:SetPoint("TOPLEFT", texture, -1, 1)
-		iconBorder:SetPoint("BOTTOMRIGHT", texture, 1, -1)
-		iconBorder:SetColorTexture(0, 0, 0)
-
-		return iconBorder
 	end
 end
 

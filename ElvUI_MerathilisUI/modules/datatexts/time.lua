@@ -11,7 +11,7 @@ local floor = math.floor
 local twipe = table.wipe
 local date = date
 --WoW API / Variables
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local GetGameTime = GetGameTime
 local GetDifficultyInfo = GetDifficultyInfo
 local GetQuestsCompleted = GetQuestsCompleted
@@ -226,7 +226,7 @@ local function OnEnter(self)
 	}
 
 	DT.tooltip:AddLine(" ")
-	local date = C_Calendar_GetDate();
+	local date = C_DateAndTime.GetCurrentCalendarTime();
 	local presentWeekday = date.weekday;
 	local presentMonth = date.month;
 	local presentDay = date.monthDay;

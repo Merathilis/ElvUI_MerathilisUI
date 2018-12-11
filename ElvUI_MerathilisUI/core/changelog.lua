@@ -17,8 +17,11 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error in one of my ClassColor function. #38",
-		"• Fixed an error with DeJaCharacterStats. #39",
+		"• Update new ChatBar position and size.",
+		"• Removed Enhanced FriendsList. Get ProjectAzilroka.",
+		"• Fix Keystone Info tooltip.",
+		"• Added iLvL on ScrappingMachine & EquipFlyout Buttons.",
+		"• Added Buff Reminder Module.",
 
 		-- "• ''",
 	" ",

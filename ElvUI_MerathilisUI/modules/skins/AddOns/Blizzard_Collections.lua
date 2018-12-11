@@ -258,6 +258,7 @@ local function styleCollections()
 		bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
 		bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
 		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
+		MERS:CreateGradient(bg)
 	end
 
 	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
@@ -286,10 +287,12 @@ local function styleCollections()
 
 	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
 		if not button.IsStyled then
-			local bg = MERS:CreateBDFrame(button, .3)
+			local bg = MERS:CreateBDFrame(button)
 			bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
 			bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
 			bg:SetPoint('RIGHT', button.name, 'RIGHT', 2, 0)
+			MERS:CreateGradient(bg)
+			button.IsStyled = true
 		end
 	end)
 

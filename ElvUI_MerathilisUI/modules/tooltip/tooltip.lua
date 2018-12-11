@@ -113,6 +113,8 @@ function MERTT:Initialize()
 	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.tooltip ~= true then return end
 	self.db = E.db.tooltip
 
+	self:CommunitiesHook()
+
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", MERTT.GameTooltip_OnTooltipSetUnit)
 end
 

@@ -57,6 +57,124 @@ local function Tooltip()
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
+			header = {
+				order = 8,
+				type = "header",
+				name = MER:cOption(L["Realm Info"]),
+			},
+			realmInfo = {
+				order = 9,
+				type = "group",
+				name = L["Realm Info"],
+				guiInline = true,
+				get = function(info) return E.db.mui.tooltip.realmInfo[ info[#info] ] end,
+				set = function(info, value) E.db.mui.tooltip.realmInfo[ info[#info] ] = value end,
+				disabled = function() return not E.private.tooltip.enable end,
+				args = {
+					enable = {
+						order = 1,
+						type = 'toggle',
+						name = L["Enable"],
+						desc = L["Shows realm info in various tooltips."],
+					},
+					tooltips = {
+						order = 2,
+						type = "group",
+						name = L["Tooltips"],
+						disabled = function() return not  E.db.mui.tooltip.realmInfo.enable end,
+						get = function(info) return E.db.mui.tooltip.realmInfo[ info[#info] ] end,
+						set = function(info, value) E.db.mui.tooltip.realmInfo[ info[#info] ] = value end,
+						args = {
+							ttGrpFinder = {
+								order = 1,
+								type = "toggle",
+								name = LFGLIST_NAME,
+								desc = L["Show the realm info in the group finder tooltip."],
+							},
+							ttPlayer = {
+								order = 2,
+								type = "toggle",
+								name = L["Player Tooltips"],
+								desc = L["Show the realm info in the player tooltip."],
+							},
+							ttFriends = {
+								order = 3,
+								type = "toggle",
+								name = L["Friend List"],
+								desc = L["Show the realm info in the friend list tooltip."],
+							},
+						},
+					},
+					tooltipLines = {
+						order = 3,
+						type = "group",
+						name = L["Tooltip Lines"],
+						disabled = function() return not E.db.mui.tooltip.realmInfo.enable end,
+						get = function(info) return E.db.mui.tooltip.realmInfo[ info[#info] ] end,
+						set = function(info, value) E.db.mui.tooltip.realmInfo[ info[#info] ] = value end,
+						args = {
+							timezone = {
+								order = 2,
+								type = "toggle",
+								name = L["Realm Timezone"],
+								desc = L["Add realm timezone to the tooltip."],
+							},
+							type = {
+								order = 3,
+								type = "toggle",
+								name = L["Realm Type"],
+								desc = L["Add realm type to the tooltip."],
+							},
+							language = {
+								order = 4,
+								type = "toggle",
+								name = L["Realm Language"],
+								desc = L["Add realm language to the tooltip."],
+							},
+							connectedrealms = {
+								order = 5,
+								type = "toggle",
+								name = L["Connected Realms"],
+								desc = L["Add the connected realms to the tooltip."],
+							},
+							countryflag = {
+								order = 6,
+								type = "select",
+								width = "full",
+								name = L["Country Flag"],
+								desc = L["Display the country flag without text on the left side in tooltip."],
+								values = {
+									languageline = L["Behind language in 'Realm language' line"],
+									ownline = L["In own tooltip line on the left site"],
+									none = ADDON_DISABLED
+								},
+							},
+						},
+					},
+					country_flags = {
+						order = 4,
+						type = "group",
+						name = L["Country Flag"],
+						disabled = function() return not E.db.mui.tooltip.realmInfo.enable end,
+						get = function(info) return E.db.mui.tooltip.realmInfo[ info[#info] ] end,
+						set = function(info, value) E.db.mui.tooltip.realmInfo[ info[#info] ] = value end,
+						args = {
+							finder_counryflag = {
+								order = 1,
+								type = "toggle",
+								name = LFGLIST_NAME,
+								desc = L["Prepend country flag on character name in group finder."],
+							},
+							communities_countryflag = {
+								order = 2,
+								type = "toggle",
+								name = COMMUNITIES,
+								desc = L["Prepend country flag on character name in community member lists."],
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end

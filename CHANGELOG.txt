@@ -1,3 +1,10 @@
+[b][color=orange]v4.03[/color], 11.12.2018[/b][list]
+[*]Update new ChatBar position and size.
+[*]Removed Enhanced FriendsList. Get ProjectAzilroka.
+[*]Fix Keystone Info tooltip.
+[*]Added iLvL on ScrappingMachine & EquipFlyout Buttons.
+[*]Added Buff Reminder Module.[/list]
+
 [b][color=orange]v4.02[/color], 21.11.2018[/b][list]
 [*]Fixed an error in one of my ClassColor function. #38
 [*]Fixed an error with DeJaCharacterStats. #39[/list]

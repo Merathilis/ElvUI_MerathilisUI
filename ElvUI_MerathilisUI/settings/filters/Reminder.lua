@@ -1,0 +1,67 @@
+local MER, E, L, V, P, G = unpack(select(2, ...))
+
+--Cache global variables
+--Lua functions
+
+--WoW API / Variables
+
+-- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
+-- GLOBALS:
+
+MER.ReminderList = {
+	MAGE = {
+		["Intellect"] = {
+			["spellGroup"] = {
+				[1459] = true,
+				["defaultIcon"] = 1459,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
+	PRIEST = {
+		["Stamina"] = {
+			["spellGroup"] = {
+				[21562] = true,
+				["defaultIcon"] = 21562, -- Power Word: Fortitude
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+
+	ROGUE = {
+		["Poisons"] = {
+			["spellGroup"] = {
+				[8679] = true,	 -- Wound Poison
+				[2823] = true,	 -- Deadly Poison
+				[3408] = true,	 -- Crippling Poison
+				[108211] = true, -- Leeching Poison
+				["defaultIcon"] = 2823,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 1,
+		},
+	},
+
+	WARRIOR = {
+		["Stamina"] = {
+			["spellGroup"] = {
+				[6673] = true, -- Battle Shout
+				["defaultIcon"] = 6673,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+		},
+	},
+}

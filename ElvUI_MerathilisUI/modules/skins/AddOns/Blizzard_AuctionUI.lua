@@ -17,7 +17,7 @@ local function styleAuctionhouse()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end
 
 	local AuctionFrame = _G["AuctionFrame"]
-	AuctionFrame:Styling()
+	AuctionFrame.backdrop:Styling()
 
 	--Change ElvUI's backdrop to be Transparent
 	if AuctionFrameBrowse.bg1 then AuctionFrameBrowse.bg1:SetTemplate("Transparent") end

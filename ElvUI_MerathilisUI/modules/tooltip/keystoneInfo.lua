@@ -10,13 +10,13 @@ local tinsert, tremove = table.insert, table.remove
 
 -- WoW API / Variables
 local C_ChallengeMode = C_ChallengeMode
-
+local C_ChallengeMode_GetAffixInfo = C_ChallengeMode.GetAffixInfo
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
 local function GetModifiers(linkType, ...)
 	if type(linkType) ~= 'string' then return end
-	local modifierOffset = 3
+	local modifierOffset = 4
 	local instanceID, mythicLevel, notDepleted, _ = ...
 	if linkType:find('item') then
 		_, _, _, _, _, _, _, _, _, _, _, _, _, instanceID, mythicLevel = ...
@@ -34,14 +34,17 @@ local function GetModifiers(linkType, ...)
 		local num = strmatch(select(i, ...) or '', '^(%d+)')
 		if num then
 			local modifierID = tonumber(num)
-			--if not modifierID then break end
-			tinsert(modifiers, modifierID)
+			if modifierID then
+				tinsert(modifiers, modifierID)
+			end
 		end
 	end
+
 	local numModifiers = #modifiers
 	if modifiers[numModifiers] and modifiers[numModifiers] < 2 then
 		tremove(modifiers, numModifiers)
 	end
+
 	return modifiers, instanceID, mythicLevel
 end
 
@@ -51,13 +54,13 @@ local function DecorateTooltip(self, link, _)
 	if not link then
 		_, link = self:GetItem()
 	end
+
 	if type(link) == 'string' then
 		local modifiers, instanceID, mythicLevel = GetModifiers(strsplit(':', link))
 		if modifiers then
 			for _, modifierID in ipairs(modifiers) do
-				local modifierName, modifierDescription = C_ChallengeMode.GetAffixInfo(modifierID)
-				if modifierName and
-					modifierDescription then
+				local modifierName, modifierDescription = C_ChallengeMode_GetAffixInfo(modifierID)
+				if modifierName and modifierDescription then
 					self:AddLine(format('|cff00ff00%s|r - %s', modifierName, modifierDescription), 0, 1, 0, true)
 				end
 			end
@@ -66,6 +69,6 @@ local function DecorateTooltip(self, link, _)
 	end
 end
 
-hooksecurefunc(ItemRefTooltip, 'SetHyperlink', DecorateTooltip) 
+hooksecurefunc(ItemRefTooltip, 'SetHyperlink', DecorateTooltip)
 --ItemRefTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)
 GameTooltip:HookScript('OnTooltipSetItem', DecorateTooltip)

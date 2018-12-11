@@ -21,7 +21,7 @@ COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
 COMP.CUI = MER:IsAddOnEnabled("ElvUI_ChaoticUI")
 
 local function Disable(tbl, key)
-	key = key or 'enable'
+	key = key or ('enable' or 'Enable')
 	if (tbl[key]) then
 		tbl[key] = false
 		return true
@@ -56,11 +56,7 @@ function COMP:ModulePrint(addon, module)
 end
 
 function COMP:ProjectAzilrokaCompatibility()
-	if Disable(_G.ProjectAzilrokaDB, "EFL") then
-		self:Print("ProjectAzilroka", "EnhancedFriendsList")
-	end
-
-	if Disable(_G.ProjectAzilroka.db, "SMB" and E.db.mui["smb"]) then
+	if Disable(ProjectAzilrokaDB, "SquareMinimapButtons" and E.db.mui["smb"]) then
 		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
 end

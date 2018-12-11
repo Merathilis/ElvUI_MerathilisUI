@@ -70,14 +70,6 @@ local function styleTalents()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
 		scrollChild.specIcon:Size(70, 70)
 
-		if not scrollChild.backdrop then
-			scrollChild:CreateBackdrop("Default")
-			scrollChild.backdrop:SetPoint("TOPLEFT", scrollChild.specIcon, "TOPLEFT", -2, 2)
-			scrollChild.backdrop:SetPoint("BOTTOMRIGHT", scrollChild.specIcon, "BOTTOMRIGHT", 2, -2)
-			scrollChild.specIcon:SetParent(scrollChild.backdrop)
-		end
-		MERS:CreateBG(scrollChild.specIcon)
-
 		local roleIcon = scrollChild.roleIcon
 
 		roleIcon:SetTexture(E["media"].roleIcons)
