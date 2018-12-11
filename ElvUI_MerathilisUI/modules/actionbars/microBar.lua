@@ -11,7 +11,7 @@ local _G = _G
 local CreateFrame = CreateFrame
 local BNGetNumFriends = BNGetNumFriends
 local GetGuildRosterInfo = GetGuildRosterInfo
-local GetNumFriends = GetNumFriends
+local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local GetNumGuildMembers = GetNumGuildMembers
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
@@ -124,7 +124,7 @@ function MB:CreateMicroBar()
 
 	local function UpdateFriends()
 		MB.db = E.db.mui.microBar
-		local friendsTotal, friendsOnline = GetNumFriends()
+		local friendsOnline = C_FriendList_GetNumFriends()
 		local bnTotal, bnOnline = BNGetNumFriends()
 		local totalOnline = friendsOnline + bnOnline
 
