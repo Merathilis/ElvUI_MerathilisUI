@@ -1,3 +1,7 @@
+** v4.03, 12.12.2018**
+* Fixed an error in the LFGList skin.
+* Updated SpellBook skin.
+
 ** v4.03, 11.12.2018**
 * Update new ChatBar position and size.
 * Removed Enhanced FriendsList. Get ProjectAzilroka.
