@@ -9,7 +9,7 @@ local select = select
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
-local C_LFGListGetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
 
@@ -57,16 +57,8 @@ local function styleLFGList()
 	_G["LFGListInviteDialog"].ActivityName:ClearAllPoints()
 	_G["LFGListInviteDialog"].ActivityName:SetPoint("TOP", 0, -80)
 
-	local orginalFunction = LFGListInviteDialog_Show
-	LFGListInviteDialog_Show = function(self, resultID)
-		orginalFunction(self, resultID)
-		local id, activityID, name, comment, voiceChat, iLvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, numMembers, isAutoAccept = C_LFGListGetSearchResultInfo(resultID)
-		self.GroupName:SetText(name .. "\n" .. (leaderName or "") .. "\n" .. numMembers .. L[" members"])
-	end
-
 	-- Nothing available
 	local NothingAvailable = LFGListFrame.NothingAvailable
-
 	NothingAvailable.Inset:DisableDrawLayer("BORDER")
 
 	-- [[ Search panel ]]

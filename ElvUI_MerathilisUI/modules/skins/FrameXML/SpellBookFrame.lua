@@ -127,9 +127,10 @@ local function styleSpellBook()
 		bu.icon:SetDesaturated(false)
 		MERS:CreateBG(bu.icon)
 
-		local bg = MERS:CreateBDFrame(bu, .25)
-		bg:SetPoint("TOPLEFT")
-		bg:SetPoint("BOTTOMRIGHT", 0, -5)
+		bu:CreateBackdrop("Transparent")
+		bu.backdrop:SetOutside(bu, 5, 5)
+
+		MERS:CreateGradient(bu.backdrop)
 	end
 
 	hooksecurefunc("FormatProfession", function(frame, index)
@@ -142,10 +143,22 @@ local function styleSpellBook()
 		end
 	end)
 
-	MERS:CreateBD(SecondaryProfession1, .25)
-	MERS:CreateBD(SecondaryProfession2, .25)
-	MERS:CreateBD(SecondaryProfession3, .25)
+	local function SecondaryProfession(button)
+		button:CreateBackdrop("Transparent")
+		button.backdrop:SetOutside(button, 5, 5)
+
+		MERS:CreateGradient(button.backdrop)
+
+		button.statusBar:ClearAllPoints()
+		button.statusBar:SetPoint("BOTTOMLEFT", 0, 0)
+		button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
+	end
+
 	SpellBookPageText:SetTextColor(.8, .8, .8)
+
+	SecondaryProfession(_G["SecondaryProfession1"])
+	SecondaryProfession(_G["SecondaryProfession2"])
+	SecondaryProfession(_G["SecondaryProfession3"])
 
 	hooksecurefunc("UpdateProfessionButton", function(self)
 		local spellIndex = self:GetID() + self:GetParent().spellOffset
