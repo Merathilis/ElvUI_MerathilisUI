@@ -1,4 +1,4 @@
-** v4.03, 13.12.2018**
+** v4.04, 13.12.2018**
 * Fixed an error in the LFGList skin.
 * Updated SpellBook skin.
 * Use my arrows on the StackSplitFrame again.
