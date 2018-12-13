@@ -1,6 +1,8 @@
-[b][color=orange]v4.04[/color], 12.12.2018[/b][list]
+[b][color=orange]v4.04[/color], 13.12.2018[/b][list]
 [*]Fixed an error in the LFGList skin.
-[*]Updated SpellBook skin.[/list]
+[*]Updated SpellBook skin.
+[*]Use my arrows on the StackSplitFrame again.
+[*]Disable my ShadowOverlay by default for now.[/list]
 
 [b][color=orange]v4.03[/color], 11.12.2018[/b][list]
 [*]Update new ChatBar position and size.

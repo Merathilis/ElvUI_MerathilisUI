@@ -17,15 +17,16 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update new ChatBar position and size.",
-		"• Removed Enhanced FriendsList. Get ProjectAzilroka.",
-		"• Fix Keystone Info tooltip.",
-		"• Added iLvL on ScrappingMachine & EquipFlyout Buttons.",
-		"• Added Buff Reminder Module.",
+		"• Fixed an error in the LFGList skin.",
+		"• Updated SpellBook skin.",
+		"• Use my arrows on the StackSplitFrame again.",
+		"• Disable my ShadowOverlay by default for now.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• I've disabled my ShadowOverlay for now by default. Make sure it is disabled:",
+		"• ElvUI - MerathilisUI - Skins/AddOns - Genaral - MerathilisUI Shadows.",
 		-- "• ''",
 }
 
