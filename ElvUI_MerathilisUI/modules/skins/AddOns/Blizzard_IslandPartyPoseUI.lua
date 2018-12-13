@@ -20,7 +20,6 @@ local function styleIslandsPartyPose()
 	IslandsPartyPoseFrame.ModelScene:StripTextures()
 	MERS:CreateBDFrame(IslandsPartyPoseFrame.ModelScene, .25)
 
-	IslandsPartyPoseFrame.Topper:Hide()
 	IslandsPartyPoseFrame.Background:Hide()
 
 	local rewardFrame = IslandsPartyPoseFrame.RewardAnimations.RewardFrame
