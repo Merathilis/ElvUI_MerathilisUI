@@ -22,13 +22,6 @@ local function styleCollections()
 	local CollectionsJournal = _G["CollectionsJournal"]
 	CollectionsJournal:Styling()
 
-	-- [[ General ]]
-	for i = 1, 14 do
-		if i ~= 8 then
-			select(i, CollectionsJournal:GetRegions()):Hide()
-		end
-	end
-
 	CollectionsJournalTab2:SetPoint("LEFT", CollectionsJournalTab1, "RIGHT", -15, 0)
 	CollectionsJournalTab3:SetPoint("LEFT", CollectionsJournalTab2, "RIGHT", -15, 0)
 	CollectionsJournalTab4:SetPoint("LEFT", CollectionsJournalTab3, "RIGHT", -15, 0)
