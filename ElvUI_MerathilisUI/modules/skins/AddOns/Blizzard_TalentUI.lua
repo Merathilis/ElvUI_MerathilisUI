@@ -23,9 +23,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	if _G["PlayerTalentFrame"].backdrop then
-		_G["PlayerTalentFrame"].backdrop:Styling()
-	end
+	_G["PlayerTalentFrame"]:Styling()
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
@@ -49,9 +47,11 @@ local function styleTalents()
 			for j = 1, NUM_TALENT_COLUMNS do
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 
+				-- Hide ElvUI's "Default" backdrop
 				if button.bg.backdrop then button.bg.backdrop:Hide() end
 
-				MERS:CreateGradient(button.bg)
+				-- Reapply a transparent backdrop
+				button.bg:CreateBackdrop("Transparent")
 
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
@@ -134,7 +134,7 @@ local function styleTalents()
 
 				if not frame.styled and not frame.backdrop then
 					frame.ring:Hide()
-					frame.icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+					frame.icon:SetTexCoord(unpack(E.TexCoords))
 					MERS:CreateBG(frame.icon)
 
 					frame.styled = true
