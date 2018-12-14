@@ -347,8 +347,10 @@ function RM:ReminderIcon_OnEvent(event, unit)
 		end
 	end
 
+	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local color = {r, g, b, 1}
 	if self:GetAlpha() == 1 then
-		LCG.PixelGlow_Start(self.overlay)
+		LCG.PixelGlow_Start(self.overlay, color, nil, 0.25, nil, 1)
 	else
 		LCG.PixelGlow_Stop(self.overlay)
 	end
