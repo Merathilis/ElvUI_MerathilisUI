@@ -5,7 +5,8 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select = select
+local format = string.format
+local next, pairs, select = next, pairs, select
 local tinsert = table.insert
 -- WoW API / Variables
 local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
@@ -19,8 +20,12 @@ local OBJECTIVE_TRACKER_COLOR = OBJECTIVE_TRACKER_COLOR
 local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
+local GetAutoQuestPopUp = GetAutoQuestPopUp
 local GetNumQuestLogEntries = GetNumQuestLogEntries
+local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
+local GetQuestLogIndexByID = GetQuestLogIndexByID
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
@@ -56,18 +61,18 @@ function f.PLAYER_REGEN_ENABLED()
 end
 function f.QUEST_LOG_UPDATE()
 	local questNum, q, o
-	local block = _G["ObjectiveTrackerBlocksFrame"]
-	local frame = _G["ObjectiveTrackerFrame"]
+	local block = _G.ObjectiveTrackerBlocksFrame
+	local frame = _G.ObjectiveTrackerFrame
 
 	if not InCombat and not InCombatLockdown() then
 		questNum = select(2, GetNumQuestLogEntries())
 
-		if questNum >= (MAX_QUESTS - 5) then -- go red
-			q = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-			o = format("|cffff0000%d/%d|r %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+		if questNum >= (_G.MAX_QUESTS - 5) then -- go red
+			q = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)
+			o = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.OBJECTIVES_TRACKER_LABEL)
 		else
-			q = format("%d/%d %s", questNum, MAX_QUESTS, TRACKER_HEADER_QUESTS)
-			o = format("%d/%d %s", questNum, MAX_QUESTS, OBJECTIVES_TRACKER_LABEL)
+			q = format("%d/%d %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)
+			o = format("%d/%d %s", questNum, _G.MAX_QUESTS, _G.OBJECTIVES_TRACKER_LABEL)
 		end
 
 		block.QuestHeader.Text:SetText(q)
@@ -111,7 +116,7 @@ local function styleObjectiveTracker()
 			local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
 
 			if Title and Title ~= "" then
-				local Block = AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
+				local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
 
 				if Block then
 					local Frame = Block.ScrollChild
@@ -165,7 +170,7 @@ local function styleObjectiveTracker()
 		end
 	end
 
-	hooksecurefunc(AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
+	hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
 		for _, block in next, self.usedBlocks do
 			if not block.IsSkinned then
 				SkinAutoQuestPopUpBlock(block)
@@ -177,7 +182,7 @@ local function styleObjectiveTracker()
 	ObjectiveTrackerFrame:SetSize(235, 140)
 	ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
 
-	local ScenarioChallengeModeBlock = _G["ScenarioChallengeModeBlock"]
+	local ScenarioChallengeModeBlock = _G.ScenarioChallengeModeBlock
 	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())
 	bg:Hide()
 	ScenarioChallengeModeBlock:CreateBackdrop("Transparent")
@@ -185,9 +190,9 @@ local function styleObjectiveTracker()
 	ScenarioChallengeModeBlock.TimerBGBack:Hide()
 	ScenarioChallengeModeBlock.TimerBG:Hide()
 
-	ScenarioStageBlock:SetSize(201, 83)
+	_G.ScenarioStageBlock:SetSize(201, 83)
 
-	S:HandleButton(_G["ObjectiveTrackerFrame"].HeaderMenu.MinimizeButton)
+	S:HandleButton(_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton)
 
 	nQ:RegisterEvent("PLAYER_LOGIN")
 	nQ:RegisterEvent("PLAYER_REGEN_DISABLED")

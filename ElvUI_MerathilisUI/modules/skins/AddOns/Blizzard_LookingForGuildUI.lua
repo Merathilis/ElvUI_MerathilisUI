@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 --Lua functions
 
 --WoW API / Variables
-
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 

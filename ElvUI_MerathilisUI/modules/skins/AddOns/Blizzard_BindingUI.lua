@@ -16,7 +16,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleBinding()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
 
-	_G["KeyBindingFrame"]:Styling()
+	_G.KeyBindingFrame:Styling()
 
 	local function styleBindingButton(bu)
 		local selected = bu.selectedHighlight
@@ -33,7 +33,7 @@ local function styleBinding()
 		MERS:Reskin(bu)
 	end
 
-	for i = 1, KEY_BINDINGS_DISPLAYED do
+	for i = 1, _G.KEY_BINDINGS_DISPLAYED do
 		local button1 = _G["KeyBindingFrameKeyBinding"..i.."Key1Button"]
 		local button2 = _G["KeyBindingFrameKeyBinding"..i.."Key2Button"]
 
@@ -43,7 +43,7 @@ local function styleBinding()
 		styleBindingButton(button2)
 	end
 
-	local line = _G["KeyBindingFrame"]:CreateTexture(nil, "ARTWORK")
+	local line = _G.KeyBindingFrame:CreateTexture(nil, "ARTWORK")
 	line:SetSize(1, 546)
 	line:SetPoint("LEFT", 205, 10)
 	line:SetColorTexture(1, 1, 1, .2)

@@ -14,20 +14,19 @@ local GetSpecializationInfo = GetSpecializationInfo
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
 local UnitSex = UnitSex
+local hooksecurefunc = hooksecurefunc
 
--- GLOBALS: hooksecurefunc, MAX_TALENT_TIERS, NUM_TALENT_COLUMNS, MAX_PVP_TALENT_TIERS, MAX_PVP_TALENT_COLUMNS
--- GLOBALS: PlayerTalentFrameSpecialization, SPEC_SPELLS_DISPLAY
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleTalents()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
-	_G["PlayerTalentFrame"]:Styling()
+	_G.PlayerTalentFrame:Styling()
 
 	-- Specc
 	for i = 1, GetNumSpecializations(false, nil) do
-		local bu = PlayerTalentFrameSpecialization["specButton"..i]
+		local bu = _G.PlayerTalentFrameSpecialization["specButton"..i]
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
 
 		bu.ring:Hide()
@@ -43,8 +42,8 @@ local function styleTalents()
 
 	-- Talents
 	hooksecurefunc("TalentFrame_Update", function()
-		for i = 1, MAX_TALENT_TIERS do
-			for j = 1, NUM_TALENT_COLUMNS do
+		for i = 1, _G.MAX_TALENT_TIERS do
+			for j = 1, _G.NUM_TALENT_COLUMNS do
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 
 				-- Hide ElvUI's "Default" backdrop
@@ -63,7 +62,7 @@ local function styleTalents()
 		end
 	end)
 
-	for _, frame in pairs({PlayerTalentFrameSpecialization, PlayerTalentFramePetSpecialization}) do
+	for _, frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
 		local scrollChild = frame.spellsScroll.child
 
 		scrollChild.ring:Hide()
@@ -104,7 +103,7 @@ local function styleTalents()
 	end
 
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
-		local playerTalentSpec = GetSpecialization(nil, self.isPet, PlayerSpecTab2:GetChecked() and 2 or 1)
+		local playerTalentSpec = GetSpecialization(nil, self.isPet, _G.PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
 		local numSpecs = GetNumSpecializations(nil, self.isPet);
 
@@ -156,7 +155,7 @@ local function styleTalents()
 
 	for i = 1, GetNumSpecializations(false, nil) do
 		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
-		PlayerTalentFrameSpecialization["specButton"..i].specIcon:SetTexture(icon)
+		_G.PlayerTalentFrameSpecialization["specButton"..i].specIcon:SetTexture(icon)
 	end
 
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
@@ -179,7 +178,7 @@ local function styleTalents()
 	end
 
 	-- PvP Talents
-	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G["PlayerTalentFrameTalentsPvpTalentFrameTalentList"]
+	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
 
 	for i = 1, 10 do

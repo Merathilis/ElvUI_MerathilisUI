@@ -4,9 +4,13 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 local _G = _G
-
+local select, unpack = select, unpack
 --WoW API / Variables
-
+local hooksecurefunc = hooksecurefunc
+local GetInspectSpecialization = GetInspectSpecialization
+local GetSpecializationRoleByID = GetSpecializationRoleByID
+local GetSpecializationInfoByID = GetSpecializationInfoByID
+local UnitGUID = UnitGUID
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -15,27 +19,27 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleInspect()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.muiSkins.blizzard.inspect ~= true then return end
 
-	InspectModelFrame:DisableDrawLayer("OVERLAY")
-	InspectPaperDollFrame:Styling()
+	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
+	_G.InspectPaperDollFrame:Styling()
 
-	InspectTalentFrame:GetRegions():Hide()
-	select(2, InspectTalentFrame:GetRegions()):Hide()
-	InspectGuildFrameBG:Hide()
+	_G.InspectTalentFrame:GetRegions():Hide()
+	select(2, _G.InspectTalentFrame:GetRegions()):Hide()
+	_G.InspectGuildFrameBG:Hide()
 
-	if InspectModelFrame.backdrop then
-		InspectModelFrame.backdrop:Hide()
+	if _G.InspectModelFrame.backdrop then
+		_G.InspectModelFrame.backdrop:Hide()
 	end
 
 	for i = 1, 5 do
-		select(i, InspectModelFrame:GetRegions()):Hide()
+		select(i, _G.InspectModelFrame:GetRegions()):Hide()
 	end
 
-	MERS:Reskin(InspectPaperDollFrame.ViewButton)
-	InspectPaperDollFrame.ViewButton:ClearAllPoints()
-	InspectPaperDollFrame.ViewButton:SetPoint("TOP", InspectFrame, 0, -45)
+	MERS:Reskin(_G.InspectPaperDollFrame.ViewButton)
+	_G.InspectPaperDollFrame.ViewButton:ClearAllPoints()
+	_G.InspectPaperDollFrame.ViewButton:SetPoint("TOP", _G.InspectFrame, 0, -45)
 
 	-- Character
-	select(11, InspectMainHandSlot:GetRegions()):Hide()
+	select(11, _G.InspectMainHandSlot:GetRegions()):Hide()
 
 	local slots = {
 		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
@@ -63,12 +67,12 @@ local function styleInspect()
 	end)
 
 	-- Talents
-	local inspectSpec = InspectTalentFrame.InspectSpec
+	local inspectSpec = _G.InspectTalentFrame.InspectSpec
 
 	inspectSpec.ring:Hide()
 
 	for i = 1, 7 do
-		local row = InspectTalentFrame.InspectTalents["tier"..i]
+		local row = _G.InspectTalentFrame.InspectTalents["tier"..i]
 		for j = 1, 3 do
 			local bu = row["talent"..j]
 
@@ -102,9 +106,9 @@ local function styleInspect()
 	end
 
 	inspectSpec:HookScript("OnShow", updateIcon)
-	InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
-		if not InspectFrame:IsShown() then return end
-		if event == "INSPECT_READY" and InspectFrame.unit and UnitGUID(InspectFrame.unit) == unit then
+	_G.InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
+		if not _G.InspectFrame:IsShown() then return end
+		if event == "INSPECT_READY" and _G.InspectFrame.unit and UnitGUID(_G.InspectFrame.unit) == unit then
 			updateIcon(self.InspectSpec)
 		end
 	end)

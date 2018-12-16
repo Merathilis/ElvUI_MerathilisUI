@@ -14,7 +14,7 @@ local _G = _G
 local function styleAzerite()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AzeriteUI ~= true or E.private.muiSkins.blizzard.AzeriteUI ~= true then return end
 
-	local AzeriteEmpoweredItemUI = _G["AzeriteEmpoweredItemUI"]
+	local AzeriteEmpoweredItemUI = _G.AzeriteEmpoweredItemUI
 	AzeriteEmpoweredItemUI:Styling()
 end
 

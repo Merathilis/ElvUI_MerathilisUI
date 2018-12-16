@@ -5,18 +5,21 @@ local S = E:GetModule('Skins')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleEncounterJournal, hooksecurefunc
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function styleEncounterJournal()
+function MERS:StyleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
 
-	local EncounterJournal = _G["EncounterJournal"]
+	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal.backdrop:Styling()
 
 	if EncounterJournal.navBar.backdrop then
@@ -90,7 +93,7 @@ function styleEncounterJournal()
 		select(i, searchResults:GetRegions()):Hide()
 	end
 
-	_G["EncounterJournalSearchResultsBg"]:Hide()
+	_G.EncounterJournalSearchResultsBg:Hide()
 
 	hooksecurefunc("EncounterJournal_SearchUpdate", function()
 		local scrollFrame = searchResults.scrollFrame
@@ -367,7 +370,7 @@ function styleEncounterJournal()
 		end
 
 		local quality = select(3, GetItemInfo(button.itemID))
-		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
 		button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end)
 
@@ -480,4 +483,4 @@ function styleEncounterJournal()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", styleEncounterJournal)
+S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", MERS.StyleEncounterJournal)

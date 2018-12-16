@@ -14,7 +14,7 @@ local unpack = unpack
 local function styleIslandsPartyPose()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandsPartyPose ~= true or E.private.muiSkins.blizzard.IslandsPartyPose ~= true then return end
 
-	local IslandsPartyPoseFrame = _G["IslandsPartyPoseFrame"]
+	local IslandsPartyPoseFrame = _G.IslandsPartyPoseFrame
 	IslandsPartyPoseFrame:Styling()
 
 	IslandsPartyPoseFrame.ModelScene:StripTextures()

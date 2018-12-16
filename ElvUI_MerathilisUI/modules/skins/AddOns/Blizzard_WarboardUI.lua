@@ -13,7 +13,7 @@ local CreateFrame = CreateFrame
 local function styleWarboard()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Warboard ~= true or E.private.muiSkins.blizzard.warboard ~= true then return end
 
-	local WarboardQuestChoiceFrame = _G["WarboardQuestChoiceFrame"]
+	local WarboardQuestChoiceFrame = _G.WarboardQuestChoiceFrame
 	WarboardQuestChoiceFrame:Styling()
 
 	for i = 1, 4 do

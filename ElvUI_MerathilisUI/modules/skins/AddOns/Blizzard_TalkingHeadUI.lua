@@ -12,7 +12,7 @@ local _G = _G
 local function styleTalkingHead()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
 
-	local TalkingHeadFrame = _G["TalkingHeadFrame"]
+	local TalkingHeadFrame = _G.TalkingHeadFrame
 	MERS:CreateBD(TalkingHeadFrame.BackgroundFrame, .5)
 	TalkingHeadFrame.BackgroundFrame:Styling()
 

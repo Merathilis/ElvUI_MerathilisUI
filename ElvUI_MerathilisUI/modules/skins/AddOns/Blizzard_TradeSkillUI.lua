@@ -13,12 +13,15 @@ local function styleTradeSkill()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tradeskill ~= true or E.private.muiSkins.blizzard.tradeskill ~= true then return; end
 
 	-- MainFrame
-	_G["TradeSkillFrame"]:Styling()
-	if _G["TradeSkillFrame"].bg1 then
-		_G["TradeSkillFrame"].bg1:Hide()
+	local TradeSkillFrame = _G.TradeSkillFrame
+	TradeSkillFrame:Styling()
+
+	if TradeSkillFrame.bg1 then
+		TradeSkillFrame.bg1:Hide()
 	end
-	if _G["TradeSkillFrame"].bg2 then
-		_G["TradeSkillFrame"].bg2:Hide()
+
+	if TradeSkillFrame.bg2 then
+		TradeSkillFrame.bg2:Hide()
 	end
 end
 

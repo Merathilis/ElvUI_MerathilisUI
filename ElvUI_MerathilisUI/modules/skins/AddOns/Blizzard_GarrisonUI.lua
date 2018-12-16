@@ -5,10 +5,12 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local unpack = unpack
+local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 -- WoW API
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
+local UnitFactionGroup = UnitFactionGroup
+
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -143,7 +145,7 @@ local function styleGarrison()
 	end
 
 	-- Building frame
-	local GarrisonBuildingFrame = _G["GarrisonBuildingFrame"]
+	local GarrisonBuildingFrame = _G.GarrisonBuildingFrame
 	GarrisonBuildingFrame:StripTextures()
 	MERS:CreateBD(GarrisonBuildingFrame)
 	GarrisonBuildingFrame.GarrCorners:Hide()
@@ -166,7 +168,7 @@ local function styleGarrison()
 	bg:SetPoint("TOPLEFT", 5, -5)
 	bg:SetPoint("BOTTOMRIGHT", -5, 6)
 
-	for i = 1, GARRISON_NUM_BUILDING_SIZES do
+	for i = 1, _G.GARRISON_NUM_BUILDING_SIZES do
 		local tab = BuildingList["Tab"..i]
 
 		tab:GetNormalTexture():SetAlpha(0)
@@ -188,7 +190,7 @@ local function styleGarrison()
 	hooksecurefunc("GarrisonBuildingList_SelectTab", function(tab)
 		local list = GarrisonBuildingFrame.BuildingList
 
-		for i = 1, GARRISON_NUM_BUILDING_SIZES do
+		for i = 1, _G.GARRISON_NUM_BUILDING_SIZES do
 			local otherTab = list["Tab"..i]
 			if i ~= tab:GetID() then
 				otherTab.bg:SetBackdropColor(0, 0, 0, .25)
@@ -277,11 +279,11 @@ local function styleGarrison()
 	MERS:Reskin(Confirmation.SwitchButton)
 
 	-- [[ Capacitive display frame ]]
-	local GarrisonCapacitiveDisplayFrame = _G["GarrisonCapacitiveDisplayFrame"]
+	local GarrisonCapacitiveDisplayFrame = _G.GarrisonCapacitiveDisplayFrame
 
-	GarrisonCapacitiveDisplayFrameLeft:Hide()
-	GarrisonCapacitiveDisplayFrameMiddle:Hide()
-	GarrisonCapacitiveDisplayFrameRight:Hide()
+	_G.GarrisonCapacitiveDisplayFrameLeft:Hide()
+	_G.GarrisonCapacitiveDisplayFrameMiddle:Hide()
+	_G.GarrisonCapacitiveDisplayFrameRight:Hide()
 	MERS:CreateBD(GarrisonCapacitiveDisplayFrame.Count, .25)
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
@@ -329,7 +331,7 @@ local function styleGarrison()
 	end)
 
 	-- [[ Landing page ]]
-	local GarrisonLandingPage = _G["GarrisonLandingPage"]
+	local GarrisonLandingPage = _G.GarrisonLandingPage
 
 	for i = 1, 10 do
 		select(i, GarrisonLandingPage:GetRegions()):Hide()
@@ -339,12 +341,12 @@ local function styleGarrison()
 
 	MERS:CreateBD(GarrisonLandingPage)
 	GarrisonLandingPage:Styling()
-	MERS:ReskinTab(GarrisonLandingPageTab1)
-	MERS:ReskinTab(GarrisonLandingPageTab2)
-	MERS:ReskinTab(GarrisonLandingPageTab3)
+	MERS:ReskinTab(_G.GarrisonLandingPageTab1)
+	MERS:ReskinTab(_G.GarrisonLandingPageTab2)
+	MERS:ReskinTab(_G.GarrisonLandingPageTab3)
 
-	GarrisonLandingPageTab1:ClearAllPoints()
-	GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
+	_G.GarrisonLandingPageTab1:ClearAllPoints()
+	_G.GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
@@ -423,7 +425,7 @@ local function styleGarrison()
 	select(2, FollowerList:GetRegions()):Hide()
 
 	-- [[ Mission UI ]]
-	local GarrisonMissionFrame = _G["GarrisonMissionFrame"]
+	local GarrisonMissionFrame = _G.GarrisonMissionFrame
 	if GarrisonMissionFrame.backdrop then GarrisonMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(GarrisonMissionFrame, .25)
 	MERS:ReskinMissionFrame(GarrisonMissionFrame)
@@ -459,7 +461,7 @@ local function styleGarrison()
 		end
 	end)
 
-	hooksecurefunc(GarrisonMission, "UpdateMissionParty", function(_, followers)
+	hooksecurefunc(_G.GarrisonMission, "UpdateMissionParty", function(_, followers)
 		for followerIndex = 1, #followers do
 			local followerFrame = followers[followerIndex]
 			if followerFrame.info then
@@ -474,7 +476,7 @@ local function styleGarrison()
 		end
 	end)
 
-	hooksecurefunc(GarrisonMission, "SetEnemies", function(_, missionPage, enemies)
+	hooksecurefunc(_G.GarrisonMission, "SetEnemies", function(_, missionPage, enemies)
 		for i = 1, #enemies do
 			local frame = missionPage.Enemies[i]
 			if frame:IsShown() and not frame.styled then
@@ -487,7 +489,7 @@ local function styleGarrison()
 		end
 	end)
 
-	hooksecurefunc(GarrisonMission, "UpdateMissionData", function(_, missionPage)
+	hooksecurefunc(_G.GarrisonMission, "UpdateMissionData", function(_, missionPage)
 		local buffsFrame = missionPage.BuffsFrame
 		if buffsFrame:IsShown() then
 			for i = 1, #buffsFrame.Buffs do
@@ -500,7 +502,7 @@ local function styleGarrison()
 		end
 	end)
 
-	hooksecurefunc(GarrisonMission, "MissionCompleteInitialize", function(self, missionList, index)
+	hooksecurefunc(_G.GarrisonMission, "MissionCompleteInitialize", function(self, missionList, index)
 		local mission = missionList[index]
 		if not mission then return end
 
@@ -522,7 +524,7 @@ local function styleGarrison()
 	end)
 
 	-- [[ Recruiter frame ]]
-	local GarrisonRecruiterFrame = _G["GarrisonRecruiterFrame"]
+	local GarrisonRecruiterFrame = _G.GarrisonRecruiterFrame
 
 	-- Unavailable frame
 	local UnavailableFrame = GarrisonRecruiterFrame.UnavailableFrame
@@ -530,7 +532,7 @@ local function styleGarrison()
 	MERS:Reskin(UnavailableFrame:GetChildren())
 
 	-- [[ Recruiter select frame ]]
-	local GarrisonRecruitSelectFrame = GarrisonRecruitSelectFrame
+	local GarrisonRecruitSelectFrame = _G.GarrisonRecruitSelectFrame
 
 	for i = 1, 14 do
 		select(i, GarrisonRecruitSelectFrame:GetRegions()):Hide()
@@ -554,14 +556,14 @@ local function styleGarrison()
 	end
 
 	-- [[ Monuments ]]
-	local GarrisonMonumentFrame = _G["GarrisonMonumentFrame"]
+	local GarrisonMonumentFrame = _G.GarrisonMonumentFrame
 
 	GarrisonMonumentFrame.Background:Hide()
 	MERS:CreateBD(GarrisonMonumentFrame)
 	GarrisonMonumentFrame:Styling()
 
 	-- [[ Shipyard ]]
-	local GarrisonShipyardFrame = _G["GarrisonShipyardFrame"]
+	local GarrisonShipyardFrame = _G.GarrisonShipyardFrame
 
 	for i = 1, 14 do
 		select(i, GarrisonShipyardFrame.BorderFrame:GetRegions()):Hide()
@@ -574,15 +576,15 @@ local function styleGarrison()
 	MERS:CreateBD(GarrisonShipyardFrame, .25)
 	GarrisonShipyardFrame:Styling()
 
-	GarrisonShipyardFrameFollowers:GetRegions():Hide()
-	select(2, GarrisonShipyardFrameFollowers:GetRegions()):Hide()
-	GarrisonShipyardFrameFollowers:DisableDrawLayer("BORDER")
+	_G.GarrisonShipyardFrameFollowers:GetRegions():Hide()
+	select(2, _G.GarrisonShipyardFrameFollowers:GetRegions()):Hide()
+	_G.GarrisonShipyardFrameFollowers:DisableDrawLayer("BORDER")
 
 	local shipyardTab = GarrisonShipyardFrame.FollowerTab
 	shipyardTab:DisableDrawLayer("BORDER")
 
-	MERS:ReskinTab(GarrisonShipyardFrameTab1)
-	MERS:ReskinTab(GarrisonShipyardFrameTab2)
+	MERS:ReskinTab(_G.GarrisonShipyardFrameTab1)
+	MERS:ReskinTab(_G.GarrisonShipyardFrameTab2)
 
 	local shipyardMission = GarrisonShipyardFrame.MissionTab.MissionPage
 	shipyardMission:StripTextures()
@@ -605,14 +607,14 @@ local function styleGarrison()
 
 	-- [[ Orderhall UI]]
 
-	local OrderHallMissionFrame = _G["OrderHallMissionFrame"]
+	local OrderHallMissionFrame = _G.OrderHallMissionFrame
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(OrderHallMissionFrame, .25)
 	MERS:ReskinMissionFrame(OrderHallMissionFrame)
 	OrderHallMissionFrame:Styling()
 
 	-- CombatAlly MissionFrame
-	local combatAlly = _G["OrderHallMissionFrameMissions"].CombatAllyUI
+	local combatAlly = _G.OrderHallMissionFrameMissions.CombatAllyUI
 	local portraitFrame = combatAlly.InProgress.PortraitFrame
 	local portrait = combatAlly.InProgress.PortraitFrame.Portrait
 	local portraitRing = combatAlly.InProgress.PortraitFrame.PortraitRing
@@ -636,9 +638,9 @@ local function styleGarrison()
 	end
 
 	-- CombatAlly ZoneSupport Frame
-	_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage:StripTextures()
-	MERS:CreateBD(_G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage, .5)
-	local combatAlly = _G["OrderHallMissionFrame"].MissionTab.ZoneSupportMissionPage.Follower1
+	_G.OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage:StripTextures()
+	MERS:CreateBD(_G.OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage, .5)
+	local combatAlly = _G.OrderHallMissionFrame.MissionTab.ZoneSupportMissionPage.Follower1
 	local portraitFrame = combatAlly.PortraitFrame
 	local portrait = portraitFrame.Portrait
 	local portraitRing = portraitFrame.PortraitRing
@@ -659,28 +661,28 @@ local function styleGarrison()
 	end
 
 	 --Missions
-	local Mission = _G["OrderHallMissionFrameMissions"]
+	local Mission = _G.OrderHallMissionFrameMissions
 	Mission.CompleteDialog:StripTextures()
 	Mission.CompleteDialog:SetTemplate("Transparent")
 
-	local MissionPage = _G["OrderHallMissionFrame"].MissionTab.MissionPage
+	local MissionPage = _G.OrderHallMissionFrame.MissionTab.MissionPage
 	for i = 1, 10 do
 		select(i, MissionPage.RewardsFrame:GetRegions()):Hide()
 	end
 	MERS:CreateBD(MissionPage.RewardsFrame, .25)
 
 	-- [[ BFA Mission UI]]
-	local BFAMissionFrame = _G["BFAMissionFrame"]
+	local BFAMissionFrame = _G.BFAMissionFrame
 	if BFAMissionFrame.backdrop then BFAMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(BFAMissionFrame, .25)
 	BFAMissionFrame:Styling()
 	MERS:ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
-	local MissionFrame = _G["BFAMissionFrame"]
+	local MissionFrame = _G.BFAMissionFrame
 
-	for i, v in ipairs(_G["BFAMissionFrame"].MissionTab.MissionList.listScroll.buttons) do
-		local Button = _G["BFAMissionFrameMissionsListScrollFrameButton" .. i]
+	for i, v in ipairs(_G.BFAMissionFrame.MissionTab.MissionList.listScroll.buttons) do
+		local Button = _G["BFAMissionFrameMissionsListScrollFrameButton"..i]
 		if Button and not Button.skinned then
 			Button:StripTextures()
 			MERS:CreateBD(Button, .25)

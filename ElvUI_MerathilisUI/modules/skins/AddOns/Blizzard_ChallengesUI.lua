@@ -16,7 +16,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local function styleChallenges()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.challenges ~= true then return end
 
-	local KeyStoneFrame = _G["ChallengesKeystoneFrame"]
+	local KeyStoneFrame = _G.ChallengesKeystoneFrame
 	KeyStoneFrame:Styling()
 
 	-- Copied from ElvUI
@@ -29,7 +29,7 @@ local function styleChallenges()
 			end
 
 			if frame.info then
-				frame.Portrait:SetTexture(CHALLENGE_MODE_EXTRA_AFFIX_INFO[frame.info.key].texture)
+				frame.Portrait:SetTexture(_G.CHALLENGE_MODE_EXTRA_AFFIX_INFO[frame.info.key].texture)
 			elseif frame.affixID then
 				local _, _, filedataid = C_ChallengeMode_GetAffixInfo(frame.affixID)
 				frame.Portrait:SetTexture(filedataid)
