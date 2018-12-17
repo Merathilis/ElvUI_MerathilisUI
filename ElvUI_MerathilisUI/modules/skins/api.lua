@@ -261,8 +261,9 @@ end
 
 function MERS:CreateBG(frame)
 	assert(frame, "doesn't exist!")
+
 	local f = frame
-	if frame:GetObjectType() == "Texture" then f = frame:GetParent() end
+	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
 	bg:Point("TOPLEFT", frame, -1, 1)
@@ -276,6 +277,7 @@ end
 -- Gradient Frame
 function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	assert(f, "doesn't exist!")
+
 	f:SetSize(w, h)
 	f:SetFrameStrata("BACKGROUND")
 	local gf = f:CreateTexture(nil, "BACKGROUND")
@@ -289,6 +291,7 @@ end
 -- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
+
 	local tex = f:CreateTexture(nil, "BACKGROUND")
 	tex:SetPoint("TOPLEFT", 1, -1)
 	tex:SetPoint("BOTTOMRIGHT", -1, 1)
