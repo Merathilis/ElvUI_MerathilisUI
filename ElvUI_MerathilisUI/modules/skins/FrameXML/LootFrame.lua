@@ -11,8 +11,8 @@ local _G = _G
 local function styleLoot()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.loot ~= true or E.private.muiSkins.blizzard.loot ~= true then return end
 
-	_G["BonusRollFrame"]:Styling()
-	_G["LootHistoryFrame"]:Styling()
+	_G.BonusRollFrame:Styling()
+	_G.LootHistoryFrame:Styling()
 end
 
 S:AddCallback("mUILoot", styleLoot)

@@ -10,6 +10,8 @@ local unpack = unpack
 local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
 local InCombatLockdown = InCombatLockdown
+local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
+local EquipmentManager_RunAction = EquipmentManager_RunAction
 
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: GameTooltip
@@ -20,20 +22,24 @@ local function styleCharacter()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	-- Hide ElvUI Backdrop
-	if _G["CharacterModelFrame"].backdrop then
-		_G["CharacterModelFrame"].backdrop:Hide()
+	local CharacterFrame = _G.CharacterFrame
+	local CharacterModelFrame = _G.CharacterModelFrame
+
+	if CharacterModelFrame.backdrop then
+		CharacterModelFrame.backdrop:Hide()
 	end
 
-	_G["CharacterFrame"]:Styling()
+	CharacterFrame:Styling()
 
-	if _G["CharacterModelFrame"] and _G["CharacterModelFrame"].BackgroundTopLeft and _G["CharacterModelFrame"].BackgroundTopLeft:IsShown() then
-		_G["CharacterModelFrame"].BackgroundTopLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundTopRight:Hide()
-		_G["CharacterModelFrame"].BackgroundBotLeft:Hide()
-		_G["CharacterModelFrame"].BackgroundBotRight:Hide()
-		_G["CharacterModelFrameBackgroundOverlay"]:Hide()
-		if _G["CharacterModelFrame"].backdrop then
-			_G["CharacterModelFrame"].backdrop:Hide()
+	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
+		CharacterModelFrame.BackgroundTopLeft:Hide()
+		CharacterModelFrame.BackgroundTopRight:Hide()
+		CharacterModelFrame.BackgroundBotLeft:Hide()
+		CharacterModelFrame.BackgroundBotRight:Hide()
+		_G.CharacterModelFrameBackgroundOverlay:Hide()
+
+		if _G.CharacterModelFrame.backdrop then
+			_G.CharacterModelFrame.backdrop:Hide()
 		end
 	end
 
@@ -45,10 +51,10 @@ local function styleCharacter()
 	end
 
 	if E.db.mui.general.undressButton then
-		local bu = CreateFrame("Button", nil, _G["PaperDollFrame"], "UIPanelButtonTemplate")
+		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
 		bu:SetSize(34, 37)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("RIGHT", _G["PaperDollSidebarTab1"], "LEFT", -4, 0)
+		bu:SetPoint("RIGHT", _G.PaperDollSidebarTab1, "LEFT", -4, 0)
 
 		bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
 		bu:GetNormalTexture():SetInside()

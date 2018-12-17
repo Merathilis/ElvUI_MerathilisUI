@@ -5,8 +5,11 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select = select
+local select, unpack = select, unpack
+local gsub = string.gsub
 -- WoW API / Variables
+local C_Timer_After = C_Timer.After
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -15,44 +18,44 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleGossip()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
 
-	local GossipFrame = _G["GossipFrame"]
+	local GossipFrame = _G.GossipFrame
 	GossipFrame:Styling()
 
-	GossipGreetingScrollFrameTop:Hide()
-	GossipGreetingScrollFrameBottom:Hide()
-	GossipGreetingScrollFrameMiddle:Hide()
+	_G.GossipGreetingScrollFrameTop:Hide()
+	_G.GossipGreetingScrollFrameBottom:Hide()
+	_G.GossipGreetingScrollFrameMiddle:Hide()
 	select(19, GossipFrame:GetRegions()):Hide()
 	for i = 1, 7 do
-		select(i, _G["GossipFrame"]:GetRegions()):Hide()
+		select(i, GossipFrame:GetRegions()):Hide()
 	end
-	_G["GossipGreetingScrollFrame"]:StripTextures()
+	_G.GossipGreetingScrollFrame:StripTextures()
 
 	if not E.private.skins.parchmentRemover.enable then
-		_G["GossipGreetingScrollFrame"].spellTex:SetTexture('') -- Remove Parchement
+		_G.GossipGreetingScrollFrame.spellTex:SetTexture('') -- Remove Parchement
 	end
 
-	GossipGreetingText:SetTextColor(1, 1, 1)
-	NPCFriendshipStatusBar:GetRegions():Hide()
-	NPCFriendshipStatusBarNotch1:SetColorTexture(0, 0, 0)
-	NPCFriendshipStatusBarNotch1:SetSize(1, 16)
-	NPCFriendshipStatusBarNotch2:SetColorTexture(0, 0, 0)
-	NPCFriendshipStatusBarNotch2:SetSize(1, 16)
-	NPCFriendshipStatusBarNotch3:SetColorTexture(0, 0, 0)
-	NPCFriendshipStatusBarNotch3:SetSize(1, 16)
-	NPCFriendshipStatusBarNotch4:SetColorTexture(0, 0, 0)
-	NPCFriendshipStatusBarNotch4:SetSize(1, 16)
-	select(7, NPCFriendshipStatusBar:GetRegions()):Hide()
+	_G.GossipGreetingText:SetTextColor(1, 1, 1)
+	_G.NPCFriendshipStatusBar:GetRegions():Hide()
+	_G.NPCFriendshipStatusBarNotch1:SetColorTexture(0, 0, 0)
+	_G.NPCFriendshipStatusBarNotch1:SetSize(1, 16)
+	_G.NPCFriendshipStatusBarNotch2:SetColorTexture(0, 0, 0)
+	_G.NPCFriendshipStatusBarNotch2:SetSize(1, 16)
+	_G.NPCFriendshipStatusBarNotch3:SetColorTexture(0, 0, 0)
+	_G.NPCFriendshipStatusBarNotch3:SetSize(1, 16)
+	_G.NPCFriendshipStatusBarNotch4:SetColorTexture(0, 0, 0)
+	_G.NPCFriendshipStatusBarNotch4:SetSize(1, 16)
+	select(7, _G.NPCFriendshipStatusBar:GetRegions()):Hide()
 
-	NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
-	MERS:CreateBDFrame(NPCFriendshipStatusBar, .25)
+	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
+	MERS:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
 
 	GossipFrame:HookScript("OnShow", function()
-		C_Timer.After(.01, function()
+		C_Timer_After(.01, function()
 			local index = 1
 			local titleButton = _G["GossipTitleButton"..index]
 			while titleButton do
 				if titleButton:GetText() ~= nil then
-					titleButton:SetText(string.gsub(titleButton:GetText(), ":32:32:0:0", ":32:32:0:0:64:64:5:59:5:59"))
+					titleButton:SetText(gsub(titleButton:GetText(), ":32:32:0:0", ":32:32:0:0:64:64:5:59:5:59"))
 				end
 				index = index + 1
 				titleButton = _G["GossipTitleButton"..index]
@@ -76,11 +79,11 @@ local function styleGossip()
 	end
 
 	local prevTitle
-	for i = 1, NUMGOSSIPBUTTONS do
+	for i = 1, _G.NUMGOSSIPBUTTONS do
 		GossipTitleButtonTemplate(_G["GossipTitleButton"..i])
 
 		if not prevTitle then
-			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", GossipGreetingText, "BOTTOMLEFT", -10, -20)
+			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", _G.GossipGreetingText, "BOTTOMLEFT", -10, -20)
 		else
 			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", prevTitle, "BOTTOMLEFT", 0, -3)
 		end
@@ -95,9 +98,9 @@ local function styleGossip()
 			local titleText, _, isTrivial = select(i, ...)
 			local titleButton = _G["GossipTitleButton" .. buttonIndex]
 			if isTrivial then
-				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
+				titleButton:SetFormattedText(_G.MER_TRIVIAL_QUEST_DISPLAY, titleText)
 			else
-				titleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, titleText)
+				titleButton:SetFormattedText(_G.MER_NORMAL_QUEST_DISPLAY, titleText)
 			end
 			buttonIndex = buttonIndex + 1
 		end
@@ -110,9 +113,9 @@ local function styleGossip()
 			local titleText, _, isTrivial = select(i, ...)
 			local titleButton = _G["GossipTitleButton" .. buttonIndex]
 			if isTrivial then
-				titleButton:SetFormattedText(MER_TRIVIAL_QUEST_DISPLAY, titleText)
+				titleButton:SetFormattedText(_G.MER_TRIVIAL_QUEST_DISPLAY, titleText)
 			else
-				titleButton:SetFormattedText(MER_NORMAL_QUEST_DISPLAY, titleText)
+				titleButton:SetFormattedText(_G.MER_NORMAL_QUEST_DISPLAY, titleText)
 			end
 			buttonIndex = buttonIndex + 1
 		end

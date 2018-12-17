@@ -8,7 +8,10 @@ local _G = _G
 local unpack = unpack
 
 --WoW API / Variables
-
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetLFGDungeonRewardInfo = GetLFGDungeonRewardInfo
+local GetLFGDungeonShortageRewardInfo = GetLFGDungeonShortageRewardInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
 
@@ -53,21 +56,21 @@ local function styleLFG()
 		end
 	end)
 
-	styleRewardButton(LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
-	local leaderBg = MERS:CreateBG(LFGDungeonReadyDialogRoleIconLeaderIcon)
+	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)
 	leaderBg:SetDrawLayer("ARTWORK", 2)
-	leaderBg:SetPoint("TOPLEFT", LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
-	leaderBg:SetPoint("BOTTOMRIGHT", LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
+	leaderBg:SetPoint("TOPLEFT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
+	leaderBg:SetPoint("BOTTOMRIGHT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
 
 	hooksecurefunc("LFGDungeonReadyPopup_Update", function()
-		leaderBg:SetShown(LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
+		leaderBg:SetShown(_G.LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
 	end)
 
 	do
-		local bg = MERS:CreateBDFrame(LFGDungeonReadyDialogRoleIcon, 1)
+		local bg = MERS:CreateBDFrame(_G.LFGDungeonReadyDialogRoleIcon, 1)
 		bg:SetPoint("TOPLEFT", 9, -7)
 		bg:SetPoint("BOTTOMRIGHT", -8, 10)
 	end

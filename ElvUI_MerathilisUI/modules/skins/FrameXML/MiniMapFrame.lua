@@ -13,7 +13,7 @@ local _G = _G
 local function styleMinimap()
 	if E.private.skins.blizzard.enable ~= true or E.private.muiSkins.blizzard.minimap ~= true or E.private.general.minimap.enable ~= true then return end
 
-	_G["Minimap"]:Styling(true, true, false, 180, 180, .75)
+	_G.Minimap:Styling(true, true, false, 180, 180, .75)
 end
 
 S:AddCallback("mUISkinMinimap", styleMinimap)

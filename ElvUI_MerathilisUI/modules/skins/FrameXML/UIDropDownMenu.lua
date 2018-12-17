@@ -5,6 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 local _G = _G
 local unpack = unpack
+local hooksecurefunc = hooksecurefunc
 --WoW API / Variables
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
@@ -22,7 +23,7 @@ local function styleUIDropDownMenu()
 	end)
 
 	hooksecurefunc("UIDropDownMenu_CreateFrames", function(_, index)
-		for i = 1, UIDROPDOWNMENU_MAXLEVELS do
+		for i = 1, _G.UIDROPDOWNMENU_MAXLEVELS do
 			local listFrame = _G["DropDownList"..i]
 			local listFrameName = listFrame:GetName()
 			local index = listFrame and (listFrame.numButtons + 1) or 1
@@ -40,7 +41,7 @@ local function styleUIDropDownMenu()
 	hooksecurefunc("ToggleDropDownMenu", function(level)
 		if not level then level = 1 end
 
-		for i = 1, UIDROPDOWNMENU_MAXBUTTONS do
+		for i = 1, _G.UIDROPDOWNMENU_MAXBUTTONS do
 			local button = _G["DropDownList"..level.."Button"..i]
 			local check = _G["DropDownList"..level.."Button"..i.."Check"]
 			local uncheck = _G["DropDownList"..level.."Button"..i.."UnCheck"]

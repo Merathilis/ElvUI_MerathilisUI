@@ -16,7 +16,7 @@ local function styleProjectAzilroka()
 	f:RegisterEvent("PLAYER_ENTERING_WORLD")
 	f:SetScript("OnEvent", function(self, event)
 		if event then
-			local stFrame = _G["stAMFrame"]
+			local stFrame = _G.stAMFrame
 			if stFrame then
 				stFrame:Styling()
 				stFrame.AddOns:SetTemplate("Transparent")

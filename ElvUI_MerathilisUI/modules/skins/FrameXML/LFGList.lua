@@ -5,23 +5,24 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local select = select
+local pairs, select = pairs, select
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
+-- GLOBALS: LFGListInviteDialog_Show
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleLFGList()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
-	local LFGListFrame = _G["LFGListFrame"]
+	local LFGListFrame = _G.LFGListFrame
 
 	-- Category selection
-	local CategorySelection = _G["LFGListFrame"].CategorySelection
+	local CategorySelection = LFGListFrame.CategorySelection
 
 	CategorySelection.Inset.Bg:Hide()
 	CategorySelection.Inset:DisableDrawLayer("BORDER")
@@ -47,15 +48,15 @@ local function styleLFGList()
 	end)
 
 	-- Invite frame
-	_G["LFGListInviteDialog"]:Styling()
-	_G["LFGDungeonReadyDialog"]:Styling()
-	_G["LFGDungeonReadyStatus"]:Styling()
+	_G.LFGListInviteDialog:Styling()
+	_G.LFGDungeonReadyDialog:Styling()
+	_G.LFGDungeonReadyStatus:Styling()
 
-	_G["LFGListInviteDialog"].GroupName:ClearAllPoints()
-	_G["LFGListInviteDialog"].GroupName:SetPoint("TOP", 0, -33)
+	_G.LFGListInviteDialog.GroupName:ClearAllPoints()
+	_G.LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)
 
-	_G["LFGListInviteDialog"].ActivityName:ClearAllPoints()
-	_G["LFGListInviteDialog"].ActivityName:SetPoint("TOP", 0, -80)
+	_G.LFGListInviteDialog.ActivityName:ClearAllPoints()
+	_G.LFGListInviteDialog.ActivityName:SetPoint("TOP", 0, -80)
 
 	-- Nothing available
 	local NothingAvailable = LFGListFrame.NothingAvailable
@@ -246,7 +247,7 @@ local function styleLFGList()
 	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
-	local LFGListApplicationDialog = _G["LFGListApplicationDialog"]
+	local LFGListApplicationDialog = _G.LFGListApplicationDialog
 	LFGListApplicationDialog:Styling()
 
 	for i = 1, 9 do
@@ -257,7 +258,7 @@ local function styleLFGList()
 	MERS:CreateBD(LFGListApplicationDialog.Description, .25)
 
 	-- [[ Invite dialog ]]
-	local LFGListInviteDialog = _G["LFGListInviteDialog"]
+	local LFGListInviteDialog = _G.LFGListInviteDialog
 	MERS:CreateBD(LFGListInviteDialog)
 end
 

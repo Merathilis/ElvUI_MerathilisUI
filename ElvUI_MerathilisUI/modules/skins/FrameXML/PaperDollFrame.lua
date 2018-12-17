@@ -5,9 +5,19 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local select, unpack = select, unpack
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfo = GetSpecializationInfo
+local GetItemLevelColor = GetItemLevelColor
+local GetSpecializationRole = GetSpecializationRole
+local UnitLevel = UnitLevel
+local UnitSex = UnitSex
+local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
+local PAPERDOLL_STATCATEGORIES = PAPERDOLL_STATCATEGORIES
+local PAPERDOLL_STATINFO = PAPERDOLL_STATINFO
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
@@ -16,11 +26,11 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleCPaperDollFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
-	local CharacterStatsPane = _G["CharacterStatsPane"]
+	local CharacterStatsPane = _G.CharacterStatsPane
 
-	CharacterModelFrame:DisableDrawLayer("BACKGROUND")
-	CharacterModelFrame:DisableDrawLayer("BORDER")
-	CharacterModelFrame:DisableDrawLayer("OVERLAY")
+	_G.CharacterModelFrame:DisableDrawLayer("BACKGROUND")
+	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
+	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
 
 	local slots = {
 		"Head", "Neck", "Shoulder", "Shirt", "Chest", "Waist", "Legs", "Feet", "Wrist",
@@ -62,9 +72,9 @@ local function styleCPaperDollFrame()
 	end
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		_G["CharacterStatsPane"].ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-		_G["CharacterStatsPane"].AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-		_G["CharacterStatsPane"].EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		CharacterStatsPane.AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		CharacterStatsPane.EnhancementsCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 		StatsPane("EnhancementsCategory")
 		StatsPane("ItemLevelCategory")
@@ -104,7 +114,7 @@ local function styleCPaperDollFrame()
 			local statYOffset = 0;
 
 			if (not IsAddOnLoaded("DejaCharacterStats")) then
-				if ( level >= MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY ) then
+				if ( level >= _G.MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY ) then
 					PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, "player");
 					CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor());
 					CharacterStatsPane.ItemLevelCategory:Show();
@@ -182,14 +192,14 @@ local function styleCPaperDollFrame()
 	end
 
 	if IsAddOnLoaded("ElvUI_SLE") then
-		PaperDollFrame:HookScript("OnShow", function()
-			if _G["CharacterStatsPane"].DefenceCategory then
-				_G["CharacterStatsPane"].DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		_G.PaperDollFrame:HookScript("OnShow", function()
+			if _G.CharacterStatsPane.DefenceCategory then
+				_G.CharacterStatsPane.DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 				StatsPane("DefenceCategory")
 				CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
 			end
-			if _G["CharacterStatsPane"].OffenseCategory then
-				_G["CharacterStatsPane"].OffenseCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
+			if _G.CharacterStatsPane.OffenseCategory then
+				_G.CharacterStatsPane.OffenseCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 				StatsPane("OffenseCategory")
 				CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
 			end
@@ -197,9 +207,10 @@ local function styleCPaperDollFrame()
 	end
 
 	-- CharacterFrame Class Texture
+	local ClassTexture = _G.ClassTexture
 	if not ClassTexture then
-		ClassTexture = CharacterFrameInsetRight:CreateTexture(nil, "BORDER")
-		ClassTexture:SetPoint("BOTTOM", CharacterFrameInsetRight, "BOTTOM", 0, 40)
+		ClassTexture = _G.CharacterFrameInsetRight:CreateTexture(nil, "BORDER")
+		ClassTexture:SetPoint("BOTTOM", _G.CharacterFrameInsetRight, "BOTTOM", 0, 40)
 		ClassTexture:SetSize(126, 120)
 		ClassTexture:SetAlpha(.45)
 		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..E.myclass)

@@ -7,25 +7,27 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs, unpack = pairs, unpack
 -- WoW API / Variables
-local SpellBookFrame = _G["SpellBookFrame"]
-local SpellBookPageText = _G["SpellBookPageText"]
 local GetSpellAvailableLevel = GetSpellAvailableLevel
+local GetProfessionInfo = GetProfessionInfo
 local UnitLevel = UnitLevel
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
+local SpellBook_GetSpellBookSlot = SpellBook_GetSpellBookSlot
+local IsPassiveSpell = IsPassiveSpell
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleSpellBook()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
-	local SpellBookFrame = _G["SpellBookFrame"]
+	local SpellBookFrame = _G.SpellBookFrame
 
 	SpellBookFrame:Styling()
 	if SpellBookFrame.pagebackdrop then
 		SpellBookFrame.pagebackdrop:Hide()
 	end
 
-	for i = 1, SPELLS_PER_PAGE do
+	for i = 1, _G.SPELLS_PER_PAGE do
 		local bu = _G["SpellButton"..i]
 		local ic = _G["SpellButton"..i.."IconTexture"]
 
@@ -41,10 +43,10 @@ local function styleSpellBook()
 		ic.bg = MERS:CreateBG(bu)
 	end
 
-	SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
+	_G.SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	hooksecurefunc("SpellButton_UpdateButton", function(self)
-		if SpellBookFrame.bookType == BOOKTYPE_PROFESSION then return end
+		if SpellBookFrame.bookType == _G.BOOKTYPE_PROFESSION then return end
 
 		local slot, slotType = SpellBook_GetSpellBookSlot(self)
 		local isPassive = IsPassiveSpell(slot, SpellBookFrame.bookType)
@@ -57,7 +59,7 @@ local function styleSpellBook()
 		end
 
 		local subSpellString = _G[name.."SubSpellName"]
-		local isOffSpec = self.offSpecID ~= 0 and SpellBookFrame.bookType == BOOKTYPE_SPELL
+		local isOffSpec = self.offSpecID ~= 0 and SpellBookFrame.bookType == _G.BOOKTYPE_SPELL
 		subSpellString:SetTextColor(1, 1, 1)
 
 		if slotType == "FUTURESPELL" then
@@ -154,11 +156,11 @@ local function styleSpellBook()
 		button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
 	end
 
-	SpellBookPageText:SetTextColor(.8, .8, .8)
+	_G.SpellBookPageText:SetTextColor(.8, .8, .8)
 
-	SecondaryProfession(_G["SecondaryProfession1"])
-	SecondaryProfession(_G["SecondaryProfession2"])
-	SecondaryProfession(_G["SecondaryProfession3"])
+	SecondaryProfession(_G.SecondaryProfession1)
+	SecondaryProfession(_G.SecondaryProfession2)
+	SecondaryProfession(_G.SecondaryProfession3)
 
 	hooksecurefunc("UpdateProfessionButton", function(self)
 		local spellIndex = self:GetID() + self:GetParent().spellOffset

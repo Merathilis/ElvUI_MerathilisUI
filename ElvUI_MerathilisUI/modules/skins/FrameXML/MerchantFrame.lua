@@ -4,18 +4,26 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 local _G = _G
+local unpack = unpack
 --WoW API / Variables
-
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetBuybackItemLink = GetBuybackItemLink
+local GetItemInfo = GetItemInfo
+local GetNumBuybackItems = GetNumBuybackItems
+local GetItemQualityColor = GetItemQualityColor
+local GetMerchantItemInfo = GetMerchantItemInfo
+local GetMerchantNumItems = GetMerchantNumItems
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function styleMerchant()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.muiSkins.blizzard.merchant ~= true then return end
 
-	local MerchantFrame = _G["MerchantFrame"]
+	local MerchantFrame = _G.MerchantFrame
 	MerchantFrame.backdrop:Styling()
 
-	for i = 1, BUYBACK_ITEMS_PER_PAGE do
+	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
 		local button = _G["MerchantItem"..i]
 		local bu = _G["MerchantItem"..i.."ItemButton"]
 		local mo = _G["MerchantItem"..i.."MoneyFrame"]
@@ -63,8 +71,8 @@ local function styleMerchant()
 
 	hooksecurefunc("MerchantFrame_UpdateMerchantInfo", function()
 		local numMerchantItems = GetMerchantNumItems()
-		for i = 1, MERCHANT_ITEMS_PER_PAGE do
-			local index = ((MerchantFrame.page - 1) * MERCHANT_ITEMS_PER_PAGE) + i
+		for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
+			local index = ((MerchantFrame.page - 1) * _G.MERCHANT_ITEMS_PER_PAGE) + i
 			if index <= numMerchantItems then
 				local _, _, price, _, _, _, extendedCost = GetMerchantItemInfo(index)
 				if extendedCost and (price <= 0) then
@@ -92,12 +100,12 @@ local function styleMerchant()
 			local _, _, quality = GetItemInfo(name)
 			local r, g, b = GetItemQualityColor(quality or 1)
 
-			MerchantBuyBackItemName:SetTextColor(r, g, b)
+			_G.MerchantBuyBackItemName:SetTextColor(r, g, b)
 		end
 	end)
 
 	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", function()
-		for i = 1, BUYBACK_ITEMS_PER_PAGE do
+		for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
 			local itemLink = GetBuybackItemLink(i)
 			local name = _G["MerchantItem"..i.."Name"]
 

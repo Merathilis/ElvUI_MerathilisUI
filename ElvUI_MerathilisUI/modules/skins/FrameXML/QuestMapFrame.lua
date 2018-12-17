@@ -5,10 +5,11 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local next, select, unpack = next, select, unpack
 -- WoW API / Variables
 local C_CampaignInfo_GetCampaignInfo = C_CampaignInfo.GetCampaignInfo
 local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -17,10 +18,10 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleQuestMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	local QuestMapFrame = _G["QuestMapFrame"]
+	local QuestMapFrame = _G.QuestMapFrame
 
 	-- Quest scroll frame
-	local QuestScrollFrame = _G["QuestScrollFrame"]
+	local QuestScrollFrame = _G.QuestScrollFrame
 	local campaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
 	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
 
@@ -113,14 +114,14 @@ local function styleQuestMapFrame()
 	local QuestLogPopupDetailFrame = _G["QuestLogPopupDetailFrame"]
 
 	select(18, QuestLogPopupDetailFrame:GetRegions()):SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
 
-	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript("OnUpdate", function(self)
-		_G["QuestLogPopupDetailFrameScrollFrame"].backdrop:Hide()
-		_G["QuestLogPopupDetailFrameInset"]:Hide()
-		_G["QuestLogPopupDetailFrameBg"]:Hide()
+	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
+		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
+		_G.QuestLogPopupDetailFrameInset:Hide()
+		_G.QuestLogPopupDetailFrameBg:Hide()
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemover.enable then
 			self.spellTex:SetTexture("")
@@ -144,11 +145,11 @@ local function styleQuestMapFrame()
 	ShowMapButton:SetPoint("TOPRIGHT", QuestLogPopupDetailFrame, -30, -25)
 
 	ShowMapButton:HookScript("OnEnter", function(self)
-		self.Text:SetTextColor(GameFontHighlight:GetTextColor())
+		self.Text:SetTextColor(_G.GameFontHighlight:GetTextColor())
 	end)
 
 	ShowMapButton:HookScript("OnLeave", function(self)
-		self.Text:SetTextColor(GameFontNormal:GetTextColor())
+		self.Text:SetTextColor(_G.GameFontNormal:GetTextColor())
 	end)
 
 	-- Bottom buttons
