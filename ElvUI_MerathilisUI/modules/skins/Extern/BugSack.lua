@@ -9,36 +9,38 @@ local _G = _G
 local pairs = pairs
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
--- GLOBALS: BugSack
+-- GLOBALS: BugSack, BugSackFrame, BugSackTabAll
 
 local function styleBugSack(event, addon)
 	if E.private.muiSkins.addonSkins.bs ~= true then return end
 
-	local BugSackFrame = _G.BugSackFrame
-	local BugSackTabAll = _G.BugSackTabAll
 
 	hooksecurefunc(BugSack, "OpenSack", function()
-		if BugSackFrame.IsSkinned then return end
+		if not BugSack.IsSkinned then
+			BugSackFrame:StripTextures()
 
-		BugSackFrame:StripFrame()
-		MERS:CreateBD(BugSackFrame, .5)
-		BugSackTabAll:ClearAllPoints()
-		BugSackTabAll:SetPoint("TOPLEFT", BugSackFrame, "BOTTOMLEFT", 0, 0)
-		S:HandleTab(BugSackTabAll)
-		S:HandleTab(_G.BugSackTabSession)
-		S:HandleTab(_G.BugSackTabLast)
-		S:HandleScrollBar(_G.BugSackScrollScrollBar)
-		S:HandleButton(_G.BugSackNextButton)
-		S:HandleButton(_G.BugSackSendButton)
-		S:HandleButton(_G.BugSackPrevButton)
-		for _, child in pairs({ BugSackFrame:GetChildren() }) do
-			if (child:IsObjectType("Button") and child:GetScript("OnClick") == BugSack.CloseSack) then
-				S:HandleCloseButton(child)
+			BugSackFrame:CreateBackdrop("Transparent")
+			BugSackFrame.backdrop:Styling()
+
+			BugSackTabAll:ClearAllPoints()
+			BugSackTabAll:SetPoint("TOPLEFT", BugSackFrame, "BOTTOMLEFT", 0, -1)
+
+			S:HandleTab(BugSackTabAll)
+			S:HandleTab(BugSackTabSession)
+			S:HandleTab(BugSackTabLast)
+			S:HandleScrollBar(BugSackScrollScrollBar)
+			S:HandleButton(BugSackNextButton)
+			S:HandleButton(BugSackSendButton)
+			S:HandleButton(BugSackPrevButton)
+
+			for _, child in pairs({ BugSackFrame:GetChildren() }) do
+				if (child:IsObjectType("Button") and child:GetScript("OnClick") == BugSack.CloseSack) then
+					S:HandleCloseButton(child)
+				end
 			end
-		end
-		BugSackFrame:Styling()
 
-		BugSackFrame.IsSkinned = true
+			BugSack.IsSkinned = true
+		end
 	end)
 end
 
