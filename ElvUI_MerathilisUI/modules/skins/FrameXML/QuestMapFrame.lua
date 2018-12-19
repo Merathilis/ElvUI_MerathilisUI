@@ -127,7 +127,6 @@ local function styleQuestMapFrame()
 			self.spellTex:SetTexture("")
 		end
 	end)
-	select(18, QuestLogPopupDetailFrame:GetRegions()):Hide()
 	QuestLogPopupDetailFrame:Styling()
 
 	-- Show map button
