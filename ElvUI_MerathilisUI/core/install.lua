@@ -64,6 +64,7 @@ local function SetupCVars()
 	SetCVar("showQuestTrackingTooltips", 1)
 	SetCVar("ffxGlow", 0)
 	SetCVar("WorldTextScale", 0.75)
+	SetCVar("floatingCombatTextCombatState", "1")
 
 	if IsAddOnLoaded("NameplateSCT") then
 		SetCVar("floatingCombatTextCombatDamage", 0)

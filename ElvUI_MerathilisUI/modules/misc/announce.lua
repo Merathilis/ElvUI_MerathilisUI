@@ -201,8 +201,6 @@ function MERA:Initialize()
 	if E.db.mui.misc.announce then
 		self:RegisterEvent("CHAT_MSG_SKILL")
 	end
-
-	SetCVar("floatingCombatTextCombatState", "1")
 end
 
 local function InitializeCallback()
