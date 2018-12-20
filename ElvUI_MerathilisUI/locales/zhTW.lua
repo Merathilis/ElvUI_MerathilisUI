@@ -342,6 +342,7 @@ L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
+L["Shows the pixel glow on missing raidbuffs."] = true
 
 -- Reminder
 L["Reminder"] = true

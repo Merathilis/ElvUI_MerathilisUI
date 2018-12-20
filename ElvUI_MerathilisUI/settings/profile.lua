@@ -343,6 +343,7 @@ P["mui"] = {
 		["class"] = true,
 		["size"] = 24,
 		["alpha"] = 0.3,
+		["glow"] = true,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
 

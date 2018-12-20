@@ -343,6 +343,7 @@ L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Run
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
+L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden Klassenspezifischen Buffs."
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
