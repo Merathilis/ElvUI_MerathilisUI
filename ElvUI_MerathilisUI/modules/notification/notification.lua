@@ -180,7 +180,7 @@ function NF:CreateToast()
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
-	title:SetWordWrap(enable)
+	title:SetNonSpaceWrap(true)
 	toast.title = title
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)

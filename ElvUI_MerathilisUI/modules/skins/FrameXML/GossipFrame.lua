@@ -21,13 +21,6 @@ local function styleGossip()
 	local GossipFrame = _G.GossipFrame
 	GossipFrame:Styling()
 
-	_G.GossipGreetingScrollFrameTop:Hide()
-	_G.GossipGreetingScrollFrameBottom:Hide()
-	_G.GossipGreetingScrollFrameMiddle:Hide()
-	select(19, GossipFrame:GetRegions()):Hide()
-	for i = 1, 7 do
-		select(i, GossipFrame:GetRegions()):Hide()
-	end
 	_G.GossipGreetingScrollFrame:StripTextures()
 
 	if not E.private.skins.parchmentRemover.enable then
