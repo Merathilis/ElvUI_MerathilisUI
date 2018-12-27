@@ -75,6 +75,7 @@ V["muiSkins"] = {
 		["socket"] = true,
 		["itemUpgrade"] = true,
 		["trade"] = true,
+		["voidstorage"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,

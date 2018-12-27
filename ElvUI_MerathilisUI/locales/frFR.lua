@@ -342,6 +342,7 @@ L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
+L["Shows the pixel glow on missing raidbuffs."] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -486,7 +487,6 @@ Please note that some of these options will be |cff636363disabled|r if the addon
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
-L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 
 -- Profiles

@@ -19,7 +19,6 @@ P["mui"] = {
 		["Movertransparancy"] = .75,
 		["style"] = true, -- Styling function (stripes/gradient)
 		["panels"] = true,
-		["shadowOverlay"] = false, -- Monitor this, maybe affected by the scaling issues.
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
 		["undressButton"] = true,
@@ -343,6 +342,7 @@ P["mui"] = {
 		["class"] = true,
 		["size"] = 24,
 		["alpha"] = 0.3,
+		["glow"] = true,
 		["customVisibility"] = "[noexists, nogroup] hide; show",
 	},
 

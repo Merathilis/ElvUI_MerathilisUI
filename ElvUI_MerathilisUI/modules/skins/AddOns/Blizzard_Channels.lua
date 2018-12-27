@@ -13,11 +13,11 @@ local hooksecurefunc = hooksecurefunc
 local function styleChannels()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Channels ~= true or E.private.muiSkins.blizzard.channels ~= true then return end
 
-	local ChannelFrame = _G["ChannelFrame"]
+	local ChannelFrame = _G.ChannelFrame
 	ChannelFrame:StripTextures()
 	ChannelFrame:Styling()
 
-	local CreateChannelPopup = _G["CreateChannelPopup"]
+	local CreateChannelPopup = _G.CreateChannelPopup
 	CreateChannelPopup:Styling()
 end
 

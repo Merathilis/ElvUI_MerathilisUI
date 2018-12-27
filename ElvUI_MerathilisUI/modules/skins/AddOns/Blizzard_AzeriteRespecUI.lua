@@ -13,7 +13,7 @@ local _G = _G
 local function styleRespec()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AzeriteRespec ~= true or E.private.muiSkins.blizzard.AzeriteRespec ~= true then return end
 
-	local AzeriteRespecFrame = _G["AzeriteRespecFrame"]
+	local AzeriteRespecFrame = _G.AzeriteRespecFrame
 	AzeriteRespecFrame:Styling()
 end
 

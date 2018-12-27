@@ -16,7 +16,7 @@ local function styleChatFrame()
 	local friendTex = "Interface\\HELPFRAME\\ReportLagIcon-Chat"
 	local queueTex = "Interface\\HELPFRAME\\HelpIcon-ItemRestoration"
 
-	local QuickJoinToastButton = _G["QuickJoinToastButton"]
+	local QuickJoinToastButton = _G.QuickJoinToastButton
 	QuickJoinToastButton:SetSize(27, 32)
 
 	if QuickJoinToastButton.backdrop then
@@ -66,8 +66,8 @@ local function styleChatFrame()
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
 	MERS:CreateBD(VoiceChatPromptActivateChannel)
 	VoiceChatPromptActivateChannel:Styling()
-	MERS:CreateBD(VoiceChatChannelActivatedNotification)
-	VoiceChatChannelActivatedNotification:Styling()
+	MERS:CreateBD(_G.VoiceChatChannelActivatedNotification)
+	_G.VoiceChatChannelActivatedNotification:Styling()
 end
 
 S:AddCallback("mUIChat", styleChatFrame)

@@ -33,8 +33,10 @@ function MI:GMOTD()
 		gmotd:SetFrameStrata("TOOLTIP")
 		gmotd:SetScript("OnMouseDown", gmotd.StartMoving)
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
+
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
+
 		gmotd:Styling()
 		gmotd:Hide()
 
@@ -50,11 +52,8 @@ function MI:GMOTD()
 		gmotd.header:SetPoint("BOTTOM", gmotd, "TOP", 0, 4)
 		gmotd.header:SetTextColor(1, 1, 0)
 
-		gmotd.text = MER:CreateText(gmotd, "OVERLAY", 12, "OUTLINE")
+		gmotd.text = MER:CreateText(gmotd, "OVERLAY", 12, "OUTLINE", nil, "CENTER", 0, 0)
 		gmotd.text:SetHeight(130)
-		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 10, -10)
-		gmotd.text:SetPoint("TOPRIGHT", gmotd, "TOPRIGHT", -10, -10)
-		gmotd.text:SetJustifyV("TOP")
 		gmotd.text:SetTextColor(1, 1, 1)
 		gmotd.text:CanWordWrap(true)
 		gmotd.text:SetWordWrap(true)
@@ -73,14 +72,14 @@ function MI:GMOTD()
 			end
 
 			if (msg and msg ~= "") and not InCombatLockdown() then
-				local numLines = gmotd.text:GetNumLines()
-
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
-				gmotd:SetHeight(20 + (12.2  *numLines))
 				gmotd:Show()
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
+
+				local numLines = gmotd.text:GetNumLines()
+				gmotd:SetHeight(20 + (12.2*numLines))
 			else
 				gmotd:Hide()
 			end

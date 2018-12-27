@@ -78,8 +78,16 @@ local function RaidBuffs()
 						disabled = function() return not E.db.mui.raidBuffs.enable end,
 						set = function(info, value) E.db.mui.raidBuffs.class = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
-					customVisibility = {
+					glow = {
 						order = 7,
+						type = "toggle",
+						name = L["Glow"],
+						desc = L["Shows the pixel glow on missing raidbuffs."],
+						disabled = function() return not E.db.mui.raidBuffs.enable end,
+						set = function(info, value) E.db.mui.raidBuffs.glow = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					customVisibility = {
+						order = 8,
 						type = 'input',
 						width = 'full',
 						name = L["Visibility State"],

@@ -45,7 +45,15 @@ function MM:MiniMapCoords()
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
-	Coords:SetPoint(pos, 0, 0)
+	if pos == "BOTTOM" then
+		Coords:SetPoint(pos, 0, 2)
+	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
+		Coords:SetPoint(pos, 0, -12)
+	elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
+		Coords:SetPoint(pos, 0, -2)
+	else
+		Coords:SetPoint(pos, 0, 0)
+	end
 	Coords:Hide()
 
 	Minimap:HookScript("OnUpdate",function()

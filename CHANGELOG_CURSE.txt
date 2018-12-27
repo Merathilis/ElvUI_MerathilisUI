@@ -1,4 +1,11 @@
-** v4.03, 13.12.2018**
+** v4.05, 27.12.2018**
+* Various skin adjustments & fixes.
+* Use a nice glow around RaidBuffReminder & Buff Reminder.
+* Update Minimap Coords Position.
+* Removed my ShadowOverlay.
+* Added a CombatFeedBack Text to the UF's.
+
+** v4.04, 13.12.2018**
 * Fixed an error in the LFGList skin.
 * Updated SpellBook skin.
 * Use my arrows on the StackSplitFrame again.

@@ -6,8 +6,8 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local next = next
 -- WoW API / Variables
-
--- GLOBALS: hooksecurefunc, QuestPOI_GetButton, QuestPOINumericTemplate, QuestPOICompletedTemplate
+local hooksecurefunc = hooksecurefunc
+-- GLOBALS: QuestPOINumericTemplate, QuestPOICompletedTemplate
 
 local function QuestPOINumericTemplate(button)
 	button:SetSize(20, 20)

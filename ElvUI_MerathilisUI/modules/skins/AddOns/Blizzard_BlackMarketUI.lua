@@ -10,15 +10,16 @@ local pairs, select, unpack = pairs, select, unpack
 local CreateFrame = CreateFrame
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleBMAH()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.muiSkins.blizzard.blackmarket ~= true then return end
 
-	local BlackMarketFrame = _G["BlackMarketFrame"]
+	local BlackMarketFrame = _G.BlackMarketFrame
 
 	BlackMarketFrame.Inset:DisableDrawLayer("BORDER")
 	select(9, BlackMarketFrame.Inset:GetRegions()):Hide()

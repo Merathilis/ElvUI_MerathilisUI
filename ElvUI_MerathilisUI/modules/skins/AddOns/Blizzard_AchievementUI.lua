@@ -18,15 +18,15 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleAchievement()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
 
-	_G["AchievementFrame"].backdrop:Styling()
+	_G.AchievementFrame.backdrop:Styling()
 
 	-- Hide the ElvUI default backdrop
-	if _G["AchievementFrameCategoriesContainer"].backdrop then
-		_G["AchievementFrameCategoriesContainer"].backdrop:Hide()
+	if _G.AchievementFrameCategoriesContainer.backdrop then
+		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
 	end
 
 	for i = 1, 17 do
-		select(i, _G["AchievementFrame"]:GetRegions()):Hide()
+		select(i, _G.AchievementFrame:GetRegions()):Hide()
 	end
 
 	for i = 1, 7 do
@@ -168,8 +168,8 @@ local function styleAchievement()
 		bu:GetHighlightTexture():SetBlendMode("BLEND")
 	end
 
-	_G["AchievementFrame"].searchBox:Point("BOTTOMRIGHT", AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
-	_G["AchievementFrame"].searchBox:SetSize(100, 20)
+	_G.AchievementFrame.searchBox:Point("BOTTOMRIGHT", _G.AchievementFrameAchievementsContainer, "TOPRIGHT", -2, -2)
+	_G.AchievementFrame.searchBox:SetSize(100, 20)
 
 	-- Font width fix
 	hooksecurefunc("AchievementObjectives_DisplayProgressiveAchievement", function()

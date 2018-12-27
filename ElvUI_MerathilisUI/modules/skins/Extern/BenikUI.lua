@@ -8,25 +8,29 @@ local _G = _G
 local pairs = pairs
 -- WoW API / Variables
 local CreateFrame = CreateFrame
--- GLOBALS: 
+-- GLOBALS:
 
 local function styleBenikUI()
 	if E.private.muiSkins.addonSkins.bui ~= true then return; end
 
-	if _G["BuiLeftChatDTPanel"] then
-		_G["BuiLeftChatDTPanel"]:Styling()
+	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
+	if BuiLeftChatDTPanel then
+		BuiLeftChatDTPanel:Styling()
 	end
 
-	if _G["BuiMiddleDTPanel"] and E.db.benikui.datatexts.middle.backdrop == true then --requires now a reload, otherwise my style is still showing
-		_G["BuiMiddleDTPanel"]:Styling()
+	local BuiMiddleDTPanel = _G.BuiMiddleDTPanel
+	if BuiMiddleDTPanel and E.db.benikui.datatexts.middle.backdrop == true then --requires now a reload, otherwise my style is still showing
+		BuiMiddleDTPanel:Styling()
 	end
 
-	if _G["BuiRightChatDTPanel"] then
-		_G["BuiRightChatDTPanel"]:Styling()
+	local BuiRightChatDTPanel = _G.BuiRightChatDTPanel
+	if BuiRightChatDTPanel then
+		BuiRightChatDTPanel:Styling()
 	end
 
-	if _G["BuiTaxiButton"] then
-		_G["BuiTaxiButton"]:Styling()
+	local BuiTaxiButton = _G.BuiTaxiButton
+	if BuiTaxiButton then
+		BuiTaxiButton:Styling()
 	end
 
 	-- Style the datapanel buttons

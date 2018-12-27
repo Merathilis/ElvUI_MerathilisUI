@@ -343,6 +343,7 @@ L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Run
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
+L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden Klassenspezifischen Buffs."
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
@@ -487,7 +488,6 @@ Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
-L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 
 -- Profiles

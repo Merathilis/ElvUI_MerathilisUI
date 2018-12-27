@@ -405,23 +405,6 @@ function MERL:regEvents()
 	self:MiddleDatatextDimensions()
 end
 
-function MERL:ShadowOverlay()
-	-- Based on ncShadow
-	if E.db.mui.general.shadowOverlay ~= true then return end
-
-	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
-	self.f:SetPoint("TOPLEFT")
-	self.f:SetPoint("BOTTOMRIGHT")
-	self.f:SetFrameLevel(0)
-	self.f:SetFrameStrata("BACKGROUND")
-
-	self.f.tex = self.f:CreateTexture()
-	self.f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
-	self.f.tex:SetAllPoints(self.f)
-
-	self.f:SetAlpha(0.7)
-end
-
 function MERL:ChatButtonHolder()
 	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel then return end
 
@@ -447,7 +430,6 @@ function MERL:Initialize()
 	self:ChangeLayout()
 	self:regEvents()
 	self:CreateChatButtons()
-	self:ShadowOverlay()
 end
 
 local function InitializeCallback()

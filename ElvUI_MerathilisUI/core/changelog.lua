@@ -17,16 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error in the LFGList skin.",
-		"• Updated SpellBook skin.",
-		"• Use my arrows on the StackSplitFrame again.",
-		"• Disable my ShadowOverlay by default for now.",
+		"• Various skin adjustments & fixes.",
+		"• Use a nice glow around RaidBuffReminder & Buff Reminder.",
+		"• Update Minimap Coords Position.",
+		"• Removed my ShadowOverlay.",
+		"• Added a CombatFeedBack Text to the UF's.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• I've disabled my ShadowOverlay for now by default. Make sure it is disabled:",
-		"• ElvUI - MerathilisUI - Skins/AddOns - Genaral - MerathilisUI Shadows.",
+		"• The options for the CombatFeedback can be found under:",
+		"• 'ElvUI - UnitFrames - Player / Target'",
 		-- "• ''",
 }
 

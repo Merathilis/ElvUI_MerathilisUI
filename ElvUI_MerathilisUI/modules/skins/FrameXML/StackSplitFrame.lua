@@ -14,7 +14,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleStyleStackSplitFrame()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	local StackSplitFrame = _G["StackSplitFrame"]
+	local StackSplitFrame = _G.StackSplitFrame
 	StackSplitFrame.backdrop:Styling()
 
 	local buttons = {StackSplitFrame.LeftButton, StackSplitFrame.RightButton}

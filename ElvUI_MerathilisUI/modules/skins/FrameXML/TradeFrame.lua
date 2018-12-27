@@ -18,11 +18,11 @@ local UnitGUID = UnitGUID
 local function styleTradeFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or E.private.muiSkins.blizzard.trade ~= true then return end
 
-	local TradeFrame = _G["TradeFrame"]
+	local TradeFrame = _G.TradeFrame
 	TradeFrame.backdrop:Styling()
 
-	TradePlayerInputMoneyFrameSilver:SetPoint("LEFT", TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
-	TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
+	_G.TradePlayerInputMoneyFrameSilver:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
+	_G.TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
 
 	local function reskinButton(bu)
 		bu:SetNormalTexture("")
@@ -32,7 +32,7 @@ local function styleTradeFrame()
 		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 	end
 
-	for i = 1, MAX_TRADE_ITEMS do
+	for i = 1, _G.MAX_TRADE_ITEMS do
 		_G["TradePlayerItem"..i.."SlotTexture"]:Hide()
 		_G["TradePlayerItem"..i.."NameFrame"]:Hide()
 		_G["TradeRecipientItem"..i.."SlotTexture"]:Hide()

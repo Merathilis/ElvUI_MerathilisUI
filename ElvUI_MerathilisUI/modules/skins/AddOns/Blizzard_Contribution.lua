@@ -6,28 +6,28 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 --WoW API / Variables
-
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, ContributionRewardMixin, ContributionMixin
+-- GLOBALS:
 
 local function styleContribution()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Contribution ~= true or E.private.muiSkins.blizzard.contribution ~= true then return end
 
 	--Main Frame
-	_G["ContributionCollectionFrame"]:StripTextures()
-	MERS:CreateBD(_G["ContributionCollectionFrame"], .25)
+	_G.ContributionCollectionFrame:StripTextures()
+	MERS:CreateBD(_G.ContributionCollectionFrame, .25)
 
-	_G["ContributionCollectionFrame"]:Styling()
+	_G.ContributionCollectionFrame:Styling()
 
 	local function styleText(self)
 		self.Description:SetVertexColor(1, 1, 1)
 	end
-	hooksecurefunc(ContributionMixin, "Setup", styleText)
+	hooksecurefunc(_G.ContributionMixin, "Setup", styleText)
 
 	local function styleRewardText(self)
 		self.RewardName:SetTextColor(1, 1, 1)
 	end
-	hooksecurefunc(ContributionRewardMixin, "Setup", styleRewardText)
+	hooksecurefunc(_G.ContributionRewardMixin, "Setup", styleRewardText)
 end
 
 S:AddCallbackForAddon("Blizzard_Contribution", "mUIContribution", styleContribution)

@@ -5,16 +5,14 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
 -- WoW API
-
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function styleWarfrontPartyPose()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandsPartyPose ~= true or E.private.muiSkins.blizzard.IslandsPartyPose ~= true then return end
 
-	local WarfrontsPartyPoseFrame = _G["WarfrontsPartyPoseFrame"]
+	local WarfrontsPartyPoseFrame = _G.WarfrontsPartyPoseFrame
 	WarfrontsPartyPoseFrame:Styling()
 
 	local rewardFrame = WarfrontsPartyPoseFrame.RewardAnimations.RewardFrame
