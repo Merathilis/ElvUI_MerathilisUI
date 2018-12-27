@@ -423,6 +423,11 @@ local function SkinsTable()
 				name = TRADESKILLS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
 			},
+			voidstorage = {
+				type = "toggle",
+				name = VOID_STORAGE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
+			},
 		},
 	}
 
