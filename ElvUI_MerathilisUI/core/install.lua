@@ -834,11 +834,12 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["xOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["player"]["pvpIcon"]["scale"] = 0.5
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 16
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["size"] = 12
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["texture"] = "COMBAT"
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["customTexture"] = ""
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["anchorPoint"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 10
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
