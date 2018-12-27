@@ -14,9 +14,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
 local function AddOptions()
-	local name = MER.Title..(": |cFF00c0fa%s|r"):format(MER.Version).." ("..(E.title or "|cfffe7b2cElvUI|r")..format(": |cff99ff33%s|r", E.version)
-	name = name .. ")"
-	E.Options.args.ElvUI_Header.name = name
+	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + "..MER.Title..format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
