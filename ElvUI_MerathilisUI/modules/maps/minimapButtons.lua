@@ -258,11 +258,11 @@ end
 function SMB:Update()
 	if not SMB.db['enable'] then return end
 
-	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow']
-	local ButtonsPerRow = SMB.db['buttonsPerRow']
+	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow'] or 12
+	local ButtonsPerRow = SMB.db['buttonsPerRow'] or 12
 	local NumColumns = ceil(#SMB.Buttons / ButtonsPerRow)
-	local Spacing, Mult = SMB.db['buttonSpacing'], 1
-	local Size = SMB.db['iconSize']
+	local Spacing, Mult = SMB.db['buttonSpacing'] or 2, 1
+	local Size = SMB.db['iconSize'] or 27
 	local ActualButtons, Maxed = 0
 
 	if NumColumns == 1 and ButtonsPerRow > #SMB.Buttons then
