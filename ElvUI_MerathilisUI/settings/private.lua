@@ -76,6 +76,7 @@ V["muiSkins"] = {
 		["itemUpgrade"] = true,
 		["trade"] = true,
 		["voidstorage"] = true,
+		["AlliedRaces"] = true,
 	},
 	["addonSkins"] = {
 		["abp"] = true,
