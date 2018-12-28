@@ -428,7 +428,7 @@ local function SkinsTable()
 				name = VOID_STORAGE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
 			},
-			voidstorage = {
+			AlliedRaces = {
 				type = "toggle",
 				name = L["Allied Races"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AlliedRaces end,
