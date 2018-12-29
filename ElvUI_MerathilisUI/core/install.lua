@@ -802,6 +802,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["health"]["bgUseBarTexture"] = true
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
+		E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
@@ -869,6 +870,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["name"]["yOffset"] = -32
 		E.db["unitframe"]["units"]["target"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["name"]["text_format"] = ""
+		E.db["unitframe"]["units"]["target"]["power"]["powerPrediction"] = true
 		E.db["unitframe"]["units"]["target"]["power"]["detachFromFrame"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["hideonnpc"] = false
 		E.db["unitframe"]["units"]["target"]["power"]["height"] = 6
