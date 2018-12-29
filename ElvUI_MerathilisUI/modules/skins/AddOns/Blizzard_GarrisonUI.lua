@@ -334,13 +334,10 @@ local function styleGarrison()
 	local GarrisonLandingPage = _G.GarrisonLandingPage
 
 	for i = 1, 10 do
-		select(i, GarrisonLandingPage:GetRegions()):Hide()
+		select(i, GarrisonLandingPage:GetRegions()):Hide() -- Parchment
 	end
 
-	if GarrisonLandingPage.backdrop then GarrisonLandingPage.backdrop:Hide() end
-
-	MERS:CreateBD(GarrisonLandingPage)
-	GarrisonLandingPage:Styling()
+	GarrisonLandingPage.backdrop:Styling()
 	MERS:ReskinTab(_G.GarrisonLandingPageTab1)
 	MERS:ReskinTab(_G.GarrisonLandingPageTab2)
 	MERS:ReskinTab(_G.GarrisonLandingPageTab3)
@@ -350,10 +347,6 @@ local function styleGarrison()
 
 	-- Report
 	local Report = GarrisonLandingPage.Report
-
-	select(2, Report:GetRegions()):Hide()
-	Report.List:GetRegions():Hide()
-
 	local scrollFrame = Report.List.listScroll
 
 	local buttons = scrollFrame.buttons
