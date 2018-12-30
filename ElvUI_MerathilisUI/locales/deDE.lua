@@ -488,6 +488,7 @@ Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 
 -- Profiles

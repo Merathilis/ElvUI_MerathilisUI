@@ -71,6 +71,13 @@ local function SkinsTable()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
+					shadowOverlay = {
+						order = 3,
+						type = "toggle",
+						name = L["MerathilisUI Shadows"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
 					undressButton = {
 						order = 4,
 						type = "toggle",
