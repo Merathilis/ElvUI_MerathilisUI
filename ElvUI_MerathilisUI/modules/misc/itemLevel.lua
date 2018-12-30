@@ -16,7 +16,7 @@ function MI:ItemLevel()
 	--ItemLevel on Scrapping Machine
 	local function ScrappingMachineUpdate(self)
 		if not self.iLvl then
-			self.iLvl = MER:CreateText(self, "OVERLAY", 10)
+			self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11)
 			self.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
 		end
 
@@ -47,7 +47,7 @@ function MI:ItemLevel()
 	-- ItemLevel on Flyoutbuttons
 	local function SetupFlyoutLevel(button, bag, slot, quality)
 		if not button.iLvl then
-			button.iLvl = MER:CreateText(button, "OVERLAY", 10)
+			button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11)
 			button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
 		end
 
