@@ -455,6 +455,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
 		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
+		stripes:SetSnapToPixelGrid(false)
+		stripes:SetTexelSnappingBias(0)
 		stripes:SetHorizTile(true)
 		stripes:SetVertTile(true)
 		stripes:SetBlendMode("ADD")
@@ -468,6 +470,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
 		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetSnapToPixelGrid(false)
+		gradient:SetTexelSnappingBias(0)
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
 		f.gradient = gradient
@@ -479,6 +483,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		mshadow:Width(shadowOverlayWidth or 33)
 		mshadow:Height(shadowOverlayHeight or 33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
+		mshadow:SetSnapToPixelGrid(false)
+		mshadow:SetTexelSnappingBias(0)
 		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 
 		f.mshadow = mshadow

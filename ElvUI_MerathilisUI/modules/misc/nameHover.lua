@@ -54,13 +54,15 @@ function MI:LoadnameHover()
 	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
-	tooltip.text = MER:CreateText(tooltip, "OVERLAY", db.size or 7, "OUTLINE")
+	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
+	tooltip.text:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(tt)
 		if GetMouseFocus() and GetMouseFocus():IsForbidden() then tt:Hide() return end
 		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then tt:Hide() return end
 		if not UnitExists("mouseover") then tt:Hide() return end
+
 		local x, y = GetCursorPosition()
 		local scale = UIParent:GetEffectiveScale()
 		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)

@@ -53,7 +53,8 @@ P["mui"] = {
 
 	["nameHover"] = {
 		["enable"] = true,
-		["size"] = 7,
+		["fontSize"] = 7,
+		["fontOutline"] = "OUTLINE",
 	},
 
 	["notification"] = {

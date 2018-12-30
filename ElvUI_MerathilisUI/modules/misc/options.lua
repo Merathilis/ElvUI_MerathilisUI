@@ -75,11 +75,22 @@ local function Misc()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					size = {
+					fontSize = {
 						order = 2,
 						type = "range",
 						name = L["Size"],
 						min = 4, max = 24, step = 1,
+					},
+					fontOutline = {
+						order = 3,
+						type = "select",
+						name = L["Font Outline"],
+						values = {
+							["NONE"] = NONE,
+							["OUTLINE"] = "OUTLINE",
+							["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
+							["THICKOUTLINE"] = "THICKOUTLINE",
+						},
 					},
 				},
 			},
