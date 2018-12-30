@@ -416,6 +416,8 @@ function MERL:ShadowOverlay()
 	self.f:SetFrameStrata("BACKGROUND")
 
 	self.f.tex = self.f:CreateTexture()
+	self.f.tex:SetSnapToPixelGrid(false)
+	self.f.tex:SetTexelSnappingBias(0)
 	self.f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
 	self.f.tex:SetAllPoints(self.f)
 
