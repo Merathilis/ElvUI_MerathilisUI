@@ -84,7 +84,6 @@ local function styleCPaperDollFrame()
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.AttributesCategory)
 		CharacterStatFrameCategoryTemplate(CharacterStatsPane.EnhancementsCategory)
 
-
 		-- Copied from ElvUI
 		local function ColorizeStatPane(frame)
 			if frame.leftGrad then frame.leftGrad:Hide() end

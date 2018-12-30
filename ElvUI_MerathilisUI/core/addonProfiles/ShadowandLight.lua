@@ -16,6 +16,7 @@ function MER:LoadShadowandLightProfile()
 	E.db["sle"]["media"]["fonts"]["editbox"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["objective"]["size"] = 10
 	E.db["sle"]["media"]["fonts"]["objective"]["font"] = "Expressway"
+	E.db["sle"]["media"]["fonts"]["objective"]["outline"] = "OUTLINE"
 	E.db["sle"]["media"]["fonts"]["zone"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["mail"]["font"] = "Expressway"
 	E.db["sle"]["media"]["fonts"]["subzone"]["font"] = "Expressway"
