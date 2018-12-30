@@ -46,9 +46,14 @@ P["mui"] = {
 		["gmotd"] = true, -- Show a GMOTD frame
 		["quest"] = false,
 		["announce"] = true, -- CombatText, Skill gains
-		["nameHover"] = true,
+
 		["cursor"] = false,
 		["raidInfo"] = true,
+	},
+
+	["nameHover"] = {
+		["enable"] = true,
+		["size"] = 7,
 	},
 
 	["notification"] = {

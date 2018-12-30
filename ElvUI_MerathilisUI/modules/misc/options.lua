@@ -57,16 +57,31 @@ local function Misc()
 				name = MERA.modName,
 				desc = L["Skill gains"],
 			},
-			nameHover = {
+			cursor = {
 				order = 7,
 				type = "toggle",
+				name = L["Flashing Cursor"],
+			},
+			nameHover = {
+				order = 8,
+				type = "group",
 				name = L["Name Hover"],
 				desc = L["Shows the Unit Name on the mouse."],
-			},
-			cursor = {
-				order = 8,
-				type = "toggle",
-				name = L["Flashing Cursor"],
+				get = function(info) return E.db.mui.nameHover[ info[#info] ] end,
+				set = function(info, value) E.db.mui.nameHover[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					size = {
+						order = 2,
+						type = "range",
+						name = L["Size"],
+						min = 4, max = 24, step = 1,
+					},
+				},
 			},
 		},
 	}

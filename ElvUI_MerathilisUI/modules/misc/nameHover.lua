@@ -50,11 +50,12 @@ local function getcolor()
 end
 
 function MI:LoadnameHover()
-	if E.db.mui.misc.nameHover ~= true or IsAddOnLoaded("bdNameHover") then return end
+	if E.db.mui.nameHover.enable ~= true or IsAddOnLoaded("bdNameHover") then return end
 
+	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
-	tooltip.text = MER:CreateText(tooltip, "OVERLAY", 7, "OUTLINE")
+	tooltip.text = MER:CreateText(tooltip, "OVERLAY", db.size or 7, "OUTLINE")
 
 	-- Show unit name at mouse
 	tooltip:SetScript("OnUpdate", function(self)
