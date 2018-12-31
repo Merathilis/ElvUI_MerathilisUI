@@ -337,9 +337,9 @@ function MER:AddTooltip(self, anchor, text, color)
 end
 
 -- frame text
-function MER:CreateText(f, layer, size, text, classcolor, anchor, x, y)
+function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
-	text:FontTemplate(nil, size or 10, 'OUTLINE')
+	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetWordWrap(false)
 
 	if text then
