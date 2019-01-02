@@ -6,8 +6,10 @@ assert(ElvUF, "ElvUI was unable to locate oUF.")
 
 -- Cache global variables
 local abs = math.abs
-local format, match, sub, gsub, len = string.format, string.match, string.sub, string.gsub, string.len
+local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
+local strfind, strlower, strmatch, strsub = strfind, strlower, strmatch, strsub
 local assert, tonumber, type = assert, tonumber, type
+local gmatch, gsub = gmatch, gsub
 -- WoW API / Variables
 local UnitIsDead = UnitIsDead
 local UnitClass = UnitClass
@@ -122,16 +124,31 @@ ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
 	return String
 end
 
-ElvUF.Tags.Events["name:abbrev"] = "UNIT_NAME_UPDATE"
-ElvUF.Tags.Methods["name:abbrev"] = function(unit)
-	local name = UnitName(unit)
-
-	if name and len(name) > 15 then
-		name = name:gsub('(%S+) ', function(t) return t:sub(1,1)..'. ' end)
+local function abbrev(name)
+	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
+	if lastWord then
+		for word in gmatch(name, '.-%s') do
+			local firstLetter = strsub(gsub(word, '^[%s%p]*', ''), 1, 1)
+			if firstLetter ~= strlower(firstLetter) then
+				letters = format('%s%s. ', letters, firstLetter)
+			end
+		end
+		name = format('%s%s', letters, lastWord)
 	end
-
 	return name
 end
+
+ElvUF.Tags.Events['name:abbrev'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:abbrev'] = function(unit)
+	local name = UnitName(unit)
+
+	if name and strfind(name, '%s') then
+		name = abbrev(name)
+	end
+
+	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
+end
+
 
 local function shortenNumber(number)
 	if type(number) ~= "number" then
