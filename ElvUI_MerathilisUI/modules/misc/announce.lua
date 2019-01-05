@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERA = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 MERA.modName = L["Announce"]
 
 --Cache global variables

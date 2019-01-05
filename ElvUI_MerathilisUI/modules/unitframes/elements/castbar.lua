@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MCA = MER:NewModule("mUICastbar", "AceTimer-3.0", "AceEvent-3.0")
 local UF = E:GetModule("UnitFrames")
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 
 --Cache global variables
 local _G = _G

@@ -2,7 +2,6 @@
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
 local LP = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
-local LSM = LibStub("LibSharedMedia-3.0");
 LP.modName = L["Location Panel"]
 
 -- Cache global variables

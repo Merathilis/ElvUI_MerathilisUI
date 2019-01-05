@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...
 
