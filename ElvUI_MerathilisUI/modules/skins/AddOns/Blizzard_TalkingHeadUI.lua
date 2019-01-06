@@ -13,7 +13,7 @@ local function styleTalkingHead()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
-	if TalkingHeadFrame.backdrop then  TalkingHeadFrame.backdrop:Styling() end
+	if TalkingHeadFrame.backdrop then TalkingHeadFrame.backdrop:Styling() end
 
 	TalkingHeadFrame.BackgroundFrame.TextBackground:SetAtlas(nil)
 	TalkingHeadFrame.PortraitFrame.Portrait:SetAtlas(nil)
