@@ -27,13 +27,15 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		local height = aura:GetParent().db.baseHeight or 18
 
 		if spell and spell['width'] then
-			width = spell['width']
+			--width = spell['width']
+			width = width*1.5
 		elseif E.global['nameplate']['spellListDefault']['width'] then
 			width = E.global['nameplate']['spellListDefault']['width']
 		end
 
 		if spell and spell['height'] then
-			height = spell['height']
+			--height = spell['height']
+			height = height*1.5
 		elseif E.global['nameplate']['spellListDefault']['height'] then
 			height = E.global['nameplate']['spellListDefault']['height']
 		end
@@ -70,7 +72,7 @@ function NA:SortAuras(auras)
 		if (iconA:IsShown() ~= iconB:IsShown()) then
 			return iconA:IsShown()
 		end
-		
+
 		return aCalc > bCalc
 	end
 	tsort(auras.icons, sortAuras)
@@ -89,11 +91,13 @@ function NA:UpdateAuraIcons(auras)
 	local height = auras.db.baseHeight or 18
 
 	if E.global['nameplate']['spellListDefault']['width'] then
-		width = E.global['nameplate']['spellListDefault']['width']
+		--width = E.global['nameplate']['spellListDefault']['width']
+		width = width*1.5
 	end
 
 	if E.global['nameplate']['spellListDefault']['height'] then
-		height = E.global['nameplate']['spellListDefault']['height']
+		--height = E.global['nameplate']['spellListDefault']['height']
+		height = height*1.5
 	end
 
 	if numCurrentAuras > maxAuras then
@@ -114,8 +118,8 @@ function NA:UpdateAuraIcons(auras)
 			end
 			local spell = E.global['nameplate']['spellList'][auras.icons[i].spellID]
 			auras.icons[i]:ClearAllPoints()
-			auras.icons[i]:SetHeight((spell and spell['height']) or height)
-			auras.icons[i]:SetWidth((spell and spell['width']) or width)
+			auras.icons[i]:SetHeight(height*1.5)
+			auras.icons[i]:SetWidth(width*1.5)
 		end
 	end
 
