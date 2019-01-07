@@ -126,7 +126,7 @@ function NA:UpdateAuraIcons(auras)
 	NA:RepositionAuras(auras)
 end
 
-function NA:ConstructElement_Auras(frame, maxAuras, size)
+function NA:ConstructElement_Auras(frame, side)
 	local auras = CreateFrame("FRAME", nil, frame)
 
 	auras:SetHeight(18) -- this really doesn't matter
