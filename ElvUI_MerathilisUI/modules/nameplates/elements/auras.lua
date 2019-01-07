@@ -23,7 +23,7 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura.icon:SetTexture(icon)
 
 		-- Size
-		local width = aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride or 18
+		local width = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 or 18
 		local height = aura:GetParent().db.baseHeight or 18
 
 		if spell and spell['width'] then
@@ -87,16 +87,14 @@ function NA:UpdateAuraIcons(auras)
 		auras.auraCache = {}
 	end
 
-	local width = auras.db.widthOverride > 0 and auras.db.widthOverride or 18
+	local width = auras.db.widthOverride and auras.db.widthOverride > 0  or 18
 	local height = auras.db.baseHeight or 18
 
 	if E.global['nameplate']['spellListDefault']['width'] then
-		--width = E.global['nameplate']['spellListDefault']['width']
 		width = width*1.5
 	end
 
 	if E.global['nameplate']['spellListDefault']['height'] then
-		--height = E.global['nameplate']['spellListDefault']['height']
 		height = height*1.5
 	end
 
