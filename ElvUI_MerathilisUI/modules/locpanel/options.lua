@@ -279,7 +279,7 @@ local function LocPanelTable()
 								type = "toggle",
 								order = 6,
 								name = L["Hearthstone Location"],
-								desc = L["Show the name on location your Heathstone is bound to."],
+								desc = L["Show the name on location your Hearthstone is bound to."],
 							},
 							showHearthstones = {
 								type = "toggle",
