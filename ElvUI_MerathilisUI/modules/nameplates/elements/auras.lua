@@ -30,14 +30,14 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			--width = spell['width']
 			width = width*1.5
 		elseif E.global['nameplate']['spellListDefault']['width'] then
-			width = E.global['nameplate']['spellListDefault']['width']
+			width = E.global['nameplate']['spellListDefault']['width'] or 40
 		end
 
 		if spell and spell['height'] then
 			--height = spell['height']
 			height = height*1.5
 		elseif E.global['nameplate']['spellListDefault']['height'] then
-			height = E.global['nameplate']['spellListDefault']['height']
+			height = E.global['nameplate']['spellListDefault']['height'] or 40
 		end
 
 		if width > height then
