@@ -360,7 +360,7 @@ P["mui"] = {
 
 	["NameplateAuras"] = {
 		["enable"] = true,
-		["width"] = 32,
+		["width"] = 28,
 		["height"] = 14,
 	},
 

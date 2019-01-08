@@ -26,19 +26,19 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 
 		-- Size
 		local overrideWidth = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride
-		local width = overrideWidth or 18
-		local height = aura:GetParent().db.baseHeight or 18
+		local width = overrideWidth or 28
+		local height = aura:GetParent().db.baseHeight or 14
 
 		if spell and spell ~= "" then
-			width = width*1.5
+			width = width*1.35
 		elseif E.db['mui']['NameplateAuras']['width'] then
-			width =  E.db['mui']['NameplateAuras']['width'] or 32
+			width =  E.db['mui']['NameplateAuras']['width']
 		end
 
 		if spell and spell ~= "" then
-			height = height*1.5
+			height = height*1.35
 		elseif E.db['mui']['NameplateAuras']['height'] then
-			height = E.db['mui']['NameplateAuras']['height'] or 14
+			height = E.db['mui']['NameplateAuras']['height']
 		end
 
 		if width > height then
@@ -94,20 +94,16 @@ function NA:UpdateAuraIcons(auras)
 		end
 	end
 
-	if numCurrentAuras ~= maxAuras then
-		NP.Auras_SizeChanged(auras, auras:GetWidth(), auras:GetHeight())
-	end
-
 	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
-	local width = overrideWidth or 18
-	local height = auras.db.baseHeight or 18
+	local width = overrideWidth or 28
+	local height = auras.db.baseHeight or 14
 
 	if E.db['mui']['NameplateAuras']['width'] then
-		width = width*1.5
+		width = width*1.35
 	end
 
 	if E.db['mui']['NameplateAuras']['height'] then
-		height = height*1.5
+		height = height*1.35
 	end
 
 	if (maxAuras > numCurrentAuras) then
@@ -128,7 +124,7 @@ end
 function NA:ConstructElement_Auras(frame, side)
 	local auras = CreateFrame("FRAME", nil, frame)
 
-	auras:SetHeight(18) -- this really doesn't matter
+	auras:SetHeight(14) -- this really doesn't matter
 	auras.side = side
 	auras.icons = {}
 
