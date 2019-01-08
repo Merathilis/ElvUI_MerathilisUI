@@ -32,7 +32,7 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		if spell and spell ~= "" then
 			width = width*1.35
 		elseif E.db['mui']['NameplateAuras']['width'] then
-			width =  E.db['mui']['NameplateAuras']['width']
+			width = E.db['mui']['NameplateAuras']['width']
 		end
 
 		if spell and spell ~= "" then
