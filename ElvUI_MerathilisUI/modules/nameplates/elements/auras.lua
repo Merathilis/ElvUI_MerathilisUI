@@ -13,31 +13,32 @@ local max = math.max
 local CreateFrame = CreateFrame
 local GetSpellInfo = GetSpellInfo
 local GetAddOnEnableState = GetAddOnEnableState
+local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, side
+-- GLOBALS:
 
 function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
 	if aura and icon and spellID then
-		local spell = E.global['nameplate']['spellList'][spellID]
+		local spell = E.global['unitframe']['aurafilters']['CCDebuffs']['spells'][spellID]
 		-- Icon
+		aura.spellID = spellID
 		aura.icon:SetTexture(icon)
 
 		-- Size
-		local width = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 or 18
+		local overrideWidth = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride
+		local width = overrideWidth or 18
 		local height = aura:GetParent().db.baseHeight or 18
 
-		if spell and spell['width'] then
-			--width = spell['width']
+		if spell and spell ~= "" then
 			width = width*1.5
-		elseif E.global['nameplate']['spellListDefault']['width'] then
-			width = E.global['nameplate']['spellListDefault']['width'] or 40
+		elseif E.db['mui']['NameplateAuras']['width'] then
+			width =  E.db['mui']['NameplateAuras']['width'] or 32
 		end
 
-		if spell and spell['height'] then
-			--height = spell['height']
+		if spell and spell ~= "" then
 			height = height*1.5
-		elseif E.global['nameplate']['spellListDefault']['height'] then
-			height = E.global['nameplate']['spellListDefault']['height'] or 40
+		elseif E.db['mui']['NameplateAuras']['height'] then
+			height = E.db['mui']['NameplateAuras']['height'] or 14
 		end
 
 		if width > height then
@@ -50,7 +51,6 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			aura.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		end
 
-		aura.spellID = spellID
 		aura:SetWidth(width)
 		aura:SetHeight(height)
 
@@ -87,14 +87,15 @@ function NA:UpdateAuraIcons(auras)
 		auras.auraCache = {}
 	end
 
-	local width = auras.db.widthOverride and auras.db.widthOverride > 0  or 18
+	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
+	local width =overrideWidth or 18
 	local height = auras.db.baseHeight or 18
 
-	if E.global['nameplate']['spellListDefault']['width'] then
+	if E.db['mui']['NameplateAuras']['width'] then
 		width = width*1.5
 	end
 
-	if E.global['nameplate']['spellListDefault']['height'] then
+	if E.db['mui']['NameplateAuras']['height'] then
 		height = height*1.5
 	end
 
@@ -114,7 +115,7 @@ function NA:UpdateAuraIcons(auras)
 				auras.icons[i]:SetParent(auras)
 				auras.icons[i]:Hide()
 			end
-			local spell = E.global['nameplate']['spellList'][auras.icons[i].spellID]
+			local spell = E.global['unitframe']['aurafilters']['CCDebuffs']['spells'][auras.icons[i].spellID]
 			auras.icons[i]:ClearAllPoints()
 			auras.icons[i]:SetHeight(height*1.5)
 			auras.icons[i]:SetWidth(width*1.5)
