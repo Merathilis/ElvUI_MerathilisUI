@@ -17,17 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Various skin adjustments & fixes.",
-		"• Use a nice glow around RaidBuffReminder & Buff Reminder.",
-		"• Update Minimap Coords Position.",
-		"• Removed my ShadowOverlay.",
-		"• Added a CombatFeedBack Text to the UF's.",
+		"• Fixed an error in ItemSocketing skin.",
+		"• Added back my ShadowOverlay.",
+		"• Adjust font size for ScrappingMachine & FlyoutButton iLvL.",
+		"• Update the Minimap Glow appearance.",
+		"• Update RealmInfo.",
+		"• Simplify the NamePlate Auras.",
+		"• Change the default position for the Combat State.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• The options for the CombatFeedback can be found under:",
-		"• 'ElvUI - UnitFrames - Player / Target'",
 		-- "• ''",
 }
 
