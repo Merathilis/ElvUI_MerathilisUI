@@ -88,7 +88,7 @@ function NA:UpdateAuraIcons(auras)
 	end
 
 	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
-	local width =overrideWidth or 18
+	local width = overrideWidth or 18
 	local height = auras.db.baseHeight or 18
 
 	if E.db['mui']['NameplateAuras']['width'] then
