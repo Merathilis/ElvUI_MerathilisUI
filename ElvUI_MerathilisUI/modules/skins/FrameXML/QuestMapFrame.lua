@@ -23,7 +23,7 @@ local function styleQuestMapFrame()
 	-- Quest scroll frame
 	local QuestScrollFrame = _G.QuestScrollFrame
 	local campaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
-	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
+	local storyHeader = QuestScrollFrame.Contents.StoryHeader
 
 	QuestMapFrame.VerticalSeparator:SetAlpha(0)
 	QuestScrollFrame.Background:SetAlpha(0)
@@ -31,14 +31,15 @@ local function styleQuestMapFrame()
 	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator:SetAlpha(0)
 
-	for _, header in next, {campaignHeader, StoryHeader} do
+	for _, header in next, {campaignHeader, storyHeader} do
 		header.Background:SetAlpha(0)
 		header.HighlightTexture:Hide()
 		header.Text:SetPoint("TOPLEFT", 15, -20)
 
 		local bg = MERS:CreateBDFrame(header, .25)
-		bg:SetPoint("TOPLEFT", 0, -8)
-		bg:SetPoint("BOTTOMRIGHT", -4, 0)
+		bg:SetPoint("TOPLEFT", 2, -2)
+		bg:SetPoint("BOTTOMRIGHT", -6, 2)
+
 		if header == campaignHeader then
 			local newTex = bg:CreateTexture(nil, "OVERLAY")
 			newTex:SetPoint("TOPRIGHT", -15, -3)
@@ -73,6 +74,11 @@ local function styleQuestMapFrame()
 		end
 	end
 
+	-- Scroll frame
+	hooksecurefunc("QuestLogQuests_Update", function()
+		UpdateCampaignHeader()
+	end)
+
 	-- Quest details
 	local DetailsFrame = QuestMapFrame.DetailsFrame
 	local RewardsFrame = DetailsFrame.RewardsFrame
@@ -98,11 +104,6 @@ local function styleQuestMapFrame()
 	-- Rewards frame
 	RewardsFrame.Background:SetAlpha(0)
 	select(2, RewardsFrame:GetRegions()):SetAlpha(0)
-
-	-- Scroll frame
-	hooksecurefunc("QuestLogQuests_Update", function()
-		UpdateCampaignHeader()
-	end)
 
 	-- Complete quest frame
 	CompleteQuestFrame:GetRegions():SetAlpha(0)

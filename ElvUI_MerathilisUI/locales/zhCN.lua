@@ -286,7 +286,7 @@ L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
-L["Show the name on location your Heathstone is bound to."] = true
+L["Show the name on location your Hearthstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
@@ -488,6 +488,7 @@ Please note that some of these options will be |cff636363disabled|r if the addon
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 
 -- Profiles

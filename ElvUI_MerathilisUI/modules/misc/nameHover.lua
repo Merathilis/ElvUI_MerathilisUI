@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule("mUIMisc")
-local LSM = LibStub("LibSharedMedia-3.0")
 
 --Cache global variables
 --Lua functions
@@ -23,7 +22,7 @@ local UNKNOWN = UNKNOWN
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
 
-local function getcolor()
+local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5
 
 	if UnitIsPlayer("mouseover") then
@@ -50,23 +49,26 @@ local function getcolor()
 end
 
 function MI:LoadnameHover()
-	if E.db.mui.misc.nameHover ~= true or IsAddOnLoaded("bdNameHover") then return end
+	if E.db.mui.nameHover.enable ~= true or IsAddOnLoaded("bdNameHover") then return end
 
+	local db = E.db.mui.nameHover
 	local tooltip = CreateFrame("frame", nil)
 	tooltip:SetFrameStrata("TOOLTIP")
-	tooltip.text = MER:CreateText(tooltip, "OVERLAY", 7, "OUTLINE")
+	tooltip.text = tooltip:CreateFontString(nil, "OVERLAY")
+	tooltip.text:FontTemplate(nil, db.fontSize or 7, db.fontOutline or "OUTLINE")
 
 	-- Show unit name at mouse
-	tooltip:SetScript("OnUpdate", function(self)
-		if GetMouseFocus() and GetMouseFocus():IsForbidden() then self:Hide() return end
-		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then self:Hide() return end
-		if not UnitExists("mouseover") then self:Hide() return end
+	tooltip:SetScript("OnUpdate", function(tt)
+		if GetMouseFocus() and GetMouseFocus():IsForbidden() then tt:Hide() return end
+		if GetMouseFocus() and GetMouseFocus():GetName() ~= "WorldFrame" then tt:Hide() return end
+		if not UnitExists("mouseover") then tt:Hide() return end
+
 		local x, y = GetCursorPosition()
 		local scale = UIParent:GetEffectiveScale()
-		self.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)
+		tt.text:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+15)
 	end)
 
-	tooltip:SetScript("OnEvent", function(self)
+	tooltip:SetScript("OnEvent", function(tt)
 		if GetMouseFocus():GetName() ~= "WorldFrame" then return end
 
 		local name = UnitName("mouseover") or UNKNOWN
@@ -77,10 +79,10 @@ function MI:LoadnameHover()
 		if AFK then prefix = "|cffff0000<AFK>|r " end
 		if DND then prefix = "|cffffce00<DND>|r " end
 
-		self.text:SetTextColor(getcolor())
-		self.text:SetText(prefix..name)
+		tt.text:SetTextColor(Getcolor())
+		tt.text:SetText(prefix..name)
 
-		self:Show()
+		tt:Show()
 	end)
 
 	tooltip:RegisterEvent("UPDATE_MOUSEOVER_UNIT")

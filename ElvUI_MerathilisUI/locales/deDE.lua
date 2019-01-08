@@ -287,7 +287,7 @@ L["Justify Text"] = "Text ausrichten"
 L["Auto Width"] = "Auto Breite"
 L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonen Text."
 L["Hearthstone Location"] = "Ruhestein Position"
-L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
+L["Show the name on location your Hearthstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
@@ -488,6 +488,7 @@ Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 
 -- Profiles

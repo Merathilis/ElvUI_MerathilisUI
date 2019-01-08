@@ -13,29 +13,32 @@ local max = math.max
 local CreateFrame = CreateFrame
 local GetSpellInfo = GetSpellInfo
 local GetAddOnEnableState = GetAddOnEnableState
+local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, side
+-- GLOBALS:
 
 function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
 	if aura and icon and spellID then
-		local spell = E.global['nameplate']['spellList'][spellID]
+		local spell = E.global['unitframe']['aurafilters']['CCDebuffs']['spells'][spellID]
 		-- Icon
+		aura.spellID = spellID
 		aura.icon:SetTexture(icon)
 
 		-- Size
-		local width = aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride or 18
+		local overrideWidth = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride
+		local width = overrideWidth or 18
 		local height = aura:GetParent().db.baseHeight or 18
 
-		if spell and spell['width'] then
-			width = spell['width']
-		elseif E.global['nameplate']['spellListDefault']['width'] then
-			width = E.global['nameplate']['spellListDefault']['width']
+		if spell and spell ~= "" then
+			width = width*1.5
+		elseif E.db['mui']['NameplateAuras']['width'] then
+			width =  E.db['mui']['NameplateAuras']['width'] or 32
 		end
 
-		if spell and spell['height'] then
-			height = spell['height']
-		elseif E.global['nameplate']['spellListDefault']['height'] then
-			height = E.global['nameplate']['spellListDefault']['height']
+		if spell and spell ~= "" then
+			height = height*1.5
+		elseif E.db['mui']['NameplateAuras']['height'] then
+			height = E.db['mui']['NameplateAuras']['height'] or 14
 		end
 
 		if width > height then
@@ -48,7 +51,6 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 			aura.icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 		end
 
-		aura.spellID = spellID
 		aura:SetWidth(width)
 		aura:SetHeight(height)
 
@@ -70,7 +72,7 @@ function NA:SortAuras(auras)
 		if (iconA:IsShown() ~= iconB:IsShown()) then
 			return iconA:IsShown()
 		end
-		
+
 		return aCalc > bCalc
 	end
 	tsort(auras.icons, sortAuras)
@@ -80,20 +82,8 @@ end
 function NA:UpdateAuraIcons(auras)
 	local maxAuras = auras.db.numAuras
 	local numCurrentAuras = #auras.icons
-
 	if (not auras.auraCache) then
 		auras.auraCache = {}
-	end
-
-	local width = auras.db.widthOverride > 0 and auras.db.widthOverride or 18
-	local height = auras.db.baseHeight or 18
-
-	if E.global['nameplate']['spellListDefault']['width'] then
-		width = E.global['nameplate']['spellListDefault']['width']
-	end
-
-	if E.global['nameplate']['spellListDefault']['height'] then
-		height = E.global['nameplate']['spellListDefault']['height']
 	end
 
 	if numCurrentAuras > maxAuras then
@@ -104,25 +94,38 @@ function NA:UpdateAuraIcons(auras)
 		end
 	end
 
+	if numCurrentAuras ~= maxAuras then
+		NP.Auras_SizeChanged(auras, auras:GetWidth(), auras:GetHeight())
+	end
+
+	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
+	local width = overrideWidth or 18
+	local height = auras.db.baseHeight or 18
+
+	if E.db['mui']['NameplateAuras']['width'] then
+		width = width*1.5
+	end
+
+	if E.db['mui']['NameplateAuras']['height'] then
+		height = height*1.5
+	end
+
 	if (maxAuras > numCurrentAuras) then
-		for i=1, maxAuras do
-			auras.icons[i] = tremove(auras.auraCache)
-			if (not auras.icons[i]) then
-				auras.icons[i] =  NP:CreateAuraIcon(auras)
-				auras.icons[i]:SetParent(auras)
-				auras.icons[i]:Hide()
-			end
-			local spell = E.global['nameplate']['spellList'][auras.icons[i].spellID]
+		for i = 1, maxAuras do
+			auras.icons[i] = auras.icons[i] or tremove(auras.auraCache) or NP:CreateAuraIcon(auras)
+			auras.icons[i]:SetParent(auras)
 			auras.icons[i]:ClearAllPoints()
-			auras.icons[i]:SetHeight((spell and spell['height']) or height)
-			auras.icons[i]:SetWidth((spell and spell['width']) or width)
+			auras.icons[i]:Hide()
+
+			auras.icons[i]:SetHeight(height)
+			auras.icons[i]:SetWidth(width)
 		end
 	end
 
 	NA:RepositionAuras(auras)
 end
 
-function NA:ConstructElement_Auras(frame, maxAuras, size)
+function NA:ConstructElement_Auras(frame, side)
 	local auras = CreateFrame("FRAME", nil, frame)
 
 	auras:SetHeight(18) -- this really doesn't matter
@@ -161,25 +164,6 @@ function NA:UpdateElement_Auras(frame)
 	NA:UpdateAuraSet(frame.Buffs)
 end
 
-function NA:UpdateSpellList()
-	local filters = E.global['nameplate']['spellList']
-
-	for key, value in pairs(filters) do
-		if (not tonumber(key)) then
-			local spellID = select(7, GetSpellInfo(key))
-			if (spellID) then
-				filters[spellID] = value
-			end
-			filters[key] = nil
-		end
-	end
-end
-
-function NA:PLAYER_ENTERING_WORLD()
-	self:UpdateSpellList()
-	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-end
-
 function NA:Initialize()
 	if E.db.mui.NameplateAuras.enable ~= true then return; end
 
@@ -187,7 +171,6 @@ function NA:Initialize()
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)
 	NP.UpdateAuraIcons = NA.UpdateAuraIcons
 	NP.ConstructElement_Auras = NA.ConstructElement_Auras
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 local function InitializeCallback()

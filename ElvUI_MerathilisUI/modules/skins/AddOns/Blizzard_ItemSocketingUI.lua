@@ -21,10 +21,6 @@ local function styleSocketing()
 
 	ItemSocketingFrame:DisableDrawLayer("ARTWORK")
 
-	for i = 36, 51 do
-		select(i, ItemSocketingFrame:GetRegions()):Hide()
-	end
-
 	local title = select(18, ItemSocketingFrame:GetRegions())
 	title:ClearAllPoints()
 	title:SetPoint("TOP", 0, -5)

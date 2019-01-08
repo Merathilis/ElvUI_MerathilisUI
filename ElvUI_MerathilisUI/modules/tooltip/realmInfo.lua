@@ -26,7 +26,7 @@ local ColorCode = WrapTextInColorCode;
 local frame, media, myRealm = CreateFrame("frame"), "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\flags\\", GetRealmName()
 local _FRIENDS_LIST_REALM, _LFG_LIST_TOOLTIP_LEADER = FRIENDS_LIST_REALM.."|r(.+)", gsub(LFG_LIST_TOOLTIP_LEADER,"%%s","(.+)")
 local id, name, api_name, rules, locale, battlegroup, region, timezone, connections, latin_name, latin_api_name, iconstr, iconfile = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13;
-local DST, locked, Code2UTC, regionFix = 0, false, {EST = -5, CST = -6, MST = -7, PST = -8, AEST = 10, US = -3, BRT = -3}
+local DST, locked, Code2UTC, regionFix = 0, false, {EST = -5, CST = -6, MST = -7, PST = -8, AEST = 10, US = -3}
 
 local tooltipLines = {
 	-- { <name of line in slash command>, <return table index from local GetRealmInfo function>, <name of line in tooltip> }

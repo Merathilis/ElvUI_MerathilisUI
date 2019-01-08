@@ -1,3 +1,12 @@
+** v4.06, 08.01.2019**
+* Fixed an error in ItemSocketing skin.
+* Added back my ShadowOverlay.
+* Adjust font size for ScrappingMachine & FlyoutButton iLvL.
+* Update the Minimap Glow appearance.
+* Update RealmInfo.
+* Simplify the NamePlate Auras.
+* Change the default position for the Combat State.
+
 ** v4.05, 27.12.2018**
 * Various skin adjustments & fixes.
 * Use a nice glow around RaidBuffReminder & Buff Reminder.

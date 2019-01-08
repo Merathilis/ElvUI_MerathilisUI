@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = E.LSM
 
 -- GLOBALS: CHAT_FONT_HEIGHTS, GameTooltipHeader, NumberFont_OutlineThick_Mono_Small, SystemFont_Shadow_Large_Outline
 -- GLOBALS: NumberFont_Outline_Huge, NumberFont_Outline_Large, NumberFont_Outline_Med, NumberFont_Shadow_Med
@@ -141,5 +141,6 @@ function E:UpdateBlizzardFonts()
 		--SetFont(DestinyFontLarge,					NORMAL, 14);
 		SetFont(Game12Font, 						NORMAL, 12);								-- WarboardUI
 		SetFont(Game20Font, 						NORMAL, 20);								-- WarboardUI
+		SetFont(QuestFont_Enormous,					NORMAL, 30, nil, 1, 0.82, 0)
 	end
 end
