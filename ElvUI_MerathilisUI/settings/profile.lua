@@ -361,7 +361,7 @@ P["mui"] = {
 	["NameplateAuras"] = {
 		["enable"] = true,
 		["width"] = 32,
-		["height"] = 14
+		["height"] = 14,
 	},
 
 	["cooldownFlash"] = {

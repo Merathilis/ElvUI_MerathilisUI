@@ -82,9 +82,20 @@ end
 function NA:UpdateAuraIcons(auras)
 	local maxAuras = auras.db.numAuras
 	local numCurrentAuras = #auras.icons
-
 	if (not auras.auraCache) then
 		auras.auraCache = {}
+	end
+
+	if numCurrentAuras > maxAuras then
+		for i = auras.db.numAuras, #auras.icons do
+			tinsert(auras.auraCache, auras.icons[i])
+			auras.icons[i]:Hide()
+			auras.icons[i] = nil
+		end
+	end
+
+	if numCurrentAuras ~= maxAuras then
+		NP.Auras_SizeChanged(auras, auras:GetWidth(), auras:GetHeight())
 	end
 
 	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
@@ -99,26 +110,15 @@ function NA:UpdateAuraIcons(auras)
 		height = height*1.5
 	end
 
-	if numCurrentAuras > maxAuras then
-		for i = auras.db.numAuras, #auras.icons do
-			tinsert(auras.auraCache, auras.icons[i])
-			auras.icons[i]:Hide()
-			auras.icons[i] = nil
-		end
-	end
-
 	if (maxAuras > numCurrentAuras) then
-		for i=1, maxAuras do
-			auras.icons[i] = tremove(auras.auraCache)
-			if (not auras.icons[i]) then
-				auras.icons[i] =  NP:CreateAuraIcon(auras)
-				auras.icons[i]:SetParent(auras)
-				auras.icons[i]:Hide()
-			end
-			local spell = E.global['unitframe']['aurafilters']['CCDebuffs']['spells'][auras.icons[i].spellID]
+		for i = 1, maxAuras do
+			auras.icons[i] = auras.icons[i] or tremove(auras.auraCache) or NP:CreateAuraIcon(auras)
+			auras.icons[i]:SetParent(auras)
 			auras.icons[i]:ClearAllPoints()
-			auras.icons[i]:SetHeight(height*1.5)
-			auras.icons[i]:SetWidth(width*1.5)
+			auras.icons[i]:Hide()
+
+			auras.icons[i]:SetHeight(height)
+			auras.icons[i]:SetWidth(width)
 		end
 	end
 
@@ -164,25 +164,6 @@ function NA:UpdateElement_Auras(frame)
 	NA:UpdateAuraSet(frame.Buffs)
 end
 
-function NA:UpdateSpellList()
-	local filters = E.global['nameplate']['spellList']
-
-	for key, value in pairs(filters) do
-		if (not tonumber(key)) then
-			local spellID = select(7, GetSpellInfo(key))
-			if (spellID) then
-				filters[spellID] = value
-			end
-			filters[key] = nil
-		end
-	end
-end
-
-function NA:PLAYER_ENTERING_WORLD()
-	self:UpdateSpellList()
-	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-end
-
 function NA:Initialize()
 	if E.db.mui.NameplateAuras.enable ~= true then return; end
 
@@ -190,7 +171,6 @@ function NA:Initialize()
 	hooksecurefunc(NP, "UpdateElement_Auras", NA.UpdateElement_Auras)
 	NP.UpdateAuraIcons = NA.UpdateAuraIcons
 	NP.ConstructElement_Auras = NA.ConstructElement_Auras
-	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
 
 local function InitializeCallback()
