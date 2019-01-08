@@ -52,7 +52,7 @@ local function styleTradeFrame()
 	infoText:ClearAllPoints()
 	infoText:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 
-	hooksecurefunc("TradeFrame_Update", function()
+	local function UpdateColor()
 		local r, g, b = MER:UnitColor("NPC")
 		_G["TradeFrameRecipientNameText"]:SetTextColor(r, g, b)
 
@@ -65,9 +65,9 @@ local function styleTradeFrame()
 		elseif IsGuildMember(guid) then
 			text = "|cff00ff00"..GUILD
 		end
-
 		infoText:SetText(text)
-	end)
+	end
+	hooksecurefunc("TradeFrame_Update", UpdateColor)
 end
 
 S:AddCallback("mUITradeFrame", styleTradeFrame)
