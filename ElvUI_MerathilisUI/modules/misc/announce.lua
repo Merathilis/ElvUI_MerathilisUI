@@ -46,7 +46,7 @@ end
 local speed = .057799924 -- how fast the text appears
 local font = LSM:Fetch("font", "Expressway")
 local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
-local fontsize = 24 -- font size
+local fontsize = 18 -- font size
 
 local GetNextChar = function(word,num)
 	local c = word:byte(num)
@@ -68,7 +68,7 @@ local updaterun = CreateFrame("Frame")
 
 local flowingframe = CreateFrame("Frame", nil, E.UIParent)
 flowingframe:SetFrameStrata("HIGH")
-flowingframe:SetPoint("CENTER", E.UIParent, 0, 140) -- where we want the textframe
+flowingframe:SetPoint("CENTER", E.UIParent, "TOP", 0, -80) -- where we want the textframe
 flowingframe:SetHeight(64)
 
 local flowingtext = flowingframe:CreateFontString(nil,"OVERLAY")
@@ -105,7 +105,7 @@ local updatestring = function(self,t)
 			flowingtext:SetPoint("RIGHT")
 			flowingtext:SetJustifyH("RIGHT")
 			rightchar:ClearAllPoints()
-			rightchar:SetPoint("RIGHT",flowingtext,"LEFT")
+			rightchar:SetPoint("RIGHT", flowingtext, "LEFT")
 			rightchar:SetJustifyH("RIGHT")
 			self:Hide()
 			count = 1.456789
