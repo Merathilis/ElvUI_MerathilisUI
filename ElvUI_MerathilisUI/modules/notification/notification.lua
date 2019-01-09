@@ -427,13 +427,8 @@ local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
-	local scenarioName, currentStage, numStages, flags, _, _, _, xp, money, scenarioType, _, textureKitID = C_Scenario_GetInfo()
-	local inChallengeMode = (scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE)
-	local inProvingGrounds = (scenarioType == LE_SCENARIO_TYPE_PROVING_GROUNDS)
-	local dungeonDisplay = (scenarioType == LE_SCENARIO_TYPE_USE_DUNGEON_DISPLAY)
-	local inWarfront = (scenarioType == LE_SCENARIO_TYPE_WARFRONT)
-
-	if inChallengeMode or inProvingGrounds or dungeonDisplay or inWarfront then
+	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
+	if inGroup or inRaid or inPartyLFG then
 		return;
 	end
 
