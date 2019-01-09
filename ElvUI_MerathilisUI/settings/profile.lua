@@ -399,7 +399,7 @@ P["mui"] = {
 			["color"] = {r = 1, g = 1, b = 0},
 		},
 		["stats"] = {
-			["IlvlFull"] = true,
+			["IlvlFull"] = false,
 			["IlvlColor"] = false,
 			["AverageColor"] = {r = 0, g = 1, b = .59},
 			["OnlyPrimary"] = true,
