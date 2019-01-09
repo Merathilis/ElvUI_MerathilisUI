@@ -393,7 +393,7 @@ P["mui"] = {
 		["ilvl"] = {
 			["enable"] = true,
 			["font"] = "Expressway",
-			["textSize"] = 12,
+			["textSize"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["colorStyle"] = "RARITY",
 			["color"] = {r = 1, g = 1, b = 0},
@@ -415,7 +415,7 @@ P["mui"] = {
 			},
 			["catFonts"] = {
 				["font"] = "Expressway",
-				["size"] = 12,
+				["size"] = 13,
 				["outline"] = "OUTLINE",
 			},
 			["List"] = {

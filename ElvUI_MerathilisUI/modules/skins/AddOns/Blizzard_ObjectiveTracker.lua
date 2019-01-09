@@ -93,6 +93,7 @@ local function styleObjectiveTracker()
 				local Modules = Frame[i]
 				if (Modules) then
 					local Header = Modules.Header
+					Header.Text:FontTemplate(nil, 14, "OUTLINE")
 					Header:SetFrameStrata("LOW")
 
 					if not (Modules.IsSkinned) then
