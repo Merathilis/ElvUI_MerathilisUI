@@ -20,7 +20,7 @@ local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		order = 3,
-		name = MERAY.modName,
+		name = E.NewSign..MERAY.modName,
 		childGroups = 'tab',
 		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
 		hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
@@ -41,7 +41,7 @@ local function ArmoryTable()
 			azeritebtn = {
 				type = "toggle",
 				order = 3,
-				name = L["Azerite Buttons"]..E.NewSign,
+				name = L["Azerite Buttons"],
 				desc = L["Enable/Disable the Azerite Buttons on the character window."],
 				set = function(info, value) E.db.mui.armory.azeritebtn = value; E:StaticPopup_Show("PRIVATE_RL") end,
 			},
@@ -144,7 +144,7 @@ local function ArmoryTable()
 					colorStyle = {
 						order = 5,
 						type = "select",
-						name = COLOR..E.NewSign,
+						name = COLOR,
 						values = {
 							["RARITY"] = RARITY,
 							["LEVEL"] = L["Level"],
@@ -155,7 +155,7 @@ local function ArmoryTable()
 					color = {
 						order = 6,
 						type = "color",
-						name = COLOR_PICKER..E.NewSign,
+						name = COLOR_PICKER,
 						disabled = function() return E.db.mui.armory.ilvl.colorStyle == "RARITY" or E.db.mui.armory.ilvl.colorStyle == "LEVEL" or not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
 						get = function(info)
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
@@ -173,7 +173,7 @@ local function ArmoryTable()
 			},
 			stats = {
 				type = 'group',
-				name = STAT_CATEGORY_ATTRIBUTES..E.NewSign,
+				name = STAT_CATEGORY_ATTRIBUTES,
 				order = 7,
 				disabled = function() return not E.db.mui.armory.enable end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
@@ -242,7 +242,7 @@ local function ArmoryTable()
 			},
 			Fonts = {
 				type = "group",
-				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"]..E.NewSign,
+				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				-- guiInline = true,
 				order = 8,
 				args = {
