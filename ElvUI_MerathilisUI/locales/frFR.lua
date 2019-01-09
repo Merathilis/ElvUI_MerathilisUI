@@ -35,8 +35,7 @@ But if you install another Layout over mine, you must adjust it manually.]=]
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
-L["Removed: "] = true
-L["Usable Items"] = true
+L["Transparent Slots"] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -226,6 +225,40 @@ L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
+
+-- Armory
+L["Armory"] = true
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
+L["Azerite Buttons"] = true
+L["Enable/Disable the Azerite Buttons on the character window."] = true
+L["Durability"] = true
+L["Enable/Disable the display of durability information on the character window."] = true
+L["Damaged Only"] = true
+L["Only show durability information for items that are damaged."] = true
+L["Itemlevel"] = true
+L["Enable/Disable the display of item levels on the character window."] = true
+L["Level"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
+L["Only Relevant Stats"] = true
+L["Show only those primary stats relevant to your spec."] = true
+L["Item Level"] = true
+L["Categories"] = true
+
+L["Open head slot azerite powers."] = true
+L["Open shoulder slot azerite powers."] = true
+L["Open chest slot azerite powers."] = true
+-- PRINTS
+L["Equipped head is not an Azerite item."] = true
+L["No head item is equipped."] = true
+L["Equipped shoulder is not an Azerite item."] = true
+L["No shoulder item is equipped."] = true
+L["Equipped chest is not an Azerite item."] = true
+L["No chest item is equipped."] = true
 
 -- Unitframes
 L["UnitFrames"] = true

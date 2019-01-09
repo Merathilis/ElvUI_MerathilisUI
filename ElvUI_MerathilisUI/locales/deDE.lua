@@ -35,8 +35,7 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
-L["Removed: "] = "Entfernt: "
-L["Usable Items"] = "Benutzbare Gegenstände"
+L["Transparent Slots"] = "Transparente Schaltflächen"
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -226,6 +225,40 @@ L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
+
+-- Armory
+L["Armory"] = "Arsenal"
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
+L["Azerite Buttons"] = "Azerittasten"
+L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
+L["Durability"] = "Haltbarkeit"
+L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
+L["Damaged Only"] = "Nur beschädigt"
+L["Only show durability information for items that are damaged."] = "Haltbarkeit nur bei beschädigten Gegenständen anzeigen"
+L["Itemlevel"] = "Gegenstandsstufe"
+L["Enable/Disable the display of item levels on the character window."] = "Gegenstandsstufen im Charakterfenster anzeigen/verbergen"
+L["Level"] = "Stufe"
+L["Full Item Level"] = "Vollständige Gegenstandsstufe"
+L["Show both equipped and average item levels."] = "Ausgerüstete und durchschnittliche Gegenstandsstufe anzeigen"
+L["Item Level Coloring"] = "Gegenstandsstufe färben"
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Färbt die Gegenstandsstufe ein. Ausgerüstete Stufe wird kombiniert, Maximalstufe entspricht der ausgewählten Farbe"
+L["Color of Average"] = "Durchschnittsfarbe"
+L["Sets the color of average item level."] = "Setzt die Farbe der durchschnittlichen Gegenstandsstufe"
+L["Only Relevant Stats"] = "Nur relevante Attribute"
+L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
+L["Item Level"] = "Gegenstandsstufe"
+L["Categories"] = "Kategorien"
+
+L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
+L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
+L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
+-- PRINTS
+L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
+L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
+L["Equipped shoulder is not an Azerite item."] = "Ausgerüstete Schulter ist kein Azerite Gegenstand."
+L["No shoulder item is equipped."] = "Kein Schulter Gegenstand ausgerüstet."
+L["Equipped chest is not an Azerite item."] = "Ausgerüstete Brust ist kein Azerite Gegenstand."
+L["No chest item is equipped."] = "Kein Brust Gegenstand ausgerüstet."
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"

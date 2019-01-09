@@ -50,7 +50,7 @@ local function styleCharacter()
 		EquipmentManager_RunAction(action)
 	end
 
-	if E.db.mui.general.undressButton then
+	if E.db.mui.armory.undressButton then
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
 		bu:SetSize(34, 37)
 		bu:SetFrameStrata("HIGH")

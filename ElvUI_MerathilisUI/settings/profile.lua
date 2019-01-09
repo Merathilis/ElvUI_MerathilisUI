@@ -22,10 +22,10 @@ P["mui"] = {
 		["shadowOverlay"] = true,
 		["filterErrors"] = true,
 		["hideErrorFrame"] = true,
-		["undressButton"] = true,
 	},
 
 	["bags"] = {
+		["transparentSlots"] = true,
 	},
 
 	["chat"] = {
@@ -376,5 +376,61 @@ P["mui"] = {
 		["showSpellName"] = false,
 		["x"] = UIParent:GetWidth()/2,
 		["y"] = UIParent:GetHeight()/2,
+	},
+
+	-- Armory
+	["armory"] = {
+		["enable"] = true,
+		["azeritebtn"] = true,
+		["undressButton"] = true,
+		["durability"] = {
+			["enable"] = true,
+			["onlydamaged"] = true,
+			["font"] = "Expressway",
+			["textSize"] = 12,
+			["fontOutline"] = "OUTLINE",
+		},
+		["ilvl"] = {
+			["enable"] = true,
+			["font"] = "Expressway",
+			["textSize"] = 12,
+			["fontOutline"] = "OUTLINE",
+			["colorStyle"] = "RARITY",
+			["color"] = {r = 1, g = 1, b = 0},
+		},
+		["stats"] = {
+			["IlvlFull"] = true,
+			["IlvlColor"] = false,
+			["AverageColor"] = {r = 0, g = 1, b = .59},
+			["OnlyPrimary"] = true,
+			["ItemLevel"] = {
+				["font"] = "Expressway",
+				["size"] = 20,
+				["outline"] = "OUTLINE",
+			},
+			["statFonts"] = {
+				["font"] = "Expressway",
+				["size"] = 11,
+				["outline"] = "OUTLINE",
+			},
+			["catFonts"] = {
+				["font"] = "Expressway",
+				["size"] = 12,
+				["outline"] = "OUTLINE",
+			},
+			["List"] = {
+				["HEALTH"] = false,
+				["POWER"] = false,
+				["ALTERNATEMANA"] = false,
+				["ATTACK_DAMAGE"] = false,
+				["ATTACK_AP"] = false,
+				["ATTACK_ATTACKSPEED"] = false,
+				["SPELLPOWER"] = false,
+				["ENERGY_REGEN"] = false,
+				["RUNE_REGEN"] = false,
+				["FOCUS_REGEN"] = false,
+				["MOVESPEED"] = false,
+			},
+		},
 	},
 }

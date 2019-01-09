@@ -310,7 +310,7 @@ local function LocPanelTable()
 								type = "toggle",
 								order = 50,
 								name = L["Ignore missing info"],
-								desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
+								desc = L["MER_LOCPANEL_IGNOREMISSINGINFO"],
 							},
 						},
 					},
