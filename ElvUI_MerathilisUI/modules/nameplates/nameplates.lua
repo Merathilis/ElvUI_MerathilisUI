@@ -9,8 +9,8 @@ local NP = E:GetModule('NamePlates')
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
--- Copied from ElvUI
-function MNP:ClassBar_Update()
+-- Copied from ElvUI and overwriting it
+function NP:ClassBar_Update()
 	if not self.ClassBar then return end
 	local frame
 
@@ -78,7 +78,6 @@ end
 function MNP:Initialize()
 	if E.private.nameplates.enable ~= true then return end
 
-	hooksecurefunc(NP, "ClassBar_Update", MNP.ClassBar_Update)
 end
 
 local function InitializeCallback()
