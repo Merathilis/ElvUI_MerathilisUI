@@ -248,10 +248,11 @@ L["Only Relevant Stats"] = true
 L["Show only those primary stats relevant to your spec."] = true
 L["Item Level"] = true
 L["Categories"] = true
-
 L["Open head slot azerite powers."] = true
 L["Open shoulder slot azerite powers."] = true
 L["Open chest slot azerite powers."] = true
+L["Enchant Info"] = true
+L["Shows an indictor for enchanted/ not enchanted items."] = true
 -- PRINTS
 L["Equipped head is not an Azerite item."] = true
 L["No head item is equipped."] = true

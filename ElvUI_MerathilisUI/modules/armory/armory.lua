@@ -111,6 +111,7 @@ function MERAY:UpdatePaperDoll()
 		slot = GetInventorySlotInfo(k)
 		if info and info[1] then
 			frame.ItemLevel:SetText()
+			frame.EnchantInfo:SetText()
 			if MERAY.db.ilvl.enable and info[1] then
 				itemLink = GetInventoryItemLink(unit, slot)
 
@@ -130,6 +131,16 @@ function MERAY:UpdatePaperDoll()
 
 					if itemLevel and avgEquipItemLevel then
 						frame.ItemLevel:SetText(itemLevel)
+					end
+
+					if MERAY.db.enchantInfo then
+						if slot and tContains({11, 12, 16, 17}, slot) then
+							enchantInfo = self:GetEnchants(itemLink)
+
+							if enchantInfo then
+								frame.EnchantInfo:SetText(enchantInfo)
+							end
+						end
 					end
 
 					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
@@ -167,7 +178,7 @@ local scantip = CreateFrame("GameTooltip", "MyScanningTooltip", nil, "GameToolti
 scantip:SetOwner(UIParent, "ANCHOR_NONE")
 
 local function GetRealItemLevel(itemLink)
-	-- Pass the item link to the tooltip:
+	-- Pass the item link to the tooltip
 	scantip:SetHyperlink(itemLink)
 
 	-- Scan the tooltip:
@@ -191,6 +202,31 @@ function MERAY:GetItemLevel(unit, itemLink)
 	itemLevel = GetRealItemLevel(itemLink)
 	itemLevel = tonumber(itemLevel)
 	return itemLevel
+end
+
+-- Check missing enchants
+local function CheckEnchants(itemLink)
+	-- Pass the item link to the tooltip
+	scantip:SetHyperlink(itemLink)
+
+	for i = 1, scantip:NumLines() do
+		local enchant = _G["MyScanningTooltipTextLeft"..i]:GetText():match(ENCHANTED_TOOLTIP_LINE:gsub("%%s", "(.+)"))
+		if enchant then
+			return enchant
+		end
+	end
+end
+
+function MERAY:GetEnchants(itemLink)
+	enchantInfo = CheckEnchants(itemLink)
+
+	if enchantInfo then
+		enchantInfo = "|cff00ff00E|r"
+	else
+		enchantInfo = "|cffff0000E|r"
+	end
+
+	return enchantInfo
 end
 
 --[[heirloom ilvl equivalents
@@ -253,7 +289,6 @@ function MERAY:HeirLoomLevel(unit, itemLink)
 	end
 end
 
-
 function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -289,7 +324,7 @@ function MERAY:BuildInfoText()
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 
 		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.EnchantInfo:SetPoint("CENTER", frame, "CENTER", 0, 0)
+		frame.EnchantInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 1, -1)
 		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 	end
 

@@ -248,10 +248,11 @@ L["Only Relevant Stats"] = "Nur relevante Attribute"
 L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
 L["Item Level"] = "Gegenstandsstufe"
 L["Categories"] = "Kategorien"
-
 L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
 L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
 L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
+L["Enchant Info"] = "Verzauberungsinfo"
+L["Shows an indictor for enchanted/ not enchanted items."] = "Zeigt einen Indikator für verzauerte und unverzauberte Gegenstände."
 -- PRINTS
 L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
 L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."

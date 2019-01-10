@@ -43,16 +43,21 @@ local function ArmoryTable()
 				order = 3,
 				name = L["Azerite Buttons"],
 				desc = L["Enable/Disable the Azerite Buttons on the character window."],
-				set = function(info, value) E.db.mui.armory.azeritebtn = value; E:StaticPopup_Show("PRIVATE_RL") end,
+
 			},
 			undressButton = {
 				type = "toggle",
 				order = 4,
 				name = L["Undress Button"],
-				set = function(info, value) E.db.mui.armory.undressButton = value; E:StaticPopup_Show("PRIVATE_RL") end,
+			},
+			enchantInfo = {
+				type = "toggle",
+				order = 5,
+				name = L["Enchant Info"],
+				desc = L["Shows an indictor for enchanted/ not enchanted items."],
 			},
 			durability = {
-				order = 5,
+				order = 6,
 				type = "group",
 				name = L["Durability"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -99,7 +104,7 @@ local function ArmoryTable()
 				},
 			},
 			itemlevel = {
-				order = 6,
+				order = 7,
 				type = "group",
 				name = L["Itemlevel"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -174,7 +179,7 @@ local function ArmoryTable()
 			stats = {
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
-				order = 7,
+				order = 8,
 				disabled = function() return not E.db.mui.armory.enable end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
@@ -244,7 +249,7 @@ local function ArmoryTable()
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				-- guiInline = true,
-				order = 8,
+				order = 9,
 				args = {
 					IlvlFont = {
 						type = 'group',
