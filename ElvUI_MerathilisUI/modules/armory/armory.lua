@@ -317,8 +317,6 @@ function MERAY:BuildInfoText()
 	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
 	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
 	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
-	_G["CharacterNeckSlot"].RankFrame.Label:SetShadowColor(0, 0, 0, 1)
-	_G["CharacterNeckSlot"].RankFrame.Label:SetShadowOffset(2, -2)
 end
 
 function MERAY:AzeriteGlow()
