@@ -116,7 +116,7 @@ function MERAY:UpdatePaperDoll()
 				itemLink = GetInventoryItemLink(unit, slot)
 
 				if (itemLink ~= nil) then
-					local _, _, itemRarity = GetItemInfo(itemLink)
+					local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 					if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
 						local itemLevelMainHand = 0
 						local itemLevelOffHand = 0
@@ -134,9 +134,12 @@ function MERAY:UpdatePaperDoll()
 					end
 
 					if MERAY.db.enchantInfo then
-						if slot and tContains({11, 12, 16, 17}, slot) then
-							enchantInfo = self:GetEnchants(itemLink)
-
+						enchantInfo = self:GetEnchants(itemLink)
+						if slot == 11 or slot == 12 or slot == 16 then
+							if enchantInfo then
+								frame.EnchantInfo:SetText(enchantInfo)
+							end
+						elseif slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE' then
 							if enchantInfo then
 								frame.EnchantInfo:SetText(enchantInfo)
 							end
