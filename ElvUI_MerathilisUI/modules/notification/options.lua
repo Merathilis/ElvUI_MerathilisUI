@@ -42,7 +42,7 @@ local function Noticications()
 				order = 8,
 				type = "toggle",
 				name = L["Enable Vignette"],
-				desc = L["If a Rar Mob or a treasure gets spotted on the minimap."],
+				desc = L["If a Rare Mob or a treasure gets spotted on the minimap."],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			invites = {
