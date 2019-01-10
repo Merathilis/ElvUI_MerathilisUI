@@ -92,7 +92,6 @@ local heirlooms = {
 	["90h"] = {105689,105683,105686,105687,105688,105685,105690,105691,105684,105692,105693},
 	["90n"] = {104399,104400,104401,104402,104403,104404,104405,104406,104407,104408,104409},
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
-
 }
 
 function MERAY:UpdatePaperDoll()
@@ -112,6 +111,7 @@ function MERAY:UpdatePaperDoll()
 		if info and info[1] then
 			frame.ItemLevel:SetText("")
 			frame.EnchantInfo:SetText("")
+			frame.SocketHolder:Hide()
 			if MERAY.db.ilvl.enable and info[1] then
 				itemLink = GetInventoryItemLink(unit, slot)
 
@@ -150,6 +150,13 @@ function MERAY:UpdatePaperDoll()
 							end
 						end
 					end
+
+					local _, gemlink = GetItemGem(itemLink, 1)
+					if gemlink and gemlink ~= "" then
+						frame.SocketHolder:Show()
+					else
+						frame.SocketHolder:Hide()
+					end
 				end
 			end
 		end
@@ -175,6 +182,7 @@ local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 -- Create the tooltip:
 local scantip = CreateFrame("GameTooltip", "MyScanningTooltip", nil, "GameTooltipTemplate")
 scantip:SetOwner(UIParent, "ANCHOR_NONE")
+scantip:ClearLines()
 
 local function GetRealItemLevel(itemLink)
 	-- Pass the item link to the tooltip
@@ -217,7 +225,7 @@ local function CheckEnchants(itemLink)
 end
 
 function MERAY:GetEnchants(itemLink)
-	enchantInfo = CheckEnchants(itemLink)
+	local enchantInfo = CheckEnchants(itemLink)
 
 	if enchantInfo then
 		enchantInfo = "|cff00ff00E|r"
@@ -291,7 +299,7 @@ end
 function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
-	self:BuildInfoText()
+	self:BuildInformation()
 
 	-- update player info
 	self:ScheduleTimer("UpdatePaperDoll", 10)
@@ -299,23 +307,34 @@ function MERAY:InitialUpdatePaperDoll()
 	initialized = true
 end
 
-local function UpdatePoints(id)
+local function UpdateiLvLPoints(id)
 	if id <= 5 or id == 15 or id == 9 then 			-- Left side
 		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
 	elseif id <= 14 then 							-- Right side
 		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
-	else 											-- Weapon slots
+	else											-- Weapon slots
 		return "BOTTOM", "BOTTOM", 2, 1
 	end
 end
 
-function MERAY:BuildInfoText()
+local function UpdateGemPoints(id)
+	if id <= 5 or id == 15 or id == 9 then 		-- Left side
+		return "LEFT", "RIGHT", 4, 0
+	elseif id <= 14 then 						-- Right side
+		return "RIGHT", "LEFT", -4, 0
+	else										-- Weapon slots
+		return "TOP", "TOP", 0, 16
+	end
+end
+
+function MERAY:BuildInformation()
 	for id, _ in pairs(slotIDs) do
 		local frame = _G["Character"..slotIDs[id]]
-		local myPoint, parentPoint, x, y = UpdatePoints(id)
+		local iLvLPoint, iLvLParentPoint, x1, y1 = UpdateiLvLPoints(id)
+		local GemPoint, GemparentPoint, x2, y2 = UpdateGemPoints(id)
 
 		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
-		frame.ItemLevel:SetPoint(myPoint, frame, parentPoint, x or 0, y or 0)
+		frame.ItemLevel:SetPoint(iLvLPoint, frame, iLvLParentPoint, x1 or 0, y1 or 0)
 		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
 
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
@@ -325,6 +344,18 @@ function MERAY:BuildInfoText()
 		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.EnchantInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 1, -1)
 		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
+
+		frame.SocketHolder = CreateFrame('Frame', nil, frame)
+		frame.SocketHolder:Size(12)
+		frame.SocketHolder:SetBackdrop({
+			bgFile = E.media.blankTex,
+			edgeFile = E.media.blankTex,
+			tile = false, tileSize = 0, edgeSize = E.mult,
+			insets = { left = 0, right = 0, top = 0, bottom = 0}
+		})
+		frame.SocketHolder:SetBackdropColor(0, 0, 0, 1)
+		frame.SocketHolder:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+		frame.SocketHolder:SetPoint(GemPoint, frame, GemparentPoint, x2 or 0, y2 or 0)
 	end
 
 	-- Azerite Neck
