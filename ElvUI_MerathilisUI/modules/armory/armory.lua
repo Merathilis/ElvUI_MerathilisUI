@@ -102,7 +102,7 @@ function MERAY:UpdatePaperDoll()
 	if not unit then return end
 
 	local frame, slot, current, maximum, r, g, b
-	local itemLink, itemLevel, itemLevelMax
+	local itemLink, itemLevel, itemLevelMax, enchantInfo
 	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 
 	for k, info in pairs(slots) do
@@ -110,8 +110,8 @@ function MERAY:UpdatePaperDoll()
 
 		slot = GetInventorySlotInfo(k)
 		if info and info[1] then
-			frame.ItemLevel:SetText()
-			frame.EnchantInfo:SetText()
+			frame.ItemLevel:SetText("")
+			frame.EnchantInfo:SetText("")
 			if MERAY.db.ilvl.enable and info[1] then
 				itemLink = GetInventoryItemLink(unit, slot)
 
@@ -145,9 +145,7 @@ function MERAY:UpdatePaperDoll()
 					if MERAY.db.enchantInfo then
 						enchantInfo = self:GetEnchants(itemLink)
 						if enchantInfo then
-							if (slot == 11 or slot == 12 or slot == 16) then
-								frame.EnchantInfo:SetText(enchantInfo)
-							elseif (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE') then
+							if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
 								frame.EnchantInfo:SetText(enchantInfo)
 							end
 						end
