@@ -15,7 +15,6 @@ local pairs = pairs
 local max = math.max
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local CanInspect = CanInspect
 local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
@@ -32,7 +31,6 @@ local UnitLevel = UnitLevel
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 
 local initialized = false
-local originalInspectFrameUpdateTabs
 local updateTimer
 
 local slots = {
@@ -97,15 +95,8 @@ local heirlooms = {
 
 }
 
-function MERAY:UpdatePaperDoll(inspect)
+function MERAY:UpdatePaperDoll()
 	if not E.db.mui.armory.enable then return end
-
-	if InCombatLockdown() then
-		MERAY:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdatePaperDoll", inspect)
-		return
-	else
-		MERAY:UnregisterEvent("PLAYER_REGEN_ENABLED")
-	end
 
 	local unit = "player"
 	if not unit then return end
@@ -118,7 +109,7 @@ function MERAY:UpdatePaperDoll(inspect)
 		frame = _G[("Character")..k]
 
 		slot = GetInventorySlotInfo(k)
-		if info[1] then
+		if info and info[1] then
 			frame.ItemLevel:SetText()
 			if MERAY.db.ilvl.enable and info[1] then
 				itemLink = GetInventoryItemLink(unit, slot)
@@ -153,7 +144,7 @@ function MERAY:UpdatePaperDoll(inspect)
 			end
 		end
 
-		if not inspect and info[2] then
+		if info and info[2] then
 			frame.DurabilityInfo:SetText()
 			if MERAY.db.durability.enable then
 				current, maximum = GetInventoryItemDurability(slot)
@@ -163,12 +154,6 @@ function MERAY:UpdatePaperDoll(inspect)
 				end
 			end
 		end
-	end
-end
-
-function MERAY:DelayUpdateInfo(inspect)
-	if (updateTimer == 0 or MERAY:TimeLeft(updateTimer) == 0) then
-		updateTimer = MERAY:ScheduleTimer("UpdatePaperDoll", .2, inspect)
 	end
 end
 
@@ -269,19 +254,10 @@ function MERAY:HeirLoomLevel(unit, itemLink)
 end
 
 
-function MERAY:InspectFrame_UpdateTabsComplete()
-	originalInspectFrameUpdateTabs()
-	MERAY:DelayUpdateInfo(true)
-end
-
 function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 	self:BuildInfoText()
-
-	-- hook to inspect frame update
-	originalInspectFrameUpdateTabs = _G.InspectFrame_UpdateTabs
-	_G.InspectFrame_UpdateTabs = MERAY.InspectFrame_UpdateTabsComplete
 
 	-- update player info
 	self:ScheduleTimer("UpdatePaperDoll", 10)
