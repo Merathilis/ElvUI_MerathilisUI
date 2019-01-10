@@ -7,10 +7,14 @@ MERAY.modName = L["Armory"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local select, tonumber, unpack = select, tonumber, unpack
+local gsub = gsub
+local strmatch = strmatch
 local find = string.find
 local pairs = pairs
 local max = math.max
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 local CanInspect = CanInspect
 local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
@@ -22,6 +26,7 @@ local GetItemQualityColor = GetItemQualityColor
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
+local UnitLevel = UnitLevel
 --GLOBALS:
 
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -47,6 +52,25 @@ local slots = {
 	["Finger1Slot"] = { true, false },
 	["Trinket0Slot"] = { true, false },
 	["Trinket1Slot"] = { true, false },
+}
+
+local slotIDs = {
+	[1] = "HeadSlot",
+	[2] = "NeckSlot",
+	[3] = "ShoulderSlot",
+	[5] = "ChestSlot",
+	[6] = "WaistSlot",
+	[7] = "LegsSlot",
+	[8] = "FeetSlot",
+	[9] = "WristSlot",
+	[10] = "HandsSlot",
+	[11] = "Finger0Slot",
+	[12] = "Finger1Slot",
+	[13] = "Trinket0Slot",
+	[14] = "Trinket1Slot",
+	[15] = "BackSlot",
+	[16] = "MainHandSlot",
+	[17] = "SecondaryHandSlot"
 }
 
 local AZSlots = {
@@ -83,17 +107,15 @@ function MERAY:UpdatePaperDoll(inspect)
 		MERAY:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	end
 
-	local unit = (inspect and _G.InspectFrame) and _G.InspectFrame.unit or "player"
+	local unit = "player"
 	if not unit then return end
-	if unit and not CanInspect(unit, false) then return end
 
 	local frame, slot, current, maximum, r, g, b
-	local baseName = inspect and "Inspect" or "Character"
 	local itemLink, itemLevel, itemLevelMax
 	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 
 	for k, info in pairs(slots) do
-		frame = _G[("%s%s"):format(baseName, k)]
+		frame = _G[("Character")..k]
 
 		slot = GetInventorySlotInfo(k)
 		if info[1] then
@@ -255,10 +277,7 @@ end
 function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
-	LoadAddOn("Blizzard_InspectUI")
-
-	self:BuildInfoText("Character")
-	self:BuildInfoText("Inspect")
+	self:BuildInfoText()
 
 	-- hook to inspect frame update
 	originalInspectFrameUpdateTabs = _G.InspectFrame_UpdateTabs
@@ -270,21 +289,28 @@ function MERAY:InitialUpdatePaperDoll()
 	initialized = true
 end
 
-function MERAY:BuildInfoText(name)
-	for k, info in pairs(slots) do
-		local frame = _G[("%s%s"):format(name, k)]
+local function UpdatePoints(id)
+	if id <= 5 or id == 15 or id == 9 then 			-- Left side
+		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
+	elseif id <= 14 then 							-- Right side
+		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
+	else 											-- Weapon slots
+		return "BOTTOM", "BOTTOM", 2, 1
+	end
+end
 
-		if info[1] then
-			frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
-			frame.ItemLevel:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 1, 1)
-			frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
-		end
+function MERAY:BuildInfoText()
+	for id, _ in pairs(slotIDs) do
+		local frame = _G["Character"..slotIDs[id]]
+		local myPoint, parentPoint, x, y = UpdatePoints(id)
 
-		if name == "Character" and info[2] then
-			frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-			frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -4)
-			frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
-		end
+		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
+		frame.ItemLevel:SetPoint(myPoint, frame, parentPoint, x or 0, y or 0)
+		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
+
+		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
+		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -4)
+		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 	end
 
 	-- Azerite Neck
