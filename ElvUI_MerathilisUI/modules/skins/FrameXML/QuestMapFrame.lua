@@ -37,7 +37,7 @@ local function styleQuestMapFrame()
 		header.Text:SetPoint("TOPLEFT", 15, -20)
 
 		local bg = MERS:CreateBDFrame(header, .25)
-		bg:SetPoint("TOPLEFT", 2, -2)
+		bg:SetPoint("TOPLEFT", 6, -2)
 		bg:SetPoint("BOTTOMRIGHT", -6, 2)
 
 		if header == campaignHeader then
