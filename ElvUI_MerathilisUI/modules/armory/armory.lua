@@ -134,7 +134,7 @@ function MERAY:UpdatePaperDoll()
 					end
 
 					if MERAY.db.enchantInfo then
-						if slot and tContains({11, 12, 16, 17}, slot) then
+						if slot and tContains({11, 12, 16}, slot) then
 							enchantInfo = self:GetEnchants(itemLink)
 
 							if enchantInfo then
