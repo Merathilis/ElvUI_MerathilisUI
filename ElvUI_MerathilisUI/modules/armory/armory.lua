@@ -309,14 +309,16 @@ function MERAY:BuildInfoText()
 		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
 
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -4)
+		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 	end
 
 	-- Azerite Neck
 	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
 	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
-	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(E["media"].normFont, 12, "THINOUTLINE")
+	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
+	_G["CharacterNeckSlot"].RankFrame.Label:SetShadowColor(0, 0, 0, 1)
+	_G["CharacterNeckSlot"].RankFrame.Label:SetShadowOffset(2, -2)
 end
 
 function MERAY:AzeriteGlow()
