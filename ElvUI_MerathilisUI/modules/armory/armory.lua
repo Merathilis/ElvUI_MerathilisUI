@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
-local LSM = E.Libs.LSM
+local LSM = E.LSM or E.Libs.LSM
 MERAY.modName = L["Armory"]
 
 -- Cache global variables
@@ -287,6 +287,10 @@ function MERAY:BuildInfoText()
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
+
+		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
+		frame.EnchantInfo:SetPoint("CENTER", frame, "CENTER", 0, 0)
+		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 	end
 
 	-- Azerite Neck
