@@ -355,7 +355,6 @@ function MERAY:Initialize()
 	function MERAY:ForUpdateAll()
 		MERAY.db = E.db.mui.armory
 		MERAY:UpdateIlvlFont()
-		MERAY:ToggleStats()
 	end
 
 	self:ForUpdateAll()

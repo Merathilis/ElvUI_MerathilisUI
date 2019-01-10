@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MERArmory')
-local LSM = E.Libs.LSM
+local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables
 -- Lua functions
