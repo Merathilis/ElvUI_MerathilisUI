@@ -332,10 +332,10 @@ function MERAY:ResetAllStats()
 				[2] = { stat = "ATTACK_AP", option = true, hideAt = 0 },
 				[3] = { stat = "ATTACK_ATTACKSPEED", option = true, hideAt = 0 },
 				[4] = { stat = "SPELLPOWER", option = true, hideAt = 0 },
-				[5] = { stat = "MANAREGEN", power = "MANA" },
-				[6] = { stat = "ENERGY_REGEN", power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"},  classes = {"ROUGE", "DRUID", "MONK"} },
-				[7] = { stat = "FOCUS_REGEN", power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
-				[8] = { stat = "RUNE_REGEN", power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
+				[5] = { stat = "MANAREGEN", option = true, power = "MANA" },
+				[6] = { stat = "ENERGY_REGEN", option = true, power = "ENERGY", hideAt = 0, roles = {"TANK", "DAMAGER"}, classes = {"ROUGE", "DRUID", "MONK"} },
+				[7] = { stat = "FOCUS_REGEN", option = true, power = "FOCUS", hideAt = 0, classes = {"HUNTER"} },
+				[8] = { stat = "RUNE_REGEN", option = true, power = "RUNIC_POWER", hideAt = 0, classes = {"DEATHKNIGHT"} },
 			},
 		},
 		[3] = {
@@ -351,10 +351,10 @@ function MERAY:ResetAllStats()
 		[4] = {
 			categoryFrame = MERAY:CreateStatCategory("DefenceCategory", DEFENSE),
 			stats = {
-				[1] = { stat = "ARMOR", roles =  { "TANK" } },
+				[1] = { stat = "ARMOR", roles = { "TANK" } },
 				[2] = { stat = "AVOIDANCE", hideAt = 0 },
-				[3] = { stat = "DODGE",},
-				[4] = { stat = "PARRY", hideAt = 0, },
+				[3] = { stat = "DODGE", roles = {"TANK"} },
+				[4] = { stat = "PARRY", hideAt = 0, roles = {"TANK"} },
 				[5] = { stat = "BLOCK", hideAt = 0, roles = {"TANK"} },
 				[6] = { stat = "STAGGER", hideAt = 0, roles = {"TANK"}, classes = {"MONK"} },
 			},
