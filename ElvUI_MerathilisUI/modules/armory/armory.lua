@@ -133,19 +133,6 @@ function MERAY:UpdatePaperDoll()
 						frame.ItemLevel:SetText(itemLevel)
 					end
 
-					if MERAY.db.enchantInfo then
-						enchantInfo = self:GetEnchants(itemLink)
-						if slot == 11 or slot == 12 or slot == 16 then
-							if enchantInfo then
-								frame.EnchantInfo:SetText(enchantInfo)
-							end
-						elseif slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE' then
-							if enchantInfo then
-								frame.EnchantInfo:SetText(enchantInfo)
-							end
-						end
-					end
-
 					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.ItemLevel:SetTextColor(r, g, b)
@@ -153,6 +140,17 @@ function MERAY:UpdatePaperDoll()
 						frame.ItemLevel:SetFormattedText("%s%d|r", levelColors[(itemLevel < avgEquipItemLevel-10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))], itemLevel)
 					else
 						frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
+					end
+
+					if MERAY.db.enchantInfo then
+						enchantInfo = self:GetEnchants(itemLink)
+						if enchantInfo then
+							if (slot == 11 or slot == 12 or slot == 16) then
+								frame.EnchantInfo:SetText(enchantInfo)
+							elseif (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE') then
+								frame.EnchantInfo:SetText(enchantInfo)
+							end
+						end
 					end
 				end
 			end
