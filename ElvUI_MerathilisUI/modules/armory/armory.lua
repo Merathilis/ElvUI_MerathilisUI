@@ -372,6 +372,14 @@ function MERAY:Initialize()
 
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
 
+	function MERAY:ForUpdateAll()
+		MERAY.db = E.db.mui.armory
+		MERAY:UpdateIlvlFont()
+		MERAY:ToggleStats()
+	end
+
+	self:ForUpdateAll()
+
 	MERAY:AzeriteGlow()
 	MERAY:UpdateIlvlFont()
 
