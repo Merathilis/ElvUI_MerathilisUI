@@ -2162,11 +2162,7 @@ function MER:SetupDts()
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Durability"
 
-	if IsAddOnLoaded("ElvUI_SLE") then
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "S&L Currency"
-	else
-		E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
-	end
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "MUI System"
@@ -2201,12 +2197,6 @@ function MER:SetupAddOns()
 	if MER:IsAddOnEnabled("AddOnSkins") then
 		MER:LoadAddOnSkinsProfile()
 		tinsert(addonNames, "AddOnSkins")
-	end
-
-	-- Shadow&Light
-	if MER:IsAddOnEnabled("ElvUI_SLE") then
-		MER:LoadShadowandLightProfile()
-		tinsert(addonNames, "ElvUI_SLE")
 	end
 
 	-- ProjectAzilroka

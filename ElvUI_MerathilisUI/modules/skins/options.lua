@@ -28,7 +28,6 @@ local SupportedProfiles = {
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
-	{"ElvUI_SLE", "Shadow&Light"},
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
@@ -75,13 +74,6 @@ local function SkinsTable()
 						order = 3,
 						type = "toggle",
 						name = L["MerathilisUI Shadows"],
-						get = function(info) return E.db.mui.general[ info[#info] ] end,
-						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					undressButton = {
-						order = 4,
-						type = "toggle",
-						name = L["Undress Button"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
@@ -472,8 +464,6 @@ local function SkinsTable()
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
-				elseif addon == 'ElvUI_SLE' then
-					E:StaticPopup_Show("MUI_INSTALL_SLE_LAYOUT")
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')

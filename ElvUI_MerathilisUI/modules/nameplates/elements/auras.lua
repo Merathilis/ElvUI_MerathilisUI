@@ -17,7 +17,7 @@ local hooksecurefunc = hooksecurefunc
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID)
+function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, spellID, buffType, isStealable, isFriend)
 	if aura and icon and spellID then
 		local spell = E.global['unitframe']['aurafilters']['CCDebuffs']['spells'][spellID]
 		-- Icon
@@ -26,19 +26,24 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 
 		-- Size
 		local overrideWidth = aura:GetParent().db.widthOverride and aura:GetParent().db.widthOverride > 0 and aura:GetParent().db.widthOverride
-		local width = overrideWidth or 18
-		local height = aura:GetParent().db.baseHeight or 18
+		local width = overrideWidth or 28
+		local height = aura:GetParent().db.baseHeight or 14
 
-		if spell and spell ~= "" then
-			width = width*1.5
-		elseif E.db['mui']['NameplateAuras']['width'] then
-			width =  E.db['mui']['NameplateAuras']['width'] or 32
-		end
+		-- probably wrong.. lul
+		if buffType == "Debuffs" then
+			if not isFriend then
+				if spell and spell ~= "" then
+					width = width*1.35
+					height = height*1.35
 
-		if spell and spell ~= "" then
-			height = height*1.5
-		elseif E.db['mui']['NameplateAuras']['height'] then
-			height = E.db['mui']['NameplateAuras']['height'] or 14
+					aura.backdrop:SetBackdropBorderColor(255, 0, 0)
+				else
+					width = E.db['mui']['NameplateAuras']['width']
+					height = E.db['mui']['NameplateAuras']['height']
+
+					aura.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+				end
+			end
 		end
 
 		if width > height then
@@ -55,6 +60,7 @@ function NA:SetAura(aura, index, name, icon, count, duration, expirationTime, sp
 		aura:SetHeight(height)
 
 		NA:SortAuras(aura:GetParent())
+		aura:Show()
 	end
 end
 
@@ -94,20 +100,16 @@ function NA:UpdateAuraIcons(auras)
 		end
 	end
 
-	if numCurrentAuras ~= maxAuras then
-		NP.Auras_SizeChanged(auras, auras:GetWidth(), auras:GetHeight())
-	end
-
 	local overrideWidth = auras.db.widthOverride and auras.db.widthOverride > 0 and auras.db.widthOverride
-	local width = overrideWidth or 18
-	local height = auras.db.baseHeight or 18
+	local width = overrideWidth or 28
+	local height = auras.db.baseHeight or 14
 
 	if E.db['mui']['NameplateAuras']['width'] then
-		width = width*1.5
+		width = width*1.35
 	end
 
 	if E.db['mui']['NameplateAuras']['height'] then
-		height = height*1.5
+		height = height*1.35
 	end
 
 	if (maxAuras > numCurrentAuras) then
@@ -128,7 +130,7 @@ end
 function NA:ConstructElement_Auras(frame, side)
 	local auras = CreateFrame("FRAME", nil, frame)
 
-	auras:SetHeight(18) -- this really doesn't matter
+	auras:SetHeight(14) -- this really doesn't matter
 	auras.side = side
 	auras.icons = {}
 
@@ -143,13 +145,13 @@ function NA:RepositionAuras(auras)
 			if(i == 1) then
 				icon:SetPoint("BOTTOMLEFT", auras, "BOTTOMLEFT")
 			else
-				icon:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", E.Border + E.Spacing*3, 0)
+				icon:SetPoint("BOTTOMLEFT", auras.icons[i-1], "BOTTOMRIGHT", 3, 0) -- change the spacing between
 			end
 		else
 			if(i == 1) then
 				icon:SetPoint("BOTTOMRIGHT", auras, "BOTTOMRIGHT")
 			else
-				icon:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -(E.Border + E.Spacing*3), 0)
+				icon:SetPoint("BOTTOMRIGHT", auras.icons[i-1], "BOTTOMLEFT", -3, 0) -- change the spacing between
 			end
 		end
 	end

@@ -1,3 +1,11 @@
+[b][color=orange]v4.07[/color], 11.01.2019[/b][list]
+[*]Fixed an error CombatFeedBack Text if UnitFrames are disabled.
+[*]Fixed an error with LSM calls.
+[*]Some NamePlateAuras fine tuning.
+[*]The Notification dont show now if you are in a dungeon/raid etc.
+[*]Added an own Armory (light) Mode.
+[*]Updated some skins.[/list]
+
 [b][color=orange]v4.06[/color], 08.01.2019[/b][list]
 [*]Fixed an error in ItemSocketing skin.
 [*]Added back my ShadowOverlay.

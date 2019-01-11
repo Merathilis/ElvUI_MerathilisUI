@@ -50,21 +50,17 @@ local function styleCharacter()
 		EquipmentManager_RunAction(action)
 	end
 
-	if E.db.mui.general.undressButton then
+	if E.db.mui.armory.undressButton then
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
-		bu:SetSize(34, 37)
+		bu:SetSize(55, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("RIGHT", _G.PaperDollSidebarTab1, "LEFT", -4, 0)
+		bu:SetPoint("TOPLEFT", _G["CharacterWristSlot"], "BOTTOMLEFT", -1, -10)
 
-		bu:SetNormalTexture("Interface\\ICONS\\SPELL_SHADOW_TWISTEDFAITH")
-		bu:GetNormalTexture():SetInside()
-		bu:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+		bu.text = MER:CreateText(bu, "OVERLAY", 12, "OUTLNE")
+		bu.text:SetPoint("CENTER")
+		bu.text:SetText(L["Undress"])
 
-		bu:SetPushedTexture("")
-		bu:SetDisabledTexture("")
-
-		MER:AddTooltip(bu, "ANCHOR_RIGHT", L["Undress"], 1, 1, 1)
-		bu:SetScript('OnClick', function()
+		bu:SetScript("OnClick", function()
 			for i = 1, 17 do
 				local texture = GetInventoryItemTexture('player', i)
 				if texture then
@@ -72,6 +68,7 @@ local function styleCharacter()
 				end
 			end
 		end)
+		S:HandleButton(bu)
 	end
 end
 

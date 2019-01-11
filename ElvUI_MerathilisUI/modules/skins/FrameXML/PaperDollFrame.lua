@@ -190,21 +190,6 @@ local function styleCPaperDollFrame()
 		end)
 	end
 
-	if IsAddOnLoaded("ElvUI_SLE") then
-		_G.PaperDollFrame:HookScript("OnShow", function()
-			if _G.CharacterStatsPane.DefenceCategory then
-				_G.CharacterStatsPane.DefenceCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-				StatsPane("DefenceCategory")
-				CharacterStatFrameCategoryTemplate(CharacterStatsPane.DefenceCategory)
-			end
-			if _G.CharacterStatsPane.OffenseCategory then
-				_G.CharacterStatsPane.OffenseCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
-				StatsPane("OffenseCategory")
-				CharacterStatFrameCategoryTemplate(CharacterStatsPane.OffenseCategory)
-			end
-		end)
-	end
-
 	-- CharacterFrame Class Texture
 	local ClassTexture = _G.ClassTexture
 	if not ClassTexture then

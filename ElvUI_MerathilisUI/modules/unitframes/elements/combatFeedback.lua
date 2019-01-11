@@ -367,6 +367,8 @@ function CF:UpdatePet(frame, db)
 end
 
 function CF:Initialize()
+	if E.private.unitframe.enable ~= true then return end
+
 	UF:ConstructCFTexts(_G["ElvUF_Player"], 'player')
 	UF:ConstructCFTexts(_G["ElvUF_Target"], 'target')
 	UF:ConstructCFTexts(_G["ElvUF_Pet"], 'pet')

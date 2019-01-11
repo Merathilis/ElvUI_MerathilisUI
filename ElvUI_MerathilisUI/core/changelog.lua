@@ -17,17 +17,19 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error in ItemSocketing skin.",
-		"• Added back my ShadowOverlay.",
-		"• Adjust font size for ScrappingMachine & FlyoutButton iLvL.",
-		"• Update the Minimap Glow appearance.",
-		"• Update RealmInfo.",
-		"• Simplify the NamePlate Auras.",
-		"• Change the default position for the Combat State.",
+		"• Fixed an error CombatFeedBack Text if UnitFrames are disabled.",
+		"• Fixed an error with LSM calls.",
+		"• Some NamePlateAuras fine tuning.",
+		"• The Notification dont show now if you are in a dungeon/raid etc.",
+		"• Added an own Armory (light) Mode.",
+		"• Updated some skins.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• 'I'm not using Shadow&Light anymore. I only used the Armory Mode from it.",
+		"• 'I have now an own little Armory Mode which shows iLvL, enchants, gems.",
+
 		-- "• ''",
 }
 

@@ -8,7 +8,6 @@
 	<script file="Masque.lua"/>
 	<script file="OzCooldown.lua"/>
 	<script file="ProjectAzilroka.lua"/>
-	<script file="ShadowandLight.lua"/>
 	<script file="Skada.lua"/>
 	<script file="template.lua"/>
 </Ui>
