@@ -56,8 +56,14 @@ local function ArmoryTable()
 				name = L["Enchant Info"],
 				desc = L["Shows an indictor for enchanted/ not enchanted items."],
 			},
-			durability = {
+			socketInfo = {
+				type = "toggle",
 				order = 6,
+				name = L["Socket Info"],
+				desc = L["Shows an indictor for socketed/ unsocketed items."],
+			},
+			durability = {
+				order = 7,
 				type = "group",
 				name = L["Durability"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -104,7 +110,7 @@ local function ArmoryTable()
 				},
 			},
 			itemlevel = {
-				order = 7,
+				order = 8,
 				type = "group",
 				name = L["Itemlevel"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -179,7 +185,7 @@ local function ArmoryTable()
 			stats = {
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
-				order = 8,
+				order = 9,
 				disabled = function() return not E.db.mui.armory.enable end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
@@ -249,7 +255,7 @@ local function ArmoryTable()
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				-- guiInline = true,
-				order = 9,
+				order = 10,
 				args = {
 					IlvlFont = {
 						type = 'group',

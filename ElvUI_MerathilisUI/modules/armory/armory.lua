@@ -22,6 +22,7 @@ local GetInventorySlotInfo = GetInventorySlotInfo
 local GetInventoryItemQuality = GetInventoryItemQuality
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local GetItemGem = GetItemGem
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
@@ -32,6 +33,35 @@ local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 
 local initialized = false
 local updateTimer
+
+local socketsTable = { -- These bonusIDs should be sockets
+	-- /dump string.split(":", GetInventoryItemLink("player", i))
+	-- /dump string.split(":", GetInventoryItemLink("target", 17))
+	[3] = true,
+	-- Observed results:
+	[1521] = true,
+	[1530] = true,
+	[1808] = true,
+	[3345] = true,
+	[3347] = true,
+	[3350] = true,
+	[3353] = true,
+	[3357] = true,
+	[3358] = true,
+	[3360] = true,
+	[3362] = true,
+	[3368] = true,
+	[3370] = true,
+	[3372] = true,
+	[3373] = true,
+	[3378] = true,
+	[3401] = true,
+	[3521] = true,
+	[3583] = true,
+	[4086] = true,
+	[4802] = true,
+	[5278] = true,
+}
 
 local slots = {
 	["HeadSlot"] = { true, true },
@@ -102,6 +132,7 @@ function MERAY:UpdatePaperDoll()
 
 	local frame, slot, current, maximum, r, g, b
 	local itemLink, itemLevel, itemLevelMax, enchantInfo
+	local _, numBonuses, affixes
 	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 
 	for k, info in pairs(slots) do
@@ -115,47 +146,67 @@ function MERAY:UpdatePaperDoll()
 			if MERAY.db.ilvl.enable and info[1] then
 				itemLink = GetInventoryItemLink(unit, slot)
 
-				if (itemLink ~= nil) then
-					local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
-					if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
-						local itemLevelMainHand = 0
-						local itemLevelOffHand = 0
-						local itemLinkMainHand = GetInventoryItemLink(unit, 16)
-						local itemLinkOffhand = GetInventoryItemLink(unit, 17)
-						if itemLinkMainHand then itemLevelMainHand = self:GetItemLevel(unit, itemLinkMainHand or 0) end
-						if itemLinkOffhand then itemLevelOffHand = self:GetItemLevel(unit, itemLinkOffhand or 0) end
-						itemLevel = max(itemLevelMainHand or 0, itemLevelOffHand or 0)
-					else
-						itemLevel = self:GetItemLevel(unit, itemLink)
-					end
+				if (itemLink and itemLink ~= nil) then
+					if not itemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
+						_, _, _, _, _, _, _, _, _, _, _, _, _, numBonuses, affixes = strsplit(":", itemLink, 15)
+						numBonuses = tonumber(numBonuses)
+						local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
 
-					if itemLevel and avgEquipItemLevel then
-						frame.ItemLevel:SetText(itemLevel)
-					end
+						if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
+							local itemLevelMainHand = 0
+							local itemLevelOffHand = 0
+							local itemLinkMainHand = GetInventoryItemLink(unit, 16)
+							local itemLinkOffhand = GetInventoryItemLink(unit, 17)
+							if itemLinkMainHand then itemLevelMainHand = self:GetItemLevel(unit, itemLinkMainHand or 0) end
+							if itemLinkOffhand then itemLevelOffHand = self:GetItemLevel(unit, itemLinkOffhand or 0) end
+							itemLevel = max(itemLevelMainHand or 0, itemLevelOffHand or 0)
+						else
+							itemLevel = self:GetItemLevel(unit, itemLink)
+						end
 
-					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
-						frame.ItemLevel:SetTextColor(r, g, b)
-					elseif MERAY.db.ilvl.colorStyle == "LEVEL" then
-						frame.ItemLevel:SetFormattedText("%s%d|r", levelColors[(itemLevel < avgEquipItemLevel-10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))], itemLevel)
-					else
-						frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
-					end
+						if itemLevel and avgEquipItemLevel then
+							frame.ItemLevel:SetText(itemLevel)
+						end
 
-					if MERAY.db.enchantInfo then
-						enchantInfo = self:GetEnchants(itemLink)
-						if enchantInfo then
-							if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
-								frame.EnchantInfo:SetText(enchantInfo)
+						if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
+							local r, g, b = GetItemQualityColor(itemRarity)
+							frame.ItemLevel:SetTextColor(r, g, b)
+						elseif MERAY.db.ilvl.colorStyle == "LEVEL" then
+							frame.ItemLevel:SetFormattedText("%s%d|r", levelColors[(itemLevel < avgEquipItemLevel-10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))], itemLevel)
+						else
+							frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
+						end
+
+						if MERAY.db.enchantInfo then
+							enchantInfo = self:GetEnchants(itemLink)
+							if enchantInfo then
+								if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
+									frame.EnchantInfo:SetText(enchantInfo)
+								end
 							end
 						end
-					end
 
-					local _, gemlink = GetItemGem(itemLink, 1)
-					if gemlink and gemlink ~= "" then
-						frame.SocketHolder:Show()
-					else
-						frame.SocketHolder:Hide()
+						-- Gems
+						if MERAY.db.socketInfo then
+							if numBonuses and numBonuses > 0 then
+								for b = 1, numBonuses do
+									local bonusID = select(b, strsplit(":", affixes))
+									if socketsTable[tonumber(bonusID)] then
+										local _, gemLink = GetItemGem(itemLink, 1)
+										if gemLink and gemLink ~= "" then
+											local _, _, _, _, _, _, _, _, _, t = GetItemInfo(gemLink)
+											if t and t > 0 then -- find an existing texture
+												frame.SocketHolder:Show()
+												frame.SocketHolder:SetBackdropColor(0, 255, 0, 1)
+											end
+										else
+											frame.SocketHolder:Show()
+											frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
+										end
+									end
+								end
+							end
+						end
 					end
 				end
 			end
@@ -353,8 +404,7 @@ function MERAY:BuildInformation()
 			tile = false, tileSize = 0, edgeSize = E.mult,
 			insets = { left = 0, right = 0, top = 0, bottom = 0}
 		})
-		frame.SocketHolder:SetBackdropColor(0, 0, 0, 1)
-		frame.SocketHolder:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+		frame.SocketHolder:SetBackdropBorderColor(0, 0, 0, 1)
 		frame.SocketHolder:SetPoint(GemPoint, frame, GemparentPoint, x2 or 0, y2 or 0)
 	end
 

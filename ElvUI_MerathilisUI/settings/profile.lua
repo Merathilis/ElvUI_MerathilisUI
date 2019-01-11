@@ -384,6 +384,7 @@ P["mui"] = {
 		["azeritebtn"] = true,
 		["undressButton"] = true,
 		["enchantInfo"] = true,
+		["socketInfo"] = true,
 		["durability"] = {
 			["enable"] = true,
 			["onlydamaged"] = true,
