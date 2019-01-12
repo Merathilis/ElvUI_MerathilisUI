@@ -9,7 +9,7 @@ MERAY.modName = L["Armory"]
 local _G = _G
 local select, tonumber, unpack = select, tonumber, unpack
 local gsub = gsub
-local strmatch = strmatch
+local strmatch, strsplit = strmatch, strsplit
 local find = string.find
 local pairs = pairs
 local max = math.max
@@ -101,6 +101,27 @@ local slotIDs = {
 	[17] = "SecondaryHandSlot"
 }
 
+local gearList = {
+	-- Used for Slot Gradient
+	-- Dont add Weapon slots here.
+	'HeadSlot',
+	'HandsSlot',
+	'NeckSlot',
+	'WaistSlot',
+	'ShoulderSlot',
+	'LegsSlot',
+	'BackSlot',
+	'FeetSlot',
+	'ChestSlot',
+	'Finger0Slot',
+	'ShirtSlot',
+	'Finger1Slot',
+	'TabardSlot',
+	'Trinket0Slot',
+	'WristSlot',
+	'Trinket1Slot',
+	}
+
 local AZSlots = {
 	"Head", "Shoulder", "Chest",
 }
@@ -124,6 +145,24 @@ local heirlooms = {
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
 }
 
+function MERAY:OnEnter()
+	if self.Link and self.Link ~= '' then
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
+
+		self:SetScript('OnUpdate', function()
+			_G["GameTooltip"]:ClearLines()
+			_G["GameTooltip"]:SetHyperlink(self.Link)
+
+			_G["GameTooltip"]:Show()
+		end)
+	end
+end
+
+function MERAY:OnLeave()
+	self:SetScript('OnUpdate', nil)
+	_G["GameTooltip"]:Hide()
+end
+
 function MERAY:UpdatePaperDoll()
 	if not E.db.mui.armory.enable then return end
 
@@ -135,23 +174,25 @@ function MERAY:UpdatePaperDoll()
 	local _, numBonuses, affixes
 	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
 
-	for k, info in pairs(slots) do
+	for k, _ in pairs(slots) do
 		frame = _G[("Character")..k]
 
 		slot = GetInventorySlotInfo(k)
-		if info and info[1] then
+		if slot and slot ~= '' then
+			-- Reset Data first
 			frame.ItemLevel:SetText("")
 			frame.EnchantInfo:SetText("")
 			frame.SocketHolder:Hide()
-			if MERAY.db.ilvl.enable and info[1] then
-				itemLink = GetInventoryItemLink(unit, slot)
+			frame.SocketHolder.Link = nil
 
-				if (itemLink and itemLink ~= nil) then
-					if not itemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
-						_, _, _, _, _, _, _, _, _, _, _, _, _, numBonuses, affixes = strsplit(":", itemLink, 15)
-						numBonuses = tonumber(numBonuses)
-						local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
-
+			itemLink = GetInventoryItemLink(unit, slot)
+			if (itemLink and itemLink ~= nil) then
+				if not itemLink:find('%[%]') then -- sometimes itemLink is malformed so we need to update when crashed
+					_, _, _, _, _, _, _, _, _, _, _, _, _, numBonuses, affixes = strsplit(":", itemLink, 15)
+					numBonuses = tonumber(numBonuses)
+					local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+					if MERAY.db.ilvl.enable then
+						-- Item Level
 						if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
 							local itemLevelMainHand = 0
 							local itemLevelOffHand = 0
@@ -163,11 +204,9 @@ function MERAY:UpdatePaperDoll()
 						else
 							itemLevel = self:GetItemLevel(unit, itemLink)
 						end
-
 						if itemLevel and avgEquipItemLevel then
 							frame.ItemLevel:SetText(itemLevel)
 						end
-
 						if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
 							local r, g, b = GetItemQualityColor(itemRarity)
 							frame.ItemLevel:SetTextColor(r, g, b)
@@ -176,49 +215,50 @@ function MERAY:UpdatePaperDoll()
 						else
 							frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
 						end
+					end
 
-						if MERAY.db.enchantInfo then
-							enchantInfo = self:GetEnchants(itemLink)
-							if enchantInfo then
-								if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
-									frame.EnchantInfo:SetText(enchantInfo)
-								end
+					-- Enchants
+					if MERAY.db.enchantInfo then
+						enchantInfo = self:GetEnchants(itemLink)
+						if enchantInfo then
+							if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
+								frame.EnchantInfo:SetText(enchantInfo)
 							end
 						end
+					end
 
-						-- Gems
-						if MERAY.db.socketInfo then
-							if numBonuses and numBonuses > 0 then
-								for b = 1, numBonuses do
-									local bonusID = select(b, strsplit(":", affixes))
-									if socketsTable[tonumber(bonusID)] then
-										local _, gemLink = GetItemGem(itemLink, 1)
-										if gemLink and gemLink ~= "" then
-											local _, _, _, _, _, _, _, _, _, t = GetItemInfo(gemLink)
-											if t and t > 0 then -- find an existing texture
-												frame.SocketHolder:Show()
-												frame.SocketHolder:SetBackdropColor(0, 255, 0, 1)
-											end
-										else
+					-- Gems
+					if MERAY.db.socketInfo then
+						if numBonuses and numBonuses > 0 then
+							for b = 1, numBonuses do
+								local bonusID = select(b, strsplit(":", affixes))
+								if socketsTable[tonumber(bonusID)] then
+									local _, gemLink = GetItemGem(itemLink, 1)
+									if gemLink and gemLink ~= "" then
+										local _, _, _, _, _, _, _, _, _, t = GetItemInfo(gemLink)
+										if t and t > 0 then -- has a socket in the item
 											frame.SocketHolder:Show()
-											frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
+											frame.SocketHolder.Texture:SetTexture(t)
+											frame.SocketHolder.Link = gemLink
 										end
+									else -- has an empty socket
+										frame.SocketHolder:Show()
+										frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
 									end
 								end
 							end
 						end
 					end
-				end
-			end
-		end
 
-		if info and info[2] then
-			frame.DurabilityInfo:SetText()
-			if MERAY.db.durability.enable then
-				current, maximum = GetInventoryItemDurability(slot)
-				if current and maximum and (not MERAY.db.durability.onlydamaged or current < maximum) then
-					r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-					frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
+					-- Durability
+					if MERAY.db.durability.enable then
+						frame.DurabilityInfo:SetText()
+						current, maximum = GetInventoryItemDurability(slot)
+						if current and maximum and (not MERAY.db.durability.onlydamaged or current < maximum) then
+							r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
+							frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
+						end
+					end
 				end
 			end
 		end
@@ -351,6 +391,7 @@ function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 	self:BuildInformation()
+	self:SlotGradiation()
 
 	-- update player info
 	self:ScheduleTimer("UpdatePaperDoll", 10)
@@ -402,16 +443,46 @@ function MERAY:BuildInformation()
 			bgFile = E.media.blankTex,
 			edgeFile = E.media.blankTex,
 			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
+			insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult }
 		})
 		frame.SocketHolder:SetBackdropBorderColor(0, 0, 0, 1)
 		frame.SocketHolder:SetPoint(GemPoint, frame, GemparentPoint, x2 or 0, y2 or 0)
+		frame.SocketHolder:SetScript('OnEnter', self.OnEnter)
+		frame.SocketHolder:SetScript('OnLeave', self.OnLeave)
+
+		frame.SocketHolder.Texture = frame.SocketHolder:CreateTexture(nil, 'OVERLAY')
+		frame.SocketHolder.Texture:SetTexCoord(unpack(E.TexCoords))
+		frame.SocketHolder.Texture:SetInside()
 	end
 
 	-- Azerite Neck
 	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
 	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
 	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
+end
+
+function MERAY:SlotGradiation()
+	if MERAY.db.gradient ~= true then return end
+
+	for i, SlotName in pairs(gearList) do
+		local Slot = _G["Character"..gearList[i]]
+
+		Slot = CreateFrame('Frame', nil, Slot)
+		Slot:Size(130, 41)
+		Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
+		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
+		Slot:Point(Slot.Direction, _G["Character"..SlotName], 0, 0)
+
+		Slot.Texture = Slot:CreateTexture(nil, "OVERLAY")
+		Slot.Texture:SetInside()
+		Slot.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
+		Slot.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+		if Slot.Direction == "LEFT" then
+			Slot.Texture:SetTexCoord(0, 1, 0, 1)
+		else
+			Slot.Texture:SetTexCoord(1, 0, 0, 1)
+		end
+	end
 end
 
 function MERAY:AzeriteGlow()
@@ -448,9 +519,8 @@ function MERAY:firstGarrisonToast()
 	self:ScheduleTimer("UpdatePaperDoll", 7)
 end
 
-
 function MERAY:Initialize()
-	if not E.db.mui.armory.enable or IsAddOnLoaded('ElvUI_SLE') then return end
+	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true or IsAddOnLoaded('ElvUI_SLE') then return end
 
 	MERAY.db = E.db.mui.armory
 
@@ -466,6 +536,14 @@ function MERAY:Initialize()
 	MERAY:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
+
+	-- Adjust a bit the Model Size
+	if _G["CharacterModelFrame"]:GetHeight() == 320 then
+		_G["CharacterModelFrame"]:ClearAllPoints()
+		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+	end
 
 	function MERAY:ForUpdateAll()
 		MERAY.db = E.db.mui.armory

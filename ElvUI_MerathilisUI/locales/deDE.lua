@@ -255,6 +255,8 @@ L["Enchant Info"] = "Verzauberungsinfo"
 L["Shows an indictor for enchanted/ not enchanted items."] = "Zeigt einen Indikator für verzauerte und unverzauberte Gegenstände."
 L["Socket Info"] = "Sockelinfo"
 L["Shows an indictor for socketed/ unsocketed items."] = "Zeigt einen Indikator für gesockelte / ungesockelte Gegenstände."
+L["Slot Gradient"] = "Gegenstand-Farbverlauf"
+L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
 -- PRINTS
 L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
 L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."

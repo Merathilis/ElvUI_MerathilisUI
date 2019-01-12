@@ -385,6 +385,7 @@ P["mui"] = {
 		["undressButton"] = true,
 		["enchantInfo"] = true,
 		["socketInfo"] = true,
+		["gradient"] = true,
 		["durability"] = {
 			["enable"] = true,
 			["onlydamaged"] = true,
