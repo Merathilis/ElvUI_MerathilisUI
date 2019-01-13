@@ -4,5 +4,4 @@
 	<Script file="keystoneInfo.lua"/>
 	<Script file="tooltip.lua"/>
 	<Script file="tooltipicon.lua"/>
-	<Script file="realmInfo.lua"/>
 </Ui>

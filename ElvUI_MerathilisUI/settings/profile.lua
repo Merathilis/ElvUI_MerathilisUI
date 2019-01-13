@@ -330,19 +330,6 @@ P["mui"] = {
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
-		["realmInfo"] = {
-			["enable"] = true,
-			["timezone"] = false,
-			["type"] = true,
-			["language"] = true,
-			["connectedrealms"] = true,
-			["countryflag"] = "languageline",
-			["finder_counryflag"] = true,
-			["communities_countryflag"] = true,
-			["ttGrpFinder"] = true,
-			["ttPlayer"] = true,
-			["ttFriends"] = true,
-		},
 	},
 
 	["errorFilters"] = {
@@ -472,7 +459,7 @@ P["mui"] = {
 			},
 			["catFonts"] = {
 				["font"] = "Expressway",
-				["size"] = 13,
+				["size"] = 12,
 				["outline"] = "OUTLINE",
 			},
 			["List"] = {
