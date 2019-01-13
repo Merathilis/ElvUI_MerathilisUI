@@ -8,6 +8,7 @@ MERAY.modName = L["Armory"]
 -- Lua functions
 local _G = _G
 local select, tonumber, unpack = select, tonumber, unpack
+local type = type
 local gsub = gsub
 local strmatch, strsplit = strmatch, strsplit
 local find = string.find
