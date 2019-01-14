@@ -178,12 +178,12 @@ local function ArmoryTable()
 						get = function(info)
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
 							local d = P.mui.armory.ilvl[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
-						set = function(info, r, g, b, a)
+						set = function(info, r, g, b)
 							E.db.mui.armory.ilvl[ info[#info] ] = {}
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
+							t.r, t.g, t.b = r, g, b
 							E:StaticPopup_Show("PRIVATE_RL")
 						end,
 					},

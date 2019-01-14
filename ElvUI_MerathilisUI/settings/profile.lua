@@ -478,7 +478,7 @@ P["mui"] = {
 		["gradient"] = {
 			["enable"] = true,
 			["colorStyle"] = "VALUE",
-			["color"] = {r = 1, g = 1, b = 0, a = 1},
+			["color"] = {r = 1, g = 1, b = 0},
 		},
 	},
 }
