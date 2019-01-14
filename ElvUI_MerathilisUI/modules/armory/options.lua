@@ -173,13 +173,14 @@ local function ArmoryTable()
 						order = 6,
 						type = "color",
 						name = COLOR_PICKER,
+						hasAlpha = true,
 						disabled = function() return E.db.mui.armory.ilvl.colorStyle == "RARITY" or E.db.mui.armory.ilvl.colorStyle == "LEVEL" or not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
 						get = function(info)
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
 							local d = P.mui.armory.ilvl[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 						end,
-						set = function(info, r, g, b)
+						set = function(info, r, g, b, a)
 							E.db.mui.armory.ilvl[ info[#info] ] = {}
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
@@ -352,6 +353,48 @@ local function ArmoryTable()
 								values = fontStyleList,
 							},
 						},
+					},
+				},
+			},
+			gradient = {
+				order = 12,
+				type = 'group',
+				name = L["Gradient"],
+				disabled = function() return not E.db.mui.armory.enable end,
+				get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
+				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				args = {
+					enable = {
+						type = 'toggle',
+						name = L["Enable"],
+						order = 1,
+					},
+					colorStyle = {
+						order = 2,
+						type = "select",
+						name = COLOR,
+						values = {
+							["RARITY"] = RARITY,
+							["VALUE"] = L["Value"],
+							["CUSTOM"] = CUSTOM,
+						},
+					},
+					color = {
+						order = 3,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.mui.armory.gradient.colorStyle == "RARITY" or E.db.mui.armory.gradient.colorStyle == "VALUE" or not E.db.mui.armory.enable or not E.db.mui.armory.gradient.enable end,
+						get = function(info)
+							local t = E.db.mui.armory.gradient[ info[#info] ]
+							local d = P.mui.armory.gradient[info[#info]]
+							return t.r, t.g, t.b, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b)
+							E.db.mui.armory.gradient[ info[#info] ] = {}
+							local t = E.db.mui.armory.gradient[ info[#info] ]
+							t.r, t.g, t.b = r, g, b
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
 					},
 				},
 			},

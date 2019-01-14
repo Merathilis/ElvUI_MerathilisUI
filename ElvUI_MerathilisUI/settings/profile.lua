@@ -426,7 +426,6 @@ P["mui"] = {
 		["undressButton"] = true,
 		["enchantInfo"] = true,
 		["socketInfo"] = true,
-		["gradient"] = true,
 		["durability"] = {
 			["enable"] = true,
 			["onlydamaged"] = true,
@@ -475,6 +474,11 @@ P["mui"] = {
 				["FOCUS_REGEN"] = false,
 				["MOVESPEED"] = false,
 			},
+		},
+		["gradient"] = {
+			["enable"] = true,
+			["colorStyle"] = "VALUE",
+			["color"] = {r = 1, g = 1, b = 0, a = 1},
 		},
 	},
 }

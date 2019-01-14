@@ -142,27 +142,6 @@ local slotIDs = {
 	[17] = "SecondaryHandSlot"
 }
 
-local gearList = {
-	-- Used for Slot Gradient
-	-- Dont add Weapon slots here.
-	'HeadSlot',
-	'HandsSlot',
-	'NeckSlot',
-	'WaistSlot',
-	'ShoulderSlot',
-	'LegsSlot',
-	'BackSlot',
-	'FeetSlot',
-	'ChestSlot',
-	'Finger0Slot',
-	'ShirtSlot',
-	'Finger1Slot',
-	'TabardSlot',
-	'Trinket0Slot',
-	'WristSlot',
-	'Trinket1Slot',
-	}
-
 local AZSlots = {
 	"Head", "Shoulder", "Chest",
 }
@@ -225,6 +204,7 @@ function MERAY:UpdatePaperDoll()
 			frame.EnchantInfo:SetText("")
 			frame.SocketHolder:Hide()
 			frame.SocketHolder.Link = nil
+			frame.Gradiation.Texture:Hide()
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
@@ -299,6 +279,20 @@ function MERAY:UpdatePaperDoll()
 					if current and maximum and (not MERAY.db.durability.onlydamaged or current < maximum) then
 						r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 						frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
+					end
+				end
+
+				-- Gradiation
+				if MERAY.db.gradient.enable then
+					frame.Gradiation.Texture:Show()
+
+					if itemRarity and MERAY.db.gradient.colorStyle == "RARITY" then
+						local r, g, b = GetItemQualityColor(itemRarity)
+						frame.Gradiation.Texture:SetVertexColor(r, g, b)
+					elseif MERAY.db.gradient.colorStyle == "VALUE" then
+						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
+					else
+						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(MERAY.db.gradient.color))
 					end
 				end
 			end
@@ -432,7 +426,6 @@ function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 	self:BuildInformation()
-	self:SlotGradiation()
 
 	-- update player info
 	self:ScheduleTimer("UpdatePaperDoll", 10)
@@ -461,23 +454,27 @@ local function UpdateGemPoints(id)
 end
 
 function MERAY:BuildInformation()
-	for id, _ in pairs(slotIDs) do
+	for id, slotName in pairs(slotIDs) do
 		local frame = _G["Character"..slotIDs[id]]
 		local iLvLPoint, iLvLParentPoint, x1, y1 = UpdateiLvLPoints(id)
 		local GemPoint, GemparentPoint, x2, y2 = UpdateGemPoints(id)
 
+		-- Item Level
 		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
 		frame.ItemLevel:SetPoint(iLvLPoint, frame, iLvLParentPoint, x1 or 0, y1 or 0)
 		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
 
+		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 
+		-- Enchant Info
 		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.EnchantInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 1, -1)
 		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
 
+		-- Gem Info
 		frame.SocketHolder = CreateFrame('Frame', nil, frame)
 		frame.SocketHolder:Size(12)
 		frame.SocketHolder:SetBackdrop({
@@ -494,36 +491,29 @@ function MERAY:BuildInformation()
 		frame.SocketHolder.Texture = frame.SocketHolder:CreateTexture(nil, 'OVERLAY')
 		frame.SocketHolder.Texture:SetTexCoord(unpack(E.TexCoords))
 		frame.SocketHolder.Texture:SetInside()
+
+		-- Gradiation
+		frame.Gradiation = CreateFrame('Frame', nil, frame)
+		frame.Gradiation:Size(110, 41)
+		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
+
+		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
+		frame.Gradiation.Texture:SetInside()
+		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
+
+		if id <= 5 or id == 15 or id == 9 then -- Left Size
+			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", -20, 0)
+			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
+		elseif id <= 14 then -- Right Side
+			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
+			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+		end
 	end
 
 	-- Azerite Neck
 	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
 	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
 	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
-end
-
-function MERAY:SlotGradiation()
-	if MERAY.db.gradient ~= true then return end
-
-	for i, SlotName in pairs(gearList) do
-		local Slot = _G["Character"..gearList[i]]
-
-		Slot = CreateFrame('Frame', nil, Slot)
-		Slot:Size(130, 41)
-		Slot:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
-		Slot.Direction = i%2 == 1 and 'LEFT' or 'RIGHT'
-		Slot:Point(Slot.Direction, _G["Character"..SlotName], 0, 0)
-
-		Slot.Texture = Slot:CreateTexture(nil, "OVERLAY")
-		Slot.Texture:SetInside()
-		Slot.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
-		Slot.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
-		if Slot.Direction == "LEFT" then
-			Slot.Texture:SetTexCoord(0, 1, 0, 1)
-		else
-			Slot.Texture:SetTexCoord(1, 0, 0, 1)
-		end
-	end
 end
 
 function MERAY:AzeriteGlow()
