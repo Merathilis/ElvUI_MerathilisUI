@@ -201,6 +201,7 @@ function MERAY:UpdatePaperDoll()
 		if slot and slot ~= '' then
 			-- Reset Data first
 			frame.ItemLevel:SetText("")
+			frame.DurabilityInfo:SetText("")
 			frame.EnchantInfo:SetText("")
 			frame.SocketHolder:Hide()
 			frame.SocketHolder.Link = nil
