@@ -118,7 +118,9 @@ local slots = {
 	["LegsSlot"] = { true, true },
 	["FeetSlot"] = { true, true },
 	["Finger0Slot"] = { true, false },
+	["ShirtSlot"] = { false, false },
 	["Finger1Slot"] = { true, false },
+	["TabardSlot"] = { false, false },
 	["Trinket0Slot"] = { true, false },
 	["Trinket1Slot"] = { true, false },
 }
@@ -128,18 +130,20 @@ local slotIDs = {
 	[2] = "NeckSlot",
 	[3] = "ShoulderSlot",
 	[5] = "ChestSlot",
-	[6] = "WaistSlot",
-	[7] = "LegsSlot",
-	[8] = "FeetSlot",
-	[9] = "WristSlot",
-	[10] = "HandsSlot",
-	[11] = "Finger0Slot",
-	[12] = "Finger1Slot",
-	[13] = "Trinket0Slot",
-	[14] = "Trinket1Slot",
-	[15] = "BackSlot",
-	[16] = "MainHandSlot",
-	[17] = "SecondaryHandSlot"
+	[6] = "ShirtSlot",
+	[7] = "TabardSlot",
+	[8] = "WaistSlot",
+	[9] = "LegsSlot",
+	[10] = "FeetSlot",
+	[11] = "WristSlot",
+	[12] = "HandsSlot",
+	[13] = "Finger0Slot",
+	[14] = "Finger1Slot",
+	[15] = "Trinket0Slot",
+	[16] = "Trinket1Slot",
+	[17] = "BackSlot",
+	[18] = "MainHandSlot",
+	[19] = "SecondaryHandSlot",
 }
 
 local AZSlots = {
@@ -435,7 +439,7 @@ function MERAY:InitialUpdatePaperDoll()
 end
 
 local function UpdateiLvLPoints(id)
-	if id <= 5 or id == 15 or id == 9 then 			-- Left side
+	if id <= 7 or id == 17 or id == 11 then			-- Left side
 		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
 	elseif id <= 14 then 							-- Right side
 		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
@@ -447,7 +451,7 @@ end
 local function UpdateGemPoints(id)
 	if id <= 5 or id == 15 or id == 9 then 		-- Left side
 		return "LEFT", "RIGHT", 4, 0
-	elseif id <= 14 then 						-- Right side
+	elseif id <= 16 then						-- Right side
 		return "RIGHT", "LEFT", -4, 0
 	else										-- Weapon slots
 		return "TOP", "TOP", 0, 16
@@ -502,10 +506,10 @@ function MERAY:BuildInformation()
 		frame.Gradiation.Texture:SetInside()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
 
-		if id <= 5 or id == 15 or id == 9 then -- Left Size
+		if id <= 7 or id == 17 or id == 11 then -- Left Size
 			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", -20, 0)
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
-		elseif id <= 14 then -- Right Side
+		elseif id <= 16 then -- Right Side
 			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
