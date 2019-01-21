@@ -1,6 +1,6 @@
 MerathilisUI License
 
-   Copyright ©2014-2018
+   Copyright Â©2014-2019
 The contents of this addon, excluding third-party resources, are
 copyrighted to their authors with all rights reserved.
 
