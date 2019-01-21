@@ -441,7 +441,7 @@ end
 local function UpdateiLvLPoints(id)
 	if id <= 7 or id == 17 or id == 11 then			-- Left side
 		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
-	elseif id <= 14 then 							-- Right side
+	elseif id <= 16 then 							-- Right side
 		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
 	else											-- Weapon slots
 		return "BOTTOM", "BOTTOM", 2, 1
@@ -449,7 +449,7 @@ local function UpdateiLvLPoints(id)
 end
 
 local function UpdateGemPoints(id)
-	if id <= 5 or id == 15 or id == 9 then 		-- Left side
+	if id <= 7 or id == 17 or id == 11 then 		-- Left side
 		return "LEFT", "RIGHT", 4, 0
 	elseif id <= 16 then						-- Right side
 		return "RIGHT", "LEFT", -4, 0
