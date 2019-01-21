@@ -255,22 +255,6 @@ local function styleCollections()
 		MERS:CreateGradient(bg)
 	end
 
-	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
-		self.name.SetTextColor = nil
-		if (PlayerHasToy(self.itemID)) then
-			local quality = select(3, GetItemInfo(self.itemID))
-			local r, g, b = 1, 1, 1
-			if quality then
-				r, g, b = GetItemQualityColor(quality)
-			end
-			self.name:SetTextColor(r, g, b)
-		else
-			self.name:SetTextColor(.6, .6, .6)
-		end
-		self.name.SetTextColor = E.noop
-	end)
-
-
 	-- [[ Heirlooms ]]
 	local HeirloomsJournal = _G.HeirloomsJournal
 

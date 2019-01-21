@@ -62,8 +62,14 @@ local function ArmoryTable()
 				name = L["Socket Info"],
 				desc = L["Shows an indictor for socketed/ unsocketed items."],
 			},
-			durability = {
+			gradient = {
+				type = "toggle",
 				order = 7,
+				name = L["Slot Gradient"],
+				desc = L["Shows a gradiation texture on the Character Slots."],
+			},
+			durability = {
+				order = 8,
 				type = "group",
 				name = L["Durability"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -110,7 +116,7 @@ local function ArmoryTable()
 				},
 			},
 			itemlevel = {
-				order = 8,
+				order = 9,
 				type = "group",
 				name = L["Itemlevel"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -167,16 +173,17 @@ local function ArmoryTable()
 						order = 6,
 						type = "color",
 						name = COLOR_PICKER,
+						hasAlpha = true,
 						disabled = function() return E.db.mui.armory.ilvl.colorStyle == "RARITY" or E.db.mui.armory.ilvl.colorStyle == "LEVEL" or not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
 						get = function(info)
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
 							local d = P.mui.armory.ilvl[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b
+							return t.r, t.g, t.b, d.r, d.g, d.b
 						end,
 						set = function(info, r, g, b)
 							E.db.mui.armory.ilvl[ info[#info] ] = {}
 							local t = E.db.mui.armory.ilvl[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
+							t.r, t.g, t.b = r, g, b
 							E:StaticPopup_Show("PRIVATE_RL")
 						end,
 					},
@@ -185,7 +192,7 @@ local function ArmoryTable()
 			stats = {
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
-				order = 9,
+				order = 10,
 				disabled = function() return not E.db.mui.armory.enable end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
@@ -255,7 +262,7 @@ local function ArmoryTable()
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				-- guiInline = true,
-				order = 10,
+				order = 11,
 				args = {
 					IlvlFont = {
 						type = 'group',
@@ -346,6 +353,48 @@ local function ArmoryTable()
 								values = fontStyleList,
 							},
 						},
+					},
+				},
+			},
+			gradient = {
+				order = 12,
+				type = 'group',
+				name = L["Gradient"],
+				disabled = function() return not E.db.mui.armory.enable end,
+				get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
+				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				args = {
+					enable = {
+						type = 'toggle',
+						name = L["Enable"],
+						order = 1,
+					},
+					colorStyle = {
+						order = 2,
+						type = "select",
+						name = COLOR,
+						values = {
+							["RARITY"] = RARITY,
+							["VALUE"] = L["Value"],
+							["CUSTOM"] = CUSTOM,
+						},
+					},
+					color = {
+						order = 3,
+						type = "color",
+						name = COLOR_PICKER,
+						disabled = function() return E.db.mui.armory.gradient.colorStyle == "RARITY" or E.db.mui.armory.gradient.colorStyle == "VALUE" or not E.db.mui.armory.enable or not E.db.mui.armory.gradient.enable end,
+						get = function(info)
+							local t = E.db.mui.armory.gradient[ info[#info] ]
+							local d = P.mui.armory.gradient[info[#info]]
+							return t.r, t.g, t.b, d.r, d.g, d.b
+						end,
+						set = function(info, r, g, b)
+							E.db.mui.armory.gradient[ info[#info] ] = {}
+							local t = E.db.mui.armory.gradient[ info[#info] ]
+							t.r, t.g, t.b = r, g, b
+							E:StaticPopup_Show("PRIVATE_RL")
+						end,
 					},
 				},
 			},

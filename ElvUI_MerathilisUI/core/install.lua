@@ -751,7 +751,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 14,
 			["justifyH"] = "LEFT",
-			["text_format"] = "[perhp]%",
+			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
@@ -898,7 +898,7 @@ function MER:SetupUnitframes(layout)
 			["size"] = 14,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
-			["text_format"] = "[perhp]%",
+			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Health",
 			["yOffset"] = 0,
 			["xOffset"] = 0,
@@ -1405,7 +1405,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[perhp]%",
+			["text_format"] = "[perhp<%]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0

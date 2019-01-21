@@ -68,7 +68,7 @@ local updaterun = CreateFrame("Frame")
 
 local flowingframe = CreateFrame("Frame", nil, E.UIParent)
 flowingframe:SetFrameStrata("HIGH")
-flowingframe:SetPoint("CENTER", E.UIParent, "TOP", 0, -80) -- where we want the textframe
+flowingframe:SetPoint("CENTER", E.UIParent, "TOP", 0, -240) -- where we want the textframe
 flowingframe:SetHeight(64)
 
 local flowingtext = flowingframe:CreateFontString(nil,"OVERLAY")

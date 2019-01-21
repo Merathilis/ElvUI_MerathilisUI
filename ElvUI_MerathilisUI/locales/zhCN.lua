@@ -126,30 +126,6 @@ L["Adds information to the tooltip, on which char you earned an achievement."] =
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
-L["Realm Info"] = true
-L["Shows realm info in various tooltips."] = true
-L["Tooltips"] = true
-L["Show the realm info in the group finder tooltip."] = true
-L["Player Tooltips"] = true
-L["Show the realm info in the player tooltip."] = true
-L["Friend List"] = true
-L["Show the realm info in the friend list tooltip."] = true
-L["Tooltip Lines"] = true
-L["Realm Timezone"] = true
-L["Add realm timezone to the tooltip."] = true
-L["Realm Type"] = true
-L["Add realm type to the tooltip."] = true
-L["Realm Language"] = true
-L["Add realm language to the tooltip."] = true
-L["Connected Realms"] = true
-L["Add the connected realms to the tooltip."] = true
-L["Country Flag"] = true
-L["Display the country flag without text on the left side in tooltip."] = true
-L["Behind language in 'Realm language' line"] = true
-L["Behind the character name"] = true
-L["In own tooltip line on the left site"] = true
-L["Prepend country flag on character name in group finder."] = true
-L["Prepend country flag on character name in community member lists."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -255,6 +231,8 @@ L["Enchant Info"] = true
 L["Shows an indictor for enchanted/ not enchanted items."] = true
 L["Socket Info"] = true
 L["Shows an indictor for socketed/ unsocketed items."] = true
+L["Slot Gradient"] = true
+L["Shows a gradiation texture on the Character Slots."] = true
 -- PRINTS
 L["Equipped head is not an Azerite item."] = true
 L["No head item is equipped."] = true
@@ -262,6 +240,42 @@ L["Equipped shoulder is not an Azerite item."] = true
 L["No shoulder item is equipped."] = true
 L["Equipped chest is not an Azerite item."] = true
 L["No chest item is equipped."] = true
+
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
 
 -- Unitframes
 L["UnitFrames"] = true

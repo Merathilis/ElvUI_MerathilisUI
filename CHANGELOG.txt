@@ -1,3 +1,9 @@
+[b][color=orange]v4.08[/color], 21.01.2019[/b][list]
+[*]Remove some code from the Collection Skin to prevent a taint.
+[*]Remove RealmInfo from the Tooltip. Go away...
+[*]Added back the Media section to change some additional fonts.
+[*]More work on my Armory. Slot Gradiation, socket links, etc.[/list]
+
 [b][color=orange]v4.07[/color], 11.01.2019[/b][list]
 [*]Fixed an error CombatFeedBack Text if UnitFrames are disabled.
 [*]Fixed an error with LSM calls.

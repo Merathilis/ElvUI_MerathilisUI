@@ -17,19 +17,14 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error CombatFeedBack Text if UnitFrames are disabled.",
-		"• Fixed an error with LSM calls.",
-		"• Some NamePlateAuras fine tuning.",
-		"• The Notification dont show now if you are in a dungeon/raid etc.",
-		"• Added an own Armory (light) Mode.",
-		"• Updated some skins.",
+		"• Remove some code from the Collection Skin to prevent a taint.",
+		"• Remove RealmInfo from the Tooltip. Go away...",
+		"• Added back the Media section to change some additional fonts.",
+		"• More work on my Armory. Slot Gradiation, socket links, etc.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• 'I'm not using Shadow&Light anymore. I only used the Armory Mode from it.",
-		"• 'I have now an own little Armory Mode which shows iLvL, enchants, gems.",
-
 		-- "• ''",
 }
 

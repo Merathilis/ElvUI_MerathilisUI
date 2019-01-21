@@ -210,6 +210,60 @@ P["mui"] = {
 		},
 	},
 
+	["media"] = {
+		["fonts"] = {
+			["zone"] = {
+				["font"] = "Expressway",
+				["size"] = 32,
+				["outline"] = "OUTLINE",
+				["width"] = 512,
+			},
+			["subzone"] = {
+				["font"] = "Expressway",
+				["size"] = 25,
+				["outline"] = "OUTLINE",
+				["offset"] = 0,
+				["width"] = 512,
+			},
+			["pvp"] = {
+				["font"] = "Expressway",
+				["size"] = 22,
+				["outline"] = "OUTLINE",
+				["width"] = 512,
+			},
+			["mail"] = {
+				["font"] = "Expressway",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["editbox"] = {
+				["font"] = "Expressway",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["gossip"] = {
+				["font"] = "Expressway",
+				["size"] = 12,
+				["outline"] = "NONE",
+			},
+			["objective"] = {
+				["font"] = "Expressway",
+				["size"] = 11,
+				["outline"] = "NONE",
+			},
+			["objectiveHeader"] = {
+				["font"] = "Expressway",
+				["size"] = 14,
+				["outline"] = "OUTLINE",
+			},
+			["questFontSuperHuge"] = {
+				["font"] = "Expressway",
+				["size"] = 24,
+				["outline"] = "NONE",
+			},
+		},
+	},
+
 	["smb"] = {
 		["enable"] = true,
 		["barMouseOver"] = true,
@@ -276,19 +330,6 @@ P["mui"] = {
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
 		["modelIcon"] = false, -- Add a model on the Tooltip
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
-		["realmInfo"] = {
-			["enable"] = true,
-			["timezone"] = false,
-			["type"] = true,
-			["language"] = true,
-			["connectedrealms"] = true,
-			["countryflag"] = "languageline",
-			["finder_counryflag"] = true,
-			["communities_countryflag"] = true,
-			["ttGrpFinder"] = true,
-			["ttPlayer"] = true,
-			["ttFriends"] = true,
-		},
 	},
 
 	["errorFilters"] = {
@@ -417,7 +458,7 @@ P["mui"] = {
 			},
 			["catFonts"] = {
 				["font"] = "Expressway",
-				["size"] = 13,
+				["size"] = 12,
 				["outline"] = "OUTLINE",
 			},
 			["List"] = {
@@ -433,6 +474,11 @@ P["mui"] = {
 				["FOCUS_REGEN"] = false,
 				["MOVESPEED"] = false,
 			},
+		},
+		["gradient"] = {
+			["enable"] = true,
+			["colorStyle"] = "VALUE",
+			["color"] = {r = 1, g = 1, b = 0},
 		},
 	},
 }

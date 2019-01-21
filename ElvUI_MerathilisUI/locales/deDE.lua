@@ -126,30 +126,6 @@ L["Adds information to the tooltip, on which char you earned an achievement."] =
 L["Model"] = true
 L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
-L["Realm Info"] = true
-L["Shows realm info in various tooltips."] = "Zeigt Realminformationen im Tooltip"
-L["Tooltips"] = true
-L["Show the realm info in the group finder tooltip."] = "Zeigt Realminformationen im Tooltip in der Gruppensuche an"
-L["Player Tooltips"] = "Spieler Tooltips"
-L["Show the realm info in the player tooltip."] = "Zeigt Realminformationen im Tooltip von Spielern an"
-L["Friend List"] = "Freundesliste"
-L["Show the realm info in the friend list tooltip."] = "Zeigt Realminformationen im Tooltip in der Freundesliste an"
-L["Tooltip Lines"] = "Tooltip Linien"
-L["Realm Timezone"] = "Realm Zeitzone"
-L["Add realm timezone to the tooltip."] = "Zeigt die Zeitzone des Realms im Tooltip an"
-L["Realm Type"] = "Realmtyp"
-L["Add realm type to the tooltip."] = "Zeigt den Realmtyp im Tooltip an"
-L["Realm Language"] = "Realmsprache"
-L["Add realm language to the tooltip."] = "Zeigt die Sprache des Realm im Tooltip an"
-L["Connected Realms"] = "Verbundene Realms"
-L["Add the connected realms to the tooltip."] = "Zeigt verbundene Realms im Tooltip an"
-L["Country Flag"] = "Landesflagge"
-L["Display the country flag without text on the left side in tooltip."] = "Zeigt die Landesflagge ohne Text auf der linken Seite des Tooltips an"
-L["Behind language in 'Realm language' line"] = "Nach der Realmsprache"
-L["Behind the character name"] = "Nach dem Charakternamen"
-L["In own tooltip line on the left site"] = "In einer eigenen Zeile auf der linken Seite"
-L["Prepend country flag on character name in group finder."] = "Vor dem Characternamen in der Gruppensuche"
-L["Prepend country flag on character name in community member lists."] = "Vor dem Characternamen in der Gemeinschafts-Mitgliederliste"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -255,6 +231,8 @@ L["Enchant Info"] = "Verzauberungsinfo"
 L["Shows an indictor for enchanted/ not enchanted items."] = "Zeigt einen Indikator für verzauerte und unverzauberte Gegenstände."
 L["Socket Info"] = "Sockelinfo"
 L["Shows an indictor for socketed/ unsocketed items."] = "Zeigt einen Indikator für gesockelte / ungesockelte Gegenstände."
+L["Slot Gradient"] = "Gegenstand-Farbverlauf"
+L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
 -- PRINTS
 L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
 L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
@@ -262,6 +240,42 @@ L["Equipped shoulder is not an Azerite item."] = "Ausgerüstete Schulter ist kei
 L["No shoulder item is equipped."] = "Kein Schulter Gegenstand ausgerüstet."
 L["Equipped chest is not an Azerite item."] = "Ausgerüstete Brust ist kein Azerite Gegenstand."
 L["No chest item is equipped."] = "Kein Brust Gegenstand ausgerüstet."
+
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
