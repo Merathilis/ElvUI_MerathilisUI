@@ -397,19 +397,23 @@ MER:RegisterChatCommand("repop", MER.FixRelease)
 -- Personal Dev use only
 -- We will add more of my names as we go.
 MER.IsDev = {
-	["Merathilis"] = true,
-	["Róhal"] = true,
-	["Jazira"] = true,
+	["Asragoth"] = true,
 	["Damará"] = true,
-	["Merathilîs"] = true,
-	["Melisendra"] = true,
+	["Jazira"] = true,
+	["Jústice"] = true,
 	["Mattdemôn"] = true,
+	["Melisendra"] = true,
+	["Merathilis"] = true,
+	["Merathilîs"] = true,
+	["Róhal"] = true,
 }
+
 -- Don't forget to update realm name(s) if we ever transfer realms.
 -- If we forget it could be easly picked up by another player who matches these combinations.
 -- End result we piss off people and we do not want to do that. :(
 MER.IsDevRealm = {
 	["Shattrath"] = true,
+	--["Garrosh"] = true,
 }
 
 function MER:IsDeveloper()
