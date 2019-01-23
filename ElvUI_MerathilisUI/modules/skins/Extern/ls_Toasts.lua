@@ -61,7 +61,7 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 })
 
-hooksecurefunc(LST, "ApplySkin", function(_, toast)
+LST.RegisterCallback({}, "SetSkin", function(_, toast)
 	if not toast.skinned then
 		toast:Styling()
 		toast.skinned = true
