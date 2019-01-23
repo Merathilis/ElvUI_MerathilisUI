@@ -12,9 +12,16 @@ function MER:LoadLSProfile()
 	--]]----------------------------------
 
 	LS_TOASTS_GLOBAL_CONFIG.profiles["MerathilisUI"] = {
-		["point"] = {
-			["y"] = -95,
-			["x"] = 200,
+		["anchors"] = {
+			[1] = {
+				["point"] = {
+					p = "TOP",
+					rP = "TOP",
+					["x"] = 0,
+					["y"] = -210,
+				},
+				["scale"] = 1.2,
+			},
 		},
 		["font"] = {
 			["name"] = "Expressway",
