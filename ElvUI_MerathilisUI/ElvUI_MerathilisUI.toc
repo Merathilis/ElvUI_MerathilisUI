@@ -1,7 +1,7 @@
 ## Interface: 80100
 ## Author: Merathilis
 ## Credits: Benik, Blazeflack, Azilroka, Simpy, Whiro, Darth Predator, fgprodigal, Elv & all AddOn Authors who inspired me.
-## Version: 4.08
+## Version: 4.09
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -11,7 +11,7 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
 ## X-ElvVersion: 10.85
-## X-Curse-Packaged-Version: 4.08
+## X-Curse-Packaged-Version: 4.09
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
 ## X-Tukui-ProjectID: 1

@@ -1,3 +1,8 @@
+** v4.09, 26.01.2019**
+* Dont load the AzeriteButtons if the ElvUI Character Skin is disabled.
+* Add a waring texture for missing gems.
+* Update ls_Toast skin and profile.
+
 ** v4.08, 21.01.2019**
 * Remove some code from the Collection Skin to prevent a taint.
 * Remove RealmInfo from the Tooltip. Go away...
