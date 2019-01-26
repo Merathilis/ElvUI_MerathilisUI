@@ -1096,6 +1096,18 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[name:medium]",
 		}
+		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+			E.db["unitframe"]["units"]["raid"]["customTexts"]["Elv"] = {
+				["font"] = "Expressway",
+				["justifyH"] = "RIGHT",
+				["fontOutline"] = "OUTLINE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 9,
+				["attachTextTo"] = "Frame",
+				["text_format"] = "[users:elvui]",
+			}
+		end
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid"]["infoPanel"]["transparent"] = true
@@ -1176,6 +1188,18 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["size"] = 10,
 		}
+		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+			E.db["unitframe"]["units"]["raid40"]["customTexts"]["Elv"] = {
+				["font"] = "Expressway",
+				["justifyH"] = "RIGHT",
+				["fontOutline"] = "OUTLINE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 9,
+				["attachTextTo"] = "Frame",
+				["text_format"] = "[users:elvui]",
+			}
+		end
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
 		E.db["unitframe"]["units"]["raid40"]["width"] = 77
@@ -1308,6 +1332,18 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Frame",
 			["text_format"] = "[statustimer]",
 		}
+		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+			E.db["unitframe"]["units"]["party"]["customTexts"]["Elv"] = {
+				["font"] = "Expressway",
+				["justifyH"] = "RIGHT",
+				["fontOutline"] = "OUTLINE",
+				["xOffset"] = 0,
+				["yOffset"] = 0,
+				["size"] = 9,
+				["attachTextTo"] = "Frame",
+				["text_format"] = "[users:elvui]",
+			}
+		end
 
 		-- Assist
 		E.db["unitframe"]["units"]["assist"]["enable"] = false

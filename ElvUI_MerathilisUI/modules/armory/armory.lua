@@ -271,6 +271,7 @@ function MERAY:UpdatePaperDoll()
 								else -- has an empty socket
 									frame.SocketHolder:Show()
 									frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
+									frame.SocketHolder.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\warning')
 								end
 							end
 						end

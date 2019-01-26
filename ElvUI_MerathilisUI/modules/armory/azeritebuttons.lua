@@ -240,7 +240,7 @@ function AZB:openChest()
 end
 
 function AZB:Initialize()
-	if E.db.mui.armory.azeritebtn ~= true then return end
+	if E.db.mui.armory.azeritebtn ~= true or E.private.skins.blizzard.character ~= true then return end
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED")

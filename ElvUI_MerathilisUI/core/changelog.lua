@@ -17,10 +17,9 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove some code from the Collection Skin to prevent a taint.",
-		"• Remove RealmInfo from the Tooltip. Go away...",
-		"• Added back the Media section to change some additional fonts.",
-		"• More work on my Armory. Slot Gradiation, socket links, etc.",
+		"• Dont load the AzeriteButtons if the ElvUI Character Skin is disabled.",
+		"• Add a waring texture for missing gems.",
+		"• Update ls_Toast skin and profile.",
 
 		-- "• ''",
 	" ",
