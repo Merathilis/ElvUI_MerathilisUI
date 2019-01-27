@@ -557,7 +557,8 @@ function MERAY:firstGarrisonToast()
 end
 
 function MERAY:Initialize()
-	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true or IsAddOnLoaded('ElvUI_SLE') then return end
+	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true then return end
+	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 
 	MERAY.db = E.db.mui.armory
 
