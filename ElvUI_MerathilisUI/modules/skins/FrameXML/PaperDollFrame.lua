@@ -44,10 +44,7 @@ local function styleCPaperDollFrame()
 
 		_G["Character"..slots[i].."SlotFrame"]:Hide()
 
-		slot:SetNormalTexture("")
-		slot:SetPushedTexture("")
-		slot:GetHighlightTexture():SetColorTexture(r, g, b, .25)
-		slot.SetHighlightTexture = MER.dummy
+		slot.backgroundTextureName = ''
 		slot.icon:SetTexCoord(unpack(E.TexCoords))
 
 		border:SetPoint("TOPLEFT", -1, 1)
