@@ -97,6 +97,15 @@ L["Misc"] = "Verschiedenes"
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
 L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
+L["Blingtron"] = "Blingtron Tägliches Geschenk"
+L["Mean One"] = "Winterhauchfest"
+L["Timewarped"] = "500 Zeitverzerrte Abzeichen"
+L["Legion Invasion"] = true
+L["BfA Invasion"] = true
+L["Local Time"] = "Lokale Zeit"
+L["Realm Time"] = "Server Zeit"
+L["Current Invasion: "] = "Aktuelle Invasion: "
+L["Next Invasion: "] = "Nächste Invasion "
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"

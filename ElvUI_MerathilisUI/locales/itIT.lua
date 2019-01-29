@@ -97,6 +97,15 @@ L["Misc"] = true
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
 L["Show/Hide the guild text on MicroBar."] = true
+L["Blingtron"] = "Blingtron Daily Gift"
+L["Mean One"] = "Feast of Winter Veil"
+L["Timewarped"] = "500 Timewarped Badges"
+L["Legion Invasion"] = true
+L["BfA Invasion"] = true
+L["Local Time"] = true
+L["Realm Time"] = true
+L["Current Invasion: "] = true
+L["Next Invasion: "] = true
 
 -- Misc
 L["Artifact Power"] = true
