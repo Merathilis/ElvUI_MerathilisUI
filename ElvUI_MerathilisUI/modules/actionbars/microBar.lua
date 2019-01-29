@@ -47,6 +47,7 @@ local RequestRaidInfo = RequestRaidInfo
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
+local InCombatLockdown = InCombatLockdown
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
@@ -196,6 +197,10 @@ MB.OnEnter = function(self)
 
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide() -- WHY??? BECAUSE FUCK GAMETOOLTIP, THATS WHY!!
+	end
+
+	if InCombatLockdown() then
+		return
 	end
 
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
