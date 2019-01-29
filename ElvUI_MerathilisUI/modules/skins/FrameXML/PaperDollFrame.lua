@@ -57,7 +57,7 @@ local function styleCPaperDollFrame()
 		bg:ClearAllPoints()
 		bg:SetPoint("CENTER", 0, -5)
 		bg:SetSize(210, 30)
-		bg:SetVertexColor(r * 0.7, g * 0.7, b * 0.7)
+		bg:SetVertexColor(r, g, b, 0.5)
 	end
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
@@ -75,22 +75,22 @@ local function styleCPaperDollFrame()
 
 		-- Copied from ElvUI
 		local function ColorizeStatPane(frame)
-			if frame.leftGrad then frame.leftGrad:Hide() end
-			if frame.rightGrad then frame.rightGrad:Hide() end
+			if frame.leftGrad then frame.leftGrad:StripTextures() end
+			if frame.rightGrad then frame.rightGrad:StripTextures() end
 
 			frame.leftGrad = frame:CreateTexture(nil, "BORDER")
 			frame.leftGrad:SetWidth(80)
 			frame.leftGrad:SetHeight(frame:GetHeight())
 			frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 			frame.leftGrad:SetTexture(E.media.blankTex)
-			frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.35, r, g, b, 0)
+			frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.5, r, g, b, 0)
 
 			frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 			frame.rightGrad:SetWidth(80)
 			frame.rightGrad:SetHeight(frame:GetHeight())
 			frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 			frame.rightGrad:SetTexture([[Interface\BUTTONS\WHITE8X8]])
-			frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.35)
+			frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.5)
 		end
 		CharacterStatsPane.ItemLevelFrame.Background:SetAlpha(0)
 		ColorizeStatPane(CharacterStatsPane.ItemLevelFrame)
