@@ -187,7 +187,7 @@ local title
 local function addTitle(text)
 	if not title then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(text..":", 0, 191, 250)
+		GameTooltip:AddLine(text..":", 1, .8, .1)
 		title = true
 	end
 end
@@ -210,8 +210,8 @@ MB.OnEnter = function(self)
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
 	GameTooltip:AddLine(format(FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 0, 191, 250, 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 0, 191, 250, 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 1, .8, .1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 1, .8, .1, 1, 1, 1)
 
 	-- World bosses
 	title = false
