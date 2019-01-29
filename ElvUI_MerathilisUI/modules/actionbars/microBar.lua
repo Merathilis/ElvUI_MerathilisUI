@@ -239,7 +239,7 @@ MB.OnEnter = function(self)
 	for i = 1, GetNumSavedInstances() do
 		local name, _, reset, _, locked, extended, _, isRaid, _, diffName = GetSavedInstanceInfo(i)
 		if isRaid and (locked or extended) then
-			addTitle(RAID_INFO)
+			addTitle(RAID_INFORMATION)
 			if extended then r, g, b = .3, 1, .3 else r, g, b = 1, 1, 1 end
 			GameTooltip:AddDoubleLine(name.." - "..diffName, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
 		end
