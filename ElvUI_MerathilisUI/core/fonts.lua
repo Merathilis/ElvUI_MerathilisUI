@@ -48,12 +48,15 @@ function E:UpdateBlizzardFonts()
 		-- Base fonts
 		--SetFont(NumberFontNormal,					LSM:Fetch('font', 'ElvUI Pixel'), 10, 'MONOCHROMEOUTLINE', 1, 1, 1, 0, 0, 0)
 		SetFont(GameTooltipHeader,					NORMAL, self.db.general.fontSize)
+		SetFont(NumberFont_GameNormal,				NUMBER, 10, "OUTLINE", nil, {0, 0, 0}, 1, -1)
 		SetFont(NumberFont_OutlineThick_Mono_Small,	NUMBER, self.db.general.fontSize, "OUTLINE")
+		SetFont(NumberFont_Small,					NUMBER, 12, "OUTLINE", nil, {0, 0, 0}, 1, -1)
 		SetFont(SystemFont_Shadow_Large_Outline,	NUMBER, 20, "OUTLINE")
-		SetFont(NumberFont_Normal_Med,				NORMAL, 14)
+		SetFont(NumberFont_Normal_Med,				NORMAL, 14, "OUTLINE")
 		SetFont(NumberFont_Outline_Huge,			NUMBER, 28, "OUTLINE", 28)
 		SetFont(NumberFont_Outline_Large,			NUMBER, 15, "OUTLINE")
 		SetFont(NumberFont_Outline_Med,				NUMBER, self.db.general.fontSize*1.1, "OUTLINE")
+		SetFont(NumberFont_Outline_Huge,			NUMBER, 30, "OUTLINE", nil, {0, 0, 0}, 1, -1)
 		SetFont(NumberFont_Shadow_Med,				NORMAL, self.db.general.fontSize) --chat editbox uses this
 		SetFont(NumberFont_Shadow_Small,			NORMAL, self.db.general.fontSize)
 		SetFont(QuestFont,							NORMAL, self.db.general.fontSize)
@@ -87,8 +90,6 @@ function E:UpdateBlizzardFonts()
 		SetFont(FriendsFont_Small,					NORMAL, self.db.general.fontSize)
 		SetFont(FriendsFont_Large,					NORMAL, self.db.general.fontSize)
 		SetFont(FriendsFont_UserText,				NORMAL, self.db.general.fontSize)
-
-		-- new fonts subs
 		SetFont(QuestFont_Shadow_Huge, 				NORMAL, 15, nil, SHADOWCOLOR, NORMALOFFSET); -- Quest Title
 		SetFont(QuestFont_Shadow_Small, 			NORMAL, 14, nil, SHADOWCOLOR, NORMALOFFSET);
 		SetFont(SystemFont_Outline, 				NORMAL, 13, MONOCHROME.."OUTLINE");			 -- Pet level on World map
@@ -136,7 +137,7 @@ function E:UpdateBlizzardFonts()
 		--SetFont(SystemFont_InverseShadow_Small, 	NORMAL, 10);
 		--SetFont(SystemFont_OutlineThick_Huge4,	NORMAL, 26);
 		--SetFont(QuestTitleFont,					NORMAL, 16);
-		SetFont(GameFont_Gigantic,				NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);		-- Used at the install steps
+		SetFont(GameFont_Gigantic,					NORMAL, 32, nil, SHADOWCOLOR, BIGOFFSET);		-- Used at the install steps
 		--SetFont(GameFontHighlightLarge2,			NORMAL, 14);
 		--SetFont(DestinyFontLarge,					NORMAL, 14);
 		SetFont(Game12Font, 						NORMAL, 12);								-- WarboardUI
