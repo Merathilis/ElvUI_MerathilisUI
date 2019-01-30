@@ -231,9 +231,11 @@ function MERAY:UpdatePaperDoll()
 					else
 						itemLevel = self:GetItemLevel(unit, itemLink)
 					end
+
 					if itemLevel and avgEquipItemLevel then
 						frame.ItemLevel:SetText(itemLevel)
 					end
+
 					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.ItemLevel:SetTextColor(r, g, b)
@@ -313,11 +315,13 @@ local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
 
 -- Create the tooltip:
 local scantip = CreateFrame("GameTooltip", "MyScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(UIParent, "ANCHOR_NONE")
-scantip:ClearLines()
+scantip:SetOwner(E.UIParent, "ANCHOR_NONE")
 
 local function GetRealItemLevel(itemLink)
+	if not itemLink then return end
+
 	-- Pass the item link to the tooltip
+	scantip:ClearLines()
 	scantip:SetHyperlink(itemLink)
 
 	-- Scan the tooltip:
@@ -333,6 +337,8 @@ local function GetRealItemLevel(itemLink)
 end
 
 function MERAY:GetItemLevel(unit, itemLink)
+	if not itemLink then return end
+
 	local rarity, itemLevel = select(3, GetItemInfo(itemLink))
 	if rarity == 7 then -- heirloom adjust
 		itemLevel = self:HeirLoomLevel(unit, itemLink)
@@ -345,7 +351,9 @@ end
 
 -- Check missing enchants
 local function CheckEnchants(itemLink)
+	if not itemLink then return end
 	-- Pass the item link to the tooltip
+	scantip:ClearLines()
 	scantip:SetHyperlink(itemLink)
 
 	for i = 1, scantip:NumLines() do
@@ -357,6 +365,8 @@ local function CheckEnchants(itemLink)
 end
 
 function MERAY:GetEnchants(itemLink)
+	if not itemLink then return end
+
 	local enchantInfo = CheckEnchants(itemLink)
 
 	if enchantInfo then
@@ -434,12 +444,14 @@ function MERAY:InitialUpdatePaperDoll()
 	self:BuildInformation()
 
 	-- update player info
-	self:ScheduleTimer("UpdatePaperDoll", 10)
+	self:ScheduleTimer("UpdatePaperDoll", 13)
 
 	initialized = true
 end
 
 local function UpdateiLvLPoints(id)
+	if not id then return end
+
 	if id <= 7 or id == 17 or id == 11 then			-- Left side
 		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
 	elseif id <= 16 then 							-- Right side
@@ -450,6 +462,8 @@ local function UpdateiLvLPoints(id)
 end
 
 local function UpdateGemPoints(id)
+	if not id then return end
+
 	if id <= 7 or id == 17 or id == 11 then 		-- Left side
 		return "LEFT", "RIGHT", 4, 0
 	elseif id <= 16 then						-- Right side
@@ -461,6 +475,8 @@ end
 
 function MERAY:BuildInformation()
 	for id, slotName in pairs(slotIDs) do
+		if not id then return end
+
 		local frame = _G["Character"..slotIDs[id]]
 		local iLvLPoint, iLvLParentPoint, x1, y1 = UpdateiLvLPoints(id)
 		local GemPoint, GemparentPoint, x2, y2 = UpdateGemPoints(id)
@@ -530,9 +546,9 @@ function MERAY:AzeriteGlow()
 		hooksecurefunc(azslot, "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			self.AzeriteTexture:Hide()
 			self.AvailableTraitFrame:Hide()
-			PaperDollItemsFrame.EvaluateHelpTip = function(self) self.UnspentAzeriteHelpBox:Hide() end
+
 			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, {r,g,b,1}, nil, -0.25, nil, 3)
+				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 3)
 			else
 				LCG.PixelGlow_Stop(self)
 			end
