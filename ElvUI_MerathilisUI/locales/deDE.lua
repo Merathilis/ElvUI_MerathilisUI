@@ -105,7 +105,7 @@ L["BfA Invasion"] = true
 L["Local Time"] = "Lokale Zeit"
 L["Realm Time"] = "Server Zeit"
 L["Current Invasion: "] = "Aktuelle Invasion: "
-L["Next Invasion: "] = "Nächste Invasion "
+L["Next Invasion: "] = "Nächste Invasion: "
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
