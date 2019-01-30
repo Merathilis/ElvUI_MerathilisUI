@@ -134,9 +134,67 @@ local questlist = {
 
 -- Check Invasion Status
 local invIndex = {
-	--[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3}, baseTime = 1546844400}, -- 1/7/2019 15:00 [1]
-	[1] = {title = L["BfA Invasion"], duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = 1548000000}, -- 1/6/2019 11:00 [1]
+	[1] = {
+		title = L["Faction Assault"],
+		interval = 68400,
+		duration = 25200,
+		maps = {862, 863, 864, 896, 942, 895},
+		timeTable = {4, 1, 6, 2, 5, 3},
+		baseTime = {
+			US = 1548032400, -- 01/20/2019 17:00 UTC-8
+			EU = 1548000000, -- 01/20/2019 16:00 UTC+0
+			CN = 1546743600, -- 01/06/2019 11:00 UTC+8
+		},
+	},
+	[2] = {
+		title = L["Legion Invasion"],
+		interval = 66600,
+		duration = 21600,
+		maps = {630, 641, 650, 634},
+		timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
+		baseTime = {
+			US = 1547614800, -- 01/15/2019 21:00 UTC-8
+			EU = 1547586000, -- 01/15/2019 21:00 UTC+0
+			CN = 1546844400, -- 01/07/2019 15:00 UTC+8
+		},
+	},
 }
+
+local function GetCurrentInvasion(index)
+	local inv = invIndex[index]
+	local currentTime = time()
+	local baseTime = inv.baseTime[region]
+	local duration = inv.duration
+	local interval = inv.interval
+	local elapsed = mod(currentTime - baseTime, interval)
+	if elapsed < duration then
+		local count = #inv.timeTable
+		local round = mod(floor((currentTime - baseTime) / interval) + 1, count)
+		if round == 0 then round = count end
+		return duration - elapsed, C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name
+	end
+end
+
+local function GetFutureInvasion(index, length)
+	if not length then length = 1 end
+	local tbl, i = {}
+	local inv = invIndex[index]
+	local currentTime = time()
+	local baseTime = inv.baseTime[region]
+	local interval = inv.interval
+	local count = #inv.timeTable
+	local elapsed = mod(currentTime - baseTime, interval)
+	local nextTime = interval - elapsed + currentTime
+	local round = mod(floor((nextTime - baseTime) / interval) + 1, count)
+	for i = 1, length do
+		if round == 0 then round = count end
+		tinsert(tbl, {nextTime, C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name})
+		nextTime = nextTime + interval
+		round = mod(round + 1, count)
+	end
+
+	return tbl
+end
 
 local mapAreaPoiIDs = {
 	[630] = 5175,
@@ -165,22 +223,6 @@ local function CheckInvasion(index)
 			return timeLeft, name
 		end
 	end
-end
-
-local function GetNextTime(baseTime, index)
-	local currentTime = time()
-	local duration = invIndex[index].duration
-	local elapsed = mod(currentTime - baseTime, duration)
-	return duration - elapsed + currentTime
-end
-
-local function GetNextLocation(nextTime, index)
-	local inv = invIndex[index]
-	local count = #inv.timeTable
-	local elapsed = nextTime - inv.baseTime
-	local round = mod(floor(elapsed / inv.duration) + 1, count)
-	if round == 0 then round = count end
-	return C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name
 end
 
 local title
@@ -286,16 +328,30 @@ MB.OnEnter = function(self)
 	for index, value in ipairs(invIndex) do
 		title = false
 		addTitle(value.title)
-		local timeLeft, zoneName = CheckInvasion(index)
-		local nextTime = GetNextTime(value.baseTime, index)
-		if timeLeft then
-			timeLeft = timeLeft/60
-			if timeLeft < 60 then r,g,b = 1,0,0 else r,g,b = 0,1,0 end
-			GameTooltip:AddDoubleLine(L["Current Invasion: "]..zoneName, format("%.2d:%.2d", timeLeft/60, timeLeft%60), 1,1,1, r,g,b)
+		if value.baseTime[region] then
+			-- baseTime provided
+			local timeLeft, zoneName = GetCurrentInvasion(index)
+			if timeLeft then
+				timeLeft = timeLeft / 60
+				if timeLeft < 60 then r ,g, b = 1, 0, 0 else r, g, b = 0, 1, 0 end
+				GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			end
+			local futureTable, i = GetFutureInvasion(index, 2)
+			for i = 1, #futureTable do
+				local nextTime, zoneName = unpack(futureTable[i])
+				GameTooltip:AddDoubleLine(L["Next Invasion: "] .. zoneName, date("%d/%m - %H:%M", nextTime), 1, 1, 1)
+			end
+		else
+			local timeLeft, zoneName = CheckInvasion(index)
+			if timeLeft then
+				timeLeft = timeLeft / 60
+				if timeLeft < 60 then r, g, b = 1, 0, 0 else r, g, b = 0, 1, 0 end
+				GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			else
+				GameTooltip:AddLine(L["Missing invasion info on your realm."])
+			end
 		end
-		GameTooltip:AddDoubleLine(L["Next Invasion: "]..GetNextLocation(nextTime, index), date("%m/%d %H:%M", nextTime), 1,1,1, 1,1,1)
 	end
-
 	GameTooltip:Show()
 end
 

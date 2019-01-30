@@ -101,11 +101,12 @@ L["Blingtron"] = "Blingtron Daily Gift"
 L["Mean One"] = "Feast of Winter Veil"
 L["Timewarped"] = "500 Timewarped Badges"
 L["Legion Invasion"] = true
-L["BfA Invasion"] = true
+L["Faction Assault"] = true
 L["Local Time"] = true
 L["Realm Time"] = true
 L["Current Invasion: "] = true
 L["Next Invasion: "] = true
+L["Missing invasion info on your realm."] = true
 
 -- Misc
 L["Artifact Power"] = true

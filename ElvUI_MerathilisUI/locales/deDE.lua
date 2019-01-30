@@ -101,11 +101,12 @@ L["Blingtron"] = "Blingtron Tägliches Geschenk"
 L["Mean One"] = "Winterhauchfest"
 L["Timewarped"] = "500 Zeitverzerrte Abzeichen"
 L["Legion Invasion"] = true
-L["BfA Invasion"] = true
+L["Faction Assault"] = "Fraktionsübergriff"
 L["Local Time"] = "Lokale Zeit"
 L["Realm Time"] = "Server Zeit"
 L["Current Invasion: "] = "Aktuelle Invasion: "
 L["Next Invasion: "] = "Nächste Invasion: "
+L["Missing invasion info on your realm."] = "Fehlende Invasions-Informationen auf deinem Realm."
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"
