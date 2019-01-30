@@ -352,6 +352,7 @@ end
 -- Check missing enchants
 local function CheckEnchants(itemLink)
 	if not itemLink then return end
+
 	-- Pass the item link to the tooltip
 	scantip:ClearLines()
 	scantip:SetHyperlink(itemLink)
@@ -558,6 +559,7 @@ end
 
 function MERAY:UpdateIlvlFont()
 	local db = E.db.mui.armory.stats.ItemLevel
+
 	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(LSM:Fetch('font', db.font), db.size or 12, db.outline)
 	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
 	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
