@@ -129,6 +129,7 @@ P["mui"] = {
 		["scale"] = 1,
 		["hideInCombat"] = true,
 		["hideInOrderHall"] = false,
+		["tooltip"] = true,
 		["text"] = {
 			["position"] = "BOTTOM",
 			["friends"] = true,

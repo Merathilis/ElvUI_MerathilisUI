@@ -193,6 +193,7 @@ local function addTitle(text)
 end
 
 MB.OnEnter = function(self)
+	if E.db.mui.microBar.tooltip ~= true then return end
 	RequestRaidInfo()
 
 	if not GameTooltip:IsForbidden() then

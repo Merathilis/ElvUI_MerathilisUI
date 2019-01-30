@@ -11,7 +11,7 @@ local MERB = MER:GetModule("mUIBags")
 local function BagTable()
 	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
-		name = E.NewSign..MERB.modName,
+		name = MERB.modName,
 		order = 19,
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,

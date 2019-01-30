@@ -20,7 +20,7 @@ local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		order = 3,
-		name = E.NewSign..MERAY.modName,
+		name = MERAY.modName,
 		childGroups = 'tab',
 		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
 		hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
