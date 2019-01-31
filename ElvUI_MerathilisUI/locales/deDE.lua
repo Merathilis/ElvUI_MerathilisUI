@@ -36,6 +36,9 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 
 -- Bags
 L["Transparent Slots"] = "Transparente Schaltflächen"
+L["Equipment Manager"] = "Ausrüstungsmanager"
+L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
+L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"

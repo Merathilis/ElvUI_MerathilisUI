@@ -26,6 +26,7 @@ P["mui"] = {
 
 	["bags"] = {
 		["transparentSlots"] = true,
+		["equipOverlay"] = true,
 	},
 
 	["chat"] = {
