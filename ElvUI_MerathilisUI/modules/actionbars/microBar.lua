@@ -12,8 +12,10 @@ local strfind = strfind
 
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local GetCVar = GetCVar
 local date = date
 local BNGetNumFriends = BNGetNumFriends
+local GetCurrentRegion = GetCurrentRegion
 local GetGameTime = GetGameTime
 local GetGuildRosterInfo = GetGuildRosterInfo
 local GetNumGuildMembers = GetNumGuildMembers
