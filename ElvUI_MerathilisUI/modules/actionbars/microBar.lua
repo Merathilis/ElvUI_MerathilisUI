@@ -142,17 +142,6 @@ end
 -- Check Invasion Status
 local invIndex = {
 	[1] = {
-		title = L["Legion Invasion"],
-		duration = 66600,
-		maps = {630, 641, 650, 634},
-		timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
-		baseTime = {
-			US = 1547614800, -- 01/15/2019 21:00 UTC-8
-			EU = 1547586000, -- 01/15/2019 21:00 UTC+0
-			CN = 1546844400, -- 01/07/2019 15:00 UTC+8
-		},
-	},
-	[2] = {
 		title = L["Faction Assault"],
 		duration = 68400,
 		maps = {862, 863, 864, 896, 942, 895},
