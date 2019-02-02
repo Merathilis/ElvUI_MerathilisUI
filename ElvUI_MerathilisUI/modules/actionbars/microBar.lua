@@ -132,6 +132,13 @@ local questlist = {
 	{name = L["Timewarped"], id = 45799, texture = 1530590},	-- MoP
 }
 
+-- Invasion Code --
+local region = GetCVar("portal")
+if not region or #region ~= 2 then
+	local regionID = GetCurrentRegion()
+	region = regionID and ({ "US", "KR", "EU", "TW", "CN" })[regionID]
+end
+
 -- Check Invasion Status
 local invIndex = {
 	[1] = {
@@ -139,14 +146,22 @@ local invIndex = {
 		duration = 66600,
 		maps = {630, 641, 650, 634},
 		timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
-		baseTime = 1546844400 -- 1/30 9:00 [1]
+		baseTime = {
+			US = 1547614800, -- 01/15/2019 21:00 UTC-8
+			EU = 1547586000, -- 01/15/2019 21:00 UTC+0
+			CN = 1546844400, -- 01/07/2019 15:00 UTC+8
+		},
 	},
 	[2] = {
 		title = L["Faction Assault"],
 		duration = 68400,
 		maps = {862, 863, 864, 896, 942, 895},
 		timeTable = {4, 1, 6, 2, 5, 3},
-		baseTime = 1546743600 -- 12/13 17:00 [1]
+		baseTime = {
+			US = 1548032400, -- 01/20/2019 17:00 UTC-8
+			EU = 1548000000, -- 01/20/2019 16:00 UTC+0
+			CN = 1546743600, -- 01/06/2019 11:00 UTC+8
+		},
 	},
 }
 
@@ -180,7 +195,9 @@ local function CheckInvasion(index)
 end
 
 local function GetNextTime(baseTime, index)
+	local inv = invIndex[index]
 	local currentTime = time()
+	local baseTime = inv.baseTime[region]
 	local duration = invIndex[index].duration
 	local elapsed = mod(currentTime - baseTime, duration)
 	return duration - elapsed + currentTime
@@ -189,7 +206,8 @@ end
 local function GetNextLocation(nextTime, index)
 	local inv = invIndex[index]
 	local count = #inv.timeTable
-	local elapsed = nextTime - inv.baseTime
+	local baseTime = inv.baseTime[region]
+	local elapsed = nextTime - baseTime
 	local round = mod(floor(elapsed / inv.duration) + 1, count)
 
 	if round == 0 then
@@ -315,18 +333,22 @@ function MB.OnEnter(self)
 	for index, value in ipairs(invIndex) do
 		title = false
 		addTitle(value.title)
-		local timeLeft, zoneName = CheckInvasion(index)
-		local nextTime = GetNextTime(value.baseTime, index)
-		if timeLeft then
-			timeLeft = timeLeft / 60
-			if timeLeft < 60 then
-				r, g, b = 1, 0, 0
-			else
-				r, g, b = 0, 1, 0
+		if value.baseTime[region] and value.baseTime[region] ~= '' then
+			local timeLeft, zoneName = CheckInvasion(index)
+			local nextTime = GetNextTime(value.baseTime, index)
+			if timeLeft then
+				timeLeft = timeLeft / 60
+				if timeLeft < 60 then
+					r, g, b = 1, 0, 0
+				else
+					r, g, b = 0, 1, 0
+				end
+				GameTooltip:AddDoubleLine(L["Current Invasion: "]..zoneName, format("%.2d:%.2d", timeLeft/60, timeLeft%60), 1, 1, 1, r, g, b)
 			end
-			GameTooltip:AddDoubleLine(L["Current Invasion: "]..zoneName, format("%.2d:%.2d", timeLeft/60, timeLeft%60), 1, 1, 1, r, g, b)
+			GameTooltip:AddDoubleLine(L["Next Invasion: "]..GetNextLocation(nextTime, index), date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+		else
+			GameTooltip:AddDoubleLine(L["Missing invasion info on your realm."])
 		end
-		GameTooltip:AddDoubleLine(L["Next Invasion: "]..GetNextLocation(nextTime, index), date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
 	end
 	GameTooltip:Show()
 end
