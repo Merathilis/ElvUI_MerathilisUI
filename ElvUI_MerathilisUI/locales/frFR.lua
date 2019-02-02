@@ -109,7 +109,6 @@ L["Local Time"] = true
 L["Realm Time"] = true
 L["Current Invasion: "] = true
 L["Next Invasion: "] = true
-L["Missing invasion info on your realm."] = true
 
 -- Misc
 L["Artifact Power"] = true
