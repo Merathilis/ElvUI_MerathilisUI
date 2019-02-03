@@ -64,6 +64,9 @@ L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 L["ChatBar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
+L["Hide Community Chat"] = true
+L["Adds an overlay to the Community Chat. Useful for streamers."] = true
+L["Chat Hidden. Click to show"] = true
 
 -- Information
 L["Information"] = true

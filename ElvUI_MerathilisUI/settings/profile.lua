@@ -36,6 +36,7 @@ P["mui"] = {
 		["hidePlayerBrackets"] = true,
 		["sidePanel"] = false,
 		["chatBar"] = true,
+		["hideChat"] = false,
 	},
 
 	["colors"] = {
