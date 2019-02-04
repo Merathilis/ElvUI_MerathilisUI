@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local SCT = MER:NewModule("ScrollingCombatText", "AceEvent-3.0");
+local SCT = MER:NewModule("ScrollingCombatText", "AceEvent-3.0", "AceTimer-3.0");
 local LibEasing = LibStub("LibEasing-1.0");
 local LSM = E.LSM or E.Libs.LSM
 SCT.modName = L["Combat Text"]
@@ -664,7 +664,7 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 		-- add icons
 		textWithoutIcons = text;
 		if (icon ~= "none" and spellID) then
-			local iconText = "|T"..GetSpellTexture(spellID)..":0|t";
+			local iconText = "|T"..GetSpellTexture(spellID)..":14:14:0:0:64:64:4:60:4:60|t";
 
 			if (icon == "both") then
 				text = iconText..text..iconText;
@@ -680,7 +680,7 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 			return;
 		end
 
-		text = "|T"..GetSpellTexture(spellID)..":0|t";
+		text = "|T"..GetSpellTexture(spellID)..":14:14:0:0:64:64:4:60:4:60|t";
 		textWithoutIcons = text; -- since the icon is by itself, the fontString won't have the strange scaling bug
 	end
 

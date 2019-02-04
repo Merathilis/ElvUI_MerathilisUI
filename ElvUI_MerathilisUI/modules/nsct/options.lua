@@ -46,8 +46,8 @@ local fontFlags = {
 local function CombatTextTable()
 	E.Options.args.mui.args.modules.args.nsct = {
 		type = "group",
-		order = 8,
-		name = SCT.modName..E.NewSign,
+		order = 18,
+		name = E.NewSign..SCT.modName,
 		childGroups = "tab",
 		disabled = function() return IsAddOnLoaded("NameplateSCT") end,
 		get = function(info) return E.db.mui.nsct[ info[#info] ] end,
