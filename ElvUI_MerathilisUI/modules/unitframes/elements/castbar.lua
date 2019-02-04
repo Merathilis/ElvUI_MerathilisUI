@@ -119,7 +119,6 @@ function MCA:CastBarHooks()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", MCA.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", MCA.PostCast)
-			hooksecurefunc(castbar, "PostCastUpdate", MCA.PostCast)
 		end
 	end
 
@@ -128,7 +127,6 @@ function MCA:CastBarHooks()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", MCA.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", MCA.PostCast)
-			hooksecurefunc(castbar, "PostCastUpdate", MCA.PostCast)
 		end
 	end
 
@@ -137,7 +135,6 @@ function MCA:CastBarHooks()
 		if castbar then
 			hooksecurefunc(castbar, "PostCastStart", MCA.PostCast)
 			hooksecurefunc(castbar, "PostCastInterruptible", MCA.PostCast)
-			hooksecurefunc(castbar, "PostCastUpdate", MCA.PostCast)
 		end
 	end
 end
