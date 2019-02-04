@@ -66,15 +66,10 @@ local function SetupCVars()
 	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
-	if IsAddOnLoaded("NameplateSCT") then
-		SetCVar("floatingCombatTextCombatDamage", 0)
-		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
-		SetCVar("floatingCombatTextCombatHealing", 1)
-	else
-		SetCVar("floatingCombatTextCombatDamage", 1)
-		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 1)
-		SetCVar("floatingCombatTextCombatHealing", 1)
-	end
+	-- Disable it because of NSCT
+	SetCVar("floatingCombatTextCombatDamage", 0)
+	SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
+	SetCVar("floatingCombatTextCombatHealing", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
