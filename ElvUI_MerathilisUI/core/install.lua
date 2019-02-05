@@ -858,7 +858,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 4
+		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
