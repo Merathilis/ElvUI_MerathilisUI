@@ -683,6 +683,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false,
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
