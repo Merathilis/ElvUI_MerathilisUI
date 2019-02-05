@@ -509,7 +509,7 @@ function MERAY:AzeriteGlow()
 			self.AvailableTraitFrame:Hide()
 
 			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 3)
+				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 2)
 			else
 				LCG.PixelGlow_Stop(self)
 			end
