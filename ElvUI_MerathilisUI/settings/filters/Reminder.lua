@@ -52,6 +52,20 @@ MER.ReminderList = {
 		},
 	},
 
+	SHAMAN = {
+		["Shield"] = {
+			["spellGroup"] = {
+				[192106] = true, -- Lightning Shield
+				["defaultIcon"] = 192106,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 2,
+		},
+	},
+
 	WARRIOR = {
 		["Stamina"] = {
 			["spellGroup"] = {
