@@ -30,8 +30,6 @@ local function styleWarboard()
 		option.Header.Text.SetTextColor = MER.dummy
 		option.OptionText:SetTextColor(1, 1, 1)
 		option.OptionText.SetTextColor = MER.dummy
-		--option.LeadingText:SetTextColor(1, 1, 1)
-		--option.LeadingText.SetTextColor = MER.dummy
 		option.ArtworkBorder:SetAlpha(0)
 	end
 end
