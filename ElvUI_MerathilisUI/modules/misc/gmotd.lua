@@ -33,7 +33,6 @@ function MI:GMOTD()
 		gmotd:SetFrameStrata("TOOLTIP")
 		gmotd:SetScript("OnMouseDown", gmotd.StartMoving)
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
-
 		gmotd:CreateBackdrop("Transparent")
 		gmotd.backdrop:SetAllPoints()
 
@@ -45,6 +44,7 @@ function MI:GMOTD()
 		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -3)
 		S:HandleButton(gmotd.button)
 		gmotd.button:SetScript("OnClick", function(self)
+			E.db.mui.misc.gmotd[gmotd.msg] = true
 			gmotd:Hide()
 		end)
 
@@ -71,7 +71,8 @@ function MI:GMOTD()
 				guild = select(1, GetGuildInfo("player"))
 			end
 
-			if (msg and msg ~= "") and not InCombatLockdown() then
+			E.db.mui.misc.gmotd = E.db.mui.misc.gmotd or {}
+			if (msg and msg ~= "" and not E.db.mui.misc.gmotd[gmotd.msg]) and not InCombatLockdown() then
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
