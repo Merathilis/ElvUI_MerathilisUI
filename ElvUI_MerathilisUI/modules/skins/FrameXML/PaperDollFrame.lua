@@ -50,8 +50,10 @@ local function styleCPaperDollFrame()
 		CharacterStatsPane[type].backdrop:Hide()
 	end
 
-	local function CharacterStatFrameCategoryTemplate(Button)
-		local bg = Button.Background
+	local function CharacterStatFrameCategoryTemplate(frame)
+		frame:StripTextures()
+
+		local bg = frame.Background
 		bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
 		bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
 		bg:ClearAllPoints()
