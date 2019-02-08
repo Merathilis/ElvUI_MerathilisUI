@@ -16,7 +16,9 @@ local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: gmotd, GUILD_MOTD_LABEL2, UISpecialFrames
+-- GLOBALS: GUILD_MOTD_LABEL2, UISpecialFrames
+
+local gmotd
 
 function MI:GMOTD()
 	-- MainFrame
@@ -44,7 +46,6 @@ function MI:GMOTD()
 		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -3)
 		S:HandleButton(gmotd.button)
 		gmotd.button:SetScript("OnClick", function(self)
-			E.db.mui.misc.gmotd[gmotd.msg] = true
 			gmotd:Hide()
 		end)
 
@@ -71,8 +72,7 @@ function MI:GMOTD()
 				guild = select(1, GetGuildInfo("player"))
 			end
 
-			E.db.mui.misc.gmotd = E.db.mui.misc.gmotd or {}
-			if (msg and msg ~= "" and not E.db.mui.misc.gmotd[gmotd.msg]) and not InCombatLockdown() then
+			if (msg and msg ~= "") and not InCombatLockdown() then
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
