@@ -323,7 +323,7 @@ end
 
 function SMB:Initialize()
 	if E.private.general.minimap.enable ~= true or E.db.mui["smb"].enable ~= true then return end
-	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true or COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
+	if (COMP.PA or COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
 
 	SMB.db = E.db.mui["smb"]
 
