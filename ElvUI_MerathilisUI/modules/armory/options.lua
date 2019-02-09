@@ -68,8 +68,18 @@ local function ArmoryTable()
 				name = L["Slot Gradient"],
 				desc = L["Shows a gradiation texture on the Character Slots."],
 			},
-			durability = {
+			spacer = {
+				type = "description",
 				order = 8,
+				name = ""
+			},
+			information = {
+				type = "description",
+				order = 9,
+				name = L["ARMORY_DESC"],
+			},
+			durability = {
+				order = 20,
 				type = "group",
 				name = L["Durability"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -116,7 +126,7 @@ local function ArmoryTable()
 				},
 			},
 			itemlevel = {
-				order = 9,
+				order = 21,
 				type = "group",
 				name = L["Itemlevel"],
 				disabled = function() return not E.db.mui.armory.enable end,
@@ -192,7 +202,7 @@ local function ArmoryTable()
 			stats = {
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
-				order = 10,
+				order = 22,
 				disabled = function() return not E.db.mui.armory.enable end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
@@ -261,8 +271,7 @@ local function ArmoryTable()
 			Fonts = {
 				type = "group",
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
-				-- guiInline = true,
-				order = 11,
+				order = 23,
 				args = {
 					IlvlFont = {
 						type = 'group',
@@ -357,7 +366,7 @@ local function ArmoryTable()
 				},
 			},
 			gradient = {
-				order = 12,
+				order = 24,
 				type = 'group',
 				name = L["Gradient"],
 				disabled = function() return not E.db.mui.armory.enable end,

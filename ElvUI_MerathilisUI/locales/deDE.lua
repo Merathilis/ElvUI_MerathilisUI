@@ -219,6 +219,11 @@ L["Clean Boss Button"] = "Geskinnte Boss Taste"
 
 -- Armory
 L["Armory"] = "Arsenal"
+L["ARMORY_DESC"] = [=[ Der |cffff7d0aArmory Mode|r funktioniert nur mit der aktuellen Erweiterung von World of Warcraft. Es kann also passieren dass:
+
+- Sockelwarnungen auf alten Gegenständen angezeigt werden, wo keine Sockel vorhanden sind.
+- Verzauberungen falsch angezeigt werden.
+]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
 L["Azerite Buttons"] = "Azerittasten"
 L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
