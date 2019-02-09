@@ -112,6 +112,7 @@ L["Local Time"] = "Lokale Zeit"
 L["Realm Time"] = "Server Zeit"
 L["Current Invasion: "] = "Aktuelle Invasion: "
 L["Next Invasion: "] = "Nächste Invasion: "
+L["Mythic Dungeon"] = "Mythische Instanz"
 
 -- Misc
 L["Artifact Power"] = "Artefaktmacht"

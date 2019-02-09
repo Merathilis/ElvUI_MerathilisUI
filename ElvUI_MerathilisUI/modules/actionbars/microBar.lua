@@ -255,7 +255,7 @@ function MB.OnEnter(self)
 	for i = 1, GetNumSavedInstances() do
 		local name, _, reset, diff, locked, extended = GetSavedInstanceInfo(i)
 		if diff == 23 and (locked or extended) then
-			addTitle(DUNGEON_DIFFICULTY3..DUNGEONS)
+			addTitle(L["Mythic Dungeon"])
 			if extended then
 				r, g, b = .3, 1, .3
 			else

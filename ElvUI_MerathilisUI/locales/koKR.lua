@@ -112,6 +112,7 @@ L["Local Time"] = true
 L["Realm Time"] = true
 L["Current Invasion: "] = true
 L["Next Invasion: "] = true
+L["Mythic Dungeon"] = true
 
 -- Misc
 L["Artifact Power"] = true
