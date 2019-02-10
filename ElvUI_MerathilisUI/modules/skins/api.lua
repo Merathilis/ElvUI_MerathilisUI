@@ -43,61 +43,6 @@ MERS.ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
-function S:HandleCloseButton(f, point, text)
-	assert(f, "does not exist.")
-
-	f:StripTextures()
-
-	-- Create backdrop for the few close buttons that do not use original close button
-	if not f.backdrop then
-		f:CreateBackdrop()
-		f.backdrop:Point("TOPLEFT", 7, -8)
-		f.backdrop:Point("BOTTOMRIGHT", -8, 8)
-		f.backdrop:SetTemplate("NoBackdrop")
-		f:SetHitRectInsets(6, 6, 7, 7)
-	end
-
-	-- Create an own close button texture on the backdrop
-	if not f.backdrop.img then
-		f.backdrop.img = f.backdrop:CreateTexture(nil, "OVERLAY")
-		f.backdrop.img:SetSize(12, 12)
-		f.backdrop.img:Point("CENTER")
-		f.backdrop.img:SetTexture("Interface\\AddOns\\ElvUI\\media\\textures\\close.tga")
-		f.backdrop.img:SetVertexColor(1, 1, 1)
-	end
-
-	-- ElvUI code expects the element to be there. It won't show up for original close buttons.
-	if not f.text then
-		f.text = f:CreateFontString(nil, "OVERLAY")
-		f.text:SetFont([[Interface\AddOns\ElvUI\media\fonts\PT_Sans_Narrow.ttf]], 16, 'OUTLINE')
-		f.text:SetText(text)
-		f.text:SetJustifyH("CENTER")
-		f.text:Point("CENTER", f, "CENTER")
-	end
-
-	-- Otherwise we have an additional white texture
-	f:SetPushedTexture("")
-
-	f:HookScript("OnEnter", function(self)
-		self.backdrop.img:SetVertexColor(unpack(E["media"].rgbvaluecolor))
-		self.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-	end)
-
-	f:HookScript("OnLeave", function(self)
-		self.backdrop.img:SetVertexColor(1, 1, 1)
-		self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-	end)
-
-	-- Hide text if button is using original skin
-	if f.text and f.noBackdrop then
-		f.text:SetAlpha(0)
-	end
-
-	if point then
-		f:Point("TOPRIGHT", point, "TOPRIGHT", 2, 2)
-	end
-end
-
 function MERS:ReskinMaxMinFrame(frame)
 	assert(frame, "does not exist.")
 
