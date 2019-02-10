@@ -26,7 +26,6 @@ local function styleLFG()
 		local count = _G[buttonName.."Count"]
 		local na = _G[buttonName.."NameFrame"]
 
-		MERS:CreateBG(icon)
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetDrawLayer("OVERLAY")
 		count:SetDrawLayer("OVERLAY")
