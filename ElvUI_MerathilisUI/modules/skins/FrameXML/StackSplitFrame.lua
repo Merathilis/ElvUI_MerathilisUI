@@ -16,20 +16,6 @@ local function styleStyleStackSplitFrame()
 
 	local StackSplitFrame = _G.StackSplitFrame
 	StackSplitFrame.backdrop:Styling()
-
-	local buttons = {StackSplitFrame.LeftButton, StackSplitFrame.RightButton}
-	for _, btn in pairs(buttons) do
-		S:HandleNextPrevButton(btn)
-		btn:Size(14, 18)
-
-		btn:ClearAllPoints()
-		if btn == StackSplitFrame.LeftButton then
-			btn:Point('LEFT', StackSplitFrame.bg1, 'LEFT', 4, 0)
-			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
-		else
-			btn:Point('RIGHT', StackSplitFrame.bg1, 'RIGHT', -4, 0)
-		end
-	end
 end
 
 S:AddCallback("mUIStackSplitFrame", styleStyleStackSplitFrame)

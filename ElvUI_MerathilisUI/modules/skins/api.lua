@@ -43,41 +43,6 @@ MERS.ArrowRotation = {
 	['RIGHT'] = 1.57,
 }
 
-function MERS:ReskinMaxMinFrame(frame)
-	assert(frame, "does not exist.")
-
-	frame:StripTextures()
-
-	for name, direction in pairs ({ ["MaximizeButton"] = 'UP', ["MinimizeButton"] = 'DOWN'}) do
-		local button = frame[name]
-
-		if button then
-			local normal = button:GetNormalTexture()
-
-			button:SetSize(18, 18)
-			button:ClearAllPoints()
-			button:SetPoint("CENTER")
-			button:SetHitRectInsets(1, 1, 1, 1)
-
-			button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-			button:GetNormalTexture():SetRotation(MERS.ArrowRotation[direction])
-			button:GetNormalTexture():SetInside(button, 2, 2)
-
-			button:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-			button:GetPushedTexture():SetRotation(MERS.ArrowRotation[direction])
-			button:GetPushedTexture():SetInside(button)
-
-			button:SetTemplate("NoBackdrop")
-
-			button:HookScript('OnEnter', function(self) self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor)) normal:SetVertexColor(unpack(E["media"].rgbvaluecolor)) end)
-			button:HookScript('OnLeave', function(self) self:SetBackdropBorderColor(unpack(E["media"].bordercolor)) normal:SetVertexColor(1, 1, 1) end)
-
-			MERS:Reskin(button, false, false)
-		end
-	end
-end
-
-
 function MERS:ReskinEditBox(frame)
 	-- Hide ElvUI's backdrop
 	if frame.backdrop then
@@ -304,67 +269,6 @@ function MERS:CreateBD(f, a)
 
 	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
 	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-end
-
-function S:HandleNextPrevButton(btn, useVertical, inverseDirection)
-	inverseDirection = inverseDirection or btn:GetName() and (find(btn:GetName():lower(), 'left') or find(btn:GetName():lower(), 'prev') or find(btn:GetName():lower(), 'decrement') or find(btn:GetName():lower(), 'back'))
-
-	btn:StripTextures()
-
-	if not btn.img then
-		btn.img = btn:CreateTexture(nil, 'ARTWORK')
-		btn.img:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		btn.img:SetSize(12, 12)
-		btn.img:Point("CENTER")
-		btn.img:SetVertexColor(1, 1, 1)
-
-		btn:SetNormalTexture(E["media"].normTex)
-		btn:SetPushedTexture(E["media"].normTex)
-		btn:SetDisabledTexture(E["media"].normTex)
-
-		btn:HookScript('OnMouseDown', function(btn)
-			if btn:IsEnabled() then
-				btn.img:Point("CENTER", -1, -1)
-				btn.img:SetVertexColor(r, g, b)
-			end
-		end)
-
-		btn:HookScript('OnMouseUp', function(btn)
-			btn.img:Point("CENTER", 0, 0)
-			btn.img:SetVertexColor(1, 1, 1)
-		end)
-
-		btn:HookScript('OnDisable', function(btn)
-			SetDesaturation(btn.img, true)
-			btn.img:SetAlpha(0.3)
-		end)
-
-		btn:HookScript('OnEnable', function(btn)
-			SetDesaturation(btn.img, false)
-			btn.img:SetAlpha(1.0)
-		end)
-
-		if not btn:IsEnabled() then
-			btn:GetScript('OnDisable')(btn)
-		end
-	end
-
-	if useVertical then
-		if inverseDirection then
-			btn.img:SetRotation(MERS.ArrowRotation['UP'])
-		else
-			btn.img:SetRotation(MERS.ArrowRotation['DOWN'])
-		end
-	else
-		if inverseDirection then
-			btn.img:SetRotation(MERS.ArrowRotation['LEFT'])
-		else
-			btn.img:SetRotation(MERS.ArrowRotation['RIGHT'])
-		end
-	end
-
-	S:HandleButton(btn)
-	btn:Size(btn:GetWidth() - 7, btn:GetHeight() - 7)
 end
 
 -- ClassColored ScrollBars
@@ -774,7 +678,6 @@ hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
-hooksecurefunc(S, "HandleMaxMinFrame", MERS.ReskinMaxMinFrame)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
