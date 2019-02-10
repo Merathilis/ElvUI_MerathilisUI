@@ -211,9 +211,11 @@ function MERS:CreateBG(frame)
 	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:Point("TOPLEFT", frame, -1, 1)
-	bg:Point("BOTTOMRIGHT", frame, 1, -1)
+	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
+	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E["media"].blankTex)
+	bg:SetSnapToPixelGrid(false)
+	bg:SetTexelSnappingBias(0)
 	bg:SetVertexColor(0, 0, 0)
 
 	return bg
@@ -226,10 +228,12 @@ function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
 	f:SetSize(w, h)
 	f:SetFrameStrata("BACKGROUND")
 	local gf = f:CreateTexture(nil, "BACKGROUND")
-	gf:SetPoint("TOPLEFT", f, -1, 1)
-	gf:SetPoint("BOTTOMRIGHT", f, 1, -1)
+	gf:SetPoint("TOPLEFT", f, -E.mult, E.mult)
+	gf:SetPoint("BOTTOMRIGHT", f, E.mult, -E.mult)
 	gf:SetTexture(E["media"].muiNormTex)
 	gf:SetVertexColor(r, g, b)
+	gf:SetSnapToPixelGrid(false)
+	gf:SetTexelSnappingBias(0)
 	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 
@@ -242,6 +246,8 @@ function MERS:CreateGradient(f)
 	tex:SetPoint("BOTTOMRIGHT", -1, 1)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
 	tex:SetVertexColor(.3, .3, .3, .15)
+	tex:SetSnapToPixelGrid(false)
+	tex:SetTexelSnappingBias(0)
 
 	return tex
 end
@@ -292,7 +298,8 @@ function MERS:CreateBD(f, a)
 	f:SetBackdrop({
 		bgFile = E["media"].normTex,
 		edgeFile = E["media"].normTex,
-		edgeSize = E.mult,
+		edgeSize = E.mult*1.1, -- latest Pixel Stuff changes 10.02.2019
+		insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
 
 	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
