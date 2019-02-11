@@ -28,9 +28,14 @@ local function styleLFG()
 
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetDrawLayer("OVERLAY")
+
 		count:SetDrawLayer("OVERLAY")
+
 		na:SetColorTexture(0, 0, 0, .25)
-		na:SetSize(118, 39)
+		na:SetSize(110, 39)
+		na:ClearAllPoints()
+		na:SetPoint("LEFT", icon, "RIGHT", -7, 0)
+
 		if button.IconBorder then
 			button.IconBorder:SetAlpha(0)
 		end
