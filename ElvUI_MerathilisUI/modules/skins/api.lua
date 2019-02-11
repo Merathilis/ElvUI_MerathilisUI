@@ -7,7 +7,7 @@ MERS.modName = L["Skins/AddOns"]
 -- Lua functions
 local _G = _G
 local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
-local find, lower = string.find, string.lower
+local find, lower, strfind = string.find, string.lower, strfind
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
@@ -272,45 +272,42 @@ function MERS:CreateBD(f, a)
 end
 
 -- ClassColored ScrollBars
-function MERS:ReskinScrollBar(frame, thumbTrim)
-	if frame:GetName() then
-		if frame.trackbg and frame.trackbg.SetTemplate then
-			frame.trackbg:SetTemplate("Transparent", true, true)
-		end
-
-		if _G[frame:GetName().."ScrollUpButton"] and _G[frame:GetName().."ScrollDownButton"] then
-			if frame.thumbbg and frame.thumbbg.backdropTexture then
-				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
-			end
-		end
-	else
-		if frame.trackbg and frame.trackbg.SetTemplate then
-			frame.trackbg:SetTemplate("Transparent", true, true)
-		end
-
-		if frame.ScrollUpButton and frame.ScrollDownButton then
-			if frame.thumbbg and frame.thumbbg.backdropTexture then
-				frame.thumbbg.backdropTexture.SetVertexColor = nil
-				frame.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-				frame.thumbbg.backdropTexture.SetVertexColor = E.noop
-			end
-		end
-	end
+local function GrabScrollBarElement(frame, element)
+	local FrameName = frame:GetDebugName()
+	return frame[element] or FrameName and (_G[FrameName..element] or strfind(FrameName, element)) or nil
 end
 
-function MERS:ReskinScrollSlider(Slider, thumbTrim)
-	local parent = Slider:GetParent()
+function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
+	local parent = frame:GetParent()
 
-	if Slider.trackbg and Slider.trackbg.SetTemplate then
-		Slider.trackbg:SetTemplate("Transparent", true, true)
+	local ScrollUpButton = GrabScrollBarElement(frame, 'ScrollUpButton') or GrabScrollBarElement(frame, 'UpButton') or GrabScrollBarElement(frame, 'ScrollUp') or GrabScrollBarElement(parent, 'scrollUp')
+	local ScrollDownButton = GrabScrollBarElement(frame, 'ScrollDownButton') or GrabScrollBarElement(frame, 'DownButton') or GrabScrollBarElement(frame, 'ScrollDown') or GrabScrollBarElement(parent, 'scrollDown')
+	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
+
+	-- Hide ElvUI's backdrop
+	if frame.backdrop then
+		frame.backdrop:Hide()
 	end
 
-	if Slider.thumbbg then
-		Slider.thumbbg.backdropTexture.SetVertexColor = nil
-		Slider.thumbbg.backdropTexture:SetVertexColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
-		Slider.thumbbg.backdropTexture.SetVertexColor = E.noop
+	-- Reapply backdrop
+	frame:CreateBackdrop("Transparent")
+	frame.backdrop:SetPoint('TOPLEFT', ScrollUpButton or frame, ScrollUpButton and 'BOTTOMLEFT' or 'TOPLEFT', 0, 0)
+	frame.backdrop:SetPoint('BOTTOMRIGHT', ScrollDownButton or frame, ScrollUpButton and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
+	frame.backdrop:SetFrameLevel(frame.backdrop:GetFrameLevel() + 1)
+
+	if Thumb then
+		-- Hide Thumb backdrop
+		if Thumb.backdrop then
+			Thumb.backdrop:Hide()
+		end
+
+		Thumb:CreateBackdrop("Transparent")
+		if not thumbTrimY then thumbTrimY = 3 end
+		if not thumbTrimX then thumbTrimX = 2 end
+		Thumb.backdrop:SetPoint('TOPLEFT', Thumb, 'TOPLEFT', 2, -thumbTrimY)
+		Thumb.backdrop:SetPoint('BOTTOMRIGHT', Thumb, 'BOTTOMRIGHT', -thumbTrimX, thumbTrimY)
+		Thumb.backdrop:SetFrameLevel(Thumb.backdrop:GetFrameLevel() + 2)
+		Thumb.backdrop:SetBackdropColor(unpack(E.media.rgbvaluecolor))
 	end
 end
 
@@ -677,7 +674,6 @@ hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
 hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
-hooksecurefunc(S, "HandleScrollSlider", MERS.ReskinScrollSlider)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
