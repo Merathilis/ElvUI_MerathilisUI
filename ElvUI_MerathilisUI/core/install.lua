@@ -320,6 +320,7 @@ function MER:SetupLayout()
 	E.db["bags"]["strata"] = 'HIGH'
 	E.db["bags"]["showBindType"] = true
 	E.db["bags"]["scrapIcon"] = true
+	E.db["bags"]["itemLevelCustomColorEnable"] = false
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
