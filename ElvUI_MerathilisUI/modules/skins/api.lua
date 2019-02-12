@@ -174,7 +174,7 @@ function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
 
 	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
-	if Thumb.backdrop then
+	if Thumb and Thumb.backdrop then
 		Thumb.backdrop.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 	end
 end
