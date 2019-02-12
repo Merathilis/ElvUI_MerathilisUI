@@ -172,34 +172,10 @@ end
 function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
 	local parent = frame:GetParent()
 
-	local ScrollUpButton = GrabScrollBarElement(frame, 'ScrollUpButton') or GrabScrollBarElement(frame, 'UpButton') or GrabScrollBarElement(frame, 'ScrollUp') or GrabScrollBarElement(parent, 'scrollUp')
-	local ScrollDownButton = GrabScrollBarElement(frame, 'ScrollDownButton') or GrabScrollBarElement(frame, 'DownButton') or GrabScrollBarElement(frame, 'ScrollDown') or GrabScrollBarElement(parent, 'scrollDown')
 	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
-	-- Hide ElvUI's backdrop
-	if frame.backdrop then
-		frame.backdrop:Hide()
-	end
-
-	-- Reapply backdrop
-	frame:CreateBackdrop("Transparent")
-	frame.backdrop:SetPoint('TOPLEFT', ScrollUpButton or frame, ScrollUpButton and 'BOTTOMLEFT' or 'TOPLEFT', 0, 0)
-	frame.backdrop:SetPoint('BOTTOMRIGHT', ScrollDownButton or frame, ScrollUpButton and 'TOPRIGHT' or 'BOTTOMRIGHT', 0, 0)
-	frame.backdrop:SetFrameLevel(frame.backdrop:GetFrameLevel() + 1)
-
-	if Thumb then
-		-- Hide Thumb backdrop
-		if Thumb.backdrop then
-			Thumb.backdrop:Hide()
-		end
-
-		Thumb:CreateBackdrop("Transparent")
-		if not thumbTrimY then thumbTrimY = 3 end
-		if not thumbTrimX then thumbTrimX = 2 end
-		Thumb.backdrop:SetPoint('TOPLEFT', Thumb, 'TOPLEFT', 2, -thumbTrimY)
-		Thumb.backdrop:SetPoint('BOTTOMRIGHT', Thumb, 'BOTTOMRIGHT', -thumbTrimX, thumbTrimY)
-		Thumb.backdrop:SetFrameLevel(Thumb.backdrop:GetFrameLevel() + 2)
-		Thumb.backdrop:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+	if Thumb.backdrop then
+		Thumb.backdrop.backdropTexture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 	end
 end
 
