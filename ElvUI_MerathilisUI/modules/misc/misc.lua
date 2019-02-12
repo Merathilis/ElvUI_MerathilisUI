@@ -10,8 +10,6 @@ E.mUIMisc = MI;
 -- Lua functions
 local _G = _G
 local select = select
-local next = next
-local floor = math.floor
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -37,11 +35,6 @@ local UnitSetRole = UnitSetRole
 local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
-local GetInventoryItemLink = GetInventoryItemLink
-local GetDetailedItemLevelInfo = GetDetailedItemLevelInfo
-local GetInventoryItemTexture = GetInventoryItemTexture
-local GetItemInfo = GetItemInfo
-local GetInspectSpecialization = GetInspectSpecialization
 local C_Timer_After = C_Timer.After
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -207,68 +200,11 @@ function MI:SetRole()
 	end
 end
 
--- Credits ls- <3
-local ARMOR_SLOTS = {1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
-local X2_INVTYPES = {
-	INVTYPE_2HWEAPON = true,
-	INVTYPE_RANGEDRIGHT = true,
-	INVTYPE_RANGED = true,
-}
-local X2_EXCEPTIONS = {
-	[2] = 19, -- wands, use INVTYPE_RANGEDRIGHT, but are 1H
-}
-
-function MI:GetUnitAverageItemLevel(unit)
-	local isOK, total, link = true, 0
-
-	-- Armor
-	for _, id in next, ARMOR_SLOTS do
-		link = GetInventoryItemLink(unit, id)
-		if link then
-			local cur = GetDetailedItemLevelInfo(link)
-			if cur and cur > 0 then
-				total = total + cur
-			end
-		elseif GetInventoryItemTexture(unit, id) then
-			isOK = false
-		end
-	end
-
-	-- Main hand
-	local mainItemLevel, mainQuality, mainEquipLoc, mainItemClass, mainItemSubClass, _ = 0
-	link = GetInventoryItemLink(unit, 16)
-	if link then
-		mainItemLevel = GetDetailedItemLevelInfo(link)
-		_, _, mainQuality, _, _, _, _, _, mainEquipLoc, _, _, mainItemClass, mainItemSubClass = GetItemInfo(link)
-	elseif GetInventoryItemTexture(unit, 16) then
-		isOK = false
-	end
-
-	-- Off hand
-	local offItemLevel, offEquipLoc = 0
-	link = GetInventoryItemLink(unit, 17)
-	if link then
-		offItemLevel = GetDetailedItemLevelInfo(link)
-		_, _, _, _, _, _, _, _, offEquipLoc = GetItemInfo(link)
-	elseif GetInventoryItemTexture(unit, 17) then
-		isOK = false
-	end
-
-	if mainQuality == 6 or (not offEquipLoc and X2_INVTYPES[mainEquipLoc] and X2_EXCEPTIONS[mainItemClass] ~= mainItemSubClass and GetInspectSpecialization(unit) ~= 72) then
-		mainItemLevel = max(mainItemLevel, offItemLevel)
-		total = total + mainItemLevel * 2
-	else
-		total = total + mainItemLevel + offItemLevel
-	end
-
-	-- print("|cffffd200" .. UnitName(unit) .. "|r", "total:", total, "cur:", m_floor(total / 16), isOK and "|cff11ff11SUCCESS!|r" or "|cffff1111FAIL!|r")
-	return isOK and floor(total / 16)
-end
-
+-- Hook to the new inspect ilevel
 function MI:UpdateInspectInfo()
 	if not (_G.InspectFrame and _G.InspectFrame.ItemLevelText and _G.InspectFrame.unit) then return end
 
-	local iLvl = MI:GetUnitAverageItemLevel(_G.InspectFrame.unit)
+	local iLvl = MER:GetUnitAverageItemLevel(_G.InspectFrame.unit)
 	if not iLvl then
 		return C_Timer_After(0.33, MI.UpdateInspectInfo)
 	end
