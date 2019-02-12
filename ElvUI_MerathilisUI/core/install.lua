@@ -349,6 +349,8 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
+	E.db["nameplates"]["targetGlow"] = 'style2'
+	E.db["nameplates"]["glowColor"] = { r = 77/255, g = 179/255, b = 255/255, a = 1 }
 	E.db["nameplates"]["targetScale"] = 1.20
 	E.db["nameplates"]["customColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
@@ -1010,6 +1012,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = false
 
 		-- Raid
+		E.db["unitframe"]["units"]["raid"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["height"] = 35
 		E.db["unitframe"]["units"]["raid"]["width"] = 77
 		E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
@@ -1129,6 +1132,7 @@ function MER:SetupUnitframes(layout)
 		end
 
 		-- Raid40
+		E.db["unitframe"]["units"]["raid40"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useBlacklist"] = false
@@ -1229,6 +1233,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Party
+		E.db["unitframe"]["units"]["party"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
