@@ -4,6 +4,7 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
 local select = select
 local format = string.format
 local tinsert = table.insert
@@ -59,11 +60,11 @@ function MI:GMOTD()
 		gmotd.text:CanWordWrap(true)
 		gmotd.text:SetWordWrap(true)
 
-		gmotd:SetScript("OnEvent", function(_, event, message)
-			local guild
-			local msg
+		gmotd:SetScript("OnEvent", function(self, event, message)
 			local icon = "|TInterface\\CHATFRAME\\UI-ChatIcon-Share:18:18|t"
 
+			local guild = false
+			local msg = false
 			if (event == "GUILD_MOTD") then
 				msg = message
 				guild = select(1, GetGuildInfo("player"))
@@ -75,7 +76,7 @@ function MI:GMOTD()
 			if (msg and msg ~= "") and not InCombatLockdown() then
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
-				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": "..GUILD_MOTD_LABEL2)
+				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": ".._G.GUILD_MOTD_LABEL2)
 				gmotd:Show()
 				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
 
