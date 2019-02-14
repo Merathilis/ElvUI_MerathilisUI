@@ -35,35 +35,6 @@ local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 local initialized = false
 local updateTimer
 
-local socketsTable = { -- These bonusIDs should be sockets
-	-- /dump string.split(":", GetInventoryItemLink("player", i))
-	-- /dump string.split(":", GetInventoryItemLink("target", 17))
-	[3] = true,
-	-- Observed results:
-	[1521] = true,
-	[1530] = true,
-	[1808] = true,
-	[3345] = true,
-	[3347] = true,
-	[3350] = true,
-	[3353] = true,
-	[3357] = true,
-	[3358] = true,
-	[3360] = true,
-	[3362] = true,
-	[3368] = true,
-	[3370] = true,
-	[3372] = true,
-	[3373] = true,
-	[3378] = true,
-	[3401] = true,
-	[3521] = true,
-	[3583] = true,
-	[4086] = true,
-	[4802] = true,
-	[5278] = true,
-}
-
 local slots = {
 	["HeadSlot"] = { true, true },
 	["NeckSlot"] = { true, false },
@@ -129,24 +100,6 @@ local heirlooms = {
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
 }
 
-function MERAY:OnEnter()
-	if self.Link and self.Link ~= '' then
-		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
-
-		self:SetScript('OnUpdate', function()
-			_G["GameTooltip"]:ClearLines()
-			_G["GameTooltip"]:SetHyperlink(self.Link)
-
-			_G["GameTooltip"]:Show()
-		end)
-	end
-end
-
-function MERAY:OnLeave()
-	self:SetScript('OnUpdate', nil)
-	_G["GameTooltip"]:Hide()
-end
-
 function MERAY:UpdatePaperDoll()
 	if not E.db.mui.armory.enable then return end
 
@@ -164,11 +117,7 @@ function MERAY:UpdatePaperDoll()
 		slot = GetInventorySlotInfo(k)
 		if slot and slot ~= '' then
 			-- Reset Data first
-			frame.ItemLevel:SetText("")
 			frame.DurabilityInfo:SetText("")
-			frame.EnchantInfo:SetText("")
-			frame.SocketHolder:Hide()
-			frame.SocketHolder.Link = nil
 			frame.Gradiation.Texture:Hide()
 
 			itemLink = GetInventoryItemLink(unit, slot)
@@ -178,68 +127,6 @@ function MERAY:UpdatePaperDoll()
 				numBonuses = tonumber(numBonuses) or 0
 
 				local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
-				if MERAY.db.ilvl.enable then
-					-- Item Level
-					if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
-						local itemLevelMainHand = 0
-						local itemLevelOffHand = 0
-						local itemLinkMainHand = GetInventoryItemLink(unit, 16)
-						local itemLinkOffhand = GetInventoryItemLink(unit, 17)
-						if itemLinkMainHand then itemLevelMainHand = self:GetItemLevel(unit, itemLinkMainHand or 0) end
-						if itemLinkOffhand then itemLevelOffHand = self:GetItemLevel(unit, itemLinkOffhand or 0) end
-						itemLevel = max(itemLevelMainHand or 0, itemLevelOffHand or 0)
-					else
-						itemLevel = self:GetItemLevel(unit, itemLink)
-					end
-
-					if itemLevel and avgEquipItemLevel then
-						frame.ItemLevel:SetText(itemLevel)
-					end
-
-					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
-						frame.ItemLevel:SetTextColor(r, g, b)
-					elseif MERAY.db.ilvl.colorStyle == "LEVEL" then
-						frame.ItemLevel:SetFormattedText("%s%d|r", levelColors[(itemLevel < avgEquipItemLevel-10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))], itemLevel)
-					else
-						frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
-					end
-				end
-
-				-- Enchants
-				if MERAY.db.enchantInfo then
-					enchantInfo = self:GetEnchants(itemLink)
-					if enchantInfo then
-						if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
-							frame.EnchantInfo:SetText(enchantInfo)
-						end
-					end
-				end
-
-				-- Gems
-				if MERAY.db.socketInfo then
-					if numBonuses and numBonuses > 0 then
-						for b = 1, numBonuses do
-							local bonusID = select(b, strsplit(":", affixes))
-							if socketsTable[tonumber(bonusID)] then
-								local _, gemLink = GetItemGem(itemLink, 1)
-								if gemLink and gemLink ~= "" then
-									local _, _, _, _, _, _, _, _, _, t = GetItemInfo(gemLink)
-									if t and t > 0 then -- has a socket in the item
-										frame.SocketHolder:Show()
-										frame.SocketHolder.Texture:SetTexture(t)
-										frame.SocketHolder.Link = gemLink
-									end
-								else -- has an empty socket
-									frame.SocketHolder:Show()
-									frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
-									frame.SocketHolder.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\warning')
-								end
-							end
-						end
-					end
-				end
-
 				-- Durability
 				if MERAY.db.durability.enable then
 					frame.DurabilityInfo:SetText()
@@ -249,11 +136,9 @@ function MERAY:UpdatePaperDoll()
 						frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
 					end
 				end
-
 				-- Gradiation
 				if MERAY.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
-
 					if itemRarity and MERAY.db.gradient.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
@@ -268,137 +153,6 @@ function MERAY:UpdatePaperDoll()
 	end
 end
 
--- from http://www.wowinterface.com/forums/showthread.php?p=284771 by PhanX
--- Construct your search pattern based on the existing global string:
--- local S_UPGRADE_LEVEL   = "^" .. gsub(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d", "(%%d+)")
-local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-
--- Create the tooltip:
-local scantip = CreateFrame("GameTooltip", "MyScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(E.UIParent, "ANCHOR_NONE")
-
-local function GetRealItemLevel(itemLink)
-	if not itemLink then return end
-
-	-- Pass the item link to the tooltip
-	scantip:ClearLines()
-	scantip:SetHyperlink(itemLink)
-
-	-- Scan the tooltip:
-	for i = 2, scantip:NumLines() do -- Line 1 is always the name so you can skip it.
-		local text = _G["MyScanningTooltipTextLeft"..i]:GetText()
-		if text and text ~= "" then
-			local currentLevel = strmatch(text, S_ITEM_LEVEL)
-			if currentLevel then
-				return currentLevel
-			end
-		end
-	end
-end
-
-function MERAY:GetItemLevel(unit, itemLink)
-	if not itemLink then return end
-
-	local rarity, itemLevel = select(3, GetItemInfo(itemLink))
-	if rarity == 7 then -- heirloom adjust
-		itemLevel = self:HeirLoomLevel(unit, itemLink)
-	end
-
-	itemLevel = GetRealItemLevel(itemLink)
-	itemLevel = tonumber(itemLevel)
-	return itemLevel
-end
-
--- Check missing enchants
-local function CheckEnchants(itemLink)
-	if not itemLink then return end
-
-	-- Pass the item link to the tooltip
-	scantip:ClearLines()
-	scantip:SetHyperlink(itemLink)
-
-	for i = 1, scantip:NumLines() do
-		local enchant = _G["MyScanningTooltipTextLeft"..i]:GetText():match(ENCHANTED_TOOLTIP_LINE:gsub("%%s", "(.+)"))
-		if enchant then
-			return enchant
-		end
-	end
-end
-
-function MERAY:GetEnchants(itemLink)
-	if not itemLink then return end
-
-	local enchantInfo = CheckEnchants(itemLink)
-
-	if enchantInfo then
-		enchantInfo = "|cff00ff00E|r"
-	else
-		enchantInfo = "|cffff0000E|r"
-	end
-
-	return enchantInfo
-end
-
---[[heirloom ilvl equivalents
-Vanilla: 1-60 = 60 / 60 = scales by 1 ilvl per player level
-TBC rares: 85-115 = 30 / 10 = scales by 3 ilvl per player level
-WLK rares: 130-190(200) = 60 / 10 = scales by 6 ilvl per player level
-CAT rares: 272-333 = 61 / 5 = scales by 12.2 ilvl per player level
-MOP rares: 364-450 = 86 / 5 = scales by 17.2 ilvl per player level (guesswork)
-]]
-
-function MERAY:HeirLoomLevel(unit, itemLink)
-	local level = UnitLevel(unit)
-
-	if level > 85 then
-		local _, _, _, _, itemId = find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-		itemId = tonumber(itemId)
-
-		for _, id in pairs(heirlooms["90h"]) do
-			if id == itemId then
-				level = 582
-				break
-			end
-		end
-
-		for _, id in pairs(heirlooms["90n"]) do
-			if id == itemId then
-				level = 569
-				break
-			end
-		end
-
-		for _, id in pairs(heirlooms["90f"]) do
-			if id == itemId then
-				level = 548
-				break
-			end
-		end
-	elseif level > 80 then
-		local _, _, _, _, itemId = find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-		itemId = tonumber(itemId)
-
-		for _, id in pairs(heirlooms[80]) do
-			if id == itemId then
-				level = 80
-				break
-			end
-		end
-	end
-
-	if level > 85 then
-		return level
-	elseif level > 80 then -- CAT heirloom scaling kicks in at 81
-		return (( level - 81) * 12.2) + 272;
-	elseif level > 67 then -- WLK heirloom scaling kicks in at 68
-		return (( level - 68) * 6) + 130;
-	elseif level > 59 then -- TBC heirloom scaling kicks in at 60
-		return (( level - 60) * 3) + 85;
-	else
-		return level
-	end
-end
-
 function MERAY:InitialUpdatePaperDoll()
 	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -410,70 +164,16 @@ function MERAY:InitialUpdatePaperDoll()
 	initialized = true
 end
 
-local function UpdateiLvLPoints(id)
-	if not id then return end
-
-	if id <= 7 or id == 17 or id == 11 then			-- Left side
-		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
-	elseif id <= 16 then 							-- Right side
-		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
-	else											-- Weapon slots
-		return "BOTTOM", "BOTTOM", 2, 1
-	end
-end
-
-local function UpdateGemPoints(id)
-	if not id then return end
-
-	if id <= 7 or id == 17 or id == 11 then 		-- Left side
-		return "LEFT", "RIGHT", 4, 0
-	elseif id <= 16 then						-- Right side
-		return "RIGHT", "LEFT", -4, 0
-	else										-- Weapon slots
-		return "TOP", "TOP", 0, 16
-	end
-end
-
 function MERAY:BuildInformation()
 	for id, slotName in pairs(slotIDs) do
 		if not id then return end
 
 		local frame = _G["Character"..slotIDs[id]]
-		local iLvLPoint, iLvLParentPoint, x1, y1 = UpdateiLvLPoints(id)
-		local GemPoint, GemparentPoint, x2, y2 = UpdateGemPoints(id)
-
-		-- Item Level
-		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
-		frame.ItemLevel:SetPoint(iLvLPoint, frame, iLvLParentPoint, x1 or 0, y1 or 0)
-		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
-
-		-- Enchant Info
-		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.EnchantInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 1, -1)
-		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
-
-		-- Gem Info
-		frame.SocketHolder = CreateFrame('Frame', nil, frame)
-		frame.SocketHolder:Size(12)
-		frame.SocketHolder:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult }
-		})
-		frame.SocketHolder:SetBackdropBorderColor(0, 0, 0, 1)
-		frame.SocketHolder:SetPoint(GemPoint, frame, GemparentPoint, x2 or 0, y2 or 0)
-		frame.SocketHolder:SetScript('OnEnter', self.OnEnter)
-		frame.SocketHolder:SetScript('OnLeave', self.OnLeave)
-
-		frame.SocketHolder.Texture = frame.SocketHolder:CreateTexture(nil, 'OVERLAY')
-		frame.SocketHolder.Texture:SetTexCoord(unpack(E.TexCoords))
-		frame.SocketHolder.Texture:SetInside()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
@@ -492,11 +192,6 @@ function MERAY:BuildInformation()
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 	end
-
-	-- Azerite Neck
-	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
-	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
-	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
 end
 
 function MERAY:AzeriteGlow()

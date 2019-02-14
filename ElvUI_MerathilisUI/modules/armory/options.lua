@@ -50,18 +50,6 @@ local function ArmoryTable()
 				order = 4,
 				name = L["Undress Button"],
 			},
-			enchantInfo = {
-				type = "toggle",
-				order = 5,
-				name = L["Enchant Info"],
-				desc = L["Shows an indictor for enchanted/ not enchanted items."],
-			},
-			socketInfo = {
-				type = "toggle",
-				order = 6,
-				name = L["Socket Info"],
-				desc = L["Shows an indictor for socketed/ unsocketed items."],
-			},
 			gradient = {
 				type = "toggle",
 				order = 7,
@@ -122,80 +110,6 @@ local function ArmoryTable()
 						values = fontStyleList,
 						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.durability.enable end,
 						set = function(info, value) E.db.mui.armory.durability[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-				},
-			},
-			itemlevel = {
-				order = 21,
-				type = "group",
-				name = L["Itemlevel"],
-				disabled = function() return not E.db.mui.armory.enable end,
-				get = function(info) return E.db.mui.armory.ilvl[ info[#info] ] end,
-				set = function(info, value) E.db.mui.armory.ilvl[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
-				args = {
-					enable = {
-						type = "toggle",
-						order = 1,
-						name = L["Enable"],
-						desc = L["Enable/Disable the display of item levels on the character window."],
-					},
-					font = {
-						order = 2,
-						type = "select", dialogControl = "LSM30_Font",
-						name = L["Font"],
-						values = AceGUIWidgetLSMlists.font,
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
-						set = function(info, value) E.db.mui.armory.ilvl[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					textSize = {
-						order = 3,
-						name = FONT_SIZE,
-						type = "range",
-						min = 6, max = 22, step = 1,
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
-						set = function(info, value) E.db.mui.armory.ilvl[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					fontOutline = {
-						order = 4,
-						type = "select",
-						name = L["Font Outline"],
-						values = {
-							["NONE"] = NONE,
-							["OUTLINE"] = "OUTLINE",
-							["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
-							["THICKOUTLINE"] = "THICKOUTLINE",
-						},
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
-						set = function(info, value) E.db.mui.armory.ilvl[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					colorStyle = {
-						order = 5,
-						type = "select",
-						name = COLOR,
-						values = {
-							["RARITY"] = RARITY,
-							["LEVEL"] = L["Level"],
-							["CUSTOM"] = CUSTOM,
-						},
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
-					},
-					color = {
-						order = 6,
-						type = "color",
-						name = COLOR_PICKER,
-						hasAlpha = true,
-						disabled = function() return E.db.mui.armory.ilvl.colorStyle == "RARITY" or E.db.mui.armory.ilvl.colorStyle == "LEVEL" or not E.db.mui.armory.enable or not E.db.mui.armory.ilvl.enable end,
-						get = function(info)
-							local t = E.db.mui.armory.ilvl[ info[#info] ]
-							local d = P.mui.armory.ilvl[info[#info]]
-							return t.r, t.g, t.b, d.r, d.g, d.b
-						end,
-						set = function(info, r, g, b)
-							E.db.mui.armory.ilvl[ info[#info] ] = {}
-							local t = E.db.mui.armory.ilvl[ info[#info] ]
-							t.r, t.g, t.b = r, g, b
-							E:StaticPopup_Show("PRIVATE_RL")
-						end,
 					},
 				},
 			},

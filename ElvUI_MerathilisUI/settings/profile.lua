@@ -473,22 +473,12 @@ P["mui"] = {
 		["enable"] = true,
 		["azeritebtn"] = true,
 		["undressButton"] = true,
-		["enchantInfo"] = true,
-		["socketInfo"] = true,
 		["durability"] = {
 			["enable"] = true,
 			["onlydamaged"] = true,
 			["font"] = "Expressway",
 			["textSize"] = 11,
 			["fontOutline"] = "OUTLINE",
-		},
-		["ilvl"] = {
-			["enable"] = true,
-			["font"] = "Expressway",
-			["textSize"] = 11,
-			["fontOutline"] = "OUTLINE",
-			["colorStyle"] = "RARITY",
-			["color"] = {r = 1, g = 1, b = 0},
 		},
 		["stats"] = {
 			["IlvlFull"] = false,
