@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
-local M = E:GetModule("Misc")
 local S = E:GetModule("Skins")
 MI.modName = L["Misc"]
 
@@ -10,7 +9,6 @@ E.mUIMisc = MI;
 -- Lua functions
 local _G = _G
 local select = select
-local next = next
 local collectgarbage = collectgarbage
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -197,77 +195,6 @@ function MI:SetRole()
 	end
 end
 
--- Credits ls- <3
-local ARMOR_SLOTS = {1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
-local X2_WEAPON_SLOTS = {
-	INVTYPE_2HWEAPON = true,
-	INVTYPE_RANGEDRIGHT = true,
-	INVTYPE_RANGED = true,
-}
-
-function MI:GetUnitAverageItemLevel(unit)
-	local isInspectSuccessful = true
-	local total = 0
-
-	-- Armor
-	for _, id in next, ARMOR_SLOTS do
-		local link = GetInventoryItemLink(unit, id)
-		local cur
-		if link then
-			cur = GetDetailedItemLevelInfo(link)
-			if cur and cur > 0 then
-				total = total + cur
-			end
-		elseif GetInventoryItemTexture(unit, id) then
-			isInspectSuccessful = false
-		end
-	end
-
-	-- Main hand
-	local link = GetInventoryItemLink(unit, 16)
-	local mainItemLevel, mainQuality, mainEquipLoc, mainItemClass, mainItemSubClass, _ = 0
-
-	if link then
-		mainItemLevel = GetDetailedItemLevelInfo(link)
-		_, _, mainQuality, _, _, _, _, _, mainEquipLoc, _, _, mainItemClass, mainItemSubClass = GetItemInfo(link)
-	elseif GetInventoryItemTexture(unit, 16) then
-		isInspectSuccessful = false
-	end
-
-	-- Off hand
-	link = GetInventoryItemLink(unit, 17)
-	local offItemLevel, offEquipLoc = 0
-	if link then
-		offItemLevel = GetDetailedItemLevelInfo(link)
-		_, _, _, _, _, _, _, _, offEquipLoc = GetItemInfo(link)
-	elseif GetInventoryItemTexture(unit, 17) then
-		isInspectSuccessful = false
-	end
-
-	if mainQuality == 6 or (not offEquipLoc and X2_WEAPON_SLOTS[mainEquipLoc] and mainItemClass ~= 2 and mainItemSubClass ~= 19 and GetInspectSpecialization(unit) ~= 72) then
-		mainItemLevel = max(mainItemLevel, offItemLevel)
-		total = total + mainItemLevel * 2
-	else
-		total = total + mainItemLevel + offItemLevel
-	end
-
-	if total == 0 then
-		isInspectSuccessful = false
-	end
-
-	-- print("|cffffd200" .. UnitName(unit) .. "|r", "total:", total, "cur:", m_floor(total / 16), isInspectSuccessful and "SUCCESS!" or "FAIL!")
-	return isInspectSuccessful and floor(total / 16) or nil
-end
-
-function MI:UpdateInspectInfo()
-	if not (_G.InspectFrame and _G.InspectFrame.ItemLevelText) then return end
-	local unit = _G.InspectFrame.unit or "target"
-
-	if _G.InspectFrame.ItemLevelText then
-		_G.InspectFrame.ItemLevelText:SetText(ITEM_LEVEL:format(MI:GetUnitAverageItemLevel(unit)), 1, 1, 1)
-	end
-end
-
 function MI:Initialize()
 	E.RegisterCallback(MI, "RoleChanged", "SetRole")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
@@ -281,7 +208,6 @@ function MI:Initialize()
 	self:LoadnameHover()
 	self:GuildBest()
 	self:ItemLevel()
-	hooksecurefunc(M, "UpdateInspectInfo", MI.UpdateInspectInfo)
 end
 
 local function InitializeCallback()
