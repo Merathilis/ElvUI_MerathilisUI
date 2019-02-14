@@ -81,18 +81,24 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 		if not localeClass or not class then return; end
 		color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 
+		local t1, t2 = '', ''
 		if(self.db.playerTitles and pvpName) then
-			name = pvpName
+			local p1, p2 = pvpName:match('(.*)'..name..'(.*)')
+			if p1 and p1 ~= '' then t1 = '|cff00c0fa'..p1..'|r' end
+			if p2 and p2 ~= '' then t2 = '|cff00c0fa'..p2..'|r' end
 		end
 
 		if(realm and realm ~= "") then
 			if(isShiftKeyDown) or self.db.alwaysShowRealm then
-				name = name..format("|cff00c0fa%s|r", " - "..realm)
+				realm = "-"..realm
 			elseif(relationship == LE_REALM_RELATION_COALESCED) then
-				name = name..format("|cff00c0fa%s|r", FOREIGN_SERVER_LABEL)
+				realm = FOREIGN_SERVER_LABEL
 			elseif(relationship == LE_REALM_RELATION_VIRTUAL) then
-				name = name..format("|cff00c0fa%s|r", INTERACTIVE_SERVER_LABEL)
+				realm = INTERACTIVE_SERVER_LABEL
 			end
+			realm = '|cff00c0fa'..realm..'|r'
+		else
+			realm = ''
 		end
 
 		if(UnitIsAFK(unit)) then
@@ -101,7 +107,7 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 			name = name..DND_LABEL
 		end
 
-		GameTooltipTextLeft1:SetFormattedText("|c%s%s|r", color.colorStr, name)
+		GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
 
 		local lineOffset = 2
 		if(guildName) then
