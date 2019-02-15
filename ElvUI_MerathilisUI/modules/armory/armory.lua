@@ -212,17 +212,17 @@ function MERAY:AzeriteGlow()
 	end
 end
 
-function MERAY:UpdateIlvlFont()
-	local db = E.db.mui.armory.stats.ItemLevel
+--function MERAY:UpdateIlvlFont()
+--	local db = E.db.mui.armory.stats.ItemLevel
 
-	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(LSM:Fetch('font', db.font), db.size or 12, db.outline)
-	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
-	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
-	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
-		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight((db.size or 12) + 4)
-		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight((db.size or 12) + 4)
-	end
-end
+--	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(LSM:Fetch('font', db.font), db.size or 12, db.outline)
+--	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
+--	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
+--	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
+--		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight((db.size or 12) + 4)
+--		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight((db.size or 12) + 4)
+--	end
+--end
 
 function MERAY:firstGarrisonToast()
 	MERAY:UnregisterEvent("GARRISON_MISSION_FINISHED")
@@ -232,6 +232,7 @@ end
 function MERAY:Initialize()
 	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true then return end
 	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	if not E.db.general.displayCharacterInfo then return end
 
 	MERAY.db = E.db.mui.armory
 
@@ -256,15 +257,7 @@ function MERAY:Initialize()
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
-	function MERAY:ForUpdateAll()
-		MERAY.db = E.db.mui.armory
-		MERAY:UpdateIlvlFont()
-	end
-
-	self:ForUpdateAll()
-
 	MERAY:AzeriteGlow()
-	MERAY:UpdateIlvlFont()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

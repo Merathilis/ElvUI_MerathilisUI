@@ -481,15 +481,7 @@ P["mui"] = {
 			["fontOutline"] = "OUTLINE",
 		},
 		["stats"] = {
-			["IlvlFull"] = false,
-			["IlvlColor"] = false,
-			["AverageColor"] = {r = 0, g = 1, b = .59},
 			["OnlyPrimary"] = true,
-			["ItemLevel"] = {
-				["font"] = "Expressway",
-				["size"] = 20,
-				["outline"] = "OUTLINE",
-			},
 			["statFonts"] = {
 				["font"] = "Expressway",
 				["size"] = 11,

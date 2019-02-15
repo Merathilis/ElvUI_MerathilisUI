@@ -22,8 +22,7 @@ local function ArmoryTable()
 		order = 3,
 		name = MERAY.modName,
 		childGroups = 'tab',
-		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
-		hidden = function() return IsAddOnLoaded("ElvUI_SLE") end,
+		disabled = function() return not E.db.general.displayCharacterInfo end,
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
 		set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -70,7 +69,7 @@ local function ArmoryTable()
 				order = 20,
 				type = "group",
 				name = L["Durability"],
-				disabled = function() return not E.db.mui.armory.enable end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.durability[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.durability[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
 				args = {
@@ -117,44 +116,12 @@ local function ArmoryTable()
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
 				order = 22,
-				disabled = function() return not E.db.mui.armory.enable end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
 				args = {
-					IlvlFull = {
-						order = 1,
-						type = "toggle",
-						name = L["Full Item Level"],
-						desc = L["Show both equipped and average item levels."],
-					},
-					IlvlColor = {
-						order = 2,
-						type = "toggle",
-						name = L["Item Level Coloring"],
-						desc = L["Color code item levels values. Equipped will be gradient, average - selected color."],
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.stats.IlvlFull end,
-					},
-					AverageColor = {
-						type = 'color',
-						order = 3,
-						name = L["Color of Average"],
-						desc = L["Sets the color of average item level."],
-						hasAlpha = false,
-						disabled = function() return not E.db.mui.armory.enable or not E.db.mui.armory.stats.IlvlFull or not E.db.mui.armory.stats.IlvlColor end,
-						get = function(info)
-							local t = E.db.mui.armory.stats[ info[#info] ]
-							local d = E.db.mui.armory.stats[info[#info]]
-							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
-						end,
-						set = function(info, r, g, b, a)
-							E.db.mui.armory.stats[ info[#info] ] = {}
-							local t = E.db.mui.armory.stats[ info[#info] ]
-							t.r, t.g, t.b, t.a = r, g, b, a
-							PaperDollFrame_UpdateStats()
-						end,
-					},
 					OnlyPrimary = {
-						order = 4,
+						order = 1,
 						type = "toggle",
 						name = L["Only Relevant Stats"],
 						desc = L["Show only those primary stats relevant to your spec."],
@@ -162,7 +129,7 @@ local function ArmoryTable()
 					Stats = {
 						type = 'group',
 						name = STAT_CATEGORY_ATTRIBUTES,
-						order = 7,
+						order = 2,
 						guiInline = true,
 						get = function(info) return E.db.mui.armory.stats.List[ info[#info] ] end,
 						set = function(info, value) E.db.mui.armory.stats.List[ info[#info] ] = value; MERAY:ToggleStats() end,
@@ -187,40 +154,10 @@ local function ArmoryTable()
 				name = STAT_CATEGORY_ATTRIBUTES..": "..L["Fonts"],
 				order = 23,
 				args = {
-					IlvlFont = {
-						type = 'group',
-						name = STAT_AVERAGE_ITEM_LEVEL,
-						order = 1,
-						guiInline = true,
-						get = function(info) return E.db.mui.armory.stats.ItemLevel[ info[#info] ] end,
-						set = function(info, value) E.db.mui.armory.stats.ItemLevel[ info[#info] ] = value; MERAY:UpdateIlvlFont() end,
-						args = {
-							font = {
-								type = 'select', dialogControl = 'LSM30_Font',
-								name = L["Font"],
-								order = 1,
-								values = function()
-									return AceGUIWidgetLSMlists and AceGUIWidgetLSMlists.font or {}
-								end,
-							},
-							size = {
-								type = 'range',
-								name = L["Font Size"],
-								order = 2,
-								min = 6, max = 30, step = 1,
-							},
-							outline = {
-								type = 'select',
-								name = L["Font Outline"],
-								order = 3,
-								values = fontStyleList,
-							},
-						},
-					},
 					statFonts = {
 						type = 'group',
 						name = STAT_CATEGORY_ATTRIBUTES,
-						order = 2,
+						order = 1,
 						guiInline = true,
 						get = function(info) return E.db.mui.armory.stats.statFonts[ info[#info] ] end,
 						set = function(info, value) E.db.mui.armory.stats.statFonts[ info[#info] ] = value; MERAY:PaperDollFrame_UpdateStats() end,
@@ -250,7 +187,7 @@ local function ArmoryTable()
 					catFonts = {
 						type = 'group',
 						name = L["Categories"],
-						order = 3,
+						order = 2,
 						guiInline = true,
 						get = function(info) return E.db.mui.armory.stats.catFonts[ info[#info] ] end,
 						set = function(info, value) E.db.mui.armory.stats.catFonts[ info[#info] ] = value; MERAY:PaperDollFrame_UpdateStats() end,
@@ -283,7 +220,7 @@ local function ArmoryTable()
 				order = 24,
 				type = 'group',
 				name = L["Gradient"],
-				disabled = function() return not E.db.mui.armory.enable end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
