@@ -69,7 +69,7 @@ local function styleCharacter()
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
 		bu:SetSize(55, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPLEFT", CharacterFrame, "TOPRIGHT", 0, 0)
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 65, -15)
 
 		bu.text = MER:CreateText(bu, "OVERLAY", 12, "OUTLNE")
 		bu.text:SetPoint("CENTER")
