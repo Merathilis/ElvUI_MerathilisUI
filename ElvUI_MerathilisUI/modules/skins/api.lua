@@ -189,17 +189,6 @@ function MERS:ReskinTab(tab)
 	end
 end
 
-function MERS:CreateBackdropTexture(f)
-	assert(f, "doesn't exist!")
-	local tex = f:CreateTexture(nil, "BACKGROUND")
-	tex:SetDrawLayer("BACKGROUND", 1)
-	tex:SetInside(f, 1, 1)
-	tex:SetTexture(E["media"].normTex)
-	tex:SetVertexColor(backdropcolorr, backdropcolorg, backdropcolorb)
-	tex:SetAlpha(0.8)
-	f.backdropTexture = tex
-end
-
 function MERS:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
