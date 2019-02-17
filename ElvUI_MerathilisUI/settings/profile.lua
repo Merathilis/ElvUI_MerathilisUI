@@ -511,5 +511,8 @@ P["mui"] = {
 			["colorStyle"] = "VALUE",
 			["color"] = {r = 1, g = 1, b = 0},
 		},
+		["transmog"] = {
+			["enable"] = true,
+		},
 	},
 }

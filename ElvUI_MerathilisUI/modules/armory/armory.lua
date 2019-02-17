@@ -28,6 +28,11 @@ local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local UnitLevel = UnitLevel
+local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
+local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 --GLOBALS:
 
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -100,6 +105,37 @@ local heirlooms = {
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
 }
 
+function MERAY:Transmog_OnEnter()
+	if self.Link and self.Link ~= '' then
+		self.Texture:SetVertexColor(1, .8, 1)
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
+
+		self:SetScript('OnUpdate', function()
+			_G["GameTooltip"]:ClearLines()
+			_G["GameTooltip"]:SetHyperlink(self.Link)
+
+			_G["GameTooltip"]:Show()
+		end)
+	end
+end
+
+function MERAY:Transmog_OnLeave()
+	self.Texture:SetVertexColor(1, .5, 1)
+
+	self:SetScript('OnUpdate', nil)
+	_G["GameTooltip"]:Hide()
+end
+
+function MERAY:Illusion_OnEnter()
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
+	_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
+	_G["GameTooltip"]:Show()
+end
+
+function MERAY:Illusion_OnLeave()
+	_G["GameTooltip"]:Hide()
+end
+
 function MERAY:UpdatePaperDoll()
 	if not E.db.mui.armory.enable then return end
 
@@ -119,14 +155,15 @@ function MERAY:UpdatePaperDoll()
 			-- Reset Data first
 			frame.DurabilityInfo:SetText("")
 			frame.Gradiation.Texture:Hide()
+			frame.Transmog.Texture:Hide()
+			frame.Transmog.Link = nil
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
 				if type(itemLink) ~= "string" then return end
-				_, _, _, _, _, _, _, _, _, _, _, _, _, numBonuses, affixes = strsplit(":", itemLink, 15)
-				numBonuses = tonumber(numBonuses) or 0
 
-				local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
+				local _, _, itemRarity, _, _, _, _, _, _ = GetItemInfo(itemLink)
+
 				-- Durability
 				if MERAY.db.durability.enable then
 					frame.DurabilityInfo:SetText()
@@ -136,6 +173,7 @@ function MERAY:UpdatePaperDoll()
 						frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
 					end
 				end
+
 				-- Gradiation
 				if MERAY.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
@@ -146,6 +184,14 @@ function MERAY:UpdatePaperDoll()
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 					else
 						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(MERAY.db.gradient.color))
+					end
+				end
+
+				-- Transmog
+				if MERAY.db.transmog.enable then
+					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
+						frame.Transmog.Texture:Show()
+						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
 					end
 				end
 			end
@@ -190,6 +236,31 @@ function MERAY:BuildInformation()
 		elseif id <= 16 then -- Right Side
 			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
+		end
+
+		-- Transmog Info
+		frame.Transmog = CreateFrame('Button', nil, frame)
+		frame.Transmog:Size(12)
+		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
+		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
+
+		frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
+		frame.Transmog.Texture:SetInside()
+		frame.Transmog.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\anchor')
+		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
+
+		if id <= 7 or id == 17 or id == 11 then -- Left Size
+			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
+		elseif id <= 16 then -- Right Side
+			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
+		elseif id == 18 then -- Main Hand
+			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
+		elseif id == 19 then -- Off Hand
+			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
 	end
 end

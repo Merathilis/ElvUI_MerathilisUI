@@ -254,6 +254,11 @@ L["Socket Info"] = true
 L["Shows an indictor for socketed/ unsocketed items."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
+L["Indicators"] = true
+L["Transmog"] = true
+L["Shows an arrow indictor for currently transmogrified items."] = true
+L["Illusion"] = true
+L["Shows an indictor for weapon illusions."] = true
 -- PRINTS
 L["Equipped head is not an Azerite item."] = true
 L["No head item is equipped."] = true

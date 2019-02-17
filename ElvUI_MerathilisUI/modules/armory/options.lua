@@ -222,7 +222,7 @@ local function ArmoryTable()
 				name = L["Gradient"],
 				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
-				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
 				args = {
 					enable = {
 						type = 'toggle',
@@ -253,8 +253,31 @@ local function ArmoryTable()
 							E.db.mui.armory.gradient[ info[#info] ] = {}
 							local t = E.db.mui.armory.gradient[ info[#info] ]
 							t.r, t.g, t.b = r, g, b
-							E:StaticPopup_Show("PRIVATE_RL")
+							MERAY:UpdatePaperDoll()
 						end,
+					},
+				},
+			},
+			indicators = {
+				order = 25,
+				type = "group",
+				name = E.NewSign..L["Indicators"],
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
+				args = {
+					transmog = {
+						order = 1,
+						type = "group",
+						name = L["Transmog"],
+						get = function(info) return E.db.mui.armory.transmog[ info[#info] ] end,
+						set = function(info, value) E.db.mui.armory.transmog[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
+						args = {
+							enable = {
+								type = "toggle",
+								order = 1,
+								name = L["Enable"],
+								desc = L["Shows an arrow indictor for currently transmogrified items."],
+							},
+						},
 					},
 				},
 			},
