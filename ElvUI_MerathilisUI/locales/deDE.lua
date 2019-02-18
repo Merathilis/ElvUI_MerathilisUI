@@ -253,6 +253,8 @@ L["Indicators"] = "Indikatoren"
 L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
 L["Transmog"] = true -- No need to translate
 L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogriefizierten Gegenstand."
+L["Illusion"] = "Illusionen"
+L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffen Illusionen."
 -- PRINTS
 L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
 L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
