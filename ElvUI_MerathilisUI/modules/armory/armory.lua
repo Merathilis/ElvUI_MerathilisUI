@@ -157,6 +157,8 @@ function MERAY:UpdatePaperDoll()
 			frame.Gradiation.Texture:Hide()
 			frame.Transmog.Texture:Hide()
 			frame.Transmog.Link = nil
+			frame.Illusion:Hide()
+			frame.Illusion.Link = nil
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
@@ -192,6 +194,21 @@ function MERAY:UpdatePaperDoll()
 					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
 						frame.Transmog.Texture:Show()
 						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
+					end
+				end
+
+				-- Illussion
+				if MERAY.db.illusion.enable then
+					if (slot == 16 or slot == 17) then
+						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)
+
+						if ItemTexture then
+							frame.Illusion:Show()
+							frame.Illusion.Texture:SetTexture(ItemTexture)
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)))
+						end
+					else
+						frame.Illusion:Hide()
 					end
 				end
 			end
@@ -262,6 +279,24 @@ function MERAY:BuildInformation()
 			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
+
+		-- Illusion Info
+		frame.Illusion = CreateFrame('Button', nil, frame)
+		frame.Illusion:Size(14)
+		frame.Illusion:SetBackdrop({
+			bgFile = E.media.blankTex,
+			edgeFile = E.media.blankTex,
+			tile = false, tileSize = 0, edgeSize = E.mult,
+			insets = { left = 0, right = 0, top = 0, bottom = 0}
+		})
+		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
+		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
+		frame.Illusion:SetBackdropBorderColor(1, .5, 1)
+
+		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
+		frame.Illusion.Texture:SetInside()
+		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
 	end
 end
 

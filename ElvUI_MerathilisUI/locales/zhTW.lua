@@ -220,11 +220,9 @@ L["Clean Boss Button"] = true
 
 -- Armory
 L["Armory"] = true
-L["ARMORY_DESC"] = [=[ The |cffff7d0aArmory Mode|r only works with the current Expansion from World of Warcraft. It can happen that:
+L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
 
-- Socketwarnings are displayed wrong on old items.
-- Enchants could displayed wrong or not at all.
-]=]
+ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
 L["Azerite Buttons"] = true
 L["Enable/Disable the Azerite Buttons on the character window."] = true

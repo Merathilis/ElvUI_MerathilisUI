@@ -514,5 +514,8 @@ P["mui"] = {
 		["transmog"] = {
 			["enable"] = true,
 		},
+		["illusion"] = {
+			["enable"] = true,
+		},
 	},
 }

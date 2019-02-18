@@ -220,11 +220,9 @@ L["Clean Boss Button"] = "Geskinnte Boss Taste"
 
 -- Armory
 L["Armory"] = "Arsenal"
-L["ARMORY_DESC"] = [=[ Der |cffff7d0aArmory Mode|r funktioniert nur mit der aktuellen Erweiterung von World of Warcraft. Es kann also passieren dass:
+L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvUI Charakter Informationen'. Es könnte sein dass du dein UI neuladen musst:
 
-- Sockelwarnungen auf alten Gegenständen angezeigt werden, wo keine Sockel vorhanden sind.
-- Verzauberungen falsch angezeigt werden.
-]=]
+ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
 L["Azerite Buttons"] = "Azerittasten"
 L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
