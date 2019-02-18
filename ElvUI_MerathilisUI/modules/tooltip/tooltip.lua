@@ -82,18 +82,38 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 		color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 
 		local t1, t2 = '', ''
-		if(self.db.playerTitles and pvpName) then
-			local p1, p2 = pvpName:match('(.*)'..name..'(.*)')
-			if p1 and p1 ~= '' then t1 = '|cff00c0fa'..p1..'|r' end
-			if p2 and p2 ~= '' then t2 = '|cff00c0fa'..p2..'|r' end
+		if self.db.playerTitles and pvpName and pvpName ~= name then
+			if E.db.mui.tooltip.titleColor then
+				local p1, p2 = pvpName:match('(.*)'..name..'(.*)')
+				if p1 and p1 ~= '' then
+					if (UnitIsAFK(unit)) then
+						t1 = '|cff00c0fa'..p1..'|r'..AFK_LABEL
+					elseif (UnitIsDND(unit)) then
+						t1 = '|cff00c0fa'..p1..'|r'..DND_LABEL
+					else
+						t1 = '|cff00c0fa'..p1..'|r'
+					end
+				end
+				if p2 and p2 ~= '' then
+					if (UnitIsAFK(unit)) then
+						t2 = '|cff00c0fa'..p2..'|r'..AFK_LABEL
+					elseif (UnitIsDND(unit)) then
+						t2 = '|cff00c0fa'..p2..'|r'..DND_LABEL
+					else
+						t2 = '|cff00c0fa'..p2..'|r'
+					end
+				end
+			else
+				name = pvpName
+			end
 		end
 
-		if(realm and realm ~= "") then
-			if(isShiftKeyDown) or self.db.alwaysShowRealm then
+		if realm and realm ~= "" then
+			if isShiftKeyDown or self.db.alwaysShowRealm then
 				realm = "-"..realm
-			elseif(relationship == LE_REALM_RELATION_COALESCED) then
+			elseif relationship == LE_REALM_RELATION_COALESCED then
 				realm = FOREIGN_SERVER_LABEL
-			elseif(relationship == LE_REALM_RELATION_VIRTUAL) then
+			elseif relationship == LE_REALM_RELATION_VIRTUAL then
 				realm = INTERACTIVE_SERVER_LABEL
 			end
 			realm = '|cff00c0fa'..realm..'|r'
@@ -101,13 +121,19 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 			realm = ''
 		end
 
-		if(UnitIsAFK(unit)) then
-			name = name..AFK_LABEL
-		elseif(UnitIsDND(unit)) then
-			name = name..DND_LABEL
+		if not E.db.mui.tooltip.titleColor then
+			if(UnitIsAFK(unit)) then
+				name = name..AFK_LABEL
+			elseif(UnitIsDND(unit)) then
+				name = name..DND_LABEL
+			end
 		end
 
-		GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
+		if E.db.mui.tooltip.titleColor then
+			GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
+		else
+			GameTooltipTextLeft1:SetFormattedText("|c%s%s%s|r", color.colorStr, name, realm)
+		end
 
 		local lineOffset = 2
 		if(guildName) then

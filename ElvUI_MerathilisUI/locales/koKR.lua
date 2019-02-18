@@ -139,9 +139,10 @@ L["Your Status: Completed on "] = true
 L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Model"] = true
-L["Adds an Model icon on the tooltip."] = true
+L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
+L["Title Color"] = true
+L["Change the color of the title in the Tooltip."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true

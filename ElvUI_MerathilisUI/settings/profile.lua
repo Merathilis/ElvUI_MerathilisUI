@@ -377,8 +377,8 @@ P["mui"] = {
 		["achievement"] = true, -- Adds information to the tooltip, on which char you earned an achievement
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
-		["modelIcon"] = false, -- Add a model on the Tooltip
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
+		["titleColor"] = true,
 	},
 
 	["errorFilters"] = {

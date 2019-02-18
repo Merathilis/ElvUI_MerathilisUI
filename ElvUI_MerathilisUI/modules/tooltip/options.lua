@@ -11,7 +11,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local function Tooltip()
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = L["Tooltip"],
+		name = E.NewSign..L["Tooltip"],
 		order = 20,
 		get = function(info) return E.db.mui.tooltip[ info[#info] ] end,
 		set = function(info, value) E.db.mui.tooltip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -45,17 +45,17 @@ local function Tooltip()
 				name = ACHIEVEMENT_BUTTON,
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
-			modelIcon = {
-				order = 6,
-				type = "toggle",
-				name = L["Model"],
-				desc = L["Adds an Model icon on the tooltip."],
-			},
 			keystone = {
-				order = 7,
+				order = 6,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
+			},
+			titleColor = {
+				order = 7,
+				type = "toggle",
+				name = E.NewSign..L["Title Color"],
+				desc = L["Change the color of the title in the Tooltip."],
 			},
 			header = {
 				order = 8,
