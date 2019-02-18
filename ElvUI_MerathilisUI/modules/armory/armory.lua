@@ -318,18 +318,6 @@ function MERAY:AzeriteGlow()
 	end
 end
 
---function MERAY:UpdateIlvlFont()
---	local db = E.db.mui.armory.stats.ItemLevel
-
---	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(LSM:Fetch('font', db.font), db.size or 12, db.outline)
---	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
---	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
---	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
---		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight((db.size or 12) + 4)
---		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight((db.size or 12) + 4)
---	end
---end
-
 function MERAY:firstGarrisonToast()
 	MERAY:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
