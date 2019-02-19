@@ -116,6 +116,10 @@ function AZB:UNIT_INVENTORY_CHANGED()
 	AZB:buttonHightlight()
 end
 
+function AZB:PLAYER_EQUIPMENT_CHANGED()
+	AZB:buttonHightlight()
+end
+
 function AZB:AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED()
 	AZB:buttonHightlight()
 end
@@ -244,6 +248,7 @@ function AZB:Initialize()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	self:RegisterEvent("AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED")
 
 	self:CreateAZbuttons()
