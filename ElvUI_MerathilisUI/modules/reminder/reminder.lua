@@ -369,7 +369,7 @@ function RM:CreateReminder(name, index)
 
 	frame.icon = frame:CreateTexture(nil, "OVERLAY")
 	frame.icon:SetAllPoints()
-	S:HandleIcon(frame.icon, frame)
+	S:HandleIcon(frame.icon)
 	frame:EnableMouse(false)
 	frame:SetAlpha(0)
 

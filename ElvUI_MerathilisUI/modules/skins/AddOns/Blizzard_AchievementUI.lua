@@ -57,7 +57,7 @@ local function styleAchievement()
 		_G["AchievementFrameAchievementsContainerButton"..i.."GuildCornerL"]:SetAlpha(0)
 		_G["AchievementFrameAchievementsContainerButton"..i.."GuildCornerR"]:SetAlpha(0)
 
-		S:HandleIcon(bu.icon.texture, bu.icon)
+		S:HandleIcon(bu.icon.texture)
 	end
 
 	hooksecurefunc("AchievementButton_DisplayAchievement", function(button, category, achievement)
