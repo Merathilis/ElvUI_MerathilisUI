@@ -460,8 +460,6 @@ function MERS:StyleEncounterJournal()
 
 		 --Reaply tabs
 		tab:CreateBackdrop("Transparent")
-		--tab.backdrop:SetPoint('TOPLEFT', 11, -8)
-		--tab.backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
 		tab.backdrop:Styling()
 	end
 
