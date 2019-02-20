@@ -444,7 +444,7 @@ function MERS:StyleEncounterJournal()
 		EncounterInfo.backdrop:Hide()
 	end
 
-	-- Tabs
+	 --Tabs
 	local tabs = {
 		EncounterInfo.overviewTab,
 		EncounterInfo.lootTab,
@@ -453,15 +453,15 @@ function MERS:StyleEncounterJournal()
 	}
 
 	for _, tab in pairs(tabs) do
-		-- Hide ElvUI's backdrop
+		 --Hide ElvUI's backdrop
 		if tab.backdrop then
 			tab.backdrop:Hide()
 		end
 
-		-- Reaply tabs
+		 --Reaply tabs
 		tab:CreateBackdrop("Transparent")
-		tab.backdrop:SetPoint('TOPLEFT', 11, -8)
-		tab.backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
+		--tab.backdrop:SetPoint('TOPLEFT', 11, -8)
+		--tab.backdrop:SetPoint('BOTTOMRIGHT', -6, 8)
 		tab.backdrop:Styling()
 	end
 

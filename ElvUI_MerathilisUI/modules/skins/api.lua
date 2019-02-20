@@ -377,40 +377,6 @@ function MERS:ReskinGarrisonPortrait(self)
 	end
 end
 
-function MERS:SkinRadioButton(button)
-	if button.IsSkinned then return; end
-
-	button:SetCheckedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\RadioCircleChecked")
-	button:GetCheckedTexture():SetVertexColor(unpack(E["media"].rgbvaluecolor))
-	button:GetCheckedTexture():SetTexCoord(0, 1, 0, 1)
-
-	button:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\RadioCircleChecked")
-	button:GetHighlightTexture():SetTexCoord(0, 1, 0, 1)
-	button:GetHighlightTexture():SetVertexColor(0, 192, 250, 1)
-
-	button:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
-	button:GetNormalTexture():SetOutside()
-	button:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
-	button:GetNormalTexture():SetVertexColor(unpack(E["media"].bordercolor))
-
-	button:HookScript("OnDisable", function(self)
-		if not self.SetDisabledTexture then return end
-
-		if self:GetChecked() then
-			self:SetDisabledTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
-			self:GetDisabledTexture():SetVertexColor(0, 192, 250, 1)
-		else
-			self:SetDisabledTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\Textures\\RadioCircle")
-			self:GetDisabledTexture():SetVertexColor(unpack(E["media"].bordercolor))
-		end
-	end)
-
-	button.SetNormalTexture = MER.dummy
-	button.SetPushedTexture = MER.dummy
-	button.SetHighlightTexture = MER.dummy
-	button.isSkinned = true
-end
-
 local buttons = {
 	"ElvUIMoverNudgeWindowUpButton",
 	"ElvUIMoverNudgeWindowDownButton",
