@@ -326,6 +326,8 @@ function MERS:StyleEncounterJournal()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(item:GetFrameLevel() - 1)
 		MERS:CreateBD(bg, .25)
+
+		MERS:CreateGradient(bg)
 	end
 
 	info.model.dungeonBG:Hide()
