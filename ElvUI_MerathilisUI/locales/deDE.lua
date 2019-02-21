@@ -94,11 +94,6 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
-L["Misc"] = "Verschiedenes"
-
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
@@ -115,6 +110,7 @@ L["Next Invasion: "] = "Nächste Invasion: "
 L["Mythic Dungeon"] = "Mythische Instanz"
 
 -- Misc
+L["Misc"] = "Verschiedenes"
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
@@ -131,6 +127,8 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
+L["Raid Info"] = "Raid Information"
+L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

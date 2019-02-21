@@ -446,6 +446,30 @@ function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
 	b:SetAttribute("type1", "macro")
 end
 
+-- Icon Style
+function MER:PixelIcon(self, texture, highlight)
+	if not self then return end
+
+	self.Icon = self:CreateTexture(nil, "ARTWORK")
+	self.Icon:SetPoint("TOPLEFT", E.mult, -E.mult)
+	self.Icon:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	if texture then
+		local atlas = strmatch(texture, "Atlas:(.+)$")
+		if atlas then
+			self.Icon:SetAtlas(atlas)
+		else
+			self.Icon:SetTexture(texture)
+		end
+	end
+	if highlight and type(highlight) == "boolean" then
+		self:EnableMouse(true)
+		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
+		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetAllPoints(self.Icon)
+	end
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	local frameName = f.GetName and f:GetName()

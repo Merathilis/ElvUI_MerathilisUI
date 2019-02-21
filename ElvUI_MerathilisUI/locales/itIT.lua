@@ -94,11 +94,6 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = true
-L["Misc"] = true
-
 -- MicroBar
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
@@ -115,6 +110,7 @@ L["Next Invasion: "] = true
 L["Mythic Dungeon"] = true
 
 -- Misc
+L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
@@ -131,6 +127,8 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Raid Info"] = true
+L["Shows a simple frame with Raid Informations."] = true
 
 -- Tooltip
 L["Your Status:"] = true
