@@ -37,7 +37,7 @@ function MER:LoadMasqueProfile()
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 			},
 			["ElvUI_Debuffs"] = {
 				["Colors"] = {
