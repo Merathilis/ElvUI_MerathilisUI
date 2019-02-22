@@ -178,7 +178,6 @@ function MERS:StyleEncounterJournal()
 	end
 	styleSearchButton(searchBox.showAllResults, 6)
 
-
 	-- [[ SearchResults ]]
 	local searchResults = EncounterJournal.searchResults
 	MERS:CreateBD(searchResults)
