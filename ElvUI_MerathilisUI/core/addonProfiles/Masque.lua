@@ -25,7 +25,7 @@ function MER:LoadMasqueProfile()
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 			},
 			["ElvUI_Buffs"] = {
 				["Colors"] = {
@@ -49,7 +49,7 @@ function MER:LoadMasqueProfile()
 					},
 				},
 				["SkinID"] = "MerathilisUI",
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 			},
 			["ElvUI_Pet Bar"] = {
 				["Gloss"] = 0,
@@ -64,7 +64,7 @@ function MER:LoadMasqueProfile()
 				},
 			},
 			["ElvUI_Consolidated Buffs"] = {
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
@@ -76,7 +76,7 @@ function MER:LoadMasqueProfile()
 				},
 			},
 			["Masque"] = {
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
@@ -88,7 +88,7 @@ function MER:LoadMasqueProfile()
 				},
 			},
 			["ElvUI_ActionBars"] = {
-				["Gloss"] = 0,
+				["Gloss"] = 0.75,
 				["SkinID"] = "MerathilisUI",
 				["Colors"] = {
 					["Normal"] = {
