@@ -1,3 +1,6 @@
+[b][color=orange]v4.11[/color], 24.02.2019[/b][list]
+[*]Forgot to change a tag in the Healer Layout.[/list]
+
 [b][color=orange]v4.10[/color], 24.02.2019[/b][list]
 [*]Changed the Armory Mode to work with the new Character Info from ElvUI.
 [*]Many Skin updates.
