@@ -1,3 +1,10 @@
+[b][color=orange]v4.10[/color], 24.02.2019[/b][list]
+[*]Changed the Armory Mode to work with the new Character Info from ElvUI.
+[*]Many Skin updates.
+[*]Added a MicroBar Tooltip.
+[*]Added a Community Chat Hider. Credits Nnogga.
+[*]Added NamePlate Scrolling Text.Credits Mpstark
+
 [b][color=orange]v4.09[/color], 26.01.2019[/b][list]
 [*]Dont load the AzeriteButtons if the ElvUI Character Skin is disabled.
 [*]Add a waring texture for missing gems.
