@@ -1,4 +1,7 @@
-** v4.190 24.02.2019**
+** v4.11 24.02.2019**
+* Forgot to change a tag in the Healer Layout.
+
+** v4.10 24.02.2019**
 * Changed the Armory Mode to work with the new Character Info from ElvUI.
 * Many Skin updates.
 * Added a MicroBar Tooltip.
