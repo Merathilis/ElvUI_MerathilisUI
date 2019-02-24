@@ -2117,7 +2117,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 14,
-			["text_format"] = "[health:percent:hidefull:hidezero]",
+			["text_format"] = "[perhp<%]",
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["boss"]["power"]["xOffset"] = 0
