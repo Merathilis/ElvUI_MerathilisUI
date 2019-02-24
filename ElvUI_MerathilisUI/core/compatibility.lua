@@ -99,6 +99,11 @@ function COMP:SLECompatibility()
 	if Disable(E.private.sle["minimap"]["mapicons"]) then
 		self:Print(SLE.Title, "Minimap Buttons")
 	end
+
+	-- Armory
+	if Disable(E.db.sle["Armory"]["Character"]) then
+		self:Print(SLE.Title, "Armory Mode")
+	end
 end
 
 COMP.CompatibilityFunctions = {};

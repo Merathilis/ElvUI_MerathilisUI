@@ -11,7 +11,7 @@ local RM = MER:GetModule("Reminder")
 local function Reminder()
 	E.Options.args.mui.args.modules.args.reminder = {
 		type = "group",
-		name = E.NewSign..RM.modName,
+		name = RM.modName,
 		order = 19,
 		get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

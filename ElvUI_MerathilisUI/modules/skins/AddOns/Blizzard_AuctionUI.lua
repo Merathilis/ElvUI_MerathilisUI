@@ -30,8 +30,6 @@ local function styleAuctionhouse()
 	_G.AuctionProgressBar.Text:ClearAllPoints()
 	_G.AuctionProgressBar.Text:SetPoint("CENTER", 0, 1)
 
-	select(14, _G.AuctionProgressFrameCancelButton:GetRegions()):SetPoint("CENTER", 0, 2)
-
 	_G.BrowseQualitySort:DisableDrawLayer("BACKGROUND")
 	_G.BrowseLevelSort:DisableDrawLayer("BACKGROUND")
 	_G.BrowseDurationSort:DisableDrawLayer("BACKGROUND")

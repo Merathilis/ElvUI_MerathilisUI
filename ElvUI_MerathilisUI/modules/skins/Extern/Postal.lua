@@ -18,7 +18,7 @@ local function stylePostal()
 	end
 
 	if _G.Postal_OpenAllMenuButton then
-		S:HandleNextPrevButton(_G.Postal_OpenAllMenuButton, true)
+		S:HandleNextPrevButton(_G.Postal_OpenAllMenuButton)
 		_G.Postal_OpenAllMenuButton:SetPoint("LEFT", _G.PostalOpenAllButton, "RIGHT", 2, 0)
 	end
 
@@ -33,12 +33,12 @@ local function stylePostal()
 	end
 
 	if _G.Postal_ModuleMenuButton then
-		S:HandleNextPrevButton(_G.Postal_ModuleMenuButton, true)
+		S:HandleNextPrevButton(_G.Postal_ModuleMenuButton)
 		_G.Postal_ModuleMenuButton:SetPoint('TOPRIGHT', _G.MailFrame, -53, -6)
 	end
 
 	if _G.Postal_BlackBookButton then
-		S:HandleNextPrevButton(_G.Postal_BlackBookButton, true)
+		S:HandleNextPrevButton(_G.Postal_BlackBookButton)
 		_G.Postal_BlackBookButton:SetPoint("LEFT", _G.SendMailNameEditBox, "RIGHT", 5, 2)
 	end
 end

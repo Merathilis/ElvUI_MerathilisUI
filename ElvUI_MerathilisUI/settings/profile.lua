@@ -26,6 +26,7 @@ P["mui"] = {
 
 	["bags"] = {
 		["transparentSlots"] = true,
+		["equipOverlay"] = true,
 	},
 
 	["chat"] = {
@@ -35,6 +36,7 @@ P["mui"] = {
 		["hidePlayerBrackets"] = true,
 		["sidePanel"] = false,
 		["chatBar"] = true,
+		["hideChat"] = false,
 	},
 
 	["colors"] = {
@@ -129,10 +131,57 @@ P["mui"] = {
 		["scale"] = 1,
 		["hideInCombat"] = true,
 		["hideInOrderHall"] = false,
+		["tooltip"] = true,
 		["text"] = {
 			["position"] = "BOTTOM",
 			["friends"] = true,
 			["guild"] = true,
+		},
+	},
+
+	-- Combat Text
+	["nsct"] = {
+		["enable"] = true,
+		["xOffset"] = 0,
+		["yOffset"] = 55,
+		["xOffsetPersonal"] = 0,
+		["yOffsetPersonal"] = -100,
+		["font"] = "Expressway",
+		["fontFlag"] = "OUTLINE",
+		["fontShadow"] = true,
+		["damageColor"] = true,
+		["defaultColor"] = "ffff00",
+		["truncate"] = true,
+		["truncateLetter"] = true,
+		["commaSeperate"] = true,
+		["sizing"] = {
+			["crits"] = true,
+			["critsScale"] = 1.3,
+			["miss"] = false,
+			["missScale"] = 1.3,
+			["smallHits"] = true,
+			["smallHitsScale"] = 0.7,
+		},
+		["animations"] = {
+			["normal"] = "fountain",
+			["crit"] = "verticalUp",
+			["miss"] = "verticalUp",
+		},
+		["animationsPersonal"] = {
+			["normal"] = "rainfall",
+			["crit"] = "verticalUp",
+			["miss"] = "verticalUp",
+		},
+		["formatting"] = {
+			["size"] = 20,
+			["icon"] = "right",
+			["alpha"] = 1,
+		},
+		["useOffTarget"] = true,
+		["offTargetFormatting"] = {
+			["size"] = 15,
+			["icon"] = "right",
+			["alpha"] = 0.5,
 		},
 	},
 
@@ -328,8 +377,8 @@ P["mui"] = {
 		["achievement"] = true, -- Adds information to the tooltip, on which char you earned an achievement
 		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
 		["factionIcon"] = true, -- Add a faction icon on the tooltip
-		["modelIcon"] = false, -- Add a model on the Tooltip
 		["keystone"] = true, -- Adds descriptions for mythic keystone properties
+		["titleColor"] = true,
 	},
 
 	["errorFilters"] = {
@@ -424,8 +473,6 @@ P["mui"] = {
 		["enable"] = true,
 		["azeritebtn"] = true,
 		["undressButton"] = true,
-		["enchantInfo"] = true,
-		["socketInfo"] = true,
 		["durability"] = {
 			["enable"] = true,
 			["onlydamaged"] = true,
@@ -433,24 +480,8 @@ P["mui"] = {
 			["textSize"] = 11,
 			["fontOutline"] = "OUTLINE",
 		},
-		["ilvl"] = {
-			["enable"] = true,
-			["font"] = "Expressway",
-			["textSize"] = 11,
-			["fontOutline"] = "OUTLINE",
-			["colorStyle"] = "RARITY",
-			["color"] = {r = 1, g = 1, b = 0},
-		},
 		["stats"] = {
-			["IlvlFull"] = false,
-			["IlvlColor"] = false,
-			["AverageColor"] = {r = 0, g = 1, b = .59},
 			["OnlyPrimary"] = true,
-			["ItemLevel"] = {
-				["font"] = "Expressway",
-				["size"] = 20,
-				["outline"] = "OUTLINE",
-			},
 			["statFonts"] = {
 				["font"] = "Expressway",
 				["size"] = 11,
@@ -479,6 +510,12 @@ P["mui"] = {
 			["enable"] = true,
 			["colorStyle"] = "VALUE",
 			["color"] = {r = 1, g = 1, b = 0},
+		},
+		["transmog"] = {
+			["enable"] = true,
+		},
+		["illusion"] = {
+			["enable"] = true,
 		},
 	},
 }

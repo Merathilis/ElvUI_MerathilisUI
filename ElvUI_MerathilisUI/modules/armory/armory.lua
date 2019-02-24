@@ -28,81 +28,17 @@ local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local UnitLevel = UnitLevel
+local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
+local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
+local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
+local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
+local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
 --GLOBALS:
 
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 
 local initialized = false
 local updateTimer
-
-local socketsTable = { -- These bonusIDs should be sockets
-	-- /dump string.split(":", GetInventoryItemLink("player", i))
-	-- /dump string.split(":", GetInventoryItemLink("target", 17))
-	[3] = true,
-	-- WoD ?
-	[497] = true,
-	[523] = true,
-	[563] = true,
-	[564] = true,
-	[565] = true,
-	[572] = true,
-	[608] = true,
-	[715] = true,
-	[716] = true,
-	[717] = true,
-	[718] = true,
-	[719] = true,
-	[721] = true,
-	[722] = true,
-	[723] = true,
-	[724] = true,
-	[725] = true,
-	[726] = true,
-	[727] = true,
-	[728] = true,
-	[729] = true,
-	[730] = true,
-	[731] = true,
-	[732] = true,
-	[733] = true,
-	[734] = true,
-	[735] = true,
-	[736] = true,
-	[737] = true,
-	[738] = true,
-	[739] = true,
-	[740] = true,
-	[741] = true,
-	[742] = true,
-	[743] = true,
-	[744] = true,
-	[745] = true,
-	[746] = true,
-	[747] = true,
-	[748] = true,
-	[749] = true,
-	[750] = true,
-	[751] = true,
-	[752] = true,
-	-- Legion ?
-	[1808] = true,
-	[3475] = true,
-	[3522] = true,
-	[4231] = true,
-	[4802] = true,
-
-	[3386] = true, -- Vendor stuff?
-	[3458] = true, -- Legendary
-	[3459] = true, -- 132410
-	[3630] = true, -- 152626
-	-- BfA ?
-	[3364] = true, -- ???
-	[3366] = true, -- ???
-	[3372] = true,
-	--[4926] = true,
-	--[4927] = true,
-	--[4928] = true,
-}
 
 local slots = {
 	["HeadSlot"] = { true, true },
@@ -169,9 +105,10 @@ local heirlooms = {
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
 }
 
-function MERAY:OnEnter()
+function MERAY:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
-		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_RIGHT')
+		self.Texture:SetVertexColor(1, .8, 1)
+		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
 
 		self:SetScript('OnUpdate', function()
 			_G["GameTooltip"]:ClearLines()
@@ -182,8 +119,20 @@ function MERAY:OnEnter()
 	end
 end
 
-function MERAY:OnLeave()
+function MERAY:Transmog_OnLeave()
+	self.Texture:SetVertexColor(1, .5, 1)
+
 	self:SetScript('OnUpdate', nil)
+	_G["GameTooltip"]:Hide()
+end
+
+function MERAY:Illusion_OnEnter()
+	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
+	_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
+	_G["GameTooltip"]:Show()
+end
+
+function MERAY:Illusion_OnLeave()
 	_G["GameTooltip"]:Hide()
 end
 
@@ -204,79 +153,18 @@ function MERAY:UpdatePaperDoll()
 		slot = GetInventorySlotInfo(k)
 		if slot and slot ~= '' then
 			-- Reset Data first
-			frame.ItemLevel:SetText("")
 			frame.DurabilityInfo:SetText("")
-			frame.EnchantInfo:SetText("")
-			frame.SocketHolder:Hide()
-			frame.SocketHolder.Link = nil
 			frame.Gradiation.Texture:Hide()
+			frame.Transmog.Texture:Hide()
+			frame.Transmog.Link = nil
+			frame.Illusion:Hide()
+			frame.Illusion.Link = nil
 
 			itemLink = GetInventoryItemLink(unit, slot)
 			if (itemLink and itemLink ~= nil) then
 				if type(itemLink) ~= "string" then return end
-				_, _, _, _, _, _, _, _, _, _, _, _, _, numBonuses, affixes = strsplit(":", itemLink, 15)
-				numBonuses = tonumber(numBonuses) or 0
 
-				local _, _, itemRarity, _, _, _, _, _, itemEquipLoc = GetItemInfo(itemLink)
-				if MERAY.db.ilvl.enable then
-					-- Item Level
-					if ((slot == 16 or slot == 17) and GetInventoryItemQuality(unit, slot) == LE_ITEM_QUALITY_ARTIFACT) then
-						local itemLevelMainHand = 0
-						local itemLevelOffHand = 0
-						local itemLinkMainHand = GetInventoryItemLink(unit, 16)
-						local itemLinkOffhand = GetInventoryItemLink(unit, 17)
-						if itemLinkMainHand then itemLevelMainHand = self:GetItemLevel(unit, itemLinkMainHand or 0) end
-						if itemLinkOffhand then itemLevelOffHand = self:GetItemLevel(unit, itemLinkOffhand or 0) end
-						itemLevel = max(itemLevelMainHand or 0, itemLevelOffHand or 0)
-					else
-						itemLevel = self:GetItemLevel(unit, itemLink)
-					end
-					if itemLevel and avgEquipItemLevel then
-						frame.ItemLevel:SetText(itemLevel)
-					end
-					if itemRarity and MERAY.db.ilvl.colorStyle == "RARITY" then
-						local r, g, b = GetItemQualityColor(itemRarity)
-						frame.ItemLevel:SetTextColor(r, g, b)
-					elseif MERAY.db.ilvl.colorStyle == "LEVEL" then
-						frame.ItemLevel:SetFormattedText("%s%d|r", levelColors[(itemLevel < avgEquipItemLevel-10 and 0 or (itemLevel > avgEquipItemLevel + 10 and 1 or (2)))], itemLevel)
-					else
-						frame.ItemLevel:SetTextColor(MER:unpackColor(MERAY.db.ilvl.color))
-					end
-				end
-
-				-- Enchants
-				if MERAY.db.enchantInfo then
-					enchantInfo = self:GetEnchants(itemLink)
-					if enchantInfo then
-						if (slot == 11 or slot == 12 or slot == 16 or (slot == 17 and itemEquipLoc ~= 'INVTYPE_SHIELD' and itemEquipLoc ~= 'INVTYPE_HOLDABLE')) then
-							frame.EnchantInfo:SetText(enchantInfo)
-						end
-					end
-				end
-
-				-- Gems
-				if MERAY.db.socketInfo then
-					if numBonuses and numBonuses > 0 then
-						for b = 1, numBonuses do
-							local bonusID = select(b, strsplit(":", affixes))
-							if socketsTable[tonumber(bonusID)] then
-								local _, gemLink = GetItemGem(itemLink, 1)
-								if gemLink and gemLink ~= "" then
-									local _, _, _, _, _, _, _, _, _, t = GetItemInfo(gemLink)
-									if t and t > 0 then -- has a socket in the item
-										frame.SocketHolder:Show()
-										frame.SocketHolder.Texture:SetTexture(t)
-										frame.SocketHolder.Link = gemLink
-									end
-								else -- has an empty socket
-									frame.SocketHolder:Show()
-									frame.SocketHolder:SetBackdropColor(255, 0, 0, 1)
-									frame.SocketHolder.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\warning')
-								end
-							end
-						end
-					end
-				end
+				local _, _, itemRarity, _, _, _, _, _, _ = GetItemInfo(itemLink)
 
 				-- Durability
 				if MERAY.db.durability.enable then
@@ -291,7 +179,6 @@ function MERAY:UpdatePaperDoll()
 				-- Gradiation
 				if MERAY.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
-
 					if itemRarity and MERAY.db.gradient.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
@@ -301,130 +188,31 @@ function MERAY:UpdatePaperDoll()
 						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(MERAY.db.gradient.color))
 					end
 				end
+
+				-- Transmog
+				if MERAY.db.transmog.enable then
+					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
+						frame.Transmog.Texture:Show()
+						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
+					end
+				end
+
+				-- Illussion
+				if MERAY.db.illusion.enable then
+					if (slot == 16 or slot == 17) then
+						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)
+
+						if ItemTexture then
+							frame.Illusion:Show()
+							frame.Illusion.Texture:SetTexture(ItemTexture)
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)))
+						end
+					else
+						frame.Illusion:Hide()
+					end
+				end
 			end
 		end
-	end
-end
-
--- from http://www.wowinterface.com/forums/showthread.php?p=284771 by PhanX
--- Construct your search pattern based on the existing global string:
--- local S_UPGRADE_LEVEL   = "^" .. gsub(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d", "(%%d+)")
-local S_ITEM_LEVEL      = "^" .. gsub(ITEM_LEVEL, "%%d", "(%%d+)")
-
--- Create the tooltip:
-local scantip = CreateFrame("GameTooltip", "MyScanningTooltip", nil, "GameTooltipTemplate")
-scantip:SetOwner(UIParent, "ANCHOR_NONE")
-scantip:ClearLines()
-
-local function GetRealItemLevel(itemLink)
-	-- Pass the item link to the tooltip
-	scantip:SetHyperlink(itemLink)
-
-	-- Scan the tooltip:
-	for i = 2, scantip:NumLines() do -- Line 1 is always the name so you can skip it.
-		local text = _G["MyScanningTooltipTextLeft"..i]:GetText()
-		if text and text ~= "" then
-			local currentLevel = strmatch(text, S_ITEM_LEVEL)
-			if currentLevel then
-				return currentLevel
-			end
-		end
-	end
-end
-
-function MERAY:GetItemLevel(unit, itemLink)
-	local rarity, itemLevel = select(3, GetItemInfo(itemLink))
-	if rarity == 7 then -- heirloom adjust
-		itemLevel = self:HeirLoomLevel(unit, itemLink)
-	end
-
-	itemLevel = GetRealItemLevel(itemLink)
-	itemLevel = tonumber(itemLevel)
-	return itemLevel
-end
-
--- Check missing enchants
-local function CheckEnchants(itemLink)
-	-- Pass the item link to the tooltip
-	scantip:SetHyperlink(itemLink)
-
-	for i = 1, scantip:NumLines() do
-		local enchant = _G["MyScanningTooltipTextLeft"..i]:GetText():match(ENCHANTED_TOOLTIP_LINE:gsub("%%s", "(.+)"))
-		if enchant then
-			return enchant
-		end
-	end
-end
-
-function MERAY:GetEnchants(itemLink)
-	local enchantInfo = CheckEnchants(itemLink)
-
-	if enchantInfo then
-		enchantInfo = "|cff00ff00E|r"
-	else
-		enchantInfo = "|cffff0000E|r"
-	end
-
-	return enchantInfo
-end
-
---[[heirloom ilvl equivalents
-Vanilla: 1-60 = 60 / 60 = scales by 1 ilvl per player level
-TBC rares: 85-115 = 30 / 10 = scales by 3 ilvl per player level
-WLK rares: 130-190(200) = 60 / 10 = scales by 6 ilvl per player level
-CAT rares: 272-333 = 61 / 5 = scales by 12.2 ilvl per player level
-MOP rares: 364-450 = 86 / 5 = scales by 17.2 ilvl per player level (guesswork)
-]]
-
-function MERAY:HeirLoomLevel(unit, itemLink)
-	local level = UnitLevel(unit)
-
-	if level > 85 then
-		local _, _, _, _, itemId = find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-		itemId = tonumber(itemId)
-
-		for _, id in pairs(heirlooms["90h"]) do
-			if id == itemId then
-				level = 582
-				break
-			end
-		end
-
-		for _, id in pairs(heirlooms["90n"]) do
-			if id == itemId then
-				level = 569
-				break
-			end
-		end
-
-		for _, id in pairs(heirlooms["90f"]) do
-			if id == itemId then
-				level = 548
-				break
-			end
-		end
-	elseif level > 80 then
-		local _, _, _, _, itemId = find(itemLink, "|?c?f?f?(%x*)|?H?([^:]*):?(%d+):?(%d*):?(%d*):?(%d*):?(%d*):?(%d*):?(%-?%d*):?(%-?%d*):?(%d*):?(%d*)|?h?%[?([^%[%]]*)%]?|?h?|?r?")
-		itemId = tonumber(itemId)
-
-		for _, id in pairs(heirlooms[80]) do
-			if id == itemId then
-				level = 80
-				break
-			end
-		end
-	end
-
-	if level > 85 then
-		return level
-	elseif level > 80 then -- CAT heirloom scaling kicks in at 81
-		return (( level - 81) * 12.2) + 272;
-	elseif level > 67 then -- WLK heirloom scaling kicks in at 68
-		return (( level - 68) * 6) + 130;
-	elseif level > 59 then -- TBC heirloom scaling kicks in at 60
-		return (( level - 60) * 3) + 85;
-	else
-		return level
 	end
 end
 
@@ -434,69 +222,21 @@ function MERAY:InitialUpdatePaperDoll()
 	self:BuildInformation()
 
 	-- update player info
-	self:ScheduleTimer("UpdatePaperDoll", 10)
+	self:ScheduleTimer("UpdatePaperDoll", 13)
 
 	initialized = true
 end
 
-local function UpdateiLvLPoints(id)
-	if id <= 7 or id == 17 or id == 11 then			-- Left side
-		return "BOTTOMLEFT", "BOTTOMLEFT", 1, 1
-	elseif id <= 16 then 							-- Right side
-		return "BOTTOMRIGHT", "BOTTOMRIGHT", 2, 1
-	else											-- Weapon slots
-		return "BOTTOM", "BOTTOM", 2, 1
-	end
-end
-
-local function UpdateGemPoints(id)
-	if id <= 7 or id == 17 or id == 11 then 		-- Left side
-		return "LEFT", "RIGHT", 4, 0
-	elseif id <= 16 then						-- Right side
-		return "RIGHT", "LEFT", -4, 0
-	else										-- Weapon slots
-		return "TOP", "TOP", 0, 16
-	end
-end
-
 function MERAY:BuildInformation()
 	for id, slotName in pairs(slotIDs) do
-		local frame = _G["Character"..slotIDs[id]]
-		local iLvLPoint, iLvLParentPoint, x1, y1 = UpdateiLvLPoints(id)
-		local GemPoint, GemparentPoint, x2, y2 = UpdateGemPoints(id)
+		if not id then return end
 
-		-- Item Level
-		frame.ItemLevel = frame:CreateFontString(nil, "OVERLAY")
-		frame.ItemLevel:SetPoint(iLvLPoint, frame, iLvLParentPoint, x1 or 0, y1 or 0)
-		frame.ItemLevel:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
+		local frame = _G["Character"..slotIDs[id]]
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
-
-		-- Enchant Info
-		frame.EnchantInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.EnchantInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 1, -1)
-		frame.EnchantInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
-
-		-- Gem Info
-		frame.SocketHolder = CreateFrame('Frame', nil, frame)
-		frame.SocketHolder:Size(12)
-		frame.SocketHolder:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = E.mult, right = E.mult, top = E.mult, bottom = E.mult }
-		})
-		frame.SocketHolder:SetBackdropBorderColor(0, 0, 0, 1)
-		frame.SocketHolder:SetPoint(GemPoint, frame, GemparentPoint, x2 or 0, y2 or 0)
-		frame.SocketHolder:SetScript('OnEnter', self.OnEnter)
-		frame.SocketHolder:SetScript('OnLeave', self.OnLeave)
-
-		frame.SocketHolder.Texture = frame.SocketHolder:CreateTexture(nil, 'OVERLAY')
-		frame.SocketHolder.Texture:SetTexCoord(unpack(E.TexCoords))
-		frame.SocketHolder.Texture:SetInside()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
@@ -514,12 +254,50 @@ function MERAY:BuildInformation()
 			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
-	end
 
-	-- Azerite Neck
-	_G["CharacterNeckSlot"].RankFrame:CreateFontString(nil, "OVERLAY")
-	_G["CharacterNeckSlot"].RankFrame:SetPoint("TOP", _G["CharacterNeckSlot"], "TOP", 0, 0)
-	_G["CharacterNeckSlot"].RankFrame.Label:FontTemplate(LSM:Fetch("font", MERAY.db.ilvl.font), MERAY.db.ilvl.textSize, MERAY.db.ilvl.fontOutline)
+		-- Transmog Info
+		frame.Transmog = CreateFrame('Button', nil, frame)
+		frame.Transmog:Size(12)
+		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
+		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
+
+		frame.Transmog.Texture = frame.Transmog:CreateTexture(nil, 'OVERLAY')
+		frame.Transmog.Texture:SetInside()
+		frame.Transmog.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\anchor')
+		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
+
+		if id <= 7 or id == 17 or id == 11 then -- Left Size
+			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
+		elseif id <= 16 then -- Right Side
+			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
+		elseif id == 18 then -- Main Hand
+			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
+		elseif id == 19 then -- Off Hand
+			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
+		end
+
+		-- Illusion Info
+		frame.Illusion = CreateFrame('Button', nil, frame)
+		frame.Illusion:Size(14)
+		frame.Illusion:SetBackdrop({
+			bgFile = E.media.blankTex,
+			edgeFile = E.media.blankTex,
+			tile = false, tileSize = 0, edgeSize = E.mult,
+			insets = { left = 0, right = 0, top = 0, bottom = 0}
+		})
+		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
+		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
+		frame.Illusion:SetBackdropBorderColor(1, .5, 1)
+
+		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
+		frame.Illusion.Texture:SetInside()
+		frame.Illusion.Texture:SetTexCoord(.1, .9, .1, .9)
+	end
 end
 
 function MERAY:AzeriteGlow()
@@ -530,24 +308,13 @@ function MERAY:AzeriteGlow()
 		hooksecurefunc(azslot, "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
 			self.AzeriteTexture:Hide()
 			self.AvailableTraitFrame:Hide()
-			PaperDollItemsFrame.EvaluateHelpTip = function(self) self.UnspentAzeriteHelpBox:Hide() end
+
 			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, {r,g,b,1}, nil, -0.25, nil, 3)
+				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 2)
 			else
 				LCG.PixelGlow_Stop(self)
 			end
 		end)
-	end
-end
-
-function MERAY:UpdateIlvlFont()
-	local db = E.db.mui.armory.stats.ItemLevel
-	_G["CharacterStatsPane"].ItemLevelFrame.Value:FontTemplate(LSM:Fetch('font', db.font), db.size or 12, db.outline)
-	_G["CharacterStatsPane"].ItemLevelFrame:SetHeight((db.size or 12) + 4)
-	_G["CharacterStatsPane"].ItemLevelFrame.Background:SetHeight((db.size or 12) + 4)
-	if _G["CharacterStatsPane"].ItemLevelFrame.leftGrad then
-		_G["CharacterStatsPane"].ItemLevelFrame.leftGrad:SetHeight((db.size or 12) + 4)
-		_G["CharacterStatsPane"].ItemLevelFrame.rightGrad:SetHeight((db.size or 12) + 4)
 	end
 end
 
@@ -557,7 +324,9 @@ function MERAY:firstGarrisonToast()
 end
 
 function MERAY:Initialize()
-	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true or IsAddOnLoaded('ElvUI_SLE') then return end
+	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true then return end
+	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	if not E.db.general.displayCharacterInfo then return end
 
 	MERAY.db = E.db.mui.armory
 
@@ -582,15 +351,7 @@ function MERAY:Initialize()
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
-	function MERAY:ForUpdateAll()
-		MERAY.db = E.db.mui.armory
-		MERAY:UpdateIlvlFont()
-	end
-
-	self:ForUpdateAll()
-
 	MERAY:AzeriteGlow()
-	MERAY:UpdateIlvlFont()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

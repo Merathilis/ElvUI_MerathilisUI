@@ -41,6 +41,8 @@ local function styleCalendar()
 	_G.CalendarViewEventAcceptButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventTentativeButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventDeclineButton.flashTexture:SetTexture("")
+
+	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)

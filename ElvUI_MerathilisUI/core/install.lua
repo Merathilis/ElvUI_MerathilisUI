@@ -44,8 +44,8 @@ local function SetupCVars()
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
 	SetCVar("nameplateMotion", 1)
-	SetCVar("nameplateOverlapH", 0.3) --default is 0.8
-	SetCVar("nameplateOverlapV", 0.7) --default is 1.1
+	SetCVar("nameplateOverlapH", 0.8)
+	SetCVar("nameplateOverlapV", 1.1)
 	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
@@ -66,15 +66,10 @@ local function SetupCVars()
 	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
-	if IsAddOnLoaded("NameplateSCT") then
-		SetCVar("floatingCombatTextCombatDamage", 0)
-		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
-		SetCVar("floatingCombatTextCombatHealing", 1)
-	else
-		SetCVar("floatingCombatTextCombatDamage", 1)
-		SetCVar("floatingCombatTextCombatLogPeriodicSpells", 1)
-		SetCVar("floatingCombatTextCombatHealing", 1)
-	end
+	-- Disable it because of NSCT
+	SetCVar("floatingCombatTextCombatDamage", 0)
+	SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
+	SetCVar("floatingCombatTextCombatHealing", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
@@ -273,6 +268,8 @@ function MER:SetupLayout()
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
+	E.db["general"]["displayCharacterInfo"] = true
+	E.db["general"]["displayInspectInfo"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -323,6 +320,9 @@ function MER:SetupLayout()
 	E.db["bags"]["itemLevelThreshold"] = 100
 	E.db["bags"]["junkIcon"] = true
 	E.db["bags"]["strata"] = 'HIGH'
+	E.db["bags"]["showBindType"] = true
+	E.db["bags"]["scrapIcon"] = true
+	E.db["bags"]["itemLevelCustomColorEnable"] = false
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
@@ -352,6 +352,8 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
+	E.db["nameplates"]["targetGlow"] = 'style2'
+	E.db["nameplates"]["glowColor"] = { r = 77/255, g = 179/255, b = 255/255, a = 1 }
 	E.db["nameplates"]["targetScale"] = 1.20
 	E.db["nameplates"]["customColor"] = false
 	E.db["nameplates"]["clampToScreen"] = true
@@ -687,6 +689,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -861,7 +864,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 4
+		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
@@ -1012,6 +1015,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = false
 
 		-- Raid
+		E.db["unitframe"]["units"]["raid"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["height"] = 35
 		E.db["unitframe"]["units"]["raid"]["width"] = 77
 		E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
@@ -1131,6 +1135,7 @@ function MER:SetupUnitframes(layout)
 		end
 
 		-- Raid40
+		E.db["unitframe"]["units"]["raid40"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["useBlacklist"] = false
@@ -1231,6 +1236,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
 
 		-- Party
+		E.db["unitframe"]["units"]["party"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
@@ -1486,7 +1492,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 298)
 		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 281)
 		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 261)
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -543, 281)
+		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -544, 281)
 		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 365)
 		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 346)
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
@@ -1495,8 +1501,8 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 454, 359)
 		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
-		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 281)
-		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 543, 269)
+		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 544, 281)
+		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 544, 269)
 		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)

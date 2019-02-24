@@ -116,6 +116,10 @@ function AZB:UNIT_INVENTORY_CHANGED()
 	AZB:buttonHightlight()
 end
 
+function AZB:PLAYER_EQUIPMENT_CHANGED()
+	AZB:buttonHightlight()
+end
+
 function AZB:AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED()
 	AZB:buttonHightlight()
 end
@@ -240,10 +244,11 @@ function AZB:openChest()
 end
 
 function AZB:Initialize()
-	if E.db.mui.armory.azeritebtn ~= true or E.private.skins.blizzard.character ~= true then return end
+	if E.db.mui.armory.azeritebtn ~= true or E.private.skins.blizzard.character ~= true or E.db.general.displayCharacterInfo ~= true then return end
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	self:RegisterEvent("AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED")
 
 	self:CreateAZbuttons()

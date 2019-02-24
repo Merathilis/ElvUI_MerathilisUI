@@ -303,6 +303,8 @@ SLASH_TESTNOTIFICATION1 = "/testnotification"
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
 	if NF.db.enable ~= true or NF.db.mail ~= true then return end
+	if InCombatLockdown() then return end
+
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
 		hasMail = newMail

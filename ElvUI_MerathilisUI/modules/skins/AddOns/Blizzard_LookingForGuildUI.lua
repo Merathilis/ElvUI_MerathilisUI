@@ -3,7 +3,7 @@ local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
-
+local _G = _G
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
@@ -16,6 +16,15 @@ local function LoadSkin()
 		self:Styling()
 	end
 	hooksecurefunc("LookingForGuildFrame_OnShow", SkinLFGuild)
+
+	local styled
+	hooksecurefunc("LookingForGuildFrame_CreateUIElements", function()
+		if styled then return end
+		MER:ReskinRole(_G.LookingForGuildTankButton, "TANK")
+		MER:ReskinRole(_G.LookingForGuildHealerButton, "HEALER")
+		MER:ReskinRole(_G.LookingForGuildDamagerButton, "DPS")
+		styled = true
+	end)
 end
 
 S:AddCallbackForAddon("Blizzard_LookingForGuildUI", "mUILookingForGuild", LoadSkin)

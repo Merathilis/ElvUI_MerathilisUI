@@ -36,6 +36,9 @@ L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
 L["Transparent Slots"] = true
+L["Equipment Manager"] = true
+L["Equipment Set Overlay"] = true
+L["Show the associated equipment sets for the items in your bags (or bank)."] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -61,6 +64,9 @@ L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 L["ChatBar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
+L["Hide Community Chat"] = true
+L["Adds an overlay to the Community Chat. Useful for streamers."] = true
+L["Chat Hidden. Click to show"] = true
 
 -- Information
 L["Information"] = true
@@ -97,6 +103,16 @@ L["Misc"] = true
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
 L["Show/Hide the guild text on MicroBar."] = true
+L["Blingtron"] = "Blingtron Daily Gift"
+L["Mean One"] = "Feast of Winter Veil"
+L["Timewarped"] = "500 Timewarped Badges"
+L["Legion Invasion"] = true
+L["Faction Assault"] = true
+L["Local Time"] = true
+L["Realm Time"] = true
+L["Current Invasion: "] = true
+L["Next Invasion: "] = true
+L["Mythic Dungeon"] = true
 
 -- Misc
 L["Artifact Power"] = true
@@ -115,6 +131,8 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Raid Info"] = true
+L["Shows a simple frame with Raid Informations."] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -123,9 +141,10 @@ L["Your Status: Completed on "] = true
 L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Model"] = true
-L["Adds an Model icon on the tooltip."] = true
+L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
+L["Title Color"] = true
+L["Change the color of the title in the Tooltip."] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -204,6 +223,9 @@ L["Clean Boss Button"] = true
 
 -- Armory
 L["Armory"] = true
+L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
+
+ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
 L["Azerite Buttons"] = true
 L["Enable/Disable the Azerite Buttons on the character window."] = true
@@ -227,12 +249,13 @@ L["Categories"] = true
 L["Open head slot azerite powers."] = true
 L["Open shoulder slot azerite powers."] = true
 L["Open chest slot azerite powers."] = true
-L["Enchant Info"] = true
-L["Shows an indictor for enchanted/ not enchanted items."] = true
-L["Socket Info"] = true
-L["Shows an indictor for socketed/ unsocketed items."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
+L["Indicators"] = true
+L["Transmog"] = true
+L["Shows an arrow indictor for currently transmogrified items."] = true
+L["Illusion"] = true
+L["Shows an indictor for weapon illusions."] = true
 -- PRINTS
 L["Equipped head is not an Azerite item."] = true
 L["No head item is equipped."] = true
@@ -366,6 +389,44 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+
+-- NSCT
+L["Combat Text"] = true
+L["Disable Blizzard FCT"] = true
+L["Personal SCT"] = true
+L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = true
+L["Animations"] = true
+L["Default"] = true
+L["Criticals"] = true
+L["Miss/Parry/Dodge/etc."] = true
+L["Personal SCT Animations"] = true
+L["Appearance/Offsets"] = true
+L["Font Shadow"] = true
+L["Use Damage Type Color"] = true
+L["Default Color"] = true
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
+L["X-Offset Personal SCT"] = true
+L["Y-Offset Personal SCT"] = true
+L["Only used if Personal Nameplate is Disabled."] = true
+L["Text Formatting"] = true
+L["Truncate Number"] = true
+L["Condense combat text numbers."] = true
+L["Show Truncated Letter"] = true
+L["Comma Seperate"] = true
+L["e.g. 100000 -> 100,000"] = true
+L["Icon"] = true
+L["Size"] = true
+L["Start Alpha"] = true
+L["Use Seperate Off-Target Text Appearance"] = true
+L["Off-Target Text Appearance"] = true
+L["Sizing Modifiers"] = true
+L["Embiggen Crits"] = true
+L["Embiggen Crits Scale"] = true
+L["Embiggen Miss/Parry/Dodge/etc."] = true
+L["Embiggen Miss/Parry/Dodge/etc. Scale"] = true
+L["Scale Down Small Hits"] = true
+L["Small Hits Scale"] = true
 
 -- SMB
 L["Bar Backdrop"] = true

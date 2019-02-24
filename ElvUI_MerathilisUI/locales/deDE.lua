@@ -36,6 +36,9 @@ L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login
 
 -- Bags
 L["Transparent Slots"] = "Transparente Schaltflächen"
+L["Equipment Manager"] = "Ausrüstungsmanager"
+L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
+L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -61,6 +64,9 @@ L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
 L["ChatBar"] = "Chatleiste"
 L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
+L["Hide Community Chat"] = "Verstecke Community Chat"
+L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
+L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 
 -- Information
 L["Information"] = true
@@ -88,17 +94,23 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
--- MasterPlan
-L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
-L["Misc"] = "Verschiedenes"
-
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
 L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
+L["Blingtron"] = "Blingtron Tägliches Geschenk"
+L["Mean One"] = "Winterhauchfest"
+L["Timewarped"] = "500 Zeitverzerrte Abzeichen"
+L["Legion Invasion"] = true
+L["Faction Assault"] = "Fraktionsübergriff"
+L["Local Time"] = "Lokale Zeit"
+L["Realm Time"] = "Server Zeit"
+L["Current Invasion: "] = "Aktuelle Invasion: "
+L["Next Invasion: "] = "Nächste Invasion: "
+L["Mythic Dungeon"] = "Mythische Instanz"
 
 -- Misc
+L["Misc"] = "Verschiedenes"
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
@@ -115,6 +127,8 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
+L["Raid Info"] = "Raid Information"
+L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -123,9 +137,10 @@ L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
 L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
-L["Model"] = true
-L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
+L["Keystone"] = "Schlüsselstein"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
+L["Title Color"] = "Titel Farbe"
+L["Change the color of the title in the Tooltip."] = "Ändert die Farbe des Titels im Tooltip."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -204,6 +219,9 @@ L["Clean Boss Button"] = "Geskinnte Boss Taste"
 
 -- Armory
 L["Armory"] = "Arsenal"
+L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvUI Charakter Informationen'. Es könnte sein dass du dein UI neuladen musst:
+
+ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
 L["Azerite Buttons"] = "Azerittasten"
 L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
@@ -227,12 +245,13 @@ L["Categories"] = "Kategorien"
 L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
 L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
 L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
-L["Enchant Info"] = "Verzauberungsinfo"
-L["Shows an indictor for enchanted/ not enchanted items."] = "Zeigt einen Indikator für verzauerte und unverzauberte Gegenstände."
-L["Socket Info"] = "Sockelinfo"
-L["Shows an indictor for socketed/ unsocketed items."] = "Zeigt einen Indikator für gesockelte / ungesockelte Gegenstände."
 L["Slot Gradient"] = "Gegenstand-Farbverlauf"
+L["Indicators"] = "Indikatoren"
 L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
+L["Transmog"] = true -- No need to translate
+L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogriefizierten Gegenstand."
+L["Illusion"] = "Illusionen"
+L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffen Illusionen."
 -- PRINTS
 L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
 L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
@@ -367,6 +386,43 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
+
+-- NSCT
+L["Combat Text"] = "Kampftext"
+L["Disable Blizzard FCT"] = "Deaktive den Blizzard Kampftext"
+L["Personal SCT"] = "Persönlicher Kampftext"
+L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = "Zeigt auch Nummern wenn du Schaden erleidest auf deiner persönlichen Namensplakette oder in der Mitte des Blidschirms."
+L["Animations"] = "Animation"
+L["Default"] = "Standard"
+L["Criticals"] = "Kritisch"
+L["Miss/Parry/Dodge/etc."] = "Verfehlen/Parrieren/Blocken/etc."
+L["Personal SCT Animations"] = "Persönlicher Kampftext Animation"
+L["Appearance/Offsets"] = "Anzeige/Versatz"
+L["Font Shadow"] = "Text Schatten"
+L["Use Damage Type Color"] = "Benutze Schadenstyp Farbe"
+L["Default Color"] = "Standardfarbe"
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = "Hat einen soft min/max, du kannst eingeben was immer du möchtest. LoL"
+L["X-Offset Personal SCT"] = "X-Versatz persönliche Anzeige"
+L["Y-Offset Personal SCT"] = "Y-Versatz persönliche Anzeige"
+L["Only used if Personal Nameplate is Disabled."] = "Wird nur benutzt wenn die persönliche Namensplakette deaktiviert ist."
+L["Text Formatting"] = "Textformat"
+L["Truncate Number"] = "Nummern kürzen"
+L["Condense combat text numbers."] = "Fügt Kampftext Nummern zusammen"
+L["Show Truncated Letter"] = "Zeige gekürzte Buchstaben"
+L["Comma Seperate"] = "Komma"
+L["e.g. 100000 -> 100,000"] = "z.B. 100000 -> 100,000"
+L["Icon"] = "Symbol"
+L["Size"] = "Größe"
+L["Start Alpha"] = true
+L["Use Seperate Off-Target Text Appearance"] = "Benutze seperate Off-Target Anzeige"
+L["Off-Target Text Appearance"] = "Off-Target Textanzeige"
+L["Sizing Modifiers"] = "Größe anpassen"
+L["Embiggen Crits"] = "Vergrößere Krits"
+L["Embiggen Crits Scale"] = "Vergrößerte Krits Skallierung"
+L["Embiggen Miss/Parry/Dodge/etc."] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc."
+L["Embiggen Miss/Parry/Dodge/etc. Scale"] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc. Skallierung"
+L["Scale Down Small Hits"] = "Einfache Treffer runterskallieren"
+L["Small Hits Scale"] = "Einfache Treffer Skallierung"
 
 -- SMB
 L["Bar Backdrop"] = "Leisten Hintergrund"

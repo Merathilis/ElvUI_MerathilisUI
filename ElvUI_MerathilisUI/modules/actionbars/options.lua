@@ -13,7 +13,7 @@ local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		order = 10,
 		type = "group",
-		name = MAB.modName,
+		name = E.NewSign..MAB.modName,
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -118,8 +118,14 @@ local function abTable()
 						name = L["Hide In Orderhall"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
-					text = {
+					tooltip = {
 						order = 5,
+						type = "toggle",
+						name = E.NewSign..L["Tooltip"],
+						disabled = function() return not E.db.mui.microBar.enable end,
+					},
+					text = {
+						order = 6,
 						type = "group",
 						name = MER:cOption(L["Text"]),
 						guiInline = true,

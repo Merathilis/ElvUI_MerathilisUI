@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local unpack = unpack
+local pairs, unpack = pairs, unpack
 -- WoW API
 local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
@@ -27,6 +27,21 @@ local function styleCharacter()
 
 	if CharacterModelFrame.backdrop then
 		CharacterModelFrame.backdrop:Hide()
+	end
+
+	-- Strip Textures
+	local charframe = {
+		"CharacterFrame",
+		"CharacterModelFrame",
+		"CharacterFrameInset",
+		"CharacterStatsPane",
+		"CharacterFrameInsetRight",
+		"PaperDollSidebarTabs",
+		"PaperDollEquipmentManagerPane"
+	}
+
+	for _, object in pairs(charframe) do
+		_G[object]:StripTextures()
 	end
 
 	CharacterFrame:Styling()
@@ -54,7 +69,7 @@ local function styleCharacter()
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
 		bu:SetSize(55, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPLEFT", _G["CharacterWristSlot"], "BOTTOMLEFT", -1, -10)
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 65, -15)
 
 		bu.text = MER:CreateText(bu, "OVERLAY", 12, "OUTLNE")
 		bu.text:SetPoint("CENTER")

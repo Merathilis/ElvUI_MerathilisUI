@@ -369,19 +369,7 @@ end
 
 function MERAY:PaperDollFrame_UpdateStats()
 	totalShown = 0
-	local total, equipped = GetAverageItemLevel()
-	if E.db.mui.armory.stats.IlvlFull then
-		if E.db.mui.armory.stats.IlvlColor then
-			local R, G, B = E:ColorGradient((equipped / total), 1, 0, 0, 1, 1, 0, 0, 1, 0)
-			local avColor = E.db.mui.armory.stats.AverageColor
-			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%s%.2f|r |cffffffff/|r %s%.2f|r", E:RGBToHex(R, G, B), equipped, E:RGBToHex(avColor.r, avColor.g, avColor.b), total)
-		else
-			_G["CharacterStatsPane"].ItemLevelFrame.Value:SetFormattedText("%.2f |cffffffff/|r %.2f", equipped, total)
-		end
-	else
-		_G["CharacterStatsPane"].ItemLevelFrame.Value:SetTextColor(GetItemLevelColor())
-		PaperDollFrame_SetItemLevel(_G["CharacterStatsPane"].ItemLevelFrame, "player");
-	end
+	local total = GetAverageItemLevel()
 	_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
 	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 

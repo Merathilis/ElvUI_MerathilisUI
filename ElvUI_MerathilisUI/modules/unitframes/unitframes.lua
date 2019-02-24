@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local UF = E:GetModule("UnitFrames")
 MUF.modName = L["UnitFrames"]
 
 --Cache global variables
@@ -42,6 +43,9 @@ function MUF:Initialize()
 	-- self:InitRaid40()
 
 	self:InfoPanelColor()
+
+	-- RaidIcons
+	hooksecurefunc(UF, "Configure_RaidIcon", MUF.Configure_RaidIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
 end

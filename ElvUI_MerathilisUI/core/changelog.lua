@@ -17,9 +17,11 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Dont load the AzeriteButtons if the ElvUI Character Skin is disabled.",
-		"• Add a waring texture for missing gems.",
-		"• Update ls_Toast skin and profile.",
+		"• Changed the Armory Mode to work with the new Character Info from ElvUI.",
+		"• Many Skin updates.",
+		"• Added a MicroBar Tooltip.",
+		"• Added a Community Chat Hider. Credits Nnogga.",
+		"• Added NamePlate Scrolling Text.Credits Mpstark",
 
 		-- "• ''",
 	" ",

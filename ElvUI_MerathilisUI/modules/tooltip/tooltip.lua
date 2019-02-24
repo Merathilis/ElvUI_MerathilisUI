@@ -5,8 +5,9 @@ MERTT.modName = L["mUI Tooltip"]
 
 --Cache global variables
 --Lua functions
-local select = select
+local pairs, select = pairs, select
 local format = string.format
+local tsort, twipe = table.sort, table.wipe
 --WoW API / Variables
 local GetGuildInfo = GetGuildInfo
 local GetMouseFocus = GetMouseFocus
@@ -28,6 +29,15 @@ local LE_REALM_RELATION_COALESCED = LE_REALM_RELATION_COALESCED
 local LE_REALM_RELATION_VIRTUAL = LE_REALM_RELATION_VIRTUAL
 local INTERACTIVE_SERVER_LABEL = INTERACTIVE_SERVER_LABEL
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local hooksecurefunc = hooksecurefunc
+local UIParent = UIParent
+local C_LFGList_GetActivityInfo = C_LFGList.GetActivityInfo
+local C_LFGList_GetSearchResultMemberCounts = C_LFGList.GetSearchResultMemberCounts
+local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
+local LFGListUtil_GetQuestDescription = LFGListUtil_GetQuestDescription
+local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
+local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounterInfo
+local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: CUSTOM_CLASS_COLORS, UIParent, GameTooltipTextLeft1
@@ -71,27 +81,59 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 		if not localeClass or not class then return; end
 		color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
 
-		if(self.db.playerTitles and pvpName) then
-			name = pvpName
-		end
-
-		if(realm and realm ~= "") then
-			if(isShiftKeyDown) or self.db.alwaysShowRealm then
-				name = name..format("|cff00c0fa%s|r", " - "..realm)
-			elseif(relationship == LE_REALM_RELATION_COALESCED) then
-				name = name..format("|cff00c0fa%s|r", FOREIGN_SERVER_LABEL)
-			elseif(relationship == LE_REALM_RELATION_VIRTUAL) then
-				name = name..format("|cff00c0fa%s|r", INTERACTIVE_SERVER_LABEL)
+		local t1, t2 = '', ''
+		if self.db.playerTitles and pvpName and pvpName ~= name then
+			if E.db.mui.tooltip.titleColor then
+				local p1, p2 = pvpName:match('(.*)'..name..'(.*)')
+				if p1 and p1 ~= '' then
+					if (UnitIsAFK(unit)) then
+						t1 = '|cff00c0fa'..p1..'|r'..AFK_LABEL
+					elseif (UnitIsDND(unit)) then
+						t1 = '|cff00c0fa'..p1..'|r'..DND_LABEL
+					else
+						t1 = '|cff00c0fa'..p1..'|r'
+					end
+				end
+				if p2 and p2 ~= '' then
+					if (UnitIsAFK(unit)) then
+						t2 = '|cff00c0fa'..p2..'|r'..AFK_LABEL
+					elseif (UnitIsDND(unit)) then
+						t2 = '|cff00c0fa'..p2..'|r'..DND_LABEL
+					else
+						t2 = '|cff00c0fa'..p2..'|r'
+					end
+				end
+			else
+				name = pvpName
 			end
 		end
 
-		if(UnitIsAFK(unit)) then
-			name = name..AFK_LABEL
-		elseif(UnitIsDND(unit)) then
-			name = name..DND_LABEL
+		if realm and realm ~= "" then
+			if isShiftKeyDown or self.db.alwaysShowRealm then
+				realm = "-"..realm
+			elseif relationship == LE_REALM_RELATION_COALESCED then
+				realm = FOREIGN_SERVER_LABEL
+			elseif relationship == LE_REALM_RELATION_VIRTUAL then
+				realm = INTERACTIVE_SERVER_LABEL
+			end
+			realm = '|cff00c0fa'..realm..'|r'
+		else
+			realm = ''
 		end
 
-		GameTooltipTextLeft1:SetFormattedText("|c%s%s|r", color.colorStr, name)
+		if not E.db.mui.tooltip.titleColor then
+			if(UnitIsAFK(unit)) then
+				name = name..AFK_LABEL
+			elseif(UnitIsDND(unit)) then
+				name = name..DND_LABEL
+			end
+		end
+
+		if E.db.mui.tooltip.titleColor then
+			GameTooltipTextLeft1:SetFormattedText("%s|c%s%s|r%s%s", t1, color.colorStr, name, t2, realm)
+		else
+			GameTooltipTextLeft1:SetFormattedText("|c%s%s%s|r", color.colorStr, name, realm)
+		end
 
 		local lineOffset = 2
 		if(guildName) then

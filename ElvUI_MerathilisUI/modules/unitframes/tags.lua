@@ -79,51 +79,6 @@ function MER:GetFormattedText(min, max, style, noDecimal)
 	end
 end
 
-ElvUF.Tags.Events["health:percent:hidefull:hidezero"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION"
-ElvUF.Tags.Methods["health:percent:hidefull:hidezero"] = function(unit)
-	local min, max = UnitHealth(unit), UnitHealthMax(unit)
-	local deficit = max - min
-	local String
-
-	if (deficit <= 0) or (min == 0) then
-		String = nil
-	else
-		String = MER:GetFormattedText(min, max, "PERCENT", true)
-	end
-
-	return String
-end
-
-ElvUF.Tags.Events["health:current:hidefull:hidezero"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH"
-ElvUF.Tags.Methods["health:current:hidefull:hidezero"] = function(unit)
-	local min, max = UnitHealth(unit), UnitHealthMax(unit)
-	local deficit = max - min
-	local String
-
-	if (deficit <= 0) or (min == 0) then
-		String = nil
-	else
-		String = MER:GetFormattedText(min, max, "CURRENT", true)
-	end
-
-	return String
-end
-
-ElvUF.Tags.Events["health:current-percent:hidefull:hidezero"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH"
-ElvUF.Tags.Methods["health:current-percent:hidefull:hidezero"] = function(unit)
-	local min, max = UnitHealth(unit), UnitHealthMax(unit)
-	local deficit = max - min
-	local String
-
-	if (deficit <= 0) or (min == 0) then
-		String = nil
-	else
-		String = MER:GetFormattedText(min, max, "CURRENT_PERCENT", true)
-	end
-
-	return String
-end
-
 local function abbrev(name)
 	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
 	if lastWord then
@@ -188,8 +143,8 @@ local function shortenNumber(number)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
-_G["ElvUF"].Tags.Events["health:current-mUI"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
-_G["ElvUF"].Tags.Methods["health:current-mUI"] = function(unit)
+ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	if (status) then
 		return status
@@ -200,14 +155,14 @@ _G["ElvUF"].Tags.Methods["health:current-mUI"] = function(unit)
 end
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
-_G["ElvUF"].Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_UPDATE UNIT_POWER_FREQUENT"
-_G["ElvUF"].Tags.Methods["power:current-mUI"] = function(unit)
+ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_UPDATE UNIT_POWER_FREQUENT"
+ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	return shortenNumber(CurrentPower)
 end
 
-_G["ElvUF"].Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
-_G["ElvUF"].Tags.Methods["mUI-resting"] = function(unit)
+ElvUF.Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
+ElvUF.Tags.Methods["mUI-resting"] = function(unit)
 	if(unit == "player" and IsResting()) then
 		return "zZz"
 	else

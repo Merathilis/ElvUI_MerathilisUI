@@ -62,6 +62,12 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
+			raidInfo = {
+				order = 8,
+				type = "toggle",
+				name = E.NewSign..L["Raid Info"],
+				desc = L["Shows a simple frame with Raid Informations."],
+			},
 		},
 	}
 end
