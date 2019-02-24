@@ -17,16 +17,12 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Changed the Armory Mode to work with the new Character Info from ElvUI.",
-		"• Many Skin updates.",
-		"• Added a MicroBar Tooltip.",
-		"• Added a Community Chat Hider. Credits Nnogga.",
-		"• Added NamePlate Scrolling Text.Credits Mpstark",
+		"• Forgot to change a tag in the Healer Layout.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		-- "• ''",
+		"• If you are using the Heal Layout UnitFrames. You will have to do the install for it again. Skip all other steps.",
 }
 
 local function ModifiedString(string)
