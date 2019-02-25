@@ -418,6 +418,17 @@ function MER:SetupLayout()
 	end
 
 	--[[----------------------------------
+	--	ItemLevel - Layout
+	--]]----------------------------------
+	E.db["general"]["itemLevel"]["itemLevelFont"] = "Expressway"
+	E.db["general"]["itemLevel"]["itemLevelFontSize"] = 12
+	E.db["general"]["itemLevel"]["itemLevelFontOutline"] = "OUTLINE"
+
+	E.db["general"]["itemLevel"]["enchantFont"] = "Expressway"
+	E.db["general"]["itemLevel"]["enchantFontSize"] = 11
+	E.db["general"]["itemLevel"]["enchantFontOutline"] = "OUTLINE"
+
+	--[[----------------------------------
 	--	ProfileDB - mUI
 	--]]----------------------------------
 	E.db["mui"]["locPanel"]["enable"] = true

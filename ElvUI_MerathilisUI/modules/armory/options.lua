@@ -22,7 +22,7 @@ local function ArmoryTable()
 		order = 3,
 		name = MERAY.modName,
 		childGroups = 'tab',
-		disabled = function() return not E.db.general.displayCharacterInfo end,
+		disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
 		set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -69,7 +69,7 @@ local function ArmoryTable()
 				order = 20,
 				type = "group",
 				name = L["Durability"],
-				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.durability[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.durability[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
 				args = {
@@ -116,7 +116,7 @@ local function ArmoryTable()
 				type = 'group',
 				name = STAT_CATEGORY_ATTRIBUTES,
 				order = 22,
-				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.stats[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.stats[ info[#info] ] = value; PaperDollFrame_UpdateStats() end,
 				args = {
@@ -220,7 +220,7 @@ local function ArmoryTable()
 				order = 24,
 				type = 'group',
 				name = L["Gradient"],
-				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				get = function(info) return E.db.mui.armory.gradient[ info[#info] ] end,
 				set = function(info, value) E.db.mui.armory.gradient[ info[#info] ] = value; MERAY:UpdatePaperDoll() end,
 				args = {
@@ -262,7 +262,7 @@ local function ArmoryTable()
 				order = 25,
 				type = "group",
 				name = E.NewSign..L["Indicators"],
-				disabled = function() return not E.db.mui.armory.enable or not E.db.general.displayCharacterInfo end,
+				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				args = {
 					transmog = {
 						order = 1,
