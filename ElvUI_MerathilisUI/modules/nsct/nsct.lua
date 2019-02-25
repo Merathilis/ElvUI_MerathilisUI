@@ -525,6 +525,8 @@ function SCT:NAME_PLATE_UNIT_REMOVED(event, unitID)
 end
 
 function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, ...)
+	SCT.db = E.db.mui.nsct
+
 	if playerGUID == sourceGUID or (SCT.db.personal and playerGUID == destGUID) then -- Player events
 		local destUnit = guidToUnit[destGUID];
 		if (destUnit) or (destGUID == playerGUID and SCT.db.personal) then
@@ -566,19 +568,6 @@ function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _
 					spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand = ...;
 				end
 				self:DamageEvent(destGUID, spellID, amount, "pet", critical, spellName);
-			-- elseif(string.find(clue, "_MISSED")) then -- Don't show pet MISS events for now.
-				-- local spellID, spellName, spellSchool, missType, isOffHand, amountMissed;
-
-				-- if (string.find(clue, "SWING")) then
-					-- if destGUID == playerGUID then
-					  -- missType, isOffHand, amountMissed = ...;
-					-- else
-					  -- missType, isOffHand, amountMissed = "pet", ...;
-					-- end
-				-- else
-					-- spellID, spellName, spellSchool, missType, isOffHand, amountMissed = ...;
-				-- end
-				-- self:MissEvent(destGUID, spellID, missType);
 			end
 		end
 	end
