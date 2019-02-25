@@ -17,12 +17,14 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Forgot to change a tag in the Healer Layout.",
+		"• Adjust my ActionBar appereance. Looks nice with my new Masque skin.",
+		"• Take account the the new ItemLevel Font changes.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• If you are using the Heal Layout UnitFrames. You will have to do the install for it again. Skip all other steps.",
+		"• You need to do the install step for the Layout again to properly adjust the iLevel fonts.",
+		"• Also you should download my Masque Skin. Otherwise you maybe want to enable the Backdrop back.",
 }
 
 local function ModifiedString(string)
