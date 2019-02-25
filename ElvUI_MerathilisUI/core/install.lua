@@ -561,24 +561,36 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["desaturateOnCooldown"] = true
 
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
-	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
 	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
-	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
+
+	if layout == "dps" then
+		E.db["actionbar"]["bar1"]["backdrop"] = false
+		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
+	elseif layout == "healer" then
+		E.db["actionbar"]["bar1"]["backdrop"] = true
+		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
+	end
 
 	E.db["actionbar"]["bar2"]["enabled"] = true
-	E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar2"]["buttons"] = 8
 	E.db["actionbar"]["bar2"]["buttonsize"] = 32
-	E.db["actionbar"]["bar2"]["backdrop"] = false
 	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar2"]["mouseover"] = false
 	E.db["actionbar"]["bar2"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar2"]["showGrid"] = false
 	E.db["actionbar"]["bar2"]["heightMult"] = 2
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
+
+	if layout == "dps" then
+		E.db["actionbar"]["bar2"]["backdrop"] = false
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
+	elseif layout == "healer" then
+		E.db["actionbar"]["bar2"]["backdrop"] = true
+		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
+	end
 
 	E.db["actionbar"]["bar3"]["enabled"] = true
 	E.db["actionbar"]["bar3"]["backdrop"] = true
@@ -609,14 +621,20 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar6"]["buttons"] = 8
-	E.db["actionbar"]["bar6"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar6"]["showGrid"] = false
 	E.db["actionbar"]["bar6"]["mouseover"] = false
 	E.db["actionbar"]["bar6"]["buttonsize"] = 32
-	E.db["actionbar"]["bar6"]["backdrop"] = true
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
+
+	if layout == "dps" then
+		E.db["actionbar"]["bar6"]["backdrop"] = false
+		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
+	elseif layout == "healer" then
+		E.db["actionbar"]["bar6"]["backdrop"] = true
+		E.db["actionbar"]["bar6"]["buttonspacing"] = 2
+	end
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["barPet"]["buttons"] = 9
@@ -632,8 +650,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 	if layout == "dps" then
-		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 206)
-		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 244)
+		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 212)
+		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 247)
 		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 50)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
