@@ -469,6 +469,7 @@ function MER:SetupLayout()
 	E.db["databars"]["azerite"]["width"] = 8
 	E.db["databars"]["azerite"]["hideInVehicle"] = true
 	E.db["databars"]["azerite"]["hideInCombat"] = false
+	E.db["databars"]["azerite"]["orientation"] = "VERTICAL"
 	E.db["tooltip"]["font"] = "Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
