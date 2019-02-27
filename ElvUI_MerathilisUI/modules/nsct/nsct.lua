@@ -208,72 +208,6 @@ local function stopSavingNameplatePositions()
 	nameplatePositionTicker = nil;
 end
 
--- SCT.SaveNameplatePositions_Awful = saveNameplatePositions_Awful;
-
---[[ this should work for reasonable nameplate systems, but doesn't work with a bunch of them -.-
-local function setNameplateFrameLevels()
-	local targetStrata;
-	local offTargetStrata;
-	local targetFrameLevel;
-	local offTargetFrameLevelLow;
-	local offTargetFrameLevelHigh;
-
-	-- get strata/framelevels for target and max for offtargets
-	for unit, guid in pairs(unitToGuid) do
-		local nameplate = C_NamePlate.GetNamePlateForUnit(unit);
-		if (nameplate and not UnitIsDead(unit) and nameplate:IsShown()) then
-			local nameplateFrame = _G[nameplate:GetName().."UnitFrame"];
-
-			if (nameplateFrame) then
-				if (UnitIsUnit("target", unit)) then
-					targetStrata = nameplateFrame:GetFrameStrata();
-					targetFrameLevel = nameplateFrame:GetFrameLevel();
-				else
-					offTargetStrata = nameplateFrame:GetFrameStrata();
-
-					local frameLevel = nameplateFrame:GetFrameLevel();
-					if (not offTargetFrameLevelHigh or offTargetFrameLevelHigh < frameLevel) then
-						offTargetFrameLevelHigh = frameLevel;
-					end
-
-					if (not offTargetFrameLevelLow or offTargetFrameLevelLow < frameLevel) then
-						offTargetFrameLevelLow = frameLevel;
-					end
-				end
-			end
-		end
-	end
-
-	if (targetStrata and targetFrameLevel) then
-		local lowFrameLevel = targetFrameLevel - 1;
-		if (lowFrameLevel < 0) then
-			lowFrameLevel = 0;
-		end
-
-		for _, frame in pairs(targetFrames) do
-			frame:SetFrameStrata(targetStrata);
-		end
-		targetFrames[FRAME_LEVEL_OVERLAY]:SetFrameLevel(targetFrameLevel + 4);
-		targetFrames[FRAME_LEVEL_ABOVE]:SetFrameLevel(targetFrameLevel + 3);
-		targetFrames[FRAME_LEVEL_BELOW]:SetFrameLevel(lowFrameLevel);
-	end
-
-	if (offTargetStrata and offTargetFrameLevelHigh and offTargetFrameLevelLow) then
-		local lowFrameLevel = offTargetFrameLevelLow - 2;
-		if (lowFrameLevel < 0) then
-			lowFrameLevel = 0;
-		end
-
-		for _, frame in pairs(offTargetFrames) do
-			frame:SetFrameStrata(offTargetStrata);
-		end
-		offTargetFrames[FRAME_LEVEL_OVERLAY]:SetFrameLevel(offTargetFrameLevelHigh + 2);
-		offTargetFrames[FRAME_LEVEL_ABOVE]:SetFrameLevel(offTargetFrameLevelHigh + 1);
-		offTargetFrames[FRAME_LEVEL_BELOW]:SetFrameLevel(lowFrameLevel);
-	end
-end
-]]--
-
 local function setNameplateFrameLevels()
 	for _, frame in pairs(targetFrames) do
 		frame:SetFrameStrata("LOW");
@@ -303,31 +237,6 @@ local function arcPath(elapsed, duration, xDist, yStart, yTop, yBottom)
 
 	x = progress * xDist;
 
-	-- progress 0 to 1
-	-- at progress 0, y = yStart
-	-- at progress 0.5 y = yTop
-	-- at progress 1 y = yBottom
-
-	-- -0.25a + .5b + yStart = yTop
-	-- -a + b + yStart = yBottom
-
-	-- -0.25a + .5b + yStart = yTop
-	-- .5b + yStart - yTop = 0.25a
-	-- 2b + 4yStart - 4yTop = a
-
-	-- -(2b + 4yStart - 4yTop) + b + yStart = yBottom
-	-- -2b - 4yStart + 4yTop + b + yStart = yBottom
-	-- -b - 3yStart + 4yTop = yBottom
-
-	-- -3yStart + 4yTop - yBottom = b
-
-	-- 2(-3yStart + 4yTop - yBottom) + 4yStart - 4yTop = a
-	-- -6yStart + 8yTop - 2yBottom + 4yStart - 4yTop = a
-	-- -2yStart + 4yTop - 2yBottom = a
-
-	-- -3yStart + 4yTop - yBottom = b
-	-- -2yStart + 4yTop - 2yBottom = a
-
 	local a = -2 * yStart + 4 * yTop - 2 * yBottom;
 	local b = -3 * yStart + 4 * yTop - yBottom;
 
@@ -350,7 +259,6 @@ end
 
 local function AnimationOnUpdate()
 	if (next(animating)) then
-		-- setNameplateFrameLevels();
 
 		for fontString, _ in pairs(animating) do
 			local elapsed = GetTime() - fontString.animatingStartTime;
@@ -468,9 +376,6 @@ function SCT:Animate(fontString, anchorFrame, duration, animation)
 		fontString.distance = random(ANIMATION_RAINFALL_Y_MIN, ANIMATION_RAINFALL_Y_MAX);
 		fontString.rainfallX = random(-ANIMATION_RAINFALL_X_MAX, ANIMATION_RAINFALL_X_MAX);
 		fontString.rainfallStartY = -random(ANIMATION_RAINFALL_Y_START_MIN, ANIMATION_RAINFALL_Y_START_MAX);
-	-- elseif (animation == "shake") then
-	--     fontString.deflection = ANIMATION_SHAKE_DEFLECTION;
-	--     fontString.numShakes = ANIMATION_SHAKE_NUM_SHAKES;
 	end
 
 	animating[fontString] = true;
@@ -525,9 +430,7 @@ function SCT:NAME_PLATE_UNIT_REMOVED(event, unitID)
 end
 
 function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, ...)
-	SCT.db = E.db.mui.nsct
-
-	if playerGUID == sourceGUID or (SCT.db.personal and playerGUID == destGUID) then -- Player events
+	if playerGUID == sourceGUID or (E.db.mui.nsct.personal and playerGUID == destGUID) then -- Player events
 		local destUnit = guidToUnit[destGUID];
 		if (destUnit) or (destGUID == playerGUID and SCT.db.personal) then
 			if (strfind(clue, "_DAMAGE")) then
@@ -557,7 +460,7 @@ function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _
 		end
 	elseif (band(sourceFlags, COMBATLOG_OBJECT_TYPE_GUARDIAN) > 0 or band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) > 0)	and band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) > 0 then -- Pet/Guardian events
 		local destUnit = guidToUnit[destGUID];
-		if (destUnit) or (destGUID == playerGUID and SCT.db.personal) then
+		if (destUnit) or (destGUID == playerGUID and E.db.mui.nsct.personal) then
 			if (strfind(clue, "_DAMAGE")) then
 				local spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand;
 				if (strfind(clue, "SWING")) then
