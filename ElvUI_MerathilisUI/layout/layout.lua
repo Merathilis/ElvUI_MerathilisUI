@@ -382,7 +382,7 @@ function MERL:ChatButtonHolder()
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
 		ChatButtonHolder.bg:Styling(false, false, false, 8, 8, 1)
 
-		E:DisableMover("SocialMenuMover")
+		--E:DisableMover("SocialMenuMover")
 	end
 end
 hooksecurefunc(LO, "CreateChatButtonPanel", MERL.ChatButtonHolder)
