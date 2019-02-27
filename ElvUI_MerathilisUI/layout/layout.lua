@@ -375,9 +375,11 @@ function MERL:ChatButtonHolder()
 	if ChatButtonHolder then
 		ChatButtonHolder:Show() -- Force Show it
 
+		_G.QuickJoinToastButton:SetAlpha(1) -- Revert ElvUI
+
 		ChatButtonHolder:ClearAllPoints()
-		ChatButtonHolder:SetPoint("RIGHT", LeftChatPanel, "LEFT", -2, 0)
-		ChatButtonHolder:SetSize(27, LeftChatPanel:GetHeight()-2)
+		ChatButtonHolder:SetPoint("RIGHT", _G.LeftChatPanel, "LEFT", -2, 0)
+		ChatButtonHolder:SetSize(27, _G.LeftChatPanel:GetHeight()-2)
 
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
 		ChatButtonHolder.bg:Styling(false, false, false, 8, 8, 1)
