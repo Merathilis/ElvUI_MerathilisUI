@@ -375,7 +375,7 @@ function MERL:ChatButtonHolder()
 	if ChatButtonHolder then
 		ChatButtonHolder:Show() -- Force Show it
 
-		_G.QuickJoinToastButton:SetAlpha(1) -- Revert ElvUI
+		_G.QuickJoinToastButton:Show() -- Revert ElvUI
 
 		ChatButtonHolder:ClearAllPoints()
 		ChatButtonHolder:SetPoint("RIGHT", _G.LeftChatPanel, "LEFT", -2, 0)
