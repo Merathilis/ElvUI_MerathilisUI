@@ -336,7 +336,12 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
 	--]]----------------------------------
+	-- General
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
+	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
+	E.db["nameplates"]["font"] = "Expressway"
+	E.db["nameplates"]["healthFont"] = "Expressway"
+	E.db["nameplates"]["stackFont"] = "Expressway"
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
