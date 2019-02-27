@@ -336,67 +336,22 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
 	--]]----------------------------------
-	--E.db["nameplates"]["threat"]["goodScale"] = 1
-	--E.db["nameplates"]["threat"]["useThreatColor"] = false
-	--E.db["nameplates"]["threat"]["badScale"] = 1
-	--E.db["nameplates"]["statusbar"] = "Duffed"
-	--E.db["nameplates"]["font"] = "Expressway"
-	--E.db["nameplates"]["fontSize"] = 11
-	--E.db["nameplates"]["fontOutline"] = "OUTLINE"
-	--E.db["nameplates"]["healthFont"] = "Expressway"
-	--E.db["nameplates"]["healthFontSize"] = 10
-	--E.db["nameplates"]["healthFontOutline"] = "OUTLINE"
-	--E.db["nameplates"]["durationFont"] = "Expressway"
-	--E.db["nameplates"]["durationFontSize"] = 9
-	--E.db["nameplates"]["durationFontOutline"] = "OUTLINE"
-	--E.db["nameplates"]["stackFont"] = "Expressway"
-	--E.db["nameplates"]["stackFontSize"] = 9
-	--E.db["nameplates"]["stackFontOutline"] = "OUTLINE"
-	--E.db["nameplates"]["targetGlow"] = 'style2'
-	--E.db["nameplates"]["glowColor"] = { r = 77/255, g = 179/255, b = 255/255, a = 1 }
-	--E.db["nameplates"]["targetScale"] = 1.20
-	--E.db["nameplates"]["customColor"] = false
-	--E.db["nameplates"]["clampToScreen"] = true
-	--E.db["nameplates"]["showNPCTitles"] = false
-	--E.db["nameplates"]["questIconSize"] = 15
-	--E.db["nameplates"]["units"]["PLAYER"]["powerbar"]["text"]["enable"] = true
-	--E.db["nameplates"]["units"]["PLAYER"]["showName"] = true
-	--E.db["nameplates"]["units"]["PLAYER"]["visibility"]["showInCombat"] = false
-	--E.db["nameplates"]["units"]["PLAYER"]["showLevel"] = true
-	--E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = "LEFT"
-	--E.db["nameplates"]["units"]["FRIENDLY_NPC"]["healthbar"]["enable"] = true
-	--E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["filters"]["priority"] = "Boss,TurtleBuffs,Personal"
-	--E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
-	--E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = "LEFT"
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = "Blacklist,RaidDebuffsElvUI,CastByUnit,PlayerBuffs,TurtleBuffs"
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["baseHeight"] = 16
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 5
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["maxDuration"] = 0
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = {} -- We must reset the filter priority before we apply ours.
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["filters"]["priority"] = "Blacklist,Personal,CCDebuffs"
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["enable"] = true
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["healthbar"]["text"]["format"] = "PERCENT"
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = "LEFT"
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
-	--E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 1.2
-	--E.db["nameplates"]["units"]["HEALER"]["showLevel"] = true
-	--E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] ={} -- We must reset the filter priority before we apply ours.
-	--E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["filters"]["priority"] = "Personal,Boss,CCDebuffs,Blacklist"
-	--E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["enable"] = true
-	--E.db["nameplates"]["units"]["ENEMY_PLAYER"]["healthbar"]["text"]["format"] = "PERCENT"
-	--E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = "LEFT"
+	E.db["nameplates"]["threat"]["useThreatColor"] = false
 
-	-- Cooldown Settings
-	--E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
-	--E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
-	--E.db["nameplates"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
-	--E.db["nameplates"]["cooldown"]["fonts"]["fontSize"] = 9
+	-- Player
+	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 
-	-- CutawayHealth
-	--E.db["nameplates"]["cutawayHealth"] = true
+	-- Friendly Player
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[namecolor][name:abbrev]'
+
+	-- Enemy Player
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[namecolor][name:abbrev]'
+
+	-- Friendly NPC
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
+
+	-- Enemy NPC
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
