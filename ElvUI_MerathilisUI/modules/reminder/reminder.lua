@@ -7,7 +7,7 @@ RM.modName = L["Reminder"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, select, type = pairs, select, type
+local pairs, select, type, unpack= pairs, select, type, unpack
 -- WoW API / Variables
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
@@ -362,9 +362,10 @@ function RM:CreateReminder(name, index)
 	local size = RM.db.size or 30
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:Size(size)
+	frame:Size(size or (_G.ElvUF_Player:GetHeight() -4))
+	frame:SetPoint("RIGHT", _G.ElvUF_Player, "LEFT", -3, 0)
+	frame:SetFrameStrata(_G.ElvUF_Player:GetFrameStrata())
 	frame.groupName = name
-	frame:SetPoint("RIGHT", _G["ElvUF_Player"], "LEFT", -3, 0)
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	frame.icon = frame:CreateTexture(nil, "OVERLAY")

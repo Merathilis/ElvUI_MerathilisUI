@@ -370,16 +370,27 @@ end
 function MERL:ChatButtonHolder()
 	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel then return end
 
-	local ChatButtonHolder = _G["ChatButtonHolder"]
+	local ChatButtonHolder = _G.ChatButtonHolder
 
 	if ChatButtonHolder then
 		ChatButtonHolder:Show() -- Force Show it
 
-		_G.QuickJoinToastButton:Show() -- Revert ElvUI
-
 		ChatButtonHolder:ClearAllPoints()
 		ChatButtonHolder:SetPoint("RIGHT", _G.LeftChatPanel, "LEFT", -2, 0)
 		ChatButtonHolder:SetSize(27, _G.LeftChatPanel:GetHeight()-2)
+
+		_G.QuickJoinToastButton:Show() -- Revert ElvUI
+		_G.QuickJoinToastButton:ClearAllPoints()
+		_G.QuickJoinToastButton:SetPoint("BOTTOM", _G.ChatFrameChannelButton, "TOP", 0, 3)
+
+		_G.QuickJoinToastButton:Size(24, 32)
+
+		_G.ChatFrameChannelButton:ClearAllPoints()
+		_G.ChatFrameChannelButton:SetPoint("TOP", ChatButtonHolder, "TOP", 0, -1)
+
+		_G.ChatFrameChannelButton:Size(24, 24)
+		_G.ChatFrameToggleVoiceDeafenButton:Size(24, 24)
+		_G.ChatFrameToggleVoiceMuteButton:Size(24, 24)
 
 		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
 		ChatButtonHolder.bg:Styling(false, false, false, 8, 8, 1)
