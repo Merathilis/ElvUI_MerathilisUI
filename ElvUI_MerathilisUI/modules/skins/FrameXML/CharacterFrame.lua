@@ -25,25 +25,6 @@ local function styleCharacter()
 	local CharacterFrame = _G.CharacterFrame
 	local CharacterModelFrame = _G.CharacterModelFrame
 
-	if CharacterModelFrame.backdrop then
-		CharacterModelFrame.backdrop:Hide()
-	end
-
-	-- Strip Textures
-	local charframe = {
-		"CharacterFrame",
-		"CharacterModelFrame",
-		"CharacterFrameInset",
-		"CharacterStatsPane",
-		"CharacterFrameInsetRight",
-		"PaperDollSidebarTabs",
-		"PaperDollEquipmentManagerPane"
-	}
-
-	for _, object in pairs(charframe) do
-		_G[object]:StripTextures()
-	end
-
 	CharacterFrame:Styling()
 
 	if CharacterModelFrame and CharacterModelFrame.BackgroundTopLeft and CharacterModelFrame.BackgroundTopLeft:IsShown() then
