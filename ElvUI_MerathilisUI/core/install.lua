@@ -358,6 +358,11 @@ function MER:SetupLayout()
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
