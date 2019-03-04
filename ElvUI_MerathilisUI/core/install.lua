@@ -2203,7 +2203,7 @@ function MER:SetupDts()
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "MUI System"
+	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "System"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Friends"
 
 	-- define the default ElvUI datatexts
