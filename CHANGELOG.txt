@@ -1,5 +1,5 @@
 [b][color=orange]v4.13[/color], xx.xx.2019[/b][list]
-[*] [/list]
+[*]Remove my own System DataText i use now the ElvUI Datatext.[/list]
 
 [b][color=orange]v4.12[/color], 25.02.2019[/b][list]
 [*]Adjust my ActionBar appereance. Looks nice with my new Masque skin.
