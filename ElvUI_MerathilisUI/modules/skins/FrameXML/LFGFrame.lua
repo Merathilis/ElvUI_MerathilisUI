@@ -120,11 +120,6 @@ local function styleLFG()
 			button.texture:SetTexture(texturePath)
 		end
 	end)
-
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		_G.RaidFinderQueueFrameScrollFrameChildFrame:SetScale(0.99)
-		_G.LFDQueueFrameRandomScrollFrameChildFrame:SetScale(0.99)
-	end
 end
 
 S:AddCallback("mUILFG", styleLFG)
