@@ -1014,7 +1014,7 @@ function MER:SetupUnitframes(layout)
 		-- Raid
 		E.db["unitframe"]["units"]["raid"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["height"] = 35
-		E.db["unitframe"]["units"]["raid"]["width"] = 77
+		E.db["unitframe"]["units"]["raid"]["width"] = 83
 		E.db["unitframe"]["units"]["raid"]["threatStyle"] = "GLOW"
 		E.db["unitframe"]["units"]["raid"]["orientation"] = "MIDDLE"
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 3
@@ -1204,7 +1204,7 @@ function MER:SetupUnitframes(layout)
 		end
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
-		E.db["unitframe"]["units"]["raid40"]["width"] = 77
+		E.db["unitframe"]["units"]["raid40"]["width"] = 83
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
@@ -1493,8 +1493,8 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 365)
 		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 346)
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
-		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
-		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
+		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 198)
+		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 198)
 		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 454, 359)
 		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
 		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
