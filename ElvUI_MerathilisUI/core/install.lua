@@ -43,7 +43,6 @@ local function SetupCVars()
 	SetCVar("nameplateLargerScale", 1)
 	SetCVar("nameplateMaxAlpha", 1)
 	SetCVar("nameplateTargetRadialPosition", 1)
-	SetCVar("nameplateSelectedScale", 1.05) -- keep this in, till ElvUI puts a better target Scale in
 	SetCVar("nameplateMotion", 1)
 	SetCVar("nameplateOverlapH", 0.8)
 	SetCVar("nameplateOverlapV", 1.1)
