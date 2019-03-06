@@ -345,7 +345,7 @@ end
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(E.LSM:Fetch("statusbar", "MerathilisFlat"))
+	panel.tex:SetTexture(E.media.normTex)
 	panel.tex:SetGradient("VERTICAL", unpack(E["media"].rgbvaluecolor))
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
