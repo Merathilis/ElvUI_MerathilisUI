@@ -339,6 +339,7 @@ function MER:SetupLayout()
 	--]]----------------------------------
 	-- General
 	E.db["nameplates"]["threat"]["useThreatColor"] = false
+	E.db["nameplates"]["clampToScreen"] = true
 	E.db["nameplates"]["colors"]["glowColor"] = {r = 0, g = 191/255, b = 250/255, a = 1}
 	E.db["nameplates"]["font"] = "Expressway"
 	E.db["nameplates"]["healthFont"] = "Expressway"
