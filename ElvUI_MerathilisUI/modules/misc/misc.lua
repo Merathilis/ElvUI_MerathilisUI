@@ -187,7 +187,6 @@ function MI:Initialize()
 	self:LoadMoverTransparancy()
 	self:LoadQuest()
 	self:LoadnameHover()
-	self:GuildBest()
 	self:ItemLevel()
 	self:CreateRaidManager()
 end
