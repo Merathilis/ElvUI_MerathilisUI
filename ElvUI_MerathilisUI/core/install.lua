@@ -153,7 +153,7 @@ local function SetupChat()
 	E.db["chat"]["panelTabTransparency"] = true
 	E.db["chat"]["chatHistory"] = false
 	E.db["chat"]["separateSizes"] = true
-	E.db["chat"]["panelWidth"] = 397
+	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 263
@@ -178,7 +178,7 @@ local function SetupChat()
 	E.db["chat"]["tabFontSize"] = 10
 
 	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -175, 50)
-	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 50)
+	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
 	E:UpdateAll(true)
 
