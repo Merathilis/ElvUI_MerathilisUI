@@ -8,7 +8,6 @@
 	<Include file="flightPoint.xml" />
 	<Script file="gamemenu.lua"/>
 	<Script file="gmotd.lua"/>
-	<Script file="guildBest.lua"/>
 	<Script file="itemLevel.lua"/>
 	<Script file="mailinputbox.lua"/>
 	<Script file="merchant.lua"/>
