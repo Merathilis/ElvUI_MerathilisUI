@@ -159,7 +159,7 @@ function MERS:CreateBD(f, a)
 		insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
 
-	f:SetBackdropColor(unpack(E.media.backdropfadecolor))
+	f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
 	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
