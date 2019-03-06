@@ -112,7 +112,7 @@ function MERL:CreateChatButtons()
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
-		ChatButton:SetAlpha(0.35)
+		ChatButton:SetAlpha(0.55)
 	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
 
@@ -136,7 +136,6 @@ function MERL:CreateChatButtons()
 	end)
 
 	ChatButton:SetScript("OnEnter", function(self)
-		self:SetAlpha(0.65)
 		if GameTooltip:IsForbidden() then return end
 
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
@@ -154,7 +153,7 @@ function MERL:CreateChatButtons()
 		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 			self:SetAlpha(0)
 		else
-			self:SetAlpha(0.35)
+			self:SetAlpha(0.55)
 		end
 		GameTooltip:Hide()
 	end)
