@@ -159,8 +159,8 @@ function MERS:CreateBD(f, a)
 		insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
 
-	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	f:SetBackdropColor(unpack(E.media.backdropfadecolor))
+	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
 -- ClassColored ScrollBars
@@ -202,7 +202,7 @@ function MERS:ClearButton()
 	self:SetBackdropColor(0, 0, 0, 0)
 
 	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
+		self:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
@@ -509,11 +509,11 @@ end
 
 -- keep the colors updated
 local function updateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E["media"].rgbvaluecolor)
-	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E["media"].unitframeBorderColor)
-	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
-	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
-	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
+	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
+	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
+	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
+	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
+	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
