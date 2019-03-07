@@ -337,6 +337,8 @@ function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetSnapToPixelGrid(false)
+	icon:SetTexelSnappingBias(0)
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
@@ -345,8 +347,10 @@ end
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(E.media.normTex)
-	panel.tex:SetGradient("VERTICAL", unpack(E["media"].rgbvaluecolor))
+	panel.tex:SetTexture(E.media.muiFlat)
+	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
+	panel.tex:SetSnapToPixelGrid(false)
+	panel.tex:SetTexelSnappingBias(0)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
@@ -398,6 +402,9 @@ local function replaceConfigArrows(button)
 		button.img:SetSize(12, 12)
 		button.img:Point('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
+		button.img:SetSnapToPixelGrid(false)
+		button.img:SetTexelSnappingBias(0)
+
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then

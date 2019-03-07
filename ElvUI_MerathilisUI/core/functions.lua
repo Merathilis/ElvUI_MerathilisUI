@@ -407,6 +407,7 @@ MER.IsDev = {
 	["Merathilis"] = true,
 	["Merathilîs"] = true,
 	["Róhal"] = true,
+	["Brítt"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -455,6 +456,9 @@ function MER:PixelIcon(self, texture, highlight)
 	self.Icon:SetPoint("TOPLEFT", E.mult, -E.mult)
 	self.Icon:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
 	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	self.Icon:SetSnapToPixelGrid(false)
+	self.Icon:SetTexelSnappingBias(0)
+
 	if texture then
 		local atlas = strmatch(texture, "Atlas:(.+)$")
 		if atlas then
