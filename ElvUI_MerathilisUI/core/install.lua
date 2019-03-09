@@ -347,6 +347,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -362,6 +366,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -377,6 +385,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -394,6 +406,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -410,6 +426,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
