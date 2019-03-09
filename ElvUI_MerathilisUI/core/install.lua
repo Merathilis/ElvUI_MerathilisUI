@@ -341,6 +341,12 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 11
 
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -350,6 +356,12 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Expressway"
@@ -359,6 +371,12 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 11
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -368,14 +386,30 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["size"] = 20
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["numAuras"] = 8
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["size"] = 24
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
 
 	-- Enemy NPC
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 2
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 11
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
