@@ -336,7 +336,7 @@ function MB.OnEnter(self)
 				end
 				GameTooltip:AddDoubleLine(L["Current Invasion: "]..zoneName, format("%.2d:%.2d", timeLeft/60, timeLeft%60), 1, 1, 1, r, g, b)
 			end
-			GameTooltip:AddDoubleLine(L["Next Invasion: "]..GetNextLocation(nextTime, index), date("%m/%d %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+			GameTooltip:AddDoubleLine(L["Next Invasion: "]..GetNextLocation(nextTime, index), date("%d/%m %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
 		else
 			GameTooltip:AddDoubleLine(L["Missing invasion info on your realm."])
 		end
