@@ -59,7 +59,7 @@ function FlightPointsTaxiChoiceButton_OnLoad(self)
 end
 
 function FlightPoints_Show()
-	if not FlightPointsTaxiChoiceContainer.buttons then 
+	if not FlightPointsTaxiChoiceContainer.buttons then
 		HybridScrollFrame_CreateButtons(FlightPointsTaxiChoiceContainer, "FlightPointsButtonTemplate", 1, -2, "TOPLEFT", "TOPLEFT", 0, 0)
 	end
 	FlightPointsTaxiChoiceContainer_Update()
@@ -67,9 +67,9 @@ end
 
 function FlightPoints_GetFlight(index)
 	if taxinodeinfos[index] then
-		return taxinodeinfos[index].name, taxinodeinfos[index].isheader, taxinodeinfos[index].flightid, taxinodeinfos[index].isexpanded 
-	else 
-		return nil 
+		return taxinodeinfos[index].name, taxinodeinfos[index].isheader, taxinodeinfos[index].flightid, taxinodeinfos[index].isexpanded
+	else
+		return nil
 	end
 end
 
@@ -103,8 +103,8 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.highlight:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 3, -2)
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -3, 2)
+				button.name:FontTemplate(E["media"].normFont, 11, "THINOUTLINE")
 				button.name:SetText(name)
-				button.name:SetFont(E["media"].normFont, 11, "THINOUTLINE")
 				button.name:SetPoint("LEFT", 22, 0)
 			else
 				button.categoryLeft:Hide()
@@ -113,10 +113,10 @@ function FlightPointsTaxiChoiceContainer_Update()
 				button.highlight:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
 				button.highlight:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
 				button.highlight:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
+				button.name:FontTemplate(E["media"].normFont, 11, "THINOUTLINE")
 				button.name:SetText(name)
 				button.name:SetPoint("LEFT", 11, 0)
 				button.flightpath = flightpathid
-				button.name:SetFont(E["media"].normFont, 11, "THINOUTLINE")
 			end
 			button.isHeader = isHeader
 			button.isExpanded = isExpanded
@@ -200,7 +200,7 @@ function FlightPoints_OnEvent(self, event, ...)
 	if event == "TAXIMAP_OPENED" then
 		firstshow = true
 		FlightPoints_CreateFlyPathTable()
-		if _G["TaxiFrame"]:IsShown() then 
+		if _G["TaxiFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["TaxiFrame"]:GetHeight() - 24)
 		elseif _G["FlightMapFrame"]:IsShown() then
 			FlightPointsTaxiChoice:SetHeight(_G["FlightMapFrame"]:GetHeight())

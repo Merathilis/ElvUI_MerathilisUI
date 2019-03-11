@@ -134,7 +134,7 @@ local function getFontString()
 	end
 
 	fontString:SetParent(SCT.frame);
-	fontString:SetFont(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
+	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
 	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetAlpha(1);
 	fontString:SetDrawLayer("OVERLAY");
@@ -167,7 +167,7 @@ local function recycleFontString(fontString)
 	fontString.pow = nil;
 	fontString.startHeight = nil;
 	fontString.NSCTFontSize = nil;
-	fontString:SetFont(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
+	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
 	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetParent(SCT.frame);
 
@@ -304,7 +304,7 @@ local function AnimationOnUpdate()
 					else
 						fontString.pow = nil;
 						fontString:SetTextHeight(fontString.startHeight);
-						fontString:SetFont(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
+						fontString:FontTemplate(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
 						if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
 						fontString:SetText(fontString.NSCTText);
 					end
@@ -676,7 +676,7 @@ function SCT:DisplayText(guid, text, textWithoutIcons, size, animation, frameLev
 	fontString:SetText(fontString.NSCTText);
 
 	fontString.NSCTFontSize = size;
-	fontString:SetFont(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
+	fontString:FontTemplate(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
 	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString.startHeight = fontString:GetStringHeight();
 	fontString.pow = pow;

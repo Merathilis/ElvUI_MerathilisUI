@@ -395,9 +395,9 @@ function LP:Resize()
 end
 
 function LP:Fonts()
-	loc_panel.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Xcoord.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Ycoord.Text:SetFont(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
 end
 
 function LP:Template()

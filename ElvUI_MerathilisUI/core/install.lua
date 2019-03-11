@@ -299,12 +299,12 @@ function MER:SetupLayout()
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 470
+	E.db["bags"]["bagWidth"] = 442
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 426
 	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
-	E.db["bags"]["itemLevelThreshold"] = 100
+	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
 	E.db["bags"]["strata"] = 'HIGH'
 	E.db["bags"]["showBindType"] = true
@@ -475,6 +475,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["durationPosition"] = 'CENTER'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
@@ -554,7 +555,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
 	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
 	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -85, -300)
-	MER:SetMoverPosition("VehicleSeatMover", "TOPLEFT", E.UIParent, "TOPLEFT", 6, -202)
+	MER:SetMoverPosition("VehicleSeatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -474, 120)
 	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
 	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
 	MER:SetMoverPosition("TopCenterContainerMover", "TOP", E.UIParent, "TOP", 0, -105)

@@ -72,11 +72,11 @@ flowingframe:SetPoint("CENTER", E.UIParent, "TOP", 0, -240) -- where we want the
 flowingframe:SetHeight(64)
 
 local flowingtext = flowingframe:CreateFontString(nil,"OVERLAY")
-flowingtext:SetFont(font, fontsize, fontflag)
+flowingtext:FontTemplate(font, fontsize, fontflag)
 flowingtext:SetShadowOffset(1.5, -1.5)
 
 local rightchar = flowingframe:CreateFontString(nil,"OVERLAY")
-rightchar:SetFont(font, 60, fontflag)
+rightchar:FontTemplate(font, 60, fontflag)
 rightchar:SetShadowOffset(1.5, -1.5)
 rightchar:SetJustifyH("LEFT") -- left or right
 

@@ -441,7 +441,7 @@ function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
 	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 
 	b.text = b:CreateFontString(nil, "OVERLAY")
-	b.text:SetFont(f, fs, ff)
+	b.text:FontTemplate(f, fs, ff)
 	b.text:SetText(txt)
 	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
 	b.text:SetJustifyH("CENTER")
