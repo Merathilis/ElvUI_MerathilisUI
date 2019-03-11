@@ -17,14 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Adjust my ActionBar appereance. Looks nice with my new Masque skin.",
-		"• Take account the the new ItemLevel Font changes.",
+		"• Remove my own System DataText i use now the ElvUI Datatext.",
+		"• Removed Chat Menu, i never used it.",
+		"• Removed Chat Buttons.",
+		"• Adjust the Layout due to the new Voice Chat Buttons.",
+		"• Add new Nameplate settings to my Layout/CVar Install steps.",
+		"• Small UnitFrame settings update.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• You need to do the install step for the Layout again to properly adjust the iLevel fonts.",
-		"• Also you should download my Masque Skin. Otherwise you maybe want to enable the Backdrop back.",
+		"• 'Remember, if you want my latest Layout, you need to go through the install again.'",
 }
 
 local function ModifiedString(string)
@@ -39,7 +42,7 @@ local function ModifiedString(string)
 		if subHeader then
 			newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix)
 		else
-			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
+			newString = tostring("|cffff7d0a".. prefix .. "|r" .. suffix)
 		end
 	end
 

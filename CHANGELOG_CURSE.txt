@@ -1,5 +1,10 @@
 ** v4.13 xx.xx.2019**
-* Remove my own System DataText i use now the ElvUI Datatext.
+* Removed my own System DataText i use now the ElvUI Datatext.
+* Removed Chat Menu, i never used it.
+* Removed Chat Buttons.
+* Adjust the Layout due to the new Voice Chat Buttons.
+* Add new Nameplate settings to my Layout/CVar Install steps.
+* Small UnitFrame settings update.
 
 ** v4.12 25.02.2019**
 * Adjust my ActionBar appereance. Looks nice with my new Masque skin.
