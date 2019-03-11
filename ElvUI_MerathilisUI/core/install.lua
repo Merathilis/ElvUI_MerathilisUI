@@ -52,6 +52,9 @@ local function SetupCVars()
 	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
+	--nameplates
+	SetCVar("nameplateMinAlpha", .6) -- Override Elv's
+
 	-- Disable it because of NSCT
 	SetCVar("floatingCombatTextCombatDamage", 0)
 	SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
