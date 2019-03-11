@@ -514,6 +514,14 @@ local function ReskinVehicleExit()
 	end
 end
 
+local function StyleElvUIConfig()
+	local frame = _G.ElvUIGUIFrame
+	if not frame.IsStyled then
+		frame:Styling()
+		frame.IsStyled = true
+	end
+end
+
 -- keep the colors updated
 local function updateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
@@ -538,6 +546,8 @@ function MERS:Initialize()
 	ReskinVehicleExit()
 	updateMedia()
 	pluginInstaller()
+
+	hooksecurefunc(E, 'ToggleConfig', StyleElvUIConfig)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

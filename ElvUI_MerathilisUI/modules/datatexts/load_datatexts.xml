@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="options.lua"/>
-	<Script file="professions.lua"/>
 	<Script file="time.lua"/>
 </Ui>

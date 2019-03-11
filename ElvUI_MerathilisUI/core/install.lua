@@ -32,7 +32,6 @@ local function SetupCVars()
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
-	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
 	SetCVar("screenshotQuality", 10)
@@ -53,6 +52,7 @@ local function SetupCVars()
 	SetCVar("floatingCombatTextCombatState", "1")
 
 	--nameplates
+	SetCVar("ShowClassColorInNameplate", 1)
 	SetCVar("nameplateMinAlpha", .6) -- Override Elv's
 
 	-- Disable it because of NSCT
@@ -334,6 +334,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["fontSize"] = 12
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
+	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
@@ -692,7 +693,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
 	E.db["actionbar"]["bar2"]["mouseover"] = false
 	E.db["actionbar"]["bar2"]["backdropSpacing"] = 3
-	E.db["actionbar"]["bar2"]["showGrid"] = false
+	E.db["actionbar"]["bar2"]["showGrid"] = true
 	E.db["actionbar"]["bar2"]["heightMult"] = 2
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 
@@ -713,12 +714,14 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["point"] = "TOPLEFT"
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar3"]["mouseover"] = false
+	E.db["actionbar"]["bar3"]["showGrid"] = true
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
 	E.db["actionbar"]["bar4"]["mouseover"] = true
 	E.db["actionbar"]["bar4"]["buttonsize"] = 24
 	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
+	E.db["actionbar"]["bar4"]["showGrid"] = true
 
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
@@ -729,12 +732,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["point"] = "BOTTOMLEFT"
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar5"]["mouseover"] = false
+	E.db["actionbar"]["bar5"]["showGrid"] = true
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar6"]["buttons"] = 8
 	E.db["actionbar"]["bar6"]["visibility"] = "[vehicleui][overridebar][petbattle][possessbar] hide; show"
-	E.db["actionbar"]["bar6"]["showGrid"] = false
+	E.db["actionbar"]["bar6"]["showGrid"] = true
 	E.db["actionbar"]["bar6"]["mouseover"] = false
 	E.db["actionbar"]["bar6"]["buttonsize"] = 32
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
