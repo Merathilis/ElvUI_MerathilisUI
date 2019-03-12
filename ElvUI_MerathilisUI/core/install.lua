@@ -466,6 +466,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
@@ -502,6 +503,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 0
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
