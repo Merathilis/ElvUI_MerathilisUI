@@ -169,7 +169,7 @@ local function SetupChat()
 	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -175, 50)
 	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
-	E:UpdateAll(true)
+	E:StaggeredUpdateAll("OnProfileChanged", true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Chat Set"]
 	PluginInstallStepComplete:Show()
@@ -629,7 +629,7 @@ function MER:SetupLayout()
 		MER:LoadMasqueProfile()
 	end
 
-	E:UpdateAll(true)
+	E:StaggeredUpdateAll("OnProfileChanged", true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
 	PluginInstallStepComplete:Show()
@@ -789,7 +789,7 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	end
 
-	E:UpdateAll(true)
+	E:StaggeredUpdateAll("OnProfileChanged", true)
 
 	PluginInstallStepComplete.message = MER.Title..L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -2307,7 +2307,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
 	end
 
-	E:UpdateAll(true)
+	E:StaggeredUpdateAll("OnProfileChanged", true)
 
 	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2355,7 +2355,7 @@ function MER:SetupDts()
 
 	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
 
-	E:UpdateAll(true)
+	E:StaggeredUpdateAll("OnProfileChanged", true)
 
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2402,8 +2402,7 @@ function MER:SetupAddOns()
 	PluginInstallStepComplete.message = MER.Title..L['Addons Set']
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
-	E:UpdateAll(true)
-
+	--E:UpdateAll(true)
 end
 
 local function InstallComplete()
