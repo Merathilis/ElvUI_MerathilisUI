@@ -28,6 +28,7 @@ local ChangeLogData = {
 	" ",
 	"Notes:",
 		"• 'Remember, if you want my latest Layout, you need to go through the install again.'",
+		"• 'And for the new NamePlates Settings, you have to do the Layout install step.'",
 }
 
 local function ModifiedString(string)
