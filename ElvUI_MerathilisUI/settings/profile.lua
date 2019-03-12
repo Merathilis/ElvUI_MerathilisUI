@@ -25,7 +25,7 @@ P.mui = {
 	},
 
 	bags = {
-		transparentSlot = true,
+		transparentSlots = true,
 		equipOverlay = true,
 	},
 
