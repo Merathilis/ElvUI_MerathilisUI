@@ -360,11 +360,13 @@ function RM:CreateReminder(name, index)
 	if _CreatedReminders[name] then return end
 
 	local size = RM.db.size or 30
+	local ElvFrame = _G.ElvUF_Player
+	if not ElvFrame then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:Size(size or (_G.ElvUF_Player:GetHeight() -4))
-	frame:SetPoint("RIGHT", _G.ElvUF_Player, "LEFT", -3, 0)
-	frame:SetFrameStrata(_G.ElvUF_Player:GetFrameStrata())
+	frame:Size(size or (ElvFrame:GetHeight() -4))
+	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
