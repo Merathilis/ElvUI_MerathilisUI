@@ -17,12 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Forgot to change a tag in the Healer Layout.",
+		"• Remove my own System DataText i use now the ElvUI Datatext.",
+		"• Removed Chat Menu, i never used it.",
+		"• Removed Chat Buttons.",
+		"• Adjust the Layout due to the new Voice Chat Buttons.",
+		"• Add new Nameplate settings to my Layout/CVar Install steps.",
+		"• Small UnitFrame settings update.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• If you are using the Heal Layout UnitFrames. You will have to do the install for it again. Skip all other steps.",
+		"• 'Remember, if you want my latest Layout, you need to go through the install again.'",
+		"• 'And for the new NamePlates Settings, you have to do the Layout install step.'",
 }
 
 local function ModifiedString(string)
@@ -37,7 +43,7 @@ local function ModifiedString(string)
 		if subHeader then
 			newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix)
 		else
-			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
+			newString = tostring("|cffff7d0a".. prefix .. "|r" .. suffix)
 		end
 	end
 

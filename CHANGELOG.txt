@@ -1,3 +1,15 @@
+[b][color=orange]v4.13[/color], 12.03.2019[/b][list]
+[*]Remove my own System DataText i use now the ElvUI Datatext.
+[*]Removed Chat Menu, i never used it.
+[*]Removed Chat Buttons.
+[*]Adjust the Layout due to the new Voice Chat Buttons.
+[*]Add new Nameplate settings to my Layout/CVar Install steps.
+[*]Small UnitFrame settings update.[/list]
+
+[b][color=orange]v4.12[/color], 25.02.2019[/b][list]
+[*]Adjust my ActionBar appereance. Looks nice with my new Masque skin.
+[*]Take account the the new ItemLevel Font changes.[/list]
+
 [b][color=orange]v4.11[/color], 24.02.2019[/b][list]
 [*]Forgot to change a tag in the Healer Layout.[/list]
 

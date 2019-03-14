@@ -280,7 +280,7 @@ local function styleCollections()
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
 			if not header.IsStyled then
 				header.text:SetTextColor(1, 1, 1)
-				header.text:SetFont(E["media"].normFont, 16, "OUTLINE")
+				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
 
 				header.IsStyled = true
 			end

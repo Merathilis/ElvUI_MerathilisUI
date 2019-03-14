@@ -38,12 +38,6 @@ local function ChatTable()
 				name = L["Hide Chat Side Panel"],
 				desc = L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"],
 			},
-			chatBar = {
-				order = 6,
-				type = "toggle",
-				name = L["ChatBar"],
-				desc = L["Shows a ChatBar with different quick buttons."],
-			},
 			hideChat = {
 				order = 7,
 				type = "toggle",

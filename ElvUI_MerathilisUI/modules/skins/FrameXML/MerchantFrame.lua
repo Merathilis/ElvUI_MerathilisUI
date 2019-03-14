@@ -57,6 +57,7 @@ local function styleMerchant()
 		button.bd:SetPoint("BOTTOMRIGHT")
 		button.bd:SetFrameLevel(0)
 		MERS:CreateBD(button.bd, .25)
+		MERS:CreateGradient(button.bd)
 
 		ic:SetTexCoord(unpack(E.TexCoords))
 		ic:ClearAllPoints()

@@ -3,385 +3,370 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 --	Core options
 ----------------------------------------------------------------------------------------
-P["mui"] = {
-	["installed"] = nil,
+P.mui = {
+	installed = nil,
 
-	["general"] = {
-		["LoginMsg"] = true, -- Enable welcome message in chat
-		["GameMenu"] = true, -- Enable the Styles GameMenu
-		["splashScreen"] = true, -- Enable the SplashScreen on LogIn
+	general = {
+		LoginMsg = true, -- Enable welcome message in chat
+		GameMenu = true, -- Enable the Styles GameMenu
+		splashScreen = true, -- Enable the SplashScreen on LogIn
 
-		["AFK"] = true, -- Enable the pimped AFK Screen
-		["FlightMode"] = true, -- Enable the FlightMode
-		["FlightPoint"] = true, -- Enable the FlightPoints
-		["CombatState"] = true, -- Enable the +/- Combat Message
-		["MerchantiLevel"] = true, -- Displays the itemlevel on the Merchant Frame
-		["Movertransparancy"] = .75,
-		["style"] = true, -- Styling function (stripes/gradient)
-		["panels"] = true,
-		["shadowOverlay"] = true,
-		["filterErrors"] = true,
-		["hideErrorFrame"] = true,
+		AFK = true, -- Enable the pimped AFK Screen
+		FlightMode = true, -- Enable the FlightMode
+		FlightPoint = true, -- Enable the FlightPoints
+		CombatState = true, -- Enable the +/- Combat Message
+		MerchantiLevel = true, -- Displays the itemlevel on the Merchant Frame
+		Movertransparancy = .75,
+		style = true, -- Styling function (stripes/gradient)
+		panels = true,
+		shadowOverlay = true,
+		filterErrors = true,
+		hideErrorFrame = true,
 	},
 
-	["bags"] = {
-		["transparentSlots"] = true,
-		["equipOverlay"] = true,
+	bags = {
+		transparentSlots = true,
+		equipOverlay = true,
 	},
 
-	["chat"] = {
-		["chatButton"] = true,
-		["panelHeight"] = 146,
-		["iLevelLink"] = true,
-		["hidePlayerBrackets"] = true,
-		["sidePanel"] = false,
-		["chatBar"] = true,
-		["hideChat"] = false,
+	chat = {
+		chatButton = true,
+		panelHeight = 146,
+		iLevelLink = true,
+		hidePlayerBrackets = true,
+		sidePanel = false,
+		hideChat = false,
 	},
 
-	["colors"] = {
-		["styleAlpha"] = 1,
+	colors = {
+		styleAlpha = 1,
 	},
 
-	["misc"] = {
-		["MailInputbox"] = true, -- Resize the MailInputbox
-		["gmotd"] = true, -- Show a GMOTD frame
-		["quest"] = false,
-		["announce"] = true, -- CombatText, Skill gains
+	misc = {
+		MailInputbox = true, -- Resize the MailInputbox
+		gmotd = true, -- Show a GMOTD frame
+		quest = false,
+		announce = true, -- CombatText, Skill gains
 
-		["cursor"] = false,
-		["raidInfo"] = true,
+		cursor = false,
+		raidInfo = true,
 	},
 
-	["nameHover"] = {
-		["enable"] = true,
-		["fontSize"] = 7,
-		["fontOutline"] = "OUTLINE",
+	nameHover = {
+		enable = true,
+		fontSize = 7,
+		fontOutline = "OUTLINE",
 	},
 
-	["notification"] = {
-		["enable"] = true,
-		["noSound"] = false,
-		["mail"] = true,
-		["vignette"] = true,
-		["invites"] = true,
-		["guildEvents"] = true,
+	notification = {
+		enable = true,
+		noSound = false,
+		mail = true,
+		vignette = true,
+		invites = true,
+		guildEvents = true,
 	},
 
-	["datatexts"] = {
-		["panels"] = {
-			["ChatTab_Datatext_Panel"] = {
-				["left"] = "Durability",
-				["middle"] = "Bags",
-				["right"] = "Coords",
+	datatexts = {
+		panels = {
+			ChatTab_Datatext_Panel = {
+				left = "Durability",
+				middle = "Bags",
+				right = "Coords",
 			},
-			["mUIMiddleDTPanel"] = {
-				["left"] = "Guild",
-				["middle"] = "MUI System",
-				["right"] = "Friends",
+			mUIMiddleDTPanel = {
+				left = "Guild",
+				middle = "MUI System",
+				right = "Friends",
 			},
 		},
-		["middle"] = {
-			["enable"] = true,
-			["transparent"] = true,
-			["backdrop"] = false,
-			["width"] = 495,
-			["height"] = 18,
+		middle = {
+			enable = true,
+			transparent = true,
+			backdrop = false,
+			width = 495,
+			height = 18,
 		},
-		["rightChatTabDatatextPanel"] = {
-			["enable"] = true,
+		rightChatTabDatatextPanel = {
+			enable = true,
 		},
 
-		["threatBar"] = {
-			["enable"] = true,
-			["textSize"] = 10,
-			["textOutline"] = "OUTLINE",
-		},
-	},
-
-	["systemDT"] = {
-		["maxAddons"] = 25, -- Sets how many Addons to show
-		["showFPS"] = true, -- Show Frames per seconds
-		["showMS"] = true, -- Show Ping
-		["latency"] = "home", -- Set the latency type ("home", "world")
-		["showMemory"] = false, -- Show Memory usage
-		["announceFreed"] = true -- Enable the Garbage Message in Chat
-	},
-
-	["profdt"] = {
-		["prof"] = "prof1",
-		["hint"] = true,
-	},
-
-	["actionbars"] = {
-		["cleanButton"] = true,
-		["transparent"] = true,
-		["specBar"] = {
-			["enable"] = true,
-			["mouseover"] = false,
-		},
-		["equipBar"] = {
-			["enable"] = true,
-			["mouseover"] = false,
+		threatBar = {
+			enable = true,
+			textSize = 10,
+			textOutline = "OUTLINE",
 		},
 	},
 
-	["microBar"] = {
-		["enable"] = true,
-		["scale"] = 1,
-		["hideInCombat"] = true,
-		["hideInOrderHall"] = false,
-		["tooltip"] = true,
-		["text"] = {
-			["position"] = "BOTTOM",
-			["friends"] = true,
-			["guild"] = true,
+	actionbars = {
+		cleanButton = true,
+		transparent = true,
+		specBar = {
+			enable = true,
+			mouseover = false,
+		},
+		equipBar = {
+			enable = true,
+			mouseover = false,
+		},
+	},
+
+	microBar = {
+		enable = true,
+		scale = 1,
+		hideInCombat = true,
+		hideInOrderHall = false,
+		tooltip = true,
+		text = {
+			position = "BOTTOM",
+			friends = true,
+			guild = true,
 		},
 	},
 
 	-- Combat Text
-	["nsct"] = {
-		["enable"] = true,
-		["xOffset"] = 0,
-		["yOffset"] = 55,
-		["xOffsetPersonal"] = 0,
-		["yOffsetPersonal"] = -100,
-		["font"] = "Expressway",
-		["fontFlag"] = "OUTLINE",
-		["fontShadow"] = true,
-		["damageColor"] = true,
-		["defaultColor"] = "ffff00",
-		["truncate"] = true,
-		["truncateLetter"] = true,
-		["commaSeperate"] = true,
-		["sizing"] = {
-			["crits"] = true,
-			["critsScale"] = 1.3,
-			["miss"] = false,
-			["missScale"] = 1.3,
-			["smallHits"] = true,
-			["smallHitsScale"] = 0.7,
+	nsct = {
+		enable = true,
+		xOffset = 0,
+		yOffset = 55,
+		xOffsetPersonal = 0,
+		yOffsetPersonal = -100,
+		font = "Expressway",
+		fontFlag = "OUTLINE",
+		fontShadow = true,
+		damageColor = true,
+		defaultColor = "ffff00",
+		truncate = true,
+		truncateLetter = true,
+		commaSeperate = true,
+		sizing = {
+			crits = true,
+			critsScale = 1.3,
+			miss = false,
+			missScale = 1.3,
+			smallHits = true,
+			smallHitsScale = 0.7,
 		},
-		["animations"] = {
-			["normal"] = "fountain",
-			["crit"] = "verticalUp",
-			["miss"] = "verticalUp",
+		animations = {
+			normal = "fountain",
+			crit = "verticalUp",
+			miss = "verticalUp",
 		},
-		["animationsPersonal"] = {
-			["normal"] = "rainfall",
-			["crit"] = "verticalUp",
-			["miss"] = "verticalUp",
+		animationsPersonal = {
+			normal = "rainfall",
+			crit = "verticalUp",
+			miss = "verticalUp",
 		},
-		["formatting"] = {
-			["size"] = 20,
-			["icon"] = "right",
-			["alpha"] = 1,
+		formatting = {
+			size = 20,
+			icon = "right",
+			alpha = 1,
 		},
-		["useOffTarget"] = true,
-		["offTargetFormatting"] = {
-			["size"] = 15,
-			["icon"] = "right",
-			["alpha"] = 0.5,
+		useOffTarget = true,
+		offTargetFormatting = {
+			size = 15,
+			icon = "right",
+			alpha = 0.5,
 		},
 	},
 
-	["unitframes"] = {
-		["AuraIconText"] = {
-			["durationTextPos"] = "CENTER",
-			["durationTextOffsetX"] = 1,
-			["durationTextOffsetY"] = 0,
-			["stackTextPos"] = "BOTTOMRIGHT",
-			["stackTextOffsetX"] = 1,
-			["stackTextOffsetY"] = 2,
-			["hideDurationText"] = false,
-			["hideStackText"] = false,
-			["durationFilterOwner"] = false,
-			["durationThreshold"] = -1,
-			["stackFilterOwner"] = false,
+	unitframes = {
+		AuraIconText = {
+			durationTextPos = "CENTER",
+			durationTextOffsetX = 1,
+			durationTextOffsetY = 0,
+			stackTextPos = "BOTTOMRIGHT",
+			stackTextOffsetX = 1,
+			stackTextOffsetY = 2,
+			hideDurationText = false,
+			hideStackText = false,
+			durationFilterOwner = false,
+			durationThreshold = -1,
+			stackFilterOwner = false,
 		},
-		["AuraIconSpacing"] = {
-			["spacing"] = 1,
-			["units"] = {
-				["player"] = true,
-				["target"] = true,
-				["targettarget"] = true,
-				["targettargettarget"] = true,
-				["focus"] = true,
-				["focustarget"] = true,
-				["pet"] = true,
-				["pettarget"] = true,
-				["arena"] = true,
-				["boss"] = true,
-				["party"] = true,
-				["raid"] = true,
-				["raid40"] = true,
-				["raidpet"] = true,
-				["tank"] = true,
-				["assist"] = true,
+		AuraIconSpacing = {
+			spacing = 1,
+			units = {
+				player = true,
+				target = true,
+				targettarget = true,
+				targettargettarget = true,
+				focus = true,
+				focustarget = true,
+				pet = true,
+				pettarget = true,
+				arena = true,
+				boss = true,
+				party = true,
+				raid = true,
+				raid40 = true,
+				raidpet = true,
+				tank = true,
+				assist = true,
 			},
 		},
-		["infoPanel"] = {
-			["style"] = true,
+		infoPanel = {
+			style = true,
 		},
-		["castbar"] = {
-			["text"] = {
-				["ShowInfoText"] = false,
-				["castText"] = true,
-				["forceTargetText"] = false,
-				["player"] = {
-					["yOffset"] = 0,
-					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+		castbar = {
+			text = {
+				ShowInfoText = false,
+				castText = true,
+				forceTargetText = false,
+				player = {
+					yOffset = 0,
+					textColor = {r = 1, g = 1, b = 1, a = 1},
 				},
-				["target"] = {
-					["yOffset"] = 0,
-					["textColor"] = {r = 1, g = 1, b = 1, a = 1},
+				target = {
+					yOffset = 0,
+					textColor = {r = 1, g = 1, b = 1, a = 1},
 				},
 			},
 		},
-		["textures"] = {
-			["castbar"] = "MerathilisFlat",
+		textures = {
+			castbar = "MerathilisFlat",
 		},
 	},
 
-	["maps"] = {
-		["minimap"] = {
-			["flash"] = true,
-			["coords"] = {
-				["enable"] = true,
-				["position"] = "BOTTOM",
+	maps = {
+		minimap = {
+			flash = true,
+			coords = {
+				enable = true,
+				position = "BOTTOM",
 			},
-			["ping"] = {
-				["enable"] = true,
-				["position"] = "TOP",
-				["xOffset"] = 0,
-				["yOffset"] = -20,
-			},
-		},
-	},
-
-	["media"] = {
-		["fonts"] = {
-			["zone"] = {
-				["font"] = "Expressway",
-				["size"] = 32,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
-			},
-			["subzone"] = {
-				["font"] = "Expressway",
-				["size"] = 25,
-				["outline"] = "OUTLINE",
-				["offset"] = 0,
-				["width"] = 512,
-			},
-			["pvp"] = {
-				["font"] = "Expressway",
-				["size"] = 22,
-				["outline"] = "OUTLINE",
-				["width"] = 512,
-			},
-			["mail"] = {
-				["font"] = "Expressway",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["editbox"] = {
-				["font"] = "Expressway",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["gossip"] = {
-				["font"] = "Expressway",
-				["size"] = 12,
-				["outline"] = "NONE",
-			},
-			["objective"] = {
-				["font"] = "Expressway",
-				["size"] = 11,
-				["outline"] = "NONE",
-			},
-			["objectiveHeader"] = {
-				["font"] = "Expressway",
-				["size"] = 14,
-				["outline"] = "OUTLINE",
-			},
-			["questFontSuperHuge"] = {
-				["font"] = "Expressway",
-				["size"] = 24,
-				["outline"] = "NONE",
+			ping = {
+				enable = true,
+				position = "TOP",
+				xOffset = 0,
+				yOffset = -20,
 			},
 		},
 	},
 
-	["smb"] = {
-		["enable"] = true,
-		["barMouseOver"] = true,
-		["backdrop"] = true,
-		["iconSize"] = 22,
-		["buttonsPerRow"] = 6,
-		["buttonSpacing"] = 2,
-		["moveTracker"] = false,
-		["moveQueue"] = false,
-	},
-
-	["locPanel"] = {
-		["enable"] = true,
-		["autowidth"] = false,
-		["width"] = 336,
-		["height"] = 21,
-		["linkcoords"] = true,
-		["template"] = "Transparent",
-		["font"] = "Expressway",
-		["fontSize"] = 11,
-		["fontOutline"] = "OUTLINE",
-		["throttle"] = 0.2,
-		["format"] = "%.0f",
-		["zoneText"] = true,
-		["colorType"] = "REACTION",
-		["colorType_Coords"] = "DEFAULT",
-		["customColor"] = {r = 1, g = 1, b = 1 },
-		["customColor_Coords"] = {r = 1, g = 1, b = 1 },
-		["combathide"] = true,
-		["orderhallhide"] = false,
-		["coordshide"] = false,
-		["portals"] = {
-			["enable"] = true,
-			["HSplace"] = true,
-			["customWidth"] = false,
-			["customWidthValue"] = 200,
-			["justify"] = "LEFT",
-			["cdFormat"] = "DEFAULT",
-			["ignoreMissingInfo"] = false,
-			["showHearthstones"] = true,
-			["hsPrio"] = "54452,64488,93672,142542,162973,163045",
-			["showToys"] = true,
-			["showSpells"] = true,
-			["showEngineer"] = true,
+	media = {
+		fonts = {
+			zone = {
+				font = "Expressway",
+				size = 32,
+				outline = "OUTLINE",
+				width = 512,
+			},
+			subzone = {
+				font = "Expressway",
+				size = 25,
+				outline = "OUTLINE",
+				offset = 0,
+				width = 512,
+			},
+			pvp = {
+				font = "Expressway",
+				size = 22,
+				outline = "OUTLINE",
+				width = 512,
+			},
+			mail = {
+				font = "Expressway",
+				size = 12,
+				outline = "NONE",
+			},
+			editbox = {
+				font = "Expressway",
+				size = 12,
+				outline = "NONE",
+			},
+			gossip = {
+				font = "Expressway",
+				size = 12,
+				outline = "NONE",
+			},
+			objective = {
+				font = "Expressway",
+				size = 11,
+				outline = "NONE",
+			},
+			objectiveHeader = {
+				font = "Expressway",
+				size = 14,
+				outline = "OUTLINE",
+			},
+			questFontSuperHuge = {
+				font = "Expressway",
+				size = 24,
+				outline = "NONE",
+			},
 		},
 	},
 
-	["raidmarkers"] = {
-		["enable"] = true,
-		["visibility"] = "INPARTY",
-		["customVisibility"] = "[noexists, nogroup] hide; show",
-		["backdrop"] = false,
-		["buttonSize"] = 18,
-		["spacing"] = 2,
-		["orientation"] = "HORIZONTAL",
-		["modifier"] = "shift-",
-		["reverse"] = false,
+	smb = {
+		enable = true,
+		barMouseOver = true,
+		backdrop = true,
+		iconSize = 22,
+		buttonsPerRow = 6,
+		buttonSpacing = 2,
+		moveTracker = false,
+		moveQueue = false,
 	},
 
-	["tooltip"] = {
-		["tooltip"] = true,
-		["achievement"] = true, -- Adds information to the tooltip, on which char you earned an achievement
-		["petIcon"] = true,		-- Add an Icon for battle pets on the tooltip
-		["factionIcon"] = true, -- Add a faction icon on the tooltip
-		["keystone"] = true, -- Adds descriptions for mythic keystone properties
-		["titleColor"] = true,
+	locPanel = {
+		enable = true,
+		autowidth = false,
+		width = 336,
+		height = 21,
+		linkcoords = true,
+		template = "Transparent",
+		font = "Expressway",
+		fontSize = 11,
+		fontOutline = "OUTLINE",
+		throttle = 0.2,
+		format = "%.0f",
+		zoneText = true,
+		colorType = "REACTION",
+		colorType_Coords = "DEFAULT",
+		customColor = {r = 1, g = 1, b = 1 },
+		customColor_Coords = {r = 1, g = 1, b = 1 },
+		combathide = true,
+		orderhallhide = false,
+		coordshide = false,
+		portals = {
+			enable = true,
+			HSplace = true,
+			customWidth = false,
+			customWidthValue = 200,
+			justify = "LEFT",
+			cdFormat = "DEFAULT",
+			ignoreMissingInfo = false,
+			showHearthstones = true,
+			hsPrio = "54452,64488,93672,142542,162973,163045",
+			showToys = true,
+			showSpells = true,
+			showEngineer = true,
+		},
 	},
 
-	["errorFilters"] = {
+	raidmarkers = {
+		enable = true,
+		visibility = "INPARTY",
+		customVisibility = "[noexists, nogroup] hide; show",
+		backdrop = false,
+		buttonSize = 18,
+		spacing = 2,
+		orientation = "HORIZONTAL",
+		modifier = "shift-",
+		reverse = false,
+	},
+
+	tooltip = {
+		tooltip = true,
+		achievement = true, -- Adds information to the tooltip, on which char you earned an achievement
+		petIcon = true,		-- Add an Icon for battle pets on the tooltip
+		factionIcon = true, -- Add a faction icon on the tooltip
+		keystone = true, -- Adds descriptions for mythic keystone properties
+		titleColor = true,
+	},
+
+	errorFilters = {
 		[INTERRUPTED] = false,
 		[ERR_ABILITY_COOLDOWN] = true,
 		[ERR_ATTACK_CHANNEL] = false,
@@ -433,89 +418,86 @@ P["mui"] = {
 		[SPELL_FAILED_NOT_MOUNTED] = true,
 	},
 
-	["raidBuffs"] = {
-		["enable"] = true,
-		["visibility"] = "INPARTY",
-		["class"] = true,
-		["size"] = 24,
-		["alpha"] = 0.3,
-		["glow"] = true,
-		["customVisibility"] = "[noexists, nogroup] hide; show",
+	raidBuffs = {
+		enable = true,
+		visibility = "INPARTY",
+		class = true,
+		size = 24,
+		alpha = 0.3,
+		glow = true,
+		customVisibility = "[noexists, nogroup] hide; show",
 	},
 
-	["reminder"] = {
-		["enable"] = true,
-		["size"] = 30,
+	reminder = {
+		enable = true,
+		size = 30,
 	},
 
-	["NameplateAuras"] = {
-		["enable"] = true,
-		["width"] = 28,
-		["height"] = 14,
+	nameplates = {
 	},
 
-	["cooldownFlash"] = {
-		["enable"] = true,
-		["fadeInTime"] = 0.3,
-		["fadeOutTime"] = 0.6,
-		["maxAlpha"] = 0.8,
-		["animScale"] = 1.5,
-		["iconSize"] = 40,
-		["holdTime"] = 0.3,
-		["enablePet"] = false,
-		["showSpellName"] = false,
-		["x"] = UIParent:GetWidth()/2,
-		["y"] = UIParent:GetHeight()/2,
+	cooldownFlash = {
+		enable = true,
+		fadeInTime = 0.3,
+		fadeOutTime = 0.6,
+		maxAlpha = 0.8,
+		animScale = 1.5,
+		iconSize = 40,
+		holdTime = 0.3,
+		enablePet = false,
+		showSpellName = false,
+		x = UIParent:GetWidth()/2,
+		y = UIParent:GetHeight()/2,
 	},
 
 	-- Armory
-	["armory"] = {
-		["enable"] = true,
-		["azeritebtn"] = true,
-		["undressButton"] = true,
-		["durability"] = {
-			["enable"] = true,
-			["onlydamaged"] = true,
-			["font"] = "Expressway",
-			["textSize"] = 11,
-			["fontOutline"] = "OUTLINE",
+	armory = {
+		enable = true,
+		azeritebtn = true,
+		undressButton = true,
+		durability = {
+			enable = true,
+			onlydamaged = true,
+			font = "Expressway",
+			textSize = 11,
+			fontOutline = "OUTLINE",
 		},
-		["stats"] = {
-			["OnlyPrimary"] = true,
-			["statFonts"] = {
-				["font"] = "Expressway",
-				["size"] = 11,
-				["outline"] = "OUTLINE",
+		stats = {
+			OnlyPrimary = true,
+			statFonts = {
+				font = "Expressway",
+				size = 11,
+				outline = "OUTLINE",
 			},
-			["catFonts"] = {
-				["font"] = "Expressway",
-				["size"] = 12,
-				["outline"] = "OUTLINE",
+			catFonts = {
+				font = "Expressway",
+				size = 12,
+				outline = "OUTLINE",
 			},
-			["List"] = {
-				["HEALTH"] = false,
-				["POWER"] = false,
-				["ALTERNATEMANA"] = false,
-				["ATTACK_DAMAGE"] = false,
-				["ATTACK_AP"] = false,
-				["ATTACK_ATTACKSPEED"] = false,
-				["SPELLPOWER"] = false,
-				["ENERGY_REGEN"] = false,
-				["RUNE_REGEN"] = false,
-				["FOCUS_REGEN"] = false,
-				["MOVESPEED"] = false,
+			List = {
+				HEALTH = false,
+				POWER = false,
+				ALTERNATEMANA = false,
+				ATTACK_DAMAGE = false,
+				ATTACK_AP = false,
+				ATTACK_ATTACKSPEED = false,
+				SPELLPOWER = false,
+				ENERGY_REGEN = false,
+				RUNE_REGEN = false,
+				FOCUS_REGEN = false,
+				MOVESPEED = false,
 			},
 		},
-		["gradient"] = {
-			["enable"] = true,
-			["colorStyle"] = "VALUE",
-			["color"] = {r = 1, g = 1, b = 0},
+		gradient = {
+			enable = true,
+			colorStyle = "VALUE",
+			color = {r = 1, g = 1, b = 0},
 		},
-		["transmog"] = {
-			["enable"] = true,
+		transmog = {
+			enable = true,
 		},
-		["illusion"] = {
-			["enable"] = true,
+		illusion = {
+			enable = true,
 		},
 	},
 }

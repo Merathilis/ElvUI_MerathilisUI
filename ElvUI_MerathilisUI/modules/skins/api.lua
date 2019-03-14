@@ -159,8 +159,8 @@ function MERS:CreateBD(f, a)
 		insets = {left = 0, right = 0, top = 0, bottom = 0},
 	})
 
-	f:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+	f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
+	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
 -- ClassColored ScrollBars
@@ -202,7 +202,7 @@ function MERS:ClearButton()
 	self:SetBackdropColor(0, 0, 0, 0)
 
 	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
+		self:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
@@ -337,6 +337,8 @@ function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetSnapToPixelGrid(false)
+	icon:SetTexelSnappingBias(0)
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
@@ -345,8 +347,10 @@ end
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(E.LSM:Fetch("statusbar", "MerathilisFlat"))
-	panel.tex:SetGradient("VERTICAL", unpack(E["media"].rgbvaluecolor))
+	panel.tex:SetTexture(E.media.muiFlat)
+	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
+	panel.tex:SetSnapToPixelGrid(false)
+	panel.tex:SetTexelSnappingBias(0)
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
@@ -398,6 +402,9 @@ local function replaceConfigArrows(button)
 		button.img:SetSize(12, 12)
 		button.img:Point('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
+		button.img:SetSnapToPixelGrid(false)
+		button.img:SetTexelSnappingBias(0)
+
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
@@ -507,13 +514,21 @@ local function ReskinVehicleExit()
 	end
 end
 
+local function StyleElvUIConfig()
+	local frame = _G.ElvUIGUIFrame
+	if not frame.IsStyled then
+		frame:Styling()
+		frame.IsStyled = true
+	end
+end
+
 -- keep the colors updated
 local function updateMedia()
-	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E["media"].rgbvaluecolor)
-	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E["media"].unitframeBorderColor)
-	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E["media"].backdropfadecolor)
-	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E["media"].backdropcolor)
-	bordercolorr, bordercolorg, bordercolorb = unpack(E["media"].bordercolor)
+	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
+	unitFrameColorR, unitFrameColorG, unitFrameColorB = unpack(E.media.unitframeBorderColor)
+	backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha = unpack(E.media.backdropfadecolor)
+	backdropcolorr, backdropcolorg, backdropcolorb = unpack(E.media.backdropcolor)
+	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
@@ -531,6 +546,8 @@ function MERS:Initialize()
 	ReskinVehicleExit()
 	updateMedia()
 	pluginInstaller()
+
+	hooksecurefunc(E, 'ToggleConfig', StyleElvUIConfig)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

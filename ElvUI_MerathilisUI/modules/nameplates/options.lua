@@ -34,7 +34,7 @@ local function NameplateAurasTable()
 				order = 5,
 				type = "toggle",
 				name = L["Enable"],
-				set = function(info, value)  E.db.mui.NameplateAuras[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				set = function(info, value) E.db.mui.NameplateAuras[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				disabled = COMP.CUI,
 			},
 		},

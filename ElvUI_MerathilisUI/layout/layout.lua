@@ -112,7 +112,7 @@ function MERL:CreateChatButtons()
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
-		ChatButton:SetAlpha(0.35)
+		ChatButton:SetAlpha(0.55)
 	end
 	ChatButton:SetFrameLevel(_G["LeftChatPanel"]:GetFrameLevel() + 5)
 
@@ -136,7 +136,6 @@ function MERL:CreateChatButtons()
 	end)
 
 	ChatButton:SetScript("OnEnter", function(self)
-		self:SetAlpha(0.65)
 		if GameTooltip:IsForbidden() then return end
 
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
@@ -154,7 +153,7 @@ function MERL:CreateChatButtons()
 		if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 			self:SetAlpha(0)
 		else
-			self:SetAlpha(0.35)
+			self:SetAlpha(0.55)
 		end
 		GameTooltip:Hide()
 	end)
@@ -172,63 +171,6 @@ function MERL:CreateChatButtons()
 			CH:PositionChat(true)
 		end
 	end)
-
-	local ChatMenu = CreateFrame("Button", MER.Title.."ChatMenu", _G["LeftChatPanel"].backdrop)
-	ChatMenu:SetTemplate("Default")
-	ChatMenu:SetPoint("TOPRIGHT", -4, -4)
-	ChatMenu:Size(18, 18)
-	ChatMenu:EnableMouse(true)
-	ChatMenu:RegisterForClicks("LeftButtonUp")
-
-	ChatMenu.tex = ChatMenu:CreateTexture(nil, "OVERLAY")
-	ChatMenu.tex:SetInside()
-	ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-
-	ChatMenu:SetScript("OnEnter", ChatMenu_OnEnter)
-	ChatMenu:SetScript("OnLeave", ChatMenu_OnLeave)
-
-	ChatMenu:SetScript("OnClick", function(self, btn)
-		GameTooltip:Hide()
-		if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
-
-		if btn == "LeftButton" then
-			if CM_menu:IsShown() then
-				CM_menu:Hide()
-				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-			else
-				CM_menu:Show()
-				ChatMenu.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
-			end
-		end
-	end)
-
-	E:GetModule("Skins"):HandleButton(ChatMenu)
-
-	--mUI Config Button
-	MER:CreateBtn("CM_menu", E.UIParent, 18, 18, L["Config"], "|cffff7d0aC|r")
-	CM_menu:Point("TOPLEFT", ChatMenu, "BOTTOMLEFT", 0, -2)
-	CM_menu:SetAttribute("macrotext", "/mui")
-	CM_menu:Hide()
-
-	--Reload
-	MER:CreateBtn("CM_reload", CM_menu, 18, 18, L["Reload"], "R")
-	CM_reload:Point("RIGHT", CM_menu, "LEFT", -2, 0)
-	CM_reload:SetAttribute("macrotext", "/rl")
-
-	--Move UI
-	MER:CreateBtn("CM_move", CM_menu, 18, 18, L["MoveUI"], "M")
-	CM_move:Point("RIGHT", CM_reload, "LEFT", -2, 0)
-	CM_move:SetAttribute("macrotext", "/moveui")
-
-	--AddOns
-	MER:CreateBtn("CM_addons", CM_menu, 18, 18, L["AddOns"], "A")
-	CM_addons:Point("RIGHT", CM_move, "LEFT", -2, 0)
-	CM_addons:SetScript("OnClick", function(self) _G["GameMenuButtonAddons"]:Click() end)
-
-	--BugReport
-	MER:CreateBtn("CM_bugreport", CM_menu, 63, 18, L["Bugreport"], "Bugreport")
-	CM_bugreport:Point("RIGHT", CM_addons, "LEFT", -2, 0)
-	CM_bugreport:SetScript("OnClick", function(self) E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues") end)
 end
 
 local function ShowOrHideBar5(bar, button)
@@ -423,26 +365,6 @@ function MERL:ShadowOverlay()
 
 	self.f:SetAlpha(0.7)
 end
-
-function MERL:ChatButtonHolder()
-	if E.private.chat.enable ~= true or E.db.mui.chat.sidePanel then return end
-
-	local ChatButtonHolder = _G["ChatButtonHolder"]
-
-	if ChatButtonHolder then
-		ChatButtonHolder:Show() -- Force Show it
-
-		ChatButtonHolder:ClearAllPoints()
-		ChatButtonHolder:SetPoint("RIGHT", LeftChatPanel, "LEFT", -2, 0)
-		ChatButtonHolder:SetSize(27, LeftChatPanel:GetHeight()-2)
-
-		ChatButtonHolder.bg = MERS:CreateBDFrame(ChatButtonHolder, .25)
-		ChatButtonHolder.bg:Styling(false, false, false, 8, 8, 1)
-
-		E:DisableMover("SocialMenuMover")
-	end
-end
-hooksecurefunc(LO, "CreateChatButtonPanel", MERL.ChatButtonHolder)
 
 function MERL:Initialize()
 	self:CreatePanels()
