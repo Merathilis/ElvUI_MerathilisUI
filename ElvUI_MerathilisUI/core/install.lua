@@ -168,7 +168,7 @@ local function SetupChat()
 	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -175, 50)
 	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Chat Set"]
 	PluginInstallStepComplete:Show()
@@ -470,6 +470,7 @@ function MER:SetupLayout()
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
@@ -637,7 +638,7 @@ function MER:SetupLayout()
 		MER:LoadMasqueProfile()
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
 	PluginInstallStepComplete:Show()
@@ -797,7 +798,7 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -2315,7 +2316,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2363,7 +2364,7 @@ function MER:SetupDts()
 
 	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2410,7 +2411,8 @@ function MER:SetupAddOns()
 	PluginInstallStepComplete.message = MER.Title..L['Addons Set']
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
-	--E:UpdateAll(true)
+
+	E:StaggeredUpdateAll(nil, true)
 end
 
 local function InstallComplete()
