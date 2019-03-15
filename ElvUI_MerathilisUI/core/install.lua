@@ -53,7 +53,6 @@ local function SetupCVars()
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
-	SetCVar("nameplateMinAlpha", .6) -- Override Elv's
 
 	-- Disable it because of NSCT
 	SetCVar("floatingCombatTextCombatDamage", 0)
@@ -507,6 +506,10 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 0
+
+	-- TARGETED
+	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.07 -- 107% scale
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
