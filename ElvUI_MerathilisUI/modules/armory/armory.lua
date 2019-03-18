@@ -222,7 +222,7 @@ function MERAY:InitialUpdatePaperDoll()
 	self:BuildInformation()
 
 	-- update player info
-	self:ScheduleTimer("UpdatePaperDoll", 13)
+	self:ScheduleTimer("UpdatePaperDoll", 5)
 
 	initialized = true
 end

@@ -513,6 +513,8 @@ function MER:SetupLayout()
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.07 -- 107% scale
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = -20
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
