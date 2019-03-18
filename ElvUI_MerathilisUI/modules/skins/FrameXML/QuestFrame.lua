@@ -76,31 +76,6 @@ local function styleQuestFrame()
 		_G[frame:GetName().."MaterialBotRight"]:Hide()
 	end)
 
-	for i = 1, 16 do
-		local button = _G['QuestTitleButton'..i]
-		if button then
-			hooksecurefunc(button, 'SetFormattedText', function(self)
-				if self:GetFontString() then
-					local Text = self:GetFontString():GetText()
-					if Text and find(Text, '|cff000000') then
-						button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
-					end
-				end
-			end)
-		end
-	end
-
-	local line = _G.QuestFrameGreetingPanel:CreateTexture()
-	line:SetColorTexture(1, 1, 1, .2)
-	line:SetSize(256, 1)
-	line:SetPoint("CENTER", _G.QuestGreetingFrameHorizontalBreak)
-
-	_G.QuestGreetingFrameHorizontalBreak:SetTexture("")
-
-	_G.QuestFrameGreetingPanel:HookScript("OnShow", function()
-		line:SetShown(_G.QuestGreetingFrameHorizontalBreak:IsShown())
-	end)
-
 	for i = 1, _G.MAX_REQUIRED_ITEMS do
 		local bu = _G["QuestProgressItem"..i]
 		local ic = _G["QuestProgressItem"..i.."IconTexture"]
@@ -170,23 +145,6 @@ local function styleQuestFrame()
 
 		_G.QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
 	end)
-
-	-- Text Color
-	_G.QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
-	_G.QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
-	_G.CurrentQuestsText:SetTextColor(1, 1, 1)
-	_G.CurrentQuestsText.SetTextColor = MER.dummy
-	_G.CurrentQuestsText:SetShadowColor(0, 0, 0)
-	_G.QuestProgressTitleText:SetTextColor(1, 1, 1)
-	_G.QuestProgressTitleText:SetShadowColor(0, 0, 0)
-	_G.QuestProgressTitleText.SetTextColor = MER.dummy
-	_G.QuestProgressText:SetTextColor(1, 1, 1)
-	_G.QuestProgressText.SetTextColor = MER.dummy
-	_G.GreetingText:SetTextColor(1, 1, 1)
-	_G.GreetingText.SetTextColor = MER.dummy
-	_G.AvailableQuestsText:SetTextColor(1, 1, 1)
-	_G.AvailableQuestsText.SetTextColor = MER.dummy
-	_G.AvailableQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
