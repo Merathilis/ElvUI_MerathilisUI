@@ -477,7 +477,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFont"] = 'Expressway'
@@ -487,7 +487,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Expressway'
@@ -517,7 +517,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.07 -- 107% scale
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
-	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = -20
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
