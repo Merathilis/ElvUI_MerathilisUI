@@ -339,6 +339,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -371,6 +372,7 @@ function MER:SetupLayout()
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -403,6 +405,7 @@ function MER:SetupLayout()
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -435,6 +438,7 @@ function MER:SetupLayout()
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
@@ -514,7 +518,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
 
 	-- TARGETED
-	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.07 -- 107% scale
+	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.08 -- 108% scale
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
