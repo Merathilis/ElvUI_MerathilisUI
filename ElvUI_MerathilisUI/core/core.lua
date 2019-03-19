@@ -17,6 +17,7 @@ local tinsert = table.insert
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
+local GetAddOnEnableState = GetAddOnEnableState
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: LibStub, ElvDB, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
