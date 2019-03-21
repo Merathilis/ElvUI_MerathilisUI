@@ -843,8 +843,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
-	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = true
-	E.db["unitframe"]["colors"]["healthselection"] = true
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -889,7 +888,6 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
-		E.db["unitframe"]["units"]["player"]["colorOverride"] = "FORCE_ON"
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
