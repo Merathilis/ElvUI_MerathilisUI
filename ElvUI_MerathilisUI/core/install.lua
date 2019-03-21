@@ -886,7 +886,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
-		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
+		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table

@@ -19,6 +19,7 @@ MER.ReminderList = {
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
+			["tree"] = 3,
 		},
 	},
 
