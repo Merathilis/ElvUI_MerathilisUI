@@ -361,7 +361,7 @@ function RM:CreateReminder(name, index)
 
 	local size = RM.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
-	if not ElvFrame then return end
+	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
 	frame:Size(size or (ElvFrame:GetHeight() -4))
