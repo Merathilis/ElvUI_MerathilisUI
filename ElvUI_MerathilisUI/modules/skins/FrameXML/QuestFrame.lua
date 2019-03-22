@@ -61,6 +61,18 @@ local function styleQuestFrame()
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
+	-- Copied from ElvUI
+	local function UpdateGreetingFrame()
+		for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
+			local Text = Button:GetFontString():GetText()
+			if Text and strfind(Text, '|cff000000') then
+				Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+			end
+		end
+	end
+	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
+	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
+
 	_G.QuestGreetingScrollFrame:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemover.enable then
