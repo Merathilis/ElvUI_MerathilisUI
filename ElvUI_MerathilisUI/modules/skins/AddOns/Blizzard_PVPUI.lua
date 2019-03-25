@@ -33,13 +33,14 @@ local function stylePvP()
 	local ConquestFrame = _G.ConquestFrame
 	local WarGamesFrame = _G.WarGamesFrame
 
+	local iconSize = 60-2*E.mult
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
 		MERS:Reskin(bu)
 
-		bu.Icon:Size(54)
+		bu.Icon:SetSize(iconSize, iconSize)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
 		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
