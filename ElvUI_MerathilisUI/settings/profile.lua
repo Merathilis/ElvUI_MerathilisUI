@@ -363,6 +363,7 @@ P.mui = {
 		petIcon = true,		-- Add an Icon for battle pets on the tooltip
 		factionIcon = true, -- Add a faction icon on the tooltip
 		keystone = true, -- Adds descriptions for mythic keystone properties
+		azerite = true,
 		titleColor = true,
 	},
 

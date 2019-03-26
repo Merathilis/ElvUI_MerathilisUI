@@ -29,7 +29,6 @@ local function styleSpellBook()
 
 	for i = 1, _G.SPELLS_PER_PAGE do
 		local bu = _G["SpellButton"..i]
-		local ic = _G["SpellButton"..i.."IconTexture"]
 
 		_G["SpellButton"..i.."SlotFrame"]:SetAlpha(0)
 		bu.EmptySlot:SetAlpha(0)
