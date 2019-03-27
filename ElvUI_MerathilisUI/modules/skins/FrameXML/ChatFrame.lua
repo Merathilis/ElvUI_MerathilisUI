@@ -36,6 +36,11 @@ local function styleChatFrame()
 			_G.ChatFrameToggleVoiceMuteButton.glow:Hide()
 		end
 	end
+
+	--ElvUI ChatButtonHolder
+	if _G.ChatButtonHolder then
+		_G.ChatButtonHolder:Styling()
+	end
 end
 
 S:AddCallback("mUIChat", styleChatFrame)
