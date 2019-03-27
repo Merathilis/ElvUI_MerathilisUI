@@ -1,3 +1,4 @@
+
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- Cache global variables
@@ -874,6 +875,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["player"]["debuffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
@@ -981,6 +984,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
+		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1022,6 +1027,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1099,6 +1106,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
+		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
@@ -1187,6 +1196,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1223,7 +1234,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
@@ -1302,6 +1314,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 5
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid40"]["portrait"]["camDistanceScale"] = 2
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 20
@@ -1366,7 +1380,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["noDuration"] = false
@@ -1404,6 +1419,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
@@ -1456,6 +1473,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
@@ -1525,6 +1544,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["pet"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
@@ -1562,10 +1583,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
 		E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
+		E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
+		E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
+		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.5
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
@@ -1627,7 +1652,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
-		E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6

@@ -171,19 +171,6 @@ P.mui = {
 	},
 
 	unitframes = {
-		AuraIconText = {
-			durationTextPos = "CENTER",
-			durationTextOffsetX = 1,
-			durationTextOffsetY = 0,
-			stackTextPos = "BOTTOMRIGHT",
-			stackTextOffsetX = 1,
-			stackTextOffsetY = 2,
-			hideDurationText = false,
-			hideStackText = false,
-			durationFilterOwner = false,
-			durationThreshold = -1,
-			stackFilterOwner = false,
-		},
 		AuraIconSpacing = {
 			spacing = 1,
 			units = {
