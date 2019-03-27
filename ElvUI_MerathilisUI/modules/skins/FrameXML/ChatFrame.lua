@@ -20,26 +20,11 @@ local function styleChatFrame()
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
 	-- Revert my Styling function on these buttons
-	if not E.db.chat.hideVoiceButtons then
-		if _G.ChatFrameChannelButton then
-			_G.ChatFrameChannelButton:StripTextures()
-			_G.ChatFrameChannelButton.glow:Hide()
+	if not E.db.chat.pinVoiceButtons then
+		--ElvUI ChatButtonHolder
+		if _G.ChatButtonHolder then
+			_G.ChatButtonHolder:Styling()
 		end
-
-		if _G.ChatFrameToggleVoiceDeafenButton then
-			_G.ChatFrameToggleVoiceDeafenButton:StripTextures()
-			_G.ChatFrameToggleVoiceDeafenButton.glow:Hide()
-		end
-
-		if _G.ChatFrameToggleVoiceMuteButton then
-			_G.ChatFrameToggleVoiceMuteButton:StripTextures()
-			_G.ChatFrameToggleVoiceMuteButton.glow:Hide()
-		end
-	end
-
-	--ElvUI ChatButtonHolder
-	if _G.ChatButtonHolder then
-		_G.ChatButtonHolder:Styling()
 	end
 end
 
