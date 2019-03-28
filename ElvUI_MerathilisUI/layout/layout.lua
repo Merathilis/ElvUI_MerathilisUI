@@ -102,7 +102,7 @@ local function ChatMenu_OnLeave(self)
 end
 
 function MERL:CreateChatButtons()
-	if E.db.mui.chat.chatButton ~= true then return end
+	if E.db.mui.chat.chatButton ~= true or E.db.chat.enable ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
