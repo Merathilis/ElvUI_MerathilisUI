@@ -315,10 +315,22 @@ function MER:SetupLayout()
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
 
 	-- Cooldown Settings
-	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
-	E.db["bags"]["cooldown"]["fonts"]["font"] = "Expressway"
-	E.db["bags"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
-	E.db["bags"]["cooldown"]["fonts"]["fontSize"] = 14
+	E.db["bags"]["cooldown"]["override"] = true
+	E.db["bags"]["cooldown"]["fonts"] = {
+		["enable"] = true,
+		["font"] = "Expressway",
+		["fontSize"] = 20,
+	}
+	E.db["bags"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["bags"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
 	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
@@ -335,6 +347,21 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
+
+	-- Cooldowns
+	E.db["nameplates"]["cooldown"]["override"] = true
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
+	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["nameplates"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["nameplates"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["nameplates"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
@@ -671,7 +698,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
 	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
 	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
-	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 18
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
 
 	if IsAddOnLoaded("Masque") then
 		E.private["actionbar"]["masque"]["stanceBar"] = true
@@ -694,6 +721,22 @@ function MER:SetupActionbars(layout)
 	--]]----------------------------------
 	E.db["actionbar"]["font"] = "Expressway"
 	E.db["actionbar"]["desaturateOnCooldown"] = true
+
+	-- Cooldowns
+	E.db["actionbar"]["cooldown"]["override"] = true
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["actionbar"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["actionbar"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
+	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
+	E.db["actionbar"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
@@ -859,6 +902,21 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisGradient"
+
+	--Cooldowns
+	E.db["unitframe"]["cooldown"]["override"] = true
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
+	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
+	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
 
 	if layout == "dps" then
 		-- Player
