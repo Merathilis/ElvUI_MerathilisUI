@@ -347,6 +347,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
+	E.db["nameplates"]["smoothbars"] = true
 
 	-- Cooldowns
 	E.db["nameplates"]["cooldown"]["override"] = true
