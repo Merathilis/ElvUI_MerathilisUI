@@ -32,14 +32,8 @@ local function ChatTable()
 				name = L["Hide Player Brackets"],
 				desc = L["Removes brackets around the person who posts a chat message."],
 			},
-			sidePanel = {
-				order = 5,
-				type = "toggle",
-				name = L["Hide Chat Side Panel"],
-				desc = L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"],
-			},
 			hideChat = {
-				order = 7,
+				order = 5,
 				type = "toggle",
 				name = L["Hide Community Chat"],
 				desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
