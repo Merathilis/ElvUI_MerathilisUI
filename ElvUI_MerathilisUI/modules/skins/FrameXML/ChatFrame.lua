@@ -20,7 +20,7 @@ local function styleChatFrame()
 	_G.VoiceChatChannelActivatedNotification:Styling()
 
 	-- Revert my Styling function on these buttons
-	if E.db.chat.pinVoiceButtons then
+	if E.db.chat.pinVoiceButtons and not E.db.chat.hideVoiceButtons then
 		if _G.ChatFrameChannelButton then
 			_G.ChatFrameChannelButton:StripTextures()
 			_G.ChatFrameChannelButton.glow:Hide()
