@@ -125,6 +125,7 @@ L["Placed Item"] = true
 L["Stranger"] = true
 L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
+L["Keystones"] = true
 
 -- Tooltip
 L["Your Status:"] = true

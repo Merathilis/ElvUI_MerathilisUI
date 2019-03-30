@@ -125,6 +125,7 @@ L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
 L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
+L["Keystones"] = "Schlüsselsteine"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

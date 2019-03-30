@@ -9,6 +9,7 @@ local pairs, select = pairs, select
 local hooksecurefunc = hooksecurefunc
 local GetContainerItemLink = GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
+
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 

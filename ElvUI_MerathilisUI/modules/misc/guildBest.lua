@@ -18,10 +18,14 @@ local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 local GameTooltip = GameTooltip
-
+local GetItemInfo = GetItemInfo
+local UnitFactionGroup = UnitFactionGroup
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
+
 local frame
+
+MI.KeystoneInfo = {}
 
 function MI:GuildBest()
 	local function ShowTooltip(self)
@@ -124,12 +128,75 @@ function MI:GuildBest()
 		end
 	end
 
+	local iconColor = BAG_ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_EPIC or 4]
+	local function AddKeystoneIcon()
+		local texture = select(10, GetItemInfo(158923)) or 525134
+		local button = CreateFrame("Frame", nil, ChallengesFrame.WeeklyInfo)
+		button:SetPoint("BOTTOMLEFT", 10, 67)
+		button:SetSize(35, 35)
+		MER:PixelIcon(button, texture, true)
+		button:CreateBackdrop()
+		button.backdrop:SetBackdropBorderColor(iconColor.r, iconColor.g, iconColor.b)
+		button:SetScript("OnEnter", function(self)
+			GameTooltip:ClearLines()
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:AddLine(L["Keystones"])
+			for name, info in pairs(MI.KeystoneInfo) do
+				local name = Ambiguate(name, "none")
+				local mapID, level, class, faction = strsplit(":", info)
+				local color = MER:HexRGB(MER:ClassColor(class))
+				local infoColor = faction == "Horde" and "|cffee1919" or "|cff00adf0"
+				local dungeon = C_ChallengeMode_GetMapUIInfo(tonumber(mapID))
+				GameTooltip:AddDoubleLine(format(color.."%s:|r", name), format(infoColor.."%s(%s)|r", dungeon, level))
+			end
+			GameTooltip:AddDoubleLine(" ", MER.LineString)
+			GameTooltip:AddDoubleLine(" ", MER.ScrollButton..RESET.." ", 1, 1, 1, .6, .8, 1)
+			GameTooltip:Show()
+		end)
+		button:SetScript("OnLeave", HideTooltip)
+		button:SetScript("OnMouseUp", function(_, btn)
+			if btn == "MiddleButton" then
+				wipe(MI.KeystoneInfo)
+			end
+		end)
+	end
+
 	local function ChallengesOnLoad(event, addon)
-		if addon == 'Blizzard_ChallengesUI' then
-			hooksecurefunc('ChallengesFrame_Update', UpdateGuildBest)
+		if addon == "Blizzard_ChallengesUI" then
+			hooksecurefunc("ChallengesFrame_Update", UpdateGuildBest)
+			AddKeystoneIcon()
 
 			MI:UnregisterEvent(event)
 		end
 	end
-	MI:RegisterEvent('ADDON_LOADED', ChallengesOnLoad)
+	MI:RegisterEvent("ADDON_LOADED", ChallengesOnLoad)
+
+	-- Keystone Info
+	local myFaction = UnitFactionGroup("player")
+	local myFullName = E.myname.."-"..E.myrealm
+	local function GetKeyInfo()
+		for bag = 0, 4 do
+			local numSlots = GetContainerNumSlots(bag)
+			for slot = 1, numSlots do
+				local slotLink = select(7, GetContainerItemInfo(bag, slot))
+				local itemString = slotLink and strmatch(slotLink, "|Hkeystone:([0-9:]+)|h(%b[])|h")
+				if itemString then
+					return slotLink, itemString
+				end
+			end
+		end
+	end
+
+	local function UpdateBagInfo()
+		local link, itemString = GetKeyInfo()
+		if link then
+			local _, mapID, level = strsplit(":", itemString)
+			MI.KeystoneInfo[myFullName] = mapID..":"..level..":"..E.myclass..":"..myFaction
+		else
+			MI.KeystoneInfo[myFullName] = nil
+		end
+	end
+
+	UpdateBagInfo()
+	MI:RegisterEvent("BAG_UPDATE", UpdateBagInfo)
 end

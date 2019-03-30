@@ -42,6 +42,11 @@ MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
+MER.LineString = MER.GreyColor.."---------------"
+
+MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 -- Class Color stuff
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
@@ -65,6 +70,15 @@ for class in pairs(colors) do
 	MER.ClassColors[class].colorStr = colors[class].colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+
+function MER:HexRGB(r, g, b)
+	if r then
+		if type(r) == "table" then
+			if r.r then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
+		end
+		return format("|cff%02x%02x%02x", r*255, g*255, b*255)
+	end
+end
 
 function MER:ClassColor(class)
 	local color = MER.ClassColors[class]
