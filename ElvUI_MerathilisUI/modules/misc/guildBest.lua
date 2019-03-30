@@ -49,7 +49,7 @@ function MI:GuildBest()
 		MERS:CreateBD(frame, .3)
 
 		frame.Header = frame:CreateFontString(nil, "OVERLAY", 'GameFontNormalMed2')
-		frame.Header:SetPoint('TOPLEFT', frame, 18, -10)
+		frame.Header:SetPoint('TOPLEFT', frame, 17, -10)
 		frame.Header:SetJustifyH('LEFT')
 		frame.Header:SetText(_G.GUILD)
 
@@ -60,11 +60,11 @@ function MI:GuildBest()
 			entry:SetPoint('RIGHT', -10, 0)
 			entry:SetHeight(18)
 
-			entry.CharacterName = MER:CreateText(entry, 'OVERLAY', 12, 'OUTLINE', '', nil, 'LEFT', 6, 0)
+			entry.CharacterName = MER:CreateText(entry, 'OVERLAY', 11, 'OUTLINE', '', nil, 'LEFT', 6, 0)
 			entry.CharacterName:SetPoint('RIGHT', -30, 0)
 			entry.CharacterName:SetJustifyH('LEFT')
 
-			entry.Level = MER:CreateText(entry, 'OVERLAY', 12, 'OUTLINE', '', nil, nil, true)
+			entry.Level = MER:CreateText(entry, 'OVERLAY', 11, 'OUTLINE', '', nil, nil, true)
 			entry.Level:SetJustifyH('LEFT')
 			entry.Level:ClearAllPoints()
 			entry.Level:SetPoint('LEFT', entry, 'RIGHT', -22, 0)
