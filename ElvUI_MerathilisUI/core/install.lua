@@ -548,6 +548,7 @@ function MER:SetupLayout()
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.08 -- 108% scale
+	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style2"
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
