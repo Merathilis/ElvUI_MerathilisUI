@@ -21,11 +21,9 @@ local GameTooltip = GameTooltip
 local GetItemInfo = GetItemInfo
 local UnitFactionGroup = UnitFactionGroup
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
+-- GLOBALS: MERData
 
 local frame, resize
-
-MI.KeystoneInfo = {}
 
 local function ShowTooltip(self)
 	local leaderInfo = self.leaderInfo
@@ -140,7 +138,7 @@ local function AddKeystoneIcon()
 		GameTooltip:ClearLines()
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 		GameTooltip:AddLine(L["Keystones"])
-		for name, info in pairs(MI.KeystoneInfo) do
+		for name, info in pairs(MERData["keystoneinfo"]) do
 			local name = Ambiguate(name, "none")
 			local mapID, level, class, faction = strsplit(":", info)
 			local color = MER:HexRGB(MER:ClassColor(class))
@@ -155,7 +153,7 @@ local function AddKeystoneIcon()
 	button:SetScript('OnLeave', HideTooltip)
 	button:SetScript('OnMouseUp', function(_, btn)
 		if btn == "MiddleButton" then
-			wipe(MI.KeystoneInfo)
+			wipe(MERData["keystoneinfo"])
 		end
 	end)
 end
@@ -180,9 +178,9 @@ local function UpdateBagInfo()
 	local link, itemString = GetKeyInfo()
 	if link then
 		local _, mapID, level = strsplit(":", itemString)
-		MI.KeystoneInfo[myFullName] = mapID..":"..level..":"..E.myclass..":"..myFaction
+		MERData["keystoneinfo"][myFullName] = mapID..":"..level..":"..E.myclass..":"..myFaction
 	else
-		MI.KeystoneInfo[myFullName] = nil
+		MERData["keystoneinfo"][myFullName] = nil
 	end
 end
 
@@ -196,6 +194,8 @@ local function ChallengesOnLoad(event, addon)
 end
 
 function MI:GuildBest()
+	if MERData["keystoneinfo"] == nil then MERData["keystoneinfo"] = {} end
+
 	UpdateBagInfo()
 	MI:RegisterEvent('ADDON_LOADED', ChallengesOnLoad)
 	MI:RegisterEvent('BAG_UPDATE', UpdateBagInfo)
