@@ -17,18 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Remove my own System DataText i use now the ElvUI Datatext.",
-		"• Removed Chat Menu, i never used it.",
-		"• Removed Chat Buttons.",
-		"• Adjust the Layout due to the new Voice Chat Buttons.",
-		"• Add new Nameplate settings to my Layout/CVar Install steps.",
-		"• Small UnitFrame settings update.",
+		"• Prevent a lua error in Reminder Module.",
+		"• Alot of more Nameplate settings in my install.",
+		"• Update the appearance for my FlightPoints frame.",
+		"• Added Azerite Item Tooltip back.",
+		"• Minor tweaks to Unitframe install.",
+		"• Add Guildbest Frame on the LFG Frame > Mythic Keystones.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• 'Remember, if you want my latest Layout, you need to go through the install again.'",
-		"• 'And for the new NamePlates Settings, you have to do the Layout install step.'",
+		-- "• ''",
 }
 
 local function ModifiedString(string)
