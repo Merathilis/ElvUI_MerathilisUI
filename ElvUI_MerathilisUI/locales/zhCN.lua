@@ -1,54 +1,54 @@
--- Chinese localization file for zhCN.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "zhCN")
-if not L then return end
+-- English localization file for enUS
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local L = AceLocale:NewLocale("ElvUI", "enUS");
+if not L then return; end
 
 -- Core
-L[" is loaded. For any issues or suggestions, please visit "] = true
+L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
 L["AFK"] = true
-L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
-L["Are you still there? ... Hello?"] = true
-L["Logout Timer"] = true
-L["SplashScreen"] = true
-L["Enable/Disable the Splash Screen on Login."] = true
-L["Options"] = true
-L["Combat State"] = true
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
-L["Show Merchant ItemLevel"] = true
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
-L["Desciption"] = true
-L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
+L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
+L["Are you still there? ... Hello?"] = "你还在吗？ ... 在吗？"
+L["Logout Timer"] = "登出计时器"
+L["SplashScreen"] = "闪屏"
+L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
+L["Options"] = "选项"
+L["Combat State"] = "战斗状态"
+L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "如果你进入/离开战斗，启用/禁用'+'/'-'战斗信息."
+L["Show Merchant ItemLevel"] = "显示商人物品等级"
+L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "在商人框体上显示物品等级, 更改字体你需要在ElvUI-背包-物品等级"
+L["Desciption"] = "描述"
+L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ElvUI的扩展. 它增加了:
 
-- a lot of new features
-- a transparent overall look
-- rewrote all existing ElvUI Skins
-- my personal Layout
+- 大量新特性
+- 一个整体的透明外观
+- 重写了所有的ElvUI外观
+- 我的个人布局
 
-|cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
-But if you install another Layout over mine, you must adjust it manually.]=]
+|cFF00c0faNote:|r 它与其他大多数ElvUI插件兼容.
+但是如果你在我的之外安装了另一个布局，你必须手动调整它。.]=]
 
 -- LoginMessage
-L["Enable/Disable the Login Message in Chat"] = true
+L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
 
 -- Bags
-L["Transparent Slots"] = true
-L["Equipment Manager"] = true
-L["Equipment Set Overlay"] = true
-L["Show the associated equipment sets for the items in your bags (or bank)."] = true
+L["Transparent Slots"] = "透明插槽"
+L["Equipment Manager"] = "装备管理"
+L["Equipment Set Overlay"] = "套装覆盖"
+L["Show the associated equipment sets for the items in your bags (or bank)."] = "为你背包(银行)中的物品显示关联的套装."
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
+L["has come |cff298F00online|r."] = "来了 |cff298F00在线|r." -- Guild Message
+L["has gone |cffff0000offline|r."] = "走了 |cffff0000离线|r." -- Guild Message
+L[" has come |cff298F00online|r."] = "来了 |cff298F00在线|r." -- Battle.Net Message
+L[" has gone |cffff0000offline|r."] = "走了 |cffff0000离线|r." -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
-L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
+L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = "|CFF1EFF00%s|r |CFFFF0000出售.|r"
 L["Requires level: %d - %d"] = true
 L["Requires level: %d - %d (%d)"] = true
 L["(+%.1f Rested)"] = true
@@ -90,6 +90,11 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
+-- MasterPlan
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
+L["Misc"] = true
+
 -- MicroBar
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
@@ -106,7 +111,6 @@ L["Next Invasion: "] = true
 L["Mythic Dungeon"] = true
 
 -- Misc
-L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
@@ -207,10 +211,6 @@ L["Categories"] = true
 L["Open head slot azerite powers."] = true
 L["Open shoulder slot azerite powers."] = true
 L["Open chest slot azerite powers."] = true
-L["Enchant Info"] = true
-L["Shows an indictor for enchanted/ not enchanted items."] = true
-L["Socket Info"] = true
-L["Shows an indictor for socketed/ unsocketed items."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
 L["Indicators"] = true
@@ -321,12 +321,12 @@ L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
+L["Hearthstone Toys Order"] = true
 L["Show the name on location your Hearthstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
 L["Hearthstone Location"] = true
-L["Hearthstone Toys Order"] = true
 L["Show hearthstones"] = true
 L["Show hearthstone type items in the list."] = true
 L["Show Toys"] = true
@@ -532,7 +532,6 @@ L["Please click the button below to setup your datatexts."] = true
 L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
-L["Setup Chat"] = true
 L["Setup Datatexts"] = true
 L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
@@ -541,7 +540,7 @@ L["Installed"] = true
 L["|cffff8000Your currently active ElvUI profile is:|r %s."] = true
 
 -- Staticpopup
-L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
+L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). Please update your ElvUI to avoid errors."
 L["You have got Location Plus and Shadow & Light both enabled at the same time. Select an addon to disable."] = true
 L["MUI_INSTALL_SETTINGS_LAYOUT_SLE"] = [[Here you can choose the layout for S&L.]]
 L["MUI_INSTALL_SETTINGS_LAYOUT_BUI"] = [[Here you can choose the layout for BenikUI.]]
