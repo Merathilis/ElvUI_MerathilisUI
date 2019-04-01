@@ -4,23 +4,23 @@ local L = AceLocale:NewLocale("ElvUI", "zhCN")
 if not L then return end
 
 -- Core
-L[" is loaded. For any issues or suggestions, please visit "] = true
+L[" 已加载。如有任何问题或建议，请访问 "] = true
 
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
 L["AFK"] = true
-L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
-L["Are you still there? ... Hello?"] = true
-L["Logout Timer"] = true
-L["SplashScreen"] = true
-L["Enable/Disable the Splash Screen on Login."] = true
-L["Options"] = true
+L["启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"] = true
+L["你还在吗？ ... 在吗？"] = true
+L["登出计时器"] = true
+L["闪屏"] = true
+L["在登录时启用/禁用启动画面."] = true
+L["选项"] = true
 L["Combat State"] = true
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
-L["Show Merchant ItemLevel"] = true
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
-L["Desciption"] = true
+L["如果你进入/离开战斗，启用/禁用'+'/'-'战斗信息。"] = true
+L["显示商人物品等级"] = true
+L["在商人框体上显示物品等级, 更改字体你需要在ElvUI-背包-物品等级"] = true
+L["描述"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 
 - a lot of new features
@@ -32,84 +32,84 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 But if you install another Layout over mine, you must adjust it manually.]=]
 
 -- LoginMessage
-L["Enable/Disable the Login Message in Chat"] = true
+L["在聊天框中启用/禁用登录消息"] = true
 
 -- Bags
-L["Transparent Slots"] = true
-L["Equipment Manager"] = true
-L["Equipment Set Overlay"] = true
-L["Show the associated equipment sets for the items in your bags (or bank)."] = true
+L["透明插槽"] = true
+L["装备管理"] = true
+L["套装覆盖"] = true
+L["为你背包(银行)中的物品显示关联的套装."] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
-L["has come |cff298F00online|r."] = true -- Guild Message
-L["has gone |cffff0000offline|r."] = true -- Guild Message
-L[" has come |cff298F00online|r."] = true -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = true -- Battle.Net Message
+L["来了 |cff298F00在线|r."] = true -- Guild Message
+L["走了 |cffff0000离线|r."] = true -- Guild Message
+L[" 来了 |cff298F00在线|r."] = true -- Battle.Net Message
+L[" 走了 |cffff0000离线|r."] = true -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
-L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = true
-L["Requires level: %d - %d"] = true
-L["Requires level: %d - %d (%d)"] = true
-L["(+%.1f Rested)"] = true
-L["Unknown"] = true
-L["Chat Item Level"] = true
-L["Shows the slot and item level in the chat"] = true
-L["Expand the chat"] = true
-L["Chat Menu"] = true
-L["Create a chat button to increase the chat size and chat menu button."] = true
-L["Hide Player Brackets"] = true
-L["Removes brackets around the person who posts a chat message."] = true
-L["Hide Community Chat"] = true
+L["|CFF1EFF00%s|r |CFFFF0000出售.|r"] = true
+L["需要等级: %d - %d"] = true
+L["需要等级: %d - %d (%d)"] = true
+L["(+%.1f 休息)"] = true
+L["未知"] = true
+L["聊天物品等级"] = true
+L["显示聊天中的插槽和物品等级"] = true
+L["展开聊天"] = true
+L["聊天菜单"] = true
+L["创建聊天按钮以增加聊天大小和聊天菜单按钮."] = true
+L["隐藏玩家括号"] = true
+L["删除聊天框中玩家名字两边的括号."] = true
+L["隐藏社区聊天"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
-L["Chat Hidden. Click to show"] = true
+L["聊天框已隐藏，点击显示"] = true
 
 -- Information
-L["Information"] = true
-L["Support & Downloads"] = true
+L["信息"] = true
+L["支持 & 下载"] = true
 L["Tukui.org"] = true
 L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = true
-L["Here you can download the latest development version."] = true
+L["您可以从这里下载最新的开发版本."] = true
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r modules.\n请使用下拉列表浏览模块."] = true
 
 -- GameMenu
 L["GameMenu"] = true
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
+L["从暴雪游戏菜单启用/禁用MerathilisUI样式."] = true
 
 -- FlightMode
-L["FlightMode"] = true
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["飞行模式"] = true
+L["启用/禁用MerathilisUI飞行模式.\n要完全进入飞行模式，请进入 |cff00c0faBenikUI|r Options."] = true
 
 -- FlightPoint
-L["Flight Point"] = true
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+L["飞行点"] = true
+L["在飞行地图上启用/禁用MerathilisUI飞行点."] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Show/Hide the friend text on MicroBar."] = true
-L["Show/Hide the guild text on MicroBar."] = true
-L["Blingtron"] = "Blingtron Daily Gift"
-L["Mean One"] = "Feast of Winter Veil"
-L["Timewarped"] = "500 Timewarped Badges"
-L["Legion Invasion"] = true
-L["Faction Assault"] = true
-L["Local Time"] = true
-L["Realm Time"] = true
-L["Current Invasion: "] = true
-L["Next Invasion: "] = true
-L["Mythic Dungeon"] = true
+L["在职业大厅中隐藏"] = true
+L["在微型菜单上显示/隐藏朋友文本."] = true
+L["在微型菜单上显示/隐藏公会文本."] = true
+L["布林顿"] = "布林顿每日任务"
+L["Mean One"] = "冬幕节"
+L["Timewarped"] = "500 时空扭曲徽章"
+L["军团入侵"] = true
+L["阵营突袭"] = true
+L["本地时间"] = true
+L["现实时间"] = true
+L["当前入侵: "] = true
+L["下次入侵: "] = true
+L["史诗地下城"] = true
 
 -- Misc
-L["Misc"] = true
-L["Artifact Power"] = true
-L["has appeared on the MiniMap!"] = true
-L["Alt-click, to buy an stack"] = true
+L["杂项"] = true
+L["神器能量"] = true
+L["已经出现在小地图上!"] = true
+L["Alt-点击, 批量买"] = true
 L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
