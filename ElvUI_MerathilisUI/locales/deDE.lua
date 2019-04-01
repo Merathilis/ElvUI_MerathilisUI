@@ -90,6 +90,10 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
 
+-- MasterPlan
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
+
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."

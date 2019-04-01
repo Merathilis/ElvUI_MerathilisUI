@@ -93,7 +93,6 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 -- MasterPlan
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
-L["Misc"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
@@ -111,6 +110,7 @@ L["Next Invasion: "] = true
 L["Mythic Dungeon"] = true
 
 -- Misc
+L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true

@@ -90,6 +90,10 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 
+-- MasterPlan
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
+
 -- MicroBar
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
@@ -207,10 +211,6 @@ L["Categories"] = true
 L["Open head slot azerite powers."] = true
 L["Open shoulder slot azerite powers."] = true
 L["Open chest slot azerite powers."] = true
-L["Enchant Info"] = true
-L["Shows an indictor for enchanted/ not enchanted items."] = true
-L["Socket Info"] = true
-L["Shows an indictor for socketed/ unsocketed items."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
 L["Indicators"] = true
