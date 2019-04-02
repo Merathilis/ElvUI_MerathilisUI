@@ -5,6 +5,7 @@
 * Added Azerite Item Tooltip back.
 * Minor tweaks to unitframe install.
 * Add Guildbest Frame on the LFG Frame > Mythic Keystones.
+* Chinese Locals from Simon@ciki
 
 ** v4.13 12.03.2019**
 * Removed my own System DataText i use now the ElvUI Datatext.

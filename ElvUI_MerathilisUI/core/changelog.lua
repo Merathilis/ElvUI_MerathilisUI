@@ -23,6 +23,7 @@ local ChangeLogData = {
 		"• Added Azerite Item Tooltip back.",
 		"• Minor tweaks to Unitframe install.",
 		"• Add Guildbest Frame on the LFG Frame > Mythic Keystones.",
+		"• Chinese Locals from Simon@ciki <3.",
 
 		-- "• ''",
 	" ",
