@@ -547,7 +547,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
 
 	-- TARGETED
-	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.08 -- 108% scale
+	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
 	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style2"
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
 	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
