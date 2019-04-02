@@ -194,7 +194,7 @@ local function ChallengesOnLoad(event, addon)
 end
 
 function MI:GuildBest()
-	if MERData["keystoneinfo"] == nil then MERData["keystoneinfo"] = {} end
+	if not MERData["keystoneinfo"] then MERData["keystoneinfo"] = {} end
 
 	UpdateBagInfo()
 	MI:RegisterEvent('ADDON_LOADED', ChallengesOnLoad)
