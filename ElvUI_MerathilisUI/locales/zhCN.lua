@@ -49,159 +49,159 @@ L[" has come |cff298F00online|r."] = "来了 |cff298F00在线|r." -- Battle.Net 
 L[" has gone |cffff0000offline|r."] = "走了 |cffff0000离线|r." -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = "|CFF1EFF00%s|r |CFFFF0000出售.|r"
-L["Requires level: %d - %d"] = true
-L["Requires level: %d - %d (%d)"] = true
-L["(+%.1f Rested)"] = true
-L["Unknown"] = true
-L["Chat Item Level"] = true
-L["Shows the slot and item level in the chat"] = true
-L["Expand the chat"] = true
-L["Chat Menu"] = true
-L["Create a chat button to increase the chat size and chat menu button."] = true
-L["Hide Player Brackets"] = true
-L["Removes brackets around the person who posts a chat message."] = true
-L["Hide Community Chat"] = true
+L["Requires level: %d - %d"] = "需要等级: %d - %d"
+L["Requires level: %d - %d (%d)"] = "需要等级: %d - %d (%d)"
+L["(+%.1f Rested)"] = "(+%.1f 休息)"
+L["Unknown"] = "未知"
+L["Chat Item Level"] = "聊天物品等级"
+L["Shows the slot and item level in the chat"] = "显示聊天中的插槽和物品等级"
+L["Expand the chat"] = "展开聊天框"
+L["Chat Menu"] = "聊天菜单"
+L["Create a chat button to increase the chat size and chat menu button."] = "创建聊天按钮以增加聊天大小和聊天菜单按钮."
+L["Hide Player Brackets"] = "隐藏玩家括号"
+L["Removes brackets around the person who posts a chat message."] = "删除聊天框中玩家名字两边的括号."
+L["Hide Community Chat"] = "隐藏社区聊天"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
-L["Chat Hidden. Click to show"] = true
+L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
 
 -- Information
-L["Information"] = true
-L["Support & Downloads"] = true
+L["Information"] = "信息"
+L["Support & Downloads"] = "支持 & 下载"
 L["Tukui.org"] = true
 L["Git Ticket tracker"] = true
 L["Curse.com"] = true
 L["Coding"] = true
 L["Testing & Inspiration"] = true
 L["Development Version"] = true
-L["Here you can download the latest development version."] = true
+L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = true
+L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r modules.\n请使用下拉列表浏览模块."
 
 -- GameMenu
-L["GameMenu"] = true
-L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
+L["GameMenu"] = "游戏菜单"
+L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
 -- FlightMode
-L["FlightMode"] = true
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["FlightMode"] = "飞行模式"
+L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "启用/禁用MerathilisUI飞行模式.\n要完全进入飞行模式，请进入 |cff00c0faBenikUI|r Options."
 
 -- FlightPoint
-L["Flight Point"] = true
-L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+L["Flight Point"] = "飞行点"
+L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
 
 -- MasterPlan
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
-L["Hide In Orderhall"] = true
-L["Show/Hide the friend text on MicroBar."] = true
-L["Show/Hide the guild text on MicroBar."] = true
-L["Blingtron"] = "Blingtron Daily Gift"
-L["Mean One"] = "Feast of Winter Veil"
-L["Timewarped"] = "500 Timewarped Badges"
-L["Legion Invasion"] = true
-L["Faction Assault"] = true
-L["Local Time"] = true
-L["Realm Time"] = true
-L["Current Invasion: "] = true
-L["Next Invasion: "] = true
-L["Mythic Dungeon"] = true
+L["Hide In Orderhall"] = "在职业大厅中隐藏"
+L["Show/Hide the friend text on MicroBar."] = "在微型菜单上显示/隐藏朋友文本."
+L["Show/Hide the guild text on MicroBar."] = "在微型菜单上显示/隐藏公会文本."
+L["Blingtron"] = "布林顿每日任务"
+L["Mean One"] = "冬幕节"
+L["Timewarped"] = "500时空扭曲徽章"
+L["Legion Invasion"] = "军团入侵"
+L["Faction Assault"] = "阵营突袭"
+L["Local Time"] = "本地时间"
+L["Realm Time"] = "现实时间"
+L["Current Invasion: "] = "当前入侵: "
+L["Next Invasion: "] = "下次入侵: "
+L["Mythic Dungeon"] = "大秘境"
 
 -- Misc
-L["Misc"] = true
-L["Artifact Power"] = true
-L["has appeared on the MiniMap!"] = true
-L["Alt-click, to buy an stack"] = true
-L["Mover Transparency"] = true
-L["Changes the transparency of all the movers."] = true
-L["Announce"] = true
-L["Skill gains"] = true
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = true
-L[" members"] = true
-L["Name Hover"] = true
-L["Shows the Unit Name on the mouse."] = true
-L["Undress"] = true
-L["Flashing Cursor"] = true
-L["Accept Quest"] = true
-L["Placed Item"] = true
-L["Stranger"] = true
-L["Raid Info"] = true
-L["Shows a simple frame with Raid Informations."] = true
-L["Keystones"] = true
+L["Misc"] = "杂项"
+L["Artifact Power"] = "神器能量"
+L["has appeared on the MiniMap!"] = "已经出现在小地图上!"
+L["Alt-click, to buy an stack"] = "Alt-点击, 批量买"
+L["Mover Transparency"] = "Mover透明度"
+L["Changes the transparency of all the movers."] = "更改所有movers的透明度."
+L["Announce"] = "通告"
+L["Skill gains"] = "技能提升"
+L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "自动选择具有售价的任务奖励.同时通告任务进度."
+L[" members"] = " 会员"
+L["Name Hover"] = "名字悬停"
+L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
+L["Undress"] = "脱掉装备"
+L["Flashing Cursor"] = "光标闪光"
+L["Accept Quest"] = "接受任务"
+L["Placed Item"] = "放置物品"
+L["Stranger"] = "陌生人"
+L["Raid Info"] = "团本信息"
+L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
+L["Keystones"] = "大秘境钥匙"
 
 -- Tooltip
-L["Your Status:"] = true
-L["Your Status: Incomplete"] = true
-L["Your Status: Completed on "] = true
-L["Adds an Icon for battle pets on the tooltip."] = true
-L["Adds an Icon for the faction on the tooltip."] = true
-L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Keystone"] = true
-L["Adds descriptions for mythic keystone properties to their tooltips."] = true
-L["Title Color"] = true
-L["Change the color of the title in the Tooltip."] = true
+L["Your Status:"] = "你的状态: "
+L["Your Status: Incomplete"] = "你的状态：不完整"
+L["Your Status: Completed on "] = "您的状态：已完成"
+L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
+L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
+L["Adds information to the tooltip, on which char you earned an achievement."] = "在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
+L["Keystone"] = "大秘境钥匙"
+L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
+L["Title Color"] = "标题颜色"
+L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
 
 -- MailInputBox
-L["Mail Inputbox Resize"] = true
-L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = true
+L["Mail Inputbox Resize"] = "邮件收件箱大小调整"
+L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "调整邮件收件箱大小，并把费用移动到底部"
 
 -- Notification
-L["Notification"] = true
-L["Display a Toast Frame for different notifications."] = true
-L["This is an example of a notification."] = true
-L["Notification Mover"] = true
-L["%s slot needs to repair, current durability is %d."] = true
-L["You have %s pending calendar invite(s)."] = true
-L["You have %s pending guild event(s)."] = true
-L["Event \"%s\" will end today."] = true
-L["Event \"%s\" started today."] = true
-L["Event \"%s\" is ongoing."] = true
-L["Event \"%s\" will end tomorrow."] = true
-L["Here you can enable/disable the different notification types."] = true
-L["Enable Mail"] = true
-L["Enable Vignette"] = true
-L["If a Rare Mob or a treasure gets spotted on the minimap."] = true
-L["Enable Invites"] = true
-L["Enable Guild Events"] = true
-L["No Sounds"] = true
+L["Notification"] = "通知"
+L["Display a Toast Frame for different notifications."] = "为不同的通知显示一个提示框."
+L["This is an example of a notification."] = "这是一个通知的示例."
+L["Notification Mover"] = "true"
+L["%s slot needs to repair, current durability is %d."] = "%s 插槽需要修理, 当前耐久度是 %d."
+L["You have %s pending calendar invite(s)."] = "你有 %s 待处理的日历邀请."
+L["You have %s pending guild event(s)."] = "你有 %s 待处理的公会事件."
+L["Event \"%s\" will end today."] = "\"%s\" 活动今天结束."
+L["Event \"%s\" started today."] = "\"%s\" 活动今天开始."
+L["Event \"%s\" is ongoing."] = "\"%s\" 活动正在进行中."
+L["Event \"%s\" will end tomorrow."] = "\"%s\" 活动明天结束."
+L["Here you can enable/disable the different notification types."] = "在这里，你可以启用/禁用不同的通知类型."
+L["Enable Mail"] = "启用邮件"
+L["Enable Vignette"] = "true"
+L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地图上发现稀有精英或宝箱"
+L["Enable Invites"] = "启用邀请"
+L["Enable Guild Events"] = "启用公会活动"
+L["No Sounds"] = "没有声音"
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = true
-L["Middle Datatext Panel"] = true
+L["ChatTab Datatext Panel"] = "聊天标签信息面板"
+L["Middle Datatext Panel"] = "中间的信息面板"
 
 -- DataBars
-L["DataBars"] = true
-L["Add some stylish buttons at the bottom of the DataBars"] = true
-L["Style DataBars"] = true
+L["DataBars"] = "数据条"
+L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底部添加一些美观的按钮"
+L["Style DataBars"] = "样式数据条"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
-L["Transparent Backdrops"] = true
-L["Specialisation Bar"] = true
-L["EquipSet Bar"] = true
+L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "为所有动作条的背景和按钮应用透明度"
+L["Transparent Backdrops"] = "透明背景"
+L["Specialisation Bar"] = "专业条"
+L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
 
 -- Armory
 L["Armory"] = true
-L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
+L["ARMORY_DESC"] = [=[这个 |cffff7d0aArmory 模式|r只对ElvUI'显示人物信息'有效. 你可能需要重载你的UI:
 
-ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
-L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
-L["Azerite Buttons"] = true
-L["Enable/Disable the Azerite Buttons on the character window."] = true
-L["Durability"] = true
-L["Enable/Disable the display of durability information on the character window."] = true
-L["Damaged Only"] = true
-L["Only show durability information for items that are damaged."] = true
-L["Itemlevel"] = true
-L["Enable/Disable the display of item levels on the character window."] = true
-L["Level"] = true
-L["Full Item Level"] = true
-L["Show both equipped and average item levels."] = true
-L["Item Level Coloring"] = true
-L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+ElvUI - 常规 - BlizzUI改进 - 显示人物信息.]=]
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "启用/禁用|cffff7d0aMerathilisUI|r Armory模式"
+L["Azerite Buttons"] = "艾泽里特按钮"
+L["Enable/Disable the Azerite Buttons on the character window."] = "在人物窗口启用/禁用艾泽里特按钮."
+L["Durability"] = "耐久度"
+L["Enable/Disable the display of durability information on the character window."] = "在人物窗口启用/禁用耐久度信息显示."
+L["Damaged Only"] = "仅受损"
+L["Only show durability information for items that are damaged."] = "仅显示已受损物品的耐久度信息"
+L["Itemlevel"] = "物品等级"
+L["Enable/Disable the display of item levels on the character window."] = "在人物窗口启用/禁用物品等级显示."
+L["Level"] = "等级"
+L["Full Item Level"] = "完整物品等级"
+L["Show both equipped and average item levels."] = "显示装备和平均物品等级."
+L["Item Level Coloring"] = "物品等级着色"
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "true"
 L["Color of Average"] = true
 L["Sets the color of average item level."] = true
 L["Only Relevant Stats"] = true
@@ -263,7 +263,7 @@ L["MER_MEDIA_PVPARENA"] = {
 }
 
 -- Unitframes
-L["UnitFrames"] = true
+L["UnitFrames"] = "单位框体"
 L["Player Portrait"] = true
 L["Target Portrait"] = true
 L["Aura Spacing"] = true
@@ -300,7 +300,7 @@ L["InfoPanel Style"] = true
 L["Show on Target"] = true
 
 -- LocationPanel
-L["Location Panel"] = true
+L["Location Panel"] = "位置面板"
 L["Update Throttle"] = true
 L["The frequency of coordinates and zonetext updates. Check will be done more often with lower values."] = true
 L["Full Location"] = true
@@ -346,14 +346,14 @@ L["Update complete. Opening menu."] = true
 L["Hide Coordinates"] = true
 
 -- Maps
-L["MiniMap Buttons"] = true
+L["MiniMap Buttons"] = "小地图按钮"
 L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- NSCT
-L["Combat Text"] = true
+L["Combat Text"] = "战斗文本"
 L["Disable Blizzard FCT"] = true
 L["Personal SCT"] = true
 L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = true
@@ -391,12 +391,12 @@ L["Scale Down Small Hits"] = true
 L["Small Hits Scale"] = true
 
 -- SMB
-L["Bar Backdrop"] = true
+L["Bar Backdrop"] = "条背景"
 L["Move Tracker Icon"] = true
 L["Move Queue Status Icon"] = true
 
 -- Raid Marks
-L["Raid Markers"] = true
+L["Raid Markers"] = "团队标记"
 L["Click to clear the mark."] = true
 L["Click to mark the target."] = true
 L["%sClick to remove all worldmarkers."] = true
@@ -410,7 +410,7 @@ L["Set the modifier key for placing world markers."] = true
 L["Visibility State"] = true
 
 -- Raid Buffs
-L["Raid Buff Reminder"] = true
+L["Raid Buff Reminder"] = "团队BUFF提醒"
 L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
@@ -418,20 +418,20 @@ L["Change the alpha level of the icons."] = true
 L["Shows the pixel glow on missing raidbuffs."] = true
 
 -- Reminder
-L["Reminder"] = true
-L["Reminds you on self Buffs."] = true
+L["Reminder"] = "常驻BUFF提醒"
+L["Reminds you on self Buffs."] = "提醒你自己的BUFF"
 
 -- CooldownFlash
-L["CooldownFlash"] = true
-L["Settings"] = true
-L["Fadein duration"] = true
-L["Fadeout duration"] = true
-L["Duration time"] = true
-L["Animation size"] = true
-L["Display spell name"] = true
-L["Watch on pet spell"] = true
-L["Transparency"] = true
-L["Test"] = true
+L["CooldownFlash"] = "冷却闪光"
+L["Settings"] = "设置"
+L["Fadein duration"] = "淡入持续时间"
+L["Fadeout duration"] = "淡出持续时间"
+L["Duration time"] = "持续时间"
+L["Animation size"] = "动画大小"
+L["Display spell name"] = "显示法术名"
+L["Watch on pet spell"] = "观看宠物法术"
+L["Transparency"] = "透明度"
+L["Test"] = "测试"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -459,9 +459,9 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["NameplateAuras"] = true
-L["Visibility"] = true
-L["Set when this aura is visble."] = true
+L["NameplateAuras"] = "姓名版光环"
+L["Visibility"] = "可见度"
+L["Set when this aura is visble."] = "当这个光环可见时设置"
 L["Clear Spell List"] = true
 L["Empties the list of specific spells and their configurations."] = true
 L["Restore Spell List"] = true
@@ -482,13 +482,13 @@ L["Stack Size"] = true
 L["Text Size"] = true
 L["Size of the stack text."] = true
 L["Size of the cooldown text."] = true
-L["Specific Auras"] = true
-L["Always"] = true
-L["Never"] = true
+L["Specific Auras"] = "特定光环"
+L["Always"] = "总是"
+L["Never"] = "决不"
 L["Only Mine"] = true
 
 -- Install
-L["Welcome"] = true
+L["Welcome"] = "欢迎"
 L["|cffff7d0aMerathilisUI|r Installation"] = true
 L["MerathilisUI Set"] = true
 L["MerathilisUI didn't find any supported addons for profile creation"] = true
@@ -557,37 +557,37 @@ Please note that some of these options will not be available if corresponding sk
 L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external addons appearance.
 
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
-L["Creates decorative stripes and a gradient on some frames"] = true
-L["MerathilisUI Style"] = true
-L["MerathilisUI Panels"] = true
-L["MerathilisUI Shadows"] = true
-L["Undress Button"] = true
+L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
+L["MerathilisUI Style"] = "MerathilisUI 样式"
+L["MerathilisUI Panels"] = "MerathilisUI 面板"
+L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
+L["Undress Button"] = "脱装备按钮"
 
 -- Profiles
-L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
+L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
 
-|cffff0000WARNING:|r It will overwrite/delete existing Profiles. If you don't want to apply my Profiles please don't press the Buttons below.]]
+|cffff0000警告:|r 它将覆盖/删除已经存在的配置文件. 如果你不想应用我的配置，请不要按下面的按钮.]]
 
 -- Addons
-L["Skins/AddOns"] = true
-L["Profiles"] = true
+L["Skins/AddOns"] = "皮肤/插件"
+L["Profiles"] = "配置文件"
 L["BigWigs"] = true
 L["MasterPlan"] = true
 L["Shadow & Light"] = true
-L["This will create and apply profile for "] = true
+L["This will create and apply profile for "] = "这将创建并应用配置文件"
 
 -- Changelog
-L["Changelog"] = true
+L["Changelog"] = "更新日志"
 
 -- Errors
-L["Error Handling"] = true
+L["Error Handling"] = "错误处理"
 L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
-L["Filter Errors"] = true
+L["Filter Errors"] = "过滤错误"
 L["Choose specific errors from the list below to hide/ignore."] = true
 L["Hides all errors regardless of filtering while in combat."] = true
 
 -- Compatibility
-L["has |cffff2020disabled|r "] = true
-L[" from "] = true
-L[" due to incompatiblities."] = true
+L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
+L[" from "] = " 从 "
+L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = true
