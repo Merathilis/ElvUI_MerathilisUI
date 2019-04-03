@@ -348,6 +348,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
+	E.db["nameplates"]["statusbar"] = "Duffed"
 
 	-- Cooldowns
 	E.db["nameplates"]["cooldown"]["override"] = true
