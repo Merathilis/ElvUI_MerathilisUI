@@ -432,6 +432,11 @@ local function SkinsTable()
 				name = L["Allied Races"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AlliedRaces end,
 			},
+			GMChat = {
+				type = "toggle",
+				name = L["GM Chat"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.GMChat end,
+			},
 		},
 	}
 
