@@ -11,9 +11,6 @@ local UIParent = UIParent
 local function styleCinematic()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	_G.CinematicFrameCloseDialog:HookScript("OnShow", function(self)
-		self:SetScale(UIParent:GetScale())
-	end)
 end
 
 S:AddCallback("mUICinematic", styleCinematic)
