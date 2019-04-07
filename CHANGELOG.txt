@@ -1,4 +1,4 @@
-[b][color=orange]v4.14[/color], xx.xx.2019[/b][list]
+[b][color=orange]v4.14[/color], 07.04.2019[/b][list]
 [*]Prevent a lua error in Reminder Module.
 [*]Alot of more Nameplate settings in my install.
 [*]Update the appearance for my FlightPoints frame.
