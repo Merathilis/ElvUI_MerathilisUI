@@ -171,19 +171,6 @@ P.mui = {
 	},
 
 	unitframes = {
-		AuraIconText = {
-			durationTextPos = "CENTER",
-			durationTextOffsetX = 1,
-			durationTextOffsetY = 0,
-			stackTextPos = "BOTTOMRIGHT",
-			stackTextOffsetX = 1,
-			stackTextOffsetY = 2,
-			hideDurationText = false,
-			hideStackText = false,
-			durationFilterOwner = false,
-			durationThreshold = -1,
-			stackFilterOwner = false,
-		},
 		AuraIconSpacing = {
 			spacing = 1,
 			units = {
@@ -363,6 +350,7 @@ P.mui = {
 		petIcon = true,		-- Add an Icon for battle pets on the tooltip
 		factionIcon = true, -- Add a faction icon on the tooltip
 		keystone = true, -- Adds descriptions for mythic keystone properties
+		azerite = true,
 		titleColor = true,
 	},
 

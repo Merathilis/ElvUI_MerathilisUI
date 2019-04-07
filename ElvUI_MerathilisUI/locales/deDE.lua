@@ -60,8 +60,6 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
-L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
 L["Hide Community Chat"] = "Verstecke Community Chat"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
@@ -91,6 +89,10 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert/Deaktiviert die MerathilisUI Flugpunkte an der Flugkarte."
+
+-- MasterPlan
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
@@ -127,6 +129,7 @@ L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
 L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
+L["Keystones"] = "Schlüsselsteine"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

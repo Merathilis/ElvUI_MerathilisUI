@@ -60,8 +60,6 @@ L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
-L["Hide Chat Side Panel"] = true
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
@@ -95,7 +93,6 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 -- MasterPlan
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
-L["Misc"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
@@ -113,6 +110,7 @@ L["Next Invasion: "] = true
 L["Mythic Dungeon"] = true
 
 -- Misc
+L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
@@ -131,6 +129,7 @@ L["Placed Item"] = true
 L["Stranger"] = true
 L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
+L["Keystones"] = true
 
 -- Tooltip
 L["Your Status:"] = true

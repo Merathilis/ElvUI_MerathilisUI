@@ -189,6 +189,7 @@ function MI:Initialize()
 	self:LoadnameHover()
 	self:ItemLevel()
 	self:CreateRaidManager()
+	self:GuildBest()
 end
 
 local function InitializeCallback()

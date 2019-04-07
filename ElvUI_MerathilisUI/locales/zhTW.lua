@@ -60,8 +60,6 @@ L["Chat Menu"] = true
 L["Create a chat button to increase the chat size and chat menu button."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
-L["Hide Chat Side Panel"] = true
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
@@ -91,6 +89,10 @@ L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the Flight
 -- FlightPoint
 L["Flight Point"] = true
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
+
+-- MasterPlan
+L["MasterPlan"] = true
+L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
@@ -127,6 +129,7 @@ L["Placed Item"] = true
 L["Stranger"] = true
 L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
+L["Keystones"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -208,10 +211,6 @@ L["Categories"] = true
 L["Open head slot azerite powers."] = true
 L["Open shoulder slot azerite powers."] = true
 L["Open chest slot azerite powers."] = true
-L["Enchant Info"] = true
-L["Shows an indictor for enchanted/ not enchanted items."] = true
-L["Socket Info"] = true
-L["Shows an indictor for socketed/ unsocketed items."] = true
 L["Slot Gradient"] = true
 L["Shows a gradiation texture on the Character Slots."] = true
 L["Indicators"] = true

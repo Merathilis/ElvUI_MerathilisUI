@@ -156,6 +156,7 @@ function MERTT:Initialize()
 	self.db = E.db.tooltip
 
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", MERTT.GameTooltip_OnTooltipSetUnit)
+	self:AzeriteArmor()
 end
 
 local function InitializeCallback()

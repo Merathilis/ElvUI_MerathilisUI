@@ -51,14 +51,19 @@ local function Tooltip()
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
-			titleColor = {
+			azerite = {
 				order = 7,
 				type = "toggle",
-				name = E.NewSign..L["Title Color"],
+				name = E.NewSign..CURRENTLY_SELECTED_AZERITE_POWERS_INSPECT,
+			},
+			titleColor = {
+				order = 8,
+				type = "toggle",
+				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],
 			},
 			header = {
-				order = 8,
+				order = 9,
 				type = "header",
 				name = MER:cOption(L["Realm Info"]),
 			},

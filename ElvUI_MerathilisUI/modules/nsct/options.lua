@@ -7,6 +7,8 @@ local format = string.format
 local floor = math.floor
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
+local GetCVar = GetCVar
+local SetCVar = SetCVar
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -47,7 +49,7 @@ local function CombatTextTable()
 	E.Options.args.mui.args.modules.args.nsct = {
 		type = "group",
 		order = 18,
-		name = E.NewSign..SCT.modName,
+		name = SCT.modName,
 		childGroups = "tab",
 		disabled = function() return IsAddOnLoaded("NameplateSCT") end,
 		get = function(info) return E.db.mui.nsct[ info[#info] ] end,

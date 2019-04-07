@@ -61,6 +61,18 @@ local function styleQuestFrame()
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
+	-- Copied from ElvUI
+	local function UpdateGreetingFrame()
+		for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
+			local Text = Button:GetFontString():GetText()
+			if Text and strfind(Text, '|cff000000') then
+				Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+			end
+		end
+	end
+	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
+	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
+
 	_G.QuestGreetingScrollFrame:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemover.enable then
@@ -74,31 +86,6 @@ local function styleQuestFrame()
 		_G[frame:GetName().."MaterialTopRight"]:Hide()
 		_G[frame:GetName().."MaterialBotLeft"]:Hide()
 		_G[frame:GetName().."MaterialBotRight"]:Hide()
-	end)
-
-	for i = 1, 16 do
-		local button = _G['QuestTitleButton'..i]
-		if button then
-			hooksecurefunc(button, 'SetFormattedText', function(self)
-				if self:GetFontString() then
-					local Text = self:GetFontString():GetText()
-					if Text and find(Text, '|cff000000') then
-						button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
-					end
-				end
-			end)
-		end
-	end
-
-	local line = _G.QuestFrameGreetingPanel:CreateTexture()
-	line:SetColorTexture(1, 1, 1, .2)
-	line:SetSize(256, 1)
-	line:SetPoint("CENTER", _G.QuestGreetingFrameHorizontalBreak)
-
-	_G.QuestGreetingFrameHorizontalBreak:SetTexture("")
-
-	_G.QuestFrameGreetingPanel:HookScript("OnShow", function()
-		line:SetShown(_G.QuestGreetingFrameHorizontalBreak:IsShown())
 	end)
 
 	for i = 1, _G.MAX_REQUIRED_ITEMS do

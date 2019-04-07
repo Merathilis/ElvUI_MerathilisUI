@@ -1,3 +1,4 @@
+
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- Cache global variables
@@ -53,7 +54,6 @@ local function SetupCVars()
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
-	SetCVar("nameplateMinAlpha", .6) -- Override Elv's
 
 	-- Disable it because of NSCT
 	SetCVar("floatingCombatTextCombatDamage", 0)
@@ -169,7 +169,7 @@ local function SetupChat()
 	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -175, 50)
 	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Chat Set"]
 	PluginInstallStepComplete:Show()
@@ -315,10 +315,22 @@ function MER:SetupLayout()
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
 
 	-- Cooldown Settings
-	E.db["bags"]["cooldown"]["fonts"]["enable"] = true
-	E.db["bags"]["cooldown"]["fonts"]["font"] = "Expressway"
-	E.db["bags"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
-	E.db["bags"]["cooldown"]["fonts"]["fontSize"] = 14
+	E.db["bags"]["cooldown"]["override"] = true
+	E.db["bags"]["cooldown"]["fonts"] = {
+		["enable"] = true,
+		["font"] = "Expressway",
+		["fontSize"] = 20,
+	}
+	E.db["bags"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["bags"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["bags"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["bags"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
 	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
@@ -335,11 +347,29 @@ function MER:SetupLayout()
 	E.db["nameplates"]["stackFont"] = "Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
+	E.db["nameplates"]["smoothbars"] = true
+	E.db["nameplates"]["statusbar"] = "Duffed"
+
+	-- Cooldowns
+	E.db["nameplates"]["cooldown"]["override"] = true
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["nameplates"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["nameplates"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["nameplates"]["cooldown"]["fonts"]["enable"] = true
+	E.db["nameplates"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["nameplates"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["nameplates"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["nameplates"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -372,6 +402,7 @@ function MER:SetupLayout()
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -404,6 +435,7 @@ function MER:SetupLayout()
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -436,6 +468,7 @@ function MER:SetupLayout()
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
@@ -471,13 +504,14 @@ function MER:SetupLayout()
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["countFont"] = 'Expressway'
@@ -487,7 +521,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["filters"]["priority"] = 'Blacklist,RaidBuffsElvUI,PlayerBuffs,TurtleBuffs,CastByUnit'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 24
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Expressway'
@@ -502,11 +536,23 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconSize"] = 23
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetX"] = -2
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["yOffset"] = 0
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
+
+	-- TARGETED
+	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
+	E.db["nameplates"]["units"]["TARGET"]["glowStyle"] = "style2"
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["enable"] = true
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["width"] = 144
+	E.db["nameplates"]["units"]["TARGET"]["classpower"]["yOffset"] = 23
 
 	--[[----------------------------------
 	--	ProfileDB - Tooltip
@@ -560,6 +606,7 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 	MER:SetMoverPosition("MER_RaidBuffReminderMover", "TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
 	MER:SetMoverPosition("MER_SquareMinimapButtonBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 197)
+	MER:SetMoverPosition("MER_ReminderMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 621, 248)
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -634,7 +681,7 @@ function MER:SetupLayout()
 		MER:LoadMasqueProfile()
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
 	PluginInstallStepComplete:Show()
@@ -654,7 +701,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
 	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
 	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
-	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 18
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
 
 	if IsAddOnLoaded("Masque") then
 		E.private["actionbar"]["masque"]["stanceBar"] = true
@@ -677,6 +724,22 @@ function MER:SetupActionbars(layout)
 	--]]----------------------------------
 	E.db["actionbar"]["font"] = "Expressway"
 	E.db["actionbar"]["desaturateOnCooldown"] = true
+
+	-- Cooldowns
+	E.db["actionbar"]["cooldown"]["override"] = true
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["actionbar"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["actionbar"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["actionbar"]["cooldown"]["daysColor"]["r"] = 0.4
+	E.db["actionbar"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
+	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
+	E.db["actionbar"]["cooldown"]["hoursColor"]["r"] = 0.4
 
 	E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
@@ -794,7 +857,7 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["ActionBars Set"]
 	PluginInstallStepComplete:Show()
@@ -843,6 +906,21 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisGradient"
 
+	--Cooldowns
+	E.db["unitframe"]["cooldown"]["override"] = true
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["unitframe"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
+	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
+	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Expressway"
+	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
+	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
+	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
+
 	if layout == "dps" then
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200
@@ -858,6 +936,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["player"]["debuffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
@@ -871,7 +951,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
-		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 22
+		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
@@ -965,6 +1045,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
+		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1006,6 +1088,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1083,6 +1167,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
+		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
@@ -1171,6 +1257,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["sizeOverride"] = 15
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
@@ -1207,7 +1295,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["raid"]["buffs"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid"]["buffs"]["useFilter"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["raid"]["buffs"]["priority"] = "MER_RaidCDs"
 		E.db["unitframe"]["units"]["raid"]["raidicon"]["attachTo"] = "CENTER"
@@ -1286,6 +1375,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["maxDuration"] = 0
 		E.db["unitframe"]["units"]["raid40"]["debuffs"]["perrow"] = 5
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid40"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid40"]["portrait"]["camDistanceScale"] = 2
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 20
@@ -1350,7 +1441,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
-		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["raid40"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["sizeOverride"] = 20
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["useBlacklist"] = false
 		E.db["unitframe"]["units"]["raid40"]["buffs"]["noDuration"] = false
@@ -1388,6 +1480,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["debuffs"]["priority"] = "Blacklist,Boss,RaidDebuffs,nonPersonal,CastByUnit,CCDebuffs,CastByNPC,Dispellable"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["anchorPoint"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["debuffs"]["perrow"] = 2
+		E.db["unitframe"]["units"]["party"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["font"] = "Expressway"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["fontOutline"] = "OUTLINE"
 		E.db["unitframe"]["units"]["party"]["rdebuffs"]["size"] = 20
@@ -1440,6 +1534,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["buffs"]["noDuration"] = false
 		E.db["unitframe"]["units"]["party"]["buffs"]["yOffset"] = -15
 		E.db["unitframe"]["units"]["party"]["buffs"]["xOffset"] = 2
+		E.db["unitframe"]["units"]["party"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["party"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["name"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["height"] = 16
 		E.db["unitframe"]["units"]["party"]["petsGroup"]["yOffset"] = -1
@@ -1509,6 +1605,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["perrow"] = 5
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["anchorPoint"] = "TOPLEFT"
+		E.db["unitframe"]["units"]["pet"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["pet"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["pet"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["pet"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["pet"]["health"]["xOffset"] = 0
@@ -1546,10 +1644,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["perrow"] = 6
 		E.db["unitframe"]["units"]["boss"]["debuffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["boss"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["boss"]["threatStyle"] = "HEALTHBORDER"
 		E.db["unitframe"]["units"]["boss"]["castbar"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
+		E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
+		E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
+		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.5
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
@@ -1611,7 +1713,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["buffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["boss"]["buffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["boss"]["buffs"]["anchorPoint"] = "LEFT"
-		E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 12
+		E.db["unitframe"]["units"]["boss"]["buffs"]["countFont"] = "Expressway"
+		E.db["unitframe"]["units"]["boss"]["buffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["boss"]["name"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["boss"]["name"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["boss"]["name"]["xOffset"] = 6
@@ -2312,7 +2415,7 @@ function MER:SetupUnitframes(layout)
 		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
 	end
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["UnitFrames Set"]
 	PluginInstallStepComplete:Show()
@@ -2360,7 +2463,7 @@ function MER:SetupDts()
 
 	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
 
-	E:StaggeredUpdateAll("OnProfileChanged", true)
+	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
 	PluginInstallStepComplete:Show()
@@ -2407,7 +2510,8 @@ function MER:SetupAddOns()
 	PluginInstallStepComplete.message = MER.Title..L['Addons Set']
 	PluginInstallStepComplete:Show()
 	twipe(addonNames)
-	--E:UpdateAll(true)
+
+	E:StaggeredUpdateAll(nil, true)
 end
 
 local function InstallComplete()

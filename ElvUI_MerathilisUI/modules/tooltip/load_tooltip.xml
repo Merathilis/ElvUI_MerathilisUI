@@ -1,7 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="options.lua"/>
-	<Script file="achievement.lua"/>
-	<Script file="keystoneInfo.lua"/>
 	<Script file="tooltip.lua"/>
+	<Script file="achievement.lua"/>
+	<Script file="azeriteArmor.lua"/>
+	<Script file="keystoneInfo.lua"/>
 	<Script file="tooltipicon.lua"/>
 </Ui>

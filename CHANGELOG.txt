@@ -1,3 +1,12 @@
+[b][color=orange]v4.14[/color], 07.04.2019[/b][list]
+[*]Prevent a lua error in Reminder Module.
+[*]Alot of more Nameplate settings in my install.
+[*]Update the appearance for my FlightPoints frame.
+[*]Added Azerite Item Tooltip back.
+[*]Minor tweaks to Unitframe install.
+[*]Add Guildbest Frame on the LFG Frame > Mythic Keystones.
+[*]Chinese Locals from Simon@ciki <3.[/list]
+
 [b][color=orange]v4.13[/color], 12.03.2019[/b][list]
 [*]Remove my own System DataText i use now the ElvUI Datatext.
 [*]Removed Chat Menu, i never used it.

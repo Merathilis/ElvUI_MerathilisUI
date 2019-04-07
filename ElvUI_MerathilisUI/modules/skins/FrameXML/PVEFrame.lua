@@ -16,12 +16,13 @@ local function stylePVE()
 	local PVEFrame = _G.PVEFrame
 	PVEFrame:Styling()
 
+	local iconSize = 60-2*E.mult
 	for i = 1, 4 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
 		MERS:Reskin(bu)
 
-		bu.icon:Size(54)
+		bu.icon:SetSize(iconSize, iconSize)
 		bu.icon:SetDrawLayer("OVERLAY")
 		bu.icon:ClearAllPoints()
 		bu.icon:SetPoint("LEFT", bu, "LEFT", 4, 0)

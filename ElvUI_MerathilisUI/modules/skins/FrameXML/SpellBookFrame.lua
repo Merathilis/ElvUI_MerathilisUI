@@ -29,7 +29,6 @@ local function styleSpellBook()
 
 	for i = 1, _G.SPELLS_PER_PAGE do
 		local bu = _G["SpellButton"..i]
-		local ic = _G["SpellButton"..i.."IconTexture"]
 
 		_G["SpellButton"..i.."SlotFrame"]:SetAlpha(0)
 		bu.EmptySlot:SetAlpha(0)
@@ -38,9 +37,6 @@ local function styleSpellBook()
 		bu.UnlearnedFrame:SetAlpha(0)
 		bu:SetCheckedTexture("")
 		bu:SetPushedTexture("")
-
-		ic:SetTexCoord(unpack(E.TexCoords))
-		ic.bg = MERS:CreateBG(bu)
 	end
 
 	_G.SpellBookPageText:SetTextColor(unpack(E.media.rgbvaluecolor))

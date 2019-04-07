@@ -72,7 +72,6 @@ local function styleMisc()
 		"StaticPopup2",
 		"StaticPopup3",
 		"StaticPopup4",
-		"CopyChatFrame",
 		"InterfaceOptionsFrame",
 		"VideoOptionsFrame",
 		"AudioOptionsFrame",
@@ -87,6 +86,10 @@ local function styleMisc()
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
+	end
+
+	if _G.CopyChatFrame then
+		_G.CopyChatFrame:Styling()
 	end
 
 	for i = 1, MAX_STATIC_POPUPS do

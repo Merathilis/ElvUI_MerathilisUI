@@ -12,7 +12,7 @@ local MERBI = MER:GetModule("mUIBagInfo")
 local function BagTable()
 	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
-		name = E.NewSign..MERB.modName,
+		name = MERB.modName,
 		order = 19,
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
@@ -40,7 +40,7 @@ local function BagTable()
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = E.NewSign..L["Equipment Manager"],
+				name = L["Equipment Manager"],
 				args = {
 					equipOverlay = {
 						type = "toggle",
