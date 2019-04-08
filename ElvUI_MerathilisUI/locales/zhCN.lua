@@ -76,7 +76,7 @@ L["Development Version"] = true
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r modules.\n请使用下拉列表浏览模块."
+L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r 模块.\n请使用下拉列表浏览模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
@@ -104,10 +104,10 @@ L["Timewarped"] = "500时空扭曲徽章"
 L["Legion Invasion"] = "军团入侵"
 L["Faction Assault"] = "阵营突袭"
 L["Local Time"] = "本地时间"
-L["Realm Time"] = "现实时间"
+L["Realm Time"] = "服务器时间"
 L["Current Invasion: "] = "当前入侵: "
 L["Next Invasion: "] = "下次入侵: "
-L["Mythic Dungeon"] = "大秘境"
+L["Mythic Dungeon"] = "地下城"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -117,13 +117,13 @@ L["Alt-click, to buy an stack"] = "Alt-点击, 批量买"
 L["Mover Transparency"] = "Mover透明度"
 L["Changes the transparency of all the movers."] = "更改所有movers的透明度."
 L["Announce"] = "通告"
-L["Skill gains"] = "技能提升"
+L["Skill gains"] = "技能收益"
 L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "自动选择具有售价的任务奖励.同时通告任务进度."
 L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
 L["Undress"] = "解除装备"
-L["Flashing Cursor"] = "光标闪光"
+L["Flashing Cursor"] = "鼠标闪光"
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -144,7 +144,7 @@ L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
 
 -- MailInputBox
-L["Mail Inputbox Resize"] = "邮件收件箱大小调整"
+L["Mail Inputbox Resize"] = "收件箱大小调整"
 L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "调整邮件收件箱大小，并把费用移动到底部"
 
 -- Notification
@@ -161,7 +161,7 @@ L["Event \"%s\" is ongoing."] = "\"%s\" 活动正在进行中."
 L["Event \"%s\" will end tomorrow."] = "\"%s\" 活动明天结束."
 L["Here you can enable/disable the different notification types."] = "在这里，你可以启用/禁用不同的通知类型."
 L["Enable Mail"] = "启用邮件"
-L["Enable Vignette"] = "true"
+L["Enable Vignette"] = "启用精英通知"
 L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地图上发现稀有精英或宝箱"
 L["Enable Invites"] = "启用邀请"
 L["Enable Guild Events"] = "启用公会活动"
@@ -407,7 +407,7 @@ L["Show/Hide raid marks."] = "显示/隐藏Raid标记."
 L["Reverse"] = "反转"
 L["Modifier Key"] = "快捷键"
 L["Set the modifier key for placing world markers."] = "设置用于放置世界标记的快捷键."
-L["Visibility State"] = "可见状态"
+L["Visibility State"] = "可见性"
 
 -- Raid Buffs
 L["Raid Buff Reminder"] = "团队BUFF提醒"
