@@ -65,6 +65,7 @@ L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein O
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 L["Chat Bar"] = "Chatleiste"
 L["Roll 1-100"] = "1-100 Rollen"
+L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
 
 -- Information
 L["Information"] = true

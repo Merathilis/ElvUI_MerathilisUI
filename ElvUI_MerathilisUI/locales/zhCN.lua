@@ -65,6 +65,7 @@ L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
 L["Chat Bar"] = "频道条"
 L["Roll 1-100"] = true
+L["Click to open Emoticon Frame"] = true
 
 -- Information
 L["Information"] = "信息"

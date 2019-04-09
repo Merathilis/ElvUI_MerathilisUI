@@ -14,6 +14,7 @@ local ChatFrame_OpenChat = ChatFrame_OpenChat
 local ChatTypeInfo = ChatTypeInfo
 local CanEditOfficerNote = CanEditOfficerNote
 local GetChannelName = GetChannelName
+local InCombatLockdown =  InCombatLockdown
 local IsInGuild = IsInGuild
 local IsInInstance = IsInInstance
 local IsPartyLFG = IsPartyLFG
@@ -160,7 +161,6 @@ local function CreateChannelButton(chat)
 	twipe(Button)
 
 	local i = 1
-
 	for n = 1, #chatTypesListTable do
 		if chatTypesListTable[n]:find("CHANNEL") and ChannelShortText(ChatTypesList[chatTypesListTable[n]]) ~= 0 then
 			ChannelButton(chat, 16, 16, i, "/" .. sub(chatTypesListTable[n], 8) .. " ", ChannelShortText(ChatTypesList[chatTypesListTable[n]]), GetChannelColor(chatTypesListTable[n]))
@@ -201,13 +201,14 @@ function module:Initialize()
 	ChatEmote:Width(14)
 	ChatEmote:Height(14)
 	ChatEmote:SetScript("OnClick", function()
+		if InCombatLockdown() then return end
 		Emote.ToggleEmoteTable()
 	end)
 
 	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
 	ChatEmote:SetScript("OnEnter", function(self)
 		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
-		_G.GameTooltip:AddLine(Emote.tipstr)
+		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
 		_G.GameTooltip:Show()
 	end)
 	ChatEmote:SetScript("OnLeave", function(self)
@@ -232,6 +233,8 @@ function module:Initialize()
 	roll:SetScript("OnLeave", function(self)
 		_G.GameTooltip:Hide()
 	end)
+
+	self:LoadChatEmote()
 end
 
 local function InitializeCallback()
