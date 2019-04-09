@@ -63,6 +63,8 @@ L["Removes brackets around the person who posts a chat message."] = "Entfernt di
 L["Hide Community Chat"] = "Verstecke Community Chat"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
+L["Chat Bar"] = "Chatleiste"
+L["Roll 1-100"] = "1-100 Rollen"
 
 -- Information
 L["Information"] = true

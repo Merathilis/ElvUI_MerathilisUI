@@ -1,10 +1,16 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERC = MER:GetModule("muiChat")
 
+--Cache global variables
+--Lua functions
+local tinsert = table.insert
+--WoW API / Variable
+-- GLOBALS:
+
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
-		name = MERC.modName,
+		name = E.NewSign..MERC.modName,
 		order = 11,
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -37,6 +43,11 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Hide Community Chat"],
 				desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
+			},
+			chatBar = {
+				order = 6,
+				type = "toggle",
+				name = E.NewSign..L["Chat Bar"],
 			},
 		},
 	}

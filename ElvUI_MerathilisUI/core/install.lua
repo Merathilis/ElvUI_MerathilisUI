@@ -821,6 +821,7 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
+	E.db["actionbar"]["barPet"]["backdrop"] = false
 	E.db["actionbar"]["barPet"]["buttons"] = 9
 	E.db["actionbar"]["barPet"]["buttonspacing"] = 3
 	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 9
@@ -828,7 +829,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["barPet"]["mouseover"] = false
 
 	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["stanceBar"]["backdrop"] = true
+	E.db["actionbar"]["stanceBar"]["backdrop"] = false
 	E.db["actionbar"]["stanceBar"]["buttonspacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
@@ -840,8 +841,8 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 20)
-		MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 18)
-		MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 193, 18)
+		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 55)
+		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
 		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", 305, 50)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	elseif layout == "healer" then
@@ -851,8 +852,8 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 20)
-		MER:SetMoverPosition("ShiftAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 18)
-		MER:SetMoverPosition("PetAB", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 193, 18)
+		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 55)
+		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
 		MER:SetMoverPosition("BossButton", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -511, 50)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
 	end

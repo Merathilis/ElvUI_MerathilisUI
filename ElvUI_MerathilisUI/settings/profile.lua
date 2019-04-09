@@ -34,8 +34,8 @@ P.mui = {
 		panelHeight = 146,
 		iLevelLink = true,
 		hidePlayerBrackets = true,
-		sidePanel = false,
 		hideChat = false,
+		chatBar = true,
 	},
 
 	colors = {
