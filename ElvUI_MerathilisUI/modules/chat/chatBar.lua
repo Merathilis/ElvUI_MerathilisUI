@@ -116,7 +116,7 @@ local function ChannelButton(parent, width, height, postion, order, text, color)
 	local f = CreateFrame("Button", nil, parent)
 	f:SetWidth(width)
 	f:SetHeight(height)
-	f:SetPoint("LEFT", parent, "LEFT", (postion == 1) and 7 or (7 + (postion - 1) * 20), 0)--Lv：“20”间距
+	f:SetPoint("LEFT", parent, "LEFT", (postion == 1) and 7 or (7 + (postion - 1) * 20), 0)
 	f:RegisterForClicks("AnyUp")
 	f:SetScript("OnClick", function()
 		local text = ""
@@ -139,7 +139,6 @@ local function ChannelButton(parent, width, height, postion, order, text, color)
 	f:SetScript("OnLeave", function(self)
 		self.text:SetShadowColor(0, 0, 0, 0.2)
 	end)
-
 	f:Show()
 
 	tinsert(Button, f)
