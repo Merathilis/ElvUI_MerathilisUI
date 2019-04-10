@@ -184,8 +184,8 @@ function module:Initialize()
 	if E.db.mui.chat.chatBar ~= true or E.private.chat.enable ~= true then return end
 
 	local chat = CreateFrame("Frame", "mUIChatbarFrame", _G.LeftChatPanel)
-	chat:SetPoint("BOTTOM", _G.LeftChatPanel, "BOTTOM", 0, -22)
-	chat:SetWidth(_G.LeftChatPanel:GetWidth()-2)
+	chat:SetPoint("BOTTOM", _G.LeftChatPanel, "BOTTOM", 0, -21)
+	chat:SetWidth(_G.LeftChatPanel:GetWidth())
 	chat:SetHeight(20)
 
 	chat:SetTemplate('Transparent', nil, true)
