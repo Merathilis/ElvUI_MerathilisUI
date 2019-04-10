@@ -63,18 +63,8 @@ L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
-L["Chat Bar"] = true
-L["Roll 1-100"] = true
 L["Click to open Emoticon Frame"] = true
-L["ChatBar_Say"] = "S"
-L["ChatBar_Yell"] = "Y"
-L["ChatBar_G"] = "G"
-L["ChatBar_O"] = "O"
-L["ChatBar_P"] = "P"
-L["ChatBar_R"] = "R"
-L["ChatBar_RW"] = "W"
-L["ChatBar_I"] = "I"
-L["ChatBar_BG"] = "B"
+L["Emotes"] = true
 
 -- Information
 L["Information"] = true

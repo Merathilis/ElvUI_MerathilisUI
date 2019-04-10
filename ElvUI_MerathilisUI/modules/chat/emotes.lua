@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("muiChatBar")
+local module = MER:NewModule("muiEmotes")
 local CH = E:GetModule("Chat")
 
 -- Cache global variables
@@ -15,6 +15,7 @@ local CreateFrame = CreateFrame
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
 local C_Club_GetMessageInfo = C_Club.GetMessageInfo
+local InCombatLockdown = InCombatLockdown
 local UISpecialFrames = UISpecialFrames
 -- GLOBALS:
 
@@ -208,3 +209,35 @@ function module:LoadChatEmote()
 		return msg
 	end
 end
+
+function module:Initialize()
+	if E.db.mui.chat.emotes ~= true or E.private.chat.enable ~= true then return end
+
+	local Emote = self.ChatEmote
+	local ChatEmote = CreateFrame("Button", "mUIEmote", _G["LeftChatPanel"].backdrop)
+	ChatEmote:SetPoint("BOTTOMRIGHT", -2, 2)
+	ChatEmote:SetWidth(12)
+	ChatEmote:SetHeight(12)
+	ChatEmote:SetScript("OnClick", function()
+		if InCombatLockdown() then return end
+		Emote.ToggleEmoteTable()
+	end)
+
+	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
+	ChatEmote:SetScript("OnEnter", function(self)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
+		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
+		_G.GameTooltip:Show()
+	end)
+	ChatEmote:SetScript("OnLeave", function(self)
+		_G.GameTooltip:Hide()
+	end)
+
+	self:LoadChatEmote()
+end
+
+local function InitializeCallback()
+	module:Initialize()
+end
+
+MER:RegisterModule(module:GetName(), InitializeCallback)

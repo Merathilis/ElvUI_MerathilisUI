@@ -44,10 +44,10 @@ local function ChatTable()
 				name = L["Hide Community Chat"],
 				desc = L["Adds an overlay to the Community Chat. Useful for streamers."],
 			},
-			chatBar = {
+			emotes = {
 				order = 6,
 				type = "toggle",
-				name = E.NewSign..L["Chat Bar"],
+				name = E.NewSign..L["Emotes"],
 			},
 		},
 	}
