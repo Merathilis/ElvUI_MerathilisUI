@@ -25,14 +25,14 @@ local CreateFrame = CreateFrame
 
 local Button = {}
 
-local BlackChannelName = {
+local BlockChannelName = {
 	["EUIGVC"] = true,
 	["ElvUIGVC"] = true,
 }
 
 local function ChannelShortText(index)
 	local channelNum, channelName = GetChannelName(index)
-	if not channelName or BlackChannelName[channelName] then return 0 end
+	if not channelName or BlockChannelName[channelName] then return 0 end
 
 	if find(channelName, "Community") then
 		local _, clubId, _ = split(":", channelName)
@@ -58,47 +58,47 @@ local ChatTypesList = {
 	["CHANNEL9"] = 9,
 	["CHANNEL10"] = 10,
 	["SAY"] = {
-		["name"] = L["S"],
+		["name"] = L["ChatBar_Say"] or "S",
 		["cmd"] = "/s ",
 		["show"] = function() return true end,
 	},
 	["YELL"] = {
-		["name"] = L["Y"],
+		["name"] = L["ChatBar_Yell"] or "Y",
 		["cmd"] = "/y ",
 		["show"] = function() return true end,
 	},
 	["GUILD"] = {
-		["name"] = L["G"],
+		["name"] = L["ChatBar_G"],
 		["cmd"] = "/g ",
 		["show"] = function() return IsInGuild() end,
 	},
 	["OFFICER"] = {
-		["name"] = L["O"],
+		["name"] = L["ChatBar_O"],
 		["cmd"] = "/o ",
 		["show"] = function() return CanEditOfficerNote() end,
 	},
 	["PARTY"] = {
-		["name"] = L["P"],
+		["name"] = L["ChatBar_P"],
 		["cmd"] = "/p ",
 		["show"] = function() return IsPartyLFG() or IsInGroup() or IsInRaid() end,
 	},
 	["RAID"] = {
-		["name"] = L["R"],
+		["name"] = L["ChatBar_R"],
 		["cmd"] = "/raid ",
 		["show"] = function() return IsInRaid() end,
 	},
 	["RAID_WARNING"] = {
-		["name"] = L["RW"],
+		["name"] = L["ChatBar_RW"],
 		["cmd"] = "/rw ",
 		["show"] = function() return IsInRaid() end,
 	},
 	["INSTANCE_CHAT"] = {
-		["name"] = L["I"],
+		["name"] = L["ChatBar_I"],
 		["cmd"] = "/i ",
 		["show"] = function() return IsPartyLFG() end,
 	},
 	["BATTLE_CHAT"] = {
-		["name"] = L["BG"],
+		["name"] = L["ChatBar_BG"],
 		["cmd"] = "/bg ",
 		["show"] = function() local inInstance, instanceType = IsInInstance() local isInPVP = inInstance and (instanceType == "pvp") return isInPVP end,
 	},
@@ -130,14 +130,20 @@ local function ChannelButton(parent, width, height, postion, order, text, color)
 	f.text = f:CreateFontString(nil, "OVERLAY")
 	f.text:FontTemplate()
 	f.text:SetText(text)
+	f.text:SetShadowOffset(2, 2)
+	f.text:SetShadowColor(0, 0, 0, 0.2)
 	f.text:SetPoint("CENTER", 0, 0)
 	f.text:SetTextColor(unpack(color))
 
 	f:SetScript("OnEnter", function(self)
-		self.text:SetShadowColor(0.9, 0, 0, 0.8)
+		self.text:SetShadowColor(f.text:GetTextColor())
+		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
+		_G.GameTooltip:AddLine(self.text:GetText())
+		_G.GameTooltip:Show()
 	end)
 	f:SetScript("OnLeave", function(self)
 		self.text:SetShadowColor(0, 0, 0, 0.2)
+		_G.GameTooltip:Hide()
 	end)
 	f:Show()
 
@@ -179,9 +185,13 @@ function module:Initialize()
 
 	local chat = CreateFrame("Frame", "mUIChatbarFrame", _G.LeftChatPanel)
 	chat:SetPoint("BOTTOM", _G.LeftChatPanel, "BOTTOM", 0, -22)
-	chat:SetWidth(E.db["chat"].panelWidth)
-	chat:SetHeight(25)
-	self.chatbar = chat
+	chat:SetWidth(_G.LeftChatPanel:GetWidth()-2)
+	chat:SetHeight(20)
+
+	chat:SetTemplate('Transparent', nil, true)
+	chat:SetBackdropColor(E.db.chat.panelColor.r, E.db.chat.panelColor.g, E.db.chat.panelColor.b, E.db.chat.panelColor.a)
+	chat:Styling()
+
 	chat:RegisterEvent("PLAYER_ENTERING_WORLD")
 	chat:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE")
 	chat:RegisterEvent("UPDATE_CHAT_COLOR")
@@ -193,10 +203,12 @@ function module:Initialize()
 	chat:SetScript("OnEvent", function(self)
 		E:ScheduleTimer(CreateChannelButton, 0.3, chat)
 	end)
+	self.chatbar = chat
 
 	local Emote = self.ChatEmote
 	local ChatEmote = CreateFrame("Button", nil, self.chatbar)
-	ChatEmote:SetPoint("RIGHT", self.chatbar, "RIGHT", -24, 0)
+	ChatEmote:SetPoint("RIGHT", self.chatbar, "RIGHT", -28, 0)
+	ChatEmote:SetParent(self.chatbar)
 	ChatEmote:SetWidth(14)
 	ChatEmote:SetHeight(14)
 	ChatEmote:SetScript("OnClick", function()

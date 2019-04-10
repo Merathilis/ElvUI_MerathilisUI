@@ -66,6 +66,15 @@ L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
 L["Chat Bar"] = "频道条"
 L["Roll 1-100"] = true
 L["Click to open Emoticon Frame"] = true
+L["ChatBar_Say"] = "说"
+L["ChatBar_Yell"] = "喊"
+L["ChatBar_G"] = "公"
+L["ChatBar_O"] = "官"
+L["ChatBar_P"] = "队"
+L["ChatBar_R"] = "团"
+L["ChatBar_RW"] = "警"
+L["ChatBar_I"] = "副"
+L["ChatBar_BG"] = "战"
 
 -- Information
 L["Information"] = "信息"

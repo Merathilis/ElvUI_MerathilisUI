@@ -8,12 +8,14 @@ local _G = _G
 local pairs = pairs
 local format = string.format
 local gmatch, gsub = gmatch, gsub
+local tinsert = table.insert
 local strmatch, strtrim = strmatch, strtrim
 -- WoW API / Variable
 local CreateFrame = CreateFrame
 local ChatEdit_ActivateChat = ChatEdit_ActivateChat
 local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend
 local C_Club_GetMessageInfo = C_Club.GetMessageInfo
+local UISpecialFrames = UISpecialFrames
 -- GLOBALS:
 
 local ChatEmote = {}
@@ -126,6 +128,7 @@ local function CreateEmoteTableFrame()
 	EmoteTableFrame:SetPoint("BOTTOMLEFT", _G.LeftChatPanel, "TOPLEFT", 0, 20)
 	EmoteTableFrame:Hide()
 	EmoteTableFrame:SetFrameStrata("DIALOG")
+	tinsert(UISpecialFrames, EmoteTableFrame:GetDebugName())
 
 	local icon, row, col
 	row = 1
