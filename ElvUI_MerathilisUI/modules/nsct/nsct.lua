@@ -430,9 +430,10 @@ function SCT:NAME_PLATE_UNIT_REMOVED(event, unitID)
 end
 
 function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, ...)
-	if playerGUID == sourceGUID or (E.db.mui.nsct.personal and playerGUID == destGUID) then -- Player events
+	local db = E.db.mui.nsct
+	if playerGUID == sourceGUID or (db.personal and playerGUID == destGUID) then -- Player events
 		local destUnit = guidToUnit[destGUID];
-		if (destUnit) or (destGUID == playerGUID and SCT.db.personal) then
+		if (destUnit) or (destGUID == playerGUID and db.personal) then
 			if (strfind(clue, "_DAMAGE")) then
 				local spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand;
 				if (strfind(clue, "SWING")) then
@@ -460,7 +461,7 @@ function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _
 		end
 	elseif (band(sourceFlags, COMBATLOG_OBJECT_TYPE_GUARDIAN) > 0 or band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) > 0)	and band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) > 0 then -- Pet/Guardian events
 		local destUnit = guidToUnit[destGUID];
-		if (destUnit) or (destGUID == playerGUID and E.db.mui.nsct.personal) then
+		if (destUnit) or (destGUID == playerGUID and db.personal) then
 			if (strfind(clue, "_DAMAGE")) then
 				local spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand;
 				if (strfind(clue, "SWING")) then
