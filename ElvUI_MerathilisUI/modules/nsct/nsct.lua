@@ -125,6 +125,7 @@ end
 
 local fontStringCache = {};
 local function getFontString()
+	local db = E.db.mui.nsct
 	local fontString;
 
 	if (next(fontStringCache)) then
@@ -134,8 +135,8 @@ local function getFontString()
 	end
 
 	fontString:SetParent(SCT.frame);
-	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), 15, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetAlpha(1);
 	fontString:SetDrawLayer("OVERLAY");
 	fontString:SetText("");
@@ -145,6 +146,7 @@ local function getFontString()
 end
 
 local function recycleFontString(fontString)
+	local db = E.db.mui.nsct
 	fontString:SetAlpha(0);
 	fontString:Hide();
 
@@ -167,8 +169,8 @@ local function recycleFontString(fontString)
 	fontString.pow = nil;
 	fontString.startHeight = nil;
 	fontString.NSCTFontSize = nil;
-	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), 15, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetParent(SCT.frame);
 
 	tinsert(fontStringCache, fontString);
@@ -655,6 +657,7 @@ function SCT:MissEvent(guid, spellID, missType)
 end
 
 function SCT:DisplayText(guid, text, textWithoutIcons, size, animation, frameLevel, pow)
+	local db = E.db.mui.nsct
 	local fontString;
 	local unit = guidToUnit[guid];
 	local nameplate;
@@ -677,8 +680,8 @@ function SCT:DisplayText(guid, text, textWithoutIcons, size, animation, frameLev
 	fontString:SetText(fontString.NSCTText);
 
 	fontString.NSCTFontSize = size;
-	fontString:FontTemplate(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), fontString.NSCTFontSize, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString.startHeight = fontString:GetStringHeight();
 	fontString.pow = pow;
 	fontString.frameLevel = frameLevel;
