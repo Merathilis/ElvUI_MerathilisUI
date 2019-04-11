@@ -162,6 +162,229 @@ local function abTable()
 					},
 				},
 			},
+			autoButtons = {
+				order = 7,
+				type = "group",
+				name = L["autoButtons"],
+				guiInline = true,
+				get = function(info)
+					return E.db.mui.actionbars.autoButtons[info[#info]]
+				end,
+				set = function(info, value)
+					E.db.mui.actionbars.autoButtons[info[#info]] = value
+					E:StaticPopup_Show("PRIVATE_RL")
+				end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					featureconfig = {
+						order = 2,
+						type = "group",
+						guiInline = true,
+						name = L["featureconfig"],
+						hidden = function()
+							return not E.db.mui.actionbars.autoButtons.enable
+						end,
+						get = function(info)
+							return E.db.mui.actionbars.autoButtons[info[#info]]
+						end,
+						set = function(info, value)
+							E.db.mui.actionbars.autoButtons[info[#info]] = value
+							MER:GetModule("AutoButtons"):UpdateAutoButton()
+						end,
+						args = {
+							bindFontSize = {
+								order = 1,
+								type = "range",
+								min = 4, max = 40, step = 1,
+								name = L["bindFontSize"],
+							},
+							countFontSize = {
+								order = 2,
+								type = "range",
+								min = 4, max = 40, step = 1,
+								name = L["countFontSize"],
+							},
+							soltAutoButtons = {
+								order = 3,
+								type = "group",
+								guiInline = true,
+								name = L["soltAutoButtons"],
+								get = function(info)
+									return E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]] = value
+									MER:GetModule("AutoButtons"):UpdateAutoButton()
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+									},
+									slotBBColorByItem = {
+										order = 2,
+										type = "toggle",
+										name = L["slotBBColorByItem"],
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable
+										end,
+									},
+									slotBBColor = {
+										order = 3,
+										type = "color",
+										name = L["slotBBColor"],
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable
+										end,
+										disabled = function()
+											return E.db.mui.actionbars.autoButtons.soltAutoButtons.slotBBColorByItem
+										end,
+										get = function(info)
+											local t = E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+											local d = P.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+											return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+										end,
+										set = function(info, r, g, b, a)
+											E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]] = {}
+											local t = E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+											t.r, t.g, t.b, t.a = r, g, b, a
+											MER:GetModule("AutoButtons"):UpdateAutoButton()
+										end,
+									},
+									spacer1 = {
+										order = 4,
+										type = "description",
+										name = "",
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
+										end,
+									},
+									slotNum = {
+										order = 5,
+										type = "range",
+										name = L["slotNum"],
+										min = 0, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
+										end,
+									},
+									slotPerRow = {
+										order = 6,
+										type = "range",
+										name = L["slotPerRow"],
+										min = 1, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
+										end,
+									},
+									slotSize = {
+										order = 7,
+										type = "range",
+										name = L["slotSize"],
+										min = 10, max = 100, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
+										end,
+									},
+								}
+							},
+							questAutoButtons = {
+								order = 4,
+								type = "group",
+								guiInline = true,
+								name = L["questAutoButtons"],
+								get = function(info)
+									return E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]] = value
+									MER:GetModule("AutoButtons"):UpdateAutoButton()
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+										set = function(info, value)
+											E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]] = value
+										end,
+									},
+									questBBColorByItem = {
+										order = 2,
+										type = "toggle",
+										name = L["questBBColorByItem"],
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+									},
+									questBBColor = {
+										order = 3,
+										type = "color",
+										name = L["questBBColor"],
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+										disabled = function()
+											return E.db.mui.actionbars.autoButtons.questAutoButtons["questBBColorByItem"]
+										end,
+										get = function(info)
+											local t = E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
+											local d = P.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
+											return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+										end,
+										set = function(info, r, g, b, a)
+											E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]] = {}
+											local t = E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
+											t.r, t.g, t.b, t.a = r, g, b, a
+											MER:GetModule("AutoButtons"):UpdateAutoButton()
+										end,
+									},
+									spacer1 = {
+										order = 4,
+										type = "description",
+										name = "",
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+									},
+									questNum = {
+										order = 5,
+										type = "range",
+										name = L["questNum"],
+										min = 0, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+									},
+									questPerRow = {
+										order = 6,
+										type = "range",
+										name = L["questPerRow"],
+										min = 1, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+									},
+									questSize = {
+										order = 7,
+										type = "range",
+										name = L["questSize"],
+										min = 10, max = 100, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+										end,
+									},
+								}
+							},
+						},
+					},
+				},
+			},
 		},
 	}
 end

@@ -109,8 +109,28 @@ P.mui = {
 			enable = true,
 			mouseover = false,
 		},
+		autoButtons = {
+			enable = true,
+			bindFontSize = 18,
+			countFontSize = 18,
+			soltAutoButtons = {
+				enable = true,
+				slotBBColorByItem = true,
+				slotBBColor = {r = 1, g = 1, b = 1, a = 1},
+				slotNum = 5,
+				slotPerRow = 5,
+				slotSize = 40,
+			},
+			questAutoButtons = {
+				enable = true,
+				questBBColorByItem = true,
+				questBBColor = {r = 1, g = 1, b = 1, a = 1},
+				questNum = 5,
+				questPerRow = 5,
+				questSize = 40,
+			},
+		},
 	},
-
 	microBar = {
 		enable = true,
 		scale = 1,
