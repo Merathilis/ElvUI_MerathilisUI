@@ -6,10 +6,11 @@ local DT = E:GetModule("DataTexts")
 --Lua functions
 local _G = _G
 local pairs, print, type = pairs, print, type
+local tinsert = table.insert
 --WoW API / Variables
 local NONE = NONE
-
---Global variables that we don"t cache, list them here for mikk"s FindGlobals script
+local FONT_SIZE = FONT_SIZE
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS: LibStub
 
 function MER:LoadDataTexts()

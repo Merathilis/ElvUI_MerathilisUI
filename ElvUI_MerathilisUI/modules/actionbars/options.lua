@@ -2,18 +2,16 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = MER:GetModule("mUIActionbars")
 
 --Cache global variables
-local format = string.format
+--Lua functions
 local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: AceGUIWidgetLSMlists, COLOR_PICKER
+-- GLOBALS:
 
 local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		order = 10,
 		type = "group",
-		name = MAB.modName,
+		name = E.NewSign..MAB.modName,
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -165,7 +163,7 @@ local function abTable()
 			autoButtons = {
 				order = 7,
 				type = "group",
-				name = L["autoButtons"],
+				name = E.NewSign..MER:cOption(L["Auto Buttons"]),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.actionbars.autoButtons[info[#info]]
@@ -180,11 +178,11 @@ local function abTable()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					featureconfig = {
+					general = {
 						order = 2,
 						type = "group",
 						guiInline = true,
-						name = L["featureconfig"],
+						name = L["General"],
 						hidden = function()
 							return not E.db.mui.actionbars.autoButtons.enable
 						end,
@@ -200,19 +198,19 @@ local function abTable()
 								order = 1,
 								type = "range",
 								min = 4, max = 40, step = 1,
-								name = L["bindFontSize"],
+								name = L["Bind Font Size"],
 							},
 							countFontSize = {
 								order = 2,
 								type = "range",
 								min = 4, max = 40, step = 1,
-								name = L["countFontSize"],
+								name = L["Count Font Size"],
 							},
 							soltAutoButtons = {
 								order = 3,
 								type = "group",
 								guiInline = true,
-								name = L["soltAutoButtons"],
+								name = L["Trinket Buttons"],
 								get = function(info)
 									return E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
 								end,
@@ -229,7 +227,7 @@ local function abTable()
 									slotBBColorByItem = {
 										order = 2,
 										type = "toggle",
-										name = L["slotBBColorByItem"],
+										name = L["Color by Quality"],
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable
 										end,
@@ -237,7 +235,7 @@ local function abTable()
 									slotBBColor = {
 										order = 3,
 										type = "color",
-										name = L["slotBBColor"],
+										name = COLOR,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable
 										end,
@@ -267,7 +265,7 @@ local function abTable()
 									slotNum = {
 										order = 5,
 										type = "range",
-										name = L["slotNum"],
+										name = L["Buttons"],
 										min = 0, max = 12, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
@@ -276,7 +274,7 @@ local function abTable()
 									slotPerRow = {
 										order = 6,
 										type = "range",
-										name = L["slotPerRow"],
+										name = L["Buttons Per Row"],
 										min = 1, max = 12, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
@@ -285,7 +283,7 @@ local function abTable()
 									slotSize = {
 										order = 7,
 										type = "range",
-										name = L["slotSize"],
+										name = L["Size"],
 										min = 10, max = 100, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"]
@@ -297,7 +295,7 @@ local function abTable()
 								order = 4,
 								type = "group",
 								guiInline = true,
-								name = L["questAutoButtons"],
+								name = L["Quest Buttons"],
 								get = function(info)
 									return E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
 								end,
@@ -317,7 +315,7 @@ local function abTable()
 									questBBColorByItem = {
 										order = 2,
 										type = "toggle",
-										name = L["questBBColorByItem"],
+										name = L["Color by Quality"],
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
 										end,
@@ -325,7 +323,7 @@ local function abTable()
 									questBBColor = {
 										order = 3,
 										type = "color",
-										name = L["questBBColor"],
+										name = COLOR,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
 										end,
@@ -355,7 +353,7 @@ local function abTable()
 									questNum = {
 										order = 5,
 										type = "range",
-										name = L["questNum"],
+										name = L["Buttons"],
 										min = 0, max = 12, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
@@ -364,7 +362,7 @@ local function abTable()
 									questPerRow = {
 										order = 6,
 										type = "range",
-										name = L["questPerRow"],
+										name = L["Buttons Per Row"],
 										min = 1, max = 12, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
@@ -373,7 +371,7 @@ local function abTable()
 									questSize = {
 										order = 7,
 										type = "range",
-										name = L["questSize"],
+										name = L["Size"],
 										min = 10, max = 100, step = 1,
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]

@@ -184,6 +184,11 @@ L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
+L["Auto Buttons"] = true
+L["Bind Font Size"] = true
+L["Trinket Buttons"] = true
+L["Color by Quality"] = true
+L["Quest Buttons"] = true
 
 -- Armory
 L["Armory"] = true
@@ -461,33 +466,7 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["NameplateAuras"] = true
-L["Visibility"] = true
-L["Set when this aura is visble."] = true
-L["Clear Spell List"] = true
-L["Empties the list of specific spells and their configurations."] = true
-L["Restore Spell List"] = true
-L["Restores the default list of specific spells and their configurations."] = true
-L["Spell Name/ID"] = true
-L["Input a spell name or spell ID."] = true
-L["Spell List"] = true
-L["Remove Spell"] = true
-L["Other Auras"] = true
-L["These are the settings for all spells not explicitly specified."] = true
-L["Icon Width"] = true
-L["Set the width of this spells icon."] = true
-L["Icon Height"] = true
-L["Set the height of this spells icon."] = true
-L["Lock Aspect Ratio"] = true
-L["Set if height and width are locked to the same value."] = true
-L["Stack Size"] = true
-L["Text Size"] = true
-L["Size of the stack text."] = true
-L["Size of the cooldown text."] = true
-L["Specific Auras"] = true
-L["Always"] = true
-L["Never"] = true
-L["Only Mine"] = true
+L["Castbar Target"] = true
 
 -- Install
 L["Welcome"] = true

@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule("LocPanel")
-local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 --Cache global variables
+--Lua functions
 local format = string.format
 local tinsert = table.insert
 local strsplit = strsplit
@@ -10,8 +10,7 @@ local match = string.match
 local tconcat = table.concat
 local tremove = table.remove
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()

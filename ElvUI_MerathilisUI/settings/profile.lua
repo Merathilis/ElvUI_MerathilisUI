@@ -111,8 +111,8 @@ P.mui = {
 		},
 		autoButtons = {
 			enable = true,
-			bindFontSize = 18,
-			countFontSize = 18,
+			bindFontSize = 12,
+			countFontSize = 12,
 			soltAutoButtons = {
 				enable = true,
 				slotBBColorByItem = true,
@@ -442,6 +442,7 @@ P.mui = {
 	},
 
 	nameplates = {
+		castbarTarget = true,
 	},
 
 	cooldownFlash = {

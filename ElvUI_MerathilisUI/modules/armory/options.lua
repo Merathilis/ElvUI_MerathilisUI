@@ -2,11 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MERArmory')
 
 --Cache global variables
+--Lua functions
 local _G = _G
-local format = string.format
+local select = select
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
+local UnitPowerType = UnitPowerType
 -- GLOBALS:
 
 local fontStyleList = {

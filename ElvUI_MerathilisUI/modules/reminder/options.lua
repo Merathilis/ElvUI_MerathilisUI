@@ -2,10 +2,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local RM = MER:GetModule("Reminder")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function Reminder()

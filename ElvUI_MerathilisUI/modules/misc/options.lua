@@ -3,11 +3,11 @@ local MI = MER:GetModule("mUIMisc")
 local MERA = MER:GetModule("mUIAnnounce")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GUILD_MOTD_LABEL2
+local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
+-- GLOBALS:
 
 local function Misc()
 	E.Options.args.mui.args.misc = {

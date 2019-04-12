@@ -38,8 +38,6 @@ local LFGListUtil_GetQuestDescription = LFGListUtil_GetQuestDescription
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounterInfo
 local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
-
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: CUSTOM_CLASS_COLORS, UIParent, GameTooltipTextLeft1
 
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"

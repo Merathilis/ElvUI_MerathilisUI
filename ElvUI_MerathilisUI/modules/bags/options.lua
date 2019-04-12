@@ -3,10 +3,9 @@ local MERB = MER:GetModule("mUIBags")
 local MERBI = MER:GetModule("mUIBagInfo")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function BagTable()

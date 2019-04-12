@@ -1,6 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local CF = MER:GetModule("CooldownFlash")
 
+--Cache global variables
+--Lua functions
+local tinsert = table.insert
+--WoW API / Variables
+-- GLOBALS:
+
 local function CooldownFlash()
 	E.Options.args.mui.args.modules.args.cooldownFlash = {
 		type = "group",

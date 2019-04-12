@@ -184,6 +184,11 @@ L["Transparent Backdrops"] = "透明背景"
 L["Specialisation Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
+L["Auto Buttons"] = true
+L["Bind Font Size"] = true
+L["Trinket Buttons"] = true
+L["Color by Quality"] = true
+L["Quest Buttons"] = true
 
 -- Armory
 L["Armory"] = true
@@ -461,33 +466,7 @@ L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
 -- Nameplates
-L["NameplateAuras"] = "姓名版光环"
-L["Visibility"] = "可见度"
-L["Set when this aura is visble."] = "当这个光环可见时设置"
-L["Clear Spell List"] = "清除法术列表"
-L["Empties the list of specific spells and their configurations."] = "清空特定法术及其配置的列表"
-L["Restore Spell List"] = "恢复法术列表"
-L["Restores the default list of specific spells and their configurations."] = "恢复特定法术及其配置的默认列表."
-L["Spell Name/ID"] = "法术名称/ID"
-L["Input a spell name or spell ID."] = "输入一个法术名或法术ID."
-L["Spell List"] = "法术列表"
-L["Remove Spell"] = "移除法术"
-L["Other Auras"] = "其他光环"
-L["These are the settings for all spells not explicitly specified."] = "这些是所有未明确指定的法术的设置."
-L["Icon Width"] = "图标宽度"
-L["Set the width of this spells icon."] = "设置此法术图标的宽度."
-L["Icon Height"] = "图标高度"
-L["Set the height of this spells icon."] = "设置此法术图标的高度."
-L["Lock Aspect Ratio"] = "锁定纵横比"
-L["Set if height and width are locked to the same value."] = "设置高度和宽度是否锁定为相同的值."
-L["Stack Size"] = "堆叠(层数)大小"
-L["Text Size"] = "文本大小"
-L["Size of the stack text."] = "堆叠(层数)文本的大小"
-L["Size of the cooldown text."] = "冷却时间文字的大小."
-L["Specific Auras"] = "特定光环"
-L["Always"] = "总是"
-L["Never"] = "从不"
-L["Only Mine"] = "仅我的"
+L["Castbar Target"] = true
 
 -- Install
 L["Welcome"] = "欢迎"

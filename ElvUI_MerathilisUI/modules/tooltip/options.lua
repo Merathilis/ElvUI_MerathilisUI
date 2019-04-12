@@ -2,10 +2,8 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
-
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: TOOLTIP_BATTLE_PET, FACTION, ACHIEVEMENT_BUTTON
 
 local function Tooltip()
