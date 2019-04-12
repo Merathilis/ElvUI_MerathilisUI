@@ -35,6 +35,7 @@ P.mui = {
 		iLevelLink = true,
 		hidePlayerBrackets = true,
 		hideChat = false,
+		chatBar = false,
 		emotes = true,
 	},
 

@@ -49,6 +49,17 @@ local function ChatTable()
 				type = "toggle",
 				name = E.NewSign..L["Emotes"],
 			},
+			chatBar = {
+				order = 7,
+				type = "toggle",
+				name = L["ChatBar"],
+				desc = L["Shows a ChatBar with different quick buttons."],
+			},
+			hideChat = {
+				order = 8,
+				type = "toggle",
+				name = E.NewSign..L["Emotes"],
+			},
 		},
 	}
 end

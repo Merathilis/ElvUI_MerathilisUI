@@ -63,6 +63,8 @@ L["Removes brackets around the person who posts a chat message."] = "删除聊�
 L["Hide Community Chat"] = "隐藏社区聊天"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
+L["ChatBar"] = true
+L["Shows a ChatBar with different quick buttons."] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
 
