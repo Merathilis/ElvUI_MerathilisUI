@@ -48,9 +48,9 @@ P.mui = {
 		gmotd = true, -- Show a GMOTD frame
 		quest = false,
 		announce = true, -- CombatText, Skill gains
-
 		cursor = false,
 		raidInfo = true,
+		talentManager = true,
 	},
 
 	nameHover = {

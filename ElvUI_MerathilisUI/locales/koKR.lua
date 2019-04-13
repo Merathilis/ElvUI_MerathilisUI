@@ -133,6 +133,23 @@ L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 
+-- Talent Manager
+L["Error: Too many talents selected"] = true
+L["Added a new profile: "] = true
+L["Unable to load the selected profile"] = true
+L["Saved profile: "] = true
+L["Removed a profile: "] = true
+L["Enter Profile Name: "] = true
+L["Do you want to remove the profile '%s'?"] = true
+L["Unable to load talent configuration for the selected profile"] = true
+L["Activated profile: "] = true
+L["Add new profile"] = true
+L["Migration: Starting"] = true
+L["Migration: Done: No specs found for this character"] = true
+L["Migration: Info: No profiles found for spec #"] = true
+L["Migration: Info: Migrated profile "] = true
+L["Migration: Done: Successfully migrated "] = true
+
 -- Tooltip
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true

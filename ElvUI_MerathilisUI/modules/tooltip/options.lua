@@ -2,14 +2,15 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local tinsert = table.insert
 --WoW API / Variables
--- GLOBALS: TOOLTIP_BATTLE_PET, FACTION, ACHIEVEMENT_BUTTON
+-- GLOBALS:
 
 local function Tooltip()
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = E.NewSign..L["Tooltip"],
+		name = L["Tooltip"],
 		order = 20,
 		get = function(info) return E.db.mui.tooltip[ info[#info] ] end,
 		set = function(info, value) E.db.mui.tooltip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -28,19 +29,19 @@ local function Tooltip()
 			petIcon = {
 				order = 3,
 				type = "toggle",
-				name = TOOLTIP_BATTLE_PET,
+				name = _G.TOOLTIP_BATTLE_PET,
 				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
 			factionIcon = {
 				order = 4,
 				type = "toggle",
-				name = FACTION,
+				name = _G.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
 			achievement = {
 				order = 5,
 				type = "toggle",
-				name = ACHIEVEMENT_BUTTON,
+				name = _G.ACHIEVEMENT_BUTTON,
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
 			keystone = {
@@ -52,7 +53,7 @@ local function Tooltip()
 			azerite = {
 				order = 7,
 				type = "toggle",
-				name = E.NewSign..CURRENTLY_SELECTED_AZERITE_POWERS_INSPECT,
+				name = _G.CURRENTLY_SELECTED_AZERITE_POWERS_INSPECT,
 			},
 			titleColor = {
 				order = 8,
@@ -90,7 +91,7 @@ local function Tooltip()
 						type = "select",
 						name = L["Font Outline"],
 						values = {
-							["NONE"] = NONE,
+							["NONE"] = _G.NONE,
 							["OUTLINE"] = "OUTLINE",
 							["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 							["THICKOUTLINE"] = "THICKOUTLINE",

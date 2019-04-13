@@ -135,6 +135,23 @@ L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
 
+-- Talent Manager
+L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
+L["Added a new profile: "] = "Neues Profile hinzugefügt: "
+L["Unable to load the selected profile"] = "Nicht möglich das ausgewählte Profil zu laden"
+L["Saved profile: "] = "Profil gespeichert: "
+L["Removed a profile: "] = "Profile entfernt: "
+L["Enter Profile Name: "] = "Profil Namen eingeben: "
+L["Do you want to remove the profile '%s'?"] = "Willst du wirklich das Proil '%s' entfernen?"
+L["Unable to load talent configuration for the selected profile"] = "Nicht möglich die Talent Konfiguration für das ausgewählte Profil zu laden"
+L["Activated profile: "] = "Aktiviere Profil "
+L["Add new profile"] = "Neues Profil hinzufügen"
+L["Migration: Starting"] = "Migration: Gestartet"
+L["Migration: Done: No specs found for this character"] = "Migration: Fertig: Kein Spezialisierung gefunden für diesen Charakter"
+L["Migration: Info: No profiles found for spec #"] = "Migration: Info: Kein Profil gefunden für Spezialisierung #"
+L["Migration: Info: Migrated profile "] = "Migration: Info: Profil migriert "
+L["Migration: Done: Successfully migrated "] = "Migration: Done: Erfolgreich migriert "
+
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
