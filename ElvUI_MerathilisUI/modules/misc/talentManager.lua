@@ -261,7 +261,6 @@ function BuildFrame()
 	end
 	UIDropDownMenu_Initialize(dropdown, ProfilesDropDown_Initialise)
 	UIDropDownMenu_SetSelectedID(dropdown, 1)
-	UIDropDownMenu_JustifyText(dropdown, "LEFT")
 	dropdown:Show()
 
 	local btnApply = TalentProfiles_btnApply
