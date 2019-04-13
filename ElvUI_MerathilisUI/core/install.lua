@@ -30,6 +30,7 @@ local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVar
+	SetCVar("autoLootDefault", 0)
 	SetCVar("autoQuestProgress", 1)
 	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
