@@ -329,9 +329,7 @@ end
 
 function DB:Migrate()
 	if MERDataPerChar ~= nil then
-		MER:Print(L["Migration: Starting"])
 		if MERDataPerChar.specs == nil then
-			MER:Print(L["Migration: Done: No specs found for this character"])
 			MERDataPerChar = nil
 			return
 		end
