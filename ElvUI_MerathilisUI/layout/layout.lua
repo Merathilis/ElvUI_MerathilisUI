@@ -15,6 +15,7 @@ local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
 local BACK = BACK
 local PlaySound = PlaySound
+local SOUNDKIT = SOUNDKIT
 local hooksecurefunc = hooksecurefunc
 
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
@@ -29,9 +30,9 @@ end
 hooksecurefunc(LO, "Initialize", MERL.LoadLayout)
 
 function MERL:CreateExtraDataBarPanels()
-	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", RightChatPanel)
-	chattab:SetPoint("TOPRIGHT", RightChatTab, "TOPRIGHT", 0, 0)
-	chattab:SetPoint("BOTTOMLEFT", RightChatTab, "BOTTOMLEFT", 0, 0)
+	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", _G.RightChatPanel)
+	chattab:SetPoint("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, 0)
+	chattab:SetPoint("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, 0)
 	E.FrameLocks["ChatTab_Datatext_Panel"] = true
 	DT:RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
 
@@ -44,9 +45,9 @@ function MERL:ToggleChatPanel()
 	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
 
 	if db.enable then
-		ChatTab_Datatext_Panel:Show()
+		_G.ChatTab_Datatext_Panel:Show()
 	else
-		ChatTab_Datatext_Panel:Hide()
+		_G.ChatTab_Datatext_Panel:Hide()
 	end
 end
 
@@ -265,28 +266,28 @@ function MERL:CreatePanels()
 	local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
-	topLeftStyle:SetSize(LeftChatPanel:GetWidth()+30, 4)
+	topLeftStyle:SetSize(_G.LeftChatPanel:GetWidth()+30, 4)
 	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -8)
 	MERS:SkinPanel(topLeftStyle)
 
 	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 	topRightStyle:SetFrameStrata("BACKGROUND")
 	topRightStyle:SetFrameLevel(2)
-	topRightStyle:SetSize(LeftChatPanel:GetWidth()+26, 4)
+	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth()+26, 4)
 	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -11, -8)
 	MERS:SkinPanel(topRightStyle)
 
 	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
-	bottomLeftSytle:SetSize(LeftChatPanel:GetWidth()+30, 4)
+	bottomLeftSytle:SetSize(_G.LeftChatPanel:GetWidth()+30, 4)
 	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 11, 10)
 	MERS:SkinPanel(bottomLeftSytle)
 
 	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
 	bottomRightStyle:SetFrameLevel(2)
-	bottomRightStyle:SetSize(LeftChatPanel:GetWidth()+26, 4)
+	bottomRightStyle:SetSize(_G.LeftChatPanel:GetWidth()+26, 4)
 	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -11, 10)
 	MERS:SkinPanel(bottomRightStyle)
 

@@ -161,6 +161,15 @@ L["Keystone"] = "大秘境钥匙"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = true
+L["Mythic"] = true
+L["Heroic"] = true
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Battle Of Dazaralor"
+L["CrucibleOfStorms"] = "Crucible Of Storms"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "邮件收件箱大小调整"

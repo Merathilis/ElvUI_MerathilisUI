@@ -163,6 +163,15 @@ L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = true
 L["Change the color of the title in the Tooltip."] = true
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = true
+L["Mythic"] = true
+L["Heroic"] = true
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Battle Of Dazaralor"
+L["CrucibleOfStorms"] = "Crucible Of Storms"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true

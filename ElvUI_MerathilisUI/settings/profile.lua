@@ -373,6 +373,15 @@ P.mui = {
 		keystone = true, -- Adds descriptions for mythic keystone properties
 		azerite = true,
 		titleColor = true,
+		progressInfo = {
+			enable = true,
+			raid = {
+				enable = true,
+				Uldir = false,
+				BattleOfDazaralor = true,
+				CrucibleOfStorms = false,
+			}
+		},
 	},
 
 	errorFilters = {
