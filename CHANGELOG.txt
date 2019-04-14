@@ -1,3 +1,6 @@
+[b][color=orange]v4.15a[/color], 14.04.2019[/b][list]
+[b]Fixed a lua error. >.>[/list]
+
 [b][color=orange]v4.15[/color], 14.04.2019[/b][list]
 [b]Added an Emoticon Frame to the chat.
 [b]Fixed some lua errors if you use Dual Profiles.

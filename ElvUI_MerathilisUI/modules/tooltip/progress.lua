@@ -9,16 +9,13 @@ local _G = _G
 local ipairs, pairs, select, tonumber = ipairs, pairs, select, tonumber
 local sub = string.sub
 -- WoW Amodule / Variables
-local AchievementFrame_DisplayComparison = AchievementFrame_DisplayComparison
 local C_CreatureInfo_GetFactionInfo = C_CreatureInfo.GetFactionInfo
 local CanInspect = CanInspect
-local ClearAchievementComparisonUnit = ClearAchievementComparisonUnit
 local GetComparisonStatistic = GetComparisonStatistic
 local GetStatistic = GetStatistic
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
-local SetAchievementComparisonUnit = SetAchievementComparisonUnit
 local UnitExists = UnitExists
 local UnitGUID = UnitGUID
 local UnitFactionGroup = UnitFactionGroup
@@ -213,13 +210,14 @@ function TT:INSPECT_ACHIEVEMENT_READY(event, GUID)
 	self:UnregisterEvent("INSPECT_ACHIEVEMENT_READY")
 end
 
-function PR.AddInspectInfo(self, tt, unit, numTries, r, g, b)
+function PR.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 	if InCombatLockdown() then return end
 	if not E.db.mui.tooltip.progressInfo.enable then return end
-	if not (unit and CanInspect(unit)) then return end
+	if (not unit) or (numTries > 3) or not CanInspect(unit) then return end
 	local level = UnitLevel(unit)
-	if not level or level < _G.MAX_PLAYER_LEVEL then return end
 	local guid = UnitGUID(unit)
+	if not level or level < _G.MAX_PLAYER_LEVEL then return end
+	if not guid then return end
 
 	if not progressCache[guid] or (GetTime() - progressCache[guid].timer) > 600 then
 		if guid == playerGUID then
@@ -240,7 +238,7 @@ function PR.AddInspectInfo(self, tt, unit, numTries, r, g, b)
 			return
 		end
 	end
-	PR:SetProgressionInfo(guid, tt)
+	PR:SetProgressionInfo(guid, tooltip)
 end
 
 function PR:Initialize()
