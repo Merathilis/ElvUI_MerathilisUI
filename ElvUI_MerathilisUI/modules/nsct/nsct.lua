@@ -125,6 +125,7 @@ end
 
 local fontStringCache = {};
 local function getFontString()
+	local db = E.db.mui.nsct
 	local fontString;
 
 	if (next(fontStringCache)) then
@@ -134,8 +135,8 @@ local function getFontString()
 	end
 
 	fontString:SetParent(SCT.frame);
-	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), 15, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetAlpha(1);
 	fontString:SetDrawLayer("OVERLAY");
 	fontString:SetText("");
@@ -145,6 +146,7 @@ local function getFontString()
 end
 
 local function recycleFontString(fontString)
+	local db = E.db.mui.nsct
 	fontString:SetAlpha(0);
 	fontString:Hide();
 
@@ -167,8 +169,8 @@ local function recycleFontString(fontString)
 	fontString.pow = nil;
 	fontString.startHeight = nil;
 	fontString.NSCTFontSize = nil;
-	fontString:FontTemplate(getFontPath(SCT.db.font), 15, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), 15, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString:SetParent(SCT.frame);
 
 	tinsert(fontStringCache, fontString);
@@ -258,6 +260,7 @@ local function powSizing(elapsed, duration, start, middle, finish)
 end
 
 local function AnimationOnUpdate()
+	local db = E.db.mui.nsct
 	if (next(animating)) then
 
 		for fontString, _ in pairs(animating) do
@@ -286,9 +289,9 @@ local function AnimationOnUpdate()
 				end
 
 				-- alpha
-				local startAlpha = SCT.db.formatting.alpha;
-				if (SCT.db.useOffTarget and not isTarget and fontString.unit ~= "player") then
-					startAlpha = SCT.db.offTargetFormatting.alpha;
+				local startAlpha = db.formatting.alpha;
+				if (db.useOffTarget and not isTarget and fontString.unit ~= "player") then
+					startAlpha = db.offTargetFormatting.alpha;
 				end
 
 				local alpha = LibEasing.InExpo(elapsed, startAlpha, -startAlpha, fontString.animatingDuration);
@@ -304,8 +307,8 @@ local function AnimationOnUpdate()
 					else
 						fontString.pow = nil;
 						fontString:SetTextHeight(fontString.startHeight);
-						fontString:FontTemplate(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
-						if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+						fontString:FontTemplate(getFontPath(db.font), fontString.NSCTFontSize, db.fontFlag);
+						if db.textShadow then fontString:SetShadowOffset(1,-1) end
 						fontString:SetText(fontString.NSCTText);
 					end
 				end
@@ -328,18 +331,18 @@ local function AnimationOnUpdate()
 
 				if (not UnitIsDead(fontString.unit) and fontString.anchorFrame and fontString.anchorFrame:IsShown()) then
 					if fontString.unit == "player" then -- player frame
-					  fontString:SetPoint("CENTER", fontString.anchorFrame, "CENTER", SCT.db.xOffsetPersonal + xOffset, SCT.db.yOffsetPersonal + yOffset); -- Only allows for adjusting vertical offset
+					  fontString:SetPoint("CENTER", fontString.anchorFrame, "CENTER", db.xOffsetPersonal + xOffset, db.yOffsetPersonal + yOffset); -- Only allows for adjusting vertical offset
 					else -- nameplate frames
-					  fontString:SetPoint("CENTER", fontString.anchorFrame, "CENTER", SCT.db.xOffset + xOffset, SCT.db.yOffset + yOffset);
+					  fontString:SetPoint("CENTER", fontString.anchorFrame, "CENTER", db.xOffset + xOffset, db.yOffset + yOffset);
 					end
 					-- remember the last position of the nameplate
 					local x, y = fontString:GetCenter();
-					guidNameplatePositionX[fontString.guid] = x - (SCT.db.xOffset + xOffset);
-					guidNameplatePositionY[fontString.guid] = y - (SCT.db.yOffset + yOffset);
+					guidNameplatePositionX[fontString.guid] = x - (db.xOffset + xOffset);
+					guidNameplatePositionY[fontString.guid] = y - (db.yOffset + yOffset);
 				elseif (guidNameplatePositionX[fontString.guid] and guidNameplatePositionY[fontString.guid]) then
 					fontString.anchorFrame = nil;
 					fontString:ClearAllPoints();
-					fontString:SetPoint("CENTER", UIParent, "BOTTOMLEFT", guidNameplatePositionX[fontString.guid] + SCT.db.xOffset + xOffset, guidNameplatePositionY[fontString.guid] + SCT.db.yOffset + yOffset);
+					fontString:SetPoint("CENTER", UIParent, "BOTTOMLEFT", guidNameplatePositionX[fontString.guid] + db.xOffset + xOffset, guidNameplatePositionY[fontString.guid] + db.yOffset + yOffset);
 				else
 					recycleFontString(fontString);
 				end
@@ -430,9 +433,10 @@ function SCT:NAME_PLATE_UNIT_REMOVED(event, unitID)
 end
 
 function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _, _, _, ...)
-	if playerGUID == sourceGUID or (E.db.mui.nsct.personal and playerGUID == destGUID) then -- Player events
+	local db = E.db.mui.nsct
+	if playerGUID == sourceGUID or (db.personal and playerGUID == destGUID) then -- Player events
 		local destUnit = guidToUnit[destGUID];
-		if (destUnit) or (destGUID == playerGUID and SCT.db.personal) then
+		if (destUnit) or (destGUID == playerGUID and db.personal) then
 			if (strfind(clue, "_DAMAGE")) then
 				local spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand;
 				if (strfind(clue, "SWING")) then
@@ -460,7 +464,7 @@ function SCT:CombatFilter(_, clue, _, sourceGUID, _, sourceFlags, _, destGUID, _
 		end
 	elseif (band(sourceFlags, COMBATLOG_OBJECT_TYPE_GUARDIAN) > 0 or band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) > 0)	and band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) > 0 then -- Pet/Guardian events
 		local destUnit = guidToUnit[destGUID];
-		if (destUnit) or (destGUID == playerGUID and E.db.mui.nsct.personal) then
+		if (destUnit) or (destGUID == playerGUID and db.personal) then
 			if (strfind(clue, "_DAMAGE")) then
 				local spellID, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand;
 				if (strfind(clue, "SWING")) then
@@ -496,48 +500,49 @@ local runningAverageDamageEvents = 0;
 function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 	local text, textWithoutIcons, animation, pow, size, icon, alpha;
 	local frameLevel = FRAME_LEVEL_ABOVE;
+	local db = E.db.mui.nsct
 
 	local unit = guidToUnit[guid];
 	local isTarget = unit and UnitIsUnit(unit, "target");
 
-	if (self.db.useOffTarget and not isTarget and playerGUID ~= guid) then
-		size = self.db.offTargetFormatting.size;
-		icon = self.db.offTargetFormatting.icon;
-		alpha = self.db.offTargetFormatting.alpha;
+	if (db.useOffTarget and not isTarget and playerGUID ~= guid) then
+		size = db.offTargetFormatting.size;
+		icon = db.offTargetFormatting.icon;
+		alpha = db.offTargetFormatting.alpha;
 	else
-		size = self.db.formatting.size;
-		icon = self.db.formatting.icon;
-		alpha = self.db.formatting.alpha;
+		size = db.formatting.size;
+		icon = db.formatting.icon;
+		alpha = db.formatting.alpha;
 	end
 
 	-- select an animation
 	if (crit) then
 		frameLevel = FRAME_LEVEL_OVERLAY;
-		animation = guid ~= playerGUID and self.db.animations.crit or self.db.animationsPersonal.crit;
+		animation = guid ~= playerGUID and db.animations.crit or db.animationsPersonal.crit;
 		pow = true;
 	else
-		animation = guid ~= playerGUID and self.db.animations.normal or self.db.animationsPersonal.normal;
+		animation = guid ~= playerGUID and db.animations.normal or db.animationsPersonal.normal;
 		pow = false;
 	end
 
 	if (icon ~= "only") then
 		-- truncate
-		if (self.db.truncate and amount >= 1000000 and self.db.truncateLetter) then
+		if (db.truncate and amount >= 1000000 and db.truncateLetter) then
 			text = format("%.1fM", amount / 1000000);
-		elseif (self.db.truncate and amount >= 10000) then
+		elseif (db.truncate and amount >= 10000) then
 			text = format("%.0f", amount / 1000);
 
-			if (self.db.truncateLetter) then
+			if (db.truncateLetter) then
 				text = text.."k";
 			end
-		elseif (self.db.truncate and amount >= 1000) then
+		elseif (db.truncate and amount >= 1000) then
 			text = format("%.1f", amount / 1000);
 
-			if (self.db.truncateLetter) then
+			if (db.truncateLetter) then
 				text = text.."k";
 			end
 		else
-			if (self.db.commaSeperate) then
+			if (db.commaSeperate) then
 				text = commaSeperate(amount);
 			else
 				text = tostring(amount);
@@ -545,12 +550,12 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 		end
 
 		-- color text
-		if self.db.damageColor and school and DAMAGE_TYPE_COLORS[school] then
+		if db.damageColor and school and DAMAGE_TYPE_COLORS[school] then
 			text = "|Cff"..DAMAGE_TYPE_COLORS[school]..text.."|r";
-		elseif self.db.damageColor and spellName == "melee" and DAMAGE_TYPE_COLORS[spellName] then
+		elseif db.damageColor and spellName == "melee" and DAMAGE_TYPE_COLORS[spellName] then
 			text = "|Cff"..DAMAGE_TYPE_COLORS[spellName]..text.."|r";
 		else
-			text = "|Cff"..self.db.defaultColor..text.."|r";
+			text = "|Cff"..db.defaultColor..text.."|r";
 		end
 
 		-- add icons
@@ -577,7 +582,7 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 	end
 
 	-- shrink small hits
-	if (self.db.sizing.smallHits) and playerGUID ~= guid then
+	if (db.sizing.smallHits) and playerGUID ~= guid then
 		if (not lastDamageEventTime or (lastDamageEventTime + SMALL_HIT_EXPIRY_WINDOW < GetTime())) then
 			numDamageEvents = 0;
 			runningAverageDamageEvents = 0;
@@ -589,13 +594,13 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 
 		if ((not crit and amount < SMALL_HIT_MULTIPIER*runningAverageDamageEvents)
 			or (crit and amount/2 < SMALL_HIT_MULTIPIER*runningAverageDamageEvents)) then
-			size = size * self.db.sizing.smallHitsScale;
+			size = size * db.sizing.smallHitsScale;
 		end
 	end
 
 	-- embiggen crit's size
-	if (self.db.sizing.crits and crit) and playerGUID ~= guid then
-		size = size * self.db.sizing.critsScale;
+	if (db.sizing.crits and crit) and playerGUID ~= guid then
+		size = size * db.sizing.critsScale;
 	end
 
 	-- make sure that size is larger than 5
@@ -607,34 +612,35 @@ function SCT:DamageEvent(guid, spellID, amount, school, crit, spellName)
 end
 
 function SCT:MissEvent(guid, spellID, missType)
+	local db = E.db.mui.nsct
 	local text, animation, pow, size, icon, alpha;
 	local unit = guidToUnit[guid];
 	local isTarget = unit and UnitIsUnit(unit, "target");
 
-	if (self.db.useOffTarget and not isTarget and playerGUID ~= guid) then
-		size = self.db.offTargetFormatting.size;
-		icon = self.db.offTargetFormatting.icon;
-		alpha = self.db.offTargetFormatting.alpha;
+	if (db.useOffTarget and not isTarget and playerGUID ~= guid) then
+		size = db.offTargetFormatting.size;
+		icon = db.offTargetFormatting.icon;
+		alpha = db.offTargetFormatting.alpha;
 	else
-		size = self.db.formatting.size;
-		icon = self.db.formatting.icon;
-		alpha = self.db.formatting.alpha;
+		size = db.formatting.size;
+		icon = db.formatting.icon;
+		alpha = db.formatting.alpha;
 	end
 
 	-- embiggen miss size
-	if self.db.sizing.miss and playerGUID ~= guid then
-		size = size * self.db.sizing.missScale;
+	if db.sizing.miss and playerGUID ~= guid then
+		size = size * db.sizing.missScale;
 	end
 
 	if (icon == "only") then
 		return;
 	end
 
-	animation = playerGUID ~= guid and self.db.animations.miss or self.db.animationsPersonal.miss;
+	animation = playerGUID ~= guid and db.animations.miss or db.animationsPersonal.miss;
 	pow = true;
 
 	text = MISS_EVENT_STRINGS[missType] or "Missed";
-	text = "|Cff"..self.db.defaultColor..text.."|r";
+	text = "|Cff"..db.defaultColor..text.."|r";
 
 	-- add icons
 	local textWithoutIcons = text;
@@ -654,6 +660,7 @@ function SCT:MissEvent(guid, spellID, missType)
 end
 
 function SCT:DisplayText(guid, text, textWithoutIcons, size, animation, frameLevel, pow)
+	local db = E.db.mui.nsct
 	local fontString;
 	local unit = guidToUnit[guid];
 	local nameplate;
@@ -676,8 +683,8 @@ function SCT:DisplayText(guid, text, textWithoutIcons, size, animation, frameLev
 	fontString:SetText(fontString.NSCTText);
 
 	fontString.NSCTFontSize = size;
-	fontString:FontTemplate(getFontPath(SCT.db.font), fontString.NSCTFontSize, SCT.db.fontFlag);
-	if SCT.db.textShadow then fontString:SetShadowOffset(1,-1) end
+	fontString:FontTemplate(getFontPath(db.font), fontString.NSCTFontSize, db.fontFlag);
+	if db.textShadow then fontString:SetShadowOffset(1,-1) end
 	fontString.startHeight = fontString:GetStringHeight();
 	fontString.pow = pow;
 	fontString.frameLevel = frameLevel;

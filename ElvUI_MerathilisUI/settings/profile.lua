@@ -34,8 +34,9 @@ P.mui = {
 		panelHeight = 146,
 		iLevelLink = true,
 		hidePlayerBrackets = true,
-		sidePanel = false,
 		hideChat = false,
+		chatBar = false,
+		emotes = true,
 	},
 
 	colors = {
@@ -47,9 +48,9 @@ P.mui = {
 		gmotd = true, -- Show a GMOTD frame
 		quest = false,
 		announce = true, -- CombatText, Skill gains
-
 		cursor = false,
 		raidInfo = true,
+		talentManager = true,
 	},
 
 	nameHover = {
@@ -109,8 +110,28 @@ P.mui = {
 			enable = true,
 			mouseover = false,
 		},
+		autoButtons = {
+			enable = true,
+			bindFontSize = 12,
+			countFontSize = 12,
+			soltAutoButtons = {
+				enable = true,
+				slotBBColorByItem = true,
+				slotBBColor = {r = 1, g = 1, b = 1, a = 1},
+				slotNum = 5,
+				slotPerRow = 5,
+				slotSize = 40,
+			},
+			questAutoButtons = {
+				enable = true,
+				questBBColorByItem = true,
+				questBBColor = {r = 1, g = 1, b = 1, a = 1},
+				questNum = 5,
+				questPerRow = 5,
+				questSize = 40,
+			},
+		},
 	},
-
 	microBar = {
 		enable = true,
 		scale = 1,
@@ -352,6 +373,15 @@ P.mui = {
 		keystone = true, -- Adds descriptions for mythic keystone properties
 		azerite = true,
 		titleColor = true,
+		progressInfo = {
+			enable = true,
+			raid = {
+				enable = true,
+				Uldir = false,
+				BattleOfDazaralor = true,
+				CrucibleOfStorms = false,
+			}
+		},
 	},
 
 	errorFilters = {
@@ -422,6 +452,7 @@ P.mui = {
 	},
 
 	nameplates = {
+		castbarTarget = true,
 	},
 
 	cooldownFlash = {

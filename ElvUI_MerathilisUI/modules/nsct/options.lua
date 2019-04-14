@@ -5,6 +5,7 @@ local SCT = MER:GetModule("ScrollingCombatText")
 local tonumber = tonumber
 local format = string.format
 local floor = math.floor
+local tinsert = table.insert
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local GetCVar = GetCVar

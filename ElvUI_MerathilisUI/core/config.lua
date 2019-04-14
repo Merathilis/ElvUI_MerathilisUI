@@ -9,8 +9,6 @@ local format, select, unpack = format, select, unpack
 local tinsert = table.insert
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: StaticPopup_Show
 
 local function AddOptions()

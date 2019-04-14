@@ -17,6 +17,7 @@
 	<Script file="raidManager.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>
+	<Script file="talentManager.lua"/>
 	<Script file="threatBar.lua"/>
 	<Script file="options.lua"/>
 </Ui>

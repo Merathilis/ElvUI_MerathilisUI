@@ -5,15 +5,16 @@ local NP = E:GetModule('NamePlates')
 --Cache global variables
 --Lua functions
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
-
--- Copied from ElvUI and overwriting it
 
 function MNP:Initialize()
 	if E.private.nameplates.enable ~= true then return end
 
+	--Castbar Target
+	if E.db.mui.nameplates.castbarTarget then
+		hooksecurefunc(NP, "Castbar_PostCastStart", MNP.CastbarPostCastStart)
+	end
 end
 
 local function InitializeCallback()

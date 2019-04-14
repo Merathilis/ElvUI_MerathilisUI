@@ -2,11 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MERArmory')
 
 --Cache global variables
+--Lua functions
 local _G = _G
-local format = string.format
+local select = select
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local PaperDollFrame_UpdateStats = PaperDollFrame_UpdateStats
+local UnitPowerType = UnitPowerType
 -- GLOBALS:
 
 local fontStyleList = {
@@ -261,7 +263,7 @@ local function ArmoryTable()
 			indicators = {
 				order = 25,
 				type = "group",
-				name = E.NewSign..L["Indicators"],
+				name = L["Indicators"],
 				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				args = {
 					transmog = {

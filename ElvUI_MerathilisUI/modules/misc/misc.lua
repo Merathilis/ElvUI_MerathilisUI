@@ -190,6 +190,7 @@ function MI:Initialize()
 	self:ItemLevel()
 	self:CreateRaidManager()
 	self:GuildBest()
+	self:LoadTalentProfiles()
 end
 
 local function InitializeCallback()

@@ -16,7 +16,6 @@ local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local PlaySoundFile = PlaySoundFile
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: GUILD_MOTD_LABEL2, UISpecialFrames
 
 local gmotd

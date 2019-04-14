@@ -63,6 +63,8 @@ L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Community Chat"] = true
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
+L["Click to open Emoticon Frame"] = true
+L["Emotes"] = true
 
 -- Information
 L["Information"] = true
@@ -131,6 +133,21 @@ L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 
+-- Talent Manager
+L["Error: Too many talents selected"] = true
+L["Added a new profile: "] = true
+L["Unable to load the selected profile"] = true
+L["Saved profile: "] = true
+L["Removed a profile: "] = true
+L["Enter Profile Name: "] = true
+L["Do you want to remove the profile '%s'?"] = true
+L["Unable to load talent configuration for the selected profile"] = true
+L["Activated profile: "] = true
+L["Add new profile"] = true
+L["Migration: Info: No profiles found for spec #"] = true
+L["Migration: Info: Migrated profile "] = true
+L["Migration: Done: Successfully migrated "] = true
+
 -- Tooltip
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
@@ -142,6 +159,15 @@ L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
 L["Title Color"] = true
 L["Change the color of the title in the Tooltip."] = true
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = true
+L["Mythic"] = true
+L["Heroic"] = true
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Battle Of Dazaralor"
+L["CrucibleOfStorms"] = "Crucible Of Storms"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -182,6 +208,11 @@ L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
+L["Auto Buttons"] = true
+L["Bind Font Size"] = true
+L["Trinket Buttons"] = true
+L["Color by Quality"] = true
+L["Quest Buttons"] = true
 
 -- Armory
 L["Armory"] = true
@@ -459,33 +490,7 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["NameplateAuras"] = true
-L["Visibility"] = true
-L["Set when this aura is visble."] = true
-L["Clear Spell List"] = true
-L["Empties the list of specific spells and their configurations."] = true
-L["Restore Spell List"] = true
-L["Restores the default list of specific spells and their configurations."] = true
-L["Spell Name/ID"] = true
-L["Input a spell name or spell ID."] = true
-L["Spell List"] = true
-L["Remove Spell"] = true
-L["Other Auras"] = true
-L["These are the settings for all spells not explicitly specified."] = true
-L["Icon Width"] = true
-L["Set the width of this spells icon."] = true
-L["Icon Height"] = true
-L["Set the height of this spells icon."] = true
-L["Lock Aspect Ratio"] = true
-L["Set if height and width are locked to the same value."] = true
-L["Stack Size"] = true
-L["Text Size"] = true
-L["Size of the stack text."] = true
-L["Size of the cooldown text."] = true
-L["Specific Auras"] = true
-L["Always"] = true
-L["Never"] = true
-L["Only Mine"] = true
+L["Castbar Target"] = true
 
 -- Install
 L["Welcome"] = true

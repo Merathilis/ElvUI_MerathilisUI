@@ -5,9 +5,10 @@ local MERS = MER:GetModule("muiSkins")
 -- Lua functions
 local _G = _G
 local ipairs, unpack = ipairs, unpack
+local format = string.format
+local tinsert = table.insert
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LibStub, GARRISON_LOCATION_TOOLTIP, COLLECTIONS, OBJECTIVES_TRACKER_LABEL, DRESSUP_FRAME
 
 local DecorAddons = {

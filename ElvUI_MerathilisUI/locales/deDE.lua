@@ -60,9 +60,13 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
+L["ChatBar"] = "Chatleiste"
+L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
 L["Hide Community Chat"] = "Verstecke Community Chat"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
+L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
+L["Emotes"] = true
 
 -- Information
 L["Information"] = true
@@ -131,6 +135,21 @@ L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
 
+-- Talent Manager
+L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
+L["Added a new profile: "] = "Neues Profile hinzugefügt: "
+L["Unable to load the selected profile"] = "Nicht möglich das ausgewählte Profil zu laden"
+L["Saved profile: "] = "Profil gespeichert: "
+L["Removed a profile: "] = "Profile entfernt: "
+L["Enter Profile Name: "] = "Profil Namen eingeben: "
+L["Do you want to remove the profile '%s'?"] = "Willst du wirklich das Proil '%s' entfernen?"
+L["Unable to load talent configuration for the selected profile"] = "Nicht möglich die Talent Konfiguration für das ausgewählte Profil zu laden"
+L["Activated profile: "] = "Aktiviere Profil "
+L["Add new profile"] = "Neues Profil hinzufügen"
+L["Migration: Info: No profiles found for spec #"] = "Migration: Info: Kein Profil gefunden für Spezialisierung #"
+L["Migration: Info: Migrated profile "] = "Migration: Info: Profil migriert "
+L["Migration: Done: Successfully migrated "] = "Migration: Done: Erfolgreich migriert "
+
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
@@ -142,6 +161,15 @@ L["Keystone"] = "Schlüsselstein"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
 L["Title Color"] = "Titel Farbe"
 L["Change the color of the title in the Tooltip."] = "Ändert die Farbe des Titels im Tooltip."
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = "Zeigt Schlachtzugsfortschritt für einen Charakter im Tooltip an."
+L["Mythic"] = "Mytisch"
+L["Heroic"] = "Heroisch"
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
+L["CrucibleOfStorms"] = "Tiegel der Stürme"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -182,6 +210,11 @@ L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
+L["Auto Buttons"] = "Auto Tasten"
+L["Bind Font Size"] = "Belegungstext Größe"
+L["Trinket Buttons"] = "Trinket Tasten"
+L["Color by Quality"] = "Färbe nach Qualität"
+L["Quest Buttons"] = "Quest Tasten"
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -459,33 +492,7 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Nameplates
-L["NameplateAuras"] = "Namensplaketten Auren"
-L["Visibility"] = "Sichtbarkeit"
-L["Set when this aura is visble."] = "Benutze wenn diese Aura sichtbar ist"
-L["Clear Spell List"] = "Leere die Zauberliste"
-L["Empties the list of specific spells and their configurations."] = "Leert die Liste von speziellen Zaubern und deren Einstellungen."
-L["Restore Spell List"] = "Zauberliste wiederherstellen"
-L["Restores the default list of specific spells and their configurations."] = "Stellt die Standardliste von speziellen Zaubern und Einstellungen wiederher."
-L["Spell Name/ID"] = "Zauber Name/ID"
-L["Input a spell name or spell ID."] = "Gib einen Zauber Name oder Zauber ID ein."
-L["Spell List"] = "Zauberliste"
-L["Remove Spell"] = "Zauber entfernen"
-L["Other Auras"] = "Andere Auren"
-L["These are the settings for all spells not explicitly specified."] = "Dies sind die Einstellungen für alle Zauber, die nicht explizit angegeben sind."
-L["Icon Width"] = "Symbol Breite"
-L["Set the width of this spells icon."] = "Setzt die Breite von einem Zaubersymbol."
-L["Icon Height"] = "Symbol Höhe"
-L["Set the height of this spells icon."] = "Setzt die Höhe von einem Zaubersymbol."
-L["Lock Aspect Ratio"] = "Seitenverhältnis sperren"
-L["Set if height and width are locked to the same value."] = "Behält das Seitenverhältnis bei."
-L["Stack Size"] = "Stappel Größe"
-L["Text Size"] = "Text Größe"
-L["Size of the stack text."] = "Größe des Stack Texts."
-L["Size of the cooldown text."] = "Größe des Cooldown Texts."
-L["Specific Auras"] = "Spezifische Auren"
-L["Always"] = "Immer"
-L["Never"] = "Niemals"
-L["Only Mine"] = "Nur eigene"
+L["Castbar Target"] = "Zauberleisten Ziel"
 
 -- Install
 L["Welcome"] = "Willkommen"

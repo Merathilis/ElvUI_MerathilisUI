@@ -1,20 +1,36 @@
 <Bindings>
-	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="MERATHILISUI_RAIDFLARE" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare2:LeftButton" description="Green Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare3:LeftButton" description="Purple Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare4:LeftButton" description="Red Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare5:LeftButton" description="Yellow Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER">
-	</Binding>
-	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER">
-	</Binding>
+	<Binding name="CLICK mUI_ClearRaidFlares:LeftButton" description="Clear Flares" header="MERATHILISUI_RAIDFLARE" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare1:LeftButton" description="Blue Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare2:LeftButton" description="Green Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare3:LeftButton" description="Purple Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare4:LeftButton" description="Red Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare5:LeftButton" description="Yellow Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare6:LeftButton" description="Orange Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare7:LeftButton" description="White Flare" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK mUI_RaidFlare8:LeftButton" description="Skull Flare" category="BINDING_HEADER_MER"/>
+
+	<Binding name="CLICK AutoSlotButton1:LeftButton" description="Auto Button" header="AutoSlotButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton2:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton3:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton4:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton5:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton6:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton7:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton8:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton9:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton10:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton11:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoSlotButton12:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton1:LeftButton" header= "AutoQuestButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton2:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton3:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton4:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton5:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton6:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton7:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton8:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton9:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton10:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton11:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoQuestButton12:LeftButton" category="BINDING_HEADER_MER"/>
 </Bindings>

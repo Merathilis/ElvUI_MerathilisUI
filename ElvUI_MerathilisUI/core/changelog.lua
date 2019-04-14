@@ -17,13 +17,12 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Prevent a lua error in Reminder Module.",
-		"• Alot of more Nameplate settings in my install.",
-		"• Update the appearance for my FlightPoints frame.",
-		"• Added Azerite Item Tooltip back.",
-		"• Minor tweaks to Unitframe install.",
-		"• Add Guildbest Frame on the LFG Frame > Mythic Keystones.",
-		"• Chinese Locals from Simon@ciki <3.",
+		"• Added an Emoticon Frame to the chat.",
+		"• Fixed some lua errors if you use Dual Profiles.",
+		"• Added Target Name to the ElvUI Nameplate Castbars.",
+		"• Added a Talent Manager, where you can save different presets.",
+		"• Added back my chatBar. Disabled by default.",
+		"• Added Raid Progress Info to the Tooltip (hold shift).",
 
 		-- "• ''",
 	" ",

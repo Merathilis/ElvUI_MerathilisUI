@@ -172,6 +172,7 @@ function MERC:Initialize()
 	self:EasyChannel()
 	self:ItemLevelLink()
 	self:StyleChat()
+	self:ChatBar()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"

@@ -63,6 +63,10 @@ L["Removes brackets around the person who posts a chat message."] = "删除聊�
 L["Hide Community Chat"] = "隐藏社区聊天"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
+L["ChatBar"] = true
+L["Shows a ChatBar with different quick buttons."] = true
+L["Click to open Emoticon Frame"] = true
+L["Emotes"] = true
 
 -- Information
 L["Information"] = "信息"
@@ -131,6 +135,21 @@ L["Raid Info"] = "团队信息"
 L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
 
+-- Talent Manager
+L["Error: Too many talents selected"] = true
+L["Added a new profile: "] = true
+L["Unable to load the selected profile"] = true
+L["Saved profile: "] = true
+L["Removed a profile: "] = true
+L["Enter Profile Name: "] = true
+L["Do you want to remove the profile '%s'?"] = true
+L["Unable to load talent configuration for the selected profile"] = true
+L["Activated profile: "] = true
+L["Add new profile"] = true
+L["Migration: Info: No profiles found for spec #"] = true
+L["Migration: Info: Migrated profile "] = true
+L["Migration: Done: Successfully migrated "] = true
+
 -- Tooltip
 L["Your Status:"] = "你的状态: "
 L["Your Status: Incomplete"] = "你的状态：不完整"
@@ -142,6 +161,15 @@ L["Keystone"] = "大秘境钥匙"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = true
+L["Mythic"] = true
+L["Heroic"] = true
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Battle Of Dazaralor"
+L["CrucibleOfStorms"] = "Crucible Of Storms"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "邮件收件箱大小调整"
@@ -182,6 +210,11 @@ L["Transparent Backdrops"] = "透明背景"
 L["Specialisation Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
+L["Auto Buttons"] = true
+L["Bind Font Size"] = true
+L["Trinket Buttons"] = true
+L["Color by Quality"] = true
+L["Quest Buttons"] = true
 
 -- Armory
 L["Armory"] = true
@@ -459,33 +492,7 @@ L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
 -- Nameplates
-L["NameplateAuras"] = "姓名版光环"
-L["Visibility"] = "可见度"
-L["Set when this aura is visble."] = "当这个光环可见时设置"
-L["Clear Spell List"] = "清除法术列表"
-L["Empties the list of specific spells and their configurations."] = "清空特定法术及其配置的列表"
-L["Restore Spell List"] = "恢复法术列表"
-L["Restores the default list of specific spells and their configurations."] = "恢复特定法术及其配置的默认列表."
-L["Spell Name/ID"] = "法术名称/ID"
-L["Input a spell name or spell ID."] = "输入一个法术名或法术ID."
-L["Spell List"] = "法术列表"
-L["Remove Spell"] = "移除法术"
-L["Other Auras"] = "其他光环"
-L["These are the settings for all spells not explicitly specified."] = "这些是所有未明确指定的法术的设置."
-L["Icon Width"] = "图标宽度"
-L["Set the width of this spells icon."] = "设置此法术图标的宽度."
-L["Icon Height"] = "图标高度"
-L["Set the height of this spells icon."] = "设置此法术图标的高度."
-L["Lock Aspect Ratio"] = "锁定纵横比"
-L["Set if height and width are locked to the same value."] = "设置高度和宽度是否锁定为相同的值."
-L["Stack Size"] = "堆叠(层数)大小"
-L["Text Size"] = "文本大小"
-L["Size of the stack text."] = "堆叠(层数)文本的大小"
-L["Size of the cooldown text."] = "冷却时间文字的大小."
-L["Specific Auras"] = "特定光环"
-L["Always"] = "总是"
-L["Never"] = "从不"
-L["Only Mine"] = "仅我的"
+L["Castbar Target"] = true
 
 -- Install
 L["Welcome"] = "欢迎"

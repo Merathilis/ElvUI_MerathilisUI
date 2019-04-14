@@ -13,7 +13,6 @@ local GetSpellInfo = GetSpellInfo
 local C_AzeriteEmpoweredItem_GetPowerInfo = C_AzeriteEmpoweredItem.GetPowerInfo
 local C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 local C_AzeriteEmpoweredItem_GetAllTierInfoByItemID = C_AzeriteEmpoweredItem.GetAllTierInfoByItemID
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
 -- Credit: AzeriteTooltip, by jokair9
