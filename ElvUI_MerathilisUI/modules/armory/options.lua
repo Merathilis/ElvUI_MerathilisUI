@@ -263,7 +263,7 @@ local function ArmoryTable()
 			indicators = {
 				order = 25,
 				type = "group",
-				name = E.NewSign..L["Indicators"],
+				name = L["Indicators"],
 				disabled = function() return not E.db.mui.armory.enable or not E.db.general.itemLevel.displayCharacterInfo end,
 				args = {
 					transmog = {
