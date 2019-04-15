@@ -47,9 +47,9 @@ function MER:LoadBigWigsProfileDPS()
 					["MerathilisUI"] = {
 						["BigWigsEmphasizeAnchor_y"] = 271.82,
 						["BigWigsEmphasizeAnchor_x"] = 458.58,
-						["BigWigsAnchor_y"] = 156.84,
-						["BigWigsAnchor_x"] = 1051,
-						["BigWigsAnchor_width"] = 200,
+						["BigWigsAnchor_y"] = 24,
+						["BigWigsAnchor_x"] = 835,
+						["BigWigsAnchor_width"] = 212,
 						["BigWigsAnchor_height"] = 18,
 						["BigWigsEmphasizeAnchor_height"] = 28,
 						["BigWigsEmphasizeAnchor_width"] = 170,
@@ -94,11 +94,11 @@ function MER:LoadBigWigsProfileDPS()
 			["BigWigs_Plugins_Proximity"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["posx"] = 886,
+						["posx"] = 346.27,
 						["fontName"] = "Expressway",
 						["lock"] = true,
 						["height"] = 99.0000381469727,
-						["posy"] = 88.22,
+						["posy"] = 81.82,
 					},
 				},
 			},
