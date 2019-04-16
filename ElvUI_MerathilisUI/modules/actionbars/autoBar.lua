@@ -406,7 +406,7 @@ function module:UpdateBind()
 	if not module.db then return end
 	if module.db.questAutoButtons["enable"] == true then
 		for i = 1, module.db.questAutoButtons["questNum"] do
-			local bindButton = "CLICK AutoQuestButton" .. i .. ":LeftButton"
+			local bindButton = "CLICK mui_AutoQuestButton" .. i .. ":LeftButton"
 			local button = _G["AutoQuestButton" .. i]
 			local bindText = GetBindingKey(bindButton)
 			if not bindText then
@@ -423,7 +423,7 @@ function module:UpdateBind()
 
 	if module.db.soltAutoButtons["enable"] == true then
 		for i = 1, module.db.soltAutoButtons["slotNum"] do
-			local bindButton = "CLICK AutoSlotButton" .. i .. ":LeftButton"
+			local bindButton = "CLICK mui_AutoSlotButton" .. i .. ":LeftButton"
 			local button = _G["AutoSlotButton" .. i]
 			local bindText = GetBindingKey(bindButton)
 			if not bindText then
