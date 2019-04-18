@@ -39,7 +39,7 @@ MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
 MER.MSQ = _G.LibStub('Masque', true)
---MER.MSQ.Enable =
+MER.MSQ.Enable = GetAddOnEnableState(E.myname, "Masque") == 2
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)

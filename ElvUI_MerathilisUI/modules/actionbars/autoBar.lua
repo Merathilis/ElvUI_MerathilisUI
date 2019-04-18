@@ -206,7 +206,9 @@ local function CreateButton(name, size)
 
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
-	--AutoButton:SetTemplate("Default")
+	if not MER.MSQ.Enable then
+		AutoButton:SetTemplate("Default")
+	end
 	AutoButton:StyleButton()
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")
