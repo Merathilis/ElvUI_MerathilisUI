@@ -302,17 +302,18 @@ function MERG:GameMenu()
 		npcModel:Show()
 	end
 
-	if not pepeHolder then
-		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		pepeHolder:SetSize(150, 150)
-		pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
-
-		pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
-		pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
-		pepeModel:SetScript("OnShow", Pepe_Model)
-		pepeModel.isIdle = nil
-		pepeModel:Show()
-	end
+	-- Find out new ID's
+	--if not pepeHolder then
+		--local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		--pepeHolder:SetSize(150, 150)
+		--pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
+--
+		--pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
+		--pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
+		--pepeModel:SetScript("OnShow", Pepe_Model)
+		--pepeModel.isIdle = nil
+		--pepeModel:Show()
+	--end
 end
 
 function MERG:Initialize()
