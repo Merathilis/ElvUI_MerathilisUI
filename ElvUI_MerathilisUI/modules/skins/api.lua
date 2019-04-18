@@ -258,45 +258,6 @@ function MERS:Reskin(button, strip, noGlow)
 	end
 end
 
-function MERS:ReskinCheckBox(frame, noBackdrop, noReplaceTextures)
-	assert(frame, "does not exist.")
-
-	frame:StripTextures()
-
-	if noBackdrop then
-		frame:SetTemplate("Default")
-		frame:Size(16)
-	else
-		MERS:CreateBackdrop(frame)
-		frame.backdrop:SetInside(nil, 4, 4)
-	end
-
-	if not noReplaceTextures then
-		if frame.SetCheckedTexture then
-			frame:SetCheckedTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
-			frame:GetCheckedTexture():SetVertexColor(1, .82, 0, 0.8)
-			frame:GetCheckedTexture():SetInside(frame.backdrop)
-		end
-
-		if frame.SetDisabledTexture then
-			frame:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
-			frame:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
-			frame:GetDisabledTexture():SetInside(frame.backdrop)
-		end
-
-		frame:HookScript('OnDisable', function(checkbox)
-			if not checkbox.SetDisabledTexture then return; end
-			if checkbox:GetChecked() then
-				checkbox:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
-				checkbox:GetDisabledTexture():SetVertexColor(1, .82, 0, 0.3)
-				checkbox:GetDisabledTexture():SetInside(frame.backdrop)
-			else
-				checkbox:SetDisabledTexture("")
-			end
-		end)
-	end
-end
-
 function MERS:StyleButton(button)
 	if button.isStyled then return end
 
@@ -500,7 +461,6 @@ end
 -- hook the skin functions
 hooksecurefunc(S, "HandleTab", MERS.ReskinTab)
 hooksecurefunc(S, "HandleButton", MERS.Reskin)
-hooksecurefunc(S, "HandleCheckBox", MERS.ReskinCheckBox)
 hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 -- New Widget Types
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
