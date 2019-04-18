@@ -2,11 +2,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local RB = MER:GetModule("RaidBuffs")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
 local AGGRO_WARNING_IN_PARTY = AGGRO_WARNING_IN_PARTY
 local CUSTOM, DEFAULT = CUSTOM, DEFAULT
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function RaidBuffs()
@@ -78,8 +78,16 @@ local function RaidBuffs()
 						disabled = function() return not E.db.mui.raidBuffs.enable end,
 						set = function(info, value) E.db.mui.raidBuffs.class = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
-					customVisibility = {
+					glow = {
 						order = 7,
+						type = "toggle",
+						name = L["Glow"],
+						desc = L["Shows the pixel glow on missing raidbuffs."],
+						disabled = function() return not E.db.mui.raidBuffs.enable end,
+						set = function(info, value) E.db.mui.raidBuffs.glow = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					customVisibility = {
+						order = 8,
 						type = 'input',
 						width = 'full',
 						name = L["Visibility State"],

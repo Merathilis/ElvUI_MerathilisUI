@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file='nameplates.lua'/>
 	<Include file="elements\load_elements.xml"/>
+	<Script file='castbarTarget.lua'/>
 	<Script file='options.lua'/>
 </Ui>

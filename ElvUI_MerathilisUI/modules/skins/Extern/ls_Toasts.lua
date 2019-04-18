@@ -4,6 +4,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Lua functions
 local unpack = unpack
 -- WoW API / Variables
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 if not IsAddOnLoaded("ls_Toasts") then return end
@@ -60,7 +61,7 @@ LST:RegisterSkin("MerathilisUI", {
 	},
 })
 
-hooksecurefunc(LST, "ApplySkin", function(_, toast)
+LST.RegisterCallback({}, "SetSkin", function(_, toast)
 	if not toast.skinned then
 		toast:Styling()
 		toast.skinned = true

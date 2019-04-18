@@ -10,10 +10,10 @@ local _G = _G
 local function styleDressingroom()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.muiSkins.blizzard.dressingroom ~= true then return end
 
-	_G["DressUpFrame"]:Styling()
+	_G.DressUpFrame:Styling()
 
 	-- Wardrobe edit frame
-	_G["WardrobeOutfitFrame"]:Styling()
+	_G.WardrobeOutfitFrame:Styling()
 end
 
 S:AddCallback("mUIDressingRoom", styleDressingroom)

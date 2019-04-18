@@ -14,21 +14,8 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleStyleStackSplitFrame()
 	if E.private.skins.blizzard.enable ~= true then return end
 
-	local StackSplitFrame = _G["StackSplitFrame"]
+	local StackSplitFrame = _G.StackSplitFrame
 	StackSplitFrame.backdrop:Styling()
-
-	local buttons = {_G["StackSplitLeftButton"], _G["StackSplitRightButton"]}
-	for _, btn in pairs(buttons) do
-		S:HandleNextPrevButton(btn)
-		btn:Size(14, 18)
-
-		btn:ClearAllPoints()
-		if btn == _G["StackSplitLeftButton"] then
-			btn:Point('LEFT', StackSplitFrame.bg1, 'LEFT', 4, 0)
-		else
-			btn:Point('RIGHT', StackSplitFrame.bg1, 'RIGHT', -4, 0)
-		end
-	end
 end
 
 S:AddCallback("mUIStackSplitFrame", styleStyleStackSplitFrame)

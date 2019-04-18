@@ -13,7 +13,7 @@ local _G = _G
 local function styleBNet()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
-	local BNToastFrame = _G["BNToastFrame"]
+	local BNToastFrame = _G.BNToastFrame
 	BNToastFrame:Styling()
 end
 

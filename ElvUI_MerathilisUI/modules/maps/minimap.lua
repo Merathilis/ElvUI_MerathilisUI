@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local LCG = LibStub('LibCustomGlow-1.0')
 MM.modName = L["MiniMap"]
 
 --Cache global variables
@@ -15,27 +16,20 @@ local Minimap = _G["Minimap"]
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
+local r, g, b = unpack(E["media"].rgbvaluecolor)
+
 function MM:CheckMail()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
 	if inv > 0 and mail then -- New invites and mail
-		Minimap.backdrop:SetBackdropBorderColor(242, 5/255, 5/255)
-		MER:CreatePulse(Minimap.backdrop, 1, 1)
+		LCG.PixelGlow_Start(Minimap, {242, 5/255, 5/255, 1}, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
-		Minimap.backdrop:SetBackdropBorderColor(1, 30/255, 60/255)
-		MER:CreatePulse(Minimap.backdrop, 1, 1)
+		LCG.PixelGlow_Start(Minimap, {1, 30/255, 60/255, 1}, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		Minimap.backdrop:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-		MER:CreatePulse(Minimap.backdrop, 1, 1)
+		LCG.PixelGlow_Start(Minimap, {r, g, b, 1}, 8, -0.25, nil, 1)
 	else -- None of the above
-		Minimap.backdrop:SetScript("OnUpdate", nil)
-		if not E.PixelMode then
-			Minimap.backdrop:SetAlpha(1)
-		else
-			Minimap.backdrop:SetAlpha(0)
-		end
-		Minimap.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
+		LCG.PixelGlow_Stop(Minimap)
 	end
 end
 
@@ -45,7 +39,15 @@ function MM:MiniMapCoords()
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
-	Coords:SetPoint(pos, 0, 0)
+	if pos == "BOTTOM" then
+		Coords:SetPoint(pos, 0, 2)
+	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
+		Coords:SetPoint(pos, 0, -12)
+	elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
+		Coords:SetPoint(pos, 0, -2)
+	else
+		Coords:SetPoint(pos, 0, 0)
+	end
 	Coords:Hide()
 
 	Minimap:HookScript("OnUpdate",function()
@@ -71,7 +73,7 @@ function MM:MiniMapPing()
 	local yOffset = E.db.mui.maps.minimap.ping.yOffset or 0
 	local f = CreateFrame("Frame", nil, Minimap)
 	f:SetAllPoints()
-	f.text = MER:CreateText(f, "OVERLAY", 10, "", nil, pos, xOffset, yOffset)
+	f.text = MER:CreateText(f, "OVERLAY", 10, "OUTLINE", "", nil, pos, xOffset, yOffset)
 
 	local anim = f:CreateAnimationGroup()
 	anim:SetScript("OnPlay", function() f:SetAlpha(1) end)

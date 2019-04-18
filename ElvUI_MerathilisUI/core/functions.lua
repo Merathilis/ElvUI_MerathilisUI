@@ -6,6 +6,7 @@ local _G = _G
 local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
 local find, format, match, split = string.find, string.format, string.match, string.split
+local strmatch = strmatch
 local tconcat = table.concat
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -41,6 +42,11 @@ MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
+MER.LineString = MER.GreyColor.."---------------"
+
+MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
+MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:333:411|t "
+MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 -- Class Color stuff
 MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
@@ -64,6 +70,15 @@ for class in pairs(colors) do
 	MER.ClassColors[class].colorStr = colors[class].colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+
+function MER:HexRGB(r, g, b)
+	if r then
+		if type(r) == "table" then
+			if r.r then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
+		end
+		return format("|cff%02x%02x%02x", r*255, g*255, b*255)
+	end
+end
 
 function MER:ClassColor(class)
 	local color = MER.ClassColors[class]
@@ -337,9 +352,9 @@ function MER:AddTooltip(self, anchor, text, color)
 end
 
 -- frame text
-function MER:CreateText(f, layer, size, text, classcolor, anchor, x, y)
+function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	local text = f:CreateFontString(nil, layer)
-	text:FontTemplate(nil, size or 10, 'OUTLINE')
+	text:FontTemplate(nil, size or 10, outline or "OUTLINE")
 	text:SetWordWrap(false)
 
 	if text then
@@ -397,19 +412,24 @@ MER:RegisterChatCommand("repop", MER.FixRelease)
 -- Personal Dev use only
 -- We will add more of my names as we go.
 MER.IsDev = {
-	["Merathilis"] = true,
-	["Róhal"] = true,
-	["Jazira"] = true,
+	["Asragoth"] = true,
 	["Damará"] = true,
-	["Merathilîs"] = true,
-	["Melisendra"] = true,
+	["Jazira"] = true,
+	["Jústice"] = true,
 	["Mattdemôn"] = true,
+	["Melisendra"] = true,
+	["Merathilis"] = true,
+	["Merathilîs"] = true,
+	["Róhal"] = true,
+	["Brítt"] = true,
 }
+
 -- Don't forget to update realm name(s) if we ever transfer realms.
 -- If we forget it could be easly picked up by another player who matches these combinations.
 -- End result we piss off people and we do not want to do that. :(
 MER.IsDevRealm = {
 	["Shattrath"] = true,
+	--["Garrosh"] = true,
 }
 
 function MER:IsDeveloper()
@@ -435,11 +455,84 @@ function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
 	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 
 	b.text = b:CreateFontString(nil, "OVERLAY")
-	b.text:SetFont(f, fs, ff)
+	b.text:FontTemplate(f, fs, ff)
 	b.text:SetText(txt)
 	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
 	b.text:SetJustifyH("CENTER")
 	b:SetAttribute("type1", "macro")
+end
+
+-- Icon Style
+function MER:PixelIcon(self, texture, highlight)
+	if not self then return end
+
+	self.Icon = self:CreateTexture(nil, "ARTWORK")
+	self.Icon:SetPoint("TOPLEFT", E.mult, -E.mult)
+	self.Icon:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+	self.Icon:SetTexCoord(unpack(E.TexCoords))
+	self.Icon:SetSnapToPixelGrid(false)
+	self.Icon:SetTexelSnappingBias(0)
+
+	if texture then
+		local atlas = strmatch(texture, "Atlas:(.+)$")
+		if atlas then
+			self.Icon:SetAtlas(atlas)
+		else
+			self.Icon:SetTexture(texture)
+		end
+	end
+	if highlight and type(highlight) == "boolean" then
+		self:EnableMouse(true)
+		self.HL = self:CreateTexture(nil, "HIGHLIGHT")
+		self.HL:SetColorTexture(1, 1, 1, .25)
+		self.HL:SetAllPoints(self.Icon)
+	end
+end
+
+-- Role Icons
+function MER:GetRoleTexCoord(role)
+	if role == "TANK" then
+		return .32/9.03, 2.04/9.03, 2.65/9.03, 4.3/9.03
+	elseif role == "DPS" or role == "DAMAGER" then
+		return 2.68/9.03, 4.4/9.03, 2.65/9.03, 4.34/9.03
+	elseif role == "HEALER" then
+		return 2.68/9.03, 4.4/9.03, .28/9.03, 1.98/9.03
+	elseif role == "LEADER" then
+		return .32/9.03, 2.04/9.03, .28/9.03, 1.98/9.03
+	elseif role == "READY" then
+		return 5.1/9.03, 6.76/9.03, .28/9.03, 1.98/9.03
+	elseif role == "PENDING" then
+		return 5.1/9.03, 6.76/9.03, 2.65/9.03, 4.34/9.03
+	elseif role == "REFUSE" then
+		return 2.68/9.03, 4.4/9.03, 5.02/9.03, 6.7/9.03
+	end
+end
+
+function MER:ReskinRole(self, role)
+	if self.background then self.background:SetTexture("") end
+	local cover = self.cover or self.Cover
+	if cover then cover:SetTexture("") end
+	local texture = self.GetNormalTexture and self:GetNormalTexture() or self.texture or self.Texture or (self.SetTexture and self)
+	if texture then
+		texture:SetTexture(E.media.roleIcons)
+		texture:SetTexCoord(MER:GetRoleTexCoord(role))
+	end
+
+	local checkButton = self.checkButton or self.CheckButton
+	if checkButton then
+		checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
+		checkButton:SetPoint("BOTTOMLEFT", -2, -2)
+	end
+
+	local shortageBorder = self.shortageBorder
+	if shortageBorder then
+		shortageBorder:SetTexture("")
+		local icon = self.incentiveIcon
+		icon:SetPoint("BOTTOMRIGHT")
+		icon:SetSize(14, 14)
+		icon.texture:SetSize(14, 14)
+		icon.border:SetTexture("")
+	end
 end
 
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
@@ -455,6 +548,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		stripes:SetPoint("TOPLEFT", 1, -1)
 		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
 		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
+		stripes:SetSnapToPixelGrid(false)
+		stripes:SetTexelSnappingBias(0)
 		stripes:SetHorizTile(true)
 		stripes:SetVertTile(true)
 		stripes:SetBlendMode("ADD")
@@ -468,6 +563,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
 		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetSnapToPixelGrid(false)
+		gradient:SetTexelSnappingBias(0)
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
 		f.gradient = gradient
@@ -479,6 +576,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		mshadow:Width(shadowOverlayWidth or 33)
 		mshadow:Height(shadowOverlayHeight or 33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
+		mshadow:SetSnapToPixelGrid(false)
+		mshadow:SetTexelSnappingBias(0)
 		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 
 		f.mshadow = mshadow

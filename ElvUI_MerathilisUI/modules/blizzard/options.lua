@@ -4,6 +4,7 @@ local ER = MER:GetModule("mUIErrors")
 -- Cache global variables
 -- Lua functions
 local pairs = pairs
+local tinsert = table.insert
 -- WoW API / Variables
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script

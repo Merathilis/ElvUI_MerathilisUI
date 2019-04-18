@@ -197,7 +197,7 @@ local function Initialize()
 	AFK.AFKMode.topPanel.mUILogo = AFK.AFKMode.topPanel:CreateTexture(nil, "OVERLAY")
 	AFK.AFKMode.topPanel.mUILogo:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
 	AFK.AFKMode.topPanel.mUILogo:SetPoint("RIGHT", AFK.AFKMode.topPanel, "RIGHT", -25, 8)
-	AFK.AFKMode.topPanel.mUILogo:Size(75, 80)
+	AFK.AFKMode.topPanel.mUILogo:Size(75, 75)
 
 	-- MerathilisUI Version
 	AFK.AFKMode.topPanel.mversion = MER:CreateText(AFK.AFKMode.topPanel, "OVERLAY", 10, nil)
@@ -265,7 +265,7 @@ local function Initialize()
 		playerModel.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\bubble.blp")
 
 		playerModel.tex.text = playerModel:CreateFontString(nil, "OVERLAY")
-		playerModel.tex.text:SetFont(E.LSM:Fetch("font", "Merathilis BadaBoom"), 20, "OUTLINE")
+		playerModel.tex.text:FontTemplate(E.LSM:Fetch("font", "Merathilis BadaBoom"), 20, "OUTLINE")
 		playerModel.tex.text:SetText("AFK ... maybe!?")
 		playerModel.tex.text:SetPoint("CENTER", playerModel.tex, "CENTER", 0, 10)
 		playerModel.tex.text:SetJustifyH("CENTER")

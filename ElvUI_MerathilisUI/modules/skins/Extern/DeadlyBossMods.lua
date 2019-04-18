@@ -5,8 +5,10 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
 -- WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+
 
 if not COMP.AS then return end
 local AS = unpack(AddOnSkins)
@@ -17,27 +19,27 @@ local function DbmDecor(event)
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
 		if DBM.Options.DontShowRangeFrame and not forceshow then return end
 
-		if not DBMRangeCheckRadar.IsStyled then
-			DBMRangeCheckRadar:Styling()
+		if not _G.DBMRangeCheckRadar.IsStyled then
+			_G.DBMRangeCheckRadar:Styling()
 
-			DBMRangeCheckRadar.IsStyled = true
+			_G.DBMRangeCheckRadar.IsStyled = true
 		end
 
-		if not DBMRangeCheck.IsStyled then
-			DBMRangeCheck:SetTemplate('Transparent')
-			DBMRangeCheck:Styling()
+		if not _G.DBMRangeCheck.IsStyled then
+			_G.DBMRangeCheck:SetTemplate('Transparent')
+			_G.DBMRangeCheck:Styling()
 
-			DBMRangeCheck.IsStyled = true
+			_G.DBMRangeCheck.IsStyled = true
 		end
 	end
 
 	local function StyleInfoFrame(self, maxLines, event, ...)
 		if DBM.Options.DontShowInfoFrame and (event or 0) ~= "test" then return end
 
-		if not DBMInfoFrame.IsStyled then
-			DBMInfoFrame:Styling()
+		if not _G.DBMInfoFrame.IsStyled then
+			_G.DBMInfoFrame:Styling()
 
-			DBMInfoFrame.IsStyled = true
+			_G.DBMInfoFrame.IsStyled = true
 		end
 	end
 

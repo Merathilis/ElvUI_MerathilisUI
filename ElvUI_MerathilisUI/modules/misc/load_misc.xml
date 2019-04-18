@@ -14,8 +14,10 @@
 	<Script file="merchant.lua"/>
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
+	<Script file="raidManager.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>
+	<Script file="talentManager.lua"/>
 	<Script file="threatBar.lua"/>
 	<Script file="options.lua"/>
 </Ui>

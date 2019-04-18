@@ -17,7 +17,7 @@ local function styleAdventureMap()
 
 	--[[ AddOns\Blizzard_AdventureMap.xml ]]
 	function MERS.AdventureMapQuestRewardTemplate(Button)
-		S:HandleTexture(Button.Icon, Button)
+		S:HandleIcon(Button.Icon)
 
 		Button.ItemNameBG:SetAlpha(0)
 

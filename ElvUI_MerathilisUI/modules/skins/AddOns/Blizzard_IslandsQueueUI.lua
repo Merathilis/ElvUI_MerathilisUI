@@ -14,7 +14,7 @@ local _G = _G
 local function styleIslands()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandQueue ~= true or E.private.muiSkins.blizzard.IslandQueue ~= true then return end
 
-	local IslandsQueueFrame = _G["IslandsQueueFrame"]
+	local IslandsQueueFrame = _G.IslandsQueueFrame
 	IslandsQueueFrame:Styling()
 
 	IslandsQueueFrame.HelpButton:Hide()

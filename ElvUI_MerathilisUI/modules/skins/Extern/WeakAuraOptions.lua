@@ -4,7 +4,8 @@ local S = E:GetModule("Skins")
 
 -- Cache global variables
 -- Lua functions
-
+local _G = _G
+local unpack = unpack
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local CreateFrame = CreateFrame
@@ -19,7 +20,7 @@ local function InitStyleWAO()
 		--print("Options opened", ...)
 		if not IsAddOnLoaded("WeakAuras") or not E.private.muiSkins.addonSkins.wa then return end
 
-		local frame = WeakAuras.OptionsFrame()
+		local frame = _G.WeakAuras.OptionsFrame()
 		if frame.skinned then return end
 
 		local children = {frame:GetChildren()}
@@ -66,7 +67,7 @@ local function InitStyleWAO()
 		-- TODO: SKIN ME
 
 		-- Search
-		S:HandleEditBox(WeakAurasFilterInput)
+		S:HandleEditBox(_G.WeakAurasFilterInput)
 
 		-- Remove Title BG
 		frame:StripFrame()

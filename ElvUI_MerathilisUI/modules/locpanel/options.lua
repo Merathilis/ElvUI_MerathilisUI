@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule("LocPanel")
-local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 
 --Cache global variables
+--Lua functions
 local format = string.format
 local tinsert = table.insert
 local strsplit = strsplit
@@ -10,8 +10,7 @@ local match = string.match
 local tconcat = table.concat
 local tremove = table.remove
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
@@ -279,7 +278,7 @@ local function LocPanelTable()
 								type = "toggle",
 								order = 6,
 								name = L["Hearthstone Location"],
-								desc = L["Show the name on location your Heathstone is bound to."],
+								desc = L["Show the name on location your Hearthstone is bound to."],
 							},
 							showHearthstones = {
 								type = "toggle",
@@ -310,7 +309,7 @@ local function LocPanelTable()
 								type = "toggle",
 								order = 50,
 								name = L["Ignore missing info"],
-								desc = L["SLE_LOCPANEL_IGNOREMISSINGINFO"],
+								desc = L["MER_LOCPANEL_IGNOREMISSINGINFO"],
 							},
 						},
 					},

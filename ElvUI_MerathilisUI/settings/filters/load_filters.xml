@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="NamePlates.lua"/>
 	<Script file="Reminder.lua"/>
 	<Script file="UnitFrame.lua"/>
 </Ui>

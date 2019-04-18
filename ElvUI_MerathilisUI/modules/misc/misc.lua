@@ -159,25 +159,6 @@ function MI:LoadMisc()
 		-- but for the average end-user this is a completely pointless thing to track.
 		UpdateAddOnMemoryUsage = MER.dummy
 	end
-
-	-- Auto collapse ObjectiveTracker in Raid
-	local f = CreateFrame("Frame", nil, UIParent)
-	f:RegisterEvent("ENCOUNTER_START")
-	f:RegisterEvent("ENCOUNTER_END")
-	f:RegisterEvent("LOADING_SCREEN_DISABLED")
-
-	f:SetScript("OnEvent", function(self, event, arg1)
-		if (not IsInRaid()) then
-			ObjectiveTracker_Expand()
-			return
-		end
-
-		if (event == "ENCOUNTER_START" or (event == "LOADING_SCREEN_DISABLED" and UnitExists("boss1"))) then
-			ObjectiveTracker_Collapse()
-		else
-			ObjectiveTracker_Expand()
-		end
-	end)
 end
 
 function MI:SetRole()
@@ -206,8 +187,10 @@ function MI:Initialize()
 	self:LoadMoverTransparancy()
 	self:LoadQuest()
 	self:LoadnameHover()
-	self:GuildBest()
 	self:ItemLevel()
+	self:CreateRaidManager()
+	self:GuildBest()
+	self:LoadTalentProfiles()
 end
 
 local function InitializeCallback()

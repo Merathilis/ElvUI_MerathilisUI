@@ -35,8 +35,10 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
-L["Removed: "] = "Entfernt: "
-L["Usable Items"] = "Benutzbare Gegenstände"
+L["Transparent Slots"] = "Transparente Schaltflächen"
+L["Equipment Manager"] = "Ausrüstungsmanager"
+L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
+L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -58,10 +60,13 @@ L["Chat Menu"] = "Chat Menu"
 L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
-L["Hide Chat Side Panel"] = "Verstecke Chat Side Panel"
-L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = "Entfernt das Chat SiePanel. |cffFF0000ACHTUNG: Wenn du diese Option deaktivierst musst du dein Layout anpassen.|r"
 L["ChatBar"] = "Chatleiste"
 L["Shows a ChatBar with different quick buttons."] = "Zeigt eine Chatleiste mit verschiedenen Schnelltasten."
+L["Hide Community Chat"] = "Verstecke Community Chat"
+L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein Overlay zum Community Chat hinzu. Nützlich für Streamer."
+L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
+L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
+L["Emotes"] = true
 
 -- Information
 L["Information"] = true
@@ -91,15 +96,25 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "Aktivert
 
 -- MasterPlan
 L["MasterPlan"] = true
-L["Skins the additional Tabs from MasterPlan."] = "Skint die zusätzlichen Tabs von MasterPlan."
-L["Misc"] = "Verschiedenes"
+L["Skins the additional Tabs from MasterPlan."] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = "Verstecke in Ordenshalle"
 L["Show/Hide the friend text on MicroBar."] = "Zeige/Verstecke die Anzahl der Freunde auf der Mikroleiste."
 L["Show/Hide the guild text on MicroBar."] = "Zeige/Verstecke die Anzahl der Gildenmember auf der Mikroleiste."
+L["Blingtron"] = "Blingtron Tägliches Geschenk"
+L["Mean One"] = "Winterhauchfest"
+L["Timewarped"] = "500 Zeitverzerrte Abzeichen"
+L["Legion Invasion"] = true
+L["Faction Assault"] = "Fraktionsübergriff"
+L["Local Time"] = "Lokale Zeit"
+L["Realm Time"] = "Server Zeit"
+L["Current Invasion: "] = "Aktuelle Invasion: "
+L["Next Invasion: "] = "Nächste Invasion: "
+L["Mythic Dungeon"] = "Mythische Instanz"
 
 -- Misc
+L["Misc"] = "Verschiedenes"
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
@@ -116,6 +131,24 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
+L["Raid Info"] = "Raid Information"
+L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
+L["Keystones"] = "Schlüsselsteine"
+
+-- Talent Manager
+L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
+L["Added a new profile: "] = "Neues Profile hinzugefügt: "
+L["Unable to load the selected profile"] = "Nicht möglich das ausgewählte Profil zu laden"
+L["Saved profile: "] = "Profil gespeichert: "
+L["Removed a profile: "] = "Profile entfernt: "
+L["Enter Profile Name: "] = "Profil Namen eingeben: "
+L["Do you want to remove the profile '%s'?"] = "Willst du wirklich das Proil '%s' entfernen?"
+L["Unable to load talent configuration for the selected profile"] = "Nicht möglich die Talent Konfiguration für das ausgewählte Profil zu laden"
+L["Activated profile: "] = "Aktiviere Profil "
+L["Add new profile"] = "Neues Profil hinzufügen"
+L["Migration: Info: No profiles found for spec #"] = "Migration: Info: Kein Profil gefunden für Spezialisierung #"
+L["Migration: Info: Migrated profile "] = "Migration: Info: Profil migriert "
+L["Migration: Done: Successfully migrated "] = "Migration: Done: Erfolgreich migriert "
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -124,33 +157,19 @@ L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
 L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
 L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
-L["Model"] = true
-L["Adds an Model icon on the tooltip."] = "Fügt ein Model am Tooltip hinzu."
+L["Keystone"] = "Schlüsselstein"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "Fügt eine Beschreibung für mythische Schlüsselsteine Eigenschaften am Tooltip hinzu."
-L["Realm Info"] = true
-L["Shows realm info in various tooltips."] = "Zeigt Realminformationen im Tooltip"
-L["Tooltips"] = true
-L["Show the realm info in the group finder tooltip."] = "Zeigt Realminformationen im Tooltip in der Gruppensuche an"
-L["Player Tooltips"] = "Spieler Tooltips"
-L["Show the realm info in the player tooltip."] = "Zeigt Realminformationen im Tooltip von Spielern an"
-L["Friend List"] = "Freundesliste"
-L["Show the realm info in the friend list tooltip."] = "Zeigt Realminformationen im Tooltip in der Freundesliste an"
-L["Tooltip Lines"] = "Tooltip Linien"
-L["Realm Timezone"] = "Realm Zeitzone"
-L["Add realm timezone to the tooltip."] = "Zeigt die Zeitzone des Realms im Tooltip an"
-L["Realm Type"] = "Realmtyp"
-L["Add realm type to the tooltip."] = "Zeigt den Realmtyp im Tooltip an"
-L["Realm Language"] = "Realmsprache"
-L["Add realm language to the tooltip."] = "Zeigt die Sprache des Realm im Tooltip an"
-L["Connected Realms"] = "Verbundene Realms"
-L["Add the connected realms to the tooltip."] = "Zeigt verbundene Realms im Tooltip an"
-L["Country Flag"] = "Landesflagge"
-L["Display the country flag without text on the left side in tooltip."] = "Zeigt die Landesflagge ohne Text auf der linken Seite des Tooltips an"
-L["Behind language in 'Realm language' line"] = "Nach der Realmsprache"
-L["Behind the character name"] = "Nach dem Charakternamen"
-L["In own tooltip line on the left site"] = "In einer eigenen Zeile auf der linken Seite"
-L["Prepend country flag on character name in group finder."] = "Vor dem Characternamen in der Gruppensuche"
-L["Prepend country flag on character name in community member lists."] = "Vor dem Characternamen in der Gemeinschafts-Mitgliederliste"
+L["Title Color"] = "Titel Farbe"
+L["Change the color of the title in the Tooltip."] = "Ändert die Farbe des Titels im Tooltip."
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = "Zeigt Schlachtzugsfortschritt für einen Charakter im Tooltip an."
+L["Mythic"] = "Mytisch"
+L["Heroic"] = "Heroisch"
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
+L["CrucibleOfStorms"] = "Tiegel der Stürme"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -171,7 +190,7 @@ L["Event \"%s\" will end tomorrow."] = "Ereignis \"%s\" endet morgen."
 L["Here you can enable/disable the different notification types."] = "Hier kannst du die verschiedenen Benachrichtigungstypen aktivieren/deaktivieren."
 L["Enable Mail"] = "Aktiviere Post"
 L["Enable Vignette"] = "Aktiviere Vignette"
-L["If a Rar Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
+L["If a Rare Mob or a treasure gets spotted on the minimap."] = "Wenn ein Rar Mob oder ein Schatz auf der Minikarte erscheint."
 L["Enable Invites"] = "Aktiviere Einladungen"
 L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Sounds"
@@ -185,47 +204,96 @@ L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
 L["Style DataBars"] = "Informationsleisten Stil"
 
--- System Datatext
-L["(Hold Shift) Memory Usage"] = "(Halte Shift) Speichernutzung"
-L["Announce Freed"] = "Freigegeben ankündigen "
-L["Announce how much memory was freed by the garbage collection."] = "Kündige an, wieviel Spreicher bei der Bereinigung freigegeben wurde."
-L["Bandwidth"] = "Bandbreite"
-L["Display world or home latency on the datatext. Home latency refers to your realm server. World latency refers to the current world server."] = "Zeige die Welt- oder Heimlatenz im Infotext. Heimlatenz bezieht sich auf die Realm Server. Weltlatenz bezieht sich auf die Welt Server."
-L["Download"] = ""
-L["FPS"] = true
-L["Garbage Collect"] = "Müll aufräumen"
-L["Garbage Collection Freed"] = "Müll gesäubert"
-L["Home"] = "Heim"
-L["Home Latency:"] = "Heimlatenz:"
-L["Home Protocol:"] = "Heim Protokol:"
-L["Latency Type"] = "Latenztyp"
-L["Left Click:"] = "Links Klick:"
-L["Loaded Addons:"] = "Geladene Addons:"
-L["MS"] = true
-L["Max Addons"] = true
-L["Maximum number of addons to show in the tooltip."] = "Maximale Addons die im Tooltip angezeigt werden."
-L["Reload UI"] = "UI neuladen"
-L["Right Click:"] = "Rechts Klick:"
-L["Show FPS"] = "Zeige FPS"
-L["Show FPS on the datatext."] = "Zeige FPS auf dem Infotext."
-L["Show Latency"] = "Zeige Latenz"
-L["Show Memory"] = "Zeige Speicher"
-L["Show latency on the datatext."] = "Zeige Latenz auf dem Infotext."
-L["Show total addon memory on the datatext."] = "Zeige Addonspeichernutzung auf dem Infotext."
-L["System Datatext"] = "System Infotext"
-L["Total Addons:"] = "Gesamte Addons:"
-L["Total CPU:"] = "Gesamte CPU:"
-L["Total Memory:"] = "Gesamter Speicher:"
-L["World"] = "Welt"
-L["World Latency:"] = "Weltlatenz"
-L["World Protocol:"] = "Welt Protokol"
-
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
 L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
+L["Auto Buttons"] = "Auto Tasten"
+L["Bind Font Size"] = "Belegungstext Größe"
+L["Trinket Buttons"] = "Trinket Tasten"
+L["Color by Quality"] = "Färbe nach Qualität"
+L["Quest Buttons"] = "Quest Tasten"
+
+-- Armory
+L["Armory"] = "Arsenal"
+L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvUI Charakter Informationen'. Es könnte sein dass du dein UI neuladen musst:
+
+ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
+L["Azerite Buttons"] = "Azerittasten"
+L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
+L["Durability"] = "Haltbarkeit"
+L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
+L["Damaged Only"] = "Nur beschädigt"
+L["Only show durability information for items that are damaged."] = "Haltbarkeit nur bei beschädigten Gegenständen anzeigen"
+L["Itemlevel"] = "Gegenstandsstufe"
+L["Enable/Disable the display of item levels on the character window."] = "Gegenstandsstufen im Charakterfenster anzeigen/verbergen"
+L["Level"] = "Stufe"
+L["Full Item Level"] = "Vollständige Gegenstandsstufe"
+L["Show both equipped and average item levels."] = "Ausgerüstete und durchschnittliche Gegenstandsstufe anzeigen"
+L["Item Level Coloring"] = "Gegenstandsstufe färben"
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = "Färbt die Gegenstandsstufe ein. Ausgerüstete Stufe wird kombiniert, Maximalstufe entspricht der ausgewählten Farbe"
+L["Color of Average"] = "Durchschnittsfarbe"
+L["Sets the color of average item level."] = "Setzt die Farbe der durchschnittlichen Gegenstandsstufe"
+L["Only Relevant Stats"] = "Nur relevante Attribute"
+L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
+L["Item Level"] = "Gegenstandsstufe"
+L["Categories"] = "Kategorien"
+L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
+L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
+L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
+L["Slot Gradient"] = "Gegenstand-Farbverlauf"
+L["Indicators"] = "Indikatoren"
+L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
+L["Transmog"] = true -- No need to translate
+L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogriefizierten Gegenstand."
+L["Illusion"] = "Illusionen"
+L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffen Illusionen."
+-- PRINTS
+L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
+L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
+L["Equipped shoulder is not an Azerite item."] = "Ausgerüstete Schulter ist kein Azerite Gegenstand."
+L["No shoulder item is equipped."] = "Kein Schulter Gegenstand ausgerüstet."
+L["Equipped chest is not an Azerite item."] = "Ausgerüstete Brust ist kein Azerite Gegenstand."
+L["No chest item is equipped."] = "Kein Brust Gegenstand ausgerüstet."
+
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
@@ -287,7 +355,7 @@ L["Justify Text"] = "Text ausrichten"
 L["Auto Width"] = "Auto Breite"
 L["Change width based on the zone name length."] = "Ändert die Breite nach dem Zonen Text."
 L["Hearthstone Location"] = "Ruhestein Position"
-L["Show the name on location your Heathstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
+L["Show the name on location your Hearthstone is bound to."] = "Zeige die Position an wo dein Ruhestein liegt."
 L["Combat Hide"] = "Im Kampf ausblenden"
 L["Show/Hide all panels when in combat"] = "Zeige/Verstecke das Panel während des Kampfes"
 L["Hide In Class Hall"] = "Verstecke in der Klassenhalle"
@@ -318,6 +386,43 @@ L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen 
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
+-- NSCT
+L["Combat Text"] = "Kampftext"
+L["Disable Blizzard FCT"] = "Deaktive den Blizzard Kampftext"
+L["Personal SCT"] = "Persönlicher Kampftext"
+L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = "Zeigt auch Nummern wenn du Schaden erleidest auf deiner persönlichen Namensplakette oder in der Mitte des Blidschirms."
+L["Animations"] = "Animation"
+L["Default"] = "Standard"
+L["Criticals"] = "Kritisch"
+L["Miss/Parry/Dodge/etc."] = "Verfehlen/Parrieren/Blocken/etc."
+L["Personal SCT Animations"] = "Persönlicher Kampftext Animation"
+L["Appearance/Offsets"] = "Anzeige/Versatz"
+L["Font Shadow"] = "Text Schatten"
+L["Use Damage Type Color"] = "Benutze Schadenstyp Farbe"
+L["Default Color"] = "Standardfarbe"
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = "Hat einen soft min/max, du kannst eingeben was immer du möchtest. LoL"
+L["X-Offset Personal SCT"] = "X-Versatz persönliche Anzeige"
+L["Y-Offset Personal SCT"] = "Y-Versatz persönliche Anzeige"
+L["Only used if Personal Nameplate is Disabled."] = "Wird nur benutzt wenn die persönliche Namensplakette deaktiviert ist."
+L["Text Formatting"] = "Textformat"
+L["Truncate Number"] = "Nummern kürzen"
+L["Condense combat text numbers."] = "Fügt Kampftext Nummern zusammen"
+L["Show Truncated Letter"] = "Zeige gekürzte Buchstaben"
+L["Comma Seperate"] = "Komma"
+L["e.g. 100000 -> 100,000"] = "z.B. 100000 -> 100,000"
+L["Icon"] = "Symbol"
+L["Size"] = "Größe"
+L["Start Alpha"] = true
+L["Use Seperate Off-Target Text Appearance"] = "Benutze seperate Off-Target Anzeige"
+L["Off-Target Text Appearance"] = "Off-Target Textanzeige"
+L["Sizing Modifiers"] = "Größe anpassen"
+L["Embiggen Crits"] = "Vergrößere Krits"
+L["Embiggen Crits Scale"] = "Vergrößerte Krits Skallierung"
+L["Embiggen Miss/Parry/Dodge/etc."] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc."
+L["Embiggen Miss/Parry/Dodge/etc. Scale"] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc. Skallierung"
+L["Scale Down Small Hits"] = "Einfache Treffer runterskallieren"
+L["Small Hits Scale"] = "Einfache Treffer Skallierung"
+
 -- SMB
 L["Bar Backdrop"] = "Leisten Hintergrund"
 L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
@@ -343,6 +448,7 @@ L["Shows a frame with flask/food/rune."] = "Zeigt ein Fenster mit Flask/Food/Run
 L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
+L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden Klassenspezifischen Buffs."
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
@@ -386,33 +492,7 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Nameplates
-L["NameplateAuras"] = "Namensplaketten Auren"
-L["Visibility"] = "Sichtbarkeit"
-L["Set when this aura is visble."] = "Benutze wenn diese Aura sichtbar ist"
-L["Clear Spell List"] = "Leere die Zauberliste"
-L["Empties the list of specific spells and their configurations."] = "Leert die Liste von speziellen Zaubern und deren Einstellungen."
-L["Restore Spell List"] = "Zauberliste wiederherstellen"
-L["Restores the default list of specific spells and their configurations."] = "Stellt die Standardliste von speziellen Zaubern und Einstellungen wiederher."
-L["Spell Name/ID"] = "Zauber Name/ID"
-L["Input a spell name or spell ID."] = "Gib einen Zauber Name oder Zauber ID ein."
-L["Spell List"] = "Zauberliste"
-L["Remove Spell"] = "Zauber entfernen"
-L["Other Auras"] = "Andere Auren"
-L["These are the settings for all spells not explicitly specified."] = "Dies sind die Einstellungen für alle Zauber, die nicht explizit angegeben sind."
-L["Icon Width"] = "Symbol Breite"
-L["Set the width of this spells icon."] = "Setzt die Breite von einem Zaubersymbol."
-L["Icon Height"] = "Symbol Höhe"
-L["Set the height of this spells icon."] = "Setzt die Höhe von einem Zaubersymbol."
-L["Lock Aspect Ratio"] = "Seitenverhältnis sperren"
-L["Set if height and width are locked to the same value."] = "Behält das Seitenverhältnis bei."
-L["Stack Size"] = "Stappel Größe"
-L["Text Size"] = "Text Größe"
-L["Size of the stack text."] = "Größe des Stack Texts."
-L["Size of the cooldown text."] = "Größe des Cooldown Texts."
-L["Specific Auras"] = "Spezifische Auren"
-L["Always"] = "Immer"
-L["Never"] = "Niemals"
-L["Only Mine"] = "Nur eigene"
+L["Castbar Target"] = "Zauberleisten Ziel"
 
 -- Install
 L["Welcome"] = "Willkommen"

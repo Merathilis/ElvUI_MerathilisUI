@@ -9,6 +9,7 @@ local pairs, select = pairs, select
 local hooksecurefunc = hooksecurefunc
 local GetContainerItemLink = GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
+
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
@@ -16,7 +17,7 @@ function MI:ItemLevel()
 	--ItemLevel on Scrapping Machine
 	local function ScrappingMachineUpdate(self)
 		if not self.iLvl then
-			self.iLvl = MER:CreateText(self, "OVERLAY", 10)
+			self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
 			self.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
 		end
 
@@ -47,7 +48,7 @@ function MI:ItemLevel()
 	-- ItemLevel on Flyoutbuttons
 	local function SetupFlyoutLevel(button, bag, slot, quality)
 		if not button.iLvl then
-			button.iLvl = MER:CreateText(button, "OVERLAY", 10)
+			button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
 			button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
 		end
 
@@ -67,9 +68,8 @@ function MI:ItemLevel()
 
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		local location = button.location
-		if not location or location < 0 then return end
 
-		if location == EQUIPMENTFLYOUT_PLACEINBAGS_LOCATION then
+		if not location or location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
 			if button.iLvl then button.iLvl:SetText("") end
 			return
 		end

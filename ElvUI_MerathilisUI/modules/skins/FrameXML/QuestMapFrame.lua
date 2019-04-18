@@ -5,10 +5,11 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local next, select, unpack = next, select, unpack
 -- WoW API / Variables
 local C_CampaignInfo_GetCampaignInfo = C_CampaignInfo.GetCampaignInfo
 local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -17,12 +18,12 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleQuestMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	local QuestMapFrame = _G["QuestMapFrame"]
+	local QuestMapFrame = _G.QuestMapFrame
 
 	-- Quest scroll frame
-	local QuestScrollFrame = _G["QuestScrollFrame"]
+	local QuestScrollFrame = _G.QuestScrollFrame
 	local campaignHeader = QuestScrollFrame.Contents.WarCampaignHeader
-	local StoryHeader = QuestScrollFrame.Contents.StoryHeader
+	local storyHeader = QuestScrollFrame.Contents.StoryHeader
 
 	QuestMapFrame.VerticalSeparator:SetAlpha(0)
 	QuestScrollFrame.Background:SetAlpha(0)
@@ -30,14 +31,15 @@ local function styleQuestMapFrame()
 	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator:SetAlpha(0)
 
-	for _, header in next, {campaignHeader, StoryHeader} do
+	for _, header in next, {campaignHeader, storyHeader} do
 		header.Background:SetAlpha(0)
 		header.HighlightTexture:Hide()
 		header.Text:SetPoint("TOPLEFT", 15, -20)
 
 		local bg = MERS:CreateBDFrame(header, .25)
-		bg:SetPoint("TOPLEFT", 0, -8)
-		bg:SetPoint("BOTTOMRIGHT", -4, 0)
+		bg:SetPoint("TOPLEFT", 6, -2)
+		bg:SetPoint("BOTTOMRIGHT", -6, 2)
+
 		if header == campaignHeader then
 			local newTex = bg:CreateTexture(nil, "OVERLAY")
 			newTex:SetPoint("TOPRIGHT", -15, -3)
@@ -72,6 +74,11 @@ local function styleQuestMapFrame()
 		end
 	end
 
+	-- Scroll frame
+	hooksecurefunc("QuestLogQuests_Update", function()
+		UpdateCampaignHeader()
+	end)
+
 	-- Quest details
 	local DetailsFrame = QuestMapFrame.DetailsFrame
 	local RewardsFrame = DetailsFrame.RewardsFrame
@@ -98,11 +105,6 @@ local function styleQuestMapFrame()
 	RewardsFrame.Background:SetAlpha(0)
 	select(2, RewardsFrame:GetRegions()):SetAlpha(0)
 
-	-- Scroll frame
-	hooksecurefunc("QuestLogQuests_Update", function()
-		UpdateCampaignHeader()
-	end)
-
 	-- Complete quest frame
 	CompleteQuestFrame:GetRegions():SetAlpha(0)
 	select(2, CompleteQuestFrame:GetRegions()):SetAlpha(0)
@@ -113,20 +115,19 @@ local function styleQuestMapFrame()
 	local QuestLogPopupDetailFrame = _G["QuestLogPopupDetailFrame"]
 
 	select(18, QuestLogPopupDetailFrame:GetRegions()):SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
-	QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
+	_G.QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
 
-	_G["QuestLogPopupDetailFrameScrollFrame"]:HookScript("OnUpdate", function(self)
-		_G["QuestLogPopupDetailFrameScrollFrame"].backdrop:Hide()
-		_G["QuestLogPopupDetailFrameInset"]:Hide()
-		_G["QuestLogPopupDetailFrameBg"]:Hide()
+	_G.QuestLogPopupDetailFrameScrollFrame:HookScript("OnUpdate", function(self)
+		_G.QuestLogPopupDetailFrameScrollFrame.backdrop:Hide()
+		_G.QuestLogPopupDetailFrameInset:Hide()
+		_G.QuestLogPopupDetailFrameBg:Hide()
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemover.enable then
 			self.spellTex:SetTexture("")
 		end
 	end)
-	select(18, QuestLogPopupDetailFrame:GetRegions()):Hide()
 	QuestLogPopupDetailFrame:Styling()
 
 	-- Show map button
@@ -144,11 +145,11 @@ local function styleQuestMapFrame()
 	ShowMapButton:SetPoint("TOPRIGHT", QuestLogPopupDetailFrame, -30, -25)
 
 	ShowMapButton:HookScript("OnEnter", function(self)
-		self.Text:SetTextColor(GameFontHighlight:GetTextColor())
+		self.Text:SetTextColor(_G.GameFontHighlight:GetTextColor())
 	end)
 
 	ShowMapButton:HookScript("OnLeave", function(self)
-		self.Text:SetTextColor(GameFontNormal:GetTextColor())
+		self.Text:SetTextColor(_G.GameFontNormal:GetTextColor())
 	end)
 
 	-- Bottom buttons

@@ -10,33 +10,27 @@ local pairs, select, unpack = pairs, select, unpack
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local PlayerHasToy = PlayerHasToy
-
+local hooksecurefunc = hooksecurefunc
+local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleCollections()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
 
-	local CollectionsJournal = _G["CollectionsJournal"]
+	local CollectionsJournal = _G.CollectionsJournal
 	CollectionsJournal:Styling()
 
-	-- [[ General ]]
-	for i = 1, 14 do
-		if i ~= 8 then
-			select(i, CollectionsJournal:GetRegions()):Hide()
-		end
-	end
-
-	CollectionsJournalTab2:SetPoint("LEFT", CollectionsJournalTab1, "RIGHT", -15, 0)
-	CollectionsJournalTab3:SetPoint("LEFT", CollectionsJournalTab2, "RIGHT", -15, 0)
-	CollectionsJournalTab4:SetPoint("LEFT", CollectionsJournalTab3, "RIGHT", -15, 0)
-	CollectionsJournalTab5:SetPoint("LEFT", CollectionsJournalTab4, "RIGHT", -15, 0)
+	_G.CollectionsJournalTab2:SetPoint("LEFT", _G.CollectionsJournalTab1, "RIGHT", -15, 0)
+	_G.CollectionsJournalTab3:SetPoint("LEFT", _G.CollectionsJournalTab2, "RIGHT", -15, 0)
+	_G.CollectionsJournalTab4:SetPoint("LEFT", _G.CollectionsJournalTab3, "RIGHT", -15, 0)
+	_G.CollectionsJournalTab5:SetPoint("LEFT", _G.CollectionsJournalTab4, "RIGHT", -15, 0)
 
 	-- [[ Mounts and pets ]]
-	local PetJournal = _G["PetJournal"]
-	local MountJournal = _G["MountJournal"]
+	local PetJournal = _G.PetJournal
+	local MountJournal = _G.MountJournal
 
 	for i = 1, 9 do
 		select(i, MountJournal.MountCount:GetRegions()):Hide()
@@ -52,7 +46,7 @@ local function styleCollections()
 	MountJournal.MountDisplay.YesMountsTex:SetAlpha(0)
 	MountJournal.MountDisplay.NoMountsTex:SetAlpha(0)
 	MountJournal.MountDisplay.ShadowOverlay:Hide()
-	PetJournalTutorialButton.Ring:Hide()
+	_G.PetJournalTutorialButton.Ring:Hide()
 
 	MERS:CreateBD(MountJournal.MountCount, .25)
 	MERS:CreateBD(PetJournal.PetCount, .25)
@@ -106,8 +100,8 @@ local function styleCollections()
 		MERS:CreateGradient(bu.backdrop)
 	end
 
-	PetJournalHealPetButtonBorder:Hide()
-	PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
+	_G.PetJournalHealPetButtonBorder:Hide()
+	_G.PetJournalHealPetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
 	PetJournal.HealPetButton:SetPushedTexture("")
 	PetJournal.HealPetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 
@@ -117,31 +111,31 @@ local function styleCollections()
 		MERS:CreateBG(ic)
 	end
 
-	PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
-	PetJournalLoadoutBorderSlotHeaderText:SetPoint("CENTER", PetJournalLoadoutBorderTop, "TOP", 0, 4)
+	_G.PetJournalLoadoutBorderSlotHeaderText:SetParent(PetJournal)
+	_G.PetJournalLoadoutBorderSlotHeaderText:SetPoint("CENTER", _G.PetJournalLoadoutBorderTop, "TOP", 0, 4)
 
-	PetJournalSummonRandomFavoritePetButtonBorder:Hide()
-	PetJournalSummonRandomFavoritePetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
-	PetJournalSummonRandomFavoritePetButton:SetPushedTexture("")
-	PetJournalSummonRandomFavoritePetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	_G.PetJournalSummonRandomFavoritePetButtonBorder:Hide()
+	_G.PetJournalSummonRandomFavoritePetButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
+	_G.PetJournalSummonRandomFavoritePetButton:SetPushedTexture("")
+	_G.PetJournalSummonRandomFavoritePetButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 
 	-- Favourite mount button
-	MountJournalSummonRandomFavoriteButtonBorder:Hide()
-	MountJournalSummonRandomFavoriteButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
-	MountJournalSummonRandomFavoriteButton:SetPushedTexture("")
-	MountJournalSummonRandomFavoriteButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+	_G.MountJournalSummonRandomFavoriteButtonBorder:Hide()
+	_G.MountJournalSummonRandomFavoriteButtonIconTexture:SetTexCoord(unpack(E.TexCoords))
+	_G.MountJournalSummonRandomFavoriteButton:SetPushedTexture("")
+	_G.MountJournalSummonRandomFavoriteButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 
 	-- Pet card
-	local card = PetJournalPetCard
+	local card = _G.PetJournalPetCard
 
-	PetJournalPetCardBG:Hide()
+	_G.PetJournalPetCardBG:Hide()
 	card.PetInfo.levelBG:SetAlpha(0)
 	card.PetInfo.qualityBorder:SetAlpha(0)
 	card.AbilitiesBG1:SetAlpha(0)
 	card.AbilitiesBG2:SetAlpha(0)
 	card.AbilitiesBG3:SetAlpha(0)
 
-	card.PetInfo.level:SetFontObject(GameFontNormal)
+	card.PetInfo.level:SetFontObject(_G.GameFontNormal)
 	card.PetInfo.level:SetTextColor(1, 1, 1)
 
 	card.PetInfo.icon:SetTexCoord(unpack(E.TexCoords))
@@ -186,7 +180,7 @@ local function styleCollections()
 		bu.helpFrame:GetRegions():Hide()
 		bu.dragButton:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
 
-		bu.level:SetFontObject(GameFontNormal)
+		bu.level:SetFontObject(_G.GameFontNormal)
 		bu.level:SetTextColor(1, 1, 1)
 
 		bu.icon:SetTexCoord(unpack(E.TexCoords))
@@ -239,7 +233,7 @@ local function styleCollections()
 	PetJournal.SpellSelect.BgTiled:Hide()
 
 	-- [[ Toy box ]]
-	local ToyBox = _G["ToyBox"]
+	local ToyBox = _G.ToyBox
 
 	-- Progress bar
 	local progressBar = ToyBox.progressBar
@@ -261,24 +255,8 @@ local function styleCollections()
 		MERS:CreateGradient(bg)
 	end
 
-	hooksecurefunc("ToySpellButton_UpdateButton", function(self)
-		self.name.SetTextColor = nil
-		if (PlayerHasToy(self.itemID)) then
-			local quality = select(3, GetItemInfo(self.itemID))
-			local r, g, b = 1, 1, 1
-			if quality then
-				r, g, b = GetItemQualityColor(quality)
-			end
-			self.name:SetTextColor(r, g, b)
-		else
-			self.name:SetTextColor(.6, .6, .6)
-		end
-		self.name.SetTextColor = E.noop
-	end)
-
-
 	-- [[ Heirlooms ]]
-	local HeirloomsJournal = _G["HeirloomsJournal"]
+	local HeirloomsJournal = _G.HeirloomsJournal
 
 	-- Progress bar
 	local progressBar = HeirloomsJournal.progressBar
@@ -302,7 +280,7 @@ local function styleCollections()
 			local header = HeirloomsJournal.heirloomHeaderFrames[i]
 			if not header.IsStyled then
 				header.text:SetTextColor(1, 1, 1)
-				header.text:SetFont(E["media"].normFont, 16, "OUTLINE")
+				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
 
 				header.IsStyled = true
 			end
@@ -310,7 +288,7 @@ local function styleCollections()
 	end)
 
 	-- [[ WardrobeCollectionFrame ]]
-	local WardrobeCollectionFrame = _G["WardrobeCollectionFrame"]
+	local WardrobeCollectionFrame = _G.WardrobeCollectionFrame
 	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
 
 	for index = 1, 2 do
@@ -377,8 +355,8 @@ local function styleCollections()
 		end
 
 		if itemFrame.collected then
-			local quality = C_TransmogCollection.GetSourceInfo(itemFrame.sourceID).quality
-			local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+			local quality = C_TransmogCollection_GetSourceInfo(itemFrame.sourceID).quality
+			local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
 			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 		else
 			ic.bg:SetBackdropBorderColor(0, 0, 0)
@@ -391,10 +369,10 @@ local function styleCollections()
 	end
 
 	-- [[ Wardrobe ]]
-	local WardrobeFrame = _G["WardrobeFrame"]
-	local WardrobeTransmogFrame = WardrobeTransmogFrame
+	local WardrobeFrame = _G.WardrobeFrame
+	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
 
-	WardrobeTransmogFrameBg:Hide()
+	_G.WardrobeTransmogFrameBg:Hide()
 	WardrobeTransmogFrame.Inset.BG:Hide()
 	WardrobeTransmogFrame.Inset:DisableDrawLayer("BORDER")
 	WardrobeTransmogFrame.MoneyLeft:Hide()
@@ -408,10 +386,10 @@ local function styleCollections()
 	end
 
 	for i = 1, 9 do
-		select(i, WardrobeOutfitFrame:GetRegions()):Hide()
+		select(i, _G.WardrobeOutfitFrame:GetRegions()):Hide()
 	end
-	MERS:CreateBDFrame(WardrobeOutfitFrame, .25)
-	MERS:CreateSD(WardrobeOutfitFrame, .25)
+	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
+	MERS:CreateSD(_G.WardrobeOutfitFrame, .25)
 
 	for i = 1, 10 do
 		select(i, WardrobeTransmogFrame.Model.ClearAllPendingButton:GetRegions()):Hide()
@@ -436,12 +414,12 @@ local function styleCollections()
 
 	-- Edit Frame
 	for i = 1, 11 do
-		select(i, WardrobeOutfitEditFrame:GetRegions()):Hide()
+		select(i, _G.WardrobeOutfitEditFrame:GetRegions()):Hide()
 	end
-	WardrobeOutfitEditFrame.Title:Show()
+	_G.WardrobeOutfitEditFrame.Title:Show()
 
 	for i = 2, 5 do
-		select(i, WardrobeOutfitEditFrame.EditBox:GetRegions()):Hide()
+		select(i, _G.WardrobeOutfitEditFrame.EditBox:GetRegions()):Hide()
 	end
 end
 

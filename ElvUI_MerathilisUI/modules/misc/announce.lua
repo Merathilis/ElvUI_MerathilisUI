@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERA = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 MERA.modName = L["Announce"]
 
 --Cache global variables
@@ -46,7 +46,7 @@ end
 local speed = .057799924 -- how fast the text appears
 local font = LSM:Fetch("font", "Expressway")
 local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
-local fontsize = 24 -- font size
+local fontsize = 18 -- font size
 
 local GetNextChar = function(word,num)
 	local c = word:byte(num)
@@ -68,15 +68,15 @@ local updaterun = CreateFrame("Frame")
 
 local flowingframe = CreateFrame("Frame", nil, E.UIParent)
 flowingframe:SetFrameStrata("HIGH")
-flowingframe:SetPoint("CENTER", E.UIParent, 0, 140) -- where we want the textframe
+flowingframe:SetPoint("CENTER", E.UIParent, "TOP", 0, -240) -- where we want the textframe
 flowingframe:SetHeight(64)
 
 local flowingtext = flowingframe:CreateFontString(nil,"OVERLAY")
-flowingtext:SetFont(font, fontsize, fontflag)
+flowingtext:FontTemplate(font, fontsize, fontflag)
 flowingtext:SetShadowOffset(1.5, -1.5)
 
 local rightchar = flowingframe:CreateFontString(nil,"OVERLAY")
-rightchar:SetFont(font, 60, fontflag)
+rightchar:FontTemplate(font, 60, fontflag)
 rightchar:SetShadowOffset(1.5, -1.5)
 rightchar:SetJustifyH("LEFT") -- left or right
 
@@ -105,7 +105,7 @@ local updatestring = function(self,t)
 			flowingtext:SetPoint("RIGHT")
 			flowingtext:SetJustifyH("RIGHT")
 			rightchar:ClearAllPoints()
-			rightchar:SetPoint("RIGHT",flowingtext,"LEFT")
+			rightchar:SetPoint("RIGHT", flowingtext, "LEFT")
 			rightchar:SetJustifyH("RIGHT")
 			self:Hide()
 			count = 1.456789
@@ -201,8 +201,6 @@ function MERA:Initialize()
 	if E.db.mui.misc.announce then
 		self:RegisterEvent("CHAT_MSG_SKILL")
 	end
-
-	SetCVar("floatingCombatTextCombatState", "1")
 end
 
 local function InitializeCallback()

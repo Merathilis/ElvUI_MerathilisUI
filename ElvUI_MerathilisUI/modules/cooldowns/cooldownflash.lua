@@ -297,7 +297,7 @@ function CF:Initialize()
 
 	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
 
-	DCP.TextFrame:SetFont(E.db.general.fontSize, 18, "OUTLINE")
+	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)
 	if self.db.enable then
 		self:EnableCooldownFlash()

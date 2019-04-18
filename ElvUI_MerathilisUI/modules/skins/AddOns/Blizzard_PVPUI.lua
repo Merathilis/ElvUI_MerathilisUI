@@ -4,32 +4,43 @@ local S = E:GetModule('Skins')
 
 --Cache global variables
 local _G = _G
-
+local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 --WoW API / Variables
-local pairs, select, unpack = pairs, select, unpack
+local C_QuestLine_GetQuestLineQuests = C_QuestLine.GetQuestLineQuests
+local C_QuestLog_IsOnQuest = C_QuestLog.IsOnQuest
+local C_TaskQuest_RequestPreloadRewardData = C_TaskQuest.RequestPreloadRewardData
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetCurrencyInfo = GetCurrencyInfo
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
+local GetQuestLogRewardInfo = GetQuestLogRewardInfo
+local CurrencyContainerUtil_GetCurrencyContainerInfo = CurrencyContainerUtil.GetCurrencyContainerInfo
+local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
+local HaveQuestRewardData = HaveQuestRewardData
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, Inset
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function stylePvP()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
-	_G["PVPReadyDialog"]:Styling()
+	_G.PVPReadyDialog:Styling()
 
-	local PVPQueueFrame = _G["PVPQueueFrame"]
-	local HonorFrame = _G["HonorFrame"]
-	local ConquestFrame = _G["ConquestFrame"]
-	local WarGamesFrame = _G["WarGamesFrame"]
+	local PVPQueueFrame = _G.PVPQueueFrame
+	local HonorFrame = _G.HonorFrame
+	local ConquestFrame = _G.ConquestFrame
+	local WarGamesFrame = _G.WarGamesFrame
 
+	local iconSize = 60-2*E.mult
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
 		MERS:Reskin(bu)
 
-		bu.Icon:Size(54)
+		bu.Icon:SetSize(iconSize, iconSize)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
 		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
@@ -77,12 +88,13 @@ local function stylePvP()
 		if currencyRewards then
 			for _, reward in ipairs(currencyRewards) do
 				local name, _, texture, _, _, _, _, quality = GetCurrencyInfo(reward.id);
-				if quality == LE_ITEM_QUALITY_ARTIFACT then
-					_, rewardTexture, _, rewardQuaility = CurrencyContainerUtil.GetCurrencyContainerInfo(reward.id, reward.quantity, name, texture, quality);
+				if quality == _G.LE_ITEM_QUALITY_ARTIFACT then
+					_, rewardTexture, _, rewardQuaility = CurrencyContainerUtil_GetCurrencyContainerInfo(reward.id, reward.quantity, name, texture, quality);
 				end
 			end
 		end
 
+		local _
 		if not rewardTexture and itemRewards then
 			local reward = itemRewards[1];
 			if reward then
@@ -141,15 +153,15 @@ local function stylePvP()
 	-- Credits Azilroka
 	hooksecurefunc(HonorFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
 		local Quality
-		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
-			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+		for _, questID in ipairs(C_QuestLine_GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog_IsOnQuest(questID) then
 				break;
 			end
 			if HaveQuestRewardData(questID) then
 				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
 				Quality = select(3, GetItemInfo(itemID))
 			else
-				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+				C_TaskQuest_RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
 			end
 		end
 		if Quality then
@@ -169,15 +181,15 @@ local function stylePvP()
 	-- Credits Azilroka
 	hooksecurefunc(ConquestFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
 		local Quality
-		for _, questID in ipairs(C_QuestLine.GetQuestLineQuests(782)) do
-			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog.IsOnQuest(questID) then
+		for _, questID in ipairs(C_QuestLine_GetQuestLineQuests(782)) do
+			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog_IsOnQuest(questID) then
 				break;
 			end
 			if HaveQuestRewardData(questID) then
 				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
 				Quality = select(3, GetItemInfo(itemID))
 			else
-				C_TaskQuest.RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
+				C_TaskQuest_RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
 			end
 		end
 		if Quality then

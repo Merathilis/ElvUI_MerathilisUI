@@ -12,10 +12,12 @@ local CreateFrame = CreateFrame
 local function styleFriends()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
-	_G["FriendsFrame"]:Styling()
-	_G["RecruitAFriendFrame"]:Styling()
-	_G["RecruitAFriendSentFrame"]:Styling()
-	_G["RecruitAFriendSentFrame"].MoreDetails.Text:FontTemplate()
+	local FriendsFrame = _G.FriendsFrame
+
+	FriendsFrame:Styling()
+	_G.RecruitAFriendFrame:Styling()
+	_G.RecruitAFriendSentFrame:Styling()
+	_G.RecruitAFriendSentFrame.MoreDetails.Text:FontTemplate()
 
 	-- Animated Icon
 	FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
@@ -38,12 +40,12 @@ local function styleFriends()
 	end)
 
 	-- GuildTab in FriendsFrame
-	local n = _G["FriendsFrame"].numTabs + 1
-	local gtframe = CreateFrame("Button", "FriendsFrameTab"..n, _G["FriendsFrame"], "FriendsFrameTabTemplate")
+	local n = FriendsFrame.numTabs + 1
+	local gtframe = CreateFrame("Button", "FriendsFrameTab"..n, FriendsFrame, "FriendsFrameTabTemplate")
 	gtframe:SetText(GUILD)
 	gtframe:SetPoint("LEFT", _G["FriendsFrameTab"..n - 1], "RIGHT", -15, 0)
 	PanelTemplates_DeselectTab(gtframe)
-	gtframe:SetScript("OnClick", function() _G["ToggleGuildFrame"]() end)
+	gtframe:SetScript("OnClick", function() _G.ToggleGuildFrame() end)
 	S:HandleTab(_G["FriendsFrameTab4"])
 end
 

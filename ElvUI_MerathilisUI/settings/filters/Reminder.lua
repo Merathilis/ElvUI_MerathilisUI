@@ -9,11 +9,25 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- GLOBALS:
 
 MER.ReminderList = {
+	DEATHKNIGHT = {
+		["Raise"] = {
+			["spellGroup"] = {
+				[46584] = true,
+				["defaultIcon"] = 46584, -- Raise Dead
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 3,
+		},
+	},
+
 	MAGE = {
 		["Intellect"] = {
 			["spellGroup"] = {
 				[1459] = true,
-				["defaultIcon"] = 1459,
+				["defaultIcon"] = 1459,  -- Arcane Intellect
 			},
 			["enable"] = true,
 			["instance"] = true,
@@ -49,6 +63,20 @@ MER.ReminderList = {
 			["pvp"] = true,
 			["strictFilter"] = true,
 			["tree"] = 1,
+		},
+	},
+
+	SHAMAN = {
+		["Shield"] = {
+			["spellGroup"] = {
+				[192106] = true, -- Lightning Shield
+				["defaultIcon"] = 192106,
+			},
+			["enable"] = true,
+			["instance"] = true,
+			["pvp"] = true,
+			["strictFilter"] = true,
+			["tree"] = 2,
 		},
 	},
 

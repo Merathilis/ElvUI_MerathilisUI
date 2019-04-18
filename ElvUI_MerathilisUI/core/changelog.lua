@@ -17,8 +17,12 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed an error in one of my ClassColor function. #38",
-		"• Fixed an error with DeJaCharacterStats. #39",
+		"• Added an Emoticon Frame to the chat.",
+		"• Fixed some lua errors if you use Dual Profiles.",
+		"• Added Target Name to the ElvUI Nameplate Castbars.",
+		"• Added a Talent Manager, where you can save different presets.",
+		"• Added back my chatBar. Disabled by default.",
+		"• Added Raid Progress Info to the Tooltip (hold shift).",
 
 		-- "• ''",
 	" ",
@@ -38,7 +42,7 @@ local function ModifiedString(string)
 		if subHeader then
 			newString = tostring("|cFFFFFF00".. prefix .. "|r" .. suffix)
 		else
-			newString = tostring("|cffff7d0a" .. prefix .. "|r" .. suffix)
+			newString = tostring("|cffff7d0a".. prefix .. "|r" .. suffix)
 		end
 	end
 

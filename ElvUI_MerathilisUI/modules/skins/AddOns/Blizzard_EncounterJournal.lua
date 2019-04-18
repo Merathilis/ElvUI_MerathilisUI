@@ -5,18 +5,115 @@ local S = E:GetModule('Skins')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
+local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetItemInfo = GetItemInfo
+local GetItemQualityColor = GetItemQualityColor
 -- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: styleEncounterJournal, hooksecurefunc
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function styleEncounterJournal()
+local function SkinBosses()
+	local bossIndex = 1;
+	local _, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
+	local bossButton;
+
+	while bossID do
+		bossButton = _G["EncounterJournalBossButton"..bossIndex];
+		if bossButton and not bossButton.isSkinned then
+			S:HandleButton(bossButton)
+			bossButton.creature:ClearAllPoints()
+			bossButton.creature:Point("TOPLEFT", 1, -4)
+			bossButton.isSkinned = true
+		end
+
+		bossIndex = bossIndex + 1;
+		_, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
+	end
+end
+
+local function SkinOverviewInfo(self, _, index)
+	local header = self.overviews[index]
+	if not header.isSkinned then
+
+		header.descriptionBG:SetAlpha(0)
+		header.descriptionBGBottom:SetAlpha(0)
+		for i = 4, 18 do
+			select(i, header.button:GetRegions()):SetTexture()
+		end
+
+		S:HandleButton(header.button)
+
+		header.button.title:SetTextColor(unpack(E.media.rgbvaluecolor))
+		header.button.title.SetTextColor = E.noop
+		header.button.expandedIcon:SetTextColor(1, 1, 1)
+		header.button.expandedIcon.SetTextColor = E.noop
+
+		header.isSkinned = true
+	end
+end
+
+local function SkinOverviewInfoBullets(object)
+	local parent = object:GetParent()
+
+	if parent.Bullets then
+		for _, bullet in pairs(parent.Bullets) do
+			if not bullet.styled then
+				bullet.Text:SetTextColor(1, 1, 1)
+				bullet.styled = true
+			end
+		end
+	end
+end
+
+local function SkinAbilitiesInfo()
+	local index = 1
+	local header = _G["EncounterJournalInfoHeader"..index]
+	while header do
+		if not header.isSkinned then
+			header.flashAnim.Play = E.noop
+
+			header.descriptionBG:SetAlpha(0)
+			header.descriptionBGBottom:SetAlpha(0)
+			for i = 4, 18 do
+				select(i, header.button:GetRegions()):SetTexture()
+			end
+
+			header.description:SetTextColor(1, 1, 1)
+			header.button.title:SetTextColor(unpack(E.media.rgbvaluecolor))
+			header.button.title.SetTextColor = E.noop
+			header.button.expandedIcon:SetTextColor(1, 1, 1)
+			header.button.expandedIcon.SetTextColor = E.noop
+
+			S:HandleButton(header.button)
+
+			header.button.bg = CreateFrame("Frame", nil, header.button)
+			header.button.bg:SetTemplate()
+			header.button.bg:SetOutside(header.button.abilityIcon)
+			header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
+			header.button.abilityIcon:SetTexCoord(.08, .92, .08, .92)
+
+			header.isSkinned = true
+		end
+
+		if header.button.abilityIcon:IsShown() then
+			header.button.bg:Show()
+		else
+			header.button.bg:Hide()
+		end
+
+		index = index + 1
+		header = _G["EncounterJournalInfoHeader"..index]
+	end
+end
+
+function MERS:StyleEncounterJournal()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
 
-	local EncounterJournal = _G["EncounterJournal"]
+	local EncounterJournal = _G.EncounterJournal
 	EncounterJournal.backdrop:Styling()
 
 	if EncounterJournal.navBar.backdrop then
@@ -81,7 +178,6 @@ function styleEncounterJournal()
 	end
 	styleSearchButton(searchBox.showAllResults, 6)
 
-
 	-- [[ SearchResults ]]
 	local searchResults = EncounterJournal.searchResults
 	MERS:CreateBD(searchResults)
@@ -90,7 +186,7 @@ function styleEncounterJournal()
 		select(i, searchResults:GetRegions()):Hide()
 	end
 
-	_G["EncounterJournalSearchResultsBg"]:Hide()
+	_G.EncounterJournalSearchResultsBg:Hide()
 
 	hooksecurefunc("EncounterJournal_SearchUpdate", function()
 		local scrollFrame = searchResults.scrollFrame
@@ -229,119 +325,78 @@ function styleEncounterJournal()
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(item:GetFrameLevel() - 1)
 		MERS:CreateBD(bg, .25)
+
+		MERS:CreateGradient(bg)
 	end
 
 	info.model.dungeonBG:Hide()
 	_G.EncounterJournalEncounterFrameInfoModelFrameShadow:Hide()
 	MERS:CreateBDFrame(_G.EncounterJournalEncounterFrameInfoModelFrame, .25)
 
-	info.creatureButtons[1]:SetPoint("TOPLEFT", info.model, 0, -35)
+	-- [[ Encounter Info Frame ]]
+	local EncounterInfo = EncounterJournal.encounter.info
 
-	do
-		local numBossButtons = 1
-		local bossButton
-
-		hooksecurefunc("EncounterJournal_DisplayInstance", function()
-			bossButton = _G["EncounterJournalBossButton"..numBossButtons]
-			while bossButton do
-				MERS:Reskin(bossButton)
-
-				bossButton.text:SetTextColor(1, 1, 1)
-				bossButton.text.SetTextColor = MER.dummy
-
-				local hl = bossButton:GetHighlightTexture()
-				hl:SetColorTexture(r, g, b, .2)
-				hl:SetPoint("TOPLEFT", 2, -1)
-				hl:SetPoint("BOTTOMRIGHT", 0, 1)
-
-				bossButton.creature:SetPoint("TOPLEFT", 0, -4)
-
-				numBossButtons = numBossButtons + 1
-				bossButton = _G["EncounterJournalBossButton"..numBossButtons]
-			end
-
-			-- move last tab
-			local _, point = _G.EncounterJournalEncounterFrameInfoModelTab:GetPoint()
-			_G.EncounterJournalEncounterFrameInfoModelTab:SetPoint("TOP", point, "BOTTOM", 0, 1)
-		end)
+	_G.EncounterJournalEncounterFrameInfoBG:Kill()
+	if EncounterInfo.backdrop then
+		EncounterInfo.backdrop:Hide()
 	end
 
-	hooksecurefunc("EncounterJournal_ToggleHeaders", function(self)
-		local index = 1
-		local header = _G["EncounterJournalInfoHeader"..index]
-		while header do
-			if not header.styled then
-				header.flashAnim.Play = MER.dummy
+	 --Tabs
+	local tabs = {
+		EncounterInfo.overviewTab,
+		EncounterInfo.lootTab,
+		EncounterInfo.bossTab,
+		EncounterInfo.modelTab,
+	}
 
-				header.descriptionBG:SetAlpha(0)
-				header.descriptionBGBottom:SetAlpha(0)
-				for i = 4, 18 do
-					select(i, header.button:GetRegions()):SetTexture("")
-				end
-
-				header.description:SetTextColor(1, 1, 1)
-				header.button.title:SetTextColor(1, 1, 1)
-				header.button.title.SetTextColor = MER.dummy
-				header.button.expandedIcon:SetTextColor(1, 1, 1)
-				header.button.expandedIcon.SetTextColor = MER.dummy
-
-				MERS:Reskin(header.button)
-
-				header.button.abilityIcon:SetTexCoord(unpack(E.TexCoords))
-				header.button.bg = MERS:CreateBG(header.button.abilityIcon)
-
-				header.styled = true
-			end
-
-			if header.button.abilityIcon:IsShown() then
-				header.button.bg:Show()
-			else
-				header.button.bg:Hide()
-			end
-
-			index = index + 1
-			header = _G["EncounterJournalInfoHeader"..index]
+	for _, tab in pairs(tabs) do
+		 --Hide ElvUI's backdrop
+		if tab.backdrop then
+			tab.backdrop:Hide()
 		end
-	end)
 
-	hooksecurefunc("EncounterJournal_SetUpOverview", function(self, role, index)
-		local header = self.overviews[index]
-		if not header.styled then
-			header.flashAnim.Play = MER.dummy
+		 --Reaply tabs
+		tab:CreateBackdrop("Transparent")
+		tab.backdrop:Styling()
+	end
 
-			header.descriptionBG:SetAlpha(0)
-			header.descriptionBGBottom:SetAlpha(0)
-			for i = 4, 18 do
-				select(i, header.button:GetRegions()):SetTexture("")
-			end
+	--Encounter Instance Frame
+	local EncounterInstance = EncounterJournal.encounter.instance
+	EncounterInstance:CreateBackdrop("Transparent")
+	EncounterInstance:Height(EncounterInfo.bossesScroll:GetHeight())
+	EncounterInstance:ClearAllPoints()
+	EncounterInstance:Point("BOTTOMRIGHT", _G.EncounterJournalEncounterFrame, "BOTTOMRIGHT", -1, 3)
+	EncounterInstance.loreBG:SetSize(325, 280)
+	EncounterInstance.loreBG:ClearAllPoints()
+	EncounterInstance.loreBG:Point("TOP", EncounterInstance, "TOP", 0, 0)
+	EncounterInstance.mapButton:ClearAllPoints()
+	EncounterInstance.mapButton:Point("BOTTOMLEFT", EncounterInstance.loreBG, "BOTTOMLEFT", 25, 35)
+	S:HandleScrollBar(EncounterInstance.loreScroll.ScrollBar, 4)
+	EncounterInstance.loreScroll.child.lore:SetTextColor(1, 1, 1)
 
-			header.button.title:SetTextColor(1, 1, 1)
-			header.button.title.SetTextColor = MER.dummy
-			header.button.expandedIcon:SetTextColor(1, 1, 1)
-			header.button.expandedIcon.SetTextColor = MER.dummy
+	--Loot Frame
+	S:HandleScrollBar(_G.EncounterJournalScrollBar)
+	S:HandleButton(_G.EncounterJournal.LootJournal.ItemSetsFrame.ClassButton, true)
 
-			MERS:Reskin(header.button)
-
-			header.styled = true
+	--Suggestions
+	for i = 1, _G.AJ_MAX_NUM_SUGGESTIONS do
+		local suggestion = _G.EncounterJournal.suggestFrame["Suggestion"..i];
+		if i == 1 then
+			S:HandleButton(suggestion.button)
+			S:HandleNextPrevButton(suggestion.prevButton)
+			S:HandleNextPrevButton(suggestion.nextButton)
+		else
+			S:HandleButton(suggestion.centerDisplay.button)
 		end
-	end)
+	end
 
-	hooksecurefunc("EncounterJournal_SetBullets", function(object, description)
-		local parent = object:GetParent()
-
-		if parent.Bullets then
-			for _, bullet in next, parent.Bullets do
-				if not bullet.styled then
-					bullet.Text:SetTextColor(1, 1, 1)
-					bullet.styled = true
-				end
-			end
-		end
-	end)
+	_G.EncounterJournalEncounterFrameInstanceFrame.titleBG:SetAlpha(0)
 
 	-- [[ Loot ]]
 	local LootJournal = _G["EncounterJournal"].LootJournal
 	LootJournal:DisableDrawLayer("BACKGROUND")
+
+	S:HandleButton(_G.EncounterJournal.LootJournal.ItemSetsFrame.ClassButton, true)
 
 	hooksecurefunc(EncounterJournal.LootJournal.ItemSetsFrame, "UpdateList", function(self)
 		local buttons = self.buttons
@@ -367,7 +422,7 @@ function styleEncounterJournal()
 		end
 
 		local quality = select(3, GetItemInfo(button.itemID))
-		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
 		button.bg:SetBackdropBorderColor(color.r, color.g, color.b)
 	end)
 
@@ -478,6 +533,18 @@ function styleEncounterJournal()
 			suggestion.reward.icon.backdrop:SetBackdropBorderColor(r, g, b)
 		end
 	end)
+
+	--Overview Info (From Aurora)
+	hooksecurefunc("EncounterJournal_SetUpOverview", SkinOverviewInfo)
+
+	--Overview Info Bullets (From Aurora)
+	hooksecurefunc("EncounterJournal_SetBullets", SkinOverviewInfoBullets)
+
+	--Abilities Info (From Aurora)
+	hooksecurefunc("EncounterJournal_ToggleHeaders", SkinAbilitiesInfo)
+
+	--Boss selection buttons
+	hooksecurefunc("EncounterJournal_DisplayInstance", SkinBosses)
 end
 
-S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", styleEncounterJournal)
+S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", MERS.StyleEncounterJournal)

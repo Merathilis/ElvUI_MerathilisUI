@@ -180,7 +180,7 @@ function NF:CreateToast()
 	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
 	title:SetPoint("TOP", toast, "TOP", 0, 0)
 	title:SetJustifyH("LEFT")
-	title:SetWordWrap(enable)
+	title:SetNonSpaceWrap(true)
 	toast.title = title
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
@@ -303,6 +303,8 @@ SLASH_TESTNOTIFICATION1 = "/testnotification"
 local hasMail = false
 function NF:UPDATE_PENDING_MAIL()
 	if NF.db.enable ~= true or NF.db.mail ~= true then return end
+	if InCombatLockdown() then return end
+
 	local newMail = HasNewMail()
 	if hasMail ~= newMail then
 		hasMail = newMail
@@ -427,13 +429,8 @@ local SOUND_TIMEOUT = 20
 function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
-	local scenarioName, currentStage, numStages, flags, _, _, _, xp, money, scenarioType, _, textureKitID = C_Scenario_GetInfo()
-	local inChallengeMode = (scenarioType == LE_SCENARIO_TYPE_CHALLENGE_MODE)
-	local inProvingGrounds = (scenarioType == LE_SCENARIO_TYPE_PROVING_GROUNDS)
-	local dungeonDisplay = (scenarioType == LE_SCENARIO_TYPE_USE_DUNGEON_DISPLAY)
-	local inWarfront = (scenarioType == LE_SCENARIO_TYPE_WARFRONT)
-
-	if inChallengeMode or inProvingGrounds or dungeonDisplay or inWarfront then
+	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
+	if inGroup or inRaid or inPartyLFG then
 		return;
 	end
 

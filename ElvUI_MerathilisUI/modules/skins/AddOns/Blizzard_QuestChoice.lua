@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select = select
+local unpack, select = unpack, select
 
 -- WoW API / Variables
 
@@ -14,7 +14,7 @@ local select = select
 local function styleQuestChoice()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.muiSkins.blizzard.questChoice ~= true then return; end
 
-	local QuestChoiceFrame = _G["QuestChoiceFrame"]
+	local QuestChoiceFrame = _G.QuestChoiceFrame
 
 	QuestChoiceFrame:StripTextures()
 
@@ -48,24 +48,16 @@ local function styleQuestChoice()
 		option.OptionText:SetTextColor(.9, .9, .9)
 
 		item.Name:SetTextColor(1, 1, 1)
-		item.Icon:SetTexCoord(.08, .92, .08, .92)
+		item.Icon:SetTexCoord(unpack(E.TexCoords))
 		item.bg = MERS:CreateBG(item.Icon)
 
 		for j = 1, 3 do
 			local cu = currencies["Currency"..j]
 
-			cu.Icon:SetTexCoord(.08, .92, .08, .92)
+			cu.Icon:SetTexCoord(unpack(E.TexCoords))
 			MERS:CreateBG(cu.Icon)
 		end
 	end
-
-	-- hooksecurefunc("QuestChoiceFrame_ShowRewards", function(numOptions)
-		-- for i = 1, numOptions do
-			-- local rewards = QuestChoiceFrame["Option"..i].Rewards
-			-- rewards.Item.bg:SetVertexColor(rewards.Item.IconBorder:GetVertexColor())
-			-- rewards.Item.IconBorder:Hide()
-		-- end
-	-- end)
 end
 
 S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", styleQuestChoice)

@@ -5,9 +5,10 @@ local MERS = MER:GetModule("muiSkins")
 -- Lua functions
 local _G = _G
 local ipairs, unpack = ipairs, unpack
+local format = string.format
+local tinsert = table.insert
 -- WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LibStub, GARRISON_LOCATION_TOOLTIP, COLLECTIONS, OBJECTIVES_TRACKER_LABEL, DRESSUP_FRAME
 
 local DecorAddons = {
@@ -28,7 +29,6 @@ local SupportedProfiles = {
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
-	{"ElvUI_SLE", "Shadow&Light"},
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},
@@ -75,13 +75,6 @@ local function SkinsTable()
 						order = 3,
 						type = "toggle",
 						name = L["MerathilisUI Shadows"],
-						get = function(info) return E.db.mui.general[ info[#info] ] end,
-						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					undressButton = {
-						order = 4,
-						type = "toggle",
-						name = L["Undress Button"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
@@ -430,6 +423,21 @@ local function SkinsTable()
 				name = TRADESKILLS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
 			},
+			voidstorage = {
+				type = "toggle",
+				name = VOID_STORAGE,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
+			},
+			AlliedRaces = {
+				type = "toggle",
+				name = L["Allied Races"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AlliedRaces end,
+			},
+			GMChat = {
+				type = "toggle",
+				name = L["GM Chat"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.GMChat end,
+			},
 		},
 	}
 
@@ -462,8 +470,6 @@ local function SkinsTable()
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
-				elseif addon == 'ElvUI_SLE' then
-					E:StaticPopup_Show("MUI_INSTALL_SLE_LAYOUT")
 				elseif addon == 'Masque' then
 					MER:LoadMasqueProfile()
 					E:StaticPopup_Show('PRIVATE_RL')

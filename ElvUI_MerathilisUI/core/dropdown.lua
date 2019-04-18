@@ -6,7 +6,7 @@ DD.RegisteredMenus = {}
 --Cache global variables
 local _G = _G
 local format = string.format
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 local tinsert = table.insert
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -58,7 +58,8 @@ local function CreateListButton(frame)
 
 	button.hoverTex = button:CreateTexture(nil, 'OVERLAY')
 	button.hoverTex:SetAllPoints()
-	button.hoverTex:SetTexture([[Interface\QuestFrame\UI-QuestTitleHighlight]])
+	button.hoverTex:SetTexture(E.Media.Textures.Highlight)
+	button.hoverTex:SetVertexColor(unpack(E.media.rgbvaluecolor))
 	button.hoverTex:SetBlendMode("ADD")
 	button.hoverTex:Hide()
 

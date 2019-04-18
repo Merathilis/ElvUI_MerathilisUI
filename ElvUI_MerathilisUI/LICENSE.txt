@@ -1,11 +1,10 @@
 MerathilisUI License
 
-   Copyright ©2014-2018
+   Copyright Â©2014-2019
 The contents of this addon, excluding third-party resources, are
 copyrighted to their authors with all rights reserved.
 
-The author of this addon hereby grants you the following rights:
-
+This addon is free to use and the authors hereby grants you the following rights:
 
 1. You may make modifications to this addon for private use only, you may not publicize (upload) any portion of this addon. The only exception being you may
    upload to the tukui.org or github website, after a permission. 

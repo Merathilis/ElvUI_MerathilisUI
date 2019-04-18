@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local select, unpack = select, unpack
+local next, select, unpack = next, select, unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
@@ -17,10 +17,10 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleCommunities()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
 
-	local CommunitiesFrame = _G["CommunitiesFrame"]
+	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame.backdrop:Styling()
 
-	hooksecurefunc(CommunitiesFrameCommunitiesList, "Update", function(self)
+	hooksecurefunc(_G.CommunitiesFrameCommunitiesList, "Update", function(self)
 		local buttons = self.ListScrollFrame.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
@@ -66,7 +66,6 @@ local function styleCommunities()
 
 	MERS:Reskin(Dialog.OkayButton)
 	MERS:Reskin(Dialog.CancelButton)
-	MERS:ReskinCheckBox(Dialog.ScrollFrame.Child.QuickJoinButton)
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
 	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
@@ -146,19 +145,19 @@ local function styleCommunities()
 	end)
 
 	-- Guild Recruitment
-	local GuildRecruitmentFrame = _G["CommunitiesGuildRecruitmentFrame"]
+	local GuildRecruitmentFrame = _G.CommunitiesGuildRecruitmentFrame
 	GuildRecruitmentFrame.backdrop:Styling()
 
 	-- Guild Log
-	local GuildLog = _G["CommunitiesGuildLogFrame"]
+	local GuildLog = _G.CommunitiesGuildLogFrame
 	GuildLog:Styling()
 
 	--Guild MOTD Edit
-	local GuildText = _G["CommunitiesGuildTextEditFrame"]
+	local GuildText = _G.CommunitiesGuildTextEditFrame
 	GuildText:Styling()
 
 	-- Guild News Filter
-	local GuildNewsFilter = _G["CommunitiesGuildNewsFiltersFrame"]
+	local GuildNewsFilter = _G.CommunitiesGuildNewsFiltersFrame
 	GuildNewsFilter.backdrop:Styling()
 end
 

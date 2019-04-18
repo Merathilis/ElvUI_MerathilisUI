@@ -1,8 +1,15 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MM = MER:GetModule("mUIMinimap")
 local SMB = MER:GetModule("mUIMinimapButtons")
-
 local COMP = MER:GetModule("mUICompatibility")
+
+--Cache global variables
+--Lua functions
+local format = string.format
+local tinsert = table.insert
+--WoW API / Variables
+local MINIMAP_LABEL = MINIMAP_LABEL
+-- GLOBALS:
 
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {

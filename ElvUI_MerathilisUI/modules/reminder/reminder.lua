@@ -7,7 +7,7 @@ RM.modName = L["Reminder"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, select, type = pairs, select, type
+local pairs, select, type, unpack= pairs, select, type, unpack
 -- WoW API / Variables
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
@@ -347,8 +347,10 @@ function RM:ReminderIcon_OnEvent(event, unit)
 		end
 	end
 
+	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local color = {r, g, b, 1}
 	if self:GetAlpha() == 1 then
-		LCG.PixelGlow_Start(self.overlay)
+		LCG.PixelGlow_Start(self.overlay, color, nil, 0.25, nil, 1)
 	else
 		LCG.PixelGlow_Stop(self.overlay)
 	end
@@ -358,16 +360,19 @@ function RM:CreateReminder(name, index)
 	if _CreatedReminders[name] then return end
 
 	local size = RM.db.size or 30
+	local ElvFrame = _G.ElvUF_Player
+	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:Size(size)
+	frame:Size(size or (ElvFrame:GetHeight() -4))
+	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
+	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name
-	frame:SetPoint("RIGHT", _G["ElvUF_Player"], "LEFT", -3, 0)
 	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	frame.icon = frame:CreateTexture(nil, "OVERLAY")
 	frame.icon:SetAllPoints()
-	S:HandleTexture(frame.icon, frame)
+	S:HandleIcon(frame.icon)
 	frame:EnableMouse(false)
 	frame:SetAlpha(0)
 

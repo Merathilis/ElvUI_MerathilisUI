@@ -35,8 +35,10 @@ But if you install another Layout over mine, you must adjust it manually.]=]
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
-L["Removed: "] = true
-L["Usable Items"] = true
+L["Transparent Slots"] = true
+L["Equipment Manager"] = true
+L["Equipment Set Overlay"] = true
+L["Show the associated equipment sets for the items in your bags (or bank)."] = true
 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
@@ -62,6 +64,11 @@ L["Hide Chat Side Panel"] = true
 L["Removes the Chat SidePanel. |cffFF0000WARNING: If you disable this option you must adjust your Layout.|r"] = true
 L["ChatBar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
+L["Hide Community Chat"] = true
+L["Adds an overlay to the Community Chat. Useful for streamers."] = true
+L["Chat Hidden. Click to show"] = true
+L["Click to open Emoticon Frame"] = true
+L["Emotes"] = true
 
 -- Information
 L["Information"] = true
@@ -92,14 +99,24 @@ L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = true
 -- MasterPlan
 L["MasterPlan"] = true
 L["Skins the additional Tabs from MasterPlan."] = true
-L["Misc"] = true
 
 -- MicroBar
 L["Hide In Orderhall"] = true
 L["Show/Hide the friend text on MicroBar."] = true
 L["Show/Hide the guild text on MicroBar."] = true
+L["Blingtron"] = "Blingtron Daily Gift"
+L["Mean One"] = "Feast of Winter Veil"
+L["Timewarped"] = "500 Timewarped Badges"
+L["Legion Invasion"] = true
+L["Faction Assault"] = true
+L["Local Time"] = true
+L["Realm Time"] = true
+L["Current Invasion: "] = true
+L["Next Invasion: "] = true
+L["Mythic Dungeon"] = true
 
 -- Misc
+L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
@@ -116,6 +133,24 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
+L["Raid Info"] = true
+L["Shows a simple frame with Raid Informations."] = true
+L["Keystones"] = true
+
+-- Talent Manager
+L["Error: Too many talents selected"] = true
+L["Added a new profile: "] = true
+L["Unable to load the selected profile"] = true
+L["Saved profile: "] = true
+L["Removed a profile: "] = true
+L["Enter Profile Name: "] = true
+L["Do you want to remove the profile '%s'?"] = true
+L["Unable to load talent configuration for the selected profile"] = true
+L["Activated profile: "] = true
+L["Add new profile"] = true
+L["Migration: Info: No profiles found for spec #"] = true
+L["Migration: Info: Migrated profile "] = true
+L["Migration: Done: Successfully migrated "] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -124,33 +159,19 @@ L["Your Status: Completed on "] = true
 L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
-L["Model"] = true
-L["Adds an Model icon on the tooltip."] = true
+L["Keystone"] = true
 L["Adds descriptions for mythic keystone properties to their tooltips."] = true
-L["Realm Info"] = true
-L["Shows realm info in various tooltips."] = true
-L["Tooltips"] = true
-L["Show the realm info in the group finder tooltip."] = true
-L["Player Tooltips"] = true
-L["Show the realm info in the player tooltip."] = true
-L["Friend List"] = true
-L["Show the realm info in the friend list tooltip."] = true
-L["Tooltip Lines"] = true
-L["Realm Timezone"] = true
-L["Add realm timezone to the tooltip."] = true
-L["Realm Type"] = true
-L["Add realm type to the tooltip."] = true
-L["Realm Language"] = true
-L["Add realm language to the tooltip."] = true
-L["Connected Realms"] = true
-L["Add the connected realms to the tooltip."] = true
-L["Country Flag"] = true
-L["Display the country flag without text on the left side in tooltip."] = true
-L["Behind language in 'Realm language' line"] = true
-L["Behind the character name"] = true
-L["In own tooltip line on the left site"] = true
-L["Prepend country flag on character name in group finder."] = true
-L["Prepend country flag on character name in community member lists."] = true
+L["Title Color"] = true
+L["Change the color of the title in the Tooltip."] = true
+L["Progress Info"] = true
+L["Shows raid progress of a character in the tooltip"] = true
+L["Mythic"] = true
+L["Heroic"] = true
+L["Normal"] = true
+L["LFR"] = true
+L["Uldir"] = true
+L["BattleOfDazaralor"] = "Battle Of Dazaralor"
+L["CrucibleOfStorms"] = "Crucible Of Storms"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -185,47 +206,96 @@ L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
--- System Datatext
-L["(Hold Shift) Memory Usage"] = true
-L["Announce Freed"] = true
-L["Announce how much memory was freed by the garbage collection."] = true
-L["Bandwidth"] = true
-L["Display world or home latency on the datatext. Home latency refers to your realm server. World latency refers to the current world server."] = true
-L["Download"] = true
-L["FPS"] = true
-L["Garbage Collect"] = true
-L["Garbage Collection Freed"] = true
-L["Home"] = true
-L["Home Latency:"] = true
-L["Home Protocol:"] = true
-L["Latency Type"] = true
-L["Left Click:"] = true
-L["Loaded Addons:"] = true
-L["MS"] = true
-L["Max Addons"] = true
-L["Maximum number of addons to show in the tooltip."] = true
-L["Reload UI"] = true
-L["Right Click:"] = true
-L["Show FPS"] = true
-L["Show FPS on the datatext."] = true
-L["Show Latency"] = true
-L["Show Memory"] = true
-L["Show latency on the datatext."] = true
-L["Show total addon memory on the datatext."] = true
-L["System Datatext"] = true
-L["Total Addons:"] = true
-L["Total CPU:"] = true
-L["Total Memory:"] = true
-L["World"] = true
-L["World Latency:"] = true
-L["World Protocol:"] = true
-
 -- Actionbars
 L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
 L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
+L["Auto Buttons"] = true
+L["Bind Font Size"] = true
+L["Trinket Buttons"] = true
+L["Color by Quality"] = true
+L["Quest Buttons"] = true
+
+-- Armory
+L["Armory"] = true
+L["ARMORY_DESC"] = [=[The |cffff7d0aArmory Mode|r only works with the ElvUI 'Display Character Info'. You may need to reload your UI:
+
+ElvUI - General - BlizzUI Improvements - Display Character Infos.]=]
+L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = true
+L["Azerite Buttons"] = true
+L["Enable/Disable the Azerite Buttons on the character window."] = true
+L["Durability"] = true
+L["Enable/Disable the display of durability information on the character window."] = true
+L["Damaged Only"] = true
+L["Only show durability information for items that are damaged."] = true
+L["Itemlevel"] = true
+L["Enable/Disable the display of item levels on the character window."] = true
+L["Level"] = true
+L["Full Item Level"] = true
+L["Show both equipped and average item levels."] = true
+L["Item Level Coloring"] = true
+L["Color code item levels values. Equipped will be gradient, average - selected color."] = true
+L["Color of Average"] = true
+L["Sets the color of average item level."] = true
+L["Only Relevant Stats"] = true
+L["Show only those primary stats relevant to your spec."] = true
+L["Item Level"] = true
+L["Categories"] = true
+L["Open head slot azerite powers."] = true
+L["Open shoulder slot azerite powers."] = true
+L["Open chest slot azerite powers."] = true
+L["Slot Gradient"] = true
+L["Shows a gradiation texture on the Character Slots."] = true
+L["Indicators"] = true
+L["Transmog"] = true
+L["Shows an arrow indictor for currently transmogrified items."] = true
+L["Illusion"] = true
+L["Shows an indictor for weapon illusions."] = true
+-- PRINTS
+L["Equipped head is not an Azerite item."] = true
+L["No head item is equipped."] = true
+L["Equipped shoulder is not an Azerite item."] = true
+L["No shoulder item is equipped."] = true
+L["Equipped chest is not an Azerite item."] = true
+L["No chest item is equipped."] = true
+
+-- Media
+L["MER_MEDIA_ZONES"] = {
+	"Washington",
+	"Moscow",
+	"Moon Base",
+	"Goblin Spa Resort",
+	"Illuminaty Headquaters",
+	"Elv's Closet",
+	"BlizzCon",
+}
+L["MER_MEDIA_PVP"] = {
+	"(Horde Territory)",
+	"(Alliance Territory)",
+	"(Contested Territory)",
+	"(Russian Territory)",
+	"(Aliens Territory)",
+	"(Cats Territory)",
+	"(Japanese Territory)",
+	"(EA Territory)",
+}
+L["MER_MEDIA_SUBZONES"] = {
+	"Administration",
+	"Hellhole",
+	"Alley of Bullshit",
+	"Dr. Pepper Storage",
+	"Vodka Storage",
+	"Last National Bank",
+}
+L["MER_MEDIA_PVPARENA"] = {
+	"(PvP)",
+	"No Smoking!",
+	"Only 5% Taxes",
+	"Free For All",
+	"Self destruction is in process",
+}
 
 -- Unitframes
 L["UnitFrames"] = true
@@ -286,7 +356,7 @@ L["Justify Text"] = true
 L["Auto Width"] = true
 L["Change width based on the zone name length."] = true
 L["Hearthstone Location"] = true
-L["Show the name on location your Heathstone is bound to."] = true
+L["Show the name on location your Hearthstone is bound to."] = true
 L["Combat Hide"] = true
 L["Show/Hide all panels when in combat"] = true
 L["Hide In Class Hall"] = true
@@ -317,6 +387,44 @@ L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
+-- NSCT
+L["Combat Text"] = true
+L["Disable Blizzard FCT"] = true
+L["Personal SCT"] = true
+L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = true
+L["Animations"] = true
+L["Default"] = true
+L["Criticals"] = true
+L["Miss/Parry/Dodge/etc."] = true
+L["Personal SCT Animations"] = true
+L["Appearance/Offsets"] = true
+L["Font Shadow"] = true
+L["Use Damage Type Color"] = true
+L["Default Color"] = true
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
+L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
+L["X-Offset Personal SCT"] = true
+L["Y-Offset Personal SCT"] = true
+L["Only used if Personal Nameplate is Disabled."] = true
+L["Text Formatting"] = true
+L["Truncate Number"] = true
+L["Condense combat text numbers."] = true
+L["Show Truncated Letter"] = true
+L["Comma Seperate"] = true
+L["e.g. 100000 -> 100,000"] = true
+L["Icon"] = true
+L["Size"] = true
+L["Start Alpha"] = true
+L["Use Seperate Off-Target Text Appearance"] = true
+L["Off-Target Text Appearance"] = true
+L["Sizing Modifiers"] = true
+L["Embiggen Crits"] = true
+L["Embiggen Crits Scale"] = true
+L["Embiggen Miss/Parry/Dodge/etc."] = true
+L["Embiggen Miss/Parry/Dodge/etc. Scale"] = true
+L["Scale Down Small Hits"] = true
+L["Small Hits Scale"] = true
+
 -- SMB
 L["Bar Backdrop"] = true
 L["Move Tracker Icon"] = true
@@ -342,6 +450,7 @@ L["Shows a frame with flask/food/rune."] = true
 L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
+L["Shows the pixel glow on missing raidbuffs."] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -385,33 +494,7 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["NameplateAuras"] = true
-L["Visibility"] = true
-L["Set when this aura is visble."] = true
-L["Clear Spell List"] = true
-L["Empties the list of specific spells and their configurations."] = true
-L["Restore Spell List"] = true
-L["Restores the default list of specific spells and their configurations."] = true
-L["Spell Name/ID"] = true
-L["Input a spell name or spell ID."] = true
-L["Spell List"] = true
-L["Remove Spell"] = true
-L["Other Auras"] = true
-L["These are the settings for all spells not explicitly specified."] = true
-L["Icon Width"] = true
-L["Set the width of this spells icon."] = true
-L["Icon Height"] = true
-L["Set the height of this spells icon."] = true
-L["Lock Aspect Ratio"] = true
-L["Set if height and width are locked to the same value."] = true
-L["Stack Size"] = true
-L["Text Size"] = true
-L["Size of the stack text."] = true
-L["Size of the cooldown text."] = true
-L["Specific Auras"] = true
-L["Always"] = true
-L["Never"] = true
-L["Only Mine"] = true
+L["Castbar Target"] = true
 
 -- Install
 L["Welcome"] = true

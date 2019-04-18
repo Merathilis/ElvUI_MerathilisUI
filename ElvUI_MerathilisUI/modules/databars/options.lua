@@ -2,11 +2,11 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MDB = MER:GetModule("mUI_databars")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: 
+-- GLOBALS:
 
 local function databarsTable()
 	E.Options.args.mui.args.modules.args.databars = {

@@ -1,9 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-
+local MC = E:GetModule("ModuleCopy")
 
 local function configTable()
 	if not E.Options.args.modulecontrol then return end
-	local CP = E:GetModule("CopyProfile")
 	E.Options.args.modulecontrol.args.modulecopy.args.mui = {
 		order = 11,
 		type = "group",
@@ -17,16 +16,16 @@ local function configTable()
 				type = "header",
 				name = L["|cffff7d0aMerathilisUI|r Options"],
 			},
-			-- actionbar = CP:CreateModuleConfigGroup(L["ActionBars"], "actionbar"),
-			-- auras = CP:CreateModuleConfigGroup(L["Auras"], "auras"),
-			-- bags = CP:CreateModuleConfigGroup(L["Bags"], "bags"),
-			-- chat = CP:CreateModuleConfigGroup(L["Chat"], "chat"),
-			-- cooldown = CP:CreateModuleConfigGroup(L["Cooldown Text"], "cooldown"),
-			-- databars = CP:CreateModuleConfigGroup(L["DataBars"], "databars"),
-			-- datatexts = CP:CreateModuleConfigGroup(L["DataTexts"], "datatexts"),
-			-- nameplates = CP:CreateModuleConfigGroup(L["NamePlates"], "nameplates"),
-			-- tooltip = CP:CreateModuleConfigGroup(L["Tooltip"], "tooltip"),
-			-- uniframes = CP:CreateModuleConfigGroup(L["UnitFrames"], "uniframes"),
+			-- actionbar = MC:CreateModuleConfigGroup(L["ActionBars"], "actionbar"),
+			-- auras = MC:CreateModuleConfigGroup(L["Auras"], "auras"),
+			-- bags = MC:CreateModuleConfigGroup(L["Bags"], "bags"),
+			-- chat = MC:CreateModuleConfigGroup(L["Chat"], "chat"),
+			-- cooldown = MC:CreateModuleConfigGroup(L["Cooldown Text"], "cooldown"),
+			-- databars = MC:CreateModuleConfigGroup(L["DataBars"], "databars"),
+			-- datatexts = MC:CreateModuleConfigGroup(L["DataTexts"], "datatexts"),
+			-- nameplates = MC:CreateModuleConfigGroup(L["NamePlates"], "nameplates"),
+			-- tooltip = MC:CreateModuleConfigGroup(L["Tooltip"], "tooltip"),
+			-- uniframes = MC:CreateModuleConfigGroup(L["UnitFrames"], "uniframes"),
 		},
 	}
 end

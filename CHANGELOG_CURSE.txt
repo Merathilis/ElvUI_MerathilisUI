@@ -1,8 +1,92 @@
-** v4.03, xx.xx.2018**
+** v4.15a 14.04.2019**
+*Fixed an lua error. >.>
+
+** v4.15 14.04.2019**
+* Added an Emoticon Frame to the chat.
+* Fixed some lua errors if you use Dual Profiles.
+* Added Target Name to the ElvUI Nameplate Castbars.
+* Added a Talent Manager, where you can save different presets.
+* Added back my chatBar. Disabled by default.
+* Added Raid Progress Info to the Tooltip (hold shift).
+
+** v4.14 07.04.2019**
+* Prevent a lua error in Reminder Module.
+* Alot of more Nameplate settings in my install.
+* Update the appearance for my FlightPoints frame.
+* Added Azerite Item Tooltip back.
+* Minor tweaks to unitframe install.
+* Add Guildbest Frame on the LFG Frame > Mythic Keystones.
+* Chinese Locals from Simon@ciki
+
+** v4.13 12.03.2019**
+* Removed my own System DataText i use now the ElvUI Datatext.
+* Removed Chat Menu, i never used it.
+* Removed Chat Buttons.
+* Adjust the Layout due to the new Voice Chat Buttons.
+* Add new Nameplate settings to my Layout/CVar Install steps.
+* Small UnitFrame settings update.
+
+** v4.12 25.02.2019**
+* Adjust my ActionBar appereance. Looks nice with my new Masque skin.
+* Take account the the new ItemLevel Font changes.
+
+** v4.11 24.02.2019**
+* Forgot to change a tag in the Healer Layout.
+
+** v4.10 24.02.2019**
+* Changed the Armory Mode to work with the new Character Info from ElvUI.
+* Many Skin updates.
+* Added a MicroBar Tooltip.
+* Added a Community Chat Hider. Credits Nnogga.
+* Added NamePlate Scrolling Text.Credits Mpstark
+
+** v4.09, 26.01.2019**
+* Dont load the AzeriteButtons if the ElvUI Character Skin is disabled.
+* Add a waring texture for missing gems.
+* Update ls_Toast skin and profile.
+
+** v4.08, 21.01.2019**
+* Remove some code from the Collection Skin to prevent a taint.
+* Remove RealmInfo from the Tooltip. Go away...
+* Added back the Media section to change some additional fonts.
+* More work on my Armory. Slot Gradiation, socket links, etc.
+
+** v4.07, 11.01.2019**
+* Fixed an error CombatFeedBack Text if UnitFrames are disabled.
+* Fixed an error with LSM calls.
+* Some NamePlateAuras fine tuning.
+* The Notification dont show now if you are in a dungeon/raid etc.
+* Added an own Armory (light) Mode.
+* Updated some skins.
+
+** v4.06, 08.01.2019**
+* Fixed an error in ItemSocketing skin.
+* Added back my ShadowOverlay.
+* Adjust font size for ScrappingMachine & FlyoutButton iLvL.
+* Update the Minimap Glow appearance.
+* Update RealmInfo.
+* Simplify the NamePlate Auras.
+* Change the default position for the Combat State.
+
+** v4.05, 27.12.2018**
+* Various skin adjustments & fixes.
+* Use a nice glow around RaidBuffReminder & Buff Reminder.
+* Update Minimap Coords Position.
+* Removed my ShadowOverlay.
+* Added a CombatFeedBack Text to the UF's.
+
+** v4.04, 13.12.2018**
+* Fixed an error in the LFGList skin.
+* Updated SpellBook skin.
+* Use my arrows on the StackSplitFrame again.
+* Disable my ShadowOverlay by default for now.
+
+** v4.03, 11.12.2018**
 * Update new ChatBar position and size.
 * Removed Enhanced FriendsList. Get ProjectAzilroka.
 * Fix Keystone Info tooltip.
 * Added iLvL on ScrappingMachine & EquipFlyout Buttons.
+* Added Buff Reminder Module.
 
 ** v4.02, 21.11.2018**
 * Fixed an error in one of my ClassColor function. #38

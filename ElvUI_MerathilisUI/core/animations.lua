@@ -10,7 +10,6 @@ local abs, max = math.abs, math.max
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
--- Global variables that we don't cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
 local function OnUpdate(self)

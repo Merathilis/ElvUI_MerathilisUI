@@ -13,13 +13,16 @@ local CreateFrame = CreateFrame
 local function styleWarboard()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Warboard ~= true or E.private.muiSkins.blizzard.warboard ~= true then return end
 
-	local WarboardQuestChoiceFrame = _G["WarboardQuestChoiceFrame"]
+	local WarboardQuestChoiceFrame = _G.WarboardQuestChoiceFrame
 	WarboardQuestChoiceFrame:Styling()
 
 	for i = 1, 4 do
 		local option = WarboardQuestChoiceFrame["Option"..i]
-		local optionBackdrop = MERS:CreateBDFrame(option)
-		optionBackdrop:SetPoint("TOPLEFT", -2, 8)
+		if not option.backdrop then
+			option:CreateBackdrop("Transparent")
+			option.backdrop:SetPoint("TOPLEFT", -2, 15)
+			MERS:CreateGradient(option.backdrop)
+		end
 
 		option.Header.Ribbon:Hide()
 		option.Background:Hide()
@@ -28,12 +31,6 @@ local function styleWarboard()
 		option.OptionText:SetTextColor(1, 1, 1)
 		option.OptionText.SetTextColor = MER.dummy
 		option.ArtworkBorder:SetAlpha(0)
-
-		option.ArtBackdrop = CreateFrame("Frame", nil, option)
-		option.ArtBackdrop:SetFrameLevel(option:GetFrameLevel())
-		option.ArtBackdrop:SetPoint("TOPLEFT", option.Artwork, -2, 2)
-		option.ArtBackdrop:SetPoint("BOTTOMRIGHT", option.Artwork, 2, -2)
-		MERS:CreateBD(option.ArtBackdrop)
 	end
 end
 

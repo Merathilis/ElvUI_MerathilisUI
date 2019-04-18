@@ -3,11 +3,11 @@ local MI = MER:GetModule("mUIMisc")
 local MERA = MER:GetModule("mUIAnnounce")
 
 --Cache global variables
-
+--Lua functions
+local tinsert = table.insert
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GUILD_MOTD_LABEL2
+local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
+-- GLOBALS:
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
@@ -57,16 +57,22 @@ local function Misc()
 				name = MERA.modName,
 				desc = L["Skill gains"],
 			},
-			nameHover = {
+			cursor = {
 				order = 7,
 				type = "toggle",
-				name = L["Name Hover"],
-				desc = L["Shows the Unit Name on the mouse."],
+				name = L["Flashing Cursor"],
 			},
-			cursor = {
+			raidInfo = {
 				order = 8,
 				type = "toggle",
-				name = L["Flashing Cursor"],
+				name = L["Raid Info"],
+				desc = L["Shows a simple frame with Raid Informations."],
+			},
+			talentManager = {
+				order = 9,
+				type = "toggle",
+				name = E.NewSign..L["Talent Manager"],
+				desc = L["Allow you to create multiple Talent presets"],
 			},
 		},
 	}

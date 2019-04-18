@@ -8,7 +8,10 @@ local _G = _G
 local unpack = unpack
 
 --WoW API / Variables
-
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local GetLFGDungeonRewardInfo = GetLFGDungeonRewardInfo
+local GetLFGDungeonShortageRewardInfo = GetLFGDungeonShortageRewardInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
 
@@ -23,12 +26,16 @@ local function styleLFG()
 		local count = _G[buttonName.."Count"]
 		local na = _G[buttonName.."NameFrame"]
 
-		MERS:CreateBG(icon)
 		icon:SetTexCoord(unpack(E.TexCoords))
 		icon:SetDrawLayer("OVERLAY")
+
 		count:SetDrawLayer("OVERLAY")
+
 		na:SetColorTexture(0, 0, 0, .25)
-		na:SetSize(118, 39)
+		na:SetSize(110, 39)
+		na:ClearAllPoints()
+		na:SetPoint("LEFT", icon, "RIGHT", -7, 0)
+
 		if button.IconBorder then
 			button.IconBorder:SetAlpha(0)
 		end
@@ -41,7 +48,8 @@ local function styleLFG()
 		button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
 		button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
 		button.bg2:SetFrameStrata("BACKGROUND")
-		MERS:CreateBD(button.bg2, 0)
+		MERS:CreateBD(button.bg2, .25)
+		MERS:CreateGradient(button.bg2)
 	end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
@@ -53,21 +61,21 @@ local function styleLFG()
 		end
 	end)
 
-	styleRewardButton(LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	styleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
-	local leaderBg = MERS:CreateBG(LFGDungeonReadyDialogRoleIconLeaderIcon)
+	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)
 	leaderBg:SetDrawLayer("ARTWORK", 2)
-	leaderBg:SetPoint("TOPLEFT", LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
-	leaderBg:SetPoint("BOTTOMRIGHT", LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
+	leaderBg:SetPoint("TOPLEFT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, 2, 0)
+	leaderBg:SetPoint("BOTTOMRIGHT", _G.LFGDungeonReadyDialogRoleIconLeaderIcon, -3, 4)
 
 	hooksecurefunc("LFGDungeonReadyPopup_Update", function()
-		leaderBg:SetShown(LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
+		leaderBg:SetShown(_G.LFGDungeonReadyDialogRoleIconLeaderIcon:IsShown())
 	end)
 
 	do
-		local bg = MERS:CreateBDFrame(LFGDungeonReadyDialogRoleIcon, 1)
+		local bg = MERS:CreateBDFrame(_G.LFGDungeonReadyDialogRoleIcon, 1)
 		bg:SetPoint("TOPLEFT", 9, -7)
 		bg:SetPoint("BOTTOMRIGHT", -8, 10)
 	end

@@ -70,4 +70,8 @@ function MER:LoadAddOnSkinsProfile()
 	if IsAddOnLoaded("Postal") then
 		AS.db["Postal"] = false
 	end
+
+	if IsAddOnLoaded("BugSack") then
+		AS.db["BugSack"] = false
+	end
 end

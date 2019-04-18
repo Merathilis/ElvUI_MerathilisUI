@@ -17,10 +17,10 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
-	_G["WorldMapFrame"]:Styling()
+	_G.WorldMapFrame:Styling()
 
-	local frame = CreateFrame("Frame", nil, _G["QuestScrollFrame"])
-	_G["QuestScrollFrame"].QuestCountFrame = frame
+	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
+	_G.QuestScrollFrame.QuestCountFrame = frame
 
 	frame:RegisterEvent("QUEST_LOG_UPDATE")
 	frame:Size(240, 20)
@@ -40,8 +40,8 @@ local function styleWorldmap()
 		frame.text:SetFormattedText(str, quests)
 	end)
 
-	if _G["QuestScrollFrame"].DetailFrame.backdrop then
-		_G["QuestScrollFrame"].DetailFrame.backdrop:Hide()
+	if _G.QuestScrollFrame.DetailFrame.backdrop then
+		_G.QuestScrollFrame.DetailFrame.backdrop:Hide()
 	end
 end
 

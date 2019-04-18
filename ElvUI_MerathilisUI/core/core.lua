@@ -1,5 +1,5 @@
 local E, L, V, P, G = unpack(ElvUI)
-local LSM = LibStub("LibSharedMedia-3.0")
+local LSM = E.LSM
 local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...
 
@@ -17,6 +17,7 @@ local tinsert = table.insert
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
+local GetAddOnEnableState = GetAddOnEnableState
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: LibStub, ElvDB, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER

@@ -7,19 +7,29 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 local tinsert = table.insert
 --WoW API / Variables
+local CanEditOfficerNote = CanEditOfficerNote
 local CreateFrame = CreateFrame
+local ChatFrame_OpenChat = ChatFrame_OpenChat
+local ChatFrame_ReplyTell = ChatFrame_ReplyTell
+local GUILD, INSTANCE, OFFICER, PARTY, RAID, SAY, WHISPER, YELL, LOOT_ROLL = GUILD, INSTANCE, OFFICER, PARTY, RAID, SAY, WHISPER, YELL, LOOT_ROLL
+local GetDefaultLanguage = GetDefaultLanguage
+local GetUnitName = GetUnitName
+local IsPartyLFG = IsPartyLFG
+local UnitExists = UnitExists
+local UnitIsPlayer = UnitIsPlayer
+local UnitName = UnitName
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 function MERC:ChatBar()
 	if E.private.chat.enable ~= true or E.db.mui.chat.chatBar ~= true then return end
 
-	local chatFrame = SELECTED_DOCK_FRAME
+	local chatFrame = _G.SELECTED_DOCK_FRAME
 	local editBox = chatFrame.editBox
 	local width, height, padding, buttonList = 52, 6, 5, {}
 
 	local ChatbarHolder = CreateFrame("Frame", nil, E.UIParent)
-	ChatbarHolder:CreatePanel("Invisible", _G["LeftChatPanel"]:GetWidth(), height, "BOTTOM", _G["LeftChatPanel"], 2, -2)
+	ChatbarHolder:CreatePanel("Invisible", _G.LeftChatPanel:GetWidth(), height, "BOTTOM", _G.LeftChatPanel, 16, -2)
 	ChatbarHolder:SetFrameStrata("MEDIUM")
 
 	local function AddButton(r, g, b, text, func)
@@ -99,7 +109,7 @@ function MERC:ChatBar()
 	roll:SetAttribute("macrotext", "/roll")
 
 	-- COMBATLOG
-	local combat = AddButton(1, 1, 0, BINDING_NAME_TOGGLECOMBATLOG)
+	local combat = AddButton(1, 1, 0, _G.BINDING_NAME_TOGGLECOMBATLOG)
 	combat:SetAttribute("type", "macro")
 	combat:SetAttribute("macrotext", "/combatlog")
 

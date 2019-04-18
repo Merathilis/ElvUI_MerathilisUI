@@ -11,7 +11,7 @@ local _G = _G
 local function styleGuildControlUI()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guildcontrol ~= true or E.private.muiSkins.blizzard.guildcontrol ~= true then return end
 
-	_G["GuildControlUI"]:Styling()
+	_G.GuildControlUI:Styling()
 end
 
 S:AddCallbackForAddon("Blizzard_GuildControlUI", "mUIGuildControl", styleGuildControlUI)

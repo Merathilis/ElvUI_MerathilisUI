@@ -3,6 +3,8 @@ local SMB = MER:NewModule("mUIMinimapButtons", "AceEvent-3.0", "AceHook-3.0", "A
 local COMP = MER:GetModule("mUICompatibility")
 SMB.modName = L["Minimap Buttons"]
 
+-- Credits to Azilroka
+
 --Cache global variables
 --Lua functions
 local _G = _G
@@ -54,11 +56,6 @@ local GenericIgnores = {
 }
 
 local PartialIgnores = { 'Node', 'Note', 'Pin', 'POI' }
-
-local AcceptedFrames = {
-	'BagSync_MinimapButton',
-	'VendomaticButtonFrame',
-}
 
 local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
 
@@ -174,16 +171,14 @@ function SMB:SkinMinimapButton(Button)
 	local Name = Button:GetName()
 	if not Name then return end
 
-	if Button:IsObjectType('Button') then
-		if tContains(ignoreButtons, Name) then return end
+	if tContains(ignoreButtons, Name) then return end
 
-		for i = 1, #GenericIgnores do
-			if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
-		end
+	for i = 1, #GenericIgnores do
+		if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
+	end
 
-		for i = 1, #PartialIgnores do
-			if strfind(Name, PartialIgnores[i]) ~= nil then return end
-		end
+	for i = 1, #PartialIgnores do
+		if strfind(Name, PartialIgnores[i]) ~= nil then return end
 	end
 
 	for i = 1, Button:GetNumRegions() do
@@ -249,7 +244,7 @@ function SMB:GrabMinimapButtons()
 			if object then
 				local name = object:GetName()
 				local width = object:GetWidth()
-				if name and width > 15 and width < 40 and (object:IsObjectType('Button') or object:IsObjectType('Frame') and tContains(AcceptedFrames, name)) then
+				if name and width > 15 and width < 40 and (object:IsObjectType('Button') or object:IsObjectType('Frame')) then
 					self:SkinMinimapButton(object)
 				end
 			end
@@ -263,11 +258,11 @@ end
 function SMB:Update()
 	if not SMB.db['enable'] then return end
 
-	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow']
-	local ButtonsPerRow = SMB.db['buttonsPerRow']
+	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow'] or 12
+	local ButtonsPerRow = SMB.db['buttonsPerRow'] or 12
 	local NumColumns = ceil(#SMB.Buttons / ButtonsPerRow)
-	local Spacing, Mult = SMB.db['buttonSpacing'], 1
-	local Size = SMB.db['iconSize']
+	local Spacing, Mult = SMB.db['buttonSpacing'] or 2, 1
+	local Size = SMB.db['iconSize'] or 27
 	local ActualButtons, Maxed = 0
 
 	if NumColumns == 1 and ButtonsPerRow > #SMB.Buttons then
@@ -328,7 +323,7 @@ end
 
 function SMB:Initialize()
 	if E.private.general.minimap.enable ~= true or E.db.mui["smb"].enable ~= true then return end
-	if (COMP.PA and _G.ProjectAzilroka.db.SMB == true or COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
+	if (COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
 
 	SMB.db = E.db.mui["smb"]
 

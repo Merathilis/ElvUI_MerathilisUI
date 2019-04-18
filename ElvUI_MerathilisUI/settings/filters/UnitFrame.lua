@@ -94,6 +94,7 @@ G.unitframe.aurafilters['MER_RaidCDs'] = {
 		[216890] = Defaults(), --Spell Reflection (PvPT)
 		[203524] = Defaults(), --Neltharion's Fury
 		[132404] = Defaults(), --Shield Block
+		[190456] = Defaults(), --Ignore Pain
 	--Racial
 		[65116] = Defaults(), --Stoneform
 	},

@@ -15,7 +15,7 @@ local _G = _G
 local function styleOrderHall()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.muiSkins.blizzard.orderhall ~= true then return end
 
-	local OrderHallTalentFrame = _G["OrderHallTalentFrame"]
+	local OrderHallTalentFrame = _G.OrderHallTalentFrame
 
 	OrderHallTalentFrame:HookScript("OnShow", function(self)
 		if self.styled then return end
