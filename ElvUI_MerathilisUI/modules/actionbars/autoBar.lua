@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("AutoButtons", "AceEvent-3.0")
 local MERS = MER:GetModule("muiSkins")
+local AB = E:GetModule('ActionBars')
 
 --Cache global variables
 --Lua functions
@@ -33,6 +34,8 @@ local GetBindingKey = GetBindingKey
 local UIParent = UIParent
 local CooldownFrame_Set = CooldownFrame_Set
 -- GLOBALS:
+
+local MasqueGroup = MER.MSQ and MER.MSQ:Group("ElvUI_MerathilisUI", "AutoButton")
 
 local QuestItemList = {}
 local garrisonsmv = {118897, 118903}
@@ -196,14 +199,14 @@ end
 local function CreateButton(name, size)
 	if _G[name] then
 		_G[name]:Size(size)
-		_G[name].c:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
-		_G[name].k:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
+		_G[name].Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
+		_G[name].HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
 		return _G[name]
 	end
 
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
-	AutoButton:SetTemplate("Default")
+	--AutoButton:SetTemplate("Default")
 	AutoButton:StyleButton()
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")
@@ -211,22 +214,24 @@ local function CreateButton(name, size)
 	AutoButton:EnableMouse(false)
 	AutoButton:RegisterForClicks("AnyUp")
 
-	AutoButton.t = AutoButton:CreateTexture(nil, "OVERLAY", nil)
-	AutoButton.t:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
-	AutoButton.t:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
-	AutoButton.t:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	AutoButton.Texture = AutoButton:CreateTexture(nil, "OVERLAY", nil)
+	AutoButton.Texture:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
+	AutoButton.Texture:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
+	AutoButton.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	AutoButton.Texture:SetSnapToPixelGrid(false)
+	AutoButton.Texture:SetTexelSnappingBias(0)
 
-	AutoButton.c = AutoButton:CreateFontString(nil, "OVERLAY")
-	AutoButton.c:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
-	AutoButton.c:SetTextColor(1, 1, 1, 1)
-	AutoButton.c:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", 0, 0)
-	AutoButton.c:SetJustifyH("CENTER")
+	AutoButton.Count = AutoButton:CreateFontString(nil, "OVERLAY")
+	AutoButton.Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
+	AutoButton.Count:SetTextColor(1, 1, 1, 1)
+	AutoButton.Count:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", 0, 0)
+	AutoButton.Count:SetJustifyH("CENTER")
 
-	AutoButton.k = AutoButton:CreateFontString(nil, "OVERLAY")
-	AutoButton.k:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
-	AutoButton.k:SetTextColor(1, 1, 1)
-	AutoButton.k:Point("TOPRIGHT", AutoButton, "TOPRIGHT", 0, 0)
-	AutoButton.k:SetJustifyH("RIGHT")
+	AutoButton.HotKey = AutoButton:CreateFontString(nil, "OVERLAY")
+	AutoButton.HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
+	AutoButton.HotKey:SetTextColor(1, 1, 1)
+	AutoButton.HotKey:Point("TOPRIGHT", AutoButton, "TOPRIGHT", 0, 0)
+	AutoButton.HotKey:SetJustifyH("RIGHT")
 
 	AutoButton.Cooldown = CreateFrame("Cooldown", nil, AutoButton, "CooldownFrameTemplate")
 	AutoButton.Cooldown:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
@@ -237,6 +242,11 @@ local function CreateButton(name, size)
 	E:RegisterCooldown(AutoButton.Cooldown)
 
 	E.FrameLocks[name] = true
+
+	if MER.MSQ then
+		MasqueGroup:AddButton(AutoButton)
+	end
+
 	return AutoButton
 end
 
@@ -295,7 +305,7 @@ function module:ScanItem(event)
 			local itemIcon = GetItemIcon(itemID)
 
 			if not AutoButton then break end
-			AutoButton.t:SetTexture(itemIcon)
+			AutoButton.Texture:SetTexture(itemIcon)
 			AutoButton.itemName = itemName
 			AutoButton.itemID = itemID
 			AutoButton.ap = false
@@ -317,9 +327,9 @@ function module:ScanItem(event)
 			end
 
 			if count and count > 1 then
-				AutoButton.c:SetText(count)
+				AutoButton.Count:SetText(count)
 			else
-				AutoButton.c:SetText("")
+				AutoButton.Count:SetText("")
 			end
 
 			AutoButton:SetScript("OnUpdate", function(self, elapsed)
@@ -364,8 +374,8 @@ function module:ScanItem(event)
 					AutoButton:SetBackdropBorderColor(r, g, b)
 				end
 				AutoButton.ignoreBorderColors = true
-				AutoButton.t:SetTexture(itemIcon)
-				AutoButton.c:SetText("")
+				AutoButton.Texture:SetTexture(itemIcon)
+				AutoButton.Count:SetText("")
 				AutoButton.slotID = w
 				AutoButton.itemID = slotID
 				AutoButton.spellName = IsUsableItem(slotID)
@@ -417,7 +427,7 @@ function module:UpdateBind()
 				bindText = gsub(bindText, "ALT--", "A")
 			end
 
-			if button then button.k:SetText(bindText) end
+			if button then button.HotKey:SetText(bindText) end
 		end
 	end
 
@@ -434,7 +444,7 @@ function module:UpdateBind()
 				bindText = gsub(bindText, "ALT--", "A")
 			end
 
-			if button then button.k:SetText(bindText) end
+			if button then button.HotKey:SetText(bindText) end
 		end
 	end
 end

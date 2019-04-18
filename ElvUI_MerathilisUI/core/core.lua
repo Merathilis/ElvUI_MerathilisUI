@@ -38,6 +38,9 @@ MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
+MER.MSQ = _G.LibStub('Masque', true)
+--MER.MSQ.Enable =
+
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end
@@ -186,6 +189,10 @@ function MER:Initialize()
 	-- run install when ElvUI install finishes
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
+
+	if MER.MSQ then
+		MER.MSQ:Register(addon)
 	end
 
 	EP:RegisterPlugin(addon, self.AddOptions)
