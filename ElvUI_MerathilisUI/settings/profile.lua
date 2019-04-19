@@ -51,6 +51,11 @@ P.mui = {
 		cursor = false,
 		raidInfo = true,
 		talentManager = true,
+		alerts = {
+			versionCheck = true,
+			detectVersion = MER.Version,
+			UunatAlert = true,
+		},
 	},
 
 	nameHover = {
