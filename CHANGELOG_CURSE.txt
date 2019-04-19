@@ -1,3 +1,6 @@
+** v4.16a 19.04.2019**
+* Fix lua errors in AutoButton. >.>
+
 ** v4.16 19.04.2019**
 * Rename the movers for AutoButtons.
 * Added Masque support for the AutoButtons.
