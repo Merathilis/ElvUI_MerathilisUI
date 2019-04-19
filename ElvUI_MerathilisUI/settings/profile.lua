@@ -379,7 +379,7 @@ P.mui = {
 				enable = true,
 				Uldir = false,
 				BattleOfDazaralor = true,
-				CrucibleOfStorms = false,
+				CrucibleOfStorms = true,
 			}
 		},
 	},

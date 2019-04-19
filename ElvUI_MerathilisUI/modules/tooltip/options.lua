@@ -156,7 +156,7 @@ local function Tooltip()
 								order = 4,
 								type = "toggle",
 								name = L["CrucibleOfStorms"],
-								disabled = function() return true end, --[[not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable]]
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 						}
 					},

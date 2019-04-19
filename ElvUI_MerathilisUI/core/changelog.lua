@@ -17,16 +17,17 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added an Emoticon Frame to the chat.",
-		"• Fixed some lua errors if you use Dual Profiles.",
-		"• Added Target Name to the ElvUI Nameplate Castbars.",
-		"• Added a Talent Manager, where you can save different presets.",
-		"• Added back my chatBar. Disabled by default.",
-		"• Added Raid Progress Info to the Tooltip (hold shift).",
+		"• Rename the movers for AutoButtons.",
+		"• Added Masque support for the AutoButtons.",
+		"• Rename Bindingtext for AutoButtons.",
+		"• Override ElvUIs min scale for Auras.",
+		"• Enable Crucible of the Storm in Progress.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• 'Happy Easter!'",
+		"• NOTE: Remember, you can use Keybinds on the AutoButtons.",
 		-- "• ''",
 }
 

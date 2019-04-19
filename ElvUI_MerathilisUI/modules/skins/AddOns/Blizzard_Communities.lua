@@ -66,7 +66,6 @@ local function styleCommunities()
 
 	MERS:Reskin(Dialog.OkayButton)
 	MERS:Reskin(Dialog.CancelButton)
-	MERS:ReskinCheckBox(Dialog.ScrollFrame.Child.QuickJoinButton)
 	Dialog.ScrollFrame.Child.QuickJoinButton:SetSize(25, 25)
 	MERS:Reskin(Dialog.ScrollFrame.Child.AllButton)
 	MERS:Reskin(Dialog.ScrollFrame.Child.NoneButton)
