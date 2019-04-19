@@ -35,6 +35,7 @@ local CooldownFrame_Set = CooldownFrame_Set
 -- GLOBALS:
 
 local MasqueGroup = MER.MSQ and MER.MSQ:Group("ElvUI_MerathilisUI", "AutoButton")
+local useMasque = GetAddOnEnableState(E.myname, "Masque") == 2
 
 local QuestItemList = {}
 local garrisonsmv = {118897, 118903}
@@ -205,8 +206,8 @@ local function CreateButton(name, size)
 
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
-	if not MER.MSQ.Enable then
-		AutoButton:SetTemplate("Default")
+	if not useMasque then
+		AutoButton:SetTemplate()
 	end
 	AutoButton:StyleButton()
 	AutoButton:SetClampedToScreen(true)
@@ -245,7 +246,7 @@ local function CreateButton(name, size)
 	local AutoButtonData = {
 		FloatingBG = nil,
 		Icon = AutoButton.Texture,
-		Cooldown = nil,
+		Cooldown = AutoButton.Cooldown,
 		Flash = nil,
 		Pushed = nil,
 		Normal = nil,
