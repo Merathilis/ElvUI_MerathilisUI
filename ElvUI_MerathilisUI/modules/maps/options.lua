@@ -144,29 +144,34 @@ local function Minimap()
 						order = 3,
 						type = "toggle",
 						name = L["Mouseover"],
+						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					backdrop = {
 						order = 4,
 						type = "toggle",
 						name = L["Bar Backdrop"],
+						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					iconSize = {
 						order = 5,
 						type = "range",
 						name = L["Icon Size"],
 						min = 12, max = 48, step = 1,
+						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					buttonSpacing = {
 						order = 6,
 						type = "range",
 						name = L["Button Spacing"],
 						min = 0, max = 10, step = 1,
+						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					buttonsPerRow = {
 						order = 7,
 						type = "range",
 						name = L["Buttons Per Row"],
 						min = 1, max = 100, step = 1,
+						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					blizzard = {
 						order = 8,
@@ -174,6 +179,7 @@ local function Minimap()
 						name = L["Blizzard"],
 						guiInline = true,
 						set = function(info, value) E.db.mui.smb[ info[#info] ] = value SMB:Update() SMB:HandleBlizzardButtons() end,
+						disabled = function() return not E.db.mui.smb.enable end,
 						args = {
 							moveTracker  = {
 								order = 1,
