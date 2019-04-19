@@ -1,3 +1,10 @@
+** v4.16 19.04.2019**
+* Rename the movers for AutoButtons.
+* Added Masque support for the AutoButtons.
+* Rename Bindingtext for AutoButtons.
+* Override ElvUI's min scale for Aura's.
+* Enable Crucible of the Storm in Progress.
+
 ** v4.15a 14.04.2019**
 *Fixed an lua error. >.>
 

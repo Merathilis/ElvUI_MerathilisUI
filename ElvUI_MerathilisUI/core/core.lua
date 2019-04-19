@@ -17,7 +17,6 @@ local tinsert = table.insert
 local CreateFrame = CreateFrame
 local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
-local GetAddOnEnableState = GetAddOnEnableState
 
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: LibStub, ElvDB, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
@@ -37,6 +36,8 @@ MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
+
+MER.MSQ = _G.LibStub('Masque', true)
 
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
@@ -186,6 +187,10 @@ function MER:Initialize()
 	-- run install when ElvUI install finishes
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
+	end
+
+	if MER.MSQ then
+		MER.MSQ:Register(addon)
 	end
 
 	EP:RegisterPlugin(addon, self.AddOptions)
