@@ -362,11 +362,11 @@ function module:ScanItem(event)
 				end
 				CooldownFrame_Set(self.Cooldown, start, duration, enable)
 				if (duration and duration > 0 and enable and enable == 0) then
-					self.t:SetVertexColor(0.4, 0.4, 0.4)
+					self.Texture:SetVertexColor(0.4, 0.4, 0.4)
 				elseif IsItemInRange(itemID, "target") == 0 then
-					self.t:SetVertexColor(1, 0, 0)
+					self.Texture:SetVertexColor(1, 0, 0)
 				else
-					self.t:SetVertexColor(1, 1, 1)
+					self.Texture:SetVertexColor(1, 1, 1)
 				end
 			end)
 			AutoButtonShow(AutoButton)
@@ -425,9 +425,9 @@ function module:ScanItemCount(elapsed)
 			local count = GetItemCount(f.itemID, nil, 1)
 
 			if count and count > 1 then
-				f.c:SetText(count)
+				f.Count:SetText(count)
 			else
-				f.c:SetText("")
+				f.Count:SetText("")
 			end
 		end
 	end
