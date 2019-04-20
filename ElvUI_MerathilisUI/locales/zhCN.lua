@@ -9,7 +9,7 @@ L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。�
 -- General Options
 L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
 L["by Merathilis (EU-Shattrath)"] = true
-L["AFK"] = true
+L["AFK"] = "离开"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
 L["Are you still there? ... Hello?"] = "你还在吗？ ... 在吗？"
 L["Logout Timer"] = "登出计时器"
@@ -63,10 +63,10 @@ L["Removes brackets around the person who posts a chat message."] = "删除聊�
 L["Hide Community Chat"] = "隐藏社区聊天"
 L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = "聊天框已隐藏，点击显示"
-L["ChatBar"] = true
-L["Shows a ChatBar with different quick buttons."] = true
-L["Click to open Emoticon Frame"] = true
-L["Emotes"] = true
+L["ChatBar"] = "聊天条"
+L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
+L["Click to open Emoticon Frame"] = "点击打开表情框架"
+L["Emotes"] = "表情"
 
 -- Information
 L["Information"] = "信息"
@@ -111,7 +111,7 @@ L["Local Time"] = "本地时间"
 L["Realm Time"] = "现实时间"
 L["Current Invasion: "] = "当前入侵: "
 L["Next Invasion: "] = "下次入侵: "
-L["Mythic Dungeon"] = "大秘境"
+L["Mythic Dungeon"] = "地下城"
 
 -- Misc
 L["Misc"] = "杂项"
@@ -127,7 +127,7 @@ L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
 L["Undress"] = "解除装备"
-L["Flashing Cursor"] = "光标闪光"
+L["Flashing Cursor"] = "鼠标闪光"
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
@@ -138,19 +138,19 @@ L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest versi
 L["UunatAlertString"] = "%s step in 'Oblivion Tear' for %d time(s)."
 
 -- Talent Manager
-L["Error: Too many talents selected"] = true
-L["Added a new profile: "] = true
-L["Unable to load the selected profile"] = true
-L["Saved profile: "] = true
-L["Removed a profile: "] = true
-L["Enter Profile Name: "] = true
-L["Do you want to remove the profile '%s'?"] = true
-L["Unable to load talent configuration for the selected profile"] = true
-L["Activated profile: "] = true
-L["Add new profile"] = true
-L["Migration: Info: No profiles found for spec #"] = true
-L["Migration: Info: Migrated profile "] = true
-L["Migration: Done: Successfully migrated "] = true
+L["Error: Too many talents selected"] = "错误: 选择的天赋太多了"
+L["Added a new profile: "] = "增加一个新配置"
+L["Unable to load the selected profile"] = "无法载入选择的配置"
+L["Saved profile: "] = "保存配置:"
+L["Removed a profile: "] = "删除配置:"
+L["Enter Profile Name: "] = "输入配置名:"
+L["Do you want to remove the profile '%s'?"] = "你想要移除配置 '%s'?"
+L["Unable to load talent configuration for the selected profile"] = "无法为选择的配置文件加载天赋配置"
+L["Activated profile: "] = "激活的配置:"
+L["Add new profile"] = "增加新配置"
+L["Migration: Info: No profiles found for spec #"] = "迁移: 信息: 无法为天赋找到配置文件 #"
+L["Migration: Info: Migrated profile "] = "迁移: 信息: 迁移的配置文件 "
+L["Migration: Done: Successfully migrated "] = "迁移: 完成: 迁移成功 "
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -163,25 +163,25 @@ L["Keystone"] = "大秘境钥匙"
 L["Adds descriptions for mythic keystone properties to their tooltips."] = "鼠标提示中添加大米钥匙的词缀描述"
 L["Title Color"] = "标题颜色"
 L["Change the color of the title in the Tooltip."] = "改变鼠标提示中标题的颜色"
-L["Progress Info"] = true
-L["Shows raid progress of a character in the tooltip"] = true
-L["Mythic"] = true
-L["Heroic"] = true
-L["Normal"] = true
+L["Progress Info"] = "进度信息"
+L["Shows raid progress of a character in the tooltip"] = "鼠标提示中显示角色的副本进度"
+L["Mythic"] = "史诗"
+L["Heroic"] = "英雄"
+L["Normal"] = "普通"
 L["LFR"] = true
 L["Uldir"] = true
-L["BattleOfDazaralor"] = "Battle Of Dazaralor"
-L["CrucibleOfStorms"] = "Crucible Of Storms"
+L["BattleOfDazaralor"] = "达萨罗之战"
+L["CrucibleOfStorms"] = "风暴熔炉"
 
 -- MailInputBox
-L["Mail Inputbox Resize"] = "邮件收件箱大小调整"
+L["Mail Inputbox Resize"] = "收件箱大小调整"
 L["Resize the Mail Inputbox and move the shipping cost to the Bottom"] = "调整邮件收件箱大小，并把费用移动到底部"
 
 -- Notification
 L["Notification"] = "通知"
 L["Display a Toast Frame for different notifications."] = "为不同的通知显示一个提示框."
 L["This is an example of a notification."] = "这是一个通知的示例."
-L["Notification Mover"] = "true"
+L["Notification Mover"] = true
 L["%s slot needs to repair, current durability is %d."] = "%s 插槽需要修理, 当前耐久度是 %d."
 L["You have %s pending calendar invite(s)."] = "你有 %s 待处理的日历邀请."
 L["You have %s pending guild event(s)."] = "你有 %s 待处理的公会事件."
@@ -191,7 +191,7 @@ L["Event \"%s\" is ongoing."] = "\"%s\" 活动正在进行中."
 L["Event \"%s\" will end tomorrow."] = "\"%s\" 活动明天结束."
 L["Here you can enable/disable the different notification types."] = "在这里，你可以启用/禁用不同的通知类型."
 L["Enable Mail"] = "启用邮件"
-L["Enable Vignette"] = "true"
+L["Enable Vignette"] = "启用简介"
 L["If a Rare Mob or a treasure gets spotted on the minimap."] = "如果在小地图上发现稀有精英或宝箱"
 L["Enable Invites"] = "启用邀请"
 L["Enable Guild Events"] = "启用公会活动"
@@ -212,11 +212,11 @@ L["Transparent Backdrops"] = "透明背景"
 L["Specialisation Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
-L["Auto Buttons"] = true
-L["Bind Font Size"] = true
-L["Trinket Buttons"] = true
-L["Color by Quality"] = true
-L["Quest Buttons"] = true
+L["Auto Buttons"] = "自动按钮"
+L["Bind Font Size"] = "绑定字体大小"
+L["Trinket Buttons"] = "饰品按钮"
+L["Color by Quality"] = "品质颜色"
+L["Quest Buttons"] = "任务按钮"
 
 -- Armory
 L["Armory"] = true
@@ -305,7 +305,7 @@ L["Aura Spacing"] = "光环间距"
 L["Sets space between individual aura icons."] = "设置各个光环图标间的间距."
 L["Set Aura Spacing On Following Units"] = "在以下单位上设置光环间距"
 L["Assist"] = "辅助"
-L["Boss"] = true
+L["Boss"] = "首领"
 L["Focus"] = "焦点"
 L["FocusTarget"] = "焦点的目标"
 L["Party"] = "小队"
@@ -406,14 +406,14 @@ L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = 
 L["X-Offset Personal SCT"] = true
 L["Y-Offset Personal SCT"] = true
 L["Only used if Personal Nameplate is Disabled."] = true
-L["Text Formatting"] = true
+L["Text Formatting"] = "文本格式"
 L["Truncate Number"] = true
 L["Condense combat text numbers."] = true
 L["Show Truncated Letter"] = true
 L["Comma Seperate"] = true
 L["e.g. 100000 -> 100,000"] = true
-L["Icon"] = true
-L["Size"] = true
+L["Icon"] = "图标"
+L["Size"] = "大小"
 L["Start Alpha"] = true
 L["Use Seperate Off-Target Text Appearance"] = true
 L["Off-Target Text Appearance"] = true
@@ -437,7 +437,7 @@ L["Click to mark the target."] = "点击标记目标."
 L["%sClick to remove all worldmarkers."] = "%s点击移除所有的世界标记."
 L["%sClick to place a worldmarker."] = "%s点击放置一个世界标记."
 L["Raid Marker Bar"] = "团队标记条"
-L["Options for panels providing fast access to raid markers and flares."] = "面板选项可快速访问raid标记和耀斑."
+L["Options for panels providing fast access to raid markers and flares."] = "面板选项可快速访问团队标记和耀斑."
 L["Show/Hide raid marks."] = "显示/隐藏Raid标记."
 L["Reverse"] = "反转"
 L["Modifier Key"] = "快捷键"
@@ -469,7 +469,7 @@ L["Transparency"] = "透明度"
 L["Test"] = "测试"
 
 -- GMOTD
-L["Display the Guild Message of the Day in an extra window, if updated."] = true
+L["Display the Guild Message of the Day in an extra window, if updated."] = "如果有更新，则在额外的窗口中显示当天的公会信息."
 
 -- AFK
 L["Jan"] = "一月"
@@ -494,7 +494,7 @@ L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
 -- Nameplates
-L["Castbar Target"] = true
+L["Castbar Target"] = "施法条目标"
 
 -- Install
 L["Welcome"] = "欢迎"
