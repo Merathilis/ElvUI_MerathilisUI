@@ -134,6 +134,8 @@ L["Stranger"] = "Fremder"
 L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
+L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
+L["UunatAlertString"] = "%s gehe in 'Riss des Vergessens' für %d Zeit."
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"

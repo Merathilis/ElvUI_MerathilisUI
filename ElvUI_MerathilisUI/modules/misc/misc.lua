@@ -191,6 +191,7 @@ function MI:Initialize()
 	self:CreateRaidManager()
 	self:GuildBest()
 	self:LoadTalentProfiles()
+	self:AddAlerts()
 end
 
 local function InitializeCallback()
