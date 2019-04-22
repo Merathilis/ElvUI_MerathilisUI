@@ -15,6 +15,7 @@ local pcall = pcall
 local tinsert = table.insert
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local GetAddOnEnableState = GetAddOnEnableState
 local IsAddOnLoaded = IsAddOnLoaded
 local SetCVar = SetCVar
 
