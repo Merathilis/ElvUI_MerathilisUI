@@ -20,6 +20,7 @@ COMP.AS = MER:IsAddOnEnabled("AddOnSkins")
 COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
 COMP.CUI = MER:IsAddOnEnabled("ElvUI_ChaoticUI")
 COMP.WIND = MER:IsAddOnEnabled("ElvUI_WindTools")
+COMP.LIVVEN = MER:IsAddOnEnabled("ElvUI_LivvenUI")
 
 local function Disable(tbl, key)
 	key = key or ('enable' or 'Enable')
@@ -116,6 +117,15 @@ function COMP:WindToolsCompatibility()
 	end
 end
 
+function COMP:LivvenCompatibility()
+	local LIVVEN = E:GetModule("ElvUI_LivvenUI")
+
+	if COMP.LIVVEN and LIVVEN then
+		E:StaticPopup_Show("LIVVEN_MER_INCOMPATIBLE")
+		return true
+	end
+end
+
 COMP.CompatibilityFunctions = {};
 
 function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
@@ -127,6 +137,7 @@ COMP:RegisterCompatibilityFunction("LP", "LocationPlusCompatibility")
 COMP:RegisterCompatibilityFunction("LL", "LocationLiteCompatibility")
 COMP:RegisterCompatibilityFunction("SLE", "SLECompatibility")
 COMP:RegisterCompatibilityFunction("WIND", "WindToolsCompatibility")
+COMP:RegisterCompatibilityFunction("LIVVEN", "LivvenCompatibility")
 
 function COMP:RunCompatibilityFunctions()
 	for key, compatFunc in pairs(COMP.CompatibilityFunctions) do
