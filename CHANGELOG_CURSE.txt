@@ -1,3 +1,8 @@
+** v4.17 22.04.2019**
+* Add some hidden alerts. Muhahaha.
+* Updateded options for Minimap Buttons.
+* Added incompatibility popups for ElvUI_WindTools & ElvUI_LivvenUI.
+
 ** v4.16a 19.04.2019**
 * Fix lua errors in AutoButton. >.>
 

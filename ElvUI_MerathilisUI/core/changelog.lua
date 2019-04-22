@@ -17,17 +17,12 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Rename the movers for AutoButtons.",
-		"• Added Masque support for the AutoButtons.",
-		"• Rename Bindingtext for AutoButtons.",
-		"• Override ElvUIs min scale for Auras.",
-		"• Enable Crucible of the Storm in Progress.",
-
+		"• Add some hidden alerts. Muhahaha.",
+		"• Updateded options for Minimap Buttons.",
+		"• Added incompatibility popups for ElvUI_WindTools & ElvUI_LivvenUI.",
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• 'Happy Easter!'",
-		"• NOTE: Remember, you can use Keybinds on the AutoButtons.",
 		-- "• ''",
 }
 

@@ -49,6 +49,29 @@ E.PopupDialogs["VERSION_MISMATCH"] = {
 	preferredIndex = 3,
 }
 
+-- Compatibility
+E.PopupDialogs["WINDTOOLS_MER_INCOMPATIBLE"] = {
+	text = L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
+	OnAccept = function() DisableAddOn("ElvUI_WindTools"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_MerathilisUI"); ReloadUI() end,
+	button1 = "|cff00c0faElvUI_Windtools|r",
+	button2 = MER.Title,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
+E.PopupDialogs["LIVVEN_MER_INCOMPATIBLE"] = {
+	text = L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."],
+	OnAccept = function() DisableAddOn("ElvUI_LivvenUI"); ReloadUI() end,
+	OnCancel = function() DisableAddOn("ElvUI_MerathilisUI"); ReloadUI() end,
+	button1 = "|cff9482c9ElvUI_LivvenUI|r",
+	button2 = MER.Title,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
 -- Profile Creation
 function MER:NewProfile(new)
 	if (new) then
