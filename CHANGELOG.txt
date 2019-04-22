@@ -1,23 +1,28 @@
+[b][color=orange]v4.17[/color], 22.04.2019[/b][list]
+[*]Add some hidden alerts. Muhahaha.
+[*]Updateded options for Minimap Buttons.
+[*]Added incompatibility popups for ElvUI_WindTools & ElvUI_LivvenUI.[/list]
+
 [b][color=orange]v4.16a[/color], 19.04.2019[/b][list]
-[b]Fix lua errors in AutoButton. >.>[/list]
+[*]Fix lua errors in AutoButton. >.>[/list]
 
 [b][color=orange]v4.16[/color], 19.04.2019[/b][list]
-[b]Rename the movers for AutoButtons.
-[b]Added Masque support for the AutoButtons.
-[b]Rename Bindingtext for AutoButtons.
-[b]Override ElvUI's min scale for Aura's.
-[b]Enable Crucible of the Storm in Progress.[/list]
+[*]Rename the movers for AutoButtons.
+[*]Added Masque support for the AutoButtons.
+[*]Rename Bindingtext for AutoButtons.
+[*]Override ElvUI's min scale for Aura's.
+[*]Enable Crucible of the Storm in Progress.[/list]
 
 [b][color=orange]v4.15a[/color], 14.04.2019[/b][list]
 [b]Fixed a lua error. >.>[/list]
 
 [b][color=orange]v4.15[/color], 14.04.2019[/b][list]
-[b]Added an Emoticon Frame to the chat.
-[b]Fixed some lua errors if you use Dual Profiles.
-[b]Added Target Name to the ElvUI Nameplate Castbars.
-[b]Added a Talent Manager, where you can save different presets.
-[b]Added back my chatBar. Disabled by default.
-[b]Added Raid Progress Info to the Tooltip (hold shift).[/list]
+[*]Added an Emoticon Frame to the chat.
+[*]Fixed some lua errors if you use Dual Profiles.
+[*]Added Target Name to the ElvUI Nameplate Castbars.
+[*]Added a Talent Manager, where you can save different presets.
+[*]Added back my chatBar. Disabled by default.
+[*]Added Raid Progress Info to the Tooltip (hold shift).[/list]
 
 [b][color=orange]v4.14[/color], 07.04.2019[/b][list]
 [*]Prevent a lua error in Reminder Module.
