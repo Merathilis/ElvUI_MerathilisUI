@@ -78,13 +78,18 @@ end
 
 --{ItemID, ButtonText, isToy}
 LP.Hearthstones = {
-	{6948}, --Hearthstone
-	{93672, nil, true}, --Dark Portal
-	{54452, nil, true}, --Etherial Portal
-	{142542, nil, true}, --Tome of Town Portal (Diablo Event)
-	{64488, nil, true}, --The Innkeeper's Daughter
-	{163045, nil, true}, --Hallow HS
-	{162973, nil, true}, --Winter HS
+	{6948}, -- Hearthstone
+	{54452, nil, true}, -- Ethereal Portal
+	{64488, nil, true}, -- The Innkeeper's Daughter
+	{93672, nil, true}, -- Dark Portal
+	{142542, nil, true}, -- Tome of Town Portal (Diablo Event)
+	{162973, nil, true}, -- Winter HS
+	{163045, nil, true}, -- Hallow HS
+	{165669, nil, true}, -- Lunar HS
+	{165670, nil, true}, -- Love HS
+	{165802, nil, true}, -- Noblegarden HS
+	{166746, nil, true}, -- Midsummer HS
+	{166747, nil, true}, -- Brewfest HS
 }
 
 LP.PortItems = {
