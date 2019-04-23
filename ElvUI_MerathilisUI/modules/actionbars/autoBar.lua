@@ -220,8 +220,6 @@ local function CreateButton(name, size)
 	AutoButton.Texture:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
 	AutoButton.Texture:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
 	AutoButton.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	AutoButton.Texture:SetSnapToPixelGrid(false)
-	AutoButton.Texture:SetTexelSnappingBias(0)
 
 	AutoButton.Count = AutoButton:CreateFontString(nil, "OVERLAY")
 	AutoButton.Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
