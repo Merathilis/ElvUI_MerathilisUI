@@ -1,5 +1,5 @@
 -- Chinese localization file for zhCN
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI")
 local L = AceLocale:NewLocale("ElvUI", "zhCN")
 if not L then return end
 
@@ -600,3 +600,5 @@ L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
 L[" from "] = " 从 "
 L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = true
+L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true

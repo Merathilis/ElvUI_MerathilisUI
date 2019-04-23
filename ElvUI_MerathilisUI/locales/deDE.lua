@@ -1,7 +1,6 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
 local L = AceLocale:NewLocale("ElvUI", "deDE");
-if not L then return end
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
@@ -600,3 +599,5 @@ L["has |cffff2020disabled|r "] = "deaktiviert "
 L[" from "] = " von "
 L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
+L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
+L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."

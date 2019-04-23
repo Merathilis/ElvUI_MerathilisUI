@@ -1,7 +1,6 @@
 -- French localization file for frFR.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
+local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
 local L = AceLocale:NewLocale("ElvUI", "frFR");
-if not L then return end
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = true
@@ -602,3 +601,5 @@ L["has |cffff2020disabled|r "] = true
 L[" from "] = true
 L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
+L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
