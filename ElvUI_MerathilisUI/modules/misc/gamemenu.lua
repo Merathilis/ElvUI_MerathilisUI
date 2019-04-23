@@ -66,15 +66,15 @@ MER.NPCS = {
 }
 
 MER.PEPE = {
-	[1] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR_HALLOWEEN.m2", -- Pepe (Halloween)
-	[2] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR1.m2", -- Knight Pepe
-	[3] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR2.m2", -- Pirate Pepe
-	[4] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR3.m2", -- Ninja Pepe
-	[5] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR4.m2", -- Viking Pepe
-	[6] = "World/Expansion05/Doodads/Human/Doodads/6HU_Garrison_OrangeBird_VAR5.M2", -- Illidan Pepe
-	[7] = "World/Expansion06/Doodads/Dalaran/7DL_DALARAN_ORANGEBIRD.m2", -- Traveller Pepe
-	[8] = "world/expansion07/doodads/human/8hu_kultiras_orangebird01.m2", -- Underwater Pepe
-	[9] = "world/expansion07/doodads/zandalaritroll/8tr_zandalari_orangebird01.m2", -- Troll Pepe
+	[1] = "1246563", -- Pepe (Halloween)
+	[2] = "1131783", -- Knight Pepe
+	[3] = "1131795", -- Pirate Pepe
+	[4] = "1131797", -- Ninja Pepe
+	[5] = "1131798", -- Viking Pepe
+	[6] = "1534076", -- Illidan Pepe
+	[7] = "1386540", -- Traveller Pepe
+	[8] = "1859375", -- Underwater Pepe
+	[9] = "1861550", -- Troll Pepe
 }
 
 --[[
@@ -303,17 +303,17 @@ function MERG:GameMenu()
 	end
 
 	-- Find out new ID's
-	--if not pepeHolder then
-		--local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
-		--pepeHolder:SetSize(150, 150)
-		--pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
---
-		--pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
-		--pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
-		--pepeModel:SetScript("OnShow", Pepe_Model)
-		--pepeModel.isIdle = nil
-		--pepeModel:Show()
-	--end
+	if not pepeHolder then
+		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
+		pepeHolder:SetSize(150, 150)
+		pepeHolder:SetPoint("BOTTOM", GameMenuFrame, "TOP", 0, -50)
+
+		pepeModel = CreateFrame("PlayerModel", nil, pepeHolder)
+		pepeModel:SetPoint("CENTER", pepeHolder, "CENTER")
+		pepeModel:SetScript("OnShow", Pepe_Model)
+		pepeModel.isIdle = nil
+		pepeModel:Show()
+	end
 end
 
 function MERG:Initialize()
