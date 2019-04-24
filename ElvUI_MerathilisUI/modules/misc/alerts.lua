@@ -17,8 +17,6 @@ local CreateFrame = CreateFrame
 local IsInGuild = IsInGuild
 local IsPartyLFG = IsPartyLFG
 local IsInRaid = IsInRaid
-local SendChatMessage = SendChatMessage
-local UnitDebuff = UnitDebuff
 -- GLOBALS:
 
 local function msgChannel()
@@ -77,33 +75,6 @@ function module:VersionCheck()
 	end
 end
 
-function module:UunatAlert()
-	local data = {}
-	local function isBuffBlock()
-		for i = 1, 40 do
-			local name, _, _, _, _, _, _, _, _, spellID = UnitDebuff("player", i)
-			if not name then break end
-			if name and spellID == 284733 then
-				return true
-			end
-		end
-	end
-
-	MER:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", function(_, ...)
-		if not E.db.mui.misc.alerts.UunatAlert then return end
-		local _, eventType, _, _, _, _, _, _, destName, _, _, spellID = ...
-		if eventType == "SPELL_DAMAGE" and spellID == 285214 and not isBuffBlock() then
-			data[destName] = (data[destName] or 0) + 1
-			SendChatMessage(format(L["UunatAlertString"], destName, data[destName]), msgChannel())
-		end
-	end)
-
-	MER:RegisterEvent("ENCOUNTER_END", function()
-		twipe(data)
-	end)
-end
-
 function module:AddAlerts()
 	self:VersionCheck()
-	self:UunatAlert()
 end
