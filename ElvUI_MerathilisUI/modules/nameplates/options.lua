@@ -34,7 +34,7 @@ local function NameplatesTable()
 				order = 3,
 				type = "toggle",
 				name = E.NewSign..L["Castbar Shield"],
-				desc = L["Show a shield icon on the castbar for non interruptible spells."]
+				desc = L["Show a shield icon on the castbar for non interruptible spells."],
 			},
 		},
 	}

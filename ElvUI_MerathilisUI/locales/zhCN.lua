@@ -495,6 +495,8 @@ L["Sat"] = "星期六"
 
 -- Nameplates
 L["Castbar Target"] = "施法条目标"
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = "欢迎"

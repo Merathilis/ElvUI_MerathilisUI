@@ -496,6 +496,8 @@ L["Sat"] = true
 
 -- Nameplates
 L["Castbar Target"] = true
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = true
