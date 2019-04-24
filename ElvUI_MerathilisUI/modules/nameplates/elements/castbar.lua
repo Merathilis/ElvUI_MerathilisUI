@@ -67,7 +67,7 @@ function MNP:Construct_Castbar(nameplate)
 	Castbar.Shield = Castbar:CreateTexture(nil, 'OVERLAY')
 	Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Shield.tga")
 	Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
-	Castbar.Shield:SetSize(10, 10)
+	Castbar.Shield:SetSize(12, 12)
 	Castbar.Shield:Hide()
 
 	Castbar.CheckInterrupt = MNP.Castbar_CheckInterrupt
