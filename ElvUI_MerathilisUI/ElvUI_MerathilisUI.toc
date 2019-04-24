@@ -1,6 +1,6 @@
 ## Interface: 80100
 ## Author: Merathilis
-## Credits: Benik, Blazeflack, Azilroka, Simpy, Whiro, Darth Predator, fgprodigal, Elv & all AddOn Authors who inspired me.
+## Credits: Benik, Blazeflack, Azilroka, Simpy, Whiro, Darth Predator, fgprodigal, siweia, Solor, Elv & all AddOn Authors who inspired me.
 ## Version: 4.17
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
