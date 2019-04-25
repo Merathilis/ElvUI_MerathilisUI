@@ -564,13 +564,13 @@ function module:Initialize()
 	AutoButtonAnchor:SetClampedToScreen(true)
 	AutoButtonAnchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
 	AutoButtonAnchor:Size(module.db.questAutoButtons["questNum"] > 0 and module.db.questAutoButtons["questSize"] * module.db.questAutoButtons["questNum"] or 260, module.db.questAutoButtons["questNum"] > 0 and module.db.questAutoButtons["questSize"] or 40)
-	E:CreateMover(AutoButtonAnchor, "AutoButtonAnchorMover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end)
+	E:CreateMover(AutoButtonAnchor, "AutoButtonAnchorMover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
 	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
 	AutoButtonAnchor2:Size(module.db.soltAutoButtons["slotNum"] > 0 and module.db.soltAutoButtons["slotSize"] * module.db.soltAutoButtons["slotNum"] or 260, module.db.soltAutoButtons["slotNum"] > 0 and module.db.soltAutoButtons["slotSize"] or 40)
-	E:CreateMover(AutoButtonAnchor2, "AutoButtonAnchor2Mover", L["mUI AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end)
+	E:CreateMover(AutoButtonAnchor2, "AutoButtonAnchor2Mover", L["mUI AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	self:UpdateAutoButton()
 end
