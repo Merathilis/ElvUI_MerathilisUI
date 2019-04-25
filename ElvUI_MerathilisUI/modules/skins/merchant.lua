@@ -33,10 +33,6 @@ local RECIPE = GetItemClassInfo(_G.LE_ITEM_CLASS_RECIPE)
 local searchBox
 local searching = ""
 
-local IgnoreCurrency = {
-	[GetCurrencyInfo(994)] = true,
-}
-
 local function SkinVendorItems(i)
 	local button = _G["MerchantItem"..i]
 	local bu = _G["MerchantItem"..i.."ItemButton"]
