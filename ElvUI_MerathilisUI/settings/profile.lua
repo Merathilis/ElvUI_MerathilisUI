@@ -29,6 +29,12 @@ P.mui = {
 		equipOverlay = true,
 	},
 
+	merchant = {
+		enable = true,
+		style = "Default",
+		subpages = 2,
+	},
+
 	chat = {
 		chatButton = true,
 		panelHeight = 146,

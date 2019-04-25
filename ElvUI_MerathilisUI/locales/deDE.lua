@@ -571,6 +571,8 @@ L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
+L["Subpages"] = "Unterseiten"
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

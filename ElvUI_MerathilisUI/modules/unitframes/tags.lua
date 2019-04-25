@@ -79,32 +79,6 @@ function MER:GetFormattedText(min, max, style, noDecimal)
 	end
 end
 
-local function abbrev(name)
-	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
-	if lastWord then
-		for word in gmatch(name, '.-%s') do
-			local firstLetter = strsub(gsub(word, '^[%s%p]*', ''), 1, 1)
-			if firstLetter ~= strlower(firstLetter) then
-				letters = format('%s%s. ', letters, firstLetter)
-			end
-		end
-		name = format('%s%s', letters, lastWord)
-	end
-	return name
-end
-
-ElvUF.Tags.Events['name:abbrev'] = 'UNIT_NAME_UPDATE'
-ElvUF.Tags.Methods['name:abbrev'] = function(unit)
-	local name = UnitName(unit)
-
-	if name and strfind(name, '%s') then
-		name = abbrev(name)
-	end
-
-	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
-end
-
-
 local function shortenNumber(number)
 	if type(number) ~= "number" then
 		number = tonumber(number)
