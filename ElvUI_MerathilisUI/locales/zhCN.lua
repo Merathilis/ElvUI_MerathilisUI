@@ -1,7 +1,5 @@
--- Chinese localization file for zhCN
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI")
-local L = AceLocale:NewLocale("ElvUI", "zhCN")
-if not L then return end
+-- Simplified Chinese localization file for zhCN
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "

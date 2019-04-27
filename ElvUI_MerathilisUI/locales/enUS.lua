@@ -1,6 +1,6 @@
 -- English localization file for enUS
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
-local L = AceLocale:NewLocale("ElvUI", "enUS", true, true);
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
+if not L then return; end
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = true

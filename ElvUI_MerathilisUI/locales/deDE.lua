@@ -1,6 +1,5 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
-local L = AceLocale:NewLocale("ElvUI", "deDE");
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
