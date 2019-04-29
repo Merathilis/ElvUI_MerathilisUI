@@ -29,7 +29,7 @@ function MI:ItemLevel()
 		end
 
 		local level = MER:GetItemLevel(self.itemLink)
-		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		local color = ITEM_QUALITY_COLORS[quality or 1]
 		self.iLvl:SetText(level)
 		self.iLvl:SetTextColor(color.r, color.g, color.b)
 	end
@@ -61,7 +61,7 @@ function MI:ItemLevel()
 			level = MER:GetItemLevel(link, "player", slot)
 		end
 
-		local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+		local color = ITEM_QUALITY_COLORS[quality or 1]
 		button.iLvl:SetText(level)
 		button.iLvl:SetTextColor(color.r, color.g, color.b)
 	end
