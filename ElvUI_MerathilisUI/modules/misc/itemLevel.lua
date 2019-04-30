@@ -31,7 +31,9 @@ function MI:ItemLevel()
 		local level = MER:GetItemLevel(self.itemLink)
 		local color = ITEM_QUALITY_COLORS[quality or 1]
 		self.iLvl:SetText(level)
-		self.iLvl:SetTextColor(color.r, color.g, color.b)
+		if color then
+			self.iLvl:SetTextColor(color.r, color.g, color.b)
+		end
 	end
 
 	local function ScrappingiLvL(event, addon)
@@ -63,7 +65,9 @@ function MI:ItemLevel()
 
 		local color = ITEM_QUALITY_COLORS[quality or 1]
 		button.iLvl:SetText(level)
-		button.iLvl:SetTextColor(color.r, color.g, color.b)
+		if color then
+			button.iLvl:SetTextColor(color.r, color.g, color.b)
+		end
 	end
 
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
