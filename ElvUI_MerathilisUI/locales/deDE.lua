@@ -1,6 +1,5 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
-local L = AceLocale:NewLocale("ElvUI", "deDE");
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
@@ -324,7 +323,6 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
-
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -494,6 +492,8 @@ L["Sat"] = "Sa"
 
 -- Nameplates
 L["Castbar Target"] = "Zauberleisten Ziel"
+L["Castbar Shield"] = "Zauberleisten Schild"
+L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
 
 -- Install
 L["Welcome"] = "Willkommen"
@@ -570,6 +570,8 @@ L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
+L["Subpages"] = "Unterseiten"
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

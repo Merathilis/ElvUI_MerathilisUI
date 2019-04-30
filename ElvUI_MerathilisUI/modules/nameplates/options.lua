@@ -28,7 +28,13 @@ local function NameplatesTable()
 			castbarTarget = {
 				order = 2,
 				type = "toggle",
-				name = E.NewSign..L["Castbar Target"],
+				name = L["Castbar Target"],
+			},
+			castbarShield  = {
+				order = 3,
+				type = "toggle",
+				name = E.NewSign..L["Castbar Shield"],
+				desc = L["Show a shield icon on the castbar for non interruptible spells."],
 			},
 		},
 	}

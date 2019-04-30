@@ -1,7 +1,5 @@
--- Chinese localization file for zhCN
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI")
-local L = AceLocale:NewLocale("ElvUI", "zhCN")
-if not L then return end
+-- Simplified Chinese localization file for zhCN
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
@@ -495,6 +493,8 @@ L["Sat"] = "星期六"
 
 -- Nameplates
 L["Castbar Target"] = "施法条目标"
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = "欢迎"
@@ -571,6 +571,8 @@ L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["MerathilisUI Panels"] = "MerathilisUI 面板"
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
+L["Subpages"] = true
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

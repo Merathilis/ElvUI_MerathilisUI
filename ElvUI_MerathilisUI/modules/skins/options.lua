@@ -80,6 +80,47 @@ local function SkinsTable()
 					},
 				},
 			},
+			spacer = {
+				order = 3,
+				type = 'description',
+				name = "",
+			},
+			merchant = {
+				order = 4,
+				type = 'group',
+				name = L["Merchant Frame"],
+				get = function(info) return E.db.mui.merchant[ info[#info] ] end,
+				set = function(info, value) E.db.mui.merchant[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+				args = {
+					credits = {
+						order = 0,
+						type = "group",
+						name = MER:cOption(L["Credits"]),
+						guiInline = true,
+						args = {
+							tukui = {
+								order = 1,
+								type = "description",
+								fontSize = "medium",
+								name = format("|cff9482c9Shadow&Light - Darth Predator|r"),
+							},
+						},
+					},
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					subpages = {
+						order = 2,
+						type = 'range',
+						name = L["Subpages"],
+						desc = L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."],
+						min = 2, max = 5, step = 1,
+						disabled = function() return not E.db.mui.merchant.enable or E.db.mui.merchant.style ~= "Default" end,
+					},
+				},
+			},
 		},
 	}
 

@@ -1,6 +1,6 @@
 -- English localization file for enUS
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
-local L = AceLocale:NewLocale("ElvUI", "enUS");
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
+if not L then return; end
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = true
@@ -326,6 +326,7 @@ L["Threshold"] = true
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = true
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = true
 L["Force show any text placed on the InfoPanel, while casting."] = true
@@ -496,6 +497,8 @@ L["Sat"] = true
 
 -- Nameplates
 L["Castbar Target"] = true
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = true
@@ -572,6 +575,8 @@ L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
+L["Subpages"] = true
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

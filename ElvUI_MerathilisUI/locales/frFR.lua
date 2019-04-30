@@ -1,6 +1,5 @@
 -- French localization file for frFR.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0-ElvUI");
-local L = AceLocale:NewLocale("ElvUI", "frFR");
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "frFR")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = true
@@ -496,6 +495,8 @@ L["Sat"] = true
 
 -- Nameplates
 L["Castbar Target"] = true
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = true
@@ -572,6 +573,8 @@ L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
+L["Subpages"] = true
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
