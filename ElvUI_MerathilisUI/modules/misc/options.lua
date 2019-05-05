@@ -11,7 +11,7 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
-		order = 9,
+		order = 10,
 		type = "group",
 		name = "",
 		guiInline = true,
