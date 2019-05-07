@@ -2,6 +2,7 @@
 	<Script file="auraIconSpacing.lua"/>
 	<Script file="castbar.lua"/>
 	<Script file="combatFeedback.lua"/>
+	<Script file="gcd.lua"/>
 	<Script file="portrait.lua"/>
 	<Script file="infopanel.lua"/>
 	<Script file="raidIcon.lua"/>

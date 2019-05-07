@@ -60,7 +60,7 @@ P.mui = {
 		alerts = {
 			versionCheck = true,
 			detectVersion = MER.Version,
-			UunatAlert = true,
+			lfg = true,
 		},
 	},
 
@@ -244,6 +244,13 @@ P.mui = {
 		},
 		textures = {
 			castbar = "MerathilisFlat",
+		},
+		units = {
+			player = {
+				gcd = {
+					enable = true,
+				},
+			},
 		},
 	},
 

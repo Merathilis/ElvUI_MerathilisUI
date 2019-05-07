@@ -4,6 +4,7 @@ local MERA = MER:GetModule("mUIAnnounce")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local tinsert = table.insert
 --WoW API / Variables
 local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
@@ -73,6 +74,26 @@ local function Misc()
 				type = "toggle",
 				name = E.NewSign..L["Talent Manager"],
 				desc = L["Allow you to create multiple Talent presets"],
+			},
+			alerts = {
+				order = 10,
+				type = "group",
+				name = E.NewSign..L["Alerts"],
+				guiInline = true,
+				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
+				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					versionCheck = {
+						order = 1,
+						type = "toggle",
+						name = L["Versions Check"],
+					},
+					lfg = {
+						order = 2,
+						type = "toggle",
+						name = L["Call to Arms"],
+					},
+				},
 			},
 		},
 	}
