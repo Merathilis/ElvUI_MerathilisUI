@@ -310,6 +310,7 @@ function MER:SetupLayout()
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
+	E.db["bags"]["junkDesaturate"] = true
 	E.db["bags"]["strata"] = 'HIGH'
 	E.db["bags"]["showBindType"] = true
 	E.db["bags"]["scrapIcon"] = true
