@@ -10,6 +10,7 @@ local next, pairs, select = next, pairs, select
 local tinsert = table.insert
 -- WoW API
 local hooksecurefunc = hooksecurefunc
+local IsAddOnLoaded = IsAddOnLoaded
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
@@ -130,6 +131,14 @@ local function styleMisc()
 	_G.MirrorTimer1StatusBar.backdrop:Styling()
 	_G.MirrorTimer2StatusBar.backdrop:Styling()
 	_G.MirrorTimer3StatusBar.backdrop:Styling()
+
+	-- DataStore
+	if IsAddOnLoaded("DataStore") then
+		local frame = _G.DataStoreFrame
+		if frame then
+			frame:Styling()
+		end
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)
