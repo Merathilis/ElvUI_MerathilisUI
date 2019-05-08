@@ -40,7 +40,7 @@ function MGCD:LoadGCDBar(frame)
 	self:RegisterEvent("UNIT_SPELLCAST_START", "CheckGCD")
 	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "CheckGCD")
 
-	gcdbar = CreateFrame("Frame", "GCDBar", frame)
+	gcdbar = CreateFrame("Frame", "MER_GCDBar", frame)
 	gcdbar:SetFrameStrata("HIGH")
 	gcdbar.Color = {1, 1, 1}
 
