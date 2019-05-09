@@ -12,6 +12,8 @@ local format = string.format
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
+local GetUnitName = GetUnitName
+local UnitClass = UnitClass
 local Minimap = _G["Minimap"]
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
