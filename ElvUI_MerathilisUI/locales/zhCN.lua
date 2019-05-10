@@ -198,6 +198,9 @@ L["No Sounds"] = "没有声音"
 -- DataTexts
 L["ChatTab Datatext Panel"] = "聊天标签信息面板"
 L["Middle Datatext Panel"] = "中间的信息面板"
+L["Right Click"] = true
+L["Toggle ActionBar"] = true
+L["Toggle Middle DT"] = true
 
 -- DataBars
 L["DataBars"] = "数据条"
