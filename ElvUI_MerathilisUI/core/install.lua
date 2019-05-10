@@ -771,7 +771,7 @@ function MER:SetupActionbars(layout)
 		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar2"]["backdrop"] = true
+		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	end
 

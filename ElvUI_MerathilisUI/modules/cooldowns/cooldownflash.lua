@@ -91,6 +91,8 @@ end
 local elapsed = 0
 local runtimer = 0
 local function OnUpdate(_,update)
+	local db = E.db.mui.cooldowns.cooldownFlash
+
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
 		for i,v in pairs(CF.watching) do
@@ -137,29 +139,29 @@ local function OnUpdate(_,update)
 
 	if (#CF.animating > 0) then
 		runtimer = runtimer + update
-		if (runtimer > (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime)) then
+		if (runtimer > (db.fadeInTime + db.holdTime + db.fadeOutTime)) then
 			tremove(CF.animating, 1)
 			runtimer = 0
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
 			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
-			DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
-		elseif CF.db.enable then
+			DCP:SetSize(db.iconSize, db.iconSize)
+		elseif db.enable then
 			if (not DCPT:GetTexture()) then
-				if (CF.animating[1][3] ~= nil and CF.db.showSpellName) then
+				if (CF.animating[1][3] ~= nil and db.showSpellName) then
 					DCP.TextFrame:SetText(CF.animating[1][3])
 				end
 				DCPT:SetTexture(CF.animating[1][1])
 			end
-			local alpha = CF.db.maxAlpha
-			if (runtimer < CF.db.fadeInTime) then
-				alpha = CF.db.maxAlpha * (runtimer / CF.db.fadeInTime)
-			elseif (runtimer >= CF.db.fadeInTime + CF.db.holdTime) then
-				alpha = CF.db.maxAlpha - ( CF.db.maxAlpha * ((runtimer - CF.db.holdTime - CF.db.fadeInTime) / CF.db.fadeOutTime))
+			local alpha = db.maxAlpha
+			if (runtimer < db.fadeInTime) then
+				alpha = db.maxAlpha * (runtimer / db.fadeInTime)
+			elseif (runtimer >= db.fadeInTime + db.holdTime) then
+				alpha = db.maxAlpha - (db.maxAlpha * ((runtimer - db.holdTime - db.fadeInTime) / db.fadeOutTime))
 			end
 			DCP:SetAlpha(alpha)
-			local scale = CF.db.iconSize + (CF.db.iconSize * ((CF.db.animScale - 1) * (runtimer / (CF.db.fadeInTime + CF.db.holdTime + CF.db.fadeOutTime))))
+			local scale = db.iconSize + (db.iconSize * ((db.animScale - 1) * (runtimer / (db.fadeInTime + db.holdTime + db.fadeOutTime))))
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -261,6 +263,8 @@ function CF:UseItemByName(itemName)
 end
 
 function CF:EnableCooldownFlash()
+	local db = E.db.mui.cooldowns.cooldownFlash
+
 	self:SecureHook("UseContainerItem")
 	self:SecureHook("UseInventoryItem")
 	self:SecureHook("UseAction")
@@ -268,7 +272,7 @@ function CF:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:RegisterEvent("ADDON_LOADED")
-	if self.db.enablePet then
+	if db.enablePet then
 		DCP:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	end
 end
@@ -290,16 +294,15 @@ function CF:TestMode()
 end
 
 function CF:Initialize()
-	if CF.db == nil then CF.db = {} end -- rare nil error
-	CF.db = E.db.mui.cooldownFlash
+	local db = E.db.mui.cooldowns.cooldownFlash
 
 	MER:RegisterDB(self, "cooldownFlash")
 
-	DCP:SetSize(CF.db.iconSize, CF.db.iconSize)
+	DCP:SetSize(db.iconSize, db.iconSize)
 
 	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)
-	if self.db.enable then
+	if db.enable then
 		self:EnableCooldownFlash()
 	end
 	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
