@@ -266,13 +266,16 @@ local StartTimer = function(name, spellId)
 			return
 		end
 	end
+
 	for _, v in pairs(bars) do
 		if v.name == name and v.spell == spell then
 			StopTimer(v)
 		end
 	end
+
 	local bar = CreateBar()
 	local color = (_G.CUSTOM_CLASS_COLORS or _G.RAID_CLASS_COLORS)[select(2, UnitClass(name))]
+
 	if charges and spellId == 20484 then
 		local curCharges, _, start, duration = GetSpellCharges(20484)
 		currentNumResses = curCharges
@@ -284,11 +287,13 @@ local StartTimer = function(name, spellId)
 		bar.name = name
 		bar.spell = spell
 		bar.spellId = spellId
+
 		if db.show_icon == true then
 			bar.icon:SetNormalTexture(icon)
 			bar.icon:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		end
 		bar:Show()
+
 		if color then
 			bar:SetStatusBarColor(color.r, color.g, color.b)
 			bar.bg:SetVertexColor(color.r, color.g, color.b, 0.2)
@@ -303,6 +308,7 @@ local StartTimer = function(name, spellId)
 		bar:SetScript("OnLeave", OnLeave)
 		bar:SetScript("OnMouseDown", OnMouseDown)
 		tinsert(Ressesbars, bar)
+
 		if db.expiration == true then
 			tsort(Ressesbars, sortByExpiration)
 		end
@@ -421,7 +427,7 @@ function RC:Initialize()
 		end
 	end
 
-	RaidCDAnchor:SetPoint("BOTTOM", E.UIParent, "BOTTOM", -267, 318)
+	RaidCDAnchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 3, -100)
 	if db.show_icon == true then
 		RaidCDAnchor:SetSize(db.width + 32, db.height + 10)
 	else

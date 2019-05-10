@@ -456,7 +456,7 @@ L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fe
 L["Reminder"] = "Erinnerung"
 L["Reminds you on self Buffs."] = "Erinnert dich an eigene Buffs."
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"
 L["Fadein duration"] = "Einblendzeit"
@@ -467,6 +467,13 @@ L["Display spell name"] = "Zeige Zaubernamen"
 L["Watch on pet spell"] = "Überwache Begleiter Zauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
+L["Sort Upwards"] = "Abwärts sortieren"
+L["Sort by Expiration Time"] = "Nach Abklingzeit sortieren"
+L["Show Self Cooldown"] = "Zeige eigene Abklingzeiten"
+L["Show Icons"] = "Zeige Symbol"
+L["Show In Party"] = "Zeige in Gruppe"
+L["Show In Raid"] = "Zeige im Raid"
+L["Show In Arena"] = "Zeige in Arenen"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."

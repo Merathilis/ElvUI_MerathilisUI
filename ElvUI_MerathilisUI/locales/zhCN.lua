@@ -457,7 +457,7 @@ L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示�
 L["Reminder"] = "常驻BUFF提醒"
 L["Reminds you on self Buffs."] = "提醒你自己的BUFF"
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = "冷却闪光"
 L["Settings"] = "设置"
 L["Fadein duration"] = "淡入持续时间"
@@ -468,6 +468,13 @@ L["Display spell name"] = "显示法术名"
 L["Watch on pet spell"] = "观看宠物法术"
 L["Transparency"] = "透明度"
 L["Test"] = "测试"
+L["Sort Upwards"] = true
+L["Sort by Expiration Time"] = true
+L["Show Self Cooldown"] = true
+L["Show Icons"] = true
+L["Show In Party"] = true
+L["Show In Raid"] = true
+L["Show In Arena"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "如果有更新，则在额外的窗口中显示当天的公会信息."

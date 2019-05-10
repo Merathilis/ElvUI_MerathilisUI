@@ -461,7 +461,7 @@ L["Shows the pixel glow on missing raidbuffs."] = true
 L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
@@ -472,6 +472,13 @@ L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = true
+L["Sort Upwards"] = true
+L["Sort by Expiration Time"] = true
+L["Show Self Cooldown"] = true
+L["Show Icons"] = true
+L["Show In Party"] = true
+L["Show In Raid"] = true
+L["Show In Arena"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true

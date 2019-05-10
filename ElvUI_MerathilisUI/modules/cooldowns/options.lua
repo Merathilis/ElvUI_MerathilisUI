@@ -176,18 +176,24 @@ local function Cooldowns()
 						type = "toggle",
 						name = L["Show Icons"],
 					},
-					show_inparty = {
+					spacer = {
 						order = 10,
+						type = "description",
+						name = "",
+						width = "full",
+					},
+					show_inparty = {
+						order = 11,
 						type = "toggle",
 						name = L["Show In Party"],
 					},
 					show_inraid = {
-						order = 11,
+						order = 12,
 						type = "toggle",
 						name = L["Show In Raid"],
 					},
 					show_inarena = {
-						order = 12,
+						order = 13,
 						type = "toggle",
 						name = L["Show In Arena"],
 					},
