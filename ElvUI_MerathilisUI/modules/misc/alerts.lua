@@ -36,24 +36,24 @@ LFG Call to Arms rewards
 -------------------------------------------------------------------------------]]
 local LFG_Timer = 0
 function eventframe:LFG_UPDATE_RANDOM_INFO()
-	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(1067, _G.LFG_ROLE_SHORTAGE_RARE)
+	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(1671, _G.LFG_ROLE_SHORTAGE_RARE) -- 1671	Random Battle For Azeroth Heroic
 	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()
 
 	local ingroup, tank, healer, damager, result
 
 	tank = IsTank and forTank and "|cff00B2EE"..TANK.."|r" or ""
 	healer = IsHealer and forHealer and "|cff00EE00"..HEALER.."|r" or ""
-	damager = IsDamage and forDamage and "|cff00EE00"..DAMAGER.."|r" or ""
+	damager = IsDamage and forDamage and "|cffd62c35"..DAMAGER.."|r" or ""
 
 	if IsInGroup(_G.LE_PARTY_CATEGORY) or IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
 		ingroup = true
 	end
 
 	if ((IsTank and forTank) or (IsHealer and forHealer) or (IsDamage and forDamage)) and not ingroup then
-		if  GetTime() - LFG_Timer > 20 then
-			PlaySoundFile("Sound\\Interface\\RaidWarning.wav")
+		if GetTime() - LFG_Timer > 20 then
+			PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
 			RaidNotice_AddMessage(_G.RaidWarningFrame, format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager), ChatTypeInfo["RAID_WARNING"])
-			print(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager))
+			MER:Print(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager))
 			LFG_Timer = GetTime()
 		end
 	end
