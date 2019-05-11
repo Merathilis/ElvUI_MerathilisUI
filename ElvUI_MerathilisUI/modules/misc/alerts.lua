@@ -36,7 +36,7 @@ LFG Call to Arms rewards
 -------------------------------------------------------------------------------]]
 local LFG_Timer = 0
 function eventframe:LFG_UPDATE_RANDOM_INFO()
-	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(1671, _G.LFG_ROLE_SHORTAGE_RARE) -- 1671	Random Battle For Azeroth Heroic
+	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(1671, _G.LFG_ROLE_SHORTAGE_RARE) -- 1671 Random Battle For Azeroth Heroic
 	local IsTank, IsHealer, IsDamage = C_LFGList_GetAvailableRoles()
 
 	local ingroup, tank, healer, damager, result
