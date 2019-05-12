@@ -429,6 +429,7 @@ L["Small Hits Scale"] = "Einfache Treffer Skallierung"
 L["Bar Backdrop"] = "Leisten Hintergrund"
 L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
 L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
+L["Reverse Direction"] = "Umgekehrte Reihenfolge"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

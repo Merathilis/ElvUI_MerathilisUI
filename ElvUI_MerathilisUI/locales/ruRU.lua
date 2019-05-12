@@ -430,6 +430,7 @@ L["Small Hits Scale"] = true
 L["Bar Backdrop"] = true
 L["Move Tracker Icon"] = true
 L["Move Queue Status Icon"] = true
+L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

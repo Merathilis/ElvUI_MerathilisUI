@@ -430,6 +430,7 @@ L["Small Hits Scale"] = true
 L["Bar Backdrop"] = "条背景"
 L["Move Tracker Icon"] = "移动追踪图标"
 L["Move Queue Status Icon"] = "移动队列状态图标"
+L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"

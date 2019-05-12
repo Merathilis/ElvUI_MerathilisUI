@@ -333,6 +333,7 @@ P.mui = {
 		buttonSpacing = 2,
 		moveTracker = false,
 		moveQueue = false,
+		reverseDirection = false,
 	},
 
 	locPanel = {
