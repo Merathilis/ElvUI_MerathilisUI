@@ -9,6 +9,7 @@ G.nameplate.filters.Neutral = {
 	triggers = {
 		notTarget = true,
 		outOfCombatUnit = true,
+		outOfVehicle = true,
 		reactionType = {
 			enable = true,
 			reputation = true,
