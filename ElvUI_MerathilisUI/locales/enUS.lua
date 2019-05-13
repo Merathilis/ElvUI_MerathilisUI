@@ -28,7 +28,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 - my personal Layout
 
 |cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
-But if you install another Layout over mine, you must adjust it manually.]=]
+But if you install another Layout over mine, you must adjust it manually.
+
+|cffff8000Newest additions are marked with: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true

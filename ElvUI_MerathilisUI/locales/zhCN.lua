@@ -27,7 +27,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 - 我的个人布局
 
 |cFF00c0faNote:|r 它与其他大多数ElvUI插件兼容.
-但是如果你在我的之外安装了另一个布局，你必须手动调整它。.]=]
+但是如果你在我的之外安装了另一个布局，你必须手动调整它。.
+
+|cffff8000Newest additions are marked with: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
