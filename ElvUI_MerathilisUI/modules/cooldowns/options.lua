@@ -11,7 +11,7 @@ local tinsert = table.insert
 local function Cooldowns()
 	E.Options.args.mui.args.modules.args.cooldowns = {
 		type = "group",
-		name = L["Cooldowns"],
+		name = E.NewSign..L["Cooldowns"],
 		order = 12,
 		args = {
 			cooldownFlash = {
@@ -119,7 +119,7 @@ local function Cooldowns()
 			raid = {
 				order = 2,
 				type = "group",
-				name = RC.modName,
+				name = E.NewSign..RC.modName,
 				guiInline = true,
 				get = function(info) return E.db.mui.cooldowns.raid[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldowns.raid[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

@@ -357,7 +357,9 @@ f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:RegisterEvent("ENCOUNTER_END")
 f:SetScript("OnEvent", function(self, event)
+	if E.db.mui.cooldowns == nil then E.db.mui.cooldowns = {} end -- prevent a nil error
 	local db = E.db.mui.cooldowns.raid
+
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED_NEW_AREA" then
 		if select(2, IsInInstance()) == "raid" and IsInGroup() then
 			self:RegisterEvent("SPELL_UPDATE_CHARGES")

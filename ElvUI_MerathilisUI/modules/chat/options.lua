@@ -10,7 +10,7 @@ local tinsert = table.insert
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
-		name = E.NewSign..MERC.modName,
+		name = MERC.modName,
 		order = 11,
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -47,13 +47,13 @@ local function ChatTable()
 			chatBar = {
 				order = 6,
 				type = "toggle",
-				name = E.NewSign..L["ChatBar"],
+				name = L["ChatBar"],
 				desc = L["Shows a ChatBar with different quick buttons."],
 			},
 			emotes = {
 				order = 7,
 				type = "toggle",
-				name = E.NewSign..L["Emotes"],
+				name = L["Emotes"],
 			},
 		},
 	}

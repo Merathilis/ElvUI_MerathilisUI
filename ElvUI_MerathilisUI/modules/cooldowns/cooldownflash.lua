@@ -294,6 +294,7 @@ function CF:TestMode()
 end
 
 function CF:Initialize()
+	if E.db.mui.cooldowns == nil then E.db.mui.cooldowns = {} end -- prevent a nil error
 	local db = E.db.mui.cooldowns.cooldownFlash
 
 	MER:RegisterDB(self, "cooldownFlash")
