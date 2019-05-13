@@ -67,8 +67,6 @@ local function msgChannel()
 end
 
 function module:VersionCheck()
-	if not E.db.mui.misc.alerts.versionCheck then return end
-
 	local f = CreateFrame("Frame", nil, nil, "MicroButtonAlertTemplate")
 	f:SetPoint("BOTTOMLEFT", _G.ChatFrame1, "TOPLEFT", 20, 70)
 	f.Text:SetText("")
@@ -88,7 +86,7 @@ function module:VersionCheck()
 		end
 	end
 
-	local checked
+	local checked = not E.db.mui.misc.alerts.versionCheck
 	local function UpdateVersionCheck(_, ...)
 		local prefix, msg, distType, author = ...
 		if prefix ~= "MERVersionCheck" then return end
