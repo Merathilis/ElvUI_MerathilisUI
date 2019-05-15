@@ -1,4 +1,4 @@
-** v4.17 22.04.2019**
+** v4.18 15.05.2019**
 * Added a shield icon to Nameplate Castbar for non interruptible casts.
 * Added an Advanced Merchant Frame (for Vendors). Credits S&L
 * Attempt to prevent a nil error in itemLevel.
