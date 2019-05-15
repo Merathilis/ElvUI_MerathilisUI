@@ -1,7 +1,5 @@
 -- German localization file for deDE
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "deDE");
-if not L then return end
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
@@ -29,7 +27,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es 
 - mein persönliches Layout
 
 |cFF00c0faHinweis:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
-Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
+Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.
+
+|cffff8000Neue Features sind markiert mit einem: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -200,6 +200,9 @@ L["No Sounds"] = "Keine Sounds"
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
+L["Right Click"] = "Rechtsklick"
+L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
+L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
@@ -325,7 +328,6 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
-
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -429,6 +431,7 @@ L["Small Hits Scale"] = "Einfache Treffer Skallierung"
 L["Bar Backdrop"] = "Leisten Hintergrund"
 L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
 L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
+L["Reverse Direction"] = "Umgekehrte Reihenfolge"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -456,7 +459,7 @@ L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fe
 L["Reminder"] = "Erinnerung"
 L["Reminds you on self Buffs."] = "Erinnert dich an eigene Buffs."
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"
 L["Fadein duration"] = "Einblendzeit"
@@ -467,6 +470,13 @@ L["Display spell name"] = "Zeige Zaubernamen"
 L["Watch on pet spell"] = "Überwache Begleiter Zauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
+L["Sort Upwards"] = "Abwärts sortieren"
+L["Sort by Expiration Time"] = "Nach Abklingzeit sortieren"
+L["Show Self Cooldown"] = "Zeige eigene Abklingzeiten"
+L["Show Icons"] = "Zeige Symbol"
+L["Show In Party"] = "Zeige in Gruppe"
+L["Show In Raid"] = "Zeige im Raid"
+L["Show In Arena"] = "Zeige in Arenen"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
@@ -495,6 +505,8 @@ L["Sat"] = "Sa"
 
 -- Nameplates
 L["Castbar Target"] = "Zauberleisten Ziel"
+L["Castbar Shield"] = "Zauberleisten Schild"
+L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
 
 -- Install
 L["Welcome"] = "Willkommen"
@@ -571,6 +583,8 @@ L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
+L["Subpages"] = "Unterseiten"
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

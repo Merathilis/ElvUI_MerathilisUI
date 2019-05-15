@@ -51,7 +51,7 @@ local function AddOptions()
 			logo = {
 				order = 2,
 				type = "description",
-				name = L["MER_DESC"],
+				name = L["MER_DESC"]..E.NewSign,
 				fontSize = "medium",
 				image = function() return "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga", 160, 160 end,
 			},
@@ -70,7 +70,7 @@ local function AddOptions()
 				func = function() MER:ToggleChangeLog(); E:ToggleConfig() end,
 			},
 			informationButton = CreateButton(5, L["Information"], "info"),
-			modulesButton = CreateButton(6, L["Modules"], "modules"),
+			modulesButton = CreateButton(6, E.NewSign..L["Modules"], "modules"),
 			skinsButton = CreateButton(7, L["Skins & AddOns"], "skins"),
 			discordButton = {
 				order = 8,

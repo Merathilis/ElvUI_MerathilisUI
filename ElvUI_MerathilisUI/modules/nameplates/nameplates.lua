@@ -15,6 +15,10 @@ function MNP:Initialize()
 	if E.db.mui.nameplates.castbarTarget then
 		hooksecurefunc(NP, "Castbar_PostCastStart", MNP.CastbarPostCastStart)
 	end
+
+	if E.db.mui.nameplates.castbarShield then
+		hooksecurefunc(NP, "Castbar_CheckInterrupt", MNP.Castbar_CheckInterrupt)
+	end
 end
 
 local function InitializeCallback()

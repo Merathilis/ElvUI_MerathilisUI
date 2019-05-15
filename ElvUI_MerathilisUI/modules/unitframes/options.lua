@@ -201,6 +201,18 @@ local function UnitFramesTable()
 						name = L["Player Portrait"],
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "player", "portrait") end,
 					},
+					spacer = {
+						order = 2,
+						type = "description",
+						name = "",
+					},
+					gcd = {
+						order = 3,
+						type = "toggle",
+						name = L["GCD Bar"],
+						get = function(info) return E.db.mui.unitframes.units.player.gcd.enable end,
+						set = function(info, value) E.db.mui.unitframes.units.player.gcd.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					},
 				},
 			},
 			target = {

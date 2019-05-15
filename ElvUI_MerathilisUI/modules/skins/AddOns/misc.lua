@@ -10,6 +10,7 @@ local next, pairs, select = next, pairs, select
 local tinsert = table.insert
 -- WoW API
 local hooksecurefunc = hooksecurefunc
+local IsAddOnLoaded = IsAddOnLoaded
 local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 -- GLOBALS: hooksecurefunc, NUM_ALWAYS_UP_UI_FRAMES
 
@@ -88,15 +89,6 @@ local function styleMisc()
 		_G[skins[i]]:Styling()
 	end
 
-	if _G.CopyChatFrame then
-		_G.CopyChatFrame:Styling()
-	end
-
-	for i = 1, MAX_STATIC_POPUPS do
-		local frame = _G["ElvUI_StaticPopup"..i]
-		frame:Styling()
-	end
-
 	--DropDownMenu library support
 	if _G.LibStub("LibUIDropDownMenu", true) then
 		_G.L_DropDownList1Backdrop:Styling()
@@ -107,6 +99,20 @@ local function styleMisc()
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
 			end
 		end)
+	end
+
+	-- RaiderIO Dropdown
+	if IsAddOnLoaded('RaiderIO') then
+		_G.RaiderIO_CustomDropDownList:Styling()
+	end
+
+	if _G.CopyChatFrame then
+		_G.CopyChatFrame:Styling()
+	end
+
+	for i = 1, MAX_STATIC_POPUPS do
+		local frame = _G["ElvUI_StaticPopup"..i]
+		frame:Styling()
 	end
 
 	local TalentMicroButtonAlert = _G.TalentMicroButtonAlert
@@ -130,6 +136,14 @@ local function styleMisc()
 	_G.MirrorTimer1StatusBar.backdrop:Styling()
 	_G.MirrorTimer2StatusBar.backdrop:Styling()
 	_G.MirrorTimer3StatusBar.backdrop:Styling()
+
+	-- DataStore
+	if IsAddOnLoaded("DataStore") then
+		local frame = _G.DataStoreFrame
+		if frame then
+			frame:Styling()
+		end
+	end
 end
 
 S:AddCallback("mUIBlizzMisc", styleMisc)

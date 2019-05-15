@@ -232,6 +232,7 @@ local function ChatPanels_OnEnter(self)
 	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
 	GameTooltip:ClearLines()
 	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["Right Click"], L["Toggle Middle DT"], 1, 1, 1)
 	GameTooltip:Show()
 end
 
@@ -310,6 +311,14 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar5(self, _G["ElvUI_Bar5"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			if E.db.mui.datatexts.middle.enable and mUIMiddleDTPanel:IsShown() then
+				mUIMiddleDTPanel:Hide()
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+			else
+				mUIMiddleDTPanel:Show()
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+			end
 		end
 	end)
 
@@ -335,6 +344,14 @@ function MERL:CreatePanels()
 		if btn == "LeftButton" then
 			UpdateBar3(self, _G["ElvUI_Bar3"])
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		elseif btn == "RightButton" then
+			if E.db.mui.datatexts.middle.enable and mUIMiddleDTPanel:IsShown() then
+				mUIMiddleDTPanel:Hide()
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+			else
+				mUIMiddleDTPanel:Show()
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+			end
 		end
 	end)
 
@@ -359,8 +376,6 @@ function MERL:ShadowOverlay()
 	self.f:SetFrameStrata("BACKGROUND")
 
 	self.f.tex = self.f:CreateTexture()
-	self.f.tex:SetSnapToPixelGrid(false)
-	self.f.tex:SetTexelSnappingBias(0)
 	self.f.tex:SetTexture([[Interface\Addons\ElvUI_MerathilisUI\media\textures\Overlay]])
 	self.f.tex:SetAllPoints(self.f)
 

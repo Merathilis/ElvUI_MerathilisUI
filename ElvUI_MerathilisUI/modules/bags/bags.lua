@@ -53,6 +53,7 @@ function MERB:SkinBlizzBags()
 			container.backdrop:Styling()
 		end
 	end
+
 	if BankFrame then
 		BankFrame:Styling()
 	end
@@ -74,6 +75,7 @@ function MERB:HookBags(isBank)
 			end
 		end
 	end
+
 	--Applying transparent template for reagent bank
 	if E.db.mui.bags.transparentSlots and _G["ElvUIReagentBankFrameItem1"] and _G["ElvUIReagentBankFrameItem1"].template ~= "Transparent" then
 		for slotID = 1, 98 do

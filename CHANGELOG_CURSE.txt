@@ -1,4 +1,14 @@
 ** v4.17 22.04.2019**
+* Added a shield icon to Nameplate Castbar for non interruptible casts.
+* Added an Advanced Merchant Frame (for Vendors). Credits S&L
+* Attempt to prevent a nil error in itemLevel.
+* Added an GCD spark below the Player UnitFrames.
+* Added an Call to Arms Alert.
+* Added right click functionality to my MerathilisUI Panels to temp hide the Middle Datatext.
+* Added a RaidCD Module. Credits Klix.
+* Added RaiderIO Styling support.
+
+** v4.17 22.04.2019**
 * Add some hidden alerts. Muhahaha.
 * Updateded options for Minimap Buttons.
 * Added incompatibility popups for ElvUI_WindTools & ElvUI_LivvenUI.

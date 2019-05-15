@@ -17,9 +17,14 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add some hidden alerts. Muhahaha.",
-		"• Updateded options for Minimap Buttons.",
-		"• Added incompatibility popups for ElvUI_WindTools & ElvUI_LivvenUI.",
+		"• Added a shield icon to Nameplate Castbar for non interruptible casts.",
+		"• Added an Advanced Merchant Frame (for Vendors). Credits S&L.",
+		"• Attempt to prevent a nil error in itemLevel.",
+		"• Added an GCD spark below the Player UnitFrames.",
+		"• Added a Call to Arms Alert.",
+		"• Added right click functionality to MerathilisUI Panels to temp hide Middle Datatext.",
+		"• Added a RaidCD Module. Credits Klix.",
+		"• Added RaiderIO Styling support.",
 		-- "• ''",
 	" ",
 	"Notes:",

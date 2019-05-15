@@ -1,7 +1,5 @@
 -- Korean localization file for koKR.
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("ElvUI", "koKR")
-if not L then return end
+local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "koKR")
 
 -- Core
 L[" is loaded. For any issues or suggestions, please visit "] = true
@@ -29,7 +27,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 - my personal Layout
 
 |cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
-But if you install another Layout over mine, you must adjust it manually.]=]
+But if you install another Layout over mine, you must adjust it manually.
+
+|cffff8000Newest additions are marked with: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -198,6 +198,9 @@ L["No Sounds"] = true
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
+L["Right Click"] = true
+L["Toggle ActionBar"] = true
+L["Toggle Middle DT"] = true
 
 -- DataBars
 L["DataBars"] = true
@@ -427,6 +430,7 @@ L["Small Hits Scale"] = true
 L["Bar Backdrop"] = true
 L["Move Tracker Icon"] = true
 L["Move Queue Status Icon"] = true
+L["Reverse Direction"] = true
 
 --Raid Marks
 L["Raid Markers"] = true
@@ -454,7 +458,7 @@ L["Shows the pixel glow on missing raidbuffs."] = true
 L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
@@ -465,6 +469,13 @@ L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = true
+L["Sort Upwards"] = true
+L["Sort by Expiration Time"] = true
+L["Show Self Cooldown"] = true
+L["Show Icons"] = true
+L["Show In Party"] = true
+L["Show In Raid"] = true
+L["Show In Arena"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
@@ -493,6 +504,8 @@ L["Sat"] = true
 
 -- Nameplates
 L["Castbar Target"] = true
+L["Castbar Shield"] = true
+L["Show a shield icon on the castbar for non interruptible spells."] = true
 
 -- Install
 L["Welcome"] = true
@@ -570,6 +583,8 @@ L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
+L["Subpages"] = true
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
