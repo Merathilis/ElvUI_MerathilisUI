@@ -310,6 +310,7 @@ function MER:SetupLayout()
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
+	E.db["bags"]["junkDesaturate"] = true
 	E.db["bags"]["strata"] = 'HIGH'
 	E.db["bags"]["showBindType"] = true
 	E.db["bags"]["scrapIcon"] = true
@@ -770,7 +771,7 @@ function MER:SetupActionbars(layout)
 		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar2"]["backdrop"] = true
+		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	end
 

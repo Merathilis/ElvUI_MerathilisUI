@@ -27,7 +27,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 - 我的个人布局
 
 |cFF00c0faNote:|r 它与其他大多数ElvUI插件兼容.
-但是如果你在我的之外安装了另一个布局，你必须手动调整它。.]=]
+但是如果你在我的之外安装了另一个布局，你必须手动调整它。.
+
+|cffff8000Newest additions are marked with: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
@@ -198,6 +200,9 @@ L["No Sounds"] = "没有声音"
 -- DataTexts
 L["ChatTab Datatext Panel"] = "聊天标签信息面板"
 L["Middle Datatext Panel"] = "中间的信息面板"
+L["Right Click"] = true
+L["Toggle ActionBar"] = true
+L["Toggle Middle DT"] = true
 
 -- DataBars
 L["DataBars"] = "数据条"
@@ -427,6 +432,7 @@ L["Small Hits Scale"] = true
 L["Bar Backdrop"] = "条背景"
 L["Move Tracker Icon"] = "移动追踪图标"
 L["Move Queue Status Icon"] = "移动队列状态图标"
+L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
@@ -454,7 +460,7 @@ L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示�
 L["Reminder"] = "常驻BUFF提醒"
 L["Reminds you on self Buffs."] = "提醒你自己的BUFF"
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = "冷却闪光"
 L["Settings"] = "设置"
 L["Fadein duration"] = "淡入持续时间"
@@ -465,6 +471,13 @@ L["Display spell name"] = "显示法术名"
 L["Watch on pet spell"] = "观看宠物法术"
 L["Transparency"] = "透明度"
 L["Test"] = "测试"
+L["Sort Upwards"] = true
+L["Sort by Expiration Time"] = true
+L["Show Self Cooldown"] = true
+L["Show Icons"] = true
+L["Show In Party"] = true
+L["Show In Raid"] = true
+L["Show In Arena"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "如果有更新，则在额外的窗口中显示当天的公会信息."

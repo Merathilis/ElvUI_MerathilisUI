@@ -21,7 +21,7 @@ local function OnUpdate()
 	if perc > 1 then
 		return gcdbar:Hide()
 	else
-		gcdbar.spark:SetPoint("CENTER", gcdbar, "LEFT", width * perc, 0)
+		gcdbar.spark:SetPoint("RIGHT", gcdbar, "LEFT", width * perc, 0)
 	end
 end
 
@@ -40,16 +40,13 @@ function MGCD:LoadGCDBar(frame)
 	self:RegisterEvent("UNIT_SPELLCAST_START", "CheckGCD")
 	self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "CheckGCD")
 
-	gcdbar = CreateFrame("Frame", "GCDBar", frame)
+	gcdbar = CreateFrame("Frame", "MER_GCDBar", frame)
 	gcdbar:SetFrameStrata("HIGH")
 	gcdbar.Color = {1, 1, 1}
 
 	local width = _G["ElvUF_Player"]:GetWidth()
-
-	if frame then
-		gcdbar:SetWidth(width)
-		gcdbar:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0)
-	end
+	gcdbar:SetWidth(width)
+	gcdbar:SetPoint("TOPLEFT", frame, "BOTTOMLEFT", 0, 0)
 
 	gcdbar:Height(2)
 	gcdbar.width = 3

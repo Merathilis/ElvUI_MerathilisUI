@@ -173,8 +173,14 @@ local function Minimap()
 						min = 1, max = 100, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
-					blizzard = {
+					reverseDirection = {
 						order = 8,
+						type = "toggle",
+						name = L["Reverse Direction"],
+						disabled = function() return not E.db.mui.smb.enable end,
+					},
+					blizzard = {
+						order = 9,
 						type = "group",
 						name = L["Blizzard"],
 						guiInline = true,

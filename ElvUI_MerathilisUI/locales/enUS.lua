@@ -28,7 +28,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 - my personal Layout
 
 |cFF00c0faNote:|r It is compatible with most of other ElvUI plugins.
-But if you install another Layout over mine, you must adjust it manually.]=]
+But if you install another Layout over mine, you must adjust it manually.
+
+|cffff8000Newest additions are marked with: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = true
@@ -201,6 +203,9 @@ L["No Sounds"] = true
 -- DataTexts
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
+L["Right Click"] = true
+L["Toggle ActionBar"] = true
+L["Toggle Middle DT"] = true
 
 -- DataBars
 L["DataBars"] = true
@@ -431,6 +436,7 @@ L["Small Hits Scale"] = true
 L["Bar Backdrop"] = true
 L["Move Tracker Icon"] = true
 L["Move Queue Status Icon"] = true
+L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
@@ -458,7 +464,7 @@ L["Shows the pixel glow on missing raidbuffs."] = true
 L["Reminder"] = true
 L["Reminds you on self Buffs."] = true
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = true
 L["Fadein duration"] = true
@@ -469,6 +475,13 @@ L["Display spell name"] = true
 L["Watch on pet spell"] = true
 L["Transparency"] = true
 L["Test"] = true
+L["Sort Upwards"] = true
+L["Sort by Expiration Time"] = true
+L["Show Self Cooldown"] = true
+L["Show Icons"] = true
+L["Show In Party"] = true
+L["Show In Raid"] = true
+L["Show In Arena"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true

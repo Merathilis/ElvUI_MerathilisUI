@@ -11,7 +11,7 @@ local tinsert, twipe = table.insert, table.wipe
 local function Tooltip()
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = E.NewSign..L["Tooltip"],
+		name = L["Tooltip"],
 		order = 20,
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -102,7 +102,7 @@ local function Tooltip()
 			},
 			progressInfo = {
 				type = "group",
-				name = E.NewSign..L["Progress Info"],
+				name = L["Progress Info"],
 				order = 11,
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,

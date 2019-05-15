@@ -333,6 +333,7 @@ P.mui = {
 		buttonSpacing = 2,
 		moveTracker = false,
 		moveQueue = false,
+		reverseDirection = false,
 	},
 
 	locPanel = {
@@ -474,18 +475,38 @@ P.mui = {
 		castbarShield = true,
 	},
 
-	cooldownFlash = {
-		enable = true,
-		fadeInTime = 0.3,
-		fadeOutTime = 0.6,
-		maxAlpha = 0.8,
-		animScale = 1.5,
-		iconSize = 40,
-		holdTime = 0.3,
-		enablePet = false,
-		showSpellName = false,
-		x = UIParent:GetWidth()/2,
-		y = UIParent:GetHeight()/2,
+
+	cooldowns = {
+		cooldownFlash = {
+			enable = true,
+			fadeInTime = 0.3,
+			fadeOutTime = 0.6,
+			maxAlpha = 0.8,
+			animScale = 1.5,
+			iconSize = 40,
+			holdTime = 0.3,
+			enablePet = false,
+			showSpellName = false,
+			x = UIParent:GetWidth()/2,
+			y = UIParent:GetHeight()/2,
+		},
+		raid = {
+			enable = true,
+			width = 200,
+			height = 16,
+			upwards = false,
+			expiration = false,
+			show_self = true,
+			show_icon = true,
+			show_inparty = false,
+			show_inraid = true,
+			show_inarena = false,
+			text = {
+				font = "Expressway",
+				fontSize = 10,
+				fontOutline = "OUTLINE",
+			},
+		},
 	},
 
 	-- Armory

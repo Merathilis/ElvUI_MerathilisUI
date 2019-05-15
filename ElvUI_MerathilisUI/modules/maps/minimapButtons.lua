@@ -187,7 +187,7 @@ function SMB:SkinMinimapButton(Button)
 			local Texture = strlower(tostring(Region:GetTexture()))
 
 			if (strfind(Texture, "interface\\characterframe") or strfind(Texture, "interface\\minimap") or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
-				Region:SetTexture(nil)
+				Region:SetTexture()
 				Region:SetAlpha(0)
 			else
 				if Name == 'BagSync_MinimapButton' then
@@ -196,7 +196,7 @@ function SMB:SkinMinimapButton(Button)
 					Region:SetTexture('Interface\\Icons\\INV_Helmet_87')
 				elseif Name == 'OutfitterMinimapButton' then
 					if Texture == 'interface\\addons\\outfitter\\textures\\minimapbutton' then
-						Region:SetTexture(nil)
+						Region:SetTexture()
 					end
 				elseif Name == 'SmartBuff_MiniMapButton' then
 					Region:SetTexture('Interface\\Icons\\Spell_Nature_Purge')
@@ -260,23 +260,22 @@ function SMB:Update()
 
 	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow'] or 12
 	local ButtonsPerRow = SMB.db['buttonsPerRow'] or 12
-	local NumColumns = ceil(#SMB.Buttons / ButtonsPerRow)
-	local Spacing, Mult = SMB.db['buttonSpacing'] or 2, 1
+	local Spacing = SMB.db['buttonSpacing'] or 2
 	local Size = SMB.db['iconSize'] or 27
 	local ActualButtons, Maxed = 0
 
-	if NumColumns == 1 and ButtonsPerRow > #SMB.Buttons then
-		ButtonsPerRow = #SMB.Buttons
+	local Anchor, DirMult = 'TOPLEFT', 1
+
+	if SMB.db['reverseDirection'] then
+		Anchor, DirMult = 'TOPRIGHT', -1
 	end
 
 	for _, Button in pairs(SMB.Buttons) do
 		if Button:IsVisible() then
-			AnchorX = AnchorX + 1
-			ActualButtons = ActualButtons + 1
-			if AnchorX > MaxX then
-				AnchorY = AnchorY + 1
-				AnchorX = 1
-				Maxed = true
+			AnchorX, ActualButtons = AnchorX + 1, ActualButtons + 1
+
+			if (AnchorX % (ButtonsPerRow + 1)) == 0 then
+				AnchorY, AnchorX, Maxed = AnchorY + 1, 1, true
 			end
 
 			SMB:UnlockButton(Button)
@@ -284,7 +283,7 @@ function SMB:Update()
 			Button:SetTemplate()
 			Button:SetParent(self.Bar)
 			Button:ClearAllPoints()
-			Button:SetPoint('TOPLEFT', self.Bar, 'TOPLEFT', (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
+			Button:SetPoint(Anchor, self.Bar, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
 			Button:SetSize(SMB.db['iconSize'], SMB.db['iconSize'])
 			Button:SetScale(1)
 			Button:SetFrameStrata('LOW')
@@ -298,8 +297,8 @@ function SMB:Update()
 		end
 	end
 
-	local BarWidth = (Spacing + ((Size * (ActualButtons * Mult)) + ((Spacing * (ActualButtons - 1)) * Mult) + (Spacing * Mult)))
-	local BarHeight = (Spacing + ((Size * (AnchorY * Mult)) + ((Spacing * (AnchorY - 1)) * Mult) + (Spacing * Mult)))
+	local BarWidth = Spacing + (Size * ActualButtons) + (Spacing * (ActualButtons - 1)) + Spacing
+	local BarHeight = Spacing + (Size * AnchorY) + (Spacing * (AnchorY - 1)) + Spacing
 	self.Bar:SetSize(BarWidth, BarHeight)
 
 	if self.db.backdrop then

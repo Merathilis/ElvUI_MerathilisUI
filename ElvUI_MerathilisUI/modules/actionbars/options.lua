@@ -11,7 +11,7 @@ local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		order = 10,
 		type = "group",
-		name = E.NewSign..MAB.modName,
+		name = MAB.modName,
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -163,7 +163,7 @@ local function abTable()
 			autoButtons = {
 				order = 7,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Auto Buttons"]),
+				name = MER:cOption(L["Auto Buttons"]),
 				guiInline = true,
 				get = function(info)
 					return E.db.mui.actionbars.autoButtons[info[#info]]

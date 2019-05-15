@@ -27,7 +27,9 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es 
 - mein persönliches Layout
 
 |cFF00c0faHinweis:|r Es ist mit den meisten anderen ElvUI plugins kompatibel.
-Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.]=]
+Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell anpassen.
+
+|cffff8000Neue Features sind markiert mit einem: |r]=]
 
 -- LoginMessage
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
@@ -198,6 +200,9 @@ L["No Sounds"] = "Keine Sounds"
 -- DataTexts
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
+L["Right Click"] = "Rechtsklick"
+L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
+L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
@@ -426,6 +431,7 @@ L["Small Hits Scale"] = "Einfache Treffer Skallierung"
 L["Bar Backdrop"] = "Leisten Hintergrund"
 L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
 L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
+L["Reverse Direction"] = "Umgekehrte Reihenfolge"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -453,7 +459,7 @@ L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fe
 L["Reminder"] = "Erinnerung"
 L["Reminds you on self Buffs."] = "Erinnert dich an eigene Buffs."
 
--- CooldownFlash
+-- Cooldowns
 L["CooldownFlash"] = true
 L["Settings"] = "Einstellungen"
 L["Fadein duration"] = "Einblendzeit"
@@ -464,6 +470,13 @@ L["Display spell name"] = "Zeige Zaubernamen"
 L["Watch on pet spell"] = "Überwache Begleiter Zauber"
 L["Transparency"] = "Transparenz"
 L["Test"] = true
+L["Sort Upwards"] = "Abwärts sortieren"
+L["Sort by Expiration Time"] = "Nach Abklingzeit sortieren"
+L["Show Self Cooldown"] = "Zeige eigene Abklingzeiten"
+L["Show Icons"] = "Zeige Symbol"
+L["Show In Party"] = "Zeige in Gruppe"
+L["Show In Raid"] = "Zeige im Raid"
+L["Show In Arena"] = "Zeige in Arenen"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."

@@ -89,15 +89,6 @@ local function styleMisc()
 		_G[skins[i]]:Styling()
 	end
 
-	if _G.CopyChatFrame then
-		_G.CopyChatFrame:Styling()
-	end
-
-	for i = 1, MAX_STATIC_POPUPS do
-		local frame = _G["ElvUI_StaticPopup"..i]
-		frame:Styling()
-	end
-
 	--DropDownMenu library support
 	if _G.LibStub("LibUIDropDownMenu", true) then
 		_G.L_DropDownList1Backdrop:Styling()
@@ -108,6 +99,20 @@ local function styleMisc()
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."MenuBackdrop"]:Styling()
 			end
 		end)
+	end
+
+	-- RaiderIO Dropdown
+	if IsAddOnLoaded('RaiderIO') then
+		_G.RaiderIO_CustomDropDownList:Styling()
+	end
+
+	if _G.CopyChatFrame then
+		_G.CopyChatFrame:Styling()
+	end
+
+	for i = 1, MAX_STATIC_POPUPS do
+		local frame = _G["ElvUI_StaticPopup"..i]
+		frame:Styling()
 	end
 
 	local TalentMicroButtonAlert = _G.TalentMicroButtonAlert
