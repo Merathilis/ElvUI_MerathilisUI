@@ -440,18 +440,16 @@ function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 
 	if onMinimap then
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
-		 if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
-			if vignetteInfo then
-				vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
-				self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
-				self.lastMinimapRare.id = vignetteGUID
+		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
+			self.lastMinimapRare.id = vignetteGUID
 
-				local time = GetTime()
-				 if time > (self.lastMinimapRare.time + SOUND_TIMEOUT) then
-					if NF.db.noSound ~= true then
-						PlaySound(_G.SOUNDKIT.RAID_WARNING)
-						self.lastMinimapRare.time = time
-					end
+			local time = GetTime()
+			if time > (self.lastMinimapRare.time + SOUND_TIMEOUT) then
+				if NF.db.noSound ~= true then
+					PlaySound(_G.SOUNDKIT.RAID_WARNING)
+					self.lastMinimapRare.time = time
 				end
 			end
 		end
