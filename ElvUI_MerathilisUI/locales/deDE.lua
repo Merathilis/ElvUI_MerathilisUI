@@ -135,7 +135,7 @@ L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s gehe in 'Riss des Vergessens' für %d Zeit."
+L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
 L["CrucibleOfStorms"] = "Tiegel der Stürme"
+L["FACTION"] = "Fraktion"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"

@@ -34,7 +34,7 @@ local function Misc()
 			gmotd = {
 				order = 3,
 				type = "toggle",
-				name = GUILD_MOTD_LABEL2,
+				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
 			Movertransparancy = {

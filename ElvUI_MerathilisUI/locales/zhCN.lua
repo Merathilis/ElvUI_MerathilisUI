@@ -135,7 +135,7 @@ L["Raid Info"] = "团队信息"
 L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s step in 'Oblivion Tear' for %d time(s)."
+L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "错误: 选择的天赋太多了"
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
+L["FACTION"] = "阵营"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "收件箱大小调整"

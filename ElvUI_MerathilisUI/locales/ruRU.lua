@@ -135,7 +135,7 @@ L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s step in 'Разлом забвения' for %d time(s)."
+L["GUILD_MOTD_LABEL2"] = "Сообщение дня для гильдии"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = true
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
+L["FACTION"] = "Фракция"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Активные азеритовые таланты"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true

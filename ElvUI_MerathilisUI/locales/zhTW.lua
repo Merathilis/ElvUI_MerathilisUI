@@ -135,7 +135,7 @@ L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s step in 'Oblivion Tear' for %d time(s)."
+L["GUILD_MOTD_LABEL2"] = "公會今日訊息"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = true
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
+L["FACTION"] = "陣營"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
