@@ -80,7 +80,9 @@ function M:SetBlizzFonts()
 end
 
 function M:TextWidth()
+	if E.db.mui.media == nil then E.db.mui.media = {} end
 	local db = E.db.mui.media.fonts
+
 	_G["ZoneTextString"]:SetWidth(db.zone.width)
 	_G["PVPInfoTextString"]:SetWidth(db.pvp.width)
 	_G["PVPArenaTextString"]:SetWidth(db.pvp.width)
