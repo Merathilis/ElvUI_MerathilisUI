@@ -21,6 +21,39 @@ local C_Timer_After = C_Timer.After
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
+local function GetRaidMaxGroup()
+	local _, instType, difficulty = GetInstanceInfo()
+	if (instType == "party" or instType == "scenario") and not IsInRaid() then
+		return 1
+	elseif instType ~= "raid" then
+		return 8
+	elseif difficulty == 8 or difficulty == 1 or difficulty == 2 or difficulty == 24 then
+		return 1
+	elseif difficulty == 14 or difficulty == 15 then
+		return 6
+	elseif difficulty == 16 then
+		return 4
+	elseif difficulty == 3 or difficulty == 5 then
+		return 2
+	elseif difficulty == 9 then
+		return 8
+	else
+		return 5
+	end
+end
+
+local RoleTexCoord = {
+	{.5, .75, 0, 1},
+	{.75, 1, 0, 1},
+	{.25, .5, 0, 1},
+}
+
+local RaidCounts = {
+	totalTANK = 0,
+	totalHEALER = 0,
+	totalDAMAGER = 0,
+}
+
 function MI:CreateRaidManager()
 	if not E.db.mui.misc.raidInfo then return end
 
@@ -45,70 +78,42 @@ function MI:CreateRaidManager()
 		end
 	end)
 
-	-- Role counts
-	local function getRaidMaxGroup()
-		local _, instType, difficulty = GetInstanceInfo()
-		if (instType == "party" or instType == "scenario") and not IsInRaid() then
-			return 1
-		elseif instType ~= "raid" then
-			return 8
-		elseif difficulty == 8 or difficulty == 1 or difficulty == 2 or difficulty == 24 then
-			return 1
-		elseif difficulty == 14 or difficulty == 15 then
-			return 6
-		elseif difficulty == 16 then
-			return 4
-		elseif difficulty == 3 or difficulty == 5 then
-			return 2
-		elseif difficulty == 9 then
-			return 8
-		else
-			return 5
-		end
-	end
-
-	local roleTexCoord = {
-		{.5, .75, 0, 1},
-		{.75, 1, 0, 1},
-		{.25, .5, 0, 1},
-	}
-
 	local roleFrame = CreateFrame("Frame", nil, header)
 	roleFrame:SetAllPoints()
+
 	local role = {}
 	for i = 1, 3 do
 		role[i] = roleFrame:CreateTexture(nil, "OVERLAY")
 		role[i]:SetPoint("LEFT", 36*i-30, 0)
 		role[i]:SetSize(15, 15)
 		role[i]:SetTexture("Interface\\LFGFrame\\LFGROLE")
-		role[i]:SetTexCoord(unpack(roleTexCoord[i]))
+		role[i]:SetTexCoord(unpack(RoleTexCoord[i]))
 		role[i].text = MER:CreateText(roleFrame, "OVERLAY", 13, "OUTLINE", "0")
 		role[i].text:ClearAllPoints()
 		role[i].text:SetPoint("CENTER", role[i], "RIGHT", 12, 0)
 	end
 
-	local raidCounts = {totalTANK = 0, totalHEALER = 0, totalDAMAGER = 0}
 	roleFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	roleFrame:RegisterEvent("UPDATE_ACTIVE_BATTLEFIELD")
 	roleFrame:RegisterEvent("UNIT_FLAGS")
 	roleFrame:RegisterEvent("PLAYER_FLAGS_CHANGED")
 	roleFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	roleFrame:SetScript("OnEvent", function()
-		for k in pairs(raidCounts) do
-			raidCounts[k] = 0
+		for k in pairs(RaidCounts) do
+			RaidCounts[k] = 0
 		end
 
-		local maxgroup = getRaidMaxGroup()
+		local maxgroup = GetRaidMaxGroup()
 		for i = 1, GetNumGroupMembers() do
 			local name, _, subgroup, _, _, _, _, online, isDead, _, _, assignedRole = GetRaidRosterInfo(i)
 			if name and online and subgroup <= maxgroup and not isDead and assignedRole ~= "NONE" then
-				raidCounts["total"..assignedRole] = raidCounts["total"..assignedRole] + 1
+				RaidCounts["total"..assignedRole] = RaidCounts["total"..assignedRole] + 1
 			end
 		end
 
-		role[1].text:SetText(raidCounts.totalTANK)
-		role[2].text:SetText(raidCounts.totalHEALER)
-		role[3].text:SetText(raidCounts.totalDAMAGER)
+		role[1].text:SetText(RaidCounts.totalTANK)
+		role[2].text:SetText(RaidCounts.totalHEALER)
+		role[3].text:SetText(RaidCounts.totalDAMAGER)
 	end)
 
 	-- Battle resurrect
@@ -187,7 +192,7 @@ function MI:CreateRaidManager()
 		else
 			count, total = 0, 0
 			self:Show()
-			local maxgroup = getRaidMaxGroup()
+			local maxgroup = GetRaidMaxGroup()
 			for i = 1, GetNumGroupMembers() do
 				local name, _, subgroup, _, _, _, _, online = GetRaidRosterInfo(i)
 				if name and online and subgroup <= maxgroup then
