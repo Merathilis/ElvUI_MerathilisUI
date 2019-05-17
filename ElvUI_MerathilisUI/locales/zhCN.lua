@@ -135,7 +135,7 @@ L["Raid Info"] = "团队信息"
 L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s step in 'Oblivion Tear' for %d time(s)."
+L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "错误: 选择的天赋太多了"
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
+L["FACTION"] = "阵营"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "收件箱大小调整"
@@ -389,44 +391,6 @@ L["Minimap Ping"] = "小地图点击"
 L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
-
--- NSCT
-L["Combat Text"] = "战斗文本"
-L["Disable Blizzard FCT"] = "关闭暴雪默认伤害文本"
-L["Personal SCT"] = "显示个人伤害文本"
-L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = "当受到伤害时，在你的个人血条或屏幕中间也显示数字"
-L["Animations"] = "动画"
-L["Default"] = "默认"
-L["Criticals"] = "暴击"
-L["Miss/Parry/Dodge/etc."] = "丢失/格挡/闪避/等等."
-L["Personal SCT Animations"] = "个人伤害文本动画"
-L["Appearance/Offsets"] = "外观/偏移"
-L["Font Shadow"] = "字体阴影"
-L["Use Damage Type Color"] = "使用伤害类型颜色"
-L["Default Color"] = "默认颜色"
-L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
-L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
-L["X-Offset Personal SCT"] = true
-L["Y-Offset Personal SCT"] = true
-L["Only used if Personal Nameplate is Disabled."] = true
-L["Text Formatting"] = "文本格式"
-L["Truncate Number"] = true
-L["Condense combat text numbers."] = true
-L["Show Truncated Letter"] = true
-L["Comma Seperate"] = true
-L["e.g. 100000 -> 100,000"] = true
-L["Icon"] = "图标"
-L["Size"] = "大小"
-L["Start Alpha"] = true
-L["Use Seperate Off-Target Text Appearance"] = true
-L["Off-Target Text Appearance"] = true
-L["Sizing Modifiers"] = true
-L["Embiggen Crits"] = true
-L["Embiggen Crits Scale"] = true
-L["Embiggen Miss/Parry/Dodge/etc."] = true
-L["Embiggen Miss/Parry/Dodge/etc. Scale"] = true
-L["Scale Down Small Hits"] = true
-L["Small Hits Scale"] = true
 
 -- SMB
 L["Bar Backdrop"] = "条背景"

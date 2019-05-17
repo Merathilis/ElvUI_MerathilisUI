@@ -156,52 +156,6 @@ P.mui = {
 		},
 	},
 
-	-- Combat Text
-	nsct = {
-		enable = true,
-		xOffset = 0,
-		yOffset = 55,
-		xOffsetPersonal = 0,
-		yOffsetPersonal = -100,
-		font = "Expressway",
-		fontFlag = "OUTLINE",
-		fontShadow = true,
-		damageColor = true,
-		defaultColor = "ffff00",
-		truncate = true,
-		truncateLetter = true,
-		commaSeperate = true,
-		sizing = {
-			crits = true,
-			critsScale = 1.3,
-			miss = false,
-			missScale = 1.3,
-			smallHits = true,
-			smallHitsScale = 0.7,
-		},
-		animations = {
-			normal = "fountain",
-			crit = "verticalUp",
-			miss = "verticalUp",
-		},
-		animationsPersonal = {
-			normal = "rainfall",
-			crit = "verticalUp",
-			miss = "verticalUp",
-		},
-		formatting = {
-			size = 20,
-			icon = "right",
-			alpha = 1,
-		},
-		useOffTarget = true,
-		offTargetFormatting = {
-			size = 15,
-			icon = "right",
-			alpha = 0.5,
-		},
-	},
-
 	unitframes = {
 		AuraIconSpacing = {
 			spacing = 1,

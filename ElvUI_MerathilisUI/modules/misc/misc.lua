@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MI = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
 local S = E:GetModule("Skins")
 MI.modName = L["Misc"]
