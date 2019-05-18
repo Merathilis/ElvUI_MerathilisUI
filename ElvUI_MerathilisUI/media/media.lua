@@ -27,9 +27,9 @@ local Colors = {
 
 local function ZoneTextPos()
 	if (_G["PVPInfoTextString"]:GetText() == "") then
-		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, -E.db.mui.media.fonts.subzone.offset)
+		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, 0)
 	else
-		_G["SubZoneTextString"]:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, -E.db.mui.media.fonts.subzone.offset)
+		_G["SubZoneTextString"]:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
 	end
 end
 
@@ -43,45 +43,63 @@ end
 
 function M:SetBlizzFonts()
 	if E.private.general.replaceBlizzFonts then
-		local db = E.db.mui.media.fonts
-		_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', db.zone.font), db.zone.size, db.zone.outline) -- Main zone name
-		_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for main zone
-		_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', db.pvp.font), db.pvp.size, db.pvp.outline) -- PvP status for subzone
-		_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', db.subzone.font), db.subzone.size, db.subzone.outline) -- Subzone name
+		local zoneDB = E.db.mui.media.zoneText
+		local miscDB = E.db.mui.media.miscText
 
-		_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Writing letter text
-		_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', db.mail.font), db.mail.size, db.mail.outline) --Received letter text
-		_G["QuestFont"]:SetFont(E.LSM:Fetch('font', db.gossip.font), db.gossip.size, db.gossip.outline) -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
-		_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', db.questFontSuperHuge.font), db.questFontSuperHuge.size, db.questFontSuperHuge.outline) -- No idea what that is for
-		_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', db.questFontSuperHuge.font), db.questFontSuperHuge.size, db.questFontSuperHuge.outline) -- No idea what that is for
-		_G["NumberFont_Shadow_Med"]:SetFont(E.LSM:Fetch('font', db.editbox.font), db.editbox.size, db.editbox.outline) --Chat editbox
-
-		--Objective Frame
-		if not _G["ObjectiveTrackerFrame"].hooked then
-				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
-					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-				end)
-				_G["ObjectiveTrackerFrame"].hooked = true
+		if zoneDB.enable then
+			_G["ZoneTextString"]:SetFont(E.LSM:Fetch('font', zoneDB.zone.font), zoneDB.zone.size, zoneDB.zone.outline) -- Main zone name
+			_G["PVPInfoTextString"]:SetFont(E.LSM:Fetch('font', zoneDB.pvp.font), zoneDB.pvp.size, zoneDB.pvp.outline) -- PvP status for main zone
+			_G["PVPArenaTextString"]:SetFont(E.LSM:Fetch('font', zoneDB.pvp.font), zoneDB.pvp.size, zoneDB.pvp.outline) -- PvP status for subzone
+			_G["SubZoneTextString"]:SetFont(E.LSM:Fetch('font', zoneDB.subzone.font), zoneDB.subzone.size, zoneDB.subzone.outline) -- Subzone name
 		end
 
-		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
-		MakeFont(_G["ObjectiveFont"], E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline)
-		if M.BonusObjectiveBarText then M.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', db.objective.font), db.objective.size, db.objective.outline) end
+		if miscDB.mail.enable then
+			_G["SendMailBodyEditBox"]:SetFont(E.LSM:Fetch('font', miscDB.mail.font), miscDB.mail.size, miscDB.mail.outline) --Writing letter text
+			_G["OpenMailBodyText"]:SetFont(E.LSM:Fetch('font', miscDB.mail.font), miscDB.mail.size, miscDB.mail.outline) --Received letter text
+		end
+
+		if miscDB.gossip.enable then
+			_G["QuestFont"]:SetFont(E.LSM:Fetch('font', miscDB.gossip.font), miscDB.gossip.size, miscDB.gossip.outline) -- Font in Quest Log/Petitions and shit. It's fucking hedious with any outline so fuck it.
+		end
+
+		if miscDB.questFontSuperHuge.enable then
+			_G["QuestFont_Super_Huge"]:SetFont(E.LSM:Fetch('font', miscDB.questFontSuperHuge.font), miscDB.questFontSuperHuge.size, miscDB.questFontSuperHuge.outline) -- No idea what that is for
+			_G["QuestFont_Enormous"]:SetFont(E.LSM:Fetch('font', miscDB.questFontSuperHuge.font), miscDB.questFontSuperHuge.size, miscDB.questFontSuperHuge.outline) -- No idea what that is for
+		end
+
+		if miscDB.editbox.enable then
+			_G["NumberFont_Shadow_Med"]:SetFont(E.LSM:Fetch('font', miscDB.editbox.font), miscDB.editbox.size, miscDB.editbox.outline) --Chat editbox
+		end
+
+		--Objective Frame
+		if miscDB.objectiveHeader.enable then
+			if not _G["ObjectiveTrackerFrame"].hooked then
+				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+					_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+					_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+				end)
+				_G["ObjectiveTrackerFrame"].hooked = true
+			end
+			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+			_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+			_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', miscDB.objectiveHeader.font), miscDB.objectiveHeader.size, miscDB.objectiveHeader.outline)
+		end
+
+		if miscDB.objective.enable then
+			MakeFont(_G["ObjectiveFont"], E.LSM:Fetch('font', miscDB.objective.font), miscDB.objective.size, miscDB.objective.outline)
+			if M.BonusObjectiveBarText then M.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', miscDB.objective.font), miscDB.objective.size, miscDB.objective.outline) end
+		end
 	end
 end
 
 function M:TextWidth()
-	if E.db.mui.media == nil then E.db.mui.media = {} end
-	local db = E.db.mui.media.fonts
+	local db = E.db.mui.media.zoneText
 
 	_G["ZoneTextString"]:SetWidth(db.zone.width)
 	_G["PVPInfoTextString"]:SetWidth(db.pvp.width)
@@ -111,18 +129,26 @@ function M:TextShow()
 	FadingFrame_Show(_G["SubZoneTextFrame"])
 end
 
-function M:Update()
-	M:TextWidth()
-end
-
 function M:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
 
-	M:TextWidth()
+	-- Make sure the media table gets created
+	if not E.db.media then
+		E.db.media = {}
+	end
+
+	-- Clear old db setting
+	if E.db.mui.media.fonts then
+		E.db.mui.media.fonts = nil
+	end
+
+	if E.db.mui.media.zoneText.enable then
+		M:TextWidth()
+		hooksecurefunc("SetZoneText", ZoneTextPos)
+	end
+
 	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
-	hooksecurefunc("SetZoneText", ZoneTextPos)
 	M.SetBlizzFonts()
-	M:Update()
 end
 
 local function InitializeCallback()

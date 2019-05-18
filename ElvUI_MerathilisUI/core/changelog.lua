@@ -17,17 +17,18 @@ local CLOSE = CLOSE
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added a shield icon to Nameplate Castbar for non interruptible casts.",
-		"• Added an Advanced Merchant Frame (for Vendors). Credits S&L.",
-		"• Attempt to prevent a nil error in itemLevel.",
-		"• Added an GCD spark below the Player UnitFrames.",
-		"• Added a Call to Arms Alert.",
-		"• Added right click functionality to MerathilisUI Panels to temp hide Middle Datatext.",
-		"• Added a RaidCD Module. Credits Klix.",
-		"• Added RaiderIO Styling support.",
+		"• Code improvements for Notifications.",
+		"• Disabled Call To Arms alert by default.",
+		"• Take account to the new ElvUI locales.",
+		"• Removed NSCT & CombatFeedBack.",
+		"• Removed a function from chat, which will prevent the Chat Editbox to flash.",
+		"• Overhaul my media section. I hope this will prevent some lua errors.",
+
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• Removed NSCT because of restriction that will be introduced in 8.2",
+		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
 		-- "• ''",
 }
 
