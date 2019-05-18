@@ -132,6 +132,16 @@ end
 function M:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
 
+	-- Make sure the media table gets created
+	if not E.db.media then
+		E.db.media = {}
+	end
+
+	-- Clear old db setting
+	if E.db.mui.media.fonts then
+		E.db.mui.media.fonts = nil
+	end
+
 	if E.db.mui.media.zoneText.enable then
 		M:TextWidth()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
