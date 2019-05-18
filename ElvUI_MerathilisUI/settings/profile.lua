@@ -60,7 +60,7 @@ P.mui = {
 		alerts = {
 			versionCheck = true,
 			detectVersion = MER.Version,
-			lfg = true,
+			lfg = false,
 		},
 	},
 
