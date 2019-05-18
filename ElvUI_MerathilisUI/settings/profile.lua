@@ -225,7 +225,8 @@ P.mui = {
 	},
 
 	media = {
-		fonts = {
+		zoneText = {
+			enable = true,
 			zone = {
 				font = "Expressway",
 				size = 32,
@@ -236,7 +237,6 @@ P.mui = {
 				font = "Expressway",
 				size = 25,
 				outline = "OUTLINE",
-				offset = 0,
 				width = 512,
 			},
 			pvp = {
@@ -245,32 +245,40 @@ P.mui = {
 				outline = "OUTLINE",
 				width = 512,
 			},
+		},
+		miscText = {
 			mail = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			editbox = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			gossip = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			objective = {
+				enable = true,
 				font = "Expressway",
 				size = 11,
 				outline = "NONE",
 			},
 			objectiveHeader = {
+				enable = true,
 				font = "Expressway",
 				size = 14,
 				outline = "OUTLINE",
 			},
 			questFontSuperHuge = {
+				enable = true,
 				font = "Expressway",
 				size = 24,
 				outline = "NONE",
