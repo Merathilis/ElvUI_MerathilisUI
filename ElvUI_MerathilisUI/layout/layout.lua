@@ -127,10 +127,10 @@ function MERL:CreateChatButtons()
 			if E.db.mui.chat.isExpanded then
 				E.db.chat.panelHeight = E.db.mui.chat.panelHeight
 				E.db.mui.chat.isExpanded = false
-				CH:PositionChat(true, true)
+				CH:PositionChat(true)
 			else
 				E.db.chat.panelHeight = 400
-				CH:PositionChat(true, true)
+				CH:PositionChat(true)
 				E.db.mui.chat.isExpanded = true
 			end
 		end
