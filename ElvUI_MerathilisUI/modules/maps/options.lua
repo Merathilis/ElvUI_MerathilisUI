@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MM = MER:GetModule("mUIMinimap")
 local SMB = MER:GetModule("mUIMinimapButtons")
 local COMP = MER:GetModule("mUICompatibility")

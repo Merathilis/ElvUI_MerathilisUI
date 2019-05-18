@@ -29,21 +29,28 @@ local function mediaTable()
 					},
 				},
 			},
-			zonefonts = {
+			zoneText = {
 				type = "group",
 				name = L["Zone Text"],
 				order = 3,
+				get = function(info) return E.db.mui.media.zoneText[ info[#info] ] end,
+				set = function(info, value) E.db.mui.media.zoneText[ info[#info] ] = value; E:UpdateMedia() end,
 				args = {
 					intro = {
-						order = 1,
+						order = 0,
 						type = "description",
 						name = "",
+					},
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
 					},
 					test = {
 						order = 2,
 						type = 'execute',
 						name = L["Test"],
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
+						disabled = function() return not E.private.general.replaceBlizzFonts or not E.db.mui.media.zoneText.enable end,
 						func = function() M:TextShow() end,
 					},
 					zone = {
@@ -51,9 +58,9 @@ local function mediaTable()
 						name = ZONE,
 						order = 3,
 						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.zone[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.zone[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.zoneText.zone[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.zoneText.zone[ info[#info] ] = value; E:UpdateMedia() end,
+						disabled = function() return not E.private.general.replaceBlizzFonts or not E.db.mui.media.zoneText.enable end,
 						args = {
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
@@ -84,7 +91,7 @@ local function mediaTable()
 								name = L["Width"],
 								type = "range",
 								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(info, value) E.db.mui.media.fonts.zone.width = value; M:TextWidth() end,
+								set = function(info, value) E.db.mui.media.zoneText.zone.width = value; M:TextWidth() end,
 							},
 						},
 					},
@@ -93,9 +100,9 @@ local function mediaTable()
 						name = L["Subzone Text"],
 						order = 4,
 						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.subzone[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.subzone[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.zoneText.subzone[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.zoneText.subzone[ info[#info] ] = value; E:UpdateMedia() end,
+						disabled = function() return not E.private.general.replaceBlizzFonts or not E.db.mui.media.zoneText.enable end,
 						args = {
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
@@ -128,22 +135,16 @@ local function mediaTable()
 								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
 								set = function(info, value) E.db.mui.media.fonts.subzone.width = value; M:TextWidth() end,
 							},
-							offset = {
-								order = 5,
-								name = L["Offset"],
-								type = "range",
-								min = 0, max = 30, step = 1,
-							},
 						},
 					},
-					pvpstatus = {
+					pvp = {
 						type = "group",
 						name = L["PvP Status Text"],
 						order = 5,
 						guiInline = true,
-						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.pvp[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.pvp[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.zoneText.pvp[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.zoneText.pvp[ info[#info] ] = value; E:UpdateMedia() end,
+						disabled = function() return not E.private.general.replaceBlizzFonts or not E.db.mui.media.zoneText.enable end,
 						args = {
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
@@ -180,10 +181,12 @@ local function mediaTable()
 					},
 				},
 			},
-			miscfonts = {
+			miscText = {
 				type = "group",
 				name = L["Misc Texts"],
 				order = 4,
+				get = function(info) return E.db.mui.media.miscText[ info[#info] ] end,
+				set = function(info, value) E.db.mui.media.miscText[ info[#info] ] = value; E:UpdateMedia() end,
 				args = {
 					mail = {
 						type = "group",
@@ -191,20 +194,27 @@ local function mediaTable()
 						order = 1,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.mail[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.mail[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.mail[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.mail[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 0,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.mail.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 22, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.mail.enable end,
 							},
 							outline = {
 								order = 3,
@@ -217,6 +227,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.mail.enable end,
 							},
 						},
 					},
@@ -226,20 +237,27 @@ local function mediaTable()
 						order = 2,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.editbox[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.editbox[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.editbox[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.editbox[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 1,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 20, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
 							},
 							outline = {
 								order = 3,
@@ -252,6 +270,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.editbox.enable end,
 							},
 						},
 					},
@@ -261,20 +280,27 @@ local function mediaTable()
 						order = 2,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.gossip[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.gossip[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.gossip[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.gossip[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 0,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.gossip.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 20, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.gossip.enable end,
 							},
 							outline = {
 								order = 3,
@@ -287,6 +313,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.gossip.enable end,
 							},
 						},
 					},
@@ -296,20 +323,27 @@ local function mediaTable()
 						order = 3,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.objectiveHeader[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.objectiveHeader[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.objectiveHeader[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 0,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 20, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
 							},
 							outline = {
 								order = 3,
@@ -322,6 +356,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.objectiveHeader.enable end,
 							},
 						},
 					},
@@ -331,20 +366,27 @@ local function mediaTable()
 						order = 4,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.objective[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.objective[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.objective[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.objective[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 0,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = "LSM30_Font",
 								order = 1,
 								name = L["Font"],
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 20, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
 							},
 							outline = {
 								order = 3,
@@ -357,6 +399,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.objective.enable end,
 							},
 						},
 					},
@@ -366,21 +409,28 @@ local function mediaTable()
 						order = 5,
 						guiInline = true,
 						disabled = function() return not E.private.general.replaceBlizzFonts end,
-						get = function(info) return E.db.mui.media.fonts.questFontSuperHuge[ info[#info] ] end,
-						set = function(info, value) E.db.mui.media.fonts.questFontSuperHuge[ info[#info] ] = value; E:UpdateMedia() end,
+						get = function(info) return E.db.mui.media.miscText.questFontSuperHuge[ info[#info] ] end,
+						set = function(info, value) E.db.mui.media.miscText.questFontSuperHuge[ info[#info] ] = value; E:UpdateMedia() end,
 						args = {
+							enable = {
+								order = 0,
+								type = "toggle",
+								name = L["Enable"],
+							},
 							font = {
 								type = "select", dialogControl = 'LSM30_Font',
 								order = 1,
 								name = L["Font"],
 								desc = "The font used for chat editbox",
 								values = AceGUIWidgetLSMlists.font,
+								disabled = function() return not E.db.mui.media.miscText.questFontSuperHuge.enable end,
 							},
 							size = {
 								order = 2,
 								name = L["Font Size"],
 								type = "range",
 								min = 6, max = 48, step = 1,
+								disabled = function() return not E.db.mui.media.miscText.questFontSuperHuge.enable end,
 							},
 							outline = {
 								order = 3,
@@ -393,6 +443,7 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
+								disabled = function() return not E.db.mui.media.miscText.questFontSuperHuge.enable end,
 							},
 						},
 					},

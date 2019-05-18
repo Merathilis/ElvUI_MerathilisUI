@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LO = E:GetModule("Layout")
 local DT = E:GetModule("DataTexts")
 
@@ -141,7 +142,7 @@ local function Datatexts()
 					},
 					textSize = {
 						order = 2,
-						name = FONT_SIZE,
+						name = L["FONT_SIZE"],
 						type = "range",
 						min = 6, max = 22, step = 1,
 						get = function(info) return E.db.mui.datatexts.threatBar.textSize end,

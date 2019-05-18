@@ -133,7 +133,7 @@ L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s step in 'Oblivion Tear' for %d time(s)."
+L["GUILD_MOTD_LABEL2"] = "오늘의 길드 메시지"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = true
@@ -170,6 +170,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
+L["FACTION"] = "진영"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "활성화된 아제라이트 능력"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -387,44 +389,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
-
--- NSCT
-L["Combat Text"] = true
-L["Disable Blizzard FCT"] = true
-L["Personal SCT"] = true
-L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = true
-L["Animations"] = true
-L["Default"] = true
-L["Criticals"] = true
-L["Miss/Parry/Dodge/etc."] = true
-L["Personal SCT Animations"] = true
-L["Appearance/Offsets"] = true
-L["Font Shadow"] = true
-L["Use Damage Type Color"] = true
-L["Default Color"] = true
-L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
-L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = true
-L["X-Offset Personal SCT"] = true
-L["Y-Offset Personal SCT"] = true
-L["Only used if Personal Nameplate is Disabled."] = true
-L["Text Formatting"] = true
-L["Truncate Number"] = true
-L["Condense combat text numbers."] = true
-L["Show Truncated Letter"] = true
-L["Comma Seperate"] = true
-L["e.g. 100000 -> 100,000"] = true
-L["Icon"] = true
-L["Size"] = true
-L["Start Alpha"] = true
-L["Use Seperate Off-Target Text Appearance"] = true
-L["Off-Target Text Appearance"] = true
-L["Sizing Modifiers"] = true
-L["Embiggen Crits"] = true
-L["Embiggen Crits Scale"] = true
-L["Embiggen Miss/Parry/Dodge/etc."] = true
-L["Embiggen Miss/Parry/Dodge/etc. Scale"] = true
-L["Scale Down Small Hits"] = true
-L["Small Hits Scale"] = true
 
 -- SMB
 L["Bar Backdrop"] = true

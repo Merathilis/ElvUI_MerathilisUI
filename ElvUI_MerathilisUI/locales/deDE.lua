@@ -135,7 +135,7 @@ L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
-L["UunatAlertString"] = "%s gehe in 'Riss des Vergessens' für %d Zeit."
+L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
@@ -172,6 +172,8 @@ L["LFR"] = true
 L["Uldir"] = true
 L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
 L["CrucibleOfStorms"] = "Tiegel der Stürme"
+L["FACTION"] = "Fraktion"
+L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -389,43 +391,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
-
--- NSCT
-L["Combat Text"] = "Kampftext"
-L["Disable Blizzard FCT"] = "Deaktive den Blizzard Kampftext"
-L["Personal SCT"] = "Persönlicher Kampftext"
-L["Also show numbers when you take damage on your personal nameplate or in the center of the screen."] = "Zeigt auch Nummern wenn du Schaden erleidest auf deiner persönlichen Namensplakette oder in der Mitte des Blidschirms."
-L["Animations"] = "Animation"
-L["Default"] = "Standard"
-L["Criticals"] = "Kritisch"
-L["Miss/Parry/Dodge/etc."] = "Verfehlen/Parrieren/Blocken/etc."
-L["Personal SCT Animations"] = "Persönlicher Kampftext Animation"
-L["Appearance/Offsets"] = "Anzeige/Versatz"
-L["Font Shadow"] = "Text Schatten"
-L["Use Damage Type Color"] = "Benutze Schadenstyp Farbe"
-L["Default Color"] = "Standardfarbe"
-L["Has soft min/max, you can type whatever you'd like into the editbox tho."] = "Hat einen soft min/max, du kannst eingeben was immer du möchtest. LoL"
-L["X-Offset Personal SCT"] = "X-Versatz persönliche Anzeige"
-L["Y-Offset Personal SCT"] = "Y-Versatz persönliche Anzeige"
-L["Only used if Personal Nameplate is Disabled."] = "Wird nur benutzt wenn die persönliche Namensplakette deaktiviert ist."
-L["Text Formatting"] = "Textformat"
-L["Truncate Number"] = "Nummern kürzen"
-L["Condense combat text numbers."] = "Fügt Kampftext Nummern zusammen"
-L["Show Truncated Letter"] = "Zeige gekürzte Buchstaben"
-L["Comma Seperate"] = "Komma"
-L["e.g. 100000 -> 100,000"] = "z.B. 100000 -> 100,000"
-L["Icon"] = "Symbol"
-L["Size"] = "Größe"
-L["Start Alpha"] = true
-L["Use Seperate Off-Target Text Appearance"] = "Benutze seperate Off-Target Anzeige"
-L["Off-Target Text Appearance"] = "Off-Target Textanzeige"
-L["Sizing Modifiers"] = "Größe anpassen"
-L["Embiggen Crits"] = "Vergrößere Krits"
-L["Embiggen Crits Scale"] = "Vergrößerte Krits Skallierung"
-L["Embiggen Miss/Parry/Dodge/etc."] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc."
-L["Embiggen Miss/Parry/Dodge/etc. Scale"] = "Vergrößere Verfehlen/Parrieren/Ausweichen/etc. Skallierung"
-L["Scale Down Small Hits"] = "Einfache Treffer runterskallieren"
-L["Small Hits Scale"] = "Einfache Treffer Skallierung"
 
 -- SMB
 L["Bar Backdrop"] = "Leisten Hintergrund"

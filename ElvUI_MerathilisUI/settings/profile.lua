@@ -60,7 +60,7 @@ P.mui = {
 		alerts = {
 			versionCheck = true,
 			detectVersion = MER.Version,
-			lfg = true,
+			lfg = false,
 		},
 	},
 
@@ -156,52 +156,6 @@ P.mui = {
 		},
 	},
 
-	-- Combat Text
-	nsct = {
-		enable = true,
-		xOffset = 0,
-		yOffset = 55,
-		xOffsetPersonal = 0,
-		yOffsetPersonal = -100,
-		font = "Expressway",
-		fontFlag = "OUTLINE",
-		fontShadow = true,
-		damageColor = true,
-		defaultColor = "ffff00",
-		truncate = true,
-		truncateLetter = true,
-		commaSeperate = true,
-		sizing = {
-			crits = true,
-			critsScale = 1.3,
-			miss = false,
-			missScale = 1.3,
-			smallHits = true,
-			smallHitsScale = 0.7,
-		},
-		animations = {
-			normal = "fountain",
-			crit = "verticalUp",
-			miss = "verticalUp",
-		},
-		animationsPersonal = {
-			normal = "rainfall",
-			crit = "verticalUp",
-			miss = "verticalUp",
-		},
-		formatting = {
-			size = 20,
-			icon = "right",
-			alpha = 1,
-		},
-		useOffTarget = true,
-		offTargetFormatting = {
-			size = 15,
-			icon = "right",
-			alpha = 0.5,
-		},
-	},
-
 	unitframes = {
 		AuraIconSpacing = {
 			spacing = 1,
@@ -271,7 +225,8 @@ P.mui = {
 	},
 
 	media = {
-		fonts = {
+		zoneText = {
+			enable = true,
 			zone = {
 				font = "Expressway",
 				size = 32,
@@ -282,7 +237,6 @@ P.mui = {
 				font = "Expressway",
 				size = 25,
 				outline = "OUTLINE",
-				offset = 0,
 				width = 512,
 			},
 			pvp = {
@@ -291,32 +245,40 @@ P.mui = {
 				outline = "OUTLINE",
 				width = 512,
 			},
+		},
+		miscText = {
 			mail = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			editbox = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			gossip = {
+				enable = true,
 				font = "Expressway",
 				size = 12,
 				outline = "NONE",
 			},
 			objective = {
+				enable = true,
 				font = "Expressway",
 				size = 11,
 				outline = "NONE",
 			},
 			objectiveHeader = {
+				enable = true,
 				font = "Expressway",
 				size = 14,
 				outline = "OUTLINE",
 			},
 			questFontSuperHuge = {
+				enable = true,
 				font = "Expressway",
 				size = 24,
 				outline = "NONE",

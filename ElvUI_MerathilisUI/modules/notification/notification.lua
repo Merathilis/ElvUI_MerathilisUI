@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
-local NF = MER:NewModule("Notification", "AceEvent-3.0", "AceHook-3.0")
+local NF = MER:NewModule("Notification", "AceEvent-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
 NF.modName = L["Notification"]
@@ -20,10 +20,10 @@ local format, find, sub = string.format, string.find, string.sub
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
 local HasNewMail = HasNewMail
-local GetAtlasInfo = GetAtlasInfo
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetTime = GetTime
+local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local C_Calendar_GetNumGuildEvents = C_Calendar.GetNumGuildEvents
 local C_Calendar_GetGuildEventInfo = C_Calendar.GetGuildEventInfo
@@ -39,10 +39,14 @@ local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
 local C_Timer = C_Timer
 local CreateAnimationGroup = CreateAnimationGroup
+local SlashCmdList = SlashCmdList
+local Calendar_Toggle = Calendar_Toggle
+local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
+local MAIL_LABEL = MAIL_LABEL
+local HAVE_MAIL = HAVE_MAIL
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: SLASH_TESTNOTIFICATION1, MAIL_LABEL, HAVE_MAIL, MINIMAP_TRACKING_REPAIR, CalendarFrame
--- GLOBALS: CALENDAR, Calendar_Toggle, BAG_UPDATE, BACKPACK_CONTAINER, NUM_BAG_SLOTS, ToggleBackpack
+-- GLOBALS:
 
 local bannerWidth = 255
 local bannerHeight = 68
@@ -255,7 +259,7 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 	end
 
 	if texture then
-		if GetAtlasInfo(texture) then
+		if C_Texture_GetAtlasInfo(texture) then
 			toast.icon:SetAtlas(texture)
 		else
 			toast.icon:SetTexture(texture)
@@ -363,14 +367,14 @@ local numInvites = 0
 local function GetGuildInvites()
 	local numGuildInvites = 0
 	local date = C_DateAndTime_GetCurrentCalendarTime()
-	for index = 1, C_Calendar.GetNumGuildEvents() do
-		local info = C_Calendar.GetGuildEventInfo(index)
+	for index = 1, C_Calendar_GetNumGuildEvents() do
+		local info = C_Calendar_GetGuildEventInfo(index)
 		local monthOffset = info.month - date.month
-		local numDayEvents = C_Calendar.GetNumDayEvents(monthOffset, info.monthDay)
+		local numDayEvents = C_Calendar_GetNumDayEvents(monthOffset, info.monthDay)
 
 		for i = 1, numDayEvents do
-			local event = C_Calendar.GetDayEvent(monthOffset, info.monthDay, i)
-			if event.inviteStatus == CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
+			local event = C_Calendar_GetDayEvent(monthOffset, info.monthDay, i)
+			if event.inviteStatus == _G.CALENDAR_INVITESTATUS_NOT_SIGNEDUP then
 				numGuildInvites = numGuildInvites + 1
 			end
 		end
@@ -380,13 +384,13 @@ local function GetGuildInvites()
 end
 
 local function toggleCalendar()
-	if not CalendarFrame then LoadAddOn("Blizzard_Calendar") end
+	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
 	Calendar_Toggle()
 end
 
 local function alertEvents()
 	if NF.db.enable ~= true or NF.db.invites ~= true then return end
-	if CalendarFrame and CalendarFrame:IsShown() then return end
+	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 0 then
@@ -398,7 +402,7 @@ end
 
 local function alertGuildEvents()
 	if NF.db.enable ~= true or NF.db.guildEvents ~= true then return end
-	if CalendarFrame and CalendarFrame:IsShown() then return end
+	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 0 then
 		NF:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
@@ -435,24 +439,21 @@ function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	end
 
 	if onMinimap then
-		if vignetteGUID ~= self.lastMinimapRare.id then
-			local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
-			if vignetteInfo then
-				vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
-				self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
+		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
+		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
+			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
+			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
+			self.lastMinimapRare.id = vignetteGUID
 
-				if (GetTime() > self.lastMinimapRare.time + SOUND_TIMEOUT) then
-					if NF.db.noSound ~= true then
-						PlaySoundFile([[Sound\Interface\RaidWarning.ogg]])
-					end
+			local time = GetTime()
+			if time > (self.lastMinimapRare.time + SOUND_TIMEOUT) then
+				if NF.db.noSound ~= true then
+					PlaySound(_G.SOUNDKIT.RAID_WARNING)
+					self.lastMinimapRare.time = time
 				end
 			end
 		end
 	end
-
-	--Set last Vignette data
-	self.lastMinimapRare.time = GetTime()
-	self.lastMinimapRare.id = vignetteGUID
 end
 
 function NF:RESURRECT_REQUEST(name)

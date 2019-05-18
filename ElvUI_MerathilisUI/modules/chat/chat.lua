@@ -17,8 +17,10 @@ local CreateFrame = CreateFrame
 local ChatTypeInfo = ChatTypeInfo
 local GetRealmName = GetRealmName
 local GUILD_MOTD = GUILD_MOTD
+local hooksecurefunc = hooksecurefunc
+local UIParent = UIParent
 
--- GLOBALS: CHAT_FRAMES, ChatTypeInfo
+-- GLOBALS: CHAT_FRAMES, ChatTypeInfo, COMMUNITIES_FRAME_DISPLAY_MODES
 
 local ChatFrame_SystemEventHandler = ChatFrame_SystemEventHandler
 local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
@@ -31,22 +33,6 @@ function MERC:RemoveCurrentRealmName(msg, author, ...)
 	if msg and msg:find("-" .. realmName) then
 		return false, gsub(msg, "%-"..realmName, ""), author, ...
 	end
-end
-
-CH.mUIUpdateAnchors = CH.UpdateAnchors
-function CH:UpdateAnchors()
-	self:mUIUpdateAnchors()
-
-	for _, frameName in pairs(CHAT_FRAMES) do
-		local frame = _G[frameName.."EditBox"]
-		if not frame then break; end
-
-		frame:SetScript("OnShow", function(self)
-			E:UIFrameFadeIn(self, .5, 0, 1)
-		end)
-	end
-
-	CH:PositionChat(true)
 end
 
 function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
@@ -135,8 +121,8 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 
 		--toggle
 		local function toggleOverlay()
-			if CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat then
-				f:SetAllPoints(CommunitiesFrame.Chat.InsetFrame)
+			if _G.CommunitiesFrame:GetDisplayMode() == COMMUNITIES_FRAME_DISPLAY_MODES.CHAT and E.db.mui.chat.hideChat then
+				f:SetAllPoints(_G.CommunitiesFrame.Chat.InsetFrame)
 				f:Show()
 			else
 				f:Hide()
@@ -149,10 +135,10 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		toggleOverlay() --run once
 
 		--hook
-		hooksecurefunc(CommunitiesFrame,"SetDisplayMode", toggleOverlay)
-		hooksecurefunc(CommunitiesFrame,"Show", toggleOverlay)
-		hooksecurefunc(CommunitiesFrame,"Hide", hideOverlay)
-		hooksecurefunc(CommunitiesFrame,"OnClubSelected", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame,"SetDisplayMode", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame,"Show", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame,"Hide", hideOverlay)
+		hooksecurefunc(_G.CommunitiesFrame,"OnClubSelected", toggleOverlay)
 	end
 end)
 

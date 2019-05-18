@@ -1,4 +1,5 @@
-local E, L, V, P, G = unpack(ElvUI)
+local E, _, V, P, G = unpack(ElvUI)
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
 local EP = LibStub("LibElvUIPlugin-1.0")
 local addon, Engine = ...

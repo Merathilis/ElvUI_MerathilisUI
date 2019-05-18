@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MERB = MER:GetModule("mUIBags")
 local MERBI = MER:GetModule("mUIBagInfo")
 

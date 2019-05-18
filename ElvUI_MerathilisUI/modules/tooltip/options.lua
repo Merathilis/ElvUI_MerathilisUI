@@ -1,4 +1,5 @@
-local MER, E, L, V, P, G = unpack(select(2, ...))
+local MER, E, _, V, P, G = unpack(select(2, ...))
+local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:GetModule("Progress")
 
 --Cache global variables
@@ -30,19 +31,19 @@ local function Tooltip()
 			petIcon = {
 				order = 3,
 				type = "toggle",
-				name = _G.TOOLTIP_BATTLE_PET,
+				name = L["Pet Battle"],
 				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
 			factionIcon = {
 				order = 4,
 				type = "toggle",
-				name = _G.FACTION,
+				name = L.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
 			achievement = {
 				order = 5,
 				type = "toggle",
-				name = _G.ACHIEVEMENT_BUTTON,
+				name = L["ACHIEVEMENTS"],
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
 			keystone = {
@@ -54,7 +55,7 @@ local function Tooltip()
 			azerite = {
 				order = 7,
 				type = "toggle",
-				name = _G.CURRENTLY_SELECTED_AZERITE_POWERS_INSPECT,
+				name = L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
 			},
 			titleColor = {
 				order = 8,
