@@ -58,14 +58,14 @@ function M:SetBlizzFonts()
 
 		--Objective Frame
 		if not _G["ObjectiveTrackerFrame"].hooked then
-				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
-					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-					_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
-				end)
-				_G["ObjectiveTrackerFrame"].hooked = true
+			hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+				_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
+				_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
+				_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
+				_G["WORLD_QUEST_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
+				_G["BONUS_OBJECTIVE_TRACKER_MODULE"].Header.Text:SetFont(E.LSM:Fetch('font', E.db.mui.media.fonts.objectiveHeader.font), E.db.mui.media.fonts.objectiveHeader.size, E.db.mui.media.fonts.objectiveHeader.outline)
+			end)
+			_G["ObjectiveTrackerFrame"].hooked = true
 		end
 
 		_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', db.objectiveHeader.font), db.objectiveHeader.size, db.objectiveHeader.outline)
@@ -80,7 +80,6 @@ function M:SetBlizzFonts()
 end
 
 function M:TextWidth()
-	if E.db.mui.media == nil then E.db.mui.media = {} end
 	local db = E.db.mui.media.fonts
 
 	_G["ZoneTextString"]:SetWidth(db.zone.width)
@@ -116,6 +115,7 @@ function M:Update()
 end
 
 function M:Initialize()
+	if E.db.mui.media == nil then E.db.mui.media = {} end
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
 
 	M:TextWidth()
