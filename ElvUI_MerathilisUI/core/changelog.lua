@@ -11,8 +11,8 @@ local CreateFrame = CreateFrame
 local SOUNDKIT = SOUNDKIT
 local PlaySound = PlaySound
 local CLOSE = CLOSE
+local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
@@ -66,7 +66,7 @@ end
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 300)
+	frame:SetSize(480, 420)
 	frame:SetTemplate("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
@@ -88,8 +88,8 @@ function MER:CreateChangelog()
 	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame)
-	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)
-	title:SetSize(422, 20)
+	title:SetPoint("LEFT", icon, "RIGHT", 1, 0)
+	title:SetSize(459, 20)
 	title:SetTemplate("Transparent")
 	title:Styling()
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
@@ -100,7 +100,9 @@ function MER:CreateChangelog()
 	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
 	close:SetSize(80, 20)
-	close:SetScript("OnClick", function() frame:Hide() end)
+	close:SetScript("OnClick", function()
+		frame:Hide()
+	end)
 	S:HandleButton(close)
 	close:Disable()
 	frame.close = close
