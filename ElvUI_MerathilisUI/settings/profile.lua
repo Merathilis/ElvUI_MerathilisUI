@@ -57,6 +57,7 @@ P.mui = {
 		cursor = false,
 		raidInfo = true,
 		talentManager = true,
+		lfgInfo = true,
 		alerts = {
 			versionCheck = true,
 			detectVersion = MER.Version,

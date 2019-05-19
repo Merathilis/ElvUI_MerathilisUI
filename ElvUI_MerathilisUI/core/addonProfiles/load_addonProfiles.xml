@@ -4,6 +4,7 @@
 	<script file="BigWigs.lua"/>
 	<script file="DeadlyBossMods.lua"/>
 	<script file="Details.lua"/>
+	<script file="FCT.lua"/>
 	<script file="ls_Toasts.lua"/>
 	<script file="Masque.lua"/>
 	<script file="OzCooldown.lua"/>
