@@ -140,9 +140,10 @@ function MER:CreateChangelog()
 		button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 
 		if i <= #ChangeLogData then
-			local string = ModifiedString(GetChangeLogInfo(i))
+			local string, isURL = ModifiedString(GetChangeLogInfo(i))
 
 			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
+			button.Text.isURL = isURL
 			button.Text:SetText(string)
 			button.Text:SetPoint("LEFT", 0, 0)
 		end
