@@ -23,6 +23,7 @@ local ChangeLogData = {
 		"• Removed NSCT & CombatFeedBack.",
 		"• Removed a function from chat, which will prevent the Chat Editbox to flash.",
 		"• Overhaul my media section. I hope this will prevent some lua errors.",
+		"• http://www.google.de",
 
 		-- "• ''",
 	" ",
@@ -31,6 +32,19 @@ local ChangeLogData = {
 		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
 		-- "• ''",
 }
+
+local URL_PATTERNS = {
+	"^(%a[%w+.-]+://%S+)",
+	"%f[%S](%a[%w+.-]+://%S+)",
+	"^(www%.[-%w_%%]+%.(%a%a+))",
+	"%f[%S](www%.[-%w_%%]+%.(%a%a+))",
+	"(%S+@[%w_.-%%]+%.(%a%a+))",
+}
+
+local function formatURL(url)
+	url = "|cff".."149bfd".."|Hurl:"..url.."|h["..url.."]|h|r ";
+	return url
+end
 
 local function ModifiedString(string)
 	local count = find(string, ":")
@@ -50,6 +64,13 @@ local function ModifiedString(string)
 
 	for pattern in gmatch(string, "('.*')") do
 		newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r")
+	end
+
+	-- find urls
+	for k, v in pairs(URL_PATTERNS) do
+		if find(string, v) then
+			newString = gsub(string, v, formatURL("%1"))
+		end
 	end
 
 	return newString
