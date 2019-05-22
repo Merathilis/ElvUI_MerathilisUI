@@ -20,9 +20,9 @@
 libs\load_libs.xml
 locales\load_locales.xml
 core\load_core.xml
-media\load_media.xml
 settings\load_settings.xml
 developer\load_developer.xml
 modules\load_modules.xml
 layout\layout.lua
+media\load_media.xml
 Bindings.xml
