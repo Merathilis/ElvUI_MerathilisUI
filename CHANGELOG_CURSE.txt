@@ -1,3 +1,8 @@
+** v4.20 22.05.2019**
+* Change the load order in the TOC file, hopefully this will fix the nil errors.
+* Update the size for my changelog in game.
+* Adjust nameplate settings in my install.
+
 ** v4.19 18.05.2019**
 * Code improvements for Notifications.
 * Disabled Call To Arms alert by default.

@@ -17,19 +17,17 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Code improvements for Notifications.",
-		"• Disabled Call To Arms alert by default.",
-		"• Take account to the new ElvUI locales.",
-		"• Removed NSCT & CombatFeedBack.",
-		"• Removed a function from chat, which will prevent the Chat Editbox to flash.",
-		"• Overhaul my media section. I hope this will prevent some lua errors.",
-		"• http://www.google.de",
+		"• Change the load order in the TOC file, hopefully this will fix the nil errors.",
+		"• Update the size for my changelog in game.",
+		"• Adjust nameplate settings in my install.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• Removed NSCT because of restriction that will be introduced in 8.2",
 		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
+		" --> https://www.tukui.org/addons.php?id=137",
+
 		-- "• ''",
 }
 
