@@ -136,6 +136,7 @@ L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的�
 L["Keystones"] = "大秘境钥匙"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
+L["LFG Member Info"] = true
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "错误: 选择的天赋太多了"

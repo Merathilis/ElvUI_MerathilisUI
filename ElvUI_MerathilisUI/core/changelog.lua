@@ -11,26 +11,38 @@ local CreateFrame = CreateFrame
 local SOUNDKIT = SOUNDKIT
 local PlaySound = PlaySound
 local CLOSE = CLOSE
+local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Code improvements for Notifications.",
-		"• Disabled Call To Arms alert by default.",
-		"• Take account to the new ElvUI locales.",
-		"• Removed NSCT & CombatFeedBack.",
-		"• Removed a function from chat, which will prevent the Chat Editbox to flash.",
-		"• Overhaul my media section. I hope this will prevent some lua errors.",
+		"• Change the load order in the TOC file, hopefully this will fix the nil errors.",
+		"• Update the size for my changelog in game.",
+		"• Adjust nameplate settings in my install.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• Removed NSCT because of restriction that will be introduced in 8.2",
 		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
+		" --> https://www.tukui.org/addons.php?id=137",
+
 		-- "• ''",
 }
+
+local URL_PATTERNS = {
+	"^(%a[%w+.-]+://%S+)",
+	"%f[%S](%a[%w+.-]+://%S+)",
+	"^(www%.[-%w_%%]+%.(%a%a+))",
+	"%f[%S](www%.[-%w_%%]+%.(%a%a+))",
+	"(%S+@[%w_.-%%]+%.(%a%a+))",
+}
+
+local function formatURL(url)
+	url = "|cff".."149bfd".."|Hurl:"..url.."|h["..url.."]|h|r ";
+	return url
+end
 
 local function ModifiedString(string)
 	local count = find(string, ":")
@@ -52,6 +64,13 @@ local function ModifiedString(string)
 		newString = newString:gsub(pattern, "|cFFFF8800" .. pattern:gsub("'", "") .. "|r")
 	end
 
+	-- find urls
+	for k, v in pairs(URL_PATTERNS) do
+		if find(string, v) then
+			newString = gsub(string, v, formatURL("%1"))
+		end
+	end
+
 	return newString
 end
 
@@ -66,7 +85,7 @@ end
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
-	frame:SetSize(445, 300)
+	frame:SetSize(480, 420)
 	frame:SetTemplate("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
@@ -88,8 +107,8 @@ function MER:CreateChangelog()
 	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame)
-	title:SetPoint("LEFT", icon, "RIGHT", 3, 0)
-	title:SetSize(422, 20)
+	title:SetPoint("LEFT", icon, "RIGHT", 1, 0)
+	title:SetSize(459, 20)
 	title:SetTemplate("Transparent")
 	title:Styling()
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
@@ -100,7 +119,9 @@ function MER:CreateChangelog()
 	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
 	close:SetSize(80, 20)
-	close:SetScript("OnClick", function() frame:Hide() end)
+	close:SetScript("OnClick", function()
+		frame:Hide()
+	end)
 	S:HandleButton(close)
 	close:Disable()
 	frame.close = close
@@ -117,9 +138,10 @@ function MER:CreateChangelog()
 		button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 
 		if i <= #ChangeLogData then
-			local string = ModifiedString(GetChangeLogInfo(i))
+			local string, isURL = ModifiedString(GetChangeLogInfo(i))
 
 			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
+			button.Text.isURL = isURL
 			button.Text:SetText(string)
 			button.Text:SetPoint("LEFT", 0, 0)
 		end

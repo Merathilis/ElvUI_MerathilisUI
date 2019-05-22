@@ -156,6 +156,16 @@ function MER:Initialize()
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
 	end
 
+	-- Make sure my db exists.
+	if not E.db.mui then
+		E.db.mui = {}
+	end
+
+	-- Create the media table earlier, i really dont get it.
+	if not E.db.mui.media then
+		E.db.mui.media = {}
+	end
+
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:SplashScreen()

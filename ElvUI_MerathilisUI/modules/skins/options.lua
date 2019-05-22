@@ -30,6 +30,7 @@ local SupportedProfiles = {
 	{"BigWigs", "BigWigs"},
 	{"Details", "Details"},
 	{"ElvUI_BenikUI", "BenikUI"},
+	{"ElvUI_FCT", "FCT"},
 	{"Masque", "Masque"},
 	{"Skada", "Skada"},
 	{"OzCooldowns", "OzCooldowns"},

@@ -139,6 +139,7 @@ L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Guild Message of the Day"
+L["LFG Member Info"] = true
 
 -- Talent Manager
 L["Error: Too many talents selected"] = true

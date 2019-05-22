@@ -2,6 +2,7 @@ local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MI = MER:GetModule("mUIMisc")
 local MERA = MER:GetModule("mUIAnnounce")
+local MERLFG = MER:GetModule("mUILFGInfo")
 
 --Cache global variables
 --Lua functions
@@ -73,13 +74,18 @@ local function Misc()
 			talentManager = {
 				order = 9,
 				type = "toggle",
-				name = E.NewSign..L["Talent Manager"],
+				name = L["Talent Manager"],
 				desc = L["Allow you to create multiple Talent presets"],
 			},
+			lfgInfo = {
+				order = 11,
+				type = "toggle",
+				name = E.NewSign..MERLFG.modName,
+			},
 			alerts = {
-				order = 10,
+				order = 20,
 				type = "group",
-				name = E.NewSign..L["Alerts"],
+				name = L["Alerts"],
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
