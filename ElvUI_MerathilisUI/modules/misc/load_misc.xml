@@ -11,6 +11,7 @@
 	<Script file="gmotd.lua"/>
 	<Script file="guildBest.lua"/>
 	<Script file="itemLevel.lua"/>
+	<Script file="lfgInfo.lua"/>
 	<Script file="mailinputbox.lua"/>
 	<Script file="merchant.lua"/>
 	<Script file="movers.lua"/>

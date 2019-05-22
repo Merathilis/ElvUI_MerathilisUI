@@ -136,6 +136,7 @@ L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster
 L["Keystones"] = "Schlüsselsteine"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
+L["LFG Member Info"] = "LFG Mitglieder Info"
 
 -- Talent Manager
 L["Error: Too many talents selected"] = "Fehler: Zu viele Talente ausgewählt"
