@@ -14,7 +14,7 @@ local function NameplatesTable()
 		name = L["NamePlates"],
 		order = 16,
 		get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
-		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 		args = {
 			name = {
 				order = 0,
@@ -36,6 +36,12 @@ local function NameplatesTable()
 				type = "toggle",
 				name = L["Castbar Shield"],
 				desc = L["Show a shield icon on the castbar for non interruptible spells."],
+			},
+			enhancedAuras = {
+				order = 4,
+				type = "toggle",
+				name = L["Enhanced NameplateAuras"],
+				desc = L["Change the width and size for the Auras on the Nameplates."],
 			},
 		},
 	}

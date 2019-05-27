@@ -436,6 +436,7 @@ P.mui = {
 	nameplates = {
 		castbarTarget = true,
 		castbarShield = true,
+		enhancedAuras = true,
 	},
 
 
