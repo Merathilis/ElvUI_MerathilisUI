@@ -57,7 +57,7 @@ function MER:AddOptions()
 end
 
 function MER:DasOptions()
-	E:ToggleConfig(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
+	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
 
 function MER:SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
