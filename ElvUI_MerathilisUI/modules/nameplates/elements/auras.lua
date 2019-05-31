@@ -21,19 +21,19 @@ function NA:PostUpdateAura(unit, button)
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
 
 		-- Size
-		local width = 26
-		local height = 18
+		local width = E.db.mui.nameplates.enhancedAuras.width or 26
+		local height = E.db.mui.nameplates.enhancedAuras.height or 18
 
 		if spell and spell ~= "" then
 			width = 30
 		else
-			width = 26
+			width = width
 		end
 
 		if spell and spell ~= "" then
 			height = 30
 		else
-			height = 18
+			height = height
 		end
 
 		if width > height then
@@ -123,7 +123,7 @@ function NA.SetPosition(element, _, to)
 end
 
 function NA:Initialize()
-	if E.db.mui.nameplates.enhancedAuras ~= true then return end
+	if E.db.mui.nameplates.enhancedAuras.enable ~= true then return end
 
 	hooksecurefunc(NP, "Construct_Auras", NA.Construct_Auras)
 	hooksecurefunc(NP, "PostUpdateAura", NA.PostUpdateAura)
