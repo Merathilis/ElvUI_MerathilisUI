@@ -1119,7 +1119,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 3,
 			["yOffset"] = 22,
 			["size"] = 12,
-			["text_format"] = "[name:abbrev]",
+			["text_format"] = "[name:abbrev-translit]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
@@ -1329,7 +1329,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[name:medium]",
+			["text_format"] = "[name:medium:translit]",
 		}
 		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid"]["customTexts"]["Elv"] = {
@@ -1418,7 +1418,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["customTexts"]["name1"] = {
 			["enable"] = true,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[name:medium]",
+			["text_format"] = "[name:medium:translit]",
 			["yOffset"] = 0,
 			["font"] = "Expressway",
 			["justifyH"] = "CENTER",
@@ -1564,7 +1564,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Frame",
-			["text_format"] = "[name:medium]",
+			["text_format"] = "[name:medium:translit]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 			["font"] = "Expressway",

@@ -17,16 +17,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Change the load order in the TOC file, hopefully this will fix the nil errors.",
-		"• Update the size for my changelog in game.",
-		"• Adjust nameplate settings in my install.",
+		"• Added new Tag: 'name:abbrev-translit'",
+		"• Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.",
+		"• Take account to the latest ElvUI_OptionsUI changes.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• Removed NSCT because of restriction that will be introduced in 8.2",
-		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
-		" --> https://www.tukui.org/addons.php?id=137",
+		"• With the Enhanced Nameplate Auras enabled, the Buff/Debuff sizes are overwritten!!",
 
 		-- "• ''",
 }

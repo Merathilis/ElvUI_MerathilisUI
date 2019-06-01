@@ -1,3 +1,8 @@
+** v4.21 01.06.2019**
+* Added new Tag: 'name:abbrev-translit'
+* Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.
+* Take account to the latest ElvUI_OptionsUI changes.
+
 ** v4.20 22.05.2019**
 * Change the load order in the TOC file, hopefully this will fix the nil errors.
 * Update the size for my changelog in game.

@@ -7,9 +7,12 @@ local pairs, print = pairs, print
 --WoW API / Variables
 local GetAddOnEnableState = GetAddOnEnableState
 local IsAddOnLoaded = IsAddOnLoaded
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
+
+--[[
+	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken with permissions from ElvUI_ChaoticUI)
+	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
+--]]
 
 -- Check other addons
 COMP.SLE = MER:IsAddOnEnabled('ElvUI_SLE')

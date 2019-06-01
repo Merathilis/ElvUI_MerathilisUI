@@ -496,7 +496,7 @@ function MERS:Initialize()
 	updateMedia()
 	pluginInstaller()
 
-	hooksecurefunc(E, 'ToggleConfig', StyleElvUIConfig)
+	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

@@ -104,6 +104,7 @@ local function styleMisc()
 	-- RaiderIO Dropdown
 	if IsAddOnLoaded('RaiderIO') then
 		_G.RaiderIO_CustomDropDownList:Styling()
+		_G.RaiderIO_ProfileTooltip:Styling()
 	end
 
 	if _G.CopyChatFrame then
