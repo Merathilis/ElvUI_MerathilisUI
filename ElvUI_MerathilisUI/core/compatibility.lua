@@ -10,7 +10,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken with permissions from ElvUI_ChaoticUI)
+	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken with permissions from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
@@ -21,16 +21,18 @@ COMP.LP = MER:IsAddOnEnabled("ElvUI_LocPlus")
 COMP.LL = MER:IsAddOnEnabled("ElvUI_LocLite")
 COMP.AS = MER:IsAddOnEnabled("AddOnSkins")
 COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
-COMP.CUI = MER:IsAddOnEnabled("ElvUI_ChaoticUI")
+COMP.NUI = MER:IsAddOnEnabled("ElvUI_NihilistUI")
 COMP.WIND = MER:IsAddOnEnabled("ElvUI_WindTools")
 COMP.LIVVEN = MER:IsAddOnEnabled("ElvUI_LivvenUI")
 
 local function Disable(tbl, key)
 	key = key or ('enable' or 'Enable')
+
 	if (tbl[key]) then
 		tbl[key] = false
 		return true
 	end
+
 	return false
 end
 
@@ -129,6 +131,15 @@ function COMP:LivvenCompatibility()
 	end
 end
 
+function COMP:NihilistUI()
+	local NUI = ElvUI_NihilistUI[1]
+
+	-- Enhanced Nameplate Auras
+	if Disable(E.db.mui.nameplates.enhancedAuras) then
+		self:ModulePrint("ElvUI_NihilistUI", "EnhancedNameplateAuras")
+	end
+end
+
 COMP.CompatibilityFunctions = {};
 
 function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
@@ -141,6 +152,7 @@ COMP:RegisterCompatibilityFunction("LL", "LocationLiteCompatibility")
 COMP:RegisterCompatibilityFunction("SLE", "SLECompatibility")
 COMP:RegisterCompatibilityFunction("WIND", "WindToolsCompatibility")
 COMP:RegisterCompatibilityFunction("LIVVEN", "LivvenCompatibility")
+COMP:RegisterCompatibilityFunction("NUI", "NihilistUI")
 
 function COMP:RunCompatibilityFunctions()
 	for key, compatFunc in pairs(COMP.CompatibilityFunctions) do
