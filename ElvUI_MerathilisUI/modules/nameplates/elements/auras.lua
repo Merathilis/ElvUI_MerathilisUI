@@ -67,34 +67,11 @@ function NA:Construct_Auras(nameplate)
 	nameplate.Debuffs_.SetPosition = NA.SetPosition
 end
 
-function NA:SortAuras(element)
-	local function sortAuras(buttonA, buttonB)
-		if (buttonA:IsShown() ~= buttonB:IsShown()) then
-			return buttonA:IsShown()
-		end
-
-		local aWidth = buttonA.size.width
-		local aHeight = buttonA.size.height
-
-		local bWidth = buttonB.size.width
-		local bHeight = buttonB.size.height
-
-		local aCalc = (aWidth + aHeight) * (aWidth / aHeight)
-		local bCalc = (bWidth + bHeight) * (bWidth / bHeight)
-
-		return aCalc > bCalc
-	end
-
-	tsort(element, sortAuras)
-end
-
 function NA.SetPosition(element, _, to)
 	local from = 1
 	if not element[from] then
 		return
 	end
-
-	NA.SortAuras(NA, element)
 
 	local anchor = element.initialAnchor or "BOTTOMLEFT"
 	local growthx = (element["growth-x"] == "LEFT" and -1) or 1
