@@ -70,7 +70,7 @@ function NA:PostUpdateAura(unit, button)
 
 		-- CC Caster Names
 		if spell and spell ~= "" and button.caster then
-			local name = strsub(UnitName(button.caster), 1, 6)
+			local name = UnitName(button.caster)
 			local class = select(2, UnitClass(button.caster))
 			local color = {r = 1, g = 1, b = 1}
 			if class then
@@ -93,7 +93,7 @@ function NA:Construct_AuraIcon(button)
 	-- Creates an own font element for caster name
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString("OVERLAY")
-		button.cc_name:FontTemplate()
+		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
 		button.cc_name:Point("BOTTOM", button, "TOP")
 	end
 end
