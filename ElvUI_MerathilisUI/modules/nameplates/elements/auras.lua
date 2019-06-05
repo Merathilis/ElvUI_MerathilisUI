@@ -6,6 +6,7 @@ NA.modName = L["NameplateAuras"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local strsub = strsub
 local pairs = pairs
 local max = math.max
 local tsort = table.sort
@@ -24,7 +25,7 @@ local hooksecurefunc = hooksecurefunc
 function NA:PostUpdateAura(unit, button)
 	if button and button.spellID then
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
-		local name = UnitName(button.caster)
+		local name = strsub(UnitName(button.caster), 1, 6)
 		local _, class = UnitClass(button.caster)
 		local classColor = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class]) or _G.RAID_CLASS_COLORS[class]
 
