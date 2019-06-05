@@ -70,16 +70,11 @@ function NA:PostUpdateAura(unit, button)
 		button.count:FontTemplate(nil, stackSize, "OUTLINE")
 
 		-- CC Caster Names
-		for spellId, _ in pairs(E.global.unitframe.aurafilters.CCDebuffs) do
-			if spell and spell ~= "" then
-				local spellName = GetSpellInfo(button.spellID)
-				if spellName then
-					button.cc_name:SetText(name)
-					button.cc_name:SetTextColor(classColor.r, classColor.g, classColor.b)
-				end
-			else
-				button.cc_name:SetText("")
-			end
+		if spell and spell ~= "" then
+			button.cc_name:SetText(name)
+			button.cc_name:SetTextColor(classColor.r,classColor.g,classColor.b)
+		else
+			button.cc_name:SetText("")
 		end
 	end
 end
