@@ -6,6 +6,7 @@ NA.modName = L["NameplateAuras"]
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local select = select
 local strsub = strsub
 local pairs = pairs
 local max = math.max
@@ -15,6 +16,7 @@ local GetSpellInfo = GetSpellInfo
 local UnitClass = UnitClass
 local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 -- GLOBALS:
 
 --[[
@@ -25,9 +27,6 @@ local hooksecurefunc = hooksecurefunc
 function NA:PostUpdateAura(unit, button)
 	if button and button.spellID then
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
-		local name = strsub(UnitName(button.caster), 1, 6)
-		local _, class = UnitClass(button.caster)
-		local classColor = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class]) or _G.RAID_CLASS_COLORS[class]
 
 		-- Size
 		local width = E.db.mui.nameplates.enhancedAuras.width or 26
@@ -70,9 +69,15 @@ function NA:PostUpdateAura(unit, button)
 		button.count:FontTemplate(nil, stackSize, "OUTLINE")
 
 		-- CC Caster Names
-		if spell and spell ~= "" then
+		if spell and spell ~= "" and button.caster then
+			local name = strsub(UnitName(button.caster), 1, 6)
+			local class = select(2, UnitClass(button.caster))
+			local color = {r = 1, g = 1, b = 1}
+			if class then
+				color = class == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[class]
+			end
 			button.cc_name:SetText(name)
-			button.cc_name:SetTextColor(classColor.r,classColor.g,classColor.b)
+			button.cc_name:SetTextColor(color.r, color.g, color.b)
 		else
 			button.cc_name:SetText("")
 		end
