@@ -13,7 +13,6 @@ local _G = _G
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
-local BACK = BACK
 local PlaySound = PlaySound
 local SOUNDKIT = SOUNDKIT
 local hooksecurefunc = hooksecurefunc
@@ -142,7 +141,7 @@ function MERL:CreateChatButtons()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
-			GameTooltip:AddLine(MER:cOption(BACK))
+			GameTooltip:AddLine(MER:cOption(L["BACK"]))
 		else
 			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
 		end

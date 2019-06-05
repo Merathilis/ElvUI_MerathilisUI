@@ -43,6 +43,7 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
+L["BACK"] = "Zurück"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r." -- Guild Message
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r." -- Guild Message
 L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r." -- Battle.Net Message
