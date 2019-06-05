@@ -32,13 +32,13 @@ function NA:PostUpdateAura(unit, button)
 		local height = E.db.mui.nameplates.enhancedAuras.height or 18
 
 		if spell and spell ~= "" then
-			width = 30
+			width = 32
 		else
 			width = width
 		end
 
 		if spell and spell ~= "" then
-			height = 30
+			height = 32
 		else
 			height = height
 		end
