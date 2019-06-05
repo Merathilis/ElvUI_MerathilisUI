@@ -119,7 +119,6 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
-	SetCVar("blockTrades", 0) -- Lets set this on every login
 	MER:Initialize()
 end)
 
