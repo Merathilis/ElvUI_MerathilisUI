@@ -5,9 +5,14 @@ NA.modName = L["NameplateAuras"]
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
+local pairs = pairs
 local max = math.max
 local tsort = table.sort
 -- WoW API / Variables
+local GetSpellInfo = GetSpellInfo
+local UnitClass = UnitClass
+local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
@@ -19,6 +24,9 @@ local hooksecurefunc = hooksecurefunc
 function NA:PostUpdateAura(unit, button)
 	if button and button.spellID then
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
+		local name = UnitName(button.caster)
+		local _, class = UnitClass(button.caster)
+		local classColor = (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class]) or _G.RAID_CLASS_COLORS[class]
 
 		-- Size
 		local width = E.db.mui.nameplates.enhancedAuras.width or 26
@@ -59,12 +67,34 @@ function NA:PostUpdateAura(unit, button)
 		end
 
 		button.count:FontTemplate(nil, stackSize, "OUTLINE")
+
+		-- CC Caster Names
+		for spellId, _ in pairs(E.global.unitframe.aurafilters.CCDebuffs) do
+			if spell and spell ~= "" then
+				local spellName = GetSpellInfo(button.spellID)
+				if spellName then
+					button.cc_name:SetText(name)
+					button.cc_name:SetTextColor(classColor.r, classColor.g, classColor.b)
+				end
+			else
+				button.cc_name:SetText("")
+			end
+		end
 	end
 end
 
 function NA:Construct_Auras(nameplate)
 	nameplate.Buffs_.SetPosition = NA.SetPosition
 	nameplate.Debuffs_.SetPosition = NA.SetPosition
+end
+
+function NA:Construct_AuraIcon(button)
+	-- Creates an own font element for caster name
+	if not button.cc_name then
+		button.cc_name = button:CreateFontString("OVERLAY")
+		button.cc_name:FontTemplate()
+		button.cc_name:Point("BOTTOM", button, "TOP")
+	end
 end
 
 function NA.SetPosition(element, _, to)
@@ -103,6 +133,7 @@ function NA:Initialize()
 	if E.db.mui.nameplates.enhancedAuras.enable ~= true then return end
 
 	hooksecurefunc(NP, "Construct_Auras", NA.Construct_Auras)
+	hooksecurefunc(NP, "Construct_AuraIcon", NA.Construct_AuraIcon)
 	hooksecurefunc(NP, "PostUpdateAura", NA.PostUpdateAura)
 end
 
