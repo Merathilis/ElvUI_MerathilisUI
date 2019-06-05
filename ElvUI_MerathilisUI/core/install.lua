@@ -351,6 +351,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "Duffed"
+	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
 	E.db["nameplates"]["cooldown"]["override"] = true
