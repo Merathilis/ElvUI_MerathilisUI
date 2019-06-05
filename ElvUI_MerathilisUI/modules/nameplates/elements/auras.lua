@@ -7,7 +7,6 @@ NA.modName = L["NameplateAuras"]
 -- Lua functions
 local _G = _G
 local select = select
-local strsub = strsub
 local pairs = pairs
 local max = math.max
 local tsort = table.sort
