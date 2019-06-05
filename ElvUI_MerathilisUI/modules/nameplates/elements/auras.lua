@@ -93,7 +93,8 @@ function NA:Construct_AuraIcon(button)
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString("OVERLAY")
 		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
-		button.cc_name:Point("BOTTOM", button, "TOP")
+		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
+		button.cc_name:SetJustifyH("CENTER")
 	end
 end
 
