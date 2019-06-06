@@ -19,7 +19,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 -- GLOBALS:
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_ChaoticUI)
+	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
