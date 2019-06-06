@@ -24,7 +24,7 @@ function MER:LoadLSProfile()
 			},
 		},
 		["font"] = {
-			["name"] = "Expressway",
+			["name"] = "Merathilis Expressway",
 			["size"] = 11,
 		},
 		["colors"] = {
