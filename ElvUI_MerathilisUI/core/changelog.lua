@@ -17,15 +17,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added new Tag: 'name:abbrev-translit'",
-		"• Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.",
-		"• Take account to the latest ElvUI_OptionsUI changes.",
+		"• Updated compatibility with ElvUI_NihilisUI.",
+		"• Updated Enhanced Nameplate Auras to display the Player Name on CC Buffs.",
+		"• Added new Font Expressway Bold and use it. (You need to run the Installer again)",
+		"• Small Layout update. (You need to run the Installer again) if you want it.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• With the Enhanced Nameplate Auras enabled, the Buff/Debuff sizes are overwritten!!",
-
 		-- "• ''",
 }
 
