@@ -132,6 +132,8 @@ end
 function M:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
 
+	MER:RegisterDB(self, "media")
+
 	if E.db.mui.media.zoneText.enable then
 		M:TextWidth()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
