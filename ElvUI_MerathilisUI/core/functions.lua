@@ -112,7 +112,7 @@ function MER:SetupProfileCallbacks()
 end
 
 function MER:MismatchText()
-	local text = L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX
+	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
 	return text
 end
 

@@ -1,10 +1,9 @@
-
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local ceil, format, checkTable = ceil, format, next
+local ceil, format, checkTable = ceil, string.format, next
 local tinsert, twipe, tsort, tconcat = table.insert, table.wipe, table.sort, table.concat
 -- WoW API / Variables
 local ADDONS = ADDONS
