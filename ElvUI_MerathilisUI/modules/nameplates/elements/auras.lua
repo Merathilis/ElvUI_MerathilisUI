@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local NA = MER:NewModule("NameplateAuras", "AceEvent-3.0")
+local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
-NA.modName = L["NameplateAuras"]
+module.modName = L["NameplateAuras"]
 
 -- Cache global variables
 -- Lua functions
@@ -23,7 +23,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
-function NA:PostUpdateAura(unit, button)
+function module:PostUpdateAura(unit, button)
 	if button and button.spellID then
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
 
@@ -83,12 +83,12 @@ function NA:PostUpdateAura(unit, button)
 	end
 end
 
-function NA:Construct_Auras(nameplate)
-	nameplate.Buffs_.SetPosition = NA.SetPosition
-	nameplate.Debuffs_.SetPosition = NA.SetPosition
+function module:Construct_Auras(nameplate)
+	nameplate.Buffs_.SetPosition = module.SetPosition
+	nameplate.Debuffs_.SetPosition = module.SetPosition
 end
 
-function NA:Construct_AuraIcon(button)
+function module:Construct_AuraIcon(button)
 	-- Creates an own font element for caster name
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString("OVERLAY")
@@ -98,7 +98,7 @@ function NA:Construct_AuraIcon(button)
 	end
 end
 
-function NA.SetPosition(element, _, to)
+function module.SetPosition(element, _, to)
 	local from = 1
 	if not element[from] then
 		return
@@ -130,16 +130,16 @@ function NA.SetPosition(element, _, to)
 	element:SetHeight(eheight)
 end
 
-function NA:Initialize()
+function module:Initialize()
 	if E.db.mui.nameplates.enhancedAuras.enable ~= true then return end
 
-	hooksecurefunc(NP, "Construct_Auras", NA.Construct_Auras)
-	hooksecurefunc(NP, "Construct_AuraIcon", NA.Construct_AuraIcon)
-	hooksecurefunc(NP, "PostUpdateAura", NA.PostUpdateAura)
+	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
+	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
+	hooksecurefunc(NP, "PostUpdateAura", module.PostUpdateAura)
 end
 
 local function InitializeCallback()
-	NA:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(NA:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

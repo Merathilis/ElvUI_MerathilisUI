@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MDB = MER:NewModule("mUI_databars")
-MDB.modName = L["DataBars"]
+local module = MER:NewModule("mUI_databars")
+module.modName = L["DataBars"]
 
 --Cache global variables
 local _G = _G
@@ -9,7 +9,7 @@ local C_Timer_After = C_Timer.After
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function MDB:StyleBackdrops()
+function module:StyleBackdrops()
 	-- Artifact
 	local artifact = _G["ElvUI_ArtifactBar"]
 	if artifact then
@@ -41,12 +41,12 @@ function MDB:StyleBackdrops()
 	end
 end
 
-function MDB:Initialize()
-	C_Timer_After(1, MDB.StyleBackdrops)
+function module:Initialize()
+	C_Timer_After(1, module.StyleBackdrops)
 end
 
 local function InitializeCallback()
-	MDB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MDB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

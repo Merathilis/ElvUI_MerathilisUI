@@ -12,7 +12,6 @@ P.mui = {
 		splashScreen = true, -- Enable the SplashScreen on LogIn
 
 		AFK = true, -- Enable the pimped AFK Screen
-		FlightMode = true, -- Enable the FlightMode
 		FlightPoint = true, -- Enable the FlightPoints
 		CombatState = true, -- Enable the +/- Combat Message
 		MerchantiLevel = true, -- Displays the itemlevel on the Merchant Frame

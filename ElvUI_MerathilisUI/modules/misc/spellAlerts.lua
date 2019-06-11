@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local SA = MER:NewModule("SpellAlerts", "AceEvent-3.0")
-SA.modName = L["SpellAlerts"]
+local module = MER:NewModule("SpellAlerts", "AceEvent-3.0")
+module.modName = L["SpellAlerts"]
 
 -- Cache global variables
 -- Lua functions
@@ -10,7 +10,7 @@ local GetCVar = GetCVar
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
-function SA:UpdatePosition()
+function module:UpdatePosition()
 	-- Spell Alert frame
 	_G["SpellActivationOverlayFrame"]:SetScale(0.65)
 
@@ -18,21 +18,21 @@ function SA:UpdatePosition()
 	_G["SpellActivationOverlayFrame"]:SetFrameLevel(1)
 end
 
-function SA:UpdateAppearance()
+function module:UpdateAppearance()
 	_G["SpellActivationOverlayFrame"]:SetAlpha(GetCVar("spellActivationOverlayOpacity"))
 end
 
-function SA:PLAYER_LOGIN()
-	SA:UpdatePosition()
-	SA:UpdateAppearance()
+function module:PLAYER_LOGIN()
+	module:UpdatePosition()
+	module:UpdateAppearance()
 end
 
-function SA:Initialize()
+function module:Initialize()
 	self:RegisterEvent("PLAYER_LOGIN")
 end
 
 local function InitializeCallback()
-	SA:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(SA:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

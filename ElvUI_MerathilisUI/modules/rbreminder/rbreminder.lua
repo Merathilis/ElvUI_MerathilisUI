@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RB = MER:NewModule("RaidBuffs")
+local module = MER:NewModule("RaidBuffs")
 local LCG = LibStub('LibCustomGlow-1.0')
-RB.modName = L["Raid Buff Reminder"]
+module.modName = L["Raid Buff Reminder"]
 
 -- Cache global variables
 -- Lua functions
@@ -22,13 +22,13 @@ local bsize = 25
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 local color = {r, g, b, 1}
 
-RB.VisibilityStates = {
+module.VisibilityStates = {
 	["DEFAULT"] = "[noexists, nogroup] hide; show",
 	["INPARTY"] = "[combat] hide; [group] show; [petbattle] hide; hide",
 	["ALWAYS"] = "[petbattle] hide; show",
 }
 
-RB.ReminderBuffs = {
+module.ReminderBuffs = {
 	Flask = {
 		-- LEGION
 		188034,			-- Flask of the Countless Armies (59 str)
@@ -69,13 +69,13 @@ RB.ReminderBuffs = {
 	},
 }
 
-local flaskbuffs = RB.ReminderBuffs["Flask"]
-local foodbuffs = RB.ReminderBuffs["Food"]
-local darunebuffs = RB.ReminderBuffs["DefiledAugmentRune"]
-local intellectbuffs = RB.ReminderBuffs["Intellect"]
-local staminabuffs = RB.ReminderBuffs["Stamina"]
-local attackpowerbuffs = RB.ReminderBuffs["AttackPower"]
-local custombuffs = RB.ReminderBuffs["Custom"]
+local flaskbuffs = module.ReminderBuffs["Flask"]
+local foodbuffs = module.ReminderBuffs["Food"]
+local darunebuffs = module.ReminderBuffs["DefiledAugmentRune"]
+local intellectbuffs = module.ReminderBuffs["Intellect"]
+local staminabuffs = module.ReminderBuffs["Stamina"]
+local attackpowerbuffs = module.ReminderBuffs["AttackPower"]
+local custombuffs = module.ReminderBuffs["Custom"]
 
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then return end
@@ -86,12 +86,12 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(flaskbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs)))
-				FlaskFrame:SetAlpha(RB.db.alpha)
+				FlaskFrame:SetAlpha(module.db.alpha)
 				LCG.PixelGlow_Stop(FlaskFrame)
 				break
 			else
 				FlaskFrame:SetAlpha(1)
-				if RB.db.glow then
+				if module.db.glow then
 					LCG.PixelGlow_Start(FlaskFrame, color, nil, -0.25, nil, 1)
 				end
 			end
@@ -104,13 +104,13 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(foodbuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				FoodFrame:SetAlpha(RB.db.alpha)
+				FoodFrame:SetAlpha(module.db.alpha)
 				LCG.PixelGlow_Stop(FoodFrame)
 				break
 			else
 				FoodFrame:SetAlpha(1)
 				FoodFrame.t:SetTexture(select(3, GetSpellInfo(foodbuffs)))
-				if RB.db.glow then
+				if module.db.glow then
 					LCG.PixelGlow_Start(FoodFrame, color, nil, -0.25, nil, 1)
 				end
 			end
@@ -123,33 +123,33 @@ local function OnAuraChange(self, event, arg1, unit)
 			local spellname = select(1, GetSpellInfo(darunebuffs))
 			if AuraUtil_FindAuraByName(spellname, "player") then
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				DARuneFrame:SetAlpha(RB.db.alpha)
+				DARuneFrame:SetAlpha(module.db.alpha)
 				LCG.PixelGlow_Stop(DARuneFrame)
 				break
 			else
 				DARuneFrame:SetAlpha(1)
 				DARuneFrame.t:SetTexture(select(3, GetSpellInfo(darunebuffs)))
-				if RB.db.glow then
+				if module.db.glow then
 					LCG.PixelGlow_Start(DARuneFrame, color, nil, -0.25, nil, 1)
 				end
 			end
 		end
 	end
 
-	if RB.db.class then
+	if module.db.class then
 		if (intellectbuffs and intellectbuffs[1]) then
 		IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs[1])))
 			for i, intellectbuffs in pairs(intellectbuffs) do
 				local spellname = select(1, GetSpellInfo(intellectbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
-					IntellectFrame:SetAlpha(RB.db.alpha)
+					IntellectFrame:SetAlpha(module.db.alpha)
 					LCG.PixelGlow_Stop(IntellectFrame)
 					break
 				else
 					IntellectFrame:SetAlpha(1)
 					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
-					if RB.db.glow then
+					if module.db.glow then
 						LCG.PixelGlow_Start(IntellectFrame, color, nil, -0.25, nil, 1)
 					end
 				end
@@ -162,13 +162,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(staminabuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
-					StaminaFrame:SetAlpha(RB.db.alpha)
+					StaminaFrame:SetAlpha(module.db.alpha)
 					LCG.PixelGlow_Stop(StaminaFrame)
 					break
 				else
 					StaminaFrame:SetAlpha(1)
 					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
-					if RB.db.glow then
+					if module.db.glow then
 						LCG.PixelGlow_Start(StaminaFrame, color, nil, -0.25, nil, 1)
 					end
 				end
@@ -181,13 +181,13 @@ local function OnAuraChange(self, event, arg1, unit)
 				local spellname = select(1, GetSpellInfo(attackpowerbuffs))
 				if AuraUtil_FindAuraByName(spellname, "player") then
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
-					AttackPowerFrame:SetAlpha(RB.db.alpha)
+					AttackPowerFrame:SetAlpha(module.db.alpha)
 					LCG.PixelGlow_Stop(AttackPowerFrame)
 					break
 				else
 					AttackPowerFrame:SetAlpha(1)
 					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
-					if RB.db.glow then
+					if module.db.glow then
 						LCG.PixelGlow_Start(AttackPowerFrame, color, nil, -0.25, nil, 1)
 					end
 				end
@@ -203,14 +203,14 @@ local function OnAuraChange(self, event, arg1, unit)
 			end
 
 			if MER:CheckPlayerBuff(name) then
-				CustomFrame:SetAlpha(RB.db.alpha)
+				CustomFrame:SetAlpha(module.db.alpha)
 				custom = true
 				LCG.PixelGlow_Stop(CustomFrame)
 				break
 			else
 				CustomFrame:SetAlpha(1)
 				custom = false
-				if RB.db.glow then
+				if module.db.glow then
 					LCG.PixelGlow_Start(CustomFrame, color, nil, -0.25, nil, 1)
 				end
 			end
@@ -221,8 +221,8 @@ local function OnAuraChange(self, event, arg1, unit)
 	end
 end
 
-function RB:CreateIconBuff(name, relativeTo, firstbutton)
-	local button = CreateFrame("Button", name, RB.frame)
+function module:CreateIconBuff(name, relativeTo, firstbutton)
+	local button = CreateFrame("Button", name, module.frame)
 
 	if firstbutton == true then
 		button:CreatePanel("Transparent", E.db.mui.raidBuffs.size, E.db.mui.raidBuffs.size, "BOTTOMLEFT", relativeTo, "BOTTOMLEFT", 0, 0)
@@ -237,9 +237,9 @@ function RB:CreateIconBuff(name, relativeTo, firstbutton)
 	button.t:SetPoint("BOTTOMRIGHT", -2, 2)
 end
 
-function RB:Visibility()
-	if RB.db.enable then
-		RegisterStateDriver(self.frame, "visibility", RB.db.visibility == "CUSTOM" and RB.db.customVisibility or RB.VisibilityStates[RB.db.visibility])
+function module:Visibility()
+	if module.db.enable then
+		RegisterStateDriver(self.frame, "visibility", module.db.visibility == "CUSTOM" and module.db.customVisibility or module.VisibilityStates[module.db.visibility])
 		E:EnableMover(self.frame.mover:GetName())
 	else
 		UnregisterStateDriver(self.frame, "visibility")
@@ -248,9 +248,8 @@ function RB:Visibility()
 	end
 end
 
-function RB:Initialize()
-	RB.db = E.db.mui.raidBuffs
-
+function module:Initialize()
+	module.db = E.db.mui.raidBuffs
 	MER:RegisterDB(self, "raidBuffs")
 
 	-- Anchor
@@ -262,7 +261,7 @@ function RB:Initialize()
 	self.frame = CreateFrame("Frame", "RaidBuffReminder", E.UIParent)
 	self.frame:CreatePanel("Invisible", (E.db.mui.raidBuffs.size * 6) + 15, E.db.mui.raidBuffs.size + 4, "TOPLEFT", RaidBuffAnchor, "TOPLEFT", 0, 4)
 
-	if RB.db.class then
+	if module.db.class then
 		self:CreateIconBuff("IntellectFrame", RaidBuffReminder, true)
 		self:CreateIconBuff("StaminaFrame", IntellectFrame, false)
 		self:CreateIconBuff("AttackPowerFrame", StaminaFrame, false)
@@ -291,8 +290,8 @@ function RB:Initialize()
 
 	E:CreateMover(self.frame, "MER_RaidBuffReminderMover", L["Raid Buffs Reminder"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,modules,raidBuffs')
 
-	function RB:ForUpdateAll()
-		RB.db = E.db.mui.raidBuffs
+	function module:ForUpdateAll()
+		module.db = E.db.mui.raidBuffs
 		self:Visibility()
 	end
 
@@ -300,7 +299,7 @@ function RB:Initialize()
 end
 
 local function InitializeCallback()
-	RB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(RB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

@@ -1,12 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
-local CF = MER:NewModule("CooldownFlash", "AceHook-3.0")
-CF.modName = L["Cooldown Flash"]
+local module = MER:NewModule("CooldownFlash", "AceHook-3.0")
+module.modName = L["Cooldown Flash"]
 
 --Cache global variables
 --Lua functions
 local GetTime = GetTime
-local select, pairs, bit = select, pairs, bit
+local select, pairs, bit, unpack = select, pairs, bit, unpack
 local string = string
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
@@ -31,7 +31,7 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE, KUIDataDB_DCP
 
-CF.cooldowns, CF.animating, CF.watching = { }, { }, { }
+module.cooldowns, module.animating, module.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime
 local testtable
 
@@ -43,7 +43,7 @@ DCP.TextFrame:SetPoint("TOP", DCP, "BOTTOM", 0, -5)
 DCP.TextFrame:SetWidth(185)
 DCP.TextFrame:SetJustifyH("CENTER")
 DCP.TextFrame:SetTextColor(1, 1, 1)
-CF.DCP = DCP
+module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetTexCoord(unpack(E.TexCoords))
@@ -95,7 +95,7 @@ local function OnUpdate(_,update)
 
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
-		for i,v in pairs(CF.watching) do
+		for i,v in pairs(module.watching) do
 			if (GetTime() >= v[1] + 0.5) then
 				local start, duration, enabled, texture, isPet, name
 				if (v[2] == "spell") then
@@ -113,34 +113,34 @@ local function OnUpdate(_,update)
 				end
 				if (enabled ~= 0) then
 					if (duration and duration > 2.0 and texture) then
-						CF.cooldowns[i] = { start, duration, texture, isPet, name }
+						module.cooldowns[i] = { start, duration, texture, isPet, name }
 					end
 				end
 				if (not (enabled == 0 and v[2] == "spell")) then
-					CF.watching[i] = nil
+					module.watching[i] = nil
 				end
 			end
 		end
 
-		for i,v in pairs(CF.cooldowns) do
+		for i,v in pairs(module.cooldowns) do
 			local remaining = v[2]-(GetTime()-v[1])
 			if (remaining <= 0) then
-				tinsert(CF.animating, {v[3],v[4],v[5]})
-				CF.cooldowns[i] = nil
+				tinsert(module.animating, {v[3],v[4],v[5]})
+				module.cooldowns[i] = nil
 			end
 		end
 
 		elapsed = 0
-		if (#CF.animating == 0 and tcount(CF.watching) == 0 and tcount(CF.cooldowns) == 0) then
+		if (#module.animating == 0 and tcount(module.watching) == 0 and tcount(module.cooldowns) == 0) then
 			DCP:SetScript("OnUpdate", nil)
 			return
 		end
 	end
 
-	if (#CF.animating > 0) then
+	if (#module.animating > 0) then
 		runtimer = runtimer + update
 		if (runtimer > (db.fadeInTime + db.holdTime + db.fadeOutTime)) then
-			tremove(CF.animating, 1)
+			tremove(module.animating, 1)
 			runtimer = 0
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
@@ -149,10 +149,10 @@ local function OnUpdate(_,update)
 			DCP:SetSize(db.iconSize, db.iconSize)
 		elseif db.enable then
 			if (not DCPT:GetTexture()) then
-				if (CF.animating[1][3] ~= nil and db.showSpellName) then
-					DCP.TextFrame:SetText(CF.animating[1][3])
+				if (module.animating[1][3] ~= nil and db.showSpellName) then
+					DCP.TextFrame:SetText(module.animating[1][3])
 				end
-				DCPT:SetTexture(CF.animating[1][1])
+				DCPT:SetTexture(module.animating[1][1])
 			end
 			local alpha = db.maxAlpha
 			if (runtimer < db.fadeInTime) then
@@ -187,7 +187,7 @@ end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
 	if (unit == "player") then
-		CF.watching[spellID] = {GetTime(),"spell",spellID}
+		module.watching[spellID] = {GetTime(),"spell",spellID}
 		if (not self:IsMouseEnabled()) then
 			self:SetScript("OnUpdate", OnUpdate)
 		end
@@ -201,9 +201,9 @@ function DCP:COMBAT_LOG_EVENT_UNFILTERED()
 			local name = GetSpellInfo(spellID)
 			local index = GetPetActionIndexByName(name)
 			if (index and not select(7, GetPetActionInfo(index))) then
-				CF.watching[spellID] = {GetTime(),"pet",index}
+				module.watching[spellID] = {GetTime(),"pet",index}
 			elseif (not index and spellID) then
-				CF.watching[spellID] = {GetTime(),"spell",spellID}
+				module.watching[spellID] = {GetTime(),"spell",spellID}
 			else
 				return
 			end
@@ -218,51 +218,51 @@ function DCP:PLAYER_ENTERING_WORLD()
 	local inInstance,instanceType = IsInInstance()
 	if (inInstance and instanceType == "arena") then
 		self:SetScript("OnUpdate", nil)
-		wipe(CF.cooldowns)
-		wipe(CF.watching)
+		wipe(module.cooldowns)
+		wipe(module.watching)
 	end
 end
 
-function CF:UseAction(slot)
+function module:UseAction(slot)
 	local actionType,itemID = GetActionInfo(slot)
 	if (actionType == "item") then
 		local texture = GetActionTexture(slot)
-		CF.watching[itemID] = {GetTime(),"item",texture}
+		module.watching[itemID] = {GetTime(),"item",texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function CF:UseInventoryItem(slot)
+function module:UseInventoryItem(slot)
 	local itemID = GetInventoryItemID("player", slot);
 	if (itemID) then
 		local texture = GetInventoryItemTexture("player", slot)
-		CF.watching[itemID] = {GetTime(), "item", texture}
+		module.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function CF:UseContainerItem(bag, slot)
+function module:UseContainerItem(bag, slot)
 	local itemID = GetContainerItemID(bag, slot)
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		CF.watching[itemID] = {GetTime(), "item", texture}
+		module.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function CF:UseItemByName(itemName)
+function module:UseItemByName(itemName)
 	local itemID
 	if itemName then
 		itemID = string.match(select(2, GetItemInfo(itemName)), "item:(%d+)")
 	end
 	if (itemID) then
 		local texture = select(10, GetItemInfo(itemID))
-		CF.watching[itemID] = {GetTime(), "item", texture}
+		module.watching[itemID] = {GetTime(), "item", texture}
 		DCP:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
-function CF:EnableCooldownFlash()
+function module:EnableCooldownFlash()
 	local db = E.db.mui.cooldowns.cooldownFlash
 
 	self:SecureHook("UseContainerItem")
@@ -277,7 +277,7 @@ function CF:EnableCooldownFlash()
 	end
 end
 
-function CF:DisableCooldownFlash()
+function module:DisableCooldownFlash()
 	self:Unhook("UseContainerItem")
 	self:Unhook("UseInventoryItem")
 	self:Unhook("UseAction")
@@ -288,15 +288,15 @@ function CF:DisableCooldownFlash()
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
-function CF:TestMode()
-	tinsert(CF.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
+function module:TestMode()
+	tinsert(module.animating, {"Interface\\Icons\\achievement_guildperk_ladyluck_rank2", nil, "Spell Name"})
 	DCP:SetScript("OnUpdate", OnUpdate)
 end
 
-function CF:Initialize()
+function module:Initialize()
 	if E.db.mui.cooldowns == nil then E.db.mui.cooldowns = {} end -- prevent a nil error
-	local db = E.db.mui.cooldowns.cooldownFlash
 
+	local db = E.db.mui.cooldowns.cooldownFlash
 	MER:RegisterDB(self, "cooldownFlash")
 
 	DCP:SetSize(db.iconSize, db.iconSize)
@@ -310,7 +310,7 @@ function CF:Initialize()
 end
 
 local function InitializeCallback()
-	CF:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(CF:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

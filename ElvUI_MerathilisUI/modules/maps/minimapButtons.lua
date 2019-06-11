@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local SMB = MER:NewModule("mUIMinimapButtons", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+local module = MER:NewModule("mUIMinimapButtons", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local COMP = MER:GetModule("mUICompatibility")
-SMB.modName = L["Minimap Buttons"]
+module.modName = L["Minimap Buttons"]
 
 -- Credits to Azilroka
 
@@ -19,7 +19,7 @@ local InCombatLockdown = InCombatLockdown
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
-SMB.Buttons = {}
+module.Buttons = {}
 
 local ignoreButtons = {
 	'GameTimeFrame',
@@ -59,22 +59,22 @@ local PartialIgnores = { 'Node', 'Note', 'Pin', 'POI' }
 
 local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
 
-function SMB:LockButton(Button)
+function module:LockButton(Button)
 	for _, Function in pairs(ButtonFunctions) do
 		Button[Function] = MER.dummy
 	end
 end
 
-function SMB:UnlockButton(Button)
+function module:UnlockButton(Button)
 	for _, Function in pairs(ButtonFunctions) do
 		Button[Function] = nil
 	end
 end
 
-function SMB:HandleBlizzardButtons()
+function module:HandleBlizzardButtons()
 	if not self.db['enable'] then return end
 
-	if self.db["moveTracker"] and not MiniMapTrackingButton.SMB then
+	if self.db["moveTracker"] and not MiniMapTrackingButton.module then
 		MiniMapTracking.Show = nil
 
 		MiniMapTracking:Show()
@@ -98,27 +98,27 @@ function SMB:HandleBlizzardButtons()
 
 		MiniMapTrackingButton:HookScript('OnEnter', function(self)
 			MiniMapTracking:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-			if SMB.Bar:IsShown() then
-				UIFrameFadeIn(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 1)
+			if module.Bar:IsShown() then
+				UIFrameFadeIn(module.Bar, 0.2, module.Bar:GetAlpha(), 1)
 			end
 		end)
 		MiniMapTrackingButton:HookScript('OnLeave', function(self)
 			MiniMapTracking:SetTemplate()
-			if SMB.Bar:IsShown() and SMB.db['barMouseOver'] then
-				UIFrameFadeOut(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 0)
+			if module.Bar:IsShown() and module.db['barMouseOver'] then
+				UIFrameFadeOut(module.Bar, 0.2, module.Bar:GetAlpha(), 0)
 			end
 		end)
 
-		MiniMapTrackingButton.SMB = true
+		MiniMapTrackingButton.module = true
 		tinsert(self.Buttons, MiniMapTracking)
 	end
 
-	if self.db["moveQueue"] and not QueueStatusMinimapButton.SMB then
-		local Frame = CreateFrame('Frame', 'SMB_QueueFrame', self.Bar)
+	if self.db["moveQueue"] and not QueueStatusMinimapButton.module then
+		local Frame = CreateFrame('Frame', 'module_QueueFrame', self.Bar)
 		Frame:SetTemplate()
-		Frame:SetSize(SMB.db['iconSize'], SMB.db['iconSize'])
+		Frame:SetSize(module.db['iconSize'], module.db['iconSize'])
 		Frame.Icon = Frame:CreateTexture(nil, 'ARTWORK')
-		Frame.Icon:SetSize(SMB.db['iconSize'], SMB.db['iconSize'])
+		Frame.Icon:SetSize(module.db['iconSize'], module.db['iconSize'])
 		Frame.Icon:SetPoint('CENTER')
 		Frame.Icon:SetTexture([[Interface\LFGFrame\LFG-Eye]])
 		Frame.Icon:SetTexCoord(0, 64 / 512, 0, 64 / 256)
@@ -132,14 +132,14 @@ function SMB:HandleBlizzardButtons()
 		end)
 		Frame:HookScript('OnEnter', function(self)
 			self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-			if SMB.Bar:IsShown() then
-				UIFrameFadeIn(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 1)
+			if module.Bar:IsShown() then
+				UIFrameFadeIn(module.Bar, 0.2, module.Bar:GetAlpha(), 1)
 			end
 		end)
 		Frame:HookScript('OnLeave', function(self)
 			self:SetTemplate()
-			if SMB.Bar:IsShown() and SMB.db['barMouseOver'] then
-				UIFrameFadeOut(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 0)
+			if module.Bar:IsShown() and module.db['barMouseOver'] then
+				UIFrameFadeOut(module.Bar, 0.2, module.Bar:GetAlpha(), 0)
 			end
 		end)
 
@@ -158,14 +158,14 @@ function SMB:HandleBlizzardButtons()
 			Frame:EnableMouse(true)
 		end)
 
-		QueueStatusMinimapButton.SMB = true
+		QueueStatusMinimapButton.module = true
 		tinsert(self.Buttons, Frame)
 	end
 
 	self:Update()
 end
 
-function SMB:SkinMinimapButton(Button)
+function module:SkinMinimapButton(Button)
 	if (not Button) or Button.isSkinned then return end
 
 	local Name = Button:GetName()
@@ -214,18 +214,18 @@ function SMB:SkinMinimapButton(Button)
 	end
 
 	Button:SetFrameLevel(Minimap:GetFrameLevel() + 5)
-	Button:SetSize(SMB.db['iconSize'], SMB.db['iconSize'])
+	Button:SetSize(module.db['iconSize'], module.db['iconSize'])
 	Button:SetTemplate()
 	Button:HookScript('OnEnter', function(self)
 		self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
-		if SMB.Bar:IsShown() then
-			UIFrameFadeIn(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 1)
+		if module.Bar:IsShown() then
+			UIFrameFadeIn(module.Bar, 0.2, module.Bar:GetAlpha(), 1)
 		end
 	end)
 	Button:HookScript('OnLeave', function(self)
 		self:SetTemplate()
-		if SMB.Bar:IsShown() and SMB.db['barMouseOver'] then
-			UIFrameFadeOut(SMB.Bar, 0.2, SMB.Bar:GetAlpha(), 0)
+		if module.Bar:IsShown() and module.db['barMouseOver'] then
+			UIFrameFadeOut(module.Bar, 0.2, module.Bar:GetAlpha(), 0)
 		end
 	end)
 
@@ -233,12 +233,12 @@ function SMB:SkinMinimapButton(Button)
 	tinsert(self.Buttons, Button)
 end
 
-function SMB:GrabMinimapButtons()
+function module:GrabMinimapButtons()
 	if (InCombatLockdown() or C_PetBattles_IsInBattle()) then return end
 
 	for _, Frame in pairs({ Minimap, MinimapBackdrop }) do
 		local NumChildren = Frame:GetNumChildren()
-		if NumChildren < (Frame.SMBNumChildren or 0) then return end
+		if NumChildren < (Frame.moduleNumChildren or 0) then return end
 		for i = 1, NumChildren do
 			local object = select(i, Frame:GetChildren())
 			if object then
@@ -249,28 +249,28 @@ function SMB:GrabMinimapButtons()
 				end
 			end
 		end
-		Frame.SMBNumChildren = NumChildren
+		Frame.moduleNumChildren = NumChildren
 	end
 
 	self:Update()
 end
 
-function SMB:Update()
-	if not SMB.db['enable'] then return end
+function module:Update()
+	if not module.db['enable'] then return end
 
-	local AnchorX, AnchorY, MaxX = 0, 1, SMB.db['buttonsPerRow'] or 12
-	local ButtonsPerRow = SMB.db['buttonsPerRow'] or 12
-	local Spacing = SMB.db['buttonSpacing'] or 2
-	local Size = SMB.db['iconSize'] or 27
+	local AnchorX, AnchorY, MaxX = 0, 1, module.db['buttonsPerRow'] or 12
+	local ButtonsPerRow = module.db['buttonsPerRow'] or 12
+	local Spacing = module.db['buttonSpacing'] or 2
+	local Size = module.db['iconSize'] or 27
 	local ActualButtons, Maxed = 0
 
 	local Anchor, DirMult = 'TOPLEFT', 1
 
-	if SMB.db['reverseDirection'] then
+	if module.db['reverseDirection'] then
 		Anchor, DirMult = 'TOPRIGHT', -1
 	end
 
-	for _, Button in pairs(SMB.Buttons) do
+	for _, Button in pairs(module.Buttons) do
 		if Button:IsVisible() then
 			AnchorX, ActualButtons = AnchorX + 1, ActualButtons + 1
 
@@ -278,20 +278,20 @@ function SMB:Update()
 				AnchorY, AnchorX, Maxed = AnchorY + 1, 1, true
 			end
 
-			SMB:UnlockButton(Button)
+			module:UnlockButton(Button)
 
 			Button:SetTemplate()
 			Button:SetParent(self.Bar)
 			Button:ClearAllPoints()
 			Button:SetPoint(Anchor, self.Bar, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
-			Button:SetSize(SMB.db['iconSize'], SMB.db['iconSize'])
+			Button:SetSize(module.db['iconSize'], module.db['iconSize'])
 			Button:SetScale(1)
 			Button:SetFrameStrata('LOW')
 			Button:SetFrameLevel(self.Bar:GetFrameLevel() + 1)
 			Button:SetScript('OnDragStart', nil)
 			Button:SetScript('OnDragStop', nil)
 
-			SMB:LockButton(Button)
+			module:LockButton(Button)
 
 			if Maxed then ActualButtons = ButtonsPerRow end
 		end
@@ -320,48 +320,47 @@ function SMB:Update()
 	end
 end
 
-function SMB:Initialize()
-	if E.private.general.minimap.enable ~= true or E.db.mui["smb"].enable ~= true then return end
-	if (COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
-
-	SMB.db = E.db.mui["smb"]
-
+function module:Initialize()
+	local db = E.db.mui.smb
 	MER:RegisterDB(self, "smb")
 
-	SMB.Hider = CreateFrame("Frame", nil, UIParent)
+	if E.private.general.minimap.enable ~= true or db.enable ~= true then return end
+	if (COMP.SLE and E.private.sle.minimap.mapicons.enable) then return end
 
-	SMB.Bar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
-	SMB.Bar:Hide()
-	SMB.Bar:SetPoint('BOTTOMRIGHT', UIParent, 'BOTTOMRIGHT', -28, 197)
-	SMB.Bar:SetFrameStrata('LOW')
-	SMB.Bar:SetClampedToScreen(true)
-	SMB.Bar:SetMovable(true)
-	SMB.Bar:EnableMouse(true)
-	SMB.Bar:SetSize(SMB.db.iconSize, SMB.db.iconSize)
+	module.Hider = CreateFrame("Frame", nil, UIParent)
 
-	SMB.Bar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
-	SMB.Bar:SetScript('OnLeave', function(self)
-		if SMB.db['barMouseOver'] then
+	module.Bar = CreateFrame('Frame', 'SquareMinimapButtonBar', UIParent)
+	module.Bar:Hide()
+	module.Bar:SetPoint('BOTTOMRIGHT', UIParent, 'BOTTOMRIGHT', -28, 197)
+	module.Bar:SetFrameStrata('LOW')
+	module.Bar:SetClampedToScreen(true)
+	module.Bar:SetMovable(true)
+	module.Bar:EnableMouse(true)
+	module.Bar:SetSize(module.db.iconSize, module.db.iconSize)
+
+	module.Bar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	module.Bar:SetScript('OnLeave', function(self)
+		if db['barMouseOver'] then
 			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 		end
 	end)
 
-	function SMB:ForUpdateAll()
-		SMB.db = E.db.mui["smb"]
-		SMB:Update()
+	function module:ForUpdateAll()
+		module.db = E.db.mui.smb
+		module:Update()
 	end
-	SMB:ForUpdateAll()
+	module:ForUpdateAll()
 
-	E:CreateMover(SMB.Bar, "MER_SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
+	E:CreateMover(module.Bar, "MER_SquareMinimapButtonBarMover", "SquareMinimapButtonBar Anchor", nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
-	SMB.TexCoords = {unpack(E.TexCoords)}
+	module.TexCoords = {unpack(E.TexCoords)}
 
-	SMB:ScheduleRepeatingTimer('GrabMinimapButtons', 6)
-	SMB:ScheduleTimer('HandleBlizzardButtons', 7)
+	module:ScheduleRepeatingTimer('GrabMinimapButtons', 6)
+	module:ScheduleTimer('HandleBlizzardButtons', 7)
 end
 
 local function InitializeCallback()
-	SMB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(SMB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

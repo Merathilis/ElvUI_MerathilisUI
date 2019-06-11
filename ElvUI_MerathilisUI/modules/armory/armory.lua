@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERAY = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
+local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
 local LSM = E.LSM or E.Libs.LSM
-MERAY.modName = L["Armory"]
+module.modName = L["Armory"]
 
 -- Cache global variables
 -- Lua functions
@@ -105,7 +105,7 @@ local heirlooms = {
 	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
 }
 
-function MERAY:Transmog_OnEnter()
+function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
 		self.Texture:SetVertexColor(1, .8, 1)
 		_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOMRIGHT')
@@ -119,24 +119,24 @@ function MERAY:Transmog_OnEnter()
 	end
 end
 
-function MERAY:Transmog_OnLeave()
+function module:Transmog_OnLeave()
 	self.Texture:SetVertexColor(1, .5, 1)
 
 	self:SetScript('OnUpdate', nil)
 	_G["GameTooltip"]:Hide()
 end
 
-function MERAY:Illusion_OnEnter()
+function module:Illusion_OnEnter()
 	_G["GameTooltip"]:SetOwner(self, 'ANCHOR_BOTTOM')
 	_G["GameTooltip"]:AddLine(self.Link, 1, 1, 1)
 	_G["GameTooltip"]:Show()
 end
 
-function MERAY:Illusion_OnLeave()
+function module:Illusion_OnLeave()
 	_G["GameTooltip"]:Hide()
 end
 
-function MERAY:UpdatePaperDoll()
+function module:UpdatePaperDoll()
 	if not E.db.mui.armory.enable then return end
 
 	local unit = "player"
@@ -167,30 +167,30 @@ function MERAY:UpdatePaperDoll()
 				local _, _, itemRarity, _, _, _, _, _, _ = GetItemInfo(itemLink)
 
 				-- Durability
-				if MERAY.db.durability.enable then
+				if module.db.durability.enable then
 					frame.DurabilityInfo:SetText()
 					current, maximum = GetInventoryItemDurability(slot)
-					if current and maximum and (not MERAY.db.durability.onlydamaged or current < maximum) then
+					if current and maximum and (not module.db.durability.onlydamaged or current < maximum) then
 						r, g, b = E:ColorGradient((current / maximum), 1, 0, 0, 1, 1, 0, 0, 1, 0)
 						frame.DurabilityInfo:SetFormattedText("%s%.0f%%|r", E:RGBToHex(r, g, b), (current / maximum) * 100)
 					end
 				end
 
 				-- Gradiation
-				if MERAY.db.gradient.enable then
+				if module.db.gradient.enable then
 					frame.Gradiation.Texture:Show()
-					if itemRarity and MERAY.db.gradient.colorStyle == "RARITY" then
+					if itemRarity and module.db.gradient.colorStyle == "RARITY" then
 						local r, g, b = GetItemQualityColor(itemRarity)
 						frame.Gradiation.Texture:SetVertexColor(r, g, b)
-					elseif MERAY.db.gradient.colorStyle == "VALUE" then
+					elseif module.db.gradient.colorStyle == "VALUE" then
 						frame.Gradiation.Texture:SetVertexColor(unpack(E.media.rgbvaluecolor))
 					else
-						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(MERAY.db.gradient.color))
+						frame.Gradiation.Texture:SetVertexColor(MER:unpackColor(module.db.gradient.color))
 					end
 				end
 
 				-- Transmog
-				if MERAY.db.transmog.enable then
+				if module.db.transmog.enable then
 					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
 						frame.Transmog.Texture:Show()
 						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
@@ -198,7 +198,7 @@ function MERAY:UpdatePaperDoll()
 				end
 
 				-- Illussion
-				if MERAY.db.illusion.enable then
+				if module.db.illusion.enable then
 					if (slot == 16 or slot == 17) then
 						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)
 
@@ -216,8 +216,8 @@ function MERAY:UpdatePaperDoll()
 	end
 end
 
-function MERAY:InitialUpdatePaperDoll()
-	MERAY:UnregisterEvent("PLAYER_ENTERING_WORLD")
+function module:InitialUpdatePaperDoll()
+	module:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 	self:BuildInformation()
 
@@ -227,7 +227,7 @@ function MERAY:InitialUpdatePaperDoll()
 	initialized = true
 end
 
-function MERAY:BuildInformation()
+function module:BuildInformation()
 	for id, slotName in pairs(slotIDs) do
 		if not id then return end
 
@@ -236,7 +236,7 @@ function MERAY:BuildInformation()
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
 		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
-		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", MERAY.db.durability.font), MERAY.db.durability.textSize, MERAY.db.durability.fontOutline)
+		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.durability.font), module.db.durability.textSize, module.db.durability.fontOutline)
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
@@ -300,7 +300,7 @@ function MERAY:BuildInformation()
 	end
 end
 
-function MERAY:AzeriteGlow()
+function module:AzeriteGlow()
 	for i = 1, #AZSlots do
 		local azslot = _G["Character"..AZSlots[i].."Slot"]
 		local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -318,28 +318,27 @@ function MERAY:AzeriteGlow()
 	end
 end
 
-function MERAY:firstGarrisonToast()
-	MERAY:UnregisterEvent("GARRISON_MISSION_FINISHED")
+function module:firstGarrisonToast()
+	module:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
 end
 
-function MERAY:Initialize()
-	if not E.db.mui.armory.enable or E.private.skins.blizzard.character ~= true then return end
+function module:Initialize()
+	local db = E.db.mui.armory
+	MER:RegisterDB(self, "armory")
+
+	if not db.enable or E.private.skins.blizzard.character ~= true then return end
 	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
-	MERAY.db = E.db.mui.armory
+	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
+	module:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
+	module:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
+	module:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
+	module:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
 
-	MER:RegisterDB(self, "armory")
-
-	MERAY:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
-	MERAY:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", "UpdatePaperDoll", false)
-	MERAY:RegisterEvent("SOCKET_INFO_UPDATE", "UpdatePaperDoll", false)
-	MERAY:RegisterEvent("COMBAT_RATING_UPDATE", "UpdatePaperDoll", false)
-	MERAY:RegisterEvent("MASTERY_UPDATE", "UpdatePaperDoll", false)
-
-	MERAY:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
-	MERAY:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
+	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
+	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
 	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
 
@@ -351,17 +350,17 @@ function MERAY:Initialize()
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
-	MERAY:AzeriteGlow()
+	module:AzeriteGlow()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then
-		hooksecurefunc("PaperDollFrame_UpdateStats", MERAY.PaperDollFrame_UpdateStats)
-		MERAY:ToggleStats()
+		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
+		module:ToggleStats()
 	end
 end
 
 local function InitializeCallback()
-	MERAY:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERAY:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERG = MER:NewModule("mUIGameMenu")
+local module = MER:NewModule("mUIGameMenu")
 local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
@@ -213,7 +213,7 @@ local function Pepe_Model(self)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
-function MERG:GameMenu()
+function module:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -315,7 +315,7 @@ function MERG:GameMenu()
 	end
 end
 
-function MERG:Initialize()
+function module:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 		E:UpdateBorderColors()
@@ -323,7 +323,7 @@ function MERG:Initialize()
 end
 
 local function InitializeCallback()
-	MERG:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERG:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

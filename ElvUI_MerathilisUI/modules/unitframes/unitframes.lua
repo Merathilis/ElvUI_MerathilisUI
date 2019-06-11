@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local UF = E:GetModule("UnitFrames")
-MUF.modName = L["UnitFrames"]
+module.modName = L["UnitFrames"]
 
 --Cache global variables
 --Lua functions
@@ -11,13 +11,13 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: UF
 
-function MUF:UpdateUF()
+function module:UpdateUF()
 	if E.db.unitframe.units.player.enable then
-		MUF:ArrangePlayer()
+		module:ArrangePlayer()
 	end
 
 	if E.db.unitframe.units.target.enable then
-		MUF:ArrangeTarget()
+		module:ArrangeTarget()
 	end
 
 	if E.db.unitframe.units.party.enable then
@@ -25,14 +25,17 @@ function MUF:UpdateUF()
 	end
 end
 
-function MUF:ADDON_LOADED(event, addon)
+function module:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
 
-	MUF:UnregisterEvent(event)
+	module:UnregisterEvent(event)
 end
 
-function MUF:Initialize()
+function module:Initialize()
 	if E.private.unitframe.enable ~= true then return end
+
+	local db = E.db.mui.unitframes
+	MER:RegisterDB(self, "unitframes")
 
 	self:InitPlayer()
 	self:InitTarget()
@@ -45,13 +48,13 @@ function MUF:Initialize()
 	self:InfoPanelColor()
 
 	-- RaidIcons
-	hooksecurefunc(UF, "Configure_RaidIcon", MUF.Configure_RaidIcon)
+	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
 end
 
 local function InitializeCallback()
-	MUF:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MUF:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

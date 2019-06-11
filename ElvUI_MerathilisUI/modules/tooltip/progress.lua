@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local PR = MER:NewModule("Progress")
+local module = MER:NewModule("Progress")
 local TT  = E:GetModule('Tooltip')
-PR.modName = L["Progress"]
+module.modName = L["Progress"]
 
 -- Cache global variables
 -- Lua functions
@@ -24,7 +24,7 @@ local UnitLevel = UnitLevel
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-PR.RP = {
+module.RP = {
 	-- sort key
 	["tiers"] = { "Uldir", "BattleOfDazaralor", "CrucibleOfStorms" },
 	["levels"] = { "Mythic", "Heroic", "Normal", "LFR" },
@@ -113,7 +113,7 @@ local function GetLevelColorString(level, short)
 	end
 end
 
-function PR:UpdateProgression(guid, faction)
+function module:UpdateProgression(guid, faction)
 	local db = E.db.mui.tooltip.progressInfo
 	local statFunc = guid == playerGUID and GetStatistic or GetComparisonStatistic
 
@@ -147,7 +147,7 @@ function PR:UpdateProgression(guid, faction)
 	end
 end
 
-function PR:SetProgressionInfo(guid, tt)
+function module:SetProgressionInfo(guid, tt)
 	local db = E.db.mui.tooltip.progressInfo
 	if progressCache[guid] then
 		local updated = false
@@ -202,7 +202,7 @@ function TT:INSPECT_ACHIEVEMENT_READY(event, GUID)
 		local race = select(3, UnitRace(unit))
 		local faction = race and C_CreatureInfo_GetFactionInfo(race).groupTag
 		if (faction) then
-			PR:UpdateProgression(GUID, faction)
+			module:UpdateProgression(GUID, faction)
 			_G.GameTooltip:SetUnit(unit)
 		end
 	end
@@ -210,7 +210,7 @@ function TT:INSPECT_ACHIEVEMENT_READY(event, GUID)
 	self:UnregisterEvent("INSPECT_ACHIEVEMENT_READY")
 end
 
-function PR.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
+function module.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 	if InCombatLockdown() then return end
 	if not E.db.mui.tooltip.progressInfo.enable then return end
 	if (not unit) or (numTries > 3) or not CanInspect(unit) then return end
@@ -221,7 +221,7 @@ function PR.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 
 	if not progressCache[guid] or (GetTime() - progressCache[guid].timer) > 600 then
 		if guid == playerGUID then
-			PR:UpdateProgression(guid, playerFaction)
+			module:UpdateProgression(guid, playerFaction)
 		else
 			ClearAchievementComparisonUnit()
 			if not self.loadedComparison and select(2, IsAddOnLoaded("Blizzard_AchievementUI")) then
@@ -238,17 +238,17 @@ function PR.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 			return
 		end
 	end
-	PR:SetProgressionInfo(guid, tooltip)
+	module:SetProgressionInfo(guid, tooltip)
 end
 
-function PR:Initialize()
+function module:Initialize()
 	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.progressInfo.enable ~= true then return end
 
-	hooksecurefunc(TT, 'AddInspectInfo', PR.AddInspectInfo)
+	hooksecurefunc(TT, 'AddInspectInfo', module.AddInspectInfo)
 end
 
 local function InitializeCallback()
-	PR:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(PR:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)
