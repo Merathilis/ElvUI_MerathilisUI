@@ -193,7 +193,7 @@ function MER:Initialize()
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
-	if E.db.mui.general.LoginMsg then
+	if E.db.mui.installed and E.db.mui.general.LoginMsg then
 		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 

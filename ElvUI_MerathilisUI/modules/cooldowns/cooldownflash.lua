@@ -91,8 +91,6 @@ end
 local elapsed = 0
 local runtimer = 0
 local function OnUpdate(_,update)
-	local db = E.db.mui.cooldowns.cooldownFlash
-
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
 		for i,v in pairs(module.watching) do
@@ -139,29 +137,29 @@ local function OnUpdate(_,update)
 
 	if (#module.animating > 0) then
 		runtimer = runtimer + update
-		if (runtimer > (db.fadeInTime + db.holdTime + db.fadeOutTime)) then
+		if (runtimer > (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime)) then
 			tremove(module.animating, 1)
 			runtimer = 0
 			DCP.TextFrame:SetText(nil)
 			DCPT:SetTexture(nil)
 			DCPT:SetVertexColor(1, 1, 1)
 			DCP:SetAlpha(0)
-			DCP:SetSize(db.iconSize, db.iconSize)
-		elseif db.enable then
+			DCP:SetSize(module.db.iconSize, module.db.iconSize)
+		elseif module.db.enable then
 			if (not DCPT:GetTexture()) then
-				if (module.animating[1][3] ~= nil and db.showSpellName) then
+				if (module.animating[1][3] ~= nil and module.db.showSpellName) then
 					DCP.TextFrame:SetText(module.animating[1][3])
 				end
 				DCPT:SetTexture(module.animating[1][1])
 			end
-			local alpha = db.maxAlpha
-			if (runtimer < db.fadeInTime) then
-				alpha = db.maxAlpha * (runtimer / db.fadeInTime)
-			elseif (runtimer >= db.fadeInTime + db.holdTime) then
-				alpha = db.maxAlpha - (db.maxAlpha * ((runtimer - db.holdTime - db.fadeInTime) / db.fadeOutTime))
+			local alpha = module.db.maxAlpha
+			if (runtimer < module.db.fadeInTime) then
+				alpha = module.db.maxAlpha * (runtimer / module.db.fadeInTime)
+			elseif (runtimer >= module.db.fadeInTime + module.db.holdTime) then
+				alpha = module.db.maxAlpha - (module.db.maxAlpha * ((runtimer - module.db.holdTime - module.db.fadeInTime) / module.db.fadeOutTime))
 			end
 			DCP:SetAlpha(alpha)
-			local scale = db.iconSize + (db.iconSize * ((db.animScale - 1) * (runtimer / (db.fadeInTime + db.holdTime + db.fadeOutTime))))
+			local scale = module.db.iconSize + (module.db.iconSize * ((module.db.animScale - 1) * (runtimer / (module.db.fadeInTime + module.db.holdTime + module.db.fadeOutTime))))
 			DCP:SetWidth(scale)
 			DCP:SetHeight(scale)
 		end
@@ -263,8 +261,6 @@ function module:UseItemByName(itemName)
 end
 
 function module:EnableCooldownFlash()
-	local db = E.db.mui.cooldowns.cooldownFlash
-
 	self:SecureHook("UseContainerItem")
 	self:SecureHook("UseInventoryItem")
 	self:SecureHook("UseAction")
@@ -272,7 +268,7 @@ function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:RegisterEvent("ADDON_LOADED")
-	if db.enablePet then
+	if self.db.enablePet then
 		DCP:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	end
 end
@@ -294,16 +290,13 @@ function module:TestMode()
 end
 
 function module:Initialize()
-	if E.db.mui.cooldowns == nil then E.db.mui.cooldowns = {} end -- prevent a nil error
-
-	local db = E.db.mui.cooldowns.cooldownFlash
 	MER:RegisterDB(self, "cooldownFlash")
 
-	DCP:SetSize(db.iconSize, db.iconSize)
+	DCP:SetSize(self.db.iconSize, self.db.iconSize)
 
 	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
 	DCP.TextFrame:SetShadowOffset(2, -2)
-	if db.enable then
+	if self.db.enable then
 		self:EnableCooldownFlash()
 	end
 	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
