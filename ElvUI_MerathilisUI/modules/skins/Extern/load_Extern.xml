@@ -3,6 +3,7 @@
 	<Script file="BenikUI.lua"/>
 	<Script file="BigWigs.lua"/>
 	<Script file="BugSack.lua"/>
+	<Script file="cargBags_Nivaya.lua"/>
 	<Script file="Clique.lua"/>
 	<Script file="DeadlyBossMods.lua"/>
 	<Script file="ls_Toasts.lua"/>

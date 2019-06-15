@@ -23,6 +23,7 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 	{"Clique", L["Clique"], "cl"},
+	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"}
 }
 
 local SupportedProfiles = {
