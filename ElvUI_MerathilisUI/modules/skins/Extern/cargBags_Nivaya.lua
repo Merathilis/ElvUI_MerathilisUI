@@ -19,6 +19,11 @@ local function stylecargBags()
 		NivayacBniv_Consumables,
 		NivayacBniv_Quest,
 		NivayacBniv_ItemSets,
+		NivayacBniv_Stuff,
+		NivayacBniv_BattlePet,
+		NivayacBniv_Gem,
+		NivayacBniv_ArtifactPower,
+		NivayacBniv_Armor,
 
 		-- Bank
 		NivayacBniv_Bank,
