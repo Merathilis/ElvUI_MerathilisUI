@@ -13,11 +13,17 @@ local function stylecargBags()
 
 	-- Default Containers from cargBags_Nivaya
 	local frames = {
+		-- Main Bags
 		NivayacBniv_Bag,
 		NivayacBniv_TradeGoods,
 		NivayacBniv_Consumables,
 		NivayacBniv_Quest,
 		NivayacBniv_ItemSets,
+
+		-- Bank
+		NivayacBniv_Bank,
+		NivayacBniv_BankReagent,
+		NivayacBniv_BankArmor,
 	}
 
 	for _, frame in pairs(frames) do
