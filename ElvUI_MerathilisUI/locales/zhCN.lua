@@ -87,6 +87,10 @@ L["Here you find the options for all the different |cffff8000MerathilisUI|r modu
 L["GameMenu"] = "游戏菜单"
 L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴雪游戏菜单启用/禁用MerathilisUI样式."
 
+-- FlightMode
+L["FlightMode"] = "飞行模式"
+L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "启用/禁用MerathilisUI飞行模式.\n要完全进入飞行模式，请进入 |cff00c0faBenikUI|r Options."
+
 -- FlightPoint
 L["Flight Point"] = "飞行点"
 L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."] = "在飞行地图上启用/禁用MerathilisUI飞行点."
