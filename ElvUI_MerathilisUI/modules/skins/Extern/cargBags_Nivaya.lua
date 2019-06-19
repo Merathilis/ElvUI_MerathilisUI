@@ -25,6 +25,7 @@ local function stylecargBags()
 		NivayacBniv_ArtifactPower,
 		NivayacBniv_Armor,
 		NivayacBniv_NewItems,
+		NivayacBniv_Junk,
 
 		-- Bank
 		NivayacBniv_Bank,
