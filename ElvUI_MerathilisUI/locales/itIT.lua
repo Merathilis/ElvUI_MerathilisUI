@@ -43,6 +43,7 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
+L["BACK"] = "Indietro"
 L["has come |cff298F00online|r."] = true -- Guild Message
 L["has gone |cffff0000offline|r."] = true -- Guild Message
 L[" has come |cff298F00online|r."] = true -- Battle.Net Message
@@ -475,6 +476,7 @@ L["Sat"] = true
 L["Castbar Target"] = true
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true
 
 -- Install
 L["Welcome"] = true

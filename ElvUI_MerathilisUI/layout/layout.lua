@@ -13,7 +13,6 @@ local _G = _G
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
 local GameTooltip = _G["GameTooltip"]
-local BACK = BACK
 local PlaySound = PlaySound
 local SOUNDKIT = SOUNDKIT
 local hooksecurefunc = hooksecurefunc
@@ -142,7 +141,7 @@ function MERL:CreateChatButtons()
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
-			GameTooltip:AddLine(MER:cOption(BACK))
+			GameTooltip:AddLine(MER:cOption(L["BACK"]))
 		else
 			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
 		end
@@ -267,28 +266,28 @@ function MERL:CreatePanels()
 	local topLeftStyle = CreateFrame("Frame", MER.Title.."TopLeftStyle", E.UIParent)
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
-	topLeftStyle:SetSize(_G.LeftChatPanel:GetWidth()+30, 4)
+	topLeftStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
 	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -8)
 	MERS:SkinPanel(topLeftStyle)
 
 	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 	topRightStyle:SetFrameStrata("BACKGROUND")
 	topRightStyle:SetFrameLevel(2)
-	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth()+26, 4)
+	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
 	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -11, -8)
 	MERS:SkinPanel(topRightStyle)
 
 	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
-	bottomLeftSytle:SetSize(_G.LeftChatPanel:GetWidth()+30, 4)
+	bottomLeftSytle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
 	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 11, 10)
 	MERS:SkinPanel(bottomLeftSytle)
 
 	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
 	bottomRightStyle:SetFrameLevel(2)
-	bottomRightStyle:SetSize(_G.LeftChatPanel:GetWidth()+26, 4)
+	bottomRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
 	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -11, 10)
 	MERS:SkinPanel(bottomRightStyle)
 

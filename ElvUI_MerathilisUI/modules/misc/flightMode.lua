@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MFM = MER:NewModule("MUIFlightMode")
+local module = MER:NewModule("MUIFlightMode")
 local COMP = MER:GetModule("mUICompatibility");
-MFM.modName = L["FlightMode"]
+module.modName = L["FlightMode"]
 
 --Cache global variables
 
@@ -10,7 +10,7 @@ local CreateFrame = CreateFrame
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function MFM:Initialize()
+function module:Initialize()
 	if not COMP.BUI then return end
 	local BFM = E:GetModule("BUIFlightMode")
 	if E.db.mui.general.FlightMode then
@@ -82,4 +82,8 @@ function MFM:Initialize()
 	end
 end
 
-MER:RegisterModule(MFM:GetName())
+local function InitializeCallback()
+	module:Initialize()
+end
+
+MER:RegisterModule(module:GetName(), InitializeCallback)

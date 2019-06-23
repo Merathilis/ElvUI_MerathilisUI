@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MB = MER:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
+local module = MER:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
 local MERS = MER:GetModule("muiSkins")
 
 --Cache global variables
@@ -71,7 +71,7 @@ local function updateTimerFormat(color, hour, minute)
 	end
 end
 
-function MB.OnUpdate(self, elapsed)
+function module.OnUpdate(self, elapsed)
 	self.timer = (self.timer or 0) + elapsed
 	if self.timer > 1 then
 		local color = C_Calendar_GetNumPendingInvites() > 0 and "|cffFF0000" or ""
@@ -114,9 +114,9 @@ local function checkTimeWalker(event)
 			break
 		end
 	end
-	MB:UnregisterEvent(event, checkTimeWalker)
+	module:UnregisterEvent(event, checkTimeWalker)
 end
-MB:RegisterEvent("PLAYER_ENTERING_WORLD", checkTimeWalker)
+module:RegisterEvent("PLAYER_ENTERING_WORLD", checkTimeWalker)
 
 local function checkTexture(texture)
 	if not walkerTexture then return end
@@ -217,7 +217,7 @@ local function addTitle(text)
 	end
 end
 
-function MB.OnEnter(self)
+function module.OnEnter(self)
 	if E.db.mui.microBar.tooltip ~= true then return end
 	RequestRaidInfo()
 
@@ -367,7 +367,7 @@ local function OnLeave(button)
 	GameTooltip:Hide()
 end
 
-function MB:OnClick(btn)
+function module:OnClick(btn)
 	if InCombatLockdown() then return end
 	if btn == "LeftButton" then
 		if(not CalendarFrame) then LoadAddOn("Blizzard_Calendar") end
@@ -376,12 +376,12 @@ function MB:OnClick(btn)
 	end
 end
 
-function MB:CreateMicroBar()
+function module:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title.."MicroBar", E.UIParent)
 	microBar:SetFrameStrata("MEDIUM")
 	microBar:EnableMouse(true)
 	microBar:SetSize(400, 26)
-	microBar:SetScale(MB.db.scale or 1)
+	microBar:SetScale(module.db.scale or 1)
 	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
 	microBar:SetTemplate("Transparent")
 	microBar:Styling()
@@ -404,7 +404,7 @@ function MB:CreateMicroBar()
 	charButton.tex:SetBlendMode("ADD")
 
 	charButton.text = MER:CreateText(charButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		charButton.text:SetPoint("BOTTOM", charButton, 2, -15)
 	else
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
@@ -431,7 +431,7 @@ function MB:CreateMicroBar()
 	friendsButton.tex:SetBlendMode("ADD")
 
 	friendsButton.text = MER:CreateText(friendsButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		friendsButton.text:SetPoint("BOTTOM", friendsButton, 2, -15)
 	else
 		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
@@ -440,12 +440,12 @@ function MB:CreateMicroBar()
 	friendsButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateFriends()
-		MB.db = E.db.mui.microBar
+		module.db = E.db.mui.microBar
 		local friendsOnline = C_FriendList_GetNumFriends()
 		local bnTotal, bnOnline = BNGetNumFriends()
 		local totalOnline = friendsOnline + bnOnline
 
-		if MB.db.text.friends then
+		if module.db.text.friends then
 			if (bnOnline > 0) or (friendsOnline > 0) then
 				if bnOnline > 0 then
 					friendsButton.online:SetText(totalOnline)
@@ -489,7 +489,7 @@ function MB:CreateMicroBar()
 	guildButton.tex:SetBlendMode("ADD")
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		guildButton.text:SetPoint("BOTTOM", guildButton, 2, -15)
 	else
 		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
@@ -498,7 +498,7 @@ function MB:CreateMicroBar()
 	guildButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
 
 	local function UpdateGuild()
-		MB.db = E.db.mui.microBar
+		module.db = E.db.mui.microBar
 		if IsInGuild() then
 			local guildTotal, online = GetNumGuildMembers()
 			for i = 1, guildTotal do
@@ -508,7 +508,7 @@ function MB:CreateMicroBar()
 				end
 			end
 
-			if MB.db.text.guild then
+			if module.db.text.guild then
 				if online > 0 then
 					guildButton.online:SetText(online)
 				else
@@ -551,7 +551,7 @@ function MB:CreateMicroBar()
 	achieveButton.tex:SetBlendMode("ADD")
 
 	achieveButton.text = MER:CreateText(achieveButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		achieveButton.text:SetPoint("BOTTOM", achieveButton, 2, -15)
 	else
 		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
@@ -578,7 +578,7 @@ function MB:CreateMicroBar()
 	encounterButton.tex:SetBlendMode("ADD")
 
 	encounterButton.text = MER:CreateText(encounterButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		encounterButton.text:SetPoint("BOTTOM", encounterButton, 2, -15)
 	else
 		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
@@ -624,9 +624,9 @@ function MB:CreateMicroBar()
 	end)
 	timer:Play()
 
-	timeButton:SetScript("OnEnter", function(self) OnHover(self) MB.OnEnter(self) end)
+	timeButton:SetScript("OnEnter", function(self) OnHover(self) module.OnEnter(self) end)
 	timeButton:SetScript("OnLeave", function(self) OnLeave(self) end)
-	timeButton:SetScript("OnMouseUp", MB.OnClick)
+	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
 	local petButton = CreateFrame("Button", nil, microBar)
@@ -643,7 +643,7 @@ function MB:CreateMicroBar()
 	petButton.tex:SetBlendMode("ADD")
 
 	petButton.text = MER:CreateText(petButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		petButton.text:SetPoint("BOTTOM", petButton, 2, -15)
 	else
 		petButton.text:SetPoint("TOP", petButton, 2, 15)
@@ -670,7 +670,7 @@ function MB:CreateMicroBar()
 	lfrButton.tex:SetBlendMode("ADD")
 
 	lfrButton.text = MER:CreateText(lfrButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		lfrButton.text:SetPoint("BOTTOM", lfrButton, 2, -15)
 	else
 		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
@@ -697,7 +697,7 @@ function MB:CreateMicroBar()
 	spellBookButton.tex:SetBlendMode("ADD")
 
 	spellBookButton.text = MER:CreateText(spellBookButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		spellBookButton.text:SetPoint("BOTTOM", spellBookButton, 2, -15)
 	else
 		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
@@ -724,7 +724,7 @@ function MB:CreateMicroBar()
 	speccButton.tex:SetBlendMode("ADD")
 
 	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
 	else
 		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
@@ -751,7 +751,7 @@ function MB:CreateMicroBar()
 	shopButton.tex:SetBlendMode("ADD")
 
 	shopButton.text = MER:CreateText(shopButton, "HIGHLIGHT", 11)
-	if MB.db.text.position == "BOTTOM" then
+	if module.db.text.position == "BOTTOM" then
 		shopButton.text:SetPoint("BOTTOM", shopButton, 2, -15)
 	else
 		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
@@ -766,28 +766,28 @@ function MB:CreateMicroBar()
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 end
 
-function MB:Toggle()
-	if MB.db.enable then
+function module:Toggle()
+	if module.db.enable then
 		microBar:Show()
 		E:EnableMover(microBar.mover:GetName())
 	else
 		microBar:Hide()
 		E:DisableMover(microBar.mover:GetName())
 	end
-	MB:UNIT_AURA(nil, "player")
+	module:UNIT_AURA(nil, "player")
 end
 
-function MB:PLAYER_REGEN_DISABLED()
-	if MB.db.hideInCombat == true then microBar:SetAlpha(0) end
+function module:PLAYER_REGEN_DISABLED()
+	if module.db.hideInCombat == true then microBar:SetAlpha(0) end
 end
 
-function MB:PLAYER_REGEN_ENABLED()
-	if MB.db.enable then microBar:SetAlpha(1) end
+function module:PLAYER_REGEN_ENABLED()
+	if module.db.enable then microBar:SetAlpha(1) end
 end
 
-function MB:UNIT_AURA(_, unit)
+function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
-	if MB.db.enable and MB.db.hideInOrderHall then
+	if module.db.enable and module.db.hideInOrderHall then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
 			microBar:SetAlpha(0)
@@ -797,17 +797,17 @@ function MB:UNIT_AURA(_, unit)
 	end
 end
 
-function MB:Initialize()
-	MB.db = E.db.mui.microBar
-	if MB.db.enable ~= true then return end
-
+function module:Initialize()
+	local db = E.db.mui.microBar
 	MER:RegisterDB(self, "microBar")
+
+	if db.enable ~= true then return end
 
 	self:CreateMicroBar()
 	self:Toggle()
 
-	function MB:ForUpdateAll()
-		MB.db = E.db.mui.microBar
+	function module:ForUpdateAll()
+		module.db = E.db.mui.microBar
 
 		self:Toggle()
 	end
@@ -820,7 +820,7 @@ function MB:Initialize()
 end
 
 local function InitializeCallback()
-	MB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

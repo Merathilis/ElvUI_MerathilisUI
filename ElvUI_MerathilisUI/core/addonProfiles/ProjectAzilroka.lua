@@ -17,8 +17,8 @@ function MER:LoadPAProfile()
 	PA.db["EnhancedFriendsList"]["App"] = "Animated"
 	PA.db["EnhancedFriendsList"]["StatusIconPack"] = "Square"
 	PA.db["EnhancedFriendsList"]["NameFontSize"] = 11
-	PA.db["EnhancedFriendsList"]["NameFont"] = "Expressway"
-	PA.db["EnhancedFriendsList"]["InfoFont"] = "Expressway"
+	PA.db["EnhancedFriendsList"]["NameFont"] = "Merathilis Expressway"
+	PA.db["EnhancedFriendsList"]["InfoFont"] = "Merathilis Expressway"
 
 	PA.db['DragonOverlay']['Enable'] = false
 
@@ -29,7 +29,7 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["NumAddOns"] = 15
 	PA.db["stAddonManager"]["ButtonHeight"] = 20
 	PA.db["stAddonManager"]["ButtonWidth"] = 20
-	PA.db["stAddonManager"]["Font"] = "Expressway"
+	PA.db["stAddonManager"]["Font"] = "Merathilis Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
 	PA.db["stAddonManager"]["CheckTexture"] = "Duffed"
 end

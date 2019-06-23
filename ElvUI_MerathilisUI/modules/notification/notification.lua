@@ -1,9 +1,9 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
-local NF = MER:NewModule("Notification", "AceEvent-3.0")
+local module = MER:NewModule("Notification", "AceEvent-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
-NF.modName = L["Notification"]
+module.modName = L["Notification"]
 
 -- Credits RealUI
 
@@ -63,7 +63,7 @@ local VignetteExclusionMapIDs = {
 	[646] = true, -- Scenario: The Broken Shore
 }
 
-function NF:SpawnToast(toast)
+function module:SpawnToast(toast)
 	if not toast then return end
 
 	if #activeToasts >= max_active_toasts then
@@ -105,12 +105,12 @@ function NF:SpawnToast(toast)
 	toast.AnimIn:Play()
 	toast.AnimOut:Play()
 
-	if NF.db.noSound ~= true then
+	if module.db.noSound ~= true then
 		PlaySound(18019, "Master")
 	end
 end
 
-function NF:RefreshToasts()
+function module:RefreshToasts()
 	for i = 1, #activeToasts do
 		local activeToast = activeToasts[i]
 		local YOffset, _ = 0
@@ -141,7 +141,7 @@ function NF:RefreshToasts()
 	end
 end
 
-function NF:HideToast(toast)
+function module:HideToast(toast)
 	for i, activeToast in pairs(activeToasts) do
 		if toast == activeToast then
 			tremove(activeToasts, i)
@@ -153,10 +153,10 @@ function NF:HideToast(toast)
 end
 
 local function ToastButtonAnimOut_OnFinished(self)
-	NF:HideToast(self:GetParent())
+	module:HideToast(self:GetParent())
 end
 
-function NF:CreateToast()
+function module:CreateToast()
 	local toast = tremove(toasts, 1)
 
 	toast = CreateFrame("Frame", nil, E.UIParent)
@@ -249,7 +249,7 @@ function NF:CreateToast()
 	return toast
 end
 
-function NF:DisplayToast(name, message, clickFunc, texture, ...)
+function module:DisplayToast(name, message, clickFunc, texture, ...)
 	local toast = self:CreateToast()
 
 	if type(clickFunc) == "function" then
@@ -281,14 +281,14 @@ function NF:DisplayToast(name, message, clickFunc, texture, ...)
 	self:SpawnToast(toast)
 end
 
-function NF:PLAYER_FLAGS_CHANGED(event)
+function module:PLAYER_FLAGS_CHANGED(event)
 	self:UnregisterEvent(event)
 	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
 end
 
-function NF:PLAYER_REGEN_ENABLED()
+function module:PLAYER_REGEN_ENABLED()
 	for i = 1, max_active_toasts - #activeToasts do
 		self:RefreshToasts()
 	end
@@ -300,13 +300,13 @@ local function testCallback()
 end
 
 SlashCmdList.TESTNOTIFICATION = function(b)
-	NF:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
+	module:DisplayToast(MER:cOption("MerathilisUI:"), L["This is an example of a notification."], testCallback, b == "true" and "INTERFACE\\ICONS\\SPELL_FROST_ARCTICWINDS" or nil, .08, .92, .08, .92)
 end
 SLASH_TESTNOTIFICATION1 = "/testnotification"
 
 local hasMail = false
-function NF:UPDATE_PENDING_MAIL()
-	if NF.db.enable ~= true or NF.db.mail ~= true then return end
+function module:UPDATE_PENDING_MAIL()
+	if module.db.enable ~= true or module.db.mail ~= true then return end
 	if InCombatLockdown() then return end
 
 	local newMail = HasNewMail()
@@ -314,7 +314,7 @@ function NF:UPDATE_PENDING_MAIL()
 		hasMail = newMail
 		if hasMail then
 			self:DisplayToast(format("|cfff9ba22%s|r", MAIL_LABEL), HAVE_MAIL, nil, "Interface\\Icons\\inv_letter_15", .08, .92, .08, .92)
-			if NF.db.noSound ~= true then
+			if module.db.noSound ~= true then
 				PlaySoundFile([[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\mail.mp3]])
 			end
 		end
@@ -341,7 +341,7 @@ local function ResetRepairNotification()
 	showRepair = true
 end
 
-function NF:UPDATE_INVENTORY_DURABILITY()
+function module:UPDATE_INVENTORY_DURABILITY()
 	local current, max
 
 	for i = 1, 11 do
@@ -389,32 +389,32 @@ local function toggleCalendar()
 end
 
 local function alertEvents()
-	if NF.db.enable ~= true or NF.db.invites ~= true then return end
+	if module.db.enable ~= true or module.db.invites ~= true then return end
 	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 0 then
-			NF:DisplayToast(CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
+			module:DisplayToast(CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
 		end
 		numInvites = num
 	end
 end
 
 local function alertGuildEvents()
-	if NF.db.enable ~= true or NF.db.guildEvents ~= true then return end
+	if module.db.enable ~= true or module.db.guildEvents ~= true then return end
 	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 0 then
-		NF:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
+		module:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
 	end
 end
 
-function NF:CALENDAR_UPDATE_PENDING_INVITES()
+function module:CALENDAR_UPDATE_PENDING_INVITES()
 	alertEvents()
 	alertGuildEvents()
 end
 
-function NF:CALENDAR_UPDATE_GUILD_EVENTS()
+function module:CALENDAR_UPDATE_GUILD_EVENTS()
 	alertGuildEvents()
 end
 
@@ -423,15 +423,15 @@ local function LoginCheck()
 	alertGuildEvents()
 end
 
-function NF:PLAYER_ENTERING_WORLD()
+function module:PLAYER_ENTERING_WORLD()
 	C_Timer.After(7, LoginCheck)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 
 local SOUND_TIMEOUT = 20
-function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not NF.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
+function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
+	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if inGroup or inRaid or inPartyLFG then
@@ -447,7 +447,7 @@ function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 
 			local time = GetTime()
 			if time > (self.lastMinimapRare.time + SOUND_TIMEOUT) then
-				if NF.db.noSound ~= true then
+				if module.db.noSound ~= true then
 					PlaySound(_G.SOUNDKIT.RAID_WARNING)
 					self.lastMinimapRare.time = time
 				end
@@ -456,17 +456,16 @@ function NF:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	end
 end
 
-function NF:RESURRECT_REQUEST(name)
-	if NF.db.noSound ~= true then
+function module:RESURRECT_REQUEST(name)
+	if module.db.noSound ~= true then
 		PlaySound(46893, "Master")
 	end
 end
 
-function NF:Initialize()
-	NF.db = E.db.mui.notification
-	if NF.db.enable ~= true then return end
-
+function module:Initialize()
+	module.db = E.db.mui.notification
 	MER:RegisterDB(self, "notification")
+	if module.db.enable ~= true then return end
 
 	anchorFrame = CreateFrame("Frame", nil, E.UIParent)
 	anchorFrame:SetSize(bannerWidth, 50)
@@ -486,7 +485,7 @@ function NF:Initialize()
 end
 
 local function InitializeCallback()
-	NF:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(NF:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

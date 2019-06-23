@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RM = MER:NewModule("Reminder", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:NewModule("Reminder", "AceEvent-3.0", "AceTimer-3.0")
 local LCG = LibStub('LibCustomGlow-1.0')
 local S = E:GetModule("Skins")
-RM.modName = L["Reminder"]
+module.modName = L["Reminder"]
 
 -- Cache global variables
 -- Lua functions
@@ -26,10 +26,10 @@ local UnitLevel = UnitLevel
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: GetInventoryItemTexture
 
-_Reminder = RM
+_Reminder = module
 _CreatedReminders = {}
 
-function RM:PlayerHasFilteredBuff(frame, db, checkPersonal)
+function module:PlayerHasFilteredBuff(frame, db, checkPersonal)
 	for buff, value in pairs(db) do
 		if value == true then
 			local name = GetSpellInfo(buff)
@@ -49,7 +49,7 @@ function RM:PlayerHasFilteredBuff(frame, db, checkPersonal)
 	return false
 end
 
-function RM:PlayerHasFilteredDebuff(frame, db)
+function module:PlayerHasFilteredDebuff(frame, db)
 	for debuff, value in pairs(db) do
 		if value == true then
 			local name = GetSpellInfo(debuff)
@@ -63,7 +63,7 @@ function RM:PlayerHasFilteredDebuff(frame, db)
 	return false
 end
 
-function RM:CanSpellBeUsed(id)
+function module:CanSpellBeUsed(id)
 	local name = GetSpellInfo(id)
 	local start, duration, enabled = GetSpellCooldown(name)
 	if enabled == 0 or start == nil or duration == nil then
@@ -75,13 +75,13 @@ function RM:CanSpellBeUsed(id)
 	end
 end
 
-function RM:ReminderIcon_OnUpdate(elapsed)
+function module:ReminderIcon_OnUpdate(elapsed)
 	if self.ForceShow and self.icon:GetTexture() then return; end
 	if(self.elapsed and self.elapsed > 0.2) then
 		local db = MER.ReminderList[E.myclass][self.groupName]
 		if not db or not db.enable or UnitIsDeadOrGhost("player") then return; end
 		if db.CDSpell then
-			local filterCheck = RM:FilterCheck(self)
+			local filterCheck = module:FilterCheck(self)
 			local name = GetSpellInfo(db.CDSpell)
 			local start, duration, enabled = GetSpellCooldown(name)
 			if(duration and duration > 0) then
@@ -91,10 +91,10 @@ function RM:ReminderIcon_OnUpdate(elapsed)
 				self.cooldown:Hide()
 			end
 
-			if RM:CanSpellBeUsed(db.CDSpell) and filterCheck then
+			if module:CanSpellBeUsed(db.CDSpell) and filterCheck then
 				if db.OnCooldown == "HIDE" then
-					RM:UpdateColors(self, db.CDSpell)
-					RM.ReminderIcon_OnEvent(self)
+					module:UpdateColors(self, db.CDSpell)
+					module.ReminderIcon_OnEvent(self)
 				else
 					self:SetAlpha(db.cdFade or 0)
 				end
@@ -102,8 +102,8 @@ function RM:ReminderIcon_OnUpdate(elapsed)
 				if db.OnCooldown == "HIDE" then
 					self:SetAlpha(db.cdFade or 0)
 				else
-					RM:UpdateColors(self, db.CDSpell)
-					RM.ReminderIcon_OnEvent(self)
+					module:UpdateColors(self, db.CDSpell)
+					module.ReminderIcon_OnEvent(self)
 				end
 			else
 				self:SetAlpha(0)
@@ -115,9 +115,9 @@ function RM:ReminderIcon_OnUpdate(elapsed)
 
 		if db.spellGroup then
 			for buff, value in pairs(db.spellGroup) do
-				if value == true and RM:CanSpellBeUsed(buff) then
+				if value == true and module:CanSpellBeUsed(buff) then
 					self:SetScript("OnUpdate", nil)
-					RM.ReminderIcon_OnEvent(self)
+					module.ReminderIcon_OnEvent(self)
 				end
 			end
 		end
@@ -128,7 +128,7 @@ function RM:ReminderIcon_OnUpdate(elapsed)
 	end
 end
 
-function RM:FilterCheck(frame, isReverse)
+function module:FilterCheck(frame, isReverse)
 	local _, instanceType = IsInInstance()
 	local roleCheck, treeCheck, combatCheck, instanceCheck, PVPCheck, talentCheck
 
@@ -190,7 +190,7 @@ function RM:FilterCheck(frame, isReverse)
 	end
 end
 
-function RM:ReminderIcon_OnEvent(event, unit)
+function module:ReminderIcon_OnEvent(event, unit)
 	if (event == "UNIT_AURA" and unit ~= "player") then return end
 
 	local db = MER.ReminderList[E.myclass][self.groupName]
@@ -214,7 +214,7 @@ function RM:ReminderIcon_OnEvent(event, unit)
 	if db.level and UnitLevel("player") < db.level and not self.ForceShow then return end
 
 	--Negate Spells Check
-	if db.negateGroup and RM:PlayerHasFilteredBuff(self, db.negateGroup) and not self.ForceShow then return end
+	if db.negateGroup and module:PlayerHasFilteredBuff(self, db.negateGroup) and not self.ForceShow then return end
 
 	local hasOffhandWeapon = C_PaperDollInfo_OffhandHasWeapon()
 	local hasMainHandEnchant, _, _, hasOffHandEnchant, _, _ = GetWeaponEnchantInfo()
@@ -224,8 +224,8 @@ function RM:ReminderIcon_OnEvent(event, unit)
 			if value == true then
 				local name = GetSpellInfo(buff)
 				local usable, nomana = IsUsableSpell(name)
-				if usable and not RM:CanSpellBeUsed(buff) then
-					self:SetScript("OnUpdate", RM.ReminderIcon_OnUpdate)
+				if usable and not module:CanSpellBeUsed(buff) then
+					self:SetScript("OnUpdate", module.ReminderIcon_OnUpdate)
 					return
 				end
 
@@ -256,7 +256,7 @@ function RM:ReminderIcon_OnEvent(event, unit)
 			return
 		end
 
-		hasBuff, hasDebuff = RM:PlayerHasFilteredBuff(self, db.spellGroup, db.personal), RM:PlayerHasFilteredDebuff(self, db.spellGroup)
+		hasBuff, hasDebuff = module:PlayerHasFilteredBuff(self, db.spellGroup, db.personal), module:PlayerHasFilteredDebuff(self, db.spellGroup)
 	end
 
 	if db.weaponCheck then
@@ -295,7 +295,7 @@ function RM:ReminderIcon_OnEvent(event, unit)
 		local usable, nomana = IsUsableSpell(name)
 		if not usable then return end
 
-		self:SetScript("OnUpdate", RM.ReminderIcon_OnUpdate)
+		self:SetScript("OnUpdate", module.ReminderIcon_OnUpdate)
 
 		self.icon:SetTexture(select(3, GetSpellInfo(db.CDSpell)))
 
@@ -312,8 +312,8 @@ function RM:ReminderIcon_OnEvent(event, unit)
 
 	if not self.icon:GetTexture() or UnitInVehicle("player") then return end
 
-	local filterCheck = RM:FilterCheck(self)
-	local reverseCheck = RM:FilterCheck(self, true)
+	local filterCheck = module:FilterCheck(self)
+	local reverseCheck = module:FilterCheck(self, true)
 
 	if db.CDSpell then
 		if filterCheck then
@@ -356,10 +356,10 @@ function RM:ReminderIcon_OnEvent(event, unit)
 	end
 end
 
-function RM:CreateReminder(name, index)
+function module:CreateReminder(name, index)
 	if _CreatedReminders[name] then return end
 
-	local size = RM.db.size or 30
+	local size = module.db.size or 30
 	local ElvFrame = _G.ElvUF_Player
 	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
 
@@ -387,12 +387,12 @@ function RM:CreateReminder(name, index)
 
 	frame:RegisterUnitEvent("UNIT_AURA", "player")
 	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
-	frame:SetScript("OnEvent", RM.ReminderIcon_OnEvent)
+	frame:SetScript("OnEvent", module.ReminderIcon_OnEvent)
 
 	_CreatedReminders[name] = frame
 end
 
-function RM:CheckForNewReminders()
+function module:CheckForNewReminders()
 	local db = MER.ReminderList[E.myclass]
 	if not db then return end
 
@@ -403,19 +403,17 @@ function RM:CheckForNewReminders()
 	end
 end
 
-function RM:Initialize()
-	RM.db = E.db.mui.reminder
-
+function module:Initialize()
+	module.db = E.db.mui.reminder
 	MER:RegisterDB(self, "reminder")
-
-	if RM.db.enable ~= true then return; end
+	if module.db.enable ~= true then return; end
 
 	self:CheckForNewReminders()
-	C_Timer.After(1, function() RM.initialized = true end)
+	C_Timer.After(1, function() module.initialized = true end)
 end
 
 local function InitializeCallback()
-	RM:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(RM:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

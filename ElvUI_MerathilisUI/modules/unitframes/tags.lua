@@ -1,13 +1,15 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local ElvUF = ElvUI.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
+local Translit = E.Libs.Translit
+local translitMark = "!"
 
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
 local abs = math.abs
 local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
-local strfind, strlower, strmatch, strsub = strfind, strlower, strmatch, strsub
+local strfind, strlower, strmatch, strsub, utf8lower, utf8sub = strfind, strlower, strmatch, strsub, string.utf8lower, string.utf8sub
 local assert, tonumber, type = assert, tonumber, type
 local gmatch, gsub = gmatch, gsub
 -- WoW API / Variables
@@ -156,4 +158,29 @@ ElvUF.Tags.Methods["faction:icon"] = function(unit)
 	end
 
 	return str
+end
+
+local function abbrev(name)
+	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
+	if lastWord then
+		for word in gmatch(name, '.-%s') do
+			local firstLetter = utf8sub(gsub(word, '^[%s%p]*', ''), 1, 1)
+			if firstLetter ~= utf8lower(firstLetter) then
+				letters = format('%s%s. ', letters, firstLetter)
+			end
+		end
+		name = format('%s%s', letters, lastWord)
+	end
+	return name
+end
+
+ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
+	local name = Translit:Transliterate(UnitName(unit), translitMark)
+
+	if name and strfind(name, '%s') then
+		name = abbrev(name)
+	end
+
+	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end

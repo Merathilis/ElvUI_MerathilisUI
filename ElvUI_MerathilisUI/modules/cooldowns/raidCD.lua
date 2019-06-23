@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RC = MER:NewModule("RaidCD", "AceEvent-3.0", "AceConsole-3.0")
-RC.modName = L["RaidCD"]
+local module = MER:NewModule("RaidCD", "AceEvent-3.0", "AceConsole-3.0")
+module.modName = L["RaidCD"]
 
 --Cache global variables
 --Lua functions
@@ -29,7 +29,7 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitName = UnitName
 -- GLOBALS:
 
-RC.Spells = {
+module.Spells = {
 	-- Battle resurrection
 	[20484] = 600,	-- Rebirth
 	[61999] = 600,	-- Raise Ally
@@ -104,31 +104,27 @@ local function sortByExpiration(a, b)
 end
 
 local CreateFS = function(frame, fsize, fstyle)
-	local db = E.db.mui.cooldowns.raid.text
-
 	local fstring = frame:CreateFontString(nil, "OVERLAY")
-	fstring:FontTemplate(E.Libs.LSM:Fetch("font", db.font) or E["media"].normFont, db.fontSize or 12, db.fontOutline or "OUTLINE")
-	fstring:SetShadowOffset(db.shadow and 1 or 0, db.shadow and -1 or 0)
+	fstring:FontTemplate(E.Libs.LSM:Fetch("font", module.db.font) or E["media"].normFont, module.db.fontSize or 12, module.db.fontOutline or "OUTLINE")
+	fstring:SetShadowOffset(module.db.shadow and 1 or 0, module.db.shadow and -1 or 0)
 
 	return fstring
 end
 
 local UpdatePositions = function()
-	local db = E.db.mui.cooldowns.raid
-
 	if charges and Ressesbars[1] then
 		Ressesbars[1]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
 		Ressesbars[1].id = 1
 		for i = 1, #bars do
 			bars[i]:ClearAllPoints()
 			if i == 1 then
-				if db.upwards == true then
+				if module.db.upwards == true then
 					bars[i]:SetPoint("BOTTOMRIGHT", Ressesbars[1], "TOPRIGHT", 0, 13)
 				else
 					bars[i]:SetPoint("TOPRIGHT", Ressesbars[1], "BOTTOMRIGHT", 0, -13)
 				end
 			else
-				if db.upwards == true then
+				if module.db.upwards == true then
 					bars[i]:SetPoint("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
 				else
 					bars[i]:SetPoint("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
@@ -142,7 +138,7 @@ local UpdatePositions = function()
 			if i == 1 then
 				bars[i]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
 			else
-				if db.upwards == true then
+				if module.db.upwards == true then
 					bars[i]:SetPoint("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
 				else
 					bars[i]:SetPoint("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
@@ -219,33 +215,31 @@ local OnMouseDown = function(self, button)
 end
 
 local CreateBar = function()
-	local db = E.db.mui.cooldowns.raid
-
 	local bar = CreateFrame("Statusbar", nil, E.UIParent)
 	bar:SetFrameStrata("MEDIUM")
-	if db.show_icon == true then
-		bar:SetSize(db.width, db.height)
+	if module.db.show_icon == true then
+		bar:SetSize(module.db.width, module.db.height)
 	else
-		bar:SetSize(db.width + 28, db.height)
+		bar:SetSize(module.db.width + 28, module.db.height)
 	end
-	bar:SetStatusBarTexture(E["media"].normTex)
+	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetMinMaxValues(0, 100)
 	bar:CreateBackdrop()
 
 	bar.bg = bar:CreateTexture(nil, "BACKGROUND")
 	bar.bg:SetAllPoints(bar)
-	bar.bg:SetTexture(E["media"].normTex)
+	bar.bg:SetTexture(E.media.normTex)
 
 	bar.left = CreateFS(bar)
 	bar.left:SetPoint("LEFT", 2, 0)
 	bar.left:SetJustifyH("LEFT")
-	bar.left:SetSize(db.width - 30, db.text.fontSize)
+	bar.left:SetSize(module.db.width - 30, module.db.text.fontSize)
 
 	bar.right = CreateFS(bar)
 	bar.right:SetPoint("RIGHT", 1, 0)
 	bar.right:SetJustifyH("RIGHT")
 
-	if db.show_icon == true then
+	if module.db.show_icon == true then
 		bar.icon = CreateFrame("Button", nil, bar)
 		bar.icon:SetWidth(bar:GetHeight() + 6)
 		bar.icon:SetHeight(bar.icon:GetWidth())
@@ -257,8 +251,6 @@ local CreateBar = function()
 end
 
 local StartTimer = function(name, spellId)
-	local db = E.db.mui.cooldowns.raid
-
 	local spell, _, icon = GetSpellInfo(spellId)
 	if charges and spellId == 20484 then
 		for _, v in pairs(Ressesbars) do
@@ -288,7 +280,7 @@ local StartTimer = function(name, spellId)
 		bar.spell = spell
 		bar.spellId = spellId
 
-		if db.show_icon == true then
+		if module.db.show_icon == true then
 			bar.icon:SetNormalTexture(icon)
 			bar.icon:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		end
@@ -309,20 +301,20 @@ local StartTimer = function(name, spellId)
 		bar:SetScript("OnMouseDown", OnMouseDown)
 		tinsert(Ressesbars, bar)
 
-		if db.expiration == true then
+		if module.db.expiration == true then
 			tsort(Ressesbars, sortByExpiration)
 		end
 	else
 		bar.startTime = GetTime()
-		bar.endTime = GetTime() + RC.Spells[spellId]
+		bar.endTime = GetTime() + module.Spells[spellId]
 		bar.left:SetText(format("%s - %s", name:gsub("%-[^|]+", ""), spell))
-		bar.right:SetText(FormatTime(RC.Spells[spellId]))
+		bar.right:SetText(FormatTime(module.Spells[spellId]))
 		bar.isResses = false
 		bar.name = name
 		bar.spell = spell
 		bar.spellId = spellId
 
-		if db.show_icon == true then
+		if module.db.show_icon == true then
 			bar.icon:SetNormalTexture(icon)
 			bar.icon:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		end
@@ -343,7 +335,7 @@ local StartTimer = function(name, spellId)
 		bar:SetScript("OnMouseDown", OnMouseDown)
 		tinsert(bars, bar)
 
-		if db.expiration == true then
+		if module.db.expiration == true then
 			tsort(bars, sortByExpiration)
 		end
 	end
@@ -357,9 +349,6 @@ f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 f:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 f:RegisterEvent("ENCOUNTER_END")
 f:SetScript("OnEvent", function(self, event)
-	if E.db.mui.cooldowns == nil then E.db.mui.cooldowns = {} end -- prevent a nil error
-	local db = E.db.mui.cooldowns.raid
-
 	if event == "PLAYER_ENTERING_WORLD" or event == "ZONE_CHANGED_NEW_AREA" then
 		if select(2, IsInInstance()) == "raid" and IsInGroup() then
 			self:RegisterEvent("SPELL_UPDATE_CHARGES")
@@ -396,8 +385,8 @@ f:SetScript("OnEvent", function(self, event)
 			else
 				return
 			end
-			if RC.Spells[spellId] and IsInGroup() and ((db.show_inraid and type == "raid") or (db.show_inparty and type == "party") or (db.show_inarena and type == "arena")) then
-				if (sourceName == UnitName("player") and db.show_self == true) or sourceName ~= UnitName("player") then
+			if module.Spells[spellId] and IsInGroup() and ((module.db.show_inraid and type == "raid") or (module.db.show_inparty and type == "party") or (module.db.show_inarena and type == "arena")) then
+				if (sourceName == UnitName("player") and module.db.show_self == true) or sourceName ~= UnitName("player") then
 					StartTimer(sourceName, spellId)
 				end
 			end
@@ -416,13 +405,10 @@ f:SetScript("OnEvent", function(self, event)
 	end
 end)
 
-function RC:Initialize()
-	local db = E.db.mui.cooldowns.raid
-	if not db.enable then return end
+function module:Initialize()
+	MER:RegisterDB(self, "raidCD")
 
-	MER:RegisterDB(self, "cooldownFlash")
-
-	for spell in pairs(RC.Spells) do
+	for spell in pairs(module.Spells) do
 		local name = GetSpellInfo(spell)
 		if not name then
 			MER:Print("|cffff0000WARNING: spell ID ["..tostring(spell).."] no longer exists! Please report this on my Discord.|r")
@@ -430,10 +416,10 @@ function RC:Initialize()
 	end
 
 	RaidCDAnchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 3, -100)
-	if db.show_icon == true then
-		RaidCDAnchor:SetSize(db.width + 32, db.height + 10)
+	if self.db.show_icon == true then
+		RaidCDAnchor:SetSize(self.db.width + 32, self.db.height + 10)
 	else
-		RaidCDAnchor:SetSize(db.width + 32, db.height + 4)
+		RaidCDAnchor:SetSize(self.db.width + 32, self.db.height + 4)
 	end
 	E:CreateMover(RaidCDAnchor, "MER_RaidCDMover", L["Raid Cooldown"], nil, nil, nil, 'ALL,RAID,PARTY,ARENA,MERATHILISUI', nil, "mui,modules,cooldowns,raid")
 
@@ -446,9 +432,8 @@ function RC:Initialize()
 	end
 end
 
-
 local function InitializeCallback()
-	RC:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(RC:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

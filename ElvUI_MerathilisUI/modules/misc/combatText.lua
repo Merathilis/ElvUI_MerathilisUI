@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERA = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
+local module = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
 local LSM = E.LSM
-MERA.modName = L["Announce"]
+module.modName = L["Announce"]
 
 --Cache global variables
 --Lua functions
@@ -25,17 +25,17 @@ local UnitName = UnitName
 
 local iconsize = 24
 
-function MERA:PLAYER_REGEN_ENABLED()
+function module:PLAYER_REGEN_ENABLED()
 	if (UnitIsDead("player")) then return end
 	self:AlertRun(LEAVING_COMBAT.." !", 0.1, 1, 0.1)
 end
 
-function MERA:PLAYER_REGEN_DISABLED()
+function module:PLAYER_REGEN_DISABLED()
 	if (UnitIsDead("player")) then return end
 	self:AlertRun(ENTERING_COMBAT.." !", 1, 0.1, 0.1)
 end
 
-function MERA:CHAT_MSG_SKILL(event, message)
+function module:CHAT_MSG_SKILL(event, message)
 	UIErrorsFrame:AddMessage(message, ChatTypeInfo["SKILL"].r, ChatTypeInfo["SKILL"].g, ChatTypeInfo["SKILL"].b)
 end
 
@@ -156,7 +156,7 @@ end
 
 backrun:SetScript("OnUpdate",rollback)
 
-function MERA:AlertRun(f, r, g, b)
+function module:AlertRun(f, r, g, b)
 	flowingframe:Hide()
 	updaterun:Hide()
 	backrun:Hide()
@@ -192,7 +192,7 @@ function MERA:AlertRun(f, r, g, b)
 	flowingframe:Show()
 end
 
-function MERA:Initialize()
+function module:Initialize()
 	if E.db.mui.general.CombatState then
 		self:RegisterEvent("PLAYER_REGEN_ENABLED")
 		self:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -204,7 +204,7 @@ function MERA:Initialize()
 end
 
 local function InitializeCallback()
-	MERA:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERA:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

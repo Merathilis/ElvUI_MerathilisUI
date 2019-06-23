@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule("mUIMisc")
 local MERS = MER:GetModule("muiSkins")
-
+local COMP = MER:GetModule("mUICompatibility")
 -- Cache global variables
 -- Lua functions
 local _G = _G
@@ -77,6 +77,10 @@ function MI:CreateRaidManager()
 			self:Hide()
 		end
 	end)
+
+	if COMP.NUI then
+		MER.raidManagerHeader = header; -- Export this so NihilistUI can add a shadow to it
+	end
 
 	local roleFrame = CreateFrame("Frame", nil, header)
 	roleFrame:SetAllPoints()

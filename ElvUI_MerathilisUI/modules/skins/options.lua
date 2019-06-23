@@ -23,6 +23,7 @@ local DecorAddons = {
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 	{"Clique", L["Clique"], "cl"},
+	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"}
 }
 
 local SupportedProfiles = {
@@ -37,6 +38,7 @@ local SupportedProfiles = {
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
+	{"Touhin", "Thouhin"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -532,6 +534,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ls_Toasts' then
 					MER:LoadLSProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'Touhin' then
+					MER:LoadTouhinProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)

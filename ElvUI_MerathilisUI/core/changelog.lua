@@ -17,17 +17,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Change the load order in the TOC file, hopefully this will fix the nil errors.",
-		"• Update the size for my changelog in game.",
-		"• Adjust nameplate settings in my install.",
+		"• Updated compatibility with ElvUI_NihilisUI.",
+		"• Updated Enhanced Nameplate Auras to display the Player Name on CC Buffs.",
+		"• Added new Font Expressway Bold and use it. (You need to run the Installer again)",
+		"• Small Layout update. (You need to run the Installer again) if you want it.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• Removed NSCT because of restriction that will be introduced in 8.2",
-		"• You should download 'FLOATING COMBAT TEXT' AddOn by Simpy instead",
-		" --> https://www.tukui.org/addons.php?id=137",
-
 		-- "• ''",
 }
 

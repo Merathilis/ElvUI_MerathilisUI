@@ -43,6 +43,7 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 -- Chat
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
+L["BACK"] = "Zurück"
 L["has come |cff298F00online|r."] = "ist jetzt |cff298F00online|r." -- Guild Message
 L["has gone |cffff0000offline|r."] = "ist jetzt |cffff0000offline|r." -- Guild Message
 L[" has come |cff298F00online|r."] = " ist jetzt |cff298F00online|r." -- Battle.Net Message
@@ -473,6 +474,7 @@ L["Sat"] = "Sa"
 L["Castbar Target"] = "Zauberleisten Ziel"
 L["Castbar Shield"] = "Zauberleisten Schild"
 L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000Hinweis:|r Dieses wird die ElvUI Namensplaketten Optionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert von einer Größe von: 30 x 30 "
 
 -- Install
 L["Welcome"] = "Willkommen"

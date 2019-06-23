@@ -6,9 +6,8 @@ local MI = MER:GetModule("mUIMisc")
 local _G = _G
 local pairs = pairs
 -- WoW API / Variables
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: hooksecurefunc
+local hooksecurefunc = hooksecurefunc
+-- GLOBALS:
 
 function MI:UpdateMoverTransparancy()
 	local mover

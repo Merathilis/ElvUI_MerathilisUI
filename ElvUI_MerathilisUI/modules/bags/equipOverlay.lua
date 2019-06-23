@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERBI = MER:NewModule("mUIBagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:NewModule("mUIBagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local B = E:GetModule("Bags")
 
 --Cache global variables
@@ -25,9 +25,9 @@ local GetContainerNumSlots = GetContainerNumSlots
 -- Credits Shadow&Light
 
 local updateTimer
-MERBI.containers = {}
-MERBI.infoArray = {}
-MERBI.equipmentMap = {}
+module.containers = {}
+module.infoArray = {}
+module.equipmentMap = {}
 
 local function Utf8Sub(str, start, numChars)
 	local currentIndex = start
@@ -63,7 +63,7 @@ local quickFormat = {
 
 local function BuildEquipmentMap(clear)
 	-- clear mapped names
-	for k, v in pairs(MERBI.equipmentMap) do
+	for k, v in pairs(module.equipmentMap) do
 		twipe(v)
 	end
 
@@ -82,8 +82,8 @@ local function BuildEquipmentMap(clear)
 					player, bank, bags, _, slot, bag = EquipmentManager_UnpackLocation(location)
 					if ((bank or bags) and slot and bag) then
 						key = MapKey(bag, slot)
-						MERBI.equipmentMap[key] = MERBI.equipmentMap[key] or {}
-						tinsert(MERBI.equipmentMap[key], name)
+						module.equipmentMap[key] = module.equipmentMap[key] or {}
+						tinsert(module.equipmentMap[key], name)
 					end
 				end
 			end
@@ -104,8 +104,8 @@ local function UpdateContainerFrame(frame, bag, slot)
 		frame.equipmentinfo:SetAllPoints(frame)
 
 		local key = MapKey(bag, slot)
-		if MERBI.equipmentMap[key] then
-			quickFormat[#MERBI.equipmentMap[key] < 4 and #MERBI.equipmentMap[key] or 3](frame.equipmentinfo, MERBI.equipmentMap[key])
+		if module.equipmentMap[key] then
+			quickFormat[#module.equipmentMap[key] < 4 and #module.equipmentMap[key] or 3](frame.equipmentinfo, module.equipmentMap[key])
 		else
 			quickFormat[0](frame.equipmentinfo, nil)
 		end
@@ -116,7 +116,7 @@ local function UpdateBagInformation(clear)
 	updateTimer = nil
 
 	BuildEquipmentMap(clear)
-	for _, container in pairs(MERBI.containers) do
+	for _, container in pairs(module.containers) do
 		for _, bagID in ipairs(container.BagIDs) do
 			for slotID = 1, GetContainerNumSlots(bagID) do
 				UpdateContainerFrame(container.Bags[bagID][slotID], bagID, slotID)
@@ -128,11 +128,11 @@ end
 local function DelayUpdateBagInformation(event)
 	-- delay to make sure multiple bag events are consolidated to one update.
 	if not updateTimer then
-		updateTimer = MERBI:ScheduleTimer(UpdateBagInformation, .25)
+		updateTimer = module:ScheduleTimer(UpdateBagInformation, .25)
 	end
 end
 
-function MERBI:ToggleSettings()
+function module:ToggleSettings()
 	if updateTimer then
 		self:CancelTimer(updateTimer)
 	end
@@ -148,21 +148,24 @@ function MERBI:ToggleSettings()
 	end
 end
 
-function MERBI:Initialize()
+function module:Initialize()
 	if not E.private.bags.enable then return end
 
-	tinsert(MERBI.containers, _G["ElvUI_ContainerFrame"])
+	module.db = E.db.mui.bags.equipOverlay
+	MER:RegisterDB(self, "equipOverlay")
+
+	tinsert(module.containers, _G["ElvUI_ContainerFrame"])
 	self:SecureHook(B, "OpenBank", function()
 		self:Unhook(B, "OpenBank")
-		tinsert(MERBI.containers, _G["ElvUI_BankContainerFrame"])
-		MERBI:ToggleSettings()
+		tinsert(module.containers, _G["ElvUI_BankContainerFrame"])
+		module:ToggleSettings()
 	end)
 
-	MERBI:ToggleSettings()
+	module:ToggleSettings()
 end
 
 local function InitializeCallback()
-	MERBI:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERBI:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)
