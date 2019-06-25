@@ -18,7 +18,12 @@ local C_TransmogCollection_GetSourceInfo = C_TransmogCollection.GetSourceInfo
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function styleCollections()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or E.private.muiSkins.blizzard.collections ~= true then return end
+	if
+		E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.collections ~= true or
+			E.private.muiSkins.blizzard.collections ~= true
+	 then
+		return
+	end
 
 	local CollectionsJournal = _G.CollectionsJournal
 	CollectionsJournal:Styling()
@@ -58,8 +63,8 @@ local function styleCollections()
 
 		bu.DragButton.ActiveTexture:SetAlpha(0)
 
-		bu.pulseName = bu:CreateFontString(nil, 'OVERLAY', 'GameFontNormal')
-		bu.pulseName:SetJustifyH('LEFT')
+		bu.pulseName = bu:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+		bu.pulseName:SetJustifyH("LEFT")
 		bu.pulseName:SetSize(147, 25)
 		bu.pulseName:SetAllPoints(bu.name)
 		bu.pulseName:Hide()
@@ -79,20 +84,27 @@ local function styleCollections()
 		bu.pulseName.anim.alphain:SetToAlpha(1)
 		bu.pulseName.anim.alphain:SetDuration(1)
 
-		hooksecurefunc(bu.name, 'SetText', function(self, text)
-			bu.pulseName:SetText(text)
-			bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
-		end)
-
-		bu:HookScript("OnUpdate", function(self)
-			if self.active then
-				bu.pulseName:Show()
-				bu.pulseName.anim:Play()
-			elseif bu.pulseName.anim:IsPlaying() then
-				bu.pulseName:Hide()
-				bu.pulseName.anim:Stop()
+		hooksecurefunc(
+			bu.name,
+			"SetText",
+			function(self, text)
+				bu.pulseName:SetText(text)
+				bu.pulseName:SetTextColor(unpack(E["media"].rgbvaluecolor))
 			end
-		end)
+		)
+
+		bu:HookScript(
+			"OnUpdate",
+			function(self)
+				if self.active then
+					bu.pulseName:Show()
+					bu.pulseName.anim:Play()
+				elseif bu.pulseName.anim:IsPlaying() then
+					bu.pulseName:Hide()
+					bu.pulseName.anim:Stop()
+				end
+			end
+		)
 	end
 
 	-- Pet list
@@ -150,29 +162,32 @@ local function styleCollections()
 	MERS:CreateBDFrame(card.xpBar, .25)
 
 	for i = 1, 6 do
-		local bu = card["spell"..i]
+		local bu = card["spell" .. i]
 		MERS:ReskinIcon(bu.icon)
 	end
 
-	hooksecurefunc("PetJournal_UpdatePetCard", function(self)
-		local border = self.PetInfo.qualityBorder
-		local r, g, b
+	hooksecurefunc(
+		"PetJournal_UpdatePetCard",
+		function(self)
+			local border = self.PetInfo.qualityBorder
+			local r, g, b
 
-		if border:IsShown() then
-			r, g, b = self.PetInfo.qualityBorder:GetVertexColor()
-		else
-			r, g, b = 0, 0, 0
+			if border:IsShown() then
+				r, g, b = self.PetInfo.qualityBorder:GetVertexColor()
+			else
+				r, g, b = 0, 0, 0
+			end
+
+			self.PetInfo.icon.bg:SetVertexColor(r, g, b)
 		end
-
-		self.PetInfo.icon.bg:SetVertexColor(r, g, b)
-	end)
+	)
 
 	-- Pet loadout
 
 	for i = 1, 3 do
-		local bu = PetJournal.Loadout["Pet"..i]
+		local bu = PetJournal.Loadout["Pet" .. i]
 
-		_G["PetJournalLoadoutPet"..i.."BG"]:Hide()
+		_G["PetJournalLoadoutPet" .. i .. "BG"]:Hide()
 
 		bu.iconBorder:SetAlpha(0)
 		bu.qualityBorder:SetTexture("")
@@ -198,16 +213,16 @@ local function styleCollections()
 		bu.xpBar:SetStatusBarTexture(E["media"].normTex)
 		MERS:CreateBDFrame(bu.xpBar, .25)
 
-		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarLeft"]:Hide()
-		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarRight"]:Hide()
-		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarMiddle"]:Hide()
-		_G["PetJournalLoadoutPet"..i.."HealthFramehealthStatusBarBGMiddle"]:Hide()
+		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarLeft"]:Hide()
+		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarRight"]:Hide()
+		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarMiddle"]:Hide()
+		_G["PetJournalLoadoutPet" .. i .. "HealthFramehealthStatusBarBGMiddle"]:Hide()
 
 		bu.healthFrame.healthBar:SetStatusBarTexture(E["media"].normTex)
 		MERS:CreateBDFrame(bu.healthFrame.healthBar, .25)
 
 		for j = 1, 3 do
-			local spell = bu["spell"..j]
+			local spell = bu["spell" .. j]
 
 			spell:SetPushedTexture("")
 			spell:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
@@ -218,16 +233,19 @@ local function styleCollections()
 		end
 	end
 
-	hooksecurefunc("PetJournal_UpdatePetLoadOut", function()
-		for i = 1, 3 do
-			local bu = PetJournal.Loadout["Pet"..i]
+	hooksecurefunc(
+		"PetJournal_UpdatePetLoadOut",
+		function()
+			for i = 1, 3 do
+				local bu = PetJournal.Loadout["Pet" .. i]
 
-			bu.icon.bg:SetShown(not bu.helpFrame:IsShown())
-			bu.icon.bg:SetBackdropBorderColor(bu.qualityBorder:GetVertexColor())
+				bu.icon.bg:SetShown(not bu.helpFrame:IsShown())
+				bu.icon.bg:SetBackdropBorderColor(bu.qualityBorder:GetVertexColor())
 
-			bu.dragButton:SetEnabled(not bu.helpFrame:IsShown())
+				bu.dragButton:SetEnabled(not bu.helpFrame:IsShown())
+			end
 		end
-	end)
+	)
 
 	PetJournal.SpellSelect.BgEnd:Hide()
 	PetJournal.SpellSelect.BgTiled:Hide()
@@ -241,17 +259,17 @@ local function styleCollections()
 
 	-- Toys
 	for i = 1, 18 do
-		local button = ToyBox.iconsFrame['spellButton'..i]
+		local button = ToyBox.iconsFrame["spellButton" .. i]
 		MERS:StyleButton(button)
 		MERS:ReskinIcon(button.iconTexture)
 		MERS:ReskinIcon(button.iconTextureUncollected)
 
-		button.name:SetPoint('LEFT', button, 'RIGHT', 9, 0)
+		button.name:SetPoint("LEFT", button, "RIGHT", 9, 0)
 
 		local bg = MERS:CreateBDFrame(button)
-		bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
-		bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
-		bg:SetPoint('RIGHT', button.name, 'RIGHT', 0, 0)
+		bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
+		bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
+		bg:SetPoint("RIGHT", button.name, "RIGHT", 0, 0)
 		MERS:CreateGradient(bg)
 	end
 
@@ -262,37 +280,44 @@ local function styleCollections()
 	local progressBar = HeirloomsJournal.progressBar
 	progressBar.text:SetPoint("CENTER", 0, 1)
 
-
-	hooksecurefunc(HeirloomsJournal, "UpdateButton", function(_, button)
-		if not button.IsStyled then
-			local bg = MERS:CreateBDFrame(button)
-			bg:SetPoint('TOPLEFT', button, 'TOPRIGHT', 0, -2)
-			bg:SetPoint('BOTTOMLEFT', button, 'BOTTOMRIGHT', 0, 2)
-			bg:SetPoint('RIGHT', button.name, 'RIGHT', 2, 0)
-			MERS:CreateGradient(bg)
-			button.IsStyled = true
-		end
-	end)
-
-	-- Header
-	hooksecurefunc(HeirloomsJournal, "LayoutCurrentPage", function()
-		for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
-			local header = HeirloomsJournal.heirloomHeaderFrames[i]
-			if not header.IsStyled then
-				header.text:SetTextColor(1, 1, 1)
-				header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
-
-				header.IsStyled = true
+	hooksecurefunc(
+		HeirloomsJournal,
+		"UpdateButton",
+		function(_, button)
+			if not button.IsStyled then
+				local bg = MERS:CreateBDFrame(button)
+				bg:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, -2)
+				bg:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT", 0, 2)
+				bg:SetPoint("RIGHT", button.name, "RIGHT", 2, 0)
+				MERS:CreateGradient(bg)
+				button.IsStyled = true
 			end
 		end
-	end)
+	)
+
+	-- Header
+	hooksecurefunc(
+		HeirloomsJournal,
+		"LayoutCurrentPage",
+		function()
+			for i = 1, #HeirloomsJournal.heirloomHeaderFrames do
+				local header = HeirloomsJournal.heirloomHeaderFrames[i]
+				if not header.IsStyled then
+					header.text:SetTextColor(1, 1, 1)
+					header.text:FontTemplate(E["media"].normFont, 16, "OUTLINE")
+
+					header.IsStyled = true
+				end
+			end
+		end
+	)
 
 	-- [[ WardrobeCollectionFrame ]]
 	local WardrobeCollectionFrame = _G.WardrobeCollectionFrame
 	local ItemsCollectionFrame = WardrobeCollectionFrame.ItemsCollectionFrame
 
 	for index = 1, 2 do
-		local tab = _G["WardrobeCollectionFrameTab"..index]
+		local tab = _G["WardrobeCollectionFrameTab" .. index]
 		for i = 1, 6 do
 			select(i, tab:GetRegions()):SetAlpha(0)
 		end
@@ -307,16 +332,19 @@ local function styleCollections()
 		tab.bg:SetPoint("BOTTOMRIGHT", -3, -1)
 	end
 
-	hooksecurefunc("WardrobeCollectionFrame_SetTab", function(tabID)
-		for index = 1, 2 do
-			local tab = _G["WardrobeCollectionFrameTab"..index]
-			if tabID == index then
-				tab.bg:SetBackdropColor(r, g, b, .45)
-			else
-				tab.bg:SetBackdropColor(0, 0, 0, .2)
+	hooksecurefunc(
+		"WardrobeCollectionFrame_SetTab",
+		function(tabID)
+			for index = 1, 2 do
+				local tab = _G["WardrobeCollectionFrameTab" .. index]
+				if tabID == index then
+					tab.bg:SetBackdropColor(r, g, b, .45)
+				else
+					tab.bg:SetBackdropColor(0, 0, 0, .2)
+				end
 			end
 		end
-	end)
+	)
 
 	-- Progress bar
 	local progressBar = WardrobeCollectionFrame.progressBar
@@ -345,23 +373,27 @@ local function styleCollections()
 	DetailsFrame.ModelFadeTexture:Hide()
 	DetailsFrame.IconRowBackground:Hide()
 
-	hooksecurefunc(SetsCollectionFrame, "SetItemFrameQuality", function(_, itemFrame)
-		local ic = itemFrame.Icon
-		if not ic.bg then
-			ic:SetTexCoord(unpack(E.TexCoords))
-			itemFrame.IconBorder:Hide()
-			itemFrame.IconBorder.Show = MER.dummy
-			ic.bg = MERS:CreateBDFrame(ic)
-		end
+	hooksecurefunc(
+		SetsCollectionFrame,
+		"SetItemFrameQuality",
+		function(_, itemFrame)
+			local ic = itemFrame.Icon
+			if not ic.bg then
+				ic:SetTexCoord(unpack(E.TexCoords))
+				itemFrame.IconBorder:Hide()
+				itemFrame.IconBorder.Show = MER.dummy
+				ic.bg = MERS:CreateBDFrame(ic)
+			end
 
-		if itemFrame.collected then
-			local quality = C_TransmogCollection_GetSourceInfo(itemFrame.sourceID).quality
-			local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
-			ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
-		else
-			ic.bg:SetBackdropBorderColor(0, 0, 0)
+			if itemFrame.collected then
+				local quality = C_TransmogCollection_GetSourceInfo(itemFrame.sourceID).quality
+				local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
+				ic.bg:SetBackdropBorderColor(color.r, color.g, color.b)
+			else
+				ic.bg:SetBackdropBorderColor(0, 0, 0)
+			end
 		end
-	end)
+	)
 
 	local SetsTransmogFrame = WardrobeCollectionFrame.SetsTransmogFrame
 	for i = 1, 34 do
@@ -396,10 +428,24 @@ local function styleCollections()
 	end
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 
-	local slots = {"Head", "Shoulder", "Chest", "Waist", "Legs", "Feet", "Wrist", "Hands", "Back", "Shirt", "Tabard", "MainHand", "SecondaryHand"}
+	local slots = {
+		"Head",
+		"Shoulder",
+		"Chest",
+		"Waist",
+		"Legs",
+		"Feet",
+		"Wrist",
+		"Hands",
+		"Back",
+		"Shirt",
+		"Tabard",
+		"MainHand",
+		"SecondaryHand"
+	}
 
 	for i = 1, #slots do
-		local slot = WardrobeTransmogFrame.Model[slots[i].."Button"]
+		local slot = WardrobeTransmogFrame.Model[slots[i] .. "Button"]
 		if slot then
 			slot.Border:Hide()
 			slot.Icon:SetDrawLayer("BACKGROUND", 1)
@@ -414,7 +460,10 @@ local function styleCollections()
 
 	-- Edit Frame
 	for i = 1, 11 do
-		select(i, _G.WardrobeOutfitEditFrame:GetRegions()):Hide()
+		local region = select(i, _G.WardrobeOutfitEditFrame:GetRegions())
+		if region then
+			region:Hide()
+		end
 	end
 	_G.WardrobeOutfitEditFrame.Title:Show()
 
