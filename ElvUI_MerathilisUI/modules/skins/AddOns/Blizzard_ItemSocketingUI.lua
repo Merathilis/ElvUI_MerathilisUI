@@ -43,23 +43,6 @@ local function styleSocketing()
 
 		bu.bg = MERS:CreateBDFrame(bu, .25)
 	end
-
-	hooksecurefunc("ItemSocketingFrame_Update", function()
-		for i = 1, _G.MAX_NUM_SOCKETS do
-			local color = _G.GEM_TYPE_INFO[GetSocketTypes(i)]
-			_G["ItemSocketingSocket"..i].bg:SetBackdropBorderColor(color.r, color.g, color.b)
-		end
-
-		local num = GetNumSockets()
-		if num == 3 then
-			_G.ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", -75, 39)
-		elseif num == 2 then
-			_G.ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", -35, 39)
-		else
-			_G.ItemSocketingSocket1:SetPoint("BOTTOM", ItemSocketingFrame, "BOTTOM", 0, 39)
-		end
-		_G.ItemSocketingDescription:SetBackdrop(nil)
-	end)
 end
 
 S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "mUISocketing", styleSocketing)
