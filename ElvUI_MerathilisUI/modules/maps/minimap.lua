@@ -1,8 +1,8 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MM = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local LCG = LibStub('LibCustomGlow-1.0')
-MM.modName = L["MiniMap"]
+module.modName = L["MiniMap"]
 
 --Cache global variables
 --Lua functions
@@ -21,7 +21,7 @@ local Minimap = _G["Minimap"]
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-function MM:CheckMail()
+function module:CheckMail()
 	local inv = C_Calendar_GetNumPendingInvites()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
@@ -36,7 +36,7 @@ function MM:CheckMail()
 	end
 end
 
-function MM:MiniMapCoords()
+function module:MiniMapCoords()
 	if E.db.mui.maps.minimap.coords.enable ~= true then return end
 
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
@@ -68,7 +68,7 @@ function MM:MiniMapCoords()
 	Minimap:HookScript("OnLeave", function() Coords:Hide() end)
 end
 
-function MM:MiniMapPing()
+function module:MiniMapPing()
 	if E.db.mui.maps.minimap.ping.enable ~= true then return end
 
 	local pos = E.db.mui.maps.minimap.ping.position or "TOP"
@@ -101,8 +101,11 @@ function MM:MiniMapPing()
 	end)
 end
 
-function MM:Initialize()
+function module:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
+
+	local db = E.db.mui.maps
+	MER:RegisterDB(self, "minimap")
 
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then
@@ -126,7 +129,7 @@ function MM:Initialize()
 end
 
 local function InitializeCallback()
-	MM:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MM:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

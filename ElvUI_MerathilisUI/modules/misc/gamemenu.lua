@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERG = MER:NewModule("mUIGameMenu")
+local module = MER:NewModule("mUIGameMenu")
 local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
@@ -66,15 +66,15 @@ MER.NPCS = {
 }
 
 MER.PEPE = {
-	[1] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR_HALLOWEEN.m2", -- Pepe (Halloween)
-	[2] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR1.m2", -- Knight Pepe
-	[3] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR2.m2", -- Pirate Pepe
-	[4] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR3.m2", -- Ninja Pepe
-	[5] = "World/expansion05/doodads/ORC/DOODADS/6HU_GARRISON_ORANGEBIRD_VAR4.m2", -- Viking Pepe
-	[6] = "World/Expansion05/Doodads/Human/Doodads/6HU_Garrison_OrangeBird_VAR5.M2", -- Illidan Pepe
-	[7] = "World/Expansion06/Doodads/Dalaran/7DL_DALARAN_ORANGEBIRD.m2", -- Traveller Pepe
-	[8] = "world/expansion07/doodads/human/8hu_kultiras_orangebird01.m2", -- Underwater Pepe
-	[9] = "world/expansion07/doodads/zandalaritroll/8tr_zandalari_orangebird01.m2", -- Troll Pepe
+	[1] = "1246563", -- Pepe (Halloween)
+	[2] = "1131783", -- Knight Pepe
+	[3] = "1131795", -- Pirate Pepe
+	[4] = "1131797", -- Ninja Pepe
+	[5] = "1131798", -- Viking Pepe
+	[6] = "1534076", -- Illidan Pepe
+	[7] = "1386540", -- Traveller Pepe
+	[8] = "1859375", -- Underwater Pepe
+	[9] = "1861550", -- Troll Pepe
 }
 
 --[[
@@ -213,7 +213,7 @@ local function Pepe_Model(self)
 	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
-function MERG:GameMenu()
+function module:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
 		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
@@ -302,6 +302,7 @@ function MERG:GameMenu()
 		npcModel:Show()
 	end
 
+	-- Find out new ID's
 	if not pepeHolder then
 		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		pepeHolder:SetSize(150, 150)
@@ -315,7 +316,7 @@ function MERG:GameMenu()
 	end
 end
 
-function MERG:Initialize()
+function module:Initialize()
 	if E.db.mui.general.GameMenu then
 		self:GameMenu()
 		E:UpdateBorderColors()
@@ -323,7 +324,7 @@ function MERG:Initialize()
 end
 
 local function InitializeCallback()
-	MERG:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERG:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

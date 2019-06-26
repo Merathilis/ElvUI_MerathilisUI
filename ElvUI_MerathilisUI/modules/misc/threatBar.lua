@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERTB = MER:NewModule("ThreatBar", "AceEvent-3.0")
-MERTB.modName = L["ThreatBar"]
+local module = MER:NewModule("ThreatBar", "AceEvent-3.0")
+module.modName = L["ThreatBar"]
 
 -- Cache global variables
 -- Lua functions
@@ -24,10 +24,10 @@ local UNKNOWN = UNKNOWN
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: ElvUF, UIParent, ChatTab_Datatext_Panel
 
-E.Threat = MERTB
-MERTB.list = {};
+E.Threat = module
+module.list = {};
 
-function MERTB:UpdatePosition()
+function module:UpdatePosition()
 	if E.db.mui.datatexts.rightChatTabDatatextPanel then
 		self.bar:SetParent(_G["ChatTab_Datatext_Panel"])
 		self.bar:SetInside(_G["ChatTab_Datatext_Panel"])
@@ -37,7 +37,7 @@ function MERTB:UpdatePosition()
 	self.bar:SetFrameStrata("HIGH")
 end
 
-function MERTB:GetLargestThreatOnList(percent)
+function module:GetLargestThreatOnList(percent)
 	local largestValue, largestUnit = 0, nil
 	for unit, threatPercent in pairs(self.list) do
 		if threatPercent > largestValue then
@@ -49,7 +49,7 @@ function MERTB:GetLargestThreatOnList(percent)
 	return (percent - largestValue), largestUnit
 end
 
-function MERTB:GetColor(unit)
+function module:GetColor(unit)
 	local unitReaction = UnitReaction(unit, "player")
 	local _, unitClass = UnitClass(unit)
 	if (UnitIsPlayer(unit)) then
@@ -64,7 +64,7 @@ function MERTB:GetColor(unit)
 	end
 end
 
-function MERTB:Update()
+function module:Update()
 	local isInGroup, isInRaid, petExists = IsInGroup(), IsInRaid(), UnitExists("pet")
 	local _, status, percent = UnitDetailedThreatSituation("player", "target")
 	if percent and percent > 0 and (isInGroup or petExists) then
@@ -119,7 +119,7 @@ function MERTB:Update()
 	twipe(self.list)
 end
 
-function MERTB:ToggleEnable()
+function module:ToggleEnable()
 	if self.db.enable then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", "Update")
 		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", "Update")
@@ -135,8 +135,9 @@ function MERTB:ToggleEnable()
 	end
 end
 
-function MERTB:Initialize()
-	self.db = E.db.mui.datatexts.threatBar
+function module:Initialize()
+	local db = E.db.mui.datatexts.threatBar
+	MER:RegisterDB(self, "datatexts")
 
 	self.bar = CreateFrame("StatusBar", "mui_ThreatBar", E.UIParent)
 	self.bar:SetStatusBarTexture(E["media"].normTex)
@@ -153,7 +154,7 @@ function MERTB:Initialize()
 end
 
 local function InitializeCallback()
-	MERTB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERTB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

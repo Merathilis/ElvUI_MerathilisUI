@@ -75,34 +75,34 @@ end
 
 function MER:RegisterMedia()
 	--Fonts
-	E["media"].muiFont = LSM:Fetch("font", "Merathilis Prototype")
-	E["media"].muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
-	E["media"].muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
-	E["media"].muiTuk = LSM:Fetch("font", "Merathilis Tukui")
-	E["media"].muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
-	E["media"].muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
+	E.media.muiFont = LSM:Fetch("font", "Merathilis Prototype")
+	E.media.muiVisitor = LSM:Fetch("font", "Merathilis Visitor1")
+	E.media.muiVisitor2 = LSM:Fetch("font", "Merathilis Visitor2")
+	E.media.muiTuk = LSM:Fetch("font", "Merathilis Tukui")
+	E.media.muiRoboto = LSM:Fetch("font", "Merathilis Roboto-Black")
+	E.media.muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
 
 	-- Background
-	E["media"].muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
-	E["media"].muiSmoke = LSM:Fetch("background", "Merathilis Smoke")
+	E.media.muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
+	E.media.muiSmoke = LSM:Fetch("background", "Merathilis Smoke")
 
 	-- Border
-	E["media"].muiglowTex = LSM:Fetch("border", "MerathilisGlow")
+	E.media.muiglowTex = LSM:Fetch("border", "MerathilisGlow")
 
 	--Textures
-	E["media"].muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
-	E["media"].muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
-	E["media"].muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
-	E["media"].muiFlat = LSM:Fetch("statusbar", "MerathilisFlat")
-	E["media"].muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
-	E["media"].muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
-	E["media"].muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
-	E["media"].muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
-	E["media"].muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
+	E.media.muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
+	E.media.muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
+	E.media.muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
+	E.media.muiFlat = LSM:Fetch("statusbar", "MerathilisFlat")
+	E.media.muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
+	E.media.muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
+	E.media.muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")
+	E.media.muiNormTex = LSM:Fetch("statusbar", "MerathilisnormTex")
+	E.media.muiGradient = LSM:Fetch("statusbar", "MerathilisGradient")
 
 	-- Custom Textures
-	E["media"].roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
-	E["media"].checked = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\checked]]
+	E.media.roleIcons = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-LFG-ICON-ROLES]]
+	E.media.checked = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\checked]]
 
 	E:UpdateMedia()
 end
@@ -119,12 +119,12 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
-	SetCVar("blockTrades", 0) -- Lets set this on every login
 	MER:Initialize()
 end)
 
 -- Register own Modules
 MER["RegisteredModules"] = {}
+local modules = {}
 function MER:RegisterModule(name)
 	if self.initialized then
 		local module = self:GetModule(name)
@@ -145,6 +145,8 @@ function MER:InitializeModules()
 			MER:Print("Module <"..moduleName.."> does not loaded.")
 		end
 	end
+
+	MER.Modules = modules
 end
 
 function MER:Initialize()
@@ -166,15 +168,6 @@ function MER:Initialize()
 		E.db.mui.media = {}
 	end
 
-	self:RegisterMedia()
-	self:LoadCommands()
-	self:SplashScreen()
-
-	self:AddMoverCategories()
-
-	self:InitializeModules()
-	self:SetupProfileCallbacks()
-
 	-- Create empty saved vars if they doesn't exist
 	if not MERData then
 		MERData = {}
@@ -184,6 +177,14 @@ function MER:Initialize()
 		MERDataPerChar = {}
 	end
 
+	self:RegisterMedia()
+	self:LoadCommands()
+	self:SplashScreen()
+	self:AddMoverCategories()
+
+	self:InitializeModules()
+	self:SetupProfileCallbacks()
+
 	E:Delay(6, function() MER:CheckVersion() end)
 
 	-- run the setup again when a profile gets deleted.
@@ -192,7 +193,7 @@ function MER:Initialize()
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
-	if E.db.mui.general.LoginMsg then
+	if E.db.mui.installed and E.db.mui.general.LoginMsg then
 		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
 	end
 

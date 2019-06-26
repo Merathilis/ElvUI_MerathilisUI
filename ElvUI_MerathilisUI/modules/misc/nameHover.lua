@@ -19,8 +19,10 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: CUSTOM_CLASS_COLORS, RAID_CLASS_COLORS
+-- GLOBALS:
 
 local function Getcolor()
 	local reaction = UnitReaction("mouseover", "player") or 5

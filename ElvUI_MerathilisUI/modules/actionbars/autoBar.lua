@@ -41,8 +41,8 @@ local QuestItemList = {}
 local garrisonsmv = {118897, 118903}
 local garrisonsc = {114116, 114119, 114120, 120301, 120302}
 
-_G.BINDING_HEADER_MER_AutoSlotButton = MER.Title.. L["soltAutoButtons"]
-_G.BINDING_HEADER_MER_AutoQuestButton = MER.Title.. L["questAutoButtons"]
+_G.BINDING_HEADER_MER_AutoSlotButton = MER.Title..L["soltAutoButtons"]
+_G.BINDING_HEADER_MER_AutoQuestButton = MER.Title..L["questAutoButtons"]
 
 for i = 1, 12 do
 	_G["BINDING_NAME_CLICK AutoSlotButton"..i..":LeftButton"] = L["soltAutoButtons"]..i

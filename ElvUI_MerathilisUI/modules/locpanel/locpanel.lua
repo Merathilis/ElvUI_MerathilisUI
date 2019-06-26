@@ -1,8 +1,8 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
-local LP = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
-LP.modName = L["Location Panel"]
+local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
+module.modName = L["Location Panel"]
 
 -- Cache global variables
 -- Lua functions
@@ -44,12 +44,12 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local loc_panel
 local faction
 
-LP.CDformats = {
+module.CDformats = {
 	["DEFAULT"] = [[ (%s |TInterface\FriendsFrame\StatusIcon-Away:16|t)]],
 	["DEFAULT_ICONFIRST"] = [[ (|TInterface\FriendsFrame\StatusIcon-Away:16|t %s)]],
 }
 
-LP.ReactionColors = {
+module.ReactionColors = {
 	["sanctuary"] = {r = 0.41, g = 0.8, b = 0.94},
 	["arena"] = {r = 1, g = 0.1, b = 0.1},
 	["friendly"] = {r = 0.1, g = 1, b = 0.1},
@@ -58,12 +58,12 @@ LP.ReactionColors = {
 	["combat"] = {r = 1, g = 0.1, b = 0.1},
 }
 
-LP.MainMenu = {}
-LP.SecondaryMenu = {}
+module.MainMenu = {}
+module.SecondaryMenu = {}
 
-LP.ListUpdating = false
-LP.ListBuilding = false
-LP.InfoUpdatingTimer = nil
+module.ListUpdating = false
+module.ListBuilding = false
+module.InfoUpdatingTimer = nil
 
 local function GetDirection()
 	local _, y = _G["MER_LocPanel"]:GetCenter()
@@ -77,7 +77,7 @@ local function GetDirection()
 end
 
 --{ItemID, ButtonText, isToy}
-LP.Hearthstones = {
+module.Hearthstones = {
 	{6948}, -- Hearthstone
 	{54452, nil, true}, -- Ethereal Portal
 	{64488, nil, true}, -- The Innkeeper's Daughter
@@ -92,7 +92,7 @@ LP.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 }
 
-LP.PortItems = {
+module.PortItems = {
 	{140192, DUNGEON_FLOOR_DALARAN1}, --Dalaran Hearthstone
 	{110560, GARRISON_LOCATION_TOOLTIP}, --Garrison Hearthstone
 	{128353}, --Admiral's Compass
@@ -111,7 +111,7 @@ LP.PortItems = {
 	{95568, nil, true}, --Sunreaver beakon
 	{87548}, --Pandaria Arch
 }
-LP.EngineerItems = {
+module.EngineerItems = {
 	{18984, nil, true}, --Dimensional Ripper - Everlook
 	{18986, nil, true}, --Ultrasafe Transporter: Gadgetzan
 	{30542, nil, true}, --Dimensional Ripper - Area 52
@@ -121,7 +121,7 @@ LP.EngineerItems = {
 	{112059, nil, true}, --Wormhole Centrifuge
 	{151652, nil, true}, --Wormhole Generator: Argus
 }
-LP.Spells = {
+module.Spells = {
 	["DEATHKNIGHT"] = {
 		[1] = {text =  GetSpellInfo(50977),icon = MER:GetIconFromID("spell", 50977),secure = {buttonType = "spell",ID = 50977}, UseTooltip = true},
 	},
@@ -236,24 +236,24 @@ LP.Spells = {
 }
 
 local function CreateCoords()
-	if LP.db.format == nil then return end
+	if module.db.format == nil then return end
 
 	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
-	if x then x = format(LP.db.format, x * 100) else x = "0" or " " end
-	if y then y = format(LP.db.format, y * 100) else y = "0" or " " end
+	if x then x = format(module.db.format, x * 100) else x = "0" or " " end
+	if y then y = format(module.db.format, y * 100) else y = "0" or " " end
 
 	return x, y
 end
 
-function LP:CreateLocationPanel()
+function module:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
 	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
-	loc_panel:SetScript("OnMouseUp", LP.OnClick)
-	loc_panel:SetScript("OnUpdate", LP.UpdateCoords)
+	loc_panel:SetScript("OnMouseUp", module.OnClick)
+	loc_panel:SetScript("OnUpdate", module.UpdateCoords)
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "LOW")
@@ -272,26 +272,26 @@ function LP:CreateLocationPanel()
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
-	LP:Resize()
+	module:Resize()
 
 	-- Mover
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
-	LP.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
-	LP.Menu1:SetTemplate("Transparent", true)
-	LP.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
-	LP.Menu2:SetTemplate("Transparent", true)
-	DD:RegisterMenu(LP.Menu1)
-	DD:RegisterMenu(LP.Menu2)
-	LP.Menu1:SetScript("OnHide", function() twipe(LP.MainMenu) end)
-	LP.Menu2:SetScript("OnHide", function() twipe(LP.SecondaryMenu) end)
+	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
+	module.Menu1:SetTemplate("Transparent", true)
+	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
+	module.Menu2:SetTemplate("Transparent", true)
+	DD:RegisterMenu(module.Menu1)
+	DD:RegisterMenu(module.Menu2)
+	module.Menu1:SetScript("OnHide", function() twipe(module.MainMenu) end)
+	module.Menu2:SetScript("OnHide", function() twipe(module.SecondaryMenu) end)
 end
 
-function LP:OnClick(btn)
+function module:OnClick(btn)
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
-		if LP.db.coordshide then return end
-		if IsShiftKeyDown() and LP.db.linkcoords then
+		if module.db.coordshide then return end
+		if IsShiftKeyDown() and module.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
 			local message
@@ -306,23 +306,23 @@ function LP:OnClick(btn)
 		else
 			ToggleFrame(_G["WorldMapFrame"])
 		end
-	elseif btn == "RightButton" and LP.db.portals.enable and not InCombatLockdown() then
-		if LP.ListBuilding then MER:Print(L["Info for some items is not available yet. Please try again later"]) return end
-		LP:PopulateDropdown(true)
+	elseif btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
+		if module.ListBuilding then MER:Print(L["Info for some items is not available yet. Please try again later"]) return end
+		module:PopulateDropdown(true)
 	end
 end
 
-function LP:UpdateCoords(elapsed)
-	LP.db = E.db.mui.locPanel
+function module:UpdateCoords(elapsed)
+	module.db = E.db.mui.locPanel
 
-	LP.elapsed = LP.elapsed + elapsed
-	if LP.elapsed < (LP.db.throttle or 0.2) then return end
+	module.elapsed = module.elapsed + elapsed
+	if module.elapsed < (module.db.throttle or 0.2) then return end
 
 	--Coords
-	if E.MapInfo and LP.db.coordshide ~= true then
+	if E.MapInfo and module.db.coordshide ~= true then
 		local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
-		if x then x = format(LP.db.format, x * 100) else x = "0" end
-		if y then y = format(LP.db.format, y * 100) else y = "0" end
+		if x then x = format(module.db.format, x * 100) else x = "0" end
+		if y then y = format(module.db.format, y * 100) else y = "0" end
 		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
 		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
 		loc_panel.Xcoord.Text:SetText(x)
@@ -334,17 +334,17 @@ function LP:UpdateCoords(elapsed)
 
 	--Coords coloring
 	local colorC = {r = 1, g = 1, b = 1}
-	if LP.db.colorType_Coords == "REACTION" then
+	if module.db.colorType_Coords == "REACTION" then
 		local inInstance, _ = IsInInstance()
 		if inInstance then
 			colorC = {r = 1, g = 0.1,b =  0.1}
 		else
 			local pvpType = GetZonePVPInfo()
-			colorC = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
+			colorC = module.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 		end
-	elseif LP.db.colorType_Coords == "CUSTOM" then
-		colorC = LP.db.customColor_Coords
-	elseif LP.db.colorType_Coords == "CLASS" then
+	elseif module.db.colorType_Coords == "CUSTOM" then
+		colorC = module.db.customColor_Coords
+	elseif module.db.colorType_Coords == "CLASS" then
 		colorC = RAID_CLASS_COLORS[E.myclass]
 	end
 	loc_panel.Xcoord.Text:SetTextColor(colorC.r, colorC.g, colorC.b)
@@ -354,7 +354,7 @@ function LP:UpdateCoords(elapsed)
 	local subZoneText = GetMinimapZoneText() or ""
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	local displayLine
-	if LP.db.zoneText then
+	if module.db.zoneText then
 		if (subZoneText ~= "") and (subZoneText ~= zoneText) then
 			displayLine = zoneText .. ": " .. subZoneText
 		else
@@ -364,123 +364,123 @@ function LP:UpdateCoords(elapsed)
 		displayLine = subZoneText
 	end
 	loc_panel.Text:SetText(displayLine)
-	if LP.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
+	if module.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
 
 	--Location Colorings
 	if displayLine ~= "" then
 		local color = {r = 1, g = 1, b = 1}
-		if LP.db.colorType == "REACTION" then
+		if module.db.colorType == "REACTION" then
 			local inInstance, _ = IsInInstance()
 			if inInstance then
 				color = {r = 1, g = 0.1,b =  0.1}
 			else
 				local pvpType = GetZonePVPInfo()
-				color = LP.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
+				color = module.ReactionColors[pvpType] or {r = 1, g = 1, b = 0}
 			end
-		elseif LP.db.colorType == "CUSTOM" then
-			color = LP.db.customColor
-		elseif LP.db.colorType == "CLASS" then
+		elseif module.db.colorType == "CUSTOM" then
+			color = module.db.customColor
+		elseif module.db.colorType == "CLASS" then
 			color = RAID_CLASS_COLORS[E.myclass]
 		end
 		loc_panel.Text:SetTextColor(color.r, color.g, color.b)
 	end
 
-	LP.elapsed = 0
+	module.elapsed = 0
 end
 
-function LP:Resize()
-	if LP.db.autowidth then
-		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, LP.db.height)
+function module:Resize()
+	if module.db.autowidth then
+		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, module.db.height)
 	else
-		loc_panel:Size(LP.db.width, LP.db.height)
+		loc_panel:Size(module.db.width, module.db.height)
 	end
-	loc_panel.Text:Width(LP.db.width - 18)
-	loc_panel.Xcoord:Size(LP.db.fontSize * 3, LP.db.height)
-	loc_panel.Ycoord:Size(LP.db.fontSize * 3, LP.db.height)
+	loc_panel.Text:Width(module.db.width - 18)
+	loc_panel.Xcoord:Size(module.db.fontSize * 3, module.db.height)
+	loc_panel.Ycoord:Size(module.db.fontSize * 3, module.db.height)
 end
 
-function LP:Fonts()
-	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
-	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', LP.db.font), LP.db.fontSize, LP.db.fontOutline)
+function module:Fonts()
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 end
 
-function LP:Template()
-	loc_panel:SetTemplate(LP.db.template)
-	loc_panel.Xcoord:SetTemplate(LP.db.template)
-	loc_panel.Ycoord:SetTemplate(LP.db.template)
+function module:Template()
+	loc_panel:SetTemplate(module.db.template)
+	loc_panel.Xcoord:SetTemplate(module.db.template)
+	loc_panel.Ycoord:SetTemplate(module.db.template)
 end
 
-function LP:Toggle()
-	if LP.db.enable then
+function module:Toggle()
+	if module.db.enable then
 		loc_panel:Show()
 		E:EnableMover(loc_panel.mover:GetName())
 	else
 		loc_panel:Hide()
 		E:DisableMover(loc_panel.mover:GetName())
 	end
-	LP:UNIT_AURA(nil, "player")
+	module:UNIT_AURA(nil, "player")
 end
 
-function LP:PopulateItems()
+function module:PopulateItems()
 	local noItem = false
 
-	for index, data in pairs(LP.Hearthstones) do
+	for index, data in pairs(module.Hearthstones) do
 		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
-	for index, data in pairs(LP.PortItems) do
+	for index, data in pairs(module.PortItems) do
 		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
-	for index, data in pairs(LP.EngineerItems) do
+	for index, data in pairs(module.EngineerItems) do
 		if select(2, GetItemInfo(data[1])) == nil then noItem = true end
 	end
 
 	if noItem then
-		LP.ListBuilding = true
-		E:Delay(2, LP.PopulateItems)
+		module.ListBuilding = true
+		E:Delay(2, module.PopulateItems)
 	else
-		LP.ListBuilding = false
-		for index, data in pairs(LP.Hearthstones) do
+		module.ListBuilding = false
+		for index, data in pairs(module.Hearthstones) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.Hearthstones[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.Hearthstones[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
-		for index, data in pairs(LP.PortItems) do
+		for index, data in pairs(module.PortItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.PortItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.PortItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
-		for index, data in pairs(LP.EngineerItems) do
+		for index, data in pairs(module.EngineerItems) do
 			local id, name, toy = data[1], data[2], data[3]
-			LP.EngineerItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
+			module.EngineerItems[index] = {text = name or GetItemInfo(id), icon = MER:GetIconFromID("item", id),secure = {buttonType = "item",ID = id, isToy = toy}, UseTooltip = true,}
 		end
 	end
 end
 
-function LP:ItemList(check)
-	if LP.db.portals.HSplace then tinsert(LP.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
-	tinsert(LP.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
+function module:ItemList(check)
+	if module.db.portals.HSplace then tinsert(module.MainMenu, {text = L["Hearthstone Location"]..": "..GetBindLocation(), title = true, nohighlight = true}) end
+	tinsert(module.MainMenu, {text = ITEMS..":", title = true, nohighlight = true})
 
-	if LP.db.portals.showHearthstones then
+	if module.db.portals.showHearthstones then
 		local priority = 100
 		local ShownHearthstone
 		local tmp = {}
 		local hsPrio = {split(",", E.db.mui.locPanel.portals.hsPrio)}
-		local hsRealPrio = {}
+		local hsReamodulerio = {}
 		for key = 1, #hsPrio do
-			hsRealPrio[hsPrio[key]] = key
+			hsReamodulerio[hsPrio[key]] = key
 		end
 
-		for i = 1, #LP.Hearthstones do
-			local data = LP.Hearthstones[i]
+		for i = 1, #module.Hearthstones do
+			local data = module.Hearthstones[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
-			isToy = (LP.db.portals.showToys and isToy)
-			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+			isToy = (module.db.portals.showToys and isToy)
+			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
 			if (not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
 						break
 					else
-						local curPriorirty = hsRealPrio[tostring(ID)]
+						local curPriorirty = hsReamodulerio[tostring(ID)]
 						if curPriorirty < priority then
 							priority = curPriorirty
 							ShownHearthstone = data
@@ -497,49 +497,49 @@ function LP:ItemList(check)
 		E:CopyTable(tmp, data)
 
 		if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
-			tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
-			tinsert(LP.MainMenu, tmp)
+			tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
+			tinsert(module.MainMenu, tmp)
 		else
-			tinsert(LP.MainMenu, data)
+			tinsert(module.MainMenu, data)
 		end
 	end
 
-	for i = 1, #LP.PortItems do
+	for i = 1, #module.PortItems do
 		local tmp = {}
-		local data = LP.PortItems[i]
+		local data = module.PortItems[i]
 		local ID, isToy = data.secure.ID, data.secure.isToy
-		isToy = (LP.db.portals.showToys and isToy)
-		if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+		isToy = (module.db.portals.showToys and isToy)
+		if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
 		if ((not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID)))) then
 			if data.text then
 				local cd = DD:GetCooldown("Item", ID)
 				E:CopyTable(tmp, data)
 				if cd or (tonumber(cd) and tonumber(cd) > 2) then
-					tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
-					tinsert(LP.MainMenu, tmp)
+					tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
+					tinsert(module.MainMenu, tmp)
 				else
-					tinsert(LP.MainMenu, data)
+					tinsert(module.MainMenu, data)
 				end
 			end
 		end
 	end
 
-	if LP.db.portals.showEngineer and LP.isEngineer then
-		tinsert(LP.MainMenu, {text = LP.EngineerName..":", title = true, nohighlight = true})
-		for i = 1, #LP.EngineerItems do
+	if module.db.portals.showEngineer and module.isEngineer then
+		tinsert(module.MainMenu, {text = module.EngineerName..":", title = true, nohighlight = true})
+		for i = 1, #module.EngineerItems do
 			local tmp = {}
-			local data = LP.EngineerItems[i]
+			local data = module.EngineerItems[i]
 			local ID, isToy = data.secure.ID, data.secure.isToy
-			if not LP.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
+			if not module.db.portals.ignoreMissingInfo and ((isToy and PlayerHasToy(ID)) and C_ToyBox.IsToyUsable(ID) == nil) then return false end
 			if (not isToy and (MER:BagSearch(ID) and IsUsableItem(ID))) or (isToy and (PlayerHasToy(ID) and C_ToyBox.IsToyUsable(ID))) then
 				if data.text then
 					local cd = DD:GetCooldown("Item", ID)
 					E:CopyTable(tmp, data)
 					if cd or (tonumber(cd) and tonumber(cd) > 2) then
-						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
-						tinsert(LP.MainMenu, tmp)
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
+						tinsert(module.MainMenu, tmp)
 					else
-						tinsert(LP.MainMenu, data)
+						tinsert(module.MainMenu, data)
 					end
 				end
 			end
@@ -548,7 +548,7 @@ function LP:ItemList(check)
 	return true
 end
 
-function LP:SpellList(list, dropdown, check)
+function module:SpellList(list, dropdown, check)
 	for i = 1, #list do
 		local tmp = {}
 		local data = list[i]
@@ -560,7 +560,7 @@ function LP:SpellList(list, dropdown, check)
 					local cd = DD:GetCooldown("Spell", data.secure.ID)
 					if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
 						E:CopyTable(tmp, data)
-						tmp.text = "|cff636363"..tmp.text.."|r"..format(LP.CDformats[LP.db.portals.cdFormat], cd)
+						tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
 						tinsert(dropdown, tmp)
 					else
 						tinsert(dropdown, data)
@@ -571,102 +571,102 @@ function LP:SpellList(list, dropdown, check)
 	end
 end
 
-function LP:PopulateDropdown(click)
-	if LP.ListUpdating and click then
+function module:PopulateDropdown(click)
+	if module.ListUpdating and click then
 		MER:Print(L["Update canceled."])
-		LP.ListUpdating = false
-		if LP.InfoUpdatingTimer then LP:CancelTimer(LP.InfoUpdatingTimer) end
+		module.ListUpdating = false
+		if module.InfoUpdatingTimer then module:CancelTimer(module.InfoUpdatingTimer) end
 		return
 	end
-	LP.InfoUpdatingTimer = nil
-	if LP.Menu1:IsShown() then ToggleFrame(LP.Menu1) return end
-	if LP.Menu2:IsShown() then ToggleFrame(LP.Menu2) return end
-	local full_list = LP:ItemList()
+	module.InfoUpdatingTimer = nil
+	if module.Menu1:IsShown() then ToggleFrame(module.Menu1) return end
+	if module.Menu2:IsShown() then ToggleFrame(module.Menu2) return end
+	local full_list = module:ItemList()
 	if not full_list then
-		if not LP.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); LP.ListUpdating = true end
-		if not LP.InfoUpdatingTimer then LP.InfoUpdatingTimer = LP:ScheduleTimer(LP.PopulateDropdown, 3) end
-		twipe(LP.MainMenu)
+		if not module.ListUpdating then MER:Print(L["Item info is not available. Waiting for it. This can take some time. Menu will be opened automatically when all info becomes available. Calling menu again during the update will cancel it."]); module.ListUpdating = true end
+		if not module.InfoUpdatingTimer then module.InfoUpdatingTimer = module:ScheduleTimer(module.PopulateDropdown, 3) end
+		twipe(module.MainMenu)
 		return
 	end
-	if LP.ListUpdating then LP.ListUpdating = false; MER:Print(L["Update complete. Opening menu."]) end
+	if module.ListUpdating then module.ListUpdating = false; MER:Print(L["Update complete. Opening menu."]) end
 	local anchor, point = GetDirection()
 	local MENU_WIDTH
 
-	if LP.db.portals.showSpells then
-		if LP:SpellList(LP.Spells[E.myclass], nil, true) or LP:SpellList(LP.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
-			tinsert(LP.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
-			LP:SpellList(LP.Spells[E.myclass], LP.MainMenu)
-			if LP:SpellList(LP.Spells.challenge, nil, true) then
-				tinsert(LP.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function()
-					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
-					tinsert(LP.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
-					LP:SpellList(LP.Spells.challenge, LP.SecondaryMenu)
-					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+	if module.db.portals.showSpells then
+		if module:SpellList(module.Spells[E.myclass], nil, true) or module:SpellList(module.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
+			tinsert(module.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
+			module:SpellList(module.Spells[E.myclass], module.MainMenu)
+			if module:SpellList(module.Spells.challenge, nil, true) then
+				tinsert(module.MainMenu, {text = CHALLENGE_MODE.." >>",icon = MER:GetIconFromID("achiev", 6378), func = function()
+					twipe(module.SecondaryMenu)
+					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
+					tinsert(module.SecondaryMenu, {text = CHALLENGE_MODE..":", title = true, nohighlight = true})
+					module:SpellList(module.Spells.challenge, module.SecondaryMenu)
+					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
+					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if E.myclass == "MAGE" then
-				tinsert(LP.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function()
-					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
-					tinsert(LP.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
-					LP:SpellList(LP.Spells["teleports"][faction], LP.SecondaryMenu)
-					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+				tinsert(module.MainMenu, {text = L["Teleports"].." >>", icon = MER:GetIconFromID("spell", 53140), func = function()
+					twipe(module.SecondaryMenu)
+					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
+					tinsert(module.SecondaryMenu, {text = L["Teleports"]..":", title = true, nohighlight = true})
+					module:SpellList(module.Spells["teleports"][faction], module.SecondaryMenu)
+					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
+					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
-				tinsert(LP.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function()
-					twipe(LP.SecondaryMenu)
-					MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-					tinsert(LP.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(LP.MainMenu); ToggleFrame(LP.Menu2); LP:PopulateDropdown() end})
-					tinsert(LP.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
-					LP:SpellList(LP.Spells["portals"][faction], LP.SecondaryMenu)
-					tinsert(LP.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu2) end})
-					MER:DropDown(LP.SecondaryMenu, LP.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+				tinsert(module.MainMenu, {text = L["Portals"].." >>",icon = MER:GetIconFromID("spell", 53142), func = function()
+					twipe(module.SecondaryMenu)
+					MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+					tinsert(module.SecondaryMenu, {text = "<< "..BACK, func = function() twipe(module.MainMenu); ToggleFrame(module.Menu2); module:PopulateDropdown() end})
+					tinsert(module.SecondaryMenu, {text = L["Portals"]..":", title = true, nohighlight = true})
+					module:SpellList(module.Spells["portals"][faction], module.SecondaryMenu)
+					tinsert(module.SecondaryMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu2) end})
+					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
 			if E.myrace == "DarkIronDwarf" then
-				LP:SpellList(LP.Spells[E.myrace], LP.MainMenu)
+				module:SpellList(module.Spells[E.myrace], module.MainMenu)
 			end
 		end
 	end
-	tinsert(LP.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(LP.MainMenu); twipe(LP.SecondaryMenu); ToggleFrame(LP.Menu1) end})
-	MENU_WIDTH = LP.db.portals.customWidth and LP.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
-	MER:DropDown(LP.MainMenu, LP.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, LP.db.portals.justify)
+	tinsert(module.MainMenu, {text = CLOSE, title = true, ending = true, func = function() twipe(module.MainMenu); twipe(module.SecondaryMenu); ToggleFrame(module.Menu1) end})
+	MENU_WIDTH = module.db.portals.customWidth and module.db.portals.customWidthValue or _G["MER_LocPanel"]:GetWidth()
+	MER:DropDown(module.MainMenu, module.Menu1, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 
 	collectgarbage('collect');
 end
 
-function LP:GetProf()
-	LP.EngineerName = MER:GetSpell(4036)
-	LP:CHAT_MSG_SKILL()
+function module:GetProf()
+	module.EngineerName = MER:GetSpell(4036)
+	module:CHAT_MSG_SKILL()
 end
 
-function LP:CHAT_MSG_SKILL()
+function module:CHAT_MSG_SKILL()
 	local prof1, prof2 = GetProfessions()
 	if prof1 then
 		local name, _, _ = GetProfessionInfo(prof1)
-		if name == LP.EngineerName then LP.isEngineer = true return end
+		if name == module.EngineerName then module.isEngineer = true return end
 	end
 	if prof2 then
 		local name, _, _ = GetProfessionInfo(prof2)
-		if name == LP.EngineerName then LP.isEngineer = true return end
+		if name == module.EngineerName then module.isEngineer = true return end
 	end
 end
 
-function LP:PLAYER_REGEN_DISABLED()
-	if LP.db.combathide then loc_panel:SetAlpha(0) end
+function module:PLAYER_REGEN_DISABLED()
+	if module.db.combathide then loc_panel:SetAlpha(0) end
 end
 
-function LP:PLAYER_REGEN_ENABLED()
-	if LP.db.enable then loc_panel:SetAlpha(1) end
+function module:PLAYER_REGEN_ENABLED()
+	if module.db.enable then loc_panel:SetAlpha(1) end
 end
 
-function LP:UNIT_AURA(_, unit)
+function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
-	if LP.db.enable and LP.db.orderhallhide then
+	if module.db.enable and module.db.orderhallhide then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
 			loc_panel:SetAlpha(0)
@@ -676,9 +676,8 @@ function LP:UNIT_AURA(_, unit)
 	end
 end
 
-function LP:Initialize()
-	LP.db = E.db.mui.locPanel
-
+function module:Initialize()
+	local db = E.db.mui.locPanel
 	MER:RegisterDB(self, "locPanel")
 
 	faction = UnitFactionGroup('player')
@@ -686,18 +685,18 @@ function LP:Initialize()
 	self:PopulateItems()
 	self:GetProf()
 
-	LP.elapsed = 0
+	module.elapsed = 0
 	self:CreateLocationPanel()
 	self:Template()
 	self:Fonts()
 	self:Toggle()
 
-	function LP:ForUpdateAll()
-		LP.db = E.db.mui.locPanel
-		LP:Resize()
-		LP:Template()
-		LP:Fonts()
-		LP:Toggle()
+	function module:ForUpdateAll()
+		local db = E.db.mui.locPanel
+		module:Resize()
+		module:Template()
+		module:Fonts()
+		module:Toggle()
 	end
 
 	self:ForUpdateAll()
@@ -709,7 +708,7 @@ function LP:Initialize()
 end
 
 local function InitializeCallback()
-	LP:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(LP:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

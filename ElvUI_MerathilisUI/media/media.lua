@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local M = MER:NewModule("MERMedia", "AceHook-3.0")
+local module = MER:NewModule("MERMedia", "AceHook-3.0")
 local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables
@@ -12,10 +12,10 @@ local FadingFrame_Show = FadingFrame_Show
 local IsAddOnLoaded = IsAddOnLoaded
 --GLOBALS: hooksecurefunc
 
-M.Zones = L["MER_MEDIA_ZONES"]
-M.PvPInfo = L["MER_MEDIA_PVP"]
-M.Subzones = L["MER_MEDIA_SUBZONES"]
-M.PVPArena = L["MER_MEDIA_PVPARENA"]
+module.Zones = L["MER_MEDIA_ZONES"]
+module.PvPInfo = L["MER_MEDIA_PVP"]
+module.Subzones = L["MER_MEDIA_SUBZONES"]
+module.PVPArena = L["MER_MEDIA_PVPARENA"]
 
 local Colors = {
 	[1] = {0.41, 0.8, 0.94}, -- sanctuary
@@ -41,7 +41,7 @@ local function MakeFont(obj, font, size, style, r, g, b, sr, sg, sb, sox, soy)
 	elseif r then obj:SetAlpha(r) end
 end
 
-function M:SetBlizzFonts()
+function module:SetBlizzFonts()
 	if E.private.general.replaceBlizzFonts then
 		local zoneDB = E.db.mui.media.zoneText
 		local miscDB = E.db.mui.media.miscText
@@ -93,29 +93,27 @@ function M:SetBlizzFonts()
 
 		if miscDB.objective.enable then
 			MakeFont(_G["ObjectiveFont"], E.LSM:Fetch('font', miscDB.objective.font), miscDB.objective.size, miscDB.objective.outline)
-			if M.BonusObjectiveBarText then M.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', miscDB.objective.font), miscDB.objective.size, miscDB.objective.outline) end
+			if module.BonusObjectiveBarText then module.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', miscDB.objective.font), miscDB.objective.size, miscDB.objective.outline) end
 		end
 	end
 end
 
-function M:TextWidth()
-	local db = E.db.mui.media.zoneText
-
-	_G["ZoneTextString"]:SetWidth(db.zone.width)
-	_G["PVPInfoTextString"]:SetWidth(db.pvp.width)
-	_G["PVPArenaTextString"]:SetWidth(db.pvp.width)
-	_G["SubZoneTextString"]:SetWidth(db.subzone.width)
+function module:TextWidth()
+	_G["ZoneTextString"]:SetWidth(self.db.zoneText.zone.width)
+	_G["PVPInfoTextString"]:SetWidth(self.db.zoneText.pvp.width)
+	_G["PVPArenaTextString"]:SetWidth(self.db.zoneText.pvp.width)
+	_G["SubZoneTextString"]:SetWidth(self.db.zoneText.subzone.width)
 end
 
-function M:TextShow()
-	local z, i, a, s, c = random(1, #M.Zones), random(1, #M.PvPInfo), random(1, #M.PVPArena), random(1, #M.Subzones), random(1, #Colors)
+function module:TextShow()
+	local z, i, a, s, c = random(1, #module.Zones), random(1, #module.PvPInfo), random(1, #module.PVPArena), random(1, #module.Subzones), random(1, #Colors)
 	local red, green, blue = unpack(Colors[c])
 
 	--Setting texts--
-	_G["ZoneTextString"]:SetText(M.Zones[z])
-	_G["PVPInfoTextString"]:SetText(M.PvPInfo[i])
-	_G["PVPArenaTextString"]:SetText(M.PVPArena[a])
-	_G["SubZoneTextString"]:SetText(M.Subzones[s])
+	_G["ZoneTextString"]:SetText(module.Zones[z])
+	_G["PVPInfoTextString"]:SetText(module.PvPInfo[i])
+	_G["PVPArenaTextString"]:SetText(module.PVPArena[a])
+	_G["SubZoneTextString"]:SetText(module.Subzones[s])
 
 	ZoneTextPos()--nil, true)
 
@@ -129,20 +127,21 @@ function M:TextShow()
 	FadingFrame_Show(_G["SubZoneTextFrame"])
 end
 
-function M:Initialize()
+function module:Initialize()
 	if IsAddOnLoaded("ElvUI_SLE") then return; end
+	MER:RegisterDB(self, "media")
 
-	if E.db.mui.media.zoneText.enable then
-		M:TextWidth()
+	if self.db.zoneText.enable then
+		module:TextWidth()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
 	end
 
-	hooksecurefunc(E, "UpdateBlizzardFonts", M.SetBlizzFonts)
-	M.SetBlizzFonts()
+	hooksecurefunc(E, "UpdateBlizzardFonts", module.SetBlizzFonts)
+	module.SetBlizzFonts()
 end
 
 local function InitializeCallback()
-	M:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(M:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

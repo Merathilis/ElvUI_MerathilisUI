@@ -20,7 +20,7 @@ function MER:LoadBigWigsProfileDPS()
 						["posx"] = 600,
 						["fontSize"] = 11,
 						["fontOutline"] = "",
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["lock"] = true,
 						["posy"] = 132,
 					},
@@ -53,7 +53,7 @@ function MER:LoadBigWigsProfileDPS()
 						["BigWigsAnchor_height"] = 18,
 						["BigWigsEmphasizeAnchor_height"] = 28,
 						["BigWigsEmphasizeAnchor_width"] = 170,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["fontSizeEmph"] = 12,
 						["fontSize"] = 11,
 						["outline"] = "OUTLINE",
@@ -68,7 +68,7 @@ function MER:LoadBigWigsProfileDPS()
 				["profiles"] = {
 					["MerathilisUI"] = {
 						["monochrome"] = false,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 					},
 				},
 			},
@@ -82,7 +82,7 @@ function MER:LoadBigWigsProfileDPS()
 						["BWMessageAnchor_x"] = 608,
 						["growUpwards"] = false,
 						["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["BWEmphasizeMessageAnchor_y"] = 614,
 						["BWMessageAnchor_y"] = 676,
 						["BWEmphasizeMessageAnchor_x"] = 610,
@@ -95,7 +95,7 @@ function MER:LoadBigWigsProfileDPS()
 				["profiles"] = {
 					["MerathilisUI"] = {
 						["posx"] = 346.27,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["lock"] = true,
 						["height"] = 99.0000381469727,
 						["posy"] = 81.82,
@@ -126,8 +126,8 @@ function MER:LoadBigWigsProfileHeal()
 					["MerathilisUI - Heal"] = {
 						["posx"] = 90,
 						["fontSize"] = 11,
-						["fontName"] = "Expressway",
-						["font"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
+						["font"] = "Merathilis Expressway",
 						["lock"] = true,
 						["posy"] = 245,
 					},
@@ -156,7 +156,7 @@ function MER:LoadBigWigsProfileHeal()
 						["BigWigsAnchor_width"] = 200.000045776367,
 						["BigWigsAnchor_x"] = 941.244988069448,
 						["BigWigsEmphasizeAnchor_height"] = 22.0000019073486,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["BigWigsAnchor_height"] = 16.0000038146973,
 						["fontSize"] = 11,
 						["BigWigsAnchor_y"] = 189.710898690955,
@@ -173,7 +173,7 @@ function MER:LoadBigWigsProfileHeal()
 				["profiles"] = {
 					["MerathilisUI - Heal"] = {
 						["monochrome"] = false,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 					},
 				},
 			},
@@ -187,7 +187,7 @@ function MER:LoadBigWigsProfileHeal()
 						["BWMessageAnchor_x"] = 608,
 						["growUpwards"] = false,
 						["BWEmphasizeCountdownMessageAnchor_y"] = 523,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["BWEmphasizeMessageAnchor_y"] = 614,
 						["BWMessageAnchor_y"] = 676,
 						["BWEmphasizeMessageAnchor_x"] = 610,
@@ -200,7 +200,7 @@ function MER:LoadBigWigsProfileHeal()
 				["profiles"] = {
 					["MerathilisUI"] = {
 						["posx"] = 931.511307278197,
-						["fontName"] = "Expressway",
+						["fontName"] = "Merathilis Expressway",
 						["posy"] = 85.3333353996277,
 						["lock"] = false,
 						["height"] = 99.0000381469727,

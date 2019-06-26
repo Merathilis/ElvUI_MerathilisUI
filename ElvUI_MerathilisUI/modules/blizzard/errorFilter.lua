@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local ER = MER:NewModule("mUIErrors")
-ER.modName = L["Error Handling"]
+local module = MER:NewModule("mUIErrors")
+module.modName = L["Error Handling"]
 
 -- Cache global variables
 -- Lua functions
@@ -38,7 +38,7 @@ local function CacheFilters()
 	end
 end
 
-function ER:UpdateErrorFilters()
+function module:UpdateErrorFilters()
 	if(E.db.mui.general.filterErrors) then
 		CacheFilters()
 		UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
@@ -55,7 +55,7 @@ function ER:UpdateErrorFilters()
 	end
 end
 
-function ER:Initialize()
+function module:Initialize()
 	if(E.db.mui.general.filterErrors) then
 		CacheFilters()
 		UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
@@ -69,7 +69,7 @@ function ER:Initialize()
 end
 
 local function InitializeCallback()
-	ER:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(ER:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

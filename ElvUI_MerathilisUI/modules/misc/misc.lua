@@ -1,10 +1,8 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MI = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
+local module = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
 local S = E:GetModule("Skins")
-MI.modName = L["Misc"]
-
-E.mUIMisc = MI;
+module.modName = L["Misc"]
 
 -- Cache global variables
 -- Lua functions
@@ -41,7 +39,7 @@ local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 -- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
 -- GLOBALS: StaticPopupSpecial_Hide
 
-function MI:LoadMisc()
+function module:LoadMisc()
 	-- Force readycheck warning
 	local ShowReadyCheckHook = function(_, initiator)
 		if initiator ~= "player" then
@@ -162,7 +160,7 @@ function MI:LoadMisc()
 	end
 end
 
-function MI:SetRole()
+function module:SetRole()
 	local spec = GetSpecialization()
 	if UnitLevel("player") >= 10 and not InCombatLockdown() then
 		if spec == nil and UnitGroupRolesAssigned("player") ~= "NONE" then
@@ -177,8 +175,11 @@ function MI:SetRole()
 	end
 end
 
-function MI:Initialize()
-	E.RegisterCallback(MI, "RoleChanged", "SetRole")
+function module:Initialize()
+	local db = E.db.mui.misc
+	MER:RegisterDB(self, "misc")
+
+	E.RegisterCallback(module, "RoleChanged", "SetRole")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
 	RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(RolePollPopup) end)
 
@@ -196,7 +197,7 @@ function MI:Initialize()
 end
 
 local function InitializeCallback()
-	MI:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MI:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

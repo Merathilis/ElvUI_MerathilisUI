@@ -1,22 +1,29 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local NA = MER:NewModule("NameplateAuras", "AceEvent-3.0")
+local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
-NA.modName = L["NameplateAuras"]
+module.modName = L["NameplateAuras"]
 
 -- Cache global variables
 -- Lua functions
+local _G = _G
+local select = select
+local pairs = pairs
 local max = math.max
 local tsort = table.sort
 -- WoW API / Variables
+local GetSpellInfo = GetSpellInfo
+local UnitClass = UnitClass
+local UnitName = UnitName
 local hooksecurefunc = hooksecurefunc
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 -- GLOBALS:
 
 --[[
-	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_ChaoticUI)
+	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
 
-function NA:PostUpdateAura(unit, button)
+function module:PostUpdateAura(unit, button)
 	if button and button.spellID then
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
 
@@ -25,13 +32,13 @@ function NA:PostUpdateAura(unit, button)
 		local height = E.db.mui.nameplates.enhancedAuras.height or 18
 
 		if spell and spell ~= "" then
-			width = 30
+			width = 32
 		else
 			width = width
 		end
 
 		if spell and spell ~= "" then
-			height = 30
+			height = 32
 		else
 			height = height
 		end
@@ -59,42 +66,43 @@ function NA:PostUpdateAura(unit, button)
 		end
 
 		button.count:FontTemplate(nil, stackSize, "OUTLINE")
-	end
-end
 
-function NA:Construct_Auras(nameplate)
-	nameplate.Buffs_.SetPosition = NA.SetPosition
-	nameplate.Debuffs_.SetPosition = NA.SetPosition
-end
-
-function NA:SortAuras(element)
-	local function sortAuras(buttonA, buttonB)
-		if (buttonA:IsShown() ~= buttonB:IsShown()) then
-			return buttonA:IsShown()
+		-- CC Caster Names
+		if spell and spell ~= "" and button.caster then
+			local name = UnitName(button.caster)
+			local class = select(2, UnitClass(button.caster))
+			local color = {r = 1, g = 1, b = 1}
+			if class then
+				color = class == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[class]
+			end
+			button.cc_name:SetText(name)
+			button.cc_name:SetTextColor(color.r, color.g, color.b)
+		else
+			button.cc_name:SetText("")
 		end
-
-		local aWidth = buttonA.size.width
-		local aHeight = buttonA.size.height
-
-		local bWidth = buttonB.size.width
-		local bHeight = buttonB.size.height
-
-		local aCalc = (aWidth + aHeight) * (aWidth / aHeight)
-		local bCalc = (bWidth + bHeight) * (bWidth / bHeight)
-
-		return aCalc > bCalc
 	end
-
-	tsort(element, sortAuras)
 end
 
-function NA.SetPosition(element, _, to)
+function module:Construct_Auras(nameplate)
+	nameplate.Buffs_.SetPosition = module.SetPosition
+	nameplate.Debuffs_.SetPosition = module.SetPosition
+end
+
+function module:Construct_AuraIcon(button)
+	-- Creates an own font element for caster name
+	if not button.cc_name then
+		button.cc_name = button:CreateFontString("OVERLAY")
+		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
+		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
+		button.cc_name:SetJustifyH("CENTER")
+	end
+end
+
+function module.SetPosition(element, _, to)
 	local from = 1
 	if not element[from] then
 		return
 	end
-
-	NA.SortAuras(NA, element)
 
 	local anchor = element.initialAnchor or "BOTTOMLEFT"
 	local growthx = (element["growth-x"] == "LEFT" and -1) or 1
@@ -122,15 +130,16 @@ function NA.SetPosition(element, _, to)
 	element:SetHeight(eheight)
 end
 
-function NA:Initialize()
+function module:Initialize()
 	if E.db.mui.nameplates.enhancedAuras.enable ~= true then return end
 
-	hooksecurefunc(NP, "Construct_Auras", NA.Construct_Auras)
-	hooksecurefunc(NP, "PostUpdateAura", NA.PostUpdateAura)
+	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
+	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
+	hooksecurefunc(NP, "PostUpdateAura", module.PostUpdateAura)
 end
 
 local function InitializeCallback()
-	NA:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(NA:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

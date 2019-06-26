@@ -1,13 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
+local module = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local MERS = MER:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
-MERC.modName = L["Chat"]
+module.modName = L["Chat"]
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 local format = format
 local time = time
 local BetterDate = BetterDate
@@ -27,7 +27,7 @@ local ChatFrame_AddMessageEventFilter = ChatFrame_AddMessageEventFilter
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
-function MERC:RemoveCurrentRealmName(msg, author, ...)
+function module:RemoveCurrentRealmName(msg, author, ...)
 	local realmName = gsub(GetRealmName(), " ", "")
 
 	if msg and msg:find("-" .. realmName) then
@@ -35,7 +35,7 @@ function MERC:RemoveCurrentRealmName(msg, author, ...)
 	end
 end
 
-function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
+function module:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isHistory, historyTime)
 	local historyTimestamp --we need to extend the arguments on AddMessage so we can properly handle times without overriding
 	if isHistory == "ElvUI_ChatHistory" then historyTimestamp = historyTime end
 
@@ -65,7 +65,7 @@ function MERC:AddMessage(msg, infoR, infoG, infoB, infoID, accessID, typeID, isH
 end
 
 function CH:AddMessage(msg, ...)
-	return MERC.AddMessage(self, msg, ...)
+	return module.AddMessage(self, msg, ...)
 end
 
 function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
@@ -81,7 +81,7 @@ function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
 	end
 end
 
-function MERC:StyleChat()
+function module:StyleChat()
 	-- Style the chat
 	_G["LeftChatPanel"].backdrop:Styling()
 	_G["RightChatPanel"].backdrop:Styling()
@@ -142,8 +142,11 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 	end
 end)
 
-function MERC:Initialize()
+function module:Initialize()
 	if E.private.chat.enable ~= true then return; end
+
+	local db = E.db.mui.chat
+	MER:RegisterDB(self, "chat")
 
 	_G["ERR_FRIEND_ONLINE_SS"] = "%s "..L["has come |cff298F00online|r."]
 	_G["ERR_FRIEND_OFFLINE_S"] = "%s "..L["has gone |cffff0000offline|r."]
@@ -153,7 +156,7 @@ function MERC:Initialize()
 
 
 	-- Remove the Realm Name from system messages
-	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", MERC.RemoveCurrentRealmName)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
 
 	self:EasyChannel()
 	self:ItemLevelLink()
@@ -169,7 +172,7 @@ function MERC:Initialize()
 end
 
 local function InitializeCallback()
-	MERC:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERC:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

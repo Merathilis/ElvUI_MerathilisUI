@@ -92,7 +92,7 @@ function MER:LoadDetailsProfile()
 				["commands"] = {
 				},
 				["tooltip_max_abilities"] = 6,
-				["fontface"] = "Expressway",
+				["fontface"] = "Merathilis Expressway",
 				["border_color"] = {
 					1, -- [1]
 					1, -- [2]
@@ -162,7 +162,7 @@ function MER:LoadDetailsProfile()
 			["use_battleground_server_parser"] = true,
 			["default_bg_alpha"] = 0.5,
 			["font_faces"] = {
-				["menus"] = "Expressway",
+				["menus"] = "Merathilis Expressway",
 			},
 			["clear_ungrouped"] = true,
 			["segments_amount"] = 12,
@@ -253,7 +253,7 @@ function MER:LoadDetailsProfile()
 								["isHidden"] = false,
 								["textStyle"] = 2,
 								["textYMod"] = 1,
-								["textFace"] = "Expressway",
+								["textFace"] = "Merathilis Expressway",
 								["textXMod"] = 6,
 								["timeType"] = 1,
 								["textAlign"] = 0,
@@ -270,7 +270,7 @@ function MER:LoadDetailsProfile()
 								["textStyle"] = 2,
 								["textYMod"] = 1,
 								["segmentType"] = 2,
-								["textFace"] = "Expressway",
+								["textFace"] = "Merathilis Expressway",
 								["textXMod"] = 0,
 								["textAlign"] = 0,
 								["textSize"] = 11,
@@ -288,7 +288,7 @@ function MER:LoadDetailsProfile()
 								["segmentType"] = 2,
 								["textXMod"] = 6,
 								["textStyle"] = 2,
-								["textFace"] = "Expressway",
+								["textFace"] = "Merathilis Expressway",
 								["textAlign"] = 3,
 								["textSize"] = 11,
 								["textColor"] = {
@@ -320,7 +320,7 @@ function MER:LoadDetailsProfile()
 							0.7, -- [4]
 						},
 						["custom_text"] = "{name}",
-						["text_face"] = "Expressway",
+						["text_face"] = "Merathilis Expressway",
 						["anchor"] = {
 							-18, -- [1]
 							5, -- [2]
@@ -407,7 +407,7 @@ function MER:LoadDetailsProfile()
 						},
 						["texture_background_class_color"] = false,
 						["start_after_icon"] = true,
-						["font_face_file"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Expressway.ttf",
+						["font_face_file"] = "Interface\\AddOns\\ElvUI\\media\\fonts\\Merathilis Expressway.ttf",
 						["textL_custom_text"] = "{data1}. {data3}",
 						["font_size"] = 12,
 						["texture_custom_file"] = "Interface\\",
@@ -472,7 +472,7 @@ function MER:LoadDetailsProfile()
 						["no_icon"] = false,
 						["texture_background_file"] = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Empty.tga",
 						["textL_enable_custom_text"] = false,
-						["font_face"] = "Expressway",
+						["font_face"] = "Merathilis Expressway",
 						["texture_class_colors"] = true,
 						["textL_outline_small"] = false,
 						["fast_ps_update"] = true,
@@ -2017,7 +2017,7 @@ function MER:LoadDetailsProfile()
 									["isHidden"] = false,
 									["textStyle"] = 2,
 									["textYMod"] = 1,
-									["textFace"] = "Expressway",
+									["textFace"] = "Merathilis Expressway",
 									["textXMod"] = 6,
 									["timeType"] = 1,
 									["textAlign"] = 0,
@@ -2034,7 +2034,7 @@ function MER:LoadDetailsProfile()
 									["textStyle"] = 2,
 									["textYMod"] = 1,
 									["segmentType"] = 2,
-									["textFace"] = "Expressway",
+									["textFace"] = "Merathilis Expressway",
 									["textXMod"] = 0,
 									["textAlign"] = 0,
 									["textSize"] = 11,
@@ -2052,7 +2052,7 @@ function MER:LoadDetailsProfile()
 									["segmentType"] = 2,
 									["textXMod"] = 6,
 									["textStyle"] = 2,
-									["textFace"] = "Expressway",
+									["textFace"] = "Merathilis Expressway",
 									["textAlign"] = 3,
 									["textSize"] = 11,
 									["textColor"] = {

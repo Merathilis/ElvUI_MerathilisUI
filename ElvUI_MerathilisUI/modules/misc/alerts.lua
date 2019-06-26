@@ -72,16 +72,16 @@ function module:VersionCheck()
 	f.Text:SetText("")
 	f:Hide()
 
-	local DetectVersion = E.db.mui.misc.alerts.detectVersion
+	local DetectVersion = tonumber(E.db.mui.misc.alerts.detectVersion)
 
 	local function CompareVersion(new, old)
 		local new1, new2 = strsplit(".", new)
 		new1, new2 = tonumber(new1), tonumber(new2)
 		local old1, old2 = strsplit(".", old)
 		old1, old2 = tonumber(old1), tonumber(old2)
-		if new1 > old1 or new2 > old2 then
+		if new1 > old1 or (new1 == old1 and new2 > old2) then
 			return "IsNew"
-		elseif new1 < old1 or new2 < old2 then
+		elseif new1 < old1 or (new1 == old1 and new2 < old2) then
 			return "IsOld"
 		end
 	end

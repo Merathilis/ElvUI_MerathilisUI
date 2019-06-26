@@ -17,15 +17,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added new Tag: 'name:abbrev-translit'",
-		"• Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.",
-		"• Take account to the latest ElvUI_OptionsUI changes.",
+		"• Added new Flask to my RaidBuffReminder module.",
+		"• Added new Hearthstones to LocPanel.",
+		"• Updated Code with 8.2 changes.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• With the Enhanced Nameplate Auras enabled, the Buff/Debuff sizes are overwritten!!",
-
 		-- "• ''",
 }
 

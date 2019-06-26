@@ -1,7 +1,7 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MAB = MER:NewModule("mUIActionbars", "AceEvent-3.0")
-MAB.modName = L["ActionBars"]
+local module = MER:NewModule("mUIActionbars", "AceEvent-3.0")
+module.modName = L["ActionBars"]
 
 if E.private.actionbar.enable ~= true then return; end
 
@@ -28,7 +28,7 @@ local function CheckExtraAB()
 end
 
 -- from ElvUI_TrasparentBackdrops plugin
-function MAB:TransparentBackdrops()
+function module:TransparentBackdrops()
 	-- Actionbar backdrops
 	local db = E.db.mui.actionbars
 	for i = 1, availableActionbars do
@@ -85,7 +85,7 @@ function MAB:TransparentBackdrops()
 	end
 end
 
-function MAB:StyleBackdrops()
+function module:StyleBackdrops()
 	-- Actionbar backdrops
 	for i = 1, availableActionbars do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
@@ -121,10 +121,15 @@ local function RemoveTexture(self, texture, stopLoop)
 	self:SetTexture("", true) --2nd argument is to stop endless loop
 end
 
-function MAB:Initialize()
+function module:Initialize()
+	if E.private.actionbar.enable ~= true then return; end
+
+	local db = E.db.mui.actionbars
+	MER:RegisterDB(self, "actionbars")
+
 	CheckExtraAB()
-	C_TimerAfter(1, MAB.StyleBackdrops)
-	C_TimerAfter(1, MAB.TransparentBackdrops)
+	C_TimerAfter(1, module.StyleBackdrops)
+	C_TimerAfter(1, module.TransparentBackdrops)
 	if IsAddOnLoaded("ElvUI_TB") then DisableAddOn("ElvUI_TB") end
 
 	if E.db.mui.actionbars.cleanButton then
@@ -137,7 +142,7 @@ function MAB:Initialize()
 end
 
 local function InitializeCallback()
-	MAB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MAB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERTT = MER:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
+local module = MER:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule("Tooltip")
-MERTT.modName = L["mUI Tooltip"]
+module.modName = L["mUI Tooltip"]
 
 --Cache global variables
 --Lua functions
@@ -43,7 +43,7 @@ local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendLis
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"
 local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["DND"].."|r|cffFFFFFF>|r"
 
-function MERTT:GameTooltip_OnTooltipSetUnit(tt)
+function module:GameTooltip_OnTooltipSetUnit(tt)
 	if tt:IsForbidden() then return end
 	local unit = select(2, tt:GetUnit())
 	if((tt:GetOwner() ~= UIParent) and (self.db.visibility and self.db.visibility.unitFrames ~= 'NONE')) then
@@ -149,16 +149,17 @@ function MERTT:GameTooltip_OnTooltipSetUnit(tt)
 	end
 end
 
-function MERTT:Initialize()
+function module:Initialize()
 	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.tooltip ~= true then return end
-	self.db = E.db.tooltip
+	self.db = E.db.mui.tooltip
+	MER:RegisterDB(self, "tooltip")
 
-	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", MERTT.GameTooltip_OnTooltipSetUnit)
+	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
 	self:AzeriteArmor()
 end
 
 local function InitializeCallback()
-	MERTT:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(MERTT:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

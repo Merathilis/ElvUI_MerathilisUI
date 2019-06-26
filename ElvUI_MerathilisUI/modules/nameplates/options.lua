@@ -55,7 +55,7 @@ local function NameplatesTable()
 						order = 0,
 						type = "description",
 						fontSize = "medium",
-						name = ("Credits: |cff1784d1ElvUI |r|cff8787edC|r|cff8091d4h|r|cff799bbca|r|cff71a5a3o|r|cff6ab08at|r|cff63ba71i|r|cff5cc459c|r|cff54ce40U|r|cff4dd827I|r with |cffFF0000permission|r from NihilisticPandemonium"),
+						name = ("Credits: |cff1784d1ElvUI |r|cffff2020NihilistUI|r with |cffFF0000permission|r from NihilisticPandemonium"),
 					},
 					spacer = {
 						order = 1,

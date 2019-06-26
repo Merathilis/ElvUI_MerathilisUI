@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local AZB = MER:NewModule("MERAzeriteButtons", "AceEvent-3.0")
+local module = MER:NewModule("MERAzeriteButtons", "AceEvent-3.0")
 local S = E:GetModule('Skins')
 local LCG = LibStub('LibCustomGlow-1.0')
 
@@ -16,7 +16,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function AZB:CreateAZbuttons()
+function module:Createmoduleuttons()
 	if not E.db.mui.armory.azeritebtn then return end
 
 	local function Head_OnEnter(self)
@@ -37,7 +37,7 @@ function AZB:CreateAZbuttons()
 	Hbtn.text:SetText(L["H"])
 	Hbtn:SetScript('OnEnter', Head_OnEnter)
 	Hbtn:SetScript('OnLeave', Head_OnLeave)
-	Hbtn:SetScript("OnClick", function() AZB:openHead() end)
+	Hbtn:SetScript("OnClick", function() module:openHead() end)
 	S:HandleButton(headbtn)
 
 	local function Shoulder_OnEnter(self)
@@ -58,7 +58,7 @@ function AZB:CreateAZbuttons()
 	Sbtn.text:SetText(L["S"])
 	Sbtn:SetScript('OnEnter', Shoulder_OnEnter)
 	Sbtn:SetScript('OnLeave', Shoulder_OnLeave)
-	Sbtn:SetScript("OnClick", function() AZB:openShoulder() end)
+	Sbtn:SetScript("OnClick", function() module:openShoulder() end)
 	S:HandleButton(shoulderbtn)
 
 	local function Chest_OnEnter(self)
@@ -79,7 +79,7 @@ function AZB:CreateAZbuttons()
 	Cbtn.text:SetText(L["C"])
 	Cbtn:SetScript('OnEnter', Chest_OnEnter)
 	Cbtn:SetScript('OnLeave', Chest_OnLeave)
-	Cbtn:SetScript("OnClick", function() AZB:openChest() end)
+	Cbtn:SetScript("OnClick", function() module:openChest() end)
 	S:HandleButton(chestbtn)
 
 	headbtn:SetFrameStrata("HIGH")
@@ -108,23 +108,23 @@ function AZB:CreateAZbuttons()
 	end
 end
 
-function AZB:PLAYER_ENTERING_WORLD()
-	AZB:buttonHightlight()
+function module:PLAYER_ENTERING_WORLD()
+	module:buttonHightlight()
 end
 
-function AZB:UNIT_INVENTORY_CHANGED()
-	AZB:buttonHightlight()
+function module:UNIT_INVENTORY_CHANGED()
+	module:buttonHightlight()
 end
 
-function AZB:PLAYER_EQUIPMENT_CHANGED()
-	AZB:buttonHightlight()
+function module:PLAYER_EQUIPMENT_CHANGED()
+	module:buttonHightlight()
 end
 
-function AZB:AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED()
-	AZB:buttonHightlight()
+function module:AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED()
+	module:buttonHightlight()
 end
 
-function AZB:buttonHightlight()
+function module:buttonHightlight()
 	local itemLocation = ItemLocation:CreateFromEquipmentSlot(1);
 	if C_Item_DoesItemExist(itemLocation) and C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItem(itemLocation) then
 		if C_AzeriteEmpoweredItem_HasAnyUnselectedPowers(itemLocation) then
@@ -201,7 +201,7 @@ function AZB:buttonHightlight()
 	end
 end
 
-function AZB:openHead()
+function module:openHead()
 	local itemLocation = ItemLocation:CreateFromEquipmentSlot(1);
 	if C_Item_DoesItemExist(itemLocation) then
 		if C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItem(itemLocation) then
@@ -215,7 +215,7 @@ function AZB:openHead()
 	end
 end
 
-function AZB:openShoulder()
+function module:openShoulder()
 	local itemLocation = ItemLocation:CreateFromEquipmentSlot(3);
 	if C_Item_DoesItemExist(itemLocation) then
 		if C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItem(itemLocation) then
@@ -229,7 +229,7 @@ function AZB:openShoulder()
 	end
 end
 
-function AZB:openChest()
+function module:openChest()
 	local itemLocation = ItemLocation:CreateFromEquipmentSlot(5);
 	if C_Item_DoesItemExist(itemLocation) then
 		if C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItem(itemLocation) then
@@ -243,7 +243,7 @@ function AZB:openChest()
 	end
 end
 
-function AZB:Initialize()
+function module:Initialize()
 	if E.db.mui.armory.azeritebtn ~= true or E.private.skins.blizzard.character ~= true or E.db.general.itemLevel.displayCharacterInfo ~= true then return end
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -251,11 +251,11 @@ function AZB:Initialize()
 	self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 	self:RegisterEvent("AZERITE_EMPOWERED_ITEM_SELECTION_UPDATED")
 
-	self:CreateAZbuttons()
+	self:Createmoduleuttons()
 end
 
 local function InitializeCallback()
-	AZB:Initialize()
+	module:Initialize()
 end
 
-MER:RegisterModule(AZB:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName(), InitializeCallback)

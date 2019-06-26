@@ -1,3 +1,14 @@
+[b][color=orange]v4.23[/color], 26.06.2019[/b][list]
+[*]Added new Flask to my RaidBuffReminder module.
+[*]Added new Hearthstones to LocPanel.
+[*]Updated Code with 8.2 changes.
+
+[b][color=orange]v4.22[/color], 06.06.2019[/b][list]
+[*]Updated compatibility with ElvUI_NihilisUI.
+[*]Updated Enhanced Nameplate Auras to display the Player Name on CC Buffs, with help from Nihili <3
+[*]Added new Font Expressway Bold and use it. (You need to run the Installer again)
+[*]Small Layout update. (You need to run the Installer again) if you want it.[/list]
+
 [b][color=orange]v4.21[/color], 01.06.2019[/b][list]
 [*]Added new Tag: 'name:abbrev-translit'
 [*]Return of the Enhanced Nameplate Auras. All Credits belong to: NihilisticPandemonium.
