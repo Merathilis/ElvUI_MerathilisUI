@@ -17,10 +17,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated compatibility with ElvUI_NihilisUI.",
-		"• Updated Enhanced Nameplate Auras to display the Player Name on CC Buffs.",
-		"• Added new Font Expressway Bold and use it. (You need to run the Installer again)",
-		"• Small Layout update. (You need to run the Installer again) if you want it.",
+		"• Added new Flask to my RaidBuffReminder module.",
+		"• Added new Hearthstones to LocPanel.",
+		"• Updated Code with 8.2 changes.",
 
 		-- "• ''",
 	" ",

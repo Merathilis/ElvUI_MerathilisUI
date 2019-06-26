@@ -1,3 +1,8 @@
+[b][color=orange]v4.23[/color], 26.06.2019[/b][list]
+[*]Added new Flask to my RaidBuffReminder module.
+[*]Added new Hearthstones to LocPanel.
+[*]Updated Code with 8.2 changes.
+
 [b][color=orange]v4.22[/color], 06.06.2019[/b][list]
 [*]Updated compatibility with ElvUI_NihilisUI.
 [*]Updated Enhanced Nameplate Auras to display the Player Name on CC Buffs, with help from Nihili <3
