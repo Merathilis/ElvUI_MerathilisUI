@@ -315,6 +315,7 @@ function MI:PanelTemplates_SetTab(...)
 	if PlayerTalentFrame == nil then
 		return
 	end
+
 	local selectedTab = PanelTemplates_GetSelectedTab(PlayerTalentFrame)
 	if selectedTab == 2 then
 		BuildFrame()
@@ -356,5 +357,5 @@ function MI:LoadTalentProfiles()
 	DB:Verify()
 	DB:Migrate()
 	self:RawHook("ToggleTalentFrame", true)
-	self:RawHook("PanelTemplates_SetTab", true)
+	self:SecureHook("PanelTemplates_SetTab")
 end
