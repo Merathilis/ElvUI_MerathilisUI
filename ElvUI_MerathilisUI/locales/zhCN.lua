@@ -139,21 +139,6 @@ L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest versi
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
 
--- Talent Manager
-L["Error: Too many talents selected"] = "错误: 选择的天赋太多了"
-L["Added a new profile: "] = "增加一个新配置"
-L["Unable to load the selected profile"] = "无法载入选择的配置"
-L["Saved profile: "] = "保存配置:"
-L["Removed a profile: "] = "删除配置:"
-L["Enter Profile Name: "] = "输入配置名:"
-L["Do you want to remove the profile '%s'?"] = "你想要移除配置 '%s'?"
-L["Unable to load talent configuration for the selected profile"] = "无法为选择的配置文件加载天赋配置"
-L["Activated profile: "] = "激活的配置:"
-L["Add new profile"] = "增加新配置"
-L["Migration: Info: No profiles found for spec #"] = "迁移: 信息: 无法为天赋找到配置文件 #"
-L["Migration: Info: Migrated profile "] = "迁移: 信息: 迁移的配置文件 "
-L["Migration: Done: Successfully migrated "] = "迁移: 完成: 迁移成功 "
-
 -- Tooltip
 L["Your Status:"] = "你的状态: "
 L["Your Status: Incomplete"] = "你的状态：不完整"

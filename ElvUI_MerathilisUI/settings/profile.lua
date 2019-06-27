@@ -59,7 +59,6 @@ MP.misc = {
 	announce = true, -- CombatText, Skill gains
 	cursor = false,
 	raidInfo = true,
-	talentManager = true,
 	lfgInfo = true,
 	alerts = {
 		versionCheck = true,

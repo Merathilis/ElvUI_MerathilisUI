@@ -137,21 +137,6 @@ L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest versi
 L["GUILD_MOTD_LABEL2"] = "오늘의 길드 메시지"
 L["LFG Member Info"] = true
 
--- Talent Manager
-L["Error: Too many talents selected"] = true
-L["Added a new profile: "] = true
-L["Unable to load the selected profile"] = true
-L["Saved profile: "] = true
-L["Removed a profile: "] = true
-L["Enter Profile Name: "] = true
-L["Do you want to remove the profile '%s'?"] = true
-L["Unable to load talent configuration for the selected profile"] = true
-L["Activated profile: "] = true
-L["Add new profile"] = true
-L["Migration: Info: No profiles found for spec #"] = true
-L["Migration: Info: Migrated profile "] = true
-L["Migration: Done: Successfully migrated "] = true
-
 -- Tooltip
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true

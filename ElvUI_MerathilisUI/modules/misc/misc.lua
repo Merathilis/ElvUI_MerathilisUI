@@ -192,7 +192,6 @@ function module:Initialize()
 	self:ItemLevel()
 	self:CreateRaidManager()
 	self:GuildBest()
-	--self:LoadTalentProfiles()
 	self:AddAlerts()
 end
 
