@@ -120,6 +120,8 @@ module.EngineerItems = {
 	{87215, nil, true}, --Wormhole Generator: Pandaria
 	{112059, nil, true}, --Wormhole Centrifuge
 	{151652, nil, true}, --Wormhole Generator: Argus
+	{168807, nil, true}, --Wormhole Generator: Kul Tiras
+	{168808, nil, true}, --Wormhole Generator: Zandalar
 }
 module.Spells = {
 	["DEATHKNIGHT"] = {
