@@ -159,7 +159,6 @@ function module:Initialize()
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", module.RemoveCurrentRealmName)
 
 	self:EasyChannel()
-	self:ItemLevelLink()
 	self:StyleChat()
 	self:ChatBar()
 
