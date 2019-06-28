@@ -45,8 +45,8 @@ function MER:LoadBigWigsProfileDPS()
 			["BigWigs_Plugins_Bars"] = {
 				["profiles"] = {
 					["MerathilisUI"] = {
-						["BigWigsEmphasizeAnchor_y"] = 271.82,
-						["BigWigsEmphasizeAnchor_x"] = 458.58,
+						["BigWigsEmphasizeAnchor_y"] = 217,
+						["BigWigsEmphasizeAnchor_x"] = 457,
 						["BigWigsAnchor_y"] = 24,
 						["BigWigsAnchor_x"] = 835,
 						["BigWigsAnchor_width"] = 212,
