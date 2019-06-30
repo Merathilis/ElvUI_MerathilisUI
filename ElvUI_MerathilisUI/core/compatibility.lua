@@ -30,7 +30,7 @@ local function Disable(tbl, key)
 	if (tbl[key1]) then
 		tbl[key1] = false
 		return true
-	else if(tbl[key2]) then
+	elseif (tbl[key2]) then
 		tbl[key2] = false
 		return true
 	end
