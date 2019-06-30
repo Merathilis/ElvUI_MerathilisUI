@@ -13,9 +13,8 @@ local IsAddOnLoaded = IsAddOnLoaded
 	ALL CREDITS BELONG TO NihilisticPandemonium (Code taken with permissions from ElvUI_NihilistUI)
 	IF YOU COPY THIS, YOU WILL BURN IN HELL!!!!
 --]]
-
 -- Check other addons
-COMP.SLE = MER:IsAddOnEnabled('ElvUI_SLE')
+COMP.SLE = MER:IsAddOnEnabled("ElvUI_SLE")
 COMP.PA = MER:IsAddOnEnabled("ProjectAzilroka")
 COMP.LP = MER:IsAddOnEnabled("ElvUI_LocPlus")
 COMP.LL = MER:IsAddOnEnabled("ElvUI_LocLite")
@@ -26,10 +25,13 @@ COMP.WIND = MER:IsAddOnEnabled("ElvUI_WindTools")
 COMP.LIVVEN = MER:IsAddOnEnabled("ElvUI_LivvenUI")
 
 local function Disable(tbl, key)
-	key = key or ('enable' or 'Enable')
+	local key1, key2 = key or "enable", "Enable"
 
-	if (tbl[key]) then
-		tbl[key] = false
+	if (tbl[key1]) then
+		tbl[key1] = false
+		return true
+	else if(tbl[key2]) then
+		tbl[key2] = false
 		return true
 	end
 
@@ -38,12 +40,13 @@ end
 
 --Incompatibility print
 function COMP:Print(addon, feature)
-	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
+	if (E.private.mui and E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][feature]) then
 		return
 	end
 
-	print(MER.Title..L["has |cffff2020disabled|r "]..feature..L[" from "]..addon..L[" due to incompatiblities."])
+	print(MER.Title .. L["has |cffff2020disabled|r "] .. feature .. L[" from "] .. addon .. L[" due to incompatiblities."])
 
+	E.private.mui = E.private.mui or {}
 	E.private.mui.comp = E.private.mui.comp or {}
 	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
 	E.private.mui.comp[addon][feature] = true
@@ -51,19 +54,20 @@ end
 
 -- Print for disable my modules
 function COMP:ModulePrint(addon, module)
-	if (E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
+	if (E.private.mui and E.private.mui.comp and E.private.mui.comp[addon] and E.private.mui.comp[addon][module]) then
 		return
 	end
 
-	print(MER.Title..L["has |cffff2020disabled|r "]..module..L[" due to incompatiblities with: "]..addon)
+	print(MER.Title .. L["has |cffff2020disabled|r "] .. module .. L[" due to incompatiblities with: "] .. addon)
 
+	E.private.mui = E.private.mui or {}
 	E.private.mui.comp = E.private.mui.comp or {}
 	E.private.mui.comp[addon] = E.private.mui.comp[addon] or {}
 	E.private.mui.comp[addon][module] = true
 end
 
 function COMP:ProjectAzilrokaCompatibility()
-	if Disable(ProjectAzilrokaDB, "SquareMinimapButtons" and E.db.mui["smb"]) then
+	if Disable(ProjectAzilrokaDB, "SquareMinimapButtons") and E.db.mui["smb"] then
 		self:Print("ProjectAzilroka", "SquareMinimapButtons")
 	end
 end
@@ -71,7 +75,7 @@ end
 function COMP:LocationPlusCompatibility()
 	local LP = E:GetModule("LocationPlus")
 
-	if Disable(E.db.mui['locPanel']) then
+	if Disable(E.db.mui["locPanel"]) then
 		self:ModulePrint("ElvUI_LocPlus", "Location Panel")
 	end
 end
@@ -79,7 +83,7 @@ end
 function COMP:LocationLiteCompatibility()
 	local LLB = E:GetModule("LocationLite")
 
-	if Disable(E.db.mui['locPanel']) then
+	if Disable(E.db.mui["locPanel"]) then
 		self:ModulePrint("ElvUI_LocLite", "Location Panel")
 	end
 end
@@ -140,7 +144,7 @@ function COMP:NihilistUI()
 	end
 end
 
-COMP.CompatibilityFunctions = {};
+COMP.CompatibilityFunctions = {}
 
 function COMP:RegisterCompatibilityFunction(addonName, compatFunc)
 	COMP.CompatibilityFunctions[addonName] = compatFunc
@@ -165,8 +169,12 @@ end
 function COMP:Initialize()
 end
 
-hooksecurefunc(E, "CheckIncompatible", function(self)
-	COMP:RunCompatibilityFunctions()
-end)
+hooksecurefunc(
+	E,
+	"CheckIncompatible",
+	function(self)
+		COMP:RunCompatibilityFunctions()
+	end
+)
 
 MER:RegisterModule(COMP:GetName())
