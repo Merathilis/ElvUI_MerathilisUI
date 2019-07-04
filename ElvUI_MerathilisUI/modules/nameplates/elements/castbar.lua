@@ -64,12 +64,13 @@ end
 function MNP:Construct_Castbar(nameplate)
 	local Castbar = _G[nameplate:GetDebugName()..'Castbar']
 
-	Castbar.Shield = Castbar:CreateTexture(nil, 'OVERLAY')
-	Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Shield.tga")
-	Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
-	Castbar.Shield:SetSize(12, 12)
-	Castbar.Shield:Hide()
-
+	if E.db.mui.nameplates.castbarShield then
+		Castbar.Shield = Castbar:CreateTexture(nil, 'OVERLAY')
+		Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Shield.tga")
+		Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
+		Castbar.Shield:SetSize(12, 12)
+		Castbar.Shield:Hide()
+	end
 	Castbar.CheckInterrupt = MNP.Castbar_CheckInterrupt
 end
 hooksecurefunc(NP, "Construct_Castbar", MNP.Construct_Castbar)
