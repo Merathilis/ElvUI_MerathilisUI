@@ -15,7 +15,7 @@ local GetGuildInfo = GetGuildInfo
 local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
-local PlaySoundFile = PlaySoundFile
+local PlaySound = PlaySound
 -- GLOBALS: GUILD_MOTD_LABEL2, UISpecialFrames
 
 local gmotd
@@ -77,7 +77,7 @@ function MI:GMOTD()
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": ".._G.GUILD_MOTD_LABEL2)
 				gmotd:Show()
-				PlaySoundFile([[Sound\Interface\alarmclockwarning2.ogg]])
+				PlaySound(12867) --Sound\Interface\alarmclockwarning2.ogg
 
 				local numLines = gmotd.text:GetNumLines()
 				gmotd:SetHeight(20 + (12.2*numLines))
