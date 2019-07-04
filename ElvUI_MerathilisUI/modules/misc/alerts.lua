@@ -22,7 +22,7 @@ local IsInGroup = IsInGroup
 local IsPartyLFG = IsPartyLFG
 local IsInRaid = IsInRaid
 local GetLFGRoleShortageRewards = GetLFGRoleShortageRewards
-local PlaySoundFile = PlaySoundFile
+local PlaySound = PlaySound
 local RaidNotice_AddMessage = RaidNotice_AddMessage
 -- GLOBALS:
 
@@ -51,7 +51,7 @@ function eventframe:LFG_UPDATE_RANDOM_INFO()
 
 	if ((IsTank and forTank) or (IsHealer and forHealer) or (IsDamage and forDamage)) and not ingroup then
 		if GetTime() - LFG_Timer > 20 then
-			PlaySoundFile("Sound\\Interface\\RaidWarning.ogg")
+			PlaySound(8959) --Sound\\Interface\\RaidWarning.ogg
 			RaidNotice_AddMessage(_G.RaidWarningFrame, format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager), ChatTypeInfo["RAID_WARNING"])
 			MER:Print(format(_G.LFG_CALL_TO_ARMS, tank.." "..healer.." "..damager))
 			LFG_Timer = GetTime()

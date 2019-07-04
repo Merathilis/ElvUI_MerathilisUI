@@ -1,7 +1,15 @@
+[b][color=orange]v4.24[/color], 04.07.2019[/b][list]
+[*]Removed Talent Manager. Caused too many errors.
+[*]Added new Wormhole Generators to LocPanel.
+[*]Added PVPMatchUI skin.
+[*]IMPORTANT: Updated my Layout to not block certain World Quest.
+[*]Fixed some bugs with compatibility code -- Thx Nihilist
+[*]Fixed Nameplate Castbar Shield option.[/list]
+
 [b][color=orange]v4.23[/color], 26.06.2019[/b][list]
 [*]Added new Flask to my RaidBuffReminder module.
 [*]Added new Hearthstones to LocPanel.
-[*]Updated Code with 8.2 changes.
+[*]Updated Code with 8.2 changes.[/list]
 
 [b][color=orange]v4.22[/color], 06.06.2019[/b][list]
 [*]Updated compatibility with ElvUI_NihilisUI.

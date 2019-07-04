@@ -71,12 +71,6 @@ local function Misc()
 				name = L["Raid Info"],
 				desc = L["Shows a simple frame with Raid Informations."],
 			},
-			talentManager = {
-				order = 9,
-				type = "toggle",
-				name = L["Talent Manager"],
-				desc = L["Allow you to create multiple Talent presets"],
-			},
 			lfgInfo = {
 				order = 11,
 				type = "toggle",

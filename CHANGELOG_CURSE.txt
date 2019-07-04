@@ -1,3 +1,11 @@
+** v4.24 04.07.2019**
+* Removed Talent Manager. Caused too many errors.
+* Added new Wormhole Generators to LocPanel.
+* Added PVPMatchUI skin.
+* IMPORTANT: Updated my Layout to not block certain World Quest.
+* Fixed some bugs with compatibility code -- Thx Nihilist
+* Fixed Nameplate Castbar Shield option.
+
 ** v4.23 26.06.2019**
 * Added new Flask to my RaidBuffReminder module.
 * Added new Hearthstones to LocPanel.
