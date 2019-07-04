@@ -17,14 +17,17 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added new Flask to my RaidBuffReminder module.",
-		"• Added new Hearthstones to LocPanel.",
-		"• Updated Code with 8.2 changes.",
+		"• Removed Talent Manager. Caused too many errors.",
+		"• Added new Wormhole Generators to LocPanel.",
+		"• Added PVPMatchUI skin.",
+		"• IMPORTANT: Updated my Layout to not block certain World Quest.",
+		"• Fixed some bugs with compatibility code -- Thx Nihilist",
+		"• Fixed Nameplate Castbar Shield option.",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		-- "• ''",
+		"• 'As Always, if you want my latest Layout Changes, you have to perform my Installer again!'",
 }
 
 local URL_PATTERNS = {
