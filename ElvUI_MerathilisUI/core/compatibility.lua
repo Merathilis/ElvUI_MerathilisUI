@@ -112,9 +112,10 @@ function COMP:SLECompatibility()
 	end
 
 	-- Armory
+	--[[
 	if Disable(E.db.sle["Armory"]["Character"]) then
 		self:Print(SLE.Title, "Armory Mode")
-	end
+	end]]
 end
 
 function COMP:WindToolsCompatibility()
