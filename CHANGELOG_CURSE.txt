@@ -1,6 +1,7 @@
 ** v4.25 15.07.2019**
 * Fixed a GMOTD PlaySoundFile.
 * Fixed Enable Options for RaidCD.
+* Removed SLE Armory Incompatibility check.
 
 ** v4.24 04.07.2019**
 * Removed Talent Manager. Caused too many errors.
