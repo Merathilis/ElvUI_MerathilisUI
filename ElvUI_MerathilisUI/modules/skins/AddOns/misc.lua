@@ -33,6 +33,8 @@ local function styleMisc()
 	-- Graveyard button (a bit ugly if you press it)
 	_G.GhostFrame:StripTextures()
 	_G.GhostFrameContentsFrame:StripTextures()
+	_G.GhostFrame:CreateBackdrop("Transparent")
+	_G.GhostFrame.backdrop:Styling()
 
 	-- tooltips
 	local tooltips = {
