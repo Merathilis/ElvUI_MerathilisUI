@@ -159,6 +159,12 @@ local function Tooltip()
 								name = L["CrucibleOfStorms"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
+							EternalPalace = {
+								order = 4,
+								type = "toggle",
+								name = L["EternalPalace"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							},
 						}
 					},
 				},

@@ -361,8 +361,9 @@ MP.tooltip = {
 		raid = {
 			enable = true,
 			Uldir = false,
-			BattleOfDazaralor = true,
+			BattleOfDazaralor = false,
 			CrucibleOfStorms = true,
+			EternalPalace = true,
 		}
 	},
 }
