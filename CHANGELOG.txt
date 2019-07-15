@@ -1,3 +1,8 @@
+[b][color=orange]v4.25[/color], 15.07.2019[/b][list]
+[*]Fixed a GMOTD PlaySoundFile.
+[*]Fixed Enable Options for RaidCD.
+[*]Removed SLE Armory Incompatibility check.[/list]
+
 [b][color=orange]v4.24[/color], 04.07.2019[/b][list]
 [*]Removed Talent Manager. Caused too many errors.
 [*]Added new Wormhole Generators to LocPanel.

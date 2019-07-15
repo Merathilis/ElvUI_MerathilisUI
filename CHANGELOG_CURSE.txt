@@ -1,3 +1,7 @@
+** v4.25 15.07.2019**
+* Fixed a GMOTD PlaySoundFile.
+* Fixed Enable Options for RaidCD.
+
 ** v4.24 04.07.2019**
 * Removed Talent Manager. Caused too many errors.
 * Added new Wormhole Generators to LocPanel.

@@ -17,17 +17,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Removed Talent Manager. Caused too many errors.",
-		"• Added new Wormhole Generators to LocPanel.",
-		"• Added PVPMatchUI skin.",
-		"• IMPORTANT: Updated my Layout to not block certain World Quest.",
-		"• Fixed some bugs with compatibility code -- Thx Nihilist",
-		"• Fixed Nameplate Castbar Shield option.",
+		"• Fixed a GMOTD PlaySoundFile",
+		"• Fixed Enable Options for RaidCD",
+		"• Removed SLE Armory Incompatibility check",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• 'As Always, if you want my latest Layout Changes, you have to perform my Installer again!'",
+		-- "• ''",
 }
 
 local URL_PATTERNS = {
