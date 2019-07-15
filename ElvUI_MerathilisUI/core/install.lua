@@ -51,7 +51,6 @@ local function SetupCVars()
 	SetCVar("ffxGlow", 0)
 	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
-	SetCVar("fstack_preferParentKeys", 0) -- Add back the frame names via fstack!
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
