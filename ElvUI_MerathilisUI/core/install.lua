@@ -260,14 +260,11 @@ function MER:SetupLayout()
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
+	E.db["general"]["cropIcon"] = false
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
 	--]]----------------------------------
-	if IsAddOnLoaded("Masque") then
-		E.private["auras"]["masque"]["buffs"] = true
-		E.private["auras"]["masque"]["debuffs"] = true
-	end
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
@@ -679,11 +676,6 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 51)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
-	-- Masque
-	if IsAddOnLoaded("Masque") then
-		MER:LoadMasqueProfile()
-	end
-
 	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["Layout Set"]
@@ -705,12 +697,6 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["cooldown"]["fonts"]["font"] = "Merathilis Expressway"
 	E.db["actionbar"]["cooldown"]["fonts"]["fontOutline"] = "OUTLINE"
 	E.db["actionbar"]["cooldown"]["fonts"]["fontSize"] = 20
-
-	if IsAddOnLoaded("Masque") then
-		E.private["actionbar"]["masque"]["stanceBar"] = true
-		E.private["actionbar"]["masque"]["petBar"] = true
-		E.private["actionbar"]["masque"]["actionbars"] = true
-	end
 
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["actionbars"]["transparent"] = true
@@ -749,12 +735,11 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+	E.db["actionbar"]["bar1"]["backdrop"] = true
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar1"]["backdrop"] = false
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar1"]["backdrop"] = true
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 2
 	end
 
@@ -767,12 +752,11 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["showGrid"] = true
 	E.db["actionbar"]["bar2"]["heightMult"] = 2
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
+	E.db["actionbar"]["bar2"]["backdrop"] = false
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar2"]["backdrop"] = false
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 2
 	end
 
@@ -814,12 +798,11 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["buttonsize"] = 32
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
+	E.db["actionbar"]["bar6"]["backdrop"] = true
 
 	if layout == "dps" then
-		E.db["actionbar"]["bar6"]["backdrop"] = false
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
 	elseif layout == "healer" then
-		E.db["actionbar"]["bar6"]["backdrop"] = true
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 2
 	end
 
@@ -838,13 +821,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 	if layout == "dps" then
-		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 153)
-		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 187)
+		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 144)
+		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
 		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 50)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
-		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 20)
-		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 55)
+		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 19)
+		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 60)
 		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
 		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", 305, 50)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
@@ -945,7 +928,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 278
+		E.db["unitframe"]["units"]["player"]["classbar"]["detachedWidth"] = 285
 		E.db["unitframe"]["units"]["player"]["classbar"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["classbar"]["height"] = 15
 		E.db["unitframe"]["units"]["player"]["classbar"]["autoHide"] = false
@@ -954,7 +937,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
-		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 278
+		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 285
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
@@ -1033,7 +1016,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 278
+		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 285
 		E.db["unitframe"]["units"]["player"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["power"]["attachTextTo"] = "Power"
 		E.db["unitframe"]["units"]["player"]["power"]["position"] = "CENTER"
@@ -1732,13 +1715,13 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 		-- Movers
-		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -241, 220)
-		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 126)
+		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -244, 220)
+		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 117)
 		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 220)
 		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 237)
-		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 220)
-		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 241, 201)
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -542, 220)
+		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 244, 220)
+		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 244, 201)
+		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -539, 220)
 		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 323)
 		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 305)
 		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
