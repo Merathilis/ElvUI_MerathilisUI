@@ -234,26 +234,6 @@ local function CreateButton(name, size)
 	AutoButton.Cooldown:SetDrawBling(false)
 
 	E:RegisterCooldown(AutoButton.Cooldown)
-
-	local AutoButtonData = {
-		FloatingBG = nil,
-		Icon = AutoButton.Texture,
-		Cooldown = AutoButton.Cooldown,
-		Flash = nil,
-		Pushed = nil,
-		Normal = nil,
-		Disabled = nil,
-		Checked = nil,
-		Border = nil,
-		AutoCastable = nil,
-		Highlight = nil,
-		HotKey = AutoButton.HotKey,
-		Count = false,
-		Name = nil,
-		Duration = false,
-		AutoCast = nil,
-	}
-
 	E.FrameLocks[name] = true
 
 	return AutoButton
