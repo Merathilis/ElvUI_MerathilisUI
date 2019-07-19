@@ -514,9 +514,6 @@ local function SkinsTable()
 					E:StaticPopup_Show("MUI_INSTALL_DBM_LAYOUT")
 				elseif addon == 'ElvUI_BenikUI' then
 					E:StaticPopup_Show("MUI_INSTALL_BUI_LAYOUT")
-				elseif addon == 'Masque' then
-					MER:LoadMasqueProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Skada' then
 					MER:LoadSkadaProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
