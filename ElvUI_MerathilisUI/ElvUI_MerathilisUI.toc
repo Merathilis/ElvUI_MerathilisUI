@@ -1,4 +1,4 @@
-## Interface: 80100
+## Interface: 80200
 ## Author: Merathilis
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, Whiro, Darth Predator, fgprodigal, siweia, Solor, Elv & all AddOn Authors who inspired me.
 ## Version: 4.25
@@ -9,7 +9,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts, Masque
+## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
 ## X-ElvVersion: 11.18
 ## X-Curse-Packaged-Version: 4.25
 ## X-Curse-Project-Name: MerathilisUI
