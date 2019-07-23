@@ -1056,6 +1056,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
@@ -1172,6 +1173,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 		-- TargetTarget
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
