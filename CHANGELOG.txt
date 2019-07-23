@@ -1,3 +1,10 @@
+[b][color=orange]v4.26[/color], 23.07.2019[/b][list]
+[*]Added Eternal Palace to Raid Progress on Tooltip.
+[*]Changed Layout due to removal from Masque.
+[*]Added S&L Merchant skin incompatibility check.
+[*]Enable Cutaway Health on Player-/Target Frame.
+[*]RaiderIO skin fix.
+
 [b][color=orange]v4.25[/color], 15.07.2019[/b][list]
 [*]Fixed a GMOTD PlaySoundFile.
 [*]Fixed Enable Options for RaidCD.
