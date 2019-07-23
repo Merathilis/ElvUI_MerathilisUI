@@ -205,7 +205,7 @@ function MERS:ClearButton()
 end
 
 local function StartGlow(f)
-	if not f or f:IsEnabled() then return end
+	if not f and f:IsEnabled() then return end
 	f:SetBackdropBorderColor(r, g, b)
 	f.glow:SetAlpha(1)
 	MER:CreatePulse(f.glow)
