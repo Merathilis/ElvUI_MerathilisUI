@@ -39,8 +39,6 @@ MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
 BINDING_HEADER_MER = "|cffff7d0aMerathilisUI|r"
 
-MER.MSQ = _G.LibStub('Masque', true)
-
 local function PrintURL(url) -- Credit: Azilroka
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
 end

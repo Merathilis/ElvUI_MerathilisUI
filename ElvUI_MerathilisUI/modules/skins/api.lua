@@ -205,7 +205,7 @@ function MERS:ClearButton()
 end
 
 local function StartGlow(f)
-	if not f:IsEnabled() then return end
+	if not (f and f:IsEnabled()) then return end
 	f:SetBackdropBorderColor(r, g, b)
 	f.glow:SetAlpha(1)
 	MER:CreatePulse(f.glow)
@@ -505,8 +505,4 @@ function MERS:Initialize()
 	end
 end
 
-local function InitializeCallback()
-	MERS:Initialize()
-end
-
-MER:RegisterModule(MERS:GetName(), InitializeCallback)
+MER:RegisterModule(MERS:GetName())

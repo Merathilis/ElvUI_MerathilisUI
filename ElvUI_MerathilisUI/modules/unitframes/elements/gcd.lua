@@ -68,8 +68,4 @@ function MGCD:Initialize()
 	self:LoadGCDBar(_G["ElvUF_Player"])
 end
 
-local function InitializeCallback()
-	MGCD:Initialize()
-end
-
-MER:RegisterModule(MGCD:GetName(), InitializeCallback)
+MER:RegisterModule(MGCD:GetName())

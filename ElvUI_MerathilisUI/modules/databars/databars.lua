@@ -45,8 +45,4 @@ function module:Initialize()
 	C_Timer_After(1, module.StyleBackdrops)
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())

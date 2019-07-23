@@ -389,8 +389,4 @@ function MERL:Initialize()
 	self:ShadowOverlay()
 end
 
-local function InitializeCallback()
-	MERL:Initialize()
-end
-
-MER:RegisterModule(MERL:GetName(), InitializeCallback)
+MER:RegisterModule(MERL:GetName())

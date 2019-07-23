@@ -26,7 +26,7 @@ local hooksecurefunc = hooksecurefunc
 
 module.RP = {
 	-- sort key
-	["tiers"] = { "Uldir", "BattleOfDazaralor", "CrucibleOfStorms" },
+	["tiers"] = { "Uldir", "BattleOfDazaralor", "CrucibleOfStorms", "EternalPalace" },
 	["levels"] = { "Mythic", "Heroic", "Normal", "LFR" },
 	-- stat id
 	["Raid"] = {
@@ -86,6 +86,20 @@ module.RP = {
 			},
 			["LFR"] = {
 				13404, 13408,
+			},
+		},
+		["EternalPalace"] = {
+			["Mythic"] = {
+				13590, 13594, 13598, 13603, 13607, 13611, 13615, 13619,
+			},
+			["Heroic"] = {
+				13589, 13593, 13597, 13602, 13606, 13610, 13614, 13618,
+			},
+			["Normal"] = {
+				13588, 13592, 13596, 13601, 13605, 13609, 13613, 13617,
+			},
+			["LFR"] = {
+				13587, 13591, 13595, 13600, 13604, 13608, 13612, 13616,
 			},
 		},
 	},
@@ -247,8 +261,4 @@ function module:Initialize()
 	hooksecurefunc(TT, 'AddInspectInfo', module.AddInspectInfo)
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())

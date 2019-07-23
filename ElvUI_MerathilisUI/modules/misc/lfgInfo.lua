@@ -134,8 +134,4 @@ function module:Initialize()
 	hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", MER_LFGListUtil_SetSearchEntryTooltip)
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())
