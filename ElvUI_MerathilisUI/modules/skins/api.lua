@@ -505,8 +505,4 @@ function MERS:Initialize()
 	end
 end
 
-local function InitializeCallback()
-	MERS:Initialize()
-end
-
-MER:RegisterModule(MERS:GetName(), InitializeCallback)
+MER:RegisterModule(MERS:GetName())

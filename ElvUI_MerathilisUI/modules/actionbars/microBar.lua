@@ -1076,8 +1076,4 @@ function module:Initialize()
 	self:RegisterEvent("UNIT_AURA")
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())

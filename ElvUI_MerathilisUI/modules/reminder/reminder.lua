@@ -11,6 +11,7 @@ local pairs, select, type, unpack= pairs, select, type, unpack
 -- WoW API / Variables
 local AuraUtil_FindAuraByName = AuraUtil.FindAuraByName
 local C_PaperDollInfo_OffhandHasWeapon = C_PaperDollInfo.OffhandHasWeapon
+local C_Timer_After = C_Timer.After
 local CreateFrame = CreateFrame
 local GetSpecialization = GetSpecialization
 local GetSpellCooldown = GetSpellCooldown
@@ -409,11 +410,7 @@ function module:Initialize()
 	if module.db.enable ~= true then return; end
 
 	self:CheckForNewReminders()
-	C_Timer.After(1, function() module.initialized = true end)
+	C_Timer_After(1, function() module.initialized = true end)
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())

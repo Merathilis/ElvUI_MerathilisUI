@@ -158,8 +158,4 @@ function MCA:Initialize()
 	MCA:CastBarHooks()
 end
 
-local function InitializeCallback()
-	MCA:Initialize()
-end
-
-MER:RegisterModule(MCA:GetName(), InitializeCallback)
+MER:RegisterModule(MCA:GetName())

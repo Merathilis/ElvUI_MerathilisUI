@@ -254,8 +254,4 @@ function module:Initialize()
 	self:Createmoduleuttons()
 end
 
-local function InitializeCallback()
-	module:Initialize()
-end
-
-MER:RegisterModule(module:GetName(), InitializeCallback)
+MER:RegisterModule(module:GetName())

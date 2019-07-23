@@ -206,8 +206,4 @@ function DD:Initialize()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "HideMenus")
 end
 
-local function InitializeCallback()
-	DD:Initialize()
-end
-
-E:RegisterModule(DD:GetName(), InitializeCallback)
+E:RegisterModule(DD:GetName())
