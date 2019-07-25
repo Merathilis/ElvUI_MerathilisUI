@@ -10,6 +10,7 @@ local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 local find, lower, strfind = string.find, string.lower, strfind
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -464,6 +465,7 @@ local function ReskinVehicleExit()
 end
 
 local function StyleElvUIConfig()
+	if InCombatLockdown() then return end
 	local frame = _G.ElvUIGUIFrame
 	if not frame.IsStyled then
 		frame:Styling()
