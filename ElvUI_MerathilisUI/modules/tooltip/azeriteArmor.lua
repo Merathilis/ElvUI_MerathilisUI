@@ -24,7 +24,7 @@ function MERTT:AzeriteArmor()
 		for i = 9, tooltip:NumLines() do
 			local line = _G[tooltip:GetName().."TextLeft"..i]
 			local text = line:GetText()
-			if text and strfind(text, "%-") then
+			if text and strfind(text, "%- ") then
 				tinsert(tipList, i)
 			end
 		end
@@ -95,8 +95,12 @@ function MERTT:AzeriteArmor()
 			end
 
 			if tooltipText ~= "" and count > 0 then
-				local line = _G[self:GetName().."TextLeft"..tipList[index]]
-				line:SetText(line:GetText().."\n "..tooltipText)
+				local lineIndex = tipList[index]
+				local line = _G[self:GetName()..'TextLeft'..lineIndex]
+
+				line:SetText(tooltipText)
+				_G[self:GetName()..'TextLeft'..lineIndex+1]:SetText('')
+
 				count = count - 1
 				index = index + 1
 			end
