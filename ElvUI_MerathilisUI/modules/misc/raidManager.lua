@@ -65,6 +65,8 @@ function MI:CreateRaidManager()
 	header.backdrop:SetAllPoints()
 	header.backdrop:Styling()
 
+	E.FrameLocks[header] = true
+
 	E:CreateMover(header, "MER_RaidManager", L["Raid Manager"], nil, nil, nil, "ALL,SOLO,PARTY,RAID,MERATHILISUI", nil, 'mui,misc')
 
 	header:RegisterEvent("GROUP_ROSTER_UPDATE")
