@@ -473,6 +473,15 @@ local function StyleElvUIConfig()
 	end
 end
 
+local function StyleElvUIInstall()
+	if InCombatLockdown() then return end
+	local frame = _G.ElvUIInstallFrame
+	if not frame.IsStyled then
+		frame:Styling()
+		frame.IsStyled = true
+	end
+end
+
 -- keep the colors updated
 local function updateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
@@ -491,6 +500,13 @@ local function pluginInstaller()
 	end
 end
 
+local function StyleAce3Tooltip(self)
+	if not self or self:IsForbidden() then return end
+	if not self.styling then
+		self:Styling()
+	end
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
@@ -499,6 +515,8 @@ function MERS:Initialize()
 	pluginInstaller()
 
 	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
+	hooksecurefunc(E, 'Install', StyleElvUIInstall)
+	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAce3Tooltip)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
