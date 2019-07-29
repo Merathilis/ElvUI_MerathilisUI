@@ -206,7 +206,7 @@ function module:CreateToast()
 	local animInMove = toast.AnimIn:CreateAnimation("Move")
 	animInMove:SetOrder(1)
 	animInMove:SetDuration(0.5)
-	animInMove:SetSmoothing("Out")
+	animInMove:SetEasing("Out")
 	animInMove:SetOffset(-bannerWidth, 0)
 	toast.AnimIn.AnimMove = animInMove
 
@@ -226,7 +226,7 @@ function module:CreateToast()
 	local animOutMove = toast.AnimOut:CreateAnimation("Move")
 	animOutMove:SetOrder(2)
 	animOutMove:SetDuration(0.5)
-	animOutMove:SetSmoothing("In")
+	animOutMove:SetEasing("In")
 	animOutMove:SetOffset(bannerWidth, 0)
 	toast.AnimOut.AnimMove = animOutMove
 
