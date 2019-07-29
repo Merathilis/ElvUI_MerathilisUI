@@ -79,7 +79,6 @@ V.muiSkins = {
 	addonSkins = {
 		abp = true,
 		bw = true,
-		wa = true,
 		xiv = true,
 		bui = true,
 		bs = true,
