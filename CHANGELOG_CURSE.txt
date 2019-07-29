@@ -1,3 +1,9 @@
+** v4.27 29.07.2019**
+* Update some skins.
+* Update Azerite Armor Tooltip.
+* Hide the RaidManager during Pet Battles.
+* Removed WeakAuras Skin.
+
 ** v4.26 23.07.2019**
 * Added Eternal Palace to Raid Progress on Tooltip.
 * Changed Layout due to removal from Masque.

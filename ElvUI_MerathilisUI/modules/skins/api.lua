@@ -10,6 +10,7 @@ local assert, pairs, select, unpack, type = assert, pairs, select, unpack, type
 local find, lower, strfind = string.find, string.lower, strfind
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -464,7 +465,17 @@ local function ReskinVehicleExit()
 end
 
 local function StyleElvUIConfig()
+	if InCombatLockdown() then return end
 	local frame = _G.ElvUIGUIFrame
+	if not frame.IsStyled then
+		frame:Styling()
+		frame.IsStyled = true
+	end
+end
+
+local function StyleElvUIInstall()
+	if InCombatLockdown() then return end
+	local frame = _G.ElvUIInstallFrame
 	if not frame.IsStyled then
 		frame:Styling()
 		frame.IsStyled = true
@@ -489,6 +500,13 @@ local function pluginInstaller()
 	end
 end
 
+local function StyleAce3Tooltip(self)
+	if not self or self:IsForbidden() then return end
+	if not self.styling then
+		self:Styling()
+	end
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
@@ -497,6 +515,8 @@ function MERS:Initialize()
 	pluginInstaller()
 
 	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
+	hooksecurefunc(E, 'Install', StyleElvUIInstall)
+	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAce3Tooltip)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

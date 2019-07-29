@@ -17,17 +17,14 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Eternal Palace to Raid Progress on Tooltip",
-		"• Changed Layout due to removal from Masque",
-		"• Added S&L Merchant skin incompatibility check",
-		"• Enable Cutaway Health on Player-/Target Frame",
-		"• RaiderIO skin fix",
+		"• Update some skins",
+		"• Update Azerite Armor Tooltip",
+		"• Hide the RaidManager during Pet Battles",
+		"• Removed WeakAuras Skin",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• Since i don't use Masque anymore you should visit my Interface Git Site:",
-		"• https://git.tukui.org/Merathilis/Interface"
 		-- "• ''",
 }
 

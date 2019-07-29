@@ -15,7 +15,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"BigWigs", L["BigWigs"], "bw"},
-	{"WeakAuras", L["WeakAuras"], "wa"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
 	{"BugSack", L["BugSack"], "bs"},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},

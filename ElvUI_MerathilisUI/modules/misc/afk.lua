@@ -119,19 +119,6 @@ local function Initialize()
 	AFK.AFKMode.bottomPanel.ignoreBackdropColors = true
 	E["frames"][AFK.AFKMode.bottomPanel] = true
 
-	-- Bottom Panel Style
-	AFK.AFKMode.bottomPanel.topLeftStyle = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.bottomPanel.topLeftStyle:SetFrameLevel(2)
-	AFK.AFKMode.bottomPanel.topLeftStyle:Point("TOPLEFT", AFK.AFKMode.bottomPanel, "TOPLEFT", 10, 2)
-	AFK.AFKMode.bottomPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(AFK.AFKMode.bottomPanel.topLeftStyle)
-
-	AFK.AFKMode.bottomPanel.topRightStyle = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.bottomPanel.topRightStyle:SetFrameLevel(2)
-	AFK.AFKMode.bottomPanel.topRightStyle:Point("TOPRIGHT", AFK.AFKMode.bottomPanel, "TOPRIGHT", -10, 2)
-	AFK.AFKMode.bottomPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(AFK.AFKMode.bottomPanel.topRightStyle)
-
 	-- Bottom AFK Title
 	AFK.AFKMode.bottomPanel.AFKtitle = MER:CreateText(AFK.AFKMode.bottomPanel, "OVERLAY", 20, nil, "CENTER")
 	AFK.AFKMode.bottomPanel.AFKtitle:SetText("|cFF00c0fa"..L["Are you still there? ... Hello?"].."|r")
@@ -168,19 +155,6 @@ local function Initialize()
 	AFK.AFKMode.topPanel.ignoreFrameTemplates = true
 	AFK.AFKMode.topPanel.ignoreBackdropColors = true
 	E["frames"][AFK.AFKMode.topPanel] = true
-
-	-- Top Panel Style
-	AFK.AFKMode.topPanel.topLeftStyle = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.topPanel.topLeftStyle:SetFrameLevel(2)
-	AFK.AFKMode.topPanel.topLeftStyle:Point("BOTTOMLEFT", AFK.AFKMode.topPanel, "BOTTOMLEFT", 10, -2)
-	AFK.AFKMode.topPanel.topLeftStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(AFK.AFKMode.topPanel.topLeftStyle)
-
-	AFK.AFKMode.topPanel.topRightStyle = CreateFrame("Frame", nil, AFK.AFKMode)
-	AFK.AFKMode.topPanel.topRightStyle:SetFrameLevel(2)
-	AFK.AFKMode.topPanel.topRightStyle:Point("BOTTOMRIGHT", AFK.AFKMode.topPanel, "BOTTOMRIGHT", -10, -2)
-	AFK.AFKMode.topPanel.topRightStyle:SetSize(E.screenwidth*2/9, 4)
-	MERS:SkinPanel(AFK.AFKMode.topPanel.topRightStyle)
 
 	-- ElvUI Logo
 	AFK.AFKMode.bottom.logo:ClearAllPoints()

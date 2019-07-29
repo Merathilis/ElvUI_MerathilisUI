@@ -12,7 +12,7 @@ local CreateFrame = CreateFrame
 
 function module:Initialize()
 	if not COMP.BUI then return end
-	local BFM = E:GetModule("BUIFlightMode")
+	local BFM = _G.ElvUI_BenikUI[1]:GetModule("FlightMode")
 	if E.db.mui.general.FlightMode then
 
 		-- Hide BenikUI Logo

@@ -25,19 +25,12 @@ local function styleAchievement()
 		_G.AchievementFrameCategoriesContainer.backdrop:Hide()
 	end
 
-	for i = 1, 17 do
-		select(i, _G.AchievementFrame:GetRegions()):Hide()
-	end
-
 	for i = 1, 7 do
 		local bu = _G["AchievementFrameAchievementsContainerButton"..i]
 		-- Hide ElvUI's backdrop
-		if bu.backdrop then bu.backdrop:Hide() end
+		if bu.backdrop then bu.backdrop:SetTemplate("Transparent") end
 
 		bu:DisableDrawLayer("BORDER")
-		bu:CreateBackdrop("Transparent")
-		bu.backdrop:SetInside(bu, 2, 2)
-		bu.backdrop:SetBackdropBorderColor(r, g, b)
 		MERS:CreateGradient(bu)
 
 		bu.background:SetTexture(E["media"].normTex)
@@ -96,10 +89,8 @@ local function styleAchievement()
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
 				-- Hide ElvUI's backdrop
-				if bu.backdrop then bu.backdrop:Hide() end
+				if bu.backdrop then bu.backdrop:SetTemplate("Transparent") end
 
-				bu:CreateBackdrop("Transparent")
-				bu.backdrop:SetInside(bu, 2, 2)
 				MERS:CreateGradient(bu)
 				bu:DisableDrawLayer("BORDER")
 

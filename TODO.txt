@@ -1,6 +1,0 @@
-.:: MerathilisUI ::. 
-
-#Preparation for Legion.
-#Include S&L Settings to my Install. (Now in the Install - Check this!!)
-#Whatever comes in my Mind.
-#Cleanup the damn locales!

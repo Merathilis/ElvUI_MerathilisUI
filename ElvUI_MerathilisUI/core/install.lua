@@ -435,6 +435,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
@@ -504,6 +505,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
