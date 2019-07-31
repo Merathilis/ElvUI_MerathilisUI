@@ -7,6 +7,7 @@
 	<Script file="Clique.lua"/>
 	<Script file="DeadlyBossMods.lua"/>
 	<Script file="ls_Toasts.lua"/>
+	<Script file="Pawn.lua"/>
 	<Script file="Postal.lua"/>
 	<Script file="stAddOnManager.lua"/>
 	<Script file="XIV_Databar.lua"/>
