@@ -40,7 +40,7 @@ MP.merchant = {
 
 MP.chat = {
 	chatButton = true,
-	panelHeight = E.db.chat.panelHeight,
+	panelHeight = 146,
 	hidePlayerBrackets = true,
 	hideChat = false,
 	chatBar = false,
