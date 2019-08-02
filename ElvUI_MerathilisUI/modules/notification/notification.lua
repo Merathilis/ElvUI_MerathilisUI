@@ -322,7 +322,6 @@ function module:UPDATE_PENDING_MAIL()
 end
 
 local showRepair = true
-
 local Slots = {
 	[1] = {1, INVTYPE_HEAD, 1000},
 	[2] = {3, INVTYPE_SHOULDER, 1000},

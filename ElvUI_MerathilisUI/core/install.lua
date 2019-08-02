@@ -917,6 +917,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -1065,6 +1066,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["height"] = 32
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = "ICONTOPLEFT"
+		E.db["unitframe"]["units"]["target"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = false
@@ -1178,6 +1180,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 		-- TargetTarget
+		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["targettarget"]["power"]["position"] = "CENTER"
@@ -1202,6 +1205,7 @@ function MER:SetupUnitframes(layout)
 		-- Focus
 		E.db["unitframe"]["units"]["focus"]["width"] = 100
 		E.db["unitframe"]["units"]["focus"]["height"] = 32
+		E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[name:medium]"
@@ -1239,6 +1243,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 3
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 2
 		E.db["unitframe"]["units"]["raid"]["visibility"] = "[@raid6,noexists][@raid21,exists] hide;show"
+		E.db["unitframe"]["units"]["raid"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["clickThrough"] = true
@@ -1429,6 +1434,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
 		E.db["unitframe"]["units"]["raid40"]["width"] = 83
+		E.db["unitframe"]["units"]["raid40"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
@@ -1461,6 +1467,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
+		E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 34
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
