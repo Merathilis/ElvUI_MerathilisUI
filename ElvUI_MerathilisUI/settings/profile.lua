@@ -64,6 +64,7 @@ MP.misc = {
 		detectVersion = MER.Version,
 		lfg = false,
 	},
+	paragon = true,
 }
 
 MP.nameHover = {

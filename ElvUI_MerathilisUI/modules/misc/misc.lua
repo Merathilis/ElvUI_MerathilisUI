@@ -33,7 +33,6 @@ local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
 -- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
 -- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
@@ -193,6 +192,7 @@ function module:Initialize()
 	self:CreateRaidManager()
 	self:GuildBest()
 	self:AddAlerts()
+	self:ReputationInit()
 end
 
 MER:RegisterModule(module:GetName())
