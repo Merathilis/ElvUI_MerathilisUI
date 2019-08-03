@@ -55,11 +55,6 @@ local function SetupCVars()
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
-	-- Disable it because of NSCT
-	SetCVar("floatingCombatTextCombatDamage", 0)
-	SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
-	SetCVar("floatingCombatTextCombatHealing", 1)
-
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
 		SetCVar("taintLog", 1)
