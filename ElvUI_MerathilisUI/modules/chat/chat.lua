@@ -83,13 +83,12 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G["LeftChatPanel"].backdrop:Styling()
-	_G["RightChatPanel"].backdrop:Styling()
+	_G.LeftChatPanel.backdrop:Styling()
+	_G.RightChatPanel.backdrop:Styling()
 end
 
 -- Hide communities chat. Useful for streamers
 -- Credits Nnogga
-
 local commOpen = CreateFrame("Frame", nil, UIParent)
 commOpen:RegisterEvent("ADDON_LOADED")
 commOpen:RegisterEvent("CHANNEL_UI_UPDATE")
