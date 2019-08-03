@@ -22,7 +22,7 @@ locales\load_locales.xml
 core\load_core.xml
 settings\load_settings.xml
 developer\load_developer.xml
+media\load_media.xml
 modules\load_modules.xml
 layout\layout.lua
-media\load_media.xml
 Bindings.xml
