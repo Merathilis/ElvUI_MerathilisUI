@@ -65,6 +65,7 @@ MP.misc = {
 		lfg = false,
 	},
 	paragon = true,
+	paragonColor = {r =186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
 }
 
 MP.nameHover = {

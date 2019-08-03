@@ -100,6 +100,7 @@ end
 local function HookParagonRep()
 	local numFactions = GetNumFactions()
 	local factionOffset = FauxScrollFrame_GetOffset(_G.ReputationListScrollFrame)
+
 	for i = 1, NUM_FACTIONS_DISPLAYED, 1 do
 		local factionIndex = factionOffset + i
 		local factionRow = _G['ReputationBar'..i]
@@ -113,10 +114,13 @@ local function HookParagonRep()
 
 				if currentValue then
 					local barValue = mod(currentValue, threshold)
-					local factionStandingtext = L['MISC_PARAGON']..' ('..floor(currentValue/threshold)..')'
+					local factionStandingtext = L["MISC_PARAGON"]..' ('..floor(currentValue/threshold)..')'
+					local colorDB = E.db.mui.misc.paragonColor or 1, 1, 1, 1
+					local r, g, b, a = colorDB.r, colorDB.g, colorDB.b, colorDB.a
 
 					factionBar:SetMinMaxValues(0, threshold)
 					factionBar:SetValue(barValue)
+					factionBar:SetStatusBarColor(r, g, b, a)
 					factionStanding:SetText(factionStandingtext)
 					factionRow.standingText = factionStandingtext
 					factionRow.rolloverText = MER.InfoColor..format(REPUTATION_PROGRESS_FORMAT, barValue, threshold)
