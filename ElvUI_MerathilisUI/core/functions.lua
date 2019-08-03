@@ -212,6 +212,17 @@ function MER:UpdateRegisteredDBs()
 	end
 end
 
+
+function MER:UpdateAll()
+	self:UpdateRegisteredDBs()
+	for _, module in ipairs(self:GetRegisteredModules()) do
+		local mod = MER:GetModule(module)
+		if (mod and mod.ForUpdateAll) then
+			mod:ForUpdateAll()
+		end
+	end
+end
+
 function MER:UpdateRegisteredDB(tbl, path)
 	local path_parts = {strsplit(".", path)}
 	local _db = E.db.mui
@@ -227,15 +238,6 @@ function MER:RegisterDB(tbl, path)
 	end
 	self:UpdateRegisteredDB(tbl, path)
 	MER["RegisteredDBs"][tbl] = path
-end
-
-function MER:UpdateAll()
-	self:UpdateRegisteredDBs();
-	for _, mod in pairs(self["RegisteredModules"]) do
-		if mod and mod.ForUpdateAll then
-			mod:ForUpdateAll();
-		end
-	end
 end
 
 function MER:Reset(group)
