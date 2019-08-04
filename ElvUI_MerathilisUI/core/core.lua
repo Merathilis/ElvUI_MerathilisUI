@@ -114,12 +114,6 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	MER:Initialize()
-end)
-
 -- Register own Modules
 MER["RegisteredModules"] = {}
 function MER:RegisterModule(name)
@@ -195,3 +189,7 @@ function MER:Initialize()
 
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
+
+hooksecurefunc(E, "Initialize", function()
+	MER:Initialize()
+end)
