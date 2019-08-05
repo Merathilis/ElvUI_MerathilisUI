@@ -9,8 +9,7 @@ local pairs, select = pairs, select
 local hooksecurefunc = hooksecurefunc
 local GetContainerItemLink = GetContainerItemLink
 local GetInventoryItemLink = GetInventoryItemLink
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
+local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
 function MI:ItemLevel()
@@ -73,7 +72,7 @@ function MI:ItemLevel()
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		local location = button.location
 
-		if not location or location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
+		if not location or location >= _G.EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
 			if button.iLvl then button.iLvl:SetText("") end
 			return
 		end

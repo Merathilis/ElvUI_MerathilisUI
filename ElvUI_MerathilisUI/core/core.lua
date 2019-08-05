@@ -114,15 +114,8 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_LOGIN")
-f:SetScript("OnEvent", function()
-	MER:Initialize()
-end)
-
 -- Register own Modules
 MER["RegisteredModules"] = {}
-local modules = {}
 function MER:RegisterModule(name)
 	if self.initialized then
 		local module = self:GetModule(name)
@@ -134,17 +127,17 @@ function MER:RegisterModule(name)
 	end
 end
 
+function MER:GetRegisteredModules()
+	return self["RegisteredModules"]
+end
+
 function MER:InitializeModules()
 	for _, moduleName in pairs(MER["RegisteredModules"]) do
 		local module = self:GetModule(moduleName)
 		if module.Initialize then
 			module:Initialize()
-		else
-			MER:Print("Module <"..moduleName.."> does not loaded.")
 		end
 	end
-
-	MER.Modules = modules
 end
 
 function MER:Initialize()
@@ -154,16 +147,6 @@ function MER:Initialize()
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
 		return -- If ElvUI Version is outdated stop right here. So things don't get broken.
-	end
-
-	-- Make sure my db exists.
-	if not E.db.mui then
-		E.db.mui = {}
-	end
-
-	-- Create the media table earlier, i really dont get it.
-	if not E.db.mui.media then
-		E.db.mui.media = {}
 	end
 
 	-- Create empty saved vars if they doesn't exist
@@ -206,3 +189,7 @@ function MER:Initialize()
 
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
+
+hooksecurefunc(E, "Initialize", function()
+	MER:Initialize()
+end)

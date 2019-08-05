@@ -138,6 +138,10 @@ L["Keystones"] = "Schlüsselsteine"
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
+L["MISC_REPUTATION"] = "Ruf"
+L["MISC_PARAGON"] = "Paragon"
+L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
+L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

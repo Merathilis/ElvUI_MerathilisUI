@@ -7,20 +7,20 @@ P.mui = {}
 local MP = P.mui
 
 MP.core = {
-	installed = nil, -- keep this in P
+	installed = nil,
 }
 
 MP.general = {
-	LoginMsg = true, -- Enable welcome message in chat
-	GameMenu = true, -- Enable the Styles GameMenu
-	splashScreen = true, -- Enable the SplashScreen on LogIn
-	AFK = true, -- Enable the pimped AFK Screen
-	FlightMode = true, -- Enable the the support for Benik's FlightMode
-	FlightPoint = true, -- Enable the FlightPoints
-	CombatState = true, -- Enable the +/- Combat Message
-	MerchantiLevel = true, -- Displays the itemlevel on the Merchant Frame
+	LoginMsg = true,
+	GameMenu = true,
+	splashScreen = true,
+	AFK = true,
+	FlightMode = true,
+	FlightPoint = true,
+	CombatState = true,
+	MerchantiLevel = true,
 	Movertransparancy = .75,
-	style = true, -- Styling function (stripes/gradient)
+	style = true,
 	panels = true,
 	shadowOverlay = true,
 	filterErrors = true,
@@ -52,10 +52,10 @@ MP.colors = {
 }
 
 MP.misc = {
-	MailInputbox = true, -- Resize the MailInputbox
-	gmotd = true, -- Show a GMOTD frame
+	MailInputbox = true,
+	gmotd = true,
 	quest = false,
-	announce = true, -- CombatText, Skill gains
+	announce = true,
 	cursor = false,
 	raidInfo = true,
 	lfgInfo = true,
@@ -64,6 +64,8 @@ MP.misc = {
 		detectVersion = MER.Version,
 		lfg = false,
 	},
+	paragon = true,
+	paragonColor = {r = 186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
 }
 
 MP.nameHover = {
@@ -350,10 +352,10 @@ MP.raidmarkers = {
 
 MP.tooltip = {
 	tooltip = true,
-	achievement = true, -- Adds information to the tooltip, on which char you earned an achievement
-	petIcon = true,		-- Add an Icon for battle pets on the tooltip
-	factionIcon = true, -- Add a faction icon on the tooltip
-	keystone = true, -- Adds descriptions for mythic keystone properties
+	achievement = true,
+	petIcon = true,
+	factionIcon = true,
+	keystone = true,
 	azerite = true,
 	titleColor = true,
 	progressInfo = {

@@ -465,7 +465,7 @@ local function ReskinVehicleExit()
 end
 
 local function StyleElvUIConfig()
-	if InCombatLockdown() then return end
+	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
 	local frame = _G.ElvUIGUIFrame
 	if not frame.IsStyled then
 		frame:Styling()

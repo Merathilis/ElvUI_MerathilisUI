@@ -1,3 +1,4 @@
+
 -- English localization file for enUS
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
 if not L then return; end
@@ -141,6 +142,10 @@ L["Keystones"] = true
 L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Guild Message of the Day"
 L["LFG Member Info"] = true
+L["MISC_REPUTATION"] = "Reputation"
+L["MISC_PARAGON"] = "Paragon"
+L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
+L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
 
 -- Tooltip
 L["Your Status:"] = true

@@ -76,6 +76,11 @@ local function Misc()
 				type = "toggle",
 				name = E.NewSign..MERLFG.modName,
 			},
+			paragon = {
+				order = 12,
+				type = "toggle",
+				name = L["MISC_PARAGON_REPUTATION"],
+			},
 			alerts = {
 				order = 20,
 				type = "group",

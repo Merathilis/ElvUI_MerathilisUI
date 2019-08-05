@@ -17,10 +17,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update some skins",
-		"• Update Azerite Armor Tooltip",
-		"• Hide the RaidManager during Pet Battles",
-		"• Removed WeakAuras Skin",
+		"• Added Pawn Skin, needs AddOnSkins to work",
+		"• Adjust some install settings",
+		"• Added a Paragon Reputation feature",
+		"• Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to Nihili <3",
 
 		-- "• ''",
 	" ",

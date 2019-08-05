@@ -42,6 +42,9 @@ MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
+MER.RedColor = "|cffff2735"
+MER.GreenColor = "|cff3a9d36"
+
 MER.LineString = MER.GreyColor.."---------------"
 
 MER.LeftButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:230:307|t "
@@ -209,6 +212,17 @@ function MER:UpdateRegisteredDBs()
 	end
 end
 
+
+function MER:UpdateAll()
+	self:UpdateRegisteredDBs()
+	for _, module in ipairs(self:GetRegisteredModules()) do
+		local mod = MER:GetModule(module)
+		if (mod and mod.ForUpdateAll) then
+			mod:ForUpdateAll()
+		end
+	end
+end
+
 function MER:UpdateRegisteredDB(tbl, path)
 	local path_parts = {strsplit(".", path)}
 	local _db = E.db.mui
@@ -224,15 +238,6 @@ function MER:RegisterDB(tbl, path)
 	end
 	self:UpdateRegisteredDB(tbl, path)
 	MER["RegisteredDBs"][tbl] = path
-end
-
-function MER:UpdateAll()
-	self:UpdateRegisteredDBs();
-	for _, mod in pairs(self["RegisteredModules"]) do
-		if mod and mod.ForUpdateAll then
-			mod:ForUpdateAll();
-		end
-	end
 end
 
 function MER:Reset(group)
