@@ -190,6 +190,4 @@ function MER:Initialize()
 	EP:RegisterPlugin(addon, self.AddOptions)
 end
 
-hooksecurefunc(E, "Initialize", function()
-	MER:Initialize()
-end)
+E.Libs.EP:HookInitialize(MER, MER.Initialize)
