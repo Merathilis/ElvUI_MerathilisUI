@@ -29,7 +29,7 @@ function MER:cOption(name)
 end
 
 function MER:DasOptions()
-	E:ToggleOptionsUI(); LSM("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
+	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
 
 function MER:SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
