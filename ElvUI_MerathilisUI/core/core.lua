@@ -1,39 +1,19 @@
-local E, _, V, P, G = unpack(ElvUI)
+local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LSM = E.LSM
-local EP = LibStub("LibElvUIPlugin-1.0")
-local addon, Engine = ...
-
-local MER = LibStub("AceAddon-3.0"):NewAddon(addon, "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceHook-3.0")
-MER.callbacks = MER.callbacks or LibStub("CallbackHandler-1.0"):New(MER)
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
 local format = string.format
 local print, pairs = print, pairs
-local pcall = pcall
 local tinsert = table.insert
 -- WoW API / Variables
-local CreateFrame = CreateFrame
 local GetAddOnEnableState = GetAddOnEnableState
-local IsAddOnLoaded = IsAddOnLoaded
-local SetCVar = SetCVar
 
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: LibStub, ElvDB, ElvUI_SLE, hooksecurefunc, BINDING_HEADER_MER
+-- GLOBALS: ElvDB, hooksecurefunc, BINDING_HEADER_MER
 -- GLOBALS: MERData, MERDataPerChar
 
---Setting up table to unpack.
-Engine[1] = MER
-Engine[2] = E
-Engine[3] = L
-Engine[4] = V
-Engine[5] = P
-Engine[6] = G
-_G[addon] = Engine;
-
-MER.Config = {}
 MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
 MER.LogoSmall = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI1.tga]]
@@ -48,14 +28,8 @@ function MER:cOption(name)
 	return (color):format(name)
 end
 
-function MER:AddOptions()
-	for _, func in pairs(MER.Config) do
-		func()
-	end
-end
-
 function MER:DasOptions()
-	E:ToggleOptionsUI(); LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
+	E:ToggleOptionsUI(); LSM("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "mui")
 end
 
 function MER:SetMoverPosition(mover, point, anchor, secondaryPoint, x, y)
@@ -114,34 +88,11 @@ function MER:IsAddOnEnabled(addon) -- Credit: Azilroka
 	return GetAddOnEnableState(E.myname, addon) == 2
 end
 
--- Register own Modules
-MER["RegisteredModules"] = {}
-function MER:RegisterModule(name)
-	if self.initialized then
-		local module = self:GetModule(name)
-		if (module and module.Initialize) then
-			module:Initialize()
-		end
-	else
-		self["RegisteredModules"][#self["RegisteredModules"] + 1] = name
-	end
-end
-
-function MER:GetRegisteredModules()
-	return self["RegisteredModules"]
-end
-
-function MER:InitializeModules()
-	for _, moduleName in pairs(MER["RegisteredModules"]) do
-		local module = self:GetModule(moduleName)
-		if module.Initialize then
-			module:Initialize()
-		end
-	end
-end
-
 function MER:Initialize()
-	self.initialized = true
+	self:RegisterMedia()
+	self:LoadCommands()
+	self:SplashScreen()
+	self:AddMoverCategories()
 
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
@@ -158,13 +109,7 @@ function MER:Initialize()
 		MERDataPerChar = {}
 	end
 
-	self:RegisterMedia()
-	self:LoadCommands()
-	self:SplashScreen()
-	self:AddMoverCategories()
-
-	self:InitializeModules()
-	self:SetupProfileCallbacks()
+	--self:SetupProfileCallbacks()
 
 	E:Delay(6, function() MER:CheckVersion() end)
 
@@ -182,12 +127,4 @@ function MER:Initialize()
 	if E.private.install_complete == E.version and E.db.mui.installed == nil then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
-
-	if MER.MSQ then
-		MER.MSQ:Register(addon)
-	end
-
-	EP:RegisterPlugin(addon, self.AddOptions)
 end
-
-E.Libs.EP:HookInitialize(MER, MER.Initialize)
