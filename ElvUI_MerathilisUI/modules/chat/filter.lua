@@ -32,17 +32,25 @@ local function isItemHasGem(link)
 	return ""
 end
 
-function MERC:UpdateChatItemLevel(_, msg, ...)
-	local link = strmatch(msg, "|Hitem:.-|h")
-	if link then
-		local name, itemLevel = isItemHasLevel(link)
+local itemCache = {}
+local function convertItemLevel(link)
+	if itemCache[link] then return itemCache[link] end
+
+	local itemLink = strmatch(link, "|Hitem:.-|h")
+	if itemLink then
+		local name, itemLevel = isItemHasLevel(itemLink)
 		if name then
-			msg = gsub(msg, "|h%[(.-)%]|h", "|h["..name.."("..itemLevel..isItemHasGem(link)..")]|h")
+			link = gsub(link, "|h%[(.-)%]|h", "|h["..name.."("..itemLevel..isItemHasGem(itemLink)..")]|h")
+			itemCache[link] = link
 		end
 	end
-	return false, msg, ...
+	return link
 end
 
+function MERC:UpdateChatItemLevel(_, msg, ...)
+	msg = gsub(msg, "(|Hitem:%d+:.-|h.-|h)", convertItemLevel)
+	return false, msg, ...
+end
 
 function MERC:ChatFilter()
 	if E.db.mui.chat.filter.enable and E.db.mui.chat.filter.itemLevel then
