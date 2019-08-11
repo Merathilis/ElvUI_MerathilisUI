@@ -64,8 +64,6 @@ MP.misc = {
 	raidInfo = true,
 	lfgInfo = true,
 	alerts = {
-		versionCheck = true,
-		detectVersion = MER.Version,
 		lfg = false,
 	},
 	paragon = true,
