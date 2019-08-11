@@ -44,8 +44,6 @@ local ShowUIPanel = ShowUIPanel
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local bannerWidth = 255
