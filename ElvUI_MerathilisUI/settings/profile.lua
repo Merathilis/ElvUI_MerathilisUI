@@ -45,6 +45,10 @@ MP.chat = {
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	filter = {
+		enable = true,
+		itemLevel = true,
+	},
 }
 
 MP.colors = {

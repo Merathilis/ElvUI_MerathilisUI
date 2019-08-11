@@ -160,6 +160,7 @@ function module:Initialize()
 	self:EasyChannel()
 	self:StyleChat()
 	self:ChatBar()
+	self:ChatFilter()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
