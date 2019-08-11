@@ -52,9 +52,6 @@ local function styleMisc()
 		_G.FloatingPetBattleAbilityTooltip,
 		_G.FloatingGarrisonFollowerTooltip,
 		_G.FloatingGarrisonFollowerAbilityTooltip,
-		_G.DropDownList1MenuBackdrop,
-		_G.DropDownList2MenuBackdrop,
-		_G.DropDownList3MenuBackdrop,
 		_G.PetBattlePrimaryUnitTooltip,
 		_G.PetBattlePrimaryAbilityTooltip,
 		_G.EventTraceTooltip,
@@ -83,18 +80,31 @@ local function styleMisc()
 		"StackSplitFrame",
 		"QueueStatusFrame",
 		"LFDReadyCheckPopup",
-		"DropDownList1Backdrop",
-		"DropDownList1MenuBackdrop",
 	}
 
 	for i = 1, getn(skins) do
 		_G[skins[i]]:Styling()
 	end
 
+	--DropDownMenu
+	hooksecurefunc("UIDropDownMenu_CreateFrames", function(level, index)
+		local listFrame = _G["DropDownList"..level]
+		local listFrameName = listFrame:GetName()
+
+		local Backdrop = _G[listFrameName.."Backdrop"]
+		if Backdrop and not Backdrop.IsSkinned then
+			Backdrop:Styling()
+			Backdrop.IsSkinned = true
+		end
+		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
+		if menuBackdrop and not menuBackdrop.IsSkinned then
+			menuBackdrop:Styling()
+			menuBackdrop.IsSkinned = true
+		end
+	end)
+
 	--DropDownMenu library support
 	if _G.LibStub("LibUIDropDownMenu", true) then
-		_G.L_DropDownList1Backdrop:Styling()
-		_G.L_DropDownList1MenuBackdrop:Styling()
 		hooksecurefunc("L_UIDropDownMenu_CreateFrames", function()
 			if not _G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"].template then
 				_G["L_DropDownList".._G.L_UIDROPDOWNMENU_MAXLEVELS.."Backdrop"]:Styling()
