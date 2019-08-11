@@ -40,7 +40,7 @@ local PlaySound = PlaySound
 local C_Timer = C_Timer
 local CreateAnimationGroup = CreateAnimationGroup
 local SlashCmdList = SlashCmdList
-local Calendar_Toggle = Calendar_Toggle
+local ShowUIPanel = ShowUIPanel
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
@@ -384,7 +384,7 @@ end
 
 local function toggleCalendar()
 	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
-	Calendar_Toggle()
+	ShowUIPanel(_G.CalendarFrame)
 end
 
 local function alertEvents()
