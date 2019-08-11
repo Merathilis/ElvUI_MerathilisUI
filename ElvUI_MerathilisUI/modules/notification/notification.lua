@@ -241,6 +241,7 @@ function module:CreateToast()
 	end)
 
 	toast:SetScript("OnMouseUp", function(self, button)
+		if InCombatLockdown() then return; end
 		if button == "LeftButton" and self.clickFunc then
 			self.clickFunc()
 		end
