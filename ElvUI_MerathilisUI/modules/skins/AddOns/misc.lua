@@ -6,7 +6,7 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local getn = getn
-local next, pairs, select = next, pairs, select
+local next, pairs = next, pairs
 local tinsert = table.insert
 -- WoW API
 local hooksecurefunc = hooksecurefunc
@@ -18,17 +18,6 @@ local MAX_STATIC_POPUPS = 4
 
 local function styleMisc()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
-
-	local GameMenuFrame = _G.GameMenuFrame
-	GameMenuFrame:Styling()
-
-	-- GameMenu Header Color
-	for i = 1, GameMenuFrame:GetNumRegions() do
-		local Region = select(i, GameMenuFrame:GetRegions())
-		if Region.IsObjectType and Region:IsObjectType('FontString') then
-			Region:SetTextColor(1, 1, 1)
-		end
-	end
 
 	-- Graveyard button (a bit ugly if you press it)
 	_G.GhostFrame:StripTextures()
