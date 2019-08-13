@@ -6,6 +6,7 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs = pairs
 -- WoW API
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function styleGameTooltip()
@@ -45,6 +46,18 @@ local function styleGameTooltip()
 	for _, frame in pairs(tooltips) do
 		if frame and not frame.style then
 			frame:Styling()
+		end
+	end
+
+	-- RaiderIO Dropdown
+	if IsAddOnLoaded('RaiderIO') then
+		if not _G.RaiderIO.isStyled then
+			_G.RaiderIO_CustomDropDownListMenuBackdrop:StripTextures()
+			_G.RaiderIO_CustomDropDownListMenuBackdrop:SetTemplate("Transparent")
+			_G.RaiderIO_CustomDropDownListMenuBackdrop:Styling()
+			_G.RaiderIO_ProfileTooltip:Styling()
+
+			_G.RaiderIO.isStyled = true
 		end
 	end
 end

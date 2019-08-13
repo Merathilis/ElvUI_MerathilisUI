@@ -73,18 +73,6 @@ local function styleMisc()
 		end)
 	end
 
-	-- RaiderIO Dropdown
-	if IsAddOnLoaded('RaiderIO') then
-		if not _G.RaiderIO.isStyled then
-			_G.RaiderIO_CustomDropDownListMenuBackdrop:StripTextures()
-			_G.RaiderIO_CustomDropDownListMenuBackdrop:SetTemplate("Transparent")
-			_G.RaiderIO_CustomDropDownListMenuBackdrop:Styling()
-			_G.RaiderIO_ProfileTooltip:Styling()
-
-			_G.RaiderIO.isStyled = true
-		end
-	end
-
 	if _G.CopyChatFrame then
 		_G.CopyChatFrame:Styling()
 	end
