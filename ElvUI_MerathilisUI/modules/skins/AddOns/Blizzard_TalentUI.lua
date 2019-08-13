@@ -46,12 +46,6 @@ local function styleTalents()
 			for j = 1, _G.NUM_TALENT_COLUMNS do
 				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
 
-				-- Hide ElvUI's "Default" backdrop
-				if button.bg.backdrop then button.bg.backdrop:Hide() end
-
-				-- Reapply a transparent backdrop
-				button.bg:CreateBackdrop("Transparent")
-
 				if button.knownSelection:IsShown() then
 					button.bg.SelectedTexture:Show()
 					button.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
@@ -164,16 +158,10 @@ local function styleTalents()
 		for i = 1, 4 do
 			local bu = _G[name..i]
 
-			-- Hide the ElvUI backdrop
-			if bu.backdrop then
-				bu.backdrop:Hide()
+			if bu and bu.backdrop then
+				bu.backdrop:SetTemplate("Transparent")
+				MERS:CreateGradient(bu.backdrop)
 			end
-
-			-- Create own backdrop (transparent)
-			bu:CreateBackdrop("Transparent")
-			bu.backdrop:Point("TOPLEFT", 8, 2)
-			bu.backdrop:Point("BOTTOMRIGHT", 10, -2)
-			bu.backdrop:Styling()
 		end
 	end
 
