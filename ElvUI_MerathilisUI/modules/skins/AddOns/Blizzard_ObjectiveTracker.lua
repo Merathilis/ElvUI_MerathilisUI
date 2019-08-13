@@ -186,11 +186,58 @@ local function styleObjectiveTracker()
 	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())
 	bg:Hide()
 	ScenarioChallengeModeBlock:CreateBackdrop("Transparent")
+	ScenarioChallengeModeBlock.backdrop:Styling()
 
 	ScenarioChallengeModeBlock.TimerBGBack:Hide()
 	ScenarioChallengeModeBlock.TimerBG:Hide()
 
-	_G.ScenarioStageBlock:SetSize(201, 83)
+	-- Mera trying stuff
+	local ScenarioStageBlock = _G.ScenarioStageBlock
+	ScenarioStageBlock.NormalBG:Hide()
+	local ssbBD = _G.CreateFrame("Frame", nil, ScenarioStageBlock)
+	ssbBD:SetFrameLevel(ScenarioStageBlock:GetFrameLevel())
+	ssbBD:SetAllPoints(ScenarioStageBlock.NormalBG)
+	ssbBD:SetClipsChildren(true)
+	ssbBD:SetPoint("TOPLEFT", ScenarioStageBlock.NormalBG, 3, -3)
+	ssbBD:SetPoint("BOTTOMRIGHT", ScenarioStageBlock.NormalBG, -3, 3)
+	ssbBD:CreateBackdrop("Transparent")
+	ssbBD.backdrop:Styling()
+	ScenarioStageBlock.bg = ssbBD
+
+	local overlay = ssbBD:CreateTexture(nil, "OVERLAY")
+	overlay:SetSize(120, 120)
+	overlay:SetPoint("TOPRIGHT", 23, 20)
+	overlay:SetAlpha(0.2)
+	overlay:SetDesaturated(true)
+	ScenarioStageBlock.overlay = overlay
+
+	local uiTextureKits = {
+		[0] = {color = 1, 1, 1, overlay = ""},
+		[261] = {color = 0.29, 0.33, 0.91, overlay = [[Interface\Timer\Alliance-Logo]]},
+		[5117] = {color = 0.90, 0.05, 0.07, overlay = [[Interface\Timer\Horde-Logo]]},
+		["legion"] = {color = 255/19, 255/255, 255/41, overlay = ""},
+	}
+
+	function MERS.ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
+		if widgetSetID then
+			stageBlock.overlay:Hide()
+		else
+			stageBlock.overlay:Show()
+
+			local kit
+			if textureKitID then
+				kit = uiTextureKits[textureKitID] or uiTextureKits[0]
+			elseif scenarioType == _G.LE_SCENARIO_TYPE_LEGION_INVASION then
+				kit = uiTextureKits["legion"]
+			else
+				kit = uiTextureKits[0]
+			end
+
+			stageBlock.bg:SetBackdropColor(kit.color, 0,75)
+			stageBlock.overlay:SetTexture(kit.overlay)
+		end
+	end
+	_G.hooksecurefunc("ScenarioStage_CustomizeBlock", MERS.ScenarioStage_CustomizeBlock)
 
 	S:HandleButton(_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton)
 
