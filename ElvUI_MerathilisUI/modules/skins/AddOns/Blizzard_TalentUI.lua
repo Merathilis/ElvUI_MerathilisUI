@@ -41,20 +41,17 @@ local function styleTalents()
 	end
 
 	-- Talents
-	do
-		for i = 1, _G.MAX_TALENT_TIERS do
-			local row = _G.PlayerTalentFrameTalents['tier'..i]
-			for j = 1, _G.NUM_TALENT_COLUMNS do
-				local bu = row['talent'..j]
-				if bu.bg then
-					MERS:CreateGradient(bu.bg)
-					bu.bg.backdrop:SetTemplate("Transparent")
-					bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
-				end
+	for i = 1, _G.MAX_TALENT_TIERS do
+		local row = _G.PlayerTalentFrameTalents['tier'..i]
+		for j = 1, _G.NUM_TALENT_COLUMNS do
+			local bu = row['talent'..j]
+			if bu.bg then
+				MERS:CreateGradient(bu.bg)
+				bu.bg.backdrop:SetTemplate("Transparent")
+				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
 		end
 	end
-
 
 	for _, frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
 		local scrollChild = frame.spellsScroll.child
@@ -146,11 +143,6 @@ local function styleTalents()
 			end
 		end
 	end)
-
-	for i = 1, GetNumSpecializations(false, nil) do
-		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
-		_G.PlayerTalentFrameSpecialization["specButton"..i].specIcon:SetTexture(icon)
-	end
 
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
 

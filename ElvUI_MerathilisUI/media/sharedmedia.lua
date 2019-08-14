@@ -37,7 +37,7 @@ LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisU
 LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MelliDark.tga]])
 LSM:Register("statusbar","MerathilisEmpty", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Empty.tga]])
 LSM:Register("statusbar","MerathilisnormTex", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\normTex.tga]])
-LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\default.blp]])
+LSM:Register("statusbar","MerathilisDefault", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\default.tga]])
 LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Light.tga]])
 LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint.tga]])
 LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Border.tga]])
