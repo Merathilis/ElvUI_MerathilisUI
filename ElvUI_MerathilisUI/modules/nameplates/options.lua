@@ -26,19 +26,14 @@ local function NameplatesTable()
 				type = "description",
 				name = "",
 			},
-			castbarTarget = {
-				order = 2,
-				type = "toggle",
-				name = L["Castbar Target"],
-			},
 			castbarShield  = {
-				order = 3,
+				order = 2,
 				type = "toggle",
 				name = L["Castbar Shield"],
 				desc = L["Show a shield icon on the castbar for non interruptible spells."],
 			},
 			spacer = {
-				order = 4,
+				order = 3,
 				type = "description",
 				name = " ",
 				width = 'full',

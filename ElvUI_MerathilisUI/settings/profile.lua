@@ -440,7 +440,6 @@ MP.reminder = {
 }
 
 MP.nameplates = {
-	castbarTarget = true,
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,

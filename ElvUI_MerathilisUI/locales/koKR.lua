@@ -458,7 +458,6 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["Castbar Target"] = true
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true
