@@ -287,6 +287,12 @@ function MER:SetupLayout()
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
+	-- check if cargBags are enabled
+	if IsAddOnLoaded("cargBags_Nivaya") then
+		E.private["bags"]["enable"] = false
+	else
+		E.private["bags"]["enable"] = true
+	end
 	E.db["bags"]["itemLevelFont"] = "Merathilis Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
