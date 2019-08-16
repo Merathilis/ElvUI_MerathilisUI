@@ -32,11 +32,11 @@ local SupportedProfiles = {
 	{"ElvUI_BenikUI", "BenikUI"},
 	{"ElvUI_FCT", "FCT"},
 	{"Skada", "Skada"},
-	{"OzCooldowns", "OzCooldowns"},
 	{"ProjectAzilroka", "ProjectAzilroka"},
 	{"ls_Toasts", "ls_Toasts"},
 	{"DBM-Core", "Deadly Boss Mods"},
 	{"Touhin", "Touhin"},
+	{"iFilger", "iFilger"},
 }
 
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
@@ -521,9 +521,6 @@ local function SkinsTable()
 				elseif addon == 'AddOnSkins' then
 					MER:LoadAddOnSkinsProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
-				elseif addon == 'OzCooldowns' then
-					MER:LoadOCDProfile()
-					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ProjectAzilroka' then
 					MER:LoadPAProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
@@ -532,6 +529,9 @@ local function SkinsTable()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'Touhin' then
 					MER:LoadTouhinProfile()
+					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'iFilger' then
+					MER:LoadiFilgerProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				end
 				MER:Print(profileString..addonName)
