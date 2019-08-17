@@ -81,6 +81,11 @@ local function Misc()
 				type = "toggle",
 				name = L["MISC_PARAGON_REPUTATION"],
 			},
+			progressbar = {
+				order = 13,
+				type = "toggle",
+				name = E.NewSign..L["Progress Bar"],
+			},
 			alerts = {
 				order = 20,
 				type = "group",

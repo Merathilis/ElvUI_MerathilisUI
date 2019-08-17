@@ -16,7 +16,6 @@ local GetInstanceInfo = GetInstanceInfo
 local GetUnitName = GetUnitName
 local UnitClass = UnitClass
 local Minimap = _G["Minimap"]
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)

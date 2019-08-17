@@ -68,6 +68,7 @@ MP.misc = {
 	},
 	paragon = true,
 	paragonColor = {r = 186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
+	progressbar = true,
 }
 
 MP.nameHover = {
