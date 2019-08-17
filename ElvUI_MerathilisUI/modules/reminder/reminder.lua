@@ -369,7 +369,6 @@ function module:CreateReminder(name, index)
 	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name
-	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	frame.icon = frame:CreateTexture(nil, "OVERLAY")
 	frame.icon:SetAllPoints()

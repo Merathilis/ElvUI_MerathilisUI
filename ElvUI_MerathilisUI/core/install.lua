@@ -609,7 +609,6 @@ function MER:SetupLayout()
 	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
 	MER:SetMoverPosition("MER_RaidBuffReminderMover", "TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
 	MER:SetMoverPosition("MER_SquareMinimapButtonBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 198)
-	MER:SetMoverPosition("MER_ReminderMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 621, 248)
 
 	--[[----------------------------------
 	--	Movers - Layout
