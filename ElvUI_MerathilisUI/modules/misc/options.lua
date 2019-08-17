@@ -74,7 +74,7 @@ local function Misc()
 			lfgInfo = {
 				order = 11,
 				type = "toggle",
-				name = E.NewSign..MERLFG.modName,
+				name = MERLFG.modName,
 			},
 			paragon = {
 				order = 12,

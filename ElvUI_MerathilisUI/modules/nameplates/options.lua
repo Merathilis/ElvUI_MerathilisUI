@@ -11,7 +11,7 @@ local tinsert = table.insert
 local function NameplatesTable()
 	E.Options.args.mui.args.modules.args.nameplates = {
 		type = "group",
-		name = E.NewSign..L["NamePlates"],
+		name = L["NamePlates"],
 		order = 16,
 		get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
@@ -41,7 +41,7 @@ local function NameplatesTable()
 			enhancedAuras = {
 				order = 10,
 				type = "group",
-				name = E.NewSign..L["Enhanced NameplateAuras"],
+				name = L["Enhanced NameplateAuras"],
 				guiInline = true,
 				get = function(info) return E.db.mui.nameplates.enhancedAuras[ info[#info] ] end,
 				set = function(info, value) E.db.mui.nameplates.enhancedAuras[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
