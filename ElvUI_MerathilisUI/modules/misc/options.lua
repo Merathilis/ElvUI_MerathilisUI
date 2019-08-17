@@ -85,6 +85,7 @@ local function Misc()
 				order = 13,
 				type = "toggle",
 				name = E.NewSign..L["Progress Bar"],
+				desc = L["Shows Azerite/Honor/XP/Rep."],
 			},
 			alerts = {
 				order = 20,

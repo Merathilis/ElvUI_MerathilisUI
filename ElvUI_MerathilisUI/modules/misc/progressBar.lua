@@ -66,6 +66,8 @@ end
 local function UpdateTooltip(bar)
 	GameTooltip:SetOwner(_G.Minimap, 'ANCHOR_NONE')
 	GameTooltip:SetPoint('TOPRIGHT', _G.Minimap, 'TOPLEFT', -4, -(E.db.general.minimap.size/8*E.mult)-6)
+	GameTooltip:AddLine(MER.Title..L["Progress Bar"], 1, 1, 1)
+	GameTooltip:AddLine(' ')
 
 	local r, g, b = unpack(E["media"].rgbvaluecolor)
 
