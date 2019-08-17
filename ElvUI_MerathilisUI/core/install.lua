@@ -139,7 +139,7 @@ local function SetupChat()
 	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
-	E.db["chat"]["panelWidthRight"] = 263
+	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
@@ -825,7 +825,7 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 144)
 		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
-		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -417, 50)
+		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -442, 50)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 19)
