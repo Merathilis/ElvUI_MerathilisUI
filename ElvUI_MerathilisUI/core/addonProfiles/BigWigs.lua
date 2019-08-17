@@ -54,7 +54,7 @@ function MER:LoadBigWigsProfileDPS()
 				["BigWigs_Plugins_Bars"] = {
 					["profiles"] = {
 						[key] = {
-							["BigWigsEmphasizeAnchor_y"] = 222,
+							["BigWigsEmphasizeAnchor_y"] = 256,
 							["BigWigsEmphasizeAnchor_x"] = 457,
 							["BigWigsAnchor_y"] = 24,
 							["BigWigsAnchor_x"] = 835,
