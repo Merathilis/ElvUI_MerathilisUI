@@ -135,13 +135,14 @@ L["Stranger"] = "Fremder"
 L["Raid Info"] = "Raid Information"
 L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
 L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
+L["Progress Bar"] = "Fortschrittsleiste"
+L["Shows Azerite/Honor/XP/Rep."] = "Zeigt Azerite/Ehre/EP/Ruf"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -460,7 +461,6 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Nameplates
-L["Castbar Target"] = "Zauberleisten Ziel"
 L["Castbar Shield"] = "Zauberleisten Schild"
 L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000Hinweis:|r Dieses wird die ElvUI Namensplaketten Optionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert von einer Größe von: 30 x 30 "

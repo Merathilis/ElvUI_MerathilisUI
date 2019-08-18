@@ -11,11 +11,7 @@ local hooksecurefunc = hooksecurefunc
 function module:Initialize()
 	if E.private.nameplates.enable ~= true then return end
 
-	--Castbar Target
-	if E.db.mui.nameplates.castbarTarget then
-		hooksecurefunc(NP, "Castbar_PostCastStart", module.CastbarPostCastStart)
-	end
-
+	-- Castbar Shield
 	if E.db.mui.nameplates.castbarShield then
 		hooksecurefunc(NP, "Castbar_CheckInterrupt", module.Castbar_CheckInterrupt)
 	end

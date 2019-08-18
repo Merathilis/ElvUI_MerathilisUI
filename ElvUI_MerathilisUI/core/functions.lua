@@ -572,8 +572,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	if not(useShadow) then
 		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
 		mshadow:SetInside(f, 0, 0)
-		mshadow:Width(shadowOverlayWidth or 33)
-		mshadow:Height(shadowOverlayHeight or 33)
+		mshadow:SetWidth(shadowOverlayWidth or 33)
+		mshadow:SetHeight(shadowOverlayHeight or 33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
 		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 

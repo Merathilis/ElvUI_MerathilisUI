@@ -45,6 +45,10 @@ MP.chat = {
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	filter = {
+		enable = true,
+		itemLevel = true,
+	},
 }
 
 MP.colors = {
@@ -60,12 +64,11 @@ MP.misc = {
 	raidInfo = true,
 	lfgInfo = true,
 	alerts = {
-		versionCheck = true,
-		detectVersion = MER.Version,
 		lfg = false,
 	},
 	paragon = true,
 	paragonColor = {r = 186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
+	progressbar = true,
 }
 
 MP.nameHover = {
@@ -438,7 +441,6 @@ MP.reminder = {
 }
 
 MP.nameplates = {
-	castbarTarget = true,
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,

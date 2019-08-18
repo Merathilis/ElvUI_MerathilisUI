@@ -10,9 +10,9 @@ local tinsert = table.insert
 
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
+		order = 11,
 		type = "group",
 		name = MERC.modName,
-		order = 11,
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -49,6 +49,27 @@ local function ChatTable()
 				order = 6,
 				type = "toggle",
 				name = L["Emotes"],
+			},
+			filter = {
+				order = 7,
+				type = "group",
+				name = L["Filter"],
+				guiInline = true,
+				get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
+				set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					itemLevel = {
+						order = 2,
+						type = "toggle",
+						name = L["Item Level"],
+						disabled = function() return not E.db.mui.chat.filter.enable end,
+					},
+				},
 			},
 		},
 	}

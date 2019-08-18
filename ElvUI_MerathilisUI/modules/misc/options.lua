@@ -74,12 +74,18 @@ local function Misc()
 			lfgInfo = {
 				order = 11,
 				type = "toggle",
-				name = E.NewSign..MERLFG.modName,
+				name = MERLFG.modName,
 			},
 			paragon = {
 				order = 12,
 				type = "toggle",
 				name = L["MISC_PARAGON_REPUTATION"],
+			},
+			progressbar = {
+				order = 13,
+				type = "toggle",
+				name = E.NewSign..L["Progress Bar"],
+				desc = L["Shows Azerite/Honor/XP/Rep."],
 			},
 			alerts = {
 				order = 20,
@@ -89,13 +95,8 @@ local function Misc()
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					versionCheck = {
-						order = 1,
-						type = "toggle",
-						name = L["Versions Check"],
-					},
 					lfg = {
-						order = 2,
+						order = 1,
 						type = "toggle",
 						name = L["Call to Arms"],
 					},

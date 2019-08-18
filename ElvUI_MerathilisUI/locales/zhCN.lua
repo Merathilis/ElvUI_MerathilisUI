@@ -135,13 +135,14 @@ L["Stranger"] = "陌生人"
 L["Raid Info"] = "团队信息"
 L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
 L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
+L["Progress Bar"] = true
+L["Shows Azerite/Honor/XP/Rep."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -460,7 +461,6 @@ L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
 -- Nameplates
-L["Castbar Target"] = "施法条目标"
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true

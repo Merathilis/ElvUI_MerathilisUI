@@ -209,11 +209,13 @@ local function CreateButton(name, size)
 	AutoButton:SetAlpha(0)
 	AutoButton:EnableMouse(false)
 	AutoButton:RegisterForClicks("AnyUp")
+	AutoButton:CreateBackdrop()
+	AutoButton.backdrop:SetOutside()
 
 	AutoButton.Texture = AutoButton:CreateTexture(nil, "OVERLAY", nil)
 	AutoButton.Texture:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
 	AutoButton.Texture:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
-	AutoButton.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	AutoButton.Texture:SetTexCoord(unpack(E.TexCoords))
 
 	AutoButton.Count = AutoButton:CreateFontString(nil, "OVERLAY")
 	AutoButton.Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
@@ -300,18 +302,18 @@ function module:ScanItem(event)
 			AutoButton.ap = false
 			AutoButton.questLogIndex = QuestItemList[itemID] and QuestItemList[itemID].questLogIndex or -1
 			AutoButton.spellName = IsUsableItem(itemID)
-			AutoButton:SetBackdropBorderColor(nil)
+			AutoButton.backdrop:SetBackdropBorderColor(nil)
 			local r, g, b, colorDB
 			if db.questAutoButtons["questBBColorByItem"] then
 				if rarity and rarity > LE_ITEM_QUALITY_COMMON then
 					r, g, b = GetItemQualityColor(rarity)
-					AutoButton:SetBackdropBorderColor(r, g, b)
+					AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 					AutoButton.ignoreBorderColors = true
 				end
 			else
 				colorDB = db.questAutoButtons["questBBColor"]
 				r, g, b = colorDB.r, colorDB.g, colorDB.b
-				AutoButton:SetBackdropBorderColor(r, g, b)
+				AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 				AutoButton.ignoreBorderColors = true
 			end
 
@@ -343,31 +345,37 @@ function module:ScanItem(event)
 
 	local num = 0
 	if db.soltAutoButtons["enable"] == true and db.soltAutoButtons["slotNum"] > 0 then
-		for w = 1, 18 do
+		for w = 1, 17 do
 			local slotID = GetInventoryItemID("player", w)
 			if slotID and IsSlotItem(slotID) then
 				local itemName, _, rarity = GetItemInfo(slotID)
-				local itemIcon = GetInventoryItemTexture("player", w)
+
 				num = num + 1
 				if num > db.soltAutoButtons["slotNum"] then break end
 
 				local AutoButton = _G["AutoSlotButton" .. num]
+				local itemIcon = GetInventoryItemTexture("player", w)
+
 				if not AutoButton then break end
-				AutoButton:SetBackdropBorderColor(nil)
-				local iLvl,_,_,_,iLvlColor = E:GetGearSlotInfo("player", w, true)
-				if iLvlColor and db.soltAutoButtons["slotBBColorByItem"] then
-					AutoButton:SetBackdropBorderColor(unpack(iLvlColor))
-				else
-					local colorDB = db.soltAutoButtons["slotBBColor"]
-					local r, g, b = colorDB.r, colorDB.g, colorDB.b
-					AutoButton:SetBackdropBorderColor(r, g, b)
-				end
-				AutoButton.ignoreBorderColors = true
 				AutoButton.Texture:SetTexture(itemIcon)
 				AutoButton.Count:SetText("")
 				AutoButton.slotID = w
 				AutoButton.itemID = slotID
 				AutoButton.spellName = IsUsableItem(slotID)
+				AutoButton.backdrop:SetBackdropBorderColor(nil)
+				local r, g, b, colorDB
+				if db.soltAutoButtons["slotBBColorByItem"] then
+					if rarity then
+						r, g, b = GetItemQualityColor(rarity)
+						AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
+						AutoButton.ignoreBorderColors = true
+					end
+				else
+					colorDB = db.soltAutoButtons["slotBBColor"]
+					r, g, b = colorDB.r, colorDB.g, colorDB.b
+					AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
+					AutoButton.ignoreBorderColors = true
+				end
 
 				AutoButton:SetScript("OnUpdate", function(self, elapsed)
 					local cd_start, cd_finish, cd_enable = GetInventoryItemCooldown("player", self.slotID)

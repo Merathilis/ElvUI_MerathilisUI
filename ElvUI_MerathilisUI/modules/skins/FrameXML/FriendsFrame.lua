@@ -6,7 +6,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 -- WoW API
 local CreateFrame = CreateFrame
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: GUILD, PanelTemplates_DeselectTab
 
 local function styleFriends()

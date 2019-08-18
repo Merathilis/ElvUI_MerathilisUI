@@ -5,10 +5,14 @@ local UF = E:GetModule("UnitFrames")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
+local select = select
 -- WoW API / Variables
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
+local UnitClass = UnitClass
+local UnitIsPlayer = UnitIsPlayer
+local UnitReaction = UnitReaction
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function MUF:Construct_TargetFrame()
@@ -25,6 +29,7 @@ function MUF:RecolorTargetInfoPanel()
 	local targetClass = select(2, UnitClass("target"));
 
 	do
+		local r, g, b
 		local panel = frame.InfoPanel
 		local isPlayer = UnitIsPlayer("target")
 		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])

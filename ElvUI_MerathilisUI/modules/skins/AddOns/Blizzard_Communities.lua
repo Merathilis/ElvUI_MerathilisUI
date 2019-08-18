@@ -20,34 +20,19 @@ local function styleCommunities()
 	local CommunitiesFrame = _G.CommunitiesFrame
 	CommunitiesFrame.backdrop:Styling()
 
-	hooksecurefunc(_G.CommunitiesFrameCommunitiesList, "Update", function(self)
-		local buttons = self.ListScrollFrame.buttons
-		for i = 1, #buttons do
-			local button = buttons[i]
-			if button.bg then
-				button.bg:Hide() -- Hide ElvUI's bg Frame
+	-- Active Communities
+	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
+		if clubInfo then
+			if self.bg and self.bg.backdrop then
+				MERS:CreateGradient(self.bg.backdrop)
 			end
+		end
+	end)
 
-			if not button.IsSkinned then
-				button:GetRegions():Hide()
-				button:SetHighlightTexture("")
-
-				button:CreateBackdrop("Transparent")
-				button.backdrop:SetPoint("TOPLEFT", 4, -3)
-				button.backdrop:SetPoint("BOTTOMRIGHT", -1, 3)
-				MERS:CreateGradient(button.backdrop)
-
-				button.IsSkinned = true
-			end
-
-			if button.highlight then
-				button.highlight:SetInside(button.backdrop)
-			end
-
-			if button.Selection then
-				button.Selection:SetInside(button.backdrop)
-				button.Selection:SetColorTexture(r, g, b, .3)
-			end
+	-- Add Community Button
+	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
+		if self.bg and self.bg.backdrop then
+			MERS:CreateGradient(self.bg.backdrop)
 		end
 	end)
 
@@ -100,19 +85,11 @@ local function styleCommunities()
 		local buttons = self.Container.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
-			if button then
-				-- Hide the ElvUI backdrop
-				if button.backdrop then
-					button.backdrop:Hide()
-				end
-
-				-- Reaply Transparent backdrop
-				button:CreateBackdrop("Transparent")
+			if button and button.backdrop then
+				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, -1, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", button.Right, 1, -1)
 				MERS:CreateGradient(button.backdrop)
-
-				MERS:ReskinIcon(button.Icon, true)
 			end
 		end
 	end)
@@ -122,14 +99,8 @@ local function styleCommunities()
 		local buttons = self.RewardsContainer.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
-			if button then
-				-- Hide the ElvUI backdrop
-				if button.backdrop then
-					button.backdrop:Hide()
-				end
-
-				-- Reaply Transparent backdrop
-				button:CreateBackdrop("Transparent")
+			if button and button.backdrop then
+				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, 0, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
 				MERS:CreateGradient(button.backdrop)

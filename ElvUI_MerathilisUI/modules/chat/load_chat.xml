@@ -3,5 +3,6 @@
 	<Script file="chatBar.lua"/>
 	<Script file="emotes.lua"/>
 	<Script file="easyChannel.lua"/>
+	<Script file="filter.lua"/>
 	<Script file="options.lua"/>
 </Ui>

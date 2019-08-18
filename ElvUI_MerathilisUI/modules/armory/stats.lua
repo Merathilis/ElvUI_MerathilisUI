@@ -465,6 +465,7 @@ end
 
 --Creating new scroll
 --Scrollframe Parent Frame
+local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
 MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
 MERAY.ScrollframeParentFrame:SetSize(198, 352)
 MERAY.ScrollframeParentFrame:SetPoint("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
@@ -494,6 +495,7 @@ MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
 MERAY.ScrollChild:SetSize(MERAY.ScrollFrame:GetSize())
 MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
 
+local CharacterStatsPane = _G.CharacterStatsPane
 CharacterStatsPane:ClearAllPoints()
 CharacterStatsPane:SetParent(MERAY.ScrollChild)
 CharacterStatsPane:SetSize(MERAY.ScrollChild:GetSize())

@@ -137,13 +137,14 @@ L["Stranger"] = true
 L["Raid Info"] = true
 L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Message de guilde du jour"
 L["LFG Member Info"] = true
 L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
+L["Progress Bar"] = true
+L["Shows Azerite/Honor/XP/Rep."] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -462,7 +463,6 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["Castbar Target"] = true
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true

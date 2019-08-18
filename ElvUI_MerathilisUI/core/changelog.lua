@@ -17,14 +17,23 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Pawn Skin, needs AddOnSkins to work",
-		"• Adjust some install settings",
-		"• Added a Paragon Reputation feature",
-		"• Finally fixed a db error if AAP + HandyNotes are enabled. Big thanks to Nihili <3",
+		"• Code Cleanup",
+		"• Fixed an error in Notifications",
+		"• Updated Community skin",
+		"• Updated ObjectiveTracker skin",
+		"• Fixed some backdrops on my skins",
+		"• Fixed the border from AutoButtons",
+		"• Removed the NP Castbar Target.",
+		"• Updated BW/Details Profiles",
+		"• Removed OzCooldowns Profile",
+		"• Added iFilger Profile",
+		"• Layout Updates",
+		"• Added an own ProgressBar over the Minimap",
 
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• As always, if you want my latest layout, do the install progress again",
 		-- "• ''",
 }
 

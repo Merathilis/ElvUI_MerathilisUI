@@ -118,7 +118,7 @@ function MERL:CreateChatButtons()
 
 	ChatButton.tex = ChatButton:CreateTexture(nil, "OVERLAY")
 	ChatButton.tex:SetInside()
-	ChatButton.tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatButton.blp]])
+	ChatButton.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatButton")
 
 	ChatButton:SetScript("OnMouseUp", function (self, btn)
 		if InCombatLockdown() then return end
@@ -270,19 +270,19 @@ function MERL:CreatePanels()
 	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -8)
 	MERS:SkinPanel(topLeftStyle)
 
-	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
-	topRightStyle:SetFrameStrata("BACKGROUND")
-	topRightStyle:SetFrameLevel(2)
-	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
-	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -11, -8)
-	MERS:SkinPanel(topRightStyle)
-
 	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
 	bottomLeftSytle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
 	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 11, 10)
 	MERS:SkinPanel(bottomLeftSytle)
+
+	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
+	topRightStyle:SetFrameStrata("BACKGROUND")
+	topRightStyle:SetFrameLevel(2)
+	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
+	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -11, -8)
+	MERS:SkinPanel(topRightStyle)
 
 	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
