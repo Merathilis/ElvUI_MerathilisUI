@@ -12,7 +12,14 @@ local CreateFrame = CreateFrame
 
 function module:Initialize()
 	if not COMP.BUI then return end
-	local BFM = _G.ElvUI_BenikUI[1]:GetModule("FlightMode")
+	local BUI = _G.ElvUI_BenikUI[1]
+	if (not BUI.initialized) then
+		_G.hooksecurefunc(BUI, "Init", function()
+			module:Initialize()
+		end)
+		return
+	end
+	local BFM = BUI:GetModule("FlightMode")
 	if E.db.mui.general.FlightMode then
 
 		-- Hide BenikUI Logo
