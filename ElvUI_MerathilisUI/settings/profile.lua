@@ -66,7 +66,10 @@ MP.misc = {
 	alerts = {
 		lfg = false,
 	},
-	paragon = true,
+	paragon = {
+		enable = true,
+		textStyle = "PARAGON",
+	},
 	paragonColor = {r = 186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
 	progressbar = true,
 }

@@ -76,11 +76,6 @@ local function Misc()
 				type = "toggle",
 				name = MERLFG.modName,
 			},
-			paragon = {
-				order = 12,
-				type = "toggle",
-				name = L["MISC_PARAGON_REPUTATION"],
-			},
 			progressbar = {
 				order = 13,
 				type = "toggle",
@@ -99,6 +94,33 @@ local function Misc()
 						order = 1,
 						type = "toggle",
 						name = L["Call to Arms"],
+					},
+				},
+			},
+			paragon = {
+				order = 21,
+				type = "group",
+				name = E.NewSign..L["MISC_PARAGON_REPUTATION"],
+				guiInline = true,
+				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
+				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					textStyle = {
+						order = 2,
+						type = "select",
+						name = L["Text Style"],
+						disabled = function() return not E.db.mui.misc.paragon.enable end,
+						values = {
+							["PARAGON"] = L["MISC_PARAGON"],
+							["CURRENT"] = L["Current"],
+							["VALUE"] = L["Value"],
+							["DEFICIT"] = L["Deficit"],
+						},
 					},
 				},
 			},
