@@ -1,3 +1,17 @@
+** v4.29 18.08.2019**
+* Code Cleanup.
+* Fixed an error in Notifications.
+* Updated Community skin.
+* Updated ObjectiveTracker skin.
+* Fixed some backdrops on my skins.
+* Fixed the border from AutoButtons.
+* Removed the NP Castbar Target.
+* Updated BW/Details Profiles.
+* Removed OzCooldowns Profile.
+* Added iFilger Profile.
+* Layout Updates. See inGame changelog info!!
+* Added an own ProgressBar over the Minimap.
+
 ** v4.28 05.08.2019**
 * Added Pawn Skin, needs AddOnSkins to work.
 * Adjust some install settings.
