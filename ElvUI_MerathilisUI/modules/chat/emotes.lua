@@ -83,8 +83,7 @@ local emotes = {
 module.emotes = emotes
 
 local ShowEmoteTableButton
-local EmoteTableFrame, EmoteClubTableFrame
-
+local EmoteTableFrame
 local text, texture
 
 local function CreateEmoteTableFrame()
