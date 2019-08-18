@@ -251,10 +251,6 @@ function MER:Reset(group)
 end
 
 -- Movable Config Buttons
-local function MovableButton_Value(value)
-	return gsub(value,'([%(%)%.%%%+%-%*%?%[%^%$])','%%%1')
-end
-
 local function MovableButton_Match(s,v)
 	local m1, m2, m3, m4 = "^"..v.."$", "^"..v..",", ","..v.."$", ","..v..","
 	return (match(s, m1) and m1) or (match(s, m2) and m2) or (match(s, m3) and m3) or (match(s, m4) and v..",")
@@ -264,7 +260,7 @@ function MER:MovableButtonSettings(db, key, value, remove, movehere)
 	local str = db[key]
 	if not db or not str or not value then return end
 
-	local found = MovableButton_Match(str, MovableButton_Value(value))
+	local found = MovableButton_Match(str, E:EscapeString(value))
 	if found and movehere then
 		local tbl, sv, sm = {split(",", str)}
 		for i in ipairs(tbl) do
