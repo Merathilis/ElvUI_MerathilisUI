@@ -44,7 +44,7 @@ end
 -- Entering combat and alertrun function (can be used in anther ways)
 ------------------------------------------------------------------------------------
 local speed = .057799924 -- how fast the text appears
-local font = LSM:Fetch("font", "Expressway")
+local font = E.LSM:Fetch('font', E.db.general.font)
 local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
 local fontsize = 18 -- font size
 
@@ -184,7 +184,7 @@ function module:AlertRun(f, r, g, b)
 	flowingtext:SetPoint("LEFT")
 	flowingtext:SetJustifyH("LEFT")
 	rightchar:ClearAllPoints()
-	rightchar:SetPoint("LEFT",flowingtext,"RIGHT")
+	rightchar:SetPoint("LEFT", flowingtext, "RIGHT")
 	rightchar:SetJustifyH("LEFT")
 
 	rightchar:SetText("")
