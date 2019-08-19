@@ -44,9 +44,7 @@ end
 -- Entering combat and alertrun function (can be used in anther ways)
 ------------------------------------------------------------------------------------
 local speed = .057799924 -- how fast the text appears
-local font = E.LSM:Fetch('font', E.db.general.font)
-local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
-local fontsize = 18 -- font size
+local font, fontflag, fontsize = E.LSM:Fetch('font', E.db.general.font), E.db.general.fontStyle, 18 -- keep the size hardcoded
 
 local GetNextChar = function(word,num)
 	local c = word:byte(num)
