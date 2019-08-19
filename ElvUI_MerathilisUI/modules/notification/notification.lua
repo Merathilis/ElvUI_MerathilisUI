@@ -495,11 +495,12 @@ local PARAGON_QUEST_ID = { --[QuestID] = {factionID,rewardID}
 		[55976] = {2400,169939}, --Waveblade Ankoan
 }
 
-function module:QUEST_ACCEPTED(self, event, ...)
+function module:QUEST_ACCEPTED(event, ...)
 	local questIndex, questID = ...
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then
 		local name = GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])
 		local text = GetQuestLogCompletionText(questIndex)
+		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(name, text, nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
 	end
 end
