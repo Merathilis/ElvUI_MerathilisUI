@@ -122,6 +122,22 @@ local function Misc()
 							["DEFICIT"] = L["Deficit"],
 						},
 					},
+					paragonColor = {
+						order = 3,
+						name = L["COLOR"],
+						type = "color",
+						disabled = function() return not E.db.mui.misc.paragon.enable end,
+						hasAlpha = false,
+						get = function(info)
+							local t = E.db.mui.misc.paragon[ info[#info] ]
+							local d = P.mui.misc.paragon[info[#info]]
+							return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+						end,
+						set = function(info, r, g, b, a)
+							local t = E.db.mui.misc.paragon[ info[#info] ]
+							t.r, t.g, t.b, t.a = r, g, b, a
+						end,
+					},
 				},
 			},
 		},

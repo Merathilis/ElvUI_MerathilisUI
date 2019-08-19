@@ -116,8 +116,8 @@ local function HookParagonRep()
 				local currentValue, threshold, rewardQuestID, hasRewardPending= C_Reputation_GetFactionParagonInfo(factionID)
 				factionRow.questID = rewardQuestID
 				local factionStandingtext = L["MISC_PARAGON"]..' ('..floor(currentValue/threshold)..')'
-				local colorDB = E.db.mui.misc.paragonColor or 1, 1, 1, 1
-				local r, g, b, a = colorDB.r, colorDB.g, colorDB.b, colorDB.a
+				local colorDB = E.db.mui.misc.paragon.paragonColor or {.9, .8, .6}
+				local r, g, b = colorDB.r, colorDB.g, colorDB.b
 
 				if currentValue then
 					local barValue = mod(currentValue, threshold)
@@ -133,8 +133,9 @@ local function HookParagonRep()
 
 					factionBar:SetMinMaxValues(0, threshold)
 					factionBar:SetValue(barValue)
-					factionBar:SetStatusBarColor(r, g, b, a)
+					factionBar:SetStatusBarColor(r, g, b)
 					factionRow.rolloverText = MER.InfoColor..format(REPUTATION_PROGRESS_FORMAT, barValue, threshold)
+
 					if db.textStyle == "PARAGON" then
 						factionStanding:SetText(factionStandingtext)
 						factionRow.standingText = factionStandingtext
@@ -157,6 +158,7 @@ local function HookParagonRep()
 						end
 						factionRow.rolloverText = nil
 					end
+
 					if factionIndex == GetSelectedFaction() and ReputationDetailFrame:IsShown() then
 						local count = floor(currentValue/threshold)
 						if hasRewardPending then count = count-1 end
