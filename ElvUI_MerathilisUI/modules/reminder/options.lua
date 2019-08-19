@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local RM = MER:GetModule("Reminder")
 
 --Cache global variables
 --Lua functions
@@ -11,7 +10,7 @@ local tinsert = table.insert
 local function Reminder()
 	E.Options.args.mui.args.modules.args.reminder = {
 		type = "group",
-		name = RM.modName,
+		name = L["Reminder"],
 		order = 19,
 		get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -19,7 +18,7 @@ local function Reminder()
 			name = {
 				order = 0,
 				type = "header",
-				name = MER:cOption(RM.modName),
+				name = MER:cOption(L["Reminder"]),
 			},
 			enable = {
 				order = 1,

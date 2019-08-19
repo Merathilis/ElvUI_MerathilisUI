@@ -14,12 +14,12 @@ local tinsert = table.insert
 local function Errors()
 	E.Options.args.mui.args.modules.args.errors = {
 		type = "group",
-		name = ER.modName,
+		name = L["Error Handling"],
 		order = 15,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(ER.modName),
+				name = MER:cOption(L["Error Handling"]),
 				order = 1
 			},
 			description = {

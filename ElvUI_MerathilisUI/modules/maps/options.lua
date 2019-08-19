@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MM = MER:GetModule("mUIMinimap")
 local SMB = MER:GetModule("mUIMinimapButtons")
 local COMP = MER:GetModule("mUICompatibility")
 
@@ -9,13 +8,12 @@ local COMP = MER:GetModule("mUICompatibility")
 local format = string.format
 local tinsert = table.insert
 --WoW API / Variables
-local MINIMAP_LABEL = MINIMAP_LABEL
 -- GLOBALS:
 
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = MINIMAP_LABEL,
+		name = L["MiniMap"],
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -23,7 +21,7 @@ local function Minimap()
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(MINIMAP_LABEL),
+				name = MER:cOption(L["MiniMap"]),
 				order = 1,
 			},
 			general = {
@@ -114,7 +112,7 @@ local function Minimap()
 			smb = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(SMB.modName),
+				name = MER:cOption(L["Minimap Buttons"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
 				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update(); end,

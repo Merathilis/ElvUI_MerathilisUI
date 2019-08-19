@@ -20,12 +20,12 @@ local function styleFriends()
 
 	-- Animated Icon
 	FriendsFrameIcon:SetPoint("TOPLEFT", FriendsFrame, "TOPLEFT", 0, 0)
-	FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]])
+	FriendsFrameIcon:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Bnet]])
 	FriendsFrameIcon:SetSize(36, 36)
 
 	hooksecurefunc(FriendsFrameIcon, "SetTexture", function(self, texture)
-		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]] then
-			self:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\GameIcons\Bnet]])
+		if texture ~= [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Bnet]] then
+			self:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Bnet]])
 		end
 	end)
 	FriendsListFrame:HookScript("OnShow", function()

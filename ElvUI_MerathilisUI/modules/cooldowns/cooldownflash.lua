@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
 local module = MER:NewModule("CooldownFlash", "AceHook-3.0")
-module.modName = L["Cooldown Flash"]
 
 --Cache global variables
 --Lua functions

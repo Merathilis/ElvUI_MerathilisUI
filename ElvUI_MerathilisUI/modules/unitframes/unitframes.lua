@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("muiUnits", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local UF = E:GetModule("UnitFrames")
-module.modName = L["UnitFrames"]
 
 --Cache global variables
 --Lua functions

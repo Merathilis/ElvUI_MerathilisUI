@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MDB = MER:GetModule("mUI_databars")
 
 --Cache global variables
 --Lua functions
@@ -13,14 +12,14 @@ local function databarsTable()
 	E.Options.args.mui.args.modules.args.databars = {
 		order = 15,
 		type = "group",
-		name = MDB.modName,
+		name = L["DataBars"],
 		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MDB.modName),
+				name = MER:cOption(L["DataBars"]),
 			},
 			enable = {
 				order = 2,

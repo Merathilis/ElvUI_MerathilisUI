@@ -1,8 +1,7 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
-local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
-module.modName = L["Location Panel"]
 
 -- Cache global variables
 -- Lua functions

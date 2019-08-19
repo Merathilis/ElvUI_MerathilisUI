@@ -66,8 +66,11 @@ MP.misc = {
 	alerts = {
 		lfg = false,
 	},
-	paragon = true,
-	paragonColor = {r = 186 / 255, g = 183 / 255, b = 107 / 255, a = 1},
+	paragon = {
+		enable = true,
+		textStyle = "PARAGON",
+		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
+	},
 	progressbar = true,
 }
 
@@ -84,6 +87,7 @@ MP.notification = {
 	vignette = true,
 	invites = true,
 	guildEvents = true,
+	paragon = true,
 }
 
 MP.datatexts = {

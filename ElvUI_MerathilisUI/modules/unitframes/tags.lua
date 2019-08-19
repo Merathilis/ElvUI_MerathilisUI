@@ -146,20 +146,6 @@ ElvUF.Tags.Methods["mUI-resting"] = function(unit)
 	end
 end
 
-ElvUF.Tags.Events["faction:icon"] = "UNIT_NAME_UPDATE"
-ElvUF.Tags.Methods["faction:icon"] = function(unit)
-	local faction = UnitFactionGroup(unit)
-	local str = ""
-
-	if faction == "Alliance" then
-		str = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\GameIcons\\Flat\\Alliance:16:16:0:-1|t"
-	elseif faction == "Horde" then
-		str = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\GameIcons\\Flat\\Horde:16:16:0:-1|t"
-	end
-
-	return str
-end
-
 local function abbrev(name)
 	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
 	if lastWord then

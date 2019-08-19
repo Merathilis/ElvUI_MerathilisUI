@@ -1,7 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local CF = MER:GetModule("CooldownFlash")
-local RC = MER:GetModule("RaidCD")
 
 --Cache global variables
 --Lua functions
@@ -18,14 +17,14 @@ local function Cooldowns()
 			cooldownFlash = {
 				order = 1,
 				type = "group",
-				name = CF.modName,
+				name = L["Cooldown Flash"],
 				guiInline = true,
 				get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
 					header1 = {
 						type = "header",
-						name = MER:cOption(CF.modName),
+						name = MER:cOption(L["Cooldown Flash"]),
 						order = 1
 					},
 					credits = {
@@ -120,7 +119,7 @@ local function Cooldowns()
 			raid = {
 				order = 2,
 				type = "group",
-				name = RC.modName,
+				name = L["RaidCD"],
 				guiInline = true,
 				get = function(info) return E.db.mui.raidCD[ info[#info] ] end,
 				set = function(info, value) E.db.mui.raidCD[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -128,7 +127,7 @@ local function Cooldowns()
 					header1 = {
 						order = 0,
 						type = "header",
-						name = MER:cOption(RC.modName),
+						name = MER:cOption(L["RaidCD"]),
 					},
 					enable = {
 						order = 1,

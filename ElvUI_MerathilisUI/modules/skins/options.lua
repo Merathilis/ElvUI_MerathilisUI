@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MERS = MER:GetModule("muiSkins")
 
 -- Cache global variables
 -- Lua functions
@@ -45,13 +44,13 @@ local function SkinsTable()
 	E.Options.args.mui.args.skins = {
 		order = 200,
 		type = "group",
-		name = MERS.modName,
+		name = L["Skins/AddOns"],
 		childGroups = "tab",
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MERS.modName),
+				name = MER:cOption(L["Skins/AddOns"]),
 			},
 			general = {
 				order = 2,

@@ -2,7 +2,6 @@ local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local LCG = LibStub('LibCustomGlow-1.0')
-module.modName = L["MiniMap"]
 
 --Cache global variables
 --Lua functions

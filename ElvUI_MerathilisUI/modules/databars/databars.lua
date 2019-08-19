@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUI_databars")
-module.modName = L["DataBars"]
 
 --Cache global variables
 local _G = _G

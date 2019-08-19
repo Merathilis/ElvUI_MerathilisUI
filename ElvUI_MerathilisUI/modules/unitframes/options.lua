@@ -15,14 +15,14 @@ local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
 		order = 20,
 		type = "group",
-		name = MUF.modName,
+		name = L["UnitFrames"],
 		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MUF.modName),
+				name = MER:cOption(L["UnitFrames"]),
 			},
 			general = {
 				order = 2,
@@ -30,8 +30,8 @@ local function UnitFramesTable()
 				name = L["General"],
 				args = {
 					spacing = {
-						type = 'range',
 						order = 1,
+						type = 'range',
 						name = L["Aura Spacing"],
 						desc = L["Sets space between individual aura icons."],
 						get = function(info) return E.db.mui.unitframes.AuraIconSpacing.spacing end,
@@ -40,8 +40,8 @@ local function UnitFramesTable()
 						min = 0, max = 10, step = 1,
 					},
 					units = {
-						type = "multiselect",
 						order = 2,
+						type = "multiselect",
 						name = L["Set Aura Spacing On Following Units"],
 						get = function(info, key) return E.db.mui.unitframes.AuraIconSpacing.units[key] end,
 						set = function(info, key, value) E.db.mui.unitframes.AuraIconSpacing.units[key] = value; MUF:UpdateAuraSettings(); end,
@@ -63,6 +63,71 @@ local function UnitFramesTable()
 							['raidpet'] = L["RaidPet"],
 							["tank"] = L["Tank"],
 							["assist"] = L["Assist"],
+						},
+					},
+					spacer = {
+						order = 3,
+						name = "",
+						type = "description",
+					},
+					tags = {
+						order = 4,
+						type = "group",
+						name = E.NewSign..MER.Title..L["Tags"],
+						guiInline = true,
+						args = {
+							health = {
+								order = 1,
+								type = "group",
+								name = L["Health"],
+								args = {
+									health1 = {
+										order = 1,
+										type = "description",
+										fontSize = "medium",
+										name = "[health:current-mUI] - "..L["Example:"].." Displays current HP (2.04B, 2.04M, 204k, 204)",
+									},
+								},
+							},
+							power = {
+								order = 2,
+								type = "group",
+								name = L["Power"],
+								args = {
+									power1 = {
+										order = 1,
+										type = "description",
+										fontSize = "medium",
+										name = "[power:current-mUI] - "..L["Example:"].." Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag",
+									},
+								},
+							},
+							name = {
+								order = 3,
+								type = "group",
+								name = L["Name"],
+								args = {
+									name1 = {
+										order = 1,
+										type = "description",
+										fontSize = "medium",
+										name = "[name:abbrev-translit] - "..L["Example:"].." Displays a shorten name and will convert cyrillics. Игорь = !Igor",
+									},
+								},
+							},
+							resting = {
+								order = 3,
+								type = "group",
+								name = L["Resting"],
+								args = {
+									resting1 = {
+										order = 1,
+										type = "description",
+										fontSize = "medium",
+										name = "[mUI-resting] - "..L["Example:"].." Displays a text if the player is in a resting area. zZz",
+									},
+								},
+							},
 						},
 					},
 				},

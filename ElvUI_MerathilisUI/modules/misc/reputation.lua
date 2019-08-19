@@ -20,6 +20,7 @@ local hooksecurefunc = hooksecurefunc
 local getglobal = getglobal
 local NUM_FACTIONS_DISPLAYED = NUM_FACTIONS_DISPLAYED
 local REPUTATION_PROGRESS_FORMAT = REPUTATION_PROGRESS_FORMAT
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local SR_REP_MSG = '%s (%d/%d): %+d '..L["MISC_REPUTATION"]
@@ -98,6 +99,7 @@ local function RepUpdate(self)
 end
 
 local function HookParagonRep()
+	local db = E.db.mui.misc.paragon
 	local numFactions = GetNumFactions()
 	local factionOffset = FauxScrollFrame_GetOffset(_G.ReputationListScrollFrame)
 
@@ -108,30 +110,75 @@ local function HookParagonRep()
 		local factionStanding = _G['ReputationBar'..i..'ReputationBarFactionStanding']
 
 		if factionIndex <= numFactions then
+			local name, _, _ , _, _, _, _, _, _, _, _, _, _, factionID = GetFactionInfo(factionIndex)
 			local factionID = select(14, GetFactionInfo(factionIndex))
 			if factionID and C_Reputation_IsFactionParagon(factionID) then
-				local currentValue, threshold = C_Reputation_GetFactionParagonInfo(factionID)
+				local currentValue, threshold, rewardQuestID, hasRewardPending= C_Reputation_GetFactionParagonInfo(factionID)
+				factionRow.questID = rewardQuestID
+				local factionStandingtext = L["MISC_PARAGON"]..' ('..floor(currentValue/threshold)..')'
+				local colorDB = E.db.mui.misc.paragon.paragonColor or {.9, .8, .6}
+				local r, g, b = colorDB.r, colorDB.g, colorDB.b
 
 				if currentValue then
 					local barValue = mod(currentValue, threshold)
-					local factionStandingtext = L["MISC_PARAGON"]..' ('..floor(currentValue/threshold)..')'
-					local colorDB = E.db.mui.misc.paragonColor or 1, 1, 1, 1
-					local r, g, b, a = colorDB.r, colorDB.g, colorDB.b, colorDB.a
+					if hasRewardPending then
+						local paragonFrame = _G.ReputationFrame.paragonFramesPool:Acquire()
+						paragonFrame.factionID = factionID
+						paragonFrame:SetPoint("RIGHT", factionRow, 11, 0)
+						paragonFrame.Glow:SetShown(true)
+						paragonFrame.Check:SetShown(true)
+						paragonFrame:Show()
+						barValue = barValue+threshold
+					end
 
 					factionBar:SetMinMaxValues(0, threshold)
 					factionBar:SetValue(barValue)
-					factionBar:SetStatusBarColor(r, g, b, a)
-					factionStanding:SetText(factionStandingtext)
-					factionRow.standingText = factionStandingtext
+					factionBar:SetStatusBarColor(r, g, b)
 					factionRow.rolloverText = MER.InfoColor..format(REPUTATION_PROGRESS_FORMAT, barValue, threshold)
+
+					if db.textStyle == "PARAGON" then
+						factionStanding:SetText(factionStandingtext)
+						factionRow.standingText = factionStandingtext
+					elseif db.textStyle == "CURRENT" then
+						factionStanding:SetText(BreakUpLargeNumbers(barValue))
+						factionRow.standingText = BreakUpLargeNumbers(barValue)
+					elseif db.textStyle == "VALUE" then
+						factionStanding:SetText(" "..BreakUpLargeNumbers(barValue).." / "..BreakUpLargeNumbers(threshold))
+						factionRow.standingText = (" "..BreakUpLargeNumbers(barValue).." / "..BreakUpLargeNumbers(threshold))
+						factionRow.rolloverText = nil
+					elseif db.textStyle == "DEFICIT" then
+						if hasRewardPending then
+							barValue = barValue-threshold
+							factionStanding:SetText("+"..BreakUpLargeNumbers(barValue))
+							factionRow.standingText = "+"..BreakUpLargeNumbers(barValue)
+						else
+							barValue = threshold-barValue
+							factionStanding:SetText(BreakUpLargeNumbers(barValue))
+							factionRow.standingText = BreakUpLargeNumbers(barValue)
+						end
+						factionRow.rolloverText = nil
+					end
+
+					if factionIndex == GetSelectedFaction() and ReputationDetailFrame:IsShown() then
+						local count = floor(currentValue/threshold)
+						if hasRewardPending then count = count-1 end
+						if count > 0 then
+							ReputationDetailFactionName:SetText(name.." |cffffffffx"..count.."|r")
+						end
+					end
 				end
+			else
+				factionRow.questID = nil
 			end
+		else
+			factionRow:Hide()
 		end
 	end
 end
 
 function MI:ReputationInit()
-	if E.db.mui.misc.paragon ~= true then return end
+	if E.db.mui.misc.paragon.enable ~= true then return end
+	if IsAddOnLoaded("ParagonReputation") then return end
 
 	f:RegisterEvent('UPDATE_FACTION')
 	f:SetScript('OnEvent', RepUpdate)

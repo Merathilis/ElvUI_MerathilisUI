@@ -193,7 +193,10 @@ local function styleObjectiveTracker()
 
 	-- Mera trying stuff
 	local ScenarioStageBlock = _G.ScenarioStageBlock
+	ScenarioStageBlock:StripTextures()
 	ScenarioStageBlock.NormalBG:Hide()
+	ScenarioStageBlock.GlowTexture:Hide()
+
 	local ssbBD = _G.CreateFrame("Frame", nil, ScenarioStageBlock)
 	ssbBD:SetFrameLevel(ScenarioStageBlock:GetFrameLevel())
 	ssbBD:SetAllPoints(ScenarioStageBlock.NormalBG)

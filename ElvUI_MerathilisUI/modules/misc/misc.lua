@@ -2,7 +2,6 @@ local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
 local S = E:GetModule("Skins")
-module.modName = L["Misc"]
 
 -- Cache global variables
 -- Lua functions
