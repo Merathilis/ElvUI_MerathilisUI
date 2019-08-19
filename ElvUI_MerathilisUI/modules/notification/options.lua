@@ -64,6 +64,12 @@ local function Noticications()
 				name = L["Enable Guild Events"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
+			paragon = {
+				order = 11,
+				type = "toggle",
+				name = L["MISC_PARAGON"],
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
 		},
 	}
 end
