@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("MUIFlightMode")
 local COMP = MER:GetModule("mUICompatibility");
-module.modName = L["FlightMode"]
 
 --Cache global variables
 

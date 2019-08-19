@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUIErrors")
-module.modName = L["Error Handling"]
 
 -- Cache global variables
 -- Lua functions

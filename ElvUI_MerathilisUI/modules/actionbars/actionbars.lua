@@ -1,7 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local module = MER:NewModule("mUIActionbars", "AceEvent-3.0")
-module.modName = L["ActionBars"]
 
 if E.private.actionbar.enable ~= true then return; end
 

@@ -3,7 +3,6 @@ local MERS = MER:GetModule("muiSkins")
 local module = MER:NewModule("Notification", "AceEvent-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
-module.modName = L["Notification"]
 
 -- Credits RealUI
 

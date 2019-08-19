@@ -12,7 +12,7 @@ local function abTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		order = 10,
 		type = "group",
-		name = MAB.modName,
+		name = L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

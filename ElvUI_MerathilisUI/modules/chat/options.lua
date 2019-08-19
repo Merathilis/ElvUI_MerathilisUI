@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MERC = MER:GetModule("muiChat")
 
 --Cache global variables
 --Lua functions
@@ -12,13 +11,13 @@ local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		order = 11,
 		type = "group",
-		name = MERC.modName,
+		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(MERC.modName),
+				name = MER:cOption(L["Chat"]),
 				order = 1
 			},
 			chatButton = {

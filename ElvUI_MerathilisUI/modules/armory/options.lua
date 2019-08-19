@@ -23,7 +23,7 @@ local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		order = 3,
-		name = MERAY.modName,
+		name = L["Armory"],
 		childGroups = 'tab',
 		disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
@@ -32,7 +32,7 @@ local function ArmoryTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MERAY.modName),
+				name = MER:cOption(L["Armory"]),
 			},
 			enable = {
 				type = "toggle",

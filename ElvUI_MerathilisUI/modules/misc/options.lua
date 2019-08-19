@@ -1,8 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local MI = MER:GetModule("mUIMisc")
-local MERA = MER:GetModule("mUIAnnounce")
-local MERLFG = MER:GetModule("mUILFGInfo")
 
 --Cache global variables
 --Lua functions
@@ -24,7 +22,7 @@ local function Misc()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MI.modName),
+				name = MER:cOption(L["Misc"]),
 			},
 			MailInputbox = {
 				order = 2,
@@ -57,7 +55,7 @@ local function Misc()
 			announce = {
 				order = 6,
 				type = "toggle",
-				name = MERA.modName,
+				name = L["Announce"],
 				desc = L["Skill gains"],
 			},
 			cursor = {
@@ -74,7 +72,7 @@ local function Misc()
 			lfgInfo = {
 				order = 11,
 				type = "toggle",
-				name = MERLFG.modName,
+				name = L["LFG Member Info"],
 			},
 			progressbar = {
 				order = 13,

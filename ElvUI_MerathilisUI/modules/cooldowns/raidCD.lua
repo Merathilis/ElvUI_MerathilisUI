@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("RaidCD", "AceEvent-3.0", "AceConsole-3.0")
-module.modName = L["RaidCD"]
 
 --Cache global variables
 --Lua functions

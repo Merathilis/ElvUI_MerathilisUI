@@ -15,14 +15,14 @@ local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
 		order = 20,
 		type = "group",
-		name = MUF.modName,
+		name = L["UnitFrames"],
 		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MUF.modName),
+				name = MER:cOption(L["UnitFrames"]),
 			},
 			general = {
 				order = 2,

@@ -1,6 +1,5 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local NF = MER:GetModule("Notification")
 
 --Cache global variables
 --Lua functions
@@ -11,11 +10,25 @@ local tinsert = table.insert
 local function Noticications()
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
-		name = NF.modName,
+		name = L["Notification"],
 		order = 17,
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
+			credits = {
+				order = 0,
+				type = "group",
+				name = MER:cOption(L["Credits"]),
+				guiInline = true,
+				args = {
+					tukui = {
+						order = 1,
+						type = "description",
+						fontSize = "medium",
+						name = "RealUI - Nibelheim, Gethe",
+					},
+				},
+			},
 			enable = {
 				order = 1,
 				type = "toggle",
@@ -29,7 +42,7 @@ local function Noticications()
 			},
 			header1 = {
 				order = 5,
-				name = MER:cOption(NF.modName),
+				name = MER:cOption(L["Notification"]),
 				type = "header",
 			},
 			desc = {
