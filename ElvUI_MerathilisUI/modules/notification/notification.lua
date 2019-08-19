@@ -46,6 +46,7 @@ local ShowUIPanel = ShowUIPanel
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
+local UNKNOWN = UNKNOWN
 -- GLOBALS:
 
 local bannerWidth = 255
@@ -498,7 +499,7 @@ local PARAGON_QUEST_ID = { --[QuestID] = {factionID}
 function module:QUEST_ACCEPTED(event, ...)
 	local questIndex, questID = ...
 	if module.db.paragon and PARAGON_QUEST_ID[questID] then
-		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1]))
+		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
 		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(name, L["MISC_PARAGON_NOTIFY"], nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
 	end
