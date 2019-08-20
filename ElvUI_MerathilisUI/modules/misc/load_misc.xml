@@ -16,7 +16,6 @@
 	<Script file="merchant.lua"/>
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
-	<Script file="progressBar.lua"/>
 	<Script file="raidManager.lua"/>
 	<Script file="reputation.lua"/>
 	<Script file="quest.lua"/>

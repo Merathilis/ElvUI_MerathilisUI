@@ -74,12 +74,6 @@ local function Misc()
 				type = "toggle",
 				name = L["LFG Member Info"],
 			},
-			progressbar = {
-				order = 13,
-				type = "toggle",
-				name = E.NewSign..L["Progress Bar"],
-				desc = L["Shows Azerite/Honor/XP/Rep."],
-			},
 			alerts = {
 				order = 20,
 				type = "group",

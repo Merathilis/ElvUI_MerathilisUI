@@ -13,23 +13,21 @@ local function databarsTable()
 		order = 15,
 		type = "group",
 		name = L["DataBars"],
-		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
-		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
+		get = function(info) return E.db.mui.databars[ info[#info] ] end,
+		set = function(info, value) E.db.mui.databars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
 				name = MER:cOption(L["DataBars"]),
 			},
-			enable = {
+			progressbar = {
 				order = 2,
 				type = "toggle",
-				name = L["Style DataBars"],
-				desc = L["Add some stylish buttons at the bottom of the DataBars"],
-				get = function(info) return E.db.mui.databars.enable end,
-				set = function(info, value) E.db.mui.databars.enable = value, E:StaticPopup_Show("PRIVATE_RL"); end,
+				name = E.NewSign..L["Progress Bar"],
+				desc = L["Shows Azerite/Honor/XP/Rep."],
 			},
 		},
 	}
 end
--- tinsert(MER.Config, databarsTable)
+tinsert(MER.Config, databarsTable)
