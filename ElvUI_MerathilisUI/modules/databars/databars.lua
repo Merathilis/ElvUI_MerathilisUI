@@ -67,6 +67,7 @@ function module:StyleBackdrops()
 		reputation:Styling()
 	end
 end
+C_Timer_After(1, module.StyleBackdrops)
 
 local function UpdateBar(bar)
 	local rest = bar.restBar
@@ -201,9 +202,10 @@ function module:SetupScript(bar)
 end
 
 function module:Initialize()
-	C_Timer_After(1, module.StyleBackdrops)
+	module.db = E.db.mui.databars
+	MER:RegisterDB(self, "databars")
 
-	if E.db.mui.databars.progressbar ~= true or E.private.general.minimap.enable ~= true then return end
+	if module.db.progressbar ~= true or E.private.general.minimap.enable ~= true then return end
 
 	local bar = CreateFrame('StatusBar', nil, _G.Minimap)
 	bar:SetPoint('BOTTOM', _G.Minimap, 'TOP', 0, 1)
@@ -213,12 +215,12 @@ function module:Initialize()
 	bar:SetHitRectInsets(0, 0, -10, -10)
 	E:RegisterStatusBar(bar)
 
-	local rest = CreateFrame('StatusBar', nil, bar)
-	rest:SetAllPoints()
-	rest:SetStatusBarTexture(E.media.normTex)
-	rest:SetStatusBarColor(105/250, 194/250, 221/250, .9)
-	rest:SetFrameLevel(bar:GetFrameLevel() - 1)
-	bar.restBar = rest
+	local resting = CreateFrame('StatusBar', nil, bar)
+	resting:SetAllPoints()
+	resting:SetStatusBarTexture(E.media.normTex)
+	resting:SetStatusBarColor(105/250, 194/250, 221/250, .9)
+	resting:SetFrameLevel(bar:GetFrameLevel() - 1)
+	bar.restBar = resting
 
 	self:SetupScript(bar)
 end
