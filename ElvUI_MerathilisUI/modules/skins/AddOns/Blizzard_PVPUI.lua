@@ -82,32 +82,6 @@ local function stylePvP()
 		button.Reward.backdrop:SetOutside(button.Reward)
 	end
 
-	hooksecurefunc('PVPUIFrame_ConfigureRewardFrame', function(rewardFrame, honor, experience, itemRewards, currencyRewards)
-		local rewardTexture, rewardQuaility = nil, 1
-
-		if currencyRewards then
-			for _, reward in ipairs(currencyRewards) do
-				local name, _, texture, _, _, _, _, quality = GetCurrencyInfo(reward.id);
-				if quality == _G.LE_ITEM_QUALITY_ARTIFACT then
-					_, rewardTexture, _, rewardQuaility = CurrencyContainerUtil_GetCurrencyContainerInfo(reward.id, reward.quantity, name, texture, quality);
-				end
-			end
-		end
-
-		local _
-		if not rewardTexture and itemRewards then
-			local reward = itemRewards[1];
-			if reward then
-				_, _, rewardQuaility, _, _, _, _, _, _, rewardTexture = GetItemInfo(reward.id)
-			end
-		end
-
-		if rewardTexture then
-			rewardFrame.Icon:SetTexture(rewardTexture)
-			rewardFrame.backdrop:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
-		end
-	end)
-
 	-- Honor frame specific
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
 		bu.Bg:Hide()
