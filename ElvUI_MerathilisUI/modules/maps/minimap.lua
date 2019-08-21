@@ -24,13 +24,13 @@ function module:CheckMail()
 	local mail = _G["MiniMapMailFrame"]:IsShown() and true or false
 
 	if inv > 0 and mail then -- New invites and mail
-		LCG.PixelGlow_Start(Minimap, {242, 5/255, 5/255, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, {242, 5/255, 5/255, 1}, 8, -0.25, nil, 1)
 	elseif inv > 0 and not mail then -- New invites and no mail
-		LCG.PixelGlow_Start(Minimap, {1, 30/255, 60/255, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, {1, 30/255, 60/255, 1}, 8, -0.25, nil, 1)
 	elseif inv == 0 and mail then -- No invites and new mail
-		LCG.PixelGlow_Start(Minimap, {r, g, b, 1}, 8, -0.25, nil, 1)
+		LCG.PixelGlow_Start(Minimap.backdrop, {r, g, b, 1}, 8, -0.25, nil, 1)
 	else -- None of the above
-		LCG.PixelGlow_Stop(Minimap)
+		LCG.PixelGlow_Stop(Minimap.backdrop)
 	end
 end
 
