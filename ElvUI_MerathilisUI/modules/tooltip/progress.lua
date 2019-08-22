@@ -255,7 +255,7 @@ function module.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 end
 
 function module:Initialize()
-	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.progressInfo.enable ~= true then return end
+	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.progressInfo.enable ~= true or IsAddOnLoaded("RaiderIO") then return end
 
 	hooksecurefunc(TT, 'AddInspectInfo', module.AddInspectInfo)
 end
