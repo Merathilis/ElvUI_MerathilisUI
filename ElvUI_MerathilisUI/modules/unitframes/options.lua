@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = MER:GetModule("muiUnits")
 local MCA = MER:GetModule("mUICastbar")
 local UF = E:GetModule("UnitFrames")
