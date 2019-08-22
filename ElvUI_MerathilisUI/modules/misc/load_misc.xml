@@ -2,6 +2,7 @@
 	<Script file="misc.lua"/>
 	<Script file="afk.lua"/>
 	<Script file="alerts.lua"/>
+	<Script file="azeriteAnimationSkip.lua"/>
 	<Script file="combatText.lua"/>
 	<Script file="cursor.lua"/>
 	<Script file="flightMode.lua"/>

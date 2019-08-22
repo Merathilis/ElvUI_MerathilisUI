@@ -143,6 +143,7 @@ L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Progress Bar"] = "Fortschrittsleiste"
 L["Shows Azerite/Honor/XP/Rep."] = "Zeigt Azerite/Ehre/EP/Ruf"
+L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

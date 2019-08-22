@@ -71,6 +71,7 @@ MP.misc = {
 		textStyle = "PARAGON",
 		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
 	},
+	skipAzerite = true,
 }
 
 MP.nameHover = {
