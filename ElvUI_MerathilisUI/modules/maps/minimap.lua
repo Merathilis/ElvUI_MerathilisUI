@@ -1,12 +1,11 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local LCG = LibStub('LibCustomGlow-1.0')
 
 --Cache global variables
 --Lua functions
 local _G = _G
-local select, unpack = select, unpack
+local pairs, select, unpack = pairs, select, unpack
 local format = string.format
 --WoW API / Variables
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
@@ -16,10 +15,11 @@ local GetUnitName = GetUnitName
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UnitClass = UnitClass
 local UnitName = UnitName
-local Minimap = _G["Minimap"]
+local Minimap = _G.Minimap
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
+local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function module:CheckMail()
 	local inv = C_Calendar_GetNumPendingInvites()
@@ -100,6 +100,38 @@ function module:MiniMapPing()
 	end)
 end
 
+function module:StyleMinimap()
+	Minimap:Styling(true, true, false, 180, 180, .75)
+
+	-- QueueStatus Button
+	_G.QueueStatusMinimapButtonBorder:Hide()
+	_G.QueueStatusMinimapButtonIconTexture:SetTexture(nil)
+
+	local queueIcon = Minimap:CreateTexture(nil, "ARTWORK")
+	queueIcon:SetPoint("CENTER", _G.QueueStatusMinimapButton)
+	queueIcon:SetSize(50, 50)
+	queueIcon:SetTexture("Interface\\Minimap\\Raid_Icon")
+
+	local anim = queueIcon:CreateAnimationGroup()
+	anim:SetLooping("REPEAT")
+	anim.rota = anim:CreateAnimation("Rotation")
+	anim.rota:SetDuration(2)
+	anim.rota:SetDegrees(360)
+
+	hooksecurefunc("QueueStatusFrame_Update", function()
+		queueIcon:SetShown(_G.QueueStatusMinimapButton:IsShown())
+	end)
+	hooksecurefunc("EyeTemplate_StartAnimating", function() anim:Play() end)
+	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
+
+	-- Difficulty Flags
+	local flags = {"MiniMapInstanceDifficulty", "GuildInstanceDifficulty", "MiniMapChallengeMode"}
+	for _, v in pairs(flags) do
+		local flag = _G[v]
+		flag:SetScale(.75)
+	end
+end
+
 function module:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
@@ -117,6 +149,7 @@ function module:Initialize()
 
 	self:MiniMapCoords()
 	self:MiniMapPing()
+	self:StyleMinimap()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")
