@@ -1,5 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
+local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 local LSM = E.LSM
 
 -- Cache global variables

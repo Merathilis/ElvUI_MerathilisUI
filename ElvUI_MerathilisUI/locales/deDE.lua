@@ -214,6 +214,10 @@ L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"
 L["Color by Quality"] = "Färbe nach Qualität"
 L["Quest Buttons"] = "Quest Tasten"
+L["Blacklist Item"] = "Schwarze Liste Item"
+L["Whitelist Item"] = "Weißeliste Item"
+L["Add Item ID"] = "Füge Item ID hinzu"
+L["Delete Item ID"] = "Entferne Item ID"
 
 -- Armory
 L["Armory"] = "Arsenal"

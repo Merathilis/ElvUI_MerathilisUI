@@ -217,6 +217,10 @@ L["Bind Font Size"] = true
 L["Trinket Buttons"] = true
 L["Color by Quality"] = true
 L["Quest Buttons"] = true
+L["Blacklist Item"] = true
+L["Whitelist Item"] = true
+L["Add Item ID"] = true
+L["Delete Item ID"] = true
 
 -- Armory
 L["Armory"] = true

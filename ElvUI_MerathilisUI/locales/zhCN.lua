@@ -214,6 +214,10 @@ L["Bind Font Size"] = "绑定字体大小"
 L["Trinket Buttons"] = "饰品按钮"
 L["Color by Quality"] = "品质颜色"
 L["Quest Buttons"] = "任务按钮"
+L["Blacklist Item"] = true
+L["Whitelist Item"] = true
+L["Add Item ID"] = true
+L["Delete Item ID"] = true
 
 -- Armory
 L["Armory"] = true
