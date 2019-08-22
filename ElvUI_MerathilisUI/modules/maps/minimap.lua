@@ -13,7 +13,9 @@ local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local GetUnitName = GetUnitName
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UnitClass = UnitClass
+local UnitName = UnitName
 local Minimap = _G["Minimap"]
 -- GLOBALS:
 
@@ -88,13 +90,12 @@ function module:MiniMapPing()
 	anim.fader:SetStartDelay(3)
 
 	MER:RegisterEvent("MINIMAP_PING", function(_, unit)
-		local _, unitClass = UnitClass(unit)
-		local class = ElvUF.colors.class[unitClass]
-		local name = GetUnitName(unit)
+		local color = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
+		local name = UnitName(unit)
 
 		anim:Stop()
 		f.text:SetText(name)
-		f.text:SetTextColor(class[1], class[2], class[3])
+		f.text:SetTextColor(color.r, color.g, color.b)
 		anim:Play()
 	end)
 end
