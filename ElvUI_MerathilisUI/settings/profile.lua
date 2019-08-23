@@ -524,10 +524,13 @@ MP.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
+	petOverlay = {1, 1, 1},
+	ignoredSpells = "",
+	invertIgnored = false,
 	enablePet = false,
 	showSpellName = false,
-	x = UIParent:GetWidth()/2,
-	y = UIParent:GetHeight()/2,
+	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
+	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
 MP.raidCD = {
