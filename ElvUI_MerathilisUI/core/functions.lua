@@ -613,7 +613,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		gradient:ClearAllPoints()
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
-		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient]])
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
 		f.gradient = gradient
