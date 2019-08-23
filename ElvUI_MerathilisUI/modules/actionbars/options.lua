@@ -3,7 +3,7 @@ local MAB = MER:GetModule("mUIActionbars")
 
 --Cache global variables
 --Lua functions
-local pairs, tonumber, type = pairs, tonumber, type
+local pairs, select, tonumber, type = pairs, select, tonumber, type
 local tinsert = table.insert
 --WoW API / Variables
 local GetItemInfo = GetItemInfo
@@ -498,14 +498,18 @@ local function abTable()
 	for k, v in pairs(E.db.mui.actionbars.autoButtons.whiteList) do
 		if type(k) == "string" then k = tonumber(k) end
 		if GetItemInfo(k) then
-			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[k] = GetItemInfo(k)
+			local name = select(1, GetItemInfo(k))
+			local tex = select(10, GetItemInfo(k))
+			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[k] = '|T'..tex..':18|t '..name
 		end
 	end
 
 	for k, v in pairs(E.db.mui.actionbars.autoButtons.blackList) do
 		if type(k) == "string" then k = tonumber(k) end
 		if GetItemInfo(k) then
-			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[k] = GetItemInfo(k)
+			local name = select(1, GetItemInfo(k))
+			local tex = select(10, GetItemInfo(k))
+			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[k] = '|T'..tex..':18|t '..name
 		end
 	end
 end
