@@ -500,7 +500,7 @@ local function abTable()
 		if GetItemInfo(k) then
 			local name = select(1, GetItemInfo(k))
 			local tex = select(10, GetItemInfo(k))
-			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[k] = '|T'..tex..':18|t '..name
+			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[k] = '|T'..tex..':18:18:0:0:64:64:4:60:4:60|t '..name
 		end
 	end
 
@@ -509,7 +509,7 @@ local function abTable()
 		if GetItemInfo(k) then
 			local name = select(1, GetItemInfo(k))
 			local tex = select(10, GetItemInfo(k))
-			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[k] = '|T'..tex..':18|t '..name
+			E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[k] = '|T'..tex..':18:18:0:0:64:64:4:60:4:60|t '..name
 		end
 	end
 end
