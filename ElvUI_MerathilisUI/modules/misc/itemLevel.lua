@@ -12,62 +12,63 @@ local GetInventoryItemLink = GetInventoryItemLink
 local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
+-- ItemLevel on Flyoutbuttons
+local function SetupFlyoutLevel(button, bag, slot, quality)
+	if not button.iLvl then
+		button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
+		button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
+	end
+
+	local link, level
+	if bag then
+		link = GetContainerItemLink(bag, slot)
+		level = MER:GetItemLevel(link, bag, slot)
+	else
+		link = GetInventoryItemLink("player", slot)
+		level = MER:GetItemLevel(link, "player", slot)
+	end
+
+	local color = ITEM_QUALITY_COLORS[quality or 1]
+	button.iLvl:SetText(level)
+	if color then
+		button.iLvl:SetTextColor(color.r, color.g, color.b)
+	end
+end
+
+--ItemLevel on Scrapping Machine
+local function ScrappingMachineUpdate(self)
+	if not self.iLvl then
+		self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
+		self.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
+	end
+
+	if not self.itemLink then self.iLvl:SetText("") return end
+
+	local quality = 1
+	if self.itemLocation and not self.item:IsItemEmpty() and self.item:GetItemName() then
+		quality = self.item:GetItemQuality()
+	end
+
+	local level = MER:GetItemLevel(self.itemLink)
+	local color = ITEM_QUALITY_COLORS[quality or 1]
+	self.iLvl:SetText(level)
+	if color then
+		self.iLvl:SetTextColor(color.r, color.g, color.b)
+	end
+end
+
+local function ScrappingiLvL(event, addon)
+	if addon == "Blizzard_ScrappingMachineUI" then
+		for button in pairs(_G["ScrappingMachineFrame"].ItemSlots.scrapButtons.activeObjects) do
+			hooksecurefunc(button, "RefreshIcon", ScrappingMachineUpdate)
+		end
+
+		MER:UnregisterEvent(event, ScrappingiLvL)
+	end
+end
+
 function MI:ItemLevel()
-	--ItemLevel on Scrapping Machine
-	local function ScrappingMachineUpdate(self)
-		if not self.iLvl then
-			self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-			self.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
-		end
-
-		if not self.itemLink then self.iLvl:SetText("") return end
-
-		local quality = 1
-		if self.itemLocation and not self.item:IsItemEmpty() and self.item:GetItemName() then
-			quality = self.item:GetItemQuality()
-		end
-
-		local level = MER:GetItemLevel(self.itemLink)
-		local color = ITEM_QUALITY_COLORS[quality or 1]
-		self.iLvl:SetText(level)
-		if color then
-			self.iLvl:SetTextColor(color.r, color.g, color.b)
-		end
-	end
-
-	local function ScrappingiLvL(event, addon)
-		if addon == "Blizzard_ScrappingMachineUI" then
-			for button in pairs(_G["ScrappingMachineFrame"].ItemSlots.scrapButtons.activeObjects) do
-				hooksecurefunc(button, "RefreshIcon", ScrappingMachineUpdate)
-			end
-
-			MER:UnregisterEvent(event, ScrappingiLvL)
-		end
-	end
 	MER:RegisterEvent("ADDON_LOADED", ScrappingiLvL)
-
-	-- ItemLevel on Flyoutbuttons
-	local function SetupFlyoutLevel(button, bag, slot, quality)
-		if not button.iLvl then
-			button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
-			button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
-		end
-
-		local link, level
-		if bag then
-			link = GetContainerItemLink(bag, slot)
-			level = MER:GetItemLevel(link, bag, slot)
-		else
-			link = GetInventoryItemLink("player", slot)
-			level = MER:GetItemLevel(link, "player", slot)
-		end
-
-		local color = ITEM_QUALITY_COLORS[quality or 1]
-		button.iLvl:SetText(level)
-		if color then
-			button.iLvl:SetTextColor(color.r, color.g, color.b)
-		end
-	end
 
 	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
 		local location = button.location
