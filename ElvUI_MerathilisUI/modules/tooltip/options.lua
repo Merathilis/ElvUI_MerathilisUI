@@ -6,6 +6,7 @@ local module = MER:GetModule("Progress")
 local _G = _G
 local tinsert, twipe = table.insert, table.wipe
 --WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function Tooltip()
@@ -105,7 +106,8 @@ local function Tooltip()
 				name = L["Progress Info"],
 				order = 11,
 				guiInline = true,
-				disabled = function() return not E.private.tooltip.enable end,
+				disabled = function() return not E.private.tooltip.enable  end,
+				hidden = function() return IsAddOnLoaded("RaiderIO") end,
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
