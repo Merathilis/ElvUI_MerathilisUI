@@ -106,7 +106,7 @@ local function Tooltip()
 				name = L["Progress Info"],
 				order = 11,
 				guiInline = true,
-				disabled = function() return not E.private.tooltip.enable  end,
+				disabled = function() return not E.private.tooltip.enable end,
 				hidden = function() return IsAddOnLoaded("RaiderIO") end,
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
