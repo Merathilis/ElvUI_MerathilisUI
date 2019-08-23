@@ -13,7 +13,7 @@ local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 -- GLOBALS: BAG_ITEM_QUALITY_COLORS
 
 -- ItemLevel on Flyoutbuttons
-local function SetupFlyoutLevel(button, bag, slot, quality)
+local function UpdateFlyoutLevel(button, bag, slot, quality)
 	if not button.iLvl then
 		button.iLvl = MER:CreateText(button, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
 		button.iLvl:SetPoint("BOTTOMRIGHT", 0, 2)
@@ -35,7 +35,23 @@ local function SetupFlyoutLevel(button, bag, slot, quality)
 	end
 end
 
---ItemLevel on Scrapping Machine
+local function SetupFlyoutLevel(self)
+	local location = self.location
+	if not location or location >= EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
+		if self.iLvl then self.iLvl:SetText("") end
+		return
+	end
+
+	local _, _, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(location)
+	if voidStorage then return end
+	local quality = select(13, EquipmentManager_GetItemInfoByLocation(location))
+	if bags then
+		UpdateFlyoutLevel(self, bag, slot, quality)
+	else
+		UpdateFlyoutLevel(self, nil, slot, quality)
+	end
+end
+
 local function ScrappingMachineUpdate(self)
 	if not self.iLvl then
 		self.iLvl = MER:CreateText(self, "OVERLAY", E.db.general.fontSize or 11, E.db.general.fontStyle or "OUTLINE")
@@ -68,24 +84,9 @@ local function ScrappingiLvL(event, addon)
 end
 
 function MI:ItemLevel()
+	-- iLvl on FlyoutButtons
+	hooksecurefunc("EquipmentFlyout_DisplayButton", SetupFlyoutLevel)
+
+	--ItemLevel on Scrapping Machine
 	MER:RegisterEvent("ADDON_LOADED", ScrappingiLvL)
-
-	hooksecurefunc("EquipmentFlyout_DisplayButton", function(button)
-		local location = button.location
-
-		if not location or location >= _G.EQUIPMENTFLYOUT_FIRST_SPECIAL_LOCATION then
-			if button.iLvl then button.iLvl:SetText("") end
-			return
-		end
-
-		local _, _, bags, voidStorage, slot, bag = EquipmentManager_UnpackLocation(location)
-		if voidStorage then return end
-
-		local quality = select(13, EquipmentManager_GetItemInfoByLocation(location))
-		if bags then
-			SetupFlyoutLevel(button, bag, slot, quality)
-		else
-			SetupFlyoutLevel(button, nil, slot, quality)
-		end
-	end)
 end

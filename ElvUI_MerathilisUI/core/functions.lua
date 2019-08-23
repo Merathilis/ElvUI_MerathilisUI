@@ -5,9 +5,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local _G = _G
 local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
-local find, format, match, split = string.find, string.format, string.match, string.split
+local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
 local strmatch = strmatch
-local tconcat = table.concat
+local tconcat, twipe = table.concat, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -149,33 +149,88 @@ function MER:GetSpell(id)
 	return name
 end
 
--- Tooltip scanning stuff
+-- Tooltip scanning stuff. Credits siweia, with permission.
 local iLvlDB = {}
-local itemLevelString = _G["ITEM_LEVEL"]:gsub("%%d", "")
+local itemLevelString = gsub(ITEM_LEVEL, "%%d", "")
+local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local essenceTextureID = 2975691
 local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 
-function MER:GetItemLevel(link, arg1, arg2)
-	if iLvlDB[link] then return iLvlDB[link] end
+local texturesDB, essencesDB = {}, {}
+function MER:InspectItemTextures(clean, grabTextures)
+	twipe(texturesDB)
+	twipe(essencesDB)
 
-	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	if arg1 and type(arg1) == "string" then
-		tip:SetInventoryItem(arg1, arg2)
-	elseif arg1 and type(arg1) == "number" then
-		tip:SetBagItem(arg1, arg2)
-	else
-		tip:SetHyperlink(link)
-	end
+	for i = 1, 5 do
+		local tex = _G[tip:GetName().."Texture"..i]
+		local texture = tex and tex:GetTexture()
+		if texture then
+			if grabTextures then
+				if texture == essenceTextureID then
+					local selected = (texturesDB[i-1] ~= essenceTextureID and texturesDB[i-1]) or nil
+					essencesDB[i] = {selected, tex:GetAtlas(), texture}
+					if selected then texturesDB[i-1] = nil end
+				else
+					texturesDB[i] = texture
+				end
+			end
 
-	for i = 2, 5 do
-		local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
-		local found = text:find(itemLevelString)
-		if found then
-			local level = text:match("(%d+)%)?$")
-			iLvlDB[link] = tonumber(level)
-			break
+			if clean then tex:SetTexture() end
 		end
 	end
-	return iLvlDB[link]
+
+	return texturesDB, essencesDB
+end
+
+function MER:InspectItemInfo(text, iLvl, enchantText)
+	local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
+	if itemLevel then iLvl = tonumber(itemLevel) end
+	local enchant = strmatch(text, enchantString)
+	if enchant then enchantText = enchant end
+
+	return iLvl, enchantText
+end
+
+function MER:GetItemLevel(link, arg1, arg2, fullScan)
+	if fullScan then
+		MER:InspectItemTextures(true)
+		tip:SetOwner(UIParent, "ANCHOR_NONE")
+		tip:SetInventoryItem(arg1, arg2)
+
+		local iLvl, enchantText, gems, essences
+		gems, essences = MER:InspectItemTextures(nil, true)
+
+		for i = 1, tip:NumLines() do
+			local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
+			iLvl, enchantText = MER:InspectItemInfo(text, iLvl, enchantText)
+			if enchantText then break end
+		end
+
+		return iLvl, enchantText, gems, essences
+	else
+		if iLvlDB[link] then return iLvlDB[link] end
+
+		tip:SetOwner(UIParent, "ANCHOR_NONE")
+		if arg1 and type(arg1) == "string" then
+			tip:SetInventoryItem(arg1, arg2)
+		elseif arg1 and type(arg1) == "number" then
+			tip:SetBagItem(arg1, arg2)
+		else
+			tip:SetHyperlink(link)
+		end
+
+		for i = 2, 5 do
+			local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
+			local found = strfind(text, itemLevelString)
+			if found then
+				local level = strmatch(text, "(%d+)%)?$")
+				iLvlDB[link] = tonumber(level)
+				break
+			end
+		end
+
+		return iLvlDB[link]
+	end
 end
 
 function MER:CheckPlayerBuff(spell)
@@ -211,7 +266,6 @@ function MER:UpdateRegisteredDBs()
 		self:UpdateRegisteredDB(tbl, path)
 	end
 end
-
 
 function MER:UpdateAll()
 	self:UpdateRegisteredDBs()
