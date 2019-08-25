@@ -240,7 +240,7 @@ local function abTable()
 										type = "range",
 										name = L["Button Spacing"],
 										min = -1, max = 10, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"] end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
 									slotDirection = {
 										order = 5,
@@ -250,28 +250,28 @@ local function abTable()
 											["RIGHT"] = L["Right"],
 											["LEFT"] = L["Left"],
 										},
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"] end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
 									slotNum = {
 										order = 6,
 										type = "range",
 										name = L["Buttons"],
 										min = 0, max = 12, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"] end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
 									slotPerRow = {
 										order = 7,
 										type = "range",
 										name = L["Buttons Per Row"],
 										min = 1, max = 12, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"] end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
 									slotSize = {
 										order = 8,
 										type = "range",
 										name = L["Size"],
 										min = 10, max = 100, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons["enable"] end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
 								}
 							},
@@ -301,7 +301,7 @@ local function abTable()
 										type = "toggle",
 										name = L["Color by Quality"],
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
 									questBBColor = {
@@ -309,10 +309,10 @@ local function abTable()
 										type = "color",
 										name = COLOR,
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 										disabled = function()
-											return E.db.mui.actionbars.autoButtons.questAutoButtons["questBBColorByItem"]
+											return E.db.mui.actionbars.autoButtons.questAutoButtons.questBBColorByItem
 										end,
 										get = function(info)
 											local t = E.db.mui.actionbars.autoButtons.questAutoButtons[info[#info]]
@@ -332,7 +332,7 @@ local function abTable()
 										name = L["Button Spacing"],
 										min = -1, max = 10, step = 1,
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
 									questDirection = {
@@ -344,7 +344,7 @@ local function abTable()
 											["LEFT"] = L["Left"],
 										},
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
 									questNum = {
@@ -353,7 +353,7 @@ local function abTable()
 										name = L["Buttons"],
 										min = 0, max = 12, step = 1,
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
 									questPerRow = {
@@ -362,7 +362,7 @@ local function abTable()
 										name = L["Buttons Per Row"],
 										min = 1, max = 12, step = 1,
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
 									questSize = {
@@ -371,13 +371,114 @@ local function abTable()
 										name = L["Size"],
 										min = 10, max = 100, step = 1,
 										hidden = function()
-											return not E.db.mui.actionbars.autoButtons.questAutoButtons["enable"]
+											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
+										end,
+									},
+								},
+							},
+							usableAutoButtons = {
+								order = 5,
+								type = "group",
+								guiInline = true,
+								name = L["Usable Buttons"],
+								get = function(info)
+									return E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]]
+								end,
+								set = function(info, value)
+									E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]] = value
+									MER:GetModule("AutoButtons"):UpdateAutoButton()
+								end,
+								args = {
+									enable = {
+										order = 1,
+										type = "toggle",
+										name = L["Enable"],
+										set = function(info, value)
+											E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]] = value
+										end,
+									},
+									usableBBColorByItem = {
+										order = 2,
+										type = "toggle",
+										name = L["Color by Quality"],
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+									},
+									usableBBColor = {
+										order = 3,
+										type = "color",
+										name = COLOR,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+										disabled = function()
+											return E.db.mui.actionbars.autoButtons.usableAutoButtons.usableBBColorByItem
+										end,
+										get = function(info)
+											local t = E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]]
+											local d = P.mui.actionbars.autoButtons.usableAutoButtons[info[#info]]
+											return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
+										end,
+										set = function(info, r, g, b, a)
+											E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]] = {}
+											local t = E.db.mui.actionbars.autoButtons.usableButtons[info[#info]]
+											t.r, t.g, t.b, t.a = r, g, b, a
+											MER:GetModule("AutoButtons"):UpdateAutoButton()
+										end,
+									},
+									usableSpace = {
+										order = 4,
+										type = "range",
+										name = L["Button Spacing"],
+										min = -1, max = 10, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+									},
+									usableDirection = {
+										order = 5,
+										type = "select",
+										name = L["Anchor Point"],
+										values = {
+											["RIGHT"] = L["Right"],
+											["LEFT"] = L["Left"],
+										},
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+									},
+									usableNum = {
+										order = 6,
+										type = "range",
+										name = L["Buttons"],
+										min = 0, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+									},
+									usablePerRow = {
+										order = 7,
+										type = "range",
+										name = L["Buttons Per Row"],
+										min = 1, max = 12, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
+										end,
+									},
+									usableSize = {
+										order = 8,
+										type = "range",
+										name = L["Size"],
+										min = 10, max = 100, step = 1,
+										hidden = function()
+											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
 										end,
 									},
 								},
 							},
 							whiteItemID = {
-								order = 5,
+								order = 6,
 								type = "input",
 								name = L["Whitelist Item"],
 								get = function() return whiteItemID or "" end,

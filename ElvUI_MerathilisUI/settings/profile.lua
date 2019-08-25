@@ -159,6 +159,16 @@ MP.actionbars = {
 			questPerRow = 5,
 			questSize = 40,
 		},
+		usableAutoButtons = {
+			enable = true,
+			usableBBColorByItem = true,
+			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
+			usableSpace = 1,
+			usableDirection = "RIGHT",
+			usableNum = 5,
+			usablePerRow = 5,
+			usableSize = 40,
+		},
 		whiteList = {
 			[5512] = true, -- Healthstone
 			[49040] = true, -- Jeeves
