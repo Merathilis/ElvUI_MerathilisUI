@@ -167,6 +167,7 @@ L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
 L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
+L["Only Icons"] = "Nur Symbole"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"

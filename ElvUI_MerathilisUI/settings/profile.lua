@@ -426,7 +426,10 @@ MP.tooltip = {
 	petIcon = true,
 	factionIcon = true,
 	keystone = true,
-	azerite = true,
+	azerite = {
+		enable = true,
+		onlyIcons = false,
+	},
 	titleColor = true,
 	progressInfo = {
 		enable = true,

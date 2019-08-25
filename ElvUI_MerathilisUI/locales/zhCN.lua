@@ -167,6 +167,7 @@ L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
+L["Only Icons"] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "收件箱大小调整"

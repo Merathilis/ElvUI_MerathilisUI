@@ -170,6 +170,7 @@ L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "Faction"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Active Azerite Powers"
+L["Only Icons"] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true

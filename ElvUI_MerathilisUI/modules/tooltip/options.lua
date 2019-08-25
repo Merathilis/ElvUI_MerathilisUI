@@ -52,19 +52,36 @@ local function Tooltip()
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
-			azerite = {
-				order = 7,
-				type = "toggle",
-				name = L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
-			},
 			titleColor = {
 				order = 8,
 				type = "toggle",
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],
 			},
-			nameHover = {
+			azerite = {
 				order = 10,
+				type = "group",
+				name = E.NewSign..L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
+				guiInline = true,
+				hidden = function() return IsAddOnLoaded("AzeriteTooltip") end,
+				get = function(info) return E.db.mui.tooltip.azerite[info[#info]] end,
+				set = function(info, value) E.db.mui.tooltip.azerite[info[#info]] = value; end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						set = function(info, value) E.db.mui.tooltip.azerite.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					onlyIcons = {
+						order = 2,
+						type = "toggle",
+						name = L["Only Icons"],
+					},
+				},
+			},
+			nameHover = {
+				order = 11,
 				type = "group",
 				guiInline = true,
 				name = L["Name Hover"],
@@ -102,9 +119,9 @@ local function Tooltip()
 				},
 			},
 			progressInfo = {
+				order = 12,
 				type = "group",
 				name = L["Progress Info"],
-				order = 11,
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
 				hidden = function() return IsAddOnLoaded("RaiderIO") end,
