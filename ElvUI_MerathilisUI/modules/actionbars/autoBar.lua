@@ -256,6 +256,7 @@ function module:ScanItem(event)
 	local usableItemIDList = {}
 	local minimapZoneText = GetMinimapZoneText()
 
+	-- Garrison related
 	if minimapZoneText == L["Alliance Mine"] or minimapZoneText == L["Horde Mine"] then
 		for i = 1, #garrisonsmv do
 			local count = GetItemCount(garrisonsmv[i])
@@ -270,25 +271,30 @@ function module:ScanItem(event)
 				tinsert(questItemIDList, garrisonsc[i])
 			end
 		end
-	else
-		for k, v in pairs(QuestItemList) do
-			if (not QuestItemList[k].isComplete) or (QuestItemList[k].isComplete and QuestItemList[k].showItemWhenComplete) then
-				if not db.blackList[k] then
-					tinsert(questItemIDList, k)
-				end
+	end
+
+	-- Quest Items
+	for k, v in pairs(QuestItemList) do
+		if (not QuestItemList[k].isComplete) or (QuestItemList[k].isComplete and QuestItemList[k].showItemWhenComplete) then
+			if not db.blackList[k] then
+				tinsert(questItemIDList, k)
 			end
-		end
-		for k, v in pairs(db.whiteList) do
-			local count = GetItemCount(k)
-			if count and (count > 0) and v and (not db.blackList[k]) then
-				tinsert(usableItemIDList, k)
-			end
-		end
-		if GetItemCount(123866) and (GetItemCount(123866) >= 5) and (not db.blackList[123866]) and (C_Map_GetBestMapForUnit("player") == 945) then
-			tinsert(usableItemIDList, 123866)
 		end
 	end
 
+	-- Usable Items
+	for k, v in pairs(db.whiteList) do
+		local count = GetItemCount(k)
+		if count and (count > 0) and v and (not db.blackList[k]) then
+			tinsert(usableItemIDList, k)
+		end
+	end
+
+	if GetItemCount(123866) and (GetItemCount(123866) >= 5) and (not db.blackList[123866]) and (C_Map_GetBestMapForUnit("player") == 945) then
+		tinsert(usableItemIDList, 123866)
+	end
+
+	-- Sort our tables
 	tsort(questItemIDList, function(v1, v2)
 		local itemType1 = select(7, GetItemInfo(v1))
 		local itemType2 = select(7, GetItemInfo(v2))
