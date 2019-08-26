@@ -479,6 +479,11 @@ local function SkinsTable()
 				name = L["GM Chat"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.GMChat end,
 			},
+			Archaeology = {
+				type = "toggle",
+				name = L["Archaeology Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
+			},
 		},
 	}
 
