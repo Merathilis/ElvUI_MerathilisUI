@@ -14,6 +14,10 @@ local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
 local GetNumRewardSpells = GetNumRewardSpells
+local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
+local GetQuestLogSelection = GetQuestLogSelection
+local GetQuestLogTitle = GetQuestLogTitle
+local GetQuestID = GetQuestID
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
@@ -46,7 +50,7 @@ local function styleQuestInfo()
 	restyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
 	local function QuestInfo_GetQuestID()
-		if QuestInfoFrame.questLog then
+		if _G.QuestInfoFrame.questLog then
 			return select(8, GetQuestLogTitle(GetQuestLogSelection()))
 		else
 			return GetQuestID()
@@ -59,13 +63,12 @@ local function styleQuestInfo()
 		local questID = QuestInfo_GetQuestID()
 		local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
 		local numVisibleObjectives = 0
-		local objective
 
-		local waypointText = C_QuestLog.GetNextWaypointText(questID);
+		local waypointText = C_QuestLog_GetNextWaypointText(questID)
 		if waypointText then
-			numVisibleObjectives = numVisibleObjectives + 1;
-			objective = objectivesTable[numVisibleObjectives]
-			objective:SetTextColor(1, 1, 1)
+			numVisibleObjectives = numVisibleObjectives + 1
+			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+			objective:SetTextColor(1, .8, .1)
 		end
 
 		for i = 1, GetNumQuestLeaderBoards() do
@@ -73,8 +76,7 @@ local function styleQuestInfo()
 
 			if (type ~= "spell" and type ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES) then
 				numVisibleObjectives = numVisibleObjectives + 1
-				local objective = objectivesTable[numVisibleObjectives]
-
+				local objective = _G['QuestInfoObjective'..numVisibleObjectives]
 				if objective then
 					if finished then
 						objective:SetTextColor(34/255, 255/255, 0/255)
@@ -216,51 +218,56 @@ local function styleQuestInfo()
 		end
 	end)
 
-	_G.QuestInfoTitleHeader:SetTextColor(1, 1, 1)
-	_G.QuestInfoTitleHeader.SetTextColor = MER.dummy
-	_G.QuestInfoTitleHeader:SetShadowColor(0, 0, 0)
+	local function HookTextColor_Yellow(self)
+		if self.isSetting then return end
+		self.isSetting = true
+		self:SetTextColor(1, .8, 0)
+		self.isSetting = nil
+	end
 
-	_G.QuestInfoDescriptionHeader:SetTextColor(1, 1, 1)
-	_G.QuestInfoDescriptionHeader.SetTextColor = MER.dummy
-	_G.QuestInfoDescriptionHeader:SetShadowColor(0, 0, 0)
+	local function SetTextColor_Yellow(font)
+		font:SetShadowColor(0, 0, 0)
+		font:SetTextColor(1, .8, 0)
+		hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
+	end
 
-	_G.QuestInfoObjectivesHeader:SetTextColor(1, 1, 1)
-	_G.QuestInfoObjectivesHeader.SetTextColor = MER.dummy
-	_G.QuestInfoObjectivesHeader:SetShadowColor(0, 0, 0)
+	local yellowish = {
+		_G.QuestInfoTitleHeader,
+		_G.QuestInfoDescriptionHeader,
+		_G.QuestInfoObjectivesHeader,
+		_G.QuestInfoRewardsFrame.Header,
+	}
+	for _, font in pairs(yellowish) do
+		SetTextColor_Yellow(font)
+	end
 
-	_G.QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.Header.SetTextColor = MER.dummy
-	_G.QuestInfoRewardsFrame.Header:SetShadowColor(0, 0, 0)
+	local function HookTextColor_White(self)
+		if self.isSetting then return end
+		self.isSetting = true
+		self:SetTextColor(1, 1, 1)
+		self.isSetting = nil
+	end
 
-	_G.QuestInfoDescriptionText:SetTextColor(1, 1, 1)
-	_G.QuestInfoDescriptionText.SetTextColor = MER.dummy
+	local function SetTextColor_White(font)
+		font:SetShadowColor(0, 0, 0)
+		font:SetTextColor(1, 1, 1)
+		hooksecurefunc(font, "SetTextColor", HookTextColor_White)
+	end
 
-	_G.QuestInfoObjectivesText:SetTextColor(1, 1, 1)
-	_G.QuestInfoObjectivesText.SetTextColor = MER.dummy
-
-	_G.QuestInfoGroupSize:SetTextColor(1, 1, 1)
-	_G.QuestInfoGroupSize.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardText:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardText.SetTextColor = MER.dummy
-
-	_G.QuestInfoSpellObjectiveLearnLabel:SetTextColor(1, 1, 1)
-	_G.QuestInfoSpellObjectiveLearnLabel.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.ItemChooseText.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.ItemReceiveText.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.PlayerTitleText.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.XPFrame.ReceiveText.SetTextColor = MER.dummy
-
-	_G.QuestInfoRewardsFrame.spellHeaderPool:Acquire():SetVertexColor(1, 1, 1)
-	_G.QuestInfoRewardsFrame.spellHeaderPool:Acquire().SetVertexColor = MER.dummy
+	local whitish = {
+		_G.QuestInfoDescriptionText,
+		_G.QuestInfoObjectivesText,
+		_G.QuestInfoGroupSize,
+		_G.QuestInfoRewardText,
+		_G.QuestInfoSpellObjectiveLearnLabel,
+		_G.QuestInfoRewardsFrame.ItemChooseText,
+		_G.QuestInfoRewardsFrame.ItemReceiveText,
+		_G.QuestInfoRewardsFrame.PlayerTitleText,
+		_G.QuestInfoRewardsFrame.XPFrame.ReceiveText,
+	}
+	for _, font in pairs(whitish) do
+		SetTextColor_White(font)
+	end
 end
 
 S:AddCallback("mUIQuestInfo", styleQuestInfo)
