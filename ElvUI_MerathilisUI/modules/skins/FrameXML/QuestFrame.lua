@@ -64,7 +64,6 @@ local function styleQuestFrame()
 	local function UpdateGreetingFrame()
 		for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
 			Button.Icon:SetDrawLayer("ARTWORK")
-			print("meraBlub")
 			local Text = Button:GetFontString():GetText()
 			if Text and strfind(Text, '|cff000000') then
 				Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
@@ -189,53 +188,6 @@ local function styleQuestFrame()
 
 		_G.QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
 	end)
-
-	-- Text Colors
-	--_G.QuestInfoTitleHeader:SetTextColor(1, 1, 1)
-	--_G.QuestInfoTitleHeader.SetTextColor = MER.dummy
-	--_G.QuestInfoTitleHeader:SetShadowColor(0, 0, 0)
-
-	--_G.QuestInfoDescriptionHeader:SetTextColor(1, 1, 1)
-	--_G.QuestInfoDescriptionHeader.SetTextColor = MER.dummy
-	--_G.QuestInfoDescriptionHeader:SetShadowColor(0, 0, 0)
-
-	--_G.QuestInfoObjectivesHeader:SetTextColor(1, 1, 1)
-	--_G.QuestInfoObjectivesHeader.SetTextColor = MER.dummy
-	--_G.QuestInfoObjectivesHeader:SetShadowColor(0, 0, 0)
---
-	--_G.QuestInfoRewardsFrame.Header:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.Header.SetTextColor = MER.dummy
-	--_G.QuestInfoRewardsFrame.Header:SetShadowColor(0, 0, 0)
---
-	--_G.QuestInfoDescriptionText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoDescriptionText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoObjectivesText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoObjectivesText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoGroupSize:SetTextColor(1, 1, 1)
-	--_G.QuestInfoGroupSize.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoSpellObjectiveLearnLabel:SetTextColor(1, 1, 1)
-	--_G.QuestInfoSpellObjectiveLearnLabel.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.ItemChooseText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.ItemReceiveText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.PlayerTitleText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.XPFrame.ReceiveText.SetTextColor = MER.dummy
---
-	--_G.QuestInfoRewardsFrame.spellHeaderPool:Acquire():SetVertexColor(1, 1, 1)
-	--_G.QuestInfoRewardsFrame.spellHeaderPool:Acquire().SetVertexColor = MER.dummy
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)
