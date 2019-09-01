@@ -26,6 +26,9 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleQuestInfo()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
+	-- Stop here if parchment reomover is enabled.
+	if E.private.skins.parchmentRemover.enable then return end
+
 	-- [[ Shared ]]
 	local function restyleSpellButton(bu)
 		local name = bu:GetName()
@@ -188,6 +191,10 @@ local function styleQuestInfo()
 		end
 
 		if numSpellRewards > 0 then
+			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
+				spellHeader:SetVertexColor(1, 1, 1)
+			end
+
 			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
 				local portrait = reward.PortraitFrame
 				if not reward.styled then

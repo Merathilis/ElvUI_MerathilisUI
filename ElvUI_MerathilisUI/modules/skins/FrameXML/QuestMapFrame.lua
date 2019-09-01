@@ -18,6 +18,9 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleQuestMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
+	-- Stop here if parchment reomover is enabled.
+	if E.private.skins.parchmentRemover.enable then return end
+
 	local QuestMapFrame = _G.QuestMapFrame
 
 	-- Quest scroll frame
