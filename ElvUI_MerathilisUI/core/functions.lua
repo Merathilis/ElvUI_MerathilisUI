@@ -65,12 +65,12 @@ for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
 end
 
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
-for class in pairs(colors) do
+for class, value in pairs(colors) do
 	MER.ClassColors[class] = {}
-	MER.ClassColors[class].r = colors[class].r
-	MER.ClassColors[class].g = colors[class].g
-	MER.ClassColors[class].b = colors[class].b
-	MER.ClassColors[class].colorStr = colors[class].colorStr
+	MER.ClassColors[class].r = value.r
+	MER.ClassColors[class].g = value.g
+	MER.ClassColors[class].b = value.b
+	MER.ClassColors[class].colorStr = value.colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
