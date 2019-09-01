@@ -156,9 +156,24 @@ local bfaZoneTime = {
 	["US"] = 1546769340, -- CN+16
 }
 
+local legionTime = {
+	4,2,3,1,
+	2,4,1,3,
+	4,3,1,2,
+	1,2,4,3,
+	4,3,1,2,
+	3,2,1,4,
+	1,4,3,2,
+	3,4,2,1,
+	4,1,2,3,
+	2,3,4,1,
+	4,3,1,2,
+	1,2,4,3,
+}
+
 -- Check Invasion Status
 local invIndex = {
-	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = {}, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
+	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = legionTime, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
 	[2] = {title = L["Faction Assault"], duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = bfaZoneTime[region] or bfaZoneTime["EU"]},
 }
 
