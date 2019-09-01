@@ -134,12 +134,6 @@ local function AddOptions()
 						name = L["Combat State"],
 						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
 					},
-					MerchantiLevel = {
-						order = 9,
-						type = "toggle",
-						name = L["Show Merchant ItemLevel"],
-						desc = L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"],
-					},
 				},
 			},
 			info = {

@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启�
 L["Options"] = "选项"
 L["Combat State"] = "战斗状态"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "如果你进入/离开战斗，启用/禁用'+'/'-'战斗信息."
-L["Show Merchant ItemLevel"] = "显示商人物品等级"
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "在商人框体上显示物品等级, 更改字体你需要在ElvUI-背包-物品等级"
 L["Desciption"] = "描述"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 

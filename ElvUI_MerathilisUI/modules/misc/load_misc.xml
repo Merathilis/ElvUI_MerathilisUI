@@ -14,7 +14,6 @@
 	<Script file="itemLevel.lua"/>
 	<Script file="lfgInfo.lua"/>
 	<Script file="mailinputbox.lua"/>
-	<Script file="merchant.lua"/>
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
 	<Script file="raidManager.lua"/>

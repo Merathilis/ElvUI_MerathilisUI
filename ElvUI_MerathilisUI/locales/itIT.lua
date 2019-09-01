@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
-L["Show Merchant ItemLevel"] = true
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 

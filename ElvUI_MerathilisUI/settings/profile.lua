@@ -18,7 +18,6 @@ MP.general = {
 	FlightMode = true,
 	FlightPoint = true,
 	CombatState = true,
-	MerchantiLevel = true,
 	Movertransparancy = .75,
 	style = true,
 	panels = true,
