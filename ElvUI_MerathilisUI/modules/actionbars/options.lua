@@ -60,6 +60,13 @@ local function abTable()
 						name = L["Mouseover"],
 						disabled = function() return not E.private.actionbar.enable end,
 					},
+					size = {
+						order = 3,
+						type = "range",
+						name = L["Button Size"],
+						min = 20, max = 60, step = 1,
+						disabled = function() return not E.private.actionbar.enable end,
+					},
 				},
 			},
 			equipBar = {
@@ -81,6 +88,13 @@ local function abTable()
 						order = 2,
 						type = "toggle",
 						name = L["Mouseover"],
+						disabled = function() return not E.private.actionbar.enable end,
+					},
+					size = {
+						order = 3,
+						type = "range",
+						name = L["Button Size"],
+						min = 20, max = 60, step = 1,
 						disabled = function() return not E.private.actionbar.enable end,
 					},
 				},

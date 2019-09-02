@@ -127,10 +127,12 @@ MP.actionbars = {
 	specBar = {
 		enable = true,
 		mouseover = false,
+		size = 24,
 	},
 	equipBar = {
 		enable = true,
 		mouseover = false,
+		size = 32,
 	},
 	autoButtons = {
 		enable = true,
