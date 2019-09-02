@@ -161,7 +161,7 @@ local function SetupChat()
 	E.db["chat"]["tabFontOutline"] = "OUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
-	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -153, 50)
+	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -157, 50)
 	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
 
 	E:StaggeredUpdateAll(nil, true)
@@ -223,7 +223,7 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["ticket"]["scale"] = 0.75
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 140
+	E.db["general"]["minimap"]["size"] = 144
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Merathilis Expressway"
@@ -632,7 +632,6 @@ function MER:SetupLayout()
 	E.private["general"]["namefont"] = "Merathilis Expressway"
 	E.private["general"]["dmgfont"] = "Merathilis Expressway"
 
-	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["experience"]["enable"] = false
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 146
@@ -640,41 +639,46 @@ function MER:SetupLayout()
 	E.db["databars"]["experience"]["width"] = 8
 	E.db["databars"]["experience"]["textFormat"] = "NONE"
 	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
-	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
+	E.db["databars"]["experience"]["hideAtMaxLevel"] = false
 	E.db["databars"]["experience"]["hideInVehicle"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = false
-	E.db["databars"]["reputation"]["enable"] = false
+	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
-	E.db["databars"]["reputation"]["height"] = 146
-	E.db["databars"]["reputation"]["textSize"] = 10
-	E.db["databars"]["reputation"]["width"] = 8
-	E.db["databars"]["reputation"]["textFormat"] = "NONE"
-	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["databars"]["reputation"]["height"] = 12
+	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
+	E.db["databars"]["reputation"]["textSize"] = 9
+	E.db["databars"]["reputation"]["width"] = 401
+	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
-	E.db["databars"]["reputation"]["hideInCombat"] = false
+	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["honor"]["enable"] = false
 	E.db["databars"]["honor"]["height"] = 155
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = false
-	E.db["databars"]["azerite"]["enable"] = false
-	E.db["databars"]["azerite"]["height"] = 146
-	E.db["databars"]["azerite"]["textSize"] = 11
-	E.db["databars"]["azerite"]["width"] = 8
+	E.db["databars"]["azerite"]["enable"] = true
+	E.db["databars"]["azerite"]["height"] = 12
+	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
+	E.db["databars"]["azerite"]["textSize"] = 9
+	E.db["databars"]["azerite"]["width"] = 401
 	E.db["databars"]["azerite"]["hideInVehicle"] = true
-	E.db["databars"]["azerite"]["hideInCombat"] = false
-	E.db["databars"]["azerite"]["orientation"] = "VERTICAL"
+	E.db["databars"]["azerite"]["hideInCombat"] = true
+	E.db["databars"]["azerite"]["mouseover"] = false
+	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
+	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
 	E.db["tooltip"]["font"] = "Merathilis Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
-	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
-	MER:SetMoverPosition("AzeriteBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
+
+	MER:SetMoverPosition("AzeriteBarMover", "TOP", E.UIParent, "TOP", 0, -46)
 	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
-	MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -19, 50)
+	MER:SetMoverPosition("ReputationBarMover", "TOP", E.UIParent, "TOP", 0, -59)
 	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 51)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
@@ -825,7 +829,7 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 144)
 		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
-		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -442, 50)
+		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -446, 50)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 19)

@@ -137,8 +137,6 @@ L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
-L["Progress Bar"] = true
-L["Shows Azerite/Honor/XP/Rep."] = true
 L["Skip Azerite Animation"] = true
 
 -- Tooltip

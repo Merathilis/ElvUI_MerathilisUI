@@ -89,9 +89,7 @@ MP.notification = {
 	paragon = true,
 }
 
-MP.databars = {
-	progressbar = true,
-}
+MP.databars = {}
 
 MP.datatexts = {
 	panels = {

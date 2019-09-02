@@ -20,12 +20,6 @@ local function databarsTable()
 				type = "header",
 				name = MER:cOption(L["DataBars"]),
 			},
-			progressbar = {
-				order = 2,
-				type = "toggle",
-				name = E.NewSign..L["Progress Bar"],
-				desc = L["Shows Azerite/Honor/XP/Rep."],
-			},
 		},
 	}
 end
