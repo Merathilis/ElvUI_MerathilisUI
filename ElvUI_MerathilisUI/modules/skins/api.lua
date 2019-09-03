@@ -76,21 +76,6 @@ function MERS:CreateBG(frame)
 	return bg
 end
 
--- Gradient Frame
-function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
-	assert(f, "doesn't exist!")
-
-	f:SetSize(w, h)
-	f:SetFrameStrata("BACKGROUND")
-	local gf = f:CreateTexture(nil, "BACKGROUND")
-	gf:ClearAllPoints()
-	gf:SetPoint("TOPLEFT", f, -E.mult, E.mult)
-	gf:SetPoint("BOTTOMRIGHT", f, E.mult, -E.mult)
-	gf:SetTexture(E.media.muiNormTex)
-	gf:SetVertexColor(r, g, b)
-	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
-end
-
 -- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
