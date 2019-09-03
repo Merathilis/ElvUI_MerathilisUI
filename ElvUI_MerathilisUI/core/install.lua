@@ -647,7 +647,7 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["height"] = 12
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
-	E.db["databars"]["reputation"]["width"] = 401
+	E.db["databars"]["reputation"]["width"] = 285
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
@@ -661,7 +661,7 @@ function MER:SetupLayout()
 	E.db["databars"]["azerite"]["height"] = 12
 	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
-	E.db["databars"]["azerite"]["width"] = 401
+	E.db["databars"]["azerite"]["width"] = 285
 	E.db["databars"]["azerite"]["hideInVehicle"] = true
 	E.db["databars"]["azerite"]["hideInCombat"] = true
 	E.db["databars"]["azerite"]["mouseover"] = false
@@ -674,11 +674,11 @@ function MER:SetupLayout()
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 
-	MER:SetMoverPosition("AzeriteBarMover", "TOP", E.UIParent, "TOP", 0, -46)
+	MER:SetMoverPosition("AzeriteBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 59)
 	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
 	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
 	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
-	MER:SetMoverPosition("ReputationBarMover", "TOP", E.UIParent, "TOP", 0, -59)
+	MER:SetMoverPosition("ReputationBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 71)
 	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 51)
 	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
 
@@ -833,7 +833,7 @@ function MER:SetupActionbars(layout)
 		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
 		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
 		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 19)
-		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 60)
+		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 85)
 		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
 		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", 305, 50)
 		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
