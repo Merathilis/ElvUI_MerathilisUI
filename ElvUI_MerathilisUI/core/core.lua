@@ -108,7 +108,7 @@ function MER:Initialize()
 		MERDataPerChar = {}
 	end
 
-	--self:SetupProfileCallbacks()
+	self:SetupProfileCallbacks()
 
 	E:Delay(6, function() MER:CheckVersion() end)
 

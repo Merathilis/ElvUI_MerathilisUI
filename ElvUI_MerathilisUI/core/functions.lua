@@ -26,8 +26,8 @@ local UnitReaction = UnitReaction
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
-local backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropcolor)
-local borderr, borderg, borderb, bordera = unpack(E["media"].bordercolor)
+local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
+local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 MER.dummy = function() return end
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -52,18 +52,7 @@ MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 -- Class Color stuff
-MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.ClassColors = {}
-local BC = {}
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-	BC[v] = k
-end
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-	BC[v] = k
-end
-
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 for class, value in pairs(colors) do
 	MER.ClassColors[class] = {}
@@ -73,15 +62,6 @@ for class, value in pairs(colors) do
 	MER.ClassColors[class].colorStr = value.colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
-
-function MER:HexRGB(r, g, b)
-	if r then
-		if type(r) == "table" then
-			if r.r then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
-		end
-		return format("|cff%02x%02x%02x", r*255, g*255, b*255)
-	end
-end
 
 function MER:ClassColor(class)
 	local color = MER.ClassColors[class]
@@ -132,6 +112,7 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
+-- LocPanel
 function MER:GetIconFromID(type, id)
 	local path
 	if type == "item" then
