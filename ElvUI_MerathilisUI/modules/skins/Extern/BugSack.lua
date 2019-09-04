@@ -11,9 +11,8 @@ local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS: BugSack, BugSackFrame, BugSackTabAll
 
-local function styleBugSack(event, addon)
+local function styleBugSack()
 	if E.private.muiSkins.addonSkins.bs ~= true then return end
-
 
 	hooksecurefunc(BugSack, "OpenSack", function()
 		if not BugSack.IsSkinned then
