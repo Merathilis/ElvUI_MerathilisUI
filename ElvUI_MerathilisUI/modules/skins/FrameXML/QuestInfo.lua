@@ -264,6 +264,7 @@ local function styleQuestInfo()
 	local whitish = {
 		_G.QuestInfoDescriptionText,
 		_G.QuestInfoObjectivesText,
+		_G.QuestInfoQuestType,
 		_G.QuestInfoGroupSize,
 		_G.QuestInfoRewardText,
 		_G.QuestInfoSpellObjectiveLearnLabel,

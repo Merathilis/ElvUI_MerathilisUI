@@ -34,6 +34,12 @@ local function styleQuestMapFrame()
 	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator:SetAlpha(0)
 
+	_G.QuestScrollFrameScrollBar:ClearAllPoints()
+	_G.QuestScrollFrameScrollBar:SetPoint("TOPLEFT", QuestScrollFrame, "TOPRIGHT", 4, -16)
+	_G.QuestScrollFrameScrollBar:SetPoint("BOTTOMLEFT", QuestScrollFrame, "BOTTOMRIGHT", 4, 15)
+
+	_G.QuestMapDetailsScrollFrameScrollBar:SetPoint("TOPLEFT", _G.QuestMapDetailsScrollFrame, "TOPRIGHT", 0, -18)
+
 	local questHeader = {
 		QuestScrollFrame.Contents.WarCampaignHeader,
 		QuestScrollFrame.Contents.StoryHeader
