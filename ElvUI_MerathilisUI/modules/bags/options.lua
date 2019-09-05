@@ -20,20 +20,6 @@ local function BagTable()
 				type = "header",
 				name = MER:cOption(L["Bags"]),
 			},
-			general = {
-				order = 1,
-				type = "group",
-				guiInline = true,
-				name = L["General"],
-				args = {
-					transparentSlots = {
-						order = 1,
-						type = "toggle",
-						name = L["Transparent Slots"],
-						disabled = function() return not E.private.bags.enable end,
-					},
-				},
-			},
 			equipManager = {
 				order = 2,
 				type = "group",

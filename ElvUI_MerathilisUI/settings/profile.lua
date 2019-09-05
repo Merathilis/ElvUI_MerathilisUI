@@ -27,7 +27,6 @@ MP.general = {
 }
 
 MP.bags = {
-	transparentSlots = true,
 	equipOverlay = true,
 }
 
@@ -123,7 +122,6 @@ MP.datatexts = {
 
 MP.actionbars = {
 	cleanButton = true,
-	transparent = true,
 	specBar = {
 		enable = true,
 		mouseover = false,

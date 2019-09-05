@@ -33,7 +33,6 @@ But if you install another Layout over mine, you must adjust it manually.
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
-L["Transparent Slots"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -204,8 +203,6 @@ L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
-L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true

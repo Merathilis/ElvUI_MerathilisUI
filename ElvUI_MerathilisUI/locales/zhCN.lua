@@ -33,7 +33,6 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
 
 -- Bags
-L["Transparent Slots"] = "透明插槽"
 L["Equipment Manager"] = "装备管理"
 L["Equipment Set Overlay"] = "套装覆盖"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "为你背包(银行)中的物品显示关联的套装."
@@ -202,8 +201,6 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底�
 L["Style DataBars"] = "样式数据条"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "为所有动作条的背景和按钮应用透明度"
-L["Transparent Backdrops"] = "透明背景"
 L["Specialisation Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true

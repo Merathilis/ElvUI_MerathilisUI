@@ -30,17 +30,8 @@ local function abTable()
 				name = L["Clean Boss Button"],
 				disabled = function() return not E.private.actionbar.enable end,
 			},
-			transparent = {
-				order = 3,
-				type = "toggle",
-				name = L["Transparent Backdrops"],
-				desc = L["Applies transparency in all actionbar backdrops and actionbar buttons."],
-				disabled = function() return not E.private.actionbar.enable end,
-				get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
-				set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; MAB:TransparentBackdrops() end,
-			},
 			specBar = {
-				order = 4,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Specialisation Bar"]),
 				guiInline = true,
@@ -70,7 +61,7 @@ local function abTable()
 				},
 			},
 			equipBar = {
-				order = 5,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["EquipSet Bar"]),
 				guiInline = true,
@@ -100,7 +91,7 @@ local function abTable()
 				},
 			},
 			microBar = {
-				order = 6,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
@@ -179,7 +170,7 @@ local function abTable()
 				},
 			},
 			autoButtons = {
-				order = 7,
+				order = 6,
 				type = "group",
 				name = MER:cOption(L["Auto Buttons"]),
 				guiInline = true,

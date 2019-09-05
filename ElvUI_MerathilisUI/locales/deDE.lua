@@ -33,7 +33,6 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
-L["Transparent Slots"] = "Transparente Schaltflächen"
 L["Equipment Manager"] = "Ausrüstungsmanager"
 L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
@@ -202,8 +201,6 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an de
 L["Style DataBars"] = "Informationsleisten Stil"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
-L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
