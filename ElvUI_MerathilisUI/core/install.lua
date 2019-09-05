@@ -312,6 +312,7 @@ function MER:SetupLayout()
 	E.db["bags"]["showBindType"] = true
 	E.db["bags"]["scrapIcon"] = true
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
+	E.db["bags"]["transparent"] = true
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
@@ -697,6 +698,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
+	E.db["actionbar"]["transparent"] = true
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
