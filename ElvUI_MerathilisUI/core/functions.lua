@@ -5,9 +5,9 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local _G = _G
 local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
-local find, format, match, split = string.find, string.format, string.match, string.split
+local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
 local strmatch = strmatch
-local tconcat = table.concat
+local tconcat, twipe = table.concat, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
@@ -26,8 +26,8 @@ local UnitReaction = UnitReaction
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
-local backdropr, backdropg, backdropb, backdropa = unpack(E["media"].backdropcolor)
-local borderr, borderg, borderb, bordera = unpack(E["media"].bordercolor)
+local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
+local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
 
 MER.dummy = function() return end
 MER.Title = format("|cffff7d0a%s |r", "MerathilisUI")
@@ -52,36 +52,16 @@ MER.RightButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512
 MER.ScrollButton = " |TInterface\\TUTORIALFRAME\\UI-TUTORIAL-FRAME:13:11:0:-1:512:512:12:66:127:204|t "
 
 -- Class Color stuff
-MER.ClassColor = E.myclass == "PRIEST" and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass])
 MER.ClassColors = {}
-local BC = {}
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_MALE) do
-	BC[v] = k
-end
-
-for k, v in pairs(LOCALIZED_CLASS_NAMES_FEMALE) do
-	BC[v] = k
-end
-
 local colors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
-for class in pairs(colors) do
+for class, value in pairs(colors) do
 	MER.ClassColors[class] = {}
-	MER.ClassColors[class].r = colors[class].r
-	MER.ClassColors[class].g = colors[class].g
-	MER.ClassColors[class].b = colors[class].b
-	MER.ClassColors[class].colorStr = colors[class].colorStr
+	MER.ClassColors[class].r = value.r
+	MER.ClassColors[class].g = value.g
+	MER.ClassColors[class].b = value.b
+	MER.ClassColors[class].colorStr = value.colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
-
-function MER:HexRGB(r, g, b)
-	if r then
-		if type(r) == "table" then
-			if r.r then r, g, b = r.r, r.g, r.b else r, g, b = unpack(r) end
-		end
-		return format("|cff%02x%02x%02x", r*255, g*255, b*255)
-	end
-end
 
 function MER:ClassColor(class)
 	local color = MER.ClassColors[class]
@@ -132,6 +112,7 @@ function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
 end
 
+-- LocPanel
 function MER:GetIconFromID(type, id)
 	local path
 	if type == "item" then
@@ -149,33 +130,94 @@ function MER:GetSpell(id)
 	return name
 end
 
--- Tooltip scanning stuff
+-- Tooltip scanning stuff. Credits siweia, with permission.
 local iLvlDB = {}
-local itemLevelString = _G["ITEM_LEVEL"]:gsub("%%d", "")
+local itemLevelString = gsub(ITEM_LEVEL, "%%d", "")
+local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local essenceTextureID = 2975691
 local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 
-function MER:GetItemLevel(link, arg1, arg2)
-	if iLvlDB[link] then return iLvlDB[link] end
+local texturesDB, essencesDB = {}, {}
+function MER:InspectItemTextures(clean, grabTextures)
+	twipe(texturesDB)
+	twipe(essencesDB)
 
-	tip:SetOwner(UIParent, "ANCHOR_NONE")
-	if arg1 and type(arg1) == "string" then
-		tip:SetInventoryItem(arg1, arg2)
-	elseif arg1 and type(arg1) == "number" then
-		tip:SetBagItem(arg1, arg2)
-	else
-		tip:SetHyperlink(link)
-	end
+	for i = 1, 5 do
+		local tex = _G[tip:GetName().."Texture"..i]
+		local texture = tex and tex:GetTexture()
+		if texture then
+			if grabTextures then
+				if texture == essenceTextureID then
+					local selected = (texturesDB[i-1] ~= essenceTextureID and texturesDB[i-1]) or nil
+					essencesDB[i] = {selected, tex:GetAtlas(), texture}
+					if selected then texturesDB[i-1] = nil end
+				else
+					texturesDB[i] = texture
+				end
+			end
 
-	for i = 2, 5 do
-		local text = _G[tip:GetName().."TextLeft"..i]:GetText() or ""
-		local found = text:find(itemLevelString)
-		if found then
-			local level = text:match("(%d+)%)?$")
-			iLvlDB[link] = tonumber(level)
-			break
+			if clean then tex:SetTexture() end
 		end
 	end
-	return iLvlDB[link]
+
+	return texturesDB, essencesDB
+end
+
+function MER:InspectItemInfo(text, iLvl, enchantText)
+	local itemLevel = strfind(text, itemLevelString) and strmatch(text, "(%d+)%)?$")
+	if itemLevel then iLvl = tonumber(itemLevel) end
+	local enchant = strmatch(text, enchantString)
+	if enchant then enchantText = enchant end
+
+	return iLvl, enchantText
+end
+
+function MER:GetItemLevel(link, arg1, arg2, fullScan)
+	if fullScan then
+		MER:InspectItemTextures(true)
+		tip:SetOwner(UIParent, "ANCHOR_NONE")
+		tip:SetInventoryItem(arg1, arg2)
+
+		local iLvl, enchantText, gems, essences
+		gems, essences = MER:InspectItemTextures(nil, true)
+
+		for i = 1, tip:NumLines() do
+			local line = _G[tip:GetName().."TextLeft"..i]
+			if line then
+				local text = line:GetText() or ""
+				iLvl, enchantText = MER:InspectItemInfo(text, iLvl, enchantText)
+				if enchantText then break end
+			end
+		end
+
+		return iLvl, enchantText, gems, essences
+	else
+		if iLvlDB[link] then return iLvlDB[link] end
+
+		tip:SetOwner(UIParent, "ANCHOR_NONE")
+		if arg1 and type(arg1) == "string" then
+			tip:SetInventoryItem(arg1, arg2)
+		elseif arg1 and type(arg1) == "number" then
+			tip:SetBagItem(arg1, arg2)
+		else
+			tip:SetHyperlink(link)
+		end
+
+		for i = 2, 5 do
+			local line = _G[tip:GetName().."TextLeft"..i]
+			if line then
+				local text = line:GetText() or ""
+				local found = strfind(text, itemLevelString)
+				if found then
+					local level = strmatch(text, "(%d+)%)?$")
+					iLvlDB[link] = tonumber(level)
+					break
+				end
+			end
+		end
+
+		return iLvlDB[link]
+	end
 end
 
 function MER:CheckPlayerBuff(spell)
@@ -211,7 +253,6 @@ function MER:UpdateRegisteredDBs()
 		self:UpdateRegisteredDB(tbl, path)
 	end
 end
-
 
 function MER:UpdateAll()
 	self:UpdateRegisteredDBs()
@@ -559,7 +600,7 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		gradient:ClearAllPoints()
 		gradient:SetPoint("TOPLEFT", 1, -1)
 		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
-		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
+		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient]])
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
 		f.gradient = gradient

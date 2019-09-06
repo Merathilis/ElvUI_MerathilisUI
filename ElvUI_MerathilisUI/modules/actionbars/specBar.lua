@@ -21,7 +21,7 @@ function MAB:CreateSpecBar()
 	if E.db.mui.actionbars.specBar.enable ~= true then return end
 
 	local Spacing, Mult = 4, 1
-	local Size = 24
+	local Size = E.db.mui.actionbars.specBar.size or 24
 
 	local specBar = CreateFrame("Frame", "SpecializationBar", E.UIParent)
 	specBar:SetFrameStrata("BACKGROUND")

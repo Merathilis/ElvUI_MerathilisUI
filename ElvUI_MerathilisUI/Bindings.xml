@@ -33,4 +33,16 @@
 	<Binding name="CLICK AutoQuestButton10:LeftButton" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK AutoQuestButton11:LeftButton" category="BINDING_HEADER_MER"/>
 	<Binding name="CLICK AutoQuestButton12:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton1:LeftButton" header= "AutoUsableButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton2:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton3:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton4:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton5:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton6:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton7:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton8:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton9:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton10:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton11:LeftButton" category="BINDING_HEADER_MER"/>
+	<Binding name="CLICK AutoUsableButton12:LeftButton" category="BINDING_HEADER_MER"/>
 </Bindings>

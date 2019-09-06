@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local LSM = E.LSM
 
 -- Cache global variables
@@ -109,7 +108,7 @@ function MER:Initialize()
 		MERDataPerChar = {}
 	end
 
-	--self:SetupProfileCallbacks()
+	self:SetupProfileCallbacks()
 
 	E:Delay(6, function() MER:CheckVersion() end)
 

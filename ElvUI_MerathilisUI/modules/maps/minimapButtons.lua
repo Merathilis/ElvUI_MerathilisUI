@@ -20,7 +20,7 @@ local InCombatLockdown = InCombatLockdown
 
 module.Buttons = {}
 
-local ignoreButtons = {
+module.IgnoreButtons = {
 	'GameTimeFrame',
 	'HelpOpenWebTicketButton',
 	'MiniMapVoiceChatFrame',
@@ -36,7 +36,7 @@ local ignoreButtons = {
 	'TukuiMinimapCoord',
 }
 
-local GenericIgnores = {
+module.GenericIgnores = {
 	'Archy',
 	'GatherMatePin',
 	'GatherNote',
@@ -54,7 +54,14 @@ local GenericIgnores = {
 	'DugisArrowMinimapPoint',
 }
 
-local PartialIgnores = { 'Node', 'Note', 'Pin', 'POI' }
+module.PartialIgnores = { 'Node', 'Note', 'Pin', 'POI' }
+
+module.OverrideTexture = {
+	BagSync_MinimapButton = [[Interface\AddOns\BagSync\media\icon]],
+	DBMMinimapButton = [[Interface\Icons\INV_Helmet_87]],
+	SmartBuff_MiniMapButton = [[Interface\Icons\Spell_Nature_Purge]],
+	VendomaticButtonFrame = [[Interface\Icons\INV_Misc_Rabbit_2]],
+}
 
 local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
 
@@ -170,14 +177,14 @@ function module:SkinMinimapButton(Button)
 	local Name = Button:GetName()
 	if not Name then return end
 
-	if tContains(ignoreButtons, Name) then return end
+	if tContains(module.IgnoreButtons, Name) then return end
 
-	for i = 1, #GenericIgnores do
-		if strsub(Name, 1, strlen(GenericIgnores[i])) == GenericIgnores[i] then return end
+	for i = 1, #module.GenericIgnores do
+		if strsub(Name, 1, strlen(module.GenericIgnores[i])) == module.GenericIgnores[i] then return end
 	end
 
-	for i = 1, #PartialIgnores do
-		if strfind(Name, PartialIgnores[i]) ~= nil then return end
+	for i = 1, #module.PartialIgnores do
+		if strfind(Name, module.PartialIgnores[i]) ~= nil then return end
 	end
 
 	for i = 1, Button:GetNumRegions() do
@@ -189,24 +196,21 @@ function module:SkinMinimapButton(Button)
 				Region:SetTexture()
 				Region:SetAlpha(0)
 			else
-				if Name == 'BagSync_MinimapButton' then
-					Region:SetTexture('Interface\\AddOns\\BagSync\\media\\icon')
-				elseif Name == 'DBMMinimapButton' then
-					Region:SetTexture('Interface\\Icons\\INV_Helmet_87')
-				elseif Name == 'OutfitterMinimapButton' then
-					if Texture == 'interface\\addons\\outfitter\\textures\\minimapbutton' then
-						Region:SetTexture()
-					end
-				elseif Name == 'SmartBuff_MiniMapButton' then
-					Region:SetTexture('Interface\\Icons\\Spell_Nature_Purge')
-				elseif Name == 'VendomaticButtonFrame' then
-					Region:SetTexture('Interface\\Icons\\INV_Misc_Rabbit_2')
+				if module.OverrideTexture[Name] then
+					Region:SetTexture(module.OverrideTexture[Name])
+				elseif Name == 'OutfitterMinimapButton' and Texture == [[interface\addons\outfitter\textures\minimapbutton]] then
+					Region:SetTexture()
 				end
+
 				Region:ClearAllPoints()
-				Region:SetInside()
-				Region:SetTexCoord(unpack(self.TexCoords))
-				Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(self.TexCoords)) end)
 				Region:SetDrawLayer('ARTWORK')
+				Region:SetInside()
+
+				if not Button.ignoreCrop then
+					Region:SetTexCoord(unpack(self.TexCoords))
+					Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(self.TexCoords)) end)
+				end
+
 				Region.SetPoint = function() return end
 			end
 		end
@@ -216,7 +220,6 @@ function module:SkinMinimapButton(Button)
 	Button:SetSize(module.db['iconSize'], module.db['iconSize'])
 	Button:SetTemplate()
 	Button:HookScript('OnEnter', function(self)
-		self:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 		if module.Bar:IsShown() then
 			UIFrameFadeIn(module.Bar, 0.2, module.Bar:GetAlpha(), 1)
 		end

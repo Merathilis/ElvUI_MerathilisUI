@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
@@ -13,23 +12,15 @@ local function databarsTable()
 		order = 15,
 		type = "group",
 		name = L["DataBars"],
-		disabled = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
-		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
+		get = function(info) return E.db.mui.databars[ info[#info] ] end,
+		set = function(info, value) E.db.mui.databars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
 				name = MER:cOption(L["DataBars"]),
 			},
-			enable = {
-				order = 2,
-				type = "toggle",
-				name = L["Style DataBars"],
-				desc = L["Add some stylish buttons at the bottom of the DataBars"],
-				get = function(info) return E.db.mui.databars.enable end,
-				set = function(info, value) E.db.mui.databars.enable = value, E:StaticPopup_Show("PRIVATE_RL"); end,
-			},
 		},
 	}
 end
--- tinsert(MER.Config, databarsTable)
+tinsert(MER.Config, databarsTable)

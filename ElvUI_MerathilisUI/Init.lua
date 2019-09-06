@@ -3,6 +3,8 @@ local EP = LibStub('LibElvUIPlugin-1.0')
 local addon, Engine = ...
 
 local MER = E.Libs.AceAddon:NewAddon(addon, 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
+local locale = (E.global.general.locale and E.global.general.locale ~= "auto") and E.global.general.locale or GetLocale()
+local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 
 -- Cache global variables
 -- Lua functions

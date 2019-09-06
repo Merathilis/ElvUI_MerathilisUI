@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
-L["Show Merchant ItemLevel"] = true
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 
@@ -35,7 +33,6 @@ But if you install another Layout over mine, you must adjust it manually.
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
-L["Transparent Slots"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -141,8 +138,7 @@ L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
-L["Progress Bar"] = true
-L["Shows Azerite/Honor/XP/Rep."] = true
+L["Skip Azerite Animation"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -166,6 +162,7 @@ L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
+L["Only Icons"] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -204,8 +201,6 @@ L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
-L["Transparent Backdrops"] = true
 L["Specialisation Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
@@ -214,6 +209,10 @@ L["Bind Font Size"] = true
 L["Trinket Buttons"] = true
 L["Color by Quality"] = true
 L["Quest Buttons"] = true
+L["Blacklist Item"] = true
+L["Whitelist Item"] = true
+L["Add Item ID"] = true
+L["Delete Item ID"] = true
 
 -- Armory
 L["Armory"] = true

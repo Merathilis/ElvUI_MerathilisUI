@@ -18,6 +18,9 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleQuestMapFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
+	-- Stop here if parchment reomover is enabled.
+	if E.private.skins.parchmentRemover.enable then return end
+
 	local QuestMapFrame = _G.QuestMapFrame
 
 	-- Quest scroll frame
@@ -31,29 +34,43 @@ local function styleQuestMapFrame()
 	QuestScrollFrame.DetailFrame.BottomDetail:SetAlpha(0)
 	QuestScrollFrame.Contents.Separator:SetAlpha(0)
 
-	for _, header in next, {campaignHeader, storyHeader} do
-		header.Background:SetAlpha(0)
-		header.HighlightTexture:Hide()
-		header.Text:SetPoint("TOPLEFT", 15, -20)
+	_G.QuestScrollFrameScrollBar:ClearAllPoints()
+	_G.QuestScrollFrameScrollBar:SetPoint("TOPLEFT", QuestScrollFrame, "TOPRIGHT", 4, -16)
+	_G.QuestScrollFrameScrollBar:SetPoint("BOTTOMLEFT", QuestScrollFrame, "BOTTOMRIGHT", 4, 15)
 
-		local bg = MERS:CreateBDFrame(header, .25)
-		bg:SetPoint("TOPLEFT", 6, -2)
-		bg:SetPoint("BOTTOMRIGHT", -6, 2)
+	_G.QuestMapDetailsScrollFrameScrollBar:SetPoint("TOPLEFT", _G.QuestMapDetailsScrollFrame, "TOPRIGHT", 0, -18)
 
-		if header == campaignHeader then
-			local newTex = bg:CreateTexture(nil, "OVERLAY")
-			newTex:SetPoint("TOPRIGHT", -15, -3)
-			newTex:SetSize(50, 50)
+	local questHeader = {
+		QuestScrollFrame.Contents.WarCampaignHeader,
+		QuestScrollFrame.Contents.StoryHeader
+	}
+
+	for i = 1, #questHeader do
+		local frame = questHeader[i]
+		frame.HighlightTexture:Hide()
+		frame.Background:Hide()
+		frame.Text:SetPoint("TOPLEFT", 15, -20)
+
+		frame:CreateBackdrop("Transparent")
+		if i == 1 then -- WarCampaignHeader
+			local newTex = frame:CreateTexture(nil, "OVERLAY")
+			newTex:SetPoint("TOPRIGHT", -15, -7)
+			newTex:SetSize(40, 40)
 			newTex:SetBlendMode("ADD")
 			newTex:SetAlpha(0)
-			header.newTex = newTex
-		end
+			frame.newTex = newTex
 
-		header:HookScript("OnEnter", function()
-			bg:SetBackdropColor(r, g, b, .25)
+			frame.backdrop:SetPoint("TOPLEFT", 6, -5)
+		else  -- StoryHeader
+			frame.backdrop:SetPoint("TOPLEFT", 6, -9)
+		end
+		frame.backdrop:SetPoint("BOTTOMRIGHT", -6, 11)
+
+		frame:HookScript("OnEnter", function()
+			frame.backdrop:SetBackdropColor(r, g, b, .25)
 		end)
-		header:HookScript("OnLeave", function()
-			bg:SetBackdropColor(0, 0, 0, .25)
+		frame:HookScript("OnLeave", function()
+			frame.backdrop:SetBackdropColor(0, 0, 0, .25)
 		end)
 	end
 
@@ -74,7 +91,6 @@ local function styleQuestMapFrame()
 		end
 	end
 
-	-- Scroll frame
 	hooksecurefunc("QuestLogQuests_Update", function()
 		UpdateCampaignHeader()
 	end)

@@ -192,7 +192,6 @@ function module:Initialize()
 	self:GuildBest()
 	self:AddAlerts()
 	self:ReputationInit()
-	self:AddProgressBar()
 end
 
 MER:RegisterModule(module:GetName())

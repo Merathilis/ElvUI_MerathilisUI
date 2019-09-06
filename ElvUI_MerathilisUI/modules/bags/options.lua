@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERBI = MER:GetModule("mUIBagInfo")
 
 --Cache global variables
@@ -20,20 +19,6 @@ local function BagTable()
 				order = 0,
 				type = "header",
 				name = MER:cOption(L["Bags"]),
-			},
-			general = {
-				order = 1,
-				type = "group",
-				guiInline = true,
-				name = L["General"],
-				args = {
-					transparentSlots = {
-						order = 1,
-						type = "toggle",
-						name = L["Transparent Slots"],
-						disabled = function() return not E.private.bags.enable end,
-					},
-				},
 			},
 			equipManager = {
 				order = 2,

@@ -34,6 +34,7 @@ local function CreateSplashScreen()
 	f:SetPoint("CENTER", 0, 100)
 	f:SetFrameStrata("TOOLTIP")
 	f:SetAlpha(0)
+	f:Hide()
 
 	f.bg = f:CreateTexture(nil, "BACKGROUND")
 	f.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])

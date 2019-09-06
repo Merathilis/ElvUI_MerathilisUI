@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 
 -- Cache global variables
 -- Lua functions
@@ -479,6 +478,11 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["GM Chat"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.GMChat end,
+			},
+			Archaeology = {
+				type = "toggle",
+				name = L["Archaeology Frame"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
 			},
 		},
 	}

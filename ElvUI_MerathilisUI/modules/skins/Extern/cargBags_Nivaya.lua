@@ -31,6 +31,9 @@ local function stylecargBags()
 		NivayacBniv_Bank,
 		NivayacBniv_BankReagent,
 		NivayacBniv_BankArmor,
+		NivayacBniv_BankCons,
+		NivayacBniv_BankQuest,
+		NivayacBniv_BankGem,
 	}
 
 	for _, frame in pairs(frames) do

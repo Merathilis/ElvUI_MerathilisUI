@@ -212,7 +212,28 @@ local function UpdateMerchantInfo()
 		local merchantButton = _G["MerchantItem" .. i];
 		local merchantMoney = _G["MerchantItem" .. i .. "MoneyFrame"];
 		local merchantAltCurrency = _G["MerchantItem" .. i .. "AltCurrencyFrame"];
+
 		if (index <= visibleMerchantItems) then
+			-- ItemLevel
+			if itemButton and itemButton:IsShown() then
+				if not itemButton.text then
+					itemButton.text = MER:CreateText(itemButton, "OVERLAY", 10)
+					itemButton.text:SetPoint("BOTTOMRIGHT", 0, 2)
+				else
+					itemButton.text:SetText("")
+				end
+
+				local itemLink = GetMerchantItemLink(index)
+				if itemLink then
+					local _, _, quality, itemlevel, _, _, _, _, _, _, _, itemClassID = GetItemInfo(itemLink)
+					local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
+					if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == LE_ITEM_CLASS_WEAPON or itemClassID == LE_ITEM_CLASS_ARMOR) then
+						itemButton.text:SetText(itemlevel)
+						itemButton.text:SetTextColor(color.r, color.g, color.b)
+					end
+				end
+			end
+
 			name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost = GetMerchantItemInfo(indexes[index]);
 			if (name ~= nil) then
 				local canAfford = CanAffordMerchantItem(index);

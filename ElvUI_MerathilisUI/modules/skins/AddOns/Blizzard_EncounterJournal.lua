@@ -511,29 +511,6 @@ function MERS:StyleEncounterJournal()
 		end
 	end)
 
-	hooksecurefunc("EJSuggestFrame_UpdateRewards", function(suggestion)
-		local rewardData = suggestion.reward.data
-		if rewardData then
-			local texture = rewardData.itemIcon or rewardData.currencyIcon or [[Interface\Icons\achievement_guildperk_mobilebanking]]
-			suggestion.reward.icon:SetMask("")
-			suggestion.reward.icon:SetTexture(texture)
-
-			if not suggestion.reward.icon.backdrop then
-				MERS:CreateBackdrop(suggestion.reward.icon)
-				suggestion.reward.icon.backdrop:SetOutside(suggestion.reward.icon)
-			end
-
-			local r, g, b = unpack(E["media"].bordercolor)
-			if rewardData.itemID then
-				local quality = select(3, GetItemInfo(rewardData.itemID))
-				if quality and quality > 1 then
-					r, g, b = GetItemQualityColor(quality)
-				end
-			end
-			suggestion.reward.icon.backdrop:SetBackdropBorderColor(r, g, b)
-		end
-	end)
-
 	--Overview Info (From Aurora)
 	hooksecurefunc("EncounterJournal_SetUpOverview", SkinOverviewInfo)
 

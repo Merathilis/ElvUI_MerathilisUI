@@ -77,36 +77,7 @@ local function stylePvP()
 		button.SelectedTexture:SetAllPoints()
 
 		button.Reward.Icon:SetInside(button.Reward)
-
-		MERS:CreateBackdrop(button.Reward)
-		button.Reward.backdrop:SetOutside(button.Reward)
 	end
-
-	hooksecurefunc('PVPUIFrame_ConfigureRewardFrame', function(rewardFrame, honor, experience, itemRewards, currencyRewards)
-		local rewardTexture, rewardQuaility = nil, 1
-
-		if currencyRewards then
-			for _, reward in ipairs(currencyRewards) do
-				local name, _, texture, _, _, _, _, quality = GetCurrencyInfo(reward.id);
-				if quality == _G.LE_ITEM_QUALITY_ARTIFACT then
-					_, rewardTexture, _, rewardQuaility = CurrencyContainerUtil_GetCurrencyContainerInfo(reward.id, reward.quantity, name, texture, quality);
-				end
-			end
-		end
-
-		local _
-		if not rewardTexture and itemRewards then
-			local reward = itemRewards[1];
-			if reward then
-				_, _, rewardQuaility, _, _, _, _, _, _, rewardTexture = GetItemInfo(reward.id)
-			end
-		end
-
-		if rewardTexture then
-			rewardFrame.Icon:SetTexture(rewardTexture)
-			rewardFrame.backdrop:SetBackdropBorderColor(GetItemQualityColor(rewardQuaility))
-		end
-	end)
 
 	-- Honor frame specific
 	for _, bu in pairs(HonorFrame.SpecificFrame.buttons) do
@@ -143,61 +114,6 @@ local function stylePvP()
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
 		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
-
-	local rewardIcon = HonorFrame.ConquestBar.Reward.Icon
-	if not rewardIcon.backdrop then
-		MERS:CreateBackdrop(rewardIcon)
-		rewardIcon.backdrop:SetOutside(rewardIcon)
-	end
-
-	-- Credits Azilroka
-	hooksecurefunc(HonorFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
-		local Quality
-		for _, questID in ipairs(C_QuestLine_GetQuestLineQuests(782)) do
-			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog_IsOnQuest(questID) then
-				break;
-			end
-			if HaveQuestRewardData(questID) then
-				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
-				Quality = select(3, GetItemInfo(itemID))
-			else
-				C_TaskQuest_RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
-			end
-		end
-		if Quality then
-			self.backdrop:SetBackdropBorderColor(GetItemQualityColor(Quality))
-		else
-			self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-		end
-	end)
-
-	-- Rated - ConquestFrame
-	local rewardIcon = ConquestFrame.ConquestBar.Reward.Icon
-	if not rewardIcon.backdrop then
-		MERS:CreateBackdrop(rewardIcon)
-		rewardIcon.backdrop:SetOutside(rewardIcon)
-	end
-
-	-- Credits Azilroka
-	hooksecurefunc(ConquestFrame.ConquestBar.Reward.Icon, 'SetTexture', function(self) -- Code taken from :GetConquestLevelInfo the function isn't returning the correct id somehow.
-		local Quality
-		for _, questID in ipairs(C_QuestLine_GetQuestLineQuests(782)) do
-			if not IsQuestFlaggedCompleted(questID) and not C_QuestLog_IsOnQuest(questID) then
-				break;
-			end
-			if HaveQuestRewardData(questID) then
-				local itemID = select(6, GetQuestLogRewardInfo(1, questID))
-				Quality = select(3, GetItemInfo(itemID))
-			else
-				C_TaskQuest_RequestPreloadRewardData(questID) -- Taken from WorldMapFrame
-			end
-		end
-		if Quality then
-			self.backdrop:SetBackdropBorderColor(GetItemQualityColor(Quality))
-		else
-			self.backdrop:SetBackdropBorderColor(unpack(E["media"].bordercolor))
-		end
-	end)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)

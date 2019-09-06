@@ -462,7 +462,7 @@ function module:RESURRECT_REQUEST(name)
 end
 
 -- Credits: Paragon Reputation
-local PARAGON_QUEST_ID = { --[QuestID] = {factionID}
+local PARAGON_QUESTS = { --[QuestID] = {factionID}
 	--Legion
 		[48976] = {2170}, -- Argussian Reach
 		[46777] = {2045}, -- Armies of Legionfall
@@ -497,8 +497,8 @@ local PARAGON_QUEST_ID = { --[QuestID] = {factionID}
 
 function module:QUEST_ACCEPTED(event, ...)
 	local questIndex, questID = ...
-	if module.db.paragon and PARAGON_QUEST_ID[questID] then
-		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUEST_ID[questID][1])) or UNKNOWN
+	if module.db.paragon and PARAGON_QUESTS[questID] then
+		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUESTS[questID][1])) or UNKNOWN
 		PlaySound(618, "Master") -- QUEST ADDED
 		self:DisplayToast(name, L["MISC_PARAGON_NOTIFY"], nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
 	end

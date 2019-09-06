@@ -15,6 +15,8 @@ local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local date = date
 local BNGetNumFriends = BNGetNumFriends
+local GetFramerate = GetFramerate
+local GetNetStats = GetNetStats
 local GetCurrentRegion = GetCurrentRegion
 local GetGameTime = GetGameTime
 local GetGuildRosterInfo = GetGuildRosterInfo
@@ -61,6 +63,40 @@ local mod = mod
 local DELAY = 5
 local elapsed = DELAY - 5
 
+local usageTable, showMode, entered = {}, 0
+local usageString = "%.3f ms"
+
+local function colorLatency(latency)
+	if latency < 250 then
+		return "|cff0CD809"..latency
+	elseif latency < 500 then
+		return "|cffE8DA0F"..latency
+	else
+		return "|cffD80909"..latency
+	end
+end
+
+local function colorFPS(fps)
+	if fps < 15 then
+		return "|cffD80909"..fps
+	elseif fps < 30 then
+		return "|cffE8DA0F"..fps
+	else
+		return "|cff0CD809"..fps
+	end
+end
+
+local function setFrameRate(self)
+	local fps = floor(GetFramerate())
+	self.text:SetText(L["FPS"]..": "..colorFPS(fps))
+end
+
+local function setLatency(self)
+	local _, _, latencyHome, latencyWorld = GetNetStats()
+	local latency = max(latencyHome, latencyWorld)
+	self.text:SetText(L["Latency"]..": "..colorLatency(latency))
+end
+
 local function updateTimerFormat(color, hour, minute)
 	if GetCVarBool("timeMgrUseMilitaryTime") then
 		return format(color .. TIMEMANAGER_TICKER_24HOUR, hour, minute)
@@ -76,6 +112,7 @@ end
 function module.OnUpdate(self, elapsed)
 	self.timer = (self.timer or 0) + elapsed
 	if self.timer > 1 then
+		-- Calendar
 		local color = C_Calendar_GetNumPendingInvites() > 0 and "|cffFF0000" or ""
 
 		local hour, minute
@@ -85,6 +122,15 @@ function module.OnUpdate(self, elapsed)
 			hour, minute = GetGameTime()
 		end
 		self.text:SetText(updateTimerFormat(color, hour, minute))
+
+		-- Latency
+		showMode = mod(showMode + 1, 10)
+		if showMode > 4 then
+			setFrameRate(self)
+		else
+			setLatency(self)
+		end
+		if entered then self:onEnter() end
 
 		self.timer = 0
 	end
@@ -145,24 +191,36 @@ local questlist = {
 
 -- Invasion Code --
 local region = GetCVar("portal")
-if not region or #region ~= 2 then
-	local regionID = GetCurrentRegion()
-	region = regionID and ({"US", "KR", "EU", "TW", "CN"})[regionID]
-end
+local legionZoneTime = {
+	["EU"] = 1565168400, -- CN-16
+	["US"] = 1565197200, -- CN-8
+	["CN"] = 1565226000, -- CN time 8/8/2019 09:00 [1]
+}
+local bfaZoneTime = {
+	["CN"] = 1546743600, -- CN time 1/6/2019 11:00 [1]
+	["EU"] = 1546768800, -- CN+7
+	["US"] = 1546769340, -- CN+16
+}
+
+local legionTime = {
+	4,2,3,1,
+	2,4,1,3,
+	4,3,1,2,
+	1,2,4,3,
+	4,3,1,2,
+	3,2,1,4,
+	1,4,3,2,
+	3,4,2,1,
+	4,1,2,3,
+	2,3,4,1,
+	4,3,1,2,
+	1,2,4,3,
+}
 
 -- Check Invasion Status
 local invIndex = {
-	[1] = {
-		title = L["Faction Assault"],
-		duration = 68400,
-		maps = {862, 863, 864, 896, 942, 895},
-		timeTable = {4, 1, 6, 2, 5, 3},
-		baseTime = {
-			US = 1548032400, -- 01/20/2019 17:00 UTC-8
-			EU = 1548000000, -- 01/20/2019 16:00 UTC+0
-			CN = 1546743600 -- 01/06/2019 11:00 UTC+8
-		}
-	}
+	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = legionTime, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
+	[2] = {title = L["Faction Assault"], duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = bfaZoneTime[region] or bfaZoneTime["EU"]},
 }
 
 local mapAreaPoiIDs = {
@@ -195,24 +253,21 @@ local function CheckInvasion(index)
 end
 
 local function GetNextTime(baseTime, index)
-	local inv = invIndex[index]
 	local currentTime = time()
-	local baseTime = inv.baseTime[region]
 	local duration = invIndex[index].duration
 	local elapsed = mod(currentTime - baseTime, duration)
+
 	return duration - elapsed + currentTime
 end
 
 local function GetNextLocation(nextTime, index)
 	local inv = invIndex[index]
 	local count = #inv.timeTable
-	local baseTime = inv.baseTime[region]
-	local elapsed = nextTime - baseTime
-	local round = mod(floor(elapsed / inv.duration) + 1, count)
+	if count == 0 then return QUEUE_TIME_UNAVAILABLE end
 
-	if round == 0 then
-		round = count
-	end
+	local elapsed = nextTime - inv.baseTime
+	local round = mod(floor(elapsed / inv.duration) + 1, count)
+	if round == 0 then round = count end
 
 	return C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name
 end
@@ -254,6 +309,14 @@ function module.OnEnter(self)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 1, .8, .1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 1, .8, .1, 1, 1, 1)
+
+	-- Latency
+	local _, _, latencyHome, latencyWorld = GetNetStats()
+	local fps = floor(GetFramerate())
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddDoubleLine(L["Home Latency:"], colorLatency(latencyHome).."|r MS", .6, .8, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["World Latency:"], colorLatency(latencyWorld).."|r MS", .6, .8, 1, 1, 1, 1)
+	GameTooltip:AddDoubleLine(FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
 
 	-- World bosses
 	title = false
@@ -341,37 +404,17 @@ function module.OnEnter(self)
 	for index, value in ipairs(invIndex) do
 		title = false
 		addTitle(value.title)
-		if value.baseTime[region] and value.baseTime[region] ~= "" then
-			local timeLeft, zoneName = CheckInvasion(index)
-			local nextTime = GetNextTime(value.baseTime, index)
-			if timeLeft then
-				timeLeft = timeLeft / 60
-				if timeLeft < 60 then
-					r, g, b = 1, 0, 0
-				else
-					r, g, b = 0, 1, 0
-				end
-				GameTooltip:AddDoubleLine(
-					L["Current Invasion: "] .. zoneName,
-					format("%.2d:%.2d", timeLeft / 60, timeLeft % 60),
-					1,
-					1,
-					1,
-					r,
-					g,
-					b
-				)
+		local timeLeft, zoneName = CheckInvasion(index)
+		local nextTime = GetNextTime(value.baseTime, index)
+		if timeLeft then
+			timeLeft = timeLeft / 60
+			if timeLeft < 60 then
+				r, g, b = 1, 0, 0
+			else
+				r, g, b = 0, 1, 0
 			end
-			GameTooltip:AddDoubleLine(
-				L["Next Invasion: "] .. GetNextLocation(nextTime, index),
-				date("%d/%m %H:%M", nextTime),
-				1,
-				1,
-				1,
-				1,
-				1,
-				1
-			)
+			GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%.2d:%.2d", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			GameTooltip:AddDoubleLine(L["Next Invasion: "] .. GetNextLocation(nextTime, index), date("%d/%m %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
 		else
 			GameTooltip:AddDoubleLine(L["Missing invasion info on your realm."])
 		end
@@ -449,29 +492,20 @@ function module:CreateMicroBar()
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
 	charButton.text:SetText(CHARACTER_BUTTON)
-	charButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	charButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	charButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	charButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	charButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	charButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	charButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	charButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleCharacter"]("PaperDollFrame")
-		end
-	)
+		_G["ToggleCharacter"]("PaperDollFrame")
+	end)
 
 	--Friends
 	local friendsButton = CreateFrame("Button", nil, microBar)
@@ -494,7 +528,7 @@ function module:CreateMicroBar()
 		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
 	end
 	friendsButton.text:SetText(SOCIAL_BUTTON)
-	friendsButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	friendsButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateFriends()
 		module.db = E.db.mui.microBar
@@ -517,40 +551,28 @@ function module:CreateMicroBar()
 	friendsButton.online:FontTemplate(nil, 10, "OUTLINE")
 	friendsButton.online:SetPoint("BOTTOMRIGHT", friendsButton, 0, 5)
 	friendsButton.online:SetText("")
-	friendsButton.online:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	friendsButton.online:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	friendsButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	friendsButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	friendsButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	friendsButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	friendsButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	friendsButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleFriendsFrame"]()
-		end
-	)
-	friendsButton:SetScript(
-		"OnUpdate",
-		function(self, elapse)
-			elapsed = elapsed + elapse
+		_G["ToggleFriendsFrame"]()
+	end)
+	friendsButton:SetScript("OnUpdate", function(self, elapse)
+		elapsed = elapsed + elapse
 
-			if elapsed >= DELAY then
-				elapsed = 0
-				UpdateFriends()
-			end
+		if elapsed >= DELAY then
+			elapsed = 0
+			UpdateFriends()
 		end
-	)
+	end)
 
 	--Guild
 	local guildButton = CreateFrame("Button", nil, microBar)
@@ -573,7 +595,7 @@ function module:CreateMicroBar()
 		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
 	end
 	guildButton.text:SetText(GUILD)
-	guildButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	guildButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateGuild()
 		module.db = E.db.mui.microBar
@@ -600,40 +622,27 @@ function module:CreateMicroBar()
 	guildButton.online:FontTemplate(nil, 10, "OUTLINE")
 	guildButton.online:SetPoint("BOTTOMRIGHT", guildButton, 0, 5)
 	guildButton.online:SetText("")
-	guildButton.online:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	guildButton.online:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	guildButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	guildButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	guildButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	guildButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	guildButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
+		_G["ToggleGuildFrame"]()
+	end)
+	guildButton:SetScript("OnUpdate", function(self, elapse)
+		elapsed = elapsed + elapse
+		if elapsed >= DELAY then
+			elapsed = 0
+			UpdateGuild()
 		end
-	)
-	guildButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleGuildFrame"]()
-		end
-	)
-	guildButton:SetScript(
-		"OnUpdate",
-		function(self, elapse)
-			elapsed = elapsed + elapse
-
-			if elapsed >= DELAY then
-				elapsed = 0
-				UpdateGuild()
-			end
-		end
-	)
+	end)
 
 	--Achievements
 	local achieveButton = CreateFrame("Button", nil, microBar)
@@ -656,29 +665,20 @@ function module:CreateMicroBar()
 		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
 	end
 	achieveButton.text:SetText(ACHIEVEMENT_BUTTON)
-	achieveButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	achieveButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	achieveButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	achieveButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	achieveButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	achieveButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	achieveButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	achieveButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleAchievementFrame"]()
-		end
-	)
+		_G["ToggleAchievementFrame"]()
+	end)
 
 	--EncounterJournal
 	local encounterButton = CreateFrame("Button", nil, microBar)
@@ -701,29 +701,20 @@ function module:CreateMicroBar()
 		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
 	end
 	encounterButton.text:SetText(ENCOUNTER_JOURNAL)
-	encounterButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	encounterButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	encounterButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	encounterButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	encounterButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	encounterButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	encounterButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	encounterButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleEncounterJournal"]()
-		end
-	)
+		_G["ToggleEncounterJournal"]()
+	end)
 
 	-- Time
 	local timeButton = CreateFrame("Button", nil, microBar)
@@ -732,7 +723,7 @@ function module:CreateMicroBar()
 	timeButton:SetFrameLevel(6)
 
 	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16)
-	timeButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	timeButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 	timeButton.text:SetPoint("CENTER", 0, 0)
 
 	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
@@ -746,35 +737,25 @@ function module:CreateMicroBar()
 	local timerAnim = timer:CreateAnimation()
 	timerAnim:SetDuration(1)
 
-	timer:SetScript(
-		"OnFinished",
-		function(self, requested)
-			local euTime = date("%H|cFF00c0fa:|r%M")
-			local ukTime = date("%I|cFF00c0fa:|r%M")
-
-			if E.db.datatexts.time24 == true then
-				timeButton.text:SetText(euTime)
-			else
-				timeButton.text:SetText(ukTime)
-			end
-			self:Play()
+	timer:SetScript("OnFinished", function(self, requested)
+		local euTime = date("%H|cFF00c0fa:|r%M")
+		local ukTime = date("%I|cFF00c0fa:|r%M")
+		if E.db.datatexts.time24 == true then
+			timeButton.text:SetText(euTime)
+		else
+			timeButton.text:SetText(ukTime)
 		end
-	)
+		self:Play()
+	end)
 	timer:Play()
 
-	timeButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
-			module.OnEnter(self)
-		end
-	)
-	timeButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
+	timeButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+		module.OnEnter(self)
+	end)
+	timeButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
 	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
@@ -798,29 +779,20 @@ function module:CreateMicroBar()
 		petButton.text:SetPoint("TOP", petButton, 2, 15)
 	end
 	petButton.text:SetText(MOUNTS_AND_PETS)
-	petButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	petButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	petButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	petButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	petButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	petButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	petButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	petButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleCollectionsJournal"](1)
-		end
-	)
+		_G["ToggleCollectionsJournal"](1)
+	end)
 
 	--LFR
 	local lfrButton = CreateFrame("Button", nil, microBar)
@@ -843,29 +815,20 @@ function module:CreateMicroBar()
 		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
 	end
 	lfrButton.text:SetText(LFG_TITLE)
-	lfrButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	lfrButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	lfrButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	lfrButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	lfrButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	lfrButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	lfrButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	lfrButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["PVEFrame_ToggleFrame"]()
-		end
-	)
+		_G["PVEFrame_ToggleFrame"]()
+	end)
 
 	--Spellbook
 	local spellBookButton = CreateFrame("Button", nil, microBar)
@@ -888,29 +851,20 @@ function module:CreateMicroBar()
 		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
 	end
 	spellBookButton.text:SetText(SPELLBOOK_ABILITIES_BUTTON)
-	spellBookButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	spellBookButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	spellBookButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	spellBookButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	spellBookButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	spellBookButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	spellBookButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	spellBookButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleSpellBook"](BOOKTYPE_SPELL)
-		end
-	)
+		_G["ToggleSpellBook"](BOOKTYPE_SPELL)
+	end)
 
 	--Specc Button
 	local speccButton = CreateFrame("Button", nil, microBar)
@@ -933,29 +887,20 @@ function module:CreateMicroBar()
 		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
 	end
 	speccButton.text:SetText(TALENTS_BUTTON)
-	speccButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	speccButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	speccButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	speccButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	speccButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	speccButton:SetScript( "OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	speccButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	speccButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			_G["ToggleTalentFrame"]()
-		end
-	)
+		_G["ToggleTalentFrame"]()
+	end)
 
 	--Shop
 	local shopButton = CreateFrame("Button", nil, microBar)
@@ -978,41 +923,22 @@ function module:CreateMicroBar()
 		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
 	end
 	shopButton.text:SetText(BLIZZARD_STORE)
-	shopButton.text:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	shopButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
-	shopButton:SetScript(
-		"OnEnter",
-		function(self)
-			OnHover(self)
+	shopButton:SetScript("OnEnter", function(self)
+		OnHover(self)
+	end)
+	shopButton:SetScript("OnLeave", function(self)
+		OnLeave(self)
+	end)
+	shopButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
 		end
-	)
-	shopButton:SetScript(
-		"OnLeave",
-		function(self)
-			OnLeave(self)
-		end
-	)
-	shopButton:SetScript(
-		"OnClick",
-		function(self)
-			if InCombatLockdown() then
-				return
-			end
-			StoreMicroButton:Click()
-		end
-	)
+		StoreMicroButton:Click()
+	end)
 
-	E:CreateMover(
-		microBar,
-		"MER_MicroBarMover",
-		L["MicroBarMover"],
-		nil,
-		nil,
-		nil,
-		"ALL,ACTIONBARS,MERATHILISUI",
-		nil,
-		"mui,modules,actionbars"
-	)
+	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
 end
 
 function module:Toggle()

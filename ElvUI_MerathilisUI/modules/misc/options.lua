@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MI = MER:GetModule("mUIMisc")
 
 --Cache global variables
@@ -74,11 +73,10 @@ local function Misc()
 				type = "toggle",
 				name = L["LFG Member Info"],
 			},
-			progressbar = {
-				order = 13,
+			skipAzerite = {
+				order = 11,
 				type = "toggle",
-				name = E.NewSign..L["Progress Bar"],
-				desc = L["Shows Azerite/Honor/XP/Rep."],
+				name = E.NewSign..L["Skip Azerite Animation"],
 			},
 			alerts = {
 				order = 20,

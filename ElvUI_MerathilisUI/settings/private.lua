@@ -74,6 +74,7 @@ V.muiSkins = {
 		voidstorage = true,
 		AlliedRaces = true,
 		GMChat = true,
+		Archaeology = true,
 	},
 
 	addonSkins = {

@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Sta
 L["Options"] = "Einstellungen"
 L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
-L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
@@ -35,7 +33,6 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
-L["Transparent Slots"] = "Transparente Schaltflächen"
 L["Equipment Manager"] = "Ausrüstungsmanager"
 L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
@@ -141,8 +138,7 @@ L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
-L["Progress Bar"] = "Fortschrittsleiste"
-L["Shows Azerite/Honor/XP/Rep."] = "Zeigt Azerite/Ehre/EP/Ruf"
+L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -166,6 +162,7 @@ L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
 L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
+L["Only Icons"] = "Nur Symbole"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -204,8 +201,6 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an de
 L["Style DataBars"] = "Informationsleisten Stil"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
-L["Transparent Backdrops"] = "Transparente Hintergründe"
 L["Specialisation Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
@@ -214,6 +209,10 @@ L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"
 L["Color by Quality"] = "Färbe nach Qualität"
 L["Quest Buttons"] = "Quest Tasten"
+L["Blacklist Item"] = "Schwarze Liste Item"
+L["Whitelist Item"] = "Weißeliste Item"
+L["Add Item ID"] = "Füge Item ID hinzu"
+L["Delete Item ID"] = "Entferne Item ID"
 
 -- Armory
 L["Armory"] = "Arsenal"
