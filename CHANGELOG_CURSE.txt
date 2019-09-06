@@ -1,3 +1,13 @@
+** v4.31 06.09.2019**
+* Removed my own ProgressBar. Was a good idea, but nah.
+* Remove transparent options for Bags/ActionBars. Now in ElvUI.
+* Enhance AutoButtons.
+* Hide the progress Tooltip if Raider.IO is loaded.
+* Updated some Skins.
+* Code cleanup. And hopefully fix some nil errors.
+* Added back TradeSkillTabs.
+* Added FPS and Latency to my MicroButton Time Tooltip.
+
 ** v4.30 19.08.2019**
 * More code cleanup.
 * Fixed an issue, which can happen with BenikUI FlightMode.
