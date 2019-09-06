@@ -350,14 +350,10 @@ function MERS:StyleEncounterJournal()
 	}
 
 	for _, tab in pairs(tabs) do
-		 --Hide ElvUI's backdrop
 		if tab.backdrop then
-			tab.backdrop:Hide()
+			tab.backdrop:SetTemplate("Transparent")
+			tab.backdrop:Styling()
 		end
-
-		 --Reaply tabs
-		tab:CreateBackdrop("Transparent")
-		tab.backdrop:Styling()
 	end
 
 	--Encounter Instance Frame
