@@ -292,6 +292,7 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
+		difficulty = true,
 		coords = {
 			enable = true,
 			position = "BOTTOM",

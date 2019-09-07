@@ -12,7 +12,7 @@ local tinsert = table.insert
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["MiniMap"],
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -34,6 +34,11 @@ local function Minimap()
 						type = "toggle",
 						name = L["Blinking Minimap"],
 						desc = L["Enable the blinking animation for new mail or pending invites."],
+					},
+					difficulty = {
+						order = 2,
+						type = "toggle",
+						name = E.NewSign..L["Instance Difficulty"],
 					},
 				},
 			},
