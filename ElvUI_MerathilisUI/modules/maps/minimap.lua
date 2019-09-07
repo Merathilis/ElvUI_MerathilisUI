@@ -105,14 +105,14 @@ end
 function module:RaidDifficulty()
 	if E.db.mui.maps.minimap.difficulty ~= true then return end
 
-	local RaidDifficulty = CreateFrame('Frame', nil, Minimap)
-	RaidDifficulty:SetSize(24, 8)
-
 	local pos = E.db.general.minimap.icons.difficulty.position or "TOPLEFT"
 	local x = E.db.general.minimap.icons.difficulty.xOffset or 0
 	local y = E.db.general.minimap.icons.difficulty.yOffset or 0
 
+	local RaidDifficulty = CreateFrame('Frame', nil, Minimap)
+	RaidDifficulty:SetSize(24, 8)
 	RaidDifficulty:SetPoint(pos, Minimap, pos, x, y)
+
 	RaidDifficulty:RegisterEvent('PLAYER_ENTERING_WORLD')
 	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_START')
 	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_COMPLETED')
