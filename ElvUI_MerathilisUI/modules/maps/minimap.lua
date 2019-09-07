@@ -123,13 +123,6 @@ function module:StyleMinimap()
 	end)
 	hooksecurefunc("EyeTemplate_StartAnimating", function() anim:Play() end)
 	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
-
-	-- Difficulty Flags
-	local flags = {"MiniMapInstanceDifficulty", "GuildInstanceDifficulty", "MiniMapChallengeMode"}
-	for _, v in pairs(flags) do
-		local flag = _G[v]
-		flag:SetScale(.75)
-	end
 end
 
 function module:Initialize()
