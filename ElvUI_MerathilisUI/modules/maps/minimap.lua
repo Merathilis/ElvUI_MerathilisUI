@@ -151,7 +151,7 @@ function module:RaidDifficulty()
 			elseif difficulty == 7 then -- LFR (Legacy)
 				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR"))
 			elseif difficulty == 8 then -- Mythic Keystone
-				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M+"..mplusdiff))
+				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M+")..mplusdiff)
 			elseif difficulty == 9 then -- 40 Player
 				RaidDifficultyText:SetText('40R')
 			elseif difficulty == 11 or difficulty == 39 then -- Heroic Scenario / Heroic
@@ -161,13 +161,13 @@ function module:RaidDifficulty()
 			elseif difficulty == 40 then -- Mythic Scenario
 				RaidDifficultyText:SetText('MScen')
 			elseif difficulty == 14 then -- Normal Raid
-				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "N:"..numplayers))
+				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "N:")..numplayers)
 			elseif difficulty == 15 then -- Heroic Raid
-				RaidDifficultyText:SetText(format("|cffff7d0a%s |r", "H:"..numplayers))
+				RaidDifficultyText:SetText(format("|cffff7d0a%s |r", "H:")..numplayers)
 			elseif difficulty == 16 then -- Mythic Raid
 				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M"))
 			elseif difficulty == 17 then -- LFR
-				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR:"..numplayers))
+				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR:")..numplayers)
 			elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then -- Event / Event Scenario
 				RaidDifficultyText:SetText('EScen')
 			elseif difficulty == 23 then -- Mythic Party
