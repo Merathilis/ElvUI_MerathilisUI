@@ -217,6 +217,7 @@ MP.actionbars = {
 			[168489] = true, -- Superior Battle Potion of Agility
 			[168498] = true, -- Superior Battle Potion of Intellect
 			[168499] = true, -- Superior Battle Potion of Stamina
+			[169299] = true, -- Potion of Unbridled Fury
 		},
 		blackList = {},
 		blackitemID = "",
