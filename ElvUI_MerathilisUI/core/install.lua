@@ -221,6 +221,8 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["ticket"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["ticket"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["ticket"]["scale"] = 0.75
+	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 5
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 144
