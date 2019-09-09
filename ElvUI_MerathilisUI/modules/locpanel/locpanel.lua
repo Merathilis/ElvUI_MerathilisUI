@@ -37,6 +37,7 @@ local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 -- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
@@ -415,9 +416,14 @@ function module:Toggle()
 	if module.db.enable then
 		loc_panel:Show()
 		E:EnableMover(loc_panel.mover:GetName())
+
+		if module.db.combathide then
+			RegisterStateDriver(loc_panel, 'visibility', '[combat] hide;show')
+		end
 	else
 		loc_panel:Hide()
 		E:DisableMover(loc_panel.mover:GetName())
+		UnregisterStateDriver(loc_panel, 'visibility')
 	end
 	module:UNIT_AURA(nil, "player")
 end
@@ -692,10 +698,6 @@ function module:Initialize()
 	end
 
 	self:ForUpdateAll()
-
-	if module.db.combathide then
-		RegisterStateDriver(loc_panel, 'visibility', '[combat] hide;show')
-	end
 
 	self:RegisterEvent("UNIT_AURA")
 	self:RegisterEvent("CHAT_MSG_SKILL")
