@@ -36,8 +36,7 @@ local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local RegisterStateDriver = RegisterStateDriver
 -- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
@@ -657,14 +656,6 @@ function module:CHAT_MSG_SKILL()
 	end
 end
 
-function module:PLAYER_REGEN_DISABLED()
-	if module.db.combathide then loc_panel:SetAlpha(0) end
-end
-
-function module:PLAYER_REGEN_ENABLED()
-	if module.db.enable then loc_panel:SetAlpha(1) end
-end
-
 function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if module.db.enable and module.db.orderhallhide then
@@ -702,8 +693,10 @@ function module:Initialize()
 
 	self:ForUpdateAll()
 
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	if module.db.combathide then
+		RegisterStateDriver(loc_panel, 'visibility', '[combat] hide;show')
+	end
+
 	self:RegisterEvent("UNIT_AURA")
 	self:RegisterEvent("CHAT_MSG_SKILL")
 end

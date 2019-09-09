@@ -373,6 +373,7 @@ MP.smb = {
 	enable = true,
 	barMouseOver = true,
 	backdrop = true,
+	hideInCombat = false,
 	iconSize = 22,
 	buttonsPerRow = 6,
 	buttonSpacing = 2,

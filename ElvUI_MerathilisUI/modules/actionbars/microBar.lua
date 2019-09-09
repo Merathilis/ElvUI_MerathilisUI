@@ -48,12 +48,10 @@ local GetSavedInstanceInfo = GetSavedInstanceInfo
 local GetNumSavedWorldBosses = GetNumSavedWorldBosses
 local GetSavedWorldBossInfo = GetSavedWorldBossInfo
 local RequestRaidInfo = RequestRaidInfo
+local RegisterStateDriver = RegisterStateDriver
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
-local InCombatLockdown = InCombatLockdown
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local microBar
@@ -952,18 +950,6 @@ function module:Toggle()
 	module:UNIT_AURA(nil, "player")
 end
 
-function module:PLAYER_REGEN_DISABLED()
-	if module.db.hideInCombat == true then
-		microBar:SetAlpha(0)
-	end
-end
-
-function module:PLAYER_REGEN_ENABLED()
-	if module.db.enable then
-		microBar:SetAlpha(1)
-	end
-end
-
 function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then
 		return
@@ -997,8 +983,10 @@ function module:Initialize()
 
 	self:ForUpdateAll()
 
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
+	if module.db.hideInCombat then
+		RegisterStateDriver(microBar, 'visibility', '[combat] hide;show')
+	end
+
 	self:RegisterEvent("UNIT_AURA")
 end
 

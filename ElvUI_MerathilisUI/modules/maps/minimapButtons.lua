@@ -15,7 +15,10 @@ local tContains,tinsert = tContains, table.insert
 local CreateFrame = CreateFrame
 local C_PetBattles_IsInBattle = C_PetBattles.IsInBattle
 local InCombatLockdown = InCombatLockdown
---Global variables that we don't cache, list them here for mikk's FindGlobals script
+local UIParent = UIParent
+local UIFrameFadeIn = UIFrameFadeIn
+local UIFrameFadeOut = UIFrameFadeOut
+local RegisterStateDriver = RegisterStateDriver
 -- GLOBALS:
 
 module.Buttons = {}
@@ -80,43 +83,43 @@ end
 function module:HandleBlizzardButtons()
 	if not self.db['enable'] then return end
 
-	if self.db["moveTracker"] and not MiniMapTrackingButton.module then
-		MiniMapTracking.Show = nil
+	if self.db["moveTracker"] and not _G.MiniMapTrackingButton.module then
+		_G.MiniMapTracking.Show = nil
 
-		MiniMapTracking:Show()
+		_G.MiniMapTracking:Show()
 
-		MiniMapTracking:SetParent(self.Bar)
-		MiniMapTracking:SetSize(self.db['iconSize'], self.db['iconSize'])
+		_G.MiniMapTracking:SetParent(self.Bar)
+		_G.MiniMapTracking:SetSize(self.db['iconSize'], self.db['iconSize'])
 
-		MiniMapTrackingIcon:ClearAllPoints()
-		MiniMapTrackingIcon:SetPoint('CENTER')
+		_G.MiniMapTrackingIcon:ClearAllPoints()
+		_G.MiniMapTrackingIcon:SetPoint('CENTER')
 
-		MiniMapTrackingBackground:SetAlpha(0)
-		MiniMapTrackingIconOverlay:SetAlpha(0)
-		MiniMapTrackingButton:SetAlpha(0)
+		_G.MiniMapTrackingBackground:SetAlpha(0)
+		_G.MiniMapTrackingIconOverlay:SetAlpha(0)
+		_G.MiniMapTrackingButton:SetAlpha(0)
 
-		MiniMapTrackingButton:SetParent(MinimapTracking)
-		MiniMapTrackingButton:ClearAllPoints()
-		MiniMapTrackingButton:SetAllPoints(MiniMapTracking)
+		_G.MiniMapTrackingButton:SetParent(_G.MinimapTracking)
+		_G.MiniMapTrackingButton:ClearAllPoints()
+		_G.MiniMapTrackingButton:SetAllPoints(_G.MiniMapTracking)
 
-		MiniMapTrackingButton:SetScript('OnMouseDown', nil)
-		MiniMapTrackingButton:SetScript('OnMouseUp', nil)
+		_G.MiniMapTrackingButton:SetScript('OnMouseDown', nil)
+		_G.MiniMapTrackingButton:SetScript('OnMouseUp', nil)
 
-		MiniMapTrackingButton:HookScript('OnEnter', function(self)
+		_G.MiniMapTrackingButton:HookScript('OnEnter', function(self)
 			MiniMapTracking:SetBackdropBorderColor(unpack(E["media"].rgbvaluecolor))
 			if module.Bar:IsShown() then
 				UIFrameFadeIn(module.Bar, 0.2, module.Bar:GetAlpha(), 1)
 			end
 		end)
-		MiniMapTrackingButton:HookScript('OnLeave', function(self)
+		_G.MiniMapTrackingButton:HookScript('OnLeave', function(self)
 			MiniMapTracking:SetTemplate()
 			if module.Bar:IsShown() and module.db['barMouseOver'] then
 				UIFrameFadeOut(module.Bar, 0.2, module.Bar:GetAlpha(), 0)
 			end
 		end)
 
-		MiniMapTrackingButton.module = true
-		tinsert(self.Buttons, MiniMapTracking)
+		_G.MiniMapTrackingButton.module = true
+		tinsert(self.Buttons, _G.MiniMapTracking)
 	end
 
 	if self.db["moveQueue"] and not QueueStatusMinimapButton.module then
@@ -359,6 +362,10 @@ function module:Initialize()
 
 	module:ScheduleRepeatingTimer('GrabMinimapButtons', 6)
 	module:ScheduleTimer('HandleBlizzardButtons', 7)
+
+	if module.db.hideInCombat then
+		RegisterStateDriver(module.Bar, 'visibility', '[combat] hide;show')
+	end
 end
 
 MER:RegisterModule(module:GetName())
