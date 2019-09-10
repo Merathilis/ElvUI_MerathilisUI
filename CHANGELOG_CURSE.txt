@@ -1,3 +1,5 @@
+** v4.32 xx.xx.2019**
+
 ** v4.31 06.09.2019**
 * Removed my own ProgressBar. Was a good idea, but nah.
 * Remove transparent options for Bags/ActionBars. Now in ElvUI.
