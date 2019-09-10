@@ -40,6 +40,7 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
+--Info Color RGB: 0, 191/255, 250/255
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
