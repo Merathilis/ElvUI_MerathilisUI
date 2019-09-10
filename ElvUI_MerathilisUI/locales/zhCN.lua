@@ -194,6 +194,7 @@ L["Middle Datatext Panel"] = "中间的信息面板"
 L["Right Click"] = true
 L["Toggle ActionBar"] = true
 L["Toggle Middle DT"] = true
+L["Dura."] = true
 
 -- DataBars
 L["DataBars"] = "数据条"

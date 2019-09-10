@@ -194,6 +194,7 @@ L["Middle Datatext Panel"] = true
 L["Right Click"] = true
 L["Toggle ActionBar"] = true
 L["Toggle Middle DT"] = true
+L["Dura."] = true
 
 -- DataBars
 L["DataBars"] = true

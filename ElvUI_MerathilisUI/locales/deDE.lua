@@ -194,6 +194,7 @@ L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 L["Right Click"] = "Rechtsklick"
 L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
 L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
+L["Dura."] = "Haltb."
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"

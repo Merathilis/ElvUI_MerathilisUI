@@ -2450,7 +2450,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["minimapBottom"] = false
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Durability"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "MUI Durability"
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 

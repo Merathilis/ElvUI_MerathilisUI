@@ -1,4 +1,4 @@
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local DT = E:GetModule('DataTexts')
 
 --All credits belongs to Merathilis for this Time datatext mod
@@ -98,14 +98,14 @@ local function formatResetTime(sec)
 		return "N/A"
 	end
 
-	if d > 0 and lockoutFormatString[h>10 and 1 or 2] then 
+	if d > 0 and lockoutFormatString[h>10 and 1 or 2] then
 		return format(lockoutFormatString[h>10 and 1 or 2], d, h, m)
 	end
 	if h > 0 and lockoutFormatString[h>10 and 3 or 4] then
 		return format(lockoutFormatString[h>10 and 3 or 4], h, m)
 	end
-	if m > 0 and lockoutFormatString[m>10 and 5 or 6] then 
-		return format(lockoutFormatString[m>10 and 5 or 6], m) 
+	if m > 0 and lockoutFormatString[m>10 and 5 or 6] then
+		return format(lockoutFormatString[m>10 and 5 or 6], m)
 	end
 end
 
@@ -120,7 +120,7 @@ local function OnEvent(self, event)
 end
 
 local function Click()
-	_G["GameTimeFrame"]:Click();
+	_G["GameTimeFrame"]:Click()
 end
 
 local function OnLeave(self)
@@ -136,7 +136,7 @@ local function OnEnter(self)
 		RequestRaidInfo()
 	end
 
-	DT.tooltip:AddLine(VOICE_CHAT_BATTLEGROUND);
+	DT.tooltip:AddLine(VOICE_CHAT_BATTLEGROUND)
 	for i = 1, GetNumWorldPVPAreas() do
 		_, localizedName, isActive, canQueue, startTime, canEnter = GetWorldPVPAreaInfo(i)
 		if canEnter then
@@ -160,10 +160,10 @@ local function OnEnter(self)
 				DT.tooltip:AddLine(L["Saved Raid(s)"])
 				oneraid = true
 			end
-			if extended then 
-				lockoutColor = lockoutColorExtended 
+			if extended then
+				lockoutColor = lockoutColorExtended
 			else
-				lockoutColor = lockoutColorNormal 
+				lockoutColor = lockoutColorNormal
 			end
 
 			local _, _, isHeroic, _, displayHeroic, displayMythic = GetDifficultyInfo(difficultyId)
@@ -193,7 +193,7 @@ local function OnEnter(self)
 
 	DT.tooltip:AddLine(" ")
 	if AmPm == -1 then
-		DT.tooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME, 
+		DT.tooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME,
 			format(europeDisplayFormat_nocolor, Hr, Min), 1, 1, 1, lockoutColorNormal.r, lockoutColorNormal.g, lockoutColorNormal.b)
 	else
 		DT.tooltip:AddDoubleLine(E.db.datatexts.localtime and TIMEMANAGER_TOOLTIP_REALMTIME or TIMEMANAGER_TOOLTIP_LOCALTIME,
@@ -226,11 +226,11 @@ local function OnEnter(self)
 	}
 
 	DT.tooltip:AddLine(" ")
-	local date = C_DateAndTime.GetCurrentCalendarTime();
-	local presentWeekday = date.weekday;
-	local presentMonth = date.month;
-	local presentDay = date.monthDay;
-	local presentYear = date.year;
+	local date = C_DateAndTime.GetCurrentCalendarTime()
+	local presentWeekday = date.weekday
+	local presentMonth = date.month
+	local presentDay = date.monthDay
+	local presentYear = date.year
 	DT.tooltip:AddLine(format("%s, %s %d, %d", daysAbr[presentWeekday], monthAbr[presentMonth], presentDay, presentYear))
 
 	DT.tooltip:Show()
