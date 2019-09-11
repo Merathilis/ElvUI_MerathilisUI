@@ -49,6 +49,7 @@ local GetNumSavedWorldBosses = GetNumSavedWorldBosses
 local GetSavedWorldBossInfo = GetSavedWorldBossInfo
 local RequestRaidInfo = RequestRaidInfo
 local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
@@ -928,9 +929,14 @@ function module:Toggle()
 	if module.db.enable then
 		microBar:Show()
 		E:EnableMover(microBar.mover:GetName())
+
+		if module.db.hideInCombat then
+			RegisterStateDriver(microBar, 'visibility', '[combat] hide;show')
+		end
 	else
 		microBar:Hide()
 		E:DisableMover(microBar.mover:GetName())
+		UnregisterStateDriver(microBar, 'visibility')
 	end
 	module:UNIT_AURA(nil, "player")
 end
@@ -967,10 +973,6 @@ function module:Initialize()
 	end
 
 	self:ForUpdateAll()
-
-	if module.db.hideInCombat then
-		RegisterStateDriver(microBar, 'visibility', '[combat] hide;show')
-	end
 
 	self:RegisterEvent("UNIT_AURA")
 end
