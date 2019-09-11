@@ -120,6 +120,7 @@ function module:RaidDifficulty()
 	RaidDifficulty:RegisterEvent('PLAYER_DIFFICULTY_CHANGED')
 	RaidDifficulty:RegisterEvent('GUILD_PARTY_STATE_UPDATED')
 	RaidDifficulty:RegisterEvent('ZONE_CHANGED_NEW_AREA')
+	RaidDifficulty:RegisterEvent('GROUP_ROSTER_UPDATE')
 
 	local RaidDifficultyText = RaidDifficulty:CreateFontString(nil, 'OVERLAY')
 	RaidDifficultyText:FontTemplate()
