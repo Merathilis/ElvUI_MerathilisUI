@@ -90,9 +90,8 @@ end
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	local total, equipped = GetAverageItemLevel()
 	DT.tooltip:ClearLines()
-	DT.tooltip:AddDoubleLine(DURABILITY, format("%s: %d", _G.STAT_AVERAGE_ITEM_LEVEL, equipped), 0, 191/255, 250/255, GetItemLevelColor())
+	DT.tooltip:AddLine(DURABILITY, 0, 191/255, 250/255)
 	DT.tooltip:AddLine(" ")
 
 	local totalCost = 0
