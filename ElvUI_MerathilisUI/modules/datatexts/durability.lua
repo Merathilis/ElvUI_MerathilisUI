@@ -14,6 +14,7 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventoryItemLink = GetInventoryItemLink
 local GetMoneyString = GetMoneyString
+local GetItemLevelColor = GetItemLevelColor
 local InCombatLockdown = InCombatLockdown
 local ToggleCharacter = ToggleCharacter
 local UIParent = UIParent
@@ -91,7 +92,7 @@ local function OnEnter(self)
 
 	local total, equipped = GetAverageItemLevel()
 	DT.tooltip:ClearLines()
-	DT.tooltip:AddDoubleLine(DURABILITY, format("%s: %d", _G.STAT_AVERAGE_ITEM_LEVEL, equipped), 0, 191/255, 250/255, 1, 1, 1)
+	DT.tooltip:AddDoubleLine(DURABILITY, format("%s: %d", _G.STAT_AVERAGE_ITEM_LEVEL, equipped), 0, 191/255, 250/255, GetItemLevelColor())
 	DT.tooltip:AddLine(" ")
 
 	local totalCost = 0
