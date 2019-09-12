@@ -9,6 +9,7 @@ local LO = E:GetModule("Layout")
 --Cache global variables
 --Lua functions
 local _G = _G
+local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
@@ -21,6 +22,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
 local PANEL_HEIGHT = 19;
+local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function MERL:LoadLayout()
 	--Create extra panels
@@ -358,6 +360,36 @@ function MERL:CreatePanels()
 	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
 end
 
+function MERL:CreateStylePanels()
+	if E.db.mui.general.panels ~= true then return end
+
+	-- Style Background for RaidBuffReminder / Raid Manager
+	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	TopLeftStylePanel:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -15)
+	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
+
+	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel)
+	TopLeftStylePanel1:SetPoint("BOTTOM", TopLeftStylePanel, "TOP")
+	MER:CreateGradientFrame(TopLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	local TopLeftStylePanel2 = CreateFrame("Frame", nil, TopLeftStylePanel)
+	TopLeftStylePanel2:SetPoint("TOP", TopLeftStylePanel, "BOTTOM")
+	MER:CreateGradientFrame(TopLeftStylePanel2, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style for the BuffFrame
+	local TopRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	TopRightStylePanel:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -15)
+	MER:CreateGradientFrame(TopRightStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, 0, .5)
+
+	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
+	TopRightStylePanel1:SetPoint("BOTTOM", TopRightStylePanel, "TOP")
+	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	local TopLeftStylePanel2 = CreateFrame("Frame", nil, TopRightStylePanel)
+	TopLeftStylePanel2:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
+	MER:CreateGradientFrame(TopLeftStylePanel2, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+end
+
 function MERL:regEvents()
 	self:ToggleChatPanel()
 	self:MiddleDatatextLayout()
@@ -383,6 +415,7 @@ end
 
 function MERL:Initialize()
 	self:CreatePanels()
+	self:CreateStylePanels()
 	self:ChangeLayout()
 	self:regEvents()
 	self:CreateChatButtons()
