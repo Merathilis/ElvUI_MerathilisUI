@@ -427,7 +427,7 @@ local function abTable()
 										end,
 										set = function(info, r, g, b, a)
 											E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]] = {}
-											local t = E.db.mui.actionbars.autoButtons.usableButtons[info[#info]]
+											local t = E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]]
 											t.r, t.g, t.b, t.a = r, g, b, a
 											MER:GetModule("AutoButtons"):UpdateAutoButton()
 										end,
