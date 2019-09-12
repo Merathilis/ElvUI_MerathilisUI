@@ -372,10 +372,6 @@ function MERL:CreateStylePanels()
 	TopLeftStylePanel1:SetPoint("BOTTOM", TopLeftStylePanel, "TOP")
 	MER:CreateGradientFrame(TopLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
 
-	local TopLeftStylePanel2 = CreateFrame("Frame", nil, TopLeftStylePanel)
-	TopLeftStylePanel2:SetPoint("TOP", TopLeftStylePanel, "BOTTOM")
-	MER:CreateGradientFrame(TopLeftStylePanel2, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
-
 	-- Style for the BuffFrame
 	local TopRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
 	TopRightStylePanel:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -15)
@@ -384,10 +380,6 @@ function MERL:CreateStylePanels()
 	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
 	TopRightStylePanel1:SetPoint("BOTTOM", TopRightStylePanel, "TOP")
 	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
-
-	local TopLeftStylePanel2 = CreateFrame("Frame", nil, TopRightStylePanel)
-	TopLeftStylePanel2:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
-	MER:CreateGradientFrame(TopLeftStylePanel2, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
 end
 
 function MERL:regEvents()
