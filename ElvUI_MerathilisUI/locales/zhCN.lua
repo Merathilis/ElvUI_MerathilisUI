@@ -202,7 +202,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底�
 L["Style DataBars"] = "样式数据条"
 
 -- Actionbars
-L["Specialisation Bar"] = "专业条"
+L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
 L["Auto Buttons"] = "自动按钮"

@@ -202,7 +202,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an de
 L["Style DataBars"] = "Informationsleisten Stil"
 
 -- Actionbars
-L["Specialisation Bar"] = "Spezialisierungsleiste"
+L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
