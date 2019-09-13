@@ -202,7 +202,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
 -- Actionbars
-L["Specialisation Bar"] = true
+L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
 L["Auto Buttons"] = true

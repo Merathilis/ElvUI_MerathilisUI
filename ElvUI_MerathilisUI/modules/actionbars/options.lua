@@ -33,7 +33,7 @@ local function abTable()
 			specBar = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Specialisation Bar"]),
+				name = MER:cOption(L["Specialization Bar"]),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.mui.actionbars.specBar[ info[#info] ] end,
