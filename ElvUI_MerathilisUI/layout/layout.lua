@@ -369,7 +369,7 @@ function MERL:CreateStylePanels()
 	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
 
 	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel)
-	TopLeftStylePanel1:SetPoint("BOTTOM", TopLeftStylePanel, "TOP")
+	TopLeftStylePanel1:SetPoint("TOP", TopLeftStylePanel, "BOTTOM")
 	MER:CreateGradientFrame(TopLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
 
 	-- Style for the BuffFrame
@@ -378,8 +378,26 @@ function MERL:CreateStylePanels()
 	MER:CreateGradientFrame(TopRightStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, 0, .5)
 
 	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
-	TopRightStylePanel1:SetPoint("BOTTOM", TopRightStylePanel, "TOP")
+	TopRightStylePanel1:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
 	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style under the left chat.
+	local BottomLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	BottomLeftStylePanel:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 16)
+	MER:CreateGradientFrame(BottomLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
+
+	local BottomLeftStylePanel1 = CreateFrame("Frame", nil, BottomLeftStylePanel)
+	BottomLeftStylePanel1:SetPoint("BOTTOM", BottomLeftStylePanel, "TOP")
+	MER:CreateGradientFrame(BottomLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style under the right chat.
+	local BottomRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	BottomRightStylePanel:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 16)
+	MER:CreateGradientFrame(BottomRightStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, 0, .5)
+
+	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel)
+	BottomRightStylePanel1:SetPoint("BOTTOM", BottomRightStylePanel, "TOP")
+	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
 end
 
 function MERL:regEvents()
