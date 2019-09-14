@@ -8,7 +8,7 @@ local COMP = MER:GetModule("mUICompatibility")
 --Lua functions
 local _G = _G
 local strfind, strlen, strlower, strsub = string.find, string.len, string.lower, string.sub
-local pairs, select, unpack = pairs, select, unpack
+local pairs, select, tostring, tonumber, unpack = pairs, select, tostring, tonumber, unpack
 local ceil = math.ceil
 local tContains,tinsert = tContains, table.insert
 --WoW API / Variables
@@ -19,6 +19,7 @@ local UIParent = UIParent
 local UIFrameFadeIn = UIFrameFadeIn
 local UIFrameFadeOut = UIFrameFadeOut
 local RegisterStateDriver = RegisterStateDriver
+local Minimap = Minimap
 -- GLOBALS:
 
 module.Buttons = {}
@@ -55,6 +56,7 @@ module.GenericIgnores = {
 	'WestPointer',
 	'Cork',
 	'DugisArrowMinimapPoint',
+	'QuestieFrame',
 }
 
 module.PartialIgnores = { 'Node', 'Note', 'Pin', 'POI' }
@@ -67,6 +69,12 @@ module.OverrideTexture = {
 }
 
 local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
+
+local RemoveTextureID = {
+	[136430] = true,
+	[136467] = true,
+	[130924] = true,
+}
 
 function module:LockButton(Button)
 	for _, Function in pairs(ButtonFunctions) do
@@ -195,7 +203,9 @@ function module:SkinMinimapButton(Button)
 		if Region.IsObjectType and Region:IsObjectType('Texture') then
 			local Texture = strlower(tostring(Region:GetTexture()))
 
-			if (strfind(Texture, "interface\\characterframe") or strfind(Texture, "interface\\minimap") or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
+			if RemoveTextureID[tonumber(Texture)] then
+				Region:SetTexture()
+			elseif (strfind(Texture, [[interface\characterframe]]) or strfind(Texture, [[interface\minimap]]) and not strfind(Texture, [[interface\minimap\tracking\]]) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
 				Region:SetTexture()
 				Region:SetAlpha(0)
 			else
