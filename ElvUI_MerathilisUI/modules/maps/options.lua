@@ -12,7 +12,7 @@ local tinsert = table.insert
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["MiniMap"],
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -34,6 +34,11 @@ local function Minimap()
 						type = "toggle",
 						name = L["Blinking Minimap"],
 						desc = L["Enable the blinking animation for new mail or pending invites."],
+					},
+					difficulty = {
+						order = 2,
+						type = "toggle",
+						name = E.NewSign..L["Instance Difficulty"],
 					},
 				},
 			},
@@ -150,47 +155,54 @@ local function Minimap()
 						name = L["Bar Backdrop"],
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
-					iconSize = {
+					hideInCombat = {
 						order = 5,
+						type = "toggle",
+						name = L["Hide In Combat"],
+						disabled = function() return not E.db.mui.smb.enable end,
+						set = function(info, value) E.db.mui.smb.hideInCombat = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+					},
+					iconSize = {
+						order = 6,
 						type = "range",
 						name = L["Icon Size"],
 						min = 12, max = 48, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					buttonSpacing = {
-						order = 6,
+						order = 7,
 						type = "range",
 						name = L["Button Spacing"],
 						min = 0, max = 10, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					buttonsPerRow = {
-						order = 7,
+						order = 8,
 						type = "range",
 						name = L["Buttons Per Row"],
 						min = 1, max = 100, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					reverseDirection = {
-						order = 8,
+						order = 9,
 						type = "toggle",
 						name = L["Reverse Direction"],
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					blizzard = {
-						order = 9,
+						order = 10,
 						type = "group",
 						name = L["Blizzard"],
 						guiInline = true,
 						set = function(info, value) E.db.mui.smb[ info[#info] ] = value SMB:Update() SMB:HandleBlizzardButtons() end,
 						disabled = function() return not E.db.mui.smb.enable end,
 						args = {
-							moveTracker  = {
+							moveTracker = {
 								order = 1,
 								type = "toggle",
 								name = L["Move Tracker Icon"],
 							},
-							moveQueue  = {
+							moveQueue = {
 								order = 2,
 								type = "toggle",
 								name = L["Move Queue Status Icon"],

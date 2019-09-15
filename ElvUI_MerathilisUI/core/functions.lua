@@ -40,6 +40,7 @@ MER.WoWBuild = select(2, GetBuildInfo()) MER.WoWBuild = tonumber(MER.WoWBuild)
 MER_NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MER_TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 
+--Info Color RGB: 0, 191/255, 250/255
 MER.InfoColor = "|cff70C0F5"
 MER.GreyColor = "|cffB5B5B5"
 MER.RedColor = "|cffff2735"
@@ -573,6 +574,18 @@ function MER:ReskinRole(self, role)
 		icon.texture:SetSize(14, 14)
 		icon.border:SetTexture("")
 	end
+end
+
+function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
+	assert(frame, "doesn't exist!")
+
+	frame:SetSize(w, h)
+	frame:SetFrameStrata("BACKGROUND")
+
+	local gf = frame:CreateTexture(nil, "BACKGROUND")
+	gf:SetAllPoints()
+	gf:SetTexture(E.media.normTex)
+	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)

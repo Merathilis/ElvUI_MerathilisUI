@@ -82,11 +82,14 @@ local function styleQuestMapFrame()
 	local function UpdateCampaignHeader()
 		campaignHeader.newTex:SetAlpha(0)
 		if campaignHeader:IsShown() then
-			local warCampaignInfo = C_CampaignInfo_GetCampaignInfo(C_CampaignInfo_GetCurrentCampaignID())
-			local textureID = warCampaignInfo.uiTextureKitID
-			if textureID and idToTexture[textureID] then
-				campaignHeader.newTex:SetTexture(idToTexture[textureID])
-				campaignHeader.newTex:SetAlpha(.7)
+			local campaignID = C_CampaignInfo_GetCurrentCampaignID()
+			if campaignID then
+				local warCampaignInfo = C_CampaignInfo_GetCampaignInfo(campaignID)
+				local textureID = warCampaignInfo.uiTextureKitID
+				if textureID and idToTexture[textureID] then
+					campaignHeader.newTex:SetTexture(idToTexture[textureID])
+					campaignHeader.newTex:SetAlpha(.7)
+				end
 			end
 		end
 	end

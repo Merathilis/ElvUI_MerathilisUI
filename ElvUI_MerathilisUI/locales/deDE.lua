@@ -55,7 +55,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Menu"] = "Chat Menu"
-L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
+L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."] = "Erstellt eine Chat Taste um den Chat zu erweitern. |cffFF0000WARNUNG:|r wenn du diese Option aktivierst, bleibt der Chat in einer festen Höhe."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["ChatBar"] = "Chatleiste"
@@ -194,6 +194,7 @@ L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 L["Right Click"] = "Rechtsklick"
 L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
 L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
+L["Dura."] = "Haltb."
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
@@ -201,7 +202,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an de
 L["Style DataBars"] = "Informationsleisten Stil"
 
 -- Actionbars
-L["Specialisation Bar"] = "Spezialisierungsleiste"
+L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
@@ -504,9 +505,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "Dieser Schritt ändert ein paar World of Warcraft Standard-Optionen. Diese Optionen sind zugeschnitten für die Anforderungen des Authors von %s und sind nicht notwendig damit dieses AddOn funktioniert."
 L["Please click the button below to apply the new layout."] = "Bitte drücke die Taste unten, um das neue Layout anzuwenden."
 L["Please click the button below to setup your chat windows."] = "Bitte klick auf die Taste unten, um das Chatfenster einzustellen."
-L["Please click the button below |cff07D400twice|r to setup your actionbars."] = "Bitte drücke |cff07D400doppelt|r auf die Taste unten, um die Aktionsleisten einzustellen."
+L["Please click the button below to setup your actionbars."] = "Bitte drücke auf die Taste unten, um die Aktionsleisten einzustellen."
 L["Please click the button below to setup your datatexts."] = "Bitte drücke die Taste unten, um die Infotexte einzustellen."
-L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = "Bitte drücke |cff07D400doppelt|r die Taste unten, um die Einheitenfenster einzustellen."
+L["Please click the button below to setup your Unitframes."] = "Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Für andere AddOn Profile, gehe bitte in meine Einstellungen - Skins/AddOns"
 L["DataTexts"] = "Infotexte"
 L["Setup Datatexts"] = "Infotexte einstellen"

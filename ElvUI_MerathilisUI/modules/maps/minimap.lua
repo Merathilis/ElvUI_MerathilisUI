@@ -17,6 +17,8 @@ local UnitClass = UnitClass
 local UnitName = UnitName
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
+local IsInInstance = IsInInstance
+local C_ChallengeMode_GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
 -- GLOBALS:
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
@@ -100,6 +102,113 @@ function module:MiniMapPing()
 	end)
 end
 
+function module:RaidDifficulty()
+	if E.db.mui.maps.minimap.difficulty ~= true then return end
+
+	local pos = E.db.general.minimap.icons.difficulty.position or "TOPLEFT"
+	local x = E.db.general.minimap.icons.difficulty.xOffset or 0
+	local y = E.db.general.minimap.icons.difficulty.yOffset or 0
+
+	local RaidDifficulty = CreateFrame('Frame', nil, Minimap)
+	RaidDifficulty:SetSize(24, 8)
+	RaidDifficulty:SetPoint(pos, Minimap, pos, x, y)
+
+	RaidDifficulty:RegisterEvent('PLAYER_ENTERING_WORLD')
+	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_START')
+	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_COMPLETED')
+	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_RESET')
+	RaidDifficulty:RegisterEvent('PLAYER_DIFFICULTY_CHANGED')
+	RaidDifficulty:RegisterEvent('GUILD_PARTY_STATE_UPDATED')
+	RaidDifficulty:RegisterEvent('ZONE_CHANGED_NEW_AREA')
+	RaidDifficulty:RegisterEvent('GROUP_ROSTER_UPDATE')
+
+	local RaidDifficultyText = RaidDifficulty:CreateFontString(nil, 'OVERLAY')
+	RaidDifficultyText:FontTemplate()
+	RaidDifficultyText:SetPoint('TOPLEFT', 0, 0)
+
+	RaidDifficulty:SetScript('OnEvent', function()
+		local _, instanceType = IsInInstance()
+		local difficulty = select(3, GetInstanceInfo())
+		local numplayers = select(9, GetInstanceInfo())
+		local mplusdiff = select(1, C_ChallengeMode_GetActiveKeystoneInfo()) or ''
+
+		local norm = format("|cff09ff00%s |r", "N")
+		local hero = format("|cffff7d0a%s |r", "H")
+		local myth = format("|cffff0000%s |r", "M")
+
+		if instanceType == 'party' or instanceType == 'raid' or instanceType == 'scenario' then
+			if (difficulty == 1) then -- Normal
+				RaidDifficultyText:SetText('5'..norm)
+			elseif difficulty == 2 then -- Heroic
+				RaidDifficultyText:SetText('5'..hero)
+			elseif difficulty == 3 then -- 10 Player
+				RaidDifficultyText:SetText('10'..norm)
+			elseif difficulty == 4 then -- 25 Player
+				RaidDifficultyText:SetText('25'..norm)
+			elseif difficulty == 5 then -- 10 Player (Heroic)
+				RaidDifficultyText:SetText('10'..hero)
+			elseif difficulty == 6 then -- 25 Player (Heroic)
+				RaidDifficultyText:SetText('25'..hero)
+			elseif difficulty == 7 then -- LFR (Legacy)
+				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR"))
+			elseif difficulty == 8 then -- Mythic Keystone
+				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M+")..mplusdiff)
+			elseif difficulty == 9 then -- 40 Player
+				RaidDifficultyText:SetText('40R')
+			elseif difficulty == 11 or difficulty == 39 then -- Heroic Scenario / Heroic
+				RaidDifficultyText:SetText('HScen')
+			elseif difficulty == 12 or difficulty == 38 then -- Normal Scenario / Normal
+				RaidDifficultyText:SetText('Scen')
+			elseif difficulty == 40 then -- Mythic Scenario
+				RaidDifficultyText:SetText('MScen')
+			elseif difficulty == 14 then -- Normal Raid
+				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "N:")..numplayers)
+			elseif difficulty == 15 then -- Heroic Raid
+				RaidDifficultyText:SetText(format("|cffff7d0a%s |r", "H:")..numplayers)
+			elseif difficulty == 16 then -- Mythic Raid
+				RaidDifficultyText:SetText(format("|cffff0000%s |r", "M"))
+			elseif difficulty == 17 then -- LFR
+				RaidDifficultyText:SetText(format("|cff09ff00%s |r", "LFR:")..numplayers)
+			elseif difficulty == 18 or difficulty == 19 or difficulty == 20 or difficulty == 30 then -- Event / Event Scenario
+				RaidDifficultyText:SetText('EScen')
+			elseif difficulty == 23 then -- Mythic Party
+				RaidDifficultyText:SetText('5'..myth)
+			elseif difficulty == 24 or difficulty == 33 then -- Timewalking /Timewalking Raid
+				RaidDifficultyText:SetText('TW')
+			elseif difficulty == 25 or difficulty == 32 or difficulty == 34 or difficulty == 45 then -- World PvP Scenario / PvP / PvP Heroic
+				RaidDifficultyText:SetText(format("|cffFFFF00%s |r", 'PVP'))
+			elseif difficulty == 29 then -- PvEvP Scenario
+				RaidDifficultyText:SetText('PvEvP')
+			elseif difficulty == 147 then -- Normal Scenario (Warfronts)
+				RaidDifficultyText:SetText('WF')
+			elseif difficulty == 149 then -- Heroic Scenario (Warfronts)
+				RaidDifficultyText:SetText('HWF')
+			end
+		elseif instanceType == 'pvp' or instanceType == 'arena' then
+			RaidDifficultyText:SetText(format("|cffFFFF00%s |r", 'PVP'))
+		else
+			RaidDifficultyText:SetText('')
+		end
+
+		if not IsInInstance() then
+			RaidDifficultyText:Hide()
+		else
+			RaidDifficultyText:Show()
+		end
+	end)
+
+	-- Hide Blizz
+	local frames = {
+		'MiniMapInstanceDifficulty',
+		'GuildInstanceDifficulty',
+		'MiniMapChallengeMode',
+	}
+
+	for _, v in pairs(frames) do
+		_G[v]:Kill()
+	end
+end
+
 function module:StyleMinimap()
 	Minimap:Styling(true, true, false, 180, 180, .75)
 
@@ -123,13 +232,6 @@ function module:StyleMinimap()
 	end)
 	hooksecurefunc("EyeTemplate_StartAnimating", function() anim:Play() end)
 	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
-
-	-- Difficulty Flags
-	local flags = {"MiniMapInstanceDifficulty", "GuildInstanceDifficulty", "MiniMapChallengeMode"}
-	for _, v in pairs(flags) do
-		local flag = _G[v]
-		flag:SetScale(.75)
-	end
 end
 
 function module:Initialize()
@@ -150,6 +252,7 @@ function module:Initialize()
 	self:MiniMapCoords()
 	self:MiniMapPing()
 	self:StyleMinimap()
+	self:RaidDifficulty()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")

@@ -9,6 +9,7 @@ local LO = E:GetModule("Layout")
 --Cache global variables
 --Lua functions
 local _G = _G
+local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
@@ -21,6 +22,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
 local PANEL_HEIGHT = 19;
+local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function MERL:LoadLayout()
 	--Create extra panels
@@ -86,28 +88,13 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
 end
 
-local function ChatMenu_OnEnter(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
-	GameTooltip:ClearLines()
-	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
-	GameTooltip:Show()
-end
-
-local function ChatMenu_OnLeave(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:Hide()
-end
-
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:Point("TOPLEFT", 4, -5)
+	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
 	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
@@ -358,6 +345,46 @@ function MERL:CreatePanels()
 	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
 end
 
+function MERL:CreateStylePanels()
+	if E.db.mui.general.panels ~= true then return end
+
+	-- Style Background for RaidBuffReminder / Raid Manager
+	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	TopLeftStylePanel:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -14)
+	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, .5, 0)
+
+	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel)
+	TopLeftStylePanel1:SetPoint("TOP", TopLeftStylePanel, "BOTTOM")
+	MER:CreateGradientFrame(TopLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style for the BuffFrame
+	local TopRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	TopRightStylePanel:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -14)
+	MER:CreateGradientFrame(TopRightStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, 0, .5)
+
+	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
+	TopRightStylePanel1:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
+	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style under the left chat.
+	local BottomLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	BottomLeftStylePanel:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 16)
+	MER:CreateGradientFrame(BottomLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
+
+	local BottomLeftStylePanel1 = CreateFrame("Frame", nil, BottomLeftStylePanel)
+	BottomLeftStylePanel1:SetPoint("BOTTOM", BottomLeftStylePanel, "TOP")
+	MER:CreateGradientFrame(BottomLeftStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+
+	-- Style under the right chat.
+	local BottomRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
+	BottomRightStylePanel:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 16)
+	MER:CreateGradientFrame(BottomRightStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, 0, .5)
+
+	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel)
+	BottomRightStylePanel1:SetPoint("BOTTOM", BottomRightStylePanel, "TOP")
+	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+end
+
 function MERL:regEvents()
 	self:ToggleChatPanel()
 	self:MiddleDatatextLayout()
@@ -383,6 +410,7 @@ end
 
 function MERL:Initialize()
 	self:CreatePanels()
+	self:CreateStylePanels()
 	self:ChangeLayout()
 	self:regEvents()
 	self:CreateChatButtons()

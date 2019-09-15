@@ -48,12 +48,11 @@ local GetSavedInstanceInfo = GetSavedInstanceInfo
 local GetNumSavedWorldBosses = GetNumSavedWorldBosses
 local GetSavedWorldBossInfo = GetSavedWorldBossInfo
 local RequestRaidInfo = RequestRaidInfo
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
-local InCombatLockdown = InCombatLockdown
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local microBar
@@ -202,24 +201,9 @@ local bfaZoneTime = {
 	["US"] = 1546769340, -- CN+16
 }
 
-local legionTime = {
-	4,2,3,1,
-	2,4,1,3,
-	4,3,1,2,
-	1,2,4,3,
-	4,3,1,2,
-	3,2,1,4,
-	1,4,3,2,
-	3,4,2,1,
-	4,1,2,3,
-	2,3,4,1,
-	4,3,1,2,
-	1,2,4,3,
-}
-
 -- Check Invasion Status
 local invIndex = {
-	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = legionTime, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
+	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = {}, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
 	[2] = {title = L["Faction Assault"], duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = bfaZoneTime[region] or bfaZoneTime["EU"]},
 }
 
@@ -945,23 +929,16 @@ function module:Toggle()
 	if module.db.enable then
 		microBar:Show()
 		E:EnableMover(microBar.mover:GetName())
+
+		if module.db.hideInCombat then
+			RegisterStateDriver(microBar, 'visibility', '[combat] hide;show')
+		end
 	else
 		microBar:Hide()
 		E:DisableMover(microBar.mover:GetName())
+		UnregisterStateDriver(microBar, 'visibility')
 	end
 	module:UNIT_AURA(nil, "player")
-end
-
-function module:PLAYER_REGEN_DISABLED()
-	if module.db.hideInCombat == true then
-		microBar:SetAlpha(0)
-	end
-end
-
-function module:PLAYER_REGEN_ENABLED()
-	if module.db.enable then
-		microBar:SetAlpha(1)
-	end
 end
 
 function module:UNIT_AURA(_, unit)
@@ -997,8 +974,6 @@ function module:Initialize()
 
 	self:ForUpdateAll()
 
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("UNIT_AURA")
 end
 

@@ -33,7 +33,7 @@ local function abTable()
 			specBar = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(L["Specialisation Bar"]),
+				name = MER:cOption(L["Specialization Bar"]),
 				guiInline = true,
 				disabled = function() return not E.private.actionbar.enable end,
 				get = function(info) return E.db.mui.actionbars.specBar[ info[#info] ] end,
@@ -427,7 +427,7 @@ local function abTable()
 										end,
 										set = function(info, r, g, b, a)
 											E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]] = {}
-											local t = E.db.mui.actionbars.autoButtons.usableButtons[info[#info]]
+											local t = E.db.mui.actionbars.autoButtons.usableAutoButtons[info[#info]]
 											t.r, t.g, t.b, t.a = r, g, b, a
 											MER:GetModule("AutoButtons"):UpdateAutoButton()
 										end,

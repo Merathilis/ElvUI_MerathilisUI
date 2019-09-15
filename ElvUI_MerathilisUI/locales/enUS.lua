@@ -56,7 +56,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
-L["Create a chat button to increase the chat size and chat menu button."] = true
+L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
@@ -197,6 +197,7 @@ L["Middle Datatext Panel"] = true
 L["Right Click"] = true
 L["Toggle ActionBar"] = true
 L["Toggle Middle DT"] = true
+L["Dura."] = true
 
 -- DataBars
 L["DataBars"] = true
@@ -204,7 +205,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
 -- Actionbars
-L["Specialisation Bar"] = true
+L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
 L["Auto Buttons"] = true
@@ -508,9 +509,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
 L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
-L["Please click the button below |cff07D400twice|r to setup your actionbars."] = true
+L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
-L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = true
+L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
 L["Setup Datatexts"] = true
