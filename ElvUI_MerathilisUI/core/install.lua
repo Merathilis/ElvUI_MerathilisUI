@@ -170,7 +170,7 @@ local function SetupChat()
 	PluginInstallStepComplete:Show()
 end
 
-function MER:SetupLayout()
+function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
@@ -651,7 +651,11 @@ function MER:SetupLayout()
 	E.db["databars"]["reputation"]["height"] = 12
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
-	E.db["databars"]["reputation"]["width"] = 285
+	if layout == "dps" then
+		E.db["databars"]["reputation"]["width"] = 285
+	elseif layout == "healer" then
+		E.db["databars"]["reputation"]["width"] = 278
+	end
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
@@ -665,7 +669,11 @@ function MER:SetupLayout()
 	E.db["databars"]["azerite"]["height"] = 12
 	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
-	E.db["databars"]["azerite"]["width"] = 285
+	if layout == "dps" then
+		E.db["databars"]["azerite"]["width"] = 285
+	elseif layout == "healer" then
+		E.db["databars"]["azerite"]["width"] = 278
+	end
 	E.db["databars"]["azerite"]["hideInVehicle"] = true
 	E.db["databars"]["azerite"]["hideInCombat"] = true
 	E.db["databars"]["azerite"]["mouseover"] = false
@@ -2417,9 +2425,9 @@ function MER:SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,95"
-		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM, ElvUIParent,BOTTOM,-290,84"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,84"
 		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
-		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT, ElvUIParent,TOPRIGHT,-305,-305"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
 		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 	end
 
@@ -2564,8 +2572,11 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to apply the new layout."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupLayout() end)
-			PluginInstallFrame.Option1:SetText(L["Layout"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupLayout("dps") end)
+			PluginInstallFrame.Option1:SetText(L["Tank/ DPS Layout"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupLayout("healer") end)
+			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
 		[4] = function()
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
