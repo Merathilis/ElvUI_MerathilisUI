@@ -88,28 +88,13 @@ function MERL:ChangeLayout()
 	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
 end
 
-local function ChatMenu_OnEnter(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
-	GameTooltip:ClearLines()
-	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle Chat Menu"], 1, 1, 1)
-	GameTooltip:Show()
-end
-
-local function ChatMenu_OnLeave(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:Hide()
-end
-
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:Point("TOPLEFT", 4, -5)
+	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
 	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
