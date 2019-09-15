@@ -351,7 +351,7 @@ function MERL:CreateStylePanels()
 	-- Style Background for RaidBuffReminder / Raid Manager
 	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
 	TopLeftStylePanel:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -14)
-	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
+	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, .5, 0)
 
 	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel)
 	TopLeftStylePanel1:SetPoint("TOP", TopLeftStylePanel, "BOTTOM")
