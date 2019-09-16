@@ -67,13 +67,6 @@ local function ChatTable()
 						name = L["Item Level"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,
 					},
-					lootMessages = {
-						order = 2,
-						type = "toggle",
-						name = E.NewSign..L["Loot Filter"],
-						desc = L["Simpler and lighter Loot Messages"],
-						disabled = function() return not E.db.mui.chat.filter.enable end,
-					},
 				},
 			},
 		},
