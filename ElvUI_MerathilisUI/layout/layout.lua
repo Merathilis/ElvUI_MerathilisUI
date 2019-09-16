@@ -21,7 +21,7 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
-local PANEL_HEIGHT = 19;
+local PANEL_HEIGHT = 19
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function MERL:LoadLayout()
