@@ -8,7 +8,7 @@ local _G = _G
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
-local function stylePostal()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.bs ~= true or not IsAddOnLoaded("Postal") then return end
 
 	if _G.PostalOpenAllButton then
@@ -43,4 +43,4 @@ local function stylePostal()
 	end
 end
 
-S:AddCallbackForAddon("Postal", "mUIPostal", stylePostal)
+S:AddCallbackForAddon("Postal", "mUIPostal", LoadAddOnSkin)

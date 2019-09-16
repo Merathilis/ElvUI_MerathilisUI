@@ -6,6 +6,7 @@
 	<Script file="cargBags_Nivaya.lua"/>
 	<Script file="Clique.lua"/>
 	<Script file="DeadlyBossMods.lua"/>
+	<Script file="EventTracker.lua"/>
 	<Script file="ls_Toasts.lua"/>
 	<Script file="Pawn.lua"/>
 	<Script file="Postal.lua"/>

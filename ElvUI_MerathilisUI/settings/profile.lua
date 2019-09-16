@@ -46,6 +46,7 @@ MP.chat = {
 	filter = {
 		enable = true,
 		itemLevel = true,
+		lootMessages = true,
 	},
 }
 

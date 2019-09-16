@@ -10,7 +10,7 @@ local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		order = 11,
 		type = "group",
-		name = L["Chat"],
+		name = E.NewSign..L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -49,7 +49,7 @@ local function ChatTable()
 				name = L["Emotes"],
 			},
 			filter = {
-				order = 7,
+				order = 20,
 				type = "group",
 				name = L["Filter"],
 				guiInline = true,
@@ -65,6 +65,13 @@ local function ChatTable()
 						order = 2,
 						type = "toggle",
 						name = L["Item Level"],
+						disabled = function() return not E.db.mui.chat.filter.enable end,
+					},
+					lootMessages = {
+						order = 2,
+						type = "toggle",
+						name = E.NewSign..L["Loot Filter"],
+						desc = L["Simpler and lighter Loot Messages"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,
 					},
 				},
