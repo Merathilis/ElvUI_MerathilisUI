@@ -38,7 +38,6 @@ MP.merchant = {
 
 MP.chat = {
 	chatButton = true,
-	panelHeight = 146,
 	hidePlayerBrackets = true,
 	hideChat = false,
 	chatBar = false,
