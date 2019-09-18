@@ -91,6 +91,9 @@ end
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
+	-- Maybe add option to adjust how much the chat panel expands
+	E.db.mui.chat.expandPanel = 150
+
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
@@ -111,11 +114,11 @@ function MERL:CreateChatButtons()
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
-				E.db.chat.panelHeight = E.db.mui.chat.panelHeight
-				E.db.mui.chat.isExpanded = false
+				E.db.chat.panelHeight = E.db.chat.panelHeight - E.db.mui.chat.expandPanel
 				CH:PositionChat(true)
+				E.db.mui.chat.isExpanded = false
 			else
-				E.db.chat.panelHeight = 400
+				E.db.chat.panelHeight = E.db.chat.panelHeight + E.db.mui.chat.expandPanel
 				CH:PositionChat(true)
 				E.db.mui.chat.isExpanded = true
 			end
@@ -143,20 +146,6 @@ function MERL:CreateChatButtons()
 			self:SetAlpha(0.55)
 		end
 		GameTooltip:Hide()
-	end)
-
-	ChatButton:RegisterEvent("PLAYER_LEAVING_WORLD")
-	ChatButton:RegisterEvent("ADDON_LOADED")
-	ChatButton:SetScript("OnEvent", function(self, event, addon)
-		if event == "ADDON_LOADED" and addon == "ElvUI_Config" then
-			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; E:GetModule("Chat"):PositionChat(true); end
-			self:UnregisterEvent(event)
-		end
-		if event == "PLAYER_LEAVING_WORLD" then
-			E.db.chat.panelHeight = E.db.mui.chat.panelHeight or 146
-			E.db.mui.chat.isExpanded = false
-			CH:PositionChat(true)
-		end
 	end)
 end
 
