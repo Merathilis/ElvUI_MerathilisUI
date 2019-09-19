@@ -389,10 +389,6 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["Bar Backdrop"] = true
-L["Move Tracker Icon"] = true
-L["Move Queue Status Icon"] = true
-L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true

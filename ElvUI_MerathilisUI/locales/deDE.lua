@@ -385,10 +385,6 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["Bar Backdrop"] = "Leisten Hintergrund"
-L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
-L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
-L["Reverse Direction"] = "Umgekehrte Reihenfolge"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

@@ -385,10 +385,6 @@ L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
 -- SMB
-L["Bar Backdrop"] = "条背景"
-L["Move Tracker Icon"] = "移动追踪图标"
-L["Move Queue Status Icon"] = "移动队列状态图标"
-L["Reverse Direction"] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"

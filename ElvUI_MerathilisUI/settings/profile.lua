@@ -370,15 +370,10 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	barMouseOver = true,
-	backdrop = true,
-	hideInCombat = false,
-	iconSize = 22,
-	buttonsPerRow = 6,
-	buttonSpacing = 2,
-	moveTracker = false,
-	moveQueue = false,
-	reverseDirection = false,
+	position = "BOTTOMLEFT",
+	xOffset = -10,
+	yOffset = -10,
+	size = 34,
 }
 
 MP.locPanel = {
