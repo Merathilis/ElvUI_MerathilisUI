@@ -93,6 +93,7 @@ function MERL:CreateChatButtons()
 
 	-- Maybe add option to adjust how much the chat panel expands
 	E.db.mui.chat.expandPanel = 150
+	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
 
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
@@ -132,8 +133,10 @@ function MERL:CreateChatButtons()
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
 			GameTooltip:AddLine(MER:cOption(L["BACK"]))
+			GameTooltip:AddLine("isExpanded is true")
 		else
 			GameTooltip:AddLine(MER:cOption(L["Expand the chat"]))
+			GameTooltip:AddLine("isExpanded is false")
 		end
 		GameTooltip:Show()
 		if InCombatLockdown() then GameTooltip:Hide() end
@@ -146,6 +149,14 @@ function MERL:CreateChatButtons()
 			self:SetAlpha(0.55)
 		end
 		GameTooltip:Hide()
+	end)
+
+	ChatButton:RegisterEvent("ADDON_LOADED")
+	ChatButton:SetScript("OnEvent", function(self, event, addon)
+		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
+			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; print(E.db.mui.chat.panelHeight) CH:PositionChat(true); end
+			self:UnregisterEvent(event)
+		end
 	end)
 end
 
