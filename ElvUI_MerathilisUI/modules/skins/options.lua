@@ -103,7 +103,7 @@ local function SkinsTable()
 								order = 1,
 								type = "description",
 								fontSize = "medium",
-								name = format("|cff9482c9Shadow&Light - Darth Predator|r"),
+								name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
 							},
 						},
 					},
