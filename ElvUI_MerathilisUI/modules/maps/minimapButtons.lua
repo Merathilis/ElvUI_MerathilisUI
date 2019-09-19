@@ -59,7 +59,7 @@ local function ClickFunc()
 	C_Timer_After(.5, HideButton)
 end
 
-local function CollectButtons()
+function module:CollectButtons()
 	if (InCombatLockdown() or C_PetBattles and C_PetBattles_IsInBattle()) then return end
 
 	local size = module.db.size or 34
@@ -126,7 +126,7 @@ local function CollectButtons()
 	end
 end
 
-local function SortButtons()
+function module:SortButtons()
 	if #module.Buttons == 0 then return end
 
 	local lastbutton
@@ -148,6 +148,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "smb")
 	if db.enable ~= true then return end
 
+	-- Compatibility
 	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
 
 	local pos = db.position or "TOPRIGHT"
@@ -184,7 +185,7 @@ function module:Initialize()
 
 	-- Button Scripts
 	module.button:SetScript("OnClick", function()
-		SortButtons()
+		self:SortButtons()
 		if module.bin:IsShown() then
 			ClickFunc()
 		else
@@ -193,8 +194,8 @@ function module:Initialize()
 	end)
 
 	C_Timer_After(.3, function()
-		CollectButtons()
-		SortButtons()
+		self:CollectButtons()
+		self:SortButtons()
 	end)
 end
 
