@@ -108,6 +108,7 @@ local function CollectButtons()
 					child.highlight:SetAllPoints()
 					child.highlight:SetColorTexture(1, 1, 1, .25)
 				end
+
 				child:CreateBackdrop("Transparent")
 				child.backdrop:Styling()
 
@@ -149,9 +150,9 @@ function module:Initialize()
 
 	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
 
-	local pos = db.position or "BOTTOMLEFT"
-	local x = db.xOffset or -13
-	local y = db.yOffset or -13
+	local pos = db.position or "TOPRIGHT"
+	local x = db.xOffset or 10
+	local y = db.yOffset or 20
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", Minimap)

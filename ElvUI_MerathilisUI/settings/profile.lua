@@ -370,9 +370,9 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	position = "BOTTOMLEFT",
-	xOffset = -10,
-	yOffset = -10,
+	position = "TOPRIGHT",
+	xOffset = 10,
+	yOffset = 20,
 	size = 34,
 }
 
