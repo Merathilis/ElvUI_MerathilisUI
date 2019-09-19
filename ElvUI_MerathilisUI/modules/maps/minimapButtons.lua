@@ -164,7 +164,7 @@ function module:Initialize()
 	module.button:SetHighlightTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
-	module.bin:SetPoint("RIGHT", module.button, "LEFT", -3, -6)
+	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
 	module.bin:Hide()
 	MER:CreateGradientFrame(module.bin, 220, 40, "Horizontal", 0, 0, 0, 0, .7)
 
