@@ -584,7 +584,7 @@ function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 
 	local gf = frame:CreateTexture(nil, "BACKGROUND")
 	gf:SetAllPoints()
-	gf:SetTexture(E.media.normTex)
+	gf:SetTexture(E.media.blankTex)
 	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 

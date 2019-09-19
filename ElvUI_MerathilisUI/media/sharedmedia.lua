@@ -21,17 +21,12 @@ LSM:Register("font","Merathilis Gothom Narrow", [[Interface\AddOns\ElvUI_Merathi
 LSM:Register("font","Merathilis Expressway", [[Interface\AddOns\ElvUI_MerathilisUI\media\fonts\ExpresswayExtraBold.ttf]])
 
 -- Backgrounds
-LSM:Register("background","Merathilis BrushedMetal", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\brushedmetal.tga]])
-LSM:Register("background","Merathilis Smoke", [[Interface\AddOns\ElvUI_MerathilisUI\media\background\smoke.tga]])
-
 -- Border
-LSM:Register("border","MerathilisGlow", [[Interface\AddOns\ElvUI_MerathilisUI\media\border\glowTex.tga]])
 
 -- Statusbars
 LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
 LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI2.tga]])
 LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI3.tga]])
-LSM:Register("statusbar","MerathilisFlat", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga]])
 LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\OnePixel.tga]])
 LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Melli.tga]])
 LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MelliDark.tga]])
@@ -42,7 +37,6 @@ LSM:Register("statusbar","MerathilisLight", [[Interface\AddOns\ElvUI_MerathilisU
 LSM:Register("statusbar","MerathilisFeint", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MerathilisFeint.tga]])
 LSM:Register("statusbar","MerathilisBorder", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Border.tga]])
 LSM:Register("statusbar","MerathilisGradient", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
-LSM:Register("statusbar","MerathilisGloss", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Gloss.tga]])
 LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\lyn1.tga]])
 LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Skullflower.tga]])
 LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\SkullflowerLight.tga]])
