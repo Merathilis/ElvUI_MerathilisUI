@@ -7,7 +7,7 @@ local MERS = MER:GetModule("muiSkins")
 local _G = _G
 local ipairs, pairs, select, tonumber, unpack = ipairs, pairs, select, tonumber, unpack
 local tinsert = table.insert
-local floor = math.floor
+local floor, max = math.floor, math.max
 local format = string.format
 local strfind = strfind
 
@@ -15,7 +15,9 @@ local strfind = strfind
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local date = date
+local time = time
 local BNGetNumFriends = BNGetNumFriends
+local GetAchievementInfo = GetAchievementInfo
 local GetFramerate = GetFramerate
 local GetNetStats = GetNetStats
 local GetCurrentRegion = GetCurrentRegion
@@ -161,7 +163,7 @@ local function checkTimeWalker(event)
 
 	for i = 1, numEvents do
 		local info = C_Calendar_GetDayEvent(0, today, i)
-		if info and strfind(info.title, PLAYER_DIFFICULTY_TIMEWALKER) and info.sequenceType ~= "END" then
+		if info and strfind(info.title, _G.PLAYER_DIFFICULTY_TIMEWALKER) and info.sequenceType ~= "END" then
 			isTimeWalker = true
 			walkerTexture = info.iconTexture
 			break
@@ -294,12 +296,12 @@ local function CheckInvasion(index)
 	end
 end
 
-local DUNGEON_FLOOR_TEMPESTKEEP1 = DUNGEON_FLOOR_TEMPESTKEEP1
+local DUNGEON_FLOOR_TEMPESTKEEP1 = _G.DUNGEON_FLOOR_TEMPESTKEEP1
 local TempestKeep = select(2, GetAchievementInfo(1088)):match('%((.-)%)$')
 
 local instanceIconByName = {}
 local function GetInstanceImages(index, raid)
-	local instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid);
+	local instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
 	while instanceID do
 		if name == DUNGEON_FLOOR_TEMPESTKEEP1 then
 			instanceIconByName[TempestKeep] = buttonImage
@@ -307,7 +309,7 @@ local function GetInstanceImages(index, raid)
 			instanceIconByName[name] = buttonImage
 		end
 		index = index + 1
-		instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid);
+		instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
 	end
 end
 
@@ -325,6 +327,7 @@ function module.OnEnter(self)
 	if E.db.mui.microBar.tooltip ~= true then
 		return
 	end
+
 	RequestRaidInfo()
 
 	if not GameTooltip:IsForbidden() then
@@ -363,10 +366,7 @@ function module.OnEnter(self)
 
 	local today = C_Calendar_GetDate()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
-	GameTooltip:AddLine(
-		format(FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y),
-		unpack(E.media.rgbvaluecolor)
-	)
+	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 1, .8, .1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 1, .8, .1, 1, 1, 1)
@@ -377,14 +377,14 @@ function module.OnEnter(self)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Home Latency:"], colorLatency(latencyHome).."|r MS", .6, .8, 1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["World Latency:"], colorLatency(latencyWorld).."|r MS", .6, .8, 1, 1, 1, 1)
-	GameTooltip:AddDoubleLine(FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
+	GameTooltip:AddDoubleLine(_G.FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
 
 	-- World bosses
 	title = false
 	for i = 1, GetNumSavedWorldBosses() do
 		local name, id, reset = GetSavedWorldBossInfo(i)
 		if not (id == 11 or id == 12 or id == 13) then
-			addTitle(RAID_INFO_WORLD_BOSS)
+			addTitle(_G.RAID_INFO_WORLD_BOSS)
 			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 1, 1, 1)
 		end
 	end
@@ -413,7 +413,7 @@ function module.OnEnter(self)
 		local name, _, reset, _, locked, extended, _, isRaid, _, diffName = GetSavedInstanceInfo(i)
 		img = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
 		if isRaid and (locked or extended) then
-			addTitle(RAID_INFORMATION)
+			addTitle(_G.RAID_INFORMATION)
 			if extended then
 				r, g, b = .3, 1, .3
 			else
@@ -432,7 +432,7 @@ function module.OnEnter(self)
 		end
 	end
 	if count > 0 then
-		addTitle(QUESTS_LABEL)
+		addTitle(_G.QUESTS_LABEL)
 		if count == maxCoins then
 			r, g, b = 1, 0, 0
 		else
@@ -443,24 +443,24 @@ function module.OnEnter(self)
 
 	local iwqID = C_IslandsQueue_GetIslandsWeeklyQuestID()
 	if iwqID and UnitLevel("player") == 120 then
-		addTitle(QUESTS_LABEL)
+		addTitle(_G.QUESTS_LABEL)
 		if IsQuestFlaggedCompleted(iwqID) then
-			GameTooltip:AddDoubleLine(ISLANDS_HEADER, QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
+			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 		else
 			local cur, max = select(4, GetQuestObjectiveInfo(iwqID, 1, false))
 			local stautsText = cur .. "/" .. max
 			if not cur or not max then
-				stautsText = LFG_LIST_LOADING
+				stautsText = _G.LFG_LIST_LOADING
 			end
-			GameTooltip:AddDoubleLine(ISLANDS_HEADER, stautsText, 1, 1, 1, 0, 1, 0)
+			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, stautsText, 1, 1, 1, 0, 1, 0)
 		end
 	end
 
 	for _, v in pairs(questlist) do
 		if v.name and IsQuestFlaggedCompleted(v.id) then
 			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine(v.name, QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
+				addTitle(_G.QUESTS_LABEL)
+				GameTooltip:AddDoubleLine(v.name, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 			end
 		end
 	end
@@ -533,7 +533,7 @@ function module:OnClick(btn)
 		return
 	end
 	if btn == "LeftButton" then
-		if (not CalendarFrame) then
+		if (not _G.CalendarFrame) then
 			LoadAddOn("Blizzard_Calendar")
 		end
 		Calendar_Toggle()
@@ -574,7 +574,7 @@ function module:CreateMicroBar()
 	else
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
-	charButton.text:SetText(CHARACTER_BUTTON)
+	charButton.text:SetText(_G.CHARACTER_BUTTON)
 	charButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	charButton:SetScript("OnEnter", function(self)
@@ -610,7 +610,7 @@ function module:CreateMicroBar()
 	else
 		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
 	end
-	friendsButton.text:SetText(SOCIAL_BUTTON)
+	friendsButton.text:SetText(_G.SOCIAL_BUTTON)
 	friendsButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateFriends()
@@ -677,7 +677,7 @@ function module:CreateMicroBar()
 	else
 		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
 	end
-	guildButton.text:SetText(GUILD)
+	guildButton.text:SetText(_G.GUILD)
 	guildButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateGuild()
@@ -747,7 +747,7 @@ function module:CreateMicroBar()
 	else
 		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
 	end
-	achieveButton.text:SetText(ACHIEVEMENT_BUTTON)
+	achieveButton.text:SetText(_G.ACHIEVEMENT_BUTTON)
 	achieveButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	achieveButton:SetScript("OnEnter", function(self)
@@ -783,7 +783,7 @@ function module:CreateMicroBar()
 	else
 		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
 	end
-	encounterButton.text:SetText(ENCOUNTER_JOURNAL)
+	encounterButton.text:SetText(_G.ENCOUNTER_JOURNAL)
 	encounterButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	encounterButton:SetScript("OnEnter", function(self)
@@ -861,7 +861,7 @@ function module:CreateMicroBar()
 	else
 		petButton.text:SetPoint("TOP", petButton, 2, 15)
 	end
-	petButton.text:SetText(MOUNTS_AND_PETS)
+	petButton.text:SetText(_G.MOUNTS_AND_PETS)
 	petButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	petButton:SetScript("OnEnter", function(self)
@@ -897,7 +897,7 @@ function module:CreateMicroBar()
 	else
 		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
 	end
-	lfrButton.text:SetText(LFG_TITLE)
+	lfrButton.text:SetText(_G.LFG_TITLE)
 	lfrButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	lfrButton:SetScript("OnEnter", function(self)
@@ -933,7 +933,7 @@ function module:CreateMicroBar()
 	else
 		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
 	end
-	spellBookButton.text:SetText(SPELLBOOK_ABILITIES_BUTTON)
+	spellBookButton.text:SetText(_G.SPELLBOOK_ABILITIES_BUTTON)
 	spellBookButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	spellBookButton:SetScript("OnEnter", function(self)
@@ -969,7 +969,7 @@ function module:CreateMicroBar()
 	else
 		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
 	end
-	speccButton.text:SetText(TALENTS_BUTTON)
+	speccButton.text:SetText(_G.TALENTS_BUTTON)
 	speccButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	speccButton:SetScript("OnEnter", function(self)
@@ -1005,7 +1005,7 @@ function module:CreateMicroBar()
 	else
 		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
 	end
-	shopButton.text:SetText(BLIZZARD_STORE)
+	shopButton.text:SetText(_G.BLIZZARD_STORE)
 	shopButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	shopButton:SetScript("OnEnter", function(self)
@@ -1018,7 +1018,7 @@ function module:CreateMicroBar()
 		if InCombatLockdown() then
 			return
 		end
-		StoreMicroButton:Click()
+		_G.StoreMicroButton:Click()
 	end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
@@ -1045,7 +1045,7 @@ function module:UNIT_AURA(_, unit)
 		return
 	end
 	if module.db.enable and module.db.hideInOrderHall then
-		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(_G.LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
 			microBar:SetAlpha(0)
 		else
