@@ -128,11 +128,17 @@ local function Minimap()
 						name = L["Credits"],
 						guiInline = true,
 						args = {
-							tukui = {
+							credit = {
 								order = 1,
 								type = "description",
 								fontSize = "medium",
 								name = format("|cff0080ffNDui|r - siweia"),
+							},
+							note = {
+								order = 2,
+								type = "description",
+								fontSize = "medium",
+								name = L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."],
 							},
 						},
 					},
@@ -140,6 +146,7 @@ local function Minimap()
 						order = 2,
 						type = "toggle",
 						name = L["Enable"],
+						width = "full",
 						get = function(info) return E.db.mui.smb.enable end,
 						set = function(info, value) E.db.mui.smb.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
