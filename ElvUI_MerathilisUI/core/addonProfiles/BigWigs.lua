@@ -21,8 +21,6 @@ function MER:LoadBigWigsProfileDPS()
 	if BigWigs3DB["profiles"][key] == nil then
 		BigWigs3DB = {
 			["namespaces"] = {
-				["BigWigs_Plugins_Victory"] = {},
-				["BigWigs_Plugins_Colors"] = {},
 				["BigWigs_Plugins_Alt Power"] = {
 					["profiles"] = {
 						[key] = {
@@ -35,7 +33,6 @@ function MER:LoadBigWigsProfileDPS()
 						},
 					},
 				},
-				["BigWigs_Plugins_BossBlock"] = {},
 				["BigWigs_Plugins_Colors"] = {
 					["profiles"] = {
 						[key] = {

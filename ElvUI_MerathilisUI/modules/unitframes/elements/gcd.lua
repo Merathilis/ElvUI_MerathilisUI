@@ -53,7 +53,7 @@ function MGCD:LoadGCDBar(frame)
 	gcdbar.height = 2
 	gcdbar:Hide()
 
-	gcdbar.spark = gcdbar:CreateTexture(nil, "DIALOG")
+	gcdbar.spark = gcdbar:CreateTexture(nil, "OVERLAY")
 	gcdbar.spark:SetTexture("Interface\\ChatFrame\\ChatFrameBackground")
 	gcdbar.spark:SetVertexColor(unpack(gcdbar.Color))
 	gcdbar.spark:SetWidth(gcdbar.width)

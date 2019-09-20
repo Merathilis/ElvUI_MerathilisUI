@@ -133,24 +133,19 @@ local function Cooldowns()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					space1 = {
+					spacer = {
 						order = 2,
 						type = "description",
 						name = "",
 					},
-					space1 = {
-						order = 3,
-						type = "description",
-						name = "",
-					},
 					width = {
-						order = 4,
+						order = 3,
 						type = "range",
 						name = L["Width"],
 						min = 5, max = 500, step = 1,
 					},
 					height = {
-						order = 5,
+						order = 4,
 						type = "range",
 						name = L["Height"],
 						min = 5, max = 200, step = 1,
@@ -175,7 +170,7 @@ local function Cooldowns()
 						type = "toggle",
 						name = L["Show Icons"],
 					},
-					spacer = {
+					spacer1 = {
 						order = 10,
 						type = "description",
 						name = "",

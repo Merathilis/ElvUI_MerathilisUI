@@ -324,11 +324,11 @@ end
 
 local collectedInstanceImages = false
 function module.OnEnter(self)
+	RequestRaidInfo()
+
 	if E.db.mui.microBar.tooltip ~= true then
 		return
 	end
-
-	RequestRaidInfo()
 
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide() -- WHY??? BECAUSE FUCK GAMETOOLTIP, THATS WHY!!
