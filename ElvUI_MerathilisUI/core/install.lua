@@ -375,7 +375,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
@@ -408,7 +408,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
@@ -442,7 +442,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
@@ -473,7 +473,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
@@ -510,7 +510,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
@@ -1903,7 +1903,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 12,
-			["text_format"] = "[name:abbrev]",
+			["text_format"] = "[name:abbrev:long]",
 			["attachTextTo"] = "InfoPanel",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {
