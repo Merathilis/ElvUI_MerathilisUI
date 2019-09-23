@@ -12,7 +12,7 @@ local tinsert = table.insert
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
-		order = 20,
+		order = 40,
 		type = "group",
 		name = L["UnitFrames"],
 		childGroups = "tab",

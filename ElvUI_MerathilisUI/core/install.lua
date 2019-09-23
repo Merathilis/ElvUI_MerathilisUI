@@ -265,7 +265,7 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["timeYOffset"] = -4
+	E.db["auras"]["timeYOffset"] = -5
 	E.db["auras"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
