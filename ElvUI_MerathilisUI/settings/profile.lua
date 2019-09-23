@@ -59,7 +59,6 @@ MP.misc = {
 	quest = false,
 	announce = true,
 	cursor = false,
-	raidInfo = true,
 	lfgInfo = true,
 	alerts = {
 		lfg = false,
@@ -423,6 +422,12 @@ MP.raidmarkers = {
 	orientation = "HORIZONTAL",
 	modifier = "shift-",
 	reverse = false,
+}
+
+MP.raidmanager = {
+	enable = true,
+	unlockraidmarks = false,
+	Count = "10",
 }
 
 MP.tooltip = {

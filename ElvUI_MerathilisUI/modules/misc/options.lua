@@ -62,12 +62,6 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
-			raidInfo = {
-				order = 8,
-				type = "toggle",
-				name = L["Raid Info"],
-				desc = L["Shows a simple frame with Raid Informations."],
-			},
 			lfgInfo = {
 				order = 11,
 				type = "toggle",

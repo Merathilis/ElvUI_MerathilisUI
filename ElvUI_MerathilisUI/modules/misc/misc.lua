@@ -1,6 +1,6 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local module = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
+local module = MER:NewModule("mUIMisc", 'AceConsole-3.0', 'AceEvent-3.0', 'AceHook-3.0', 'AceTimer-3.0')
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -188,7 +188,6 @@ function module:Initialize()
 	self:LoadQuest()
 	self:LoadnameHover()
 	self:ItemLevel()
-	self:CreateRaidManager()
 	self:GuildBest()
 	self:AddAlerts()
 	self:ReputationInit()

@@ -16,7 +16,6 @@
 	<Script file="mailinputbox.lua"/>
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
-	<Script file="raidManager.lua"/>
 	<Script file="reputation.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>
