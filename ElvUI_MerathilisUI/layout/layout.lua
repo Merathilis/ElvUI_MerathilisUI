@@ -344,7 +344,7 @@ function MERL:CreatePanels()
 end
 
 function MERL:CreateStylePanels()
-	if E.db.mui.general.panels ~= true then return end
+	if E.db.mui.general.panels ~= true or E.db.mui.general.stylePanels ~= true then return end
 
 	-- Style Background for RaidBuffReminder / Raid Manager
 	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)

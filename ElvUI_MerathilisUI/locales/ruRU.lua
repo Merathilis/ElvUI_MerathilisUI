@@ -536,6 +536,7 @@ Please note that some of these options will be |cff636363disabled|r if the addon
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true

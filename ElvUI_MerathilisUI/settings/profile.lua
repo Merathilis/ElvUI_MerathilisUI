@@ -21,6 +21,7 @@ MP.general = {
 	Movertransparancy = .75,
 	style = true,
 	panels = true,
+	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,

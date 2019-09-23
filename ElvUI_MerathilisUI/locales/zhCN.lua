@@ -535,6 +535,7 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["MerathilisUI Panels"] = "MerathilisUI 面板"
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = true
