@@ -494,6 +494,11 @@ local function SkinsTable()
 				name = L["Archaeology Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
 			},
+			AzeriteEssence = {
+				type = "toggle",
+				name = L["Azerite Essence"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteEssence end,
+			}
 		},
 	}
 
