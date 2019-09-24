@@ -7,28 +7,27 @@ P.mui = {}
 local MP = P.mui
 
 MP.core = {
-	installed = nil, -- keep this in P
+	installed = nil,
 }
 
 MP.general = {
-	LoginMsg = true, -- Enable welcome message in chat
-	GameMenu = true, -- Enable the Styles GameMenu
-	splashScreen = true, -- Enable the SplashScreen on LogIn
-	AFK = true, -- Enable the pimped AFK Screen
-	FlightMode = true, -- Enable the the support for Benik's FlightMode
-	FlightPoint = true, -- Enable the FlightPoints
-	CombatState = true, -- Enable the +/- Combat Message
-	MerchantiLevel = true, -- Displays the itemlevel on the Merchant Frame
+	LoginMsg = true,
+	GameMenu = true,
+	splashScreen = true,
+	AFK = true,
+	FlightMode = true,
+	FlightPoint = true,
+	CombatState = true,
 	Movertransparancy = .75,
-	style = true, -- Styling function (stripes/gradient)
+	style = true,
 	panels = true,
+	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,
 }
 
 MP.bags = {
-	transparentSlots = true,
 	equipOverlay = true,
 }
 
@@ -40,11 +39,14 @@ MP.merchant = {
 
 MP.chat = {
 	chatButton = true,
-	panelHeight = 146,
 	hidePlayerBrackets = true,
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	filter = {
+		enable = true,
+		itemLevel = true,
+	},
 }
 
 MP.colors = {
@@ -52,18 +54,21 @@ MP.colors = {
 }
 
 MP.misc = {
-	MailInputbox = true, -- Resize the MailInputbox
-	gmotd = true, -- Show a GMOTD frame
+	MailInputbox = true,
+	gmotd = true,
 	quest = false,
-	announce = true, -- CombatText, Skill gains
+	announce = true,
 	cursor = false,
-	raidInfo = true,
 	lfgInfo = true,
 	alerts = {
-		versionCheck = true,
-		detectVersion = MER.Version,
 		lfg = false,
 	},
+	paragon = {
+		enable = true,
+		textStyle = "PARAGON",
+		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
+	},
+	skipAzerite = true,
 }
 
 MP.nameHover = {
@@ -79,7 +84,10 @@ MP.notification = {
 	vignette = true,
 	invites = true,
 	guildEvents = true,
+	paragon = true,
 }
+
+MP.databars = {}
 
 MP.datatexts = {
 	panels = {
@@ -113,14 +121,15 @@ MP.datatexts = {
 
 MP.actionbars = {
 	cleanButton = true,
-	transparent = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
+		size = 20,
 	},
 	equipBar = {
 		enable = true,
 		mouseover = false,
+		size = 28,
 	},
 	autoButtons = {
 		enable = true,
@@ -130,6 +139,8 @@ MP.actionbars = {
 			enable = true,
 			slotBBColorByItem = true,
 			slotBBColor = {r = 1, g = 1, b = 1, a = 1},
+			slotSpace = 1,
+			slotDirection = "RIGHT",
 			slotNum = 5,
 			slotPerRow = 5,
 			slotSize = 40,
@@ -138,10 +149,78 @@ MP.actionbars = {
 			enable = true,
 			questBBColorByItem = true,
 			questBBColor = {r = 1, g = 1, b = 1, a = 1},
+			questSpace = 1,
+			questDirection = "RIGHT",
 			questNum = 5,
 			questPerRow = 5,
 			questSize = 40,
 		},
+		usableAutoButtons = {
+			enable = true,
+			usableBBColorByItem = true,
+			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
+			usableSpace = 1,
+			usableDirection = "RIGHT",
+			usableNum = 5,
+			usablePerRow = 5,
+			usableSize = 40,
+		},
+		whiteList = {
+			[5512] = true, -- Healthstone
+			[49040] = true, -- Jeeves
+			[132514] = true, -- Auto-Hammer
+
+			--Guild and Honor
+			[63359] = true, -- Banner of Cooperation
+			[64398] = true, -- Standard of Unity
+			[64399] = true, -- Battle Standard of Coordination
+			[18606] = true, -- Alliance Battle Standard
+			[64400] = true, -- Banner of Cooperation
+			[64401] = true, -- Standard of Unity
+			[64402] = true, -- Battle Standard of Coordination
+			[18607] = true, -- Horde Battle Standard
+
+			--Legion
+			[118330] = true, -- Pile of Weapons
+			[122100] = true, -- Soul Gem
+			[127030] = true, -- Granny"s Flare Grenades
+			[127295] = true, -- Blazing Torch
+			[128651] = true, -- Critter Hand Cannon
+			[128772] = true, -- Branch of the Runewood
+			[129161] = true, -- Stormforged Horn
+			[129725] = true, -- Smoldering Torch
+			[131931] = true, -- Khadgar"s Wand
+			[133756] = true, -- Fresh Mound of Flesh
+			[133882] = true, -- Trap Rune
+			[133897] = true, -- Telemancy Beacon
+			[133925] = true, -- Fel Lash
+			[133999] = true, -- Inert Crystal
+			[136605] = true, -- Solendra"s Compassion
+			[137299] = true, -- Nightborne Spellblad
+			[138146] = true, -- Rediant Ley Crystal
+			[140916] = true, -- Satchel of Locklimb Powder
+			[109076] = true, -- Goblin Glider Kit
+			[147707] = true, -- Repurposed Fel Focuser
+			[142117] = true, -- Potion of Prolonged Power
+			[153023] = true, -- Lightforged Augment Rune
+
+			--BFA
+			[152494] = true, -- Coastal Healing Potion
+			[152495] = true, -- Coastal Mana Potion
+			[160053] = true, -- Battle-Scarred Augment Rune
+			[163224] = true, -- Battle Potion of Strength
+			[163223] = true, -- Battle Potion of Agility
+			[163222] = true, -- Battle Potion of Intellect
+			[163225] = true, -- Battle Potion of Stamina
+			[168500] = true, -- Superior Battle Potion of Strength
+			[168489] = true, -- Superior Battle Potion of Agility
+			[168498] = true, -- Superior Battle Potion of Intellect
+			[168499] = true, -- Superior Battle Potion of Stamina
+			[169299] = true, -- Potion of Unbridled Fury
+		},
+		blackList = {},
+		blackitemID = "",
+		whiteItemID = "",
 	},
 }
 
@@ -213,6 +292,7 @@ MP.unitframes = {
 MP.maps = {
 	minimap = {
 		flash = true,
+		difficulty = true,
 		coords = {
 			enable = true,
 			position = "BOTTOM",
@@ -290,14 +370,10 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	barMouseOver = true,
-	backdrop = true,
-	iconSize = 22,
-	buttonsPerRow = 6,
-	buttonSpacing = 2,
-	moveTracker = false,
-	moveQueue = false,
-	reverseDirection = false,
+	position = "TOPRIGHT",
+	xOffset = 10,
+	yOffset = 20,
+	size = 34,
 }
 
 MP.locPanel = {
@@ -348,13 +424,22 @@ MP.raidmarkers = {
 	reverse = false,
 }
 
+MP.raidmanager = {
+	enable = true,
+	unlockraidmarks = false,
+	count = "10",
+}
+
 MP.tooltip = {
 	tooltip = true,
-	achievement = true, -- Adds information to the tooltip, on which char you earned an achievement
-	petIcon = true,		-- Add an Icon for battle pets on the tooltip
-	factionIcon = true, -- Add a faction icon on the tooltip
-	keystone = true, -- Adds descriptions for mythic keystone properties
-	azerite = true,
+	achievement = true,
+	petIcon = true,
+	factionIcon = true,
+	keystone = true,
+	azerite = {
+		enable = true,
+		onlyIcons = false,
+	},
 	titleColor = true,
 	progressInfo = {
 		enable = true,
@@ -424,7 +509,7 @@ MP.raidBuffs = {
 	enable = true,
 	visibility = "INPARTY",
 	class = true,
-	size = 24,
+	size = 30,
 	alpha = 0.3,
 	glow = true,
 	customVisibility = "[noexists, nogroup] hide; show",
@@ -436,7 +521,6 @@ MP.reminder = {
 }
 
 MP.nameplates = {
-	castbarTarget = true,
 	castbarShield = true,
 	enhancedAuras = {
 		enable = true,
@@ -453,10 +537,13 @@ MP.cooldownFlash = {
 	animScale = 1.5,
 	iconSize = 40,
 	holdTime = 0.3,
+	petOverlay = {1, 1, 1},
+	ignoredSpells = "",
+	invertIgnored = false,
 	enablePet = false,
 	showSpellName = false,
-	x = UIParent:GetWidth()/2,
-	y = UIParent:GetHeight()/2,
+	x = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
+	y = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
 MP.raidCD = {

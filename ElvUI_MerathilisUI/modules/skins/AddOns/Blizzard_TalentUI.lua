@@ -41,26 +41,17 @@ local function styleTalents()
 	end
 
 	-- Talents
-	hooksecurefunc("TalentFrame_Update", function()
-		for i = 1, _G.MAX_TALENT_TIERS do
-			for j = 1, _G.NUM_TALENT_COLUMNS do
-				local button = _G["PlayerTalentFrameTalentsTalentRow"..i.."Talent"..j]
-
-				-- Hide ElvUI's "Default" backdrop
-				if button.bg.backdrop then button.bg.backdrop:Hide() end
-
-				-- Reapply a transparent backdrop
-				button.bg:CreateBackdrop("Transparent")
-
-				if button.knownSelection:IsShown() then
-					button.bg.SelectedTexture:Show()
-					button.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
-				else
-					button.bg.SelectedTexture:Hide()
-				end
+	for i = 1, _G.MAX_TALENT_TIERS do
+		local row = _G.PlayerTalentFrameTalents['tier'..i]
+		for j = 1, _G.NUM_TALENT_COLUMNS do
+			local bu = row['talent'..j]
+			if bu.bg then
+				MERS:CreateGradient(bu.bg)
+				bu.bg.backdrop:SetTemplate("Transparent")
+				bu.bg.SelectedTexture:SetColorTexture(r, g, b, .5)
 			end
 		end
-	end)
+	end
 
 	for _, frame in pairs({ _G.PlayerTalentFrameSpecialization, _G.PlayerTalentFramePetSpecialization }) do
 		local scrollChild = frame.spellsScroll.child
@@ -153,27 +144,16 @@ local function styleTalents()
 		end
 	end)
 
-	for i = 1, GetNumSpecializations(false, nil) do
-		local _, _, _, icon = GetSpecializationInfo(i, false, nil)
-		_G.PlayerTalentFrameSpecialization["specButton"..i].specIcon:SetTexture(icon)
-	end
-
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
 
 	for _, name in pairs(buttons) do
 		for i = 1, 4 do
 			local bu = _G[name..i]
 
-			-- Hide the ElvUI backdrop
-			if bu.backdrop then
-				bu.backdrop:Hide()
+			if bu and bu.backdrop then
+				bu.backdrop:SetTemplate("Transparent")
+				MERS:CreateGradient(bu.backdrop)
 			end
-
-			-- Create own backdrop (transparent)
-			bu:CreateBackdrop("Transparent")
-			bu.backdrop:Point("TOPLEFT", 8, 2)
-			bu.backdrop:Point("BOTTOMRIGHT", 10, -2)
-			bu.backdrop:Styling()
 		end
 	end
 

@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local S = E:GetModule("Skins")
 local MERS = MER:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
-MERS.modName = L["Skins/AddOns"]
 
 -- Cache global variables
 -- Lua functions
@@ -77,25 +76,12 @@ function MERS:CreateBG(frame)
 	return bg
 end
 
--- Gradient Frame
-function MERS:CreateGF(f, w, h, o, r, g, b, a1, a2)
-	assert(f, "doesn't exist!")
-
-	f:SetSize(w, h)
-	f:SetFrameStrata("BACKGROUND")
-	local gf = f:CreateTexture(nil, "BACKGROUND")
-	gf:SetPoint("TOPLEFT", f, -E.mult, E.mult)
-	gf:SetPoint("BOTTOMRIGHT", f, E.mult, -E.mult)
-	gf:SetTexture(E.media.muiNormTex)
-	gf:SetVertexColor(r, g, b)
-	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
-end
-
 -- Gradient Texture
 function MERS:CreateGradient(f)
 	assert(f, "doesn't exist!")
 
 	local tex = f:CreateTexture(nil, "BACKGROUND")
+	tex:ClearAllPoints()
 	tex:SetPoint("TOPLEFT", 1, -1)
 	tex:SetPoint("BOTTOMRIGHT", -1, 1)
 	tex:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient.tga]])
@@ -303,7 +289,7 @@ end
 function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
-	panel.tex:SetTexture(E.media.muiFlat)
+	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
 	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
@@ -465,7 +451,7 @@ local function ReskinVehicleExit()
 end
 
 local function StyleElvUIConfig()
-	if InCombatLockdown() then return end
+	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
 	local frame = _G.ElvUIGUIFrame
 	if not frame.IsStyled then
 		frame:Styling()

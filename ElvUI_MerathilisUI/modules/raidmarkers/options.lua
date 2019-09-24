@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local RMA = MER:GetModule("RaidMarkers")
 
 --Cache global variables
@@ -16,14 +15,14 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 local function RaidMarkers()
 	E.Options.args.mui.args.modules.args.raidmarkers = {
 		type = "group",
-		name = RMA.modName or RMA:GetName(),
+		name = L["Raid Markers"],
 		order = 19,
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(RMA.modName or RMA:GetName()),
+				name = MER:cOption(L["Raid Markers"]),
 			},
 			credits = {
 				order = 2,
@@ -35,14 +34,14 @@ local function RaidMarkers()
 						order = 1,
 						type = "description",
 						fontSize = "medium",
-						name = format("|cff9482c9Shadow&Light|r"),
+						name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
 					},
 				},
 			},
 			marksheader = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(RMA.modName or RMA:GetName()),
+				name = MER:cOption(L["Raid Markers"]),
 				guiInline = true,
 				args = {
 					info = {

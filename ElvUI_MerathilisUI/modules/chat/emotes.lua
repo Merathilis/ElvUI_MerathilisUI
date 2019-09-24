@@ -83,42 +83,8 @@ local emotes = {
 module.emotes = emotes
 
 local ShowEmoteTableButton
-local EmoteTableFrame, EmoteClubTableFrame
-
+local EmoteTableFrame
 local text, texture
-local function CreateEmoteClubTableFrame()
-	EmoteClubTableFrame = CreateFrame("Frame", "EmoteClubTableFrame", _G.CommunitiesFrame)
-	EmoteClubTableFrame:SetTemplate("Default")
-	EmoteClubTableFrame:SetWidth((ChatEmote.Config.iconSize + 2) * 12 + 4)
-	EmoteClubTableFrame:SetHeight((ChatEmote.Config.iconSize + 2) * 5 + 4)
-	EmoteClubTableFrame:SetPoint("BOTTOMLEFT", _G.CommunitiesFrame, "BOTTOMRIGHT", E:Scale(2), 0)
-	EmoteClubTableFrame:Hide()
-	EmoteClubTableFrame:SetFrameStrata("DIALOG")
-
-	local icon, row, col
-	row = 1
-	col = 1
-	for i = 1, #emotes do
-		text = emotes[i][1]
-		texture = emotes[i][2]
-		icon = CreateFrame("Frame", format("IconButton%d", i), EmoteClubTableFrame)
-		icon:SetWidth(ChatEmote.Config.iconSize)
-		icon:SetHeight(ChatEmote.Config.iconSize)
-		icon.text = text
-		icon.texture = icon:CreateTexture(nil, "ARTWORK")
-		icon.texture:SetTexture(texture)
-		icon.texture:SetAllPoints(icon)
-		icon:Show()
-		icon:SetPoint("TOPLEFT", (col - 1) * (ChatEmote.Config.iconSize + 2) + 2, -(row - 1) * (ChatEmote.Config.iconSize + 2) - 2)
-		icon:SetScript("OnMouseUp", ChatEmote.EmoteClubIconMouseUp)
-		icon:EnableMouse(true)
-		col = col + 1
-		if (col > 12) then
-			row = row + 1
-			col = 1
-		end
-	end
-end
 
 local function CreateEmoteTableFrame()
 	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent)
@@ -162,15 +128,6 @@ function ChatEmote.ToggleEmoteTable()
 		EmoteTableFrame:Hide()
 	else
 		EmoteTableFrame:Show()
-	end
-end
-
-function ChatEmote.ToggleClubEmoteTable()
-	if (not EmoteClubTableFrame) then CreateEmoteClubTableFrame() end
-	if (EmoteClubTableFrame:IsShown()) then
-		EmoteClubTableFrame:Hide()
-	else
-		EmoteClubTableFrame:Show()
 	end
 end
 
@@ -230,11 +187,13 @@ function module:Initialize()
 		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
 		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
 		_G.GameTooltip:Show()
+		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Scream")
 		ChatEmote:GetNormalTexture():SetDesaturated(false)
 		ChatEmote:GetNormalTexture():SetAlpha(1)
 	end)
 	ChatEmote:SetScript("OnLeave", function(self)
 		_G.GameTooltip:Hide()
+		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
 		ChatEmote:GetNormalTexture():SetDesaturated(true)
 		ChatEmote:GetNormalTexture():SetAlpha(.45)
 	end)

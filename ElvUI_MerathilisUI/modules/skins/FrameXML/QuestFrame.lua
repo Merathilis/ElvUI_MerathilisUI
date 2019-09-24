@@ -16,7 +16,9 @@ local hooksecurefunc = hooksecurefunc
 local function styleQuestFrame()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
 
-	_G.QuestFont:SetTextColor(1, 1, 1)
+	-- Stop here if parchment reomover is enabled.
+	if E.private.skins.parchmentRemover.enable then return end
+
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
@@ -64,14 +66,62 @@ local function styleQuestFrame()
 	-- Copied from ElvUI
 	local function UpdateGreetingFrame()
 		for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
+			Button.Icon:SetDrawLayer("ARTWORK")
 			local Text = Button:GetFontString():GetText()
 			if Text and strfind(Text, '|cff000000') then
 				Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
 			end
 		end
 	end
+
 	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
+
+	hooksecurefunc('QuestFrameProgressItems_Update', function()
+		_G.QuestProgressRequiredItemsText:SetTextColor(1, .8, .1)
+		_G.QuestProgressRequiredMoneyText:SetTextColor(1, 1, 1)
+	end)
+
+	hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
+		fontString:SetTextColor(1, .8, .1)
+	end)
+
+	hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
+		fontString:SetTextColor(1, 1, 1)
+	end)
+
+	hooksecurefunc('QuestInfo_ShowRequiredMoney', function()
+		local requiredMoney = GetQuestLogRequiredMoney()
+		if requiredMoney > 0 then
+			if requiredMoney > GetMoney() then
+				_G.QuestInfoRequiredMoneyText:SetTextColor(.63, .09, .09)
+			else
+				_G.QuestInfoRequiredMoneyText:SetTextColor(1, .8, .1)
+			end
+		end
+	end)
+
+	local QuestInfoRewardsFrame = _G.QuestInfoRewardsFrame
+	if QuestInfoRewardsFrame.spellHeaderPool then
+		for _, pool in ipairs({"followerRewardPool", "spellRewardPool"}) do
+			QuestInfoRewardsFrame[pool]._acquire = QuestInfoRewardsFrame[pool].Acquire
+			QuestInfoRewardsFrame[pool].Acquire = function()
+				local frame = QuestInfoRewardsFrame[pool]:_acquire()
+				if frame then
+					frame.Name:SetTextColor(1, 1, 1)
+				end
+				return frame
+			end
+		end
+		QuestInfoRewardsFrame.spellHeaderPool._acquire = QuestInfoRewardsFrame.spellHeaderPool.Acquire
+		QuestInfoRewardsFrame.spellHeaderPool.Acquire = function(self)
+			local frame = self:_acquire()
+			if frame then
+				frame:SetTextColor(1, 1, 1)
+			end
+			return frame
+		end
+	end
 
 	_G.QuestGreetingScrollFrame:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
@@ -79,13 +129,6 @@ local function styleQuestFrame()
 			self.spellTex:SetTexture("")
 			self:Height(self:GetHeight() - 2)
 		end
-	end)
-
-	hooksecurefunc("QuestFrame_SetMaterial", function(frame)
-		_G[frame:GetName().."MaterialTopLeft"]:Hide()
-		_G[frame:GetName().."MaterialTopRight"]:Hide()
-		_G[frame:GetName().."MaterialBotLeft"]:Hide()
-		_G[frame:GetName().."MaterialBotRight"]:Hide()
 	end)
 
 	for i = 1, _G.MAX_REQUIRED_ITEMS do
@@ -110,14 +153,6 @@ local function styleQuestFrame()
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
-
-	hooksecurefunc(_G.QuestProgressRequiredMoneyText, "SetTextColor", function(self, r)
-		if r == 0 then
-			self:SetTextColor(.8, .8, .8)
-		elseif r == .2 then
-			self:SetTextColor(1, 1, 1)
-		end
-	end)
 
 	-- Quest NPC model
 	_G.QuestNPCModelShadowOverlay:Hide()
@@ -157,23 +192,6 @@ local function styleQuestFrame()
 
 		_G.QuestNPCModel:SetPoint("TOPLEFT", parentFrame, "TOPRIGHT", x, y)
 	end)
-
-	-- Text Color
-	_G.QuestProgressRequiredItemsText:SetTextColor(1, 1, 1)
-	_G.QuestProgressRequiredItemsText:SetShadowColor(0, 0, 0)
-	_G.CurrentQuestsText:SetTextColor(1, 1, 1)
-	_G.CurrentQuestsText.SetTextColor = MER.dummy
-	_G.CurrentQuestsText:SetShadowColor(0, 0, 0)
-	_G.QuestProgressTitleText:SetTextColor(1, 1, 1)
-	_G.QuestProgressTitleText:SetShadowColor(0, 0, 0)
-	_G.QuestProgressTitleText.SetTextColor = MER.dummy
-	_G.QuestProgressText:SetTextColor(1, 1, 1)
-	_G.QuestProgressText.SetTextColor = MER.dummy
-	_G.GreetingText:SetTextColor(1, 1, 1)
-	_G.GreetingText.SetTextColor = MER.dummy
-	_G.AvailableQuestsText:SetTextColor(1, 1, 1)
-	_G.AvailableQuestsText.SetTextColor = MER.dummy
-	_G.AvailableQuestsText:SetShadowColor(0, 0, 0)
 end
 
 S:AddCallback("mUIQuestFrame", styleQuestFrame)

@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
 local module = MER:NewModule("CooldownFlash", "AceHook-3.0")
-module.modName = L["Cooldown Flash"]
 
 --Cache global variables
 --Lua functions
@@ -32,7 +31,7 @@ local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 -- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE, KUIDataDB_DCP
 
 module.cooldowns, module.animating, module.watching = { }, { }, { }
-local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime
+local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, showSpellName, ignoredSpells, invertIgnored
 local testtable
 
 local DCP = CreateFrame("Frame", nil, E.UIParent)
@@ -59,10 +58,13 @@ local defaultsettings = {
 	["animScale"] = 1.5,
 	["iconSize"] = 50,
 	["holdTime"] = 0.3,
+	["petOverlay"] = {1, 1, 1},
+	["ignoredSpells"] = "",
+	["invertIgnored"] = false,
 	["enablePet"] = false,
 	["showSpellName"] = false,
-	["x"] = UIParent:GetWidth()/2,
-	["y"] = UIParent:GetHeight()/2,
+	["x"] = UIParent:GetWidth()*UIParent:GetEffectiveScale()/2,
+	["y"] = UIParent:GetHeight()*UIParent:GetEffectiveScale()/2,
 }
 
 -----------------------
@@ -74,6 +76,28 @@ local function tcount(tab)
 		n = n + 1
 	end
 	return n
+end
+
+local function memoize(f)
+	local cache = nil
+
+	local memoized = {}
+
+	local function get()
+		if (cache == nil) then
+			cache = f()
+		end
+
+		return cache
+	end
+
+	memoized.resetCache = function()
+		cache = nil
+	end
+
+	setmetatable(memoized, {__call = get})
+
+	return memoized
 end
 
 local function GetPetActionIndexByName(name)
@@ -95,35 +119,65 @@ local function OnUpdate(_,update)
 	if (elapsed > 0.05) then
 		for i,v in pairs(module.watching) do
 			if (GetTime() >= v[1] + 0.5) then
-				local start, duration, enabled, texture, isPet, name
+				local getCooldownDetails
 				if (v[2] == "spell") then
-					name = GetSpellInfo(v[3])
-					texture = GetSpellTexture(v[3])
-					start, duration, enabled = GetSpellCooldown(v[3])
+					getCooldownDetails = memoize(function()
+						local start, duration, enabled = GetSpellCooldown(v[3])
+						return {
+							name = GetSpellInfo(v[3]),
+							texture = GetSpellTexture(v[3]),
+							start = start,
+							duration = duration,
+							enabled = enabled
+						}
+					end)
 				elseif (v[2] == "item") then
-					name = GetItemInfo(i)
-					texture = v[3]
-					start, duration, enabled = GetItemCooldown(i)
+					getCooldownDetails = memoize(function()
+						local start, duration, enabled = GetItemCooldown(i)
+						return {
+							name = GetItemInfo(i),
+							texture = v[3],
+							start = start,
+							duration = duration,
+							enabled = enabled
+						}
+					end)
 				elseif (v[2] == "pet") then
-					texture = select(3,GetPetActionInfo(v[3]))
-					start, duration, enabled = GetPetActionCooldown(v[3])
-					isPet = true
+					getCooldownDetails = memoize(function()
+						local name, texture = GetPetActionInfo(v[3])
+						local start, duration, enabled = GetPetActionCooldown(v[3])
+						return {
+							name = name,
+							texture = texture,
+							isPet = true,
+							start = start,
+							duration = duration,
+							enabled = enabled
+						}
+					end)
 				end
-				if (enabled ~= 0) then
-					if (duration and duration > 2.0 and texture) then
-						module.cooldowns[i] = { start, duration, texture, isPet, name }
-					end
-				end
-				if (not (enabled == 0 and v[2] == "spell")) then
+
+				local cooldown = getCooldownDetails()
+				if ((module.db.ignoredSpells[cooldown.name] ~= nil) ~= module.db.invertIgnored) then
 					module.watching[i] = nil
+				else
+					if (cooldown.enabled ~= 0) then
+						if (cooldown.duration and cooldown.duration > 2.0 and cooldown.texture) then
+							module.cooldowns[i] = getCooldownDetails
+						end
+					end
+					if (not (cooldown.enabled == 0 and v[2] == "spell")) then
+						module.watching[i] = nil
+					end
 				end
 			end
 		end
 
-		for i,v in pairs(module.cooldowns) do
-			local remaining = v[2]-(GetTime()-v[1])
+		for i, getCooldownDetails in pairs(module.cooldowns) do
+			local cooldown = getCooldownDetails()
+			local remaining = cooldown.duration-(GetTime()-cooldown.start)
 			if (remaining <= 0) then
-				tinsert(module.animating, {v[3],v[4],v[5]})
+				tinsert(module.animating, {cooldown.texture, cooldown.isPet, cooldown.name})
 				module.cooldowns[i] = nil
 			end
 		end
@@ -181,6 +235,12 @@ function DCP:ADDON_LOADED(addon)
 	end
 	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
 	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
+end
+
+function DCP:SPELL_UPDATE_COOLDOWN()
+	for i, getCooldownDetails in pairs(module.cooldowns) do
+		getCooldownDetails.resetCache()
+	end
 end
 
 function DCP:UNIT_SPELLCAST_SUCCEEDED(unit,lineID,spellID)
@@ -268,6 +328,7 @@ function module:EnableCooldownFlash()
 	DCP:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:RegisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:RegisterEvent("ADDON_LOADED")
+	DCP:RegisterEvent("SPELL_UPDATE_COOLDOWN")
 	if self.db.enablePet then
 		DCP:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	end
@@ -281,6 +342,7 @@ function module:DisableCooldownFlash()
 	DCP:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	DCP:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DCP:UnregisterEvent("ADDON_LOADED")
+	DCP:UnregisterEvent("SPELL_UPDATE_COOLDOWN")
 	DCP:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 

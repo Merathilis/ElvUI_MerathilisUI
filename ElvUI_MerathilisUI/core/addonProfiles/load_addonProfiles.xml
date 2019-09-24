@@ -5,8 +5,8 @@
 	<script file="DeadlyBossMods.lua"/>
 	<script file="Details.lua"/>
 	<script file="FCT.lua"/>
+	<script file="iFilger.lua"/>
 	<script file="ls_Toasts.lua"/>
-	<script file="OzCooldown.lua"/>
 	<script file="ProjectAzilroka.lua"/>
 	<script file="Skada.lua"/>
 	<script file="template.lua"/>

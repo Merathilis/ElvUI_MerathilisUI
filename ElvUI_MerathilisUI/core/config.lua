@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local COMP = MER:GetModule("mUICompatibility")
 
 if E.db.mui == nil then E.db.mui = {} end
@@ -134,12 +133,6 @@ local function AddOptions()
 						type = "toggle",
 						name = L["Combat State"],
 						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
-					},
-					MerchantiLevel = {
-						order = 9,
-						type = "toggle",
-						name = L["Show Merchant ItemLevel"],
-						desc = L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"],
 					},
 				},
 			},

@@ -1,6 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MM = MER:GetModule("mUIMinimap")
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local SMB = MER:GetModule("mUIMinimapButtons")
 local COMP = MER:GetModule("mUICompatibility")
 
@@ -9,13 +7,12 @@ local COMP = MER:GetModule("mUICompatibility")
 local format = string.format
 local tinsert = table.insert
 --WoW API / Variables
-local MINIMAP_LABEL = MINIMAP_LABEL
 -- GLOBALS:
 
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = MINIMAP_LABEL,
+		name = E.NewSign..L["MiniMap"],
 		order = 16,
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -23,7 +20,7 @@ local function Minimap()
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(MINIMAP_LABEL),
+				name = MER:cOption(L["MiniMap"]),
 				order = 1,
 			},
 			general = {
@@ -37,6 +34,11 @@ local function Minimap()
 						type = "toggle",
 						name = L["Blinking Minimap"],
 						desc = L["Enable the blinking animation for new mail or pending invites."],
+					},
+					difficulty = {
+						order = 2,
+						type = "toggle",
+						name = E.NewSign..L["Instance Difficulty"],
 					},
 				},
 			},
@@ -65,21 +67,21 @@ local function Minimap()
 							["RIGHT"] = L["Right"],
 							["CENTER"] = L["Center"],
 						},
-						disabled = function() return not  E.db.mui.maps.minimap.ping.enable end,
+						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 					xOffset = {
 						order = 6,
 						type = "range",
 						name = L["X-Offset"],
 						min = -50, max = 50, step = 1,
-						disabled = function() return not  E.db.mui.maps.minimap.ping.enable end,
+						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 					yOffset = {
 						order = 7,
 						type = "range",
 						name = L["Y-Offset"],
 						min = -50, max = 50, step = 1,
-						disabled = function() return not  E.db.mui.maps.minimap.ping.enable end,
+						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 				},
 			},
@@ -107,18 +109,18 @@ local function Minimap()
 							["RIGHT"] = L["Right"],
 							["CENTER"] = L["Center"],
 						},
-						disabled = function() return not  E.db.mui.maps.minimap.coords.enable end,
+						disabled = function() return not E.db.mui.maps.minimap.coords.enable end,
 					},
 				},
 			},
 			smb = {
 				order = 5,
 				type = "group",
-				name = MER:cOption(SMB.modName),
+				name = MER:cOption(L["Minimap Buttons"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
-				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update(); end,
-				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SMB == true or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
+				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
 				args = {
 					credits = {
 						order = 1,
@@ -126,11 +128,17 @@ local function Minimap()
 						name = L["Credits"],
 						guiInline = true,
 						args = {
-							tukui = {
+							credit = {
 								order = 1,
 								type = "description",
 								fontSize = "medium",
-								name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
+								name = format("|cff0080ffNDui|r - siweia"),
+							},
+							note = {
+								order = 2,
+								type = "description",
+								fontSize = "medium",
+								name = L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."],
 							},
 						},
 					},
@@ -138,67 +146,42 @@ local function Minimap()
 						order = 2,
 						type = "toggle",
 						name = L["Enable"],
+						width = "full",
 						get = function(info) return E.db.mui.smb.enable end,
 						set = function(info, value) E.db.mui.smb.enable = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 					},
-					barMouseOver = {
-						order = 3,
-						type = "toggle",
-						name = L["Mouseover"],
+					position = {
+						order = 2,
+						type = "select",
+						name = L["Position"],
+						values = {
+							["BOTTOMLEFT"] = L["Bottom Left"],
+							["BOTTOMRIGHT"] = L["Bottom Right"],
+							["TOPLEFT"] = L["Top Left"],
+							["TOPRIGHT"] = L["Top Right"],
+						},
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
-					backdrop = {
-						order = 4,
-						type = "toggle",
-						name = L["Bar Backdrop"],
-						disabled = function() return not E.db.mui.smb.enable end,
-					},
-					iconSize = {
-						order = 5,
+					size = {
+						order = 2,
 						type = "range",
 						name = L["Icon Size"],
-						min = 12, max = 48, step = 1,
+						min = 20, max = 36, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
-					buttonSpacing = {
+					xOffset = {
 						order = 6,
 						type = "range",
-						name = L["Button Spacing"],
-						min = 0, max = 10, step = 1,
+						name = L["X-Offset"],
+						min = -20, max = 20, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
-					buttonsPerRow = {
+					yOffset = {
 						order = 7,
 						type = "range",
-						name = L["Buttons Per Row"],
-						min = 1, max = 100, step = 1,
+						name = L["Y-Offset"],
+						min = -20, max = 20, step = 1,
 						disabled = function() return not E.db.mui.smb.enable end,
-					},
-					reverseDirection = {
-						order = 8,
-						type = "toggle",
-						name = L["Reverse Direction"],
-						disabled = function() return not E.db.mui.smb.enable end,
-					},
-					blizzard = {
-						order = 9,
-						type = "group",
-						name = L["Blizzard"],
-						guiInline = true,
-						set = function(info, value) E.db.mui.smb[ info[#info] ] = value SMB:Update() SMB:HandleBlizzardButtons() end,
-						disabled = function() return not E.db.mui.smb.enable end,
-						args = {
-							moveTracker  = {
-								order = 1,
-								type = "toggle",
-								name = L["Move Tracker Icon"],
-							},
-							moveQueue  = {
-								order = 2,
-								type = "toggle",
-								name = L["Move Queue Status Icon"],
-							},
-						},
 					},
 				},
 			},

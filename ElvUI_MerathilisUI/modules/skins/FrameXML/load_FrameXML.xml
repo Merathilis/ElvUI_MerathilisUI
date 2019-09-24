@@ -5,6 +5,8 @@
 	<Script file="CinematicFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
 	<Script file="FriendsFrame.lua"/>
+	<Script file="GameMenuFrame.lua"/>
+	<Script file="GameTooltip.lua"/>
 	<Script file="GossipFrame.lua"/>
 	<Script file="HelpFrame.lua"/>
 	<Script file="ItemTextFrame.lua"/>
@@ -13,7 +15,6 @@
 	<Script file="LootFrame.lua"/>
 	<Script file="MailFrame.lua"/>
 	<Script file="MerchantFrame.lua"/>
-	<Script file="MinimapFrame.lua"/>
 	<Script file="PaperDollFrame.lua"/>
 	<Script file="PVEFrame.lua"/>
 	<Script file="QuestFrame.lua"/>

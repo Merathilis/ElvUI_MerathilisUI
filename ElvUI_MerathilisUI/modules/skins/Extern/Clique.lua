@@ -6,67 +6,68 @@ if not IsAddOnLoaded("Clique") then return; end
 -- Cache global variables
 -- Lua functions
 local _G = _G
+local unpack = unpack
 -- WoW API / Variables
 -- GLOBALS: hooksecurefunc, BugSack
 
-local function styleClique(event, addon)
+local function LoadAddOnSkin(event, addon)
 	if E.private.muiSkins.addonSkins.cl ~= true then return end
 
-	CliqueConfig:StripTextures()
-	CliqueConfig:CreateBackdrop("Transparent")
-	CliqueConfig.backdrop:Styling()
+	_G.CliqueConfig:StripTextures()
+	_G.CliqueConfig:CreateBackdrop("Transparent")
+	_G.CliqueConfig.backdrop:Styling()
 
-	CliqueConfigPage1Column1:StripTextures()
-	CliqueConfigPage1Column2:StripTextures()
-	CliqueConfigInset:StripTextures()
-	CliqueConfigPage1_VSlider:StripTextures()
+	_G.CliqueConfigPage1Column1:StripTextures()
+	_G.CliqueConfigPage1Column2:StripTextures()
+	_G.CliqueConfigInset:StripTextures()
+	_G.CliqueConfigPage1_VSlider:StripTextures()
 
-	CliqueClickGrabber:StripTextures()
-	CliqueClickGrabber:CreateBackdrop("Overlay")
-	CliqueClickGrabber.backdrop:SetPoint("TOPLEFT", -1, 0)
-	CliqueClickGrabber.backdrop:SetPoint("BOTTOMRIGHT", 2, 3)
+	_G.CliqueClickGrabber:StripTextures()
+	_G.CliqueClickGrabber:CreateBackdrop("Overlay")
+	_G.CliqueClickGrabber.backdrop:SetPoint("TOPLEFT", -1, 0)
+	_G.CliqueClickGrabber.backdrop:SetPoint("BOTTOMRIGHT", 2, 3)
 
-	CliqueDialog:StripTextures()
-	CliqueDialog:SetTemplate("Transparent")
+	_G.CliqueDialog:StripTextures()
+	_G.CliqueDialog:SetTemplate("Transparent")
 
-	CliqueConfigCloseButton:StripTextures()
-	S:HandleCloseButton(CliqueConfigCloseButton)
-	if CliqueDialog.CloseButton then S:HandleCloseButton(CliqueDialog.CloseButton) end
-	if CliqueDialogCloseButton then S:HandleCloseButton(CliqueDialogCloseButton) end
+	_G.CliqueConfigCloseButton:StripTextures()
+	S:HandleCloseButton(_G.CliqueConfigCloseButton)
+	if _G.CliqueDialog.CloseButton then S:HandleCloseButton(_G.CliqueDialog.CloseButton) end
+	if _G.CliqueDialogCloseButton then S:HandleCloseButton(_G.CliqueDialogCloseButton) end
 
-	MERS:Reskin(CliqueConfigPage1ButtonOptions)
-	MERS:Reskin(CliqueConfigPage1ButtonOther)
-	MERS:Reskin(CliqueConfigPage1ButtonSpell)
-	MERS:Reskin(CliqueConfigPage2ButtonBinding)
-	MERS:Reskin(CliqueConfigPage2ButtonSave)
-	MERS:Reskin(CliqueConfigPage2ButtonCancel)
-	MERS:Reskin(CliqueDialogButtonBinding)
-	MERS:Reskin(CliqueDialogButtonAccept)
+	MERS:Reskin(_G.CliqueConfigPage1ButtonOptions)
+	MERS:Reskin(_G.CliqueConfigPage1ButtonOther)
+	MERS:Reskin(_G.CliqueConfigPage1ButtonSpell)
+	MERS:Reskin(_G.CliqueConfigPage2ButtonBinding)
+	MERS:Reskin(_G.CliqueConfigPage2ButtonSave)
+	MERS:Reskin(_G.CliqueConfigPage2ButtonCancel)
+	MERS:Reskin(_G.CliqueDialogButtonBinding)
+	MERS:Reskin(_G.CliqueDialogButtonAccept)
 
-	CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)
-	CliqueSpellTab:GetNormalTexture():SetTexCoord(0.1, 0.9, 0.1, 0.9)
-	CliqueSpellTab:GetNormalTexture():ClearAllPoints()
-	CliqueSpellTab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-	CliqueSpellTab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-	CliqueSpellTab:CreateBackdrop("Default")
-	CliqueSpellTab.backdrop:SetAllPoints()
-	CliqueSpellTab:StyleButton()
+	_G.CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)
+	_G.CliqueSpellTab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+	_G.CliqueSpellTab:GetNormalTexture():ClearAllPoints()
+	_G.CliqueSpellTab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
+	_G.CliqueSpellTab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
+	_G.CliqueSpellTab:CreateBackdrop("Default")
+	_G.CliqueSpellTab.backdrop:SetAllPoints()
+	_G.CliqueSpellTab:StyleButton()
 
-	CliqueConfigPage1:SetScript("OnShow", function(self)
+	_G.CliqueConfigPage1:SetScript("OnShow", function(self)
 		for i = 1, 12 do
 			if _G["CliqueRow"..i] then
-				_G["CliqueRow"..i.."Icon"]:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+				_G["CliqueRow"..i.."Icon"]:SetTexCoord(unpack(E.TexCoords))
 				_G["CliqueRow"..i.."Bind"]:ClearAllPoints()
-				if _G["CliqueRow"..i] == CliqueRow1 then
+				if _G["CliqueRow"..i] == _G.CliqueRow1 then
 					_G["CliqueRow"..i.."Bind"]:SetPoint("RIGHT", _G["CliqueRow"..i], 8, 0)
 				else
 					_G["CliqueRow"..i.."Bind"]:SetPoint("RIGHT", _G["CliqueRow"..i], -8, 0)
 				end
 			end
 		end
-		CliqueRow1:ClearAllPoints()
-		CliqueRow1:SetPoint("TOPLEFT", 5, -(CliqueConfigPage1Column1:GetHeight() + 3))
+		_G.CliqueRow1:ClearAllPoints()
+		_G.CliqueRow1:SetPoint("TOPLEFT", 5, -(_G.CliqueConfigPage1Column1:GetHeight() + 3))
 	end)
 end
 
-S:AddCallbackForAddon("BugSack", "mUIClique", styleClique)
+S:AddCallbackForAddon("BugSack", "mUIClique", LoadAddOnSkin)

@@ -91,7 +91,7 @@ end
 function module:Construct_AuraIcon(button)
 	-- Creates an own font element for caster name
 	if not button.cc_name then
-		button.cc_name = button:CreateFontString("OVERLAY")
+		button.cc_name = button:CreateFontString(nil, "OVERLAY")
 		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
 		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")

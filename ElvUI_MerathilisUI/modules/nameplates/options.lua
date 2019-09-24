@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local NP = E:GetModule("NamePlates")
 
 --Cache global variables
@@ -11,7 +10,7 @@ local tinsert = table.insert
 local function NameplatesTable()
 	E.Options.args.mui.args.modules.args.nameplates = {
 		type = "group",
-		name = E.NewSign..L["NamePlates"],
+		name = L["NamePlates"],
 		order = 16,
 		get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
@@ -26,19 +25,14 @@ local function NameplatesTable()
 				type = "description",
 				name = "",
 			},
-			castbarTarget = {
-				order = 2,
-				type = "toggle",
-				name = L["Castbar Target"],
-			},
 			castbarShield  = {
-				order = 3,
+				order = 2,
 				type = "toggle",
 				name = L["Castbar Shield"],
 				desc = L["Show a shield icon on the castbar for non interruptible spells."],
 			},
-			spacer = {
-				order = 4,
+			spacer1 = {
+				order = 3,
 				type = "description",
 				name = " ",
 				width = 'full',
@@ -46,7 +40,7 @@ local function NameplatesTable()
 			enhancedAuras = {
 				order = 10,
 				type = "group",
-				name = E.NewSign..L["Enhanced NameplateAuras"],
+				name = L["Enhanced NameplateAuras"],
 				guiInline = true,
 				get = function(info) return E.db.mui.nameplates.enhancedAuras[ info[#info] ] end,
 				set = function(info, value) E.db.mui.nameplates.enhancedAuras[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,

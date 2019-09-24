@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
 L["Combat State"] = true
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
-L["Show Merchant ItemLevel"] = true
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = true
 L["Desciption"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 
@@ -35,7 +33,6 @@ But if you install another Layout over mine, you must adjust it manually.
 L["Enable/Disable the Login Message in Chat"] = true
 
 -- Bags
-L["Transparent Slots"] = true
 L["Equipment Manager"] = true
 L["Equipment Set Overlay"] = true
 L["Show the associated equipment sets for the items in your bags (or bank)."] = true
@@ -58,7 +55,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
-L["Create a chat button to increase the chat size and chat menu button."] = true
+L["Create a chat button to increase the chat size."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Community Chat"] = true
@@ -130,12 +127,14 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
-L["Raid Info"] = true
-L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "오늘의 길드 메시지"
 L["LFG Member Info"] = true
+L["MISC_REPUTATION"] = "Reputation"
+L["MISC_PARAGON"] = "Paragon"
+L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
+L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
+L["Skip Azerite Animation"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -159,6 +158,7 @@ L["BattleOfDazaralor"] = "Battle Of Dazaralor"
 L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "진영"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "활성화된 아제라이트 능력"
+L["Only Icons"] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -190,6 +190,7 @@ L["Middle Datatext Panel"] = true
 L["Right Click"] = true
 L["Toggle ActionBar"] = true
 L["Toggle Middle DT"] = true
+L["Dura."] = true
 
 -- DataBars
 L["DataBars"] = true
@@ -197,9 +198,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = true
-L["Transparent Backdrops"] = true
-L["Specialisation Bar"] = true
+L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
 L["Clean Boss Button"] = true
 L["Auto Buttons"] = true
@@ -207,6 +206,10 @@ L["Bind Font Size"] = true
 L["Trinket Buttons"] = true
 L["Color by Quality"] = true
 L["Quest Buttons"] = true
+L["Blacklist Item"] = true
+L["Whitelist Item"] = true
+L["Add Item ID"] = true
+L["Delete Item ID"] = true
 
 -- Armory
 L["Armory"] = true
@@ -378,10 +381,7 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["Bar Backdrop"] = true
-L["Move Tracker Icon"] = true
-L["Move Queue Status Icon"] = true
-L["Reverse Direction"] = true
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
 
 --Raid Marks
 L["Raid Markers"] = true
@@ -404,6 +404,14 @@ L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
 L["Shows the pixel glow on missing raidbuffs."] = true
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
+L["Pull Timer Count"] = true
+L["Change the Pulltimer for DBM or BigWigs"] = true
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -454,7 +462,6 @@ L["Fri"] = true
 L["Sat"] = true
 
 -- Nameplates
-L["Castbar Target"] = true
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true
@@ -499,9 +506,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = true
 L["Please click the button below to apply the new layout."] = true
 L["Please click the button below to setup your chat windows."] = true
-L["Please click the button below |cff07D400twice|r to setup your actionbars."] = true
+L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = true
-L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = true
+L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = true
 L["DataTexts"] = true
 L["Setup Chat"] = true
@@ -533,10 +540,13 @@ Please note that some of these options will be |cff636363disabled|r if the addon
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
+L["Enable/Disable"] = true
+L["decor."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

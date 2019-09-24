@@ -15,7 +15,6 @@ local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local UIFrameFadeIn = UIFrameFadeIn
 local IsAddOnLoaded = IsAddOnLoaded
 
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: button, modelHolder, playerModel, npcHolder, npcModel, LibStub
 
 -- Credit for the Class logos: ADDOriN @DevianArt

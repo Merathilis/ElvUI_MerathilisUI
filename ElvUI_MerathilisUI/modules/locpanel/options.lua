@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local LP = MER:GetModule("LocPanel")
 
 --Cache global variables
@@ -17,14 +16,14 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 local function LocPanelTable()
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
-		name = LP.modName,
+		name = L["Location Panel"],
 		order = 16,
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(LP.modName),
+				name = MER:cOption(L["Location Panel"]),
 			},
 			credits = {
 				order = 2,
@@ -36,14 +35,14 @@ local function LocPanelTable()
 						order = 1,
 						type = "description",
 						fontSize = "medium",
-						name = format("|cff9482c9Shadow&Light - Darth Predator|r"),
+						name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
 					},
 				},
 			},
 			panel = {
 				order = 3,
 				type = "group",
-				name = MER:cOption(LP.modName),
+				name = MER:cOption(L["Location Panel"]),
 				guiInline = true,
 				args = {
 					enable = {

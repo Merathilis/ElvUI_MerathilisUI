@@ -1,6 +1,6 @@
 ## Interface: 80200
 ## Author: Merathilis
-## Version: 4.27
+## Version: 4.32
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -10,8 +10,8 @@
 ## SavedVariablesPerCharacter: MERDataPerChar
 ## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, NihilisticPandemonium, Darth Predator, fgprodigal, siweia, Solor, Elv & all AddOn Authors who inspired me.
-## X-ElvVersion: 11.20
-## X-Curse-Packaged-Version: 4.27
+## X-ElvVersion: 11.22
+## X-Curse-Packaged-Version: 4.32
 ## X-Curse-Project-Name: MerathilisUI
 ## X-Curse-Project-ID: merathilis-ui
 ## X-Tukui-ProjectID: 1
@@ -19,10 +19,10 @@
 
 libs\load_libs.xml
 locales\load_locales.xml
-core\load_core.xml
+Init.lua
 settings\load_settings.xml
-developer\load_developer.xml
-modules\load_modules.xml
-layout\layout.lua
+core\load_core.xml
 media\load_media.xml
+modules\load_modules.xml
+layout\load_layout.xml
 Bindings.xml

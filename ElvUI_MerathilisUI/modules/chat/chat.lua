@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
 local MERS = MER:GetModule("muiSkins")
 local CH = E:GetModule("Chat")
-module.modName = L["Chat"]
 
 -- Cache global variables
 -- Lua functions
@@ -83,13 +82,12 @@ end
 
 function module:StyleChat()
 	-- Style the chat
-	_G["LeftChatPanel"].backdrop:Styling()
-	_G["RightChatPanel"].backdrop:Styling()
+	_G.LeftChatPanel.backdrop:Styling()
+	_G.RightChatPanel.backdrop:Styling()
 end
 
 -- Hide communities chat. Useful for streamers
 -- Credits Nnogga
-
 local commOpen = CreateFrame("Frame", nil, UIParent)
 commOpen:RegisterEvent("ADDON_LOADED")
 commOpen:RegisterEvent("CHANNEL_UI_UPDATE")
@@ -161,6 +159,7 @@ function module:Initialize()
 	self:EasyChannel()
 	self:StyleChat()
 	self:ChatBar()
+	self:ChatFilter()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"

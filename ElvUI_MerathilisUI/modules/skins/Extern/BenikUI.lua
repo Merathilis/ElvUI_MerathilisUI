@@ -10,7 +10,7 @@ local pairs = pairs
 local CreateFrame = CreateFrame
 -- GLOBALS:
 
-local function styleBenikUI()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.bui ~= true then return; end
 
 	local BuiLeftChatDTPanel = _G.BuiLeftChatDTPanel
@@ -49,4 +49,4 @@ local function styleBenikUI()
 	end)
 end
 
-S:AddCallbackForAddon("ElvUI_BenikUI", "mUIBenikUI", styleBenikUI)
+S:AddCallbackForAddon("ElvUI_BenikUI", "mUIBenikUI", LoadAddOnSkin)

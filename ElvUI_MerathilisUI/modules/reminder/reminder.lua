@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("Reminder", "AceEvent-3.0", "AceTimer-3.0")
 local LCG = LibStub('LibCustomGlow-1.0')
 local S = E:GetModule("Skins")
-module.modName = L["Reminder"]
 
 -- Cache global variables
 -- Lua functions
@@ -369,7 +368,6 @@ function module:CreateReminder(name, index)
 	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name
-	E:CreateMover(frame, "MER_ReminderMover", L["Reminders"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,reminder')
 
 	frame.icon = frame:CreateTexture(nil, "OVERLAY")
 	frame.icon:SetAllPoints()

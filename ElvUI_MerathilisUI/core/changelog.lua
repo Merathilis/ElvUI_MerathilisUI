@@ -17,14 +17,16 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Update some skins",
-		"• Update Azerite Armor Tooltip",
-		"• Hide the RaidManager during Pet Battles",
-		"• Removed WeakAuras Skin",
-
+		"• Fixed EncounterJournal Tab backdrop",
+		"• Fixed AutoButton Usable Button color options",
+		"• Added an own Minimap Difficulty Indicator => Text",
+		"• Added combat hide option for Minimap Buttons",
+		"• Added own Durability DataText = > MUI Durability",
+		"• Added new Style Panels under my existing Panels",
 		-- "• ''",
 	" ",
 	"Notes:",
+		"• As always, if you want my latest layout, do the install progress again",
 		-- "• ''",
 }
 

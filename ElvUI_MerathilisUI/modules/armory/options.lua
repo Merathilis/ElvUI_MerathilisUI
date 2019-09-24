@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERAY = MER:GetModule('MERArmory')
 
 --Cache global variables
@@ -23,7 +22,7 @@ local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		order = 3,
-		name = MERAY.modName,
+		name = L["Armory"],
 		childGroups = 'tab',
 		disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
@@ -32,7 +31,7 @@ local function ArmoryTable()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(MERAY.modName),
+				name = MER:cOption(L["Armory"]),
 			},
 			enable = {
 				type = "toggle",
@@ -45,18 +44,11 @@ local function ArmoryTable()
 				order = 3,
 				name = L["Azerite Buttons"],
 				desc = L["Enable/Disable the Azerite Buttons on the character window."],
-
 			},
 			undressButton = {
 				type = "toggle",
 				order = 4,
 				name = L["Undress Button"],
-			},
-			gradient = {
-				type = "toggle",
-				order = 7,
-				name = L["Slot Gradient"],
-				desc = L["Shows a gradiation texture on the Character Slots."],
 			},
 			spacer = {
 				type = "description",

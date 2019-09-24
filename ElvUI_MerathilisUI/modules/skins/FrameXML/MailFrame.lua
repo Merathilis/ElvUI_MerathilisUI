@@ -33,7 +33,7 @@ local function styleMail()
 			MiniMapMailFrame.highlight:SetAllPoints(MiniMapMailFrame)
 			MiniMapMailFrame.highlight:SetFrameLevel(MiniMapMailFrame:GetFrameLevel() + 1)
 
-			MiniMapMailFrame.highlight.tex = MiniMapMailFrame.highlight:CreateTexture("OVERLAY")
+			MiniMapMailFrame.highlight.tex = MiniMapMailFrame.highlight:CreateTexture()
 			MiniMapMailFrame.highlight.tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Mail")
 			MiniMapMailFrame.highlight.tex:SetPoint("TOPLEFT", _G.MiniMapMailIcon, "TOPLEFT", -2, 2)
 			MiniMapMailFrame.highlight.tex:SetPoint("BOTTOMRIGHT", _G.MiniMapMailIcon, "BOTTOMRIGHT", 2, -2)

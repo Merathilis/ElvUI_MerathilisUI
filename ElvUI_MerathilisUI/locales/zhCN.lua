@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启�
 L["Options"] = "选项"
 L["Combat State"] = "战斗状态"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "如果你进入/离开战斗，启用/禁用'+'/'-'战斗信息."
-L["Show Merchant ItemLevel"] = "显示商人物品等级"
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "在商人框体上显示物品等级, 更改字体你需要在ElvUI-背包-物品等级"
 L["Desciption"] = "描述"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 
@@ -35,7 +33,6 @@ L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 L["Enable/Disable the Login Message in Chat"] = "在聊天框中启用/禁用登录消息"
 
 -- Bags
-L["Transparent Slots"] = "透明插槽"
 L["Equipment Manager"] = "装备管理"
 L["Equipment Set Overlay"] = "套装覆盖"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "为你背包(银行)中的物品显示关联的套装."
@@ -44,10 +41,10 @@ L["Show the associated equipment sets for the items in your bags (or bank)."] = 
 L["CHAT_AFK"] = "[AFK]"
 L["CHAT_DND"] = "[DND]"
 L["BACK"] = "后退"
-L["has come |cff298F00online|r."] = "来了 |cff298F00在线|r." -- Guild Message
-L["has gone |cffff0000offline|r."] = "走了 |cffff0000离线|r." -- Guild Message
-L[" has come |cff298F00online|r."] = "来了 |cff298F00在线|r." -- Battle.Net Message
-L[" has gone |cffff0000offline|r."] = "走了 |cffff0000离线|r." -- Battle.Net Message
+L["has come |cff298F00online|r."] = "|cff298F00上线|r." -- Guild Message
+L["has gone |cffff0000offline|r."] = "|cffff0000离线|r." -- Guild Message
+L[" has come |cff298F00online|r."] = "|cff298F00上线|r." -- Battle.Net Message
+L[" has gone |cffff0000offline|r."] = "|cffff0000离线|r." -- Battle.Net Message
 L["|cFF00c0failvl|r: %d"] = true
 L["|CFF1EFF00%s|r |CFFFF0000Sold.|r"] = "|CFF1EFF00%s|r |CFFFF0000出售.|r"
 L["Requires level: %d - %d"] = "需要等级: %d - %d"
@@ -58,7 +55,7 @@ L["Chat Item Level"] = "聊天物品等级"
 L["Shows the slot and item level in the chat"] = "显示聊天中的插槽和物品等级"
 L["Expand the chat"] = "展开聊天框"
 L["Chat Menu"] = "聊天菜单"
-L["Create a chat button to increase the chat size and chat menu button."] = "创建聊天按钮以增加聊天大小和聊天菜单按钮."
+L["Create a chat button to increase the chat size."] = true
 L["Hide Player Brackets"] = "隐藏玩家括号"
 L["Removes brackets around the person who posts a chat message."] = "删除聊天框中玩家名字两边的括号."
 L["Hide Community Chat"] = "隐藏社区聊天"
@@ -132,12 +129,14 @@ L["Flashing Cursor"] = "鼠标闪光"
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
-L["Raid Info"] = "团队信息"
-L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r is out of date, the latest version is |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
+L["MISC_REPUTATION"] = "Reputation"
+L["MISC_PARAGON"] = "Paragon"
+L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
+L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
+L["Skip Azerite Animation"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -161,6 +160,7 @@ L["BattleOfDazaralor"] = "达萨罗之战"
 L["CrucibleOfStorms"] = "风暴熔炉"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
+L["Only Icons"] = true
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "收件箱大小调整"
@@ -192,6 +192,7 @@ L["Middle Datatext Panel"] = "中间的信息面板"
 L["Right Click"] = true
 L["Toggle ActionBar"] = true
 L["Toggle Middle DT"] = true
+L["Dura."] = true
 
 -- DataBars
 L["DataBars"] = "数据条"
@@ -199,9 +200,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底�
 L["Style DataBars"] = "样式数据条"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "为所有动作条的背景和按钮应用透明度"
-L["Transparent Backdrops"] = "透明背景"
-L["Specialisation Bar"] = "专业条"
+L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
 L["Clean Boss Button"] = true
 L["Auto Buttons"] = "自动按钮"
@@ -209,6 +208,10 @@ L["Bind Font Size"] = "绑定字体大小"
 L["Trinket Buttons"] = "饰品按钮"
 L["Color by Quality"] = "品质颜色"
 L["Quest Buttons"] = "任务按钮"
+L["Blacklist Item"] = true
+L["Whitelist Item"] = true
+L["Add Item ID"] = true
+L["Delete Item ID"] = true
 
 -- Armory
 L["Armory"] = true
@@ -380,10 +383,7 @@ L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
 -- SMB
-L["Bar Backdrop"] = "条背景"
-L["Move Tracker Icon"] = "移动追踪图标"
-L["Move Queue Status Icon"] = "移动队列状态图标"
-L["Reverse Direction"] = true
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
@@ -406,6 +406,14 @@ L["Class Specific Buffs"] = "职业专精BUFF"
 L["Shows all the class specific raid buffs."] = "显示所有的职业专精团队增益BUFF"
 L["Change the alpha level of the icons."] = "改变图标的透明等级."
 L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示一个像素发光."
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
+L["Pull Timer Count"] = true
+L["Change the Pulltimer for DBM or BigWigs"] = true
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
@@ -456,7 +464,6 @@ L["Fri"] = "星期五"
 L["Sat"] = "星期六"
 
 -- Nameplates
-L["Castbar Target"] = "施法条目标"
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true
@@ -501,9 +508,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
 L["Please click the button below to apply the new layout."] = "请单击下面的按钮以应用新布局."
 L["Please click the button below to setup your chat windows."] = "请单击下面的按钮设置聊天窗口."
-L["Please click the button below |cff07D400twice|r to setup your actionbars."] = "请点击下面的按钮|cff07D400两次|r来设置你的动作条."
+L["Please click the button below to setup your actionbars."] = true
 L["Please click the button below to setup your datatexts."] = "请单击下面的按钮来设置数据文本."
-L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = "请点击下面的按钮|cff07D400两次|r来设置你的单位框体."
+L["Please click the button below to setup your Unitframes."] = true
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
 L["DataTexts"] = "数据文本"
 L["Setup Datatexts"] = "设置数据文本"
@@ -534,10 +541,13 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["MerathilisUI Panels"] = "MerathilisUI 面板"
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
+L["Enable/Disable"] = true
+L["decor."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

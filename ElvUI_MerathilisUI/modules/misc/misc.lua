@@ -1,8 +1,7 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local module = MER:NewModule("mUIMisc", "AceHook-3.0", "AceEvent-3.0")
+local module = MER:NewModule("mUIMisc", 'AceEvent-3.0', 'AceHook-3.0')
 local S = E:GetModule("Skins")
-module.modName = L["Misc"]
 
 -- Cache global variables
 -- Lua functions
@@ -33,7 +32,6 @@ local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
 -- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
 -- GLOBALS: LE_PET_JOURNAL_FILTER_NOT_COLLECTED, WorldMapZoomOutButton_OnClick, UnitPowerBarAltStatus_UpdateText
@@ -190,9 +188,9 @@ function module:Initialize()
 	self:LoadQuest()
 	self:LoadnameHover()
 	self:ItemLevel()
-	self:CreateRaidManager()
 	self:GuildBest()
 	self:AddAlerts()
+	self:ReputationInit()
 end
 
 MER:RegisterModule(module:GetName())

@@ -11,37 +11,36 @@ local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS: BugSack, BugSackFrame, BugSackTabAll
 
-local function styleBugSack(event, addon)
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.bs ~= true then return end
 
+	hooksecurefunc(_G.BugSack, "OpenSack", function()
+		if not _G.BugSack.IsSkinned then
+			_G.BugSackFrame:StripTextures()
 
-	hooksecurefunc(BugSack, "OpenSack", function()
-		if not BugSack.IsSkinned then
-			BugSackFrame:StripTextures()
+			_G.BugSackFrame:CreateBackdrop("Transparent")
+			_G.BugSackFrame.backdrop:Styling()
 
-			BugSackFrame:CreateBackdrop("Transparent")
-			BugSackFrame.backdrop:Styling()
+			_G.BugSackTabAll:ClearAllPoints()
+			_G.BugSackTabAll:SetPoint("TOPLEFT", _G.BugSackFrame, "BOTTOMLEFT", 0, -1)
 
-			BugSackTabAll:ClearAllPoints()
-			BugSackTabAll:SetPoint("TOPLEFT", BugSackFrame, "BOTTOMLEFT", 0, -1)
+			S:HandleTab(_G.BugSackTabAll)
+			S:HandleTab(_G.BugSackTabSession)
+			S:HandleTab(_G.BugSackTabLast)
+			S:HandleScrollBar(_G.BugSackScrollScrollBar)
+			S:HandleButton(_G.BugSackNextButton)
+			S:HandleButton(_G.BugSackSendButton)
+			S:HandleButton(_G.BugSackPrevButton)
 
-			S:HandleTab(BugSackTabAll)
-			S:HandleTab(BugSackTabSession)
-			S:HandleTab(BugSackTabLast)
-			S:HandleScrollBar(BugSackScrollScrollBar)
-			S:HandleButton(BugSackNextButton)
-			S:HandleButton(BugSackSendButton)
-			S:HandleButton(BugSackPrevButton)
-
-			for _, child in pairs({ BugSackFrame:GetChildren() }) do
-				if (child:IsObjectType("Button") and child:GetScript("OnClick") == BugSack.CloseSack) then
+			for _, child in pairs({ _G.BugSackFrame:GetChildren() }) do
+				if (child:IsObjectType("Button") and child:GetScript("OnClick") == _G.BugSack.CloseSack) then
 					S:HandleCloseButton(child)
 				end
 			end
 
-			BugSack.IsSkinned = true
+			_G.BugSack.IsSkinned = true
 		end
 	end)
 end
 
-S:AddCallbackForAddon("BugSack", "mUIBugSack", styleBugSack)
+S:AddCallbackForAddon("BugSack", "mUIBugSack", LoadAddOnSkin)

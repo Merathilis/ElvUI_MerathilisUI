@@ -40,10 +40,12 @@ local garrisonsc = {114116, 114119, 114120, 120301, 120302}
 
 _G.BINDING_HEADER_MER_AutoSlotButton = MER.Title..L["soltAutoButtons"]
 _G.BINDING_HEADER_MER_AutoQuestButton = MER.Title..L["questAutoButtons"]
+_G.BINDING_HEADER_MER_AutoUsableButton = MER.Title..L["usableAutoButtons"]
 
 for i = 1, 12 do
 	_G["BINDING_NAME_CLICK AutoSlotButton"..i..":LeftButton"] = L["soltAutoButtons"]..i
 	_G["BINDING_NAME_CLICK AutoQuestButton"..i..":LeftButton"] = L["questAutoButtons"]..i
+	_G["BINDING_NAME_CLICK AutoUsableButton"..i..":LeftButton"] = L["usableAutoButtons"]..i
 end
 
 local function GetQuestItemList()
@@ -104,6 +106,7 @@ local function HaveIt(num, spellName)
 			return false
 		end
 	end
+
 	return true
 end
 
@@ -123,6 +126,7 @@ end
 
 local function AutoButtonHide(AutoButton)
 	if not AutoButton then return end
+
 	AutoButton:SetAlpha(0)
 	if not InCombatLockdown() then
 		AutoButton:EnableMouse(false)
@@ -143,13 +147,19 @@ local function HideAllButton(event)
 	for i = k, 12 do
 		AutoButtonHide(_G["AutoQuestButton" .. i])
 	end
+
 	for i = 1, 12 do
 		AutoButtonHide(_G["AutoSlotButton" .. i])
+	end
+
+	for i = 1, 12 do
+		AutoButtonHide(_G["AutoUsableButton" .. i])
 	end
 end
 
 local function AutoButtonShow(AutoButton)
 	if not AutoButton then return end
+
 	AutoButton:SetAlpha(1)
 	AutoButton:SetScript("OnEnter", function(self)
 		if InCombatLockdown() then return end
@@ -198,12 +208,14 @@ local function CreateButton(name, size)
 		_G[name]:Size(size)
 		_G[name].Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
 		_G[name].HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
+
 		return _G[name]
 	end
 
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
 	AutoButton:StyleButton()
+	AutoButton:SetTemplate()
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")
 	AutoButton:SetAlpha(0)
@@ -213,7 +225,7 @@ local function CreateButton(name, size)
 	AutoButton.Texture = AutoButton:CreateTexture(nil, "OVERLAY", nil)
 	AutoButton.Texture:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
 	AutoButton.Texture:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
-	AutoButton.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+	AutoButton.Texture:SetTexCoord(unpack(E.TexCoords))
 
 	AutoButton.Count = AutoButton:CreateFontString(nil, "OVERLAY")
 	AutoButton.Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
@@ -246,33 +258,59 @@ function module:ScanItem(event)
 	GetWorldQuestItemList("init")
 
 	local questItemIDList = {}
+	local usableItemIDList = {}
 	local minimapZoneText = GetMinimapZoneText()
+
+	-- Garrison related
 	if minimapZoneText == L["Alliance Mine"] or minimapZoneText == L["Horde Mine"] then
 		for i = 1, #garrisonsmv do
 			local count = GetItemCount(garrisonsmv[i])
-			if count and (count > 0) then
+			if count and (count > 0) and (not db.blackList[garrisonsmv[i]]) then
 				tinsert(questItemIDList, garrisonsmv[i])
 			end
 		end
 	elseif minimapZoneText == L["Salvage Yard"] then
 		for i = 1, #garrisonsc do
 			local count = GetItemCount(garrisonsc[i])
-			if count and (count > 0) then
+			if count and (count > 0) and (not db.blackList[garrisonsc[i]]) then
 				tinsert(questItemIDList, garrisonsc[i])
 			end
 		end
-	else
-		for k, v in pairs(QuestItemList) do
-			if (not QuestItemList[k].isComplete) or (QuestItemList[k].isComplete and QuestItemList[k].showItemWhenComplete) then
+	end
+
+	-- Quest Items
+	for k, v in pairs(QuestItemList) do
+		if (not QuestItemList[k].isComplete) or (QuestItemList[k].isComplete and QuestItemList[k].showItemWhenComplete) then
+			if not db.blackList[k] then
 				tinsert(questItemIDList, k)
 			end
 		end
-		if GetItemCount(123866) and (GetItemCount(123866) >= 5) and (C_Map_GetBestMapForUnit("player") == 945) then
-			tinsert(questItemIDList, 123866)
+	end
+
+	-- Usable Items
+	for k, v in pairs(db.whiteList) do
+		local count = GetItemCount(k)
+		if count and (count > 0) and v and (not db.blackList[k]) then
+			tinsert(usableItemIDList, k)
 		end
 	end
 
+	if GetItemCount(123866) and (GetItemCount(123866) >= 5) and (not db.blackList[123866]) and (C_Map_GetBestMapForUnit("player") == 945) then
+		tinsert(usableItemIDList, 123866)
+	end
+
+	-- Sort our tables
 	tsort(questItemIDList, function(v1, v2)
+		local itemType1 = select(7, GetItemInfo(v1))
+		local itemType2 = select(7, GetItemInfo(v2))
+		if itemType1 and itemType2 then
+			return itemType1 > itemType2
+		else
+			return v1 > v2
+		end
+	end)
+
+	tsort(usableItemIDList, function(v1, v2)
 		local itemType1 = select(7, GetItemInfo(v1))
 		local itemType2 = select(7, GetItemInfo(v2))
 		if itemType1 and itemType2 then
@@ -301,18 +339,17 @@ function module:ScanItem(event)
 			AutoButton.questLogIndex = QuestItemList[itemID] and QuestItemList[itemID].questLogIndex or -1
 			AutoButton.spellName = IsUsableItem(itemID)
 			AutoButton:SetBackdropBorderColor(nil)
-			local r, g, b, colorDB
 			if db.questAutoButtons["questBBColorByItem"] then
-				if rarity and rarity > LE_ITEM_QUALITY_COMMON then
-					r, g, b = GetItemQualityColor(rarity)
+				if rarity and rarity > _G.LE_ITEM_QUALITY_COMMON then
+					local r, g, b = GetItemQualityColor(rarity)
 					AutoButton:SetBackdropBorderColor(r, g, b)
-					AutoButton.ignoreBorderColors = true
+				else
+					AutoButton:SetBackdropBorderColor(1, 1, 1)
 				end
 			else
-				colorDB = db.questAutoButtons["questBBColor"]
-				r, g, b = colorDB.r, colorDB.g, colorDB.b
+				local colorDB = db.questAutoButtons["questBBColor"]
+				local r, g, b = colorDB.r, colorDB.g, colorDB.b
 				AutoButton:SetBackdropBorderColor(r, g, b)
-				AutoButton.ignoreBorderColors = true
 			end
 
 			if count and count > 1 then
@@ -345,7 +382,7 @@ function module:ScanItem(event)
 	if db.soltAutoButtons["enable"] == true and db.soltAutoButtons["slotNum"] > 0 then
 		for w = 1, 18 do
 			local slotID = GetInventoryItemID("player", w)
-			if slotID and IsSlotItem(slotID) then
+			if slotID and IsSlotItem(slotID) and not db.blackList[slotID] then
 				local itemName, _, rarity = GetItemInfo(slotID)
 				local itemIcon = GetInventoryItemTexture("player", w)
 				num = num + 1
@@ -353,16 +390,22 @@ function module:ScanItem(event)
 
 				local AutoButton = _G["AutoSlotButton" .. num]
 				if not AutoButton then break end
+
 				AutoButton:SetBackdropBorderColor(nil)
-				local iLvl,_,_,_,iLvlColor = E:GetGearSlotInfo("player", w, true)
-				if iLvlColor and db.soltAutoButtons["slotBBColorByItem"] then
-					AutoButton:SetBackdropBorderColor(unpack(iLvlColor))
+				local r, g, b, colorDB
+				if db.soltAutoButtons["slotBBColorByItem"] then
+					if rarity then
+						r, g, b = GetItemQualityColor(rarity)
+						AutoButton:SetBackdropBorderColor(r, g, b)
+						AutoButton.ignoreBorderColors = true
+					end
 				else
-					local colorDB = db.soltAutoButtons["slotBBColor"]
-					local r, g, b = colorDB.r, colorDB.g, colorDB.b
+					colorDB = db.soltAutoButtons["slotBBColor"]
+					r, g, b = colorDB.r, colorDB.g, colorDB.b
 					AutoButton:SetBackdropBorderColor(r, g, b)
+					AutoButton.ignoreBorderColors = true
 				end
-				AutoButton.ignoreBorderColors = true
+
 				AutoButton.Texture:SetTexture(itemIcon)
 				AutoButton.Count:SetText("")
 				AutoButton.slotID = w
@@ -377,18 +420,85 @@ function module:ScanItem(event)
 			end
 		end
 	end
+
+	if db.usableAutoButtons["enable"] == true and db.usableAutoButtons["usableNum"] > 0 then
+		for i = 1, #usableItemIDList do
+			local itemID = usableItemIDList[i]
+			local itemName, _, rarity = GetItemInfo(itemID)
+
+			if i > db.usableAutoButtons["usableNum"] then break end
+
+			local AutoButton = _G["AutoUsableButton" .. i]
+			local count = GetItemCount(itemID, nil, 1)
+			local itemIcon = GetItemIcon(itemID)
+
+			if not AutoButton then break end
+			AutoButton.Texture:SetTexture(itemIcon)
+			AutoButton.itemName = itemName
+			AutoButton.itemID = itemID
+			AutoButton.spellName = IsUsableItem(itemID)
+			AutoButton:SetBackdropBorderColor(nil)
+			if db.usableAutoButtons["usableBBColorByItem"] then
+				if rarity and rarity > _G.LE_ITEM_QUALITY_COMMON then
+					local r, g, b = GetItemQualityColor(rarity)
+					AutoButton:SetBackdropBorderColor(r, g, b)
+				else
+					AutoButton:SetBackdropBorderColor(1, 1, 1)
+				end
+			else
+				local colorDB = db.usableAutoButtons["usableBBColor"]
+				local r, g, b = colorDB.r, colorDB.g, colorDB.b
+				AutoButton:SetBackdropBorderColor(r, g, b)
+			end
+
+			if count and count > 1 then
+				AutoButton.Count:SetText(count)
+			else
+				AutoButton.Count:SetText("")
+			end
+
+			AutoButton:SetScript("OnUpdate", function(self, elapsed)
+				local start, duration, enable
+				start, duration, enable = GetItemCooldown(self.itemID)
+				CooldownFrame_Set(self.Cooldown, start, duration, enable)
+				if (duration and duration > 0 and enable and enable == 0) then
+					self.Texture:SetVertexColor(0.4, 0.4, 0.4)
+				elseif IsItemInRange(itemID, "target") == 0 then
+					self.Texture:SetVertexColor(1, 0, 0)
+				else
+					self.Texture:SetVertexColor(1, 1, 1)
+				end
+			end)
+			AutoButtonShow(AutoButton)
+		end
+	end
 end
 
 local lastUpdate = 0
 function module:ScanItemCount(elapsed)
 	local db = E.db.mui.actionbars.autoButtons
 	lastUpdate = lastUpdate + elapsed
+
 	if lastUpdate < 0.5 then
 		return
 	end
+
 	lastUpdate = 0
 	for i = 1, db.questAutoButtons["questNum"] do
 		local f = _G["AutoQuestButton" .. i]
+		if f and f.itemName then
+			local count = GetItemCount(f.itemID, nil, 1)
+
+			if count and count > 1 then
+				f.Count:SetText(count)
+			else
+				f.Count:SetText("")
+			end
+		end
+	end
+
+	for i = 1, db.usableAutoButtons["usableNum"] do
+		local f = _G["AutoUsableButton" .. i]
 		if f and f.itemName then
 			local count = GetItemCount(f.itemID, nil, 1)
 
@@ -403,6 +513,7 @@ end
 
 function module:UpdateBind()
 	if not module.db then return end
+
 	if module.db.questAutoButtons["enable"] == true then
 		for i = 1, module.db.questAutoButtons["questNum"] do
 			local bindButton = "CLICK AutoQuestButton" .. i .. ":LeftButton"
@@ -436,15 +547,28 @@ function module:UpdateBind()
 			if button then button.HotKey:SetText(bindText) end
 		end
 	end
-end
 
-function module:PLAYER_SPECIALIZATION_CHANGED()
-	module.db = E.db.mui.actionbars.autoButtons
-	MER:RegisterDB(self, "autoButtons")
+	if module.db.usableAutoButtons["enable"] == true then
+		for i = 1, module.db.usableAutoButtons["usableNum"] do
+			local bindButton = "CLICK AutoUsableButton" .. i .. ":LeftButton"
+			local button = _G["AutoUsableButton" .. i]
+			local bindText = GetBindingKey(bindButton)
+			if not bindText then
+				bindText = ""
+			else
+				bindText = gsub(bindText, "SHIFT--", "S")
+				bindText = gsub(bindText, "CTRL--", "C")
+				bindText = gsub(bindText, "ALT--", "A")
+			end
+
+			if button then button.HotKey:SetText(bindText) end
+		end
+	end
 end
 
 function module:ToggleAutoButton()
 	if module.db["enable"] then
+		self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED", "ScanItem")
 		self:RegisterEvent("UNIT_INVENTORY_CHANGED", "ScanItem")
 		self:RegisterEvent("ZONE_CHANGED", "ScanItem")
 		self:RegisterEvent("ZONE_CHANGED_NEW_AREA", "ScanItem")
@@ -453,12 +577,14 @@ function module:ToggleAutoButton()
 		self:RegisterEvent("QUEST_LOG_UPDATE", GetQuestItemList)
 		self:RegisterEvent("QUEST_ACCEPTED", GetWorldQuestItemList)
 		self:RegisterEvent("QUEST_TURNED_IN", GetWorldQuestItemList)
+
 		if not module.Update then module.Update = CreateFrame("Frame") end
 		self.Update:SetScript("OnUpdate", module.ScanItemCount)
 		self:ScanItem("FIRST")
 		self:UpdateBind()
 	else
 		HideAllButton()
+		self:UnregisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 		self:UnregisterEvent("UNIT_INVENTORY_CHANGED")
 		self:UnregisterEvent("ZONE_CHANGED")
 		self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
@@ -472,6 +598,7 @@ end
 function module:UpdateAutoButton()
 	local i = 0
 	local lastButton, lastColumnButton, buttonsPerRow
+
 	if module.db.questAutoButtons["enable"] == true then
 		for i = 1, module.db.questAutoButtons["questNum"] do
 			local f = CreateButton("AutoQuestButton" .. i, module.db.questAutoButtons["questSize"])
@@ -489,7 +616,11 @@ function module:UpdateAutoButton()
 			elseif (i - 1) % buttonsPerRow == 0 then
 				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
 			else
-				f:Point("LEFT", lastButton, "RIGHT", 3, 0)
+				if module.db.questAutoButtons["questDirection"] == "RIGHT" then
+					f:Point("LEFT", lastButton, "RIGHT", module.db.questAutoButtons["questSpace"], 0)
+				elseif module.db.questAutoButtons["questDirection"] == "LEFT" then
+					f:Point("RIGHT", lastButton, "LEFT", -(module.db.questAutoButtons["questSpace"]), 0)
+				end
 			end
 		end
 	end
@@ -511,10 +642,41 @@ function module:UpdateAutoButton()
 			elseif (i - 1) % buttonsPerRow == 0 then
 				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
 			else
-				f:Point("LEFT", lastButton, "RIGHT", 3, 0)
+				if module.db.soltAutoButtons["slotDirection"] == "RIGHT" then
+					f:Point("LEFT", lastButton, "RIGHT", module.db.soltAutoButtons["slotSpace"], 0)
+				elseif module.db.soltAutoButtons["slotDirection"] == "LEFT" then
+					f:Point("RIGHT", lastButton, "LEFT", -(module.db.soltAutoButtons["slotSpace"]), 0)
+				end
 			end
 		end
 	end
+
+	if module.db.usableAutoButtons["enable"] == true then
+		for i = 1, module.db.usableAutoButtons["usableNum"] do
+			local f = CreateButton("AutoUsableButton" .. i, module.db.usableAutoButtons["usableSize"])
+			buttonsPerRow = module.db.usableAutoButtons["usablePerRow"]
+			lastButton = _G["AutoUsableButton" .. i - 1]
+			lastColumnButton = _G["AutoUsableButton" .. i - buttonsPerRow]
+
+			if module.db.usableAutoButtons["usableNum"] < module.db.usableAutoButtons["usablePerRow"] then
+				buttonsPerRow = module.db.usableAutoButtons["usableNum"]
+			end
+			f:ClearAllPoints()
+
+			if i == 1 then
+				f:Point("LEFT", _G.AutoButtonAnchor3, "LEFT", 0, 0)
+			elseif (i - 1) % buttonsPerRow == 0 then
+				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
+			else
+				if module.db.usableAutoButtons["usableDirection"] == "RIGHT" then
+					f:Point("LEFT", lastButton, "RIGHT", module.db.usableAutoButtons["usableSpace"], 0)
+				elseif module.db.usableAutoButtons["usableDirection"] == "LEFT" then
+					f:Point("RIGHT", lastButton, "LEFT", -(module.db.usableAutoButtons["usableSpace"]), 0)
+				end
+			end
+		end
+	end
+
 	self:ToggleAutoButton()
 end
 
@@ -532,15 +694,21 @@ function module:Initialize()
 
 	local AutoButtonAnchor = CreateFrame("Frame", "AutoButtonAnchor", UIParent)
 	AutoButtonAnchor:SetClampedToScreen(true)
-	AutoButtonAnchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
-	AutoButtonAnchor:Size(module.db.questAutoButtons["questNum"] > 0 and module.db.questAutoButtons["questSize"] * module.db.questAutoButtons["questNum"] or 260, module.db.questAutoButtons["questNum"] > 0 and module.db.questAutoButtons["questSize"] or 40)
-	E:CreateMover(AutoButtonAnchor, "AutoButtonAnchorMover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
+	AutoButtonAnchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
+	AutoButtonAnchor:Size(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
+	E:CreateMover(AutoButtonAnchor, "AutoButtonAnchorMover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db.enable end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
 	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
-	AutoButtonAnchor2:Size(module.db.soltAutoButtons["slotNum"] > 0 and module.db.soltAutoButtons["slotSize"] * module.db.soltAutoButtons["slotNum"] or 260, module.db.soltAutoButtons["slotNum"] > 0 and module.db.soltAutoButtons["slotSize"] or 40)
+	AutoButtonAnchor2:Size(module.db.soltAutoButtons.slotNum > 0 and module.db.soltAutoButtons.slotSize * module.db.soltAutoButtons.slotNum or 260, module.db.soltAutoButtons.slotNum > 0 and module.db.soltAutoButtons.slotSize or 40)
 	E:CreateMover(AutoButtonAnchor2, "AutoButtonAnchor2Mover", L["mUI AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
+
+	local AutoButtonAnchor3 = CreateFrame("Frame", "AutoButtonAnchor3", UIParent)
+	AutoButtonAnchor3:SetClampedToScreen(true)
+	AutoButtonAnchor3:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
+	AutoButtonAnchor3:Size(module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize * module.db.usableAutoButtons.usableNum or 260, module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize or 40)
+	E:CreateMover(AutoButtonAnchor3, "AutoButtonAnchor3Mover", L["mUI AutoButton Usables"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	self:UpdateAutoButton()
 end

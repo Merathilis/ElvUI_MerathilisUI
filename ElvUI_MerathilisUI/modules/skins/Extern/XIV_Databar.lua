@@ -9,7 +9,7 @@ local _G = _G
 -- WoW API / Variables
 -- GLOBALS:
 
-local function styleXIV_Databar()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.xiv ~= true then return end
 
 	local XIV_Databar = _G.XIV_Databar
@@ -24,4 +24,4 @@ local function styleXIV_Databar()
 	_G.portPopup:SetTemplate("Transparent")
 end
 
-S:AddCallbackForAddon("XIV_Databar", "mUIXIV_Databar", styleXIV_Databar)
+S:AddCallbackForAddon("XIV_Databar", "mUIXIV_Databar", LoadAddOnSkin)

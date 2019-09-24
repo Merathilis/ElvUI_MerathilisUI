@@ -3,7 +3,6 @@ local MERS = MER:GetModule("muiSkins")
 local module = MER:NewModule("Notification", "AceEvent-3.0")
 local CH = E:GetModule("Chat")
 local S = E:GetModule("Skins")
-module.modName = L["Notification"]
 
 -- Credits RealUI
 
@@ -20,6 +19,8 @@ local format, find, sub = string.format, string.find, string.sub
 local CreateFrame = CreateFrame
 local UnitIsAFK = UnitIsAFK
 local HasNewMail = HasNewMail
+local GetFactionInfoByID = GetFactionInfoByID
+local GetQuestLogCompletionText = GetQuestLogCompletionText
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetTime = GetTime
@@ -40,12 +41,11 @@ local PlaySound = PlaySound
 local C_Timer = C_Timer
 local CreateAnimationGroup = CreateAnimationGroup
 local SlashCmdList = SlashCmdList
-local Calendar_Toggle = Calendar_Toggle
+local ShowUIPanel = ShowUIPanel
 local IsInGroup, IsInRaid, IsPartyLFG = IsInGroup, IsInRaid, IsPartyLFG
 local MAIL_LABEL = MAIL_LABEL
 local HAVE_MAIL = HAVE_MAIL
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local UNKNOWN = UNKNOWN
 -- GLOBALS:
 
 local bannerWidth = 255
@@ -322,7 +322,6 @@ function module:UPDATE_PENDING_MAIL()
 end
 
 local showRepair = true
-
 local Slots = {
 	[1] = {1, INVTYPE_HEAD, 1000},
 	[2] = {3, INVTYPE_SHOULDER, 1000},
@@ -385,7 +384,7 @@ end
 
 local function toggleCalendar()
 	if not _G.CalendarFrame then LoadAddOn("Blizzard_Calendar") end
-	Calendar_Toggle()
+	ShowUIPanel(_G.CalendarFrame)
 end
 
 local function alertEvents()
@@ -462,6 +461,49 @@ function module:RESURRECT_REQUEST(name)
 	end
 end
 
+-- Credits: Paragon Reputation
+local PARAGON_QUESTS = { --[QuestID] = {factionID}
+	--Legion
+		[48976] = {2170}, -- Argussian Reach
+		[46777] = {2045}, -- Armies of Legionfall
+		[48977] = {2165}, -- Army of the Light
+		[46745] = {1900}, -- Court of Farondis
+		[46747] = {1883}, -- Dreamweavers
+		[46743] = {1828}, -- Highmountain Tribes
+		[46748] = {1859}, -- The Nightfallen
+		[46749] = {1894}, -- The Wardens
+		[46746] = {1948}, -- Valarjar
+
+	--Battle for Azeroth
+		--Neutral
+		[54453] = {2164}, --Champions of Azeroth
+		[55348] = {2391}, --Rustbolt Resistance
+		[54451] = {2163}, --Tortollan Seekers
+
+		--Horde
+		[54460] = {2156}, --Talanji's Expedition
+		[54455] = {2157}, --The Honorbound
+		[53982] = {2373}, --The Unshackled
+		[54461] = {2158}, --Voldunai
+		[54462] = {2103}, --Zandalari Empire
+
+		--Alliance
+		[54456] = {2161}, --Orber of Embers
+		[54458] = {2160}, --Proudmoore Admiralty
+		[54457] = {2162}, --Storm's Wake
+		[54454] = {2159}, --The 7th Legion
+		[55976] = {2400}, --Waveblade Ankoan
+}
+
+function module:QUEST_ACCEPTED(event, ...)
+	local questIndex, questID = ...
+	if module.db.paragon and PARAGON_QUESTS[questID] then
+		local name = format("|cff00c0fa%s|r", GetFactionInfoByID(PARAGON_QUESTS[questID][1])) or UNKNOWN
+		PlaySound(618, "Master") -- QUEST ADDED
+		self:DisplayToast(name, L["MISC_PARAGON_NOTIFY"], nil, "Interface\\Icons\\Achievement_Quests_Completed_08", .08, .92, .08, .92)
+	end
+end
+
 function module:Initialize()
 	module.db = E.db.mui.notification
 	MER:RegisterDB(self, "notification")
@@ -480,6 +522,7 @@ function module:Initialize()
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
 	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
+	self:RegisterEvent("QUEST_ACCEPTED")
 
 	self.lastMinimapRare = {time = 0, id = nil}
 end

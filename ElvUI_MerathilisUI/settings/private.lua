@@ -74,6 +74,8 @@ V.muiSkins = {
 		voidstorage = true,
 		AlliedRaces = true,
 		GMChat = true,
+		Archaeology = true,
+		AzeriteEssence = true,
 	},
 
 	addonSkins = {
@@ -88,6 +90,7 @@ V.muiSkins = {
 		dbm = true,
 		cl = true,
 		cbn = true,
+		et = true,
 	},
 
 	elvuiAddons = {

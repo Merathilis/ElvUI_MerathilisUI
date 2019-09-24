@@ -1,8 +1,7 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
-local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
-module.modName = L["Location Panel"]
 
 -- Cache global variables
 -- Lua functions
@@ -35,10 +34,11 @@ local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
+local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local RegisterStateDriver = RegisterStateDriver
+local UnregisterStateDriver = UnregisterStateDriver
 -- GLOBALS: HSplace, LE_GARRISON_TYPE_7_0, TUTORIAL_TITLE31
 
 local loc_panel
@@ -241,8 +241,8 @@ local function CreateCoords()
 	if module.db.format == nil then return end
 
 	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
-	if x then x = format(module.db.format, x * 100) else x = "0" or " " end
-	if y then y = format(module.db.format, y * 100) else y = "0" or " " end
+	if x then x = format(module.db.format, x * 100) else x = "0" end
+	if y then y = format(module.db.format, y * 100) else y = "0" end
 
 	return x, y
 end
@@ -250,7 +250,7 @@ end
 function module:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
+	loc_panel:SetPoint("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
@@ -258,20 +258,20 @@ function module:CreateLocationPanel()
 	loc_panel:SetScript("OnUpdate", module.UpdateCoords)
 
 	-- Location Text
-	loc_panel.Text = loc_panel:CreateFontString(nil, "LOW")
-	loc_panel.Text:Point("CENTER", 0, 0)
+	loc_panel.Text = loc_panel:CreateFontString(nil, "BACKGROUND")
+	loc_panel.Text:SetPoint("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
 
 	--Coords
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
-	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "LOW")
+	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
-	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "LOW")
+	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	module:Resize()
@@ -417,9 +417,14 @@ function module:Toggle()
 	if module.db.enable then
 		loc_panel:Show()
 		E:EnableMover(loc_panel.mover:GetName())
+
+		if module.db.combathide then
+			RegisterStateDriver(loc_panel, 'visibility', '[combat] hide;show')
+		end
 	else
 		loc_panel:Hide()
 		E:DisableMover(loc_panel.mover:GetName())
+		UnregisterStateDriver(loc_panel, 'visibility')
 	end
 	module:UNIT_AURA(nil, "player")
 end
@@ -658,14 +663,6 @@ function module:CHAT_MSG_SKILL()
 	end
 end
 
-function module:PLAYER_REGEN_DISABLED()
-	if module.db.combathide then loc_panel:SetAlpha(0) end
-end
-
-function module:PLAYER_REGEN_ENABLED()
-	if module.db.enable then loc_panel:SetAlpha(1) end
-end
-
 function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if module.db.enable and module.db.orderhallhide then
@@ -703,8 +700,6 @@ function module:Initialize()
 
 	self:ForUpdateAll()
 
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("UNIT_AURA")
 	self:RegisterEvent("CHAT_MSG_SKILL")
 end

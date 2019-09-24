@@ -1,7 +1,5 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local CF = MER:GetModule("CooldownFlash")
-local RC = MER:GetModule("RaidCD")
 
 --Cache global variables
 --Lua functions
@@ -12,20 +10,20 @@ local tinsert = table.insert
 local function Cooldowns()
 	E.Options.args.mui.args.modules.args.cooldowns = {
 		type = "group",
-		name = E.NewSign..L["Cooldowns"],
+		name = L["Cooldowns"],
 		order = 12,
 		args = {
 			cooldownFlash = {
 				order = 1,
 				type = "group",
-				name = CF.modName,
+				name = L["Cooldown Flash"],
 				guiInline = true,
 				get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
 					header1 = {
 						type = "header",
-						name = MER:cOption(CF.modName),
+						name = MER:cOption(L["Cooldown Flash"]),
 						order = 1
 					},
 					credits = {
@@ -120,7 +118,7 @@ local function Cooldowns()
 			raid = {
 				order = 2,
 				type = "group",
-				name = E.NewSign..RC.modName,
+				name = L["RaidCD"],
 				guiInline = true,
 				get = function(info) return E.db.mui.raidCD[ info[#info] ] end,
 				set = function(info, value) E.db.mui.raidCD[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -128,31 +126,26 @@ local function Cooldowns()
 					header1 = {
 						order = 0,
 						type = "header",
-						name = MER:cOption(RC.modName),
+						name = MER:cOption(L["RaidCD"]),
 					},
 					enable = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 					},
-					space1 = {
+					spacer = {
 						order = 2,
 						type = "description",
 						name = "",
 					},
-					space1 = {
-						order = 3,
-						type = "description",
-						name = "",
-					},
 					width = {
-						order = 4,
+						order = 3,
 						type = "range",
 						name = L["Width"],
 						min = 5, max = 500, step = 1,
 					},
 					height = {
-						order = 5,
+						order = 4,
 						type = "range",
 						name = L["Height"],
 						min = 5, max = 200, step = 1,
@@ -177,7 +170,7 @@ local function Cooldowns()
 						type = "toggle",
 						name = L["Show Icons"],
 					},
-					spacer = {
+					spacer1 = {
 						order = 10,
 						type = "description",
 						name = "",

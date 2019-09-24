@@ -22,7 +22,7 @@ local GetContainerNumSlots = GetContainerNumSlots
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
--- Credits Shadow&Light
+-- Credits Shadow & Light - Darth & Repooc
 
 local updateTimer
 module.containers = {}

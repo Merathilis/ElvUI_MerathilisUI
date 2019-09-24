@@ -1,21 +1,14 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUI_databars")
-module.modName = L["DataBars"]
 
 --Cache global variables
+--Lua functions
 local _G = _G
 --WoW API / Variables
 local C_Timer_After = C_Timer.After
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 function module:StyleBackdrops()
-	-- Artifact
-	local artifact = _G["ElvUI_ArtifactBar"]
-	if artifact then
-		artifact:Styling()
-	end
-
 	--Azerite
 	local azerite = _G["ElvUI_AzeriteBar"]
 	if azerite then
@@ -42,6 +35,9 @@ function module:StyleBackdrops()
 end
 
 function module:Initialize()
+	module.db = E.db.mui.databars
+	MER:RegisterDB(self, "databars")
+
 	C_Timer_After(1, module.StyleBackdrops)
 end
 

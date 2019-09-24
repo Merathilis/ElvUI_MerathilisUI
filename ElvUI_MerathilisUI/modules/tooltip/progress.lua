@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("Progress")
 local TT  = E:GetModule('Tooltip')
-module.modName = L["Progress"]
 
 -- Cache global variables
 -- Lua functions
@@ -256,7 +255,7 @@ function module.AddInspectInfo(self, tooltip, unit, numTries, r, g, b)
 end
 
 function module:Initialize()
-	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.progressInfo.enable ~= true then return end
+	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.progressInfo.enable ~= true or IsAddOnLoaded("RaiderIO") then return end
 
 	hooksecurefunc(TT, 'AddInspectInfo', module.AddInspectInfo)
 end

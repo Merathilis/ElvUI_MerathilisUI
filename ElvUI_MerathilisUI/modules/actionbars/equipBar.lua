@@ -18,6 +18,8 @@ local UIErrorsFrame = UIErrorsFrame
 function MAB:CreateEquipBar()
 	if E.db.mui.actionbars.equipBar.enable ~= true then return end
 
+	local Size = E.db.mui.actionbars.equipBar.size or 32
+
 	local GearTexture = "Interface\\WorldMap\\GEAR_64GREY"
 	local EquipmentSets = CreateFrame("Frame", "EquipmentSets", E.UIParent)
 	EquipmentSets:SetFrameStrata("BACKGROUND")
@@ -43,7 +45,7 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button:SetFrameLevel(1)
 	EquipmentSets.Button:SetTemplate()
 	EquipmentSets.Button:SetPoint("CENTER")
-	EquipmentSets.Button:SetSize(24, 24)
+	EquipmentSets.Button:SetSize(Size-6 , Size-6) -- Ugly solution
 	EquipmentSets.Button:SetNormalTexture("Interface\\PaperDollInfoFrame\\PaperDollSidebarTabs")
 	EquipmentSets.Button:GetNormalTexture():SetTexCoord(0.01562500, 0.53125000, 0.46875000, 0.60546875)
 	EquipmentSets.Button:GetNormalTexture():SetInside()
@@ -94,12 +96,13 @@ function MAB:CreateEquipBar()
 	for i = 1, 10 do
 		local Button = CreateFrame("Button", nil, EquipmentSets.Flyout)
 		Button:Hide()
-		Button:SetSize(24, 24)
+		Button:SetSize(Size, Size)
 		Button:SetTemplate()
 		Button:SetFrameStrata("TOOLTIP")
 		Button:SetNormalTexture(GearTexture)
 		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
 		Button:GetNormalTexture():SetInside()
+		Button:StyleButton()
 		Button:SetPoint("BOTTOM", i == 1 and EquipmentSets.Flyout or EquipmentSets.Button[i - 1], "TOP", 0, 3)
 		Button:SetScript("OnEnter", function(self)
 			local Name = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
@@ -209,6 +212,8 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button.SaveButton:SetScript("OnClick", function(self, button)
 		C_EquipmentSet.SaveEquipmentSet(EquipmentSets.Button:GetID())
 	end)
+
+	EquipmentSets:SetSize(Size, Size)
 
 	if E.db.mui.actionbars.equipBar.mouseover then
 		UIFrameFadeOut(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 0)

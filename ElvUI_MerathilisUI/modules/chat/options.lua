@@ -1,6 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
-local MERC = MER:GetModule("muiChat")
+local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
@@ -10,22 +8,22 @@ local tinsert = table.insert
 
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
-		type = "group",
-		name = MERC.modName,
 		order = 11,
+		type = "group",
+		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			header1 = {
 				type = "header",
-				name = MER:cOption(MERC.modName),
+				name = MER:cOption(L["Chat"]),
 				order = 1
 			},
 			chatButton = {
 				order = 2,
 				type = "toggle",
 				name = L["Chat Menu"],
-				desc = L["Create a chat button to increase the chat size and chat menu button."],
+				desc = L["Create a chat button to increase the chat size."],
 			},
 			hidePlayerBrackets = {
 				order = 3,
@@ -49,6 +47,27 @@ local function ChatTable()
 				order = 6,
 				type = "toggle",
 				name = L["Emotes"],
+			},
+			filter = {
+				order = 20,
+				type = "group",
+				name = L["Filter"],
+				guiInline = true,
+				get = function(info) return E.db.mui.chat.filter[ info[#info] ] end,
+				set = function(info, value) E.db.mui.chat.filter[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					itemLevel = {
+						order = 2,
+						type = "toggle",
+						name = L["Item Level"],
+						disabled = function() return not E.db.mui.chat.filter.enable end,
+					},
+				},
 			},
 		},
 	}

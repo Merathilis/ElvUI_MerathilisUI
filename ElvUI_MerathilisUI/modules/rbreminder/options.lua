@@ -1,5 +1,4 @@
-local MER, E, _, V, P, G = unpack(select(2, ...))
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local MER, E, L, V, P, G = unpack(select(2, ...))
 local RB = MER:GetModule("RaidBuffs")
 
 --Cache global variables
@@ -13,19 +12,19 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 local function RaidBuffs()
 	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
-		name = RB.modName,
+		name = L["Raid Buff Reminder"],
 		order = 18,
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(RB.modName),
+				name = MER:cOption(L["Raid Buff Reminder"]),
 			},
 			rbreminder = {
 				order = 2,
 				type = "group",
-				name = MER:cOption(RB.modName),
+				name = MER:cOption(L["Raid Buff Reminder"]),
 				guiInline = true,
 				args = {
 					enable = {

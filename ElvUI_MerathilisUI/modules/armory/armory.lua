@@ -2,7 +2,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
 local LSM = E.LSM or E.Libs.LSM
-module.modName = L["Armory"]
 
 -- Cache global variables
 -- Lua functions
@@ -137,7 +136,8 @@ function module:Illusion_OnLeave()
 end
 
 function module:UpdatePaperDoll()
-	if not E.db.mui.armory.enable then return end
+	module.db = E.db.mui.armory
+	if not module.db.enable then return end
 
 	local unit = "player"
 	if not unit then return end
@@ -228,6 +228,8 @@ function module:InitialUpdatePaperDoll()
 end
 
 function module:BuildInformation()
+	module.db = E.db.mui.armory
+
 	for id, slotName in pairs(slotIDs) do
 		if not id then return end
 
@@ -324,10 +326,10 @@ function module:firstGarrisonToast()
 end
 
 function module:Initialize()
-	local db = E.db.mui.armory
+	module.db = E.db.mui.armory
 	MER:RegisterDB(self, "armory")
 
-	if not db.enable or E.private.skins.blizzard.character ~= true then return end
+	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
 	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 

@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("RaidBuffs")
 local LCG = LibStub('LibCustomGlow-1.0')
-module.modName = L["Raid Buff Reminder"]
 
 -- Cache global variables
 -- Lua functions
@@ -76,6 +75,7 @@ local custombuffs = module.ReminderBuffs["Custom"]
 
 local function OnAuraChange(self, event, arg1, unit)
 	if (event == "UNIT_AURA" and arg1 ~= "player") then return end
+	module.db = E.db.mui.raidBuffs
 
 	if (flaskbuffs and flaskbuffs[1]) then
 		FlaskFrame.t:SetTexture(select(3, GetSpellInfo(flaskbuffs[1])))

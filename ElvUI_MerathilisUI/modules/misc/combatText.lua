@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUIAnnounce", "AceEvent-3.0")
 local LSM = E.LSM
-module.modName = L["Announce"]
 
 --Cache global variables
 --Lua functions
@@ -44,9 +43,7 @@ end
 -- Entering combat and alertrun function (can be used in anther ways)
 ------------------------------------------------------------------------------------
 local speed = .057799924 -- how fast the text appears
-local font = LSM:Fetch("font", "Expressway")
-local fontflag = "OUTLINE" -- for pixelfont stick to this else OUTLINE or THINOUTLINE
-local fontsize = 18 -- font size
+local font, fontflag, fontsize = E.LSM:Fetch('font', E.db.general.font), E.db.general.fontStyle, 18 -- keep the size hardcoded
 
 local GetNextChar = function(word,num)
 	local c = word:byte(num)
@@ -184,7 +181,7 @@ function module:AlertRun(f, r, g, b)
 	flowingtext:SetPoint("LEFT")
 	flowingtext:SetJustifyH("LEFT")
 	rightchar:ClearAllPoints()
-	rightchar:SetPoint("LEFT",flowingtext,"RIGHT")
+	rightchar:SetPoint("LEFT", flowingtext, "RIGHT")
 	rightchar:SetJustifyH("LEFT")
 
 	rightchar:SetText("")

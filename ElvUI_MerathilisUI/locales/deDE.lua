@@ -16,8 +16,6 @@ L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Sta
 L["Options"] = "Einstellungen"
 L["Combat State"] = "Kampfstatus"
 L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
-L["Show Merchant ItemLevel"] = "Zeige ItemLevel beim Händlern"
-L["Display the item level on the MerchantFrame, to change the font you have to set it in ElvUI - Bags - ItemLevel"] = "Zeigt das ItemLevel bei den Händlern an, um die Schriftart zu ändern, musst du sie in ElvUI - Taschen - ItemLevel ändern."
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
@@ -35,7 +33,6 @@ Wenn du jedoch ein anderes Layout über meines installierst, musst du es manuell
 L["Enable/Disable the Login Message in Chat"] = "Aktiviert/Deaktiviert die Login Nachricht im Chat"
 
 -- Bags
-L["Transparent Slots"] = "Transparente Schaltflächen"
 L["Equipment Manager"] = "Ausrüstungsmanager"
 L["Equipment Set Overlay"] = "Ausrüstungsset Anzeige"
 L["Show the associated equipment sets for the items in your bags (or bank)."] = "Zeigt verbundene Ausrüstungssets auf Gegenständen in deinen Taschen und der Bank an."
@@ -58,7 +55,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Menu"] = "Chat Menu"
-L["Create a chat button to increase the chat size and chat menu button."] = "Erstellt eine Chat Taste um den Chat zu erweitern und eine Chat Menu Taste."
+L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["ChatBar"] = "Chatleiste"
@@ -132,12 +129,14 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
-L["Raid Info"] = "Raid Information"
-L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
-L["Outdated MER"] = "  |cffff7d0aMerathilisUI|r ist veraltet, die aktuelle Version ist |cff70C0F5%s|r."
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
+L["MISC_REPUTATION"] = "Ruf"
+L["MISC_PARAGON"] = "Paragon"
+L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
+L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
+L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -161,6 +160,7 @@ L["BattleOfDazaralor"] = "Schlacht um Dazar'alor"
 L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
+L["Only Icons"] = "Nur Symbole"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -192,6 +192,7 @@ L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 L["Right Click"] = "Rechtsklick"
 L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
 L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
+L["Dura."] = "Haltb."
 
 -- DataBars
 L["DataBars"] = "Informationsleisten"
@@ -199,9 +200,7 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an de
 L["Style DataBars"] = "Informationsleisten Stil"
 
 -- Actionbars
-L["Applies transparency in all actionbar backdrops and actionbar buttons."] = "Aktiviert die Transparenz auf alle Aktionsleisten Hintergründe und Tasten."
-L["Transparent Backdrops"] = "Transparente Hintergründe"
-L["Specialisation Bar"] = "Spezialisierungsleiste"
+L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
 L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
@@ -209,6 +208,10 @@ L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"
 L["Color by Quality"] = "Färbe nach Qualität"
 L["Quest Buttons"] = "Quest Tasten"
+L["Blacklist Item"] = "Schwarze Liste Item"
+L["Whitelist Item"] = "Weißeliste Item"
+L["Add Item ID"] = "Füge Item ID hinzu"
+L["Delete Item ID"] = "Entferne Item ID"
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -380,10 +383,7 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["Bar Backdrop"] = "Leisten Hintergrund"
-L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
-L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
-L["Reverse Direction"] = "Umgekehrte Reihenfolge"
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = "Wenn du eine viele Minimap Buttons benutzt, ist mein Modul nicht die richtige Wahl für dich."
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -406,6 +406,14 @@ L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
 L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden Klassenspezifischen Buffs."
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = "Dieses deaktiviert die ElvUI Schlachtzugssteuerung und ersetzt es mit meiner eigenen."
+L["Open Raid Manager"] = "Öffne Raid Manager"
+L["Pull Timer Count"] = "Pulltimer Zähler"
+L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM oder BigWigs"
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = 'Aktzeptiert nur Zahlenformat mit "", z.B. "5", "8", "10" etc.'
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
@@ -456,7 +464,6 @@ L["Fri"] = "Fr"
 L["Sat"] = "Sa"
 
 -- Nameplates
-L["Castbar Target"] = "Zauberleisten Ziel"
 L["Castbar Shield"] = "Zauberleisten Schild"
 L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
 L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000Hinweis:|r Dieses wird die ElvUI Namensplaketten Optionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert von einer Größe von: 30 x 30 "
@@ -501,9 +508,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "Dieser Schritt ändert ein paar World of Warcraft Standard-Optionen. Diese Optionen sind zugeschnitten für die Anforderungen des Authors von %s und sind nicht notwendig damit dieses AddOn funktioniert."
 L["Please click the button below to apply the new layout."] = "Bitte drücke die Taste unten, um das neue Layout anzuwenden."
 L["Please click the button below to setup your chat windows."] = "Bitte klick auf die Taste unten, um das Chatfenster einzustellen."
-L["Please click the button below |cff07D400twice|r to setup your actionbars."] = "Bitte drücke |cff07D400doppelt|r auf die Taste unten, um die Aktionsleisten einzustellen."
+L["Please click the button below to setup your actionbars."] = "Bitte drücke auf die Taste unten, um die Aktionsleisten einzustellen."
 L["Please click the button below to setup your datatexts."] = "Bitte drücke die Taste unten, um die Infotexte einzustellen."
-L["Please click the button below |cff07D400twice|r to setup your Unitframes."] = "Bitte drücke |cff07D400doppelt|r die Taste unten, um die Einheitenfenster einzustellen."
+L["Please click the button below to setup your Unitframes."] = "Bitte drücke die Taste unten, um die Einheitenfenster einzustellen."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "Bitte drücke die Taste unten, um die ElvUI AddOns einzustellen. Für andere AddOn Profile, gehe bitte in meine Einstellungen - Skins/AddOns"
 L["DataTexts"] = "Infotexte"
 L["Setup Datatexts"] = "Infotexte einstellen"
@@ -534,10 +541,13 @@ Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Extra Style Panels"] = "MerathilisUI Extra Stil Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
+L["Enable/Disable"] = "Aktiviere/Deaktiviere"
+L["decor."] = "Dekor"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

@@ -55,11 +55,6 @@ local function SetupCVars()
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
-	-- Disable it because of NSCT
-	SetCVar("floatingCombatTextCombatDamage", 0)
-	SetCVar("floatingCombatTextCombatLogPeriodicSpells", 0)
-	SetCVar("floatingCombatTextCombatHealing", 1)
-
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		SetCVar("scriptErrors", 1)
 		SetCVar("taintLog", 1)
@@ -144,7 +139,7 @@ local function SetupChat()
 	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
-	E.db["chat"]["panelWidthRight"] = 263
+	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
@@ -166,8 +161,8 @@ local function SetupChat()
 	E.db["chat"]["tabFontOutline"] = "OUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
-	MER:SetMoverPosition("RightChatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -175, 50)
-	MER:SetMoverPosition("LeftChatMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-157,50"
+	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -175,7 +170,7 @@ local function SetupChat()
 	PluginInstallStepComplete:Show()
 end
 
-function MER:SetupLayout()
+function MER:SetupLayout(layout)
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
@@ -226,6 +221,8 @@ function MER:SetupLayout()
 	E.db["general"]["minimap"]["icons"]["ticket"]["xOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["ticket"]["yOffset"] = 0
 	E.db["general"]["minimap"]["icons"]["ticket"]["scale"] = 0.75
+	E.db["general"]["minimap"]["icons"]["difficulty"]["xOffset"] = 5
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
 	E.db["general"]["minimap"]["size"] = 144
@@ -268,13 +265,13 @@ function MER:SetupLayout()
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["timeYOffset"] = 0
+	E.db["auras"]["timeYOffset"] = -5
 	E.db["auras"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 15
 	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["countFontsize"] = 12
-	E.db["auras"]["buffs"]["durationFontSize"] = 12
+	E.db["auras"]["buffs"]["durationFontSize"] = 14
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 42
@@ -282,16 +279,22 @@ function MER:SetupLayout()
 	E.db["auras"]["debuffs"]["durationFontSize"] = 16
 
 	if E.db.mui.general.panels then
-		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -12, -17)
-		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -12, -155)
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-155"
 	else
-		MER:SetMoverPosition("BuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -3)
-		MER:SetMoverPosition("DebuffsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -120)
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-3"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-120"
 	end
 
 	--[[----------------------------------
 	--	ProfileDB - Bags
 	--]]----------------------------------
+	-- check if cargBags are enabled
+	if IsAddOnLoaded("cargBags_Nivaya") then
+		E.private["bags"]["enable"] = false
+	else
+		E.private["bags"]["enable"] = true
+	end
 	E.db["bags"]["itemLevelFont"] = "Merathilis Expressway"
 	E.db["bags"]["itemLevelFontSize"] = 9
 	E.db["bags"]["itemLevelFontOutline"] = "OUTLINE"
@@ -311,6 +314,7 @@ function MER:SetupLayout()
 	E.db["bags"]["showBindType"] = true
 	E.db["bags"]["scrapIcon"] = true
 	E.db["bags"]["itemLevelCustomColorEnable"] = false
+	E.db["bags"]["transparent"] = true
 
 	-- Cooldown Settings
 	E.db["bags"]["cooldown"]["override"] = true
@@ -330,8 +334,8 @@ function MER:SetupLayout()
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	MER:SetMoverPosition("ElvUIBagMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 50)
-	MER:SetMoverPosition("ElvUIBankMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 50)
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,50"
+	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
@@ -371,7 +375,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
@@ -404,7 +408,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
@@ -438,7 +442,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
@@ -469,7 +473,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev]'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
@@ -506,7 +510,7 @@ function MER:SetupLayout()
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev]'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
@@ -564,7 +568,7 @@ function MER:SetupLayout()
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
 	E.db["tooltip"]["style"] = "inset"
-	MER:SetMoverPosition("TooltipMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 280)
+	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
 	--[[----------------------------------
 	--	Skins - Layout
@@ -602,29 +606,29 @@ function MER:SetupLayout()
 	E.db["mui"]["smb"]["buttonSpacing"] = 2
 	E.db["mui"]["datatexts"]["middle"]["width"] = 330
 
-	MER:SetMoverPosition("SpecializationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 17)
-	MER:SetMoverPosition("MER_LocPanel_Mover", "TOP", E.UIParent, "TOP", 0, 0)
-	MER:SetMoverPosition("MER_MicroBarMover", "TOP", E.UIParent, "TOP", 0, -19)
-	MER:SetMoverPosition("MER_OrderhallMover", "TOPLEFT", E.UIParent, "TOPLEFT", 2 -2)
-	MER:SetMoverPosition("MER_RaidBuffReminderMover", "TOPLEFT", E.UIParent, "TOPLEFT", 9, -18)
-	MER:SetMoverPosition("MER_SquareMinimapButtonBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 197)
-	MER:SetMoverPosition("MER_ReminderMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 621, 248)
+	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
+	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
+	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
+	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
+	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,10,-12"
+	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,214,-15"
+	E.db["movers"]["MER_SquareMinimapButtonBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,198"
 
 	--[[----------------------------------
 	--	Movers - Layout
 	--]]----------------------------------
-	MER:SetMoverPosition("AltPowerBarMover", "TOP", E.UIParent, "TOP" ,1, -272)
-	MER:SetMoverPosition("GMMover", "TOPLEFT", E.UIParent, "TOPLEFT", 229, -20)
-	MER:SetMoverPosition("BNETMover", "TOP", E.UIParent, "TOP", 0, -50)
-	MER:SetMoverPosition("LootFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -495, -457)
-	MER:SetMoverPosition("AlertFrameMover", "TOP", E.UIParent, "TOP", 0, -140)
-	MER:SetMoverPosition("LossControlMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 465)
-	MER:SetMoverPosition("ObjectiveFrameMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -85, -300)
-	MER:SetMoverPosition("VehicleSeatMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -474, 120)
-	MER:SetMoverPosition("ProfessionsMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -3, -184)
-	MER:SetMoverPosition("TalkingHeadFrameMover", "TOP", E.UIParent, "TOP", 0, -65)
-	MER:SetMoverPosition("TopCenterContainerMover", "TOP", E.UIParent, "TOP", 0, -105)
-	MER:SetMoverPosition("BelowMinimapContainerMover", "TOP", E.UIParent, "TOP", 0, -115)
+	E.db["movers"]["AltPowerBarMover"] = "TOP,ElvUIParent,TOP,1,-272"
+	E.db["movers"]["GMMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,229,-20"
+	E.db["movers"]["BNETMover"] = "TOP,ElvUIParent,TOP,0,-50"
+	E.db["movers"]["LootFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-495,-457"
+	E.db["movers"]["AlertFrameMover"] = "TOP,ElvUIParent,TOP,0,-140"
+	E.db["movers"]["LossControlMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,465"
+	E.db["movers"]["ObjectiveFrameMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-85,-300"
+	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-474,120"
+	E.db["movers"]["ProfessionsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-184"
+	E.db["movers"]["TalkingHeadFrameMover"] = "TOP,ElvUIParent,TOP,0,-65"
+	E.db["movers"]["TopCenterContainerMover"] = "TOP,ElvUIParent,TOP,0,-105"
+	E.db["movers"]["BelowMinimapContainerMover"] = "TOP,ElvUIParent,TOP,0,-115"
 
 	E.db["general"]["font"] = "Merathilis Expressway"
 	E.db["general"]["fontSize"] = 11
@@ -632,51 +636,63 @@ function MER:SetupLayout()
 	E.private["general"]["namefont"] = "Merathilis Expressway"
 	E.private["general"]["dmgfont"] = "Merathilis Expressway"
 
-	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
-	E.db["databars"]["experience"]["enable"] = true
+	E.db["databars"]["experience"]["enable"] = false
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 146
 	E.db["databars"]["experience"]["textSize"] = 10
 	E.db["databars"]["experience"]["width"] = 8
 	E.db["databars"]["experience"]["textFormat"] = "NONE"
 	E.db["databars"]["experience"]["orientation"] = "VERTICAL"
-	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
+	E.db["databars"]["experience"]["hideAtMaxLevel"] = false
 	E.db["databars"]["experience"]["hideInVehicle"] = true
 	E.db["databars"]["experience"]["hideInCombat"] = false
 	E.db["databars"]["reputation"]["enable"] = true
 	E.db["databars"]["reputation"]["mouseover"] = false
-	E.db["databars"]["reputation"]["height"] = 146
-	E.db["databars"]["reputation"]["textSize"] = 10
-	E.db["databars"]["reputation"]["width"] = 8
-	E.db["databars"]["reputation"]["textFormat"] = "NONE"
-	E.db["databars"]["reputation"]["orientation"] = "VERTICAL"
+	E.db["databars"]["reputation"]["height"] = 12
+	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
+	E.db["databars"]["reputation"]["textSize"] = 9
+	if layout == "dps" then
+		E.db["databars"]["reputation"]["width"] = 285
+	elseif layout == "healer" then
+		E.db["databars"]["reputation"]["width"] = 278
+	end
+	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
-	E.db["databars"]["reputation"]["hideInCombat"] = false
+	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["honor"]["enable"] = false
 	E.db["databars"]["honor"]["height"] = 155
 	E.db["databars"]["honor"]["textSize"] = 11
 	E.db["databars"]["honor"]["hideOutsidePvP"] = true
 	E.db["databars"]["honor"]["hideInCombat"] = false
 	E.db["databars"]["azerite"]["enable"] = true
-	E.db["databars"]["azerite"]["height"] = 146
-	E.db["databars"]["azerite"]["textSize"] = 11
-	E.db["databars"]["azerite"]["width"] = 8
+	E.db["databars"]["azerite"]["height"] = 12
+	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
+	E.db["databars"]["azerite"]["textSize"] = 9
+	if layout == "dps" then
+		E.db["databars"]["azerite"]["width"] = 285
+	elseif layout == "healer" then
+		E.db["databars"]["azerite"]["width"] = 278
+	end
 	E.db["databars"]["azerite"]["hideInVehicle"] = true
-	E.db["databars"]["azerite"]["hideInCombat"] = false
-	E.db["databars"]["azerite"]["orientation"] = "VERTICAL"
+	E.db["databars"]["azerite"]["hideInCombat"] = true
+	E.db["databars"]["azerite"]["mouseover"] = false
+	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
+	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
 	E.db["tooltip"]["font"] = "Merathilis Expressway"
 	E.db["tooltip"]["fontOutline"] = "NONE"
 	E.db["tooltip"]["headerFontSize"] = 12
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
-	MER:SetMoverPosition("ArtifactBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
-	MER:SetMoverPosition("AzeriteBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 50)
-	MER:SetMoverPosition("TotemBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 503, 12)
-	MER:SetMoverPosition("HonorBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -531, 21)
-	MER:SetMoverPosition("ExperienceBarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 1, 50)
-	MER:SetMoverPosition("ReputationBarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -19, 50)
-	MER:SetMoverPosition("MinimapMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -28, 51)
-	MER:SetMoverPosition("mUI_RaidMarkerBarAnchor", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -277, 178)
+
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
+	E.db["movers"]["HonorBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-531,21"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,1,50"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,51"
+	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -693,6 +709,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["macrotext"] = true
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
+	E.db["actionbar"]["transparent"] = true
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
@@ -823,27 +840,27 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 
 	if layout == "dps" then
-		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 144)
-		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 183)
-		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 50)
-		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
-		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
-		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 19)
-		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 60)
-		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
-		MER:SetMoverPosition("BossButton", "BOTTOM", E.UIParent, "BOTTOM", 305, 50)
-		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,183"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-446,50"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
+		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,19"
+		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
+		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
+		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
+		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	elseif layout == "healer" then
-		MER:SetMoverPosition("ElvAB_1", "BOTTOM", E.UIParent, "BOTTOM", 0, 123)
-		MER:SetMoverPosition("ElvAB_2", "BOTTOM", E.UIParent, "BOTTOM", 0, 161)
-		MER:SetMoverPosition("ElvAB_3", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -439, 50)
-		MER:SetMoverPosition("ElvAB_4", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", 0, 367)
-		MER:SetMoverPosition("ElvAB_5", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 438, 50)
-		MER:SetMoverPosition("ElvAB_6", "BOTTOM", E.UIParent, "BOTTOM", 0, 20)
-		MER:SetMoverPosition("ShiftAB", "BOTTOM", E.UIParent, "BOTTOM", 0, 55)
-		MER:SetMoverPosition("PetAB", "BOTTOM", E.UIParent, "BOTTOM", -289, 15)
-		MER:SetMoverPosition("BossButton", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -511, 50)
-		MER:SetMoverPosition("MicrobarMover", "TOPLEFT", E.UIParent, "TOPLEFT", 4, -4)
+		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
+		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-439,50"
+		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
+		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,20"
+		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
+		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
+		E.db["movers"]["BossButton"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-511,50"
+		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
 	end
 
 	E:StaggeredUpdateAll(nil, true)
@@ -917,6 +934,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
+		E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -1065,6 +1083,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["height"] = 32
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = "ICONTOPLEFT"
+		E.db["unitframe"]["units"]["target"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = false
@@ -1178,6 +1197,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 		-- TargetTarget
+		E.db["unitframe"]["units"]["targettarget"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["targettarget"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["targettarget"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["targettarget"]["power"]["position"] = "CENTER"
@@ -1202,6 +1222,7 @@ function MER:SetupUnitframes(layout)
 		-- Focus
 		E.db["unitframe"]["units"]["focus"]["width"] = 100
 		E.db["unitframe"]["units"]["focus"]["height"] = 32
+		E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
 		E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[name:medium]"
@@ -1239,6 +1260,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["horizontalSpacing"] = 3
 		E.db["unitframe"]["units"]["raid"]["verticalSpacing"] = 2
 		E.db["unitframe"]["units"]["raid"]["visibility"] = "[@raid6,noexists][@raid21,exists] hide;show"
+		E.db["unitframe"]["units"]["raid"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["debuffs"]["clickThrough"] = true
@@ -1429,6 +1451,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["size"] = 10
 		E.db["unitframe"]["units"]["raid40"]["buffIndicator"]["fontSize"] = 11
 		E.db["unitframe"]["units"]["raid40"]["width"] = 83
+		E.db["unitframe"]["units"]["raid40"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["enable"] = false
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["height"] = 13
 		E.db["unitframe"]["units"]["raid40"]["infoPanel"]["transparent"] = true
@@ -1461,6 +1484,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["growthDirection"] = "UP_RIGHT"
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
+		E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
 		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 34
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
@@ -1719,26 +1743,26 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 		-- Movers
-		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -244, 220)
-		MER:SetMoverPosition("ElvUF_PlayerCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 117)
-		MER:SetMoverPosition("PlayerPowerBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 220)
-		MER:SetMoverPosition("ClassBarMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 237)
-		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 244, 220)
-		MER:SetMoverPosition("ElvUF_TargetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", 244, 201)
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -539, 220)
-		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 323)
-		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 305)
-		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
-		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 198)
-		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 198)
-		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 454, 359)
-		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
-		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
-		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 542, 220)
-		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 542, 212)
-		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT", -305, -305)
-		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
-		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,220"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,117"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,220"
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,237"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,220"
+		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,201"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-539,220"
+		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,323"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,305"
+		E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,198"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,198"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,454,359"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,539,220"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,539,212"
+		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 	elseif layout == "healer" then
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200
@@ -1879,7 +1903,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 			["size"] = 12,
-			["text_format"] = "[name:abbrev]",
+			["text_format"] = "[name:abbrev:long]",
 			["attachTextTo"] = "InfoPanel",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = {
@@ -2388,22 +2412,23 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raidpet"]["enable"] = false
 
 		-- Movers
-		MER:SetMoverPosition("ElvUF_PlayerMover", "BOTTOM", E.UIParent, "BOTTOM", -240, 123)
-		MER:SetMoverPosition("ElvUF_TargetMover", "BOTTOM", E.UIParent, "BOTTOM", 240, 123)
-		MER:SetMoverPosition("ElvUF_TargetTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 165)
-		MER:SetMoverPosition("ElvUF_FocusMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 292)
-		MER:SetMoverPosition("ElvUF_FocusCastbarMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -518, 325)
-		MER:SetMoverPosition("ElvUF_FocusTargetMover", "BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -513, 277)
-		MER:SetMoverPosition("ElvUF_RaidMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 250)
-		MER:SetMoverPosition("ElvUF_Raid40Mover", "BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 40, 198)
-		MER:SetMoverPosition("ElvUF_PartyMover", "BOTTOM", E.UIParent, "BOTTOM", 0, 250)
-		MER:SetMoverPosition("ElvUF_AssistMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 571)
-		MER:SetMoverPosition("ElvUF_TankMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 2, 626)
-		MER:SetMoverPosition("ElvUF_PetMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 95)
-		MER:SetMoverPosition("ElvUF_PetCastbarMover", "BOTTOM", E.UIParent, "BOTTOM", -290, 84)
-		MER:SetMoverPosition("ArenaHeaderMover", "TOPRIGHT" , E.UIParent, "TOPRIGHT", -305,-305)
-		MER:SetMoverPosition("BossHeaderMover", "TOPRIGHT", E.UIParent, "TOPRIGHT", -305, -305)
-		MER:SetMoverPosition("ElvUF_RaidpetMover", "TOPLEFT", E.UIParent, "BOTTOMLEFT", 0, 808)
+		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-240,123"
+		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,220"
+		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,240,123"
+		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,165"
+		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,292"
+		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,325"
+		E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,250"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,40,198"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,250"
+		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
+		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
+		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,95"
+		E.db["movers"]["ElvUF_PetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,84"
+		E.db["movers"]["ArenaHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+		E.db["movers"]["BossHeaderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-305,-305"
+		E.db["movers"]["ElvUF_RaidpetMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,0,808"
 	end
 
 	E:StaggeredUpdateAll(nil, true)
@@ -2435,7 +2460,7 @@ function MER:SetupDts()
 	E.db["datatexts"]["minimapBottom"] = false
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "Durability"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "MUI Durability"
 
 	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 
@@ -2518,6 +2543,8 @@ MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
+	["tutorialImageSize"] = {256, 128},
+	["tutorialImagePoint"] = {0, 30},
 	["Pages"] = {
 		[1] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText(L["Welcome to MerathilisUI |cff00c0faVersion|r %s, for ElvUI %s."], MER.Version, E.version)
@@ -2545,8 +2572,11 @@ MER.installTable = {
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to apply the new layout."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupLayout() end)
-			PluginInstallFrame.Option1:SetText(L["Layout"])
+			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupLayout("dps") end)
+			PluginInstallFrame.Option1:SetText(L["Tank/ DPS Layout"])
+			PluginInstallFrame.Option2:Show()
+			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupLayout("healer") end)
+			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
 		[4] = function()
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
@@ -2578,7 +2608,7 @@ MER.installTable = {
 		[7] = function()
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Actionbars and will enable backdrops"])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below |cff07D400twice|r to setup your actionbars."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your actionbars."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupActionbars("dps") end)
@@ -2590,7 +2620,7 @@ MER.installTable = {
 		[8] = function()
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
-			PluginInstallFrame.Desc2:SetText(L["Please click the button below |cff07D400twice|r to setup your Unitframes."])
+			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
 			PluginInstallFrame.Desc3:SetText(L["Importance: |cff07D400High|r"])
 			PluginInstallFrame.Option1:Show()
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupUnitframes("dps") end)

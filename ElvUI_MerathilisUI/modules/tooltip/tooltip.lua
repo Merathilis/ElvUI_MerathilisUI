@@ -1,7 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
 local TT = E:GetModule("Tooltip")
-module.modName = L["mUI Tooltip"]
 
 --Cache global variables
 --Lua functions
