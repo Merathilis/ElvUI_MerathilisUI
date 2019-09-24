@@ -30,7 +30,7 @@ local function RaidManagerOptions()
 						order = 1,
 						type = "description",
 						fontSize = "medium",
-						name = (L["This will disable the ElvUI Raid Control and replace it with my own."]),
+						name = L["This will disable the ElvUI Raid Control and replace it with my own."],
 					},
 				},
 			},

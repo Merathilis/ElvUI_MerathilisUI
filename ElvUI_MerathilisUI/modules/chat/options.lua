@@ -10,7 +10,7 @@ local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		order = 11,
 		type = "group",
-		name = E.NewSign..L["Chat"],
+		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

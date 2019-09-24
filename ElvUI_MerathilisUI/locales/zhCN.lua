@@ -129,8 +129,6 @@ L["Flashing Cursor"] = "鼠标闪光"
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
-L["Raid Info"] = "团队信息"
-L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
@@ -408,6 +406,11 @@ L["Class Specific Buffs"] = "职业专精BUFF"
 L["Shows all the class specific raid buffs."] = "显示所有的职业专精团队增益BUFF"
 L["Change the alpha level of the icons."] = "改变图标的透明等级."
 L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示一个像素发光."
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"

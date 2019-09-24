@@ -33,6 +33,7 @@ local HasLFGRestrictions = HasLFGRestrictions
 local ConvertToParty = ConvertToParty
 local ConvertToRaid = ConvertToRaid
 local C_Timer_After = C_Timer.After
+local GameTooltip = GameTooltip
 -- GLOBALS:
 
 local function GetRaidMaxGroup()
@@ -251,6 +252,9 @@ function module:CreateRaidManager()
 	RaidManagerFrame.Close:SetSize(20, 20)
 	RaidManagerFrame.Close:SetScript("OnClick", function()
 		RaidManagerFrame:Hide()
+		if RaidMarkFrame:IsShown() then
+			RaidMarkFrame:Hide()
+		end
 	end)
 
 	RaidManagerFrame.Close.tex = RaidManagerFrame.Close:CreateTexture(nil, "BACKGROUND")
@@ -549,9 +553,17 @@ function module:CreateRaidInfo()
 	end)
 	header:SetScript("OnEnter", function(self)
 		self.backdrop:SetBackdropColor(MER.r, MER.g, MER.b, 1)
+
+		GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+		GameTooltip:ClearLines()
+		GameTooltip:AddLine(L["Raid Manager"], MER.r, MER.g, MER.b)
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddDoubleLine(MER.LeftButton..MER.InfoColor..L["Open Raid Manager"])
+		GameTooltip:Show()
 	end)
 	header:SetScript("OnLeave", function(self)
 		self.backdrop:SetBackdropColor(0, 0, 0, 0.3)
+		GameTooltip:Hide()
 	end)
 	header:SetScript("OnClick", ToogleRaidMangerFrame)
 

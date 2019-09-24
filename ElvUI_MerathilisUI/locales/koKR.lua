@@ -127,8 +127,6 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
-L["Raid Info"] = true
-L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "오늘의 길드 메시지"
 L["LFG Member Info"] = true
@@ -406,6 +404,11 @@ L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
 L["Shows the pixel glow on missing raidbuffs."] = true
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
 
 -- Reminder
 L["Reminder"] = true
