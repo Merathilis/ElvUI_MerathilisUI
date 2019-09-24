@@ -362,7 +362,7 @@ function MERL:CreateStylePanels()
 
 	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
 	TopRightStylePanel1:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
-	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 
 	-- Style under the left chat.
 	local BottomLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
@@ -380,7 +380,7 @@ function MERL:CreateStylePanels()
 
 	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel)
 	BottomRightStylePanel1:SetPoint("BOTTOM", BottomRightStylePanel, "TOP")
-	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 end
 
 function MERL:regEvents()
