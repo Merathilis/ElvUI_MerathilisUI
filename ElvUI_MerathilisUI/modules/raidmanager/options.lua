@@ -39,6 +39,17 @@ local function RaidManagerOptions()
 				type = "toggle",
 				name = L["Enable"],
 			},
+			count = {
+				order = 4,
+				type = "input",
+				name = L["Pull Timer Count"],
+				desc = L["Change the Pulltimer for DBM or BigWigs"],
+				usage = L['Only accept values format with "", e.g.: "5", "8", "10" etc.'],
+				width = "half",
+				get = function(info) return E.db.mui.raidmanager.count end,
+				set = function(info, value) E.db.mui.raidmanager.count = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				disabled = function() return not E.db.mui.raidmanager.enable end,
+			},
 		},
 	}
 end

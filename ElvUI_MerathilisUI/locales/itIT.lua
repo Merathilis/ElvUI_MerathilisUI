@@ -413,6 +413,9 @@ L["Shows the pixel glow on missing raidbuffs."] = true
 L["Raid Manager"] = true
 L["This will disable the ElvUI Raid Control and replace it with my own."] = true
 L["Open Raid Manager"] = true
+L["Pull Timer Count"] = true
+L["Change the Pulltimer for DBM or BigWigs"] = true
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
 
 -- Reminder
 L["Reminder"] = true

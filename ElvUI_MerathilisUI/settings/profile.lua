@@ -427,7 +427,7 @@ MP.raidmarkers = {
 MP.raidmanager = {
 	enable = true,
 	unlockraidmarks = false,
-	Count = "10",
+	count = "10",
 }
 
 MP.tooltip = {

@@ -300,7 +300,7 @@ function module:CreateRaidManager()
 		if IsInGroup() and (UnitIsGroupLeader("player") or (UnitIsGroupAssistant("player") and IsInRaid())) then
 			if IsAddOnLoaded("DBM-Core") then
 				if reset then
-					SlashCmdList["DEADLYBOSSMODS"]("pull "..E.db.mui.raidmanager.Count)
+					SlashCmdList["DEADLYBOSSMODS"]("pull "..E.db.mui.raidmanager.count)
 				else
 					SlashCmdList["DEADLYBOSSMODS"]("pull 0")
 				end
@@ -309,7 +309,7 @@ function module:CreateRaidManager()
 				if not SlashCmdList["BIGWIGSPULL"] then LoadAddOn("BigWigs_Plugins") end
 
 				if reset then
-					SlashCmdList["BIGWIGSPULL"](E.db.mui.raidmanager.Count)
+					SlashCmdList["BIGWIGSPULL"](E.db.mui.raidmanager.count)
 				else
 					SlashCmdList["BIGWIGSPULL"]("0")
 				end

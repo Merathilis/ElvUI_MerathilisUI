@@ -411,6 +411,9 @@ L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fe
 L["Raid Manager"] = true
 L["This will disable the ElvUI Raid Control and replace it with my own."] = "Dieses deaktiviert die ElvUI Schlachtzugssteuerung und ersetzt es mit meiner eigenen."
 L["Open Raid Manager"] = "Öffne Raid Manager"
+L["Pull Timer Count"] = "Pulltimer Zähler"
+L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM oder BigWigs"
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = 'Aktzeptiert nur Zahlenformat mit "", z.B. "5", "8", "10" etc.'
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
