@@ -6,7 +6,8 @@ local MERS = MER:GetModule("muiSkins")
 --Lua functions
 local _G = _G
 local ipairs, pairs, select, tonumber, unpack = ipairs, pairs, select, tonumber, unpack
-local floor = math.floor
+local tinsert = table.insert
+local floor, max = math.floor, math.max
 local format = string.format
 local strfind = strfind
 
@@ -14,7 +15,9 @@ local strfind = strfind
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local date = date
+local time = time
 local BNGetNumFriends = BNGetNumFriends
+local GetAchievementInfo = GetAchievementInfo
 local GetFramerate = GetFramerate
 local GetNetStats = GetNetStats
 local GetCurrentRegion = GetCurrentRegion
@@ -160,7 +163,7 @@ local function checkTimeWalker(event)
 
 	for i = 1, numEvents do
 		local info = C_Calendar_GetDayEvent(0, today, i)
-		if info and strfind(info.title, PLAYER_DIFFICULTY_TIMEWALKER) and info.sequenceType ~= "END" then
+		if info and strfind(info.title, _G.PLAYER_DIFFICULTY_TIMEWALKER) and info.sequenceType ~= "END" then
 			isTimeWalker = true
 			walkerTexture = info.iconTexture
 			break
@@ -188,25 +191,82 @@ local questlist = {
 	{name = L["Timewarped"], id = 45799, texture = 1530590} -- MoP
 }
 
--- Invasion Code --
+-- Invasion
 local region = GetCVar("portal")
-local legionZoneTime = {
-	["EU"] = 1565168400, -- CN-16
-	["US"] = 1565197200, -- CN-8
-	["CN"] = 1565226000, -- CN time 8/8/2019 09:00 [1]
-}
-local bfaZoneTime = {
-	["CN"] = 1546743600, -- CN time 1/6/2019 11:00 [1]
-	["EU"] = 1546768800, -- CN+7
-	["US"] = 1546769340, -- CN+16
-}
+if not region or #region ~= 2 then
+	local regionID = GetCurrentRegion()
+	region = regionID and ({ "US", "KR", "EU", "TW", "CN" })[regionID]
+end
 
--- Check Invasion Status
 local invIndex = {
-	[1] = {title = L["Legion Invasion"], duration = 66600, maps = {630, 641, 650, 634}, timeTable = {}, baseTime = legionZoneTime[region] or legionZoneTime["EU"]},
-	[2] = {title = L["Faction Assault"], duration = 68400, maps = {862, 863, 864, 896, 942, 895}, timeTable = {4, 1, 6, 2, 5, 3}, baseTime = bfaZoneTime[region] or bfaZoneTime["EU"]},
+	{
+		title = L["Faction Assault"], -- BfA Invasions
+		interval = 68400,
+		duration = 25200,
+		maps = {862, 863, 864, 896, 942, 895},
+		timeTable = {4, 1, 6, 2, 5, 3},
+		-- Drustvar Beginning
+		baseTime = {
+			US = 1548032400, -- 01/20/2019 17:00 UTC-8
+			EU = 1548000000, -- 01/20/2019 16:00 UTC+0
+			CN = 1546743600, -- 01/06/2019 11:00 UTC+8
+		},
+	},
+	{
+		title = L["Legion Invasion"], -- Legion Invasions
+		interval = 66600,
+		duration = 21600,
+		maps = {630, 641, 650, 634},
+		timeTable = {4, 3, 2, 1, 4, 2, 3, 1, 2, 4, 1, 3},
+		-- Stormheim Beginning then Highmountain
+		baseTime = {
+			US = 1547614800, -- 01/15/2019 21:00 UTC-8
+			EU = 1547586000, -- 01/15/2019 21:00 UTC+0
+			CN = 1546844400, -- 01/07/2019 15:00 UTC+8
+		},
+	}
 }
 
+local function GetCurrentInvasion(index)
+	local inv = invIndex[index]
+	local currentTime = time()
+	local baseTime = inv.baseTime[region]
+	local duration = inv.duration
+	local interval = inv.interval
+	local elapsed = mod(currentTime - baseTime, interval)
+	if elapsed < duration then
+		local count = #inv.timeTable
+		local round = mod(floor((currentTime - baseTime) / interval) + 1, count)
+		if round == 0 then
+			round = count
+		end
+
+		return duration - elapsed, C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name
+	end
+end
+
+local function GetFutureInvasion(index, length)
+	if not length then length = 1 end
+	local tbl, i = {}
+	local inv = invIndex[index]
+	local currentTime = time()
+	local baseTime = inv.baseTime[region]
+	local interval = inv.interval
+	local count = #inv.timeTable
+	local elapsed = mod(currentTime - baseTime, interval)
+	local nextTime = interval - elapsed + currentTime
+	local round = mod(floor((nextTime - baseTime) / interval) + 1, count)
+	for i = 1, length do
+		if round == 0 then round = count end
+		tinsert(tbl, {nextTime, C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name})
+		nextTime = nextTime + interval
+		round = mod(round + 1, count)
+	end
+
+	return tbl
+end
+
+-- Fallback
 local mapAreaPoiIDs = {
 	[630] = 5175,
 	[641] = 5210,
@@ -217,10 +277,10 @@ local mapAreaPoiIDs = {
 	[864] = 5970,
 	[896] = 5964,
 	[942] = 5966,
-	[895] = 5896
+	[895] = 5896,
 }
 
-local function GetInvasionTimeInfo(mapID)
+local function GetInvasionInfo(mapID)
 	local areaPoiID = mapAreaPoiIDs[mapID]
 	local seconds = C_AreaPoiInfo_GetAreaPOISecondsLeft(areaPoiID)
 	local mapInfo = C_Map_GetMapInfo(mapID)
@@ -229,31 +289,28 @@ end
 
 local function CheckInvasion(index)
 	for _, mapID in pairs(invIndex[index].maps) do
-		local timeLeft, name = GetInvasionTimeInfo(mapID)
+		local timeLeft, name = GetInvasionInfo(mapID)
 		if timeLeft and timeLeft > 0 then
 			return timeLeft, name
 		end
 	end
 end
 
-local function GetNextTime(baseTime, index)
-	local currentTime = time()
-	local duration = invIndex[index].duration
-	local elapsed = mod(currentTime - baseTime, duration)
+local DUNGEON_FLOOR_TEMPESTKEEP1 = _G.DUNGEON_FLOOR_TEMPESTKEEP1
+local TempestKeep = select(2, GetAchievementInfo(1088)):match('%((.-)%)$')
 
-	return duration - elapsed + currentTime
-end
-
-local function GetNextLocation(nextTime, index)
-	local inv = invIndex[index]
-	local count = #inv.timeTable
-	if count == 0 then return QUEUE_TIME_UNAVAILABLE end
-
-	local elapsed = nextTime - inv.baseTime
-	local round = mod(floor(elapsed / inv.duration) + 1, count)
-	if round == 0 then round = count end
-
-	return C_Map_GetMapInfo(inv.maps[inv.timeTable[round]]).name
+local instanceIconByName = {}
+local function GetInstanceImages(index, raid)
+	local instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
+	while instanceID do
+		if name == DUNGEON_FLOOR_TEMPESTKEEP1 then
+			instanceIconByName[TempestKeep] = buttonImage
+		else
+			instanceIconByName[name] = buttonImage
+		end
+		index = index + 1
+		instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
+	end
 end
 
 local title
@@ -265,11 +322,13 @@ local function addTitle(text)
 	end
 end
 
+local collectedInstanceImages = false
 function module.OnEnter(self)
+	RequestRaidInfo()
+
 	if E.db.mui.microBar.tooltip ~= true then
 		return
 	end
-	RequestRaidInfo()
 
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide() -- WHY??? BECAUSE FUCK GAMETOOLTIP, THATS WHY!!
@@ -279,6 +338,27 @@ function module.OnEnter(self)
 		return
 	end
 
+	if not collectedInstanceImages then
+		local numTiers = (EJ_GetNumTiers() or 0)
+		if numTiers > 0 then
+			local currentTier = EJ_GetCurrentTier()
+
+			-- Loop through the expansions to collect the textures
+			for i = 1, numTiers do
+				EJ_SelectTier(i);
+				GetInstanceImages(1, false); -- Populate for dungeon icons
+				GetInstanceImages(1, true); -- Populate for raid icons
+			end
+
+			-- Set it back to the previous tier
+			if currentTier then
+				EJ_SelectTier(currentTier);
+			end
+
+			collectedInstanceImages = true
+		end
+	end
+
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("BOTTOM", timeButton, "TOP")
@@ -286,10 +366,7 @@ function module.OnEnter(self)
 
 	local today = C_Calendar_GetDate()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
-	GameTooltip:AddLine(
-		format(FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y),
-		unpack(E.media.rgbvaluecolor)
-	)
+	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 1, .8, .1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 1, .8, .1, 1, 1, 1)
@@ -300,22 +377,24 @@ function module.OnEnter(self)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Home Latency:"], colorLatency(latencyHome).."|r MS", .6, .8, 1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["World Latency:"], colorLatency(latencyWorld).."|r MS", .6, .8, 1, 1, 1, 1)
-	GameTooltip:AddDoubleLine(FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
+	GameTooltip:AddDoubleLine(_G.FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
 
 	-- World bosses
 	title = false
 	for i = 1, GetNumSavedWorldBosses() do
 		local name, id, reset = GetSavedWorldBossInfo(i)
 		if not (id == 11 or id == 12 or id == 13) then
-			addTitle(RAID_INFO_WORLD_BOSS)
+			addTitle(_G.RAID_INFO_WORLD_BOSS)
 			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, 1, 1, 1)
 		end
 	end
 
 	-- Mythic Dungeons
 	title = false
+	local img
 	for i = 1, GetNumSavedInstances() do
 		local name, _, reset, diff, locked, extended = GetSavedInstanceInfo(i)
+		img = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
 		if diff == 23 and (locked or extended) then
 			addTitle(L["Mythic Dungeon"])
 			if extended then
@@ -323,22 +402,24 @@ function module.OnEnter(self)
 			else
 				r, g, b = 1, 1, 1
 			end
-			GameTooltip:AddDoubleLine(name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
+			GameTooltip:AddDoubleLine(img..name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
 		end
 	end
 
 	-- Raids
 	title = false
+	local img
 	for i = 1, GetNumSavedInstances() do
 		local name, _, reset, _, locked, extended, _, isRaid, _, diffName = GetSavedInstanceInfo(i)
+		img = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
 		if isRaid and (locked or extended) then
-			addTitle(RAID_INFORMATION)
+			addTitle(_G.RAID_INFORMATION)
 			if extended then
 				r, g, b = .3, 1, .3
 			else
 				r, g, b = 1, 1, 1
 			end
-			GameTooltip:AddDoubleLine(name .. " - " .. diffName, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
+			GameTooltip:AddDoubleLine(img..name .. " - " .. diffName, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
 		end
 	end
 
@@ -351,7 +432,7 @@ function module.OnEnter(self)
 		end
 	end
 	if count > 0 then
-		addTitle(QUESTS_LABEL)
+		addTitle(_G.QUESTS_LABEL)
 		if count == maxCoins then
 			r, g, b = 1, 0, 0
 		else
@@ -362,46 +443,64 @@ function module.OnEnter(self)
 
 	local iwqID = C_IslandsQueue_GetIslandsWeeklyQuestID()
 	if iwqID and UnitLevel("player") == 120 then
-		addTitle(QUESTS_LABEL)
+		addTitle(_G.QUESTS_LABEL)
 		if IsQuestFlaggedCompleted(iwqID) then
-			GameTooltip:AddDoubleLine(ISLANDS_HEADER, QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
+			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 		else
 			local cur, max = select(4, GetQuestObjectiveInfo(iwqID, 1, false))
 			local stautsText = cur .. "/" .. max
 			if not cur or not max then
-				stautsText = LFG_LIST_LOADING
+				stautsText = _G.LFG_LIST_LOADING
 			end
-			GameTooltip:AddDoubleLine(ISLANDS_HEADER, stautsText, 1, 1, 1, 0, 1, 0)
+			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, stautsText, 1, 1, 1, 0, 1, 0)
 		end
 	end
 
 	for _, v in pairs(questlist) do
 		if v.name and IsQuestFlaggedCompleted(v.id) then
 			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
-				addTitle(QUESTS_LABEL)
-				GameTooltip:AddDoubleLine(v.name, QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
+				addTitle(_G.QUESTS_LABEL)
+				GameTooltip:AddDoubleLine(v.name, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 			end
 		end
 	end
 
 	-- Invasions
+	GameTooltip:AddLine(" ")
 	for index, value in ipairs(invIndex) do
-		title = false
-		addTitle(value.title)
-		local timeLeft, zoneName = CheckInvasion(index)
-		local nextTime = GetNextTime(value.baseTime, index)
-		if timeLeft then
-			timeLeft = timeLeft / 60
-			if timeLeft < 60 then
-				r, g, b = 1, 0, 0
-			else
-				r, g, b = 0, 1, 0
+		GameTooltip:AddLine(value.title)
+		if value.baseTime[region] then
+			-- baseTime provided
+			local timeLeft, zoneName = GetCurrentInvasion(index)
+			if timeLeft then
+				timeLeft = timeLeft / 60
+				if timeLeft < 60 then
+					r, g ,b = 1, 0, 0
+				else
+					r, g, b = 0, 1, 0
+				end
+				GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
 			end
-			GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%.2d:%.2d", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
-			GameTooltip:AddDoubleLine(L["Next Invasion: "] .. GetNextLocation(nextTime, index), date("%d/%m %H:%M", nextTime), 1, 1, 1, 1, 1, 1)
+			local futureTable, i = GetFutureInvasion(index, 2)
+			for i = 1, #futureTable do
+				local nextTime, zoneName = unpack(futureTable[i])
+				GameTooltip:AddDoubleLine(L["Next Invasion: "] .. zoneName, date("%d/%m - %H:%M", nextTime), 1, 1, 1)
+			end
 		else
-			GameTooltip:AddDoubleLine(L["Missing invasion info on your realm."])
+			local timeLeft, zoneName = CheckInvasion(index)
+			if timeLeft then
+				timeLeft = timeLeft / 60
+				if timeLeft < 60 then
+					r, g, b = 1, 0, 0
+				else
+					r, g, b = 0, 1, 0
+				end
+				GameTooltip:AddDoubleLine(L["Current Invasion: "] .. zoneName, format("%dh %.2dm", timeLeft / 60, timeLeft % 60), 1, 1, 1, r, g, b)
+			else
+				GameTooltip:AddLine(L["Missing invasion info on your realm."])
+			end
 		end
+		GameTooltip:AddLine(" ")
 	end
 	GameTooltip:Show()
 end
@@ -434,7 +533,7 @@ function module:OnClick(btn)
 		return
 	end
 	if btn == "LeftButton" then
-		if (not CalendarFrame) then
+		if (not _G.CalendarFrame) then
 			LoadAddOn("Blizzard_Calendar")
 		end
 		Calendar_Toggle()
@@ -475,7 +574,7 @@ function module:CreateMicroBar()
 	else
 		charButton.text:SetPoint("TOP", charButton, 2, 15)
 	end
-	charButton.text:SetText(CHARACTER_BUTTON)
+	charButton.text:SetText(_G.CHARACTER_BUTTON)
 	charButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	charButton:SetScript("OnEnter", function(self)
@@ -511,7 +610,7 @@ function module:CreateMicroBar()
 	else
 		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
 	end
-	friendsButton.text:SetText(SOCIAL_BUTTON)
+	friendsButton.text:SetText(_G.SOCIAL_BUTTON)
 	friendsButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateFriends()
@@ -578,7 +677,7 @@ function module:CreateMicroBar()
 	else
 		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
 	end
-	guildButton.text:SetText(GUILD)
+	guildButton.text:SetText(_G.GUILD)
 	guildButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	local function UpdateGuild()
@@ -648,7 +747,7 @@ function module:CreateMicroBar()
 	else
 		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
 	end
-	achieveButton.text:SetText(ACHIEVEMENT_BUTTON)
+	achieveButton.text:SetText(_G.ACHIEVEMENT_BUTTON)
 	achieveButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	achieveButton:SetScript("OnEnter", function(self)
@@ -684,7 +783,7 @@ function module:CreateMicroBar()
 	else
 		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
 	end
-	encounterButton.text:SetText(ENCOUNTER_JOURNAL)
+	encounterButton.text:SetText(_G.ENCOUNTER_JOURNAL)
 	encounterButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	encounterButton:SetScript("OnEnter", function(self)
@@ -762,7 +861,7 @@ function module:CreateMicroBar()
 	else
 		petButton.text:SetPoint("TOP", petButton, 2, 15)
 	end
-	petButton.text:SetText(MOUNTS_AND_PETS)
+	petButton.text:SetText(_G.MOUNTS_AND_PETS)
 	petButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	petButton:SetScript("OnEnter", function(self)
@@ -798,7 +897,7 @@ function module:CreateMicroBar()
 	else
 		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
 	end
-	lfrButton.text:SetText(LFG_TITLE)
+	lfrButton.text:SetText(_G.LFG_TITLE)
 	lfrButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	lfrButton:SetScript("OnEnter", function(self)
@@ -834,7 +933,7 @@ function module:CreateMicroBar()
 	else
 		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
 	end
-	spellBookButton.text:SetText(SPELLBOOK_ABILITIES_BUTTON)
+	spellBookButton.text:SetText(_G.SPELLBOOK_ABILITIES_BUTTON)
 	spellBookButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	spellBookButton:SetScript("OnEnter", function(self)
@@ -870,7 +969,7 @@ function module:CreateMicroBar()
 	else
 		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
 	end
-	speccButton.text:SetText(TALENTS_BUTTON)
+	speccButton.text:SetText(_G.TALENTS_BUTTON)
 	speccButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	speccButton:SetScript("OnEnter", function(self)
@@ -906,7 +1005,7 @@ function module:CreateMicroBar()
 	else
 		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
 	end
-	shopButton.text:SetText(BLIZZARD_STORE)
+	shopButton.text:SetText(_G.BLIZZARD_STORE)
 	shopButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
 
 	shopButton:SetScript("OnEnter", function(self)
@@ -919,7 +1018,7 @@ function module:CreateMicroBar()
 		if InCombatLockdown() then
 			return
 		end
-		StoreMicroButton:Click()
+		_G.StoreMicroButton:Click()
 	end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
@@ -946,7 +1045,7 @@ function module:UNIT_AURA(_, unit)
 		return
 	end
 	if module.db.enable and module.db.hideInOrderHall then
-		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		local inOrderHall = C_GarrisonIsPlayerInGarrison(_G.LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
 			microBar:SetAlpha(0)
 		else

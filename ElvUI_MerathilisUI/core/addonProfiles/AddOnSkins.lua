@@ -36,7 +36,7 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['DBMRadarTrans'] = false
 	AS.db['WeakAuraAuraBar'] = false
 	AS.db['WeakAuraIconCooldown'] = false
-	AS.db['SkinTemplate'] = 'Transparent'
+	AS.db['SkinTemplate'] = 'MerathilisUI'
 	AS.db['HideChatFrame'] = 'NONE'
 	AS.db['Parchment'] = false
 	AS.db['ParchmentRemover'] = false

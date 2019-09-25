@@ -4,7 +4,7 @@
 	<Script file="alerts.lua"/>
 	<Script file="azeriteAnimationSkip.lua"/>
 	<Script file="combatText.lua"/>
-	<Script file="cursor.lua"/>
+	<!-- <Script file="cursor.lua"/> -->
 	<Script file="flightMode.lua"/>
 	<Script file="flightPoint.lua"/>
 	<Include file="flightPoint.xml" />
@@ -16,7 +16,6 @@
 	<Script file="mailinputbox.lua"/>
 	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
-	<Script file="raidManager.lua"/>
 	<Script file="reputation.lua"/>
 	<Script file="quest.lua"/>
 	<Script file="spellAlerts.lua"/>

@@ -31,7 +31,7 @@ local function NameplatesTable()
 				name = L["Castbar Shield"],
 				desc = L["Show a shield icon on the castbar for non interruptible spells."],
 			},
-			spacer = {
+			spacer1 = {
 				order = 3,
 				type = "description",
 				name = " ",

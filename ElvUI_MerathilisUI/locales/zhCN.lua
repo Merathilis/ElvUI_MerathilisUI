@@ -55,7 +55,7 @@ L["Chat Item Level"] = "聊天物品等级"
 L["Shows the slot and item level in the chat"] = "显示聊天中的插槽和物品等级"
 L["Expand the chat"] = "展开聊天框"
 L["Chat Menu"] = "聊天菜单"
-L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."] = true
+L["Create a chat button to increase the chat size."] = true
 L["Hide Player Brackets"] = "隐藏玩家括号"
 L["Removes brackets around the person who posts a chat message."] = "删除聊天框中玩家名字两边的括号."
 L["Hide Community Chat"] = "隐藏社区聊天"
@@ -129,8 +129,6 @@ L["Flashing Cursor"] = "鼠标闪光"
 L["Accept Quest"] = "接受任务"
 L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
-L["Raid Info"] = "团队信息"
-L["Shows a simple frame with Raid Informations."] = "显示带有Raid信息的简单框架."
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
@@ -385,10 +383,7 @@ L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
 -- SMB
-L["Bar Backdrop"] = "条背景"
-L["Move Tracker Icon"] = "移动追踪图标"
-L["Move Queue Status Icon"] = "移动队列状态图标"
-L["Reverse Direction"] = true
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"
@@ -411,6 +406,14 @@ L["Class Specific Buffs"] = "职业专精BUFF"
 L["Shows all the class specific raid buffs."] = "显示所有的职业专精团队增益BUFF"
 L["Change the alpha level of the icons."] = "改变图标的透明等级."
 L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示一个像素发光."
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
+L["Pull Timer Count"] = true
+L["Change the Pulltimer for DBM or BigWigs"] = true
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
@@ -538,10 +541,13 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["MerathilisUI Panels"] = "MerathilisUI 面板"
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
+L["Enable/Disable"] = true
+L["decor."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

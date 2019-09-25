@@ -44,18 +44,11 @@ local function ArmoryTable()
 				order = 3,
 				name = L["Azerite Buttons"],
 				desc = L["Enable/Disable the Azerite Buttons on the character window."],
-
 			},
 			undressButton = {
 				type = "toggle",
 				order = 4,
 				name = L["Undress Button"],
-			},
-			gradient = {
-				type = "toggle",
-				order = 7,
-				name = L["Slot Gradient"],
-				desc = L["Shows a gradiation texture on the Character Slots."],
 			},
 			spacer = {
 				type = "description",

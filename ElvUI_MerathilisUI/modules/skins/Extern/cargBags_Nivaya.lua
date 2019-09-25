@@ -8,7 +8,7 @@ local _G = _G
 -- WoW API / Variables
 -- GLOBALS: hooksecurefunc, BugSack
 
-local function stylecargBags()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.cbn ~= true then return end
 
 	-- Default Containers from cargBags_Nivaya
@@ -43,4 +43,4 @@ local function stylecargBags()
 	end
 end
 
-S:AddCallbackForAddon("cargBags_Nivaya", "mui_cargBags_Nivaya", stylecargBags)
+S:AddCallbackForAddon("cargBags_Nivaya", "mui_cargBags_Nivaya", LoadAddOnSkin)

@@ -169,12 +169,8 @@ end
 function COMP:Initialize()
 end
 
-hooksecurefunc(
-	E,
-	"CheckIncompatible",
-	function(self)
-		COMP:RunCompatibilityFunctions()
-	end
-)
+hooksecurefunc(E, "CheckIncompatible", function(self)
+	COMP:RunCompatibilityFunctions()
+end)
 
 MER:RegisterModule(COMP:GetName())

@@ -55,7 +55,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = "Zeigt den Ausrüstungplatz und das Item Level im Chat an."
 L["Expand the chat"] = "Chat erweitern"
 L["Chat Menu"] = "Chat Menu"
-L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."] = "Erstellt eine Chat Taste um den Chat zu erweitern. |cffFF0000WARNUNG:|r wenn du diese Option aktivierst, bleibt der Chat in einer festen Höhe."
+L["Create a chat button to increase the chat size."] = "Erstellt eine Chat Taste um den Chat zu erweitern."
 L["Hide Player Brackets"] = "Verstecke Spieler Klammern"
 L["Removes brackets around the person who posts a chat message."] = "Entfernt die Klammern um die Spielernamen im Chat."
 L["ChatBar"] = "Chatleiste"
@@ -129,8 +129,6 @@ L["Flashing Cursor"] = "Blinkender Mauszeiger"
 L["Accept Quest"] = "Quest aktzeptiert"
 L["Placed Item"] = "Platzierte Gegenstand"
 L["Stranger"] = "Fremder"
-L["Raid Info"] = "Raid Information"
-L["Shows a simple frame with Raid Informations."] = "Zeigt ein einfaches Fenster mit Informationen über den Raid."
 L["Keystones"] = "Schlüsselsteine"
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
@@ -385,10 +383,7 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["Bar Backdrop"] = "Leisten Hintergrund"
-L["Move Tracker Icon"] = "Verschiebe Aufspührsymbol"
-L["Move Queue Status Icon"] = "Verschiebe LFG Symbol"
-L["Reverse Direction"] = "Umgekehrte Reihenfolge"
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = "Wenn du eine viele Minimap Buttons benutzt, ist mein Modul nicht die richtige Wahl für dich."
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"
@@ -411,6 +406,14 @@ L["Class Specific Buffs"] = "Klassenspezifische Buffs"
 L["Shows all the class specific raid buffs."] = "Zeigt alle Klassenspezifischen Buffs."
 L["Change the alpha level of the icons."] = "Ändert das Alpha Level der Symbole"
 L["Shows the pixel glow on missing raid buffs."] = "Zeigt ein Leuchten um den fehlenden Klassenspezifischen Buffs."
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = "Dieses deaktiviert die ElvUI Schlachtzugssteuerung und ersetzt es mit meiner eigenen."
+L["Open Raid Manager"] = "Öffne Raid Manager"
+L["Pull Timer Count"] = "Pulltimer Zähler"
+L["Change the Pulltimer for DBM or BigWigs"] = "Ändert den Pulltimer für DBM oder BigWigs"
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = 'Aktzeptiert nur Zahlenformat mit "", z.B. "5", "8", "10" etc.'
 
 -- Reminder
 L["Reminder"] = "Erinnerung"
@@ -538,10 +541,13 @@ Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
 L["MerathilisUI Panels"] = "MerathilisUI Leisten"
+L["MerathilisUI Extra Style Panels"] = "MerathilisUI Extra Stil Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
+L["Enable/Disable"] = "Aktiviere/Deaktiviere"
+L["decor."] = "Dekor"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

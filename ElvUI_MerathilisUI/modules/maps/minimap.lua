@@ -156,7 +156,7 @@ function module:RaidDifficulty()
 			elseif difficulty == 9 then -- 40 Player
 				RaidDifficultyText:SetText('40R')
 			elseif difficulty == 11 or difficulty == 39 then -- Heroic Scenario / Heroic
-				RaidDifficultyText:SetText('HScen')
+				RaidDifficultyText:SetText(format('|cffff7d0aH|rScen'))
 			elseif difficulty == 12 or difficulty == 38 then -- Normal Scenario / Normal
 				RaidDifficultyText:SetText('Scen')
 			elseif difficulty == 40 then -- Mythic Scenario
@@ -182,7 +182,7 @@ function module:RaidDifficulty()
 			elseif difficulty == 147 then -- Normal Scenario (Warfronts)
 				RaidDifficultyText:SetText('WF')
 			elseif difficulty == 149 then -- Heroic Scenario (Warfronts)
-				RaidDifficultyText:SetText('HWF')
+				RaidDifficultyText:SetText(format('|cffff7d0aH|rWF'))
 			end
 		elseif instanceType == 'pvp' or instanceType == 'arena' then
 			RaidDifficultyText:SetText(format("|cffFFFF00%s |r", 'PVP'))

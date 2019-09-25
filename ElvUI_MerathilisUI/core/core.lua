@@ -45,17 +45,12 @@ function MER:RegisterMedia()
 	E.media.muiGothic = LSM:Fetch("font", "Merathilis Gothic-Bold")
 
 	-- Background
-	E.media.muiBrushedMetal = LSM:Fetch("background", "Merathilis BrushedMetal")
-	E.media.muiSmoke = LSM:Fetch("background", "Merathilis Smoke")
-
 	-- Border
-	E.media.muiglowTex = LSM:Fetch("border", "MerathilisGlow")
 
 	--Textures
 	E.media.muiBlank = LSM:Fetch("statusbar", "MerathilisBlank")
 	E.media.muiBorder = LSM:Fetch("statusbar", "MerathilisBorder")
 	E.media.muiEmpty = LSM:Fetch("statusbar", "MerathilisEmpty")
-	E.media.muiFlat = LSM:Fetch("statusbar", "MerathilisFlat")
 	E.media.muiMelli = LSM:Fetch("statusbar", "MerathilisMelli")
 	E.media.muiMelliDark = LSM:Fetch("statusbar", "MerathilisMelliDark")
 	E.media.muiOnePixel = LSM:Fetch("statusbar", "MerathilisOnePixel")

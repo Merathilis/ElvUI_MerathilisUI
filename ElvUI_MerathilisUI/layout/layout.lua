@@ -21,7 +21,7 @@ local hooksecurefunc = hooksecurefunc
 --Global variables that we don"t cache, list them here for mikk"s FindGlobals script
 -- GLOBALS: RightChatTab, RightChatPanel, ChatTab_Datatext_Panel
 
-local PANEL_HEIGHT = 19;
+local PANEL_HEIGHT = 19
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 function MERL:LoadLayout()
@@ -91,6 +91,10 @@ end
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
+	-- Maybe add option to adjust how much the chat panel expands
+	E.db.mui.chat.expandPanel = 150
+	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
+
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
@@ -111,11 +115,11 @@ function MERL:CreateChatButtons()
 		if InCombatLockdown() then return end
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
-				E.db.chat.panelHeight = E.db.mui.chat.panelHeight
-				E.db.mui.chat.isExpanded = false
+				E.db.chat.panelHeight = E.db.chat.panelHeight - E.db.mui.chat.expandPanel
 				CH:PositionChat(true)
+				E.db.mui.chat.isExpanded = false
 			else
-				E.db.chat.panelHeight = 400
+				E.db.chat.panelHeight = E.db.chat.panelHeight + E.db.mui.chat.expandPanel
 				CH:PositionChat(true)
 				E.db.mui.chat.isExpanded = true
 			end
@@ -145,17 +149,11 @@ function MERL:CreateChatButtons()
 		GameTooltip:Hide()
 	end)
 
-	ChatButton:RegisterEvent("PLAYER_LEAVING_WORLD")
 	ChatButton:RegisterEvent("ADDON_LOADED")
 	ChatButton:SetScript("OnEvent", function(self, event, addon)
-		if event == "ADDON_LOADED" and addon == "ElvUI_Config" then
-			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; E:GetModule("Chat"):PositionChat(true); end
+		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
+			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChat(true); end
 			self:UnregisterEvent(event)
-		end
-		if event == "PLAYER_LEAVING_WORLD" then
-			E.db.chat.panelHeight = E.db.mui.chat.panelHeight or 146
-			E.db.mui.chat.isExpanded = false
-			CH:PositionChat(true)
 		end
 	end)
 end
@@ -346,7 +344,7 @@ function MERL:CreatePanels()
 end
 
 function MERL:CreateStylePanels()
-	if E.db.mui.general.panels ~= true then return end
+	if E.db.mui.general.panels ~= true or E.db.mui.general.stylePanels ~= true then return end
 
 	-- Style Background for RaidBuffReminder / Raid Manager
 	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
@@ -364,7 +362,7 @@ function MERL:CreateStylePanels()
 
 	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
 	TopRightStylePanel1:SetPoint("TOP", TopRightStylePanel, "BOTTOM")
-	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+	MER:CreateGradientFrame(TopRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 
 	-- Style under the left chat.
 	local BottomLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
@@ -382,7 +380,7 @@ function MERL:CreateStylePanels()
 
 	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel)
 	BottomRightStylePanel1:SetPoint("BOTTOM", BottomRightStylePanel, "TOP")
-	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, .7, 0)
+	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 end
 
 function MERL:regEvents()

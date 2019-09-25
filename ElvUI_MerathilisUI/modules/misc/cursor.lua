@@ -7,7 +7,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local CreateFrame = CreateFrame
 local GetCursorPosition = GetCursorPosition
 local GetEffectiveScale = GetEffectiveScale
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local frame = CreateFrame("Frame", nil, UIParent)

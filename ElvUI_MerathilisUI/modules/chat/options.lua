@@ -23,7 +23,7 @@ local function ChatTable()
 				order = 2,
 				type = "toggle",
 				name = L["Chat Menu"],
-				desc = L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."],
+				desc = L["Create a chat button to increase the chat size."],
 			},
 			hidePlayerBrackets = {
 				order = 3,
@@ -49,7 +49,7 @@ local function ChatTable()
 				name = L["Emotes"],
 			},
 			filter = {
-				order = 7,
+				order = 20,
 				type = "group",
 				name = L["Filter"],
 				guiInline = true,

@@ -21,6 +21,7 @@ MP.general = {
 	Movertransparancy = .75,
 	style = true,
 	panels = true,
+	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,
@@ -38,7 +39,6 @@ MP.merchant = {
 
 MP.chat = {
 	chatButton = true,
-	panelHeight = 146,
 	hidePlayerBrackets = true,
 	hideChat = false,
 	chatBar = false,
@@ -59,7 +59,6 @@ MP.misc = {
 	quest = false,
 	announce = true,
 	cursor = false,
-	raidInfo = true,
 	lfgInfo = true,
 	alerts = {
 		lfg = false,
@@ -371,15 +370,10 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	barMouseOver = true,
-	backdrop = true,
-	hideInCombat = false,
-	iconSize = 22,
-	buttonsPerRow = 6,
-	buttonSpacing = 2,
-	moveTracker = false,
-	moveQueue = false,
-	reverseDirection = false,
+	position = "TOPRIGHT",
+	xOffset = 10,
+	yOffset = 20,
+	size = 34,
 }
 
 MP.locPanel = {
@@ -428,6 +422,12 @@ MP.raidmarkers = {
 	orientation = "HORIZONTAL",
 	modifier = "shift-",
 	reverse = false,
+}
+
+MP.raidmanager = {
+	enable = true,
+	unlockraidmarks = false,
+	count = "10",
 }
 
 MP.tooltip = {
@@ -509,7 +509,7 @@ MP.raidBuffs = {
 	enable = true,
 	visibility = "INPARTY",
 	class = true,
-	size = 24,
+	size = 30,
 	alpha = 0.3,
 	glow = true,
 	customVisibility = "[noexists, nogroup] hide; show",

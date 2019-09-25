@@ -57,17 +57,11 @@ local function Misc()
 				name = L["Announce"],
 				desc = L["Skill gains"],
 			},
-			cursor = {
-				order = 7,
-				type = "toggle",
-				name = L["Flashing Cursor"],
-			},
-			raidInfo = {
-				order = 8,
-				type = "toggle",
-				name = L["Raid Info"],
-				desc = L["Shows a simple frame with Raid Informations."],
-			},
+			--cursor = {
+				--order = 7,
+				--type = "toggle",
+				--name = L["Flashing Cursor"],
+			--},
 			lfgInfo = {
 				order = 11,
 				type = "toggle",

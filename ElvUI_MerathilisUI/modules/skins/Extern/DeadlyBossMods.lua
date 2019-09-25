@@ -9,11 +9,10 @@ local _G = _G
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 
-
 if not COMP.AS then return end
 local AS = unpack(AddOnSkins)
 
-local function DbmDecor(event)
+local function LoadAddOnSkin(event)
 	if E.private.muiSkins.addonSkins.dbm ~= true then return end
 
 	local function StyleRangeFrame(self, range, filter, forceshow, redCircleNumPlayers)
@@ -47,4 +46,4 @@ local function DbmDecor(event)
 	hooksecurefunc(DBM.InfoFrame, 'Show', StyleInfoFrame)
 end
 
-if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', DbmDecor, 'ADDON_LOADED') end
+if AS:CheckAddOn('DBM-Core') then AS:RegisterSkin('DBM', LoadAddOnSkin, 'ADDON_LOADED') end

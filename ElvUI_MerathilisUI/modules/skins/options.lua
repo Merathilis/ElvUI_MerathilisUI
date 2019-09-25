@@ -14,13 +14,14 @@ local DecorAddons = {
 	{"ActionBarProfiles", L["ActonBarProfiles"], "abp"},
 	{"BigWigs", L["BigWigs"], "bw"},
 	{"ElvUI_BenikUI", L["BenikUI"], "bui"},
-	{"BugSack", L["BugSack"], "bs"},
+	{"BugSack", L["BugSack"], "bs",},
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
 	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 	{"Clique", L["Clique"], "cl"},
-	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"}
+	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
+	{"EventTracker", L["EventTracker"], "et"},
 }
 
 local SupportedProfiles = {
@@ -71,8 +72,16 @@ local function SkinsTable()
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
 						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
-					shadowOverlay = {
+					stylePanels = {
 						order = 3,
+						type = "toggle",
+						name = L["MerathilisUI Extra Style Panels"],
+						get = function(info) return E.db.mui.general[ info[#info] ] end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						disabled = function() return not E.db.mui.general.panels end,
+					},
+					shadowOverlay = {
+						order = 4,
 						type = "toggle",
 						name = L["MerathilisUI Shadows"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
@@ -102,7 +111,7 @@ local function SkinsTable()
 								order = 1,
 								type = "description",
 								fontSize = "medium",
-								name = format("|cff9482c9Shadow&Light - Darth Predator|r"),
+								name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
 							},
 						},
 					},
@@ -146,11 +155,12 @@ local function SkinsTable()
 
 	local addorder = 3
 	for i, v in ipairs(DecorAddons) do
-		local addonName, addonString, addonOption = unpack( v )
+		local addonName, addonString, addonOption, Notes = unpack(v)
 		E.Options.args.mui.args.skins.args.addonskins.args[addonOption] = {
 			order = addorder + 1,
 			type = "toggle",
 			name = addonString,
+			desc = format('%s '..addonString..' %s', L["Enable/Disable"], L["decor."]),
 			disabled = function() return not IsAddOnLoaded(addonName) end,
 		}
 	end
@@ -216,7 +226,7 @@ local function SkinsTable()
 			},
 			garrison = {
 				type = "toggle",
-				name = GARRISON_LOCATION_TOOLTIP,
+				name = _G.GARRISON_LOCATION_TOOLTIP,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.garrison end,
 			},
 			orderhall = {
@@ -226,17 +236,17 @@ local function SkinsTable()
 			},
 			talent = {
 				type = "toggle",
-				name = TALENTS,
+				name = _G.TALENTS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.talent end,
 			},
 			auctionhouse = {
 				type = "toggle",
-				name = AUCTIONS,
+				name = _G.AUCTIONS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.auctionhouse end,
 			},
 			friends = {
 				type = "toggle",
-				name = FRIENDS,
+				name = _G.FRIENDS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.friends end,
 			},
 			contribution = {
@@ -246,12 +256,12 @@ local function SkinsTable()
 			},
 			artifact = {
 				type = "toggle",
-				name = ITEM_QUALITY6_DESC,
+				name = _G.ITEM_QUALITY6_DESC,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.artifact end,
 			},
 			collections = {
 				type = "toggle",
-				name = COLLECTIONS,
+				name = _G.COLLECTIONS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.collections end,
 			},
 			calendar = {
@@ -266,7 +276,7 @@ local function SkinsTable()
 			},
 			worldmap = {
 				type = "toggle",
-				name = WORLD_MAP,
+				name = _G.WORLD_MAP,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.worldmap end,
 			},
 			pvp = {
@@ -276,17 +286,17 @@ local function SkinsTable()
 			},
 			achievement = {
 				type = "toggle",
-				name = ACHIEVEMENTS,
+				name = _G.ACHIEVEMENTS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.achievement end,
 			},
 			tradeskill = {
 				type = "toggle",
-				name = TRADESKILLS,
+				name = _G.TRADESKILLS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.tradeskill end,
 			},
 			lfg = {
 				type = "toggle",
-				name = LFG_TITLE,
+				name = _G.LFG_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.lfg end,
 			},
 			lfguild = {
@@ -301,12 +311,12 @@ local function SkinsTable()
 			},
 			guild = {
 				type = "toggle",
-				name = GUILD,
+				name = _G.GUILD,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.guild end,
 			},
 			objectiveTracker = {
 				type = "toggle",
-				name = OBJECTIVES_TRACKER_LABEL,
+				name = _G.OBJECTIVES_TRACKER_LABEL,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.objectiveTracker end,
 			},
 			addonManager = {
@@ -326,17 +336,17 @@ local function SkinsTable()
 			},
 			dressingroom = {
 				type = "toggle",
-				name = DRESSUP_FRAME,
+				name = _G.DRESSUP_FRAME,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.dressingroom end,
 			},
 			timemanager = {
 				type = "toggle",
-				name = TIMEMANAGER_TITLE,
+				name = _G.TIMEMANAGER_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.timemanager end,
 			},
 			blackmarket = {
 				type = "toggle",
-				name = BLACK_MARKET_AUCTION_HOUSE,
+				name = _G.BLACK_MARKET_AUCTION_HOUSE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.bmah end,
 			},
 			guildcontrol = {
@@ -346,22 +356,22 @@ local function SkinsTable()
 			},
 			macro = {
 				type = "toggle",
-				name = MACROS,
+				name = _G.MACROS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.macro end,
 			},
 			binding = {
 				type = "toggle",
-				name = KEY_BINDING,
+				name = _G.KEY_BINDING,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.binding end,
 			},
 			gbank = {
 				type = "toggle",
-				name = GUILD_BANK,
+				name = _G.GUILD_BANK,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gbank end,
 			},
 			taxi = {
 				type = "toggle",
-				name = FLIGHT_MAP,
+				name = _G.FLIGHT_MAP,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.taxi end,
 			},
 			help = {
@@ -381,7 +391,7 @@ local function SkinsTable()
 			},
 			deathRecap = {
 				type = "toggle",
-				name = DEATH_RECAP_TITLE,
+				name = _G.DEATH_RECAP_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
 			},
 			questPOI = {
@@ -391,17 +401,17 @@ local function SkinsTable()
 			},
 			channels = {
 				type = "toggle",
-				name = CHANNELS,
+				name = _G.CHANNELS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Channels end,
 			},
 			communities = {
 				type = "toggle",
-				name = COMMUNITIES,
+				name = _G.COMMUNITIES,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Communities end,
 			},
 			challenges = {
 				type = "toggle",
-				name = CHALLENGES,
+				name = _G.CHALLENGES,
 				disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
 			},
 			AzeriteUI = {
@@ -411,12 +421,12 @@ local function SkinsTable()
 			},
 			AzeriteRespec = {
 				type = "toggle",
-				name = AZERITE_RESPEC_TITLE,
+				name = _G.AZERITE_RESPEC_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
 			},
 			IslandQueue = {
 				type = "toggle",
-				name = ISLANDS_HEADER,
+				name = _G.ISLANDS_HEADER,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandQueue end,
 			},
 			IslandsPartyPose = {
@@ -431,7 +441,7 @@ local function SkinsTable()
 			},
 			Scrapping = {
 				type = "toggle",
-				name = SCRAP_BUTTON,
+				name = _G.SCRAP_BUTTON,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Scrapping end,
 			},
 			trainer = {
@@ -446,7 +456,7 @@ local function SkinsTable()
 			},
 			inspect = {
 				type = "toggle",
-				name = INSPECT,
+				name = _G.INSPECT,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.inspect end,
 			},
 			socket = {
@@ -461,12 +471,12 @@ local function SkinsTable()
 			},
 			trade = {
 				type = "toggle",
-				name = TRADESKILLS,
+				name = _G.TRADESKILLS,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
 			},
 			voidstorage = {
 				type = "toggle",
-				name = VOID_STORAGE,
+				name = _G.VOID_STORAGE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.voidstorage end,
 			},
 			AlliedRaces = {
@@ -484,6 +494,11 @@ local function SkinsTable()
 				name = L["Archaeology Frame"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.archaeology end,
 			},
+			AzeriteEssence = {
+				type = "toggle",
+				name = L["Azerite Essence"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteEssence end,
+			}
 		},
 	}
 

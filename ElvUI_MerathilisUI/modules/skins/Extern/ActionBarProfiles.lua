@@ -9,7 +9,7 @@ local pairs = pairs
 -- WoW API / Variables
 -- GLOBALS:
 
-local function styleActionBarProfile()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.abp ~= true then return; end
 
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
@@ -42,4 +42,4 @@ local function styleActionBarProfile()
 	S:HandleCheckBox(_G.PaperDollActionBarProfilesSaveDialogOptionBindings)
 end
 
-S:AddCallbackForAddon("ActionBarProfiles", "mUIActionBarProfiles", styleActionBarProfile)
+S:AddCallbackForAddon("ActionBarProfiles", "mUIActionBarProfiles", LoadAddOnSkin)

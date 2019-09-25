@@ -19,4 +19,5 @@
 	<Include file="notification\load_notification.xml"/>
 	<Include file="rbreminder\load_rbreminder.xml"/>
 	<Include file="reminder\load_reminder.xml"/>
+	<Include file="raidmanager\load_raidmanager.xml"/>
 </Ui>

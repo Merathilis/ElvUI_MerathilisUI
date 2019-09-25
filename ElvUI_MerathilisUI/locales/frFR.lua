@@ -55,7 +55,7 @@ L["Chat Item Level"] = true
 L["Shows the slot and item level in the chat"] = true
 L["Expand the chat"] = true
 L["Chat Menu"] = true
-L["Create a chat button to increase the chat size. |cffFF0000WARNING:|r If this option is enabled, the chat will be forced to a fixed size."] = true
+L["Create a chat button to increase the chat size."] = true
 L["Hide Player Brackets"] = true
 L["Removes brackets around the person who posts a chat message."] = true
 L["Hide Chat Side Panel"] = true
@@ -131,8 +131,6 @@ L["Flashing Cursor"] = true
 L["Accept Quest"] = true
 L["Placed Item"] = true
 L["Stranger"] = true
-L["Raid Info"] = true
-L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "Message de guilde du jour"
 L["LFG Member Info"] = true
@@ -387,10 +385,7 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["Bar Backdrop"] = true
-L["Move Tracker Icon"] = true
-L["Move Queue Status Icon"] = true
-L["Reverse Direction"] = true
+L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
@@ -413,6 +408,14 @@ L["Class Specific Buffs"] = true
 L["Shows all the class specific raid buffs."] = true
 L["Change the alpha level of the icons."] = true
 L["Shows the pixel glow on missing raidbuffs."] = true
+
+-- Raid Manager
+L["Raid Manager"] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["Open Raid Manager"] = true
+L["Pull Timer Count"] = true
+L["Change the Pulltimer for DBM or BigWigs"] = true
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
 
 -- Reminder
 L["Reminder"] = true
@@ -540,10 +543,13 @@ Please note that some of these options will be |cff636363disabled|r if the addon
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
 L["MerathilisUI Panels"] = true
+L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
+L["Enable/Disable"] = true
+L["decor."] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

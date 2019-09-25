@@ -9,7 +9,7 @@ local CreateFrame = CreateFrame
 -- WoW API / Variables
 -- GLOBALS:
 
-local function styleProjectAzilroka()
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.pa ~= true then return end
 
 	local f = CreateFrame("Frame")
@@ -26,4 +26,4 @@ local function styleProjectAzilroka()
 	end)
 end
 
-S:AddCallbackForAddon("ProjectAzilroka", "ADDON_LOADED", styleProjectAzilroka)
+S:AddCallbackForAddon("ProjectAzilroka", "ADDON_LOADED", LoadAddOnSkin)

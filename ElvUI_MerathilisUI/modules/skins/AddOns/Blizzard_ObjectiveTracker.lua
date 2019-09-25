@@ -26,8 +26,6 @@ local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
 local GetQuestLogIndexByID = GetQuestLogIndexByID
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
-
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
 local InCombat , a, f, _, id, cns, ncns, l, n, q, o, w = false, ...
