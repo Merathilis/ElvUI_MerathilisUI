@@ -27,7 +27,24 @@ local function styleGossip()
 		_G.GossipGreetingScrollFrame.spellTex:SetTexture('') -- Remove Parchement
 	end
 
+	for i = 1, _G.NUMGOSSIPBUTTONS do
+		_G["GossipTitleButton"..i]:GetFontString():SetTextColor(1, 1, 1)
+	end
+
 	_G.GossipGreetingText:SetTextColor(1, 1, 1)
+
+	hooksecurefunc("GossipFrameUpdate", function()
+		for i = 1, _G.NUMGOSSIPBUTTONS do
+			local button = _G["GossipTitleButton"..i]
+			if button:GetFontString() then
+				local Text = button:GetFontString():GetText()
+				if Text and strfind(Text, '|cff000000') then
+					button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+				end
+			end
+		end
+	end)
+
 	_G.NPCFriendshipStatusBar:GetRegions():Hide()
 	_G.NPCFriendshipStatusBarNotch1:SetColorTexture(0, 0, 0)
 	_G.NPCFriendshipStatusBarNotch1:SetSize(1, 16)
@@ -41,82 +58,6 @@ local function styleGossip()
 
 	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
 	MERS:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
-
-	GossipFrame:HookScript("OnShow", function()
-		C_Timer_After(.01, function()
-			local index = 1
-			local titleButton = _G["GossipTitleButton"..index]
-			while titleButton do
-				if titleButton:GetText() ~= nil then
-					titleButton:SetText(gsub(titleButton:GetText(), ":32:32:0:0", ":32:32:0:0:64:64:5:59:5:59"))
-				end
-				index = index + 1
-				titleButton = _G["GossipTitleButton"..index]
-			end
-		end)
-	end)
-
-	local function GossipTitleButtonTemplate(Button)
-		local highlight = Button:GetHighlightTexture()
-		highlight:SetColorTexture(r, g, b, 0.3)
-		highlight:SetInside(Button)
-
-		Button:SetSize(300, 16)
-		_G[Button:GetName().."GossipIcon"]:SetSize(16, 16)
-		_G[Button:GetName().."GossipIcon"]:SetPoint("TOPLEFT", 3, 1)
-
-		local text = Button:GetFontString()
-		text:SetSize(257, 0)
-		text:SetPoint("LEFT", 20, 0)
-		text:SetTextColor(1, 1, 1)
-	end
-
-	local prevTitle
-	for i = 1, _G.NUMGOSSIPBUTTONS do
-		GossipTitleButtonTemplate(_G["GossipTitleButton"..i])
-
-		if not prevTitle then
-			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", _G.GossipGreetingText, "BOTTOMLEFT", -10, -20)
-		else
-			_G["GossipTitleButton"..i]:SetPoint("TOPLEFT", prevTitle, "BOTTOMLEFT", 0, -3)
-		end
-		prevTitle = _G["GossipTitleButton"..i]
-	end
-
-	local availDataPerQuest, activeDataPerQuest = 7, 6
-	hooksecurefunc("GossipFrameAvailableQuestsUpdate", function(...)
-		local numAvailQuestsData = select("#", ...)
-		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numAvailQuestsData / availDataPerQuest)
-		for i = 1, numAvailQuestsData, availDataPerQuest do
-			local titleText, _, isTrivial = select(i, ...)
-			local titleButton = _G["GossipTitleButton" .. buttonIndex]
-			if isTrivial then
-				titleButton:SetFormattedText(_G.MER_TRIVIAL_QUEST_DISPLAY, titleText)
-			else
-				titleButton:SetFormattedText(_G.MER_NORMAL_QUEST_DISPLAY, titleText)
-			end
-			buttonIndex = buttonIndex + 1
-		end
-	end)
-
-	hooksecurefunc("GossipFrameActiveQuestsUpdate", function(...)
-		local numActiveQuestsData = select("#", ...)
-		local buttonIndex = (GossipFrame.buttonIndex - 1) - (numActiveQuestsData / activeDataPerQuest)
-		for i = 1, numActiveQuestsData, activeDataPerQuest do
-			local titleText, _, isTrivial = select(i, ...)
-			local titleButton = _G["GossipTitleButton" .. buttonIndex]
-			if isTrivial then
-				titleButton:SetFormattedText(_G.MER_TRIVIAL_QUEST_DISPLAY, titleText)
-			else
-				titleButton:SetFormattedText(_G.MER_NORMAL_QUEST_DISPLAY, titleText)
-			end
-			buttonIndex = buttonIndex + 1
-		end
-	end)
-
-	hooksecurefunc("GossipResize", function(titleButton)
-		titleButton:SetHeight(titleButton:GetTextHeight() + 4)
-	end)
 end
 
 S:AddCallback("mUIGossip", styleGossip)
