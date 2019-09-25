@@ -19,7 +19,6 @@ local UnitIsGhost = UnitIsGhost
 local UnitIsConnected = UnitIsConnected
 local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax
 local UnitName = UnitName
-local UnitFactionGroup = UnitFactionGroup
 local UnitPower = UnitPower
 local IsResting = IsResting
 
