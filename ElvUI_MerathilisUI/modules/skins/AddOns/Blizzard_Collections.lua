@@ -166,26 +166,22 @@ local function styleCollections()
 		MERS:ReskinIcon(bu.icon)
 	end
 
-	hooksecurefunc(
-		"PetJournal_UpdatePetCard",
-		function(self)
-			local border = self.PetInfo.qualityBorder
-			local r, g, b
+	hooksecurefunc("PetJournal_UpdatePetCard", function(self)
+		local border = self.PetInfo.qualityBorder
+		local r, g, b
 
-			if border:IsShown() then
-				r, g, b = self.PetInfo.qualityBorder:GetVertexColor()
-			else
-				r, g, b = 0, 0, 0
-			end
-
-			self.PetInfo.icon.bg:SetVertexColor(r, g, b)
+		if border:IsShown() then
+			r, g, b = self.PetInfo.qualityBorder:GetVertexColor()
+		else
+			r, g, b = 0, 0, 0
 		end
-	)
+
+		self.PetInfo.icon.bg:SetVertexColor(r, g, b)
+	end)
 
 	-- Pet loadout
-
 	for i = 1, 3 do
-		local bu = PetJournal.Loadout["Pet" .. i]
+		local bu = _G["PetJournalLoadoutPet"..i]
 
 		_G["PetJournalLoadoutPet" .. i .. "BG"]:Hide()
 
@@ -205,6 +201,10 @@ local function styleCollections()
 		bu.setButton:GetRegions():SetPoint("BOTTOMRIGHT", bu.icon, 5, -5)
 
 		MERS:CreateBD(bu, .25)
+
+		hooksecurefunc(bu.qualityBorder, "SetVertexColor", function(_, r, g, b)
+			bu.name:SetTextColor(r, g, b)
+		end)
 
 		for i = 2, 12 do
 			select(i, bu.xpBar:GetRegions()):Hide()
@@ -233,19 +233,16 @@ local function styleCollections()
 		end
 	end
 
-	hooksecurefunc(
-		"PetJournal_UpdatePetLoadOut",
-		function()
-			for i = 1, 3 do
-				local bu = PetJournal.Loadout["Pet" .. i]
+	hooksecurefunc("PetJournal_UpdatePetLoadOut", function()
+		for i = 1, 3 do
+			local bu = PetJournal.Loadout["Pet" .. i]
 
-				bu.icon.bg:SetShown(not bu.helpFrame:IsShown())
-				bu.icon.bg:SetBackdropBorderColor(bu.qualityBorder:GetVertexColor())
+			bu.icon.bg:SetShown(not bu.helpFrame:IsShown())
+			bu.icon.bg:SetBackdropBorderColor(bu.qualityBorder:GetVertexColor())
 
-				bu.dragButton:SetEnabled(not bu.helpFrame:IsShown())
-			end
+			bu.dragButton:SetEnabled(not bu.helpFrame:IsShown())
 		end
-	)
+	end)
 
 	PetJournal.SpellSelect.BgEnd:Hide()
 	PetJournal.SpellSelect.BgTiled:Hide()
