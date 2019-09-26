@@ -5,8 +5,8 @@ local COMP = MER:GetModule("mUICompatibility")
 --Cache global variables
 --Lua functions
 local _G = _G
-local ipairs, pairs, select, tonumber, unpack = ipairs, pairs, select, tonumber, unpack
-local strfind, strmatch, strupper = strfind, strmatch, strupper
+local ipairs, pairs, select, tostring, tonumber, unpack = ipairs, pairs, select, tostring, tonumber, unpack
+local strfind, strmatch, strlower, strupper = strfind, strmatch, strlower, strupper
 local tinsert = table.insert
 --WoW API / Variables
 local C_Timer_After = C_Timer.After
@@ -42,6 +42,7 @@ module.OverrideTexture = {
 	DBMMinimapButton = [[Interface\Icons\INV_Helmet_87]],
 	SmartBuff_MiniMapButton = [[Interface\Icons\Spell_Nature_Purge]],
 	VendomaticButtonFrame = [[Interface\Icons\INV_Misc_Rabbit_2]],
+	OutfitterMinimapButton = '',
 }
 
 local RemoveTextureID = {
@@ -74,25 +75,26 @@ function module:CollectButtons()
 				for j = 1, child:GetNumRegions() do
 					local region = select(j, child:GetRegions())
 					if region.IsObjectType and region:IsObjectType("Texture") then
-						local texture = region:GetTexture() or ""
+						local texture = region.GetTextureFileID and region:GetTextureFileID()
 
-						if RemoveTextureID[tonumber(texture)] then
-							region:SetTexture()
-						elseif strfind(texture, "Interface\\CharacterFrame") or strfind(texture, "Interface\\Minimap") then
+						if RemoveTextureID[texture] then
 							region:SetTexture()
 							region:SetAlpha(0)
-						elseif texture == 136430 or texture == 136467 then
-							region:SetTexture()
 						else
-							if module.OverrideTexture[name] then
-								region:SetTexture(module.OverrideTexture[name])
-							elseif name == 'OutfitterMinimapButton' and texture == [[interface\addons\outfitter\textures\minimapbutton]] then
+							texture = strlower(tostring(region:GetTexture()))
+							if (strfind(texture, [[interface\characterframe]]) or (strfind(texture, [[interface\minimap]]) and not strfind(texture, [[interface\minimap\tracking\]])) or strfind(texture, 'border') or strfind(texture, 'background') or strfind(texture, 'alphamask') or strfind(texture, 'highlight')) then
 								region:SetTexture()
+								region:SetAlpha(0)
+							else
+								if module.OverrideTexture[name] then
+									region:SetTexture(module.OverrideTexture[name])
+								end
+
+								region:ClearAllPoints()
+								region:SetAllPoints()
+								region:SetTexCoord(unpack(E.TexCoords))
 							end
 						end
-						region:ClearAllPoints()
-						region:SetAllPoints()
-						region:SetTexCoord(unpack(E.TexCoords))
 					end
 				end
 
