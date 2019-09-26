@@ -84,16 +84,12 @@ local function shortenNumber(number)
 	if type(number) ~= "number" then
 		number = tonumber(number)
 	end
+
 	if not number then
 		return
 	end
 
-	local affixes = {
-		"",
-		"k",
-		"m",
-		"B",
-	}
+	local affixes = {"", "k", "m", "B",}
 
 	local affix = 1
 	local dec = 0
@@ -133,7 +129,14 @@ end
 ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_UPDATE UNIT_POWER_FREQUENT"
 ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
-	return shortenNumber(CurrentPower)
+	local String
+
+	if CurrentPower	> 0 then
+		String = shortenNumber(CurrentPower)
+	else
+		return nil
+	end
+	return String
 end
 
 ElvUF.Tags.Events["mUI-resting"] = "PLAYER_UPDATE_RESTING"
