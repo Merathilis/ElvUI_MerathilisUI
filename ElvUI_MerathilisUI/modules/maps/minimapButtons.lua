@@ -180,7 +180,6 @@ function module:Update()
 	local BarHeight = Spacing + (Size * AnchorY) + (Spacing * (AnchorY - 1)) + Spacing
 
 	module.bin:SetSize(BarWidth, BarHeight)
-	MER:CreateGradientFrame(module.bin, BarWidth, BarHeight, "Horizontal", 0, 0, 0, 0, .7)
 
 	-- Styling
 	local topLine = CreateFrame("Frame", nil, module.bin)
