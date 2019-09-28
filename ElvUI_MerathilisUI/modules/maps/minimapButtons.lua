@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIMinimapButtons")
+local module = MER:NewModule("mUIMinimapButtons", 'AceTimer-3.0')
 local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
@@ -238,6 +238,8 @@ function module:Initialize()
 		self:CollectButtons()
 		self:SortButtons()
 	end)
+
+	self:ScheduleRepeatingTimer('CollectButtons', 6)
 end
 
 MER:RegisterModule(module:GetName())
