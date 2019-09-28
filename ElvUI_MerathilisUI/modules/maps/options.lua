@@ -119,7 +119,7 @@ local function Minimap()
 				name = MER:cOption(L["Minimap Buttons"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
-				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
 				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
 				args = {
 					credits = {
@@ -160,6 +160,8 @@ local function Minimap()
 							["TOPLEFT"] = L["Top Left"],
 							["TOPRIGHT"] = L["Top Right"],
 						},
+						get = function(info) return E.db.mui.smb.position end,
+						set = function(info, value) E.db.mui.smb.position = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					size = {
@@ -174,6 +176,8 @@ local function Minimap()
 						type = "range",
 						name = L["X-Offset"],
 						min = -20, max = 20, step = 1,
+						get = function(info) return E.db.mui.smb.xOffset end,
+						set = function(info, value) E.db.mui.smb.xOffset = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 					yOffset = {
@@ -181,6 +185,8 @@ local function Minimap()
 						type = "range",
 						name = L["Y-Offset"],
 						min = -20, max = 20, step = 1,
+						get = function(info) return E.db.mui.smb.yOffset end,
+						set = function(info, value) E.db.mui.smb.yOffset = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 						disabled = function() return not E.db.mui.smb.enable end,
 					},
 				},

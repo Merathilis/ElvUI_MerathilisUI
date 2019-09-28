@@ -126,6 +126,8 @@ function module:CollectButtons()
 			end
 		end
 	end
+
+	self:Update()
 end
 
 function module:SortButtons()
@@ -143,6 +145,55 @@ function module:SortButtons()
 			lastbutton = button
 		end
 	end
+
+	self:Update()
+end
+
+function module:Update()
+	if E.db.mui.smb.enable ~= true then return end
+
+	local AnchorX, AnchorY = 0, 1
+	local ButtonsPerRow = 14
+	local Spacing = 2
+	local Size = module.db.size
+	local ActualButtons, Maxed = 0
+
+	local Anchor, DirMult = 'TOPRIGHT', -1
+
+	for _, button in pairs(module.Buttons) do
+		if button:IsShown() then
+			AnchorX, ActualButtons = AnchorX + 1, ActualButtons + 1
+
+			if (AnchorX % (ButtonsPerRow + 1)) == 0 then
+				AnchorY, AnchorX, Maxed = AnchorY + 1, 1, true
+			end
+
+			button:SetParent(module.bin)
+			button:ClearAllPoints()
+			button:SetPoint(Anchor, module.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
+			button:SetSize(Size, Size)
+			button:SetFrameLevel(module.bin:GetFrameLevel()+1)
+		end
+	end
+
+	local BarWidth = Spacing + (Size * ActualButtons) + (Spacing * (ActualButtons - 1)) + Spacing
+	local BarHeight = Spacing + (Size * AnchorY) + (Spacing * (AnchorY - 1)) + Spacing
+
+	module.bin:SetSize(BarWidth, BarHeight)
+	MER:CreateGradientFrame(module.bin, BarWidth, BarHeight, "Horizontal", 0, 0, 0, 0, .7)
+
+	-- Styling
+	local topLine = CreateFrame("Frame", nil, module.bin)
+	topLine:SetPoint("BOTTOMRIGHT", module.bin, "TOPRIGHT", 1, 0)
+	MER:CreateGradientFrame(topLine, BarWidth, 1, "Horizontal", r, g, b, 0, .7)
+
+	local bottomLine = CreateFrame("Frame", nil, module.bin)
+	bottomLine:SetPoint("TOPRIGHT", module.bin, "BOTTOMRIGHT", 1, 0)
+	MER:CreateGradientFrame(bottomLine, BarWidth, 1, "Horizontal", r, g, b, 0, .7)
+
+	local rightLine = CreateFrame("Frame", nil, module.bin)
+	rightLine:SetPoint("LEFT", module.bin, "RIGHT", 0, 0)
+	MER:CreateGradientFrame(rightLine, 1, BarHeight, "Vertical", r, g, b, .7, .7)
 end
 
 function module:Initialize()
@@ -161,6 +212,7 @@ function module:Initialize()
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", Minimap)
 	module.button:SetSize(28, 28)
 	module.button:SetPoint(pos, x, y)
+
 	module.button.Icon = module.button:CreateTexture(nil, "ARTWORK")
 	module.button.Icon:SetAllPoints()
 	module.button.Icon:SetTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
@@ -168,22 +220,9 @@ function module:Initialize()
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
 	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
-	module.bin:Hide()
-	MER:CreateGradientFrame(module.bin, 220, 40, "Horizontal", 0, 0, 0, 0, .7)
-
-	-- Styling
-	local topLine = CreateFrame("Frame", nil, module.bin)
-	topLine:SetPoint("BOTTOMRIGHT", module.bin, "TOPRIGHT", 1, 0)
-	MER:CreateGradientFrame(topLine, 220, 1, "Horizontal", r, g, b, 0, .7)
-
-	local bottomLine = CreateFrame("Frame", nil, module.bin)
-	bottomLine:SetPoint("TOPRIGHT", module.bin, "BOTTOMRIGHT", 1, 0)
-	MER:CreateGradientFrame(bottomLine, 220, 1, "Horizontal", r, g, b, 0, .7)
-
-	local rightLine = CreateFrame("Frame", nil, module.bin)
-	rightLine:SetPoint("LEFT", module.bin, "RIGHT", 0, 0)
-	MER:CreateGradientFrame(rightLine, 1, 40, "Vertical", r, g, b, .7, .7)
+	module.bin:SetSize(module.db.size, module.db.size)
 	module.bin:SetFrameStrata("HIGH")
+	module.bin:Hide()
 
 	-- Button Scripts
 	module.button:SetScript("OnClick", function()
