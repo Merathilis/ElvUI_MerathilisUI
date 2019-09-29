@@ -383,7 +383,8 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = "Wenn du eine viele Minimap Buttons benutzt, ist mein Modul nicht die richtige Wahl für dich."
+L["Minimap Icon"] = "Minimap Symbol"
+L["Button Settings"] = "Tasten Einstellungen"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

@@ -142,12 +142,6 @@ local function Minimap()
 								fontSize = "medium",
 								name = format("|cff0080ffNDui|r - siweia"),
 							},
-							note = {
-								order = 2,
-								type = "description",
-								fontSize = "medium",
-								name = L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."],
-							},
 						},
 					},
 					minimapIcon = {

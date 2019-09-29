@@ -385,7 +385,8 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
+L["Minimap Icon"] = true
+L["Button Settings"] = true
 
 -- Raid Marks
 L["Raid Markers"] = true
