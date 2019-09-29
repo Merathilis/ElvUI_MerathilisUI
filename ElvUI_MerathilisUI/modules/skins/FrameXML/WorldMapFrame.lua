@@ -43,6 +43,11 @@ local function styleWorldmap()
 	if _G.QuestScrollFrame.DetailFrame.backdrop then
 		_G.QuestScrollFrame.DetailFrame.backdrop:Hide()
 	end
+
+	-- Party Sync PopUp
+	if _G.QuestSessionManager.CheckStartDialog.backdrop then
+		_G.QuestSessionManager.CheckStartDialog.backdrop:Styling()
+	end
 end
 
 S:AddCallback("mUISkinWorldMap", styleWorldmap)
