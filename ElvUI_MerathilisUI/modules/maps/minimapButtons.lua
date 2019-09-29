@@ -21,7 +21,8 @@ local CreateFrame = CreateFrame
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
 module.Buttons = {}
-module.BlackList = {
+
+module.IgnoreButton = {
 	["GameTimeFrame"] = true,
 	["MiniMapLFGFrame"] = true,
 	["BattlefieldMinimap"] = true,
@@ -67,7 +68,7 @@ function module:CollectButtons()
 
 	for _, child in ipairs({ Minimap:GetChildren() }) do
 		local name = child:GetName()
-		if name and not module.BlackList[name] and not strmatch(strupper(name), "HANDYNOTES") then
+		if name and not module.IgnoreButton[name] and not strmatch(strupper(name), "HANDYNOTES") then
 			if child:GetObjectType() == "Button" or strmatch(strupper(name), "BUTTON") then
 				child:SetParent(module.bin)
 				child:SetSize(size, size)
@@ -130,31 +131,12 @@ function module:CollectButtons()
 	self:Update()
 end
 
-function module:SortButtons()
-	if #module.Buttons == 0 then return end
-
-	local lastbutton
-	for _, button in pairs(module.Buttons) do
-		if button:IsShown() then
-			button:ClearAllPoints()
-			if not lastbutton then
-				button:SetPoint("RIGHT", module.bin, -3, 0)
-			else
-				button:SetPoint("RIGHT", lastbutton, "LEFT", -3, 0)
-			end
-			lastbutton = button
-		end
-	end
-
-	self:Update()
-end
-
 function module:Update()
 	if E.db.mui.smb.enable ~= true then return end
 
 	local AnchorX, AnchorY = 0, 1
-	local ButtonsPerRow = 14
-	local Spacing = 2
+	local ButtonsPerRow = module.db.perRow or 12
+	local Spacing = module.db.spacing or 2
 	local Size = module.db.size
 	local ActualButtons, Maxed = 0
 
@@ -173,6 +155,8 @@ function module:Update()
 			button:SetPoint(Anchor, module.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
 			button:SetSize(Size, Size)
 			button:SetFrameLevel(module.bin:GetFrameLevel()+1)
+
+			if Maxed then ActualButtons = ButtonsPerRow end
 		end
 	end
 
@@ -225,17 +209,11 @@ function module:Initialize()
 
 	-- Button Scripts
 	module.button:SetScript("OnClick", function()
-		self:SortButtons()
 		if module.bin:IsShown() then
 			ClickFunc()
 		else
 			UIFrameFadeIn(module.bin, .5, 0, 1)
 		end
-	end)
-
-	C_Timer_After(.3, function()
-		self:CollectButtons()
-		self:SortButtons()
 	end)
 
 	self:ScheduleRepeatingTimer('CollectButtons', 6)

@@ -374,6 +374,8 @@ MP.smb = {
 	xOffset = 10,
 	yOffset = 20,
 	size = 34,
+	perRow = 12,
+	spacing = 2,
 }
 
 MP.locPanel = {
