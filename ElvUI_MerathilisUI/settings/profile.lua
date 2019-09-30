@@ -48,9 +48,6 @@ MP.chat = {
 		itemLevel = true,
 		keywords = "",
 		blockAddOnAlerts = true,
-		addonBlockList = {
-			'EUI[:_]', '<iLvl>', '<LFG>', '=>', '：.+>', '%*%*.+%*%*',
-		},
 		damagemeter = true,
 	},
 }

@@ -116,7 +116,14 @@ function MERC:UpdateChatFilter(event, msg, author, _, _, _, flag, _, _, _, _, li
 end
 
 -- Block addon msg
-local addonBlockList = E.db.mui.chat.filter.addonBlockList
+local addonBlockList = {
+	'EUI[:_]',
+	'<iLvl>',
+	'<LFG>',
+	'=>',
+	'：.+>',
+	'%*%*.+%*%*',
+}
 
 local cvar
 local function toggleCVar(value)
