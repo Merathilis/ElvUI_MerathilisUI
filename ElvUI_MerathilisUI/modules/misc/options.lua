@@ -62,13 +62,8 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
-			lfgInfo = {
-				order = 11,
-				type = "toggle",
-				name = L["LFG Member Info"],
-			},
 			skipAzerite = {
-				order = 11,
+				order = 8,
 				type = "toggle",
 				name = L["Skip Azerite Animation"],
 			},

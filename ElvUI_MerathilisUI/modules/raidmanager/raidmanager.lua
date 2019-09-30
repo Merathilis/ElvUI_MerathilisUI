@@ -545,7 +545,7 @@ function module:CreateRaidInfo()
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		if IsInGroup() then
+		if IsInGroup() or IsInRaid() then
 			self:Show()
 		else
 			self:Hide()
@@ -713,15 +713,13 @@ end
 function module:Initialize()
 	local db = E.db.mui.raidmanager
 	MER:RegisterDB(self, "raidmanager")
-	if not db.enable then return end
 
 	-- Disable ElvUI's RaidUtility
 	if db.enable then
 		E.private.general.raidUtility = false
+		self:CreateRaidInfo()
+		self:CreateRaidManager()
 	end
-
-	self:CreateRaidInfo()
-	self:CreateRaidManager()
 end
 
 MER:RegisterModule(module:GetName())
