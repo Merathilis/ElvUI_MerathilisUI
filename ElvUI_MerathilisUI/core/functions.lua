@@ -131,6 +131,14 @@ function MER:GetSpell(id)
 	return name
 end
 
+function MER:SplitList(list, variable, cleanup)
+	if cleanup then twipe(list) end
+
+	for word in variable:gmatch('%S+') do
+		list[word] = true
+	end
+end
+
 -- Tooltip scanning stuff. Credits siweia, with permission.
 local iLvlDB = {}
 local itemLevelString = gsub(ITEM_LEVEL, "%%d", "")

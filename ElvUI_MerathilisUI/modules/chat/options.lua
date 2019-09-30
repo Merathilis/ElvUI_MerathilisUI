@@ -67,6 +67,12 @@ local function ChatTable()
 						name = L["Item Level"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,
 					},
+					damagemeter = {
+						order = 3,
+						type = "toggle",
+						name = L["Damage Meter Filter"],
+						disabled = function() return not E.db.mui.chat.filter.enable end,
+					}
 				},
 			},
 		},

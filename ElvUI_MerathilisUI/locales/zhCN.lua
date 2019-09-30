@@ -65,6 +65,7 @@ L["ChatBar"] = "聊天条"
 L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
 L["Click to open Emoticon Frame"] = "点击打开表情框架"
 L["Emotes"] = "表情"
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = "信息"

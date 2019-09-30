@@ -65,6 +65,7 @@ L["ChatBar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = true
