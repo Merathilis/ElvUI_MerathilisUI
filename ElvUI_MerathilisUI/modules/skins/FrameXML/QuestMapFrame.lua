@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local next, select, unpack = next, select, unpack
+local next, pairs, select, unpack = next, pairs, select, unpack
 -- WoW API / Variables
 local C_CampaignInfo_GetCampaignInfo = C_CampaignInfo.GetCampaignInfo
 local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
@@ -97,6 +97,20 @@ local function styleQuestMapFrame()
 	hooksecurefunc("QuestLogQuests_Update", function()
 		UpdateCampaignHeader()
 	end)
+
+	-- Shows Quest Level if ~= Player Level
+	local function Showlevel(_, _, _, title, level, _, isHeader, _, _, _, questID)
+		for button in pairs(QuestScrollFrame.titleFramePool.activeObjects) do
+			if title and not isHeader and button.questID == questID then
+				local title = level ~= E.mylevel and "["..level.."] "..title or title
+				local height = button.Text:GetHeight()
+				button.Text:SetText(title)
+				button.Check:SetPoint("LEFT", button.Text, button.Text:GetWrappedWidth() + 2, 0)
+				button:SetHeight(button:GetHeight() - height + button.Text:GetHeight())
+			end
+		end
+	end
+	hooksecurefunc("QuestLogQuests_AddQuestButton", Showlevel)
 
 	-- Quest details
 	local DetailsFrame = QuestMapFrame.DetailsFrame
