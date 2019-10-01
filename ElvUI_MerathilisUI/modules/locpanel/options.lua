@@ -17,7 +17,6 @@ local function LocPanelTable()
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = L["Location Panel"],
-		order = 16,
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
 			name = {

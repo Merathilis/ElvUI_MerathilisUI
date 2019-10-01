@@ -21,7 +21,6 @@ local fontStyleList = {
 local function ArmoryTable()
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
-		order = 3,
 		name = L["Armory"],
 		childGroups = 'tab',
 		disabled = function() return not E.db.general.itemLevel.displayCharacterInfo end,

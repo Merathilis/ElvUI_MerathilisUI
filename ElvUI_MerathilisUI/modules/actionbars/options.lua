@@ -11,9 +11,8 @@ local GetItemInfo = GetItemInfo
 local COLOR = COLOR
 -- GLOBALS:
 
-local function abTable()
+local function ActionBarTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
-		order = 10,
 		type = "group",
 		name = L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
@@ -621,4 +620,4 @@ local function abTable()
 		end
 	end
 end
-tinsert(MER.Config, abTable)
+tinsert(MER.Config, ActionBarTable)

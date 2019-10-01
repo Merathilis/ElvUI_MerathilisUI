@@ -9,7 +9,6 @@ local IsAddOnLoaded = IsAddOnLoaded
 
 local function databarsTable()
 	E.Options.args.mui.args.modules.args.databars = {
-		order = 15,
 		type = "group",
 		name = L["DataBars"],
 		get = function(info) return E.db.mui.databars[ info[#info] ] end,

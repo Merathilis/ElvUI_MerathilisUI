@@ -11,7 +11,6 @@ local function NameplatesTable()
 	E.Options.args.mui.args.modules.args.nameplates = {
 		type = "group",
 		name = L["NamePlates"],
-		order = 16,
 		get = function(info) return E.db.mui.nameplates[ info[#info] ] end,
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 		args = {

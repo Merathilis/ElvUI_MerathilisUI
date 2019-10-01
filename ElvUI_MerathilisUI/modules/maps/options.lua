@@ -12,8 +12,7 @@ local tinsert = table.insert
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = E.NewSign..L["MiniMap"],
-		order = 16,
+		name = L["MiniMap"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
@@ -38,7 +37,7 @@ local function Minimap()
 					difficulty = {
 						order = 2,
 						type = "toggle",
-						name = E.NewSign..L["Instance Difficulty"],
+						name = L["Instance Difficulty"],
 					},
 				},
 			},

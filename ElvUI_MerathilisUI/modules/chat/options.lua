@@ -8,7 +8,6 @@ local tinsert = table.insert
 
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
-		order = 11,
 		type = "group",
 		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
