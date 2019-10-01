@@ -5,9 +5,9 @@ local COMP = MER:GetModule("mUICompatibility")
 --Cache global variables
 --Lua functions
 local _G = _G
-local ipairs, pairs, select, tostring, tonumber, unpack = ipairs, pairs, select, tostring, tonumber, unpack
-local strfind, strmatch, strlower, strupper = strfind, strmatch, strlower, strupper
-local tinsert = table.insert
+local pairs, select, tostring, unpack = pairs, select, tostring, unpack
+local strfind, strlen, strlower, strsub = strfind, strlen, strlower, strsub
+local tContains, tinsert = tContains, table.insert
 --WoW API / Variables
 local C_Timer_After = C_Timer.After
 local InCombatLockdown = InCombatLockdown
@@ -67,11 +67,7 @@ module.OverrideTexture = {
 	OutfitterMinimapButton = '',
 }
 
--- Monitor this shiat
-module.UnrulyButtons = {
-	'WIM3MinimapButton',
-	'RecipeRadar_MinimapButton',
-}
+module.UnrulyButtons = {}
 
 local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
 
@@ -160,24 +156,20 @@ function module:SkinMinimapButton(Button)
 		Button.backdrop:Styling()
 	end
 
-
 	Button.isSkinned = true
 	tinsert(module.Buttons, Button)
 end
 
-
-	--local size = module.db.size or 34
 function module:GrabMinimapButtons()
 	if (InCombatLockdown() or C_PetBattles and C_PetBattles_IsInBattle()) then return end
 
-	-- Cause error with wim button
-	--for _, Button in pairs(module.UnrulyButtons) do
-		--if _G[Button] then
-			--_G[Button]:SetParent(Minimap)
-		--end
-	--end
+	for _, Button in pairs(module.UnrulyButtons) do
+		if _G[Button] then
+			_G[Button]:SetParent(Minimap)
+		end
+	end
 
-	for _, Frame in pairs({ Minimap, MinimapBackdrop }) do
+	for _, Frame in pairs({ Minimap, _G.MinimapBackdrop }) do
 		local NumChildren = Frame:GetNumChildren()
 		if NumChildren < (Frame.moduleNumChildren or 0) then return end
 		for i = 1, NumChildren do
@@ -210,6 +202,7 @@ function module:Update()
 
 	for _, Button in pairs(module.Buttons) do
 		if Button:IsShown() then
+			local Name = Button:GetName()
 			AnchorX, ActualButtons = AnchorX + 1, ActualButtons + 1
 
 			if (AnchorX % (ButtonsPerRow + 1)) == 0 then
@@ -229,6 +222,13 @@ function module:Update()
 			if Button:HasScript("OnDragStart") then Button:SetScript("OnDragStart", nil) end
 			if Button:HasScript("OnDragStop") then Button:SetScript("OnDragStop", nil) end
 			if Button:HasScript("OnClick") then Button:HookScript("OnClick", ClickFunc) end
+
+			if Name == "DBMMinimapButton" then
+				Button:SetScript("OnMouseDown", nil)
+				Button:SetScript("OnMouseUp", nil)
+			elseif Name == "BagSync_MinimapButton" then
+				Button:HookScript("OnMouseUp", ClickFunc)
+			end
 
 			module:LockButton(Button)
 
