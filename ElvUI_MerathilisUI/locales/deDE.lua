@@ -200,6 +200,13 @@ L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
 L["Style DataBars"] = "Informationsleisten Stil"
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = "Lehnt automatisch PVP Duelle ab."
+L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duelle ab."
+L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
+L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
+L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
+
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"

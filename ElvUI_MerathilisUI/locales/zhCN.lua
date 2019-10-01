@@ -200,6 +200,13 @@ L["DataBars"] = "数据条"
 L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底部添加一些美观的按钮"
 L["Style DataBars"] = "样式数据条"
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce in chat if duel was rejected."] = true
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+
 -- Actionbars
 L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"

@@ -204,6 +204,13 @@ L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce in chat if duel was rejected."] = true
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true

@@ -435,6 +435,14 @@ MP.raidmanager = {
 	count = "10",
 }
 
+MP.pvp = {
+	duels = {
+		regular = true,
+		pet = true,
+		announce = true,
+	},
+}
+
 MP.tooltip = {
 	tooltip = true,
 	achievement = true,
