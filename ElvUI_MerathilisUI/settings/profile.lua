@@ -444,7 +444,6 @@ MP.pvp = {
 }
 
 MP.tooltip = {
-	tooltip = true,
 	achievement = true,
 	petIcon = true,
 	factionIcon = true,

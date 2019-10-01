@@ -502,7 +502,6 @@ local function HookSpell(frame)
 		return
 	end
 	local name, spellID = frame:GetSpell() -- Retail
-	--local name, rank, spellID = frame:GetSpell() -- Classic
 	if name then
 		local _, _, text = GetSpellInfo(spellID)
 		if text then
