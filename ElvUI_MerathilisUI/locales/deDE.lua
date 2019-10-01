@@ -391,7 +391,6 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["Minimap Icon"] = "Minimap Symbol"
 L["Button Settings"] = "Tasten Einstellungen"
 
 -- Raid Marks

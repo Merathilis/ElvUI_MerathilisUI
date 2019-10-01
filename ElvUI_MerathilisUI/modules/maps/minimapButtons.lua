@@ -38,6 +38,27 @@ module.IgnoreButton = {
 	["MinimapButtonsToggleButton"] = true,
 }
 
+module.GenericIgnore = {
+	'Archy',
+	'GatherMatePin',
+	'GatherNote',
+	'GuildInstance',
+	'HandyNotesPin',
+	'MiniMap',
+	'Spy_MapNoteList_mini',
+	'ZGVMarker',
+	'poiMinimap',
+	'GuildMap3Mini',
+	'LibRockConfig-1.0_MinimapButton',
+	'NauticusMiniIcon',
+	'WestPointer',
+	'Cork',
+	'DugisArrowMinimapPoint',
+	'QuestieFrame',
+}
+
+module.PartialIgnore = { 'Node', 'Note', 'Pin', 'POI' }
+
 module.OverrideTexture = {
 	BagSync_MinimapButton = [[Interface\AddOns\BagSync\media\icon]],
 	DBMMinimapButton = [[Interface\Icons\INV_Helmet_87]],
@@ -46,11 +67,32 @@ module.OverrideTexture = {
 	OutfitterMinimapButton = '',
 }
 
+-- Monitor this shiat
+module.UnrulyButtons = {
+	'WIM3MinimapButton',
+	'RecipeRadar_MinimapButton',
+}
+
+local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 'SetScale', 'SetFrameStrata', 'SetFrameLevel' }
+
 local RemoveTextureID = {
 	[136430] = true,
 	[136467] = true,
 	[130924] = true,
 }
+
+function module:LockButton(Button)
+	for _, Function in pairs(ButtonFunctions) do
+		Button[Function] = E.noop
+	end
+end
+
+function module:UnlockButton(Button)
+	for _, Function in pairs(ButtonFunctions) do
+		Button[Function] = nil
+	end
+end
+
 
 local function HideButton()
 	module.bin:Hide()
@@ -61,71 +103,95 @@ local function ClickFunc()
 	C_Timer_After(.5, HideButton)
 end
 
-function module:CollectButtons()
-	if (InCombatLockdown() or C_PetBattles and C_PetBattles_IsInBattle()) then return end
+function module:SkinMinimapButton(Button)
+	if (not Button) or Button.isSkinned then return end
 
-	local size = module.db.size or 34
+	local Name = Button.GetName and Button:GetName()
+	if not Name then return end
 
-	for _, child in ipairs({ Minimap:GetChildren() }) do
-		local name = child:GetName()
-		if name and not module.IgnoreButton[name] and not strmatch(strupper(name), "HANDYNOTES") then
-			if child:GetObjectType() == "Button" or strmatch(strupper(name), "BUTTON") then
-				child:SetParent(module.bin)
-				child:SetSize(size, size)
+	if tContains(module.IgnoreButton, Name) then return end
 
-				for j = 1, child:GetNumRegions() do
-					local region = select(j, child:GetRegions())
-					if region.IsObjectType and region:IsObjectType("Texture") then
-						local texture = region.GetTextureFileID and region:GetTextureFileID()
+	for i = 1, #module.GenericIgnore do
+		if strsub(Name, 1, strlen(module.GenericIgnore[i])) == module.GenericIgnore[i] then return end
+	end
 
-						if RemoveTextureID[texture] then
-							region:SetTexture()
-							region:SetAlpha(0)
-						else
-							texture = strlower(tostring(region:GetTexture()))
-							if (strfind(texture, [[interface\characterframe]]) or (strfind(texture, [[interface\minimap]]) and not strfind(texture, [[interface\minimap\tracking\]])) or strfind(texture, 'border') or strfind(texture, 'background') or strfind(texture, 'alphamask') or strfind(texture, 'highlight')) then
-								region:SetTexture()
-								region:SetAlpha(0)
-							else
-								if module.OverrideTexture[name] then
-									region:SetTexture(module.OverrideTexture[name])
-								end
+	for i = 1, #module.PartialIgnore do
+		if strfind(Name, module.PartialIgnore[i]) ~= nil then return end
+	end
 
-								region:ClearAllPoints()
-								region:SetAllPoints()
-								region:SetTexCoord(unpack(E.TexCoords))
-							end
-						end
+	for i = 1, Button:GetNumRegions() do
+		local Region = select(i, Button:GetRegions())
+		if Region.IsObjectType and Region:IsObjectType('Texture') then
+			local Texture = Region.GetTextureFileID and Region:GetTextureFileID()
+
+			if RemoveTextureID[Texture] then
+				Region:SetTexture()
+			else
+				Texture = strlower(tostring(Region:GetTexture()))
+				if (strfind(Texture, [[interface\characterframe]]) or (strfind(Texture, [[interface\minimap]]) and not strfind(Texture, [[interface\minimap\tracking\]])) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
+					Region:SetTexture()
+					Region:SetAlpha(0)
+				else
+					if module.OverrideTexture[Name] then
+						Region:SetTexture(module.OverrideTexture[Name])
 					end
+
+					Region:ClearAllPoints()
+					Region:SetDrawLayer('ARTWORK')
+					Region:SetInside()
+
+					if not Button.ignoreCrop then
+						Region:SetTexCoord(unpack(E.TexCoords))
+						Button:HookScript('OnLeave', function() Region:SetTexCoord(unpack(E.TexCoords)) end)
+					end
+
+					Region.SetPoint = function() return end
 				end
-
-				if child:HasScript("OnDragStart") then child:SetScript("OnDragStart", nil) end
-				if child:HasScript("OnDragStop") then child:SetScript("OnDragStop", nil) end
-				if child:HasScript("OnClick") then child:HookScript("OnClick", ClickFunc) end
-
-				if child:GetObjectType() == "Button" then
-					child:SetHighlightTexture("Interface\\ChatFrame\\ChatFrameBackground") -- prevent nil function
-					child:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-				elseif child:GetObjectType() == "Frame" then
-					child.highlight = child:CreateTexture(nil, "HIGHLIGHT")
-					child.highlight:SetAllPoints()
-					child.highlight:SetColorTexture(1, 1, 1, .25)
-				end
-
-				child:CreateBackdrop("Transparent")
-				child.backdrop:Styling()
-
-				-- Naughty Addons
-				if name == "DBMMinimapButton" then
-					child:SetScript("OnMouseDown", nil)
-					child:SetScript("OnMouseUp", nil)
-				elseif name == "BagSync_MinimapButton" then
-					child:HookScript("OnMouseUp", ClickFunc)
-				end
-
-				tinsert(module.Buttons, child)
 			end
 		end
+	end
+
+	Button:SetFrameLevel(Minimap:GetFrameLevel() + 10)
+	Button:SetFrameStrata(Minimap:GetFrameStrata())
+	Button:SetSize(module.db.size, module.db.size)
+
+	if not Button.ignoreTemplate then
+		Button:CreateBackdrop("Transparent")
+		Button.backdrop:Styling()
+	end
+
+
+	Button.isSkinned = true
+	tinsert(module.Buttons, Button)
+end
+
+
+	--local size = module.db.size or 34
+function module:GrabMinimapButtons()
+	if (InCombatLockdown() or C_PetBattles and C_PetBattles_IsInBattle()) then return end
+
+	-- Cause error with wim button
+	--for _, Button in pairs(module.UnrulyButtons) do
+		--if _G[Button] then
+			--_G[Button]:SetParent(Minimap)
+		--end
+	--end
+
+	for _, Frame in pairs({ Minimap, MinimapBackdrop }) do
+		local NumChildren = Frame:GetNumChildren()
+		if NumChildren < (Frame.moduleNumChildren or 0) then return end
+		for i = 1, NumChildren do
+			local object = select(i, Frame:GetChildren())
+			if object then
+				local name = object:GetName()
+				local width = object:GetWidth()
+				if name and width > 15 and width < 40 and (object:IsObjectType('Button') or object:IsObjectType('Frame')) then
+					self:SkinMinimapButton(object)
+				end
+			end
+		end
+
+		Frame.moduleNumChildren = NumChildren
 	end
 
 	self:Update()
@@ -142,19 +208,29 @@ function module:Update()
 
 	local Anchor, DirMult = 'TOPRIGHT', -1
 
-	for _, button in pairs(module.Buttons) do
-		if button:IsShown() then
+	for _, Button in pairs(module.Buttons) do
+		if Button:IsShown() then
 			AnchorX, ActualButtons = AnchorX + 1, ActualButtons + 1
 
 			if (AnchorX % (ButtonsPerRow + 1)) == 0 then
 				AnchorY, AnchorX, Maxed = AnchorY + 1, 1, true
 			end
 
-			button:SetParent(module.bin)
-			button:ClearAllPoints()
-			button:SetPoint(Anchor, module.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
-			button:SetSize(Size, Size)
-			button:SetFrameLevel(module.bin:GetFrameLevel()+1)
+			module:UnlockButton(Button)
+
+			Button:SetParent(module.bin)
+			Button:ClearAllPoints()
+			Button:SetPoint(Anchor, self.bin, Anchor, DirMult * (Spacing + ((Size + Spacing) * (AnchorX - 1))), (- Spacing - ((Size + Spacing) * (AnchorY - 1))))
+			Button:SetSize(Size, Size)
+			Button:SetScale(1)
+			Button:SetFrameStrata('MEDIUM')
+			Button:SetFrameLevel(module.bin:GetFrameLevel()+1)
+
+			if Button:HasScript("OnDragStart") then Button:SetScript("OnDragStart", nil) end
+			if Button:HasScript("OnDragStop") then Button:SetScript("OnDragStop", nil) end
+			if Button:HasScript("OnClick") then Button:HookScript("OnClick", ClickFunc) end
+
+			module:LockButton(Button)
 
 			if Maxed then ActualButtons = ButtonsPerRow end
 		end
@@ -187,14 +263,13 @@ function module:Initialize()
 	-- Compatibility
 	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
 
-	local pos = db.position or "TOPRIGHT"
-	local x = db.xOffset or 10
-	local y = db.yOffset or 20
-
 	-- Button Creation
-	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", Minimap)
+	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
 	module.button:SetSize(28, 28)
-	module.button:SetPoint(pos, x, y)
+	module.button:ClearAllPoints()
+	module.button:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
+
+	E:CreateMover(module.button, 'MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.button.Icon = module.button:CreateTexture(nil, "ARTWORK")
 	module.button.Icon:SetAllPoints()
@@ -216,7 +291,7 @@ function module:Initialize()
 		end
 	end)
 
-	self:ScheduleRepeatingTimer('CollectButtons', 6)
+	self:ScheduleRepeatingTimer('GrabMinimapButtons', 6)
 end
 
 MER:RegisterModule(module:GetName())

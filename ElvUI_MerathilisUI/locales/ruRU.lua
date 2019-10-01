@@ -391,7 +391,6 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["Minimap Icon"] = true
 L["Button Settings"] = true
 
 -- Raid Marks

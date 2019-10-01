@@ -391,7 +391,6 @@ L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
 -- SMB
-L["Minimap Icon"] = true
 L["Button Settings"] = true
 
 -- Raid Marks

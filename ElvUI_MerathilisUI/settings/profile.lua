@@ -373,9 +373,6 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	position = "TOPRIGHT",
-	xOffset = 10,
-	yOffset = 20,
 	size = 34,
 	perRow = 12,
 	spacing = 2,
