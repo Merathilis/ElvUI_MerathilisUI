@@ -50,15 +50,15 @@ local function LoadAddOnSkin()
 	end
 
 	local Tab = _G.CliqueSpellTab
-	Tab:SetNormalTexture("Interface\\ICONS\\Creatureportrait_RopeLadder01") --override the Texture to take account for Simpy's Icon pack
+	Tab:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") --override the Texture to take account for Simpy's Icon pack
 	Tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetNormalTexture():SetInside()
 
-	Tab:SetPushedTexture("Interface\\ICONS\\Creatureportrait_RopeLadder01") -- override the Texture to take account for Simpy's Icon pack
+	Tab:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") -- override the Texture to take account for Simpy's Icon pack
 	Tab:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetPushedTexture():SetInside()
 
-	Tab:SetHighlightTexture("Interface\\ICONS\\Creatureportrait_RopeLadder01") -- override the Texture to take account for Simpy's Icon pack
+	Tab:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") -- override the Texture to take account for Simpy's Icon pack
 	Tab:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
 	Tab:GetHighlightTexture():SetInside()
 
