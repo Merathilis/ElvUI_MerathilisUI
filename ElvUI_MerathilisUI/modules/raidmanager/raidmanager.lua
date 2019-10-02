@@ -376,9 +376,9 @@ function module:CreateRaidManager()
 		if not IsInGroup() then
 			self:Hide()
 		else
-			if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
+			if IsInRaid() then
 				self.text:SetText(_G.CONVERT_TO_PARTY)
-			elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
+			else
 				self.text:SetText(_G.CONVERT_TO_RAID)
 			end
 			self:Show()
