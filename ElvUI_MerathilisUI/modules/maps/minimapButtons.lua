@@ -23,19 +23,20 @@ local r, g, b = unpack(E.media.rgbvaluecolor)
 module.Buttons = {}
 
 module.IgnoreButton = {
-	["GameTimeFrame"] = true,
-	["MiniMapLFGFrame"] = true,
-	["BattlefieldMinimap"] = true,
-	["MinimapBackdrop"] = true,
-	["TimeManagerClockButton"] = true,
-	["FeedbackUIButton"] = true,
-	["HelpOpenTicketButton"] = true,
-	["MiniMapBattlefieldFrame"] = true,
-	["QueueStatusMinimapButton"] = true,
-	["GarrisonLandingPageMinimapButton"] = true,
-	["MinimapZoneTextButton"] = true,
-	["MinimapButtonFrame"] = true,
-	["MinimapButtonsToggleButton"] = true,
+	'GameTimeFrame',
+	'HelpOpenWebTicketButton',
+	'MiniMapVoiceChatFrame',
+	'TimeManagerClockButton',
+	'BattlefieldMinimap',
+	'ButtonCollectFrame',
+	'GameTimeFrame',
+	'QueueStatusMinimapButton',
+	'GarrisonLandingPageMinimapButton',
+	'MiniMapMailFrame',
+	'MiniMapTracking',
+	'MinimapZoomIn',
+	'MinimapZoomOut',
+	'RecipeRadarMinimapButtonFrame',
 }
 
 module.GenericIgnore = {
