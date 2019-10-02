@@ -376,9 +376,9 @@ function module:CreateRaidManager()
 		if not IsInGroup() then
 			self:Hide()
 		else
-			if IsInRaid() then
+			if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 				self.text:SetText(_G.CONVERT_TO_PARTY)
-			else
+			elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 				self.text:SetText(_G.CONVERT_TO_RAID)
 			end
 			self:Show()
@@ -389,10 +389,12 @@ function module:CreateRaidManager()
 	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	ConvertGroupButton:SetScript("OnClick", function(self)
-		if IsInRaid() then
+		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			ConvertToParty()
-		else
+		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			ConvertToRaid()
+		else
+			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
 		end
 	end)
 
