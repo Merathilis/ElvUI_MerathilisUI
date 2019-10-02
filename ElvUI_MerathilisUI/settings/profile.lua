@@ -123,7 +123,6 @@ MP.datatexts = {
 }
 
 MP.actionbars = {
-	cleanButton = true,
 	specBar = {
 		enable = true,
 		mouseover = false,

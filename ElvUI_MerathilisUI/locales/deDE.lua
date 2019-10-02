@@ -210,7 +210,6 @@ L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
-L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
 L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"

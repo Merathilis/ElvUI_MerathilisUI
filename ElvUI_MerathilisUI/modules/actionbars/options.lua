@@ -23,14 +23,8 @@ local function ActionBarTable()
 				type = "header",
 				name = MER:cOption(L["ActionBars"]),
 			},
-			cleanButton = {
-				order = 2,
-				type = "toggle",
-				name = L["Clean Boss Button"],
-				disabled = function() return not E.private.actionbar.enable end,
-			},
 			specBar = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Specialization Bar"]),
 				guiInline = true,
@@ -60,7 +54,7 @@ local function ActionBarTable()
 				},
 			},
 			equipBar = {
-				order = 4,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["EquipSet Bar"]),
 				guiInline = true,
@@ -90,7 +84,7 @@ local function ActionBarTable()
 				},
 			},
 			microBar = {
-				order = 5,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
@@ -169,7 +163,7 @@ local function ActionBarTable()
 				},
 			},
 			autoButtons = {
-				order = 6,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Auto Buttons"]),
 				guiInline = true,

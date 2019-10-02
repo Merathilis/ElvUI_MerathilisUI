@@ -210,7 +210,6 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
-L["Clean Boss Button"] = true
 L["Auto Buttons"] = true
 L["Bind Font Size"] = true
 L["Trinket Buttons"] = true

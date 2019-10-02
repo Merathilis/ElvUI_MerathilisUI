@@ -210,7 +210,6 @@ L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
 -- Actionbars
 L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
-L["Clean Boss Button"] = true
 L["Auto Buttons"] = "自动按钮"
 L["Bind Font Size"] = "绑定字体大小"
 L["Trinket Buttons"] = "饰品按钮"
