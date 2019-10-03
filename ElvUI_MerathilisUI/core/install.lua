@@ -578,6 +578,7 @@ function MER:SetupLayout(layout)
 	else
 		E.private["skins"]["blizzard"]["alertframes"] = true
 	end
+	E.private["skins"]["cleanBossButton"] = true
 
 	--[[----------------------------------
 	--	ItemLevel - Layout
