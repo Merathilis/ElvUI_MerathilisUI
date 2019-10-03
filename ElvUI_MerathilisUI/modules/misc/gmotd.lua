@@ -8,6 +8,7 @@ local _G = _G
 local select = select
 local format = string.format
 local tinsert = table.insert
+local strlen = strlen
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
@@ -16,7 +17,8 @@ local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local PlaySound = PlaySound
--- GLOBALS: GUILD_MOTD_LABEL2, UISpecialFrames
+local UISpecialFrames = UISpecialFrames
+-- GLOBALS:
 
 local gmotd
 
@@ -72,7 +74,7 @@ function MI:GMOTD()
 				guild = select(1, GetGuildInfo("player"))
 			end
 
-			if (msg and msg ~= "") and not InCombatLockdown() then
+			if (strlen(msg) > 0 and guild and not InCombatLockdown()) then
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": ".._G.GUILD_MOTD_LABEL2)
