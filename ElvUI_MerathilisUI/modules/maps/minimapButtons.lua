@@ -75,7 +75,14 @@ local ButtonFunctions = { 'SetParent', 'ClearAllPoints', 'SetPoint', 'SetSize', 
 local RemoveTextureID = {
 	[136430] = true,
 	[136467] = true,
+	[136468] = true,
 	[130924] = true,
+}
+
+local RemoveTextureFile = {
+	["interface/minimap/minimap-trackingborder"] = true,
+	["interface/minimap/ui-minimap-border"] = true,
+	["interface/minimap/ui-minimap-background"] = true,
 }
 
 function module:LockButton(Button)
@@ -89,7 +96,6 @@ function module:UnlockButton(Button)
 		Button[Function] = nil
 	end
 end
-
 
 local function HideButton()
 	module.bin:Hide()
@@ -125,7 +131,7 @@ function module:SkinMinimapButton(Button)
 				Region:SetTexture()
 			else
 				Texture = strlower(tostring(Region:GetTexture()))
-				if (strfind(Texture, [[interface\characterframe]]) or (strfind(Texture, [[interface\minimap]]) and not strfind(Texture, [[interface\minimap\tracking\]])) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
+				if RemoveTextureFile[Texture] or (strfind(Texture, [[interface\characterframe]]) or (strfind(Texture, [[interface\minimap]]) and not strfind(Texture, [[interface\minimap\tracking\]])) or strfind(Texture, 'border') or strfind(Texture, 'background') or strfind(Texture, 'alphamask') or strfind(Texture, 'highlight')) then
 					Region:SetTexture()
 					Region:SetAlpha(0)
 				else
