@@ -276,12 +276,19 @@ function module:Initialize()
 	module.button:ClearAllPoints()
 	module.button:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
 
-	E:CreateMover(module.button, 'MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
+	module.button:SetNormalTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
+	module.button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+	module.button:GetNormalTexture():SetInside()
 
-	module.button.Icon = module.button:CreateTexture(nil, "ARTWORK")
-	module.button.Icon:SetAllPoints()
-	module.button.Icon:SetTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
 	module.button:SetHighlightTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
+	module.button:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+	module.button:GetHighlightTexture():SetInside()
+
+	module.button:SetPushedTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
+	module.button:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+	module.button:GetPushedTexture():SetInside()
+
+	E:CreateMover(module.button, 'MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
 	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
