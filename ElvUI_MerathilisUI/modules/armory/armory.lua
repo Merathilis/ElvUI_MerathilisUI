@@ -337,8 +337,6 @@ function module:Initialize()
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
-	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
-
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
 		_G["CharacterModelFrame"]:ClearAllPoints()
