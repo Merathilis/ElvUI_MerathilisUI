@@ -641,6 +641,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 12
 	E.db["databars"]["experience"]["textSize"] = 9
+	E.db["databars"]["experience"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["experience"]["width"] = 285
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
