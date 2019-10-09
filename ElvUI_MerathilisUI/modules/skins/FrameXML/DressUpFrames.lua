@@ -14,6 +14,9 @@ local function styleDressingroom()
 
 	-- Wardrobe edit frame
 	_G.WardrobeOutfitFrame:Styling()
+
+	-- AuctionHouse
+	_G.SideDressUpFrame:Styling()
 end
 
 S:AddCallback("mUIDressingRoom", styleDressingroom)

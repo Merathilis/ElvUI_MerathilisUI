@@ -10,7 +10,6 @@ local function Reminder()
 	E.Options.args.mui.args.modules.args.reminder = {
 		type = "group",
 		name = L["Reminder"],
-		order = 19,
 		get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

@@ -55,13 +55,6 @@ function module:StyleBackdrops()
 	end
 end
 
--- Code taken from CleanBossButton
-local function RemoveTexture(self, texture, stopLoop)
-	if stopLoop then return end
-
-	self:SetTexture("", true) --2nd argument is to stop endless loop
-end
-
 function module:Initialize()
 	if E.private.actionbar.enable ~= true then return; end
 
@@ -70,11 +63,6 @@ function module:Initialize()
 
 	CheckExtraAB()
 	C_TimerAfter(1, module.StyleBackdrops)
-
-	if E.db.mui.actionbars.cleanButton then
-		hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
-		hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
-	end
 
 	self:SpecBarInit()
 	self:EquipBarInit()

@@ -11,7 +11,6 @@ local function Cooldowns()
 	E.Options.args.mui.args.modules.args.cooldowns = {
 		type = "group",
 		name = L["Cooldowns"],
-		order = 12,
 		args = {
 			cooldownFlash = {
 				order = 1,

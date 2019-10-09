@@ -11,7 +11,6 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 
 local function Misc()
 	E.Options.args.mui.args.misc = {
-		order = 10,
 		type = "group",
 		name = "",
 		guiInline = true,
@@ -62,15 +61,10 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
-			lfgInfo = {
-				order = 11,
-				type = "toggle",
-				name = L["LFG Member Info"],
-			},
 			skipAzerite = {
-				order = 11,
+				order = 8,
 				type = "toggle",
-				name = E.NewSign..L["Skip Azerite Animation"],
+				name = L["Skip Azerite Animation"],
 			},
 			alerts = {
 				order = 20,
@@ -90,7 +84,7 @@ local function Misc()
 			paragon = {
 				order = 21,
 				type = "group",
-				name = E.NewSign..L["MISC_PARAGON_REPUTATION"],
+				name = L["MISC_PARAGON_REPUTATION"],
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,

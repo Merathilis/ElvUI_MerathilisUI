@@ -11,9 +11,8 @@ local GetItemInfo = GetItemInfo
 local COLOR = COLOR
 -- GLOBALS:
 
-local function abTable()
+local function ActionBarTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
-		order = 10,
 		type = "group",
 		name = L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
@@ -24,14 +23,8 @@ local function abTable()
 				type = "header",
 				name = MER:cOption(L["ActionBars"]),
 			},
-			cleanButton = {
-				order = 2,
-				type = "toggle",
-				name = L["Clean Boss Button"],
-				disabled = function() return not E.private.actionbar.enable end,
-			},
 			specBar = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Specialization Bar"]),
 				guiInline = true,
@@ -61,7 +54,7 @@ local function abTable()
 				},
 			},
 			equipBar = {
-				order = 4,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["EquipSet Bar"]),
 				guiInline = true,
@@ -91,7 +84,7 @@ local function abTable()
 				},
 			},
 			microBar = {
-				order = 5,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
@@ -170,7 +163,7 @@ local function abTable()
 				},
 			},
 			autoButtons = {
-				order = 6,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Auto Buttons"]),
 				guiInline = true,
@@ -621,4 +614,4 @@ local function abTable()
 		end
 	end
 end
-tinsert(MER.Config, abTable)
+tinsert(MER.Config, ActionBarTable)

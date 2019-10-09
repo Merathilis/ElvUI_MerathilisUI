@@ -14,9 +14,9 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 
 local function RaidMarkers()
 	E.Options.args.mui.args.modules.args.raidmarkers = {
+		--order = 19,
 		type = "group",
 		name = L["Raid Markers"],
-		order = 19,
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		args = {
 			name = {

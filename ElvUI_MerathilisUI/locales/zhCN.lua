@@ -65,6 +65,7 @@ L["ChatBar"] = "聊天条"
 L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮显示一个聊天条"
 L["Click to open Emoticon Frame"] = "点击打开表情框架"
 L["Emotes"] = "表情"
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = "信息"
@@ -199,10 +200,16 @@ L["DataBars"] = "数据条"
 L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底部添加一些美观的按钮"
 L["Style DataBars"] = "样式数据条"
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce in chat if duel was rejected."] = true
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+
 -- Actionbars
 L["Specialization Bar"] = "专业条"
 L["EquipSet Bar"] = "套装管理条"
-L["Clean Boss Button"] = true
 L["Auto Buttons"] = "自动按钮"
 L["Bind Font Size"] = "绑定字体大小"
 L["Trinket Buttons"] = "饰品按钮"
@@ -383,7 +390,7 @@ L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
+L["Button Settings"] = true
 
 -- Raid Marks
 L["Raid Markers"] = "团队标记"

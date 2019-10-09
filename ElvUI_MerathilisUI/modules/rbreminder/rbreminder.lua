@@ -145,7 +145,7 @@ local function OnAuraChange(self, event, arg1, unit)
 					break
 				else
 					IntellectFrame:SetAlpha(1)
-					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(intellectbuffs)))
+					IntellectFrame.t:SetTexture(select(3, GetSpellInfo(1459)))
 					if module.db.glow then
 						LCG.PixelGlow_Start(IntellectFrame, color, nil, -0.25, nil, 1)
 					end
@@ -164,7 +164,7 @@ local function OnAuraChange(self, event, arg1, unit)
 					break
 				else
 					StaminaFrame:SetAlpha(1)
-					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(staminabuffs)))
+					StaminaFrame.t:SetTexture(select(3, GetSpellInfo(21562)))
 					if module.db.glow then
 						LCG.PixelGlow_Start(StaminaFrame, color, nil, -0.25, nil, 1)
 					end
@@ -183,7 +183,7 @@ local function OnAuraChange(self, event, arg1, unit)
 					break
 				else
 					AttackPowerFrame:SetAlpha(1)
-					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(attackpowerbuffs)))
+					AttackPowerFrame.t:SetTexture(select(3, GetSpellInfo(6673)))
 					if module.db.glow then
 						LCG.PixelGlow_Start(AttackPowerFrame, color, nil, -0.25, nil, 1)
 					end

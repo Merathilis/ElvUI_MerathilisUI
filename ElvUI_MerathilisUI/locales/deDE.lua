@@ -65,6 +65,7 @@ L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein O
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
 L["Emotes"] = true
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = true
@@ -199,10 +200,16 @@ L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
 L["Style DataBars"] = "Informationsleisten Stil"
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = "Lehnt automatisch PVP Duelle ab."
+L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duelle ab."
+L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
+L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
+L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
+
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
-L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
 L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"
@@ -383,7 +390,7 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = "Wenn du eine viele Minimap Buttons benutzt, ist mein Modul nicht die richtige Wahl für dich."
+L["Button Settings"] = "Tasten Einstellungen"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

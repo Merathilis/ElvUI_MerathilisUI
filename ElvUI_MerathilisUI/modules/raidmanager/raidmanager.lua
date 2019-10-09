@@ -389,10 +389,12 @@ function module:CreateRaidManager()
 	ConvertGroupButton:RegisterEvent("PLAYER_ENTERING_WORLD")
 
 	ConvertGroupButton:SetScript("OnClick", function(self)
-		if IsInRaid() then
+		if IsInRaid() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			ConvertToParty()
-		else
+		elseif IsInGroup() and UnitIsGroupLeader("player") and not HasLFGRestrictions() then
 			ConvertToRaid()
+		else
+			_G.UIErrorsFrame:AddMessage(MER.InfoColor.._G.ERR_NOT_LEADER)
 		end
 	end)
 
@@ -545,7 +547,7 @@ function module:CreateRaidInfo()
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		if IsInGroup() then
+		if IsInGroup() or IsInRaid() then
 			self:Show()
 		else
 			self:Hide()
@@ -713,15 +715,13 @@ end
 function module:Initialize()
 	local db = E.db.mui.raidmanager
 	MER:RegisterDB(self, "raidmanager")
-	if not db.enable then return end
 
 	-- Disable ElvUI's RaidUtility
 	if db.enable then
 		E.private.general.raidUtility = false
+		self:CreateRaidInfo()
+		self:CreateRaidManager()
 	end
-
-	self:CreateRaidInfo()
-	self:CreateRaidManager()
 end
 
 MER:RegisterModule(module:GetName())

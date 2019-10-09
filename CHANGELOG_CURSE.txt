@@ -1,3 +1,14 @@
+** v4.33 for 8.2.5, 25.09.2019**
+* The Chat Menu now dont force a fix Chat Height. Thx Repooc <3
+* Removed Raider.IO skinning support. Grab AddOnSkins.
+* Completly redesigned my Minimap Buttons. Not for users with a lot of buttons!!
+* Hopefully fix MicroBar Invasion Timers. >.>
+* Take account for the changed tags in ElvUI.
+* Added AzeriteEssence Skin.
+* 8.2.5 changes.
+* Added an own Raid Manager and hide the ElvUI Raid Control.
+
+
 ** v4.32 15.09.2019**
 * Fixed EncounterJournal Tab backdrop.
 * Fixed AutoButton Usable Button color options.

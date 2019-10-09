@@ -14,7 +14,6 @@ local function Errors()
 	E.Options.args.mui.args.modules.args.errors = {
 		type = "group",
 		name = L["Error Handling"],
-		order = 15,
 		args = {
 			header1 = {
 				type = "header",

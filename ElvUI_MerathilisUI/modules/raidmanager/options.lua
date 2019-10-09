@@ -11,7 +11,6 @@ local function RaidManagerOptions()
 	E.Options.args.mui.args.modules.args.raidmanager = {
 		type = "group",
 		name = E.NewSign..L["Raid Manager"],
-		order = 20,
 		get = function(info) return E.db.mui.raidmanager[ info[#info] ] end,
 		set = function(info, value) E.db.mui.raidmanager[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {

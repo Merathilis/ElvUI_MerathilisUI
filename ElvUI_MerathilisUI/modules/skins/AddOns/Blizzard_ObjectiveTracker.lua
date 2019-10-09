@@ -9,14 +9,6 @@ local format = string.format
 local next, pairs, select = next, pairs, select
 local tinsert = table.insert
 -- WoW API / Variables
-local ObjectiveTrackerFrame = _G["ObjectiveTrackerFrame"]
-local SCENARIO_CONTENT_TRACKER_MODULE = _G["SCENARIO_CONTENT_TRACKER_MODULE"]
-local QUEST_TRACKER_MODULE = _G["QUEST_TRACKER_MODULE"]
-local WORLD_QUEST_TRACKER_MODULE = _G["WORLD_QUEST_TRACKER_MODULE"]
-local DEFAULT_OBJECTIVE_TRACKER_MODULE = _G["DEFAULT_OBJECTIVE_TRACKER_MODULE"]
-local BONUS_OBJECTIVE_TRACKER_MODULE = _G["BONUS_OBJECTIVE_TRACKER_MODULE"]
-local SCENARIO_TRACKER_MODULE = _G["SCENARIO_TRACKER_MODULE"]
-local OBJECTIVE_TRACKER_COLOR = OBJECTIVE_TRACKER_COLOR
 local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
@@ -83,7 +75,7 @@ local function styleObjectiveTracker()
 
 	-- Add Panels
 	hooksecurefunc("ObjectiveTracker_Update", function()
-		local Frame = ObjectiveTrackerFrame.MODULES
+		local Frame = _G.ObjectiveTrackerFrame.MODULES
 
 		if (Frame) then
 			for i = 1, #Frame do
@@ -177,8 +169,8 @@ local function styleObjectiveTracker()
 		end
 	end)
 
-	ObjectiveTrackerFrame:SetSize(235, 140)
-	ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
+	_G.ObjectiveTrackerFrame:SetSize(235, 140)
+	_G.ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
 
 	local ScenarioChallengeModeBlock = _G.ScenarioChallengeModeBlock
 	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())

@@ -46,6 +46,9 @@ MP.chat = {
 	filter = {
 		enable = true,
 		itemLevel = true,
+		keywords = "",
+		blockAddOnAlerts = true,
+		damagemeter = true,
 	},
 }
 
@@ -120,7 +123,6 @@ MP.datatexts = {
 }
 
 MP.actionbars = {
-	cleanButton = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -370,10 +372,9 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	position = "TOPRIGHT",
-	xOffset = 10,
-	yOffset = 20,
 	size = 34,
+	perRow = 12,
+	spacing = 2,
 }
 
 MP.locPanel = {
@@ -430,8 +431,15 @@ MP.raidmanager = {
 	count = "10",
 }
 
+MP.pvp = {
+	duels = {
+		regular = true,
+		pet = true,
+		announce = true,
+	},
+}
+
 MP.tooltip = {
-	tooltip = true,
 	achievement = true,
 	petIcon = true,
 	factionIcon = true,

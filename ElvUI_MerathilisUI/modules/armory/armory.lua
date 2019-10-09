@@ -285,16 +285,11 @@ function module:BuildInformation()
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
 		frame.Illusion:Size(14)
-		frame.Illusion:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
-		frame.Illusion:SetBackdropBorderColor(1, .5, 1)
+		frame.Illusion:CreateBackdrop()
+		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
 
 		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
 		frame.Illusion.Texture:SetInside()

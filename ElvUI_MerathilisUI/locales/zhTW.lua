@@ -65,6 +65,7 @@ L["ChatBar"] = true
 L["Shows a ChatBar with different quick buttons."] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = true
@@ -199,10 +200,16 @@ L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce in chat if duel was rejected."] = true
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
-L["Clean Boss Button"] = true
 L["Auto Buttons"] = true
 L["Bind Font Size"] = true
 L["Trinket Buttons"] = true
@@ -383,7 +390,7 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
+L["Button Settings"] = true
 
 --Raid Marks
 L["Raid Markers"] = true

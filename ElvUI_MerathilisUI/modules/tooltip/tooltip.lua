@@ -149,7 +149,7 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 end
 
 function module:Initialize()
-	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.tooltip ~= true then return end
+	if E.private.tooltip.enable ~= true then return end
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
 

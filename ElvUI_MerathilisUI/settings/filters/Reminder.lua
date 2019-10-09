@@ -9,20 +9,6 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- GLOBALS:
 
 MER.ReminderList = {
-	DEATHKNIGHT = {
-		["Raise"] = {
-			["spellGroup"] = {
-				[46584] = true,
-				["defaultIcon"] = 46584, -- Raise Dead
-			},
-			["enable"] = true,
-			["instance"] = true,
-			["pvp"] = true,
-			["strictFilter"] = true,
-			["tree"] = 3,
-		},
-	},
-
 	MAGE = {
 		["Intellect"] = {
 			["spellGroup"] = {

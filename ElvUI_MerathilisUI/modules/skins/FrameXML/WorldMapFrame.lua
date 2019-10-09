@@ -5,7 +5,7 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local select = select
+local pairs, select = pairs, select
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetNumQuestLogEntries = GetNumQuestLogEntries
@@ -42,6 +42,27 @@ local function styleWorldmap()
 
 	if _G.QuestScrollFrame.DetailFrame.backdrop then
 		_G.QuestScrollFrame.DetailFrame.backdrop:Hide()
+	end
+
+	-- Party Sync PopUp
+	local dialogs = {
+		_G.QuestSessionManager.CheckStartDialog,
+		_G.QuestSessionManager.StartDialog,
+		_G.QuestSessionManager.CheckLeavePartyDialog,
+		_G.QuestSessionManager.CheckStopDialog,
+		_G.QuestSessionManager.CheckConvertToRaidDialog,
+		_G.QuestSessionManager.ConfirmJoinGroupRequestDialog,
+		_G.QuestSessionManager.ConfirmInviteToGroupDialog,
+		_G.QuestSessionManager.ConfirmInviteToGroupReceivedDialog,
+		_G.QuestSessionManager.ConfirmRequestToJoinGroupDialog,
+		_G.QuestSessionManager.ConfirmBNJoinGroupRequestDialog,
+		_G.QuestSessionManager.ConfirmInviteTravelPassConfirmationDialog,
+	}
+
+	for _, frame in pairs(dialogs) do
+		if frame and not frame.style then
+			frame:Styling()
+		end
 	end
 end
 

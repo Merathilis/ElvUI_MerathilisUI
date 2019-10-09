@@ -6,11 +6,10 @@ local tinsert = table.insert
 --WoW API / Variables
 -- GLOBALS:
 
-local function Noticications()
+local function NotificationTable()
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
 		name = L["Notification"],
-		order = 17,
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -86,4 +85,4 @@ local function Noticications()
 	}
 end
 
-tinsert(MER.Config, Noticications)
+tinsert(MER.Config, NotificationTable)
