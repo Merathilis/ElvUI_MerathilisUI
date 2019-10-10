@@ -172,6 +172,7 @@ function MER:ToggleChangeLog()
 	fadeInfo.startAlpha = 0
 	fadeInfo.endAlpha = 1
 	E:UIFrameFade(MerathilisUIChangeLog, fadeInfo)
+	MER:Slide(MerathilisUIChangeLog, "RIGHT", 50, 150)
 
 	self.time = 6
 	self:CancelAllTimers()
