@@ -10,6 +10,7 @@ local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 local floor, max = math.floor, math.max
 local format = string.format
 local strfind = strfind
+local strmatch = strmatch
 local date, utf8sub = date, string.utf8sub
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -28,6 +29,7 @@ local GetNumGuildMembers = GetNumGuildMembers
 local GetCVarBool = GetCVarBool
 local GetCurrencyInfo = GetCurrencyInfo
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
+local GetSpellInfo = GetSpellInfo
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
@@ -311,18 +313,18 @@ local function CheckInvasion(index)
 	end
 end
 
-local DUNGEON_FLOOR_TEMPESTKEEP1 = _G.DUNGEON_FLOOR_TEMPESTKEEP1
-local TempestKeep = select(2, GetAchievementInfo(1088)):match('%((.-)%)$')
+local journalNameToInstanceName = {
+	-- convert "The Eye" to "Tempest Keep"
+	[_G.DUNGEON_FLOOR_TEMPESTKEEP1] = strmatch(select(2, GetAchievementInfo(1088)), '%((.-)%)$'),
+	-- convert "Die Belagerung von Boralus" to "Belagerung von Boralus" // german :3
+	[GetSpellInfo(279174)] = strmatch(GetSpellInfo(288242), ': ?(.+)$')
+}
 
 local instanceIconByName = {}
 local function GetInstanceImages(index, raid)
 	local instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	while instanceID do
-		if name == DUNGEON_FLOOR_TEMPESTKEEP1 then
-			instanceIconByName[TempestKeep] = loreImage
-		else
-			instanceIconByName[name] = loreImage
-		end
+		instanceIconByName[journalNameToInstanceName[name] or name] = loreImage
 		index = index + 1
 		instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	end
