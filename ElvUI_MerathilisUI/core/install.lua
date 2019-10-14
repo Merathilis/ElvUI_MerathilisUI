@@ -265,18 +265,18 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["fadeThreshold"] = 10
 	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
-	E.db["auras"]["timeYOffset"] = -5
+	E.db["auras"]["timeYOffset"] = 34
 	E.db["auras"]["timeXOffset"] = 0
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
-	E.db["auras"]["buffs"]["verticalSpacing"] = 15
+	E.db["auras"]["buffs"]["verticalSpacing"] = 12
 	E.db["auras"]["buffs"]["size"] = 32
 	E.db["auras"]["buffs"]["countFontsize"] = 12
-	E.db["auras"]["buffs"]["durationFontSize"] = 14
+	E.db["auras"]["buffs"]["durationFontSize"] = 11
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
-	E.db["auras"]["debuffs"]["size"] = 42
+	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontsize"] = 16
-	E.db["auras"]["debuffs"]["durationFontSize"] = 16
+	E.db["auras"]["debuffs"]["durationFontSize"] = 12
 
 	if E.db.mui.general.panels then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
