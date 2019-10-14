@@ -10,7 +10,6 @@ local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 local floor, max = math.floor, math.max
 local format = string.format
 local strfind = strfind
-local strmatch = strmatch
 local date, utf8sub = date, string.utf8sub
 --WoW API / Variables
 local CreateFrame = CreateFrame
@@ -18,7 +17,6 @@ local GetCVar = GetCVar
 local date = date
 local time = time
 local BNGetNumFriends = BNGetNumFriends
-local GetAchievementInfo = GetAchievementInfo
 local GetDifficultyInfo = GetDifficultyInfo
 local GetFramerate = GetFramerate
 local GetNetStats = GetNetStats
@@ -29,7 +27,6 @@ local GetNumGuildMembers = GetNumGuildMembers
 local GetCVarBool = GetCVarBool
 local GetCurrencyInfo = GetCurrencyInfo
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
-local GetSpellInfo = GetSpellInfo
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
@@ -47,6 +44,7 @@ local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
 local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
+local C_Map_GetAreaInfo = C_Map.GetAreaInfo
 local TIMEMANAGER_TICKER_24HOUR = TIMEMANAGER_TICKER_24HOUR
 local TIMEMANAGER_TICKER_12HOUR = TIMEMANAGER_TICKER_12HOUR
 local GetNumSavedInstances = GetNumSavedInstances
@@ -59,6 +57,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
+local locale = GetLocale()
 -- GLOBALS:
 
 local microBar
@@ -74,7 +73,6 @@ local lockoutColorExtended, lockoutColorNormal = { r=0.3, g=1, b=0.3 }, { r=.8, 
 local lockoutInfoFormat = "%s%s %s |cffaaaaaa(%s, %s/%s)"
 local lockoutInfoFormatNoEnc = "%s%s %s |cffaaaaaa(%s)"
 
-local locale = GetLocale()
 local krcntw = locale == "koKR" or locale == "zhCN" or locale == "zhTW"
 local difficultyTag = { -- Raid Finder, Normal, Heroic, Mythic
 	(krcntw and PLAYER_DIFFICULTY3) or utf8sub(PLAYER_DIFFICULTY3, 1, 1), -- R
@@ -313,20 +311,20 @@ local function CheckInvasion(index)
 	end
 end
 
-local journalNameToInstanceName = {
-	-- convert "The Eye" to "Tempest Keep"
-	[_G.DUNGEON_FLOOR_TEMPESTKEEP1] = strmatch(select(2, GetAchievementInfo(1088)), '%((.-)%)$'),
-	-- convert "Die Belagerung von Boralus" to "Belagerung von Boralus" // german :3
-	[GetSpellInfo(279174)] = strmatch(GetSpellInfo(288242), ': ?(.+)$'),
-	-- convert "Die Königsruh" to "Königsruh" // german O.O
-	[select(2, GetAchievementInfo(12763)):match(': ?(.+)%)$')] = select(2, GetAchievementInfo(12848)),
+local InstanceNameByID = {
+	[749] = C_Map_GetAreaInfo(3845) -- "The Eye" -> "Tempest Keep"
 }
+
+if locale == 'deDE' then -- O.O
+	InstanceNameByID[1023] = "Belagerung von Boralus"	-- "Die Belagerung von Boralus"
+	InstanceNameByID[1041] = "Königsruh"				-- "Die Königsruh"
+end
 
 local instanceIconByName = {}
 local function GetInstanceImages(index, raid)
 	local instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	while instanceID do
-		instanceIconByName[journalNameToInstanceName[name] or name] = loreImage
+		instanceIconByName[InstanceNameByID[instanceID] or name] = loreImage
 		index = index + 1
 		instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	end
