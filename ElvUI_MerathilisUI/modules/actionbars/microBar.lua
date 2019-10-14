@@ -321,9 +321,18 @@ if locale == 'deDE' then -- O.O
 end
 
 local instanceIconByName = {}
+local collectIDs, collectedIDs = false -- for testing; mouse over the microbar time to show the tinspect table
 local function GetInstanceImages(index, raid)
 	local instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	while instanceID do
+		if collectIDs then
+			if not collectedIDs then
+				collectedIDs = {}
+			end
+
+			collectedIDs[instanceID] = name
+		end
+
 		instanceIconByName[InstanceNameByID[instanceID] or name] = loreImage
 		index = index + 1
 		instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
@@ -365,6 +374,10 @@ function module.OnEnter(self)
 				EJ_SelectTier(i);
 				GetInstanceImages(1, false); -- Populate for dungeon icons
 				GetInstanceImages(1, true); -- Populate for raid icons
+			end
+
+			if collectIDs then
+				E:Dump(collectedIDs, true)
 			end
 
 			-- Set it back to the previous tier
