@@ -36,7 +36,6 @@ local function NameplatesTable()
 				name = " ",
 				width = 'full',
 			},
-			--[[
 			enhancedAuras = {
 				order = 10,
 				type = "group",
@@ -93,7 +92,7 @@ local function NameplatesTable()
 						set = function(info, value) E.db.mui.nameplates.enhancedAuras.height = value; NP:ConfigureAll() end,
 					},
 				},
-			},]]
+			},
 		},
 	}
 end

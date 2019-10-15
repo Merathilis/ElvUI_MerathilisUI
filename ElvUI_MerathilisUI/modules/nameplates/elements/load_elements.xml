@@ -1,4 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<!-- <Script file='auras.lua'/> -->
+	<Script file='auras.lua'/>
 	<Script file='castbar.lua'/>
 </Ui>

@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
+local UF = E:GetModule("UnitFrames")
 module.modName = L["NameplateAuras"]
 
 -- Cache global variables
@@ -135,7 +136,7 @@ function module:Initialize()
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
-	hooksecurefunc(NP, "PostUpdateAura", module.PostUpdateAura)
+	hooksecurefunc(UF, "PostUpdateAura", module.PostUpdateAura)
 end
 
 MER:RegisterModule(module:GetName())
