@@ -19,9 +19,6 @@ local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
 local UIParent = UIParent
 local UNKNOWN = UNKNOWN
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local function Getcolor()
@@ -29,7 +26,7 @@ local function Getcolor()
 
 	if UnitIsPlayer("mouseover") then
 		local _, class = UnitClass("mouseover")
-		local color = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class]) or (RAID_CLASS_COLORS and RAID_CLASS_COLORS[class])
+		local color = E:ClassColor(class)
 		return color.r, color.g, color.b
 	elseif UnitCanAttack("player", "mouseover") then
 		if UnitIsDead("mouseover") then

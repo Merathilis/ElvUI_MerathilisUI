@@ -74,7 +74,7 @@ function module:PostUpdateAura(unit, button)
 			local class = select(2, UnitClass(button.caster))
 			local color = {r = 1, g = 1, b = 1}
 			if class then
-				color = class == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[class]
+				color = E:ClassColor(class, true)
 			end
 			button.cc_name:SetText(name)
 			button.cc_name:SetTextColor(color.r, color.g, color.b)

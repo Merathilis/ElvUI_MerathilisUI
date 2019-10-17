@@ -62,20 +62,14 @@ for class, value in pairs(colors) do
 	MER.ClassColors[class].b = value.b
 	MER.ClassColors[class].colorStr = value.colorStr
 end
-MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
-
-function MER:ClassColor(class)
-	local color = MER.ClassColors[class]
-	if not color then return 1, 1, 1 end
-	return color.r, color.g, color.b
-end
+MER.r, MER.g, MER.b = E:ClassColor(E.myclass)
 
 function MER:UnitColor(unit)
 	local r, g, b = 1, 1, 1
 	if UnitIsPlayer(unit) then
 		local _, class = UnitClass(unit)
 		if class then
-			r, g, b = MER:ClassColor(class)
+			r, g, b = E:ClassColor(class)
 		end
 	elseif UnitIsTapDenied(unit) then
 		r, g, b = .6, .6, .6

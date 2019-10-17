@@ -149,7 +149,7 @@ local function onEnter(self)
 	for i = 1, GetNumGroupMembers() do
 		name, _, group, _, _, class, _, _, _, _, _, groupRole = GetRaidRosterInfo(i)
 		if name and groupRole == role then
-			color = class == 'PRIEST' and E.PriestColors or (_G.CUSTOM_CLASS_COLORS and _G.CUSTOM_CLASS_COLORS[class] or _G.RAID_CLASS_COLORS[class])
+			color = E:ClassColor(class)
 			coloredName = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, name:gsub("%-.+", "*"))
 			tinsert(roleIconRoster[group], coloredName)
 		end

@@ -10,8 +10,6 @@ local select = select
 local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitReaction = UnitReaction
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
@@ -32,7 +30,7 @@ function MUF:RecolorTargetInfoPanel()
 		local r, g, b
 		local panel = frame.InfoPanel
 		local isPlayer = UnitIsPlayer("target")
-		local classColor = (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[targetClass] or RAID_CLASS_COLORS[targetClass])
+		local classColor =  E:ClassColor(targetClass)
 		local reaction = UnitReaction('target', 'player')
 
 		if isPlayer then
