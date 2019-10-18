@@ -100,6 +100,7 @@ local function styleMail()
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
+	OpenMailFrame:Styling()
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()
