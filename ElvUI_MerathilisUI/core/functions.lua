@@ -62,7 +62,7 @@ for class, value in pairs(colors) do
 	MER.ClassColors[class].b = value.b
 	MER.ClassColors[class].colorStr = value.colorStr
 end
-MER.r, MER.g, MER.b = E:ClassColor(E.myclass)
+MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
 function MER:UnitColor(unit)
 	local r, g, b = 1, 1, 1
