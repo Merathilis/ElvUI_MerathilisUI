@@ -68,66 +68,6 @@ local function UnitFramesTable()
 						name = "",
 						type = "description",
 					},
-					tags = {
-						order = 4,
-						type = "group",
-						name = E.NewSign..MER.Title..L["Tags"],
-						guiInline = true,
-						args = {
-							health = {
-								order = 1,
-								type = "group",
-								name = L["Health"],
-								args = {
-									health1 = {
-										order = 1,
-										type = "description",
-										fontSize = "medium",
-										name = "[health:current-mUI] - "..L["Example:"].." Displays current HP (2.04B, 2.04M, 204k, 204)",
-									},
-								},
-							},
-							power = {
-								order = 2,
-								type = "group",
-								name = L["Power"],
-								args = {
-									power1 = {
-										order = 1,
-										type = "description",
-										fontSize = "medium",
-										name = "[power:current-mUI] - "..L["Example:"].." Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag",
-									},
-								},
-							},
-							name = {
-								order = 3,
-								type = "group",
-								name = L["Name"],
-								args = {
-									name1 = {
-										order = 1,
-										type = "description",
-										fontSize = "medium",
-										name = "[name:abbrev-translit] - "..L["Example:"].." Displays a shorten name and will convert cyrillics. Игорь = !Igor",
-									},
-								},
-							},
-							resting = {
-								order = 3,
-								type = "group",
-								name = L["Resting"],
-								args = {
-									resting1 = {
-										order = 1,
-										type = "description",
-										fontSize = "medium",
-										name = "[mUI-resting] - "..L["Example:"].." Displays a text if the player is in a resting area. zZz",
-									},
-								},
-							},
-						},
-					},
 				},
 			},
 			infoPanel = {
