@@ -50,6 +50,10 @@ function module:Initialize()
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 
 	self:RegisterEvent("ADDON_LOADED")
+
+	function module:ForUpdateAll()
+		local db = E.db.mui.unitframes
+	end
 end
 
 MER:RegisterModule(module:GetName())
