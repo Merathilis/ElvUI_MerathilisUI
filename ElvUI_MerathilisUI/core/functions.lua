@@ -261,7 +261,6 @@ function MER:UpdateAll()
 	self:UpdateRegisteredDBs()
 	for _, module in ipairs(self:GetRegisteredModules()) do
 		local mod = MER:GetModule(module)
-		print(mod)
 		if (mod and mod.ForUpdateAll) then
 			mod:ForUpdateAll()
 		end
