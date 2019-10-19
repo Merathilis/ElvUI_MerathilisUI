@@ -173,7 +173,7 @@ ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
 	return name ~= nil and E:ShortenString(name, 20) or '' --The value 20 controls how many characters are allowed in the name before it gets truncated. Change it to fit your needs.
 end
 
-E:AddTagInfo("health:current-mUI", "|cff70C0F5MerathilisUI|r", "Displays current HP (2.04B, 2.04M, 204k, 204)")
-E:AddTagInfo("power:current-mUI", "|cff70C0F5MerathilisUI|r", "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
-E:AddTagInfo("mUI-resting", "|cff70C0F5MerathilisUI|r", "Displays a text if the player is in a resting area = zZz")
-E:AddTagInfo("name:abbrev-translit", "|cff70C0F5MerathilisUI|r", "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
+E:AddTagInfo("health:current-mUI", "MerathilisUI", "Displays current HP (2.04B, 2.04M, 204k, 204)")
+E:AddTagInfo("power:current-mUI", "MerathilisUI", "Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag")
+E:AddTagInfo("mUI-resting", "MerathilisUI", "Displays a text if the player is in a resting area = zZz")
+E:AddTagInfo("name:abbrev-translit", "MerathilisUI", "Displays a shorten name and will convert cyrillics. Игорь = !Igor")
