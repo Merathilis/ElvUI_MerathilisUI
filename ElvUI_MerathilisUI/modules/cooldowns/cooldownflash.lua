@@ -115,6 +115,7 @@ end
 local elapsed = 0
 local runtimer = 0
 local function OnUpdate(_,update)
+	module.db = E.db.mui.cooldownFlash
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
 		for i,v in pairs(module.watching) do
@@ -352,16 +353,24 @@ function module:TestMode()
 end
 
 function module:Initialize()
+	module.db = E.db.mui.cooldownFlash
 	MER:RegisterDB(self, "cooldownFlash")
 
-	DCP:SetSize(self.db.iconSize, self.db.iconSize)
-
-	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
-	DCP.TextFrame:SetShadowOffset(2, -2)
 	if self.db.enable then
 		self:EnableCooldownFlash()
 	end
+
+	DCP:SetSize(self.db.iconSize, self.db.iconSize)
 	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
+
+	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
+	DCP.TextFrame:SetShadowOffset(2, -2)
+
+	function module:ForUpdateAll()
+		module.db = E.db.mui.cooldownFlash
+	end
+
+	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

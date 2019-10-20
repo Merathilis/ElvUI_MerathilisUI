@@ -347,6 +347,12 @@ function module:Initialize()
 
 	module:AzeriteGlow()
 
+	function module:ForUpdateAll()
+		module.db = E.db.mui.armory
+	end
+
+	self:ForUpdateAll()
+
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then
 		hooksecurefunc("PaperDollFrame_UpdateStats", module.PaperDollFrame_UpdateStats)
