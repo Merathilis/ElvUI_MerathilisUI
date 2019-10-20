@@ -17,7 +17,7 @@ local r, g, b = unpack(E["media"].rgbvaluecolor)
 local function styleWorldmap()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
-	_G.WorldMapFrame:Styling()
+	_G.WorldMapFrame.backdrop:Styling()
 
 	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
 	_G.QuestScrollFrame.QuestCountFrame = frame
