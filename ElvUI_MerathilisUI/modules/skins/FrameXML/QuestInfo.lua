@@ -194,24 +194,6 @@ local function styleQuestInfo()
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
 				spellHeader:SetVertexColor(1, 1, 1)
 			end
-
-			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
-				local portrait = reward.PortraitFrame
-				if not reward.styled then
-					portrait:ClearAllPoints()
-					portrait:SetPoint("TOPLEFT", 2, -5)
-					MERS:ReskinGarrisonPortrait(portrait)
-					reward.BG:Hide()
-					local bg = MERS:CreateBDFrame(reward, .25)
-					bg:SetPoint("TOPLEFT", 0, -3)
-					bg:SetPoint("BOTTOMRIGHT", 2, 7)
-					reward.styled = true
-				end
-				if portrait then
-					local color = BAG_ITEM_QUALITY_COLORS[portrait.quality or 1]
-					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
-				end
-			end
 		end
 	end)
 
