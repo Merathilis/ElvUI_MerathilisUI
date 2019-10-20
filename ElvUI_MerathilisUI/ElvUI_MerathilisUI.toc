@@ -24,6 +24,5 @@ settings\load_settings.xml
 core\load_core.xml
 media\load_media.xml
 modules\load_modules.xml
-db\load_db.xml
 layout\load_layout.xml
 Bindings.xml

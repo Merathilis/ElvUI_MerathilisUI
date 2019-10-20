@@ -3,10 +3,10 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
+local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
 local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
-local strmatch, strsplit = strmatch, strsplit
+local strmatch = strmatch
 local tconcat, twipe = table.concat, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
