@@ -3,10 +3,10 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
+local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
 local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
-local strmatch, strsplit = strmatch, strsplit
+local strmatch = strmatch
 local tconcat, twipe = table.concat, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
@@ -84,9 +84,9 @@ function MER:UnitColor(unit)
 end
 
 function MER:SetupProfileCallbacks()
-	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
-	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
-	E.data.RegisterCallback(self, "OnProfileReset", "UpdateAll")
+	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 end
 
 function MER:MismatchText()
@@ -257,6 +257,10 @@ function MER:UpdateRegisteredDBs()
 	end
 end
 
+function MER:OnProfileChanged()
+	MER:Hook(E, "UpdateEnd", "UpdateAll")
+end
+
 function MER:UpdateAll()
 	self:UpdateRegisteredDBs()
 	for _, module in ipairs(self:GetRegisteredModules()) do
@@ -265,6 +269,7 @@ function MER:UpdateAll()
 			mod:ForUpdateAll()
 		end
 	end
+	MER:Unhook(E, "UpdateEnd")
 end
 
 function MER:UpdateRegisteredDB(tbl, path)
