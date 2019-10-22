@@ -334,7 +334,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-28,50"
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,50"
 	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
 
 	--[[----------------------------------
