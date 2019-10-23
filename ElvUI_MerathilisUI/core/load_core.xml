@@ -2,7 +2,6 @@
 	<Script file="core.lua"/>
 	<Script file="functions.lua"/>
 	<Script file="animations.lua"/>
-	<Script file="cooldowns.lua"/>
 	<Script file="fonts.lua"/>
 	<Script file="changelog.lua"/>
 	<Script file="dropdown.lua"/>
