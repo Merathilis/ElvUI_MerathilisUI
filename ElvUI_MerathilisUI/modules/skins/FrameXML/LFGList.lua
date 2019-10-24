@@ -11,12 +11,11 @@ local pairs, select = pairs, select
 local CreateFrame = CreateFrame
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: LFGListInviteDialog_Show
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleLFGList()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	local LFGListFrame = _G.LFGListFrame
@@ -196,4 +195,4 @@ local function styleLFGList()
 	MERS:CreateBD(LFGListInviteDialog)
 end
 
-S:AddCallback("mUILFGList", styleLFGList)
+S:AddCallback("mUILFGList", LoadSkin)

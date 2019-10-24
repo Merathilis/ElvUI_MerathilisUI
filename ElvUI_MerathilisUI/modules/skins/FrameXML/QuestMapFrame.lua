@@ -10,12 +10,23 @@ local next, pairs, select, unpack = next, pairs, select, unpack
 local C_CampaignInfo_GetCampaignInfo = C_CampaignInfo.GetCampaignInfo
 local C_CampaignInfo_GetCurrentCampaignID = C_CampaignInfo.GetCurrentCampaignID
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleQuestMapFrame()
+local function Showlevel(_, _, _, title, level, _, isHeader, _, _, _, questID)
+	for button in pairs(_G.QuestScrollFrame.titleFramePool.activeObjects) do
+		if title and not isHeader and button.questID == questID then
+			local title = level ~= E.mylevel and "["..level.."] "..title or title
+			local height = button.Text:GetHeight()
+			button.Text:SetText(title)
+			button.Check:SetPoint("LEFT", button.Text, button.Text:GetWrappedWidth() + 2, 0)
+			button:SetHeight(button:GetHeight() - height + button.Text:GetHeight())
+		end
+	end
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
@@ -93,23 +104,11 @@ local function styleQuestMapFrame()
 			end
 		end
 	end
-
 	hooksecurefunc("QuestLogQuests_Update", function()
 		UpdateCampaignHeader()
 	end)
 
 	-- Shows Quest Level if ~= Player Level
-	local function Showlevel(_, _, _, title, level, _, isHeader, _, _, _, questID)
-		for button in pairs(QuestScrollFrame.titleFramePool.activeObjects) do
-			if title and not isHeader and button.questID == questID then
-				local title = level ~= E.mylevel and "["..level.."] "..title or title
-				local height = button.Text:GetHeight()
-				button.Text:SetText(title)
-				button.Check:SetPoint("LEFT", button.Text, button.Text:GetWrappedWidth() + 2, 0)
-				button:SetHeight(button:GetHeight() - height + button.Text:GetHeight())
-			end
-		end
-	end
 	hooksecurefunc("QuestLogQuests_AddQuestButton", Showlevel)
 
 	-- Quest details
@@ -191,4 +190,4 @@ local function styleQuestMapFrame()
 	QuestLogPopupDetailFrame.ShareButton:SetPoint("RIGHT", QuestLogPopupDetailFrame.TrackButton, "LEFT", -1, 0)
 end
 
-S:AddCallback("mUIQuestMapFrame", styleQuestMapFrame)
+S:AddCallback("mUIQuestMapFrame", LoadSkin)

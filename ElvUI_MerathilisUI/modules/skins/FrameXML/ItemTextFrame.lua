@@ -6,11 +6,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 local select = select
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleMerchant()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return end
 
 	local ItemTextFrame = _G.ItemTextFrame
@@ -19,4 +17,4 @@ local function styleMerchant()
 	ItemTextFrame:Styling()
 end
 
-S:AddCallback("mUIItemText", styleMerchant)
+S:AddCallback("mUIItemText", LoadSkin)

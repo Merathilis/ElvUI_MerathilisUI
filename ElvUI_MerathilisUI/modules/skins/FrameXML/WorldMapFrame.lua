@@ -9,12 +9,11 @@ local pairs, select = pairs, select
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetNumQuestLogEntries = GetNumQuestLogEntries
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleWorldmap()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
 	_G.WorldMapFrame.backdrop:Styling()
@@ -66,4 +65,4 @@ local function styleWorldmap()
 	end
 end
 
-S:AddCallback("mUISkinWorldMap", styleWorldmap)
+S:AddCallback("mUISkinWorldMap", LoadSkin)

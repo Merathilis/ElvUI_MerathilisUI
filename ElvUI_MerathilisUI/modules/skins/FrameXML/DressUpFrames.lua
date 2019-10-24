@@ -4,10 +4,9 @@ local S = E:GetModule("Skins")
 --Cache global variables
 local _G = _G
 --WoW API / Variables
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleDressingroom()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true or E.private.muiSkins.blizzard.dressingroom ~= true then return end
 
 	_G.DressUpFrame:Styling()
@@ -19,4 +18,4 @@ local function styleDressingroom()
 	_G.SideDressUpFrame:Styling()
 end
 
-S:AddCallback("mUIDressingRoom", styleDressingroom)
+S:AddCallback("mUIDressingRoom", LoadSkin)

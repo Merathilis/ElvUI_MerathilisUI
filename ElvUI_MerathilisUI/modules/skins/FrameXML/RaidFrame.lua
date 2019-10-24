@@ -10,7 +10,7 @@ local unpack = unpack
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleRaidFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
 	local RaidInfoFrame = _G.RaidInfoFrame
@@ -19,4 +19,4 @@ local function styleRaidFrame()
 	end
 end
 
-S:AddCallback("mUIRaidFrame", styleRaidFrame)
+S:AddCallback("mUIRaidFrame", LoadSkin)

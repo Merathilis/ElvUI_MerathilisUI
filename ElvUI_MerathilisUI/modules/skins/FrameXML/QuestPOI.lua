@@ -7,7 +7,7 @@ local S = E:GetModule("Skins")
 local next = next
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
--- GLOBALS: QuestPOINumericTemplate, QuestPOICompletedTemplate
+-- GLOBALS:
 
 local function QuestPOINumericTemplate(button)
 	button:SetSize(20, 20)
@@ -24,7 +24,7 @@ local function QuestPOICompletedTemplate(button)
 	button.PushedTexture:SetSize(32, 32)
 end
 
-function QuestPOIGetButton(parent, questID, style, index)
+local function QuestPOIGetButton(parent, questID, style, index)
 	if E.private.skins.blizzard.enable ~= true or E.private.muiSkins.blizzard.questPOI ~= true then return; end
 
 	local poiButton

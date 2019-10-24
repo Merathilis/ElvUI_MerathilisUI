@@ -12,10 +12,17 @@ local BNGetGameAccountInfoByGUID = BNGetGameAccountInfoByGUID
 local IsCharacterFriend = IsCharacterFriend
 local IsGuildMember = IsGuildMember
 local UnitGUID = UnitGUID
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: MAX_TRADE_ITEMS, FRIEND, GUILD
+-- GLOBALS:
 
-local function styleTradeFrame()
+local function reskinButton(bu)
+	bu:SetNormalTexture("")
+	bu:SetPushedTexture("")
+	bu.icon:SetTexCoord(unpack(E.TexCoords))
+	bu.IconBorder:SetAlpha(0)
+	bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trade ~= true or E.private.muiSkins.blizzard.trade ~= true then return end
 
 	local TradeFrame = _G.TradeFrame
@@ -23,14 +30,6 @@ local function styleTradeFrame()
 
 	_G.TradePlayerInputMoneyFrameSilver:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameGold, "RIGHT", 1, 0)
 	_G.TradePlayerInputMoneyFrameCopper:SetPoint("LEFT", _G.TradePlayerInputMoneyFrameSilver, "RIGHT", 1, 0)
-
-	local function reskinButton(bu)
-		bu:SetNormalTexture("")
-		bu:SetPushedTexture("")
-		bu.icon:SetTexCoord(unpack(E.TexCoords))
-		bu.IconBorder:SetAlpha(0)
-		bu:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-	end
 
 	for i = 1, _G.MAX_TRADE_ITEMS do
 		_G["TradePlayerItem"..i.."SlotTexture"]:Hide()
@@ -61,13 +60,14 @@ local function styleTradeFrame()
 		local text = "|cffff0000"..L["Stranger"]
 
 		if BNGetGameAccountInfoByGUID(guid) or IsCharacterFriend(guid) then
-			text = "|cffffff00"..FRIEND
+			text = "|cffffff00".._G.FRIEND
 		elseif IsGuildMember(guid) then
-			text = "|cff00ff00"..GUILD
+			text = "|cff00ff00".._G.GUILD
 		end
 		infoText:SetText(text)
 	end
+
 	hooksecurefunc("TradeFrame_Update", UpdateColor)
 end
 
-S:AddCallback("mUITradeFrame", styleTradeFrame)
+S:AddCallback("mUITradeFrame", LoadSkin)

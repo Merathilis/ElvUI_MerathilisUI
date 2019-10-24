@@ -6,16 +6,13 @@ local S = E:GetModule("Skins")
 local _G = _G
 local pairs, unpack = pairs, unpack
 --WoW API / Variables
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function styleStyleStackSplitFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return end
 
 	local StackSplitFrame = _G.StackSplitFrame
 	StackSplitFrame:Styling()
 end
 
-S:AddCallback("mUIStackSplitFrame", styleStyleStackSplitFrame)
+S:AddCallback("mUIStackSplitFrame", LoadSkin)

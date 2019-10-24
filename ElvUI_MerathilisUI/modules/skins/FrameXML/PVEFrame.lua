@@ -6,11 +6,9 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 --WoW API / Variables
+-- GLOBALS:
 
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc
-
-local function stylePVE()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	local PVEFrame = _G.PVEFrame
@@ -29,4 +27,4 @@ local function stylePVE()
 	end
 end
 
-S:AddCallback("mUIPVE", stylePVE)
+S:AddCallback("mUIPVE", LoadSkin)

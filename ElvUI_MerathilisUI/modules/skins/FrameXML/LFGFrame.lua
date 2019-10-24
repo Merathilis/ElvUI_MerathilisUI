@@ -12,10 +12,9 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetLFGDungeonRewardInfo = GetLFGDungeonRewardInfo
 local GetLFGDungeonShortageRewardInfo = GetLFGDungeonShortageRewardInfo
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
+-- GLOBALS:
 
-local function styleLFG()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	local function styleRewardButton(button)
@@ -123,4 +122,4 @@ local function styleLFG()
 	end)
 end
 
-S:AddCallback("mUILFG", styleLFG)
+S:AddCallback("mUILFG", LoadSkin)

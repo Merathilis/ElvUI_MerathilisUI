@@ -18,12 +18,11 @@ local UnitSex = UnitSex
 local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
 local PAPERDOLL_STATCATEGORIES = PAPERDOLL_STATCATEGORIES
 local PAPERDOLL_STATINFO = PAPERDOLL_STATINFO
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleCPaperDollFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	local CharacterStatsPane = _G.CharacterStatsPane
@@ -127,4 +126,4 @@ local function styleCPaperDollFrame()
 	end
 end
 
-S:AddCallback("mUIPaperDoll", styleCPaperDollFrame)
+S:AddCallback("mUIPaperDoll", LoadSkin)

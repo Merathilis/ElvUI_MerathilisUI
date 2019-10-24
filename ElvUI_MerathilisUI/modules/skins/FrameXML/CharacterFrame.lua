@@ -12,13 +12,11 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local InCombatLockdown = InCombatLockdown
 local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
 local EquipmentManager_RunAction = EquipmentManager_RunAction
-
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GameTooltip
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleCharacter()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	-- Hide ElvUI Backdrop
@@ -68,4 +66,4 @@ local function styleCharacter()
 	end
 end
 
-S:AddCallback("mUICharacter", styleCharacter)
+S:AddCallback("mUICharacter", LoadSkin)

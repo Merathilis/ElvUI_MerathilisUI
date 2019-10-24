@@ -5,13 +5,10 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleHelp()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.help ~= true or E.private.muiSkins.blizzard.help ~= true then return end
 
 	local frames = {
@@ -33,4 +30,4 @@ local function styleHelp()
 	HelpFrameHeader:Styling()
 end
 
-S:AddCallback("mUIHelp", styleHelp)
+S:AddCallback("mUIHelp", LoadSkin)

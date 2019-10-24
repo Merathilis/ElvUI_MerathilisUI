@@ -6,11 +6,11 @@ local S = E:GetModule("Skins")
 local _G = _G
 --WoW API / Variables
 
-local function styleTaxi()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.taxi ~= true or E.private.muiSkins.blizzard.taxi ~= true then return end
 
 	_G.TaxiFrame:Styling()
 	_G.TaxiRouteMap:Styling()
 end
 
-S:AddCallback("mUITaxi", styleTaxi)
+S:AddCallback("mUITaxi", LoadSkin)
