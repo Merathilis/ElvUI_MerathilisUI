@@ -10,13 +10,14 @@ local unpack = unpack
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleRaidFrame()
+local function StyleRecruitAFriend()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
-	local RaidInfoFrame = _G.RaidInfoFrame
-	if RaidInfoFrame.backdrop then
-		RaidInfoFrame.backdrop:Styling()
-	end
+	local Reward = _G.RecruitAFriendRewardsFrame
+	Reward:Styling()
+
+	local Recruit = _G.RecruitAFriendRecruitmentFrame
+	Recruit:Styling()
 end
 
-S:AddCallback("mUIRaidFrame", styleRaidFrame)
+S:AddCallback("mUIRecruitAFriend", StyleRecruitAFriend)

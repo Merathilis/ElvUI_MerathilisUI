@@ -22,6 +22,7 @@
 	<Script file="QuestMapFrame.lua"/>
 	<Script file="QuestPOI.lua"/>
 	<Script file="RaidFrame.lua"/>
+	<Script file="RecruitAFriendFrame.lua"/>
 	<Script file="ReputationFrame.lua"/>
 	<Script file="SpellBookFrame.lua"/>
 	<Script file="StackSplitFrame.lua"/>
