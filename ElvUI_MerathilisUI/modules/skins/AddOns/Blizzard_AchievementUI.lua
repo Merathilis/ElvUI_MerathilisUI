@@ -5,17 +5,17 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local select = select
+local select, unpack = select, unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementNumCriteria = GetAchievementNumCriteria
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS
+local hooksecurefunc = hooksecurefunc
+-- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleAchievement()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.achievement ~= true or E.private.muiSkins.blizzard.achievement ~= true then return end
 
 	_G.AchievementFrame.backdrop:Styling()
@@ -85,7 +85,7 @@ local function styleAchievement()
 	end)
 
 	hooksecurefunc("AchievementFrameSummary_UpdateAchievements", function()
-		for i = 1, ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
+		for i = 1, _G.ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS do
 			local bu = _G["AchievementFrameSummaryAchievement"..i]
 			if not bu.reskinned then
 				-- Hide ElvUI's backdrop
@@ -179,4 +179,4 @@ local function styleAchievement()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_AchievementUI", "mUIAchievement", styleAchievement)
+S:AddCallbackForAddon("Blizzard_AchievementUI", "mUIAchievement", LoadSkin)

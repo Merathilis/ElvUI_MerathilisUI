@@ -11,10 +11,28 @@ local GetGuildLogoInfo = GetGuildLogoInfo
 local SetSmallGuildTabardTextures = SetSmallGuildTabardTextures
 local GetGuildTradeSkillInfo = GetGuildTradeSkillInfo
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleGuild()
+-- Font width fix
+local function updateLevelString(view)
+	if view == "playerStatus" or view == "reputation" or view == "achievement" then
+		local buttons = _G.GuildRosterContainer.buttons
+		for i = 1, #buttons do
+			local str = _G["GuildRosterContainerButton"..i.."String1"]
+			str:SetWidth(32)
+			str:SetJustifyH("LEFT")
+		end
+		if view == "achievement" then
+			for i = 1, #buttons do
+				local str = _G["GuildRosterContainerButton"..i.."BarLabel"]
+				str:SetWidth(60)
+				str:SetJustifyH("LEFT")
+			end
+		end
+	end
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.guild ~= true or E.private.muiSkins.blizzard.guild ~= true then return end
 
 	_G.GuildFrame:Styling()
@@ -40,25 +58,6 @@ local function styleGuild()
 		end
 	end)
 
-	-- Font width fix
-	local function updateLevelString(view)
-		if view == "playerStatus" or view == "reputation" or view == "achievement" then
-			local buttons = _G.GuildRosterContainer.buttons
-			for i = 1, #buttons do
-				local str = _G["GuildRosterContainerButton"..i.."String1"]
-				str:SetWidth(32)
-				str:SetJustifyH("LEFT")
-			end
-			if view == "achievement" then
-				for i = 1, #buttons do
-					local str = _G["GuildRosterContainerButton"..i.."BarLabel"]
-					str:SetWidth(60)
-					str:SetJustifyH("LEFT")
-				end
-			end
-		end
-	end
-
 	local done
 	_G.GuildRosterContainer:HookScript("OnShow", function()
 		if not done then
@@ -69,4 +68,4 @@ local function styleGuild()
 	hooksecurefunc("GuildRoster_SetView", updateLevelString)
 end
 
-S:AddCallbackForAddon("Blizzard_GuildUI", "mUIGuild", styleGuild)
+S:AddCallbackForAddon("Blizzard_GuildUI", "mUIGuild", LoadSkin)

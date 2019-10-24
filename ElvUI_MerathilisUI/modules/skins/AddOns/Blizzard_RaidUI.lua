@@ -7,14 +7,11 @@ local S = E:GetModule('Skins')
 local _G = _G
 local select, unpack = select, unpack
 --WoW API / Variables
-
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleRaid()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.raid ~= true or E.private.muiSkins.blizzard.raid ~= true then return end
 
 	for i = 1, _G.NUM_RAID_GROUPS do
@@ -36,4 +33,4 @@ local function styleRaid()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_RaidUI", "mUIRaidUI", styleRaid)
+S:AddCallbackForAddon("Blizzard_RaidUI", "mUIRaidUI", LoadSkin)

@@ -5,13 +5,10 @@ local S = E:GetModule("Skins")
 -- Cache global variables
 -- Lua functions
 local _G = _G
-
 -- WoW API
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleIslands()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandQueue ~= true or E.private.muiSkins.blizzard.IslandQueue ~= true then return end
 
 	local IslandsQueueFrame = _G.IslandsQueueFrame
@@ -25,4 +22,4 @@ local function styleIslands()
 	bg:SetPoint("BOTTOMRIGHT", -50, 5)
 end
 
-S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", styleIslands)
+S:AddCallbackForAddon("Blizzard_IslandsQueueUI", "mUIIslands", LoadSkin)

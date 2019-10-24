@@ -5,13 +5,9 @@ local S = E:GetModule('Skins')
 --Lua functions
 local _G = _G
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function styleVoidStorage()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true or E.private.muiSkins.blizzard.voidstorage ~= true then return end
 
 	local VoidStorageFrame = _G.VoidStorageFrame
@@ -21,4 +17,4 @@ local function styleVoidStorage()
 	VoidStorageFrame.Page1:SetPoint("LEFT", VoidStorageFrame, "TOPRIGHT", 2, -60)
 end
 
-S:AddCallbackForAddon("Blizzard_VoidStorageUI", "mUIVoidStorage", styleVoidStorage)
+S:AddCallbackForAddon("Blizzard_VoidStorageUI", "mUIVoidStorage", LoadSkin)

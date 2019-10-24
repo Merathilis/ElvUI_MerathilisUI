@@ -9,12 +9,11 @@ local next, unpack = next, unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleTrainer()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.trainer ~= true or E.private.muiSkins.blizzard.trainer ~= true then return end
 
 	local ClassTrainerFrame = _G.ClassTrainerFrame
@@ -73,4 +72,4 @@ local function styleTrainer()
 	MERS:CreateBD(bd, .25)
 end
 
-S:AddCallbackForAddon("Blizzard_TrainerUI", "mUITrainer", styleTrainer)
+S:AddCallbackForAddon("Blizzard_TrainerUI", "mUITrainer", LoadSkin)

@@ -18,12 +18,11 @@ local GetQuestLogRewardInfo = GetQuestLogRewardInfo
 local CurrencyContainerUtil_GetCurrencyContainerInfo = CurrencyContainerUtil.GetCurrencyContainerInfo
 local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
 local HaveQuestRewardData = HaveQuestRewardData
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function stylePvP()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true or E.private.muiSkins.blizzard.pvp ~= true then return end
 
 	_G.PVPReadyDialog:Styling()
@@ -116,4 +115,4 @@ local function stylePvP()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", stylePvP)
+S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", LoadSkin)

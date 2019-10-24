@@ -9,12 +9,11 @@ local next, select, unpack = next, select, unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleCommunities()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
@@ -132,4 +131,4 @@ local function styleCommunities()
 	GuildNewsFilter.backdrop:Styling()
 end
 
-S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", styleCommunities)
+S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", LoadSkin)

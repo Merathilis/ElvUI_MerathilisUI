@@ -16,7 +16,7 @@ local WorldStateAlwaysUpFrame = _G["WorldStateAlwaysUpFrame"]
 
 local MAX_STATIC_POPUPS = 4
 
-local function styleMisc()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
 	-- Graveyard button (a bit ugly if you press it)
@@ -113,4 +113,4 @@ local function styleMisc()
 	end
 end
 
-S:AddCallback("mUIBlizzMisc", styleMisc)
+S:AddCallback("mUIBlizzMisc", LoadSkin)
