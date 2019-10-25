@@ -63,7 +63,7 @@ function module:ActionbarGlow()
 		function lib.ShowOverlayGlow(button)
 			if button:GetAttribute("type") == "action" then
 				local actionType,actionID = GetActionInfo(button:GetAttribute("action"))
-				LCG.PixelGlow_Start(button, color, nil, -0.25, nil, 1)
+				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
 			end
 		end
 		function lib.HideOverlayGlow(button)
@@ -83,7 +83,7 @@ function module:Initialize()
 
 	self:SpecBarInit()
 	self:EquipBarInit()
-	self:ActionbarGlow()
+	C_TimerAfter(0.1, module.ActionbarGlow)
 end
 
 MER:RegisterModule(module:GetName())
