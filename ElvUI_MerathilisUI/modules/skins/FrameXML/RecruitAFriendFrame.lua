@@ -8,10 +8,21 @@ local unpack = unpack
 -- WoW API / Variables
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return; end
+
+	local SplashFrame = _G.RecruitAFriendFrame.SplashFrame
+	SplashFrame.Background:SetColorTexture(unpack(E.media.bordercolor))
+
+	SplashFrame.PictureFrame:Hide()
+	SplashFrame.Bracket_TopLeft:Hide()
+	SplashFrame.Bracket_TopRight:Hide()
+	SplashFrame.Bracket_BottomRight:Hide()
+	SplashFrame.Bracket_BottomLeft:Hide()
+	SplashFrame.PictureFrame_Bracket_TopLeft:Hide()
+	SplashFrame.PictureFrame_Bracket_TopRight:Hide()
+	SplashFrame.PictureFrame_Bracket_BottomRight:Hide()
+	SplashFrame.PictureFrame_Bracket_BottomLeft:Hide()
 
 	local Reward = _G.RecruitAFriendRewardsFrame
 	Reward:Styling()
