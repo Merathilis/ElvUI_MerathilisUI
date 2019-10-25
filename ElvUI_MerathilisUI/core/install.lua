@@ -277,6 +277,16 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontsize"] = 16
 	E.db["auras"]["debuffs"]["durationFontSize"] = 12
+	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
+	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
+	E.db["auras"]["cooldown"]["minutesIndicator"]["b"] = 0.9176470588235294
+	E.db["auras"]["cooldown"]["minutesIndicator"]["g"] = 0.7764705882352941
+	E.db["auras"]["cooldown"]["minutesIndicator"]["r"] = 0.2470588235294118
+	E.db["auras"]["cooldown"]["secondsIndicator"]["b"] = 0
+	E.db["auras"]["cooldown"]["expireIndicator"]["g"] = 0
+	E.db["auras"]["cooldown"]["expireIndicator"]["b"] = 0
+	E.db["auras"]["cooldown"]["daysIndicator"]["g"] = 0.4
+	E.db["auras"]["cooldown"]["daysIndicator"]["r"] = 0.4
 
 	if E.db.mui.general.panels then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
