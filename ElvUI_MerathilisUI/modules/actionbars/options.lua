@@ -14,7 +14,7 @@ local COLOR = COLOR
 local function ActionBarTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		type = "group",
-		name = L["ActionBars"],
+		name = E.NewSign..L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -23,8 +23,22 @@ local function ActionBarTable()
 				type = "header",
 				name = MER:cOption(L["ActionBars"]),
 			},
-			specBar = {
+			general = {
 				order = 2,
+				type = "group",
+				name = MER:cOption(L["General"]),
+				guiInline = true,
+				args = {
+					customGlow = {
+						order = 1,
+						type = "toggle",
+						name = E.NewSign..L["Custom Glow"],
+						desc = L["Replaces the default Actionbar glow for procs with an own pixel glow."],
+					},
+				},
+			},
+			specBar = {
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Specialization Bar"]),
 				guiInline = true,
@@ -54,7 +68,7 @@ local function ActionBarTable()
 				},
 			},
 			equipBar = {
-				order = 3,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["EquipSet Bar"]),
 				guiInline = true,
@@ -84,7 +98,7 @@ local function ActionBarTable()
 				},
 			},
 			microBar = {
-				order = 4,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
@@ -163,7 +177,7 @@ local function ActionBarTable()
 				},
 			},
 			autoButtons = {
-				order = 5,
+				order = 6,
 				type = "group",
 				name = MER:cOption(L["Auto Buttons"]),
 				guiInline = true,

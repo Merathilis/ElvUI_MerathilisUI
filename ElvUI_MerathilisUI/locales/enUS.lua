@@ -223,6 +223,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
+L["Custom Glow"] = true
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- Armory
 L["Armory"] = true

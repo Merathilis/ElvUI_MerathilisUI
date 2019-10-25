@@ -219,6 +219,8 @@ L["Blacklist Item"] = "Schwarze Liste Item"
 L["Whitelist Item"] = "Weißeliste Item"
 L["Add Item ID"] = "Füge Item ID hinzu"
 L["Delete Item ID"] = "Entferne Item ID"
+L["Custom Glow"] = "Benutzerdefinertes Leuchten"
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das standard Aktionleistenleuchten mit einem eigenen Pixel-Leuchten."
 
 -- Armory
 L["Armory"] = "Arsenal"
