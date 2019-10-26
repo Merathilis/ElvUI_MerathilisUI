@@ -6,6 +6,7 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local pairs, unpack = pairs, unpack
+local format = string.format
 -- WoW API
 local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
@@ -46,13 +47,10 @@ local function LoadSkin()
 
 	if E.db.mui.armory.undressButton then
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
-		bu:SetSize(55, 20)
+		bu:SetText(format("|cff70C0F5%s", L["Undress"]))
+		bu:SetSize(60, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 65, -15)
-
-		bu.text = MER:CreateText(bu, "OVERLAY", 12, "OUTLNE")
-		bu.text:SetPoint("CENTER")
-		bu.text:SetText(L["Undress"])
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -15)
 
 		bu:SetScript("OnClick", function()
 			for i = 1, 17 do
