@@ -18,7 +18,7 @@ local function LoadSkin()
 	SplashFrame.Background:Hide()
 	SplashFrame.PictureFrame:Hide()
 
-	SplashFrame:CreateBackdrop("Overlay")
+	SplashFrame:CreateBackdrop()
 	SplashFrame.backdrop:SetPoint("TOPLEFT", 2, -2)
 	SplashFrame.backdrop:SetPoint("BOTTOMRIGHT", -1, -1)
 
