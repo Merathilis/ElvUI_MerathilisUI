@@ -6,13 +6,29 @@ local S = E:GetModule("Skins")
 local _G = _G
 local unpack = unpack
 -- WoW API / Variables
+local CreateFrame = CreateFrame
 -- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
-	local SplashFrame = _G.RecruitAFriendFrame.SplashFrame
-	SplashFrame.Background:SetColorTexture(unpack(E.media.bordercolor))
+	local RecruitAFriendFrame = _G.RecruitAFriendFrame
+	local SplashFrame = RecruitAFriendFrame.SplashFrame
+
+	SplashFrame.Background:Hide()
+	SplashFrame.PictureFrame:Hide()
+
+	SplashFrame:CreateBackdrop("Overlay")
+	SplashFrame.backdrop:SetPoint("TOPLEFT", 2, -2)
+	SplashFrame.backdrop:SetPoint("BOTTOMRIGHT", -1, -1)
+
+	SplashFrame.Description:SetTextColor(1, 1, 1)
+
+	SplashFrame.Picture.b = CreateFrame("Frame", nil, SplashFrame)
+	SplashFrame.Picture.b:SetTemplate()
+	SplashFrame.Picture.b:SetPoint("TOPLEFT", SplashFrame.Picture, "TOPLEFT", -2, 2)
+	SplashFrame.Picture.b:SetPoint("BOTTOMRIGHT", SplashFrame.Picture, "BOTTOMRIGHT", 2, -2)
+	SplashFrame.Picture:SetParent(SplashFrame.Picture.b)
 
 	SplashFrame.PictureFrame:Hide()
 	SplashFrame.Bracket_TopLeft:Hide()
