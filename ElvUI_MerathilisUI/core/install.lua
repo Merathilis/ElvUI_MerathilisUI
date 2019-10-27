@@ -561,8 +561,9 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconOffsetY"] = -1
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = -10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'TOPRIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = -25
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
