@@ -1,5 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="castbar.lua"/>
 	<Script file="gcd.lua"/>
 	<Script file="portrait.lua"/>
 	<Script file="infopanel.lua"/>
