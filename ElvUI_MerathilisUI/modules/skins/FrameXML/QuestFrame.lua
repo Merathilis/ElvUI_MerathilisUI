@@ -6,11 +6,23 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local unpack = unpack
+local strfind = strfind
 local find, gsub = string.find, string.gsub
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
+
+-- Copied from ElvUI
+local function UpdateGreetingFrame()
+	for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
+		Button.Icon:SetDrawLayer("ARTWORK")
+		local Text = Button:GetFontString():GetText()
+		if Text and strfind(Text, '|cff000000') then
+			Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+		end
+	end
+end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return end
@@ -62,16 +74,6 @@ local function LoadSkin()
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
-	-- Copied from ElvUI
-	local function UpdateGreetingFrame()
-		for Button in _G.QuestFrameGreetingPanel.titleButtonPool:EnumerateActive() do
-			Button.Icon:SetDrawLayer("ARTWORK")
-			local Text = Button:GetFontString():GetText()
-			if Text and strfind(Text, '|cff000000') then
-				Button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
-			end
-		end
-	end
 
 	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
@@ -152,8 +154,6 @@ local function LoadSkin()
 	end
 
 	_G.QuestDetailScrollFrame:SetWidth(302) -- else these buttons get cut off
-
-	-- Quest NPC model
 end
 
 S:AddCallback("mUIQuestFrame", LoadSkin)

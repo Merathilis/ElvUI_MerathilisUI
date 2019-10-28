@@ -16,18 +16,13 @@ local function LoadSkin()
 		"HelpFrameKnowledgebase",
 	}
 
-	-- skin main frames
 	for i = 1, #frames do
 		_G[frames[i]]:Styling()
 	end
 
 	local HelpFrameHeader = _G.HelpFrameHeader
-	if HelpFrameHeader.backdrop then
-		HelpFrameHeader.backdrop:Hide()
-	end
-
-	MERS:CreateBD(HelpFrameHeader, .65)
-	HelpFrameHeader:Styling()
+	HelpFrameHeader.backdrop:SetTemplate("Transparent")
+	MERS:CreateGradient(HelpFrameHeader.backdrop)
 end
 
 S:AddCallback("mUIHelp", LoadSkin)

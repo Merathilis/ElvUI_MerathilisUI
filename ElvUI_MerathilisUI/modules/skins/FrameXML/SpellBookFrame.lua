@@ -15,8 +15,6 @@ local SpellBook_GetSpellBookSlot = SpellBook_GetSpellBookSlot
 local IsPassiveSpell = IsPassiveSpell
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
 local function SecondaryProfession(button)
 	button:CreateBackdrop("Transparent")
 	button.backdrop:SetOutside(button, 5, 5)

@@ -8,8 +8,6 @@ local unpack = unpack
 -- WoW API / Variables
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return; end
 

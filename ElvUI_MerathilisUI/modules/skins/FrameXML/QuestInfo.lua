@@ -22,7 +22,7 @@ local GetQuestID = GetQuestID
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function restyleSpellButton(bu)
+local function RestyleSpellButton(bu)
 	local name = bu:GetName()
 	local icon = bu.Icon
 
@@ -49,7 +49,7 @@ local function QuestInfo_GetQuestID()
 	end
 end
 
-local function colorObjectivesText()
+local function ColorObjectivesText()
 	if not _G.QuestInfoFrame.questLog then return end
 
 	local questID = QuestInfo_GetQuestID()
@@ -80,7 +80,7 @@ local function colorObjectivesText()
 	end
 end
 
-local function restyleRewardButton(bu, isMapQuestInfo)
+local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu.Icon:SetTexCoord(unpack(E.TexCoords))
 	bu.Icon:SetDrawLayer("OVERLAY")
 	bu.NameFrame:SetAlpha(0)
@@ -140,17 +140,17 @@ local function LoadSkin()
 	if E.private.skins.parchmentRemover.enable then return end
 
 	-- [[ Objectives ]]
-	restyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
+	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
-	hooksecurefunc("QuestMapFrame_ShowQuestDetails", colorObjectivesText)
-	hooksecurefunc("QuestInfo_Display", colorObjectivesText)
+	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
+	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local bu = rewardsFrame.RewardButtons[index]
 
 		if (bu and not bu.restyled) then
-			restyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
+			RestyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
 
 			bu.Icon:SetTexCoord(unpack(E.TexCoords))
 			bu.IconBorder:SetAlpha(0)
@@ -163,11 +163,11 @@ local function LoadSkin()
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
 	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
-		restyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
+		RestyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
 	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame"} do
-		restyleRewardButton(_G.QuestInfoRewardsFrame[name])
+		RestyleRewardButton(_G.QuestInfoRewardsFrame[name])
 	end
 
 	--Spell Rewards

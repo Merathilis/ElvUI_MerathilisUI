@@ -26,6 +26,28 @@ local function Showlevel(_, _, _, title, level, _, isHeader, _, _, _, questID)
 	end
 end
 
+local idToTexture = {
+	[261] = "Interface\\FriendsFrame\\PlusManz-Alliance",
+	[262] = "Interface\\FriendsFrame\\PlusManz-Horde",
+}
+
+local function UpdateCampaignHeader()
+	local campaignHeader = _G.QuestScrollFrame.Contents.WarCampaignHeader
+	campaignHeader.newTex:SetAlpha(0)
+
+	if campaignHeader:IsShown() then
+		local campaignID = C_CampaignInfo_GetCurrentCampaignID()
+		if campaignID then
+			local warCampaignInfo = C_CampaignInfo_GetCampaignInfo(campaignID)
+			local textureID = warCampaignInfo.uiTextureKitID
+			if textureID and idToTexture[textureID] then
+				campaignHeader.newTex:SetTexture(idToTexture[textureID])
+				campaignHeader.newTex:SetAlpha(.7)
+			end
+		end
+	end
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
@@ -85,25 +107,7 @@ local function LoadSkin()
 		end)
 	end
 
-	local idToTexture = {
-		[261] = "Interface\\FriendsFrame\\PlusManz-Alliance",
-		[262] = "Interface\\FriendsFrame\\PlusManz-Horde",
-	}
-
-	local function UpdateCampaignHeader()
-		campaignHeader.newTex:SetAlpha(0)
-		if campaignHeader:IsShown() then
-			local campaignID = C_CampaignInfo_GetCurrentCampaignID()
-			if campaignID then
-				local warCampaignInfo = C_CampaignInfo_GetCampaignInfo(campaignID)
-				local textureID = warCampaignInfo.uiTextureKitID
-				if textureID and idToTexture[textureID] then
-					campaignHeader.newTex:SetTexture(idToTexture[textureID])
-					campaignHeader.newTex:SetAlpha(.7)
-				end
-			end
-		end
-	end
+	-- Update campaignHeader
 	hooksecurefunc("QuestLogQuests_Update", function()
 		UpdateCampaignHeader()
 	end)

@@ -12,7 +12,6 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
-
 --GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -128,7 +127,7 @@ local function LoadSkin()
 	_G.OpenMailInvoiceAmountReceived:SetPoint("TOPRIGHT", _G.OpenMailArithmeticLine, "BOTTOMRIGHT", -14, -5)
 
 	hooksecurefunc("OpenMail_Update", function()
-		if ( not _G.InboxFrame.openMailID ) then
+		if not _G.InboxFrame.openMailID then
 			return
 		end
 

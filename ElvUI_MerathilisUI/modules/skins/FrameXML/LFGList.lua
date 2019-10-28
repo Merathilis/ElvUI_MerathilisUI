@@ -6,7 +6,6 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 local pairs, select = pairs, select
-
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local C_LFGList_GetSearchResultInfo = C_LFGList.GetSearchResultInfo
@@ -14,6 +13,22 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+local function ResultOnEnter(self)
+	self.hl:Show()
+end
+
+local function ResultOnLeave(self)
+	self.hl:Hide()
+end
+
+local function HeaderOnEnter(self)
+	self.hl:Show()
+end
+
+local function HeaderOnLeave(self)
+	self.hl:Hide()
+end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
@@ -74,14 +89,6 @@ local function LoadSkin()
 	SearchPanel.AutoCompleteFrame.LeftBorder:Hide()
 	SearchPanel.AutoCompleteFrame.RightBorder:Hide()
 
-	local function resultOnEnter(self)
-		self.hl:Show()
-	end
-
-	local function resultOnLeave(self)
-		self.hl:Hide()
-	end
-
 	local numResults = 1
 	hooksecurefunc("LFGListSearchPanel_UpdateAutoComplete", function(self)
 		local AutoCompleteFrame = self.AutoCompleteFrame
@@ -110,8 +117,8 @@ local function LoadSkin()
 
 			MERS:CreateBD(result, .5)
 
-			result:HookScript("OnEnter", resultOnEnter)
-			result:HookScript("OnLeave", resultOnLeave)
+			result:HookScript("OnEnter", ResultOnEnter)
+			result:HookScript("OnLeave", ResultOnLeave)
 
 			numResults = numResults + 1
 		end
@@ -124,14 +131,6 @@ local function LoadSkin()
 
 	ApplicationViewer.Inset.Bg:Hide()
 	ApplicationViewer.Inset:DisableDrawLayer("BORDER")
-
-	local function headerOnEnter(self)
-		self.hl:Show()
-	end
-
-	local function headerOnLeave(self)
-		self.hl:Hide()
-	end
 
 	for _, headerName in pairs({"NameColumnHeader", "RoleColumnHeader", "ItemLevelColumnHeader"}) do
 		local header = ApplicationViewer[headerName]
@@ -150,8 +149,8 @@ local function LoadSkin()
 
 		MERS:CreateBD(header, .25)
 
-		header:HookScript("OnEnter", headerOnEnter)
-		header:HookScript("OnLeave", headerOnLeave)
+		header:HookScript("OnEnter", HeaderOnEnter)
+		header:HookScript("OnLeave", HeaderOnLeave)
 	end
 
 	ApplicationViewer.RoleColumnHeader:SetPoint("LEFT", ApplicationViewer.NameColumnHeader, "RIGHT", 1, 0)

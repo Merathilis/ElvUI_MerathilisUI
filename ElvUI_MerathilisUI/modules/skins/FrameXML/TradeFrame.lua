@@ -14,7 +14,7 @@ local IsGuildMember = IsGuildMember
 local UnitGUID = UnitGUID
 -- GLOBALS:
 
-local function reskinButton(bu)
+local function ReskinButton(bu)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
 	bu.icon:SetTexCoord(unpack(E.TexCoords))
@@ -42,8 +42,8 @@ local function LoadSkin()
 		if _G["TradeRecipientItem"..i.."ItemButton"].bg then _G["TradeRecipientItem"..i.."ItemButton"].bg:SetTemplate("Transparent") end
 		if _G["TradeRecipientItem"..i.."ItemButton"].bg then MERS:CreateGradient(_G["TradeRecipientItem"..i.."ItemButton"].bg) end
 
-		reskinButton(_G["TradePlayerItem"..i.."ItemButton"])
-		reskinButton(_G["TradeRecipientItem"..i.."ItemButton"])
+		ReskinButton(_G["TradePlayerItem"..i.."ItemButton"])
+		ReskinButton(_G["TradeRecipientItem"..i.."ItemButton"])
 	end
 
 	-- Display text on the TradeFrame if unit is a known person
