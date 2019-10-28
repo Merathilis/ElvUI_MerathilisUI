@@ -984,6 +984,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 285
 		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
+		E.db["unitframe"]["units"]["player"]["castbar"]["hidetext"] = false
+		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "None"
+		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"] = {r = 1, g = 1, b = 1, a = 1}
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
@@ -1113,6 +1116,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["target"]["castbar"]["width"] = 200
 		E.db["unitframe"]["units"]["target"]["castbar"]["height"] = 18
+		E.db["unitframe"]["units"]["target"]["castbar"]["hidetext"] = false
+		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "None"
+		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"] = {r = 1, g = 1, b = 1, a = 1}
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 0
