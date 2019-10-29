@@ -245,6 +245,7 @@ local function CreateButton(name, size)
 	AutoButton.Cooldown:SetSwipeColor(1, 1, 1, 1)
 	AutoButton.Cooldown:SetDrawBling(false)
 
+	AutoButton.Cooldown.CooldownOverride = 'actionbar'
 	E:RegisterCooldown(AutoButton.Cooldown)
 	E.FrameLocks[name] = true
 
