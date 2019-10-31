@@ -287,6 +287,12 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["expireIndicator"]["b"] = 0
 	E.db["auras"]["cooldown"]["daysIndicator"]["g"] = 0.4
 	E.db["auras"]["cooldown"]["daysIndicator"]["r"] = 0.4
+	E.db["auras"]["cooldown"]["hhmmColor"]["r"] = 0.431372549019608
+	E.db["auras"]["cooldown"]["hhmmColor"]["g"] = 0.431372549019608
+	E.db["auras"]["cooldown"]["hhmmColor"]["b"] = 0.431372549019608
+	E.db["auras"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
+	E.db["auras"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
+	E.db["auras"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
 
 	if E.db.mui.general.panels then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
@@ -1105,6 +1111,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 10
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
@@ -1228,6 +1235,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = false
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
@@ -1404,6 +1412,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
 
@@ -1513,6 +1522,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
 
@@ -1598,6 +1608,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
