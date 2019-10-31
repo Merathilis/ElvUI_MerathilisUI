@@ -18,7 +18,6 @@ local IsPartyLFG = IsPartyLFG
 local UnitExists = UnitExists
 local UnitIsPlayer = UnitIsPlayer
 local UnitName = UnitName
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 function MERC:ChatBar()
