@@ -6,9 +6,7 @@ local UF = E:GetModule("UnitFrames")
 --Lua functions
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: UF
+-- GLOBALS:
 
 function module:UpdateUF()
 	if E.db.unitframe.units.player.enable then
@@ -44,10 +42,14 @@ function module:Initialize()
 	-- self:InitRaid()
 	-- self:InitRaid40()
 
+	-- Information Panel
 	self:InfoPanelColor()
 
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
+
+	-- Health Prediction
+	self:HealPrediction()
 
 	self:RegisterEvent("ADDON_LOADED")
 end
