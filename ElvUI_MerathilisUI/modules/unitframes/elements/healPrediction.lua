@@ -51,16 +51,6 @@ function MUF:Configure_HealComm(frame)
 			healPrediction.overAbsorb:SetVertexColor(1, 1, 1)
 			healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 		end
-
-		if healPrediction.absorbBar then
-			if not healPrediction.absorbBar.overlay then
-				healPrediction.absorbBar.overlay = healPrediction.absorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-				healPrediction.absorbBar.overlay:SetAllPoints(healPrediction.absorbBar:GetStatusBarTexture())
-				healPrediction.absorbBar.overlay:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-				healPrediction.absorbBar.overlay.tileSize = 32
-			end
-			-- healPrediction.absorbBar.overlay:Hide()
-		end
 	end
 end
 
