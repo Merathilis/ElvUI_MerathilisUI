@@ -133,10 +133,10 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		toggleOverlay() --run once
 
 		--hook
-		hooksecurefunc(_G.CommunitiesFrame,"SetDisplayMode", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"Show", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"Hide", hideOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"OnClubSelected", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "SetDisplayMode", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Show", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Hide", hideOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "OnClubSelected", toggleOverlay)
 	end
 end)
 

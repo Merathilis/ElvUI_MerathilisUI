@@ -219,6 +219,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
+L["Custom Glow"] = true
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- Armory
 L["Armory"] = true
@@ -303,30 +305,14 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "单位框体"
 L["Player Portrait"] = "玩家肖像"
 L["Target Portrait"] = "目标肖像"
-L["Aura Spacing"] = "光环间距"
-L["Sets space between individual aura icons."] = "设置各个光环图标间的间距."
-L["Set Aura Spacing On Following Units"] = "在以下单位上设置光环间距"
-L["Assist"] = "辅助"
-L["Boss"] = "首领"
-L["Focus"] = "焦点"
-L["FocusTarget"] = "焦点的目标"
-L["Party"] = "小队"
-L["Pet"] = "宠物"
-L["PetTarget"] = "宠物目标"
-L["Player"] = "玩家"
-L["Raid"] = "团队"
-L["Raid40"] = "40人团队"
-L["RaidPet"] = "团队宠物"
-L["Tank"] = "坦克"
-L["Target"] = "目标"
-L["TargetTarget"] = "目标的目标"
-L["TargetTargetTarget"] = "目标的目标的目标"
 L["Hide Text"] = "隐藏文本"
 L["Hide From Others"] = "隐藏其他"
 L["Threshold"] = "阈值"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "持续时间文本将被隐藏,直到达到此阈值(以秒为单位).设置为-1以始终显示持续时间文本"
 L["Position of the duration text on the aura icon."] = "持续时间文本在光环图标上的位置."
 L["Position of the stack count on the aura icon."] = "光环上层数的位置."
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "调整施法条文本在Y轴的偏移"
 L["Force show any text placed on the InfoPanel, while casting."] = "当正在施法时，强制显示信息面板上的文字."

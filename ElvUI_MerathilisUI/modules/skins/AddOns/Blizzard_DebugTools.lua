@@ -8,22 +8,21 @@ local _G = _G
 local select, unpack = select, unpack
 -- WoW API
 local hooksecurefunc = hooksecurefunc
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleDebugTools()
+local function reskinTableAttribute(frame)
+	frame:Styling()
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.debug ~= true or E.private.muiSkins.blizzard.debug ~= true then return end
 
 	local EventTraceFrame = _G.EventTraceFrame
 	EventTraceFrame:Styling()
 
 	-- Table Attribute Display
-	local function reskinTableAttribute(frame)
-		frame:Styling()
-	end
-
 	reskinTableAttribute(_G.TableAttributeDisplay)
 
 	hooksecurefunc(_G.TableInspectorMixin, "InspectTable", function(self)
@@ -31,4 +30,4 @@ local function styleDebugTools()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_DebugTools", "mUIDebugTools", styleDebugTools)
+S:AddCallbackForAddon("Blizzard_DebugTools", "mUIDebugTools", LoadSkin)

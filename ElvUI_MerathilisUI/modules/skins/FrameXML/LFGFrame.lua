@@ -6,64 +6,62 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 local unpack = unpack
-
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetLFGDungeonRewardInfo = GetLFGDungeonRewardInfo
 local GetLFGDungeonShortageRewardInfo = GetLFGDungeonShortageRewardInfo
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, LFGListInviteDialog_Show
+-- GLOBALS:
 
-local function styleLFG()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
+local function StyleRewardButton(button)
+	local buttonName = button:GetName()
 
-	local function styleRewardButton(button)
-		local buttonName = button:GetName()
+	local icon = _G[buttonName.."IconTexture"]
+	local cta = _G[buttonName.."ShortageBorder"]
+	local count = _G[buttonName.."Count"]
+	local na = _G[buttonName.."NameFrame"]
 
-		local icon = _G[buttonName.."IconTexture"]
-		local cta = _G[buttonName.."ShortageBorder"]
-		local count = _G[buttonName.."Count"]
-		local na = _G[buttonName.."NameFrame"]
+	icon:SetTexCoord(unpack(E.TexCoords))
+	icon:SetDrawLayer("OVERLAY")
 
-		icon:SetTexCoord(unpack(E.TexCoords))
-		icon:SetDrawLayer("OVERLAY")
+	count:SetDrawLayer("OVERLAY")
 
-		count:SetDrawLayer("OVERLAY")
+	na:SetColorTexture(0, 0, 0, .25)
+	na:SetSize(110, 39)
+	na:ClearAllPoints()
+	na:SetPoint("LEFT", icon, "RIGHT", -7, 0)
 
-		na:SetColorTexture(0, 0, 0, .25)
-		na:SetSize(110, 39)
-		na:ClearAllPoints()
-		na:SetPoint("LEFT", icon, "RIGHT", -7, 0)
-
-		if button.IconBorder then
-			button.IconBorder:SetAlpha(0)
-		end
-
-		if cta then
-			cta:SetAlpha(0)
-		end
-
-		button.bg2 = CreateFrame("Frame", nil, button)
-		button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
-		button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
-		button.bg2:SetFrameStrata("BACKGROUND")
-		MERS:CreateBD(button.bg2, .25)
-		MERS:CreateGradient(button.bg2)
+	if button.IconBorder then
+		button.IconBorder:SetAlpha(0)
 	end
+
+	if cta then
+		cta:SetAlpha(0)
+	end
+
+	button.bg2 = CreateFrame("Frame", nil, button)
+	button.bg2:SetPoint("TOPLEFT", na, "TOPLEFT", 10, 0)
+	button.bg2:SetPoint("BOTTOMRIGHT", na, "BOTTOMRIGHT", -1, 0)
+	button.bg2:SetFrameStrata("BACKGROUND")
+	MERS:CreateBD(button.bg2, .25)
+	MERS:CreateGradient(button.bg2)
+end
+
+local function LoadSkin()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfg ~= true or E.private.muiSkins.blizzard.lfg ~= true then return; end
 
 	hooksecurefunc("LFGRewardsFrame_SetItemButton", function(parentFrame, _, index, _, _, _, _, _, _, _, _, _, _)
 		local parentName = parentFrame:GetName()
 		local button = _G[parentName.."Item"..index]
 		if button and not button.styled then
-			styleRewardButton(button)
+			StyleRewardButton(button)
 			button.styled = true
 		end
 	end)
 
-	styleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	styleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
+	StyleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	StyleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
+	StyleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
 	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)
 	leaderBg:SetDrawLayer("ARTWORK", 2)
@@ -123,4 +121,4 @@ local function styleLFG()
 	end)
 end
 
-S:AddCallback("mUILFG", styleLFG)
+S:AddCallback("mUILFG", LoadSkin)

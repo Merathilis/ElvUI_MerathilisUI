@@ -219,6 +219,8 @@ L["Blacklist Item"] = "Schwarze Liste Item"
 L["Whitelist Item"] = "Weißeliste Item"
 L["Add Item ID"] = "Füge Item ID hinzu"
 L["Delete Item ID"] = "Entferne Item ID"
+L["Custom Glow"] = "Benutzerdefinertes Leuchten"
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das standard Aktionleistenleuchten mit einem eigenen Pixel-Leuchten."
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -303,30 +305,13 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "Einheitenfenster"
 L["Player Portrait"] = "Spieler Portrait"
 L["Target Portrait"] = "Ziel Portrait"
-L["Aura Spacing"] = "Auren Abstand"
-L["Sets space between individual aura icons."] = "Setzt den Abstand zwischen den individuellen Aurensymbolen."
-L["Set Aura Spacing On Following Units"] = "Setzt den Auren Abstand für folgende Einheiten"
-L["Assist"] = "Assistent"
-L["Boss"] = true
-L["Focus"] = "Fokus"
-L["FocusTarget"] = "Fokus-Ziel"
-L["Party"] = "Gruppe"
-L["Pet"] = "Begleiter"
-L["PetTarget"] = "Begleiter-Ziel"
-L["Player"] = "Spieler"
-L["Raid"] = "Schlachtzug"
-L["Raid40"] = "40er Schlachtzug"
-L["RaidPet"] = "Schlachtzug Begleiter"
-L["Tank"] = true;
-L["Target"] = "Ziel"
-L["TargetTarget"] = "Ziel des Ziels"
-L["TargetTargetTarget"] = "Ziel des Ziels des Ziels"
 L["Hide Text"] = "Verstecke Text"
 L["Hide From Others"] = "Verstecke von anderen"
 L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -335,6 +320,7 @@ L["Show Castbar text"] = "Zeige Zauberleisten Text"
 L["Show InfoPanel text"] = "Zeige InfoPanel Text"
 L["InfoPanel Style"] = "InfoPanel Stil"
 L["Show on Target"] = "Zeige auf dem Ziel"
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
 
 -- LocationPanel
 L["Location Panel"] = true

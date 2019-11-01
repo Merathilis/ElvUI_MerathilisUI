@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -7,13 +6,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 local unpack = unpack
 -- WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function styleRaidFrame()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return; end
 
 	local RaidInfoFrame = _G.RaidInfoFrame
@@ -22,4 +17,4 @@ local function styleRaidFrame()
 	end
 end
 
-S:AddCallback("mUIQRaidFrame", styleRaidFrame)
+S:AddCallback("mUIRaidFrame", LoadSkin)

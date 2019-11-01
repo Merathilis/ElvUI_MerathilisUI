@@ -4,10 +4,11 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
+local select = select
 --WoW API / Variables
 -- GLOBALS:
 
-local function styleAlliedRaces()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AlliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
@@ -32,4 +33,4 @@ local function styleAlliedRaces()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "mUIAlliedRaces", styleAlliedRaces)
+S:AddCallbackForAddon("Blizzard_AlliedRacesUI", "mUIAlliedRaces", LoadSkin)

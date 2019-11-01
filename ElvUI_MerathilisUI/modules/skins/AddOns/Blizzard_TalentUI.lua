@@ -16,10 +16,9 @@ local GetSpellTexture = GetSpellTexture
 local UnitSex = UnitSex
 local hooksecurefunc = hooksecurefunc
 
-
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleTalents()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
@@ -200,4 +199,4 @@ local function styleTalents()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", styleTalents)
+S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", LoadSkin)

@@ -5,19 +5,19 @@ local MERS = MER:GetModule("muiSkins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local ipairs, pairs, select, tonumber, unpack = ipairs, pairs, select, tonumber, unpack
-local tinsert = table.insert
+local ipairs, next, pairs, select, tonumber, unpack = ipairs, next, pairs, select, tonumber, unpack
+local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 local floor, max = math.floor, math.max
 local format = string.format
 local strfind = strfind
-
+local date, utf8sub = date, string.utf8sub
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetCVar = GetCVar
 local date = date
 local time = time
 local BNGetNumFriends = BNGetNumFriends
-local GetAchievementInfo = GetAchievementInfo
+local GetDifficultyInfo = GetDifficultyInfo
 local GetFramerate = GetFramerate
 local GetNetStats = GetNetStats
 local GetCurrentRegion = GetCurrentRegion
@@ -44,6 +44,7 @@ local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
 local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
+local C_Map_GetAreaInfo = C_Map.GetAreaInfo
 local TIMEMANAGER_TICKER_24HOUR = TIMEMANAGER_TICKER_24HOUR
 local TIMEMANAGER_TICKER_12HOUR = TIMEMANAGER_TICKER_12HOUR
 local GetNumSavedInstances = GetNumSavedInstances
@@ -56,6 +57,7 @@ local UnregisterStateDriver = UnregisterStateDriver
 local SecondsToTime = SecondsToTime
 local GameTooltip = GameTooltip
 local UnitLevel = UnitLevel
+local locale = GetLocale()
 -- GLOBALS:
 
 local microBar
@@ -67,6 +69,19 @@ local elapsed = DELAY - 5
 
 local usageTable, showMode, entered = {}, 0
 local usageString = "%.3f ms"
+local lockoutColorExtended, lockoutColorNormal = { r=0.3, g=1, b=0.3 }, { r=.8, g=.8, b=.8 }
+local lockoutInfoFormat = "%s%s %s |cffaaaaaa(%s, %s/%s)"
+local lockoutInfoFormatNoEnc = "%s%s %s |cffaaaaaa(%s)"
+
+local krcntw = locale == "koKR" or locale == "zhCN" or locale == "zhTW"
+local difficultyTag = { -- Raid Finder, Normal, Heroic, Mythic
+	(krcntw and PLAYER_DIFFICULTY3) or utf8sub(PLAYER_DIFFICULTY3, 1, 1), -- R
+	(krcntw and PLAYER_DIFFICULTY1) or utf8sub(PLAYER_DIFFICULTY1, 1, 1), -- N
+	(krcntw and PLAYER_DIFFICULTY2) or utf8sub(PLAYER_DIFFICULTY2, 1, 1), -- H
+	(krcntw and PLAYER_DIFFICULTY6) or utf8sub(PLAYER_DIFFICULTY6, 1, 1)  -- M
+}
+
+local function sortFunc(a,b) return a[1] < b[1] end
 
 local function colorLatency(latency)
 	if latency < 250 then
@@ -296,20 +311,33 @@ local function CheckInvasion(index)
 	end
 end
 
-local DUNGEON_FLOOR_TEMPESTKEEP1 = _G.DUNGEON_FLOOR_TEMPESTKEEP1
-local TempestKeep = select(2, GetAchievementInfo(1088)):match('%((.-)%)$')
+local InstanceNameByID = {
+	-- NOTE: for some reason the instanceID from EJ_GetInstanceByIndex doesn't match,
+	-- the instanceID from GetInstanceInfo, so use the collectIDs to find the ID to add.
+	[749] = C_Map_GetAreaInfo(3845) -- "The Eye" -> "Tempest Keep"
+}
+
+if locale == 'deDE' then -- O.O
+	InstanceNameByID[1023] = "Belagerung von Boralus"	-- "Die Belagerung von Boralus"
+	InstanceNameByID[1041] = "Königsruh"				-- "Die Königsruh"
+end
 
 local instanceIconByName = {}
+local collectIDs, collectedIDs = false -- for testing; mouse over the microbar time to show the tinspect table
 local function GetInstanceImages(index, raid)
-	local instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
+	local instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	while instanceID do
-		if name == DUNGEON_FLOOR_TEMPESTKEEP1 then
-			instanceIconByName[TempestKeep] = buttonImage
-		else
-			instanceIconByName[name] = buttonImage
+		if collectIDs then
+			if not collectedIDs then
+				collectedIDs = {}
+			end
+
+			collectedIDs[instanceID] = name
 		end
+
+		instanceIconByName[InstanceNameByID[instanceID] or name] = loreImage
 		index = index + 1
-		instanceID, name, _, _, buttonImage = EJ_GetInstanceByIndex(index, raid)
+		instanceID, name, _, _, loreImage = EJ_GetInstanceByIndex(index, raid)
 	end
 end
 
@@ -348,6 +376,10 @@ function module.OnEnter(self)
 				EJ_SelectTier(i);
 				GetInstanceImages(1, false); -- Populate for dungeon icons
 				GetInstanceImages(1, true); -- Populate for raid icons
+			end
+
+			if collectIDs then
+				E:Dump(collectedIDs, true)
 			end
 
 			-- Set it back to the previous tier
@@ -389,37 +421,66 @@ function module.OnEnter(self)
 		end
 	end
 
-	-- Mythic Dungeons
-	title = false
-	local img
+	local lockedInstances = {raids = {}, dungeons = {}}
+
 	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, diff, locked, extended = GetSavedInstanceInfo(i)
-		img = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
-		if diff == 23 and (locked or extended) then
-			addTitle(L["Mythic Dungeon"])
-			if extended then
-				r, g, b = .3, 1, .3
-			else
-				r, g, b = 1, 1, 1
+		local name, _, _, difficulty, locked, extended, _, isRaid = GetSavedInstanceInfo(i);
+		if (locked or extended) and name then
+			local isLFR, isHeroicOrMythicDungeon = (difficulty == 7 or difficulty == 17), (difficulty == 2 or difficulty == 23)
+			local _, _, isHeroic, _, displayHeroic, displayMythic = GetDifficultyInfo(difficulty)
+			local sortName = name .. (displayMythic and 4 or (isHeroic or displayHeroic) and 3 or isLFR and 1 or 2)
+			local difficultyLetter = (displayMythic and difficultyTag[4] or (isHeroic or displayHeroic) and difficultyTag[3] or isLFR and difficultyTag[1] or difficultyTag[2])
+			local buttonImg = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
+
+			if isRaid then
+				tinsert(lockedInstances.raids, {sortName, difficultyLetter, buttonImg, {GetSavedInstanceInfo(i)}})
+			elseif isHeroicOrMythicDungeon then
+				tinsert(lockedInstances.dungeons, {sortName, difficultyLetter, buttonImg, {GetSavedInstanceInfo(i)}})
 			end
-			GameTooltip:AddDoubleLine(img..name, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
 		end
 	end
 
-	-- Raids
-	title = false
-	local img
-	for i = 1, GetNumSavedInstances() do
-		local name, _, reset, _, locked, extended, _, isRaid, _, diffName = GetSavedInstanceInfo(i)
-		img = instanceIconByName[name] and format("|T%s:16:16:0:0:96:96:0:64:0:64|t ", instanceIconByName[name]) or ""
-		if isRaid and (locked or extended) then
-			addTitle(_G.RAID_INFORMATION)
-			if extended then
-				r, g, b = .3, 1, .3
+	if next(lockedInstances.raids) then
+		if GameTooltip:NumLines() > 0 then
+			GameTooltip:AddLine(" ")
+		end
+		GameTooltip:AddLine(L["Saved Raid(s)"])
+
+		tsort(lockedInstances.raids, sortFunc)
+
+		for i = 1, #lockedInstances.raids do
+			local difficultyLetter = lockedInstances.raids[i][2]
+			local buttonImg = lockedInstances.raids[i][3]
+			local name, _, reset, _, _, extended, _, _, maxPlayers, _, numEncounters, encounterProgress = unpack(lockedInstances.raids[i][4])
+
+			local lockoutColor = extended and lockoutColorExtended or lockoutColorNormal
+			if (numEncounters and numEncounters > 0) and (encounterProgress and encounterProgress > 0) then
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormat, buttonImg, maxPlayers, difficultyLetter, name, encounterProgress, numEncounters), SecondsToTime(reset, false, nil, 3), 1, 1, 1, lockoutColor.r, lockoutColor.g, lockoutColor.b)
 			else
-				r, g, b = 1, 1, 1
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormatNoEnc, buttonImg, maxPlayers, difficultyLetter, name), SecondsToTime(reset, false, nil, 3), 1, 1, 1, lockoutColor.r, lockoutColor.g, lockoutColor.b)
 			end
-			GameTooltip:AddDoubleLine(img..name .. " - " .. diffName, SecondsToTime(reset, true, nil, 3), 1, 1, 1, r, g, b)
+		end
+	end
+
+	if next(lockedInstances.dungeons) then
+		if GameTooltip:NumLines() > 0 then
+			GameTooltip:AddLine(" ")
+		end
+		GameTooltip:AddLine(L["Saved Dungeon(s)"])
+
+		tsort(lockedInstances.dungeons, sortFunc)
+
+		for i = 1,#lockedInstances.dungeons do
+			local difficultyLetter = lockedInstances.dungeons[i][2]
+			local buttonImg = lockedInstances.dungeons[i][3]
+			local name, _, reset, _, _, extended, _, _, maxPlayers, _, numEncounters, encounterProgress = unpack(lockedInstances.dungeons[i][4])
+
+			local lockoutColor = extended and lockoutColorExtended or lockoutColorNormal
+			if (numEncounters and numEncounters > 0) and (encounterProgress and encounterProgress > 0) then
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormat, buttonImg, maxPlayers, difficultyLetter, name, encounterProgress, numEncounters), SecondsToTime(reset, false, nil, 3), 1, 1, 1, lockoutColor.r, lockoutColor.g, lockoutColor.b)
+			else
+				GameTooltip:AddDoubleLine(format(lockoutInfoFormatNoEnc, buttonImg, maxPlayers, difficultyLetter, name), SecondsToTime(reset, false, nil, 3), 1, 1, 1, lockoutColor.r, lockoutColor.g, lockoutColor.b)
+			end
 		end
 	end
 

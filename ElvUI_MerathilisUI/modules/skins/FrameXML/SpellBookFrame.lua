@@ -15,9 +15,18 @@ local SpellBook_GetSpellBookSlot = SpellBook_GetSpellBookSlot
 local IsPassiveSpell = IsPassiveSpell
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
+local function SecondaryProfession(button)
+	button:CreateBackdrop("Transparent")
+	button.backdrop:SetOutside(button, 5, 5)
 
-local function styleSpellBook()
+	MERS:CreateGradient(button.backdrop)
+
+	button.statusBar:ClearAllPoints()
+	button.statusBar:SetPoint("BOTTOMLEFT", 0, 0)
+	button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.spellbook ~= true or E.private.muiSkins.blizzard.spellbook ~= true then return end
 
 	local SpellBookFrame = _G.SpellBookFrame
@@ -141,17 +150,6 @@ local function styleSpellBook()
 		end
 	end)
 
-	local function SecondaryProfession(button)
-		button:CreateBackdrop("Transparent")
-		button.backdrop:SetOutside(button, 5, 5)
-
-		MERS:CreateGradient(button.backdrop)
-
-		button.statusBar:ClearAllPoints()
-		button.statusBar:SetPoint("BOTTOMLEFT", 0, 0)
-		button.rank:SetPoint("BOTTOMLEFT", button.statusBar, "TOPLEFT", 3, 4)
-	end
-
 	_G.SpellBookPageText:SetTextColor(.8, .8, .8)
 
 	SecondaryProfession(_G.SecondaryProfession1)
@@ -171,4 +169,4 @@ local function styleSpellBook()
 	end)
 end
 
-S:AddCallback("mUISpellbook", styleSpellBook)
+S:AddCallback("mUISpellbook", LoadSkin)

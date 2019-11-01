@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
 local NP = E:GetModule("NamePlates")
+local UF = E:GetModule("UnitFrames")
 module.modName = L["NameplateAuras"]
 
 -- Cache global variables
@@ -73,7 +74,7 @@ function module:PostUpdateAura(unit, button)
 			local class = select(2, UnitClass(button.caster))
 			local color = {r = 1, g = 1, b = 1}
 			if class then
-				color = class == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[class]
+				color = E:ClassColor(class, true)
 			end
 			button.cc_name:SetText(name)
 			button.cc_name:SetTextColor(color.r, color.g, color.b)
@@ -135,7 +136,7 @@ function module:Initialize()
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
-	hooksecurefunc(NP, "PostUpdateAura", module.PostUpdateAura)
+	hooksecurefunc(UF, "PostUpdateAura", module.PostUpdateAura)
 end
 
 MER:RegisterModule(module:GetName())

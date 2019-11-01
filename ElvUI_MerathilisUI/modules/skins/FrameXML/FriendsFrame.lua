@@ -11,11 +11,10 @@ local PanelTemplates_DeselectTab = PanelTemplates_DeselectTab
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local function styleFriends()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 
 	local FriendsFrame = _G.FriendsFrame
-
 	FriendsFrame:Styling()
 
 	-- Animated Icon
@@ -37,6 +36,9 @@ local function styleFriends()
 	FriendsFrame:HookScript("OnUpdate", function(self, elapsed)
 		AnimateTexCoords(_G.FriendsFrameIcon, 512, 256, 64, 64, 25, elapsed, 0.01)
 	end)
+
+	local FriendsFriendsFrame = _G.FriendsFriendsFrame
+	FriendsFriendsFrame:Styling()
 end
 
-S:AddCallback("mUIFriends", styleFriends)
+S:AddCallback("mUIFriends", LoadSkin)

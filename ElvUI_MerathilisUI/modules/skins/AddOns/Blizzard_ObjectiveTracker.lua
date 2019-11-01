@@ -70,7 +70,93 @@ function f.QUEST_LOG_UPDATE()
 	end
 end
 
-local function styleObjectiveTracker()
+local function SkinAutoQuestPopUpBlock()
+	for i = 1, GetNumAutoQuestPopUps() do
+		local ID, type = GetAutoQuestPopUp(i)
+		local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
+
+		if Title and Title ~= "" then
+			local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
+
+			if Block then
+				local Frame = Block.ScrollChild
+
+				if not Frame.IsSkinned then
+					Frame:SetSize(227, 68)
+					Frame:CreateBackdrop("Transparent")
+					Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
+					Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
+					Frame.backdrop:SetFrameLevel(0)
+					Frame.backdrop:SetTemplate("Transparent")
+
+					Frame.FlashFrame.IconFlash:Hide()
+
+					Frame.QuestName:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+					Frame.QuestName:SetPoint("RIGHT", -8, 0)
+					Frame.TopText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+					Frame.TopText:SetPoint("RIGHT", -8, 0)
+					Frame.BottomText:SetPoint("BOTTOM", 0, 8)
+					Frame.BottomText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
+					Frame.BottomText:SetPoint("RIGHT", -8, 0)
+
+					Frame.IsSkinned = true
+				end
+
+				if type == "COMPLETE" then
+					Frame.QuestIconBg:SetAlpha(0)
+					Frame.QuestIconBadgeBorder:SetAlpha(0)
+					Frame.QuestionMark:ClearAllPoints()
+					Frame.QuestionMark:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+					Frame.QuestionMark:SetParent(Frame.backdrop)
+					Frame.QuestionMark:SetDrawLayer("OVERLAY", 7)
+					Frame.IconShine:Hide()
+				elseif type == "OFFER" then
+					Frame.QuestIconBg:SetAlpha(0)
+					Frame.QuestIconBadgeBorder:SetAlpha(0)
+					Frame.Exclamation:ClearAllPoints()
+					Frame.Exclamation:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
+					Frame.Exclamation:SetParent(Frame.backdrop)
+					Frame.Exclamation:SetDrawLayer("OVERLAY", 7)
+				end
+
+				Frame.FlashFrame:Hide()
+				Frame.Bg:Hide()
+
+				for _, v in pairs({Frame.BorderTopLeft, Frame.BorderTopRight, Frame.BorderBotLeft, Frame.BorderBotRight, Frame.BorderLeft, Frame.BorderRight, Frame.BorderTop, Frame.BorderBottom}) do
+					v:Hide()
+				end
+			end
+		end
+	end
+end
+
+local uiTextureKits = {
+	[0] = {color = 1, 1, 1, overlay = ""},
+	[261] = {color = 0.29, 0.33, 0.91, overlay = [[Interface\Timer\Alliance-Logo]]},
+	[5117] = {color = 0.90, 0.05, 0.07, overlay = [[Interface\Timer\Horde-Logo]]},
+	["legion"] = {color = 255/19, 255/255, 255/41, overlay = ""},
+}
+
+local function CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
+	if widgetSetID then
+		stageBlock.overlay:Hide()
+	else
+		stageBlock.overlay:Show()
+		local kit
+
+		if textureKitID then
+			kit = uiTextureKits[textureKitID] or uiTextureKits[0]
+		elseif scenarioType == _G.LE_SCENARIO_TYPE_LEGION_INVASION then
+			kit = uiTextureKits["legion"]
+		else
+			kit = uiTextureKits[0]
+		end
+		stageBlock.bg:SetBackdropColor(kit.color, 0,75)
+		stageBlock.overlay:SetTexture(kit.overlay)
+	end
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
 	-- Add Panels
@@ -99,66 +185,6 @@ local function styleObjectiveTracker()
 			end
 		end
 	end)
-
-	local function SkinAutoQuestPopUpBlock()
-		for i = 1, GetNumAutoQuestPopUps() do
-			local ID, type = GetAutoQuestPopUp(i)
-			local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
-
-			if Title and Title ~= "" then
-				local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
-
-				if Block then
-					local Frame = Block.ScrollChild
-
-					if not Frame.IsSkinned then
-						Frame:SetSize(227, 68)
-						Frame:CreateBackdrop("Transparent")
-						Frame.backdrop:SetPoint("TOPLEFT", Frame, 40, -4)
-						Frame.backdrop:SetPoint("BOTTOMRIGHT", Frame, 0, 4)
-						Frame.backdrop:SetFrameLevel(0)
-						Frame.backdrop:SetTemplate("Transparent")
-
-						Frame.FlashFrame.IconFlash:Hide()
-
-						Frame.QuestName:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
-						Frame.QuestName:SetPoint("RIGHT", -8, 0)
-						Frame.TopText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
-						Frame.TopText:SetPoint("RIGHT", -8, 0)
-						Frame.BottomText:SetPoint("BOTTOM", 0, 8)
-						Frame.BottomText:SetPoint("LEFT", Frame.QuestIconBg, "RIGHT", -6, 0)
-						Frame.BottomText:SetPoint("RIGHT", -8, 0)
-
-						Frame.IsSkinned = true
-					end
-
-					if type == "COMPLETE" then
-						Frame.QuestIconBg:SetAlpha(0)
-						Frame.QuestIconBadgeBorder:SetAlpha(0)
-						Frame.QuestionMark:ClearAllPoints()
-						Frame.QuestionMark:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
-						Frame.QuestionMark:SetParent(Frame.backdrop)
-						Frame.QuestionMark:SetDrawLayer("OVERLAY", 7)
-						Frame.IconShine:Hide()
-					elseif type == "OFFER" then
-						Frame.QuestIconBg:SetAlpha(0)
-						Frame.QuestIconBadgeBorder:SetAlpha(0)
-						Frame.Exclamation:ClearAllPoints()
-						Frame.Exclamation:SetPoint("CENTER", Frame.backdrop, "LEFT", 10, 0)
-						Frame.Exclamation:SetParent(Frame.backdrop)
-						Frame.Exclamation:SetDrawLayer("OVERLAY", 7)
-					end
-
-					Frame.FlashFrame:Hide()
-					Frame.Bg:Hide()
-
-					for _, v in pairs({Frame.BorderTopLeft, Frame.BorderTopRight, Frame.BorderBotLeft, Frame.BorderBotRight, Frame.BorderLeft, Frame.BorderRight, Frame.BorderTop, Frame.BorderBottom}) do
-						v:Hide()
-					end
-				end
-			end
-		end
-	end
 
 	hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
 		for _, block in next, self.usedBlocks do
@@ -204,33 +230,7 @@ local function styleObjectiveTracker()
 	overlay:SetDesaturated(true)
 	ScenarioStageBlock.overlay = overlay
 
-	local uiTextureKits = {
-		[0] = {color = 1, 1, 1, overlay = ""},
-		[261] = {color = 0.29, 0.33, 0.91, overlay = [[Interface\Timer\Alliance-Logo]]},
-		[5117] = {color = 0.90, 0.05, 0.07, overlay = [[Interface\Timer\Horde-Logo]]},
-		["legion"] = {color = 255/19, 255/255, 255/41, overlay = ""},
-	}
-
-	function MERS.ScenarioStage_CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
-		if widgetSetID then
-			stageBlock.overlay:Hide()
-		else
-			stageBlock.overlay:Show()
-
-			local kit
-			if textureKitID then
-				kit = uiTextureKits[textureKitID] or uiTextureKits[0]
-			elseif scenarioType == _G.LE_SCENARIO_TYPE_LEGION_INVASION then
-				kit = uiTextureKits["legion"]
-			else
-				kit = uiTextureKits[0]
-			end
-
-			stageBlock.bg:SetBackdropColor(kit.color, 0,75)
-			stageBlock.overlay:SetTexture(kit.overlay)
-		end
-	end
-	_G.hooksecurefunc("ScenarioStage_CustomizeBlock", MERS.ScenarioStage_CustomizeBlock)
+	_G.hooksecurefunc("ScenarioStage_CustomizeBlock", CustomizeBlock)
 
 	S:HandleButton(_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton)
 
@@ -243,4 +243,4 @@ local function styleObjectiveTracker()
 	end)
 end
 
-S:AddCallback("mUIObjectiveTracker", styleObjectiveTracker)
+S:AddCallback("mUIObjectiveTracker", LoadSkin)

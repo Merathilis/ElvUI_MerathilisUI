@@ -1,3 +1,17 @@
+[b][color=orange]v4.34[/color], xx.xx.2019[/b][list]
+[*]Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
+[*]Changed my MicroBar Tooltip instance lockout.
+[*]Fixed my Clique Skin, it newer worked. lol
+[*]Removed CleanBossButton Code, its now default in ElvUI.
+[*]Tweak a bit the RaidManager Code.
+[*]Added an own glow for Actionbar procs.
+[*]Added my Tags to the Available Tags option in ElvUI.
+[*]Updated Minimap Buttons, the Buttons will now stay visible, if you click them.
+[*]Added an "Undress Button" to the DressUpFrame.
+[*]Removed the Aura Icon Spacing code for the UnitFrames.
+[*]Updated/Added some Skin.[/list]
+
+
 [b][color=orange]v4.33[/color] for 8.2.5, 25.09.2019[/b][list]
 [*]The Chat Menu now dont force a fix Chat Height.
 [*]Removed Raider.IO skinning support. Grab AddOnSkins.

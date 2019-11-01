@@ -8,10 +8,10 @@ local _G = _G
 local ipairs, next, pairs, select, unpack = ipairs, next, pairs, select, unpack
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local EJ_GetEncounterInfoByIndex = EJ_GetEncounterInfoByIndex
 local hooksecurefunc = hooksecurefunc
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -110,7 +110,82 @@ local function SkinAbilitiesInfo()
 	end
 end
 
-function MERS:StyleEncounterJournal()
+
+local function resultOnEnter(self)
+	self.hl:Show()
+end
+
+local function resultOnLeave(self)
+	self.hl:Hide()
+end
+
+local function styleSearchButton(result, index)
+	local searchBox = _G.EncounterJournal.searchBox
+
+	if index == 1 then
+		result:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, 1)
+		result:SetPoint("TOPRIGHT", searchBox, "BOTTOMRIGHT", -5, 1)
+	else
+		result:SetPoint("TOPLEFT", searchBox.searchPreview[index-1], "BOTTOMLEFT", 0, 1)
+		result:SetPoint("TOPRIGHT", searchBox.searchPreview[index-1], "BOTTOMRIGHT", 0, 1)
+	end
+
+	result:SetNormalTexture("")
+	result:SetPushedTexture("")
+	result:SetHighlightTexture("")
+
+	local hl = result:CreateTexture(nil, "BACKGROUND")
+	hl:SetAllPoints()
+	hl:SetTexture(E.media.normTex)
+	hl:SetVertexColor(r, g, b, .2)
+	hl:Hide()
+	result.hl = hl
+
+	MERS:CreateBD(result)
+	result:SetBackdropColor(.1, .1, .1, .9)
+
+	if result.icon then
+		result:GetRegions():Hide() -- icon frame
+		result.icon:SetTexCoord(unpack(E.TexCoords))
+		local bg = MERS:CreateBG(result.icon)
+		bg:SetDrawLayer("BACKGROUND", 1)
+	end
+
+	result:HookScript("OnEnter", resultOnEnter)
+	result:HookScript("OnLeave", resultOnLeave)
+end
+
+local function listInstances()
+	local instanceSelect = _G.EncounterJournal.instanceSelect
+
+	local index = 1
+	while true do
+		local bu = instanceSelect.scroll.child.InstanceButtons[index]
+		if not bu then return end
+
+		bu:SetNormalTexture("")
+		bu:SetHighlightTexture("")
+		bu:SetPushedTexture("")
+		bu.bgImage:SetDrawLayer("BACKGROUND", 1)
+
+		local bg = MERS:CreateBG(bu.bgImage)
+		bg:SetPoint("TOPLEFT", 3, -3)
+		bg:SetPoint("BOTTOMRIGHT", -4, 2)
+		index = index + 1
+	end
+end
+
+local function SkinEJButton(button)
+	button.UpLeft:SetAlpha(0)
+	button.UpRight:SetAlpha(0)
+	button.DownLeft:SetAlpha(0)
+	button.DownRight:SetAlpha(0)
+	select(5, button:GetRegions()):Hide()
+	select(6, button:GetRegions()):Hide()
+	MERS:Reskin(button)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true or E.private.muiSkins.blizzard.encounterjournal ~= true then return end
 
 	local EncounterJournal = _G.EncounterJournal
@@ -128,50 +203,6 @@ function MERS:StyleEncounterJournal()
 	searchBox.searchPreviewContainer.bottomBorder:Hide()
 	searchBox.searchPreviewContainer.leftBorder:Hide()
 	searchBox.searchPreviewContainer.rightBorder:Hide()
-
-	local function resultOnEnter(self)
-		self.hl:Show()
-	end
-
-	local function resultOnLeave(self)
-		self.hl:Hide()
-	end
-
-	local function styleSearchButton(result, index)
-		if index == 1 then
-			result:SetPoint("TOPLEFT", searchBox, "BOTTOMLEFT", 0, 1)
-			result:SetPoint("TOPRIGHT", searchBox, "BOTTOMRIGHT", -5, 1)
-		else
-			result:SetPoint("TOPLEFT", searchBox.searchPreview[index-1], "BOTTOMLEFT", 0, 1)
-			result:SetPoint("TOPRIGHT", searchBox.searchPreview[index-1], "BOTTOMRIGHT", 0, 1)
-		end
-
-		result:SetNormalTexture("")
-		result:SetPushedTexture("")
-		result:SetHighlightTexture("")
-
-		local hl = result:CreateTexture(nil, "BACKGROUND")
-		hl:SetAllPoints()
-		hl:SetTexture(E.media.normTex)
-		hl:SetVertexColor(r, g, b, .2)
-		hl:Hide()
-		result.hl = hl
-
-		MERS:CreateBD(result)
-		result:SetBackdropColor(.1, .1, .1, .9)
-
-		if result.icon then
-			result:GetRegions():Hide() -- icon frame
-
-			result.icon:SetTexCoord(unpack(E.TexCoords))
-
-			local bg = MERS:CreateBG(result.icon)
-			bg:SetDrawLayer("BACKGROUND", 1)
-		end
-
-		result:HookScript("OnEnter", resultOnEnter)
-		result:HookScript("OnLeave", resultOnLeave)
-	end
 
 	for i = 1, #searchBox.searchPreview do
 		styleSearchButton(searchBox.searchPreview[i], i)
@@ -243,39 +274,11 @@ function MERS:StyleEncounterJournal()
 	local instanceSelect = EncounterJournal.instanceSelect
 	instanceSelect.bg:Hide()
 
-	local function listInstances()
-		local index = 1
-		while true do
-			local bu = instanceSelect.scroll.child.InstanceButtons[index]
-			if not bu then return end
-
-			bu:SetNormalTexture("")
-			bu:SetHighlightTexture("")
-			bu:SetPushedTexture("")
-
-			bu.bgImage:SetDrawLayer("BACKGROUND", 1)
-
-			local bg = MERS:CreateBG(bu.bgImage)
-			bg:SetPoint("TOPLEFT", 3, -3)
-			bg:SetPoint("BOTTOMRIGHT", -4, 2)
-
-			index = index + 1
-		end
-	end
 	hooksecurefunc("EncounterJournal_ListInstances", listInstances)
 	listInstances()
 
 	--[[ EncounterFrame ]]
 	local encounter = EncounterJournal.encounter
-	local function SkinEJButton(button)
-		button.UpLeft:SetAlpha(0)
-		button.UpRight:SetAlpha(0)
-		button.DownLeft:SetAlpha(0)
-		button.DownRight:SetAlpha(0)
-		select(5, button:GetRegions()):Hide()
-		select(6, button:GetRegions()):Hide()
-		MERS:Reskin(button)
-	end
 
 	--[[ InstanceFrame ]]
 	_G.EncounterJournalEncounterFrameInstanceFrameLoreScrollFrameScrollChildLore:SetTextColor(1, 1, 1)
@@ -507,6 +510,28 @@ function MERS:StyleEncounterJournal()
 		end
 	end)
 
+	hooksecurefunc("EJSuggestFrame_UpdateRewards", function(suggestion)
+		local rewardData = suggestion.reward.data
+		if rewardData then
+			local texture = rewardData.itemIcon or rewardData.currencyIcon or [[Interface\Icons\achievement_guildperk_mobilebanking]]
+			suggestion.reward.icon:SetMask("")
+			suggestion.reward.icon:SetTexture(texture)
+
+			if not suggestion.reward.icon.backdrop then
+				suggestion.reward.icon:CreateBackdrop()
+				suggestion.reward.icon.backdrop:SetOutside(suggestion.reward.icon)
+			end
+
+			if rewardData.itemID then
+				local quality = select(3, GetItemInfo(rewardData.itemID))
+				if quality and quality > 1 then
+					r, g, b = GetItemQualityColor(quality)
+				end
+			end
+			suggestion.reward.icon.backdrop:SetBackdropBorderColor(r, g, b)
+		end
+	end)
+
 	--Overview Info (From Aurora)
 	hooksecurefunc("EncounterJournal_SetUpOverview", SkinOverviewInfo)
 
@@ -520,4 +545,4 @@ function MERS:StyleEncounterJournal()
 	hooksecurefunc("EncounterJournal_DisplayInstance", SkinBosses)
 end
 
-S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", MERS.StyleEncounterJournal)
+S:AddCallbackForAddon("Blizzard_EncounterJournal", "mUIEncounterJournal", LoadSkin)

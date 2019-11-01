@@ -11,12 +11,11 @@ local CreateFrame = CreateFrame
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local hooksecurefunc = hooksecurefunc
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleBMAH()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bmah ~= true or E.private.muiSkins.blizzard.blackmarket ~= true then return end
 
 	local BlackMarketFrame = _G.BlackMarketFrame
@@ -109,4 +108,4 @@ local function styleBMAH()
 	end)
 end
 
-S:AddCallbackForAddon("Blizzard_BlackMarketUI", "mUIBlackMarket", styleBMAH)
+S:AddCallbackForAddon("Blizzard_BlackMarketUI", "mUIBlackMarket", LoadSkin)

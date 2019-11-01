@@ -8,23 +8,22 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local function styleToken()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
+local function UpdateToken()
+	local TokenFramePopup = _G.TokenFramePopup
 
-	local function UpdateToken()
-		local TokenFramePopup = _G.TokenFramePopup
-
-		if TokenFramePopup.backdrop then
-			if not TokenFramePopup.backdrop.styling then
-				TokenFramePopup.backdrop:Styling()
-
-				TokenFramePopup.backdrop.styling = true
-			end
+	if TokenFramePopup.backdrop then
+		if not TokenFramePopup.backdrop.styling then
+			TokenFramePopup.backdrop:Styling()
+			TokenFramePopup.backdrop.styling = true
 		end
 	end
+end
+
+local function LoadSkin()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	hooksecurefunc("TokenFrame_Update", UpdateToken)
 	hooksecurefunc(_G.TokenFrameContainer, "update", UpdateToken)
 end
 
-S:AddCallbackForAddon("Blizzard_TokenUI", "mUITokenUI", styleToken)
+S:AddCallbackForAddon("Blizzard_TokenUI", "mUITokenUI", LoadSkin)

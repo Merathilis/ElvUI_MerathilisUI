@@ -10,7 +10,7 @@ local select, unpack = select, unpack
 local CreateFrame = CreateFrame
 -- GLOBALS:
 
-local function styleArchaeology()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.archaeology ~= true or E.private.muiSkins.blizzard.Archaeology ~= true then return end
 
 	local ArchaeologyFrame = _G.ArchaeologyFrame
@@ -49,4 +49,4 @@ local function styleArchaeology()
 	_G.ArchaeologyFrameArtifactPageIcon:SetTexCoord(unpack(E.TexCoords))
 end
 
-S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "mUIArchaeology", styleArchaeology)
+S:AddCallbackForAddon("Blizzard_ArchaeologyUI", "mUIArchaeology", LoadSkin)

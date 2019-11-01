@@ -8,7 +8,7 @@ local select, unpack = select, unpack
 -- WoW API
 -- GLOBALS:
 
-local function styleGameMenu()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
 
 	local r, g, b = unpack(E.media.bordercolor)
@@ -28,4 +28,4 @@ local function styleGameMenu()
 	end
 end
 
-S:AddCallback("mUIGameMenu", styleGameMenu)
+S:AddCallback("mUIGameMenu", LoadSkin)

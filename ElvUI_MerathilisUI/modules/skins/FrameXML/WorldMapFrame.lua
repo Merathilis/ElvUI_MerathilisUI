@@ -9,35 +9,30 @@ local pairs, select = pairs, select
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetNumQuestLogEntries = GetNumQuestLogEntries
---Global variables that we don't cache, list them here for the mikk's Find Globals script
+local C_QuestLog_GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleWorldmap()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.worldmap ~= true or E.private.muiSkins.blizzard.worldmap ~= true then return end
 
-	_G.WorldMapFrame:Styling()
+	_G.WorldMapFrame.backdrop:Styling()
 
-	local frame = CreateFrame("Frame", nil, _G.QuestScrollFrame)
-	_G.QuestScrollFrame.QuestCountFrame = frame
-
-	frame:RegisterEvent("QUEST_LOG_UPDATE")
-	frame:Size(240, 20)
-	frame:Point("TOP", -1, 22)
+	local frame = CreateFrame("Frame", nil,  _G.QuestScrollFrame)
+	frame:Size(230, 20)
+	frame:SetPoint("TOP", 0, 21)
 	MERS:CreateBD(frame, .25)
 
-	local text = MER:CreateText(frame, "OVERLAY", 12, "OUTLINE")
-	text:SetTextColor(r, g, b)
-	text:SetAllPoints()
+	frame.text = frame:CreateFontString(nil, "ARTWORK")
+	frame.text:FontTemplate()
+	frame.text:SetTextColor(r, g, b)
+	frame.text:SetAllPoints()
 
-	frame.text = text
-	local str = "%d / 25 Quests"
-	frame.text:SetFormattedText(str, select(2, GetNumQuestLogEntries()))
+	frame.text:SetText(select(2, GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
 
 	frame:SetScript("OnEvent", function(self, event)
-		local _, quests = GetNumQuestLogEntries()
-		frame.text:SetFormattedText(str, quests)
+		frame.text:SetText(select(2, GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
 	end)
 
 	if _G.QuestScrollFrame.DetailFrame.backdrop then
@@ -66,4 +61,4 @@ local function styleWorldmap()
 	end
 end
 
-S:AddCallback("mUISkinWorldMap", styleWorldmap)
+S:AddCallback("mUISkinWorldMap", LoadSkin)

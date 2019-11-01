@@ -14,10 +14,9 @@ local GetNumBuybackItems = GetNumBuybackItems
 local GetItemQualityColor = GetItemQualityColor
 local GetMerchantItemInfo = GetMerchantItemInfo
 local GetMerchantNumItems = GetMerchantNumItems
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleMerchant()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true or E.private.muiSkins.blizzard.merchant ~= true then return end
 
 	local MerchantFrame = _G.MerchantFrame
@@ -122,4 +121,4 @@ local function styleMerchant()
 	end)
 end
 
-S:AddCallback("mUIMerchant", styleMerchant)
+S:AddCallback("mUIMerchant", LoadSkin)

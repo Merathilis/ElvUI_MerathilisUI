@@ -6,12 +6,11 @@ local S = E:GetModule("Skins")
 local _G = _G
 --WoW API / Variables
 local unpack = unpack
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleCalendar()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.calendar ~= true or E.private.muiSkins.blizzard.calendar ~= true then return end
 
 	_G.CalendarFrame.backdrop:Styling()
@@ -45,4 +44,4 @@ local function styleCalendar()
 	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
 end
 
-S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", styleCalendar)
+S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", LoadSkin)

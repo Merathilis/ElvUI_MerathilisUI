@@ -123,6 +123,7 @@ MP.datatexts = {
 }
 
 MP.actionbars = {
+	customGlow = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -240,27 +241,6 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	AuraIconSpacing = {
-		spacing = 1,
-		units = {
-			player = true,
-			target = true,
-			targettarget = true,
-			targettargettarget = true,
-			focus = true,
-			focustarget = true,
-			pet = true,
-			pettarget = true,
-			arena = true,
-			boss = true,
-			party = true,
-			raid = true,
-			raid40 = true,
-			raidpet = true,
-			tank = true,
-			assist = true,
-		},
-	},
 	infoPanel = {
 		style = true,
 	},
@@ -289,6 +269,7 @@ MP.unitframes = {
 			},
 		},
 	},
+	healPrediction = true,
 }
 
 MP.maps = {

@@ -1,20 +1,17 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 local B = E:GetModule('Bags')
 
 --Cache global variables
 --Lua functions
 local _G = _G
-
 --WoW API / Variables
 local ToggleAllBags = ToggleAllBags
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
 local weShown = false;
 
-local function styleScrappingMachine()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Scrapping ~= true or E.private.muiSkins.blizzard.Scrapping ~= true then return end
 
 	local MachineFrame = _G.ScrappingMachineFrame
@@ -29,6 +26,7 @@ local function styleScrappingMachine()
 			weShown = true
 		end
 	end)
+
 	MachineFrame:HookScript("OnHide", function()
 		if (weShown) then
 			ToggleAllBags()
@@ -37,4 +35,4 @@ local function styleScrappingMachine()
 	end)
 end
 
-S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', "mUIScrappingMachine", styleScrappingMachine)
+S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', "mUIScrappingMachine", LoadSkin)

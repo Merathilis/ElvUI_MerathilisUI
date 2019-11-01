@@ -228,14 +228,6 @@ function module:Update()
 
 			if Button:HasScript("OnDragStart") then Button:SetScript("OnDragStart", nil) end
 			if Button:HasScript("OnDragStop") then Button:SetScript("OnDragStop", nil) end
-			if Button:HasScript("OnClick") then Button:HookScript("OnClick", ClickFunc) end
-
-			if Name == "DBMMinimapButton" then
-				Button:SetScript("OnMouseDown", nil)
-				Button:SetScript("OnMouseUp", nil)
-			elseif Name == "BagSync_MinimapButton" then
-				Button:HookScript("OnMouseUp", ClickFunc)
-			end
 
 			module:LockButton(Button)
 

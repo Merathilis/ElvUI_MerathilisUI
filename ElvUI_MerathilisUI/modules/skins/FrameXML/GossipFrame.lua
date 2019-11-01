@@ -10,12 +10,9 @@ local gsub = string.gsub
 -- WoW API / Variables
 local C_Timer_After = C_Timer.After
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function styleGossip()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
 
 	local GossipFrame = _G.GossipFrame
@@ -60,4 +57,4 @@ local function styleGossip()
 	MERS:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
 end
 
-S:AddCallback("mUIGossip", styleGossip)
+S:AddCallback("mUIGossip", LoadSkin)

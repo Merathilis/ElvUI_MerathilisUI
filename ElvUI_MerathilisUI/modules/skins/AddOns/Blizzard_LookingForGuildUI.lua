@@ -6,7 +6,6 @@ local S = E:GetModule("Skins")
 local _G = _G
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
 local function LoadSkin()
@@ -23,6 +22,7 @@ local function LoadSkin()
 		MER:ReskinRole(_G.LookingForGuildTankButton, "TANK")
 		MER:ReskinRole(_G.LookingForGuildHealerButton, "HEALER")
 		MER:ReskinRole(_G.LookingForGuildDamagerButton, "DPS")
+
 		styled = true
 	end)
 end
