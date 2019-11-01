@@ -52,7 +52,7 @@ function MER:LoadAddOnSkinsProfile()
 	if IsAddOnLoaded("Details") then
 		AS.db["EmbedSystem"] = true
 		AS.db["EmbedSystemDual"] = false
-		AS.db["EmbedBelowTop"] = true
+		AS.db["EmbedBelowTop"] = false
 		AS.db["EmbedMain"] = "Details"
 		AS.db["EmbedLeft"] = ""
 		AS.db["EmbedRight"] = ""
