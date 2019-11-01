@@ -269,6 +269,7 @@ MP.unitframes = {
 			},
 		},
 	},
+	healPrediction = true,
 }
 
 MP.maps = {

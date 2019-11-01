@@ -311,6 +311,8 @@ L["Threshold"] = "阈值"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "持续时间文本将被隐藏,直到达到此阈值(以秒为单位).设置为-1以始终显示持续时间文本"
 L["Position of the duration text on the aura icon."] = "持续时间文本在光环图标上的位置."
 L["Position of the stack count on the aura icon."] = "光环上层数的位置."
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "调整施法条文本在Y轴的偏移"
 L["Force show any text placed on the InfoPanel, while casting."] = "当正在施法时，强制显示信息面板上的文字."

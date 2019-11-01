@@ -35,6 +35,14 @@ local function UnitFramesTable()
 						name = "",
 						type = "description",
 					},
+					healPrediction = {
+						order = 3,
+						type = "toggle",
+						name = L["Heal Prediction"],
+						desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
+						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
+						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					},
 				},
 			},
 			infoPanel = {

@@ -311,6 +311,7 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -319,6 +320,7 @@ L["Show Castbar text"] = "Zeige Zauberleisten Text"
 L["Show InfoPanel text"] = "Zeige InfoPanel Text"
 L["InfoPanel Style"] = "InfoPanel Stil"
 L["Show on Target"] = "Zeige auf dem Ziel"
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
 
 -- LocationPanel
 L["Location Panel"] = true

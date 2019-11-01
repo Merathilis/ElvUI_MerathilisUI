@@ -71,7 +71,7 @@ function MUF:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, hea
 end
 
 function MUF:HealPrediction()
-	if E.private.unitframe.enable ~= true then return end
+	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
 

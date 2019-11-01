@@ -313,6 +313,8 @@ L["Threshold"] = true
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = true
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = true
 L["Force show any text placed on the InfoPanel, while casting."] = true
