@@ -318,7 +318,7 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["countFontSize"] = 10
 	E.db["bags"]["countFontOutline"] = "OUTLINE"
 	E.db["bags"]["bagSize"] = 34
-	E.db["bags"]["bagWidth"] = 435
+	E.db["bags"]["bagWidth"] = 436
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
 	E.db["bags"]["alignToChat"] = false
