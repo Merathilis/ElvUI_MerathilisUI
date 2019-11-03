@@ -4,8 +4,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local twipe = table.wipe
 --WoW API / Variables
 local ReloadUI = ReloadUI
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: _detalhes_global, _detalhes
+-- GLOBALS:
 
 function MER:LoadDetailsProfile()
 	--[[----------------------------------
