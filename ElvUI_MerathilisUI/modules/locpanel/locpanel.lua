@@ -90,6 +90,7 @@ module.Hearthstones = {
 	{165802, nil, true}, -- Noblegarden HS
 	{166746, nil, true}, -- Midsummer HS
 	{166747, nil, true}, -- Brewfest HS
+	{172179, nil, true}, -- Eternal Traveler's HS
 }
 
 module.PortItems = {
@@ -485,7 +486,7 @@ function module:ItemList(check)
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
-						break
+						-- break
 					else
 						local curPriorirty = hsReamodulerio[tostring(ID)]
 						if curPriorirty < priority then
