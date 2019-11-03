@@ -267,6 +267,7 @@ function module:Initialize()
 	module.button:SetSize(28, 28)
 	module.button:ClearAllPoints()
 	module.button:SetPoint("TOPRIGHT", Minimap, "TOPRIGHT", 10, 20)
+	module.button:SetFrameStrata("HIGH")
 
 	module.button:SetNormalTexture("Interface\\HelpFrame\\ReportLagIcon-Loot")
 	module.button:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
