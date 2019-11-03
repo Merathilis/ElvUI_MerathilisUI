@@ -54,24 +54,9 @@ function MUF:Configure_HealComm(frame)
 	end
 end
 
-function MUF:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb)
-	if not self.absorbBar.overlay or not UnitIsConnected(unit) then return end
-
-	local totalWidth, totalHeight = self.frame.Health:GetSize()
-	local totalMax = UnitHealthMax(unit)
-	local barSize = (absorb / totalMax) * totalWidth
-	self.absorbBar.overlay:SetTexCoord(0, barSize / self.absorbBar.overlay.tileSize, 0, totalHeight / self.absorbBar.overlay.tileSize)
-end
-
 function MUF:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
-
-	for _, object in pairs(ElvUF.objects) do
-		if object.HealthPrediction and object.HealthPrediction.PostUpdate then
-			hooksecurefunc(object.HealthPrediction, "PostUpdate", MUF.UpdateHealComm)
-		end
-	end
 end
 
