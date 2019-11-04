@@ -724,7 +724,7 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["ReputationBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-197"
 	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-16"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
-	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-161,-165"
+	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-165,-165"
 
 	E:StaggeredUpdateAll(nil, true)
 
