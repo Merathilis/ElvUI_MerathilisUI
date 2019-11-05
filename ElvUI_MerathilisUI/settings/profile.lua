@@ -113,7 +113,7 @@ MP.datatexts = {
 		height = 18,
 	},
 	rightChatTabDatatextPanel = {
-		enable = true,
+		enable = false,
 	},
 	threatBar = {
 		enable = true,
@@ -387,7 +387,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,172179",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,

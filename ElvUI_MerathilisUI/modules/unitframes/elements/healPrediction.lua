@@ -46,39 +46,17 @@ function MUF:Configure_HealComm(frame)
 				end
 			end
 		end
-		healPrediction.overAbsorb:SetVertexColor(1, 1, 1)
-		healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 
-		if healPrediction.absorbBar then
-			if not healPrediction.absorbBar.overlay then
-				healPrediction.absorbBar.overlay = healPrediction.absorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-				healPrediction.absorbBar.overlay:SetAllPoints(healPrediction.absorbBar:GetStatusBarTexture())
-				healPrediction.absorbBar.overlay:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-				healPrediction.absorbBar.overlay.tileSize = 32
-			end
-			-- healPrediction.absorbBar.overlay:Hide()
+		if healPrediction.overAbsorb then
+			healPrediction.overAbsorb:SetVertexColor(1, 1, 1)
+			healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 		end
 	end
-end
-
-function MUF:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb)
-	if not self.absorbBar.overlay or not UnitIsConnected(unit) then return end
-
-	local totalWidth, totalHeight = self.frame.Health:GetSize()
-	local totalMax = UnitHealthMax(unit)
-	local barSize = (absorb / totalMax) * totalWidth
-	self.absorbBar.overlay:SetTexCoord(0, barSize / self.absorbBar.overlay.tileSize, 0, totalHeight / self.absorbBar.overlay.tileSize)
 end
 
 function MUF:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
-
-	for _, object in pairs(ElvUF.objects) do
-		if object.HealthPrediction and object.HealthPrediction.PostUpdate then
-			hooksecurefunc(object.HealthPrediction, "PostUpdate", MUF.UpdateHealComm)
-		end
-	end
 end
 
