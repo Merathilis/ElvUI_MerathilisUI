@@ -284,7 +284,7 @@ function module:Initialize()
 	E:CreateMover(module.button, 'MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
-	module.bin:SetPoint("RIGHT", module.button, "LEFT", 0, -15)
+	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
 	module.bin:SetSize(module.db.size, module.db.size)
 	module.bin:SetFrameStrata("HIGH")
 	module.bin:Hide()
