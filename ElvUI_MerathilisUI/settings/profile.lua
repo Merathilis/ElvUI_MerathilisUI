@@ -113,7 +113,7 @@ MP.datatexts = {
 		height = 18,
 	},
 	rightChatTabDatatextPanel = {
-		enable = false,
+		enable = true,
 	},
 	threatBar = {
 		enable = true,

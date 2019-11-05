@@ -139,7 +139,7 @@ local function SetupChat()
 	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
 	E.db["chat"]["panelHeightRight"] = 146
-	E.db["chat"]["panelWidthRight"] = 435
+	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
 	E.db["chat"]["keywords"] = "%MYNAME%, ElvUI, MerathilisUI"
@@ -161,7 +161,7 @@ local function SetupChat()
 	E.db["chat"]["tabFontOutline"] = "OUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,50"
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-157,50"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
 
 	E:StaggeredUpdateAll(nil, true)
@@ -225,7 +225,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -5
 	E.db["general"]["minimap"]["resetZoom"]["enable"] = true
 	E.db["general"]["minimap"]["resetZoom"]["time"] = 5
-	E.db["general"]["minimap"]["size"] = 165
+	E.db["general"]["minimap"]["size"] = 144
 	E.db["general"]["minimap"]["locationFontSize"] = 10
 	E.db["general"]["minimap"]["locationFontOutline"] = "OUTLINE"
 	E.db["general"]["minimap"]["locationFont"] = "Merathilis Expressway"
@@ -295,8 +295,8 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
 
 	if E.db.mui.general.panels then
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-179,-16"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-179,-137"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-155"
 	else
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-3"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-120"
@@ -629,7 +629,6 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["smb"]["buttonsPerRow"] = 6
 	E.db["mui"]["smb"]["buttonSpacing"] = 2
 	E.db["mui"]["datatexts"]["middle"]["width"] = 330
-	E.db["mui"]["datatexts"]["rightChatTabDatatextPanel"]["enable"] = false
 
 	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
@@ -666,7 +665,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["height"] = 12
 	E.db["databars"]["experience"]["textSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Merathilis Expressway"
-	E.db["databars"]["experience"]["width"] = 167
+	E.db["databars"]["experience"]["width"] = 285
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
@@ -678,7 +677,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
 	if layout == "dps" then
-		E.db["databars"]["reputation"]["width"] = 167
+		E.db["databars"]["reputation"]["width"] = 285
 	elseif layout == "healer" then
 		E.db["databars"]["reputation"]["width"] = 278
 	end
@@ -701,7 +700,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
 	if layout == "dps" then
-		E.db["databars"]["azerite"]["width"] = 167
+		E.db["databars"]["azerite"]["width"] = 285
 	elseif layout == "healer" then
 		E.db["databars"]["azerite"]["width"] = 278
 	end
@@ -717,12 +716,12 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["textFontSize"] = 11
 	E.db["tooltip"]["smallTextFontSize"] = 11
 
-	E.db["movers"]["AzeriteBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-184"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
 	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
-	E.db["movers"]["ExperienceBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-210"
-	E.db["movers"]["ReputationBarMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-197"
-	E.db["movers"]["MinimapMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-10,-16"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,83"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,51"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-165,-165"
 
@@ -2504,31 +2503,31 @@ function MER:SetupDts()
 	E.db["datatexts"]["panelTransparency"] = true
 	E.db["datatexts"]["wordWrap"] = true
 
-	E.db["datatexts"]["leftChatPanel"] = true
-	E.db["datatexts"]["rightChatPanel"] = true
+	E.db["datatexts"]["leftChatPanel"] = false
+	E.db["datatexts"]["rightChatPanel"] = false
 	E.db["datatexts"]["minimapPanels"] = false
 	E.db["datatexts"]["minimapBottom"] = false
 	E.db["datatexts"]["actionbar3"] = false
 	E.db["datatexts"]["actionbar5"] = false
 	E.db["datatexts"]["minimapBottom"] = false
 
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "MUI Durability"
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = ""
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = ""
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = ""
+	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
 
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "System"
 	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Friends"
 
 	-- define the default ElvUI datatexts
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = "Quick Join"
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = "Combat/Arena Time"
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = "BfA Missions"
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = ""
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
 
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = "Bags"
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = "MUI Durability"
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = "Gold"
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = ""
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
 
 	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
 
