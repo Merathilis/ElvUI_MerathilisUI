@@ -48,7 +48,7 @@ function MUF:Configure_HealComm(frame)
 		end
 
 		if healPrediction.overAbsorb then
-			healPrediction.overAbsorb:SetVertexColor(1, 1, 1)
+			healPrediction.overAbsorb:SetVertexColor(1, 1, 1, 1)
 			healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 		end
 	end
