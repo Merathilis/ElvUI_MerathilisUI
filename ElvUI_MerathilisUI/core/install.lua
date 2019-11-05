@@ -624,10 +624,9 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["locPanel"]["colorType_Coords"] = "CLASS"
 	E.db["mui"]["raidmarkers"]["enable"] = false
 	E.db["mui"]["smb"]["enable"] = true
-	E.db["mui"]["smb"]["backdrop"] = true
-	E.db["mui"]["smb"]["iconSize"] = 22
-	E.db["mui"]["smb"]["buttonsPerRow"] = 6
-	E.db["mui"]["smb"]["buttonSpacing"] = 2
+	E.db["mui"]["smb"]["size"] = 34
+	E.db["mui"]["smb"]["perRow"] = 12
+	E.db["mui"]["smb"]["spacing"] = 2
 	E.db["mui"]["datatexts"]["middle"]["width"] = 330
 
 	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
@@ -636,7 +635,7 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,10,-12"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,214,-15"
-	E.db["movers"]["MER_SquareMinimapButtonBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,198"
+	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTOMRIGHT,0,188"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -723,7 +722,6 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,51"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
-	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-165,-165"
 
 	E:StaggeredUpdateAll(nil, true)
 
