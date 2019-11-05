@@ -33,12 +33,7 @@ local function UndressButton()
 	Button:RegisterEvent("AUCTION_HOUSE_SHOW")
 	Button:RegisterEvent("AUCTION_HOUSE_CLOSED")
 	Button:SetScript("OnEvent", function(self)
-		if _G.AuctionFrame:IsVisible() and self.model ~= _G.SideDressUpFrame.ModelScene then
-			self:SetParent(_G.SideDressUpFrame.ModelScene)
-			self:ClearAllPoints()
-			self:SetPoint("BOTTOM", _G.SideDressUpFrame.ResetButton, "TOP", 0, 3)
-			self.model = _G.SideDressUpFrame.ModelScene
-		elseif self.model ~= _G.DressUpFrame.ModelScene then
+		if self.model ~= _G.DressUpFrame.ModelScene then
 			self:SetParent(_G.DressUpFrame.ModelScene)
 			self:ClearAllPoints()
 			self:SetPoint("RIGHT", _G.DressUpFrameResetButton, "LEFT", -2, 0)
