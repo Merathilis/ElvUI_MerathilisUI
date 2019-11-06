@@ -25,20 +25,19 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-							
 				<Texture name="$parentCategoryLeft" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryLeft">
 					<Size x="76" y="16"/>
 					<Anchors>
 						<Anchor point="LEFT" x="0" y="0"/>
 					</Anchors>
-					<TexCoords left="0.17578125" right="0.47265625" top="0.29687500" bottom="0.54687500"/>	
+					<TexCoords left="0.17578125" right="0.47265625" top="0.29687500" bottom="0.54687500"/>
 				</Texture>
 				<Texture name="$parentCategoryRight" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryRight">
 					<Size x="76" y="16"/>
 					<Anchors>
 						<Anchor point="RIGHT" x="0" y="0"/>
 					</Anchors>
-					<TexCoords left="0.17578125" right="0.47265625" top="0.01562500" bottom="0.26562500"/>	
+					<TexCoords left="0.17578125" right="0.47265625" top="0.01562500" bottom="0.26562500"/>
 				</Texture>
 				<Texture name="$parentCategoryMiddle" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryMiddle">
 					<Size x="0" y="16"/>
@@ -46,12 +45,12 @@
 						<Anchor point="LEFT" relativeTo="$parentCategoryLeft" relativePoint="RIGHT" x="-20" y="0"/>
 						<Anchor point="RIGHT" relativeTo="$parentCategoryRight" relativePoint="LEFT" x="20" y="0"/>
 					</Anchors>
-					<TexCoords left="0.48046875" right="0.98046875" top="0.01562500" bottom="0.26562500"/>	
+					<TexCoords left="0.48046875" right="0.98046875" top="0.01562500" bottom="0.26562500"/>
 				</Texture>
-				
+
 			</Layer>
 		</Layers>
-		
+
 		<Scripts>
 			<OnLoad>
 				FlightPointsTaxiChoiceButton_OnLoad(self);
@@ -87,7 +86,7 @@
 			<OnLoad function="FlightPoints_OnLoad"/>
 			<OnEvent function="FlightPoints_OnEvent"/>
 			<OnShow function="FlightPoints_Show"/>
-		</Scripts>	
+		</Scripts>
 		 <Frames>
 			<ScrollFrame name="$parentContainer" inherits="HybridScrollFrameTemplate">
 				<Anchors>
