@@ -64,12 +64,10 @@ local function LoadSkin()
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	local buttons = { ['RandomBGButton'] = HonorFrame.BonusFrame, ['RandomEpicBGButton'] = HonorFrame.BonusFrame, ['Arena1Button'] = HonorFrame.BonusFrame, ['BrawlButton'] = HonorFrame.BonusFrame, ['RatedBG'] = ConquestFrame, ['Arena2v2'] = ConquestFrame, ['Arena3v3'] = ConquestFrame }
+	local buttons = { ['RandomBGButton'] = HonorFrame.BonusFrame, ['RandomEpicBGButton'] = HonorFrame.BonusFrame, ['Arena1Button'] = HonorFrame.BonusFrame, ['BrawlButton'] = HonorFrame.BonusFrame, ['SpecialEventButton'] = HonorFrame.BonusFrame, ['RatedBG'] = ConquestFrame, ['Arena2v2'] = ConquestFrame, ['Arena3v3'] = ConquestFrame }
 
 	for section, parent in pairs(buttons) do
 		local button = parent[section]
-
-		if button.backdrop then button.backdrop:Hide() end
 
 		button.SelectedTexture:SetDrawLayer("BACKGROUND")
 		button.SelectedTexture:SetColorTexture(r, g, b, .2)
