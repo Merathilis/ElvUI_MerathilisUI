@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = MER:GetModule("muiUnits")
-local UF = E:GetModule("UnitFrames")
+local UF = E.UnitFrames
 local LSM = E.LSM
 UF.LSM = LSM
 

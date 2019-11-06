@@ -9,6 +9,7 @@
 	<Script file="splashScreen.lua"/>
 	<Script file="staticpopup.lua"/>
 	<Script file="statusReport.lua"/>
+	<Script file="tags.lua"/>
 	<Script file="compatibility.lua"/>
 	<Script file="modulecopy.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>

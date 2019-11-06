@@ -42,6 +42,9 @@ function module:Initialize()
 	-- self:InitRaid()
 	-- self:InitRaid40()
 
+	-- Auras
+	self:LoadAuras()
+
 	-- Information Panel
 	self:InfoPanelColor()
 

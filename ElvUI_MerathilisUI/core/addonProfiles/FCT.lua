@@ -3,8 +3,10 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 --Cache global variables
 --Lua Variables
 --WoW API / Variables
-
 -- GLOBALS:
+
+local addon = "ElvUI_FCT"
+local FCT = E.Libs.AceAddon:GetAddon(addon)
 
 function MER:LoadFCTProfile()
 	ElvFCT = {
@@ -53,4 +55,5 @@ function MER:LoadFCTProfile()
 			},
 		},
 	}
+	FCT:Initialize()
 end
