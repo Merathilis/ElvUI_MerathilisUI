@@ -69,7 +69,7 @@
 			</Anchors>
 		</ButtonText>
 		<NormalFont style="GameFontNormal"/>
-		<HighlightTexture name="$parentHighlight" file="Interface\AddOns\ElvUI_MerathilisUI\media\textures\Flat.tga" alphaMode="ADD">
+		<HighlightTexture name="$parentHighlight" file="Interface\AddOns\ElvUI_MerathilisUI\media\textures\Duffed" alphaMode="ADD">
 			<Anchors>
 				<Anchor point="TOPLEFT">
 					<Offset x="3" y="-2"/>
