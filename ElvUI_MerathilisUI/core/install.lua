@@ -635,7 +635,7 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,10,-12"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,214,-15"
-	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTOMRIGHT,0,188"
+	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,188"
 
 	--[[----------------------------------
 	--	Movers - Layout
