@@ -14,8 +14,13 @@ local function PvPTable()
 		get = function(info) return E.db.mui.pvp.duels[ info[#info] ] end,
 		set = function(info, value) E.db.mui.pvp.duels[ info[#info] ] = value; end,
 		args = {
-			credits = {
+			header = {
 				order = 0,
+				type = "header",
+				name = MER:cOption(E.NewSign..L["PVP"]),
+			},
+			credits = {
+				order = 1,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
@@ -29,12 +34,12 @@ local function PvPTable()
 				},
 			},
 			spacer = {
-				order = 1,
+				order = 2,
 				type = "description",
 				name = "",
 			},
 			duels = {
-				order = 2,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Duels"]),
 				guiInline = true,

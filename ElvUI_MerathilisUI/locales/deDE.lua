@@ -311,6 +311,7 @@ L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
 
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"

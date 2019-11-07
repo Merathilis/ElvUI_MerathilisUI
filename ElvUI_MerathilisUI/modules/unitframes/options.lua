@@ -11,7 +11,7 @@ local tinsert = table.insert
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
 		type = "group",
-		name = L["UnitFrames"],
+		name = E.NewSign..L["UnitFrames"],
 		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
@@ -43,43 +43,26 @@ local function UnitFramesTable()
 						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
-				},
-			},
-			infoPanel = {
-				type = "group",
-				order = 5,
-				name = L["InfoPanel"],
-				get = function(info) return E.db.mui.unitframes.infoPanel[ info[#info] ] end,
-				set = function(info, value) E.db.mui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
-				args = {
-					style = {
-						order = 1,
+					auras = {
+						order = 4,
 						type = "toggle",
-						name = L["InfoPanel Style"],
-					},
-				},
-			},
-			textures = {
-				order = 7,
-				type = "group",
-				name = L['Textures'],
-				args = {
-					castbar = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
-						name = L['Castbar'],
-						desc = L['This applies on all available castbars.'],
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.mui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.mui.unitframes.textures[ info[#info] ] = value; MCA:CastBarHooks(); end,
+						name = E.NewSign..L["Auras"],
+						desc = L["Adds a shadow to the debuffs that the debuff color is more visible."],
+						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
+						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 				},
 			},
 			player = {
 				order = 3,
 				type = "group",
-				name = L["Player Frame"],
+				name = L["Player"],
 				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = MER:cOption(L["Player"]),
+					},
 					portrait = {
 						order = 1,
 						type = "execute",
@@ -103,13 +86,58 @@ local function UnitFramesTable()
 			target = {
 				order = 4,
 				type = "group",
-				name = L["Target Frame"],
+				name = L["Target"],
 				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = MER:cOption(L["Target"]),
+					},
 					portrait = {
 						order = 1,
 						type = "execute",
 						name = L["Target Portrait"],
 						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "target", "portrait") end,
+					},
+				},
+			},
+			infoPanel = {
+				type = "group",
+				order = 5,
+				name = L["InfoPanel"],
+				get = function(info) return E.db.mui.unitframes.infoPanel[ info[#info] ] end,
+				set = function(info, value) E.db.mui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
+				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = MER:cOption(L["InfoPanel"]),
+					},
+					style = {
+						order = 1,
+						type = "toggle",
+						name = L["InfoPanel Style"],
+					},
+				},
+			},
+			textures = {
+				order = 7,
+				type = "group",
+				name = L["Textures"],
+				args = {
+					header = {
+						order = 0,
+						type = "header",
+						name = MER:cOption(L["Textures"]),
+					},
+					castbar = {
+						type = 'select', dialogControl = 'LSM30_Statusbar',
+						order = 1,
+						name = L['Castbar'],
+						desc = L['This applies on all available castbars.'],
+						values = AceGUIWidgetLSMlists.statusbar,
+						get = function(info) return E.db.mui.unitframes.textures[ info[#info] ] end,
+						set = function(info, value) E.db.mui.unitframes.textures[ info[#info] ] = value; MCA:CastBarHooks(); end,
 					},
 				},
 			},

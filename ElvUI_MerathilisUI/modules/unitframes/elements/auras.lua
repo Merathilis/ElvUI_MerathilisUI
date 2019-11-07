@@ -40,7 +40,7 @@ function MUF:PostUpdateDebuffs(unit, button)
 end
 
 function MUF:LoadAuras()
-	if E.private.unitframe.enable ~= true then return end
+	if E.private.unitframe.enable ~= true or not E.db.mui.unitframes.auras then return end
 
 	for _, object in pairs(_G.ElvUF.objects) do
 		if object.Debuffs and object.Debuffs.PostUpdateIcon then

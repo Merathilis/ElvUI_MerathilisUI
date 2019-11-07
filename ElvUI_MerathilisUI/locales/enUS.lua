@@ -316,6 +316,7 @@ L["Duration text will be hidden until it reaches this threshold (in seconds). Se
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 
 -- Castbar
 L["Adjust castbar text Y Offset"] = true

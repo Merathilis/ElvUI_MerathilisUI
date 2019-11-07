@@ -28,6 +28,7 @@ local ChangeLogData = {
 		"• Added an Undress Button to the DressUpFrame",
 		"• Removed the Aura Icon Spacing code for the UnitFrames",
 		"• Updated/Added some Skin",
+		"• Added a shadow to the UFs & NPs Debuffs that the debuff color is more visible",
 		-- "• ''",
 	" ",
 	"Notes:",

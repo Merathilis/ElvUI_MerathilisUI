@@ -10,6 +10,7 @@
 * Added an "Undress Button" to the DressUpFrame.
 * Removed the Aura Icon Spacing code for the UnitFrames.
 * Updated/Added some Skin.
+* Added a shadow around UnitFrames & NamePlates Debuffs that the debuff color is more visible.
 
 
 ** v4.33 for 8.2.5, 25.09.2019**
