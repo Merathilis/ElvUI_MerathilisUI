@@ -13,6 +13,7 @@ local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
+local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local UnitSex = UnitSex
 local hooksecurefunc = hooksecurefunc
 
@@ -157,6 +158,24 @@ local function LoadSkin()
 	end
 
 	-- PvP Talents
+	local PvpTalentFrame = _G.PlayerTalentFrameTalents.PvpTalentFrame
+
+	for _, button in pairs(PvpTalentFrame.Slots) do
+		button:CreateBackdrop()
+		button.backdrop:SetOutside(button.Texture)
+
+		hooksecurefunc(button, "Update", function(self)
+			local selectedTalentID = self.predictedSetting:Get()
+			if selectedTalentID then
+				local _, _, texture = GetPvpTalentInfoByID(selectedTalentID)
+				self.Texture:SetTexture(texture)
+				self.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			else
+				self.Texture:SetTexCoord(.15, .85, .15, .85)
+			end
+		end)
+	end
+
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
 
