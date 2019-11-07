@@ -44,12 +44,13 @@ local function LoadSkin()
 	hooksecurefunc("LFGListCategorySelection_AddButton", function(self, btnIndex)
 		local bu = self.CategoryButtons[btnIndex]
 
-		if bu and not bu.styled then
-			local bg = CreateFrame("Frame", nil, bu)
-			bg:SetPoint("TOPLEFT", 2, 0)
-			bg:SetPoint("BOTTOMRIGHT", -1, 2)
-			MERS:CreateBD(bg, 1)
-			bg:SetFrameLevel(bu:GetFrameLevel()-1)
+		if bu then
+			if not bu.IsStyled then
+				bu.Icon:SetTexCoord(.01, .99, .01, .99)
+				MERS:CreateGradient(bu)
+
+				bu.IsStyled = true
+			end
 		end
 	end)
 
