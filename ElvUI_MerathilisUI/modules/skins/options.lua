@@ -510,8 +510,6 @@ local function SkinsTable()
 		},
 	}
 
-	local FCT = E.Libs.AceAddon:GetAddon('ElvUI_FCT')
-
 	for i, v in ipairs(SupportedProfiles) do
 		local addon, addonName = unpack(v)
 		local optionOrder = 1
@@ -549,6 +547,7 @@ local function SkinsTable()
 					MER:LoadiFilgerProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
 				elseif addon == 'ElvUI_FCT' then
+					local FCT = E.Libs.AceAddon:GetAddon('ElvUI_FCT')
 					MER:LoadFCTProfile()
 					FCT:UpdateUnitFrames()
 					FCT:UpdateNamePlates()
