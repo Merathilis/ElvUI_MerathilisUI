@@ -1168,10 +1168,10 @@ function MER:SetupUnitframes(layout)
 			["font"] = "Merathilis Expressway",
 			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
-			["xOffset"] = 3,
+			["xOffset"] = 2,
 			["yOffset"] = 22,
 			["size"] = 12,
-			["text_format"] = "[name:abbrev-translit]",
+			["text_format"] = "[classification:icon][name:abbrev-translit]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
