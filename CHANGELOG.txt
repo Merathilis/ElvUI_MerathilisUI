@@ -1,4 +1,8 @@
-[b][color=orange]v4.34[/color], xx.xx.2019[/b][list]
+[b][color=orange]v4.35[/color], xx.xx.2019[/b][list]
+[*][/list]
+
+
+[b][color=orange]v4.34[/color], 10.11.2019[/b][list]
 [*]Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
 [*]Changed my MicroBar Tooltip instance lockout.
 [*]Fixed my Clique Skin, it newer worked. lol
