@@ -973,7 +973,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
-		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["player"]["debuffs"]["numrows"] = 1
