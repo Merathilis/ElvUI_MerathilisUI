@@ -2,6 +2,10 @@
 [*][/list]
 
 
+[b][color=orange]v4.34a[/color], 10.11.2019[/b][list]
+[*]Don't load my Armory if S&L is loaded. For now.[/list]
+
+
 [b][color=orange]v4.34[/color], 10.11.2019[/b][list]
 [*]Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
 [*]Changed my MicroBar Tooltip instance lockout.
