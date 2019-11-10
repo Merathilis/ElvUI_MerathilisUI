@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
 local LSM = E.LSM or E.Libs.LSM
+if IsAddOnLoaded("ElvUI_SLE") then return end
 
 -- Cache global variables
 -- Lua functions
@@ -325,7 +326,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	--if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
