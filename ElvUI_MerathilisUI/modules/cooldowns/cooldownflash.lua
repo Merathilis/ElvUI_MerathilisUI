@@ -9,7 +9,6 @@ local select, pairs, bit, unpack = select, pairs, bit, unpack
 local string = string
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
-
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
@@ -26,9 +25,7 @@ local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE, KUIDataDB_DCP
+-- GLOBALS:
 
 module.cooldowns, module.animating, module.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, showSpellName, ignoredSpells, invertIgnored
