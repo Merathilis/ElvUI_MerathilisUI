@@ -1137,8 +1137,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["b"] = 1
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
-		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = 0
+		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
+		E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
