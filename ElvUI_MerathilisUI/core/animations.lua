@@ -37,8 +37,9 @@ local function to_show(self)
 	E:UIFrameFadeIn(self, self.time, 0, self.state_alpha)
 end
 
-function MER:Make_plav(self, time, lock, alpha)
+function MER.Make_plav(self, time, lock, alpha)
 	if self.pl_watch_frame then return end
+
 	self.pl_watch_frame = CreateFrame("Frame",nil,self)
 	self.pl_watch_frame:Hide()
 	self.pl_watch_frame.lock = lock
@@ -55,13 +56,15 @@ local function smooth(mode, x, y, z)
 	return mode == true and 1 or max((10 + abs(x - y)) / (88.88888 * z), .2) * 1.1
 end
 
-function MER:Simple_move(self, t)
+function MER.Simple_move(self, t)
 	self.pos = self.pos + t * self.speed * smooth(self.smode, self.limit, self.pos, .5)
-	self:SetPoint(self.point_1, self.parent, self.point_2, self.hor and self.pos or self.alt or 0, not(self.hor) and self.pos or self.alt or 0)
+	self:ClearAllPoints()
+	self:SetPoint(self.point_1, self.parent, self.point_2, self.hor and self.pos or self.alt or 0,not(self.hor) and self.pos or self.alt or 0)
+
 	if self.pos * self.mod >= self.limit * self.mod then
-		self:SetPoint(self.point_1, self.parent, self.point_2, self.hor and self.limit or self.alt or 0, not(self.hor) and self.limit or self.alt or 0)
+		self:SetPoint(self.point_1, self.parent, self.point_2, self.hor and self.limit or self.alt or  0,not(self.hor) and self.limit or self.alt or 0)
 		self.pos = self.limit
-		self:SetScript("OnUpdate",nil)
+		self:SetScript("OnUpdate", nil)
 		if self.finish_hide then
 			self:Hide()
 		end
@@ -71,9 +74,10 @@ function MER:Simple_move(self, t)
 	end
 end
 
-function MER:Simple_width(self, t)
+function MER.Simple_width(self, t)
 	self.wpos = self.wpos + t * self.wspeed * smooth(self.smode, self.wlimit, self.wpos, 1)
 	self:SetWidth(self.wpos)
+
 	if self.wpos * self.wmod >= self.wlimit * self.wmod then
 		self:SetWidth(self.wlimit)
 		self.wpos = self.wlimit
@@ -87,9 +91,10 @@ function MER:Simple_width(self, t)
 	end
 end
 
-function MER:Simple_height(self, t)
+function MER.Simple_height(self, t)
 	self.hpos = self.hpos + t * self.hspeed * smooth(self.smode, self.hlimit, self.hpos, 1)
 	self:SetHeight(self.hpos)
+
 	if self.hpos * self.hmod >= self.hlimit * self.hmod then
 		self:SetHeight(self.hlimit)
 		self.hpos = self.hlimit
@@ -105,6 +110,7 @@ end
 
 function MER:Slide(frame, direction, length, speed)
 	assert(frame, "doesn't exist!")
+
 	local p1, rel, p2, x, y = frame:GetPoint()
 	frame.mod = ( direction == "LEFT" or direction == "DOWN" ) and -1 or 1
 	frame.hor = ( direction == "LEFT" or direction == "RIGHT" ) and true or false
@@ -119,6 +125,7 @@ end
 
 function MER:CreatePulse(frame, speed, alpha, mult)
 	assert(frame, "doesn't exist!")
+
 	frame.speed = .02
 	frame.mult = mult or 1
 	frame.alpha = alpha or 1

@@ -265,7 +265,7 @@ local StartTimer = function(name, spellId)
 	end
 
 	local bar = CreateBar()
-	local color = (_G.CUSTOM_CLASS_COLORS or _G.RAID_CLASS_COLORS)[select(2, UnitClass(name))]
+	local color = E:ClassColor(select(2, UnitClass(name)))
 
 	if charges and spellId == 20484 then
 		local curCharges, _, start, duration = GetSpellCharges(20484)

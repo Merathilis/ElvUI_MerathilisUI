@@ -11,12 +11,27 @@ local GetInspectSpecialization = GetInspectSpecialization
 local GetSpecializationRoleByID = GetSpecializationRoleByID
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local UnitGUID = UnitGUID
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleInspect()
+local function updateIcon(self)
+	local spec = nil
+
+	if INSPECTED_UNIT ~= nil then
+		spec = GetInspectSpecialization(INSPECTED_UNIT)
+	end
+
+	if spec ~= nil and spec > 0 then
+		local role1 = GetSpecializationRoleByID(spec)
+		if role1 ~= nil then
+			local _, _, _, icon = GetSpecializationInfoByID(spec)
+			self.specIcon:SetTexture(icon)
+		end
+	end
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.muiSkins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
@@ -89,22 +104,6 @@ local function styleInspect()
 	inspectSpec.specIcon:SetTexCoord(unpack(E.TexCoords))
 	MERS:CreateBG(inspectSpec.specIcon)
 
-	local function updateIcon(self)
-		local spec = nil
-
-		if INSPECTED_UNIT ~= nil then
-			spec = GetInspectSpecialization(INSPECTED_UNIT)
-		end
-
-		if spec ~= nil and spec > 0 then
-			local role1 = GetSpecializationRoleByID(spec)
-			if role1 ~= nil then
-				local _, _, _, icon = GetSpecializationInfoByID(spec)
-				self.specIcon:SetTexture(icon)
-			end
-		end
-	end
-
 	inspectSpec:HookScript("OnShow", updateIcon)
 	_G.InspectTalentFrame:HookScript("OnEvent", function(self, event, unit)
 		if not _G.InspectFrame:IsShown() then return end
@@ -128,4 +127,4 @@ local function styleInspect()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_InspectUI", "mUIInspect", styleInspect)
+S:AddCallbackForAddon("Blizzard_InspectUI", "mUIInspect", LoadSkin)

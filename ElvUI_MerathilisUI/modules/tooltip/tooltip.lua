@@ -37,7 +37,7 @@ local LFGListUtil_GetQuestDescription = LFGListUtil_GetQuestDescription
 local C_LFGList_GetSearchResultMemberInfo = C_LFGList.GetSearchResultMemberInfo
 local C_LFGList_GetSearchResultEncounterInfo = C_LFGList.GetSearchResultEncounterInfo
 local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendList
--- GLOBALS: CUSTOM_CLASS_COLORS, UIParent, GameTooltipTextLeft1
+-- GLOBALS:
 
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"
 local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["DND"].."|r|cffFFFFFF>|r"
@@ -74,9 +74,9 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 		local name, realm = UnitName(unit)
 		local guildName, guildRankName, _, guildRealm = GetGuildInfo(unit)
 		local pvpName = UnitPVPName(unit)
-		local relationship = UnitRealmRelationship(unit);
+		local relationship = UnitRealmRelationship(unit)
 		if not localeClass or not class then return; end
-		color = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[class] or RAID_CLASS_COLORS[class]
+		color = E:ClassColor(class)
 
 		local t1, t2 = '', ''
 		if self.db.playerTitles and pvpName and pvpName ~= name then
@@ -149,7 +149,7 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 end
 
 function module:Initialize()
-	if E.private.tooltip.enable ~= true or E.db.mui.tooltip.tooltip ~= true then return end
+	if E.private.tooltip.enable ~= true then return end
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
 

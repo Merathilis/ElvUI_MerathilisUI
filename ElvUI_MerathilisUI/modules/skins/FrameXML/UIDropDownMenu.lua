@@ -7,14 +7,19 @@ local _G = _G
 local unpack = unpack
 local hooksecurefunc = hooksecurefunc
 --WoW API / Variables
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleUIDropDownMenu()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true then return end
 
+	hooksecurefunc("UIDropDownMenu_SetIconImage", function(icon, texture)
+		if texture:find("Divider") then
+			icon:SetColorTexture(r, g, b, .8)
+			icon:SetHeight(1)
+		end
+	end)
 end
 
-S:AddCallback("mUIUIDropDownMenu", styleUIDropDownMenu)
+S:AddCallback("mUIUIDropDownMenu", LoadSkin)

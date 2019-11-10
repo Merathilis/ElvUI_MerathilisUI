@@ -7,31 +7,29 @@ local S = E:GetModule("Skins")
 local _G = _G
 local select = select
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleBinding()
+local function styleBindingButton(bu)
+	local selected = bu.selectedHighlight
+
+	for i = 1, 9 do
+		select(i, bu:GetRegions()):Hide()
+	end
+
+	selected:SetTexture(E["media"].normTex)
+	selected:SetPoint("TOPLEFT", 1, -1)
+	selected:SetPoint("BOTTOMRIGHT", -1, 1)
+	selected:SetColorTexture(r, g, b,.2)
+
+	MERS:Reskin(bu)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.binding ~= true or E.private.muiSkins.blizzard.binding ~= true then return end
 
 	_G.KeyBindingFrame:Styling()
-
-	local function styleBindingButton(bu)
-		local selected = bu.selectedHighlight
-
-		for i = 1, 9 do
-			select(i, bu:GetRegions()):Hide()
-		end
-
-		selected:SetTexture(E["media"].normTex)
-		selected:SetPoint("TOPLEFT", 1, -1)
-		selected:SetPoint("BOTTOMRIGHT", -1, 1)
-		selected:SetColorTexture(r, g, b,.2)
-
-		MERS:Reskin(bu)
-	end
 
 	for i = 1, _G.KEY_BINDINGS_DISPLAYED do
 		local button1 = _G["KeyBindingFrameKeyBinding"..i.."Key1Button"]
@@ -49,4 +47,4 @@ local function styleBinding()
 	line:SetColorTexture(1, 1, 1, .2)
 end
 
-S:AddCallbackForAddon("Blizzard_BindingUI", "mUIBinding", styleBinding)
+S:AddCallbackForAddon("Blizzard_BindingUI", "mUIBinding", LoadSkin)

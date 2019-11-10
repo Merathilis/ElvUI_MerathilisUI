@@ -8,7 +8,6 @@ local tinsert = table.insert
 
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
-		order = 11,
 		type = "group",
 		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
@@ -67,6 +66,12 @@ local function ChatTable()
 						name = L["Item Level"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,
 					},
+					damagemeter = {
+						order = 3,
+						type = "toggle",
+						name = L["Damage Meter Filter"],
+						disabled = function() return not E.db.mui.chat.filter.enable end,
+					}
 				},
 			},
 		},

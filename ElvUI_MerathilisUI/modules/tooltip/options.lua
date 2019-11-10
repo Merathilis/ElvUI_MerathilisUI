@@ -13,7 +13,6 @@ local function Tooltip()
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
 		name = L["Tooltip"],
-		order = 20,
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -22,38 +21,32 @@ local function Tooltip()
 				type = "header",
 				name = MER:cOption(L["Tooltip"]),
 			},
-			tooltip = {
-				order = 2,
-				type = "toggle",
-				name = L["Tooltip"],
-				desc = L["Change the visual appearance of the Tooltip."],
-			},
 			petIcon = {
-				order = 3,
+				order = 2,
 				type = "toggle",
 				name = L["Pet Battle"],
 				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
 			factionIcon = {
-				order = 4,
+				order = 3,
 				type = "toggle",
 				name = L.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
 			achievement = {
-				order = 5,
+				order = 4,
 				type = "toggle",
 				name = L["ACHIEVEMENTS"],
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
 			keystone = {
-				order = 6,
+				order = 5,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
 			titleColor = {
-				order = 8,
+				order = 6,
 				type = "toggle",
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],

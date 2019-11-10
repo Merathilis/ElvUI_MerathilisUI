@@ -7,10 +7,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 -- WoW API
 local hooksecurefunc = hooksecurefunc
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleChatFrame()
+local function LoadSkin()
 	if E.private.chat.enable ~= true then return; end
 
 	local VoiceChatPromptActivateChannel = _G["VoiceChatPromptActivateChannel"]
@@ -43,4 +42,4 @@ local function styleChatFrame()
 	end
 end
 
-S:AddCallback("mUIChat", styleChatFrame)
+S:AddCallback("mUIChat", LoadSkin)

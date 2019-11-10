@@ -11,11 +11,10 @@ local GetItemInfo = GetItemInfo
 local COLOR = COLOR
 -- GLOBALS:
 
-local function abTable()
+local function ActionBarTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
-		order = 10,
 		type = "group",
-		name = L["ActionBars"],
+		name = E.NewSign..L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -24,11 +23,19 @@ local function abTable()
 				type = "header",
 				name = MER:cOption(L["ActionBars"]),
 			},
-			cleanButton = {
+			general = {
 				order = 2,
-				type = "toggle",
-				name = L["Clean Boss Button"],
-				disabled = function() return not E.private.actionbar.enable end,
+				type = "group",
+				name = MER:cOption(L["General"]),
+				guiInline = true,
+				args = {
+					customGlow = {
+						order = 1,
+						type = "toggle",
+						name = E.NewSign..L["Custom Glow"],
+						desc = L["Replaces the default Actionbar glow for procs with an own pixel glow."],
+					},
+				},
 			},
 			specBar = {
 				order = 3,
@@ -621,4 +628,4 @@ local function abTable()
 		end
 	end
 end
-tinsert(MER.Config, abTable)
+tinsert(MER.Config, ActionBarTable)

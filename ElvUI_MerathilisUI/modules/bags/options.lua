@@ -11,7 +11,6 @@ local function BagTable()
 	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
 		name = L["Bags"],
-		order = 19,
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {

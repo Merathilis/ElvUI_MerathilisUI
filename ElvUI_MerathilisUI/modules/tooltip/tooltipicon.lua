@@ -50,7 +50,7 @@ local UnitFactionGroup = UnitFactionGroup
 
 -- See end of file for global exports
 
-local version = 1.74
+local version = 1.76
 -- release
 
 --------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ local function DefaultSavedVariables()
 			size = 39,
 			alpha = 1,
 		},
-		inside = {size = 26},
+		inside = {size = 24},
 		background = {
 			alpha = .9,
 			tintr = .4,
@@ -501,7 +501,7 @@ local function HookSpell(frame)
 	if data.disable or data.shown then
 		return
 	end
-	local name, spellID = frame:GetSpell()
+	local name, spellID = frame:GetSpell() -- Retail
 	if name then
 		local _, _, text = GetSpellInfo(spellID)
 		if text then

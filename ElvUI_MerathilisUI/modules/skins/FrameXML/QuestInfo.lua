@@ -18,115 +18,139 @@ local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
 local GetQuestLogSelection = GetQuestLogSelection
 local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestID = GetQuestID
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleQuestInfo()
+local function RestyleSpellButton(bu)
+	local name = bu:GetName()
+	local icon = bu.Icon
+
+	_G[name.."NameFrame"]:Hide()
+	_G[name.."SpellBorder"]:Hide()
+
+	icon:SetPoint("TOPLEFT", 3, -2)
+	icon:SetDrawLayer("ARTWORK")
+	icon:SetTexCoord(unpack(E.TexCoords))
+	MERS:CreateBG(icon)
+
+	local bg = CreateFrame("Frame", nil, bu)
+	bg:SetPoint("TOPLEFT", 2, -1)
+	bg:SetPoint("BOTTOMRIGHT", 0, 14)
+	bg:SetFrameLevel(0)
+	MERS:CreateBD(bg, .25)
+end
+
+local function QuestInfo_GetQuestID()
+	if _G.QuestInfoFrame.questLog then
+		return select(8, GetQuestLogTitle(GetQuestLogSelection()))
+	else
+		return GetQuestID()
+	end
+end
+
+local function ColorObjectivesText()
+	if not _G.QuestInfoFrame.questLog then return end
+
+	local questID = QuestInfo_GetQuestID()
+	local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
+	local numVisibleObjectives = 0
+
+	local waypointText = C_QuestLog_GetNextWaypointText(questID)
+	if waypointText then
+		numVisibleObjectives = numVisibleObjectives + 1
+		local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+		objective:SetTextColor(1, .8, .1)
+	end
+
+	for i = 1, GetNumQuestLeaderBoards() do
+		local _, type, finished = GetQuestLogLeaderBoard(i)
+
+		if (type ~= "spell" and type ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES) then
+			numVisibleObjectives = numVisibleObjectives + 1
+			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
+			if objective then
+				if finished then
+					objective:SetTextColor(34/255, 255/255, 0/255)
+				else
+					objective:SetTextColor(1, 1, 1)
+				end
+			end
+		end
+	end
+end
+
+local function RestyleRewardButton(bu, isMapQuestInfo)
+	bu.Icon:SetTexCoord(unpack(E.TexCoords))
+	bu.Icon:SetDrawLayer("OVERLAY")
+	bu.NameFrame:SetAlpha(0)
+	bu.Count:ClearAllPoints()
+	bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
+	bu.Count:SetDrawLayer("OVERLAY")
+
+	local bg = MERS:CreateBDFrame(bu, .25)
+	bg:SetFrameStrata("BACKGROUND")
+
+	if isMapQuestInfo then
+		bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
+		bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
+	else
+		bg:SetPoint("TOPLEFT", bu, 1, 1)
+		bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
+	end
+
+	if bu.CircleBackground then
+		bu.CircleBackground:SetAlpha(0)
+		bu.CircleBackgroundGlow:SetAlpha(0)
+	end
+
+	bu.bg = bg
+end
+
+local function HookTextColor_Yellow(self)
+	if self.isSetting then return end
+	self.isSetting = true
+	self:SetTextColor(1, .8, 0)
+	self.isSetting = nil
+end
+
+local function SetTextColor_Yellow(font)
+	font:SetShadowColor(0, 0, 0)
+	font:SetTextColor(1, .8, 0)
+	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
+end
+
+local function HookTextColor_White(self)
+	if self.isSetting then return end
+	self.isSetting = true
+	self:SetTextColor(1, 1, 1)
+	self.isSetting = nil
+end
+
+local function SetTextColor_White(font)
+	font:SetShadowColor(0, 0, 0)
+	font:SetTextColor(1, 1, 1)
+	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
 	if E.private.skins.parchmentRemover.enable then return end
 
-	-- [[ Shared ]]
-	local function restyleSpellButton(bu)
-		local name = bu:GetName()
-		local icon = bu.Icon
-
-		_G[name.."NameFrame"]:Hide()
-		_G[name.."SpellBorder"]:Hide()
-
-		icon:SetPoint("TOPLEFT", 3, -2)
-		icon:SetDrawLayer("ARTWORK")
-		icon:SetTexCoord(unpack(E.TexCoords))
-		MERS:CreateBG(icon)
-
-		local bg = CreateFrame("Frame", nil, bu)
-		bg:SetPoint("TOPLEFT", 2, -1)
-		bg:SetPoint("BOTTOMRIGHT", 0, 14)
-		bg:SetFrameLevel(0)
-		MERS:CreateBD(bg, .25)
-	end
-
 	-- [[ Objectives ]]
-	restyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
+	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
-	local function QuestInfo_GetQuestID()
-		if _G.QuestInfoFrame.questLog then
-			return select(8, GetQuestLogTitle(GetQuestLogSelection()))
-		else
-			return GetQuestID()
-		end
-	end
-
-	local function colorObjectivesText()
-		if not _G.QuestInfoFrame.questLog then return end
-
-		local questID = QuestInfo_GetQuestID()
-		local objectivesTable = _G.QuestInfoObjectivesFrame.Objectives
-		local numVisibleObjectives = 0
-
-		local waypointText = C_QuestLog_GetNextWaypointText(questID)
-		if waypointText then
-			numVisibleObjectives = numVisibleObjectives + 1
-			local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-			objective:SetTextColor(1, .8, .1)
-		end
-
-		for i = 1, GetNumQuestLeaderBoards() do
-			local _, type, finished = GetQuestLogLeaderBoard(i)
-
-			if (type ~= "spell" and type ~= "log" and numVisibleObjectives < _G.MAX_OBJECTIVES) then
-				numVisibleObjectives = numVisibleObjectives + 1
-				local objective = _G['QuestInfoObjective'..numVisibleObjectives]
-				if objective then
-					if finished then
-						objective:SetTextColor(34/255, 255/255, 0/255)
-					else
-						objective:SetTextColor(1, 1, 1)
-					end
-				end
-			end
-		end
-	end
-
-	hooksecurefunc("QuestMapFrame_ShowQuestDetails", colorObjectivesText)
-	hooksecurefunc("QuestInfo_Display", colorObjectivesText)
+	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
+	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
 
 	-- [[ Quest rewards ]]
-	local function restyleRewardButton(bu, isMapQuestInfo)
-		bu.Icon:SetTexCoord(unpack(E.TexCoords))
-		bu.Icon:SetDrawLayer("OVERLAY")
-		bu.NameFrame:SetAlpha(0)
-		bu.Count:ClearAllPoints()
-		bu.Count:SetPoint("BOTTOMRIGHT", bu.Icon, "BOTTOMRIGHT", 2, 0)
-		bu.Count:SetDrawLayer("OVERLAY")
-
-		local bg = MERS:CreateBDFrame(bu, .25)
-		bg:SetFrameStrata("BACKGROUND")
-
-		if isMapQuestInfo then
-			bg:SetPoint("TOPLEFT", bu.NameFrame, 1, 1)
-			bg:SetPoint("BOTTOMRIGHT", bu.NameFrame, -3, 0)
-		else
-			bg:SetPoint("TOPLEFT", bu, 1, 1)
-			bg:SetPoint("BOTTOMRIGHT", bu, -3, 1)
-		end
-
-		if bu.CircleBackground then
-			bu.CircleBackground:SetAlpha(0)
-			bu.CircleBackgroundGlow:SetAlpha(0)
-		end
-
-		bu.bg = bg
-	end
-
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
 		local bu = rewardsFrame.RewardButtons[index]
 
 		if (bu and not bu.restyled) then
-			restyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
+			RestyleRewardButton(bu, rewardsFrame == _G.MapQuestInfoRewardsFrame)
 
 			bu.Icon:SetTexCoord(unpack(E.TexCoords))
 			bu.IconBorder:SetAlpha(0)
@@ -139,11 +163,11 @@ local function styleQuestInfo()
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
 	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
-		restyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
+		RestyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
 	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame"} do
-		restyleRewardButton(_G.QuestInfoRewardsFrame[name])
+		RestyleRewardButton(_G.QuestInfoRewardsFrame[name])
 	end
 
 	--Spell Rewards
@@ -194,29 +218,10 @@ local function styleQuestInfo()
 			for spellHeader in rewardsFrame.spellHeaderPool:EnumerateActive() do
 				spellHeader:SetVertexColor(1, 1, 1)
 			end
-
-			for reward in rewardsFrame.followerRewardPool:EnumerateActive() do
-				local portrait = reward.PortraitFrame
-				if not reward.styled then
-					portrait:ClearAllPoints()
-					portrait:SetPoint("TOPLEFT", 2, -5)
-					MERS:ReskinGarrisonPortrait(portrait)
-					reward.BG:Hide()
-					local bg = MERS:CreateBDFrame(reward, .25)
-					bg:SetPoint("TOPLEFT", 0, -3)
-					bg:SetPoint("BOTTOMRIGHT", 2, 7)
-					reward.styled = true
-				end
-				if portrait then
-					local color = BAG_ITEM_QUALITY_COLORS[portrait.quality or 1]
-					portrait.squareBG:SetBackdropBorderColor(color.r, color.g, color.b)
-				end
-			end
 		end
 	end)
 
 	-- [[ Change text colors ]]
-
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)
@@ -224,19 +229,6 @@ local function styleQuestInfo()
 			self:SetTextColor(1, 1, 1)
 		end
 	end)
-
-	local function HookTextColor_Yellow(self)
-		if self.isSetting then return end
-		self.isSetting = true
-		self:SetTextColor(1, .8, 0)
-		self.isSetting = nil
-	end
-
-	local function SetTextColor_Yellow(font)
-		font:SetShadowColor(0, 0, 0)
-		font:SetTextColor(1, .8, 0)
-		hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
-	end
 
 	local yellowish = {
 		_G.QuestInfoTitleHeader,
@@ -246,19 +238,6 @@ local function styleQuestInfo()
 	}
 	for _, font in pairs(yellowish) do
 		SetTextColor_Yellow(font)
-	end
-
-	local function HookTextColor_White(self)
-		if self.isSetting then return end
-		self.isSetting = true
-		self:SetTextColor(1, 1, 1)
-		self.isSetting = nil
-	end
-
-	local function SetTextColor_White(font)
-		font:SetShadowColor(0, 0, 0)
-		font:SetTextColor(1, 1, 1)
-		hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 	end
 
 	local whitish = {
@@ -278,4 +257,4 @@ local function styleQuestInfo()
 	end
 end
 
-S:AddCallback("mUIQuestInfo", styleQuestInfo)
+S:AddCallback("mUIQuestInfo", LoadSkin)

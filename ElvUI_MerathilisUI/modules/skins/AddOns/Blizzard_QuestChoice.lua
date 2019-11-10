@@ -6,12 +6,10 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local unpack, select = unpack, select
-
 -- WoW API / Variables
+-- GLOBALS:
 
--- GLOBALS: hooksecurefunc
-
-local function styleQuestChoice()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.questChoice ~= true or E.private.muiSkins.blizzard.questChoice ~= true then return; end
 
 	local QuestChoiceFrame = _G.QuestChoiceFrame
@@ -60,4 +58,4 @@ local function styleQuestChoice()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", styleQuestChoice)
+S:AddCallbackForAddon("Blizzard_QuestChoice", "mUIQuestChoice", LoadSkin)

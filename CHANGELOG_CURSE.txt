@@ -1,3 +1,25 @@
+** v4.35, xx.xx.2019**
+
+
+** v4.35, xx.xx.2019**
+* Don't load my Armory if S&L is loaded. For now.
+
+
+** v4.34, 10.11.2019**
+* Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
+* Changed my MicroBar Tooltip instance lockout.
+* Fixed my Clique Skin, it newer worked. lol
+* Removed CleanBossButton Code, its now default in ElvUI.
+* Tweak a bit the RaidManager Code.
+* Added an own glow for Actionbar procs.
+* Added my Tags to the Available Tags option in ElvUI.
+* Updated Minimap Buttons, the Buttons will now stay visible, if you click them.
+* Added an "Undress Button" to the DressUpFrame.
+* Removed the Aura Icon Spacing code for the UnitFrames.
+* Updated/Added some Skin.
+* Added a shadow around UnitFrames & NamePlates Debuffs that the debuff color is more visible.
+
+
 ** v4.33 for 8.2.5, 25.09.2019**
 * The Chat Menu now dont force a fix Chat Height. Thx Repooc <3
 * Removed Raider.IO skinning support. Grab AddOnSkins.

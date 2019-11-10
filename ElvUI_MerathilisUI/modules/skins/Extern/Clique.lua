@@ -1,16 +1,15 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
-if not IsAddOnLoaded("Clique") then return; end
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local unpack = unpack
+local pairs, unpack = pairs, unpack
 -- WoW API / Variables
--- GLOBALS: hooksecurefunc, BugSack
+-- GLOBALS:
 
-local function LoadAddOnSkin(event, addon)
+local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.cl ~= true then return end
 
 	_G.CliqueConfig:StripTextures()
@@ -35,23 +34,37 @@ local function LoadAddOnSkin(event, addon)
 	if _G.CliqueDialog.CloseButton then S:HandleCloseButton(_G.CliqueDialog.CloseButton) end
 	if _G.CliqueDialogCloseButton then S:HandleCloseButton(_G.CliqueDialogCloseButton) end
 
-	MERS:Reskin(_G.CliqueConfigPage1ButtonOptions)
-	MERS:Reskin(_G.CliqueConfigPage1ButtonOther)
-	MERS:Reskin(_G.CliqueConfigPage1ButtonSpell)
-	MERS:Reskin(_G.CliqueConfigPage2ButtonBinding)
-	MERS:Reskin(_G.CliqueConfigPage2ButtonSave)
-	MERS:Reskin(_G.CliqueConfigPage2ButtonCancel)
-	MERS:Reskin(_G.CliqueDialogButtonBinding)
-	MERS:Reskin(_G.CliqueDialogButtonAccept)
+	local CliqueButtons = {
+		_G.CliqueConfigPage1ButtonSpell,
+		_G.CliqueConfigPage1ButtonOther,
+		_G.CliqueConfigPage1ButtonOptions,
+		_G.CliqueConfigPage2ButtonBinding,
+		_G.CliqueDialogButtonAccept,
+		_G.CliqueDialogButtonBinding,
+		_G.CliqueConfigPage2ButtonSave,
+		_G.CliqueConfigPage2ButtonCancel,
+	}
 
-	_G.CliqueSpellTab:GetRegions():SetSize(0.1, 0.1)
-	_G.CliqueSpellTab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
-	_G.CliqueSpellTab:GetNormalTexture():ClearAllPoints()
-	_G.CliqueSpellTab:GetNormalTexture():SetPoint("TOPLEFT", 2, -2)
-	_G.CliqueSpellTab:GetNormalTexture():SetPoint("BOTTOMRIGHT", -2, 2)
-	_G.CliqueSpellTab:CreateBackdrop("Default")
-	_G.CliqueSpellTab.backdrop:SetAllPoints()
-	_G.CliqueSpellTab:StyleButton()
+	for _, button in pairs(CliqueButtons) do
+		S:HandleButton(button)
+	end
+
+	local Tab = _G.CliqueSpellTab
+	Tab:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") --override the Texture to take account for Simpy's Icon pack
+	Tab:GetNormalTexture():SetTexCoord(unpack(E.TexCoords))
+	Tab:GetNormalTexture():SetInside()
+
+	Tab:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+	Tab:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
+	Tab:GetPushedTexture():SetInside()
+
+	Tab:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\clique") -- override the Texture to take account for Simpy's Icon pack
+	Tab:GetHighlightTexture():SetTexCoord(unpack(E.TexCoords))
+	Tab:GetHighlightTexture():SetInside()
+
+	Tab:CreateBackdrop("Transparent")
+	Tab.backdrop:SetAllPoints()
+	Tab:StyleButton()
 
 	_G.CliqueConfigPage1:SetScript("OnShow", function(self)
 		for i = 1, 12 do
@@ -70,4 +83,4 @@ local function LoadAddOnSkin(event, addon)
 	end)
 end
 
-S:AddCallbackForAddon("BugSack", "mUIClique", LoadAddOnSkin)
+S:AddCallbackForAddon("Clique", "mUIClique", LoadAddOnSkin)

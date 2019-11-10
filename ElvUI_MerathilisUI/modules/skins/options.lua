@@ -394,11 +394,6 @@ local function SkinsTable()
 				name = _G.DEATH_RECAP_TITLE,
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.deathRecap end,
 			},
-			questPOI = {
-				type = "toggle",
-				name = "QuestPOI",
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.questChoice end,
-			},
 			channels = {
 				type = "toggle",
 				name = _G.CHANNELS,
@@ -551,6 +546,11 @@ local function SkinsTable()
 				elseif addon == 'iFilger' then
 					MER:LoadiFilgerProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ElvUI_FCT' then
+					local FCT = E.Libs.AceAddon:GetAddon('ElvUI_FCT')
+					MER:LoadFCTProfile()
+					FCT:UpdateUnitFrames()
+					FCT:UpdateNamePlates()
 				end
 				MER:Print(profileString..addonName)
 			end,

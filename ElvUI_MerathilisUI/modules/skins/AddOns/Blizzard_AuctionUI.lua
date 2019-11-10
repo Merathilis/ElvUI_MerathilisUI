@@ -9,12 +9,38 @@ local select, unpack = select, unpack
 -- WoW API
 local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleAuctionhouse()
+local function reskinAuctionButtons(button, i)
+	local bu = _G[button..i]
+	local it = _G[button..i.."Item"]
+	local ic = _G[button..i.."ItemIconTexture"]
+
+	if bu and it then
+		it:SetNormalTexture("")
+		it:SetPushedTexture("")
+		it:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
+		MERS:ReskinIcon(ic)
+		it.IconBorder:SetAlpha(0)
+		bu:StripTextures()
+
+		local bg = MERS:CreateBDFrame(bu, .25)
+		bg:SetPoint("TOPLEFT")
+		bg:SetPoint("BOTTOMRIGHT", 0, 5)
+		MERS:CreateGradient(bg)
+
+		bu:SetHighlightTexture(E["media"].normTex)
+		local hl = bu:GetHighlightTexture()
+		hl:SetVertexColor(r, g, b, .2)
+		hl:ClearAllPoints()
+		hl:SetPoint("TOPLEFT", 0, -1)
+		hl:SetPoint("BOTTOMRIGHT", -1, 6)
+	end
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.auctionhouse ~= true or E.private.muiSkins.blizzard.auctionhouse ~= true then return end
 
 	local AuctionFrame = _G.AuctionFrame
@@ -95,33 +121,6 @@ local function styleAuctionhouse()
 	_G.BuyoutPriceSilver:SetPoint("LEFT", _G.BuyoutPriceGold, "RIGHT", 1, 0)
 	_G.BuyoutPriceCopper:SetPoint("LEFT", _G.BuyoutPriceSilver, "RIGHT", 1, 0)
 
-	local function reskinAuctionButtons(button, i)
-		local bu = _G[button..i]
-		local it = _G[button..i.."Item"]
-		local ic = _G[button..i.."ItemIconTexture"]
-
-		if bu and it then
-			it:SetNormalTexture("")
-			it:SetPushedTexture("")
-			it:GetHighlightTexture():SetColorTexture(1, 1, 1, .25)
-			MERS:ReskinIcon(ic)
-			it.IconBorder:SetAlpha(0)
-			bu:StripTextures()
-
-			local bg = MERS:CreateBDFrame(bu, .25)
-			bg:SetPoint("TOPLEFT")
-			bg:SetPoint("BOTTOMRIGHT", 0, 5)
-			MERS:CreateGradient(bg)
-
-			bu:SetHighlightTexture(E["media"].normTex)
-			local hl = bu:GetHighlightTexture()
-			hl:SetVertexColor(r, g, b, .2)
-			hl:ClearAllPoints()
-			hl:SetPoint("TOPLEFT", 0, -1)
-			hl:SetPoint("BOTTOMRIGHT", -1, 6)
-		end
-	end
-
 	for i = 1, _G.NUM_BROWSE_TO_DISPLAY do
 		reskinAuctionButtons("BrowseButton", i)
 	end
@@ -151,7 +150,7 @@ local function styleAuctionhouse()
 
 	_G.BrowsePrevPageButton:SetPoint("TOPLEFT", 660, -60)
 	_G.BrowseNextPageButton:SetPoint("TOPRIGHT", 67, -60)
-	_G.BrowsePrevPageButton:GetRegions():SetPoint("LEFT", BrowsePrevPageButton, "RIGHT", 2, 0)
+	_G.BrowsePrevPageButton:GetRegions():SetPoint("LEFT", _G.BrowsePrevPageButton, "RIGHT", 2, 0)
 
 	_G.BrowseDropDownLeft:SetAlpha(0)
 	_G.BrowseDropDownMiddle:SetAlpha(0)
@@ -189,4 +188,4 @@ local function styleAuctionhouse()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_AuctionUI", "mUIAuctionhouse", styleAuctionhouse)
+S:AddCallbackForAddon("Blizzard_AuctionUI", "mUIAuctionhouse", LoadSkin)

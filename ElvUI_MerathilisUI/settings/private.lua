@@ -54,7 +54,6 @@ V.muiSkins = {
 		loot = true,
 		warboard = true,
 		deathRecap = true,
-		questPOI = true,
 		communities = true,
 		channels = true,
 		challenges = true,

@@ -133,10 +133,10 @@ commOpen:SetScript("OnEvent", function(self, event, addonName)
 		toggleOverlay() --run once
 
 		--hook
-		hooksecurefunc(_G.CommunitiesFrame,"SetDisplayMode", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"Show", toggleOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"Hide", hideOverlay)
-		hooksecurefunc(_G.CommunitiesFrame,"OnClubSelected", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "SetDisplayMode", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Show", toggleOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "Hide", hideOverlay)
+		hooksecurefunc(_G.CommunitiesFrame, "OnClubSelected", toggleOverlay)
 	end
 end)
 
@@ -160,6 +160,8 @@ function module:Initialize()
 	self:StyleChat()
 	self:ChatBar()
 	self:ChatFilter()
+	self:ItemLinks()
+	self:DamageMeterFilter()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"

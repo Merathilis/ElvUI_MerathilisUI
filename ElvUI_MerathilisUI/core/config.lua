@@ -34,7 +34,7 @@ local function AddOptions()
 
 	-- Main options
 	E.Options.args.mui = {
-		order = 9001,
+		order = 6,
 		type = 'group',
 		name = MER.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],

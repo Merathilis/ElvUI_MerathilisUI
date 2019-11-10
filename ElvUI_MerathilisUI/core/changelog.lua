@@ -17,13 +17,18 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• The Chat Menu now dont force a fix Chat Height. Thx Repooc <3",
-		"• Removed Raider.IO skinning support. Grab AddOnSkins",
-		"• Completly redesigned my Minimap Buttons. Not for users with a lot of buttons!!",
-		"• Hopefully fix MicroBar Invasion Timers. >.>",
-		"• Take account for the changed tags in ElvUI",
-		"• 8.2.5 changes",
-		"• Added an own Raid Manager and hide the ElvUI Raid Control",
+		"• Fix some errors if you are using dual profiles. Thanks to fgprodigal <3",
+		"• Changed my MicroBar Tooltip instance lockout",
+		"• Fixed my Clique Skin, it newer worked. lol",
+		"• Removed CleanBossButton Code, its now default in ElvUI",
+		"• Tweak a bit the RaidManager Code",
+		"• Added an own glow for Actionbar procs",
+		"• Added my Tags to the Available Tags option in ElvUI",
+		"• Updated Minimap Buttons, the Buttons will now stay visible, if you click them",
+		"• Added an Undress Button to the DressUpFrame",
+		"• Removed the Aura Icon Spacing code for the UnitFrames",
+		"• Updated/Added some Skin",
+		"• Added a shadow to the UFs & NPs Debuffs that the debuff color is more visible",
 		-- "• ''",
 	" ",
 	"Notes:",
@@ -172,6 +177,7 @@ function MER:ToggleChangeLog()
 	fadeInfo.startAlpha = 0
 	fadeInfo.endAlpha = 1
 	E:UIFrameFade(MerathilisUIChangeLog, fadeInfo)
+	MER:Slide(MerathilisUIChangeLog, "RIGHT", 50, 150)
 
 	self.time = 6
 	self:CancelAllTimers()

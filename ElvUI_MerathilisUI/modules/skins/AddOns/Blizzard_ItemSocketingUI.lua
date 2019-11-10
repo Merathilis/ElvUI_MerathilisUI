@@ -10,10 +10,9 @@ local select, unpack = select, unpack
 local hooksecurefunc = hooksecurefunc
 local GetNumSockets = GetNumSockets
 local GetSocketTypes = GetSocketTypes
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleSocketing()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.socket ~= true or E.private.muiSkins.blizzard.socket ~= true then return end
 
 	local ItemSocketingFrame = _G["ItemSocketingFrame"]
@@ -45,4 +44,4 @@ local function styleSocketing()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "mUISocketing", styleSocketing)
+S:AddCallbackForAddon("Blizzard_ItemSocketingUI", "mUISocketing", LoadSkin)

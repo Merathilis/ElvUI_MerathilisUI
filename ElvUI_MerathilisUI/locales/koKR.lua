@@ -63,6 +63,7 @@ L["Adds an overlay to the Community Chat. Useful for streamers."] = true
 L["Chat Hidden. Click to show"] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = true
@@ -197,10 +198,16 @@ L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
 L["Style DataBars"] = true
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = true
+L["Automatically cancel pet battles duel requests."] = true
+L["Announce in chat if duel was rejected."] = true
+L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
+L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+
 -- Actionbars
 L["Specialization Bar"] = true
 L["EquipSet Bar"] = true
-L["Clean Boss Button"] = true
 L["Auto Buttons"] = true
 L["Bind Font Size"] = true
 L["Trinket Buttons"] = true
@@ -210,6 +217,8 @@ L["Blacklist Item"] = true
 L["Whitelist Item"] = true
 L["Add Item ID"] = true
 L["Delete Item ID"] = true
+L["Custom Glow"] = true
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = true
 
 -- Armory
 L["Armory"] = true
@@ -294,30 +303,15 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = true
 L["Player Portrait"] = true
 L["Target Portrait"] = true
-L["Aura Spacing"] = true
-L["Sets space between individual aura icons."] = true
-L["Set Aura Spacing On Following Units"] = true
-L["Assist"] = true
-L["Boss"] = true
-L["Focus"] = true
-L["FocusTarget"] = true
-L["Party"] = true
-L["Pet"] = true
-L["PetTarget"] = true
-L["Player"] = true
-L["Raid"] = true
-L["Raid40"] = true
-L["RaidPet"] = true
-L["Tank"] = true
-L["Target"] = true
-L["TargetTarget"] = true
-L["TargetTargetTarget"] = true
 L["Hide Text"] = true
 L["Hide From Others"] = true
 L["Threshold"] = true
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = true
 L["Position of the duration text on the aura icon."] = true
 L["Position of the stack count on the aura icon."] = true
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = true
 L["Force show any text placed on the InfoPanel, while casting."] = true
@@ -381,7 +375,7 @@ L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = true
+L["Button Settings"] = true
 
 --Raid Marks
 L["Raid Markers"] = true

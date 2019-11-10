@@ -9,7 +9,6 @@ local select, pairs, bit, unpack = select, pairs, bit, unpack
 local string = string
 local wipe = wipe
 local tinsert, tremove = table.insert, table.remove
-
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetPetActionInfo = GetPetActionInfo
@@ -26,9 +25,7 @@ local GetInventoryItemID = GetInventoryItemID
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetContainerItemID = GetContainerItemID
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_PET_ACTION_SLOTS, COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT_AFFILIATION_MINE, KUIDataDB_DCP
+-- GLOBALS:
 
 module.cooldowns, module.animating, module.watching = { }, { }, { }
 local fadeInTime, fadeOutTime, maxAlpha, animScale, iconSize, holdTime, showSpellName, ignoredSpells, invertIgnored
@@ -115,6 +112,7 @@ end
 local elapsed = 0
 local runtimer = 0
 local function OnUpdate(_,update)
+	module.db = E.db.mui.cooldownFlash
 	elapsed = elapsed + update
 	if (elapsed > 0.05) then
 		for i,v in pairs(module.watching) do
@@ -352,16 +350,24 @@ function module:TestMode()
 end
 
 function module:Initialize()
+	module.db = E.db.mui.cooldownFlash
 	MER:RegisterDB(self, "cooldownFlash")
 
-	DCP:SetSize(self.db.iconSize, self.db.iconSize)
-
-	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
-	DCP.TextFrame:SetShadowOffset(2, -2)
 	if self.db.enable then
 		self:EnableCooldownFlash()
 	end
+
+	DCP:SetSize(self.db.iconSize, self.db.iconSize)
 	DCP:SetPoint("CENTER", E.UIParent, "CENTER")
+
+	DCP.TextFrame:FontTemplate(E.db.general.font, 18, "OUTLINE")
+	DCP.TextFrame:SetShadowOffset(2, -2)
+
+	function module:ForUpdateAll()
+		module.db = E.db.mui.cooldownFlash
+	end
+
+	self:ForUpdateAll()
 end
 
 MER:RegisterModule(module:GetName())

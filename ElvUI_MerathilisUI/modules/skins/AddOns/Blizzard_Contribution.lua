@@ -7,10 +7,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleContribution()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Contribution ~= true or E.private.muiSkins.blizzard.contribution ~= true then return end
 
 	--Main Frame
@@ -30,4 +29,4 @@ local function styleContribution()
 	hooksecurefunc(_G.ContributionRewardMixin, "Setup", styleRewardText)
 end
 
-S:AddCallbackForAddon("Blizzard_Contribution", "mUIContribution", styleContribution)
+S:AddCallbackForAddon("Blizzard_Contribution", "mUIContribution", LoadSkin)

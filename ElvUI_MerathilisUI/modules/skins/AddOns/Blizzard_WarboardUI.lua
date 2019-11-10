@@ -6,11 +6,9 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 --WoW API / Variables
-local CreateFrame = CreateFrame
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: hooksecurefunc, ContributionRewardMixin, ContributionMixin
+-- GLOBALS:
 
-local function styleWarboard()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Warboard ~= true or E.private.muiSkins.blizzard.warboard ~= true then return end
 
 	local WarboardQuestChoiceFrame = _G.WarboardQuestChoiceFrame
@@ -34,4 +32,4 @@ local function styleWarboard()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_WarboardUI", "mUIWarboard", styleWarboard)
+S:AddCallbackForAddon("Blizzard_WarboardUI", "mUIWarboard", LoadSkin)

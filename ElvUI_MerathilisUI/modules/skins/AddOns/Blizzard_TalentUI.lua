@@ -13,13 +13,13 @@ local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
 local GetSpecializationSpells = GetSpecializationSpells
 local GetSpellTexture = GetSpellTexture
+local GetPvpTalentInfoByID = GetPvpTalentInfoByID
 local UnitSex = UnitSex
 local hooksecurefunc = hooksecurefunc
 
-
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleTalents()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talent ~= true or E.private.muiSkins.blizzard.talent ~= true then return; end
 
 	_G.PlayerTalentFrame:Styling()
@@ -158,6 +158,24 @@ local function styleTalents()
 	end
 
 	-- PvP Talents
+	local PvpTalentFrame = _G.PlayerTalentFrameTalents.PvpTalentFrame
+
+	for _, button in pairs(PvpTalentFrame.Slots) do
+		button:CreateBackdrop()
+		button.backdrop:SetOutside(button.Texture)
+
+		hooksecurefunc(button, "Update", function(self)
+			local selectedTalentID = self.predictedSetting:Get()
+			if selectedTalentID then
+				local _, _, texture = GetPvpTalentInfoByID(selectedTalentID)
+				self.Texture:SetTexture(texture)
+				self.Texture:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			else
+				self.Texture:SetTexCoord(.15, .85, .15, .85)
+			end
+		end)
+	end
+
 	local PlayerTalentFrameTalentsPvpTalentFrameTalentList = _G.PlayerTalentFrameTalentsPvpTalentFrameTalentList
 	PlayerTalentFrameTalentsPvpTalentFrameTalentList.backdrop:Styling()
 
@@ -200,4 +218,4 @@ local function styleTalents()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", styleTalents)
+S:AddCallbackForAddon("Blizzard_TalentUI", "mUITalents", LoadSkin)

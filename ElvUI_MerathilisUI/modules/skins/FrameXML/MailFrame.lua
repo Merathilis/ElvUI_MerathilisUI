@@ -12,12 +12,11 @@ local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local GetInboxText = GetInboxText
 local GetInboxInvoiceInfo = GetInboxInvoiceInfo
-
---GLOBALS: hooksecurefunc, INBOXITEMS_TO_DISPLAY, ATTACHMENTS_MAX_SEND
+--GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleMail()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.mail ~= true or E.private.muiSkins.blizzard.mail ~= true then return end
 
 	local MiniMapMailFrame = _G.MiniMapMailFrame
@@ -100,6 +99,7 @@ local function styleMail()
 
 	-- OpenMailFrame
 	local OpenMailFrame = _G.OpenMailFrame
+	OpenMailFrame:Styling()
 
 	OpenMailFrame:SetPoint("TOPLEFT", _G.InboxFrame, "TOPRIGHT", 5, 0)
 	_G.OpenMailFrameIcon:Hide()
@@ -127,7 +127,7 @@ local function styleMail()
 	_G.OpenMailInvoiceAmountReceived:SetPoint("TOPRIGHT", _G.OpenMailArithmeticLine, "BOTTOMRIGHT", -14, -5)
 
 	hooksecurefunc("OpenMail_Update", function()
-		if ( not _G.InboxFrame.openMailID ) then
+		if not _G.InboxFrame.openMailID then
 			return
 		end
 
@@ -147,4 +147,4 @@ local function styleMail()
 	end)
 end
 
-S:AddCallback("mUIMail", styleMail)
+S:AddCallback("mUIMail", LoadSkin)

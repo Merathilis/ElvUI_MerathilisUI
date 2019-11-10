@@ -7,11 +7,9 @@ local S = E:GetModule("Skins")
 local _G = _G
 local unpack = unpack
 -- WoW API
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleIslandsPartyPose()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandsPartyPose ~= true or E.private.muiSkins.blizzard.IslandsPartyPose ~= true then return end
 
 	local IslandsPartyPoseFrame = _G.IslandsPartyPoseFrame
@@ -33,4 +31,4 @@ local function styleIslandsPartyPose()
 	MERS:CreateBDFrame(rewardFrame.Icon)
 end
 
-S:AddCallbackForAddon("Blizzard_IslandsPartyPoseUI", "mUIIslandsPartyPose", styleIslandsPartyPose)
+S:AddCallbackForAddon("Blizzard_IslandsPartyPoseUI", "mUIIslandsPartyPose", LoadSkin)

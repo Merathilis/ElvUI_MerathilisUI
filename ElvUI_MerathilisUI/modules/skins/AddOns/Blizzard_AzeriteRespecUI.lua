@@ -6,15 +6,13 @@ local S = E:GetModule("Skins")
 --Lua functions
 local _G = _G
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS:
 
-local function styleRespec()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AzeriteRespec ~= true or E.private.muiSkins.blizzard.AzeriteRespec ~= true then return end
 
 	local AzeriteRespecFrame = _G.AzeriteRespecFrame
 	AzeriteRespecFrame:Styling()
 end
 
-S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "mUIAzeriteRespec", styleRespec)
+S:AddCallbackForAddon("Blizzard_AzeriteRespecUI", "mUIAzeriteRespec", LoadSkin)

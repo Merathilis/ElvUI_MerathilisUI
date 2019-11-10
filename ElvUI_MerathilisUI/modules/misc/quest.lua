@@ -33,11 +33,6 @@ local completedQuest, initComplete = {}
 local function SelectQuestReward(index)
 	local rewardsFrame = _G["QuestInfoFrame"].rewardsFrame
 
-	if dbg == 1 then
-		MER:Print("index: "..index)
-	end
-
-	--local btn = _G[QuestInfo_GetRewardButton(rewardsFrame, index)]
 	local btn = QuestInfo_GetRewardButton(rewardsFrame, index)
 	if (btn.type == "choice") then
 		QuestInfoItemHighlight:ClearAllPoints()
@@ -60,10 +55,6 @@ function MI:QUEST_COMPLETE()
 	local choice, price = 1, 0
 	local num = GetNumQuestChoices()
 
-	if dbg == 1 then
-		MER:Print("GetNumQuestChoices"..num)
-	end
-
 	if num <= 0 then
 		return -- no choices, quick exit
 	end
@@ -77,9 +68,6 @@ function MI:QUEST_COMPLETE()
 				choice = index
 			end
 		end
-	end
-	if dbg == 1 then
-		MER:Print("Choice: "..choice)
 	end
 	SelectQuestReward(choice)
 end

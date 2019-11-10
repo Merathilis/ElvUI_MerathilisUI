@@ -46,6 +46,9 @@ MP.chat = {
 	filter = {
 		enable = true,
 		itemLevel = true,
+		keywords = "",
+		blockAddOnAlerts = true,
+		damagemeter = true,
 	},
 }
 
@@ -120,7 +123,7 @@ MP.datatexts = {
 }
 
 MP.actionbars = {
-	cleanButton = true,
+	customGlow = true,
 	specBar = {
 		enable = true,
 		mouseover = false,
@@ -238,27 +241,8 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	AuraIconSpacing = {
-		spacing = 1,
-		units = {
-			player = true,
-			target = true,
-			targettarget = true,
-			targettargettarget = true,
-			focus = true,
-			focustarget = true,
-			pet = true,
-			pettarget = true,
-			arena = true,
-			boss = true,
-			party = true,
-			raid = true,
-			raid40 = true,
-			raidpet = true,
-			tank = true,
-			assist = true,
-		},
-	},
+	auras = true,
+	healPrediction = true,
 	infoPanel = {
 		style = true,
 	},
@@ -370,10 +354,9 @@ MP.media = {
 
 MP.smb = {
 	enable = true,
-	position = "TOPRIGHT",
-	xOffset = 10,
-	yOffset = 20,
 	size = 34,
+	perRow = 12,
+	spacing = 2,
 }
 
 MP.locPanel = {
@@ -405,7 +388,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,172179",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -430,8 +413,15 @@ MP.raidmanager = {
 	count = "10",
 }
 
+MP.pvp = {
+	duels = {
+		regular = true,
+		pet = true,
+		announce = true,
+	},
+}
+
 MP.tooltip = {
-	tooltip = true,
 	achievement = true,
 	petIcon = true,
 	factionIcon = true,

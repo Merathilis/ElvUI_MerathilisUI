@@ -13,7 +13,6 @@ local function RaidBuffs()
 	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
 		name = L["Raid Buff Reminder"],
-		order = 18,
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
 			name = {

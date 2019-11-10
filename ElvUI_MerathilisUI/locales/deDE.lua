@@ -65,6 +65,7 @@ L["Adds an overlay to the Community Chat. Useful for streamers."] = "Fügt ein O
 L["Chat Hidden. Click to show"] = "Chat versteckt. Klicken um anzuzeigen"
 L["Click to open Emoticon Frame"] = "Öffnet das Emoticon Fenster"
 L["Emotes"] = true
+L["Damage Meter Filter"] = true
 
 -- Information
 L["Information"] = true
@@ -199,10 +200,16 @@ L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
 L["Style DataBars"] = "Informationsleisten Stil"
 
+-- PVP
+L["Automatically cancel PvP duel requests."] = "Lehnt automatisch PVP Duelle ab."
+L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Haustierkampf Duelle ab."
+L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
+L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
+L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
+
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
 L["EquipSet Bar"] = "Ausrüstungsleiste"
-L["Clean Boss Button"] = "Geskinnte Boss Taste"
 L["Auto Buttons"] = "Auto Tasten"
 L["Bind Font Size"] = "Belegungstext Größe"
 L["Trinket Buttons"] = "Trinket Tasten"
@@ -212,6 +219,8 @@ L["Blacklist Item"] = "Schwarze Liste Item"
 L["Whitelist Item"] = "Weißeliste Item"
 L["Add Item ID"] = "Füge Item ID hinzu"
 L["Delete Item ID"] = "Entferne Item ID"
+L["Custom Glow"] = "Benutzerdefinertes Leuchten"
+L["Replaces the default Actionbar glow for procs with an own pixel glow."] = "Ersetzt das standard Aktionleistenleuchten mit einem eigenen Pixel-Leuchten."
 
 -- Armory
 L["Armory"] = "Arsenal"
@@ -296,30 +305,14 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "Einheitenfenster"
 L["Player Portrait"] = "Spieler Portrait"
 L["Target Portrait"] = "Ziel Portrait"
-L["Aura Spacing"] = "Auren Abstand"
-L["Sets space between individual aura icons."] = "Setzt den Abstand zwischen den individuellen Aurensymbolen."
-L["Set Aura Spacing On Following Units"] = "Setzt den Auren Abstand für folgende Einheiten"
-L["Assist"] = "Assistent"
-L["Boss"] = true
-L["Focus"] = "Fokus"
-L["FocusTarget"] = "Fokus-Ziel"
-L["Party"] = "Gruppe"
-L["Pet"] = "Begleiter"
-L["PetTarget"] = "Begleiter-Ziel"
-L["Player"] = "Spieler"
-L["Raid"] = "Schlachtzug"
-L["Raid40"] = "40er Schlachtzug"
-L["RaidPet"] = "Schlachtzug Begleiter"
-L["Tank"] = true;
-L["Target"] = "Ziel"
-L["TargetTarget"] = "Ziel des Ziels"
-L["TargetTargetTarget"] = "Ziel des Ziels des Ziels"
 L["Hide Text"] = "Verstecke Text"
 L["Hide From Others"] = "Verstecke von anderen"
 L["Threshold"] = "Schwellwert"
 L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
 L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
 L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
+
 -- Castbar
 L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
 L["Castbar Text"] = "Zauberleisten Text"
@@ -328,6 +321,7 @@ L["Show Castbar text"] = "Zeige Zauberleisten Text"
 L["Show InfoPanel text"] = "Zeige InfoPanel Text"
 L["InfoPanel Style"] = "InfoPanel Stil"
 L["Show on Target"] = "Zeige auf dem Ziel"
+L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -383,7 +377,7 @@ L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
 
 -- SMB
-L["If you are using a lot of Minimap Buttons, then my module is not the right choice for you."] = "Wenn du eine viele Minimap Buttons benutzt, ist mein Modul nicht die richtige Wahl für dich."
+L["Button Settings"] = "Tasten Einstellungen"
 
 -- Raid Marks
 L["Raid Markers"] = "Schlachtzugs-Markierungen"

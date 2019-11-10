@@ -1,15 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
 local S = E:GetModule("Skins")
 
 --Cache global variables
 local _G = _G
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-local function styleTalkingHead()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.talkinghead ~= true or E.private.muiSkins.blizzard.talkinghead ~= true then return end
 
 	local TalkingHeadFrame = _G.TalkingHeadFrame
@@ -41,4 +38,4 @@ local function styleTalkingHead()
 	TalkingHeadFrame.TextFrame.Text:SetShadowOffset(2, -2)
 end
 
-S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "mUITalkingHead", styleTalkingHead)
+S:AddCallbackForAddon("Blizzard_TalkingHeadUI", "mUITalkingHead", LoadSkin)

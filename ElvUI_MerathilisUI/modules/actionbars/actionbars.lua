@@ -1,19 +1,16 @@
 local MER, E, _, V, P, G = unpack(select(2, ...))
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
+local LCG = LibStub('LibCustomGlow-1.0')
 local module = MER:NewModule("mUIActionbars", "AceEvent-3.0")
-
-if E.private.actionbar.enable ~= true then return; end
 
 --Cache global variables
 local _G = _G
-local pairs = pairs
+local pairs, unpack = pairs, unpack
 --WoW API / Variables
+local GetActionInfo = GetActionInfo
 local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: NUM_PET_ACTION_SLOTS, DisableAddOn
--- GLOBALS: ElvUI_BarPet, ElvUI_StanceBar, hooksecurefunc
+-- GLOBALS:
 
 local availableActionbars = availableActionbars or 6
 local styleOtherBacks = {_G.ElvUI_BarPet, _G.ElvUI_StanceBar}
@@ -55,11 +52,24 @@ function module:StyleBackdrops()
 	end
 end
 
--- Code taken from CleanBossButton
-local function RemoveTexture(self, texture, stopLoop)
-	if stopLoop then return end
+function module:ActionbarGlow()
+	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
 
-	self:SetTexture("", true) --2nd argument is to stop endless loop
+	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local color = {r, g, b, 1}
+
+	local lib = LibStub("LibButtonGlow-1.0")
+	if lib then
+		function lib.ShowOverlayGlow(button)
+			if button:GetAttribute("type") == "action" then
+				local actionType,actionID = GetActionInfo(button:GetAttribute("action"))
+				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
+			end
+		end
+		function lib.HideOverlayGlow(button)
+			LCG.PixelGlow_Stop(button)
+		end
+	end
 end
 
 function module:Initialize()
@@ -71,13 +81,9 @@ function module:Initialize()
 	CheckExtraAB()
 	C_TimerAfter(1, module.StyleBackdrops)
 
-	if E.db.mui.actionbars.cleanButton then
-		hooksecurefunc(_G["ZoneAbilityFrame"].SpellButton.Style, "SetTexture", RemoveTexture)
-		hooksecurefunc(_G["ExtraActionButton1"].style, "SetTexture", RemoveTexture)
-	end
-
 	self:SpecBarInit()
 	self:EquipBarInit()
+	C_TimerAfter(0.1, module.ActionbarGlow)
 end
 
 MER:RegisterModule(module:GetName())

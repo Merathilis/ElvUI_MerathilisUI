@@ -64,18 +64,12 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
-function MER:ClassColor(class)
-	local color = MER.ClassColors[class]
-	if not color then return 1, 1, 1 end
-	return color.r, color.g, color.b
-end
-
 function MER:UnitColor(unit)
 	local r, g, b = 1, 1, 1
 	if UnitIsPlayer(unit) then
 		local _, class = UnitClass(unit)
 		if class then
-			r, g, b = MER:ClassColor(class)
+			r, g, b = E:ClassColor(class)
 		end
 	elseif UnitIsTapDenied(unit) then
 		r, g, b = .6, .6, .6
@@ -90,9 +84,9 @@ function MER:UnitColor(unit)
 end
 
 function MER:SetupProfileCallbacks()
-	E.data.RegisterCallback(self, "OnProfileChanged", "UpdateAll")
-	E.data.RegisterCallback(self, "OnProfileCopied", "UpdateAll")
-	E.data.RegisterCallback(self, "OnProfileReset", "UpdateAll")
+	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
+	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 end
 
 function MER:MismatchText()
@@ -129,6 +123,14 @@ end
 function MER:GetSpell(id)
 	local name = GetSpellInfo(id)
 	return name
+end
+
+function MER:SplitList(list, variable, cleanup)
+	if cleanup then twipe(list) end
+
+	for word in variable:gmatch('%S+') do
+		list[word] = true
+	end
 end
 
 -- Tooltip scanning stuff. Credits siweia, with permission.
@@ -255,6 +257,10 @@ function MER:UpdateRegisteredDBs()
 	end
 end
 
+function MER:OnProfileChanged()
+	MER:Hook(E, "UpdateEnd", "UpdateAll")
+end
+
 function MER:UpdateAll()
 	self:UpdateRegisteredDBs()
 	for _, module in ipairs(self:GetRegisteredModules()) do
@@ -263,6 +269,7 @@ function MER:UpdateAll()
 			mod:ForUpdateAll()
 		end
 	end
+	MER:Unhook(E, "UpdateEnd")
 end
 
 function MER:UpdateRegisteredDB(tbl, path)

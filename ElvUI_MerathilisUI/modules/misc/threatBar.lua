@@ -18,8 +18,6 @@ local UnitName = UnitName
 local UnitIsUnit = UnitIsUnit
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 local GetThreatStatusColor = GetThreatStatusColor
-local RAID_CLASS_COLORS = RAID_CLASS_COLORS
-local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local UNKNOWN = UNKNOWN
 -- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS: ElvUF, UIParent, ChatTab_Datatext_Panel
@@ -53,7 +51,7 @@ function module:GetColor(unit)
 	local unitReaction = UnitReaction(unit, "player")
 	local _, unitClass = UnitClass(unit)
 	if (UnitIsPlayer(unit)) then
-		local class = CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[unitClass] or RAID_CLASS_COLORS[unitClass]
+		local class = E:ClassColor(unitClass)
 		if not class then return 194, 194, 194 end
 		return class.r*255, class.g*255, class.b*255
 	elseif (unitReaction) then

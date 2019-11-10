@@ -8,6 +8,7 @@ local _G = _G
 local select = select
 local format = string.format
 local tinsert = table.insert
+local strlen = strlen
 -- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetGuildRosterMOTD = GetGuildRosterMOTD
@@ -16,7 +17,8 @@ local GetScreenHeight = GetScreenHeight
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
 local PlaySound = PlaySound
--- GLOBALS: GUILD_MOTD_LABEL2, UISpecialFrames
+local UISpecialFrames = UISpecialFrames
+-- GLOBALS:
 
 local gmotd
 
@@ -28,11 +30,9 @@ function MI:GMOTD()
 		local gmotd = CreateFrame("Frame", "MER.GMOTD", E.UIParent)
 		gmotd:SetPoint("CENTER", 0, GetScreenHeight()/5)
 		gmotd:SetSize(350, 150)
-		gmotd:SetToplevel(true)
+		gmotd:SetFrameStrata("TOOLTIP")
 		gmotd:SetMovable(true)
 		gmotd:EnableMouse(true)
-		gmotd:SetClampedToScreen(true)
-		gmotd:SetFrameStrata("TOOLTIP")
 		gmotd:SetScript("OnMouseDown", gmotd.StartMoving)
 		gmotd:SetScript("OnMouseUp", gmotd.StopMovingOrSizing)
 		gmotd:CreateBackdrop("Transparent")
@@ -41,27 +41,33 @@ function MI:GMOTD()
 		gmotd:Styling()
 		gmotd:Hide()
 
-		gmotd.button = CreateFrame("Button", nil, gmotd, "UIPanelButtonTemplate")
-		gmotd.button:SetText(L["Ok"])
-		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -3)
-		S:HandleButton(gmotd.button)
-		gmotd.button:SetScript("OnClick", function(self)
-			gmotd:Hide()
-		end)
-
-		gmotd.header = MER:CreateText(gmotd, "OVERLAY", 14, "OUTLINE")
-		gmotd.header:SetPoint("BOTTOM", gmotd, "TOP", 0, 4)
+		gmotd.header = gmotd:CreateFontString(nil)
+		gmotd.header:FontTemplate(nil, 14, "OUTLINE")
+		gmotd.header:SetPoint("BOTTOM", gmotd, "TOP", 0, 2)
 		gmotd.header:SetTextColor(1, 1, 0)
 
-		gmotd.text = MER:CreateText(gmotd, "OVERLAY", 12, "OUTLINE", nil, "CENTER", 0, 0)
+		gmotd.text = gmotd:CreateFontString(nil)
+		gmotd.text:FontTemplate(nil, 13, "OUTLINE")
 		gmotd.text:SetHeight(130)
-		gmotd.text:SetTextColor(1, 1, 1)
+		gmotd.text:SetPoint("TOPLEFT", gmotd, "TOPLEFT", 10, -10)
+		gmotd.text:SetPoint("TOPRIGHT", gmotd, "TOPRIGHT", -10, -10)
+		gmotd.text:SetJustifyV("TOP")
+		gmotd.text:SetTextColor(0, 1, 0)
 		gmotd.text:CanWordWrap(true)
 		gmotd.text:SetWordWrap(true)
 
-		gmotd:SetScript("OnEvent", function(self, event, message)
-			local icon = "|TInterface\\CHATFRAME\\UI-ChatIcon-Share:18:18|t"
+		gmotd.button = CreateFrame("Button", nil, gmotd, "UIPanelButtonTemplate")
+		gmotd.button:SetText(L["Ok"])
+		gmotd.button:SetPoint("TOP", gmotd, "BOTTOM", 0, -4)
+		S:HandleButton(gmotd.button)
 
+		gmotd.button:SetScript("OnClick", function(self)
+			MER.gmotd[gmotd.msg] = true
+			gmotd:Hide()
+		end)
+
+		local icon = "|TInterface\\CHATFRAME\\UI-ChatIcon-Share:18:18|t"
+		gmotd:SetScript("OnEvent", function(self, event, message)
 			local guild = false
 			local msg = false
 			if (event == "GUILD_MOTD") then
@@ -72,7 +78,9 @@ function MI:GMOTD()
 				guild = select(1, GetGuildInfo("player"))
 			end
 
-			if (msg and msg ~= "") and not InCombatLockdown() then
+			MER.gmotd = MER.gmotd or {}
+			if (strlen(msg) > 0 and guild and not MER.gmotd[msg]) then
+				if InCombatLockdown() then return end
 				gmotd.msg = msg
 				gmotd.text:SetText(msg)
 				gmotd.header:SetText(icon..(format("|cff00c0fa%s|r", guild))..": ".._G.GUILD_MOTD_LABEL2)

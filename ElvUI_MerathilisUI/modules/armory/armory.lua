@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
 local LSM = E.LSM or E.Libs.LSM
+if IsAddOnLoaded("ElvUI_SLE") then return end
 
 -- Cache global variables
 -- Lua functions
@@ -285,16 +286,11 @@ function module:BuildInformation()
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
 		frame.Illusion:Size(14)
-		frame.Illusion:SetBackdrop({
-			bgFile = E.media.blankTex,
-			edgeFile = E.media.blankTex,
-			tile = false, tileSize = 0, edgeSize = E.mult,
-			insets = { left = 0, right = 0, top = 0, bottom = 0}
-		})
-		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
-		frame.Illusion:SetBackdropBorderColor(1, .5, 1)
+		frame.Illusion:CreateBackdrop()
+		frame.Illusion.backdrop:SetBackdropBorderColor(1, .5, 1)
 
 		frame.Illusion.Texture = frame.Illusion:CreateTexture(nil, 'OVERLAY')
 		frame.Illusion.Texture:SetInside()
@@ -330,7 +326,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	--if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
@@ -342,8 +338,6 @@ function module:Initialize()
 	module:RegisterEvent("GARRISON_MISSION_FINISHED", "firstGarrisonToast", false)
 	module:RegisterEvent("PLAYER_ENTERING_WORLD", "InitialUpdatePaperDoll")
 
-	_G["CharacterStatsPane"].ItemLevelFrame:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelCategory, "BOTTOM", 0, 6)
-
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
 		_G["CharacterModelFrame"]:ClearAllPoints()
@@ -353,6 +347,12 @@ function module:Initialize()
 	end
 
 	module:AzeriteGlow()
+
+	function module:ForUpdateAll()
+		module.db = E.db.mui.armory
+	end
+
+	self:ForUpdateAll()
 
 	-- Stats
 	if not IsAddOnLoaded("DejaCharacterStats") then

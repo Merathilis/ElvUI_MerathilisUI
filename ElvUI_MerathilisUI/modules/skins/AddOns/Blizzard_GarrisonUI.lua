@@ -10,139 +10,137 @@ local ipairs, pairs, select, unpack = ipairs, pairs, select, unpack
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local UnitFactionGroup = UnitFactionGroup
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
-local function styleGarrison()
+-- [[ Garrison system ]]
+local function ReskinMissionPage(self)
+	self:StripTextures()
+	self.StartMissionButton.Flash:SetTexture("")
+	MERS:Reskin(self.StartMissionButton)
+	self.CloseButton:ClearAllPoints()
+	self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
+	select(4, self.Stage:GetRegions()):Hide()
+	select(5, self.Stage:GetRegions()):Hide()
+
+	local bg = MERS:CreateBDFrame(self.Stage)
+	bg:SetPoint("TOPLEFT", 4, 1)
+	bg:SetPoint("BOTTOMRIGHT", -4, -1)
+
+	local overlay = self.Stage:CreateTexture()
+	overlay:SetDrawLayer("ARTWORK", 3)
+	overlay:SetAllPoints(bg)
+	overlay:SetColorTexture(0, 0, 0, .5)
+
+	local iconbg = select(16, self:GetRegions())
+	iconbg:ClearAllPoints()
+	iconbg:SetPoint("TOPLEFT", 3, -1)
+
+	for i = 1, 3 do
+		local follower = self.Followers[i]
+		follower:GetRegions():Hide()
+		MERS:CreateBD(follower, .25)
+		MERS:ReskinGarrisonPortrait(follower.PortraitFrame)
+		follower.PortraitFrame:ClearAllPoints()
+		follower.PortraitFrame:SetPoint("TOPLEFT", 0, -3)
+	end
+
+	for i = 1, 10 do
+		select(i, self.RewardsFrame:GetRegions()):Hide()
+	end
+	MERS:CreateBD(self.RewardsFrame, .25)
+
+	local env = self.Stage.MissionEnvIcon
+	env.Texture:SetDrawLayer("BORDER", 1)
+	MERS:ReskinIcon(env.Texture)
+
+	local item = self.RewardsFrame.OvermaxItem
+	item.Icon:SetDrawLayer("BORDER", 1)
+	MERS:ReskinIcon(item.Icon)
+end
+
+local function ReskinMissionList(self)
+	local buttons = self.listScroll.buttons
+	for i = 1, #buttons do
+		local button = buttons[i]
+		if not button.styled then
+			local rareOverlay = button.RareOverlay
+			local rareText = button.RareText
+			button:StripTextures()
+			MERS:CreateBD(button, .25)
+			rareText:ClearAllPoints()
+			rareText:SetPoint("BOTTOMLEFT", button, 20, 10)
+			rareOverlay:SetDrawLayer("BACKGROUND")
+			rareOverlay:SetTexture(E["media"].normTex)
+			rareOverlay:SetAllPoints()
+			rareOverlay:SetVertexColor(.098, .537, .969, .2)
+			button.styled = true
+		end
+	end
+end
+
+local function ReskinMissionTabs(self)
+	for i = 1, 2 do
+		local tab = _G[self:GetName().."Tab"..i]
+		tab:StripTextures()
+		MERS:CreateBD(tab, .25)
+		if i == 1 then
+			tab:SetBackdropColor(r, g, b, .2)
+		end
+	end
+end
+
+local function ReskinMissionComplete(self)
+	local missionComplete = self.MissionComplete
+	local bonusRewards = missionComplete.BonusRewards
+	select(11, bonusRewards:GetRegions()):SetTextColor(1, .8, 0)
+	bonusRewards.Saturated:StripTextures()
+	for i = 1, 9 do
+		select(i, bonusRewards:GetRegions()):SetAlpha(0)
+	end
+	MERS:CreateBD(bonusRewards)
+	MERS:Reskin(missionComplete.NextMissionButton)
+end
+
+local function ReskinGarrMaterial(self)
+	self.MaterialFrame.Icon:SetTexCoord(unpack(E.TexCoords))
+	self.MaterialFrame:GetRegions():Hide()
+	local bg = MERS:CreateBDFrame(self.MaterialFrame, .25)
+	bg:SetPoint("TOPLEFT", 5, -5)
+	bg:SetPoint("BOTTOMRIGHT", -5, 6)
+end
+
+local function ReskinMissionFrame(self)
+	if self.GarrCorners then self.GarrCorners:Hide() end
+	if self.ClassHallIcon then self.ClassHallIcon:Hide() end
+	if self.Topper then self.Topper:SetAtlas(UnitFactionGroup("player").."Frame-Header") end
+	if self.TitleScroll then
+		select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
+	end
+
+	for i = 1, 3 do
+		local tab = _G[self:GetName().."Tab"..i]
+		if tab then MERS:ReskinTab(tab) end
+	end
+
+	if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
+
+	ReskinMissionComplete(self)
+	ReskinMissionPage(self.MissionTab.MissionPage)
+
+	local missionList = self.MissionTab.MissionList
+	missionList:StripTextures()
+	ReskinGarrMaterial(missionList)
+	ReskinMissionTabs(missionList)
+	hooksecurefunc(missionList, "Update", ReskinMissionList)
+
+	local followerList = self.FollowerList
+	ReskinGarrMaterial(followerList)
+end
+
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.orderhall ~= true or E.private.skins.blizzard.garrison ~= true or E.private.muiSkins.blizzard.garrison ~= true then return end
-
-	-- [[ Garrison system ]]
-	function MERS:ReskinMissionPage(self)
-		self:StripTextures()
-		self.StartMissionButton.Flash:SetTexture("")
-		MERS:Reskin(self.StartMissionButton)
-
-		self.CloseButton:ClearAllPoints()
-		self.CloseButton:SetPoint("TOPRIGHT", -10, -5)
-		select(4, self.Stage:GetRegions()):Hide()
-		select(5, self.Stage:GetRegions()):Hide()
-
-		local bg = MERS:CreateBDFrame(self.Stage)
-		bg:SetPoint("TOPLEFT", 4, 1)
-		bg:SetPoint("BOTTOMRIGHT", -4, -1)
-		local overlay = self.Stage:CreateTexture()
-		overlay:SetDrawLayer("ARTWORK", 3)
-		overlay:SetAllPoints(bg)
-		overlay:SetColorTexture(0, 0, 0, .5)
-		local iconbg = select(16, self:GetRegions())
-		iconbg:ClearAllPoints()
-		iconbg:SetPoint("TOPLEFT", 3, -1)
-
-		for i = 1, 3 do
-			local follower = self.Followers[i]
-			follower:GetRegions():Hide()
-			MERS:CreateBD(follower, .25)
-			MERS:ReskinGarrisonPortrait(follower.PortraitFrame)
-			follower.PortraitFrame:ClearAllPoints()
-			follower.PortraitFrame:SetPoint("TOPLEFT", 0, -3)
-		end
-
-		for i = 1, 10 do
-			select(i, self.RewardsFrame:GetRegions()):Hide()
-		end
-		MERS:CreateBD(self.RewardsFrame, .25)
-
-		local env = self.Stage.MissionEnvIcon
-		env.Texture:SetDrawLayer("BORDER", 1)
-		MERS:ReskinIcon(env.Texture)
-
-		local item = self.RewardsFrame.OvermaxItem
-		item.Icon:SetDrawLayer("BORDER", 1)
-		MERS:ReskinIcon(item.Icon)
-	end
-
-	function MERS:ReskinMissionList()
-		local buttons = self.listScroll.buttons
-		for i = 1, #buttons do
-			local button = buttons[i]
-			if not button.styled then
-				local rareOverlay = button.RareOverlay
-				local rareText = button.RareText
-
-				button:StripTextures()
-				MERS:CreateBD(button, .25)
-
-				rareText:ClearAllPoints()
-				rareText:SetPoint("BOTTOMLEFT", button, 20, 10)
-				rareOverlay:SetDrawLayer("BACKGROUND")
-				rareOverlay:SetTexture(E["media"].normTex)
-				rareOverlay:SetAllPoints()
-				rareOverlay:SetVertexColor(.098, .537, .969, .2)
-
-				button.styled = true
-			end
-		end
-	end
-
-	function MERS:ReskinMissionTabs(self)
-		for i = 1, 2 do
-			local tab = _G[self:GetName().."Tab"..i]
-			tab:StripTextures()
-			MERS:CreateBD(tab, .25)
-			if i == 1 then
-				tab:SetBackdropColor(r, g, b, .2)
-			end
-		end
-	end
-
-	function MERS:ReskinMissionComplete(self)
-		local missionComplete = self.MissionComplete
-		local bonusRewards = missionComplete.BonusRewards
-		select(11, bonusRewards:GetRegions()):SetTextColor(1, .8, 0)
-		bonusRewards.Saturated:StripTextures()
-		for i = 1, 9 do
-			select(i, bonusRewards:GetRegions()):SetAlpha(0)
-		end
-		MERS:CreateBD(bonusRewards)
-		MERS:Reskin(missionComplete.NextMissionButton)
-	end
-
-	function MERS:ReskinGarrMaterial(self)
-		self.MaterialFrame.Icon:SetTexCoord(unpack(E.TexCoords))
-		self.MaterialFrame:GetRegions():Hide()
-		local bg = MERS:CreateBDFrame(self.MaterialFrame, .25)
-		bg:SetPoint("TOPLEFT", 5, -5)
-		bg:SetPoint("BOTTOMRIGHT", -5, 6)
-	end
-
-	function MERS:ReskinMissionFrame(self)
-		if self.GarrCorners then self.GarrCorners:Hide() end
-		if self.ClassHallIcon then self.ClassHallIcon:Hide() end
-		if self.Topper then self.Topper:SetAtlas(UnitFactionGroup("player").."Frame-Header") end
-		if self.TitleScroll then
-			select(4, self.TitleScroll:GetRegions()):SetTextColor(1, .8, 0)
-		end
-		for i = 1, 3 do
-			local tab = _G[self:GetName().."Tab"..i]
-			if tab then MERS:ReskinTab(tab) end
-		end
-		if self.MapTab then self.MapTab.ScrollContainer.Child.TiledBackground:Hide() end
-
-		MERS:ReskinMissionComplete(self)
-		MERS:ReskinMissionPage(self.MissionTab.MissionPage)
-
-		local missionList = self.MissionTab.MissionList
-		missionList:StripTextures()
-		MERS:ReskinGarrMaterial(missionList)
-		MERS:ReskinMissionTabs(missionList)
-		hooksecurefunc(missionList, "Update", MERS.ReskinMissionList)
-
-		local followerList = self.FollowerList
-		MERS:ReskinGarrMaterial(followerList)
-	end
 
 	-- Building frame
 	local GarrisonBuildingFrame = _G.GarrisonBuildingFrame
@@ -297,7 +295,6 @@ local function styleGarrison()
 
 	-- Capacitive display
 	local CapacitiveDisplay = GarrisonCapacitiveDisplayFrame.CapacitiveDisplay
-
 	CapacitiveDisplay.IconBG:SetAlpha(0)
 
 	do
@@ -421,7 +418,7 @@ local function styleGarrison()
 	local GarrisonMissionFrame = _G.GarrisonMissionFrame
 	if GarrisonMissionFrame.backdrop then GarrisonMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(GarrisonMissionFrame, .25)
-	MERS:ReskinMissionFrame(GarrisonMissionFrame)
+	ReskinMissionFrame(GarrisonMissionFrame)
 	GarrisonMissionFrame:Styling()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
@@ -603,7 +600,7 @@ local function styleGarrison()
 	local OrderHallMissionFrame = _G.OrderHallMissionFrame
 	if OrderHallMissionFrame.backdrop then OrderHallMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(OrderHallMissionFrame, .25)
-	MERS:ReskinMissionFrame(OrderHallMissionFrame)
+	ReskinMissionFrame(OrderHallMissionFrame)
 	OrderHallMissionFrame:Styling()
 
 	-- CombatAlly MissionFrame
@@ -669,7 +666,7 @@ local function styleGarrison()
 	if BFAMissionFrame.backdrop then BFAMissionFrame.backdrop:Hide() end
 	MERS:CreateBD(BFAMissionFrame, .25)
 	BFAMissionFrame:Styling()
-	MERS:ReskinMissionFrame(BFAMissionFrame)
+	ReskinMissionFrame(BFAMissionFrame)
 
 	-- [[ BFA Missions ]]
 	local MissionFrame = _G.BFAMissionFrame
@@ -688,4 +685,4 @@ local function styleGarrison()
 	end
 end
 
-S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", styleGarrison)
+S:AddCallbackForAddon("Blizzard_GarrisonUI", "mUIGarrison", LoadSkin)

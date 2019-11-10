@@ -6,19 +6,22 @@ local S = E:GetModule("Skins")
 -- Lua functions
 local _G = _G
 local pairs, unpack = pairs, unpack
+local format = string.format
 -- WoW API
 local CreateFrame = CreateFrame
 local GetInventoryItemTexture = GetInventoryItemTexture
 local InCombatLockdown = InCombatLockdown
 local EquipmentManager_UnequipItemInSlot = EquipmentManager_UnequipItemInSlot
 local EquipmentManager_RunAction = EquipmentManager_RunAction
+-- GLOBALS:
 
--- Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GameTooltip
+local function UnequipItemInSlot(i)
+	if InCombatLockdown() then return end
+	local action = EquipmentManager_UnequipItemInSlot(i)
+	EquipmentManager_RunAction(action)
+end
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-local function styleCharacter()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true or E.private.muiSkins.blizzard.character ~= true then return end
 
 	-- Hide ElvUI Backdrop
@@ -40,21 +43,12 @@ local function styleCharacter()
 	end
 
 	-- Undress Button
-	local function UnequipItemInSlot(i)
-		if InCombatLockdown() then return end
-		local action = EquipmentManager_UnequipItemInSlot(i)
-		EquipmentManager_RunAction(action)
-	end
-
 	if E.db.mui.armory.undressButton then
 		local bu = CreateFrame("Button", nil, _G.PaperDollFrame, "UIPanelButtonTemplate")
-		bu:SetSize(55, 20)
+		bu:SetText(format("|cff70C0F5%s", L["Undress"]))
+		bu:SetSize(60, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 65, -15)
-
-		bu.text = MER:CreateText(bu, "OVERLAY", 12, "OUTLNE")
-		bu.text:SetPoint("CENTER")
-		bu.text:SetText(L["Undress"])
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -15)
 
 		bu:SetScript("OnClick", function()
 			for i = 1, 17 do
@@ -68,4 +62,4 @@ local function styleCharacter()
 	end
 end
 
-S:AddCallback("mUICharacter", styleCharacter)
+S:AddCallback("mUICharacter", LoadSkin)

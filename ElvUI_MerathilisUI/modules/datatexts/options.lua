@@ -46,7 +46,6 @@ hooksecurefunc(DT, "LoadDataTexts", MER.LoadDataTexts)
 
 local function Datatexts()
 	E.Options.args.mui.args.modules.args.datatexts = {
-		order = 13,
 		type = "group",
 		name = L["DataTexts"],
 		args = {

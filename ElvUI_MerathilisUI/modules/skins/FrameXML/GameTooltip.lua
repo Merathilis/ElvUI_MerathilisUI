@@ -9,7 +9,7 @@ local pairs = pairs
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
-local function styleGameTooltip()
+local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.tooltip ~= true then return end
 
 	local StoryTooltip = _G.QuestScrollFrame.StoryTooltip
@@ -50,4 +50,4 @@ local function styleGameTooltip()
 	end
 end
 
-S:AddCallback("mUIGameTooltip", styleGameTooltip)
+S:AddCallback("mUIGameTooltip", LoadSkin)
