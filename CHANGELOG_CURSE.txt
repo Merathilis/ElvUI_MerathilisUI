@@ -1,7 +1,7 @@
 ** v4.35, xx.xx.2019**
 
 
-** v4.35, xx.xx.2019**
+** v4.34a, xx.xx.2019**
 * Don't load my Armory if S&L is loaded. For now.
 
 
