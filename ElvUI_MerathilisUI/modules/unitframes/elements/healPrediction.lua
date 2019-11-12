@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MUF = MER:GetModule("muiUnits")
-local UF = E:GetModule("UnitFrames")
+local UF = E.UnitFrames
 
 --Cache global variables
 --Lua functions
@@ -48,7 +48,7 @@ function MUF:Configure_HealComm(frame)
 		end
 
 		if healPrediction.overAbsorb then
-			healPrediction.overAbsorb:SetVertexColor(1, 1, 1)
+			healPrediction.overAbsorb:SetVertexColor(1, 1, 1, 1)
 			healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 		end
 	end

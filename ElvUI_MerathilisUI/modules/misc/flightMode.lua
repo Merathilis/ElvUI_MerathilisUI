@@ -1,23 +1,22 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("MUIFlightMode")
-local COMP = MER:GetModule("mUICompatibility");
+if not IsAddOnLoaded("ElvUI_BenikUI") then return end
 
 --Cache global variables
-
 --WoW API / Variables
 local CreateFrame = CreateFrame
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
 function module:Initialize()
-	if not COMP.BUI then return end
 	local BUI = _G.ElvUI_BenikUI[1]
+
 	if (not BUI.initialized) then
 		_G.hooksecurefunc(BUI, "Init", function()
 			module:Initialize()
 		end)
 		return
 	end
+
 	local BFM = BUI:GetModule("FlightMode")
 	if E.db.mui.general.FlightMode then
 

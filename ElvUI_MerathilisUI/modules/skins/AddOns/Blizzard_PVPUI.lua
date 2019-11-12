@@ -64,12 +64,8 @@ local function LoadSkin()
 	BonusFrame.WorldBattlesTexture:Hide()
 	BonusFrame.ShadowOverlay:Hide()
 
-	local buttons = { ['RandomBGButton'] = HonorFrame.BonusFrame, ['RandomEpicBGButton'] = HonorFrame.BonusFrame, ['Arena1Button'] = HonorFrame.BonusFrame, ['BrawlButton'] = HonorFrame.BonusFrame, ['RatedBG'] = ConquestFrame, ['Arena2v2'] = ConquestFrame, ['Arena3v3'] = ConquestFrame }
-
-	for section, parent in pairs(buttons) do
-		local button = parent[section]
-
-		if button.backdrop then button.backdrop:Hide() end
+	for _, bonusButton in pairs({"RandomBGButton", "RandomEpicBGButton", "Arena1Button", "BrawlButton", "SpecialEventButton"}) do
+		local button = BonusFrame[bonusButton]
 
 		button.SelectedTexture:SetDrawLayer("BACKGROUND")
 		button.SelectedTexture:SetColorTexture(r, g, b, .2)
@@ -113,6 +109,14 @@ local function LoadSkin()
 		bu.Icon.bg:SetDrawLayer("BACKGROUND", 1)
 		bu.Icon:SetPoint("TOPLEFT", 5, -3)
 	end
+
+	-- Conquest
+	for _, bu in pairs({ConquestFrame.Arena2v2, ConquestFrame.Arena3v3, ConquestFrame.RatedBG}) do
+		bu.SelectedTexture:SetDrawLayer("BACKGROUND")
+		bu.SelectedTexture:SetColorTexture(r, g, b, .25)
+		bu.SelectedTexture:SetAllPoints()
+	end
+	ConquestFrame.Arena3v3:SetPoint("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -1)
 end
 
 S:AddCallbackForAddon("Blizzard_PVPUI", "mUIPvPUI", LoadSkin)

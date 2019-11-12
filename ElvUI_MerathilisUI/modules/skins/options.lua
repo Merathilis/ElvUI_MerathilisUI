@@ -546,6 +546,11 @@ local function SkinsTable()
 				elseif addon == 'iFilger' then
 					MER:LoadiFilgerProfile()
 					E:StaticPopup_Show('PRIVATE_RL')
+				elseif addon == 'ElvUI_FCT' then
+					local FCT = E.Libs.AceAddon:GetAddon('ElvUI_FCT')
+					MER:LoadFCTProfile()
+					FCT:UpdateUnitFrames()
+					FCT:UpdateNamePlates()
 				end
 				MER:Print(profileString..addonName)
 			end,

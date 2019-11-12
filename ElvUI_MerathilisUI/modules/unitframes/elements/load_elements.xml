@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="auras.lua"/>
 	<Script file="gcd.lua"/>
 	<Script file="healPrediction.lua"/>
 	<Script file="portrait.lua"/>

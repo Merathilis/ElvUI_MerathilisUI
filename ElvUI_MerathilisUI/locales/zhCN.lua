@@ -312,6 +312,7 @@ L["Duration text will be hidden until it reaches this threshold (in seconds). Se
 L["Position of the duration text on the aura icon."] = "持续时间文本在光环图标上的位置."
 L["Position of the stack count on the aura icon."] = "光环上层数的位置."
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 
 -- Castbar
 L["Adjust castbar text Y Offset"] = "调整施法条文本在Y轴的偏移"

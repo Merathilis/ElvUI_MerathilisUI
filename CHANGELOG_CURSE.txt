@@ -1,4 +1,12 @@
-** v4.34, xx.xx.2019**
+** v4.35, 12.11.2019**
+* Removed the compatibility checks, i don't want to deal with it.
+
+
+** v4.34a, 10.11.2019**
+* Don't load my Armory if S&L is loaded. For now.
+
+
+** v4.34, 10.11.2019**
 * Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
 * Changed my MicroBar Tooltip instance lockout.
 * Fixed my Clique Skin, it newer worked. lol
@@ -10,6 +18,7 @@
 * Added an "Undress Button" to the DressUpFrame.
 * Removed the Aura Icon Spacing code for the UnitFrames.
 * Updated/Added some Skin.
+* Added a shadow around UnitFrames & NamePlates Debuffs that the debuff color is more visible.
 
 
 ** v4.33 for 8.2.5, 25.09.2019**

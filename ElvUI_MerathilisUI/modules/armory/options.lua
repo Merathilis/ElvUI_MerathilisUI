@@ -288,7 +288,6 @@ local function ArmoryTable()
 							},
 						},
 					},
-
 				},
 			},
 		},

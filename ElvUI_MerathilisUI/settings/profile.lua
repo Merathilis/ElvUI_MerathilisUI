@@ -113,7 +113,7 @@ MP.datatexts = {
 		height = 18,
 	},
 	rightChatTabDatatextPanel = {
-		enable = false,
+		enable = true,
 	},
 	threatBar = {
 		enable = true,
@@ -241,6 +241,8 @@ MP.microBar = {
 }
 
 MP.unitframes = {
+	auras = true,
+	healPrediction = true,
 	infoPanel = {
 		style = true,
 	},
@@ -269,7 +271,6 @@ MP.unitframes = {
 			},
 		},
 	},
-	healPrediction = true,
 }
 
 MP.maps = {

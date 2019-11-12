@@ -1,4 +1,12 @@
-[b][color=orange]v4.34[/color], xx.xx.2019[/b][list]
+[b][color=orange]v4.35[/color], 12.11.2019[/b][list]
+[*]Removed the compatibility checks, i don't want to deal with it.[/list]
+
+
+[b][color=orange]v4.34a[/color], 10.11.2019[/b][list]
+[*]Don't load my Armory if S&L is loaded. For now.[/list]
+
+
+[b][color=orange]v4.34[/color], 10.11.2019[/b][list]
 [*]Fix some errors if you are using dual profiles. Thanks to fgprodigal <3
 [*]Changed my MicroBar Tooltip instance lockout.
 [*]Fixed my Clique Skin, it newer worked. lol
@@ -9,8 +17,8 @@
 [*]Updated Minimap Buttons, the Buttons will now stay visible, if you click them.
 [*]Added an "Undress Button" to the DressUpFrame.
 [*]Removed the Aura Icon Spacing code for the UnitFrames.
-[*]Updated/Added some Skin.[/list]
-
+[*]Updated/Added some Skin.
+[*]Added a shadow around UnitFrames & NamePlates Debuffs that the debuff color is more visible.[/list]
 
 [b][color=orange]v4.33[/color] for 8.2.5, 25.09.2019[/b][list]
 [*]The Chat Menu now dont force a fix Chat Height.
