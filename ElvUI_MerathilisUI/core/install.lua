@@ -1690,11 +1690,13 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["tank"]["enable"] = false
 
 		-- Pet
+		E.db["unitframe"]["units"]["pet"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["pet"]["castbar"]["enable"] = true
 		E.db["unitframe"]["units"]["pet"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["pet"]["castbar"]["width"] = 75
 		E.db["unitframe"]["units"]["pet"]["castbar"]["height"] = 10
 		E.db["unitframe"]["units"]["pet"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["pet"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["pet"]["debuffs"]["sizeOverride"] = 0
