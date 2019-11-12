@@ -1,7 +1,8 @@
-** v4.35, xx.xx.2019**
+** v4.35, 12.11.2019**
+* Removed the compatibility checks, i don't want to deal with it.
 
 
-** v4.34a, xx.xx.2019**
+** v4.34a, 10.11.2019**
 * Don't load my Armory if S&L is loaded. For now.
 
 

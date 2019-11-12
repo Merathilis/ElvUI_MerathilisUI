@@ -12,23 +12,13 @@ local SOUNDKIT = SOUNDKIT
 local PlaySound = PlaySound
 local CLOSE = CLOSE
 local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
-
 -- GLOBALS: MERData, UISpecialFrames, MerathilisUIChangeLog, DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix some errors if you are using dual profiles. Thanks to fgprodigal <3",
-		"• Changed my MicroBar Tooltip instance lockout",
-		"• Fixed my Clique Skin, it newer worked. lol",
-		"• Removed CleanBossButton Code, its now default in ElvUI",
-		"• Tweak a bit the RaidManager Code",
-		"• Added an own glow for Actionbar procs",
-		"• Added my Tags to the Available Tags option in ElvUI",
-		"• Updated Minimap Buttons, the Buttons will now stay visible, if you click them",
-		"• Added an Undress Button to the DressUpFrame",
-		"• Removed the Aura Icon Spacing code for the UnitFrames",
-		"• Updated/Added some Skin",
-		"• Added a shadow to the UFs & NPs Debuffs that the debuff color is more visible",
+		"• Don't load my Armory if Shadow&Light is enabled",
+		"• Removed the compatibility checks, i don't want to deal with it",
+
 		-- "• ''",
 	" ",
 	"Notes:",

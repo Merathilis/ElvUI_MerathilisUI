@@ -1,5 +1,5 @@
-[b][color=orange]v4.35[/color], xx.xx.2019[/b][list]
-[*][/list]
+[b][color=orange]v4.35[/color], 12.11.2019[/b][list]
+[*]Removed the compatibility checks, i don't want to deal with it.[/list]
 
 
 [b][color=orange]v4.34a[/color], 10.11.2019[/b][list]
