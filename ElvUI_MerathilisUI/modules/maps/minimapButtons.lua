@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("mUIMinimapButtons", 'AceTimer-3.0')
-local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
 --Lua functions
@@ -258,9 +257,6 @@ function module:Initialize()
 	local db = E.db.mui.smb
 	MER:RegisterDB(self, "smb")
 	if db.enable ~= true then return end
-
-	-- Compatibility
-	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
 
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
