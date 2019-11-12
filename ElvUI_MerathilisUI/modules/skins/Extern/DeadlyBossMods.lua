@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
-local COMP = MER:GetModule("mUICompatibility")
 local S = E:GetModule("Skins")
 
 -- Cache global variables
@@ -9,7 +8,6 @@ local _G = _G
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 
-if not COMP.AS then return end
 local AS = unpack(AddOnSkins)
 
 local function LoadAddOnSkin(event)
