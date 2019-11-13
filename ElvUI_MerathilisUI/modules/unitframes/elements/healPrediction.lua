@@ -12,37 +12,43 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function MUF:Configure_HealComm(frame)
-	if frame.db.healPrediction and frame.db.healPrediction.enable and frame.db.health then
+	if frame.db.healPrediction and frame.db.healPrediction.enable then
 		local healPrediction = frame.HealthPrediction
-		local orientation = frame.db.health.orientation or frame.Health:GetOrientation()
-		local reverseFill = not not frame.db.health.reverseFill
 
-		if orientation == "HORIZONTAL" then
-			if healPrediction.overAbsorb then
-				healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
-				healPrediction.overAbsorb:SetWidth(15)
-				healPrediction.overAbsorb:SetBlendMode("ADD")
-				healPrediction.overAbsorb:ClearAllPoints()
-				if reverseFill then
-					healPrediction.overAbsorb:SetPoint("TOPRIGHT", frame.Health, "TOPLEFT", 5, 3)
-					healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", frame.Health, "BOTTOMLEFT", 5, -3)
-				else
-					healPrediction.overAbsorb:SetPoint("TOPLEFT", frame.Health, "TOPRIGHT", -5, 3)
-					healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", frame.Health, "BOTTOMRIGHT", -5, -3)
+		if frame.db.health then
+			local health = frame.Health
+			local orientation = frame.db.health.orientation or frame.Health:GetOrientation()
+			local reverseFill = not not frame.db.health.reverseFill
+
+			if orientation == "HORIZONTAL" then
+				if healPrediction.overAbsorb then
+					healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
+					healPrediction.overAbsorb:SetWidth(15)
+					healPrediction.overAbsorb:SetBlendMode("ADD")
+					healPrediction.overAbsorb:ClearAllPoints()
+
+					if reverseFill then
+						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "TOPLEFT", 5, 3)
+						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "BOTTOMLEFT", 5, -3)
+					else
+						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "TOPRIGHT", -5, 3)
+						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "BOTTOMRIGHT", -5, -3)
+					end
 				end
-			end
-		else
-			if healPrediction.overAbsorb then
-				healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
-				healPrediction.overAbsorb:SetHeight(15)
-				healPrediction.overAbsorb:SetBlendMode("ADD")
-				healPrediction.overAbsorb:ClearAllPoints()
-				if reverseFill then
-					healPrediction.overAbsorb:SetPoint("TOPLEFT", frame.Health, "BOTTOMLEFT", -3, 5)
-					healPrediction.overAbsorb:SetPoint("TOPRIGHT", frame.Health, "BOTTOMRIGHT", 3, 5)
-				else
-					healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", frame.Health, "TOPLEFT", -3, -5)
-					healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", frame.Health, "TOPRIGHT", 3, -5)
+			else
+				if healPrediction.overAbsorb then
+					healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
+					healPrediction.overAbsorb:SetHeight(15)
+					healPrediction.overAbsorb:SetBlendMode("ADD")
+					healPrediction.overAbsorb:ClearAllPoints()
+
+					if reverseFill then
+						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "BOTTOMLEFT", -3, 5)
+						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 3, 5)
+					else
+						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "TOPLEFT", -3, -5)
+						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 3, -5)
+					end
 				end
 			end
 		end
