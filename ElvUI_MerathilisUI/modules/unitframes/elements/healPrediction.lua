@@ -22,6 +22,8 @@ function MUF:Configure_HealComm(frame)
 				healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
 				healPrediction.overAbsorb:SetWidth(15)
 				healPrediction.overAbsorb:SetBlendMode("ADD")
+				healPrediction.overAbsorb:SetVertexColor(1, 1, 1, 1)
+				healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 				healPrediction.overAbsorb:ClearAllPoints()
 				if reverseFill then
 					healPrediction.overAbsorb:SetPoint("TOPRIGHT", frame.Health, "TOPLEFT", 5, 3)
@@ -36,6 +38,8 @@ function MUF:Configure_HealComm(frame)
 				healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
 				healPrediction.overAbsorb:SetHeight(15)
 				healPrediction.overAbsorb:SetBlendMode("ADD")
+				healPrediction.overAbsorb:SetVertexColor(1, 1, 1, 1)
+				healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 				healPrediction.overAbsorb:ClearAllPoints()
 				if reverseFill then
 					healPrediction.overAbsorb:SetPoint("TOPLEFT", frame.Health, "BOTTOMLEFT", -3, 5)
@@ -45,11 +49,6 @@ function MUF:Configure_HealComm(frame)
 					healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", frame.Health, "TOPRIGHT", 3, -5)
 				end
 			end
-		end
-
-		if healPrediction.overAbsorb then
-			healPrediction.overAbsorb:SetVertexColor(1, 1, 1, 1)
-			healPrediction.overAbsorb:SetParent(frame.RaisedElementParent)
 		end
 	end
 end
