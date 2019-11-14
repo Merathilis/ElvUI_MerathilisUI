@@ -16,8 +16,9 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Don't load my Armory if Shadow&Light is enabled",
-		"• Removed the compatibility checks, i don't want to deal with it",
+		"• Changed some settings via install, which is now needed with the upcoming ElvUI update",
+		"• Removed DBM skin. You can still get my style via AddOnSkins",
+		"• Disable my Heal Prediction by default. Must figure out, why it dont work for some people",
 
 		-- "• ''",
 	" ",
