@@ -257,7 +257,12 @@ function MER:SetupLayout(layout)
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
-	E.db["general"]["cropIcon"] = false
+
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		E.db["general"]["cropIcon"] = false
+	else
+		E.db["general"]["cropIcon"] = true
+	end
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -658,6 +663,11 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["smb"]["perRow"] = 12
 	E.db["mui"]["smb"]["spacing"] = 2
 	E.db["mui"]["datatexts"]["middle"]["width"] = 330
+
+	-- Heal Prediction
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		E.db["mui"]["unitframes"]["healPrediction"] = true
+	end
 
 	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"

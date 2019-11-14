@@ -19,10 +19,11 @@ function MUF:Configure_HealComm(frame)
 			local health = frame.Health
 			local orientation = frame.db.health.orientation or frame.Health:GetOrientation()
 			local reverseFill = not not frame.db.health.reverseFill
+			local overAbsorbTexture = "Interface\\RaidFrame\\Shield-Overshield"
 
 			if orientation == "HORIZONTAL" then
 				if healPrediction.overAbsorb then
-					healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
+					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
 					healPrediction.overAbsorb:SetWidth(15)
 					healPrediction.overAbsorb:SetBlendMode("ADD")
 					healPrediction.overAbsorb:ClearAllPoints()
@@ -37,7 +38,7 @@ function MUF:Configure_HealComm(frame)
 				end
 			else
 				if healPrediction.overAbsorb then
-					healPrediction.overAbsorb:SetTexture("Interface\\RaidFrame\\Shield-Overshield")
+					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
 					healPrediction.overAbsorb:SetHeight(15)
 					healPrediction.overAbsorb:SetBlendMode("ADD")
 					healPrediction.overAbsorb:ClearAllPoints()
