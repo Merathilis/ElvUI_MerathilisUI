@@ -1,3 +1,9 @@
+** v4.36, 14.11.2019**
+* Changed some settings via install, which is now needed with the upcoming ElvUI update.
+* Removed DBM skin. You can still get my style via AddOnSkins.
+* Disable my Heal Prediction by default. Must figure out, why it dont work for some people.
+
+
 ** v4.35, 12.11.2019**
 * Removed the compatibility checks, i don't want to deal with it.
 
