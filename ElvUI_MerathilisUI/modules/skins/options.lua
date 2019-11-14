@@ -18,7 +18,6 @@ local DecorAddons = {
 	{"ProjectAzilroka", L["ProjectAzilroka"], "pa"},
 	{"Postal", L["Postal"], "po"},
 	{"ls_Toasts", L["ls_Toasts"], "ls"},
-	{"DBM-Core", L["Deadly Boss Mods"], "dbm"},
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"EventTracker", L["EventTracker"], "et"},
