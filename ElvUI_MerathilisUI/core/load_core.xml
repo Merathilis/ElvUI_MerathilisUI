@@ -14,4 +14,6 @@
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 	<Include file="filter\load_filter.xml"/>
 	<Script file="config.lua"/>
+	<Include file="widgets.xml"/>
+	<Script file="funstuff.lua"/>
 </Ui>

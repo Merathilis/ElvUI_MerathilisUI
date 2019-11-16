@@ -66,6 +66,11 @@ local function Misc()
 				type = "toggle",
 				name = L["Skip Azerite Animation"],
 			},
+			funstuff = {
+				order = 9,
+				type = "toggle",
+				name = E.NewSign..L["Fun Stuff"],
+			},
 			alerts = {
 				order = 20,
 				type = "group",
