@@ -56,7 +56,7 @@ local function LoadSkin()
 	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
 	MERS:CreateBDFrame(_G.NPCFriendshipStatusBar, .25)
 
-	MER.NPC:Register(GossipFrame, _G.GossipFrameNpcNameText)
+	MER.NPC:Register(GossipFrame)
 	hooksecurefunc("GossipTitleButton_OnClick", function() MER.NPC:PlayerTalksFirst() end)
 end
 
