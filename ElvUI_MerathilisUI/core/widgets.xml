@@ -3,9 +3,9 @@
         <Size x="384" y="512"/>
         <Frames>
             <PlayerModel name="$parentModel" parentKey="Model" frameStrata="HIGH">
-                <Size x="75" y="75"/>
+                <Size x="60" y="60"/>
                 <Anchors>
-                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOPLEFT" x="40" y="-50" />
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOPLEFT" x="40" y="-65" />
                 </Anchors>
             </PlayerModel>
         </Frames>
