@@ -381,30 +381,31 @@ local function RebuildMerchantFrame()
 	_G["MerchantExtraCurrencyBg"]:SetPoint("TOPLEFT", _G["MerchantExtraCurrencyInset"], "TOPLEFT", 3, -2);
 	_G["MerchantExtraCurrencyBg"]:SetPoint("BOTTOMRIGHT", _G["MerchantExtraCurrencyInset"], "BOTTOMRIGHT", -3, 2);
 
-	searchBox = CreateFrame("EditBox", "$parentSearchBox", _G["MerchantFrame"], "InputBoxTemplate");
-	searchBox:SetWidth(_G["MerchantItem1"]:GetWidth());
-	searchBox:SetHeight(24);
-	searchBox:SetPoint("BOTTOMLEFT", _G["MerchantItem1"], "TOPLEFT", 0, 9);
-	searchBox:SetAutoFocus(false);
-	searchBox:SetFontObject(ChatFontSmall);
-	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower(); UpdateMerchantInfo() end)
-	searchBox:SetScript("OnShow", function(self) self:SetText(SEARCH); searching = "" end)
-	searchBox:SetScript("OnEnterPressed", function(self)  self:ClearFocus() end)
-	searchBox:SetScript("OnEscapePressed", function(self)  self:ClearFocus(); self:SetText(SEARCH); searching = "" end)
+	searchBox = CreateFrame("EditBox", "$parentSearchBox", _G["MerchantFrame"], "InputBoxTemplate")
+	searchBox:SetWidth(_G["MerchantItem1"]:GetWidth())
+	searchBox:SetHeight(21)
+	searchBox:ClearAllPoints()
+	searchBox:SetPoint("RIGHT", _G["MerchantFrameLootFilter"], "LEFT", 0, 2)
+	searchBox:SetAutoFocus(false)
+	searchBox:SetFontObject(ChatFontSmall)
+	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower() UpdateMerchantInfo() end)
+	searchBox:SetScript("OnShow", function(self) self:SetText(SEARCH) searching = "" end)
+	searchBox:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+	searchBox:SetScript("OnEscapePressed", function(self) self:ClearFocus() self:SetText(SEARCH) searching = "" end)
 	searchBox:SetScript("OnEditFocusLost", function(self)
-		self:HighlightText(0, 0);
-		if ( strtrim(self:GetText()) == "" ) then
-			self:SetText(SEARCH);
-			searching = "";
+		self:HighlightText(0, 0)
+		if (strtrim(self:GetText()) == "") then
+			self:SetText(SEARCH)
+			searching = ""
 		end
 	end)
 	searchBox:SetScript("OnEditFocusGained", function(self)
-		self:HighlightText();
-		if ( self:GetText():trim():lower() == SEARCH:lower() ) then
-			self:SetText("");
+		self:HighlightText()
+		if (self:GetText():trim():lower() == SEARCH:lower()) then
+			self:SetText("")
 		end
 	end)
-	searchBox:SetText(SEARCH);
+	searchBox:SetText(SEARCH)
 	S:HandleEditBox(searchBox)
 end
 
