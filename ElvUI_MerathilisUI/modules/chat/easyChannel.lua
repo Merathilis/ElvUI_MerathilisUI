@@ -34,6 +34,10 @@ local cycles = {
 		chatType = "GUILD",
 		use = function(self, editbox) return IsInGuild() end,
 	},
+	{
+		chatType = "SAY",
+		use = function(self, editbox) return 1 end,
+	},
 }
 
 function MERC:ChatEdit_CustomTabPressed(self)
