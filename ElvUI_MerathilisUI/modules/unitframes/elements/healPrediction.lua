@@ -4,6 +4,7 @@ local UF = E.UnitFrames
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local pairs = pairs
 --WoW API / Variables
 local UnitHealthMax = UnitHealthMax
@@ -66,9 +67,9 @@ function MUF:HealPrediction()
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
 	for _, object in pairs(_G.ElvUF.objects) do
-        if object.HealthPrediction then
+		if object.HealthPrediction then
 			MUF:Configure_HealComm(object)
 		end
-    end
+	end
 end
 
