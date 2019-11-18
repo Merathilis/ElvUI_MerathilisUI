@@ -13,7 +13,6 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function MUF:Configure_HealComm(frame)
-	print(frame)
 	if frame.db and frame.db.healPrediction and frame.db.healPrediction.enable then
 		local healPrediction = frame.HealthPrediction
 
