@@ -119,6 +119,8 @@ local function LoadSkin()
 			end
 		end
 	end)
+
+	MER.NPC:Register(MerchantFrame)
 end
 
 S:AddCallback("mUIMerchant", LoadSkin)

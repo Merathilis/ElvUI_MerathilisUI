@@ -18,6 +18,8 @@ local function UndressButton()
 	Button:RegisterForClicks("AnyUp")
 	S:HandleButton(Button)
 
+	Button.model = _G.DressUpFrame.ModelScene
+
 	Button:SetScript("OnClick", function(self, button)
 		local actor = self.model:GetPlayerActor()
 		if not actor then return end
@@ -28,10 +30,10 @@ local function UndressButton()
 		end
 		PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK)
 	end)
-	Button.model = _G.DressUpFrame.ModelScene
 
 	Button:RegisterEvent("AUCTION_HOUSE_SHOW")
 	Button:RegisterEvent("AUCTION_HOUSE_CLOSED")
+
 	Button:SetScript("OnEvent", function(self)
 		if self.model ~= _G.DressUpFrame.ModelScene then
 			self:SetParent(_G.DressUpFrame.ModelScene)

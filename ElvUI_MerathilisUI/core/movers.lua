@@ -1,5 +1,4 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
 
 -- Cache global variables
 -- Lua functions
@@ -9,7 +8,7 @@ local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MI:UpdateMoverTransparancy()
+function MER:UpdateMoverTransparancy()
 	local mover
 	for name, _ in pairs(E.CreatedMovers) do
 		mover = _G[name]
@@ -19,7 +18,7 @@ function MI:UpdateMoverTransparancy()
 	end
 end
 
-function MI:LoadMoverTransparancy()
+function MER:LoadMoverTransparancy()
 	hooksecurefunc(E, "CreateMover", function(self, parent, name, text, overlay, snapOffset, postdrag, shouldDisable)
 		if not parent then return end --If for some reason the parent isnt loaded yet
 		if E.CreatedMovers[name].Created then return end

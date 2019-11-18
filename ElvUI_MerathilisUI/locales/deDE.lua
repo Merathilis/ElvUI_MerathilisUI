@@ -138,6 +138,7 @@ L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
+L["Fun Stuff"] = "Lustiges Zeugs"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

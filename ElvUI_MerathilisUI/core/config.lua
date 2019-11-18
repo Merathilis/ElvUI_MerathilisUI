@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 
-
 if E.db.mui == nil then E.db.mui = {} end
 
 -- Cache global variables
@@ -133,6 +132,16 @@ local function AddOptions()
 						type = "toggle",
 						name = L["Combat State"],
 						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
+					},
+					Movertransparancy = {
+						order = 20,
+						type = "range",
+						name = L["Mover Transparency"],
+						desc = L["Changes the transparency of all the movers."],
+						isPercent = true,
+						min = 0, max = 1, step = 0.01,
+						get = function(info) return E.db.mui.general.Movertransparancy end,
+						set = function(info, value) E.db.mui.general.Movertransparancy = value MER:UpdateMoverTransparancy() end,
 					},
 				},
 			},

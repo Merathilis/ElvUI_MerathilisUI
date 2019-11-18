@@ -23,7 +23,6 @@ local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
