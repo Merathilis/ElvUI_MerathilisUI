@@ -65,7 +65,7 @@ end
 function MGCD:Initialize()
 	if E.db.mui.unitframes.units.player.gcd.enable ~= true or E.private.unitframe.enable ~= true or E.db.unitframe.units.player.enable ~= true then return end;
 
-	self:LoadGCDBar(_G["ElvUF_Player"])
+	--self:LoadGCDBar(_G["ElvUF_Player"])
 end
 
 MER:RegisterModule(MGCD:GetName())

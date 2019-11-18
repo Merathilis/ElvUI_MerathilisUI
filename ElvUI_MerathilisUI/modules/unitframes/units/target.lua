@@ -13,12 +13,6 @@ local UnitReaction = UnitReaction
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MUF:Construct_TargetFrame()
-	local frame = _G["ElvUF_Target"]
-
-	self:ArrangeTarget()
-end
-
 function MUF:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
 	if E.db.mui.unitframes.infoPanel.style ~= true then return end
@@ -50,19 +44,9 @@ function MUF:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer("RecolorTargetInfoPanel", 0.02)
 end
 
-function MUF:ArrangeTarget()
-	local frame = _G["ElvUF_Target"]
-	local db = E.db["unitframe"]["units"].target
-
-	frame:UpdateAllElements("mUI_UpdateAllElements")
-end
-
-
 function MUF:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 
-	self:Construct_TargetFrame()
-	hooksecurefunc(UF, "Update_TargetFrame", MUF.ArrangeTarget)
 	self:RegisterEvent("PLAYER_TARGET_CHANGED")
 	hooksecurefunc(UF, "Update_TargetFrame", MUF.RecolorTargetInfoPanel)
 end

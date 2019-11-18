@@ -117,11 +117,16 @@ function module:PostUpdateAura(unit, button)
 			button.cc_name:SetText("")
 		end
 	end
+
+	UF:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
 	nameplate.Buffs_.SetPosition = module.SetPosition
 	nameplate.Debuffs_.SetPosition = module.SetPosition
+
+	nameplate.Buffs_.PostUpdateAura = module.PostUpdateAura
+	nameplate.Debuffs_.PostUpdateAura = module.PostUpdateAura
 end
 
 function module:Construct_AuraIcon(button)
@@ -175,7 +180,6 @@ function module:Initialize()
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
-	hooksecurefunc(UF, "PostUpdateAura", module.PostUpdateAura)
 end
 
 MER:RegisterModule(module:GetName())
