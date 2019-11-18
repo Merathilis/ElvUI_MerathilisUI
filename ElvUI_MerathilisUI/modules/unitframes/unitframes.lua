@@ -8,20 +8,6 @@ local UF = E:GetModule("UnitFrames")
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
-function module:UpdateUF()
-	if E.db.unitframe.units.player.enable then
-		module:ArrangePlayer()
-	end
-
-	if E.db.unitframe.units.target.enable then
-		module:ArrangeTarget()
-	end
-
-	if E.db.unitframe.units.party.enable then
-		UF:CreateAndUpdateHeaderGroup("party")
-	end
-end
-
 function module:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
 
