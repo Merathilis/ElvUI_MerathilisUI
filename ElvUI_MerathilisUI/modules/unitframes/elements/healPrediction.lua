@@ -12,7 +12,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function MUF:Configure_HealComm(frame)
-	if frame.db.healPrediction and frame.db.healPrediction.enable then
+	if frame.db and frame.db.healPrediction and frame.db.healPrediction.enable then
 		local healPrediction = frame.HealthPrediction
 
 		if frame.db.health then
@@ -65,5 +65,10 @@ function MUF:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
+	for _, object in pairs(_G.ElvUF.objects) do
+        if object.HealthPrediction then
+			MUF:Configure_HealComm(object)
+		end
+    end
 end
 
