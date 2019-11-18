@@ -20,7 +20,7 @@ local function LoadSkin()
 		_G[frames[i]]:Styling()
 	end
 
-	local HelpFrameHeader = _G.HelpFrameHeader
+	local HelpFrameHeader = _G.HelpFrame.Header
 	HelpFrameHeader.backdrop:SetTemplate("Transparent")
 	MERS:CreateGradient(HelpFrameHeader.backdrop)
 end
