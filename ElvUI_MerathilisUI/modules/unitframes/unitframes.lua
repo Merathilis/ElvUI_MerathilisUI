@@ -22,10 +22,6 @@ function module:Initialize()
 
 	self:InitTarget()
 
-	-- self:InitParty()
-	-- self:InitRaid()
-	-- self:InitRaid40()
-
 	-- Auras
 	self:LoadAuras()
 
