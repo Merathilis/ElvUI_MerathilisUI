@@ -62,14 +62,17 @@ function MUF:Configure_HealComm(frame)
 	end
 end
 
+function MUF:UpdatePredictionStatusBar(prediction, parent, name)
+	if not (prediction and parent) then return end
+	if name == "Health" then
+		self:Configure_HealComm(parent:GetParent())
+	end
+end
+
 function MUF:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
-	for _, object in pairs(_G.ElvUF.objects) do
-		if object.HealthPrediction then
-			MUF:Configure_HealComm(object)
-		end
-	end
+	hooksecurefunc(UF, "UpdatePredictionStatusBar", MUF.UpdatePredictionStatusBar)
 end
 
