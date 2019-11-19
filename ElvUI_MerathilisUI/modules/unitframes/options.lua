@@ -1,12 +1,10 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
-local UF = E:GetModule("UnitFrames")
 
 -- Cache global variables
 -- Lua functions
 local tinsert = table.insert
 -- WoW API / Variables
--- GLOBALS: LibStub
+-- GLOBALS:
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {

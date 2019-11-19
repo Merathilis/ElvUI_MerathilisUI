@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local module = MER:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 
 -- Cache global variables
@@ -13,7 +13,7 @@ local UnitReaction = UnitReaction
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MUF:RecolorTargetInfoPanel()
+function module:RecolorTargetInfoPanel()
 	local frame = _G["ElvUF_Target"]
 	if E.db.mui.unitframes.infoPanel.style ~= true then return end
 	if not frame.USE_INFO_PANEL then return end
@@ -40,13 +40,13 @@ function MUF:RecolorTargetInfoPanel()
 	end
 end
 
-function MUF:PLAYER_TARGET_CHANGED()
+function module:PLAYER_TARGET_CHANGED()
 	self:ScheduleTimer("RecolorTargetInfoPanel", 0.02)
 end
 
-function MUF:InitTarget()
+function module:InitTarget()
 	if not E.db.unitframe.units.target.enable then return end
 
 	self:RegisterEvent("PLAYER_TARGET_CHANGED")
-	hooksecurefunc(UF, "Update_TargetFrame", MUF.RecolorTargetInfoPanel)
+	hooksecurefunc(UF, "Update_TargetFrame", module.RecolorTargetInfoPanel)
 end

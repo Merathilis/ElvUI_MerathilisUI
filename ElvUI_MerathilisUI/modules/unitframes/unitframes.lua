@@ -5,7 +5,7 @@ local UF = E:GetModule("UnitFrames")
 --Cache global variables
 --Lua functions
 --WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:ADDON_LOADED(event, addon)
