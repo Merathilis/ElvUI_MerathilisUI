@@ -122,17 +122,11 @@ function module:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
-	local w = E.db.mui.nameplates.enhancedAuras.width or 26
-	local h = E.db.mui.nameplates.enhancedAuras.height or 18
-
-	nameplate.Buffs.size = { width = w, height = h}
-	nameplate.Debuffs.size = { width = w, height = h}
+	nameplate.Buffs.PostUpdateIcon = module.PostUpdateAura
+	nameplate.Debuffs.PostUpdateIcon = module.PostUpdateAura
 
 	nameplate.Buffs.SetPosition = module.SetPosition
 	nameplate.Debuffs.SetPosition = module.SetPosition
-
-	nameplate.Buffs.PostUpdateAura = module.PostUpdateAura
-	nameplate.Debuffs.PostUpdateAura = module.PostUpdateAura
 end
 
 function module:Construct_AuraIcon(button)
@@ -173,6 +167,7 @@ function module.SetPosition(element, _, to)
 		if (not button) then
 			break
 		end
+
 		eheight = max(eheight, element[i].size and (element[i].size.height) or 0)
 		button:ClearAllPoints()
 		button:SetPoint(anchor, element, anchor, GetAnchorPoint(i), 0)
