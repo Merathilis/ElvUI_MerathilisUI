@@ -262,9 +262,6 @@ MP.unitframes = {
 			},
 		},
 	},
-	textures = {
-		castbar = "MerathilisFlat",
-	},
 	units = {
 		player = {
 			gcd = {
