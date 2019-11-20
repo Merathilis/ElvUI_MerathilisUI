@@ -247,6 +247,13 @@ MP.unitframes = {
 	infoPanel = {
 		style = true,
 	},
+	units = {
+		player = {
+			swing = {
+				enable = true,
+			},
+		},
+	},
 }
 
 MP.maps = {

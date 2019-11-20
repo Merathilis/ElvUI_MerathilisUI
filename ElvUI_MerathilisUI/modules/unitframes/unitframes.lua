@@ -20,6 +20,7 @@ function module:Initialize()
 	local db = E.db.mui.unitframes
 	MER:RegisterDB(self, "unitframes")
 
+	self.InitPlayer()
 	self:InitTarget()
 
 	-- Auras

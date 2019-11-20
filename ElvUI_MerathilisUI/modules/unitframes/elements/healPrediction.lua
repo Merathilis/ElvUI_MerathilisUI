@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local module = MER:GetModule("muiUnits")
 local UF = E.UnitFrames
 
 --Cache global variables
@@ -13,7 +13,7 @@ local UnitIsConnected = UnitIsConnected
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MUF:Configure_HealComm(frame)
+function module:Configure_HealComm(frame)
 	if frame.db and frame.db.healPrediction and frame.db.healPrediction.enable then
 		local healPrediction = frame.HealthPrediction
 
@@ -74,7 +74,7 @@ function MUF:Configure_HealComm(frame)
 	end
 end
 
-function MUF:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb)
+function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb)
 	if not self.absorbBar.overlay or not UnitIsConnected(unit) then return end
 
 	local pred = self.frame and self.frame.db and self.frame.db.healPrediction
@@ -85,23 +85,23 @@ function MUF:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, hea
 	self.absorbBar.overlay:SetTexCoord(0, barSize / self.absorbBar.overlay.tileSize, 0, totalHeight / self.absorbBar.overlay.tileSize)
 end
 
-function MUF:UpdatePredictionStatusBar(prediction, parent, name)
+function module:UpdatePredictionStatusBar(prediction, parent, name)
 	if not (prediction and parent) then return end
 	if name == "Health" then
 		self:Configure_HealComm(parent:GetParent())
 	end
 end
 
-function MUF:HealPrediction()
+function module:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
-	hooksecurefunc(UF, "Configure_HealComm", MUF.Configure_HealComm)
-	hooksecurefunc(UF, "UpdatePredictionStatusBar", MUF.UpdatePredictionStatusBar)
+	hooksecurefunc(UF, "Configure_HealComm", module.Configure_HealComm)
+	hooksecurefunc(UF, "UpdatePredictionStatusBar", module.UpdatePredictionStatusBar)
 
 	for _, object in pairs(_G.ElvUF.objects) do
-        if object.HealthPrediction and object.HealthPrediction.PostUpdate then
-			hooksecurefunc(object.HealthPrediction, "PostUpdate", MUF.UpdateHealComm)
+		if object.HealthPrediction and object.HealthPrediction.PostUpdate then
+			hooksecurefunc(object.HealthPrediction, "PostUpdate", module.UpdateHealComm)
 		end
-    end
+	end
 end
 
