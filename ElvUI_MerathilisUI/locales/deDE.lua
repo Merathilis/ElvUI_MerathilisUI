@@ -304,9 +304,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
-L["Player Portrait"] = "Spieler Portrait"
-L["Target Portrait"] = "Ziel Portrait"
-L["InfoPanel Style"] = "InfoPanel Stil"
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
 L["Swing Bar"] = true

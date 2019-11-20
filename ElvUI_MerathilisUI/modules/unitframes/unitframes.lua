@@ -20,14 +20,11 @@ function module:Initialize()
 	local db = E.db.mui.unitframes
 	MER:RegisterDB(self, "unitframes")
 
+	-- Player
 	self.InitPlayer()
-	self:InitTarget()
 
 	-- Auras
 	self:LoadAuras()
-
-	-- Information Panel
-	self:InfoPanelColor()
 
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)

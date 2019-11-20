@@ -244,9 +244,6 @@ MP.microBar = {
 MP.unitframes = {
 	auras = true,
 	healPrediction = false,
-	infoPanel = {
-		style = true,
-	},
 	swing = {
 		enable = false,
 	},

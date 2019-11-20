@@ -302,9 +302,6 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = true
-L["Player Portrait"] = true
-L["Target Portrait"] = true
-L["InfoPanel Style"] = true
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true

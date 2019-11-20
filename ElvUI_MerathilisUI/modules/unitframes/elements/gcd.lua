@@ -13,6 +13,7 @@ function module:Construct_GCD(frame)
 
 	bar:SetSize(width, 3)
 	bar:SetPoint("BOTTOM", frame.Castbar.Holder, "TOP", 0, -1)
+
 	MER:CreateStatusBar(bar, true, .8, .8, .8)
 	bar:Hide()
 

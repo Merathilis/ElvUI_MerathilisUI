@@ -4,7 +4,6 @@ local oUF = ElvUF or oUF
 -- based on oUF_GCD by Exactly.
 
 --[[
-
 Spell IDs to check if they are available as GCD refs. The
 original oUF_GCD used spell names and did'nt play well
 with other locales. We use the spell id to lookup the
@@ -15,20 +14,20 @@ are learned at level 4). If you have a better suggestion(s),
 post a comment at:
 
 http://www.wowinterface.com/downloads/info14769-oUF_GCD-HungtarsoUFGlobalCooldownBar.html
-
 --]]
+
 local referenceSpells = {
-	49892,			-- Death Coil (Death Knight)
-	66215,			-- Blood Strike (Death Knight)
-	1978,			-- Serpent Sting (Hunter)
+	49998,			-- Death Strike (Death Knight)
+	193455,			-- Cobra Shoot (Hunter)
 	585,			-- Smite (Priest)
-	19740,			-- Blessing of Might (Paladin)
+	35395,			-- Crusader Strike (Paladin)
 	172,			-- Corruption (Warlock)
 	133,			-- Fireball (Mage)
-	772,			-- Rend (Warrior)
-	331,			-- Healing Wave (Shaman)
+	1464,			-- Slam (Warrior)
+	188196,			-- Lightning Bold (Shaman)
 	1752,			-- Sinister Strike (Rogue)
 	5176,			-- Wrath (Druid)
+	100780,			-- Tiger Palm (Monk)
 	162243,			-- Demon's Bite (Demon Hunter)
 }
 
@@ -66,7 +65,7 @@ local Init = function()
 
 	if spellid == nil then
 		-- XXX: print some error ..
-		print ("Foo!")
+		print("oUF_GCD: Missing Spell Data")
 	end
 
 	return spellid
