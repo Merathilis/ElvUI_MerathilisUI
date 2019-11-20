@@ -47,8 +47,16 @@ local function UnitFramesTable()
 						get = function(info) return E.db.mui.unitframes.swing.enable end,
 						set = function(info, value) E.db.mui.unitframes.swing.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
-					infoPanel = {
+					gcd = {
 						order = 4,
+						type = "toggle",
+						name = E.NewSign..L["GCD Bar"],
+						desc = L["Creates a Global Cooldown Bar"],
+						get = function(info) return E.db.mui.unitframes.gcd.enable end,
+						set = function(info, value) E.db.mui.unitframes.gcd.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					},
+					infoPanel = {
+						order = 5,
 						type = "toggle",
 						name = L["InfoPanel Style"],
 						get = function(info) return E.db.mui.unitframes.infoPanel.style end,

@@ -10,17 +10,28 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:Update_PlayerFrame(frame)
-	local db = E.db.mui.unitframes.swing
+	local db = E.db.mui.unitframes
 
 	if not frame.Swing then module:Construct_Swing(frame) end
+	if not frame.GCD then module:Construct_GCD(frame) end
 
-	if db.enable then
+	if db.swing.enable then
 		if not frame:IsElementEnabled('Swing') then
 			frame:EnableElement('Swing')
 		end
 	else
 		if frame:IsElementEnabled('Swing') then
 			frame:DisableElement('Swing')
+		end
+	end
+
+	if db.gcd.enable then
+		if not frame:IsElementEnabled('GCD') then
+			frame:EnableElement('GCD')
+		end
+	else
+		if frame:IsElementEnabled('GCD') then
+			frame:DisableElement('GCD')
 		end
 	end
 end

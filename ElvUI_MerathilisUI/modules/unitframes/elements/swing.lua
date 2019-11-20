@@ -9,7 +9,7 @@ local CreateFrame = CreateFrame
 
 function module:Construct_Swing(frame)
 	local bar = CreateFrame("StatusBar", nil, frame)
-	local width = E.db.unitframe.units.player.castbar.width
+	local width = E.db.unitframe.units.player.castbar.width - 2
 
 	bar:SetSize(width, 3)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 0)

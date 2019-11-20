@@ -250,6 +250,9 @@ MP.unitframes = {
 	swing = {
 		enable = false,
 	},
+	gcd = {
+		enable = false,
+	},
 }
 
 MP.maps = {

@@ -429,7 +429,7 @@ function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	return text
 end
 
-function MER:CreateTexture(self)
+function MER:CreateTex(self)
 	if self.Tex then return end
 
 	local frame = self
@@ -450,7 +450,7 @@ function MER:CreateStatusBar(self, spark, r, g, b)
 	if r and g and b then
 		self:SetStatusBarColor(r, g, b)
 	else
-		self:SetStatusBarColor(1, 1, 1)
+		self:SetStatusBarColor(MER.r, MER.g, MER.b)
 	end
 	self:CreateBackdrop("Transparent")
 	self.backdrop:Styling()
@@ -459,7 +459,7 @@ function MER:CreateStatusBar(self, spark, r, g, b)
 	self.BG:SetAllPoints()
 	self.BG:SetTexture(E.media.normTex)
 	self.BG:SetVertexColor(0, 0, 0, .5)
-	MER:CreateTexture(self.BG)
+	MER:CreateTex(self.BG)
 
 	if spark then
 		self.Spark = self:CreateTexture(nil, "OVERLAY")

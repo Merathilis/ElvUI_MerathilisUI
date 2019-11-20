@@ -311,6 +311,8 @@ L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
 L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = true
+L["GCD Bar"] = true
+L["Creates a Global Cooldown Bar"] = true
 
 -- LocationPanel
 L["Location Panel"] = true
