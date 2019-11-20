@@ -306,23 +306,11 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "单位框体"
 L["Player Portrait"] = "玩家肖像"
 L["Target Portrait"] = "目标肖像"
-L["Hide Text"] = "隐藏文本"
-L["Hide From Others"] = "隐藏其他"
-L["Threshold"] = "阈值"
-L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "持续时间文本将被隐藏,直到达到此阈值(以秒为单位).设置为-1以始终显示持续时间文本"
-L["Position of the duration text on the aura icon."] = "持续时间文本在光环图标上的位置."
-L["Position of the stack count on the aura icon."] = "光环上层数的位置."
+L["InfoPanel Style"] = "信息面板风格"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = true
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = true
-
--- Castbar
-L["Adjust castbar text Y Offset"] = "调整施法条文本在Y轴的偏移"
-L["Force show any text placed on the InfoPanel, while casting."] = "当正在施法时，强制显示信息面板上的文字."
-L["Castbar Text"] = "施法条文本"
-L["Show Castbar text"] = "显示施法条文本"
-L["Show InfoPanel text"] = "显示信息面板文本"
-L["InfoPanel Style"] = "信息面板风格"
-L["Show on Target"] = "目标上显示"
+L["Swing Bar"] = true
+L["Creates a weapon Swing Bar"] = true
 
 -- LocationPanel
 L["Location Panel"] = "位置面板"

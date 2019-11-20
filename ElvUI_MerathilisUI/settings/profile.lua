@@ -247,12 +247,8 @@ MP.unitframes = {
 	infoPanel = {
 		style = true,
 	},
-	units = {
-		player = {
-			swing = {
-				enable = true,
-			},
-		},
+	swing = {
+		enable = false,
 	},
 }
 

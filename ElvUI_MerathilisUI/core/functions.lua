@@ -452,7 +452,8 @@ function MER:CreateStatusBar(self, spark, r, g, b)
 	else
 		self:SetStatusBarColor(1, 1, 1)
 	end
-	--B.CreateSD(self, 3, 3)
+	self:CreateBackdrop("Transparent")
+	self.backdrop:Styling()
 
 	self.BG = self:CreateTexture(nil, "BACKGROUND")
 	self.BG:SetAllPoints()

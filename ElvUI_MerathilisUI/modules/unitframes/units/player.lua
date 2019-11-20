@@ -10,7 +10,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:Update_PlayerFrame(frame)
-	local db = E.db.mui.unitframes.units.player.swing
+	local db = E.db.mui.unitframes.swing
 
 	if not frame.Swing then module:Construct_Swing(frame) end
 

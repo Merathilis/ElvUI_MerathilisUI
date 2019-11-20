@@ -30,9 +30,20 @@ function module:Construct_Swing(frame)
 	off:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, -6)
 	MER:CreateStatusBar(off, true, .8, .8, .8)
 
-	bar.Text = MER:CreateText(bar, "OVERLAY", 12, "OUTLINE", "")
-	bar.TextMH = MER:CreateText(main, "OVERLAY", 12, "OUTLINE", "")
-	bar.TextOH = MER:CreateText(off, "OVERLAY", 12, "OUTLINE", "", false, "CENTER", 1, -3)
+	bar.Text = bar:CreateFontString(nil, "OVERLAY")
+	bar.Text:FontTemplate()
+	bar.Text:SetText("")
+	bar.Text:SetPoint("CENTER", bar, "CENTER")
+
+	bar.TextMH = bar:CreateFontString(nil, "OVERLAY")
+	bar.TextMH:FontTemplate()
+	bar.TextMH:SetText("")
+	bar.TextMH:SetPoint("CENTER", main, "CENTER")
+
+	bar.TextOH = bar:CreateFontString(nil, "OVERLAY")
+	bar.TextOH:FontTemplate()
+	bar.TextOH:SetText("")
+	bar.TextOH:SetPoint("CENTER", off, "CENTER", 1, -3)
 
 	frame.Swing = bar
 	frame.Swing.Twohand = two

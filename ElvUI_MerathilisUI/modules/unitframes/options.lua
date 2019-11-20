@@ -49,6 +49,14 @@ local function UnitFramesTable()
 						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
+					swing = {
+						order = 5,
+						type = "toggle",
+						name = E.NewSign..L["Swing Bar"],
+						desc = L["Creates a weapon Swing Bar"],
+						get = function(info) return E.db.mui.unitframes.swing.enable end,
+						set = function(info, value) E.db.mui.unitframes.swing.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					}
 				},
 			},
 			player = {

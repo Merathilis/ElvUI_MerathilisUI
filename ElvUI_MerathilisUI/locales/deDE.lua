@@ -306,23 +306,11 @@ L["MER_MEDIA_PVPARENA"] = {
 L["UnitFrames"] = "Einheitenfenster"
 L["Player Portrait"] = "Spieler Portrait"
 L["Target Portrait"] = "Ziel Portrait"
-L["Hide Text"] = "Verstecke Text"
-L["Hide From Others"] = "Verstecke von anderen"
-L["Threshold"] = "Schwellwert"
-L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
-L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
-L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
-L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
-
--- Castbar
-L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
-L["Castbar Text"] = "Zauberleisten Text"
-L["Force show any text placed on the InfoPanel, while casting."] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
-L["Show Castbar text"] = "Zeige Zauberleisten Text"
-L["Show InfoPanel text"] = "Zeige InfoPanel Text"
 L["InfoPanel Style"] = "InfoPanel Stil"
-L["Show on Target"] = "Zeige auf dem Ziel"
+L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
+L["Swing Bar"] = true
+L["Creates a weapon Swing Bar"] = "Erstellt eine Waffen Swing Bar"
 
 -- LocationPanel
 L["Location Panel"] = true
