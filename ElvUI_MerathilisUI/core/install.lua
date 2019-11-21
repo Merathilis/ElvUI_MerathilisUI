@@ -1886,7 +1886,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "INFOPANELBORDER"
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
-		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
@@ -1968,7 +1968,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["target"]["castbar"]["latency"] = true
-		E.db["unitframe"]["units"]["target"]["castbar"]["insideInfoPanel"] = true
+		E.db["unitframe"]["units"]["target"]["castbar"]["overlayOnFrame"] = "InfoPanel"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 0
