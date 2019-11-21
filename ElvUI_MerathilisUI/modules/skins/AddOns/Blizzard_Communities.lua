@@ -118,6 +118,8 @@ local function LoadSkin()
 	local GuildRecruitmentFrame = _G.CommunitiesGuildRecruitmentFrame
 	GuildRecruitmentFrame.backdrop:Styling()
 
+	CommunitiesFrame.RecruitmentDialog.backdrop:Styling()
+
 	-- Guild Log
 	local GuildLog = _G.CommunitiesGuildLogFrame
 	GuildLog:Styling()
