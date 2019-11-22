@@ -17,7 +17,7 @@ function module:Construct_GCD(frame)
 	MER:CreateStatusBar(bar, true, .8, .8, .8)
 	bar:Hide()
 
-	bar.Text = bar:CreateFontString(nil, "OVERLAY")
+	bar.Text = bar:CreateFontString(nil, "ARTWORK")
 	bar.Text:FontTemplate()
 	bar.Text:SetText("")
 	bar.Text:SetPoint("CENTER", bar, "CENTER")
