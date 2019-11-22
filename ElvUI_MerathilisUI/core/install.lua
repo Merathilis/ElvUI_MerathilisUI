@@ -1167,6 +1167,17 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["combat"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["casting"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["health"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["hover"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["playertarget"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["power"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["vehicle"] = true
+		E.db["unitframe"]["units"]["player"]["fader"]["minAlpha"] = 0.35
+		E.db["unitframe"]["units"]["player"]["fader"]["maxAlpha"] = 1
+		E.db["unitframe"]["units"]["player"]["fader"]["smooth"] = 0.33
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
