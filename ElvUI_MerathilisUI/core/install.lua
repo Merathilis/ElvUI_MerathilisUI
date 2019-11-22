@@ -779,7 +779,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
-	E.db["actionbar"]["globalFadeAlpha"] = 0.5
+	E.db["actionbar"]["globalFadeAlpha"] = 0.75
 	E.db["actionbar"]["hideCooldownBling"] = false
 
 	-- Cooldown options
@@ -1849,7 +1849,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,220"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,117"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,113"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,220"
 		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,237"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,220"
