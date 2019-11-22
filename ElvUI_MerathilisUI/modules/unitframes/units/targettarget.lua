@@ -10,10 +10,10 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:Update_TargetTargetFrame(frame)
-	local db = E.db.mui.unitframes
+	local db = E.db.unitframe
 
 	-- Only looks good on Transparent
-	if db.style and E.db.unitframe.colors.transparentHealth then
+	if db.colors.transparentHealth then
 		if frame and not frame.isStyled then
 			frame:Styling()
 			frame.isStyled = true
