@@ -76,6 +76,9 @@ local OnUpdateGCD = function(self)
 	if perc > 1 then
 		self:Hide()
 	else
+		if self.Text then
+			self.Text:SetFormattedText("%.1f", self.duration - GetTime() + self.starttime)
+		end
 		self:SetValue(perc)
 	end
 end
