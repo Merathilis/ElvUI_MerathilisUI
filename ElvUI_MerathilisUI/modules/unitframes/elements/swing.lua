@@ -13,6 +13,7 @@ function module:Construct_Swing(frame)
 
 	bar:SetSize(width, 3)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 0)
+	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 
 	local two = CreateFrame("StatusBar", nil, bar)
 	two:Hide()

@@ -13,14 +13,16 @@ function module:Construct_GCD(frame)
 
 	bar:SetSize(width, 3)
 	bar:SetPoint("BOTTOM", frame.Castbar.Holder, "TOP", 0, -1)
+	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 
 	MER:CreateStatusBar(bar, true, .8, .8, .8)
 	bar:Hide()
 
-	bar.Text = bar:CreateFontString(nil, "ARTWORK")
+	bar.Text = bar:CreateFontString(nil, "OVERLAY")
 	bar.Text:FontTemplate()
 	bar.Text:SetText("")
-	bar.Text:SetPoint("CENTER", bar, "CENTER")
+	bar.Text:SetPoint("CENTER", bar, "CENTER", 0, 2)
 
 	frame.GCD = bar
+	frame.Text = bar.Text
 end
