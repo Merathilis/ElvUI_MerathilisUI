@@ -14,17 +14,44 @@ function module:ADDON_LOADED(event, addon)
 	module:UnregisterEvent(event)
 end
 
+function module:StyleUnits()
+	local db = E.db.mui.unitframes
+
+	if db.style then
+		-- Player
+		self:InitPlayer()
+
+		-- Target
+		self:InitTarget()
+
+		-- TargetTarget
+		self:InitTargetTarget()
+
+		-- Focus
+		self:InitFocus()
+
+		-- FocusTarget
+		self:InitFocusTarget()
+
+		-- Party
+		self:InitParty()
+
+		-- Raid
+		self:InitRaid()
+
+		-- Raid40
+		self:InitRaid40()
+	end
+end
+
 function module:Initialize()
 	if E.private.unitframe.enable ~= true then return end
 
 	local db = E.db.mui.unitframes
 	MER:RegisterDB(self, "unitframes")
 
-	-- Player
-	self:InitPlayer()
-
-	-- Target
-	self:InitTarget()
+	-- Units
+	self:StyleUnits()
 
 	-- Auras
 	self:LoadAuras()

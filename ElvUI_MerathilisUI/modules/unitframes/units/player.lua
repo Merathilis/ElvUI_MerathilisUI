@@ -16,8 +16,11 @@ function module:Update_PlayerFrame(frame)
 	if not frame.GCD then module:Construct_GCD(frame) end
 
 	-- Only looks good on Transparent
-	if db.style and E.db.unitframe.colors.transparentHealth then
-		if frame then frame:Styling() end
+	if E.db.unitframe.colors.transparentHealth then
+		if frame and not frame.isStyled then
+			frame:Styling()
+			frame.isStyled = true
+		end
 	end
 
 	if db.swing.enable then

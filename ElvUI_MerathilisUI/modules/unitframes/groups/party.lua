@@ -9,7 +9,7 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function module:Update_TargetFrame(frame)
+function module:Update_PartyFrames(frame)
 	local db = E.db.unitframe
 
 	-- Only looks good on Transparent
@@ -21,8 +21,8 @@ function module:Update_TargetFrame(frame)
 	end
 end
 
-function module:InitTarget()
-	if not E.db.unitframe.units.target.enable then return end
+function module:InitParty()
+	if not E.db.unitframe.units.party.enable then return end
 
-	hooksecurefunc(UF, "Update_TargetFrame", module.Update_TargetFrame)
+	hooksecurefunc(UF, "Update_PartyFrames", module.Update_PartyFrames)
 end

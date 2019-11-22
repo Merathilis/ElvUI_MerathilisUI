@@ -9,7 +9,7 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function module:Update_TargetFrame(frame)
+function module:Update_Raid40Frames(frame)
 	local db = E.db.unitframe
 
 	-- Only looks good on Transparent
@@ -21,8 +21,8 @@ function module:Update_TargetFrame(frame)
 	end
 end
 
-function module:InitTarget()
-	if not E.db.unitframe.units.target.enable then return end
+function module:InitRaid40()
+	if not E.db.unitframe.units.raid40.enable then return end
 
-	hooksecurefunc(UF, "Update_TargetFrame", module.Update_TargetFrame)
+	hooksecurefunc(UF, "Update_Raid40Frames", module.Update_Raid40Frames)
 end

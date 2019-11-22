@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="unitframes.lua"/>
 	<Include file="units\load_units.xml"/>
+	<Include file="groups\load_groups.xml"/>
 	<Include file="elements\load_elements.xml"/>
 	<Script file="options.lua"/>
 </Ui>
