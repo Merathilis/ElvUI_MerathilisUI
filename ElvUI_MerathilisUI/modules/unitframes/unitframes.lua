@@ -21,7 +21,10 @@ function module:Initialize()
 	MER:RegisterDB(self, "unitframes")
 
 	-- Player
-	self.InitPlayer()
+	self:InitPlayer()
+
+	-- Target
+	self:InitTarget()
 
 	-- Auras
 	self:LoadAuras()

@@ -15,6 +15,11 @@ function module:Update_PlayerFrame(frame)
 	if not frame.Swing then module:Construct_Swing(frame) end
 	if not frame.GCD then module:Construct_GCD(frame) end
 
+	-- Only looks good on Transparent
+	if db.style and E.db.unitframe.colors.transparentHealth then
+		if frame then frame:Styling() end
+	end
+
 	if db.swing.enable then
 		if not frame:IsElementEnabled('Swing') then
 			frame:EnableElement('Swing')

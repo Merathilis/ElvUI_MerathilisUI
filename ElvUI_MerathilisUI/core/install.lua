@@ -779,8 +779,8 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["showGrid"] = false
 	E.db["actionbar"]["lockActionBars"] = true
 	E.db["actionbar"]["transparent"] = true
-	E.db["actionbar"]["globalFadeAlpha"] = 0
-	E.db["actionbar"]["hideCooldownBling"] = true
+	E.db["actionbar"]["globalFadeAlpha"] = 0.5
+	E.db["actionbar"]["hideCooldownBling"] = false
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
@@ -826,6 +826,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["buttons"] = 8
 	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
 	E.db["actionbar"]["bar1"]["backdrop"] = true
+	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar1"]["buttonspacing"] = 3
@@ -843,6 +844,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar2"]["heightMult"] = 2
 	E.db["actionbar"]["bar2"]["buttonsPerRow"] = 12
 	E.db["actionbar"]["bar2"]["backdrop"] = false
+	E.db["actionbar"]["bar2"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar2"]["buttonspacing"] = 3
@@ -860,7 +862,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar3"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar3"]["mouseover"] = false
 	E.db["actionbar"]["bar3"]["showGrid"] = true
-	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = false
+	E.db["actionbar"]["bar3"]["inheritGlobalFade"] = true
 
 	E.db["actionbar"]["bar4"]["enabled"] = true
 	E.db["actionbar"]["bar4"]["buttonspacing"] = 4
@@ -870,6 +872,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar4"]["backdropSpacing"] = 2
 	E.db["actionbar"]["bar4"]["showGrid"] = true
 	E.db["actionbar"]["bar4"]["buttonsPerRow"] = 1
+	E.db["actionbar"]["bar4"]["inheritGlobalFade"] = false
 
 	E.db["actionbar"]["bar5"]["enabled"] = true
 	E.db["actionbar"]["bar5"]["backdrop"] = true
@@ -881,7 +884,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar5"]["backdropSpacing"] = 1
 	E.db["actionbar"]["bar5"]["mouseover"] = false
 	E.db["actionbar"]["bar5"]["showGrid"] = true
-	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = false
+	E.db["actionbar"]["bar5"]["inheritGlobalFade"] = true
 
 	E.db["actionbar"]["bar6"]["enabled"] = true
 	E.db["actionbar"]["bar6"]["backdropSpacing"] = 3
@@ -893,6 +896,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar6"]["buttonsPerRow"] = 8
 	E.db["actionbar"]["bar6"]["heightMult"] = 1
 	E.db["actionbar"]["bar6"]["backdrop"] = true
+	E.db["actionbar"]["bar6"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["actionbar"]["bar6"]["buttonspacing"] = 3
@@ -901,18 +905,20 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["barPet"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["barPet"]["backdrop"] = false
+	E.db["actionbar"]["barPet"]["backdrop"] = true
 	E.db["actionbar"]["barPet"]["buttons"] = 9
 	E.db["actionbar"]["barPet"]["buttonspacing"] = 3
 	E.db["actionbar"]["barPet"]["buttonsPerRow"] = 9
 	E.db["actionbar"]["barPet"]["buttonsize"] = 24
 	E.db["actionbar"]["barPet"]["mouseover"] = false
+	E.db["actionbar"]["barPet"]["inheritGlobalFade"] = true
 
 	E.db["actionbar"]["stanceBar"]["point"] = "BOTTOMLEFT"
-	E.db["actionbar"]["stanceBar"]["backdrop"] = false
+	E.db["actionbar"]["stanceBar"]["backdrop"] = true
 	E.db["actionbar"]["stanceBar"]["buttonspacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
+	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
@@ -963,16 +969,18 @@ function MER:SetupUnitframes(layout)
 		["b"] = 0.1,
 	}
 	E.db["unitframe"]["colors"]["transparentAurabars"] = true
-	E.db["unitframe"]["colors"]["transparentPower"] = false
+	E.db["unitframe"]["colors"]["transparentPower"] = true
 	E.db["unitframe"]["colors"]["transparentCastbar"] = true
 	E.db["unitframe"]["colors"]["castClassColor"] = false
 	E.db["unitframe"]["colors"]["castReactionColor"] = false
 	E.db["unitframe"]["colors"]["powerclass"] = false
-	E.db["unitframe"]["colors"]["transparentHealth"] = false
+	E.db["unitframe"]["colors"]["transparentHealth"] = true
 	E.db["unitframe"]["colors"]["healthclass"] = true
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
+	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -985,7 +993,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisGradient"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Duffed"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
@@ -1128,7 +1136,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 24
 		E.db["unitframe"]["units"]["player"]["buffs"]["xOffset"] = 0
-		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 0
+		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
 		E.db["unitframe"]["units"]["player"]["buffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["anchorPoint"] = "TOPRIGHT"

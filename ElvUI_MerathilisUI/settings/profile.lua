@@ -250,6 +250,7 @@ MP.unitframes = {
 	gcd = {
 		enable = false,
 	},
+	style = true,
 }
 
 MP.maps = {
