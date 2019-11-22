@@ -21,7 +21,7 @@ function module:Construct_GCD(frame)
 	bar.Text = bar:CreateFontString(nil, "OVERLAY")
 	bar.Text:FontTemplate()
 	bar.Text:SetText("")
-	bar.Text:SetPoint("CENTER", bar, "CENTER", 0, 2)
+	bar.Text:SetPoint("CENTER", bar, "CENTER")
 
 	frame.GCD = bar
 	frame.Text = bar.Text
