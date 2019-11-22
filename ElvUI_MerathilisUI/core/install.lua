@@ -969,7 +969,7 @@ function MER:SetupUnitframes(layout)
 		["b"] = 0.1,
 	}
 	E.db["unitframe"]["colors"]["transparentAurabars"] = true
-	E.db["unitframe"]["colors"]["transparentPower"] = true
+	E.db["unitframe"]["colors"]["transparentPower"] = false
 	E.db["unitframe"]["colors"]["transparentCastbar"] = true
 	E.db["unitframe"]["colors"]["castClassColor"] = false
 	E.db["unitframe"]["colors"]["castReactionColor"] = false
