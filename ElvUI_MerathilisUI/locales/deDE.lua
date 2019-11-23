@@ -310,6 +310,8 @@ L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = "Erstellt eine Waffen Swing Leiste"
 L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
+L["UnitFrame Style"] = "Einheitenfenster Stil"
+L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt mein Style zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 
 -- LocationPanel
 L["Location Panel"] = true

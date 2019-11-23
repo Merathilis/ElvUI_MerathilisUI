@@ -312,6 +312,8 @@ L["Swing Bar"] = true
 L["Creates a weapon Swing Bar"] = true
 L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = true
+L["UnitFrame Style"] = true
+L["Adds my styling to the Unitframes if you use transparent health."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
