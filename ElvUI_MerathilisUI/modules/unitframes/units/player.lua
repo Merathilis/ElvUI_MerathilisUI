@@ -1,30 +1,51 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local module = MER:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
 -- WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+-- GLOBALS:
 
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
--- GLOBALS: hooksecurefunc
+function module:Update_PlayerFrame(frame)
+	local db = E.db.mui.unitframes
 
-function MUF:Construct_PlayerFrame()
-	local frame = _G["ElvUF_Player"]
+	if not frame.Swing then module:Construct_Swing(frame) end
+	if not frame.GCD then module:Construct_GCD(frame) end
 
-	self:ArrangePlayer()
+	-- Only looks good on Transparent
+	if E.db.unitframe.colors.transparentHealth then
+		if frame and not frame.isStyled then
+			frame:Styling()
+			frame.isStyled = true
+		end
+	end
+
+	if db.swing.enable then
+		if not frame:IsElementEnabled('Swing') then
+			frame:EnableElement('Swing')
+		end
+	else
+		if frame:IsElementEnabled('Swing') then
+			frame:DisableElement('Swing')
+		end
+	end
+
+	if db.gcd.enable then
+		if not frame:IsElementEnabled('GCD') then
+			frame:EnableElement('GCD')
+		end
+	else
+		if frame:IsElementEnabled('GCD') then
+			frame:DisableElement('GCD')
+		end
+	end
 end
 
-function MUF:ArrangePlayer()
-	local frame = _G["ElvUF_Player"]
-	local db = E.db["unitframe"]["units"].player
-
-	frame:UpdateAllElements("mUI_UpdateAllElements")
-end
-
-function MUF:InitPlayer()
+function module:InitPlayer()
 	if not E.db.unitframe.units.player.enable then return end
 
-	self:Construct_PlayerFrame()
+	hooksecurefunc(UF, "Update_PlayerFrame", module.Update_PlayerFrame)
 end

@@ -8,7 +8,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: MERData
 ## SavedVariablesPerCharacter: MERDataPerChar
-## OptionalDeps: SharedMedia, AddOnSkins, BigWigs, ls_Toasts
+## OptionalDeps: SharedMedia, BigWigs, ls_Toasts
 ## X-Credits: Benik, Blazeflack, Azilroka, Simpy, NihilisticPandemonium, Darth Predator, fgprodigal, siweia, Solor, Elv & all AddOn Authors who inspired me.
 ## X-ElvVersion: 11.25
 ## X-Curse-Packaged-Version: 4.36

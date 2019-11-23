@@ -244,34 +244,13 @@ MP.microBar = {
 MP.unitframes = {
 	auras = true,
 	healPrediction = false,
-	infoPanel = {
-		style = true,
+	swing = {
+		enable = false,
 	},
-	castbar = {
-		text = {
-			ShowInfoText = false,
-			castText = true,
-			forceTargetText = false,
-			player = {
-				yOffset = 0,
-				textColor = {r = 1, g = 1, b = 1, a = 1},
-			},
-			target = {
-				yOffset = 0,
-				textColor = {r = 1, g = 1, b = 1, a = 1},
-			},
-		},
+	gcd = {
+		enable = false,
 	},
-	textures = {
-		castbar = "MerathilisFlat",
-	},
-	units = {
-		player = {
-			gcd = {
-				enable = true,
-			},
-		},
-	},
+	style = true,
 }
 
 MP.maps = {

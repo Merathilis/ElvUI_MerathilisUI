@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local module = MER:GetModule("muiUnits")
 local UF = E.UnitFrames
 
 --Cache global variables
@@ -10,7 +10,7 @@ local pairs, unpack = pairs, unpack
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function MUF:PostUpdateDebuffs(unit, button)
+function module:PostUpdateDebuffs(unit, button)
 	if not button.pixelBorders then return end
 
 	button:GetParent().spacing = E:Scale(4)
@@ -39,12 +39,12 @@ function MUF:PostUpdateDebuffs(unit, button)
 	end
 end
 
-function MUF:LoadAuras()
+function module:LoadAuras()
 	if E.private.unitframe.enable ~= true or not E.db.mui.unitframes.auras then return end
 
 	for _, object in pairs(_G.ElvUF.objects) do
 		if object.Debuffs and object.Debuffs.PostUpdateIcon then
-			hooksecurefunc(object.Debuffs, "PostUpdateIcon", MUF.PostUpdateDebuffs)
+			hooksecurefunc(object.Debuffs, "PostUpdateIcon", module.PostUpdateDebuffs)
 		end
 	end
 end

@@ -117,11 +117,16 @@ function module:PostUpdateAura(unit, button)
 			button.cc_name:SetText("")
 		end
 	end
+
+	UF:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
-	nameplate.Buffs_.SetPosition = module.SetPosition
-	nameplate.Debuffs_.SetPosition = module.SetPosition
+	nameplate.Buffs.PostUpdateIcon = module.PostUpdateAura
+	nameplate.Debuffs.PostUpdateIcon = module.PostUpdateAura
+
+	nameplate.Buffs.SetPosition = module.SetPosition
+	nameplate.Debuffs.SetPosition = module.SetPosition
 end
 
 function module:Construct_AuraIcon(button)
@@ -152,7 +157,7 @@ function module.SetPosition(element, _, to)
 	local function GetAnchorPoint(index)
 		local a = 0
 		for i = index - 1, from, -1 do
-			a = a + spacingx + element[i].size.width
+			a = a + spacingx + (element[i].size and element[i].size.width or E.db.mui.nameplates.enhancedAuras.width)
 		end
 		return a * growthx
 	end
@@ -162,6 +167,7 @@ function module.SetPosition(element, _, to)
 		if (not button) then
 			break
 		end
+
 		eheight = max(eheight, element[i].size and (element[i].size.height) or 0)
 		button:ClearAllPoints()
 		button:SetPoint(anchor, element, anchor, GetAnchorPoint(i), 0)
@@ -175,7 +181,6 @@ function module:Initialize()
 
 	hooksecurefunc(NP, "Construct_Auras", module.Construct_Auras)
 	hooksecurefunc(NP, "Construct_AuraIcon", module.Construct_AuraIcon)
-	hooksecurefunc(UF, "PostUpdateAura", module.PostUpdateAura)
 end
 
 MER:RegisterModule(module:GetName())
