@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="boss.lua"/>
 	<Script file="party.lua"/>
 	<Script file="raid.lua"/>
 	<Script file="raid40.lua"/>

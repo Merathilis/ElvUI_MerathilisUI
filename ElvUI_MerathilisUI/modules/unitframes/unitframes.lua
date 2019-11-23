@@ -41,6 +41,9 @@ function module:StyleUnits()
 
 		-- Raid40
 		self:InitRaid40()
+
+		-- Boss
+		self:InitBoss()
 	end
 end
 
