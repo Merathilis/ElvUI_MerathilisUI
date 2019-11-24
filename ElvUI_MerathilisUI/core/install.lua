@@ -1023,9 +1023,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
+		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 36
 		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 15
+		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 35
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["player"]["debuffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
@@ -1114,7 +1114,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[group]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
-			["yOffset"] = -24,
+			["yOffset"] = -16,
 		}
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
@@ -1137,7 +1137,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 24
+		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["player"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
@@ -1200,11 +1200,11 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["g"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["b"] = 1
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
-		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
+		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 36
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
 		E.db["unitframe"]["units"]["target"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["target"]["debuffs"]["anchorPoint"] = "TOPRIGHT"
-		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 7
+		E.db["unitframe"]["units"]["target"]["debuffs"]["perrow"] = 6
 		E.db["unitframe"]["units"]["target"]["debuffs"]["attachTo"] = "BUFFS"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["priority"] = "Blacklist,Personal,RaidDebuffs,CCDebuffs,Friendly:Dispellable"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Merathilis Expressway"
@@ -1278,8 +1278,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
-		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
-		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
+		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 30
+		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 6
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
