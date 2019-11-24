@@ -69,7 +69,7 @@ function module:Configure_HealComm(frame)
 		end
 
 		if healPrediction.absorbBar then
-			healPrediction.absorbBar:SetStatusBarColor(0.66, 1, 1, 1)
+			healPrediction.absorbBar:SetStatusBarColor(0.66, 1, 1, .6)
 		end
 	end
 end

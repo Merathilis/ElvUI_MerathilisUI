@@ -180,8 +180,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "Duffed"
-	E.private["general"]["glossTex"] = "Duffed"
+	E.private["general"]["normTex"] = "Melli"
+	E.private["general"]["glossTex"] = "Melli"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -251,7 +251,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
+	E.db["general"]["altPowerBar"]["statusBar"] = "Melli"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
@@ -371,7 +371,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "Duffed"
+	E.db["nameplates"]["statusbar"] = "Melli"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -954,11 +954,11 @@ function MER:SetupUnitframes(layout)
 	--[[----------------------------------
 	--	UnitFrames - General
 	--]]----------------------------------
-	E.db["unitframe"]["font"] = "Merathilis Expressway"
+	E.db["unitframe"]["font"] = "Merathilis Gothom Narrow"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "Duffed"
+	E.db["unitframe"]["statusbar"] = "Melli"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
@@ -971,16 +971,18 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["transparentAurabars"] = true
 	E.db["unitframe"]["colors"]["transparentPower"] = false
 	E.db["unitframe"]["colors"]["transparentCastbar"] = true
+	E.db["unitframe"]["colors"]["transparentHealth"] = true
 	E.db["unitframe"]["colors"]["castClassColor"] = false
 	E.db["unitframe"]["colors"]["castReactionColor"] = false
-	E.db["unitframe"]["colors"]["powerclass"] = false
-	E.db["unitframe"]["colors"]["transparentHealth"] = true
-	E.db["unitframe"]["colors"]["healthclass"] = true
+	E.db["unitframe"]["colors"]["powerclass"] = true
+	E.db["unitframe"]["colors"]["healthclass"] = false
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
+	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
 	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+	E.db["unitframe"]["colors"]["classbackdrop"] = true
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -993,7 +995,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Duffed"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Melli"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
@@ -1013,7 +1015,7 @@ function MER:SetupUnitframes(layout)
 	if layout == "dps" then
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200
-		E.db["unitframe"]["units"]["player"]["height"] = 32
+		E.db["unitframe"]["units"]["player"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
@@ -1042,32 +1044,32 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 285
-		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
+		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["hidetext"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "None"
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["r"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["g"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["b"] = 1
+		E.db["unitframe"]["units"]["player"]["castbar"]["showIcon"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconSize"] = 28
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconPosition"] = "LEFT"
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconXOffset"] = -2
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconYOffset"] = 5
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttached"] = false
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
+
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 
 		-- Create own customText
-		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-			["font"] = "Merathilis Expressway",
-			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
-			["justifyH"] = "LEFT",
-			["text_format"] = "[name:medium]",
-			["attachTextTo"] = "Frame",
-			["xOffset"] = -1,
-			["yOffset"] = 22,
-		}
+		if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
+
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 14,
+			["size"] = 11,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Frame",
@@ -1075,9 +1077,9 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 14,
+			["size"] = 11,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Frame",
@@ -1085,19 +1087,19 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
+			["size"] = 10,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[mUI-resting]",
+			["text_format"] = "|cff70C0F5[mUI-resting]|r",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 16,
+			["size"] = 12,
 			["justifyH"] = "CENTER",
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Power",
@@ -1105,9 +1107,9 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
+			["size"] = 11,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[group]",
 			["attachTextTo"] = "Frame",
@@ -1120,9 +1122,10 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["health"]["bgUseBarTexture"] = true
+		E.db["unitframe"]["units"]["player"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 285
@@ -1181,7 +1184,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
-		E.db["unitframe"]["units"]["target"]["height"] = 32
+		E.db["unitframe"]["units"]["target"]["height"] = 20
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = "ICONTOPLEFT"
 		E.db["unitframe"]["units"]["target"]["disableMouseoverGlow"] = false
@@ -1220,48 +1223,46 @@ function MER:SetupUnitframes(layout)
 		if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["target"]["customTexts"] = {}
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = nil end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] = nil end
 
 		-- Create own customText
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 2,
-			["yOffset"] = 22,
-			["size"] = 12,
+			["yOffset"] = 16,
+			["size"] = 11,
 			["text_format"] = "[classification:icon][name:abbrev-translit]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 14,
+			["font"] = "Merathilis Gothom Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = 0,
+			["yOffset"] = -1,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 14,
+			["font"] = "Merathilis Gothom Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = 0,
+			["yOffset"] = -1,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 12,
+			["font"] = "Merathilis Gothom Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = -24,
+			["yOffset"] = -19,
 			["xOffset"] = 3,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
@@ -1270,6 +1271,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["health"]["bgUseBarTexture"] = true
+		E.db["unitframe"]["units"]["target"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
@@ -1313,7 +1315,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 		E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:short]"
-		E.db["unitframe"]["units"]["targettarget"]["height"] = 32
+		E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 		E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["enable"] = true
@@ -1430,7 +1432,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1440,8 +1442,8 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[statustimer]",
 		}
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 10,
+			["font"] = "Merathilis Gothom Narrow",
+			["size"] = 9,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
 			["yOffset"] = 0,
@@ -1528,7 +1530,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[statustimer]",
 			["yOffset"] = -12,
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1539,11 +1541,11 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[name:medium:translit]",
 			["yOffset"] = 0,
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
-			["size"] = 10,
+			["size"] = 9,
 		}
 		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid40"]["customTexts"]["Elv"] = {
@@ -1596,7 +1598,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 34
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
@@ -1681,8 +1683,8 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 12,
+			["font"] = "Merathilis Gothom Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
 			["yOffset"] = 0,
@@ -1691,7 +1693,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[name:medium:translit]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gothom Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1860,9 +1862,9 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,220"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,113"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,122"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,220"
-		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,237"
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,241"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,220"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,201"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-539,220"

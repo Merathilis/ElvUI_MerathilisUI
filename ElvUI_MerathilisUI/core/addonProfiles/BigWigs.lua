@@ -66,7 +66,7 @@ function MER:LoadBigWigsProfileDPS()
 							["emphasizeScale"] = 1.1,
 							["barStyle"] = "MerathilisUI",
 							["emphasizeGrowup"] = true,
-							["texture"] = "Duffed",
+							["texture"] = "Melli",
 						},
 					},
 				},
