@@ -1170,6 +1170,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["combat"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["casting"] = true
@@ -1325,6 +1326,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 		if not E.db["unitframe"]["units"]["targettarget"]["customTexts"] then E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
@@ -1357,6 +1359,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
 
 		-- FocusTarget
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = false
@@ -1481,6 +1484,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid"]["cutaway"]["health"]["enabled"] = true
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1591,6 +1595,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid40"]["cutaway"]["health"]["enabled"] = true
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["enable"] = true
@@ -1678,6 +1683,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
