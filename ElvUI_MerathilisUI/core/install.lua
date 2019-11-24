@@ -1091,7 +1091,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 10,
 			["justifyH"] = "CENTER",
-			["text_format"] = "|cff70C0F5[mUI-resting]|r",
+			["text_format"] = "||cff70C0F5[mUI-resting]||r",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
