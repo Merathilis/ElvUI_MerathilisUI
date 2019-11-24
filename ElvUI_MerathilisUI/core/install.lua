@@ -268,7 +268,7 @@ function MER:SetupLayout(layout)
 	--	ProfileDB - Auras
 	--]]----------------------------------
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
+	E.db["auras"]["font"] = "Merathilis Gotham Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["timeYOffset"] = 34
 	E.db["auras"]["timeXOffset"] = 0
@@ -954,7 +954,7 @@ function MER:SetupUnitframes(layout)
 	--[[----------------------------------
 	--	UnitFrames - General
 	--]]----------------------------------
-	E.db["unitframe"]["font"] = "Merathilis Gothom Narrow"
+	E.db["unitframe"]["font"] = "Merathilis Gotham Narrow"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
@@ -1007,7 +1007,8 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
 	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
 	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
-	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Expressway"
+	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Gotham Narrow"
+	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 16
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
@@ -1067,7 +1068,7 @@ function MER:SetupUnitframes(layout)
 		if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
 
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 11,
 			["justifyH"] = "LEFT",
@@ -1077,7 +1078,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 11,
 			["justifyH"] = "RIGHT",
@@ -1087,7 +1088,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 10,
 			["justifyH"] = "CENTER",
@@ -1097,7 +1098,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
@@ -1107,7 +1108,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
 			["size"] = 11,
 			["justifyH"] = "LEFT",
@@ -1226,7 +1227,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Create own customText
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 2,
@@ -1236,7 +1237,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
@@ -1246,7 +1247,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
@@ -1256,7 +1257,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
@@ -1432,7 +1433,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1442,7 +1443,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[statustimer]",
 		}
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["size"] = 9,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
@@ -1530,7 +1531,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[statustimer]",
 			["yOffset"] = -12,
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1541,7 +1542,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[name:medium:translit]",
 			["yOffset"] = 0,
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1683,7 +1684,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
@@ -1693,7 +1694,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[name:medium:translit]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Gothom Narrow",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
