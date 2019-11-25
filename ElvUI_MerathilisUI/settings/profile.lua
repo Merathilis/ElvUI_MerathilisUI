@@ -148,6 +148,7 @@ MP.actionbars = {
 			slotNum = 5,
 			slotPerRow = 5,
 			slotSize = 40,
+			inheritGlobalFade = false,
 		},
 		questAutoButtons = {
 			enable = true,
@@ -158,6 +159,7 @@ MP.actionbars = {
 			questNum = 5,
 			questPerRow = 5,
 			questSize = 40,
+			inheritGlobalFade = false,
 		},
 		usableAutoButtons = {
 			enable = true,
@@ -168,6 +170,7 @@ MP.actionbars = {
 			usableNum = 5,
 			usablePerRow = 5,
 			usableSize = 40,
+			inheritGlobalFade = false,
 		},
 		whiteList = {
 			[5512] = true, -- Healthstone
