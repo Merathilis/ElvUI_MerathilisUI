@@ -70,7 +70,7 @@ end
 function CH:ChatFrame_SystemEventHandler(chat, event, message, ...)
 	if event == "GUILD_MOTD" then
 		if message and message ~= "" then
-			local info = ChatTypeInfo["GUILD"];
+			local info = ChatTypeInfo["GUILD"]
 			local GUILD_MOTD = "GMOTD"
 			chat:AddMessage(format('|cff00c0fa%s|r: %s', GUILD_MOTD, message), info.r, info.g, info.b, info.id)
 		end
