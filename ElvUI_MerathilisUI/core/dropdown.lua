@@ -179,7 +179,7 @@ function DD:GetCooldown(CDtype, id)
 	if start > 0 then
 		cd = duration - (GetTime() - start)
 		cd, formatID = E:GetTimeInfo(cd, 0)
-		cd = format(E.TimeFormats[formatID][1], cd)
+		cd = format(E.TimeFormats[formatID][3], cd)
 		return cd
 	end
 	return nil
