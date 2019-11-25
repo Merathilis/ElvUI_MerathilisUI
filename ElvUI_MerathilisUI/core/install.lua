@@ -298,6 +298,15 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
 	E.db["auras"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
 	E.db["auras"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["auras"]["cooldown"]["secondsColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["secondsColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["secondsColor"]["b"] = 1
+	E.db["auras"]["cooldown"]["minutesColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["minutesColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
 	if E.db.mui.general.panels then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
