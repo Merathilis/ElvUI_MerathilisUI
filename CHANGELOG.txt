@@ -1,4 +1,4 @@
-[b][color=orange]v4.37[/color], 26.11.2019[/b][list]
+[b][color=orange]v4.37[/color], 26.11.2019[/b][list] 
 [*]DPS LAYOUT UPDATE: If you want it, do the install process again!!
 [*]Added some animated stuff to gossip/quest frames.
 [*]Updated Heal Prediction.
