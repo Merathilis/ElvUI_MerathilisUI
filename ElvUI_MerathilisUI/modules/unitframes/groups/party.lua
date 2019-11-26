@@ -1,23 +1,28 @@
-﻿local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule("muiUnits")
 local UF = E:GetModule("UnitFrames")
 
---Cache global variables
---Lua functions
---WoW API / Variables
+-- Cache global variables
+-- Lua functions
+local _G = _G
+-- WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+-- GLOBALS:
 
-function MUF:Update_PartyFrames(frame, db)
-	frame.db = db
+function module:Update_PartyFrames(frame)
+	local db = E.db.unitframe
 
-	do
-
+	-- Only looks good on Transparent
+	if db.colors.transparentHealth then
+		if frame and not frame.isStyled then
+			frame:Styling()
+			frame.isStyled = true
+		end
 	end
-
-	frame:UpdateAllElements("mUI_UpdateAllElements")
 end
 
-function MUF:InitParty()
+function module:InitParty()
 	if not E.db.unitframe.units.party.enable then return end
-	-- hooksecurefunc(UF, "Update_PartyFrames", MUF.Update_PartyFrames)
-end
 
+	hooksecurefunc(UF, "Update_PartyFrames", module.Update_PartyFrames)
+end

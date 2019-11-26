@@ -14,7 +14,6 @@
 	<Script file="itemLevel.lua"/>
 	<Script file="lfgInfo.lua"/>
 	<Script file="mailinputbox.lua"/>
-	<Script file="movers.lua"/>
 	<Script file="nameHover.lua"/>
 	<Script file="reputation.lua"/>
 	<Script file="quest.lua"/>

@@ -1,16 +1,12 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
+local module = MER:GetModule("muiUnits")
 local UF = E.UnitFrames
 
 --Cache global variables
-local _G = _G
-local pairs, select = pairs, select
 --WoW API / Variables
-
---Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS:
 
-function MUF:Configure_RaidIcon(frame)
+function module:Configure_RaidIcon(frame)
 	local RI = frame.RaidTargetIndicator
 	local db = frame.db
 

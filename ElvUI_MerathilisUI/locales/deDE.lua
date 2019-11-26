@@ -138,6 +138,7 @@ L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
+L["Fun Stuff"] = "Lustiges Zeugs"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -303,25 +304,14 @@ L["MER_MEDIA_PVPARENA"] = {
 
 -- Unitframes
 L["UnitFrames"] = "Einheitenfenster"
-L["Player Portrait"] = "Spieler Portrait"
-L["Target Portrait"] = "Ziel Portrait"
-L["Hide Text"] = "Verstecke Text"
-L["Hide From Others"] = "Verstecke von anderen"
-L["Threshold"] = "Schwellwert"
-L["Duration text will be hidden until it reaches this threshold (in seconds). Set to -1 to always show duration text."] = "Dauertext wird versteckt bis es den Schwellwert erreicht (in Sekunden). Auf -1 setzen um immer den Dauertext anzugzeigen."
-L["Position of the duration text on the aura icon."] = "Positon des Dauertext auf dem Aurensymbol."
-L["Position of the stack count on the aura icon."] = "Position des Stappel auf dem Aurensymbol."
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "Fügt einen Schatten zu den Schwächungszaubern hinzu, so dass die Debufffarbe besser sichtbar ist."
-
--- Castbar
-L["Adjust castbar text Y Offset"] = "Passe Zauberleisten Text Y-Versatz an"
-L["Castbar Text"] = "Zauberleisten Text"
-L["Force show any text placed on the InfoPanel, while casting."] = "Zwinge die Anzeige des Textes auf dem InfoPanel, während des zauberns."
-L["Show Castbar text"] = "Zeige Zauberleisten Text"
-L["Show InfoPanel text"] = "Zeige InfoPanel Text"
-L["InfoPanel Style"] = "InfoPanel Stil"
-L["Show on Target"] = "Zeige auf dem Ziel"
 L["Changes the Heal Prediction texture to the default Blizzard ones."] = "Ändert die 'Eingehende Heilung' Textur zu standard Blizzard"
+L["Swing Bar"] = true
+L["Creates a weapon Swing Bar"] = "Erstellt eine Waffen Swing Leiste"
+L["GCD Bar"] = true
+L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
+L["UnitFrame Style"] = "Einheitenfenster Stil"
+L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt mein Style zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
 
 -- LocationPanel
 L["Location Panel"] = true

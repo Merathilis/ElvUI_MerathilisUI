@@ -5,27 +5,47 @@ local UF = E:GetModule("UnitFrames")
 --Cache global variables
 --Lua functions
 --WoW API / Variables
-local IsAddOnLoaded = IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
-
-function module:UpdateUF()
-	if E.db.unitframe.units.player.enable then
-		module:ArrangePlayer()
-	end
-
-	if E.db.unitframe.units.target.enable then
-		module:ArrangeTarget()
-	end
-
-	if E.db.unitframe.units.party.enable then
-		UF:CreateAndUpdateHeaderGroup("party")
-	end
-end
 
 function module:ADDON_LOADED(event, addon)
 	if addon ~= "ElvUI_Config" then return end
 
 	module:UnregisterEvent(event)
+end
+
+function module:StyleUFs()
+	local db = E.db.mui.unitframes
+
+	if db.style then
+		-- Player
+		self:InitPlayer()
+		self:InitPower()
+
+		-- Target
+		self:InitTarget()
+
+		-- TargetTarget
+		self:InitTargetTarget()
+
+		-- Focus
+		self:InitFocus()
+
+		-- FocusTarget
+		self:InitFocusTarget()
+
+		-- Party
+		self:InitParty()
+
+		-- Raid
+		self:InitRaid()
+
+		-- Raid40
+		self:InitRaid40()
+
+		-- Boss
+		self:InitBoss()
+	end
 end
 
 function module:Initialize()
@@ -34,19 +54,11 @@ function module:Initialize()
 	local db = E.db.mui.unitframes
 	MER:RegisterDB(self, "unitframes")
 
-	self:InitPlayer()
-	self:InitTarget()
-	self:InitPet()
-
-	-- self:InitParty()
-	-- self:InitRaid()
-	-- self:InitRaid40()
+	-- Units
+	self:StyleUFs()
 
 	-- Auras
 	self:LoadAuras()
-
-	-- Information Panel
-	self:InfoPanelColor()
 
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)

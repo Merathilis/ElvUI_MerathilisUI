@@ -16,14 +16,18 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Changed some settings via install, which is now needed with the upcoming ElvUI update",
-		"• Removed DBM skin. You can still get my style via AddOnSkins",
-		"• Disable my Heal Prediction by default. Must figure out, why it dont work for some people",
+		"• DPS LAYOUT UPDATE: If you want it, do the install process again!!",
+		"• Added some animated stuff to gossip/quest frames",
+		"• Updated Heal Prediction",
+		"• Updated GCD Bar (disabled by default)",
+		"• Added a Swing Bar (disabled by default)",
+		"• AutoButtons can now use the Global Fade Transparency",
+		"• Options cleanup",
 
 		-- "• ''",
 	" ",
 	"Notes:",
-		"• As always, if you want my latest layout, do the install progress again",
+		"• As always, if you want my latest layout, do the install procress again",
 		-- "• ''",
 }
 

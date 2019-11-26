@@ -10,6 +10,7 @@ local gsub = gsub
 local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local GetAddOnEnableState = GetAddOnEnableState
 local GetNumQuestWatches = GetNumQuestWatches
 local GetMinimapZoneText = GetMinimapZoneText
 local GetItemCount = GetItemCount
@@ -33,6 +34,9 @@ local GetBindingKey = GetBindingKey
 local UIParent = UIParent
 local CooldownFrame_Set = CooldownFrame_Set
 -- GLOBALS:
+
+local MasqueGroup = MER.MSQ and MER.MSQ:Group("ElvUI_MerathilisUI", "AutoButton")
+local useMasque = GetAddOnEnableState(E.myname, "Masque") == 2
 
 local QuestItemList = {}
 local garrisonsmv = {118897, 118903}
@@ -162,6 +166,11 @@ local function AutoButtonShow(AutoButton)
 
 	AutoButton:SetAlpha(1)
 	AutoButton:SetScript("OnEnter", function(self)
+		if self:GetParent() == E.ActionBars.fadeParent then
+			if(not E.ActionBars.fadeParent.mouseLock) then
+				E:UIFrameFadeIn(E.ActionBars.fadeParent, 0.2, E.ActionBars.fadeParent:GetAlpha(), 1)
+			end
+		end
 		if InCombatLockdown() then return end
 		_G.GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		_G.GameTooltip:ClearLines()
@@ -173,6 +182,11 @@ local function AutoButtonShow(AutoButton)
 		_G.GameTooltip:Show()
 	end)
 	AutoButton:SetScript("OnLeave", function(self)
+		if self:GetParent() == E.ActionBars.fadeParent then
+			if(not E.ActionBars.fadeParent.mouseLock) then
+				E:UIFrameFadeOut(E.ActionBars.fadeParent, 0.2, E.ActionBars.fadeParent:GetAlpha(), 1 - E.ActionBars.db.globalFadeAlpha)
+			end
+		end
 		_G.GameTooltip:Hide()
 	end)
 
@@ -215,7 +229,9 @@ local function CreateButton(name, size)
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
 	AutoButton:Size(size)
 	AutoButton:StyleButton()
-	AutoButton:SetTemplate()
+	if not useMasque then
+		AutoButton:SetTemplate()
+	end
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")
 	AutoButton:SetAlpha(0)
@@ -248,6 +264,30 @@ local function CreateButton(name, size)
 	AutoButton.Cooldown.CooldownOverride = 'actionbar'
 	E:RegisterCooldown(AutoButton.Cooldown)
 	E.FrameLocks[name] = true
+
+	-- Needed for Masque
+	local AutoButtonData = {
+		FloatingBG = nil,
+		Icon = AutoButton.Texture,
+		Cooldown = AutoButton.Cooldown,
+		Flash = nil,
+		Pushed = nil,
+		Normal = nil,
+		Disabled = nil,
+		Checked = nil,
+		Border = nil,
+		AutoCastable = nil,
+		Highlight = nil,
+		HotKey = AutoButton.HotKey,
+		Count = false,
+		Name = nil,
+		Duration = false,
+		AutoCast = nil,
+	}
+
+	if MER.MSQ then
+		MasqueGroup:AddButton(AutoButton, AutoButtonData)
+	end
 
 	return AutoButton
 end
@@ -623,6 +663,12 @@ function module:UpdateAutoButton()
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.questAutoButtons["questSpace"]), 0)
 				end
 			end
+
+			if module.db.questAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
+			end
 		end
 	end
 
@@ -649,6 +695,12 @@ function module:UpdateAutoButton()
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.soltAutoButtons["slotSpace"]), 0)
 				end
 			end
+
+			if module.db.soltAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
+			end
 		end
 	end
 
@@ -674,6 +726,12 @@ function module:UpdateAutoButton()
 				elseif module.db.usableAutoButtons["usableDirection"] == "LEFT" then
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.usableAutoButtons["usableSpace"]), 0)
 				end
+			end
+
+			if module.db.usableAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
 			end
 		end
 	end

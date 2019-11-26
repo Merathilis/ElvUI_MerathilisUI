@@ -285,6 +285,12 @@ local function ActionBarTable()
 										min = 10, max = 100, step = 1,
 										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
 									},
+									inheritGlobalFade = {
+										order = 9,
+										type = 'toggle',
+										name = L["Inherit Global Fade"],
+										desc = L["Inherit the global fade, mousing over, targetting, setting focus, losing health, entering combat will set the remove transparency. Otherwise it will use the transparency level in the general actionbar settings for global fade alpha."],
+									},
 								}
 							},
 							questAutoButtons = {
@@ -386,6 +392,12 @@ local function ActionBarTable()
 											return not E.db.mui.actionbars.autoButtons.questAutoButtons.enable
 										end,
 									},
+									inheritGlobalFade = {
+										order = 9,
+										type = 'toggle',
+										name = L["Inherit Global Fade"],
+										desc = L["Inherit the global fade, mousing over, targetting, setting focus, losing health, entering combat will set the remove transparency. Otherwise it will use the transparency level in the general actionbar settings for global fade alpha."],
+									},
 								},
 							},
 							usableAutoButtons = {
@@ -486,6 +498,12 @@ local function ActionBarTable()
 										hidden = function()
 											return not E.db.mui.actionbars.autoButtons.usableAutoButtons.enable
 										end,
+									},
+									inheritGlobalFade = {
+										order = 9,
+										type = 'toggle',
+										name = L["Inherit Global Fade"],
+										desc = L["Inherit the global fade, mousing over, targetting, setting focus, losing health, entering combat will set the remove transparency. Otherwise it will use the transparency level in the general actionbar settings for global fade alpha."],
 									},
 								},
 							},

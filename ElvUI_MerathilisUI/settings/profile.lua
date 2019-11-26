@@ -72,6 +72,7 @@ MP.misc = {
 		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
 	},
 	skipAzerite = true,
+	funstuff = true,
 }
 
 MP.nameHover = {
@@ -147,6 +148,7 @@ MP.actionbars = {
 			slotNum = 5,
 			slotPerRow = 5,
 			slotSize = 40,
+			inheritGlobalFade = false,
 		},
 		questAutoButtons = {
 			enable = true,
@@ -157,6 +159,7 @@ MP.actionbars = {
 			questNum = 5,
 			questPerRow = 5,
 			questSize = 40,
+			inheritGlobalFade = false,
 		},
 		usableAutoButtons = {
 			enable = true,
@@ -167,6 +170,7 @@ MP.actionbars = {
 			usableNum = 5,
 			usablePerRow = 5,
 			usableSize = 40,
+			inheritGlobalFade = false,
 		},
 		whiteList = {
 			[5512] = true, -- Healthstone
@@ -243,34 +247,13 @@ MP.microBar = {
 MP.unitframes = {
 	auras = true,
 	healPrediction = false,
-	infoPanel = {
-		style = true,
+	swing = {
+		enable = false,
 	},
-	castbar = {
-		text = {
-			ShowInfoText = false,
-			castText = true,
-			forceTargetText = false,
-			player = {
-				yOffset = 0,
-				textColor = {r = 1, g = 1, b = 1, a = 1},
-			},
-			target = {
-				yOffset = 0,
-				textColor = {r = 1, g = 1, b = 1, a = 1},
-			},
-		},
+	gcd = {
+		enable = false,
 	},
-	textures = {
-		castbar = "MerathilisFlat",
-	},
-	units = {
-		player = {
-			gcd = {
-				enable = true,
-			},
-		},
-	},
+	style = true,
 }
 
 MP.maps = {

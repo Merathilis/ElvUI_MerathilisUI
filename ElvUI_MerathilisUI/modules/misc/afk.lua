@@ -5,12 +5,15 @@ local AFK = E:GetModule("AFK")
 
 -- Cache global variables
 -- Lua Variables
-local tonumber = tonumber
+local tonumber, unpack = tonumber, unpack
 local format = string.format
+local floor = math.floor
 local date = date
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
 local GetGameTime = GetGameTime
+local GetTime = GetTime
 local GetScreenWidth, GetScreenHeight = GetScreenWidth, GetScreenHeight
 local GetGuildInfo = GetGuildInfo
 local IsAddOnLoaded = IsAddOnLoaded
@@ -27,7 +30,7 @@ local function Player_Model(self)
 end
 
 -- Create Time
-local function createTime()
+local function CreateTime()
 	local hour, hour24, minute, ampm = tonumber(date("%I")), tonumber(date("%H")), tonumber(date("%M")), date("%p"):lower()
 	local sHour, sMinute = GetGameTime()
 
@@ -89,7 +92,7 @@ hooksecurefunc(AFK, "SetAFK", SetAFK)
 
 local function UpdateTimer()
 	if E.db.mui.general.AFK ~= true then return end
-	local createdTime = createTime()
+	local createdTime = CreateTime()
 
 	-- Set time
 	AFK.AFKMode.topPanel.time:SetFormattedText(createdTime)
@@ -137,18 +140,20 @@ local function Initialize()
 	AFK.AFKMode.bottomPanel.name:SetPoint("LEFT", AFK.AFKMode.bottomPanel.faction, "RIGHT", 0, 10)
 	AFK.AFKMode.bottomPanel.name:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	AFK.AFKMode.bottomPanel.name:SetShadowOffset(2, -2)
+	AFK.AFKMode.bottomPanel.name:SetJustifyH("LEFT")
 
 	-- Bottom Guild Name
 	AFK.AFKMode.bottomPanel.guild = MER:CreateText(AFK.AFKMode.bottomPanel, "OVERLAY", 16, nil)
-	AFK.AFKMode.bottomPanel.guild:Point("TOPLEFT", AFK.AFKMode.bottomPanel.name, "BOTTOMLEFT", -5, -6)
+	AFK.AFKMode.bottomPanel.guild:SetPoint("TOPLEFT", AFK.AFKMode.bottomPanel.name, "BOTTOMLEFT", -1, -6)
 	AFK.AFKMode.bottomPanel.guild:SetText(L["No Guild"])
+	AFK.AFKMode.bottomPanel.guild:SetJustifyH("LEFT")
 
 	-- Top Panel
 	AFK.AFKMode.topPanel = CreateFrame("Frame", nil, AFK.AFKMode)
 	AFK.AFKMode.topPanel:SetFrameLevel(0)
-	AFK.AFKMode.topPanel:Point("TOP", AFK.AFKMode, "TOP", 0, E.Border)
-	AFK.AFKMode.topPanel:Width(GetScreenWidth() + (E.Border*2))
-	AFK.AFKMode.topPanel:Height(GetScreenHeight() * (1 / 10))
+	AFK.AFKMode.topPanel:SetPoint("TOP", AFK.AFKMode, "TOP", 0, E.Border)
+	AFK.AFKMode.topPanel:SetWidth(GetScreenWidth() + (E.Border*2))
+	AFK.AFKMode.topPanel:SetHeight(GetScreenHeight() * (1 / 10))
 	MERS:CreateBD(AFK.AFKMode.topPanel, .5)
 	AFK.AFKMode.topPanel:Styling()
 
@@ -159,7 +164,7 @@ local function Initialize()
 	-- ElvUI Logo
 	AFK.AFKMode.bottom.logo:ClearAllPoints()
 	AFK.AFKMode.bottom.logo:SetParent(AFK.AFKMode.topPanel)
-	AFK.AFKMode.bottom.logo:Point("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
+	AFK.AFKMode.bottom.logo:SetPoint("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
 	AFK.AFKMode.bottom.logo:SetSize(120, 55)
 
 	-- ElvUI Version
@@ -195,7 +200,7 @@ local function Initialize()
 	AFK.AFKMode.countd.bg = AFK.AFKMode.countd:CreateTexture(nil, "BACKGROUND")
 	AFK.AFKMode.countd.bg:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.countd.bg:SetPoint("BOTTOM")
-	AFK.AFKMode.countd.bg:Size(326, 56)
+	AFK.AFKMode.countd.bg:SetSize(326, 56)
 	AFK.AFKMode.countd.bg:SetTexCoord(0.00195313, 0.63867188, 0.03710938, 0.23828125)
 	AFK.AFKMode.countd.bg:SetVertexColor(1, 1, 1, 0.7)
 
@@ -210,7 +215,7 @@ local function Initialize()
 	AFK.AFKMode.countd.lineBottom:SetDrawLayer("BACKGROUND", 2)
 	AFK.AFKMode.countd.lineBottom:SetTexture([[Interface\LevelUp\LevelUpTex]])
 	AFK.AFKMode.countd.lineBottom:SetPoint("BOTTOM")
-	AFK.AFKMode.countd.lineBottom:Size(418, 7)
+	AFK.AFKMode.countd.lineBottom:SetSize(418, 7)
 	AFK.AFKMode.countd.lineBottom:SetTexCoord(0.00195313, 0.81835938, 0.01953125, 0.03320313)
 
 	-- 30 mins countdown text

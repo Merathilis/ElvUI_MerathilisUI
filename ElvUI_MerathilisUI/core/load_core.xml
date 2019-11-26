@@ -11,7 +11,10 @@
 	<Script file="statusReport.lua"/>
 	<Script file="tags.lua"/>
 	<Script file="modulecopy.lua"/>
+	<Script file="movers.lua"/>
 	<Include file="addonProfiles\load_addonProfiles.xml"/>
 	<Include file="filter\load_filter.xml"/>
 	<Script file="config.lua"/>
+	<Include file="funstuff.xml"/>
+	<Script file="funstuff.lua"/>
 </Ui>

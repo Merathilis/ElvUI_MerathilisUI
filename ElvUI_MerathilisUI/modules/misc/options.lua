@@ -10,17 +10,16 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 -- GLOBALS:
 
 local function Misc()
-	E.Options.args.mui.args.misc = {
+	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = "",
-		guiInline = true,
+		name = L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			name = {
 				order = 1,
 				type = "header",
-				name = MER:cOption(L["Misc"]),
+				name = MER:cOption(L["Miscellaneous"]),
 			},
 			MailInputbox = {
 				order = 2,
@@ -34,37 +33,32 @@ local function Misc()
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			Movertransparancy = {
-				order = 4,
-				type = "range",
-				name = L["Mover Transparency"],
-				desc = L["Changes the transparency of all the movers."],
-				isPercent = true,
-				min = 0, max = 1, step = 0.01,
-				get = function(info) return E.db.mui.general.Movertransparancy end,
-				set = function(info, value) E.db.mui.general.Movertransparancy = value MI:UpdateMoverTransparancy() end,
-			},
 			quest = {
-				order = 5,
+				order = 4,
 				type = "toggle",
 				name = L["Quest"],
 				desc = L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."],
 			},
 			announce = {
-				order = 6,
+				order = 5,
 				type = "toggle",
 				name = L["Announce"],
 				desc = L["Skill gains"],
 			},
 			cursor = {
-				order = 7,
+				order = 6,
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
 			skipAzerite = {
-				order = 8,
+				order = 7,
 				type = "toggle",
 				name = L["Skip Azerite Animation"],
+			},
+			funstuff = {
+				order = 8,
+				type = "toggle",
+				name = E.NewSign..L["Fun Stuff"],
 			},
 			alerts = {
 				order = 20,

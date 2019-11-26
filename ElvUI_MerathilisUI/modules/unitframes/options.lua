@@ -1,18 +1,15 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MUF = MER:GetModule("muiUnits")
-local UF = E:GetModule("UnitFrames")
 
 -- Cache global variables
 -- Lua functions
 local tinsert = table.insert
 -- WoW API / Variables
--- GLOBALS: LibStub
+-- GLOBALS:
 
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
 		type = "group",
 		name = E.NewSign..L["UnitFrames"],
-		childGroups = "tab",
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
@@ -23,20 +20,11 @@ local function UnitFramesTable()
 			general = {
 				order = 2,
 				type = "group",
-				name = L["General"],
+				name = MER:cOption(L["General"]),
+				guiInline = true,
 				args = {
-					header = {
-						order = 1,
-						type = "header",
-						name = MER:cOption(L["General"]),
-					},
-					spacer = {
-						order = 2,
-						name = "",
-						type = "description",
-					},
 					healPrediction = {
-						order = 3,
+						order = 1,
 						type = "toggle",
 						name = L["Heal Prediction"],
 						desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
@@ -44,100 +32,36 @@ local function UnitFramesTable()
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 					auras = {
-						order = 4,
+						order = 2,
 						type = "toggle",
 						name = E.NewSign..L["Auras"],
 						desc = L["Adds a shadow to the debuffs that the debuff color is more visible."],
 						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
-				},
-			},
-			player = {
-				order = 3,
-				type = "group",
-				name = L["Player"],
-				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Player"]),
-					},
-					portrait = {
-						order = 1,
-						type = "execute",
-						name = L["Player Portrait"],
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "player", "portrait") end,
-					},
-					spacer = {
-						order = 2,
-						type = "description",
-						name = "",
-					},
-					gcd = {
+					swing = {
 						order = 3,
 						type = "toggle",
-						name = L["GCD Bar"],
-						get = function(info) return E.db.mui.unitframes.units.player.gcd.enable end,
-						set = function(info, value) E.db.mui.unitframes.units.player.gcd.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
+						name = E.NewSign..L["Swing Bar"],
+						desc = L["Creates a weapon Swing Bar"],
+						get = function(info) return E.db.mui.unitframes.swing.enable end,
+						set = function(info, value) E.db.mui.unitframes.swing.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
-				},
-			},
-			target = {
-				order = 4,
-				type = "group",
-				name = L["Target"],
-				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Target"]),
-					},
-					portrait = {
-						order = 1,
-						type = "execute",
-						name = L["Target Portrait"],
-						func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "unitframe", "target", "portrait") end,
-					},
-				},
-			},
-			infoPanel = {
-				type = "group",
-				order = 5,
-				name = L["InfoPanel"],
-				get = function(info) return E.db.mui.unitframes.infoPanel[ info[#info] ] end,
-				set = function(info, value) E.db.mui.unitframes.infoPanel[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
-				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["InfoPanel"]),
+					gcd = {
+						order = 4,
+						type = "toggle",
+						name = E.NewSign..L["GCD Bar"],
+						desc = L["Creates a Global Cooldown Bar"],
+						get = function(info) return E.db.mui.unitframes.gcd.enable end,
+						set = function(info, value) E.db.mui.unitframes.gcd.enable = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 					style = {
-						order = 1,
+						order = 5,
 						type = "toggle",
-						name = L["InfoPanel Style"],
-					},
-				},
-			},
-			textures = {
-				order = 7,
-				type = "group",
-				name = L["Textures"],
-				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Textures"]),
-					},
-					castbar = {
-						type = 'select', dialogControl = 'LSM30_Statusbar',
-						order = 1,
-						name = L['Castbar'],
-						desc = L['This applies on all available castbars.'],
-						values = AceGUIWidgetLSMlists.statusbar,
-						get = function(info) return E.db.mui.unitframes.textures[ info[#info] ] end,
-						set = function(info, value) E.db.mui.unitframes.textures[ info[#info] ] = value; MCA:CastBarHooks(); end,
+						name = E.NewSign..L["UnitFrame Style"],
+						desc = L["Adds my styling to the Unitframes if you use transparent health."],
+						get = function(info) return E.db.mui.unitframes.style end,
+						set = function(info, value) E.db.mui.unitframes.style = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 				},
 			},

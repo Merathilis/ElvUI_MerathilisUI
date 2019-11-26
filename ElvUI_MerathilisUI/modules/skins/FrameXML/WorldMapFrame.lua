@@ -39,26 +39,14 @@ local function LoadSkin()
 		_G.QuestScrollFrame.DetailFrame.backdrop:Hide()
 	end
 
-	-- Party Sync PopUp
-	local dialogs = {
-		_G.QuestSessionManager.CheckStartDialog,
-		_G.QuestSessionManager.StartDialog,
-		_G.QuestSessionManager.CheckLeavePartyDialog,
-		_G.QuestSessionManager.CheckStopDialog,
-		_G.QuestSessionManager.CheckConvertToRaidDialog,
-		_G.QuestSessionManager.ConfirmJoinGroupRequestDialog,
-		_G.QuestSessionManager.ConfirmInviteToGroupDialog,
-		_G.QuestSessionManager.ConfirmInviteToGroupReceivedDialog,
-		_G.QuestSessionManager.ConfirmRequestToJoinGroupDialog,
-		_G.QuestSessionManager.ConfirmBNJoinGroupRequestDialog,
-		_G.QuestSessionManager.ConfirmInviteTravelPassConfirmationDialog,
-	}
-
-	for _, frame in pairs(dialogs) do
-		if frame and not frame.style then
-			frame:Styling()
+	hooksecurefunc(_G.QuestSessionManager, "NotifyDialogShow", function(_, dialog)
+		if not dialog.IsStyled then
+			if dialog.backdrop then
+				dialog.backdrop:Styling()
+			end
+			dialog.isStyled = true
 		end
-	end
+	end)
 end
 
 S:AddCallback("mUISkinWorldMap", LoadSkin)
