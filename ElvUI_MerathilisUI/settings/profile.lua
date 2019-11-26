@@ -139,7 +139,7 @@ MP.actionbars = {
 		enable = true,
 		bindFontSize = 12,
 		countFontSize = 12,
-		soltAutoButtons = {
+		slotAutoButtons = {
 			enable = true,
 			slotBBColorByItem = true,
 			slotBBColor = {r = 1, g = 1, b = 1, a = 1},

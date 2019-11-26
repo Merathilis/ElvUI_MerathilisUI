@@ -210,13 +210,13 @@ local function ActionBarTable()
 								min = 4, max = 40, step = 1,
 								name = L["Count Font Size"],
 							},
-							soltAutoButtons = {
+							slotAutoButtons = {
 								order = 3,
 								type = "group",
 								guiInline = true,
 								name = L["Trinket Buttons"],
-								get = function(info) return E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]] end,
-								set = function(info, value) E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]] = value; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
+								get = function(info) return E.db.mui.actionbars.autoButtons.slotAutoButtons[info[#info]] end,
+								set = function(info, value) E.db.mui.actionbars.autoButtons.slotAutoButtons[info[#info]] = value; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
 								args = {
 									enable = {
 										order = 1,
@@ -227,22 +227,22 @@ local function ActionBarTable()
 										order = 2,
 										type = "toggle",
 										name = L["Color by Quality"],
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									slotBBColor = {
 										order = 3,
 										type = "color",
 										name = COLOR,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
-										disabled = function() return E.db.mui.actionbars.autoButtons.soltAutoButtons.slotBBColorByItem end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
+										disabled = function() return E.db.mui.actionbars.autoButtons.slotAutoButtons.slotBBColorByItem end,
 										get = function(info)
-											local t = E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
-											local d = P.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+											local t = E.db.mui.actionbars.autoButtons.slotAutoButtons[info[#info]]
+											local d = P.mui.actionbars.autoButtons.slotAutoButtons[info[#info]]
 											return t.r, t.g, t.b, t.a, d.r, d.g, d.b, d.a
 										end,
 										set = function(info, r, g, b, a)
-											E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]] = {}
-											local t = E.db.mui.actionbars.autoButtons.soltAutoButtons[info[#info]]
+											E.db.mui.actionbars.autoButtons.slotAutoButtons[info[#info]] = {}
+											local t = E.db.mui.actionbars.autoButtons.slotAutoButtons[info[#info]]
 											t.r, t.g, t.b, t.a = r, g, b, a
 											MER:GetModule("AutoButtons"):UpdateAutoButton()
 										end,
@@ -252,7 +252,7 @@ local function ActionBarTable()
 										type = "range",
 										name = L["Button Spacing"],
 										min = -1, max = 10, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									slotDirection = {
 										order = 5,
@@ -262,28 +262,28 @@ local function ActionBarTable()
 											["RIGHT"] = L["Right"],
 											["LEFT"] = L["Left"],
 										},
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									slotNum = {
 										order = 6,
 										type = "range",
 										name = L["Buttons"],
 										min = 0, max = 12, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									slotPerRow = {
 										order = 7,
 										type = "range",
 										name = L["Buttons Per Row"],
 										min = 1, max = 12, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									slotSize = {
 										order = 8,
 										type = "range",
 										name = L["Size"],
 										min = 10, max = 100, step = 1,
-										hidden = function() return not E.db.mui.actionbars.autoButtons.soltAutoButtons.enable end,
+										hidden = function() return not E.db.mui.actionbars.autoButtons.slotAutoButtons.enable end,
 									},
 									inheritGlobalFade = {
 										order = 9,

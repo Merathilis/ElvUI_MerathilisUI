@@ -42,12 +42,12 @@ local QuestItemList = {}
 local garrisonsmv = {118897, 118903}
 local garrisonsc = {114116, 114119, 114120, 120301, 120302}
 
-_G.BINDING_HEADER_MER_AutoSlotButton = MER.Title..L["soltAutoButtons"]
+_G.BINDING_HEADER_MER_AutoSlotButton = MER.Title..L["slotAutoButtons"]
 _G.BINDING_HEADER_MER_AutoQuestButton = MER.Title..L["questAutoButtons"]
 _G.BINDING_HEADER_MER_AutoUsableButton = MER.Title..L["usableAutoButtons"]
 
 for i = 1, 12 do
-	_G["BINDING_NAME_CLICK AutoSlotButton"..i..":LeftButton"] = L["soltAutoButtons"]..i
+	_G["BINDING_NAME_CLICK AutoSlotButton"..i..":LeftButton"] = L["slotAutoButtons"]..i
 	_G["BINDING_NAME_CLICK AutoQuestButton"..i..":LeftButton"] = L["questAutoButtons"]..i
 	_G["BINDING_NAME_CLICK AutoUsableButton"..i..":LeftButton"] = L["usableAutoButtons"]..i
 end
@@ -420,28 +420,28 @@ function module:ScanItem(event)
 	end
 
 	local num = 0
-	if db.soltAutoButtons["enable"] == true and db.soltAutoButtons["slotNum"] > 0 then
+	if db.slotAutoButtons["enable"] == true and db.slotAutoButtons["slotNum"] > 0 then
 		for w = 1, 18 do
 			local slotID = GetInventoryItemID("player", w)
 			if slotID and IsSlotItem(slotID) and not db.blackList[slotID] then
 				local itemName, _, rarity = GetItemInfo(slotID)
 				local itemIcon = GetInventoryItemTexture("player", w)
 				num = num + 1
-				if num > db.soltAutoButtons["slotNum"] then break end
+				if num > db.slotAutoButtons["slotNum"] then break end
 
 				local AutoButton = _G["AutoSlotButton" .. num]
 				if not AutoButton then break end
 
 				AutoButton:SetBackdropBorderColor(nil)
 				local r, g, b, colorDB
-				if db.soltAutoButtons["slotBBColorByItem"] then
+				if db.slotAutoButtons["slotBBColorByItem"] then
 					if rarity then
 						r, g, b = GetItemQualityColor(rarity)
 						AutoButton:SetBackdropBorderColor(r, g, b)
 						AutoButton.ignoreBorderColors = true
 					end
 				else
-					colorDB = db.soltAutoButtons["slotBBColor"]
+					colorDB = db.slotAutoButtons["slotBBColor"]
 					r, g, b = colorDB.r, colorDB.g, colorDB.b
 					AutoButton:SetBackdropBorderColor(r, g, b)
 					AutoButton.ignoreBorderColors = true
@@ -572,8 +572,8 @@ function module:UpdateBind()
 		end
 	end
 
-	if module.db.soltAutoButtons["enable"] == true then
-		for i = 1, module.db.soltAutoButtons["slotNum"] do
+	if module.db.slotAutoButtons["enable"] == true then
+		for i = 1, module.db.slotAutoButtons["slotNum"] do
 			local bindButton = "CLICK AutoSlotButton" .. i .. ":LeftButton"
 			local button = _G["AutoSlotButton" .. i]
 			local bindText = GetBindingKey(bindButton)
@@ -672,14 +672,14 @@ function module:UpdateAutoButton()
 		end
 	end
 
-	if module.db.soltAutoButtons["enable"] == true then
-		for i = 1, module.db.soltAutoButtons["slotNum"] do
-			local f = CreateButton("AutoSlotButton" .. i, module.db.soltAutoButtons["slotSize"])
-			buttonsPerRow = module.db.soltAutoButtons["slotPerRow"]
+	if module.db.slotAutoButtons["enable"] == true then
+		for i = 1, module.db.slotAutoButtons["slotNum"] do
+			local f = CreateButton("AutoSlotButton" .. i, module.db.slotAutoButtons["slotSize"])
+			buttonsPerRow = module.db.slotAutoButtons["slotPerRow"]
 			lastButton = _G["AutoSlotButton" .. i - 1]
 			lastColumnButton = _G["AutoSlotButton" .. i - buttonsPerRow]
 
-			if module.db.soltAutoButtons["slotNum"] < module.db.soltAutoButtons["slotPerRow"] then
+			if module.db.slotAutoButtons["slotNum"] < module.db.slotAutoButtons["slotPerRow"] then
 				buttonsPerRow = module.db.questAutoButtons["questNum"]
 			end
 			f:ClearAllPoints()
@@ -689,14 +689,14 @@ function module:UpdateAutoButton()
 			elseif (i - 1) % buttonsPerRow == 0 then
 				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
 			else
-				if module.db.soltAutoButtons["slotDirection"] == "RIGHT" then
-					f:Point("LEFT", lastButton, "RIGHT", module.db.soltAutoButtons["slotSpace"], 0)
-				elseif module.db.soltAutoButtons["slotDirection"] == "LEFT" then
-					f:Point("RIGHT", lastButton, "LEFT", -(module.db.soltAutoButtons["slotSpace"]), 0)
+				if module.db.slotAutoButtons["slotDirection"] == "RIGHT" then
+					f:Point("LEFT", lastButton, "RIGHT", module.db.slotAutoButtons["slotSpace"], 0)
+				elseif module.db.slotAutoButtons["slotDirection"] == "LEFT" then
+					f:Point("RIGHT", lastButton, "LEFT", -(module.db.slotAutoButtons["slotSpace"]), 0)
 				end
 			end
 
-			if module.db.soltAutoButtons["inheritGlobalFade"] == true then
+			if module.db.slotAutoButtons["inheritGlobalFade"] == true then
 				f:SetParent(E.ActionBars.fadeParent)
 			else
 				f:SetParent(E.UIParent)
@@ -760,7 +760,7 @@ function module:Initialize()
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
 	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
-	AutoButtonAnchor2:Size(module.db.soltAutoButtons.slotNum > 0 and module.db.soltAutoButtons.slotSize * module.db.soltAutoButtons.slotNum or 260, module.db.soltAutoButtons.slotNum > 0 and module.db.soltAutoButtons.slotSize or 40)
+	AutoButtonAnchor2:Size(module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize * module.db.slotAutoButtons.slotNum or 260, module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize or 40)
 	E:CreateMover(AutoButtonAnchor2, "AutoButtonAnchor2Mover", L["mUI AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor3 = CreateFrame("Frame", "AutoButtonAnchor3", UIParent)
