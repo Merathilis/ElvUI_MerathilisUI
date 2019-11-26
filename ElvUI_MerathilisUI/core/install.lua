@@ -1242,7 +1242,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 2,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classification:icon][name:abbrev-translit]",
+			["text_format"] = "[classification:icon][namecolor][name:abbrev-translit]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
@@ -1324,7 +1324,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 		E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:short]"
+		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:short]"
 		E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 		E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
@@ -1346,7 +1346,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focus"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["focus"]["name"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["focus"]["name"]["position"] = "CENTER"
-		E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[name:medium]"
+		E.db["unitframe"]["units"]["focus"]["name"]["text_format"] = "[namecolor][name:medium]"
 		E.db["unitframe"]["units"]["focus"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["focus"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["focus"]["health"]["xOffset"] = 0
@@ -1461,7 +1461,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium:translit]",
 		}
 		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid"]["customTexts"]["Elv"] = {
@@ -1552,7 +1552,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["customTexts"]["name1"] = {
 			["enable"] = true,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium:translit]",
 			["yOffset"] = 0,
 			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
@@ -1705,7 +1705,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Frame",
-			["text_format"] = "[name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium:translit]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 			["font"] = "Merathilis Gotham Narrow",
@@ -1766,7 +1766,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["power"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["power"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["pet"]["name"]["attachTextTo"] = "Health"
-		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[name:short]"
+		E.db["unitframe"]["units"]["pet"]["name"]["text_format"] = "[namecolor][name:short]"
 		E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["width"] = 75
@@ -1815,7 +1815,7 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
 			["size"] = 11,
-			["text_format"] = "[name:medium]",
+			["text_format"] = "[namecolor][name:medium]",
 			["yOffset"] = 18,
 		}
 		E.db["unitframe"]["units"]["boss"]["customTexts"]["Life"] = {
