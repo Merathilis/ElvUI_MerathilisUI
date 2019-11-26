@@ -166,6 +166,11 @@ local function AutoButtonShow(AutoButton)
 
 	AutoButton:SetAlpha(1)
 	AutoButton:SetScript("OnEnter", function(self)
+		if self:GetParent() == E.ActionBars.fadeParent then
+			if(not E.ActionBars.fadeParent.mouseLock) then
+				E:UIFrameFadeIn(E.ActionBars.fadeParent, 0.2, E.ActionBars.fadeParent:GetAlpha(), 1)
+			end
+		end
 		if InCombatLockdown() then return end
 		_G.GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, -2)
 		_G.GameTooltip:ClearLines()
@@ -177,6 +182,11 @@ local function AutoButtonShow(AutoButton)
 		_G.GameTooltip:Show()
 	end)
 	AutoButton:SetScript("OnLeave", function(self)
+		if self:GetParent() == E.ActionBars.fadeParent then
+			if(not E.ActionBars.fadeParent.mouseLock) then
+				E:UIFrameFadeOut(E.ActionBars.fadeParent, 0.2, E.ActionBars.fadeParent:GetAlpha(), 1 - E.ActionBars.db.globalFadeAlpha)
+			end
+		end
 		_G.GameTooltip:Hide()
 	end)
 
@@ -653,6 +663,12 @@ function module:UpdateAutoButton()
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.questAutoButtons["questSpace"]), 0)
 				end
 			end
+
+			if module.db.questAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
+			end
 		end
 	end
 
@@ -679,6 +695,12 @@ function module:UpdateAutoButton()
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.soltAutoButtons["slotSpace"]), 0)
 				end
 			end
+
+			if module.db.soltAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
+			end
 		end
 	end
 
@@ -704,6 +726,12 @@ function module:UpdateAutoButton()
 				elseif module.db.usableAutoButtons["usableDirection"] == "LEFT" then
 					f:Point("RIGHT", lastButton, "LEFT", -(module.db.usableAutoButtons["usableSpace"]), 0)
 				end
+			end
+
+			if module.db.usableAutoButtons["inheritGlobalFade"] == true then
+				f:SetParent(E.ActionBars.fadeParent)
+			else
+				f:SetParent(E.UIParent)
 			end
 		end
 	end

@@ -14,12 +14,13 @@ function module:ADDON_LOADED(event, addon)
 	module:UnregisterEvent(event)
 end
 
-function module:StyleUnits()
+function module:StyleUFs()
 	local db = E.db.mui.unitframes
 
 	if db.style then
 		-- Player
 		self:InitPlayer()
+		self:InitPower()
 
 		-- Target
 		self:InitTarget()
@@ -54,7 +55,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "unitframes")
 
 	-- Units
-	self:StyleUnits()
+	self:StyleUFs()
 
 	-- Auras
 	self:LoadAuras()

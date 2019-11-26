@@ -180,8 +180,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "Duffed"
-	E.private["general"]["glossTex"] = "Duffed"
+	E.private["general"]["normTex"] = "Melli"
+	E.private["general"]["glossTex"] = "Melli"
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -251,7 +251,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "Duffed"
+	E.db["general"]["altPowerBar"]["statusBar"] = "Melli"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
@@ -268,7 +268,7 @@ function MER:SetupLayout(layout)
 	--	ProfileDB - Auras
 	--]]----------------------------------
 	E.db["auras"]["fadeThreshold"] = 10
-	E.db["auras"]["font"] = "Merathilis Gothom Narrow"
+	E.db["auras"]["font"] = "Merathilis Gotham Narrow"
 	E.db["auras"]["fontOutline"] = "OUTLINE"
 	E.db["auras"]["timeYOffset"] = 34
 	E.db["auras"]["timeXOffset"] = 0
@@ -298,6 +298,15 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
 	E.db["auras"]["cooldown"]["mmssColor"]["g"] = 0.56078431372549
 	E.db["auras"]["cooldown"]["mmssColor"]["b"] = 0.56078431372549
+	E.db["auras"]["cooldown"]["secondsColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["secondsColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["secondsColor"]["b"] = 1
+	E.db["auras"]["cooldown"]["minutesColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["minutesColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["r"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
+	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
 	if E.db.mui.general.panels then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
@@ -371,7 +380,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "Duffed"
+	E.db["nameplates"]["statusbar"] = "Melli"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -391,71 +400,72 @@ function MER:SetupLayout(layout)
 
 	-- Player
 	E.db["nameplates"]["units"]["PLAYER"]["enable"] = false
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["PLAYER"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["yOffset"] = 2
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
 
 	-- Friendly Player
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["yOffset"] = 13
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Merathilis Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
@@ -465,38 +475,38 @@ function MER:SetupLayout(layout)
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["format"] = '[name:abbrev:long]'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["yOffset"] = 2
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["font"] = "Merathilis Expressway"
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["buffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["numAuras"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["size"] = 24
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconPosition"] = 'LEFT'
@@ -506,13 +516,13 @@ function MER:SetupLayout(layout)
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["format"] = '[name:abbrev:long]'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["enable"] = false
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
@@ -533,12 +543,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["countFontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["yOffset"] = -10
@@ -550,23 +558,23 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["format"] = "[perhp<%]"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["healPrediction"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["format"] = '[namecolor][name:abbrev:long]'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["name"]["yOffset"] = -9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["enable"] = false
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["power"]["text"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["size"] = 20
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["yOffset"] = 13
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["buffs"]["font"] = "Merathilis Expressway"
@@ -580,19 +588,19 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["size"] = 24
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["spacing"] = 3
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["yOffset"] = 33
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 11
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Merathilis Expressway'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFont"] = 'Merathilis Gotham Narrow'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontOutline"] = 'OUTLINE'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["countFontSize"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["fontSize"] = 10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["format"] = '[difficultycolor][level]'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["level"]["yOffset"] = -9
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterrupt"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["sourceInterruptClassColor"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["iconPosition"] = 'LEFT'
@@ -608,8 +616,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Merathilis Expressway"
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
@@ -934,7 +942,7 @@ function MER:SetupActionbars(layout)
 	elseif layout == "healer" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,123"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,161"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-439,50"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-446,50"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,20"
@@ -954,11 +962,11 @@ function MER:SetupUnitframes(layout)
 	--[[----------------------------------
 	--	UnitFrames - General
 	--]]----------------------------------
-	E.db["unitframe"]["font"] = "Merathilis Expressway"
+	E.db["unitframe"]["font"] = "Merathilis Gotham Narrow"
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "Duffed"
+	E.db["unitframe"]["statusbar"] = "Melli"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
@@ -971,16 +979,18 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["transparentAurabars"] = true
 	E.db["unitframe"]["colors"]["transparentPower"] = false
 	E.db["unitframe"]["colors"]["transparentCastbar"] = true
+	E.db["unitframe"]["colors"]["transparentHealth"] = true
 	E.db["unitframe"]["colors"]["castClassColor"] = false
 	E.db["unitframe"]["colors"]["castReactionColor"] = false
-	E.db["unitframe"]["colors"]["powerclass"] = false
-	E.db["unitframe"]["colors"]["transparentHealth"] = true
-	E.db["unitframe"]["colors"]["healthclass"] = true
+	E.db["unitframe"]["colors"]["powerclass"] = true
+	E.db["unitframe"]["colors"]["healthclass"] = false
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
+	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
-	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = true
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
+	E.db["unitframe"]["colors"]["classbackdrop"] = true
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -993,7 +1003,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Duffed"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Melli"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
@@ -1005,7 +1015,8 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["mmssColor"]["r"] = 0.56078431372549
 	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
 	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
-	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Expressway"
+	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Gotham Narrow"
+	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 16
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
@@ -1013,7 +1024,7 @@ function MER:SetupUnitframes(layout)
 	if layout == "dps" then
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200
-		E.db["unitframe"]["units"]["player"]["height"] = 32
+		E.db["unitframe"]["units"]["player"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
 		E.db["unitframe"]["units"]["player"]["restIcon"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
@@ -1021,9 +1032,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
+		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 36
 		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
-		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 15
+		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 35
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
 		E.db["unitframe"]["units"]["player"]["debuffs"]["numrows"] = 1
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
@@ -1042,32 +1053,32 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["icon"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["latency"] = true
 		E.db["unitframe"]["units"]["player"]["castbar"]["width"] = 285
-		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 26
+		E.db["unitframe"]["units"]["player"]["castbar"]["height"] = 18
 		E.db["unitframe"]["units"]["player"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["hidetext"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["overlayOnFrame"] = "None"
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["r"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["g"] = 1
 		E.db["unitframe"]["units"]["player"]["castbar"]["textColor"]["b"] = 1
+		E.db["unitframe"]["units"]["player"]["castbar"]["showIcon"] = true
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconSize"] = 28
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconPosition"] = "LEFT"
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconXOffset"] = -2
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconYOffset"] = 5
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttached"] = false
+		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
+
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["player"]["customTexts"] = {}
 
 		-- Create own customText
-		E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = {
-			["font"] = "Merathilis Expressway",
-			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
-			["justifyH"] = "LEFT",
-			["text_format"] = "[name:medium]",
-			["attachTextTo"] = "Frame",
-			["xOffset"] = -1,
-			["yOffset"] = 22,
-		}
+		if E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] then E.db["unitframe"]["units"]["player"]["customTexts"]["BigName"] = nil end
+
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 14,
+			["size"] = 11,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Frame",
@@ -1075,9 +1086,9 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 14,
+			["size"] = 11,
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Frame",
@@ -1085,19 +1096,19 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Resting"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
+			["size"] = 10,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[mUI-resting]",
+			["text_format"] = "||cff70C0F5[mUI-resting]||r",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 16,
+			["size"] = 12,
 			["justifyH"] = "CENTER",
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Power",
@@ -1105,14 +1116,14 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["player"]["customTexts"]["Group"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["fontOutline"] = "OUTLINE",
-			["size"] = 12,
+			["size"] = 11,
 			["justifyH"] = "LEFT",
 			["text_format"] = "[group]",
 			["attachTextTo"] = "Frame",
 			["xOffset"] = 0,
-			["yOffset"] = -24,
+			["yOffset"] = -16,
 		}
 		E.db["unitframe"]["units"]["player"]["health"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["health"]["yOffset"] = 0
@@ -1120,9 +1131,10 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["health"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["player"]["health"]["position"] = "LEFT"
 		E.db["unitframe"]["units"]["player"]["health"]["bgUseBarTexture"] = true
+		E.db["unitframe"]["units"]["player"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["player"]["name"]["text_format"] = ""
 		E.db["unitframe"]["units"]["player"]["power"]["powerPrediction"] = true
-		E.db["unitframe"]["units"]["player"]["power"]["height"] = 16
+		E.db["unitframe"]["units"]["player"]["power"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["power"]["hideonnpc"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachFromFrame"] = true
 		E.db["unitframe"]["units"]["player"]["power"]["detachedWidth"] = 285
@@ -1134,7 +1146,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 24
+		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 30
 		E.db["unitframe"]["units"]["player"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
@@ -1167,6 +1179,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
+		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["combat"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["casting"] = true
@@ -1181,7 +1194,7 @@ function MER:SetupUnitframes(layout)
 
 		-- Target
 		E.db["unitframe"]["units"]["target"]["width"] = 200
-		E.db["unitframe"]["units"]["target"]["height"] = 32
+		E.db["unitframe"]["units"]["target"]["height"] = 20
 		E.db["unitframe"]["units"]["target"]["orientation"] = "LEFT"
 		E.db["unitframe"]["units"]["target"]["threatStyle"] = "ICONTOPLEFT"
 		E.db["unitframe"]["units"]["target"]["disableMouseoverGlow"] = false
@@ -1220,48 +1233,46 @@ function MER:SetupUnitframes(layout)
 		if not E.db["unitframe"]["units"]["target"]["customTexts"] then E.db["unitframe"]["units"]["target"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["target"]["customTexts"] = {}
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Class"] = nil end
-		if E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] then E.db["unitframe"]["units"]["target"]["customTexts"]["Faction"] = nil end
 
 		-- Create own customText
 		E.db["unitframe"]["units"]["target"]["customTexts"]["BigName"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "RIGHT",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 2,
-			["yOffset"] = 22,
-			["size"] = 12,
+			["yOffset"] = 16,
+			["size"] = 11,
 			["text_format"] = "[classification:icon][name:abbrev-translit]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 14,
+			["font"] = "Merathilis Gotham Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[perhp<%]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = 0,
+			["yOffset"] = -1,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Life"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 14,
+			["font"] = "Merathilis Gotham Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "LEFT",
 			["text_format"] = "[health:current-mUI]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = 0,
+			["yOffset"] = -1,
 			["xOffset"] = 0,
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["MERPower"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 12,
+			["font"] = "Merathilis Gotham Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "RIGHT",
 			["text_format"] = "[power:current-mUI]",
 			["attachTextTo"] = "Health",
-			["yOffset"] = -24,
+			["yOffset"] = -19,
 			["xOffset"] = 3,
 		}
 		E.db["unitframe"]["units"]["target"]["health"]["xOffset"] = 0
@@ -1270,13 +1281,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["health"]["attachTextTo"] = "Frame"
 		E.db["unitframe"]["units"]["target"]["health"]["position"] = "RIGHT"
 		E.db["unitframe"]["units"]["target"]["health"]["bgUseBarTexture"] = true
+		E.db["unitframe"]["units"]["target"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["target"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["target"]["buffs"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["target"]["buffs"]["attachTo"] = "Health"
-		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 22
-		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 8
+		E.db["unitframe"]["units"]["target"]["buffs"]["sizeOverride"] = 26
+		E.db["unitframe"]["units"]["target"]["buffs"]["perrow"] = 7
 		E.db["unitframe"]["units"]["target"]["buffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["target"]["buffs"]["anchorPoint"] = "TOPRIGHT"
 		E.db["unitframe"]["units"]["target"]["buffs"]["minDuration"] = 0
@@ -1313,7 +1325,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 		E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[name:short]"
-		E.db["unitframe"]["units"]["targettarget"]["height"] = 32
+		E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 		E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["enable"] = true
@@ -1323,6 +1335,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["raidicon"]["yOffset"] = 15
 		E.db["unitframe"]["units"]["targettarget"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["targettarget"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["targettarget"]["cutaway"]["health"]["enabled"] = true
 		if not E.db["unitframe"]["units"]["targettarget"]["customTexts"] then E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["targettarget"]["customTexts"] = {}
@@ -1355,6 +1368,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["focus"]["debuffs"]["anchorPoint"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["focus"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["focus"]["infoPanel"]["enable"] = false
+		E.db["unitframe"]["units"]["focus"]["cutaway"]["health"]["enabled"] = true
 
 		-- FocusTarget
 		E.db["unitframe"]["units"]["focustarget"]["enable"] = false
@@ -1430,7 +1444,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1440,8 +1454,8 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[statustimer]",
 		}
 		E.db["unitframe"]["units"]["raid"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 10,
+			["font"] = "Merathilis Gotham Narrow",
+			["size"] = 9,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
 			["yOffset"] = 0,
@@ -1479,6 +1493,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid"]["cutaway"]["health"]["enabled"] = true
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
 			E.db["unitframe"]["units"]["raid"]["classHover"] = true
@@ -1528,7 +1543,7 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[statustimer]",
 			["yOffset"] = -12,
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1539,11 +1554,11 @@ function MER:SetupUnitframes(layout)
 			["attachTextTo"] = "Health",
 			["text_format"] = "[name:medium:translit]",
 			["yOffset"] = 0,
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
-			["size"] = 10,
+			["size"] = 9,
 		}
 		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid40"]["customTexts"]["Elv"] = {
@@ -1589,6 +1604,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid40"]["cutaway"]["health"]["enabled"] = true
 
 		-- Party
 		E.db["unitframe"]["units"]["party"]["enable"] = true
@@ -1596,7 +1612,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["horizontalSpacing"] = 1
 		E.db["unitframe"]["units"]["party"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["party"]["debuffs"]["countFontSize"] = 12
-		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 34
+		E.db["unitframe"]["units"]["party"]["debuffs"]["sizeOverride"] = 32
 		E.db["unitframe"]["units"]["party"]["debuffs"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["debuffs"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["debuffs"]["maxDuration"] = 0
@@ -1676,13 +1692,14 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["healType"] = "ALL_HEALS"
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
 		E.db["unitframe"]["units"]["party"]["customTexts"] = {}
 		-- Create own customTexts
 		E.db["unitframe"]["units"]["party"]["customTexts"]["name1"] = {
-			["font"] = "Merathilis Expressway",
-			["size"] = 12,
+			["font"] = "Merathilis Gotham Narrow",
+			["size"] = 11,
 			["fontOutline"] = "OUTLINE",
 			["justifyH"] = "CENTER",
 			["yOffset"] = 0,
@@ -1691,7 +1708,7 @@ function MER:SetupUnitframes(layout)
 			["text_format"] = "[name:medium:translit]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
-			["font"] = "Merathilis Expressway",
+			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
 			["fontOutline"] = "OUTLINE",
 			["xOffset"] = 0,
@@ -1860,9 +1877,9 @@ function MER:SetupUnitframes(layout)
 
 		-- Movers
 		E.db["movers"]["ElvUF_PlayerMover"] = "BOTTOM,ElvUIParent,BOTTOM,-244,220"
-		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,113"
+		E.db["movers"]["ElvUF_PlayerCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,122"
 		E.db["movers"]["PlayerPowerBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,220"
-		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,237"
+		E.db["movers"]["ClassBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,241"
 		E.db["movers"]["ElvUF_TargetMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,220"
 		E.db["movers"]["ElvUF_TargetCastbarMover"] = "BOTTOM,ElvUIParent,BOTTOM,244,201"
 		E.db["movers"]["ElvUF_TargetTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-539,220"
@@ -2535,9 +2552,9 @@ function MER:SetupUnitframes(layout)
 		E.db["movers"]["ElvUF_FocusMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,292"
 		E.db["movers"]["ElvUF_FocusCastbarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-518,325"
 		E.db["movers"]["ElvUF_FocusTargetMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-513,277"
-		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,250"
-		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,40,198"
-		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,250"
+		E.db["movers"]["ElvUF_RaidMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,620,204"
+		E.db["movers"]["ElvUF_Raid40Mover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,620,204"
+		E.db["movers"]["ElvUF_PartyMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,620,204"
 		E.db["movers"]["ElvUF_AssistMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,571"
 		E.db["movers"]["ElvUF_TankMover"] = "TOPLEFT,ElvUIParent,BOTTOMLEFT,2,626"
 		E.db["movers"]["ElvUF_PetMover"] = "BOTTOM,ElvUIParent,BOTTOM,-290,95"

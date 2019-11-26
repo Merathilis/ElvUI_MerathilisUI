@@ -33,7 +33,7 @@ function module:Configure_HealComm(frame)
 			if orientation == "HORIZONTAL" then
 				if healPrediction.overAbsorb then
 					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
-					healPrediction.overAbsorb:SetWidth(15)
+					healPrediction.overAbsorb:SetWidth(10)
 					healPrediction.overAbsorb:SetBlendMode("ADD")
 					healPrediction.overAbsorb:ClearAllPoints()
 
@@ -48,7 +48,7 @@ function module:Configure_HealComm(frame)
 			else
 				if healPrediction.overAbsorb then
 					healPrediction.overAbsorb:SetTexture(overAbsorbTexture)
-					healPrediction.overAbsorb:SetHeight(15)
+					healPrediction.overAbsorb:SetHeight(10)
 					healPrediction.overAbsorb:SetBlendMode("ADD")
 					healPrediction.overAbsorb:ClearAllPoints()
 
@@ -69,7 +69,7 @@ function module:Configure_HealComm(frame)
 		end
 
 		if healPrediction.absorbBar then
-			healPrediction.absorbBar:SetStatusBarColor(0.66, 1, 1, 1)
+			healPrediction.absorbBar:SetStatusBarColor(0.66, 1, 1, .6)
 		end
 	end
 end
