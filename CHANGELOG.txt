@@ -5,7 +5,7 @@
 [*]Updated GCD Bar (disabled by default).
 [*]Added a Swing Bar (disabled by default).
 [*]AutoButtons can now use the Global Fade Transparency.
-[*]Options cleanup.
+[*]Options cleanup.[/list]
 
 
 [b][color=orange]v4.36[/color], 14.11.2019[/b][list]
