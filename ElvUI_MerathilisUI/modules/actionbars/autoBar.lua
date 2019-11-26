@@ -636,102 +636,43 @@ function module:ToggleAutoButton()
 	end
 end
 
+local buttonTypes = { "quest", "slot", "usable" }
 function module:UpdateAutoButton()
 	local i = 0
 	local lastButton, lastColumnButton, buttonsPerRow
 
-	if module.db.questAutoButtons["enable"] == true then
-		for i = 1, module.db.questAutoButtons["questNum"] do
-			local f = CreateButton("AutoQuestButton" .. i, module.db.questAutoButtons["questSize"])
-			buttonsPerRow = module.db.questAutoButtons["questPerRow"]
-			lastButton = _G["AutoQuestButton" .. i - 1]
-			lastColumnButton = _G["AutoQuestButton" .. i - buttonsPerRow]
-
-			if module.db.questAutoButtons["questNum"] < module.db.questAutoButtons["questPerRow"] then
-				buttonsPerRow = module.db.questAutoButtons["questNum"]
-			end
-			f:ClearAllPoints()
-
-			if i == 1 then
-				f:Point("LEFT", _G.AutoButtonAnchor, "LEFT", 0, 0)
-			elseif (i - 1) % buttonsPerRow == 0 then
-				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
-			else
-				if module.db.questAutoButtons["questDirection"] == "RIGHT" then
-					f:Point("LEFT", lastButton, "RIGHT", module.db.questAutoButtons["questSpace"], 0)
-				elseif module.db.questAutoButtons["questDirection"] == "LEFT" then
-					f:Point("RIGHT", lastButton, "LEFT", -(module.db.questAutoButtons["questSpace"]), 0)
+	for index, btype in pairs(buttonTypes) do
+		local db = module.db[btype.."AutoButtons"]
+		local buttonName = "Auto"..btype:gsub("^%l", string.upper).."Button"
+		if db["enable"] == true then
+			for i = 1, db[btype.."Num"] do
+				local f = CreateButton(buttonName .. i, db[btype.."Size"])
+				buttonsPerRow = db[btype.."PerRow"]
+				lastButton = _G[buttonName .. i - 1]
+				lastColumnButton = _G[buttonName .. i - buttonsPerRow]
+	
+				if db[btype.."Num"] < db[btype.."PerRow"] then
+					buttonsPerRow = db[btype.."Num"]
 				end
-			end
-
-			if module.db.questAutoButtons["inheritGlobalFade"] == true then
-				f:SetParent(E.ActionBars.fadeParent)
-			else
-				f:SetParent(E.UIParent)
-			end
-		end
-	end
-
-	if module.db.slotAutoButtons["enable"] == true then
-		for i = 1, module.db.slotAutoButtons["slotNum"] do
-			local f = CreateButton("AutoSlotButton" .. i, module.db.slotAutoButtons["slotSize"])
-			buttonsPerRow = module.db.slotAutoButtons["slotPerRow"]
-			lastButton = _G["AutoSlotButton" .. i - 1]
-			lastColumnButton = _G["AutoSlotButton" .. i - buttonsPerRow]
-
-			if module.db.slotAutoButtons["slotNum"] < module.db.slotAutoButtons["slotPerRow"] then
-				buttonsPerRow = module.db.questAutoButtons["questNum"]
-			end
-			f:ClearAllPoints()
-
-			if i == 1 then
-				f:Point("LEFT", _G.AutoButtonAnchor2, "LEFT", 0, 0)
-			elseif (i - 1) % buttonsPerRow == 0 then
-				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
-			else
-				if module.db.slotAutoButtons["slotDirection"] == "RIGHT" then
-					f:Point("LEFT", lastButton, "RIGHT", module.db.slotAutoButtons["slotSpace"], 0)
-				elseif module.db.slotAutoButtons["slotDirection"] == "LEFT" then
-					f:Point("RIGHT", lastButton, "LEFT", -(module.db.slotAutoButtons["slotSpace"]), 0)
+				f:ClearAllPoints()
+	
+				if i == 1 then
+					f:Point("LEFT", _G["AutoButtonAnchor"..index], "LEFT", 0, 0)
+				elseif (i - 1) % buttonsPerRow == 0 then
+					f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
+				else
+					if db[btype.."Direction"] == "RIGHT" then
+						f:Point("LEFT", lastButton, "RIGHT", db[btype.."Space"], 0)
+					elseif db[btype.."Direction"] == "LEFT" then
+						f:Point("RIGHT", lastButton, "LEFT", -(db[btype.."Space"]), 0)
+					end
 				end
-			end
-
-			if module.db.slotAutoButtons["inheritGlobalFade"] == true then
-				f:SetParent(E.ActionBars.fadeParent)
-			else
-				f:SetParent(E.UIParent)
-			end
-		end
-	end
-
-	if module.db.usableAutoButtons["enable"] == true then
-		for i = 1, module.db.usableAutoButtons["usableNum"] do
-			local f = CreateButton("AutoUsableButton" .. i, module.db.usableAutoButtons["usableSize"])
-			buttonsPerRow = module.db.usableAutoButtons["usablePerRow"]
-			lastButton = _G["AutoUsableButton" .. i - 1]
-			lastColumnButton = _G["AutoUsableButton" .. i - buttonsPerRow]
-
-			if module.db.usableAutoButtons["usableNum"] < module.db.usableAutoButtons["usablePerRow"] then
-				buttonsPerRow = module.db.usableAutoButtons["usableNum"]
-			end
-			f:ClearAllPoints()
-
-			if i == 1 then
-				f:Point("LEFT", _G.AutoButtonAnchor3, "LEFT", 0, 0)
-			elseif (i - 1) % buttonsPerRow == 0 then
-				f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
-			else
-				if module.db.usableAutoButtons["usableDirection"] == "RIGHT" then
-					f:Point("LEFT", lastButton, "RIGHT", module.db.usableAutoButtons["usableSpace"], 0)
-				elseif module.db.usableAutoButtons["usableDirection"] == "LEFT" then
-					f:Point("RIGHT", lastButton, "LEFT", -(module.db.usableAutoButtons["usableSpace"]), 0)
+	
+				if db["inheritGlobalFade"] == true then
+					f:SetParent(E.ActionBars.fadeParent)
+				else
+					f:SetParent(E.UIParent)
 				end
-			end
-
-			if module.db.usableAutoButtons["inheritGlobalFade"] == true then
-				f:SetParent(E.ActionBars.fadeParent)
-			else
-				f:SetParent(E.UIParent)
 			end
 		end
 	end
@@ -751,11 +692,11 @@ function module:Initialize()
 
 	self:ForUpdateAll()
 
-	local AutoButtonAnchor = CreateFrame("Frame", "AutoButtonAnchor", UIParent)
-	AutoButtonAnchor:SetClampedToScreen(true)
-	AutoButtonAnchor:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
-	AutoButtonAnchor:Size(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
-	E:CreateMover(AutoButtonAnchor, "AutoButtonAnchorMover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db.enable end, 'mui,modules,actionbars,autoButtons')
+	local AutoButtonAnchor1 = CreateFrame("Frame", "AutoButtonAnchor1", UIParent)
+	AutoButtonAnchor1:SetClampedToScreen(true)
+	AutoButtonAnchor1:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
+	AutoButtonAnchor1:Size(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
+	E:CreateMover(AutoButtonAnchor1, "AutoButtonAnchor1Mover", L["mUI AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db.enable end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
