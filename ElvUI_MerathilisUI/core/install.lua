@@ -987,10 +987,10 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["power"]["MANA"] = {r = 0.31, g = 0.45, b = 0.63}
 	E.db["unitframe"]["colors"]["invertPower"] = true
 	E.db["unitframe"]["colors"]["healthmultiplier"] = 0.4
-	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = true
+	E.db["unitframe"]["colors"]["colorhealthbyvalue"] = false
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
-	E.db["unitframe"]["colors"]["customhealthbackdrop"] = false
-	E.db["unitframe"]["colors"]["classbackdrop"] = true
+	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
+	E.db["unitframe"]["colors"]["classbackdrop"] = false
 
 	E.db["unitframe"]["smartRaidFilter"] = false
 
@@ -1487,7 +1487,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 1
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["size"] = 10
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "TOPLEFT"
-		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["healType"] = "ALL_HEALS"
@@ -1517,7 +1517,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["portrait"]["camDistanceScale"] = 2
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["font"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["raid40"]["rdebuffs"]["size"] = 20
-		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["raid40"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["raid40"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid40"]["groupBy"] = "ROLE"
 		E.db["unitframe"]["units"]["raid40"]["classHover"] = true
@@ -1648,7 +1648,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["party"]["power"]["yOffset"] = 2
-		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_ON"
+		E.db["unitframe"]["units"]["party"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["party"]["width"] = 160
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
 		E.db["unitframe"]["units"]["party"]["health"]["position"] = "CENTER"
