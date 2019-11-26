@@ -1,3 +1,13 @@
+** v4.37, 14.11.2019**
+* DPS LAYOUT UPDATE: If you want it, do the install process again!!
+* Added some animated stuff to gossip/quest frames.
+* Updated Heal Prediction.
+* Updated GCD Bar (disabled by default).
+* Added a Swing Bar (disabled by default).
+* AutoButtons can now use the Global Fade Transparency.
+* Options cleanup.
+
+
 ** v4.36, 14.11.2019**
 * Changed some settings via install, which is now needed with the upcoming ElvUI update.
 * Removed DBM skin. You can still get my style via AddOnSkins.
