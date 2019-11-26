@@ -6,6 +6,7 @@ local MERS = MER:GetModule("muiSkins")
 --Lua functions
 local _G = _G
 local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
+local upper = string.upper
 local gsub = gsub
 local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 --WoW API / Variables
@@ -643,19 +644,19 @@ function module:UpdateAutoButton()
 
 	for index, btype in pairs(buttonTypes) do
 		local db = module.db[btype.."AutoButtons"]
-		local buttonName = "Auto"..btype:gsub("^%l", string.upper).."Button"
+		local buttonName = "Auto"..btype:gsub("^%l", upper).."Button"
 		if db["enable"] == true then
 			for i = 1, db[btype.."Num"] do
 				local f = CreateButton(buttonName .. i, db[btype.."Size"])
 				buttonsPerRow = db[btype.."PerRow"]
 				lastButton = _G[buttonName .. i - 1]
 				lastColumnButton = _G[buttonName .. i - buttonsPerRow]
-	
+
 				if db[btype.."Num"] < db[btype.."PerRow"] then
 					buttonsPerRow = db[btype.."Num"]
 				end
 				f:ClearAllPoints()
-	
+
 				if i == 1 then
 					f:Point("LEFT", _G["AutoButtonAnchor"..index], "LEFT", 0, 0)
 				elseif (i - 1) % buttonsPerRow == 0 then
@@ -667,7 +668,7 @@ function module:UpdateAutoButton()
 						f:Point("RIGHT", lastButton, "LEFT", -(db[btype.."Space"]), 0)
 					end
 				end
-	
+
 				if db["inheritGlobalFade"] == true then
 					f:SetParent(E.ActionBars.fadeParent)
 				else
