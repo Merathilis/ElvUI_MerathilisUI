@@ -11,22 +11,6 @@ local GetCursorPosition = GetCursorPosition
 local InCombatLockdown = InCombatLockdown
 -- GLOBALS:
 
-local channelNumbers = {
-	[1] = true,
-	[2] = true,
-	[3] = true,
-	[4] = true,
-}
-
-local function HideChatPanel()
-	if not E.db[_G.LeftChatToggleButton.parent:GetName()..'Faded'] then
-		_G.HideLeftChat()
-	end
-	if not E.db[_G.RightChatToggleButton.parent:GetName()..'Faded'] then
-		_G.HideRightChat()
-	end
-end
-
 function module:HideChatFade()
 	E:UIFrameFadeOut(self.fadeParent, 0.2, self.fadeParent:GetAlpha(), E.db.mui.chat.chatFade.minAlpha)
 end
@@ -84,13 +68,21 @@ function module:Configure_ChatFade()
 		for _, frameName in pairs(_G.CHAT_FRAMES) do
 			local frame = _G[frameName]
 			local editbox = _G[frameName.."EditBox"]
-			self:SecureHook(frame, "AddMessage", "ShowChatFade")
-			self:HookScript(editbox, "OnEditFocusGained", "OnEditFocusGained")
-			self:HookScript(editbox, "OnEditFocusLost", "OnEditFocusLost")
+			if not self:IsHooked(frame, "AddMessage") then
+				self:SecureHook(frame, "AddMessage", "ShowChatFade")
+			end
+			if not self:IsHooked(editbox, "OnEditFocusGained") then
+				self:HookScript(editbox, "OnEditFocusGained", "OnEditFocusGained")
+			end
+			if not self:IsHooked(editbox, "OnEditFocusLost") then
+				self:HookScript(editbox, "OnEditFocusLost", "OnEditFocusLost")
+			end
 		end
 
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", "ShowChatFade")
-		self.chatFadeTimer = self:ScheduleRepeatingTimer("OnUpdate", 0.5, 0.5)
+		if not self.chatFadeTimer then
+			self.chatFadeTimer = self:ScheduleRepeatingTimer("OnUpdate", 0.5, 0.5)
+		end
 		_G.LeftChatPanel:SetParent(self.fadeParent)
 		_G.RightChatPanel:SetParent(self.fadeParent)
 		_G.LeftChatToggleButton:SetParent(self.fadeParent)
