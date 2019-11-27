@@ -7,6 +7,7 @@ local _G = _G
 local pairs = pairs
 --WoW API / Variables
 local CreateFrame = CreateFrame
+local GetCursorPosition = GetCursorPosition
 local InCombatLockdown = InCombatLockdown
 -- GLOBALS:
 
@@ -19,7 +20,24 @@ function module:ShowChatFade()
 	E:UIFrameFadeOut(self.fadeParent, 0.2, self.fadeParent:GetAlpha(), 1)
 end
 
+local function CheckCursorPosition()
+	local UIScale = _G.UIParent:GetScale()
+	local x, y = GetCursorPosition()
+	x = x/UIScale
+	y = y/UIScale
+
+	local IsOnLeftPanel = ( x > _G.LeftChatPanel:GetLeft() and x < _G.LeftChatPanel:GetLeft() + _G.LeftChatPanel:GetWidth() ) and ( y > _G.LeftChatPanel:GetBottom() and y < _G.LeftChatPanel:GetBottom() + _G.LeftChatPanel:GetHeight() )
+	local IsOnRightPanel = ( x > _G.RightChatPanel:GetLeft() and x < _G.RightChatPanel:GetLeft() + _G.RightChatPanel:GetWidth() ) and ( y > _G.RightChatPanel:GetBottom() and y < _G.RightChatPanel:GetBottom() + _G.RightChatPanel:GetHeight() )
+
+	return IsOnLeftPanel or IsOnRightPanel
+end
+
 function module:OnUpdate(elapsed)
+	if CheckCursorPosition() then
+		self:ShowChatFade()
+		return
+	end
+
 	if not InCombatLockdown() and not self.editboxforced then
 		self.timeout = self.timeout + elapsed
 		if self.timeout > E.db.mui.chat.chatFade.timeout then
@@ -63,13 +81,7 @@ function module:Configure_ChatFade()
 
 		self:RegisterEvent("PLAYER_REGEN_DISABLED", "ShowChatFade")
 		if not self.chatFadeTimer then
-			self.chatFadeTimer = self:ScheduleRepeatingTimer("OnUpdate", 0.5, 0.5)
-		end
-		if not self:IsHooked(_G.LeftChatPanel, "OnEnter") then
-			self:HookScript(_G.LeftChatPanel, "OnEnter", "ShowChatFade")
-		end
-		if not self:IsHooked(_G.RightChatPanel, "OnEnter") then
-			self:HookScript(_G.RightChatPanel, "OnEnter", "ShowChatFade")
+			self.chatFadeTimer = self:ScheduleRepeatingTimer("OnUpdate", 0.1, 0.1)
 		end
 		_G.LeftChatPanel:SetParent(self.fadeParent)
 		_G.RightChatPanel:SetParent(self.fadeParent)
@@ -95,12 +107,6 @@ function module:Configure_ChatFade()
 		if self.chatFadeTimer then
 			self:CancelTimer(self.chatFadeTimer)
 			self.chatFadeTimer = nil
-		end
-		if self:IsHooked(_G.LeftChatPanel, "OnEnter") then
-			self:Unhook(_G.LeftChatPanel, "OnEnter")
-		end
-		if self:IsHooked(_G.RightChatPanel, "OnEnter") then
-			self:Unhook(_G.RightChatPanel, "OnEnter")
 		end
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		
