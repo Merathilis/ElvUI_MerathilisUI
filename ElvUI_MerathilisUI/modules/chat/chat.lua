@@ -162,6 +162,7 @@ function module:Initialize()
 	self:ChatFilter()
 	self:ItemLinks()
 	self:DamageMeterFilter()
+	self:LoadChatFade()
 
 	--Custom Emojis
 	local t = "|TInterface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\chatEmojis\\%s:16:16|t"
@@ -169,6 +170,10 @@ function module:Initialize()
 	-- Twitch Emojis
 	CH:AddSmiley(':monkaomega:', format(t, 'monkaomega'))
 	CH:AddSmiley(':salt:', format(t, 'salt'))
+end
+
+function module:Configure_All()
+	self:Configure_ChatFade()
 end
 
 MER:RegisterModule(module:GetName())

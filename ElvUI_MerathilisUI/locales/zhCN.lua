@@ -66,6 +66,9 @@ L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮�
 L["Click to open Emoticon Frame"] = "点击打开表情框架"
 L["Emotes"] = "表情"
 L["Damage Meter Filter"] = true
+L["Fade Chat"] = true
+L["Auto hide timeout"] = "时间"
+L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
 
 -- Information
 L["Information"] = "信息"

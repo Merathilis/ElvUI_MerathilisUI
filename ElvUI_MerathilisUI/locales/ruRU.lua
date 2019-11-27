@@ -66,6 +66,9 @@ L["Chat Hidden. Click to show"] = true
 L["Click to open Emoticon Frame"] = true
 L["Emotes"] = true
 L["Damage Meter Filter"] = true
+L["Fade Chat"] = true
+L["Auto hide timeout"] = true
+L["Seconds before fading chat panel"] = true
 
 -- Information
 L["Information"] = true

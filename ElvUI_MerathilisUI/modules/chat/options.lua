@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule("muiChat")
 
 --Cache global variables
 --Lua functions
@@ -9,7 +10,7 @@ local tinsert = table.insert
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
-		name = L["Chat"],
+		name = E.NewSign..L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -46,6 +47,36 @@ local function ChatTable()
 				order = 6,
 				type = "toggle",
 				name = L["Emotes"],
+			},
+			chatFade = {
+				order = 10,
+				type = "group",
+				name = E.NewSign..L["Fade Chat"],
+				guiInline = true,
+				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
+				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade(); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					timeout = {
+						order = 2,
+						type = "range",
+						min = 5, max = 60, step = 1,
+						name = L["Auto hide timeout"],
+						desc = L["Seconds before fading chat panel"],
+						disabled = function() return not E.db.mui.chat.chatFade.enable end
+					},
+					minAlpha = {
+						order = 3,
+						type = "range",
+						min = 0, max = 1, step = 0.01,
+						name = L["Min Alpha"],
+						disabled = function() return not E.db.mui.chat.chatFade.enable end
+					},
+				},
 			},
 			filter = {
 				order = 20,

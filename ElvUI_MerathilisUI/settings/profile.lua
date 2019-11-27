@@ -50,6 +50,11 @@ MP.chat = {
 		blockAddOnAlerts = true,
 		damagemeter = true,
 	},
+	chatFade = {
+		enable = true,
+		minAlpha = 0.33,
+		timeout = 8,
+	},
 }
 
 MP.colors = {
