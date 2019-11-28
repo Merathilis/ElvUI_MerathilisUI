@@ -636,10 +636,26 @@ function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 	gf:SetGradientAlpha(o, r, g, b, a1, r, g, b, a2)
 end
 
+function MER:UpdateStyling()
+	if E.db.mui.general.style then
+		for style in pairs(MER["styling"]) do
+			if style.stripes then style.stripes:Show() end
+			if style.gradient then style.gradient:Show() end
+			if style.mshadow then style.mshadow:Show() end
+		end
+	else
+		for style in pairs(MER["styling"]) do
+			if style.stripes then style.stripes:Hide() end
+			if style.gradient then style.gradient:Hide() end
+			if style.mshadow then style.mshadow:Hide() end
+		end
+	end
+end
+
 local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth, shadowOverlayHeight, shadowOverlayAlpha)
 	assert(f, "doesn't exist!")
 	local frameName = f.GetName and f:GetName()
-	if f.styling or E.db.mui.general.style ~= true then return end
+	if f.styling then return end
 
 	local style = CreateFrame("Frame", frameName or nil, f)
 
@@ -653,7 +669,9 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		stripes:SetVertTile(true)
 		stripes:SetBlendMode("ADD")
 
-		f.stripes = stripes
+		style.stripes = stripes
+
+		if not E.db.mui.general.style then stripes:Hide() end
 	end
 
 	if not(useGradient) then
@@ -664,7 +682,9 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient]])
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
-		f.gradient = gradient
+		style.gradient = gradient
+
+		if not E.db.mui.general.style then gradient:Hide() end
 	end
 
 	if not(useShadow) then
@@ -675,7 +695,9 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
 		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 
-		f.mshadow = mshadow
+		style.mshadow = mshadow
+
+		if not E.db.mui.general.style then mshadow:Hide() end
 	end
 
 	style:SetFrameLevel(f:GetFrameLevel() + 1)

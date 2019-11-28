@@ -62,7 +62,7 @@ local function SkinsTable()
 						name = L["MerathilisUI Style"],
 						desc = L["Creates decorative stripes and a gradient on some frames"],
 						get = function(info) return E.db.mui.general[ info[#info] ] end,
-						set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+						set = function(info, value) E.db.mui.general[ info[#info] ] = value; MER:UpdateStyling() end,
 					},
 					panels = {
 						order = 2,
