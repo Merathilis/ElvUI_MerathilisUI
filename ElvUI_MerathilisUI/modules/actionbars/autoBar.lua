@@ -6,7 +6,6 @@ local MERS = MER:GetModule("muiSkins")
 --Lua functions
 local _G = _G
 local pairs, select, tonumber, unpack = pairs, select, tonumber, unpack
-local upper = string.upper
 local gsub = gsub
 local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 --WoW API / Variables
@@ -644,7 +643,7 @@ function module:UpdateAutoButton()
 
 	for index, btype in pairs(buttonTypes) do
 		local db = module.db[btype.."AutoButtons"]
-		local buttonName = "Auto"..btype:gsub("^%l", upper).."Button"
+		local buttonName = E:StringTitle(btype)
 		if db["enable"] == true then
 			for i = 1, db[btype.."Num"] do
 				local f = CreateButton(buttonName .. i, db[btype.."Size"])
