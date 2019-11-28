@@ -643,7 +643,7 @@ function module:UpdateAutoButton()
 
 	for index, btype in pairs(buttonTypes) do
 		local db = module.db[btype.."AutoButtons"]
-		local buttonName = E:StringTitle(btype)
+		local buttonName = "Auto"..E:StringTitle(btype).."Button"
 		if db["enable"] == true then
 			for i = 1, db[btype.."Num"] do
 				local f = CreateButton(buttonName .. i, db[btype.."Size"])
