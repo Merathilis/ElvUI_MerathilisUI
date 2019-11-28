@@ -13,7 +13,7 @@ local hooksecurefunc = hooksecurefunc
 function module:PostUpdateDebuffs(unit, button)
 	if not button.pixelBorders then return end
 
-	button:GetParent().spacing = E:Scale(4)
+	-- button:GetParent().spacing = E:Scale(4)
 	local r, g, b = E:GetBackdropBorderColor(button)
 	local br, bg, bb = E:GrabColorPickerValues(unpack(E.media.unitframeBorderColor))
 
