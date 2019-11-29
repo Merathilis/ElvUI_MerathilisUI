@@ -221,7 +221,7 @@ local function LocPanelTable()
 								order = 4,
 								name = L["Hide Coordinates"],
 								get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
-								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; end,
+								set = function(info, value) E.db.mui.locPanel[ info[#info] ] = value; LP:ToggleCoords() end,
 								disabled = function() return not E.db.mui.locPanel.enable or not E.db.mui.locPanel.template == "NoBackdrop" end,
 							},
 						},
