@@ -17,7 +17,9 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Communities ~= true or E.private.muiSkins.blizzard.communities ~= true then return end
 
 	local CommunitiesFrame = _G.CommunitiesFrame
-	CommunitiesFrame.backdrop:Styling()
+	if CommunitiesFrame.backdrop then
+		CommunitiesFrame.backdrop:Styling()
+	end
 
 	-- Active Communities
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
@@ -46,7 +48,9 @@ local function LoadSkin()
 	local Dialog = CommunitiesFrame.NotificationSettingsDialog
 	Dialog:StripTextures()
 	Dialog.BG:Hide()
-	Dialog.backdrop:Styling()
+	if Dialog.backdrop then
+		Dialog.backdrop:Styling()
+	end
 
 	MERS:Reskin(Dialog.OkayButton)
 	MERS:Reskin(Dialog.CancelButton)
@@ -69,7 +73,9 @@ local function LoadSkin()
 
 	local Dialog = CommunitiesFrame.EditStreamDialog
 	MERS:CreateBDFrame(Dialog.Description, .25)
-	Dialog.backdrop:Styling()
+	if Dialog.backdrop then
+		Dialog.backdrop:Styling()
+	end
 
 	-- Roster
 	MERS:CreateBDFrame(CommunitiesFrame.MemberList.ListScrollFrame, .25)
@@ -116,9 +122,13 @@ local function LoadSkin()
 
 	-- Guild Recruitment
 	local GuildRecruitmentFrame = _G.CommunitiesGuildRecruitmentFrame
-	GuildRecruitmentFrame.backdrop:Styling()
+	if GuildRecruitmentFrame.backdrop then
+		GuildRecruitmentFrame.backdrop:Styling()
+	end
 
-	CommunitiesFrame.RecruitmentDialog.backdrop:Styling()
+	if CommunitiesFrame.RecruitmentDialog.backdrop then
+		CommunitiesFrame.RecruitmentDialog.backdrop:Styling()
+	end
 
 	-- Guild Log
 	local GuildLog = _G.CommunitiesGuildLogFrame
@@ -130,7 +140,9 @@ local function LoadSkin()
 
 	-- Guild News Filter
 	local GuildNewsFilter = _G.CommunitiesGuildNewsFiltersFrame
-	GuildNewsFilter.backdrop:Styling()
+	if GuildNewsFilter.backdrop then
+		GuildNewsFilter.backdrop:Styling()
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_Communities", "mUICommunities", LoadSkin)
