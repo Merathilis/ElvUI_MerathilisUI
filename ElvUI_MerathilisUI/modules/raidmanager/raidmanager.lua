@@ -13,6 +13,7 @@ local CreateFrame = CreateFrame
 local GetInstanceInfo = GetInstanceInfo
 local GetNumGroupMembers = GetNumGroupMembers
 local GetRaidRosterInfo = GetRaidRosterInfo
+local GetReadyCheckStatus = GetReadyCheckStatus
 local GetSpellCharges = GetSpellCharges
 local GetSpellTexture = GetSpellTexture
 local GetTexCoordsForRole = GetTexCoordsForRole
@@ -252,8 +253,8 @@ function module:CreateRaidManager()
 	RaidManagerFrame.Close:SetSize(20, 20)
 	RaidManagerFrame.Close:SetScript("OnClick", function()
 		RaidManagerFrame:Hide()
-		if RaidMarkFrame:IsShown() then
-			RaidMarkFrame:Hide()
+		if _G.RaidMarkFrame:IsShown() then
+			_G.RaidMarkFrame:Hide()
 		end
 	end)
 
@@ -670,7 +671,7 @@ function module:CreateRaidInfo()
 	rcFrame:CreateBackdrop("Transparent")
 	rcFrame.backdrop:SetAllPoints()
 	rcFrame.backdrop:Styling()
-	MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", READY_CHECK, true, "TOP", 0, -8)
+	MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", _G.READY_CHECK, true, "TOP", 0, -8)
 
 	local rc = MER:CreateText(rcFrame, "OVERLAY", 14, "OUTLINE", "", false, "TOP", 0, -28)
 
