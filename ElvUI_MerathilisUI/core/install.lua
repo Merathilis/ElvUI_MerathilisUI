@@ -1040,6 +1040,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["anchorPoint"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
+		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 3
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
