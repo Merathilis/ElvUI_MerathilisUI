@@ -391,6 +391,16 @@ function module:UpdateCoords(elapsed)
 	module.elapsed = 0
 end
 
+function module:ToggleCoords()
+	if module.db.coordshide then
+		loc_panel.Xcoord:SetAlpha(0)
+		loc_panel.Ycoord:SetAlpha(0)
+	else
+		loc_panel.Xcoord:SetAlpha(1)
+		loc_panel.Ycoord:SetAlpha(1)
+	end
+end
+
 function module:Resize()
 	if module.db.autowidth then
 		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, module.db.height)
@@ -687,16 +697,19 @@ function module:Initialize()
 
 	module.elapsed = 0
 	self:CreateLocationPanel()
+	self:Resize()
 	self:Template()
 	self:Fonts()
 	self:Toggle()
+	self:ToggleCoords()
 
 	function module:ForUpdateAll()
 		local db = E.db.mui.locPanel
-		module:Resize()
-		module:Template()
-		module:Fonts()
-		module:Toggle()
+		self:Resize()
+		self:Template()
+		self:Fonts()
+		self:Toggle()
+		self:ToggleCoords()
 	end
 
 	self:ForUpdateAll()
