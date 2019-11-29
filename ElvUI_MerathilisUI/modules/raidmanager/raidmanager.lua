@@ -33,6 +33,7 @@ local ConvertToParty = ConvertToParty
 local ConvertToRaid = ConvertToRaid
 local C_Timer_After = C_Timer.After
 local GameTooltip = GameTooltip
+local ToggleFriendsFrame = ToggleFriendsFrame
 -- GLOBALS:
 
 local function GetRaidMaxGroup()
@@ -535,7 +536,8 @@ function module:CreateRaidInfo()
 	header:SetFrameLevel(2)
 	header:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 214, -15)
 	header:SetFrameStrata("HIGH")
-	header:RegisterForClicks("AnyUp")
+	header:EnableMouse(true)
+	header:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	header:CreateBackdrop("Transparent")
 	header.backdrop:SetAllPoints()
 	header.backdrop:SetBackdropColor(0, 0, 0, 0.3)
@@ -546,11 +548,11 @@ function module:CreateRaidInfo()
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		if IsInGroup() or IsInRaid() then
-			self:Show()
-		else
-			self:Hide()
-		end
+		--if IsInGroup() or IsInRaid() then
+			--self:Show()
+		--else
+			--self:Hide()
+		--end
 	end)
 	header:SetScript("OnEnter", function(self)
 		self.backdrop:SetBackdropColor(MER.r, MER.g, MER.b, 1)
@@ -560,13 +562,21 @@ function module:CreateRaidInfo()
 		GameTooltip:AddLine(L["Raid Manager"], MER.r, MER.g, MER.b)
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddDoubleLine(MER.LeftButton..MER.InfoColor..L["Open Raid Manager"])
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddDoubleLine(MER.RightButton..MER.InfoColor..L["Open Raid Panel"])
 		GameTooltip:Show()
 	end)
 	header:SetScript("OnLeave", function(self)
 		self.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 		GameTooltip:Hide()
 	end)
-	header:SetScript("OnClick", ToogleRaidMangerFrame)
+	header:SetScript("OnClick", function(self, btn)
+		if btn == "LeftButton" then
+			ToogleRaidMangerFrame()
+		elseif btn == "RightButton" then
+			ToggleFriendsFrame(3)
+		end
+	end)
 
 	header:RegisterEvent("GROUP_ROSTER_UPDATE")
 	header:RegisterEvent("PLAYER_ENTERING_WORLD")
