@@ -293,7 +293,6 @@ end
 function module:OnClick(btn)
 	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then
-		if module.db.coordshide then return end
 		if IsShiftKeyDown() and module.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local x, y = CreateCoords()
