@@ -570,7 +570,7 @@ function module:CreateRaidInfo()
 		self.backdrop:SetBackdropColor(0, 0, 0, 0.3)
 		GameTooltip:Hide()
 	end)
-	header:SetScript("OnClick", function(self, btn)
+	header:SetScript("OnClick", function(btn)
 		if btn == "LeftButton" then
 			ToogleRaidMangerFrame()
 		elseif btn == "RightButton" then
