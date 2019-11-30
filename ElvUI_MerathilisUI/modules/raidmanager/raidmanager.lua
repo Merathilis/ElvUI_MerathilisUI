@@ -506,7 +506,7 @@ function module:CreateRaidManager()
 		end
 
 		frame:Size(36, 36)
-		--frame:SetTemplate()
+		frame:SetTemplate()
 
 		local texture = frame:CreateTexture(nil, "OVERLAY")
 		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
@@ -549,11 +549,11 @@ function module:CreateRaidInfo()
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		if IsInGroup() or IsInRaid() then
-			self:Show()
-		else
-			self:Hide()
-		end
+		--if IsInGroup() or IsInRaid() then
+			--self:Show()
+		--else
+			--self:Hide()
+		--end
 	end)
 	header:SetScript("OnEnter", function(self)
 		self.backdrop:SetBackdropColor(MER.r, MER.g, MER.b, 1)
@@ -590,7 +590,7 @@ function module:CreateRaidInfo()
 		role[i] = roleFrame:CreateTexture(nil, "OVERLAY")
 		role[i]:SetPoint("LEFT", 36*i-30, 0)
 		role[i]:SetSize(15, 15)
-		role[i]:SetTexture("Interface\\LFGFrame\\LFGROLE")
+		role[i]:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\LFGROLE")
 		role[i]:SetTexCoord(unpack(RoleTexCoord[i]))
 		role[i].text = MER:CreateText(roleFrame, "OVERLAY", 13, "OUTLINE", "0")
 		role[i].text:ClearAllPoints()
