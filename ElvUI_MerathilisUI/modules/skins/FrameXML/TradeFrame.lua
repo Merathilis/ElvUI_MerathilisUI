@@ -9,7 +9,7 @@ local unpack = unpack
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local BNGetGameAccountInfoByGUID = BNGetGameAccountInfoByGUID
-local IsCharacterFriend = IsCharacterFriend
+local C_FriendList_IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitGUID = UnitGUID
 -- GLOBALS:
@@ -59,7 +59,7 @@ local function LoadSkin()
 		if not guid then return end
 		local text = "|cffff0000"..L["Stranger"]
 
-		if BNGetGameAccountInfoByGUID(guid) or IsCharacterFriend(guid) then
+		if BNGetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
 			text = "|cffffff00".._G.FRIEND
 		elseif IsGuildMember(guid) then
 			text = "|cff00ff00".._G.GUILD
