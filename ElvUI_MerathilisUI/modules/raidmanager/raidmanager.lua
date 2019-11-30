@@ -549,11 +549,11 @@ function module:CreateRaidInfo()
 
 	header:SetScript("OnEvent", function(self)
 		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-		--if IsInGroup() or IsInRaid() then
-			--self:Show()
-		--else
-			--self:Hide()
-		--end
+		if IsInGroup() or IsInRaid() then
+			self:Show()
+		else
+			self:Hide()
+		end
 	end)
 	header:SetScript("OnEnter", function(self)
 		self.backdrop:SetBackdropColor(MER.r, MER.g, MER.b, 1)
