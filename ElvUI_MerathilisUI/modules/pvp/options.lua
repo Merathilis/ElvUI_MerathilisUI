@@ -2,6 +2,7 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local format = string.format
 local tinsert = table.insert
 --WoW API / Variables
@@ -10,7 +11,7 @@ local tinsert = table.insert
 local function PvPTable()
 	E.Options.args.mui.args.modules.args.pvp = {
 		type = "group",
-		name = E.NewSign..L["PVP"],
+		name = L["PVP"],
 		get = function(info) return E.db.mui.pvp.duels[ info[#info] ] end,
 		set = function(info, value) E.db.mui.pvp.duels[ info[#info] ] = value; end,
 		args = {
@@ -47,13 +48,13 @@ local function PvPTable()
 					regular = {
 						order = 2,
 						type = "toggle",
-						name = PVP,
+						name = _G.PVP,
 						desc = L["Automatically cancel PvP duel requests."],
 					},
 					pet = {
 						order = 3,
 						type = "toggle",
-						name = PET_BATTLE_PVP_DUEL,
+						name = _G.PET_BATTLE_PVP_DUEL,
 						desc = L["Automatically cancel pet battles duel requests."],
 					},
 					announce = {

@@ -19,7 +19,7 @@ local buttonTypes = {
 local function ActionBarTable()
 	E.Options.args.mui.args.modules.args.actionbars = {
 		type = "group",
-		name = E.NewSign..L["ActionBars"],
+		name = L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -37,7 +37,7 @@ local function ActionBarTable()
 					customGlow = {
 						order = 1,
 						type = "toggle",
-						name = E.NewSign..L["Custom Glow"],
+						name = L["Custom Glow"],
 						desc = L["Replaces the default Actionbar glow for procs with an own pixel glow."],
 					},
 				},
