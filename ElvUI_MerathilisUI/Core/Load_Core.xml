@@ -1,0 +1,19 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Core.lua"/>
+	<Script file="Functions.lua"/>
+	<Script file="Animations.lua"/>
+	<Script file="Fonts.lua"/>
+	<Script file="Changelog.lua"/>
+	<Script file="Dropdown.lua"/>
+	<Script file="Install.lua"/>
+	<Script file="SplashScreen.lua"/>
+	<Script file="Staticpopup.lua"/>
+	<Script file="StatusReport.lua"/>
+	<Script file="Tags.lua"/>
+	<Script file="ModuleCopy.lua"/>
+	<Script file="Movers.lua"/>
+	<Include file="AddonProfiles\Load_AddonProfiles.xml"/>
+	<Script file="Config.lua"/>
+	<Include file="FunStuff.xml"/>
+	<Script file="FunStuff.lua"/>
+</Ui>

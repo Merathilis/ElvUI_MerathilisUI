@@ -1,0 +1,13 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<script file="AddOnSkins.lua"/>
+	<script file="BenikUI.lua"/>
+	<script file="BigWigs.lua"/>
+	<script file="DeadlyBossMods.lua"/>
+	<script file="Details.lua"/>
+	<script file="FCT.lua"/>
+	<script file="iFilger.lua"/>
+	<script file="ls_Toasts.lua"/>
+	<script file="ProjectAzilroka.lua"/>
+	<script file="Skada.lua"/>
+	<script file="Touhin.lua"/>
+</Ui>

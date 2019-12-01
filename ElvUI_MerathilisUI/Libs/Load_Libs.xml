@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="LibAnim\LibAnim.lua"/>
+	<Script file="LibCustomGlow-1.0\LibCustomGlow-1.0.lua"/>
+	<Include file="oUF_Plugins\oUF_Plugins.xml"/>
+</Ui>
