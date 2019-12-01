@@ -1032,7 +1032,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
+		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 28
 		E.db["unitframe"]["units"]["player"]["debuffs"]["xOffset"] = 2
 		E.db["unitframe"]["units"]["player"]["debuffs"]["yOffset"] = 35
 		E.db["unitframe"]["units"]["player"]["debuffs"]["perrow"] = 3
@@ -1147,7 +1147,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["buffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["buffs"]["attachTo"] = "FRAME"
-		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 28
+		E.db["unitframe"]["units"]["player"]["buffs"]["sizeOverride"] = 26
 		E.db["unitframe"]["units"]["player"]["buffs"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["buffs"]["yOffset"] = 1
 		E.db["unitframe"]["units"]["player"]["buffs"]["perrow"] = 4
