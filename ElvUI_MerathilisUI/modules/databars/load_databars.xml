@@ -1,4 +1,4 @@
 ﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<script file="databars.lua"/>
-	<script file="options.lua"/>
+	<script file="Databars.lua"/>
+	<script file="Options.lua"/>
 </Ui>

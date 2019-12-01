@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="media.lua"/>
-	<Script file="sharedmedia.lua"/>
-	<Script file="options.lua"/>
+	<Script file="Media.lua"/>
+	<Script file="SharedMedia.lua"/>
+	<Script file="Options.lua"/>
 </Ui>

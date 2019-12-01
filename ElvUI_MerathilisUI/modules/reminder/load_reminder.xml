@@ -1,4 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="reminder.lua"/>
-	<Script file="options.lua"/>
+	<Script file="Reminder.lua"/>
+	<Script file="Options.lua"/>
 </Ui>

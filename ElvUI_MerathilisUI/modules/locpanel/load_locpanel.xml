@@ -1,4 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="locpanel.lua"/>
-	<Script file="options.lua"/>
+	<Script file="LocPanel.lua"/>
+	<Script file="Options.lua"/>
 </Ui>

@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="actionbars.lua"/>
-	<Script file="autoBar.lua"/>
-	<Script file="microBar.lua"/>
-	<Script file="specBar.lua"/>
-	<Script file="equipBar.lua"/>
-	<Script file="options.lua"/>
+	<Script file="Actionbars.lua"/>
+	<Script file="AutoBar.lua"/>
+	<Script file="MicroBar.lua"/>
+	<Script file="SpecBar.lua"/>
+	<Script file="EquipBar.lua"/>
+	<Script file="Options.lua"/>
 </Ui>

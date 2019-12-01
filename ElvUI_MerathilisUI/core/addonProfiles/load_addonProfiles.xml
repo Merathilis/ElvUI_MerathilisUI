@@ -9,6 +9,5 @@
 	<script file="ls_Toasts.lua"/>
 	<script file="ProjectAzilroka.lua"/>
 	<script file="Skada.lua"/>
-	<script file="template.lua"/>
 	<script file="Touhin.lua"/>
 </Ui>

@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="options.lua"/>
-	<Script file="durability.lua"/>
-	<Script file="time.lua"/>
+	<Script file="Options.lua"/>
+	<Script file="Durability.lua"/>
+	<Script file="Time.lua"/>
 </Ui>

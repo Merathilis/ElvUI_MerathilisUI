@@ -1,11 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="chat.lua"/>
-	<Script file="chatBar.lua"/>
-	<Script file="chatFade.lua"/>
-	<Script file="damagemeterfilter.lua"/>
-	<Script file="easyChannel.lua"/>
-	<Script file="emotes.lua"/>
-	<Script file="filters.lua"/>
-	<Script file="itemlinks.lua"/>
-	<Script file="options.lua"/>
+	<Script file="Chat.lua"/>
+	<Script file="ChatBar.lua"/>
+	<Script file="ChatFade.lua"/>
+	<Script file="DamageMeterFilter.lua"/>
+	<Script file="EasyChannel.lua"/>
+	<Script file="Emotes.lua"/>
+	<Script file="Filters.lua"/>
+	<Script file="ItemLinks.lua"/>
+	<Script file="Options.lua"/>
 </Ui>

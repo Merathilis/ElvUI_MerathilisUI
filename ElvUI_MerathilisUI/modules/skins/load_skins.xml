@@ -1,9 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="api.lua"/>
-	<Script file="merchant.lua"/>
-	<Script file="options.lua"/>
-	<Include file="AddOns\load_AddOns.xml"/>
-	<Include file="Extern\load_Extern.xml"/>
-	<Include file="FrameXML\load_FrameXML.xml"/>
-	<Include file="SharedXML\load_SharedXML.xml"/>
+	<Script file="Api.lua"/>
+	<Script file="Merchant.lua"/>
+	<Script file="Options.lua"/>
+	<Include file="AddOns\Load_AddOns.xml"/>
+	<Include file="Extern\Load_Extern.xml"/>
+	<Include file="FrameXML\Load_FrameXML.xml"/>
+	<Include file="SharedXML\Load_SharedXML.xml"/>
 </Ui>

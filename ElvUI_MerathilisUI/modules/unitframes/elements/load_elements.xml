@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="auras.lua"/>
-	<Script file="gcd.lua"/>
-	<Script file="healPrediction.lua"/>
-	<Script file="power.lua"/>
-	<Script file="swing.lua"/>
-	<Script file="raidIcon.lua"/>
+	<Script file="Auras.lua"/>
+	<Script file="Gcd.lua"/>
+	<Script file="HealPrediction.lua"/>
+	<Script file="Power.lua"/>
+	<Script file="RaidIcon.lua"/>
+	<Script file="Swing.lua"/>
 </Ui>

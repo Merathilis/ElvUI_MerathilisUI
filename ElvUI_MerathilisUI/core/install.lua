@@ -1410,7 +1410,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["position"] = "TOPLEFT"
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["xOffset"] = 1
 		E.db["unitframe"]["units"]["raid"]["roleIcon"]["yOffset"] = -1
-		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = false
+		E.db["unitframe"]["units"]["raid"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["raid"]["power"]["height"] = 4
 		E.db["unitframe"]["units"]["raid"]["groupBy"] = "ROLE"
 		E.db["unitframe"]["units"]["raid"]["health"]["frequentUpdates"] = true
@@ -1534,6 +1534,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["roleIcon"]["yOffset"] = -1
 		E.db["unitframe"]["units"]["raid40"]["raidWideSorting"] = false
 		E.db["unitframe"]["units"]["raid40"]["readycheckIcon"]["size"] = 20
+		E.db["unitframe"]["units"]["raid40"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["raid40"]["power"]["attachTextTo"] = "Health"
 		E.db["unitframe"]["units"]["raid40"]["power"]["height"] = 4
 		if not E.db["unitframe"]["units"]["raid40"]["customTexts"] then E.db["unitframe"]["units"]["raid40"]["customTexts"] = {} end
@@ -1645,7 +1646,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["party"]["targetsGroup"]["width"] = 79
 		E.db["unitframe"]["units"]["party"]["readycheckIcon"]["size"] = 20
-		E.db["unitframe"]["units"]["party"]["power"]["enable"] = false
+		E.db["unitframe"]["units"]["party"]["power"]["enable"] = true
 		E.db["unitframe"]["units"]["party"]["power"]["height"] = 4
 		E.db["unitframe"]["units"]["party"]["power"]["position"] = "BOTTOMRIGHT"
 		E.db["unitframe"]["units"]["party"]["power"]["text_format"] = ""

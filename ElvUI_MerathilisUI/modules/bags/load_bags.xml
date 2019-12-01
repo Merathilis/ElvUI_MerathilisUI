@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="bags.lua"/>
-	<Script file="equipOverlay.lua"/>
-	<Script file="options.lua"/>
+	<Script file="Bags.lua"/>
+	<Script file="EquipOverlay.lua"/>
+	<Script file="Options.lua"/>
 </Ui>
