@@ -506,7 +506,6 @@ function module:CreateRaidManager()
 		end
 
 		frame:Size(36, 36)
-		frame:SetTemplate()
 
 		local texture = frame:CreateTexture(nil, "OVERLAY")
 		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
