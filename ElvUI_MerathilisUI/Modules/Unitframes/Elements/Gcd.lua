@@ -3,7 +3,6 @@ local module = MER:GetModule("muiUnits")
 
 --Cache global variables
 --Lua functions
-local unpack = unpack
 --WoW API / Variables
 local CreateFrame = CreateFrame
 -- GLOBALS:
