@@ -174,8 +174,8 @@ local function Datatexts()
 	}
 
 	local datatexts = {}
-	for name, _ in pairs(DT.RegisteredDataTexts) do
-		datatexts[name] = name
+	for name, data in pairs(DT.RegisteredDataTexts) do
+		datatexts[name] = data.localizedName or L[name]
 	end
 	datatexts[""] = NONE
 
