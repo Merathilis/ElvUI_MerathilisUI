@@ -1021,6 +1021,11 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4
 
+	-- GCD Bar
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
+	end
+
 	if layout == "dps" then
 		-- Player
 		E.db["unitframe"]["units"]["player"]["width"] = 200

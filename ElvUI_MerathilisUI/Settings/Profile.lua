@@ -254,9 +254,13 @@ MP.unitframes = {
 	healPrediction = false,
 	swing = {
 		enable = false,
+		mcolor = { r = .8, g = .8, b = .8 },
+		tcolor = { r = .65, g = .63, b = .35 },
+		ocolor = { r = 0, g = .5, b = 1 },
 	},
 	gcd = {
 		enable = false,
+		color = { r = .8, g = .8, b = .8 },
 	},
 	style = true,
 }

@@ -429,48 +429,6 @@ function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	return text
 end
 
-function MER:CreateTex(self)
-	if self.Tex then return end
-
-	local frame = self
-	if self:GetObjectType() == "Texture" then frame = self:GetParent() end
-
-	self.Tex = frame:CreateTexture(nil, "BACKGROUND", nil, 1)
-	self.Tex:SetAllPoints(self)
-	self.Tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\bgTex", true, true)
-	self.Tex:SetHorizTile(true)
-	self.Tex:SetVertTile(true)
-	self.Tex:SetBlendMode("ADD")
-end
-
--- statusbar
-function MER:CreateStatusBar(self, spark, r, g, b)
-	self:SetStatusBarTexture(E.media.normTex)
-
-	if r and g and b then
-		self:SetStatusBarColor(r, g, b)
-	else
-		self:SetStatusBarColor(MER.r, MER.g, MER.b)
-	end
-	self:CreateBackdrop("Transparent")
-	self.backdrop:Styling()
-
-	self.BG = self:CreateTexture(nil, "BACKGROUND")
-	self.BG:SetAllPoints()
-	self.BG:SetTexture(E.media.normTex)
-	self.BG:SetVertexColor(0, 0, 0, .5)
-	MER:CreateTex(self.BG)
-
-	if spark then
-		self.Spark = self:CreateTexture(nil, "OVERLAY")
-		self.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
-		self.Spark:SetBlendMode("ADD")
-		self.Spark:SetAlpha(.8)
-		self.Spark:SetPoint("TOPLEFT", self:GetStatusBarTexture(), "TOPRIGHT", -10, 10)
-		self.Spark:SetPoint("BOTTOMRIGHT", self:GetStatusBarTexture(), "BOTTOMRIGHT", 10, -10)
-	end
-end
-
 -- Inform us of the patch info we play on.
 _G["SLASH_WOWVERSION1"], _G["SLASH_WOWVERSION2"] = "/patch", "/version"
 SlashCmdList["WOWVERSION"] = function()
