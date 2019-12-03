@@ -144,6 +144,9 @@ L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
 L["MISC_PARAGON_NOTIFY"] = "Max Reputation - Receive Reward."
 L["Skip Azerite Animation"] = true
 L["Fun Stuff"] = true
+L["Press CTRL + C to copy."] = true
+L["Wowhead Links"] = true
+L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
 
 -- Tooltip
 L["Your Status:"] = true

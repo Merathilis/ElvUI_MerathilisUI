@@ -78,6 +78,7 @@ MP.misc = {
 	},
 	skipAzerite = true,
 	funstuff = true,
+	wowheadlinks = true,
 }
 
 MP.nameHover = {

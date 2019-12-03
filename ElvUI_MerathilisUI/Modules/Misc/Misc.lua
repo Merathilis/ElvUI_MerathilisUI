@@ -31,6 +31,7 @@ local UnitSetRole = UnitSetRole
 local InCombatLockdown = InCombatLockdown
 local PlaySound, PlaySoundFile = PlaySound, PlaySoundFile
 local UpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
+local StaticPopupSpecial_Hide = StaticPopupSpecial_Hide
 
 -- GLOBALS: LFDQueueFrame_SetType, IDLE_MESSAGE, ForceQuit, SOUNDKIT, hooksecurefunc, PVPReadyDialog
 -- GLOBALS: LFRBrowseFrame, RolePollPopup, StaticPopupDialogs, LE_PET_JOURNAL_FILTER_COLLECTED
@@ -179,7 +180,7 @@ function module:Initialize()
 
 	E.RegisterCallback(module, "RoleChanged", "SetRole")
 	self:RegisterEvent("GROUP_ROSTER_UPDATE", "SetRole")
-	RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(RolePollPopup) end)
+	_G.RolePollPopup:SetScript("OnShow", function() StaticPopupSpecial_Hide(_G.RolePollPopup) end)
 
 	self:LoadMisc()
 	self:LoadGMOTD()
@@ -190,6 +191,7 @@ function module:Initialize()
 	self:GuildBest()
 	self:AddAlerts()
 	self:ReputationInit()
+	self:WowHeadLinks()
 end
 
 MER:RegisterModule(module:GetName())

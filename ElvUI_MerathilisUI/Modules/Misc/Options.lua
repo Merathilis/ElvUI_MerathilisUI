@@ -60,6 +60,12 @@ local function Misc()
 				type = "toggle",
 				name = E.NewSign..L["Fun Stuff"],
 			},
+			wowheadlinks = {
+				order = 9,
+				type = "toggle",
+				name = E.NewSign..L["Wowhead Links"],
+				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
+			},
 			alerts = {
 				order = 20,
 				type = "group",

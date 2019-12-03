@@ -142,6 +142,9 @@ L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
 L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 L["Fun Stuff"] = "Lustiges Zeugs"
+L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
+L["Wowhead Links"] = true -- No need to translate
+L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links zum/zur Erfolgfenster und Weltkarte hinzu."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

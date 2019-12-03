@@ -142,6 +142,9 @@ L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
 L["MISC_PARAGON_NOTIFY"] = "最高声望 - 接收奖励."
 L["Skip Azerite Animation"] = "跳过艾泽里特动画"
 L["Fun Stuff"] = "有趣的玩意儿"
+L["Press CTRL + C to copy."] = true
+L["Wowhead Links"] = true
+L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

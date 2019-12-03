@@ -19,5 +19,6 @@
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="ThreatBar.lua"/>
+	<Script file="WoWHeadLinks.lua"/>
 	<Script file="Options.lua"/>
 </Ui>
