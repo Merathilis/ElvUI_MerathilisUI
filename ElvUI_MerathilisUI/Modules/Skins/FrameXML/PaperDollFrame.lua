@@ -121,7 +121,7 @@ local function LoadSkin()
 		ClassTexture = _G.CharacterFrameInsetRight:CreateTexture(nil, "BORDER")
 		ClassTexture:SetPoint("BOTTOM", _G.CharacterFrameInsetRight, "BOTTOM", 0, 40)
 		ClassTexture:SetSize(126, 120)
-		ClassTexture:SetAlpha(.45)
+		ClassTexture:SetAlpha(.25)
 		ClassTexture:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\classIcons\\CLASS-"..E.myclass)
 		ClassTexture:SetDesaturated(true)
 	end
