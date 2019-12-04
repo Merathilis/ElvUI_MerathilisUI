@@ -928,6 +928,13 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 
+	-- AutoBar
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		E.db["mui"]["actionbars"]["autoButtons"]["slotAutoButtons"]["inheritGlobalFade"] = true
+		E.db["mui"]["actionbars"]["autoButtons"]["questAutoButtons"]["inheritGlobalFade"] = true
+		E.db["mui"]["actionbars"]["autoButtons"]["usableAutoButtons"]["inheritGlobalFade"] = true
+	end
+
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,183"
