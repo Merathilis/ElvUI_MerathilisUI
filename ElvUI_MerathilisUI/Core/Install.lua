@@ -258,12 +258,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
 
-	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		E.db["general"]["cropIcon"] = false
-	else
-		E.db["general"]["cropIcon"] = true
-	end
-
 	--[[----------------------------------
 	--	ProfileDB - Auras
 	--]]----------------------------------
@@ -674,7 +668,12 @@ function MER:SetupLayout(layout)
 
 	-- Heal Prediction
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		E.db["mui"]["unitframes"]["healPrediction"] = true
+		E.db["mui"]["pvp"]["duels"]["regular"] = true
+		E.db["mui"]["pvp"]["duels"]["pet"] = true
+		E.db["mui"]["pvp"]["duels"]["announce"] = true
+		E.db["general"]["cropIcon"] = false
+	else
+		E.db["general"]["cropIcon"] = true
 	end
 
 	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
@@ -1031,6 +1030,7 @@ function MER:SetupUnitframes(layout)
 	-- GCD Bar
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		E.db["mui"]["unitframes"]["gcd"]["enable"] = true
+		E.db["mui"]["unitframes"]["healPrediction"] = true
 	end
 
 	if layout == "dps" then
