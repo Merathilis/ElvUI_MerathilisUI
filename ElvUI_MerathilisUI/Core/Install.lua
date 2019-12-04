@@ -1785,7 +1785,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["pet"]["name"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["name"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["pet"]["width"] = 75
-		E.db["unitframe"]["units"]["pet"]["height"] = 32
+		E.db["unitframe"]["units"]["pet"]["height"] = 20
 		E.db["unitframe"]["units"]["pet"]["power"]["height"] = 6
 		E.db["unitframe"]["units"]["pet"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["pet"]["portrait"]["overlay"] = true
