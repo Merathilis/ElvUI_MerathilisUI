@@ -572,3 +572,12 @@ L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
+
+-- DashBoard
+L["Bar Color"] = "Leistenfarbe"
+L["Use DataTexts font"] = "Benutze Infoleisten Schrift"
+L["Enable the System Dashboard."] = "Aktiviere das System Dashboard."
+L["Select System Board"] = "System Dashboard auswählen"
+L["Change the System Dashboard width."] = "Ändert die System Dashboard Breite."
+L["Enable/Disable "] = "Aktiviere/Deaktiviere "
+L["Latency (MS)"] = "Latenz (MS)"

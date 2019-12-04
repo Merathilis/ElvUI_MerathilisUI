@@ -63,6 +63,11 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
+local color = { r = 1, g = 1, b = 1, a = 1 }
+function MER:unpackColor(color)
+	return color.r, color.g, color.b, color.a
+end
+
 function MER:UnitColor(unit)
 	local r, g, b = 1, 1, 1
 	if UnitIsPlayer(unit) then
@@ -99,11 +104,6 @@ end
 
 function MER:PrintURL(url)
 	return format("|cFF00c0fa[|Hurl:%s|h%s|h]|r", url, url)
-end
-
-local color = { r = 1, g = 1, b = 1, a = 1 }
-function MER:unpackColor(color)
-	return color.r, color.g, color.b, color.a
 end
 
 -- LocPanel

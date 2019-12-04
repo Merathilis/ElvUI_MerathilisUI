@@ -81,37 +81,8 @@ local difficultyTag = { -- Raid Finder, Normal, Heroic, Mythic
 	(krcntw and PLAYER_DIFFICULTY6) or utf8sub(PLAYER_DIFFICULTY6, 1, 1)  -- M
 }
 
-local function sortFunc(a,b) return a[1] < b[1] end
-
-local function colorLatency(latency)
-	if latency < 250 then
-		return "|cff0CD809"..latency
-	elseif latency < 500 then
-		return "|cffE8DA0F"..latency
-	else
-		return "|cffD80909"..latency
-	end
-end
-
-local function colorFPS(fps)
-	if fps < 15 then
-		return "|cffD80909"..fps
-	elseif fps < 30 then
-		return "|cffE8DA0F"..fps
-	else
-		return "|cff0CD809"..fps
-	end
-end
-
-local function setFrameRate(self)
-	local fps = floor(GetFramerate())
-	self.text:SetText(L["FPS"]..": "..colorFPS(fps))
-end
-
-local function setLatency(self)
-	local _, _, latencyHome, latencyWorld = GetNetStats()
-	local latency = max(latencyHome, latencyWorld)
-	self.text:SetText(L["Latency"]..": "..colorLatency(latency))
+local function sortFunc(a, b)
+	return a[1] < b[1]
 end
 
 local function updateTimerFormat(color, hour, minute)
@@ -140,13 +111,6 @@ function module.OnUpdate(self, elapsed)
 		end
 		self.text:SetText(updateTimerFormat(color, hour, minute))
 
-		-- Latency
-		showMode = mod(showMode + 1, 10)
-		if showMode > 4 then
-			setFrameRate(self)
-		else
-			setLatency(self)
-		end
 		if entered then self:onEnter() end
 
 		self.timer = 0
@@ -402,14 +366,6 @@ function module.OnEnter(self)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddDoubleLine(L["Local Time"], GameTime_GetLocalTime(true), 1, .8, .1, 1, 1, 1)
 	GameTooltip:AddDoubleLine(L["Realm Time"], GameTime_GetGameTime(true), 1, .8, .1, 1, 1, 1)
-
-	-- Latency
-	local _, _, latencyHome, latencyWorld = GetNetStats()
-	local fps = floor(GetFramerate())
-	GameTooltip:AddLine(" ")
-	GameTooltip:AddDoubleLine(L["Home Latency:"], colorLatency(latencyHome).."|r MS", .6, .8, 1, 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["World Latency:"], colorLatency(latencyWorld).."|r MS", .6, .8, 1, 1, 1, 1)
-	GameTooltip:AddDoubleLine(_G.FRAMERATE_LABEL, colorFPS(fps).."|r FPS", .6,.8,1, 1,1,1)
 
 	-- World bosses
 	title = false

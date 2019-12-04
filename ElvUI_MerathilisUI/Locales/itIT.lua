@@ -575,3 +575,12 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+
+-- DashBoard
+L["Bar Color"] = true
+L["Use DataTexts font"] = true
+L["Enable the System Dashboard."] = true
+L["Select System Board"] = true
+L["Change the System Dashboard width."] = true
+L["Enable/Disable "] = true
+L["Latency (MS)"] = true

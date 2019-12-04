@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="DashBoard.lua"/>
+	<Script file="System.lua"/>
+	<Script file="Options.lua"/>
+	<Include file="Panels\Load_Panels.xml"/>
+</Ui>
