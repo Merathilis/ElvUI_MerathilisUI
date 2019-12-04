@@ -924,7 +924,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["stanceBar"]["backdrop"] = true
 	E.db["actionbar"]["stanceBar"]["buttonspacing"] = 3
 	E.db["actionbar"]["stanceBar"]["buttonsPerRow"] = 6
-	E.db["actionbar"]["stanceBar"]["buttonsize"] = 24
+	E.db["actionbar"]["stanceBar"]["buttonsize"] = 22
 	E.db["actionbar"]["stanceBar"]["inheritGlobalFade"] = true
 
 	-- AutoBar
@@ -941,7 +941,7 @@ function MER:SetupActionbars(layout)
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
 		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,19"
-		E.db["movers"]["ShiftAB"] = "BOTTOM,ElvUIParent,BOTTOM,0,85"
+		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
 		E.db["movers"]["BossButton"] = "BOTTOM,ElvUIParent,BOTTOM,305,50"
 		E.db["movers"]["MicrobarMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-4"
