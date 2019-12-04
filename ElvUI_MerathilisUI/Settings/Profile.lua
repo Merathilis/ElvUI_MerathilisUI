@@ -408,9 +408,9 @@ MP.raidmanager = {
 
 MP.pvp = {
 	duels = {
-		regular = true,
-		pet = true,
-		announce = true,
+		regular = false,
+		pet = false,
+		announce = false,
 	},
 }
 
