@@ -83,7 +83,7 @@ local function UnitFramesTable()
 				},
 			},
 			swing = {
-				order = 3,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Swing Bar"]),
 				guiInline = true,
