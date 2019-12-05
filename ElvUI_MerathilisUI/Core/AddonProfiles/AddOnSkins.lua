@@ -45,8 +45,8 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['EmbedSystemMessage'] = false
 	AS.db['ElvUISkinModule'] = true
 	AS.db['ThinBorder'] = false
-	AS.db['BackgroundTexture'] = 'Duffed'
-	AS.db['StatusBarTexture'] = 'Duffed'
+	AS.db['BackgroundTexture'] = 'Melli'
+	AS.db['StatusBarTexture'] = 'Melli'
 
 	-- embeded settings
 	if IsAddOnLoaded("Details") then

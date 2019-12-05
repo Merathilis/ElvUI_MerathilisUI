@@ -31,5 +31,5 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["ButtonWidth"] = 20
 	PA.db["stAddonManager"]["Font"] = "Merathilis Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
-	PA.db["stAddonManager"]["CheckTexture"] = "Duffed"
+	PA.db["stAddonManager"]["CheckTexture"] = "Melli"
 end
