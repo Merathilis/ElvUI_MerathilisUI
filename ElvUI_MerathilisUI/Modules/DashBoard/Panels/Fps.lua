@@ -85,21 +85,10 @@ function module:CreateFps()
 
 		if(LastUpdate < 0) then
 			self:SetMinMaxValues(0, 200)
-			local value = floor(GetFramerate())
-			local max = 120
-			local fpscolor = 4
-			self:SetValue(value)
+			local framerate = floor(GetFramerate())
+			self:SetValue(framerate)
 
-			if(value * 100 / max >= 45) then
-				fpscolor = 1
-			elseif value * 100 / max < 45 and value * 100 / max > 30 then
-				fpscolor = 2
-			else
-				fpscolor = 3
-			end
-
-			local displayFormat = join("", "FPS: ", statusColors[fpscolor], "%d|r")
-			boardName.Text:SetFormattedText(displayFormat, value)
+			boardName.Text:SetFormattedText("FPS: %s%d|r", statusColors[framerate >= 30 and 1 or (framerate >= 20 and framerate < 30) and 2 or (framerate >= 10 and framerate < 20) and 3 or 4], framerate)
 			LastUpdate = 1
 		end
 	end)
