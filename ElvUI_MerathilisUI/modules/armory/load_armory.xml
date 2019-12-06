@@ -1,6 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="armory.lua"/>
-	<Script file="azeritebuttons.lua"/>
-	<Script file="stats.lua"/>
-	<Script file="options.lua"/>
-</Ui>

@@ -1,0 +1,115 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="FlightPoint.lua"/>
+	<Button name="FlightPointsButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="250" y="17"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentStripe">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="1" y="0"/>
+						<Anchor point="BOTTOMRIGHT" x="-1" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<FontString name="$parentName" inherits="GameFontHighlightLeft">
+					<Size>
+						<AbsDimension x="230" y="11"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset x="11" y="0"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="$parentCategoryLeft" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryLeft">
+					<Size x="76" y="16"/>
+					<Anchors>
+						<Anchor point="LEFT" x="0" y="0"/>
+					</Anchors>
+					<TexCoords left="0.17578125" right="0.47265625" top="0.29687500" bottom="0.54687500"/>
+				</Texture>
+				<Texture name="$parentCategoryRight" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryRight">
+					<Size x="76" y="16"/>
+					<Anchors>
+						<Anchor point="RIGHT" x="0" y="0"/>
+					</Anchors>
+					<TexCoords left="0.17578125" right="0.47265625" top="0.01562500" bottom="0.26562500"/>
+				</Texture>
+				<Texture name="$parentCategoryMiddle" file="Interface\Buttons\CollapsibleHeader" parentKey="categoryMiddle">
+					<Size x="0" y="16"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentCategoryLeft" relativePoint="RIGHT" x="-20" y="0"/>
+						<Anchor point="RIGHT" relativeTo="$parentCategoryRight" relativePoint="LEFT" x="20" y="0"/>
+					</Anchors>
+					<TexCoords left="0.48046875" right="0.98046875" top="0.01562500" bottom="0.26562500"/>
+				</Texture>
+
+			</Layer>
+		</Layers>
+
+		<Scripts>
+			<OnLoad>
+				FlightPointsTaxiChoiceButton_OnLoad(self);
+			</OnLoad>
+			<OnClick>
+				FlightPointsTaxiChoiceButton_OnClick(self, button, down);
+			</OnClick>
+		</Scripts>
+		<ButtonText>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontNormal"/>
+		<HighlightTexture name="$parentHighlight" file="Interface\AddOns\ElvUI_MerathilisUI\media\textures\Duffed" alphaMode="ADD">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset x="3" y="-2"/>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset x="-3" y="2"/>
+				</Anchor>
+			</Anchors>
+			<TexCoords left="0" right="1" top="0.609375" bottom="0.796875"/>
+		</HighlightTexture>
+	</Button>
+	<Frame name="FlightPointsTaxiChoice" parent="UIParent" inherits="BasicFrameTemplateWithInset" hidden="true">
+		<Scripts>
+			<OnLoad function="FlightPoints_OnLoad"/>
+			<OnEvent function="FlightPoints_OnEvent"/>
+			<OnShow function="FlightPoints_Show"/>
+		</Scripts>
+		 <Frames>
+			<ScrollFrame name="$parentContainer" inherits="HybridScrollFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="FlightPointsTaxiChoice" x="4" y="-25"/>
+					<Anchor point="BOTTOMRIGHT" relativeTo="FlightPointsTaxiChoice" x="-23" y="25"/>
+				</Anchors>
+				<Frames>
+					<Slider name="$parentScrollBar" inherits="HybridScrollBarTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="0" y="-12"/>
+								</Offset>
+							</Anchor>
+							<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="0" y="11"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Slider>
+				</Frames>
+			</ScrollFrame>
+		</Frames>
+	</Frame>
+</Ui>
