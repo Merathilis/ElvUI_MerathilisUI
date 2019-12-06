@@ -21,7 +21,7 @@ function module:Construct_Swing(frame)
 	bar:SetPoint("TOP", frame.Castbar.Holder, "BOTTOM", 0, 1)
 	bar:SetFrameLevel(frame.Castbar.Holder:GetFrameLevel()+1)
 	bar:CreateBackdrop("Transparent")
-	bar.backdrop:Styling()
+	bar.backdrop:Styling(false, false, true)
 
 	local main = CreateFrame("StatusBar", nil, bar)
 	main:SetAllPoints(bar)

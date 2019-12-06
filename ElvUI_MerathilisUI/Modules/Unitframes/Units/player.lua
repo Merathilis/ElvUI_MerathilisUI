@@ -17,8 +17,8 @@ function module:Update_PlayerFrame(frame)
 
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then
-		if frame and not frame.isStyled then
-			frame:Styling()
+		if frame and frame.Health and not frame.isStyled then
+			frame.Health:Styling(false, false, true)
 			frame.isStyled = true
 		end
 	end

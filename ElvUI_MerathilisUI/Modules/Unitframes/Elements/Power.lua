@@ -14,7 +14,7 @@ function module:Configure_Power(frame)
 	local power = frame.Power
 
 	if power and not power.isStyled then
-		power:Styling()
+		power:Styling(false, false, true)
 		power.isStyled = true
 	end
 end
