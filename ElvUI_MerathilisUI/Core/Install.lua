@@ -1338,7 +1338,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["targettarget"]["power"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["width"] = 75
 		E.db["unitframe"]["units"]["targettarget"]["name"]["yOffset"] = 0
-		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:short]"
+		E.db["unitframe"]["units"]["targettarget"]["name"]["text_format"] = "[namecolor][name:abbrev:short]"
 		E.db["unitframe"]["units"]["targettarget"]["height"] = 20
 		E.db["unitframe"]["units"]["targettarget"]["health"]["text_format"] = ""
 		E.db["unitframe"]["units"]["targettarget"]["health"]["bgUseBarTexture"] = true
