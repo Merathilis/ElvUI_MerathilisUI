@@ -16,13 +16,13 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• DPS LAYOUT UPDATE: If you want it, do the install process again!!",
-		"• Added some animated stuff to gossip/quest frames",
-		"• Updated Heal Prediction",
-		"• Updated GCD Bar (disabled by default)",
-		"• Added a Swing Bar (disabled by default)",
-		"• AutoButtons can now use the Global Fade Transparency",
-		"• Options cleanup",
+		"• Small Tweaks to the DPS Layout",
+		"• Added a chat fade feature. Thanks to fgprodigal <3",
+		"• Added right click function to my RaidManager to open RaidPanel",
+		"• Hide Coords will now also hide the Backdrop fron the LocPanel Coords",
+		"• Added Color Option to GCD/Swing-Bar",
+		"• Added wowhead links on World Frame & Achievement Frame",
+		"• Added a System DashBoard to show FPS, MS and control Volume",
 
 		-- "• ''",
 	" ",

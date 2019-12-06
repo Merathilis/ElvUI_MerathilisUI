@@ -1,4 +1,14 @@
-[b][color=orange]v4.37[/color], 26.11.2019[/b][list] 
+[b][color=orange]v4.38[/color], 06.12.2019[/b][list]
+[*]Small Tweaks to the DPS Layout.
+[*]Added a chat fade feature. Thanks to fgprodigal <3
+[*]Added right click function to my RaidManager to open RaidPanel.
+[*]Hide Coords will now also hide the Backdrop fron the LocPanel Coords.
+[*]Added Color Option to GCD/Swing-Bar.
+[*]Added wowhead links on World Frame & Achievement Frame.
+[*]Added a System DashBoard to show FPS, MS and control Volume.[/list]
+
+
+[b][color=orange]v4.37[/color], 26.11.2019[/b][list]
 [*]DPS LAYOUT UPDATE: If you want it, do the install process again!!
 [*]Added some animated stuff to gossip/quest frames.
 [*]Updated Heal Prediction.
