@@ -1,0 +1,5 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Fps.lua"/>
+	<Script file="Ms.lua"/>
+	<Script file="Volume.lua"/>
+</Ui>

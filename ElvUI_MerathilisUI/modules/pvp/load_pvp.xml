@@ -1,4 +1,0 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="pvp.lua"/>
-	<Script file="options.lua"/>
-</Ui>

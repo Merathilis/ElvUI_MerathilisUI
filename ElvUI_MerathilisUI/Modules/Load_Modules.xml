@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="Skins\Load_Skins.xml"/>
+	<Include file="Extern\Load_Extern.xml"/>
+	<Include file="Armory\Load_Armory.xml"/>
+	<Include file="Bags\Load_Bags.xml"/>
+	<Include file="Blizzard\Load_Blizzard.xml"/>
+	<Include file="Chat\Load_Chat.xml"/>
+	<Include file="Cooldowns\Load_Cooldowns.xml"/>
+	<Include file="DashBoard\Load_DashBoard.xml"/>
+	<Include file="Datatexts\Load_Datatexts.xml"/>
+	<Include file="Databars\Load_Databars.xml"/>
+	<Include file="LocPanel\Load_LocPanel.xml"/>
+	<Include file="Maps\Load_Maps.xml"/>
+	<Include file="Misc\Load_Misc.xml"/>
+	<Include file="Tooltip\Load_Tooltip.xml"/>
+	<Include file="Actionbars\Load_Actionbars.xml"/>
+	<Include file="Unitframes\Load_Unitframes.xml"/>
+	<Include file="RaidMarkers\Load_RaidMarkers.xml"/>
+	<Include file="Nameplates\Load_Nameplates.xml"/>
+	<Include file="Notification\Load_Notification.xml"/>
+	<Include file="RBReminder\Load_RBReminder.xml"/>
+	<Include file="Reminder\Load_Reminder.xml"/>
+	<Include file="RaidManager\Load_RaidManager.xml"/>
+	<Include file="PvP\Load_PvP.xml"/>
+</Ui>
