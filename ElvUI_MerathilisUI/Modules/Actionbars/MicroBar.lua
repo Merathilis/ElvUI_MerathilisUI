@@ -838,8 +838,8 @@ function module:CreateMicroBar()
 	timerAnim:SetDuration(1)
 
 	timer:SetScript("OnFinished", function(self, requested)
-		local euTime = date("%H|cFF00c0fa:|r%M")
-		local ukTime = date("%I|cFF00c0fa:|r%M")
+		local euTime = date("%H|cffFFFFFF:|r%M")
+		local ukTime = date("%I|cffFFFFFF:|r%M")
 		if E.db.datatexts.time24 == true then
 			timeButton.text:SetText(euTime)
 		else
