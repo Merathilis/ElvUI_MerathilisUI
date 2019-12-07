@@ -21,6 +21,7 @@ function module:StyleUFs()
 		-- Player
 		self:InitPlayer()
 		self:InitPower()
+		self:InitCastBar()
 
 		-- Target
 		self:InitTarget()
