@@ -38,6 +38,7 @@ local function LoadSkin()
 		"StackSplitFrame",
 		"QueueStatusFrame",
 		"LFDReadyCheckPopup",
+		"LFDRoleCheckPopup",
 	}
 
 	for i = 1, getn(skins) do
