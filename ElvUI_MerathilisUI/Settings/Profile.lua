@@ -183,8 +183,9 @@ MP.actionbars = {
 			[49040] = true, -- Jeeves
 			[132514] = true, -- Auto-Hammer
 
-			-- Professions
+			-- Professions (Bfa)
 			[164733] = true, -- Synchronous Thread
+			[164978] = true, -- Mallet of Thunderous Skins
 
 			--Guild and Honor
 			[63359] = true, -- Banner of Cooperation
