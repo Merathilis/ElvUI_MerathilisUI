@@ -183,6 +183,9 @@ MP.actionbars = {
 			[49040] = true, -- Jeeves
 			[132514] = true, -- Auto-Hammer
 
+			-- Professions
+			[164733] = true, -- Synchronous Thread
+
 			--Guild and Honor
 			[63359] = true, -- Banner of Cooperation
 			[64398] = true, -- Standard of Unity
