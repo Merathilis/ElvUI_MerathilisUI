@@ -23,6 +23,7 @@ local UnitClass = UnitClass
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
+local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
@@ -66,25 +67,6 @@ MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
-end
-
-function MER:UnitColor(unit)
-	local r, g, b = 1, 1, 1
-	if UnitIsPlayer(unit) then
-		local _, class = UnitClass(unit)
-		if class then
-			r, g, b = E:ClassColor(class)
-		end
-	elseif UnitIsTapDenied(unit) then
-		r, g, b = .6, .6, .6
-	else
-		local reaction = UnitReaction(unit, "player")
-		if reaction then
-			local color = FACTION_BAR_COLORS[reaction]
-			r, g, b = color.r, color.g, color.b
-		end
-	end
-	return r, g, b
 end
 
 function MER:SetupProfileCallbacks()
