@@ -142,14 +142,14 @@ L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
 L["MISC_PARAGON_NOTIFY"] = "最高声望 - 接收奖励."
 L["Skip Azerite Animation"] = "跳过艾泽里特动画"
 L["Fun Stuff"] = "有趣的玩意儿"
-L["Press CTRL + C to copy."] = true
-L["Wowhead Links"] = true
-L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
+L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
+L["Wowhead Links"] = "Wowhead 链接"
+L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
-L["Your Status: Incomplete"] = "你的状态：不完整"
-L["Your Status: Completed on "] = "您的状态：已完成"
+L["Your Status: Incomplete"] = "你的状态：未完成"
+L["Your Status: Completed on "] = "您的状态：完成于"
 L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
 L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
