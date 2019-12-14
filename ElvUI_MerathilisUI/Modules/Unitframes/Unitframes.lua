@@ -29,6 +29,9 @@ function module:StyleUFs()
 		-- TargetTarget
 		self:InitTargetTarget()
 
+		-- Pet
+		self:InitPet()
+
 		-- Focus
 		self:InitFocus()
 
