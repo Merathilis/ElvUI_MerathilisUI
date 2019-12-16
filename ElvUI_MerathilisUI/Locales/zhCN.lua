@@ -145,6 +145,8 @@ L["Fun Stuff"] = "有趣的玩意儿"
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
+L["Codex Buttons"] = true
+L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

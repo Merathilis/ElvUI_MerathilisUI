@@ -79,6 +79,7 @@ MP.misc = {
 	skipAzerite = true,
 	funstuff = true,
 	wowheadlinks = true,
+	respec = true,
 }
 
 MP.nameHover = {
@@ -266,6 +267,9 @@ MP.unitframes = {
 	gcd = {
 		enable = false,
 		color = { r = .8, g = .8, b = .8 },
+	},
+	counterBar = {
+		enable = true,
 	},
 	style = true,
 }
