@@ -3,6 +3,7 @@ local module = MER:GetModule("muiUnits")
 
 --Cache global variables
 --Lua functions
+local floor = math.floor
 --WoW API / Variables
 local CreateFrame = CreateFrame
 -- GLOBALS:
