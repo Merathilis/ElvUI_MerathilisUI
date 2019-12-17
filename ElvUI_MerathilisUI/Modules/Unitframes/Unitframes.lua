@@ -21,12 +21,16 @@ function module:StyleUFs()
 		-- Player
 		self:InitPlayer()
 		self:InitPower()
+		self:InitCastBar()
 
 		-- Target
 		self:InitTarget()
 
 		-- TargetTarget
 		self:InitTargetTarget()
+
+		-- Pet
+		self:InitPet()
 
 		-- Focus
 		self:InitFocus()

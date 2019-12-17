@@ -14,6 +14,10 @@ local function LoadSkin()
 	local AlliedRacesFrame = _G.AlliedRacesFrame
 	S:HandlePortraitFrame(AlliedRacesFrame, true)
 
+	if AlliedRacesFrame.backdrop then
+		AlliedRacesFrame.backdrop:Styling()
+	end
+
 	local scrollFrame = AlliedRacesFrame.RaceInfoFrame.ScrollFrame
 	scrollFrame.Child.ObjectivesFrame:StripTextures()
 	scrollFrame.Child.ObjectivesFrame:CreateBackdrop("Transparent")

@@ -149,6 +149,8 @@ L["Fun Stuff"] = true
 L["Press CTRL + C to copy."] = true
 L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
+L["Codex Buttons"] = true
+L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 
 -- Tooltip
 L["Your Status:"] = true

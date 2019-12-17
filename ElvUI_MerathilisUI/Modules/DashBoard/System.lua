@@ -92,7 +92,7 @@ function module:CreateSystemDashboard()
 	local DASH_WIDTH = E.db.mui.dashboard.system.width or 150
 
 	self.sysHolder = self:CreateDashboardHolder("MER_SystemDashboard", "system")
-	self.sysHolder:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -65)
+	self.sysHolder:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -55)
 	self.sysHolder:SetWidth(DASH_WIDTH)
 
 	module:UpdateSystem()

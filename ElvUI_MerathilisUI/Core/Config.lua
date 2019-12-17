@@ -204,7 +204,7 @@ local function AddOptions()
 								order = 1,
 								type = "description",
 								fontSize = "medium",
-								name = format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3"),
+								name = format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"),
 							},
 						},
 					},

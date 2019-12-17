@@ -14,11 +14,12 @@ function module:Update_PlayerFrame(frame)
 
 	if not frame.Swing then module:Construct_Swing(frame) end
 	if not frame.GCD then module:Construct_GCD(frame) end
+	if not frame.CounterBar then module:Construct_CounterBar(frame) end
 
 	-- Only looks good on Transparent
 	if E.db.unitframe.colors.transparentHealth then
-		if frame and not frame.isStyled then
-			frame:Styling()
+		if frame and frame.Health and not frame.isStyled then
+			frame.Health:Styling(false, false, true)
 			frame.isStyled = true
 		end
 	end
@@ -40,6 +41,16 @@ function module:Update_PlayerFrame(frame)
 	else
 		if frame:IsElementEnabled('GCD') then
 			frame:DisableElement('GCD')
+		end
+	end
+
+	if db.counterBar.enable then
+		if not frame:IsElementEnabled('CounterBar') then
+			frame:EnableElement('CounterBar')
+		end
+	else
+		if frame:IsElementEnabled('CounterBar') then
+			frame:DisableElement('CounterBar')
 		end
 	end
 end

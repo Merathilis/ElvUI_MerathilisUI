@@ -58,13 +58,19 @@ local function Misc()
 			funstuff = {
 				order = 8,
 				type = "toggle",
-				name = E.NewSign..L["Fun Stuff"],
+				name = L["Fun Stuff"],
 			},
 			wowheadlinks = {
 				order = 9,
 				type = "toggle",
-				name = E.NewSign..L["Wowhead Links"],
+				name = L["Wowhead Links"],
 				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
+			},
+			respec = {
+				order = 10,
+				type = "toggle",
+				name = E.NewSign..L["Codex Buttons"],
+				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
 			alerts = {
 				order = 20,

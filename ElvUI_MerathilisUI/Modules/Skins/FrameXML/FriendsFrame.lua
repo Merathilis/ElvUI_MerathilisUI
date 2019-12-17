@@ -39,6 +39,10 @@ local function LoadSkin()
 
 	local FriendsFriendsFrame = _G.FriendsFriendsFrame
 	FriendsFriendsFrame:Styling()
+
+	if _G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop then
+		_G.FriendsFrameBattlenetFrame.BroadcastFrame.backdrop:Styling()
+	end
 end
 
 S:AddCallback("mUIFriends", LoadSkin)

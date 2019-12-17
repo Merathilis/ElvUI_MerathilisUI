@@ -109,7 +109,7 @@ function module:Configure_ChatFade()
 			self.chatFadeTimer = nil
 		end
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
-		
+
 		_G.LeftChatPanel:SetParent(E.UIParent)
 		_G.RightChatPanel:SetParent(E.UIParent)
 		_G.LeftChatToggleButton:SetParent(E.UIParent)

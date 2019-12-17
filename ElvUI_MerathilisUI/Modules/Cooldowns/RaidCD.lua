@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RaidCD", "AceEvent-3.0", "AceConsole-3.0")
+local module = MER:NewModule("RaidCD", "AceEvent-3.0", 'AceTimer-3.0')
 
 --Cache global variables
 --Lua functions
@@ -100,14 +100,6 @@ end
 
 local function sortByExpiration(a, b)
 	return a.endTime > b.endTime
-end
-
-local CreateFS = function(frame, fsize, fstyle)
-	local fstring = frame:CreateFontString(nil, "OVERLAY")
-	fstring:FontTemplate(E.Libs.LSM:Fetch("font", module.db.font) or E["media"].normFont, module.db.fontSize or 12, module.db.fontOutline or "OUTLINE")
-	fstring:SetShadowOffset(module.db.shadow and 1 or 0, module.db.shadow and -1 or 0)
-
-	return fstring
 end
 
 local UpdatePositions = function()
@@ -214,12 +206,14 @@ local OnMouseDown = function(self, button)
 end
 
 local CreateBar = function()
+	local db = E.db.mui.raidCD
+
 	local bar = CreateFrame("Statusbar", nil, E.UIParent)
 	bar:SetFrameStrata("MEDIUM")
-	if module.db.show_icon == true then
-		bar:SetSize(module.db.width, module.db.height)
+	if db.show_icon == true then
+		bar:SetSize(db.width, db.height)
 	else
-		bar:SetSize(module.db.width + 28, module.db.height)
+		bar:SetSize(db.width + 28, db.height)
 	end
 	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetMinMaxValues(0, 100)
@@ -229,16 +223,18 @@ local CreateBar = function()
 	bar.bg:SetAllPoints(bar)
 	bar.bg:SetTexture(E.media.normTex)
 
-	bar.left = CreateFS(bar)
+	bar.left = bar:CreateFontString(nil, "OVERLAY")
+	bar.left:FontTemplate(E.Libs.LSM:Fetch("font", db.text.font), db.text.fontSize, db.text.fontOutline)
 	bar.left:SetPoint("LEFT", 2, 0)
 	bar.left:SetJustifyH("LEFT")
-	bar.left:SetSize(module.db.width - 30, module.db.text.fontSize)
+	bar.left:SetSize(db.width - 30, db.text.fontSize)
 
-	bar.right = CreateFS(bar)
+	bar.right = bar:CreateFontString(nil, "OVERLAY")
+	bar.right:FontTemplate(E.Libs.LSM:Fetch("font", db.text.font), db.text.fontSize, db.text.fontOutline)
 	bar.right:SetPoint("RIGHT", 1, 0)
 	bar.right:SetJustifyH("RIGHT")
 
-	if module.db.show_icon == true then
+	if db.show_icon == true then
 		bar.icon = CreateFrame("Button", nil, bar)
 		bar.icon:SetWidth(bar:GetHeight() + 6)
 		bar.icon:SetHeight(bar.icon:GetWidth())
@@ -407,9 +403,10 @@ f:SetScript("OnEvent", function(self, event)
 end)
 
 function module:Initialize()
+	module.db = E.db.mui.raidCD
 	MER:RegisterDB(self, "raidCD")
 
-	if self.db.enable ~= true then return end
+	if module.db.enable ~= true then return end
 
 	for spell in pairs(module.Spells) do
 		local name = GetSpellInfo(spell)
@@ -419,10 +416,10 @@ function module:Initialize()
 	end
 
 	RaidCDAnchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 3, -100)
-	if self.db.show_icon == true then
-		RaidCDAnchor:SetSize(self.db.width + 32, self.db.height + 10)
+	if module.db.show_icon == true then
+		RaidCDAnchor:SetSize(module.db.width + 32, module.db.height + 10)
 	else
-		RaidCDAnchor:SetSize(self.db.width + 32, self.db.height + 4)
+		RaidCDAnchor:SetSize(module.db.width + 32, module.db.height + 4)
 	end
 	E:CreateMover(RaidCDAnchor, "MER_RaidCDMover", L["Raid Cooldown"], nil, nil, nil, 'ALL,RAID,PARTY,ARENA,MERATHILISUI', nil, "mui,modules,cooldowns,raid")
 
