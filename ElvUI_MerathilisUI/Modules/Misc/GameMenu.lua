@@ -301,7 +301,6 @@ function module:GameMenu()
 		npcModel:Show()
 	end
 
-	-- Find out new ID's
 	if not pepeHolder then
 		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		pepeHolder:SetSize(150, 150)
