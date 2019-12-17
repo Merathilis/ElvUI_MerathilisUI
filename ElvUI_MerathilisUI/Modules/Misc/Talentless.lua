@@ -175,6 +175,7 @@ function Respec:CreateItemButtons()
 		local Cooldown = CreateFrame('Cooldown', '$parentCooldown', Button, 'CooldownFrameTemplate')
 		Cooldown:SetAllPoints()
 		Button.Cooldown = Cooldown
+		E:RegisterCooldown(Cooldown)
 
 		tinsert(self.Items, Button)
 	end
