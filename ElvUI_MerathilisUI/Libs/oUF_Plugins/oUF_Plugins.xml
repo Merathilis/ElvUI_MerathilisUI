@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="oUF_CounterBar.lua"/>
 	<Script file="oUF_Swing.lua"/>
 	<Script file="oUF_GCD.lua"/>
 </Ui>

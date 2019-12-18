@@ -24,16 +24,18 @@ local function LoadSkin()
 	-- Active Communities
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetClubInfo", function(self, clubInfo, isInvitation, isTicket)
 		if clubInfo then
-			if self.bg and self.bg.backdrop then
+			if self.bg and self.bg.backdrop and not self.IsStyled then
 				MERS:CreateGradient(self.bg.backdrop)
+				self.IsStyled = true
 			end
 		end
 	end)
 
 	-- Add Community Button
 	hooksecurefunc(_G.CommunitiesListEntryMixin, "SetAddCommunity", function(self)
-		if self.bg and self.bg.backdrop then
+		if self.bg and self.bg.backdrop and not self.IsStyled then
 			MERS:CreateGradient(self.bg.backdrop)
+			self.IsStyled = true
 		end
 	end)
 
@@ -90,11 +92,12 @@ local function LoadSkin()
 		local buttons = self.Container.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
-			if button and button.backdrop then
+			if button and button.backdrop and not button.isStyled then
 				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, -1, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", button.Right, 1, -1)
 				MERS:CreateGradient(button.backdrop)
+				button.isStyled = true
 			end
 		end
 	end)
@@ -104,7 +107,7 @@ local function LoadSkin()
 		local buttons = self.RewardsContainer.buttons
 		for i = 1, #buttons do
 			local button = buttons[i]
-			if button and button.backdrop then
+			if button and button.backdrop and not button.isStyled then
 				button.backdrop:SetTemplate("Transparent")
 				button.backdrop:SetPoint("TOPLEFT", button.Icon, 0, 1)
 				button.backdrop:SetPoint("BOTTOMRIGHT", 0, 3)
@@ -116,6 +119,7 @@ local function LoadSkin()
 				end
 
 				button.DisabledBG:Hide()
+				button.isStyled = true
 			end
 		end
 	end)

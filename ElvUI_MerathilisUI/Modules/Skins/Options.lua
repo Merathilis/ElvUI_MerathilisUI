@@ -465,7 +465,7 @@ local function SkinsTable()
 			},
 			trade = {
 				type = "toggle",
-				name = _G.TRADESKILLS,
+				name = L["Trade"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.trade end,
 			},
 			voidstorage = {

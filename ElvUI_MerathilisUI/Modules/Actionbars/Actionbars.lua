@@ -12,20 +12,11 @@ local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 -- GLOBALS:
 
-local availableActionbars = availableActionbars or 6
 local styleOtherBacks = {_G.ElvUI_BarPet, _G.ElvUI_StanceBar}
-
-local function CheckExtraAB()
-	if IsAddOnLoaded("ElvUI_ExtraActionBars") then
-		availableActionbars = 10
-	else
-		availableActionbars = 6
-	end
-end
 
 function module:StyleBackdrops()
 	-- Actionbar backdrops
-	for i = 1, availableActionbars do
+	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
 			if frame.backdrop then
@@ -78,7 +69,6 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 	MER:RegisterDB(self, "actionbars")
 
-	CheckExtraAB()
 	C_TimerAfter(1, module.StyleBackdrops)
 
 	self:SpecBarInit()

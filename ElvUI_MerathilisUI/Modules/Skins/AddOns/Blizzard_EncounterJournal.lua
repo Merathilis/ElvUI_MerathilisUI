@@ -361,33 +361,7 @@ local function LoadSkin()
 
 	--Encounter Instance Frame
 	local EncounterInstance = EncounterJournal.encounter.instance
-	EncounterInstance:CreateBackdrop("Transparent")
-	EncounterInstance:Height(EncounterInfo.bossesScroll:GetHeight())
-	EncounterInstance:ClearAllPoints()
-	EncounterInstance:Point("BOTTOMRIGHT", _G.EncounterJournalEncounterFrame, "BOTTOMRIGHT", -1, 3)
-	EncounterInstance.loreBG:SetSize(325, 280)
-	EncounterInstance.loreBG:ClearAllPoints()
-	EncounterInstance.loreBG:Point("TOP", EncounterInstance, "TOP", 0, 0)
-	EncounterInstance.mapButton:ClearAllPoints()
-	EncounterInstance.mapButton:Point("BOTTOMLEFT", EncounterInstance.loreBG, "BOTTOMLEFT", 25, 35)
-	S:HandleScrollBar(EncounterInstance.loreScroll.ScrollBar, 4)
 	EncounterInstance.loreScroll.child.lore:SetTextColor(1, 1, 1)
-
-	--Loot Frame
-	S:HandleScrollBar(_G.EncounterJournalScrollBar)
-	S:HandleButton(_G.EncounterJournal.LootJournal.ItemSetsFrame.ClassButton, true)
-
-	--Suggestions
-	for i = 1, _G.AJ_MAX_NUM_SUGGESTIONS do
-		local suggestion = _G.EncounterJournal.suggestFrame["Suggestion"..i];
-		if i == 1 then
-			S:HandleButton(suggestion.button)
-			S:HandleNextPrevButton(suggestion.prevButton)
-			S:HandleNextPrevButton(suggestion.nextButton)
-		else
-			S:HandleButton(suggestion.centerDisplay.button)
-		end
-	end
 
 	_G.EncounterJournalEncounterFrameInstanceFrame.titleBG:SetAlpha(0)
 

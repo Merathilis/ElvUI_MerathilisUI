@@ -145,6 +145,8 @@ L["Fun Stuff"] = "Lustiges Zeugs"
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true -- No need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links zum/zur Erfolgfenster und Weltkarte hinzu."
+L["Codex Buttons"] = "Kodex Tasten"
+L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

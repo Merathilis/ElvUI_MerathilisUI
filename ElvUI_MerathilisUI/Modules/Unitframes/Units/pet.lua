@@ -9,7 +9,7 @@ local _G = _G
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-function module:Update_BossFrames(frame)
+function module:Update_PetFrame(frame)
 	local db = E.db.unitframe
 
 	-- Only looks good on Transparent
@@ -21,8 +21,8 @@ function module:Update_BossFrames(frame)
 	end
 end
 
-function module:InitBoss()
-	if not E.db.unitframe.units.boss.enable then return end
+function module:InitPet()
+	if not E.db.unitframe.units.pet.enable then return end
 
-	hooksecurefunc(UF, "Update_BossFrames", module.Update_BossFrames)
+	hooksecurefunc(UF, "Update_PetFrame", module.Update_PetFrame)
 end

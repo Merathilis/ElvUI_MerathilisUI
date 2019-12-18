@@ -16,6 +16,7 @@
 	<Script file="MailInputBox.lua"/>
 	<Script file="NameHover.lua"/>
 	<Script file="Reputation.lua"/>
+	<Script file="Talentless.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="ThreatBar.lua"/>

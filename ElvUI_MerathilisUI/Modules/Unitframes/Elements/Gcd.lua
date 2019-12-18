@@ -22,7 +22,7 @@ function module:Construct_GCD(frame)
 	bar.BG = bar:CreateTexture(nil, "BORDER")
 	bar.BG:SetAllPoints(bar)
 	bar.BG:CreateBackdrop("Transparent")
-	bar.BG.backdrop:Styling()
+	bar.BG.backdrop:Styling(false, false, true)
 
 	bar.Spark = bar:CreateTexture(nil, "OVERLAY")
 	bar.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")

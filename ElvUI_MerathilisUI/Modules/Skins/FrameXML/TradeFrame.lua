@@ -8,7 +8,7 @@ local _G = _G
 local unpack = unpack
 -- WoW API / Variables
 local hooksecurefunc = hooksecurefunc
-local BNGetGameAccountInfoByGUID = BNGetGameAccountInfoByGUID
+local C_BattleNet_GetGameAccountInfoByGUID = C_BattleNet.GetGameAccountInfoByGUID
 local C_FriendList_IsFriend = C_FriendList.IsFriend
 local IsGuildMember = IsGuildMember
 local UnitGUID = UnitGUID
@@ -52,14 +52,11 @@ local function LoadSkin()
 	infoText:SetPoint("TOP", _G["TradeFrameRecipientNameText"], "BOTTOM", 0, -5)
 
 	local function UpdateColor()
-		local r, g, b = MER:UnitColor("NPC")
-		_G["TradeFrameRecipientNameText"]:SetTextColor(r, g, b)
-
 		local guid = UnitGUID("NPC")
 		if not guid then return end
 		local text = "|cffff0000"..L["Stranger"]
 
-		if BNGetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
+		if C_BattleNet_GetGameAccountInfoByGUID(guid) or C_FriendList_IsFriend(guid) then
 			text = "|cffffff00".._G.FRIEND
 		elseif IsGuildMember(guid) then
 			text = "|cff00ff00".._G.GUILD

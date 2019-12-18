@@ -74,6 +74,8 @@ MER.PEPE = {
 	[7] = "1386540", -- Traveller Pepe
 	[8] = "1859375", -- Underwater Pepe
 	[9] = "1861550", -- Troll Pepe
+	[10] = "3011956", -- Mecha-Gnom Pepe
+	--[11] = "3209343", -- Christmas Pepe (8.3)
 }
 
 --[[
@@ -299,7 +301,6 @@ function module:GameMenu()
 		npcModel:Show()
 	end
 
-	-- Find out new ID's
 	if not pepeHolder then
 		local pepeHolder = CreateFrame("Frame", nil, GameMenuFrame)
 		pepeHolder:SetSize(150, 150)

@@ -79,6 +79,7 @@ MP.misc = {
 	skipAzerite = true,
 	funstuff = true,
 	wowheadlinks = true,
+	respec = true,
 }
 
 MP.nameHover = {
@@ -183,6 +184,10 @@ MP.actionbars = {
 			[49040] = true, -- Jeeves
 			[132514] = true, -- Auto-Hammer
 
+			-- Professions (Bfa)
+			[164733] = true, -- Synchronous Thread
+			[164978] = true, -- Mallet of Thunderous Skins
+
 			--Guild and Honor
 			[63359] = true, -- Banner of Cooperation
 			[64398] = true, -- Standard of Unity
@@ -262,6 +267,9 @@ MP.unitframes = {
 	gcd = {
 		enable = false,
 		color = { r = .8, g = .8, b = .8 },
+	},
+	counterBar = {
+		enable = true,
 	},
 	style = true,
 }
@@ -611,7 +619,7 @@ MP.dashboard = {
 	customTextColor = {r = 255/255,g = 255/255,b = 255/255},
 
 	system = {
-		enableSystem = true,
+		enableSystem = false,
 		combat = false,
 		width = 150,
 		transparency = true,
