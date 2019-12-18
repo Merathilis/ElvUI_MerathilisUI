@@ -16,13 +16,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Small Tweaks to the DPS Layout",
-		"• Added a chat fade feature. Thanks to fgprodigal <3",
-		"• Added right click function to my RaidManager to open RaidPanel",
-		"• Hide Coords will now also hide the Backdrop fron the LocPanel Coords",
-		"• Added Color Option to GCD/Swing-Bar",
-		"• Added wowhead links on World Frame & Achievement Frame",
-		"• Added a System DashBoard to show FPS, MS and control Volume",
+		"• Added styles on UnitFrames i missed",
+		"• The DashBoard is now disabled by default",
+		"• Updated skins",
+		"• Fixed RaidCD font option",
+		"• Added two buttons on the Talent Frame with Codex and Tome Items",
+		"• Fixed an install error",
 
 		-- "• ''",
 	" ",

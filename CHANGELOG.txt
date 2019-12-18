@@ -1,3 +1,11 @@
+[b][color=orange]v4.39[/color], 18.12.2019[/b][list]
+[*]Added styles on UnitFrames i missed.
+[*]The DashBoard is now disabled by default.
+[*]Updated skins.
+[*]Fixed RaidCD font option.
+[*]Added two buttons on the Talent Frame with Codex and Tome Items.
+[*]Fixed an install error.[/list]
+
 [b][color=orange]v4.38[/color], 06.12.2019[/b][list]
 [*]Small Tweaks to the DPS Layout.
 [*]Added a chat fade feature. Thanks to fgprodigal <3
