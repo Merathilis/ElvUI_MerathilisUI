@@ -252,28 +252,28 @@ function MERL:CreatePanels()
 	topLeftStyle:SetFrameStrata("BACKGROUND")
 	topLeftStyle:SetFrameLevel(2)
 	topLeftStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
-	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 11, -8)
+	topLeftStyle:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -8)
 	MERS:SkinPanel(topLeftStyle)
 
 	local bottomLeftSytle = CreateFrame("Frame", MER.Title.."BottomLeftStyle", E.UIParent)
 	bottomLeftSytle:SetFrameStrata("BACKGROUND")
 	bottomLeftSytle:SetFrameLevel(2)
 	bottomLeftSytle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
-	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 11, 10)
+	bottomLeftSytle:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 10)
 	MERS:SkinPanel(bottomLeftSytle)
 
 	local topRightStyle = CreateFrame("Frame", MER.Title.."TopRightStyle", E.UIParent)
 	topRightStyle:SetFrameStrata("BACKGROUND")
 	topRightStyle:SetFrameLevel(2)
 	topRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
-	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -11, -8)
+	topRightStyle:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -8)
 	MERS:SkinPanel(topRightStyle)
 
 	local bottomRightStyle = CreateFrame("Frame", MER.Title.."BottomRightStyle", E.UIParent)
 	bottomRightStyle:SetFrameStrata("BACKGROUND")
 	bottomRightStyle:SetFrameLevel(2)
 	bottomRightStyle:SetSize(_G.LeftChatPanel:GetWidth(), 4)
-	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -11, 10)
+	bottomRightStyle:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 10)
 	MERS:SkinPanel(bottomRightStyle)
 
 	local MerathilisUIButton1 = CreateFrame("Button", "MerathilisUIButton1", E.UIParent)
@@ -348,7 +348,7 @@ function MERL:CreateStylePanels()
 
 	-- Style Background for RaidBuffReminder / Raid Manager
 	local TopLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
-	TopLeftStylePanel:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -14)
+	TopLeftStylePanel:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 2, -14)
 	MER:CreateGradientFrame(TopLeftStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, .5, 0)
 
 	local TopLeftStylePanel1 = CreateFrame("Frame", nil, TopLeftStylePanel)
@@ -357,7 +357,7 @@ function MERL:CreateStylePanels()
 
 	-- Style for the BuffFrame
 	local TopRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
-	TopRightStylePanel:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -10, -14)
+	TopRightStylePanel:SetPoint("TOPRIGHT", E.UIParent, "TOPRIGHT", -2, -14)
 	MER:CreateGradientFrame(TopRightStylePanel, _G.LeftChatPanel:GetWidth(), 36, "Horizontal", 0, 0, 0, 0, .5)
 
 	local TopRightStylePanel1 = CreateFrame("Frame", nil, TopRightStylePanel)
@@ -366,7 +366,7 @@ function MERL:CreateStylePanels()
 
 	-- Style under the left chat.
 	local BottomLeftStylePanel = CreateFrame("Frame", nil, E.UIParent)
-	BottomLeftStylePanel:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 10, 16)
+	BottomLeftStylePanel:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 16)
 	MER:CreateGradientFrame(BottomLeftStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, .5, 0)
 
 	local BottomLeftStylePanel1 = CreateFrame("Frame", nil, BottomLeftStylePanel)
@@ -375,7 +375,7 @@ function MERL:CreateStylePanels()
 
 	-- Style under the right chat.
 	local BottomRightStylePanel = CreateFrame("Frame", nil, E.UIParent)
-	BottomRightStylePanel:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -10, 16)
+	BottomRightStylePanel:SetPoint("BOTTOMRIGHT", E.UIParent, "BOTTOMRIGHT", -2, 16)
 	MER:CreateGradientFrame(BottomRightStylePanel, _G.LeftChatPanel:GetWidth(), 28, "Horizontal", 0, 0, 0, 0, .5)
 
 	local BottomRightStylePanel1 = CreateFrame("Frame", nil, BottomRightStylePanel)
