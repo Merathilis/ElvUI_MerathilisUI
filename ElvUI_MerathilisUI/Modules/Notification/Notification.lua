@@ -455,7 +455,7 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	end
 end
 
-function module:RESURRECT_REQUEST(name)
+function module:RESURRECT_REQUEST()
 	if module.db.noSound ~= true then
 		PlaySound(46893, "Master")
 	end
