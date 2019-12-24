@@ -455,12 +455,6 @@ function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
 	end
 end
 
-function module:RESURRECT_REQUEST()
-	if module.db.noSound ~= true then
-		PlaySound(46893, "Master")
-	end
-end
-
 -- Credits: Paragon Reputation
 local PARAGON_QUESTS = { --[QuestID] = {factionID}
 	--Legion
@@ -520,7 +514,6 @@ function module:Initialize()
 	self:RegisterEvent("CALENDAR_UPDATE_GUILD_EVENTS")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("VIGNETTE_MINIMAP_UPDATED")
-	self:RegisterEvent("RESURRECT_REQUEST")
 	self:RegisterEvent("UPDATE_INVENTORY_DURABILITY")
 	self:RegisterEvent("QUEST_ACCEPTED")
 
