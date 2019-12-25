@@ -420,6 +420,10 @@ MP.pvp = {
 		pet = false,
 		announce = false,
 	},
+	killingBlow = {
+		enable = true,
+		sound = true,
+	},
 }
 
 MP.tooltip = {

@@ -216,6 +216,9 @@ L["Automatically cancel pet battles duel requests."] = "自动取消宠物对战
 L["Announce in chat if duel was rejected."] = "当拒绝时在聊天栏通告"
 L["MER_DuelCancel_REGULAR"] = "已拒绝来自 %s 的决斗请求."
 L["MER_DuelCancel_PET"] = "已拒绝来自 %s 的宠物对战请求."
+L["Show your PvP killing blows as a popup."] = true
+L["Sound"] = true
+L["Play sound when killing blows popup is shown."] = true
 
 -- Actionbars
 L["Specialization Bar"] = "专业条"
