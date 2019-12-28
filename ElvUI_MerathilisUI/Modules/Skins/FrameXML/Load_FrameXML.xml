@@ -5,6 +5,7 @@
 	<Script file="CinematicFrame.lua"/>
 	<Script file="DressUpFrames.lua"/>
 	<Script file="FriendsFrame.lua"/>
+	<Include file="FriendsFrame.xml"/>
 	<Script file="GameMenuFrame.lua"/>
 	<Script file="GameTooltip.lua"/>
 	<Script file="GossipFrame.lua"/>
