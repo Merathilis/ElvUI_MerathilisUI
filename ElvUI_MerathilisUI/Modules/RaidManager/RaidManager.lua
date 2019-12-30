@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("RaidManager", "AceEvent-3.0", "AceTimer-3.0")
 local S = E:GetModule("Skins")
+local COMP = MER:GetModule("mUICompatibility")
 
 -- Cache global variables
 -- Lua functions
@@ -580,6 +581,10 @@ function module:CreateRaidInfo()
 
 	header:RegisterEvent("GROUP_ROSTER_UPDATE")
 	header:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	if COMP.NUI then
+		MER.raidManagerHeader = header -- Export this so NihilistUI can add a shadow to it
+	end
 
 	local roleFrame = CreateFrame("Frame", nil, header)
 	roleFrame:SetAllPoints()
