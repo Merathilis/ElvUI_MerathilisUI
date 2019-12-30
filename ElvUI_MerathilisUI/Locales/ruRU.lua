@@ -215,6 +215,9 @@ L["Automatically cancel pet battles duel requests."] = true
 L["Announce in chat if duel was rejected."] = true
 L["MER_DuelCancel_REGULAR"] = "Duel request from %s rejected."
 L["MER_DuelCancel_PET"] = "Pet duel request from %s rejected."
+L["Show your PvP killing blows as a popup."] = true
+L["Sound"] = true
+L["Play sound when killing blows popup is shown."] = true
 
 -- Actionbars
 L["Specialization Bar"] = true

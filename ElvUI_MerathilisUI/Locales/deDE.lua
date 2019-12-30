@@ -215,6 +215,9 @@ L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Hausti
 L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
 L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
 L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
+L["Show your PvP killing blows as a popup."] = "Zeigt deine PvP Kills als ein Popup an."
+L["Sound"] = "Geräusch"
+L["Play sound when killing blows popup is shown."] = "Spielt einen Sound wenn das Popup gezeigt wird."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"

@@ -1,0 +1,32 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Button name="MER_FriendsCounterFrame" parent="FriendsListFrame" enableMouse="false">
+		<Size x="50" y="19"/>
+		<Anchors>
+			<Anchor point="BOTTOM" x="0" y="6"/>
+		</Anchors>
+		<Layers>
+ 			<Layer level="BACKGROUND">
+ 				<Texture file="Interface\FriendsFrame\battlenet-friends-main" setAllPoints="true">
+					<TexCoords left="0.00390625" right="0.74609375" top="0.00195313" bottom="0.042145"/>
+ 				</Texture>
+ 			</Layer>
+ 			<Layer level="ARTWORK">
+ 				<FontString name="MER_FriendsCounter" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+					<Color r="0.345" g="0.667" b="0.867" />
+				</FontString>
+			</Layer>
+		</Layers>
+ 		<Scripts>
+			<OnLoad>
+				self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
+				FriendsCount_OnLoad(self)
+			</OnLoad>
+			<OnEvent>
+				FriendsCount_OnEvent(event, ...)
+			</OnEvent>
+		</Scripts>
+	</Button>
+</Ui>

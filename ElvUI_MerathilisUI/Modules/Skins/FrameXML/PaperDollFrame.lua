@@ -81,6 +81,8 @@ local function LoadSkin()
 		MERS:CreateBDFrame(slot, .25)
 	end
 
+	_G.GearManagerDialogPopup:Styling()
+
 	if not IsAddOnLoaded("DejaCharacterStats") then
 		CharacterStatsPane.ItemLevelCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))
 		CharacterStatsPane.AttributesCategory.Title:SetTextColor(unpack(E.media.rgbvaluecolor))

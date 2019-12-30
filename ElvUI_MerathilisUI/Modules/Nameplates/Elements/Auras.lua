@@ -8,6 +8,7 @@ module.modName = L["NameplateAuras"]
 -- Lua functions
 local _G = _G
 local pairs, select, unpack = pairs, select, unpack
+local find = string.find
 local max = math.max
 local tsort = table.sort
 -- WoW API / Variables
@@ -61,6 +62,10 @@ function module:PostUpdateAura(unit, button)
 	end
 
 	if button and button.spellID then
+		if not find(unit, "nameplate") then
+			return
+		end
+
 		local spell = E.global.unitframe.aurafilters.CCDebuffs.spells[button.spellID]
 
 		-- Size
