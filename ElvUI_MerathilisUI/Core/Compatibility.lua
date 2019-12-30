@@ -25,6 +25,7 @@ COMP.WIND = MER:IsAddOnEnabled("ElvUI_WindTools")
 COMP.LIVVEN = MER:IsAddOnEnabled("ElvUI_LivvenUI")
 
 local function Disable(tbl, key)
+	E.private.mui = E.private.mui or {}
 	E.private.mui.compat_data = E.private.mui.compat_data or {}
 	local compatData = E.private.mui.compat_data
 
@@ -174,8 +175,12 @@ end
 function COMP:Initialize()
 end
 
-hooksecurefunc(E, "CheckIncompatible", function(self)
-	COMP:RunCompatibilityFunctions()
-end)
+hooksecurefunc(
+	E,
+	"CheckIncompatible",
+	function(self)
+		COMP:RunCompatibilityFunctions()
+	end
+)
 
 MER:RegisterModule(COMP:GetName())
