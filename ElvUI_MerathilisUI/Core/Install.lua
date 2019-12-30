@@ -466,6 +466,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconSize"] = 21
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetX"] = -2
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
@@ -507,6 +511,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconSize"] = 21
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetX"] = -2
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
@@ -554,6 +562,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
@@ -612,6 +624,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
