@@ -75,6 +75,7 @@ V.muiSkins = {
 		GMChat = true,
 		Archaeology = true,
 		AzeriteEssence = true,
+		ItemInteraction = true,
 	},
 
 	addonSkins = {
