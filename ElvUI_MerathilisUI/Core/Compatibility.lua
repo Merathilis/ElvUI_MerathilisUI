@@ -7,6 +7,7 @@ local pairs, print = pairs, print
 --WoW API / Variables
 local GetAddOnEnableState = GetAddOnEnableState
 local IsAddOnLoaded = IsAddOnLoaded
+local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 --[[
@@ -173,14 +174,9 @@ function COMP:RunCompatibilityFunctions()
 end
 
 function COMP:Initialize()
-end
-
-hooksecurefunc(
-	E,
-	"CheckIncompatible",
-	function(self)
+	hooksecurefunc(E, "CheckIncompatible", function(self)
 		COMP:RunCompatibilityFunctions()
-	end
-)
+	end)
+end
 
 MER:RegisterModule(COMP:GetName())
