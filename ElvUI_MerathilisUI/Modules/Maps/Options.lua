@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local SMB = MER:GetModule("mUIMinimapButtons")
+local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
 --Lua functions
@@ -118,6 +119,7 @@ local function Minimap()
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
 				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
+				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
 				args = {
 					enable = {
 						order = 1,
