@@ -32,4 +32,6 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["Font"] = "Merathilis Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
 	PA.db["stAddonManager"]["CheckTexture"] = "Melli"
+
+	PA.db["OzCooldowns"]["BuffTimer"] = false
 end
