@@ -42,8 +42,6 @@ MP.cvars = {
 		alwaysCompareItems = false,
 		breakUpLargeNumbers = true,
 		scriptErrors = true,
-		enableWoWMouse = false,
-		rawMouseEnable = false,
 		trackQuestSorting = "top"
 	},
 	combatText = {

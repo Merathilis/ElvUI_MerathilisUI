@@ -31,18 +31,6 @@ function module:LoadCVar()
 		E.db.mui.cvars.general.scriptErrors = true
 	end
 
-	if GetCVar("enableWoWMouse") == "0" then
-		E.db.mui.cvars.general.enableWoWMouse = false
-	else
-		E.db.mui.cvars.general.enableWoWMouse = true
-	end
-
-	if GetCVar("rawMouseEnable") == "0" then
-		E.db.mui.cvars.general.rawMouseEnable = false
-	else
-		E.db.mui.cvars.general.rawMouseEnable = true
-	end
-
 	E.db.mui.cvars.general.trackQuestSorting = GetCVar("trackQuestSorting")
 
 	--Combat Text
