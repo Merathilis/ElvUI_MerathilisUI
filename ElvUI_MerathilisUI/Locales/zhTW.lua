@@ -436,6 +436,53 @@ L["Show In Party"] = true
 L["Show In Raid"] = true
 L["Show In Arena"] = true
 
+-- CVars
+L["alwaysCompareItems"] = true
+L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
+L["breakUpLargeNumbers"] = true
+L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
+L["scriptErrors"] = true
+L["enableWoWMouse"] = true
+L["trackQuestSorting"] = true
+L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
+L["autoLootDefault"] = true
+L["autoDismountFlying"] = true
+L["removeChatDelay"] = true
+L["screenshotQuality"] = true
+L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
+L["showTutorials"] = true
+L["WorldTextScale"] = true
+L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
+L["TargetCombatText"] = true
+L["floatingCombatTextCombatDamage"] = true
+L["floatingCombatTextCombatLogPeriodicSpells"] = true
+L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
+L["floatingCombatTextPetMeleeDamage"] = true
+L["floatingCombatTextCombatDamageDirectionalScale"] = true
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatHealing"] = true
+L["floatingCombatTextCombatHealingAbsorbTarget"] = true
+L["floatingCombatTextSpellMechanics"] = true
+L["floatingCombatTextSpellMechanicsOther"] = true
+L["playerCombatText"] = true
+L["enableFloatingCombatText"] = true
+L["floatingCombatTextFloatMode"] = true
+L["FloatModeUp"] = true
+L["FloatModeDown"] = true
+L["FloatModeARC"] = true
+L["floatingCombatTextDodgeParryMiss"] = true
+L["floatingCombatTextCombatHealingAbsorbSelf"] = true
+L["floatingCombatTextDamageReduction"] = true
+L["floatingCombatTextLowManaHealth"] = true
+L["floatingCombatTextRepChanges"] = true
+L["floatingCombatTextEnergyGains"] = true
+L["floatingCombatTextComboPoints"] = true
+L["floatingCombatTextReactives"] = true
+L["floatingCombatTextPeriodicEnergyGains"] = true
+L["floatingCombatTextFriendlyHealers"] = true
+L["floatingCombatTextHonorGains"] = true
+L["floatingCombatTextCombatState"] = true
+L["floatingCombatTextAuras"] = true
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 

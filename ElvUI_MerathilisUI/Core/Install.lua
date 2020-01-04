@@ -29,14 +29,9 @@ local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVar
-	SetCVar("autoLootDefault", 0)
 	SetCVar("autoQuestProgress", 1)
-	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
-	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("screenshotQuality", 10)
-	SetCVar("showTutorials", 0)
 	SetCVar("cameraSmoothStyle", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	SetCVar("UberTooltips", 1)
@@ -49,17 +44,14 @@ local function SetupCVars()
 	SetCVar("countdownForCooldowns", 1)
 	SetCVar("showQuestTrackingTooltips", 1)
 	SetCVar("ffxGlow", 0)
-	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		SetCVar("scriptErrors", 1)
 		SetCVar("taintLog", 1)
 	else
-		SetCVar("scriptErrors", 0)
 		SetCVar("taintLog", 0)
 	end
 
@@ -547,6 +539,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
@@ -566,6 +560,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
@@ -616,9 +614,9 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'TOPRIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = -25
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
