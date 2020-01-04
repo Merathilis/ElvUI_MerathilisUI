@@ -29,14 +29,9 @@ local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVar
-	SetCVar("autoLootDefault", 0)
 	SetCVar("autoQuestProgress", 1)
-	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
-	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("screenshotQuality", 10)
-	SetCVar("showTutorials", 0)
 	SetCVar("cameraSmoothStyle", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	SetCVar("UberTooltips", 1)
@@ -49,17 +44,14 @@ local function SetupCVars()
 	SetCVar("countdownForCooldowns", 1)
 	SetCVar("showQuestTrackingTooltips", 1)
 	SetCVar("ffxGlow", 0)
-	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		SetCVar("scriptErrors", 1)
 		SetCVar("taintLog", 1)
 	else
-		SetCVar("scriptErrors", 0)
 		SetCVar("taintLog", 0)
 	end
 

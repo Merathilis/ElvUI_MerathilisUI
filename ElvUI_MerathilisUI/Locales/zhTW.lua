@@ -445,6 +445,12 @@ L["scriptErrors"] = true
 L["enableWoWMouse"] = true
 L["trackQuestSorting"] = true
 L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
+L["autoLootDefault"] = true
+L["autoDismountFlying"] = true
+L["removeChatDelay"] = true
+L["screenshotQuality"] = true
+L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
+L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
 L["TargetCombatText"] = true
@@ -477,7 +483,6 @@ L["floatingCombatTextFriendlyHealers"] = true
 L["floatingCombatTextHonorGains"] = true
 L["floatingCombatTextCombatState"] = true
 L["floatingCombatTextAuras"] = true
-
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 

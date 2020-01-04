@@ -33,6 +33,32 @@ function module:LoadCVar()
 
 	E.db.mui.cvars.general.trackQuestSorting = GetCVar("trackQuestSorting")
 
+	if GetCVar("autoLootDefault") == "0" then
+		E.db.mui.cvars.general.autoLootDefault = false
+	else
+		E.db.mui.cvars.general.autoLootDefault = true
+	end
+
+	if GetCVar("autoDismountFlying") == "0" then
+		E.db.mui.cvars.general.autoDismountFlying = false
+	else
+		E.db.mui.cvars.general.autoDismountFlying = true
+	end
+
+	if GetCVar("removeChatDelay") == "0" then
+		E.db.mui.cvars.general.removeChatDelay = false
+	else
+		E.db.mui.cvars.general.removeChatDelay = true
+	end
+
+	E.db.mui.cvars.general.screenshotQuality = tonumber(GetCVar("screenshotQuality"))
+
+	if GetCVar("showTutorials") == "0" then
+		E.db.mui.cvars.general.showTutorials = false
+	else
+		E.db.mui.cvars.general.showTutorials = true
+	end
+
 	--Combat Text
 	E.db.mui.cvars.combatText.WorldTextScale = tonumber(GetCVar("WorldTextScale"))
 

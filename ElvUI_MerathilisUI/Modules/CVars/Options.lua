@@ -56,7 +56,7 @@ local function CVars()
 						end,
 					},
 					trackQuestSorting = {
-						order = 6,
+						order = 4,
 						type = "select",
 						name = L["trackQuestSorting"],
 						desc = L["trackQuestSorting_DESC"],
@@ -67,6 +67,57 @@ local function CVars()
 						set = function(info, value)
 							E.db.mui.cvars.general[info[#info]] = value
 							SetCVar("trackQuestSorting", value)
+						end,
+					},
+					autoLootDefault = {
+						order = 5,
+						type = "toggle",
+						name = L["autoLootDefault"],
+						desc = OPTION_TOOLTIP_AUTO_LOOT_DEFAULT..L["\n\nDefault: |cffff00000|r"],
+						set = function(info, value)
+							E.db.mui.cvars.general[info[#info]] = value
+							SetCVar("autoLootDefault", (value == true and 1 or 0))
+						end,
+					},
+					autoDismountFlying = {
+						order = 6,
+						type = "toggle",
+						name = L["autoDismountFlying"],
+						desc = OPTION_TOOLTIP_AUTO_DISMOUNT_FLYING..L["\n\nDefault: |cffff00000|r"],
+						set = function(info, value)
+							E.db.mui.cvars.general[info[#info]] = value
+							SetCVar("autoDismountFlying", (value == true and 1 or 0))
+						end,
+					},
+					removeChatDelay = {
+						order = 7,
+						type = "toggle",
+						name = L["removeChatDelay"],
+						desc = REMOVE_CHAT_DELAY_TEXT..L["\n\nDefault: |cffff00000|r"],
+						set = function(info, value)
+							E.db.mui.cvars.general[info[#info]] = value
+							SetCVar("removeChatDelay", (value == true and 1 or 0))
+						end,
+					},
+					screenshotQuality = {
+						order = 8,
+						type = "range",
+						min = 1, max = 10, step = 1,
+						name = L["screenshotQuality"],
+						desc = L["screenshotQuality_DESC"],
+						set = function(info, value)
+							E.db.mui.cvars.general[info[#info]] = value
+							SetCVar("screenshotQuality", value)
+						end,
+					},
+					showTutorials = {
+						order = 9,
+						type = "toggle",
+						name = L["showTutorials"],
+						desc = OPTION_TOOLTIP_SHOW_TUTORIALS..L["\n\nDefault: |cff00ff001|r"],
+						set = function(info, value)
+							E.db.mui.cvars.general[info[#info]] = value
+							SetCVar("showTutorials", (value == true and 1 or 0))
 						end,
 					},
 				},

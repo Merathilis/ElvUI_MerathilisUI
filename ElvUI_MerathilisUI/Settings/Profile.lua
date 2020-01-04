@@ -42,7 +42,12 @@ MP.cvars = {
 		alwaysCompareItems = false,
 		breakUpLargeNumbers = true,
 		scriptErrors = true,
-		trackQuestSorting = "top"
+		trackQuestSorting = "top",
+		autoLootDefault = false,
+		autoDismountFlying = true,
+		removeChatDelay = true,
+		screenshotQuality = 10,
+		showTutorials = false,
 	},
 	combatText = {
 		worldTextScale = 0.75,
