@@ -225,7 +225,6 @@ local function Cooldowns()
 					},
 				},
 			},
-
 		},
 	}
 end

@@ -547,6 +547,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
@@ -566,6 +568,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
@@ -616,9 +622,9 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'TOPRIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = -25
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8

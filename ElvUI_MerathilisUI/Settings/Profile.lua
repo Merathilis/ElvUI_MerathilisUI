@@ -37,6 +37,48 @@ MP.merchant = {
 	subpages = 2,
 }
 
+MP.cvars = {
+	general = {
+		alwaysCompareItems = false,
+		breakUpLargeNumbers = true,
+		scriptErrors = true,
+		enableWoWMouse = false,
+		rawMouseEnable = false,
+		trackQuestSorting = "top"
+	},
+	combatText = {
+		worldTextScale = 0.75,
+		targetCombatText = {
+			floatingCombatTextCombatDamage = false,
+			floatingCombatTextCombatLogPeriodicSpells = false,
+			floatingCombatTextPetMeleeDamage = true,
+			floatingCombatTextPetSpellDamage = true,
+			floatingCombatTextCombatDamageDirectionalScale = 1,
+			floatingCombatTextCombatHealing = false,
+			floatingCombatTextCombatHealingAbsorbTarget = false,
+			floatingCombatTextSpellMechanics = false,
+			floatingCombatTextSpellMechanicsOther = false
+		},
+		playerCombatText = {
+			enableFloatingCombatText = false,
+			floatingCombatTextFloatMode = 1,
+			floatingCombatTextDodgeParryMiss = false,
+			floatingCombatTextCombatHealingAbsorbSelf = true,
+			floatingCombatTextDamageReduction = false,
+			floatingCombatTextLowManaHealth = true,
+			floatingCombatTextRepChanges = false,
+			floatingCombatTextEnergyGains = false,
+			floatingCombatTextComboPoints = false,
+			floatingCombatTextReactives = true,
+			floatingCombatTextPeriodicEnergyGains = false,
+			floatingCombatTextFriendlyHealers = false,
+			floatingCombatTextHonorGains = false,
+			floatingCombatTextCombatState = false,
+			floatingCombatTextAuras = false
+		},
+	},
+}
+
 MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
