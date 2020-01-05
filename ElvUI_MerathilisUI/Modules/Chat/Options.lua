@@ -10,7 +10,7 @@ local tinsert = table.insert
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
-		name = E.NewSign..L["Chat"],
+		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -51,7 +51,7 @@ local function ChatTable()
 			chatFade = {
 				order = 10,
 				type = "group",
-				name = E.NewSign..L["Fade Chat"],
+				name = L["Fade Chat"],
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
 				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade(); end,

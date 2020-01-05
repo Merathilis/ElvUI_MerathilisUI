@@ -3,8 +3,12 @@ local module = MER:GetModule("MERDashBoard")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local pairs = pairs
+local format = string.format
+local tinsert = table.insert
 --WoW API / Variables
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local boards = {"FPS", "MS", "Volume"}
@@ -39,7 +43,7 @@ end
 local function DashboardsTable()
 	E.Options.args.mui.args.modules.args.dashboard = {
 		type = "group",
-		name = E.NewSign..L["Dashboard"],
+		name = L["Dashboard"],
 		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
 			name = {
@@ -157,7 +161,7 @@ local function DashboardsTable()
 						order = 2,
 						name = L["Font"],
 						disabled = function() return E.db.mui.dashboard.dashfont.useDTfont end,
-						values = AceGUIWidgetLSMlists.font,
+						values = _G.AceGUIWidgetLSMlists.font,
 					},
 					dbfontsize = {
 						order = 3,

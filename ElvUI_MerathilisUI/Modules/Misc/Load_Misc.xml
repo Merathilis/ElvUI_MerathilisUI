@@ -15,6 +15,7 @@
 	<Script file="LfgInfo.lua"/>
 	<Script file="MailInputBox.lua"/>
 	<Script file="NameHover.lua"/>
+	<Script file="RandomToy.lua"/>
 	<Script file="Reputation.lua"/>
 	<Script file="Talentless.lua"/>
 	<Script file="Quest.lua"/>

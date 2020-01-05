@@ -1036,7 +1036,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
 	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
 	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Gotham Narrow"
-	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 18
+	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 16
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4

@@ -12,7 +12,7 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 local function Misc()
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = L["Miscellaneous"],
+		name = E.NewSign..L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -127,6 +127,22 @@ local function Misc()
 							local t = E.db.mui.misc.paragon[ info[#info] ]
 							t.r, t.g, t.b, t.a = r, g, b, a
 						end,
+					},
+				},
+			},
+			macros = {
+				order = 30,
+				type = "group",
+				name = E.NewSign..L["Macros"],
+				guiInline = true,
+				args = {
+					randomtoy = {
+						order = 1,
+						type = "input",
+						name = L["Random Toy"],
+						desc = L["Creates a random toy macro."],
+						get = function() return "/randomtoy" end,
+						set = function() return end,
 					},
 				},
 			},
