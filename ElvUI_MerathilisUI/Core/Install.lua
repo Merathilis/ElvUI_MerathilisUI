@@ -189,6 +189,7 @@ function MER:SetupLayout(layout)
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
 	E.global["general"]["commandBarSetting"] = "ENABLED"
+	E.global["general"]["showMissingTalentAlert"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - General
@@ -249,6 +250,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
+	E.db["general"]["resurrectSound"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -268,6 +270,7 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontsize"] = 16
 	E.db["auras"]["debuffs"]["durationFontSize"] = 12
+	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
 	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
 	E.db["auras"]["cooldown"]["minutesIndicator"]["b"] = 0.9176470588235294
@@ -1013,6 +1016,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["classbackdrop"] = false
 
 	E.db["unitframe"]["smartRaidFilter"] = false
+	E.db["unitframe"]["debuffHighlighting"] = "GLOW"
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
