@@ -16,12 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added styles on UnitFrames i missed",
-		"• The DashBoard is now disabled by default",
-		"• Updated skins",
-		"• Fixed RaidCD font option",
-		"• Added two buttons on the Talent Frame with Codex and Tome Items",
-		"• Fixed an install error",
+		"• Code update/fixes for Patch 8.3",
+		"• Small Layout updates",
+		"• Added a Killing Blow feature. Credits: Shadow & Light",
+		"• Added a friend counter on the Friends Frame",
+		"• Readd compatibility code. Credits: NihilisticPandemonium",
+		"• Updated GothamNarrow Font",
+		"• Added a CVar options",
+		"• Added a random toy macro. See misc options",
+		"• Change the guild rank color in tooltip, if someone is in another guild",
 
 		-- "• ''",
 	" ",
