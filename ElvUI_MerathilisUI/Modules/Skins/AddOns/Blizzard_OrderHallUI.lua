@@ -12,11 +12,9 @@ local function LoadSkin()
 
 	local OrderHallTalentFrame = _G.OrderHallTalentFrame
 
-	OrderHallTalentFrame:HookScript("OnShow", function(self)
-		if self.styled then return end
-		self:Styling()
-		self.styled = true
-	end)
+	if OrderHallTalentFrame.backdrop then
+		OrderHallTalentFrame.backdrop:Styling()
+	end
 end
 
 S:AddCallbackForAddon("Blizzard_OrderHallUI", "mUIOrderHall", LoadSkin)

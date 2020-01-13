@@ -34,4 +34,8 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["CheckTexture"] = "Melli"
 
 	PA.db["OzCooldowns"]["BuffTimer"] = false
+	PA.db["OzCooldowns"]["StackFont"] = "Merathilis Expressway"
+	PA.db["OzCooldowns"]["StatusBarTexture"] = "Melli"
+	PA.db["OzCooldowns"]["Tooltips"] = false
+	PA.db["OzCooldowns"]["Size"] = 30
 end

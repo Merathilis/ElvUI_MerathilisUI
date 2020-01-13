@@ -23,6 +23,7 @@ local UnitName = UnitName
 local UnitPVPName = UnitPVPName
 local UnitLevel = UnitLevel
 local UnitRealmRelationship = UnitRealmRelationship
+local UnitIsInMyGuild = UnitIsInMyGuild
 local FOREIGN_SERVER_LABEL = FOREIGN_SERVER_LABEL
 local LE_REALM_RELATION_COALESCED = LE_REALM_RELATION_COALESCED
 local LE_REALM_RELATION_VIRTUAL = LE_REALM_RELATION_VIRTUAL
@@ -139,7 +140,11 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 			end
 
 			if(self.db.guildRanks) then
-				GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
+				if UnitIsInMyGuild(unit) and not UnitIsPlayer(unit) then
+					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
+				else
+					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00c0fa%s|r>"):format(guildName, guildRankName))
+				end
 			else
 				GameTooltipTextLeft2:SetText(("[|cff00ff10%s|r]"):format(guildName))
 			end
