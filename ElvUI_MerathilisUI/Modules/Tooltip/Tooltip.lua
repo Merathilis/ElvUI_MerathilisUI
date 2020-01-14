@@ -140,7 +140,7 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 			end
 
 			if(self.db.guildRanks) then
-				if UnitIsInMyGuild(unit) and not UnitIsPlayer(unit) then
+				if UnitIsInMyGuild(unit) then
 					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00ff10%s|r>"):format(guildName, guildRankName))
 				else
 					GameTooltipTextLeft2:SetText(("|cff00c0fa[|r|cff00ff10%s|r|cff00c0fa]|r <|cff00c0fa%s|r>"):format(guildName, guildRankName))
