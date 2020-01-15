@@ -1,4 +1,4 @@
-[b][color=orange]v4.40 for Patch 8.3[/color], 14.01.2020[/b][list]
+[b][color=orange]v4.40 for Patch 8.3[/color], 15.01.2020[/b][list]
 [*]Code update/fixes for Patch 8.3.
 [*]Small Layout updates.
 [*]Added a Killing Blow feature. Credits: Shadow & Light.
