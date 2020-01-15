@@ -492,7 +492,12 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Azerite Essence"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteEssence end,
-			}
+			},
+			ItemInteraction = {
+				type = "toggle",
+				name = L["Item Interaction"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.ItemInteraction end,
+			},
 		},
 	}
 

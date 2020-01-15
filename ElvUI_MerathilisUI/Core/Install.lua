@@ -29,14 +29,9 @@ local TRADE = TRADE
 
 local function SetupCVars()
 	-- Setup CVar
-	SetCVar("autoLootDefault", 0)
 	SetCVar("autoQuestProgress", 1)
-	SetCVar("autoDismountFlying", 1)
 	SetCVar("guildMemberNotify", 1)
-	SetCVar("removeChatDelay", 1)
 	SetCVar("TargetNearestUseNew", 1)
-	SetCVar("screenshotQuality", 10)
-	SetCVar("showTutorials", 0)
 	SetCVar("cameraSmoothStyle", 0)
 	SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	SetCVar("UberTooltips", 1)
@@ -49,17 +44,14 @@ local function SetupCVars()
 	SetCVar("countdownForCooldowns", 1)
 	SetCVar("showQuestTrackingTooltips", 1)
 	SetCVar("ffxGlow", 0)
-	SetCVar("WorldTextScale", 0.75)
 	SetCVar("floatingCombatTextCombatState", "1")
 
 	--nameplates
 	SetCVar("ShowClassColorInNameplate", 1)
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
-		SetCVar("scriptErrors", 1)
 		SetCVar("taintLog", 1)
 	else
-		SetCVar("scriptErrors", 0)
 		SetCVar("taintLog", 0)
 	end
 
@@ -161,8 +153,8 @@ local function SetupChat()
 	E.db["chat"]["tabFontOutline"] = "OUTLINE"
 	E.db["chat"]["tabFontSize"] = 10
 
-	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-157,50"
-	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
+	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-149,47"
+	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -197,6 +189,7 @@ function MER:SetupLayout(layout)
 	E.global["general"]["animateConfig"] = false
 	E.global["general"]["smallerWorldMap"] = false
 	E.global["general"]["commandBarSetting"] = "ENABLED"
+	E.global["general"]["showMissingTalentAlert"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - General
@@ -257,6 +250,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
+	E.db["general"]["resurrectSound"] = true
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -276,6 +270,7 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["debuffs"]["size"] = 34
 	E.db["auras"]["debuffs"]["countFontsize"] = 16
 	E.db["auras"]["debuffs"]["durationFontSize"] = 12
+	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
 	E.db["auras"]["cooldown"]["hoursIndicator"]["r"] = 0.4
 	E.db["auras"]["cooldown"]["minutesIndicator"]["b"] = 0.9176470588235294
@@ -303,8 +298,8 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
 	if E.db.mui.general.panels then
-		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-15"
-		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-12,-155"
+		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-15"
+		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
 	else
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-3"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-2,-120"
@@ -358,8 +353,8 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["bags"]["cooldown"]["hoursColor"]["r"] = 0.4
 
-	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,50"
-	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,50"
+	E.db["movers"]["ElvUIBagMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,47"
+	E.db["movers"]["ElvUIBankMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
 
 	--[[----------------------------------
 	--	ProfileDB - NamePlate
@@ -466,6 +461,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconSize"] = 21
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetX"] = -2
 	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- Enemy Player
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["health"]["text"]["enable"] = true
@@ -507,6 +506,10 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconSize"] = 21
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetX"] = -2
 	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["castbar"]["iconOffsetY"] = -1
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_PLAYER"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- Friendly NPC
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["health"]["text"]["enable"] = true
@@ -539,6 +542,8 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["debuffs"]["durationPosition"] = 'CENTER'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["fontSize"] = 10
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["yOffset"] = -9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["level"]["format"] = '[difficultycolor][level]'
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["fontSize"] = 9
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["castbar"]["sourceInterrupt"] = true
@@ -554,6 +559,14 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["xOffset"] = 8
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["title"]["fontOutline"] = "OUTLINE"
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["enable"] = true
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["FRIENDLY_NPC"]["eliteIcon"]["yOffset"] = 0
 
 	-- Enemy NPC
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["health"]["text"]["enable"] = true
@@ -604,14 +617,18 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["timeToHold"] = 0.8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["castbar"]["yOffset"] = -10
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["enable"] = true
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'TOPRIGHT'
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 10
-	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = -25
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["position"] = 'RIGHT'
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["xOffset"] = 1
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["eliteIcon"]["yOffset"] = 0
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["enable"] = true
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["position"] = 'RIGHT'
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["xOffset"] = 8
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["font"] = "Merathilis Gotham Narrow"
 	E.db["nameplates"]["units"]["ENEMY_NPC"]["questIcon"]["fontSize"] = 9
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["enable"] = false
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["font"] = "Expressway"
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontSize"] = 11
+	E.db["nameplates"]["units"]["ENEMY_NPC"]["title"]["fontOutline"] = "OUTLINE"
 
 	-- TARGETED
 	E.db["nameplates"]["units"]["TARGET"]["scale"] = 1.06 -- 106% scale
@@ -676,13 +693,13 @@ function MER:SetupLayout(layout)
 		E.db["general"]["cropIcon"] = true
 	end
 
-	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,14"
+	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
-	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,10,-12"
-	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,214,-15"
-	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,188"
+	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
+	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,206,-15"
+	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -767,7 +784,7 @@ function MER:SetupLayout(layout)
 	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
 	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,83"
 	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
-	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,51"
+	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,48"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
 	E:StaggeredUpdateAll(nil, true)
@@ -937,9 +954,9 @@ function MER:SetupActionbars(layout)
 	if layout == "dps" then
 		E.db["movers"]["ElvAB_1"] = "BOTTOM,ElvUIParent,BOTTOM,0,144"
 		E.db["movers"]["ElvAB_2"] = "BOTTOM,ElvUIParent,BOTTOM,0,183"
-		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-446,50"
+		E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-438,47"
 		E.db["movers"]["ElvAB_4"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,367"
-		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,438,50"
+		E.db["movers"]["ElvAB_5"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,430,47"
 		E.db["movers"]["ElvAB_6"] = "BOTTOM,ElvUIParent,BOTTOM,0,19"
 		E.db["movers"]["ShiftAB"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,10,14"
 		E.db["movers"]["PetAB"] = "BOTTOM,ElvUIParent,BOTTOM,-289,15"
@@ -999,6 +1016,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["classbackdrop"] = false
 
 	E.db["unitframe"]["smartRaidFilter"] = false
+	E.db["unitframe"]["debuffHighlighting"] = "GLOW"
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false
@@ -1022,7 +1040,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["cooldown"]["secondsColor"]["b"] = 0
 	E.db["unitframe"]["cooldown"]["fonts"]["enable"] = true
 	E.db["unitframe"]["cooldown"]["fonts"]["font"] = "Merathilis Gotham Narrow"
-	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 14
+	E.db["unitframe"]["cooldown"]["fonts"]["fontSize"] = 16
 	E.db["unitframe"]["cooldown"]["hoursColor"]["r"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["g"] = 0.4
 	E.db["unitframe"]["cooldown"]["daysColor"]["r"] = 0.4

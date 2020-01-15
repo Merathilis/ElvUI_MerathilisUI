@@ -215,6 +215,9 @@ L["Automatically cancel pet battles duel requests."] = "Lehnt automatisch Hausti
 L["Announce in chat if duel was rejected."] = "Berichtet im Chat, wenn ein Duell abgelehnt wurde."
 L["MER_DuelCancel_REGULAR"] = "Duell Anfrage von %s abgelehnt."
 L["MER_DuelCancel_PET"] = "Haustierkampf Duell Anfrage von %s abgelehnt."
+L["Show your PvP killing blows as a popup."] = "Zeigt deine PvP Kills als ein Popup an."
+L["Sound"] = "Geräusch"
+L["Play sound when killing blows popup is shown."] = "Spielt einen Sound wenn das Popup gezeigt wird."
 
 -- Actionbars
 L["Specialization Bar"] = "Spezialisierungsleiste"
@@ -432,6 +435,54 @@ L["Show Icons"] = "Zeige Symbol"
 L["Show In Party"] = "Zeige in Gruppe"
 L["Show In Raid"] = "Zeige im Raid"
 L["Show In Arena"] = "Zeige in Arenen"
+
+-- CVars
+L["alwaysCompareItems"] = true
+L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
+L["breakUpLargeNumbers"] = true
+L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
+L["scriptErrors"] = true
+L["enableWoWMouse"] = true
+L["trackQuestSorting"] = true
+L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
+L["autoLootDefault"] = true
+L["autoDismountFlying"] = true
+L["removeChatDelay"] = true
+L["screenshotQuality"] = true
+L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
+L["showTutorials"] = true
+L["WorldTextScale"] = true
+L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
+L["TargetCombatText"] = true
+L["floatingCombatTextCombatDamage"] = true
+L["floatingCombatTextCombatLogPeriodicSpells"] = true
+L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
+L["floatingCombatTextPetMeleeDamage"] = true
+L["floatingCombatTextCombatDamageDirectionalScale"] = true
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
+L["floatingCombatTextCombatHealing"] = true
+L["floatingCombatTextCombatHealingAbsorbTarget"] = true
+L["floatingCombatTextSpellMechanics"] = true
+L["floatingCombatTextSpellMechanicsOther"] = true
+L["playerCombatText"] = true
+L["enableFloatingCombatText"] = true
+L["floatingCombatTextFloatMode"] = true
+L["FloatModeUp"] = true
+L["FloatModeDown"] = true
+L["FloatModeARC"] = true
+L["floatingCombatTextDodgeParryMiss"] = true
+L["floatingCombatTextCombatHealingAbsorbSelf"] = true
+L["floatingCombatTextDamageReduction"] = true
+L["floatingCombatTextLowManaHealth"] = true
+L["floatingCombatTextRepChanges"] = true
+L["floatingCombatTextEnergyGains"] = true
+L["floatingCombatTextComboPoints"] = true
+L["floatingCombatTextReactives"] = true
+L["floatingCombatTextPeriodicEnergyGains"] = true
+L["floatingCombatTextFriendlyHealers"] = true
+L["floatingCombatTextHonorGains"] = true
+L["floatingCombatTextCombatState"] = true
+L["floatingCombatTextAuras"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."

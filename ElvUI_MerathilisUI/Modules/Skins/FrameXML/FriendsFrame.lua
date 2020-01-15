@@ -11,6 +11,16 @@ local PanelTemplates_DeselectTab = PanelTemplates_DeselectTab
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
+function FriendsCount_OnLoad(self)
+	self:RegisterEvent("BN_FRIEND_LIST_SIZE_CHANGED")
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+end
+
+function FriendsCount_OnEvent(event, ...)
+	local bnetCount = BNGetNumFriends();
+	_G.MER_FriendsCounter:SetText(bnetCount.."|cff416380/200|r")
+end
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true or E.private.muiSkins.blizzard.friends ~= true then return end
 

@@ -35,7 +35,10 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.inspect ~= true or E.private.muiSkins.blizzard.inspect ~= true then return end
 
 	_G.InspectModelFrame:DisableDrawLayer("OVERLAY")
-	_G.InspectPaperDollFrame:Styling()
+
+	if _G.InspectFrame.backdrop then
+		_G.InspectFrame.backdrop:Styling()
+	end
 
 	_G.InspectTalentFrame:GetRegions():Hide()
 	select(2, _G.InspectTalentFrame:GetRegions()):Hide()
@@ -49,7 +52,6 @@ local function LoadSkin()
 		select(i, _G.InspectModelFrame:GetRegions()):Hide()
 	end
 
-	MERS:Reskin(_G.InspectPaperDollFrame.ViewButton)
 	_G.InspectPaperDollFrame.ViewButton:ClearAllPoints()
 	_G.InspectPaperDollFrame.ViewButton:SetPoint("TOP", _G.InspectFrame, 0, -45)
 
@@ -83,7 +85,6 @@ local function LoadSkin()
 
 	-- Talents
 	local inspectSpec = _G.InspectTalentFrame.InspectSpec
-
 	inspectSpec.ring:Hide()
 
 	for i = 1, 7 do

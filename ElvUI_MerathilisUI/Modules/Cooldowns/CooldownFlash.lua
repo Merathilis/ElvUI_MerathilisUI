@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule("muiSkins")
 local module = MER:NewModule("CooldownFlash", "AceHook-3.0")
+local S = E:GetModule("Skins")
 
 --Cache global variables
 --Lua functions
@@ -42,7 +43,6 @@ DCP.TextFrame:SetTextColor(1, 1, 1)
 module.DCP = DCP
 
 local DCPT = DCP:CreateTexture(nil, "BORDER")
-DCPT:SetTexCoord(unpack(E.TexCoords))
 DCPT:SetAllPoints(DCP)
 MERS:CreateBDFrame(DCP)
 MERS:CreateSD(DCP)
@@ -203,6 +203,7 @@ local function OnUpdate(_,update)
 					DCP.TextFrame:SetText(module.animating[1][3])
 				end
 				DCPT:SetTexture(module.animating[1][1])
+				S:HandleIcon(DCPT)
 			end
 			local alpha = module.db.maxAlpha
 			if (runtimer < module.db.fadeInTime) then

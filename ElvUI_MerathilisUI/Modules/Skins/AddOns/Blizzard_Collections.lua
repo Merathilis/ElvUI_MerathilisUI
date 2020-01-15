@@ -392,9 +392,6 @@ local function LoadSkin()
 	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
 	MERS:CreateSD(_G.WardrobeOutfitFrame, .25)
 
-	for i = 1, 10 do
-		select(i, WardrobeTransmogFrame.Model.ClearAllPendingButton:GetRegions()):Hide()
-	end
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 
 	local slots = {
@@ -414,12 +411,13 @@ local function LoadSkin()
 	}
 
 	for i = 1, #slots do
-		local slot = WardrobeTransmogFrame.Model[slots[i] .. "Button"]
+		local slot = WardrobeTransmogFrame.ModelScene[slots[i] .. "Button"]
 		if slot then
 			slot.Border:Hide()
 			slot.Icon:SetDrawLayer("BACKGROUND", 1)
 			MERS:ReskinIcon(slot.Icon)
 			slot:SetHighlightTexture(E["media"].normTex)
+
 			local hl = slot:GetHighlightTexture()
 			hl:SetVertexColor(1, 1, 1, .25)
 			hl:SetPoint("TOPLEFT", 2, -2)

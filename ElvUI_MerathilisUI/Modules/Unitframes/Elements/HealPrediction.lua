@@ -61,7 +61,10 @@ function module:Configure_HealComm(frame)
 					end
 				end
 			end
-			UF.statusbars[healPrediction.overAbsorb] = nil
+
+			if UF.statusbars and UF.statusbars[healPrediction.overAbsorb] then
+				UF.statusbars[healPrediction.overAbsorb] = nil
+			end
 		end
 
 		if healPrediction.overAbsorb then

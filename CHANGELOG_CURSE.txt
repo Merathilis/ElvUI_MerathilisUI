@@ -1,3 +1,14 @@
+** v4.40, 15.01.2020 for patch 8.3**
+* Code update/fixes for Patch 8.3.
+* Small Layout updates.
+* Added a Killing Blow feature. Credits: Shadow & Light.
+* Added a friend counter on the Friends Frame.
+* Readd compatibility code. Credits: NihilisticPandemonium.
+* Updated GothamNarrow Font.
+* Added a CVar options.
+* Added a random toy macro. See misc options.
+* Change the guild rank color in tooltip, if someone is in another guild.
+
 ** v4.39, 18.12.2019**
 * Added styles on UnitFrames i missed.
 * The DashBoard is now disabled by default.

@@ -37,6 +37,51 @@ MP.merchant = {
 	subpages = 2,
 }
 
+MP.cvars = {
+	general = {
+		alwaysCompareItems = false,
+		breakUpLargeNumbers = true,
+		scriptErrors = true,
+		trackQuestSorting = "top",
+		autoLootDefault = false,
+		autoDismountFlying = true,
+		removeChatDelay = true,
+		screenshotQuality = 10,
+		showTutorials = false,
+	},
+	combatText = {
+		worldTextScale = 0.75,
+		targetCombatText = {
+			floatingCombatTextCombatDamage = false,
+			floatingCombatTextCombatLogPeriodicSpells = false,
+			floatingCombatTextPetMeleeDamage = true,
+			floatingCombatTextPetSpellDamage = true,
+			floatingCombatTextCombatDamageDirectionalScale = 1,
+			floatingCombatTextCombatHealing = false,
+			floatingCombatTextCombatHealingAbsorbTarget = false,
+			floatingCombatTextSpellMechanics = false,
+			floatingCombatTextSpellMechanicsOther = false
+		},
+		playerCombatText = {
+			enableFloatingCombatText = false,
+			floatingCombatTextFloatMode = 1,
+			floatingCombatTextDodgeParryMiss = false,
+			floatingCombatTextCombatHealingAbsorbSelf = true,
+			floatingCombatTextDamageReduction = false,
+			floatingCombatTextLowManaHealth = true,
+			floatingCombatTextRepChanges = false,
+			floatingCombatTextEnergyGains = false,
+			floatingCombatTextComboPoints = false,
+			floatingCombatTextReactives = true,
+			floatingCombatTextPeriodicEnergyGains = false,
+			floatingCombatTextFriendlyHealers = false,
+			floatingCombatTextHonorGains = false,
+			floatingCombatTextCombatState = false,
+			floatingCombatTextAuras = false
+		},
+	},
+}
+
 MP.chat = {
 	chatButton = true,
 	hidePlayerBrackets = true,
@@ -240,6 +285,39 @@ MP.actionbars = {
 		blackitemID = "",
 		whiteItemID = "",
 	},
+	randomToy = {
+		enable = true,
+		toyList = {
+			[1973] = true,
+			[118937] = true,
+			[98552] = true,
+			[128462] = true,
+			[130158] = true,
+			[111476] = true,
+			[113375] = true,
+			[166779] = true,
+			[108743] = true,
+			[119215] = true,
+			[129149] = true,
+			[118938] = true,
+			[108739] = true,
+			[127864] = true,
+			[163750] = true,
+			[140325] = true,
+			[119092] = true,
+			[119134] = true,
+			[127670] = true,
+			[35275] = true,
+			[138878] = true,
+			[118244] = true,
+			[151271] = true,
+			[151270] = true,
+			[128471] = true,
+			[129093] = true,
+			[153180] = true,
+			[128807] = true,
+		},
+	},
 }
 
 MP.microBar = {
@@ -419,6 +497,10 @@ MP.pvp = {
 		regular = false,
 		pet = false,
 		announce = false,
+	},
+	killingBlow = {
+		enable = true,
+		sound = true,
 	},
 }
 

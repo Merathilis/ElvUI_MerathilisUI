@@ -414,6 +414,7 @@ local function MerchantSkinInit()
 
 	hooksecurefunc("MerchantFrame_UpdateBuybackInfo", UpdateBuybackInfo)
 	if E.db.mui.merchant.style ~= "Default" then return end
+
 	RebuildMerchantFrame()
 	UpdateButtonsPositions()
 	CreateFrame("GameTooltip", "MER_Merchant_HiddenTooltip", UIParent, "GameTooltipTemplate");

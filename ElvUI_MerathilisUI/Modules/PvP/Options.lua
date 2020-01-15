@@ -64,7 +64,31 @@ local function PvPTable()
 						desc = L["Announce in chat if duel was rejected."],
 					},
 				},
-			}
+			},
+			killingBlow = {
+				order = 4,
+				type = "group",
+				name = E.NewSign..MER:cOption(KILLING_BLOWS),
+				guiInline = true,
+				get = function(info) return E.db.mui.pvp.killingBlow[ info[#info] ] end,
+				set = function(info, value) E.db.mui.pvp.killingBlow[ info[#info] ] = value end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Show your PvP killing blows as a popup."],
+						set = function(info, value) E.db.mui.pvp.killingBlow[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					sound = {
+						order = 2,
+						type = "toggle",
+						name = L["Sound"],
+						desc = L["Play sound when killing blows popup is shown."],
+						disabled = function() return not E.db.mui.pvp.killingBlow.enable end,
+					},
+				},
+			},
 		},
 	}
 end
