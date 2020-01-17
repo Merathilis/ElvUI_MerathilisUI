@@ -83,7 +83,7 @@ local function UpdateBar3(self, bar)
 	MoveButtonBar(button, bar)
 end
 
--- Panels
+-- Style Panels
 function module:CreatePanels()
 	local topPanel = CreateFrame("Frame", "MER_TopPanel", E.UIParent)
 	topPanel:SetFrameStrata("BACKGROUND")
@@ -93,6 +93,8 @@ function module:CreatePanels()
 	topPanel:SetHeight(15)
 	topPanel:SetTemplate("Transparent")
 	topPanel:Styling()
+	MER_TopPanel = topPanel
+	topPanel:Hide()
 
 	local bottomPanel = CreateFrame("Frame", "MER_BottomPanel", E.UIParent)
 	bottomPanel:SetFrameStrata("BACKGROUND")
@@ -102,6 +104,8 @@ function module:CreatePanels()
 	bottomPanel:SetHeight(15)
 	bottomPanel:SetTemplate("Transparent")
 	bottomPanel:Styling()
+	MER_BottomPanel = bottomPanel
+	bottomPanel:Hide()
 
 	local topLeftStyle = CreateFrame("Frame", "MER_TopLeftStyle", E.UIParent)
 	topLeftStyle:SetFrameStrata("BACKGROUND")
@@ -253,6 +257,18 @@ function module:CreatePanels()
 end
 
 function module:UpdatePanels()
+	if E.db.mui.panels.topPanel then
+		MER_TopPanel:Show()
+	else
+		MER_TopPanel:Hide()
+	end
+
+	if E.db.mui.panels.bottomPanel then
+		MER_BottomPanel:Show()
+	else
+		MER_BottomPanel:Hide()
+	end
+
 	if E.db.mui.panels.topLeftPanel then
 		MER_TopLeftStyle:Show()
 		MER_TopLeftExtraStyle:Show()

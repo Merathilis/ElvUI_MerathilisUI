@@ -29,29 +29,43 @@ local function PanelTable()
 				name = MER:cOption(L["Panels"]),
 				guiInline = true,
 				args = {
-					topLeftPanel = {
+					topPanel = {
 						order = 1,
+						type = "toggle",
+						name = L["Top Panel"],
+						get = function(info) return E.db.mui.panels.topPanel end,
+						set = function(info, value) E.db.mui.panels.topPanel = value; PN:UpdatePanels() end,
+					},
+					bottomPanel = {
+						order = 2,
+						type = "toggle",
+						name = L["Bottom Panel"],
+						get = function(info) return E.db.mui.panels.bottomPanel end,
+						set = function(info, value) E.db.mui.panels.bottomPanel = value; PN:UpdatePanels() end,
+					},
+					topLeftPanel = {
+						order = 3,
 						type = "toggle",
 						name = L["Top Left Panel"],
 						get = function(info) return E.db.mui.panels.topLeftPanel end,
 						set = function(info, value) E.db.mui.panels.topLeftPanel = value; PN:UpdatePanels() end,
 					},
 					topRightPanel = {
-						order = 2,
+						order = 4,
 						type = "toggle",
 						name = L["Top Right Panel"],
 						get = function(info) return E.db.mui.panels.topRightPanel end,
 						set = function(info, value) E.db.mui.panels.topRightPanel = value; PN:UpdatePanels() end,
 					},
 					bottomLeftPanel = {
-						order = 3,
+						order = 5,
 						type = "toggle",
 						name = L["Bottom Left Panel"],
 						get = function(info) return E.db.mui.panels.bottomLeftPanel end,
 						set = function(info, value) E.db.mui.panels.bottomLeftPanel = value; PN:UpdatePanels() end,
 					},
 					bottomRightPanel = {
-						order = 4,
+						order = 6,
 						type = "toggle",
 						name = L["Bottom Right Panel"],
 						get = function(info) return E.db.mui.panels.bottomRightPanel end,

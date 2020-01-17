@@ -430,6 +430,8 @@ MP.media = {
 }
 
 MP.panels = {
+	topPanel = true,
+	bottomPanel = true,
 	topLeftPanel = true,
 	topRightPanel = true,
 	bottomLeftPanel = true,
