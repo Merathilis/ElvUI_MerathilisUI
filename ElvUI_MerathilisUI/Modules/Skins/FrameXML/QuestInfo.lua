@@ -162,11 +162,11 @@ local function LoadSkin()
 	end)
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
-	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
+	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame", "WarModeBonusFrame"} do
 		RestyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
-	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame"} do
+	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame"} do
 		RestyleRewardButton(_G.QuestInfoRewardsFrame[name])
 	end
 
