@@ -23,4 +23,5 @@
 	<Include file="Reminder\Load_Reminder.xml"/>
 	<Include file="RaidManager\Load_RaidManager.xml"/>
 	<Include file="PvP\Load_PvP.xml"/>
+	<Include file="Panels\Load_Panels.xml"/>
 </Ui>

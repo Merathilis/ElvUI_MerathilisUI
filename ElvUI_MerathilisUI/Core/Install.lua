@@ -247,6 +247,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["altPowerBar"]["statusBar"] = "Melli"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
+	E.db["general"]["altPowerBar"]["smoothbars"] = true
 	E.db["general"]["vehicleSeatIndicatorSize"] = 76
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true

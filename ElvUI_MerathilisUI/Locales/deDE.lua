@@ -586,14 +586,18 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen ist.]]
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
-L["MerathilisUI Panels"] = "MerathilisUI Leisten"
-L["MerathilisUI Extra Style Panels"] = "MerathilisUI Extra Stil Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
+
+-- Panels
+L["Top Left Panel"] = "Leiste oben links"
+L["Top Right Panel"] = "Leiste oben rechts"
+L["Bottom Left Panel"] = "Leiste unten links"
+L["Bottom Right Panel"] = "Leiste unten rechts"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

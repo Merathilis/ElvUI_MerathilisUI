@@ -592,14 +592,18 @@ L["MER_ADDONSKINS_DESC"] = [[此部分旨在修改一些外部插件外观.
 请注意，如果插件控制面板中未加载插件，其中一些选项将|cff636363被禁用|r.]]
 L["Creates decorative stripes and a gradient on some frames"] = "在一些框架上创建条纹材质和渐变"
 L["MerathilisUI Style"] = "MerathilisUI 样式"
-L["MerathilisUI Panels"] = "MerathilisUI 面板"
-L["MerathilisUI Extra Style Panels"] = "额外样式"
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
+
+-- Panels
+L["Top Left Panel"] = true
+L["Top Right Panel"] = true
+L["Bottom Left Panel"] = true
+L["Bottom Right Panel"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.

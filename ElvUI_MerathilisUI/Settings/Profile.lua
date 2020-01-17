@@ -20,8 +20,6 @@ MP.general = {
 	CombatState = true,
 	Movertransparancy = .75,
 	style = true,
-	panels = true,
-	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,
@@ -429,6 +427,13 @@ MP.media = {
 			outline = "NONE",
 		},
 	},
+}
+
+MP.panels = {
+	topLeftPanel = true,
+	topRightPanel = true,
+	bottomLeftPanel = true,
+	bottomRightPanel = true,
 }
 
 MP.smb = {

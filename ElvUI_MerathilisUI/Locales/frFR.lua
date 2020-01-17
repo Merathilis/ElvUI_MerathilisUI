@@ -588,14 +588,18 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
-L["MerathilisUI Panels"] = true
-L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
+
+-- Panels
+L["Top Left Panel"] = true
+L["Top Right Panel"] = true
+L["Bottom Left Panel"] = true
+L["Bottom Right Panel"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
