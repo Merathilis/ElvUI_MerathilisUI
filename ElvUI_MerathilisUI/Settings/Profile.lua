@@ -20,8 +20,6 @@ MP.general = {
 	CombatState = true,
 	Movertransparancy = .75,
 	style = true,
-	panels = true,
-	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,
@@ -109,7 +107,10 @@ MP.colors = {
 MP.misc = {
 	MailInputbox = true,
 	gmotd = true,
-	quest = false,
+	quest = {
+		selectQuestReward =	true,
+		questAnnounce = false,
+	},
 	announce = true,
 	cursor = false,
 	lfgInfo = true,
@@ -428,6 +429,24 @@ MP.media = {
 			size = 24,
 			outline = "NONE",
 		},
+	},
+}
+
+MP.panels = {
+	topPanel = true,
+	bottomPanel = true,
+	stylePanels = {
+		topLeftPanel = true,
+		topLeftExtraPanel = true,
+		topRightPanel = true,
+		topRightExtraPanel = true,
+		bottomLeftPanel = true,
+		bottomLeftExtraPanel = true,
+		bottomRightPanel = true,
+		bottomRightExtraPanel = true,
+	},
+	extraStylePanels = {
+
 	},
 }
 

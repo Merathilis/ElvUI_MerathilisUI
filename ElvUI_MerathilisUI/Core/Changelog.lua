@@ -16,15 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Code update/fixes for Patch 8.3",
 		"• Small Layout updates",
-		"• Added a Killing Blow feature. Credits: Shadow & Light",
-		"• Added a friend counter on the Friends Frame",
-		"• Readd compatibility code. Credits: NihilisticPandemonium",
-		"• Updated GothamNarrow Font",
-		"• Added a CVar options",
-		"• Added a random toy macro. See misc options",
-		"• Change the guild rank color in tooltip, if someone is in another guild",
+		"• Change the default position from the 'new' Vehicle Exit Button",
+		"• Enable 'Swap to AltPower' on Party Frames",
+		"• Create a new Options for my Panels: .. Modules - Panels. You can now individually enable/disable them",
+		"• Split the Quest Options. #78",
 
 		-- "• ''",
 	" ",

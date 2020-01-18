@@ -124,7 +124,6 @@ L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
 L["Skill gains"] = "Skill Steigerungen"
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus. Ausserdem kündigt es den Quest Fortschritt an."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
@@ -147,6 +146,9 @@ L["Wowhead Links"] = true -- No need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links zum/zur Erfolgfenster und Weltkarte hinzu."
 L["Codex Buttons"] = "Kodex Tasten"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
+L["Highest Quest Reward"] = "Höhste Quest Belohnung"
+L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
+L["Quest Announcer"] = "Quest Ankündigungen"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
@@ -586,14 +588,22 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen ist.]]
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
-L["MerathilisUI Panels"] = "MerathilisUI Leisten"
-L["MerathilisUI Extra Style Panels"] = "MerathilisUI Extra Stil Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
+
+-- Panels
+L["Top Left Panel"] = "Leiste oben links"
+L["Top Left Extra Panel"] = "Extra Leiste oben links"
+L["Top Right Panel"] = "Leiste oben rechts"
+L["Top Right Extra Panel"] = "Extra Leiste oben rechts"
+L["Bottom Left Panel"] = "Leiste unten links"
+L["Bottom Left Extra Panel"] = "Extra Leiste oben links"
+L["Bottom Right Panel"] = "Leiste unten rechts"
+L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

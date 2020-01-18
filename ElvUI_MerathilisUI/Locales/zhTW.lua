@@ -124,7 +124,6 @@ L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
 L["Skill gains"] = true
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
@@ -147,6 +146,9 @@ L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
 L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
+L["Highest Quest Reward"] = true
+L["Automatically select the item with the highest reward."] = true
+L["Quest Announcer"] = true
 
 -- Tooltip
 L["Your Status:"] = true
@@ -586,14 +588,22 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
-L["MerathilisUI Panels"] = true
-L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
+
+-- Panels
+L["Top Left Panel"] = true
+L["Top Left Extra Panel"] = true
+L["Top Right Panel"] = true
+L["Top Right Extra Panel"] = true
+L["Bottom Left Panel"] = true
+L["Bottom Left Extra Panel"] = true
+L["Bottom Right Panel"] = true
+L["Bottom Right Extra Panel"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.
