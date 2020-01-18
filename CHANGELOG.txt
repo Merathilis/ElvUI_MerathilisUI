@@ -1,3 +1,11 @@
+[b][color=orange]v4.41[/color], 18.01.2020[/b][list]
+[*]Change the default position from the "new" Vehicle Exit Button.
+[*]Enable "Swap to AltPower" on Party Frames.
+[*]Create a new Options for my Panels: .. Modules - Panels. You can now individually enable/disable them.
+[*]Split the Quest Options. #78
+[*]Small Layout tweaks.[/list]
+
+
 [b][color=orange]v4.40 for Patch 8.3[/color], 15.01.2020[/b][list]
 [*]Code update/fixes for Patch 8.3.
 [*]Small Layout updates.
@@ -9,6 +17,7 @@
 [*]Added a random toy macro. See misc options.
 [*]Change the guild rank color in tooltip, if someone is in another guild.[/list]
 
+
 [b][color=orange]v4.39[/color], 18.12.2019[/b][list]
 [*]Added styles on UnitFrames i missed.
 [*]The DashBoard is now disabled by default.
@@ -16,6 +25,7 @@
 [*]Fixed RaidCD font option.
 [*]Added two buttons on the Talent Frame with Codex and Tome Items.
 [*]Fixed an install error.[/list]
+
 
 [b][color=orange]v4.38[/color], 06.12.2019[/b][list]
 [*]Small Tweaks to the DPS Layout.
