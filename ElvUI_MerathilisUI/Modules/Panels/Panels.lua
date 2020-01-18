@@ -269,17 +269,24 @@ function module:UpdatePanels()
 		MER_BottomPanel:Hide()
 	end
 
-	if E.db.mui.panels.topLeftPanel then
+	if E.db.mui.panels.stylePanels.topLeftPanel and E.db.mui.panels.stylePanels.topLeftExtraPanel then
 		MER_TopLeftStyle:Show()
 		MER_TopLeftExtraStyle:Show()
+	elseif E.db.mui.panels.stylePanels.topLeftPanel and not E.db.mui.panels.stylePanels.topLeftExtraPanel then
+		MER_TopLeftStyle:Show()
+		MER_TopLeftExtraStyle:Hide()
 	else
 		MER_TopLeftStyle:Hide()
 		MER_TopLeftExtraStyle:Hide()
 	end
 
-	if E.db.mui.panels.bottomLeftPanel then
+	if E.db.mui.panels.stylePanels.bottomLeftPanel and E.db.mui.panels.stylePanels.bottomLeftExtraPanel then
 		MER_BottomLeftStyle:Show()
 		MER_BottomLeftExtraStyle:Show()
+		MER_Button1:Show()
+	elseif E.db.mui.panels.stylePanels.bottomLeftPanel and not E.db.mui.panels.stylePanels.bottomLeftExtraPanel then
+		MER_BottomLeftStyle:Show()
+		MER_BottomLeftExtraStyle:Hide()
 		MER_Button1:Show()
 	else
 		MER_BottomLeftStyle:Hide()
@@ -287,17 +294,24 @@ function module:UpdatePanels()
 		MER_Button1:Hide()
 	end
 
-	if E.db.mui.panels.topRightPanel then
+	if E.db.mui.panels.stylePanels.topRightPanel and E.db.mui.panels.stylePanels.topRightExtraPanel then
 		MER_TopRightStyle:Show()
 		MER_TopRightExtraStyle:Show()
+	elseif E.db.mui.panels.stylePanels.topRightPanel and not E.db.mui.panels.stylePanels.topRightExtraPanel then
+		MER_TopRightStyle:Show()
+		MER_TopRightExtraStyle:Hide()
 	else
 		MER_TopRightStyle:Hide()
 		MER_TopRightExtraStyle:Hide()
 	end
 
-	if E.db.mui.panels.bottomRightPanel then
+	if E.db.mui.panels.stylePanels.bottomRightPanel and E.db.mui.panels.stylePanels.bottomRightExtraPanel then
 		MER_BottomRightStyle:Show()
 		MER_BottomRightExtraStyle:Show()
+		MER_Button2:Show()
+	elseif E.db.mui.panels.stylePanels.bottomRightPanel and not E.db.mui.panels.stylePanels.bottomRightExtraPanel then
+		MER_BottomRightStyle:Show()
+		MER_BottomRightExtraStyle:Hide()
 		MER_Button2:Show()
 	else
 		MER_BottomRightStyle:Hide()

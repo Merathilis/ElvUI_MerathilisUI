@@ -432,10 +432,19 @@ MP.media = {
 MP.panels = {
 	topPanel = true,
 	bottomPanel = true,
-	topLeftPanel = true,
-	topRightPanel = true,
-	bottomLeftPanel = true,
-	bottomRightPanel = true,
+	stylePanels = {
+		topLeftPanel = true,
+		topLeftExtraPanel = true,
+		topRightPanel = true,
+		topRightExtraPanel = true,
+		bottomLeftPanel = true,
+		bottomLeftExtraPanel = true,
+		bottomRightPanel = true,
+		bottomRightExtraPanel = true,
+	},
+	extraStylePanels = {
+
+	},
 }
 
 MP.smb = {

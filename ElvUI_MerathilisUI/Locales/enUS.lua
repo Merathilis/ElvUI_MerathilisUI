@@ -599,9 +599,13 @@ L["decor."] = true
 
 -- Panels
 L["Top Left Panel"] = true
+L["Top Left Extra Panel"] = true
 L["Top Right Panel"] = true
+L["Top Right Extra Panel"] = true
 L["Bottom Left Panel"] = true
+L["Bottom Left Extra Panel"] = true
 L["Bottom Right Panel"] = true
+L["Bottom Right Extra Panel"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

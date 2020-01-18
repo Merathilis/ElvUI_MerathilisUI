@@ -595,9 +595,13 @@ L["decor."] = "Dekor"
 
 -- Panels
 L["Top Left Panel"] = "Leiste oben links"
+L["Top Left Extra Panel"] = "Extra Leiste oben links"
 L["Top Right Panel"] = "Leiste oben rechts"
+L["Top Right Extra Panel"] = "Extra Leiste oben rechts"
 L["Bottom Left Panel"] = "Leiste unten links"
+L["Bottom Left Extra Panel"] = "Extra Leiste oben links"
 L["Bottom Right Panel"] = "Leiste unten rechts"
+L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.
