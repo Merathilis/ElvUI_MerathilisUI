@@ -33,12 +33,6 @@ local function Misc()
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			quest = {
-				order = 4,
-				type = "toggle",
-				name = L["Quest"],
-				desc = L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."],
-			},
 			announce = {
 				order = 5,
 				type = "toggle",
@@ -72,10 +66,31 @@ local function Misc()
 				name = E.NewSign..L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
+			quest = {
+				order = 11,
+				type = "group",
+				name = MER:cOption(L["Quest"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
+				set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					selectQuestReward = {
+						order = 1,
+						type = "toggle",
+						name = L["Highest Quest Reward"],
+						desc = L["Automatically select the item with the highest reward."],
+					},
+					questAnnounce = {
+						order = 2,
+						type = "toggle",
+						name = L["Quest Announcer"],
+					},
+				},
+			},
 			alerts = {
 				order = 20,
 				type = "group",
-				name = L["Alerts"],
+				name = MER:cOption(L["Alerts"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -90,7 +105,7 @@ local function Misc()
 			paragon = {
 				order = 21,
 				type = "group",
-				name = L["MISC_PARAGON_REPUTATION"],
+				name = MER:cOption(L["MISC_PARAGON_REPUTATION"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
@@ -133,7 +148,7 @@ local function Misc()
 			macros = {
 				order = 30,
 				type = "group",
-				name = E.NewSign..L["Macros"],
+				name = E.NewSign..MER:cOption(L["Macros"]),
 				guiInline = true,
 				args = {
 					randomtoy = {

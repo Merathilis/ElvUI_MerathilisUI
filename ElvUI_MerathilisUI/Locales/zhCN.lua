@@ -124,7 +124,6 @@ L["Mover Transparency"] = "Mover透明度"
 L["Changes the transparency of all the movers."] = "更改所有movers的透明度."
 L["Announce"] = "通告"
 L["Skill gains"] = "技能提升"
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "自动选择具有售价的任务奖励.同时通告任务进度."
 L[" members"] = " 会员"
 L["Name Hover"] = "名字悬停"
 L["Shows the Unit Name on the mouse."] = "显示鼠标指向的单位名称."
@@ -147,6 +146,9 @@ L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
 L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
+L["Highest Quest Reward"] = true
+L["Automatically select the item with the highest reward."] = true
+L["Quest Announcer"] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

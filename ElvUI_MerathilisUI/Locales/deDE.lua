@@ -124,7 +124,6 @@ L["Mover Transparency"] = "Ankerpunkte Transparenz"
 L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
 L["Skill gains"] = "Skill Steigerungen"
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus. Ausserdem kündigt es den Quest Fortschritt an."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
@@ -147,6 +146,9 @@ L["Wowhead Links"] = true -- No need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links zum/zur Erfolgfenster und Weltkarte hinzu."
 L["Codex Buttons"] = "Kodex Tasten"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
+L["Highest Quest Reward"] = "Höhste Quest Belohnung"
+L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
+L["Quest Announcer"] = "Quest Ankündigungen"
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

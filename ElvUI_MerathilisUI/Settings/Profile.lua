@@ -107,7 +107,10 @@ MP.colors = {
 MP.misc = {
 	MailInputbox = true,
 	gmotd = true,
-	quest = false,
+	quest = {
+		selectQuestReward =	true,
+		questAnnounce = false,
+	},
 	announce = true,
 	cursor = false,
 	lfgInfo = true,

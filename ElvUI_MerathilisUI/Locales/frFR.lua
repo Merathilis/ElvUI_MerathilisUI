@@ -126,7 +126,6 @@ L["Mover Transparency"] = true
 L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
 L["Skill gains"] = true
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
@@ -149,6 +148,9 @@ L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
 L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
+L["Highest Quest Reward"] = true
+L["Automatically select the item with the highest reward."] = true
+L["Quest Announcer"] = true
 
 -- Tooltip
 L["Your Status:"] = true
