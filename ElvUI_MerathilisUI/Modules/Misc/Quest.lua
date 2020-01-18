@@ -169,7 +169,7 @@ local function FindWorldQuestComplete(_, questID)
 end
 
 function MI:LoadQuest()
-	if E.db.mui.misc.quest.selectQuestReward  then
+	if E.db.mui.misc.quest.selectQuestReward then
 		self:RegisterEvent("QUEST_COMPLETE")
 	end
 
