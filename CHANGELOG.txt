@@ -1,3 +1,8 @@
+[b][color=orange]v4.42[/color], 19.01.2020[/b][list]
+[*]Fixed Aura positions in my Install.
+[*]Fixed a quest lua error. Damn tables >.<[/list]
+
+
 [b][color=orange]v4.41[/color], 18.01.2020[/b][list]
 [*]Change the default position from the "new" Vehicle Exit Button.
 [*]Enable "Swap to AltPower" on Party Frames.
