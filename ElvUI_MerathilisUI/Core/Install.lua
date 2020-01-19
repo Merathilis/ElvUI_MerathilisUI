@@ -298,7 +298,7 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["cooldown"]["hoursColor"]["g"] = 1
 	E.db["auras"]["cooldown"]["hoursColor"]["b"] = 1
 
-	if E.db.mui.panels.topRightPanel then
+	if E.db.mui.panels.stylePanels.topRightPanel then
 		E.db["movers"]["BuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-15"
 		E.db["movers"]["DebuffsMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-4,-155"
 	else

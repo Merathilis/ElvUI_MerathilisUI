@@ -16,11 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Small Layout updates",
-		"• Change the default position from the 'new' Vehicle Exit Button",
-		"• Enable 'Swap to AltPower' on Party Frames",
-		"• Create a new Options for my Panels: .. Modules - Panels. You can now individually enable/disable them",
-		"• Split the Quest Options. #78",
+		"• Fixed Aura positions in my Install",
+		"• Fixed a quest lua error. Damn tables >.<",
 
 		-- "• ''",
 	" ",

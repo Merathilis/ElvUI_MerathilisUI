@@ -1,3 +1,16 @@
+** v4.42, 19.01.2020**
+* Fixed Aura positions in my Install.
+* Fixed a quest lua error. Damn tables >.<
+
+
+** v4.41, 18.01.2020**
+* Change the default position from the "new" Vehicle Exit Button.
+* Enable "Swap to AltPower" on Party Frames.
+* Create a new Options for my Panels: .. Modules - Panels. You can now individually enable/disable them.
+* Split the Quest Options. #78
+* Small Layout tweaks.
+
+
 ** v4.40, 15.01.2020 for patch 8.3**
 * Code update/fixes for Patch 8.3.
 * Small Layout updates.
@@ -8,6 +21,7 @@
 * Added a CVar options.
 * Added a random toy macro. See misc options.
 * Change the guild rank color in tooltip, if someone is in another guild.
+
 
 ** v4.39, 18.12.2019**
 * Added styles on UnitFrames i missed.
