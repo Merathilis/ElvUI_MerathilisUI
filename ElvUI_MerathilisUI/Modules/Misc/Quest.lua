@@ -170,7 +170,9 @@ end
 
 function MI:LoadQuest()
 	-- Make sure the table exist
-	E.db.mui.misc.quest = {}
+	if not E.db.mui.misc.quest then
+		E.db.mui.misc.quest = {}
+	end
 
 	if E.db.mui.misc.quest.selectQuestReward then
 		self:RegisterEvent("QUEST_COMPLETE")

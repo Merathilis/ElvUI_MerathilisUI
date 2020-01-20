@@ -139,6 +139,7 @@ L["Shows a simple frame with Raid Informations."] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "Guild Message of the Day"
 L["LFG Member Info"] = true
+L["Shows role informations in your tooltip in the lfg frame."] = true
 L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
@@ -153,6 +154,8 @@ L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Quest Announcer"] = true
+L["Item Alerts"] = true
+L["Announce in chat when someone placed an usefull item."] = true
 
 -- Tooltip
 L["Your Status:"] = true

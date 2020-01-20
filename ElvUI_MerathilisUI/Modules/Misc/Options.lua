@@ -33,12 +33,6 @@ local function Misc()
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
 			},
-			announce = {
-				order = 5,
-				type = "toggle",
-				name = L["Announce"],
-				desc = L["Skill gains"],
-			},
 			cursor = {
 				order = 6,
 				type = "toggle",
@@ -63,11 +57,44 @@ local function Misc()
 			respec = {
 				order = 10,
 				type = "toggle",
-				name = E.NewSign..L["Codex Buttons"],
+				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
-			quest = {
+			lfgInfo = {
 				order = 11,
+				type = "toggle",
+				name = L["LFG Member Info"],
+				desc = L["Shows role informations in your tooltip in the lfg frame."],
+			},
+			alerts = {
+				order = 20,
+				type = "group",
+				name = MER:cOption(L["Alerts"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
+				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					lfg = {
+						order = 1,
+						type = "toggle",
+						name = L["Call to Arms"],
+					},
+					announce = {
+						order = 2,
+						type = "toggle",
+						name = L["Announce"],
+						desc = L["Skill gains"],
+					},
+					itemAlert = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["Item Alerts"],
+						desc = L["Announce in chat when someone placed an usefull item."],
+					},
+				},
+			},
+			quest = {
+				order = 21,
 				type = "group",
 				name = MER:cOption(L["Quest"]),
 				guiInline = true,
@@ -87,23 +114,8 @@ local function Misc()
 					},
 				},
 			},
-			alerts = {
-				order = 20,
-				type = "group",
-				name = MER:cOption(L["Alerts"]),
-				guiInline = true,
-				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
-				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				args = {
-					lfg = {
-						order = 1,
-						type = "toggle",
-						name = L["Call to Arms"],
-					},
-				},
-			},
 			paragon = {
-				order = 21,
+				order = 22,
 				type = "group",
 				name = MER:cOption(L["MISC_PARAGON_REPUTATION"]),
 				guiInline = true,
@@ -146,7 +158,7 @@ local function Misc()
 				},
 			},
 			macros = {
-				order = 30,
+				order = 23,
 				type = "group",
 				name = E.NewSign..MER:cOption(L["Macros"]),
 				guiInline = true,

@@ -135,6 +135,7 @@ L["Stranger"] = "陌生人"
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
+L["Shows role informations in your tooltip in the lfg frame."] = true
 L["MISC_REPUTATION"] = "声望"
 L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
@@ -149,6 +150,8 @@ L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Quest Announcer"] = true
+L["Item Alerts"] = true
+L["Announce in chat when someone placed an usefull item."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "

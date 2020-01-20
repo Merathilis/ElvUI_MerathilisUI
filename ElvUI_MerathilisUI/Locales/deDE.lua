@@ -1,4 +1,4 @@
--- German localization file for deDE
+ -- German localization file for deDE
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
@@ -135,6 +135,7 @@ L["Stranger"] = "Fremder"
 L["Keystones"] = "Schlüsselsteine"
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
+L["Shows role informations in your tooltip in the lfg frame."] = "Zeigt Mitglieder Rollen Informationen im Tooltip des LFG Fensters an."
 L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
@@ -149,6 +150,8 @@ L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zw
 L["Highest Quest Reward"] = "Höhste Quest Belohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
 L["Quest Announcer"] = "Quest Ankündigungen"
+L["Item Alerts"] = "Gegenstandsalarm"
+L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"

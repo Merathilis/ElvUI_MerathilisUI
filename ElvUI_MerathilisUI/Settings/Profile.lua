@@ -111,11 +111,12 @@ MP.misc = {
 		selectQuestReward =	true,
 		questAnnounce = false,
 	},
-	announce = true,
 	cursor = false,
 	lfgInfo = true,
 	alerts = {
 		lfg = false,
+		announce = true,
+		itemAlert = true,
 	},
 	paragon = {
 		enable = true,
