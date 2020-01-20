@@ -74,6 +74,7 @@ local lastTime = 0
 local itemList = {
 	[126459] = true, -- Blingtron 4000
 	[161414] = true, -- Blingtron 5000
+	[298926] = true, -- Blingtron 7000
 	[185709] = true, -- Sugar-Crusted Fish Feast
 	[199109] = true, -- Auto-Hammer
 	[226241] = true, -- Codex of the Tranquil Mind
