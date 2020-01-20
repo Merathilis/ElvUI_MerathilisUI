@@ -1,4 +1,4 @@
- -- German localization file for deDE
+-- German localization file for deDE
 local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 
 -- Core
