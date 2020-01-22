@@ -23,6 +23,9 @@ local function LoadSkin()
 	local HelpFrameHeader = _G.HelpFrame.Header
 	HelpFrameHeader.backdrop:SetTemplate("Transparent")
 	MERS:CreateGradient(HelpFrameHeader.backdrop)
+
+	local TicketStatusFrame = _G.TicketStatusFrame
+	TicketStatusFrame:Styling()
 end
 
 S:AddCallback("mUIHelp", LoadSkin)
