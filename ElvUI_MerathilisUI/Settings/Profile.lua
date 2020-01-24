@@ -270,6 +270,7 @@ MP.actionbars = {
 			[153023] = true, -- Lightforged Augment Rune
 
 			--BFA
+			[169451] = true, -- Abyssal Healing Potion
 			[152494] = true, -- Coastal Healing Potion
 			[152495] = true, -- Coastal Mana Potion
 			[160053] = true, -- Battle-Scarred Augment Rune

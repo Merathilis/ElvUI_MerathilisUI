@@ -53,7 +53,7 @@ function module:ActionbarGlow()
 	if lib then
 		function lib.ShowOverlayGlow(button)
 			if button:GetAttribute("type") == "action" then
-				local actionType,actionID = GetActionInfo(button:GetAttribute("action"))
+				local actionType, actionID = GetActionInfo(button:GetAttribute("action"))
 				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
 			end
 		end
