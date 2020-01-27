@@ -1022,8 +1022,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
 	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 	E.db["unitframe"]["colors"]["classbackdrop"] = false
-
-	E.db["unitframe"]["smartRaidFilter"] = false
 	E.db["unitframe"]["debuffHighlighting"] = "GLOW"
 
 	-- Frame Glow
