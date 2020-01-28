@@ -39,6 +39,7 @@ local function AddOptions()
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
 		icon = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\m2",
 		iconCoords = {.08, .92, .08, .92},
+		childGroups = "tab",
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -61,27 +62,25 @@ local function AddOptions()
 				desc = L["Run the installation process."],
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
 			},
+			skinsButton = CreateButton(4, L["Skins & AddOns"], "skins"),
 			changelog = {
-				order = 4,
+				order = 5,
 				type = "execute",
 				name = L["Changelog"],
 				desc = L['Open the changelog window.'],
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},
-			informationButton = CreateButton(5, L["Information"], "info"),
-			modulesButton = CreateButton(6, E.NewSign..L["Modules"], "modules"),
-			skinsButton = CreateButton(7, L["Skins & AddOns"], "skins"),
+			informationButton = CreateButton(6, L["Information"], "info"),
 			discordButton = {
-				order = 8,
+				order = 7,
 				type = "execute",
 				name = L["|cffff7d0aMerathilisUI|r Discord"],
 				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
 			},
 			general = {
-				order = 9,
+				order = 8,
 				type = "group",
-				name = "",
-				guiInline = true,
+				name = L["General"],
 				args = {
 					generalHeader = {
 						order = 1,
@@ -153,7 +152,7 @@ local function AddOptions()
 					name = {
 						order = 1,
 						type = "header",
-						name = MER.Title,
+						name = L["Information"],
 					},
 					support = {
 						order = 2,
