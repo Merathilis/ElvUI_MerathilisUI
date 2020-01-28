@@ -5,7 +5,7 @@ local function mediaTable()
 	E.Options.args.mui.args.media = {
 		type = "group",
 		name = L["Media"],
-		order = 50,
+		order = 40,
 		childGroups = "tab",
 		get = function(info) return E.db.mui.media[ info[#info] ] end,
 		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,

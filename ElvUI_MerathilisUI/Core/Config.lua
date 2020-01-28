@@ -145,7 +145,7 @@ local function AddOptions()
 				},
 			},
 			info = {
-				order = 19,
+				order = 50,
 				type = "group",
 				name = L["Information"],
 				args = {

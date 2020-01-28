@@ -41,7 +41,7 @@ local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully cre
 
 local function SkinsTable()
 	E.Options.args.mui.args.skins = {
-		order = 200,
+		order = 30,
 		type = "group",
 		name = L["Skins/AddOns"],
 		childGroups = "tab",
