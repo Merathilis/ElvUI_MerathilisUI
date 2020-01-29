@@ -26,6 +26,7 @@ local function AddOptions()
 			order = number,
 			type = 'execute',
 			name = text,
+			customWidth = 140,
 			func = function() ACD:SelectGroup("ElvUI", "mui", unpack(path)) end,
 		}
 		return config
@@ -60,6 +61,7 @@ local function AddOptions()
 				type = "execute",
 				name = L["Install"],
 				desc = L["Run the installation process."],
+				customWidth = 140,
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
 			},
 			skinsButton = CreateButton(4, L["Skins & AddOns"], "skins"),
@@ -68,6 +70,7 @@ local function AddOptions()
 				type = "execute",
 				name = L["Changelog"],
 				desc = L['Open the changelog window.'],
+				customWidth = 140,
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},
 			informationButton = CreateButton(6, L["Information"], "info"),
@@ -75,6 +78,7 @@ local function AddOptions()
 				order = 7,
 				type = "execute",
 				name = L["|cffff7d0aMerathilisUI|r Discord"],
+				customWidth = 140,
 				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
 			},
 			general = {
