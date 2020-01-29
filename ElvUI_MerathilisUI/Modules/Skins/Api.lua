@@ -493,6 +493,33 @@ local function StyleAce3Tooltip(self)
 	end
 end
 
+-- ElvUI Config Stuff
+function E:Config_CreateSeparatorLine(frame, lastButton)
+	local line = frame.leftHolder.buttons:CreateTexture()
+	line:SetTexture(E.Media.Textures.White8x8)
+	line:SetVertexColor(unpack(E.media.rgbvaluecolor))
+	line:Size(179, 2)
+	line:Point("TOP", lastButton, "BOTTOM", 0, -6)
+	line.separator = true
+
+	return line
+end
+
+function E:Config_SetButtonColor(btn, disabled)
+	if disabled then
+		btn:Disable()
+		btn:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+		btn:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		btn.Text:SetTextColor(1, 1, 1)
+	else
+		local r, g, b = unpack(E.media.bordercolor)
+		btn:SetBackdropColor(unpack(self.media.backdropcolor))
+		btn:SetBackdropBorderColor(r, g, b, 1)
+		btn.Text:SetTextColor(.9, .8, 0)
+		btn:Enable()
+	end
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 

@@ -10,6 +10,8 @@ local tinsert = table.insert
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
+local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 22, 22, 0, 1, 0, 1, 0, 0)
+
 local function AddOptions()
 	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
 
@@ -36,10 +38,8 @@ local function AddOptions()
 	E.Options.args.mui = {
 		order = 6,
 		type = 'group',
-		name = MER.Title,
+		name = logo..MER.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
-		icon = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\m2",
-		iconCoords = {.08, .92, .08, .92},
 		childGroups = "tab",
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
