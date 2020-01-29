@@ -9,7 +9,7 @@ local function configTable()
 		name = MER.Title,
 		-- desc = L["Core |cfffe7b2cElvUI|r options."],
 		childGroups = "tab",
-		disabled = E.Options.args.general.args.profiles.args.copyfrom.disabled,
+		disabled = E.Options.args.profiles.args.copyfrom.disabled,
 		args = {
 			header = {
 				order = 0,
