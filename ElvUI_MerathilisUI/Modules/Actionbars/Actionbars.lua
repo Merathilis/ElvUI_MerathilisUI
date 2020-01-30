@@ -46,7 +46,7 @@ end
 function module:ActionbarGlow()
 	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
 
-	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local r, g, b = unpack(E.media.rgbvaluecolor)
 	local color = {r, g, b, 1}
 
 	local lib = LibStub("LibButtonGlow-1.0")
