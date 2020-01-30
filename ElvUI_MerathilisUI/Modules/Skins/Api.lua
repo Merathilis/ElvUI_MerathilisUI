@@ -450,25 +450,6 @@ local function ReskinVehicleExit()
 	end
 end
 
-local function StyleElvUIConfig()
-	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
-
-	local frame = E:Config_GetWindow()
-	if frame and not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
-	end
-end
-
-local function StyleElvUIInstall()
-	if InCombatLockdown() then return end
-	local frame = _G.ElvUIInstallFrame
-	if frame and not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
-	end
-end
-
 -- keep the colors updated
 local function updateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
@@ -478,6 +459,33 @@ local function updateMedia()
 	bordercolorr, bordercolorg, bordercolorb = unpack(E.media.bordercolor)
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
+
+local function StyleElvUIConfig()
+	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
+
+	local frame = E:Config_GetWindow()
+
+	if frame and not frame.IsStyled then
+		frame:Styling()
+		frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
+
+		frame.leftHolder.slider.thumb:SetVertexColor(unpack(E.media.rgbvaluecolor))
+		frame.leftHolder.slider.thumb:SetAlpha(1)
+		frame.leftHolder.slider.thumb:SetSize(8, 12)
+
+		frame.IsStyled = true
+	end
+end
+
+local function StyleElvUIInstall()
+	if InCombatLockdown() then return end
+
+	local frame = _G.ElvUIInstallFrame
+	if frame and not frame.IsStyled then
+		frame:Styling()
+		frame.IsStyled = true
+	end
+end
 
 local function pluginInstaller()
 	local PluginInstallFrame = _G["PluginInstallFrame"]
