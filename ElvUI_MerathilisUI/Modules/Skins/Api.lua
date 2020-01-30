@@ -452,8 +452,9 @@ end
 
 local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
-	local frame = _G.ElvUIGUIFrame
-	if not frame.IsStyled then
+
+	local frame = E:Config_GetWindow()
+	if frame and not frame.IsStyled then
 		frame:Styling()
 		frame.IsStyled = true
 	end
@@ -462,7 +463,7 @@ end
 local function StyleElvUIInstall()
 	if InCombatLockdown() then return end
 	local frame = _G.ElvUIInstallFrame
-	if not frame.IsStyled then
+	if frame and not frame.IsStyled then
 		frame:Styling()
 		frame.IsStyled = true
 	end
