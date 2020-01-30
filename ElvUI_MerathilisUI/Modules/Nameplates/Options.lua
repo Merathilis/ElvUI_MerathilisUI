@@ -60,7 +60,7 @@ local function NameplatesTable()
 						order = 2,
 						type = "description",
 						fontSize = "medium",
-						name = L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"],
+						name = L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"],
 					},
 					spacer1 = {
 						order = 3,

@@ -523,7 +523,7 @@ L["Sat"] = "星期六"
 L["Castbar Shield"] = "施法条盾牌"
 L["Show a shield icon on the castbar for non interruptible spells."] = "在不可打断的法术图标上添加盾牌图标"
 L["Enhanced NameplateAuras"] = "增强姓名板光环"
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 30 x 30"
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = "|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
 
 -- Install
 L["Welcome"] = "欢迎"
