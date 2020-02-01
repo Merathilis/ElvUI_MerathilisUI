@@ -10,7 +10,7 @@ local tinsert = table.insert
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
-local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 22, 22, 0, 1, 0, 1, 0, 0)
+local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 22, 22, 0, 1, 0, 1, 0, 1)
 
 local function AddOptions()
 	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
