@@ -460,6 +460,7 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
+-- ElvUI Config Stuff
 local function StyleElvUIConfig()
 	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
 
@@ -467,11 +468,12 @@ local function StyleElvUIConfig()
 
 	if frame and not frame.IsStyled then
 		frame:Styling()
-		frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
 
-		frame.leftHolder.slider.thumb:SetVertexColor(unpack(E.media.rgbvaluecolor))
-		frame.leftHolder.slider.thumb:SetAlpha(1)
-		frame.leftHolder.slider.thumb:SetSize(8, 12)
+		if frame.leftHolder then
+			frame.leftHolder.slider:SetThumbTexture(E.media.normTex)
+			frame.leftHolder.slider.thumb:SetVertexColor(unpack(E.media.rgbvaluecolor))
+			frame.leftHolder.slider.thumb:SetAlpha(1)
+		end
 
 		frame.IsStyled = true
 	end
@@ -502,7 +504,6 @@ local function StyleAce3Tooltip(self)
 	end
 end
 
--- ElvUI Config Stuff
 function E:Config_CreateSeparatorLine(frame, lastButton)
 	local line = frame.leftHolder.buttons:CreateTexture()
 	line:SetTexture(E.Media.Textures.White8x8)
@@ -510,7 +511,6 @@ function E:Config_CreateSeparatorLine(frame, lastButton)
 	line:Size(179, 2)
 	line:Point("TOP", lastButton, "BOTTOM", 0, -6)
 	line.separator = true
-
 	return line
 end
 
@@ -531,6 +531,32 @@ function E:Config_SetButtonColor(btn, disabled)
 	end
 end
 
+local function Style_Ace3TabSelected(self, selected)
+	local bd = self.backdrop
+	if not bd then return end
+
+	if selected then
+		bd:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+		bd:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+
+		if not self.wasRaised then
+			RaiseFrameLevel(self)
+			self.wasRaised = true
+		end
+	else
+		local r, g, b = unpack(E.media.bordercolor)
+		bd:SetBackdropBorderColor(r, g, b, 1)
+		r, g, b = unpack(E.media.backdropcolor)
+		bd:SetBackdropColor(r, g, b, 1)
+
+		if self.wasRaised then
+			LowerFrameLevel(self)
+			self.wasRaised = nil
+		end
+	end
+
+end
+
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
@@ -540,7 +566,8 @@ function MERS:Initialize()
 
 	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
 	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAce3Tooltip)
+	hooksecurefunc(S, 'Ace3_StyleTooltip', StyleAce3Tooltip)
+	hooksecurefunc(S, 'Ace3_TabSetSelected', Style_Ace3TabSelected)
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
