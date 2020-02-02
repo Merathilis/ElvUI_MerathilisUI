@@ -18,7 +18,6 @@ MP.general = {
 	FlightMode = true,
 	FlightPoint = true,
 	CombatState = true,
-	Movertransparancy = .75,
 	style = true,
 	shadowOverlay = true,
 	filterErrors = true,
