@@ -16,8 +16,11 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed Aura positions in my Install",
-		"• Fixed a quest lua error. Damn tables >.<",
+		"• Take account to the new ElvUI Options update",
+		"• Added a chat alert for placed items",
+		"• Cleanup/Update my install file",
+		"• Try to fix an lua error in HealPrediction",
+		"• Remove Mover Transparency options",
 
 		-- "• ''",
 	" ",
