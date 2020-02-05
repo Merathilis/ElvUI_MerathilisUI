@@ -66,7 +66,7 @@ L["Shows a ChatBar with different quick buttons."] = "用不同的快捷按钮�
 L["Click to open Emoticon Frame"] = "点击打开表情框架"
 L["Emotes"] = "表情"
 L["Damage Meter Filter"] = "伤害统计过滤"
-L["Fade Chat"] = true
+L["Fade Chat"] = "聊天渐隐"
 L["Auto hide timeout"] = "时间"
 L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
 
@@ -82,7 +82,7 @@ L["Development Version"] = "开发版本"
 L["Here you can download the latest development version."] = "您可以从这里下载最新的开发版本."
 
 -- Modules
-L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r modules.\n请使用下拉列表浏览模块."
+L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."] = "你能在这里找到所有不同的选项 |cffff8000MerathilisUI|r 模块.\n请使用下拉列表浏览模块."
 
 -- GameMenu
 L["GameMenu"] = "游戏菜单"
@@ -132,8 +132,8 @@ L["Placed Item"] = "放置物品"
 L["Stranger"] = "陌生人"
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
-L["LFG Member Info"] = true
-L["Shows role informations in your tooltip in the lfg frame."] = true
+L["LFG Member Info"] = "寻找公会人员信息"
+L["Shows role informations in your tooltip in the lfg frame."] = "在寻找公会界面鼠标提示显示职责信息"
 L["MISC_REPUTATION"] = "声望"
 L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
@@ -143,13 +143,13 @@ L["Fun Stuff"] = "有趣的玩意儿"
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "在成就和地图框体上添加 Wowhead 链接"
-L["Codex Buttons"] = true
-L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
-L["Highest Quest Reward"] = true
-L["Automatically select the item with the highest reward."] = true
-L["Quest Announcer"] = true
-L["Item Alerts"] = true
-L["Announce in chat when someone placed an usefull item."] = true
+L["Codex Buttons"] = "圣典按钮"
+L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "在天赋界面添加两个按钮，书卷和圣典"
+L["Highest Quest Reward"] = "最贵任务奖励"
+L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
+L["Quest Announcer"] = "任务通告"
+L["Item Alerts"] = "物品通告"
+L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -204,8 +204,8 @@ L["No Sounds"] = "没有声音"
 L["ChatTab Datatext Panel"] = "聊天标签信息面板"
 L["Middle Datatext Panel"] = "中间的信息面板"
 L["Right Click"] = "右键点击"
-L["Toggle ActionBar"] = true
-L["Toggle Middle DT"] = true
+L["Toggle ActionBar"] = "开关动作条"
+L["Toggle Middle DT"] = "开关中部信息条"
 L["Dura."] = "耐久"
 
 -- DataBars
@@ -214,14 +214,15 @@ L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底�
 L["Style DataBars"] = "样式数据条"
 
 -- PVP
+L["Duels"] = "决斗"
 L["Automatically cancel PvP duel requests."] = "自动取消决斗请求"
 L["Automatically cancel pet battles duel requests."] = "自动取消宠物对战请求"
 L["Announce in chat if duel was rejected."] = "当拒绝时在聊天栏通告"
 L["MER_DuelCancel_REGULAR"] = "已拒绝来自 %s 的决斗请求."
 L["MER_DuelCancel_PET"] = "已拒绝来自 %s 的宠物对战请求."
-L["Show your PvP killing blows as a popup."] = true
-L["Sound"] = true
-L["Play sound when killing blows popup is shown."] = true
+L["Show your PvP killing blows as a popup."] = "将PvP击杀弹出显示"
+L["Sound"] = "声音"
+L["Play sound when killing blows popup is shown."] = "当PvP击杀时播放音效"
 
 -- Actionbars
 L["Specialization Bar"] = "专业条"
@@ -282,6 +283,17 @@ L["Equipped chest is not an Azerite item."] = "已装备的胸部不是一个艾
 L["No chest item is equipped."] = "没有胸部物品被装备."
 
 -- Media
+L["Zone Text"] = "区域文字"
+L["Font Size"] = "字体大小"
+L["Subzone Text"] = "子区域文字"
+L["PvP Status Text"] = "PvP 状态文字"
+L["Misc Texts"] = "杂项文字"
+L["Mail Text"] = "邮件文字"
+L["Chat Editbox Text"] = "聊天输入框文字"
+L["Gossip and Quest Frames Text"] = "聊天及任务界面文字"
+L["Objective Tracker Header Text"] = "任务追踪标题文字"
+L["Objective Tracker Text"] = "任务追踪文字"
+L["Banner Big Text"] = "横幅文字"
 L["MER_MEDIA_ZONES"] = {
 	"Washington",
 	"Moscow",
@@ -323,9 +335,9 @@ L["Changes the Heal Prediction texture to the default Blizzard ones."] = "将治
 L["Adds a shadow to the debuffs that the debuff color is more visible."] = "在Debuff图标外添加阴影以便更清楚的分辨Debuff类型"
 L["Swing Bar"] = "普攻计时条"
 L["Creates a weapon Swing Bar"] = "创建一个普攻计时条"
-L["Main-Hand Color"] = true
-L["Off-Hand Color"] = true
-L["Two-Hand Color"] = true
+L["Main-Hand Color"] = "主手颜色"
+L["Off-Hand Color"] = "副手颜色"
+L["Two-Hand Color"] = "双手颜色"
 L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
@@ -414,11 +426,11 @@ L["Shows the pixel glow on missing raidbuffs."] = "为丢失的团队BUFF显示�
 
 -- Raid Manager
 L["Raid Manager"] = "团队管理"
-L["This will disable the ElvUI Raid Control and replace it with my own."] = true
+L["This will disable the ElvUI Raid Control and replace it with my own."] = "这将禁用ElvUI的团队管理，替换为Merathilis的"
 L["Open Raid Manager"] = "打开团队管理"
 L["Pull Timer Count"] = "倒数计时"
-L["Change the Pulltimer for DBM or BigWigs"] = true
-L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = true
+L["Change the Pulltimer for DBM or BigWigs"] = "修改DBM和BigWigs的倒数计时"
+L['Only accept values format with "", e.g.: "5", "8", "10" etc.'] = "仅识别数字"
 
 -- Reminder
 L["Reminder"] = "常驻BUFF提醒"
@@ -445,52 +457,26 @@ L["Show In Raid"] = "在团队中显示"
 L["Show In Arena"] = "在竞技场中显示"
 
 -- CVars
-L["alwaysCompareItems"] = true
-L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
-L["breakUpLargeNumbers"] = true
-L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
-L["scriptErrors"] = true
-L["enableWoWMouse"] = true
-L["trackQuestSorting"] = true
-L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
-L["autoLootDefault"] = true
-L["autoDismountFlying"] = true
-L["removeChatDelay"] = true
-L["screenshotQuality"] = true
-L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
-L["showTutorials"] = true
-L["WorldTextScale"] = true
-L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["TargetCombatText"] = true
-L["floatingCombatTextCombatDamage"] = true
-L["floatingCombatTextCombatLogPeriodicSpells"] = true
-L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
-L["floatingCombatTextPetMeleeDamage"] = true
-L["floatingCombatTextCombatDamageDirectionalScale"] = true
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
-L["floatingCombatTextCombatHealing"] = true
-L["floatingCombatTextCombatHealingAbsorbTarget"] = true
-L["floatingCombatTextSpellMechanics"] = true
-L["floatingCombatTextSpellMechanicsOther"] = true
-L["playerCombatText"] = true
-L["enableFloatingCombatText"] = true
-L["floatingCombatTextFloatMode"] = true
-L["FloatModeUp"] = true
-L["FloatModeDown"] = true
-L["FloatModeARC"] = true
-L["floatingCombatTextDodgeParryMiss"] = true
-L["floatingCombatTextCombatHealingAbsorbSelf"] = true
-L["floatingCombatTextDamageReduction"] = true
-L["floatingCombatTextLowManaHealth"] = true
-L["floatingCombatTextRepChanges"] = true
-L["floatingCombatTextEnergyGains"] = true
-L["floatingCombatTextComboPoints"] = true
-L["floatingCombatTextReactives"] = true
-L["floatingCombatTextPeriodicEnergyGains"] = true
-L["floatingCombatTextFriendlyHealers"] = true
-L["floatingCombatTextHonorGains"] = true
-L["floatingCombatTextCombatState"] = true
-L["floatingCombatTextAuras"] = true
+L["\n\nDefault: |cff00ff001|r"] = "\n\n默认: |cff00ff00开|r"
+L["\n\nDefault: |cffff00000|r"] = "\n\n默认: |cffff0000关|r"
+L["alwaysCompareItems"] = "总是比较物品"
+L["alwaysCompareItems_DESC"] = "总是显示比较物品鼠标提示\r\r默认: |cffff0000关|r"
+L["breakUpLargeNumbers"] = "缩写数字"
+L["breakUpLargeNumbers_DESC"] = "缩写大数字\r\r默认: |cff00ff00开|r"
+L["scriptErrors"] = "脚本报错"
+L["enableWoWMouse"] = "启用WoW鼠标"
+L["trackQuestSorting"] = "任务追踪排序"
+L["trackQuestSorting_DESC"] = "新追踪的任务在任务追踪列表的位置 \r\r 默认: top"
+L["autoLootDefault"] = "自动拾取"
+L["autoDismountFlying"] = "自动取消飞行坐骑"
+L["removeChatDelay"] = "移除聊天延时"
+L["screenshotQuality"] = "截图质量"
+L["screenshotQuality_DESC"] = "截图质量\r\r默认: |cff00ff003|r"
+L["showTutorials"] = "显示教程"
+L["World Text Scale"] = "世界文字尺寸"
+L["WorldTextScale_DESC"] = "游戏世界中伤害数字、经验获取、神器获得等字体的尺寸\r\r默认: 1.0"
+L["floatingCombatTextCombatDamageDirectionalScale"] = "直接伤害文字速度"
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "直接伤害文字移动速度 (禁用 = 无数字)\r\r默认: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "如果有更新，则在额外的窗口中显示当天的公会信息."
@@ -563,9 +549,9 @@ L["This part of the installation process will apply changes to ElvUI Plugins"] =
 L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."] = "此步骤更改了一些魔兽世界的默认选项.这些选项是根据%s作者的需求量身定制的,并不是此配置功能所必需的(一些cvar的修改)"
 L["Please click the button below to apply the new layout."] = "请单击下面的按钮以应用新布局."
 L["Please click the button below to setup your chat windows."] = "请单击下面的按钮设置聊天窗口."
-L["Please click the button below to setup your actionbars."] = true
+L["Please click the button below to setup your actionbars."] = "请单击下面的按钮设置动作条."
 L["Please click the button below to setup your datatexts."] = "请单击下面的按钮来设置数据文本."
-L["Please click the button below to setup your Unitframes."] = true
+L["Please click the button below to setup your Unitframes."] = "请单击下面的按钮设置单位框架."
 L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"] = "请单击下面的按钮以设置ElvUI AddOns.对于其他Addon配置文件,请进入我的选项 - 皮肤/插件"
 L["DataTexts"] = "数据文本"
 L["Setup Datatexts"] = "设置数据文本"
@@ -587,6 +573,7 @@ L["Name for the new profile"] = "新配置文件的名称"
 L["Are you sure you want to override the current profile?"] = "您确定要覆盖当前的配置吗？"
 
 -- Skins
+L["AddOnSkins"] = "插件皮肤"
 L["MER_SKINS_DESC"] = [[此部分旨在增强ElvUI中存在的外观.
 
 请注意，如果相应的皮肤在主要的ElvUI皮肤部分中的|cff636363被禁用|r,则其中一些选项将不可用.]]
@@ -597,20 +584,20 @@ L["Creates decorative stripes and a gradient on some frames"] = "在一些框架
 L["MerathilisUI Style"] = "MerathilisUI 样式"
 L["MerathilisUI Shadows"] = "MerathilisUI 阴影"
 L["Undress Button"] = "解除装备按钮"
-L["Subpages"] = true
-L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
-L["Enable/Disable"] = true
-L["decor."] = true
+L["Subpages"] = "子页面"
+L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "子页面有10个物品, 这个选项设置了一页里有多少子页面"
+L["Enable/Disable"] = "启用/禁用"
+L["decor."] = "装饰"
 
 -- Panels
-L["Top Left Panel"] = true
-L["Top Left Extra Panel"] = true
-L["Top Right Panel"] = true
-L["Top Right Extra Panel"] = true
-L["Bottom Left Panel"] = true
-L["Bottom Left Extra Panel"] = true
-L["Bottom Right Panel"] = true
-L["Bottom Right Extra Panel"] = true
+L["Top Left Panel"] = "左上面板"
+L["Top Left Extra Panel"] = "左上额外面板"
+L["Top Right Panel"] = "右上面板"
+L["Top Right Extra Panel"] = "右上额外面板"
+L["Bottom Left Panel"] = "左下面板"
+L["Bottom Left Extra Panel"] = "左下额外面板"
+L["Bottom Right Panel"] = "右下面板"
+L["Bottom Right Extra Panel"] = "右下额外面板"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[这个部分将为某些插件创建配置文件.
@@ -640,15 +627,16 @@ L["Hides all errors regardless of filtering while in combat."] = "无论如果�
 L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
 L[" from "] = " 从 "
 L[" due to incompatiblities."] = " 由于不兼容."
-L[" due to incompatiblities with: "] = true
-L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
+L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
+L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
+L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 
 -- DashBoard
-L["Bar Color"] = true
-L["Use DataTexts font"] = true
-L["Enable the System Dashboard."] = true
-L["Select System Board"] = true
-L["Change the System Dashboard width."] = true
-L["Enable/Disable "] = true
-L["Latency (MS)"] = true
+L["Dashboard"] = "仪表盘"
+L["Bar Color"] = "条颜色"
+L["Use DataTexts font"] = "使用信息文字字体"
+L["Enable the System Dashboard."] = "启用系统仪表盘"
+L["Select System Board"] = "选择系统仪表盘"
+L["Change the System Dashboard width."] = "调整仪表盘宽度."
+L["Enable/Disable "] = "启用/禁用 "
+L["Latency (MS)"] = "延迟 (毫秒)"
