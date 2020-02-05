@@ -14,7 +14,6 @@ local GetInventoryItemTexture = GetInventoryItemTexture
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventoryItemLink = GetInventoryItemLink
 local GetMoneyString = GetMoneyString
-local GetItemLevelColor = GetItemLevelColor
 local InCombatLockdown = InCombatLockdown
 local ToggleCharacter = ToggleCharacter
 local UIParent = UIParent

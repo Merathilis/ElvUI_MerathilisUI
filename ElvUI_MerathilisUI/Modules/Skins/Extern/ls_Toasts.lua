@@ -4,14 +4,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Lua functions
 local unpack = unpack
 -- WoW API / Variables
-local hooksecurefunc = hooksecurefunc
+local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 if not IsAddOnLoaded("ls_Toasts") then return end
 local LST = unpack(ls_Toasts)
 
 LST:RegisterSkin("MerathilisUI", {
-	name = "|cffff7d0aMerathilisUI|r",
+	name = MER.Title,
 	template = "elv-no-art",
 	border = {
 		texture = {0, 0, 0, 0.75},
@@ -62,7 +62,7 @@ LST:RegisterSkin("MerathilisUI", {
 })
 
 LST.RegisterCallback({}, "SetSkin", function(_, toast)
-	if not toast.skinned then
+	if toast and not toast.skinned then
 		toast:Styling()
 		toast.skinned = true
 	end

@@ -162,7 +162,7 @@ local function abbrev(name)
 	return name
 end
 
-ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT'
 ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
 	local name = Translit:Transliterate(UnitName(unit), translitMark)
 

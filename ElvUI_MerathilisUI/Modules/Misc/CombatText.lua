@@ -195,7 +195,7 @@ function module:Initialize()
 		self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	end
 
-	if E.db.mui.misc.announce then
+	if E.db.mui.misc.alerts.announce then
 		self:RegisterEvent("CHAT_MSG_SKILL")
 	end
 end

@@ -5,19 +5,10 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local ipairs, pairs, select, type, unpack = ipairs, pairs, select, type, unpack
+local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
-local GetItemLevelColor = GetItemLevelColor
-local GetSpecializationRole = GetSpecializationRole
-local UnitLevel = UnitLevel
-local UnitSex = UnitSex
-local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
-local PAPERDOLL_STATCATEGORIES = PAPERDOLL_STATCATEGORIES
-local PAPERDOLL_STATINFO = PAPERDOLL_STATINFO
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)

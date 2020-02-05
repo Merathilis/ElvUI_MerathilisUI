@@ -3,14 +3,18 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
+local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
-local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
-local strmatch = strmatch
-local tconcat, twipe = table.concat, table.wipe
+local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
+local strmatch, strsplit = strmatch, strsplit
+local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local EnumerateFrames = EnumerateFrames
+local GameTooltip_Hide = GameTooltip_Hide
 local GetAchievementInfo = GetAchievementInfo
+local GetAddOnMetadata = GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
@@ -20,10 +24,18 @@ local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
 local UnitClass = UnitClass
+local UnitIsGroupAssistant = UnitIsGroupAssistant
+local UnitIsGroupLeader = UnitIsGroupLeader
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsTapDenied = UnitIsTapDenied
 local UnitReaction = UnitReaction
 local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+local IsEveryoneAssistant = IsEveryoneAssistant
+local IsInGroup = IsInGroup
+local IsInRaid = IsInRaid
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local UIParent = UIParent
 -- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
@@ -116,8 +128,8 @@ end
 
 -- Tooltip scanning stuff. Credits siweia, with permission.
 local iLvlDB = {}
-local itemLevelString = gsub(ITEM_LEVEL, "%%d", "")
-local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
+local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 local essenceTextureID = 2975691
 local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 
@@ -204,6 +216,23 @@ function MER:GetItemLevel(link, arg1, arg2, fullScan)
 	end
 end
 
+-- Check Chat channels
+function MER:CheckChat(msg)
+	if IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
+		return "INSTANCE_CHAT"
+	elseif IsInRaid(_G.LE_PARTY_CATEGORY_HOME) then
+		if msg and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") or IsEveryoneAssistant()) then
+			return "RAID_WARNING"
+		else
+			return "RAID"
+		end
+	elseif IsInGroup(_G.LE_PARTY_CATEGORY_HOME) then
+		return "PARTY"
+	end
+
+	return "SAY"
+end
+
 function MER:CheckPlayerBuff(spell)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
@@ -216,7 +245,7 @@ function MER:CheckPlayerBuff(spell)
 end
 
 function MER:BagSearch(itemId)
-	for container = 0, NUM_BAG_SLOTS do
+	for container = 0, _G.NUM_BAG_SLOTS do
 		for slot = 1, GetContainerNumSlots(container) do
 			if itemId == GetContainerItemID(container, slot) then
 				return container, slot
@@ -364,10 +393,10 @@ function MER:AddTooltip(self, anchor, text, color)
 	if not anchor then return end
 
 	self:SetScript("OnEnter", function()
-		GameTooltip:SetOwner(self, anchor)
-		GameTooltip:ClearLines()
+		_G.GameTooltip:SetOwner(self, anchor)
+		_G.GameTooltip:ClearLines()
 		if tonumber(text) then
-			GameTooltip:SetSpellByID(text)
+			_G.GameTooltip:SetSpellByID(text)
 		else
 			local r, g, b = 1, 1, 1
 			if color == "class" then
@@ -375,9 +404,9 @@ function MER:AddTooltip(self, anchor, text, color)
 			elseif color == "system" then
 				r, g, b = 1, .8, 0
 			end
-			GameTooltip:AddLine(text, r, g, b)
+			_G.GameTooltip:AddLine(text, r, g, b)
 		end
-		GameTooltip:Show()
+		_G.GameTooltip:Show()
 	end)
 	self:SetScript("OnLeave", GameTooltip_Hide)
 end

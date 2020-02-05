@@ -1022,8 +1022,6 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
 	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 	E.db["unitframe"]["colors"]["classbackdrop"] = false
-
-	E.db["unitframe"]["smartRaidFilter"] = false
 	E.db["unitframe"]["debuffHighlighting"] = "GLOW"
 
 	-- Frame Glow
@@ -1438,7 +1436,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["font"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["fontSize"] = 10
 		E.db["unitframe"]["units"]["raid"]["rdebuffs"]["size"] = 20
-		E.db["unitframe"]["units"]["raid"]["numGroups"] = 4
+		E.db["unitframe"]["units"]["raid"]["numGroups"] = 5
 		E.db["unitframe"]["units"]["raid"]["growthDirection"] = "RIGHT_UP"
 		E.db["unitframe"]["units"]["raid"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["raid"]["name"]["text_format"] = ""

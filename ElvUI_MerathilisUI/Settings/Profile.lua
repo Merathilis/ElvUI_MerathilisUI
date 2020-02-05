@@ -18,7 +18,6 @@ MP.general = {
 	FlightMode = true,
 	FlightPoint = true,
 	CombatState = true,
-	Movertransparancy = .75,
 	style = true,
 	shadowOverlay = true,
 	filterErrors = true,
@@ -111,11 +110,12 @@ MP.misc = {
 		selectQuestReward =	true,
 		questAnnounce = false,
 	},
-	announce = true,
 	cursor = false,
 	lfgInfo = true,
 	alerts = {
 		lfg = false,
+		announce = true,
+		itemAlert = true,
 	},
 	paragon = {
 		enable = true,
@@ -269,6 +269,7 @@ MP.actionbars = {
 			[153023] = true, -- Lightforged Augment Rune
 
 			--BFA
+			[169451] = true, -- Abyssal Healing Potion
 			[152494] = true, -- Coastal Healing Potion
 			[152495] = true, -- Coastal Mana Potion
 			[160053] = true, -- Battle-Scarred Augment Rune

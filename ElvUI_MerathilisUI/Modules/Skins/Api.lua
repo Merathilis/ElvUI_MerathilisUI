@@ -450,24 +450,6 @@ local function ReskinVehicleExit()
 	end
 end
 
-local function StyleElvUIConfig()
-	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
-	local frame = _G.ElvUIGUIFrame
-	if not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
-	end
-end
-
-local function StyleElvUIInstall()
-	if InCombatLockdown() then return end
-	local frame = _G.ElvUIInstallFrame
-	if not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
-	end
-end
-
 -- keep the colors updated
 local function updateMedia()
 	rgbValueColorR, rgbValueColorG, rgbValueColorB = unpack(E.media.rgbvaluecolor)
@@ -478,31 +460,12 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
-local function pluginInstaller()
-	local PluginInstallFrame = _G["PluginInstallFrame"]
-	if PluginInstallFrame then
-		PluginInstallFrame:Styling()
-		PluginInstallTitleFrame:Styling()
-	end
-end
-
-local function StyleAce3Tooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.styling then
-		self:Styling()
-	end
-end
-
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
 	ReskinVehicleExit()
 	updateMedia()
-	pluginInstaller()
-
-	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
-	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAce3Tooltip)
+	self:StyleElvUIConfig()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

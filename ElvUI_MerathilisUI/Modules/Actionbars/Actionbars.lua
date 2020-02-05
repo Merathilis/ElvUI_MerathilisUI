@@ -46,14 +46,14 @@ end
 function module:ActionbarGlow()
 	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
 
-	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local r, g, b = unpack(E.media.rgbvaluecolor)
 	local color = {r, g, b, 1}
 
 	local lib = LibStub("LibButtonGlow-1.0")
 	if lib then
 		function lib.ShowOverlayGlow(button)
 			if button:GetAttribute("type") == "action" then
-				local actionType,actionID = GetActionInfo(button:GetAttribute("action"))
+				local actionType, actionID = GetActionInfo(button:GetAttribute("action"))
 				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
 			end
 		end

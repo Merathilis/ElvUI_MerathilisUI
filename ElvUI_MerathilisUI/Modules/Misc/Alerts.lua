@@ -24,6 +24,14 @@ local IsInRaid = IsInRaid
 local GetLFGRoleShortageRewards = GetLFGRoleShortageRewards
 local PlaySound = PlaySound
 local RaidNotice_AddMessage = RaidNotice_AddMessage
+local GetSpellInfo = GetSpellInfo
+local GetSpellLink = GetSpellLink
+local GetTime = GetTime
+local IsInGroup = IsInGroup
+local SendChatMessage = SendChatMessage
+local UnitInParty = UnitInParty
+local UnitInRaid = UnitInRaid
+local UnitName = UnitName
 -- GLOBALS:
 
 local eventframe = CreateFrame('Frame')
@@ -31,9 +39,9 @@ eventframe:SetScript('OnEvent', function(self, event, ...)
 	eventframe[event](self, ...)
 end)
 
---[[-----------------------------------------------------------------------------
-LFG Call to Arms rewards
--------------------------------------------------------------------------------]]
+--[[---------------------
+  LFG Call to Arms rewards
+------------------------]]
 local LFG_Timer = 0
 function eventframe:LFG_UPDATE_RANDOM_INFO()
 	local eligible, forTank, forHealer, forDamage = GetLFGRoleShortageRewards(1671, _G.LFG_ROLE_SHORTAGE_RARE) -- 1671 Random Battle For Azeroth Heroic
@@ -59,8 +67,62 @@ function eventframe:LFG_UPDATE_RANDOM_INFO()
 	end
 end
 
+--[[---------------------
+  Item Alerts
+------------------------]]
+local lastTime = 0
+local itemList = {
+	[126459] = true, -- Blingtron 4000
+	[161414] = true, -- Blingtron 5000
+	[298926] = true, -- Blingtron 7000
+	[185709] = true, -- Sugar-Crusted Fish Feast
+	[199109] = true, -- Auto-Hammer
+	[226241] = true, -- Codex of the Tranquil Mind
+	[22700] = true,	-- Field Repair Bot 74A
+	[256230] = true, -- Codex of the Quiet Mind
+	[259409] = true, -- Galley Banquet
+	[259410] = true, -- BounPtiful Captain's Feast
+	[276972] = true, -- Mystical Cauldron
+	[286050] = true, -- Sanguinated Feast
+	[44389] = true,	-- Field Repair Bot 110G
+	[54710] = true, -- MOLL-E
+	[54711] = true,	-- Scrapbot
+	[67826] = true,	-- Jeeves
+	[265116] = true, -- Unstable Temporal Time Shifter
+}
+
+function module:ItemAlert_Update(unit, _, spellID)
+	if (UnitInRaid(unit) or UnitInParty(unit)) and spellID and itemList[spellID] and lastTime ~= GetTime() then
+		local who = UnitName(unit)
+		local link = GetSpellLink(spellID)
+		local name = GetSpellInfo(spellID)
+		SendChatMessage(format("%s has placed down %s", who, link or name), MER:CheckChat())
+
+		lastTime = GetTime()
+	end
+end
+
+function module:ItemAlert_CheckGroup()
+	if IsInGroup() then
+		MER:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+	else
+		MER:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED", module.ItemAlert_Update)
+	end
+end
+
+function module:PlacedItemAlert()
+	self:ItemAlert_CheckGroup()
+
+	MER:RegisterEvent("GROUP_LEFT", self.ItemAlert_CheckGroup)
+	MER:RegisterEvent("GROUP_JOINED", self.ItemAlert_CheckGroup)
+end
+
 function module:AddAlerts()
 	if E.db.mui.misc.alerts.lfg then
 		eventframe:RegisterEvent('LFG_UPDATE_RANDOM_INFO')
+	end
+
+	if E.db.mui.misc.alerts.itemAlert then
+		self:PlacedItemAlert()
 	end
 end

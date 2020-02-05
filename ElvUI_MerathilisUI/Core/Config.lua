@@ -10,8 +10,10 @@ local tinsert = table.insert
 local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS: StaticPopup_Show
 
+local logo = CreateTextureMarkup("Interface/AddOns/ElvUI_MerathilisUI/media/textures/m2", 64, 64, 20, 20, 0, 1, 0, 1, 0, -1)
+
 local function AddOptions()
-	E.Options.args.ElvUI_Header.name = E.Options.args.ElvUI_Header.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
+	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 
@@ -26,6 +28,7 @@ local function AddOptions()
 			order = number,
 			type = 'execute',
 			name = text,
+			customWidth = 140,
 			func = function() ACD:SelectGroup("ElvUI", "mui", unpack(path)) end,
 		}
 		return config
@@ -35,10 +38,9 @@ local function AddOptions()
 	E.Options.args.mui = {
 		order = 6,
 		type = 'group',
-		name = MER.Title,
+		name = logo..MER.Title,
 		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
-		icon = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\m2",
-		iconCoords = {.08, .92, .08, .92},
+		childGroups = "tab",
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -59,29 +61,30 @@ local function AddOptions()
 				type = "execute",
 				name = L["Install"],
 				desc = L["Run the installation process."],
+				customWidth = 140,
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
 			},
+			skinsButton = CreateButton(4, L["Skins & AddOns"], "skins"),
 			changelog = {
-				order = 4,
+				order = 5,
 				type = "execute",
 				name = L["Changelog"],
 				desc = L['Open the changelog window.'],
+				customWidth = 140,
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},
-			informationButton = CreateButton(5, L["Information"], "info"),
-			modulesButton = CreateButton(6, E.NewSign..L["Modules"], "modules"),
-			skinsButton = CreateButton(7, L["Skins & AddOns"], "skins"),
+			informationButton = CreateButton(6, L["Information"], "info"),
 			discordButton = {
-				order = 8,
+				order = 7,
 				type = "execute",
 				name = L["|cffff7d0aMerathilisUI|r Discord"],
+				customWidth = 140,
 				func = function() E:StaticPopup_Show("MERATHILISUI_CREDITS", nil, nil, "https://discord.gg/ZhNqCu2") end,
 			},
 			general = {
-				order = 9,
+				order = 8,
 				type = "group",
-				name = "",
-				guiInline = true,
+				name = L["General"],
 				args = {
 					generalHeader = {
 						order = 1,
@@ -133,27 +136,17 @@ local function AddOptions()
 						name = L["Combat State"],
 						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
 					},
-					Movertransparancy = {
-						order = 20,
-						type = "range",
-						name = L["Mover Transparency"],
-						desc = L["Changes the transparency of all the movers."],
-						isPercent = true,
-						min = 0, max = 1, step = 0.01,
-						get = function(info) return E.db.mui.general.Movertransparancy end,
-						set = function(info, value) E.db.mui.general.Movertransparancy = value MER:UpdateMoverTransparancy() end,
-					},
 				},
 			},
 			info = {
-				order = 19,
+				order = 50,
 				type = "group",
 				name = L["Information"],
 				args = {
 					name = {
 						order = 1,
 						type = "header",
-						name = MER.Title,
+						name = L["Information"],
 					},
 					support = {
 						order = 2,

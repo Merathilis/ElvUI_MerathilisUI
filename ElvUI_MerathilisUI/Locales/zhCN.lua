@@ -120,8 +120,6 @@ L["Misc"] = "杂项"
 L["Artifact Power"] = "神器能量"
 L["has appeared on the MiniMap!"] = "已经出现在小地图上!"
 L["Alt-click, to buy an stack"] = "Alt-点击, 批量买"
-L["Mover Transparency"] = "Mover透明度"
-L["Changes the transparency of all the movers."] = "更改所有movers的透明度."
 L["Announce"] = "通告"
 L["Skill gains"] = "技能提升"
 L[" members"] = " 会员"
@@ -135,6 +133,7 @@ L["Stranger"] = "陌生人"
 L["Keystones"] = "大秘境钥匙"
 L["GUILD_MOTD_LABEL2"] = "公会今日信息"
 L["LFG Member Info"] = true
+L["Shows role informations in your tooltip in the lfg frame."] = true
 L["MISC_REPUTATION"] = "声望"
 L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
@@ -149,6 +148,8 @@ L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
 L["Quest Announcer"] = true
+L["Item Alerts"] = true
+L["Announce in chat when someone placed an usefull item."] = true
 
 -- Tooltip
 L["Your Status:"] = "你的状态: "
@@ -520,7 +521,7 @@ L["Sat"] = "星期六"
 L["Castbar Shield"] = "施法条盾牌"
 L["Show a shield icon on the castbar for non interruptible spells."] = "在不可打断的法术图标上添加盾牌图标"
 L["Enhanced NameplateAuras"] = "增强姓名板光环"
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 30 x 30"
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = "|cffFF0000注意:|r 这会覆盖 ElvUI 姓名板 Buff/Debuffs 的长宽设置. 控制技能的图标大小固定为: 32 x 32"
 
 -- Install
 L["Welcome"] = "欢迎"

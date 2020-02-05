@@ -86,7 +86,8 @@ function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, 
 	local totalMax = UnitHealthMax(unit)
 	absorb = pred and UnitGetTotalAbsorbs(unit) or absorb
 	local barSize = (absorb / totalMax) * totalWidth
-	self.absorbBar.overlay:SetTexCoord(0, barSize / self.absorbBar.overlay.tileSize, 0, totalHeight / self.absorbBar.overlay.tileSize)
+	local tileSize = 32
+	self.absorbBar.overlay:SetTexCoord(0, barSize / tileSize, 0, totalHeight / tileSize)
 end
 
 function module:UpdatePredictionStatusBar(prediction, parent, name)
