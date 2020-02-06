@@ -41,10 +41,6 @@ function MER:LuaError(msg)
 			ReloadUI()
 		end
 	else
-		for i = 1, GetNumAddOns() do
-			local name = GetAddOnInfo(i)
-			print(name)
-		end
 		MER:Print('/muierror on - /muierror off')
 	end
 end
