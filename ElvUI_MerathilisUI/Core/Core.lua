@@ -11,7 +11,7 @@ local tinsert = table.insert
 local GetAddOnEnableState = GetAddOnEnableState
 
 -- GLOBALS: ElvDB, hooksecurefunc, BINDING_HEADER_MER
--- GLOBALS: MERData, MERDataPerChar
+-- GLOBALS: MERData, MERDataPerChar, ElvDB
 
 MER["styling"] = {}
 MER.Logo = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI.tga]]
@@ -36,6 +36,7 @@ end
 
 function MER:LoadCommands()
 	self:RegisterChatCommand("mui", "DasOptions")
+	self:RegisterChatCommand('muierror', 'LuaError')
 end
 
 function MER:RegisterMedia()
@@ -96,6 +97,12 @@ function MER:Initialize()
 	if not MERDataPerChar then
 		MERDataPerChar = {}
 	end
+
+	hooksecurefunc(E, "PLAYER_ENTERING_WORLD", function(self, _, initLogin)
+		if initLogin or not ElvDB.MERErrorDisabledAddOns then
+			ElvDB.MERErrorDisabledAddOns = {}
+		end
+	end)
 
 	self:SetupProfileCallbacks()
 
