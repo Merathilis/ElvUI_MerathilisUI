@@ -8,6 +8,7 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 -- WoW API / Variables
 local C_SpecializationInfo_GetSpellsDisplay = C_SpecializationInfo.GetSpellsDisplay
+local C_SpecializationInfo_IsInitialized = C_SpecializationInfo.IsInitialized
 local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
@@ -94,6 +95,10 @@ local function LoadSkin()
 	end
 
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
+		if not C_SpecializationInfo_IsInitialized() then
+			return
+		end
+
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, _G.PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
 		local numSpecs = GetNumSpecializations(nil, self.isPet);
