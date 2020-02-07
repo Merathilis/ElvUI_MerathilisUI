@@ -5,8 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhCN")
 L[" is loaded. For any issues or suggestions, please visit "] = " 已加载。如有任何问题或建议，请访问 "
 
 -- General Options
-L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
-L["by Merathilis (EU-Shattrath)"] = true
+L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
+L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
 L["AFK"] = "离开"
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "启用/禁用MUI AFK屏幕。如果加载了BenikUI，则禁用"
 L["Are you still there? ... Hello?"] = "你还在吗？ ... 在吗？"

@@ -5,8 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
 
 -- General Options
-L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
-L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
+L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
+L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Deaktiviert wenn BenikUI geladen ist."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"

@@ -39,7 +39,7 @@ local function AddOptions()
 		order = 6,
 		type = 'group',
 		name = logo..MER.Title,
-		desc = L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."],
+		desc = L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."],
 		childGroups = "tab",
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -47,7 +47,7 @@ local function AddOptions()
 			name = {
 				order = 1,
 				type = "header",
-				name = MER.Title..MER:cOption(MER.Version)..L["by Merathilis (EU-Shattrath)"],
+				name = MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"],
 			},
 			logo = {
 				order = 2,
