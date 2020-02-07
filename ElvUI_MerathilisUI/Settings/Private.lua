@@ -96,6 +96,7 @@ V.muiSkins = {
 		cl = true,
 		cbn = true,
 		et = true,
+		tb = true,
 	},
 
 	elvuiAddons = {
