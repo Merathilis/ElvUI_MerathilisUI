@@ -1,3 +1,9 @@
+[b][color=orange]v4.44[/color], 08.02.2020[/b][list]
+[*]Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn.
+[*]Try to fix a talent skin error.
+[*]Some Options color update.[/list]
+
+
 [b][color=orange]v4.43[/color], 05.02.2020[/b][list]
 [*]Take account to the new ElvUI Options update.
 [*]Added a chat alert for placed items.

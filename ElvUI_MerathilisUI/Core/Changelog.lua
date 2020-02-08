@@ -16,16 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Take account to the new ElvUI Options update",
-		"• Added a chat alert for placed items",
-		"• Cleanup/Update my install file",
-		"• Try to fix an lua error in HealPrediction",
-		"• Remove Mover Transparency options",
+		"• Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn",
+		"• Try to fix a talent skin error",
+		"• Some Options color update",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install procress again",
+		"• If you are getting any errors or something, make sure you are now using '/muierrors on' and test again",
 		-- "• ''",
 }
 

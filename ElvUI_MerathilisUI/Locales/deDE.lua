@@ -5,8 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
 
 -- General Options
-L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
-L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
+L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
+L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Deaktiviert wenn BenikUI geladen ist."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
@@ -440,6 +440,8 @@ L["Show In Raid"] = "Zeige im Raid"
 L["Show In Arena"] = "Zeige in Arenen"
 
 -- CVars
+L["\n\nDefault: |cff00ff001|r"] = true
+L["\n\nDefault: |cffff00000|r"] = true
 L["alwaysCompareItems"] = true
 L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
 L["breakUpLargeNumbers"] = true
@@ -456,36 +458,8 @@ L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
 L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["TargetCombatText"] = true
-L["floatingCombatTextCombatDamage"] = true
-L["floatingCombatTextCombatLogPeriodicSpells"] = true
-L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
-L["floatingCombatTextPetMeleeDamage"] = true
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
 L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
-L["floatingCombatTextCombatHealing"] = true
-L["floatingCombatTextCombatHealingAbsorbTarget"] = true
-L["floatingCombatTextSpellMechanics"] = true
-L["floatingCombatTextSpellMechanicsOther"] = true
-L["playerCombatText"] = true
-L["enableFloatingCombatText"] = true
-L["floatingCombatTextFloatMode"] = true
-L["FloatModeUp"] = true
-L["FloatModeDown"] = true
-L["FloatModeARC"] = true
-L["floatingCombatTextDodgeParryMiss"] = true
-L["floatingCombatTextCombatHealingAbsorbSelf"] = true
-L["floatingCombatTextDamageReduction"] = true
-L["floatingCombatTextLowManaHealth"] = true
-L["floatingCombatTextRepChanges"] = true
-L["floatingCombatTextEnergyGains"] = true
-L["floatingCombatTextComboPoints"] = true
-L["floatingCombatTextReactives"] = true
-L["floatingCombatTextPeriodicEnergyGains"] = true
-L["floatingCombatTextFriendlyHealers"] = true
-L["floatingCombatTextHonorGains"] = true
-L["floatingCombatTextCombatState"] = true
-L["floatingCombatTextAuras"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
@@ -602,7 +576,7 @@ L["Top Left Extra Panel"] = "Extra Leiste oben links"
 L["Top Right Panel"] = "Leiste oben rechts"
 L["Top Right Extra Panel"] = "Extra Leiste oben rechts"
 L["Bottom Left Panel"] = "Leiste unten links"
-L["Bottom Left Extra Panel"] = "Extra Leiste oben links"
+L["Bottom Left Extra Panel"] = "Extra Leiste unten links"
 L["Bottom Right Panel"] = "Leiste unten rechts"
 L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 

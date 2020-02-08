@@ -74,7 +74,7 @@ local function Style_SetButtonColor(self, btn, disabled)
 		E:Config_SetButtonText(btn, true)
 	else
 		btn:Enable()
-		btn:SetBackdropColor(unpack(E.media.backdropcolor))
+		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
 		local r, g, b = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r, g, b, 1)
 		btn.Text:SetTextColor(.9, .8, 0)
@@ -92,8 +92,7 @@ local function Style_Ace3TabSelected(self, selected)
 	else
 		local r, g, b = unpack(E.media.bordercolor)
 		bd:SetBackdropBorderColor(r, g, b, 1)
-		r, g, b = unpack(E.media.backdropcolor)
-		bd:SetBackdropColor(r, g, b, 1)
+		bd:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
 	end
 end
 

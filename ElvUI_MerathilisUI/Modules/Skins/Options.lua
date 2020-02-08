@@ -21,6 +21,7 @@ local DecorAddons = {
 	{"Clique", L["Clique"], "cl"},
 	{"cargBags_Nivaya", L["cargBags_Nivaya"], "cbn"},
 	{"EventTracker", L["EventTracker"], "et"},
+	{"TextureBrowser", L["TextureBrowser"], "tb"},
 }
 
 local SupportedProfiles = {
