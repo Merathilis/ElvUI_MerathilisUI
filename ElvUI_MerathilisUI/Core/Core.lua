@@ -83,6 +83,11 @@ function MER:Initialize()
 	self:SplashScreen()
 	self:AddMoverCategories()
 
+	-- Make sure ElvUI movers exisist, it can cause errors if the ElvUI install steps arent completed.
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
 		E:StaticPopup_Show("VERSION_MISMATCH")
