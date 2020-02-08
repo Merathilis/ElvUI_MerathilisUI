@@ -163,6 +163,13 @@ local function SetupChat()
 end
 
 function MER:SetupLayout(layout)
+	local layout = E.db.layoutSet
+
+	E:ResetMovers()
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
