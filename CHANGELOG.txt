@@ -1,3 +1,8 @@
+[b][color=orange]v4.45[/color], 10.02.2020[/b][list]
+[*]Fix errors on install, if ElvUI install is not finished:
+   always make sure you finish first the ElvUI install!![/list]
+
+
 [b][color=orange]v4.44[/color], 08.02.2020[/b][list]
 [*]Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn.
 [*]Try to fix a talent skin error.

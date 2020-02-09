@@ -163,6 +163,11 @@ local function SetupChat()
 end
 
 function MER:SetupLayout(layout)
+	E:ResetMovers("")
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	--[[----------------------------------
 	--	PrivateDB - General
 	--]]----------------------------------
@@ -2729,18 +2734,6 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetText(L["Skip Process"])
 		end,
 		[2] = function()
-			PluginInstallFrame.SubTitle:SetText(L["Profiles"])
-			PluginInstallFrame.Desc1:SetText(L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."])
-			PluginInstallFrame.Desc2:SetFormattedText(L["|cffff8000Your currently active ElvUI profile is:|r %s."], "|cff00c0fa"..ElvUI[1].data:GetCurrentProfile().."|r")
-			PluginInstallFrame.Desc3:SetText(L["Importance: |cffff0000Very High|r"])
-			PluginInstallFrame.Option1:Show()
-			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:NewProfile(false) end)
-			PluginInstallFrame.Option1:SetText(L["Current"])
-			PluginInstallFrame.Option2:Show()
-			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:NewProfile(true, "MerathilisUI") end)
-			PluginInstallFrame.Option2:SetText(NEW)
-		end,
-		[3] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Layout"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation changes the default ElvUI look."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to apply the new layout."])
@@ -2752,7 +2745,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupLayout("healer") end)
 			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
-		[4] = function()
+		[3] = function()
 			PluginInstallFrame.SubTitle:SetText(L["CVars"])
 			PluginInstallFrame.Desc1:SetFormattedText(L["This step changes a few World of Warcraft default options. These options are tailored to the needs of the author of %s and are not necessary for this edit to function."], MER.Title)
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your CVars."])
@@ -2761,7 +2754,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupCVars() end)
 			PluginInstallFrame.Option1:SetText(L["CVars"])
 		end,
-		[5] = function()
+		[4] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Chat"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process sets up your chat fonts and colors."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your chat windows."])
@@ -2770,7 +2763,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() SetupChat() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Chat"])
 		end,
-		[6] = function()
+		[5] = function()
 			PluginInstallFrame.SubTitle:SetText(L["DataTexts"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your datatexts."])
@@ -2779,7 +2772,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupDts() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Datatexts"])
 		end,
-		[7] = function()
+		[6] = function()
 			PluginInstallFrame.SubTitle:SetText(L["ActionBars"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Actionbars and will enable backdrops"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your actionbars."])
@@ -2791,7 +2784,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupActionbars("healer") end)
 			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
-		[8] = function()
+		[7] = function()
 			PluginInstallFrame.SubTitle:SetText(L["UnitFrames"])
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will reposition your Unitframes."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup your Unitframes."])
@@ -2803,7 +2796,7 @@ MER.installTable = {
 			PluginInstallFrame.Option2:SetScript("OnClick", function() MER:SetupUnitframes("healer") end)
 			PluginInstallFrame.Option2:SetText(L["Heal Layout"])
 		end,
-		[9] = function()
+		[8] = function()
 			PluginInstallFrame.SubTitle:SetFormattedText("%s", ADDONS)
 			PluginInstallFrame.Desc1:SetText(L["This part of the installation process will apply changes to ElvUI Plugins"])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below to setup the ElvUI AddOns. For other Addon profiles please go in my Options - Skins/AddOns"])
@@ -2812,7 +2805,7 @@ MER.installTable = {
 			PluginInstallFrame.Option1:SetScript("OnClick", function() MER:SetupAddOns() end)
 			PluginInstallFrame.Option1:SetText(L["Setup Addons"])
 		end,
-		[10] = function()
+		[9] = function()
 			PluginInstallFrame.SubTitle:SetText(L["Installation Complete"])
 			PluginInstallFrame.Desc1:SetText(L["You are now finished with the installation process. If you are in need of technical support please visit us at http://www.tukui.org."])
 			PluginInstallFrame.Desc2:SetText(L["Please click the button below so you can setup variables and ReloadUI."])
@@ -2832,15 +2825,14 @@ MER.installTable = {
 
 	["StepTitles"] = {
 		[1] = START,
-		[2] = L["Profiles"],
-		[3] = L["Layout"],
-		[4] = L["CVars"],
-		[5] = L["Chat"],
-		[6] = L["DataTexts"],
-		[7] = L["ActionBars"],
-		[8] = L["UnitFrames"],
-		[9] = ADDONS,
-		[10] = L["Installation Complete"],
+		[2] = L["Layout"],
+		[3] = L["CVars"],
+		[4] = L["Chat"],
+		[5] = L["DataTexts"],
+		[6] = L["ActionBars"],
+		[7] = L["UnitFrames"],
+		[8] = ADDONS,
+		[9] = L["Installation Complete"],
 	},
 	StepTitlesColorSelected = E.myclass == "PRIEST" and E.PriestColors or RAID_CLASS_COLORS[E.myclass],
 	StepTitleWidth = 200,

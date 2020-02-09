@@ -541,7 +541,6 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = "插
 L["The Addon 'Skada' is not enabled. Profile not created."] = "插件'Skada'未启用.未创建配置文件."
 L["This part of the installation process sets up your chat fonts and colors."] = "安装过程的此部分设置您的聊天字体和颜色."
 L["This part of the installation changes the default ElvUI look."] = "安装过程的此部分更改了默认的ElvUI外观."
-L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = "安装过程的此部分允许您为当前配置文件创建新配置文件或安装|cffff8000MerathilisUI|r设置."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "这部分安装过程将填充MerathilisUI数据文本.\r|cffff8000这不会触及ElvUI数据文本|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "这部分安装过程将重新布局您的动作条并启用背景"
 L["This part of the installation process will reposition your Unitframes."] = "这部分安装过程将重新布局您的单位框体."
@@ -559,7 +558,6 @@ L["Setup Addons"] = "设置插件"
 L["ElvUI AddOns"] = "ElvUI 插件"
 L["Finish"] = "完成"
 L["Installed"] = "安装"
-L["|cffff8000Your currently active ElvUI profile is:|r %s."] = "|cffff8000你当前有效的ElvUI配置文件是:|r %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "您的ElvUI版本比推荐使用|cffff7d0aMerathilisUI|r的版本旧. 你的版本是 |cff00c0fa%.2f|r (推荐版本 |cff00c0fa%.2f|r). MerathilisUI未加载. 请更新你的ElvUI."
