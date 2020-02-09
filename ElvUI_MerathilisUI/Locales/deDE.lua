@@ -523,7 +523,6 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = "Das
 L["The Addon 'Skada' is not enabled. Profile not created."] = "Das AddOn 'Skada' ist nicht aktiviert. Profile wurde nicht erstellt."
 L["This part of the installation process sets up your chat fonts and colors."] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe."
 L["This part of the installation changes the default ElvUI look."] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
-L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = "Dieser Teil der Installation lässt dich ein neues Profil erstellen oder wendet die |cffff8000MerathilisUI|r Einstellungen auf dein aktuelles Profil an."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil der Installation positioniert die Einheitenfenster."
@@ -541,7 +540,6 @@ L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true
 L["Finish"] = "Fertig"
 L["Installed"] = "Installiert"
-L["|cffff8000Your currently active ElvUI profile is:|r %s."] = "|cffff8000Dein aktives ElvUI Profil ist:|r %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter als die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). Bitte aktuallisiere dein ElvUI, um Fehler zu vermeiden!"
