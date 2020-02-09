@@ -16,16 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn",
-		"• Try to fix a talent skin error",
-		"• Some Options color update",
+		"• Fix errors on install, if ElvUI install is not finished:",
+		"  always make sure you finish first the ElvUI install!!",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install procress again",
-		"• If you are getting any errors or something, make sure you are now using '/muierrors on' and test again",
-		-- "• ''",
+		"• If you are getting any errors or something, make sure you are now using:",
+		"  '/muierrors on' and test again",
 }
 
 local URL_PATTERNS = {
