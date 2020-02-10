@@ -281,6 +281,14 @@ function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
+
+	if icon:GetDrawLayer() ~= 'ARTWORK' then
+		icon:SetDrawLayer("ARTWORK")
+	end
+
+	icon:SetSnapToPixelGrid(false)
+	icon:SetTexelSnappingBias(0)
+
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
@@ -448,6 +456,20 @@ local function ReskinVehicleExit()
 		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
 		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
 	end
+end
+
+function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
+	xOffset = xOffset or 1
+	yOffset = yOffset or 1
+	anchor = anchor or obj:GetParent()
+
+	assert(anchor)
+	if obj:GetPoint() then
+		obj:ClearAllPoints()
+	end
+
+	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
+	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
 end
 
 -- keep the colors updated
