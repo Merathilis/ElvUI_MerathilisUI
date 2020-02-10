@@ -39,6 +39,8 @@ local function LoadSkin()
 
 		MERS:Reskin(bu)
 
+		bu.Name:SetTextColor(1, 1, 1)
+
 		bu.Icon:SetSize(iconSize, iconSize)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
