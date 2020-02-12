@@ -442,26 +442,26 @@ L["Show In Raid"] = true
 L["Show In Arena"] = true
 
 -- CVars
-L["\n\nDefault: |cff00ff001|r"] = "\n\n默认: |cff00ff00开|r"
-L["\n\nDefault: |cffff00000|r"] = "\n\n默认: |cffff0000关|r"
-L["alwaysCompareItems"] = "总是比较物品"
-L["alwaysCompareItems_DESC"] = "总是显示比较物品鼠标提示\r\r默认: |cffff0000关|r"
-L["breakUpLargeNumbers"] = "缩写数字"
-L["breakUpLargeNumbers_DESC"] = "缩写大数字\r\r默认: |cff00ff00开|r"
-L["scriptErrors"] = "脚本报错"
-L["enableWoWMouse"] = "启用WoW鼠标"
-L["trackQuestSorting"] = "任务追踪排序"
-L["trackQuestSorting_DESC"] = "新追踪的任务在任务追踪列表的位置 \r\r 默认: top"
-L["autoLootDefault"] = "自动拾取"
-L["autoDismountFlying"] = "自动取消飞行坐骑"
-L["removeChatDelay"] = "移除聊天延时"
-L["screenshotQuality"] = "截图质量"
-L["screenshotQuality_DESC"] = "截图质量\r\r默认: |cff00ff003|r"
-L["showTutorials"] = "显示教程"
-L["World Text Scale"] = "世界文字尺寸"
-L["WorldTextScale_DESC"] = "游戏世界中伤害数字、经验获取、神器获得等字体的尺寸\r\r默认: 1.0"
-L["floatingCombatTextCombatDamageDirectionalScale"] = "直接伤害文字速度"
-L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "直接伤害文字移动速度 (禁用 = 无数字)\r\r默认: |cff00ff001|r"
+L["\n\nDefault: |cff00ff001|r"] = true
+L["\n\nDefault: |cffff00000|r"] = true
+L["alwaysCompareItems"] = true
+L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
+L["breakUpLargeNumbers"] = true
+L["breakUpLargeNumbers_DESC"] = "Toggles using commas in large numbers\r\rDefault: |cff00ff001|r"
+L["scriptErrors"] = true
+L["enableWoWMouse"] = true
+L["trackQuestSorting"] = true
+L["trackQuestSorting_DESC"] = "New tracking tasks will be listed at target tracking location \r\r default: top"
+L["autoLootDefault"] = true
+L["autoDismountFlying"] = true
+L["removeChatDelay"] = true
+L["screenshotQuality"] = true
+L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
+L["showTutorials"] = true
+L["WorldTextScale"] = true
+L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
+L["floatingCombatTextCombatDamageDirectionalScale"] = true
+L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
