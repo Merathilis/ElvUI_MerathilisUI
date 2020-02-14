@@ -1,4 +1,4 @@
-[b][color=orange]v4.45[/color], 10.02.2020[/b][list] 
+[b][color=orange]v4.45[/color], 10.02.2020[/b][list]
 [*]Fix errors on install, if ElvUI install is not finished:
    always make sure you finish first the ElvUI install!![/list]
 
