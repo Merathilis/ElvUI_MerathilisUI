@@ -566,8 +566,6 @@ function module:CreateMicroBar()
 	microBar:SetSize(400, 26)
 	microBar:SetScale(module.db.scale or 1)
 	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
-	microBar:SetTemplate("Transparent")
-	microBar:Styling()
 	E.FrameLocks[microBar] = true
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
@@ -1040,6 +1038,12 @@ function module:CreateMicroBar()
 	end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
+
+	self:Template()
+end
+
+function module:Template()
+	microBar:SetTemplate(module.db.template)
 end
 
 function module:Toggle()
@@ -1055,6 +1059,7 @@ function module:Toggle()
 		E:DisableMover(microBar.mover:GetName())
 		UnregisterStateDriver(microBar, 'visibility')
 	end
+
 	module:UNIT_AURA(nil, "player")
 end
 
@@ -1062,6 +1067,7 @@ function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then
 		return
 	end
+
 	if module.db.enable and module.db.hideInOrderHall then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(_G.LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
@@ -1081,6 +1087,7 @@ function module:Initialize()
 	end
 
 	self:CreateMicroBar()
+	self:Template()
 	self:Toggle()
 
 	function module:ForUpdateAll()
