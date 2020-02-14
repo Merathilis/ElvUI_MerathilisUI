@@ -450,12 +450,20 @@ hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
 local function ReskinVehicleExit()
-	local f = _G["LeaveVehicleButton"]
-	if f then
-		f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	if E.private.actionbar.enable ~= true then
+		return
 	end
+
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+
+	local f = _G.MainMenuBarVehicleLeaveButton
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+
 end
 
 function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
