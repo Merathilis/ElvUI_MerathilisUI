@@ -329,6 +329,7 @@ L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
+L["Change the default role icons."] = true
 
 -- LocationPanel
 L["Location Panel"] = true

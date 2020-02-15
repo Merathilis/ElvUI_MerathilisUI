@@ -353,6 +353,7 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	roleIcons = true,
 }
 
 MP.maps = {

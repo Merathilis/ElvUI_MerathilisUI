@@ -9,7 +9,7 @@ local tinsert = table.insert
 local function UnitFramesTable()
 	E.Options.args.mui.args.modules.args.unitframes = {
 		type = "group",
-		name = L["UnitFrames"],
+		name = E.NewSign..L["UnitFrames"],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
 			name = {
@@ -40,12 +40,20 @@ local function UnitFramesTable()
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 					style = {
-						order = 5,
+						order = 3,
 						type = "toggle",
 						name = L["UnitFrame Style"],
 						desc = L["Adds my styling to the Unitframes if you use transparent health."],
 						get = function(info) return E.db.mui.unitframes.style end,
 						set = function(info, value) E.db.mui.unitframes.style = value; E:StaticPopup_Show("CONFIG_RL"); end,
+					},
+					roleIcons = {
+						order = 4,
+						type = "toggle",
+						name = E.NewSign..L["Role Icon"],
+						desc = L["Change the default role icons."],
+						get = function(info) return E.db.mui.unitframes.roleIcons end,
+						set = function(info, value) E.db.mui.unitframes.roleIcons = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 				},
 			},
