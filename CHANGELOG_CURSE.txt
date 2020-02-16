@@ -1,7 +1,17 @@
+** v4.46, xx.xx.2020**
+* Updated some skins.
+* Changed the texture on BigWigs/Details.
+* Changed the Vehicle Exit Button texture. #82
+* Added option for the MicroBar to change the backdrop. #75
+* Use different Role Icons on the UnitFrames. Thx Peri
+* Updated TooltipIcons.
+
+
 ** v4.45, 10.02.2020**
 * Fix errors on install, if ElvUI install is not finished:
   always make sure you finish first the ElvUI install!!
 
+  
 ** v4.44, 08.02.2020**
 * Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn.
 * Try to fix a talent skin error.
