@@ -36,6 +36,9 @@ local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitIsVisible = UnitIsVisible
 local UnitFactionGroup = UnitFactionGroup
 
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
+local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: TooltipItemIcon_HookFrame, TooltipItemIcon_DisplayIcon, TooltipItemIcon_Saved, DEFAULT_CHAT_FRAME
 -- GLOBALS: GameTooltip, ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3, ItemRefTooltip
@@ -501,7 +504,14 @@ local function HookSpell(frame)
 	if data.disable or data.shown then
 		return
 	end
-	local name, spellID = frame:GetSpell() -- Retail
+
+	local name, rank, spellID
+	if isClassic then  -- Classic
+		name, rank, spellID = frame:GetSpell()
+	elseif isRetail then  -- Retail, has no rank
+		name, spellID = frame:GetSpell()
+	end
+
 	if name then
 		local _, _, text = GetSpellInfo(spellID)
 		if text then
