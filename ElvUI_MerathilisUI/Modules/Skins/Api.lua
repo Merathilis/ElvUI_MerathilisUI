@@ -191,17 +191,18 @@ function MERS:ClearButton()
 	end
 end
 
-local function StartGlow(f)
-	if not (f and f:IsEnabled()) then return end
-	f:SetBackdropBorderColor(r, g, b)
-	f.glow:SetAlpha(1)
-	MER:CreatePulse(f.glow)
+local function onEnter(button)
+	if not button then return end
+
+	button:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+	button:SetBackdropColor(unpack(E.media.rgbvaluecolor))
 end
 
-local function StopGlow(f)
-	f.glow:SetScript("OnUpdate", nil)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	f.glow:SetAlpha(0)
+local function onLeave(button)
+	if not button then return end
+
+	button:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	button:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
 end
 
 -- Buttons
@@ -225,20 +226,8 @@ function MERS:Reskin(button, strip, noGlow)
 		end
 	end
 
-	if not noGlow then
-		button.glow = CreateFrame("Frame", nil, button)
-		button.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
-			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
-		})
-		button.glow:SetPoint("TOPLEFT", -1, 1)
-		button.glow:SetPoint("BOTTOMRIGHT", 1, -1)
-		button.glow:SetBackdropBorderColor(r, g, b)
-		button.glow:SetAlpha(0)
-
-		button:HookScript("OnEnter", StartGlow)
-		button:HookScript("OnLeave", StopGlow)
-	end
+	button:HookScript("OnEnter", onEnter)
+	button:HookScript("OnLeave", onLeave)
 end
 
 function MERS:StyleButton(button)
