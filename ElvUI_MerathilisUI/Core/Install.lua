@@ -60,6 +60,10 @@ local function SetupCVars()
 end
 
 local function SetupChat()
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	for i = 1, NUM_CHAT_WINDOWS do
 		local frame = _G[format("ChatFrame%s", i)]
 		local chatFrameId = frame:GetID()
@@ -163,7 +167,6 @@ local function SetupChat()
 end
 
 function MER:SetupLayout(layout)
-	E:ResetMovers("")
 	if not E.db.movers then
 		E.db.movers = {}
 	end
@@ -805,6 +808,10 @@ function MER:SetupLayout(layout)
 end
 
 function MER:SetupActionbars(layout)
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	--[[----------------------------------
 	--	ActionBars - General
 	--]]----------------------------------
@@ -995,6 +1002,10 @@ function MER:SetupActionbars(layout)
 end
 
 function MER:SetupUnitframes(layout)
+	if not E.db.movers then
+		E.db.movers = {}
+	end
+
 	--[[----------------------------------
 	--	UnitFrames - General
 	--]]----------------------------------
@@ -1027,7 +1038,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["useDeadBackdrop"] = true
 	E.db["unitframe"]["colors"]["customhealthbackdrop"] = true
 	E.db["unitframe"]["colors"]["classbackdrop"] = false
-	E.db["unitframe"]["debuffHighlighting"] = "GLOW"
+	E.db["unitframe"]["debuffHighlighting"] = "FILL"
 
 	-- Frame Glow
 	E.db["unitframe"]["colors"]["frameGlow"]["targetGlow"]["enable"] = false

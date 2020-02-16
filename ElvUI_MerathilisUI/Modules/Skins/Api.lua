@@ -191,17 +191,18 @@ function MERS:ClearButton()
 	end
 end
 
-local function StartGlow(f)
-	if not (f and f:IsEnabled()) then return end
-	f:SetBackdropBorderColor(r, g, b)
-	f.glow:SetAlpha(1)
-	MER:CreatePulse(f.glow)
+local function onEnter(button)
+	if not button then return end
+
+	button:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+	button:SetBackdropColor(unpack(E.media.rgbvaluecolor))
 end
 
-local function StopGlow(f)
-	f.glow:SetScript("OnUpdate", nil)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	f.glow:SetAlpha(0)
+local function onLeave(button)
+	if not button then return end
+
+	button:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	button:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
 end
 
 -- Buttons
@@ -225,20 +226,8 @@ function MERS:Reskin(button, strip, noGlow)
 		end
 	end
 
-	if not noGlow then
-		button.glow = CreateFrame("Frame", nil, button)
-		button.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
-			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
-		})
-		button.glow:SetPoint("TOPLEFT", -1, 1)
-		button.glow:SetPoint("BOTTOMRIGHT", 1, -1)
-		button.glow:SetBackdropBorderColor(r, g, b)
-		button.glow:SetAlpha(0)
-
-		button:HookScript("OnEnter", StartGlow)
-		button:HookScript("OnLeave", StopGlow)
-	end
+	button:HookScript("OnEnter", onEnter)
+	button:HookScript("OnLeave", onLeave)
 end
 
 function MERS:StyleButton(button)
@@ -281,6 +270,14 @@ function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
+
+	if icon:GetDrawLayer() ~= 'ARTWORK' then
+		icon:SetDrawLayer("ARTWORK")
+	end
+
+	icon:SetSnapToPixelGrid(false)
+	icon:SetTexelSnappingBias(0)
+
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
@@ -442,12 +439,34 @@ hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
 local function ReskinVehicleExit()
-	local f = _G["LeaveVehicleButton"]
-	if f then
-		f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	if E.private.actionbar.enable ~= true then
+		return
 	end
+
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+
+	local f = _G.MainMenuBarVehicleLeaveButton
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
+
+end
+
+function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
+	xOffset = xOffset or 1
+	yOffset = yOffset or 1
+	anchor = anchor or obj:GetParent()
+
+	assert(anchor)
+	if obj:GetPoint() then
+		obj:ClearAllPoints()
+	end
+
+	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
+	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
 end
 
 -- keep the colors updated

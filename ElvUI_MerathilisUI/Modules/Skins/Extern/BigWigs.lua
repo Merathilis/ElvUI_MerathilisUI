@@ -20,7 +20,31 @@ local function CreateBG()
 	local BG = CreateFrame("Frame")
 	MERS:CreateBD(BG, .45)
 	BG:Styling()
+
 	return BG
+end
+
+local function GetBG(FreeBackgrounds)
+	if #FreeBackgrounds > 0 then
+		return tremove(FreeBackgrounds)
+	else
+		return CreateBG()
+	end
+end
+
+local function SetupBG(bg, bar, ibg)
+	bg:SetParent(bar)
+	bg:SetFrameStrata(bar:GetFrameStrata())
+	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
+	bg:ClearAllPoints()
+	if ibg then
+		MERS:SetOutside(bg, bar.candyBarIconFrame)
+		bg:SetBackdropColor(0, 0, 0, 0)
+	else
+		MERS:SetOutside(bg, bar)
+		bg:SetBackdropColor(unpack(E.media.backdropcolor))
+	end
+	bg:Show()
 end
 
 local function FreeStyle(bar)
@@ -58,49 +82,29 @@ local function FreeStyle(bar)
 end
 
 local function ApplyStyle(bar)
-	-- general bar settings
-	local bg
-	if #FreeBackgrounds > 0 then
-		bg = tremove(FreeBackgrounds)
-	else
-		bg = CreateBG()
-	end
+	local bg = GetBG(FreeBackgrounds)
+	SetupBG(bg, bar)
+	bar:Set('bigwigs:MerathilisUI:bg', bg)
 
-	bg:SetParent(bar)
-	bg:SetFrameStrata(bar:GetFrameStrata())
-	bg:SetFrameLevel(bar:GetFrameLevel() - 1)
-	bg:ClearAllPoints()
-	bg:SetOutside(bar)
-	bg:Show()
-	bar:Set("bigwigs:MerathilisUI:bg", bg)
+	if bar.candyBarIconFrame:GetTexture() then
+		local ibg = GetBG(FreeBackgrounds)
+		SetupBG(ibg, bar, true)
+		bar:Set('bigwigs:MerathilisUI:ibg', ibg)
+	end
 
 	bar:SetHeight(buttonsize / 2)
 
-	if bar.candyBarIconFrame:GetTexture() then
-		local ibg
-		if #FreeBackgrounds > 0 then
-			ibg = tremove(FreeBackgrounds)
-		else
-			ibg = CreateBG()
-		end
-		ibg:SetParent(bar)
-		ibg:SetFrameStrata(bar:GetFrameStrata())
-		ibg:SetFrameLevel(bar:GetFrameLevel() - 1)
-		ibg:ClearAllPoints()
-		ibg:SetOutside(bar.candyBarIconFrame)
-		ibg:Show()
-		bar:Set("bigwigs:MerathilisUI:ibg", ibg)
-	end
-
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar:SetAllPoints(bar)
-	bar.candyBarBar.SetPoint = MER.dummy
-
-	bar.candyBarBackground:SetTexture(unpack(E["media"].backdropcolor))
+	bar.candyBarBar.SetPoint = MER.Noop
+	bar.candyBarBar:SetStatusBarTexture(E.media.normTex)
+	bar.candyBarBackground:SetTexture(unpack(E.media.backdropcolor))
 
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
+	bar.candyBarIconFrame:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMLEFT', -7, 0)
 	bar.candyBarIconFrame:SetSize(buttonsize, buttonsize)
+
+	MERS:ReskinIcon(bar.candyBarIconFrame)
 
 	bar.candyBarLabel:ClearAllPoints()
 	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)

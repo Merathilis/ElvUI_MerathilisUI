@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local MAB = MER:GetModule("mUIActionbars")
+local MB = MER:GetModule("MicroBar")
 
 --Cache global variables
 --Lua functions
@@ -108,7 +109,7 @@ local function ActionBarTable()
 				name = MER:cOption(L["Micro Bar"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.microBar[ info[#info] ] end,
-				set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL");end,
+				set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
 					enable = {
 						order = 1,
@@ -125,26 +126,38 @@ local function ActionBarTable()
 						min = 0.5, max = 1.0, step = 0.01,
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
-					hideInCombat = {
+					template = {
 						order = 3,
+						name = L["Template"],
+						type = "select",
+						disabled = function() return not E.db.mui.microBar.enable end,
+						set = function(info, value) E.db.mui.microBar[ info[#info] ] = value; MB:Template(); end,
+						values = {
+							["Default"] = DEFAULT,
+							["Transparent"] = L["Transparent"],
+							["NoBackdrop"] = L["NoBackdrop"],
+						},
+					},
+					hideInCombat = {
+						order = 4,
 						type = "toggle",
 						name = L["Hide In Combat"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					hideInOrderHall = {
-						order = 4,
+						order = 5,
 						type = "toggle",
 						name = L["Hide In Orderhall"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					tooltip = {
-						order = 5,
+						order = 6,
 						type = "toggle",
 						name = L["Tooltip"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					text = {
-						order = 6,
+						order = 7,
 						type = "group",
 						name = MER:cOption(L["Text"]),
 						guiInline = true,

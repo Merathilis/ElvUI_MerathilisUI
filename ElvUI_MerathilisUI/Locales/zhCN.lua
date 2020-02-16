@@ -342,6 +342,7 @@ L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
+L["Change the default role icons."] = true
 
 -- LocationPanel
 L["Template"] = "模版"

@@ -16,8 +16,12 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fix errors on install, if ElvUI install is not finished:",
-		"  always make sure you finish first the ElvUI install!!",
+		"• Updated some skins",
+		"• Changed the texture on BigWigs/Details",
+		"• Changed the Vehicle Exit Button texture",
+		"• Added option for the MicroBar to change the backdrop",
+		"• Use different Role Icons on the UnitFrames",
+		"• Updated TooltipIcons",
 
 		-- "• ''",
 	" ",

@@ -36,6 +36,9 @@ local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitIsVisible = UnitIsVisible
 local UnitFactionGroup = UnitFactionGroup
 
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
+local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: TooltipItemIcon_HookFrame, TooltipItemIcon_DisplayIcon, TooltipItemIcon_Saved, DEFAULT_CHAT_FRAME
 -- GLOBALS: GameTooltip, ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3, ItemRefTooltip
@@ -50,7 +53,7 @@ local UnitFactionGroup = UnitFactionGroup
 
 -- See end of file for global exports
 
-local version = 1.76
+local version = 1.77
 -- release
 
 --------------------------------------------------------------------------------
@@ -501,7 +504,14 @@ local function HookSpell(frame)
 	if data.disable or data.shown then
 		return
 	end
-	local name, spellID = frame:GetSpell() -- Retail
+
+	local name, rank, spellID
+	if isClassic then  -- Classic
+		name, rank, spellID = frame:GetSpell()
+	elseif isRetail then  -- Retail, has no rank
+		name, spellID = frame:GetSpell()
+	end
+
 	if name then
 		local _, _, text = GetSpellInfo(spellID)
 		if text then
@@ -1084,6 +1094,16 @@ eventframe:RegisterEvent("VARIABLES_LOADED")
 -- but requires the other AddOn to do more work
 TooltipItemIcon_DisplayIcon = HookMultiplex
 
+-- lookup table for TooltipItemIcon_HookFrame
+local securehooks = {
+	SetHyperlink = HookHyperlink,
+	SetCurrencyToken = HookCurrencyToken,
+	SetCurrencyByID = HookCurrencyByID,
+	SetMerchantCostItem = HookMerchantCostItem,
+	SetMerchantItem = HookMerchantItem,
+	SetToyByItemID = HookToy,
+}
+
 --Alternative hooking Export:
 --TooltipItemIcon_HookFrame (frame, location, compare)
 --call this function to automatically hook TTII to your frame
@@ -1093,17 +1113,20 @@ function TooltipItemIcon_HookFrame(frame, location, compare)
 		frame:HookScript("OnTooltipSetEquipmentSet", HookEquipmentSet)
 		frame:HookScript("OnTooltipSetSpell", HookSpell)
 		frame:HookScript("OnTooltipCleared", HookHide)
-		hooksecurefunc(frame, "SetHyperlink", HookHyperlink)
-		hooksecurefunc(frame, "SetCurrencyToken", HookCurrencyToken)
-		hooksecurefunc(frame, "SetCurrencyByID", HookCurrencyByID)
-		hooksecurefunc(frame, "SetMerchantCostItem", HookMerchantCostItem)
-		hooksecurefunc(frame, "SetMerchantItem", HookMerchantItem)
-		hooksecurefunc(frame, "SetToyByItemID", HookToy)
+
+		for hook, call in pairs(securehooks) do
+			if frame[hook] then
+				hooksecurefunc(frame, hook, call)
+			end
+		end
 		GetTooltipData(frame, location, compare) -- save location/compare settings
 	end
 end
 
--- Add a faction badge
+--------------------------------------------------------------------------------
+-- MerathilisUI Additions
+--------------------------------------------------------------------------------
+-- Faction badge
 local function InsertFactionFrame(self, faction)
 	if not self.factionFrame then
 		local f = self:CreateTexture(nil, "OVERLAY")
@@ -1130,21 +1153,6 @@ local function InsertPetIcon(self, petType)
 	self.petIcon:SetAlpha(1)
 end
 
-MER:SecureHookScript(GameTooltip, "OnTooltipCleared", function(self)
-	if GameTooltip:IsForbidden() then return; end
-	if self.modelFrame and self.modelFrame:GetAlpha() ~= 0 then
-		self.modelFrame:Hide()
-		self.modelFrame:ClearModel()
-	end
-	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
-		self.factionFrame:SetAlpha(0)
-	end
-	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
-		self.petIcon:SetAlpha(0)
-	end
-end)
-
-
 local function getUnit(self)
 	local _, unit = self and self:GetUnit()
 	if(not unit) then
@@ -1154,8 +1162,9 @@ local function getUnit(self)
 	return unit
 end
 
-MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
+MER:HookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 	if GameTooltip:IsForbidden() then return; end
+
 	local unit = getUnit(self)
 
 	if UnitExists(unit) then
@@ -1181,5 +1190,20 @@ MER:SecureHookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 				InsertPetIcon(self, UnitBattlePetType(unit))
 			end
 		end
+	end
+end)
+
+MER:HookScript(GameTooltip, "OnTooltipCleared", function(self)
+	if GameTooltip:IsForbidden() then return; end
+
+	if self.modelFrame and self.modelFrame:GetAlpha() ~= 0 then
+		self.modelFrame:Hide()
+		self.modelFrame:ClearModel()
+	end
+	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
+		self.factionFrame:SetAlpha(0)
+	end
+	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
+		self.petIcon:SetAlpha(0)
 	end
 end)

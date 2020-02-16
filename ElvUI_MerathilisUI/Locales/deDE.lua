@@ -329,6 +329,7 @@ L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt mein Style zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
+L["Change the default role icons."] = "Ändert die Standard Rollen Symbole."
 
 -- LocationPanel
 L["Location Panel"] = true

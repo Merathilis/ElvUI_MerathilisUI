@@ -325,6 +325,7 @@ MP.actionbars = {
 MP.microBar = {
 	enable = true,
 	scale = 1,
+	template = "Transparent",
 	hideInCombat = true,
 	hideInOrderHall = false,
 	tooltip = true,
@@ -352,6 +353,7 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	roleIcons = true,
 }
 
 MP.maps = {
