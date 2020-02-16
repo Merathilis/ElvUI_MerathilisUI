@@ -319,9 +319,7 @@ local collectedInstanceImages = false
 function module.OnEnter(self)
 	RequestRaidInfo()
 
-	if E.db.mui.microBar.tooltip ~= true then
-		return
-	end
+	if not E.db.mui.microBar.tooltip then return end
 
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide() -- WHY??? BECAUSE FUCK GAMETOOLTIP, THATS WHY!!
@@ -1043,7 +1041,14 @@ function module:CreateMicroBar()
 end
 
 function module:Template()
-	microBar:SetTemplate(module.db.template)
+	microBar:CreateBackdrop(module.db.template)
+
+	if module.db.template == 'Default' or module.db.template == 'Transparent' then
+		microBar.backdrop:Styling()
+		microBar.backdrop:SetAlpha(1)
+	else
+		microBar.backdrop:SetAlpha(0)
+	end
 end
 
 function module:Toggle()
