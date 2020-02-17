@@ -1,4 +1,4 @@
-[b][color=orange]v4.46[/color], 16.02.2020[/b][list] 
+[b][color=orange]v4.46[/color], 16.02.2020[/b][list]
 [*]Updated some skins.
 [*]Changed the texture on BigWigs/Details.
 [*]Changed the Vehicle Exit Button texture. #82
