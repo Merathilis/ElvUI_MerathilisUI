@@ -207,8 +207,6 @@ L["No Sounds"] = true
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
 L["Right Click"] = true
-L["Toggle ActionBar"] = true
-L["Toggle Middle DT"] = true
 L["Dura."] = true
 
 -- DataBars

@@ -203,8 +203,6 @@ L["No Sounds"] = "Keine Sounds"
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 L["Right Click"] = "Rechtsklick"
-L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
-L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
 L["Dura."] = "Haltb."
 
 -- DataBars

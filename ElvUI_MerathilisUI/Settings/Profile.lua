@@ -448,9 +448,6 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
-	extraStylePanels = {
-
-	},
 }
 
 MP.smb = {

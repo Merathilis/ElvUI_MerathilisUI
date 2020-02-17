@@ -15,74 +15,6 @@ local InCombatLockdown = InCombatLockdown
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
 
-local function ChatPanels_OnEnter(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:SetOwner(self, 'ANCHOR_TOPLEFT', 0, 4)
-	GameTooltip:ClearLines()
-	GameTooltip:AddDoubleLine(L["Left Click:"], L["Toggle ActionBar"], 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["Right Click"], L["Toggle Middle DT"], 1, 1, 1)
-	GameTooltip:Show()
-end
-
-local function ChatPanels_OnLeave(self)
-	if GameTooltip:IsForbidden() then return end
-
-	GameTooltip:Hide()
-end
-
-local function ShowOrHideBar5(bar, button)
-	if E.db.actionbar.bar5.enabled == true then
-		E.db.actionbar.bar5.enabled = false
-	elseif E.db.actionbar.bar5.enabled == false then
-		E.db.actionbar.bar5.enabled = true
-	end
-	AB:UpdateButtonSettings("bar5")
-end
-
-local function ShowOrHideBar3(bar, button)
-	if E.db.actionbar.bar3.enabled == true then
-		E.db.actionbar.bar3.enabled = false
-	elseif E.db.actionbar.bar3.enabled == false then
-		E.db.actionbar.bar3.enabled = true
-	end
-	AB:UpdateButtonSettings("bar3")
-end
-
-local function MoveButtonBar(button, bar)
-	if button == MerathilisUIButton1 then
-		if E.db.actionbar.bar5.enabled == true then
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
-		else
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-		end
-	end
-
-	if button == MerathilisUIButton2 then
-		if E.db.actionbar.bar3.enabled == true then
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
-		else
-			button.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-		end
-	end
-end
-
-local function UpdateBar5(self, bar)
-	if InCombatLockdown() then MER:Print(ERR_NOT_IN_COMBAT) return end
-	local button = self
-
-	ShowOrHideBar5(bar, button)
-	MoveButtonBar(button, bar)
-end
-
-local function UpdateBar3(self, bar)
-	if InCombatLockdown() then MER:Print(ERR_NOT_IN_COMBAT) return end
-	local button = self
-
-	ShowOrHideBar3(bar, button)
-	MoveButtonBar(button, bar)
-end
-
 -- Style Panels
 function module:CreatePanels()
 	local topPanel = CreateFrame("Frame", "MER_TopPanel", E.UIParent)
@@ -183,76 +115,6 @@ function module:CreatePanels()
 	BottomRightStylePanel1:SetPoint("BOTTOM", BottomRightStylePanel, "TOP")
 	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 
-	local MerathilisUIButton1 = CreateFrame("Button", "MER_Button1", E.UIParent)
-	MerathilisUIButton1:RegisterForClicks("AnyUp")
-	MerathilisUIButton1:Size(14, 14)
-	MerathilisUIButton1:Point("LEFT", bottomLeftSytle, "RIGHT", 2, 0)
-	E:GetModule("Skins"):HandleButton(MerathilisUIButton1)
-	MER_Button1 = MerathilisUIButton1
-
-	MerathilisUIButton1.tex = MerathilisUIButton1:CreateTexture(nil, "OVERLAY")
-	MerathilisUIButton1.tex:SetInside()
-	if E.db.actionbar.bar5.enabled == true then -- double check for login
-		MerathilisUIButton1.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
-	else
-		MerathilisUIButton1.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-	end
-	MerathilisUIButton1:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
-
-	MerathilisUIButton1:SetScript("OnClick", function(self, btn)
-		if btn == "LeftButton" then
-			UpdateBar5(self, _G["ElvUI_Bar5"])
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-		elseif btn == "RightButton" then
-			if E.db.mui.datatexts.middle.enable and mUIMiddleDTPanel:IsShown() then
-				mUIMiddleDTPanel:Hide()
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			else
-				mUIMiddleDTPanel:Show()
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			end
-		end
-	end)
-
-	MerathilisUIButton1:SetScript("OnEnter", ChatPanels_OnEnter)
-	MerathilisUIButton1:SetScript("OnLeave", ChatPanels_OnLeave)
-	if not E.db.mui.panels.bottomLeftPanel then MerathilisUIButton1:Hide() end
-
-	local MerathilisUIButton2 = CreateFrame("Button", "MER_Button2", E.UIParent)
-	MerathilisUIButton2:RegisterForClicks("AnyUp")
-	MerathilisUIButton2:Size(14, 14)
-	MerathilisUIButton2:Point("RIGHT", bottomRightStyle, "LEFT", -2, 0)
-	E:GetModule("Skins"):HandleButton(MerathilisUIButton2)
-	MER_Button2 = MerathilisUIButton2
-
-	MerathilisUIButton2.tex = MerathilisUIButton2:CreateTexture(nil, "OVERLAY")
-	MerathilisUIButton2.tex:SetInside()
-	if E.db.actionbar.bar3.enabled == true then -- double check for login
-		MerathilisUIButton2.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\MinusButton.blp]])
-	else
-		MerathilisUIButton2.tex:SetTexture([[Interface\AddOns\ElvUI\media\textures\PlusButton.blp]])
-	end
-	MerathilisUIButton2:SetHighlightTexture("Interface\\Buttons\\UI-PlusButton-Hilight", "ADD")
-
-	MerathilisUIButton2:SetScript("OnClick", function(self, btn)
-		if btn == "LeftButton" then
-			UpdateBar3(self, _G["ElvUI_Bar3"])
-			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-		elseif btn == "RightButton" then
-			if E.db.mui.datatexts.middle.enable and mUIMiddleDTPanel:IsShown() then
-				mUIMiddleDTPanel:Hide()
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			else
-				mUIMiddleDTPanel:Show()
-				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
-			end
-		end
-	end)
-
-	MerathilisUIButton2:SetScript("OnEnter", ChatPanels_OnEnter)
-	MerathilisUIButton2:SetScript("OnLeave", ChatPanels_OnLeave)
-	if not E.db.mui.panels.bottomRightPanel then MerathilisUIButton2:Hide() end
-
 	module:UpdatePanels()
 end
 
@@ -283,15 +145,12 @@ function module:UpdatePanels()
 	if E.db.mui.panels.stylePanels.bottomLeftPanel and E.db.mui.panels.stylePanels.bottomLeftExtraPanel then
 		MER_BottomLeftStyle:Show()
 		MER_BottomLeftExtraStyle:Show()
-		MER_Button1:Show()
 	elseif E.db.mui.panels.stylePanels.bottomLeftPanel and not E.db.mui.panels.stylePanels.bottomLeftExtraPanel then
 		MER_BottomLeftStyle:Show()
 		MER_BottomLeftExtraStyle:Hide()
-		MER_Button1:Show()
 	else
 		MER_BottomLeftStyle:Hide()
 		MER_BottomLeftExtraStyle:Hide()
-		MER_Button1:Hide()
 	end
 
 	if E.db.mui.panels.stylePanels.topRightPanel and E.db.mui.panels.stylePanels.topRightExtraPanel then
@@ -308,15 +167,12 @@ function module:UpdatePanels()
 	if E.db.mui.panels.stylePanels.bottomRightPanel and E.db.mui.panels.stylePanels.bottomRightExtraPanel then
 		MER_BottomRightStyle:Show()
 		MER_BottomRightExtraStyle:Show()
-		MER_Button2:Show()
 	elseif E.db.mui.panels.stylePanels.bottomRightPanel and not E.db.mui.panels.stylePanels.bottomRightExtraPanel then
 		MER_BottomRightStyle:Show()
 		MER_BottomRightExtraStyle:Hide()
-		MER_Button2:Show()
 	else
 		MER_BottomRightStyle:Hide()
 		MER_BottomRightExtraStyle:Hide()
-		MER_Button2:Hide()
 	end
 end
 
