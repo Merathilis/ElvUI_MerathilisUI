@@ -116,6 +116,7 @@ function module:CreatePanels()
 	MER:CreateGradientFrame(BottomRightStylePanel1, _G.LeftChatPanel:GetWidth(), E.mult, "Horizontal", r, g, b, 0, .7)
 
 	module:UpdatePanels()
+
 end
 
 function module:UpdatePanels()
