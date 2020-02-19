@@ -182,6 +182,7 @@ function MER:SetupLayout(layout)
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "Melli"
 	E.private["general"]["glossTex"] = "Melli"
+
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
