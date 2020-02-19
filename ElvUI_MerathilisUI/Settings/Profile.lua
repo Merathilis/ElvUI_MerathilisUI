@@ -527,6 +527,7 @@ MP.tooltip = {
 	achievement = true,
 	petIcon = true,
 	factionIcon = true,
+	roleIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,

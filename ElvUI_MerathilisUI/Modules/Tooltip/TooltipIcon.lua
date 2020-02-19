@@ -28,6 +28,7 @@ local GetAchievementInfo = GetAchievementInfo
 local C_ToyBox = C_ToyBox
 local IsAltKeyDown = IsAltKeyDown
 local IsControlKeyDown = IsControlKeyDown
+local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
 local UnitExists = UnitExists
 local UnitIsPlayer = UnitIsPlayer
 local UnitIsBattlePet = UnitIsBattlePet
@@ -35,6 +36,7 @@ local UnitBattlePetType = UnitBattlePetType
 local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local UnitIsVisible = UnitIsVisible
 local UnitFactionGroup = UnitFactionGroup
+local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
@@ -1126,17 +1128,36 @@ end
 --------------------------------------------------------------------------------
 -- MerathilisUI Additions
 --------------------------------------------------------------------------------
+-- Role Icon
+local roleTex = {
+	["HEALER"] = {.066, .222, .133, .445},
+	["TANK"] = {.375, .532, .133, .445},
+	["DAMAGER"] = {.66, .813, .133, .445},
+}
+
+local function InsertRoleFrame(self, role)
+	if not self.roleFrame then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPLEFT", -21, -1)
+		f:SetSize(20, 20)
+		f:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
+		self.roleFrame = f
+	end
+	self.roleFrame:SetTexCoord(unpack(roleTex[role]))
+	self.roleFrame:SetAlpha(1)
+end
+
 -- Faction badge
 local function InsertFactionFrame(self, faction)
 	if not self.factionFrame then
 		local f = self:CreateTexture(nil, "OVERLAY")
 		f:SetPoint("TOPRIGHT", 0, -5)
+		f:SetSize(35, 35)
 		f:SetBlendMode("ADD")
 		self.factionFrame = f
 	end
 	self.factionFrame:SetTexture("Interface\\FriendsFrame\\PlusManz-"..faction)
 	self.factionFrame:SetAlpha(.5)
-	self.factionFrame:SetSize(35, 35)
 end
 
 -- Pet icon
@@ -1162,8 +1183,8 @@ local function getUnit(self)
 	return unit
 end
 
-MER:HookScript(GameTooltip, "OnTooltipSetUnit", function(self)
-	if GameTooltip:IsForbidden() then return; end
+MER:HookScript(_G.GameTooltip, "OnTooltipSetUnit", function(self)
+	if _G.GameTooltip:IsForbidden() then return; end
 
 	local unit = getUnit(self)
 
@@ -1174,6 +1195,12 @@ MER:HookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 				if faction and faction ~= "Neutral" then
 					InsertFactionFrame(self, faction)
 				end
+			end
+			if E.db.mui.tooltip.roleIcon then
+				local role = UnitGroupRolesAssigned(unit)
+ 				if role and role ~= "NONE" then
+ 					InsertRoleFrame(self, role)
+ 				end
 			end
 		end
 
@@ -1193,12 +1220,15 @@ MER:HookScript(GameTooltip, "OnTooltipSetUnit", function(self)
 	end
 end)
 
-MER:HookScript(GameTooltip, "OnTooltipCleared", function(self)
-	if GameTooltip:IsForbidden() then return; end
+MER:HookScript(_G.GameTooltip, "OnTooltipCleared", function(self)
+	if _G.GameTooltip:IsForbidden() then return; end
 
 	if self.modelFrame and self.modelFrame:GetAlpha() ~= 0 then
 		self.modelFrame:Hide()
 		self.modelFrame:ClearModel()
+	end
+	if self.roleFrame and self.roleFrame:GetAlpha() ~= 0 then
+		self.roleFrame:SetAlpha(0)
 	end
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)

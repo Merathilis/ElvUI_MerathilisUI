@@ -39,14 +39,19 @@ local function Tooltip()
 				name = L["ACHIEVEMENTS"],
 				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
 			},
-			keystone = {
+			roleIcon = {
 				order = 5,
+				type = "toggle",
+				name = L["Role Icon"],
+			},
+			keystone = {
+				order = 6,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
 			titleColor = {
-				order = 6,
+				order = 7,
 				type = "toggle",
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],
