@@ -45,7 +45,7 @@ module.DCP = DCP
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
 MERS:CreateBDFrame(DCP)
-MERS:CreateSD(DCP)
+MERS:CreateSD(DCP, 2, 2)
 
 local defaultsettings = {
 	["enable"] = false,
