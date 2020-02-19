@@ -42,44 +42,6 @@ local textFormatStylesNoDecimal = {
 	["DEFICIT"] = "-%s"
 }
 
-function MER:GetFormattedText(min, max, style, noDecimal)
-	assert(textFormatStyles[style] or textFormatStylesNoDecimal[style], "CustomTags Invalid format style: "..style)
-	assert(min, "CustomTags - You need to provide a current value. Usage: GetFormattedText(min, max, style, noDecimal)")
-	assert(max, "CustomTags - You need to provide a maximum value. Usage: GetFormattedText(min, max, style, noDecimal)")
-
-	if max == 0 then max = 1 end
-
-	local chosenFormat
-	if noDecimal then
-		chosenFormat = textFormatStylesNoDecimal[style]
-	else
-		chosenFormat = textFormatStyles[style]
-	end
-
-	if style == "DEFICIT" then
-		local deficit = max - min
-		if deficit <= 0 then
-			return nil
-		else
-			return format(chosenFormat, E:ShortValue(deficit))
-		end
-	elseif style == "PERCENT" then
-		return format(chosenFormat, min / max * 100)
-	elseif style == "CURRENT" or ((style == "CURRENT_MAX" or style == "CURRENT_MAX_PERCENT" or style == "CURRENT_PERCENT") and min == max) then
-		if noDecimal then
-			return format(textFormatStylesNoDecimal["CURRENT"],  E:ShortValue(min))
-		else
-			return format(textFormatStyles["CURRENT"],  E:ShortValue(min))
-		end
-	elseif style == "CURRENT_MAX" then
-		return format(chosenFormat,  E:ShortValue(min), E:ShortValue(max))
-	elseif style == "CURRENT_PERCENT" then
-		return format(chosenFormat, E:ShortValue(min), min / max * 100)
-	elseif style == "CURRENT_MAX_PERCENT" then
-		return format(chosenFormat, E:ShortValue(min), E:ShortValue(max), min / max * 100)
-	end
-end
-
 local function shortenNumber(number)
 	if type(number) ~= "number" then
 		number = tonumber(number)
@@ -126,7 +88,7 @@ ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 end
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
-ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_UPDATE UNIT_POWER_FREQUENT"
+ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
 ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	local String
