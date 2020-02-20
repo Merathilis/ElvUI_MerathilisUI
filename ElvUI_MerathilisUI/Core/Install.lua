@@ -1297,7 +1297,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 2,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classification:icon][namecolor][name:abbrev-translit]",
+			["text_format"] = "[classification:icon][name:health{class}]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
