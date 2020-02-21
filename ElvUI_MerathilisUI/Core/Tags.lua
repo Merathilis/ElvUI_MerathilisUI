@@ -7,9 +7,9 @@ local translitMark = "!"
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
-local abs = math.abs
+local abs, ceil = math.abs, ceil
 local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
-local strfind, strlower, strmatch, strsub, utf8lower, utf8sub = strfind, strlower, strmatch, strsub, string.utf8lower, string.utf8sub
+local strfind, strlower, strmatch, strsub, strsplit, utf8lower, utf8sub, utf8len = strfind, strlower, strmatch, strsub, strsplit, string.utf8lower, string.utf8sub, string.utf8len
 local assert, tonumber, type = assert, tonumber, type
 local gmatch, gsub = gmatch, gsub
 -- WoW API / Variables
@@ -85,6 +85,22 @@ ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 		local currentHealth = UnitHealth(unit)
 		return shortenNumber(currentHealth)
 	end
+end
+
+ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH'
+ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
+	local name = UnitName(unit)
+	if not name then return '' else
+		name = E.TagFunctions.Abbrev(name)
+	end
+
+	local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(':', args or '')
+	local to = ceil(utf8len(name) * (min / max))
+
+	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, '|cFFff3333')
+	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, '|cFFffffff')
+
+	return to > 0 and (base..utf8sub(name, 0, to)..fill..utf8sub(name, to+1, -1)) or fill..name
 end
 
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
