@@ -7,7 +7,7 @@ P.mui = {}
 local MP = P.mui
 
 MP.core = {
-	installed = nil,
+	installed = false,
 }
 
 MP.general = {
