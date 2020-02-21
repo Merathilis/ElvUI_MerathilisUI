@@ -245,6 +245,20 @@ local function AddOptions()
 					},
 				},
 			},
+			tools = {
+				order = 300,
+				type = "group",
+				name = L["Tools"],
+				args = {
+					converter = {
+						order = 1,
+						type = "execute",
+						name = L["Table Dumper"],
+						desc = L["A tool for dumping table data (this table must be a global variable)"],
+						func = function() MER:OpenTableDumper() end,
+					}
+				}
+			}
 		},
 	}
 end
