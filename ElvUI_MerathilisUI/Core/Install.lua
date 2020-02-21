@@ -248,7 +248,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
-	E.db["general"]["decimalLenght"] = 0
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
@@ -334,7 +333,6 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["bagWidth"] = 436
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
-	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
@@ -377,7 +375,6 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["fontSize"] = 12
 	E.db["nameplates"]["stackFont"] = "Merathilis Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
-	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "Melli"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
