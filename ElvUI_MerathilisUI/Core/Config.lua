@@ -249,6 +249,7 @@ local function AddOptions()
 				order = 300,
 				type = "group",
 				name = L["Tools"],
+				hidden = function() return not(MER:IsDeveloper() and MER:IsDeveloperRealm()) end,
 				args = {
 					converter = {
 						order = 1,
