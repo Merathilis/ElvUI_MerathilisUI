@@ -651,7 +651,12 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
-	E.db["tooltip"]["style"] = "inset"
+	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
+	E.db["tooltip"]["font"] = "Merathilis Expressway"
+	E.db["tooltip"]["fontOutline"] = "NONE"
+	E.db["tooltip"]["headerFontSize"] = 12
+	E.db["tooltip"]["textFontSize"] = 11
+	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
 	--[[----------------------------------
@@ -780,12 +785,6 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
-	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
-	E.db["tooltip"]["font"] = "Merathilis Expressway"
-	E.db["tooltip"]["fontOutline"] = "NONE"
-	E.db["tooltip"]["headerFontSize"] = 12
-	E.db["tooltip"]["textFontSize"] = 11
-	E.db["tooltip"]["smallTextFontSize"] = 11
 
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
