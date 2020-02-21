@@ -166,19 +166,25 @@ local function Tooltip()
 							BattleOfDazaralor = {
 								order = 3,
 								type = "toggle",
-								name = L["BattleOfDazaralor"],
+								name = L["Battle Of Dazaralor"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							CrucibleOfStorms = {
 								order = 4,
 								type = "toggle",
-								name = L["CrucibleOfStorms"],
+								name = L["Crucible Of Storms"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							EternalPalace = {
 								order = 4,
 								type = "toggle",
-								name = L["EternalPalace"],
+								name = L["Eternal Palace"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							},
+							Nyalotha = {
+								order = 4,
+								type = "toggle",
+								name = L["Ny'alotha"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 						}

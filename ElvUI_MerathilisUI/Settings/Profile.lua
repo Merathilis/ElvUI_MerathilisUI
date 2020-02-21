@@ -540,8 +540,9 @@ MP.tooltip = {
 			enable = true,
 			Uldir = false,
 			BattleOfDazaralor = false,
-			CrucibleOfStorms = true,
+			CrucibleOfStorms = false,
 			EternalPalace = true,
+			Nyalotha = true,
 		}
 	},
 }
