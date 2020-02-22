@@ -65,13 +65,6 @@ local function LoadSkin()
 	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
 	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
 
-	for i = 1, #slots do
-		local slot = _G["Character"..slots[i].."Slot"]
-
-		slot.backgroundTextureName = ''
-		MERS:CreateBDFrame(slot, .25)
-	end
-
 	_G.GearManagerDialogPopup:Styling()
 
 	if not IsAddOnLoaded("DejaCharacterStats") then
