@@ -33,7 +33,7 @@ local function CharacterStatFrameCategoryTemplate(frame)
 	bg:ClearAllPoints()
 	bg:SetPoint("CENTER", 0, -5)
 	bg:SetSize(210, 30)
-	bg:SetVertexColor(r, g, b, 0.5)
+	bg:SetVertexColor(r, g, b, 1)
 end
 
 -- Copied from ElvUI
@@ -46,14 +46,14 @@ local function ColorizeStatPane(frame)
 	frame.leftGrad:SetHeight(frame:GetHeight())
 	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 	frame.leftGrad:SetTexture(E.media.blankTex)
-	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.5, r, g, b, 0)
+	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
 
 	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 	frame.rightGrad:SetWidth(80)
 	frame.rightGrad:SetHeight(frame:GetHeight())
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
-	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.5)
+	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
 local function LoadSkin()
