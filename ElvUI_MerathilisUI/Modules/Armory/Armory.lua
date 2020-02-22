@@ -243,7 +243,7 @@ function module:BuildInformation()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, 41)
+		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -251,10 +251,10 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", -20, 0)
+			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT")
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
+			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 
