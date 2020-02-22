@@ -90,7 +90,6 @@ V.muiSkins = {
 		bui = true,
 		bs = true,
 		pa = true,
-		po = true,
 		ls = true,
 		dbm = true,
 		cl = true,
