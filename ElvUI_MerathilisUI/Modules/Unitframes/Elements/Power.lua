@@ -10,7 +10,6 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 function module:Configure_Power(frame)
-	if not frame.VARIABLES_SET then return end
 	local power = frame.Power
 
 	if power and not power.isStyled then
