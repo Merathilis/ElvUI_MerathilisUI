@@ -519,6 +519,14 @@ local function ReskinVehicleExit()
 	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 
+	if f and f.SetHighlightTexture then
+		local hover = f:CreateTexture()
+		hover:SetInside()
+		hover:SetBlendMode('ADD')
+		hover:SetColorTexture(r, g, b, 0.5)
+		f:SetHighlightTexture(hover)
+		f.hover = hover
+	end
 end
 
 function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
