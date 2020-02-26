@@ -4,6 +4,7 @@ local TT = E:GetModule("Tooltip")
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local pairs, select = pairs, select
 local format = string.format
 local tsort, twipe = table.sort, table.wipe
@@ -43,8 +44,24 @@ local LFGListSearchEntryUtil_GetFriendList = LFGListSearchEntryUtil_GetFriendLis
 local AFK_LABEL = " |cffFFFFFF<|r|cffFF0000"..L["AFK"].."|r|cffFFFFFF>|r"
 local DND_LABEL = " |cffFFFFFF<|r|cffFFFF00"..L["DND"].."|r|cffFFFFFF>|r"
 
+function module:SetUnitText(tt, unit, level, isShiftKeyDown)
+	if not UnitIsPlayer(unit) then
+		if tt:IsForbidden() then return end
+
+		for i=2, tt:NumLines() do
+			local leftLine = _G["GameTooltipTextLeft"..i]
+			local leftText = leftLine and leftLine.GetText and leftLine:GetText()
+			if leftText then
+				leftLine:SetText(leftText:gsub("%|cff7f7f7f%?%?%|r", "|cffff1919??|r"))
+			end
+		end
+	end
+end
+
+
 function module:GameTooltip_OnTooltipSetUnit(tt)
 	if tt:IsForbidden() then return end
+
 	local unit = select(2, tt:GetUnit())
 	if((tt:GetOwner() ~= UIParent) and (self.db.visibility and self.db.visibility.unitFrames ~= 'NONE')) then
 		local modifier = self.db.visibility.unitFrames
@@ -151,6 +168,17 @@ function module:GameTooltip_OnTooltipSetUnit(tt)
 			lineOffset = 3
 		end
 	end
+
+	for i = 2, tt:NumLines() do
+		local leftLine = _G["GameTooltipTextLeft"..i]
+		local rightLine = _G["GameTooltipTextRight"..i]
+		local leftText = leftLine and leftLine.GetText and leftLine:GetText()
+		local rightText = rightLine and rightLine.GetText and rightLine:GetText()
+		if leftText and leftText:find(_G.TARGET) and rightText and rightText:find(E.myname) then
+			rightLine:SetText(format("|cffff1919>> %s <<|r", _G.YOU))
+		end
+	end
+
 end
 
 function module:Initialize()
@@ -158,6 +186,7 @@ function module:Initialize()
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
 
+	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
 	self:AzeriteArmor()
 end
