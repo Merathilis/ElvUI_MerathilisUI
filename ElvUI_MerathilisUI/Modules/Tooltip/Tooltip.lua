@@ -48,7 +48,7 @@ function module:SetUnitText(tt, unit, level, isShiftKeyDown)
 	if not UnitIsPlayer(unit) then
 		if tt:IsForbidden() then return end
 
-		for i=2, tt:NumLines() do
+		for i = 2, tt:NumLines() do
 			local leftLine = _G["GameTooltipTextLeft"..i]
 			local leftText = leftLine and leftLine.GetText and leftLine:GetText()
 			if leftText then
