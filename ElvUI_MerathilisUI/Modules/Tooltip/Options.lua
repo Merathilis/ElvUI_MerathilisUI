@@ -12,7 +12,7 @@ local IsAddOnLoaded = IsAddOnLoaded
 local function Tooltip()
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = L["Tooltip"],
+		name = E.NewSign..L["Tooltip"],
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -59,7 +59,7 @@ local function Tooltip()
 			azerite = {
 				order = 10,
 				type = "group",
-				name = E.NewSign..L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
+				name = L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
 				guiInline = true,
 				hidden = function() return IsAddOnLoaded("AzeriteTooltip") end,
 				get = function(info) return E.db.mui.tooltip.azerite[info[#info]] end,
@@ -126,25 +126,8 @@ local function Tooltip()
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Progress Info"]),
-					},
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-						desc = L["Shows raid progress of a character in the tooltip"],
-					},
-					space = {
-						order = 2,
-						type = "description",
-						name = "",
-						width = "full",
-					},
 					raid = {
-						order = 3,
+						order = 1,
 						name = L["Raid"],
 						type = "group",
 						get = function(info) return E.db.mui.tooltip.progressInfo.raid[info[#info]] end,
@@ -155,6 +138,7 @@ local function Tooltip()
 								order = 1,
 								type = "toggle",
 								name = L["Enable"],
+								width = "full",
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable end,
 							},
 							Uldir = {
@@ -188,6 +172,62 @@ local function Tooltip()
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 						}
+					},
+				},
+			},
+			corruption = {
+				order = 13,
+				type = "group",
+				name = E.NewSign..L["Corruption"],
+				guiInline = true,
+				disabled = function() return not E.private.tooltip.enable end,
+				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
+				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
+				args = {
+					credits = {
+						order = 0,
+						type = "description",
+						name = L["Credits: CorruptionTooltips | Anayanka (Defias Brotherhood - EU)"],
+					},
+					spacer = {
+						order = 1,
+						type = "description",
+						name = "",
+					},
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						width = "full",
+						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
+					},
+					append = {
+						order = 2,
+						type = "toggle",
+						name = L["Append to corruption stat"],
+						desc = L["Use the new style tooltip."],
+						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
+					},
+					icon = {
+						order = 3,
+						type = "toggle",
+						name = L["Show icon"],
+						desc = L["Show the spell icon along with the name."],
+						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
+					},
+					summary = {
+						order = 4,
+						type = "toggle",
+						name = L["Show summary on the corruption tooltip"],
+						desc = L["List your corruptions in the eye tooltip in the character screen."],
+						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
+					},
+					english = {
+						order = 5,
+						type = "toggle",
+						name = L["Display in English"],
+						desc = L["Don't translate the corruption effect names."],
+						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
 					},
 				},
 			},

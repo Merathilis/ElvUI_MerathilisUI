@@ -545,6 +545,13 @@ MP.tooltip = {
 			Nyalotha = true,
 		}
 	},
+	corruption = {
+		enable = true,
+		append = true,
+		icon = true,
+		summary = true,
+		english = false,
+	},
 }
 
 MP.errorFilters = {
