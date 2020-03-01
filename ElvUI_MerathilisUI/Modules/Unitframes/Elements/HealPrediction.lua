@@ -90,18 +90,10 @@ function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, 
 	self.absorbBar.overlay:SetTexCoord(0, barSize / tileSize, 0, totalHeight / tileSize)
 end
 
-function module:UpdatePredictionStatusBar(prediction, parent, name)
-	if not (prediction and parent) then return end
-	if name == "Health" then
-		self:Configure_HealComm(parent:GetParent())
-	end
-end
-
 function module:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", module.Configure_HealComm)
-	hooksecurefunc(UF, "UpdatePredictionStatusBar", module.UpdatePredictionStatusBar)
 
 	for _, object in pairs(_G.ElvUF.objects) do
 		if object.HealthPrediction and object.HealthPrediction.PostUpdate then

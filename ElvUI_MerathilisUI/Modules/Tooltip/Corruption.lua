@@ -224,7 +224,7 @@ function module:SummaryHook(frame)
 			for i = 1, #corruptions do
 				local name = corruptions[i][1]
 				local icon = corruptions[i][2]
-				local line = '|T'..icon..':0|t |cff956dd1'..name..'|r'
+				local line = '|T'..icon..':14:14:0:0:64:64:4:60:4:60|t |cff956dd1'..name..'|r'
 				if E.db.mui.tooltip.corruption.icon ~= true then
 					line = '|cff956dd1'..name..'|r'
 				end
