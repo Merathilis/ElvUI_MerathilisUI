@@ -234,6 +234,12 @@ function module:StyleMinimap()
 	hooksecurefunc("EyeTemplate_StopAnimating", function() anim:Stop() end)
 end
 
+function module:SetBlipTexture()
+	if E.db.mui.maps.minimap.blipTexture ~= true then return end
+
+	Minimap:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Blip-Glass")
+end
+
 function module:Initialize()
 	if E.private.general.minimap.enable ~= true then return end
 
@@ -253,6 +259,7 @@ function module:Initialize()
 	self:MiniMapPing()
 	self:StyleMinimap()
 	self:RaidDifficulty()
+	self:SetBlipTexture()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")

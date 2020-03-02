@@ -12,7 +12,7 @@ local tinsert = table.insert
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["MiniMap"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
@@ -38,6 +38,12 @@ local function Minimap()
 						order = 2,
 						type = "toggle",
 						name = L["Instance Difficulty"],
+					},
+					blipTexture = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["Blip Textures"],
+						desc = L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"],
 					},
 				},
 			},
