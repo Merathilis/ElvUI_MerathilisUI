@@ -15,6 +15,8 @@ function MER:LoadPAProfile()
 
 	PA.db["AuraReminder"]["Enable"] = false
 
+	PA.db["BigButtons"]["Enable"] = false
+
 	PA.db["BrokerLDB"]["Enable"] = false
 
 	PA.db["EnhancedFriendsList"]["Enable"] = true
