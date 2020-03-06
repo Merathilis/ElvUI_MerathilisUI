@@ -235,9 +235,9 @@ function module:StyleMinimap()
 end
 
 function module:SetBlipTexture()
-	if E.db.mui.maps.minimap.blipTexture ~= true then return end
+	if E.db.mui.maps.minimap.blip.enable ~= true then return end
 
-	Minimap:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Blip-Glass")
+	Minimap:SetBlipTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Blip-Nandini")
 end
 
 function module:Initialize()

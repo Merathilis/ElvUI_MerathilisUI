@@ -101,9 +101,17 @@ local function LoadSkin()
 	_G.ElvUI_BottomPanel:Styling()
 
 	-- Mirror Timers
-	_G.MirrorTimer1StatusBar.backdrop:Styling()
-	_G.MirrorTimer2StatusBar.backdrop:Styling()
-	_G.MirrorTimer3StatusBar.backdrop:Styling()
+	if _G.MirrorTimer1StatusBar.backdrop then
+		_G.MirrorTimer1StatusBar.backdrop:Styling()
+	end
+
+	if _G.MirrorTimer2StatusBar.backdrop then
+		_G.MirrorTimer2StatusBar.backdrop:Styling()
+	end
+
+	if _G.MirrorTimer3StatusBar.backdrop then
+		_G.MirrorTimer3StatusBar.backdrop:Styling()
+	end
 
 	-- DataStore
 	if IsAddOnLoaded("DataStore") then

@@ -370,7 +370,9 @@ MP.maps = {
 			xOffset = 0,
 			yOffset = -20,
 		},
-		blipTexture = true,
+		blip = {
+			enable = true,
+		},
 	},
 }
 
