@@ -351,7 +351,7 @@ L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
-L["Change the default role icons."] = true
+L["Change the default role icons."] = "替换默认职责图标"
 
 -- LocationPanel
 L["Template"] = "模版"
@@ -408,8 +408,8 @@ L["Minimap Ping"] = "小地图点击"
 L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
-L["Blip Textures"] = true
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = true
+L["Blip Textures"] = "小地图图标"
+L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "替换小地图图标材质(任务感叹号等).\n|cffFF0000警告: 需要重启游戏生效.|r"
 
 -- SMB
 L["Button Settings"] = "按键设置"
