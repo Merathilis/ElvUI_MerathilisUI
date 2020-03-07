@@ -569,7 +569,7 @@ function module:CreateMicroBar()
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
 	--Character
-	local charButton = CreateFrame("Button", nil, microBar)
+	local charButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	charButton:SetPoint("LEFT", microBar, 2, 0)
 	charButton:SetSize(32, 32)
 	charButton:SetFrameLevel(6)
@@ -597,15 +597,17 @@ function module:CreateMicroBar()
 	charButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	charButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleCharacter"]("PaperDollFrame")
-	end)
+	charButton:SetAttribute("type1", "macro")
+	charButton:SetAttribute("macrotext1", "/click CharacterMicroButton")
+	-- charButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleCharacter"]("PaperDollFrame")
+	-- end)
 
 	--Friends
-	local friendsButton = CreateFrame("Button", nil, microBar)
+	local friendsButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	friendsButton:SetPoint("LEFT", charButton, "RIGHT", 2, 0)
 	friendsButton:SetSize(32, 32)
 	friendsButton:SetFrameLevel(6)
@@ -656,6 +658,8 @@ function module:CreateMicroBar()
 	friendsButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
+	-- friendsButton:SetAttribute("type1", "macro")
+	-- friendsButton:SetAttribute("macrotext1", "/click GuildMicroButton")
 	friendsButton:SetScript("OnClick", function(self)
 		if InCombatLockdown() then
 			return
@@ -672,7 +676,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Guild
-	local guildButton = CreateFrame("Button", nil, microBar)
+	local guildButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	guildButton:SetPoint("LEFT", friendsButton, "RIGHT", 2, 0)
 	guildButton:SetSize(32, 32)
 	guildButton:SetFrameLevel(6)
@@ -727,12 +731,14 @@ function module:CreateMicroBar()
 	guildButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	guildButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleGuildFrame"]()
-	end)
+	guildButton:SetAttribute("type1", "macro")
+	guildButton:SetAttribute("macrotext1", "/click GuildMicroButton")
+	-- guildButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleGuildFrame"]()
+	-- end)
 	guildButton:SetScript("OnUpdate", function(self, elapse)
 		elapsed = elapsed + elapse
 		if elapsed >= DELAY then
@@ -742,7 +748,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Achievements
-	local achieveButton = CreateFrame("Button", nil, microBar)
+	local achieveButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	achieveButton:SetPoint("LEFT", guildButton, "RIGHT", 2, 0)
 	achieveButton:SetSize(32, 32)
 	achieveButton:SetFrameLevel(6)
@@ -770,15 +776,17 @@ function module:CreateMicroBar()
 	achieveButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	achieveButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleAchievementFrame"]()
-	end)
+	achieveButton:SetAttribute("type1", "macro")
+	achieveButton:SetAttribute("macrotext1", "/click AchievementMicroButton")
+	-- achieveButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleAchievementFrame"]()
+	-- end)
 
 	--EncounterJournal
-	local encounterButton = CreateFrame("Button", nil, microBar)
+	local encounterButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	encounterButton:SetPoint("LEFT", achieveButton, "RIGHT", 2, 0)
 	encounterButton:SetSize(32, 32)
 	encounterButton:SetFrameLevel(6)
@@ -806,12 +814,14 @@ function module:CreateMicroBar()
 	encounterButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	encounterButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleEncounterJournal"]()
-	end)
+	encounterButton:SetAttribute("type1", "macro")
+	encounterButton:SetAttribute("macrotext1", "/click EJMicroButton")
+	-- encounterButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleEncounterJournal"]()
+	-- end)
 
 	-- Time
 	local timeButton = CreateFrame("Button", nil, microBar)
@@ -856,7 +866,7 @@ function module:CreateMicroBar()
 	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
-	local petButton = CreateFrame("Button", nil, microBar)
+	local petButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	petButton:SetPoint("LEFT", timeButton, "RIGHT", 12, 0)
 	petButton:SetSize(32, 32)
 	petButton:SetFrameLevel(6)
@@ -884,15 +894,17 @@ function module:CreateMicroBar()
 	petButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	petButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleCollectionsJournal"](1)
-	end)
+	petButton:SetAttribute("type1", "macro")
+	petButton:SetAttribute("macrotext1", "/click CollectionsMicroButton")
+	-- petButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleCollectionsJournal"](1)
+	-- end)
 
 	--LFR
-	local lfrButton = CreateFrame("Button", nil, microBar)
+	local lfrButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	lfrButton:SetPoint("LEFT", petButton, "RIGHT", 2, 0)
 	lfrButton:SetSize(32, 32)
 	lfrButton:SetFrameLevel(6)
@@ -920,15 +932,17 @@ function module:CreateMicroBar()
 	lfrButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	lfrButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["PVEFrame_ToggleFrame"]()
-	end)
+	lfrButton:SetAttribute("type1", "macro")
+	lfrButton:SetAttribute("macrotext1", "/click LFDMicroButton")
+	-- lfrButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["PVEFrame_ToggleFrame"]()
+	-- end)
 
 	--Spellbook
-	local spellBookButton = CreateFrame("Button", nil, microBar)
+	local spellBookButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	spellBookButton:SetPoint("LEFT", lfrButton, "RIGHT", 2, 0)
 	spellBookButton:SetSize(32, 32)
 	spellBookButton:SetFrameLevel(6)
@@ -956,15 +970,17 @@ function module:CreateMicroBar()
 	spellBookButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	spellBookButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleSpellBook"](BOOKTYPE_SPELL)
-	end)
+	spellBookButton:SetAttribute("type1", "macro")
+	spellBookButton:SetAttribute("macrotext1", "/click SpellbookMicroButton")
+	-- spellBookButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleSpellBook"](BOOKTYPE_SPELL)
+	-- end)
 
 	--Specc Button
-	local speccButton = CreateFrame("Button", nil, microBar)
+	local speccButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	speccButton:SetPoint("LEFT", spellBookButton, "RIGHT", 2, 0)
 	speccButton:SetSize(32, 32)
 	speccButton:SetFrameLevel(6)
@@ -992,15 +1008,17 @@ function module:CreateMicroBar()
 	speccButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	speccButton:SetScript( "OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleTalentFrame"]()
-	end)
+	speccButton:SetAttribute("type1", "macro")
+	speccButton:SetAttribute("macrotext1", "/click TalentMicroButton")
+	-- speccButton:SetScript( "OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleTalentFrame"]()
+	-- end)
 
 	--Shop
-	local shopButton = CreateFrame("Button", nil, microBar)
+	local shopButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	shopButton:SetPoint("LEFT", speccButton, "RIGHT", 2, 0)
 	shopButton:SetSize(32, 32)
 	shopButton:SetFrameLevel(6)
@@ -1028,12 +1046,14 @@ function module:CreateMicroBar()
 	shopButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	shopButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G.StoreMicroButton:Click()
-	end)
+	shopButton:SetAttribute("type1", "macro")
+	shopButton:SetAttribute("macrotext1", "/click StoreMicroButton")
+	-- shopButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G.StoreMicroButton:Click()
+	-- end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
 
