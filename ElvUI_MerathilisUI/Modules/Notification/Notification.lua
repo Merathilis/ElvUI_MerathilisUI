@@ -170,27 +170,27 @@ function module:CreateToast()
 
 	local icon = toast:CreateTexture(nil, "OVERLAY")
 	icon:SetSize(32, 32)
-	icon:SetPoint("LEFT", toast, "LEFT", 9, 0)
+	icon:SetPoint("LEFT", toast, "LEFT", 5, 0)
 	MERS:CreateBG(icon)
 	toast.icon = icon
 
 	local sep = toast:CreateTexture(nil, "BACKGROUND")
 	sep:SetSize(2, bannerHeight)
-	sep:SetPoint("LEFT", icon, "RIGHT", 9, 0)
+	sep:SetPoint("LEFT", icon, "RIGHT", 5, 0)
 	sep:SetColorTexture(unpack(E["media"].rgbvaluecolor))
 
 	local title = MER:CreateText(toast, "OVERLAY", 11, "OUTLINE")
 	title:SetShadowOffset(1, -1)
-	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 3, -6)
-	title:SetPoint("TOP", toast, "TOP", 0, 0)
+	title:SetPoint("TOPLEFT", sep, "TOPRIGHT", 5, -5)
+	title:SetPoint("BOTTOMRIGHT", toast, -5, 30)
 	title:SetJustifyH("LEFT")
 	title:SetNonSpaceWrap(true)
 	toast.title = title
 
 	local text = MER:CreateText(toast, "OVERLAY", 10, nil)
 	text:SetShadowOffset(1, -1)
-	text:SetPoint("BOTTOMLEFT", sep, "BOTTOMRIGHT", 3, 9)
-	text:SetPoint("RIGHT", toast, -9, 0)
+	text:SetPoint("TOPLEFT", sep, "BOTTOMRIGHT", 5, 30)
+	text:SetPoint("BOTTOMRIGHT", toast, -5, 5)
 	text:SetJustifyH("LEFT")
 	text:SetWidth(toast:GetRight() - sep:GetLeft() - 5)
 	toast.text = text
