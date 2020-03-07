@@ -569,7 +569,7 @@ function module:CreateMicroBar()
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
 	--Character
-	local charButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local charButton = CreateFrame("Button", nil, microBar)
 	charButton:SetPoint("LEFT", microBar, 2, 0)
 	charButton:SetSize(32, 32)
 	charButton:SetFrameLevel(6)
@@ -597,14 +597,12 @@ function module:CreateMicroBar()
 	charButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	charButton:SetAttribute("type1", "macro")
-	charButton:SetAttribute("macrotext1", "/click CharacterMicroButton")
-	-- charButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleCharacter"]("PaperDollFrame")
-	-- end)
+	charButton:SetScript("OnClick", function(self)
+		if InCombatLockdown() then
+			return
+		end
+		_G["ToggleCharacter"]("PaperDollFrame")
+	end)
 
 	--Friends
 	local friendsButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
