@@ -124,6 +124,7 @@ function MERL:CreateChatButtons()
 	ChatButton:SetScript("OnEnter", function(self)
 		if GameTooltip:IsForbidden() then return end
 
+		self:SetAlpha(0.8)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then
