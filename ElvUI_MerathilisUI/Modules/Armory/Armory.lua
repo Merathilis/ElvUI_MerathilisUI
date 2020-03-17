@@ -7,27 +7,18 @@ if IsAddOnLoaded("ElvUI_SLE") then return end
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, tonumber, unpack = select, tonumber, unpack
+local select, unpack = select, unpack
 local type = type
-local gsub = gsub
-local strmatch, strsplit = strmatch, strsplit
-local find = string.find
 local pairs = pairs
-local max = math.max
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
-local GetInventoryItemQuality = GetInventoryItemQuality
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
-local GetItemGem = GetItemGem
-local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local UnitLevel = UnitLevel
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
@@ -86,25 +77,6 @@ local AZSlots = {
 	"Head", "Shoulder", "Chest",
 }
 
-local levelColors = {
-	[0] = "|cffff0000",
-	[1] = "|cff00ff00",
-	[2] = "|cffffff88",
-}
-
--- From http://www.wowhead.com/items?filter=qu=7;sl=16:18:5:8:11:10:1:23:7:21:2:22:13:24:15:28:14:4:3:19:25:12:17:6:9;minle=1;maxle=1;cr=166;crs=3;crv=0
-local heirlooms = {
-	[80] = {
-		44102,42944,44096,42943,42950,48677,42946,42948,42947,42992,
-		50255,44103,44107,44095,44098,44097,44105,42951,48683,48685,
-		42949,48687,42984,44100,44101,44092,48718,44091,42952,48689,
-		44099,42991,42985,48691,44094,44093,42945,48716
-	},
-	["90h"] = {105689,105683,105686,105687,105688,105685,105690,105691,105684,105692,105693},
-	["90n"] = {104399,104400,104401,104402,104403,104404,104405,104406,104407,104408,104409},
-	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
-}
-
 function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
 		self.Texture:SetVertexColor(1, .8, 1)
@@ -144,9 +116,7 @@ function module:UpdatePaperDoll()
 	if not unit then return end
 
 	local frame, slot, current, maximum, r, g, b
-	local itemLink, itemLevel, itemLevelMax, enchantInfo
-	local _, numBonuses, affixes
-	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
+	local itemLink
 
 	for k, _ in pairs(slots) do
 		frame = _G[("Character")..k]
