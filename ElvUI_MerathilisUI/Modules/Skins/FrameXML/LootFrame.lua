@@ -11,6 +11,7 @@ local function LoadSkin()
 
 	_G.BonusRollFrame:Styling()
 	_G.LootHistoryFrame:Styling()
+	_G.ElvLootFrame:Styling()
 end
 
 S:AddCallback("mUILoot", LoadSkin)

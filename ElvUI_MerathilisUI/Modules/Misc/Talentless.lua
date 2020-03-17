@@ -12,8 +12,6 @@ local _G = _G
 local next, unpack = next, unpack
 local tinsert, tremove = table.insert, table.remove
 -- WoW API / Variables
-local ActionButton_ShowOverlayGlow = ActionButton_ShowOverlayGlow
-local ActionButton_HideOverlayGlow = ActionButton_HideOverlayGlow
 local CreateFrame = CreateFrame
 local GameTooltip_Hide = GameTooltip_Hide
 local GetItemCount = GetItemCount
