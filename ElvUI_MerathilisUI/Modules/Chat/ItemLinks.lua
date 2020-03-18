@@ -28,7 +28,7 @@ local function GetHyperlink(Hyperlink, texture)
 	if (not texture) then
 		return Hyperlink
 	else
-		return '|T'..texture..':0|t ' .. Hyperlink
+		return '|T'..texture..':12:12:0:0:64:64:5:59:5:59|t'..Hyperlink
 	end
 end
 
