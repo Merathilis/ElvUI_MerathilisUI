@@ -33,7 +33,7 @@ function module:StyleBackdrops()
 	end
 
 	-- Pet Buttons
-	for i = 1, NUM_PET_ACTION_SLOTS do
+	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
@@ -69,10 +69,9 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 	MER:RegisterDB(self, "actionbars")
 
-	C_TimerAfter(1, module.StyleBackdrops)
+	self:EquipSpecBar()
 
-	self:SpecBarInit()
-	self:EquipBarInit()
+	C_TimerAfter(1, module.StyleBackdrops)
 	C_TimerAfter(0.1, module.ActionbarGlow)
 end
 

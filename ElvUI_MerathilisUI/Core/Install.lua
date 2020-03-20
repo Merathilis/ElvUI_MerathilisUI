@@ -705,7 +705,8 @@ function MER:SetupLayout(layout)
 		E.db["general"]["cropIcon"] = true
 	end
 
-	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
+	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
+	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
