@@ -281,7 +281,7 @@ function module:Initialize()
 	module.button:GetPushedTexture():SetTexCoord(unpack(E.TexCoords))
 	module.button:GetPushedTexture():SetInside()
 
-	E:CreateMover(module.button, 'MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
+	E:CreateMover(module.button, 'MER_MinimapButtonsToggleButtonMover', 'MinimapButtonsToggleButtonAnchor', nil, nil, nil, 'ALL,GENERAL,MERATHILISUI', nil, 'mui,modules,minimap')
 
 	module.bin = CreateFrame("Frame", "MinimapButtonFrame", E.UIParent)
 	module.bin:SetPoint("BOTTOMRIGHT", module.button, "TOPLEFT", 0, -15)
