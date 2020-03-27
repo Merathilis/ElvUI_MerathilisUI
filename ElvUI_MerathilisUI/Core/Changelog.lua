@@ -24,6 +24,7 @@ local ChangeLogData = {
 		"• Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)",
 		"• Added an option to change Minimap Blip textures",
 		"• Some skin/code tweaks",
+		"• Renamed some movers. NOTE: You might need to reposition stuff new",
 
 		-- "• ''",
 	" ",
