@@ -7,7 +7,7 @@
 * Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)
 * Added an option to change Minimap Blip textures.
 * Some skin/code tweaks.
-* Renamed some movers. NOTE: If you dont use my layout, you might need to reposition new.
+* Renamed some movers. You might need to reposition some elements.
 
 
 ** v4.46, 16.02.2020**
