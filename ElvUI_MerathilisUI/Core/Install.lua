@@ -2731,7 +2731,6 @@ MER.installTable = {
 	["Name"] = "|cffff7d0aMerathilisUI|r",
 	["Title"] = L["|cffff7d0aMerathilisUI|r Installation"],
 	["tutorialImage"] = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\merathilis_logo.tga]],
-	["tutorialImage2"] = "",
 	["tutorialImageSize"] = {256, 128},
 	["tutorialImagePoint"] = {0, 30},
 	["Pages"] = {
