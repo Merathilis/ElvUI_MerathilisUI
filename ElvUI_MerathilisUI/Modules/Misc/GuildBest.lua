@@ -82,6 +82,7 @@ end
 
 local function SetUpRecord(self, leaderInfo)
 	self.leaderInfo = leaderInfo
+
 	local str = CHALLENGE_MODE_GUILD_BEST_LINE
 	if leaderInfo.isYou then
 		str = CHALLENGE_MODE_GUILD_BEST_LINE_YOU
@@ -94,6 +95,7 @@ end
 
 local function UpdateGuildBest(self)
 	if not frame then CreateBoard() end
+
 	if self.leadersAvailable then
 		local leaders = C_ChallengeMode_GetGuildLeaders()
 		if leaders and #leaders > 0 then
@@ -107,10 +109,10 @@ local function UpdateGuildBest(self)
 	end
 
 	if not resize and IsAddOnLoaded('AngryKeystones') then
-		local scheduel = select(5, self:GetChildren())
+		local schedule = select(5, self:GetChildren())
 		frame:SetWidth(246)
 		frame:ClearAllPoints()
-		frame:SetPoint('BOTTOMLEFT', scheduel, 'TOPLEFT', 0, 10)
+		frame:SetPoint('BOTTOMLEFT', schedule, 'TOPLEFT', 0, 10)
 
 		self.WeeklyInfo.Child.Label:SetPoint('TOP', -135, -25)
 		local affix = self.WeeklyInfo.Child.Affixes[1]

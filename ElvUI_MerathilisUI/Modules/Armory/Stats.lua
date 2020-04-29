@@ -469,7 +469,7 @@ MERAY.ScrollframeParentFrame:SetSize(198, 352)
 MERAY.ScrollframeParentFrame:SetPoint("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
 --Scrollframe
-MERAY.ScrollFrame = CreateFrame("ScrollFrame", nil, MERAY.ScrollframeParentFrame)
+MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
 MERAY.ScrollFrame:SetPoint("TOP")
 MERAY.ScrollFrame:SetSize(MERAY.ScrollframeParentFrame:GetSize())
 

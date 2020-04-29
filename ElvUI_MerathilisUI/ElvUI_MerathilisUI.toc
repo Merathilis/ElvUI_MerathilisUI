@@ -1,6 +1,6 @@
 ## Interface: 80300
 ## Author: Merathilis
-## Version: 4.46
+## Version: 4.47
 ## Title: |cFF00c0faElvUI|r |cffff7d0aMerathilisUI|r
 ## Notes: A decorative edit for ElvUI + additional features.
 ## Notes-deDE: Eine dekorative Erweiterung für ElvUI + einige zusätzliche Funktionen.
@@ -26,3 +26,4 @@ Media\Load_Media.xml
 Modules\Load_Modules.xml
 Layout\Load_Layout.xml
 Bindings.xml
+Tools\Load_Tools.xml

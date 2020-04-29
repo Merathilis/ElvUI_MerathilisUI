@@ -10,7 +10,7 @@ local SetCVar = SetCVar
 local function CVars()
 	E.Options.args.mui.args.modules.args.cvars = {
 		type = "group",
-		name = E.NewSign..L["CVars"],
+		name = L["CVars"],
 		args = {
 			header = {
 				order = 1,

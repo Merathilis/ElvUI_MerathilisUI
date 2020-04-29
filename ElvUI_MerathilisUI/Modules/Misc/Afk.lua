@@ -162,15 +162,19 @@ local function Initialize()
 	E["frames"][AFK.AFKMode.topPanel] = true
 
 	-- ElvUI Logo
-	AFK.AFKMode.bottom.logo:ClearAllPoints()
-	AFK.AFKMode.bottom.logo:SetParent(AFK.AFKMode.topPanel)
-	AFK.AFKMode.bottom.logo:SetPoint("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
-	AFK.AFKMode.bottom.logo:SetSize(120, 55)
+	AFK.AFKMode.bottom.LogoTop:ClearAllPoints()
+	AFK.AFKMode.bottom.LogoTop:SetParent(AFK.AFKMode.topPanel)
+	AFK.AFKMode.bottom.LogoTop:SetPoint("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
+	AFK.AFKMode.bottom.LogoTop:SetSize(120, 55)
 
+	AFK.AFKMode.bottom.LogoBottom:ClearAllPoints()
+	-- AFK.AFKMode.bottom.LogoBottom:SetParent(AFK.AFKMode.topPanel)
+	AFK.AFKMode.bottom.LogoBottom:SetPoint("LEFT", AFK.AFKMode.topPanel, "LEFT", 25, 8)
+	AFK.AFKMode.bottom.LogoBottom:SetSize(120, 55)
 	-- ElvUI Version
 	AFK.AFKMode.topPanel.eversion = MER:CreateText(AFK.AFKMode.topPanel, "OVERLAY", 10, nil)
 	AFK.AFKMode.topPanel.eversion:SetText("|cFF00c0fa"..E.version.."|r")
-	AFK.AFKMode.topPanel.eversion:SetPoint("TOP", AFK.AFKMode.bottom.logo, "BOTTOM")
+	AFK.AFKMode.topPanel.eversion:SetPoint("TOP", AFK.AFKMode.bottom.LogoTop, "BOTTOM")
 	AFK.AFKMode.topPanel.eversion:SetTextColor(0.7, 0.7, 0.7)
 
 	-- MerathilisUI Logo

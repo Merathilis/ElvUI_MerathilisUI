@@ -178,6 +178,16 @@ L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "Faction"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Active Azerite Powers"
 L["Only Icons"] = true
+L["Append to corruption stat"] = "Append to corruption stat"
+L["Use the new style tooltip."] = "Use the new style tooltip."
+L["Show summary on the corruption tooltip"] = "Show summary on the corruption tooltip"
+L["List your corruptions in the eye tooltip in the character screen."] = "List your corruptions in the eye tooltip in the character screen."
+L["Display in English"] = "Display in English"
+L["Don't translate the corruption effect names."] = "Don't translate the corruption effect names."
+L["Show icon"] = "Show icon"
+L["Show the spell icon along with the name."] = "Show the spell icon along with the name."
+L["Show corruption amount in the character screen"] = "Show corruption amount in the character screen"
+L["Show corruption stat on items in the character screen when displaying the corruption tooltip."] = "Show corruption stat on items in the character screen when displaying the corruption tooltip."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -207,8 +217,6 @@ L["No Sounds"] = true
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
 L["Right Click"] = true
-L["Toggle ActionBar"] = true
-L["Toggle Middle DT"] = true
 L["Dura."] = true
 
 -- DataBars
@@ -387,6 +395,8 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+L["Blip Textures"] = true
+L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = true
 
 -- SMB
 L["Button Settings"] = true

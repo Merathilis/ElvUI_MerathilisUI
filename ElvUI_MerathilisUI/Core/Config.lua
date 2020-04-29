@@ -64,18 +64,16 @@ local function AddOptions()
 				customWidth = 140,
 				func = function() E:GetModule("PluginInstaller"):Queue(MER.installTable); E:ToggleOptionsUI() end,
 			},
-			skinsButton = CreateButton(4, L["Skins & AddOns"], "skins"),
 			changelog = {
-				order = 5,
+				order = 4,
 				type = "execute",
 				name = L["Changelog"],
 				desc = L['Open the changelog window.'],
 				customWidth = 140,
 				func = function() MER:ToggleChangeLog(); E:ToggleOptionsUI() end,
 			},
-			informationButton = CreateButton(6, L["Information"], "info"),
 			discordButton = {
-				order = 7,
+				order = 5,
 				type = "execute",
 				name = L["|cffff7d0aMerathilisUI|r Discord"],
 				customWidth = 140,
@@ -245,6 +243,21 @@ local function AddOptions()
 					},
 				},
 			},
+			tools = {
+				order = 300,
+				type = "group",
+				name = L["Tools"],
+				hidden = function() return not(MER:IsDeveloper() and MER:IsDeveloperRealm()) end,
+				args = {
+					converter = {
+						order = 1,
+						type = "execute",
+						name = L["Table Dumper"],
+						desc = L["A tool for dumping table data (this table must be a global variable)"],
+						func = function() MER:OpenTableDumper() end,
+					}
+				}
+			}
 		},
 	}
 end

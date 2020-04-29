@@ -7,7 +7,7 @@ P.mui = {}
 local MP = P.mui
 
 MP.core = {
-	installed = nil,
+	installed = false,
 }
 
 MP.general = {
@@ -87,7 +87,6 @@ MP.chat = {
 	emotes = true,
 	filter = {
 		enable = true,
-		itemLevel = true,
 		keywords = "",
 		blockAddOnAlerts = true,
 		damagemeter = true,
@@ -97,6 +96,20 @@ MP.chat = {
 		minAlpha = 0.33,
 		timeout = 8,
 	},
+	linkIcons = {
+		enable = true,
+		links = {
+			achievement = true,
+			item = true,
+			player = true,
+			spell = true,
+		},
+		icons = {
+			Race = false,
+			Class = true,
+		},
+		PawnIntegration = true,
+	}
 }
 
 MP.colors = {
@@ -370,6 +383,9 @@ MP.maps = {
 			xOffset = 0,
 			yOffset = -20,
 		},
+		blip = {
+			enable = true,
+		},
 	},
 }
 
@@ -447,9 +463,6 @@ MP.panels = {
 		bottomLeftExtraPanel = true,
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
-	},
-	extraStylePanels = {
-
 	},
 }
 
@@ -530,6 +543,7 @@ MP.tooltip = {
 	achievement = true,
 	petIcon = true,
 	factionIcon = true,
+	roleIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,
@@ -542,9 +556,17 @@ MP.tooltip = {
 			enable = true,
 			Uldir = false,
 			BattleOfDazaralor = false,
-			CrucibleOfStorms = true,
+			CrucibleOfStorms = false,
 			EternalPalace = true,
+			Nyalotha = true,
 		}
+	},
+	corruption = {
+		enable = true,
+		append = true,
+		icon = true,
+		summary = true,
+		english = false,
 	},
 }
 

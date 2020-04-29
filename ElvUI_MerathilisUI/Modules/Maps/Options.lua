@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MM = MER:GetModule("mUIMinimap")
 local SMB = MER:GetModule("mUIMinimapButtons")
 local COMP = MER:GetModule("mUICompatibility")
 
@@ -7,12 +8,13 @@ local COMP = MER:GetModule("mUICompatibility")
 local format = string.format
 local tinsert = table.insert
 --WoW API / Variables
+local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
 -- GLOBALS:
 
 local function Minimap()
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["MiniMap"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
@@ -39,10 +41,28 @@ local function Minimap()
 						type = "toggle",
 						name = L["Instance Difficulty"],
 					},
+
+				},
+			},
+			textures = {
+				order = 3,
+				type = "group",
+				name = E.NewSign..MER:cOption(L["Blip Textures"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.maps.minimap.blip[ info[#info] ] end,
+				set = function(info, value) E.db.mui.maps.minimap.blip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						desc = L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"],
+					},
+
 				},
 			},
 			ping = {
-				order = 3,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Minimap Ping"]),
 				guiInline = true,
@@ -85,7 +105,7 @@ local function Minimap()
 				},
 			},
 			coords = {
-				order = 4,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Coordinates"]),
 				guiInline = true,
@@ -113,7 +133,7 @@ local function Minimap()
 				},
 			},
 			smb = {
-				order = 5,
+				order = 6,
 				type = "group",
 				name = MER:cOption(L["Minimap Buttons"]),
 				guiInline = true,

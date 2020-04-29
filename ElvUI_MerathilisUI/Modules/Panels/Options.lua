@@ -11,12 +11,12 @@ local tinsert = table.insert
 local function PanelTable()
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
-		name = E.NewSign..L["Panels"],
+		name = L["Panels"],
 		args = {
 			header = {
 				order = 0,
 				type = "header",
-				name = E.NewSign..MER:cOption(L["Panels"]),
+				name = MER:cOption(L["Panels"]),
 			},
 			spacer = {
 				order = 2,

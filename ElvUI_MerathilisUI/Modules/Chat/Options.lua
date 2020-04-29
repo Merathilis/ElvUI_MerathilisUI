@@ -10,7 +10,7 @@ local tinsert = table.insert
 local function ChatTable()
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
-		name = L["Chat"],
+		name = E.NewSign..L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -91,18 +91,77 @@ local function ChatTable()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					itemLevel = {
-						order = 2,
-						type = "toggle",
-						name = L["Item Level"],
-						disabled = function() return not E.db.mui.chat.filter.enable end,
-					},
 					damagemeter = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["Damage Meter Filter"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,
 					}
+				},
+			},
+			linkIcons = {
+				order = 30,
+				type = "group",
+				name = E.NewSign..L["Chat Icons"],
+				guiInline = true,
+				get = function(info) return E.db.mui.chat.linkIcons[ info[#info] ] end,
+				set = function(info, value) E.db.mui.chat.linkIcons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					links = {
+						order = 1,
+						type = "group",
+						name = L["Links"],
+						get = function(info) return E.db.mui.chat.linkIcons.links[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat.linkIcons.links[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+						disabled = function() return not E.db.mui.chat.linkIcons.enable end,
+						args = {
+							achievement = {
+								order = 1,
+								type = "toggle",
+								name = L["Achievements"],
+							},
+							item = {
+								order = 2,
+								type = "toggle",
+								name = L["Items"],
+							},
+							player = {
+								order = 3,
+								type = "toggle",
+								name = L["Player"],
+							},
+							spell = {
+								order = 4,
+								type = "toggle",
+								name = L["Spells"],
+							},
+						},
+					},
+					icons = {
+						order = 2,
+						type = "group",
+						name = L["Icons"],
+						get = function(info) return E.db.mui.chat.linkIcons.icons[ info[#info] ] end,
+						set = function(info, value) E.db.mui.chat.linkIcons.icons[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+						disabled = function() return not E.db.mui.chat.linkIcons.enable end,
+						args = {
+							Race = {
+								order = 1,
+								type = "toggle",
+								name = L["Race"],
+							},
+							Class = {
+								order = 2,
+								type = "toggle",
+								name = L["Class"],
+							}
+						},
+					},
 				},
 			},
 		},

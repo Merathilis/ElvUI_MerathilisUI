@@ -175,6 +175,17 @@ L["EternalPalace"] = "永恒王宫"
 L["FACTION"] = "阵营"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "已激活的艾泽里特之力"
 L["Only Icons"] = "仅图标"
+L["I"] = "1 级"
+L["II"] = "2 级"
+L["III"] = "3 级"
+L["Append to corruption stat"] = "附加到腐蚀属性后"
+L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特效名称显示到腐蚀属性后。"
+L["Show summary on the corruption tooltip"] = "在鼠标提示中列出腐蚀特效"
+L["List your corruptions in the eye tooltip in the character screen."] = "在角色界面的腐化值鼠标提示中，列出你的腐蚀特效。"
+L["Display in English"] = "显示英语腐化特效名称"
+L["Don't translate the corruption effect names."] = "不要使用本地化的腐化特效名称。"
+L["Show icon"] = "显示图标"
+L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "收件箱大小调整"
@@ -204,8 +215,6 @@ L["No Sounds"] = "没有声音"
 L["ChatTab Datatext Panel"] = "聊天标签信息面板"
 L["Middle Datatext Panel"] = "中间的信息面板"
 L["Right Click"] = "右键点击"
-L["Toggle ActionBar"] = "开关动作条"
-L["Toggle Middle DT"] = "开关中部信息条"
 L["Dura."] = "耐久"
 
 -- DataBars
@@ -342,7 +351,7 @@ L["GCD Bar"] = "公共CD条"
 L["Creates a Global Cooldown Bar"] = "创建一个公共CD计时条"
 L["UnitFrame Style"] = "头像样式"
 L["Adds my styling to the Unitframes if you use transparent health."] = "当你使用透明头像时，添加Merathilis风格"
-L["Change the default role icons."] = true
+L["Change the default role icons."] = "替换默认职责图标"
 
 -- LocationPanel
 L["Template"] = "模版"
@@ -399,6 +408,8 @@ L["Minimap Ping"] = "小地图点击"
 L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
+L["Blip Textures"] = "小地图图标"
+L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "替换小地图图标材质(任务感叹号等).\n|cffFF0000警告: 需要重启游戏生效.|r"
 
 -- SMB
 L["Button Settings"] = "按键设置"

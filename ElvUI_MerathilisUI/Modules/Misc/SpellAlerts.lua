@@ -7,19 +7,18 @@ module.modName = L["SpellAlerts"]
 local _G = _G
 -- WoW API / Variables
 local GetCVar = GetCVar
--- Global variables that we don"t cache, list them here for the mikk"s Find Globals script
 -- GLOBALS:
 
 function module:UpdatePosition()
 	-- Spell Alert frame
-	_G["SpellActivationOverlayFrame"]:SetScale(0.65)
+	_G.SpellActivationOverlayFrame:SetScale(0.65)
 
-	_G["SpellActivationOverlayFrame"]:SetFrameStrata("MEDIUM")
-	_G["SpellActivationOverlayFrame"]:SetFrameLevel(1)
+	_G.SpellActivationOverlayFrame:SetFrameStrata("MEDIUM")
+	_G.SpellActivationOverlayFrame:SetFrameLevel(1)
 end
 
 function module:UpdateAppearance()
-	_G["SpellActivationOverlayFrame"]:SetAlpha(GetCVar("spellActivationOverlayOpacity"))
+	_G.SpellActivationOverlayFrame:SetAlpha(GetCVar("spellActivationOverlayOpacity"))
 end
 
 function module:PLAYER_LOGIN()

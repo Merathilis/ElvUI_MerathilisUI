@@ -174,6 +174,17 @@ L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 L["Only Icons"] = true
+L["I"] = "1階"
+L["II"] = "2階"
+L["III"] = "3階"
+L["Append to corruption stat"] = "附加在腐化屬性"
+L["Use the new style tooltip."] = "使用新型態提示。"
+L["Show summary on the corruption tooltip"] = "在腐化提示上顯示概要"
+L["List your corruptions in the eye tooltip in the character screen."] = "在角色視窗的眼睛提示中列出您的腐化。"
+L["Display in English"] = "顯示為英文"
+L["Don't translate the corruption effect names."] = "不要翻譯腐化特效的名稱。"
+L["Show icon"] = "顯示圖示"
+L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -203,8 +214,6 @@ L["No Sounds"] = true
 L["ChatTab Datatext Panel"] = true
 L["Middle Datatext Panel"] = true
 L["Right Click"] = true
-L["Toggle ActionBar"] = true
-L["Toggle Middle DT"] = true
 L["Dura."] = true
 
 -- DataBars
@@ -383,6 +392,8 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
+L["Blip Textures"] = true
+L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = true
 
 -- SMB
 L["Button Settings"] = true

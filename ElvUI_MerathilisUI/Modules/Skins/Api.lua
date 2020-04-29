@@ -44,21 +44,26 @@ MERS.ArrowRotation = {
 }
 
 -- Create shadow for textures
-function MERS:CreateSD(parent, size, r, g, b, alpha, offset)
-	local sd = CreateFrame("Frame", nil, parent)
-	sd.size = size or 5
-	sd.offset = offset or 0
-	sd:SetBackdrop({
-		bgFile =  E.LSM:Fetch("background", "ElvUI Blank"),
-		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
-		edgeSize = sd.size,
-	})
-	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
-	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
-	sd:SetBackdropColor(r or 0, g or 0, b or 0, alpha or 0)
+function MERS:CreateSD(f, m, s, n)
+	if f.Shadow then return end
 
-	return sd
+	local frame = f
+	if f:GetObjectType() == "Texture" then
+		frame = f:GetParent()
+	end
+
+	local lvl = frame:GetFrameLevel()
+	f.Shadow = CreateFrame("Frame", nil, frame)
+	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
+	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
+	f.Shadow:SetBackdrop({
+		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
+		edgeSize = E:Scale(s or 3)
+	})
+	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	f.Shadow:SetFrameLevel(n or lvl)
+
+	return f.Shadow
 end
 
 function MERS:CreateBG(frame)
@@ -288,7 +293,6 @@ function MERS:SkinPanel(panel)
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
-	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
@@ -396,7 +400,7 @@ function MERS:ReskinAS(AS)
 			AS:StripTextures(Tab)
 		end
 
-		AS:CreateBackdrop(Tab)
+		AS:CreateBackdrop(Tab, 'Transparent')
 
 		if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
 			-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
@@ -412,6 +416,68 @@ function MERS:ReskinAS(AS)
 		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
 
 		Tab.isSkinned = true
+	end
+
+	function AS:SkinButton(Button, Strip)
+		if Button.isSkinned then return end
+
+		local ButtonName = Button.GetName and Button:GetName()
+		local foundArrow
+
+		if Button.Icon then
+			local Texture = Button.Icon:GetTexture()
+			if Texture and (type(Texture) == 'string' and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]])) then
+				foundArrow = true
+			end
+		end
+
+		if Strip then
+			AS:StripTextures(Button)
+		end
+
+		for _, Region in pairs(AS.Blizzard.Regions) do
+			Region = ButtonName and _G[ButtonName..Region] or Button[Region]
+			if Region then
+				Region:SetAlpha(0)
+			end
+		end
+
+		if foundArrow then
+			Button.Icon:SetTexture([[Interface\AddOns\AddOnSkins\Media\Textures\Arrow]])
+			Button.Icon:SetSnapToPixelGrid(false)
+			Button.Icon:SetTexelSnappingBias(0)
+			Button.Icon:SetVertexColor(1, 1, 1)
+			Button.Icon:SetRotation(AS.ArrowRotation['right'])
+		end
+
+		if Button.SetNormalTexture then Button:SetNormalTexture('') end
+		if Button.SetHighlightTexture then Button:SetHighlightTexture('') end
+		if Button.SetPushedTexture then Button:SetPushedTexture('') end
+		if Button.SetDisabledTexture then Button:SetDisabledTexture('') end
+
+		AS:SetTemplate(Button, 'Transparent')
+
+		if Button.GetFontString and Button:GetFontString() ~= nil then
+			if Button:IsEnabled() then
+				Button:GetFontString():SetTextColor(1, 1, 1)
+			else
+				Button:GetFontString():SetTextColor(.5, .5, .5)
+			end
+		end
+
+		Button:HookScript("OnEnable", function(self)
+			if self.GetFontString and self:GetFontString() ~= nil then
+				self:GetFontString():SetTextColor(1, 1, 1)
+			end
+		end)
+		Button:HookScript("OnDisable", function(self)
+			if self.GetFontString and self:GetFontString() ~= nil then
+				self:GetFontString():SetTextColor(.5, .5, .5)
+			end
+		end)
+
+		Button:HookScript("OnEnter", onEnter)
+		Button:HookScript("OnLeave", onLeave)
 	end
 end
 

@@ -16,12 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Updated some skins",
-		"• Changed the texture on BigWigs/Details",
-		"• Changed the Vehicle Exit Button texture",
-		"• Added option for the MicroBar to change the backdrop",
-		"• Use different Role Icons on the UnitFrames",
-		"• Updated TooltipIcons",
+		"• Fixed MicroBar Styling",
+		"• Removed the ActionBar toggle buttons",
+		"• Updated Tags and use new Tags from ElvUI",
+		"• Removed some bad installer settings. THX Simpy",
+		"• Tweak/Cleanup my Armory Module",
+		"• Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)",
+		"• Added an option to change Minimap Blip textures",
+		"• Some skin/code tweaks",
+		"• Renamed some movers. You might need to reposition some elements",
 
 		-- "• ''",
 	" ",
@@ -172,7 +175,6 @@ function MER:ToggleChangeLog()
 	fadeInfo.startAlpha = 0
 	fadeInfo.endAlpha = 1
 	E:UIFrameFade(MerathilisUIChangeLog, fadeInfo)
-	MER:Slide(MerathilisUIChangeLog, "RIGHT", 50, 150)
 
 	self.time = 6
 	self:CancelAllTimers()

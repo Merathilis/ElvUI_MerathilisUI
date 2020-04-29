@@ -11,6 +11,10 @@ local function LoadSkin()
 
 	_G.BonusRollFrame:Styling()
 	_G.LootHistoryFrame:Styling()
+
+	if E.private.general.loot then
+		_G.ElvLootFrame:Styling()
+	end
 end
 
 S:AddCallback("mUILoot", LoadSkin)

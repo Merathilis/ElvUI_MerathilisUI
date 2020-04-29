@@ -182,6 +182,7 @@ function MER:SetupLayout(layout)
 	E.private["general"]["classColorMentionsSpeech"] = true
 	E.private["general"]["normTex"] = "Melli"
 	E.private["general"]["glossTex"] = "Melli"
+
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
 		E.private["general"]["lootRoll"] = false
@@ -247,7 +248,6 @@ function MER:SetupLayout(layout)
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
-	E.db["general"]["decimalLenght"] = 0
 	E.db["general"]["altPowerBar"]["enable"] = true
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
@@ -272,12 +272,12 @@ function MER:SetupLayout(layout)
 	E.db["auras"]["buffs"]["horizontalSpacing"] = 10
 	E.db["auras"]["buffs"]["verticalSpacing"] = 12
 	E.db["auras"]["buffs"]["size"] = 32
-	E.db["auras"]["buffs"]["countFontsize"] = 12
+	E.db["auras"]["buffs"]["countFontSize"] = 12
 	E.db["auras"]["buffs"]["durationFontSize"] = 11
 	E.db["auras"]["buffs"]["wrapAfter"] = 10
 	E.db["auras"]["debuffs"]["horizontalSpacing"] = 5
 	E.db["auras"]["debuffs"]["size"] = 34
-	E.db["auras"]["debuffs"]["countFontsize"] = 16
+	E.db["auras"]["debuffs"]["countFontSize"] = 16
 	E.db["auras"]["debuffs"]["durationFontSize"] = 12
 	E.db["auras"]["cooldown"]["override"] = true
 	E.db["auras"]["cooldown"]["useIndicatorColor"] = true
@@ -333,7 +333,6 @@ function MER:SetupLayout(layout)
 	E.db["bags"]["bagWidth"] = 436
 	E.db["bags"]["bankSize"] = 34
 	E.db["bags"]["bankWidth"] = 427
-	E.db["bags"]["alignToChat"] = false
 	E.db["bags"]["moneyFormat"] = "CONDENSED"
 	E.db["bags"]["itemLevelThreshold"] = 1
 	E.db["bags"]["junkIcon"] = true
@@ -376,7 +375,6 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["fontSize"] = 12
 	E.db["nameplates"]["stackFont"] = "Merathilis Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
-	E.db["nameplates"]["nonTargetTransparency"] = 0.60
 	E.db["nameplates"]["smoothbars"] = true
 	E.db["nameplates"]["statusbar"] = "Melli"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
@@ -653,7 +651,12 @@ function MER:SetupLayout(layout)
 	E.db["tooltip"]["healthBar"]["height"] = 5
 	E.db["tooltip"]["healthBar"]["fontOutline"] = "OUTLINE"
 	E.db["tooltip"]["visibility"]["combat"] = false
-	E.db["tooltip"]["style"] = "inset"
+	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
+	E.db["tooltip"]["font"] = "Merathilis Expressway"
+	E.db["tooltip"]["fontOutline"] = "NONE"
+	E.db["tooltip"]["headerFontSize"] = 12
+	E.db["tooltip"]["textFontSize"] = 11
+	E.db["tooltip"]["smallTextFontSize"] = 11
 	E.db["movers"]["TooltipMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-10,280"
 
 	--[[----------------------------------
@@ -702,14 +705,15 @@ function MER:SetupLayout(layout)
 		E.db["general"]["cropIcon"] = true
 	end
 
-	E.db["movers"]["SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
+	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"
+	E.db["movers"]["MER_EquipmentSetsBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-75,14"
 	E.db["movers"]["MER_LocPanel_Mover"] = "TOP,ElvUIParent,TOP,0,0"
 	E.db["movers"]["MER_MicroBarMover"] = "TOP,ElvUIParent,TOP,0,-19"
 	E.db["movers"]["MER_OrderhallMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2-2"
 	E.db["movers"]["MER_RaidBuffReminderMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,2,-12"
 	E.db["movers"]["MER_RaidManager"] = "TOPLEFT,ElvUIParent,TOPLEFT,206,-15"
-	E.db["movers"]["MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
-	E.db["movers"]["Notification Mover"] = "TOP,ElvUIParent,TOP,0,-55"
+	E.db["movers"]["MER_MinimapButtonsToggleButtonMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,0,184"
+	E.db["movers"]["MER_NotificationMover"] = "TOP,ElvUIParent,TOP,0,-55"
 
 	--[[----------------------------------
 	--	Movers - Layout
@@ -782,12 +786,6 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
-	E.db["tooltip"]["healthBar"]["font"] = "Merathilis Expressway"
-	E.db["tooltip"]["font"] = "Merathilis Expressway"
-	E.db["tooltip"]["fontOutline"] = "NONE"
-	E.db["tooltip"]["headerFontSize"] = 12
-	E.db["tooltip"]["textFontSize"] = 11
-	E.db["tooltip"]["smallTextFontSize"] = 11
 
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
@@ -1296,7 +1294,7 @@ function MER:SetupUnitframes(layout)
 			["xOffset"] = 2,
 			["yOffset"] = 16,
 			["size"] = 11,
-			["text_format"] = "[classification:icon][namecolor][name:abbrev-translit]",
+			["text_format"] = "[classification:icon][mUI-name:health:abbrev{class}]",
 			["attachTextTo"] = "Frame",
 		}
 		E.db["unitframe"]["units"]["target"]["customTexts"]["Percent"] = {
@@ -1515,7 +1513,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[namecolor][name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium]",
 		}
 		if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 			E.db["unitframe"]["units"]["raid"]["customTexts"]["Elv"] = {
@@ -1607,7 +1605,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["customTexts"]["name1"] = {
 			["enable"] = true,
 			["attachTextTo"] = "Health",
-			["text_format"] = "[namecolor][name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium]",
 			["yOffset"] = 0,
 			["font"] = "Merathilis Gotham Narrow",
 			["justifyH"] = "CENTER",
@@ -1762,7 +1760,7 @@ function MER:SetupUnitframes(layout)
 			["yOffset"] = 0,
 			["xOffset"] = 0,
 			["attachTextTo"] = "Frame",
-			["text_format"] = "[namecolor][name:medium:translit]",
+			["text_format"] = "[namecolor][name:medium]",
 		}
 		E.db["unitframe"]["units"]["party"]["customTexts"]["Status"] = {
 			["font"] = "Merathilis Gotham Narrow",

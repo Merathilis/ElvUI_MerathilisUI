@@ -80,7 +80,7 @@ function MERL:ChangeLayout()
 	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
 	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
 	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
-	E:CreateMover(mUIMiddleDTPanel, "mUIMiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
+	E:CreateMover(mUIMiddleDTPanel, "MER_MiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
 end
 
 function MERL:CreateChatButtons()
@@ -124,6 +124,7 @@ function MERL:CreateChatButtons()
 	ChatButton:SetScript("OnEnter", function(self)
 		if GameTooltip:IsForbidden() then return end
 
+		self:SetAlpha(0.8)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 6)
 		GameTooltip:ClearLines()
 		if E.db.mui.chat.isExpanded then

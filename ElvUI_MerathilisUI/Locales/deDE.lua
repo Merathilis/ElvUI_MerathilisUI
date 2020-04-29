@@ -174,6 +174,14 @@ L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
 L["Only Icons"] = "Nur Symbole"
+L["Append to corruption stat"] = "Am Verderbnis-Wert anhängen"
+L["Use the new style tooltip."] = "Neuen Tooltip-Stil verwenden."
+L["Show summary on the corruption tooltip"] = "Zusammenfassung am Verderbnis-Tooltip anzeigen"
+L["List your corruptions in the eye tooltip in the character screen."] = "Verderbnis-Effekte im Auge-Tooltip in der Charakterinfo auflisten."
+L["Display in English"] = "Nur Englisch verwenden"
+L["Don't translate the corruption effect names."] = "Verderbnis-Effekte nicht übersetzen."
+L["Show icon"] = "Icon anzeigen"
+L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -203,8 +211,6 @@ L["No Sounds"] = "Keine Sounds"
 L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
 L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
 L["Right Click"] = "Rechtsklick"
-L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
-L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
 L["Dura."] = "Haltb."
 
 -- DataBars
@@ -383,6 +389,8 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
+L["Blip Textures"] = true
+L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "Benutzt andere Minikarten Blip-Texturen. |cffff0000ACHTUNG: Du musst das Spiel neustarten um die Änderungen anzuwenden.|r"
 
 -- SMB
 L["Button Settings"] = "Tasten Einstellungen"

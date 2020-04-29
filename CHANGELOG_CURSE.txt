@@ -1,3 +1,15 @@
+** v4.47, xx.xx.2020**
+* Fixed MicroBar Styling.
+* Removed the ActionBar toggle buttons.
+* Updated Tags and use new Tags from ElvUI.
+* Removed some bad installer settings. THX Simpy.
+* Tweak/Cleanup my Armory Module.
+* Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)
+* Added an option to change Minimap Blip textures.
+* Some skin/code tweaks.
+* Renamed some movers. You might need to reposition some elements.
+
+
 ** v4.46, 16.02.2020**
 * Updated some skins.
 * Changed the texture on BigWigs/Details.
@@ -11,7 +23,7 @@
 * Fix errors on install, if ElvUI install is not finished:
   always make sure you finish first the ElvUI install!!
 
-  
+
 ** v4.44, 08.02.2020**
 * Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn.
 * Try to fix a talent skin error.

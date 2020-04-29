@@ -390,7 +390,6 @@ local function LoadSkin()
 		select(i, _G.WardrobeOutfitFrame:GetRegions()):Hide()
 	end
 	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
-	MERS:CreateSD(_G.WardrobeOutfitFrame, .25)
 
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 

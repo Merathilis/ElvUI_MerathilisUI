@@ -12,7 +12,7 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 local function Misc()
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = E.NewSign..L["Miscellaneous"],
+		name = L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -88,7 +88,7 @@ local function Misc()
 					itemAlert = {
 						order = 3,
 						type = "toggle",
-						name = E.NewSign..L["Item Alerts"],
+						name = L["Item Alerts"],
 						desc = L["Announce in chat when someone placed an usefull item."],
 					},
 				},
@@ -160,7 +160,7 @@ local function Misc()
 			macros = {
 				order = 23,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Macros"]),
+				name = MER:cOption(L["Macros"]),
 				guiInline = true,
 				args = {
 					randomtoy = {

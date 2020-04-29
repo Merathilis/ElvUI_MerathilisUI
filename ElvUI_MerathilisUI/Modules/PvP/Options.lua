@@ -18,7 +18,7 @@ local function PvPTable()
 			header = {
 				order = 0,
 				type = "header",
-				name = MER:cOption(E.NewSign..L["PVP"]),
+				name = MER:cOption(L["PVP"]),
 			},
 			credits = {
 				order = 1,
@@ -68,7 +68,7 @@ local function PvPTable()
 			killingBlow = {
 				order = 4,
 				type = "group",
-				name = E.NewSign..MER:cOption(KILLING_BLOWS),
+				name = MER:cOption(KILLING_BLOWS),
 				guiInline = true,
 				get = function(info) return E.db.mui.pvp.killingBlow[ info[#info] ] end,
 				set = function(info, value) E.db.mui.pvp.killingBlow[ info[#info] ] = value end,

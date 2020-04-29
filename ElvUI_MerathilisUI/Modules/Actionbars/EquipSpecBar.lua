@@ -8,12 +8,121 @@ local select = select
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local C_EquipmentSet = C_EquipmentSet
+local GameTooltip_Hide = GameTooltip_Hide
+local GetLootSpecialization = GetLootSpecialization
+local GetNumSpecializations = GetNumSpecializations
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfo = GetSpecializationInfo
 local InCombatLockdown = InCombatLockdown
 local ShowUIPanel = ShowUIPanel
 local UIErrorsFrame = UIErrorsFrame
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: GameTooltip, GameTooltip_Hide, PAPERDOLL_EQUIPMENTMANAGER, ERR_NOT_IN_COMBAT, PaperDollFrame_SetSidebar
--- GLOBALS: SAVE_CHANGES
+local UIFrameFadeIn, UIFrameFadeOut = UIFrameFadeIn, UIFrameFadeOut
+local PaperDollFrame_SetSidebar = PaperDollFrame_SetSidebar
+local SetLootSpecialization = SetLootSpecialization
+local SetSpecialization = SetSpecialization
+-- GLOBALS:
+
+function MAB:CreateSpecBar()
+	if E.db.mui.actionbars.specBar.enable ~= true then return end
+
+	local Spacing, Mult = 4, 1
+	local Size = E.db.mui.actionbars.specBar.size or 24
+
+	local specBar = CreateFrame("Frame", nil, E.UIParent)
+	specBar:SetFrameStrata("BACKGROUND")
+	specBar:SetFrameLevel(0)
+	specBar:SetSize(40, 40)
+	specBar:SetTemplate("Transparent")
+	specBar:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 2, 177)
+	specBar:Styling()
+	specBar:Hide()
+	E.FrameLocks[specBar] = true
+
+	specBar.Button = {}
+	E:CreateMover(specBar, "MER_SpecializationBarMover", L["SpecializationBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
+
+	specBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	specBar:SetScript('OnLeave', function(self)
+		if E.db.mui.actionbars.specBar.mouseover then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	end)
+
+	local Specs = GetNumSpecializations()
+
+	for i = 1, Specs do
+		local SpecID, SpecName, Description, Icon = GetSpecializationInfo(i)
+		local Button = CreateFrame("Button", nil, specBar)
+		Button:SetSize(Size, Size)
+		Button:SetID(i)
+		Button.SpecID = SpecID
+		Button:SetTemplate()
+		Button:StyleButton()
+		Button:SetNormalTexture(Icon)
+		Button:GetNormalTexture():SetTexCoord(.1, .9, .1, .9)
+		Button:GetNormalTexture():SetInside()
+		Button:SetPushedTexture(Icon)
+		Button:GetPushedTexture():SetInside()
+		Button:RegisterForClicks('AnyDown')
+		Button:SetScript("OnEnter", function(self)
+			_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			_G.GameTooltip:AddLine(SpecName)
+			_G.GameTooltip:AddLine(" ")
+			_G.GameTooltip:AddLine(Description, 1, 1, 1, true)
+			_G.GameTooltip:Show()
+		end)
+		Button:SetScript("OnLeave", GameTooltip_Hide)
+		Button:SetScript("OnClick", function(self, button)
+			if button == "LeftButton" then
+				if self:GetID() ~= self.Spec then
+					SetSpecialization(self:GetID())
+				end
+			elseif button == "RightButton" then
+				SetLootSpecialization(self.LootID == self.SpecID and 0 or self.SpecID)
+			end
+		end)
+		Button:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+		Button:RegisterEvent("PLAYER_ENTERING_WORLD")
+		Button:RegisterEvent("PLAYER_LOOT_SPEC_UPDATED")
+		Button:SetScript("OnEvent", function(self)
+			self.Spec = GetSpecialization()
+			self.LootID = GetLootSpecialization()
+
+			if self.Spec == self:GetID() then
+				self:SetBackdropBorderColor(0, 0.44, .87)
+			elseif (self.LootID == self.SpecID) then
+				self:SetBackdropBorderColor(1, 0.44, .4)
+			else
+				self:SetTemplate()
+			end
+		end)
+		Button:HookScript('OnEnter', function(self)
+			if specBar:IsShown() then
+				UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
+			end
+		end)
+		Button:HookScript('OnLeave', function(self)
+			if specBar:IsShown() and E.db.mui.actionbars.specBar.mouseover then
+				UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
+			end
+		end)
+
+		Button:SetPoint("LEFT", i == 1 and specBar or specBar.Button[i - 1], i == 1 and "LEFT" or "RIGHT", Spacing, 0)
+
+		specBar.Button[i] = Button
+	end
+
+	local BarWidth = (Spacing + ((Size * (Specs * Mult)) + ((Spacing * (Specs - 1)) * Mult) + (Spacing * Mult)))
+	local BarHeight = (Spacing + (Size * Mult) + (Spacing * Mult))
+
+	specBar:SetSize(BarWidth, BarHeight)
+
+	if E.db.mui.actionbars.specBar.mouseover then
+		UIFrameFadeOut(specBar, 0.2, specBar:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(specBar, 0.2, specBar:GetAlpha(), 1)
+	end
+end
 
 function MAB:CreateEquipBar()
 	if E.db.mui.actionbars.equipBar.enable ~= true then return end
@@ -21,17 +130,17 @@ function MAB:CreateEquipBar()
 	local Size = E.db.mui.actionbars.equipBar.size or 32
 
 	local GearTexture = "Interface\\WorldMap\\GEAR_64GREY"
-	local EquipmentSets = CreateFrame("Frame", "EquipmentSets", E.UIParent)
+	local EquipmentSets = CreateFrame("Frame", nil, E.UIParent)
 	EquipmentSets:SetFrameStrata("BACKGROUND")
 	EquipmentSets:SetFrameLevel(0)
 	EquipmentSets:SetSize(32, 32)
 	EquipmentSets:SetTemplate("Transparent")
-	EquipmentSets:SetPoint("RIGHT", _G["SpecializationBar"], "LEFT", -1, 0)
+	EquipmentSets:SetPoint("BOTTOMLEFT", E.UIParent, "BOTTOMLEFT", 20, 177)
 	EquipmentSets:Styling()
 	EquipmentSets:Hide()
 	E.FrameLocks[EquipmentSets] = true
 
-	E:CreateMover(EquipmentSets, "EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
+	E:CreateMover(EquipmentSets, "MER_EquipmentSetsBarMover", L["EquipmentSetsBarMover"], nil, nil, nil, 'ALL,ACTIONBARS,MERATHILISUI', nil, 'mui,modules,actionbars')
 
 	EquipmentSets:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
 	EquipmentSets:SetScript('OnLeave', function(self)
@@ -64,10 +173,10 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Flyout.Arrow = EquipmentSets.Flyout:CreateTexture(nil, "OVERLAY", "ActionBarFlyoutButton-ArrowUp")
 	EquipmentSets.Flyout.Arrow:SetAllPoints()
 	EquipmentSets.Flyout:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:ClearLines()
-		GameTooltip:AddLine(PAPERDOLL_EQUIPMENTMANAGER)
-		GameTooltip:Show()
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		_G.GameTooltip:ClearLines()
+		_G.GameTooltip:AddLine(_G.PAPERDOLL_EQUIPMENTMANAGER)
+		_G.GameTooltip:Show()
 	end)
 
 	EquipmentSets.Flyout:SetScript("OnLeave", GameTooltip_Hide)
@@ -106,8 +215,8 @@ function MAB:CreateEquipBar()
 		Button:SetPoint("BOTTOM", i == 1 and EquipmentSets.Flyout or EquipmentSets.Button[i - 1], "TOP", 0, 3)
 		Button:SetScript("OnEnter", function(self)
 			local Name = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
-			GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-			GameTooltip:SetEquipmentSet(Name)
+			_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+			_G.GameTooltip:SetEquipmentSet(Name)
 		end)
 		Button:SetScript("OnClick", function(self)
 			local _, Icon, Index, IsEquipped = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
@@ -133,7 +242,7 @@ function MAB:CreateEquipBar()
 
 	EquipmentSets.Button:SetScript("OnClick", function(self)
 		if InCombatLockdown() then
-			return UIErrorsFrame:AddMessage(ERR_NOT_IN_COMBAT, 1.0, 0.1, 0.1, 1.0);
+			return UIErrorsFrame:AddMessage(_G.ERR_NOT_IN_COMBAT, 1.0, 0.1, 0.1, 1.0);
 		end
 		if not self:GetID() then
 			ShowUIPanel(_G["CharacterFrame"])
@@ -149,8 +258,8 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button:SetScript("OnEnter", function(self)
 		local Name = C_EquipmentSet.GetEquipmentSetInfo(self:GetID())
 		if not Name then return end
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:SetEquipmentSet(Name)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		_G.GameTooltip:SetEquipmentSet(Name)
 	end)
 	EquipmentSets.Button:SetScript("OnLeave", GameTooltip_Hide)
 	EquipmentSets.Button:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -205,8 +314,8 @@ function MAB:CreateEquipBar()
 	EquipmentSets.Button.SaveButton.Icon = EquipmentSets.Button.SaveButton:CreateTexture(nil, "ARTWORK")
 	EquipmentSets.Button.SaveButton.Icon:SetAllPoints()
 	EquipmentSets.Button.SaveButton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-		GameTooltip:SetText(SAVE_CHANGES)
+		_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		_G.GameTooltip:SetText(_G.SAVE_CHANGES)
 	end)
 	EquipmentSets.Button.SaveButton:SetScript("OnLeave", GameTooltip_Hide)
 	EquipmentSets.Button.SaveButton:SetScript("OnClick", function(self, button)
@@ -222,6 +331,7 @@ function MAB:CreateEquipBar()
 	end
 end
 
-function MAB:EquipBarInit()
+function MAB:EquipSpecBar()
+	self:CreateSpecBar()
 	self:CreateEquipBar()
 end

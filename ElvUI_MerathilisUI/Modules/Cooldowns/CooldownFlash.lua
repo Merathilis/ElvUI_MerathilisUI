@@ -45,7 +45,7 @@ module.DCP = DCP
 local DCPT = DCP:CreateTexture(nil, "BORDER")
 DCPT:SetAllPoints(DCP)
 MERS:CreateBDFrame(DCP)
-MERS:CreateSD(DCP)
+MERS:CreateSD(DCP, 2, 2)
 
 local defaultsettings = {
 	["enable"] = false,
@@ -233,7 +233,7 @@ function DCP:ADDON_LOADED(addon)
 		end
 	end
 	-- self:SetPoint("CENTER", E.UIParent,"BOTTOMLEFT", MERData_DCP.x, MERData_DCP.y)
-	E:CreateMover(DCP, "CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
+	E:CreateMover(DCP, "MER_CooldownFlashMover", L["CooldownFlashMover"], true, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,cooldownFlash')
 end
 
 function DCP:SPELL_UPDATE_COOLDOWN()
