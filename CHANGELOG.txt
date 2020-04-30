@@ -1,4 +1,8 @@
-[b][color=orange]v4.47[/color], xx.xx.2020[/b][list]
+[b][color=orange]v4.48[/color], 30.04.2020[/b][list]
+[*]Take account for the latest DataTexts update from ElvUI.[/list]
+
+
+[b][color=orange]v4.47[/color], 29.04.2020[/b][list]
 [*]Fixed MicroBar Styling.
 [*]Removed the ActionBar toggle buttons.
 [*]Updated Tags and use new Tags from ElvUI.
@@ -6,8 +10,8 @@
 [*]Tweak/Cleanup my Armory Module.
 [*]Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)
 [*]Added an option to change Minimap Blip textures.
-[*]Some skin/code tweaks.[/list]
-[*]Renamed some movers. You might need to reposition some elements.
+[*]Some skin/code tweaks.
+[*]Renamed some movers. You might need to reposition some elements.[/list]
 
 
 [b][color=orange]v4.46[/color], 16.02.2020[/b][list]

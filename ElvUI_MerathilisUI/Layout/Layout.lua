@@ -71,7 +71,8 @@ function MERL:MiddleDatatextDimensions()
 	local db = E.db.mui.datatexts.middle
 	mUIMiddleDTPanel:Width(db.width)
 	mUIMiddleDTPanel:Height(db.height)
-	DT:UpdateAllDimensions()
+	DT.UpdatePanelDimensions(mUIMiddleDTPanel)
+	-- DT:UpdateAllDimensions()
 end
 
 function MERL:ChangeLayout()

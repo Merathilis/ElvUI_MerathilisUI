@@ -16,15 +16,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Fixed MicroBar Styling",
-		"• Removed the ActionBar toggle buttons",
-		"• Updated Tags and use new Tags from ElvUI",
-		"• Removed some bad installer settings. THX Simpy",
-		"• Tweak/Cleanup my Armory Module",
-		"• Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)",
-		"• Added an option to change Minimap Blip textures",
-		"• Some skin/code tweaks",
-		"• Renamed some movers. You might need to reposition some elements",
+		"• Take account to the latest ElvUI DataTexts update",
 
 		-- "• ''",
 	" ",
