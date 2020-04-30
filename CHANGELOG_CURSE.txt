@@ -1,4 +1,8 @@
-** v4.47, xx.xx.2020**
+** v4.48, 30.04.2020**
+* Take account to the latest DataTexts changes from ElvUI.
+
+
+** v4.47, 29.04.2020**
 * Fixed MicroBar Styling.
 * Removed the ActionBar toggle buttons.
 * Updated Tags and use new Tags from ElvUI.
