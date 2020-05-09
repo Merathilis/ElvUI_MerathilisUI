@@ -151,4 +151,4 @@ function module:Initialize()
 	self:ToggleEnable()
 end
 
-MER:RegisterModule(module:GetName())
+-- MER:RegisterModule(module:GetName())

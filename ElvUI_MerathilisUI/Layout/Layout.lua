@@ -17,73 +17,6 @@ local SOUNDKIT = SOUNDKIT
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local PANEL_HEIGHT = 19
-
-function MERL:LoadLayout()
-	--Create extra panels
-	MERL:CreateExtraDataBarPanels()
-end
-hooksecurefunc(LO, "Initialize", MERL.LoadLayout)
-
-function MERL:CreateExtraDataBarPanels()
-	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", _G.RightChatPanel)
-	chattab:SetPoint("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, 0)
-	chattab:SetPoint("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, 0)
-	E.FrameLocks["ChatTab_Datatext_Panel"] = true
-	DT:RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
-
-	local mUIMiddleDTPanel = CreateFrame("Frame", "mUIMiddleDTPanel", E.UIParent)
-	E.FrameLocks["mUIMiddleDTPanel"] = true
-	DT:RegisterPanel(mUIMiddleDTPanel, 3, "ANCHOR_BOTTOM", 0, 0)
-end
-
-function MERL:ToggleChatPanel()
-	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
-
-	if db.enable then
-		_G.ChatTab_Datatext_Panel:Show()
-	else
-		_G.ChatTab_Datatext_Panel:Hide()
-	end
-end
-
-function MERL:MiddleDatatextLayout()
-	local db = E.db.mui.datatexts.middle
-
-	if db.enable then
-		mUIMiddleDTPanel:Show()
-	else
-		mUIMiddleDTPanel:Hide()
-	end
-
-	if not db.backdrop then
-		mUIMiddleDTPanel:SetTemplate("NoBackdrop")
-	else
-		if db.transparent then
-			mUIMiddleDTPanel:SetTemplate("Transparent")
-		else
-			mUIMiddleDTPanel:SetTemplate("Default", true)
-		end
-	end
-end
-
-function MERL:MiddleDatatextDimensions()
-	local db = E.db.mui.datatexts.middle
-	mUIMiddleDTPanel:Width(db.width)
-	mUIMiddleDTPanel:Height(db.height)
-	DT.UpdatePanelDimensions(mUIMiddleDTPanel)
-	-- DT:UpdateAllDimensions()
-end
-
-function MERL:ChangeLayout()
-	-- Middle DT Panel
-	mUIMiddleDTPanel:SetFrameStrata("MEDIUM")
-	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
-	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
-	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
-	E:CreateMover(mUIMiddleDTPanel, "MER_MiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
-end
-
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
@@ -155,12 +88,6 @@ function MERL:CreateChatButtons()
 	end)
 end
 
-function MERL:regEvents()
-	self:ToggleChatPanel()
-	self:MiddleDatatextLayout()
-	self:MiddleDatatextDimensions()
-end
-
 function MERL:ShadowOverlay()
 	-- Based on ncShadow
 	if E.db.mui.general.shadowOverlay ~= true then return end
@@ -179,8 +106,6 @@ function MERL:ShadowOverlay()
 end
 
 function MERL:Initialize()
-	self:ChangeLayout()
-	self:regEvents()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
 end

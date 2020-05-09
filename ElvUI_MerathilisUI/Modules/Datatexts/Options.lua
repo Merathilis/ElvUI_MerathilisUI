@@ -10,39 +10,7 @@ local pairs, print, type = pairs, print, type
 local tinsert = table.insert
 --WoW API / Variables
 local NONE = NONE
-local FONT_SIZE = FONT_SIZE
-local hooksecurefunc = hooksecurefunc
 -- GLOBALS: LibStub
-
-function MER:LoadDataTexts()
-	local db = E.db.mui.datatexts
-
-	if db == nil then db = {} end
-
-	if not db.panels then return end
-
-	for panelName, panel in pairs(DT.RegisteredPanels) do
-		for i=1, panel.numPoints do
-			local pointIndex = DT.PointLocation[i]
-
-			--Register Panel to Datatext
-			for name, data in pairs(DT.RegisteredDataTexts) do
-				for option, value in pairs(db.panels) do
-					if value and type(value) == "table" then
-						if option == panelName and db.panels[option][pointIndex] and db.panels[option][pointIndex] == name then
-							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
-						end
-					elseif value and type(value) == "string" and value == name then
-						if db.panels[option] == name and option == panelName then
-							DT:AssignPanelToDataText(panel.dataPanels[pointIndex], data)
-						end
-					end
-				end
-			end
-		end
-	end
-end
-hooksecurefunc(DT, "LoadDataTexts", MER.LoadDataTexts)
 
 local function Datatexts()
 	E.Options.args.mui.args.modules.args.datatexts = {
@@ -213,4 +181,4 @@ local function Datatexts()
 		end
 	end
 end
-tinsert(MER.Config, Datatexts)
+--tinsert(MER.Config, Datatexts)

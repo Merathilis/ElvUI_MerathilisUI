@@ -2636,36 +2636,31 @@ function MER:SetupDts()
 	E.db["datatexts"]["goldFormat"] = "CONDENSED"
 	E.db["datatexts"]["goldCoins"] = true
 	E.db["datatexts"]["noCombatHover"] = true
-	E.db["datatexts"]["panelTransparency"] = true
 	E.db["datatexts"]["wordWrap"] = true
 
-	E.db["datatexts"]["leftChatPanel"] = false
-	E.db["datatexts"]["rightChatPanel"] = false
-	E.db["datatexts"]["minimapPanels"] = false
-	E.db["datatexts"]["minimapBottom"] = false
-	E.db["datatexts"]["actionbar3"] = false
-	E.db["datatexts"]["actionbar5"] = false
-	E.db["datatexts"]["minimapBottom"] = false
+	local db = E.DataTexts:Panel_DefaultGlobalSettings('ChatTab_Datatext_Panel')
+	db.tooltipXOffset = -3
+	db.tooltipYOffset = 4
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].left = "BfA Missions"
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].middle = "MUI Durability"
+	E.DataTexts:BuildPanelFrame('ChatTab_Datatext_Panel', db)
 
-	E.db["mui"]["datatexts"]["panels"]["ChatTab_Datatext_Panel"].right = "Gold"
+	db = E.DataTexts:Panel_DefaultGlobalSettings('mUIMiddleDTPanel')
+	db.tooltipAnchor = 'ANCHOR_BOTTOM'
+	db.tooltipXOffset = 0
+	db.tooltipYOffset = 0
+	E.DataTexts:BuildPanelFrame('mUIMiddleDTPanel', db)
 
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["left"] = "Guild"
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["middle"] = "System"
-	E.db["mui"]["datatexts"]["panels"]["mUIMiddleDTPanel"]["right"] = "Friends"
+	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][1] = "MUI Durability"
+	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][2] = "BfA Missions"
+	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][3] = "Gold"
+
+	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][1] = "System"
+	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][2] = "Guild"
+	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][3] = "Friends"
 
 	-- define the default ElvUI datatexts
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["left"] = ""
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["middle"] = ""
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["right"] = ""
-
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["left"] = ""
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["middle"] = ""
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["right"] = ""
-
-	E.db["datatexts"]["panels"]["BottomMiniPanel"] = ""
+	E.db.datatexts.panels.LeftChatDataPanel.enable = false
+	E.db.datatexts.panels.RightChatDataPanel.enable = false
 
 	E:StaggeredUpdateAll(nil, true)
 
