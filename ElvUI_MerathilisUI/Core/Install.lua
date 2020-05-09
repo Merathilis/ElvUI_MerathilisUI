@@ -2638,29 +2638,21 @@ function MER:SetupDts()
 	E.db["datatexts"]["noCombatHover"] = true
 	E.db["datatexts"]["wordWrap"] = true
 
-	local db = E.DataTexts:Panel_DefaultGlobalSettings('ChatTab_Datatext_Panel')
-	db.tooltipXOffset = -3
-	db.tooltipYOffset = 4
+	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"
+	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
 
-	E.DataTexts:BuildPanelFrame('ChatTab_Datatext_Panel', db)
+	E.db["datatexts"]["panels"]["MinimapPanel"][1] = "Time"
+	E.db["datatexts"]["panels"]["MinimapPanel"]["numPoints"] = 1
 
-	db = E.DataTexts:Panel_DefaultGlobalSettings('mUIMiddleDTPanel')
-	db.tooltipAnchor = 'ANCHOR_BOTTOM'
-	db.tooltipXOffset = 0
-	db.tooltipYOffset = 0
-	E.DataTexts:BuildPanelFrame('mUIMiddleDTPanel', db)
+	E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "Guild"
+	E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Friends"
 
-	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][1] = "MUI Durability"
-	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][2] = "BfA Missions"
-	E.db["datatexts"]["panels"]["ChatTab_Datatext_Panel"][3] = "Gold"
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"][1] = "MUI Durability"
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"][2] = "BfA Missions"
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"][3] = "Gold"
 
-	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][1] = "System"
-	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][2] = "Guild"
-	E.db["datatexts"]["panels"]["mUIMiddleDTPanel"][3] = "Friends"
-
-	-- define the default ElvUI datatexts
-	E.db.datatexts.panels.LeftChatDataPanel.enable = false
-	E.db.datatexts.panels.RightChatDataPanel.enable = false
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["panelTransparency"] = true
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["panelTransparency"] = true
 
 	E:StaggeredUpdateAll(nil, true)
 
