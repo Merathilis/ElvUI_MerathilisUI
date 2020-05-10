@@ -276,4 +276,4 @@ function Update(self, t)
 	int = 5
 end
 
-DT:RegisterDatatext("MUI Time", { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)
+DT:RegisterDatatext("MUI Time", 'MER', { "QUEST_COMPLETE", "QUEST_LOG_UPDATE" }, OnEvent, Update, Click, OnEnter, OnLeave)
