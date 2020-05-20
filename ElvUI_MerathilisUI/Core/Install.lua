@@ -2645,6 +2645,7 @@ function MER:SetupDts()
 
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = true
 	E.db["datatexts"]["panels"]["RightChatDataPanel"]["backdrop"] = true
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["panelTransparency"] = true
 	E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "BfA Missions"
 	E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "Durability"
 	E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Gold"
