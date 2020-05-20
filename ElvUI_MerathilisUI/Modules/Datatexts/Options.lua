@@ -27,64 +27,7 @@ local function Datatexts()
 				type = "group",
 				name = MER:cOption(L["General"]),
 				guiInline = true,
-				args = {
-					rightChatTabDatatextPanel = {
-						order = 1,
-						type = "toggle",
-						name = L["ChatTab Datatext Panel"],
-						get = function(info) return E.db.mui.datatexts.rightChatTabDatatextPanel.enable end,
-						set = function(info, value) E.db.mui.datatexts.rightChatTabDatatextPanel.enable = value; MER:GetModule("mUILayout"):ToggleChatPanel() end,
-					},
-					middleDTEnable = {
-						order = 2,
-						type = "toggle",
-						name = L["Middle Datatext Panel"],
-						get = function(info) return E.db.mui.datatexts.middle.enable end,
-						set = function(info, value) E.db.mui.datatexts.middle.enable = value; MER:GetModule("mUILayout"):MiddleDatatextLayout() end,
-					}
-				},
-			},
-			middle = {
-				order = 3,
-				type = "group",
-				name = MER:cOption(L["Middle Datatext Panel"]),
-				guiInline = true,
-				args = {
-					transparent = {
-						order = 1,
-						type = "toggle",
-						name = L["Panel Transparency"],
-						disabled = function() return not E.db.mui.datatexts.middle.enable end,
-						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextLayout() end,
-					},
-					backdrop = {
-						order = 2,
-						type = "toggle",
-						name = L["Backdrop"],
-						disabled = function() return not E.db.mui.datatexts.middle.enable end,
-						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextLayout() end,
-					},
-					width = {
-						order = 3,
-						type = "range",
-						name = L["Width"],
-						min = 200, max = 1400, step = 1,
-						disabled = function() return not E.db.mui.datatexts.middle.enable end,
-						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextDimensions() end,
-					},
-					height = {
-						order = 4,
-						type = "range",
-						name = L["Height"],
-						min = 10, max = 32, step = 1,
-						disabled = function() return not E.db.mui.datatexts.middle.enable end,
-						get = function(info) return E.db.mui.datatexts.middle[ info[#info] ] end,
-						set = function(info, value) E.db.mui.datatexts.middle[ info[#info] ] = value; MER:GetModule('mUILayout'):MiddleDatatextDimensions() end,
-					},
-				},
+				args = {},
 			},
 			panels = {
 				order = 4,
@@ -132,53 +75,7 @@ local function Datatexts()
 					},
 				},
 			},
-			gotodatatexts = {
-				order = 5,
-				type = "execute",
-				name = L["ElvUI DataTexts"],
-				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "datatexts") end,
-			},
 		},
 	}
-
-	local datatexts = {}
-	for name, data in pairs(DT.RegisteredDataTexts) do
-		datatexts[name] = data.localizedName or L[name]
-	end
-	datatexts[""] = NONE
-
-	local table = E.Options.args.mui.args.modules.args.datatexts.args.panels.args
-	local i = 0
-	for pointLoc, tab in pairs(P.mui.datatexts.panels) do
-		i = i + 1
-		if not _G[pointLoc] then table[pointLoc] = nil; return; end
-		if type(tab) == "table" then
-			table[pointLoc] = {
-				type = "group",
-				args = {},
-				name = L[pointLoc] or pointLoc,
-				guiInline = true,
-				order = i,
-			}
-			for option, value in pairs(tab) do
-				table[pointLoc].args[option] = {
-					type = "select",
-					name = L[option] or option:upper(),
-					values = datatexts,
-					get = function(info) return E.db.mui.datatexts.panels[pointLoc][ info[#info] ] end,
-					set = function(info, value) E.db.mui.datatexts.panels[pointLoc][ info[#info] ] = value; DT:LoadDataTexts() end,
-				}
-			end
-		elseif type(tab) == "string" then
-			table[pointLoc] = {
-				type = "select",
-				name = L[pointLoc] or pointLoc,
-				values = datatexts,
-				get = function(info) return E.db.mui.datatexts.panels[pointLoc] end,
-				set = function(info, value) E.db.mui.datatexts.panels[pointLoc] = value; DT:LoadDataTexts() end,
-				print(pointLoc)
-			}
-		end
-	end
 end
---tinsert(MER.Config, Datatexts)
+tinsert(MER.Config, Datatexts)

@@ -95,7 +95,8 @@ local function LoadSkin()
 	_G.ChatConfigFrame:Styling()
 
 	-- ElvUI Stuff
-	_G.MinimapPanel:Styling()
+	_G.LeftChatDataPanel:Styling()
+	_G.RightChatDataPanel:Styling()
 	_G.ElvUI_TopPanel:Styling()
 	_G.ElvUI_BottomPanel:Styling()
 

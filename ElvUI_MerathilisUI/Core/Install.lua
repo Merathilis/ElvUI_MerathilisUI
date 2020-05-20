@@ -134,7 +134,7 @@ local function SetupChat()
 	E.db["chat"]["separateSizes"] = true
 	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
-	E.db["chat"]["panelHeightRight"] = 146
+	E.db["chat"]["panelHeightRight"] = 123
 	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
@@ -145,6 +145,7 @@ local function SetupChat()
 	E.db["chat"]["customTimeColor"] = {r = 0, g = 0.75, b = 0.98}
 	E.db["chat"]["panelBackdropNameRight"] = ""
 	E.db["chat"]["socialQueueMessages"] = true
+	E.db["chat"]["hideChatToggles"] = true
 
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
 		E.db["chat"]["timeStampFormat"] = "%H:%M "
@@ -693,7 +694,6 @@ function MER:SetupLayout(layout)
 	E.db["mui"]["smb"]["size"] = 34
 	E.db["mui"]["smb"]["perRow"] = 12
 	E.db["mui"]["smb"]["spacing"] = 2
-	E.db["mui"]["datatexts"]["middle"]["width"] = 330
 
 	-- Heal Prediction
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
@@ -2641,18 +2641,34 @@ function MER:SetupDts()
 	E.db["chat"]["RightChatDataPanelAnchor"] = "ABOVE_CHAT"
 	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
 
-	E.db["datatexts"]["panels"]["MinimapPanel"][1] = "Time"
-	E.db["datatexts"]["panels"]["MinimapPanel"]["numPoints"] = 1
+	E.db["datatexts"]["panels"]["MinimapPanel"]["enable"] = false
 
-	E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "Guild"
-	E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Friends"
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = true
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["backdrop"] = true
+	E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "BfA Missions"
+	E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "Durability"
+	E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Gold"
 
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"][1] = "MUI Durability"
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"][2] = "BfA Missions"
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"][3] = "Gold"
+	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["panelTransparency"] = true
-	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["panelTransparency"] = true
+	-- Create custom DT Panels
+	E.DataTexts:BuildPanelFrame("MER BottomPanel")
+
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["enable"] = true
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["width"] = 330
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["height"] = 18
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["border"] = false
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["panelTransparency"] = true
+	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["backdrop"] = false
+
+	E.db["datatexts"]["panels"]["MER BottomPanel"] = {
+		[1] = "Guild",
+		[2] = "System",
+		[3] = "Friends",
+		["enable"] = true,
+	}
+
+	E.db["movers"]["DTPanelMER BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 
 	E:StaggeredUpdateAll(nil, true)
 

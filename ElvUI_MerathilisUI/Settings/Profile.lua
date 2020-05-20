@@ -96,20 +96,6 @@ MP.chat = {
 		minAlpha = 0.33,
 		timeout = 8,
 	},
-	linkIcons = {
-		enable = true,
-		links = {
-			achievement = true,
-			item = true,
-			player = true,
-			spell = true,
-		},
-		icons = {
-			Race = false,
-			Class = true,
-		},
-		PawnIntegration = true,
-	}
 }
 
 MP.colors = {

@@ -160,7 +160,6 @@ function module:Initialize()
 	self:StyleChat()
 	self:ChatBar()
 	self:ChatFilter()
-	self:ItemLinks()
 	self:DamageMeterFilter()
 	self:LoadChatFade()
 
