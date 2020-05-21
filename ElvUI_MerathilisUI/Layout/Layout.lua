@@ -105,6 +105,76 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
+function MERL:CreateSeparators()
+	--Left Chat Tab Separator
+	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
+	ltabseparator:SetFrameStrata('BACKGROUND')
+	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
+	ltabseparator:Size(E.db.chat.panelWidth - 10, 1)
+	ltabseparator:Point('TOP', _G.LeftChatPanel, 0, -24)
+	ltabseparator:SetTemplate('Transparent')
+
+	--Right Chat Tab Separator
+	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
+	rtabseparator:SetFrameStrata('BACKGROUND')
+	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
+	rtabseparator:Size(E.db.chat.panelWidthRight - 10, 1)
+	rtabseparator:Point('TOP', _G.RightChatPanel, 0, -24)
+	rtabseparator:SetTemplate('Transparent')
+end
+hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
+
+function MERL:ToggleChatPanels()
+	local panelHeight = E.db.chat.panelHeight
+	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
+
+	_G.LeftChatMover:Height(panelHeight)
+	_G.RightChatMover:Height((rightHeight or panelHeight))
+end
+hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
+
+function MERL:RefreshChatMovers()
+	local Left = _G.LeftChatPanel:GetPoint()
+	local Right = _G.RightChatPanel:GetPoint()
+
+	_G.LeftChatPanel:Point(Left, _G.LeftChatMover, 0, 0)
+	_G.RightChatPanel:Point(Right, _G.RightChatMover, 0, 0)
+end
+hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
+
+function MERL:RepositionChatDataPanels()
+	local SPACING = E.PixelMode and 1 or -1
+	local sideButton = E.db.chat.hideChatToggles and 0 or 19
+
+	_G.LeftChatDataPanel:ClearAllPoints()
+	_G.LeftChatDataPanel:Point('TOPRIGHT', _G.LeftChatPanel, 'BOTTOMRIGHT', 0, 23)
+	_G.LeftChatDataPanel:Point('BOTTOMLEFT', _G.LeftChatPanel, 'BOTTOMLEFT', sideButton, SPACING)
+	_G.LeftChatToggleButton:Point('TOPRIGHT', _G.LeftChatDataPanel, 'TOPLEFT', 1, 0)
+	_G.LeftChatToggleButton:Point('BOTTOMLEFT', _G.LeftChatDataPanel, 'BOTTOMLEFT', -19, 0)
+	E.DataTexts:UpdatePanelInfo("LeftChatDataPanel")
+
+	_G.RightChatDataPanel:ClearAllPoints()
+	_G.RightChatDataPanel:Point('TOPLEFT', _G.RightChatPanel, 'BOTTOMLEFT', 0, 23)
+	_G.RightChatDataPanel:Point('BOTTOMRIGHT', _G.RightChatPanel, 'BOTTOMRIGHT', -sideButton, SPACING)
+	_G.RightChatToggleButton:Point('TOPLEFT', _G.RightChatDataPanel, 'TOPRIGHT', -1, 0)
+	_G.RightChatToggleButton:Point('BOTTOMRIGHT', _G.RightChatDataPanel, 'BOTTOMRIGHT', 19, 0)
+	E.DataTexts:UpdatePanelInfo("RightChatDataPanel")
+end
+hooksecurefunc(LO, "RepositionChatDataPanels", MERL.RepositionChatDataPanels)
+
+function MERL:SetDataPanelStyle()
+	--MERL:ToggleChatSeparators()
+	E.Chat:PositionChats()
+end
+
+local f = CreateFrame('Frame')
+f:RegisterEvent('PLAYER_ENTERING_WORLD')
+f:SetScript('OnEvent', function(self)
+	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
+	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
+	LO:SetDataPanelStyle()
+end)
+
 function MERL:Initialize()
 	self:CreateChatButtons()
 	self:ShadowOverlay()

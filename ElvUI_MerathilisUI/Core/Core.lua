@@ -82,6 +82,7 @@ function MER:Initialize()
 	self:LoadCommands()
 	self:SplashScreen()
 	self:AddMoverCategories()
+	self:InitDataTexts()
 
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then

@@ -134,7 +134,7 @@ local function SetupChat()
 	E.db["chat"]["separateSizes"] = true
 	E.db["chat"]["panelWidth"] = 427
 	E.db["chat"]["panelHeight"] = 146
-	E.db["chat"]["panelHeightRight"] = 123
+	E.db["chat"]["panelHeightRight"] = 146
 	E.db["chat"]["panelWidthRight"] = 288
 	E.db["chat"]["editBoxPosition"] = "ABOVE_CHAT"
 	E.db["chat"]["panelBackdrop"] = "SHOWBOTH"
@@ -160,6 +160,10 @@ local function SetupChat()
 
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-149,47"
 	E.db["movers"]["LeftChatMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,2,47"
+
+	if E.Chat then
+		E.Chat:PositionChats()
+	end
 
 	E:StaggeredUpdateAll(nil, true)
 
@@ -2644,18 +2648,12 @@ function MER:SetupDts()
 	E.db["chat"]["LeftChatDataPanelAnchor"] = "ABOVE_CHAT"
 
 	E.db["datatexts"]["panels"]["MinimapPanel"]["enable"] = false
-
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = true
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["backdrop"] = true
-	E.db["datatexts"]["panels"]["RightChatDataPanel"]["panelTransparency"] = true
-	E.db["datatexts"]["panels"]["RightChatDataPanel"][1] = "BfA Missions"
-	E.db["datatexts"]["panels"]["RightChatDataPanel"][2] = "Durability"
-	E.db["datatexts"]["panels"]["RightChatDataPanel"][3] = "Gold"
-
+	E.db["datatexts"]["panels"]["RightChatDataPanel"]["enable"] = false
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
 	-- Create custom DT Panels
 	E.DataTexts:BuildPanelFrame("MER BottomPanel")
+	E.DataTexts:BuildPanelFrame("MER Right Chat Top")
 
 	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["enable"] = true
 	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["width"] = 330
@@ -2664,6 +2662,16 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["panelTransparency"] = true
 	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["backdrop"] = false
 
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["enable"] = true
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["border"] = false
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipYOffset"] = 4
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["numPoints"] = 3
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["backdrop"] = false
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["width"] = 288
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipXOffset"] = 3
+	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["panelTransparency"] = false
+
 	E.db["datatexts"]["panels"]["MER BottomPanel"] = {
 		[1] = "Guild",
 		[2] = "System",
@@ -2671,7 +2679,15 @@ function MER:SetupDts()
 		["enable"] = true,
 	}
 
+	E.db["datatexts"]["panels"]["MER Right Chat Top"] = {
+		[1] = "BfA Missions",
+		[2] = "Durability",
+		[3] = "Gold",
+		["enable"] = true,
+	}
+
 	E.db["movers"]["DTPanelMER BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+	E.db["movers"]["DTPanelMER Right Chat TopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
 
 	E:StaggeredUpdateAll(nil, true)
 

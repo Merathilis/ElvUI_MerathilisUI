@@ -694,19 +694,19 @@ function module:Initialize()
 
 	local AutoButtonAnchor1 = CreateFrame("Frame", "AutoButtonAnchor1", UIParent)
 	AutoButtonAnchor1:SetClampedToScreen(true)
-	AutoButtonAnchor1:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 107)
+	AutoButtonAnchor1:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
 	AutoButtonAnchor1:Size(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
 	E:CreateMover(AutoButtonAnchor1, "MER_AutoButtonAnchor1Mover", L["AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db.enable end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
-	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 66)
+	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
 	AutoButtonAnchor2:Size(module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize * module.db.slotAutoButtons.slotNum or 260, module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize or 40)
 	E:CreateMover(AutoButtonAnchor2, "MER_AutoButtonAnchor2Mover", L["AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor3 = CreateFrame("Frame", "AutoButtonAnchor3", UIParent)
 	AutoButtonAnchor3:SetClampedToScreen(true)
-	AutoButtonAnchor3:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 25)
+	AutoButtonAnchor3:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
 	AutoButtonAnchor3:Size(module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize * module.db.usableAutoButtons.usableNum or 260, module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize or 40)
 	E:CreateMover(AutoButtonAnchor3, "MER_AutoButtonAnchor3Mover", L["AutoButton Usables"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
