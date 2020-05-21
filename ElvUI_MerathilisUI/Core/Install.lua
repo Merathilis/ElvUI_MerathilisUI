@@ -245,7 +245,9 @@ function MER:SetupLayout(layout)
 	E.db["general"]["backdropfadecolor"]["r"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["g"] = 0.0549
 	E.db["general"]["backdropfadecolor"]["b"] = 0.0549
-	E.db["general"]["threat"]["enable"] = false
+	E.db["general"]["threat"]["enable"] = true
+	E.db["general"]["threat"]["textSize"] = 12
+	E.db["general"]["threat"]["textOutline"] = "OUTLINE"
 	E.db["general"]["numberPrefixStyle"] = "ENGLISH"
 	E.db["general"]["talkingHeadFrameScale"] = 0.7
 	E.db["general"]["talkingHeadFrameBackdrop"] = true
