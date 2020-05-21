@@ -82,7 +82,7 @@ function MERL:CreateChatButtons()
 	ChatButton:RegisterEvent("ADDON_LOADED")
 	ChatButton:SetScript("OnEvent", function(self, event, addon)
 		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
-			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChat(true); end
+			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChats(); end
 			self:UnregisterEvent(event)
 		end
 	end)
