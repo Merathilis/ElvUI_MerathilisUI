@@ -145,7 +145,13 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {}
+MP.datatexts = {
+	threatBar = {
+		enable = true,
+		textSize = 10,
+		textOutline = "OUTLINE",
+	},
+}
 
 MP.actionbars = {
 	customGlow = true,
