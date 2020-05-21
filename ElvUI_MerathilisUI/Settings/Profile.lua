@@ -145,35 +145,7 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {
-	panels = {
-		ChatTab_Datatext_Panel = {
-			left = "Durability",
-			middle = "Bags",
-			right = "Coords",
-		},
-		mUIMiddleDTPanel = {
-			left = "Guild",
-			middle = "MUI System",
-			right = "Friends",
-		},
-	},
-	middle = {
-		enable = true,
-		transparent = true,
-		backdrop = false,
-		width = 495,
-		height = 18,
-	},
-	rightChatTabDatatextPanel = {
-		enable = true,
-	},
-	threatBar = {
-		enable = true,
-		textSize = 10,
-		textOutline = "OUTLINE",
-	},
-}
+MP.datatexts = {}
 
 MP.actionbars = {
 	customGlow = true,

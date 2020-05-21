@@ -212,11 +212,6 @@ L["Enable Guild Events"] = true
 L["No Sounds"] = true
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = true
-L["Middle Datatext Panel"] = true
-L["Right Click"] = true
-L["Dura."] = true
-
 -- DataBars
 L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true

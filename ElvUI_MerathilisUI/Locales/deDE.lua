@@ -208,11 +208,6 @@ L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Sounds"
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
-L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
-L["Right Click"] = "Rechtsklick"
-L["Dura."] = "Haltb."
-
 -- DataBars
 L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
