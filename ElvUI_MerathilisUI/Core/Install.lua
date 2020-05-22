@@ -2652,42 +2652,42 @@ function MER:SetupDts()
 	E.db["datatexts"]["panels"]["LeftChatDataPanel"]["enable"] = false
 
 	-- Create custom DT Panels
-	E.DataTexts:BuildPanelFrame("MER BottomPanel")
-	E.DataTexts:BuildPanelFrame("MER Right Chat Top")
+	E.DataTexts:BuildPanelFrame("MER_BottomPanel")
+	E.DataTexts:BuildPanelFrame("MER_RightChatTop")
 
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["enable"] = true
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["width"] = 330
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["height"] = 18
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["border"] = false
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["panelTransparency"] = true
-	E.global["datatexts"]["customPanels"]["MER BottomPanel"]["backdrop"] = false
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["enable"] = true
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["width"] = 330
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["height"] = 18
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["border"] = false
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["panelTransparency"] = true
+	E.global["datatexts"]["customPanels"]["MER_BottomPanel"]["backdrop"] = false
 
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["enable"] = true
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["border"] = false
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipYOffset"] = 4
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["numPoints"] = 3
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["backdrop"] = false
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["width"] = 288
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["tooltipXOffset"] = 3
-	E.global["datatexts"]["customPanels"]["MER Right Chat Top"]["panelTransparency"] = false
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["enable"] = true
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["border"] = false
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipYOffset"] = 4
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 3
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipAnchor"] = "ANCHOR_TOPLEFT"
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["backdrop"] = false
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipXOffset"] = 3
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
 
-	E.db["datatexts"]["panels"]["MER BottomPanel"] = {
+	E.db["datatexts"]["panels"]["MER_BottomPanel"] = {
 		[1] = "Guild",
 		[2] = "System",
 		[3] = "Friends",
 		["enable"] = true,
 	}
 
-	E.db["datatexts"]["panels"]["MER Right Chat Top"] = {
+	E.db["datatexts"]["panels"]["MER_RightChatTop"] = {
 		[1] = "BfA Missions",
 		[2] = "Durability",
 		[3] = "Gold",
 		["enable"] = true,
 	}
 
-	E.db["movers"]["DTPanelMER BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
-	E.db["movers"]["DTPanelMER Right Chat TopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
+	E.db["movers"]["DTPanelMER_BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
+	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
 
 	E:StaggeredUpdateAll(nil, true)
 
