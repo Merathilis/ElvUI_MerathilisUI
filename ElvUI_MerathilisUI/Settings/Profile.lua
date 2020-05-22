@@ -96,6 +96,7 @@ MP.chat = {
 		minAlpha = 0.33,
 		timeout = 8,
 	},
+	seperators = true,
 }
 
 MP.colors = {

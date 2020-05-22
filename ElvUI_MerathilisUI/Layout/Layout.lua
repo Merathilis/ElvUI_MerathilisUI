@@ -106,6 +106,8 @@ function MERL:ShadowOverlay()
 end
 
 function MERL:CreateSeparators()
+	if E.db.mui.chat.seperators ~= true then return end
+
 	--Left Chat Tab Separator
 	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
 	ltabseparator:SetFrameStrata('BACKGROUND')

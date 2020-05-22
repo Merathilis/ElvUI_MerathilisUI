@@ -48,6 +48,11 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Emotes"],
 			},
+			seperators = {
+				order = 7,
+				type = "toggle",
+				name = L["Seperators"],
+			},
 			chatFade = {
 				order = 10,
 				type = "group",
