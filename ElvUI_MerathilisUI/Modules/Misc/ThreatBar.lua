@@ -1,151 +1,24 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("ThreatBar", "AceEvent-3.0")
-module.modName = L["ThreatBar"]
+local module = MER:NewModule("ThreatBar")
 
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, select = pairs, select
-local twipe = table.wipe
 -- WoW API / Variables
-local CreateFrame = CreateFrame
-local UnitReaction = UnitReaction
-local UnitClass = UnitClass
-local UnitIsPlayer = UnitIsPlayer
-local IsInGroup, IsInRaid = IsInGroup, IsInRaid
-local UnitExists = UnitExists
-local UnitName = UnitName
-local UnitIsUnit = UnitIsUnit
-local UnitDetailedThreatSituation = UnitDetailedThreatSituation
-local GetThreatStatusColor = GetThreatStatusColor
-local UNKNOWN = UNKNOWN
--- GLOBALS: ElvUF, UIParent
+-- GLOBALS:
 
-E.Threat = module
-module.list = {}
-
+-- Reposition the DataText ThreatBar
 function module:UpdatePosition()
-	self.bar:SetParent(_G["MER_RightChatTopDT"])
-	self.bar:SetInside(_G["MER_RightChatTopDT"])
+	if E.db.general.threat then
+		_G.ElvUI_ThreatBar:SetParent(_G["MER_RightChatTopDT"])
+		_G.ElvUI_ThreatBar:SetInside(_G["MER_RightChatTopDT"])
 
-	self.bar.text:FontTemplate(nil, self.db.textSize)
-	self.bar:SetFrameStrata("HIGH")
-end
-
-function module:GetLargestThreatOnList(percent)
-	local largestValue, largestUnit = 0, nil
-	for unit, threatPercent in pairs(self.list) do
-		if threatPercent > largestValue then
-			largestValue = threatPercent
-			largestUnit = unit
-		end
-	end
-
-	return (percent - largestValue), largestUnit
-end
-
-function module:GetColor(unit)
-	local unitReaction = UnitReaction(unit, "player")
-	local _, unitClass = UnitClass(unit)
-	if (UnitIsPlayer(unit)) then
-		local class = E:ClassColor(unitClass)
-		if not class then return 194, 194, 194 end
-		return class.r*255, class.g*255, class.b*255
-	elseif (unitReaction) then
-		local reaction = ElvUF["colors"].reaction[unitReaction]
-		return reaction[1]*255, reaction[2]*255, reaction[3]*255
-	else
-		return 194, 194, 194
-	end
-end
-
-function module:Update()
-	local isInGroup, isInRaid, petExists = IsInGroup(), IsInRaid(), UnitExists("pet")
-	local _, status, percent = UnitDetailedThreatSituation("player", "target")
-	if percent and percent > 0 and (isInGroup or petExists) then
-		local name = UnitName("target")
-		self.bar:Show()
-		if percent == 100 then
-			--Build threat list
-			if petExists then
-				self.list["pet"] = select(3, UnitDetailedThreatSituation("pet", "target"))
-			end
-
-			if isInRaid then
-				for i = 1, 40 do
-					if UnitExists("raid"..i) and not UnitIsUnit("raid"..i, "player") then
-						self.list["raid"..i] = select(3, UnitDetailedThreatSituation("raid"..i, "target"))
-					end
-				end
-			else
-				for i = 1, 4 do
-					if UnitExists("party"..i) then
-						self.list["party"..i] = select(3, UnitDetailedThreatSituation("party"..i, "target"))
-					end
-				end
-			end
-
-			local leadPercent, largestUnit = self:GetLargestThreatOnList(percent)
-			if leadPercent > 0 and largestUnit ~= nil then
-				local r, g, b = self:GetColor(largestUnit)
-				self.bar.text:SetFormattedText(L["ABOVE_THREAT_FORMAT"], name, percent, leadPercent, r, g, b, UnitName(largestUnit) or UNKNOWN)
-
-				if E.role == "Tank" then
-					self.bar:SetStatusBarColor(0, 0.839, 0)
-					self.bar:SetValue(leadPercent)
-				else
-					self.bar:SetStatusBarColor(GetThreatStatusColor(status))
-					self.bar:SetValue(percent)
-				end
-			else
-				self.bar:SetStatusBarColor(GetThreatStatusColor(status))
-				self.bar.text:SetFormattedText("%s: %.0f%%", name, percent)
-				self.bar:SetValue(percent)
-			end
-		else
-			self.bar:SetStatusBarColor(GetThreatStatusColor(status))
-			self.bar.text:SetFormattedText("%s: %.0f%%", name, percent)
-			self.bar:SetValue(percent)
-		end
-	else
-		self.bar:Hide()
-	end
-
-	twipe(self.list)
-end
-
-function module:ToggleEnable()
-	if self.db.enable then
-		self:RegisterEvent("PLAYER_TARGET_CHANGED", "Update")
-		self:RegisterEvent("UNIT_THREAT_LIST_UPDATE", "Update")
-		self:RegisterEvent("GROUP_ROSTER_UPDATE", "Update")
-		self:RegisterEvent("UNIT_PET", "Update")
-		self:Update()
-	else
-		self.bar:Hide()
-		self:UnregisterEvent("PLAYER_TARGET_CHANGED")
-		self:UnregisterEvent("UNIT_THREAT_LIST_UPDATE")
-		self:UnregisterEvent("GROUP_ROSTER_UPDATE")
-		self:UnregisterEvent("UNIT_PET")
+		_G.ElvUI_ThreatBar:SetFrameStrata('HIGH')
 	end
 end
 
 function module:Initialize()
-	local db = E.db.mui.datatexts.threatBar
-	MER:RegisterDB(self, "datatexts")
-
-	self.bar = CreateFrame("StatusBar", "MER_ThreatBar", E.UIParent)
-	self.bar:SetStatusBarTexture(E["media"].normTex)
-	self.bar:SetMinMaxValues(0, 100)
-	self.bar:CreateBackdrop("Default")
-	E:RegisterStatusBar(self.bar)
-
-	self.bar.text = MER:CreateText(self.bar, "OVERLAY", self.db.textSize, self.db.textOutline)
-	self.bar.text:SetWordWrap(true)
-	self.bar.text:Point("CENTER", self.bar, "CENTER")
-
-	self:UpdatePosition()
-	self:ToggleEnable()
+	module:UpdatePosition()
 end
 
 MER:RegisterModule(module:GetName())

@@ -142,28 +142,7 @@ function MERL:RefreshChatMovers()
 end
 hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
 
-function MERL:RepositionChatDataPanels()
-	local SPACING = E.PixelMode and 1 or -1
-	local sideButton = E.db.chat.hideChatToggles and 0 or 19
-
-	_G.LeftChatDataPanel:ClearAllPoints()
-	_G.LeftChatDataPanel:Point('TOPRIGHT', _G.LeftChatPanel, 'BOTTOMRIGHT', 0, 23)
-	_G.LeftChatDataPanel:Point('BOTTOMLEFT', _G.LeftChatPanel, 'BOTTOMLEFT', sideButton, SPACING)
-	_G.LeftChatToggleButton:Point('TOPRIGHT', _G.LeftChatDataPanel, 'TOPLEFT', 1, 0)
-	_G.LeftChatToggleButton:Point('BOTTOMLEFT', _G.LeftChatDataPanel, 'BOTTOMLEFT', -19, 0)
-	E.DataTexts:UpdatePanelInfo("LeftChatDataPanel")
-
-	_G.RightChatDataPanel:ClearAllPoints()
-	_G.RightChatDataPanel:Point('TOPLEFT', _G.RightChatPanel, 'BOTTOMLEFT', 0, 23)
-	_G.RightChatDataPanel:Point('BOTTOMRIGHT', _G.RightChatPanel, 'BOTTOMRIGHT', -sideButton, SPACING)
-	_G.RightChatToggleButton:Point('TOPLEFT', _G.RightChatDataPanel, 'TOPRIGHT', -1, 0)
-	_G.RightChatToggleButton:Point('BOTTOMRIGHT', _G.RightChatDataPanel, 'BOTTOMRIGHT', 19, 0)
-	E.DataTexts:UpdatePanelInfo("RightChatDataPanel")
-end
-hooksecurefunc(LO, "RepositionChatDataPanels", MERL.RepositionChatDataPanels)
-
 function MERL:SetDataPanelStyle()
-	--MERL:ToggleChatSeparators()
 	E.Chat:PositionChats()
 end
 
