@@ -491,7 +491,7 @@ end
 
 --[[ HOOK TO THE UIWIDGET TYPES ]]
 function MERS:ReskinSkinTextWithStateWidget(widgetFrame)
-	local text = widgetFrame.Text;
+	local text = widgetFrame.Text
 	if text then
 		text:SetTextColor(1, 1, 1)
 	end

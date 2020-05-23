@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('mUICorruption', 'AceHook-3.0')
+local module = MER:NewModule('MER_Corruption', 'AceHook-3.0')
 local I, F
 
 -- Cache global variables
