@@ -112,16 +112,18 @@ function MERL:CreateSeparators()
 	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
 	ltabseparator:SetFrameStrata('BACKGROUND')
 	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
-	ltabseparator:Size(E.db.chat.panelWidth - 10, 1)
-	ltabseparator:Point('TOP', _G.LeftChatPanel, 0, -24)
+	ltabseparator:Height(1)
+	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
+	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
 	ltabseparator:SetTemplate('Transparent')
 
 	--Right Chat Tab Separator
 	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
 	rtabseparator:SetFrameStrata('BACKGROUND')
 	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
-	rtabseparator:Size(E.db.chat.panelWidthRight - 10, 1)
-	rtabseparator:Point('TOP', _G.RightChatPanel, 0, -24)
+	rtabseparator:Height(1)
+	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
+	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
 	rtabseparator:SetTemplate('Transparent')
 end
 hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
@@ -148,17 +150,12 @@ function MERL:SetDataPanelStyle()
 	E.Chat:PositionChats()
 end
 
-local f = CreateFrame('Frame')
-f:RegisterEvent('PLAYER_ENTERING_WORLD')
-f:SetScript('OnEvent', function(self)
-	self:UnregisterEvent('PLAYER_ENTERING_WORLD')
-	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
-	LO:SetDataPanelStyle()
-end)
-
 function MERL:Initialize()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
+
+	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
+	LO:SetDataPanelStyle()
 end
 
 MER:RegisterModule(MERL:GetName())
