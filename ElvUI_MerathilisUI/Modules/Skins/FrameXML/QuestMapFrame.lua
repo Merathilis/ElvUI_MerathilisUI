@@ -52,7 +52,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemover.enable then return end
+	if E.private.skins.parchmentRemoverEnable then return end
 
 	local QuestMapFrame = _G.QuestMapFrame
 
@@ -160,7 +160,7 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		self:SetTemplate("Transparent")
-		if not E.private.skins.parchmentRemover.enable then
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
 		end
 	end)
