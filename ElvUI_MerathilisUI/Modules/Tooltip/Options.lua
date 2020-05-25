@@ -187,7 +187,7 @@ local function Tooltip()
 					credits = {
 						order = 0,
 						type = "description",
-						name = L["Credits: CorruptionTooltips | Anayanka (Defias Brotherhood - EU)"],
+						name = L["Credits: siweia | NdUI"],
 					},
 					spacer = {
 						order = 1,
@@ -200,34 +200,6 @@ local function Tooltip()
 						name = L["Enable"],
 						width = "full",
 						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					append = {
-						order = 2,
-						type = "toggle",
-						name = L["Append to corruption stat"],
-						desc = L["Use the new style tooltip."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					icon = {
-						order = 3,
-						type = "toggle",
-						name = L["Show icon"],
-						desc = L["Show the spell icon along with the name."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					summary = {
-						order = 4,
-						type = "toggle",
-						name = L["Show summary on the corruption tooltip"],
-						desc = L["List your corruptions in the eye tooltip in the character screen."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					english = {
-						order = 5,
-						type = "toggle",
-						name = L["Display in English"],
-						desc = L["Don't translate the corruption effect names."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
 					},
 				},
 			},

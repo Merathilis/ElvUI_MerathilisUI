@@ -522,10 +522,6 @@ MP.tooltip = {
 	},
 	corruption = {
 		enable = true,
-		append = true,
-		icon = true,
-		summary = true,
-		english = false,
 	},
 }
 
