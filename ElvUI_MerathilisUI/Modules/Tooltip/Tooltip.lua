@@ -189,6 +189,7 @@ function module:Initialize()
 	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
 	self:AzeriteArmor()
+	TT:CorruptionRank()
 end
 
 MER:RegisterModule(module:GetName())
