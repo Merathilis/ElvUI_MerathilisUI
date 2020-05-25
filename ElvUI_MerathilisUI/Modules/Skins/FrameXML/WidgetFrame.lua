@@ -71,12 +71,6 @@ local function LoadSkin()
 		widgetInfo.LeftBar:SetVertexColor(.2, .6, 1)
 		widgetInfo.NeutralBar:SetVertexColor(.8, .8, .8)
 		widgetInfo.RightBar:SetVertexColor(.9, .2, .2)
-
-		if not widgetInfo.bg then
-			widgetInfo.bg = MERS:CreateBD(widgetInfo)
-			widgetInfo.bg:Point("TOPLEFT", widgetInfo.LeftBar, -2, 2)
-			widgetInfo.bg:Point("BOTTOMRIGHT", widgetInfo.RightBar, 2, -2)
-		end
 	end)
 
 	hooksecurefunc(_G.UIWidgetTemplateStatusBarMixin, "Setup", function(widgetInfo)
