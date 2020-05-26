@@ -2680,7 +2680,7 @@ function MER:SetupDts()
 	}
 
 	E.db["datatexts"]["panels"]["MER_RightChatTop"] = {
-		[1] = "BfA Missions",
+		[1] = "Missions",
 		[2] = "Durability",
 		[3] = "Gold",
 		["enable"] = true,
