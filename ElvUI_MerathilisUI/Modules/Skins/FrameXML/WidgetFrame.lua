@@ -30,15 +30,15 @@ local function LoadSkin()
 		end
 	end
 
-	local Type_DoubleStatusBar = _G.Enum.UIWidgetVisualizationType.DoubleStatusBar
-	local Type_SpellDisplay = _G.Enum.UIWidgetVisualizationType.SpellDisplay
+	local DoubleStatusBar = _G.Enum.UIWidgetVisualizationType.DoubleStatusBar
+	local SpellDisplay = _G.Enum.UIWidgetVisualizationType.SpellDisplay
 
 	local frame = CreateFrame("Frame")
 	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	frame:RegisterEvent("UPDATE_ALL_UI_WIDGETS")
 	frame:SetScript("OnEvent", function()
 		for _, widgetFrame in pairs(_G.UIWidgetTopCenterContainerFrame.widgetFrames) do
-			if widgetFrame.widgetType == Type_DoubleStatusBar then
+			if widgetFrame.widgetType == DoubleStatusBar then
 				if not widgetFrame.styled then
 					for _, bar in pairs({widgetFrame.LeftBar, widgetFrame.RightBar}) do
 						bar.BG:SetAlpha(0)
@@ -54,7 +54,7 @@ local function LoadSkin()
 
 					widgetFrame.styled = true
 				end
-			elseif widgetFrame.widgetType == Type_SpellDisplay then
+			elseif widgetFrame.widgetType == SpellDisplay then
 				if not widgetFrame.styled then
 					local widgetSpell = widgetFrame.Spell
 					widgetSpell.IconMask:Hide()
