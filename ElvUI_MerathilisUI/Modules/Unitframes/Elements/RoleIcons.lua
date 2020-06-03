@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule("muiUnits")
-local UF = E.UnitFrames
+local UF = E:GetModule('UnitFrames')
 local COMP = MER:GetModule("mUICompatibility")
 
 --Cache global variables
@@ -11,6 +11,7 @@ local random = math.random
 local CreateFrame = CreateFrame
 local GetBattlefieldScore = GetBattlefieldScore
 local GetClassInfo = GetClassInfo
+local GetInstanceInfo = GetInstanceInfo
 local GetNumClasses = GetNumClasses
 local GetNumBattlefieldScores = GetNumBattlefieldScores
 local GetNumSpecializationsForClassID = GetNumSpecializationsForClassID
@@ -51,19 +52,20 @@ end
 function module:UpdateRoleIcon()
 	local lfdrole = self.GroupRoleIndicator
 	if not self.db then return; end
-	local db = self.db.roleIcon;
-	if(not db) or (db and not db.enable) then
+	local db = self.db.roleIcon
+
+	if (not db) or (db and not db.enable) then
 		lfdrole:Hide()
 		return
 	end
 
-	local isInstance, instanceType = IsInInstance()
 	local role
+	local isInstance, instanceType = GetInstanceInfo()
 	if isInstance and instanceType == "pvp" then
 		local name = GetUnitName(self.unit, true)
 		local index = GetBattleFieldIndexFromUnitName(name)
 		if index then
-		local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(index)
+			local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(index)
 			if classToken and talentSpec then
 				role = specNameToRole[classToken][talentSpec]
 			else
@@ -75,10 +77,11 @@ function module:UpdateRoleIcon()
 	else
 		role = UnitGroupRolesAssigned(self.unit)
 		if self.isForced and role == 'NONE' then
-		local rnd = random(1, 3)
+			local rnd = random(1, 3)
 			role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
 		end
 	end
+
 	if (self.isForced or UnitIsConnected(self.unit)) and ((role == "DAMAGER" and db.damager) or (role == "HEALER" and db.healer) or (role == "TANK" and db.tank)) then
 		lfdrole:SetTexture(rolePaths[role])
 		lfdrole:Show()
@@ -87,30 +90,23 @@ function module:UpdateRoleIcon()
 	end
 end
 
-local function SetRoleIcons()
+function module:SetRoleIcons()
 	for _, header in pairs(UF.headers) do
 		local name = header.groupName
+		local db = UF.db["units"][name]
 
 		for i = 1, header:GetNumChildren() do
 			local group = select(i, header:GetChildren())
 			for j = 1, group:GetNumChildren() do
 				local unitbutton = select(j, group:GetChildren())
-				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override then
+				if unitbutton.GroupRoleIndicator and unitbutton.GroupRoleIndicator.Override and not unitbutton.GroupRoleIndicator.MERRoleSetup then
 					unitbutton.GroupRoleIndicator.Override = module.UpdateRoleIcon
 					unitbutton:UnregisterEvent("UNIT_CONNECTION")
 					unitbutton:RegisterEvent("UNIT_CONNECTION", module.UpdateRoleIcon)
+					unitbutton.GroupRoleIndicator.MERRoleSetup = true
 				end
 			end
 		end
 	end
 	UF:UpdateAllHeaders()
 end
-
-local f = CreateFrame("Frame")
-f:RegisterEvent("PLAYER_ENTERING_WORLD")
-f:SetScript("OnEvent", function(self, event)
-	self:UnregisterEvent(event)
-
-	if COMP.SLE or E.db.mui.unitframes.roleIcons ~= true then return end
-	SetRoleIcons()
-end)

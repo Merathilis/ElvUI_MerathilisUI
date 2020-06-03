@@ -5,6 +5,7 @@ local UF = E:GetModule("UnitFrames")
 --Cache global variables
 --Lua functions
 --WoW API / Variables
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
@@ -69,6 +70,18 @@ function module:Initialize()
 
 	-- Health Prediction
 	self:HealPrediction()
+
+	-- Role Icons
+	local f = CreateFrame("Frame")
+	f:RegisterEvent("PLAYER_ENTERING_WORLD")
+	f:SetScript("OnEvent", function(self, event)
+		self:UnregisterEvent(event)
+		module:SetRoleIcons()
+	end)
+
+	function module:ForUpdateAll()
+		module:SetRoleIcons()
+	end
 
 	self:RegisterEvent("ADDON_LOADED")
 end
