@@ -113,6 +113,8 @@ function module:PostUpdateAura(unit, button)
 			button.cc_name:SetText("")
 		end
 	end
+
+	UF:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
