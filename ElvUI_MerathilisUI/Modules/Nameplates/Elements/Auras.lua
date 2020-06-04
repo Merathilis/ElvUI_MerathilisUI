@@ -99,15 +99,6 @@ function module:PostUpdateAura(unit, button)
 
 		button.size = {["width"] = width, ["height"] = height}
 
-		-- Stacks
-		local stackSize = 7
-
-		if spell and spell["stackSize"] then
-			stackSize = spell["stackSize"]
-		end
-
-		button.count:FontTemplate(nil, stackSize, "OUTLINE")
-
 		-- CC Caster Names
 		if spell and spell ~= "" and button.caster then
 			local name = UnitName(button.caster)
@@ -122,8 +113,6 @@ function module:PostUpdateAura(unit, button)
 			button.cc_name:SetText("")
 		end
 	end
-
-	UF:PostUpdateAura(unit, button)
 end
 
 function module:Construct_Auras(nameplate)
@@ -135,6 +124,8 @@ function module:Construct_Auras(nameplate)
 end
 
 function module:Construct_AuraIcon(button)
+	if not button then return end
+
 	-- Creates an own font element for caster name
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString(nil, "OVERLAY")
@@ -146,6 +137,9 @@ function module:Construct_AuraIcon(button)
 	if not button.shadow then
 		button:CreateShadow()
 	end
+
+	local auras = button:GetParent()
+	button.db = auras and NP.db.units and NP.db.units[auras.__owner.frameType] and NP.db.units[auras.__owner.frameType][auras.type]
 end
 
 function module.SetPosition(element, _, to)
