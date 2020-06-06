@@ -87,6 +87,14 @@ ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 	end
 end
 
+-- Max Health shorted
+ElvUF.Tags.Events["health:max-mUI"] = 'UNIT_MAXHEALTH'
+ElvUF.Tags.Methods["health:max-mUI"] = function(unit)
+	local maxH = UnitHealthMax(unit)
+
+	return shortenNumber(maxH)
+end
+
 ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH'
 ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
 	local name = UnitName(unit)
