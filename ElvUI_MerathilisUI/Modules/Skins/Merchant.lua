@@ -69,6 +69,11 @@ local function SkinVendorItems(i)
 	ic:SetInside()
 	IconBorder:SetAlpha(0)
 
+		-- Hide ElvUI's backdrop
+		if button.backdrop then
+			button.backdrop:Hide()
+		end
+
 	hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
 		self:GetParent():SetBackdropBorderColor(r, g, b)
 		self:SetTexture("")
@@ -361,6 +366,15 @@ local function RebuildMerchantFrame()
 			SkinVendorItems(i)
 		end
 	end
+
+	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
+		local button = _G["MerchantItem"..i]
+		-- Hide ElvUI's backdrop
+		if button.backdrop then
+			button.backdrop:SetTemplate("Transparent")
+		end
+	end
+
 	 -- alter the position of the buyback item slot on the merchant tab
 	_G["MerchantBuyBackItem"]:ClearAllPoints()
 	_G["MerchantBuyBackItem"]:SetPoint("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
