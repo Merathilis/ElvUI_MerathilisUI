@@ -87,11 +87,6 @@ function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 end
 
-function MER:MismatchText()
-	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
-	return text
-end
-
 function MER:Print(...)
 	print("|cffff7d0a".."mUI:|r", ...)
 end
