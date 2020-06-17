@@ -23,20 +23,15 @@ local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
-local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsTapDenied = UnitIsTapDenied
-local UnitReaction = UnitReaction
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
