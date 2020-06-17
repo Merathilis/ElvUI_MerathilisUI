@@ -16,6 +16,7 @@ local function AddOptions()
 	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
+	local ACH = E.Libs.ACH
 
 	local function CreateButton(number, text, ...)
 		local path = {}
@@ -44,7 +45,7 @@ local function AddOptions()
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = E.Libs.ACH:Header(MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
+			name = ACH:Header(MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
 			logo = {
 				order = 2,
 				type = "description",
@@ -80,7 +81,7 @@ local function AddOptions()
 				type = "group",
 				name = L["General"],
 				args = {
-					generalHeader = E.Libs.ACH:Header(MER:cOption(L["General"]), 1),
+					generalHeader = ACH:Header(MER:cOption(L["General"]), 1),
 					LoginMsg = {
 						order = 2,
 						type = "toggle",
@@ -133,7 +134,7 @@ local function AddOptions()
 				type = "group",
 				name = L["Information"],
 				args = {
-					name = E.Libs.ACH:Header(L["Information"], 1),
+					name = ACH:Header(L["Information"], 1),
 					support = {
 						order = 2,
 						type = "group",
