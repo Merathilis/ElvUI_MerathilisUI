@@ -7,16 +7,14 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function UnitFramesTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.unitframes = {
 		type = "group",
 		name = L["UnitFrames"],
 		disabled = function() return not E.private.unitframe.enable end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["UnitFrames"]),
-			},
+			name = ACH:Header(MER:cOption(L["UnitFrames"]), 1),
 			general = {
 				order = 2,
 				type = "group",

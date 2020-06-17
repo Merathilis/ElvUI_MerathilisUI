@@ -9,36 +9,25 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function PvPTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.pvp = {
 		type = "group",
 		name = L["PVP"],
 		get = function(info) return E.db.mui.pvp.duels[ info[#info] ] end,
 		set = function(info, value) E.db.mui.pvp.duels[ info[#info] ] = value; end,
 		args = {
-			header = {
-				order = 0,
-				type = "header",
-				name = MER:cOption(L["PVP"]),
-			},
+			header = ACH:Header(MER:cOption(L["PVP"]), 0),
 			credits = {
 				order = 1,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = "description",
-						fontSize = "medium",
-						name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
-					},
+					tukui = ACH:Header(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
 				},
 			},
-			spacer = {
-				order = 2,
-				type = "description",
-				name = "",
-			},
+			spacer = ACH:Spacer(2),
 			duels = {
 				order = 3,
 				type = "group",

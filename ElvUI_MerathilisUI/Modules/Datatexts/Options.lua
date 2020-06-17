@@ -13,15 +13,13 @@ local NONE = NONE
 -- GLOBALS: LibStub
 
 local function Datatexts()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.datatexts = {
 		type = "group",
 		name = L["DataTexts"],
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["DataTexts"]),
-			},
+			name = ACH:Header(MER:cOption(L["DataTexts"]), 1),
 			--general = {
 				--order = 2,
 				--type = "group",

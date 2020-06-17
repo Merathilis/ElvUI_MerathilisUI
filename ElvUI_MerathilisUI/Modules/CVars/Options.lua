@@ -8,15 +8,13 @@ local SetCVar = SetCVar
 -- GLOBALS:
 
 local function CVars()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.cvars = {
 		type = "group",
 		name = L["CVars"],
 		args = {
-			header = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["CVars"]),
-			},
+			header = ACH:Header(MER:cOption(L["CVars"]), 1),
 			general = {
 				order = 2,
 				type = "group",

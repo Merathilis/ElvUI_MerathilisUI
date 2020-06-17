@@ -10,16 +10,14 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 -- GLOBALS:
 
 local function RaidBuffs()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.raidBuffs = {
 		type = "group",
 		name = L["Raid Buff Reminder"],
 		get = function(info) return E.db.mui.raidBuffs[ info[#info] ] end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Raid Buff Reminder"]),
-			},
+			name = ACH:Header(MER:cOption(L["Raid Buff Reminder"]), 1),
 			rbreminder = {
 				order = 2,
 				type = "group",

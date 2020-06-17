@@ -180,12 +180,7 @@ local function AddOptions()
 						name = MER:cOption(L["Coding"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"),
-							},
+							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"), 1),
 						},
 					},
 					testing = {
@@ -194,12 +189,7 @@ local function AddOptions()
 						name = MER:cOption(L["Testing & Inspiration"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"),
-							},
+							tukui = ACH:Description(format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
 						},
 					},
 					version = {
@@ -208,12 +198,7 @@ local function AddOptions()
 						name = MER:cOption(L["Version"]),
 						guiInline = true,
 						args = {
-							version = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = MER.Title..MER.Version,
-							},
+							version = ACH:Description(MER.Title..MER.Version, 1),
 						},
 					},
 				},
@@ -224,12 +209,7 @@ local function AddOptions()
 				childGroups = "select",
 				name = L["Modules"],
 				args = {
-					info = {
-						type = "description",
-						order = 1,
-						name = L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."],
-						fontSize = "medium",
-					},
+					info = ACH:Description(L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."]),
 				},
 			},
 			tools = {

@@ -12,6 +12,8 @@ local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
 -- GLOBALS:
 
 local function Minimap()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
 		name = E.NewSign..L["MiniMap"],
@@ -19,11 +21,7 @@ local function Minimap()
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["MiniMap"]),
-				order = 1,
-			},
+			header = ACH:Header(MER:cOption(L["MiniMap"]), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -41,7 +39,6 @@ local function Minimap()
 						type = "toggle",
 						name = L["Instance Difficulty"],
 					},
-
 				},
 			},
 			textures = {
@@ -58,7 +55,6 @@ local function Minimap()
 						name = L["Enable"],
 						desc = L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"],
 					},
-
 				},
 			},
 			ping = {
@@ -155,12 +151,7 @@ local function Minimap()
 						name = L["Credits"],
 						guiInline = true,
 						args = {
-							credit = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
-							},
+							credit = ACH:Description(format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"), 1),
 						},
 					},
 					minimapButtons = {

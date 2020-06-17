@@ -8,17 +8,15 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function BagTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.bags = {
 		type = "group",
 		name = L["Bags"],
 		get = function(info) return E.db.mui.bags[ info[#info] ] end,
 		set = function(info, value) E.db.mui.bags[ info[#info] ] = value; E:StaticPopup_Show('PRIVATE_RL') end,
 		args = {
-			header = {
-				order = 0,
-				type = "header",
-				name = MER:cOption(L["Bags"]),
-			},
+			header = ACH:Header(MER:cOption(L["Bags"]), 1),
 			equipManager = {
 				order = 2,
 				type = "group",

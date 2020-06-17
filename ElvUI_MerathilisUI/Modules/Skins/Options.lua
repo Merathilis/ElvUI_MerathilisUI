@@ -40,17 +40,15 @@ local SupportedProfiles = {
 local profileString = format('|cfffff400%s |r', L["MerathilisUI successfully created and applied profile(s) for:"])
 
 local function SkinsTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.skins = {
 		order = 30,
 		type = "group",
 		name = L["Skins/AddOns"],
 		childGroups = "tab",
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Skins/AddOns"]),
-			},
+			name = ACH:Header(MER:cOption(L["Skins/AddOns"]), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -86,12 +84,7 @@ local function SkinsTable()
 						name = MER:cOption(L["Credits"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
-							},
+							tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
 						},
 					},
 					enable = {
@@ -119,16 +112,8 @@ local function SkinsTable()
 		get = function(info) return E.private.muiSkins.addonSkins[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.addonSkins[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
-			info = {
-				order = 1,
-				type = "description",
-				name = L["MER_ADDONSKINS_DESC"],
-			},
-			space1 = {
-				order = 2,
-				type = "description",
-				name = "",
-			},
+			info = ACH:Description(L["MER_ADDONSKINS_DESC"], 1),
+			space = ACH:Spacer(2),
 		},
 	}
 
@@ -152,27 +137,15 @@ local function SkinsTable()
 		get = function(info) return E.private.muiSkins.blizzard[ info[#info] ] end,
 		set = function(info, value) E.private.muiSkins.blizzard[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {
-			info = {
-				order = 1,
-				type = "description",
-				name = L["MER_SKINS_DESC"],
-			},
-			space1 = {
-				order = 2,
-				type = "description",
-				name = "",
-			},
+			info = ACH:Description(L["MER_SKINS_DESC"], 1),
+			space = ACH:Spacer(2),
 			gotoskins = {
 				order = 3,
 				type = "execute",
 				name = L["ElvUI Skins"],
 				func = function() LibStub("AceConfigDialog-3.0-ElvUI"):SelectGroup("ElvUI", "skins") end,
 			},
-			space2 = {
-				order = 4,
-				type = "description",
-				name = "",
-			},
+			space2 = ACH:Spacer(4),
 			encounterjournal = {
 				type = "toggle",
 				name = ENCOUNTER_JOURNAL,
@@ -486,11 +459,7 @@ local function SkinsTable()
 		type = "group",
 		name = L["Profiles"],
 		args = {
-			info = {
-				order = 1,
-				type = "description",
-				name = L["MER_PROFILE_DESC"],
-			},
+			info = ACH:Description(L["MER_PROFILE_DESC"], 1),
 		},
 	}
 

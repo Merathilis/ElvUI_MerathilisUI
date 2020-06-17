@@ -10,17 +10,15 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function Tooltip()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
 		name = E.NewSign..L["Tooltip"],
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Tooltip"]),
-			},
+			name = ACH:Header(MER:cOption(L["Tooltip"]), 1),
 			petIcon = {
 				order = 2,
 				type = "toggle",
@@ -87,11 +85,7 @@ local function Tooltip()
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Name Hover"]),
-					},
+					header = ACH:Header(MER:cOption(L["Name Hover"]), 0),
 					enable = {
 						order = 1,
 						type = "toggle",
@@ -184,16 +178,8 @@ local function Tooltip()
 				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
 				args = {
-					credits = {
-						order = 0,
-						type = "description",
-						name = L["Credits: siweia | NdUI"],
-					},
-					spacer = {
-						order = 1,
-						type = "description",
-						name = "",
-					},
+					credits = ACH:Description(L["Credits: siweia | NdUI"], 0),
+					spacer = ACH:Spacer(1),
 					enable = {
 						order = 1,
 						type = "toggle",

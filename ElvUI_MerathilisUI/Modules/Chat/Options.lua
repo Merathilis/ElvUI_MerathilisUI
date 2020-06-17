@@ -8,17 +8,15 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function ChatTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
 		name = E.NewSign..L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["Chat"]),
-				order = 1
-			},
+			header = ACH:Header(MER:cOption(L["Chat"]), 1),
 			chatButton = {
 				order = 2,
 				type = "toggle",

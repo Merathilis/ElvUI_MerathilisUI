@@ -14,28 +14,21 @@ local CLASS, CUSTOM, DEFAULT = CLASS, CUSTOM, DEFAULT
 -- GLOBALS: AceGUIWidgetLSMlists
 
 local function LocPanelTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.locPanel = {
 		type = "group",
 		name = L["Location Panel"],
 		get = function(info) return E.db.mui.locPanel[ info[#info] ] end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Location Panel"]),
-			},
+			name = ACH:Header(MER:cOption(L["Location Panel"]), 1),
 			credits = {
 				order = 2,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = "description",
-						fontSize = "medium",
-						name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
-					},
+					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
 				},
 			},
 			panel = {

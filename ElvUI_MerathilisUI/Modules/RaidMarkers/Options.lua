@@ -13,29 +13,21 @@ local CUSTOM, DEFAULT = CUSTOM, DEFAULT
 -- GLOBALS:
 
 local function RaidMarkers()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.raidmarkers = {
-		--order = 19,
 		type = "group",
 		name = L["Raid Markers"],
 		get = function(info) return E.db.mui.raidmarkers[ info[#info] ] end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Raid Markers"]),
-			},
+			name = ACH:Header(MER:cOption(L["Raid Markers"]), 1),
 			credits = {
 				order = 2,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = "description",
-						fontSize = "medium",
-						name = format("|cff9482c9Shadow & Light - Darth & Repooc|r"),
-					},
+					tukui = ACH:Description(format("|cff9482c9Shadow & Light - Darth & Repooc|r"), 1),
 				},
 			},
 			marksheader = {
@@ -44,11 +36,7 @@ local function RaidMarkers()
 				name = MER:cOption(L["Raid Markers"]),
 				guiInline = true,
 				args = {
-					info = {
-						order = 4,
-						type = "description",
-						name = L["Options for panels providing fast access to raid markers and flares."],
-						},
+					info = ACH:Description(L["Options for panels providing fast access to raid markers and flares."], 4),
 					enable = {
 						order = 5,
 						type = "toggle",
