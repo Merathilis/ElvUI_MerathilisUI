@@ -44,11 +44,7 @@ local function AddOptions()
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"],
-			},
+			name = E.Libs.ACH:Header(MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
 			logo = {
 				order = 2,
 				type = "description",
@@ -84,11 +80,7 @@ local function AddOptions()
 				type = "group",
 				name = L["General"],
 				args = {
-					generalHeader = {
-						order = 1,
-						type = "header",
-						name = MER:cOption(L["General"]),
-					},
+					generalHeader = E.Libs.ACH:Header(MER:cOption(L["General"]), 1),
 					LoginMsg = {
 						order = 2,
 						type = "toggle",
@@ -141,11 +133,7 @@ local function AddOptions()
 				type = "group",
 				name = L["Information"],
 				args = {
-					name = {
-						order = 1,
-						type = "header",
-						name = L["Information"],
-					},
+					name = E.Libs.ACH:Header(L["Information"], 1),
 					support = {
 						order = 2,
 						type = "group",
