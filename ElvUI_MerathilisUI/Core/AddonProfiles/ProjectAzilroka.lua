@@ -39,7 +39,7 @@ function MER:LoadPAProfile()
 
 	PA.db["OzCooldowns"]["Enable"] = false
 	PA.db["OzCooldowns"]["StackFont"] = "Merathilis Expressway"
-	PA.db["OzCooldowns"]["StatusBarTexture"] = "Melli"
+	PA.db["OzCooldowns"]["StatusBarTexture"] = "Kringel"
 	PA.db["OzCooldowns"]["StatusBarGradient"] = true
 	PA.db["OzCooldowns"]["Tooltips"] = false
 	PA.db["OzCooldowns"]["Size"] = 30
@@ -54,5 +54,5 @@ function MER:LoadPAProfile()
 	PA.db["stAddonManager"]["ButtonWidth"] = 20
 	PA.db["stAddonManager"]["Font"] = "Merathilis Expressway"
 	PA.db["stAddonManager"]["ClassColor"] = true
-	PA.db["stAddonManager"]["CheckTexture"] = "Melli"
+	PA.db["stAddonManager"]["CheckTexture"] = "Kringel"
 end
