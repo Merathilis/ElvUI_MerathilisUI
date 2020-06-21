@@ -27,6 +27,7 @@ LSM:Register("font","Merathilis Expressway", [[Interface\AddOns\ElvUI_Merathilis
 LSM:Register("statusbar","MerathilisBlank", [[Interface\BUTTONS\WHITE8X8.blp]])
 LSM:Register("statusbar","MerathilisUI1", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI2.tga]])
 LSM:Register("statusbar","MerathilisUI2", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI3.tga]])
+LSM:Register("statusbar","MerathilisUI4", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\mUI4.tga]])
 LSM:Register("statusbar","MerathilisOnePixel", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\OnePixel.tga]])
 LSM:Register("statusbar","MerathilisMelli", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Melli.tga]])
 LSM:Register("statusbar","MerathilisMelliDark", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\MelliDark.tga]])
@@ -41,7 +42,6 @@ LSM:Register("statusbar","Lyn1", [[Interface\AddOns\ElvUI_MerathilisUI\media\tex
 LSM:Register("statusbar","Skullflower", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Skullflower.tga]])
 LSM:Register("statusbar","SkullflowerLight", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\SkullflowerLight.tga]])
 LSM:Register("statusbar","Duffed", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Duffed.tga]])
-LSM:Register("statusbar","Kringel", [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Kringel.tga]])
 
 -- Sounds
 LSM:Register("sound","warning", [[Interface\AddOns\ElvUI_MerathilisUI\media\sounds\warning.ogg]])

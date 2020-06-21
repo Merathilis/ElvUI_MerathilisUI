@@ -187,8 +187,8 @@ function MER:SetupLayout(layout)
 	E.private["general"]["chatBubbleFontOutline"] = "OUTLINE"
 	E.private["general"]["chatBubbleName"] = true
 	E.private["general"]["classColorMentionsSpeech"] = true
-	E.private["general"]["normTex"] = "Kringel"
-	E.private["general"]["glossTex"] = "Kringel"
+	E.private["general"]["normTex"] = "MerathilisUI4"
+	E.private["general"]["glossTex"] = "MerathilisUI4"
 
 	if IsAddOnLoaded("XLoot") then
 		E.private["general"]["loot"] = false
@@ -261,7 +261,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["altPowerBar"]["font"] = "Merathilis Expressway"
 	E.db["general"]["altPowerBar"]["fontSize"] = 11
 	E.db["general"]["altPowerBar"]["fontOutline"] = "OUTLINE"
-	E.db["general"]["altPowerBar"]["statusBar"] = "Kringel"
+	E.db["general"]["altPowerBar"]["statusBar"] = "MerathilisUI4"
 	E.db["general"]["altPowerBar"]["textFormat"] = "NAMECURMAXPERC"
 	E.db["general"]["altPowerBar"]["statusBarColorGradient"] = true
 	E.db["general"]["altPowerBar"]["smoothbars"] = true
@@ -385,7 +385,7 @@ function MER:SetupLayout(layout)
 	E.db["nameplates"]["stackFont"] = "Merathilis Expressway"
 	E.db["nameplates"]["stackFontSize"] = 9
 	E.db["nameplates"]["smoothbars"] = true
-	E.db["nameplates"]["statusbar"] = "Kringel"
+	E.db["nameplates"]["statusbar"] = "MerathilisUI4"
 	E.db["nameplates"]["cutaway"]["health"]["enabled"] = true
 
 	-- Cooldowns
@@ -1020,7 +1020,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["fontSize"] = 10
 	E.db["unitframe"]["fontOutline"] = "OUTLINE"
 	E.db["unitframe"]["smoothbars"] = true
-	E.db["unitframe"]["statusbar"] = "Kringel"
+	E.db["unitframe"]["statusbar"] = "MerathilisUI4"
 	if IsAddOnLoaded("ElvUI_BenikUI") then
 		E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
 		E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
@@ -1056,7 +1056,7 @@ function MER:SetupUnitframes(layout)
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["g"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["color"]["r"] = 0
 	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["class"] = true
-	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "Kringel"
+	E.db["unitframe"]["colors"]["frameGlow"]["mouseoverGlow"]["texture"] = "MerathilisUI4"
 
 	--Cooldowns
 	E.db["unitframe"]["cooldown"]["override"] = true
