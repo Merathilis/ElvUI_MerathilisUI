@@ -1,6 +1,10 @@
-[b][color=orange]v4.48[/color], 30.04.2020[/b][list]
-[*]Take account for the latest DataTexts update from ElvUI.[/list]
-
+[b][color=orange]v4.48[/color], xx.06.2020[/b][list]
+[*]Take account for the latest DataTexts update from ElvUI.
+[*]NOTE: If you want my new DataTexts, you need to do the install step for DataTexts.
+[*]Added own custom DataTexts via the new ElvUI option.
+[*]Fixed Heal-Layout UnitFrames position.
+[*]Use a new texture. (Do the install to get it :P)
+[*]Some skin updates & small code changes.[/list]
 
 [b][color=orange]v4.47[/color], 29.04.2020[/b][list]
 [*]Fixed MicroBar Styling.
