@@ -51,7 +51,7 @@ local function mediaTable()
 						type = 'execute',
 						name = L["Test"],
 						disabled = function() return not E.private.general.replaceBlizzFonts or not E.db.mui.media.zoneText.enable end,
-						func = function() FGTextShow() end,
+						func = function() M:TextShow() end,
 					},
 					zone = {
 						type = "group",
