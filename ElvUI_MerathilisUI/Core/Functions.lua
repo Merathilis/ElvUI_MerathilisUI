@@ -28,6 +28,7 @@ local UnitIsGroupLeader = UnitIsGroupLeader
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
+local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
@@ -70,6 +71,16 @@ for class, value in pairs(colors) do
 	MER.ClassColors[class].colorStr = value.colorStr
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
+
+-- Quality Color stuff
+MER.QualityColors = {}
+local qualityColors = BAG_ITEM_QUALITY_COLORS
+for index, value in pairs(qualityColors) do
+	MER.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
+end
+MER.QualityColors[-1] = {r = 0, g = 0, b = 0}
+MER.QualityColors[_G.LE_ITEM_QUALITY_POOR] = {r = .61, g = .61, b = .61}
+MER.QualityColors[_G.LE_ITEM_QUALITY_COMMON] = {r = 0, g = 0, b = 0}
 
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
