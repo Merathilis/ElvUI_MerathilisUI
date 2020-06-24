@@ -18,6 +18,7 @@ local UnitName = UnitName
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
 local IsInInstance = IsInInstance
+local IsAddOnLoaded = IsAddOnLoaded
 local C_ChallengeMode_GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
 -- GLOBALS:
 
@@ -210,7 +211,9 @@ function module:RaidDifficulty()
 end
 
 function module:StyleMinimap()
-	Minimap:Styling(true, true, false, 180, 180, .75)
+	if not IsAddOnLoaded("ElvUI_RectangleMinimap") then
+		Minimap:Styling(true, true, false, 180, 180, .75)
+	end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
