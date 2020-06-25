@@ -215,8 +215,6 @@ function module:StyleMinimap()
 		Minimap:Styling(true, true, false)
 	end
 
-	Minimap.backdrop:Styling()
-
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
 	_G.QueueStatusMinimapButtonIconTexture:SetTexture(nil)
