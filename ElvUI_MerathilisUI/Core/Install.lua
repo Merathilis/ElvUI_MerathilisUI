@@ -708,9 +708,11 @@ function MER:SetupLayout(layout)
 		E.db["mui"]["pvp"]["duels"]["regular"] = true
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
+		E.db["mui"]["maps"]["minimap"]["rectangle"] = true
 		E.db["general"]["cropIcon"] = false
 	else
 		E.db["general"]["cropIcon"] = true
+		E.db["mui"]["maps"]["minimap"]["rectangle"] = false
 	end
 
 	E.db["movers"]["MER_SpecializationBarMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,14"

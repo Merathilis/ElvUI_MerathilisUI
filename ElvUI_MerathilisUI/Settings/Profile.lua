@@ -345,6 +345,7 @@ MP.maps = {
 		blip = {
 			enable = true,
 		},
+		rectangle = false,
 	},
 }
 

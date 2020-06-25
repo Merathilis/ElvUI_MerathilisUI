@@ -211,9 +211,11 @@ function module:RaidDifficulty()
 end
 
 function module:StyleMinimap()
-	if not IsAddOnLoaded("ElvUI_RectangleMinimap") then
-		Minimap:Styling(true, true, false, 180, 180, .75)
+	if not E.db.mui.maps.minimap.rectangle then
+		Minimap:Styling(true, true, false)
 	end
+
+	Minimap.backdrop:Styling()
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
