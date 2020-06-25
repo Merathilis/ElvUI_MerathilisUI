@@ -314,13 +314,8 @@ function module:UpdateCoords(elapsed)
 
 	--Coords
 	if E.MapInfo and module.db.coordshide ~= true then
-		local x, y = E.MapInfo.x or nil, E.MapInfo.y or nil
-		if x then x = format(module.db.format, x * 100) else x = "0" end
-		if y then y = format(module.db.format, y * 100) else y = "0" end
-		if x == "0" or x == "0.0" or x == "0.00" then x = "-" end
-		if y == "0" or y == "0.0" or y == "0.00" then y = "-" end
-		loc_panel.Xcoord.Text:SetText(x)
-		loc_panel.Ycoord.Text:SetText(y)
+		loc_panel.Xcoord.Text:SetText(format(module.db.format, E.MapInfo.xText))
+		loc_panel.Ycoord.Text:SetText(format(module.db.format, E.MapInfo.yText))
 	else
 		loc_panel.Xcoord.Text:SetText(" ")
 		loc_panel.Ycoord.Text:SetText(" ")
