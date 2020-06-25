@@ -49,7 +49,7 @@ function module:UpdateMoverSize()
 	end
 end
 
-function module:UpdateOwnSettings()
+function module:AdjustSettings()
 	if not E.db.mui.maps.minimap.rectangle then return end
 
 	-- Probably bad idea
@@ -60,6 +60,8 @@ function module:UpdateOwnSettings()
 	E.db["general"]["minimap"]["size"] = 214
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 30
+	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -40
+	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 30
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,11"
 
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
@@ -85,7 +87,7 @@ function module:Initialize()
 	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.rectangle then return end
 
 	module:SkinMiniMap()
-	module:UpdateOwnSettings()
+	module:AdjustSettings()
 	hooksecurefunc(MM, "UpdateSettings", module.UpdateMoverSize)
 end
 
