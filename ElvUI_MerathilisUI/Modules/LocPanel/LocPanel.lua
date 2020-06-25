@@ -238,16 +238,6 @@ module.Spells = {
 	},
 }
 
-local function CreateCoords()
-	if module.db.format == nil then return end
-
-	local x, y = E.MapInfo.x or 0, E.MapInfo.y or 0
-	if x then x = format(module.db.format, x * 100) else x = "0" end
-	if y then y = format(module.db.format, y * 100) else y = "0" end
-
-	return x, y
-end
-
 function module:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
@@ -295,9 +285,8 @@ function module:OnClick(btn)
 	if btn == "LeftButton" then
 		if IsShiftKeyDown() and module.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
-			local x, y = CreateCoords()
 			local message
-			local coords = x..", "..y
+			local coords = format(module.db.format, E.MapInfo.xText)..", "..format(module.db.format, E.MapInfo.xText)
 				if zoneText ~= GetSubZoneText() then
 					message = format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
 				else
@@ -309,7 +298,10 @@ function module:OnClick(btn)
 			ToggleFrame(_G["WorldMapFrame"])
 		end
 	elseif btn == "RightButton" and module.db.portals.enable and not InCombatLockdown() then
-		if module.ListBuilding then MER:Print(L["Info for some items is not available yet. Please try again later"]) return end
+		if module.ListBuilding then
+			MER:Print(L["Info for some items is not available yet. Please try again later"])
+			return
+		end
 		module:PopulateDropdown(true)
 	end
 end
