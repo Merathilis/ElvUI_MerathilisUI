@@ -61,7 +61,6 @@ function module:UpdateOwnSettings()
 	E.db["general"]["minimap"]["size"] = 214
 	E.db["general"]["minimap"]["icons"]["classHall"]["yOffset"] = -60
 	E.db["general"]["minimap"]["icons"]["mail"]["yOffset"] = 30
-
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,11"
 
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
@@ -75,7 +74,7 @@ function module:UpdateOwnSettings()
 	E.db["chat"]["panelWidthRight"] = 235
 	E.db["movers"]["RightChatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-219,47"
 
-	E.db["mui"]["maps"]["minimap"]["ping"]["yOffset"] = -60
+	E.db["mui"]["maps"]["minimap"]["ping"]["yOffset"] = -36
 end
 
 function module:UpdateLocationText()

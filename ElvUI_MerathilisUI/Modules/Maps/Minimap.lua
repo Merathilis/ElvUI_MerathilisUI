@@ -45,6 +45,8 @@ function module:MiniMapCoords()
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	Coords:Hide()
+
 	if pos == "BOTTOM" then
 		Coords:SetPoint(pos, 0, 2)
 	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
@@ -54,7 +56,18 @@ function module:MiniMapCoords()
 	else
 		Coords:SetPoint(pos, 0, 0)
 	end
-	Coords:Hide()
+
+	if E.db.mui.maps.minimap.rectangle then
+		if pos == "BOTTOM" then
+			Coords:SetPoint(pos, 0, 40)
+		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
+			Coords:SetPoint(pos, 0, -40)
+		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
+			Coords:SetPoint(pos, 0, -2)
+		else
+			Coords:SetPoint(pos, 0, 0)
+		end
+	end
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
