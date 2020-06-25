@@ -22,6 +22,7 @@ local ChangeLogData = {
 		"• Fixed Heal-Layout UnitFrames position.",
 		"• Use a new texture. (Do the install to get it :P)",
 		"• Some skin updates & small code changes.",
+		"• WIP: Added rectangle Minimap.",
 
 		-- "• ''",
 	" ",
