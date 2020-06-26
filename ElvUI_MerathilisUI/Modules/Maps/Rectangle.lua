@@ -49,7 +49,7 @@ function module:UpdateMoverSize()
 	end
 end
 
-	-- Probably a bad idea
+-- Probably a bad idea
 function module:AdjustSettings()
 	if not E.db.mui.maps.minimap.rectangle then return end
 
