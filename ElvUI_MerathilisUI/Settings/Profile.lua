@@ -95,6 +95,7 @@ MP.chat = {
 		enable = true,
 		minAlpha = 0.33,
 		timeout = 8,
+		fadeOutTime = 0.65
 	},
 	seperators = true,
 }
