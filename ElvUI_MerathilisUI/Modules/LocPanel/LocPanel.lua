@@ -314,8 +314,8 @@ function module:UpdateCoords(elapsed)
 
 	--Coords
 	if E.MapInfo and module.db.coordshide ~= true then
-		loc_panel.Xcoord.Text:SetText(format(module.db.format, E.MapInfo.xText))
-		loc_panel.Ycoord.Text:SetText(format(module.db.format, E.MapInfo.yText))
+		loc_panel.Xcoord.Text:SetText(format(module.db.format, E.MapInfo.xText or 0))
+		loc_panel.Ycoord.Text:SetText(format(module.db.format, E.MapInfo.yText or 0))
 	else
 		loc_panel.Xcoord.Text:SetText(" ")
 		loc_panel.Ycoord.Text:SetText(" ")
