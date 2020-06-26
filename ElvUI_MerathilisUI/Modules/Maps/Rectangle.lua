@@ -49,10 +49,10 @@ function module:UpdateMoverSize()
 	end
 end
 
+	-- Probably a bad idea
 function module:AdjustSettings()
 	if not E.db.mui.maps.minimap.rectangle then return end
 
-	-- Probably bad idea
 	if not E.db.movers then
 		E.db.movers = {}
 	end
@@ -63,6 +63,9 @@ function module:AdjustSettings()
 	E.db["general"]["minimap"]["icons"]["difficulty"]["yOffset"] = -40
 	E.db["general"]["minimap"]["icons"]["lfgEye"]["yOffset"] = 30
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,11"
+
+	E.db["movers"]["ElvAB_3"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-455,47"
+	E.db["movers"]["VehicleSeatMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-489,116"
 
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["numPoints"] = 2
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 235

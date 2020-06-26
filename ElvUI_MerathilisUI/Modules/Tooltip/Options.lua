@@ -14,7 +14,7 @@ local function Tooltip()
 
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = E.NewSign..L["Tooltip"],
+		name = L["Tooltip"],
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
@@ -172,7 +172,7 @@ local function Tooltip()
 			corruption = {
 				order = 13,
 				type = "group",
-				name = E.NewSign..L["Corruption"],
+				name = L["Corruption"],
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
 				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
