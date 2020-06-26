@@ -286,7 +286,7 @@ function module:OnClick(btn)
 		if IsShiftKeyDown() and module.db.linkcoords then
 			local edit_box = ChatEdit_ChooseBoxForSend()
 			local message
-			local coords = format(module.db.format, E.MapInfo.xText)..", "..format(module.db.format, E.MapInfo.xText)
+			local coords = format(module.db.format, E.MapInfo.xText or 0)..", "..format(module.db.format, E.MapInfo.xText or 0)
 				if zoneText ~= GetSubZoneText() then
 					message = format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
 				else
