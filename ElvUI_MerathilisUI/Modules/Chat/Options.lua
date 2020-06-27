@@ -83,7 +83,7 @@ local function ChatTable()
 						order = 4,
 						type = "range",
 						min = 0.1, max = 2, step = 0.01,
-						name = L["Fade Out Time"],
+						name = L["Fadeout duration"],
 						disabled = function() return not E.db.mui.chat.chatFade.enable end,
 					},
 				},
