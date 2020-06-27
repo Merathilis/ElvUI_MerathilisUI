@@ -85,8 +85,6 @@ local function ChatTable()
 						min = 0.1, max = 2, step = 0.01,
 						name = L["Fade Out Time"],
 						disabled = function() return not E.db.mui.chat.chatFade.enable end,
-						get = function(info) return E.db.mui.chat.chatFade.fadeOutTime end,
-						set = function(info, value) E.db.mui.chat.chatFade.fadeOutTime = value; E:StaticPopup_Show("PRIVATE_RL"); end
 					},
 				},
 			},
