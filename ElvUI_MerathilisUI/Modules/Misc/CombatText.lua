@@ -8,30 +8,21 @@ local _G = _G
 local unpack, string = unpack, string
 local format, upper = string.format, string.upper
 --WoW API / Variables
+local ChatTypeInfo = ChatTypeInfo
 local CreateFrame = CreateFrame
 local UnitIsDead = UnitIsDead
-local SetCVar = SetCVar
-local GetSpellInfo = GetSpellInfo
-local GetSpellLink = GetSpellLink
-local IsInRaid = IsInRaid
-local IsPartyLFG = IsPartyLFG
-local UnitInRaid = UnitInRaid
-local UnitInParty = UnitInParty
-local UnitName = UnitName
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS: LE_PARTY_CATEGORY_HOME, LE_PARTY_CATEGORY_INSTANCE, LEAVING_COMBAT, ENTERING_COMBAT
--- GLOBALS: UIErrorsFrame, ChatTypeInfo, CombatText
+local UIErrorsFrame = UIErrorsFrame
 
 local iconsize = 24
 
 function module:PLAYER_REGEN_ENABLED()
 	if (UnitIsDead("player")) then return end
-	self:AlertRun(LEAVING_COMBAT.." !", 0.1, 1, 0.1)
+	self:AlertRun(_G.LEAVING_COMBAT.." !", 0.1, 1, 0.1)
 end
 
 function module:PLAYER_REGEN_DISABLED()
 	if (UnitIsDead("player")) then return end
-	self:AlertRun(ENTERING_COMBAT.." !", 1, 0.1, 0.1)
+	self:AlertRun(_G.ENTERING_COMBAT.." !", 1, 0.1, 0.1)
 end
 
 function module:CHAT_MSG_SKILL(event, message)
@@ -80,7 +71,7 @@ rightchar:SetJustifyH("LEFT") -- left or right
 local count, len, step, word, stringE, a, backstep
 
 local nextstep = function()
-	a,step = GetNextChar (word,step)
+	a, step = GetNextChar(word,step)
 	flowingtext:SetText(stringE)
 	stringE = stringE..a
 	a = upper(a)
@@ -113,7 +104,7 @@ local updatestring = function(self,t)
 	end
 end
 
-updaterun:SetScript("OnUpdate",updatestring)
+updaterun:SetScript("OnUpdate", updatestring)
 updaterun:Hide()
 
 local backstepf = function()
@@ -123,7 +114,7 @@ local backstepf = function()
 	local flagon = true
 	while a <= len do
 		local u
-		u,a = GetNextChar(word,a)
+		u, a = GetNextChar(word,a)
 		if flagon == true then
 			backstep = a
 			flagon = false

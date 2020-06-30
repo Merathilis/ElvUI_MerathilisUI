@@ -439,7 +439,7 @@ local function CVars()
 									return not E.db.mui.cvars.combatText.playerCombatText["enableFloatingCombatText"]
 								end,
 								set = function(info, value)
-									E.db.lui.modules.cvar.combatText.playerCombatText[info[#info]] = value
+									E.db.mui.cvars.combatText.playerCombatText[info[#info]] = value
 									SetCVar("floatingCombatTextCombatState", (value == true and 1 or 0))
 								end,
 							},
