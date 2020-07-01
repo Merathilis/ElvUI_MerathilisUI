@@ -1,0 +1,140 @@
+local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule("MER_CombatText")
+local LSM = E.LSM
+
+local function CVars()
+	local ACH = E.Libs.ACH
+
+	E.Options.args.mui.args.modules.args.CombatAlert = {
+		type = "group",
+		name = E.NewSign..L["Combat Alert"],
+		get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
+		set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
+		args = {
+			CombatAlertHeader = ACH:Header(MER:cOption(L["Combat Alert"]), 0),
+			enable = {
+				order = 1,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			style = {
+				order = 2,
+				name = MER:cOption(L["Style"]),
+				type = "group",
+				guiInline = true,
+				get = function(info) return E.db.mui.CombatAlert.style[info[#info]] end,
+				set = function(info, value) E.db.mui.CombatAlert.style[info[#info]] = value; module:RefreshAlert() end,
+				args = {
+					font = {
+						order = 1,
+						type = 'select', dialogControl = 'LSM30_Font',
+						name = L['Font'],
+						values = LSM:HashTable('font'),
+					},
+					fontOutline = {
+						order = 2,
+						type = 'select',
+						name = L["Font Outline"],
+						values = {
+							['NONE'] = L["None"],
+							['OUTLINE'] = L["OUTLINE"],
+							['MONOCHROME'] = L["MONOCHROME"],
+							['MONOCHROMEOUTLINE'] = L["MONOCROMEOUTLINE"],
+							['THICKOUTLINE'] = L["THICKOUTLINE"],
+						},
+					},
+					fontSize = {
+						order = 3,
+						name = L["Size"],
+						type = 'range',
+						min = 5, max = 60, step = 1,
+					},
+					font_color_enter = {
+						order = 4,
+						type = "color",
+						name = L["Enter Combat"].." - "..L["Color"],
+						hasAlpha = false,
+						get = function(info)
+							local t = E.db.mui.CombatAlert.style.font_color_enter
+							return t.r, t.g, t.b
+						end,
+						set = function(info, r, g, b, a)
+							E.db.mui.CombatAlert.style.font_color_enter = {}
+							local t = E.db.mui.CombatAlert.style.font_color_enter
+							t.r, t.g, t.b, t.a = r, g, b
+						end,
+					},
+					font_color_leave = {
+						order = 5,
+						type = "color",
+						name = L["Leave Combat"].." - "..L["Color"],
+						hasAlpha = false,
+						get = function(info)
+							local t = E.db.mui.CombatAlert.style.font_color_leave
+							return t.r, t.g, t.b
+						end,
+						set = function(info, r, g, b, a)
+							E.db.mui.CombatAlert.style.font_color_leave = {}
+							local t = E.db.mui.CombatAlert.style.font_color_leave
+							t.r, t.g, t.b, t.a = r, g, b
+						end,
+					},
+					backdrop = {
+						order = 6,
+						type = "toggle",
+						name = L["Use Backdrop"],
+					},
+					stay_duration = {
+						order = 7,
+						type = "range",
+						name = L["Stay Duration"],
+						min = 0.1, max = 5.0, step = 0.01,
+					},
+					animation_duration = {
+						order = 8,
+						type = "range",
+						name = L["Animation Duration (Fade In)"],
+						min = 0.1, max = 5.0, step = 0.01,
+					},
+					scale = {
+						order = 9,
+						type = "range",
+						name = L["Scale"],
+						desc = L["Default is 0.8"],
+						min = 0.1, max = 2.0, step = 0.01,
+					},
+				},
+			},
+			custom_text = {
+				order = 3,
+				name = MER:cOption(L["Custom Text"]),
+				type = "group",
+				guiInline = true,
+				get = function(info) return E.db.mui.CombatAlert.custom_text[info[#info]] end,
+				set = function(info, value) E.db.mui.CombatAlert.custom_text[info[#info]] = value; module:RefreshAlert() end,
+				args = {
+					enabled = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+					},
+					custom_enter_text = {
+						order = 2,
+						type = "input",
+						name = L["Custom Text (Enter)"],
+						width = 'full',
+						disabled = function(info) return not E.db.mui.CombatAlert.custom_text.enabled end,
+					},
+					custom_leave_text = {
+						order = 3,
+						type = "input",
+						name = L["Custom Text (Leave)"],
+						width = 'full',
+						disabled = function(info) return not E.db.mui.CombatAlert.custom_text.enabled end,
+					},
+				},
+			},
+		},
+	}
+end
+tinsert(MER.Config, CVars)

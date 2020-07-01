@@ -3,7 +3,6 @@
 	<Script file="Afk.lua"/>
 	<Script file="Alerts.lua"/>
 	<Script file="AzeriteAnimationSkip.lua"/>
-	<Script file="CombatText.lua"/>
 	<Script file="Cursor.lua"/>
 	<Script file="FlightMode.lua"/>
 	<Script file="FlightPoint.lua"/>

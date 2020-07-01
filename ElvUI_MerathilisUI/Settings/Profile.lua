@@ -17,7 +17,6 @@ MP.general = {
 	AFK = true,
 	FlightMode = true,
 	FlightPoint = true,
-	CombatState = true,
 	style = true,
 	shadowOverlay = true,
 	filterErrors = true,
@@ -32,6 +31,36 @@ MP.merchant = {
 	enable = true,
 	style = "Default",
 	subpages = 2,
+}
+
+MP.CombatAlert = {
+	enable = true,
+	style = {
+		font = E.db.general.font,
+		fontSize = 28,
+		fontOutline = "THICKOUTLINE",
+		backdrop = false,
+		font_color_enter = {
+			r = 0.91,
+			g = 0.3,
+			b = 0.24,
+			a = 1.0,
+		},
+		font_color_leave = {
+			r = 0.18,
+			g = 0.8,
+			b = 0.44,
+			a = 1.0,
+		},
+		stay_duration = 1.5,
+		animation_duration = 1,
+		scale = 0.8,
+	},
+	custom_text = {
+		enabled = false,
+		custom_enter_text = L["Enter Combat"],
+		custom_leave_text = L["Leave Combat"],
+	},
 }
 
 MP.cvars = {

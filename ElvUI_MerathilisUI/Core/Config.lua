@@ -121,12 +121,6 @@ local function AddOptions()
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
 						hidden = function() return IsAddOnLoaded("WorldFlightMap") end,
 					},
-					CombatState = {
-						order = 8,
-						type = "toggle",
-						name = L["Combat State"],
-						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
-					},
 				},
 			},
 			info = {
