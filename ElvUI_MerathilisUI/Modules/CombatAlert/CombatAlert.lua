@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
 
 --Cache global variables
 --Lua functions
@@ -7,27 +7,26 @@ local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 --WoW API / Variables
 local C_Timer_NewTimer = C_Timer.NewTimer
 local CreateFrame = CreateFrame
-local UIFrameFade = UIFrameFade
 -- GLOBALS: EnterCombatAlert
 
 function module:CreateAlert()
 	if self.alert then return end
 
-	local alert = CreateFrame("Frame", "MER_AlertFrame", E.UIParent)
+	local alert = CreateFrame('Frame', 'MER_AlertFrame', E.UIParent)
 	alert:SetClampedToScreen(true)
 	alert:SetSize(300, 65)
-	alert:Point("TOP", 0, -280)
+	alert:Point('TOP', 0, -280)
 	alert:Hide()
 
 	alert.Bg = alert:CreateTexture(nil, "BACKGROUND")
-	alert.Bg:SetTexture("Interface\\LevelUp\\MinorTalents")
-	alert.Bg:Point("TOP")
+	alert.Bg:SetTexture('Interface\\LevelUp\\MinorTalents')
+	alert.Bg:Point('TOP')
 	alert.Bg:SetSize(400, 60)
 	alert.Bg:SetTexCoord(0, 400/512, 341/512, 407/512)
 	alert.Bg:SetVertexColor(1, 1, 1, 0.4)
 
 	alert.text = alert:CreateFontString(nil)
-	alert.text:Point("CENTER", 0, -1)
+	alert.text:Point('CENTER', 0, -1)
 
 	self.alert = alert
 end
@@ -46,29 +45,29 @@ function module:RefreshAlert()
 end
 
 function module:FadeIn(second, func)
-	local fadeInfo = {};
+	local fadeInfo = {}
 
-	fadeInfo.mode = "IN"
+	fadeInfo.mode = 'IN'
 	fadeInfo.timeToFade = second
 	fadeInfo.startAlpha = 0
 	fadeInfo.endAlpha = 1
 	fadeInfo.finishedFunc = function()
 		if func then func() end
 	end
-	UIFrameFade(self.alert, fadeInfo)
+	E:UIFrameFade(self.alert, fadeInfo)
 end
 
 function module:FadeOut(second, func)
-	local fadeInfo = {};
+	local fadeInfo = {}
 
-	fadeInfo.mode = "OUT"
+	fadeInfo.mode = 'OUT'
 	fadeInfo.timeToFade = second
 	fadeInfo.startAlpha = 1
 	fadeInfo.endAlpha = 0
 	fadeInfo.finishedFunc = function()
 		if func then func() end
 	end
-	UIFrameFade(self.alert, fadeInfo)
+	E:UIFrameFade(self.alert, fadeInfo)
 end
 
 local function executeNextAnimation()
@@ -146,16 +145,17 @@ function module:Initialize()
 	self:CreateAlert()
 	self:RefreshAlert()
 
-	self:RegisterEvent("PLAYER_REGEN_ENABLED")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self:RegisterEvent('PLAYER_REGEN_ENABLED')
+	self:RegisterEvent('PLAYER_REGEN_DISABLED')
 
 	function module:ForUpdateAll()
 		local db = E.db.mui.CombatAlert
 		module:CreateAlert()
+		module:RefreshAlert()
 	end
 	module:ForUpdateAll()
 
-	E:CreateMover(self.alert, "alertFrameMover", L["Enter Combat Alert"], nil, nil, nil, 'WINDTOOLS,ALL', function() return EnterCombatAlert.db.enable; end)
+	E:CreateMover(self.alert, 'alertFrameMover', L["Enter Combat Alert"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,CombatAlert', function() return EnterCombatAlert.db.enable; end)
 end
 
 MER:RegisterModule(module:GetName())
