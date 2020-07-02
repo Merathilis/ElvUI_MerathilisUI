@@ -5,6 +5,7 @@
 * Fixed Heal-Layout UnitFrames position.
 * Use a new texture. (Do the install to get it :P)
 * Some skin updates & small code changes.
+* Updated the Combat Alert (Enter/Leave Combat message).
 * WIP: Added rectangle Minimap.
 
 ** v4.47, 29.04.2020**
