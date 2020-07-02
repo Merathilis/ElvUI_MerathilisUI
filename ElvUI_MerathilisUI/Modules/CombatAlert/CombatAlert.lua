@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("MER_CombatText", "AceEvent-3.0", "AceTimer-3.0")
-local LSM = E.LSM
 
 --Cache global variables
 --Lua functions
@@ -18,7 +17,6 @@ function module:CreateAlert()
 	alert:SetClampedToScreen(true)
 	alert:SetSize(300, 65)
 	alert:Point("TOP", 0, -280)
-	alert:SetScale(self.db.style.scale)
 	alert:Hide()
 
 	alert.Bg = alert:CreateTexture(nil, "BACKGROUND")
@@ -37,7 +35,8 @@ end
 function module:RefreshAlert()
 	twipe(self.animationQueue)
 
-	self.alert.text:FontTemplate(LSM:Fetch('font', self.db.style.font), self.db.style.fontSize, self.db.style.fontOutline)
+	self.alert.text:FontTemplate(E.LSM:Fetch('font', self.db.style.font), self.db.style.fontSize, self.db.style.fontOutline)
+	self.alert:SetScale(self.db.style.scale or 0.8)
 
 	if self.db.style.backdrop then
 		self.alert.Bg:Show()

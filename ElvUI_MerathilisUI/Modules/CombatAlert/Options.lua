@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule("MER_CombatText")
-local LSM = E.LSM
 
 local function CVars()
 	local ACH = E.Libs.ACH
@@ -16,6 +15,7 @@ local function CVars()
 				order = 1,
 				type = "toggle",
 				name = L["Enable"],
+				desc = L["Enable/Disable the combat message if you enter/leave the combat."]
 			},
 			style = {
 				order = 2,
@@ -28,8 +28,8 @@ local function CVars()
 					font = {
 						order = 1,
 						type = 'select', dialogControl = 'LSM30_Font',
-						name = L['Font'],
-						values = LSM:HashTable('font'),
+						name = L["Font"],
+						values = E.LSM:HashTable('font'),
 					},
 					fontOutline = {
 						order = 2,
@@ -82,7 +82,7 @@ local function CVars()
 					backdrop = {
 						order = 6,
 						type = "toggle",
-						name = L["Use Backdrop"],
+						name = L["Backdrop"],
 					},
 					stay_duration = {
 						order = 7,
