@@ -8,16 +8,6 @@ local COMP = MER:GetModule("mUICompatibility")
 local pairs, select = pairs, select
 local random = math.random
 --WoW API / Variables
-local CreateFrame = CreateFrame
-local GetBattlefieldScore = GetBattlefieldScore
-local GetClassInfo = GetClassInfo
-local GetInstanceInfo = GetInstanceInfo
-local GetNumClasses = GetNumClasses
-local GetNumBattlefieldScores = GetNumBattlefieldScores
-local GetNumSpecializationsForClassID = GetNumSpecializationsForClassID
-local GetSpecializationInfoForClassID = GetSpecializationInfoForClassID
-local GetUnitName = GetUnitName
-local IsInInstance = IsInInstance
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsConnected = UnitIsConnected
 -- GLOBALS:
@@ -27,27 +17,6 @@ local rolePaths = {
 	HEALER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Healer.tga]],
 	DAMAGER = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Dps.tga]]
 }
-
-local specNameToRole = {}
-for i = 1, GetNumClasses() do
-	local _, class, classID = GetClassInfo(i)
-	specNameToRole[class] = {}
-	for j = 1, GetNumSpecializationsForClassID(classID) do
-		local _, spec, _, _, _, role = GetSpecializationInfoForClassID(classID, j)
-		specNameToRole[class][spec] = role
-	end
-end
-
-local function GetBattleFieldIndexFromUnitName(name)
-	local nameFromIndex
-	for index = 1, GetNumBattlefieldScores() do
-		nameFromIndex = GetBattlefieldScore(index)
-		if nameFromIndex == name then
-			return index
-		end
-	end
-	return nil
-end
 
 function module:UpdateRoleIcon()
 	local lfdrole = self.GroupRoleIndicator
@@ -59,27 +28,10 @@ function module:UpdateRoleIcon()
 		return
 	end
 
-	local role
-	local isInstance, instanceType = GetInstanceInfo()
-	if isInstance and instanceType == "pvp" then
-		local name = GetUnitName(self.unit, true)
-		local index = GetBattleFieldIndexFromUnitName(name)
-		if index then
-			local _, _, _, _, _, _, _, _, classToken, _, _, _, _, _, _, talentSpec = GetBattlefieldScore(index)
-			if classToken and talentSpec then
-				role = specNameToRole[classToken][talentSpec]
-			else
-				role = UnitGroupRolesAssigned(self.unit) --Fallback
-			end
-		else
-			role = UnitGroupRolesAssigned(self.unit) --Fallback
-		end
-	else
-		role = UnitGroupRolesAssigned(self.unit)
-		if self.isForced and role == 'NONE' then
-			local rnd = random(1, 3)
-			role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
-		end
+	local role = UnitGroupRolesAssigned(self.unit)
+	if self.isForced and role == 'NONE' then
+		local rnd = random(1, 3)
+		role = rnd == 1 and "TANK" or (rnd == 2 and "HEALER" or (rnd == 3 and "DAMAGER"))
 	end
 
 	if (self.isForced or UnitIsConnected(self.unit)) and ((role == "DAMAGER" and db.damager) or (role == "HEALER" and db.healer) or (role == "TANK" and db.tank)) then
