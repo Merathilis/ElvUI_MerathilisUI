@@ -34,6 +34,8 @@ end
 function module:RefreshAlert()
 	twipe(self.animationQueue)
 
+	self.db = E.db.mui.CombatAlert
+
 	self.alert.text:FontTemplate(E.LSM:Fetch('font', self.db.style.font), self.db.style.fontSize, self.db.style.fontOutline)
 	self.alert:SetScale(self.db.style.scale or 0.8)
 
@@ -116,6 +118,7 @@ function module:AnimateAlert(changeTextFunc)
 end
 
 function module:PLAYER_REGEN_DISABLED()
+	self.db = E.db.mui.CombatAlert
 	local color = self.db.style.font_color_enter
 
 	self:AnimateAlert(function()
@@ -125,6 +128,7 @@ function module:PLAYER_REGEN_DISABLED()
 end
 
 function module:PLAYER_REGEN_ENABLED()
+	self.db = E.db.mui.CombatAlert
 	local color = self.db.style.font_color_leave
 
 	self:AnimateAlert(function()
