@@ -1,4 +1,4 @@
-[b][color=orange]v4.48[/color], xx.06.2020[/b][list]
+[b][color=orange]v4.48[/color], 08.07.2020[/b][list]
 [*]Take account for the latest DataTexts update from ElvUI.
 [*]NOTE: If you want my new DataTexts, you need to do the install step for DataTexts.
 [*]Added own custom DataTexts via the new ElvUI option.
