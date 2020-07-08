@@ -98,7 +98,9 @@ end
 ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH'
 ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
 	local name = UnitName(unit)
-	if not name then return '' else
+	if not name then
+		return ''
+	else
 		name = E.TagFunctions.Abbrev(name)
 	end
 

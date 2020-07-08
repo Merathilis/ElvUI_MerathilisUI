@@ -8,6 +8,7 @@ local MM = E:GetModule('Minimap')
 --Lua functions
 local _G = _G
 --WoW API / Variables
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
