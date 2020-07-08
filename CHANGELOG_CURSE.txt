@@ -1,4 +1,4 @@
-** v4.48, 08.06.2020**
+** v4.49, 08.06.2020**
 * Take account to the latest DataTexts changes from ElvUI.
 * NOTE: If you want my new DataTexts, you need to do the install step for DataTexts.
 * Added own custom DataTexts via the new ElvUI option.
