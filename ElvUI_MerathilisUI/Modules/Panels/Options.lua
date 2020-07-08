@@ -9,22 +9,15 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function PanelTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
 		name = L["Panels"],
 		args = {
-			header = {
-				order = 0,
-				type = "header",
-				name = MER:cOption(L["Panels"]),
-			},
-			spacer = {
-				order = 2,
-				type = "description",
-				name = "",
-			},
+			header = ACH:Header(MER:cOption(L["Panels"]), 1),
 			panels = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Panels"]),
 				guiInline = true,
@@ -46,7 +39,7 @@ local function PanelTable()
 				},
 			},
 			stylepanels = {
-				order = 4,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Style Panels"]),
 				guiInline = true,

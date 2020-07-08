@@ -12,6 +12,8 @@ local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
 -- GLOBALS:
 
 local function Minimap()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
 		name = E.NewSign..L["MiniMap"],
@@ -19,11 +21,7 @@ local function Minimap()
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["MiniMap"]),
-				order = 1,
-			},
+			header = ACH:Header(MER:cOption(L["MiniMap"]), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -41,13 +39,18 @@ local function Minimap()
 						type = "toggle",
 						name = L["Instance Difficulty"],
 					},
-
+					rectangle = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["Rectangle Minimap"],
+						desc = L["|cffFF0000WARNING:|r I force some settings to be in a fix position. You may need to reload a couple of times that all settings take effect."],
+					},
 				},
 			},
 			textures = {
 				order = 3,
 				type = "group",
-				name = E.NewSign..MER:cOption(L["Blip Textures"]),
+				name = MER:cOption(L["Blip Textures"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.maps.minimap.blip[ info[#info] ] end,
 				set = function(info, value) E.db.mui.maps.minimap.blip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -58,7 +61,6 @@ local function Minimap()
 						name = L["Enable"],
 						desc = L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"],
 					},
-
 				},
 			},
 			ping = {
@@ -92,14 +94,14 @@ local function Minimap()
 						order = 6,
 						type = "range",
 						name = L["X-Offset"],
-						min = -50, max = 50, step = 1,
+						min = -60, max = 60, step = 1,
 						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 					yOffset = {
 						order = 7,
 						type = "range",
 						name = L["Y-Offset"],
-						min = -50, max = 50, step = 1,
+						min = -60, max = 60, step = 1,
 						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 				},
@@ -155,12 +157,7 @@ local function Minimap()
 						name = L["Credits"],
 						guiInline = true,
 						args = {
-							credit = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
-							},
+							credit = ACH:Description(format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"), 1),
 						},
 					},
 					minimapButtons = {

@@ -12,8 +12,6 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return end
 
 	local ItemTextFrame = _G.ItemTextFrame
-	select(18, ItemTextFrame:GetRegions()):Hide()
-
 	ItemTextFrame:Styling()
 end
 

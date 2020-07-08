@@ -19,6 +19,8 @@ local fontStyleList = {
 }
 
 local function ArmoryTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.armory = {
 		type = "group",
 		name = L["Armory"],
@@ -27,11 +29,7 @@ local function ArmoryTable()
 		get = function(info) return E.db.mui.armory[ info[#info] ] end,
 		set = function(info, value) E.db.mui.armory[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Armory"]),
-			},
+			name = ACH:Header(MER:cOption(L["Armory"]), 1),
 			enable = {
 				type = "toggle",
 				order = 2,

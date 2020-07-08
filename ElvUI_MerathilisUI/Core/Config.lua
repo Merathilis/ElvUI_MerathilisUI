@@ -16,6 +16,7 @@ local function AddOptions()
 	E.Options.name = E.Options.name.." + |cffff7d0aMerathilisUI|r"..format(": |cFF00c0fa%s|r", MER.Version)
 
 	local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
+	local ACH = E.Libs.ACH
 
 	local function CreateButton(number, text, ...)
 		local path = {}
@@ -44,11 +45,7 @@ local function AddOptions()
 		get = function(info) return E.db.mui.general[ info[#info] ] end,
 		set = function(info, value) E.db.mui.general[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"],
-			},
+			name = ACH:Header(MER.Title..MER:cOption(MER.Version)..L["by Merathilis (|cFF00c0faEU-Shattrath|r)"], 1),
 			logo = {
 				order = 2,
 				type = "description",
@@ -84,11 +81,7 @@ local function AddOptions()
 				type = "group",
 				name = L["General"],
 				args = {
-					generalHeader = {
-						order = 1,
-						type = "header",
-						name = MER:cOption(L["General"]),
-					},
+					generalHeader = ACH:Header(MER:cOption(L["General"]), 1),
 					LoginMsg = {
 						order = 2,
 						type = "toggle",
@@ -128,12 +121,6 @@ local function AddOptions()
 						desc = L["Enable/Disable the MerathilisUI Flight Points on the FlightMap."],
 						hidden = function() return IsAddOnLoaded("WorldFlightMap") end,
 					},
-					CombatState = {
-						order = 8,
-						type = "toggle",
-						name = L["Combat State"],
-						desc = L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."],
-					},
 				},
 			},
 			info = {
@@ -141,11 +128,7 @@ local function AddOptions()
 				type = "group",
 				name = L["Information"],
 				args = {
-					name = {
-						order = 1,
-						type = "header",
-						name = L["Information"],
-					},
+					name = ACH:Header(L["Information"], 1),
 					support = {
 						order = 2,
 						type = "group",
@@ -191,12 +174,7 @@ local function AddOptions()
 						name = MER:cOption(L["Coding"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"),
-							},
+							tukui = ACH:Description(format("|cffffd200%s|r", "Elv, Benik, Darth Predator, Blazeflack, Simpy <3, fgprodigal"), 1),
 						},
 					},
 					testing = {
@@ -205,12 +183,7 @@ local function AddOptions()
 						name = MER:cOption(L["Testing & Inspiration"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"),
-							},
+							tukui = ACH:Description(format("|cffffd200%s|r", "Benik, Darth Predator, Rockxana, ElvUI community"), 1),
 						},
 					},
 					version = {
@@ -219,12 +192,7 @@ local function AddOptions()
 						name = MER:cOption(L["Version"]),
 						guiInline = true,
 						args = {
-							version = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = MER.Title..MER.Version,
-							},
+							version = ACH:Description(MER.Title..MER.Version, 1),
 						},
 					},
 				},
@@ -235,12 +203,7 @@ local function AddOptions()
 				childGroups = "select",
 				name = L["Modules"],
 				args = {
-					info = {
-						type = "description",
-						order = 1,
-						name = L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."],
-						fontSize = "medium",
-					},
+					info = ACH:Description(L["Here you find the options for all the different |cffff8000MerathilisUI|r modules.\nPlease use the dropdown to navigate through the modules."]),
 				},
 			},
 			tools = {

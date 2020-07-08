@@ -8,17 +8,15 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function databarsTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.databars = {
 		type = "group",
 		name = L["DataBars"],
 		get = function(info) return E.db.mui.databars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.databars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["DataBars"]),
-			},
+			name = ACH:Header(MER:cOption(L["DataBars"]), 1),
 		},
 	}
 end

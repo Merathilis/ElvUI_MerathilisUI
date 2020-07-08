@@ -14,8 +14,6 @@ L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
-L["Combat State"] = "Kampfstatus"
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
@@ -69,6 +67,17 @@ L["Damage Meter Filter"] = true
 L["Fade Chat"] = true
 L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
+
+-- Combat Alert
+L["Combat Alert"] = "Kampf Alamierung"
+L["Enable/Disable the combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die Kampf-Nachricht wenn du den Kampf betrittst oder verlässt."
+L["Enter Combat"] = "Beginne Kampf"
+L["Leave Combat"] = "Verlasse Kampf"
+L["Stay Duration"] = "Anzeigezeit"
+L["Custom Text"] = "Benutzerdefinierter Text"
+L["Custom Text (Enter)"] = "Benutzerdefinierter Text (Beginne)"
+L["Custom Text (Leave)"] = "Benutzerdefinierter Text (Verlasse)"
+L["Color"] = "Farbe"
 
 -- Information
 L["Information"] = true
@@ -208,11 +217,6 @@ L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Sounds"
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
-L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
-L["Right Click"] = "Rechtsklick"
-L["Dura."] = "Haltb."
-
 -- DataBars
 L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"

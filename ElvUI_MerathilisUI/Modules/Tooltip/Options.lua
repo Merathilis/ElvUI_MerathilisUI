@@ -10,17 +10,15 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function Tooltip()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
-		name = E.NewSign..L["Tooltip"],
+		name = L["Tooltip"],
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Tooltip"]),
-			},
+			name = ACH:Header(MER:cOption(L["Tooltip"]), 1),
 			petIcon = {
 				order = 2,
 				type = "toggle",
@@ -87,11 +85,7 @@ local function Tooltip()
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Name Hover"]),
-					},
+					header = ACH:Header(MER:cOption(L["Name Hover"]), 0),
 					enable = {
 						order = 1,
 						type = "toggle",
@@ -178,56 +172,20 @@ local function Tooltip()
 			corruption = {
 				order = 13,
 				type = "group",
-				name = E.NewSign..L["Corruption"],
+				name = L["Corruption"],
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
 				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
 				args = {
-					credits = {
-						order = 0,
-						type = "description",
-						name = L["Credits: CorruptionTooltips | Anayanka (Defias Brotherhood - EU)"],
-					},
-					spacer = {
-						order = 1,
-						type = "description",
-						name = "",
-					},
+					credits = ACH:Description(L["Credits: siweia | NdUI"], 0),
+					spacer = ACH:Spacer(1),
 					enable = {
 						order = 1,
 						type = "toggle",
 						name = L["Enable"],
 						width = "full",
 						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-					append = {
-						order = 2,
-						type = "toggle",
-						name = L["Append to corruption stat"],
-						desc = L["Use the new style tooltip."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					icon = {
-						order = 3,
-						type = "toggle",
-						name = L["Show icon"],
-						desc = L["Show the spell icon along with the name."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					summary = {
-						order = 4,
-						type = "toggle",
-						name = L["Show summary on the corruption tooltip"],
-						desc = L["List your corruptions in the eye tooltip in the character screen."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
-					},
-					english = {
-						order = 5,
-						type = "toggle",
-						name = L["Display in English"],
-						desc = L["Don't translate the corruption effect names."],
-						disabled = function() return not E.db.mui.tooltip.corruption.enable end,
 					},
 				},
 			},

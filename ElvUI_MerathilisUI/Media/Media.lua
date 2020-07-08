@@ -97,13 +97,6 @@ function module:SetBlizzFonts()
 	end
 end
 
-function module:TextWidth()
-	_G["ZoneTextString"]:SetWidth(module.db.zoneText.zone.width)
-	_G["PVPInfoTextString"]:SetWidth(module.db.zoneText.pvp.width)
-	_G["PVPArenaTextString"]:SetWidth(module.db.zoneText.pvp.width)
-	_G["SubZoneTextString"]:SetWidth(module.db.zoneText.subzone.width)
-end
-
 function module:TextShow()
 	local z, i, a, s, c = random(1, #module.Zones), random(1, #module.PvPInfo), random(1, #module.PVPArena), random(1, #module.Subzones), random(1, #Colors)
 	local red, green, blue = unpack(Colors[c])
@@ -135,14 +128,12 @@ function module:Initialize()
 		module.db = E.db.mui.media
 
 		if module.db.zoneText.enable then
-			module:TextWidth()
 			hooksecurefunc("SetZoneText", ZoneTextPos)
 		end
 	end
 	self:ForUpdateAll()
 
 	if module.db.zoneText.enable then
-		module:TextWidth()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
 	end
 

@@ -41,28 +41,21 @@ local function UpdateSystemOptions()
 end
 
 local function DashboardsTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.dashboard = {
 		type = "group",
 		name = L["Dashboard"],
 		hidden = function() return IsAddOnLoaded("ElvUI_BenikUI") end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Dashboard"]),
-			},
+			name = ACH:Header(MER:cOption(L["Dashboard"]), 1),
 			credits = {
 				order = 2,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = "description",
-						fontSize = "medium",
-						name = format("|cff00c0faBenikUI|r"),
-					},
+					tukui = ACH:Description(format("|cff00c0faBenikUI|r"), 1),
 				},
 			},
 			dashColor = {
@@ -102,11 +95,7 @@ local function DashboardsTable()
 							if E.db.mui.dashboard.system.enableSystem then module:UpdateSystemSettings(); end
 						end,
 					},
-					spacer = {
-						order = 3,
-						type = "description",
-						name = '',
-					},
+					spacer = ACH:Spacer(3),
 					textColor = {
 						order = 4,
 						type = "select",
@@ -190,11 +179,7 @@ local function DashboardsTable()
 				name = MER:cOption(L["System"]),
 				guiInline = true,
 				args = {
-					name = {
-						order = 1,
-						type = 'header',
-						name = MER:cOption(L["System"]),
-					},
+					name = ACH:Header(MER:cOption(L["System"]), 1),
 					enableSystem = {
 						order = 2,
 						type = "toggle",

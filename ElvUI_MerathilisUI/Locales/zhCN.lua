@@ -14,8 +14,6 @@ L["Logout Timer"] = "登出计时器"
 L["SplashScreen"] = "闪屏"
 L["Enable/Disable the Splash Screen on Login."] = "在登录时启用/禁用启动画面."
 L["Options"] = "选项"
-L["Combat State"] = "战斗状态"
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "如果你进入/离开战斗，启用/禁用'+'/'-'战斗信息."
 L["Desciption"] = "描述"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r 是ElvUI的扩展. 它增加了:
 
@@ -69,6 +67,17 @@ L["Damage Meter Filter"] = "伤害统计过滤"
 L["Fade Chat"] = "聊天渐隐"
 L["Auto hide timeout"] = "时间"
 L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
+
+-- Combat Alert
+L["Combat Alert"] = true
+L["Enable/Disable the combat message if you enter/leave the combat."] = true
+L["Enter Combat"] = true
+L["Leave Combat"] = true
+L["Stay Duration"] = true
+L["Custom Text"] = true
+L["Custom Text (Enter)"] = true
+L["Custom Text (Leave)"] = true
+L["Color"] = true
 
 -- Information
 L["Information"] = "信息"
@@ -212,11 +221,6 @@ L["Enable Guild Events"] = "启用公会活动"
 L["No Sounds"] = "没有声音"
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = "聊天标签信息面板"
-L["Middle Datatext Panel"] = "中间的信息面板"
-L["Right Click"] = "右键点击"
-L["Dura."] = "耐久"
-
 -- DataBars
 L["DataBars"] = "数据条"
 L["Add some stylish buttons at the bottom of the DataBars"] = "在数据条底部添加一些美观的按钮"

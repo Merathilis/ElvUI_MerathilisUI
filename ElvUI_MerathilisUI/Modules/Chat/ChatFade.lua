@@ -12,7 +12,9 @@ local InCombatLockdown = InCombatLockdown
 -- GLOBALS:
 
 function module:HideChatFade()
-	E:UIFrameFadeOut(self.fadeParent, 0.2, self.fadeParent:GetAlpha(), E.db.mui.chat.chatFade.minAlpha)
+	local fadeOutTime = E.db.mui.chat.chatFade.fadeOutTime or 0.65
+
+	E:UIFrameFadeOut(self.fadeParent, fadeOutTime, self.fadeParent:GetAlpha(), E.db.mui.chat.chatFade.minAlpha)
 end
 
 function module:ShowChatFade()
@@ -87,6 +89,7 @@ function module:Configure_ChatFade()
 		_G.RightChatPanel:SetParent(self.fadeParent)
 		_G.LeftChatToggleButton:SetParent(self.fadeParent)
 		_G.RightChatToggleButton:SetParent(self.fadeParent)
+		_G.MER_RightChatTopDT:SetParent(self.fadeParent)
 	else
 		self:ShowChatFade()
 
@@ -114,5 +117,6 @@ function module:Configure_ChatFade()
 		_G.RightChatPanel:SetParent(E.UIParent)
 		_G.LeftChatToggleButton:SetParent(E.UIParent)
 		_G.RightChatToggleButton:SetParent(E.UIParent)
+		_G.MER_RightChatTopDT:SetParent(E.UIParent)
 	end
 end

@@ -17,7 +17,6 @@ MP.general = {
 	AFK = true,
 	FlightMode = true,
 	FlightPoint = true,
-	CombatState = true,
 	style = true,
 	shadowOverlay = true,
 	filterErrors = true,
@@ -32,6 +31,36 @@ MP.merchant = {
 	enable = true,
 	style = "Default",
 	subpages = 2,
+}
+
+MP.CombatAlert = {
+	enable = true,
+	style = {
+		font = E.db.general.font,
+		fontSize = 28,
+		fontOutline = "THICKOUTLINE",
+		backdrop = false,
+		font_color_enter = {
+			r = 0.91,
+			g = 0.3,
+			b = 0.24,
+			a = 1.0,
+		},
+		font_color_leave = {
+			r = 0.18,
+			g = 0.8,
+			b = 0.44,
+			a = 1.0,
+		},
+		stay_duration = 1.5,
+		animation_duration = 1,
+		scale = 0.8,
+	},
+	custom_text = {
+		enabled = false,
+		custom_enter_text = L["Enter Combat"],
+		custom_leave_text = L["Leave Combat"],
+	},
 }
 
 MP.cvars = {
@@ -95,21 +124,9 @@ MP.chat = {
 		enable = true,
 		minAlpha = 0.33,
 		timeout = 8,
+		fadeOutTime = 0.65
 	},
-	linkIcons = {
-		enable = true,
-		links = {
-			achievement = true,
-			item = true,
-			player = true,
-			spell = true,
-		},
-		icons = {
-			Race = false,
-			Class = true,
-		},
-		PawnIntegration = true,
-	}
+	seperators = true,
 }
 
 MP.colors = {
@@ -159,35 +176,7 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {
-	panels = {
-		ChatTab_Datatext_Panel = {
-			left = "Durability",
-			middle = "Bags",
-			right = "Coords",
-		},
-		mUIMiddleDTPanel = {
-			left = "Guild",
-			middle = "MUI System",
-			right = "Friends",
-		},
-	},
-	middle = {
-		enable = true,
-		transparent = true,
-		backdrop = false,
-		width = 495,
-		height = 18,
-	},
-	rightChatTabDatatextPanel = {
-		enable = true,
-	},
-	threatBar = {
-		enable = true,
-		textSize = 10,
-		textOutline = "OUTLINE",
-	},
-}
+MP.datatexts = {}
 
 MP.actionbars = {
 	customGlow = true,
@@ -386,6 +375,7 @@ MP.maps = {
 		blip = {
 			enable = true,
 		},
+		rectangle = false,
 	},
 }
 
@@ -563,10 +553,6 @@ MP.tooltip = {
 	},
 	corruption = {
 		enable = true,
-		append = true,
-		icon = true,
-		summary = true,
-		english = false,
 	},
 }
 

@@ -211,3 +211,6 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 *.zip
+
+# Luacheck's Cache
+.luacheckcache

@@ -58,18 +58,13 @@ function module:SetUnitText(tt, unit, level, isShiftKeyDown)
 	end
 end
 
-
 function module:GameTooltip_OnTooltipSetUnit(tt)
 	if tt:IsForbidden() then return end
 
 	local unit = select(2, tt:GetUnit())
-	if((tt:GetOwner() ~= UIParent) and (self.db.visibility and self.db.visibility.unitFrames ~= 'NONE')) then
-		local modifier = self.db.visibility.unitFrames
-
-		if(modifier == 'ALL' or not ((modifier == 'SHIFT' and IsShiftKeyDown()) or (modifier == 'CTRL' and IsControlKeyDown()) or (modifier == 'ALT' and IsAltKeyDown()))) then
-			tt:Hide()
-			return
-		end
+	if TT.db.visibility and not TT:IsModKeyDown(TT.db.visibility.unitFrames) and (tt:GetOwner() ~= _G.UIParent) then
+		tt:Hide()
+		return
 	end
 
 	if(not unit) then
@@ -189,6 +184,7 @@ function module:Initialize()
 	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
 	self:AzeriteArmor()
+	TT:CorruptionRank()
 end
 
 MER:RegisterModule(module:GetName())

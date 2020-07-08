@@ -18,17 +18,15 @@ local buttonTypes = {
 	["usable"] = "Usable Buttons"
 }
 local function ActionBarTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.actionbars = {
 		type = "group",
 		name = L["ActionBars"],
 		get = function(info) return E.db.mui.actionbars[ info[#info] ] end,
 		set = function(info, value) E.db.mui.actionbars[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["ActionBars"]),
-			},
+			name = ACH:Header(MER:cOption(L["ActionBars"]), 1),
 			general = {
 				order = 2,
 				type = "group",

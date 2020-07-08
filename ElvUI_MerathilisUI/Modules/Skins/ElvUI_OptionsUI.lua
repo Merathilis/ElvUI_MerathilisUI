@@ -12,7 +12,7 @@ local InCombatLockdown = InCombatLockdown
 -- GLOBALS:
 
 local function StyleElvUIConfig()
-	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
+	if InCombatLockdown() or not E.private.skins.ace3Enable then return end
 
 	local frame = E:Config_GetWindow()
 

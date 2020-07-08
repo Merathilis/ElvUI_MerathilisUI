@@ -13,7 +13,7 @@ function MER:LoadTouhinProfile()
 		["edgeSize"] = 1,
 		["scale"] = 0.9,
 		["anchor_y"] = 249.000579833984,
-		["bgFile"] = "Melli",
+		["bgFile"] = "MerathilisUI4",
 		["showMoney"] = false,
 		["font"] = "Merathilis Expressway",
 		["anchor_x"] = 57.0003356933594,

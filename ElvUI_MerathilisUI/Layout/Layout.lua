@@ -17,73 +17,6 @@ local SOUNDKIT = SOUNDKIT
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
-local PANEL_HEIGHT = 19
-
-function MERL:LoadLayout()
-	--Create extra panels
-	MERL:CreateExtraDataBarPanels()
-end
-hooksecurefunc(LO, "Initialize", MERL.LoadLayout)
-
-function MERL:CreateExtraDataBarPanels()
-	local chattab = CreateFrame("Frame", "ChatTab_Datatext_Panel", _G.RightChatPanel)
-	chattab:SetPoint("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, 0)
-	chattab:SetPoint("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, 0)
-	E.FrameLocks["ChatTab_Datatext_Panel"] = true
-	DT:RegisterPanel(chattab, 3, "ANCHOR_TOPLEFT", -3, 4)
-
-	local mUIMiddleDTPanel = CreateFrame("Frame", "mUIMiddleDTPanel", E.UIParent)
-	E.FrameLocks["mUIMiddleDTPanel"] = true
-	DT:RegisterPanel(mUIMiddleDTPanel, 3, "ANCHOR_BOTTOM", 0, 0)
-end
-
-function MERL:ToggleChatPanel()
-	local db = E.db.mui.datatexts.rightChatTabDatatextPanel
-
-	if db.enable then
-		_G.ChatTab_Datatext_Panel:Show()
-	else
-		_G.ChatTab_Datatext_Panel:Hide()
-	end
-end
-
-function MERL:MiddleDatatextLayout()
-	local db = E.db.mui.datatexts.middle
-
-	if db.enable then
-		mUIMiddleDTPanel:Show()
-	else
-		mUIMiddleDTPanel:Hide()
-	end
-
-	if not db.backdrop then
-		mUIMiddleDTPanel:SetTemplate("NoBackdrop")
-	else
-		if db.transparent then
-			mUIMiddleDTPanel:SetTemplate("Transparent")
-		else
-			mUIMiddleDTPanel:SetTemplate("Default", true)
-		end
-	end
-end
-
-function MERL:MiddleDatatextDimensions()
-	local db = E.db.mui.datatexts.middle
-	mUIMiddleDTPanel:Width(db.width)
-	mUIMiddleDTPanel:Height(db.height)
-	DT.UpdatePanelDimensions(mUIMiddleDTPanel)
-	-- DT:UpdateAllDimensions()
-end
-
-function MERL:ChangeLayout()
-	-- Middle DT Panel
-	mUIMiddleDTPanel:SetFrameStrata("MEDIUM")
-	mUIMiddleDTPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 2)
-	mUIMiddleDTPanel:Width(E.db.mui.datatexts.middle.width or 400)
-	mUIMiddleDTPanel:Height(E.db.mui.datatexts.middle.height or PANEL_HEIGHT)
-	E:CreateMover(mUIMiddleDTPanel, "MER_MiddleDTPanelMover", L["MerathilisUI Middle DataText"], nil, nil, nil, 'ALL,SOLO,MERATHILISUI', nil, 'mui,modules,datatexts')
-end
-
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
@@ -112,11 +45,11 @@ function MERL:CreateChatButtons()
 		if btn == "LeftButton" then
 			if E.db.mui.chat.isExpanded then
 				E.db.chat.panelHeight = E.db.chat.panelHeight - E.db.mui.chat.expandPanel
-				CH:PositionChat(true)
+				CH:PositionChats()
 				E.db.mui.chat.isExpanded = false
 			else
 				E.db.chat.panelHeight = E.db.chat.panelHeight + E.db.mui.chat.expandPanel
-				CH:PositionChat(true)
+				CH:PositionChats()
 				E.db.mui.chat.isExpanded = true
 			end
 		end
@@ -149,16 +82,10 @@ function MERL:CreateChatButtons()
 	ChatButton:RegisterEvent("ADDON_LOADED")
 	ChatButton:SetScript("OnEvent", function(self, event, addon)
 		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
-			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChat(true); end
+			E.Options.args.chat.args.panels.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChats(); end
 			self:UnregisterEvent(event)
 		end
 	end)
-end
-
-function MERL:regEvents()
-	self:ToggleChatPanel()
-	self:MiddleDatatextLayout()
-	self:MiddleDatatextDimensions()
 end
 
 function MERL:ShadowOverlay()
@@ -178,11 +105,57 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
+function MERL:CreateSeparators()
+	if E.db.mui.chat.seperators ~= true then return end
+
+	--Left Chat Tab Separator
+	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
+	ltabseparator:SetFrameStrata('BACKGROUND')
+	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
+	ltabseparator:Height(1)
+	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
+	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
+	ltabseparator:SetTemplate('Transparent')
+
+	--Right Chat Tab Separator
+	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
+	rtabseparator:SetFrameStrata('BACKGROUND')
+	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
+	rtabseparator:Height(1)
+	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
+	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
+	rtabseparator:SetTemplate('Transparent')
+end
+hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
+
+function MERL:ToggleChatPanels()
+	local panelHeight = E.db.chat.panelHeight
+	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
+
+	_G.LeftChatMover:Height(panelHeight)
+	_G.RightChatMover:Height((rightHeight or panelHeight))
+end
+hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
+
+function MERL:RefreshChatMovers()
+	local Left = _G.LeftChatPanel:GetPoint()
+	local Right = _G.RightChatPanel:GetPoint()
+
+	_G.LeftChatPanel:Point(Left, _G.LeftChatMover, 0, 0)
+	_G.RightChatPanel:Point(Right, _G.RightChatMover, 0, 0)
+end
+hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
+
+function MERL:SetDataPanelStyle()
+	E.Chat:PositionChats()
+end
+
 function MERL:Initialize()
-	self:ChangeLayout()
-	self:regEvents()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
+
+	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
+	LO:SetDataPanelStyle()
 end
 
 MER:RegisterModule(MERL:GetName())

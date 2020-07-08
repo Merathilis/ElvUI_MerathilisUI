@@ -23,20 +23,16 @@ local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
-local UnitClass = UnitClass
 local UnitIsGroupAssistant = UnitIsGroupAssistant
 local UnitIsGroupLeader = UnitIsGroupLeader
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsTapDenied = UnitIsTapDenied
-local UnitReaction = UnitReaction
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 local IsEveryoneAssistant = IsEveryoneAssistant
 local IsInGroup = IsInGroup
 local IsInRaid = IsInRaid
+local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local UIParent = UIParent
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
@@ -76,6 +72,16 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
+-- Quality Color stuff
+MER.QualityColors = {}
+local qualityColors = BAG_ITEM_QUALITY_COLORS
+for index, value in pairs(qualityColors) do
+	MER.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
+end
+MER.QualityColors[-1] = {r = 0, g = 0, b = 0}
+MER.QualityColors[_G.LE_ITEM_QUALITY_POOR] = {r = .61, g = .61, b = .61}
+MER.QualityColors[_G.LE_ITEM_QUALITY_COMMON] = {r = 0, g = 0, b = 0}
+
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
@@ -85,11 +91,6 @@ function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-end
-
-function MER:MismatchText()
-	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
-	return text
 end
 
 function MER:Print(...)

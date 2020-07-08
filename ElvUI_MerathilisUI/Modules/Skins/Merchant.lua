@@ -5,7 +5,7 @@ local MERS = MER:GetModule('muiSkins')
 --Cache global variables
 --Lua Variables
 local _G = _G
-local unpack = unpack
+local tostring, unpack = tostring, unpack
 local strtrim = strtrim
 local math_max, math_ceil = math.max, math.ceil
 local tinsert = table.insert
@@ -19,11 +19,24 @@ local GetCurrencyInfo = GetCurrencyInfo
 local GetItemClassInfo = GetItemClassInfo
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
+local GetMerchantItemInfo = GetMerchantItemInfo
 local GetMerchantItemID = GetMerchantItemID
 local GetMerchantItemLink = GetMerchantItemLink
 local GetMerchantNumItems = GetMerchantNumItems
 local hooksecurefunc = hooksecurefunc
 local UIParent = UIParent
+local SetItemButtonCount = SetItemButtonCount
+local SetItemButtonStock = SetItemButtonStock
+local SetItemButtonTexture = SetItemButtonTexture
+local MerchantFrame_UpdateAltCurrency = MerchantFrame_UpdateAltCurrency
+local MoneyFrame_SetMaxDisplayWidth = MoneyFrame_SetMaxDisplayWidth
+local MoneyFrame_Update = MoneyFrame_Update
+local MerchantFrameItem_UpdateQuality = MerchantFrameItem_UpdateQuality
+local SetMoneyFrameColor = SetMoneyFrameColor
+local SetItemButtonNameFrameVertexColor = SetItemButtonNameFrameVertexColor
+local SetItemButtonSlotVertexColor = SetItemButtonSlotVertexColor
+local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
+local SetItemButtonNormalTextureVertexColor = SetItemButtonNormalTextureVertexColor
 -- GLOBALS:
 
 local ItemsPerSubpage, SubpagesPerPage
@@ -45,9 +58,8 @@ local function SkinVendorItems(i)
 
 	_G["MerchantItem"..i.."SlotTexture"]:Hide()
 	_G["MerchantItem"..i.."NameFrame"]:Hide()
-	_G["MerchantItem"..i.."Name"]:SetHeight(20)
 
-	local a1, p, a2= bu:GetPoint()
+	local a1, p, a2 = bu:GetPoint()
 	bu:SetPoint(a1, p, a2, -1, -1)
 	bu:SetNormalTexture("")
 	bu:SetPushedTexture("")
@@ -69,6 +81,11 @@ local function SkinVendorItems(i)
 	ic:SetInside()
 	IconBorder:SetAlpha(0)
 
+	-- Hide ElvUI's backdrop
+	if button.backdrop then
+		button.backdrop:Hide()
+	end
+
 	hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
 		self:GetParent():SetBackdropBorderColor(r, g, b)
 		self:SetTexture("")
@@ -77,7 +94,10 @@ local function SkinVendorItems(i)
 	hooksecurefunc(IconBorder, 'Hide', function(self)
 		self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
 	end)
+
 	_G.MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
+
+	MER.NPC:Register(_G.MerchantFrame)
 end
 
 local function UpdateButtonsPositions(isBuyBack)
@@ -93,6 +113,7 @@ local function UpdateButtonsPositions(isBuyBack)
 		horizSpacing = 12
 		searchBox:Show()
 	end
+
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		btn = _G["MerchantItem" .. i]
 		if (isBuyBack) then
@@ -154,6 +175,7 @@ local function isKnown(link, itemType, itemSubType)
 	if ( not link ) then
 		return false;
 	end
+
 	local upperLimit
 	local isMount = false
 	local isRecipe = false
@@ -188,7 +210,7 @@ local function UpdateMerchantInfo()
 	local totalMerchantItems = GetMerchantNumItems();
 	local visibleMerchantItems = 0
 	local indexes = {}
-	local _, name, texture, price, quantity, numAvailable, isUsable, extendedCost, r, g, b, notOptimal;
+	local _, name, texture, price, quantity, numAvailable, isPurchasable, isUsable, extendedCost, r, g, b, notOptimal;
 	local link, quality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemSellPrice, itemId;
 
 	for i = 1, totalMerchantItems do
@@ -226,8 +248,8 @@ local function UpdateMerchantInfo()
 				local itemLink = GetMerchantItemLink(index)
 				if itemLink then
 					local _, _, quality, itemlevel, _, _, _, _, _, _, _, itemClassID = GetItemInfo(itemLink)
-					local color = BAG_ITEM_QUALITY_COLORS[quality or 1]
-					if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == LE_ITEM_CLASS_WEAPON or itemClassID == LE_ITEM_CLASS_ARMOR) then
+					local color = _G.BAG_ITEM_QUALITY_COLORS[quality or 1]
+					if (itemlevel and itemlevel > 1) and (quality and quality > 1) and (itemClassID == _G.LE_ITEM_CLASS_WEAPON or itemClassID == _G.LE_ITEM_CLASS_ARMOR) then
 						itemButton.text:SetText(itemlevel)
 						itemButton.text:SetTextColor(color.r, color.g, color.b)
 					end
@@ -355,12 +377,25 @@ local function RebuildMerchantFrame()
 	_G.MERCHANT_ITEMS_PER_PAGE = SubpagesPerPage * 10 --Haven't seen this causing any taints so I asume it's ok
 	_G["MerchantFrame"]:SetWidth(42 + (318 * SubpagesPerPage) + (12 * (SubpagesPerPage - 1)))
 
+	if _G.MerchantFrame.backdrop then
+		_G.MerchantFrame.backdrop:Styling()
+	end
+
 	for i = 1, _G.MERCHANT_ITEMS_PER_PAGE do
 		if (not _G["MerchantItem" .. i]) then
 			CreateFrame("Frame", "MerchantItem" .. i, _G["MerchantFrame"], "MerchantItemTemplate")
 			SkinVendorItems(i)
 		end
 	end
+
+	for i = 1, _G.BUYBACK_ITEMS_PER_PAGE do
+		local button = _G["MerchantItem"..i]
+		-- Hide ElvUI's backdrop
+		if button.backdrop then
+			button.backdrop:SetTemplate("Transparent")
+		end
+	end
+
 	 -- alter the position of the buyback item slot on the merchant tab
 	_G["MerchantBuyBackItem"]:ClearAllPoints()
 	_G["MerchantBuyBackItem"]:SetPoint("TOPLEFT", _G["MerchantItem10"], "BOTTOMLEFT", -14, -20)
@@ -387,7 +422,7 @@ local function RebuildMerchantFrame()
 	searchBox:ClearAllPoints()
 	searchBox:SetPoint("RIGHT", _G["MerchantFrameLootFilter"], "LEFT", 0, 2)
 	searchBox:SetAutoFocus(false)
-	searchBox:SetFontObject(ChatFontSmall)
+	searchBox:SetFontObject(_G.ChatFontSmall)
 	searchBox:SetScript("OnTextChanged", function(self) searching = self:GetText():trim():lower() UpdateMerchantInfo() end)
 	searchBox:SetScript("OnShow", function(self) self:SetText(SEARCH) searching = "" end)
 	searchBox:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)

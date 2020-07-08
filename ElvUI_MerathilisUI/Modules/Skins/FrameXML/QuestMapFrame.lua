@@ -52,7 +52,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemover.enable then return end
+	if E.private.skins.parchmentRemoverEnable then return end
 
 	local QuestMapFrame = _G.QuestMapFrame
 
@@ -148,9 +148,6 @@ local function LoadSkin()
 	select(7, CompleteQuestFrame.CompleteButton:GetRegions()):SetAlpha(0)
 
 	-- Quest log popup detail frame
-	local QuestLogPopupDetailFrame = _G["QuestLogPopupDetailFrame"]
-
-	select(18, QuestLogPopupDetailFrame:GetRegions()):SetAlpha(0)
 	_G.QuestLogPopupDetailFrameScrollFrameTop:SetAlpha(0)
 	_G.QuestLogPopupDetailFrameScrollFrameBottom:SetAlpha(0)
 	_G.QuestLogPopupDetailFrameScrollFrameMiddle:SetAlpha(0)
@@ -160,14 +157,14 @@ local function LoadSkin()
 		_G.QuestLogPopupDetailFrameInset:Hide()
 		_G.QuestLogPopupDetailFrameBg:Hide()
 		self:SetTemplate("Transparent")
-		if not E.private.skins.parchmentRemover.enable then
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
 		end
 	end)
-	QuestLogPopupDetailFrame:Styling()
+	_G.QuestLogPopupDetailFrame:Styling()
 
 	-- Show map button
-	local ShowMapButton = QuestLogPopupDetailFrame.ShowMapButton
+	local ShowMapButton = _G.QuestLogPopupDetailFrame.ShowMapButton
 
 	ShowMapButton.Texture:SetAlpha(0)
 	ShowMapButton.Highlight:SetTexture("")
@@ -178,7 +175,7 @@ local function LoadSkin()
 	ShowMapButton.Text:SetPoint("CENTER", 1, 0)
 
 	ShowMapButton:ClearAllPoints()
-	ShowMapButton:SetPoint("TOPRIGHT", QuestLogPopupDetailFrame, -30, -25)
+	ShowMapButton:SetPoint("TOPRIGHT", _G.QuestLogPopupDetailFrame, -30, -25)
 
 	ShowMapButton:HookScript("OnEnter", function(self)
 		self.Text:SetTextColor(_G.GameFontHighlight:GetTextColor())
@@ -189,9 +186,9 @@ local function LoadSkin()
 	end)
 
 	-- Bottom buttons
-	QuestLogPopupDetailFrame.ShareButton:ClearAllPoints()
-	QuestLogPopupDetailFrame.ShareButton:SetPoint("LEFT", QuestLogPopupDetailFrame.AbandonButton, "RIGHT", 1, 0)
-	QuestLogPopupDetailFrame.ShareButton:SetPoint("RIGHT", QuestLogPopupDetailFrame.TrackButton, "LEFT", -1, 0)
+	_G.QuestLogPopupDetailFrame.ShareButton:ClearAllPoints()
+	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("LEFT", _G.QuestLogPopupDetailFrame.AbandonButton, "RIGHT", 1, 0)
+	_G.QuestLogPopupDetailFrame.ShareButton:SetPoint("RIGHT", _G.QuestLogPopupDetailFrame.TrackButton, "LEFT", -1, 0)
 end
 
 S:AddCallback("mUIQuestMapFrame", LoadSkin)

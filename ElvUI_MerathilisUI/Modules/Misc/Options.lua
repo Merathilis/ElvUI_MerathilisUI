@@ -10,17 +10,15 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 -- GLOBALS:
 
 local function Misc()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
 		name = L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Miscellaneous"]),
-			},
+			name = ACH:Header(MER:cOption(L["Miscellaneous"]), 1),
 			MailInputbox = {
 				order = 2,
 				type = "toggle",

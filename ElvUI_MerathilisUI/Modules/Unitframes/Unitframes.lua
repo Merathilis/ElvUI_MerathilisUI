@@ -5,6 +5,7 @@ local UF = E:GetModule("UnitFrames")
 --Cache global variables
 --Lua functions
 --WoW API / Variables
+local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
