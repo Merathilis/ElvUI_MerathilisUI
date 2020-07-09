@@ -129,8 +129,29 @@ function MERL:CreateSeparators()
 	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
 	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
 	rtabseparator:SetTemplate('Transparent')
+
+	MERL:UpdateSeperators()
 end
 hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
+
+function MERL:UpdateSeperators()
+	if E.db.mui.chat.seperators ~= true then return end
+
+	local panelBackdrop = E.db.chat.panelBackdrop
+	if panelBackdrop == 'SHOWBOTH' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Show()
+	elseif panelBackdrop == 'HIDEBOTH' then
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Hide()
+	elseif panelBackdrop == 'LEFT' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Hide()
+	else
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Show()
+	end
+end
 
 function MERL:ToggleChatPanels()
 	local panelHeight = E.db.chat.panelHeight
@@ -160,6 +181,7 @@ function MERL:Initialize()
 
 	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
 	LO:SetDataPanelStyle()
+	self:UpdateSeperators()
 end
 
 MER:RegisterModule(MERL:GetName())
