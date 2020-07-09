@@ -16,14 +16,8 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Take account to the latest ElvUI DataTexts update",
-		"• NOTE: If you want my new DataTexts, you need to do the install step for DataTexts",
-		"• Added own custom DataTexts via the new ElvUI option",
-		"• Fixed Heal-Layout UnitFrames position",
-		"• Use a new texture. (Do the install to get it :P)",
-		"• Some skin updates & small code changes",
-		"• Updated the Combat Alert (Enter/Leave Combat message)",
-		"• WIP: Added rectangle Minimap",
+		"• Try to prevent an error with my ChatButton",
+		"• Add an additional check if you enable the rectangle minimap",
 
 		-- "• ''",
 	" ",
