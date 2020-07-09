@@ -1,4 +1,9 @@
-** v4.49, 08.06.2020**
+** v4.50, 09.07.2020**
+* Try to prevent an error with my ChatButton.
+* Add an additional check if you enable the rectangle minimap.
+
+
+** v4.49, 08.07.2020**
 * Take account to the latest DataTexts changes from ElvUI.
 * NOTE: If you want my new DataTexts, you need to do the install step for DataTexts.
 * Added own custom DataTexts via the new ElvUI option.
@@ -7,6 +12,11 @@
 * Some skin updates & small code changes.
 * Updated the Combat Alert (Enter/Leave Combat message).
 * WIP: Added rectangle Minimap.
+
+
+** v4.48, 30.04.2020
+* Take account for the latest DataTexts update from ElvUI.
+
 
 ** v4.47, 29.04.2020**
 * Fixed MicroBar Styling.
