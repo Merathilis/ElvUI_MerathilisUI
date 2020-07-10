@@ -31,8 +31,15 @@ local function Tooltip()
 				name = L.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
-			keystone = {
+			petIcon = {
 				order = 4,
+				type = "toggle",
+				name = L["Pet Battle"],
+				desc = L["Adds an Icon for battle pets on the tooltip."],
+			},
+
+			keystone = {
+				order = 5,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],

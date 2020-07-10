@@ -169,6 +169,7 @@ L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
 L["Adds an icon for spells and items on your tooltip."] = true
+L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
 L["Keystone"] = true

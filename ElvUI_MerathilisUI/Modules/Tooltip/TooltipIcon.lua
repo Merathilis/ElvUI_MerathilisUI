@@ -10,10 +10,15 @@ local strmatch = strmatch
 local GetItemIcon = GetItemIcon
 local GetMouseFocus = GetMouseFocus
 local GetSpellTexture = GetSpellTexture
+local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
 local UnitExists = UnitExists
 local UnitFactionGroup = UnitFactionGroup
 local UnitIsPlayer = UnitIsPlayer
+local UnitIsBattlePet = UnitIsBattlePet
+local UnitBattlePetType = UnitBattlePetType
+local UnitBattlePetSpeciesID = UnitBattlePetSpeciesID
 local hooksecurefunc = hooksecurefunc
+local PET, ID, UNKNOWN = PET, ID, UNKOWN
 
 local newString = "0:0:64:64:5:59:5:59"
 
@@ -36,6 +41,10 @@ end
 function module:HookTooltipCleared()
 	if self.factionFrame and self.factionFrame:GetAlpha() ~= 0 then
 		self.factionFrame:SetAlpha(0)
+	end
+
+	if self.petIcon and self.petIcon:GetAlpha() ~= 0 then
+		self.petIcon:SetAlpha(0)
 	end
 
 	self.tipModified = false
@@ -84,11 +93,26 @@ local function InsertFactionFrame(self, faction)
 	self.factionFrame:SetAlpha(.5)
 end
 
-function module:HookTooltipSetFaction()
+local function InsertPetIcon(self, petType)
+	if not self.petIcon then
+		local f = self:CreateTexture(nil, "OVERLAY")
+		f:SetPoint("TOPRIGHT", -5, -5)
+		f:SetSize(35, 35)
+		f:SetBlendMode("ADD")
+		self.petIcon = f
+	end
+	self.petIcon:SetTexture("Interface\\PetBattles\\PetIcon-"..PET_TYPE_SUFFIX[petType])
+	self.petIcon:SetTexCoord(.188, .883, 0, .348)
+	self.petIcon:SetAlpha(1)
+end
+
+
+function module:HookTooltipSetUnit()
+	local unit = GetUnit(self)
+
 	if not self.tipModified then
-		if E.db.mui.tooltip.factionIcon then
-			local unit = GetUnit(self)
-			if UnitExists(unit) then
+		if UnitExists(unit) then
+			if E.db.mui.tooltip.factionIcon then
 				if UnitIsPlayer(unit) then
 					local faction = UnitFactionGroup(unit)
 					if faction and faction ~= "Neutral" then
@@ -96,7 +120,19 @@ function module:HookTooltipSetFaction()
 					end
 				end
 			end
+
+			if UnitIsBattlePet(unit) then
+				if E.db.mui.tooltip.petIcon then
+					local _, unit = self:GetUnit()
+					InsertPetIcon(self, UnitBattlePetType(unit))
+
+					-- Pet ID
+					local speciesID = UnitBattlePetSpeciesID(unit)
+					self:AddDoubleLine(PET..ID..":", ((MER.InfoColor..speciesID.."|r") or (MER.GreyColor..UNKNOWN.."|r")))
+				end
+			end
 		end
+
 		self.tipModified = true
 	end
 end
@@ -106,7 +142,7 @@ function module:HookTooltipMethod()
 
 	self:HookScript("OnTooltipSetItem", module.HookTooltipSetItem)
 	self:HookScript("OnTooltipSetSpell", module.HookTooltipSetSpell)
-	self:HookScript("OnTooltipSetUnit", module.HookTooltipSetFaction)
+	self:HookScript("OnTooltipSetUnit", module.HookTooltipSetUnit)
 	self:HookScript("OnTooltipCleared", module.HookTooltipCleared)
 end
 

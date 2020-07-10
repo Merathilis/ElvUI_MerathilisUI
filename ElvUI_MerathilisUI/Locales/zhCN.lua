@@ -165,6 +165,7 @@ L["Your Status:"] = "你的状态: "
 L["Your Status: Incomplete"] = "你的状态：未完成"
 L["Your Status: Completed on "] = "您的状态：完成于"
 L["Adds an icon for spells and items on your tooltip."] = true
+L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
 L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
 L["Keystone"] = "大秘境钥匙"

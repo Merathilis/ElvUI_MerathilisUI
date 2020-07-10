@@ -532,6 +532,7 @@ MP.pvp = {
 MP.tooltip = {
 	tooltipIcon = true,
 	factionIcon = true,
+	petIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,
