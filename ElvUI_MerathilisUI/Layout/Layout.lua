@@ -78,18 +78,6 @@ function MERL:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
-
-	-- Why are you here :thinking:
-	-- panelHeight = nil
-	--[[
-	ChatButton:RegisterEvent("ADDON_LOADED")
-	ChatButton:SetScript("OnEvent", function(self, event, addon)
-		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
-			E.Options.args.chat.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChats(); end
-			self:UnregisterEvent(event)
-		end
-	end)
-	]]
 end
 
 function MERL:ShadowOverlay()
