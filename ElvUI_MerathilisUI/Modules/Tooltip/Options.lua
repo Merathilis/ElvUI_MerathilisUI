@@ -19,11 +19,11 @@ local function Tooltip()
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
 			name = ACH:Header(MER:cOption(L["Tooltip"]), 1),
-			petIcon = {
+			tooltipIcon = {
 				order = 2,
 				type = "toggle",
-				name = L["Pet Battle"],
-				desc = L["Adds an Icon for battle pets on the tooltip."],
+				name = L["Tooltip Icons"],
+				desc = L["Adds an icon for spells and items on your tooltip."],
 			},
 			factionIcon = {
 				order = 3,
@@ -31,25 +31,14 @@ local function Tooltip()
 				name = L.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
-			achievement = {
-				order = 4,
-				type = "toggle",
-				name = L["ACHIEVEMENTS"],
-				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
-			},
-			roleIcon = {
-				order = 5,
-				type = "toggle",
-				name = L["Role Icon"],
-			},
 			keystone = {
-				order = 6,
+				order = 4,
 				type = "toggle",
 				name = L["Keystone"],
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
 			titleColor = {
-				order = 7,
+				order = 5,
 				type = "toggle",
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],

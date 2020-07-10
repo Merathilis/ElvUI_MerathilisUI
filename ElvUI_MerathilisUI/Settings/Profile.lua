@@ -530,10 +530,8 @@ MP.pvp = {
 }
 
 MP.tooltip = {
-	achievement = true,
-	petIcon = true,
+	tooltipIcon = true,
 	factionIcon = true,
-	roleIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,
