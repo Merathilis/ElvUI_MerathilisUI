@@ -114,6 +114,7 @@ MP.chat = {
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	itemLevelLink = true,
 	filter = {
 		enable = true,
 		keywords = "",
