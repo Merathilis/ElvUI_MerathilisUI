@@ -6,5 +6,6 @@
 	<Script file="EasyChannel.lua"/>
 	<Script file="Emotes.lua"/>
 	<Script file="Filters.lua"/>
+	<Script file="ItemLevelLink.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

@@ -185,6 +185,7 @@ function module:Initialize()
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
 	self:AzeriteArmor()
 	TT:CorruptionRank()
+	self:ReskinTooltipIcons()
 end
 
 MER:RegisterModule(module:GetName())

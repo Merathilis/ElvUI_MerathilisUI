@@ -78,18 +78,6 @@ function MERL:CreateChatButtons()
 		end
 		GameTooltip:Hide()
 	end)
-
-	-- Why are you here :thinking:
-	-- panelHeight = nil
-	--[[
-	ChatButton:RegisterEvent("ADDON_LOADED")
-	ChatButton:SetScript("OnEvent", function(self, event, addon)
-		if event == "ADDON_LOADED" and addon == "ElvUI_OptionsUI" then
-			E.Options.args.chat.args.panelHeight.set = function(info, value) E.db.chat.panelHeight = value; E.db.mui.chat.panelHeight = value; CH:PositionChats(); end
-			self:UnregisterEvent(event)
-		end
-	end)
-	]]
 end
 
 function MERL:ShadowOverlay()
@@ -129,8 +117,29 @@ function MERL:CreateSeparators()
 	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
 	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
 	rtabseparator:SetTemplate('Transparent')
+
+	MERL:UpdateSeperators()
 end
 hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
+
+function MERL:UpdateSeperators()
+	if E.db.mui.chat.seperators ~= true then return end
+
+	local panelBackdrop = E.db.chat.panelBackdrop
+	if panelBackdrop == 'SHOWBOTH' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Show()
+	elseif panelBackdrop == 'HIDEBOTH' then
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Hide()
+	elseif panelBackdrop == 'LEFT' then
+		_G.LeftChatTabSeparator:Show()
+		_G.RightChatTabSeparator:Hide()
+	else
+		_G.LeftChatTabSeparator:Hide()
+		_G.RightChatTabSeparator:Show()
+	end
+end
 
 function MERL:ToggleChatPanels()
 	local panelHeight = E.db.chat.panelHeight
@@ -160,6 +169,7 @@ function MERL:Initialize()
 
 	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
 	LO:SetDataPanelStyle()
+	self:UpdateSeperators()
 end
 
 MER:RegisterModule(MERL:GetName())

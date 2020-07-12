@@ -1,3 +1,10 @@
+[b][color=orange]v4.51[/color], 12.07.2020[/b][list]
+[*]Prevent an error which cause that the Export Profile didnt work.
+[*]My chat seperators now take account the the Chat Panel Backdrop Settings.
+[*]Simplify my Tooltip Icons.
+[*]UNDER INVESTIGATION: Added back Item Level Links. See in game Changelog for infos.[/list]
+
+
 [b][color=orange]v4.50[/color], 09.07.2020[/b][list]
 [*]Try to prevent an error with my ChatButton.
 [*]Add an additional check if you enable the rectangle minimap.[/list]

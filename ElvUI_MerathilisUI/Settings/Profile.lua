@@ -114,6 +114,7 @@ MP.chat = {
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	itemLevelLink = true,
 	filter = {
 		enable = true,
 		keywords = "",
@@ -530,10 +531,9 @@ MP.pvp = {
 }
 
 MP.tooltip = {
-	achievement = true,
-	petIcon = true,
+	tooltipIcon = true,
 	factionIcon = true,
-	roleIcon = true,
+	petIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,

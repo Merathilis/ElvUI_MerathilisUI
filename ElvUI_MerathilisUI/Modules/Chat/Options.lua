@@ -51,6 +51,11 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Seperators"],
 			},
+			itemLevelLink = {
+				order = 8,
+				type = "toggle",
+				name = L["Item Level Links"],
+			},
 			chatFade = {
 				order = 10,
 				type = "group",
