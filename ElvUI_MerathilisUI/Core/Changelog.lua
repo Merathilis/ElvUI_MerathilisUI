@@ -16,8 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Try to prevent an error with my ChatButton",
-		"• Add an additional check if you enable the rectangle minimap",
+		"• Prevent an error which cause that the Export Profile didnt work",
+		"• My chat seperators now take account the the Chat Panel Backdrop Settings",
+		"• Simplify my Tooltip Icons",
+		"• Added back Item Level Links. See in game Changelog for infos",
 
 		-- "• ''",
 	" ",
@@ -25,6 +27,7 @@ local ChangeLogData = {
 		"• As always, if you want my latest layout, do the install procress again",
 		"• If you are getting any errors or something, make sure you are now using:",
 		"  '/muierrors on' and test again",
+		"• Item Level Link is under investigation, so if you get any errors please let me know",
 }
 
 local URL_PATTERNS = {
