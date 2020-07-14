@@ -55,9 +55,7 @@ function MERTT:Azerite_PowerToSpell(id)
 	return spellID
 end
 
-function MERTT:Azerite_UpdateItem()
-	local link = select(2, self:GetItem())
-	if not link then return end
+function MERTT:Azerite_UpdateTier(link)
 	if not C_AzeriteEmpoweredItem_IsAzeriteEmpoweredItemByID(link) then return end
 
 	local allTierInfo = tierCache[link]
@@ -65,6 +63,15 @@ function MERTT:Azerite_UpdateItem()
 		allTierInfo = C_AzeriteEmpoweredItem_GetAllTierInfoByItemID(link)
 		tierCache[link] = allTierInfo
 	end
+
+	return allTierInfo
+end
+
+function MERTT:Azerite_UpdateItem()
+	local link = select(2, self:GetItem())
+	if not link then return end
+
+	local allTierInfo = MERTT:Azerite_UpdateTier(link)
 	if not allTierInfo then return end
 
 	MERTT.Azerite_ScanTooltip(self)
@@ -96,7 +103,7 @@ function MERTT:Azerite_UpdateItem()
 			local line = _G[self:GetName().."TextLeft"..lineIndex]
 			if E.db.mui.tooltip.azerite.onlyIcons then
 				line:SetText(tooltipText)
-				_G[self:GetName().."TextLeft"..lineIndex+1]:SetText("")
+				_G[self:GetName().."TextLeft"..lineIndex + 1]:SetText("")
 			else
 				line:SetText(line:GetText().."\n "..tooltipText)
 			end
