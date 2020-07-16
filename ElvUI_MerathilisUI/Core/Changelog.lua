@@ -16,10 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Prevent an error which cause that the Export Profile didnt work",
-		"• My chat seperators now take account the the Chat Panel Backdrop Settings",
-		"• Simplify my Tooltip Icons",
-		"• Added back Item Level Links. See in game Changelog for infos",
+		"• Take account for the new Aura Color Option from ElvUI",
+		"• Don't force settings anymore if you enable the rectangle Minimap",
+		"• Fix AzeriteTooltip Icons to display correct now",
+		"• Code cleanup",
 
 		-- "• ''",
 	" ",
@@ -27,7 +27,7 @@ local ChangeLogData = {
 		"• As always, if you want my latest layout, do the install procress again",
 		"• If you are getting any errors or something, make sure you are now using:",
 		"  '/muierrors on' and test again",
-		"• Item Level Link is under investigation, so if you get any errors please let me know",
+		"• If you havent enable rectangle minimap for now, you must adjust your layout",
 }
 
 local URL_PATTERNS = {

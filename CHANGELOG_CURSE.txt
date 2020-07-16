@@ -1,3 +1,10 @@
+** v4.52, 16.07.2020**
+* Take account for the new Aura Color Option from ElvUI.
+* Don't force settings anymore if you enable the rectangle Minimap.
+* Fix AzeriteTooltip Icons to display correct now.
+* Code cleanup.
+
+
 ** v4.51, 12.07.2020**
 * Prevent an error which cause that the Export Profile didnt work.
 * My chat seperators now take account of the Chat Panel Backdrop Settings.
