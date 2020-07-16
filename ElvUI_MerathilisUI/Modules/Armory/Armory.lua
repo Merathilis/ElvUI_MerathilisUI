@@ -296,7 +296,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	--if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
