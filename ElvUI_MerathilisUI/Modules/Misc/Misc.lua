@@ -98,65 +98,6 @@ function module:LoadMisc()
 			end
 		end
 	end)
-
-	-- Try to fix JoinBattleField taint
-	CreateFrame("Frame"):SetScript("OnUpdate", function(self, elapsed)
-		if LFRBrowseFrame.timeToClear then
-			LFRBrowseFrame.timeToClear = nil
-		end
-	end)
-
-	-- Pet Journal Fix
-	C_PetJournalSetFilterChecked(LE_PET_JOURNAL_FILTER_COLLECTED, true)
-	C_PetJournalSetFilterChecked(LE_PET_JOURNAL_FILTER_NOT_COLLECTED, true)
-	C_PetJournalSetAllPetTypesChecked(true)
-	C_PetJournalSetAllPetSourcesChecked(true)
-
-	-- FixOrderHallMap(by Ketho)
-	local locations = {
-		[23] = function() return select(4, GetMapInfo()) and 1007 end, -- Paladin, Sanctum of Light; Eastern Plaguelands
-		[1040] = function() return 1007 end, -- Priest, Netherlight Temple; Azeroth
-		[1044] = function() return 1007 end, -- Monk, Temple of Five Dawns; none
-		[1048] = function() return 1007 end, -- Druid, Emerald Dreamway; none
-		[1052] = function() return GetCurrentMapDungeonLevel() > 1 and 1007 end, -- Demon Hunter, Fel Hammer; Mardum
-		[1088] = function() return GetCurrentMapDungeonLevel() == 3 and 1033 end, -- Nighthold -> Suramar
-	}
-
-	-- Garbage collection is being overused and misused,
-	-- and it's causing lag and performance drops.
-	do
-		local oldcollectgarbage = collectgarbage
-		oldcollectgarbage("setpause", 110)
-		oldcollectgarbage("setstepmul", 200)
-
-		collectgarbage = function(opt, arg)
-			if (opt == "collect") or (opt == nil) then
-			elseif (opt == "count") then
-				return oldcollectgarbage(opt, arg)
-			elseif (opt == "setpause") then
-				return oldcollectgarbage("setpause", 110)
-			elseif opt == "setstepmul" then
-				return oldcollectgarbage("setstepmul", 200)
-			elseif (opt == "stop") then
-			elseif (opt == "restart") then
-			elseif (opt == "step") then
-				if (arg ~= nil) then
-					if (arg <= 10000) then
-						return oldcollectgarbage(opt, arg)
-					end
-				else
-					return oldcollectgarbage(opt, arg)
-				end
-			else
-				return oldcollectgarbage(opt, arg)
-			end
-		end
-
-		-- Memory usage is unrelated to performance, and tracking memory usage does not track "bad" addons.
-		-- Developers can uncomment this line to enable the functionality when looking for memory leaks,
-		-- but for the average end-user this is a completely pointless thing to track.
-		UpdateAddOnMemoryUsage = MER.dummy
-	end
 end
 
 function module:SetRole()
@@ -192,6 +133,7 @@ function module:Initialize()
 	self:AddAlerts()
 	self:ReputationInit()
 	self:WowHeadLinks()
+	self:SplashScreen()
 end
 
 MER:RegisterModule(module:GetName())

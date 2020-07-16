@@ -577,7 +577,7 @@ function MER:ReskinRole(self, role)
 		texture:SetTexCoord(MER:GetRoleTexCoord(role))
 	end
 
-	local checkButton = self.checkButton or self.CheckButton
+	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
 		checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
 		checkButton:SetPoint("BOTTOMLEFT", -2, -2)

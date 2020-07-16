@@ -80,7 +80,6 @@ end
 function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
-	self:SplashScreen()
 	self:AddMoverCategories()
 	self:InitDataTexts()
 

@@ -43,7 +43,7 @@ local function Minimap()
 						order = 3,
 						type = "toggle",
 						name = E.NewSign..L["Rectangle Minimap"],
-						desc = L["|cffFF0000WARNING:|r I force some settings to be in a fix position. You may need to reload a couple of times that all settings take effect."],
+						desc = L["|cffFF0000WARNING:|r If you enable this, you must adjust your Interface manually."],
 					},
 				},
 			},

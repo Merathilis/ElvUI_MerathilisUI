@@ -181,11 +181,12 @@ function module:Initialize()
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
 
+	TT:CorruptionRank()
+	module:ReskinTooltipIcons()
+	module:AzeriteArmor()
+
 	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)
-	self:AzeriteArmor()
-	TT:CorruptionRank()
-	self:ReskinTooltipIcons()
 end
 
 MER:RegisterModule(module:GetName())

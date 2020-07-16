@@ -93,7 +93,12 @@ function module:Initialize()
 	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.rectangle then return end
 
 	module:SkinMiniMap()
-	module:AdjustSettings()
+
+	-- Only adjust the settings for me
+	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
+		module:AdjustSettings()
+	end
+
 	hooksecurefunc(MM, "UpdateSettings", module.UpdateMoverSize)
 end
 
