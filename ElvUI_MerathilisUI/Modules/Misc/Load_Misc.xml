@@ -22,5 +22,6 @@
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="WoWHeadLinks.lua"/>
+	<Script file="SplashScreen.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

@@ -133,6 +133,7 @@ function module:Initialize()
 	self:AddAlerts()
 	self:ReputationInit()
 	self:WowHeadLinks()
+	self:SplashScreen()
 end
 
 MER:RegisterModule(module:GetName())
