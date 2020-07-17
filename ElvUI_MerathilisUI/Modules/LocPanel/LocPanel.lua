@@ -90,6 +90,7 @@ module.Hearthstones = {
 	{165802, nil, true}, -- Noblegarden HS
 	{166746, nil, true}, -- Midsummer HS
 	{166747, nil, true}, -- Brewfest HS
+	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
 }
 
