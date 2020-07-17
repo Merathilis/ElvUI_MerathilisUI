@@ -36,7 +36,7 @@ function MI:CreateSplash()
 
 	local tex = frame:CreateTexture()
 	tex:Point("CENTER", frame, "CENTER")
-	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga")
+	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1_Shadow.tga")
 	tex:Size(125, 125)
 
 	local version = MER:CreateText(frame, "OVERLAY", 14, nil, "CENTER")
