@@ -108,18 +108,13 @@ function MER:Initialize()
 
 	E:Delay(6, function() MER:CheckVersion() end)
 
-	-- run the setup again when a profile gets deleted.
+	-- run the setup when ElvUI install is finished and again when a profile gets deleted.
 	local profileKey = ElvDB.profileKeys[E.myname.." - "..E.myrealm]
-	if ElvDB.profileKeys and profileKey == nil then
+	if (E.private.install_complete == E.version and E.db.mui.installed == nil) or (ElvDB.profileKeys and profileKey == nil) then
 		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 
 	if E.db.mui.installed and E.db.mui.general.LoginMsg then
 		print(MER.Title..format("v|cff00c0fa%s|r", MER.Version)..L[" is loaded. For any issues or suggestions, please visit "]..MER:PrintURL("https://git.tukui.org/Merathilis/ElvUI_MerathilisUI/issues"))
-	end
-
-	-- run install when ElvUI install finishes
-	if E.private.install_complete == E.version and E.db.mui.installed == nil then
-		E:GetModule("PluginInstaller"):Queue(MER.installTable)
 	end
 end
