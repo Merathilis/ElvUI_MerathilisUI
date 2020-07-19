@@ -19,6 +19,8 @@ function module:Update_PartyFrames(frame)
 			frame.isStyled = true
 		end
 	end
+
+	module:CreateHighlight(frame)
 end
 
 function module:InitParty()

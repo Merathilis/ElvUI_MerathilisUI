@@ -15,6 +15,24 @@ function module:ADDON_LOADED(event, addon)
 	module:UnregisterEvent(event)
 end
 
+function module:CreateHighlight(self)
+	local hl = self:CreateTexture(nil, "OVERLAY")
+	hl:SetAllPoints()
+	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
+	hl:SetTexCoord(0, 1, .5, 1)
+	hl:SetVertexColor(.6, .6, .6)
+	hl:SetBlendMode("ADD")
+	hl:Hide()
+	self.Highlight = hl
+
+	self:HookScript("OnEnter", function()
+		self.Highlight:Show()
+	end)
+	self:HookScript("OnLeave", function()
+		self.Highlight:Hide()
+	end)
+end
+
 function module:StyleUFs()
 	local db = E.db.mui.unitframes
 
