@@ -103,10 +103,6 @@ local function LoadSkin()
 			bar.styled = true
 		end
 	end)
-
-	hooksecurefunc(_G.UIWidgetTemplateScenarioHeaderCurrenciesAndBackgroundMixin, "Setup", function(widgetInfo)
-		widgetInfo.Frame:SetAlpha(0)
-	end)
 end
 
 S:AddCallback("MER_WidgetFrame", LoadSkin)
