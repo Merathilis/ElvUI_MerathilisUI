@@ -155,6 +155,7 @@ function module:ReskinTooltipIcons()
 
 	module.HookTooltipMethod(_G.GameTooltip)
 	module.HookTooltipMethod(_G.ItemRefTooltip)
+	module.HookTooltipMethod(_G.ElvUISpellBookTooltip)
 
 	hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
 		module.SetupTooltipIcon(self)

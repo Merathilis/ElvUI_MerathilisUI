@@ -40,6 +40,7 @@ local function LoadSkin()
 		_G.WarCampaignTooltip,
 		_G.EmbeddedItemTooltip,
 		_G.ReputationParagonTooltip,
+		_G.ElvUISpellBookTooltip,
 		StoryTooltip,
 	}
 
