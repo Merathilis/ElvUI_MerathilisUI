@@ -87,6 +87,9 @@ function module:Initialize()
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 
+	-- RoleIcons
+	self:Configure_RoleIcons()
+
 	-- Health Prediction
 	self:HealPrediction()
 
