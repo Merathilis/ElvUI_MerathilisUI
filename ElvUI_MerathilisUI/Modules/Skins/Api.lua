@@ -56,12 +56,12 @@ function MERS:CreateSD(f, m, s, n)
 	f.Shadow = CreateFrame("Frame", nil, frame)
 	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
 	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
-	f.Shadow:SetBackdrop({
-		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
-		edgeSize = E:Scale(s or 3)
-	})
-	f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
-	f.Shadow:SetFrameLevel(n or lvl)
+	--f.Shadow:SetBackdrop({
+		--edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
+		--edgeSize = E:Scale(s or 3)
+	--})
+	--f.Shadow:SetBackdropBorderColor(0, 0, 0, 1)
+	--f.Shadow:SetFrameLevel(n or lvl)
 
 	return f.Shadow
 end
@@ -140,15 +140,15 @@ end
 function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
-	f:SetBackdrop({
-		bgFile = E["media"].normTex,
-		edgeFile = E["media"].normTex,
-		edgeSize = E.mult*1.1, -- latest Pixel Stuff changes 10.02.2019
-		insets = {left = 0, right = 0, top = 0, bottom = 0},
-	})
-
-	f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
-	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	--f:SetBackdrop({
+		--bgFile = E["media"].normTex,
+		--edgeFile = E["media"].normTex,
+		--edgeSize = E.mult*1.1, -- latest Pixel Stuff changes 10.02.2019
+		--insets = {left = 0, right = 0, top = 0, bottom = 0},
+	--})
+--
+	--f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
+	--f:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
 -- ClassColored ScrollBars
@@ -550,7 +550,7 @@ function MERS:Initialize()
 
 	ReskinVehicleExit()
 	updateMedia()
-	self:StyleElvUIConfig()
+	--self:StyleElvUIConfig()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

@@ -25,7 +25,6 @@ local GetGameTime = GetGameTime
 local GetGuildRosterInfo = GetGuildRosterInfo
 local GetNumGuildMembers = GetNumGuildMembers
 local GetCVarBool = GetCVarBool
-local GetCurrencyInfo = GetCurrencyInfo
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
@@ -33,6 +32,7 @@ local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
 local LoadAddOn = LoadAddOn
 local PlaySound = PlaySound
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_AreaPoiInfo_GetAreaPOISecondsLeft = C_AreaPoiInfo.GetAreaPOISecondsLeft
@@ -126,7 +126,7 @@ local bonus = {
 	52837,
 	52840 -- Resources
 }
-local bonusName = GetCurrencyInfo(1580)
+local bonusName = C_CurrencyInfo_GetCurrencyInfo(1580)
 
 local isTimeWalker, walkerTexture
 local function checkTimeWalker(event)

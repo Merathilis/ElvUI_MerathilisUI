@@ -162,10 +162,10 @@ function module:UpdatePaperDoll()
 
 				-- Transmog
 				if module.db.transmog.enable then
-					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
-						frame.Transmog.Texture:Show()
-						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
-					end
+					--if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
+						--frame.Transmog.Texture:Show()
+						--frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
+					--end
 				end
 
 				-- Illussion

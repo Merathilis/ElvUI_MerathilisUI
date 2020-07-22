@@ -113,10 +113,10 @@ function PaperDollFrame_SetMastery(statFrame, unit)
 		statFrame:Hide();
 		return;
 	end
-	if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
-		statFrame:Hide();
-		return;
-	end
+	--if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
+		--statFrame:Hide();
+		--return;
+	--end
 
 	local mastery = GetMasteryEffect();
 	-- PaperDollFrame_SetLabelAndText Format Change
