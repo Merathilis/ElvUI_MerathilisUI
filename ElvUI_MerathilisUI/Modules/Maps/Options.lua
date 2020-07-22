@@ -47,24 +47,8 @@ local function Minimap()
 					},
 				},
 			},
-			textures = {
-				order = 3,
-				type = "group",
-				name = MER:cOption(L["Blip Textures"]),
-				guiInline = true,
-				get = function(info) return E.db.mui.maps.minimap.blip[ info[#info] ] end,
-				set = function(info, value) E.db.mui.maps.minimap.blip[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
-				args = {
-					enable = {
-						order = 1,
-						type = "toggle",
-						name = L["Enable"],
-						desc = L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"],
-					},
-				},
-			},
 			ping = {
-				order = 4,
+				order = 3,
 				type = "group",
 				name = MER:cOption(L["Minimap Ping"]),
 				guiInline = true,
@@ -107,7 +91,7 @@ local function Minimap()
 				},
 			},
 			coords = {
-				order = 5,
+				order = 4,
 				type = "group",
 				name = MER:cOption(L["Coordinates"]),
 				guiInline = true,
@@ -135,7 +119,7 @@ local function Minimap()
 				},
 			},
 			smb = {
-				order = 6,
+				order = 5,
 				type = "group",
 				name = MER:cOption(L["Minimap Buttons"]),
 				guiInline = true,

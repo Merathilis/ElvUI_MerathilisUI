@@ -373,9 +373,6 @@ MP.maps = {
 			xOffset = 0,
 			yOffset = -20,
 		},
-		blip = {
-			enable = true,
-		},
 		rectangle = false,
 	},
 }

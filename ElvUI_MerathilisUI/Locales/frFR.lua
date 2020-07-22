@@ -396,8 +396,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = true
 L["Blinking Minimap"] = true
 L["Enable the blinking animation for new mail or pending invites."] = true
-L["Blip Textures"] = true
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = true
 
 -- SMB
 L["Button Settings"] = true

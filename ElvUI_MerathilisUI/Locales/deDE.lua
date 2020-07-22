@@ -394,8 +394,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
-L["Blip Textures"] = true
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "Benutzt andere Minikarten Blip-Texturen. |cffff0000ACHTUNG: Du musst das Spiel neustarten um die Änderungen anzuwenden.|r"
 
 -- SMB
 L["Button Settings"] = "Tasten Einstellungen"
