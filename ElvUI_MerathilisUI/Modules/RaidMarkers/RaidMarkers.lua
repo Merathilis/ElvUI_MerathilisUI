@@ -44,7 +44,7 @@ function module:CreateButtons()
 		local button = CreateFrame("Button", format("RaidMarkerBarButton%d", k), module.frame, "SecureActionButtonTemplate")
 		button:SetHeight(E.db.mui.raidmarkers.buttonSize)
 		button:SetWidth(E.db.mui.raidmarkers.buttonSize)
-		button:SetTemplate('Transparent')
+		button:CreateBackdrop('Transparent')
 
 		local image = button:CreateTexture(nil, "ARTWORK")
 		image:SetAllPoints()

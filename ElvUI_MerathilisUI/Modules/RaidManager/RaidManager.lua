@@ -461,7 +461,7 @@ function module:CreateRaidManager()
 			f:SetDisabledTexture("")
 			f:HookScript("OnEnter", ButtonEnter)
 			f:HookScript("OnLeave", ButtonLeave)
-			f:SetTemplate(nil, true)
+			f:CreateBackdrop(nil, true)
 		end
 	end
 

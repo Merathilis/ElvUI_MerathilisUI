@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: 90001
 ## Author: Merathilis
 ## Version: 4.52
 ## Title: |cFF1784d1|TInterface\AddOns\ElvUI_MerathilisUI\Media\Textures\m5:16:16|t ElvUI|r |cffff7d0aMerathilisUI|r

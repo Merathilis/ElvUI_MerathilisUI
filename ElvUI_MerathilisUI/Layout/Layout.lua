@@ -107,7 +107,7 @@ function MERL:CreateSeparators()
 	ltabseparator:Height(1)
 	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
 	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
-	ltabseparator:SetTemplate('Transparent')
+	ltabseparator:CreateBackdrop('Transparent')
 
 	--Right Chat Tab Separator
 	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
@@ -116,7 +116,7 @@ function MERL:CreateSeparators()
 	rtabseparator:Height(1)
 	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
 	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
-	rtabseparator:SetTemplate('Transparent')
+	rtabseparator:CreateBackdrop('Transparent')
 
 	MERL:UpdateSeperators()
 end

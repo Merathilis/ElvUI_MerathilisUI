@@ -11,7 +11,8 @@ local tinsert, tsort, twipe = table.insert, table.sort, table.wipe
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAddOnEnableState = GetAddOnEnableState
-local GetNumQuestWatches = GetNumQuestWatches
+local C_QuestLog_GetInfo = C_QuestLog.GetInfo
+local C_QuestLog_GetNumQuestWatches = C_QuestLog.GetNumQuestWatches
 local GetMinimapZoneText = GetMinimapZoneText
 local GetItemCount = GetItemCount
 local GetQuestLogIndexByID = GetQuestLogIndexByID
@@ -54,8 +55,8 @@ end
 
 local function GetQuestItemList()
 	twipe(QuestItemList)
-	for i = 1, GetNumQuestWatches() do
-		local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = GetQuestWatchInfo(i)
+	for i = 1, C_QuestLog_GetNumQuestWatches() do
+		local questID, title, questLogIndex, numObjectives, requiredMoney, isComplete, startEvent, isAutoComplete, failureTime, timeElapsed, questType, isTask, isStory, isOnMap, hasLocalPOI = C_QuestLog_GetInfo(i)
 		if questLogIndex then
 			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(questLogIndex)
 			if link then
@@ -230,7 +231,7 @@ local function CreateButton(name, size)
 	AutoButton:Size(size)
 	AutoButton:StyleButton()
 	if not useMasque then
-		AutoButton:SetTemplate()
+		AutoButton:CreateBackdrop()
 	end
 	AutoButton:SetClampedToScreen(true)
 	AutoButton:SetAttribute("type", "item")

@@ -265,10 +265,6 @@ function module:Initialize()
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then
 		Minimap:CreateBackdrop("Default", true)
-		Minimap.backdrop:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisGradient"), edgeSize = E:Scale(2),
-			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
-		})
 	end
 
 	self:MiniMapCoords()

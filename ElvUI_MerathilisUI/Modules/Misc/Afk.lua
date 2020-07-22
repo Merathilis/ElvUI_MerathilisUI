@@ -77,7 +77,7 @@ local function Initialize()
 	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode)
 	AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
 	AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
-	AFK.AFKMode.Panel:SetTemplate('Transparent')
+	AFK.AFKMode.Panel:CreateBackdrop('Transparent')
 	AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
 	AFK.AFKMode.Panel:Styling()
 

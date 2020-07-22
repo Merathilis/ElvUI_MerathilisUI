@@ -251,7 +251,8 @@ function module:CreateLocationPanel()
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "BACKGROUND")
-	loc_panel.Text:SetPoint("CENTER", 0, 0)
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Text:Point("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
 
@@ -259,11 +260,13 @@ function module:CreateLocationPanel()
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	module:Resize()
@@ -272,9 +275,9 @@ function module:CreateLocationPanel()
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
 	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
-	module.Menu1:SetTemplate("Transparent", true)
+	module.Menu1:CreateBackdrop("Transparent", true)
 	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
-	module.Menu2:SetTemplate("Transparent", true)
+	module.Menu2:CreateBackdrop("Transparent", true)
 	DD:RegisterMenu(module.Menu1)
 	DD:RegisterMenu(module.Menu2)
 	module.Menu1:SetScript("OnHide", function() twipe(module.MainMenu) end)
@@ -406,9 +409,9 @@ function module:Fonts()
 end
 
 function module:Template()
-	loc_panel:SetTemplate(module.db.template)
-	loc_panel.Xcoord:SetTemplate(module.db.template)
-	loc_panel.Ycoord:SetTemplate(module.db.template)
+	loc_panel:CreateBackdrop(module.db.template)
+	loc_panel.Xcoord:CreateBackdrop(module.db.template)
+	loc_panel.Ycoord:CreateBackdrop(module.db.template)
 end
 
 function module:Toggle()
@@ -684,9 +687,9 @@ function module:Initialize()
 
 	module.elapsed = 0
 	self:CreateLocationPanel()
+	self:Fonts()
 	self:Resize()
 	self:Template()
-	self:Fonts()
 	self:Toggle()
 	self:ToggleCoords()
 

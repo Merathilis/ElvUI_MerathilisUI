@@ -23,8 +23,8 @@ function module:CreatePanels()
 	topPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
 	topPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
 	topPanel:SetHeight(15)
-	topPanel:SetTemplate("Transparent")
-	topPanel:Styling()
+	topPanel:CreateBackdrop("Transparent")
+	topPanel.backdrop:Styling()
 	MER_TopPanel = topPanel
 	topPanel:Hide()
 
@@ -34,8 +34,8 @@ function module:CreatePanels()
 	bottomPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
 	bottomPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
 	bottomPanel:SetHeight(15)
-	bottomPanel:SetTemplate("Transparent")
-	bottomPanel:Styling()
+	bottomPanel:CreateBackdrop("Transparent")
+	bottomPanel.backdrop:Styling()
 	MER_BottomPanel = bottomPanel
 	bottomPanel:Hide()
 

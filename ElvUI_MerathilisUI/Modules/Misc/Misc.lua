@@ -132,7 +132,7 @@ function module:Initialize()
 	self:GuildBest()
 	self:AddAlerts()
 	self:ReputationInit()
-	self:WowHeadLinks()
+	--self:WowHeadLinks()
 	self:SplashScreen()
 end
 

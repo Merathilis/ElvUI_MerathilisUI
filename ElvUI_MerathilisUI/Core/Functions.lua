@@ -506,7 +506,7 @@ function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
 	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
 	b:Width(w)
 	b:Height(h)
-	b:SetTemplate("Default")
+	b:CreateBackdrop()
 	b:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
@@ -731,11 +731,8 @@ local function CreateBorder(f, i, o)
 		local border = CreateFrame("Frame", "$parentInnerBorder", f)
 		border:SetPoint("TOPLEFT", E.mult, -E.mult)
 		border:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
-		border:SetBackdrop({
-			edgeFile = E["media"].blankTex, edgeSize = E.mult,
-			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
-		})
-		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.iborder = border
 	end
 
@@ -745,11 +742,8 @@ local function CreateBorder(f, i, o)
 		border:SetPoint("TOPLEFT", -E.mult, E.mult)
 		border:SetPoint("BOTTOMRIGHT", E.mult, -E.mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
-		border:SetBackdrop({
-			edgeFile = E["media"].blankTex, edgeSize = E.mult,
-			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
-		})
-		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.oborder = border
 	end
 end
@@ -760,10 +754,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetFrameLevel(3)
 	f:SetFrameStrata("BACKGROUND")
 	f:SetPoint(a1, p, a2, x, y)
-	f:SetBackdrop({
-		bgFile = E["media"].blankTex, edgeFile = E["media"].blankTex, edgeSize = E.mult,
-		insets = {left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
-	})
+	f:CreateBackdrop()
 
 	if t == "Transparent" then
 		backdropa = 0.45
@@ -778,8 +769,8 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 		backdropa = 1
 	end
 
-	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
+	f.backdrop:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
 local function addapi(object)
