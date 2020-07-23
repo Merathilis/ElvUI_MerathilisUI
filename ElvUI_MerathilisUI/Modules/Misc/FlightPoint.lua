@@ -215,7 +215,7 @@ function FlightPoints_OnEvent(self, event, ...)
 		end
 		FlightPointsTaxiChoice:Show()
 		FlightPointsTaxiChoice:StripTextures()
-		FlightPointsTaxiChoice:SetTemplate("Transparent")
+		FlightPointsTaxiChoice:CreateBackdrop("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
 		FlightPointsTaxiChoice:Styling()
