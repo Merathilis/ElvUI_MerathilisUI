@@ -69,7 +69,7 @@ function module:UpdateWorldMarkersAndTooltips()
 
 		if target and not worldmarker then
 			button:SetScript("OnEnter", function(self)
-				self:SetBackdropBorderColor(.7, .7, 0)
+				self.backdrop:SetBackdropBorderColor(.7, .7, 0)
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
 				GameTooltip:AddLine(i == 9 and L["Click to clear the mark."] or L["Click to mark the target."], 1, 1, 1)
@@ -82,7 +82,7 @@ function module:UpdateWorldMarkersAndTooltips()
 			button:SetAttribute(format("%smacrotext1", modifier), worldmarker == 0 and "/cwm all" or format("/cwm %d\n/wm %d", worldmarker, worldmarker))
 
 			button:SetScript("OnEnter", function(self)
-				self:SetBackdropBorderColor(.7, .7, 0)
+				self.backdrop:SetBackdropBorderColor(.7, .7, 0)
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 				GameTooltip:SetText(L["Raid Markers"])
 				GameTooltip:AddLine(i == 9 and format("%s\n%s", L["Click to clear the mark."], format(L["%sClick to remove all worldmarkers."], button.modifier:upper()))
@@ -92,7 +92,7 @@ function module:UpdateWorldMarkersAndTooltips()
 		end
 
 		button:SetScript("OnLeave", function(self)
-			self:SetBackdropBorderColor(0, 0, 0)
+			self.backdrop:SetBackdropBorderColor(0, 0, 0)
 			GameTooltip:Hide()
 		end)
 	end
