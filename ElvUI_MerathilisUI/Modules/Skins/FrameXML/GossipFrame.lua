@@ -24,19 +24,27 @@ local function LoadSkin()
 		_G.GossipGreetingScrollFrame.spellTex:SetTexture('') -- Remove Parchement
 	end
 
-	for i = 1, _G.NUMGOSSIPBUTTONS do
-		_G["GossipTitleButton"..i]:GetFontString():SetTextColor(1, 1, 1)
+	if GossipFrame.buttons and next(GossipFrame.buttons) then
+		for _, button in ipairs(GossipFrame.buttons) do
+			local str = button:GetFontString()
+			if str then str:SetTextColor(1, 1, 1) end
+		end
 	end
 
 	_G.GossipGreetingText:SetTextColor(1, 1, 1)
 
 	hooksecurefunc("GossipFrameUpdate", function()
-		for i = 1, _G.NUMGOSSIPBUTTONS do
-			local button = _G["GossipTitleButton"..i]
-			if button:GetFontString() then
-				local Text = button:GetFontString():GetText()
-				if Text and strfind(Text, '|cff000000') then
-					button:GetFontString():SetText(gsub(Text, '|cff000000', '|cffffe519'))
+		if GossipFrame.buttons and next(GossipFrame.buttons) then
+			for _, button in ipairs(GossipFrame.buttons) do
+				local str = button:GetFontString()
+				if str then
+					-- 9.0 Shadowland, Azilroka look at this please-
+					-- the below shit seems not to work so using: str:SetTextColor(1, 1, 1) for now.
+					str:SetTextColor(1, 1, 1)
+					local text = str:GetText()
+					if text and strfind(text, '|cff000000') then
+						str:SetText(gsub(text, '|cff000000', '|cffffe519'))
+					end
 				end
 			end
 		end

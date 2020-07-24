@@ -8,7 +8,7 @@ local _G = _G
 local pairs, select = pairs, select
 --WoW API / Variables
 local CreateFrame = CreateFrame
-local GetNumQuestLogEntries = GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local C_QuestLog_GetMaxNumQuestsCanAccept = C_QuestLog.GetMaxNumQuestsCanAccept
 -- GLOBALS:
 
@@ -29,10 +29,10 @@ local function LoadSkin()
 	frame.text:SetTextColor(r, g, b)
 	frame.text:SetAllPoints()
 
-	frame.text:SetText(select(2, GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
+	frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
 
 	frame:SetScript("OnEvent", function(self, event)
-		frame.text:SetText(select(2, GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
+		frame.text:SetText(select(2, C_QuestLog_GetNumQuestLogEntries()).."/"..C_QuestLog_GetMaxNumQuestsCanAccept().." "..L["Quests"])
 	end)
 
 	if _G.QuestScrollFrame.DetailFrame.backdrop then

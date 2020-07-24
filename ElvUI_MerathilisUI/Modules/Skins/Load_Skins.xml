@@ -5,6 +5,6 @@
 	<Script file="Options.lua"/>
 	<!-- <Include file="AddOns\Load_AddOns.xml"/> -->
 	<!-- <Include file="Extern\Load_Extern.xml"/> -->
-	<!-- <Include file="FrameXML\Load_FrameXML.xml"/> -->
+	<Include file="FrameXML\Load_FrameXML.xml"/>
 	<!-- <Include file="SharedXML\Load_SharedXML.xml"/> -->
 </Ui>
