@@ -23,7 +23,8 @@ local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetApp
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
-local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
+local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
+local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 --GLOBALS:
 
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -161,27 +162,27 @@ function module:UpdatePaperDoll()
 				end
 
 				-- Transmog
-				if module.db.transmog.enable then
-					--if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
+				--if module.db.transmog.enable then
+					--if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, Enum_TransmogType_Appearance) then
 						--frame.Transmog.Texture:Show()
-						--frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
+						--frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, Enum_TransmogType_Appearance))))
 					--end
-				end
+				--end
 
 				-- Illussion
-				if module.db.illusion.enable then
-					if (slot == 16 or slot == 17) then
-						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)
-
-						if ItemTexture then
-							frame.Illusion:Show()
-							frame.Illusion.Texture:SetTexture(ItemTexture)
-							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)))
-						end
-					else
-						frame.Illusion:Hide()
-					end
-				end
+				--if module.db.illusion.enable then
+					--if (slot == 16 or slot == 17) then
+						--local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, Enum_TransmogType_Illusion)
+--
+						--if ItemTexture then
+							--frame.Illusion:Show()
+							--frame.Illusion.Texture:SetTexture(ItemTexture)
+							--_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, Enum_TransmogType_Illusion)))
+						--end
+					--else
+						--frame.Illusion:Hide()
+					--end
+				--end
 			end
 		end
 	end

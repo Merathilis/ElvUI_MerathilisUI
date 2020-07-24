@@ -124,7 +124,7 @@ function MERS:CreateBDFrame(f, a, left, right, top, bottom)
 
 	local lvl = frame:GetFrameLevel()
 
-	local bg = CreateFrame("Frame", nil, frame)
+	local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
 	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
 	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
@@ -187,30 +187,31 @@ function MERS:ClearButton()
 	end
 end
 
-local function onEnter(button)
-	if not button then return end
-
-	button:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-	button:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+function MERS:OnEnter()
+	if self:IsEnabled() then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		end
+	end
 end
 
-local function onLeave(button)
-	if not button then return end
-
-	button:SetBackdropBorderColor(unpack(E.media.bordercolor))
-	button:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
+function MERS:OnLeave()
+	if self:IsEnabled() then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
+		end
+	end
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, noGlow)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
-
-	if button.template then
-		button:SetTemplate("Transparent", true)
-	end
-
 	MERS:CreateGradient(button)
 
 	if button.Icon then
@@ -222,8 +223,17 @@ function MERS:Reskin(button, strip, noGlow)
 		end
 	end
 
-	button:HookScript("OnEnter", onEnter)
-	button:HookScript("OnLeave", onLeave)
+	if not noStyle then
+		if setTemplate then
+			button:SetTemplate('Transparent', not noGlossTex) -- force transparent
+		else
+			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
+			button.backdrop:SetAllPoints()
+		end
+
+		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
+		button:HookScript("OnLeave", MERS.OnLeave)
+	end
 end
 
 function MERS:StyleButton(button)
@@ -467,8 +477,8 @@ function MERS:ReskinAS(AS)
 			end
 		end)
 
-		Button:HookScript("OnEnter", onEnter)
-		Button:HookScript("OnLeave", onLeave)
+		Button:HookScript("OnEnter", MERS.OnEnter)
+		Button:HookScript("OnLeave", MERS.OnLeave)
 	end
 end
 

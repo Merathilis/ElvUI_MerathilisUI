@@ -501,28 +501,6 @@ function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
 end
 
-function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
-	local f, fs, ff = E["media"].normFont, 11, "OUTLINE"
-	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
-	b:Width(w)
-	b:Height(h)
-	b:CreateBackdrop()
-	b:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-
-	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
-
-	b.text = b:CreateFontString(nil, "OVERLAY")
-	b.text:FontTemplate(f, fs, ff)
-	b.text:SetText(txt)
-	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
-	b.text:SetJustifyH("CENTER")
-	b:SetAttribute("type1", "macro")
-end
-
 -- Icon Style
 function MER:PixelIcon(self, texture, highlight)
 	if not self then return end
