@@ -297,7 +297,7 @@ function module:ScanItem(event)
 	local db = E.db.mui.actionbars.autoButtons
 
 	HideAllButton(event)
-	GetWorldQuestItemList("init")
+	--GetWorldQuestItemList("init")
 
 	local questItemIDList = {}
 	local usableItemIDList = {}
@@ -617,8 +617,8 @@ function module:ToggleAutoButton()
 		self:RegisterEvent("UPDATE_BINDINGS", "UpdateBind")
 		self:RegisterEvent("QUEST_WATCH_LIST_CHANGED", GetQuestItemList)
 		self:RegisterEvent("QUEST_LOG_UPDATE", GetQuestItemList)
-		self:RegisterEvent("QUEST_ACCEPTED", GetWorldQuestItemList)
-		self:RegisterEvent("QUEST_TURNED_IN", GetWorldQuestItemList)
+		--self:RegisterEvent("QUEST_ACCEPTED", GetWorldQuestItemList)
+		--self:RegisterEvent("QUEST_TURNED_IN", GetWorldQuestItemList)
 
 		if not module.Update then module.Update = CreateFrame("Frame") end
 		self.Update:SetScript("OnUpdate", module.ScanItemCount)
