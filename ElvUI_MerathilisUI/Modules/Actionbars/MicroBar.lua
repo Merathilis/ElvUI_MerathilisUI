@@ -130,7 +130,7 @@ local bonusName = C_CurrencyInfo_GetCurrencyInfo(1580)
 
 local isTimeWalker, walkerTexture
 local function checkTimeWalker(event)
-	local date = C_Calendar_GetDate()
+	local date = C_DateAndTime.GetCurrentCalendarTime()
 	C_Calendar_SetAbsMonth(date.month, date.year)
 	C_Calendar_OpenCalendar()
 
@@ -359,7 +359,7 @@ function module.OnEnter(self)
 	GameTooltip:SetPoint("BOTTOM", timeButton, "TOP")
 	GameTooltip:ClearLines()
 
-	local today = C_Calendar_GetDate()
+	local today =  C_DateAndTime.GetCurrentCalendarTime()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
 	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
@@ -443,7 +443,7 @@ function module.OnEnter(self)
 	title = false
 	local count, maxCoins = 0, 2
 	for _, id in pairs(bonus) do
-		if IsQuestFlaggedCompleted(id) then
+		if C_QuestLog.IsQuestFlaggedCompleted(id) then
 			count = count + 1
 		end
 	end
@@ -460,7 +460,7 @@ function module.OnEnter(self)
 	local iwqID = C_IslandsQueue_GetIslandsWeeklyQuestID()
 	if iwqID and UnitLevel("player") == 120 then
 		addTitle(_G.QUESTS_LABEL)
-		if IsQuestFlaggedCompleted(iwqID) then
+		if C_QuestLog.IsQuestFlaggedCompleted(iwqID) then
 			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 		else
 			local cur, max = select(4, GetQuestObjectiveInfo(iwqID, 1, false))
@@ -473,7 +473,7 @@ function module.OnEnter(self)
 	end
 
 	for _, v in pairs(questlist) do
-		if v.name and IsQuestFlaggedCompleted(v.id) then
+		if v.name and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
 			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
 				addTitle(_G.QUESTS_LABEL)
 				GameTooltip:AddDoubleLine(v.name, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
