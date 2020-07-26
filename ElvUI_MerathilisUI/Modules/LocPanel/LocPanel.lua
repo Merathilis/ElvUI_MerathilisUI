@@ -20,6 +20,7 @@ local GetScreenHeight = GetScreenHeight
 local GetRealZoneText = GetRealZoneText
 local GetSubZoneText = GetSubZoneText
 local GetZonePVPInfo = GetZonePVPInfo
+local GetSpellInfo = GetSpellInfo
 local CreateFrame = CreateFrame
 local ToggleFrame = ToggleFrame
 local InCombatLockdown = InCombatLockdown
@@ -151,8 +152,14 @@ module.Spells = {
 	},
 	["WARLOCK"] = {},
 	["WARRIOR"] = {},
-	["DarkIronDwarf"] = {
-		[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+	["racials"] = {
+		["DarkIronDwarf"] = {
+			[1] = {text = GetSpellInfo(265225),icon = MER:GetIconFromID("spell", 265225),secure = {buttonType = "spell",ID = 265225}, UseTooltip = true}, -- Mole Machine (Dark Iron Dwarfs)
+		},
+		["Vulpera"] = {
+			[1] = {text = GetSpellInfo(312370),icon = MER:GetIconFromID("spell", 312370),secure = {buttonType = "spell",ID = 312370}, UseTooltip = true}, -- Make Camp
+			[2] = {text = GetSpellInfo(312372),icon = MER:GetIconFromID("spell", 312372),secure = {buttonType = "spell",ID = 312372}, UseTooltip = true}, -- Return to Camp
+		},
 	},
 	["teleports"] = {
 		["Horde"] = {
@@ -601,7 +608,7 @@ function module:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if module.db.portals.showSpells then
-		if module:SpellList(module.Spells[E.myclass], nil, true) or module:SpellList(module.Spells.challenge, nil, true) or E.myclass == "MAGE" or E.myrace == "DarkIronDwarf" then
+		if module:SpellList(module.Spells[E.myclass], nil, true) or module:SpellList(module.Spells.challenge, nil, true) or E.myclass == "MAGE" or LP.Spells["racials"][E.myrace] then
 			tinsert(module.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			module:SpellList(module.Spells[E.myclass], module.MainMenu)
 			if module:SpellList(module.Spells.challenge, nil, true) then
@@ -635,8 +642,8 @@ function module:PopulateDropdown(click)
 					MER:DropDown(module.SecondaryMenu, module.Menu2, anchor, point, 0, 1, _G["MER_LocPanel"], MENU_WIDTH, module.db.portals.justify)
 				end})
 			end
-			if E.myrace == "DarkIronDwarf" then
-				module:SpellList(module.Spells[E.myrace], module.MainMenu)
+			if module.Spells["racials"][E.myrace] then
+				module:SpellList(module.Spells["racials"][E.myrace], module.MainMenu)
 			end
 		end
 	end
