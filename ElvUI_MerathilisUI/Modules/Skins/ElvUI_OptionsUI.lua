@@ -46,10 +46,9 @@ local function pluginInstaller()
 	end
 end
 
-local function StyleAce3Tooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.styling then
-		self:Styling()
+local function StyleAce3Tooltip(self, tt)
+	if not tt:IsForbidden() and E.private.skins.ace3Enable then
+		tt:Styling()
 	end
 end
 

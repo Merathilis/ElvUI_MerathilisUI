@@ -89,9 +89,9 @@ function MAB:CreateSpecBar()
 			self.LootID = GetLootSpecialization()
 
 			if self.Spec == self:GetID() then
-				self:SetBackdropBorderColor(0, 0.44, .87)
+				self.backdrop:SetBackdropBorderColor(0, 0.44, .87)
 			elseif (self.LootID == self.SpecID) then
-				self:SetBackdropBorderColor(1, 0.44, .4)
+				self.backdrop:SetBackdropBorderColor(1, 0.44, .4)
 			else
 				self:CreateBackdrop()
 			end
@@ -295,7 +295,7 @@ function MAB:CreateEquipBar()
 	end)
 
 	EquipmentSets.Button:HookScript("OnEnter", function(self)
-		self:SetBackdropBorderColor(0, 0.44, .87)
+		self.backdrop:SetBackdropBorderColor(0, 0.44, .87)
 		if EquipmentSets:IsShown() then
 			UIFrameFadeIn(EquipmentSets, 0.2, EquipmentSets:GetAlpha(), 1)
 		end

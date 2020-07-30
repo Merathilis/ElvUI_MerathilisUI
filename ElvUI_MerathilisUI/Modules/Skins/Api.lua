@@ -551,7 +551,7 @@ function MERS:Initialize()
 
 	ReskinVehicleExit()
 	updateMedia()
-	--self:StyleElvUIConfig()
+	self:StyleElvUIConfig()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then
