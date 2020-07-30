@@ -13,7 +13,7 @@ local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetAutoQuestPopUp = GetAutoQuestPopUp
-local GetNumQuestLogEntries = GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
 local GetQuestLogIndexByID = GetQuestLogIndexByID
 local CreateFrame = CreateFrame
@@ -55,7 +55,7 @@ function f.QUEST_LOG_UPDATE()
 	local frame = _G.ObjectiveTrackerFrame
 
 	if not InCombat and not InCombatLockdown() then
-		questNum = select(2, GetNumQuestLogEntries())
+		questNum = select(2, C_QuestLog_GetNumQuestLogEntries())
 
 		if questNum >= (_G.MAX_QUESTS - 5) then -- go red
 			q = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)

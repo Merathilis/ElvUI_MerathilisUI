@@ -367,14 +367,6 @@ local function LoadSkin()
 	-- [[ Wardrobe ]]
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
-
-	_G.WardrobeTransmogFrameBg:Hide()
-	WardrobeTransmogFrame.Inset.BG:Hide()
-	WardrobeTransmogFrame.Inset:DisableDrawLayer("BORDER")
-	WardrobeTransmogFrame.MoneyLeft:Hide()
-	WardrobeTransmogFrame.MoneyMiddle:Hide()
-	WardrobeTransmogFrame.MoneyRight:Hide()
-
 	WardrobeFrame:Styling()
 
 	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
