@@ -189,7 +189,8 @@ end
 
 function MERS:OnEnter()
 	if self:IsEnabled() then
-		if self.backdrop then self = self.backdrop end
+		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
+
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
@@ -199,7 +200,8 @@ end
 
 function MERS:OnLeave()
 	if self:IsEnabled() then
-		if self.backdrop then self = self.backdrop end
+		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
+
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
@@ -229,6 +231,10 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 		else
 			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
 			button.backdrop:SetAllPoints()
+		end
+
+		if button.backdrop then
+			button.backdrop:SetTemplate('Transparent')
 		end
 
 		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
