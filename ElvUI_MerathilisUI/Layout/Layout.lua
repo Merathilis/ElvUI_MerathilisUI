@@ -101,22 +101,22 @@ function MERL:CreateSeparators()
 	if E.db.mui.chat.seperators ~= true then return end
 
 	--Left Chat Tab Separator
-	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
+	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, 'BackdropTemplate')
 	ltabseparator:SetFrameStrata('BACKGROUND')
 	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
 	ltabseparator:Height(1)
 	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
 	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
-	ltabseparator:CreateBackdrop('Transparent')
+	ltabseparator:SetTemplate('Transparent')
 
 	--Right Chat Tab Separator
-	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
+	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel, 'BackdropTemplate')
 	rtabseparator:SetFrameStrata('BACKGROUND')
 	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
 	rtabseparator:Height(1)
 	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
 	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
-	rtabseparator:CreateBackdrop('Transparent')
+	rtabseparator:SetTemplate('Transparent')
 
 	MERL:UpdateSeperators()
 end
