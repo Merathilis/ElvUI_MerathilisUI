@@ -74,6 +74,7 @@ function module:SetBlizzFonts()
 		if module.db.miscText.objectiveHeader.enable then
 			if not _G["ObjectiveTrackerFrame"].hooked then
 				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+					_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
@@ -83,6 +84,7 @@ function module:SetBlizzFonts()
 				_G["ObjectiveTrackerFrame"].hooked = true
 			end
 			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
