@@ -174,6 +174,7 @@ function module:UpdatePaperDoll()
 				-- Illussion
 				if module.db.illusion.enable then
 					local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Illusion, Enum.TransmogModification.None)
+
 					if (slot == 16 or slot == 17) then
 						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(transmogLocation)
 
