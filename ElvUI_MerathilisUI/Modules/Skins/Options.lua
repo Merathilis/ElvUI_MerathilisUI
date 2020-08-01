@@ -451,6 +451,11 @@ local function SkinsTable()
 				name = L["Item Interaction"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.ItemInteraction end,
 			},
+			animaDiversion = {
+				type = "toggle",
+				name = L["Anima Diversion"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.animaDiversion end,
+			},
 		},
 	}
 

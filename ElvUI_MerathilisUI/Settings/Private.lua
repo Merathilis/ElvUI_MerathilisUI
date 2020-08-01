@@ -80,6 +80,7 @@ V.muiSkins = {
 		Archaeology = true,
 		AzeriteEssence = true,
 		ItemInteraction = true,
+		animaDiversion = true,
 	},
 
 	addonSkins = {
