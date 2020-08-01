@@ -525,7 +525,6 @@ local function ReskinVehicleExit()
 
 	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
 	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
-
 end
 
 function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
