@@ -41,7 +41,7 @@ local function LoadSkin()
 	_G.CalendarViewEventTentativeButton.flashTexture:SetTexture("")
 	_G.CalendarViewEventDeclineButton.flashTexture:SetTexture("")
 
-	_G.CalendarTodayFrame:SetBackdropBorderColor(r, g, b)
+	_G.CalendarTodayFrame.backdrop:SetBackdropBorderColor(r, g, b)
 end
 
 S:AddCallbackForAddon("Blizzard_Calendar", "mUICalendar", LoadSkin)
