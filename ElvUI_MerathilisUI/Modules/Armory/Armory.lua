@@ -162,27 +162,30 @@ function module:UpdatePaperDoll()
 				end
 
 				-- Transmog
-				--if module.db.transmog.enable then
-					--if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, Enum_TransmogType_Appearance) then
-						--frame.Transmog.Texture:Show()
-						--frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, Enum_TransmogType_Appearance))))
-					--end
-				--end
+				if module.db.transmog.enable then
+					local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Appearance, Enum.TransmogModification.None)
+
+					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
+						frame.Transmog.Texture:Show()
+						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
+					end
+				end
 
 				-- Illussion
-				--if module.db.illusion.enable then
-					--if (slot == 16 or slot == 17) then
-						--local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, Enum_TransmogType_Illusion)
---
-						--if ItemTexture then
-							--frame.Illusion:Show()
-							--frame.Illusion.Texture:SetTexture(ItemTexture)
-							--_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, Enum_TransmogType_Illusion)))
-						--end
-					--else
-						--frame.Illusion:Hide()
-					--end
-				--end
+				if module.db.illusion.enable then
+					local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Illusion, Enum.TransmogModification.None)
+					if (slot == 16 or slot == 17) then
+						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(transmogLocation)
+
+						if ItemTexture then
+							frame.Illusion:Show()
+							frame.Illusion.Texture:SetTexture(ItemTexture)
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation)))
+						end
+					else
+						frame.Illusion:Hide()
+					end
+				end
 			end
 		end
 	end
