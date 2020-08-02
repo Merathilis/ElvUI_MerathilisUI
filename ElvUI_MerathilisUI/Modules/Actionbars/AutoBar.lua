@@ -380,18 +380,19 @@ function module:ScanItem(event)
 			AutoButton.ap = false
 			AutoButton.questLogIndex = QuestItemList[itemID] and QuestItemList[itemID].questLogIndex or -1
 			AutoButton.spellName = IsUsableItem(itemID)
-			AutoButton:SetBackdropBorderColor(nil)
+			AutoButton.backdrop:SetBackdropBorderColor(nil)
+
 			if db.questAutoButtons["questBBColorByItem"] then
-				if rarity and rarity > _G.LE_ITEM_QUALITY_COMMON then
+				if rarity and rarity > Enum.ItemQuality.Common then
 					local r, g, b = GetItemQualityColor(rarity)
-					AutoButton:SetBackdropBorderColor(r, g, b)
+					AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 				else
-					AutoButton:SetBackdropBorderColor(1, 1, 1)
+					AutoButton.backdrop:SetBackdropBorderColor(1, 1, 1)
 				end
 			else
 				local colorDB = db.questAutoButtons["questBBColor"]
 				local r, g, b = colorDB.r, colorDB.g, colorDB.b
-				AutoButton:SetBackdropBorderColor(r, g, b)
+				AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 			end
 
 			if count and count > 1 then
@@ -433,18 +434,19 @@ function module:ScanItem(event)
 				local AutoButton = _G["AutoSlotButton" .. num]
 				if not AutoButton then break end
 
-				AutoButton:SetBackdropBorderColor(nil)
+				AutoButton.backdrop:SetBackdropBorderColor(nil)
+
 				local r, g, b, colorDB
 				if db.slotAutoButtons["slotBBColorByItem"] then
 					if rarity then
 						r, g, b = GetItemQualityColor(rarity)
-						AutoButton:SetBackdropBorderColor(r, g, b)
+						AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 						AutoButton.ignoreBorderColors = true
 					end
 				else
 					colorDB = db.slotAutoButtons["slotBBColor"]
 					r, g, b = colorDB.r, colorDB.g, colorDB.b
-					AutoButton:SetBackdropBorderColor(r, g, b)
+					AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 					AutoButton.ignoreBorderColors = true
 				end
 
@@ -479,18 +481,19 @@ function module:ScanItem(event)
 			AutoButton.itemName = itemName
 			AutoButton.itemID = itemID
 			AutoButton.spellName = IsUsableItem(itemID)
-			AutoButton:SetBackdropBorderColor(nil)
+			AutoButton.backdrop:SetBackdropBorderColor(nil)
+
 			if db.usableAutoButtons["usableBBColorByItem"] then
-				if rarity and rarity > _G.LE_ITEM_QUALITY_COMMON then
+				if rarity and rarity > Enum.ItemQuality.Common then
 					local r, g, b = GetItemQualityColor(rarity)
-					AutoButton:SetBackdropBorderColor(r, g, b)
+					AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 				else
-					AutoButton:SetBackdropBorderColor(1, 1, 1)
+					AutoButton.backdrop:SetBackdropBorderColor(1, 1, 1)
 				end
 			else
 				local colorDB = db.usableAutoButtons["usableBBColor"]
 				local r, g, b = colorDB.r, colorDB.g, colorDB.b
-				AutoButton:SetBackdropBorderColor(r, g, b)
+				AutoButton.backdrop:SetBackdropBorderColor(r, g, b)
 			end
 
 			if count and count > 1 then
