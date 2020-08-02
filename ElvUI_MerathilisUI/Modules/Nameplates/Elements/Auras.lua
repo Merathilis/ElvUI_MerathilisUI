@@ -28,6 +28,8 @@ function module:PostUpdateAura(unit, button)
 	if button and button.pixelBorders then
 		button:GetParent().spacing = E:Scale(4)
 
+		if not button.shadow then button:CreateShadow(nil, true) end
+
 		local r, g, b = E:GetBackdropBorderColor(button)
 		local br, bg, bb = E:GrabColorPickerValues(unpack(E.media.unitframeBorderColor))
 
@@ -49,7 +51,7 @@ function module:PostUpdateAura(unit, button)
 				end
 			end
 		else
-			if button.isStealable and not button.isFriend then
+			if UF.db.colors.auraByType and button.isStealable and not button.isFriend then
 				if button.shadow then
 					button.shadow:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
 				end
@@ -57,6 +59,10 @@ function module:PostUpdateAura(unit, button)
 				if button.shadow then
 					button.shadow:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
 				end
+			end
+
+			if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
+				UF:UpdateAuraCooldownPosition(button)
 			end
 		end
 	end
