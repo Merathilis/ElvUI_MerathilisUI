@@ -81,9 +81,6 @@ function module:Initialize()
 	-- Units
 	self:StyleUFs()
 
-	-- Auras
-	self:LoadAuras()
-
 	-- RaidIcons
 	hooksecurefunc(UF, "Configure_RaidIcon", module.Configure_RaidIcon)
 

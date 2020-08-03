@@ -340,7 +340,6 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	auras = true,
 	healPrediction = false,
 	swing = {
 		enable = false,

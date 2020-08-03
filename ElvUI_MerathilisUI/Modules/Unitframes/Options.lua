@@ -29,16 +29,8 @@ local function UnitFramesTable()
 						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
 						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
-					auras = {
-						order = 2,
-						type = "toggle",
-						name = L["Auras"],
-						desc = L["Adds a shadow to the debuffs that the debuff color is more visible."],
-						get = function(info) return E.db.mui.unitframes[ info[#info] ] end,
-						set = function(info, value) E.db.mui.unitframes[ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL"); end,
-					},
 					style = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["UnitFrame Style"],
 						desc = L["Adds my styling to the Unitframes if you use transparent health."],
@@ -46,7 +38,7 @@ local function UnitFramesTable()
 						set = function(info, value) E.db.mui.unitframes.style = value; E:StaticPopup_Show("CONFIG_RL"); end,
 					},
 					roleIcons = {
-						order = 4,
+						order = 3,
 						type = "toggle",
 						name = L["Role Icon"],
 						desc = L["Change the default role icons."],

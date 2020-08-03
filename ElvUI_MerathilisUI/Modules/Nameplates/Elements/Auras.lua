@@ -25,52 +25,6 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 --]]
 
 function module:PostUpdateAura(unit, button)
-	if button and button.pixelBorders then
-		button:GetParent().spacing = E:Scale(2)
-
-		if not button.shadow then button:CreateShadow() end
-
-		local r, g, b = E:GetBackdropBorderColor(button)
-		local br, bg, bb = E:GrabColorPickerValues(unpack(E.media.unitframeBorderColor))
-
-		if button.isDebuff then
-			if(not button.isFriend and not button.isPlayer) then
-				if UF.db.colors.auraByType then
-					if button.shadow then
-						button.shadow:SetBackdropBorderColor(0.9, 0.1, 0.1)
-					end
-				end
-				button.icon:SetDesaturated(button.canDesaturate)
-			else
-				if E.BadDispels[button.spellID] and E:IsDispellableByMe(button.dtype) then
-					if button.shadow then
-						button.shadow:SetBackdropBorderColor(0.05, 0.85, 0.94)
-					end
-				else
-					local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
-					if button.shadow then
-						button.shadow:SetBackdropBorderColor(color.r, color.g, color.b)
-					end
-				end
-				button.icon:SetDesaturated(false)
-			end
-		else
-			if UF.db.colors.auraByType and button.isStealable and not button.isFriend then
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
-				end
-			else
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
-				end
-			end
-
-			if button.needsUpdateCooldownPosition and (button.cd and button.cd.timer and button.cd.timer.text) then
-				UF:UpdateAuraCooldownPosition(button)
-			end
-		end
-	end
-
 	if button and button.spellID then
 		if not find(unit, "nameplate") then
 			return
@@ -144,10 +98,6 @@ function module:Construct_AuraIcon(button)
 		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
 		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")
-	end
-
-	if not button.shadow then
-		button:CreateShadow()
 	end
 
 	local auras = button:GetParent()
