@@ -137,13 +137,13 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then return end
+	--if E.private.skins.parchmentRemoverEnable then return end
 
 	-- [[ Objectives ]]
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
-	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
+	--hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
+	--hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
@@ -222,6 +222,8 @@ local function LoadSkin()
 	end)
 
 	-- [[ Change text colors ]]
+	_G.QuestFont:SetTextColor(1, 1, 1)
+
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)
