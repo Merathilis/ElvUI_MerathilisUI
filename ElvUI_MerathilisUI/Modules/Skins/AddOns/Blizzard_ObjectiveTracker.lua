@@ -65,7 +65,11 @@ function f.QUEST_LOG_UPDATE()
 			o = format("%d/%d %s", questNum, _G.MAX_QUESTS, _G.OBJECTIVES_TRACKER_LABEL)
 		end
 
-		block.QuestHeader.Text:SetText(q)
+		if block.CampaignQuestHeader.Text then
+			block.CampaignQuestHeader.Text:SetText(q)
+		elseif block.QuestHeader.Text then
+			block.QuestHeader.Text:SetText(q)
+		end
 		frame.HeaderMenu.Title:SetText(o)
 	end
 end
@@ -73,7 +77,7 @@ end
 local function SkinAutoQuestPopUpBlock()
 	for i = 1, GetNumAutoQuestPopUps() do
 		local ID, type = GetAutoQuestPopUp(i)
-		local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
+		local Title = C_QuestLog.GetTitleForQuestID(C_QuestLog.GetLogIndexForQuestID(ID))
 
 		if Title and Title ~= "" then
 			local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)

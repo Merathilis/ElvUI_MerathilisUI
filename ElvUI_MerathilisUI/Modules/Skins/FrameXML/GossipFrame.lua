@@ -19,6 +19,9 @@ local function LoadSkin()
 	GossipFrame:Styling()
 
 	_G.GossipGreetingScrollFrame:StripTextures()
+	if _G.GossipGreetingScrollFrame.backdrop then
+		_G.GossipGreetingScrollFrame.backdrop:Hide()
+	end
 
 	if not E.private.skins.parchmentRemoverEnable then
 		_G.GossipGreetingScrollFrame.spellTex:SetTexture('') -- Remove Parchement
