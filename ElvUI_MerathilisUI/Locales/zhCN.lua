@@ -69,15 +69,15 @@ L["Auto hide timeout"] = "时间"
 L["Seconds before fading chat panel"] = "多少秒后聊天框自动隐藏"
 
 -- Combat Alert
-L["Combat Alert"] = true
-L["Enable/Disable the combat message if you enter/leave the combat."] = true
-L["Enter Combat"] = true
-L["Leave Combat"] = true
-L["Stay Duration"] = true
-L["Custom Text"] = true
-L["Custom Text (Enter)"] = true
-L["Custom Text (Leave)"] = true
-L["Color"] = true
+L["Combat Alert"] = "战斗提示"
+L["Enable/Disable the combat message if you enter/leave the combat."] = "启用/禁用战斗状态提示"
+L["Enter Combat"] = "进入战斗"
+L["Leave Combat"] = "脱离战斗"
+L["Stay Duration"] = "持续时间"
+L["Custom Text"] = "自订文字"
+L["Custom Text (Enter)"] = "自订文字 (进入)"
+L["Custom Text (Leave)"] = "自订文字 (脱离)"
+L["Color"] = "颜色"
 
 -- Information
 L["Information"] = "信息"
@@ -164,7 +164,7 @@ L["Announce in chat when someone placed an usefull item."] = "当有玩家放置
 L["Your Status:"] = "你的状态: "
 L["Your Status: Incomplete"] = "你的状态：未完成"
 L["Your Status: Completed on "] = "您的状态：完成于"
-L["Adds an icon for spells and items on your tooltip."] = true
+L["Adds an icon for spells and items on your tooltip."] = "在鼠标提示中为法术和物品添加一个图标."
 L["Adds an Icon for battle pets on the tooltip."] = "在鼠标提示中为战斗宠物添加一个图标."
 L["Adds an Icon for the faction on the tooltip."] = "在鼠标提示中为阵营添加一个图标."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "在鼠标提示中增加一个信息,显示你在哪个角色上取得了成就."
