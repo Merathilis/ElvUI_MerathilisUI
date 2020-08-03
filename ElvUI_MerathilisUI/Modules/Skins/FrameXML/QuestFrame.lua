@@ -30,7 +30,7 @@ local function LoadSkin()
 	local QuestFrame = _G.QuestFrame
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemoverEnable then return end
+	--if E.private.skins.parchmentRemoverEnable then return end
 
 	------------------------
 	--- QuestDetailFrame ---

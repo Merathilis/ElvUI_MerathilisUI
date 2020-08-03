@@ -43,7 +43,7 @@ end
 
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
-		return select(8, GetQuestLogTitle(GetQuestLogSelection()))
+		return C_QuestLog.GetSelectedQuest()
 	else
 		return GetQuestID()
 	end
@@ -76,6 +76,14 @@ local function ColorObjectivesText()
 					objective:SetTextColor(1, 1, 1)
 				end
 			end
+		end
+	end
+
+	-- 9.0 Shadowlands Objective Text Colors
+	for i = 1, 3 do -- Maybe more
+		local text = _G["QuestInfoObjective"..i]
+		if text then
+			text:SetTextColor(1, 1, 1)
 		end
 	end
 end
@@ -142,8 +150,8 @@ local function LoadSkin()
 	-- [[ Objectives ]]
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
-	--hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	--hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
+	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
+	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
