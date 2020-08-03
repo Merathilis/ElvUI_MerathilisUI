@@ -26,18 +26,21 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 function module:PostUpdateAura(unit, button)
 	if button and button.pixelBorders then
-		button:GetParent().spacing = E:Scale(4)
+		button:GetParent().spacing = E:Scale(2)
 
-		if not button.shadow then button:CreateShadow(nil, true) end
+		if not button.shadow then button:CreateShadow() end
 
 		local r, g, b = E:GetBackdropBorderColor(button)
 		local br, bg, bb = E:GrabColorPickerValues(unpack(E.media.unitframeBorderColor))
 
 		if button.isDebuff then
 			if(not button.isFriend and not button.isPlayer) then
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(0.9, 0.1, 0.1)
+				if UF.db.colors.auraByType then
+					if button.shadow then
+						button.shadow:SetBackdropBorderColor(0.9, 0.1, 0.1)
+					end
 				end
+				button.icon:SetDesaturated(button.canDesaturate)
 			else
 				if E.BadDispels[button.spellID] and E:IsDispellableByMe(button.dtype) then
 					if button.shadow then
@@ -49,6 +52,7 @@ function module:PostUpdateAura(unit, button)
 						button.shadow:SetBackdropBorderColor(color.r, color.g, color.b)
 					end
 				end
+				button.icon:SetDesaturated(false)
 			end
 		else
 			if UF.db.colors.auraByType and button.isStealable and not button.isFriend then
