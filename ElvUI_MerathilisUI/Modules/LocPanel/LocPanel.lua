@@ -605,7 +605,7 @@ function module:PopulateDropdown(click)
 	local MENU_WIDTH
 
 	if module.db.portals.showSpells then
-		if module:SpellList(module.Spells[E.myclass], nil, true) or module:SpellList(module.Spells.challenge, nil, true) or E.myclass == "MAGE" or LP.Spells["racials"][E.myrace] then
+		if module:SpellList(module.Spells[E.myclass], nil, true) or module:SpellList(module.Spells.challenge, nil, true) or E.myclass == "MAGE" or module.Spells["racials"][E.myrace] then
 			tinsert(module.MainMenu, {text = SPELLS..":", title = true, nohighlight = true})
 			module:SpellList(module.Spells[E.myclass], module.MainMenu)
 			if module:SpellList(module.Spells.challenge, nil, true) then
