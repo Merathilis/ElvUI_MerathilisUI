@@ -79,8 +79,8 @@ for index, value in pairs(qualityColors) do
 	MER.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
 end
 MER.QualityColors[-1] = {r = 0, g = 0, b = 0}
---MER.QualityColors[_G.LE_ITEM_QUALITY_POOR] = {r = .61, g = .61, b = .61}
---MER.QualityColors[_G.LE_ITEM_QUALITY_COMMON] = {r = 0, g = 0, b = 0}
+MER.QualityColors[Enum.ItemQuality.Poor] = {r = .61, g = .61, b = .61}
+MER.QualityColors[Enum.ItemQuality.Common] = {r = 0, g = 0, b = 0}
 
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
@@ -483,6 +483,9 @@ MER.IsDev = {
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
+
+	-- Beta
+	["Melísendra"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
@@ -491,6 +494,9 @@ MER.IsDev = {
 MER.IsDevRealm = {
 	["Shattrath"] = true,
 	--["Garrosh"] = true,
+
+	-- Beta
+	["The Maw"] = true,
 }
 
 function MER:IsDeveloper()
