@@ -56,7 +56,7 @@ local function LoadSkin()
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 
@@ -69,7 +69,7 @@ local function LoadSkin()
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 
@@ -130,7 +130,7 @@ local function LoadSkin()
 		self:SetTemplate("Transparent")
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 

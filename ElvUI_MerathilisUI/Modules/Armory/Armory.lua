@@ -213,7 +213,7 @@ function module:BuildInformation()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
+		frame.Gradiation:SetSize(110, _G["Character"..slotName]:GetHeight()+4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -230,7 +230,7 @@ function module:BuildInformation()
 
 		-- Transmog Info
 		frame.Transmog = CreateFrame('Button', nil, frame)
-		frame.Transmog:Size(12)
+		frame.Transmog:SetSize(12, 12)
 		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
 		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
 
@@ -240,22 +240,22 @@ function module:BuildInformation()
 		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog:SetPoint("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
 		elseif id <= 16 then -- Right Side
-			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog:SetPoint("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
 		elseif id == 18 then -- Main Hand
-			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog:SetPoint("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
 		elseif id == 19 then -- Off Hand
-			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog:SetPoint("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
 
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
-		frame.Illusion:Size(14)
+		frame.Illusion:SetSize(14, 14)
 		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)

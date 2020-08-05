@@ -73,8 +73,8 @@ function MERS:CreateBG(frame)
 	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
-	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
+	bg:SetPoint("TOPLEFT", frame, -E.mult, E.mult)
+	bg:SetPoint("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.blankTex)
 	bg:SetVertexColor(0, 0, 0)
 
@@ -341,17 +341,17 @@ local function replaceConfigArrows(button)
 		button.img = button:CreateTexture(nil, 'ARTWORK')
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
 		button.img:SetSize(12, 12)
-		button.img:Point('CENTER')
+		button.img:SetPoint('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
-				btn.img:Point("CENTER", -1, -1);
+				btn.img:SetPoint("CENTER", -1, -1);
 			end
 		end)
 
 		button:HookScript('OnMouseUp', function(btn)
-			btn.img:Point("CENTER", 0, 0);
+			btn.img:SetPoint("CENTER", 0, 0);
 		end)
 	end
 end
@@ -412,8 +412,8 @@ function MERS:ReskinAS(AS)
 			end
 		end
 
-		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
+		Tab.Backdrop:SetPoint("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
+		Tab.Backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
 
 		Tab.isSkinned = true
 	end

@@ -26,7 +26,7 @@ local function SkinBosses()
 		if bossButton and not bossButton.isSkinned then
 			S:HandleButton(bossButton)
 			bossButton.creature:ClearAllPoints()
-			bossButton.creature:Point("TOPLEFT", 1, -4)
+			bossButton.creature:SetPoint("TOPLEFT", 1, -4)
 			bossButton.isSkinned = true
 		end
 

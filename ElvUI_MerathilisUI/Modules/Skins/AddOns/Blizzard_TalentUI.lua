@@ -59,7 +59,7 @@ local function LoadSkin()
 
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
-		scrollChild.specIcon:Size(70, 70)
+		scrollChild.specIcon:SetSize(70, 70)
 
 		local roleIcon = scrollChild.roleIcon
 		roleIcon:SetTexture(E.media.roleIcons)

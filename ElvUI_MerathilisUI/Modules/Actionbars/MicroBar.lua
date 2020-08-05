@@ -563,7 +563,7 @@ function module:CreateMicroBar()
 	microBar:EnableMouse(true)
 	microBar:SetSize(400, 26)
 	microBar:SetScale(module.db.scale or 1)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
+	microBar:SetPoint("TOP", E.UIParent, "TOP", 0, -19)
 	E.FrameLocks[microBar] = true
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"

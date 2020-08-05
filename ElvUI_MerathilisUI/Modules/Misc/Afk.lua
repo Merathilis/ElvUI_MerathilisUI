@@ -75,9 +75,9 @@ local function Initialize()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
 	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode)
-	AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
-	AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
-	AFK.AFKMode.Panel:SetTemplate('Transparent')
+	AFK.AFKMode.Panel:SetPoint('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
+	AFK.AFKMode.Panel:SetSize((GetScreenWidth()/2), 80)
+	AFK.AFKMode.Panel:CreateBackdrop('Transparent')
 	AFK.AFKMode.Panel:SetFrameStrata('FULLSCREEN')
 	AFK.AFKMode.Panel:Styling()
 
@@ -86,29 +86,29 @@ local function Initialize()
 	AFK.AFKMode.Panel.ignoreBackdropColors = true
 
 	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel)
-	AFK.AFKMode.PanelIcon:Size(70)
-	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'TOP', 0, 0)
+	AFK.AFKMode.PanelIcon:SetSize(70, 70)
+	AFK.AFKMode.PanelIcon:SetPoint('CENTER', AFK.AFKMode.Panel, 'TOP', 0, 0)
 
 	AFK.AFKMode.PanelIcon.Texture = AFK.AFKMode.PanelIcon:CreateTexture(nil, 'ARTWORK')
-	AFK.AFKMode.PanelIcon.Texture:Point('TOPLEFT', 2, -2)
-	AFK.AFKMode.PanelIcon.Texture:Point('BOTTOMRIGHT', -2, 2)
+	AFK.AFKMode.PanelIcon.Texture:SetPoint('TOPLEFT', 2, -2)
+	AFK.AFKMode.PanelIcon.Texture:SetPoint('BOTTOMRIGHT', -2, 2)
 	AFK.AFKMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga')
 
 	AFK.AFKMode.MERVersion = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.MERVersion:Point('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
+	AFK.AFKMode.MERVersion:SetPoint('CENTER', AFK.AFKMode.Panel, 'CENTER', 0, -10)
 	AFK.AFKMode.MERVersion:FontTemplate(nil, 24, 'OUTLINE')
 	AFK.AFKMode.MERVersion:SetText(MER.Title.."|cFF00c0fa"..MER.Version.."|r")
 
 	AFK.AFKMode.DateText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.DateText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 24)
+	AFK.AFKMode.DateText:SetPoint('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 24)
 	AFK.AFKMode.DateText:FontTemplate(nil, 15, 'OUTLINE')
 
 	AFK.AFKMode.ClockText = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.ClockText:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
+	AFK.AFKMode.ClockText:SetPoint('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, 0)
 	AFK.AFKMode.ClockText:FontTemplate(nil, 20, 'OUTLINE')
 
 	AFK.AFKMode.AFKTimer = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.AFKTimer:Point('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
+	AFK.AFKMode.AFKTimer:SetPoint('RIGHT', AFK.AFKMode.Panel, 'RIGHT', -5, -26)
 	AFK.AFKMode.AFKTimer:FontTemplate(nil, 16, 'OUTLINE')
 
 	-- Dynamic time & date
@@ -124,19 +124,19 @@ local function Initialize()
 	end)
 
 	AFK.AFKMode.PlayerName = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.PlayerName:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
+	AFK.AFKMode.PlayerName:SetPoint('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 20)
 	AFK.AFKMode.PlayerName:FontTemplate(nil, 26, 'OUTLINE')
 	AFK.AFKMode.PlayerName:SetTextColor(unpack(E["media"].rgbvaluecolor))
 	AFK.AFKMode.PlayerName:SetText(E.myname)
 
 	AFK.AFKMode.Guild = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.Guild:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 0)
+	AFK.AFKMode.Guild:SetPoint('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, 0)
 	AFK.AFKMode.Guild:FontTemplate(nil, 18, 'OUTLINE')
 
 	local color = E:ClassColor(E.myclass)
 	local coloredClass = ("|cff%02x%02x%02x%s"):format(color.r * 255, color.g * 255, color.b * 255, E.myLocalizedClass:gsub("%-.+", "*"))
 	AFK.AFKMode.PlayerInfo = AFK.AFKMode.Panel:CreateFontString(nil, 'OVERLAY')
-	AFK.AFKMode.PlayerInfo:Point('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, -20)
+	AFK.AFKMode.PlayerInfo:SetPoint('LEFT', AFK.AFKMode.Panel, 'LEFT', 5, -20)
 	AFK.AFKMode.PlayerInfo:FontTemplate(nil, 15, 'OUTLINE')
 	AFK.AFKMode.PlayerInfo:SetText(_G.LEVEL .. ' ' .. E.mylevel .. ' '.. E.myLocalizedFaction .. ' ' .. coloredClass)
 

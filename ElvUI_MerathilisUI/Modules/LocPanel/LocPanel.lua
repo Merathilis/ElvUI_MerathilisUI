@@ -258,6 +258,7 @@ function module:CreateLocationPanel()
 
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "BACKGROUND")
+	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Text:SetPoint("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
@@ -266,12 +267,14 @@ function module:CreateLocationPanel()
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
 	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
-	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
+	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Xcoord.Text:SetPoint("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
 	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
-	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
+	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
+	loc_panel.Ycoord.Text:SetPoint("CENTER", 0, 0)
 
 	module:Resize()
 
@@ -361,7 +364,7 @@ function module:UpdateCoords(elapsed)
 		displayLine = subZoneText
 	end
 	loc_panel.Text:SetText(displayLine)
-	if module.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
+	if module.db.autowidth then loc_panel:SetWidth(loc_panel.Text:GetStringWidth() + 10) end
 
 	--Location Colorings
 	if displayLine ~= "" then
@@ -397,13 +400,13 @@ end
 
 function module:Resize()
 	if module.db.autowidth then
-		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, module.db.height)
+		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, module.db.height)
 	else
-		loc_panel:Size(module.db.width, module.db.height)
+		loc_panel:SetSize(module.db.width, module.db.height)
 	end
-	loc_panel.Text:Width(module.db.width - 18)
-	loc_panel.Xcoord:Size(module.db.fontSize * 3, module.db.height)
-	loc_panel.Ycoord:Size(module.db.fontSize * 3, module.db.height)
+	loc_panel.Text:SetWidth(module.db.width - 18)
+	loc_panel.Xcoord:SetSize(module.db.fontSize * 3, module.db.height)
+	loc_panel.Ycoord:SetSize(module.db.fontSize * 3, module.db.height)
 end
 
 function module:Fonts()
