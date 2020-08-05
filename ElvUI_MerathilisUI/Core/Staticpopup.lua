@@ -8,7 +8,7 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 	OnShow = function(self, data)
 		self.editBox:SetAutoFocus(false)
 		self.editBox.width = self.editBox:GetWidth()
-		self.editBox:Width(280)
+		self.editBox:SetWidth(280)
 		self.editBox:AddHistoryLine("text")
 		self.editBox.temptxt = data
 		self.editBox:SetText(data)
@@ -16,7 +16,7 @@ E.PopupDialogs["MERATHILISUI_CREDITS"] = {
 		self.editBox:SetJustifyH("CENTER")
 	end,
 	OnHide = function(self)
-		self.editBox:Width(self.editBox.width or 50)
+		self.editBox:SetWidth(self.editBox.width or 50)
 		self.editBox.width = nil
 		self.temptxt = nil
 	end,

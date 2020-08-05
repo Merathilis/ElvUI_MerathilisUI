@@ -220,7 +220,7 @@ end
 
 local function CreateButton(name, size)
 	if _G[name] then
-		_G[name]:Size(size)
+		_G[name]:SetSize(size)
 		_G[name].Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
 		_G[name].HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
 
@@ -228,7 +228,7 @@ local function CreateButton(name, size)
 	end
 
 	local AutoButton = CreateFrame("Button", name, E.UIParent, "SecureActionButtonTemplate")
-	AutoButton:Size(size)
+	AutoButton:SetSize(size, size)
 	AutoButton:StyleButton()
 	if not useMasque then
 		AutoButton:CreateBackdrop()
@@ -240,25 +240,25 @@ local function CreateButton(name, size)
 	AutoButton:RegisterForClicks("AnyUp")
 
 	AutoButton.Texture = AutoButton:CreateTexture(nil, "OVERLAY", nil)
-	AutoButton.Texture:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
-	AutoButton.Texture:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
+	AutoButton.Texture:SetPoint("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
+	AutoButton.Texture:SetPoint("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
 	AutoButton.Texture:SetTexCoord(unpack(E.TexCoords))
 
 	AutoButton.Count = AutoButton:CreateFontString(nil, "OVERLAY")
 	AutoButton.Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
 	AutoButton.Count:SetTextColor(1, 1, 1, 1)
-	AutoButton.Count:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", 0, 0)
+	AutoButton.Count:SetPoint("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", 0, 0)
 	AutoButton.Count:SetJustifyH("CENTER")
 
 	AutoButton.HotKey = AutoButton:CreateFontString(nil, "OVERLAY")
 	AutoButton.HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
 	AutoButton.HotKey:SetTextColor(1, 1, 1)
-	AutoButton.HotKey:Point("TOPRIGHT", AutoButton, "TOPRIGHT", 0, 0)
+	AutoButton.HotKey:SetPoint("TOPRIGHT", AutoButton, "TOPRIGHT", 0, 0)
 	AutoButton.HotKey:SetJustifyH("RIGHT")
 
 	AutoButton.Cooldown = CreateFrame("Cooldown", nil, AutoButton, "CooldownFrameTemplate")
-	AutoButton.Cooldown:Point("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
-	AutoButton.Cooldown:Point("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
+	AutoButton.Cooldown:SetPoint("TOPLEFT", AutoButton, "TOPLEFT", 2, -2)
+	AutoButton.Cooldown:SetPoint("BOTTOMRIGHT", AutoButton, "BOTTOMRIGHT", -2, 2)
 	AutoButton.Cooldown:SetSwipeColor(1, 1, 1, 1)
 	AutoButton.Cooldown:SetDrawBling(false)
 
@@ -661,14 +661,14 @@ function module:UpdateAutoButton()
 				f:ClearAllPoints()
 
 				if i == 1 then
-					f:Point("LEFT", _G["AutoButtonAnchor"..index], "LEFT", 0, 0)
+					f:SetPoint("LEFT", _G["AutoButtonAnchor"..index], "LEFT", 0, 0)
 				elseif (i - 1) % buttonsPerRow == 0 then
-					f:Point("TOP", lastColumnButton, "BOTTOM", 0, -3)
+					f:SetPoint("TOP", lastColumnButton, "BOTTOM", 0, -3)
 				else
 					if db[btype.."Direction"] == "RIGHT" then
-						f:Point("LEFT", lastButton, "RIGHT", db[btype.."Space"], 0)
+						f:SetPoint("LEFT", lastButton, "RIGHT", db[btype.."Space"], 0)
 					elseif db[btype.."Direction"] == "LEFT" then
-						f:Point("RIGHT", lastButton, "LEFT", -(db[btype.."Space"]), 0)
+						f:SetPoint("RIGHT", lastButton, "LEFT", -(db[btype.."Space"]), 0)
 					end
 				end
 
@@ -698,20 +698,20 @@ function module:Initialize()
 
 	local AutoButtonAnchor1 = CreateFrame("Frame", "AutoButtonAnchor1", UIParent)
 	AutoButtonAnchor1:SetClampedToScreen(true)
-	AutoButtonAnchor1:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
-	AutoButtonAnchor1:Size(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
+	AutoButtonAnchor1:SetPoint("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 90)
+	AutoButtonAnchor1:SetSize(module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize * module.db.questAutoButtons.questNum or 260, module.db.questAutoButtons.questNum > 0 and module.db.questAutoButtons.questSize or 40)
 	E:CreateMover(AutoButtonAnchor1, "MER_AutoButtonAnchor1Mover", L["AutoButton Quest"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db.enable end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor2 = CreateFrame("Frame", "AutoButtonAnchor2", UIParent)
 	AutoButtonAnchor2:SetClampedToScreen(true)
-	AutoButtonAnchor2:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
-	AutoButtonAnchor2:Size(module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize * module.db.slotAutoButtons.slotNum or 260, module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize or 40)
+	AutoButtonAnchor2:SetPoint("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 48)
+	AutoButtonAnchor2:SetSize(module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize * module.db.slotAutoButtons.slotNum or 260, module.db.slotAutoButtons.slotNum > 0 and module.db.slotAutoButtons.slotSize or 40)
 	E:CreateMover(AutoButtonAnchor2, "MER_AutoButtonAnchor2Mover", L["AutoButton Inventory"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	local AutoButtonAnchor3 = CreateFrame("Frame", "AutoButtonAnchor3", UIParent)
 	AutoButtonAnchor3:SetClampedToScreen(true)
-	AutoButtonAnchor3:Point("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
-	AutoButtonAnchor3:Size(module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize * module.db.usableAutoButtons.usableNum or 260, module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize or 40)
+	AutoButtonAnchor3:SetPoint("BOTTOMLEFT", _G.RightChatPanel or _G.LeftChatPanel, "TOPLEFT", 0, 4)
+	AutoButtonAnchor3:SetSize(module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize * module.db.usableAutoButtons.usableNum or 260, module.db.usableAutoButtons.usableNum > 0 and module.db.usableAutoButtons.usableSize or 40)
 	E:CreateMover(AutoButtonAnchor3, "MER_AutoButtonAnchor3Mover", L["AutoButton Usables"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", function() return module.db["enable"] end, 'mui,modules,actionbars,autoButtons')
 
 	self:UpdateAutoButton()
