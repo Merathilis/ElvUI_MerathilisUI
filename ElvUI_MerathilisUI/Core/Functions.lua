@@ -483,9 +483,6 @@ MER.IsDev = {
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
-
-	-- Beta
-	["Melísendra"] = true,
 }
 
 -- Don't forget to update realm name(s) if we ever transfer realms.
