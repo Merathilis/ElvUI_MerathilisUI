@@ -54,4 +54,5 @@
 	<Script file="Blizzard_VoidStorageUI.lua"/>
 	<Script file="Blizzard_WarboardUI.lua"/>
 	<Script file="Blizzard_WarfrontPartyPose.lua"/>
+	<Script file="Blizzard_WeeklyRewards.lua"/>
 </Ui>
