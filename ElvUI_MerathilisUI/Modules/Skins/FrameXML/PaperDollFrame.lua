@@ -5,19 +5,10 @@ local S = E:GetModule("Skins")
 --Cache global variables
 --Lua functions
 local _G = _G
-local ipairs, pairs, select, type, unpack = ipairs, pairs, select, type, unpack
+local ipairs, pairs, type, unpack = ipairs, pairs, type, unpack
 --WoW API / Variables
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local GetSpecialization = GetSpecialization
-local GetSpecializationInfo = GetSpecializationInfo
-local GetItemLevelColor = GetItemLevelColor
-local GetSpecializationRole = GetSpecializationRole
-local UnitLevel = UnitLevel
-local UnitSex = UnitSex
-local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
-local PAPERDOLL_STATCATEGORIES = PAPERDOLL_STATCATEGORIES
-local PAPERDOLL_STATINFO = PAPERDOLL_STATINFO
 -- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
@@ -42,7 +33,7 @@ local function CharacterStatFrameCategoryTemplate(frame)
 	bg:ClearAllPoints()
 	bg:SetPoint("CENTER", 0, -5)
 	bg:SetSize(210, 30)
-	bg:SetVertexColor(r, g, b, 0.5)
+	bg:SetVertexColor(r, g, b, 1)
 end
 
 -- Copied from ElvUI
@@ -55,14 +46,14 @@ local function ColorizeStatPane(frame)
 	frame.leftGrad:SetHeight(frame:GetHeight())
 	frame.leftGrad:SetPoint("LEFT", frame, "CENTER")
 	frame.leftGrad:SetTexture(E.media.blankTex)
-	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.5, r, g, b, 0)
+	frame.leftGrad:SetGradientAlpha("Horizontal", r, g, b, 0.75, r, g, b, 0)
 
 	frame.rightGrad = frame:CreateTexture(nil, "BORDER")
 	frame.rightGrad:SetWidth(80)
 	frame.rightGrad:SetHeight(frame:GetHeight())
 	frame.rightGrad:SetPoint("RIGHT", frame, "CENTER")
 	frame.rightGrad:SetTexture(E.media.blankTex)
-	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.5)
+	frame.rightGrad:SetGradientAlpha("Horizontal", r, g, b, 0, r, g, b, 0.75)
 end
 
 local function LoadSkin()
@@ -73,13 +64,6 @@ local function LoadSkin()
 	_G.CharacterModelFrame:DisableDrawLayer("BACKGROUND")
 	_G.CharacterModelFrame:DisableDrawLayer("BORDER")
 	_G.CharacterModelFrame:DisableDrawLayer("OVERLAY")
-
-	for i = 1, #slots do
-		local slot = _G["Character"..slots[i].."Slot"]
-
-		slot.backgroundTextureName = ''
-		MERS:CreateBDFrame(slot, .25)
-	end
 
 	_G.GearManagerDialogPopup:Styling()
 

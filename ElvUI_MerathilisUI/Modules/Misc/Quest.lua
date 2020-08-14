@@ -169,15 +169,22 @@ local function FindWorldQuestComplete(_, questID)
 end
 
 function MI:LoadQuest()
-	if E.db.mui.misc.quest ~= true then return end
+	-- Make sure the table exist
+	if not E.db.mui.misc.quest then
+		E.db.mui.misc.quest = {}
+	end
 
-	FindQuestComplete()
-	initComplete = true
+	if E.db.mui.misc.quest.selectQuestReward then
+		self:RegisterEvent("QUEST_COMPLETE")
+	end
 
-	self:RegisterEvent("QUEST_ACCEPTED", FindQuestAccept)
-	self:RegisterEvent("QUEST_LOG_UPDATE", FindQuestComplete)
-	self:RegisterEvent("QUEST_TURNED_IN", FindWorldQuestComplete)
-	self:RegisterEvent("UI_INFO_MESSAGE", FindQuestProgress)
+	if E.db.mui.misc.quest.questAnnounce then
+		FindQuestComplete()
+		initComplete = true
 
-	self:RegisterEvent("QUEST_COMPLETE")
+		self:RegisterEvent("QUEST_ACCEPTED", FindQuestAccept)
+		self:RegisterEvent("QUEST_LOG_UPDATE", FindQuestComplete)
+		self:RegisterEvent("QUEST_TURNED_IN", FindWorldQuestComplete)
+		self:RegisterEvent("UI_INFO_MESSAGE", FindQuestProgress)
+	end
 end

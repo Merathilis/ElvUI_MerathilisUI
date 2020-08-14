@@ -9,7 +9,6 @@ local _G = _G
 -- GLOBALS:
 
 function module:Configure_Castbar(frame)
-	if not frame.VARIABLES_SET then return end
 	local castbar = frame.Castbar
 
 	if castbar.backdrop and not castbar.isStyled then

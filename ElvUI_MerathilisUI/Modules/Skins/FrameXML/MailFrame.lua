@@ -57,14 +57,14 @@ local function LoadSkin()
 
 		local b = _G["MailItem"..i.."Button"]
 		b:StripTextures()
-		b:SetTemplate("Transparent", true)
+		b:CreateBackdrop("Transparent", true)
 		b:StyleButton()
 	end
 
 	-- SendMailFrame
 	local SendMailFrame = _G.SendMailFrame
 	local SendMailScrollFrame = _G.SendMailScrollFrame
-	SendMailScrollFrame:SetTemplate("Transparent")
+	SendMailScrollFrame:CreateBackdrop("Transparent")
 
 	for i = 4, 7 do
 		select(i, SendMailFrame:GetRegions()):Hide()
@@ -78,7 +78,7 @@ local function LoadSkin()
 		local b = _G["SendMailAttachment"..i]
 		if not b.skinned then
 			b:StripTextures()
-			b:SetTemplate("Transparent", true)
+			b:CreateBackdrop("Transparent", true)
 			b:StyleButton()
 			b.skinned = true
 
@@ -108,7 +108,7 @@ local function LoadSkin()
 	_G.OpenMailHorizontalBarLeft:Hide()
 
 	local OpenMailScrollFrame = _G.OpenMailScrollFrame
-	OpenMailScrollFrame:SetTemplate("Transparent")
+	OpenMailScrollFrame:CreateBackdrop("Transparent")
 	OpenMailScrollFrame:SetPoint("TOPLEFT", 17, -83)
 	OpenMailScrollFrame:SetWidth(304)
 

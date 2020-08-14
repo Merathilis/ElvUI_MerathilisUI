@@ -18,6 +18,7 @@ local UnitName = UnitName
 local Minimap = _G.Minimap
 local hooksecurefunc = hooksecurefunc
 local IsInInstance = IsInInstance
+local IsAddOnLoaded = IsAddOnLoaded
 local C_ChallengeMode_GetActiveKeystoneInfo = C_ChallengeMode.GetActiveKeystoneInfo
 -- GLOBALS:
 
@@ -44,6 +45,8 @@ function module:MiniMapCoords()
 	local pos = E.db.mui.maps.minimap.coords.position or "BOTTOM"
 	local Coords = MER:CreateText(Minimap, "OVERLAY", 12, "OUTLINE", "CENTER")
 	Coords:SetTextColor(unpack(E["media"].rgbvaluecolor))
+	Coords:Hide()
+
 	if pos == "BOTTOM" then
 		Coords:SetPoint(pos, 0, 2)
 	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
@@ -53,7 +56,18 @@ function module:MiniMapCoords()
 	else
 		Coords:SetPoint(pos, 0, 0)
 	end
-	Coords:Hide()
+
+	if E.db.mui.maps.minimap.rectangle then
+		if pos == "BOTTOM" then
+			Coords:SetPoint(pos, 0, 40)
+		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
+			Coords:SetPoint(pos, 0, -40)
+		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
+			Coords:SetPoint(pos, 0, -2)
+		else
+			Coords:SetPoint(pos, 0, 0)
+		end
+	end
 
 	Minimap:HookScript("OnUpdate",function()
 		if select(2, GetInstanceInfo()) == "none" then
@@ -210,7 +224,9 @@ function module:RaidDifficulty()
 end
 
 function module:StyleMinimap()
-	Minimap:Styling(true, true, false, 180, 180, .75)
+	if not E.db.mui.maps.minimap.rectangle then
+		Minimap:Styling(true, true, false)
+	end
 
 	-- QueueStatus Button
 	_G.QueueStatusMinimapButtonBorder:Hide()
@@ -243,10 +259,6 @@ function module:Initialize()
 	-- Add a check if the backdrop is there
 	if not Minimap.backdrop then
 		Minimap:CreateBackdrop("Default", true)
-		Minimap.backdrop:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisGradient"), edgeSize = E:Scale(2),
-			insets = {left = E:Scale(2), right = E:Scale(2), top = E:Scale(2), bottom = E:Scale(2)},
-		})
 	end
 
 	self:MiniMapCoords()

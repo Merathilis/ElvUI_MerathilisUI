@@ -74,6 +74,7 @@ function module:SetBlizzFonts()
 		if module.db.miscText.objectiveHeader.enable then
 			if not _G["ObjectiveTrackerFrame"].hooked then
 				hooksecurefunc("ObjectiveTracker_Update", function(reason, id)
+					_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 					_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
@@ -83,6 +84,7 @@ function module:SetBlizzFonts()
 				_G["ObjectiveTrackerFrame"].hooked = true
 			end
 			_G["ObjectiveTrackerFrame"].HeaderMenu.Title:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
+			_G["ObjectiveTrackerBlocksFrame"].CampaignQuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].QuestHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].AchievementHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
 			_G["ObjectiveTrackerBlocksFrame"].ScenarioHeader.Text:SetFont(E.LSM:Fetch('font', module.db.miscText.objectiveHeader.font), module.db.miscText.objectiveHeader.size, module.db.miscText.objectiveHeader.outline)
@@ -95,13 +97,6 @@ function module:SetBlizzFonts()
 			if module.BonusObjectiveBarText then module.BonusObjectiveBarText:SetFont(E.LSM:Fetch('font', module.db.miscText.objective.font), module.db.miscText.objective.size, module.db.miscText.objective.outline) end
 		end
 	end
-end
-
-function module:TextWidth()
-	_G["ZoneTextString"]:SetWidth(module.db.zoneText.zone.width)
-	_G["PVPInfoTextString"]:SetWidth(module.db.zoneText.pvp.width)
-	_G["PVPArenaTextString"]:SetWidth(module.db.zoneText.pvp.width)
-	_G["SubZoneTextString"]:SetWidth(module.db.zoneText.subzone.width)
 end
 
 function module:TextShow()
@@ -135,14 +130,12 @@ function module:Initialize()
 		module.db = E.db.mui.media
 
 		if module.db.zoneText.enable then
-			module:TextWidth()
 			hooksecurefunc("SetZoneText", ZoneTextPos)
 		end
 	end
 	self:ForUpdateAll()
 
 	if module.db.zoneText.enable then
-		module:TextWidth()
 		hooksecurefunc("SetZoneText", ZoneTextPos)
 	end
 

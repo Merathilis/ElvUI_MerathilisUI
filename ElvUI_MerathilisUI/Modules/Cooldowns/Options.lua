@@ -8,6 +8,8 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function Cooldowns()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.cooldowns = {
 		type = "group",
 		name = L["Cooldowns"],
@@ -20,23 +22,14 @@ local function Cooldowns()
 				get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header1 = {
-						type = "header",
-						name = MER:cOption(L["Cooldown Flash"]),
-						order = 1
-					},
+					header = ACH:Header(MER:cOption(L["Cooldown Flash"]), 1),
 					credits = {
 						order = 2,
 						type = "group",
 						name = MER:cOption(L["Credits"]),
 						guiInline = true,
 						args = {
-							tukui = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = "Doom_CooldownPulse - by Woffle of Dark Iron[US]",
-							},
+							tukui = ACH:Description("Doom_CooldownPulse - by Woffle of Dark Iron[US]"),
 						},
 					},
 					toggle = {
@@ -122,11 +115,7 @@ local function Cooldowns()
 				get = function(info) return E.db.mui.raidCD[ info[#info] ] end,
 				set = function(info, value) E.db.mui.raidCD[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header1 = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["RaidCD"]),
-					},
+					header = ACH:Header(MER:cOption(L["RaidCD"]), 0),
 					enable = {
 						order = 1,
 						type = "toggle",

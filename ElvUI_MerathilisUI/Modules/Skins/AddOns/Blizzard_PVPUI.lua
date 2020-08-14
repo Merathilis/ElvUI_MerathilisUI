@@ -32,17 +32,19 @@ local function LoadSkin()
 	local ConquestFrame = _G.ConquestFrame
 	local WarGamesFrame = _G.WarGamesFrame
 
-	local iconSize = 60-2*E.mult
+	local iconSize = 56-2*E.mult
 	for i = 1, 3 do
 		local bu = PVPQueueFrame["CategoryButton"..i]
 		local cu = bu.CurrencyDisplay
 
 		MERS:Reskin(bu)
 
+		bu.Name:SetTextColor(1, 1, 1)
+
 		bu.Icon:SetSize(iconSize, iconSize)
 		bu.Icon:SetDrawLayer("OVERLAY")
 		bu.Icon:ClearAllPoints()
-		bu.Icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
+		bu.Icon:SetPoint("LEFT", bu, "LEFT", 5, 0)
 
 		if cu then
 			local ic = cu.Icon

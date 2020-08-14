@@ -7,7 +7,7 @@ P.mui = {}
 local MP = P.mui
 
 MP.core = {
-	installed = nil,
+	installed = false,
 }
 
 MP.general = {
@@ -17,11 +17,7 @@ MP.general = {
 	AFK = true,
 	FlightMode = true,
 	FlightPoint = true,
-	CombatState = true,
-	Movertransparancy = .75,
 	style = true,
-	panels = true,
-	stylePanels = true,
 	shadowOverlay = true,
 	filterErrors = true,
 	hideErrorFrame = true,
@@ -35,6 +31,36 @@ MP.merchant = {
 	enable = true,
 	style = "Default",
 	subpages = 2,
+}
+
+MP.CombatAlert = {
+	enable = true,
+	style = {
+		font = E.db.general.font,
+		fontSize = 28,
+		fontOutline = "THICKOUTLINE",
+		backdrop = false,
+		font_color_enter = {
+			r = 0.91,
+			g = 0.3,
+			b = 0.24,
+			a = 1.0,
+		},
+		font_color_leave = {
+			r = 0.18,
+			g = 0.8,
+			b = 0.44,
+			a = 1.0,
+		},
+		stay_duration = 1.5,
+		animation_duration = 1,
+		scale = 0.8,
+	},
+	custom_text = {
+		enabled = false,
+		custom_enter_text = L["Enter Combat"],
+		custom_leave_text = L["Leave Combat"],
+	},
 }
 
 MP.cvars = {
@@ -88,9 +114,9 @@ MP.chat = {
 	hideChat = false,
 	chatBar = false,
 	emotes = true,
+	itemLevelLink = true,
 	filter = {
 		enable = true,
-		itemLevel = true,
 		keywords = "",
 		blockAddOnAlerts = true,
 		damagemeter = true,
@@ -99,7 +125,9 @@ MP.chat = {
 		enable = true,
 		minAlpha = 0.33,
 		timeout = 8,
+		fadeOutTime = 0.65
 	},
+	seperators = true,
 }
 
 MP.colors = {
@@ -109,12 +137,16 @@ MP.colors = {
 MP.misc = {
 	MailInputbox = true,
 	gmotd = true,
-	quest = false,
-	announce = true,
+	quest = {
+		selectQuestReward =	true,
+		questAnnounce = false,
+	},
 	cursor = false,
 	lfgInfo = true,
 	alerts = {
 		lfg = false,
+		announce = true,
+		itemAlert = true,
 	},
 	paragon = {
 		enable = true,
@@ -145,35 +177,7 @@ MP.notification = {
 
 MP.databars = {}
 
-MP.datatexts = {
-	panels = {
-		ChatTab_Datatext_Panel = {
-			left = "Durability",
-			middle = "Bags",
-			right = "Coords",
-		},
-		mUIMiddleDTPanel = {
-			left = "Guild",
-			middle = "MUI System",
-			right = "Friends",
-		},
-	},
-	middle = {
-		enable = true,
-		transparent = true,
-		backdrop = false,
-		width = 495,
-		height = 18,
-	},
-	rightChatTabDatatextPanel = {
-		enable = true,
-	},
-	threatBar = {
-		enable = true,
-		textSize = 10,
-		textOutline = "OUTLINE",
-	},
-}
+MP.datatexts = {}
 
 MP.actionbars = {
 	customGlow = true,
@@ -195,7 +199,7 @@ MP.actionbars = {
 			enable = true,
 			slotBBColorByItem = true,
 			slotBBColor = {r = 1, g = 1, b = 1, a = 1},
-			slotSpace = 1,
+			slotSpace = 3,
 			slotDirection = "RIGHT",
 			slotNum = 5,
 			slotPerRow = 5,
@@ -206,7 +210,7 @@ MP.actionbars = {
 			enable = true,
 			questBBColorByItem = true,
 			questBBColor = {r = 1, g = 1, b = 1, a = 1},
-			questSpace = 1,
+			questSpace = 3,
 			questDirection = "RIGHT",
 			questNum = 5,
 			questPerRow = 5,
@@ -217,7 +221,7 @@ MP.actionbars = {
 			enable = true,
 			usableBBColorByItem = true,
 			usableBBColor = {r = 1, g = 1, b = 1, a = 1},
-			usableSpace = 1,
+			usableSpace = 3,
 			usableDirection = "RIGHT",
 			usableNum = 5,
 			usablePerRow = 5,
@@ -268,6 +272,7 @@ MP.actionbars = {
 			[153023] = true, -- Lightforged Augment Rune
 
 			--BFA
+			[169451] = true, -- Abyssal Healing Potion
 			[152494] = true, -- Coastal Healing Potion
 			[152495] = true, -- Coastal Mana Potion
 			[160053] = true, -- Battle-Scarred Augment Rune
@@ -323,6 +328,7 @@ MP.actionbars = {
 MP.microBar = {
 	enable = true,
 	scale = 1,
+	template = "Transparent",
 	hideInCombat = true,
 	hideInOrderHall = false,
 	tooltip = true,
@@ -334,7 +340,6 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	auras = true,
 	healPrediction = false,
 	swing = {
 		enable = false,
@@ -350,6 +355,7 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	roleIcons = true,
 }
 
 MP.maps = {
@@ -366,6 +372,7 @@ MP.maps = {
 			xOffset = 0,
 			yOffset = -20,
 		},
+		rectangle = false,
 	},
 }
 
@@ -431,6 +438,21 @@ MP.media = {
 	},
 }
 
+MP.panels = {
+	topPanel = true,
+	bottomPanel = true,
+	stylePanels = {
+		topLeftPanel = true,
+		topLeftExtraPanel = true,
+		topRightPanel = true,
+		topRightExtraPanel = true,
+		bottomLeftPanel = true,
+		bottomLeftExtraPanel = true,
+		bottomRightPanel = true,
+		bottomRightExtraPanel = true,
+	},
+}
+
 MP.smb = {
 	enable = true,
 	size = 34,
@@ -467,7 +489,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,172179",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -505,9 +527,9 @@ MP.pvp = {
 }
 
 MP.tooltip = {
-	achievement = true,
-	petIcon = true,
+	tooltipIcon = true,
 	factionIcon = true,
+	petIcon = true,
 	keystone = true,
 	azerite = {
 		enable = true,
@@ -520,9 +542,13 @@ MP.tooltip = {
 			enable = true,
 			Uldir = false,
 			BattleOfDazaralor = false,
-			CrucibleOfStorms = true,
+			CrucibleOfStorms = false,
 			EternalPalace = true,
+			Nyalotha = true,
 		}
+	},
+	corruption = {
+		enable = true,
 	},
 }
 

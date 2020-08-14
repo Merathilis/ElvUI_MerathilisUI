@@ -38,7 +38,6 @@ module.ReminderBuffs = {
 		298837,			-- Greater Flask of Endless Fathoms
 		298839,			-- Greater Flask of the Vast Horizon
 		298841,			-- Greater Flask of the Undertow
-
 	},
 	DefiledAugmentRune = {
 		224001,			-- Defiled Augumentation (15 primary stat)

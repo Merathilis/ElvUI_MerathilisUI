@@ -53,6 +53,8 @@ function module:Update_PlayerFrame(frame)
 			frame:DisableElement('CounterBar')
 		end
 	end
+
+	module:CreateHighlight(frame)
 end
 
 function module:InitPlayer()

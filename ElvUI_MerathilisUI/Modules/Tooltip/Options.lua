@@ -10,22 +10,20 @@ local IsAddOnLoaded = IsAddOnLoaded
 -- GLOBALS:
 
 local function Tooltip()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.tooltip = {
 		type = "group",
 		name = L["Tooltip"],
 		get = function(info) return E.db.mui.tooltip[info[#info]] end,
 		set = function(info, value) E.db.mui.tooltip[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Tooltip"]),
-			},
-			petIcon = {
+			name = ACH:Header(MER:cOption(L["Tooltip"]), 1),
+			tooltipIcon = {
 				order = 2,
 				type = "toggle",
-				name = L["Pet Battle"],
-				desc = L["Adds an Icon for battle pets on the tooltip."],
+				name = L["Tooltip Icons"],
+				desc = L["Adds an icon for spells and items on your tooltip."],
 			},
 			factionIcon = {
 				order = 3,
@@ -33,12 +31,13 @@ local function Tooltip()
 				name = L.FACTION,
 				desc = L["Adds an Icon for the faction on the tooltip."],
 			},
-			achievement = {
+			petIcon = {
 				order = 4,
 				type = "toggle",
-				name = L["ACHIEVEMENTS"],
-				desc = L["Adds information to the tooltip, on which char you earned an achievement."],
+				name = L["Pet Battle"],
+				desc = L["Adds an Icon for battle pets on the tooltip."],
 			},
+
 			keystone = {
 				order = 5,
 				type = "toggle",
@@ -46,7 +45,7 @@ local function Tooltip()
 				desc = L["Adds descriptions for mythic keystone properties to their tooltips."],
 			},
 			titleColor = {
-				order = 6,
+				order = 5,
 				type = "toggle",
 				name = L["Title Color"],
 				desc = L["Change the color of the title in the Tooltip."],
@@ -54,7 +53,7 @@ local function Tooltip()
 			azerite = {
 				order = 10,
 				type = "group",
-				name = E.NewSign..L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
+				name = L.HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS,
 				guiInline = true,
 				hidden = function() return IsAddOnLoaded("AzeriteTooltip") end,
 				get = function(info) return E.db.mui.tooltip.azerite[info[#info]] end,
@@ -82,11 +81,7 @@ local function Tooltip()
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Name Hover"]),
-					},
+					header = ACH:Header(MER:cOption(L["Name Hover"]), 0),
 					enable = {
 						order = 1,
 						type = "toggle",
@@ -121,25 +116,8 @@ local function Tooltip()
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
-					header = {
-						order = 0,
-						type = "header",
-						name = MER:cOption(L["Progress Info"]),
-					},
-					enable = {
-						order = 1,
-						type = 'toggle',
-						name = L["Enable"],
-						desc = L["Shows raid progress of a character in the tooltip"],
-					},
-					space = {
-						order = 2,
-						type = "description",
-						name = "",
-						width = "full",
-					},
 					raid = {
-						order = 3,
+						order = 1,
 						name = L["Raid"],
 						type = "group",
 						get = function(info) return E.db.mui.tooltip.progressInfo.raid[info[#info]] end,
@@ -150,6 +128,7 @@ local function Tooltip()
 								order = 1,
 								type = "toggle",
 								name = L["Enable"],
+								width = "full",
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable end,
 							},
 							Uldir = {
@@ -161,22 +140,48 @@ local function Tooltip()
 							BattleOfDazaralor = {
 								order = 3,
 								type = "toggle",
-								name = L["BattleOfDazaralor"],
+								name = L["Battle Of Dazaralor"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							CrucibleOfStorms = {
 								order = 4,
 								type = "toggle",
-								name = L["CrucibleOfStorms"],
+								name = L["Crucible Of Storms"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 							EternalPalace = {
 								order = 4,
 								type = "toggle",
-								name = L["EternalPalace"],
+								name = L["Eternal Palace"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							},
+							Nyalotha = {
+								order = 4,
+								type = "toggle",
+								name = L["Ny'alotha"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
 						}
+					},
+				},
+			},
+			corruption = {
+				order = 13,
+				type = "group",
+				name = L["Corruption"],
+				guiInline = true,
+				disabled = function() return not E.private.tooltip.enable end,
+				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
+				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
+				args = {
+					credits = ACH:Description(L["Credits: siweia | NdUI"], 0),
+					spacer = ACH:Spacer(1),
+					enable = {
+						order = 1,
+						type = "toggle",
+						name = L["Enable"],
+						width = "full",
+						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 				},
 			},

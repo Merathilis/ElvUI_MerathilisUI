@@ -13,7 +13,7 @@ local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetAutoQuestPopUp = GetAutoQuestPopUp
-local GetNumQuestLogEntries = GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
 local GetQuestLogIndexByID = GetQuestLogIndexByID
 local CreateFrame = CreateFrame
@@ -55,7 +55,7 @@ function f.QUEST_LOG_UPDATE()
 	local frame = _G.ObjectiveTrackerFrame
 
 	if not InCombat and not InCombatLockdown() then
-		questNum = select(2, GetNumQuestLogEntries())
+		questNum = select(2, C_QuestLog_GetNumQuestLogEntries())
 
 		if questNum >= (_G.MAX_QUESTS - 5) then -- go red
 			q = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)
@@ -65,7 +65,11 @@ function f.QUEST_LOG_UPDATE()
 			o = format("%d/%d %s", questNum, _G.MAX_QUESTS, _G.OBJECTIVES_TRACKER_LABEL)
 		end
 
-		block.QuestHeader.Text:SetText(q)
+		if block.CampaignQuestHeader.Text then
+			block.CampaignQuestHeader.Text:SetText(q)
+		elseif block.QuestHeader.Text then
+			block.QuestHeader.Text:SetText(q)
+		end
 		frame.HeaderMenu.Title:SetText(o)
 	end
 end
@@ -73,7 +77,7 @@ end
 local function SkinAutoQuestPopUpBlock()
 	for i = 1, GetNumAutoQuestPopUps() do
 		local ID, type = GetAutoQuestPopUp(i)
-		local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
+		local Title = C_QuestLog.GetTitleForQuestID(C_QuestLog.GetLogIndexForQuestID(ID))
 
 		if Title and Title ~= "" then
 			local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
@@ -130,32 +134,6 @@ local function SkinAutoQuestPopUpBlock()
 	end
 end
 
-local uiTextureKits = {
-	[0] = {color = 1, 1, 1, overlay = ""},
-	[261] = {color = 0.29, 0.33, 0.91, overlay = [[Interface\Timer\Alliance-Logo]]},
-	[5117] = {color = 0.90, 0.05, 0.07, overlay = [[Interface\Timer\Horde-Logo]]},
-	["legion"] = {color = 255/19, 255/255, 255/41, overlay = ""},
-}
-
-local function CustomizeBlock(stageBlock, scenarioType, widgetSetID, textureKitID)
-	if widgetSetID then
-		stageBlock.overlay:Hide()
-	else
-		stageBlock.overlay:Show()
-		local kit
-
-		if textureKitID then
-			kit = uiTextureKits[textureKitID] or uiTextureKits[0]
-		elseif scenarioType == _G.LE_SCENARIO_TYPE_LEGION_INVASION then
-			kit = uiTextureKits["legion"]
-		else
-			kit = uiTextureKits[0]
-		end
-		stageBlock.bg:SetBackdropColor(kit.color, 0,75)
-		stageBlock.overlay:SetTexture(kit.overlay)
-	end
-end
-
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.objectiveTracker ~= true or E.private.muiSkins.blizzard.objectiveTracker ~= true then return end
 
@@ -197,40 +175,6 @@ local function LoadSkin()
 
 	_G.ObjectiveTrackerFrame:SetSize(235, 140)
 	_G.ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
-
-	local ScenarioChallengeModeBlock = _G.ScenarioChallengeModeBlock
-	local bg = select(3, ScenarioChallengeModeBlock:GetRegions())
-	bg:Hide()
-	ScenarioChallengeModeBlock:CreateBackdrop("Transparent")
-	ScenarioChallengeModeBlock.backdrop:Styling()
-
-	ScenarioChallengeModeBlock.TimerBGBack:Hide()
-	ScenarioChallengeModeBlock.TimerBG:Hide()
-
-	-- Mera trying stuff
-	local ScenarioStageBlock = _G.ScenarioStageBlock
-	ScenarioStageBlock:StripTextures()
-	ScenarioStageBlock.NormalBG:Hide()
-	ScenarioStageBlock.GlowTexture:Hide()
-
-	local ssbBD = _G.CreateFrame("Frame", nil, ScenarioStageBlock)
-	ssbBD:SetFrameLevel(ScenarioStageBlock:GetFrameLevel())
-	ssbBD:SetAllPoints(ScenarioStageBlock.NormalBG)
-	ssbBD:SetClipsChildren(true)
-	ssbBD:SetPoint("TOPLEFT", ScenarioStageBlock.NormalBG, 3, -3)
-	ssbBD:SetPoint("BOTTOMRIGHT", ScenarioStageBlock.NormalBG, -3, 3)
-	ssbBD:CreateBackdrop("Transparent")
-	ssbBD.backdrop:Styling()
-	ScenarioStageBlock.bg = ssbBD
-
-	local overlay = ssbBD:CreateTexture(nil, "OVERLAY")
-	overlay:SetSize(120, 120)
-	overlay:SetPoint("TOPRIGHT", 23, 20)
-	overlay:SetAlpha(0.2)
-	overlay:SetDesaturated(true)
-	ScenarioStageBlock.overlay = overlay
-
-	_G.hooksecurefunc("ScenarioStage_CustomizeBlock", CustomizeBlock)
 
 	S:HandleButton(_G.ObjectiveTrackerFrame.HeaderMenu.MinimizeButton)
 

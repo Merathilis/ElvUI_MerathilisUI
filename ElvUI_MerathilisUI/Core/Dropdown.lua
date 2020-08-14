@@ -108,8 +108,8 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			btn.nohighlight = list[i].nohighlight
 			btn.text:SetJustifyH(justify or "LEFT")
 			btn:Show()
-			btn:Height(BUTTON_HEIGHT)
-			btn:Width(customWidth or BUTTON_WIDTH)
+			btn:SetHeight(BUTTON_HEIGHT)
+			btn:SetWidth(customWidth or BUTTON_WIDTH)
 			local icon = ""
 			if list[i].icon then
 				icon = "|T"..list[i].icon..":14:14:0:0:64:64:4:60:4:60|t "
@@ -150,14 +150,14 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			end
 
 			if i == 1 then
-				btn:Point("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
+				btn:SetPoint("TOPLEFT", frame, "TOPLEFT", MARGIN, -PADDING)
 			else
-				btn:Point("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
+				btn:SetPoint("TOPLEFT", frame.buttons[i-1], "BOTTOMLEFT", 0, -((list[i-1].title or list[i].title) and TITLE_OFFSET or 0))
 			end
 		end
 
-		frame:Height((#list * BUTTON_HEIGHT) + PADDING * 2 + TitleCount * (2 * TITLE_OFFSET) - AddOffset * TITLE_OFFSET)
-		frame:Width(customWidth or (BUTTON_WIDTH + PADDING * 2))
+		frame:SetHeight((#list * BUTTON_HEIGHT) + PADDING * 2 + TitleCount * (2 * TITLE_OFFSET) - AddOffset * TITLE_OFFSET)
+		frame:SetWidth(customWidth or (BUTTON_WIDTH + PADDING * 2))
 
 		frame:ClearAllPoints()
 		if FramePoint == "CURSOR" then
@@ -165,9 +165,9 @@ function MER:DropDown(list, frame, MenuAnchor, FramePoint, xOffset, yOffset, par
 			local x, y = GetCursorPosition();
 			x = x/UIScale
 			y = y/UIScale
-			frame:Point(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
+			frame:SetPoint(MenuAnchor, UIParent, "BOTTOMLEFT", x + xOffset, y + yOffset)
 		else
-			frame:Point(MenuAnchor, parent, FramePoint, xOffset, yOffset)
+			frame:SetPoint(MenuAnchor, parent, FramePoint, xOffset, yOffset)
 		end
 	end
 	ToggleFrame(frame)

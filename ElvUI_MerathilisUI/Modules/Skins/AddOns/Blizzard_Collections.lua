@@ -364,33 +364,12 @@ local function LoadSkin()
 		end
 	end)
 
-	local SetsTransmogFrame = WardrobeCollectionFrame.SetsTransmogFrame
-	for i = 1, 34 do
-		select(i, SetsTransmogFrame:GetRegions()):Hide()
-	end
-
 	-- [[ Wardrobe ]]
 	local WardrobeFrame = _G.WardrobeFrame
 	local WardrobeTransmogFrame = _G.WardrobeTransmogFrame
-
-	_G.WardrobeTransmogFrameBg:Hide()
-	WardrobeTransmogFrame.Inset.BG:Hide()
-	WardrobeTransmogFrame.Inset:DisableDrawLayer("BORDER")
-	WardrobeTransmogFrame.MoneyLeft:Hide()
-	WardrobeTransmogFrame.MoneyMiddle:Hide()
-	WardrobeTransmogFrame.MoneyRight:Hide()
-
 	WardrobeFrame:Styling()
 
-	for i = 1, 9 do
-		select(i, WardrobeTransmogFrame.SpecButton:GetRegions()):Hide()
-	end
-
-	for i = 1, 9 do
-		select(i, _G.WardrobeOutfitFrame:GetRegions()):Hide()
-	end
 	MERS:CreateBDFrame(_G.WardrobeOutfitFrame, .25)
-	MERS:CreateSD(_G.WardrobeOutfitFrame, .25)
 
 	WardrobeTransmogFrame.SpecButton:SetPoint("RIGHT", WardrobeTransmogFrame.ApplyButton, "LEFT", -3, 0)
 

@@ -7,76 +7,70 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function NotificationTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.Notification = {
 		type = "group",
 		name = L["Notification"],
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
+			name = ACH:Header(MER:cOption(L["DataBars"]), 0),
 			credits = {
-				order = 0,
+				order = 1,
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
 				args = {
-					tukui = {
-						order = 1,
-						type = "description",
-						fontSize = "medium",
-						name = "RealUI - Nibelheim, Gethe",
-					},
+					tukui = ACH:Description("RealUI - Nibelheim, Gethe", 1),
 				},
 			},
 			enable = {
-				order = 1,
+				order = 2,
 				type = "toggle",
 				name = L["Enable"],
 			},
 			noSound = {
-				order = 2,
+				order = 3,
 				type = "toggle",
 				name = L["No Sounds"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
-			header1 = {
-				order = 5,
-				name = MER:cOption(L["Notification"]),
-				type = "header",
-			},
+			header = ACH:Header(MER:cOption(L["Notification"]), 4),
 			desc = {
-				order = 6,
+				order = 5,
 				type = "description",
 				fontSize = "small",
 				name = L["Here you can enable/disable the different notification types."],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			mail = {
-				order = 7,
+				order = 6,
 				type = "toggle",
 				name = L["Enable Mail"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			vignette = {
-				order = 8,
+				order = 7,
 				type = "toggle",
 				name = L["Enable Vignette"],
 				desc = L["If a Rare Mob or a treasure gets spotted on the minimap."],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			invites = {
-				order = 9,
+				order = 8,
 				type = "toggle",
 				name = L["Enable Invites"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			guildEvents = {
-				order = 10,
+				order = 9,
 				type = "toggle",
 				name = L["Enable Guild Events"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			paragon = {
-				order = 11,
+				order = 10,
 				type = "toggle",
 				name = L["MISC_PARAGON"],
 				disabled = function() return not E.db.mui.notification.enable end,

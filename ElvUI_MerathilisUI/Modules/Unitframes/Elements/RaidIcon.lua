@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule("muiUnits")
-local UF = E.UnitFrames
 
 --Cache global variables
 --WoW API / Variables

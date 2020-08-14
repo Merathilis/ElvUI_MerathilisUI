@@ -31,7 +31,7 @@ local firstLines = {
 }
 
 local nextLines = {
-	"^(%d+)\. (.*)$", --Recount, Details! and Skada
+	"^(%d+)%. (.*)$", --Recount, Details! and Skada
 	"^(.*)   (.*)$", --Additional Skada
 	"^Numeration: (.*)$", -- Numeration
 	"^[+-]%d+.%d", -- Numeration Deathlog Details

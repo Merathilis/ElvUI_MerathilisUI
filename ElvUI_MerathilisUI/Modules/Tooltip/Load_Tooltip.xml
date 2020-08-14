@@ -2,6 +2,7 @@
 	<Script file="tooltip.lua"/>
 	<Script file="Achievement.lua"/>
 	<Script file="AzeriteArmor.lua"/>
+	<Script file="Corruption.lua"/>
 	<Script file="KeystoneInfo.lua"/>
 	<Script file="Progress.lua"/>
 	<Script file="TooltipIcon.lua"/>

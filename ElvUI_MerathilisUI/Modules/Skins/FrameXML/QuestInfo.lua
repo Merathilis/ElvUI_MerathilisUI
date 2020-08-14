@@ -43,7 +43,7 @@ end
 
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
-		return select(8, GetQuestLogTitle(GetQuestLogSelection()))
+		return C_QuestLog.GetSelectedQuest()
 	else
 		return GetQuestID()
 	end
@@ -76,6 +76,14 @@ local function ColorObjectivesText()
 					objective:SetTextColor(1, 1, 1)
 				end
 			end
+		end
+	end
+
+	-- 9.0 Shadowlands Objective Text Colors
+	for i = 1, 3 do -- Maybe more
+		local text = _G["QuestInfoObjective"..i]
+		if text then
+			text:SetTextColor(1, 1, 1)
 		end
 	end
 end
@@ -137,7 +145,7 @@ local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemover.enable then return end
+	--if E.private.skins.parchmentRemoverEnable then return end
 
 	-- [[ Objectives ]]
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
@@ -162,11 +170,11 @@ local function LoadSkin()
 	end)
 
 	_G.MapQuestInfoRewardsFrame.XPFrame.Name:SetShadowOffset(0, 0)
-	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame"} do
+	for _, name in next, {"HonorFrame", "MoneyFrame", "SkillPointFrame", "XPFrame", "ArtifactXPFrame", "TitleFrame", "WarModeBonusFrame"} do
 		RestyleRewardButton(_G.MapQuestInfoRewardsFrame[name], true)
 	end
 
-	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame"} do
+	for _, name in next, {"HonorFrame", "SkillPointFrame", "ArtifactXPFrame", "WarModeBonusFrame"} do
 		RestyleRewardButton(_G.QuestInfoRewardsFrame[name])
 	end
 
@@ -222,6 +230,8 @@ local function LoadSkin()
 	end)
 
 	-- [[ Change text colors ]]
+	_G.QuestFont:SetTextColor(1, 1, 1)
+
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
 			self:SetTextColor(.8, .8, .8)

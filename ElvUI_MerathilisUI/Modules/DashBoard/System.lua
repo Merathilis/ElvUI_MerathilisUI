@@ -99,7 +99,7 @@ function module:CreateSystemDashboard()
 	module:UpdateHolderDimensions(self.sysHolder, "system", module.SystemDB)
 	module:ToggleTransparency(self.sysHolder, "system")
 
-	E:CreateMover(self.sysHolder, "MERDashboardMover", L["System"], nil, nil, nil, "ALL,MERATHILISUI", nil, 'mui,modules,dashboard,system')
+	E:CreateMover(self.sysHolder, "MER_DashboardMover", L["System"], nil, nil, nil, "ALL,MERATHILISUI", nil, 'mui,modules,dashboard,system')
 end
 
 function module:LoadSystem()

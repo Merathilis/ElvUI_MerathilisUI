@@ -26,7 +26,7 @@ MER.Config = {}
 MER.RegisteredModules = {}
 
 function MER:AddOptions()
-	for _, func in pairs(MER.Config) do
+	for _, func in ipairs(MER.Config) do
 		func()
 	end
 end

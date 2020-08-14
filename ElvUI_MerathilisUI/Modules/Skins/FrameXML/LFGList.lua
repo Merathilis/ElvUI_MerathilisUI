@@ -66,6 +66,7 @@ local function LoadSkin()
 	_G.LFGListInviteDialog:Styling()
 	_G.LFGDungeonReadyDialog:Styling()
 	_G.LFGDungeonReadyStatus:Styling()
+	_G.LFGInvitePopup:Styling()
 
 	_G.LFGListInviteDialog.GroupName:ClearAllPoints()
 	_G.LFGListInviteDialog.GroupName:SetPoint("TOP", 0, -33)
@@ -177,7 +178,7 @@ local function LoadSkin()
 	end
 
 	MERS:CreateBD(ActivityFinder.Dialog)
-	ActivityFinder.Dialog:SetBackdropColor(.2, .2, .2, .9)
+	ActivityFinder.Dialog.backdrop:SetBackdropColor(.2, .2, .2, .9)
 
 	-- Application dialog ]]
 	local LFGListApplicationDialog = _G.LFGListApplicationDialog

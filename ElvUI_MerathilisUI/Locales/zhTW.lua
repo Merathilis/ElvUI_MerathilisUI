@@ -5,8 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "zhTW")
 L[" is loaded. For any issues or suggestions, please visit "] = true
 
 -- General Options
-L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = true
-L["by Merathilis (EU-Shattrath)"] = true
+L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = true
+L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = true
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = true
 L["Are you still there? ... Hello?"] = true
@@ -14,8 +14,6 @@ L["Logout Timer"] = true
 L["SplashScreen"] = true
 L["Enable/Disable the Splash Screen on Login."] = true
 L["Options"] = true
-L["Combat State"] = true
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = true
 L["Desciption"] = true
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r is an extension of ElvUI. It adds:
 
@@ -70,6 +68,17 @@ L["Fade Chat"] = true
 L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
 
+-- Combat Alert
+L["Combat Alert"] = true
+L["Enable/Disable the combat message if you enter/leave the combat."] = true
+L["Enter Combat"] = true
+L["Leave Combat"] = true
+L["Stay Duration"] = true
+L["Custom Text"] = true
+L["Custom Text (Enter)"] = true
+L["Custom Text (Leave)"] = true
+L["Color"] = true
+
 -- Information
 L["Information"] = true
 L["Support & Downloads"] = true
@@ -120,11 +129,8 @@ L["Misc"] = true
 L["Artifact Power"] = true
 L["has appeared on the MiniMap!"] = true
 L["Alt-click, to buy an stack"] = true
-L["Mover Transparency"] = true
-L["Changes the transparency of all the movers."] = true
 L["Announce"] = true
 L["Skill gains"] = true
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = true
 L[" members"] = true
 L["Name Hover"] = true
 L["Shows the Unit Name on the mouse."] = true
@@ -136,6 +142,7 @@ L["Stranger"] = true
 L["Keystones"] = true
 L["GUILD_MOTD_LABEL2"] = "公會今日訊息"
 L["LFG Member Info"] = true
+L["Shows role informations in your tooltip in the lfg frame."] = true
 L["MISC_REPUTATION"] = "Reputation"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Reputation"
@@ -147,11 +154,17 @@ L["Wowhead Links"] = true
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = true
 L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
+L["Highest Quest Reward"] = true
+L["Automatically select the item with the highest reward."] = true
+L["Quest Announcer"] = true
+L["Item Alerts"] = true
+L["Announce in chat when someone placed an usefull item."] = true
 
 -- Tooltip
 L["Your Status:"] = true
 L["Your Status: Incomplete"] = true
 L["Your Status: Completed on "] = true
+L["Adds an icon for spells and items on your tooltip."] = true
 L["Adds an Icon for battle pets on the tooltip."] = true
 L["Adds an Icon for the faction on the tooltip."] = true
 L["Adds information to the tooltip, on which char you earned an achievement."] = true
@@ -171,6 +184,17 @@ L["CrucibleOfStorms"] = "Crucible Of Storms"
 L["FACTION"] = "陣營"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "啟動艾澤萊晶岩之力"
 L["Only Icons"] = true
+L["I"] = "1階"
+L["II"] = "2階"
+L["III"] = "3階"
+L["Append to corruption stat"] = "附加在腐化屬性"
+L["Use the new style tooltip."] = "使用新型態提示。"
+L["Show summary on the corruption tooltip"] = "在腐化提示上顯示概要"
+L["List your corruptions in the eye tooltip in the character screen."] = "在角色視窗的眼睛提示中列出您的腐化。"
+L["Display in English"] = "顯示為英文"
+L["Don't translate the corruption effect names."] = "不要翻譯腐化特效的名稱。"
+L["Show icon"] = "顯示圖示"
+L["Show the spell icon along with the name."] = "顯示法術圖示以及名稱。"
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = true
@@ -197,13 +221,6 @@ L["Enable Guild Events"] = true
 L["No Sounds"] = true
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = true
-L["Middle Datatext Panel"] = true
-L["Right Click"] = true
-L["Toggle ActionBar"] = true
-L["Toggle Middle DT"] = true
-L["Dura."] = true
-
 -- DataBars
 L["DataBars"] = true
 L["Add some stylish buttons at the bottom of the DataBars"] = true
@@ -326,6 +343,7 @@ L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = true
 L["UnitFrame Style"] = true
 L["Adds my styling to the Unitframes if you use transparent health."] = true
+L["Change the default role icons."] = true
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -437,6 +455,8 @@ L["Show In Raid"] = true
 L["Show In Arena"] = true
 
 -- CVars
+L["\n\nDefault: |cff00ff001|r"] = true
+L["\n\nDefault: |cffff00000|r"] = true
 L["alwaysCompareItems"] = true
 L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
 L["breakUpLargeNumbers"] = true
@@ -453,36 +473,9 @@ L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
 L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["TargetCombatText"] = true
-L["floatingCombatTextCombatDamage"] = true
-L["floatingCombatTextCombatLogPeriodicSpells"] = true
-L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
-L["floatingCombatTextPetMeleeDamage"] = true
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
 L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
-L["floatingCombatTextCombatHealing"] = true
-L["floatingCombatTextCombatHealingAbsorbTarget"] = true
-L["floatingCombatTextSpellMechanics"] = true
-L["floatingCombatTextSpellMechanicsOther"] = true
-L["playerCombatText"] = true
-L["enableFloatingCombatText"] = true
-L["floatingCombatTextFloatMode"] = true
-L["FloatModeUp"] = true
-L["FloatModeDown"] = true
-L["FloatModeARC"] = true
-L["floatingCombatTextDodgeParryMiss"] = true
-L["floatingCombatTextCombatHealingAbsorbSelf"] = true
-L["floatingCombatTextDamageReduction"] = true
-L["floatingCombatTextLowManaHealth"] = true
-L["floatingCombatTextRepChanges"] = true
-L["floatingCombatTextEnergyGains"] = true
-L["floatingCombatTextComboPoints"] = true
-L["floatingCombatTextReactives"] = true
-L["floatingCombatTextPeriodicEnergyGains"] = true
-L["floatingCombatTextFriendlyHealers"] = true
-L["floatingCombatTextHonorGains"] = true
-L["floatingCombatTextCombatState"] = true
-L["floatingCombatTextAuras"] = true
+
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = true
 
@@ -511,7 +504,7 @@ L["Sat"] = true
 -- Nameplates
 L["Castbar Shield"] = true
 L["Show a shield icon on the castbar for non interruptible spells."] = true
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = true
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = true
 
 -- Install
 L["Welcome"] = true
@@ -545,7 +538,6 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = true
 L["The Addon 'Skada' is not enabled. Profile not created."] = true
 L["This part of the installation process sets up your chat fonts and colors."] = true
 L["This part of the installation changes the default ElvUI look."] = true
-L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = true
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = true
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = true
 L["This part of the installation process will reposition your Unitframes."] = true
@@ -564,7 +556,6 @@ L["Setup Addons"] = true
 L["ElvUI AddOns"] = true
 L["Finish"] = true
 L["Installed"] = true
-L["|cffff8000Your currently active ElvUI profile is:|r %s."] = true
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Your version of ElvUI is older than recommended to use with |cffff7d0aMerathilisUI|r. Your version is |cff00c0fa%.2f|r (recommended is |cff00c0fa%.2f|r). MerathilisUI isn't loaded. Please update your ElvUI."
@@ -586,14 +577,22 @@ L["MER_ADDONSKINS_DESC"] = [[This section is designed to modify some external ad
 Please note that some of these options will be |cff636363disabled|r if the addon is not loaded in the addon control panel.]]
 L["Creates decorative stripes and a gradient on some frames"] = true
 L["MerathilisUI Style"] = true
-L["MerathilisUI Panels"] = true
-L["MerathilisUI Extra Style Panels"] = true
 L["MerathilisUI Shadows"] = true
 L["Undress Button"] = true
 L["Subpages"] = true
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = true
 L["Enable/Disable"] = true
 L["decor."] = true
+
+-- Panels
+L["Top Left Panel"] = true
+L["Top Left Extra Panel"] = true
+L["Top Right Panel"] = true
+L["Top Right Extra Panel"] = true
+L["Bottom Left Panel"] = true
+L["Bottom Left Extra Panel"] = true
+L["Bottom Right Panel"] = true
+L["Bottom Right Extra Panel"] = true
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[This section creates Profiles for some AddOns.

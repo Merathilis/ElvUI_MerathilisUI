@@ -11,15 +11,13 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function Errors()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.errors = {
 		type = "group",
 		name = L["Error Handling"],
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["Error Handling"]),
-				order = 1
-			},
+			header = ACH:Header(MER:cOption(L["Error Handling"]), 1),
 			description = {
 				order = 2,
 				type = "group",

@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Core.lua"/>
+	<Script file="Commands.lua"/>
 	<Script file="Compatibility.lua"/>
 	<Script file="Functions.lua"/>
 	<Script file="Animations.lua"/>
@@ -7,7 +8,6 @@
 	<Script file="Changelog.lua"/>
 	<Script file="Dropdown.lua"/>
 	<Script file="Install.lua"/>
-	<Script file="SplashScreen.lua"/>
 	<Script file="Staticpopup.lua"/>
 	<Script file="StatusReport.lua"/>
 	<Script file="Tags.lua"/>

@@ -5,8 +5,8 @@ local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "deDE")
 L[" is loaded. For any issues or suggestions, please visit "] = " ist geladen. Für Fehler oder Vorschläge besuch bitte: "
 
 -- General Options
-L["Plugin for |cff1784d1ElvUI|r by\nMerathilis."] = "Plugin für |cff1784d1ElvUI|r von\nMerathilis."
-L["by Merathilis (EU-Shattrath)"] = "von Merathilis (EU-Shattrath)"
+L["Plugin for |cffff7d0aElvUI|r by\nMerathilis."] = "Plugin für |cffff7d0aElvUI|r von\nMerathilis."
+L["by Merathilis (|cFF00c0faEU-Shattrath|r)"] = "von Merathilis (|cFF00c0faEU-Shattrath|r)"
 L["AFK"] = true
 L["Enable/Disable the MUI AFK Screen. Disabled if BenikUI is loaded"] = "Aktiviert/Deaktiviert den MUI AFK Bildschirm. Deaktiviert wenn BenikUI geladen ist."
 L["Are you still there? ... Hello?"] = "Bist du noch da? ... Hallo?"
@@ -14,8 +14,6 @@ L["Logout Timer"] = "Auslogzeit"
 L["SplashScreen"] = "Startbildschirm"
 L["Enable/Disable the Splash Screen on Login."] = "Aktiviert/Deaktiviert den Startbildschirm beim Login."
 L["Options"] = "Einstellungen"
-L["Combat State"] = "Kampfstatus"
-L["Enable/Disable the '+'/'-' combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die '+'/'-' Kampf Nachricht wenn du den Kampf betrittst oder verlässt."
 L["Desciption"] = "Beschreibung"
 L["MER_DESC"] = [=[|cffff7d0aMerathilisUI|r ist eine Erweiterung für ElvUI. Es ergänzt:
 
@@ -70,6 +68,17 @@ L["Fade Chat"] = true
 L["Auto hide timeout"] = true
 L["Seconds before fading chat panel"] = true
 
+-- Combat Alert
+L["Combat Alert"] = "Kampf Alamierung"
+L["Enable/Disable the combat message if you enter/leave the combat."] = "Aktiviert/Deaktiviert die Kampf-Nachricht wenn du den Kampf betrittst oder verlässt."
+L["Enter Combat"] = "Beginne Kampf"
+L["Leave Combat"] = "Verlasse Kampf"
+L["Stay Duration"] = "Anzeigezeit"
+L["Custom Text"] = "Benutzerdefinierter Text"
+L["Custom Text (Enter)"] = "Benutzerdefinierter Text (Beginne)"
+L["Custom Text (Leave)"] = "Benutzerdefinierter Text (Verlasse)"
+L["Color"] = "Farbe"
+
 -- Information
 L["Information"] = true
 L["Support & Downloads"] = true
@@ -120,11 +129,8 @@ L["Misc"] = "Verschiedenes"
 L["Artifact Power"] = "Artefaktmacht"
 L["has appeared on the MiniMap!"] = "ist auf der Minimap erschienen!"
 L["Alt-click, to buy an stack"] = "Alt-klicken, um einen Stapel zu kaufen"
-L["Mover Transparency"] = "Ankerpunkte Transparenz"
-L["Changes the transparency of all the movers."] = "Ändert die Transparenz von allen Ankerpunkten."
 L["Announce"] = "Ankündigungen"
 L["Skill gains"] = "Skill Steigerungen"
-L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."] = "Wählt automatisch die Questbelohnung mit dem höchsten Preis aus. Ausserdem kündigt es den Quest Fortschritt an."
 L[" members"] = " Mitglieder"
 L["Name Hover"] = "Namen MouseOver"
 L["Shows the Unit Name on the mouse."] = "Zeigt den Einheitennamen an der Maus."
@@ -136,6 +142,7 @@ L["Stranger"] = "Fremder"
 L["Keystones"] = "Schlüsselsteine"
 L["GUILD_MOTD_LABEL2"] = "Gildennachricht des Tages"
 L["LFG Member Info"] = "LFG Mitglieder Info"
+L["Shows role informations in your tooltip in the lfg frame."] = "Zeigt Mitglieder Rollen Informationen im Tooltip des LFG Fensters an."
 L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
@@ -147,11 +154,17 @@ L["Wowhead Links"] = true -- No need to translate
 L["Adds Wowhead links to the Achievement- and WorldMap Frame"] = "Fügt Wowhead Links zum/zur Erfolgfenster und Weltkarte hinzu."
 L["Codex Buttons"] = "Kodex Tasten"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
+L["Highest Quest Reward"] = "Höhste Quest Belohnung"
+L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
+L["Quest Announcer"] = "Quest Ankündigungen"
+L["Item Alerts"] = "Gegenstandsalarm"
+L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 
 -- Tooltip
 L["Your Status:"] = "Dein Status:"
 L["Your Status: Incomplete"] = "Dein Status: Unvollständig"
 L["Your Status: Completed on "] = "Dein Status: Abgeschlossen am "
+L["Adds an icon for spells and items on your tooltip."] = "Fügt ein Symbol für Zauber und Gegenstände am Tooltip hinzu."
 L["Adds an Icon for battle pets on the tooltip."] = "Fügt ein Haustiersymbol zum Tooltip hinzu."
 L["Adds an Icon for the faction on the tooltip."] = "Fügt ein Symbol für die Fraktion am Tooltip hinzu."
 L["Adds information to the tooltip, on which char you earned an achievement."] = "Fügt Information am Tooltip hinzu, von welchem Char der Erfolg erungen wurde."
@@ -171,6 +184,14 @@ L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
 L["Only Icons"] = "Nur Symbole"
+L["Append to corruption stat"] = "Am Verderbnis-Wert anhängen"
+L["Use the new style tooltip."] = "Neuen Tooltip-Stil verwenden."
+L["Show summary on the corruption tooltip"] = "Zusammenfassung am Verderbnis-Tooltip anzeigen"
+L["List your corruptions in the eye tooltip in the character screen."] = "Verderbnis-Effekte im Auge-Tooltip in der Charakterinfo auflisten."
+L["Display in English"] = "Nur Englisch verwenden"
+L["Don't translate the corruption effect names."] = "Verderbnis-Effekte nicht übersetzen."
+L["Show icon"] = "Icon anzeigen"
+L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
 
 -- MailInputBox
 L["Mail Inputbox Resize"] = "Post Eingabefeld"
@@ -197,13 +218,6 @@ L["Enable Guild Events"] = "Aktiviere Gildenereignisse"
 L["No Sounds"] = "Keine Sounds"
 
 -- DataTexts
-L["ChatTab Datatext Panel"] = "Rechte ChatTab Infotextleiste"
-L["Middle Datatext Panel"] = "Mittlere Infotextleiste"
-L["Right Click"] = "Rechtsklick"
-L["Toggle ActionBar"] = "Aktionsleisten ausblenden"
-L["Toggle Middle DT"] = "Mittleren Infotext ausblenden"
-L["Dura."] = "Haltb."
-
 -- DataBars
 L["DataBars"] = "Informationsleisten"
 L["Add some stylish buttons at the bottom of the DataBars"] = "Fügt unten an den Informationsleisten transparente Tasten hinzu"
@@ -326,6 +340,7 @@ L["GCD Bar"] = true
 L["Creates a Global Cooldown Bar"] = "Erstellt eine Globale Cooldown Leiste"
 L["UnitFrame Style"] = "Einheitenfenster Stil"
 L["Adds my styling to the Unitframes if you use transparent health."] = "Fügt mein Style zu den Einheitenfenstern hinzu, wenn du transparentes Leben benutzt."
+L["Change the default role icons."] = "Ändert die Standard Rollen Symbole."
 
 -- LocationPanel
 L["Location Panel"] = true
@@ -437,6 +452,8 @@ L["Show In Raid"] = "Zeige im Raid"
 L["Show In Arena"] = "Zeige in Arenen"
 
 -- CVars
+L["\n\nDefault: |cff00ff001|r"] = true
+L["\n\nDefault: |cffff00000|r"] = true
 L["alwaysCompareItems"] = true
 L["alwaysCompareItems_DESC"] = "Always show item comparsion tooltips\r\rDefault: |cffff00000|r"
 L["breakUpLargeNumbers"] = true
@@ -453,36 +470,8 @@ L["screenshotQuality_DESC"] = "Screenshot Quality\r\rDefault: |cff00ff003|r"
 L["showTutorials"] = true
 L["WorldTextScale"] = true
 L["WorldTextScale_DESC"] = "The scale of in-world damge numbers, xp gain, artifact gain, etc \r\r default: 1.0"
-L["TargetCombatText"] = true
-L["floatingCombatTextCombatDamage"] = true
-L["floatingCombatTextCombatLogPeriodicSpells"] = true
-L["floatingCombatTextCombatLogPeriodicSpells_DESC"] = "Display periodic damage values such as tear and shadow word: pain \r\r default: on"
-L["floatingCombatTextPetMeleeDamage"] = true
 L["floatingCombatTextCombatDamageDirectionalScale"] = true
 L["floatingCombatTextCombatDamageDirectionalScale_DESC"] = "Directional damage numbers movement scale (disable = no directional numbers\r\rDefault: |cff00ff001|r"
-L["floatingCombatTextCombatHealing"] = true
-L["floatingCombatTextCombatHealingAbsorbTarget"] = true
-L["floatingCombatTextSpellMechanics"] = true
-L["floatingCombatTextSpellMechanicsOther"] = true
-L["playerCombatText"] = true
-L["enableFloatingCombatText"] = true
-L["floatingCombatTextFloatMode"] = true
-L["FloatModeUp"] = true
-L["FloatModeDown"] = true
-L["FloatModeARC"] = true
-L["floatingCombatTextDodgeParryMiss"] = true
-L["floatingCombatTextCombatHealingAbsorbSelf"] = true
-L["floatingCombatTextDamageReduction"] = true
-L["floatingCombatTextLowManaHealth"] = true
-L["floatingCombatTextRepChanges"] = true
-L["floatingCombatTextEnergyGains"] = true
-L["floatingCombatTextComboPoints"] = true
-L["floatingCombatTextReactives"] = true
-L["floatingCombatTextPeriodicEnergyGains"] = true
-L["floatingCombatTextFriendlyHealers"] = true
-L["floatingCombatTextHonorGains"] = true
-L["floatingCombatTextCombatState"] = true
-L["floatingCombatTextAuras"] = true
 
 -- GMOTD
 L["Display the Guild Message of the Day in an extra window, if updated."] = "Zeigt die Gildennachricht des Tages in einem extra Fenster an, wenn sie aktuallisiert wird."
@@ -512,7 +501,7 @@ L["Sat"] = "Sa"
 -- Nameplates
 L["Castbar Shield"] = "Zauberleisten Schild"
 L["Show a shield icon on the castbar for non interruptible spells."] = "Zeigt ein Schildsymbol auf der Zauberleiste wenn ein Zauber nicht unterbrechbar ist."
-L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 30 x 30"] = "|cffFF0000Hinweis:|r Dieses wird die ElvUI Namensplaketten Optionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert von einer Größe von: 30 x 30 "
+L["|cffFF0000NOTE:|r This will overwrite the ElvUI Nameplate options for Buff/Debuffs width/height. The CC-Buffs are hardcoded to a size of: 32 x 32"] = "|cffFF0000Hinweis:|r Dieses wird die ElvUI Namensplaketten Optionen Höhe/Breite für die Stärkungs-/Schwächungszauber überschreiben. Die CC-Buffs sind hartkodiert von einer Größe von: 32 x 32 "
 
 -- Install
 L["Welcome"] = "Willkommen"
@@ -546,7 +535,6 @@ L["The AddOn 'ElvUI_SLE' is not enabled. No settings have been changed."] = "Das
 L["The Addon 'Skada' is not enabled. Profile not created."] = "Das AddOn 'Skada' ist nicht aktiviert. Profile wurde nicht erstellt."
 L["This part of the installation process sets up your chat fonts and colors."] = "Dieser Teil des Installationsprozesses ändert die Chatschrifart und -farbe."
 L["This part of the installation changes the default ElvUI look."] = "Dieser Teil der Installation ändert das standard Aussehen von ElvUI."
-L["This part of the installation process let you create a new profile or install |cffff8000MerathilisUI|r settings to your current profile."] = "Dieser Teil der Installation lässt dich ein neues Profil erstellen oder wendet die |cffff8000MerathilisUI|r Einstellungen auf dein aktuelles Profil an."
 L["This part of the installation process will fill MerathilisUI datatexts.\r|cffff8000This doesn't touch ElvUI datatexts|r"] = "Diese Einstellungen füllt die Infotexte.\r|cffff8000Die Einstellungen der Infotexte von ElvUI wird nicht verändert|r"
 L["This part of the installation process will reposition your Actionbars and will enable backdrops"] = "Dieser Teil des Installationsprozesses wird die Aktionsleisten neu positionieren und wird den Hintergrund einschalten"
 L["This part of the installation process will reposition your Unitframes."] = "Dieser Teil der Installation positioniert die Einheitenfenster."
@@ -564,7 +552,6 @@ L["Setup Addons"] = "Addons einstellen"
 L["ElvUI AddOns"] = true
 L["Finish"] = "Fertig"
 L["Installed"] = "Installiert"
-L["|cffff8000Your currently active ElvUI profile is:|r %s."] = "|cffff8000Dein aktives ElvUI Profil ist:|r %s."
 
 -- Staticpopup
 L["MSG_MER_ELV_OUTDATED"] = "Deine Version von ElvUI ist älter als die empfohlene Version um |cffff7d0aMerathilisUI|r zu nutzen. Deine Version ist |cff00c0fa%.2f|r (empfohlen ist |cff00c0fa%.2f|r). Bitte aktuallisiere dein ElvUI, um Fehler zu vermeiden!"
@@ -586,14 +573,22 @@ L["MER_ADDONSKINS_DESC"] = [[Diese Abschnitt ist dazu gedacht, um das Aussehen v
 Bitte beachte, dass einige Optionen |cff636363deaktiviert|r sind, wenn das AddOn nicht geladen ist.]]
 L["Creates decorative stripes and a gradient on some frames"] = "Fügt dekorative Streifen und einen transparenten Farbverlauf an einigen Fenstern hinzu"
 L["MerathilisUI Style"] = "MerathilisUI Stil"
-L["MerathilisUI Panels"] = "MerathilisUI Leisten"
-L["MerathilisUI Extra Style Panels"] = "MerathilisUI Extra Stil Leisten"
 L["MerathilisUI Shadows"] = "MerathilisUI Schatten"
 L["Undress Button"] = "Ausziehen Taste"
 L["Subpages"] = "Unterseiten"
 L["Subpages are blocks of 10 items. This option set how many of subpages will be shown on a single page."] = "Unterseiten sind Blöcke von 10 Gegenständen pro Seite. Diese Option setzt wieviele Unterseiten angezeigt werden."
 L["Enable/Disable"] = "Aktiviere/Deaktiviere"
 L["decor."] = "Dekor"
+
+-- Panels
+L["Top Left Panel"] = "Leiste oben links"
+L["Top Left Extra Panel"] = "Extra Leiste oben links"
+L["Top Right Panel"] = "Leiste oben rechts"
+L["Top Right Extra Panel"] = "Extra Leiste oben rechts"
+L["Bottom Left Panel"] = "Leiste unten links"
+L["Bottom Left Extra Panel"] = "Extra Leiste unten links"
+L["Bottom Right Panel"] = "Leiste unten rechts"
+L["Bottom Right Extra Panel"] = "Extra Leiste unten rechts"
 
 -- Profiles
 L["MER_PROFILE_DESC"] = [[Dieser Abschnitt erstellt Profile für einige AddOns.

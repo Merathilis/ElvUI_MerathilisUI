@@ -16,21 +16,18 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Code update/fixes for Patch 8.3",
-		"• Small Layout updates",
-		"• Added a Killing Blow feature. Credits: Shadow & Light",
-		"• Added a friend counter on the Friends Frame",
-		"• Readd compatibility code. Credits: NihilisticPandemonium",
-		"• Updated GothamNarrow Font",
-		"• Added a CVar options",
-		"• Added a random toy macro. See misc options",
-		"• Change the guild rank color in tooltip, if someone is in another guild",
+		"• Take account for the new Aura Color Option from ElvUI",
+		"• Don't force settings anymore if you enable the rectangle Minimap",
+		"• Fix AzeriteTooltip Icons to display correct now",
+		"• Code cleanup",
 
 		-- "• ''",
 	" ",
 	"Notes:",
 		"• As always, if you want my latest layout, do the install procress again",
-		-- "• ''",
+		"• If you are getting any errors or something, make sure you are now using:",
+		"  '/muierrors on' and test again",
+		"• If you havent enable rectangle minimap for now, you must adjust your layout",
 }
 
 local URL_PATTERNS = {
@@ -88,37 +85,37 @@ function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
 	frame:SetPoint("CENTER")
 	frame:SetSize(480, 420)
-	frame:SetTemplate("Transparent")
+	frame:CreateBackdrop("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
 	frame:RegisterForDrag("LeftButton")
 	frame:SetScript("OnDragStart", frame.StartMoving)
 	frame:SetScript("OnDragStop", frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
-	frame:Styling()
+	frame.backdrop:Styling()
 
 	local icon = CreateFrame("Frame", nil, frame)
 	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
 	icon:SetSize(20, 20)
-	icon:SetTemplate("Transparent")
+	icon:CreateBackdrop("Transparent")
 	icon:Styling()
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
-	icon.bg:Point("TOPLEFT", 2, -2)
-	icon.bg:Point("BOTTOMRIGHT", -2, 2)
+	icon.bg:SetPoint("TOPLEFT", 2, -2)
+	icon.bg:SetPoint("BOTTOMRIGHT", -2, 2)
 	icon.bg:SetTexture(MER.LogoSmall)
 	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame)
 	title:SetPoint("LEFT", icon, "RIGHT", 1, 0)
 	title:SetSize(459, 20)
-	title:SetTemplate("Transparent")
-	title:Styling()
+	title:CreateBackdrop("Transparent")
+	title.backdrop:Styling()
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
 	title.text:SetPoint("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
+	close:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
 	close:SetSize(80, 20)
 	close:SetScript("OnClick", function()
@@ -174,7 +171,6 @@ function MER:ToggleChangeLog()
 	fadeInfo.startAlpha = 0
 	fadeInfo.endAlpha = 1
 	E:UIFrameFade(MerathilisUIChangeLog, fadeInfo)
-	MER:Slide(MerathilisUIChangeLog, "RIGHT", 50, 150)
 
 	self.time = 6
 	self:CancelAllTimers()

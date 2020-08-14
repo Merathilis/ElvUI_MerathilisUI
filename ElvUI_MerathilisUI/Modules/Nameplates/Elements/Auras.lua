@@ -25,42 +25,6 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 --]]
 
 function module:PostUpdateAura(unit, button)
-	if button and button.pixelBorders then
-		button:GetParent().spacing = E:Scale(4)
-
-		local r, g, b = E:GetBackdropBorderColor(button)
-		local br, bg, bb = E:GrabColorPickerValues(unpack(E.media.unitframeBorderColor))
-
-		if button.isDebuff then
-			if(not button.isFriend and not button.isPlayer) then
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(0.9, 0.1, 0.1)
-				end
-			else
-				if E.BadDispels[button.spellID] and E:IsDispellableByMe(button.dtype) then
-					if button.shadow then
-						button.shadow:SetBackdropBorderColor(0.05, 0.85, 0.94)
-					end
-				else
-					local color = (button.dtype and _G.DebuffTypeColor[button.dtype]) or _G.DebuffTypeColor.none
-					if button.shadow then
-						button.shadow:SetBackdropBorderColor(color.r, color.g, color.b)
-					end
-				end
-			end
-		else
-			if button.isStealable and not button.isFriend then
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(0.93, 0.91, 0.55, 1.0)
-				end
-			else
-				if button.shadow then
-					button.shadow:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
-				end
-			end
-		end
-	end
-
 	if button and button.spellID then
 		if not find(unit, "nameplate") then
 			return
@@ -99,15 +63,6 @@ function module:PostUpdateAura(unit, button)
 
 		button.size = {["width"] = width, ["height"] = height}
 
-		-- Stacks
-		local stackSize = 7
-
-		if spell and spell["stackSize"] then
-			stackSize = spell["stackSize"]
-		end
-
-		button.count:FontTemplate(nil, stackSize, "OUTLINE")
-
 		-- CC Caster Names
 		if spell and spell ~= "" and button.caster then
 			local name = UnitName(button.caster)
@@ -135,17 +90,18 @@ function module:Construct_Auras(nameplate)
 end
 
 function module:Construct_AuraIcon(button)
+	if not button then return end
+
 	-- Creates an own font element for caster name
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString(nil, "OVERLAY")
 		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
-		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
+		button.cc_name:SetPoint("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")
 	end
 
-	if not button.shadow then
-		button:CreateShadow()
-	end
+	local auras = button:GetParent()
+	button.db = auras and NP.db.units and NP.db.units[auras.__owner.frameType] and NP.db.units[auras.__owner.frameType][auras.type]
 end
 
 function module.SetPosition(element, _, to)

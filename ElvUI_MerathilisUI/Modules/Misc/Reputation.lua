@@ -116,7 +116,7 @@ local function HookParagonRep()
 				local currentValue, threshold, rewardQuestID, hasRewardPending= C_Reputation_GetFactionParagonInfo(factionID)
 				factionRow.questID = rewardQuestID
 				local factionStandingtext = L["MISC_PARAGON"]..' ('..floor(currentValue/threshold)..')'
-				local colorDB = E.db.mui.misc.paragon.paragonColor or {.9, .8, .6}
+				local colorDB = E.db.mui.misc.paragon.paragonColor or {r = .9, g = .8, b = .6}
 				local r, g, b = colorDB.r, colorDB.g, colorDB.b
 
 				if currentValue then

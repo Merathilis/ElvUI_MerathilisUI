@@ -3,14 +3,18 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local assert, pairs, print, select, tonumber, type, unpack = assert, pairs, print, select, tonumber, type, unpack
+local assert, ipairs, pairs, print, select, tonumber, type, unpack = assert, ipairs, pairs, print, select, tonumber, type, unpack
 local getmetatable = getmetatable
-local find, format, match, split, strfind = string.find, string.format, string.match, string.split, strfind
-local strmatch = strmatch
-local tconcat, twipe = table.concat, table.wipe
+local find, format, gsub, match, split, strfind = string.find, string.format, string.gsub, string.match, string.split, strfind
+local strmatch, strsplit = strmatch, strsplit
+local tconcat, tinsert, tremove, twipe = table.concat, table.insert, table.remove, table.wipe
 -- WoW API / Variables
 local CreateFrame = CreateFrame
+local EnumerateFrames = EnumerateFrames
+local GameTooltip_Hide = GameTooltip_Hide
 local GetAchievementInfo = GetAchievementInfo
+local GetAddOnMetadata = GetAddOnMetadata
+local GetBuildInfo = GetBuildInfo
 local GetItemInfo = GetItemInfo
 local GetSpellInfo = GetSpellInfo
 local GetContainerItemID = GetContainerItemID
@@ -19,12 +23,16 @@ local GetContainerNumSlots = GetContainerNumSlots
 local PickupContainerItem = PickupContainerItem
 local DeleteCursorItem = DeleteCursorItem
 local UnitBuff = UnitBuff
-local UnitClass = UnitClass
-local UnitIsPlayer = UnitIsPlayer
-local UnitIsTapDenied = UnitIsTapDenied
-local UnitReaction = UnitReaction
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
--- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY, FACTION_BAR_COLORS
+local UnitIsGroupAssistant = UnitIsGroupAssistant
+local UnitIsGroupLeader = UnitIsGroupLeader
+local IsEveryoneAssistant = IsEveryoneAssistant
+local IsInGroup = IsInGroup
+local IsInRaid = IsInRaid
+local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
+local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
+local RAID_CLASS_COLORS = RAID_CLASS_COLORS
+local UIParent = UIParent
+-- GLOBALS: NUM_BAG_SLOTS, hooksecurefunc, MER_NORMAL_QUEST_DISPLAY, MER_TRIVIAL_QUEST_DISPLAY
 
 local backdropr, backdropg, backdropb, backdropa = unpack(E.media.backdropcolor)
 local borderr, borderg, borderb, bordera = unpack(E.media.bordercolor)
@@ -64,6 +72,16 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
+-- Quality Color stuff
+MER.QualityColors = {}
+local qualityColors = BAG_ITEM_QUALITY_COLORS
+for index, value in pairs(qualityColors) do
+	MER.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
+end
+MER.QualityColors[-1] = {r = 0, g = 0, b = 0}
+MER.QualityColors[Enum.ItemQuality.Poor] = {r = .61, g = .61, b = .61}
+MER.QualityColors[Enum.ItemQuality.Common] = {r = 0, g = 0, b = 0}
+
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
@@ -73,11 +91,6 @@ function MER:SetupProfileCallbacks()
 	E.data.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	E.data.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	E.data.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
-end
-
-function MER:MismatchText()
-	local text = format(L["MSG_MER_ELV_OUTDATED"], MER.ElvUIV, MER.ElvUIX)
-	return text
 end
 
 function MER:Print(...)
@@ -116,8 +129,8 @@ end
 
 -- Tooltip scanning stuff. Credits siweia, with permission.
 local iLvlDB = {}
-local itemLevelString = gsub(ITEM_LEVEL, "%%d", "")
-local enchantString = gsub(ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
+local itemLevelString = gsub(_G.ITEM_LEVEL, "%%d", "")
+local enchantString = gsub(_G.ENCHANTED_TOOLTIP_LINE, "%%s", "(.+)")
 local essenceTextureID = 2975691
 local tip = CreateFrame("GameTooltip", "mUI_iLvlTooltip", nil, "GameTooltipTemplate")
 
@@ -204,6 +217,23 @@ function MER:GetItemLevel(link, arg1, arg2, fullScan)
 	end
 end
 
+-- Check Chat channels
+function MER:CheckChat(msg)
+	if IsInGroup(_G.LE_PARTY_CATEGORY_INSTANCE) then
+		return "INSTANCE_CHAT"
+	elseif IsInRaid(_G.LE_PARTY_CATEGORY_HOME) then
+		if msg and (UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") or IsEveryoneAssistant()) then
+			return "RAID_WARNING"
+		else
+			return "RAID"
+		end
+	elseif IsInGroup(_G.LE_PARTY_CATEGORY_HOME) then
+		return "PARTY"
+	end
+
+	return "SAY"
+end
+
 function MER:CheckPlayerBuff(spell)
 	for i = 1, 40 do
 		local name, _, _, _, _, _, unitCaster = UnitBuff("player", i)
@@ -216,7 +246,7 @@ function MER:CheckPlayerBuff(spell)
 end
 
 function MER:BagSearch(itemId)
-	for container = 0, NUM_BAG_SLOTS do
+	for container = 0, _G.NUM_BAG_SLOTS do
 		for slot = 1, GetContainerNumSlots(container) do
 			if itemId == GetContainerItemID(container, slot) then
 				return container, slot
@@ -364,10 +394,10 @@ function MER:AddTooltip(self, anchor, text, color)
 	if not anchor then return end
 
 	self:SetScript("OnEnter", function()
-		GameTooltip:SetOwner(self, anchor)
-		GameTooltip:ClearLines()
+		_G.GameTooltip:SetOwner(self, anchor)
+		_G.GameTooltip:ClearLines()
 		if tonumber(text) then
-			GameTooltip:SetSpellByID(text)
+			_G.GameTooltip:SetSpellByID(text)
 		else
 			local r, g, b = 1, 1, 1
 			if color == "class" then
@@ -375,9 +405,9 @@ function MER:AddTooltip(self, anchor, text, color)
 			elseif color == "system" then
 				r, g, b = 1, .8, 0
 			end
-			GameTooltip:AddLine(text, r, g, b)
+			_G.GameTooltip:AddLine(text, r, g, b)
 		end
-		GameTooltip:Show()
+		_G.GameTooltip:Show()
 	end)
 	self:SetScript("OnLeave", GameTooltip_Hide)
 end
@@ -461,6 +491,9 @@ MER.IsDev = {
 MER.IsDevRealm = {
 	["Shattrath"] = true,
 	--["Garrosh"] = true,
+
+	-- Beta
+	["The Maw"] = true,
 }
 
 function MER:IsDeveloper()
@@ -469,28 +502,6 @@ end
 
 function MER:IsDeveloperRealm()
 	return MER.IsDevRealm[E.myrealm] or false
-end
-
-function MER:CreateBtn(name, parent, w, h, tt_txt, txt)
-	local f, fs, ff = E["media"].normFont, 11, "OUTLINE"
-	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
-	b:Width(w)
-	b:Height(h)
-	b:SetTemplate("Default")
-	b:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
-		GameTooltip:Show()
-	end)
-
-	b:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
-
-	b.text = b:CreateFontString(nil, "OVERLAY")
-	b.text:FontTemplate(f, fs, ff)
-	b.text:SetText(txt)
-	b.text:SetPoint("CENTER", b, "CENTER", 1, -1)
-	b.text:SetJustifyH("CENTER")
-	b:SetAttribute("type1", "macro")
 end
 
 -- Icon Style
@@ -547,7 +558,7 @@ function MER:ReskinRole(self, role)
 		texture:SetTexCoord(MER:GetRoleTexCoord(role))
 	end
 
-	local checkButton = self.checkButton or self.CheckButton
+	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
 		checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
 		checkButton:SetPoint("BOTTOMLEFT", -2, -2)
@@ -701,11 +712,8 @@ local function CreateBorder(f, i, o)
 		local border = CreateFrame("Frame", "$parentInnerBorder", f)
 		border:SetPoint("TOPLEFT", E.mult, -E.mult)
 		border:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
-		border:SetBackdrop({
-			edgeFile = E["media"].blankTex, edgeSize = E.mult,
-			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
-		})
-		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.iborder = border
 	end
 
@@ -715,11 +723,8 @@ local function CreateBorder(f, i, o)
 		border:SetPoint("TOPLEFT", -E.mult, E.mult)
 		border:SetPoint("BOTTOMRIGHT", E.mult, -E.mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
-		border:SetBackdrop({
-			edgeFile = E["media"].blankTex, edgeSize = E.mult,
-			insets = {left = E.mult, right = E.mult, top = E.mult, bottom = E.mult}
-		})
-		border:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		border:CreateBackdrop()
+		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.oborder = border
 	end
 end
@@ -730,10 +735,7 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 	f:SetFrameLevel(3)
 	f:SetFrameStrata("BACKGROUND")
 	f:SetPoint(a1, p, a2, x, y)
-	f:SetBackdrop({
-		bgFile = E["media"].blankTex, edgeFile = E["media"].blankTex, edgeSize = E.mult,
-		insets = {left = -E.mult, right = -E.mult, top = -E.mult, bottom = -E.mult}
-	})
+	f:CreateBackdrop()
 
 	if t == "Transparent" then
 		backdropa = 0.45
@@ -748,8 +750,8 @@ local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
 		backdropa = 1
 	end
 
-	f:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
-	f:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
+	f.backdrop:SetBackdropColor(backdropr, backdropg, backdropb, backdropa)
+	f.backdrop:SetBackdropBorderColor(borderr, borderg, borderb, bordera)
 end
 
 local function addapi(object)

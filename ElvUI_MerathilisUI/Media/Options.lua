@@ -5,7 +5,7 @@ local function mediaTable()
 	E.Options.args.mui.args.media = {
 		type = "group",
 		name = L["Media"],
-		order = 50,
+		order = 40,
 		childGroups = "tab",
 		get = function(info) return E.db.mui.media[ info[#info] ] end,
 		disabled = function() return IsAddOnLoaded("ElvUI_SLE") end,
@@ -86,13 +86,6 @@ local function mediaTable()
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
 							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = "range",
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(info, value) E.db.mui.media.zoneText.zone.width = value; M:TextWidth() end,
-							},
 						},
 					},
 					subzone = {
@@ -128,13 +121,6 @@ local function mediaTable()
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
 							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = "range",
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(info, value) E.db.mui.media.fonts.subzone.width = value; M:TextWidth() end,
-							},
 						},
 					},
 					pvp = {
@@ -169,13 +155,6 @@ local function mediaTable()
 									["MONOCHROMEOUTLINE"] = "MONOCROMEOUTLINE",
 									["THICKOUTLINE"] = "THICKOUTLINE",
 								},
-							},
-							width = {
-								order = 4,
-								name = L["Width"],
-								type = "range",
-								min = 512, max = E.eyefinity or E.screenwidth, step = 1,
-								set = function(info, value) E.db.mui.media.fonts.pvp.width = value; M:TextWidth() end,
 							},
 						},
 					},

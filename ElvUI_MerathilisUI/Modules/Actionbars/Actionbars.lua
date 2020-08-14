@@ -33,7 +33,7 @@ function module:StyleBackdrops()
 	end
 
 	-- Pet Buttons
-	for i = 1, NUM_PET_ACTION_SLOTS do
+	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
 			if button.backdrop then
@@ -46,14 +46,14 @@ end
 function module:ActionbarGlow()
 	if not E.private.actionbar.enable or not E.db.mui.actionbars.customGlow then return end
 
-	local r, g, b = unpack(E["media"].rgbvaluecolor)
+	local r, g, b = unpack(E.media.rgbvaluecolor)
 	local color = {r, g, b, 1}
 
 	local lib = LibStub("LibButtonGlow-1.0")
 	if lib then
 		function lib.ShowOverlayGlow(button)
 			if button:GetAttribute("type") == "action" then
-				local actionType,actionID = GetActionInfo(button:GetAttribute("action"))
+				local actionType, actionID = GetActionInfo(button:GetAttribute("action"))
 				LCG.PixelGlow_Start(button, color, nil, 0.5, nil, 1)
 			end
 		end
@@ -69,10 +69,9 @@ function module:Initialize()
 	local db = E.db.mui.actionbars
 	MER:RegisterDB(self, "actionbars")
 
-	C_TimerAfter(1, module.StyleBackdrops)
+	self:EquipSpecBar()
 
-	self:SpecBarInit()
-	self:EquipBarInit()
+	C_TimerAfter(1, module.StyleBackdrops)
 	C_TimerAfter(0.1, module.ActionbarGlow)
 end
 

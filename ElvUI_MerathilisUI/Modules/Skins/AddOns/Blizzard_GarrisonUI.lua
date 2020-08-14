@@ -84,9 +84,9 @@ local function ReskinMissionTabs(self)
 	for i = 1, 2 do
 		local tab = _G[self:GetName().."Tab"..i]
 		tab:StripTextures()
-		MERS:CreateBD(tab, .25)
+		tab:CreateBackdrop('Transparent')
 		if i == 1 then
-			tab:SetBackdropColor(r, g, b, .2)
+			tab.backdrop:SetBackdropColor(r, g, b, .2)
 		end
 	end
 end
@@ -252,8 +252,6 @@ local function LoadSkin()
 
 	MERS:CreateBD(InfoBox, .25)
 	MERS:CreateBD(TownHallBox, .25)
-	MERS:Reskin(InfoBox.UpgradeButton)
-	MERS:Reskin(TownHallBox.UpgradeButton)
 	GarrisonBuildingFrame.MapFrame.TownHall.TownHallName:SetTextColor(1, .8, 0)
 
 	do
@@ -269,12 +267,6 @@ local function LoadSkin()
 
 	Confirmation:GetRegions():Hide()
 	MERS:CreateBD(Confirmation)
-	MERS:Reskin(Confirmation.CancelButton)
-	MERS:Reskin(Confirmation.BuildButton)
-	MERS:Reskin(Confirmation.UpgradeButton)
-	MERS:Reskin(Confirmation.UpgradeGarrisonButton)
-	MERS:Reskin(Confirmation.ReplaceButton)
-	MERS:Reskin(Confirmation.SwitchButton)
 
 	-- [[ Capacitive display frame ]]
 	local GarrisonCapacitiveDisplayFrame = _G.GarrisonCapacitiveDisplayFrame
@@ -286,10 +278,7 @@ local function LoadSkin()
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
-
-	MERS:Reskin(GarrisonCapacitiveDisplayFrame.StartWorkOrderButton, true)
-	MERS:Reskin(GarrisonCapacitiveDisplayFrame.CreateAllWorkOrdersButton, true)
+	GarrisonCapacitiveDisplayFrame.IncrementButton:SetPoint('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 
 	GarrisonCapacitiveDisplayFrame:Styling()
 
@@ -335,9 +324,6 @@ local function LoadSkin()
 	end
 
 	GarrisonLandingPage.backdrop:Styling()
-	MERS:ReskinTab(_G.GarrisonLandingPageTab1)
-	MERS:ReskinTab(_G.GarrisonLandingPageTab2)
-	MERS:ReskinTab(_G.GarrisonLandingPageTab3)
 
 	_G.GarrisonLandingPageTab1:ClearAllPoints()
 	_G.GarrisonLandingPageTab1:SetPoint("TOPLEFT", GarrisonLandingPage, "BOTTOMLEFT", 70, 2)
@@ -518,7 +504,6 @@ local function LoadSkin()
 
 	-- Unavailable frame
 	local UnavailableFrame = GarrisonRecruiterFrame.UnavailableFrame
-
 	MERS:Reskin(UnavailableFrame:GetChildren())
 
 	-- [[ Recruiter select frame ]]
@@ -653,7 +638,7 @@ local function LoadSkin()
 	 --Missions
 	local Mission = _G.OrderHallMissionFrameMissions
 	Mission.CompleteDialog:StripTextures()
-	Mission.CompleteDialog:SetTemplate("Transparent")
+	Mission.CompleteDialog:CreateBackdrop("Transparent")
 
 	local MissionPage = _G.OrderHallMissionFrame.MissionTab.MissionPage
 	for i = 1, 10 do

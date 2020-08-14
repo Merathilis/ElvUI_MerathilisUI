@@ -90,7 +90,7 @@ end
 
 local RaidCDAnchor = CreateFrame("Frame", "RaidCDAnchor", E.UIParent)
 
-local FormatTime = function(time)
+local function FormatTime(time)
 	if time >= 60 then
 		return format("%.2d:%.2d", floor(time / 60), time % 60)
 	else
@@ -102,7 +102,7 @@ local function sortByExpiration(a, b)
 	return a.endTime > b.endTime
 end
 
-local UpdatePositions = function()
+local function UpdatePositions()
 	if charges and Ressesbars[1] then
 		Ressesbars[1]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
 		Ressesbars[1].id = 1
@@ -140,7 +140,7 @@ local UpdatePositions = function()
 	end
 end
 
-local StopTimer = function(bar)
+local function StopTimer(bar)
 	bar:SetScript("OnUpdate", nil)
 	bar:Hide()
 	if bar.isResses then
@@ -151,7 +151,7 @@ local StopTimer = function(bar)
 	UpdatePositions()
 end
 
-local UpdateCharges = function(bar)
+local function UpdateCharges(bar)
 	local curCharges, maxCharges, start, duration = GetSpellCharges(20484)
 	if curCharges == maxCharges then
 		bar.startTime = 0
@@ -166,7 +166,7 @@ local UpdateCharges = function(bar)
 	end
 end
 
-local BarUpdate = function(self, elapsed)
+local function BarUpdate(self, elapsed)
 	local curTime = GetTime()
 	if self.endTime < curTime then
 		if self.isResses then
@@ -180,7 +180,7 @@ local BarUpdate = function(self, elapsed)
 	self.right:SetText(FormatTime(self.endTime - curTime))
 end
 
-local OnEnter = function(self)
+local function OnEnter(self)
 	_G.GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 	_G.GameTooltip:SetSpellByID(self.spellId)
 	_G.GameTooltip:AddLine(" ")
@@ -189,11 +189,11 @@ local OnEnter = function(self)
 	_G.GameTooltip:Show()
 end
 
-local OnLeave = function(self)
+local function OnLeave(self)
 	_G.GameTooltip:Hide()
 end
 
-local OnMouseDown = function(self, button)
+local function OnMouseDown(self, button)
 	if button == "LeftButton" then
 		if self.isResses then
 			SendChatMessage(format(L["Battle Resurrection: "].."%d, "..L["Next time: "].."%s.", currentNumResses, self.right:GetText()), CheckChat())
@@ -205,7 +205,7 @@ local OnMouseDown = function(self, button)
 	end
 end
 
-local CreateBar = function()
+local function CreateBar()
 	local db = E.db.mui.raidCD
 
 	local bar = CreateFrame("Statusbar", nil, E.UIParent)
@@ -245,7 +245,7 @@ local CreateBar = function()
 	return bar
 end
 
-local StartTimer = function(name, spellId)
+local function StartTimer(name, spellId)
 	local spell, _, icon = GetSpellInfo(spellId)
 	if charges and spellId == 20484 then
 		for _, v in pairs(Ressesbars) do

@@ -14,16 +14,18 @@ local function LoadSkin()
 	local PVEFrame = _G.PVEFrame
 	PVEFrame:Styling()
 
-	local iconSize = 60-2*E.mult
+	local iconSize = 56-2*E.mult
 	for i = 1, 4 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
 		MERS:Reskin(bu)
 
+		bu.name:SetTextColor(1, 1, 1)
+
 		bu.icon:SetSize(iconSize, iconSize)
 		bu.icon:SetDrawLayer("OVERLAY")
 		bu.icon:ClearAllPoints()
-		bu.icon:SetPoint("LEFT", bu, "LEFT", 4, 0)
+		bu.icon:SetPoint("LEFT", bu, "LEFT", 5, 0)
 	end
 end
 

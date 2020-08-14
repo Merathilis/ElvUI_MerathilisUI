@@ -24,8 +24,6 @@ local GetHaste = GetHaste
 local BreakUpLargeNumbers = BreakUpLargeNumbers
 local PaperDollFrame_SetLabelAndText = PaperDollFrame_SetLabelAndText
 local UnitSex = UnitSex
-local PaperDollFrame_SetItemLevel = PaperDollFrame_SetItemLevel
-local GetItemLevelColor = GetItemLevelColor
 local MovementSpeed_OnEnter, MovementSpeed_OnUpdate = MovementSpeed_OnEnter, MovementSpeed_OnUpdate
 local UnitLevel, UnitClass, GetSpecialization, GetSpecializationRole = UnitLevel, UnitClass, GetSpecialization, GetSpecializationRole
 
@@ -115,10 +113,10 @@ function PaperDollFrame_SetMastery(statFrame, unit)
 		statFrame:Hide();
 		return;
 	end
-	if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
-		statFrame:Hide();
-		return;
-	end
+	--if (UnitLevel("player") < SHOW_MASTERY_LEVEL) then
+		--statFrame:Hide();
+		--return;
+	--end
 
 	local mastery = GetMasteryEffect();
 	-- PaperDollFrame_SetLabelAndText Format Change
@@ -471,7 +469,7 @@ MERAY.ScrollframeParentFrame:SetSize(198, 352)
 MERAY.ScrollframeParentFrame:SetPoint("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
 --Scrollframe
-MERAY.ScrollFrame = CreateFrame("ScrollFrame", nil, MERAY.ScrollframeParentFrame)
+MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
 MERAY.ScrollFrame:SetPoint("TOP")
 MERAY.ScrollFrame:SetSize(MERAY.ScrollframeParentFrame:GetSize())
 

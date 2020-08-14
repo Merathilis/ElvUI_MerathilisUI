@@ -7,9 +7,9 @@ local translitMark = "!"
 -- Credits Blazeflack (CustomTags)
 
 -- Cache global variables
-local abs = math.abs
+local abs, ceil = math.abs, ceil
 local format, match, sub, gsub = string.format, string.match, string.sub, string.gsub
-local strfind, strlower, strmatch, strsub, utf8lower, utf8sub = strfind, strlower, strmatch, strsub, string.utf8lower, string.utf8sub
+local strfind, strlower, strmatch, strsub, strsplit, utf8lower, utf8sub, utf8len = strfind, strlower, strmatch, strsub, strsplit, string.utf8lower, string.utf8sub, string.utf8len
 local assert, tonumber, type = assert, tonumber, type
 local gmatch, gsub = gmatch, gsub
 -- WoW API / Variables
@@ -41,44 +41,6 @@ local textFormatStylesNoDecimal = {
 	["PERCENT"] = "%.0f%%",
 	["DEFICIT"] = "-%s"
 }
-
-function MER:GetFormattedText(min, max, style, noDecimal)
-	assert(textFormatStyles[style] or textFormatStylesNoDecimal[style], "CustomTags Invalid format style: "..style)
-	assert(min, "CustomTags - You need to provide a current value. Usage: GetFormattedText(min, max, style, noDecimal)")
-	assert(max, "CustomTags - You need to provide a maximum value. Usage: GetFormattedText(min, max, style, noDecimal)")
-
-	if max == 0 then max = 1 end
-
-	local chosenFormat
-	if noDecimal then
-		chosenFormat = textFormatStylesNoDecimal[style]
-	else
-		chosenFormat = textFormatStyles[style]
-	end
-
-	if style == "DEFICIT" then
-		local deficit = max - min
-		if deficit <= 0 then
-			return nil
-		else
-			return format(chosenFormat, E:ShortValue(deficit))
-		end
-	elseif style == "PERCENT" then
-		return format(chosenFormat, min / max * 100)
-	elseif style == "CURRENT" or ((style == "CURRENT_MAX" or style == "CURRENT_MAX_PERCENT" or style == "CURRENT_PERCENT") and min == max) then
-		if noDecimal then
-			return format(textFormatStylesNoDecimal["CURRENT"],  E:ShortValue(min))
-		else
-			return format(textFormatStyles["CURRENT"],  E:ShortValue(min))
-		end
-	elseif style == "CURRENT_MAX" then
-		return format(chosenFormat,  E:ShortValue(min), E:ShortValue(max))
-	elseif style == "CURRENT_PERCENT" then
-		return format(chosenFormat, E:ShortValue(min), min / max * 100)
-	elseif style == "CURRENT_MAX_PERCENT" then
-		return format(chosenFormat, E:ShortValue(min), E:ShortValue(max), min / max * 100)
-	end
-end
 
 local function shortenNumber(number)
 	if type(number) ~= "number" then
@@ -114,7 +76,7 @@ local function shortenNumber(number)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
-ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
 ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	if (status) then
@@ -125,8 +87,34 @@ ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 	end
 end
 
+-- Max Health shorted
+ElvUF.Tags.Events["health:max-mUI"] = 'UNIT_MAXHEALTH'
+ElvUF.Tags.Methods["health:max-mUI"] = function(unit)
+	local maxH = UnitHealthMax(unit)
+
+	return shortenNumber(maxH)
+end
+
+ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH'
+ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
+	local name = UnitName(unit)
+	if not name then
+		return ''
+	else
+		name = E.TagFunctions.Abbrev(name)
+	end
+
+	local min, max, bco, fco = UnitHealth(unit), UnitHealthMax(unit), strsplit(':', args or '')
+	local to = ceil(utf8len(name) * (min / max))
+
+	local fill = E.TagFunctions.NameHealthColor(_TAGS, fco, unit, '|cFFff3333')
+	local base = E.TagFunctions.NameHealthColor(_TAGS, bco, unit, '|cFFffffff')
+
+	return to > 0 and (base..utf8sub(name, 0, to)..fill..utf8sub(name, to+1, -1)) or fill..name
+end
+
 -- Displays current power and 0 when no power instead of hiding when at 0, Also formats it like HP tag
-ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_UPDATE UNIT_POWER_FREQUENT"
+ElvUF.Tags.Events["power:current-mUI"] = "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER"
 ElvUF.Tags.Methods["power:current-mUI"] = function(unit)
 	local CurrentPower = UnitPower(unit)
 	local String
@@ -162,7 +150,7 @@ local function abbrev(name)
 	return name
 end
 
-ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE'
+ElvUF.Tags.Events['name:abbrev-translit'] = 'UNIT_NAME_UPDATE INSTANCE_ENCOUNTER_ENGAGE_UNIT'
 ElvUF.Tags.Methods['name:abbrev-translit'] = function(unit)
 	local name = Translit:Transliterate(UnitName(unit), translitMark)
 

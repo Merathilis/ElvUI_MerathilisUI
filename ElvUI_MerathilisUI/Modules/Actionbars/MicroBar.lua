@@ -25,7 +25,6 @@ local GetGameTime = GetGameTime
 local GetGuildRosterInfo = GetGuildRosterInfo
 local GetNumGuildMembers = GetNumGuildMembers
 local GetCVarBool = GetCVarBool
-local GetCurrencyInfo = GetCurrencyInfo
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
@@ -33,6 +32,7 @@ local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
 local LoadAddOn = LoadAddOn
 local PlaySound = PlaySound
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_AreaPoiInfo_GetAreaPOISecondsLeft = C_AreaPoiInfo.GetAreaPOISecondsLeft
@@ -126,11 +126,11 @@ local bonus = {
 	52837,
 	52840 -- Resources
 }
-local bonusName = GetCurrencyInfo(1580)
+local bonusName = C_CurrencyInfo_GetCurrencyInfo(1580)
 
 local isTimeWalker, walkerTexture
 local function checkTimeWalker(event)
-	local date = C_Calendar_GetDate()
+	local date = C_DateAndTime.GetCurrentCalendarTime()
 	C_Calendar_SetAbsMonth(date.month, date.year)
 	C_Calendar_OpenCalendar()
 
@@ -284,6 +284,7 @@ local InstanceNameByID = {
 if locale == 'deDE' then -- O.O
 	InstanceNameByID[1023] = "Belagerung von Boralus"	-- "Die Belagerung von Boralus"
 	InstanceNameByID[1041] = "Königsruh"				-- "Die Königsruh"
+	InstanceNameByID[1021] = "Kronsteiganwesen"			-- "Das Kronsteiganwesen"
 end
 
 local instanceIconByName = {}
@@ -318,9 +319,7 @@ local collectedInstanceImages = false
 function module.OnEnter(self)
 	RequestRaidInfo()
 
-	if E.db.mui.microBar.tooltip ~= true then
-		return
-	end
+	if not E.db.mui.microBar.tooltip then return end
 
 	if not GameTooltip:IsForbidden() then
 		GameTooltip:Hide() -- WHY??? BECAUSE FUCK GAMETOOLTIP, THATS WHY!!
@@ -360,7 +359,7 @@ function module.OnEnter(self)
 	GameTooltip:SetPoint("BOTTOM", timeButton, "TOP")
 	GameTooltip:ClearLines()
 
-	local today = C_Calendar_GetDate()
+	local today =  C_DateAndTime.GetCurrentCalendarTime()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
 	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
@@ -444,7 +443,7 @@ function module.OnEnter(self)
 	title = false
 	local count, maxCoins = 0, 2
 	for _, id in pairs(bonus) do
-		if IsQuestFlaggedCompleted(id) then
+		if C_QuestLog.IsQuestFlaggedCompleted(id) then
 			count = count + 1
 		end
 	end
@@ -461,7 +460,7 @@ function module.OnEnter(self)
 	local iwqID = C_IslandsQueue_GetIslandsWeeklyQuestID()
 	if iwqID and UnitLevel("player") == 120 then
 		addTitle(_G.QUESTS_LABEL)
-		if IsQuestFlaggedCompleted(iwqID) then
+		if C_QuestLog.IsQuestFlaggedCompleted(iwqID) then
 			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 		else
 			local cur, max = select(4, GetQuestObjectiveInfo(iwqID, 1, false))
@@ -474,7 +473,7 @@ function module.OnEnter(self)
 	end
 
 	for _, v in pairs(questlist) do
-		if v.name and IsQuestFlaggedCompleted(v.id) then
+		if v.name and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
 			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
 				addTitle(_G.QUESTS_LABEL)
 				GameTooltip:AddDoubleLine(v.name, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
@@ -564,9 +563,7 @@ function module:CreateMicroBar()
 	microBar:EnableMouse(true)
 	microBar:SetSize(400, 26)
 	microBar:SetScale(module.db.scale or 1)
-	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
-	microBar:SetTemplate("Transparent")
-	microBar:Styling()
+	microBar:SetPoint("TOP", E.UIParent, "TOP", 0, -19)
 	E.FrameLocks[microBar] = true
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
@@ -608,7 +605,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Friends
-	local friendsButton = CreateFrame("Button", nil, microBar)
+	local friendsButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	friendsButton:SetPoint("LEFT", charButton, "RIGHT", 2, 0)
 	friendsButton:SetSize(32, 32)
 	friendsButton:SetFrameLevel(6)
@@ -659,6 +656,8 @@ function module:CreateMicroBar()
 	friendsButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
+	-- friendsButton:SetAttribute("type1", "macro")
+	-- friendsButton:SetAttribute("macrotext1", "/click GuildMicroButton")
 	friendsButton:SetScript("OnClick", function(self)
 		if InCombatLockdown() then
 			return
@@ -675,7 +674,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Guild
-	local guildButton = CreateFrame("Button", nil, microBar)
+	local guildButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	guildButton:SetPoint("LEFT", friendsButton, "RIGHT", 2, 0)
 	guildButton:SetSize(32, 32)
 	guildButton:SetFrameLevel(6)
@@ -730,12 +729,14 @@ function module:CreateMicroBar()
 	guildButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	guildButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleGuildFrame"]()
-	end)
+	guildButton:SetAttribute("type1", "macro")
+	guildButton:SetAttribute("macrotext1", "/click GuildMicroButton")
+	-- guildButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleGuildFrame"]()
+	-- end)
 	guildButton:SetScript("OnUpdate", function(self, elapse)
 		elapsed = elapsed + elapse
 		if elapsed >= DELAY then
@@ -745,7 +746,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Achievements
-	local achieveButton = CreateFrame("Button", nil, microBar)
+	local achieveButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	achieveButton:SetPoint("LEFT", guildButton, "RIGHT", 2, 0)
 	achieveButton:SetSize(32, 32)
 	achieveButton:SetFrameLevel(6)
@@ -773,15 +774,17 @@ function module:CreateMicroBar()
 	achieveButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	achieveButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleAchievementFrame"]()
-	end)
+	achieveButton:SetAttribute("type1", "macro")
+	achieveButton:SetAttribute("macrotext1", "/click AchievementMicroButton")
+	-- achieveButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleAchievementFrame"]()
+	-- end)
 
 	--EncounterJournal
-	local encounterButton = CreateFrame("Button", nil, microBar)
+	local encounterButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	encounterButton:SetPoint("LEFT", achieveButton, "RIGHT", 2, 0)
 	encounterButton:SetSize(32, 32)
 	encounterButton:SetFrameLevel(6)
@@ -809,12 +812,14 @@ function module:CreateMicroBar()
 	encounterButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	encounterButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleEncounterJournal"]()
-	end)
+	encounterButton:SetAttribute("type1", "macro")
+	encounterButton:SetAttribute("macrotext1", "/click EJMicroButton")
+	-- encounterButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleEncounterJournal"]()
+	-- end)
 
 	-- Time
 	local timeButton = CreateFrame("Button", nil, microBar)
@@ -859,7 +864,7 @@ function module:CreateMicroBar()
 	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
-	local petButton = CreateFrame("Button", nil, microBar)
+	local petButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	petButton:SetPoint("LEFT", timeButton, "RIGHT", 12, 0)
 	petButton:SetSize(32, 32)
 	petButton:SetFrameLevel(6)
@@ -887,15 +892,17 @@ function module:CreateMicroBar()
 	petButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	petButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleCollectionsJournal"](1)
-	end)
+	petButton:SetAttribute("type1", "macro")
+	petButton:SetAttribute("macrotext1", "/click CollectionsMicroButton")
+	-- petButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleCollectionsJournal"](1)
+	-- end)
 
 	--LFR
-	local lfrButton = CreateFrame("Button", nil, microBar)
+	local lfrButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	lfrButton:SetPoint("LEFT", petButton, "RIGHT", 2, 0)
 	lfrButton:SetSize(32, 32)
 	lfrButton:SetFrameLevel(6)
@@ -923,15 +930,17 @@ function module:CreateMicroBar()
 	lfrButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	lfrButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["PVEFrame_ToggleFrame"]()
-	end)
+	lfrButton:SetAttribute("type1", "macro")
+	lfrButton:SetAttribute("macrotext1", "/click LFDMicroButton")
+	-- lfrButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["PVEFrame_ToggleFrame"]()
+	-- end)
 
 	--Spellbook
-	local spellBookButton = CreateFrame("Button", nil, microBar)
+	local spellBookButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	spellBookButton:SetPoint("LEFT", lfrButton, "RIGHT", 2, 0)
 	spellBookButton:SetSize(32, 32)
 	spellBookButton:SetFrameLevel(6)
@@ -959,15 +968,17 @@ function module:CreateMicroBar()
 	spellBookButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	spellBookButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleSpellBook"](BOOKTYPE_SPELL)
-	end)
+	spellBookButton:SetAttribute("type1", "macro")
+	spellBookButton:SetAttribute("macrotext1", "/click SpellbookMicroButton")
+	-- spellBookButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleSpellBook"](BOOKTYPE_SPELL)
+	-- end)
 
 	--Specc Button
-	local speccButton = CreateFrame("Button", nil, microBar)
+	local speccButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	speccButton:SetPoint("LEFT", spellBookButton, "RIGHT", 2, 0)
 	speccButton:SetSize(32, 32)
 	speccButton:SetFrameLevel(6)
@@ -995,15 +1006,17 @@ function module:CreateMicroBar()
 	speccButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	speccButton:SetScript( "OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G["ToggleTalentFrame"]()
-	end)
+	speccButton:SetAttribute("type1", "macro")
+	speccButton:SetAttribute("macrotext1", "/click TalentMicroButton")
+	-- speccButton:SetScript( "OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G["ToggleTalentFrame"]()
+	-- end)
 
 	--Shop
-	local shopButton = CreateFrame("Button", nil, microBar)
+	local shopButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
 	shopButton:SetPoint("LEFT", speccButton, "RIGHT", 2, 0)
 	shopButton:SetSize(32, 32)
 	shopButton:SetFrameLevel(6)
@@ -1031,14 +1044,29 @@ function module:CreateMicroBar()
 	shopButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	shopButton:SetScript("OnClick", function(self)
-		if InCombatLockdown() then
-			return
-		end
-		_G.StoreMicroButton:Click()
-	end)
+	shopButton:SetAttribute("type1", "macro")
+	shopButton:SetAttribute("macrotext1", "/click StoreMicroButton")
+	-- shopButton:SetScript("OnClick", function(self)
+	-- 	if InCombatLockdown() then
+	-- 		return
+	-- 	end
+	-- 	_G.StoreMicroButton:Click()
+	-- end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
+
+	self:Template()
+end
+
+function module:Template()
+	microBar:CreateBackdrop(module.db.template)
+
+	if module.db.template == 'Default' or module.db.template == 'Transparent' then
+		microBar.backdrop:Styling()
+		microBar.backdrop:SetAlpha(1)
+	else
+		microBar.backdrop:SetAlpha(0)
+	end
 end
 
 function module:Toggle()
@@ -1054,6 +1082,7 @@ function module:Toggle()
 		E:DisableMover(microBar.mover:GetName())
 		UnregisterStateDriver(microBar, 'visibility')
 	end
+
 	module:UNIT_AURA(nil, "player")
 end
 
@@ -1061,6 +1090,7 @@ function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then
 		return
 	end
+
 	if module.db.enable and module.db.hideInOrderHall then
 		local inOrderHall = C_GarrisonIsPlayerInGarrison(_G.LE_GARRISON_TYPE_7_0)
 		if inOrderHall then
@@ -1080,6 +1110,7 @@ function module:Initialize()
 	end
 
 	self:CreateMicroBar()
+	self:Template()
 	self:Toggle()
 
 	function module:ForUpdateAll()

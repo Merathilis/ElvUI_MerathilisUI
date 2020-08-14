@@ -7,17 +7,15 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function Reminder()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.reminder = {
 		type = "group",
 		name = L["Reminder"],
 		get = function(info) return E.db.mui.reminder[ info[#info] ] end,
 		set = function(info, value) E.db.mui.reminder[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 0,
-				type = "header",
-				name = MER:cOption(L["Reminder"]),
-			},
+			name = ACH:Header(MER:cOption(L["Reminder"]), 0),
 			enable = {
 				order = 1,
 				type = 'toggle',

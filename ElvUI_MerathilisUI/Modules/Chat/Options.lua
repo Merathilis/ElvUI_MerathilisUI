@@ -8,17 +8,15 @@ local tinsert = table.insert
 -- GLOBALS:
 
 local function ChatTable()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.chat = {
 		type = "group",
 		name = L["Chat"],
 		get = function(info) return E.db.mui.chat[ info[#info] ] end,
 		set = function(info, value) E.db.mui.chat[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["Chat"]),
-				order = 1
-			},
+			header = ACH:Header(MER:cOption(L["Chat"]), 1),
 			chatButton = {
 				order = 2,
 				type = "toggle",
@@ -48,13 +46,23 @@ local function ChatTable()
 				type = "toggle",
 				name = L["Emotes"],
 			},
+			seperators = {
+				order = 7,
+				type = "toggle",
+				name = L["Seperators"],
+			},
+			itemLevelLink = {
+				order = 8,
+				type = "toggle",
+				name = L["Item Level Links"],
+			},
 			chatFade = {
 				order = 10,
 				type = "group",
 				name = L["Fade Chat"],
 				guiInline = true,
 				get = function(info) return E.db.mui.chat.chatFade[ info[#info] ] end,
-				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade(); end,
+				set = function(info, value) E.db.mui.chat.chatFade[ info[#info] ] = value; module:Configure_ChatFade() end,
 				args = {
 					enable = {
 						order = 1,
@@ -76,6 +84,13 @@ local function ChatTable()
 						name = L["Min Alpha"],
 						disabled = function() return not E.db.mui.chat.chatFade.enable end
 					},
+					fadeOutTime = {
+						order = 4,
+						type = "range",
+						min = 0.1, max = 2, step = 0.01,
+						name = L["Fadeout duration"],
+						disabled = function() return not E.db.mui.chat.chatFade.enable end,
+					},
 				},
 			},
 			filter = {
@@ -91,14 +106,8 @@ local function ChatTable()
 						type = "toggle",
 						name = L["Enable"],
 					},
-					itemLevel = {
-						order = 2,
-						type = "toggle",
-						name = L["Item Level"],
-						disabled = function() return not E.db.mui.chat.filter.enable end,
-					},
 					damagemeter = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["Damage Meter Filter"],
 						disabled = function() return not E.db.mui.chat.filter.enable end,

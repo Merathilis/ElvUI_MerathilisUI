@@ -6,7 +6,6 @@ local B = E:GetModule('Bags')
 --Lua functions
 local _G = _G
 --WoW API / Variables
-local ToggleAllBags = ToggleAllBags
 -- GLOBALS:
 
 local weShown = false;
@@ -16,23 +15,6 @@ local function LoadSkin()
 
 	local MachineFrame = _G.ScrappingMachineFrame
 	MachineFrame:Styling()
-
-	-- Automatic open the Bags if the MachineFrame shows
-	MachineFrame:HookScript("OnShow", function()
-		if E.private.bags.enable ~= true then return end
-
-		if MachineFrame:IsShown() and not B.BagFrame:IsShown() then
-			ToggleAllBags()
-			weShown = true
-		end
-	end)
-
-	MachineFrame:HookScript("OnHide", function()
-		if (weShown) then
-			ToggleAllBags()
-		end
-		weShown = false
-	end)
 end
 
 S:AddCallbackForAddon('Blizzard_ScrappingMachineUI', "mUIScrappingMachine", LoadSkin)

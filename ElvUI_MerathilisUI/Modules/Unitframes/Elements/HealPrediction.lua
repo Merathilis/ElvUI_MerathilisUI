@@ -19,8 +19,8 @@ function module:Configure_HealComm(frame)
 
 		if frame.db.health then
 			local health = frame.Health
-			local orientation = frame.db.health.orientation or frame.Health:GetOrientation()
-			local reverseFill = not not frame.db.health.reverseFill
+			local orientation = health:GetOrientation()
+			local reverseFill = health:GetReverseFill()
 			local overAbsorbTexture = "Interface\\RaidFrame\\Shield-Overshield"
 
 			if healPrediction.absorbBar and not healPrediction.absorbBar.overlay then
@@ -61,10 +61,6 @@ function module:Configure_HealComm(frame)
 					end
 				end
 			end
-
-			if UF.statusbars and UF.statusbars[healPrediction.overAbsorb] then
-				UF.statusbars[healPrediction.overAbsorb] = nil
-			end
 		end
 
 		if healPrediction.overAbsorb then
@@ -86,21 +82,14 @@ function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, 
 	local totalMax = UnitHealthMax(unit)
 	absorb = pred and UnitGetTotalAbsorbs(unit) or absorb
 	local barSize = (absorb / totalMax) * totalWidth
-	self.absorbBar.overlay:SetTexCoord(0, barSize / self.absorbBar.overlay.tileSize, 0, totalHeight / self.absorbBar.overlay.tileSize)
-end
-
-function module:UpdatePredictionStatusBar(prediction, parent, name)
-	if not (prediction and parent) then return end
-	if name == "Health" then
-		self:Configure_HealComm(parent:GetParent())
-	end
+	local tileSize = 32
+	self.absorbBar.overlay:SetTexCoord(0, barSize / tileSize, 0, totalHeight / tileSize)
 end
 
 function module:HealPrediction()
 	if E.private.unitframe.enable ~= true or E.db.mui.unitframes.healPrediction ~= true then return end
 
 	hooksecurefunc(UF, "Configure_HealComm", module.Configure_HealComm)
-	hooksecurefunc(UF, "UpdatePredictionStatusBar", module.UpdatePredictionStatusBar)
 
 	for _, object in pairs(_G.ElvUF.objects) do
 		if object.HealthPrediction and object.HealthPrediction.PostUpdate then

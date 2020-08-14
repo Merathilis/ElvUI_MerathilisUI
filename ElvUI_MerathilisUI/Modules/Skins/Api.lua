@@ -44,21 +44,23 @@ MERS.ArrowRotation = {
 }
 
 -- Create shadow for textures
-function MERS:CreateSD(parent, size, r, g, b, alpha, offset)
-	local sd = CreateFrame("Frame", nil, parent)
-	sd.size = size or 5
-	sd.offset = offset or 0
-	sd:SetBackdrop({
-		bgFile =  E.LSM:Fetch("background", "ElvUI Blank"),
-		edgeFile = E.LSM:Fetch("border", "ElvUI GlowBorder"),
-		edgeSize = sd.size,
-	})
-	sd:SetPoint("TOPLEFT", parent, -sd.size - 1 - sd.offset, sd.size + 1 + sd.offset)
-	sd:SetPoint("BOTTOMRIGHT", parent, sd.size + 1 + sd.offset, -sd.size - 1 - sd.offset)
-	sd:SetBackdropBorderColor(r or 0, g or 0, b or 0)
-	sd:SetBackdropColor(r or 0, g or 0, b or 0, alpha or 0)
+function MERS:CreateSD(f, m, s, n)
+	if f.Shadow then return end
 
-	return sd
+	local frame = f
+	if f:GetObjectType() == "Texture" then
+		frame = f:GetParent()
+	end
+
+	local lvl = frame:GetFrameLevel()
+	f.Shadow = CreateFrame("Frame", nil, frame)
+	f.Shadow:SetPoint("TOPLEFT", f, -m, m)
+	f.Shadow:SetPoint("BOTTOMRIGHT", f, m, -m)
+	f.Shadow:CreateBackdrop()
+	f.Shadow.backdrop:SetBackdropBorderColor(0, 0, 0, 1)
+	f.Shadow.backdrop:SetFrameLevel(n or lvl)
+
+	return f.Shadow
 end
 
 function MERS:CreateBG(frame)
@@ -68,8 +70,8 @@ function MERS:CreateBG(frame)
 	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
-	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
+	bg:SetPoint("TOPLEFT", frame, -E.mult, E.mult)
+	bg:SetPoint("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.blankTex)
 	bg:SetVertexColor(0, 0, 0)
 
@@ -122,7 +124,7 @@ function MERS:CreateBDFrame(f, a, left, right, top, bottom)
 
 	local lvl = frame:GetFrameLevel()
 
-	local bg = CreateFrame("Frame", nil, frame)
+	local bg = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 	bg:SetPoint("TOPLEFT", f, left or -1, top or 1)
 	bg:SetPoint("BOTTOMRIGHT", f, right or 1, bottom or -1)
 	bg:SetFrameLevel(lvl == 0 and 1 or lvl - 1)
@@ -135,15 +137,9 @@ end
 function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
-	f:SetBackdrop({
-		bgFile = E["media"].normTex,
-		edgeFile = E["media"].normTex,
-		edgeSize = E.mult*1.1, -- latest Pixel Stuff changes 10.02.2019
-		insets = {left = 0, right = 0, top = 0, bottom = 0},
-	})
-
-	f:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
-	f:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	f:CreateBackdrop()
+	f.backdrop:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
+	f.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
 -- ClassColored ScrollBars
@@ -191,29 +187,33 @@ function MERS:ClearButton()
 	end
 end
 
-local function StartGlow(f)
-	if not (f and f:IsEnabled()) then return end
-	f:SetBackdropBorderColor(r, g, b)
-	f.glow:SetAlpha(1)
-	MER:CreatePulse(f.glow)
+function MERS:OnEnter()
+	if self:IsEnabled() then
+		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
+
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		end
+	end
 end
 
-local function StopGlow(f)
-	f.glow:SetScript("OnUpdate", nil)
-	f:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
-	f.glow:SetAlpha(0)
+function MERS:OnLeave()
+	if self:IsEnabled() then
+		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
+
+		if self.SetBackdropBorderColor then
+			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
+		end
+	end
 end
 
 -- Buttons
-function MERS:Reskin(button, strip, noGlow)
+function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, styleTemplate, noGlossTex)
 	assert(button, "doesn't exist!")
 
 	if strip then button:StripTextures() end
-
-	if button.template then
-		button:SetTemplate("Transparent", true)
-	end
-
 	MERS:CreateGradient(button)
 
 	if button.Icon then
@@ -225,19 +225,20 @@ function MERS:Reskin(button, strip, noGlow)
 		end
 	end
 
-	if not noGlow then
-		button.glow = CreateFrame("Frame", nil, button)
-		button.glow:SetBackdrop({
-			edgeFile = E.LSM:Fetch("statusbar", "MerathilisFlat"), edgeSize = E:Scale(3),
-			insets = {left = E:Scale(3), right = E:Scale(3), top = E:Scale(3), bottom = E:Scale(3)},
-		})
-		button.glow:SetPoint("TOPLEFT", -1, 1)
-		button.glow:SetPoint("BOTTOMRIGHT", 1, -1)
-		button.glow:SetBackdropBorderColor(r, g, b)
-		button.glow:SetAlpha(0)
+	if not noStyle then
+		if setTemplate then
+			button:SetTemplate('Transparent', not noGlossTex) -- force transparent
+		else
+			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
+			button.backdrop:SetAllPoints()
+		end
 
-		button:HookScript("OnEnter", StartGlow)
-		button:HookScript("OnLeave", StopGlow)
+		if button.backdrop then
+			button.backdrop:SetTemplate('Transparent')
+		end
+
+		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
+		button:HookScript("OnLeave", MERS.OnLeave)
 	end
 end
 
@@ -281,6 +282,14 @@ function MERS:ReskinIcon(icon, backdrop)
 	assert(icon, "doesn't exist!")
 
 	icon:SetTexCoord(unpack(E.TexCoords))
+
+	if icon:GetDrawLayer() ~= 'ARTWORK' then
+		icon:SetDrawLayer("ARTWORK")
+	end
+
+	icon:SetSnapToPixelGrid(false)
+	icon:SetTexelSnappingBias(0)
+
 	if backdrop then
 		MERS:CreateBackdrop(icon)
 	end
@@ -291,7 +300,6 @@ function MERS:SkinPanel(panel)
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
 	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
-	MERS:CreateSD(panel, 2, 0, 0, 0, 0, -1)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
@@ -340,17 +348,17 @@ local function replaceConfigArrows(button)
 		button.img = button:CreateTexture(nil, 'ARTWORK')
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
 		button.img:SetSize(12, 12)
-		button.img:Point('CENTER')
+		button.img:SetPoint('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
-				btn.img:Point("CENTER", -1, -1);
+				btn.img:SetPoint("CENTER", -1, -1);
 			end
 		end)
 
 		button:HookScript('OnMouseUp', function(btn)
-			btn.img:Point("CENTER", 0, 0);
+			btn.img:SetPoint("CENTER", 0, 0);
 		end)
 	end
 end
@@ -399,7 +407,7 @@ function MERS:ReskinAS(AS)
 			AS:StripTextures(Tab)
 		end
 
-		AS:CreateBackdrop(Tab)
+		AS:CreateBackdrop(Tab, 'Transparent')
 
 		if AS:CheckAddOn("ElvUI") and AS:CheckOption("ElvUISkinModule") then
 			-- Check if ElvUI already provides the backdrop. Otherwise we have two backdrops (e.g. Auctionhouse)
@@ -411,10 +419,72 @@ function MERS:ReskinAS(AS)
 			end
 		end
 
-		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
+		Tab.Backdrop:SetPoint("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
+		Tab.Backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
 
 		Tab.isSkinned = true
+	end
+
+	function AS:SkinButton(Button, Strip)
+		if Button.isSkinned then return end
+
+		local ButtonName = Button.GetName and Button:GetName()
+		local foundArrow
+
+		if Button.Icon then
+			local Texture = Button.Icon:GetTexture()
+			if Texture and (type(Texture) == 'string' and strfind(Texture, [[Interface\ChatFrame\ChatFrameExpandArrow]])) then
+				foundArrow = true
+			end
+		end
+
+		if Strip then
+			AS:StripTextures(Button)
+		end
+
+		for _, Region in pairs(AS.Blizzard.Regions) do
+			Region = ButtonName and _G[ButtonName..Region] or Button[Region]
+			if Region then
+				Region:SetAlpha(0)
+			end
+		end
+
+		if foundArrow then
+			Button.Icon:SetTexture([[Interface\AddOns\AddOnSkins\Media\Textures\Arrow]])
+			Button.Icon:SetSnapToPixelGrid(false)
+			Button.Icon:SetTexelSnappingBias(0)
+			Button.Icon:SetVertexColor(1, 1, 1)
+			Button.Icon:SetRotation(AS.ArrowRotation['right'])
+		end
+
+		if Button.SetNormalTexture then Button:SetNormalTexture('') end
+		if Button.SetHighlightTexture then Button:SetHighlightTexture('') end
+		if Button.SetPushedTexture then Button:SetPushedTexture('') end
+		if Button.SetDisabledTexture then Button:SetDisabledTexture('') end
+
+		AS:SetTemplate(Button, 'Transparent')
+
+		if Button.GetFontString and Button:GetFontString() ~= nil then
+			if Button:IsEnabled() then
+				Button:GetFontString():SetTextColor(1, 1, 1)
+			else
+				Button:GetFontString():SetTextColor(.5, .5, .5)
+			end
+		end
+
+		Button:HookScript("OnEnable", function(self)
+			if self.GetFontString and self:GetFontString() ~= nil then
+				self:GetFontString():SetTextColor(1, 1, 1)
+			end
+		end)
+		Button:HookScript("OnDisable", function(self)
+			if self.GetFontString and self:GetFontString() ~= nil then
+				self:GetFontString():SetTextColor(.5, .5, .5)
+			end
+		end)
+
+		Button:HookScript("OnEnter", MERS.OnEnter)
+		Button:HookScript("OnLeave", MERS.OnLeave)
 	end
 end
 
@@ -428,7 +498,7 @@ end
 
 --[[ HOOK TO THE UIWIDGET TYPES ]]
 function MERS:ReskinSkinTextWithStateWidget(widgetFrame)
-	local text = widgetFrame.Text;
+	local text = widgetFrame.Text
 	if text then
 		text:SetTextColor(1, 1, 1)
 	end
@@ -442,30 +512,33 @@ hooksecurefunc(S, "HandleScrollBar", MERS.ReskinScrollBar)
 hooksecurefunc(S, "SkinTextWithStateWidget", MERS.ReskinSkinTextWithStateWidget)
 
 local function ReskinVehicleExit()
-	local f = _G["LeaveVehicleButton"]
-	if f then
-		f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
-		f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	if E.private.actionbar.enable ~= true then
+		return
 	end
+
+	if MasqueGroup and E.private.actionbar.masque.actionbars then return end
+
+	local f = _G.MainMenuBarVehicleLeaveButton
+	f:SetNormalTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetPushedTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+	f:SetHighlightTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow")
+
+	f:GetNormalTexture():SetTexCoord(0, 1, 0, 1)
+	f:GetPushedTexture():SetTexCoord(0, 1, 0, 1)
 end
 
-local function StyleElvUIConfig()
-	if InCombatLockdown() or not E.private.skins.ace3.enable then return end
-	local frame = _G.ElvUIGUIFrame
-	if not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
-	end
-end
+function MERS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
+	xOffset = xOffset or 1
+	yOffset = yOffset or 1
+	anchor = anchor or obj:GetParent()
 
-local function StyleElvUIInstall()
-	if InCombatLockdown() then return end
-	local frame = _G.ElvUIInstallFrame
-	if not frame.IsStyled then
-		frame:Styling()
-		frame.IsStyled = true
+	assert(anchor)
+	if obj:GetPoint() then
+		obj:ClearAllPoints()
 	end
+
+	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
+	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
 end
 
 -- keep the colors updated
@@ -478,31 +551,12 @@ local function updateMedia()
 end
 hooksecurefunc(E, "UpdateMedia", updateMedia)
 
-local function pluginInstaller()
-	local PluginInstallFrame = _G["PluginInstallFrame"]
-	if PluginInstallFrame then
-		PluginInstallFrame:Styling()
-		PluginInstallTitleFrame:Styling()
-	end
-end
-
-local function StyleAce3Tooltip(self)
-	if not self or self:IsForbidden() then return end
-	if not self.styling then
-		self:Styling()
-	end
-end
-
 function MERS:Initialize()
 	self.db = E.private.muiSkins
 
 	ReskinVehicleExit()
 	updateMedia()
-	pluginInstaller()
-
-	hooksecurefunc(E, 'ToggleOptionsUI', StyleElvUIConfig)
-	hooksecurefunc(E, 'Install', StyleElvUIInstall)
-	hooksecurefunc(S, "Ace3_StyleTooltip", StyleAce3Tooltip)
+	self:StyleElvUIConfig()
 
 	if IsAddOnLoaded("AddOnSkins") then
 		if AddOnSkins then

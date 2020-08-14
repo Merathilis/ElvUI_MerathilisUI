@@ -46,13 +46,13 @@ end
 function module:ToggleTransparency(holder, option)
 	local db = E.db.mui.dashboard[option]
 
-	if not db.backdrop then
-		holder.backdrop:SetTemplate("NoBackdrop")
-	elseif db.transparency then
-		holder.backdrop:SetTemplate("Transparent")
-	else
-		holder.backdrop:SetTemplate()
-	end
+	--if not db.backdrop then
+		--holder.backdrop:SetTemplate("NoBackdrop")
+	--elseif db.transparency then
+		--holder.backdrop:SetTemplate("Transparent")
+	--else
+		--holder.backdrop:SetTemplate()
+	--end
 end
 
 function module:FontStyle(tableName)
@@ -151,7 +151,7 @@ function module:CreateDashboard(name, barHolder, option)
 	bar.Text:SetWordWrap(false)
 
 	bar.IconBG = CreateFrame('Button', nil, bar)
-	bar.IconBG:SetTemplate('Transparent')
+	bar.IconBG:CreateBackdrop('Transparent')
 	bar.IconBG:SetSize(E.PixelMode and 18 or 20)
 	bar.IconBG:SetPoint('BOTTOMRIGHT', bar, 'BOTTOMRIGHT', (E.PixelMode and -2 or -3), SPACING)
 

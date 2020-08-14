@@ -3,15 +3,14 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 ----------------------------------------------------------------------------------------
 -- General options
 ----------------------------------------------------------------------------------------
-V.mui = {}
+V.mui = {
+	install_complete = nil,
+}
 
 ----------------------------------------------------------------------------------------
 -- Misc options
 ----------------------------------------------------------------------------------------
 V.muiMisc = {
-	session = {
-		day = 1,
-	}
 }
 
 ----------------------------------------------------------------------------------------
@@ -81,6 +80,7 @@ V.muiSkins = {
 		Archaeology = true,
 		AzeriteEssence = true,
 		ItemInteraction = true,
+		animaDiversion = true,
 	},
 
 	addonSkins = {
@@ -90,12 +90,12 @@ V.muiSkins = {
 		bui = true,
 		bs = true,
 		pa = true,
-		po = true,
 		ls = true,
 		dbm = true,
 		cl = true,
 		cbn = true,
 		et = true,
+		tb = true,
 	},
 
 	elvuiAddons = {

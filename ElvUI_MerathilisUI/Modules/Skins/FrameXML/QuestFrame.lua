@@ -30,20 +30,23 @@ local function LoadSkin()
 	local QuestFrame = _G.QuestFrame
 
 	-- Stop here if parchment reomover is enabled.
-	if E.private.skins.parchmentRemover.enable then return end
+	if E.private.skins.parchmentRemoverEnable then return end
 
 	------------------------
 	--- QuestDetailFrame ---
 	------------------------
 	_G.QuestDetailScrollFrame:StripTextures(true)
 	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
-		if not E.private.skins.parchmentRemover.enable then
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
 		end
 	end)
 
 	if _G.QuestDetailScrollFrame.spellTex then
-		if not E.private.skins.parchmentRemover.enable then
+		if not E.private.skins.parchmentRemoverEnable then
 			_G.QuestDetailScrollFrame.spellTex:SetTexture("")
 		end
 	end
@@ -52,11 +55,12 @@ local function LoadSkin()
 	--- QuestFrameReward ---
 	------------------------
 	_G.QuestRewardScrollFrame:HookScript("OnShow", function(self)
-		self.backdrop:Hide()
-		self:SetTemplate("Transparent")
-		if not E.private.skins.parchmentRemover.enable then
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 
@@ -66,17 +70,18 @@ local function LoadSkin()
 	_G.QuestFrame:Styling()
 
 	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
-		self:SetTemplate("Transparent")
-		if not E.private.skins.parchmentRemover.enable then
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
-
 	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
 
@@ -127,10 +132,12 @@ local function LoadSkin()
 	end
 
 	_G.QuestGreetingScrollFrame:HookScript("OnShow", function(self)
-		self:SetTemplate("Transparent")
-		if not E.private.skins.parchmentRemover.enable then
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
+		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:Height(self:GetHeight() - 2)
+			self:SetHeight(self:GetHeight() - 2)
 		end
 	end)
 

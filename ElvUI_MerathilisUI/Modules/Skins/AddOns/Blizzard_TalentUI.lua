@@ -8,6 +8,7 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 -- WoW API / Variables
 local C_SpecializationInfo_GetSpellsDisplay = C_SpecializationInfo.GetSpellsDisplay
+local C_SpecializationInfo_IsInitialized = C_SpecializationInfo.IsInitialized
 local GetSpecialization = GetSpecialization
 local GetNumSpecializations = GetNumSpecializations
 local GetSpecializationInfo = GetSpecializationInfo
@@ -58,42 +59,45 @@ local function LoadSkin()
 
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
-		scrollChild.specIcon:Size(70, 70)
+		scrollChild.specIcon:SetSize(70, 70)
 
 		local roleIcon = scrollChild.roleIcon
-
-		roleIcon:SetTexture(E["media"].roleIcons)
+		roleIcon:SetTexture(E.media.roleIcons)
 
 		local left = scrollChild:CreateTexture(nil, "OVERLAY")
 		left:SetWidth(1)
-		left:SetTexture(E["media"].normTex)
+		left:SetTexture(E.media.normTex)
 		left:SetVertexColor(0, 0, 0)
 		left:SetPoint("TOPLEFT", roleIcon, 3, -3)
 		left:SetPoint("BOTTOMLEFT", roleIcon, 3, 4)
 
 		local right = scrollChild:CreateTexture(nil, "OVERLAY")
 		right:SetWidth(1)
-		right:SetTexture(E["media"].normTex)
+		right:SetTexture(E.media.normTex)
 		right:SetVertexColor(0, 0, 0)
 		right:SetPoint("TOPRIGHT", roleIcon, -3, -3)
 		right:SetPoint("BOTTOMRIGHT", roleIcon, -3, 4)
 
 		local top = scrollChild:CreateTexture(nil, "OVERLAY")
 		top:SetHeight(1)
-		top:SetTexture(E["media"].normTex)
+		top:SetTexture(E.media.normTex)
 		top:SetVertexColor(0, 0, 0)
 		top:SetPoint("TOPLEFT", roleIcon, 3, -3)
 		top:SetPoint("TOPRIGHT", roleIcon, -3, -3)
 
 		local bottom = scrollChild:CreateTexture(nil, "OVERLAY")
 		bottom:SetHeight(1)
-		bottom:SetTexture(E["media"].normTex)
+		bottom:SetTexture(E.media.normTex)
 		bottom:SetVertexColor(0, 0, 0)
 		bottom:SetPoint("BOTTOMLEFT", roleIcon, 3, 4)
 		bottom:SetPoint("BOTTOMRIGHT", roleIcon, -3, 4)
 	end
 
 	hooksecurefunc("PlayerTalentFrame_UpdateSpecFrame", function(self, spec)
+		if not C_SpecializationInfo_IsInitialized() then
+			return
+		end
+
 		local playerTalentSpec = GetSpecialization(nil, self.isPet, _G.PlayerSpecTab2:GetChecked() and 2 or 1)
 		local shownSpec = spec or playerTalentSpec or 1
 		local numSpecs = GetNumSpecializations(nil, self.isPet);
@@ -145,7 +149,6 @@ local function LoadSkin()
 	end)
 
 	local buttons = {"PlayerTalentFrameSpecializationSpecButton", "PlayerTalentFramePetSpecializationSpecButton"}
-
 	for _, name in pairs(buttons) do
 		for i = 1, 4 do
 			local bu = _G[name..i]
@@ -153,6 +156,13 @@ local function LoadSkin()
 			if bu and bu.backdrop then
 				bu.backdrop:SetTemplate("Transparent")
 				MERS:CreateGradient(bu.backdrop)
+			end
+
+			local roleIcon = bu.roleIcon
+			roleIcon:SetTexture(E.media.roleIcons)
+			local role = GetSpecializationRole(i, false, bu.isPet)
+			if role then
+				roleIcon:SetTexCoord(MER:GetRoleTexCoord(role))
 			end
 		end
 	end

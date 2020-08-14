@@ -1,4 +1,91 @@
-** v4.40, 14.01.2020**
+** v4.52, 16.07.2020**
+* Take account for the new Aura Color Option from ElvUI.
+* Don't force settings anymore if you enable the rectangle Minimap.
+* Fix AzeriteTooltip Icons to display correct now.
+* Code cleanup.
+
+
+** v4.51, 12.07.2020**
+* Prevent an error which cause that the Export Profile didnt work.
+* My chat seperators now take account of the Chat Panel Backdrop Settings.
+* Simplify my Tooltip Icons.
+* UNDER INVESTIGATION: Added back Item Level Links. See in game Changelog for infos.
+
+
+** v4.50, 09.07.2020**
+* Try to prevent an error with my ChatButton.
+* Add an additional check if you enable the rectangle minimap.
+
+
+** v4.49, 08.07.2020**
+* Take account to the latest DataTexts changes from ElvUI.
+* NOTE: If you want my new DataTexts, you need to do the install step for DataTexts.
+* Added own custom DataTexts via the new ElvUI option.
+* Fixed Heal-Layout UnitFrames position.
+* Use a new texture. (Do the install to get it :P)
+* Some skin updates & small code changes.
+* Updated the Combat Alert (Enter/Leave Combat message).
+* WIP: Added rectangle Minimap.
+
+
+** v4.48, 30.04.2020
+* Take account for the latest DataTexts update from ElvUI.
+
+
+** v4.47, 29.04.2020**
+* Fixed MicroBar Styling.
+* Removed the ActionBar toggle buttons.
+* Updated Tags and use new Tags from ElvUI.
+* Removed some bad installer settings. THX Simpy.
+* Tweak/Cleanup my Armory Module.
+* Added CorruptionsTooltip: All Credits belong Anayanka (Defias Brotherhood - EU)
+* Added an option to change Minimap Blip textures.
+* Some skin/code tweaks.
+* Renamed some movers. You might need to reposition some elements.
+
+
+** v4.46, 16.02.2020**
+* Updated some skins.
+* Changed the texture on BigWigs/Details.
+* Changed the Vehicle Exit Button texture. #82
+* Added option for the MicroBar to change the backdrop. #75
+* Use different Role Icons on the UnitFrames. Thx Peri
+* Updated TooltipIcons.
+
+
+** v4.45, 10.02.2020**
+* Fix errors on install, if ElvUI install is not finished:
+  always make sure you finish first the ElvUI install!!
+
+
+** v4.44, 08.02.2020**
+* Add '/muierrors on' and '/muierrors off' commands to quickly disable/enable only ElvUI + my AddOn.
+* Try to fix a talent skin error.
+* Some Options color update.
+
+
+** v4.43, 05.02.2020**
+* Take account to the new ElvUI Options update.
+* Added a chat alert for placed items.
+* Cleanup/Update my install file.
+* Try to fix an lua error in HealPrediction.
+* Remove Mover Transparency options.
+
+
+** v4.42, 19.01.2020**
+* Fixed Aura positions in my Install.
+* Fixed a quest lua error. Damn tables >.<
+
+
+** v4.41, 18.01.2020**
+* Change the default position from the "new" Vehicle Exit Button.
+* Enable "Swap to AltPower" on Party Frames.
+* Create a new Options for my Panels: .. Modules - Panels. You can now individually enable/disable them.
+* Split the Quest Options. #78
+* Small Layout tweaks.
+
+
+** v4.40, 15.01.2020 for patch 8.3**
 * Code update/fixes for Patch 8.3.
 * Small Layout updates.
 * Added a Killing Blow feature. Credits: Shadow & Light.
@@ -8,6 +95,7 @@
 * Added a CVar options.
 * Added a random toy macro. See misc options.
 * Change the guild rank color in tooltip, if someone is in another guild.
+
 
 ** v4.39, 18.12.2019**
 * Added styles on UnitFrames i missed.

@@ -7,32 +7,24 @@ if IsAddOnLoaded("ElvUI_SLE") then return end
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, tonumber, unpack = select, tonumber, unpack
+local select, unpack = select, unpack
 local type = type
-local gsub = gsub
-local strmatch, strsplit = strmatch, strsplit
-local find = string.find
 local pairs = pairs
-local max = math.max
 -- WoW API / Variables
 local CreateFrame = CreateFrame
-local GetAverageItemLevel = GetAverageItemLevel
 local GetInventoryItemLink = GetInventoryItemLink
 local GetInventoryItemDurability = GetInventoryItemDurability
 local GetInventorySlotInfo = GetInventorySlotInfo
-local GetInventoryItemQuality = GetInventoryItemQuality
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
-local GetItemGem = GetItemGem
-local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local hooksecurefunc = hooksecurefunc
-local UnitLevel = UnitLevel
 local C_TransmogCollection_GetAppearanceSourceInfo = C_TransmogCollection.GetAppearanceSourceInfo
 local C_TransmogCollection_GetIllusionSourceInfo = C_TransmogCollection.GetIllusionSourceInfo
 local C_Transmog_GetSlotInfo = C_Transmog.GetSlotInfo
 local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
-local LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION = LE_TRANSMOG_TYPE_APPEARANCE, LE_TRANSMOG_TYPE_ILLUSION
+local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
+local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 --GLOBALS:
 
 local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
@@ -86,25 +78,6 @@ local AZSlots = {
 	"Head", "Shoulder", "Chest",
 }
 
-local levelColors = {
-	[0] = "|cffff0000",
-	[1] = "|cff00ff00",
-	[2] = "|cffffff88",
-}
-
--- From http://www.wowhead.com/items?filter=qu=7;sl=16:18:5:8:11:10:1:23:7:21:2:22:13:24:15:28:14:4:3:19:25:12:17:6:9;minle=1;maxle=1;cr=166;crs=3;crv=0
-local heirlooms = {
-	[80] = {
-		44102,42944,44096,42943,42950,48677,42946,42948,42947,42992,
-		50255,44103,44107,44095,44098,44097,44105,42951,48683,48685,
-		42949,48687,42984,44100,44101,44092,48718,44091,42952,48689,
-		44099,42991,42985,48691,44094,44093,42945,48716
-	},
-	["90h"] = {105689,105683,105686,105687,105688,105685,105690,105691,105684,105692,105693},
-	["90n"] = {104399,104400,104401,104402,104403,104404,104405,104406,104407,104408,104409},
-	["90f"] = {105675,105670,105672,105671,105674,105673,105676,105677,105678,105679,105680},
-}
-
 function module:Transmog_OnEnter()
 	if self.Link and self.Link ~= '' then
 		self.Texture:SetVertexColor(1, .8, 1)
@@ -144,9 +117,7 @@ function module:UpdatePaperDoll()
 	if not unit then return end
 
 	local frame, slot, current, maximum, r, g, b
-	local itemLink, itemLevel, itemLevelMax, enchantInfo
-	local _, numBonuses, affixes
-	local avgItemLevel, avgEquipItemLevel = GetAverageItemLevel()
+	local itemLink
 
 	for k, _ in pairs(slots) do
 		frame = _G[("Character")..k]
@@ -192,21 +163,25 @@ function module:UpdatePaperDoll()
 
 				-- Transmog
 				if module.db.transmog.enable then
-					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE) then
+					local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Appearance, Enum.TransmogModification.None)
+
+					if not (slot == 2 or slot == 11 or slot == 12 or slot == 13 or slot == 14 or slot == 18) and C_Transmog_GetSlotInfo(transmogLocation) then
 						frame.Transmog.Texture:Show()
-						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_APPEARANCE))))
+						frame.Transmog.Link = select(6, C_TransmogCollection_GetAppearanceSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation))))
 					end
 				end
 
 				-- Illussion
 				if module.db.illusion.enable then
+					local transmogLocation = TransmogUtil.GetTransmogLocation((slot), Enum.TransmogType.Illusion, Enum.TransmogModification.None)
+
 					if (slot == 16 or slot == 17) then
-						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)
+						local _, _, _, _, _, _, _, ItemTexture = C_Transmog_GetSlotInfo(transmogLocation)
 
 						if ItemTexture then
 							frame.Illusion:Show()
 							frame.Illusion.Texture:SetTexture(ItemTexture)
-							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(slot, LE_TRANSMOG_TYPE_ILLUSION)))
+							_, _, frame.Illusion.Link = C_TransmogCollection_GetIllusionSourceInfo(select(3, C_Transmog_GetSlotVisualInfo(transmogLocation)))
 						end
 					else
 						frame.Illusion:Hide()
@@ -243,7 +218,7 @@ function module:BuildInformation()
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:Size(110, 41)
+		frame.Gradiation:SetSize(110, _G["Character"..slotName]:GetHeight()+4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -251,16 +226,16 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT", -20, 0)
+			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT")
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT", 20, 0)
+			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 
 		-- Transmog Info
 		frame.Transmog = CreateFrame('Button', nil, frame)
-		frame.Transmog:Size(12)
+		frame.Transmog:SetSize(12, 12)
 		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
 		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
 
@@ -270,22 +245,22 @@ function module:BuildInformation()
 		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog:SetPoint("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
 		elseif id <= 16 then -- Right Side
-			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog:SetPoint("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
 		elseif id == 18 then -- Main Hand
-			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog:SetPoint("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
 		elseif id == 19 then -- Off Hand
-			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog:SetPoint("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
 
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
-		frame.Illusion:Size(14)
+		frame.Illusion:SetSize(14, 14)
 		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
@@ -326,7 +301,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	--if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)

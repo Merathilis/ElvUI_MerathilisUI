@@ -5,6 +5,7 @@
 	<Include file="Bags\Load_Bags.xml"/>
 	<Include file="Blizzard\Load_Blizzard.xml"/>
 	<Include file="Chat\Load_Chat.xml"/>
+	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>
 	<Include file="CVars\Load_CVars.xml"/>
 	<Include file="DashBoard\Load_DashBoard.xml"/>
@@ -23,4 +24,5 @@
 	<Include file="Reminder\Load_Reminder.xml"/>
 	<Include file="RaidManager\Load_RaidManager.xml"/>
 	<Include file="PvP\Load_PvP.xml"/>
+	<Include file="Panels\Load_Panels.xml"/>
 </Ui>

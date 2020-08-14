@@ -12,8 +12,6 @@ local _G = _G
 local next, unpack = next, unpack
 local tinsert, tremove = table.insert, table.remove
 -- WoW API / Variables
-local ActionButton_ShowOverlayGlow = ActionButton_ShowOverlayGlow
-local ActionButton_HideOverlayGlow = ActionButton_HideOverlayGlow
 local CreateFrame = CreateFrame
 local GameTooltip_Hide = GameTooltip_Hide
 local GetItemCount = GetItemCount
@@ -153,6 +151,7 @@ function Respec:CreateItemButtons()
 		local Icon = Button:CreateTexture('$parentIcon', 'BACKGROUND')
 		Icon:SetAllPoints()
 		Icon:SetTexture(index == 1 and 1495827 or 134915)
+		S:HandleIcon(Icon, true)
 
 		local Normal = Button:CreateTexture('$parentNormalTexture')
 		Normal:SetPoint('CENTER')
@@ -164,7 +163,6 @@ function Respec:CreateItemButtons()
 		Button:GetNormalTexture():SetInside()
 		Button:SetPushedTexture("")
 		Button:SetHighlightTexture("")
-
 		S:HandleButton(Button)
 
 		local Count = Button:CreateFontString('$parentCount', 'OVERLAY')

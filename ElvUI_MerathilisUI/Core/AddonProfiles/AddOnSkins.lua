@@ -45,8 +45,8 @@ function MER:LoadAddOnSkinsProfile()
 	AS.db['EmbedSystemMessage'] = false
 	AS.db['ElvUISkinModule'] = true
 	AS.db['ThinBorder'] = false
-	AS.db['BackgroundTexture'] = 'Melli'
-	AS.db['StatusBarTexture'] = 'Melli'
+	AS.db['BackgroundTexture'] = 'RenAscensionL'
+	AS.db['StatusBarTexture'] = 'RenAscensionL'
 
 	-- embeded settings
 	if IsAddOnLoaded("Details") then
@@ -65,10 +65,6 @@ function MER:LoadAddOnSkinsProfile()
 		AS.db["EmbedMain"] = "Skada"
 		AS.db["EmbedLeft"] = ""
 		AS.db["EmbedRight"] = ""
-	end
-
-	if IsAddOnLoaded("Postal") then
-		AS.db["Postal"] = false
 	end
 
 	if IsAddOnLoaded("BugSack") then

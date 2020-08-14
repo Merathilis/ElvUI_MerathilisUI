@@ -10,17 +10,15 @@ local GUILD_MOTD_LABEL2 = GUILD_MOTD_LABEL2
 -- GLOBALS:
 
 local function Misc()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.misc = {
 		type = "group",
-		name = E.NewSign..L["Miscellaneous"],
+		name = L["Miscellaneous"],
 		get = function(info) return E.db.mui.misc[ info[#info] ] end,
 		set = function(info, value) E.db.mui.misc[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = {
-				order = 1,
-				type = "header",
-				name = MER:cOption(L["Miscellaneous"]),
-			},
+			name = ACH:Header(MER:cOption(L["Miscellaneous"]), 1),
 			MailInputbox = {
 				order = 2,
 				type = "toggle",
@@ -32,18 +30,6 @@ local function Misc()
 				type = "toggle",
 				name = L.GUILD_MOTD_LABEL2,
 				desc = L["Display the Guild Message of the Day in an extra window, if updated."],
-			},
-			quest = {
-				order = 4,
-				type = "toggle",
-				name = L["Quest"],
-				desc = L["Automatically select the quest reward with the highest vendor sell value. Also announce Quest Progress."],
-			},
-			announce = {
-				order = 5,
-				type = "toggle",
-				name = L["Announce"],
-				desc = L["Skill gains"],
 			},
 			cursor = {
 				order = 6,
@@ -69,13 +55,19 @@ local function Misc()
 			respec = {
 				order = 10,
 				type = "toggle",
-				name = E.NewSign..L["Codex Buttons"],
+				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
+			},
+			lfgInfo = {
+				order = 11,
+				type = "toggle",
+				name = L["LFG Member Info"],
+				desc = L["Shows role informations in your tooltip in the lfg frame."],
 			},
 			alerts = {
 				order = 20,
 				type = "group",
-				name = L["Alerts"],
+				name = MER:cOption(L["Alerts"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.alerts[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.alerts[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -85,12 +77,45 @@ local function Misc()
 						type = "toggle",
 						name = L["Call to Arms"],
 					},
+					announce = {
+						order = 2,
+						type = "toggle",
+						name = L["Announce"],
+						desc = L["Skill gains"],
+					},
+					itemAlert = {
+						order = 3,
+						type = "toggle",
+						name = L["Item Alerts"],
+						desc = L["Announce in chat when someone placed an usefull item."],
+					},
+				},
+			},
+			quest = {
+				order = 21,
+				type = "group",
+				name = MER:cOption(L["Quest"]),
+				guiInline = true,
+				get = function(info) return E.db.mui.misc.quest[ info[#info] ] end,
+				set = function(info, value) E.db.mui.misc.quest[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
+				args = {
+					selectQuestReward = {
+						order = 1,
+						type = "toggle",
+						name = L["Highest Quest Reward"],
+						desc = L["Automatically select the item with the highest reward."],
+					},
+					questAnnounce = {
+						order = 2,
+						type = "toggle",
+						name = L["Quest Announcer"],
+					},
 				},
 			},
 			paragon = {
-				order = 21,
+				order = 22,
 				type = "group",
-				name = L["MISC_PARAGON_REPUTATION"],
+				name = MER:cOption(L["MISC_PARAGON_REPUTATION"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.misc.paragon[ info[#info] ] end,
 				set = function(info, value) E.db.mui.misc.paragon[ info[#info] ] = value; end,
@@ -131,9 +156,9 @@ local function Misc()
 				},
 			},
 			macros = {
-				order = 30,
+				order = 23,
 				type = "group",
-				name = E.NewSign..L["Macros"],
+				name = MER:cOption(L["Macros"]),
 				guiInline = true,
 				args = {
 					randomtoy = {

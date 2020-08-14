@@ -1,4 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MM = MER:GetModule("mUIMinimap")
 local SMB = MER:GetModule("mUIMinimapButtons")
 local COMP = MER:GetModule("mUICompatibility")
 
@@ -7,21 +8,20 @@ local COMP = MER:GetModule("mUICompatibility")
 local format = string.format
 local tinsert = table.insert
 --WoW API / Variables
+local C_Texture_GetAtlasInfo = C_Texture.GetAtlasInfo
 -- GLOBALS:
 
 local function Minimap()
+	local ACH = E.Libs.ACH
+
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = L["MiniMap"],
+		name = E.NewSign..L["MiniMap"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
 		args = {
-			header1 = {
-				type = "header",
-				name = MER:cOption(L["MiniMap"]),
-				order = 1,
-			},
+			header = ACH:Header(MER:cOption(L["MiniMap"]), 1),
 			general = {
 				order = 2,
 				type = "group",
@@ -38,6 +38,12 @@ local function Minimap()
 						order = 2,
 						type = "toggle",
 						name = L["Instance Difficulty"],
+					},
+					rectangle = {
+						order = 3,
+						type = "toggle",
+						name = E.NewSign..L["Rectangle Minimap"],
+						desc = L["|cffFF0000WARNING:|r If you enable this, you must adjust your Interface manually."],
 					},
 				},
 			},
@@ -72,14 +78,14 @@ local function Minimap()
 						order = 6,
 						type = "range",
 						name = L["X-Offset"],
-						min = -50, max = 50, step = 1,
+						min = -60, max = 60, step = 1,
 						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 					yOffset = {
 						order = 7,
 						type = "range",
 						name = L["Y-Offset"],
-						min = -50, max = 50, step = 1,
+						min = -60, max = 60, step = 1,
 						disabled = function() return not E.db.mui.maps.minimap.ping.enable end,
 					},
 				},
@@ -135,12 +141,7 @@ local function Minimap()
 						name = L["Credits"],
 						guiInline = true,
 						args = {
-							credit = {
-								order = 1,
-								type = "description",
-								fontSize = "medium",
-								name = format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"),
-							},
+							credit = ACH:Description(format("|cFF16C3F2Project|r|cFFFFFFFFAzilroka|r"), 1),
 						},
 					},
 					minimapButtons = {
