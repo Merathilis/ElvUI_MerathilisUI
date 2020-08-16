@@ -6,7 +6,7 @@ local function CVars()
 
 	E.Options.args.mui.args.modules.args.CombatAlert = {
 		type = "group",
-		name = E.NewSign..L["Combat Alert"],
+		name = L["Combat Alert"],
 		get = function(info) return E.db.mui.CombatAlert[info[#info]] end,
 		set = function(info, value) E.db.mui.CombatAlert[info[#info]] = value E:StaticPopup_Show("PRIVATE_RL") end,
 		args = {

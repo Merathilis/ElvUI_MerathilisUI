@@ -455,6 +455,7 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	panelSize = 427,
 }
 
 MP.smb = {

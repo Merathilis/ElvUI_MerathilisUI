@@ -13,11 +13,11 @@ local function PanelTable()
 
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
-		name = L["Panels"],
+		name = E.NewSign..L["Panels"],
 		args = {
 			header = ACH:Header(MER:cOption(L["Panels"]), 1),
 			panels = {
-				order = 2,
+				order = 1,
 				type = "group",
 				name = MER:cOption(L["Panels"]),
 				guiInline = true,
@@ -44,75 +44,89 @@ local function PanelTable()
 				name = MER:cOption(L["Style Panels"]),
 				guiInline = true,
 				args = {
-					topLeftPanel = {
+					panelSize = {
 						order = 1,
+						name = E.NewSign..L["Width"],
+						type = "range",
+						min = 50, max = 800, step = 1,
+						get = function(info) return E.db.mui.panels.panelSize end,
+						set = function(info, value) E.db.mui.panels.panelSize = value; PN:Resize() end,
+					},
+					spacer = {
+						order = 2,
+						type = "description",
+						name = "",
+						width = "full",
+					},
+					topLeftPanel = {
+						order = 3,
 						type = "toggle",
 						name = L["Top Left Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.topLeftPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.topLeftPanel = value; PN:UpdatePanels() end,
 					},
 					topLeftExtraPanel = {
-						order = 2,
+						order = 4,
 						type = "toggle",
 						name = L["Top Left Extra Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.topLeftExtraPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.topLeftExtraPanel = value; PN:UpdatePanels() end,
 						disabled = function() return not E.db.mui.panels.stylePanels.topLeftPanel end,
 					},
-					spacer = {
-						order = 3,
+					spacer1 = {
+						order = 5,
 						type = "description",
 						name = "",
 					},
 					topRightPanel = {
-						order = 4,
+						order = 6,
 						type = "toggle",
 						name = L["Top Right Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.topRightPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.topRightPanel = value; PN:UpdatePanels() end,
 					},
 					topRightExtraPanel = {
-						order = 5,
+						order = 7,
 						type = "toggle",
 						name = L["Top Right Extra Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.topRightExtraPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.topRightExtraPanel = value; PN:UpdatePanels() end,
 						disabled = function() return not E.db.mui.panels.stylePanels.topRightPanel end,
 					},
-					spacer1 = {
-						order = 6,
+					spacer2 = {
+						order = 8,
 						type = "description",
 						name = "",
 					},
 					bottomLeftPanel = {
-						order = 7,
+						order = 9,
 						type = "toggle",
 						name = L["Bottom Left Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.bottomLeftPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.bottomLeftPanel = value; PN:UpdatePanels() end,
 					},
 					bottomLeftExtraPanel = {
-						order = 8,
+						order = 10,
 						type = "toggle",
 						name = L["Bottom Left Extra Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.bottomLeftExtraPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.bottomLeftExtraPanel = value; PN:UpdatePanels() end,
 						disabled = function() return not E.db.mui.panels.stylePanels.bottomLeftPanel end,
 					},
-					spacer2 = {
-						order = 9,
+					spacer3 = {
+						order = 11,
 						type = "description",
 						name = "",
 					},
 					bottomRightPanel = {
-						order = 10,
+						order = 12,
 						type = "toggle",
 						name = L["Bottom Right Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.bottomRightPanel end,
 						set = function(info, value) E.db.mui.panels.stylePanels.bottomRightPanel = value; PN:UpdatePanels() end,
 					},
 					bottomRightExtraPanel = {
-						order = 11,
+						order = 13,
 						type = "toggle",
 						name = L["Bottom Right Extra Panel"],
 						get = function(info) return E.db.mui.panels.stylePanels.bottomRightExtraPanel end,
