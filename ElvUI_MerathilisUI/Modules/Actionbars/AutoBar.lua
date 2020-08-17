@@ -219,7 +219,7 @@ end
 
 local function CreateButton(name, size)
 	if _G[name] then
-		_G[name]:SetSize(size)
+		_G[name]:SetSize(size, size)
 		_G[name].Count:FontTemplate(nil, module.db.countFontSize, "OUTLINE")
 		_G[name].HotKey:FontTemplate(nil, module.db.bindFontSize, "OUTLINE")
 
