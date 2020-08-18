@@ -1237,9 +1237,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["xOffset"] = 0
 		E.db["unitframe"]["units"]["player"]["CombatIcon"]["yOffset"] = 10
 		E.db["unitframe"]["units"]["player"]["healPrediction"]["enable"] = true
-		E.db["unitframe"]["units"]["player"]["healPrediction"]["healType"] = "ALL_HEALS"
-		E.db["unitframe"]["units"]["player"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["player"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["absorbStyle"] = "NORMAL"
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+		E.db["unitframe"]["units"]["player"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["player"]["cutaway"]["health"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["cutaway"]["power"]["enabled"] = true
 		E.db["unitframe"]["units"]["player"]["fader"]["enable"] = true
@@ -1373,9 +1373,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["xOffset"] = -7
 		E.db["unitframe"]["units"]["target"]["pvpIcon"]["yOffset"] = 7
 		E.db["unitframe"]["units"]["target"]["healPrediction"]["enable"] = true
-		E.db["unitframe"]["units"]["target"]["healPrediction"]["healType"] = "ALL_HEALS"
-		E.db["unitframe"]["units"]["target"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["target"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["absorbStyle"] = "NORMAL"
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+		E.db["unitframe"]["units"]["target"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["target"]["cutaway"]["health"]["enabled"] = true
 
 		-- TargetTarget
@@ -1553,9 +1553,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid"]["colorOverride"] = "FORCE_OFF"
 		E.db["unitframe"]["units"]["raid"]["readycheckIcon"]["size"] = 20
 		E.db["unitframe"]["units"]["raid"]["healPrediction"]["enable"] = true
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["healType"] = "ALL_HEALS"
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["absorbStyle"] = "NORMAL"
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+		E.db["unitframe"]["units"]["raid"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["raid"]["cutaway"]["health"]["enabled"] = true
 
 		if IsAddOnLoaded("ElvUI_BenikUI") then
@@ -1666,9 +1666,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["yOffset"] = 0
 		E.db["unitframe"]["units"]["raid40"]["raidicon"]["size"] = 15
 		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["enable"] = true
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["healType"] = "ALL_HEALS"
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["absorbStyle"] = "NORMAL"
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+		E.db["unitframe"]["units"]["raid40"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["raid40"]["cutaway"]["health"]["enabled"] = true
 
 		-- Party
@@ -1755,9 +1755,9 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["party"]["raidicon"]["xOffset"] = -2
 		E.db["unitframe"]["units"]["party"]["raidicon"]["size"] = 16
 		E.db["unitframe"]["units"]["party"]["healPrediction"]["enable"] = true
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["healType"] = "ALL_HEALS"
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["showOverAbsorbs"] = true
-		E.db["unitframe"]["units"]["party"]["healPrediction"]["showAbsorbAmount"] = false
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["absorbStyle"] = "NORMAL"
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["anchorPoint"] = "BOTTOM"
+		E.db["unitframe"]["units"]["party"]["healPrediction"]["height"] = -1
 		E.db["unitframe"]["units"]["party"]["cutaway"]["health"]["enabled"] = true
 		if E.db["unitframe"]["units"]["party"]["customTexts"] then E.db["unitframe"]["units"]["party"]["customTexts"] = nil end
 		-- Delete old customTexts/ Create empty table
