@@ -36,15 +36,9 @@ local function ArmoryTable()
 				name = L["Enable"],
 				desc = L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."],
 			},
-			azeritebtn = {
-				type = "toggle",
-				order = 3,
-				name = L["Azerite Buttons"],
-				desc = L["Enable/Disable the Azerite Buttons on the character window."],
-			},
 			undressButton = {
 				type = "toggle",
-				order = 4,
+				order = 3,
 				name = L["Undress Button"],
 			},
 			spacer = {

@@ -27,8 +27,6 @@ local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
 local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 --GLOBALS:
 
-local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
-
 local initialized = false
 local updateTimer
 
@@ -273,24 +271,6 @@ function module:BuildInformation()
 	end
 end
 
-function module:AzeriteGlow()
-	for i = 1, #AZSlots do
-		local azslot = _G["Character"..AZSlots[i].."Slot"]
-		local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-		hooksecurefunc(azslot, "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
-			self.AzeriteTexture:Hide()
-			self.AvailableTraitFrame:Hide()
-
-			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 2)
-			else
-				LCG.PixelGlow_Stop(self)
-			end
-		end)
-	end
-end
-
 function module:firstGarrisonToast()
 	module:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
@@ -320,8 +300,6 @@ function module:Initialize()
 		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 	end
-
-	module:AzeriteGlow()
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.armory
