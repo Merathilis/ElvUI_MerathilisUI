@@ -9,19 +9,15 @@ local hooksecurefunc = hooksecurefunc
 
 function module:Construct_HealComm(frame)
 	local healPrediction = frame.HealthPrediction
-	--healPrediction.absorbBar.overlay = healPrediction.absorbBar:CreateTexture(nil, "ARTWORK", nil, 1)
-	--healPrediction.absorbBar.overlay:SetAllPoints(healPrediction.absorbBar:GetStatusBarTexture())
-	--healPrediction.absorbBar.overlay:SetTexture("Interface\\RaidFrame\\Shield-Overlay", true, true)
-	--healPrediction.absorbBar.overlay.tileSize = 32
 
 	if not healPrediction.overAbsorb then
-	    local overAbsorb = frame.Health:CreateTexture(nil, "OVERLAY")
-	    overAbsorb:SetPoint('TOP')
-	    overAbsorb:SetPoint('BOTTOM')
-	    overAbsorb:SetPoint('LEFT', frame.Health, 'RIGHT')
-	    overAbsorb:SetWidth(10)
+		local overAbsorb = frame.Health:CreateTexture(nil, "OVERLAY")
+		overAbsorb:SetPoint('TOP')
+		overAbsorb:SetPoint('BOTTOM')
+		overAbsorb:SetPoint('LEFT', frame.Health, 'RIGHT')
+		overAbsorb:SetWidth(10)
 
-	    healPrediction.overAbsorb = overAbsorb
+		healPrediction.overAbsorb = overAbsorb
 	end
 end
 
@@ -71,13 +67,10 @@ function module:Configure_HealComm(frame)
 end
 
 do
-	--local tileSize = 32
 	function module:UpdateHealComm(unit, myIncomingHeal, otherIncomingHeal, absorb, healAbsorb, hasOverAbsorb, hasOverHealAbsorb, health, maxHealth)
-		if --[[not self.absorbBar.overlay or]] not UnitIsConnected(unit) then return end
-
-		--local totalWidth, totalHeight = self.frame.Health:GetSize()
-		--local barSize = (absorb / maxHealth) * totalWidth
-		--self.absorbBar.overlay:SetTexCoord(0, barSize / tileSize, 0, totalHeight / tileSize)
+		local frame = self.frame
+		local db = frame and frame.db and frame.db.healPrediction
+		if not db or not db.absorbStyle or not UnitIsConnected(unit) then return end
 
 		if hasOverAbsorb and health == maxHealth then
 			local db = self.frame.db and self.frame.db.healPrediction
