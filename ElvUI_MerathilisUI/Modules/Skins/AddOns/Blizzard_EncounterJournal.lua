@@ -90,7 +90,7 @@ local function SkinAbilitiesInfo()
 
 			S:HandleButton(header.button)
 
-			header.button.bg = CreateFrame("Frame", nil, header.button)
+			header.button.bg = CreateFrame("Frame", nil, header.button, "BackdropTemplate")
 			header.button.bg:SetTemplate()
 			header.button.bg:SetOutside(header.button.abilityIcon)
 			header.button.bg:SetFrameLevel(header.button.bg:GetFrameLevel() - 1)
