@@ -465,19 +465,6 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc(_G.GarrisonMission, "UpdateMissionData", function(_, missionPage)
-		local buffsFrame = missionPage.BuffsFrame
-		if buffsFrame:IsShown() then
-			for i = 1, #buffsFrame.Buffs do
-				local buff = buffsFrame.Buffs[i]
-				if not buff.styled then
-					MERS:ReskinIcon(buff.Icon)
-					buff.styled = true
-				end
-			end
-		end
-	end)
-
 	hooksecurefunc(_G.GarrisonMission, "MissionCompleteInitialize", function(self, missionList, index)
 		local mission = missionList[index]
 		if not mission then return end
