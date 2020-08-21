@@ -40,7 +40,7 @@ module.ReminderBuffs = {
 		298841,			-- Greater Flask of the Undertow
 
 		-- Shadowlands
-		307185,			-- Spectral Flask of Power (73 int)
+		307185,			-- Spectral Flask of Power (73 stat)
 		307187,			-- Spectral Flask of Stamina (109 sta)
 
 	},
