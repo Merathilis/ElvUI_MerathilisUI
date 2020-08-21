@@ -81,6 +81,7 @@ V.muiSkins = {
 		AzeriteEssence = true,
 		ItemInteraction = true,
 		animaDiversion = true,
+		soulbinds = true,
 	},
 
 	addonSkins = {

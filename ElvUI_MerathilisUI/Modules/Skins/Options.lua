@@ -456,6 +456,11 @@ local function SkinsTable()
 				name = L["Anima Diversion"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.animaDiversion end,
 			},
+			soulbinds = {
+				type = "toggle",
+				name = L["Soulbinds"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds end,
+			},
 		},
 	}
 
