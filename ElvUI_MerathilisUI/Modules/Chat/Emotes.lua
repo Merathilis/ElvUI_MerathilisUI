@@ -171,7 +171,7 @@ function module:Initialize()
 
 	local Emote = self.ChatEmote
 	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel)
-	ChatEmote:SetPoint("RIGHT", _G.CopyChatButton1, "LEFT", 0, 0)
+	ChatEmote:SetPoint("RIGHT", _G.ElvUI_CopyChatButton1, "LEFT", 0, 0)
 	ChatEmote:SetSize(12, 12)
 	ChatEmote:SetScript("OnClick", function()
 		if InCombatLockdown() then return end
