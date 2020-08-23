@@ -49,7 +49,8 @@ local function CreateBoard()
 	frame:SetSize(170, 105)
 	MERS:CreateBD(frame, .3)
 
-	frame.Header = frame:CreateFontString(nil, "OVERLAY", 'GameFontNormalMed2')
+	frame.Header = frame:CreateFontString(nil, "OVERLAY")
+	frame.Header:FontTemplate()
 	frame.Header:SetPoint('TOPLEFT', frame, 17, -10)
 	frame.Header:SetJustifyH('LEFT')
 	frame.Header:SetText(_G.GUILD)
@@ -114,7 +115,7 @@ local function UpdateGuildBest(self)
 		frame:ClearAllPoints()
 		frame:SetPoint('BOTTOMLEFT', schedule, 'TOPLEFT', 0, 10)
 
-		self.WeeklyInfo.Child.Label:SetPoint('TOP', -135, -25)
+		self.WeeklyInfo.Child.ThisWeekLabel:SetPoint("TOP", -135, -25)
 		local affix = self.WeeklyInfo.Child.Affixes[1]
 		if affix then
 			affix:ClearAllPoints()
