@@ -82,6 +82,9 @@ V.muiSkins = {
 		ItemInteraction = true,
 		animaDiversion = true,
 		soulbinds = true,
+		covenantSanctum = true,
+		covenantPreview = true,
+		playerChoice = true,
 	},
 
 	addonSkins = {

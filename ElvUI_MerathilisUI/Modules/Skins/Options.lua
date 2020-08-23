@@ -339,7 +339,7 @@ local function SkinsTable()
 			warboard = {
 				type = "toggle",
 				name = L["Warboard"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Warboard end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.warboard end,
 			},
 			deathRecap = {
 				type = "toggle",
@@ -349,12 +349,12 @@ local function SkinsTable()
 			channels = {
 				type = "toggle",
 				name = _G.CHANNELS,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Channels end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.channels end,
 			},
 			communities = {
 				type = "toggle",
 				name = _G.COMMUNITIES,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Communities end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.communities end,
 			},
 			challenges = {
 				type = "toggle",
@@ -364,22 +364,22 @@ local function SkinsTable()
 			AzeriteUI = {
 				type = "toggle",
 				name = L["AzeriteUI"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteUI end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteUI end,
 			},
 			AzeriteRespec = {
 				type = "toggle",
 				name = _G.AZERITE_RESPEC_TITLE,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteRespec end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteRespec end,
 			},
 			IslandQueue = {
 				type = "toggle",
 				name = _G.ISLANDS_HEADER,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandQueue end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandQueue end,
 			},
 			IslandsPartyPose = {
 				type = "toggle",
 				name = L["Island Party Pose"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.IslandsPartyPose end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.islandsPartyPose end,
 			},
 			minimap = {
 				type = "toggle",
@@ -389,7 +389,7 @@ local function SkinsTable()
 			Scrapping = {
 				type = "toggle",
 				name = _G.SCRAP_BUTTON,
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Scrapping end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.scrapping end,
 			},
 			trainer = {
 				type = "toggle",
@@ -429,12 +429,12 @@ local function SkinsTable()
 			AlliedRaces = {
 				type = "toggle",
 				name = L["Allied Races"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AlliedRaces end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.alliedRaces end,
 			},
 			GMChat = {
 				type = "toggle",
 				name = L["GM Chat"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.GMChat end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.gmChat end,
 			},
 			Archaeology = {
 				type = "toggle",
@@ -444,12 +444,12 @@ local function SkinsTable()
 			AzeriteEssence = {
 				type = "toggle",
 				name = L["Azerite Essence"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.AzeriteEssence end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteEssence end,
 			},
 			ItemInteraction = {
 				type = "toggle",
 				name = L["Item Interaction"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.ItemInteraction end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.itemInteraction end,
 			},
 			animaDiversion = {
 				type = "toggle",
@@ -460,6 +460,21 @@ local function SkinsTable()
 				type = "toggle",
 				name = L["Soulbinds"],
 				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.soulbinds end,
+			},
+			covenantSanctum = {
+				type = "toggle",
+				name = L["Covenant Sanctum"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantSanctum end,
+			},
+			covenantPreview = {
+				type = "toggle",
+				name = L["Covenant Preview"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.covenantPreview end,
+			},
+			playerChoice = {
+				type = "toggle",
+				name = L["Player Choice"],
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.playerChoice end,
 			},
 		},
 	}
