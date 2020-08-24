@@ -94,12 +94,14 @@ local items = {
 		141641, -- Codex of the Clear Mind (Pre-Legion)
 		141333, -- Codex of the Tranquil Mind (Legion)
 		153646, -- Codex of the Quiet Mind (BfA)
+		173048, -- Codes of the Still Mind (Shadowlands)
 	},
 	{
 		141640, -- Tome of the Clear Mind (Pre-Legion)
 		143785, -- Tome of the Tranquil Mind (BoP version)
 		141446, -- Tome of the Tranquil Mind (Legion)
 		153647, -- Tome of the Quiet Mind (BfA)
+		173049, -- Tome of the Still Mind (Shadowlands)
 	},
 }
 
@@ -150,7 +152,7 @@ function Respec:CreateItemButtons()
 
 		local Icon = Button:CreateTexture('$parentIcon', 'BACKGROUND')
 		Icon:SetAllPoints()
-		Icon:SetTexture(index == 1 and 1495827 or 134915)
+		Icon:SetTexture(index == 1 and 3717417 or 3717418)
 		S:HandleIcon(Icon, true)
 
 		local Normal = Button:CreateTexture('$parentNormalTexture')
@@ -221,7 +223,7 @@ function Respec:ADDON_LOADED(addon)
 	if(addon == 'Blizzard_TalentUI') then
 		if E.db.mui.misc.respec ~= true then return end
 
-		self:SetParent(PlayerTalentFrameTalents)
+		self:SetParent(_G.PlayerTalentFrameTalents)
 
 		_G.PlayerTalentFrame:HookScript('OnShow', self.OnShow)
 		_G.PlayerTalentFrame:HookScript('OnHide', self.OnHide)
