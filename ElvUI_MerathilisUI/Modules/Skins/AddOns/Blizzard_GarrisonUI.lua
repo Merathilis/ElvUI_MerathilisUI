@@ -305,7 +305,7 @@ local function LoadSkin()
 			reagent.Icon:SetDrawLayer("BORDER")
 			MERS:CreateBG(reagent.Icon)
 
-			local bg = CreateFrame("Frame", nil, reagent)
+			local bg = CreateFrame("Frame", nil, reagent, 'BackdropTemplate')
 			bg:SetPoint("TOPLEFT")
 			bg:SetPoint("BOTTOMRIGHT", 0, 2)
 			bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
@@ -337,7 +337,7 @@ local function LoadSkin()
 		local button = buttons[i]
 		button.BG:Hide()
 
-		local bg = CreateFrame("Frame", nil, button)
+		local bg = CreateFrame("Frame", nil, button, 'BackdropTemplate')
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
@@ -360,10 +360,10 @@ local function LoadSkin()
 		tab.Text:ClearAllPoints()
 		tab.Text:SetPoint("CENTER")
 
-		local bg = CreateFrame("Frame", nil, tab)
+		local bg = CreateFrame("Frame", nil, tab, 'BackdropTemplate')
 		bg:SetFrameLevel(tab:GetFrameLevel() - 1)
-		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
+		bg:CreateBackdrop('Transparent')
+		MERS:CreateGradient(bg.backdrop)
 
 		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
 		selectedTex:SetAllPoints()
@@ -409,9 +409,9 @@ local function LoadSkin()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
 		if isSelected then
-			tab:SetBackdropColor(r, g, b, .2)
+			tab.backdrop:SetBackdropColor(r, g, b, .2)
 		else
-			tab:SetBackdropColor(0, 0, 0, .25)
+			tab.backdrop:SetBackdropColor(0, 0, 0, .25)
 		end
 	end)
 
