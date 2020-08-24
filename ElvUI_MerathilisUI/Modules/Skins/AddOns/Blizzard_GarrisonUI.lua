@@ -171,7 +171,7 @@ local function LoadSkin()
 
 		tab:GetNormalTexture():SetAlpha(0)
 
-		local bg = CreateFrame("Frame", nil, tab)
+		local bg = CreateFrame("Frame", nil, tab, 'BackdropTemplate')
 		bg:SetPoint("TOPLEFT", 6, -7)
 		bg:SetPoint("BOTTOMRIGHT", -6, 7)
 		bg:SetFrameLevel(tab:GetFrameLevel()-1)
