@@ -1129,6 +1129,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconYOffset"] = 5
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttached"] = false
 		E.db["unitframe"]["units"]["player"]["castbar"]["iconAttachedTo"] = "Castbar"
+		E.db["unitframe"]["units"]["player"]["castbar"]["timeToHold"] = 0.8
 
 		if not E.db["unitframe"]["units"]["player"]["customTexts"] then E.db["unitframe"]["units"]["player"]["customTexts"] = {} end
 		-- Delete old customTexts/ Create empty table
@@ -1270,6 +1271,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["r"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["g"] = 1
 		E.db["unitframe"]["units"]["target"]["castbar"]["textColor"]["b"] = 1
+		E.db["unitframe"]["units"]["target"]["castbar"]["timeToHold"] = 0.8
 		E.db["unitframe"]["units"]["target"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["target"]["debuffs"]["sizeOverride"] = 28
 		E.db["unitframe"]["units"]["target"]["debuffs"]["yOffset"] = 2
@@ -1864,7 +1866,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["boss"]["castbar"]["insideInfoPanel"] = false
 		E.db["unitframe"]["units"]["boss"]["castbar"]["width"] = 156
 		E.db["unitframe"]["units"]["boss"]["castbar"]["height"] = 18
-		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.5
+		E.db["unitframe"]["units"]["boss"]["castbar"]["timeToHold"] = 0.8
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["enable"] = true
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["height"] = 15
 		E.db["unitframe"]["units"]["boss"]["infoPanel"]["transparent"] = true
