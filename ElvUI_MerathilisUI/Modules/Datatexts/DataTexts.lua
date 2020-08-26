@@ -16,7 +16,6 @@ ChatTabFrame:SetHeight(PANEL_HEIGHT)
 ChatTabFrame:SetWidth(411)
 ChatTabFrame:SetFrameStrata("LOW")
 E.FrameLocks["MER_RightChatTopDT"] = true
-DT:RegisterPanel(ChatTabFrame, 3, "ANCHOR_TOPLEFT", 3, 4)
 
 function MER:InitDataTexts()
 	MER_RightChatTopDT:SetPoint("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
