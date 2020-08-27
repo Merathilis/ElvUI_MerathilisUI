@@ -58,8 +58,8 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 		local line = frame.leftHolder.buttons:CreateTexture()
 		line:SetTexture(E.Media.Textures.White8x8)
 		line:SetVertexColor(unpack(E.media.rgbvaluecolor))
-		line:Size(179, 2)
-		line:Point("TOP", lastButton, "BOTTOM", 0, -6)
+		line:SetSize(179, 2)
+		line:SetPoint("TOP", lastButton, "BOTTOM", 0, -6)
 		line.separator = true
 		return line
 	end

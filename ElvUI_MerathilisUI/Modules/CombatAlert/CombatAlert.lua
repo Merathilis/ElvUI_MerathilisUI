@@ -15,18 +15,18 @@ function module:CreateAlert()
 	local alert = CreateFrame('Frame', 'MER_AlertFrame', E.UIParent)
 	alert:SetClampedToScreen(true)
 	alert:SetSize(300, 65)
-	alert:Point('TOP', 0, -280)
+	alert:SetPoint('TOP', 0, -280)
 	alert:Hide()
 
 	alert.Bg = alert:CreateTexture(nil, "BACKGROUND")
 	alert.Bg:SetTexture('Interface\\LevelUp\\MinorTalents')
-	alert.Bg:Point('TOP')
+	alert.Bg:SetPoint('TOP')
 	alert.Bg:SetSize(400, 60)
 	alert.Bg:SetTexCoord(0, 400/512, 341/512, 407/512)
 	alert.Bg:SetVertexColor(1, 1, 1, 0.4)
 
 	alert.text = alert:CreateFontString(nil)
-	alert.text:Point('CENTER', 0, -1)
+	alert.text:SetPoint('CENTER', 0, -1)
 
 	self.alert = alert
 end

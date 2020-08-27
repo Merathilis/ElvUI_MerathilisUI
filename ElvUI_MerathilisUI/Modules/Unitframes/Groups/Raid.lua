@@ -19,6 +19,8 @@ function module:Update_RaidFrames(frame)
 			frame.isStyled = true
 		end
 	end
+
+	module:CreateHighlight(frame)
 end
 
 function module:InitRaid()

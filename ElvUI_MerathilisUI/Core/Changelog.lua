@@ -16,10 +16,15 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Take account for the new Aura Color Option from ElvUI",
-		"• Don't force settings anymore if you enable the rectangle Minimap",
-		"• Fix AzeriteTooltip Icons to display correct now",
-		"• Code cleanup",
+		"• Added Holographic Digitalization to the LocPanel Hearthstones",
+		"• Updated the logo for my SplashScreen",
+		"• Don't hide some textures from the ObjectiveTracker",
+		"• Changed my AFK screen",
+		"• Added an option to adjust the Style Panel Width",
+		"• Take account to the ElvUI Healprediction changes",
+		"• Adjust the frame strata for my right Chat Datatext",
+		"• Added a new font Gotham Narrow Ultra",
+		"• Some code cleanup and misc changes",
 
 		-- "• ''",
 	" ",
@@ -100,8 +105,8 @@ function MER:CreateChangelog()
 	icon:SetTemplate("Transparent")
 	icon:Styling()
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
-	icon.bg:Point("TOPLEFT", 2, -2)
-	icon.bg:Point("BOTTOMRIGHT", -2, 2)
+	icon.bg:SetPoint("TOPLEFT", 2, -2)
+	icon.bg:SetPoint("BOTTOMRIGHT", -2, 2)
 	icon.bg:SetTexture(MER.LogoSmall)
 	icon.bg:SetBlendMode("ADD")
 
@@ -115,7 +120,7 @@ function MER:CreateChangelog()
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
+	close:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
 	close:SetSize(80, 20)
 	close:SetScript("OnClick", function()

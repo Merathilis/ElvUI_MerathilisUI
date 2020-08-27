@@ -20,15 +20,14 @@ local hooksecurefunc = hooksecurefunc
 function MERL:CreateChatButtons()
 	if E.db.mui.chat.chatButton ~= true or E.private.chat.enable ~= true then return end
 
-	-- Maybe add option to adjust how much the chat panel expands
 	E.db.mui.chat.expandPanel = 150
 	E.db.mui.chat.panelHeight = E.db.mui.chat.panelHeight or E.db.chat.panelHeight
 
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
-	ChatButton:Size(13, 13)
+	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 2, -5)
+	ChatButton:SetSize(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
@@ -104,18 +103,18 @@ function MERL:CreateSeparators()
 	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
 	ltabseparator:SetFrameStrata('BACKGROUND')
 	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
-	ltabseparator:Height(1)
-	ltabseparator:Point('TOPLEFT', _G.LeftChatPanel, 5, -24)
-	ltabseparator:Point('TOPRIGHT', _G.LeftChatPanel, -5, -24)
+	ltabseparator:SetHeight(1)
+	ltabseparator:SetPoint('TOPLEFT', _G.LeftChatPanel, 5, -24)
+	ltabseparator:SetPoint('TOPRIGHT', _G.LeftChatPanel, -5, -24)
 	ltabseparator:SetTemplate('Transparent')
 
 	--Right Chat Tab Separator
 	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
 	rtabseparator:SetFrameStrata('BACKGROUND')
 	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
-	rtabseparator:Height(1)
-	rtabseparator:Point('TOPLEFT', _G.RightChatPanel, 5, -24)
-	rtabseparator:Point('TOPRIGHT', _G.RightChatPanel, -5, -24)
+	rtabseparator:SetHeight(1)
+	rtabseparator:SetPoint('TOPLEFT', _G.RightChatPanel, 5, -24)
+	rtabseparator:SetPoint('TOPRIGHT', _G.RightChatPanel, -5, -24)
 	rtabseparator:SetTemplate('Transparent')
 
 	MERL:UpdateSeperators()
@@ -145,8 +144,8 @@ function MERL:ToggleChatPanels()
 	local panelHeight = E.db.chat.panelHeight
 	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
 
-	_G.LeftChatMover:Height(panelHeight)
-	_G.RightChatMover:Height((rightHeight or panelHeight))
+	_G.LeftChatMover:SetHeight(panelHeight)
+	_G.RightChatMover:SetHeight((rightHeight or panelHeight))
 end
 hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
 
@@ -154,8 +153,8 @@ function MERL:RefreshChatMovers()
 	local Left = _G.LeftChatPanel:GetPoint()
 	local Right = _G.RightChatPanel:GetPoint()
 
-	_G.LeftChatPanel:Point(Left, _G.LeftChatMover, 0, 0)
-	_G.RightChatPanel:Point(Right, _G.RightChatMover, 0, 0)
+	_G.LeftChatPanel:SetPoint(Left, _G.LeftChatMover, 0, 0)
+	_G.RightChatPanel:SetPoint(Right, _G.RightChatMover, 0, 0)
 end
 hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
 

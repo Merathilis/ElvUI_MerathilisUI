@@ -455,6 +455,7 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	panelSize = 427,
 }
 
 MP.smb = {
@@ -493,7 +494,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,172179",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
