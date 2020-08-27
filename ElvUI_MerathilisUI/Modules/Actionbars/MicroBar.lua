@@ -37,7 +37,7 @@ local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_AreaPoiInfo_GetAreaPOISecondsLeft = C_AreaPoiInfo.GetAreaPOISecondsLeft
 local C_Map_GetMapInfo = C_Map.GetMapInfo
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local C_Calendar_SetAbsMonth = C_Calendar.SetAbsMonth
 local C_Calendar_OpenCalendar = C_Calendar.OpenCalendar
 local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
@@ -130,7 +130,7 @@ local bonusName = C_CurrencyInfo_GetCurrencyInfo(1580)
 
 local isTimeWalker, walkerTexture
 local function checkTimeWalker(event)
-	local date = C_DateAndTime.GetCurrentCalendarTime()
+	local date = C_DateAndTime_GetCurrentCalendarTime()
 	C_Calendar_SetAbsMonth(date.month, date.year)
 	C_Calendar_OpenCalendar()
 
@@ -359,7 +359,7 @@ function module.OnEnter(self)
 	GameTooltip:SetPoint("BOTTOM", timeButton, "TOP")
 	GameTooltip:ClearLines()
 
-	local today =  C_DateAndTime.GetCurrentCalendarTime()
+	local today =  C_DateAndTime_GetCurrentCalendarTime()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
 	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
