@@ -60,7 +60,6 @@ local function LoadSkin()
 	end)
 
 	StyleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	StyleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
 	StyleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
 	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)
