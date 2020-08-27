@@ -1102,6 +1102,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["player"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["player"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["player"]["portrait"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["classbar"]["enable"] = true
@@ -1218,6 +1219,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["buffs"]["priority"] = "Blacklist,MER_RaidCDs"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["player"]["buffs"]["countFontSize"] = 9
+		E.db["unitframe"]["units"]["player"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["player"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["player"]["raidicon"]["size"] = 18
@@ -1283,6 +1285,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["target"]["debuffs"]["countFontSize"] = 9
 		E.db["unitframe"]["units"]["target"]["debuffs"]["spacing"] = 3
+		E.db["unitframe"]["units"]["target"]["debuffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["smartAuraPosition"] = "DISABLED"
 		E.db["unitframe"]["units"]["target"]["aurabar"]["enable"] = false
 		E.db["unitframe"]["units"]["target"]["aurabar"]["attachTo"] = "BUFFS"
@@ -1361,6 +1364,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["target"]["buffs"]["priority"] = "Personal,Boss,Whitelist,Blacklist,PlayerBuffs,nonPersonal"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFont"] = "Merathilis Expressway"
 		E.db["unitframe"]["units"]["target"]["buffs"]["countFontSize"] = 9
+		E.db["unitframe"]["units"]["target"]["buffs"]["durationPosition"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["enable"] = true
 		E.db["unitframe"]["units"]["target"]["raidicon"]["position"] = "TOP"
 		E.db["unitframe"]["units"]["target"]["raidicon"]["size"] = 18
