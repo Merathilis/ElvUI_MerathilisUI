@@ -1,3 +1,7 @@
+** v4.54, 27.08.2020**
+* Fixed an incompatibility error, which errors out my Plugin
+
+
 ** v4.53, 27.08.2020**
 * Added Holographic Digitalization to the LocPanel Hearthstones
 * Updated the logo for my SplashScreen
