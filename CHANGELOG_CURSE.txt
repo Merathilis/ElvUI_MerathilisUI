@@ -1,4 +1,4 @@
-** v4.53, xx.08.2020**
+** v4.53, 27.08.2020**
 * Added Holographic Digitalization to the LocPanel Hearthstones
 * Updated the logo for my SplashScreen
 * Don't hide some textures from the ObjectiveTracker
