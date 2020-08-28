@@ -127,7 +127,10 @@ MP.chat = {
 		timeout = 8,
 		fadeOutTime = 0.65
 	},
-	seperators = true,
+	seperators = {
+		enable = true,
+		visibility = "SHOWBOTH",
+	},
 }
 
 MP.colors = {

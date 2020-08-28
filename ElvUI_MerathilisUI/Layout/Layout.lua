@@ -96,50 +96,6 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
-function MERL:CreateSeparators()
-	if E.db.mui.chat.seperators ~= true then return end
-
-	--Left Chat Tab Separator
-	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
-	ltabseparator:SetFrameStrata('BACKGROUND')
-	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
-	ltabseparator:SetHeight(1)
-	ltabseparator:SetPoint('TOPLEFT', _G.LeftChatPanel, 5, -24)
-	ltabseparator:SetPoint('TOPRIGHT', _G.LeftChatPanel, -5, -24)
-	ltabseparator:SetTemplate('Transparent')
-
-	--Right Chat Tab Separator
-	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
-	rtabseparator:SetFrameStrata('BACKGROUND')
-	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
-	rtabseparator:SetHeight(1)
-	rtabseparator:SetPoint('TOPLEFT', _G.RightChatPanel, 5, -24)
-	rtabseparator:SetPoint('TOPRIGHT', _G.RightChatPanel, -5, -24)
-	rtabseparator:SetTemplate('Transparent')
-
-	MERL:UpdateSeperators()
-end
-hooksecurefunc(LO, "CreateChatPanels", MERL.CreateSeparators)
-
-function MERL:UpdateSeperators()
-	if E.db.mui.chat.seperators ~= true then return end
-
-	local panelBackdrop = E.db.chat.panelBackdrop
-	if panelBackdrop == 'SHOWBOTH' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Show()
-	elseif panelBackdrop == 'HIDEBOTH' then
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Hide()
-	elseif panelBackdrop == 'LEFT' then
-		_G.LeftChatTabSeparator:Show()
-		_G.RightChatTabSeparator:Hide()
-	else
-		_G.LeftChatTabSeparator:Hide()
-		_G.RightChatTabSeparator:Show()
-	end
-end
-
 function MERL:ToggleChatPanels()
 	local panelHeight = E.db.chat.panelHeight
 	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
@@ -168,7 +124,6 @@ function MERL:Initialize()
 
 	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
 	LO:SetDataPanelStyle()
-	self:UpdateSeperators()
 end
 
 MER:RegisterModule(MERL:GetName())
