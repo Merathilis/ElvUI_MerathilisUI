@@ -63,6 +63,10 @@ local VignetteExclusionMapIDs = {
 	[646] = true, -- Scenario: The Broken Shore
 }
 
+local VignetteBlackListIDs = {
+	[4553] = true, -- Recoverable Corpse (The Maw)
+}
+
 function module:SpawnToast(toast)
 	if not toast then return end
 
@@ -159,7 +163,7 @@ end
 function module:CreateToast()
 	local toast = tremove(toasts, 1)
 
-	toast = CreateFrame("Frame", nil, E.UIParent)
+	toast = CreateFrame("Frame", nil, E.UIParent, "BackdropTemplate")
 	toast:SetFrameStrata("HIGH")
 	toast:SetSize(bannerWidth, bannerHeight)
 	toast:SetPoint("TOP", E.UIParent, "TOP")
@@ -323,17 +327,17 @@ end
 
 local showRepair = true
 local Slots = {
-	[1] = {1, INVTYPE_HEAD, 1000},
-	[2] = {3, INVTYPE_SHOULDER, 1000},
-	[3] = {5, INVTYPE_ROBE, 1000},
-	[4] = {6, INVTYPE_WAIST, 1000},
-	[5] = {9, INVTYPE_WRIST, 1000},
-	[6] = {10, INVTYPE_HAND, 1000},
-	[7] = {7, INVTYPE_LEGS, 1000},
-	[8] = {8, INVTYPE_FEET, 1000},
-	[9] = {16, INVTYPE_WEAPONMAINHAND, 1000},
-	[10] = {17, INVTYPE_WEAPONOFFHAND, 1000},
-	[11] = {18, INVTYPE_RANGED, 1000}
+	[1] = {1, _G.INVTYPE_HEAD, 1000},
+	[2] = {3, _G.INVTYPE_SHOULDER, 1000},
+	[3] = {5, _G.INVTYPE_ROBE, 1000},
+	[4] = {6, _G.INVTYPE_WAIST, 1000},
+	[5] = {9, _G.INVTYPE_WRIST, 1000},
+	[6] = {10, _G.INVTYPE_HAND, 1000},
+	[7] = {7, _G.INVTYPE_LEGS, 1000},
+	[8] = {8, _G.INVTYPE_FEET, 1000},
+	[9] = {16, _G.INVTYPE_WEAPONMAINHAND, 1000},
+	[10] = {17, _G.INVTYPE_WEAPONOFFHAND, 1000},
+	[11] = {18, _G.INVTYPE_RANGED, 1000}
 }
 
 local function ResetRepairNotification()
@@ -357,7 +361,7 @@ function module:UPDATE_INVENTORY_DURABILITY()
 	if showRepair and value < 20 then
 		showRepair = false
 		E:Delay(30, ResetRepairNotification)
-		self:DisplayToast(MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."],Slots[1][2],value))
+		self:DisplayToast(_G.MINIMAP_TRACKING_REPAIR, format(L["%s slot needs to repair, current durability is %d."],Slots[1][2],value))
 	end
 end
 
@@ -393,7 +397,7 @@ local function alertEvents()
 	local num = C_Calendar_GetNumPendingInvites()
 	if num ~= numInvites then
 		if num > 0 then
-			module:DisplayToast(CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
+			module:DisplayToast(_G.CALENDAR, L["You have %s pending calendar |4invite:invites;."]:format(num), toggleCalendar)
 		end
 		numInvites = num
 	end
@@ -404,7 +408,7 @@ local function alertGuildEvents()
 	if _G.CalendarFrame and _G.CalendarFrame:IsShown() then return end
 	local num = GetGuildInvites()
 	if num > 0 then
-		module:DisplayToast(CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
+		module:DisplayToast(_G.CALENDAR, L["You have %s pending guild |4event:events;."]:format(num), toggleCalendar)
 	end
 end
 
@@ -430,16 +434,16 @@ end
 
 local SOUND_TIMEOUT = 20
 function module:VIGNETTE_MINIMAP_UPDATED(event, vignetteGUID, onMinimap)
-	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")] then return end
+	if not module.db.vignette or InCombatLockdown() or VignetteExclusionMapIDs[C_Map_GetBestMapForUnit("player")]  then return end
 
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
-	if inGroup or inRaid or inPartyLFG then
-		return;
-	end
+	if inGroup or inRaid or inPartyLFG then return end
 
 	if onMinimap then
 		local vignetteInfo = C_VignetteInfo_GetVignetteInfo(vignetteGUID)
-		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id then
+		if VignetteBlackListIDs[vignetteInfo.vignetteID] then return end
+
+		if vignetteInfo and vignetteGUID ~= self.lastMinimapRare.id  then
 			vignetteInfo.name = format("|cff00c0fa%s|r", vignetteInfo.name:sub(1, 28))
 			self:DisplayToast(vignetteInfo.name, L["has appeared on the MiniMap!"], nil, vignetteInfo.atlasName)
 			self.lastMinimapRare.id = vignetteGUID

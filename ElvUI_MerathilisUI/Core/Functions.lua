@@ -480,6 +480,7 @@ MER.IsDev = {
 	["Mattdemôn"] = true,
 	["Melisendra"] = true,
 	["Merathilis"] = true,
+	["Mérathilis"] = true,
 	["Merathilîs"] = true,
 	["Róhal"] = true,
 	["Brítt"] = true,
@@ -494,6 +495,7 @@ MER.IsDevRealm = {
 
 	-- Beta
 	["The Maw"] = true,
+	["Torghast"] = true,
 }
 
 function MER:IsDeveloper()

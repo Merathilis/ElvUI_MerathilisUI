@@ -48,7 +48,7 @@ local function LoadSkin()
 		bu:SetText(format("|cff70C0F5%s", L["Undress"]))
 		bu:SetSize(60, 20)
 		bu:SetFrameStrata("HIGH")
-		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -15)
+		bu:SetPoint("TOPRIGHT", CharacterFrame, "TOPLEFT", 70, -35)
 
 		bu:SetScript("OnClick", function()
 			for i = 1, 17 do

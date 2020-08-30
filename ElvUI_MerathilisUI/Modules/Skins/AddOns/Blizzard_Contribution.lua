@@ -10,7 +10,7 @@ local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Contribution ~= true or E.private.muiSkins.blizzard.contribution ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.contribution ~= true or E.private.muiSkins.blizzard.contribution ~= true then return end
 
 	--Main Frame
 	_G.ContributionCollectionFrame:StripTextures()

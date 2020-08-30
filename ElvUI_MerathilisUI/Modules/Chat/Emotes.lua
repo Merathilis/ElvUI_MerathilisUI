@@ -79,7 +79,6 @@ local emotes = {
 	{":monkaomega:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\monkaomega]=]},
 	{":salt:", [=[Interface\AddOns\ElvUI_MerathilisUI\media\textures\chatEmojis\salt]=]},
 }
-
 module.emotes = emotes
 
 local ShowEmoteTableButton
@@ -87,7 +86,7 @@ local EmoteTableFrame
 local text, texture
 
 local function CreateEmoteTableFrame()
-	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent)
+	EmoteTableFrame = CreateFrame("Frame", "EmoteTableFrame", E.UIParent, "BackdropTemplate")
 	EmoteTableFrame:CreateBackdrop("Transparent")
 	EmoteTableFrame.backdrop:Styling()
 	EmoteTableFrame:SetWidth((ChatEmote.Config.iconSize + 2) * 12 + 4)
@@ -171,10 +170,9 @@ function module:Initialize()
 	if E.db.mui.chat.emotes ~= true or E.private.chat.enable ~= true then return end
 
 	local Emote = self.ChatEmote
-	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel.backdrop)
-	ChatEmote:SetPoint("RIGHT", _G.CopyChatButton1, "LEFT", 0, 0)
-	ChatEmote:SetWidth(12)
-	ChatEmote:SetHeight(12)
+	local ChatEmote = CreateFrame("Button", "mUIEmote", _G.LeftChatPanel)
+	ChatEmote:SetPoint("RIGHT", _G.ElvUI_CopyChatButton1, "LEFT", 0, 0)
+	ChatEmote:SetSize(12, 12)
 	ChatEmote:SetScript("OnClick", function()
 		if InCombatLockdown() then return end
 		Emote.ToggleEmoteTable()
@@ -183,6 +181,7 @@ function module:Initialize()
 	ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")
 	ChatEmote:GetNormalTexture():SetDesaturated(true)
 	ChatEmote:GetNormalTexture():SetAlpha(.45)
+
 	ChatEmote:SetScript("OnEnter", function(self)
 		_G.GameTooltip:SetOwner(self, "ANCHOR_TOP", 0, 6)
 		_G.GameTooltip:AddLine(L["Click to open Emoticon Frame"])
@@ -191,6 +190,7 @@ function module:Initialize()
 		ChatEmote:GetNormalTexture():SetDesaturated(false)
 		ChatEmote:GetNormalTexture():SetAlpha(1)
 	end)
+
 	ChatEmote:SetScript("OnLeave", function(self)
 		_G.GameTooltip:Hide()
 		ChatEmote:SetNormalTexture("Interface\\Addons\\ElvUI\\media\\ChatEmojis\\Smile")

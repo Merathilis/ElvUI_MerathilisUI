@@ -215,12 +215,12 @@ end
 
 --Change border when mouse is inside the button
 local function ButtonEnter(self)
-	self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
+	self.backdrop:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 end
 
 --Change border back to normal when mouse leaves button
 local function ButtonLeave(self)
-	self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	self.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 end
 
 function module:CreateRaidManager()

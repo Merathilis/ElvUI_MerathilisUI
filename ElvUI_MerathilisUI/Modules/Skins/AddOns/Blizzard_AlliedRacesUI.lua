@@ -9,7 +9,7 @@ local select = select
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AlliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
 	S:HandlePortraitFrame(AlliedRacesFrame, true)

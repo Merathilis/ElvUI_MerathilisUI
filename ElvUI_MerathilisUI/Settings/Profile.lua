@@ -127,7 +127,10 @@ MP.chat = {
 		timeout = 8,
 		fadeOutTime = 0.65
 	},
-	seperators = true,
+	seperators = {
+		enable = true,
+		visibility = "SHOWBOTH",
+	},
 }
 
 MP.colors = {
@@ -153,7 +156,6 @@ MP.misc = {
 		textStyle = "PARAGON",
 		paragonColor = {r = 0.9, g = 0.8, b = 0.6},
 	},
-	skipAzerite = true,
 	funstuff = true,
 	wowheadlinks = true,
 	respec = true,
@@ -451,6 +453,7 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	panelSize = 427,
 }
 
 MP.smb = {
@@ -531,10 +534,6 @@ MP.tooltip = {
 	factionIcon = true,
 	petIcon = true,
 	keystone = true,
-	azerite = {
-		enable = true,
-		onlyIcons = false,
-	},
 	titleColor = true,
 	progressInfo = {
 		enable = true,
@@ -546,9 +545,6 @@ MP.tooltip = {
 			EternalPalace = true,
 			Nyalotha = true,
 		}
-	},
-	corruption = {
-		enable = true,
 	},
 }
 
@@ -665,7 +661,6 @@ MP.raidCD = {
 
 MP.armory = {
 	enable = true,
-	azeritebtn = true,
 	undressButton = true,
 	durability = {
 		enable = true,

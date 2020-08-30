@@ -1,3 +1,19 @@
+[b][color=orange]v4.54[/color], 27.08.2020[/b][list]
+[*]Fixed an incompatibility error, which errors out my Plugin[/list]
+
+
+[b][color=orange]v4.53[/color], 27.08.2020[/b][list]
+[*]Added Holographic Digitalization to the LocPanel Hearthstones
+[*]Updated the logo for my SplashScreen
+[*]Don't hide some textures from the ObjectiveTracker
+[*]Changed my AFK screen
+[*]Added an option to adjust the Style Panel Width
+[*]Take account to the ElvUI Healprediction changes
+[*]Adjust the frame strata for my right Chat Datatext
+[*]Added a new font "Gotham Narrow Ultra"
+[*]Some code cleanup and misc changes[/list]
+
+
 [b][color=orange]v4.52[/color], 16.07.2020[/b][list]
 [*]Take account for the new Aura Color Option from ElvUI.
 [*]Don't force settings anymore if you enable the rectangle Minimap.

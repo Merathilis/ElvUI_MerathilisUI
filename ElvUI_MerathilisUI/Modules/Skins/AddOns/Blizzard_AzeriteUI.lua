@@ -9,7 +9,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AzeriteUI ~= true or E.private.muiSkins.blizzard.AzeriteUI ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.azeriteUI ~= true or E.private.muiSkins.blizzard.AzeriteUI ~= true then return end
 
 	local AzeriteEmpoweredItemUI = _G.AzeriteEmpoweredItemUI
 	AzeriteEmpoweredItemUI:Styling()

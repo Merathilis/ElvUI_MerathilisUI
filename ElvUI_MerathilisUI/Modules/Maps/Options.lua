@@ -16,7 +16,7 @@ local function Minimap()
 
 	E.Options.args.mui.args.modules.args.minimap = {
 		type = "group",
-		name = E.NewSign..L["MiniMap"],
+		name = L["MiniMap"],
 		get = function(info) return E.db.mui.maps.minimap[ info[#info] ] end,
 		set = function(info, value) E.db.mui.maps.minimap[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		disabled = function() return not E.private.general.minimap.enable end,
@@ -42,7 +42,7 @@ local function Minimap()
 					rectangle = {
 						order = 3,
 						type = "toggle",
-						name = E.NewSign..L["Rectangle Minimap"],
+						name = L["Rectangle Minimap"],
 						desc = L["|cffFF0000WARNING:|r If you enable this, you must adjust your Interface manually."],
 					},
 				},

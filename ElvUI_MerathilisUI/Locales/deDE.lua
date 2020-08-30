@@ -147,7 +147,6 @@ L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
-L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 L["Fun Stuff"] = "Lustiges Zeugs"
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true -- No need to translate
@@ -254,8 +253,6 @@ L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvU
 
 ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
-L["Azerite Buttons"] = "Azerittasten"
-L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
 L["Durability"] = "Haltbarkeit"
 L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
 L["Damaged Only"] = "Nur beschädigt"
@@ -273,9 +270,6 @@ L["Only Relevant Stats"] = "Nur relevante Attribute"
 L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
 L["Item Level"] = "Gegenstandsstufe"
 L["Categories"] = "Kategorien"
-L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
-L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
-L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
 L["Slot Gradient"] = "Gegenstand-Farbverlauf"
 L["Indicators"] = "Indikatoren"
 L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
@@ -283,13 +277,6 @@ L["Transmog"] = true -- No need to translate
 L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogriefizierten Gegenstand."
 L["Illusion"] = "Illusionen"
 L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffen Illusionen."
--- PRINTS
-L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
-L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
-L["Equipped shoulder is not an Azerite item."] = "Ausgerüstete Schulter ist kein Azerite Gegenstand."
-L["No shoulder item is equipped."] = "Kein Schulter Gegenstand ausgerüstet."
-L["Equipped chest is not an Azerite item."] = "Ausgerüstete Brust ist kein Azerite Gegenstand."
-L["No chest item is equipped."] = "Kein Brust Gegenstand ausgerüstet."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {

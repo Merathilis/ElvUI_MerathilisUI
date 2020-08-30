@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
 local LCG = LibStub('LibCustomGlow-1.0')
+local COMP = MER:GetModule("mUICompatibility")
 local LSM = E.LSM or E.Libs.LSM
-if IsAddOnLoaded("ElvUI_SLE") then return end
 
 -- Cache global variables
 -- Lua functions
@@ -26,8 +26,6 @@ local C_Transmog_GetSlotVisualInfo = C_Transmog.GetSlotVisualInfo
 local Enum_TransmogType_Appearance = Enum.TransmogType.Appearance
 local Enum_TransmogType_Illusion = Enum.TransmogType.Illusion
 --GLOBALS:
-
-local HasAnyUnselectedPowers = C_AzeriteEmpoweredItem.HasAnyUnselectedPowers
 
 local initialized = false
 local updateTimer
@@ -273,24 +271,6 @@ function module:BuildInformation()
 	end
 end
 
-function module:AzeriteGlow()
-	for i = 1, #AZSlots do
-		local azslot = _G["Character"..AZSlots[i].."Slot"]
-		local r, g, b = unpack(E["media"].rgbvaluecolor)
-
-		hooksecurefunc(azslot, "DisplayAsAzeriteEmpoweredItem", function(self, itemLocation)
-			self.AzeriteTexture:Hide()
-			self.AvailableTraitFrame:Hide()
-
-			if HasAnyUnselectedPowers(itemLocation) then
-				LCG.PixelGlow_Start(self, {r, g, b, 1}, nil, -0.25, nil, 2)
-			else
-				LCG.PixelGlow_Stop(self)
-			end
-		end)
-	end
-end
-
 function module:firstGarrisonToast()
 	module:UnregisterEvent("GARRISON_MISSION_FINISHED")
 	self:ScheduleTimer("UpdatePaperDoll", 7)
@@ -301,7 +281,7 @@ function module:Initialize()
 	MER:RegisterDB(self, "armory")
 
 	if not module.db.enable or E.private.skins.blizzard.character ~= true then return end
-	if (IsAddOnLoaded("ElvUI_SLE") and E.db.sle.Armory.Character.Enable) then return end
+	if (COMP.SLE and E.db.sle.armory.character.enable) then return end
 	if not E.db.general.itemLevel.displayCharacterInfo then return end
 
 	module:RegisterEvent("UPDATE_INVENTORY_DURABILITY", "UpdatePaperDoll", false)
@@ -320,8 +300,6 @@ function module:Initialize()
 		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
 		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
 	end
-
-	module:AzeriteGlow()
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.armory

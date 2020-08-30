@@ -36,7 +36,7 @@ end
 
 function MI:WorldMapLinks()
 	-- Create editbox
-	local EditBox = CreateFrame("EditBox", nil, _G.WorldMapFrame.BorderFrame)
+	local EditBox = CreateFrame("EditBox", nil, _G.WorldMapFrame.BorderFrame, "BackdropTemplate")
 	EditBox:ClearAllPoints()
 	EditBox:SetPoint("TOPLEFT", 20, -4)
 	EditBox:SetHeight(16)
@@ -69,7 +69,7 @@ function MI:WorldMapLinks()
 			questID = QuestMapFrame_GetDetailQuestID()
 		else
 			-- Get quest ID from currently selected quest on world map
-			questID = GetSuperTrackedQuestID()
+			questID = C_SuperTrack.GetSuperTrackedQuestID()
 		end
 
 		if questID then
@@ -93,7 +93,7 @@ function MI:WorldMapLinks()
 	end
 
 	-- Set URL when super tracked quest changes and on startup
-	EditBox:RegisterEvent("SUPER_TRACKED_QUEST_CHANGED")
+	EditBox:RegisterEvent("SUPER_TRACKING_CHANGED")
 	EditBox:SetScript("OnEvent", SetQuestInBox)
 	SetQuestInBox()
 
@@ -121,7 +121,7 @@ end
 function MI:AchievementLinks()
 	local function DoWowheadAchievementFunc()
 		-- Create editbox
-		local EditBox = CreateFrame("EditBox", nil, _G.AchievementFrame)
+		local EditBox = CreateFrame("EditBox", nil, _G.AchievementFrame, "BackdropTemplate")
 		EditBox:ClearAllPoints()
 		EditBox:SetPoint("BOTTOMRIGHT", -50, 1)
 		EditBox:SetHeight(16)

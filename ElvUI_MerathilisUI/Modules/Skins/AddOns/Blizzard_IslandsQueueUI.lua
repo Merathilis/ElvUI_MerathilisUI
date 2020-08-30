@@ -9,7 +9,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.IslandQueue ~= true or E.private.muiSkins.blizzard.IslandQueue ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.islandQueue ~= true or E.private.muiSkins.blizzard.IslandQueue ~= true then return end
 
 	local IslandsQueueFrame = _G.IslandsQueueFrame
 	IslandsQueueFrame:Styling()

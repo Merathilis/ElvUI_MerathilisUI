@@ -15,7 +15,7 @@ local function LoadSkin()
 	PVEFrame:Styling()
 
 	local iconSize = 56-2*E.mult
-	for i = 1, 4 do
+	for i = 1, 3 do
 		local bu = _G["GroupFinderFrame"]["groupButton"..i]
 
 		MERS:Reskin(bu)
