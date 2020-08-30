@@ -161,7 +161,7 @@ function module:CreateSeparators()
 	if E.db.mui.chat.seperators.enable ~= true then return end
 
 	--Left Chat Tab Separator
-	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel)
+	local ltabseparator = CreateFrame('Frame', 'LeftChatTabSeparator', _G.LeftChatPanel, "BackdropTemplate")
 	ltabseparator:SetFrameStrata('BACKGROUND')
 	ltabseparator:SetFrameLevel(_G.LeftChatPanel:GetFrameLevel() + 2)
 	ltabseparator:SetHeight(1)
@@ -170,7 +170,7 @@ function module:CreateSeparators()
 	ltabseparator:SetTemplate('Transparent')
 
 	--Right Chat Tab Separator
-	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel)
+	local rtabseparator = CreateFrame('Frame', 'RightChatTabSeparator', _G.RightChatPanel, "BackdropTemplate")
 	rtabseparator:SetFrameStrata('BACKGROUND')
 	rtabseparator:SetFrameLevel(_G.RightChatPanel:GetFrameLevel() + 2)
 	rtabseparator:SetHeight(1)
