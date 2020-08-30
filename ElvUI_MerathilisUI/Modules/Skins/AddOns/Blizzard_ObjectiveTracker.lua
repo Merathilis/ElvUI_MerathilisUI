@@ -164,14 +164,14 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
-		for _, block in next, self.usedBlocks do
-			if not block.IsSkinned then
-				SkinAutoQuestPopUpBlock(block)
-				block.IsSkinned = true
-			end
-		end
-	end)
+	--hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
+		--for _, block in next, self.usedBlocks do
+			--if not block.IsSkinned then
+				--SkinAutoQuestPopUpBlock(block)
+				--block.IsSkinned = true
+			--end
+		--end
+	--end)
 
 	_G.ObjectiveTrackerFrame:SetSize(235, 140)
 	_G.ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)
