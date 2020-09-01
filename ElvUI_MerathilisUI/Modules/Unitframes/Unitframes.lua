@@ -16,6 +16,8 @@ function module:ADDON_LOADED(event, addon)
 end
 
 function module:CreateHighlight(self)
+	if not E.db.mui.unitframes.highlight then return end
+
 	local hl = self:CreateTexture(nil, "OVERLAY")
 	hl:SetAllPoints()
 	hl:SetTexture("Interface\\PETBATTLES\\PetBattle-SelectedPetGlow")
