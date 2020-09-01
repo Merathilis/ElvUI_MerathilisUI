@@ -360,6 +360,7 @@ MP.unitframes = {
 	},
 	style = true,
 	roleIcons = true,
+	highlight = true,
 }
 
 MP.maps = {
