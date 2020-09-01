@@ -364,7 +364,7 @@ function module:CreateReminder(name, index)
 	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:SetSize(size, size)
+	frame:Size(size or (ElvFrame:GetHeight() -4))
 	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name

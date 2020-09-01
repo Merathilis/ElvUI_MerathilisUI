@@ -60,7 +60,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -75,7 +75,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -137,7 +137,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 

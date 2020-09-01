@@ -26,8 +26,8 @@ function MERL:CreateChatButtons()
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 2, -5)
-	ChatButton:SetSize(13, 13)
+	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
+	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
 	else
@@ -100,8 +100,8 @@ function MERL:ToggleChatPanels()
 	local panelHeight = E.db.chat.panelHeight
 	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
 
-	_G.LeftChatMover:SetHeight(panelHeight)
-	_G.RightChatMover:SetHeight((rightHeight or panelHeight))
+	_G.LeftChatMover:Height(panelHeight)
+	_G.RightChatMover:Height((rightHeight or panelHeight))
 end
 hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
 
@@ -109,8 +109,8 @@ function MERL:RefreshChatMovers()
 	local Left = _G.LeftChatPanel:GetPoint()
 	local Right = _G.RightChatPanel:GetPoint()
 
-	_G.LeftChatPanel:SetPoint(Left, _G.LeftChatMover, 0, 0)
-	_G.RightChatPanel:SetPoint(Right, _G.RightChatMover, 0, 0)
+	_G.LeftChatPanel:Point(Left, _G.LeftChatMover, 0, 0)
+	_G.RightChatPanel:Point(Right, _G.RightChatMover, 0, 0)
 end
 hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
 

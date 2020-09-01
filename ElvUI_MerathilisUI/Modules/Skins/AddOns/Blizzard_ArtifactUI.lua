@@ -60,8 +60,8 @@ local function LoadSkin()
 					if y == -80 or y == 0 then -- Blizz sets these two, maybe not best way for this but eh.
 						self:SetPoint(point, anchor, secondaryPoint, x, y+2)
 						if not E.PixelMode then
-							child.backdrop:SetPoint('TOPLEFT', child, 'TOPLEFT', -E.Border+2, E.Border-3)
-							child.backdrop:SetPoint('BOTTOMRIGHT', child, 'BOTTOMRIGHT', E.Border-2, E.Border+3)
+							child.backdrop:Point('TOPLEFT', child, 'TOPLEFT', -E.Border+2, E.Border-3)
+							child.backdrop:Point('BOTTOMRIGHT', child, 'BOTTOMRIGHT', E.Border-2, E.Border+3)
 						end
 					end
 				end)

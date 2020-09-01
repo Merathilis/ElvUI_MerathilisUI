@@ -183,7 +183,7 @@ function module:Initialize()
 	self.frame:SetFrameStrata('LOW')
 	self.frame:CreateBackdrop('Transparent')
 	self.frame:ClearAllPoints()
-	self.frame:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, 225)
+	self.frame:Point("BOTTOM", E.UIParent, "BOTTOM", 0, 225)
 	self.frame.buttons = {}
 
 	self.frame.backdrop:SetAllPoints()

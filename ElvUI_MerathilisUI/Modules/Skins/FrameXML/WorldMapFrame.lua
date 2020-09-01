@@ -20,7 +20,7 @@ local function LoadSkin()
 	_G.WorldMapFrame.backdrop:Styling()
 
 	local frame = CreateFrame("Frame", nil,  _G.QuestScrollFrame)
-	frame:SetSize(230, 20)
+	frame:Size(230, 20)
 	frame:SetPoint("TOP", 0, 21)
 	MERS:CreateBD(frame, .25)
 

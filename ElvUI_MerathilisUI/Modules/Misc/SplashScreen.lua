@@ -35,13 +35,13 @@ function MI:CreateSplash()
 	frame:Hide()
 
 	local tex = frame:CreateTexture()
-	tex:SetPoint("CENTER", frame, "CENTER")
+	tex:Point("CENTER", frame, "CENTER")
 	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1_Shadow.tga")
-	tex:SetSize(125, 125)
+	tex:Size(125, 125)
 
 	local version = MER:CreateText(frame, "OVERLAY", 14, nil, "CENTER")
 	version:FontTemplate(nil, 14, nil)
-	version:SetPoint("TOP", tex, "BOTTOM", 0, 10)
+	version:Point("TOP", tex, "BOTTOM", 0, 10)
 	version:SetFormattedText("v%s", MER.Version)
 	version:SetTextColor(1, 0.5, 0.25, 1)
 
