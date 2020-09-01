@@ -2701,6 +2701,10 @@ function MER:SetupDts()
 	E.db["movers"]["DTPanelMER_BottomPanelMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	E.db["movers"]["DTPanelMER_RightChatTopMover"] = "CENTER,MER_RightChatTopDT,CENTER"
 
+	local bottom = E.DataTexts:FetchFrame("MER_BottomPanel")
+	bottom:Point("CENTER", bottom.mover, "CENTER", 0, 0)
+	E:SaveMoverPosition("DTPanelMER_BottomPanelMover")
+
 	E:StaggeredUpdateAll(nil, true)
 
 	PluginInstallStepComplete.message = MER.Title..L["DataTexts Set"]
