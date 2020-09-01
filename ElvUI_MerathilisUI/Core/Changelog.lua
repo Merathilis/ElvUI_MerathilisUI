@@ -88,8 +88,8 @@ end
 
 function MER:CreateChangelog()
 	local frame = CreateFrame("Frame", "MerathilisUIChangeLog", E.UIParent)
-	frame:SetPoint("CENTER")
-	frame:SetSize(480, 420)
+	frame:Point("CENTER")
+	frame:Size(480, 420)
 	frame:CreateBackdrop("Transparent")
 	frame:SetMovable(true)
 	frame:EnableMouse(true)
@@ -100,8 +100,8 @@ function MER:CreateChangelog()
 	frame.backdrop:Styling()
 
 	local icon = CreateFrame("Frame", nil, frame)
-	icon:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
-	icon:SetSize(20, 20)
+	icon:Point("BOTTOMLEFT", frame, "TOPLEFT", 0, 3)
+	icon:Size(20, 20)
 	icon:CreateBackdrop("Transparent")
 	icon:Styling()
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
@@ -111,18 +111,18 @@ function MER:CreateChangelog()
 	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame)
-	title:SetPoint("LEFT", icon, "RIGHT", 1, 0)
-	title:SetSize(459, 20)
+	title:Point("LEFT", icon, "RIGHT", 1, 0)
+	title:Size(459, 20)
 	title:CreateBackdrop("Transparent")
 	title.backdrop:Styling()
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
-	title.text:SetPoint("CENTER", title, 0, -1)
+	title.text:Point("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
 
 	local close = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	close:Point("BOTTOM", frame, "BOTTOM", 0, 10)
 	close:SetText(CLOSE)
-	close:SetSize(80, 20)
+	close:Size(80, 20)
 	close:SetScript("OnClick", function()
 		frame:Hide()
 	end)
@@ -131,7 +131,7 @@ function MER:CreateChangelog()
 	frame.close = close
 
 	local countdown = MER:CreateText(close, "OVERLAY", 12, nil, "CENTER")
-	countdown:SetPoint("LEFT", close.Text, "RIGHT", 3, 0)
+	countdown:Point("LEFT", close.Text, "RIGHT", 3, 0)
 	countdown:SetTextColor(DISABLED_FONT_COLOR:GetRGB())
 	frame.countdown = countdown
 
@@ -139,7 +139,7 @@ function MER:CreateChangelog()
 	for i = 1, #ChangeLogData do
 		local button = CreateFrame("Frame", "Button"..i, frame)
 		button:SetSize(375, 16)
-		button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -offset)
+		button:Point("TOPLEFT", frame, "TOPLEFT", 5, -offset)
 
 		if i <= #ChangeLogData then
 			local string, isURL = ModifiedString(GetChangeLogInfo(i))
@@ -147,7 +147,7 @@ function MER:CreateChangelog()
 			button.Text = MER:CreateText(button, "OVERLAY", 11, nil, "CENTER")
 			button.Text.isURL = isURL
 			button.Text:SetText(string)
-			button.Text:SetPoint("LEFT", 0, 0)
+			button.Text:Point("LEFT", 0, 0)
 		end
 		offset = offset + 16
 	end

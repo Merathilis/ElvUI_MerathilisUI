@@ -26,7 +26,7 @@ function MERL:CreateChatButtons()
 	local panelBackdrop = E.db.chat.panelBackdrop
 	local ChatButton = CreateFrame("Frame", "mUIChatButton", _G["LeftChatPanel"].backdrop)
 	ChatButton:ClearAllPoints()
-	ChatButton:SetPoint("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
+	ChatButton:Point("TOPLEFT", _G["LeftChatPanel"].backdrop, "TOPLEFT", 4, -8)
 	ChatButton:Size(13, 13)
 	if E.db.chat.panelBackdrop == "HIDEBOTH" or E.db.chat.panelBackdrop == "LEFT" then
 		ChatButton:SetAlpha(0)
@@ -84,8 +84,8 @@ function MERL:ShadowOverlay()
 	if E.db.mui.general.shadowOverlay ~= true then return end
 
 	self.f = CreateFrame("Frame", MER.Title.."ShadowBackground")
-	self.f:SetPoint("TOPLEFT")
-	self.f:SetPoint("BOTTOMRIGHT")
+	self.f:Point("TOPLEFT")
+	self.f:Point("BOTTOMRIGHT")
 	self.f:SetFrameLevel(0)
 	self.f:SetFrameStrata("BACKGROUND")
 

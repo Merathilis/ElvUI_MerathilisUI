@@ -211,7 +211,7 @@ function module:BuildInformation()
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
+		frame.DurabilityInfo:Point("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.durability.font), module.db.durability.textSize, module.db.durability.fontOutline)
 
 		-- Gradiation
@@ -224,10 +224,10 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT")
+			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT")
+			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 
@@ -259,7 +259,7 @@ function module:BuildInformation()
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
 		frame.Illusion:Size(14)
-		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
 		frame.Illusion:CreateBackdrop()
@@ -296,9 +296,9 @@ function module:Initialize()
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
 		_G["CharacterModelFrame"]:ClearAllPoints()
-		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
-		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+		_G["CharacterModelFrame"]:Point('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelFrame"]:Point('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelFrame"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
 	function module:ForUpdateAll()

@@ -27,9 +27,9 @@ local Colors = {
 
 local function ZoneTextPos()
 	if (_G["PVPInfoTextString"]:GetText() == "") then
-		_G["SubZoneTextString"]:SetPoint("TOP", "ZoneTextString", "BOTTOM", 0, 0)
+		_G["SubZoneTextString"]:Point("TOP", "ZoneTextString", "BOTTOM", 0, 0)
 	else
-		_G["SubZoneTextString"]:SetPoint("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
+		_G["SubZoneTextString"]:Point("TOP", "PVPInfoTextString", "BOTTOM", 0, 0)
 	end
 end
 

@@ -115,9 +115,9 @@ function MERC:ChatBar()
 	-- Order Postions
 	for i = 1, #buttonList do
 		if i == 1 then
-			buttonList[i]:SetPoint("LEFT")
+			buttonList[i]:Point("LEFT")
 		else
-			buttonList[i]:SetPoint("LEFT", buttonList[i-1], "RIGHT", padding, 0)
+			buttonList[i]:Point("LEFT", buttonList[i-1], "RIGHT", padding, 0)
 		end
 	end
 end

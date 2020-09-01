@@ -249,7 +249,7 @@ module.Spells = {
 function module:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:SetPoint("TOP", E.UIParent, "TOP", 0, -1)
+	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
@@ -265,13 +265,13 @@ function module:CreateLocationPanel()
 
 	--Coords
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
-	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
+	loc_panel.Xcoord:Point("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
-	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
+	loc_panel.Ycoord:Point("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
 	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)

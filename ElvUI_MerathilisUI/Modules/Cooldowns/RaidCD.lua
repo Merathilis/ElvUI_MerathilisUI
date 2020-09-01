@@ -104,21 +104,21 @@ end
 
 local function UpdatePositions()
 	if charges and Ressesbars[1] then
-		Ressesbars[1]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
+		Ressesbars[1]:Point("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
 		Ressesbars[1].id = 1
 		for i = 1, #bars do
 			bars[i]:ClearAllPoints()
 			if i == 1 then
 				if module.db.upwards == true then
-					bars[i]:SetPoint("BOTTOMRIGHT", Ressesbars[1], "TOPRIGHT", 0, 13)
+					bars[i]:Point("BOTTOMRIGHT", Ressesbars[1], "TOPRIGHT", 0, 13)
 				else
-					bars[i]:SetPoint("TOPRIGHT", Ressesbars[1], "BOTTOMRIGHT", 0, -13)
+					bars[i]:Point("TOPRIGHT", Ressesbars[1], "BOTTOMRIGHT", 0, -13)
 				end
 			else
 				if module.db.upwards == true then
-					bars[i]:SetPoint("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
+					bars[i]:Point("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
 				else
-					bars[i]:SetPoint("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
+					bars[i]:Point("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
 				end
 			end
 			bars[i].id = i
@@ -127,12 +127,12 @@ local function UpdatePositions()
 		for i = 1, #bars do
 			bars[i]:ClearAllPoints()
 			if i == 1 then
-				bars[i]:SetPoint("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
+				bars[i]:Point("TOPRIGHT", RaidCDAnchor, "TOPRIGHT", 0, 0)
 			else
 				if module.db.upwards == true then
-					bars[i]:SetPoint("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
+					bars[i]:Point("BOTTOMRIGHT", bars[i-1], "TOPRIGHT", 0, 13)
 				else
-					bars[i]:SetPoint("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
+					bars[i]:Point("TOPRIGHT", bars[i-1], "BOTTOMRIGHT", 0, -13)
 				end
 			end
 			bars[i].id = i
@@ -211,9 +211,9 @@ local function CreateBar()
 	local bar = CreateFrame("Statusbar", nil, E.UIParent)
 	bar:SetFrameStrata("MEDIUM")
 	if db.show_icon == true then
-		bar:SetSize(db.width, db.height)
+		bar:Size(db.width, db.height)
 	else
-		bar:SetSize(db.width + 28, db.height)
+		bar:Size(db.width + 28, db.height)
 	end
 	bar:SetStatusBarTexture(E.media.normTex)
 	bar:SetMinMaxValues(0, 100)
@@ -225,20 +225,20 @@ local function CreateBar()
 
 	bar.left = bar:CreateFontString(nil, "OVERLAY")
 	bar.left:FontTemplate(E.Libs.LSM:Fetch("font", db.text.font), db.text.fontSize, db.text.fontOutline)
-	bar.left:SetPoint("LEFT", 2, 0)
+	bar.left:Point("LEFT", 2, 0)
 	bar.left:SetJustifyH("LEFT")
-	bar.left:SetSize(db.width - 30, db.text.fontSize)
+	bar.left:Size(db.width - 30, db.text.fontSize)
 
 	bar.right = bar:CreateFontString(nil, "OVERLAY")
 	bar.right:FontTemplate(E.Libs.LSM:Fetch("font", db.text.font), db.text.fontSize, db.text.fontOutline)
-	bar.right:SetPoint("RIGHT", 1, 0)
+	bar.right:Point("RIGHT", 1, 0)
 	bar.right:SetJustifyH("RIGHT")
 
 	if db.show_icon == true then
 		bar.icon = CreateFrame("Button", nil, bar)
 		bar.icon:SetWidth(bar:GetHeight() + 6)
 		bar.icon:SetHeight(bar.icon:GetWidth())
-		bar.icon:SetPoint("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
+		bar.icon:Point("BOTTOMRIGHT", bar, "BOTTOMLEFT", -7, 0)
 		bar.icon:CreateBackdrop()
 	end
 
@@ -415,11 +415,11 @@ function module:Initialize()
 		end
 	end
 
-	RaidCDAnchor:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 3, -100)
+	RaidCDAnchor:Point("TOPLEFT", E.UIParent, "TOPLEFT", 3, -100)
 	if module.db.show_icon == true then
-		RaidCDAnchor:SetSize(module.db.width + 32, module.db.height + 10)
+		RaidCDAnchor:Size(module.db.width + 32, module.db.height + 10)
 	else
-		RaidCDAnchor:SetSize(module.db.width + 32, module.db.height + 4)
+		RaidCDAnchor:Size(module.db.width + 32, module.db.height + 4)
 	end
 	E:CreateMover(RaidCDAnchor, "MER_RaidCDMover", L["Raid Cooldown"], nil, nil, nil, 'ALL,RAID,PARTY,ARENA,MERATHILISUI', nil, "mui,modules,cooldowns,raid")
 

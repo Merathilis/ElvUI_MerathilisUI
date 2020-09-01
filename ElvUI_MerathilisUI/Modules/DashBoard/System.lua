@@ -35,18 +35,18 @@ function module:UpdateSystem()
 	for _, name in pairs(boards) do
 		if db.chooseSystem[name] == true then
 			holder:Show()
-			holder:SetHeight(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#module.SystemDB + 1)) + DASH_SPACING)
+			holder:Width(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#module.SystemDB + 1)) + DASH_SPACING)
 
 			local sysFrame = CreateFrame('Frame', 'MER_'..name, holder)
-			sysFrame:SetHeight(DASH_HEIGHT)
-			sysFrame:SetWidth(DASH_WIDTH)
-			sysFrame:SetPoint('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
+			sysFrame:Heigth(DASH_HEIGHT)
+			sysFrame:Width(DASH_WIDTH)
+			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
 
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
-			sysFrame.dummy:SetPoint('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
-			sysFrame.dummy:SetPoint('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:SetHeight(E.PixelMode and 3 or 5)
+			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
+			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
+			sysFrame.dummy:Heigth(E.PixelMode and 3 or 5)
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()
@@ -60,12 +60,12 @@ function module:UpdateSystem()
 
 			sysFrame.spark = sysFrame.Status:CreateTexture(nil, 'OVERLAY', nil);
 			sysFrame.spark:SetTexture([[Interface\CastingBar\UI-CastingBar-Spark]]);
-			sysFrame.spark:SetSize(12, 6)
+			sysFrame.spark:Size(12, 6)
 			sysFrame.spark:SetBlendMode('ADD')
-			sysFrame.spark:SetPoint('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
+			sysFrame.spark:Point('CENTER', sysFrame.Status:GetStatusBarTexture(), 'RIGHT')
 
 			sysFrame.Text = sysFrame.Status:CreateFontString(nil, 'OVERLAY')
-			sysFrame.Text:SetPoint('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
+			sysFrame.Text:Point('LEFT', sysFrame, 'LEFT', 6, (E.PixelMode and 2 or 3))
 			sysFrame.Text:SetJustifyH('LEFT')
 
 			tinsert(module.SystemDB, sysFrame)
@@ -75,9 +75,9 @@ function module:UpdateSystem()
 	for key, frame in ipairs(module.SystemDB) do
 		frame:ClearAllPoints()
 		if(key == 1) then
-			frame:SetPoint( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
+			frame:Point( 'TOPLEFT', holder, 'TOPLEFT', 0, -SPACING -(E.PixelMode and 0 or 4))
 		else
-			frame:SetPoint('TOP', module.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
+			frame:Point('TOP', module.SystemDB[key - 1], 'BOTTOM', 0, -SPACING -(E.PixelMode and 0 or 2))
 		end
 	end
 end
@@ -92,8 +92,8 @@ function module:CreateSystemDashboard()
 	local DASH_WIDTH = E.db.mui.dashboard.system.width or 150
 
 	self.sysHolder = self:CreateDashboardHolder("MER_SystemDashboard", "system")
-	self.sysHolder:SetPoint("TOPLEFT", E.UIParent, "TOPLEFT", 10, -55)
-	self.sysHolder:SetWidth(DASH_WIDTH)
+	self.sysHolder:Point("TOPLEFT", E.UIParent, "TOPLEFT", 10, -55)
+	self.sysHolder:Width(DASH_WIDTH)
 
 	module:UpdateSystem()
 	module:UpdateHolderDimensions(self.sysHolder, "system", module.SystemDB)
