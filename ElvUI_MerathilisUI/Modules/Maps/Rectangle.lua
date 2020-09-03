@@ -16,7 +16,7 @@ local BAR_HEIGHT = 22
 
 function module:SkinMiniMap()
 	_G.Minimap:SetMaskTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\rectangle')
-	_G.Minimap:SetSize(E.MinimapSize, E.MinimapSize)
+	_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
 	_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
 	_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
 
@@ -27,15 +27,15 @@ function module:SkinMiniMap()
 	--_G.Minimap:SetPoint("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, E.Border)
 
 	--*Below sets mover to same size of minimap, I didn't do this on purpose due to people moving the minimap in an area not good
-	_G.Minimap:SetPoint("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
+	_G.Minimap:Point("TOPRIGHT", _G.MMHolder, "TOPRIGHT", -E.Border, (E.MinimapSize/6.1)+E.Border)
 
 	if _G.Minimap.location then
 		module:UpdateLocationText()
 	end
 
 	_G.MinimapPanel:ClearAllPoints()
-	_G.MinimapPanel:SetPoint('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -1, (E.MinimapSize/6.1)-1)
-	_G.MinimapPanel:SetPoint('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
+	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -E.Border, (E.MinimapSize/6.1)-1)
+	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', E.Border, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
 
 	if _G.Minimap.backdrop then
 		_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
