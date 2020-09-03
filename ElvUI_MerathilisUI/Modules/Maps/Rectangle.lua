@@ -34,8 +34,8 @@ function module:SkinMiniMap()
 	end
 
 	_G.MinimapPanel:ClearAllPoints()
-	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -1, (E.MinimapSize/6.1)-1)
-	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', 1, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
+	_G.MinimapPanel:Point('TOPLEFT', _G.Minimap, 'BOTTOMLEFT', -E.Border, (E.MinimapSize/6.1)-1)
+	_G.MinimapPanel:Point('BOTTOMRIGHT', _G.Minimap, 'BOTTOMRIGHT', E.Border, ((E.MinimapSize/6.1)-BAR_HEIGHT)-1)
 
 	if _G.Minimap.backdrop then
 		_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
