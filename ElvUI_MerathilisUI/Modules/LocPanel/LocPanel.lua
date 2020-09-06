@@ -493,7 +493,7 @@ function module:ItemList(check)
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
-						-- break
+						--break
 					else
 						local curPriorirty = hsReamodulerio[tostring(ID)]
 						if curPriorirty < priority then
@@ -506,16 +506,18 @@ function module:ItemList(check)
 			end
 		end
 
-		local data = ShownHearthstone
-		local ID, isToy = data.secure.ID, data.secure.isToy
-		local cd = DD:GetCooldown("Item", ID)
-		E:CopyTable(tmp, data)
+		if ShownHearthstone then
+			local data = ShownHearthstone
+			local ID, isToy = data.secure.ID, data.secure.isToy
+			local cd = DD:GetCooldown("Item", ID)
+			E:CopyTable(tmp, data)
 
-		if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
-			tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
-			tinsert(module.MainMenu, tmp)
-		else
-			tinsert(module.MainMenu, data)
+			if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
+				tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
+				tinsert(module.MainMenu, tmp)
+			else
+				tinsert(module.MainMenu, data)
+			end
 		end
 	end
 
