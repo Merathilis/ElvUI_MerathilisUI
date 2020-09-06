@@ -753,7 +753,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["experience"]["height"] = 12
 	E.db["databars"]["experience"]["textSize"] = 9
 	E.db["databars"]["experience"]["font"] = "Merathilis Expressway"
-	E.db["databars"]["experience"]["width"] = 285
+	E.db["databars"]["experience"]["width"] = 283
 	E.db["databars"]["experience"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["experience"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["experience"]["hideAtMaxLevel"] = true
@@ -765,7 +765,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
 	if layout == "dps" then
-		E.db["databars"]["reputation"]["width"] = 285
+		E.db["databars"]["reputation"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["reputation"]["width"] = 278
 	end
@@ -774,7 +774,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
 	E.db["databars"]["reputation"]["hideInCombat"] = true
 	E.db["databars"]["honor"]["enable"] = false
-	E.db["databars"]["honor"]["width"] = 285
+	E.db["databars"]["honor"]["width"] = 283
 	E.db["databars"]["honor"]["height"] = 12
 	E.db["databars"]["honor"]["textSize"] = 9
 	E.db["databars"]["honor"]["font"] = "Merathilis Expressway"
@@ -788,7 +788,7 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["azerite"]["textSize"] = 9
 	if layout == "dps" then
-		E.db["databars"]["azerite"]["width"] = 285
+		E.db["databars"]["azerite"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["azerite"]["width"] = 278
 	end
@@ -797,12 +797,23 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["azerite"]["mouseover"] = false
 	E.db["databars"]["azerite"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["azerite"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["threat"]["enable"] = true
+	E.db["databars"]["threat"]["width"] = 283
+	E.db["databars"]["threat"]["height"] = 12
+	E.db["databars"]["threat"]["textSize"] = 9
+	E.db["databars"]["threat"]["font"] = "Merathilis Expressway"
+	E.db["databars"]["threat"]["hideOutsidePvP"] = true
+	E.db["databars"]["threat"]["hideInCombat"] = true
+	E.db["databars"]["threat"]["hideInVehicle"] = true
+	E.db["databars"]["threat"]["textFormat"] = "CURPERCREM"
+	E.db["databars"]["threat"]["orientation"] = "HORIZONTAL"
 
-	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,59"
+	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,88"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"
 	E.db["movers"]["HonorBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,95"
-	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,83"
-	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,71"
+	E.db["movers"]["ExperienceBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,76"
+	E.db["movers"]["ReputationBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,61"
+	E.db["movers"]["ThreatBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,101"
 	E.db["movers"]["MinimapMover"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-2,48"
 	E.db["movers"]["mUI_RaidMarkerBarAnchor"] = "BOTTOMRIGHT,ElvUIParent,BOTTOMRIGHT,-277,178"
 
