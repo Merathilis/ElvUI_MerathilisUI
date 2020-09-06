@@ -20,8 +20,7 @@ local LSM = E.LSM
 
 -- add alpha in shadow color (sa) and moved the r, g, b to the end cause of Blizz auto coloring
 local function SetFont(obj, font, size, style, sr, sg, sb, sa, sox, soy, r, g, b)
-	if (not obj) then return end
-
+	if not obj then return end
 	obj:SetFont(font, size, style)
 	if sr and sg and sb then obj:SetShadowColor(sr, sg, sb, sa) end
 	if sox and soy then obj:SetShadowOffset(sox, soy) end
@@ -51,7 +50,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(NumberFont_GameNormal,				NUMBER, 10, "OUTLINE", nil, {0, 0, 0}, 1, -1)
 		SetFont(NumberFont_OutlineThick_Mono_Small,	NUMBER, self.db.general.fontSize, "OUTLINE")
 		SetFont(NumberFont_Small,					NUMBER, 12, "OUTLINE", nil, {0, 0, 0}, 1, -1)
-		SetFont(SystemFont_Shadow_Large_Outline,	NUMBER, 20, "OUTLINE")
+		--SetFont(SystemFont_Shadow_Large_Outline,	NUMBER, 20, "OUTLINE")
 		SetFont(NumberFont_Normal_Med,				NORMAL, 14, "OUTLINE")
 		SetFont(NumberFont_Outline_Huge,			NUMBER, 28, "OUTLINE", 28)
 		SetFont(NumberFont_Outline_Large,			NUMBER, 15, "OUTLINE")
@@ -69,7 +68,7 @@ function E:UpdateBlizzardFonts()
 		SetFont(SystemFont_Med3,					NORMAL, self.db.general.fontSize*1.1)
 		SetFont(SystemFont_OutlineThick_Huge2,		NORMAL, 20, MONOCHROME.."THICKOUTLINE")
 		SetFont(SystemFont_Outline_Small,			NUMBER, self.db.general.fontSize, "OUTLINE")
-		SetFont(SystemFont_Shadow_Large,			NORMAL, 15)
+		--SetFont(SystemFont_Shadow_Large,			NORMAL, 15) -- crashes wow
 		SetFont(SystemFont_Shadow_Large2,			NORMAL, 18)
 		SetFont(SystemFont_Shadow_Med1,				NORMAL, self.db.general.fontSize)
 		SetFont(SystemFont_Shadow_Med3,				NORMAL, self.db.general.fontSize*1.1)
