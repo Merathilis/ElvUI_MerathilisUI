@@ -745,6 +745,9 @@ function MER:SetupLayout(layout)
 	E.private["general"]["namefont"] = "Merathilis Expressway"
 	E.private["general"]["dmgfont"] = "Merathilis Expressway"
 
+	E.db["databars"]["customTexture"] = true
+	E.db["databars"]["statusbar"] = "RenAscensionL"
+
 	E.db["databars"]["experience"]["enable"] = true
 	E.db["databars"]["experience"]["mouseover"] = false
 	E.db["databars"]["experience"]["height"] = 12
@@ -761,11 +764,13 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["reputation"]["height"] = 12
 	E.db["databars"]["reputation"]["font"] = "Merathilis Expressway"
 	E.db["databars"]["reputation"]["textSize"] = 9
+
 	if layout == "dps" then
 		E.db["databars"]["reputation"]["width"] = 283
 	elseif layout == "healer" then
 		E.db["databars"]["reputation"]["width"] = 278
 	end
+
 	E.db["databars"]["reputation"]["textFormat"] = "CURPERCREM"
 	E.db["databars"]["reputation"]["orientation"] = "HORIZONTAL"
 	E.db["databars"]["reputation"]["hideInVehicle"] = true
