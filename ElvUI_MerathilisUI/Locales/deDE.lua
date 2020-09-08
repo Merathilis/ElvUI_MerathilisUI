@@ -593,13 +593,6 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = "Fehlerbehandlung"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "In der unten aufgeführten Liste kannst du einige nervende Fehlermeldungen, wie zum Beispiel: |cffff7d0a'Nicht genug Wut'|r oder |cffff7d0a'Nicht genug Energie'|r, deaktivieren."
-L["Filter Errors"] = "Fehler filtern"
-L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
-L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "deaktiviert "
 L[" from "] = " von "

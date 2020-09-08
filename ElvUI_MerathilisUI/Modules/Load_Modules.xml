@@ -3,7 +3,6 @@
 	<Include file="Extern\Load_Extern.xml"/>
 	<Include file="Armory\Load_Armory.xml"/>
 	<Include file="Bags\Load_Bags.xml"/>
-	<Include file="Blizzard\Load_Blizzard.xml"/>
 	<Include file="Chat\Load_Chat.xml"/>
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>

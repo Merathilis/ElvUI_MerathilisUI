@@ -24,7 +24,7 @@ function module:Initialize()
 	module.db = E.db.mui.databars
 	MER:RegisterDB(self, 'databars')
 
-	C_Timer_After(1, module.StyleBackdrops)
+	self:StyleBackdrops()
 end
 
 MER:RegisterModule(module:GetName())

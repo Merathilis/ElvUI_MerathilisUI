@@ -804,11 +804,6 @@ function MER:SetupLayout(layout)
 	E.db["databars"]["threat"]["height"] = 12
 	E.db["databars"]["threat"]["textSize"] = 9
 	E.db["databars"]["threat"]["font"] = "Merathilis Expressway"
-	E.db["databars"]["threat"]["hideOutsidePvP"] = true
-	E.db["databars"]["threat"]["hideInCombat"] = true
-	E.db["databars"]["threat"]["hideInVehicle"] = true
-	E.db["databars"]["threat"]["textFormat"] = "CURPERCREM"
-	E.db["databars"]["threat"]["orientation"] = "HORIZONTAL"
 
 	E.db["movers"]["AzeriteBarMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,88"
 	E.db["movers"]["TotemBarMover"] = "BOTTOMLEFT,ElvUIParent,BOTTOMLEFT,503,12"

@@ -617,13 +617,6 @@ L["This will create and apply profile for "] = "这将创建并应用配置文�
 -- Changelog
 L["Changelog"] = "更新日志"
 
--- Errors
-L["Error Handling"] = "错误处理"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "在下面的列表中, 你可以禁用一些领人烦恼的错误, 比如 |cffff7d0a'没有足够的怒气'|r 或 |cffff7d0a'没有足够的能量'|r"
-L["Filter Errors"] = "过滤错误"
-L["Choose specific errors from the list below to hide/ignore."] = "从下面的列表中选择特定的错误以隐藏/忽略."
-L["Hides all errors regardless of filtering while in combat."] = "无论如果过滤，战斗中都隐藏所有错误."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
 L[" from "] = " 从 "

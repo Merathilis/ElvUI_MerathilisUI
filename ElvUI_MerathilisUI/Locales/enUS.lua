@@ -598,13 +598,6 @@ L["This will create and apply profile for "] = true
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = true
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
-L["Filter Errors"] = true
-L["Choose specific errors from the list below to hide/ignore."] = true
-L["Hides all errors regardless of filtering while in combat."] = true
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = true
 L[" from "] = true

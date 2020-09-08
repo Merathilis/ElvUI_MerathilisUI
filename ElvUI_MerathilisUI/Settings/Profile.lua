@@ -19,8 +19,6 @@ MP.general = {
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
-	filterErrors = true,
-	hideErrorFrame = true,
 }
 
 MP.bags = {
