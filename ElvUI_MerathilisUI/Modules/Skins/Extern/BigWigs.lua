@@ -17,7 +17,7 @@ local buttonsize = 19
 local FreeBackgrounds = {}
 
 local function CreateBG()
-	local BG = CreateFrame("Frame")
+	local BG = CreateFrame("Frame", nil, "BackdropTemplate")
 	MERS:CreateBD(BG, .45)
 	BG:Styling()
 
