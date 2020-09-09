@@ -833,7 +833,7 @@ function module:CreateMicroBar()
 	timer:SetScript("OnFinished", function(self, requested)
 		local euTime = date("%H|cffFFFFFF:|r%M")
 		local ukTime = date("%I|cffFFFFFF:|r%M")
-		if E.db.datatexts.time24 == true then
+		if E.global.datatexts.settings.Time.time24 == true then
 			timeButton.text:SetText(euTime)
 		else
 			timeButton.text:SetText(ukTime)
