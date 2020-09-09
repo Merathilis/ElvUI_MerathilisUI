@@ -142,26 +142,6 @@ local function Tooltip()
 					},
 				},
 			},
-			corruption = {
-				order = 13,
-				type = "group",
-				name = L["Corruption"],
-				guiInline = true,
-				disabled = function() return not E.private.tooltip.enable end,
-				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
-				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
-				args = {
-					credits = ACH:Description(L["Credits: siweia | NdUI"], 0),
-					spacer = ACH:Spacer(1),
-					enable = {
-						order = 1,
-						type = "toggle",
-						name = L["Enable"],
-						width = "full",
-						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
-					},
-				},
-			},
 		},
 	}
 end
