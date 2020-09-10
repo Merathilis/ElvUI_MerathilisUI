@@ -33,7 +33,7 @@ local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, 
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
-local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
+local C_Garrison_IsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
@@ -676,7 +676,7 @@ end
 function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if module.db.enable and module.db.orderhallhide then
-		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		local inOrderHall = C_Garrison_IsPlayerInGarrison(Enum.GarrisonType.Type_7_0)
 		if inOrderHall then
 			loc_panel:SetAlpha(0)
 		else
