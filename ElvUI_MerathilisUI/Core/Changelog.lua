@@ -104,17 +104,18 @@ function MER:CreateChangelog()
 	icon:Size(20, 20)
 	icon:CreateBackdrop("Transparent")
 	icon:Styling()
+
 	icon.bg = icon:CreateTexture(nil, "ARTWORK")
 	icon.bg:Point("TOPLEFT", 2, -2)
 	icon.bg:Point("BOTTOMRIGHT", -2, 2)
 	icon.bg:SetTexture(MER.LogoSmall)
-	icon.bg:SetBlendMode("ADD")
 
 	local title = CreateFrame("Frame", nil, frame, 'BackdropTemplate')
 	title:Point("LEFT", icon, "RIGHT", 1, 0)
 	title:Size(579, 20)
 	title:CreateBackdrop("Transparent")
 	title.backdrop:Styling()
+
 	title.text = MER:CreateText(title, "OVERLAY", 15, nil, "CENTER")
 	title.text:Point("CENTER", title, 0, -1)
 	title.text:SetText(MER.Title.. "- ChangeLog "..format("|cff00c0fa%s|r", MER.Version))
@@ -155,6 +156,7 @@ end
 
 function MER:CountDown()
 	self.time = self.time - 1
+
 	if self.time == 0 then
 		MerathilisUIChangeLog.countdown:SetText("")
 		MerathilisUIChangeLog.close:Enable()
@@ -168,6 +170,7 @@ function MER:ToggleChangeLog()
 	if not MerathilisUIChangeLog then
 		self:CreateChangelog()
 	end
+
 	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF or 857)
 
 	local fadeInfo = {}
