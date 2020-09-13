@@ -14,10 +14,10 @@ local PANEL_HEIGHT = 22
 local ChatTabFrame = CreateFrame("Frame", "MER_RightChatTopDT", _G.RightChatPanel)
 ChatTabFrame:Height(PANEL_HEIGHT)
 ChatTabFrame:Width(411)
-ChatTabFrame:SetFrameStrata("LOW")
+ChatTabFrame:SetFrameStrata("BACKGROUND")
 E.FrameLocks["MER_RightChatTopDT"] = true
 
-function MER:InitDataTexts()
+function MER:LoadDataTexts()
 	MER_RightChatTopDT:Point("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
 	MER_RightChatTopDT:Point("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, E.mult)
 

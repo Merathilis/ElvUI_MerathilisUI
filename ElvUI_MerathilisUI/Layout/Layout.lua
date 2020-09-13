@@ -101,7 +101,7 @@ function MERL:ToggleChatPanels()
 	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
 
 	_G.LeftChatMover:Height(panelHeight)
-	_G.RightChatMover:Height((rightHeight or panelHeight))
+	_G.RightChatMover:Height(rightHeight or panelHeight)
 end
 hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
 

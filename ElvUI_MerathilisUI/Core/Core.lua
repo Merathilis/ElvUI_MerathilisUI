@@ -81,7 +81,7 @@ function MER:Initialize()
 	self:RegisterMedia()
 	self:LoadCommands()
 	self:AddMoverCategories()
-	self:InitDataTexts()
+	self:LoadDataTexts()
 
 	-- ElvUI versions check
 	if MER.ElvUIV < MER.ElvUIX then
