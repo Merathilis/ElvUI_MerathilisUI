@@ -15,6 +15,7 @@ local ChatTabFrame = CreateFrame("Frame", "MER_RightChatTopDT", _G.RightChatPane
 ChatTabFrame:Height(PANEL_HEIGHT)
 ChatTabFrame:Width(411)
 ChatTabFrame:SetFrameStrata("BACKGROUND")
+ChatTabFrame:Hide()
 E.FrameLocks["MER_RightChatTopDT"] = true
 
 function MER:LoadDataTexts()
