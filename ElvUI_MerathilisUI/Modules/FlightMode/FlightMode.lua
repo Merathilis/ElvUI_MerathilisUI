@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('mUIFlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
+local module = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
+local AU = MER:GetModule('AutoButtons')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -8,6 +9,7 @@ local LO = E:GetModule('Layout')
 local _G = _G
 local ipairs, pairs, unpack = ipairs, pairs, unpack
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local GetBattlefieldStatus = GetBattlefieldStatus
 local GetScreenWidth = GetScreenWidth
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
@@ -17,6 +19,7 @@ local PlaySound = PlaySound
 local UnitOnTaxi = UnitOnTaxi
 local CreateFrame = CreateFrame
 local UIParent = UIParent
+local C_Timer_After = C_Timer.After
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -48,13 +51,17 @@ local AddonsToHide = {
 	{'HeroRotation','HeroRotation_ToggleIconFrame'}
 }
 
+function module:UpdateTimer()
+	local time = GetTime() - module.startTime
+	module.FlightMode.TimeFlying:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+end
+
 local VisibleFrames = {}
 
 function module:SetFlightMode(status)
 	if InCombatLockdown() then return end
 
-	if(status) then
-		module.inFlightMode = true
+	if status then
 		module.FlightMode:Show()
 
 		E.UIParent:Hide()
@@ -106,17 +113,23 @@ function module:SetFlightMode(status)
 			_G.ElvUI_StanceBar:SetAlpha(0)
 		end
 
+		-- Hide AutoButtons
+		for i = 1, 12 do
+			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Hide() end
+			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Hide() end
+			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Hide() end
+		end
+
+		C_Timer_After(0.05, function() _G.MainMenuBarVehicleLeaveButton:Hide() end)
+
 		-- Disable Blizz location messsages
 		_G.ZoneTextFrame:UnregisterAllEvents()
 
 		module.startTime = GetTime()
-		--self.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
-		--self.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
-		--self.coordsTimer = self:ScheduleRepeatingTimer('UpdateCoords', 0.2)
-		--self.fpsTimer = self:ScheduleRepeatingTimer('UpdateFps', 1)
-	elseif(module.inFlightMode) then
-		module.inFlightMode = false
+		module.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
 
+		module.inFlightMode = true
+	elseif module.inFlightMode then
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
 
 		E.UIParent:Show()
@@ -134,15 +147,15 @@ function module:SetFlightMode(status)
 		_G.ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
 		_G.ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
 
-		self:CancelAllTimers()
+		module:CancelAllTimers()
 
-		--self.FlightMode.bottom.timeFlying.txt:SetText("00:00")
-		--self.FlightMode.bottom.requestStop:EnableMouse(true)
-		--self.FlightMode.bottom.requestStop.img:SetVertexColor(1, 1, 1, .7)
-		--self.FlightMode.message:Hide()
-		--self.FlightMode.message:SetAlpha(1)
-		--self.FlightMode.message:SetWidth(10)
-		--self.FlightMode.message.text:SetAlpha(0)
+		module.FlightMode.TimeFlying:SetText("00:00")
+		module.FlightMode.RequestStop:EnableMouse(true)
+		module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
+		module.FlightMode.Message:Hide()
+		module.FlightMode.Message:SetAlpha(1)
+		module.FlightMode.Message:SetWidth(10)
+		module.FlightMode.Message.text:SetAlpha(0)
 
 		-- Revert Bags
 		if _G.ElvUI_ContainerFrame then
@@ -176,7 +189,13 @@ function module:SetFlightMode(status)
 			_G.ElvUI_StanceBar:SetAlpha(1)
 		end
 
-		-- revert Left Chat
+		for i = 1, 12 do
+			if _G["AutoQuestButton" .. i] then _G["AutoQuestButton" .. i]:Show() end
+			if _G["AutoSlotButton" .. i] then _G["AutoSlotButton" .. i]:Show() end
+			if _G["AutoUsableButton" .. i] then _G["AutoUsableButton" .. i]:Show() end
+		end
+
+		-- Revert Chat
 		if E.private.chat.enable then
 			_G.LeftChatPanel:SetParent(E.UIParent)
 
@@ -190,6 +209,8 @@ function module:SetFlightMode(status)
 			LO:RepositionChatDataPanels()
 			LO:ToggleChatPanels()
 		end
+
+		module.inFlightMode = false
 	end
 end
 
@@ -211,7 +232,7 @@ function module:OnEvent(event, ...)
 
 	if IsInInstance() then return end
 
-	if UnitOnTaxi("player") then
+	if UnitOnTaxi('player') then
 		module:SetFlightMode(true)
 	else
 		module:SetFlightMode(false)
@@ -254,7 +275,7 @@ function module:Initialize()
 
 	module.FlightMode.Top = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
 	module.FlightMode.Top:SetFrameLevel(0)
-	module.FlightMode.Top:SetFrameStrata("HIGH")
+	module.FlightMode.Top:SetFrameStrata("MEDIUM")
 	module.FlightMode.Top:Point('TOP', module.FlightMode, 'TOP', 0, E.Border)
 	module.FlightMode.Top:CreateBackdrop('Transparent')
 	module.FlightMode.Top:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -265,6 +286,20 @@ function module:Initialize()
 	E["frames"][module.FlightMode.Top] = true
 	module.FlightMode.Top.ignoreFrameTemplates = true
 	module.FlightMode.Top.ignoreBackdropColors = true
+
+	-- WoW logo
+	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
+	module.FlightMode.Top.wowlogo:SetPoint("TOP", module.FlightMode.Top, "CENTER", 0, 35)
+	module.FlightMode.Top.wowlogo:SetFrameStrata("HIGH")
+	module.FlightMode.Top.wowlogo:SetSize(300, 150)
+
+	module.FlightMode.Top.wowlogo.tex = module.FlightMode.Top.wowlogo:CreateTexture(nil, 'OVERLAY')
+	local currentExpansionLevel = GetClampedCurrentExpansionLevel()
+	local expansionDisplayInfo = GetExpansionDisplayInfo(currentExpansionLevel)
+	if expansionDisplayInfo then
+		module.FlightMode.Top.wowlogo.tex:SetTexture(expansionDisplayInfo.logo)
+	end
+	module.FlightMode.Top.wowlogo.tex:SetInside()
 
 	module.FlightMode.Top.CloseButton = CreateFrame('Button', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.CloseButton:Size(24)
@@ -319,7 +354,97 @@ function module:Initialize()
 	module.FlightMode.MERVersion:FontTemplate(nil, 24, 'OUTLINE')
 	module.FlightMode.MERVersion:SetText(MER.Title.."|cFF00c0fa"..MER.Version.."|r")
 
+	module.FlightMode.DateText = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
+	module.FlightMode.DateText:Point('RIGHT', module.FlightMode.Panel, 'RIGHT', -5, 24)
+	module.FlightMode.DateText:FontTemplate(nil, 15, 'OUTLINE')
 
+	module.FlightMode.ClockText = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
+	module.FlightMode.ClockText:Point('RIGHT', module.FlightMode.Panel, 'RIGHT', -5, 0)
+	module.FlightMode.ClockText:FontTemplate(nil, 20, 'OUTLINE')
+
+	-- Dynamic time & date
+	local interval = 0
+	module.FlightMode.Panel:SetScript('OnUpdate', function(self, elapsed)
+		interval = interval - elapsed
+		if interval <= 0 then
+			module.FlightMode.ClockText:SetText(format('%s', date('%H' .. MER.InfoColor .. ':|r%M' .. MER.InfoColor .. ':|r%S')))
+			module.FlightMode.DateText:SetText(format('%s', date(MER.InfoColor .. '%a|r %b' .. MER.InfoColor .. '/|r%d')))
+			module:UpdateTimer()
+
+			interval = 0.5
+		end
+	end)
+
+	-- Message frame. Shows when request stop is pressed
+	module.FlightMode.Message = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
+	module.FlightMode.Message:SetFrameLevel(0)
+	module.FlightMode.Message:CreateBackdrop('Transparent')
+	module.FlightMode.Message:SetPoint('TOP', module.FlightMode.Panel, 'BOTTOM', 0, (E.PixelMode and -8 or -10))
+	module.FlightMode.Message:SetSize(10, 30)
+	module.FlightMode.Message.backdrop:Styling()
+	module.FlightMode.Message:Hide()
+	-- Create animation
+	module.FlightMode.Message.anim = CreateAnimationGroup(module.FlightMode.Message)
+	module.FlightMode.Message.anim.sizing = module.FlightMode.Message.anim:CreateAnimation("Width")
+
+	self.FlightMode.Message.text = module.FlightMode.Message:CreateFontString(nil, 'OVERLAY')
+	self.FlightMode.Message.text:FontTemplate(nil, 14)
+	self.FlightMode.Message.text:SetFormattedText('%s', TAXI_CANCEL_DESCRIPTION)
+	self.FlightMode.Message.text:Point('CENTER')
+	self.FlightMode.Message.text:SetTextColor(1, 1, 0, .7)
+	self.FlightMode.Message.text:SetAlpha(0)
+
+	-- Request Stop button
+	module.FlightMode.RequestStop = CreateFrame('Button', nil, module.FlightMode.Panel)
+	module.FlightMode.RequestStop:Size(32, 32)
+	module.FlightMode.RequestStop:Point("LEFT", module.FlightMode.Panel, "LEFT", 10, 0)
+	module.FlightMode.RequestStop:EnableMouse(true)
+
+	module.FlightMode.RequestStop.img = module.FlightMode.RequestStop:CreateTexture(nil, 'OVERLAY')
+	module.FlightMode.RequestStop.img:Point('CENTER')
+	module.FlightMode.RequestStop.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow.tga')
+	module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
+
+	module.FlightMode.RequestStop:SetScript('OnEnter', function()
+		_G.GameTooltip:SetOwner(module.FlightMode.RequestStop, 'ANCHOR_RIGHT', 1, 0)
+		_G.GameTooltip:ClearLines()
+		_G.GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
+		_G.GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
+		_G.GameTooltip:Show()
+
+		module.FlightMode.RequestStop.img:SetVertexColor(MER:unpackColor(E.db.general.valuecolor))
+	end)
+
+	module.FlightMode.RequestStop:SetScript('OnLeave', function()
+		module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
+		GameTooltip:Hide()
+	end)
+
+	module.FlightMode.RequestStop:SetScript('OnClick', function()
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+		TaxiRequestEarlyLanding()
+		module.FlightMode.RequestStop:EnableMouse(false)
+		module.FlightMode.RequestStop.img:SetVertexColor(1, 0, 0, .7)
+		module.FlightMode.Message:Show()
+		module.FlightMode.Message.anim.sizing:SetChange(module.FlightMode.Message.text:GetStringWidth() + 24)
+		module.FlightMode.Message.anim:Play()
+		C_Timer_After(.5, function()
+			UIFrameFadeIn(module.FlightMode.Message.text, 1, 0, 1)
+		end)
+		C_Timer_After(8, function()
+			UIFrameFadeOut(module.FlightMode.Message, 1, 1, 0)
+		end)
+	end)
+
+
+	-- Time flying
+	module.FlightMode.TimeFlying = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
+	module.FlightMode.TimeFlying:FontTemplate(nil, 16, 'OUTLINE')
+	module.FlightMode.TimeFlying:SetText("00:00")
+	module.FlightMode.TimeFlying:Point("RIGHT", module.FlightMode.Panel, "RIGHT", -5, -26)
+	module.FlightMode.TimeFlying:SetTextColor(1, 1, 1)
+
+	E:UpdateBorderColors()
 	module:Toggle()
 end
 
