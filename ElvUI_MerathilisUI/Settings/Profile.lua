@@ -734,3 +734,7 @@ MP.dashboard = {
 		latency = 2,
 	},
 }
+
+MP.flightMode = {
+	enable = true,
+}

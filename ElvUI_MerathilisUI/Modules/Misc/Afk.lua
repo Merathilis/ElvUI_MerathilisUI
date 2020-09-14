@@ -74,7 +74,7 @@ local function Initialize()
 	AFK.AFKMode.chat:ClearAllPoints()
 	AFK.AFKMode.chat:SetPoint("TOPLEFT", AFK.AFKMode.top, "BOTTOMLEFT", 4, -10)
 
-	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode)
+	AFK.AFKMode.Panel = CreateFrame('Frame', nil, AFK.AFKMode, 'BackdropTemplate')
 	AFK.AFKMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
 	AFK.AFKMode.Panel:Size((GetScreenWidth()/2), 80)
 	AFK.AFKMode.Panel:CreateBackdrop('Transparent')
@@ -85,7 +85,7 @@ local function Initialize()
 	AFK.AFKMode.Panel.ignoreFrameTemplates = true
 	AFK.AFKMode.Panel.ignoreBackdropColors = true
 
-	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel)
+	AFK.AFKMode.PanelIcon = CreateFrame('Frame', nil, AFK.AFKMode.Panel, 'BackdropTemplate')
 	AFK.AFKMode.PanelIcon:Size(70)
 	AFK.AFKMode.PanelIcon:Point('CENTER', AFK.AFKMode.Panel, 'TOP', 0, 0)
 

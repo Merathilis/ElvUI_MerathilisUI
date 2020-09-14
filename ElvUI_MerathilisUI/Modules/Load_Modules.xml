@@ -24,4 +24,5 @@
 	<Include file="RaidManager\Load_RaidManager.xml"/>
 	<Include file="PvP\Load_PvP.xml"/>
 	<Include file="Panels\Load_Panels.xml"/>
+	<Include file="FlightMode\Load_FlightMode.xml"/>
 </Ui>
