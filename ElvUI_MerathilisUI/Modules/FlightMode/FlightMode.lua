@@ -141,7 +141,7 @@ function module:SetFlightMode(status)
 		if E.private.chat.enable then
 			_G.LeftChatPanel:SetParent(module.FlightMode)
 			_G.LeftChatPanel:ClearAllPoints()
-			_G.LeftChatPanel:Point('RIGHT', module.FlightMode.Panel, "LEFT", -10, 0)
+			_G.LeftChatPanel:Point('RIGHT', module.FlightMode.Panel, "LEFT", -5, 0)
 			_G.LeftChatDataPanel:Hide()
 
 			_G.RightChatPanel:SetParent(module.FlightMode)
@@ -341,7 +341,7 @@ function module:Initialize()
 	module.FlightMode.Top:CreateBackdrop('Transparent')
 	module.FlightMode.Top:SetBackdropBorderColor(.3, .3, .3, 1)
 	module.FlightMode.Top:Width(GetScreenWidth() + (E.Border*2))
-	module.FlightMode.Top:Height(40)
+	module.FlightMode.Top:Height(52)
 	module.FlightMode.Top:Styling()
 
 	E['frames'][module.FlightMode.Top] = true
@@ -518,7 +518,7 @@ function module:Initialize()
 	if not module.FlightMode.pepeHolder then
 		module.FlightMode.pepeHolder = CreateFrame('Frame', nil, module.FlightMode.Panel)
 		module.FlightMode.pepeHolder:Size(150, 150)
-		module.FlightMode.pepeHolder:Point('LEFT', module.FlightMode.Panel, 'LEFT', 30, 65)
+		module.FlightMode.pepeHolder:Point('LEFT', module.FlightMode.Panel, 'LEFT', 50, 65)
 
 		module.FlightMode.pepeModel = CreateFrame('PlayerModel', nil, module.FlightMode.pepeHolder)
 		module.FlightMode.pepeModel:Point('CENTER', module.FlightMode.pepeHolder, 'CENTER')
