@@ -18,6 +18,9 @@ local CreateAnimationGroup = CreateAnimationGroup
 local GetBattlefieldStatus = GetBattlefieldStatus
 local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
 local GetExpansionDisplayInfo = GetExpansionDisplayInfo
+local GetMinimapZoneText = GetMinimapZoneText
+local GetRealZoneText = GetRealZoneText
+local GetZonePVPInfo = GetZonePVPInfo
 local GetScreenWidth = GetScreenWidth
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
@@ -30,6 +33,43 @@ local UIParent = UIParent
 local UIFrameFadeIn = UIFrameFadeIn
 local UIFrameFadeOut = UIFrameFadeOut
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
+
+local function AutoColoring()
+	local pvpType = GetZonePVPInfo()
+
+	if (pvpType == 'sanctuary') then
+		return 0.41, 0.8, 0.94
+	elseif(pvpType == 'arena') then
+		return 1, 0.1, 0.1
+	elseif(pvpType == 'friendly') then
+		return 0.1, 1, 0.1
+	elseif(pvpType == 'hostile') then
+		return 1, 0.1, 0.1
+	elseif(pvpType == 'contested') then
+		return 1, 0.7, 0.10
+	elseif(pvpType == 'combat') then
+		return 1, 0.1, 0.1
+	else
+		return 1, 1, 0
+	end
+end
+
+function module:UpdateLocation()
+	local subZoneText = GetMinimapZoneText() or ""
+	local zoneText = GetRealZoneText() or _G.UNKNOWN
+	local displayLine
+
+	if (subZoneText ~= "") and (subZoneText ~= zoneText) then
+		displayLine = zoneText .. ": " .. subZoneText
+	else
+		displayLine = subZoneText
+	end
+
+	local r, g, b = AutoColoring()
+	module.FlightMode.Location:AddMessage(displayLine)
+	module.FlightMode.Location:SetTextColor(r, g, b)
+end
+
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -147,6 +187,7 @@ function module:SetFlightMode(status)
 
 		module.startTime = GetTime()
 		module.timer = self:ScheduleRepeatingTimer('UpdateTimer', 1)
+		module.locationTimer = self:ScheduleRepeatingTimer('UpdateLocation', 0.2)
 
 		module.inFlightMode = true
 	elseif module.inFlightMode then
@@ -417,7 +458,7 @@ function module:Initialize()
 	-- Request Stop button
 	module.FlightMode.RequestStop = CreateFrame('Button', nil, module.FlightMode.Panel)
 	module.FlightMode.RequestStop:Size(32, 32)
-	module.FlightMode.RequestStop:Point("LEFT", module.FlightMode.Panel, "LEFT", 10, 0)
+	module.FlightMode.RequestStop:Point('LEFT', module.FlightMode.Panel, 'LEFT', 10, 0)
 	module.FlightMode.RequestStop:EnableMouse(true)
 
 	module.FlightMode.RequestStop.img = module.FlightMode.RequestStop:CreateTexture(nil, 'OVERLAY')
@@ -455,6 +496,17 @@ function module:Initialize()
 			UIFrameFadeOut(module.FlightMode.Message, 1, 1, 0)
 		end)
 	end)
+
+	module.FlightMode.Location = CreateFrame('ScrollingMessageFrame', nil, module.FlightMode.Panel)
+	module.FlightMode.Location:FontTemplate(nil, 18, 'OUTLINE')
+	module.FlightMode.Location:SetFading(true)
+	module.FlightMode.Location:SetFadeDuration(0.6)
+	module.FlightMode.Location:SetTimeVisible(1)
+	module.FlightMode.Location:SetMaxLines(1)
+	module.FlightMode.Location:SetSpacing(2)
+	module.FlightMode.Location:Width(300)
+	module.FlightMode.Location:Height(24)
+	module.FlightMode.Location:Point('LEFT', module.FlightMode.Panel, 'LEFT', 40, 0)
 
 	-- Time flying
 	module.FlightMode.TimeFlying = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
