@@ -218,7 +218,7 @@ end
 function module:GameMenu()
 	-- GameMenu Frame
 	if not GameMenuFrame.MUIbottomPanel then
-		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.MUIbottomPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
 		local bottomPanel = GameMenuFrame.MUIbottomPanel
 		bottomPanel:SetFrameLevel(0)
 		bottomPanel:SetPoint("BOTTOM", E.UIParent, "BOTTOM", 0, -E.Border)
@@ -247,7 +247,7 @@ function module:GameMenu()
 	end
 
 	if not GameMenuFrame.MUItopPanel then
-		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame)
+		GameMenuFrame.MUItopPanel = CreateFrame("Frame", nil, GameMenuFrame, 'BackdropTemplate')
 		local topPanel = GameMenuFrame.MUItopPanel
 		topPanel:SetFrameLevel(0)
 		topPanel:SetPoint("TOP", E.UIParent, "TOP", 0, 0)

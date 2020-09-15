@@ -8,8 +8,16 @@ local LO = E:GetModule('Layout')
 
 local _G = _G
 local ipairs, pairs, unpack = ipairs, pairs, unpack
+local floor = math.floor
+local format = string.format
+local date = date
+
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit
+local C_Timer_After = C_Timer.After
+local CreateAnimationGroup = CreateAnimationGroup
 local GetBattlefieldStatus = GetBattlefieldStatus
+local GetClampedCurrentExpansionLevel = GetClampedCurrentExpansionLevel
+local GetExpansionDisplayInfo = GetExpansionDisplayInfo
 local GetScreenWidth = GetScreenWidth
 local GetTime = GetTime
 local InCombatLockdown = InCombatLockdown
@@ -19,7 +27,9 @@ local PlaySound = PlaySound
 local UnitOnTaxi = UnitOnTaxi
 local CreateFrame = CreateFrame
 local UIParent = UIParent
-local C_Timer_After = C_Timer.After
+local UIFrameFadeIn = UIFrameFadeIn
+local UIFrameFadeOut = UIFrameFadeOut
+local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
 local noFlightMapIDs = {
 	-- Antoran Wastes (Legion)
@@ -32,11 +42,21 @@ local noFlightMapIDs = {
 
 function module:CheckFlightMapID()
 	for _, id in pairs (noFlightMapIDs) do
-		local noFlightMapIDs = C_Map_GetBestMapForUnit("player")
+		local noFlightMapIDs = C_Map_GetBestMapForUnit('player')
 		if id == noFlightMapIDs then
 			return true
 		end
 	end
+end
+
+local function Pepe_Model(self)
+	self:ClearModel()
+	self:SetModel(1386540) -- Traveller Pepe
+	self:SetSize(150, 150)
+	self:SetCamDistanceScale(1)
+	self:SetFacing(6)
+	self:SetAlpha(1)
+	UIFrameFadeIn(self, 1, self:GetAlpha(), 1)
 end
 
 local AddonsToHide = {
@@ -53,7 +73,7 @@ local AddonsToHide = {
 
 function module:UpdateTimer()
 	local time = GetTime() - module.startTime
-	module.FlightMode.TimeFlying:SetFormattedText("%02d:%02d", floor(time/60), time % 60)
+	module.FlightMode.TimeFlying:SetFormattedText('%02d:%02d', floor(time/60), time % 60)
 end
 
 local VisibleFrames = {}
@@ -143,13 +163,13 @@ function module:SetFlightMode(status)
 		module.FlightMode:Hide()
 
 		-- Enable Blizz location messsages.
-		_G.ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-		_G.ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
-		_G.ZoneTextFrame:RegisterEvent("ZONE_CHANGED")
+		_G.ZoneTextFrame:RegisterEvent('ZONE_CHANGED_NEW_AREA')
+		_G.ZoneTextFrame:RegisterEvent('ZONE_CHANGED_INDOORS')
+		_G.ZoneTextFrame:RegisterEvent('ZONE_CHANGED')
 
 		module:CancelAllTimers()
 
-		module.FlightMode.TimeFlying:SetText("00:00")
+		module.FlightMode.TimeFlying:SetText('00:00')
 		module.FlightMode.RequestStop:EnableMouse(true)
 		module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
 		module.FlightMode.Message:Hide()
@@ -190,9 +210,9 @@ function module:SetFlightMode(status)
 		end
 
 		for i = 1, 12 do
-			if _G["AutoQuestButton" .. i] then _G["AutoQuestButton" .. i]:Show() end
-			if _G["AutoSlotButton" .. i] then _G["AutoSlotButton" .. i]:Show() end
-			if _G["AutoUsableButton" .. i] then _G["AutoUsableButton" .. i]:Show() end
+			if _G['AutoQuestButton' .. i] then _G['AutoQuestButton' .. i]:Show() end
+			if _G['AutoSlotButton' .. i] then _G['AutoSlotButton' .. i]:Show() end
+			if _G['AutoUsableButton' .. i] then _G['AutoUsableButton' .. i]:Show() end
 		end
 
 		-- Revert Chat
@@ -200,7 +220,7 @@ function module:SetFlightMode(status)
 			_G.LeftChatPanel:SetParent(E.UIParent)
 
 			_G.LeftChatPanel:ClearAllPoints()
-			_G.LeftChatPanel:SetPoint("BOTTOMLEFT", _G.LeftChatMover, "BOTTOMLEFT")
+			_G.LeftChatPanel:SetPoint('BOTTOMLEFT', _G.LeftChatMover, 'BOTTOMLEFT')
 			_G.LeftChatPanel:SetFrameStrata('BACKGROUND')
 
 			_G.RightChatPanel:SetParent(E.UIParent)
@@ -218,10 +238,10 @@ function module:OnEvent(event, ...)
 	local forbiddenArea = module:CheckFlightMapID()
 	if forbiddenArea then return end
 
-	if event == "LFG_PROPOSAL_SHOW" or event == "UPDATE_BATTLEFIELD_STATUS" then
-		if event == "UPDATE_BATTLEFIELD_STATUS" then
+	if event == 'LFG_PROPOSAL_SHOW' or event == 'UPDATE_BATTLEFIELD_STATUS' then
+		if event == 'UPDATE_BATTLEFIELD_STATUS' then
 			local status = GetBattlefieldStatus(...)
-			if status == "confirm" then
+			if status == 'confirm' then
 				module:SetFlightMode(false)
 			end
 		else
@@ -241,25 +261,25 @@ end
 
 function module:Toggle()
 	if E.db.mui.flightMode.enable then
-		self:RegisterEvent("UPDATE_BONUS_ACTIONBAR", "OnEvent")
-		self:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR", "OnEvent")
-		self:RegisterEvent("LFG_PROPOSAL_SHOW", "OnEvent")
-		self:RegisterEvent("UPDATE_BATTLEFIELD_STATUS", "OnEvent")
-		self:RegisterEvent("PLAYER_ENTERING_WORLD", "OnEvent")
+		self:RegisterEvent('UPDATE_BONUS_ACTIONBAR', 'OnEvent')
+		self:RegisterEvent('UPDATE_MULTI_CAST_ACTIONBAR', 'OnEvent')
+		self:RegisterEvent('LFG_PROPOSAL_SHOW', 'OnEvent')
+		self:RegisterEvent('UPDATE_BATTLEFIELD_STATUS', 'OnEvent')
+		self:RegisterEvent('PLAYER_ENTERING_WORLD', 'OnEvent')
 	else
-		self:UnregisterEvent("UPDATE_BONUS_ACTIONBAR")
-		self:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
-		self:UnregisterEvent("LFG_PROPOSAL_SHOW")
-		self:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS")
-		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		self:UnregisterEvent('UPDATE_BONUS_ACTIONBAR')
+		self:UnregisterEvent('UPDATE_MULTI_CAST_ACTIONBAR')
+		self:UnregisterEvent('LFG_PROPOSAL_SHOW')
+		self:UnregisterEvent('UPDATE_BATTLEFIELD_STATUS')
+		self:UnregisterEvent('PLAYER_ENTERING_WORLD')
 	end
 end
 
 function module:Initialize()
 	module.db = E.db.mui.flightMode
-	MER:RegisterDB(self, "flightMode")
+	MER:RegisterDB(self, 'flightMode')
 
-	if IsAddOnLoaded("ElvUI_BenikUI") then return end
+	if IsAddOnLoaded('ElvUI_BenikUI') then return end
 	if module.db.enable ~= true then return end
 
 	function module:ForUpdateAll()
@@ -267,7 +287,7 @@ function module:Initialize()
 	end
 	module:ForUpdateAll()
 
-	module.FlightMode = CreateFrame("Frame", "mUIFlightModeFrame", UIParent)
+	module.FlightMode = CreateFrame('Frame', 'MER_FlightModeFrame', UIParent)
 	module.FlightMode:SetFrameLevel(1)
 	module.FlightMode:SetFrameStrata('BACKGROUND')
 	module.FlightMode:SetAllPoints(UIParent)
@@ -275,7 +295,7 @@ function module:Initialize()
 
 	module.FlightMode.Top = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
 	module.FlightMode.Top:SetFrameLevel(0)
-	module.FlightMode.Top:SetFrameStrata("MEDIUM")
+	module.FlightMode.Top:SetFrameStrata('MEDIUM')
 	module.FlightMode.Top:Point('TOP', module.FlightMode, 'TOP', 0, E.Border)
 	module.FlightMode.Top:CreateBackdrop('Transparent')
 	module.FlightMode.Top:SetBackdropBorderColor(.3, .3, .3, 1)
@@ -283,13 +303,13 @@ function module:Initialize()
 	module.FlightMode.Top:Height(40)
 	module.FlightMode.Top:Styling()
 
-	E["frames"][module.FlightMode.Top] = true
+	E['frames'][module.FlightMode.Top] = true
 	module.FlightMode.Top.ignoreFrameTemplates = true
 	module.FlightMode.Top.ignoreBackdropColors = true
 
 	-- WoW logo
 	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
-	module.FlightMode.Top.wowlogo:SetPoint("TOP", module.FlightMode.Top, "CENTER", 0, 35)
+	module.FlightMode.Top.wowlogo:SetPoint('TOP', module.FlightMode.Top, 'CENTER', 0, 35)
 	module.FlightMode.Top.wowlogo:SetFrameStrata("HIGH")
 	module.FlightMode.Top.wowlogo:SetSize(300, 150)
 
@@ -313,7 +333,7 @@ function module:Initialize()
 	module.FlightMode.Top.CloseButton:SetScript('OnEnter', function()
 		_G.GameTooltip:SetOwner(module.FlightMode.Top.CloseButton, 'ANCHOR_BOTTOMLEFT', -4, -4)
 		_G.GameTooltip:ClearLines()
-		_G.GameTooltip:AddLine(L['Exit FlightMode'])
+		_G.GameTooltip:AddLine(L["Exit FlightMode"])
 		_G.GameTooltip:Show()
 
 		module.FlightMode.Top.CloseButton.img:SetVertexColor(unpack(E.media.rgbvaluecolor))
@@ -326,7 +346,7 @@ function module:Initialize()
 
 	module.FlightMode.Top.CloseButton:SetScript('OnClick', function()
 		module:SetFlightMode(false)
-		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF);
+		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 	end)
 
 	module.FlightMode.Panel = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
@@ -340,14 +360,14 @@ function module:Initialize()
 	module.FlightMode.PanelIcon:Size(70)
 	module.FlightMode.PanelIcon:Point('CENTER', module.FlightMode.Panel, 'TOP', 0, 0)
 
-	E["frames"][module.FlightMode.Panel] = true
+	E['frames'][module.FlightMode.Panel] = true
 	module.FlightMode.Panel.ignoreFrameTemplates = true
 	module.FlightMode.Panel.ignoreBackdropColors = true
 
 	module.FlightMode.PanelIcon.Texture = module.FlightMode.PanelIcon:CreateTexture(nil, 'ARTWORK')
 	module.FlightMode.PanelIcon.Texture:Point('TOPLEFT', 2, -2)
 	module.FlightMode.PanelIcon.Texture:Point('BOTTOMRIGHT', -2, 2)
-	module.FlightMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1.tga')
+	module.FlightMode.PanelIcon.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1_Shadow.tga')
 
 	module.FlightMode.MERVersion = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
 	module.FlightMode.MERVersion:Point('CENTER', module.FlightMode.Panel, 'CENTER', 0, -10)
@@ -389,7 +409,7 @@ function module:Initialize()
 
 	self.FlightMode.Message.text = module.FlightMode.Message:CreateFontString(nil, 'OVERLAY')
 	self.FlightMode.Message.text:FontTemplate(nil, 14)
-	self.FlightMode.Message.text:SetFormattedText('%s', TAXI_CANCEL_DESCRIPTION)
+	self.FlightMode.Message.text:SetFormattedText('%s', _G.TAXI_CANCEL_DESCRIPTION)
 	self.FlightMode.Message.text:Point('CENTER')
 	self.FlightMode.Message.text:SetTextColor(1, 1, 0, .7)
 	self.FlightMode.Message.text:SetAlpha(0)
@@ -408,8 +428,8 @@ function module:Initialize()
 	module.FlightMode.RequestStop:SetScript('OnEnter', function()
 		_G.GameTooltip:SetOwner(module.FlightMode.RequestStop, 'ANCHOR_RIGHT', 1, 0)
 		_G.GameTooltip:ClearLines()
-		_G.GameTooltip:AddLine(TAXI_CANCEL_DESCRIPTION, selectioncolor)
-		_G.GameTooltip:AddLine(L['LeftClick to Request Stop'], 0.7, 0.7, 1)
+		_G.GameTooltip:AddLine(_G.TAXI_CANCEL_DESCRIPTION, selectioncolor)
+		_G.GameTooltip:AddLine(L["LeftClick to Request Stop"], 0.7, 0.7, 1)
 		_G.GameTooltip:Show()
 
 		module.FlightMode.RequestStop.img:SetVertexColor(MER:unpackColor(E.db.general.valuecolor))
@@ -417,7 +437,7 @@ function module:Initialize()
 
 	module.FlightMode.RequestStop:SetScript('OnLeave', function()
 		module.FlightMode.RequestStop.img:SetVertexColor(1, 1, 1, .7)
-		GameTooltip:Hide()
+		_G.GameTooltip:Hide()
 	end)
 
 	module.FlightMode.RequestStop:SetScript('OnClick', function()
@@ -436,13 +456,24 @@ function module:Initialize()
 		end)
 	end)
 
-
 	-- Time flying
 	module.FlightMode.TimeFlying = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
 	module.FlightMode.TimeFlying:FontTemplate(nil, 16, 'OUTLINE')
-	module.FlightMode.TimeFlying:SetText("00:00")
-	module.FlightMode.TimeFlying:Point("RIGHT", module.FlightMode.Panel, "RIGHT", -5, -26)
+	module.FlightMode.TimeFlying:SetText('00:00')
+	module.FlightMode.TimeFlying:Point('RIGHT', module.FlightMode.Panel, 'RIGHT', -5, -26)
 	module.FlightMode.TimeFlying:SetTextColor(1, 1, 1)
+
+	if not module.FlightMode.pepeHolder then
+		module.FlightMode.pepeHolder = CreateFrame('Frame', nil, module.FlightMode.Panel)
+		module.FlightMode.pepeHolder:Size(150, 150)
+		module.FlightMode.pepeHolder:Point('LEFT', module.FlightMode.Panel, 'LEFT', 30, 65)
+
+		module.FlightMode.pepeModel = CreateFrame('PlayerModel', nil, module.FlightMode.pepeHolder)
+		module.FlightMode.pepeModel:Point('CENTER', module.FlightMode.pepeHolder, 'CENTER')
+		module.FlightMode.pepeModel:SetScript('OnShow', Pepe_Model)
+		module.FlightMode.pepeModel.isIdle = nil
+		module.FlightMode.pepeModel:Show()
+	end
 
 	E:UpdateBorderColors()
 	module:Toggle()

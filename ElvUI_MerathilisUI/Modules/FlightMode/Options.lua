@@ -28,6 +28,13 @@ local function FlightMode()
 				type = "toggle",
 				name = L["Enable"],
 			},
+			BenikFlightMode = {
+				order = 4,
+				type = "toggle",
+				name = L["|cff00c0faBenikUI|r FlightMode"],
+				desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
+				hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end,
+			},
 		},
 	}
 end

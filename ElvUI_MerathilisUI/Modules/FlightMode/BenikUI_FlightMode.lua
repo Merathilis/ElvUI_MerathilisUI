@@ -19,7 +19,7 @@ function module:Initialize()
 		return
 	end
 	local BFM = BUI:GetModule("FlightMode")
-	if E.db.mui.general.FlightMode then
+	if E.db.mui.flightMode.BenikFlightMode then
 
 		-- Hide BenikUI Logo
 		BFM.FlightMode.bottom.logo:Hide()

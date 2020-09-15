@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="FlightMode.lua"/>
+	<Script file="BenikUI_FlightMode.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

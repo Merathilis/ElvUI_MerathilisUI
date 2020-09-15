@@ -100,6 +100,8 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 -- FlightMode
 L["FlightMode"] = true
 L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Exit FlightMode"] = true
+L["Left Click to Request Stop"] = true
 
 -- FlightPoint
 L["Flight Point"] = true

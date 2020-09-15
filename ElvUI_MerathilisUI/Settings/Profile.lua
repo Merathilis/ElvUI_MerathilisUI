@@ -15,7 +15,6 @@ MP.general = {
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,
-	FlightMode = true,
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
@@ -737,4 +736,5 @@ MP.dashboard = {
 
 MP.flightMode = {
 	enable = true,
+	BenikFlightMode = true,
 }

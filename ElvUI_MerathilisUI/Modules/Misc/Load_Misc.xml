@@ -3,7 +3,6 @@
 	<Script file="Afk.lua"/>
 	<Script file="Alerts.lua"/>
 	<Script file="Cursor.lua"/>
-	<Script file="FlightMode.lua"/>
 	<Script file="FlightPoint.lua"/>
 	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
