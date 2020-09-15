@@ -96,34 +96,9 @@ function MERL:ShadowOverlay()
 	self.f:SetAlpha(0.7)
 end
 
-function MERL:ToggleChatPanels()
-	local panelHeight = E.db.chat.panelHeight
-	local rightHeight = E.db.chat.separateSizes and E.db.chat.panelHeightRight
-
-	_G.LeftChatMover:Height(panelHeight)
-	_G.RightChatMover:Height(rightHeight or panelHeight)
-end
-hooksecurefunc(LO, "ToggleChatPanels", MERL.ToggleChatPanels)
-
-function MERL:RefreshChatMovers()
-	local Left = _G.LeftChatPanel:GetPoint()
-	local Right = _G.RightChatPanel:GetPoint()
-
-	_G.LeftChatPanel:Point(Left, _G.LeftChatMover, 0, 0)
-	_G.RightChatPanel:Point(Right, _G.RightChatMover, 0, 0)
-end
-hooksecurefunc(LO, "RefreshChatMovers", MERL.RefreshChatMovers)
-
-function MERL:SetDataPanelStyle()
-	E.Chat:PositionChats()
-end
-
 function MERL:Initialize()
 	self:CreateChatButtons()
 	self:ShadowOverlay()
-
-	hooksecurefunc(LO, "SetDataPanelStyle", MERL.SetDataPanelStyle)
-	LO:SetDataPanelStyle()
 end
 
 MER:RegisterModule(MERL:GetName())
