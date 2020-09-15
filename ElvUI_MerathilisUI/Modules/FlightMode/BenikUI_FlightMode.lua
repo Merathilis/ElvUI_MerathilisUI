@@ -1,13 +1,9 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule("MUIFlightMode")
-local COMP = MER:GetModule("mUICompatibility");
+local COMP = MER:GetModule("mUICompatibility")
 
---Cache global variables
-
---WoW API / Variables
+local _G = _G
 local CreateFrame = CreateFrame
---Global variables that we don't cache, list them here for the mikk's Find Globals script
--- GLOBALS:
 
 function module:Initialize()
 	if not COMP.BUI then return end

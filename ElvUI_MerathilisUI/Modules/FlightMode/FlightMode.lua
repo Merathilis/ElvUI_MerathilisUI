@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
-local AU = MER:GetModule('AutoButtons')
+local COMP = MER:GetModule('mUICompatibility')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -279,7 +279,7 @@ function module:Initialize()
 	module.db = E.db.mui.flightMode
 	MER:RegisterDB(self, 'flightMode')
 
-	if IsAddOnLoaded('ElvUI_BenikUI') then return end
+	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
 	if module.db.enable ~= true then return end
 
 	function module:ForUpdateAll()
