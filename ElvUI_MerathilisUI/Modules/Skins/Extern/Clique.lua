@@ -27,7 +27,7 @@ local function LoadAddOnSkin()
 	_G.CliqueClickGrabber.backdrop:SetPoint("BOTTOMRIGHT", 2, 3)
 
 	_G.CliqueDialog:StripTextures()
-	_G.CliqueDialog:SetTemplate("Transparent")
+	_G.CliqueDialog:CreateBackdrop("Transparent")
 
 	_G.CliqueConfigCloseButton:StripTextures()
 	S:HandleCloseButton(_G.CliqueConfigCloseButton)
