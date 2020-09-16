@@ -1,6 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
 local COMP = MER:GetModule('mUICompatibility')
+local MERS = MER:GetModule('muiSkins')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 
@@ -34,6 +35,8 @@ local UIFrameFadeIn = UIFrameFadeIn
 local UIFrameFadeOut = UIFrameFadeOut
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
+local r, g, b = unpack(E.media.rgbvaluecolor)
+
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
 
@@ -55,19 +58,19 @@ local function AutoColoring()
 end
 
 function module:UpdateLocation()
-	local subZoneText = GetMinimapZoneText() or ""
+	local subZoneText = GetMinimapZoneText() or ''
 	local zoneText = GetRealZoneText() or _G.UNKNOWN
 	local displayLine
 
-	if (subZoneText ~= "") and (subZoneText ~= zoneText) then
-		displayLine = zoneText .. ": " .. subZoneText
+	if (subZoneText ~= '') and (subZoneText ~= zoneText) then
+		displayLine = zoneText .. ': ' .. subZoneText
 	else
 		displayLine = subZoneText
 	end
 
 	local r, g, b = AutoColoring()
-	module.FlightMode.Location:AddMessage(displayLine)
-	module.FlightMode.Location:SetTextColor(r, g, b)
+	module.FlightMode.Top.Location:AddMessage(displayLine)
+	module.FlightMode.Top.Location:SetTextColor(r, g, b)
 end
 
 
@@ -348,11 +351,41 @@ function module:Initialize()
 	module.FlightMode.Top.ignoreFrameTemplates = true
 	module.FlightMode.Top.ignoreBackdropColors = true
 
+	module.FlightMode.Top.LeftStyle = CreateFrame('Frame', nil, module.FlightMode.Top)
+	module.FlightMode.Top.LeftStyle:SetFrameStrata('HIGH')
+	module.FlightMode.Top.LeftStyle:SetFrameLevel(2)
+	module.FlightMode.Top.LeftStyle:Size(427, 4)
+	module.FlightMode.Top.LeftStyle:Point('TOPLEFT', module.FlightMode.Top, 'TOPLEFT', 2, 0)
+	MERS:SkinPanel(module.FlightMode.Top.LeftStyle)
+
+	module.FlightMode.Top.LeftStyle1 = CreateFrame('Frame', nil, module.FlightMode.Top)
+	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode.Top, 'TOPLEFT', 2, -53)
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, 427, 36, 'Horizontal', 0, 0, 0, .5, 0)
+
+	module.FlightMode.Top.LeftStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
+	module.FlightMode.Top.LeftStyle2:Point('TOP', module.FlightMode.Top.LeftStyle1, 'BOTTOM')
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, 427, E.mult, 'Horizontal', r, g, b, .7, 0)
+
+	module.FlightMode.Top.RightStyle = CreateFrame('Frame', nil, module.FlightMode.Top)
+	module.FlightMode.Top.RightStyle:SetFrameStrata('HIGH')
+	module.FlightMode.Top.RightStyle:SetFrameLevel(2)
+	module.FlightMode.Top.RightStyle:Size(427, 4)
+	module.FlightMode.Top.RightStyle:Point('TOPRIGHT', module.FlightMode.Top, 'TOPRIGHT', -2, 0)
+	MERS:SkinPanel(module.FlightMode.Top.RightStyle)
+
+	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode.Top)
+	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode.Top, 'TOPRIGHT', 2, -20)
+	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, 427, 36, 'Horizontal', 0, 0, 0, 0, .5)
+
+	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
+	module.FlightMode.Top.RightStyle2:Point('TOP', module.FlightMode.Top.RightStyle1,'BOTTOM')
+	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle2, 427, E.mult, 'Horizontal', r, g, b, 0, .7)
+
 	-- WoW logo
 	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
-	module.FlightMode.Top.wowlogo:SetPoint('TOP', module.FlightMode.Top, 'CENTER', 0, 35)
+	module.FlightMode.Top.wowlogo:Point('TOP', module.FlightMode.Top, 'CENTER', 0, 35)
 	module.FlightMode.Top.wowlogo:SetFrameStrata("HIGH")
-	module.FlightMode.Top.wowlogo:SetSize(300, 150)
+	module.FlightMode.Top.wowlogo:Size(300, 150)
 
 	module.FlightMode.Top.wowlogo.tex = module.FlightMode.Top.wowlogo:CreateTexture(nil, 'OVERLAY')
 	local currentExpansionLevel = GetClampedCurrentExpansionLevel()
@@ -389,6 +422,18 @@ function module:Initialize()
 		module:SetFlightMode(false)
 		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
 	end)
+
+	module.FlightMode.Top.Location = CreateFrame('ScrollingMessageFrame', nil, module.FlightMode.Top, 'BackdropTemplate')
+	module.FlightMode.Top.Location:Point('LEFT', module.FlightMode.Top, 'LEFT', 10, 0)
+	module.FlightMode.Top.Location:FontTemplate(nil, 18, 'OUTLINE')
+	module.FlightMode.Top.Location:CreateBackdrop('Transparent')
+	module.FlightMode.Top.Location:SetFading(false)
+	module.FlightMode.Top.Location:SetFadeDuration(0)
+	module.FlightMode.Top.Location:SetTimeVisible(1)
+	module.FlightMode.Top.Location:SetMaxLines(1)
+	module.FlightMode.Top.Location:SetSpacing(2)
+	module.FlightMode.Top.Location:Width(300)
+	module.FlightMode.Top.Location:Height(24)
 
 	module.FlightMode.Panel = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
 	module.FlightMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
@@ -497,16 +542,6 @@ function module:Initialize()
 		end)
 	end)
 
-	module.FlightMode.Location = CreateFrame('ScrollingMessageFrame', nil, module.FlightMode.Panel)
-	module.FlightMode.Location:FontTemplate(nil, 18, 'OUTLINE')
-	module.FlightMode.Location:SetFading(true)
-	module.FlightMode.Location:SetFadeDuration(0.6)
-	module.FlightMode.Location:SetTimeVisible(1)
-	module.FlightMode.Location:SetMaxLines(1)
-	module.FlightMode.Location:SetSpacing(2)
-	module.FlightMode.Location:Width(300)
-	module.FlightMode.Location:Height(24)
-	module.FlightMode.Location:Point('LEFT', module.FlightMode.Panel, 'LEFT', 40, 0)
 
 	-- Time flying
 	module.FlightMode.TimeFlying = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
