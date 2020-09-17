@@ -45,6 +45,7 @@ local C_Calendar_GetDayEvent = C_Calendar.GetDayEvent
 local C_Calendar_GetNumPendingInvites = C_Calendar.GetNumPendingInvites
 local C_IslandsQueue_GetIslandsWeeklyQuestID = C_IslandsQueue.GetIslandsWeeklyQuestID
 local C_Map_GetAreaInfo = C_Map.GetAreaInfo
+local EJ_GetInstanceByIndex = EJ_GetInstanceByIndex
 local TIMEMANAGER_TICKER_24HOUR = TIMEMANAGER_TICKER_24HOUR
 local TIMEMANAGER_TICKER_12HOUR = TIMEMANAGER_TICKER_12HOUR
 local GetNumSavedInstances = GetNumSavedInstances
@@ -534,6 +535,12 @@ local function OnHover(button)
 		button.highlight:SetTexture(buttonHighlight)
 		button.highlight:SetBlendMode("ADD")
 	end
+
+	button:HookScript('OnEnter', function(self)
+		if microBar:IsShown() then
+			UIFrameFadeIn(microBar, 0.2, microBar:GetAlpha(), 1)
+		end
+	end)
 end
 
 local function OnLeave(button)
@@ -541,6 +548,12 @@ local function OnLeave(button)
 		button.tex:SetVertexColor(.6, .6, .6)
 		button.highlight:Hide()
 	end
+
+	button:HookScript('OnLeave', function(self)
+		if microBar:IsShown() and module.db.mouseOver then
+			UIFrameFadeOut(microBar, 0.2, microBar:GetAlpha(), 0)
+		end
+	end)
 	GameTooltip:Hide()
 end
 
@@ -564,7 +577,15 @@ function module:CreateMicroBar()
 	microBar:SetSize(400, 26)
 	microBar:SetScale(module.db.scale or 1)
 	microBar:SetPoint("TOP", E.UIParent, "TOP", 0, -19)
+	microBar:Hide()
 	E.FrameLocks[microBar] = true
+
+	microBar:SetScript('OnEnter', function(self) UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1) end)
+	microBar:SetScript('OnLeave', function(self)
+		if module.db.mouseOver then
+			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
+		end
+	end)
 
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
@@ -1056,6 +1077,12 @@ function module:CreateMicroBar()
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
 
 	self:Template()
+
+	if module.db.mouseOver then
+		UIFrameFadeOut(microBar, 0.2, microBar:GetAlpha(), 0)
+	else
+		UIFrameFadeIn(microBar, 0.2, microBar:GetAlpha(), 1)
+	end
 end
 
 function module:Template()
@@ -1071,14 +1098,14 @@ end
 
 function module:Toggle()
 	if module.db.enable then
-		microBar:Show()
+		microBar:SetAlpha(1)
 		E:EnableMover(microBar.mover:GetName())
 
 		if module.db.hideInCombat then
 			RegisterStateDriver(microBar, 'visibility', '[combat] hide;show')
 		end
 	else
-		microBar:Hide()
+		microBar:SetAlpha(0)
 		E:DisableMover(microBar.mover:GetName())
 		UnregisterStateDriver(microBar, 'visibility')
 	end
@@ -1111,12 +1138,12 @@ function module:Initialize()
 
 	self:CreateMicroBar()
 	self:Template()
-	self:Toggle()
+	--self:Toggle()
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.microBar
 
-		self:Toggle()
+		--self:Toggle()
 	end
 
 	self:ForUpdateAll()

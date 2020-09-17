@@ -148,14 +148,20 @@ local function ActionBarTable()
 						name = L["Hide In Orderhall"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
-					tooltip = {
+					mouseOver = {
 						order = 6,
+						type = "toggle",
+						name = L["Mouseover"],
+						disabled = function() return not E.db.mui.microBar.enable end,
+					},
+					tooltip = {
+						order = 7,
 						type = "toggle",
 						name = L["Tooltip"],
 						disabled = function() return not E.db.mui.microBar.enable end,
 					},
 					text = {
-						order = 7,
+						order = 8,
 						type = "group",
 						name = MER:cOption(L["Text"]),
 						guiInline = true,
