@@ -319,17 +319,24 @@ function module:Toggle()
 	end
 end
 
+function module:Resize()
+	local panelSize = E.db.mui.panels.panelSize or 427
+
+	module.FlightMode.Top.LeftStyle:Size(panelSize, 4)
+	--module.FlightMode.Top.LeftStyle1:Size(panelSize, 36)
+	module.FlightMode.Top.LeftStyle2:Size(panelSize, E.mult)
+
+	module.FlightMode.Top.RightStyle:Size(panelSize, 4)
+	module.FlightMode.Top.RightStyle1:Size(panelSize, 36)
+	module.FlightMode.Top.RightStyle2:Size(panelSize, E.mult)
+end
+
 function module:Initialize()
 	module.db = E.db.mui.flightMode
 	MER:RegisterDB(self, 'flightMode')
 
 	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
 	if module.db.enable ~= true then return end
-
-	function module:ForUpdateAll()
-		module.db = E.db.mui.flightMode
-	end
-	module:ForUpdateAll()
 
 	module.FlightMode = CreateFrame('Frame', 'MER_FlightModeFrame', UIParent)
 	module.FlightMode:SetFrameLevel(1)
@@ -351,35 +358,37 @@ function module:Initialize()
 	module.FlightMode.Top.ignoreFrameTemplates = true
 	module.FlightMode.Top.ignoreBackdropColors = true
 
-	module.FlightMode.Top.LeftStyle = CreateFrame('Frame', nil, module.FlightMode.Top)
+	local panelSize = E.db.mui.panels.panelSize or 427
+
+	module.FlightMode.Top.LeftStyle = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.LeftStyle:SetFrameStrata('HIGH')
 	module.FlightMode.Top.LeftStyle:SetFrameLevel(2)
-	module.FlightMode.Top.LeftStyle:Size(427, 4)
-	module.FlightMode.Top.LeftStyle:Point('TOPLEFT', module.FlightMode.Top, 'TOPLEFT', 2, 0)
+	module.FlightMode.Top.LeftStyle:Size(panelSize, 4)
+	module.FlightMode.Top.LeftStyle:Point('TOPLEFT', module.FlightMode, 'TOPLEFT', 2, 0)
 	MERS:SkinPanel(module.FlightMode.Top.LeftStyle)
 
-	module.FlightMode.Top.LeftStyle1 = CreateFrame('Frame', nil, module.FlightMode.Top)
-	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode.Top, 'TOPLEFT', 2, -53)
-	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, 427, 36, 'Horizontal', 0, 0, 0, .5, 0)
+	module.FlightMode.Top.LeftStyle1 = CreateFrame('Frame', nil, module.FlightMode)
+	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode, 'TOPLEFT', 2, -52)
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, .5, 0)
 
 	module.FlightMode.Top.LeftStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
 	module.FlightMode.Top.LeftStyle2:Point('TOP', module.FlightMode.Top.LeftStyle1, 'BOTTOM')
-	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, 427, E.mult, 'Horizontal', r, g, b, .7, 0)
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, E.mult, 'Horizontal', r, g, b, .7, 0)
 
-	module.FlightMode.Top.RightStyle = CreateFrame('Frame', nil, module.FlightMode.Top)
+	module.FlightMode.Top.RightStyle = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.RightStyle:SetFrameStrata('HIGH')
 	module.FlightMode.Top.RightStyle:SetFrameLevel(2)
-	module.FlightMode.Top.RightStyle:Size(427, 4)
-	module.FlightMode.Top.RightStyle:Point('TOPRIGHT', module.FlightMode.Top, 'TOPRIGHT', -2, 0)
+	module.FlightMode.Top.RightStyle:Size(panelSize, 4)
+	module.FlightMode.Top.RightStyle:Point('TOPRIGHT', module.FlightMode, 'TOPRIGHT', -2, 0)
 	MERS:SkinPanel(module.FlightMode.Top.RightStyle)
 
-	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode.Top)
-	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode.Top, 'TOPRIGHT', 2, -20)
-	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, 427, 36, 'Horizontal', 0, 0, 0, 0, .5)
+	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode)
+	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode, 'TOPRIGHT', 2, -18)
+	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, 0, .5)
 
-	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
+	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.RightStyle1)
 	module.FlightMode.Top.RightStyle2:Point('TOP', module.FlightMode.Top.RightStyle1,'BOTTOM')
-	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle2, 427, E.mult, 'Horizontal', r, g, b, 0, .7)
+	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle2, panelSize, E.mult, 'Horizontal', r, g, b, 0, .7)
 
 	-- WoW logo
 	module.FlightMode.Top.wowlogo = CreateFrame('Frame', nil, module.FlightMode) -- need this to upper the logo layer
@@ -397,7 +406,7 @@ function module:Initialize()
 
 	module.FlightMode.Top.CloseButton = CreateFrame('Button', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.CloseButton:Size(24)
-	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -6, 0)
+	module.FlightMode.Top.CloseButton:Point('RIGHT', module.FlightMode.Top, 'RIGHT', -6, -3)
 
 	module.FlightMode.Top.CloseButton.img = module.FlightMode.Top.CloseButton:CreateTexture(nil, 'OVERLAY')
 	module.FlightMode.Top.CloseButton.img:Point('CENTER')
@@ -542,7 +551,6 @@ function module:Initialize()
 		end)
 	end)
 
-
 	-- Time flying
 	module.FlightMode.TimeFlying = module.FlightMode.Panel:CreateFontString(nil, 'OVERLAY')
 	module.FlightMode.TimeFlying:FontTemplate(nil, 16, 'OUTLINE')
@@ -562,8 +570,15 @@ function module:Initialize()
 		module.FlightMode.pepeModel:Show()
 	end
 
+	function module:ForUpdateAll()
+		module.db = E.db.mui.flightMode
+		module:Resize()
+	end
+	module:ForUpdateAll()
+
 	E:UpdateBorderColors()
 	module:Toggle()
+	module:Resize()
 end
 
 MER:RegisterModule(module:GetName())
