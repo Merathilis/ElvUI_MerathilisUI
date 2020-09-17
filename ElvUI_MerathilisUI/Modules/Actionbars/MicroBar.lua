@@ -1096,12 +1096,12 @@ function module:Initialize()
 
 	self:CreateMicroBar()
 	self:Template()
-	--self:Toggle()
+	self:Toggle()
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.microBar
 
-		--self:Toggle()
+		self:Toggle()
 	end
 
 	self:ForUpdateAll()
