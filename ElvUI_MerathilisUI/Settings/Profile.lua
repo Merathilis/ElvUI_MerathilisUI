@@ -330,6 +330,7 @@ MP.microBar = {
 	template = "Transparent",
 	hideInCombat = true,
 	hideInOrderHall = false,
+	mouseOver = false,
 	tooltip = true,
 	text = {
 		position = "BOTTOM",
