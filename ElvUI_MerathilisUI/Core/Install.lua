@@ -269,6 +269,7 @@ function MER:SetupLayout(layout)
 	E.db["general"]["displayCharacterInfo"] = true
 	E.db["general"]["displayInspectInfo"] = true
 	E.db["general"]["resurrectSound"] = true
+	E.db["general"]["decimalLength"] = 0
 
 	--[[----------------------------------
 	--	ProfileDB - Auras
@@ -1172,8 +1173,18 @@ function MER:SetupUnitframes(layout)
 			["fontOutline"] = "OUTLINE",
 			["size"] = 12,
 			["justifyH"] = "CENTER",
-			["text_format"] = "[power:current-mUI]",
+			["text_format"] = "[power:current]",
 			["attachTextTo"] = "Power",
+			["xOffset"] = 0,
+			["yOffset"] = 0,
+		}
+		E.db["unitframe"]["units"]["player"]["customTexts"]["MERMana"] = {
+			["font"] = "Merathilis Gotham Narrow Black",
+			["fontOutline"] = "OUTLINE",
+			["size"] = 12,
+			["justifyH"] = "CENTER",
+			["text_format"] = "[additionalmana:current]",
+			["attachTextTo"] = "AdditionalPower",
 			["xOffset"] = 0,
 			["yOffset"] = 0,
 		}
