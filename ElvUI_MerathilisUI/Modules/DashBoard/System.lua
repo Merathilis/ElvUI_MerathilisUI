@@ -17,7 +17,7 @@ local DASH_HEIGHT = 20
 local DASH_SPACING = 3
 local SPACING = 1
 
-local boards = {"FPS", "MS", "Volume"}
+local boards = {'FPS', 'MS', 'Volume'}
 
 function module:UpdateSystem()
 	local db = E.db.mui.dashboard.system
@@ -38,7 +38,7 @@ function module:UpdateSystem()
 			holder:Width(((DASH_HEIGHT + (E.PixelMode and 1 or DASH_SPACING)) * (#module.SystemDB + 1)) + DASH_SPACING)
 
 			local sysFrame = CreateFrame('Frame', 'MER_'..name, holder)
-			sysFrame:Heigth(DASH_HEIGHT)
+			sysFrame:Height(DASH_HEIGHT)
 			sysFrame:Width(DASH_WIDTH)
 			sysFrame:Point('TOPLEFT', holder, 'TOPLEFT', SPACING, -SPACING)
 			sysFrame:EnableMouse(true)
@@ -46,7 +46,7 @@ function module:UpdateSystem()
 			sysFrame.dummy = CreateFrame('Frame', nil, sysFrame)
 			sysFrame.dummy:Point('BOTTOMLEFT', sysFrame, 'BOTTOMLEFT', 2, 2)
 			sysFrame.dummy:Point('BOTTOMRIGHT', sysFrame, 'BOTTOMRIGHT', (E.PixelMode and -4 or -8), 0)
-			sysFrame.dummy:Heigth(E.PixelMode and 3 or 5)
+			sysFrame.dummy:Height(E.PixelMode and 3 or 5)
 
 			sysFrame.dummy.dummyStatus = sysFrame.dummy:CreateTexture(nil, 'OVERLAY')
 			sysFrame.dummy.dummyStatus:SetInside()
