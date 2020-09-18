@@ -441,7 +441,7 @@ function module:CreateFlightMode()
 	module.FlightMode.Top.Location:SetFadeDuration(0)
 	module.FlightMode.Top.Location:SetTimeVisible(1)
 	module.FlightMode.Top.Location:SetMaxLines(1)
-	module.FlightMode.Top.Location:SetInsertMode('TOP')
+	module.FlightMode.Top.Location:SetInsertMode('BOTTOM')
 	module.FlightMode.Top.Location:Width(300)
 	module.FlightMode.Top.Location:Height(40)
 

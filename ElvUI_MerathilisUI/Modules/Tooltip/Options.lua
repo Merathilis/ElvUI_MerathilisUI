@@ -138,6 +138,12 @@ local function Tooltip()
 								name = L["Ny'alotha"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
+							CastleNathria = {
+								order = 5,
+								type = "toggle",
+								name = L["Castle Nathria"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							}
 						}
 					},
 				},

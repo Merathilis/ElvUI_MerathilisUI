@@ -25,10 +25,22 @@ local hooksecurefunc = hooksecurefunc
 
 module.RP = {
 	-- sort key
-	["tiers"] = { "Uldir", "BattleOfDazaralor", "CrucibleOfStorms", "EternalPalace", "Nyalotha"},
-	["levels"] = { "Mythic", "Heroic", "Normal", "LFR" },
+	["tiers"] = {"Uldir", "BattleOfDazaralor", "CrucibleOfStorms", "EternalPalace", "Nyalotha", "CastleNathria"},
+	["levels"] = {"Mythic", "Heroic", "Normal", "LFR"},
 	-- stat id
 	["Raid"] = {
+		["CastleNathria"] = {
+			["Mythic"] = {
+				14356, 14357, 14358, 14359, 14360, 14361, 14362, 14363, 14364, 14365
+			},
+			["Heroic"] = {
+
+			},
+			["Normal"] = {
+			},
+			["LFR"] = {
+			},
+		},
 		["Uldir"] = {
 			["Mythic"] = {
 				12789, 12793, 12797, 12801, 12805, 12811, 12816, 12820,

@@ -543,6 +543,7 @@ MP.tooltip = {
 			CrucibleOfStorms = false,
 			EternalPalace = true,
 			Nyalotha = true,
+			CastleNathria = true,
 		}
 	},
 }
