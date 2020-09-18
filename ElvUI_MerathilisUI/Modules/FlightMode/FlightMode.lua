@@ -36,7 +36,7 @@ local UIFrameFadeOut = UIFrameFadeOut
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
-local CAMERA_SPEED = 0.090
+local CAMERA_SPEED = 0.075
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
