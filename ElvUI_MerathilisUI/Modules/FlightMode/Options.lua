@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("MER_FlightMode")
+local module = MER:GetModule('MER_FlightMode')
+local COMP = MER:GetModule('mUICompatibility')
 
 local format = string.format
 local tinsert = table.insert
@@ -19,6 +20,7 @@ local function FlightMode()
 				type = "group",
 				name = MER:cOption(L["Credits"]),
 				guiInline = true,
+				disabled = function() return (COMP.BUI and E.db.benikui.misc.flightMode.enable) end,
 				args = {
 					tukui = ACH:Description(format("|cff00c0faBenikUI|r"), 1),
 				},
@@ -32,7 +34,7 @@ local function FlightMode()
 				order = 4,
 				type = "toggle",
 				name = L["|cff00c0faBenikUI|r FlightMode"],
-				desc = L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
+				desc = L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."],
 				hidden = function() return not IsAddOnLoaded("ElvUI_BenikUI") end,
 			},
 		},

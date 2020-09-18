@@ -36,6 +36,7 @@ local UIFrameFadeOut = UIFrameFadeOut
 local TaxiRequestEarlyLanding = TaxiRequestEarlyLanding
 
 local r, g, b = unpack(E.media.rgbvaluecolor)
+local CAMERA_SPEED = 0.090
 
 local function AutoColoring()
 	local pvpType = GetZonePVPInfo()
@@ -79,6 +80,7 @@ local noFlightMapIDs = {
 	830, -- Krokuun
 	831,
 	882, -- Mac'Aree
+	883,
 	885, -- Antoran Wastes
 	887, -- The Vindicaar
 }
@@ -128,6 +130,8 @@ function module:SetFlightMode(status)
 		module.FlightMode:Show()
 
 		E.UIParent:Hide()
+
+		MoveViewLeftStart(CAMERA_SPEED)
 
 		-- Hide some frames
 		if _G.ObjectiveTrackerFrame then _G.ObjectiveTrackerFrame:Hide() end
@@ -197,6 +201,8 @@ function module:SetFlightMode(status)
 		_G.MainMenuBarVehicleLeaveButton:SetParent(_G.UIParent)
 
 		E.UIParent:Show()
+
+		MoveViewLeftStop()
 
 		-- Show hidden frames
 		if _G.ObjectiveTrackerFrame then _G.ObjectiveTrackerFrame:Show() end
@@ -323,7 +329,7 @@ function module:Resize()
 	local panelSize = E.db.mui.panels.panelSize or 427
 
 	module.FlightMode.Top.LeftStyle:Size(panelSize, 4)
-	--module.FlightMode.Top.LeftStyle1:Size(panelSize, 36)
+	module.FlightMode.Top.LeftStyle1:Size(panelSize, 36)
 	module.FlightMode.Top.LeftStyle2:Size(panelSize, E.mult)
 
 	module.FlightMode.Top.RightStyle:Size(panelSize, 4)
@@ -331,13 +337,7 @@ function module:Resize()
 	module.FlightMode.Top.RightStyle2:Size(panelSize, E.mult)
 end
 
-function module:Initialize()
-	module.db = E.db.mui.flightMode
-	MER:RegisterDB(self, 'flightMode')
-
-	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
-	if module.db.enable ~= true then return end
-
+function module:CreateFlightMode()
 	module.FlightMode = CreateFrame('Frame', 'MER_FlightModeFrame', UIParent)
 	module.FlightMode:SetFrameLevel(1)
 	module.FlightMode:SetFrameStrata('BACKGROUND')
@@ -368,12 +368,12 @@ function module:Initialize()
 	MERS:SkinPanel(module.FlightMode.Top.LeftStyle)
 
 	module.FlightMode.Top.LeftStyle1 = CreateFrame('Frame', nil, module.FlightMode)
-	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode, 'TOPLEFT', 2, -52)
+	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode, 'TOPLEFT', 2, -18)
 	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, .5, 0)
 
 	module.FlightMode.Top.LeftStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
 	module.FlightMode.Top.LeftStyle2:Point('TOP', module.FlightMode.Top.LeftStyle1, 'BOTTOM')
-	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, E.mult, 'Horizontal', r, g, b, .7, 0)
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle2, panelSize, E.mult, 'Horizontal', r, g, b, .7, 0)
 
 	module.FlightMode.Top.RightStyle = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.RightStyle:SetFrameStrata('HIGH')
@@ -384,6 +384,7 @@ function module:Initialize()
 
 	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode, 'TOPRIGHT', 2, -18)
+	module.FlightMode.Top.RightStyle1:Size(panelSize, 36)
 	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, 0, .5)
 
 	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.RightStyle1)
@@ -570,8 +571,21 @@ function module:Initialize()
 		module.FlightMode.pepeModel:Show()
 	end
 
+	module:Resize()
+end
+
+function module:Initialize()
+	module.db = E.db.mui.flightMode
+	MER:RegisterDB(self, 'flightMode')
+
+	if (COMP.BUI and E.db.benikui.misc.flightMode.enable) then return end
+	if module.db.enable ~= true then return end
+
+	module:CreateFlightMode()
+
 	function module:ForUpdateAll()
 		module.db = E.db.mui.flightMode
+		module:CreateFlightMode()
 		module:Resize()
 	end
 	module:ForUpdateAll()
