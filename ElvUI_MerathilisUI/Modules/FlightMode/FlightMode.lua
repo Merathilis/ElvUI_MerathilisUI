@@ -435,15 +435,15 @@ function module:CreateFlightMode()
 
 	module.FlightMode.Top.Location = CreateFrame('ScrollingMessageFrame', nil, module.FlightMode.Top, 'BackdropTemplate')
 	module.FlightMode.Top.Location:Point('LEFT', module.FlightMode.Top, 'LEFT', 10, 0)
-	module.FlightMode.Top.Location:FontTemplate(nil, 18, 'OUTLINE')
+	module.FlightMode.Top.Location:FontTemplate(nil, 16, 'OUTLINE')
 	module.FlightMode.Top.Location:CreateBackdrop('Transparent')
 	module.FlightMode.Top.Location:SetFading(false)
 	module.FlightMode.Top.Location:SetFadeDuration(0)
 	module.FlightMode.Top.Location:SetTimeVisible(1)
 	module.FlightMode.Top.Location:SetMaxLines(1)
-	module.FlightMode.Top.Location:SetSpacing(2)
+	module.FlightMode.Top.Location:SetInsertMode('TOP')
 	module.FlightMode.Top.Location:Width(300)
-	module.FlightMode.Top.Location:Height(24)
+	module.FlightMode.Top.Location:Height(40)
 
 	module.FlightMode.Panel = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
 	module.FlightMode.Panel:Point('BOTTOM', E.UIParent, 'BOTTOM', 0, 100)
@@ -585,7 +585,6 @@ function module:Initialize()
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.flightMode
-		module:CreateFlightMode()
 		module:Resize()
 	end
 	module:ForUpdateAll()
