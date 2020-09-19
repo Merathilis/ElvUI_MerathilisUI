@@ -143,6 +143,7 @@ MP.misc = {
 	},
 	cursor = false,
 	lfgInfo = true,
+	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
 		announce = true,
