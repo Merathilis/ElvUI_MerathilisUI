@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
 local module = MER:GetModule('MER_DashBoard')
+local COMP = MER:GetModule('MER_Compatibility')
 local DT = E:GetModule('DataTexts')
 local LSM = E.LSM or E.Libs.LSM
 
@@ -88,11 +89,11 @@ end
 function module:CreateDashboardHolder(holderName, option)
 	local db = E.db.mui.dashboard[option]
 
-	local holder = CreateFrame("Frame", holderName, E.UIParent)
+	local holder = CreateFrame("Frame", holderName, E.UIParent, 'BackdropTemplate')
 	holder:CreateBackdrop("Transparent")
 	holder:SetFrameStrata("BACKGROUND")
 	holder:SetFrameLevel(5)
-	holder.backdrop:Styling()
+	holder:Styling()
 	holder:Hide()
 
 	holder.bar = CreateFrame("Frame", nil, E.UIParent)
@@ -163,17 +164,18 @@ function module:CreateDashboard(name, barHolder, option)
 end
 
 function module:Initialize()
-	if IsAddOnLoaded("ElvUI_BenikUI") then return end
+	if (COMP.BUI and E.db.benikui.dashboards.system.enableSystem) then return end
 
 	module.db = E.db.mui.dashboard
 	MER:RegisterDB(self, "dashboard")
 
+	module:LoadSystem()
+
 	function module:ForUpdateAll()
 		module.db = E.db.mui.dashboard
+		module:LoadSystem()
 	end
 	self:ForUpdateAll()
-
-	module:LoadSystem()
 end
 
 MER:RegisterModule(module:GetName())
