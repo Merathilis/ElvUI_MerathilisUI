@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_DataBars')
 local DB = E:GetModule('DataBars')
-local module = MER:NewModule('mUI_databars')
 
 --Cache global variables
 --Lua functions

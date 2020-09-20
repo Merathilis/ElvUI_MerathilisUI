@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
-local MERS = MER:GetModule("muiSkins")
+local module = MER:GetModule('MER_MicroBar')
 
 --Cache global variables
 --Lua functions

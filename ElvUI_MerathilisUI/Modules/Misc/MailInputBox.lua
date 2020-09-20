@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
+local MI = MER:GetModule('MER_Misc')
 
 -- Cache global variables
 -- Lua functions
@@ -25,7 +25,7 @@ local function MailInputBox()
 	local c = _G["SendMailCostMoneyFrame"]
 	c:ClearAllPoints()
 	c:SetPoint(unpack(moneyframe_pos))
-	local f = "SendMailNameEditBox" 
+	local f = "SendMailNameEditBox"
 	_G[f]:SetSize(editbox_width or 224, 20)
 	local r = _G[f.."Right"]
 	r:ClearAllPoints()

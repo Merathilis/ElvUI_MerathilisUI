@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("Progress")
+local module = MER:GetModule("MER_Progress")
 
 --Cache global variables
 --Lua functions

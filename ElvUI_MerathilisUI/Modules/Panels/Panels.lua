@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("Panels")
-local AB = E:GetModule("ActionBars")
-local MERS = MER:GetModule("muiSkins")
+local module = MER:GetModule('MER_Panels')
+local AB = E:GetModule('ActionBars')
+local MERS = MER:GetModule('MER_Skins')
 
 --Cache global variables
 --Lua functions

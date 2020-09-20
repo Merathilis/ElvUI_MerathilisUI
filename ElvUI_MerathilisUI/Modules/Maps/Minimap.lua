@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:GetModule('MER_Minimap')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 --Cache global variables

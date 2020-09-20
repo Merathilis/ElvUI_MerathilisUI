@@ -1,5 +1,5 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
+local module = MER:GetModule('MER_LocPanel')
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
 

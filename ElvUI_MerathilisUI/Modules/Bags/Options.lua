@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERBI = MER:GetModule("mUIBagInfo")
+local MERBI = MER:GetModule('MER_BagInfo')
 
 --Cache global variables
 --Lua functions

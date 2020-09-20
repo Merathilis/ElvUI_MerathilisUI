@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RaidManager", "AceEvent-3.0", "AceTimer-3.0")
-local S = E:GetModule("Skins")
-local COMP = MER:GetModule("mUICompatibility")
+local module = MER:GetModule('MER_RaidManager')
+local S = E:GetModule('Skins')
+local COMP = MER:GetModule('MER_Compatibility')
 
 -- Cache global variables
 -- Lua functions

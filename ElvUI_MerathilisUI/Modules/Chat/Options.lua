@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("muiChat")
+local module = MER:GetModule('MER_Chat')
 
 --Cache global variables
 --Lua functions

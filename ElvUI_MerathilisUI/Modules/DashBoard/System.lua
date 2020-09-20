@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("MERDashBoard")
-local DT = E:GetModule("DataTexts")
+local module = MER:GetModule('MER_DashBoard')
+local DT = E:GetModule('DataTexts')
 
 -- Cache global variables
 -- Lua functions
@@ -99,7 +99,7 @@ function module:CreateSystemDashboard()
 	module:UpdateHolderDimensions(self.sysHolder, "system", module.SystemDB)
 	module:ToggleTransparency(self.sysHolder, "system")
 
-	E:CreateMover(self.sysHolder, "MER_DashboardMover", L["System"], nil, nil, nil, "ALL,MERATHILISUI", nil, 'mui,modules,dashboard,system')
+	E:CreateMover(_G.MER_SystemDashboard, "MER_DashboardMover", L["System"], nil, nil, nil, "ALL,MERATHILISUI", nil, 'mui,modules,dashboard,system')
 end
 
 function module:LoadSystem()

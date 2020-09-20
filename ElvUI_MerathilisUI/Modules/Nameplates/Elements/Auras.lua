@@ -1,8 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
-local NP = E:GetModule("NamePlates")
-local UF = E:GetModule("UnitFrames")
-module.modName = L["NameplateAuras"]
+local module = MER:GetModule('MER_NameplateAuras')
+local NP = E:GetModule('NamePlates')
+local UF = E:GetModule('UnitFrames')
 
 -- Cache global variables
 -- Lua functions

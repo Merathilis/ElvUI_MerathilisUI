@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local PN = MER:GetModule("Panels")
+local PN = MER:GetModule('MER_Panels')
 
 --Cache global variables
 --Lua functions

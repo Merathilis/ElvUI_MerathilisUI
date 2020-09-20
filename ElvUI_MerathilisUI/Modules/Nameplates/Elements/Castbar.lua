@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MNP = MER:GetModule('mUINamePlates')
+local MNP = MER:GetModule('MER_NamePlates')
 local NP = E:GetModule('NamePlates')
 
 --Cache global variables

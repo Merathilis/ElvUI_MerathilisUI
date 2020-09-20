@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIMinimapButtons", 'AceTimer-3.0')
-local COMP = MER:GetModule("mUICompatibility")
+local module = MER:GetModule('MER_MiniMapButtons')
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 --Lua functions

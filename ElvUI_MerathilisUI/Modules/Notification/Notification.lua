@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local module = MER:NewModule("Notification", "AceEvent-3.0")
-local CH = E:GetModule("Chat")
-local S = E:GetModule("Skins")
+local module = MER:GetModule('MER_Notification')
+local MERS = MER:GetModule('MER_Skins')
+local CH = E:GetModule('Chat')
+local S = E:GetModule('Skins')
 
 -- Credits RealUI
 

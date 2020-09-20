@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MAB = MER:GetModule("mUIActionbars")
+local MAB = MER:GetModule('MER_Actionbars')
 
 --Cache global variables
 --Lua functions

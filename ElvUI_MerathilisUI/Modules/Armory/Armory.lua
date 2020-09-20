@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
+local module = MER:GetModule('MER_Armory')
 local LCG = LibStub('LibCustomGlow-1.0')
-local COMP = MER:GetModule("mUICompatibility")
+local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables

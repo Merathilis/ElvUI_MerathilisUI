@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local module = MER:GetModule('MER_UnitFrames')
 local UF = E:GetModule('UnitFrames')
-local module = MER:GetModule("muiUnits")
 
 --Cache global variables
 --Lua Variables

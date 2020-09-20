@@ -1,8 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("muiChat", "AceEvent-3.0", "AceHook-3.0", "AceTimer-3.0")
-local MERS = MER:GetModule("muiSkins")
-local CH = E:GetModule("Chat")
-local LO = E:GetModule("Layout")
+local module = MER:GetModule('MER_Chat')
+local CH = E:GetModule('Chat')
+local LO = E:GetModule('Layout')
 
 -- Cache global variables
 -- Lua functions

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MER_Loot', 'AceEvent-3.0', 'AceHook-3.0')
+local module = MER:GetModule('MER_Loot')
 local LCG = LibStub('LibCustomGlow-1.0')
 local M = E:GetModule('Misc')
 

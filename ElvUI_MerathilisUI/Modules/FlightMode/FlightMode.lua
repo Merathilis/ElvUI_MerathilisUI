@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
-local COMP = MER:GetModule('mUICompatibility')
-local MERS = MER:GetModule('muiSkins')
+local module = MER:GetModule('MER_FlightMode')
+local COMP = MER:GetModule('MER_Compatibility')
+local MERS = MER:GetModule('MER_Skins')
 local AB = E:GetModule('ActionBars')
 local LO = E:GetModule('Layout')
 

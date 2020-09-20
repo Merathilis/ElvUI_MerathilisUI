@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("MUIFlightMode")
-local COMP = MER:GetModule("mUICompatibility")
+local module = MER:GetModule('MER_BUIFlightMode')
+local COMP = MER:GetModule('MER_Compatibility')
 
 local _G = _G
 local CreateFrame = CreateFrame

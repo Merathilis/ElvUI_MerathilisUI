@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local AFK = E:GetModule("AFK")
-local COMP = MER:GetModule("mUICompatibility")
+local AFK = E:GetModule('AFK')
+local COMP = MER:GetModule('MER_Compatibility')
 
 -- Cache global variables
 -- Lua Variables

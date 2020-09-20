@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local CF = MER:GetModule("CooldownFlash")
+local CF = MER:GetModule('MER_Cooldown')
 
 --Cache global variables
 --Lua functions

@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIBagInfo", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
-local B = E:GetModule("Bags")
+local module = MER:GetModule('MER_BagInfo')
+local B = E:GetModule('Bags')
 
 --Cache global variables
 --Lua Variables
