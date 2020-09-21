@@ -9,7 +9,7 @@ local L = E.Libs.ACL:GetLocale('ElvUI', locale)
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local pairs, ipairs = pairs, ipairs
+local pcall, pairs, ipairs = pcall, pairs, ipairs
 -- WoW API / Variables
 -- GLOBALS:
 
@@ -43,9 +43,11 @@ MER.Emotes = MER:NewModule('MER_Emotes')
 MER.FlightMode = MER:NewModule('MER_FlightMode', 'AceHook-3.0', 'AceTimer-3.0', 'AceEvent-3.0')
 MER.FlightModeBUI = MER:NewModule('MER_BUIFlightMode')
 MER.GameMenu = MER:NewModule('MER_GameMenu')
+MER.Layout = MER:NewModule('MER_Layout', 'AceHook-3.0', 'AceEvent-3.0')
 MER.LFGInfo = MER:NewModule('MER_LFGInfo', 'AceHook-3.0')
 MER.LocPanel = MER:NewModule('MER_LocPanel', 'AceTimer-3.0', 'AceEvent-3.0')
 MER.Loot = MER:NewModule('MER_Loot', 'AceEvent-3.0', 'AceHook-3.0')
+MER.Media = MER:NewModule('MER_Media', 'AceHook-3.0')
 MER.MicroBar = MER:NewModule('MER_MicroBar', 'AceTimer-3.0', 'AceEvent-3.0')
 MER.MiniMap = MER:NewModule('MER_Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 MER.MiniMapButtons = MER:NewModule('MER_MiniMapButtons', 'AceTimer-3.0')
@@ -74,19 +76,28 @@ function MER:RegisterModule(name)
 			module:Initialize()
 		end
 	else
-		self["RegisteredModules"][#self["RegisteredModules"] + 1] = name
+		MER.RegisteredModules[#MER.RegisteredModules + 1] = name
 	end
 end
 
 function MER:GetRegisteredModules()
-	return self["RegisteredModules"]
+	return MER.RegisteredModules
 end
 
 function MER:InitializeModules()
-	for _, moduleName in pairs(MER["RegisteredModules"]) do
-		local module = self:GetModule(moduleName)
+	for _, moduleName in pairs(MER.RegisteredModules) do
+		local module = MER:GetModule(moduleName)
 		if module.Initialize then
-			module:Initialize()
+			pcall(module:Initialize(), module)
+		end
+	end
+end
+
+function MER:UpdateModules()
+	for _, moduleName in pairs(MER.RegisteredModules) do
+		local module = MER:GetModule(moduleName)
+		if module.ProfileUpdate then
+			pcall(module.ProfileUpdate, module)
 		end
 	end
 end
@@ -98,11 +109,12 @@ function MER:AddOptions()
 end
 
 function MER:Init()
-	self.initialized = true
+	MER.initialized = true
 
-	self:Initialize()
-	self:InitializeModules()
-	EP:RegisterPlugin(addon, self.AddOptions)
+	MER:Initialize()
+	MER:InitializeModules()
+	EP:RegisterPlugin(addon, MER.AddOptions)
+	MER:SecureHook(E, 'UpdateAll', 'UpdateModules')
 end
 
 E.Libs.EP:HookInitialize(MER, MER.Init)

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('RectangelMinimap')
+local module = MER:GetModule('MER_Minimap')
 local MM = E:GetModule('Minimap')
 
 -- Credits Shadow&Light
@@ -89,7 +89,7 @@ function module:UpdateLocationText()
 	_G.Minimap.location:Point('TOP', _G.Minimap, 'TOP', 0, -22)
 end
 
-function module:Initialize()
+function module:RectangleMinimap()
 	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.rectangle then return end
 
 	module:SkinMiniMap()
@@ -101,5 +101,3 @@ function module:Initialize()
 
 	hooksecurefunc(MM, "UpdateSettings", module.UpdateMoverSize)
 end
-
-MER:RegisterModule(module:GetName())

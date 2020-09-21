@@ -1,8 +1,8 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERL = MER:NewModule("mUILayout", "AceHook-3.0", "AceEvent-3.0")
-local CH = E:GetModule("Chat")
-local DT = E:GetModule("DataTexts")
-local LO = E:GetModule("Layout")
+local MERL = MER:GetModule('MER_Layout')
+local CH = E:GetModule('Chat')
+local DT = E:GetModule('DataTexts')
+local LO = E:GetModule('Layout')
 
 --Cache global variables
 --Lua functions
