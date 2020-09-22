@@ -63,7 +63,7 @@ local function Misc()
 			spellAlert = {
 				order = 11,
 				type = "range",
-				name = L["Spell Alert Scale"],
+				name = E.NewSign..L["Spell Alert Scale"],
 				min = 0.4, max = 1.5, step = 0.01,
 				get = function(info) return E.db.mui.misc.spellAlert end,
 				set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
