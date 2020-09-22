@@ -204,7 +204,7 @@ local function SkinsTable()
 			contribution = {
 				type = "toggle",
 				name = L["Contribution"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.Contribution end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.contribution end,
 			},
 			artifact = {
 				type = "toggle",
@@ -361,10 +361,10 @@ local function SkinsTable()
 				name = _G.CHALLENGES,
 				disabled = function() return not E.private.skins.blizzard.enable end, -- No ElvUI skin yet
 			},
-			AzeriteUI = {
+			azerite = {
 				type = "toggle",
 				name = L["AzeriteUI"],
-				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azeriteUI end,
+				disabled = function() return not E.private.skins.blizzard.enable or not E.private.skins.blizzard.azerite end,
 			},
 			AzeriteRespec = {
 				type = "toggle",
