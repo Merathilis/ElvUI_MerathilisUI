@@ -626,13 +626,3 @@ L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
-
--- DashBoard
-L["Dashboard"] = "仪表盘"
-L["Bar Color"] = "条颜色"
-L["Use DataTexts font"] = "使用信息文字字体"
-L["Enable the System Dashboard."] = "启用系统仪表盘"
-L["Select System Board"] = "选择系统仪表盘"
-L["Change the System Dashboard width."] = "调整仪表盘宽度."
-L["Enable/Disable "] = "启用/禁用 "
-L["Latency (MS)"] = "延迟 (毫秒)"

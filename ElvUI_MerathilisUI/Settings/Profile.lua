@@ -709,34 +709,6 @@ MP.armory = {
 	},
 }
 
-MP.dashboard = {
-	dashfont = {
-		useDTfont = true,
-		dbfont = E.db.datatexts.font,
-		dbfontsize = E.db.datatexts.fontSize,
-		dbfontflags = E.db.datatexts.fontOutline,
-	},
-
-	barColor = 1,
-	customBarColor = {r = 255/255,g = 128/255,b = 0/255},
-	textColor = 2,
-	customTextColor = {r = 255/255,g = 255/255,b = 255/255},
-
-	system = {
-		enableSystem = false,
-		combat = false,
-		width = 150,
-		transparency = true,
-		backdrop = true,
-		chooseSystem = {
-			FPS = true,
-			MS = true,
-			Volume = true,
-		},
-		latency = 2,
-	},
-}
-
 MP.flightMode = {
 	enable = true,
 	BenikFlightMode = true,

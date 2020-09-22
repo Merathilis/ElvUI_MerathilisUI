@@ -7,7 +7,6 @@
 	<Include file="CombatAlert\Load_CombatAlert.xml"/>
 	<Include file="Cooldowns\Load_Cooldowns.xml"/>
 	<Include file="CVars\Load_CVars.xml"/>
-	<Include file="DashBoard\Load_DashBoard.xml"/>
 	<Include file="Datatexts\Load_Datatexts.xml"/>
 	<Include file="Databars\Load_Databars.xml"/>
 	<Include file="LocPanel\Load_LocPanel.xml"/>

@@ -17,7 +17,7 @@ local function Cooldowns()
 			cooldownFlash = {
 				order = 1,
 				type = "group",
-				name = L["Cooldown Flash"],
+				name = MER:cOption(L["Cooldown Flash"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.cooldownFlash[ info[#info] ] end,
 				set = function(info, value) E.db.mui.cooldownFlash[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -110,7 +110,7 @@ local function Cooldowns()
 			raid = {
 				order = 2,
 				type = "group",
-				name = L["RaidCD"],
+				name = MER:cOption(L["RaidCD"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.raidCD[ info[#info] ] end,
 				set = function(info, value) E.db.mui.raidCD[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,

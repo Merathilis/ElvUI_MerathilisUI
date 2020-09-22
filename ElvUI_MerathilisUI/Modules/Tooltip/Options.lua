@@ -53,7 +53,7 @@ local function Tooltip()
 				order = 11,
 				type = "group",
 				guiInline = true,
-				name = L["Name Hover"],
+				name = "",
 				desc = L["Shows the Unit Name on the mouse."],
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -86,13 +86,14 @@ local function Tooltip()
 			progressInfo = {
 				order = 12,
 				type = "group",
-				name = L["Progress Info"],
+				name = "",
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
 				hidden = function() return IsAddOnLoaded("RaiderIO") end,
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
+					header = ACH:Header(MER:cOption(L["Progress Info"]), 0),
 					raid = {
 						order = 1,
 						name = L["Raid"],

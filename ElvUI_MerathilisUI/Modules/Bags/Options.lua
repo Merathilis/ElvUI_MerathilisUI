@@ -21,7 +21,7 @@ local function BagTable()
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = L["Equipment Manager"],
+				name = "",
 				args = {
 					equipOverlay = {
 						type = "toggle",
