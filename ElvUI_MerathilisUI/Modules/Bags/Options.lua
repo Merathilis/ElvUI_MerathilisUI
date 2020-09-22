@@ -21,7 +21,7 @@ local function BagTable()
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = "",
+				name = MER:cOption(L["Equip Manager"]),
 				args = {
 					equipOverlay = {
 						type = "toggle",

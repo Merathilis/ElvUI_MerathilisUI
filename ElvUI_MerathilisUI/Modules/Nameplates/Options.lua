@@ -17,7 +17,6 @@ local function NameplatesTable()
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 		args = {
 			name = ACH:Header(MER:cOption(L["NamePlates"]), 0),
-			spacer = ACH:Spacer(1),
 			castbarShield  = {
 				order = 2,
 				type = "toggle",
