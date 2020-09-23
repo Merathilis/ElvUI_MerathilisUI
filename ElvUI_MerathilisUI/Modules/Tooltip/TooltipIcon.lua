@@ -32,8 +32,9 @@ function module:SetupTooltipIcon(icon)
 		local line = _G[self:GetName().."TextLeft"..i]
 		if not line then break end
 		local text = line:GetText() or ""
-		if strmatch(text, "|T.-:[%d+:]+|t") then
-			line:SetText(gsub(text, "|T(.-):[%d+:]+|t", "|T%1:14:14:"..newString.."|t"))
+		if text and text ~= "" then
+			local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:"..newString.."|t")
+			if count > 0 then line:SetText("%s", newText) end
 		end
 	end
 end
