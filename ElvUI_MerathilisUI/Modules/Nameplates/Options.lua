@@ -27,7 +27,7 @@ local function NameplatesTable()
 			enhancedAuras = {
 				order = 10,
 				type = "group",
-				name = L["Enhanced NameplateAuras"],
+				name = MER:cOption(L["Enhanced NameplateAuras"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.nameplates.enhancedAuras[ info[#info] ] end,
 				set = function(info, value) E.db.mui.nameplates.enhancedAuras[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
