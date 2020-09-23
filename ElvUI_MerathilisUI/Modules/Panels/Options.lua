@@ -34,7 +34,7 @@ local function PanelTable()
 				},
 			},
 			stylepanels = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Style Panels"]),
 				guiInline = true,

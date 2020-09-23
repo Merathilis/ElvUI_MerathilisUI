@@ -36,13 +36,13 @@ local function UnitFramesTable()
 						desc = L["Adds a shadow to the debuffs that the debuff color is more visible."],
 					},
 					style = {
-						order = 2,
+						order = 3,
 						type = "toggle",
 						name = L["UnitFrame Style"],
 						desc = L["Adds my styling to the Unitframes if you use transparent health."],
 					},
 					roleIcons = {
-						order = 3,
+						order = 4,
 						type = "toggle",
 						name = L["Role Icon"],
 						desc = L["Change the default role icons."],
