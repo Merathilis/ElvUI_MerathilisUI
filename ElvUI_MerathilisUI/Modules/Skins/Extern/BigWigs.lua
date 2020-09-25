@@ -2,14 +2,12 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
+
 local select, unpack = select, unpack
 local tremove = table.remove
--- WoW API / Variables
 local CreateFrame = CreateFrame
 local GetAddOnInfo = GetAddOnInfo
--- GLOBALS: UIParent, BigWigs
+local UIParent = UIParent
 
 local buttonsize = 19
 
@@ -17,7 +15,7 @@ local buttonsize = 19
 local FreeBackgrounds = {}
 
 local function CreateBG()
-	local BG = CreateFrame("Frame", nil, "BackdropTemplate")
+	local BG = CreateFrame("Frame", nil, nil, 'BackdropTemplate')
 	MERS:CreateBD(BG, .45)
 	BG:Styling()
 
