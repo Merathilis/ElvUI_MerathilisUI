@@ -15,7 +15,7 @@ local buttonsize = 19
 local FreeBackgrounds = {}
 
 local function CreateBG()
-	local BG = CreateFrame("Frame", nil, nil, 'BackdropTemplate')
+	local BG = CreateFrame('Frame', nil, nil, 'BackdropTemplate')
 	MERS:CreateBD(BG, .45)
 	BG:Styling()
 
@@ -46,7 +46,7 @@ local function SetupBG(bg, bar, ibg)
 end
 
 local function FreeStyle(bar)
-	local bg = bar:Get("bigwigs:MerathilisUI:bg")
+	local bg = bar:Get('bigwigs:MerathilisUI:bg')
 	if bg then
 		bg:ClearAllPoints()
 		bg:SetParent(UIParent)
@@ -54,7 +54,7 @@ local function FreeStyle(bar)
 		FreeBackgrounds[#FreeBackgrounds + 1] = bg
 	end
 
-	local ibg = bar:Get("bigwigs:MerathilisUI:ibg")
+	local ibg = bar:Get('bigwigs:MerathilisUI:ibg')
 	if ibg then
 		ibg:ClearAllPoints()
 		ibg:SetParent(UIParent)
@@ -65,15 +65,15 @@ local function FreeStyle(bar)
 	--Reset Positions
 	--Icon
 	bar.candyBarIconFrame:ClearAllPoints()
-	bar.candyBarIconFrame:SetPoint("TOPLEFT")
-	bar.candyBarIconFrame:SetPoint("BOTTOMLEFT")
+	bar.candyBarIconFrame:SetPoint('TOPLEFT')
+	bar.candyBarIconFrame:SetPoint('BOTTOMLEFT')
 	bar.candyBarIconFrame:SetTexCoord(0.07, 0.93, 0.07, 0.93)
 
 	--Status Bar
 	bar.candyBarBar:ClearAllPoints()
 	bar.candyBarBar.SetPoint = nil
-	bar.candyBarBar:SetPoint("TOPRIGHT")
-	bar.candyBarBar:SetPoint("BOTTOMRIGHT")
+	bar.candyBarBar:SetPoint('TOPRIGHT')
+	bar.candyBarBar:SetPoint('BOTTOMRIGHT')
 
 	--BG
 	bar.candyBarBackground:SetAllPoints()
@@ -105,19 +105,19 @@ local function ApplyStyle(bar)
 	MERS:ReskinIcon(bar.candyBarIconFrame)
 
 	bar.candyBarLabel:ClearAllPoints()
-	bar.candyBarLabel:SetPoint("LEFT", bar, "LEFT", 2, 10)
-	bar.candyBarLabel:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+	bar.candyBarLabel:SetPoint('LEFT', bar, 'LEFT', 2, 10)
+	bar.candyBarLabel:SetPoint('RIGHT', bar, 'RIGHT', -2, 10)
 
 	bar.candyBarDuration:ClearAllPoints()
-	bar.candyBarDuration:SetPoint("LEFT", bar, "LEFT", 2, 10)
-	bar.candyBarDuration:SetPoint("RIGHT", bar, "RIGHT", -2, 10)
+	bar.candyBarDuration:SetPoint('LEFT', bar, 'LEFT', 2, 10)
+	bar.candyBarDuration:SetPoint('RIGHT', bar, 'RIGHT', -2, 10)
 end
 
 local f = CreateFrame("Frame")
 local function RegisterStyle()
 	if not BigWigs then return end
-	local styleName = MER.Title or "MerathilisUI"
-	local bars = BigWigs:GetPlugin("Bars", true)
+	local styleName = MER.Title or 'MerathilisUI'
+	local bars = BigWigs:GetPlugin('Bars', true)
 	if not bars then return end
 	bars:RegisterBarStyle(styleName, {
 		apiVersion = 1,
@@ -129,13 +129,13 @@ local function RegisterStyle()
 	})
 	bars.defaultDB.barStyle = styleName
 end
-f:RegisterEvent("ADDON_LOADED")
+f:RegisterEvent('ADDON_LOADED')
 
 local reason = nil
-f:SetScript("OnEvent", function(self, event, msg)
-	if event == "ADDON_LOADED" then
-		if not reason then reason = (select(6, GetAddOnInfo("BigWigs_Plugins"))) end
-		if (reason == "MISSING" and msg == "BigWigs") or msg == "BigWigs_Plugins" then
+f:SetScript('OnEvent', function(self, event, msg)
+	if event == 'ADDON_LOADED' then
+		if not reason then reason = (select(6, GetAddOnInfo('BigWigs_Plugins'))) end
+		if (reason == 'MISSING' and msg == 'BigWigs') or msg == 'BigWigs_Plugins' then
 			RegisterStyle()
 		end
 	end
