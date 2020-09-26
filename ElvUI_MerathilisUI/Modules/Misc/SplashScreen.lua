@@ -106,11 +106,11 @@ function MI:SplashScreen()
 
 	MER:RegisterEvent("PLAYER_ENTERING_WORLD", MI.Logo_CheckStatus)
 
-	SlashCmdList["NDUI_PLAYLOGO"] = function()
+	SlashCmdList["MER_PLAYLOGO"] = function()
 		if not MI.logoFrame then
 			MI:CreateSplash()
 		end
 		MI.logoFrame:Show()
 	end
-	SLASH_NDUI_PLAYLOGO1 = "/mlogo"
+	SLASH_MER_PLAYLOGO1 = "/mlogo"
 end
