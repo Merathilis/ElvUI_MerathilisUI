@@ -16,9 +16,9 @@ local SetCVar = SetCVar
 function MER:LuaError(msg)
 	local switch = strlower(msg)
 	if switch == 'on' or switch == '1' then
-		for i=1, GetNumAddOns() do
+		for i = 1, GetNumAddOns() do
 			local name = GetAddOnInfo(i)
-			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_MerathilisUI') and E:IsAddOnEnabled(name) then
+			if (name ~= 'ElvUI' and name ~= 'ElvUI_OptionsUI' and name ~= 'ElvUI_MerathilisUI' and name ~= '!BugGrabber' and name ~= 'BugSack') and E:IsAddOnEnabled(name) then
 				DisableAddOn(name, E.myname)
 				ElvDB.MERErrorDisabledAddOns[name] = i
 			end
