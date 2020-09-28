@@ -6,6 +6,8 @@ local module = MER:GetModule('MER_UnitFrames')
 -- GLOBALS:
 
 function module:Configure_RaidIcon(frame)
+	if E.db.mui.unitframes.raidIcons ~= true then return end
+
 	local RI = frame.RaidTargetIndicator
 	local db = frame.db
 

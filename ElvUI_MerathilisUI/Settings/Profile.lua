@@ -341,7 +341,7 @@ MP.microBar = {
 }
 
 MP.unitframes = {
-	healPrediction = false,
+	healPrediction = true,
 	swing = {
 		enable = false,
 		mcolor = { r = .8, g = .8, b = .8 },
@@ -356,6 +356,7 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	raidIcons = true,
 	roleIcons = true,
 	highlight = true,
 }
