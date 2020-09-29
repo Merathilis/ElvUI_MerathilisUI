@@ -74,10 +74,11 @@ local function GetDirection()
 		anchor = "BOTTOM"
 		point = "TOP"
 	end
+
 	return anchor, point
 end
 
---{ItemID, ButtonText, isToy}
+--{ItemID, ButtonText, isToy} DONT FORGET TO ADD THE ID TO THE PROFILE
 module.Hearthstones = {
 	{6948}, -- Hearthstone
 	{54452, nil, true}, -- Ethereal Portal
@@ -93,6 +94,7 @@ module.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
+	{184353, nil, true}, -- Kyrian Hearthstone
 }
 
 module.PortItems = {
