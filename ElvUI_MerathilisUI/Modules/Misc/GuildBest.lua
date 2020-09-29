@@ -139,5 +139,7 @@ local function ChallengesOnLoad(event, addon)
 end
 
 function MI:GuildBest()
+	if IsAddOnLoaded('RaiderIO') then return end
+
 	MI:RegisterEvent('ADDON_LOADED', ChallengesOnLoad)
 end
