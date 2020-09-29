@@ -2,11 +2,10 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
 local next, pairs, select, unpack = next, pairs, select, unpack
--- WoW API / Variables
+local strmatch = strmatch
+
 local CreateFrame = CreateFrame
 local hooksecurefunc = hooksecurefunc
 local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
@@ -15,12 +14,18 @@ local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard
 local GetNumQuestLogRewardSpells = GetNumQuestLogRewardSpells
 local GetNumRewardSpells = GetNumRewardSpells
 local C_QuestLog_GetNextWaypointText = C_QuestLog.GetNextWaypointText
+local C_QuestLog_GetSelectedQuest = C_QuestLog.GetSelectedQuest
 local GetQuestLogSelection = GetQuestLogSelection
 local GetQuestLogTitle = GetQuestLogTitle
 local GetQuestID = GetQuestID
--- GLOBALS:
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
+
+-- Replace seal signature string
+local replacedColorStr = {
+	["480404"] = "c20606",
+	["042c54"] = "1c86ee",
+}
 
 local function RestyleSpellButton(bu)
 	local name = bu:GetName()
@@ -43,7 +48,7 @@ end
 
 local function QuestInfo_GetQuestID()
 	if _G.QuestInfoFrame.questLog then
-		return C_QuestLog.GetSelectedQuest()
+		return C_QuestLog_GetSelectedQuest()
 	else
 		return GetQuestID()
 	end
@@ -123,8 +128,8 @@ local function HookTextColor_Yellow(self)
 end
 
 local function SetTextColor_Yellow(font)
-	font:SetShadowColor(0, 0, 0)
 	font:SetTextColor(1, .8, 0)
+	font:SetShadowColor(0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
 end
 
@@ -136,16 +141,13 @@ local function HookTextColor_White(self)
 end
 
 local function SetTextColor_White(font)
-	font:SetShadowColor(0, 0, 0)
 	font:SetTextColor(1, 1, 1)
+	font:SetShadowColor(0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
-
-	-- Stop here if parchment reomover is enabled.
-	--if E.private.skins.parchmentRemoverEnable then return end
 
 	-- [[ Objectives ]]
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
@@ -246,6 +248,7 @@ local function LoadSkin()
 		_G.QuestInfoObjectivesHeader,
 		_G.QuestInfoRewardsFrame.Header,
 	}
+
 	for _, font in pairs(yellowish) do
 		SetTextColor_Yellow(font)
 	end
@@ -262,9 +265,20 @@ local function LoadSkin()
 		_G.QuestInfoRewardsFrame.PlayerTitleText,
 		_G.QuestInfoRewardsFrame.XPFrame.ReceiveText,
 	}
+
 	for _, font in pairs(whitish) do
 		SetTextColor_White(font)
 	end
+
+	hooksecurefunc(_G.QuestInfoSealFrame.Text, "SetText", function(self, text)
+		if text and text ~= "" then
+			local colorStr, rawText = strmatch(text, "|cff(%x%x%x%x%x%x)(.-)|r")
+			if colorStr and rawText then
+				colorStr = replacedColorStr[colorStr] or "99ccff"
+				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
+			end
+		end
+	end)
 end
 
 S:AddCallback("mUIQuestInfo", LoadSkin)
