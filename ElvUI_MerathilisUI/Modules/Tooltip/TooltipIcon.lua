@@ -34,7 +34,9 @@ function module:SetupTooltipIcon(icon)
 		local text = line:GetText() or ""
 		if text and text ~= "" then
 			local newText, count = gsub(text, "|T([^:]-):[%d+:]+|t", "|T%1:14:14:"..newString.."|t")
-			if count > 0 then line:SetText("%s", newText) end
+			if count > 0 then
+				line:SetText(newText)
+			end
 		end
 	end
 end
@@ -158,9 +160,9 @@ function module:ReskinTooltipIcons()
 	module.HookTooltipMethod(_G.ItemRefTooltip)
 	module.HookTooltipMethod(_G.ElvUISpellBookTooltip)
 
-	hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
-		module.SetupTooltipIcon(self)
-	end)
+	--hooksecurefunc(_G.GameTooltip, "SetUnitAura", function(self)
+		--module.SetupTooltipIcon(self)
+	--end)
 
 	hooksecurefunc(_G.GameTooltip, "SetAzeriteEssence", function(self)
 		module.SetupTooltipIcon(self)
