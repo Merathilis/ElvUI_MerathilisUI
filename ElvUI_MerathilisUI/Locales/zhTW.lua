@@ -157,7 +157,6 @@ L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
-L["Quest Announcer"] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 

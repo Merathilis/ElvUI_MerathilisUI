@@ -139,7 +139,6 @@ MP.misc = {
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
-		questAnnounce = false,
 	},
 	cursor = false,
 	lfgInfo = true,

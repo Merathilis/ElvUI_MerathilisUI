@@ -157,7 +157,6 @@ L["Codex Buttons"] = "圣典按钮"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "在天赋界面添加两个按钮，书卷和圣典"
 L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
-L["Quest Announcer"] = "任务通告"
 L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 

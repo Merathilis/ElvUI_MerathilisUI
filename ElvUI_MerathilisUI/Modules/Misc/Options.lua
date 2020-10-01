@@ -109,11 +109,6 @@ local function Misc()
 						name = L["Highest Quest Reward"],
 						desc = L["Automatically select the item with the highest reward."],
 					},
-					questAnnounce = {
-						order = 2,
-						type = "toggle",
-						name = L["Quest Announcer"],
-					},
 				},
 			},
 			paragon = {
