@@ -453,6 +453,8 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	topPanelHeight = 15,
+	bottomPanelHeight = 15,
 	panelSize = 427,
 }
 

@@ -18,15 +18,18 @@ local r, g, b = unpack(E.media.rgbvaluecolor)
 -- Style Panels
 function module:CreatePanels()
 	local panelSize = E.db.mui.panels.panelSize or 427
+	local topPanelHeight = E.db.mui.panels.topPanelHeight or 15
+	local bottomPanelHeight = E.db.mui.panels.bottomPanelHeight or 15
 
 	local topPanel = CreateFrame("Frame", "MER_TopPanel", E.UIParent)
 	topPanel:SetFrameStrata("BACKGROUND")
 	topPanel:SetPoint("TOP", 0, 3)
 	topPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
 	topPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
-	topPanel:SetHeight(15)
-	topPanel:CreateBackdrop("Transparent")
-	topPanel.backdrop:Styling()
+	topPanel:SetHeight(topPanelHeight)
+	topPanel:SetTemplate("Transparent")
+	topPanel:Styling()
+	topPanel:EnableMouse(false)
 	MER_TopPanel = topPanel
 	topPanel:Hide()
 
@@ -35,9 +38,10 @@ function module:CreatePanels()
 	bottomPanel:SetPoint("BOTTOM", 0, -3)
 	bottomPanel:SetPoint("LEFT", E.UIParent, "LEFT", -8, 0)
 	bottomPanel:SetPoint("RIGHT", E.UIParent, "RIGHT", 8, 0)
-	bottomPanel:SetHeight(15)
-	bottomPanel:CreateBackdrop("Transparent")
-	bottomPanel.backdrop:Styling()
+	bottomPanel:SetHeight(bottomPanelHeight)
+	bottomPanel:SetTemplate("Transparent")
+	bottomPanel:Styling()
+	bottomPanel:EnableMouse(false)
 	MER_BottomPanel = bottomPanel
 	bottomPanel:Hide()
 
@@ -185,6 +189,11 @@ end
 
 function module:Resize()
 	local panelSize = E.db.mui.panels.panelSize or 427
+	local topPanelHeight = E.db.mui.panels.topPanelHeight or 15
+	local bottomPanelHeight = E.db.mui.panels.bottomPanelHeight or 15
+
+	MER_TopPanel:SetHeight(topPanelHeight)
+	MER_BottomPanel:SetHeight(bottomPanelHeight)
 
 	MER_TopLeftStyle:SetSize(panelSize, 4)
 	MER_TopLeftExtraStyle:SetSize(panelSize, 36)
