@@ -113,7 +113,11 @@ local AddonsToHide = {
 	{'XIV_Databar', 'XIV_Databar'},
 	{'VuhDo', 'VuhDoBuffWatchMainFrame'},
 	{'WeakAuras', 'WeakAurasFrame'},
-	{'HeroRotation','HeroRotation_ToggleIconFrame'}
+	{'HeroRotation','HeroRotation_ToggleIconFrame'},
+	{'ConRO', 'ConROWindow'},
+	{'ConRO', 'ConROInterruptWindow'},
+	{'ConRO', 'ConROPurgeWindow'},
+	{'ConRO', 'ConROButtonFrame'},
 }
 
 function module:UpdateTimer()
