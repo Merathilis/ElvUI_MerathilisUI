@@ -217,7 +217,7 @@ function FlightPoints_OnEvent(self, event, ...)
 		FlightPointsTaxiChoice:CreateBackdrop("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
-		FlightPointsTaxiChoice:Styling()
+		FlightPointsTaxiChoice.backdrop:Styling()
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}
