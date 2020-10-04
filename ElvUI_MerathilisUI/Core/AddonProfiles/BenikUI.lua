@@ -32,8 +32,6 @@ function MER:LoadBenikUIProfile()
 		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = false
 	end
 	E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
-	E.db["benikui"]["datatexts"]["garrison"]["currency"] = true
-	E.db["benikui"]["datatexts"]["garrison"]["oil"] = true
 	E.db["benikuiDatabars"]["experience"]["enable"] = false
 	E.db["benikuiDatabars"]["experience"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["experience"]["buiStyle"] = false
