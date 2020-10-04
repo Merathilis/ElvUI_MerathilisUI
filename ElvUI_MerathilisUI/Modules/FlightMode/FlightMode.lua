@@ -118,6 +118,9 @@ local AddonsToHide = {
 	{'ConRO', 'ConROInterruptWindow'},
 	{'ConRO', 'ConROPurgeWindow'},
 	{'ConRO', 'ConROButtonFrame'},
+	{'ConRO', 'ConRODefenseWindow'},
+	{'ConRO', 'ConRO_BurstButton'},
+	{'ConRO', 'ConRO_AutoButton'},
 }
 
 function module:UpdateTimer()
