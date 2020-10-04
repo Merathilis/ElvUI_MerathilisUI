@@ -44,26 +44,6 @@ function MER:LoadBenikUIProfile()
 	E.db["benikuiDatabars"]["honor"]["enable"] = false
 	E.db["benikuiDatabars"]["honor"]["notifiers"]["enable"] = false
 	E.db["benikuiDatabars"]["honor"]["buiStyle"] = false
-	E.db["benikui"]["unitframes"]["misc"]["svui"] = true
-	E.db["benikui"]["unitframes"]["textures"]["power"] = E.db.unitframe.statusbar
-	E.db["benikui"]["unitframes"]["textures"]["health"] = E.db.unitframe.statusbar
-	E.db["benikui"]["unitframes"]["infoPanel"]["fixInfoPanel"] = true
-	E.db["benikui"]["unitframes"]["infoPanel"]["texture"] = "MerathilisOnePixel"
-	E.db["benikui"]["unitframes"]["infoPanel"]["color"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
-	E.db["benikui"]["unitframes"]["textures"]["ignoreTransparency"] = true
-	E.db["benikui"]["unitframes"]["castbar"]["text"]["ShowInfoText"] = false
-	E.db["benikui"]["unitframes"]["castbar"]["text"]["castText"] = true
-	E.db["benikui"]["unitframes"]["castbar"]["text"]["forceTargetText"] = false
-	E.db["benikui"]["unitframes"]["castbar"]["text"]["player"]["yOffset"] = 0
-	E.db["benikui"]["unitframes"]["castbar"]["text"]["target"]["yOffset"] = 0
-	E.db["dashboards"]["barColor"] = {r = MER.ClassColor.r, g = MER.ClassColor.g, b = MER.ClassColor.b}
-	E.db["dashboards"]["system"]["enableSystem"] = false
-	E.db["dashboards"]["professions"]["enableProfessions"] = false
-	E.db["dashboards"]["tokens"]["enableTokens"] = false
-	E.db["dashboards"]["tokens"]["tooltip"] = false
-	E.db["dashboards"]["tokens"]["flash"] = false
-	E.db["dashboards"]["tokens"]["width"] = 130
-	E.db["dashboards"]["tokens"]["combat"] = true
 	E.db["movers"]["BuiMiddleDtMover"] = "BOTTOM,ElvUIParent,BOTTOM,0,2"
 	E.db["movers"]["tokenHolderMover"] = "TOPRIGHT,ElvUIParent,TOPRIGHT,-3,-164"
 	E.db["movers"]["BuiDashboardMover"] = "TOPLEFT,ElvUIParent,TOPLEFT,4,-8"
