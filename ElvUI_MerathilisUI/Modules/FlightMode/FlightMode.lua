@@ -391,7 +391,6 @@ function module:CreateFlightMode()
 
 	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode, 'TOPRIGHT', 2, -16)
-	module.FlightMode.Top.RightStyle1:Size(panelSize, 36)
 	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, 0, .5)
 
 	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.RightStyle1)
@@ -441,13 +440,13 @@ function module:CreateFlightMode()
 	end)
 
 	module.FlightMode.Top.Location = CreateFrame('ScrollingMessageFrame', nil, module.FlightMode.Top, 'BackdropTemplate')
-	module.FlightMode.Top.Location:Point('LEFT', module.FlightMode.Top, 'LEFT', 10, -2)
+	module.FlightMode.Top.Location:Point('LEFT', module.FlightMode.Top, 'LEFT', 0, -2)
 	module.FlightMode.Top.Location:FontTemplate(nil, 16, 'OUTLINE')
 	module.FlightMode.Top.Location:SetFading(true)
 	module.FlightMode.Top.Location:SetFadeDuration(1)
 	module.FlightMode.Top.Location:SetTimeVisible(1)
 	module.FlightMode.Top.Location:SetMaxLines(1)
-	module.FlightMode.Top.Location:Width(300)
+	module.FlightMode.Top.Location:Width(450)
 	module.FlightMode.Top.Location:Height(20)
 
 	module.FlightMode.Panel = CreateFrame('Frame', nil, module.FlightMode, 'BackdropTemplate')
