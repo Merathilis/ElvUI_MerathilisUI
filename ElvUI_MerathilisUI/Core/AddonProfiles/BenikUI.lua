@@ -28,12 +28,9 @@ function MER:LoadBenikUIProfile()
 	E.db["benikui"]["datatexts"]["chat"]["editBoxPosition"] = "BELOW_CHAT"
 	E.db["benikui"]["datatexts"]["chat"]["styled"] = false
 	E.db["benikui"]["datatexts"]["chat"]["backdrop"] = true
-	E.db["benikui"]["datatexts"]["middle"]["enable"] = false
-	E.db["benikui"]["datatexts"]["middle"]["transparent"] = true
-	E.db["benikui"]["datatexts"]["middle"]["backdrop"] = false
-	E.db["benikui"]["datatexts"]["middle"]["width"] = 495
-	E.db["benikui"]["datatexts"]["middle"]["height"] = 18
-	E.db["benikui"]["datatexts"]["middle"]["styled"] = false
+	if E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"] then
+		E.global["datatexts"]["customPanels"]["BuiMiddleDTPanel"]["enable"] = false
+	end
 	E.db["benikui"]["datatexts"]["mail"]["toggle"] = false
 	E.db["benikui"]["datatexts"]["garrison"]["currency"] = true
 	E.db["benikui"]["datatexts"]["garrison"]["oil"] = true
