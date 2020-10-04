@@ -43,8 +43,9 @@ local function LoadSkin()
 	}
 
 	for _, frame in pairs(tooltips) do
-		if frame and not frame.style then
+		if frame and not frame.IsSkinned then
 			frame:Styling()
+			frame.IsSkinned = true
 		end
 	end
 end
