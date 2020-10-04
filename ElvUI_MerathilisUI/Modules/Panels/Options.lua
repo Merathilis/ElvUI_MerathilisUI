@@ -8,7 +8,7 @@ local function PanelTable()
 
 	E.Options.args.mui.args.modules.args.panels = {
 		type = "group",
-		name = L["Panels"],
+		name = E.NewSign..L["Panels"],
 		args = {
 			header = ACH:Header(MER:cOption(L["Panels"]), 0),
 			panels = {
