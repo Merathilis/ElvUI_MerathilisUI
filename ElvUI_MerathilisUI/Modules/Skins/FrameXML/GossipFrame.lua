@@ -5,7 +5,7 @@ local S = E:GetModule('Skins')
 -- Cache global variables
 -- Lua functions
 local _G = _G
-local select, unpack = select, unpack
+local ipairs, next, select, unpack = ipairs, next, select, unpack
 local gsub = string.gsub
 -- WoW API / Variables
 local C_Timer_After = C_Timer.After
@@ -19,12 +19,11 @@ local function LoadSkin()
 	GossipFrame:Styling()
 
 	_G.GossipGreetingScrollFrame:StripTextures()
+	_G.GossipFrameInset:Hide() -- Parchment
+	GossipFrame.Background:Hide()
+
 	if _G.GossipGreetingScrollFrame.backdrop then
 		_G.GossipGreetingScrollFrame.backdrop:Hide()
-	end
-
-	if not E.private.skins.parchmentRemoverEnable then
-		_G.GossipGreetingScrollFrame.spellTex:SetTexture('') -- Remove Parchement
 	end
 
 	if GossipFrame.buttons and next(GossipFrame.buttons) then
@@ -33,8 +32,15 @@ local function LoadSkin()
 			if str then str:SetTextColor(1, 1, 1) end
 		end
 	end
-
 	_G.GossipGreetingText:SetTextColor(1, 1, 1)
+
+	for i = 1, 4 do
+		local notch = _G["NPCFriendshipStatusBarNotch"..i]
+		if notch then
+			notch:SetColorTexture(0, 0, 0)
+			notch:SetSize(E.mult, 16)
+		end
+	end
 
 	hooksecurefunc("GossipFrameUpdate", function()
 		if GossipFrame.buttons and next(GossipFrame.buttons) then
