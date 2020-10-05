@@ -19,8 +19,14 @@ local function LoadSkin()
 	GossipFrame:Styling()
 
 	_G.GossipGreetingScrollFrame:StripTextures()
-	_G.GossipFrameInset:Hide() -- Parchment
-	GossipFrame.Background:Hide()
+
+	if _G.GossipFrameInset then
+		_G.GossipFrameInset:Hide() -- Parchment
+	end
+
+	if GossipFrame.Background then
+		GossipFrame.Background:Hide()
+	end
 
 	if _G.GossipGreetingScrollFrame.backdrop then
 		_G.GossipGreetingScrollFrame.backdrop:Hide()
