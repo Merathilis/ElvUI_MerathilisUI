@@ -376,7 +376,7 @@ function module:CreateFlightMode()
 
 	module.FlightMode.Top.LeftStyle1 = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.LeftStyle1:Point('TOPLEFT', module.FlightMode, 'TOPLEFT', 2, -16)
-	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, .5, 0)
+	MER:CreateGradientFrame(module.FlightMode.Top.LeftStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, .0, 0)
 
 	module.FlightMode.Top.LeftStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.LeftStyle1)
 	module.FlightMode.Top.LeftStyle2:Point('TOP', module.FlightMode.Top.LeftStyle1, 'BOTTOM')
@@ -391,7 +391,7 @@ function module:CreateFlightMode()
 
 	module.FlightMode.Top.RightStyle1 = CreateFrame('Frame', nil, module.FlightMode)
 	module.FlightMode.Top.RightStyle1:Point('TOPRIGHT', module.FlightMode, 'TOPRIGHT', 2, -16)
-	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, 0, .5)
+	MER:CreateGradientFrame(module.FlightMode.Top.RightStyle1, panelSize, 36, 'Horizontal', 0, 0, 0, 0, 0)
 
 	module.FlightMode.Top.RightStyle2 = CreateFrame('Frame', nil, module.FlightMode.Top.RightStyle1)
 	module.FlightMode.Top.RightStyle2:Point('TOP', module.FlightMode.Top.RightStyle1,'BOTTOM')
