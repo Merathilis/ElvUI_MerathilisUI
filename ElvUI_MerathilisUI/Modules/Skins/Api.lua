@@ -189,8 +189,6 @@ end
 
 function MERS:OnEnter()
 	if self:IsEnabled() then
-		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
-
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
@@ -200,8 +198,6 @@ end
 
 function MERS:OnLeave()
 	if self:IsEnabled() then
-		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
-
 		if self.SetBackdropBorderColor then
 			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
