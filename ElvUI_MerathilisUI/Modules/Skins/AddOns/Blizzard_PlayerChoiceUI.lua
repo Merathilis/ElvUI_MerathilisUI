@@ -3,6 +3,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local select = select
+
 local hooksecurefunc = hooksecurefunc
 
 local function WhiteProgressText(self)
@@ -17,7 +18,9 @@ local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.playerChoice) or E.private.muiSkins.blizzard.playerChoice ~= true then return end
 
 	local frame = _G.PlayerChoiceFrame
-	frame:Styling()
+	if frame.backdrop then
+		frame.backdrop:Styling()
+	end
 
 	hooksecurefunc(frame, "Update", function(self)
 		for i = 1, self:GetNumOptions() do
