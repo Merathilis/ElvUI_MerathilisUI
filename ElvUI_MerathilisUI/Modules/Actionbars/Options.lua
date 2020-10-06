@@ -218,7 +218,7 @@ local function ActionBarTable()
 						name = L["General"],
 						hidden = function() return not E.db.mui.actionbars.autoButtons.enable end,
 						get = function(info) return E.db.mui.actionbars.autoButtons[info[#info]] end,
-						set = function(info, value) E.db.mui.actionbars.autoButtons[info[#info]] = value; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
+						set = function(info, value) E.db.mui.actionbars.autoButtons[info[#info]] = value; MER:GetModule("MER_AutoButtons"):UpdateAutoButton() end,
 						args = {
 							bindFontSize = {
 								order = 1,
@@ -255,7 +255,7 @@ local function ActionBarTable()
 									end
 									E.db.mui.actionbars.autoButtons.whiteList[id] = true
 									E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[id] = GetItemInfo(id)
-									MER:GetModule("AutoButtons"):UpdateAutoButton()
+									MER:GetModule("MER_AutoButtons"):UpdateAutoButton()
 								end,
 							},
 							DeleteItemID = {
@@ -276,7 +276,7 @@ local function ActionBarTable()
 										E.db.mui.actionbars.autoButtons.whiteList[id] = nil
 										E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.whiteList.values[id] = nil
 									end
-									MER:GetModule("AutoButtons"):UpdateAutoButton()
+									MER:GetModule("MER_AutoButtons"):UpdateAutoButton()
 								end,
 							},
 							whiteList = {
@@ -284,7 +284,7 @@ local function ActionBarTable()
 								type = "multiselect",
 								name = L["Whitelist"],
 								get = function(info, k) return E.db.mui.actionbars.autoButtons.whiteList[k] end,
-								set = function(info, k, v) E.db.mui.actionbars.autoButtons.whiteList[k] = v; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
+								set = function(info, k, v) E.db.mui.actionbars.autoButtons.whiteList[k] = v; MER:GetModule("MER_AutoButtons"):UpdateAutoButton() end,
 								values = {}
 							},
 							blackitemID = {
@@ -314,7 +314,7 @@ local function ActionBarTable()
 									end
 									E.db.mui.actionbars.autoButtons.blackList[id] = true
 									E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[id] = GetItemInfo(id)
-									MER:GetModule("AutoButtons"):UpdateAutoButton()
+									MER:GetModule("MER_AutoButtons"):UpdateAutoButton()
 								end,
 							},
 							DeleteblackItemID = {
@@ -335,7 +335,7 @@ local function ActionBarTable()
 										E.db.mui.actionbars.autoButtons.blackList[id] = nil
 										E.Options.args.mui.args.modules.args.actionbars.args.autoButtons.args.general.args.blackList.values[id] = nil
 									end
-									MER:GetModule("AutoButtons"):UpdateAutoButton()
+									MER:GetModule("MER_AutoButtons"):UpdateAutoButton()
 								end,
 							},
 							blackList = {
@@ -343,7 +343,7 @@ local function ActionBarTable()
 								type = "multiselect",
 								name = L["Blacklist"],
 								get = function(info, k) return E.db.mui.actionbars.autoButtons.blackList[k] end,
-								set = function(info, k, v) E.db.lui.modules.actionbars.autoButtons.blackList[k] = v; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
+								set = function(info, k, v) E.db.lui.modules.actionbars.autoButtons.blackList[k] = v; MER:GetModule("MER_AutoButtons"):UpdateAutoButton() end,
 								values = {}
 							},
 						},
@@ -361,7 +361,7 @@ local function ActionBarTable()
 			guiInline = true,
 			name = L[name],
 			get = function(info) return E.db.mui.actionbars.autoButtons[btype.."AutoButtons"][info[#info]] end,
-			set = function(info, value) E.db.mui.actionbars.autoButtons[btype.."AutoButtons"][info[#info]] = value; MER:GetModule("AutoButtons"):UpdateAutoButton() end,
+			set = function(info, value) E.db.mui.actionbars.autoButtons[btype.."AutoButtons"][info[#info]] = value; MER:GetModule("MER_AutoButtons"):UpdateAutoButton() end,
 			args = {
 				enable = {
 					order = 1,
@@ -389,7 +389,7 @@ local function ActionBarTable()
 						E.db.mui.actionbars.autoButtons[btype.."AutoButtons"][info[#info]] = {}
 						local t = E.db.mui.actionbars.autoButtons[btype.."AutoButtons"][info[#info]]
 						t.r, t.g, t.b, t.a = r, g, b, a
-						MER:GetModule("AutoButtons"):UpdateAutoButton()
+						MER:GetModule("MER_AutoButtons"):UpdateAutoButton()
 					end,
 				},
 				[btype.."Space"] = {
