@@ -2697,7 +2697,7 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipXOffset"] = 3
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "HIGH"
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
 	E.db["datatexts"]["panels"]["MER_BottomPanel"] = {
 		[1] = "Guild",
