@@ -85,8 +85,9 @@ local function Style_Ace3TabSelected(self, selected)
 	if not bd then return end
 
 	if selected then
-		bd:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-		bd:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		bd:SetBackdropBorderColor(r, g, b)
+		bd:SetBackdropColor(r, g, b, 0.5)
 	else
 		local r, g, b = unpack(E.media.bordercolor)
 		bd:SetBackdropBorderColor(r, g, b, 1)
