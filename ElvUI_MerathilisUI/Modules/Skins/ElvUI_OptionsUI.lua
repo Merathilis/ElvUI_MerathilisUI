@@ -65,19 +65,18 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 end
 
 local function Style_SetButtonColor(self, btn, disabled)
+	btn.dontReskin = true
+
 	if disabled then
-		btn:Disable()
-		btn:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-		btn:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		local r, g, b = unpack(E.media.rgbvaluecolor)
+		btn:SetBackdropBorderColor(r, g, b)
+		btn:SetBackdropColor(r, g, b, 0.5)
 		btn.Text:SetTextColor(1, 1, 1)
-		E:Config_SetButtonText(btn, true)
 	else
-		btn:Enable()
 		btn:SetBackdropColor(0.1, 0.1, 0.1, 0.5)
 		local r, g, b = unpack(E.media.bordercolor)
 		btn:SetBackdropBorderColor(r, g, b, 1)
 		btn.Text:SetTextColor(.9, .8, 0)
-		E:Config_SetButtonText(btn)
 	end
 end
 

@@ -189,7 +189,8 @@ end
 
 function MERS:OnEnter()
 	if self:IsEnabled() then
-		if self.SetBackdropBorderColor then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor and not self.dontReskin then
 			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
 			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
 		end
@@ -198,7 +199,8 @@ end
 
 function MERS:OnLeave()
 	if self:IsEnabled() then
-		if self.SetBackdropBorderColor then
+		if self.backdrop then self = self.backdrop end
+		if self.SetBackdropBorderColor and not self.dontReskin then
 			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
 			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
 		end
