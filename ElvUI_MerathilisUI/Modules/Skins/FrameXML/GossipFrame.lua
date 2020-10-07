@@ -2,16 +2,13 @@ local MER, E, L, V, P, G = unpack(select(2, ...))
 local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
-local ipairs, next, select, unpack = ipairs, next, select, unpack
+local select = select
 local strmatch = strmatch
 local gsub = string.gsub
--- WoW API / Variables
-local C_Timer_After = C_Timer.After
+
 local hooksecurefunc = hooksecurefunc
--- GLOBALS:
+
 
 local function ReplaceGossipFormat(button, textFormat, text)
 	local newFormat, count = gsub(textFormat, "000000", "ffffff")
