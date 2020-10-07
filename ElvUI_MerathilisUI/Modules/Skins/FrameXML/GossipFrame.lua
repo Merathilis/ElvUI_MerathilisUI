@@ -6,11 +6,40 @@ local S = E:GetModule('Skins')
 -- Lua functions
 local _G = _G
 local ipairs, next, select, unpack = ipairs, next, select, unpack
+local strmatch = strmatch
 local gsub = string.gsub
 -- WoW API / Variables
 local C_Timer_After = C_Timer.After
 local hooksecurefunc = hooksecurefunc
 -- GLOBALS:
+
+local function ReplaceGossipFormat(button, textFormat, text)
+	local newFormat, count = gsub(textFormat, "000000", "ffffff")
+	if count > 0 then
+		button:SetFormattedText(newFormat, text)
+	end
+end
+
+local ReplacedGossipColor = {
+	["000000"] = "ffffff",
+	["414141"] = "7b8489", -- lighter color for some gossip options
+}
+
+local function ReplaceGossipText(button, text)
+	if text and text ~= "" then
+		local newText, count = gsub(text, ":32:32:0:0", ":32:32:0:0:64:64:5:59:5:59") -- replace icon texture
+		if count > 0 then
+			text = newText
+			button:SetFormattedText("%s", text)
+		end
+
+		local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
+		colorStr = ReplacedGossipColor[colorStr]
+		if colorStr and rawText then
+			button:SetFormattedText("|cff%s%s|r", colorStr, rawText)
+		end
+	end
+end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true or E.private.muiSkins.blizzard.gossip ~= true then return; end
@@ -32,48 +61,29 @@ local function LoadSkin()
 		_G.GossipGreetingScrollFrame.backdrop:Hide()
 	end
 
-	if GossipFrame.buttons and next(GossipFrame.buttons) then
-		for _, button in ipairs(GossipFrame.buttons) do
-			local str = button:GetFontString()
-			if str then str:SetTextColor(1, 1, 1) end
+	_G.QuestFont:SetTextColor(1, 1, 1)
+
+	hooksecurefunc("GossipFrameUpdate", function()
+		for button in GossipFrame.titleButtonPool:EnumerateActive() do
+			if not button.styled then
+				ReplaceGossipText(button, button:GetText())
+				hooksecurefunc(button, "SetText", ReplaceGossipText)
+				hooksecurefunc(button, "SetFormattedText", ReplaceGossipFormat)
+
+				button.styled = true
+			end
 		end
-	end
-	_G.GossipGreetingText:SetTextColor(1, 1, 1)
+	end)
 
 	for i = 1, 4 do
 		local notch = _G["NPCFriendshipStatusBarNotch"..i]
 		if notch then
 			notch:SetColorTexture(0, 0, 0)
 			notch:SetSize(E.mult, 16)
+			notch:SetColorTexture(0, 0, 0)
+			notch:SetSize(1, 16)
 		end
 	end
-
-	hooksecurefunc("GossipFrameUpdate", function()
-		if GossipFrame.buttons and next(GossipFrame.buttons) then
-			for _, button in ipairs(GossipFrame.buttons) do
-				local str = button:GetFontString()
-				if str then
-					-- 9.0 Shadowland, Azilroka look at this please-
-					-- the below shit seems not to work so using: str:SetTextColor(1, 1, 1) for now.
-					str:SetTextColor(1, 1, 1)
-					local text = str:GetText()
-					if text and strfind(text, '|cff000000') then
-						str:SetText(gsub(text, '|cff000000', '|cffffe519'))
-					end
-				end
-			end
-		end
-	end)
-
-	_G.NPCFriendshipStatusBar:GetRegions():Hide()
-	_G.NPCFriendshipStatusBarNotch1:SetColorTexture(0, 0, 0)
-	_G.NPCFriendshipStatusBarNotch1:SetSize(1, 16)
-	_G.NPCFriendshipStatusBarNotch2:SetColorTexture(0, 0, 0)
-	_G.NPCFriendshipStatusBarNotch2:SetSize(1, 16)
-	_G.NPCFriendshipStatusBarNotch3:SetColorTexture(0, 0, 0)
-	_G.NPCFriendshipStatusBarNotch3:SetSize(1, 16)
-	_G.NPCFriendshipStatusBarNotch4:SetColorTexture(0, 0, 0)
-	_G.NPCFriendshipStatusBarNotch4:SetSize(1, 16)
 	select(7, _G.NPCFriendshipStatusBar:GetRegions()):Hide()
 
 	_G.NPCFriendshipStatusBar.icon:SetPoint("TOPLEFT", -30, 7)
