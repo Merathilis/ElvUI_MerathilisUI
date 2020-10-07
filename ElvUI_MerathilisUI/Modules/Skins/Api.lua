@@ -22,8 +22,6 @@ local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
 
-local r, g, b = unpack(E["media"].rgbvaluecolor)
-
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
 TEXTURE_ITEM_QUEST_BANG = [[Interface\AddOns\ElvUI_MerathilisUI\media\textures\UI-Icon-QuestBang]]
@@ -138,8 +136,8 @@ function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
 	f:CreateBackdrop()
-	f.backdrop:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
-	f.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	f.backdrop:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
+	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
 -- ClassColored ScrollBars
@@ -154,7 +152,7 @@ function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
 	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
 	if Thumb and Thumb.backdrop then
-		Thumb.backdrop:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		Thumb.backdrop:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 	end
 end
 
@@ -171,8 +169,8 @@ end
 function MERS:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
-	self:SetBackdropColor(r, g, b, .3)
-	self:SetBackdropBorderColor(r, g, b)
+	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, .3)
+	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ClearButton()
@@ -181,7 +179,7 @@ function MERS:ClearButton()
 	self:SetBackdropColor(0, 0, 0, 0)
 
 	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
+		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
@@ -191,8 +189,8 @@ function MERS:OnEnter()
 	if self:IsEnabled() then
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75) -- maybe 0.5?
 		end
 	end
 end
@@ -201,7 +199,7 @@ function MERS:OnLeave()
 	if self:IsEnabled() then
 		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
 		end
 	end
@@ -293,7 +291,7 @@ function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
+	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
