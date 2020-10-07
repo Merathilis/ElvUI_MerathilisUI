@@ -80,8 +80,6 @@ local function LoadSkin()
 		if notch then
 			notch:SetColorTexture(0, 0, 0)
 			notch:SetSize(E.mult, 16)
-			notch:SetColorTexture(0, 0, 0)
-			notch:SetSize(1, 16)
 		end
 	end
 	select(7, _G.NPCFriendshipStatusBar:GetRegions()):Hide()
