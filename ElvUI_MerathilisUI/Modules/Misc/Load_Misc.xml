@@ -3,7 +3,6 @@
 	<Script file="Afk.lua"/>
 	<Script file="Alerts.lua"/>
 	<Script file="Cursor.lua"/>
-	<Script file="FlightMode.lua"/>
 	<Script file="FlightPoint.lua"/>
 	<Include file="FlightPoint.xml" />
 	<Script file="GameMenu.lua"/>
@@ -17,7 +16,6 @@
 	<Script file="RandomToy.lua"/>
 	<Script file="Reputation.lua"/>
 	<Script file="Talentless.lua"/>
-	<Script file="ThreatBar.lua"/>
 	<Script file="Quest.lua"/>
 	<Script file="SpellAlerts.lua"/>
 	<Script file="WoWHeadLinks.lua"/>

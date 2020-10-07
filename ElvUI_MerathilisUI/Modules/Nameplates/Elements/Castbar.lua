@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MNP = MER:GetModule('mUINamePlates')
+local MNP = MER:GetModule('MER_NamePlates')
 local NP = E:GetModule('NamePlates')
 
 --Cache global variables
@@ -49,7 +49,7 @@ function MNP:Construct_Castbar(nameplate)
 	if E.db.mui.nameplates.castbarShield then
 		Castbar.Shield = Castbar:CreateTexture(nil, 'OVERLAY')
 		Castbar.Shield:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Shield.tga")
-		Castbar.Shield:SetPoint("RIGHT", Castbar, "LEFT", 10, 0)
+		Castbar.Shield:Point("RIGHT", Castbar, "LEFT", 10, 0)
 		Castbar.Shield:SetSize(12, 12)
 		Castbar.Shield:Hide()
 	end

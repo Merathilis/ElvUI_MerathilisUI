@@ -1,11 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
--- Cache global variables
--- Lua functions
 local _G = _G
--- WoW API / Variables
--- GLOBALS:
 
 local function LoadAddOnSkin()
 	if E.private.muiSkins.addonSkins.et ~= true then return end

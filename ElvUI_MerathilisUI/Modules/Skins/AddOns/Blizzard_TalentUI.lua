@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -59,7 +59,7 @@ local function LoadSkin()
 
 		scrollChild.ring:Hide()
 		scrollChild.specIcon:SetTexCoord(unpack(E.TexCoords))
-		scrollChild.specIcon:SetSize(70, 70)
+		scrollChild.specIcon:Size(70, 70)
 
 		local roleIcon = scrollChild.roleIcon
 		roleIcon:SetTexture(E.media.roleIcons)

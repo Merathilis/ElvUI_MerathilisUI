@@ -15,7 +15,7 @@ local function NotificationTable()
 		get = function(info) return E.db.mui.notification[ info[#info] ] end,
 		set = function(info, value) E.db.mui.notification[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
 		args = {
-			name = ACH:Header(MER:cOption(L["DataBars"]), 0),
+			name = ACH:Header(MER:cOption(L["Notification"]), 0),
 			credits = {
 				order = 1,
 				type = "group",
@@ -25,33 +25,32 @@ local function NotificationTable()
 					tukui = ACH:Description("RealUI - Nibelheim, Gethe", 1),
 				},
 			},
-			enable = {
-				order = 2,
-				type = "toggle",
-				name = L["Enable"],
-			},
-			noSound = {
-				order = 3,
-				type = "toggle",
-				name = L["No Sounds"],
-				disabled = function() return not E.db.mui.notification.enable end,
-			},
-			header = ACH:Header(MER:cOption(L["Notification"]), 4),
 			desc = {
-				order = 5,
+				order = 2,
 				type = "description",
 				fontSize = "small",
 				name = L["Here you can enable/disable the different notification types."],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
+			enable = {
+				order = 3,
+				type = "toggle",
+				name = L["Enable"],
+			},
+			noSound = {
+				order = 4,
+				type = "toggle",
+				name = L["No Sounds"],
+				disabled = function() return not E.db.mui.notification.enable end,
+			},
 			mail = {
-				order = 6,
+				order = 5,
 				type = "toggle",
 				name = L["Enable Mail"],
 				disabled = function() return not E.db.mui.notification.enable end,
 			},
 			vignette = {
-				order = 7,
+				order = 6,
 				type = "toggle",
 				name = L["Enable Vignette"],
 				desc = L["If a Rare Mob or a treasure gets spotted on the minimap."],

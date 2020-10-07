@@ -14,7 +14,7 @@ local date = date
 local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local GetGameTime = GetGameTime
 local GetDifficultyInfo = GetDifficultyInfo
-local GetQuestsCompleted = GetQuestsCompleted
+local C_QuestLog_GetAllCompletedQuestIDs = C_QuestLog.GetAllCompletedQuestIDs
 local GetNumSavedInstances = GetNumSavedInstances
 local GetNumWorldPVPAreas = GetNumWorldPVPAreas
 local GetNumSavedWorldBosses = GetNumSavedWorldBosses
@@ -114,7 +114,7 @@ local function OnEvent(self, event)
 		updateQuestTable = true
 	elseif (event == "QUEST_LOG_UPDATE" and updateQuestTable) or event == "ELVUI_FORCE_RUN" then
 		twipe(quests)
-		quests = GetQuestsCompleted()
+		quests = C_QuestLog_GetAllCompletedQuestIDs()
 		updateQuestTable = false
 	end
 end

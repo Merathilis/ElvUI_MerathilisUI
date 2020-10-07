@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 if not IsAddOnLoaded("cargBags_Nivaya") then return; end
 
 -- Cache global variables

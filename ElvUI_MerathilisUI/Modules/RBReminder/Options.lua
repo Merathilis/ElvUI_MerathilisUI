@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local RB = MER:GetModule("RaidBuffs")
+local RB = MER:GetModule('MER_RaidBuffs')
 
 --Cache global variables
 --Lua functions

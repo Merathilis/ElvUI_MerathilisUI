@@ -72,16 +72,6 @@ for class, value in pairs(colors) do
 end
 MER.r, MER.g, MER.b = MER.ClassColors[E.myclass].r, MER.ClassColors[E.myclass].g, MER.ClassColors[E.myclass].b
 
--- Quality Color stuff
-MER.QualityColors = {}
-local qualityColors = BAG_ITEM_QUALITY_COLORS
-for index, value in pairs(qualityColors) do
-	MER.QualityColors[index] = {r = value.r, g = value.g, b = value.b}
-end
-MER.QualityColors[-1] = {r = 0, g = 0, b = 0}
-MER.QualityColors[Enum.ItemQuality.Poor] = {r = .61, g = .61, b = .61}
-MER.QualityColors[Enum.ItemQuality.Common] = {r = 0, g = 0, b = 0}
-
 local color = { r = 1, g = 1, b = 1, a = 1 }
 function MER:unpackColor(color)
 	return color.r, color.g, color.b, color.a
@@ -433,9 +423,9 @@ function MER:CreateText(f, layer, size, outline, text, classcolor, anchor, x, y)
 	end
 
 	if (anchor and x and y) then
-		text:SetPoint(anchor, x, y)
+		text:Point(anchor, x, y)
 	else
-		text:SetPoint("CENTER", 1, 0)
+		text:Point("CENTER", 1, 0)
 	end
 
 	return text
@@ -511,8 +501,8 @@ function MER:PixelIcon(self, texture, highlight)
 	if not self then return end
 
 	self.Icon = self:CreateTexture(nil, "ARTWORK")
-	self.Icon:SetPoint("TOPLEFT", E.mult, -E.mult)
-	self.Icon:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+	self.Icon:Point("TOPLEFT", E.mult, -E.mult)
+	self.Icon:Point("BOTTOMRIGHT", -E.mult, E.mult)
 	self.Icon:SetTexCoord(unpack(E.TexCoords))
 
 	if texture then
@@ -563,15 +553,15 @@ function MER:ReskinRole(self, role)
 	local checkButton = self.checkButton or self.CheckButton or self.CheckBox
 	if checkButton then
 		checkButton:SetFrameLevel(self:GetFrameLevel() + 2)
-		checkButton:SetPoint("BOTTOMLEFT", -2, -2)
+		checkButton:Point("BOTTOMLEFT", -2, -2)
 	end
 
 	local shortageBorder = self.shortageBorder
 	if shortageBorder then
 		shortageBorder:SetTexture("")
 		local icon = self.incentiveIcon
-		icon:SetPoint("BOTTOMRIGHT")
-		icon:SetSize(14, 14)
+		icon:Point("BOTTOMRIGHT")
+		icon:Size(14, 14)
 		icon.texture:SetSize(14, 14)
 		icon.border:SetTexture("")
 	end
@@ -580,7 +570,7 @@ end
 function MER:CreateGradientFrame(frame, w, h, o, r, g, b, a1, a2)
 	assert(frame, "doesn't exist!")
 
-	frame:SetSize(w, h)
+	frame:Size(w, h)
 	frame:SetFrameStrata("BACKGROUND")
 
 	local gf = frame:CreateTexture(nil, "BACKGROUND")
@@ -615,8 +605,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	if not(useStripes) then
 		local stripes = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
 		stripes:ClearAllPoints()
-		stripes:SetPoint("TOPLEFT", 1, -1)
-		stripes:SetPoint("BOTTOMRIGHT", -1, 1)
+		stripes:Point("TOPLEFT", 1, -1)
+		stripes:Point("BOTTOMRIGHT", -1, 1)
 		stripes:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\stripes]], true, true)
 		stripes:SetHorizTile(true)
 		stripes:SetVertTile(true)
@@ -630,8 +620,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	if not(useGradient) then
 		local gradient = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
 		gradient:ClearAllPoints()
-		gradient:SetPoint("TOPLEFT", 1, -1)
-		gradient:SetPoint("BOTTOMRIGHT", -1, 1)
+		gradient:Point("TOPLEFT", 1, -1)
+		gradient:Point("BOTTOMRIGHT", -1, 1)
 		gradient:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\gradient]])
 		gradient:SetVertexColor(.3, .3, .3, .15)
 
@@ -643,8 +633,8 @@ local function Styling(f, useStripes, useGradient, useShadow, shadowOverlayWidth
 	if not(useShadow) then
 		local mshadow = f:CreateTexture(f:GetName() and f:GetName().."Overlay" or nil, "BORDER", f)
 		mshadow:SetInside(f, 0, 0)
-		mshadow:SetWidth(shadowOverlayWidth or 33)
-		mshadow:SetHeight(shadowOverlayHeight or 33)
+		mshadow:Width(shadowOverlayWidth or 33)
+		mshadow:Height(shadowOverlayHeight or 33)
 		mshadow:SetTexture([[Interface\AddOns\ElvUI_MerathilisUI\media\textures\Overlay]])
 		mshadow:SetVertexColor(1, 1, 1, shadowOverlayAlpha or 0.6)
 
@@ -701,8 +691,8 @@ local function CreateOverlay(f)
 	if f.overlay then return end
 
 	local overlay = f:CreateTexture("$parentOverlay", "BORDER", f)
-	overlay:SetPoint("TOPLEFT", 2, -2)
-	overlay:SetPoint("BOTTOMRIGHT", -2, 2)
+	overlay:Point("TOPLEFT", 2, -2)
+	overlay:Point("BOTTOMRIGHT", -2, 2)
 	overlay:SetTexture(E["media"].blankTex)
 	overlay:SetVertexColor(0.1, 0.1, 0.1, 1)
 	f.overlay = overlay
@@ -712,8 +702,8 @@ local function CreateBorder(f, i, o)
 	if i then
 		if f.iborder then return end
 		local border = CreateFrame("Frame", "$parentInnerBorder", f)
-		border:SetPoint("TOPLEFT", E.mult, -E.mult)
-		border:SetPoint("BOTTOMRIGHT", -E.mult, E.mult)
+		border:Point("TOPLEFT", E.mult, -E.mult)
+		border:Point("BOTTOMRIGHT", -E.mult, E.mult)
 		border:CreateBackdrop()
 		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
 		f.iborder = border
@@ -722,8 +712,8 @@ local function CreateBorder(f, i, o)
 	if o then
 		if f.oborder then return end
 		local border = CreateFrame("Frame", "$parentOuterBorder", f)
-		border:SetPoint("TOPLEFT", -E.mult, E.mult)
-		border:SetPoint("BOTTOMRIGHT", E.mult, -E.mult)
+		border:Point("TOPLEFT", -E.mult, E.mult)
+		border:Point("BOTTOMRIGHT", E.mult, -E.mult)
 		border:SetFrameLevel(f:GetFrameLevel() + 1)
 		border:CreateBackdrop()
 		border.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
@@ -732,11 +722,11 @@ local function CreateBorder(f, i, o)
 end
 
 local function CreatePanel(f, t, w, h, a1, p, a2, x, y)
-	f:SetWidth(w)
-	f:SetHeight(h)
+	f:Width(w)
+	f:Height(h)
 	f:SetFrameLevel(3)
 	f:SetFrameStrata("BACKGROUND")
-	f:SetPoint(a1, p, a2, x, y)
+	f:Point(a1, p, a2, x, y)
 	f:CreateBackdrop()
 
 	if t == "Transparent" then

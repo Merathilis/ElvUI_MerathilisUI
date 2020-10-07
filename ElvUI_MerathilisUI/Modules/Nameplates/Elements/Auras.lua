@@ -1,8 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("NameplateAuras", "AceEvent-3.0")
-local NP = E:GetModule("NamePlates")
-local UF = E:GetModule("UnitFrames")
-module.modName = L["NameplateAuras"]
+local module = MER:GetModule('MER_NameplateAuras')
+local NP = E:GetModule('NamePlates')
+local UF = E:GetModule('UnitFrames')
 
 -- Cache global variables
 -- Lua functions
@@ -96,7 +95,7 @@ function module:Construct_AuraIcon(button)
 	if not button.cc_name then
 		button.cc_name = button:CreateFontString(nil, "OVERLAY")
 		button.cc_name:FontTemplate(nil, 10, "OUTLINE")
-		button.cc_name:SetPoint("BOTTOM", button, "TOP", 1, 1)
+		button.cc_name:Point("BOTTOM", button, "TOP", 1, 1)
 		button.cc_name:SetJustifyH("CENTER")
 	end
 

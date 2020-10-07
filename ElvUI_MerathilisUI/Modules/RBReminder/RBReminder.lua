@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RaidBuffs")
+local module = MER:GetModule('MER_RaidBuffs')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 -- Cache global variables

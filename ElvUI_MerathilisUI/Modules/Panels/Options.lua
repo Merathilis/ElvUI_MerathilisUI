@@ -1,12 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local PN = MER:GetModule("Panels")
+local PN = MER:GetModule('MER_Panels')
 
---Cache global variables
---Lua functions
-local _G = _G
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function PanelTable()
 	local ACH = E.Libs.ACH
@@ -15,7 +10,7 @@ local function PanelTable()
 		type = "group",
 		name = E.NewSign..L["Panels"],
 		args = {
-			header = ACH:Header(MER:cOption(L["Panels"]), 1),
+			header = ACH:Header(MER:cOption(L["Panels"]), 0),
 			panels = {
 				order = 1,
 				type = "group",
@@ -29,17 +24,36 @@ local function PanelTable()
 						get = function(info) return E.db.mui.panels.topPanel end,
 						set = function(info, value) E.db.mui.panels.topPanel = value; PN:UpdatePanels() end,
 					},
-					bottomPanel = {
+					topPanelHeight = {
 						order = 2,
+						type = "range",
+						name = E.NewSign..L["Height"],
+						min = 1, max = 400, step = 1,
+						get = function(info) return E.db.mui.panels.topPanelHeight end,
+						set = function(info, value) E.db.mui.panels.topPanelHeight = value; PN:Resize() end,
+						disabled = function() return not E.db.mui.panels.topPanel end,
+					},
+					spacer = ACH:Spacer(3),
+					bottomPanel = {
+						order = 4,
 						type = "toggle",
 						name = L["Bottom Panel"],
 						get = function(info) return E.db.mui.panels.bottomPanel end,
 						set = function(info, value) E.db.mui.panels.bottomPanel = value; PN:UpdatePanels() end,
 					},
+					bottomPanelHeight = {
+						order = 5,
+						type = "range",
+						name = E.NewSign..L["Height"],
+						min = 1, max = 400, step = 1,
+						get = function(info) return E.db.mui.panels.bottomPanelHeight end,
+						set = function(info, value) E.db.mui.panels.bottomPanelHeight = value; PN:Resize() end,
+						disabled = function() return not E.db.mui.panels.bottomPanel end,
+					},
 				},
 			},
 			stylepanels = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Style Panels"]),
 				guiInline = true,

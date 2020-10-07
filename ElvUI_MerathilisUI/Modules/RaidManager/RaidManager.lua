@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RaidManager", "AceEvent-3.0", "AceTimer-3.0")
-local S = E:GetModule("Skins")
-local COMP = MER:GetModule("mUICompatibility")
+local module = MER:GetModule('MER_RaidManager')
+local S = E:GetModule('Skins')
+local COMP = MER:GetModule('MER_Compatibility')
 
 -- Cache global variables
 -- Lua functions
@@ -144,7 +144,7 @@ local function onEnter(self)
 
 	local GameTooltip = _G.GameTooltip
 	GameTooltip:SetOwner(E.UIParent, "ANCHOR_NONE")
-	GameTooltip:SetPoint(anchor1, self, anchor2, anchorX, 0)
+	GameTooltip:Point(anchor1, self, anchor2, anchorX, 0)
 	GameTooltip:SetText(_G["INLINE_" .. role .. "_ICON"] .. _G[role])
 
 	local name, group, class, groupRole, color, coloredName, _
@@ -173,9 +173,9 @@ local function RaidFrameManager_PositionRoleIcons()
 	local left = point and strfind(point, "LEFT")
 	_G.RaidManagerRoleIcons:ClearAllPoints()
 	if left then
-		_G.RaidManagerRoleIcons:SetPoint("LEFT", _G.RaidFrameManager, "RIGHT", -1, 0)
+		_G.RaidManagerRoleIcons:Point("LEFT", _G.RaidFrameManager, "RIGHT", -1, 0)
 	else
-		_G.RaidManagerRoleIcons:SetPoint("RIGHT", _G.RaidFrameManager, "LEFT", 1, 0)
+		_G.RaidManagerRoleIcons:Point("RIGHT", _G.RaidFrameManager, "LEFT", 1, 0)
 	end
 end
 
@@ -501,12 +501,12 @@ function module:CreateRaidManager()
 	for i, role in ipairs(roles) do
 		local frame = CreateFrame("Frame", "$parent_"..role, RoleIcons)
 		if i == 1 then
-			frame:SetPoint("BOTTOM", 0, 10)
+			frame:Point("BOTTOM", 0, 10)
 		else
-			frame:SetPoint("BOTTOM", _G["RaidManagerRoleIcons_"..roles[i-1]], "TOP", 0, 10)
+			frame:Point("BOTTOM", _G["RaidManagerRoleIcons_"..roles[i-1]], "TOP", 0, 10)
 		end
 
-		frame:SetSize(36, 36)
+		frame:Size(36, 36)
 
 		local texture = frame:CreateTexture(nil, "OVERLAY")
 		texture:SetTexture(E.Media.Textures.RoleIcons) --(337499)
@@ -514,12 +514,12 @@ function module:CreateRaidManager()
 		texture:SetTexCoord(texA, texB, texC, texD)
 
 		local texturePlace = 2
-		texture:SetPoint("TOPLEFT", frame, "TOPLEFT", -texturePlace, texturePlace)
-		texture:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", texturePlace, -texturePlace)
+		texture:Point("TOPLEFT", frame, "TOPLEFT", -texturePlace, texturePlace)
+		texture:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", texturePlace, -texturePlace)
 		frame.texture = texture
 
 		local Count = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		Count:SetPoint("BOTTOMRIGHT", -2, 2)
+		Count:Point("BOTTOMRIGHT", -2, 2)
 		Count:SetText(0)
 		frame.count = Count
 

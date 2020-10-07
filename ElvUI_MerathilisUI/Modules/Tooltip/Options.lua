@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("Progress")
+local module = MER:GetModule("MER_Progress")
 
 --Cache global variables
 --Lua functions
@@ -53,7 +53,7 @@ local function Tooltip()
 				order = 11,
 				type = "group",
 				guiInline = true,
-				name = L["Name Hover"],
+				name = "",
 				desc = L["Shows the Unit Name on the mouse."],
 				get = function(info) return E.db.mui.nameHover[info[#info]] end,
 				set = function(info, value) E.db.mui.nameHover[info[#info]] = value; E:StaticPopup_Show("PRIVATE_RL"); end,
@@ -86,13 +86,14 @@ local function Tooltip()
 			progressInfo = {
 				order = 12,
 				type = "group",
-				name = L["Progress Info"],
+				name = "",
 				guiInline = true,
 				disabled = function() return not E.private.tooltip.enable end,
 				hidden = function() return IsAddOnLoaded("RaiderIO") end,
 				get = function(info) return E.db.mui.tooltip.progressInfo[ info[#info] ] end,
 				set = function(info, value) E.db.mui.tooltip.progressInfo[ info[#info] ] = value; E:StaticPopup_Show("PRIVATE_RL") end,
 				args = {
+					header = ACH:Header(MER:cOption(L["Progress Info"]), 0),
 					raid = {
 						order = 1,
 						name = L["Raid"],
@@ -138,27 +139,13 @@ local function Tooltip()
 								name = L["Ny'alotha"],
 								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
 							},
+							CastleNathria = {
+								order = 5,
+								type = "toggle",
+								name = L["Castle Nathria"],
+								disabled = function() return not E.db.mui.tooltip.progressInfo.enable or not E.db.mui.tooltip.progressInfo.raid.enable end,
+							}
 						}
-					},
-				},
-			},
-			corruption = {
-				order = 13,
-				type = "group",
-				name = L["Corruption"],
-				guiInline = true,
-				disabled = function() return not E.private.tooltip.enable end,
-				get = function(info) return E.db.mui.tooltip.corruption[ info[#info] ] end,
-				set = function(info, value) E.db.mui.tooltip.corruption[ info[#info] ] = value; end,
-				args = {
-					credits = ACH:Description(L["Credits: siweia | NdUI"], 0),
-					spacer = ACH:Spacer(1),
-					enable = {
-						order = 1,
-						type = "toggle",
-						name = L["Enable"],
-						width = "full",
-						set = function(info, value) E.db.mui.tooltip.corruption.enable = value; E:StaticPopup_Show("PRIVATE_RL") end,
 					},
 				},
 			},

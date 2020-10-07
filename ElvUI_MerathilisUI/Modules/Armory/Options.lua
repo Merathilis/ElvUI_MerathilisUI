@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERAY = MER:GetModule('MERArmory')
+local MERAY = MER:GetModule('MER_Armory')
 
 --Cache global variables
 --Lua functions

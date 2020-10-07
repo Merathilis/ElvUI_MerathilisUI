@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local COMP = MER:NewModule("mUICompatibility")
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 local _G = _G

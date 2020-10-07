@@ -26,4 +26,3 @@ Media\Load_Media.xml
 Modules\Load_Modules.xml
 Layout\Load_Layout.xml
 Bindings.xml
-Tools\Load_Tools.xml

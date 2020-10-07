@@ -101,7 +101,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = true
 
 -- FlightMode
 L["FlightMode"] = true
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Exit FlightMode"] = true
+L["Left Click to Request Stop"] = true
 
 -- FlightPoint
 L["Flight Point"] = true
@@ -157,7 +159,6 @@ L["Codex Buttons"] = true
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = true
 L["Highest Quest Reward"] = true
 L["Automatically select the item with the highest reward."] = true
-L["Quest Announcer"] = true
 L["Item Alerts"] = true
 L["Announce in chat when someone placed an usefull item."] = true
 
@@ -597,13 +598,6 @@ L["This will create and apply profile for "] = true
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = true
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = true
-L["Filter Errors"] = true
-L["Choose specific errors from the list below to hide/ignore."] = true
-L["Hides all errors regardless of filtering while in combat."] = true
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = true
 L[" from "] = true
@@ -611,12 +605,3 @@ L[" due to incompatiblities."] = true
 L[" due to incompatiblities with: "] = true
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = true
-
--- DashBoard
-L["Bar Color"] = true
-L["Use DataTexts font"] = true
-L["Enable the System Dashboard."] = true
-L["Select System Board"] = true
-L["Change the System Dashboard width."] = true
-L["Enable/Disable "] = true
-L["Latency (MS)"] = true

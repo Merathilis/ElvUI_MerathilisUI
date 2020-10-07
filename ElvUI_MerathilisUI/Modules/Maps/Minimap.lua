@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUIMinimap", "AceHook-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:GetModule('MER_Minimap')
 local LCG = LibStub('LibCustomGlow-1.0')
 
 --Cache global variables
@@ -48,24 +48,24 @@ function module:MiniMapCoords()
 	Coords:Hide()
 
 	if pos == "BOTTOM" then
-		Coords:SetPoint(pos, 0, 2)
+		Coords:Point(pos, 0, 2)
 	elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-		Coords:SetPoint(pos, 0, -12)
+		Coords:Point(pos, 0, -12)
 	elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
-		Coords:SetPoint(pos, 0, -2)
+		Coords:Point(pos, 0, -2)
 	else
-		Coords:SetPoint(pos, 0, 0)
+		Coords:Point(pos, 0, 0)
 	end
 
 	if E.db.mui.maps.minimap.rectangle then
 		if pos == "BOTTOM" then
-			Coords:SetPoint(pos, 0, 40)
+			Coords:Point(pos, 0, 40)
 		elseif pos == "TOP" and (E.db.general.minimap.locationText == 'SHOW' or E.db.general.minimap.locationText == 'MOUSEOVER') then
-			Coords:SetPoint(pos, 0, -40)
+			Coords:Point(pos, 0, -40)
 		elseif pos == "TOP" and E.db.general.minimap.locationText == 'HIDE' then
-			Coords:SetPoint(pos, 0, -2)
+			Coords:Point(pos, 0, -2)
 		else
-			Coords:SetPoint(pos, 0, 0)
+			Coords:Point(pos, 0, 0)
 		end
 	end
 
@@ -124,8 +124,8 @@ function module:RaidDifficulty()
 	local y = E.db.general.minimap.icons.difficulty.yOffset or 0
 
 	local RaidDifficulty = CreateFrame('Frame', nil, Minimap)
-	RaidDifficulty:SetSize(24, 8)
-	RaidDifficulty:SetPoint(pos, Minimap, pos, x, y)
+	RaidDifficulty:Size(24, 8)
+	RaidDifficulty:Point(pos, Minimap, pos, x, y)
 
 	RaidDifficulty:RegisterEvent('PLAYER_ENTERING_WORLD')
 	RaidDifficulty:RegisterEvent('CHALLENGE_MODE_START')
@@ -138,7 +138,7 @@ function module:RaidDifficulty()
 
 	local RaidDifficultyText = RaidDifficulty:CreateFontString(nil, 'OVERLAY')
 	RaidDifficultyText:FontTemplate()
-	RaidDifficultyText:SetPoint('TOPLEFT', 0, 0)
+	RaidDifficultyText:Point('TOPLEFT', 0, 0)
 
 	RaidDifficulty:SetScript('OnEvent', function()
 		local _, instanceType = IsInInstance()
@@ -233,7 +233,7 @@ function module:StyleMinimap()
 	_G.QueueStatusMinimapButtonIconTexture:SetTexture(nil)
 
 	local queueIcon = Minimap:CreateTexture(nil, "ARTWORK")
-	queueIcon:SetPoint("CENTER", _G.QueueStatusMinimapButton)
+	queueIcon:Point("CENTER", _G.QueueStatusMinimapButton)
 	queueIcon:SetSize(50, 50)
 	queueIcon:SetTexture("Interface\\Minimap\\Raid_Icon")
 
@@ -265,6 +265,7 @@ function module:Initialize()
 	self:MiniMapPing()
 	self:StyleMinimap()
 	self:RaidDifficulty()
+	self:RectangleMinimap()
 
 	if E.db.mui.maps.minimap.flash then
 		self:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES", "CheckMail")

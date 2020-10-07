@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -55,9 +54,10 @@ local function LoadSkin()
 			Backdrop:Styling()
 			Backdrop.IsSkinned = true
 		end
+
 		local menuBackdrop = _G[listFrameName.."MenuBackdrop"]
 		if menuBackdrop and not menuBackdrop.IsSkinned then
-			menuBackdrop:Styling()
+			menuBackdrop.backdrop:Styling()
 			menuBackdrop.IsSkinned = true
 		end
 	end)

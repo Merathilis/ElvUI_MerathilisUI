@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 local _G = _G
 local ipairs = ipairs
@@ -24,7 +24,9 @@ local function LoadSkin()
 			TalentList.BackgroundTile:SetAlpha(0)
 
 			for _, frame in ipairs(UpgradesTab.Upgrades) do
-				frame.RankBorder:SetAlpha(0)
+				if frame.RankBorder then
+					frame.RankBorder:SetAlpha(0)
+				end
 			end
 
 			frame.IsStyled = true

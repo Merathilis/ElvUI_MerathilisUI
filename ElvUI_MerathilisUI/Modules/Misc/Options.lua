@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
+local MI = MER:GetModule('MER_Misc')
+local SA = MER:GetModule('MER_SpellAlert')
 
 --Cache global variables
 --Lua functions
@@ -59,6 +60,14 @@ local function Misc()
 				name = L["LFG Member Info"],
 				desc = L["Shows role informations in your tooltip in the lfg frame."],
 			},
+			spellAlert = {
+				order = 11,
+				type = "range",
+				name = E.NewSign..L["Spell Alert Scale"],
+				min = 0.4, max = 1.5, step = 0.01,
+				get = function(info) return E.db.mui.misc.spellAlert end,
+				set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
+			},
 			alerts = {
 				order = 20,
 				type = "group",
@@ -99,11 +108,6 @@ local function Misc()
 						type = "toggle",
 						name = L["Highest Quest Reward"],
 						desc = L["Automatically select the item with the highest reward."],
-					},
-					questAnnounce = {
-						order = 2,
-						type = "toggle",
-						name = L["Quest Announcer"],
 					},
 				},
 			},

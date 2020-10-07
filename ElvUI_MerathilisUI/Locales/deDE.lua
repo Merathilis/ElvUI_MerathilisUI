@@ -99,7 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktivi
 
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Aktiviert/Deaktiviert den MerathilisUI Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r FlightMode.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
+L["Exit FlightMode"] = "Verlasse FlightMode"
+L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
@@ -155,7 +157,6 @@ L["Codex Buttons"] = "Kodex Tasten"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
 L["Highest Quest Reward"] = "Höhste Quest Belohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
-L["Quest Announcer"] = "Quest Ankündigungen"
 L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 
@@ -593,13 +594,6 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = "Fehlerbehandlung"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "In der unten aufgeführten Liste kannst du einige nervende Fehlermeldungen, wie zum Beispiel: |cffff7d0a'Nicht genug Wut'|r oder |cffff7d0a'Nicht genug Energie'|r, deaktivieren."
-L["Filter Errors"] = "Fehler filtern"
-L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
-L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "deaktiviert "
 L[" from "] = " von "
@@ -607,12 +601,3 @@ L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
-
--- DashBoard
-L["Bar Color"] = "Leistenfarbe"
-L["Use DataTexts font"] = "Benutze Infoleisten Schrift"
-L["Enable the System Dashboard."] = "Aktiviere das System Dashboard."
-L["Select System Board"] = "System Dashboard auswählen"
-L["Change the System Dashboard width."] = "Ändert die System Dashboard Breite."
-L["Enable/Disable "] = "Aktiviere/Deaktiviere "
-L["Latency (MS)"] = "Latenz (MS)"

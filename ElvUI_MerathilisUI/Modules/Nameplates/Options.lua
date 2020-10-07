@@ -17,7 +17,6 @@ local function NameplatesTable()
 		set = function(info, value) E.db.mui.nameplates[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,
 		args = {
 			name = ACH:Header(MER:cOption(L["NamePlates"]), 0),
-			spacer = ACH:Spacer(1),
 			castbarShield  = {
 				order = 2,
 				type = "toggle",
@@ -28,7 +27,7 @@ local function NameplatesTable()
 			enhancedAuras = {
 				order = 10,
 				type = "group",
-				name = L["Enhanced NameplateAuras"],
+				name = MER:cOption(L["Enhanced NameplateAuras"]),
 				guiInline = true,
 				get = function(info) return E.db.mui.nameplates.enhancedAuras[ info[#info] ] end,
 				set = function(info, value) E.db.mui.nameplates.enhancedAuras[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL"); end,

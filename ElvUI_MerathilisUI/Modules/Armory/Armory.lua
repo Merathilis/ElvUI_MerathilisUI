@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MERArmory', 'AceEvent-3.0', 'AceTimer-3.0', 'AceHook-3.0')
+local module = MER:GetModule('MER_Armory')
 local LCG = LibStub('LibCustomGlow-1.0')
-local COMP = MER:GetModule("mUICompatibility")
+local COMP = MER:GetModule('MER_Compatibility')
 local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables
@@ -211,12 +211,12 @@ function module:BuildInformation()
 
 		-- Durability
 		frame.DurabilityInfo = frame:CreateFontString(nil, "OVERLAY")
-		frame.DurabilityInfo:SetPoint("TOP", frame, "TOP", 0, -2)
+		frame.DurabilityInfo:Point("TOP", frame, "TOP", 0, -2)
 		frame.DurabilityInfo:FontTemplate(LSM:Fetch("font", module.db.durability.font), module.db.durability.textSize, module.db.durability.fontOutline)
 
 		-- Gradiation
 		frame.Gradiation = CreateFrame('Frame', nil, frame)
-		frame.Gradiation:SetSize(110, _G["Character"..slotName]:GetHeight()+4)
+		frame.Gradiation:Size(110, _G["Character"..slotName]:GetHeight()+4)
 		frame.Gradiation:SetFrameLevel(_G["CharacterModelFrame"]:GetFrameLevel() - 1)
 
 		frame.Gradiation.Texture = frame.Gradiation:CreateTexture(nil, "OVERLAY")
@@ -224,16 +224,16 @@ function module:BuildInformation()
 		frame.Gradiation.Texture:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\Gradation')
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Gradiation:SetPoint("LEFT", _G["Character"..slotName], "RIGHT")
+			frame.Gradiation:Point("LEFT", _G["Character"..slotName], "RIGHT")
 			frame.Gradiation.Texture:SetTexCoord(0, 1, 0, 1)
 		elseif id <= 16 then -- Right Side
-			frame.Gradiation:SetPoint("RIGHT", _G["Character"..slotName], "LEFT")
+			frame.Gradiation:Point("RIGHT", _G["Character"..slotName], "LEFT")
 			frame.Gradiation.Texture:SetTexCoord(1, 0, 0, 1)
 		end
 
 		-- Transmog Info
 		frame.Transmog = CreateFrame('Button', nil, frame)
-		frame.Transmog:SetSize(12, 12)
+		frame.Transmog:Size(12)
 		frame.Transmog:SetScript('OnEnter', self.Transmog_OnEnter)
 		frame.Transmog:SetScript('OnLeave', self.Transmog_OnLeave)
 
@@ -243,23 +243,23 @@ function module:BuildInformation()
 		frame.Transmog.Texture:SetVertexColor(1, .5, 1)
 
 		if id <= 7 or id == 17 or id == 11 then -- Left Size
-			frame.Transmog:SetPoint("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
+			frame.Transmog:Point("TOPLEFT", _G["Character"..slotName], "TOPLEFT", -2, 2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 1, 0)
 		elseif id <= 16 then -- Right Side
-			frame.Transmog:SetPoint("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
+			frame.Transmog:Point("TOPRIGHT", _G["Character"..slotName], "TOPRIGHT", 2, 2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 1, 0)
 		elseif id == 18 then -- Main Hand
-			frame.Transmog:SetPoint("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
+			frame.Transmog:Point("BOTTOMRIGHT", _G["Character"..slotName], "BOTTOMRIGHT", 2, -2)
 			frame.Transmog.Texture:SetTexCoord(1, 0, 0, 1)
 		elseif id == 19 then -- Off Hand
-			frame.Transmog:SetPoint("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
+			frame.Transmog:Point("BOTTOMLEFT", _G["Character"..slotName], "BOTTOMLEFT", -2, -2)
 			frame.Transmog.Texture:SetTexCoord(0, 1, 0, 1)
 		end
 
 		-- Illusion Info
 		frame.Illusion = CreateFrame('Button', nil, frame)
-		frame.Illusion:SetSize(14, 14)
-		frame.Illusion:SetPoint('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
+		frame.Illusion:Size(14)
+		frame.Illusion:Point('CENTER', _G["Character"..slotName], 'BOTTOM', 0, -2)
 		frame.Illusion:SetScript('OnEnter', self.Illusion_OnEnter)
 		frame.Illusion:SetScript('OnLeave', self.Illusion_OnLeave)
 		frame.Illusion:CreateBackdrop()
@@ -296,9 +296,9 @@ function module:Initialize()
 	-- Adjust a bit the Model Size
 	if _G["CharacterModelFrame"]:GetHeight() == 320 then
 		_G["CharacterModelFrame"]:ClearAllPoints()
-		_G["CharacterModelFrame"]:SetPoint('TOPLEFT', _G["CharacterHeadSlot"])
-		_G["CharacterModelFrame"]:SetPoint('RIGHT', _G["CharacterHandsSlot"])
-		_G["CharacterModelFrame"]:SetPoint('BOTTOM', _G["CharacterMainHandSlot"])
+		_G["CharacterModelFrame"]:Point('TOPLEFT', _G["CharacterHeadSlot"])
+		_G["CharacterModelFrame"]:Point('RIGHT', _G["CharacterHandsSlot"])
+		_G["CharacterModelFrame"]:Point('BOTTOM', _G["CharacterMainHandSlot"])
 	end
 
 	function module:ForUpdateAll()

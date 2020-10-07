@@ -12,14 +12,15 @@ local hooksecurefunc = hooksecurefunc
 local PANEL_HEIGHT = 22
 
 local ChatTabFrame = CreateFrame("Frame", "MER_RightChatTopDT", _G.RightChatPanel)
-ChatTabFrame:SetHeight(PANEL_HEIGHT)
-ChatTabFrame:SetWidth(411)
-ChatTabFrame:SetFrameStrata("LOW")
+ChatTabFrame:Height(PANEL_HEIGHT)
+ChatTabFrame:Width(411)
+ChatTabFrame:SetFrameStrata("BACKGROUND")
+ChatTabFrame:Hide()
 E.FrameLocks["MER_RightChatTopDT"] = true
 
-function MER:InitDataTexts()
-	MER_RightChatTopDT:SetPoint("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
-	MER_RightChatTopDT:SetPoint("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, E.mult)
+function MER:LoadDataTexts()
+	MER_RightChatTopDT:Point("TOPRIGHT", _G.RightChatTab, "TOPRIGHT", 0, E.mult)
+	MER_RightChatTopDT:Point("BOTTOMLEFT", _G.RightChatTab, "BOTTOMLEFT", 0, E.mult)
 
 	hooksecurefunc(DT, "UpdatePanelInfo", function(DT, panelName, panel)
 		if not panel then return end

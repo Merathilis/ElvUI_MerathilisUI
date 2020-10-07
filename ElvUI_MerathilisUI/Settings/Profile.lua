@@ -15,12 +15,9 @@ MP.general = {
 	GameMenu = true,
 	splashScreen = true,
 	AFK = true,
-	FlightMode = true,
 	FlightPoint = true,
 	style = true,
 	shadowOverlay = true,
-	filterErrors = true,
-	hideErrorFrame = true,
 }
 
 MP.bags = {
@@ -142,10 +139,10 @@ MP.misc = {
 	gmotd = true,
 	quest = {
 		selectQuestReward =	true,
-		questAnnounce = false,
 	},
 	cursor = false,
 	lfgInfo = true,
+	spellAlert = 0.65,
 	alerts = {
 		lfg = false,
 		announce = true,
@@ -333,6 +330,7 @@ MP.microBar = {
 	template = "Transparent",
 	hideInCombat = true,
 	hideInOrderHall = false,
+	mouseOver = false,
 	tooltip = true,
 	text = {
 		position = "BOTTOM",
@@ -357,6 +355,7 @@ MP.unitframes = {
 		enable = true,
 	},
 	style = true,
+	raidIcons = true,
 	roleIcons = true,
 	highlight = true,
 }
@@ -454,6 +453,8 @@ MP.panels = {
 		bottomRightPanel = true,
 		bottomRightExtraPanel = true,
 	},
+	topPanelHeight = 15,
+	bottomPanelHeight = 15,
 	panelSize = 427,
 }
 
@@ -493,7 +494,7 @@ MP.locPanel = {
 		cdFormat = "DEFAULT",
 		ignoreMissingInfo = false,
 		showHearthstones = true,
-		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179",
+		hsPrio = "54452,64488,93672,142542,162973,163045,165669,165670,165802,166746,166747,168907,172179,184353",
 		showToys = true,
 		showSpells = true,
 		showEngineer = true,
@@ -545,6 +546,7 @@ MP.tooltip = {
 			CrucibleOfStorms = false,
 			EternalPalace = true,
 			Nyalotha = true,
+			CastleNathria = true,
 		}
 	},
 }
@@ -709,30 +711,7 @@ MP.armory = {
 	},
 }
 
-MP.dashboard = {
-	dashfont = {
-		useDTfont = true,
-		dbfont = E.db.datatexts.font,
-		dbfontsize = E.db.datatexts.fontSize,
-		dbfontflags = E.db.datatexts.fontOutline,
-	},
-
-	barColor = 1,
-	customBarColor = {r = 255/255,g = 128/255,b = 0/255},
-	textColor = 2,
-	customTextColor = {r = 255/255,g = 255/255,b = 255/255},
-
-	system = {
-		enableSystem = false,
-		combat = false,
-		width = 150,
-		transparency = true,
-		backdrop = true,
-		chooseSystem = {
-			FPS = true,
-			MS = true,
-			Volume = true,
-		},
-		latency = 2,
-	},
+MP.flightMode = {
+	enable = true,
+	BenikFlightMode = true,
 }

@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 local _G = _G
 local hooksecurefunc = hooksecurefunc
@@ -15,6 +15,11 @@ local function LoadSkin()
 	frame.Background:SetAlpha(0)
 	frame.BorderFrame:SetAlpha(0)
 	frame.InfoPanel.Parchment:SetAlpha(0)
+
+	frame.InfoPanel.Name:SetTextColor(1, 1, 1)
+	frame.InfoPanel.Location:SetTextColor(1, 1, 1)
+	frame.InfoPanel.Description:SetTextColor(1, 1, 1)
+	frame.InfoPanel.AbilitiesLabel:SetTextColor(1, .8, 0)
 end
 
 S:AddCallbackForAddon('Blizzard_CovenantPreviewUI', 'muiCovenantPreview', LoadSkin)

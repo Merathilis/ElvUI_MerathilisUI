@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -60,7 +60,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -75,7 +75,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -137,7 +137,7 @@ local function LoadSkin()
 		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 

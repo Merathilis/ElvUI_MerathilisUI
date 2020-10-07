@@ -99,7 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "启用/禁用MerathilisUI飞行模式.\n要完全进入飞行模式，请进入 |cff00c0faBenikUI|r Options."
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Exit FlightMode"] = true
+L["Left Click to Request Stop"] = true
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
@@ -155,7 +157,6 @@ L["Codex Buttons"] = "圣典按钮"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "在天赋界面添加两个按钮，书卷和圣典"
 L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
-L["Quest Announcer"] = "任务通告"
 L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 
@@ -617,13 +618,6 @@ L["This will create and apply profile for "] = "这将创建并应用配置文�
 -- Changelog
 L["Changelog"] = "更新日志"
 
--- Errors
-L["Error Handling"] = "错误处理"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "在下面的列表中, 你可以禁用一些领人烦恼的错误, 比如 |cffff7d0a'没有足够的怒气'|r 或 |cffff7d0a'没有足够的能量'|r"
-L["Filter Errors"] = "过滤错误"
-L["Choose specific errors from the list below to hide/ignore."] = "从下面的列表中选择特定的错误以隐藏/忽略."
-L["Hides all errors regardless of filtering while in combat."] = "无论如果过滤，战斗中都隐藏所有错误."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
 L[" from "] = " 从 "
@@ -631,13 +625,3 @@ L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
-
--- DashBoard
-L["Dashboard"] = "仪表盘"
-L["Bar Color"] = "条颜色"
-L["Use DataTexts font"] = "使用信息文字字体"
-L["Enable the System Dashboard."] = "启用系统仪表盘"
-L["Select System Board"] = "选择系统仪表盘"
-L["Change the System Dashboard width."] = "调整仪表盘宽度."
-L["Enable/Disable "] = "启用/禁用 "
-L["Latency (MS)"] = "延迟 (毫秒)"

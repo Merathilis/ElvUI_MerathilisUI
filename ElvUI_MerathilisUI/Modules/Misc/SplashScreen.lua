@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
+local MI = MER:GetModule('MER_Misc')
 
 -- Cache global variables
 -- Lua functions
@@ -35,13 +35,13 @@ function MI:CreateSplash()
 	frame:Hide()
 
 	local tex = frame:CreateTexture()
-	tex:SetPoint("CENTER", frame, "CENTER")
+	tex:Point("CENTER", frame, "CENTER")
 	tex:SetTexture("Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\mUI1_Shadow.tga")
-	tex:SetSize(125, 125)
+	tex:Size(125, 125)
 
 	local version = MER:CreateText(frame, "OVERLAY", 14, nil, "CENTER")
 	version:FontTemplate(nil, 14, nil)
-	version:SetPoint("TOP", tex, "BOTTOM", 0, 10)
+	version:Point("TOP", tex, "BOTTOM", 0, 10)
 	version:SetFormattedText("v%s", MER.Version)
 	version:SetTextColor(1, 0.5, 0.25, 1)
 
@@ -106,11 +106,11 @@ function MI:SplashScreen()
 
 	MER:RegisterEvent("PLAYER_ENTERING_WORLD", MI.Logo_CheckStatus)
 
-	SlashCmdList["NDUI_PLAYLOGO"] = function()
+	SlashCmdList["MER_PLAYLOGO"] = function()
 		if not MI.logoFrame then
 			MI:CreateSplash()
 		end
 		MI.logoFrame:Show()
 	end
-	SLASH_NDUI_PLAYLOGO1 = "/mlogo"
+	SLASH_MER_PLAYLOGO1 = "/mlogo"
 end

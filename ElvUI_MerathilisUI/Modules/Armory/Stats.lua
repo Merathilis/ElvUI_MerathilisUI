@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERAY = MER:GetModule('MERArmory')
+local MERAY = MER:GetModule('MER_Armory')
 local LSM = E.LSM or E.Libs.LSM
 
 -- Cache global variables
@@ -291,8 +291,8 @@ local function CharacterStatFrameCategoryTemplate(Button)
 	bg:SetTexture([[Interface\LFGFrame\UI-LFG-SEPARATOR]])
 	bg:SetTexCoord(0, 0.6640625, 0, 0.3125)
 	bg:ClearAllPoints()
-	bg:SetPoint("CENTER", 0, -5)
-	bg:SetSize(210, 30)
+	bg:Point("CENTER", 0, -5)
+	bg:Size(210, 30)
 	bg:SetVertexColor(r * 0.7, g * 0.7, b * 0.7)
 end
 
@@ -368,8 +368,8 @@ end
 function MERAY:PaperDollFrame_UpdateStats()
 	totalShown = 0
 	local total = GetAverageItemLevel()
-	_G["CharacterStatsPane"].ItemLevelCategory:SetPoint("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
-	_G["CharacterStatsPane"].AttributesCategory:SetPoint("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
+	_G["CharacterStatsPane"].ItemLevelCategory:Point("TOP", _G["CharacterStatsPane"], "TOP", 0, 8)
+	_G["CharacterStatsPane"].AttributesCategory:Point("TOP", _G["CharacterStatsPane"].ItemLevelFrame, "BOTTOM", 0, 6)
 
 	local categoryYOffset = 8;
 	local statYOffset = 0;
@@ -432,12 +432,12 @@ function MERAY:PaperDollFrame_UpdateStats()
 				if ( not stat.hideAt or stat.hideAt ~= statFrame.numericValue ) then
 					if ( numStatInCat == 0 ) then
 						if ( lastAnchor ) then
-							catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset);
+							catFrame:Point("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset);
 						end
 						lastAnchor = catFrame;
-						statFrame:SetPoint("TOP", catFrame, "BOTTOM", 0, 6);
+						statFrame:Point("TOP", catFrame, "BOTTOM", 0, 6);
 					else
-						statFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
+						statFrame:Point("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
 					end
 					if statFrame:IsShown() then
 						totalShown = totalShown + 1
@@ -465,18 +465,18 @@ end
 --Scrollframe Parent Frame
 local CharacterFrameInsetRight = _G.CharacterFrameInsetRight
 MERAY.ScrollframeParentFrame = CreateFrame("Frame", nil, CharacterFrameInsetRight)
-MERAY.ScrollframeParentFrame:SetSize(198, 352)
-MERAY.ScrollframeParentFrame:SetPoint("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
+MERAY.ScrollframeParentFrame:Size(198, 352)
+MERAY.ScrollframeParentFrame:Point("TOP", CharacterFrameInsetRight, "TOP", 0, -4)
 
 --Scrollframe
 MERAY.ScrollFrame = CreateFrame("ScrollFrame", "MER_ScrollFrame", MERAY.ScrollframeParentFrame)
-MERAY.ScrollFrame:SetPoint("TOP")
-MERAY.ScrollFrame:SetSize(MERAY.ScrollframeParentFrame:GetSize())
+MERAY.ScrollFrame:Point("TOP")
+MERAY.ScrollFrame:Size(MERAY.ScrollframeParentFrame:GetSize())
 
 --Scrollbar
 MERAY.Scrollbar = CreateFrame("Slider", nil, MERAY.ScrollFrame, "UIPanelScrollBarTemplate")
-MERAY.Scrollbar:SetPoint("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
-MERAY.Scrollbar:SetPoint("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
+MERAY.Scrollbar:Point("TOPLEFT", CharacterFrameInsetRight, "TOPRIGHT", -12, -20)
+MERAY.Scrollbar:Point("BOTTOMLEFT", CharacterFrameInsetRight, "BOTTOMRIGHT", -12, 18)
 MERAY.Scrollbar:SetMinMaxValues(1, 2)
 MERAY.Scrollbar:SetValueStep(1)
 MERAY.Scrollbar.scrollStep = 1
@@ -490,18 +490,18 @@ MERAY.Scrollbar:Hide()
 
 --MERAY.ScrollChild Frame
 MERAY.ScrollChild = CreateFrame("Frame", nil, MERAY.ScrollFrame)
-MERAY.ScrollChild:SetSize(MERAY.ScrollFrame:GetSize())
+MERAY.ScrollChild:Size(MERAY.ScrollFrame:GetSize())
 MERAY.ScrollFrame:SetScrollChild(MERAY.ScrollChild)
 
 local CharacterStatsPane = _G.CharacterStatsPane
 CharacterStatsPane:ClearAllPoints()
 CharacterStatsPane:SetParent(MERAY.ScrollChild)
-CharacterStatsPane:SetSize(MERAY.ScrollChild:GetSize())
-CharacterStatsPane:SetPoint("TOP", MERAY.ScrollChild, "TOP", 0, 0)
+CharacterStatsPane:Size(MERAY.ScrollChild:GetSize())
+CharacterStatsPane:Point("TOP", MERAY.ScrollChild, "TOP", 0, 0)
 
 CharacterStatsPane.ClassBackground:ClearAllPoints()
 CharacterStatsPane.ClassBackground:SetParent(CharacterFrameInsetRight)
-CharacterStatsPane.ClassBackground:SetPoint("CENTER")
+CharacterStatsPane.ClassBackground:Point("CENTER")
 
 -- Enable mousewheel scrolling
 MERAY.ScrollFrame:EnableMouseWheel(true)

@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
-local MERS = MER:NewModule("muiSkins", "AceHook-3.0", "AceEvent-3.0")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -21,8 +21,6 @@ local backdropfadecolorr, backdropfadecolorg, backdropfadecolorb
 local unitFrameColorR, unitFrameColorG, unitFrameColorB
 local rgbValueColorR, rgbValueColorG, rgbValueColorB
 local bordercolorr, bordercolorg, bordercolorb
-
-local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 MERS.NORMAL_QUEST_DISPLAY = "|cffffffff%s|r"
 MERS.TRIVIAL_QUEST_DISPLAY = TRIVIAL_QUEST_DISPLAY:gsub("000000", "ffffff")
@@ -70,8 +68,8 @@ function MERS:CreateBG(frame)
 	if frame:IsObjectType('Texture') then f = frame:GetParent() end
 
 	local bg = f:CreateTexture(nil, "BACKGROUND")
-	bg:SetPoint("TOPLEFT", frame, -E.mult, E.mult)
-	bg:SetPoint("BOTTOMRIGHT", frame, E.mult, -E.mult)
+	bg:Point("TOPLEFT", frame, -E.mult, E.mult)
+	bg:Point("BOTTOMRIGHT", frame, E.mult, -E.mult)
 	bg:SetTexture(E.media.blankTex)
 	bg:SetVertexColor(0, 0, 0)
 
@@ -138,8 +136,8 @@ function MERS:CreateBD(f, a)
 	assert(f, "doesn't exist!")
 
 	f:CreateBackdrop()
-	f.backdrop:SetBackdropColor(E.media.backdropfadecolor.r, E.media.backdropfadecolor.g, E.media.backdropfadecolor.b, a or alpha)
-	f.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	f.backdrop:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, a or alpha)
+	f.backdrop:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 end
 
 -- ClassColored ScrollBars
@@ -154,7 +152,7 @@ function MERS:ReskinScrollBar(frame, thumbTrimY, thumbTrimX)
 	local Thumb = GrabScrollBarElement(frame, 'ThumbTexture') or GrabScrollBarElement(frame, 'thumbTexture') or frame.GetThumbTexture and frame:GetThumbTexture()
 
 	if Thumb and Thumb.backdrop then
-		Thumb.backdrop:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+		Thumb.backdrop:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 	end
 end
 
@@ -171,8 +169,8 @@ end
 function MERS:ColorButton()
 	if self.backdrop then self = self.backdrop end
 
-	self:SetBackdropColor(r, g, b, .3)
-	self:SetBackdropBorderColor(r, g, b)
+	self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, .3)
+	self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ClearButton()
@@ -181,7 +179,7 @@ function MERS:ClearButton()
 	self:SetBackdropColor(0, 0, 0, 0)
 
 	if self.isUnitFrameElement then
-		self:SetBackdropBorderColor(unpack(E.media.unitframeBorderColor))
+		self:SetBackdropBorderColor(unitFrameColorR, unitFrameColorG, unitFrameColorB)
 	else
 		self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
 	end
@@ -189,22 +187,20 @@ end
 
 function MERS:OnEnter()
 	if self:IsEnabled() then
-		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
-
+		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(unpack(E.media.rgbvaluecolor))
-			self:SetBackdropColor(unpack(E.media.rgbvaluecolor))
+			self:SetBackdropBorderColor(rgbValueColorR, rgbValueColorG, rgbValueColorB)
+			self:SetBackdropColor(rgbValueColorR, rgbValueColorG, rgbValueColorB, 0.75) -- maybe 0.5?
 		end
 	end
 end
 
 function MERS:OnLeave()
 	if self:IsEnabled() then
-		--if self.backdrop then self = self.backdrop end -- this breaks button transparency
-
+		if self.backdrop then self = self.backdrop end
 		if self.SetBackdropBorderColor then
-			self:SetBackdropBorderColor(unpack(E.media.bordercolor))
-			self:SetBackdropColor(backdropcolorr, backdropcolorg, backdropcolorb)
+			self:SetBackdropBorderColor(bordercolorr, bordercolorg, bordercolorb)
+			self:SetBackdropColor(backdropfadecolorr, backdropfadecolorg, backdropfadecolorb, alpha)
 		end
 	end
 end
@@ -231,10 +227,6 @@ function MERS:Reskin(button, strip, isDeclineButton, noStyle, setTemplate, style
 		else
 			button:CreateBackdrop('Transparent', not noGlossTex) -- force transparent
 			button.backdrop:SetAllPoints()
-		end
-
-		if button.backdrop then
-			button.backdrop:SetTemplate('Transparent')
 		end
 
 		button:HookScript("OnEnter", MERS.OnEnter) -- Must check this; Shadowlands
@@ -299,7 +291,7 @@ function MERS:SkinPanel(panel)
 	panel.tex = panel:CreateTexture(nil, "ARTWORK")
 	panel.tex:SetAllPoints()
 	panel.tex:SetTexture(E.media.blankTex)
-	panel.tex:SetGradient("VERTICAL", unpack(E.media.rgbvaluecolor))
+	panel.tex:SetGradient("VERTICAL", rgbValueColorR, rgbValueColorG, rgbValueColorB)
 end
 
 function MERS:ReskinGarrisonPortrait(self)
@@ -348,17 +340,17 @@ local function replaceConfigArrows(button)
 		button.img = button:CreateTexture(nil, 'ARTWORK')
 		button.img:SetTexture('Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\arrow')
 		button.img:SetSize(12, 12)
-		button.img:SetPoint('CENTER')
+		button.img:Point('CENTER')
 		button.img:SetVertexColor(1, 1, 1)
 
 		button:HookScript('OnMouseDown', function(btn)
 			if btn:IsEnabled() then
-				btn.img:SetPoint("CENTER", -1, -1);
+				btn.img:Point("CENTER", -1, -1);
 			end
 		end)
 
 		button:HookScript('OnMouseUp', function(btn)
-			btn.img:SetPoint("CENTER", 0, 0);
+			btn.img:Point("CENTER", 0, 0);
 		end)
 	end
 end
@@ -419,8 +411,8 @@ function MERS:ReskinAS(AS)
 			end
 		end
 
-		Tab.Backdrop:SetPoint("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
-		Tab.Backdrop:SetPoint("BOTTOMRIGHT", -10, 3)
+		Tab.Backdrop:Point("TOPLEFT", 10, AS.PixelPerfect and -1 or -3)
+		Tab.Backdrop:Point("BOTTOMRIGHT", -10, 3)
 
 		Tab.isSkinned = true
 	end

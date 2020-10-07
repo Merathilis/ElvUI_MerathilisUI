@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule('MER_CombatText', 'AceEvent-3.0', 'AceTimer-3.0')
+local module = MER:GetModule('MER_CombatText')
 
 --Cache global variables
 --Lua functions
@@ -15,18 +15,18 @@ function module:CreateAlert()
 	local alert = CreateFrame('Frame', 'MER_AlertFrame', E.UIParent)
 	alert:SetClampedToScreen(true)
 	alert:SetSize(300, 65)
-	alert:SetPoint('TOP', 0, -280)
+	alert:Point('TOP', 0, -280)
 	alert:Hide()
 
 	alert.Bg = alert:CreateTexture(nil, "BACKGROUND")
 	alert.Bg:SetTexture('Interface\\LevelUp\\MinorTalents')
-	alert.Bg:SetPoint('TOP')
+	alert.Bg:Point('TOP')
 	alert.Bg:SetSize(400, 60)
 	alert.Bg:SetTexCoord(0, 400/512, 341/512, 407/512)
 	alert.Bg:SetVertexColor(1, 1, 1, 0.4)
 
 	alert.text = alert:CreateFontString(nil)
-	alert.text:SetPoint('CENTER', 0, -1)
+	alert.text:Point('CENTER', 0, -1)
 
 	self.alert = alert
 end

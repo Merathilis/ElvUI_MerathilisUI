@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MM = MER:GetModule("mUIMinimap")
-local SMB = MER:GetModule("mUIMinimapButtons")
-local COMP = MER:GetModule("mUICompatibility")
+local MM = MER:GetModule('MER_Minimap')
+local SMB = MER:GetModule('MER_MiniMapButtons')
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 --Lua functions

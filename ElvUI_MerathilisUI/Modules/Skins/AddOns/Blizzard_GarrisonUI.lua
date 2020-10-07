@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -278,7 +278,7 @@ local function LoadSkin()
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:SetPoint('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 
 	GarrisonCapacitiveDisplayFrame:Styling()
 

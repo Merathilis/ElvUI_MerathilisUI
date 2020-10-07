@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("MER_CombatText")
+local module = MER:GetModule('MER_CombatText')
 
 local function CVars()
 	local ACH = E.Libs.ACH

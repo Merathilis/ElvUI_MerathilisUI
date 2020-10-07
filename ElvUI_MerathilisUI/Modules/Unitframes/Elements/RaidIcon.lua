@@ -1,11 +1,13 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:GetModule("muiUnits")
+local module = MER:GetModule('MER_UnitFrames')
 
 --Cache global variables
 --WoW API / Variables
 -- GLOBALS:
 
 function module:Configure_RaidIcon(frame)
+	if E.db.mui.unitframes.raidIcons ~= true then return end
+
 	local RI = frame.RaidTargetIndicator
 	local db = frame.db
 
