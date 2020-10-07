@@ -1113,6 +1113,8 @@ function module:Initialize()
 	end
 
 	self:ForUpdateAll()
+
+	self:RegisterEvent("UNIT_AURA")
 end
 
 MER:RegisterModule(module:GetName())
