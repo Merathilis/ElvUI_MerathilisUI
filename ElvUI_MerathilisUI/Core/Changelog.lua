@@ -16,15 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• Added Holographic Digitalization to the LocPanel Hearthstones",
-		"• Updated the logo for my SplashScreen",
-		"• Don't hide some textures from the ObjectiveTracker",
-		"• Changed my AFK screen",
-		"• Added an option to adjust the Style Panel Width",
-		"• Take account to the ElvUI Healprediction changes",
-		"• Adjust the frame strata for my right Chat Datatext",
-		"• Added a new font Gotham Narrow Ultra",
-		"• Some code cleanup and misc changes",
+		"• Added an own FlightMode (inspired by Benik's)",
+		"• Updated/Added a lot of skins due to Shadowland code changes",
+		"• Added an options for my Top-/Bottom Panel to change the height",
+		"• Maybe a lot of other changes i already forgot.. lol",
 
 		-- "• ''",
 	" ",
