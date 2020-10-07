@@ -65,8 +65,6 @@ local function Style_CreateSeparatorLine(self, frame, lastButton)
 end
 
 local function Style_SetButtonColor(self, btn, disabled)
-	btn.dontReskin = true
-
 	if disabled then
 		local r, g, b = unpack(E.media.rgbvaluecolor)
 		btn:SetBackdropBorderColor(r, g, b)
