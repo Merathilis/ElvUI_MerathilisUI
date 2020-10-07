@@ -707,6 +707,13 @@ function module:CreateMicroBar()
 	guildButton.tex:SetVertexColor(.6, .6, .6)
 	guildButton.tex:SetBlendMode("ADD")
 
+	guildButton.notification = guildButton:CreateTexture(nil, "OVERLAY")
+	guildButton.notification:Point("TOPLEFT", guildButton, "TOPLEFT")
+	guildButton.notification:Size(18, 18)
+	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
+	guildButton.notification:SetBlendMode("ADD")
+	guildButton.notification:SetShown(_G.GuildMicroButton.NotificationOverlay:IsShown())
+
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
 		guildButton.text:Point("BOTTOM", guildButton, 2, -15)
