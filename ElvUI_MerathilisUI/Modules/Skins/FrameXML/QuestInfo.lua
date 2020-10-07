@@ -21,29 +21,19 @@ local GetQuestID = GetQuestID
 
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
--- Replace seal signature string
-local replacedColorStr = {
-	["480404"] = "c20606",
-	["042c54"] = "1c86ee",
-}
+local function ClearHighlight()
+	for _, button in pairs(_G.QuestInfoRewardsFrame.RewardButtons) do
+		button.textBg:SetBackdropColor(0, 0, 0, .25)
+	end
+end
 
-local function RestyleSpellButton(bu)
-	local name = bu:GetName()
-	local icon = bu.Icon
+local function SetHighlight(self)
+	ClearHighlight()
 
-	_G[name.."NameFrame"]:Hide()
-	_G[name.."SpellBorder"]:Hide()
-
-	icon:SetPoint("TOPLEFT", 3, -2)
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetTexCoord(unpack(E.TexCoords))
-	MERS:CreateBG(icon)
-
-	local bg = CreateFrame("Frame", nil, bu)
-	bg:SetPoint("TOPLEFT", 2, -1)
-	bg:SetPoint("BOTTOMRIGHT", 0, 14)
-	bg:SetFrameLevel(0)
-	MERS:CreateBD(bg, .25)
+	local _, point = self:GetPoint()
+	if point then
+		point.textBg:SetBackdropColor(r, g, b, .25)
+	end
 end
 
 local function QuestInfo_GetQuestID()
@@ -93,6 +83,25 @@ local function ColorObjectivesText()
 	end
 end
 
+local function RestyleSpellButton(bu)
+	local name = bu:GetName()
+	local icon = bu.Icon
+
+	_G[name.."NameFrame"]:Hide()
+	_G[name.."SpellBorder"]:Hide()
+
+	icon:SetPoint("TOPLEFT", 3, -2)
+	icon:SetDrawLayer("ARTWORK")
+	icon:SetTexCoord(unpack(E.TexCoords))
+	MERS:CreateBG(icon)
+
+	local bg = CreateFrame("Frame", nil, bu)
+	bg:SetPoint("TOPLEFT", 2, -1)
+	bg:SetPoint("BOTTOMRIGHT", 0, 14)
+	bg:SetFrameLevel(0)
+	MERS:CreateBD(bg, .25)
+end
+
 local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu.Icon:SetTexCoord(unpack(E.TexCoords))
 	bu.Icon:SetDrawLayer("OVERLAY")
@@ -120,40 +129,42 @@ local function RestyleRewardButton(bu, isMapQuestInfo)
 	bu.bg = bg
 end
 
-local function HookTextColor_Yellow(self)
-	if self.isSetting then return end
-	self.isSetting = true
-	self:SetTextColor(1, .8, 0)
-	self.isSetting = nil
+local function HookTextColor_Yellow(self, r, g, b)
+	if r ~= 1 or g ~= .8 or b ~= 0 then
+		self:SetTextColor(1, .8, 0)
+	end
 end
 
 local function SetTextColor_Yellow(font)
 	font:SetTextColor(1, .8, 0)
-	font:SetShadowColor(0, 0, 0)
+	font:SetShadowColor(0, 0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_Yellow)
 end
 
-local function HookTextColor_White(self)
-	if self.isSetting then return end
-	self.isSetting = true
-	self:SetTextColor(1, 1, 1)
-	self.isSetting = nil
+local function HookTextColor_White(self, r, g, b)
+	if r ~= 1 or g ~= 1 or b ~= 1 then
+		self:SetTextColor(1, 1, 1)
+	end
 end
 
 local function SetTextColor_White(font)
 	font:SetTextColor(1, 1, 1)
-	font:SetShadowColor(0, 0, 0)
+	font:SetShadowColor(0, 0, 0, 0)
 	hooksecurefunc(font, "SetTextColor", HookTextColor_White)
 end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true or E.private.muiSkins.blizzard.quest ~= true then return; end
 
-	-- [[ Objectives ]]
+	-- Item reward highlight
+	_G.QuestInfoItemHighlight:GetRegions():Hide()
+	hooksecurefunc(_G.QuestInfoItemHighlight, "SetPoint", SetHighlight)
+	_G.QuestInfoItemHighlight:HookScript("OnShow", SetHighlight)
+	_G.QuestInfoItemHighlight:HookScript("OnHide", ClearHighlight)
+
 	RestyleSpellButton(_G.QuestInfoSpellObjectiveFrame)
 
 	hooksecurefunc("QuestMapFrame_ShowQuestDetails", ColorObjectivesText)
-	hooksecurefunc("QuestInfo_Display", ColorObjectivesText)
 
 	-- [[ Quest rewards ]]
 	hooksecurefunc("QuestInfo_GetRewardButton", function(rewardsFrame, index)
@@ -214,6 +225,8 @@ local function LoadSkin()
 
 	-- Follower Rewards
 	hooksecurefunc("QuestInfo_Display", function(template, parentFrame, acceptButton, material, mapView)
+		ColorObjectivesText()
+
 		local rewardsFrame = _G.QuestInfoFrame.rewardsFrame
 		local isQuestLog = _G.QuestInfoFrame.questLog ~= nil
 		local isMapQuest = rewardsFrame == _G.MapQuestInfoRewardsFrame
@@ -230,9 +243,6 @@ local function LoadSkin()
 			end
 		end
 	end)
-
-	-- [[ Change text colors ]]
-	_G.QuestFont:SetTextColor(1, 1, 1)
 
 	hooksecurefunc(_G.QuestInfoRequiredMoneyText, "SetTextColor", function(self, r)
 		if r == 0 then
@@ -270,11 +280,17 @@ local function LoadSkin()
 		SetTextColor_White(font)
 	end
 
+	-- Replace seal signature string
+	local ReplacedSealColor = {
+		["480404"] = "c20606",
+		["042c54"] = "1c86ee",
+	}
+
 	hooksecurefunc(_G.QuestInfoSealFrame.Text, "SetText", function(self, text)
 		if text and text ~= "" then
-			local colorStr, rawText = strmatch(text, "|cff(%x%x%x%x%x%x)(.-)|r")
+			local colorStr, rawText = strmatch(text, "|c[fF][fF](%x%x%x%x%x%x)(.-)|r")
 			if colorStr and rawText then
-				colorStr = replacedColorStr[colorStr] or "99ccff"
+				colorStr = ReplacedSealColor[colorStr] or "99ccff"
 				self:SetFormattedText("|cff%s%s|r", colorStr, rawText)
 			end
 		end
