@@ -569,14 +569,6 @@ function module:OnClick(btn)
 	end
 end
 
-function module:UpdateNotificationIcon(self)
-	if CommunitiesFrame_IsEnabled() then
-		self.notification:SetShown(CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
-	else
-		self.notification:SetShown(false)
-	end
-end
-
 function module:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent)
 	microBar:SetFrameStrata("MEDIUM")
@@ -718,8 +710,7 @@ function module:CreateMicroBar()
 	guildButton.notification:Size(18, 18)
 	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
 	guildButton.notification:SetBlendMode("ADD")
-	guildButton.notification:SetShown(_G.GuildMicroButton.NotificationOverlay:IsShown())
-	module:UpdateNotificationIcon(guildButton)
+	guildButton.notification:SetShown(CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
@@ -1104,7 +1095,6 @@ function module:Initialize()
 	self:CreateMicroBar()
 	self:Template()
 	self:Toggle()
-	self:UpdateNotificationIcon(guildButton)
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.microBar
