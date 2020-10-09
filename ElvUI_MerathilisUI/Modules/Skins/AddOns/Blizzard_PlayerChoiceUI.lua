@@ -18,11 +18,12 @@ local function LoadSkin()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.playerChoice) or E.private.muiSkins.blizzard.playerChoice ~= true then return end
 
 	local frame = _G.PlayerChoiceFrame
-	if frame.backdrop then
-		frame.backdrop:Styling()
-	end
 
 	hooksecurefunc(frame, "Update", function(self)
+		if frame.backdrop then
+			frame.backdrop:Styling()
+		end
+
 		for i = 1, self:GetNumOptions() do
 			local option = self.Options[i]
 			option.Header.Text:SetTextColor(1, .8, 0)
