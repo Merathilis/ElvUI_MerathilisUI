@@ -1084,6 +1084,15 @@ function module:UNIT_AURA(_, unit)
 	end
 end
 
+function module:CheckNotification(event)
+	if module.db.enable and CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages() then
+		guildButton.notification:Show()
+	else
+		guildButton.notification:Hide()
+	end
+end
+module:RegisterEvent("PLAYER_ENTERING_WORLD", module.CheckNotification)
+
 function module:Initialize()
 	local db = E.db.mui.microBar
 	MER:RegisterDB(self, "microBar")
