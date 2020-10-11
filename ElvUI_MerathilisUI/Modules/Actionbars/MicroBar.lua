@@ -569,6 +569,25 @@ function module:OnClick(btn)
 	end
 end
 
+function module:HasUnseenInvitations()
+	local invitations = C_Club.GetInvitationsForSelf()
+	for i, invitation in ipairs(invitations) do
+		if not DISPLAYED_COMMUNITIES_INVITATIONS[invitation.club.clubId] then
+			return true
+		end
+	end
+
+	return false
+end
+
+function module:UpdateNotificationIcon(self)
+	if CommunitiesFrame_IsEnabled() then
+		guildButton.notification:SetShown(module:HasUnseenInvitations() or CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
+	else
+		guildButton.notification:SetShown(false)
+	end
+end
+
 function module:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent)
 	microBar:SetFrameStrata("MEDIUM")
@@ -710,7 +729,7 @@ function module:CreateMicroBar()
 	guildButton.notification:Size(18, 18)
 	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
 	guildButton.notification:SetBlendMode("ADD")
-	guildButton.notification:SetShown(CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
+	module:UpdateNotificationIcon(guildButton)
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
@@ -1104,6 +1123,7 @@ function module:Initialize()
 	self:CreateMicroBar()
 	self:Template()
 	self:Toggle()
+	self:UpdateNotificationIcon(guildButton)
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.microBar
