@@ -19,6 +19,8 @@ function MER:LoadPAProfile()
 
 	PA.db["BrokerLDB"]["Enable"] = false
 
+	PA.db["Cooldown"]["Enable"] = false
+
 	PA.db["EnhancedFriendsList"]["Enable"] = true
 	PA.db["EnhancedFriendsList"]["InfoFontSize"] = 10
 	PA.db["EnhancedFriendsList"]["App"] = "Animated"
