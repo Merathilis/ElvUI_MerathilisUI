@@ -580,7 +580,7 @@ function module:HasUnseenInvitations()
 	return false
 end
 
-function module:UpdateNotificationIcon(self)
+function module:UpdateNotificationIcon(guildButton)
 	if CommunitiesFrame_IsEnabled() then
 		guildButton.notification:SetShown(module:HasUnseenInvitations() or CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
 	else
