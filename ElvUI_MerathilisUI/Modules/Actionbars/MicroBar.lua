@@ -569,25 +569,6 @@ function module:OnClick(btn)
 	end
 end
 
-function module:HasUnseenInvitations()
-	local invitations = C_Club.GetInvitationsForSelf()
-	for i, invitation in ipairs(invitations) do
-		if not DISPLAYED_COMMUNITIES_INVITATIONS[invitation.club.clubId] then
-			return true
-		end
-	end
-
-	return false
-end
-
-function module:UpdateNotificationIcon(self)
-	if CommunitiesFrame_IsEnabled() then
-		self.notification:SetShown(module:HasUnseenInvitations() or CommunitiesUtil.DoesAnyCommunityHaveUnreadMessages())
-	else
-		self.notification:SetShown(false)
-	end
-end
-
 function module:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent)
 	microBar:SetFrameStrata("MEDIUM")
@@ -723,13 +704,6 @@ function module:CreateMicroBar()
 	guildButton.tex:SetTexture(IconPath .. "Guild")
 	guildButton.tex:SetVertexColor(.6, .6, .6)
 	guildButton.tex:SetBlendMode("ADD")
-
-	guildButton.notification = guildButton:CreateTexture(nil, "OVERLAY")
-	guildButton.notification:Point("TOPLEFT", guildButton, "TOPLEFT")
-	guildButton.notification:Size(18, 18)
-	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
-	guildButton.notification:SetBlendMode("ADD")
-	module:UpdateNotificationIcon(guildButton)
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
@@ -1103,24 +1077,6 @@ function module:UNIT_AURA(_, unit)
 	end
 end
 
-function module:CheckNotification(event)
-	if event == "PLAYER_ENTERING_WORLD" then
-		self:UpdateNotificationIcon(guildButton)
-	elseif event == "INITIAL_CLUBS_LOADED" then
-		self:UpdateNotificationIcon(guildButton)
-
-		previouslyDisplayedInvitations = DISPLAYED_COMMUNITIES_INVITATIONS
-		DISPLAYED_COMMUNITIES_INVITATIONS = {}
-		local invitations = C_Club.GetInvitationsForSelf()
-		for i, invitation in ipairs(invitations) do
-			local clubId = invitation.club.clubId
-			DISPLAYED_COMMUNITIES_INVITATIONS[clubId] = previouslyDisplayedInvitations[clubId]
-		end
-	elseif event == "STREAM_VIEW_MARKER_UPDATED" or event == "CLUB_INVITATION_ADDED_FOR_SELF" or event == "CLUB_INVITATION_REMOVED_FOR_SELF" then
-		self:UpdateNotificationIcon(guildButton)
-	end
-end
-
 function module:Initialize()
 	local db = E.db.mui.microBar
 	MER:RegisterDB(self, "microBar")
@@ -1132,7 +1088,6 @@ function module:Initialize()
 	self:CreateMicroBar()
 	self:Template()
 	self:Toggle()
-	self:UpdateNotificationIcon(guildButton)
 
 	function module:ForUpdateAll()
 		module.db = E.db.mui.microBar
@@ -1143,11 +1098,6 @@ function module:Initialize()
 	self:ForUpdateAll()
 
 	self:RegisterEvent("UNIT_AURA")
-	self:RegisterEvent("PLAYER_ENTERING_WORLD", module.CheckNotification)
-	self:RegisterEvent("INITIAL_CLUBS_LOADED", module.CheckNotification)
-	self:RegisterEvent("STREAM_VIEW_MARKER_UPDATED", module.CheckNotification)
-	self:RegisterEvent("CLUB_INVITATION_ADDED_FOR_SELF", module.CheckNotification)
-	self:RegisterEvent("CLUB_INVITATION_REMOVED_FOR_SELF", module.CheckNotification)
 end
 
 MER:RegisterModule(module:GetName())
