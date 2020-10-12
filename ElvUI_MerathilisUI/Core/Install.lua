@@ -852,7 +852,14 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
+
+	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
+
+	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
 
 	--[[----------------------------------
 	--	ActionBars layout
