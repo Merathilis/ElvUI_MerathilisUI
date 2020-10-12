@@ -729,7 +729,6 @@ function module:CreateMicroBar()
 	guildButton.notification:Size(18, 18)
 	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
 	guildButton.notification:SetBlendMode("ADD")
-	guildButton.notification:Hide()
 	module:UpdateNotificationIcon(guildButton)
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
