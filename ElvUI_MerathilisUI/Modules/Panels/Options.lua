@@ -1,12 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local PN = MER:GetModule("Panels")
+local PN = MER:GetModule('MER_Panels')
 
---Cache global variables
---Lua functions
-local _G = _G
 local tinsert = table.insert
---WoW API / Variables
--- GLOBALS:
 
 local function PanelTable()
 	local ACH = E.Libs.ACH
@@ -15,7 +10,7 @@ local function PanelTable()
 		type = "group",
 		name = E.NewSign..L["Panels"],
 		args = {
-			header = ACH:Header(MER:cOption(L["Panels"]), 1),
+			header = ACH:Header(MER:cOption(L["Panels"]), 0),
 			panels = {
 				order = 1,
 				type = "group",
@@ -58,7 +53,7 @@ local function PanelTable()
 				},
 			},
 			stylepanels = {
-				order = 3,
+				order = 2,
 				type = "group",
 				name = MER:cOption(L["Style Panels"]),
 				guiInline = true,

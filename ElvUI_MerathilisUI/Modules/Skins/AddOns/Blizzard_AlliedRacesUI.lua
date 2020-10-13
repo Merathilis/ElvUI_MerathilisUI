@@ -1,15 +1,11 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
---Cache global variables
---Lua functions
 local _G = _G
 local select = select
---WoW API / Variables
--- GLOBALS:
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AlliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.alliedRaces ~= true or E.private.muiSkins.blizzard.AlliedRaces ~= true then return end
 
 	local AlliedRacesFrame = _G.AlliedRacesFrame
 	S:HandlePortraitFrame(AlliedRacesFrame, true)

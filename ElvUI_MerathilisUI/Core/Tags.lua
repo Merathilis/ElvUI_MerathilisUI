@@ -76,7 +76,7 @@ local function shortenNumber(number)
 end
 
 -- Displays current HP --(2.04B, 2.04M, 204k, 204)--
-ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
+ElvUF.Tags.Events["health:current-mUI"] = "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION PLAYER_FLAGS_CHANGED"
 ElvUF.Tags.Methods["health:current-mUI"] = function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
 	if (status) then
@@ -95,7 +95,7 @@ ElvUF.Tags.Methods["health:max-mUI"] = function(unit)
 	return shortenNumber(maxH)
 end
 
-ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH_FREQUENT UNIT_MAXHEALTH'
+ElvUF.Tags.Events['mUI-name:health:abbrev'] = 'UNIT_NAME_UPDATE UNIT_FACTION UNIT_HEALTH UNIT_MAXHEALTH'
 ElvUF.Tags.Methods['mUI-name:health:abbrev'] = function(unit, _, args)
 	local name = UnitName(unit)
 	if not name then

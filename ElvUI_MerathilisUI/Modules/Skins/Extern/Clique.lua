@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -27,7 +26,7 @@ local function LoadAddOnSkin()
 	_G.CliqueClickGrabber.backdrop:SetPoint("BOTTOMRIGHT", 2, 3)
 
 	_G.CliqueDialog:StripTextures()
-	_G.CliqueDialog:SetTemplate("Transparent")
+	_G.CliqueDialog:CreateBackdrop("Transparent")
 
 	_G.CliqueConfigCloseButton:StripTextures()
 	S:HandleCloseButton(_G.CliqueConfigCloseButton)

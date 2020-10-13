@@ -99,7 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "Aktivi
 
 -- FlightMode
 L["FlightMode"] = "Flugmodus"
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Aktiviert/Deaktiviert den MerathilisUI Flugmodus.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "Erweitert den |cff00c0faBenikUI|r FlightMode.\nUm den Flugmodus komplett zu deaktivieren gehe bitte in die |cff00c0faBenikUI|r Optionen."
+L["Exit FlightMode"] = "Verlasse FlightMode"
+L["Left Click to Request Stop"] = "Links Klick für Haltewunsch"
 
 -- FlightPoint
 L["Flight Point"] = "Flugpunkt"
@@ -147,7 +149,6 @@ L["MISC_REPUTATION"] = "Ruf"
 L["MISC_PARAGON"] = "Paragon"
 L["MISC_PARAGON_REPUTATION"] = "Paragon Ruf"
 L["MISC_PARAGON_NOTIFY"] = "Maximaler Ruf - Belohnung abholen."
-L["Skip Azerite Animation"] = "Überspringe Azerite Animation"
 L["Fun Stuff"] = "Lustiges Zeugs"
 L["Press CTRL + C to copy."] = "Drücke STRG + C zum Kopieren."
 L["Wowhead Links"] = true -- No need to translate
@@ -156,7 +157,6 @@ L["Codex Buttons"] = "Kodex Tasten"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "Fügt zwei Tasten zu deinem Talentfenster mit Kodex - oder Foliant Gegenständen hinzu"
 L["Highest Quest Reward"] = "Höhste Quest Belohnung"
 L["Automatically select the item with the highest reward."] = "Wählt automatisch den Gegenstand mit dem höhstem Wert aus."
-L["Quest Announcer"] = "Quest Ankündigungen"
 L["Item Alerts"] = "Gegenstandsalarm"
 L["Announce in chat when someone placed an usefull item."] = "Kündigt im Chat an, wenn jemand einen nützlichen Gegenstand stellt."
 
@@ -184,12 +184,8 @@ L["CrucibleOfStorms"] = "Tiegel der Stürme"
 L["FACTION"] = "Fraktion"
 L["HEART_OF_AZEROTH_MISSING_ACTIVE_POWERS"] = "Aktive Azeritboni"
 L["Only Icons"] = "Nur Symbole"
-L["Append to corruption stat"] = "Am Verderbnis-Wert anhängen"
 L["Use the new style tooltip."] = "Neuen Tooltip-Stil verwenden."
-L["Show summary on the corruption tooltip"] = "Zusammenfassung am Verderbnis-Tooltip anzeigen"
-L["List your corruptions in the eye tooltip in the character screen."] = "Verderbnis-Effekte im Auge-Tooltip in der Charakterinfo auflisten."
 L["Display in English"] = "Nur Englisch verwenden"
-L["Don't translate the corruption effect names."] = "Verderbnis-Effekte nicht übersetzen."
 L["Show icon"] = "Icon anzeigen"
 L["Show the spell icon along with the name."] = "Verderbnis-Effekt-Icon samt Namen anzeigen."
 
@@ -254,8 +250,6 @@ L["ARMORY_DESC"] = [=[Der |cffff7d0aArmory Mode|r funktioniert nur mit den 'ElvU
 
 ElvUI - Allgemeine - Blizzard Verbesserungen - Zeige Charakterinformationen.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "|cffff7d0aMerathilisUI|r Arsenal aktivieren/deaktivieren"
-L["Azerite Buttons"] = "Azerittasten"
-L["Enable/Disable the Azerite Buttons on the character window."] = "Die Azerittasten im Charakterfenster aktivieren/deaktivieren"
 L["Durability"] = "Haltbarkeit"
 L["Enable/Disable the display of durability information on the character window."] = "Haltbarkeit im Charakterfenster anzeigen/verbergen"
 L["Damaged Only"] = "Nur beschädigt"
@@ -273,9 +267,6 @@ L["Only Relevant Stats"] = "Nur relevante Attribute"
 L["Show only those primary stats relevant to your spec."] = "Nur die relevanten, primären Attribute deiner Spezialisierung anzeigen"
 L["Item Level"] = "Gegenstandsstufe"
 L["Categories"] = "Kategorien"
-L["Open head slot azerite powers."] = "Öffnet Kopfplatz Azerite Traits."
-L["Open shoulder slot azerite powers."] = "Öffnet Schulterplatz Azerite Traits."
-L["Open chest slot azerite powers."] = "Öffnet Brustplatz Azerite Traits."
 L["Slot Gradient"] = "Gegenstand-Farbverlauf"
 L["Indicators"] = "Indikatoren"
 L["Shows a gradiation texture on the Character Slots."] = "Zeigt einen Farbverlauf auf den Ausrüstungsplätzen"
@@ -283,13 +274,6 @@ L["Transmog"] = true -- No need to translate
 L["Shows an arrow indictor for currently transmogrified items."] = "Zeigt einen Indikator für den derzeitig transmogriefizierten Gegenstand."
 L["Illusion"] = "Illusionen"
 L["Shows an indictor for weapon illusions."] = "Zeigt einen Indikator für die Waffen Illusionen."
--- PRINTS
-L["Equipped head is not an Azerite item."] = "Ausgerüsteter Kopf ist kein Azerite Gegenstand."
-L["No head item is equipped."] = "Kein Kopf Gegenstand ausgerüstet."
-L["Equipped shoulder is not an Azerite item."] = "Ausgerüstete Schulter ist kein Azerite Gegenstand."
-L["No shoulder item is equipped."] = "Kein Schulter Gegenstand ausgerüstet."
-L["Equipped chest is not an Azerite item."] = "Ausgerüstete Brust ist kein Azerite Gegenstand."
-L["No chest item is equipped."] = "Kein Brust Gegenstand ausgerüstet."
 
 -- Media
 L["MER_MEDIA_ZONES"] = {
@@ -394,8 +378,6 @@ L["Minimap Ping"] = true
 L["Shows the name of the player who pinged on the Minimap."] = "Zeigt den Namen von dem Spieler der auf der Minikarte gepingt hat."
 L["Blinking Minimap"] = "Blinkende Minikarte"
 L["Enable the blinking animation for new mail or pending invites."] = "Aktiviert die blinkende Animation für Neue Post oder austehende Kalendereinladungen."
-L["Blip Textures"] = true
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "Benutzt andere Minikarten Blip-Texturen. |cffff0000ACHTUNG: Du musst das Spiel neustarten um die Änderungen anzuwenden.|r"
 
 -- SMB
 L["Button Settings"] = "Tasten Einstellungen"
@@ -608,13 +590,6 @@ L["This will create and apply profile for "] = "Dieses wird ein Profil erstellen
 -- Changelog
 L["Changelog"] = true
 
--- Errors
-L["Error Handling"] = "Fehlerbehandlung"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "In der unten aufgeführten Liste kannst du einige nervende Fehlermeldungen, wie zum Beispiel: |cffff7d0a'Nicht genug Wut'|r oder |cffff7d0a'Nicht genug Energie'|r, deaktivieren."
-L["Filter Errors"] = "Fehler filtern"
-L["Choose specific errors from the list below to hide/ignore."] = "Wähle einen spezifischen Filter von der unten aufgeführten Liste um ihn zu verstecken/ignorieren."
-L["Hides all errors regardless of filtering while in combat."] = "Blende alle Fehler, ungeachtet der ausgewählten Filter, im Kampf aus."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "deaktiviert "
 L[" from "] = " von "
@@ -622,12 +597,3 @@ L[" due to incompatiblities."] = " wegen inkompatibilität."
 L[" due to incompatiblities with: "] = " wegen inkompatibilität mit: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff00c0faElvUI_Windtools|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "Du hast |cff9482c9ElvUI_LivvenUI|r und |cffff7d0aMerathilisUI|r zur selben Zeit aktiviert. Bitte wähle ein AddOn zum deaktivieren aus."
-
--- DashBoard
-L["Bar Color"] = "Leistenfarbe"
-L["Use DataTexts font"] = "Benutze Infoleisten Schrift"
-L["Enable the System Dashboard."] = "Aktiviere das System Dashboard."
-L["Select System Board"] = "System Dashboard auswählen"
-L["Change the System Dashboard width."] = "Ändert die System Dashboard Breite."
-L["Enable/Disable "] = "Aktiviere/Deaktiviere "
-L["Latency (MS)"] = "Latenz (MS)"

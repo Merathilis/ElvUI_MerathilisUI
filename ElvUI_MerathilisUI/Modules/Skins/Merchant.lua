@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
+local MERS = MER:GetModule('MER_Skins')
 local S = E:GetModule('Skins')
-local MERS = MER:GetModule('muiSkins')
 
 --Cache global variables
 --Lua Variables
@@ -54,7 +54,7 @@ local function SkinVendorItems(i)
 	local IconBorder = bu.IconBorder
 
 	bu:SetHighlightTexture("")
-	bu:SetTemplate("Default", true)
+	bu:CreateBackdrop()
 
 	_G["MerchantItem"..i.."SlotTexture"]:Hide()
 	_G["MerchantItem"..i.."NameFrame"]:Hide()
@@ -86,14 +86,14 @@ local function SkinVendorItems(i)
 		button.backdrop:Hide()
 	end
 
-	hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
-		self:GetParent():SetBackdropBorderColor(r, g, b)
-		self:SetTexture("")
-	end)
-
-	hooksecurefunc(IconBorder, 'Hide', function(self)
-		self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
-	end)
+	--hooksecurefunc(IconBorder, 'SetVertexColor', function(self, r, g, b)
+		--self:SetBackdropBorderColor(r, g, b)
+		--self:SetTexture("")
+	--end)
+--
+	--hooksecurefunc(IconBorder, 'Hide', function(self)
+		--self:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	--end)
 
 	_G.MerchantBuyBackItemItemButton.IconBorder:SetAlpha(0)
 

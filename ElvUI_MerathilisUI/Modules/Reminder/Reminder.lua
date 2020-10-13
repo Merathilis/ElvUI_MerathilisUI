@@ -1,7 +1,7 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("Reminder", "AceEvent-3.0", "AceTimer-3.0")
+local module = MER:GetModule('MER_Reminder')
 local LCG = LibStub('LibCustomGlow-1.0')
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -364,7 +364,7 @@ function module:CreateReminder(name, index)
 	if not ElvFrame or not E.db.unitframe.units.player.enable then return end
 
 	local frame = CreateFrame("Button", "MER_ReminderIcon"..index, E.UIParent)
-	frame:SetSize(size, size)
+	frame:Size(size or (ElvFrame:GetHeight() -4))
 	frame:SetPoint("RIGHT", ElvFrame, "LEFT", -3, 0)
 	frame:SetFrameStrata(ElvFrame:GetFrameStrata())
 	frame.groupName = name

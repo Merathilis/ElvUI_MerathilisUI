@@ -1,5 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
+local MI = MER:GetModule('MER_Misc')
+local SA = MER:GetModule('MER_SpellAlert')
 
 --Cache global variables
 --Lua functions
@@ -36,33 +37,36 @@ local function Misc()
 				type = "toggle",
 				name = L["Flashing Cursor"],
 			},
-			skipAzerite = {
-				order = 7,
-				type = "toggle",
-				name = L["Skip Azerite Animation"],
-			},
 			funstuff = {
-				order = 8,
+				order = 7,
 				type = "toggle",
 				name = L["Fun Stuff"],
 			},
 			wowheadlinks = {
-				order = 9,
+				order = 8,
 				type = "toggle",
 				name = L["Wowhead Links"],
 				desc = L["Adds Wowhead links to the Achievement- and WorldMap Frame"],
 			},
 			respec = {
-				order = 10,
+				order = 9,
 				type = "toggle",
 				name = L["Codex Buttons"],
 				desc = L["Adds two buttons on your Talent Frame, with Codex or Tome Items"],
 			},
 			lfgInfo = {
-				order = 11,
+				order = 10,
 				type = "toggle",
 				name = L["LFG Member Info"],
 				desc = L["Shows role informations in your tooltip in the lfg frame."],
+			},
+			spellAlert = {
+				order = 11,
+				type = "range",
+				name = E.NewSign..L["Spell Alert Scale"],
+				min = 0.4, max = 1.5, step = 0.01,
+				get = function(info) return E.db.mui.misc.spellAlert end,
+				set = function(info, value) E.db.mui.misc.spellAlert = value; SA:Resize() end,
 			},
 			alerts = {
 				order = 20,
@@ -104,11 +108,6 @@ local function Misc()
 						type = "toggle",
 						name = L["Highest Quest Reward"],
 						desc = L["Automatically select the item with the highest reward."],
-					},
-					questAnnounce = {
-						order = 2,
-						type = "toggle",
-						name = L["Quest Announcer"],
 					},
 				},
 			},

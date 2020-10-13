@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local COMP = MER:NewModule("mUICompatibility")
+local COMP = MER:GetModule('MER_Compatibility')
 
 --Cache global variables
 local _G = _G
@@ -111,11 +111,6 @@ function COMP:SLECompatibility()
 	-- Objective Tracker
 	if Disable(E.private.sle["skins"]["objectiveTracker"]) then
 		self:Print(SLE.Title, "ObjectiveTracker skin")
-	end
-
-	-- MinimapButtons
-	if Disable(E.private.sle["minimap"]["mapicons"]) then
-		self:Print(SLE.Title, "Minimap Buttons")
 	end
 
 	-- Merchant

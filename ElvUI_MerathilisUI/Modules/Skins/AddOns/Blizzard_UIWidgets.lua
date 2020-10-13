@@ -10,7 +10,7 @@ local _G = _G
 local r, g, b = unpack(E["media"].rgbvaluecolor)
 
 local function LoadSkin()
-	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.Warboard ~= true or E.private.muiSkins.blizzard.warboard ~= true then return end
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.warboard ~= true or E.private.muiSkins.blizzard.warboard ~= true then return end
 
 	-- Used for Currency Fonts (Warfront only?)
 end

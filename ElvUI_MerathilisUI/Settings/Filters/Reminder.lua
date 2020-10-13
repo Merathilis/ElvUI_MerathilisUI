@@ -56,13 +56,14 @@ MER.ReminderList = {
 		["Shield"] = {
 			["spellGroup"] = {
 				[192106] = true, -- Lightning Shield
+				[974] = true, -- Earth Shield
+				[52127] = true, -- Water Shield
 				["defaultIcon"] = 192106,
 			},
 			["enable"] = true,
 			["instance"] = true,
 			["pvp"] = true,
 			["strictFilter"] = true,
-			["tree"] = 2,
 		},
 	},
 

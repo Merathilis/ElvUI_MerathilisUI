@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MI = MER:GetModule("mUIMisc")
-local MERS = MER:GetModule("muiSkins")
+local MI = MER:GetModule('MER_Misc')
+local MERS = MER:GetModule('MER_Skins')
 
 --Cache global variables
 --Lua functions
@@ -21,6 +21,7 @@ local GameTooltip = GameTooltip
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
 -- GLOBALS: MERData
 
+local hasAngryKeystones = IsAddOnLoaded("AngryKeystones")
 local frame, resize
 
 local function ShowTooltip(self)
@@ -44,39 +45,43 @@ local function HideTooltip(self)
 end
 
 local function CreateBoard()
-	frame = CreateFrame('Frame', nil, _G.ChallengesFrame)
-	frame:SetPoint('BOTTOMRIGHT', -6, 80)
+	frame = CreateFrame('Frame', nil, _G.ChallengesFrame, "BackdropTemplate")
+	frame:Point('BOTTOMRIGHT', -8, 75)
 	frame:SetSize(170, 105)
 	MERS:CreateBD(frame, .3)
 
 	frame.Header = frame:CreateFontString(nil, "OVERLAY", 'GameFontNormalMed2')
-	frame.Header:SetPoint('TOPLEFT', frame, 17, -10)
+	frame.Header:Point('TOPLEFT', frame, 17, -10)
 	frame.Header:SetJustifyH('LEFT')
 	frame.Header:SetText(_G.GUILD)
 
 	frame.entries = {}
 	for i = 1, 4 do
 		local entry = CreateFrame('Frame', nil, frame)
-		entry:SetPoint('LEFT', 10, 0)
-		entry:SetPoint('RIGHT', -10, 0)
-		entry:SetHeight(18)
+		entry:Point('LEFT', 10, 0)
+		entry:Point('RIGHT', -10, 0)
+		entry:Height(18)
 		entry.CharacterName = MER:CreateText(entry, 'OVERLAY', 11, 'OUTLINE', '', nil, 'LEFT', 6, 0)
-		entry.CharacterName:SetPoint('RIGHT', -30, 0)
+		entry.CharacterName:Point('RIGHT', -30, 0)
 		entry.CharacterName:SetJustifyH('LEFT')
 		entry.Level = MER:CreateText(entry, 'OVERLAY', 11, 'OUTLINE', '', nil, nil, true)
 		entry.Level:SetJustifyH('LEFT')
 		entry.Level:ClearAllPoints()
-		entry.Level:SetPoint('LEFT', entry, 'RIGHT', -22, 0)
+		entry.Level:Point('LEFT', entry, 'RIGHT', -22, 0)
 		entry:SetScript('OnEnter', ShowTooltip)
 		entry:SetScript('OnLeave', HideTooltip)
 
 		if i == 1 then
-			entry:SetPoint('TOP', frame, 0, -26)
+			entry:Point('TOP', frame, 0, -26)
 		else
-			entry:SetPoint('TOP', frame.entries[i-1], 'BOTTOM')
+			entry:Point('TOP', frame.entries[i-1], 'BOTTOM')
 		end
 
 		frame.entries[i] = entry
+	end
+
+	if not hasAngryKeystones then
+		_G.ChallengesFrame.WeeklyInfo.Child.Description:Point("CENTER", 0, 20)
 	end
 end
 
@@ -108,13 +113,13 @@ local function UpdateGuildBest(self)
 		end
 	end
 
-	if not resize and IsAddOnLoaded('AngryKeystones') then
+	if not resize and hasAngryKeystones then
 		local schedule = select(5, self:GetChildren())
 		frame:SetWidth(246)
 		frame:ClearAllPoints()
 		frame:SetPoint('BOTTOMLEFT', schedule, 'TOPLEFT', 0, 10)
 
-		self.WeeklyInfo.Child.Label:SetPoint('TOP', -135, -25)
+		self.WeeklyInfo.Child.ThisWeekLabel:SetPoint("TOP", -135, -25)
 		local affix = self.WeeklyInfo.Child.Affixes[1]
 		if affix then
 			affix:ClearAllPoints()

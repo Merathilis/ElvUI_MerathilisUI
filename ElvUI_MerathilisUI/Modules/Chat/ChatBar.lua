@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERC = MER:GetModule("muiChat")
+local MERC = MER:GetModule('MER_Chat')
 
 --Cache global variables
 --Lua Variables
@@ -7,7 +7,7 @@ local _G = _G
 local pairs, unpack = pairs, unpack
 local tinsert = table.insert
 --WoW API / Variables
-local CanEditOfficerNote = CanEditOfficerNote
+local C_GuildInfo_CanEditOfficerNote = C_GuildInfo.CanEditOfficerNote
 local CreateFrame = CreateFrame
 local ChatFrame_OpenChat = ChatFrame_OpenChat
 local ChatFrame_ReplyTell = ChatFrame_ReplyTell
@@ -27,9 +27,10 @@ function MERC:ChatBar()
 	local editBox = chatFrame.editBox
 	local width, height, padding, buttonList = 52, 6, 5, {}
 
-	local ChatbarHolder = CreateFrame("Frame", nil, E.UIParent)
-	ChatbarHolder:CreatePanel("Invisible", _G.LeftChatPanel:GetWidth(), height, "BOTTOM", _G.LeftChatPanel, 16, -2)
+	local ChatbarHolder = CreateFrame("Frame", nil, E.UIParent, 'BackdropTemplate')
+	ChatbarHolder:CreatePanel("Invisible", _G.LeftChatPanel:GetWidth(), height, "BOTTOM", _G.LeftChatPanel, 16, -10)
 	ChatbarHolder:SetFrameStrata("MEDIUM")
+	if ChatbarHolder.backdrop then ChatbarHolder.backdrop:SetAlpha(0) end
 
 	local function AddButton(r, g, b, text, func)
 		local bu = CreateFrame("Button", nil, ChatbarHolder, "SecureActionButtonTemplate")
@@ -90,7 +91,7 @@ function MERC:ChatBar()
 		end},
 
 		{.25, 1, .25, GUILD.."/"..OFFICER, function(_, btn)
-			if btn == "RightButton" and CanEditOfficerNote() then
+			if btn == "RightButton" and C_GuildInfo_CanEditOfficerNote() then
 				ChatFrame_OpenChat("/o ", chatFrame)
 			else
 				ChatFrame_OpenChat("/g ", chatFrame)
@@ -115,9 +116,9 @@ function MERC:ChatBar()
 	-- Order Postions
 	for i = 1, #buttonList do
 		if i == 1 then
-			buttonList[i]:SetPoint("LEFT")
+			buttonList[i]:Point("LEFT")
 		else
-			buttonList[i]:SetPoint("LEFT", buttonList[i-1], "RIGHT", padding, 0)
+			buttonList[i]:Point("LEFT", buttonList[i-1], "RIGHT", padding, 0)
 		end
 	end
 end

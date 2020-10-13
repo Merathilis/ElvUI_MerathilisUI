@@ -99,7 +99,9 @@ L["Enable/Disable the MerathilisUI Style from the Blizzard GameMenu."] = "从暴
 
 -- FlightMode
 L["FlightMode"] = "飞行模式"
-L["Enable/Disable the MerathilisUI FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = "启用/禁用MerathilisUI飞行模式.\n要完全进入飞行模式，请进入 |cff00c0faBenikUI|r Options."
+L["Enhance the |cff00c0faBenikUI|r FlightMode.\nTo completely disable the FlightMode go into the |cff00c0faBenikUI|r Options."] = true
+L["Exit FlightMode"] = true
+L["Left Click to Request Stop"] = true
 
 -- FlightPoint
 L["Flight Point"] = "飞行点"
@@ -147,7 +149,6 @@ L["MISC_REPUTATION"] = "声望"
 L["MISC_PARAGON"] = "巅峰"
 L["MISC_PARAGON_REPUTATION"] = "巅峰声望"
 L["MISC_PARAGON_NOTIFY"] = "最高声望 - 接收奖励."
-L["Skip Azerite Animation"] = "跳过艾泽里特动画"
 L["Fun Stuff"] = "有趣的玩意儿"
 L["Press CTRL + C to copy."] = "按下 CTRL + C 复制"
 L["Wowhead Links"] = "Wowhead 链接"
@@ -156,7 +157,6 @@ L["Codex Buttons"] = "圣典按钮"
 L["Adds two buttons on your Talent Frame, with Codex or Tome Items"] = "在天赋界面添加两个按钮，书卷和圣典"
 L["Highest Quest Reward"] = "最贵任务奖励"
 L["Automatically select the item with the highest reward."] = "自动选中最贵任务奖励"
-L["Quest Announcer"] = "任务通告"
 L["Item Alerts"] = "物品通告"
 L["Announce in chat when someone placed an usefull item."] = "当有玩家放置某些物品时将在聊天栏通知"
 
@@ -189,12 +189,8 @@ L["Only Icons"] = "仅图标"
 L["I"] = "1 级"
 L["II"] = "2 级"
 L["III"] = "3 级"
-L["Append to corruption stat"] = "附加到腐蚀属性后"
 L["Use the new style tooltip."] = "使用新的鼠标提示外观，将腐蚀特效名称显示到腐蚀属性后。"
-L["Show summary on the corruption tooltip"] = "在鼠标提示中列出腐蚀特效"
-L["List your corruptions in the eye tooltip in the character screen."] = "在角色界面的腐化值鼠标提示中，列出你的腐蚀特效。"
 L["Display in English"] = "显示英语腐化特效名称"
-L["Don't translate the corruption effect names."] = "不要使用本地化的腐化特效名称。"
 L["Show icon"] = "显示图标"
 L["Show the spell icon along with the name."] = "在腐化特效名称前显示其图标。"
 
@@ -260,8 +256,6 @@ L["ARMORY_DESC"] = [=[这个 |cffff7d0aArmory 模式|r只对ElvUI'显示人物�
 
 ElvUI - 常规 - BlizzUI改进 - 显示人物信息.]=]
 L["Enable/Disable the |cffff7d0aMerathilisUI|r Armory Mode."] = "启用/禁用|cffff7d0aMerathilisUI|r Armory模式"
-L["Azerite Buttons"] = "艾泽里特按钮"
-L["Enable/Disable the Azerite Buttons on the character window."] = "在人物窗口启用/禁用艾泽里特按钮."
 L["Durability"] = "耐久度"
 L["Enable/Disable the display of durability information on the character window."] = "在人物窗口启用/禁用耐久度信息显示."
 L["Damaged Only"] = "仅受损"
@@ -279,9 +273,6 @@ L["Only Relevant Stats"] = "只有相关统计数据"
 L["Show only those primary stats relevant to your spec."] = "仅显示与你专精相关的主要信息."
 L["Item Level"] = "物品等级"
 L["Categories"] = "分类"
-L["Open head slot azerite powers."] = "打开头部的艾泽里特能量槽."
-L["Open shoulder slot azerite powers."] = "打开肩部的艾泽里特能量槽."
-L["Open chest slot azerite powers."] = "打开胸部的艾泽里特能量槽"
 L["Slot Gradient"] = "槽渐变"
 L["Shows a gradiation texture on the Character Slots."] = "为角色的物品槽显示一个渐变的材质."
 L["Indicators"] = "指示器"
@@ -289,13 +280,6 @@ L["Transmog"] = "幻化"
 L["Shows an arrow indictor for currently transmogrified items."] = "为当前幻化的物品显示一个箭头指示器."
 L["Illusion"] = "幻象"
 L["Shows an indictor for weapon illusions."] = "为武器幻象显示一个指示器"
--- PRINTS
-L["Equipped head is not an Azerite item."] = "已装备的头部不是一个艾泽里特物品."
-L["No head item is equipped."] = "没有头部物品被装备."
-L["Equipped shoulder is not an Azerite item."] = "已装备的肩部不是一个艾泽里特物品."
-L["No shoulder item is equipped."] = "没有肩部物品被装备."
-L["Equipped chest is not an Azerite item."] = "已装备的胸部不是一个艾泽里特物品."
-L["No chest item is equipped."] = "没有胸部物品被装备."
 
 -- Media
 L["Zone Text"] = "区域文字"
@@ -414,8 +398,6 @@ L["Minimap Ping"] = "小地图点击"
 L["Shows the name of the player who pinged on the Minimap."] = "显示点击小地图的玩家姓名"
 L["Blinking Minimap"] = "小地图边框闪亮"
 L["Enable the blinking animation for new mail or pending invites."] = "为新邮件或等待的邀请启用闪光动画."
-L["Blip Textures"] = "小地图图标"
-L["Use other Minimap blip textures. |cffFF0000WARNING: You need to restart your game to take effect.|r"] = "替换小地图图标材质(任务感叹号等).\n|cffFF0000警告: 需要重启游戏生效.|r"
 
 -- SMB
 L["Button Settings"] = "按键设置"
@@ -632,13 +614,6 @@ L["This will create and apply profile for "] = "这将创建并应用配置文�
 -- Changelog
 L["Changelog"] = "更新日志"
 
--- Errors
-L["Error Handling"] = "错误处理"
-L["In the List below, you can disable some annoying error texts, like |cffff7d0a'Not enough rage'|r or |cffff7d0a'Not enough energy'|r."] = "在下面的列表中, 你可以禁用一些领人烦恼的错误, 比如 |cffff7d0a'没有足够的怒气'|r 或 |cffff7d0a'没有足够的能量'|r"
-L["Filter Errors"] = "过滤错误"
-L["Choose specific errors from the list below to hide/ignore."] = "从下面的列表中选择特定的错误以隐藏/忽略."
-L["Hides all errors regardless of filtering while in combat."] = "无论如果过滤，战斗中都隐藏所有错误."
-
 -- Compatibility
 L["has |cffff2020disabled|r "] = "已 |cffff2020禁用|r "
 L[" from "] = " 从 "
@@ -646,13 +621,3 @@ L[" due to incompatiblities."] = " 由于不兼容."
 L[" due to incompatiblities with: "] = " 由于与以下插件不兼容: "
 L["You got |cff00c0faElvUI_Windtools|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff00c0faElvUI_Windtools|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
 L["You got |cff9482c9ElvUI_LivvenUI|r and |cffff7d0aMerathilisUI|r both enabled at the same time. Please select an addon to disable."] = "你同时启用了 |cff9482c9ElvUI_LivvenUI|r 和 |cffff7d0aMerathilisUI|r. 请选择禁用一个插件."
-
--- DashBoard
-L["Dashboard"] = "仪表盘"
-L["Bar Color"] = "条颜色"
-L["Use DataTexts font"] = "使用信息文字字体"
-L["Enable the System Dashboard."] = "启用系统仪表盘"
-L["Select System Board"] = "选择系统仪表盘"
-L["Change the System Dashboard width."] = "调整仪表盘宽度."
-L["Enable/Disable "] = "启用/禁用 "
-L["Latency (MS)"] = "延迟 (毫秒)"

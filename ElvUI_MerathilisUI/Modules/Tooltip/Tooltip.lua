@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("mUITooltip", "AceTimer-3.0", "AceHook-3.0", "AceEvent-3.0")
-local TT = E:GetModule("Tooltip")
+local module = MER:GetModule('MER_Tooltip')
+local TT = E:GetModule('Tooltip')
 
 --Cache global variables
 --Lua functions
@@ -181,9 +181,7 @@ function module:Initialize()
 	self.db = E.db.mui.tooltip
 	MER:RegisterDB(self, "tooltip")
 
-	TT:CorruptionRank()
 	module:ReskinTooltipIcons()
-	module:AzeriteArmor()
 
 	hooksecurefunc(TT, "SetUnitText", module.SetUnitText)
 	hooksecurefunc(TT, "GameTooltip_OnTooltipSetUnit", module.GameTooltip_OnTooltipSetUnit)

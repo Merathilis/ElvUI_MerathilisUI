@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -11,21 +11,10 @@ local _G = _G
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.help ~= true or E.private.muiSkins.blizzard.help ~= true then return end
 
-	local frames = {
-		"HelpFrame",
-		"HelpFrameKnowledgebase",
-	}
-
-	for i = 1, #frames do
-		_G[frames[i]]:Styling()
+	local frame = _G.HelpFrame
+	if frame.backdrop then
+		frame.backdrop:Styling()
 	end
-
-	local HelpFrameHeader = _G.HelpFrame.Header
-	HelpFrameHeader.backdrop:SetTemplate("Transparent")
-	MERS:CreateGradient(HelpFrameHeader.backdrop)
-
-	local TicketStatusFrame = _G.TicketStatusFrame
-	TicketStatusFrame:Styling()
 end
 
 S:AddCallback("mUIHelp", LoadSkin)

@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
@@ -60,7 +60,6 @@ local function LoadSkin()
 	end)
 
 	StyleRewardButton(_G.LFDQueueFrameRandomScrollFrameChildFrame.MoneyReward)
-	StyleRewardButton(_G.ScenarioQueueFrameRandomScrollFrameChildFrame.MoneyReward)
 	StyleRewardButton(_G.RaidFinderQueueFrameScrollFrameChildFrame.MoneyReward)
 
 	local leaderBg = MERS:CreateBG(_G.LFGDungeonReadyDialogRoleIconLeaderIcon)

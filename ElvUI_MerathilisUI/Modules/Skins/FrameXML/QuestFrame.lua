@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -37,6 +37,9 @@ local function LoadSkin()
 	------------------------
 	_G.QuestDetailScrollFrame:StripTextures(true)
 	_G.QuestDetailScrollFrame:HookScript("OnUpdate", function(self)
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
 		end
@@ -52,11 +55,12 @@ local function LoadSkin()
 	--- QuestFrameReward ---
 	------------------------
 	_G.QuestRewardScrollFrame:HookScript("OnShow", function(self)
-		self.backdrop:Hide()
-		self:SetTemplate("Transparent")
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
@@ -66,17 +70,18 @@ local function LoadSkin()
 	_G.QuestFrame:Styling()
 
 	_G.QuestProgressScrollFrame:HookScript("OnShow", function(self)
-		self:SetTemplate("Transparent")
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 
 	--------------------------
 	--- QuestGreetingFrame ---
 	--------------------------
-
 	_G.QuestFrameGreetingPanel:HookScript('OnShow', UpdateGreetingFrame)
 	hooksecurefunc("QuestFrameGreetingPanel_OnShow", UpdateGreetingFrame)
 
@@ -127,10 +132,12 @@ local function LoadSkin()
 	end
 
 	_G.QuestGreetingScrollFrame:HookScript("OnShow", function(self)
-		self:SetTemplate("Transparent")
+		if self.backdrop then
+			self.backdrop:Hide()
+		end
 		if not E.private.skins.parchmentRemoverEnable then
 			self.spellTex:SetTexture("")
-			self:SetHeight(self:GetHeight() - 2)
+			self:Height(self:GetHeight() - 2)
 		end
 	end)
 

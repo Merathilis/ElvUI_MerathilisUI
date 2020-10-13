@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -84,9 +84,9 @@ local function ReskinMissionTabs(self)
 	for i = 1, 2 do
 		local tab = _G[self:GetName().."Tab"..i]
 		tab:StripTextures()
-		MERS:CreateBD(tab, .25)
+		tab:CreateBackdrop('Transparent')
 		if i == 1 then
-			tab:SetBackdropColor(r, g, b, .2)
+			tab.backdrop:SetBackdropColor(r, g, b, .2)
 		end
 	end
 end
@@ -171,7 +171,7 @@ local function LoadSkin()
 
 		tab:GetNormalTexture():SetAlpha(0)
 
-		local bg = CreateFrame("Frame", nil, tab)
+		local bg = CreateFrame("Frame", nil, tab, 'BackdropTemplate')
 		bg:SetPoint("TOPLEFT", 6, -7)
 		bg:SetPoint("BOTTOMRIGHT", -6, 7)
 		bg:SetFrameLevel(tab:GetFrameLevel()-1)
@@ -278,7 +278,7 @@ local function LoadSkin()
 	GarrisonCapacitiveDisplayFrame.Count:SetWidth(38)
 	GarrisonCapacitiveDisplayFrame.Count:SetTextInsets(3, 0, 0, 0)
 	GarrisonCapacitiveDisplayFrame.IncrementButton:ClearAllPoints()
-	GarrisonCapacitiveDisplayFrame.IncrementButton:SetPoint('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
+	GarrisonCapacitiveDisplayFrame.IncrementButton:Point('LEFT', GarrisonCapacitiveDisplayFrame.Count, 'RIGHT', 4, 0)
 
 	GarrisonCapacitiveDisplayFrame:Styling()
 
@@ -305,7 +305,7 @@ local function LoadSkin()
 			reagent.Icon:SetDrawLayer("BORDER")
 			MERS:CreateBG(reagent.Icon)
 
-			local bg = CreateFrame("Frame", nil, reagent)
+			local bg = CreateFrame("Frame", nil, reagent, 'BackdropTemplate')
 			bg:SetPoint("TOPLEFT")
 			bg:SetPoint("BOTTOMRIGHT", 0, 2)
 			bg:SetFrameLevel(reagent:GetFrameLevel() - 1)
@@ -337,7 +337,7 @@ local function LoadSkin()
 		local button = buttons[i]
 		button.BG:Hide()
 
-		local bg = CreateFrame("Frame", nil, button)
+		local bg = CreateFrame("Frame", nil, button, 'BackdropTemplate')
 		bg:SetPoint("TOPLEFT")
 		bg:SetPoint("BOTTOMRIGHT", 0, 1)
 		bg:SetFrameLevel(button:GetFrameLevel() - 1)
@@ -360,10 +360,10 @@ local function LoadSkin()
 		tab.Text:ClearAllPoints()
 		tab.Text:SetPoint("CENTER")
 
-		local bg = CreateFrame("Frame", nil, tab)
+		local bg = CreateFrame("Frame", nil, tab, 'BackdropTemplate')
 		bg:SetFrameLevel(tab:GetFrameLevel() - 1)
-		MERS:CreateBD(bg, .25)
-		MERS:CreateGradient(bg)
+		bg:CreateBackdrop('Transparent')
+		MERS:CreateGradient(bg.backdrop)
 
 		local selectedTex = bg:CreateTexture(nil, "BACKGROUND")
 		selectedTex:SetAllPoints()
@@ -409,9 +409,9 @@ local function LoadSkin()
 
 	hooksecurefunc("GarrisonMissonListTab_SetSelected", function(tab, isSelected)
 		if isSelected then
-			tab:SetBackdropColor(r, g, b, .2)
+			tab.backdrop:SetBackdropColor(r, g, b, .2)
 		else
-			tab:SetBackdropColor(0, 0, 0, .25)
+			tab.backdrop:SetBackdropColor(0, 0, 0, .25)
 		end
 	end)
 
@@ -461,19 +461,6 @@ local function LoadSkin()
 					MERS:ReskinIcon(mechanic.Icon)
 				end
 				frame.styled = true
-			end
-		end
-	end)
-
-	hooksecurefunc(_G.GarrisonMission, "UpdateMissionData", function(_, missionPage)
-		local buffsFrame = missionPage.BuffsFrame
-		if buffsFrame:IsShown() then
-			for i = 1, #buffsFrame.Buffs do
-				local buff = buffsFrame.Buffs[i]
-				if not buff.styled then
-					MERS:ReskinIcon(buff.Icon)
-					buff.styled = true
-				end
 			end
 		end
 	end)
@@ -638,7 +625,7 @@ local function LoadSkin()
 	 --Missions
 	local Mission = _G.OrderHallMissionFrameMissions
 	Mission.CompleteDialog:StripTextures()
-	Mission.CompleteDialog:SetTemplate("Transparent")
+	Mission.CompleteDialog:CreateBackdrop("Transparent")
 
 	local MissionPage = _G.OrderHallMissionFrame.MissionTab.MissionPage
 	for i = 1, 10 do

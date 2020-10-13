@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("RandomToy", "AceEvent-3.0")
+local module = MER:GetModule('MER_RandomToy')
 
 --Cache global variables
 --Lua functions

@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -215,10 +214,10 @@ function FlightPoints_OnEvent(self, event, ...)
 		end
 		FlightPointsTaxiChoice:Show()
 		FlightPointsTaxiChoice:StripTextures()
-		FlightPointsTaxiChoice:SetTemplate("Transparent")
+		FlightPointsTaxiChoice:CreateBackdrop("Transparent")
 		S:HandleCloseButton(FlightPointsTaxiChoice.CloseButton)
 		S:HandleScrollBar(FlightPointsTaxiChoiceContainerScrollBar)
-		FlightPointsTaxiChoice:Styling()
+		FlightPointsTaxiChoice.backdrop:Styling()
 	elseif event == "TAXIMAP_CLOSED" then
 		FlightPointsTaxiChoice:Hide()
 		taxinodeinfos = {}

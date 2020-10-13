@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 if not IsAddOnLoaded("XIV_Databar") then return end
 
 -- Cache global variables
@@ -10,7 +10,7 @@ local _G = _G
 -- GLOBALS:
 
 local function LoadAddOnSkin()
-	if E.private.muiSkins.addonSkins.xiv ~= true then return end
+	if E.private.MER_Skins.addonSkins.xiv ~= true then return end
 
 	local XIV_Databar = _G.XIV_Databar
 

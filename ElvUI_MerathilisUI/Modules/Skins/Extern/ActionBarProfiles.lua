@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local S = E:GetModule("Skins");
+local S = E:GetModule('Skins')
 if not IsAddOnLoaded("ActionBarProfiles") then return end
 
 -- Cache global variables
@@ -15,10 +15,10 @@ local function LoadAddOnSkin()
 	S:HandleScrollBar(_G.PaperDollActionBarProfilesPaneScrollBar, 5)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneUseProfile)
 	S:HandleButton(_G.PaperDollActionBarProfilesPaneSaveProfile)
-	_G.PaperDollActionBarProfilesPaneUseProfile:SetWidth(_G.PaperDollActionBarProfilesPaneUseProfile:GetWidth() - 8)
-	_G.PaperDollActionBarProfilesPaneSaveProfile:SetWidth(_G.PaperDollActionBarProfilesPaneSaveProfile:GetWidth() - 8)
-	_G.PaperDollActionBarProfilesPaneUseProfile:SetPoint("TOPLEFT", _G.PaperDollActionBarProfilesPane, "TOPLEFT", 8, 0)
-	_G.PaperDollActionBarProfilesPaneSaveProfile:SetPoint("LEFT", _G.PaperDollActionBarProfilesPaneUseProfile, "RIGHT", 4, 0)
+	_G.PaperDollActionBarProfilesPaneUseProfile:Width(_G.PaperDollActionBarProfilesPaneUseProfile:GetWidth() - 8)
+	_G.PaperDollActionBarProfilesPaneSaveProfile:Width(_G.PaperDollActionBarProfilesPaneSaveProfile:GetWidth() - 8)
+	_G.PaperDollActionBarProfilesPaneUseProfile:Point("TOPLEFT", _G.PaperDollActionBarProfilesPane, "TOPLEFT", 8, 0)
+	_G.PaperDollActionBarProfilesPaneSaveProfile:Point("LEFT", _G.PaperDollActionBarProfilesPaneUseProfile, "RIGHT", 4, 0)
 	_G.PaperDollActionBarProfilesPaneUseProfile.ButtonBackground:SetTexture(nil)
 
 	for _, object in pairs(_G.PaperDollActionBarProfilesPane.buttons) do

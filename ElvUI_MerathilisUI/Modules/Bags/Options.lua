@@ -1,5 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERBI = MER:GetModule("mUIBagInfo")
+local MERBI = MER:GetModule('MER_BagInfo')
 
 --Cache global variables
 --Lua functions
@@ -21,7 +21,7 @@ local function BagTable()
 				order = 2,
 				type = "group",
 				guiInline = true,
-				name = L["Equipment Manager"],
+				name = MER:cOption(L["Equip Manager"]),
 				args = {
 					equipOverlay = {
 						type = "toggle",

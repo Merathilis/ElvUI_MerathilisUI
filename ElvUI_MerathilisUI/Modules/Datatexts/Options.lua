@@ -3,14 +3,8 @@ local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale or 'enUS')
 local LO = E:GetModule("Layout")
 local DT = E:GetModule("DataTexts")
 
---Cache global variables
 --Lua functions
 local _G = _G
-local pairs, print, type = pairs, print, type
-local tinsert = table.insert
---WoW API / Variables
-local NONE = NONE
--- GLOBALS: LibStub
 
 local function Datatexts()
 	local ACH = E.Libs.ACH
@@ -30,4 +24,4 @@ local function Datatexts()
 		},
 	}
 end
-tinsert(MER.Config, Datatexts)
+--tinsert(MER.Config, Datatexts)

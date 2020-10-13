@@ -29,17 +29,17 @@ local function UnitFramesTable()
 						name = L["Heal Prediction"],
 						desc = L["Changes the Heal Prediction texture to the default Blizzard ones."],
 					},
-					auras = {
-						order = 2,
-						type = "toggle",
-						name = L["Auras"],
-						desc = L["Adds a shadow to the debuffs that the debuff color is more visible."],
-					},
 					style = {
-						order = 3,
+						order = 2,
 						type = "toggle",
 						name = L["UnitFrame Style"],
 						desc = L["Adds my styling to the Unitframes if you use transparent health."],
+					},
+					raidIcons = {
+						order = 3,
+						type = "toggle",
+						name = L["Raid Icon"],
+						desc = L["Change the default raid icons."],
 					},
 					roleIcons = {
 						order = 4,

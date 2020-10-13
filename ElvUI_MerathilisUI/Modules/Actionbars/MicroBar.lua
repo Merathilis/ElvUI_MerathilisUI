@@ -1,6 +1,5 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("MicroBar", "AceTimer-3.0", "AceEvent-3.0")
-local MERS = MER:GetModule("muiSkins")
+local module = MER:GetModule('MER_MicroBar')
 
 --Cache global variables
 --Lua functions
@@ -25,7 +24,6 @@ local GetGameTime = GetGameTime
 local GetGuildRosterInfo = GetGuildRosterInfo
 local GetNumGuildMembers = GetNumGuildMembers
 local GetCVarBool = GetCVarBool
-local GetCurrencyInfo = GetCurrencyInfo
 local GetQuestObjectiveInfo = GetQuestObjectiveInfo
 local InCombatLockdown = InCombatLockdown
 local IsInGuild = IsInGuild
@@ -33,11 +31,12 @@ local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
 local LoadAddOn = LoadAddOn
 local PlaySound = PlaySound
 local BOOKTYPE_SPELL = BOOKTYPE_SPELL
+local C_CurrencyInfo_GetCurrencyInfo = C_CurrencyInfo.GetCurrencyInfo
 local C_FriendList_GetNumFriends = C_FriendList.GetNumFriends
 local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_AreaPoiInfo_GetAreaPOISecondsLeft = C_AreaPoiInfo.GetAreaPOISecondsLeft
 local C_Map_GetMapInfo = C_Map.GetMapInfo
-local C_Calendar_GetDate = C_Calendar.GetDate
+local C_DateAndTime_GetCurrentCalendarTime = C_DateAndTime.GetCurrentCalendarTime
 local C_Calendar_SetAbsMonth = C_Calendar.SetAbsMonth
 local C_Calendar_OpenCalendar = C_Calendar.OpenCalendar
 local C_Calendar_GetNumDayEvents = C_Calendar.GetNumDayEvents
@@ -127,11 +126,11 @@ local bonus = {
 	52837,
 	52840 -- Resources
 }
-local bonusName = GetCurrencyInfo(1580)
+local bonusName = C_CurrencyInfo_GetCurrencyInfo(1580)
 
 local isTimeWalker, walkerTexture
 local function checkTimeWalker(event)
-	local date = C_Calendar_GetDate()
+	local date = C_DateAndTime_GetCurrentCalendarTime()
 	C_Calendar_SetAbsMonth(date.month, date.year)
 	C_Calendar_OpenCalendar()
 
@@ -357,10 +356,10 @@ function module.OnEnter(self)
 
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 	GameTooltip:ClearAllPoints()
-	GameTooltip:SetPoint("BOTTOM", timeButton, "TOP")
+	GameTooltip:Point("BOTTOM", timeButton, "TOP")
 	GameTooltip:ClearLines()
 
-	local today = C_Calendar_GetDate()
+	local today =  C_DateAndTime_GetCurrentCalendarTime()
 	local w, m, d, y = today.weekday, today.month, today.monthDay, today.year
 	GameTooltip:AddLine(format(_G.FULLDATE, CALENDAR_WEEKDAY_NAMES[w], CALENDAR_FULLDATE_MONTH_NAMES[m], d, y), unpack(E.media.rgbvaluecolor))
 	GameTooltip:AddLine(" ")
@@ -444,7 +443,7 @@ function module.OnEnter(self)
 	title = false
 	local count, maxCoins = 0, 2
 	for _, id in pairs(bonus) do
-		if IsQuestFlaggedCompleted(id) then
+		if C_QuestLog.IsQuestFlaggedCompleted(id) then
 			count = count + 1
 		end
 	end
@@ -461,7 +460,7 @@ function module.OnEnter(self)
 	local iwqID = C_IslandsQueue_GetIslandsWeeklyQuestID()
 	if iwqID and UnitLevel("player") == 120 then
 		addTitle(_G.QUESTS_LABEL)
-		if IsQuestFlaggedCompleted(iwqID) then
+		if C_QuestLog.IsQuestFlaggedCompleted(iwqID) then
 			GameTooltip:AddDoubleLine(_G.ISLANDS_HEADER, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
 		else
 			local cur, max = select(4, GetQuestObjectiveInfo(iwqID, 1, false))
@@ -474,7 +473,7 @@ function module.OnEnter(self)
 	end
 
 	for _, v in pairs(questlist) do
-		if v.name and IsQuestFlaggedCompleted(v.id) then
+		if v.name and C_QuestLog.IsQuestFlaggedCompleted(v.id) then
 			if v.name == L["Timewarped"] and isTimeWalker and checkTexture(v.texture) or v.name ~= L["Timewarped"] then
 				addTitle(_G.QUESTS_LABEL)
 				GameTooltip:AddDoubleLine(v.name, _G.QUEST_COMPLETE, 1, 1, 1, 1, 0, 0)
@@ -529,8 +528,8 @@ local function OnHover(button)
 		button.tex:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 
 		button.highlight = button:CreateTexture(nil, "HIGHLIGHT")
-		button.highlight:SetPoint("TOPLEFT", button.tex, "TOPLEFT", -4, 1)
-		button.highlight:SetPoint("BOTTOMRIGHT", button.tex, "BOTTOMRIGHT", 4, -1)
+		button.highlight:Point("TOPLEFT", button.tex, "TOPLEFT", -4, 1)
+		button.highlight:Point("BOTTOMRIGHT", button.tex, "BOTTOMRIGHT", 4, -1)
 		button.highlight:SetVertexColor(unpack(E["media"].rgbvaluecolor))
 		button.highlight:SetTexture(buttonHighlight)
 		button.highlight:SetBlendMode("ADD")
@@ -574,9 +573,9 @@ function module:CreateMicroBar()
 	microBar = CreateFrame("Frame", MER.Title .. "MicroBar", E.UIParent)
 	microBar:SetFrameStrata("MEDIUM")
 	microBar:EnableMouse(true)
-	microBar:SetSize(400, 26)
+	microBar:Size(400, 26)
 	microBar:SetScale(module.db.scale or 1)
-	microBar:SetPoint("TOP", E.UIParent, "TOP", 0, -19)
+	microBar:Point("TOP", E.UIParent, "TOP", 0, -19)
 	microBar:Hide()
 	E.FrameLocks[microBar] = true
 
@@ -590,24 +589,24 @@ function module:CreateMicroBar()
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
 	--Character
-	local charButton = CreateFrame("Button", nil, microBar)
-	charButton:SetPoint("LEFT", microBar, 2, 0)
-	charButton:SetSize(32, 32)
+	local charButton = CreateFrame("Button", "charButton", microBar)
+	charButton:Point("LEFT", microBar, 2, 0)
+	charButton:Size(32, 32)
 	charButton:SetFrameLevel(6)
 
 	charButton.tex = charButton:CreateTexture(nil, "OVERLAY")
-	charButton.tex:SetPoint("BOTTOMLEFT")
-	charButton.tex:SetPoint("BOTTOMRIGHT")
-	charButton.tex:SetSize(32, 32)
+	charButton.tex:Point("BOTTOMLEFT")
+	charButton.tex:Point("BOTTOMRIGHT")
+	charButton.tex:Size(32, 32)
 	charButton.tex:SetTexture(IconPath .. "Character")
 	charButton.tex:SetVertexColor(.6, .6, .6)
 	charButton.tex:SetBlendMode("ADD")
 
 	charButton.text = MER:CreateText(charButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		charButton.text:SetPoint("BOTTOM", charButton, 2, -15)
+		charButton.text:Point("BOTTOM", charButton, 2, -15)
 	else
-		charButton.text:SetPoint("TOP", charButton, 2, 15)
+		charButton.text:Point("TOP", charButton, 2, 15)
 	end
 	charButton.text:SetText(_G.CHARACTER_BUTTON)
 	charButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -626,24 +625,24 @@ function module:CreateMicroBar()
 	end)
 
 	--Friends
-	local friendsButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	friendsButton:SetPoint("LEFT", charButton, "RIGHT", 2, 0)
-	friendsButton:SetSize(32, 32)
+	local friendsButton = CreateFrame("Button", "friendsButton", microBar, "SecureActionButtonTemplate")
+	friendsButton:Point("LEFT", charButton, "RIGHT", 2, 0)
+	friendsButton:Size(32, 32)
 	friendsButton:SetFrameLevel(6)
 
 	friendsButton.tex = friendsButton:CreateTexture(nil, "OVERLAY")
-	friendsButton.tex:SetPoint("BOTTOMLEFT")
-	friendsButton.tex:SetPoint("BOTTOMRIGHT")
-	friendsButton.tex:SetSize(32, 32)
+	friendsButton.tex:Point("BOTTOMLEFT")
+	friendsButton.tex:Point("BOTTOMRIGHT")
+	friendsButton.tex:Size(32, 32)
 	friendsButton.tex:SetTexture(IconPath .. "Friends")
 	friendsButton.tex:SetVertexColor(.6, .6, .6)
 	friendsButton.tex:SetBlendMode("ADD")
 
 	friendsButton.text = MER:CreateText(friendsButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		friendsButton.text:SetPoint("BOTTOM", friendsButton, 2, -15)
+		friendsButton.text:Point("BOTTOM", friendsButton, 2, -15)
 	else
-		friendsButton.text:SetPoint("TOP", friendsButton, 2, 15)
+		friendsButton.text:Point("TOP", friendsButton, 2, 15)
 	end
 	friendsButton.text:SetText(_G.SOCIAL_BUTTON)
 	friendsButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -667,7 +666,7 @@ function module:CreateMicroBar()
 
 	friendsButton.online = friendsButton:CreateFontString(nil, "OVERLAY")
 	friendsButton.online:FontTemplate(nil, 10, "OUTLINE")
-	friendsButton.online:SetPoint("BOTTOMRIGHT", friendsButton, 0, 5)
+	friendsButton.online:Point("BOTTOMRIGHT", friendsButton, 0, 5)
 	friendsButton.online:SetText("")
 	friendsButton.online:SetTextColor(unpack(E.media.rgbvaluecolor))
 
@@ -677,8 +676,6 @@ function module:CreateMicroBar()
 	friendsButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	-- friendsButton:SetAttribute("type1", "macro")
-	-- friendsButton:SetAttribute("macrotext1", "/click GuildMicroButton")
 	friendsButton:SetScript("OnClick", function(self)
 		if InCombatLockdown() then
 			return
@@ -695,24 +692,24 @@ function module:CreateMicroBar()
 	end)
 
 	--Guild
-	local guildButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	guildButton:SetPoint("LEFT", friendsButton, "RIGHT", 2, 0)
-	guildButton:SetSize(32, 32)
+	local guildButton = CreateFrame("Button", "guildButton", microBar, "SecureActionButtonTemplate")
+	guildButton:Point("LEFT", friendsButton, "RIGHT", 2, 0)
+	guildButton:Size(32, 32)
 	guildButton:SetFrameLevel(6)
 
 	guildButton.tex = guildButton:CreateTexture(nil, "OVERLAY")
-	guildButton.tex:SetPoint("BOTTOMLEFT")
-	guildButton.tex:SetPoint("BOTTOMRIGHT")
-	guildButton.tex:SetSize(32, 32)
+	guildButton.tex:Point("BOTTOMLEFT")
+	guildButton.tex:Point("BOTTOMRIGHT")
+	guildButton.tex:Size(32, 32)
 	guildButton.tex:SetTexture(IconPath .. "Guild")
 	guildButton.tex:SetVertexColor(.6, .6, .6)
 	guildButton.tex:SetBlendMode("ADD")
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		guildButton.text:SetPoint("BOTTOM", guildButton, 2, -15)
+		guildButton.text:Point("BOTTOM", guildButton, 2, -15)
 	else
-		guildButton.text:SetPoint("TOP", guildButton, 2, 15)
+		guildButton.text:Point("TOP", guildButton, 2, 15)
 	end
 	guildButton.text:SetText(_G.GUILD)
 	guildButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -740,7 +737,7 @@ function module:CreateMicroBar()
 
 	guildButton.online = guildButton:CreateFontString(nil, "OVERLAY")
 	guildButton.online:FontTemplate(nil, 10, "OUTLINE")
-	guildButton.online:SetPoint("BOTTOMRIGHT", guildButton, 0, 5)
+	guildButton.online:Point("BOTTOMRIGHT", guildButton, 0, 5)
 	guildButton.online:SetText("")
 	guildButton.online:SetTextColor(unpack(E.media.rgbvaluecolor))
 
@@ -752,12 +749,6 @@ function module:CreateMicroBar()
 	end)
 	guildButton:SetAttribute("type1", "macro")
 	guildButton:SetAttribute("macrotext1", "/click GuildMicroButton")
-	-- guildButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleGuildFrame"]()
-	-- end)
 	guildButton:SetScript("OnUpdate", function(self, elapse)
 		elapsed = elapsed + elapse
 		if elapsed >= DELAY then
@@ -767,24 +758,24 @@ function module:CreateMicroBar()
 	end)
 
 	--Achievements
-	local achieveButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	achieveButton:SetPoint("LEFT", guildButton, "RIGHT", 2, 0)
-	achieveButton:SetSize(32, 32)
+	local achieveButton = CreateFrame("Button", "achieveButton", microBar, "SecureActionButtonTemplate")
+	achieveButton:Point("LEFT", guildButton, "RIGHT", 2, 0)
+	achieveButton:Size(32, 32)
 	achieveButton:SetFrameLevel(6)
 
 	achieveButton.tex = achieveButton:CreateTexture(nil, "OVERLAY")
-	achieveButton.tex:SetPoint("BOTTOMLEFT")
-	achieveButton.tex:SetPoint("BOTTOMRIGHT")
-	achieveButton.tex:SetSize(32, 32)
+	achieveButton.tex:Point("BOTTOMLEFT")
+	achieveButton.tex:Point("BOTTOMRIGHT")
+	achieveButton.tex:Size(32, 32)
 	achieveButton.tex:SetTexture(IconPath .. "Achievement")
 	achieveButton.tex:SetVertexColor(.6, .6, .6)
 	achieveButton.tex:SetBlendMode("ADD")
 
 	achieveButton.text = MER:CreateText(achieveButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		achieveButton.text:SetPoint("BOTTOM", achieveButton, 2, -15)
+		achieveButton.text:Point("BOTTOM", achieveButton, 2, -15)
 	else
-		achieveButton.text:SetPoint("TOP", achieveButton, 2, 15)
+		achieveButton.text:Point("TOP", achieveButton, 2, 15)
 	end
 	achieveButton.text:SetText(_G.ACHIEVEMENT_BUTTON)
 	achieveButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -797,32 +788,26 @@ function module:CreateMicroBar()
 	end)
 	achieveButton:SetAttribute("type1", "macro")
 	achieveButton:SetAttribute("macrotext1", "/click AchievementMicroButton")
-	-- achieveButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleAchievementFrame"]()
-	-- end)
 
 	--EncounterJournal
-	local encounterButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	encounterButton:SetPoint("LEFT", achieveButton, "RIGHT", 2, 0)
-	encounterButton:SetSize(32, 32)
+	local encounterButton = CreateFrame("Button", "encounterButton", microBar, "SecureActionButtonTemplate")
+	encounterButton:Point("LEFT", achieveButton, "RIGHT", 2, 0)
+	encounterButton:Size(32, 32)
 	encounterButton:SetFrameLevel(6)
 
 	encounterButton.tex = encounterButton:CreateTexture(nil, "OVERLAY")
-	encounterButton.tex:SetPoint("BOTTOMLEFT")
-	encounterButton.tex:SetPoint("BOTTOMRIGHT")
-	encounterButton.tex:SetSize(32, 32)
+	encounterButton.tex:Point("BOTTOMLEFT")
+	encounterButton.tex:Point("BOTTOMRIGHT")
+	encounterButton.tex:Size(32, 32)
 	encounterButton.tex:SetTexture(IconPath .. "EJ")
 	encounterButton.tex:SetVertexColor(.6, .6, .6)
 	encounterButton.tex:SetBlendMode("ADD")
 
 	encounterButton.text = MER:CreateText(encounterButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		encounterButton.text:SetPoint("BOTTOM", encounterButton, 2, -15)
+		encounterButton.text:Point("BOTTOM", encounterButton, 2, -15)
 	else
-		encounterButton.text:SetPoint("TOP", encounterButton, 2, 15)
+		encounterButton.text:Point("TOP", encounterButton, 2, 15)
 	end
 	encounterButton.text:SetText(_G.ENCOUNTER_JOURNAL)
 	encounterButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -835,27 +820,21 @@ function module:CreateMicroBar()
 	end)
 	encounterButton:SetAttribute("type1", "macro")
 	encounterButton:SetAttribute("macrotext1", "/click EJMicroButton")
-	-- encounterButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleEncounterJournal"]()
-	-- end)
 
 	-- Time
-	local timeButton = CreateFrame("Button", nil, microBar)
-	timeButton:SetPoint("LEFT", encounterButton, "RIGHT", 18, 0)
-	timeButton:SetSize(32, 32)
+	local timeButton = CreateFrame("Button", "timeButton", microBar)
+	timeButton:Point("LEFT", encounterButton, "RIGHT", 18, 0)
+	timeButton:Size(32, 32)
 	timeButton:SetFrameLevel(6)
 
 	timeButton.text = MER:CreateText(timeButton, "OVERLAY", 16)
 	timeButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
-	timeButton.text:SetPoint("CENTER", 0, 0)
+	timeButton.text:Point("CENTER", 0, 0)
 
 	timeButton.tex = timeButton:CreateTexture(nil, "OVERLAY") --dummy texture
-	timeButton.tex:SetPoint("BOTTOMLEFT")
-	timeButton.tex:SetPoint("BOTTOMRIGHT")
-	timeButton.tex:SetSize(32, 32)
+	timeButton.tex:Point("BOTTOMLEFT")
+	timeButton.tex:Point("BOTTOMRIGHT")
+	timeButton.tex:Size(32, 32)
 	timeButton.tex:SetBlendMode("ADD")
 
 	local timer = timeButton:CreateAnimationGroup()
@@ -866,7 +845,7 @@ function module:CreateMicroBar()
 	timer:SetScript("OnFinished", function(self, requested)
 		local euTime = date("%H|cffFFFFFF:|r%M")
 		local ukTime = date("%I|cffFFFFFF:|r%M")
-		if E.db.datatexts.time24 == true then
+		if E.global.datatexts.settings.Time.time24 == true then
 			timeButton.text:SetText(euTime)
 		else
 			timeButton.text:SetText(ukTime)
@@ -885,24 +864,24 @@ function module:CreateMicroBar()
 	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
-	local petButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	petButton:SetPoint("LEFT", timeButton, "RIGHT", 12, 0)
-	petButton:SetSize(32, 32)
+	local petButton = CreateFrame("Button", "petButton", microBar, "SecureActionButtonTemplate")
+	petButton:Point("LEFT", timeButton, "RIGHT", 12, 0)
+	petButton:Size(32, 32)
 	petButton:SetFrameLevel(6)
 
 	petButton.tex = petButton:CreateTexture(nil, "OVERLAY")
-	petButton.tex:SetPoint("BOTTOMLEFT")
-	petButton.tex:SetPoint("BOTTOMRIGHT")
-	petButton.tex:SetSize(32, 32)
+	petButton.tex:Point("BOTTOMLEFT")
+	petButton.tex:Point("BOTTOMRIGHT")
+	petButton.tex:Size(32, 32)
 	petButton.tex:SetTexture(IconPath .. "Pet")
 	petButton.tex:SetVertexColor(.6, .6, .6)
 	petButton.tex:SetBlendMode("ADD")
 
 	petButton.text = MER:CreateText(petButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		petButton.text:SetPoint("BOTTOM", petButton, 2, -15)
+		petButton.text:Point("BOTTOM", petButton, 2, -15)
 	else
-		petButton.text:SetPoint("TOP", petButton, 2, 15)
+		petButton.text:Point("TOP", petButton, 2, 15)
 	end
 	petButton.text:SetText(_G.MOUNTS_AND_PETS)
 	petButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -915,32 +894,26 @@ function module:CreateMicroBar()
 	end)
 	petButton:SetAttribute("type1", "macro")
 	petButton:SetAttribute("macrotext1", "/click CollectionsMicroButton")
-	-- petButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleCollectionsJournal"](1)
-	-- end)
 
 	--LFR
-	local lfrButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	lfrButton:SetPoint("LEFT", petButton, "RIGHT", 2, 0)
-	lfrButton:SetSize(32, 32)
+	local lfrButton = CreateFrame("Button", "lfrButton", microBar, "SecureActionButtonTemplate")
+	lfrButton:Point("LEFT", petButton, "RIGHT", 2, 0)
+	lfrButton:Size(32, 32)
 	lfrButton:SetFrameLevel(6)
 
 	lfrButton.tex = lfrButton:CreateTexture(nil, "OVERLAY")
-	lfrButton.tex:SetPoint("BOTTOMLEFT")
-	lfrButton.tex:SetPoint("BOTTOMRIGHT")
-	lfrButton.tex:SetSize(32, 32)
+	lfrButton.tex:Point("BOTTOMLEFT")
+	lfrButton.tex:Point("BOTTOMRIGHT")
+	lfrButton.tex:Size(32, 32)
 	lfrButton.tex:SetTexture(IconPath .. "LFR")
 	lfrButton.tex:SetVertexColor(.6, .6, .6)
 	lfrButton.tex:SetBlendMode("ADD")
 
 	lfrButton.text = MER:CreateText(lfrButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		lfrButton.text:SetPoint("BOTTOM", lfrButton, 2, -15)
+		lfrButton.text:Point("BOTTOM", lfrButton, 2, -15)
 	else
-		lfrButton.text:SetPoint("TOP", lfrButton, 2, 15)
+		lfrButton.text:Point("TOP", lfrButton, 2, 15)
 	end
 	lfrButton.text:SetText(_G.LFG_TITLE)
 	lfrButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -953,32 +926,26 @@ function module:CreateMicroBar()
 	end)
 	lfrButton:SetAttribute("type1", "macro")
 	lfrButton:SetAttribute("macrotext1", "/click LFDMicroButton")
-	-- lfrButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["PVEFrame_ToggleFrame"]()
-	-- end)
 
 	--Spellbook
-	local spellBookButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	spellBookButton:SetPoint("LEFT", lfrButton, "RIGHT", 2, 0)
-	spellBookButton:SetSize(32, 32)
+	local spellBookButton = CreateFrame("Button", "spellBookButton", microBar, "SecureActionButtonTemplate")
+	spellBookButton:Point("LEFT", lfrButton, "RIGHT", 2, 0)
+	spellBookButton:Size(32, 32)
 	spellBookButton:SetFrameLevel(6)
 
 	spellBookButton.tex = spellBookButton:CreateTexture(nil, "OVERLAY")
-	spellBookButton.tex:SetPoint("BOTTOMLEFT")
-	spellBookButton.tex:SetPoint("BOTTOMRIGHT")
-	spellBookButton.tex:SetSize(32, 32)
+	spellBookButton.tex:Point("BOTTOMLEFT")
+	spellBookButton.tex:Point("BOTTOMRIGHT")
+	spellBookButton.tex:Size(32, 32)
 	spellBookButton.tex:SetTexture(IconPath .. "Spellbook")
 	spellBookButton.tex:SetVertexColor(.6, .6, .6)
 	spellBookButton.tex:SetBlendMode("ADD")
 
 	spellBookButton.text = MER:CreateText(spellBookButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		spellBookButton.text:SetPoint("BOTTOM", spellBookButton, 2, -15)
+		spellBookButton.text:Point("BOTTOM", spellBookButton, 2, -15)
 	else
-		spellBookButton.text:SetPoint("TOP", spellBookButton, 2, 15)
+		spellBookButton.text:Point("TOP", spellBookButton, 2, 15)
 	end
 	spellBookButton.text:SetText(_G.SPELLBOOK_ABILITIES_BUTTON)
 	spellBookButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -991,32 +958,26 @@ function module:CreateMicroBar()
 	end)
 	spellBookButton:SetAttribute("type1", "macro")
 	spellBookButton:SetAttribute("macrotext1", "/click SpellbookMicroButton")
-	-- spellBookButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleSpellBook"](BOOKTYPE_SPELL)
-	-- end)
 
 	--Specc Button
-	local speccButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	speccButton:SetPoint("LEFT", spellBookButton, "RIGHT", 2, 0)
-	speccButton:SetSize(32, 32)
+	local speccButton = CreateFrame("Button", "speccButton", microBar, "SecureActionButtonTemplate")
+	speccButton:Point("LEFT", spellBookButton, "RIGHT", 2, 0)
+	speccButton:Size(32, 32)
 	speccButton:SetFrameLevel(6)
 
 	speccButton.tex = speccButton:CreateTexture(nil, "OVERLAY")
-	speccButton.tex:SetPoint("BOTTOMLEFT")
-	speccButton.tex:SetPoint("BOTTOMRIGHT")
-	speccButton.tex:SetSize(32, 32)
+	speccButton.tex:Point("BOTTOMLEFT")
+	speccButton.tex:Point("BOTTOMRIGHT")
+	speccButton.tex:Size(32, 32)
 	speccButton.tex:SetTexture(IconPath .. "Specc")
 	speccButton.tex:SetVertexColor(.6, .6, .6)
 	speccButton.tex:SetBlendMode("ADD")
 
 	speccButton.text = MER:CreateText(speccButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		speccButton.text:SetPoint("BOTTOM", speccButton, 2, -15)
+		speccButton.text:Point("BOTTOM", speccButton, 2, -15)
 	else
-		speccButton.text:SetPoint("TOP", speccButton, 2, 15)
+		speccButton.text:Point("TOP", speccButton, 2, 15)
 	end
 	speccButton.text:SetText(_G.TALENTS_BUTTON)
 	speccButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -1029,32 +990,26 @@ function module:CreateMicroBar()
 	end)
 	speccButton:SetAttribute("type1", "macro")
 	speccButton:SetAttribute("macrotext1", "/click TalentMicroButton")
-	-- speccButton:SetScript( "OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleTalentFrame"]()
-	-- end)
 
 	--Shop
-	local shopButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
-	shopButton:SetPoint("LEFT", speccButton, "RIGHT", 2, 0)
-	shopButton:SetSize(32, 32)
+	local shopButton = CreateFrame("Button", "shopButton", microBar, "SecureActionButtonTemplate")
+	shopButton:Point("LEFT", speccButton, "RIGHT", 2, 0)
+	shopButton:Size(32, 32)
 	shopButton:SetFrameLevel(6)
 
 	shopButton.tex = shopButton:CreateTexture(nil, "OVERLAY")
-	shopButton.tex:SetPoint("BOTTOMLEFT")
-	shopButton.tex:SetPoint("BOTTOMRIGHT")
-	shopButton.tex:SetSize(32, 32)
+	shopButton.tex:Point("BOTTOMLEFT")
+	shopButton.tex:Point("BOTTOMRIGHT")
+	shopButton.tex:Size(32, 32)
 	shopButton.tex:SetTexture(IconPath .. "Store")
 	shopButton.tex:SetVertexColor(.6, .6, .6)
 	shopButton.tex:SetBlendMode("ADD")
 
 	shopButton.text = MER:CreateText(shopButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
-		shopButton.text:SetPoint("BOTTOM", shopButton, 2, -15)
+		shopButton.text:Point("BOTTOM", shopButton, 2, -15)
 	else
-		shopButton.text:SetPoint("TOP", shopButton, 2, 15)
+		shopButton.text:Point("TOP", shopButton, 2, 15)
 	end
 	shopButton.text:SetText(_G.BLIZZARD_STORE)
 	shopButton.text:SetTextColor(unpack(E.media.rgbvaluecolor))
@@ -1067,12 +1022,6 @@ function module:CreateMicroBar()
 	end)
 	shopButton:SetAttribute("type1", "macro")
 	shopButton:SetAttribute("macrotext1", "/click StoreMicroButton")
-	-- shopButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G.StoreMicroButton:Click()
-	-- end)
 
 	E:CreateMover(microBar, "MER_MicroBarMover", L["MicroBarMover"], nil, nil, nil, "ALL,ACTIONBARS,MERATHILISUI", nil, "mui,modules,actionbars")
 

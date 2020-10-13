@@ -1,6 +1,6 @@
 local MER, E, L, V, P, G = unpack(select(2, ...))
-local MERS = MER:GetModule("muiSkins")
-local S = E:GetModule("Skins")
+local MERS = MER:GetModule('MER_Skins')
+local S = E:GetModule('Skins')
 
 -- Cache global variables
 -- Lua functions
@@ -13,7 +13,7 @@ local InCombatLockdown = InCombatLockdown
 local GetQuestLink = GetQuestLink
 local GetQuestLogTitle = GetQuestLogTitle
 local GetAutoQuestPopUp = GetAutoQuestPopUp
-local GetNumQuestLogEntries = GetNumQuestLogEntries
+local C_QuestLog_GetNumQuestLogEntries = C_QuestLog.GetNumQuestLogEntries
 local GetNumAutoQuestPopUps = GetNumAutoQuestPopUps
 local GetQuestLogIndexByID = GetQuestLogIndexByID
 local CreateFrame = CreateFrame
@@ -55,7 +55,7 @@ function f.QUEST_LOG_UPDATE()
 	local frame = _G.ObjectiveTrackerFrame
 
 	if not InCombat and not InCombatLockdown() then
-		questNum = select(2, GetNumQuestLogEntries())
+		questNum = select(2, C_QuestLog_GetNumQuestLogEntries())
 
 		if questNum >= (_G.MAX_QUESTS - 5) then -- go red
 			q = format("|cffff0000%d/%d|r %s", questNum, _G.MAX_QUESTS, _G.TRACKER_HEADER_QUESTS)
@@ -65,7 +65,11 @@ function f.QUEST_LOG_UPDATE()
 			o = format("%d/%d %s", questNum, _G.MAX_QUESTS, _G.OBJECTIVES_TRACKER_LABEL)
 		end
 
-		block.QuestHeader.Text:SetText(q)
+		if block.CampaignQuestHeader.Text then
+			block.CampaignQuestHeader.Text:SetText(q)
+		elseif block.QuestHeader.Text then
+			block.QuestHeader.Text:SetText(q)
+		end
 		frame.HeaderMenu.Title:SetText(o)
 	end
 end
@@ -73,7 +77,7 @@ end
 local function SkinAutoQuestPopUpBlock()
 	for i = 1, GetNumAutoQuestPopUps() do
 		local ID, type = GetAutoQuestPopUp(i)
-		local Title = GetQuestLogTitle(GetQuestLogIndexByID(ID))
+		local Title = C_QuestLog.GetTitleForQuestID(C_QuestLog.GetLogIndexForQuestID(ID))
 
 		if Title and Title ~= "" then
 			local Block = _G.AUTO_QUEST_POPUP_TRACKER_MODULE:GetBlock(ID)
@@ -160,14 +164,14 @@ local function LoadSkin()
 		end
 	end)
 
-	hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
-		for _, block in next, self.usedBlocks do
-			if not block.IsSkinned then
-				SkinAutoQuestPopUpBlock(block)
-				block.IsSkinned = true
-			end
-		end
-	end)
+	--hooksecurefunc(_G.AUTO_QUEST_POPUP_TRACKER_MODULE, "Update", function(self)
+		--for _, block in next, self.usedBlocks do
+			--if not block.IsSkinned then
+				--SkinAutoQuestPopUpBlock(block)
+				--block.IsSkinned = true
+			--end
+		--end
+	--end)
 
 	_G.ObjectiveTrackerFrame:SetSize(235, 140)
 	_G.ObjectiveTrackerFrame.HeaderMenu:SetSize(10, 10)

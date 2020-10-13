@@ -1,5 +1,5 @@
 ﻿local MER, E, L, V, P, G = unpack(select(2, ...))
-local module = MER:NewModule("LocPanel", "AceTimer-3.0", "AceEvent-3.0")
+local module = MER:GetModule('MER_LocPanel')
 local M = E:GetModule("Minimap")
 local DD = E:GetModule("Dropdown")
 
@@ -33,7 +33,7 @@ local UNKNOWN, GARRISON_LOCATION_TOOLTIP, ITEMS, SPELLS, CLOSE, BACK = UNKNOWN, 
 local DUNGEON_FLOOR_DALARAN1 = DUNGEON_FLOOR_DALARAN1
 local CHALLENGE_MODE = CHALLENGE_MODE
 local PlayerHasToy = PlayerHasToy
-local C_GarrisonIsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
+local C_Garrison_IsPlayerInGarrison = C_Garrison.IsPlayerInGarrison
 local C_ToyBox = C_ToyBox
 local Minimap = Minimap
 local UnitFactionGroup = UnitFactionGroup
@@ -74,10 +74,11 @@ local function GetDirection()
 		anchor = "BOTTOM"
 		point = "TOP"
 	end
+
 	return anchor, point
 end
 
---{ItemID, ButtonText, isToy}
+--{ItemID, ButtonText, isToy} DONT FORGET TO ADD THE ID TO THE PROFILE
 module.Hearthstones = {
 	{6948}, -- Hearthstone
 	{54452, nil, true}, -- Ethereal Portal
@@ -93,6 +94,7 @@ module.Hearthstones = {
 	{166747, nil, true}, -- Brewfest HS
 	{168907, nil, true}, -- Holographic Digitalization HS
 	{172179, nil, true}, -- Eternal Traveler's HS
+	{184353, nil, true}, -- Kyrian Hearthstone
 }
 
 module.PortItems = {
@@ -249,7 +251,7 @@ module.Spells = {
 function module:CreateLocationPanel()
 	--Main Panel
 	loc_panel = CreateFrame('Frame', "MER_LocPanel", E.UIParent)
-	loc_panel:SetPoint("TOP", E.UIParent, "TOP", 0, -1)
+	loc_panel:Point("TOP", E.UIParent, "TOP", 0, -1)
 	loc_panel:SetFrameStrata("MEDIUM")
 	loc_panel:SetFrameLevel(Minimap:GetFrameLevel()+1)
 	loc_panel:EnableMouse(true)
@@ -259,22 +261,22 @@ function module:CreateLocationPanel()
 	-- Location Text
 	loc_panel.Text = loc_panel:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
-	loc_panel.Text:SetPoint("CENTER", 0, 0)
+	loc_panel.Text:Point("CENTER", 0, 0)
 	loc_panel.Text:SetWordWrap(false)
 	E.FrameLocks[loc_panel] = true
 
 	--Coords
 	loc_panel.Xcoord = CreateFrame('Frame', "MER_LocPanel_X", loc_panel)
-	loc_panel.Xcoord:SetPoint("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
+	loc_panel.Xcoord:Point("RIGHT", loc_panel, "LEFT", 1 - 2*E.Spacing, 0)
 	loc_panel.Xcoord.Text = loc_panel.Xcoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Xcoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
-	loc_panel.Xcoord.Text:SetPoint("CENTER", 0, 0)
+	loc_panel.Xcoord.Text:Point("CENTER", 0, 0)
 
 	loc_panel.Ycoord = CreateFrame('Frame', "MER_LocPanel_Y", loc_panel)
-	loc_panel.Ycoord:SetPoint("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
+	loc_panel.Ycoord:Point("LEFT", loc_panel, "RIGHT", -1 + 2*E.Spacing, 0)
 	loc_panel.Ycoord.Text = loc_panel.Ycoord:CreateFontString(nil, "BACKGROUND")
 	loc_panel.Ycoord.Text:FontTemplate(E.LSM:Fetch('font', module.db.font), module.db.fontSize, module.db.fontOutline)
-	loc_panel.Ycoord.Text:SetPoint("CENTER", 0, 0)
+	loc_panel.Ycoord.Text:Point("CENTER", 0, 0)
 
 	module:Resize()
 
@@ -282,9 +284,9 @@ function module:CreateLocationPanel()
 	E:CreateMover(loc_panel, "MER_LocPanel_Mover", L["Location Panel"], nil, nil, nil, "ALL,SOLO,MERATHILISUI", nil, 'mui,modules,locPanel')
 
 	module.Menu1 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu1", E.UIParent)
-	module.Menu1:SetTemplate("Transparent", true)
+	module.Menu1:CreateBackdrop("Transparent", true)
 	module.Menu2 = CreateFrame("Frame", "MER_LocPanel_RightClickMenu2", E.UIParent)
-	module.Menu2:SetTemplate("Transparent", true)
+	module.Menu2:CreateBackdrop("Transparent", true)
 	DD:RegisterMenu(module.Menu1)
 	DD:RegisterMenu(module.Menu2)
 	module.Menu1:SetScript("OnHide", function() twipe(module.MainMenu) end)
@@ -364,7 +366,7 @@ function module:UpdateCoords(elapsed)
 		displayLine = subZoneText
 	end
 	loc_panel.Text:SetText(displayLine)
-	if module.db.autowidth then loc_panel:SetWidth(loc_panel.Text:GetStringWidth() + 10) end
+	if module.db.autowidth then loc_panel:Width(loc_panel.Text:GetStringWidth() + 10) end
 
 	--Location Colorings
 	if displayLine ~= "" then
@@ -400,13 +402,13 @@ end
 
 function module:Resize()
 	if module.db.autowidth then
-		loc_panel:SetSize(loc_panel.Text:GetStringWidth() + 10, module.db.height)
+		loc_panel:Size(loc_panel.Text:GetStringWidth() + 10, module.db.height)
 	else
-		loc_panel:SetSize(module.db.width, module.db.height)
+		loc_panel:Size(module.db.width, module.db.height)
 	end
-	loc_panel.Text:SetWidth(module.db.width - 18)
-	loc_panel.Xcoord:SetSize(module.db.fontSize * 3, module.db.height)
-	loc_panel.Ycoord:SetSize(module.db.fontSize * 3, module.db.height)
+	loc_panel.Text:Width(module.db.width - 18)
+	loc_panel.Xcoord:Size(module.db.fontSize * 3, module.db.height)
+	loc_panel.Ycoord:Size(module.db.fontSize * 3, module.db.height)
 end
 
 function module:Fonts()
@@ -416,9 +418,9 @@ function module:Fonts()
 end
 
 function module:Template()
-	loc_panel:SetTemplate(module.db.template)
-	loc_panel.Xcoord:SetTemplate(module.db.template)
-	loc_panel.Ycoord:SetTemplate(module.db.template)
+	loc_panel:CreateBackdrop(module.db.template)
+	loc_panel.Xcoord:CreateBackdrop(module.db.template)
+	loc_panel.Ycoord:CreateBackdrop(module.db.template)
 end
 
 function module:Toggle()
@@ -493,7 +495,7 @@ function module:ItemList(check)
 				if data.text then
 					if not isToy then
 						ShownHearthstone = data
-						-- break
+						--break
 					else
 						local curPriorirty = hsReamodulerio[tostring(ID)]
 						if curPriorirty < priority then
@@ -506,16 +508,18 @@ function module:ItemList(check)
 			end
 		end
 
-		local data = ShownHearthstone
-		local ID, isToy = data.secure.ID, data.secure.isToy
-		local cd = DD:GetCooldown("Item", ID)
-		E:CopyTable(tmp, data)
+		if ShownHearthstone then
+			local data = ShownHearthstone
+			local ID, isToy = data.secure.ID, data.secure.isToy
+			local cd = DD:GetCooldown("Item", ID)
+			E:CopyTable(tmp, data)
 
-		if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
-			tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
-			tinsert(module.MainMenu, tmp)
-		else
-			tinsert(module.MainMenu, data)
+			if cd or (tonumber(cd) and tonumber(cd) > 1.5) then
+				tmp.text = "|cff636363"..tmp.text.."|r"..format(module.CDformats[module.db.portals.cdFormat], cd)
+				tinsert(module.MainMenu, tmp)
+			else
+				tinsert(module.MainMenu, data)
+			end
 		end
 	end
 
@@ -674,7 +678,7 @@ end
 function module:UNIT_AURA(_, unit)
 	if unit ~= "player" then return end
 	if module.db.enable and module.db.orderhallhide then
-		local inOrderHall = C_GarrisonIsPlayerInGarrison(LE_GARRISON_TYPE_7_0)
+		local inOrderHall = C_Garrison_IsPlayerInGarrison(Enum.GarrisonType.Type_7_0)
 		if inOrderHall then
 			loc_panel:SetAlpha(0)
 		else
@@ -694,9 +698,9 @@ function module:Initialize()
 
 	module.elapsed = 0
 	self:CreateLocationPanel()
+	self:Fonts()
 	self:Resize()
 	self:Template()
-	self:Fonts()
 	self:Toggle()
 	self:ToggleCoords()
 
