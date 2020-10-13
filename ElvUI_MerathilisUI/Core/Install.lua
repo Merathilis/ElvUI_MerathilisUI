@@ -1098,7 +1098,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]["RestIcon"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
