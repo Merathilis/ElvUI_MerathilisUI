@@ -124,7 +124,7 @@ function module:RectangleMinimap()
 	if not E.private.general.minimap.enable or not E.db.mui.maps.minimap.rectangle then return end
 
 	module:SkinMiniMap()
-	if _G.HybridMinimap then module:SetupHybridMinimap() end
+	--if _G.HybridMinimap then module:SetupHybridMinimap() end
 
 	-- Only adjust the settings for me
 	if MER:IsDeveloper() and MER:IsDeveloperRealm() then
