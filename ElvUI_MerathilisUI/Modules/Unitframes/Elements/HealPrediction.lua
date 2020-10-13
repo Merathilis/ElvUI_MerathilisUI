@@ -39,11 +39,11 @@ function module:Configure_HealComm(frame)
 					healPrediction.overAbsorb:ClearAllPoints()
 
 					if reverseFill then
-						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "TOPLEFT", 5, 3)
-						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "BOTTOMLEFT", 5, -3)
+						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "TOPLEFT", 5, 1)
+						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "BOTTOMLEFT", 5, -1)
 					else
-						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "TOPRIGHT", -5, 3)
-						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "BOTTOMRIGHT", -5, -3)
+						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "TOPRIGHT", -5, 1)
+						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "BOTTOMRIGHT", -5, -1)
 					end
 				end
 			else
@@ -54,11 +54,11 @@ function module:Configure_HealComm(frame)
 					healPrediction.overAbsorb:ClearAllPoints()
 
 					if reverseFill then
-						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "BOTTOMLEFT", -3, 5)
-						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 3, 5)
+						healPrediction.overAbsorb:SetPoint("TOPLEFT", health, "BOTTOMLEFT", -1, 5)
+						healPrediction.overAbsorb:SetPoint("TOPRIGHT", health, "BOTTOMRIGHT", 1, 5)
 					else
-						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "TOPLEFT", -3, -5)
-						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 3, -5)
+						healPrediction.overAbsorb:SetPoint("BOTTOMLEFT", health, "TOPLEFT", -1, -5)
+						healPrediction.overAbsorb:SetPoint("BOTTOMRIGHT", health, "TOPRIGHT", 1, -5)
 					end
 				end
 			end

@@ -19,7 +19,9 @@ local function LoadSkin()
 	frame.InfoPanel.Name:SetTextColor(1, 1, 1)
 	frame.InfoPanel.Location:SetTextColor(1, 1, 1)
 	frame.InfoPanel.Description:SetTextColor(1, 1, 1)
-	frame.InfoPanel.AbilitiesLabel:SetTextColor(1, .8, 0)
+	frame.InfoPanel.AbilitiesFrame.AbilitiesLabel:SetTextColor(1, .8, 0)
+	frame.InfoPanel.SoulbindsFrame.SoulbindsLabel:SetTextColor(1, .8, 0)
+	frame.InfoPanel.CovenantFeatureFrame.Label:SetTextColor(1, .8, 0)
 end
 
 S:AddCallbackForAddon('Blizzard_CovenantPreviewUI', 'muiCovenantPreview', LoadSkin)

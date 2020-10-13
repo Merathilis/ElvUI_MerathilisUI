@@ -589,7 +589,7 @@ function module:CreateMicroBar()
 	local IconPath = "Interface\\AddOns\\ElvUI_MerathilisUI\\media\\textures\\icons\\"
 
 	--Character
-	local charButton = CreateFrame("Button", nil, microBar)
+	local charButton = CreateFrame("Button", "charButton", microBar)
 	charButton:Point("LEFT", microBar, 2, 0)
 	charButton:Size(32, 32)
 	charButton:SetFrameLevel(6)
@@ -625,7 +625,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Friends
-	local friendsButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local friendsButton = CreateFrame("Button", "friendsButton", microBar, "SecureActionButtonTemplate")
 	friendsButton:Point("LEFT", charButton, "RIGHT", 2, 0)
 	friendsButton:Size(32, 32)
 	friendsButton:SetFrameLevel(6)
@@ -676,8 +676,6 @@ function module:CreateMicroBar()
 	friendsButton:SetScript("OnLeave", function(self)
 		OnLeave(self)
 	end)
-	-- friendsButton:SetAttribute("type1", "macro")
-	-- friendsButton:SetAttribute("macrotext1", "/click GuildMicroButton")
 	friendsButton:SetScript("OnClick", function(self)
 		if InCombatLockdown() then
 			return
@@ -694,7 +692,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Guild
-	local guildButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local guildButton = CreateFrame("Button", "guildButton", microBar, "SecureActionButtonTemplate")
 	guildButton:Point("LEFT", friendsButton, "RIGHT", 2, 0)
 	guildButton:Size(32, 32)
 	guildButton:SetFrameLevel(6)
@@ -706,13 +704,6 @@ function module:CreateMicroBar()
 	guildButton.tex:SetTexture(IconPath .. "Guild")
 	guildButton.tex:SetVertexColor(.6, .6, .6)
 	guildButton.tex:SetBlendMode("ADD")
-
-	guildButton.notification = guildButton:CreateTexture(nil, "OVERLAY")
-	guildButton.notification:Point("TOPLEFT", guildButton, "TOPLEFT")
-	guildButton.notification:Size(18, 18)
-	guildButton.notification:SetAtlas("hud-microbutton-communities-icon-notification")
-	guildButton.notification:SetBlendMode("ADD")
-	guildButton.notification:SetShown(_G.GuildMicroButton.NotificationOverlay:IsShown())
 
 	guildButton.text = MER:CreateText(guildButton, "HIGHLIGHT", 11)
 	if module.db.text.position == "BOTTOM" then
@@ -758,12 +749,6 @@ function module:CreateMicroBar()
 	end)
 	guildButton:SetAttribute("type1", "macro")
 	guildButton:SetAttribute("macrotext1", "/click GuildMicroButton")
-	-- guildButton:SetScript("OnClick", function(self)
-	-- 	if InCombatLockdown() then
-	-- 		return
-	-- 	end
-	-- 	_G["ToggleGuildFrame"]()
-	-- end)
 	guildButton:SetScript("OnUpdate", function(self, elapse)
 		elapsed = elapsed + elapse
 		if elapsed >= DELAY then
@@ -773,7 +758,7 @@ function module:CreateMicroBar()
 	end)
 
 	--Achievements
-	local achieveButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local achieveButton = CreateFrame("Button", "achieveButton", microBar, "SecureActionButtonTemplate")
 	achieveButton:Point("LEFT", guildButton, "RIGHT", 2, 0)
 	achieveButton:Size(32, 32)
 	achieveButton:SetFrameLevel(6)
@@ -805,7 +790,7 @@ function module:CreateMicroBar()
 	achieveButton:SetAttribute("macrotext1", "/click AchievementMicroButton")
 
 	--EncounterJournal
-	local encounterButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local encounterButton = CreateFrame("Button", "encounterButton", microBar, "SecureActionButtonTemplate")
 	encounterButton:Point("LEFT", achieveButton, "RIGHT", 2, 0)
 	encounterButton:Size(32, 32)
 	encounterButton:SetFrameLevel(6)
@@ -837,7 +822,7 @@ function module:CreateMicroBar()
 	encounterButton:SetAttribute("macrotext1", "/click EJMicroButton")
 
 	-- Time
-	local timeButton = CreateFrame("Button", nil, microBar)
+	local timeButton = CreateFrame("Button", "timeButton", microBar)
 	timeButton:Point("LEFT", encounterButton, "RIGHT", 18, 0)
 	timeButton:Size(32, 32)
 	timeButton:SetFrameLevel(6)
@@ -879,7 +864,7 @@ function module:CreateMicroBar()
 	timeButton:SetScript("OnMouseUp", module.OnClick)
 
 	--Pet/Mounts
-	local petButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local petButton = CreateFrame("Button", "petButton", microBar, "SecureActionButtonTemplate")
 	petButton:Point("LEFT", timeButton, "RIGHT", 12, 0)
 	petButton:Size(32, 32)
 	petButton:SetFrameLevel(6)
@@ -911,7 +896,7 @@ function module:CreateMicroBar()
 	petButton:SetAttribute("macrotext1", "/click CollectionsMicroButton")
 
 	--LFR
-	local lfrButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local lfrButton = CreateFrame("Button", "lfrButton", microBar, "SecureActionButtonTemplate")
 	lfrButton:Point("LEFT", petButton, "RIGHT", 2, 0)
 	lfrButton:Size(32, 32)
 	lfrButton:SetFrameLevel(6)
@@ -943,7 +928,7 @@ function module:CreateMicroBar()
 	lfrButton:SetAttribute("macrotext1", "/click LFDMicroButton")
 
 	--Spellbook
-	local spellBookButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local spellBookButton = CreateFrame("Button", "spellBookButton", microBar, "SecureActionButtonTemplate")
 	spellBookButton:Point("LEFT", lfrButton, "RIGHT", 2, 0)
 	spellBookButton:Size(32, 32)
 	spellBookButton:SetFrameLevel(6)
@@ -975,7 +960,7 @@ function module:CreateMicroBar()
 	spellBookButton:SetAttribute("macrotext1", "/click SpellbookMicroButton")
 
 	--Specc Button
-	local speccButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local speccButton = CreateFrame("Button", "speccButton", microBar, "SecureActionButtonTemplate")
 	speccButton:Point("LEFT", spellBookButton, "RIGHT", 2, 0)
 	speccButton:Size(32, 32)
 	speccButton:SetFrameLevel(6)
@@ -1007,7 +992,7 @@ function module:CreateMicroBar()
 	speccButton:SetAttribute("macrotext1", "/click TalentMicroButton")
 
 	--Shop
-	local shopButton = CreateFrame("Button", nil, microBar, "SecureActionButtonTemplate")
+	local shopButton = CreateFrame("Button", "shopButton", microBar, "SecureActionButtonTemplate")
 	shopButton:Point("LEFT", speccButton, "RIGHT", 2, 0)
 	shopButton:Size(32, 32)
 	shopButton:SetFrameLevel(6)

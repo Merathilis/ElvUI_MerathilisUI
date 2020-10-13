@@ -670,7 +670,6 @@ function MER:SetupLayout(layout)
 	else
 		E.private["skins"]["blizzard"]["alertframes"] = true
 	end
-	E.private["skins"]["cleanBossButton"] = true
 
 	--[[----------------------------------
 	--	ItemLevel - Layout
@@ -703,9 +702,9 @@ function MER:SetupLayout(layout)
 		E.db["mui"]["pvp"]["duels"]["pet"] = true
 		E.db["mui"]["pvp"]["duels"]["announce"] = true
 		E.db["mui"]["maps"]["minimap"]["rectangle"] = true
-		E.db["general"]["cropIcon"] = false
+		E.db["general"]["cropIcon"] = 0
 	else
-		E.db["general"]["cropIcon"] = true
+		E.db["general"]["cropIcon"] = 2
 		E.db["mui"]["maps"]["minimap"]["rectangle"] = false
 	end
 
@@ -837,6 +836,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["transparent"] = true
 	E.db["actionbar"]["globalFadeAlpha"] = 0.75
 	E.db["actionbar"]["hideCooldownBling"] = false
+	E.db["actionbar"]["equippedItem"] = true
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
@@ -852,7 +852,14 @@ function MER:SetupActionbars(layout)
 	end
 
 	E.db["actionbar"]["microbar"]["enabled"] = false
+
+	E.db["actionbar"]["extraActionButton"]["clean"] = true
 	E.db["actionbar"]["extraActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["extraActionButton"]["inheritGlobalFade"] = true
+
+	E.db["actionbar"]["zoneActionButton"]["clean"] = true
+	E.db["actionbar"]["zoneActionButton"]["scale"] = 0.75
+	E.db["actionbar"]["zoneActionButton"]["inheritGlobalFade"] = true
 
 	--[[----------------------------------
 	--	ActionBars layout
@@ -880,7 +887,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["bar1"]["heightMult"] = 2
 	E.db["actionbar"]["bar1"]["buttonsize"] = 32
 	E.db["actionbar"]["bar1"]["buttons"] = 8
-	E.db["actionbar"]["bar1"]["backdropSpacing"] = 3
+	E.db["actionbar"]["bar1"]["backdropSpacing"] = 4
 	E.db["actionbar"]["bar1"]["backdrop"] = true
 	E.db["actionbar"]["bar1"]["inheritGlobalFade"] = true
 
@@ -1092,7 +1099,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 20
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["threatStyle"] = "ICONTOPRIGHT"
 		E.db["unitframe"]["units"]["player"]["disableMouseoverGlow"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["enable"] = true
@@ -1988,7 +1995,7 @@ function MER:SetupUnitframes(layout)
 		E.db["unitframe"]["units"]["player"]["width"] = 200
 		E.db["unitframe"]["units"]["player"]["height"] = 50
 		E.db["unitframe"]["units"]["player"]["orientation"] = "RIGHT"
-		E.db["unitframe"]["units"]["player"]["restIcon"] = false
+		E.db["unitframe"]["units"]["player"]["RestIcon"]["enable"] = false
 		E.db["unitframe"]["units"]["player"]["debuffs"]["fontSize"] = 12
 		E.db["unitframe"]["units"]["player"]["debuffs"]["attachTo"] = "FRAME"
 		E.db["unitframe"]["units"]["player"]["debuffs"]["sizeOverride"] = 30
@@ -2697,7 +2704,7 @@ function MER:SetupDts()
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["width"] = 288
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["tooltipXOffset"] = 3
 	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["panelTransparency"] = false
-	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "HIGH"
+	E.global["datatexts"]["customPanels"]["MER_RightChatTop"]["frameStrata"] = "MEDIUM"
 
 	E.db["datatexts"]["panels"]["MER_BottomPanel"] = {
 		[1] = "Guild",

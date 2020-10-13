@@ -12,23 +12,22 @@ local IsAddOnLoaded = IsAddOnLoaded
 local C_TimerAfter = C_Timer.After
 -- GLOBALS:
 
-local styleOtherBacks = {_G.ElvUI_BarPet, _G.ElvUI_StanceBar}
-
 function module:StyleBackdrops()
 	-- Actionbar backdrops
 	for i = 1, 10 do
 		local styleBacks = {_G['ElvUI_Bar'..i]}
 		for _, frame in pairs(styleBacks) do
-			if frame.backdrop then
-				frame.backdrop:Styling()
+			if frame then
+				frame:Styling()
 			end
 		end
 	end
 
 	-- Other bar backdrops
+	local styleOtherBacks = {_G.ElvUI_BarPet, _G.ElvUI_StanceBar}
 	for _, frame in pairs(styleOtherBacks) do
-		if frame.backdrop then
-			frame.backdrop:Styling()
+		if frame then
+			frame:Styling()
 		end
 	end
 
@@ -36,8 +35,8 @@ function module:StyleBackdrops()
 	for i = 1, _G.NUM_PET_ACTION_SLOTS do
 		local petButtons = {_G['PetActionButton'..i]}
 		for _, button in pairs(petButtons) do
-			if button.backdrop then
-				button.backdrop:Styling()
+			if button then
+				button:Styling()
 			end
 		end
 	end

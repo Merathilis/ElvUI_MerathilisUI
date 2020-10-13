@@ -113,11 +113,6 @@ function COMP:SLECompatibility()
 		self:Print(SLE.Title, "ObjectiveTracker skin")
 	end
 
-	-- MinimapButtons
-	if Disable(E.private.sle["minimap"]["mapicons"]) then
-		self:Print(SLE.Title, "Minimap Buttons")
-	end
-
 	-- Merchant
 	if Disable(E.private.sle["skins"]["merchant"]) then
 		self:Print(SLE.Title, "Merchant Skin")
