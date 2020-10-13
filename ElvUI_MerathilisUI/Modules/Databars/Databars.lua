@@ -13,8 +13,8 @@ local C_Timer_After = C_Timer.After
 function module:StyleBackdrops()
 	for _, bar in pairs(DB.StatusBars) do
 		if bar and bar.db.enable then
-			if bar.backdrop then
-				bar.backdrop:Styling()
+			if bar.holder then
+				bar.holder:Styling()
 			end
 		end
 	end
