@@ -41,12 +41,14 @@ local function LoadSkin()
 		_G.EmbeddedItemTooltip,
 		_G.ReputationParagonTooltip,
 		_G.ElvUISpellBookTooltip,
+		_G.DataTextTooltip,
 		StoryTooltip,
 	}
 
 	for _, frame in pairs(tooltips) do
-		if frame and not frame.style then
+		if frame and not frame.IsSkinned then
 			frame:Styling()
+			frame.IsSkinned = true
 		end
 	end
 end
