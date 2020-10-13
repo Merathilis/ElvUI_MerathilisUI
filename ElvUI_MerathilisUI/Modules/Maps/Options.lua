@@ -125,7 +125,7 @@ local function Minimap()
 				guiInline = true,
 				get = function(info) return E.db.mui.smb[ info[#info] ] end,
 				set = function(info, value) E.db.mui.smb[ info[#info] ] = value; SMB:Update() end,
-				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable or COMP.SLE and E.private.sle.minimap.mapicons.enable) end,
+				disabled = function() return (COMP.PA and _G.ProjectAzilroka.db.SquareMinimapButtons.Enable) end,
 				args = {
 					enable = {
 						order = 1,
