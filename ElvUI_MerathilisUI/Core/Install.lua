@@ -836,6 +836,7 @@ function MER:SetupActionbars(layout)
 	E.db["actionbar"]["transparent"] = true
 	E.db["actionbar"]["globalFadeAlpha"] = 0.75
 	E.db["actionbar"]["hideCooldownBling"] = false
+	E.db["actionbar"]["equippedItem"] = true
 
 	-- Cooldown options
 	E.db["actionbar"]["cooldown"]["fonts"]["enable"] = true
