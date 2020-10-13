@@ -259,9 +259,6 @@ function module:Initialize()
 	MER:RegisterDB(self, "smb")
 	if db.enable ~= true then return end
 
-	-- Compatibility
-	if COMP.SLE and E.private.sle.minimap.mapicons.enable then return end
-
 	-- Button Creation
 	module.button = CreateFrame("Button", "MinimapButtonsToggleButton", E.UIParent)
 	module.button:Size(28, 28)
