@@ -16,6 +16,7 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
+		"• **YOU NEED ELVUI 12.00**",
 		"• Added an own FlightMode (inspired by Benik's)",
 		"• Updated/Added a lot of skins due to Shadowland code changes",
 		"• Added an options for my Top-/Bottom Panel to change the height",
