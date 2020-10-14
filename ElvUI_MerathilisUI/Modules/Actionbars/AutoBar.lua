@@ -379,7 +379,7 @@ function module:ScanItem(event)
 			AutoButton.ap = false
 			AutoButton.questLogIndex = QuestItemList[itemID] and QuestItemList[itemID].questLogIndex or -1
 			AutoButton.spellName = IsUsableItem(itemID)
-			AutoButton.backdrop:SetBackdropBorderColor(nil)
+			--AutoButton.backdrop:SetBackdropBorderColor(nil)
 
 			if db.questAutoButtons["questBBColorByItem"] then
 				if rarity and rarity > Enum.ItemQuality.Common then
@@ -433,7 +433,7 @@ function module:ScanItem(event)
 				local AutoButton = _G["AutoSlotButton" .. num]
 				if not AutoButton then break end
 
-				AutoButton.backdrop:SetBackdropBorderColor(nil)
+				--AutoButton.backdrop:SetBackdropBorderColor(nil)
 
 				local r, g, b, colorDB
 				if db.slotAutoButtons["slotBBColorByItem"] then
@@ -480,7 +480,7 @@ function module:ScanItem(event)
 			AutoButton.itemName = itemName
 			AutoButton.itemID = itemID
 			AutoButton.spellName = IsUsableItem(itemID)
-			AutoButton.backdrop:SetBackdropBorderColor(nil)
+			--AutoButton.backdrop:SetBackdropBorderColor(nil)
 
 			if db.usableAutoButtons["usableBBColorByItem"] then
 				if rarity and rarity > Enum.ItemQuality.Common then
