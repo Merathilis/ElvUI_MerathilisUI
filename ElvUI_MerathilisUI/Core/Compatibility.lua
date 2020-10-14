@@ -22,8 +22,6 @@ COMP.LL = MER:IsAddOnEnabled("ElvUI_LocLite")
 COMP.AS = MER:IsAddOnEnabled("AddOnSkins")
 COMP.BUI = MER:IsAddOnEnabled("ElvUI_BenikUI")
 COMP.NUI = MER:IsAddOnEnabled("ElvUI_NihilistUI")
-COMP.WIND = MER:IsAddOnEnabled("ElvUI_WindTools")
-COMP.LIVVEN = MER:IsAddOnEnabled("ElvUI_LivvenUI")
 
 local function Disable(tbl, key)
 	E.private.mui = E.private.mui or {}
@@ -116,24 +114,6 @@ function COMP:SLECompatibility()
 	-- Merchant
 	if Disable(E.private.sle["skins"]["merchant"]) then
 		self:Print(SLE.Title, "Merchant Skin")
-	end
-end
-
-function COMP:WindToolsCompatibility()
-	local WIND = E:GetModule("WindTools")
-
-	if COMP.WIND and WIND then
-		E:StaticPopup_Show("WINDTOOLS_MER_INCOMPATIBLE")
-		return true
-	end
-end
-
-function COMP:LivvenCompatibility()
-	local LIVVEN = E:GetModule("ElvUI_LivvenUI")
-
-	if COMP.LIVVEN and LIVVEN then
-		E:StaticPopup_Show("LIVVEN_MER_INCOMPATIBLE")
-		return true
 	end
 end
 
