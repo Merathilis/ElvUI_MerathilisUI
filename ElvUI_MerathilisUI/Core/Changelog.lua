@@ -16,11 +16,10 @@ local DISABLED_FONT_COLOR = DISABLED_FONT_COLOR
 
 local ChangeLogData = {
 	"Changes:",
-		"• **YOU NEED ELVUI 12.00**",
-		"• Added an own FlightMode (inspired by Benik's)",
-		"• Updated/Added a lot of skins due to Shadowland code changes",
-		"• Added an options for my Top-/Bottom Panel to change the height",
-		"• Maybe a lot of other changes i already forgot.. lol",
+		"• Adjusted QuestInfo skin to show colored progress again",
+		"• Fix my skin for ClassColored ScrollBars. >.>",
+		"• Adjust the backdrop for AutoBar",
+		"• Commented out new HearthStones for SL, it broke the LocPanel",
 
 		-- "• ''",
 	" ",
